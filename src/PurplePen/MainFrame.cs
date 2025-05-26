@@ -3353,13 +3353,12 @@ namespace PurplePen
             );
             settings.fileDirectory = false;
             settings.mapDirectory = false;
-            settings.outputDirectory = @"..\Tulostus\Järjestelmä";
+            settings.outputDirectory = printerDataExchangeFolderPath;
             settings.ExportedBitmapKind = BitmapCreationSettings.BitmapKind.Jpeg;
             settings.Dpi = 600;
             settings.ColorModel = ColorModel.RGB;
             settings.Quality = 95;
             settings.AutoRotate = true;
-            controller.CreateBitmapFiles(settings);
 
             try
             {
