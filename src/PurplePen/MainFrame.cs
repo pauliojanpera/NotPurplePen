@@ -3362,12 +3362,23 @@ namespace PurplePen
                     : Directory.GetCurrentDirectory()), printerDataExchangeFolderPath));
 
             CoursePdfSettings pdfSettings = new CoursePdfSettings();
+            string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(controller.FileName);
+            int idx = fileNameWithoutExtension.LastIndexOf(" (");
+            pdfSettings.outputDirectory = settings.outputDirectory + "\\" + ((idx >= 0) ? fileNameWithoutExtension.Substring(0, idx) : fileNameWithoutExtension);
+            if (File.Exists(pdfSettings.outputDirectory))
+            {
+                ErrorMessage(string.Format("File {0} prevents the creation of an output directory for the PDF's", pdfSettings.outputDirectory));
+                return;
+            }
+            if (!Directory.Exists(pdfSettings.outputDirectory))
+            {
+                Directory.CreateDirectory(pdfSettings.outputDirectory);
+            }
             pdfSettings.CourseIds = settings.CourseIds;
             pdfSettings.AllCourses = settings.AllCourses;
             pdfSettings.fileDirectory = settings.fileDirectory;
             pdfSettings.mapDirectory = settings.mapDirectory;
-            pdfSettings.outputDirectory = settings.outputDirectory;
-            pdfSettings.ColorModel = ColorModel.CMYK;        
+            pdfSettings.ColorModel = ColorModel.CMYK;
 
             try
             {
