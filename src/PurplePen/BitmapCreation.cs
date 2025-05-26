@@ -118,13 +118,7 @@ namespace PurplePen
         string CreateOutputFileName(CourseDesignator courseDesignator)
         {
             string basename = QueryEvent.CreateOutputFileName(eventDB, courseDesignator, bitmapCreationSettings.filePrefix, "", GetFileExtension());
-            string baseDirectory = bitmapCreationSettings.outputDirectory;
-            // Convert relative fileName to absolute path if necessary
-            if (!Path.IsPathRooted(baseDirectory))
-            {
-                baseDirectory = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(controller.FileName), baseDirectory));
-            }
-            return Path.GetFullPath(Path.Combine(baseDirectory, basename));
+            return Path.GetFullPath(Path.Combine(bitmapCreationSettings.outputDirectory, basename));
         }
 
         // Get the file extensions for the type of bitmap file we are creating.

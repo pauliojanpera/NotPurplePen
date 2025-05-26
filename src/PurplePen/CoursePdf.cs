@@ -189,7 +189,16 @@ namespace PurplePen
         {
             string basename = QueryEvent.CreateOutputFileName(eventDB, courseDesignator, coursePdfSettings.filePrefix, "", ".pdf");
 
-            return Path.GetFullPath(Path.Combine(coursePdfSettings.outputDirectory, basename));
+            string baseDirectory = coursePdfSettings.outputDirectory;
+            if (!Path.IsPathRooted(baseDirectory))
+            {
+                string referencePath =
+                    coursePdfSettings.mapDirectory ? controller.MapFileName
+                    : coursePdfSettings.fileDirectory ? controller.FileName
+                    : Directory.GetCurrentDirectory();
+                baseDirectory = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(referencePath), baseDirectory));
+            }
+            return Path.GetFullPath(Path.Combine(baseDirectory, basename));
         }
 
         // Create a single PDF file

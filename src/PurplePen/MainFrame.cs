@@ -3337,12 +3337,12 @@ namespace PurplePen
             {
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
-                    publishCourses(dlg.SelectedCourses, dlg.DataExchangeFolderPath);
+                    publishCourses(dlg.SelectedCourses, dlg.DataExchangeFolderPath, dlg.UseFileDirectory, dlg.UseMapDirectory);
                 }
             }
         }
 
-        private void publishCourses(Id<Course>[] courseIds, string printerDataExchangeFolderPath)
+        private void publishCourses(Id<Course>[] courseIds, string printerDataExchangeFolderPath, bool useFileDirectory, bool useMapDirectory)
         {
             BitmapCreationSettings settings = new BitmapCreationSettings();
             settings.CourseIds = courseIds;
@@ -3353,16 +3353,30 @@ namespace PurplePen
             );
             settings.fileDirectory = false;
             settings.mapDirectory = false;
-            settings.outputDirectory = printerDataExchangeFolderPath;
             settings.ExportedBitmapKind = BitmapCreationSettings.BitmapKind.Jpeg;
             settings.Dpi = 600;
             settings.ColorModel = ColorModel.RGB;
             settings.Quality = 95;
             settings.AutoRotate = true;
+            settings.outputDirectory = Path.IsPathRooted(printerDataExchangeFolderPath)
+                ? printerDataExchangeFolderPath
+                : Path.GetFullPath(Path.Combine(Path.GetDirectoryName(
+                    useMapDirectory ? controller.MapFileName
+                    : useFileDirectory ? controller.FileName
+                    : Directory.GetCurrentDirectory()), printerDataExchangeFolderPath));
+
+            CoursePdfSettings pdfSettings = new CoursePdfSettings();
+            pdfSettings.CourseIds = settings.CourseIds;
+            pdfSettings.AllCourses = settings.AllCourses;
+            pdfSettings.fileDirectory = settings.fileDirectory;
+            pdfSettings.mapDirectory = settings.mapDirectory;
+            pdfSettings.outputDirectory = settings.outputDirectory;
+            pdfSettings.ColorModel = ColorModel.CMYK;        
 
             try
             {
                 controller.CreateBitmapFiles(settings);
+                controller.CreateCoursePdfs(pdfSettings);
                 InfoMessage(MiscText.PublishSucceeded);
             }
             catch (Exception ex)
