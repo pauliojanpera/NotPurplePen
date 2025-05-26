@@ -138,7 +138,7 @@
   <data name="mapDirectory.Text" xml:space="preserve">
     <value>Suhteessa kartan kansioon</value>
   </data>
-  <data name="coursesDirectory.Text" xml:space="preserve">
+  <data name="fileDirectory.Text" xml:space="preserve">
     <value>Suhteessa Purple Pen -tiedoston kansioon</value>
   </data>
   <data name="selectDataExchangeFolderButton.Text" xml:space="preserve">

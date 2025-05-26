@@ -34,7 +34,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.publishTargetFolderTextBox = new System.Windows.Forms.TextBox();
             this.selectDataExchangeFolderButton = new System.Windows.Forms.Button();
-            this.coursesDirectory = new System.Windows.Forms.RadioButton();
+            this.fileDirectory = new System.Windows.Forms.RadioButton();
             this.mapDirectory = new System.Windows.Forms.RadioButton();
             this.courseSelector = new PurplePen.CourseSelector();
             this.coursesGroupBox = new System.Windows.Forms.GroupBox();
@@ -67,7 +67,7 @@
             // 
             resources.ApplyResources(this.publishTargetFolderLayoutPanel, "publishTargetFolderLayoutPanel");
             this.publishTargetFolderLayoutPanel.Controls.Add(this.panel1, 0, 0);
-            this.publishTargetFolderLayoutPanel.Controls.Add(this.coursesDirectory, 0, 1);
+            this.publishTargetFolderLayoutPanel.Controls.Add(this.fileDirectory, 0, 1);
             this.publishTargetFolderLayoutPanel.Controls.Add(this.mapDirectory, 0, 2);
             this.publishTargetFolderLayoutPanel.Name = "publishTargetFolderLayoutPanel";
             // 
@@ -91,13 +91,13 @@
             this.selectDataExchangeFolderButton.UseVisualStyleBackColor = true;
             this.selectDataExchangeFolderButton.Click += new System.EventHandler(this.selectDataExchangeFolderButton_Click);
             // 
-            // coursesDirectory
+            // fileDirectory
             // 
-            resources.ApplyResources(this.coursesDirectory, "coursesDirectory");
-            this.coursesDirectory.Checked = true;
-            this.coursesDirectory.Name = "coursesDirectory";
-            this.coursesDirectory.TabStop = true;
-            this.coursesDirectory.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.fileDirectory, "fileDirectory");
+            this.fileDirectory.Checked = true;
+            this.fileDirectory.Name = "fileDirectory";
+            this.fileDirectory.TabStop = true;
+            this.fileDirectory.UseVisualStyleBackColor = true;
             // 
             // mapDirectory
             // 
@@ -160,7 +160,7 @@
         #endregion
         private System.Windows.Forms.GroupBox publishTargetFolderGroupBox;
         private System.Windows.Forms.TableLayoutPanel publishTargetFolderLayoutPanel;
-        private System.Windows.Forms.RadioButton coursesDirectory;
+        private System.Windows.Forms.RadioButton fileDirectory;
         private System.Windows.Forms.RadioButton mapDirectory;
         private CourseSelector courseSelector;
         private System.Windows.Forms.GroupBox coursesGroupBox;

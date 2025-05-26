@@ -8,6 +8,8 @@ namespace PurplePen
     {
         public Id<Course>[] SelectedCourses => courseSelector.SelectedCourses;
         public string DataExchangeFolderPath => publishTargetFolderTextBox.Text;
+        public bool UseFileDirectory => fileDirectory.Checked;
+        public bool UseMapDirectory => mapDirectory.Checked;
 
         public PublishCoursesDialog(EventDB eventDB)
         {
@@ -29,7 +31,7 @@ namespace PurplePen
         private void targetFolderTextBox_TextChanged(object sender, EventArgs e)
         {
             bool isRooted = Path.IsPathRooted(publishTargetFolderTextBox.Text);
-            coursesDirectory.Enabled = !isRooted;
+            fileDirectory.Enabled = !isRooted;
             mapDirectory.Enabled = !isRooted;
         }
 

@@ -249,37 +249,37 @@
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="coursesDirectory.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="fileDirectory.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
   </data>
-  <data name="coursesDirectory.AutoSize" type="System.Boolean, mscorlib">
+  <data name="fileDirectory.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="coursesDirectory.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="fileDirectory.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="coursesDirectory.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="fileDirectory.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 37</value>
   </data>
-  <data name="coursesDirectory.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="fileDirectory.Size" type="System.Drawing.Size, System.Drawing">
     <value>247, 19</value>
   </data>
-  <data name="coursesDirectory.TabIndex" type="System.Int32, mscorlib">
+  <data name="fileDirectory.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
   </data>
-  <data name="coursesDirectory.Text" xml:space="preserve">
+  <data name="fileDirectory.Text" xml:space="preserve">
     <value>Relative to the folder of the Purple Pen file</value>
   </data>
-  <data name="&gt;&gt;coursesDirectory.Name" xml:space="preserve">
-    <value>coursesDirectory</value>
+  <data name="&gt;&gt;fileDirectory.Name" xml:space="preserve">
+    <value>fileDirectory</value>
   </data>
-  <data name="&gt;&gt;coursesDirectory.Type" xml:space="preserve">
+  <data name="&gt;&gt;fileDirectory.Type" xml:space="preserve">
     <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;coursesDirectory.Parent" xml:space="preserve">
+  <data name="&gt;&gt;fileDirectory.Parent" xml:space="preserve">
     <value>publishTargetFolderLayoutPanel</value>
   </data>
-  <data name="&gt;&gt;coursesDirectory.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;fileDirectory.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="mapDirectory.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
@@ -343,7 +343,7 @@
     <value>0</value>
   </data>
   <data name="publishTargetFolderLayoutPanel.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="panel1" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="coursesDirectory" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="mapDirectory" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Percent,40,Percent,30,Percent,30" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="panel1" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="fileDirectory" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="mapDirectory" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Percent,40,Percent,30,Percent,30" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="publishTargetFolderGroupBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 340</value>
