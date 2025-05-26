@@ -7,27 +7,28 @@ namespace PurplePen
     public partial class PublishCoursesDialog : OkCancelDialog
     {
         public Id<Course>[] SelectedCourses => courseSelector.SelectedCourses;
-        public string DataExchangeFolderPath => dataExchangeFolderTextBox.Text;
+        public string DataExchangeFolderPath => publishTargetFolderTextBox.Text;
 
         public PublishCoursesDialog(EventDB eventDB)
         {
             InitializeComponent();
             courseSelector.EventDB = eventDB;
-            dataExchangeFolderTextBox.Text = MiscText.DefaultPublishPath;
-            tableLayoutPanel.Height -= dataExchangeFolderGroupBox.Height;
-            this.Height -= dataExchangeFolderGroupBox.Height;
+            publishTargetFolderTextBox.Text = MiscText.DefaultPublishPath;
+            tableLayoutPanel.Height -= publishTargetFolderGroupBox.Height;
+            this.MinimumSize = new System.Drawing.Size(this.Width, this.Height - publishTargetFolderGroupBox.Height);
+            this.Height -= publishTargetFolderGroupBox.Height;
         }
 
         private void selectDataExchangeFolderButton_Click(object sender, EventArgs e)
         {
-            folderBrowserDialog.SelectedPath = dataExchangeFolderTextBox.Text;
+            folderBrowserDialog.SelectedPath = publishTargetFolderTextBox.Text;
             if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
-                dataExchangeFolderTextBox.Text = folderBrowserDialog.SelectedPath;
+                publishTargetFolderTextBox.Text = folderBrowserDialog.SelectedPath;
         }
 
         private void targetFolderTextBox_TextChanged(object sender, EventArgs e)
         {
-            bool isRooted = Path.IsPathRooted(dataExchangeFolderTextBox.Text);
+            bool isRooted = Path.IsPathRooted(publishTargetFolderTextBox.Text);
             coursesDirectory.Enabled = !isRooted;
             mapDirectory.Enabled = !isRooted;
         }
@@ -35,9 +36,9 @@ namespace PurplePen
         private void advancedSettingsButton_Click(object sender, EventArgs e)
         {
             advancedSettingsButton.Visible = false;
-            dataExchangeFolderGroupBox.Visible = true;
-            tableLayoutPanel.Height += dataExchangeFolderGroupBox.Height;
-            this.Height += dataExchangeFolderGroupBox.Height;
+            publishTargetFolderGroupBox.Visible = true;
+            tableLayoutPanel.Height += publishTargetFolderGroupBox.Height;
+            this.Height += publishTargetFolderGroupBox.Height;
         }
     }
 }

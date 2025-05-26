@@ -119,7 +119,7 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="okButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>126, 477</value>
+    <value>123, 468</value>
   </data>
   <data name="&gt;&gt;okButton.Name" xml:space="preserve">
     <value>okButton</value>
@@ -134,7 +134,7 @@
     <value>3</value>
   </data>
   <data name="cancelButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>222, 477</value>
+    <value>219, 468</value>
   </data>
   <data name="&gt;&gt;cancelButton.Name" xml:space="preserve">
     <value>cancelButton</value>
@@ -149,41 +149,41 @@
     <value>2</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="dataExchangeFolderGroupBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="publishTargetFolderGroupBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="dataExchangeFolderLayoutPanel.ColumnCount" type="System.Int32, mscorlib">
+  <data name="publishTargetFolderLayoutPanel.ColumnCount" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
   <data name="panel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <data name="dataExchangeFolderTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="publishTargetFolderTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
   </data>
-  <data name="dataExchangeFolderTextBox.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="publishTargetFolderTextBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 5</value>
   </data>
-  <data name="dataExchangeFolderTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="publishTargetFolderTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
   </data>
-  <data name="dataExchangeFolderTextBox.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="publishTargetFolderTextBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>190, 23</value>
   </data>
-  <data name="dataExchangeFolderTextBox.TabIndex" type="System.Int32, mscorlib">
+  <data name="publishTargetFolderTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
   </data>
-  <data name="&gt;&gt;dataExchangeFolderTextBox.Name" xml:space="preserve">
-    <value>dataExchangeFolderTextBox</value>
+  <data name="&gt;&gt;publishTargetFolderTextBox.Name" xml:space="preserve">
+    <value>publishTargetFolderTextBox</value>
   </data>
-  <data name="&gt;&gt;dataExchangeFolderTextBox.Type" xml:space="preserve">
+  <data name="&gt;&gt;publishTargetFolderTextBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;dataExchangeFolderTextBox.Parent" xml:space="preserve">
+  <data name="&gt;&gt;publishTargetFolderTextBox.Parent" xml:space="preserve">
     <value>panel1</value>
   </data>
-  <data name="&gt;&gt;dataExchangeFolderTextBox.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;publishTargetFolderTextBox.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="selectDataExchangeFolderButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
@@ -244,7 +244,7 @@
     <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
-    <value>dataExchangeFolderLayoutPanel</value>
+    <value>publishTargetFolderLayoutPanel</value>
   </data>
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -277,7 +277,7 @@
     <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;coursesDirectory.Parent" xml:space="preserve">
-    <value>dataExchangeFolderLayoutPanel</value>
+    <value>publishTargetFolderLayoutPanel</value>
   </data>
   <data name="&gt;&gt;coursesDirectory.ZOrder" xml:space="preserve">
     <value>1</value>
@@ -310,66 +310,66 @@
     <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;mapDirectory.Parent" xml:space="preserve">
-    <value>dataExchangeFolderLayoutPanel</value>
+    <value>publishTargetFolderLayoutPanel</value>
   </data>
   <data name="&gt;&gt;mapDirectory.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="dataExchangeFolderLayoutPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="publishTargetFolderLayoutPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
   </data>
-  <data name="dataExchangeFolderLayoutPanel.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="publishTargetFolderLayoutPanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 19</value>
   </data>
-  <data name="dataExchangeFolderLayoutPanel.RowCount" type="System.Int32, mscorlib">
+  <data name="publishTargetFolderLayoutPanel.RowCount" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
-  <data name="dataExchangeFolderLayoutPanel.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="publishTargetFolderLayoutPanel.Size" type="System.Drawing.Size, System.Drawing">
     <value>293, 87</value>
   </data>
-  <data name="dataExchangeFolderLayoutPanel.TabIndex" type="System.Int32, mscorlib">
+  <data name="publishTargetFolderLayoutPanel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;dataExchangeFolderLayoutPanel.Name" xml:space="preserve">
-    <value>dataExchangeFolderLayoutPanel</value>
+  <data name="&gt;&gt;publishTargetFolderLayoutPanel.Name" xml:space="preserve">
+    <value>publishTargetFolderLayoutPanel</value>
   </data>
-  <data name="&gt;&gt;dataExchangeFolderLayoutPanel.Type" xml:space="preserve">
+  <data name="&gt;&gt;publishTargetFolderLayoutPanel.Type" xml:space="preserve">
     <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;dataExchangeFolderLayoutPanel.Parent" xml:space="preserve">
-    <value>dataExchangeFolderGroupBox</value>
+  <data name="&gt;&gt;publishTargetFolderLayoutPanel.Parent" xml:space="preserve">
+    <value>publishTargetFolderGroupBox</value>
   </data>
-  <data name="&gt;&gt;dataExchangeFolderLayoutPanel.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;publishTargetFolderLayoutPanel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="dataExchangeFolderLayoutPanel.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+  <data name="publishTargetFolderLayoutPanel.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="panel1" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="coursesDirectory" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="mapDirectory" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Percent,40,Percent,30,Percent,30" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
-  <data name="dataExchangeFolderGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="publishTargetFolderGroupBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 340</value>
   </data>
-  <data name="dataExchangeFolderGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="publishTargetFolderGroupBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>299, 112</value>
   </data>
-  <data name="dataExchangeFolderGroupBox.TabIndex" type="System.Int32, mscorlib">
+  <data name="publishTargetFolderGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
   </data>
-  <data name="dataExchangeFolderGroupBox.Text" xml:space="preserve">
-    <value>Printer data exchange folder</value>
+  <data name="publishTargetFolderGroupBox.Text" xml:space="preserve">
+    <value>Publish target folder</value>
   </data>
-  <data name="dataExchangeFolderGroupBox.Visible" type="System.Boolean, mscorlib">
+  <data name="publishTargetFolderGroupBox.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="&gt;&gt;dataExchangeFolderGroupBox.Name" xml:space="preserve">
-    <value>dataExchangeFolderGroupBox</value>
+  <data name="&gt;&gt;publishTargetFolderGroupBox.Name" xml:space="preserve">
+    <value>publishTargetFolderGroupBox</value>
   </data>
-  <data name="&gt;&gt;dataExchangeFolderGroupBox.Type" xml:space="preserve">
+  <data name="&gt;&gt;publishTargetFolderGroupBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;dataExchangeFolderGroupBox.Parent" xml:space="preserve">
+  <data name="&gt;&gt;publishTargetFolderGroupBox.Parent" xml:space="preserve">
     <value>tableLayoutPanel</value>
   </data>
-  <data name="&gt;&gt;dataExchangeFolderGroupBox.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;publishTargetFolderGroupBox.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="courseSelector.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
@@ -454,16 +454,19 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;tableLayoutPanel.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>0</value>
   </data>
   <data name="tableLayoutPanel.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="dataExchangeFolderGroupBox" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="coursesGroupBox" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="AutoSize,0,Absolute,200,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="publishTargetFolderGroupBox" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="coursesGroupBox" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="AutoSize,0,Absolute,200,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="advancedSettingsButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
+    <value>Bottom, Right</value>
   </data>
   <data name="advancedSettingsButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 477</value>
+    <value>10, 468</value>
+  </data>
+  <data name="advancedSettingsButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 0, 0</value>
   </data>
   <data name="advancedSettingsButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>83, 25</value>
@@ -484,13 +487,16 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;advancedSettingsButton.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>96, 96</value>
+  </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>319, 511</value>
+    <value>318, 502</value>
   </data>
   <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>41, 19, 41, 19</value>

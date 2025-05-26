@@ -117,10 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="dataExchangeFolderGroupBox.Text" xml:space="preserve">
-    <value>Tulostimen tiedonsiirtokansio</value>
+  <data name="publishTargetFolderGroupBox.Text" xml:space="preserve">
+    <value>Julkaisun kohdekansio</value>
   </data>
-  <data name="dataExchangeFolderTextBox.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="publishTargetFolderTextBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>185, 23</value>
   </data>
   <data name="$this.Text" xml:space="preserve">

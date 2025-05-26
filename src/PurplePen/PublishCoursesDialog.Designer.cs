@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PublishCoursesDialog));
-            this.dataExchangeFolderGroupBox = new System.Windows.Forms.GroupBox();
-            this.dataExchangeFolderLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.publishTargetFolderGroupBox = new System.Windows.Forms.GroupBox();
+            this.publishTargetFolderLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.dataExchangeFolderTextBox = new System.Windows.Forms.TextBox();
+            this.publishTargetFolderTextBox = new System.Windows.Forms.TextBox();
             this.selectDataExchangeFolderButton = new System.Windows.Forms.Button();
             this.coursesDirectory = new System.Windows.Forms.RadioButton();
             this.mapDirectory = new System.Windows.Forms.RadioButton();
@@ -41,8 +41,8 @@
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.advancedSettingsButton = new System.Windows.Forms.Button();
-            this.dataExchangeFolderGroupBox.SuspendLayout();
-            this.dataExchangeFolderLayoutPanel.SuspendLayout();
+            this.publishTargetFolderGroupBox.SuspendLayout();
+            this.publishTargetFolderLayoutPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             this.coursesGroupBox.SuspendLayout();
             this.tableLayoutPanel.SuspendLayout();
@@ -56,33 +56,33 @@
             // 
             resources.ApplyResources(this.cancelButton, "cancelButton");
             // 
-            // dataExchangeFolderGroupBox
+            // publishTargetFolderGroupBox
             // 
-            resources.ApplyResources(this.dataExchangeFolderGroupBox, "dataExchangeFolderGroupBox");
-            this.dataExchangeFolderGroupBox.Controls.Add(this.dataExchangeFolderLayoutPanel);
-            this.dataExchangeFolderGroupBox.Name = "dataExchangeFolderGroupBox";
-            this.dataExchangeFolderGroupBox.TabStop = false;
+            resources.ApplyResources(this.publishTargetFolderGroupBox, "publishTargetFolderGroupBox");
+            this.publishTargetFolderGroupBox.Controls.Add(this.publishTargetFolderLayoutPanel);
+            this.publishTargetFolderGroupBox.Name = "publishTargetFolderGroupBox";
+            this.publishTargetFolderGroupBox.TabStop = false;
             // 
-            // dataExchangeFolderLayoutPanel
+            // publishTargetFolderLayoutPanel
             // 
-            resources.ApplyResources(this.dataExchangeFolderLayoutPanel, "dataExchangeFolderLayoutPanel");
-            this.dataExchangeFolderLayoutPanel.Controls.Add(this.panel1, 0, 0);
-            this.dataExchangeFolderLayoutPanel.Controls.Add(this.coursesDirectory, 0, 1);
-            this.dataExchangeFolderLayoutPanel.Controls.Add(this.mapDirectory, 0, 2);
-            this.dataExchangeFolderLayoutPanel.Name = "dataExchangeFolderLayoutPanel";
+            resources.ApplyResources(this.publishTargetFolderLayoutPanel, "publishTargetFolderLayoutPanel");
+            this.publishTargetFolderLayoutPanel.Controls.Add(this.panel1, 0, 0);
+            this.publishTargetFolderLayoutPanel.Controls.Add(this.coursesDirectory, 0, 1);
+            this.publishTargetFolderLayoutPanel.Controls.Add(this.mapDirectory, 0, 2);
+            this.publishTargetFolderLayoutPanel.Name = "publishTargetFolderLayoutPanel";
             // 
             // panel1
             // 
             resources.ApplyResources(this.panel1, "panel1");
-            this.panel1.Controls.Add(this.dataExchangeFolderTextBox);
+            this.panel1.Controls.Add(this.publishTargetFolderTextBox);
             this.panel1.Controls.Add(this.selectDataExchangeFolderButton);
             this.panel1.Name = "panel1";
             // 
-            // dataExchangeFolderTextBox
+            // publishTargetFolderTextBox
             // 
-            resources.ApplyResources(this.dataExchangeFolderTextBox, "dataExchangeFolderTextBox");
-            this.dataExchangeFolderTextBox.Name = "dataExchangeFolderTextBox";
-            this.dataExchangeFolderTextBox.TextChanged += new System.EventHandler(this.targetFolderTextBox_TextChanged);
+            resources.ApplyResources(this.publishTargetFolderTextBox, "publishTargetFolderTextBox");
+            this.publishTargetFolderTextBox.Name = "publishTargetFolderTextBox";
+            this.publishTargetFolderTextBox.TextChanged += new System.EventHandler(this.targetFolderTextBox_TextChanged);
             // 
             // selectDataExchangeFolderButton
             // 
@@ -124,7 +124,7 @@
             // tableLayoutPanel
             // 
             resources.ApplyResources(this.tableLayoutPanel, "tableLayoutPanel");
-            this.tableLayoutPanel.Controls.Add(this.dataExchangeFolderGroupBox, 0, 1);
+            this.tableLayoutPanel.Controls.Add(this.publishTargetFolderGroupBox, 0, 1);
             this.tableLayoutPanel.Controls.Add(this.coursesGroupBox, 0, 0);
             this.tableLayoutPanel.Name = "tableLayoutPanel";
             // 
@@ -137,18 +137,18 @@
             // 
             // PublishCoursesDialog
             // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             resources.ApplyResources(this, "$this");
-            this.Controls.Add(this.advancedSettingsButton);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.Controls.Add(this.tableLayoutPanel);
+            this.Controls.Add(this.advancedSettingsButton);
             this.Name = "PublishCoursesDialog";
             this.Controls.SetChildIndex(this.okButton, 0);
             this.Controls.SetChildIndex(this.cancelButton, 0);
-            this.Controls.SetChildIndex(this.tableLayoutPanel, 0);
             this.Controls.SetChildIndex(this.advancedSettingsButton, 0);
-            this.dataExchangeFolderGroupBox.ResumeLayout(false);
-            this.dataExchangeFolderLayoutPanel.ResumeLayout(false);
-            this.dataExchangeFolderLayoutPanel.PerformLayout();
+            this.Controls.SetChildIndex(this.tableLayoutPanel, 0);
+            this.publishTargetFolderGroupBox.ResumeLayout(false);
+            this.publishTargetFolderLayoutPanel.ResumeLayout(false);
+            this.publishTargetFolderLayoutPanel.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.coursesGroupBox.ResumeLayout(false);
@@ -158,15 +158,15 @@
         }
 
         #endregion
-        private System.Windows.Forms.GroupBox dataExchangeFolderGroupBox;
-        private System.Windows.Forms.TableLayoutPanel dataExchangeFolderLayoutPanel;
+        private System.Windows.Forms.GroupBox publishTargetFolderGroupBox;
+        private System.Windows.Forms.TableLayoutPanel publishTargetFolderLayoutPanel;
         private System.Windows.Forms.RadioButton coursesDirectory;
         private System.Windows.Forms.RadioButton mapDirectory;
         private CourseSelector courseSelector;
         private System.Windows.Forms.GroupBox coursesGroupBox;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button selectDataExchangeFolderButton;
-        private System.Windows.Forms.TextBox dataExchangeFolderTextBox;
+        private System.Windows.Forms.TextBox publishTargetFolderTextBox;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
         private System.Windows.Forms.Button advancedSettingsButton;
