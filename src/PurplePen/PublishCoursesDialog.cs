@@ -13,7 +13,7 @@ namespace PurplePen
         {
             InitializeComponent();
             courseSelector.EventDB = eventDB;
-            dataExchangeFolderTextBox.Text = @"..\Tulostus\Järjestelmä";
+            dataExchangeFolderTextBox.Text = MiscText.DefaultPublishPath;
             tableLayoutPanel.Height -= dataExchangeFolderGroupBox.Height;
             this.Height -= dataExchangeFolderGroupBox.Height;
         }

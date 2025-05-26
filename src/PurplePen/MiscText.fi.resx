@@ -634,4 +634,7 @@ Paina OK ja yritä etsiä karttatiedoston kopio tietokoneeltasi.</value>
   <data name="PublishSucceeded" xml:space="preserve">
     <value>Julkaisu onnistui.</value>
   </data>
+  <data name="DefaultPublishPath" xml:space="preserve">
+    <value>..\Tulostus\Järjestelmä</value>
+  </data>
 </root>

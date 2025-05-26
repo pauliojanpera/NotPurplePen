@@ -1343,6 +1343,15 @@ namespace PurplePen {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ..\Print\System.
+        /// </summary>
+        internal static string DefaultPublishPath {
+            get {
+                return ResourceManager.GetString("DefaultPublishPath", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Purple.
         /// </summary>
         internal static string Purple {
