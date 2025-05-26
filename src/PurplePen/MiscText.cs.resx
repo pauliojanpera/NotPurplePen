@@ -1,0 +1,625 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CtrlZ" xml:space="preserve">
+    <value>Ctrl+Z</value>
+  </data>
+  <data name="CtrlY" xml:space="preserve">
+    <value>Ctrl+Y</value>
+  </data>
+  <data name="Esc" xml:space="preserve">
+    <value>Esc</value>
+  </data>
+  <data name="AppTitle" xml:space="preserve">
+    <value>Purple Pen</value>
+  </data>
+  <data name="NoSymbol" xml:space="preserve">
+    <value>Žádný symbol</value>
+  </data>
+  <data name="AllControls" xml:space="preserve">
+    <value>Všechny kontroly</value>
+  </data>
+  <data name="CannotLoadFile" xml:space="preserve">
+    <value>Z následujícího důvodu nelze načíst '{0}':</value>
+  </data>
+  <data name="CannotSaveFile" xml:space="preserve">
+    <value>Z následujícího důvodu nelze uložit '{0}':</value>
+  </data>
+  <data name="CannotLoadMapFile" xml:space="preserve">
+    <value>Z následujícího důvodu nelze načíst mapový soubor '{0}':</value>
+  </data>
+  <data name="CannotReadImageFile" xml:space="preserve">
+    <value>Nelze číst obrázkový soubor '{0}'.</value>
+  </data>
+  <data name="CannotPrint" xml:space="preserve">
+    <value>Z následujícího důvodu nelze vytisknout '{0}' :</value>
+  </data>
+  <data name="CannotCreateFile" xml:space="preserve">
+    <value>Z následujícího důvodu nelze vytvořit '{0}' :</value>
+  </data>
+  <data name="CannotCreateDirectory" xml:space="preserve">
+    <value>Z následujícího důvodu nelze vytvořit složku '{0}' :</value>
+  </data>
+  <data name="CannotReadMap" xml:space="preserve">
+    <value>Nelze načíst mapa z následujících důvodů: '{0}' Použití Optimalizace/Oprava a opětovné uložení v OCAD může problém vyřešit.</value>
+  </data>
+  <data name="CannotCreateOcadFiles" xml:space="preserve">
+    <value>Z následujícího důvodu nelze vytvořit soubory OCADu:</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Přejete si uložit změny provedené v '{0}'?</value>
+  </data>
+  <data name="FileAlreadyExists" xml:space="preserve">
+    <value>Soubor '{0}' již v určené složce existuje. Klikněte na tlačítko "Zpět" a zvolte novou složku nebo nový název závodu.</value>
+  </data>
+  <data name="CodeInUse" xml:space="preserve">
+    <value>Kód kontroly '{0}' je již použit jinou kontrolou.</value>
+  </data>
+  <data name="BadScore" xml:space="preserve">
+    <value>Body za kontroly musí být celé číslo 1-999</value>
+  </data>
+  <data name="BadClimb" xml:space="preserve">
+    <value>Převýšení pro trať musí být číslo 0-9999 nebo prázdné</value>
+  </data>
+  <data name="BadLoad" xml:space="preserve">
+    <value>Počet závodníků na trati musí být celé číslo 0-999999, nebo prázdné</value>
+  </data>
+  <data name="UndoWithShortcut" xml:space="preserve">
+    <value>&amp;Zpět</value>
+  </data>
+  <data name="Undo" xml:space="preserve">
+    <value>Zpět</value>
+  </data>
+  <data name="RedoWithShortcut" xml:space="preserve">
+    <value>Z&amp;novu</value>
+  </data>
+  <data name="Redo" xml:space="preserve">
+    <value>Znovu</value>
+  </data>
+  <data name="ClearSelectionWithShortcut" xml:space="preserve">
+    <value>&amp;Smazat výběr</value>
+  </data>
+  <data name="CancelOperationWithShortcut" xml:space="preserve">
+    <value>&amp;Zrušit operaci</value>
+  </data>
+  <data name="CancelOperation" xml:space="preserve">
+    <value>Zrušit operaci</value>
+  </data>
+  <data name="EnterScore" xml:space="preserve">
+    <value>Nová bodová hodnota</value>
+  </data>
+  <data name="EnterCode" xml:space="preserve">
+    <value>Zadat nový kód</value>
+  </data>
+  <data name="EnterDimensions" xml:space="preserve">
+    <value>Vlož velikost objektu
+užij / pro výšku ve svahu
+užij | pro dvě hodnoty</value>
+  </data>
+  <data name="EnterEventTitle" xml:space="preserve">
+    <value>Vlož název závodu
+užij | na další řádek
+(platí pro všechny tratě)</value>
+  </data>
+  <data name="EnterSecondaryTitle" xml:space="preserve">
+    <value>Zadejte nový podtitulek
+Pužijte | pro nový řádek</value>
+  </data>
+  <data name="EnterCourseName" xml:space="preserve">
+    <value>Zadat název nové trati</value>
+  </data>
+  <data name="EnterClimb" xml:space="preserve">
+    <value>Zadejte novou hodnotu stoupání v metrech</value>
+  </data>
+  <data name="EnterSymbolText" xml:space="preserve">
+    <value>Zadej nový význam symbolu
+(ovlivní všechny kategorie)</value>
+  </data>
+  <data name="EnterTextLine" xml:space="preserve">
+    <value>Vlož text
+užij | na řádky</value>
+  </data>
+  <data name="DeleteMultipleControlsFromControlsCollection" xml:space="preserve">
+    <value>Kontroly {0} již nejsou dále používány žádnou tratí. Přejete si smazat tyto kontroly z kolekce kontrol?</value>
+  </data>
+  <data name="DeleteControlFromControlsCollection" xml:space="preserve">
+    <value>Kontrola {0} již není dále používána žádnou tratí. Přejete si smazat tuto kontrolu z kolekce kontrol?</value>
+  </data>
+  <data name="DeleteControlFromAllControls" xml:space="preserve">
+    <value>Kontrola {0} je aktuálně používána následujícími tratěmi: {1}. Přejete si i přesto smazat tuto kontrolu?</value>
+  </data>
+  <data name="CodeBadLength" xml:space="preserve">
+    <value>Kód kontroly musí být jedno, dvě nebo tři písmena nebo číslice.</value>
+  </data>
+  <data name="CodeContainsSpace" xml:space="preserve">
+    <value>Kód kontroly nesmí obsahovat mezeru.</value>
+  </data>
+  <data name="CodeBeginsWithZero" xml:space="preserve">
+    <value>Kód kontroly by neměl začínat nulou.</value>
+  </data>
+  <data name="CodeCouldBeUpsideDown" xml:space="preserve">
+    <value>Kód kontroly nemá vypadat  jako jiné převrácené číslo (66 68)</value>
+  </data>
+  <data name="DuplicateCode" xml:space="preserve">
+    <value>Kód "{0}" je použit vícekrát než jednou.</value>
+  </data>
+  <data name="BadScale" xml:space="preserve">
+    <value>Měřítko tisku musí být číslo mezi 100 a 100000.</value>
+  </data>
+  <data name="CoursePropertiesTitle" xml:space="preserve">
+    <value>Vlastnosti trati</value>
+  </data>
+  <data name="Landscape" xml:space="preserve">
+    <value>Na šířku</value>
+  </data>
+  <data name="Portrait" xml:space="preserve">
+    <value>Na výšku</value>
+  </data>
+  <data name="PageTooSmall" xml:space="preserve">
+    <value>Žádné popisy se nevejdou na takto malou stránku.</value>
+  </data>
+  <data name="VersionLabel" xml:space="preserve">
+    <value>Verze {0}</value>
+  </data>
+  <data name="NewerVersionAvailable" xml:space="preserve">
+    <value>Je k dispozici nová verze Purple Penu {0} (Teď máte {1}.)
+
+Stáhnout a instalovat?</value>
+  </data>
+  <data name="HelpFileNotFound" xml:space="preserve">
+    <value>Soubor nápovědy '{0}' nemohl být otevřen.</value>
+  </data>
+  <data name="Zoom" xml:space="preserve">
+    <value>Zvětšení</value>
+  </data>
+  <data name="MissingMapFile" xml:space="preserve">
+    <value>Soubor s mapou "{0}" nenalezen.
+
+Odkaz na mapu se ukládá relativně k souboru ppen. Pravděpodobně otvíráš soubor z mailu a není u něj soubor s mapou. Zkus oba soubory dát do jednoho adresáře a pak teprve otevřít ppen. Nebo se soubor s mapou někam přestěhoval.
+
+OK - zkus soubor s mapou najít.</value>
+  </data>
+  <data name="NoUnusedControls" xml:space="preserve">
+    <value>Všechny kontroly použité na trati</value>
+  </data>
+  <data name="FinishButtonText" xml:space="preserve">
+    <value>&amp;Cíl</value>
+  </data>
+  <data name="NextButtonText" xml:space="preserve">
+    <value>&amp;Další &gt;</value>
+  </data>
+  <data name="Control_Code" xml:space="preserve">
+    <value>Kontrola {0}</value>
+  </data>
+  <data name="Finish" xml:space="preserve">
+    <value>Cíl</value>
+  </data>
+  <data name="Finish_Short" xml:space="preserve">
+    <value>C</value>
+  </data>
+  <data name="MandCrossing_Long" xml:space="preserve">
+    <value>Povinný průchod</value>
+  </data>
+  <data name="MandCrossing_Medium" xml:space="preserve">
+    <value>Průchod</value>
+  </data>
+  <data name="MandCrossing_Short" xml:space="preserve">
+    <value>P</value>
+  </data>
+  <data name="Margins_All" xml:space="preserve">
+    <value>Všechny: {0}</value>
+  </data>
+  <data name="Margins_LRTB" xml:space="preserve">
+    <value>Vlevo: {0}, Vpravo: {1}, Nahoře: {2}, Dole: {3}</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="Start_Short" xml:space="preserve">
+    <value>S</value>
+  </data>
+  <data name="Version_Alpha" xml:space="preserve">
+    <value>Alpha {0}</value>
+  </data>
+  <data name="Version_Beta" xml:space="preserve">
+    <value>Beta {0}</value>
+  </data>
+  <data name="Version_RC" xml:space="preserve">
+    <value>RC {0}</value>
+  </data>
+  <data name="Plural" xml:space="preserve">
+    <value>plurál</value>
+  </data>
+  <data name="Singular" xml:space="preserve">
+    <value>singulár</value>
+  </data>
+  <data name="RequireStar" xml:space="preserve">
+    <value>Přizpůsobený text vyžaduje "*" pro ukázání, kde je umístěn upravovaný objekt.</value>
+  </data>
+  <data name="AppSubtitle" xml:space="preserve">
+    <value>stavba tratí pro orientační běh</value>
+  </data>
+  <data name="AddTextSpecialExplanation" xml:space="preserve">
+    <value>Vlož text, který má být na mapě, Po OK táhni myší na místo.</value>
+  </data>
+  <data name="AddTextSpecialTitle" xml:space="preserve">
+    <value>Přidat text</value>
+  </data>
+  <data name="ChangeTextSpecialExplanation" xml:space="preserve">
+    <value>Zadejte nový text.</value>
+  </data>
+  <data name="ChangeTextTitle" xml:space="preserve">
+    <value>Změnit text</value>
+  </data>
+  <data name="MapFileChanged" xml:space="preserve">
+    <value>Jiný program změnil mapu - soubor {0}. Purple Pen ji natáhne znovu.</value>
+  </data>
+  <data name="ChangeDescriptionLanguage" xml:space="preserve">
+    <value>Aktuální závod má textový popis kontrol v jazyce {0}. Chcete změnit jazyk popisů kontrol na {1}?</value>
+  </data>
+  <data name="OpenLastEvent" xml:space="preserve">
+    <value>Otevřít "{0}"</value>
+  </data>
+  <data name="ClosePPBeforeLoadingOCAD" xml:space="preserve">
+    <value>Purple Pen před načtením nového OCAD souboru.</value>
+  </data>
+  <data name="NoCoursesSelected" xml:space="preserve">
+    <value>Žádná trať nebyla vybrána k tisku.</value>
+  </data>
+  <data name="TranslatedHelpWebSite" xml:space="preserve">
+    <value>*** Pokud existuje webová stránka v přeloženém jazyce, která obsahuje dokumentaci k Purple Pen, zadejte URL (včetně http) jako překlad této položky. Jinak to nechte být.</value>
+  </data>
+  <data name="MapExchange_Long" xml:space="preserve">
+    <value>Výměna mapy</value>
+  </data>
+  <data name="MapExchange_Medium" xml:space="preserve">
+    <value>Výměna</value>
+  </data>
+  <data name="MapExchange_Short" xml:space="preserve">
+    <value>MX</value>
+  </data>
+  <data name="PartN" xml:space="preserve">
+    <value>Úsek {0}</value>
+  </data>
+  <data name="AllParts" xml:space="preserve">
+    <value>Všechny úseky</value>
+  </data>
+  <data name="PartXOfY" xml:space="preserve">
+    <value>Úsek {0} (z {1})</value>
+  </data>
+  <data name="CrashCancel" xml:space="preserve">
+    <value>Zrušit</value>
+  </data>
+  <data name="CrashEmail" xml:space="preserve">
+    <value>Kontaktní e-mail</value>
+  </data>
+  <data name="CrashIntro" xml:space="preserve">
+    <value>Vyskytla se chyba. Pro odstranění problému, prosíme zadejte Váš email a doplňující informace, a pošlete nám hlášení o chybě.</value>
+  </data>
+  <data name="CrashMessage" xml:space="preserve">
+    <value>Popište co jste dělal v programu, aby jsme mohli případnou chybu opravit (ideálně anglicky)</value>
+  </data>
+  <data name="CrashSave" xml:space="preserve">
+    <value>Uložit</value>
+  </data>
+  <data name="CrashSend" xml:space="preserve">
+    <value>Odeslat hlášení</value>
+  </data>
+  <data name="CannotAddDescriptionsToAllParts" xml:space="preserve">
+    <value>Popisy nemohou být přidány do tratě se změnou mapy, pokud jsou zobrazeny "Všechny části". Zvolte část, které chcete přidat popisy, a poté znovu zvolte "Přidat popisy"</value>
+  </data>
+  <data name="PdfConverterNotFound" xml:space="preserve">
+    <value>PdfConverter.exe nenalezen</value>
+  </data>
+  <data name="PdfConversionFailed" xml:space="preserve">
+    <value>Pdfium PDF converter nemůže přečíst PDF soubor.</value>
+  </data>
+  <data name="PdfResultNotReadable" xml:space="preserve">
+    <value>Nelze přečíst výsledek konverze PDFka ze souboru '{0}'</value>
+  </data>
+  <data name="CannotCreatePdfs" xml:space="preserve">
+    <value>Nelze vytvořit PDFko z tohoto důvodu:</value>
+  </data>
+  <data name="UserDefined" xml:space="preserve">
+    <value>Definováno uživatelem</value>
+  </data>
+  <data name="PdfMapSize" xml:space="preserve">
+    <value>Velikost mapy z PDF souboru</value>
+  </data>
+  <data name="CancelledByUser" xml:space="preserve">
+    <value>Zrušeno uživatelem</value>
+  </data>
+  <data name="CreatingFile" xml:space="preserve">
+    <value>Vytvářím {0}...</value>
+  </data>
+  <data name="PrintingPage" xml:space="preserve">
+    <value>Tisknu stránku {0} (z {1})</value>
+  </data>
+  <data name="MapFileDeleted" xml:space="preserve">
+    <value>Mapový soubor "{0}" byl vymazán. Zkuste obnovit tento mapový soubor a poté stiskněte "OK".</value>
+  </data>
+  <data name="BadDotNetFramework" xml:space="preserve">
+    <value>Platforma .NET se zdá být na Vašem počítači nesprávně nainstalována. Navštivte prosím http://microsoft.com/net a nainstalujte si nejnovější verzi platformy .NET pro Váš operační systém Windows.</value>
+  </data>
+  <data name="Black" xml:space="preserve">
+    <value>Černá</value>
+  </data>
+  <data name="ChooseOtherColor" xml:space="preserve">
+    <value>Vybrat barvu...</value>
+  </data>
+  <data name="CustomColor" xml:space="preserve">
+    <value>Vlastní barva</value>
+  </data>
+  <data name="DarkBlue" xml:space="preserve">
+    <value>Tmavě modrá</value>
+  </data>
+  <data name="Green" xml:space="preserve">
+    <value>Zelená</value>
+  </data>
+  <data name="LightBlue" xml:space="preserve">
+    <value>Světle modrá</value>
+  </data>
+  <data name="Purple" xml:space="preserve">
+    <value>Purpurová</value>
+  </data>
+  <data name="Red" xml:space="preserve">
+    <value>Červená</value>
+  </data>
+  <data name="Yellow" xml:space="preserve">
+    <value>Žlutá</value>
+  </data>
+  <data name="AddLineExplanation" xml:space="preserve">
+    <value>Zadejte vzhled čáry. Po stisknutí OK táhněte myší pro kreslení čáry v požadovaném místě.</value>
+  </data>
+  <data name="AddLineTitle" xml:space="preserve">
+    <value>Přidat linii</value>
+  </data>
+  <data name="AddRectangleExplanation" xml:space="preserve">
+    <value>Zadejte vzhled obdélníku. Po stisknutí OK táhněte myší pro umístění obdélníku na požadované místo.</value>
+  </data>
+  <data name="AddRectangleTitle" xml:space="preserve">
+    <value>Přidat obdelník</value>
+  </data>
+  <data name="ChangeLineAppearanceExplanation" xml:space="preserve">
+    <value>Změnit vzhled linie nebo obdelníku.</value>
+  </data>
+  <data name="ChangeLineAppearanceTitle" xml:space="preserve">
+    <value>Změnit vzhled čáry</value>
+  </data>
+  <data name="GpxMustBeOcadMap" xml:space="preserve">
+    <value>Mapový soubor musí být z OCADu pro použití GPX.</value>
+  </data>
+  <data name="GpxMustHaveCoordSystem" xml:space="preserve">
+    <value>OCAD soubor musí být georeferencovaný pro použitý GPX.</value>
+  </data>
+  <data name="GpxMustHaveRealWorldCoord" xml:space="preserve">
+    <value>Soubor OCAD musí mít definované skutečné světové souřadnice, aby bylo možné použít soubor GPX.</value>
+  </data>
+  <data name="GpxReprojectFailure" xml:space="preserve">
+    <value>Nebylo možné překreslit body - buď souřadnicový systém nebo skutečné světové souřadnice v OCAD jsou chybné.</value>
+  </data>
+  <data name="GpxUnsupportedCoordSystem" xml:space="preserve">
+    <value>Soubor OCAD používá souřadnicový systém, který Purple Pen nepodporuje.</value>
+  </data>
+  <data name="AutomaticLength" xml:space="preserve">
+    <value>Automaticky</value>
+  </data>
+  <data name="BadLength" xml:space="preserve">
+    <value>Délka tratě musí být číslo v rozmezí 0.1 - 99.9, nebo prázdné pole pro automatický výpočet délky.</value>
+  </data>
+  <data name="DuplicateCourseTitle" xml:space="preserve">
+    <value>Duplikuj trasu</value>
+  </data>
+  <data name="EnterLength" xml:space="preserve">
+    <value>Zadejte délku v KM, nebo nechte prázdné pro automatický výpočet</value>
+  </data>
+  <data name="PausePrinting" xml:space="preserve">
+    <value>Dokončený tisk "{0}". Stikněte OK pro zahájení tisku "{1}".</value>
+  </data>
+  <data name="OCAD" xml:space="preserve">
+    <value>OCAD</value>
+  </data>
+  <data name="OpenOrienteeringMapper" xml:space="preserve">
+    <value>OOM</value>
+  </data>
+  <data name="AllVariations" xml:space="preserve">
+    <value>Všechny varianty</value>
+  </data>
+  <data name="ForkSummary" xml:space="preserve">
+    <value>Vhodný pro použití ve štafetách při počtu {0} účastníků v týmu.</value>
+  </data>
+  <data name="LoopSummary" xml:space="preserve">
+    <value>Prostřední kontrola ve smyčce bude navštívena {0} krát. Existují {1} možné cesty skrz smyčku.</value>
+  </data>
+  <data name="CantRearrangeSplitControl" xml:space="preserve">
+    <value>Kontrola, která začíná vidlici nebo smyčku nemůže být přetažena na nové místo v trati</value>
+  </data>
+  <data name="TooManyVariations" xml:space="preserve">
+    <value>Až moc celkových variací v této trati. Počet odlišných variací je omezen na {0}.</value>
+  </data>
+  <data name="CannotAddVariation" xml:space="preserve">
+    <value>Nelze přidat variantu.</value>
+  </data>
+  <data name="VariationAlreadyExists" xml:space="preserve">
+    <value>Větvení již existuje na této kontrole.</value>
+  </data>
+  <data name="VariationMustSelectControl" xml:space="preserve">
+    <value>Kontrola nebo postup musí být vybrán pro přidání větvení.</value>
+  </data>
+  <data name="VariationNotFinish" xml:space="preserve">
+    <value>Větvení nemůže být přidáno k cíli.</value>
+  </data>
+  <data name="VariationNotInAllControls" xml:space="preserve">
+    <value>Varianta nemůže být přidána v oknu Všechny kontroly</value>
+  </data>
+  <data name="VariationNotInScoreCourse" xml:space="preserve">
+    <value>Varianta nemůže být přidána ke scorelaufu.</value>
+  </data>
+  <data name="VariationNotLastControl" xml:space="preserve">
+    <value>Varianta nemůže být přidána na poslední kontrolu. Nejdřív přidej cílovou kontrolu.</value>
+  </data>
+  <data name="BadLegNumber" xml:space="preserve">
+    <value>'{0}' je neplatné číslo farsty '{1}'</value>
+  </data>
+  <data name="LegNotAssigned" xml:space="preserve">
+    <value>Postup {0} by měl být přiřazen k jedné z variant {1}</value>
+  </data>
+  <data name="LegUsedTwice" xml:space="preserve">
+    <value>Postup {0} je přiřazený k farstám '{1}' i '{2}'</value>
+  </data>
+  <data name="CannotReadMapOOM" xml:space="preserve">
+    <value>Nelze otevřít mapu z následujícího důvodu: '{0}' Otevření a opětovné uložení mapy v nejnovější verzi OpenOrienteering Mapper  může vyřešit problémy.</value>
+  </data>
+  <data name="MapIssue_Long" xml:space="preserve">
+    <value>Intervalový start</value>
+  </data>
+  <data name="MapIssue_Medium" xml:space="preserve">
+    <value>Intervalový start</value>
+  </data>
+  <data name="MapIssue_Short" xml:space="preserve">
+    <value>TS</value>
+  </data>
+  <data name="BaseMapHasVisibleTemplatesThatMayNotAppear" xml:space="preserve">
+    <value>Podkladová mapa OCAD má viditelné soubory šablon. V OCAD 8 a nižších se tyto šablony nemusí objevit kvůli omezením v OCADu.</value>
+  </data>
+  <data name="ImagesMayAppearBadlyLayeredInOcad10Below" xml:space="preserve">
+    <value>Vzhledem k omezením formátu souboru OCAD (v OCAD 10 a nižších) se obrazové objekty objeví pod tratěmi a vybělí oblasti v exportovaných souborech OCAD. Zkontrolujte prosím soubory OCAD, abyste se ujistili, že vaše obrázky vypadají tak, jak chcete.</value>
+  </data>
+  <data name="CannotCreateImageFiles" xml:space="preserve">
+    <value>Nelze exportovat obrázek z těchto důvodů:</value>
+  </data>
+  <data name="CreatePdf" xml:space="preserve">
+    <value>Vytvořit PDF</value>
+  </data>
+  <data name="PdfFilter" xml:space="preserve">
+    <value>PDF soubor|*.pdf</value>
+  </data>
+  <data name="LegAssignedOuterBranch" xml:space="preserve">
+    <value>Postup {0} není ve farstě '{1}': byl již přiřazený k jinému větvení farsty</value>
+  </data>
+  <data name="AddEllipseExplanation" xml:space="preserve">
+    <value>Nastavte vzhled elipsy. Po stisknutí tlačítka OK táhněte myší a umístěte elipsu na požadované místo.</value>
+  </data>
+  <data name="AddEllipseTitle" xml:space="preserve">
+    <value>Přidat elipsu</value>
+  </data>
+  <data name="CodeUnder31" xml:space="preserve">
+    <value>Kód kontroly by měl být 31 nebo vyšší.</value>
+  </data>
+</root>

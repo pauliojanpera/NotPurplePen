@@ -1,0 +1,640 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CtrlZ" xml:space="preserve">
+    <value>Ctrl+Z</value>
+  </data>
+  <data name="CtrlY" xml:space="preserve">
+    <value>Ctrl+Y</value>
+  </data>
+  <data name="Esc" xml:space="preserve">
+    <value>Esc</value>
+  </data>
+  <data name="AppTitle" xml:space="preserve">
+    <value>Purple Pen</value>
+  </data>
+  <data name="NoSymbol" xml:space="preserve">
+    <value>Ei symbolia</value>
+  </data>
+  <data name="AllControls" xml:space="preserve">
+    <value>Kaikki rastit</value>
+  </data>
+  <data name="CannotLoadFile" xml:space="preserve">
+    <value>Tiedostoa '{0}' ei voida ladata seuraavasta syystä:</value>
+  </data>
+  <data name="CannotSaveFile" xml:space="preserve">
+    <value>Tiedostoa '{0}' ei voida tallentaa seuraavasta syystä:</value>
+  </data>
+  <data name="CannotLoadMapFile" xml:space="preserve">
+    <value>Karttatiedostoa '{0}' ei voida ladata seuraavasta syystä:</value>
+  </data>
+  <data name="CannotReadImageFile" xml:space="preserve">
+    <value>Kuvatiedostoa '{0}' ei voida lukea.</value>
+  </data>
+  <data name="CannotPrint" xml:space="preserve">
+    <value>Ei voida tulostaa '{0}' seuraavasta syystä:</value>
+  </data>
+  <data name="CannotCreateFile" xml:space="preserve">
+    <value>Tiedostoa '{0}' ei voida luoda seuraavasta syystä:</value>
+  </data>
+  <data name="CannotCreateDirectory" xml:space="preserve">
+    <value>Kansiota '{0}' ei voida luoda seuraavasta syystä:</value>
+  </data>
+  <data name="CannotReadMap" xml:space="preserve">
+    <value>Karttaa ei voi lukea seuraavasta syystä: '{0}' Tiedoston optimointi ja uudelleen tallentaminen OCADissa voi korjata ongelmia.</value>
+  </data>
+  <data name="CannotCreateOcadFiles" xml:space="preserve">
+    <value>OCAD-tiedostoja ei voida luoda seuraavasta syystä:</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Haluatko tallentaa tiedostoon '{0}' tekemäsi muutokset?</value>
+  </data>
+  <data name="FileAlreadyExists" xml:space="preserve">
+    <value>Tiedosto '{0}' on jo olemassa valitussa kansiossa. Klikkaa "Edellinen"-painiketta ja valitse uusi kansio tai uusi tapahtuman nimi.</value>
+  </data>
+  <data name="CodeInUse" xml:space="preserve">
+    <value>Rastikoodi '{0}' on jo käytössä toisella rastilla.</value>
+  </data>
+  <data name="BadScore" xml:space="preserve">
+    <value>Rastin pistemäärän pitää olla kokonaisluku väliltä 1-999.</value>
+  </data>
+  <data name="BadClimb" xml:space="preserve">
+    <value>Kokonaisnousun pitää olla luku väliltä 0-9999 (tai tyhjä).</value>
+  </data>
+  <data name="BadLoad" xml:space="preserve">
+    <value>Suunnistajien lukumäärän pitää olla kokonaisluku väliltä 0-999999 (tai tyhjä).</value>
+  </data>
+  <data name="UndoWithShortcut" xml:space="preserve">
+    <value>&amp;Kumoa</value>
+  </data>
+  <data name="Undo" xml:space="preserve">
+    <value>Kumoa</value>
+  </data>
+  <data name="RedoWithShortcut" xml:space="preserve">
+    <value>&amp;Tee uudelleen</value>
+  </data>
+  <data name="Redo" xml:space="preserve">
+    <value>Tee uudelleen</value>
+  </data>
+  <data name="ClearSelectionWithShortcut" xml:space="preserve">
+    <value>Tyhjennä &amp;valinta</value>
+  </data>
+  <data name="CancelOperationWithShortcut" xml:space="preserve">
+    <value>P&amp;eru toiminto</value>
+  </data>
+  <data name="CancelOperation" xml:space="preserve">
+    <value>Peru toiminto</value>
+  </data>
+  <data name="EnterScore" xml:space="preserve">
+    <value>Syötä uusi pistemäärä</value>
+  </data>
+  <data name="EnterCode" xml:space="preserve">
+    <value>Syötä uusi rastikoodi</value>
+  </data>
+  <data name="EnterDimensions" xml:space="preserve">
+    <value>Syötä kohteen koko
+Käytä / korkeuteen rinteessä
+Käytä | kahdelle kohteelle</value>
+  </data>
+  <data name="EnterEventTitle" xml:space="preserve">
+    <value>Syötä uusi tapahtuman nimi
+Käytä | erottaaksesi rivit
+(vaikuttaa kaikkiin ratoihin)</value>
+  </data>
+  <data name="EnterSecondaryTitle" xml:space="preserve">
+    <value>Syötä uusi alaotsikko
+Käytä | erottaaksesi rivit</value>
+  </data>
+  <data name="EnterCourseName" xml:space="preserve">
+    <value>Syötä uusi radan nimi</value>
+  </data>
+  <data name="EnterClimb" xml:space="preserve">
+    <value>Syötä uusi kokonaisnousu metreinä</value>
+  </data>
+  <data name="EnterSymbolText" xml:space="preserve">
+    <value>Syötä uusi symbolin merkitys
+(vaikuttaa kaikkiin ratoihin)</value>
+  </data>
+  <data name="EnterTextLine" xml:space="preserve">
+    <value>Lisää uusi teksti
+Käytä | -merkkiä erottamaan rivit</value>
+  </data>
+  <data name="DeleteMultipleControlsFromControlsCollection" xml:space="preserve">
+    <value>Kohteet {0} eivät ole enää käytössä millään radalla. Haluatko poistaa nämä kohteet kaikki rastit -kokoelmasta?</value>
+  </data>
+  <data name="DeleteControlFromControlsCollection" xml:space="preserve">
+    <value>Rasti {0} ei ole enää käytössä millään radalla. Haluatko poistaa tämän rastin kaikki rastit -kokoelmasta?</value>
+  </data>
+  <data name="DeleteControlFromAllControls" xml:space="preserve">
+    <value>Rasti {0} on käytössä seuraavilla radoilla: {1}. Haluatko silti poistaa tämän rastin?</value>
+  </data>
+  <data name="CodeBadLength" xml:space="preserve">
+    <value>Rastikoodin pitää olla yksi, kaksi tai kolme merkkiä tai numeroa.</value>
+  </data>
+  <data name="CodeContainsSpace" xml:space="preserve">
+    <value>Rastikoodissa ei saa olla välilyöntiä.</value>
+  </data>
+  <data name="CodeBeginsWithZero" xml:space="preserve">
+    <value>Rastikoodi ei saa alkaa nollalla.</value>
+  </data>
+  <data name="CodeCouldBeUpsideDown" xml:space="preserve">
+    <value>Rastikoodi ei saisi näyttää toiselta numerolta ollessaan ylösalaisin.</value>
+  </data>
+  <data name="DuplicateCode" xml:space="preserve">
+    <value>Koodi "{0}" on käytössä useammin kuin kerran.</value>
+  </data>
+  <data name="BadScale" xml:space="preserve">
+    <value>Tulostusmittakaavassa luvun pitää olla vähintään 100 ja enintään 100 000.</value>
+  </data>
+  <data name="CoursePropertiesTitle" xml:space="preserve">
+    <value>Radan ominaisuudet</value>
+  </data>
+  <data name="Landscape" xml:space="preserve">
+    <value>Vaaka</value>
+  </data>
+  <data name="Portrait" xml:space="preserve">
+    <value>Pysty</value>
+  </data>
+  <data name="PageTooSmall" xml:space="preserve">
+    <value>Paperikoko on liian pieni rastinmääritteiden tulostamiseen.</value>
+  </data>
+  <data name="VersionLabel" xml:space="preserve">
+    <value>Versio {0}</value>
+  </data>
+  <data name="NewerVersionAvailable" xml:space="preserve">
+    <value>Purple Pen versio {0} on nyt ladattavissa. (Sinulla on nyt käytössä versio {1}.)
+
+Haluatko ladata ja asentaa viimeisimmän version?</value>
+  </data>
+  <data name="HelpFileNotFound" xml:space="preserve">
+    <value>Ohjetiedostoa '{0}' ei voida avata.</value>
+  </data>
+  <data name="Zoom" xml:space="preserve">
+    <value>Zoomaus</value>
+  </data>
+  <data name="MissingMapFile" xml:space="preserve">
+    <value>Karttatiedostoa "{0}" ei löytynyt.
+
+Todennäköisesti karttatiedosto on siirretty tai poistettu tai Purple Pen -tiedosto on siirretty (mahdollisesti toiselle tietokoneelle). Karttatiedosto on oltava aina, kun Purple Pen -tiedostoa käytetään. Jos lähetät Purple Pen -tiedoston jollekin muulle, muista lähettää myös karttatiedosto, ellei sitä ole vastaanottajalla.
+
+Paina OK ja yritä etsiä karttatiedoston kopio tietokoneeltasi.</value>
+  </data>
+  <data name="NoUnusedControls" xml:space="preserve">
+    <value>Kaikki rastit ovat käytössä radalla.</value>
+  </data>
+  <data name="FinishButtonText" xml:space="preserve">
+    <value>&amp;Maali</value>
+  </data>
+  <data name="NextButtonText" xml:space="preserve">
+    <value>&amp;Seuraava &gt;</value>
+  </data>
+  <data name="Control_Code" xml:space="preserve">
+    <value>Rasti {0}</value>
+  </data>
+  <data name="Finish" xml:space="preserve">
+    <value>Maali</value>
+  </data>
+  <data name="Finish_Short" xml:space="preserve">
+    <value>F</value>
+  </data>
+  <data name="MandCrossing_Long" xml:space="preserve">
+    <value>Pakollinen ylitys/alituspaikka</value>
+  </data>
+  <data name="MandCrossing_Medium" xml:space="preserve">
+    <value>Ylitys/Alitus</value>
+  </data>
+  <data name="MandCrossing_Short" xml:space="preserve">
+    <value>C</value>
+  </data>
+  <data name="Margins_All" xml:space="preserve">
+    <value>Kaikki: {0}</value>
+  </data>
+  <data name="Margins_LRTB" xml:space="preserve">
+    <value>Vasen: {0}, Oikea: {1}, Ylä: {2}, Ala: {3}</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Lähtö</value>
+  </data>
+  <data name="Start_Short" xml:space="preserve">
+    <value>S</value>
+  </data>
+  <data name="Version_Alpha" xml:space="preserve">
+    <value>Alfa {0}</value>
+  </data>
+  <data name="Version_Beta" xml:space="preserve">
+    <value>Beta {0}</value>
+  </data>
+  <data name="Version_RC" xml:space="preserve">
+    <value>RC {0}</value>
+  </data>
+  <data name="Plural" xml:space="preserve">
+    <value>monikko</value>
+  </data>
+  <data name="Singular" xml:space="preserve">
+    <value>yksikkö</value>
+  </data>
+  <data name="RequireStar" xml:space="preserve">
+    <value>Muokattavassa tekstissä on oltava "*"-merkki osoittamassa kohdetta, jota tällä symbolilla täsmennetään.</value>
+  </data>
+  <data name="AppSubtitle" xml:space="preserve">
+    <value>suunnistuksen ratasuunnitteluun</value>
+  </data>
+  <data name="AddTextSpecialExplanation" xml:space="preserve">
+    <value>Syötä teksti, jonka haluat lisätä kartalle. Paina OK, minkä jälkeen paina hiiren vasen painike pohjaan ja vedä sijoittaaksesi tekstin haluamaasi kohtaan kartalle.</value>
+  </data>
+  <data name="AddTextSpecialTitle" xml:space="preserve">
+    <value>Lisää teksti</value>
+  </data>
+  <data name="ChangeTextSpecialExplanation" xml:space="preserve">
+    <value>Syötä uusi teksti.</value>
+  </data>
+  <data name="ChangeTextTitle" xml:space="preserve">
+    <value>Muokkaa tekstiä</value>
+  </data>
+  <data name="MapFileChanged" xml:space="preserve">
+    <value>Toinen ohjelma on muuttanut karttatiedostoa "{0}". Purple Pen lataa nyt kartan uudelleen.</value>
+  </data>
+  <data name="ChangeDescriptionLanguage" xml:space="preserve">
+    <value>Tapahtuman sanallisten rastinmääritteiden kielenä on {0}. Haluatko muuttaa rastinmääritteet kielelle {1}?</value>
+  </data>
+  <data name="OpenLastEvent" xml:space="preserve">
+    <value>Avaa "{0}"</value>
+  </data>
+  <data name="ClosePPBeforeLoadingOCAD" xml:space="preserve">
+    <value>Purple Pen pitää sulkea ennen kuin voit avata luotuja OCAD-tiedostoja.</value>
+  </data>
+  <data name="NoCoursesSelected" xml:space="preserve">
+    <value>Yhtään rataa ei ole valittuna tulostettavaksi.</value>
+  </data>
+  <data name="TranslatedHelpWebSite" xml:space="preserve">
+    <value>*** Jos on olemassa verkkosivusto, joka sisältää Purple Pen -ohjeita tällä käännöskielellä, syötä sen täydellinen URL-osoite (http://...). Muutoin jätä tyhjäksi.</value>
+  </data>
+  <data name="MapExchange_Long" xml:space="preserve">
+    <value>Kartanvaihto</value>
+  </data>
+  <data name="MapExchange_Medium" xml:space="preserve">
+    <value>K-vaihto</value>
+  </data>
+  <data name="MapExchange_Short" xml:space="preserve">
+    <value>KV</value>
+  </data>
+  <data name="PartN" xml:space="preserve">
+    <value>Osa {0}</value>
+  </data>
+  <data name="AllParts" xml:space="preserve">
+    <value>Kaikki osat</value>
+  </data>
+  <data name="PartXOfY" xml:space="preserve">
+    <value>Osa {0} / {1}</value>
+  </data>
+  <data name="CrashCancel" xml:space="preserve">
+    <value>Peruuta</value>
+  </data>
+  <data name="CrashEmail" xml:space="preserve">
+    <value>Sähköpostiosoitteesi</value>
+  </data>
+  <data name="CrashIntro" xml:space="preserve">
+    <value>Ohjelman toiminnassa tapahtui virhe. Auta meitä korjaamaan ongelma lähettämällä virheraportti.</value>
+  </data>
+  <data name="CrashMessage" xml:space="preserve">
+    <value>Auta korjaamaan ongelma kertomalla meille, mitä olit tekemässä ongelman ilmetessä.</value>
+  </data>
+  <data name="CrashSave" xml:space="preserve">
+    <value>Tallenna</value>
+  </data>
+  <data name="CrashSend" xml:space="preserve">
+    <value>Lähetä raportti</value>
+  </data>
+  <data name="CannotAddDescriptionsToAllParts" xml:space="preserve">
+    <value>Rastinmääritteitä ei voi lisätä kartanvaihtoradalle, jos radan "Kaikki osat" on näkyvissä. Vaihda näkyviin radan osa, jolle haluat lisätä rastinmääritteet ja valitse "Lisää rastinmääritteet" uudelleen.</value>
+  </data>
+  <data name="PdfConverterNotFound" xml:space="preserve">
+    <value>PdfConverter.exe ei löytynyt</value>
+  </data>
+  <data name="PdfConversionFailed" xml:space="preserve">
+    <value>Pdfium PDF-muunnin epäonnistui PDF-tiedoston lukemisessa</value>
+  </data>
+  <data name="PdfResultNotReadable" xml:space="preserve">
+    <value>Ei voitu lukea PDF-muuntamisen tulosta tiedostosta '{0}'</value>
+  </data>
+  <data name="CannotCreatePdfs" xml:space="preserve">
+    <value>PDF-tiedostojen luominen ei onnistunut seuraavasta syystä:</value>
+  </data>
+  <data name="UserDefined" xml:space="preserve">
+    <value>Käyttäjän määrittelemä</value>
+  </data>
+  <data name="PdfMapSize" xml:space="preserve">
+    <value>PDF-kartan koko</value>
+  </data>
+  <data name="CancelledByUser" xml:space="preserve">
+    <value>Käyttäjä peruutti toimenpiteen</value>
+  </data>
+  <data name="CreatingFile" xml:space="preserve">
+    <value>Luodaan {0}...</value>
+  </data>
+  <data name="PrintingPage" xml:space="preserve">
+    <value>Tulostetaan sivua {0} (/ {1})</value>
+  </data>
+  <data name="MapFileDeleted" xml:space="preserve">
+    <value>Karttatiedosto "{0}" on poistettu. Yritä palauttaa karttatiedosto ja paina sitten "Ok".</value>
+  </data>
+  <data name="BadDotNetFramework" xml:space="preserve">
+    <value>.NET Framework ei näytä olevan oikein asennettu tietokoneellasi. Käy osoitteessa http://microsoft.com/net ja asenna Windows -käyttöjärjestelmääsi .NET Framework -ohjelmistokäyttöympäristön viimeisin versio.</value>
+  </data>
+  <data name="Black" xml:space="preserve">
+    <value>Musta</value>
+  </data>
+  <data name="ChooseOtherColor" xml:space="preserve">
+    <value>Valitse väri...</value>
+  </data>
+  <data name="CustomColor" xml:space="preserve">
+    <value>Oma väri</value>
+  </data>
+  <data name="DarkBlue" xml:space="preserve">
+    <value>Tummansininen</value>
+  </data>
+  <data name="Green" xml:space="preserve">
+    <value>Vihreä</value>
+  </data>
+  <data name="LightBlue" xml:space="preserve">
+    <value>Vaaleansininen</value>
+  </data>
+  <data name="Purple" xml:space="preserve">
+    <value>Violetti</value>
+  </data>
+  <data name="Red" xml:space="preserve">
+    <value>Punainen</value>
+  </data>
+  <data name="Yellow" xml:space="preserve">
+    <value>Keltainen</value>
+  </data>
+  <data name="AddLineExplanation" xml:space="preserve">
+    <value>Aseta viivan ulkoasu. Paina OK, minkä jälkeen paina hiiren vasen painike pohjaan ja vedä piirtääksesi viivan haluamaasi kohtaan kartalle.</value>
+  </data>
+  <data name="AddLineTitle" xml:space="preserve">
+    <value>Lisää viiva</value>
+  </data>
+  <data name="AddRectangleExplanation" xml:space="preserve">
+    <value>Aseta suorakulmion ulkoasu. Paina OK, minkä jälkeen paina hiiren vasen painike pohjaan ja vedä sijoittaaksesi suorakulmion haluamaasi kohtaan kartalle.</value>
+  </data>
+  <data name="AddRectangleTitle" xml:space="preserve">
+    <value>Lisää suorakulmio</value>
+  </data>
+  <data name="ChangeLineAppearanceExplanation" xml:space="preserve">
+    <value>Muuta viivan tai suorakulmion ulkoasua</value>
+  </data>
+  <data name="ChangeLineAppearanceTitle" xml:space="preserve">
+    <value>Muuta viivan ulkoasua</value>
+  </data>
+  <data name="GpxMustBeOcadMap" xml:space="preserve">
+    <value>Karttatiedoston pitää olla OCAD-tiedosto, jotta voit käyttää GPX-tiedostoja.</value>
+  </data>
+  <data name="GpxMustHaveCoordSystem" xml:space="preserve">
+    <value>OCAD-tiedoston koordinaatiston täytyy olla määritelty, jotta voit käyttää GPX-tiedostoja.</value>
+  </data>
+  <data name="GpxMustHaveRealWorldCoord" xml:space="preserve">
+    <value>OCAD-tiedoston täytyy olla geo-viitattu, jotta GPX-tiedostoja voidaan käyttää.</value>
+  </data>
+  <data name="GpxReprojectFailure" xml:space="preserve">
+    <value>Ei voitu uudelleenprojektoida pisteitä. Joko koordinaatistossa tai maastokoordinaateissa OCAD-kartalla on virhe.</value>
+  </data>
+  <data name="GpxUnsupportedCoordSystem" xml:space="preserve">
+    <value>Purple Pen ei tue OCAD-tiedoston käyttämää koordinaatistoa.</value>
+  </data>
+  <data name="AutomaticLength" xml:space="preserve">
+    <value>Automaattinen</value>
+  </data>
+  <data name="BadLength" xml:space="preserve">
+    <value>Radan pituuden pitää olla numero väliltä 0.1 - 99.9 tai tyhjä, jolloin pituus lasketaan automaattisesti.</value>
+  </data>
+  <data name="DuplicateCourseTitle" xml:space="preserve">
+    <value>Kopioi rata</value>
+  </data>
+  <data name="EnterLength" xml:space="preserve">
+    <value>Syötä pituus kilometreissä tai jätä tyhjäksi, jolloin pituus lasketaan automaattisesti</value>
+  </data>
+  <data name="PausePrinting" xml:space="preserve">
+    <value>Radan "{0}" tulostus on valmis. Aloita radan "{1}" tulostus painamalla OK.</value>
+  </data>
+  <data name="OCAD" xml:space="preserve">
+    <value>OCAD</value>
+  </data>
+  <data name="OpenOrienteeringMapper" xml:space="preserve">
+    <value>OOM</value>
+  </data>
+  <data name="AllVariations" xml:space="preserve">
+    <value>Kaikki hajonnat</value>
+  </data>
+  <data name="ForkSummary" xml:space="preserve">
+    <value>Soveltuu viesteihin, joissa on {0} osallistujaa joukkueessa.</value>
+  </data>
+  <data name="LoopSummary" xml:space="preserve">
+    <value>Keskusrastilla käydään {0} kertaa. Mahdollisia ratavaihtoehtoja on {1}.</value>
+  </data>
+  <data name="CantRearrangeSplitControl" xml:space="preserve">
+    <value>Hajonnan aloittavaa rastia ei voi siirtää uuteen paikkaan radalla.</value>
+  </data>
+  <data name="TooManyVariations" xml:space="preserve">
+    <value>Radalla on liian monta hajontavariaatiota. Erillisten hajontavariaatioiden määrä on rajoitettu {0}:een.</value>
+  </data>
+  <data name="CannotAddVariation" xml:space="preserve">
+    <value>Hajontaa ei voi lisätä.</value>
+  </data>
+  <data name="VariationAlreadyExists" xml:space="preserve">
+    <value>Tällä rastilla on jo hajonta.</value>
+  </data>
+  <data name="VariationMustSelectControl" xml:space="preserve">
+    <value>Valitse rasti tai rastiväli lisätäksesi hajonnan.</value>
+  </data>
+  <data name="VariationNotFinish" xml:space="preserve">
+    <value>Maaliin ei voi lisätä hajontaa.</value>
+  </data>
+  <data name="VariationNotInAllControls" xml:space="preserve">
+    <value>Hajontaa ei voi lisätä Kaikki rastit -näkymässä.</value>
+  </data>
+  <data name="VariationNotInScoreCourse" xml:space="preserve">
+    <value>Hajontaa ei voi lisätä pistesuunnistusradalle.</value>
+  </data>
+  <data name="VariationNotLastControl" xml:space="preserve">
+    <value>Hajontaa ei voi lisätä viimeiselle rastille. Lisää maali ensin.</value>
+  </data>
+  <data name="BadLegNumber" xml:space="preserve">
+    <value>'{0}' ei ole kelvollinen osuusnumero hajonnalle '{1}'</value>
+  </data>
+  <data name="LegNotAssigned" xml:space="preserve">
+    <value>Osuus {0} on määritettävä yhdelle haaroista {1}</value>
+  </data>
+  <data name="LegUsedTwice" xml:space="preserve">
+    <value>Osuus {0} on määritetty sekä hajonnalle '{1}' että hajonnalle '{2}'</value>
+  </data>
+  <data name="CannotReadMapOOM" xml:space="preserve">
+    <value>Karttaa ei voi lukea seuraavasta syystä: '{0}' Kartan avaaminen ja tallentaminen uudelleen OpenOrienteering Mapperin viimeisimmässä versiossa voi korjata ongelmia.</value>
+  </data>
+  <data name="MapIssue_Long" xml:space="preserve">
+    <value>Aikalähtö</value>
+  </data>
+  <data name="MapIssue_Medium" xml:space="preserve">
+    <value>Aikalähtö</value>
+  </data>
+  <data name="MapIssue_Short" xml:space="preserve">
+    <value>TS</value>
+  </data>
+  <data name="BaseMapHasVisibleTemplatesThatMayNotAppear" xml:space="preserve">
+    <value>Taustalla olevalla OCAD-kartalla on näkyviä mallinetiedostoja. Mallineet (templates) eivät välttämättä näy OCADin rajoitusten takia.</value>
+  </data>
+  <data name="ImagesMayAppearBadlyLayeredInOcad10Below" xml:space="preserve">
+    <value>OCAD-tiedostomuodon rajoitusten vuoksi (OCAD 10: ssä ja jäljempänä), kuvaobjektit tulevat näkyviin ratatiedostoissa ja lisätyt valkoiset alueet vietyihin OCAD-tiedostoihin. Tarkista OCAD-tiedostot varmistaaksesi, että kuvat näkyvät halutulla tavalla.</value>
+  </data>
+  <data name="CannotCreateImageFiles" xml:space="preserve">
+    <value>Kuvatiedostoja ei voi luoda seuraavasta syystä:</value>
+  </data>
+  <data name="CreatePdf" xml:space="preserve">
+    <value>Luo PDF</value>
+  </data>
+  <data name="PdfFilter" xml:space="preserve">
+    <value>PDF-tiedosto|*.pdf</value>
+  </data>
+  <data name="LegAssignedOuterBranch" xml:space="preserve">
+    <value>Osuus {0} ei koskaan saavuta hajontaa '{1}': Se on määrätty menemään eri tavalla ulommassa hajonnassa.</value>
+  </data>
+  <data name="AddEllipseExplanation" xml:space="preserve">
+    <value>Aseta ellipsin ulkoasu. Paina OK, minkä jälkeen paina hiiren vasen painike pohjaan ja vedä sijoittaaksesi ellipsin haluamaasi kohtaan kartalle.</value>
+  </data>
+  <data name="AddEllipseTitle" xml:space="preserve">
+    <value>Lisää ellipsi</value>
+  </data>
+  <data name="UninstallNonStoreVersion" xml:space="preserve">
+    <value>Purple Pen -ohjelman vanhempi versio on edelleen asennettuna. Kahden version aiheuttamien sekaannusten välttämiseksi on erittäin suositeltavaa poistaa vanhempi versio. Poistetaanko se nyt?</value>
+  </data>
+  <data name="DownloadGhostscript" xml:space="preserve">
+    <value>Jotta PDF-tiedostoja voidaan ladata, pitää GPL Ghostscript olla asennettuna. Haluatko, että se automaattisesti ladataan ja asennetaan nyt?</value>
+  </data>
+  <data name="GhostscriptNotInstalled" xml:space="preserve">
+    <value>GPL Ghostscriptiä ei ole asennettu</value>
+  </data>
+  <data name="PublishFailed" xml:space="preserve">
+    <value>Julkaisu epäonnistui: {0}</value>
+  </data>
+  <data name="PublishSucceeded" xml:space="preserve">
+    <value>Julkaisu onnistui.</value>
+  </data>
+  <data name="DefaultPublishPath" xml:space="preserve">
+    <value>..\Tulostus\Järjestelmä</value>
+  </data>
+</root>

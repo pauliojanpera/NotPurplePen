@@ -1,0 +1,595 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CtrlZ" xml:space="preserve">
+    <value>Ctrl+Z</value>
+  </data>
+  <data name="CtrlY" xml:space="preserve">
+    <value>Ctrl+Y</value>
+  </data>
+  <data name="Esc" xml:space="preserve">
+    <value>Échap</value>
+  </data>
+  <data name="AppTitle" xml:space="preserve">
+    <value>Purple Pen</value>
+  </data>
+  <data name="NoSymbol" xml:space="preserve">
+    <value>Pas de symbole</value>
+  </data>
+  <data name="AllControls" xml:space="preserve">
+    <value>Tous Postes</value>
+  </data>
+  <data name="CannotLoadFile" xml:space="preserve">
+    <value>Ne peut pas charger '{0}' pour les raisons suivantes :</value>
+  </data>
+  <data name="CannotSaveFile" xml:space="preserve">
+    <value>Ne peut pas sauvegarder '{0}' pour les raisons suivantes :</value>
+  </data>
+  <data name="CannotLoadMapFile" xml:space="preserve">
+    <value>Ne peut pas charger la carte '{0}' pour les raisons suivantes :</value>
+  </data>
+  <data name="CannotReadImageFile" xml:space="preserve">
+    <value>Ne peut pas lire le fichier image '{0}'.</value>
+  </data>
+  <data name="CannotPrint" xml:space="preserve">
+    <value>Ne peut pas imprimer '{0}' pour les raisons suivantes :</value>
+  </data>
+  <data name="CannotCreateFile" xml:space="preserve">
+    <value>Ne peut pas créer '{0}' pour les raisons suivantes :</value>
+  </data>
+  <data name="CannotCreateDirectory" xml:space="preserve">
+    <value>Ne peut pas créer le dossier '{0}' pour les raisons suivantes :</value>
+  </data>
+  <data name="CannotCreateOcadFiles" xml:space="preserve">
+    <value>Ne peut pas créer les fichiers OCAD pour les raisons suivantes :</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Voulez-vous sauvegarder les modifications effectuées sur  '{0}' ?</value>
+  </data>
+  <data name="FileAlreadyExists" xml:space="preserve">
+    <value>Le fichier '{0}' existe déjà dans le dossier indiqué. Cliquer sur le bouton "Retour" et choisissez un nouveau dossier ou un nouveau nom pour cette course.</value>
+  </data>
+  <data name="CodeInUse" xml:space="preserve">
+    <value>Le numéro du poste '{0}' est déjà utilisé sur autre poste.</value>
+  </data>
+  <data name="BadScore" xml:space="preserve">
+    <value>Les points affectés à un poste doivent correspondre à un nombre entier compris entre 1 et 999.</value>
+  </data>
+  <data name="BadClimb" xml:space="preserve">
+    <value>Le dénivelé d'un circuit doit être vide ou compris entre 0 et 9999.</value>
+  </data>
+  <data name="BadLoad" xml:space="preserve">
+    <value>Le nombre de concurrents sur un circuit doit être vide ou un nombre entier compris entre 0 et 999999.</value>
+  </data>
+  <data name="UndoWithShortcut" xml:space="preserve">
+    <value>&amp;Annuler</value>
+  </data>
+  <data name="Undo" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="RedoWithShortcut" xml:space="preserve">
+    <value>&amp;Refaire</value>
+  </data>
+  <data name="Redo" xml:space="preserve">
+    <value>Refaire</value>
+  </data>
+  <data name="ClearSelectionWithShortcut" xml:space="preserve">
+    <value>&amp;Désélectionner</value>
+  </data>
+  <data name="CancelOperationWithShortcut" xml:space="preserve">
+    <value>A&amp;nnuler l'opération</value>
+  </data>
+  <data name="CancelOperation" xml:space="preserve">
+    <value>Annuler l'opération</value>
+  </data>
+  <data name="EnterScore" xml:space="preserve">
+    <value>Entrer le nouveau score</value>
+  </data>
+  <data name="EnterCode" xml:space="preserve">
+    <value>Entrer le nouveau numéro</value>
+  </data>
+  <data name="EnterDimensions" xml:space="preserve">
+    <value>Entrer la taille de l'élément
+Utiliser / pour la hauteur sur une pente
+Utiliser | pour deux éléments</value>
+  </data>
+  <data name="EnterEventTitle" xml:space="preserve">
+    <value>Entrer le nouveau nom de la course
+Utiliser | pour séparer les lignes
+(affecte tous les circuits)</value>
+  </data>
+  <data name="EnterSecondaryTitle" xml:space="preserve">
+    <value>Entrer le nouveau titre secondaire
+Utiliser | pour séparer les lignes</value>
+  </data>
+  <data name="EnterCourseName" xml:space="preserve">
+    <value>Entrer un nouveau nom pour le circuit</value>
+  </data>
+  <data name="EnterClimb" xml:space="preserve">
+    <value>Entrer le nouveau dénivelé en mètres</value>
+  </data>
+  <data name="EnterSymbolText" xml:space="preserve">
+    <value>Entrer une nouvelle signification pour le symbole
+(affecte tous les circuits)</value>
+  </data>
+  <data name="EnterTextLine" xml:space="preserve">
+    <value>Saisir un nouveau texte
+Utiliser | pour séparer les lignes</value>
+  </data>
+  <data name="DeleteMultipleControlsFromControlsCollection" xml:space="preserve">
+    <value>Les numéros de postes {0} ne sont plus utilisés sur un quelconque circuit. Voulez-vous supprimer ces numéros de la bibliothèque de postes ?</value>
+  </data>
+  <data name="DeleteControlFromControlsCollection" xml:space="preserve">
+    <value>Le numéro de poste {0} n'est plus utilisé sur un quelconque circuit. Voulez-vous supprimer ce numéro de la bibliothèque de postes ?</value>
+  </data>
+  <data name="DeleteControlFromAllControls" xml:space="preserve">
+    <value>Le numéro de poste {0} est actuellement utilisé sur le(s) circuit(s) suivant(s) : {1}. Voulez-vous vraiment le supprimer ?</value>
+  </data>
+  <data name="CodeBadLength" xml:space="preserve">
+    <value>Un numéro de poste doit correspondre à 1, 2 ou 3 lettres ou chiffres.</value>
+  </data>
+  <data name="CodeContainsSpace" xml:space="preserve">
+    <value>Un numéro de poste ne doit pas contenir d'espace.</value>
+  </data>
+  <data name="CodeBeginsWithZero" xml:space="preserve">
+    <value>Un numéro de poste ne devrait pas commencer par zéro.</value>
+  </data>
+  <data name="CodeCouldBeUpsideDown" xml:space="preserve">
+    <value>Un numéro de poste ne devrait pas ressembler à un autre quand on le lit à l'envers.</value>
+  </data>
+  <data name="DuplicateCode" xml:space="preserve">
+    <value>Le numéro de poste "{0}" est utilisé plus d'une fois.</value>
+  </data>
+  <data name="BadScale" xml:space="preserve">
+    <value>L'échelle d'impression doit correspondre à un nombre compris entre 100 et 100,000.</value>
+  </data>
+  <data name="CoursePropertiesTitle" xml:space="preserve">
+    <value>Propriétés du circuit</value>
+  </data>
+  <data name="Landscape" xml:space="preserve">
+    <value>Paysage</value>
+  </data>
+  <data name="Portrait" xml:space="preserve">
+    <value>Portrait</value>
+  </data>
+  <data name="PageTooSmall" xml:space="preserve">
+    <value>La taille de la page est trop petite pour que les définitions soient imprimées.</value>
+  </data>
+  <data name="VersionLabel" xml:space="preserve">
+    <value>Version {0}</value>
+  </data>
+  <data name="NewerVersionAvailable" xml:space="preserve">
+    <value>La version {0} de Purple Pen est désormais disponible au téléchargement (vous utilisez actuellement la version {1}).
+
+Souhaitez-vous télécharger et installer la dernière version ?</value>
+  </data>
+  <data name="HelpFileNotFound" xml:space="preserve">
+    <value>Le fichier d'Aide '{0}' n'a pas pu être ouvert.</value>
+  </data>
+  <data name="Zoom" xml:space="preserve">
+    <value>Zoom</value>
+  </data>
+  <data name="MissingMapFile" xml:space="preserve">
+    <value>La carte "{0}" n'a pas été trouvée.
+
+Le fichier de la carte a probablement été déplacé ou supprimé, ou le fichier Purple Pen a été déplacé (éventuellement sur un ordinateur différent). Le fichier de la carte doit être systématiquement présent chaque fois que le fichier Purple Pen de la course est chargé. Si vous envoyez le fichier Purple Pen de la course à une autre personne, assurez-vous que cette personne possède également une copie du fichier de la carte.
+
+Après avoir cliqué sur OK, essayez de trouver une copie du fichier de la carte sur votre ordinateur.</value>
+  </data>
+  <data name="NoUnusedControls" xml:space="preserve">
+    <value>Tous les numéros de poste sont utilisés sur un circuit.</value>
+  </data>
+  <data name="FinishButtonText" xml:space="preserve">
+    <value>&amp;Terminer</value>
+  </data>
+  <data name="NextButtonText" xml:space="preserve">
+    <value>&amp;Suivant &gt;</value>
+  </data>
+  <data name="Control_Code" xml:space="preserve">
+    <value>Poste n° {0}</value>
+  </data>
+  <data name="Finish" xml:space="preserve">
+    <value>Arrivée</value>
+  </data>
+  <data name="Finish_Short" xml:space="preserve">
+    <value>F</value>
+  </data>
+  <data name="MandCrossing_Long" xml:space="preserve">
+    <value>Point de passage obligatoire</value>
+  </data>
+  <data name="MandCrossing_Medium" xml:space="preserve">
+    <value>Passage</value>
+  </data>
+  <data name="MandCrossing_Short" xml:space="preserve">
+    <value>C</value>
+  </data>
+  <data name="Margins_All" xml:space="preserve">
+    <value>Tous : {0}</value>
+  </data>
+  <data name="Margins_LRTB" xml:space="preserve">
+    <value>Gauche : {0}, Droite : {1}, Haut : {2}, Bas : {3}</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Départ</value>
+  </data>
+  <data name="Start_Short" xml:space="preserve">
+    <value>S</value>
+  </data>
+  <data name="Version_Alpha" xml:space="preserve">
+    <value>Alpha {0}</value>
+  </data>
+  <data name="Version_Beta" xml:space="preserve">
+    <value>Béta {0}</value>
+  </data>
+  <data name="Version_RC" xml:space="preserve">
+    <value>RC {0}</value>
+  </data>
+  <data name="Plural" xml:space="preserve">
+    <value>pluriel</value>
+  </data>
+  <data name="Singular" xml:space="preserve">
+    <value>singulier</value>
+  </data>
+  <data name="RequireStar" xml:space="preserve">
+    <value>Le texte personnalisé recquiert une "*" afin d'indiquer l'emplacement de l'objet en cours de modification.</value>
+  </data>
+  <data name="AppSubtitle" xml:space="preserve">
+    <value>créateur de circuits de course d'orientation</value>
+  </data>
+  <data name="AddTextSpecialExplanation" xml:space="preserve">
+    <value>Entrer le texte que vous souhaitez disposer sur la carte. Cliquez sur OK, puis glisser la souris pour positionner le texte à l'emplacement désiré.</value>
+  </data>
+  <data name="AddTextSpecialTitle" xml:space="preserve">
+    <value>Ajouter du texte</value>
+  </data>
+  <data name="ChangeTextSpecialExplanation" xml:space="preserve">
+    <value>Entrer le nouveau texte.</value>
+  </data>
+  <data name="ChangeTextTitle" xml:space="preserve">
+    <value>Modifier le texte</value>
+  </data>
+  <data name="MapFileChanged" xml:space="preserve">
+    <value>Un autre programme a modifié la carte "{0}". Purple Pen va recharger cette carte maintenant.</value>
+  </data>
+  <data name="ChangeDescriptionLanguage" xml:space="preserve">
+    <value>La course actuelle a des définitions de poste en {0}. Voulez vous changer la langue des définitions de poste pour le {1} ?</value>
+  </data>
+  <data name="OpenLastEvent" xml:space="preserve">
+    <value>Ouvrir "{0}"</value>
+  </data>
+  <data name="ClosePPBeforeLoadingOCAD" xml:space="preserve">
+    <value>Purple Pen doit être fermé avant de charger les fichiers OCAD créés.</value>
+  </data>
+  <data name="NoCoursesSelected" xml:space="preserve">
+    <value>Aucun circuit sélectionné pour l'impression</value>
+  </data>
+  <data name="TranslatedHelpWebSite" xml:space="preserve">
+    <value>*** S'il existe un site web en langue française qui propose la documentation traduite de Purple Pen, entrer ici l'adresse URL complète (incluant http://). Sinon, laissez la zone vide.</value>
+  </data>
+  <data name="MapExchange_Long" xml:space="preserve">
+    <value>Echange de carte</value>
+  </data>
+  <data name="MapExchange_Medium" xml:space="preserve">
+    <value>Echange</value>
+  </data>
+  <data name="MapExchange_Short" xml:space="preserve">
+    <value>MX</value>
+  </data>
+  <data name="PartN" xml:space="preserve">
+    <value>Partie {0}</value>
+  </data>
+  <data name="AllParts" xml:space="preserve">
+    <value>Toutes les parties</value>
+  </data>
+  <data name="PartXOfY" xml:space="preserve">
+    <value>Partie {0} (de {1})</value>
+  </data>
+  <data name="CrashCancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="CrashEmail" xml:space="preserve">
+    <value>Contact courriel</value>
+  </data>
+  <data name="CrashIntro" xml:space="preserve">
+    <value>Une erreur est survenue. Afin de nous aider à résoudre le problème, merci d'entrer votre adresse courriel de contact et toutes les informations nécessaires, puis envoyer nous le rapport d'erreur.</value>
+  </data>
+  <data name="CrashMessage" xml:space="preserve">
+    <value>Merci de nous dire ce que vous étiez en train de faire avec le programme afin de nous aider à résoudre le problème</value>
+  </data>
+  <data name="CrashSave" xml:space="preserve">
+    <value>Enregistrer</value>
+  </data>
+  <data name="CrashSend" xml:space="preserve">
+    <value>Envoyer le Rapport</value>
+  </data>
+  <data name="CannotAddDescriptionsToAllParts" xml:space="preserve">
+    <value>Les Définitions ne peuvent pas être ajoutées à un circuit comportant un échange de carte si "Toutes les Parties" est affiché. Basculez sur la partie pour laquelle vous souhaitez ajoutez les définitions, puis choisissez de nouveau l'option "Ajouter Définitions".</value>
+  </data>
+  <data name="PdfConverterNotFound" xml:space="preserve">
+    <value>PdfConverter.exe non trouvé</value>
+  </data>
+  <data name="PdfConversionFailed" xml:space="preserve">
+    <value>Pdfium PDF converter a échoué lors de la lecture du fichier PDF</value>
+  </data>
+  <data name="PdfResultNotReadable" xml:space="preserve">
+    <value>Impossible de lire le résultat de la conversion PDF depuis le fichier '{0}'</value>
+  </data>
+  <data name="CannotCreatePdfs" xml:space="preserve">
+    <value>Impossible de créer des PDFs pour la raison suivante :</value>
+  </data>
+  <data name="UserDefined" xml:space="preserve">
+    <value>Défini par l'utilisateur</value>
+  </data>
+  <data name="PdfMapSize" xml:space="preserve">
+    <value>Taille de la carte depuis le PDF</value>
+  </data>
+  <data name="CancelledByUser" xml:space="preserve">
+    <value>Annulé par l'utilisateur</value>
+  </data>
+  <data name="CreatingFile" xml:space="preserve">
+    <value>Création de {0}...</value>
+  </data>
+  <data name="PrintingPage" xml:space="preserve">
+    <value>Impression de la page {0} (sur {1})</value>
+  </data>
+  <data name="MapFileDeleted" xml:space="preserve">
+    <value>Le fichier carte "{0}" a été supprimé. Merci d'essayer de restaurer le fichier carte, puis cliquez sur "Ok".</value>
+  </data>
+  <data name="BadDotNetFramework" xml:space="preserve">
+    <value>Le framework .NET ne semble pas correctement installé sur votre ordinateur. Rendez-vous à l'adresse http://microsoft.com/net et installez la dernière version du framework .NET qui correspond à votre système d'exploitation Windows.</value>
+  </data>
+  <data name="Black" xml:space="preserve">
+    <value>Noir</value>
+  </data>
+  <data name="ChooseOtherColor" xml:space="preserve">
+    <value>Choisir la couleur...</value>
+  </data>
+  <data name="CustomColor" xml:space="preserve">
+    <value>Couleur personnalisée</value>
+  </data>
+  <data name="DarkBlue" xml:space="preserve">
+    <value>Bleu foncé</value>
+  </data>
+  <data name="Green" xml:space="preserve">
+    <value>Vert</value>
+  </data>
+  <data name="LightBlue" xml:space="preserve">
+    <value>Bleu clair</value>
+  </data>
+  <data name="Purple" xml:space="preserve">
+    <value>Violine</value>
+  </data>
+  <data name="Red" xml:space="preserve">
+    <value>Rouge</value>
+  </data>
+  <data name="Yellow" xml:space="preserve">
+    <value>Jaune</value>
+  </data>
+  <data name="AddLineExplanation" xml:space="preserve">
+    <value>Définissez le style de la ligne. Après avoir cliqué sur OK, faîtes glisser votre souris afin de dessiner les segments de ligne à l'emplacement souhaité.</value>
+  </data>
+  <data name="AddLineTitle" xml:space="preserve">
+    <value>Ajouter ligne</value>
+  </data>
+  <data name="AddRectangleExplanation" xml:space="preserve">
+    <value>Définissez le style du rectangle. Après avoir cliqué sur OK, faîtes glisser votre souris afin de positionner le rectangle à l'emplacement souhaité.</value>
+  </data>
+  <data name="AddRectangleTitle" xml:space="preserve">
+    <value>Ajouter un rectangle</value>
+  </data>
+  <data name="ChangeLineAppearanceExplanation" xml:space="preserve">
+    <value>Modifier le style de la ligne ou du rectangle</value>
+  </data>
+  <data name="ChangeLineAppearanceTitle" xml:space="preserve">
+    <value>Modifier le style de ligne</value>
+  </data>
+  <data name="GpxMustBeOcadMap" xml:space="preserve">
+    <value>Pour utiliser des fichier GPX, le fichier Carte doit obligatoirement être un fichier OCAD.</value>
+  </data>
+  <data name="GpxMustHaveCoordSystem" xml:space="preserve">
+    <value>Pour utiliser des fichiers GPX, un système de coordonnées doit obligatoirement être défini pour le fichier OCAD.</value>
+  </data>
+  <data name="GpxMustHaveRealWorldCoord" xml:space="preserve">
+    <value>Pour utiliser des fichiers GPX, le fichier OCAD doit obligatoirement avoir des coordonnées du monde réel.</value>
+  </data>
+  <data name="GpxReprojectFailure" xml:space="preserve">
+    <value>Impossible de re-projeter les points. Le système de coordonnées ou les coordonnées du monde réel de la carte OCAD sont faux.</value>
+  </data>
+  <data name="GpxUnsupportedCoordSystem" xml:space="preserve">
+    <value>Le fichier OCAD utilise un système de coordonnées non supporté par Purple Pen.</value>
+  </data>
+  <data name="AutomaticLength" xml:space="preserve">
+    <value>Automatique</value>
+  </data>
+  <data name="BadLength" xml:space="preserve">
+    <value>La longueur d'un circuit doit être un nombre compris entre 0.1 et 99.9 ou doit être laissé à blanc afin qu'il soit calculé automatiquement.</value>
+  </data>
+  <data name="DuplicateCourseTitle" xml:space="preserve">
+    <value>Dupliquer le circuit</value>
+  </data>
+  <data name="EnterLength" xml:space="preserve">
+    <value>Saisissez la longueur en km ou laissez la zone à blanc afin qu'elle soit calculée automatiquement.</value>
+  </data>
+  <data name="PausePrinting" xml:space="preserve">
+    <value>Impression de "{0}" terminée. Cliquez sur OK pour démarrer l'impression de "{1}".</value>
+  </data>
+  <data name="OCAD" xml:space="preserve">
+    <value>OCAD</value>
+  </data>
+  <data name="OpenOrienteeringMapper" xml:space="preserve">
+    <value>OOM</value>
+  </data>
+  <data name="AllVariations" xml:space="preserve">
+    <value>Toutes les variations</value>
+  </data>
+  <data name="ForkSummary" xml:space="preserve">
+    <value>Adapté pour une utilisation dans des relais avec {0} participants par équipe</value>
+  </data>
+  <data name="LoopSummary" xml:space="preserve">
+    <value>Le poste central dans la boucle sera visité {0} fois. Il y a {1} chemins possibles à travers les boucles.</value>
+  </data>
+  <data name="CantRearrangeSplitControl" xml:space="preserve">
+    <value>Un contrôle qui débute une fourche ou une boucle ne peut pas être déplacé à un nouvel endroit dans le circuit.</value>
+  </data>
+  <data name="TooManyVariations" xml:space="preserve">
+    <value>Le nombre total de variations pour ce circuit est trop élevé. Le nombre de variations distinctes est limité à {0}.</value>
+  </data>
+  <data name="CannotAddVariation" xml:space="preserve">
+    <value>Impossible d'ajouter une variation.</value>
+  </data>
+  <data name="VariationAlreadyExists" xml:space="preserve">
+    <value>Une variation existe déjà à ce poste.</value>
+  </data>
+  <data name="VariationMustSelectControl" xml:space="preserve">
+    <value>Un poste ou un numéro de relais doit être sélectionné pour ajouter une variation.</value>
+  </data>
+  <data name="VariationNotFinish" xml:space="preserve">
+    <value>Une variation ne peut pas être ajoutée à un poste Arrivée</value>
+  </data>
+  <data name="VariationNotInAllControls" xml:space="preserve">
+    <value>Une variation ne peut pas être ajoutée dans la vue Tous Postes.</value>
+  </data>
+  <data name="VariationNotInScoreCourse" xml:space="preserve">
+    <value>Une variation ne peut pas être ajoutée à un circuit Au Score.</value>
+  </data>
+  <data name="VariationNotLastControl" xml:space="preserve">
+    <value>Une variation ne peut pas être ajoutée au dernier poste. Ajouter un poste Arrivée d'abord.</value>
+  </data>
+  <data name="MapIssue_Long" xml:space="preserve">
+    <value>Départ chronométré</value>
+  </data>
+  <data name="MapIssue_Medium" xml:space="preserve">
+    <value>Départ chronométré</value>
+  </data>
+  <data name="CannotCreateImageFiles" xml:space="preserve">
+    <value>Impossible de créer des fichiers image pour la raison suivante :</value>
+  </data>
+  <data name="CreatePdf" xml:space="preserve">
+    <value>Créer un fichier PDF</value>
+  </data>
+  <data name="PdfFilter" xml:space="preserve">
+    <value>Fichier PDF|*.pdf</value>
+  </data>
+  <data name="DownloadGhostscript" xml:space="preserve">
+    <value>Le chargement des fichiers PDF requiert qu'une copie de GPL Ghostscript soit installée. Souhaitez-vous qu'elle soit automatiquement téléchargée et installée maintenant ?</value>
+  </data>
+  <data name="GhostscriptNotInstalled" xml:space="preserve">
+    <value>GPL Ghostscript n'est pas installé</value>
+  </data>
+</root>

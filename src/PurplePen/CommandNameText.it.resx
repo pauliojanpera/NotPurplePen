@@ -1,0 +1,321 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ChangeSymbol" xml:space="preserve">
+    <value>Cambia Simbolo</value>
+  </data>
+  <data name="ChangeCode" xml:space="preserve">
+    <value>Cambia Codice Del Controllo</value>
+  </data>
+  <data name="ChangeControl" xml:space="preserve">
+    <value>Cambia punto</value>
+  </data>
+  <data name="ChangeScore" xml:space="preserve">
+    <value>Cambia Punti Di Controllo</value>
+  </data>
+  <data name="ChangeTitle" xml:space="preserve">
+    <value>Cambia Titolo</value>
+  </data>
+  <data name="ChangeClimb" xml:space="preserve">
+    <value>Cambia Dislivello</value>
+  </data>
+  <data name="ChangeCourseName" xml:space="preserve">
+    <value>Cambia Nome Percorso</value>
+  </data>
+  <data name="ChangeTextLine" xml:space="preserve">
+    <value>Cambia Linea Di Testo</value>
+  </data>
+  <data name="ChangeScale" xml:space="preserve">
+    <value>Aggiorna Scala della Mappa</value>
+  </data>
+  <data name="MoveControl" xml:space="preserve">
+    <value>Muovi punto</value>
+  </data>
+  <data name="MoveControlNumber" xml:space="preserve">
+    <value>muovi il numero del punto</value>
+  </data>
+  <data name="MoveObject" xml:space="preserve">
+    <value>Muovi Oggetto</value>
+  </data>
+  <data name="DeleteControl" xml:space="preserve">
+    <value>Elimina punto</value>
+  </data>
+  <data name="DeleteObject" xml:space="preserve">
+    <value>Elimina Oggetto</value>
+  </data>
+  <data name="DeleteTextLine" xml:space="preserve">
+    <value>Elimina Linea Di Testo</value>
+  </data>
+  <data name="AddControl" xml:space="preserve">
+    <value>Aggiungi punto</value>
+  </data>
+  <data name="AddStart" xml:space="preserve">
+    <value>Aggiungi Partenza</value>
+  </data>
+  <data name="AddFinish" xml:space="preserve">
+    <value>Aggiungi finish</value>
+  </data>
+  <data name="AddCrossingPoint" xml:space="preserve">
+    <value>Aggiungi punto di passaggio obbligato</value>
+  </data>
+  <data name="AddObject" xml:space="preserve">
+    <value>Aggiungi Oggetto</value>
+  </data>
+  <data name="DeleteCourse" xml:space="preserve">
+    <value>Elimina Percorso</value>
+  </data>
+  <data name="NewCourse" xml:space="preserve">
+    <value>Nuovo percorso</value>
+  </data>
+  <data name="ChangeCourseProperties" xml:space="preserve">
+    <value>Cambia Proprietà del Percorso</value>
+  </data>
+  <data name="ChangeAllControlsProperties" xml:space="preserve">
+    <value>Cambia le proprietà della tutti i punti</value>
+  </data>
+  <data name="NewEvent" xml:space="preserve">
+    <value>Crea Nuovo Evento</value>
+  </data>
+  <data name="SetLegFlagging" xml:space="preserve">
+    <value>Cambia segnalazione della tratta</value>
+  </data>
+  <data name="ChangeCodes" xml:space="preserve">
+    <value>Cambia Codici</value>
+  </data>
+  <data name="ChangeDisplayedCourses" xml:space="preserve">
+    <value>Cambia Percorsi Visualizzati</value>
+  </data>
+  <data name="MoveBend" xml:space="preserve">
+    <value>muovi curva della tratta</value>
+  </data>
+  <data name="AddBend" xml:space="preserve">
+    <value>Aggiungi Curva</value>
+  </data>
+  <data name="AddCorner" xml:space="preserve">
+    <value>Aggiungi Angolo</value>
+  </data>
+  <data name="DeleteBend" xml:space="preserve">
+    <value>Rimuovi Curva</value>
+  </data>
+  <data name="DeleteCorner" xml:space="preserve">
+    <value>Rimuovi Angolo</value>
+  </data>
+  <data name="AddGap" xml:space="preserve">
+    <value>Aggiungi taglio</value>
+  </data>
+  <data name="RemoveGap" xml:space="preserve">
+    <value>Rimuovi taglio</value>
+  </data>
+  <data name="MoveGap" xml:space="preserve">
+    <value>Muovi taglio</value>
+  </data>
+  <data name="Rotate" xml:space="preserve">
+    <value>Ruota</value>
+  </data>
+  <data name="AutoNumbering" xml:space="preserve">
+    <value>Numerazione Automatica</value>
+  </data>
+  <data name="ChangePunchPatterns" xml:space="preserve">
+    <value>Cambia Punzonature</value>
+  </data>
+  <data name="ChangePunchcardFormat" xml:space="preserve">
+    <value>Cambia Schema Punzonature delCartellino</value>
+  </data>
+  <data name="SetPrintArea" xml:space="preserve">
+    <value>Imposta Area Di Stampa</value>
+  </data>
+  <data name="SetCourseLoad" xml:space="preserve">
+    <value>Cambia Numero Concorrenti</value>
+  </data>
+  <data name="SetCustomSymbolText" xml:space="preserve">
+    <value>Personalizza il testo descrittivo</value>
+  </data>
+  <data name="ChangeCourseOrder" xml:space="preserve">
+    <value>Cambia Ordine Percorsi</value>
+  </data>
+  <data name="ChangeMapFile" xml:space="preserve">
+    <value>Cambia il file mappa</value>
+  </data>
+  <data name="IgnoreMissingFonts" xml:space="preserve">
+    <value>Ignora i font non trovati</value>
+  </data>
+  <data name="AddTextLine" xml:space="preserve">
+    <value>Aggiungi una casella di testo</value>
+  </data>
+  <data name="RemoveUnusedControls" xml:space="preserve">
+    <value>rimuovi punti non utilizzati in un percorso</value>
+  </data>
+  <data name="SetDescriptionLanguage" xml:space="preserve">
+    <value>Modifica la lingua della descrizione punto</value>
+  </data>
+  <data name="ChangeText" xml:space="preserve">
+    <value>Cambia Testo</value>
+  </data>
+  <data name="ChangeCourseAppearance" xml:space="preserve">
+    <value>Personalizza lo stile del percorso</value>
+  </data>
+  <data name="AddMapExchange" xml:space="preserve">
+    <value>Aggiungi Cambio Carta</value>
+  </data>
+  <data name="DeleteMapExchangeAtControl" xml:space="preserve">
+    <value>Cancella Cambio Carta</value>
+  </data>
+  <data name="ChangePartProperties" xml:space="preserve">
+    <value>Cambia proprietà parte del percorso</value>
+  </data>
+  <data name="ChangeLineAppearance" xml:space="preserve">
+    <value>Cambia Stile Linea</value>
+  </data>
+  <data name="DuplicateCourse" xml:space="preserve">
+    <value>Duplica percorso</value>
+  </data>
+  <data name="CreateMapFiles" xml:space="preserve">
+    <value>Crea {0} &amp;File</value>
+  </data>
+  <data name="AddVariation" xml:space="preserve">
+    <value>aggiungi variazione</value>
+  </data>
+  <data name="DeleteFork" xml:space="preserve">
+    <value>Elimina Variazione/Loop</value>
+  </data>
+  <data name="RelayTeamVariations" xml:space="preserve">
+    <value>Variazioni staffetta</value>
+  </data>
+  <data name="AddMapIssue" xml:space="preserve">
+    <value>Aggiungi Punto Consegna mappa</value>
+  </data>
+  <data name="ChangeDescriptionStandard" xml:space="preserve">
+    <value>Imposta standard della descrizione punto</value>
+  </data>
+  <data name="ChangeMapStandard" xml:space="preserve">
+    <value>Imposta standard della mappa</value>
+  </data>
+  <data name="Stretch" xml:space="preserve">
+    <value>Espandi</value>
+  </data>
+  <data name="SetLiveloxImportableEventId" xml:space="preserve">
+    <value>Pubblica su Livelox</value>
+  </data>
+  <data name="MoveAllControls" xml:space="preserve">
+    <value>Muovi Tutti i punti</value>
+  </data>
+  <data name="AddMapFlip" xml:space="preserve">
+    <value>Aggiungi rotazione mappa</value>
+  </data>
+</root>

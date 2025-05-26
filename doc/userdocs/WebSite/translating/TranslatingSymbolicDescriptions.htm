@@ -1,0 +1,275 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:m="http://schemas.microsoft.com/office/2004/12/omml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+
+<head>
+<meta http-equiv="Content-Language" content="en-us" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Translating Symbolic Description</title>
+<style type="text/css">
+.style1 {
+	font-family: "Courier New", Courier, monospace;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Translating Symbolic Descriptions</h1>
+<p>To translate the symbolic descriptions, you use some hidden commands in 
+Purple Pen.</p>
+<p>Once you have installed your new version of Purple Pen, run it and open the 
+sample event. </p>
+<p><strong>IMPORTANT: </strong>You must be running Purple Pen as an 
+Administrator in order to translate the symbolic description. Here is one way to do this on 
+Windows:</p>
+<ul>
+	<li>On the start menu, open &quot;All Programs&quot;, then &quot;Accessories&quot;, the <em>
+	right-click</em> on &quot;Command Prompt&quot;. From the right-click menu, choose &quot;Run 
+	As Adminstrator&quot;.</li>
+	<li>&nbsp;Confirm the User Account Control dialog by clicking Continue.</li>
+	<li>In the command prompt, type &quot;<span class="style1"><strong>cd C:\Program 
+	Files\Purple Pen</strong></span>&quot;.</li>
+	<li>To start Purple Pen, type &quot;<span class="style1"><strong>PurplePen</strong></span>&quot; in the command prompt. </li>
+</ul>
+<h2>Accessing the translation menu</h2>
+<p>To begin translation, <em>hold down the Ctrl and Shift keys 
+simultaneously</em>, and open the Help menu. A special sub-menu called &quot;Translate 
+Description Texts&quot; is available only if Ctrl and Shift are both held down. </p>
+<p><img alt="screenshot 1" src="screenshot1.png" width="557" height="402" /></p>
+<p>&nbsp;</p>
+<h2>Adding a new language</h2>
+<p>Select the &quot;Add Description Language...&quot; menu item. A dialog window appears 
+to get information about the language that you wish to translate to.</p>
+<p><img alt="screenshot 2" src="screenshot2.png"  /></p>
+<p>In the new language drop-down, select the language that you wish to translate 
+to.</p>
+<p>In the &quot;Native language name&quot; text area, type the name of the language, in 
+that language. This will be automatically filled in for you; correct it if you 
+like or leave it alone.</p>
+<p>The rest of the dialog needs to be filled out with information that helps 
+Purple Pen create grammatically correct descriptions. In order to get good 
+quality descriptions, you must fill these out correctly for your language. They 
+works as follows:</p>
+<h3>Use plural nouns for between/junction/crossing</h3>
+<p>This setting is used when the between, junction, or crossing symbols are 
+used, and the same symbol is used for both objects. For example:</p>
+<p><img alt="screenshot 3" src="screenshot3.png" width="233" height="32" /></p>
+<p>In many languages, it may produce a better description to use a plural form 
+of the symbol in column D. For example, in English, this description would be 
+&quot;between <em>boulders</em>&quot;. If you check this box, then you can and should 
+define a plural form of each symbol that can appear in column D. If you leave 
+this unchecked, then only singular forms of symbols can be entered.</p>
+<h3>Use plural adjectives for plural nouns</h3>
+<p>This setting is only significant when the between, junction, or crossing 
+symbol are used, plural nouns (above) are used, and a descriptive symbol 
+(shallow, rocky, ruined, ...) is present in column E. For example:</p>
+<p><img alt="screenshot 4" src="screenshot4.png" width="234" height="30" /></p>
+<p>In English, this would be &quot;between <em>rocky</em> hills&quot;. In English, the 
+word &quot;rocky&quot; does not change form whether it is modifying &quot;hill&quot; or &quot;hills&quot;. 
+However, in some languages (French, for example), the form of the adjective may 
+change depending on whether it modifies a plural or singular word (une colline
+<em>rocheuse</em><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;
+mso-ascii-theme-font:minor-latin;mso-fareast-font-family:Calibri;mso-fareast-theme-font:
+minor-latin;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:&quot;Times New Roman&quot;;
+mso-bidi-theme-font:minor-bidi;mso-ansi-language:EN-US;mso-fareast-language:
+EN-US;mso-bidi-language:AR-SA"> </span>vs. des collines <em>rocheuses</em>). If this is the case for the 
+language you are translating to, check the box.</p>
+<p>If you check this box, then you can and should define a plural form of each 
+symbol that can appear in column E. </p>
+<h3>Adjectives change based on gender of noun being modified</h3>
+<p>In some languages other than English, each noun belongs to a particular 
+gender, and adjectives change their form depending on the gender of the noun. If 
+this is the case in the language you are translating, check this box. If you 
+check this, for each symbol that can appear in column D, you should set the 
+gender of that word. For adjectives and descriptive phrases that can appear in 
+columns C, E, F, and G, you can enter different forms for each gender, if 
+necessary.</p>
+<p>If you check this box, you must fill in a list of genders (separated by 
+commas) in the text box below.</p>
+    <h3>Nouns change case based on modifiers</h3>
+    <p>In some lanuages, the forms of nouns (used in column D primarily) can change form based on some kinds of modifiers in other columns. For example:</p>
+    <p><img src="screenshot10.png" /></p>
+    <p>In English, this would &quot;North side of small gully&quot;. The text &quot;small gully&quot; does not change because of the modifier &quot;North side&quot;. In Polish, however, this should be "Północna strona suchego rowu". The 
+        noun of the feature in column D (normally &quot;suchy row&quot;) changes to the genitive case due to the modifier in column G. This is the reverse of the change that occur for noun genders (above); in this case the adjective and modifiers change the form of the noun, instead of the noun changing the form of the adjectives.</p>
+    <p>If your language requires this, check this box and fill in a list of noun cases (separated by commas) in the text box below. You only need to include cases that will actually be required by your translation. The first case must be the default case, which is used if there are no modifying symbols in other columns.</p>
+    <h3>Example</h3>
+<p>So, for example, for French, the dialog would be filled out as follows:</p>
+<p><img alt="screenshot 5" src="screenshot5.png"  /></p>
+<p>Once you press OK, your new language is added. It is initialized with the 
+English text for each symbol.</p>
+<h2>Entering translated text for symbols</h2>
+<p>Again, hold down the Ctrl and Shift keys simultaneously, and open the Help 
+menu. Select &quot;Add Translated Texts...&quot; from the &quot;Translate Description Texts&quot; 
+sub-menu.</p>
+<p><img alt="screenshot 6" src="screenshot6.png" width="544" height="496" /> </p>
+
+<p>The left hand side shows all of the symbols that need translation. On the 
+right hand side shows the current entered translations. At first, each symbol is 
+initialized with the English version of the text for that symbol. There are two 
+different translation for each symbol -- the symbol text and the symbol name. 
+Often they are the same (except the symbol name is capitalized, but sometimes 
+they are different. The <strong>Name</strong> of the symbol shows up at the 
+bottom of the popup symbol chooser when choosing a symbol. The text is used when 
+constructing the textual description for the control. In some cases, the name is 
+a longer or more descriptive for that the text. For example, the name of the 
+symbol in English is &quot;North-east edge&quot;, but the text is &quot;NE edge&quot;.</p>
+<p>To change the name of the symbol, just type in the text box under &quot;Symbol 
+name:&quot;. To change the description text for the symbol, click the button &quot;Change 
+text...&quot;. When you click this button, you get an additional window that allows 
+you to enter the text for the symbol, possibly included plural or gender forms. 
+For example:</p>
+<p><img alt="screenshot 7" src="screenshot7.png" width="490" height="364" /></p>
+<p>In this window, enter the text in the last column of the grid. If applicable, 
+be sure to set the gender or case of the word in the dropdown at the bottom of the 
+window.</p>
+<p>See the Appendix for information with detailed information about different 
+symbol types and how they are combined to make the full textual description.</p>
+<h2>Checking your translations</h2>
+<p>After entering translations, it is a good idea to return the main program and 
+test out different descriptions to look at the text forms, to make sure that 
+your translations combine in a reasonable grammatical way. When any control is 
+selected, the text version is show in the selected object pane, right below the 
+description sheet. You may need to enlarge the pane to see it.</p>
+
+<h2>Submitting your translations</h2>
+<p>Once you are happy with the translations, email the file &quot;<a href="file:///C:/Program%20Files/Purple%20Pen/symbols.xml">C:\Program 
+Files\Purple Pen\symbols.xml</a>&quot; to <a href="mailto:peter@golde.org">
+peter@golde.org</a>. I will incorporate the translation in the next release of 
+Purple Pen, and make sure that no one else does the same translation.</p>
+<h2>Asking for help</h2>
+<p>If you have any questions, please feel free to email
+<a href="mailto:peter@golde.org">peter@golde.org</a> with any questions.</p>
+<hr />
+<h2>Appendix: Symbol types</h2>
+<p>While the symbols that appear in column D (Control feature) are fairly 
+straightforward, other symbols are somewhat more complex. Many symbols use <em>
+replaceable text</em>, which is replaced with actual text when the description 
+is being created. Replacable text appears as either the text &quot;{0}&quot; or &quot;{1}&quot;. The 
+usage of replaceable text differs depending on the type of symbol.</p>
+<p>When constructing the description, Purple Pen always uses the text from 
+symbols in the following order:</p>
+<p>Column D (control feature)<br />
+Column E (appearance)<br />
+crossing or junction in column F<br />
+between in column G<br />
+size in column F<br />
+Column C (which of any similar feature)<br />
+Column G (location of control)<br />
+Column H (other information)</p>
+<h3>Column E symbols (Appearance)</h3>
+<p>The text for these symbols uses the replaceable text &quot;{0}&quot;. When the 
+description is being constructed, {0} is replaced with the text for the column D 
+symbol that is being described. This allows the text to either precede or follow 
+the symbol being described, as needed by the language. For example, in English 
+the text for rocky is &quot;rocky {0}&quot;, so a rocky hill is described as &quot;rocky hill&quot;. 
+If the text were changed to &quot;{0} that is covered with rocks&quot;, then a rocky hill 
+would be described as &quot;hill that is covered with rocks&quot;.</p>
+<h3>Column C and G symbols, except crossing (which of any similar feature, 
+location of control)</h3>
+<p>The text for these symbols uses the replaceable text &quot;{0}&quot;. When the 
+description is being constructed {0} is replaced with the text for the feature. 
+If both a column C and column G symbol is present, the column C symbol is 
+processed first. For example, the text for &quot;Nothern&quot; (column C) is &quot;N {0}&quot;, and 
+text for &quot;Eastern edge&quot; is &quot;E edge of {0}&quot;. Thus the text for:</p>
+<p><img alt="screenshot 8" src="screenshot8.png" width="234" height="30" /></p>
+<p>is processed in the following order: </p>
+<p>column D = &quot;clearing&quot; --&gt; &quot;clearing&quot;<br />
+column C = &quot;N {0}&quot; --&gt; &quot;N clearing&quot;<br />
+column G = &quot;E edge of {0}&quot; --&gt; &quot;E edge of N clearing&quot;</p>
+<p>resulting in a complete description of &quot;E edge of N clearing&quot;.</p>
+<h3>Crossing, Junction, and Between</h3>
+<p>These three symbols are handled in special ways, because they involve 
+combining two different other symbols. Each of these symbols is actually two 
+different symbols internally, with different texts.</p>
+<p>The first form of this symbol is used when two different control features are 
+used in columns D and E. These three symbols are called &quot;Crossing&quot;, &quot;Junction&quot;, 
+and &quot;Between&quot;. For these symbols, the replacable text &quot;{0}&quot; is replaced with the 
+first control feature, and the replaceable text &quot;{1}&quot; is replaced with the 
+second control feature. The text for these symbols should contain both {0} and 
+{1}.</p>
+<p>The second form of this symbol is used when the same control feature is used 
+in column D and E, or when column E is blank or an appearance symbol. These 
+three symbols are called &quot;Crossing (objects of same kind)&quot;, &quot;Junction&nbsp; 
+(objects of same kind)&quot;, and &quot;Between&nbsp; (objects of same kind)&quot;. They do not 
+have pictures next to the in the list. For these symbols, the replacable text 
+&quot;{0}&quot; is replaced with the singular form of the control feature, and &quot;{1}&quot; is 
+replaced with the plural form of the control feature. The text should contain 
+exactly one of {0} and {1}.</p>
+<p>Examples in English:</p>
+<p><img alt="screenshot 9" src="screenshot9.png" width="233" height="148" /></p>
+<p><strong>Control 33:<br />
+</strong>column D = singular &quot;boulder&quot; / plural &quot;boulders&quot;<br />
+column E = singular &quot;boulder&quot; / plural &quot;boulders&quot;<br />
+column G (objects of same kind) = &quot;between {1}&quot; --&gt; &quot;between boulders&quot;</p>
+<p><strong>Control 34:<br />
+</strong>column D = singular &quot;boulder&quot;<br />
+column E = singular &quot;knoll&quot;<br />
+column G = &quot;between {0} and {1}&quot; --&gt; &quot;between boulder and knoll&quot;</p>
+<p><strong>Control 35:<br />
+</strong>column D = &quot;path&quot;<br />
+column E = &quot;stream&quot;<br />
+column F = &quot;{0} and {1} crossing&quot; --&gt; &quot;path and stream crossing&quot;</p>
+<p><strong>Control 36:<br />
+</strong>column D = singular &quot;knoll&quot; / plural &quot;knolls&quot;<br />
+column E = &quot;rocky {0}&quot; --&gt; singular &quot;rocky knoll&quot; / plural &quot;rocky knolls&quot;<br />
+column G = &quot;between {1}&quot; --&gt; &quot;between rocky knolls&quot;</p>
+<p><strong>Control 37:<br />
+</strong>column D = singular &quot;path&quot; / plural &quot;paths&quot;<br />
+column E = &quot;singular &quot;path&quot; / plural &quot;paths&quot;<br />
+column F (objects of same kind) = singular &quot;{0} crossing&quot; / plural &quot;{0} 
+crossings&quot; --&gt; singular &quot;path crossing&quot; / plural &quot;path crossings&quot;<br />
+column G (objects of same kind) = &quot;between {1}&quot; -&gt; &quot;between path crossings&quot;</p>
+<h3>Size of feature in Column F</h3>
+<p>There are several different &quot;symbols&quot; that affect how size numbers in column 
+F are translated into text. The following describes the purpose of each of these 
+symbols:</p>
+<p>&quot;Height of feature&quot;:&nbsp; used when column F is a simple number, such as 
+&quot;5&quot;, which describes how high the main feature is (e.g., a boulder). The special 
+text {0} is replaced with the height in meters.</p>
+<p>&quot;Depth of feature&quot;: used when column F is a simple number, such as &quot;5&quot;, which 
+describes how deep the main feature is (e.g., a pit). The special text {0} is 
+replaced with the depth in meters.</p>
+<p>&quot;Size of feature&quot;: used when column F has two numbers separated by an &quot;x&quot;, 
+such as &quot;5x8&quot;, which describes the size of the feature (e.g., a clearing). The 
+special text {0} is replaced with the first length, and the special text {1} is 
+replaced by the second length.</p>
+<p>&quot;Height of feature on slope&quot;: used when column F is two numbers separated by 
+a slash, such as &quot;1/3&quot;, which describes the height of a feature on a slope. The 
+special text {0} is replaced with the first height, and the special text {1} is 
+replaced by the second height.</p>
+<p>&quot;Depth of feature on slope&quot;: used when column F is two numbers separated by a 
+slash, such as &quot;1/3&quot;, used with a feature that is deep rather than high. The 
+special text {0} is replaced with the first height, and the special text {1} is 
+replaced by the second height.</p>
+<p>&quot;Size of two features&quot;: used when column F describes the sizes of two 
+different main features, one above the other (entered in Purple Pen using a 
+&quot;|&quot;). The special text {0} is replaced with the first size, and {1} with the 
+second size. In this case, the {0} and {1} texts are those formed by one of the 
+other size symbol textgs.</p>
+<h3>Special directives with distances (finish, flagged routes)</h3>
+<p>There are symbols for the various special directive that span all eight boxed 
+(the pictures look kind of squished in the translation window!) The directives 
+for finishes, marked routes, and finishes have special text {0} which is 
+replaced with the appropriate distance, <em>plus a space</em>. Thus the {0} 
+should be right in front of the next word, without any space. For example, the 
+finish symbol without tapes in English is &quot;navigate {0}to finish&quot;, with no space 
+between &quot;{0}&quot; and &quot;to&quot;.</p>
+<h3>Other special symbols</h3>
+<p>A few other special &quot;symbols&quot; (which do not have actual graphics symbols) are 
+used for a few pieces of text that appear in descriptions, as follows:</p>
+<p>&quot;Course length&quot; --&gt; describes the course statistics, when the course has no 
+climb. {0} is replaced with the length</p>
+<p>&quot;Course length and climb&quot; --&gt; describes the course statistics, when the 
+course has climb. {0} is replaced with the length, {1} with the climb.</p>
+<p>&quot;Number of Controls&quot; --&gt; used in the all controls description sheet to show 
+the number of controls. {0} is replaced with the number of controls.</p>
+<p>&quot;Number of Points&quot; --&gt; used in score course description sheet to show the 
+total number of points. {0} is replaced with the number of points.</p>
+<p>&quot;And&quot; --&gt; used when two features are placed in column D and E, but without 
+the crossing, between, or junction symbols being used. This is non-standard, but 
+occasionally used. {0} is replaced with the first feature, {1} with the second 
+feature.</p>
+
+</body>
+
+</html>
