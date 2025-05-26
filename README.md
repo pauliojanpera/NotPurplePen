@@ -11,3 +11,4 @@ Features:
     - Correct scale calculation during image export
     - Adjustable image export quality instead of the default 80 %
 - Ability to split control descriptions into freely movable segments
+- A very customized publishing feature for courses, probably not useful to many.
