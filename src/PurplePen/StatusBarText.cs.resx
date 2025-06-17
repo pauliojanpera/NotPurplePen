@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DefaultStatus" xml:space="preserve">
+    <value>Levé tlačítko myši: výběr objektu; pravé tlačítko myši: pohyb mapy; rolovací kolečko: zvětšení/zmenšení mapy</value>
+  </data>
+  <data name="DefaultRectangle" xml:space="preserve">
+    <value>Levé tlačítko myši: pohyb/velikost obdélníku; pravé tlačítko myši: pohyb mapy; rolovací kolečko: zvětšení/zmenšení mapy</value>
+  </data>
+  <data name="DragObject" xml:space="preserve">
+    <value>Držte stisknuté levé tlačítko a táhněte myší pro přemístění vybraného objektu</value>
+  </data>
+  <data name="DragCorner" xml:space="preserve">
+    <value>Držte stisknuté levé tlačítko a táhněte myší pro přemístění rohového bodu</value>
+  </data>
+  <data name="DraggingObject" xml:space="preserve">
+    <value>Přesuntě objekt na požadované místo a pusťte myš</value>
+  </data>
+  <data name="DraggingCorner" xml:space="preserve">
+    <value>Přesuntě rohový bod na požadované místo a pusťte myš</value>
+  </data>
+  <data name="AddingControl" xml:space="preserve">
+    <value>Klikněte levým tlačítkem myši pro přidání nové kontroly</value>
+  </data>
+  <data name="AddingExistingControl" xml:space="preserve">
+    <value>Kliknutím levým tlačítkem myši přidáte kontrolu „{0}“ do trati</value>
+  </data>
+  <data name="AddingStart" xml:space="preserve">
+    <value>Klikni levým tlačítkem myši pro umístění nového startu.</value>
+  </data>
+  <data name="AddingExistingStart" xml:space="preserve">
+    <value>Klikni levým tlačítkem myši pro přidání existujícího startu do trati.</value>
+  </data>
+  <data name="AddingFinish" xml:space="preserve">
+    <value>Klikni levým tlačítkem myši pro umístění nového cíle.</value>
+  </data>
+  <data name="AddingExistingFinish" xml:space="preserve">
+    <value>Klikni levým tlačítkem myši pro přidání existujícího cíle do trati.</value>
+  </data>
+  <data name="AddingCrossingPoint" xml:space="preserve">
+    <value>Klikni levým tlačítkem myši pro umístění nového povinného průchodu.</value>
+  </data>
+  <data name="AddingExistingCrossingPoint" xml:space="preserve">
+    <value>Klikni levým tlačítkem myši pro přidání existujícího povinného průchodu do trati.</value>
+  </data>
+  <data name="AddingObject" xml:space="preserve">
+    <value>Klikni levým tlačítkem myši pro umístění nového objektu.</value>
+  </data>
+  <data name="AddingBend" xml:space="preserve">
+    <value>Klikni levým tlačítkem myši do místa ohybu.</value>
+  </data>
+  <data name="AddingCorner" xml:space="preserve">
+    <value>Klikni levým tlačítkem myši pro přidání nového rohového bodu.</value>
+  </data>
+  <data name="DeletingBend" xml:space="preserve">
+    <value>Klikni levým tlačítkem myši na ohyb pro jeho smazání.</value>
+  </data>
+  <data name="DeletingCorner" xml:space="preserve">
+    <value>Klikni levým tlačítkem myši na rohový bod pro jeho smazání</value>
+  </data>
+  <data name="AddingControlGap" xml:space="preserve">
+    <value>Klikni levým tlačítkem myši na kolečko kontroly pro přidání malé mezery; přidrž levé tlačítko a táhni pro přidání velké mezery.</value>
+  </data>
+  <data name="RemovingControlGap" xml:space="preserve">
+    <value>Klikni levým tlačítkem myši na mezeru v kolečku kontroly pro její smazání.</value>
+  </data>
+  <data name="AddingLegGap" xml:space="preserve">
+    <value>Klikni levým tlačítkem myši pro vytvoření malé mezery; přidrž levé tlačítko a táhni pro vytvoření velké mezery ve spojnici kontrol</value>
+  </data>
+  <data name="RemovingLegGap" xml:space="preserve">
+    <value>Klikni levým tlačítkem myši na mezeru pro její odstranění</value>
+  </data>
+  <data name="SizeRectangle" xml:space="preserve">
+    <value>Přidrž levé tlačítko myši a táhni pro změnu velikosti vybraného objektu.</value>
+  </data>
+  <data name="SizingRectangle" xml:space="preserve">
+    <value>Přesuň okraj(e) do požadovaného místa a pusť tlačítko myši</value>
+  </data>
+  <data name="AddingDescription" xml:space="preserve">
+    <value>Přidrž levé tlačítko myši a táhni pro vytvoření popisů kontrol.</value>
+  </data>
+  <data name="RotatingObject" xml:space="preserve">
+    <value>Klikni levým tlačítkem myši ve chvíli, kdy bude průchod otočený ve správném úhlu.</value>
+  </data>
+  <data name="AddingLineArea" xml:space="preserve">
+    <value>Podržte levé tlačítko myši a tažením přidejte segment čáry; kliknutím levým tlačítkem myši dokončíte přidávání objektu</value>
+  </data>
+  <data name="AddingText" xml:space="preserve">
+    <value>Přidrž levé tlačítko myši a táhni pro vytvoření textu.</value>
+  </data>
+  <data name="AddingExistingMapExchange" xml:space="preserve">
+    <value>Klikni levým tlačítkem myši pro přidání existující výměny mapy do trati</value>
+  </data>
+  <data name="AddingMapExchange" xml:space="preserve">
+    <value>Klikni levým tlačítkem myši pro umístění nové výměny mapy.</value>
+  </data>
+  <data name="AddingMapExchangeToControl" xml:space="preserve">
+    <value>Klikni levým tlačítkem myši pro přidání výměny mapy na kontrolu "{0}" </value>
+  </data>
+  <data name="AddingRectangle" xml:space="preserve">
+    <value>Přidrž levé tlačítko myši a táhni pro vytvoření objektu.</value>
+  </data>
+  <data name="DraggingTopologyObject" xml:space="preserve">
+    <value>Táhni číslem kontroly pro změnu pořadí v trati (přidrž shift pro duplikování)</value>
+  </data>
+  <data name="AddingExistingMapIssue" xml:space="preserve">
+    <value>Levým kliknutím myši přidáte do trati Místo výdeje map</value>
+  </data>
+  <data name="AddingMapIssue" xml:space="preserve">
+    <value>Levým kliknutím myši umístíte Místo výdeje map</value>
+  </data>
+  <data name="StretchingObject" xml:space="preserve">
+    <value>Podržte stisknuté levé tlačítko myši a tažením roztáhněte bod křížení.</value>
+  </data>
+</root>

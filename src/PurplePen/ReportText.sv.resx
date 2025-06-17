@@ -1,0 +1,315 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ColumnHeader_Climb" xml:space="preserve">
+    <value>Stigning</value>
+  </data>
+  <data name="ColumnHeader_Code" xml:space="preserve">
+    <value>Kodsiffra</value>
+  </data>
+  <data name="ColumnHeader_Column" xml:space="preserve">
+    <value>Kolumn</value>
+  </data>
+  <data name="ColumnHeader_Control" xml:space="preserve">
+    <value>Kontroll</value>
+  </data>
+  <data name="ColumnHeader_ControlCodes" xml:space="preserve">
+    <value>Kodsiffror</value>
+  </data>
+  <data name="ColumnHeader_Controls" xml:space="preserve">
+    <value>Kontroller</value>
+  </data>
+  <data name="ColumnHeader_Course" xml:space="preserve">
+    <value>Bana</value>
+  </data>
+  <data name="ColumnHeader_Courses" xml:space="preserve">
+    <value>Banor</value>
+  </data>
+  <data name="ColumnHeader_Distance" xml:space="preserve">
+    <value>Distans</value>
+  </data>
+  <data name="ColumnHeader_Item" xml:space="preserve">
+    <value>Objekt</value>
+  </data>
+  <data name="ColumnHeader_Leg" xml:space="preserve">
+    <value>Sträcka</value>
+  </data>
+  <data name="ColumnHeader_Length" xml:space="preserve">
+    <value>Längd</value>
+  </data>
+  <data name="ColumnHeader_Load" xml:space="preserve">
+    <value>Belastning</value>
+  </data>
+  <data name="ColumnHeader_Location" xml:space="preserve">
+    <value>Plats</value>
+  </data>
+  <data name="ColumnHeader_NumberOfCourses" xml:space="preserve">
+    <value># Banor</value>
+  </data>
+  <data name="ColumnHeader_Reason" xml:space="preserve">
+    <value>Orsak</value>
+  </data>
+  <data name="ColumnHeader_SameSymbol" xml:space="preserve">
+    <value>Samma symbol?</value>
+  </data>
+  <data name="ColumnHeader_Visits" xml:space="preserve">
+    <value>Antal besök</value>
+  </data>
+  <data name="CourseSummary_Title" xml:space="preserve">
+    <value>Bansammanställning för {0}</value>
+  </data>
+  <data name="CrossRef_Title" xml:space="preserve">
+    <value>Kontrollsammanställning för {0}</value>
+  </data>
+  <data name="EventAudit_BothDirectionsLegs" xml:space="preserve">
+    <value>Sträckor som nyttjas i båda riktningarna</value>
+  </data>
+  <data name="EventAudit_CloseTogetherControls" xml:space="preserve">
+    <value>Tättliggande kontroller</value>
+  </data>
+  <data name="EventAudit_CloseTogetherExplanation" xml:space="preserve">
+    <value>Tabellen visar kontrollpar som ligger inom {0} meters avstånd från varandra. Symbolkolumn D visar om de två kontrollerna även är av samma typ.</value>
+  </data>
+  <data name="EventAudit_MissingBoxes" xml:space="preserve">
+    <value>Saknade kontrollbeskrivningsrutor</value>
+  </data>
+  <data name="EventAudit_MissingClimb" xml:space="preserve">
+    <value>Vanliga banor ska indikera hur mycket stigning de har</value>
+  </data>
+  <data name="EventAudit_MissingD" xml:space="preserve">
+    <value>Alla kontroller måste ha en symbol i kolumn D</value>
+  </data>
+  <data name="EventAudit_MissingEBetween" xml:space="preserve">
+    <value>Om "mellan" används i kolumn G, så måste två föremål visas i kolumn D och E</value>
+  </data>
+  <data name="EventAudit_MissingEJunction" xml:space="preserve">
+    <value>Om "förgrening" eller "korsning" används i kolumn F, så måste två föremål visas i kolumn D och E</value>
+  </data>
+  <data name="EventAudit_MissingFinish" xml:space="preserve">
+    <value>Vanliga banor skall ha en målplats</value>
+  </data>
+  <data name="EventAudit_MissingItems" xml:space="preserve">
+    <value>Saknade objekt i banor</value>
+  </data>
+  <data name="EventAudit_MissingLoad" xml:space="preserve">
+    <value>Banan förväntas belastas med följande antal löpare</value>
+  </data>
+  <data name="EventAudit_MissingPunch" xml:space="preserve">
+    <value>Ingen stämpelmall angiven</value>
+  </data>
+  <data name="EventAudit_MissingPunchPatterns" xml:space="preserve">
+    <value>Stämpelmall saknas</value>
+  </data>
+  <data name="EventAudit_MissingScore" xml:space="preserve">
+    <value>Poängbanor skall ha poäng angiven för alla kontroller eller inga kontroller</value>
+  </data>
+  <data name="EventAudit_MissingScores" xml:space="preserve">
+    <value>Det saknas poäng</value>
+  </data>
+  <data name="EventAudit_MissingStart" xml:space="preserve">
+    <value>Vanliga banor skall ha en startplats</value>
+  </data>
+  <data name="EventAudit_MissingStartScore" xml:space="preserve">
+    <value>Poängbanor skall ha en startplats</value>
+  </data>
+  <data name="EventAudit_No" xml:space="preserve">
+    <value>Nej</value>
+  </data>
+  <data name="EventAudit_NoProblems" xml:space="preserve">
+    <value>Allt är OK</value>
+  </data>
+  <data name="EventAudit_RepeatControl" xml:space="preserve">
+    <value>Bana "{0}" innehåller kontroll "{1}" två gånger på raken.</value>
+  </data>
+  <data name="EventAudit_RepeatedControls" xml:space="preserve">
+    <value>Upprepade kontroller</value>
+  </data>
+  <data name="EventAudit_ScoreDuplicateControl" xml:space="preserve">
+    <value>Poängbana "{0}" innehåller kontroll "{1}" två gånger. </value>
+  </data>
+  <data name="EventAudit_Title" xml:space="preserve">
+    <value>Tävlingskontroll för {0}</value>
+  </data>
+  <data name="EventAudit_UnusedControls" xml:space="preserve">
+    <value>Oanvända kontroller</value>
+  </data>
+  <data name="EventAudit_UnusedControlsExplanation" xml:space="preserve">
+    <value>Följande kontroller finns i "Alla kontroller" men används inte i någon bana. Ta bort dom genom "Ta bort oanvända kontroller" under menyn "Tävling". Dessa kontroller kommer inte att räknas in i resten av denna rapport.</value>
+  </data>
+  <data name="EventAudit_Yes" xml:space="preserve">
+    <value>Ja</value>
+  </data>
+  <data name="LegLength_Average" xml:space="preserve">
+    <value>Medelvärde</value>
+  </data>
+  <data name="LegLength_CourseInfo" xml:space="preserve">
+    <value>{0} ({1} kontroller, {2}, {3} m stigning)</value>
+  </data>
+  <data name="LegLength_CourseInfoNoClimb" xml:space="preserve">
+    <value>{0} ({1} kontroller, {2})</value>
+  </data>
+  <data name="LegLength_Title" xml:space="preserve">
+    <value>Sträcklängdsrapport för {0}</value>
+  </data>
+  <data name="Load_ButterflyExists" xml:space="preserve">
+    <value>Några kontroller kommer att besökas flera gånger på samma bana. Det andra belastningsvärdet räknar varje besök vid en kontroll separat.</value>
+  </data>
+  <data name="Load_ControlLoadSection" xml:space="preserve">
+    <value>Kontrollbelastning</value>
+  </data>
+  <data name="Load_LegLoadSection" xml:space="preserve">
+    <value>Sträckbelastning</value>
+  </data>
+  <data name="Load_MissingLoads" xml:space="preserve">
+    <value>Några eller alla banor saknar uppgift om hur många löpare som kommer att använda banan. Löparbelastningen här under kan därför vara felaktig eller saknas. För att ange antalet löpare per bana, välj "Löparbelastning" i menyn "Banor".</value>
+  </data>
+  <data name="Load_OnlyLegsMoreThanOnce" xml:space="preserve">
+    <value>(enbart sträckor som används i mer än en bana syns i denna rapport)</value>
+  </data>
+  <data name="Load_Title" xml:space="preserve">
+    <value>Sammanställning av löparbelastning för {0}</value>
+  </data>
+  <data name="Load_VariationsExist" xml:space="preserve">
+    <value>En eller flera banor har gafflingar. Framräknade belastningsvärden förutsätter att löparna är jämt fördelade mellan gafflingarna.</value>
+  </data>
+  <data name="Load_Visit" xml:space="preserve">
+    <value>({0} besök)</value>
+  </data>
+  <data name="Load_Warning" xml:space="preserve">
+    <value>VARNING:</value>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>OBS: </value>
+  </data>
+  <data name="RelayVariation_BranchWarning" xml:space="preserve">
+    <value>Varning: P.g.a. antalet sträckor som angetts så kommer gafflingen vid kontroll {0} inte att bli jämt utnyttjad. {1} sträcka/or kommer att använda gaffling(ar) {2} medan {3} sträcka/or kommer att använda gaffling(ar) {4}. </value>
+  </data>
+  <data name="RelayVariation_LegHeader" xml:space="preserve">
+    <value>Sträcka {0}</value>
+  </data>
+  <data name="RelayVariation_NoTeams" xml:space="preserve">
+    <value>Inga stafettlag har blivit skapade ännu. Välj önskat antal lag och sträckor och klicka sedan på knappen "Tilldela gafflingar".</value>
+  </data>
+  <data name="RelayVariation_TeamNumber" xml:space="preserve">
+    <value>Lag {0}</value>
+  </data>
+  <data name="RelayVariation_Title" xml:space="preserve">
+    <value>Gafflingstilldelning för {0}</value>
+  </data>
+</root>

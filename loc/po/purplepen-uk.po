@@ -1,0 +1,4456 @@
+# Purple Pen localization file
+# Copyright (C) 2008
+# This file is distributed under the same license as the Purple Pen package.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Purple Pen 3.5.3\n"
+"Report-Msgid-Bugs-To: peter@golde.org\n"
+"POT-Creation-Date: 2025-03-13 22:01-07:00\n"
+"PO-Revision-Date: \n"
+"Last-Translator:  FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: AboutForm.resx, copyrightLabel.Text
+msgid "Copyright © by Peter Golde"
+msgstr "Copyright © by Peter Golde"
+
+#: AboutForm.resx, freeLabel.Text
+msgid "Purple Pen is free software and may be copied and shared."
+msgstr "Purple Pen є вільним програмним забезпеченням. "
+"Дозволяється копіювати та поширювати його."
+
+#: AboutForm.resx, disclaimerLabel.Text
+msgid "THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND "
+"CONTRIBUTORS \"AS IS\" AND ANY EXPRESS OR IMPLIED "
+"WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED "
+"WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR "
+"PURPOSE ARE DISCLAIMED."
+msgstr "ЦЕ ПРОГРАМНЕ ЗАБЕЗПЕЧЕННЯ НАДАЄТЬСЯ РОЗРОБНИКАМИ ТА "
+"ВЛАСНИКАМИ АВТОРСЬКИХ ПРАВ ЗА ПРИНЦИПОМ \"ЯК Є\" БЕЗ "
+"БУДЬ-ЯКИХ ЯВНИХ ЧИ НЕЯВНИХ ГАРАНТІЙ, В ТОМУ ЧИСЛІ, АЛЕ НЕ "
+"ВИКЛЮЧНО, БЕЗ ГАРАНТІЙ КОМЕРЦІЙНОЇ ЦІННОСТІ ТА ПРИДАТНОСТІ "
+"ДО ВИКОРИСТАННЯ."
+
+#: AboutForm.resx, okButton.Text
+#: InitialScreen.resx, okButton.Text
+#: LicenseForm.resx, okButton.Text
+#: MissingFonts.resx, okButton.Text
+#: OkCancelDialog.resx, okButton.Text
+msgid "OK"
+msgstr "OK"
+
+#: AboutForm.resx, creditsButton.Text
+msgid "Credits"
+msgstr "Учасники"
+
+#: AboutForm.resx, licenseButton.Text
+msgid "View Full License"
+msgstr "Переглянути текст ліцензії"
+
+#: AboutForm.resx, $this.Text
+msgid "About Purple Pen"
+msgstr "Про Purple Pen"
+
+#: AddCourse.resx, firstControlLabel.Text
+msgid "First control number:"
+msgstr "Номер першого КП:"
+
+#: AddCourse.resx, descriptionAppearanceLabel.Text
+#: AllControlsProperties.resx, descriptionAppearanceLabel.Text
+msgid "Description appearance:"
+msgstr "Вигляд легенд:"
+
+#: AddCourse.resx, mapScaleLabel.Text
+#: AllControlsProperties.resx, printingScaleLabel.Text
+msgid "Map printing scale:"
+msgstr "Масштаб друку карти:"
+
+#: AddCourse.resx, oneToPrefixLabel.Text
+#: AllControlsProperties.resx, oneToPrefix.Text
+msgid "1 : "
+msgstr "1 : "
+
+#: AddCourse.resx, descKindCombo.Items
+#: AllControlsProperties.resx, descKindCombo.Items
+#: PrintDescriptions.resx, descriptionKindCombo.Items1
+msgid "Symbols"
+msgstr "Піктограми"
+
+#: AddCourse.resx, descKindCombo.Items1
+#: AllControlsProperties.resx, descKindCombo.Items1
+#: ChangeText.resx, groupBox3.Text
+#: EnterSymbolText.resx, textColumn.HeaderText
+#: MainFrame.resx, addTextMenu.Text
+#: MainFrame.resx, textToolStripMenuItem.Text
+#: PrintDescriptions.resx, descriptionKindCombo.Items2
+#: SelectionDescriptionText.resx, SpecialName_Text
+msgid "Text"
+msgstr "Текст"
+
+#: AddCourse.resx, descKindCombo.Items2
+#: AllControlsProperties.resx, descKindCombo.Items2
+msgid "Symbols and text"
+msgstr "Піктограми та текст"
+
+#: AddCourse.resx, labelKindLabel.Text
+msgid "Control circle labels:"
+msgstr "Підписи кружків КП:"
+
+#: AddCourse.resx, labelKindCombo.Items
+msgid "Sequence number (3)"
+msgstr "Порядковий номер (3)"
+
+#: AddCourse.resx, labelKindCombo.Items1
+msgid "Control code (145)"
+msgstr "Код КП (145)"
+
+#: AddCourse.resx, labelKindCombo.Items2
+msgid "Sequence and code (3-145)"
+msgstr "Номер і код (3-145)"
+
+#: AddCourse.resx, labelKindCombo.Items3
+msgid "Sequence and score (3(30))"
+msgstr "Номер та очки (3(30))"
+
+#: AddCourse.resx, labelKindCombo.Items4
+msgid "Code and score (145(30))"
+msgstr "Код та очки (145(30))"
+
+#: AddCourse.resx, labelKindCombo.Items5
+msgid "Score (30)"
+msgstr "Очки (30)"
+
+#: AddCourse.resx, scoreColumnLabel.Text
+msgid "Show points in:"
+msgstr "Відображати точки у:"
+
+#: AddCourse.resx, scoreColumnCombo.Items
+msgid "Column A"
+msgstr "Стовпець A"
+
+#: AddCourse.resx, scoreColumnCombo.Items1
+msgid "Column B"
+msgstr "Стовпець B"
+
+#: AddCourse.resx, scoreColumnCombo.Items2
+msgid "Column H"
+msgstr "Стовпець H"
+
+#: AddCourse.resx, scoreColumnCombo.Items3
+msgid "(do not display)"
+msgstr "(не показвати)"
+
+#: AddCourse.resx, groupBox1.Text
+#: AllControlsProperties.resx, appearanceGroupBox.Text
+#: ChangeText.resx, groupBox1.Text
+#: CreatePdfCourses.resx, groupBoxAppearance.Text
+#: LinePropertiesDialog.resx, groupBox2.Text
+#: PrintCourses.resx, groupBoxAppearance.Text
+#: PrintDescriptions.resx, layoutGroup.Text
+#: PrintPunches.resx, layoutGroup.Text
+msgid "Appearance"
+msgstr "Вигляд"
+
+#: AddCourse.resx, secondaryTitleDescription.Text
+msgid "The following (optional) text will appear on the second "
+"line of the control description sheet:"
+msgstr "Цей текст (опціонально) буде показано у другому рядку "
+"таблиці легенд:"
+
+#: AddCourse.resx, secondaryTitleGroup.Text
+msgid "Class list / Secondary title"
+msgstr "Клас / Додаткова назва"
+
+#: AddCourse.resx, lengthLabel.Text
+#: SelectionDescriptionText.resx, Length
+msgid "Length:"
+msgstr "Довжина:"
+
+#: AddCourse.resx, climbLabel.Text
+#: SelectionDescriptionText.resx, Climb
+msgid "Climb:"
+msgstr "Набір висоти:"
+
+#: AddCourse.resx, courseTypeLabel.Text
+msgid "Course type:"
+msgstr "Тип дистанції:"
+
+#: AddCourse.resx, courseNameLabel.Text
+msgid "Course name:"
+msgstr "Назва дистанції:"
+
+#: AddCourse.resx, courseKindCombo.Items
+msgid "Normal Course"
+msgstr "Дистанція у заданому напрямку"
+
+#: AddCourse.resx, courseKindCombo.Items1
+msgid "Score Course"
+msgstr "Дистанція за вибором"
+
+#: AddCourse.resx, metersSuffix.Text
+msgid "meters"
+msgstr "метри"
+
+#: AddCourse.resx, kmSuffix.Text
+msgid "km"
+msgstr "км"
+
+#: AddCourse.resx, hideFromReportsCheckBox.Text
+msgid "Do not include in reports"
+msgstr ""
+
+#: AddCourse.resx, $this.Text
+#: CommandNameText.resx, NewCourse
+msgid "New Course"
+msgstr "Нова дистанція"
+
+#: AddForkDialog.resx, labelWhichType.Text
+msgid "What type of variation would you like to add?"
+msgstr "Розсіювання якого типу ви бажаєте додати?"
+
+#: AddForkDialog.resx, radioButtonFork.Text
+msgid "Fork"
+msgstr "Вилка"
+
+#: AddForkDialog.resx, radioButtonLoop.Text
+msgid "Loop"
+msgstr "Петля"
+
+#: AddForkDialog.resx, labelNumberBranches.Text
+msgid "Number of branches:"
+msgstr "Кількість гілок:"
+
+#: AddForkDialog.resx, comboBoxNumberBranches.Items
+msgid "2"
+msgstr "2"
+
+#: AddForkDialog.resx, comboBoxNumberBranches.Items1
+msgid "3"
+msgstr "3"
+
+#: AddForkDialog.resx, comboBoxNumberBranches.Items2
+msgid "4"
+msgstr "4"
+
+#: AddForkDialog.resx, comboBoxNumberBranches.Items3
+msgid "5"
+msgstr "5"
+
+#: AddForkDialog.resx, comboBoxNumberBranches.Items4
+msgid "6"
+msgstr "6"
+
+#: AddForkDialog.resx, comboBoxNumberBranches.Items5
+msgid "7"
+msgstr "7"
+
+#: AddForkDialog.resx, comboBoxNumberBranches.Items6
+msgid "8"
+msgstr "8"
+
+#: AddForkDialog.resx, comboBoxNumberBranches.Items7
+msgid "9"
+msgstr "9"
+
+#: AddForkDialog.resx, comboBoxNumberBranches.Items8
+msgid "10"
+msgstr "10"
+
+#: AddForkDialog.resx, labelNumberLoops.Text
+msgid "Number of loops:"
+msgstr "Кількість петель:"
+
+#: AddForkDialog.resx, labelSummary.Text
+msgid "The loop control will be visited 4 times. There are 24 "
+"different ways through the loops."
+msgstr "КП на вході в петлю буде відвідуватись 4 рази. Існує 24 "
+"різних послідовності проходження петель."
+
+#: AddForkDialog.resx, $this.Text
+#: CommandNameText.resx, AddVariation
+#: MainFrame.resx, addVariationToolStripButton.Text
+msgid "Add Variation"
+msgstr "Додати розсіювання"
+
+#: AddTextLine.resx, textLineLabel.Text
+msgid "Enter text to place on separate line of control "
+"descriptions:"
+msgstr "Введіть текст, який буде розміщено на  роздільній лінії в "
+"таблиці легенд:"
+
+#: AddTextLine.resx, coursesLabel.Text
+msgid "Courses:"
+msgstr "Дистанції:"
+
+#: AddTextLine.resx, positionLabel.Text
+msgid "Position:"
+msgstr "Розташування:"
+
+#: AddTextLine.resx, comboBoxPosition.Items
+msgid "Above {0}"
+msgstr "Над {0}"
+
+#: AddTextLine.resx, comboBoxPosition.Items1
+msgid "Below {0}"
+msgstr "Під {0}"
+
+#: AddTextLine.resx, comboBoxCourses.Items
+msgid "This course only"
+msgstr "Тільки для цієї дистанції"
+
+#: AddTextLine.resx, comboBoxCourses.Items1
+msgid "All courses with {0}"
+msgstr "Всі дистанції з {0}"
+
+#: AddTextLine.resx, $this.Text
+#: CommandNameText.resx, AddTextLine
+msgid "Add Text Line"
+msgstr "Додати текстову строку"
+
+#: AllControlsProperties.resx, allControlsPropertiesLabel.Text
+msgid "These settings control how the map and descriptions for "
+"All Controls are printed."
+msgstr "Ці налаштування визначають як буде надруковано карту та "
+"легенди для Всіх КП."
+
+#: AllControlsProperties.resx, $this.Text
+msgid "All Controls Properties"
+msgstr "Властивості для Всі КП"
+
+#: AutoNumbering.resx, disallowInvertibleCheckBox.Text
+#: NewEventNumbering.resx, disallowInvertibleCheckBox.Text
+msgid "Disallow codes that could be read upside-down (e.g., "
+"\"68\"/\"89\")"
+msgstr "Виключити коди КП, які можуть бути прочитані догори ногами "
+"(напр., \"68\"/\"89\")"
+
+#: AutoNumbering.resx, renumberExistingRadioButton.Text
+msgid "Renumber existing controls also"
+msgstr "Змінити нумерацію також існуючих КП"
+
+#: AutoNumbering.resx, newControlsOnlyRadioButton.Text
+msgid "Apply these settings to newly created controls only"
+msgstr "Застосувати це налаштування тільки до новостворених КП"
+
+#: AutoNumbering.resx, existingControlsGroupBox.Text
+msgid "Existing Controls"
+msgstr "Існуючі КП"
+
+#: AutoNumbering.resx, automaticNumberingLabel.Text
+msgid "Newly created controls are automatically numbered "
+"according to the following settings."
+msgstr "Новостворені КП автоматично нумеруються відповідно до цих "
+"налаштувань."
+
+#: AutoNumbering.resx, startingCodeLabel.Text
+#: NewEventNumbering.resx, startingCodeLabel.Text
+msgid "Starting code:"
+msgstr "Початковий код:"
+
+#: AutoNumbering.resx, $this.Text
+#: CommandNameText.resx, AutoNumbering
+msgid "Automatic Numbering"
+msgstr "Автоматична нумерація"
+
+#: ChangeAllCodes.resx, OldCode.HeaderText
+msgid "Original Code"
+msgstr "Оригінальний код"
+
+#: ChangeAllCodes.resx, NewCode.HeaderText
+msgid "New Code"
+msgstr "Новий код"
+
+#: ChangeAllCodes.resx, changeControlCodesLabel.Text
+msgid "To change the code for one or more controls,click in the "
+"\"New Code\" column and enter the new code. "
+msgstr ""
+
+#: ChangeAllCodes.resx, $this.Text
+msgid "Change Control Codes"
+msgstr "Змінити коди КП"
+
+#: ChangeCourseOrder.resx, moveDownButton.Text
+msgid "Move down"
+msgstr "Перемістити нижче"
+
+#: ChangeCourseOrder.resx, courseOrderLabel.Text
+msgid "Use the \"Move Up\" and \"Move Down\" buttons to change the "
+"order that courses are listed in the user interface, "
+"reports, and printing."
+msgstr "Використовуйте кнопки \"Перемістити вище\" та \"Перемістити "
+"нижче\" щоб змінити порядок дистанцій у інтерфейсі, звітах "
+"та при друці."
+
+#: ChangeCourseOrder.resx, moveUpButton.Text
+msgid "Move up"
+msgstr "Перемістити вище"
+
+#: ChangeCourseOrder.resx, $this.Text
+msgid "Course Order"
+msgstr "Порядок дистанцій"
+
+#: ChangeMapFile.resx, mapFileDisplay.Text
+msgid "Current Map File"
+msgstr "Файл карти"
+
+#: ChangeMapFile.resx, buttonChooseFile.Text
+#: NewEventMapFile.resx, chooseMapFileButton.Text
+msgid "&Choose map file..."
+msgstr "&Виберіть файл карти..."
+
+#: ChangeMapFile.resx, openFileDialog.Filter
+#: NewEventMapFile.resx, openFileDialog.Filter
+msgid "All map "
+"files|*.ocd;*.omap;*.xmap;*.pdf;*.jpeg;*.jpg;*.tiff;*.tif;*."
+"bmp;*.png;*.gif|OCAD files (*.ocd)|*.ocd|Open Orienteering "
+"Mapper Files|*.omap;*.xmap|PDF files (*.pdf)|*.pdf|Image "
+"files|*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif"
+msgstr "Всі файли "
+"карт|*.ocd;*.omap;*.xmap;*.pdf;*.jpeg;*.jpg;*.tiff;*.tif;*.b"
+"mp;*.png;*.gif|Файли OCAD (*.ocd)|*.ocd|Файли Open "
+"Orienteering Mapper|*.omap;*.xmap|Файли PDF "
+"(*.pdf)|*.pdf|Файли "
+"зображень|*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif"
+
+#: ChangeMapFile.resx, labelDpi.Text
+msgid "Resolution:"
+msgstr "Роздільна здатність:"
+
+#: ChangeMapFile.resx, labelScale.Text
+#: SelectLocationsForMove.resx, labelScale.Text
+msgid "Scale:"
+msgstr "Масштаб:"
+
+#: ChangeMapFile.resx, labelOneTo.Text
+msgid "1 :"
+msgstr "1 :"
+
+#: ChangeMapFile.resx, labelDpi2.Text
+#: NewEventBitmapScale.resx, dpiLabel.Text
+msgid "dots per inch"
+msgstr "точок на дюйм"
+
+#: ChangeMapFile.resx, $this.Text
+#: NewEventMapFile.resx, labelTitle.Text
+msgid "Map File"
+msgstr "Файл карти"
+
+#: ChangeSpecialCourses.resx, changeDisplayedCoursesLabel.Text
+msgid "Choose the courses that this object will be displayed on:"
+msgstr "Вибаріть дистанції, на яких буде відображатися цей об'єкт:"
+
+#: ChangeSpecialCourses.resx, $this.Text
+#: CommandNameText.resx, ChangeDisplayedCourses
+msgid "Change Displayed Courses"
+msgstr "Змінити видимі дистанції"
+
+#: ChangeText.resx, eventTitleMenuItem.Text
+#: NewEventTitle.resx, labelTitle.Text
+msgid "Event Title"
+msgstr "Назва заходу"
+
+#: ChangeText.resx, courseNameMenuItem.Text
+#: CourseLoad.resx, CourseName.HeaderText
+#: SelectionDescriptionText.resx, SpecialName_CourseName
+msgid "Course Name"
+msgstr "Назва дистанції"
+
+#: ChangeText.resx, coursePartMenuItem.Text
+msgid "Course Part"
+msgstr "Частина дистанції"
+
+#: ChangeText.resx, variationMenuItem.Text
+msgid "Course Variation"
+msgstr "Варіант дистанції"
+
+#: ChangeText.resx, courseLengthMenuItem.Text
+msgid "Course Length"
+msgstr "Довжина дистанції"
+
+#: ChangeText.resx, courseClimbMenuItem.Text
+msgid "Course Climb"
+msgstr "Набір висоти на дистанції"
+
+#: ChangeText.resx, classListMenuItem.Text
+msgid "Class List"
+msgstr "Список класів"
+
+#: ChangeText.resx, printScaleMenuItem.Text
+#: NewEventPrintScale.resx, labelTitle.Text
+msgid "Print Scale"
+msgstr "Маштаб для друку"
+
+#: ChangeText.resx, relayTeamMenuItem.Text
+msgid "Relay Team"
+msgstr "Естафетна команда"
+
+#: ChangeText.resx, relayLegMenuItem.Text
+msgid "Relay Leg"
+msgstr "Етап естафети"
+
+#: ChangeText.resx, fileNameMenuItem.Text
+#: CreateRouteGadget.resx, nameGroupBox.Text
+msgid "File Name"
+msgstr "Назва файла"
+
+#: ChangeText.resx, mapFileNameMenuItem.Text
+msgid "Map File Name"
+msgstr "Назва файла карти"
+
+#: ChangeText.resx, buttonChangeColor.Text
+msgid "Change Color..."
+msgstr "Змінити колір..."
+
+#: ChangeText.resx, label2.Text
+#: CourseAppearanceDialog.resx, label9.Text
+#: LinePropertiesDialog.resx, label1.Text
+msgid "Color:"
+msgstr "Колір:"
+
+#: ChangeText.resx, checkBoxItalic.Text
+msgid "Italic"
+msgstr "Курсив"
+
+#: ChangeText.resx, checkBoxBold.Text
+msgid "Bold"
+msgstr "Жирний"
+
+#: ChangeText.resx, label1.Text
+msgid "Font:"
+msgstr "Шрифт:"
+
+#: ChangeText.resx, label3.Text
+#: PrinterMargins.resx, labelPaper.Text
+msgid "Size:"
+msgstr "Розмір:"
+
+#: ChangeText.resx, labelFontSizeMm.Text
+#: CourseAppearanceDialog.resx, label12.Text
+#: CourseAppearanceDialog.resx, label10.Text
+#: CourseAppearanceDialog.resx, label8.Text
+#: CourseAppearanceDialog.resx, label4.Text
+#: CourseAppearanceDialog.resx, label2.Text
+#: CourseAppearanceDialog.resx, labelMM1.Text
+#: LinePropertiesDialog.resx, labelWidthMm.Text
+#: LinePropertiesDialog.resx, labelGapSizeMm.Text
+#: LinePropertiesDialog.resx, labelDashSizeMm.Text
+#: LinePropertiesDialog.resx, labelRadiusMm.Text
+#: PrintDescriptions.resx, mmSuffixLabel.Text
+#: PrintPunches.resx, mmSuffixLabel.Text
+msgid "mm"
+msgstr "мм"
+
+#: ChangeText.resx, checkBoxAutoFontSize.Text
+#: MiscText.resx, AutomaticLength
+msgid "Automatic"
+msgstr "Автоматично"
+
+#: ChangeText.resx, groupBox2.Text
+#: LinePropertiesDialog.resx, groupBox1.Text
+msgid "Sample"
+msgstr "Зразок"
+
+#: ChangeText.resx, insertSpecialButton.Text
+msgid "Insert Special Text"
+msgstr "Додати спеціальний текст"
+
+#: ColorChooserDialog.resx, label5.Text
+#: CourseAppearanceDialog.resx, label5.Text
+msgid "Black:"
+msgstr "Чорний:"
+
+#: ColorChooserDialog.resx, label6.Text
+#: CourseAppearanceDialog.resx, label6.Text
+msgid "Yellow:"
+msgstr "Жовтий:"
+
+#: ColorChooserDialog.resx, label3.Text
+#: CourseAppearanceDialog.resx, label3.Text
+msgid "Magenta:"
+msgstr "Пурпуровий:"
+
+#: ColorChooserDialog.resx, label1.Text
+#: CourseAppearanceDialog.resx, label1.Text
+msgid "Cyan:"
+msgstr "Блакитний:"
+
+#: ColorChooserDialog.resx, groupBoxPreview.Text
+#: CourseAppearanceDialog.resx, groupBoxPreview.Text
+msgid "Preview"
+msgstr "Попередній перегляд"
+
+#: ColorChooserDialog.resx, $this.Text
+msgid "Choose Color"
+msgstr "Вибрати колір"
+
+#: CommandNameText.resx, ChangeSymbol
+msgid "Change Symbol"
+msgstr "Змінити пікторнаму"
+
+#: CommandNameText.resx, ChangeCode
+msgid "Change Control Code"
+msgstr "Змінити код КП"
+
+#: CommandNameText.resx, ChangeControl
+msgid "Change Control"
+msgstr "Змінити КП"
+
+#: CommandNameText.resx, ChangeScore
+msgid "Change Control Points"
+msgstr "Змінити вартість КП"
+
+#: CommandNameText.resx, ChangeTitle
+msgid "Change Title"
+msgstr "Змінити заголовок"
+
+#: CommandNameText.resx, ChangeClimb
+msgid "Change Climb"
+msgstr "Змінити набір висоти"
+
+#: CommandNameText.resx, ChangeCourseName
+msgid "Change Course Name"
+msgstr "Змінити назву дистанції"
+
+#: CommandNameText.resx, ChangeTextLine
+msgid "Change Text Line"
+msgstr "Змінити підпис"
+
+#: CommandNameText.resx, ChangeScale
+msgid "Update Map Scale"
+msgstr "Оновити масштаб карти"
+
+#: CommandNameText.resx, MoveControl
+msgid "Move Control"
+msgstr "Перемістити КП"
+
+#: CommandNameText.resx, MoveControlNumber
+msgid "Move Control Number"
+msgstr "Перемістити номер КП"
+
+#: CommandNameText.resx, MoveObject
+msgid "Move Object"
+msgstr "Перемістити об'єкт"
+
+#: CommandNameText.resx, DeleteControl
+msgid "Delete Control"
+msgstr "Видалити КП"
+
+#: CommandNameText.resx, DeleteObject
+msgid "Delete Object"
+msgstr "Видалити об'єкт"
+
+#: CommandNameText.resx, DeleteTextLine
+msgid "Delete Text Line"
+msgstr "Видалити строку тексту"
+
+#: CommandNameText.resx, AddControl
+#: MainFrame.resx, addControlToolStripButton.Text
+msgid "Add Control"
+msgstr "Додати КП"
+
+#: CommandNameText.resx, AddStart
+#: MainFrame.resx, addStartToolStripButton.Text
+msgid "Add Start"
+msgstr "Додати старт"
+
+#: CommandNameText.resx, AddFinish
+#: MainFrame.resx, addFinishToolStripButton.Text
+msgid "Add Finish"
+msgstr "Додати фініш"
+
+#: CommandNameText.resx, AddCrossingPoint
+msgid "Add Mandatory Crossing Point"
+msgstr "Додати обов'язковий пункт перетину"
+
+#: CommandNameText.resx, AddObject
+msgid "Add Object"
+msgstr "Додати об'єкт"
+
+#: CommandNameText.resx, DeleteCourse
+msgid "Delete Course"
+msgstr "Видалити дистанцію"
+
+#: CommandNameText.resx, ChangeCourseProperties
+msgid "Change Course Properties"
+msgstr "Змінити властивості дистанції"
+
+#: CommandNameText.resx, ChangeAllControlsProperties
+msgid "Change All Controls Properties"
+msgstr "Змінити властивості для Всі КП"
+
+#: CommandNameText.resx, NewEvent
+#: NewEventWizard.resx, $this.Text
+msgid "Create New Event"
+msgstr "Створити новий захід"
+
+#: CommandNameText.resx, SetLegFlagging
+msgid "Change Leg Flagging"
+msgstr "Змінити позначення перегону"
+
+#: CommandNameText.resx, ChangeCodes
+msgid "Change Codes"
+msgstr "Змінити коди"
+
+#: CommandNameText.resx, MoveBend
+msgid "Move Leg Bend"
+msgstr "Рухати вигин перегону"
+
+#: CommandNameText.resx, AddBend
+msgid "Add Bend"
+msgstr "Додати вигинн"
+
+#: CommandNameText.resx, AddCorner
+msgid "Add Corner"
+msgstr "Додати кут"
+
+#: CommandNameText.resx, DeleteBend
+msgid "Remove Bend"
+msgstr "Прибрати вигин"
+
+#: CommandNameText.resx, DeleteCorner
+msgid "Remove Corner"
+msgstr "Прибрати кут"
+
+#: CommandNameText.resx, AddGap
+msgid "Add Gap"
+msgstr "Додати розріз"
+
+#: CommandNameText.resx, RemoveGap
+msgid "Remove Gap"
+msgstr "Прибрати розріз"
+
+#: CommandNameText.resx, MoveGap
+msgid "Move Gap"
+msgstr "Рухати розріз"
+
+#: CommandNameText.resx, Rotate
+msgid "Rotate"
+msgstr "Повернути"
+
+#: CommandNameText.resx, ChangePunchPatterns
+msgid "Change Punch Patterns"
+msgstr "Змінити фігури компостерів"
+
+#: CommandNameText.resx, ChangePunchcardFormat
+msgid "Change Punch Card Layout"
+msgstr "Змінити макет картки для відмітки"
+
+#: CommandNameText.resx, SetPrintArea
+#: SetPrintAreaDialog.resx, $this.Text
+msgid "Set Print Area"
+msgstr "Задати область друку"
+
+#: CommandNameText.resx, SetCourseLoad
+msgid "Change Competitor Load"
+msgstr ""
+
+#: CommandNameText.resx, SetCustomSymbolText
+#: CustomSymbolText.resx, $this.Text
+msgid "Customize Description Text"
+msgstr "Описати легенди словами"
+
+#: CommandNameText.resx, ChangeCourseOrder
+msgid "Change Course Order"
+msgstr "Змінити порядок дистанцій"
+
+#: CommandNameText.resx, ChangeMapFile
+msgid "Change Map File"
+msgstr "Змінити файл карти"
+
+#: CommandNameText.resx, IgnoreMissingFonts
+msgid "Ignore Missing Fonts"
+msgstr "Ігнорувати нестачу шрифтів"
+
+#: CommandNameText.resx, RemoveUnusedControls
+msgid "Remove Unused Controls"
+msgstr "Видалити невикористані КП"
+
+#: CommandNameText.resx, SetDescriptionLanguage
+msgid "Change Description Language"
+msgstr "Змінити мову опису легенд"
+
+#: CommandNameText.resx, ChangeText
+#: MiscText.resx, ChangeTextTitle
+msgid "Change Text"
+msgstr "Змінити текст"
+
+#: CommandNameText.resx, ChangeCourseAppearance
+msgid "Customize Course Appearance"
+msgstr "Налаштувати вигляд дистанції"
+
+#: CommandNameText.resx, AddMapExchange
+msgid "Add Map Exchange"
+msgstr "Додати заміну карт"
+
+#: CommandNameText.resx, DeleteMapExchangeAtControl
+msgid "Delete Map Exchange"
+msgstr "Видалити заміну карт"
+
+#: CommandNameText.resx, ChangePartProperties
+msgid "Change Course Part Properties"
+msgstr "Змінити властивості частини дистанції"
+
+#: CommandNameText.resx, ChangeLineAppearance
+#: MiscText.resx, ChangeLineAppearanceTitle
+msgid "Change Line Appearance"
+msgstr "Змінити вигляд лінії"
+
+#: CommandNameText.resx, DuplicateCourse
+#: MiscText.resx, DuplicateCourseTitle
+msgid "Duplicate Course"
+msgstr "Дублювати дистанцію"
+
+#: CommandNameText.resx, CreateMapFiles
+msgid "Create {0} &Files"
+msgstr "Створити {0} &Файли"
+
+#: CommandNameText.resx, DeleteFork
+msgid "Delete Fork/Loop"
+msgstr "Видалити Вилку/Петлю"
+
+#: CommandNameText.resx, RelayTeamVariations
+#: TeamVariationsForm.resx, $this.Text
+msgid "Relay Team Variations"
+msgstr ""
+
+#: CommandNameText.resx, AddMapIssue
+msgid "Add Map Issue Point"
+msgstr "Додати пункт видачі карт"
+
+#: CommandNameText.resx, ChangeDescriptionStandard
+msgid "Set Control Description Standard"
+msgstr "Задати стандарт легенд КП"
+
+#: CommandNameText.resx, ChangeMapStandard
+msgid "Set Map Standard"
+msgstr "Задати стандарт карти"
+
+#: CommandNameText.resx, Stretch
+msgid "Stretch"
+msgstr "Розтягнути"
+
+#: CommandNameText.resx, SetLiveloxImportableEventId
+msgid "Publish to Livelox"
+msgstr "Опублікувати в Livelox"
+
+#: CommandNameText.resx, MoveAllControls
+#: MoveAllControls.resx, $this.Text
+#: SelectLocationsForMove.resx, $this.Text
+msgid "Move All Controls"
+msgstr ""
+
+#: CommandNameText.resx, AddMapFlip
+msgid "Add Map Flip"
+msgstr ""
+
+#: CourseAppearanceDialog.resx, comboBoxScaleItemSizes.Items
+msgid "Do not scale"
+msgstr "Не масштабувати"
+
+#: CourseAppearanceDialog.resx, comboBoxScaleItemSizes.Items1
+msgid "Relative to map scale"
+msgstr "Відностно масштабу карти"
+
+#: CourseAppearanceDialog.resx, comboBoxScaleItemSizes.Items2
+msgid "Relative to 1:15000"
+msgstr "Відносно 1:15000"
+
+#: CourseAppearanceDialog.resx, label11.Text
+msgid "Scale item sizes:"
+msgstr "Масштабувати розмаір елементів:"
+
+#: CourseAppearanceDialog.resx, labelAutoGapSize.Text
+msgid "Automatic leg gap size:"
+msgstr "Автоматичний розмір розриву лінії:"
+
+#: CourseAppearanceDialog.resx, labelOutlineWidth.Text
+msgid "White outline around numbers:"
+msgstr "Біла обводка навколо цифер:"
+
+#: CourseAppearanceDialog.resx, label7.Text
+msgid "Center dot diameter:"
+msgstr "Діаметер ценральної точки:"
+
+#: CourseAppearanceDialog.resx, comboBoxControlNumberStyle.Items
+msgid "Arial"
+msgstr "Arial"
+
+#: CourseAppearanceDialog.resx, comboBoxControlNumberStyle.Items1
+msgid "Arial Bold"
+msgstr "Arial Жирний"
+
+#: CourseAppearanceDialog.resx, comboBoxControlNumberStyle.Items2
+msgid "Roboto"
+msgstr ""
+
+#: CourseAppearanceDialog.resx, comboBoxControlNumberStyle.Items3
+msgid "Roboto Bold"
+msgstr ""
+
+#: CourseAppearanceDialog.resx, labelControlNumberStyle.Text
+msgid "Control number style:"
+msgstr "Стиль номера КП:"
+
+#: CourseAppearanceDialog.resx, labelControlNumber.Text
+msgid "Control number height:"
+msgstr "Висота номера КП:"
+
+#: CourseAppearanceDialog.resx, labelLineWidth.Text
+msgid "Line width:"
+msgstr "Товщина лінії:"
+
+#: CourseAppearanceDialog.resx, labelControlCircle.Text
+msgid "Control circle diameter:"
+msgstr "Діаметер кружка КП:"
+
+#: CourseAppearanceDialog.resx, checkBoxStandardSizes.Text
+msgid "Use IOF standard sizes"
+msgstr "Розміри згідно стандартів IOF"
+
+#: CourseAppearanceDialog.resx, groupBoxSizes.Text
+msgid "Item Sizes"
+msgstr "Розмір елементів"
+
+#: CourseAppearanceDialog.resx, labelChooseLayer.Text
+msgid "Above map layer:"
+msgstr ""
+
+#: CourseAppearanceDialog.resx, comboBoxBlendPurple.Items
+#: CourseSelector.resx, selectNone.Text
+#: SelectionDescriptionText.resx, CourseList_None
+msgid "None"
+msgstr "Немає"
+
+#: CourseAppearanceDialog.resx, comboBoxBlendPurple.Items1
+msgid "Blend"
+msgstr ""
+
+#: CourseAppearanceDialog.resx, comboBoxBlendPurple.Items2
+msgid "Layer"
+msgstr ""
+
+#: CourseAppearanceDialog.resx, labelBlendPurple.Text
+msgid "Blend purple with underlying map colors:"
+msgstr ""
+
+#: CourseAppearanceDialog.resx, checkBoxDefaultPurple.Text
+msgid "Use purple color from map"
+msgstr "Використати пурпуровий як на карті"
+
+#: CourseAppearanceDialog.resx, groupBoxPurple.Text
+msgid "Purple Color"
+msgstr "Пурпуровий колір"
+
+#: CourseAppearanceDialog.resx, comboBoxDescriptionColor.Items
+#: MiscText.resx, Black
+msgid "Black"
+msgstr "Чорний"
+
+#: CourseAppearanceDialog.resx, comboBoxDescriptionColor.Items1
+#: MiscText.resx, Purple
+msgid "Purple"
+msgstr "Пурпуровий"
+
+#: CourseAppearanceDialog.resx, groupBox1.Text
+#: SelectionDescriptionText.resx, SpecialName_Descriptions
+msgid "Control Descriptions"
+msgstr "Легенди КП"
+
+#: CourseAppearanceDialog.resx, checkBoxOverprint.Text
+msgid "Use overprint effect for colors marked \"overprint\""
+msgstr "Використовувати ефект оверпрінту для кольорів з позначкою "
+"\"overprint\""
+
+#: CourseAppearanceDialog.resx, groupBoxOcadMap.Text
+msgid "Advanced"
+msgstr "Додатково"
+
+#: CourseAppearanceDialog.resx, $this.Text
+msgid "Customize Appearance"
+msgstr "Налаштувати вигляд"
+
+#: CourseLoad.resx, Load.HeaderText
+msgid "Competitor Load"
+msgstr ""
+
+#: CourseLoad.resx, courseLoadLabel.Text
+msgid "Set the number of competitors on each course by clicking "
+"in the second column and typing a number."
+msgstr "Задайте кількість учасників для кожної з дистанцій. Для "
+"цього клацніть на другому стовпці і введіть число."
+
+#: CourseLoad.resx, $this.Text
+msgid "Course Load"
+msgstr "Навантаження дистанції"
+
+#: CoursePartBanner.resx, variationsLabel.Text
+msgid "Course Variation: "
+msgstr "Розсіювання дистанції "
+
+#: CoursePartBanner.resx, buttonProperties.Text
+msgid "Properties..."
+msgstr "Властивості…"
+
+#: CoursePartBanner.resx, coursePartLabel.Text
+msgid "Course Part: "
+msgstr "Частина дистанції: "
+
+#: CoursePartProperties.resx, checkBoxDisplayFinish.Text
+msgid "Display finish circle on this course part"
+msgstr "Показувати знак фінішу в кінці цієї частини дистанції"
+
+#: CoursePartProperties.resx, label1.Text
+msgid "These settings control the appearance of this part of a "
+"multi-part course."
+msgstr "Ці налаштування контролюють вигляд цієї частини "
+"багаточастинної дистанції."
+
+#: CoursePartProperties.resx, $this.Text
+msgid "Course Part Properties"
+msgstr "Властивості частини дистанції"
+
+#: CourseSelector.resx, selectAll.Text
+msgid "All"
+msgstr "Усі"
+
+#: CourseSelector.resx, buttonChooseVariations.Text
+msgid "Choose Variations..."
+msgstr "Виберіть варіант"
+
+#: CreateGpx.resx, coursesGroupBox.Text
+#: CreateImageFiles.resx, coursesGroupBox.Text
+#: CreateKmlFiles.resx, coursesGroupBox.Text
+#: CreateOcadFiles.resx, coursesGroupBox.Text
+#: CreatePdfCourses.resx, coursesGroupBox.Text
+#: PrintCourses.resx, coursesGroupBox.Text
+#: PrintDescriptions.resx, coursesGroupBox.Text
+#: PrintPunches.resx, coursesGroupBox.Text
+#: ReportText.resx, ColumnHeader_Courses
+msgid "Courses"
+msgstr "Дистанції"
+
+#: CreateGpx.resx, namePrefixLabel.Text
+#: CreatePdfCourses.resx, fileNamePrefixLabel.Text
+msgid "Name prefix:"
+msgstr "Префікс"
+
+#: CreateGpx.resx, waypointGroupBox.Text
+msgid "Waypoints"
+msgstr "Маршрутні точки"
+
+#: CreateGpx.resx, headerLabel.Text
+msgid "A GPX File contains GPS coordinates for controls, and can "
+"be loaded onto a GPS or smartphone to verify the correct "
+"location of controls."
+msgstr "GPX файл містить глобальні координати контрольних пунктів. "
+"Його можна перенести в GPS-навігатор чи смартфон для "
+"перевірки правиьності постановки КП."
+
+#: CreateGpx.resx, $this.Text
+#: MainFrame.resx, saveGpxFileDialog.Title
+msgid "Create GPX File"
+msgstr "Створити GPX файл"
+
+#: CreateImageFiles.resx, createButton.Text
+#: CreateKmlFiles.resx, createButton.Text
+#: CreateOcadFiles.resx, createButton.Text
+#: CreatePdfCourses.resx, okButton.Text
+#: CreateRouteGadget.resx, createButton.Text
+msgid "Create"
+msgstr "Створити"
+
+#: CreateImageFiles.resx, cancelButton.Text
+#: CreateKmlFiles.resx, cancelButton.Text
+#: CreateOcadFiles.resx, cancelButton.Text
+#: CreateRouteGadget.resx, cancelButton.Text
+#: MiscText.resx, CrashCancel
+#: NewEventWizard.resx, cancelButton.Text
+#: NonPrintableObjects.resx, cancelButton.Text
+#: OkCancelDialog.resx, cancelButton.Text
+#: OperationInProgress.resx, cancelButton.Text
+#: OverwritingOcadFilesDialog.resx, buttonCancel.Text
+#: PrintDescriptions.resx, cancelButton.Text
+#: PrintPunches.resx, cancelButton.Text
+#: SelectLocationsForMove.resx, buttonCancel.Text
+#: SetPrintAreaDialog.resx, cancelButton.Text
+msgid "Cancel"
+msgstr "Скасувати"
+
+#: CreateImageFiles.resx, folderBrowserDialog.Description
+#: CreateKmlFiles.resx, folderBrowserDialog.Description
+#: CreateOcadFiles.resx, folderBrowserDialog.Description
+#: CreateRouteGadget.resx, folderBrowserDialog.Description
+msgid "Select a folder for the OCAD files"
+msgstr "Виберіть папку для файлів OCAD"
+
+#: CreateImageFiles.resx, outputGroupBox.Text
+#: CreateKmlFiles.resx, outputGroupBox.Text
+#: CreateOcadFiles.resx, outputGroupBox.Text
+#: PrintCourses.resx, printerGroup.Text
+#: PrintDescriptions.resx, printerGroup.Text
+#: PrintPunches.resx, printerGroup.Text
+msgid "Output"
+msgstr "Вивід"
+
+#: CreateImageFiles.resx, fileFormatLabel.Text
+#: CreateOcadFiles.resx, fileFormatLabel.Text
+msgid "File format:"
+msgstr "Формат файла:"
+
+#: CreateImageFiles.resx, fileFormatCombo.Items
+msgid "PNG"
+msgstr "PNG"
+
+#: CreateImageFiles.resx, fileFormatCombo.Items1
+msgid "JPEG"
+msgstr "JPEG"
+
+#: CreateImageFiles.resx, fileFormatCombo.Items2
+msgid "GIF"
+msgstr "GIF"
+
+#: CreateImageFiles.resx, fileNamePrefixLabel.Text
+#: CreateKmlFiles.resx, fileNamePrefixLabel.Text
+#: CreateOcadFiles.resx, fileNamePrefixLabel.Text
+msgid "File name prefix:"
+msgstr "Префікс назви файла:"
+
+#: CreateImageFiles.resx, label1.Text
+msgid "World file:"
+msgstr "World файл:"
+
+#: CreateImageFiles.resx, comboBoxDpi.Items
+msgid "100"
+msgstr "100"
+
+#: CreateImageFiles.resx, comboBoxDpi.Items1
+msgid "150"
+msgstr "150"
+
+#: CreateImageFiles.resx, comboBoxDpi.Items2
+msgid "200"
+msgstr "200"
+
+#: CreateImageFiles.resx, comboBoxDpi.Items3
+msgid "300"
+msgstr "300"
+
+#: CreateImageFiles.resx, comboBoxDpi.Items4
+msgid "400"
+msgstr "400"
+
+#: CreateImageFiles.resx, comboBoxDpi.Items5
+msgid "500"
+msgstr "500"
+
+#: CreateImageFiles.resx, comboBoxDpi.Items6
+msgid "600"
+msgstr "600"
+
+#: CreateImageFiles.resx, dpiLabel.Text
+msgid "Dpi:"
+msgstr "Dpi:"
+
+#: CreateImageFiles.resx, comboBoxWorldFile.Items
+#: ReportText.resx, EventAudit_No
+msgid "No"
+msgstr "Ні"
+
+#: CreateImageFiles.resx, comboBoxWorldFile.Items1
+#: ReportText.resx, EventAudit_Yes
+msgid "Yes"
+msgstr "Так"
+
+#: CreateImageFiles.resx, labelColorModel.Text
+msgid "Color model:"
+msgstr "Кольорова модель:"
+
+#: CreateImageFiles.resx, comboBoxColorModel.Items
+#: CreatePdfCourses.resx, comboBoxColorModel.Items
+#: PrintCourses.resx, comboBoxColorModel.Items1
+msgid "RGB"
+msgstr "RGB"
+
+#: CreateImageFiles.resx, comboBoxColorModel.Items1
+#: CreatePdfCourses.resx, comboBoxColorModel.Items1
+#: PrintCourses.resx, comboBoxColorModel.Items2
+msgid "CMYK"
+msgstr "CMYK"
+
+#: CreateImageFiles.resx, selectOtherDirectoryButton.Text
+#: CreateKmlFiles.resx, selectOtherDirectoryButton.Text
+#: CreateOcadFiles.resx, selectOtherDirectoryButton.Text
+#: CreatePdfCourses.resx, selectOtherDirectoryButton.Text
+#: CreateRouteGadget.resx, selectOtherDirectoryButton.Text
+msgid "Select folder..."
+msgstr "Вибрати папку..."
+
+#: CreateImageFiles.resx, coursesDirectory.Text
+#: CreateKmlFiles.resx, coursesDirectory.Text
+#: CreateOcadFiles.resx, coursesDirectory.Text
+#: CreatePdfCourses.resx, coursesDirectory.Text
+#: CreateRouteGadget.resx, coursesDirectory.Text
+msgid "Same folder as Purple Pen file"
+msgstr "Та сама папка що і для файлу Purple Pen"
+
+#: CreateImageFiles.resx, mapDirectory.Text
+#: CreateKmlFiles.resx, mapDirectory.Text
+#: CreateOcadFiles.resx, mapDirectory.Text
+#: CreatePdfCourses.resx, mapDirectory.Text
+#: CreateRouteGadget.resx, mapDirectory.Text
+msgid "Same folder as map file"
+msgstr "Та сама папка що і файл карти"
+
+#: CreateImageFiles.resx, otherDirectory.Text
+#: CreateKmlFiles.resx, otherDirectory.Text
+#: CreateOcadFiles.resx, otherDirectory.Text
+#: CreatePdfCourses.resx, otherDirectory.Text
+#: CreateRouteGadget.resx, otherDirectory.Text
+msgid "Other folder"
+msgstr "Інша папка"
+
+#: CreateImageFiles.resx, folderGroupBox.Text
+#: CreateKmlFiles.resx, folderGroupBox.Text
+#: CreateOcadFiles.resx, folderGroupBox.Text
+#: CreatePdfCourses.resx, folderGroupBox.Text
+#: CreateRouteGadget.resx, folderGroupBox.Text
+msgid "Folder"
+msgstr "Папка"
+
+#: CreateImageFiles.resx, $this.Text
+msgid "Create Image Files"
+msgstr "Створити файли зображення"
+
+#: CreateKmlFiles.resx, filesLabel.Text
+#: CreatePdfCourses.resx, filesLabel.Text
+msgid "Files:"
+msgstr "Файли:"
+
+#: CreateKmlFiles.resx, filesCombo.Items
+#: CreatePdfCourses.resx, comboBoxFileFormat.Items
+msgid "One for all courses"
+msgstr "Один для всіх дистанцій"
+
+#: CreateKmlFiles.resx, filesCombo.Items1
+#: CreatePdfCourses.resx, comboBoxFileFormat.Items1
+msgid "One per course"
+msgstr "Один для кожної дистанції"
+
+#: CreateKmlFiles.resx, $this.Text
+msgid "Create KML File"
+msgstr "Створити файл KML"
+
+#: CreateOcadFiles.resx, $this.Text
+msgid "Create OCAD Files"
+msgstr "Створии файли OCAD"
+
+#: CreatePdfCourses.resx, checkBoxMergeParts.Text
+#: PrintCourses.resx, checkBoxMergeParts.Text
+msgid "Print Map Exchanges on Same Map "
+msgstr "Надрукувати пункт зміни карт на цій самій карті "
+
+#: CreatePdfCourses.resx, labelColorModel.Text
+#: PrintCourses.resx, labelColorModel.Text
+msgid "Color Model:"
+msgstr "Кольорова модель:"
+
+#: CreatePdfCourses.resx, comboBoxMultiPage.Items
+#: PrintCourses.resx, comboBoxMultiPage.Items
+msgid "Crop to a single page"
+msgstr "Кадрувати до розміру сторінки"
+
+#: CreatePdfCourses.resx, comboBoxMultiPage.Items1
+#: PrintCourses.resx, comboBoxMultiPage.Items1
+msgid "Print on multiple pages"
+msgstr "Друкувати на кількох сторінках"
+
+#: CreatePdfCourses.resx, labelAppearanceInfo.Text
+#: PrintCourses.resx, labelAppearanceInfo.Text
+msgid "If the print area is too large to fit on one page:"
+msgstr "Якщо область друку більша за сторінку:"
+
+#: CreatePdfCourses.resx, comboBoxFileFormat.Items2
+msgid "One per course part/variation"
+msgstr "Один для частини дистанції/варіанту"
+
+#: CreatePdfCourses.resx, outputGroupBox.Text
+msgid "Files"
+msgstr "Файли"
+
+#: CreatePdfCourses.resx, folderBrowserDialog.Description
+msgid "Select a folder for the PDF files"
+msgstr "Виберіть папку для PDF файлів"
+
+#: CreatePdfCourses.resx, $this.Text
+msgid "Create PDF Files"
+msgstr "Створити PDF файли"
+
+#: CreateRouteGadget.resx, label1.Text
+msgid "Enter the name (without .xml or .gif) for both of the "
+"RouteGadget files:"
+msgstr "Введіть назву файла (без .xml чи .gif) для обох файлів "
+"RouteGadget:"
+
+#: CreateRouteGadget.resx, learnMoreLink.Text
+msgid "Learn more about RouteGadget"
+msgstr "Більш детально про RouteGadget"
+
+#: CreateRouteGadget.resx, label2.Text
+msgid "RouteGadget requires both an image file (.gif) and IOF XML "
+"file (.xml). Choose the name and folder for both of these "
+"files."
+msgstr "Для RouteGadget необхідні обидва файли - зображення (.gif) "
+"та IOF XML (.xml). Виберіть папку та імена для обох цих "
+"файлів."
+
+#: CreateRouteGadget.resx, comboBoxIofXml.Items
+msgid "2.0.3"
+msgstr "2.0.3"
+
+#: CreateRouteGadget.resx, comboBoxIofXml.Items1
+msgid "3.0"
+msgstr "3.0"
+
+#: CreateRouteGadget.resx, labelIofXml.Text
+msgid "IOF XML Version:"
+msgstr "IOF XML версії:"
+
+#: CreateRouteGadget.resx, groupBox1.Text
+msgid "IOF XML"
+msgstr "IOF XML"
+
+#: CreateRouteGadget.resx, $this.Text
+msgid "Create RouteGadget Files"
+msgstr "Створити фали для RouteGadget"
+
+#: CustomSymbolText.resx, labelChooseLanguage.Text
+msgid "Choose the language used for textual control descriptions:"
+msgstr "Виберіть мову для текстового опису легенд КП:"
+
+#: CustomSymbolText.resx, labelSymbolName.Text
+msgid "Symbol name:"
+msgstr "Назва піктограми:"
+
+#: CustomSymbolText.resx, labelCustomizedText.Text
+msgid "Customized text:"
+msgstr ""
+
+#: CustomSymbolText.resx, buttonChangeText.Text
+msgid "Change text..."
+msgstr "Змініть текст..."
+
+#: CustomSymbolText.resx, buttonDefault.Text
+msgid "Reset to standard"
+msgstr "Скинути до стандартного"
+
+#: CustomSymbolText.resx, labelStandardText.Text
+msgid "Standard text:"
+msgstr "Стандартний текст:"
+
+#: CustomSymbolText.resx, checkBoxShowKey.Text
+msgid "Show meaning below symbolic descriptions"
+msgstr ""
+
+#: CustomSymbolText.resx, labelCustomizeText.Text
+msgid "Click on a description symbol to customize the text that "
+"is used in textual control descriptions."
+msgstr "Клацніть на опис знаку щоб редагувати текст опису."
+
+#: CustomSymbolText.resx, checkBoxDefaultLanguage.Text
+msgid "Make this the default language for new events"
+msgstr "Зробити цю мову мовою за замовченням для нових заходів"
+
+#: DownloadProgressDialog.resx, $this.Text
+msgid "Downloading"
+msgstr "Завантаження"
+
+#: EnterSymbolText.resx, numberColumn.HeaderText
+msgid "Number"
+msgstr "Номер"
+
+#: EnterSymbolText.resx, genderColumn.HeaderText
+msgid "Gender"
+msgstr "Стать"
+
+#: EnterSymbolText.resx, caseColumn.HeaderText
+msgid "Case"
+msgstr ""
+
+#: EnterSymbolText.resx, checkBoxPlural.Text
+msgid "Show plural forms"
+msgstr ""
+
+#: EnterSymbolText.resx, checkBoxGender.Text
+msgid "Show gender forms"
+msgstr ""
+
+#: EnterSymbolText.resx, labelDescription.Text
+msgid "Enter the customized text for the symbol in the \"Text\" "
+"column."
+msgstr "Введіть виправлений текст для умовного знаку у колонку "
+"\"Текст\"."
+
+#: EnterSymbolText.resx, labelGenderChooser.Text
+msgid "Gender:"
+msgstr "Стать:"
+
+#: EnterSymbolText.resx, labelCaseChooser.Text
+msgid "Case of modified symbol:"
+msgstr ""
+
+#: EnterSymbolText.resx, checkBoxCases.Text
+msgid "Show case forms"
+msgstr ""
+
+#: EnterSymbolText.resx, $this.Text
+msgid "Customized Symbol Text"
+msgstr ""
+
+#: InitialScreen.resx, openLastRadioButton.Text
+msgid "Open last viewed event"
+msgstr "Відкрити останній захід"
+
+#: InitialScreen.resx, openSampleRadioButton.Text
+msgid "Open a sample event"
+msgstr "Відкрити зразок заходу"
+
+#: InitialScreen.resx, createNewRadioButton.Text
+msgid "Create a new event..."
+msgstr "Створити новий захід..."
+
+#: InitialScreen.resx, openExistingRadioButton.Text
+msgid "Open an existing event..."
+msgstr "Відкрити існуючий захід..."
+
+#: InitialScreen.resx, label1.Text
+msgid "Purple Pen is free software and may be copied and shared. "
+"Development of Purple Pen is supported only by your "
+"donations."
+msgstr "Purple Pen є безкоштовною програмою, яку дозволяється "
+"копіювати та поширювати. Розробка Purple Pen підтримується "
+"виключно завдяки пожертвам."
+
+#: InitialScreen.resx, donationLink.Text
+msgid "Make a donation"
+msgstr "Зробити пожертву"
+
+#: InitialScreen.resx, $this.Text
+msgid "Welcome to Purple Pen"
+msgstr "Вітаємо у Purple Pen"
+
+#: LegAssignmentsDialog.resx, BranchColumn.HeaderText
+msgid "Branch"
+msgstr "Гілка"
+
+#: LegAssignmentsDialog.resx, LegsColumn.HeaderText
+msgid "Legs"
+msgstr "Етапи"
+
+#: LegAssignmentsDialog.resx, labelDescription.Text
+msgid "To assign a specific leg to a specific branch, type the "
+"leg number(s) below. Legs not assigned to a branch will be "
+"distributed among remaining branches randomly."
+msgstr "Щоб пов'язати етап з певною гілкою, вкажіть номер "
+"етапу(ів) нижче. Етапи, що не пов'язані з гілками, будуть "
+"розподілені між вільними гілками випадковим чином."
+
+#: LegAssignmentsDialog.resx, linkLabel.Text
+msgid "More information..."
+msgstr "Докладніше…"
+
+#: LegAssignmentsDialog.resx, $this.Text
+msgid "Leg Assignments"
+msgstr "Призначення етапів"
+
+#: LicenseForm.resx, bsdLicenseLinkLabel.Text
+msgid "Purple Pen is provided under a \"BSD\" style license."
+msgstr "Purple Pen надається на умовах \"BSD\"-подібної ліцензії."
+
+#: LicenseForm.resx, $this.Text
+msgid "Purple Pen License"
+msgstr "Ліцензія Purple Pen"
+
+#: LinePropertiesDialog.resx, buttonChangeColor.Text
+msgid " Change Color..."
+msgstr " Змінити колір..."
+
+#: LinePropertiesDialog.resx, label2.Text
+msgid "Style:"
+msgstr "Стиль:"
+
+#: LinePropertiesDialog.resx, comboBoxStyle.Items
+msgid "Single"
+msgstr "Одинарна"
+
+#: LinePropertiesDialog.resx, comboBoxStyle.Items1
+msgid "Double"
+msgstr "Подвійна"
+
+#: LinePropertiesDialog.resx, comboBoxStyle.Items2
+msgid "Dashed"
+msgstr "Пунктирна"
+
+#: LinePropertiesDialog.resx, labelWidth.Text
+#: PrinterMargins.resx, label2.Text
+msgid "Width:"
+msgstr "Товщина:"
+
+#: LinePropertiesDialog.resx, labelGapSize.Text
+msgid "Gap Size:"
+msgstr "Розмір проміжку:"
+
+#: LinePropertiesDialog.resx, labelDashSize.Text
+msgid "Dash Size:"
+msgstr "Розмір штриха:"
+
+#: LinePropertiesDialog.resx, labelCornerRadius.Text
+msgid "Corner Radius:"
+msgstr "Радіус скруглення:"
+
+#: MainFrame.resx, tabPage1.Text
+msgid "All Controls"
+msgstr "Всі КП"
+
+#: MainFrame.resx, radioButtonDescriptions.Text
+msgid "Descriptions"
+msgstr "Описи"
+
+#: MainFrame.resx, radioButtonTopology.Text
+msgid "Ordering"
+msgstr "Порядок"
+
+#: MainFrame.resx, mapViewerTopology.Text
+msgid "mapViewerTopology"
+msgstr ""
+
+#: MainFrame.resx, openFileDialog.Filter
+msgid "Purple Pen files|*.ppen|All files|*.*"
+msgstr "Файли Purple Pen|*.ppen|Всі файли|*.*"
+
+#: MainFrame.resx, saveFileDialog.Filter
+msgid "Purple Pen file|*.ppen"
+msgstr "Файли Purple Pen|*.ppen"
+
+#: MainFrame.resx, newEventMenu.Text
+msgid "&New Event..."
+msgstr "&Нова подія..."
+
+#: MainFrame.resx, openMenu.Text
+msgid "&Open..."
+msgstr "&Відкрити..."
+
+#: MainFrame.resx, saveMenu.Text
+msgid "&Save"
+msgstr "&Зберегти"
+
+#: MainFrame.resx, saveAsMenu.Text
+msgid "Save &As..."
+msgstr "Зберегти &як..."
+
+#: MainFrame.resx, createOcadFilesMenu.Text
+msgid "Create OCAD &Files..."
+msgstr "Створити &файли OCAD..."
+
+#: MainFrame.resx, createImageFilesMenu.Text
+msgid "Create Ima&ge Files..."
+msgstr "Створити файли зобра&жень..."
+
+#: MainFrame.resx, createDescriptionPdfMenu.Text
+msgid "&Descriptions..."
+msgstr "&Легенди КП..."
+
+#: MainFrame.resx, createPunchcardPdfMenu.Text
+msgid "Pu&nch Cards..."
+msgstr "Кар&точки для відмітки..."
+
+#: MainFrame.resx, createCoursePdfMenu.Text
+msgid "&Courses..."
+msgstr "&Дистанції..."
+
+#: MainFrame.resx, createPDFsMenu.Text
+msgid "Create P&DFs"
+msgstr "Створити P&DF"
+
+#: MainFrame.resx, createRouteGadgetFilesMenu.Text
+msgid "Create RouteGadget Files..."
+msgstr "Створити файли RouteGadget..."
+
+#: MainFrame.resx, createRouteReviewFilesToolStripMenuItem.Text
+msgid "Create Route Review Files"
+msgstr "Створити файли Route Review"
+
+#: MainFrame.resx, createXmlMenu.Text
+msgid "Create Data &Interchange File (IOF XML)..."
+msgstr "Створити файл для &обміну даними (IOF XML)..."
+
+#: MainFrame.resx, createGPXFileMenu.Text
+msgid "Create G&PX File..."
+msgstr "Створити файл G&PX..."
+
+#: MainFrame.resx, createKMLFileMenu.Text
+msgid "Create &KML File..."
+msgstr "Сворити файл &KML..."
+
+#: MainFrame.resx, printDescriptionsMenu.Text
+msgid "&Print Descriptions..."
+msgstr "&Друкувати легенди..."
+
+#: MainFrame.resx, printPunchCardsMenu.Text
+msgid "Print Pu&nch Cards..."
+msgstr "Друкувати кар&тки для відмітки..."
+
+#: MainFrame.resx, printCoursesMenu.Text
+msgid "Print &Courses..."
+msgstr "Друкувати &дистанції..."
+
+#: MainFrame.resx, printAreaThisPartMenu.Text
+msgid "This &Part Only"
+msgstr "Тільки ця &частина"
+
+#: MainFrame.resx, printAreaThisCourseMenu.Text
+msgid "&This Course"
+msgstr "&Ця дистанція"
+
+#: MainFrame.resx, printAreaAllCoursesMenu.Text
+msgid "&All Courses"
+msgstr "&Всі дистанції"
+
+#: MainFrame.resx, setPrintAreaMenu.Text
+msgid "Set Print A&rea"
+msgstr "Вказати область дру&ку"
+
+#: MainFrame.resx, programLanguageMenu.Text
+msgid "Program &Language..."
+msgstr "Мова &програми..."
+
+#: MainFrame.resx, exitMenu.Text
+msgid "E&xit"
+msgstr "&Вихід"
+
+#: MainFrame.resx, fileMenu.Text
+msgid "&File"
+msgstr "&Файл"
+
+#: MainFrame.resx, cancelMenu.Text
+#: MiscText.resx, ClearSelectionWithShortcut
+msgid "&Clear Selection"
+msgstr "&Очистити вибір"
+
+#: MainFrame.resx, undoMenu.Text
+#: MiscText.resx, UndoWithShortcut
+msgid "&Undo"
+msgstr "&Вернути"
+
+#: MainFrame.resx, redoMenu.Text
+#: MiscText.resx, RedoWithShortcut
+msgid "&Redo"
+msgstr "&Повторити"
+
+#: MainFrame.resx, deleteMenu.Text
+#: MainFrame.resx, deleteItemMenu.Text
+msgid "&Delete"
+msgstr "&Видалити"
+
+#: MainFrame.resx, editMenu.Text
+msgid "&Edit"
+msgstr "&Редагувати"
+
+#: MainFrame.resx, entireCourseMenu.Text
+msgid "Entire &Course"
+msgstr "Ціла &дистанція"
+
+#: MainFrame.resx, entireMapMenu.Text
+msgid "Entire &Map"
+msgstr "&Ціла карта"
+
+#: MainFrame.resx, zoom50Menu.Text
+msgid "50%"
+msgstr "50%"
+
+#: MainFrame.resx, zoom100Menu.Text
+msgid "100%"
+msgstr "100%"
+
+#: MainFrame.resx, zoom150Menu.Text
+msgid "150%"
+msgstr "150%"
+
+#: MainFrame.resx, zoom200Menu.Text
+msgid "200%"
+msgstr "200%"
+
+#: MainFrame.resx, zoom300Menu.Text
+msgid "300%"
+msgstr "300%"
+
+#: MainFrame.resx, zoom500Menu.Text
+msgid "500%"
+msgstr "500%"
+
+#: MainFrame.resx, zoom1000Menu.Text
+msgid "1000%"
+msgstr "1000%"
+
+#: MainFrame.resx, zoomMenu.Text
+msgid "&Zoom"
+msgstr "&Збільшення"
+
+#: MainFrame.resx, veryLowIntensityMenu.Text
+msgid "&Very Low"
+msgstr "&Дуже низьке"
+
+#: MainFrame.resx, lowIntensityMenu.Text
+msgid "&Low"
+msgstr "&Низьке"
+
+#: MainFrame.resx, mediumIntensityMenu.Text
+msgid "&Medium"
+msgstr "&Середнія"
+
+#: MainFrame.resx, highIntensityMenu.Text
+msgid "&High"
+msgstr "&Висока"
+
+#: MainFrame.resx, fullIntensityMenu.Text
+msgid "&Full"
+msgstr "&Повна"
+
+#: MainFrame.resx, mapIntensityMenu.Text
+msgid "Map &Intensity"
+msgstr "&Інтенсивність карти"
+
+#: MainFrame.resx, normalQualityMenu.Text
+msgid "Low"
+msgstr "Низька"
+
+#: MainFrame.resx, highQualityMenu.Text
+msgid "High"
+msgstr "Висока"
+
+#: MainFrame.resx, mapQualityMenu.Text
+msgid "Map &Quality"
+msgstr "&Якість карти"
+
+#: MainFrame.resx, showPrintAreaMenu.Text
+msgid "Show P&rint Area"
+msgstr "По&казувати область дуку"
+
+#: MainFrame.resx, showPopupsMenu.Text
+msgid "Show &Popup Information"
+msgstr "Пока&зувати вспливаючу інформацію"
+
+#: MainFrame.resx, allControlsMenu.Text
+msgid "&All Controls"
+msgstr "&Всі КП"
+
+#: MainFrame.resx, otherCoursesMenu.Text
+msgid "Other Courses..."
+msgstr "Інші дистанції..."
+
+#: MainFrame.resx, clearOtherCoursesMenu.Text
+msgid "Clear Other Courses"
+msgstr "Прибрати інші дистанції"
+
+#: MainFrame.resx, viewMenu.Text
+msgid "&View"
+msgstr "&Вигляд"
+
+#: MainFrame.resx, addStartMenu.Text
+msgid "&Start"
+msgstr "&Старт"
+
+#: MainFrame.resx, addControlMenu.Text
+msgid "&Control"
+msgstr "&КП"
+
+#: MainFrame.resx, addFinishMenu.Text
+#: MiscText.resx, FinishButtonText
+msgid "&Finish"
+msgstr "&Фініш"
+
+#: MainFrame.resx, addDescriptionsMenu.Text
+msgid "&Descriptions"
+msgstr "&Легенди"
+
+#: MainFrame.resx, addMapFlipMenuItem.Text
+msgid "Map &Flip at Control Point"
+msgstr ""
+
+#: MainFrame.resx, mapExchangeControlMenuItem.Text
+msgid "Map Exchange at &Control Point"
+msgstr "Пункт зміни карти на &КП"
+
+#: MainFrame.resx, mapExchangeSeparateMenuItem.Text
+msgid "Flagged &Route to Map Exchange"
+msgstr "М&аркування до пункту зміни карти"
+
+#: MainFrame.resx, addMapExchangeMenu.Text
+msgid "Map Flip/E&xchange"
+msgstr "Зміна карти"
+
+#: MainFrame.resx, addVariationMenu.Text
+msgid "&Variation..."
+msgstr "&Розсіювання"
+
+#: MainFrame.resx, addTextLineMenu.Text
+msgid "Text &Line..."
+msgstr "Строка &тексту"
+
+#: MainFrame.resx, addMapIssueMenu.Text
+#: MainFrame.resx, mapIssuePointToolStripMenuItem.Text
+#: MiscText.resx, MapIssue_Long
+#: MiscText.resx, MapIssue_Medium
+msgid "Timed Start"
+msgstr "Виносний старт"
+
+#: MainFrame.resx, addMandatoryCrossingMenu.Text
+#: MainFrame.resx, mandatoryCrossingPointToolStripMenuItem.Text
+msgid "Mandatory Crossing Point"
+msgstr "Обов'язковий пункт перетиину"
+
+#: MainFrame.resx, addOptCrossingMenu.Text
+#: MainFrame.resx, optionalCrossingPointToolStripMenuItem.Text
+#: SelectionDescriptionText.resx, SpecialName_OptCrossing
+msgid "Optional Crossing Point"
+msgstr "Необов'язковий пункт перетину"
+
+#: MainFrame.resx, addOutOfBoundsMenu.Text
+#: MainFrame.resx, outOfBoundsToolStripMenuItem.Text
+msgid "Out Of Bounds Area"
+msgstr "Заборонена територія"
+
+#: MainFrame.resx, addDangerousMenu.Text
+#: MainFrame.resx, dangerousToolStripMenuItem.Text
+#: SelectionDescriptionText.resx, SpecialName_Dangerous
+msgid "Dangerous Area"
+msgstr "Небезпечна територія"
+
+#: MainFrame.resx, addConstructionMenu.Text
+#: MainFrame.resx, constructionToolStripMenuItem.Text
+msgid "Temporary Construction"
+msgstr ""
+
+#: MainFrame.resx, addWaterMenu.Text
+#: MainFrame.resx, waterLocationToolStripMenuItem.Text
+#: SelectionDescriptionText.resx, SpecialName_Water
+msgid "Water Location"
+msgstr "Пункт підживлення"
+
+#: MainFrame.resx, addFirstAidMenu.Text
+#: MainFrame.resx, firstAidLocationToolStripMenuItem.Text
+#: SelectionDescriptionText.resx, SpecialName_FirstAid
+msgid "First Aid Location"
+msgstr "Пункт першої допомоги"
+
+#: MainFrame.resx, addForbiddenMenu.Text
+#: MainFrame.resx, forbiddenRouteMarkingToolStripMenuItem.Text
+msgid "Forbidden Route Marking"
+msgstr "Позначка забороненого шляху"
+
+#: MainFrame.resx, addBoundaryMenu.Text
+#: MainFrame.resx, boundaryToolStripMenuItem.Text
+#: SelectionDescriptionText.resx, SpecialName_Boundary
+msgid "Uncrossable Boundary"
+msgstr "Непрохідна межа"
+
+#: MainFrame.resx, addRegMarkMenu.Text
+#: MainFrame.resx, registrationMarkToolStripMenuItem.Text
+#: SelectionDescriptionText.resx, SpecialName_RegMark
+msgid "Registration Mark"
+msgstr "Мітка суміщення"
+
+#: MainFrame.resx, whiteOutMenu.Text
+#: MainFrame.resx, whiteOutToolStripMenuItem.Text
+#: SelectionDescriptionText.resx, SpecialName_WhiteOut
+msgid "White Out Area"
+msgstr "Забілена область"
+
+#: MainFrame.resx, addImageMenu.Text
+#: MainFrame.resx, imageToolStripMenuItem.Text
+#: SelectionDescriptionText.resx, SpecialName_Image
+msgid "Image"
+msgstr "Зображення"
+
+#: MainFrame.resx, addLineMenu.Text
+#: MainFrame.resx, lineToolStripMenuItem.Text
+#: SelectionDescriptionText.resx, SpecialName_Line
+msgid "Line"
+msgstr "Лінія"
+
+#: MainFrame.resx, addRectangleMenu.Text
+#: MainFrame.resx, rectangleToolStripMenuItem.Text
+#: SelectionDescriptionText.resx, SpecialName_Rectangle
+msgid "Rectangle"
+msgstr "Прямокутник"
+
+#: MainFrame.resx, addEllipseMenu.Text
+#: MainFrame.resx, ellipseToolStripMenuItem.Text
+msgid "Ellipse"
+msgstr "Еліпс"
+
+#: MainFrame.resx, addMenu.Text
+msgid "&Add"
+msgstr "&Додати"
+
+#: MainFrame.resx, changeMapFileMenu.Text
+msgid "&Map File..."
+msgstr "&Файл карти..."
+
+#: MainFrame.resx, changeCodesMenu.Text
+msgid "Change Control &Codes..."
+msgstr "Змінити &коди КП..."
+
+#: MainFrame.resx, autoNumberingMenu.Text
+msgid "Automatic &Numbering..."
+msgstr "Автоматична &нумерація..."
+
+#: MainFrame.resx, removeUnusedControlsMenu.Text
+msgid "Remove &Unused Controls..."
+msgstr "Видалити &незадіяні КП..."
+
+#: MainFrame.resx, moveAllControlsMenu.Text
+msgid "Mo&ve All Controls..."
+msgstr ""
+
+#: MainFrame.resx, punchPatternsMenu.Text
+msgid "&Punch Patterns..."
+msgstr "&Форма компостерів..."
+
+#: MainFrame.resx, descriptionStd2004Menu.Text
+msgid "2004 Description Standard"
+msgstr "2004 стандарт легенд КП"
+
+#: MainFrame.resx, descriptionStd2018Menu.Text
+msgid "2018/2024 Description Standard"
+msgstr "2018/2024 стандарт легенд КП"
+
+#: MainFrame.resx, mapStd2000Menu.Text
+msgid "ISOM2000 Map Standard"
+msgstr "ISOM2000 стандарт карти"
+
+#: MainFrame.resx, mapStd2017Menu.Text
+msgid "ISOM2017 Map Standard"
+msgstr "ISOM2017 стандарт карти"
+
+#: MainFrame.resx, mapStdSpr2019Menu.Text
+msgid "ISSprOM 2019 Map Standard"
+msgstr "ISSprOM 2019 стандарт карти"
+
+#: MainFrame.resx, iOFStandardsToolStripMenuItem.Text
+msgid "IOF &Standards"
+msgstr "&Стандарти IOF"
+
+#: MainFrame.resx, customizeDescriptionsMenu.Text
+msgid "Customize &Description Text..."
+msgstr "Налашту&вати текст легенд КП..."
+
+#: MainFrame.resx, customizeCourseAppearanceMenu.Text
+msgid "Customize &Appearance..."
+msgstr "Налаштувати зовнішній вигляд..."
+
+#: MainFrame.resx, eventMenu.Text
+msgid "Eve&nt"
+msgstr "Подія"
+
+#: MainFrame.resx, addCourseMenu.Text
+msgid "&Add Course..."
+msgstr "Додати дистанцію..."
+
+#: MainFrame.resx, deleteCourseMenu.Text
+msgid "&Delete Course"
+msgstr "&Видалити дистанцію"
+
+#: MainFrame.resx, duplicateCourseMenu.Text
+msgid "D&uplicate Course..."
+msgstr "Дублювати дистанцію..."
+
+#: MainFrame.resx, propertiesMenu.Text
+msgid "&Properties..."
+msgstr "Властивості..."
+
+#: MainFrame.resx, courseOrderMenu.Text
+msgid "Course &Order..."
+msgstr "Порядок дистанцій..."
+
+#: MainFrame.resx, courseLoadMenu.Text
+msgid "Competitor &Load..."
+msgstr "Навантаження учасниками..."
+
+#: MainFrame.resx, courseVariationReportMenu.Text
+msgid "Relay Team &Variations..."
+msgstr "Розсіювання ко&манд на естафеті..."
+
+#: MainFrame.resx, courseMenu.Text
+msgid "&Course"
+msgstr "Ди&станція"
+
+#: MainFrame.resx, deleteForkMenu.Text
+msgid "Delete For&k/Loop"
+msgstr "Вида&лити вилку/петлю"
+
+#: MainFrame.resx, addBendMenu.Text
+msgid "Add &Bend"
+msgstr "Додати в&игин"
+
+#: MainFrame.resx, removeBendMenu.Text
+msgid "Remove B&end"
+msgstr "Видалити вигин"
+
+#: MainFrame.resx, addGapMenu.Text
+msgid "Add &Gap"
+msgstr "Додати розрив"
+
+#: MainFrame.resx, removeGapMenu.Text
+msgid "Remove Ga&p"
+msgstr "Видалити ро&зрив"
+
+#: MainFrame.resx, changeTextMenu.Text
+msgid "Change &Text..."
+msgstr "Змінити т&екст..."
+
+#: MainFrame.resx, changeLineAppearanceMenu.Text
+msgid "Change Line &Appearance..."
+msgstr "Змінити вигляд лінії..."
+
+#: MainFrame.resx, rotateMenu.Text
+msgid "R&otate"
+msgstr "Обертати"
+
+#: MainFrame.resx, stretchMenu.Text
+msgid "&Stretch"
+msgstr "Розтягнути"
+
+#: MainFrame.resx, noFlaggingMenu.Text
+msgid "No Flagging"
+msgstr "Не промарковано"
+
+#: MainFrame.resx, entireFlaggingMenu.Text
+msgid "Entire Leg Flagged"
+msgstr "Весь перегон маркований"
+
+#: MainFrame.resx, beginFlaggingMenu.Text
+msgid "Beginning of Leg Flagged"
+msgstr "Початок перегону маркований"
+
+#: MainFrame.resx, endFlaggingMenu.Text
+msgid "End of Leg Flagged"
+msgstr "Кінець перегону маркований"
+
+#: MainFrame.resx, legFlaggingMenu.Text
+msgid "&Leg Flagging"
+msgstr "Маркування перегону"
+
+#: MainFrame.resx, changeDisplayedCoursesMenu.Text
+msgid "Change Displa&yed Courses..."
+msgstr "Відобразити &на дистанціях..."
+
+#: MainFrame.resx, itemMenu.Text
+msgid "&Item"
+msgstr "Об'єкт"
+
+#: MainFrame.resx, courseSummaryMenu.Text
+msgid "Course &Summary"
+msgstr "Параметри дистанц&ій"
+
+#: MainFrame.resx, eventAuditMenu.Text
+msgid "Event &Audit"
+msgstr "Аудит змагань"
+
+#: MainFrame.resx, legLengthsMenu.Text
+msgid "&Leg Lengths"
+msgstr "&Довжити перегонів"
+
+#: MainFrame.resx, controlCrossrefMenu.Text
+msgid "Control &Cross-reference"
+msgstr "Перехре&сність КП"
+
+#: MainFrame.resx, controlAndLegLoadMenu.Text
+msgid "Control and Leg Loa&d"
+msgstr "На&вантаженість КП та перегонів"
+
+#: MainFrame.resx, reportMenu.Text
+msgid "&Reports"
+msgstr "Звіти"
+
+#: MainFrame.resx, helpContentsMenu.Text
+msgid "Purple Pen &Help"
+msgstr "Довідка Purple Pen"
+
+#: MainFrame.resx, helpTranslatedMenu.Text
+msgid "Purple Pen Help (Translated)"
+msgstr "Довідка Purple Pen (переклад)"
+
+#: MainFrame.resx, mainWebSiteToolMenu.Text
+msgid "Purple Pen &Web Site"
+msgstr "Purple Pen &Web сайт"
+
+#: MainFrame.resx, supportWebSiteMenu.Text
+msgid "&Support/Bug Reporting"
+msgstr "П&ідтримка/Звітувати про помилку"
+
+#: MainFrame.resx, donateWebSiteMenu.Text
+msgid "Make a &Donation"
+msgstr "Зробити пожерт&ву"
+
+#: MainFrame.resx, aboutMenu.Text
+msgid "&About Purple Pen"
+msgstr "Про Purple Pen"
+
+#: MainFrame.resx, symbolBrowserMenu.Text
+msgid "Symbol Browser"
+msgstr "Переглядач знаків"
+
+#: MainFrame.resx, descriptionBrowserMenu.Text
+msgid "Description Browser"
+msgstr "Переглядач піктограм"
+
+#: MainFrame.resx, controlTesterMenu.Text
+msgid "Control Tester"
+msgstr ""
+
+#: MainFrame.resx, mapTesterMenu.Text
+msgid "Map Tester"
+msgstr ""
+
+#: MainFrame.resx, courseSelectorTesterMenu.Text
+msgid "Course Selector Tester"
+msgstr ""
+
+#: MainFrame.resx, dotGridTesterToolStripMenuItem.Text
+msgid "Dot Grid Tester"
+msgstr ""
+
+#: MainFrame.resx, dumpOCADFileMenu.Text
+msgid "Dump OCAD File"
+msgstr ""
+
+#: MainFrame.resx, reportTesterToolStripMenuItem.Text
+msgid "Report Tester"
+msgstr ""
+
+#: MainFrame.resx, fontMetricsToolStripMenuItem.Text
+msgid "Font Metrics"
+msgstr ""
+
+#: MainFrame.resx, missingTranslationsMenuItem.Text
+msgid "Missing Description Translations"
+msgstr ""
+
+#: MainFrame.resx, crashToolStripMenuItem.Text
+msgid "Crash"
+msgstr "Аварійне завершення роботи"
+
+#: MainFrame.resx, debugMenu.Text
+msgid "Debug"
+msgstr "Відлагодження"
+
+#: MainFrame.resx, addDescriptionLanguageMenu.Text
+msgid "Add Description Language..."
+msgstr "Додати мову легенди..."
+
+#: MainFrame.resx, addTranslatedTextsMenu.Text
+msgid "Add Translated Texts..."
+msgstr "Додати перекладений текст..."
+
+#: MainFrame.resx, mergeSymbolsMenu.Text
+msgid "Merge Symbols.xml..."
+msgstr "Об'єднати знаки.xml..."
+
+#: MainFrame.resx, translateMenu.Text
+msgid "&Translate Description Text"
+msgstr "П&ерекласти текст легенд"
+
+#: MainFrame.resx, helpMenu.Text
+msgid "&Help"
+msgstr "&Довідка"
+
+#: MainFrame.resx, openToolStripButton.Text
+msgid "Open"
+msgstr "Відкрити"
+
+#: MainFrame.resx, openToolStripButton.ToolTipText
+msgid "Open (Ctrl+O)"
+msgstr "Відкрити (Ctrl+O)"
+
+#: MainFrame.resx, saveToolStripButton.Text
+#: MiscText.resx, CrashSave
+msgid "Save"
+msgstr "Зберегти"
+
+#: MainFrame.resx, saveToolStripButton.ToolTipText
+msgid "Save (Ctrl+S)"
+msgstr "Зберегти (Ctrl+S)"
+
+#: MainFrame.resx, undoToolStripButton.Text
+#: MiscText.resx, Undo
+msgid "Undo"
+msgstr "Відмінити"
+
+#: MainFrame.resx, undoToolStripButton.ToolTipText
+msgid "Undo (Ctrl+Z)"
+msgstr "Відмінити (Ctrl+Z)"
+
+#: MainFrame.resx, redoToolStripButton.Text
+#: MiscText.resx, Redo
+msgid "Redo"
+msgstr "Повернути"
+
+#: MainFrame.resx, redoToolStripButton.ToolTipText
+msgid "Redo (Ctrl+Y)"
+msgstr "Повенути (Ctrl+Y)"
+
+#: MainFrame.resx, deleteToolStripButton.Text
+msgid "Delete (Del)"
+msgstr "Видалити (Del)"
+
+#: MainFrame.resx, addControlToolStripButton.ToolTipText
+msgid "Add Control (Ctrl+A)"
+msgstr "Додати КП (Ctrl+A)"
+
+#: MainFrame.resx, descriptionsToolStripMenuItem.Text
+msgid "Add Descriptions"
+msgstr "Додати легенди"
+
+#: MainFrame.resx, mapFlipMenuItem.Text
+msgid "Map Flip at Control Point"
+msgstr ""
+
+#: MainFrame.resx, mapExchangeControlToolStripMenuItem.Text
+msgid "Map Exchange at Control Point"
+msgstr "Зміна карти на КП"
+
+#: MainFrame.resx, mapExchangeSeparateToolStripMenuItem.Text
+msgid "Flagged Route to Map Exchange"
+msgstr "Маркований відрізок до зміни карти"
+
+#: MainFrame.resx, mapExchangeToolStripMenu.Text
+msgid "Add Map Flip/Exchange"
+msgstr "Додати заміну карт"
+
+#: MainFrame.resx, specialItemToolStripMenu.Text
+msgid "Add Special Item"
+msgstr "Додати спеціальий об'єкт"
+
+#: MainFrame.resx, addBendToolStripButton.ToolTipText
+msgid "Add Bend (Ctrl+B)"
+msgstr "Додати вигин (Ctrl+B)"
+
+#: MainFrame.resx, addGapToolStripButton.Text
+msgid "toolStripButton1"
+msgstr ""
+
+#: MainFrame.resx, addGapToolStripButton.ToolTipText
+msgid "Add Gap (Ctrl+G)"
+msgstr "Додати розрив (Ctrl+G)"
+
+#: MainFrame.resx, zoomAmountLabel.Text
+msgid "Zoom: 100%"
+msgstr "Збільшення: 100%"
+
+#: MainFrame.resx, locationDisplay.Text
+msgid "X:-999.99 Y:-999.99"
+msgstr "X:-999.99 Y:-999.99"
+
+#: MainFrame.resx, saveXmlFileDialog.Filter
+msgid "IOF XML version 2.0.3|*.xml|IOF XML version 3.0|*.xml"
+msgstr "IOF XML версія 2.0.3|*.xml|IOF XML версія 3.0|*.xml"
+
+#: MainFrame.resx, saveXmlFileDialog.Title
+msgid "Create XML Interchange File"
+msgstr "Створити файл обміну даними XML"
+
+#: MainFrame.resx, openImageDialog.Filter
+msgid "Image file|*.jpg;*.jpeg;*.gif;*.png;*.bmp;*.tif;*.tiff"
+msgstr "Файл зображення|*.jpg;*.jpeg;*.gif;*.png;*.bmp;*.tif;*.tiff"
+
+#: MainFrame.resx, saveGpxFileDialog.Filter
+msgid "GPX file|*.gpx"
+msgstr "Файл GPX|*.gpx"
+
+#: MainFrame.resx, $this.Text
+#: MiscText.resx, AppTitle
+msgid "Purple Pen"
+msgstr "Purple Pen"
+
+#: MiscText.resx, CtrlZ
+msgid "Ctrl+Z"
+msgstr "Ctrl+Z"
+
+#: MiscText.resx, CtrlY
+msgid "Ctrl+Y"
+msgstr "Ctrl+Y"
+
+#: MiscText.resx, Esc
+msgid "Esc"
+msgstr "Esc"
+
+#: MiscText.resx, NoSymbol
+msgid "No symbol"
+msgstr "Без знаку"
+
+#: MiscText.resx, AllControls
+msgid "All controls"
+msgstr "Всі КП"
+
+#: MiscText.resx, CannotLoadFile
+msgid "Cannot load '{0}' for the following reason:"
+msgstr "Не вдалося завантажити '{0}' з наступних причин:"
+
+#: MiscText.resx, CannotSaveFile
+msgid "Cannot save '{0}' for the following reason:"
+msgstr "Не вдалося зберегти '{0}' з наступних причин:"
+
+#: MiscText.resx, CannotLoadMapFile
+msgid "Cannot load map file '{0}' for the following reason:"
+msgstr "Не вдалося відкрити файл карти '{0}' з наступних причин:"
+
+#: MiscText.resx, CannotReadImageFile
+msgid "Cannot read image file '{0}'."
+msgstr "Не вдалося зчитати файл зображення '{0}'."
+
+#: MiscText.resx, CannotPrint
+msgid "Cannot print '{0}' for the following reason:"
+msgstr "Не вдалося роздрукувати '{0}' з наступних причин:"
+
+#: MiscText.resx, CannotCreateFile
+msgid "Cannot create '{0}' for the following reason:"
+msgstr "Не вдалося створити '{0}' з наступних причин:"
+
+#: MiscText.resx, CannotCreateDirectory
+msgid "Cannot create folder '{0}' for the following reason:"
+msgstr "Не вдалося створити '{0}' з наступних причин:"
+
+#: MiscText.resx, CannotReadMap
+msgid "Cannot read map for the following reason: '{0}' Using "
+"Optimize/Repair and re-saving in OCAD may fix problems."
+msgstr "Не вдалося зчитати файл карти з наступних причин: '{0}' "
+"Скористайтеся функцією Optimize/Repair у OCAD і збережіть "
+"файл. Це може усунути проблему."
+
+#: MiscText.resx, CannotCreateOcadFiles
+msgid "Cannot create OCAD files for the following reason:"
+msgstr "Не вдалося створити файли OCAD з наступних причин:"
+
+#: MiscText.resx, SaveChanges
+msgid "Do you want to save the changes you made to '{0}'?"
+msgstr "Хочете зберегти, зроблені вами, зміни у '{0}'?"
+
+#: MiscText.resx, FileAlreadyExists
+msgid "File '{0}' already exists in the specified folder. Click "
+"the \"Back\" button and choose a new folder or a new event "
+"title."
+msgstr "Файл '{0}' вже існує у обраній папці. Натисніть кнопку "
+"\"Назад\" і виберіть іншу папку, або іншу назву змагань."
+
+#: MiscText.resx, CodeInUse
+msgid "The control code '{0}' is already used by another control."
+msgstr "Код КП '{0}' вже використовується іншим КП."
+
+#: MiscText.resx, BadScore
+msgid "The points for a control must be an integer 1-999."
+msgstr "Кількість очків КП має бути цілим числом від 1 до 999."
+
+#: MiscText.resx, BadClimb
+msgid "The climb for a course must be a number 0-9999, or blank."
+msgstr "Набір висоти на дистанції має бути числом від 0 до 9999, "
+"або не заповнються."
+
+#: MiscText.resx, BadLoad
+msgid "The load for a course must be an integer 0-999999, or blank."
+msgstr "Навантаження дстанції учасниками має бути цілим числом від "
+"0 до 999999, або не заповнюється."
+
+#: MiscText.resx, CancelOperationWithShortcut
+msgid "Ca&ncel Operation"
+msgstr "Скасува&ти операцію"
+
+#: MiscText.resx, CancelOperation
+msgid "Cancel Operation"
+msgstr "Скасувати операцію"
+
+#: MiscText.resx, EnterScore
+msgid "Enter new score"
+msgstr "Введіть нову кількість очок"
+
+#: MiscText.resx, EnterCode
+msgid "Enter new code"
+msgstr "Введіть новий код"
+
+#: MiscText.resx, EnterDimensions
+msgid "Enter feature size\n"
+"Use / for height on a slope\n"
+"Use | for two features"
+msgstr "Введіть розмір об'єкта\n"
+"Використовуйте / для висоти на схилі\n"
+"Використовуйте | для двох об'єктів"
+
+#: MiscText.resx, EnterEventTitle
+msgid "Enter new event title\n"
+"Use | to separate lines\n"
+"(affects all courses)"
+msgstr "Введіть нову назву змагань\n"
+"Використовуйте | щоб відділити рядки\n"
+"(відображається на всіх дистанціях)"
+
+#: MiscText.resx, EnterSecondaryTitle
+msgid "Enter new secondary title\n"
+"Use | to separate lines"
+msgstr "Введіть новий підзаголовок\n"
+"Використовуйте | щоб відділити рядки"
+
+#: MiscText.resx, EnterCourseName
+msgid "Enter new course name"
+msgstr "Введіть нову назву дистанції"
+
+#: MiscText.resx, EnterClimb
+msgid "Enter new climb in meters"
+msgstr "Введіть новий набір висоти у метрах"
+
+#: MiscText.resx, EnterSymbolText
+msgid "Enter new symbol meaning\n"
+"(affects all courses)"
+msgstr "Введіть нове значення умовного знаку\n"
+"(відображається на всіх дистанціях)"
+
+#: MiscText.resx, EnterTextLine
+msgid "Enter new text\n"
+"Use | to separate lines"
+msgstr "Введіть новий текст\n"
+"Використовуйте | щоб відділити рядки"
+
+#: MiscText.resx, DeleteMultipleControlsFromControlsCollection
+msgid "Controls {0} are no longer used by any course. Do you want "
+"to delete these controls from the control collection?"
+msgstr "КП {0} не задіяні у жодній з дистанцій. Бажаєте видалити "
+"їх із сукупності контрольних пунктів?"
+
+#: MiscText.resx, DeleteControlFromControlsCollection
+msgid "Control {0} is no longer used by any course. Do you want "
+"to delete this control from the control collection?"
+msgstr "КП {0} не задіяний у жодній з дистанцій. Бажаєте видалити "
+"його із сукупності контрольних пунктів?"
+
+#: MiscText.resx, DeleteControlFromAllControls
+msgid "Control {0} is currently used by the following courses: "
+"{1}. Do you want to delete this control anyway?"
+msgstr "КП {0} використовується у наступних дистанціях: {1}. Ви "
+"все одно бажаєте його видалити?"
+
+#: MiscText.resx, CodeBadLength
+msgid "A control code must be one, two, or three letters or digits."
+msgstr "Код КП має складатись із однієї, двох чи трьох букв або "
+"цифр."
+
+#: MiscText.resx, CodeContainsSpace
+msgid "A control code must not contain a space."
+msgstr "Код КП не може містити пробілів"
+
+#: MiscText.resx, CodeBeginsWithZero
+msgid "A control code should not begin with zero."
+msgstr "Не слід використовувати нуль у якості кода КП."
+
+#: MiscText.resx, CodeCouldBeUpsideDown
+msgid "A control code should not look like another number when "
+"upside-down."
+msgstr "Не слід використовувати у якості кода КП цифру, що "
+"виглядає як інша перевернута цифра."
+
+#: MiscText.resx, DuplicateCode
+msgid "The code \"{0}\" is used more than once."
+msgstr "Код КП \"{0}\" використовується понад один раз."
+
+#: MiscText.resx, BadScale
+msgid "The print scale must be a number between 100 and 100,000."
+msgstr "Масштаб для друку має бути числом між 100 та 100 000."
+
+#: MiscText.resx, CoursePropertiesTitle
+msgid "Course Properties"
+msgstr "Властивості дистанції"
+
+#: MiscText.resx, Landscape
+#: PrintDescriptions.resx, orientation.Text
+#: PrinterMargins.resx, radioButtonLandscape.Text
+#: PrintPunches.resx, orientation.Text
+msgid "Landscape"
+msgstr "Альбомна"
+
+#: MiscText.resx, Portrait
+#: PrinterMargins.resx, radioButtonPortrait.Text
+msgid "Portrait"
+msgstr "Книжкова"
+
+#: MiscText.resx, PageTooSmall
+msgid "The page size is too small for any descriptions to be "
+"printed."
+msgstr "Розмір сторінки замалий для друку будь якої із таблиць "
+"легенд."
+
+#: MiscText.resx, VersionLabel
+msgid "Version {0}"
+msgstr "Версія {0}"
+
+#: MiscText.resx, NewerVersionAvailable
+msgid "Version {0} of Purple Pen is now available for download. "
+"(You are currently running version {1}.)\n"
+"\n"
+"Would you like to download and install the latest version?"
+msgstr "Версія {0} Purple Pen доступна для завантаження. (Наразі "
+"ви використовуєте версію {1}.)\n"
+"\n"
+"Бажаєте завантажити та встановити новішу версію?"
+
+#: MiscText.resx, HelpFileNotFound
+msgid "Help file '{0}' could not be opened."
+msgstr "Не вдалося відкрити файл довідки '{0}'."
+
+#: MiscText.resx, Zoom
+msgid "Zoom"
+msgstr "Збільшення"
+
+#: MiscText.resx, MissingMapFile
+msgid "The map file \"{0}\" could not be found.\n"
+"\n"
+"Most likely, the map file has been moved or deleted, or "
+"the Purple Pen file has been moved (possibly to a "
+"different computer). The map file must be present every "
+"time the Purple Pen event file is loaded. If you send a "
+"Purple Pen event file to another person, be sure that "
+"person has a copy of the map file also.\n"
+"\n"
+"After pressing OK, try to find a copy of the map file on "
+"your computer."
+msgstr "Не вдалося знайти файл карти \"{0}\".\n"
+"\n"
+"Імовірно файл карти було переміщено чи видалено, або було "
+"переміщено файл змагань Purple Pen (можливо на інший "
+"комп'ютер). Файл карти має бути присутнім під час "
+"відкриття файлу змагань Purple Pen. Коли ви пересилаєте "
+"файл з дистанціями Purple Pen іншій особі, переконайтеся "
+"що вона також має файл карти.\n"
+"\n"
+"Після натискання на OK, спробуйте знайти копію файла карти "
+"на вашому комп'ютері."
+
+#: MiscText.resx, NoUnusedControls
+msgid "All controls are used in a course."
+msgstr "Всі КП використовуються у дистанції."
+
+#: MiscText.resx, NextButtonText
+#: NewEventWizard.resx, nextButton.Text
+msgid "&Next >"
+msgstr "&Далі >"
+
+#: MiscText.resx, Control_Code
+msgid "Control {0}"
+msgstr "КП {0}"
+
+#: MiscText.resx, Finish
+msgid "Finish"
+msgstr "Фініш"
+
+#: MiscText.resx, Finish_Short
+msgid "F"
+msgstr "F"
+
+#: MiscText.resx, MandCrossing_Long
+msgid "Mandatory crossing point"
+msgstr "Обов'язковий пункт переходу"
+
+#: MiscText.resx, MandCrossing_Medium
+msgid "Crossing"
+msgstr "Перехід"
+
+#: MiscText.resx, MandCrossing_Short
+msgid "C"
+msgstr "C"
+
+#: MiscText.resx, Margins_All
+msgid "All: {0}"
+msgstr "Всі: {0}"
+
+#: MiscText.resx, Margins_LRTB
+msgid "Left: {0}, Right: {1}, Top: {2}, Bottom: {3}"
+msgstr "Ліва: {0}, Права: {1}, Верхня: {2}, Нижня: {3}"
+
+#: MiscText.resx, Start
+msgid "Start"
+msgstr "Старт"
+
+#: MiscText.resx, Start_Short
+msgid "S"
+msgstr "S"
+
+#: MiscText.resx, Version_Alpha
+msgid "Alpha {0}"
+msgstr "Alpha {0}"
+
+#: MiscText.resx, Version_Beta
+msgid "Beta {0}"
+msgstr "Beta {0}"
+
+#: MiscText.resx, Version_RC
+msgid "RC {0}"
+msgstr "RC {0}"
+
+#: MiscText.resx, Plural
+msgid "plural"
+msgstr "множина"
+
+#: MiscText.resx, Singular
+msgid "singular"
+msgstr "однина"
+
+#: MiscText.resx, RequireStar
+msgid "The customized text requires a \"*\" to indicate where the "
+"object being modified is placed."
+msgstr "Змінений текст вимагає знак \"*\" для указання на розміщення "
+"зміненого об'єкту."
+
+#: MiscText.resx, AppSubtitle
+msgid "course setting for orienteering"
+msgstr "планування дистанцій для спортивного орієнтування"
+
+#: MiscText.resx, AddTextSpecialExplanation
+msgid "Enter the text you wish to place on the map. After "
+"pressing OK, drag the mouse to place the text in the "
+"desired location."
+msgstr "Введіть текст, який ви хочете розмістити на карті. Після "
+"натискання на OK, перетягніть мишку до позиції де бажаєте "
+"розмістити текст."
+
+#: MiscText.resx, AddTextSpecialTitle
+msgid "Add Text"
+msgstr "Додати текст"
+
+#: MiscText.resx, ChangeTextSpecialExplanation
+msgid "Enter the new text."
+msgstr "Введіть новий текст."
+
+#: MiscText.resx, MapFileChanged
+msgid "Another program has changed the map file \"{0}\". Purple Pen "
+"will now reload the map."
+msgstr "Інша програма змінила файл карти \"{0}\". Зараз Purple Pen "
+"перезавантажить карту."
+
+#: MiscText.resx, ChangeDescriptionLanguage
+msgid "The current event has textual control descriptions in {0}. "
+"Would you like to change the language of control "
+"descriptions to {1}?"
+msgstr "Змагання мають текстові легенди мовою {0}. Бажаєте змінити "
+"мову легенд КП на {1}?"
+
+#: MiscText.resx, OpenLastEvent
+msgid "Open \"{0}\""
+msgstr "Відкрти \"{0}\""
+
+#: MiscText.resx, ClosePPBeforeLoadingOCAD
+msgid "Purple Pen must be closed before loading the created OCAD "
+"files."
+msgstr "Необхідно закрити Purple Pen перед відкриттям створених "
+"файлів OCAD."
+
+#: MiscText.resx, NoCoursesSelected
+msgid "No courses were selected to print."
+msgstr "Жодна дистанція не відмічена для друку"
+
+#: MiscText.resx, TranslatedHelpWebSite
+msgid "*** If there exists a web site in the translated language "
+"that contains documentation for Purple Pen, enter the URL "
+"(including http) as the translation of this item. "
+"Otherwise leave it alone."
+msgstr ""
+
+#: MiscText.resx, MapExchange_Long
+msgid "Map exchange"
+msgstr "Зміна карти"
+
+#: MiscText.resx, MapExchange_Medium
+msgid "Exchange"
+msgstr "Заміна"
+
+#: MiscText.resx, MapExchange_Short
+msgid "MX"
+msgstr "MX"
+
+#: MiscText.resx, PartN
+msgid "Part {0}"
+msgstr "Частина {0}"
+
+#: MiscText.resx, AllParts
+msgid "All Parts"
+msgstr "Всі частини"
+
+#: MiscText.resx, PartXOfY
+msgid "Part {0} (of {1})"
+msgstr "Частина {0} (з {1})"
+
+#: MiscText.resx, CrashEmail
+msgid "Contact Email"
+msgstr "Контактна адреса електронної пошти"
+
+#: MiscText.resx, CrashIntro
+msgid "An error has occurred. In order to help us fix the "
+"problem, please enter your email address and additional "
+"information, and send us an error report."
+msgstr "Виникла помилка. Для того щоб допомогти нам її виправити, "
+"будь ласка введіть свою електронну адресу, додаткові "
+"деталі, та надішліть звіт про помилку."
+
+#: MiscText.resx, CrashMessage
+msgid "Please tell us what you were doing in the program, to help "
+"fix the problem"
+msgstr "Розкажіть нам що ви робили у програми. Це допоможе нам "
+"виправити помилку"
+
+#: MiscText.resx, CrashSend
+msgid "Send Report"
+msgstr "Надіслати звіт"
+
+#: MiscText.resx, CannotAddDescriptionsToAllParts
+msgid "Descriptions may not be added to a course with a map "
+"exchange if \"All Parts\" is being displayed. Switch to the "
+"part you wish to add descriptions to, and then choose \"Add "
+"Descriptions\" again."
+msgstr "Неможливо додати легенди на дистанцію зі зміною карти у "
+"варіанті відображення \"Всі частини\". Переключіться но одну "
+"із частин і виберіть \"Додати легенди\" знову."
+
+#: MiscText.resx, PdfConverterNotFound
+msgid "PdfConverter.exe not found"
+msgstr "PdfConverter.exe не знайдено"
+
+#: MiscText.resx, PdfConversionFailed
+msgid "Pdfium PDF converter failed to read PDF file successfully"
+msgstr "Pdfium PDF converter не вдалося успішно зчитати PDF файл"
+
+#: MiscText.resx, PdfResultNotReadable
+msgid "Could not read result of PDF conversion from file '{0}'"
+msgstr "Не вдалося зчитати результат конвертації у PDF файла '{0}'"
+
+#: MiscText.resx, CannotCreatePdfs
+msgid "Cannot create PDFs for the following reason:"
+msgstr "Не вдалося створити PDF через наступні причини:"
+
+#: MiscText.resx, UserDefined
+msgid "User Defined"
+msgstr "Задано користувачем"
+
+#: MiscText.resx, PdfMapSize
+msgid "Map size from PDF"
+msgstr "Розмір карти з PDF"
+
+#: MiscText.resx, CancelledByUser
+msgid "Cancelled by user"
+msgstr "Скасовано користувачем"
+
+#: MiscText.resx, CreatingFile
+msgid "Creating {0}..."
+msgstr "Створення {0}..."
+
+#: MiscText.resx, PrintingPage
+msgid "Printing page {0} (of {1})"
+msgstr "Друк сторінки {0} (із {1})"
+
+#: MiscText.resx, MapFileDeleted
+msgid "The map file \"{0}\" has been deleted. Please try to restore "
+"the map file, then press \"Ok\"."
+msgstr "Файл карти \"{0}\" видалено. Будь ласка, спробуйте відновити "
+"файл і тоді натисніть \"Ok\"."
+
+#: MiscText.resx, BadDotNetFramework
+msgid "The  .NET framework on your computer does not appear to be "
+"correctly installed. Please visit http://microsoft.com/net "
+"and install the latest version of the .NET framework for "
+"your Windows operating system."
+msgstr "Схоже що .NET framework не встановлено належним чином на "
+"вашому комп'ютері. Будь ласка, відвідайте "
+"http://microsoft.com/net і встановіть останню версію .NET "
+"framework у вашу операційну систему Windows."
+
+#: MiscText.resx, ChooseOtherColor
+msgid "Choose Color..."
+msgstr "Виберіть колір..."
+
+#: MiscText.resx, CustomColor
+msgid "Custom Color"
+msgstr "Власний колір"
+
+#: MiscText.resx, DarkBlue
+msgid "Dark Blue"
+msgstr "Темно-синій"
+
+#: MiscText.resx, Green
+msgid "Green"
+msgstr "Зелений"
+
+#: MiscText.resx, LightBlue
+msgid "Light Blue"
+msgstr "Світло-синій"
+
+#: MiscText.resx, Red
+msgid "Red"
+msgstr "Червоний"
+
+#: MiscText.resx, Yellow
+msgid "Yellow"
+msgstr "Жовтий"
+
+#: MiscText.resx, AddLineExplanation
+msgid "Set the appearance of the line. After pressing OK, drag "
+"the mouse to draw the line segments in the desired location."
+msgstr "Налаштуйте зовнішній вигляд лінії. Після натискання OK, "
+"потягніть мишкою щоб намалювати сегмент лінії у бажаному "
+"місці."
+
+#: MiscText.resx, AddLineTitle
+msgid "Add Line"
+msgstr "Додати лінію"
+
+#: MiscText.resx, AddRectangleExplanation
+msgid "Set the appearance of the rectangle. After pressing OK, "
+"drag the mouse to place the rectangle in the desired "
+"location."
+msgstr "Налаштуйте зовнішній вигляд прямокутника. Після натискання "
+"OK, потягніть мишкою щоб розмістити прямокутник у бажаному "
+"місці."
+
+#: MiscText.resx, AddRectangleTitle
+msgid "Add Rectangle"
+msgstr "Додати прямокутник"
+
+#: MiscText.resx, ChangeLineAppearanceExplanation
+msgid "Change the appearance of the line or rectangle."
+msgstr "Змінити щовнішній вигляд лініх чи прямокутника."
+
+#: MiscText.resx, GpxMustBeOcadMap
+msgid "The map file must be an OCAD file to use GPX files."
+msgstr "Файл кари має бути у форматі OCAD для використання GPX "
+"файлів."
+
+#: MiscText.resx, GpxMustHaveCoordSystem
+msgid "The OCAD file must have a coordinate system defined to use "
+"GPX files."
+msgstr "Файл OCAD повинен мати визначену систему координат для "
+"використання GPX файлів."
+
+#: MiscText.resx, GpxMustHaveRealWorldCoord
+msgid "The OCAD file must have real world coordinates defined to "
+"use GPX files."
+msgstr "Файл OCAD повинен мати визначені глобальні координати для "
+"використання GPX файлів."
+
+#: MiscText.resx, GpxReprojectFailure
+msgid "Could not reproject points; either the coordinate system "
+"or the real world coordinates in the OCAD map are wrong."
+msgstr "Не вдалося спроектувати точки; або система координат, чи "
+"глобальні координати на карті OCAD неправильні."
+
+#: MiscText.resx, GpxUnsupportedCoordSystem
+msgid "The OCAD file uses a coordinate system that is not "
+"supported by Purple Pen."
+msgstr "Файл OCAD використовує систему координат, що не "
+"підтримується Purple Pen."
+
+#: MiscText.resx, BadLength
+msgid "The length for a course must be a number 0.1 - 99.9, or "
+"blank to calculate length automatically."
+msgstr "Довжина дистанції має бути числом від 0,1 до 99,9, або не "
+"заповнюється і підраховується автоматично."
+
+#: MiscText.resx, EnterLength
+msgid "Enter length in km, or leave blank to calculate "
+"automatically"
+msgstr "Введіть довжину у км, або лишіть поле порожнім для "
+"автоматичного підрахунку"
+
+#: MiscText.resx, PausePrinting
+msgid "Finished printing \"{0}\". Press OK to begin printing \"{1}\"."
+msgstr "Завершено друк \"{0}\". Натисніть OK щоб почати друк \"{1}\"."
+
+#: MiscText.resx, OCAD
+msgid "OCAD"
+msgstr "OCAD"
+
+#: MiscText.resx, OpenOrienteeringMapper
+msgid "OOM"
+msgstr "OOM"
+
+#: MiscText.resx, AllVariations
+msgid "All Variations"
+msgstr "Всі варіанти розсіювання"
+
+#: MiscText.resx, ForkSummary
+msgid "Suitable for use in relays with {0} participants per team."
+msgstr "Підходить для використання у естафеті з {0} учасників у "
+"команді."
+
+#: MiscText.resx, LoopSummary
+msgid "The central control in the loop will be visited {0} times. "
+"There are {1} possible paths through the loops."
+msgstr "Центральний КП петлі буде відвідано {0} разів. Існує {1} "
+"можливих варіанти проходження петель."
+
+#: MiscText.resx, CantRearrangeSplitControl
+msgid "A control that starts a fork or loop cannot be dragged to "
+"a new place in the course."
+msgstr "КП з якого починається розвилка чи петля не може бути "
+"переміщений у нове місце на цій дистанції."
+
+#: MiscText.resx, TooManyVariations
+msgid "Too many total variations in this course. The number of "
+"distinct variations is limited to {0}."
+msgstr "Забагато розсіювання у цій дистанції. кількість "
+"розгалужень розсіювання обмежена {0}."
+
+#: MiscText.resx, CannotAddVariation
+msgid "Cannot add variation."
+msgstr "Неможливо додати розсіювання."
+
+#: MiscText.resx, VariationAlreadyExists
+msgid "A variation already exists at this control."
+msgstr "На цьому КП вже існує розсіювання."
+
+#: MiscText.resx, VariationMustSelectControl
+msgid "A control or leg must be selected to add a variation."
+msgstr "Для додавання розсіювання слід вибрати КП чи перегон."
+
+#: MiscText.resx, VariationNotFinish
+msgid "A variation cannot be added to a finish control."
+msgstr "Розсіювання не може застосовуватися на останньому КП."
+
+#: MiscText.resx, VariationNotInAllControls
+msgid "A variation cannot be added to the All Controls view."
+msgstr "Неможливо додати розсіювання при перегляді Всі КП."
+
+#: MiscText.resx, VariationNotInScoreCourse
+msgid "A variation cannot be added to a score course."
+msgstr "Розсіювання не застосовується до дистанції за вибором."
+
+#: MiscText.resx, VariationNotLastControl
+msgid "A variation cannot be added to the last control. Add a "
+"finish control first."
+msgstr "Розсіювання не може бути застосовано на останньому КП. "
+"Спершу додайте фінішний КП."
+
+#: MiscText.resx, BadLegNumber
+msgid "'{0}' is not a valid leg number for branch '{1}'"
+msgstr "'{0}' не є правильною кількістю етапів для гілки '{1}'"
+
+#: MiscText.resx, LegNotAssigned
+msgid "Leg {0} should be assigned to one of branches {1}"
+msgstr "Етап {0} має бути призначений для однієї з гілок {1}"
+
+#: MiscText.resx, LegUsedTwice
+msgid "Leg {0} is assigned to both branch '{1}' and branch '{2}'"
+msgstr "Етап {0} призначено як на гілку '{1}' так і на гілку '{2}'"
+
+#: MiscText.resx, CannotReadMapOOM
+msgid "Cannot read map for the following reason: '{0}' Opening "
+"and re-saving the map in the latest version of "
+"OpenOrienteering Mapper may fix problems."
+msgstr "Не вдалося зчитати карту через наступні причини: '{0}' "
+"Відкриття і збереження карти у останній версії "
+"OpenOrienteering Mapper може виправити проблему."
+
+#: MiscText.resx, MapIssue_Short
+msgid "TS"
+msgstr "TS"
+
+#: MiscText.resx, BaseMapHasVisibleTemplatesThatMayNotAppear
+msgid "The underlying OCAD map has visible template files. In "
+"OCAD 8 and below, these templates may not appear due to "
+"limitations in OCAD."
+msgstr "Підключена карта OCAD має видимі файли підложок. В OCAD 8 "
+"і нижче ці підложки можуть не відображатися через "
+"обмеження OCAD."
+
+#: MiscText.resx, ImagesMayAppearBadlyLayeredInOcad10Below
+msgid "Due to limitations of the OCAD file format (in OCAD 10 and "
+"below), image objects will appear underneath courses and "
+"white out areas in the exported OCAD files. Please check "
+"the OCAD files to make sure your images appear as desired."
+msgstr "Через обмеження формату OCAD (у OCAD 10 і нижче) в "
+"експортованих файлах OCAD об’єкти зображень "
+"відображатимуться під дистанціями та забіленими областями. "
+"Будь ласка, перевірте файли OCAD, щоб переконатися, що "
+"зображення відображаються належним чином."
+
+#: MiscText.resx, CannotCreateImageFiles
+msgid "Cannot create image files for the following reason:"
+msgstr "Не вдалося створити файли зображень із наступних причин:"
+
+#: MiscText.resx, CreatePdf
+msgid "Create PDF"
+msgstr "Створити PDF"
+
+#: MiscText.resx, PdfFilter
+msgid "PDF File|*.pdf"
+msgstr "PDF файл|*.pdf"
+
+#: MiscText.resx, LegAssignedOuterBranch
+msgid "Leg {0} never reaches branch '{1}': it was assigned to go "
+"a different way in a containing fork."
+msgstr "Етап {0} ніколи не потрапить на гілку '{1}': для нього був "
+"призначений інший шлях у попередній розвилці."
+
+#: MiscText.resx, AddEllipseExplanation
+msgid "Set the appearance of the ellipse. After pressing OK, drag "
+"the mouse to place the ellipse in the desired location."
+msgstr "Налаштуйте вигляд еліпса. Після натискання на OK потягніть "
+"мишкою щоб розмістити еліпс у бажаному місці."
+
+#: MiscText.resx, AddEllipseTitle
+msgid "Add Ellipse"
+msgstr "Додати еліпс"
+
+#: MiscText.resx, UninstallNonStoreVersion
+msgid "An older version of Purple Pen is still installed. To "
+"prevent confusion caused by having two versions of Purple "
+"Pen installed, it is strongly recommended that the older "
+"version be removed. Remove it now?"
+msgstr ""
+
+#: MiscText.resx, AskInstallRobotoFonts
+msgid "In order for OCAD or OpenOrienteering Mapper to correctly "
+"display the control descriptions, the \"Roboto\" and \"Roboto "
+"Condensed\" fonts must be installed on your system. Would "
+"you like to install those fonts now (strongly recommended)?"
+msgstr ""
+
+#: MiscText.resx, RobotoFontsInstallFailed
+msgid "Installing Roboto Fonts failed."
+msgstr ""
+
+#: MiscText.resx, LowerPurple
+msgid "Lower Purple"
+msgstr ""
+
+#: MissingFonts.resx, checkBoxDontWarnAgain.Text
+msgid "Don't warn about missing fonts for this event again"
+msgstr "Більше не попереджати про відсутні шрифти для цих змагань"
+
+#: MissingFonts.resx, labelWarning.Text
+msgid "Map file \"{0}\" uses fonts that are not installed on your "
+"computer. Text using these fonts will be drawn and printed "
+"with a default font, which may cause text to appear "
+"differently than the map designer intended. \n"
+"\n"
+"To fix this problem, find and install the fonts listed "
+"below with the Windows control panel, then start Purple "
+"Pen again.\n"
+msgstr "Файл карти \"{0}\" використовує шрифти, що відсутні на "
+"комп'ютері. Текст, написаний такими шрифтами, буде "
+"відображено та роздруковано із використанням шрифта за "
+"замовченням, що може призвести до порушення до порушення "
+"дизайну. \n"
+"\n"
+"Щоб виправити цю проблему, знайдіть та встановіть шрифти "
+"перелічені нижче за допомогою контрольної панелі Windows, "
+"тоді запустіть Purple Pen знову.\n"
+
+#: MissingFonts.resx, $this.Text
+msgid "Missing Fonts"
+msgstr "Відсутні шрифти"
+
+#: MoveAllControls.resx, labelDescription.Text
+msgid "Which way would you like to move all controls on the map?"
+msgstr ""
+
+#: MoveAllControls.resx, radioButtonMove.Text
+msgid "Move Only"
+msgstr ""
+
+#: MoveAllControls.resx, radioButtonMoveAndScale.Text
+msgid "Move and Scale"
+msgstr ""
+
+#: MoveAllControls.resx, radioButtonMoveAndRotate.Text
+msgid "Move and Rotate"
+msgstr ""
+
+#: MoveAllControls.resx, radioButtonMoveRotateScale.Text
+msgid "Move, Scale, and Rotate"
+msgstr ""
+
+#: NewEventBitmapScale.resx, bitmapScaleLabel.Text
+msgid "When using an image file as a map, you must specify the "
+"resolution of the image and the map scale. \n"
+"\n"
+"The resolution of the image indicates how may pixels or "
+"dots are in the image for each inch on the paper map; "
+"usually termed dots per inch or \"dpi\".\n"
+"\n"
+"The scale of the map indicates the relationship between "
+"the paper map and the real world.\n"
+msgstr "Коли у якості карти використовується файл зображення, "
+"необхідно вказати роздільність зображення та масштаб "
+"карти. \n"
+"\n"
+"Роздільність зображення вказує на те скільки пікселів або "
+"точок зображення міститься у кожному дюймі друкованої "
+"карти; зазвичай вимірюється у dots per inch або \"dpi\".\n"
+"\n"
+"масштаб карти вказує на співвідношення між друкованою "
+"картою і реальним світом.\n"
+
+#: NewEventBitmapScale.resx, resolutionLabel.Text
+msgid "Image resolution:"
+msgstr "Роздільна здатність зображення:"
+
+#: NewEventBitmapScale.resx, oneToPrefixLabel.Text
+#: NewEventPrintScale.resx, oneToPrefixLabel1.Text
+#: NewEventPrintScale.resx, oneToPrefixLabel2.Text
+msgid "1:"
+msgstr "1:"
+
+#: NewEventBitmapScale.resx, mapScaleLabel.Text
+#: NewEventPrintScale.resx, mapScaleLabel.Text
+msgid "Map scale:"
+msgstr "Масштаб карти:"
+
+#: NewEventBitmapScale.resx, labelTitle.Text
+msgid "Bitmap Resolution"
+msgstr "Роздільна здатність растрового зображення"
+
+#: NewEventBitmapScale.resx, pdfScaleLabel.Text
+msgid "When using an PDF file as a map, you must specify the map "
+"scale. \n"
+"\n"
+"The scale of the map indicates the relationship between "
+"the paper map and the real world.\n"
+msgstr "При використанні PDF файла у якості карти, необхідно "
+"вказати масштаб карти. \n"
+"\n"
+"Масштаб карти вказує на співвідношення між друкованою "
+"картою та реальним світом.\n"
+
+#: NewEventDirectory.resx, newEventDirectoryLabel.Text
+msgid "What folder (directory) do you want to save your course "
+"event file in?"
+msgstr "У яку папку (директорію) ви бажаєте зберегти ваш файл "
+"змагань?"
+
+#: NewEventDirectory.resx, useMapDirectory.Text
+msgid "In the same folder as the map file."
+msgstr "У ту саму папку, де файл карти."
+
+#: NewEventDirectory.resx, useOtherFolder.Text
+msgid "In another folder I choose."
+msgstr "У іншу папку, яку я виберу."
+
+#: NewEventDirectory.resx, chooseFolder.Text
+msgid "Choose Folder..."
+msgstr "Вибрати папку..."
+
+#: NewEventDirectory.resx, folderBrowserDialog.Description
+msgid "Select the folder for your event file"
+msgstr "Виберіть папку для вашого файлу змагань"
+
+#: NewEventDirectory.resx, directoryDisplay.Text
+msgid "Selected Folder"
+msgstr "Вибрана папка"
+
+#: NewEventDirectory.resx, labelTitle.Text
+msgid "Event File Location"
+msgstr "Розміщення файлу змагань"
+
+#: NewEventFinal.resx, newEventFinalLabel.Text
+msgid "Click \"Finish\" to create your new event. Your event file "
+"will be saved as:"
+msgstr "Клікніть на \"Завершити\" щоб створити нові змагання. Ваш "
+"файл змагань буде збережено як:"
+
+#: NewEventFinal.resx, afterEventCreatedLabel.Text
+msgid "After your event is created, select \"New Course...\" from "
+"the Course menu to create one or more courses."
+msgstr "Коли ваші змагання створено, виберіть \"Нова дистанція...\" "
+"з меню Дистанції щоб створити ще одну дистанцію."
+
+#: NewEventFinal.resx, labelTitle.Text
+msgid "Create Event"
+msgstr "Створити змагання"
+
+#: NewEventMapFile.resx, newEventMapFileLabel.Text
+msgid "In order to design your courses, you must select the map "
+"file you will be using. Typically this is an OCAD or "
+"OpenOrienteering Mapper file (although PDFs and image "
+"files like JPEGs can be used instead). Click the "
+"\"Choose...\" button to select a map file."
+msgstr "Щоб спланувати дистанції, необхідно спершу підключити файл "
+"карти, яку ви будете використовувати. Зазвичай це файл "
+"OCAD або OpenOrienteering Mapper (хоча також можна "
+"використовувати PDF-файли або файли зображень, наприклад "
+"JPEG). Натисніть кнопку \"Обрати...\", щоб вибрати файл карти."
+
+#: NewEventMapFile.resx, mapFileDisplay.Text
+msgid "Selected Map File"
+msgstr "Вибрати файл карти"
+
+#: NewEventMapFile.resx, infoMessage.Text
+msgid "The map file was successfully loaded. If you send your "
+"Purple Pen file to someone else, they must have the map "
+"file also."
+msgstr "Файл карти успішно підключено. Якщо ви передаєте комусь "
+"файл Purple Pen, переконайтесь що отримувач має і файл "
+"карти."
+
+#: NewEventNumbering.resx, newEventNumberingLabel.Text
+msgid "Newly created controls are automatically numbered. Please "
+"choose the starting control number to use."
+msgstr "Нові КП нумеруються автоматично. Виберіть із якого номеру "
+"слід почати нумерацію."
+
+#: NewEventNumbering.resx, changeLaterLabel.Text
+msgid "(This setting can be changed later using Event/Automatic "
+"Numbering)"
+msgstr "(Це налаштування можна буде змінити пізніше у меню "
+"Змагання/Автоматична нумерація)"
+
+#: NewEventNumbering.resx, labelTitle.Text
+msgid "Control Numbering"
+msgstr "Нумерація КП"
+
+#: NewEventPrintScale.resx, newEventPrintScaleLabel.Text
+msgid "What scale will you be using to print your courses? In "
+"most cases, you will want to use the existing scale of the "
+"map.\n"
+"\n"
+msgstr "Який масштаб буде використовуватись для друку дистанцій? У "
+"більшості випадків доцільно використовувати масштаб карти.\n"
+"\n"
+
+#: NewEventPrintScale.resx, defaultPrintScaleLabel.Text
+msgid "Default &printing scale:"
+msgstr "Масштаб друку за &замовченням:"
+
+#: NewEventPrintScale.resx, changeLaterLabel.Text
+msgid "(You can change the printing scale later for any course by "
+"choosing Course/Properties.)"
+msgstr "(Ви можете змінити масштаб друку пізніше для кожної "
+"дистанції окремо, використовуючи меню "
+"Дистанція/Властивості.)"
+
+#: NewEventStandards.resx, changeLaterLabel.Text
+msgid "(These settings can be changed later using Event/IOF "
+"Standards)"
+msgstr "(Ці налаштування можливо буде змінити пізніше за допомогою "
+"меню Змагання/Стандарти IOF)"
+
+#: NewEventStandards.resx, labelTitle.Text
+msgid "IOF Standards"
+msgstr "Стандарти IOF"
+
+#: NewEventStandards.resx, radioButtonMapSpr2019.Text
+msgid "ISSprOM 2019"
+msgstr "ISSprOM 2019"
+
+#: NewEventStandards.resx, radioButtonMap2017.Text
+msgid "ISOM 2017"
+msgstr "ISOM 2017"
+
+#: NewEventStandards.resx, radioButtonMap2000.Text
+msgid "ISOM 2000 / ISSOM 2007"
+msgstr "ISOM 2000 / ISSOM 2007"
+
+#: NewEventStandards.resx, groupBoxMapStandard.Text
+msgid "IOF Map Standard"
+msgstr "Стандарти карти IOF"
+
+#: NewEventStandards.resx, radioButtonDescriptions2018.Text
+msgid "Descriptions 2018 or 2024"
+msgstr "Легенди 2018/2024"
+
+#: NewEventStandards.resx, radioButtonDescriptions2004.Text
+msgid "Descriptions 2004"
+msgstr "Легенди 2004"
+
+#: NewEventStandards.resx, groupBoxDescriptionStandard.Text
+msgid "IOF Description Standard"
+msgstr "Стандарт легенд IOF"
+
+#: NewEventStandards.resx, labelStandardsIntro.Text
+msgid "Which versions of IOF standards would you like Purple Pen "
+"to follow?"
+msgstr "Яких стандартів IOF, ви би хотіли, щоб дотримувався Purple "
+"Pen?"
+
+#: NewEventTitle.resx, newEventTitleLabel.Text
+msgid "The event title will be displayed on the first line of "
+"every control description sheet. It is also used as the "
+"file name for storing your event on disk.\n"
+"\n"
+"To fit on the description sheet, it should be less than 25 "
+"characters in length. Examples of good event titles are "
+"\"US Champs Day 1\" or \"Riverview Park, 4/12/06\"."
+msgstr "Назву змагань буде відображено у першому рядку кожної "
+"таблиці легенд. Її також буде використано у назві файла "
+"для збереження ваших змагань на диску.\n"
+"\n"
+"Щоб пасувати ширині таблиці, назва змагань має бути не "
+"більшою 25 символів. Хороші приклади: \"Чемпіонат України "
+"День 1\" або \"Парк Наталка, 4/12/06\"."
+
+#: NewEventTitle.resx, eventTitleLabel.Text
+msgid "Event Title:"
+msgstr "Назва змагань:"
+
+#: NewEventWizard.resx, backButton.Text
+msgid "< &Back"
+msgstr "< Назад"
+
+#: NonPrintableObjects.resx, labelWarning.Text
+msgid "Map file \"{0}\" contains objects or symbols that are not "
+"fully supported by Purple Pen, and may not print "
+"correctly. The objects that may not print correctly are "
+"listed below.\n"
+"\n"
+"For printing competition maps, it is suggested that "
+"courses be exported to OCAD files (use File/Create OCAD "
+"Files...) and to print the maps from OCAD.\n"
+msgstr "Файл карти \"{0}\" місить об'єкти, що не повністю "
+"підтримуються Purple Pen і, можливо, будуть надруковані "
+"невірно. Такі об'єкти перелічені нижче.\n"
+"\n"
+"Для друку змагальних карт рекомендується експортувати "
+"дистанції у файли OCAD (меню Файл/Створити файли OCAD...) "
+"і виконати друк безпосередньо з OCAD.\n"
+
+#: NonPrintableObjects.resx, okButton.Text
+msgid "Continue"
+msgstr "Продовжити"
+
+#: NonPrintableObjects.resx, $this.Text
+msgid "Map File Cannot Be Printed Accurately"
+msgstr "Файл карти не можна надрукувати точно"
+
+#: OperationInProgress.resx, $this.Text
+msgid "Operation In Progress"
+msgstr "Дія вконується"
+
+#: OverwritingOcadFilesDialog.resx, confirmReplaceLabel.Text
+msgid "The following files already exist. If you continue, they "
+"will be replaced."
+msgstr "Наступні файли вже існують. Якщо ви продовжите, вони "
+"будуть перезаписані."
+
+#: OverwritingOcadFilesDialog.resx, buttonOK.Text
+msgid "Replace"
+msgstr "Замінити"
+
+#: OverwritingOcadFilesDialog.resx, $this.Text
+msgid "Confirm Replace Files"
+msgstr "Підтвердіть заміну файлів"
+
+#: PdfConversionInProgress.resx, labelReadingPDF.Text
+msgid "PDFium PDF converter is reading your PDF..."
+msgstr "PDFium конвертор PDF зчинує ваш PDF файл..."
+
+#: PdfConversionInProgress.resx, labelFailure.Text
+msgid "PDF reading has failed. The errors are shown below."
+msgstr "Зчитування PDF завершилось невдачею. Помилки показано нижче."
+
+#: PdfConversionInProgress.resx, $this.Text
+msgid "Reading PDF"
+msgstr "Зчитування PDF"
+
+#: PrintCourses.resx, okButton.Text
+#: PrintDescriptions.resx, printButton.Text
+#: PrintPunches.resx, printButton.Text
+msgid "Print"
+msgstr "Друкувати"
+
+#: PrintCourses.resx, printerChange.Text
+#: PrintDescriptions.resx, printerChange.Text
+#: PrintPunches.resx, printerChange.Text
+msgid "Change Printer..."
+msgstr "Змінити принтер..."
+
+#: PrintCourses.resx, printerName.Text
+#: PrintDescriptions.resx, printerName.Text
+#: PrintPunches.resx, printerName.Text
+msgid "Printer Name"
+msgstr "Назва принтера"
+
+#: PrintCourses.resx, printerLabel.Text
+#: PrintDescriptions.resx, printerLabel.Text
+#: PrintPunches.resx, printerLabel.Text
+msgid "Printer:"
+msgstr "Принтер:"
+
+#: PrintCourses.resx, previewButton.Text
+#: PrintDescriptions.resx, previewButton.Text
+#: PrintPunches.resx, previewButton.Text
+msgid "Preview..."
+msgstr "Попередній перегляд..."
+
+#: PrintCourses.resx, copiesLabel.Text
+msgid "Copies of each course:"
+msgstr "Копій кожної дистанції:"
+
+#: PrintCourses.resx, checkBoxPausePrinting.Text
+msgid "Pause printing after each course or part"
+msgstr "Призупиняти друк після кожної дистанції чи частини"
+
+#: PrintCourses.resx, copiesGroupBox.Text
+#: PrintDescriptions.resx, copiesGroupBox.Text
+#: PrintPunches.resx, copiesGroupBox.Text
+msgid "Copies"
+msgstr "Копії"
+
+#: PrintCourses.resx, comboBoxColorModel.Items
+msgid "OCAD Compatible"
+msgstr "Сумісна з OCAD"
+
+#: PrintCourses.resx, $this.Text
+msgid "Print Courses"
+msgstr "Друкувати дистанції"
+
+#: PrintDescriptions.resx, marginChange.Text
+#: PrintPunches.resx, marginChange.Text
+msgid "Change Margins..."
+msgstr "Змінити поля..."
+
+#: PrintDescriptions.resx, paperSize.Text
+#: PrintPunches.resx, paperSize.Text
+msgid "Tabloid (11\"x17\")"
+msgstr "Таблоїд (11\"x17\")"
+
+#: PrintDescriptions.resx, paperSizeLabel.Text
+#: PrintPunches.resx, paperSizeLabel.Text
+msgid "Paper Size:"
+msgstr "Розмір сторінки:"
+
+#: PrintDescriptions.resx, margins.Text
+#: PrintPunches.resx, margins.Text
+msgid "Top: 0.55\", Bottom: 0.55\", Left: 0.55\", Right: 0.55\""
+msgstr "Верхнє: 0.55\", Нижнє: 0.55\", Ліве: 0.55\", Праве: 0.55\""
+
+#: PrintDescriptions.resx, marginsLabel.Text
+#: PrintPunches.resx, marginsLabel.Text
+msgid "Margins:"
+msgstr "Поля:"
+
+#: PrintDescriptions.resx, orientationLabel.Text
+#: PrintPunches.resx, orientationLabel.Text
+msgid "Orientation:"
+msgstr "Орієнтація:"
+
+#: PrintDescriptions.resx, descriptionKindCombo.Items
+msgid "Course default"
+msgstr "Як і на картах"
+
+#: PrintDescriptions.resx, descriptionKindCombo.Items3
+msgid "Symbols & Text"
+msgstr "Піктограми та текст"
+
+#: PrintDescriptions.resx, descriptionTypeLabel.Text
+msgid "Description type:"
+msgstr "Вид легенд:"
+
+#: PrintDescriptions.resx, lineSizeLabel.Text
+msgid "Line size:"
+msgstr "Висота рядка:"
+
+#: PrintDescriptions.resx, descriptionsLabel.Text
+msgid "descriptions per course"
+msgstr "легенд на дистанцію"
+
+#: PrintDescriptions.resx, copiesCombo.Items
+msgid "one copy of each course"
+msgstr "одна копія для кожної дистанції"
+
+#: PrintDescriptions.resx, copiesCombo.Items1
+msgid "one page of each course"
+msgstr "одна сторінка для кожної дистанції"
+
+#: PrintDescriptions.resx, copiesCombo.Items2
+msgid "multiple pages of each course"
+msgstr "кілька сторінок для кожної дистанції"
+
+#: PrintDescriptions.resx, whatToPrintLabel.Text
+msgid "Print:"
+msgstr "Друк:"
+
+#: PrintDescriptions.resx, $this.Text
+msgid "Print Descriptions"
+msgstr "Друкувати легенди"
+
+#: PrinterMargins.resx, label3.Text
+msgid "Height:"
+msgstr "Висота:"
+
+#: PrinterMargins.resx, groupBoxPaperSize.Text
+msgid "Paper Size ({0})"
+msgstr "Розмір аркуша ({0})"
+
+#: PrinterMargins.resx, groupBox1.Text
+msgid "Orientation"
+msgstr "Орієнтація"
+
+#: PrinterMargins.resx, label1.Text
+msgid "Left:"
+msgstr "Ліве:"
+
+#: PrinterMargins.resx, label4.Text
+msgid "Top:"
+msgstr "Верхнє:"
+
+#: PrinterMargins.resx, label5.Text
+msgid "Right:"
+msgstr "Праве:"
+
+#: PrinterMargins.resx, label6.Text
+msgid "Bottom:"
+msgstr "Нижнє:"
+
+#: PrinterMargins.resx, groupBoxMargins.Text
+msgid "Margins ({0})"
+msgstr "Поля ({0})"
+
+#: PrinterMargins.resx, $this.Text
+msgid "Page Setup"
+msgstr "Параметри сторінки"
+
+#: PrintPunches.resx, punchCardLayoutButton.Text
+#: PunchPatternDialog.resx, formatButton.Text
+msgid "Punch Card Layout..."
+msgstr "Макет картки для відмітки..."
+
+#: PrintPunches.resx, punchBoxSizeLabel.Text
+msgid "Punch box size:"
+msgstr "Розмір клітинки:"
+
+#: PrintPunches.resx, descriptionsLabel.Text
+msgid "Copies:"
+msgstr "Копій:"
+
+#: PrintPunches.resx, $this.Text
+msgid "Print Punch Cards"
+msgstr "Друкувати контрольні картки"
+
+#: PunchcardLayoutDialog.resx, boxOrderGroupBox.Text
+msgid "Box Order"
+msgstr "Порядок відміток"
+
+#: PunchcardLayoutDialog.resx, sizeGroupBox.Text
+msgid "Size"
+msgstr "Розмір"
+
+#: PunchcardLayoutDialog.resx, columnsLabel.Text
+msgid "Columns:"
+msgstr "Колонки:"
+
+#: PunchcardLayoutDialog.resx, rowsLabel.Text
+msgid "Rows:"
+msgstr "Рядки:"
+
+#: PunchcardLayoutDialog.resx, $this.Text
+msgid "Punch Card Layout"
+msgstr "Макет картки для відмітки"
+
+#: PunchPatternDialog.resx, punchPatternsLabel.Text
+msgid "Click on a control code in the left-side list, and design "
+"the punch pattern in the right side. Red codes indicate "
+"controls that have no punch pattern defined."
+msgstr "Виберіть код КП у спису ліворуч і введіть форму компостера "
+"праворуч. Червоні коди означають що форма компостера ще не "
+"задана для цього КП."
+
+#: PunchPatternDialog.resx, $this.Text
+msgid "Punch Patterns"
+msgstr "Форм компостерів"
+
+#: ReportForm.resx, printButton.Text
+#: TeamVariationsForm.resx, buttonPrint.Text
+msgid "Print..."
+msgstr "Друкувати..."
+
+#: ReportForm.resx, previewButton.Text
+#: TeamVariationsForm.resx, buttonPrintPreview.Text
+msgid "Print Preview..."
+msgstr "Перегляд друку…"
+
+#: ReportForm.resx, okButton.Text
+#: TeamVariationsForm.resx, buttonClose.Text
+msgid "Close"
+msgstr "Закрити"
+
+#: ReportText.resx, ColumnHeader_Climb
+msgid "Climb"
+msgstr "Набір висоти"
+
+#: ReportText.resx, ColumnHeader_Code
+msgid "Code"
+msgstr "Код"
+
+#: ReportText.resx, ColumnHeader_Column
+msgid "Column"
+msgstr "Стовпчик"
+
+#: ReportText.resx, ColumnHeader_Control
+msgid "Control"
+msgstr "КП"
+
+#: ReportText.resx, ColumnHeader_ControlCodes
+msgid "Control codes"
+msgstr "Коди КП"
+
+#: ReportText.resx, ColumnHeader_Controls
+msgid "Controls"
+msgstr "КП"
+
+#: ReportText.resx, ColumnHeader_Course
+msgid "Course"
+msgstr "Дистанція"
+
+#: ReportText.resx, ColumnHeader_Distance
+msgid "Distance"
+msgstr "Відстань"
+
+#: ReportText.resx, ColumnHeader_Item
+msgid "Item"
+msgstr "Елемент"
+
+#: ReportText.resx, ColumnHeader_Leg
+msgid "Leg"
+msgstr "Перегон"
+
+#: ReportText.resx, ColumnHeader_Length
+msgid "Length"
+msgstr "Довжина"
+
+#: ReportText.resx, ColumnHeader_Load
+msgid "Load"
+msgstr "Навантаження"
+
+#: ReportText.resx, ColumnHeader_Location
+msgid "Location"
+msgstr "Розташування"
+
+#: ReportText.resx, ColumnHeader_NumberOfCourses
+msgid "# Courses"
+msgstr "# Дистанції"
+
+#: ReportText.resx, ColumnHeader_Reason
+msgid "Reason"
+msgstr "Причина"
+
+#: ReportText.resx, ColumnHeader_SameSymbol
+msgid "Same symbol?"
+msgstr "Той самий умовний знак?"
+
+#: ReportText.resx, ColumnHeader_Visits
+msgid "Visits"
+msgstr "Відвідань"
+
+#: ReportText.resx, CourseSummary_Title
+msgid "Course Summary for {0}"
+msgstr "Підсумки дистанції для {0}"
+
+#: ReportText.resx, CrossRef_Title
+msgid "Control cross-reference for {0}"
+msgstr "Перехресність КП для {0}"
+
+#: ReportText.resx, EventAudit_BothDirectionsLegs
+msgid "Legs Run in Both Directions"
+msgstr "Перегони із зустрічним бігом"
+
+#: ReportText.resx, EventAudit_CloseTogetherControls
+msgid "Close Together Controls"
+msgstr "Близькі КП"
+
+#: ReportText.resx, EventAudit_CloseTogetherExplanation
+msgid "The following table shows all control pairs that are "
+"within {0} meters of each other. The same symbol column "
+"shows whether the two controls have the same primary "
+"symbol (column D)."
+msgstr "Наступна таблиця показує всі пари КП, що розташовані "
+"ближче ніж {0} м один від одного. Колонка \"Той самий знак\" "
+"говорить про те чи на подібних об'єктах установлені ці КП "
+"(колонка D таблиці легенд)."
+
+#: ReportText.resx, EventAudit_MissingBoxes
+msgid "Missing Description Boxes"
+msgstr "Не привласнена легенда"
+
+#: ReportText.resx, EventAudit_MissingClimb
+msgid "Regular courses should indicate the amount of climb"
+msgstr "Для звичайних дистанцій слід вказувати набір висоти"
+
+#: ReportText.resx, EventAudit_MissingD
+msgid "All controls must have a main feature in column D"
+msgstr "Всі КП повинні мати зазначений у колонці D об'єкт постановки"
+
+#: ReportText.resx, EventAudit_MissingEBetween
+msgid "When \"between\" is in column G, two features must be shown "
+"in columns D and E"
+msgstr "Якщо у колонці G використано піктограму \"між\", у колонках "
+"D та E необхідно вказати два об'єкти"
+
+#: ReportText.resx, EventAudit_MissingEJunction
+msgid "When \"junction\" or \"crossing\" is in column F, two features "
+"must be shown in columns D and E"
+msgstr "Якщо у колонці F використано піктограми \"злиття\" або "
+"\"перехрестя\", у колонках D та E необхідно вказати два "
+"об'єкти"
+
+#: ReportText.resx, EventAudit_MissingFinish
+msgid "Regular courses should have a finish circle"
+msgstr "Звичайні дистанції повинні мати фініш"
+
+#: ReportText.resx, EventAudit_MissingItems
+msgid "Missing Items in Courses"
+msgstr "Не вистачає елемента дистанції"
+
+#: ReportText.resx, EventAudit_MissingLoad
+msgid "Course should have expected competitor load"
+msgstr "Слід задати для дистанцій очікуване навантаження учасниками"
+
+#: ReportText.resx, EventAudit_MissingPunch
+msgid "No punch pattern defined"
+msgstr "Не задано форму компостера"
+
+#: ReportText.resx, EventAudit_MissingPunchPatterns
+msgid "Missing Punch Patterns"
+msgstr "Не задані форми компостерів"
+
+#: ReportText.resx, EventAudit_MissingScore
+msgid "Score course should have score set for all controls or no "
+"controls"
+msgstr "У дистанціях за вибором кожен КП оцінюється у певну "
+"кількість очок, або КП не використовуються"
+
+#: ReportText.resx, EventAudit_MissingScores
+msgid "Missing Scores"
+msgstr "Не задані очки"
+
+#: ReportText.resx, EventAudit_MissingStart
+msgid "Regular courses should have a start triangle"
+msgstr "Звичайні дистанції повинні мати Старт"
+
+#: ReportText.resx, EventAudit_MissingStartScore
+msgid "Score courses should have a start triangle"
+msgstr "Дистанції за вибором повинні мати Старт"
+
+#: ReportText.resx, EventAudit_NoProblems
+msgid "No problems found."
+msgstr "Проблем не знайдено."
+
+#: ReportText.resx, EventAudit_RepeatControl
+msgid "Course \"{0}\" contains control \"{1}\" twice in a row."
+msgstr "Дистанція \"{0}\" містить КП \"{1}\" двічі підряд."
+
+#: ReportText.resx, EventAudit_RepeatedControls
+msgid "Repeated Controls"
+msgstr "Повторювані КП"
+
+#: ReportText.resx, EventAudit_ScoreDuplicateControl
+msgid "Score course \"{0}\" contains control \"{1}\" twice. "
+msgstr "Дистанція за вибором \"{0}\" містить КП \"{1}\" двічі. "
+
+#: ReportText.resx, EventAudit_Title
+msgid "Event Audit for {0}"
+msgstr "Аудит змагань для {0}"
+
+#: ReportText.resx, EventAudit_UnusedControls
+#: UnusedControls.resx, $this.Text
+msgid "Unused Controls"
+msgstr "КП, що не використовуються"
+
+#: ReportText.resx, EventAudit_UnusedControlsExplanation
+msgid "The following controls are present in the All Controls "
+"collection but are not used in any course. To remove them, "
+"use the \"Remove Unused Controls\" command on the \"Event\" "
+"menu. These controls will not be considered further in "
+"this report."
+msgstr "Наступні КП присутні у наборі Всі КП, але не задіяні у "
+"жодній із дистанцій. Щоб видалити їх, скористайтеся "
+"\"Видалити незадіяні КП\" з меню \"Змагання\". These controls "
+"will not be considered further in this report. Ці КП "
+"більше не фігуруватимуть у звіті."
+
+#: ReportText.resx, LegLength_Average
+msgid "Average"
+msgstr "Середнє"
+
+#: ReportText.resx, LegLength_CourseInfo
+msgid "{0} ({1} controls, {2}, {3} m climb)"
+msgstr "{0} ({1} КП, {2}, {3} м перепаду)"
+
+#: ReportText.resx, LegLength_CourseInfoNoClimb
+msgid "{0} ({1} controls, {2})"
+msgstr "{0} ({1} КП, {2})"
+
+#: ReportText.resx, LegLength_Title
+msgid "Leg Length Report for {0}"
+msgstr "Звіт щодо довжини перегонів для {0}"
+
+#: ReportText.resx, Load_ButterflyExists
+msgid "Some controls are visited multiple times on the same "
+"course. The second load number counts each visit to a "
+"control separately."
+msgstr "Деякі КП відвідуються кілька разів упродовж проходження "
+"дистанції. Друге число навантаження враховує кожне "
+"відвідування контрольного пункту окремо."
+
+#: ReportText.resx, Load_ControlLoadSection
+msgid "Control load"
+msgstr "Навантаження КП"
+
+#: ReportText.resx, Load_LegLoadSection
+msgid "Leg load"
+msgstr "Навантаження перегонів"
+
+#: ReportText.resx, Load_MissingLoads
+msgid "Some or all courses do not have competitor loads set for "
+"them. The loads listed below may be incorrect or missing "
+"for this reason. To set competitor loads, select "
+"\"Competitor Load\" from the \"Course\" menu."
+msgstr "Для деяких або всіх дистанцій не задано навантаження "
+"учасниками. Тому перелічені нижче навантаження можуть бути "
+"неправильними або не відображатися. Щоб задати "
+"навантаження учасниками, виберіть \"Навантаження "
+"учасниками\" у меню \"Дистанція\"."
+
+#: ReportText.resx, Load_OnlyLegsMoreThanOnce
+msgid "(only legs used by more than one course appear in the "
+"following table)"
+msgstr "(у наступній таблиці відображено тільки перегони, що "
+"задіяні у понад одній дистанції)"
+
+#: ReportText.resx, Load_Title
+msgid "Competitor Load Summary for {0}"
+msgstr "Підсумок щодо навантаження учасниками для {0}"
+
+#: ReportText.resx, Load_VariationsExist
+msgid "One or more courses has variations. Load numbers will be "
+"computed assuming that competitors are evenly distributed "
+"between forks."
+msgstr "Одна або кілька дистанцій мають розсіювання. Навантаження "
+"буде обчислено за умови, що розподіл учасників на вилці є "
+"рівномірним."
+
+#: ReportText.resx, Load_Visit
+msgid "({0} visits)"
+msgstr "({0} відвідувань)"
+
+#: ReportText.resx, Load_Warning
+msgid "WARNING:"
+msgstr "ПОПЕРЕДЖЕННЯ:"
+
+#: ReportText.resx, Note
+msgid "NOTE: "
+msgstr "ПРИМІТКА: "
+
+#: ReportText.resx, RelayVariation_BranchWarning
+msgid "Warning: due to the number of legs specified, the fork at "
+"control {0} will not be used evenly. {1} leg(s) will use "
+"branch(es) {2}, while {3} leg(s) will use branch(es) {4}. "
+msgstr "Увага: через вказану кількість етапів вилка на КП {0} "
+"навантажена нерівномірно. Етап(и) {1} будуть призначені на "
+"гілку(и) {2}, тоді як етап(и) {3} - гілку(и) {4}. "
+
+#: ReportText.resx, RelayVariation_LegHeader
+msgid "Leg {0}"
+msgstr "Етап {0}"
+
+#: ReportText.resx, RelayVariation_NoTeams
+msgid "No relay teams have been defined yet. Selected the desired "
+"number of teams and legs and press the \"Assign Variations\" "
+"button."
+msgstr "Естафетні команди ще не визначені. Виберіть потрібну "
+"кількість команд і етапів і натисніть кнопку \"Призначити "
+"розсіювання\"."
+
+#: ReportText.resx, RelayVariation_TeamNumber
+msgid "Team {0}"
+msgstr "Команда {0}"
+
+#: ReportText.resx, RelayVariation_Title
+msgid "Relay Assignments for {0}"
+msgstr "Призначення естафети для {0}"
+
+#: SelectionDescriptionText.resx, AwayFromControl
+msgid "away from control"
+msgstr "далеко від КП"
+
+#: SelectionDescriptionText.resx, CompetitorLoad
+msgid "Competitor load:"
+msgstr "Навантаження учасниками:"
+
+#: SelectionDescriptionText.resx, ControlsInUse
+msgid "Controls in use:"
+msgstr "КП використовуються:"
+
+#: SelectionDescriptionText.resx, ControlsNotInUse
+msgid "Controls not in use:"
+msgstr "КП не використовуються:"
+
+#: SelectionDescriptionText.resx, Control_Plural
+msgid "controls"
+msgstr "КП"
+
+#: SelectionDescriptionText.resx, Control_Singular
+msgid "control"
+msgstr "КП"
+
+#: SelectionDescriptionText.resx, CourseList_AllCourses
+msgid "All courses"
+msgstr "Всі дистанції"
+
+#: SelectionDescriptionText.resx, CourseName
+msgid "Course \"{0}\""
+msgstr "Дистанція \"{0}\""
+
+#: SelectionDescriptionText.resx, CustomizedSymbolDesc
+msgid "Customized symbol description"
+msgstr "Ленеди, що зазнали правки"
+
+#: SelectionDescriptionText.resx, EntireLeg
+msgid "entire leg"
+msgstr "весь етап"
+
+#: SelectionDescriptionText.resx, FinishFunnel
+msgid "finish funnel"
+msgstr "фініштий коридор"
+
+#: SelectionDescriptionText.resx, Finish_Plural
+msgid "finishes"
+msgstr "фініші"
+
+#: SelectionDescriptionText.resx, Finish_Singular
+msgid "finish"
+msgstr "фініш"
+
+#: SelectionDescriptionText.resx, Flagging
+msgid "Flagging:"
+msgstr "Маркування:"
+
+#: SelectionDescriptionText.resx, IntoControl
+msgid "into control"
+msgstr "на КП"
+
+#: SelectionDescriptionText.resx, IntoFinishFunnel
+msgid "into finish funnel"
+msgstr "у фінішному коридорі"
+
+#: SelectionDescriptionText.resx, LineHeight
+msgid "Line height:"
+msgstr ""
+
+#: SelectionDescriptionText.resx, Location
+msgid "Location:"
+msgstr "Розташування:"
+
+#: SelectionDescriptionText.resx, MandCrossing_Plural
+msgid "mandatory crossing points"
+msgstr ""
+
+#: SelectionDescriptionText.resx, MandCrossing_Singular
+msgid "mandatory crossing point"
+msgstr "обов'язковий пункт перетину"
+
+#: SelectionDescriptionText.resx, None
+msgid "none"
+msgstr "немає"
+
+#: SelectionDescriptionText.resx, SpecialName_Forbidden
+msgid "Forbidden Route"
+msgstr "Заборонений шлях"
+
+#: SelectionDescriptionText.resx, SpecialName_OOB
+msgid "Out-of-bounds Area"
+msgstr "Заборонена територія"
+
+#: SelectionDescriptionText.resx, Start_Plural
+msgid "starts"
+msgstr ""
+
+#: SelectionDescriptionText.resx, Start_Singular
+msgid "start"
+msgstr "початок"
+
+#: SelectionDescriptionText.resx, TextDescription
+msgid "Text description:"
+msgstr "Опис текстом:"
+
+#: SelectionDescriptionText.resx, TextLine
+msgid "Text line"
+msgstr "Строка тексту"
+
+#: SelectionDescriptionText.resx, TextLine_AboveAllCourses
+msgid "Appears above {0}, in all courses that contain {0}"
+msgstr "З’являється над {0} у всіх дистанціях, які містять {0}"
+
+#: SelectionDescriptionText.resx, TextLine_AboveThisCourse
+msgid "Appears above {0}, in this course only"
+msgstr "З’являється над {0} тільки у цій дистанції"
+
+#: SelectionDescriptionText.resx, TextLine_BelowAllCourses
+msgid "Appears below {0}, in all courses that contain {0}"
+msgstr "З’являється під {0} у всіх дистанціях, які містять {0}"
+
+#: SelectionDescriptionText.resx, TextLine_BelowThisCourse
+msgid "Appears below {0}, in this course only"
+msgstr "З’являється під {0} тільки у цій дистанції"
+
+#: SelectionDescriptionText.resx, TotalControls
+msgid "Total controls:"
+msgstr "Всього КП:"
+
+#: SelectionDescriptionText.resx, TotalScore
+msgid "Total score:"
+msgstr "Всього очків:"
+
+#: SelectionDescriptionText.resx, UsedInCourses
+msgid "Used in courses:"
+msgstr "Використано у дистанціях:"
+
+#: SelectionDescriptionText.resx, FileName
+msgid "Name:"
+msgstr "Назва:"
+
+#: SelectionDescriptionText.resx, MapExchange_Plural
+msgid "map exchanges"
+msgstr "зміна карт"
+
+#: SelectionDescriptionText.resx, MapExchange_Singular
+msgid "map exchange"
+msgstr "зміна карти"
+
+#: SelectionDescriptionText.resx, MapExchangeAtControl
+msgid "Map exchange at {0}"
+msgstr "Зміна карти у {0}"
+
+#: SelectionDescriptionText.resx, Load
+msgid "Load:"
+msgstr "Навантаження:"
+
+#: SelectionDescriptionText.resx, UsedIn
+msgid "Used in:"
+msgstr "Використано у:"
+
+#: SelectionDescriptionText.resx, CourseNameAndPart
+msgid "Course \"{0}\", Part {1}"
+msgstr "Дистанція \"{0}\", Частина {1}"
+
+#: SelectionDescriptionText.resx, CalculatedLength
+msgid "Calculated Length:"
+msgstr "Розрахована довжина:"
+
+#: SelectionDescriptionText.resx, MapIssue_Plural
+msgid "map issue points"
+msgstr "пункти видачі карт"
+
+#: SelectionDescriptionText.resx, MapIssue_Singular
+msgid "map issue point"
+msgstr "пункт видачі карт"
+
+#: SelectionDescriptionText.resx, MapFlipAtControl
+msgid "Map flip at {0}"
+msgstr ""
+
+#: SelectLocationsForMove.resx, labelArrowFirstControl.Text
+#: SelectLocationsForMove.resx, labelArrowFirstNewLocation.Text
+#: SelectLocationsForMove.resx, labelArrowSecondControl.Text
+#: SelectLocationsForMove.resx, labelArrowSecondNewLocation.Text
+#: SelectLocationsForMove.resx, labelArrowConfirmLocations.Text
+msgid "è"
+msgstr ""
+
+#: SelectLocationsForMove.resx, labelFirstControl.Text
+msgid "Select first control or registration mark to move"
+msgstr ""
+
+#: SelectLocationsForMove.resx, labelSecondNewLocation.Text
+msgid "Choose new location for second control/mark"
+msgstr ""
+
+#: SelectLocationsForMove.resx, labelConfirmLocations.Text
+msgid "Confirm new locations"
+msgstr ""
+
+#: SelectLocationsForMove.resx, labelRotation.Text
+msgid "Rotation:"
+msgstr ""
+
+#: SelectLocationsForMove.resx, labelYOffset.Text
+msgid "Y Offset:"
+msgstr ""
+
+#: SelectLocationsForMove.resx, labelXOffset.Text
+msgid "X Offset:"
+msgstr ""
+
+#: SelectLocationsForMove.resx, labelSecondControl.Text
+msgid "Select second control or registration mark to move"
+msgstr ""
+
+#: SelectLocationsForMove.resx, labelFirstNewLocation.Text
+msgid "Choose new location for first control/mark"
+msgstr ""
+
+#: SelectLocationsForMove.resx, buttonBack.Text
+msgid "Back"
+msgstr ""
+
+#: SelectLocationsForMove.resx, buttonConfirm.Text
+msgid "Confirm"
+msgstr ""
+
+#: SelectVariations.resx, comboBoxVariations.Items
+msgid "Each Variation Separately"
+msgstr "Кожен варіант окремо"
+
+#: SelectVariations.resx, comboBoxVariations.Items1
+msgid "Each Relay Leg Separately"
+msgstr "Кожен етап естафети окремо"
+
+#: SelectVariations.resx, comboBoxVariations.Items2
+msgid "All Variations Combined"
+msgstr "Всі варіанти розсіювання разом"
+
+#: SelectVariations.resx, label1.Text
+msgid "Variations:"
+msgstr "Варіанти розсіювання:"
+
+#: SelectVariations.resx, labelAllVariations.Text
+msgid "Display all the forks together on a single map."
+msgstr "Відобразити усі розвилки разом на одній карті."
+
+#: SelectVariations.resx, labelSeparateVariations.Text
+msgid "One map for each possible variation through the course."
+msgstr "Одна карта для кожного можливого варіанту дистанції."
+
+#: SelectVariations.resx, labelByLeg.Text
+msgid "One map for each leg on the relay teams that you choose."
+msgstr "Одна карта для кожного етапу в естафетних командах, які ви "
+"виберете."
+
+#: SelectVariations.resx, labelByLegNotAvailable.Text
+msgid "You must first define relay teams by selecting Relay Team "
+"Variations... from the Course menu."
+msgstr "Спершу необхідно задати естафетні команди, вибравши "
+"\"Розсіювання естафетних команд...\" у меню Дистанція."
+
+#: SelectVariations.resx, checkBoxSelectIndividualVariations.Text
+msgid "Select Individual Variations"
+msgstr "Вбрати окремі варіанти розсіювання"
+
+#: SelectVariations.resx, labelNumberOfTeams.Text
+msgid "This course has {0} relay teams assigned. Use Relay Team "
+"Variations... from the Course menu to change the number of "
+"teams."
+msgstr "Для цієї дистанції призначено {0} естафетних команд. Щоб "
+"змінити кількість команд, скористайтеся  пунктом "
+"\"Розсіювання естафетних команд...\" у меню Дистанція."
+
+#: SelectVariations.resx, label3.Text
+msgid "to"
+msgstr "до"
+
+#: SelectVariations.resx, label2.Text
+msgid "Select which teams to print/export:"
+msgstr "Виберіть команди для друку/експорту:"
+
+#: SelectVariations.resx, $this.Text
+msgid "Choose Variations"
+msgstr "Виберіть варіанти розсіювання"
+
+#: SetPrintAreaDialog.resx, okButton.Text
+msgid "Done"
+msgstr "Готово"
+
+#: SetPrintAreaDialog.resx, setPrintAreaLabel.Text
+msgid "Set the desired printing area by dragging with the mouse."
+msgstr "Вберіть область друку, перетягуючи її мишкою."
+
+#: SetPrintAreaDialog.resx, groupBoxPaperSize.Text
+msgid "Paper Size"
+msgstr "Розмір аркуша"
+
+#: SetPrintAreaDialog.resx, checkBoxAutomatic.Text
+msgid "Set Print Area Automatically"
+msgstr "Визначити область друку автоматично"
+
+#: SetPrintAreaDialog.resx, checkBoxFixSizeToPaper.Text
+msgid "Fix Print Area Size to Paper Size"
+msgstr "Закріпити області друку відповідно до розміру аркуша"
+
+#: SetUILanguage.resx, introLabel.Text
+msgid "Select the language that you would like to use for the "
+"user interface of Purple Pen (menus, windows, etc.)"
+msgstr "Вберіть мову, якою ви бажаєте відображати інтерфейс Purple "
+"Pen (меню, вікна, тощо.)"
+
+#: SetUILanguage.resx, $this.Text
+msgid "Program Language"
+msgstr "Мова програми"
+
+#: StatusBarText.resx, DefaultStatus
+msgid "Left mouse button: select object;   Right mouse button: "
+"move map;   Scroll wheel: zoom in/out"
+msgstr "Ліва кнопка миші: вибрати об'єкт; Права кнопка миші: "
+"рухати карту; Коліщатко: наблизити/віддалити"
+
+#: StatusBarText.resx, DefaultRectangle
+msgid "Left mouse button: move/size rectangle;   Right mouse "
+"button: move map;   Scroll wheel: zoom in/out"
+msgstr "Ліва кнопка миші: рухати/змінити розмір прямокутника;   "
+"Права кнопка миші: рухати карту;   Коліщатко: "
+"наблизити/віддалити"
+
+#: StatusBarText.resx, DragObject
+msgid "Hold down left mouse button and drag to move selected object"
+msgstr "Утримуйте ліву кнопку та перетащіть мишку, щоб рухати "
+"виділений об'єкт"
+
+#: StatusBarText.resx, DragCorner
+msgid "Hold down left mouse button and drag corner point to move it"
+msgstr "Утримуйте ліву кнопку мишки та перетащіть вузлову точку, "
+"щоб змінити її позицію"
+
+#: StatusBarText.resx, DraggingObject
+msgid "Move object to desired location and release mouse button"
+msgstr "Перемістіть об'єкт в бажане місце та відпустіть кнопку"
+
+#: StatusBarText.resx, DraggingCorner
+msgid "Move corner point to desired location and release mouse "
+"button"
+msgstr "Перемістіть вузлову точку в бажане місце та відпустіть "
+"кнопку"
+
+#: StatusBarText.resx, AddingControl
+msgid "Click left mouse button to place new control"
+msgstr "Клацніть лівою кнопкою мишки щоб розмістити новий КП"
+
+#: StatusBarText.resx, AddingExistingControl
+msgid "Click left mouse button to add existing control \"{0}\" to "
+"course"
+msgstr "Клацніть лівою кнопкою мишки щоб додати існуючий КП \"{0}\" "
+"на дистанцію"
+
+#: StatusBarText.resx, AddingStart
+msgid "Click left mouse button to place new start"
+msgstr "Клацніть лівою кнопкою мишки щлб розмістити новий старт"
+
+#: StatusBarText.resx, AddingExistingStart
+msgid "Click left mouse button to add existing start to course"
+msgstr "Клацніть лівою кнопкою мишки щоб додати існуючий старт до "
+"дистанції"
+
+#: StatusBarText.resx, AddingFinish
+msgid "Click left mouse button to place new finish"
+msgstr "Клацніть лівою кнопкою мишки щоб розмістити новий фініш"
+
+#: StatusBarText.resx, AddingExistingFinish
+msgid "Click left mouse button to add existing finish to course"
+msgstr "Клацніть лівою кнопкою мишки щоб додати існуючий фініш до "
+"дистанціїї"
+
+#: StatusBarText.resx, AddingCrossingPoint
+msgid "Click left mouse button to place new mandatory crossing "
+"point"
+msgstr "Клацніть лівою кнопкою мишки щоб розмістити новий "
+"обов'язковий пункт перетину"
+
+#: StatusBarText.resx, AddingExistingCrossingPoint
+msgid "Click left mouse button to add existing mandatory crossing "
+"point to course"
+msgstr "Клацніть лівою кнопкою мишки щоб додати існуючий пункт "
+"перетину до дистанції"
+
+#: StatusBarText.resx, AddingObject
+msgid "Click left mouse button to place new object"
+msgstr "Клацніть лівою кнопкою мишки щоб розмістити новий об'єкт"
+
+#: StatusBarText.resx, AddingBend
+msgid "Click left mouse button at the location of the bend"
+msgstr "Клацніть лівою кнопкою мишки щоб розмістити вигин"
+
+#: StatusBarText.resx, AddingCorner
+msgid "Click left mouse button to add a new corner"
+msgstr "Клацніть лівою кнопкою мишки щоб додати новий кут"
+
+#: StatusBarText.resx, DeletingBend
+msgid "Click left mouse button on a bend to remove it"
+msgstr "Клацніть лівою кнопкою мишки на вигин, щоб видалити його"
+
+#: StatusBarText.resx, DeletingCorner
+msgid "Click left mouse button on a corner to remove it"
+msgstr "Клацніть лівою кнопкою мишки на кут, щоб видалити його"
+
+#: StatusBarText.resx, AddingControlGap
+msgid "Click left mouse button on the control circle to add a "
+"small gap; hold down left mouse button and drag to create "
+"a large gap"
+msgstr "Клацніть лівою кнопкою мишки на коло КП, щоб додати "
+"невеликий розріз; утримуйте ліву кнопку та проведіть "
+"мишкою, щоб створити більший розріз"
+
+#: StatusBarText.resx, RemovingControlGap
+msgid "Click left mouse button on a gap in the control circle to "
+"remove it"
+msgstr "Клацніть лівою кнопкою мишки на розріз у колі КП, щоб "
+"видалити його"
+
+#: StatusBarText.resx, AddingLegGap
+msgid "Click left mouse button to create small gap; hold down "
+"left mouse button and drag to create a large gap in the leg"
+msgstr "Клацніть лівою кнопкою мишки щоб створити невеликий "
+"розріз; утримуйте ліву кнопку та проведіть мишкою, щоб "
+"створити більший розріз на з'єднувальній лінії"
+
+#: StatusBarText.resx, RemovingLegGap
+msgid "Click left mouse button on a gap in the leg to remove it"
+msgstr "Клацніть лівою кнопкою мишки на розрізі на з'єднувальній "
+"лінії, щоб видалити його"
+
+#: StatusBarText.resx, SizeRectangle
+msgid "Hold down left mouse button and drag to size the selected "
+"object"
+msgstr "Утримуйте ліву кнопку та проведіть мишкою, щоб змінювати "
+"розмір вибраного об'єкту"
+
+#: StatusBarText.resx, SizingRectangle
+msgid "Move edge(s) to desired location and release mouse button"
+msgstr "Перемістіть край(ї) у потрібне місце та відпустіть кнопку "
+"миші"
+
+#: StatusBarText.resx, AddingDescription
+msgid "Hold down left mouse button and drag to create control "
+"descriptions"
+msgstr "Утримуйте ліву кнопку та проведіть мишкою, щоб створити "
+"таблицю легенд"
+
+#: StatusBarText.resx, RotatingObject
+msgid "Click left mouse button when the crossing point is rotated "
+"to the correct angle"
+msgstr "Клацніть лівою кнопкою мишки коли пункт перетину повернуто "
+"у вірному напрямку"
+
+#: StatusBarText.resx, AddingLineArea
+msgid "Hold down left mouse button and drag to add a line "
+"segment; click the left mouse button to finish adding object"
+msgstr "Утримуйте ліву кнопку та проведіть мишкою, щоб додати "
+"лінійний сегмент; клацніть лівою кнопкою мишки щоб "
+"завершити додавання об'єкта"
+
+#: StatusBarText.resx, AddingText
+msgid "Hold down left mouse button and drag to create text"
+msgstr "Утримуйте ліву кнопку та проведіть мишкою, щоб створити "
+"текст"
+
+#: StatusBarText.resx, AddingExistingMapExchange
+msgid "Click left mouse button to add existing map exchange to "
+"course"
+msgstr "Клацніть лівою кнопкою мишки, щоб додати існуючий пункт "
+"зміни карт на дистанцію"
+
+#: StatusBarText.resx, AddingMapExchange
+msgid "Click left mouse button to place new map exchange"
+msgstr "Клацніть лівою кнопкою мишки, щоб розмістити новий пункт "
+"зміни карт"
+
+#: StatusBarText.resx, AddingMapExchangeToControl
+msgid "Click left mouse button to add map exchange at control "
+"\"{0}\" "
+msgstr "Клацніть лівою кнопкою мишки, щоб додати зміну карти на КП "
+"\"{0}\" "
+
+#: StatusBarText.resx, AddingRectangle
+msgid "Hold down left mouse button and drag to create object"
+msgstr "Утримуйте ліву кнопку та проведіть мишкою, щоб створити "
+"об'єкт"
+
+#: StatusBarText.resx, DraggingTopologyObject
+msgid "Drag control number to reorder it in the course (hold "
+"shift to duplicate)"
+msgstr "Потягніть за номер КП, щоб змінити їх порядок у дистанції "
+"(утримуйте Shift щоб продублювати)"
+
+#: StatusBarText.resx, AddingExistingMapIssue
+msgid "Click left mouse button to add existing map issue point to "
+"course"
+msgstr "Клацніть лівою кнопкою мишки, щоб додати існуючий пункт "
+"зміни карт на дистанцію"
+
+#: StatusBarText.resx, AddingMapIssue
+msgid "Click left mouse button to place new map issue point"
+msgstr "Клацніть лівою кнопкою мишки, щоб розмістити існуючий "
+"пункт зміни карт"
+
+#: StatusBarText.resx, StretchingObject
+msgid "Hold down left mouse button and drag to stretch the "
+"stretch the crossing point"
+msgstr "Утримуйте ліву кнопку та проведіть мишкою, щоб розтягнути "
+"пункт перетину"
+
+#: StatusBarText.resx, ControlForMoveAllControls
+msgid "Click the left mouse button on a control or registration "
+"mark to move to a new location"
+msgstr ""
+
+#: StatusBarText.resx, NewLocationForMoveAllControls
+msgid "Click the left mouse button on the new location for the "
+"control or registration mark"
+msgstr ""
+
+#: TeamVariationsForm.resx, buttonExport.Text
+msgid "Export..."
+msgstr "Експорт..."
+
+#: TeamVariationsForm.resx, label2.Text
+msgid "Number of legs:"
+msgstr "Кількість етапів:"
+
+#: TeamVariationsForm.resx, buttonCalculate.Text
+msgid "Assign Variations"
+msgstr "Призначити варіанти розсіювання"
+
+#: TeamVariationsForm.resx, label1.Text
+msgid "Number of teams:"
+msgstr "Кількість команд:"
+
+#: TeamVariationsForm.resx, fixedLegsLink.Text
+msgid "Assign fixed legs to branches..."
+msgstr ""
+
+#: TeamVariationsForm.resx, label3.Text
+msgid "Team numbers start at: "
+msgstr "Номера команд починаються з: "
+
+#: TeamVariationsForm.resx, checkBoxHideVariationsFromMap.Text
+msgid "Hide variation codes on map"
+msgstr "Приховати коди розсіювання на карті"
+
+#: TeamVariationsForm.resx, saveFileDialog.Filter
+msgid "IOF XML 3.0|*.xml|Spreadsheet (CSV)|*.csv"
+msgstr "IOF XML 3.0|*.xml|Таблиця (CSV)|*.csv"
+
+#: UnusedControls.resx, okButton.Text
+msgid "Delete"
+msgstr "Видалити"
+
+#: UnusedControls.resx, unusedControlsLabel.Text
+msgid "The following controls are in the All Controls collection, "
+"but not used in any course. Click Delete to remove all "
+"checked controls."
+msgstr "Наступні КП присутні у наборі \"Всі КП\", але не задіяні в "
+"жодній дистанції. Клацніть \"Видалити\" щоб видалити всі "
+"позначені КП."
+
+#: ViewAdditionalCourses.resx, labelInstructions.Text
+msgid "Choose additional courses to view with course \"{0}\"."
+msgstr "Виберіть додаткову дистанції для відображення разом з "
+"дистанцією \"{0}\"."
+
+#: ViewAdditionalCourses.resx, $this.Text
+msgid "View Additional Courses"
+msgstr "Відображення додатковх дистанцій"
+

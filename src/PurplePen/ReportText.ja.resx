@@ -1,0 +1,288 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ColumnHeader_Climb" xml:space="preserve">
+    <value>登高</value>
+  </data>
+  <data name="ColumnHeader_Code" xml:space="preserve">
+    <value>コード</value>
+  </data>
+  <data name="ColumnHeader_Column" xml:space="preserve">
+    <value>欄</value>
+  </data>
+  <data name="ColumnHeader_Control" xml:space="preserve">
+    <value>コントロール</value>
+  </data>
+  <data name="ColumnHeader_ControlCodes" xml:space="preserve">
+    <value>コントロールコード</value>
+  </data>
+  <data name="ColumnHeader_Controls" xml:space="preserve">
+    <value>コントロール</value>
+  </data>
+  <data name="ColumnHeader_Course" xml:space="preserve">
+    <value>コース</value>
+  </data>
+  <data name="ColumnHeader_Courses" xml:space="preserve">
+    <value>コース</value>
+  </data>
+  <data name="ColumnHeader_Distance" xml:space="preserve">
+    <value>距離</value>
+  </data>
+  <data name="ColumnHeader_Item" xml:space="preserve">
+    <value>アイテム</value>
+  </data>
+  <data name="ColumnHeader_Leg" xml:space="preserve">
+    <value>レッグ</value>
+  </data>
+  <data name="ColumnHeader_Length" xml:space="preserve">
+    <value>長さ</value>
+  </data>
+  <data name="ColumnHeader_Load" xml:space="preserve">
+    <value>走行人数</value>
+  </data>
+  <data name="ColumnHeader_Location" xml:space="preserve">
+    <value>位置</value>
+  </data>
+  <data name="ColumnHeader_NumberOfCourses" xml:space="preserve">
+    <value># コース</value>
+  </data>
+  <data name="ColumnHeader_Reason" xml:space="preserve">
+    <value>理由</value>
+  </data>
+  <data name="ColumnHeader_SameSymbol" xml:space="preserve">
+    <value>同じ地図記号?</value>
+  </data>
+  <data name="CourseSummary_Title" xml:space="preserve">
+    <value>{0} のコースの概要</value>
+  </data>
+  <data name="CrossRef_Title" xml:space="preserve">
+    <value>{0} のコントロール・クロスリファレンス</value>
+  </data>
+  <data name="EventAudit_CloseTogetherControls" xml:space="preserve">
+    <value>近接しているコントロール</value>
+  </data>
+  <data name="EventAudit_CloseTogetherExplanation" xml:space="preserve">
+    <value>{0} メートル以内の距離で近接しているコントロールの組み合わせを表示します。「同じ地図記号?」列では、近接するコントロールの地図記号(D欄)が同じであるかを表示します。</value>
+  </data>
+  <data name="EventAudit_MissingBoxes" xml:space="preserve">
+    <value>ディスクリプションボックスの欠損</value>
+  </data>
+  <data name="EventAudit_MissingClimb" xml:space="preserve">
+    <value>正規のコースでは登高を記載すべきです</value>
+  </data>
+  <data name="EventAudit_MissingD" xml:space="preserve">
+    <value>すべてのコントロールで特徴物・特徴部をディスクリプションのD欄に表記してください</value>
+  </data>
+  <data name="EventAudit_MissingEBetween" xml:space="preserve">
+    <value>「between」がG欄にある場合、D欄とE欄に2つの特徴物が必要です。</value>
+  </data>
+  <data name="EventAudit_MissingEJunction" xml:space="preserve">
+    <value>「分岐」または「交点」がF欄にある場合、D欄とE欄に2つの特徴物が必要です。</value>
+  </data>
+  <data name="EventAudit_MissingFinish" xml:space="preserve">
+    <value>正規のコースではフィニッシュコントロールを置くべきです</value>
+  </data>
+  <data name="EventAudit_MissingItems" xml:space="preserve">
+    <value>コース内アイテムの欠損</value>
+  </data>
+  <data name="EventAudit_MissingLoad" xml:space="preserve">
+    <value>コースに予想される走行人数を設定すべきです</value>
+  </data>
+  <data name="EventAudit_MissingPunch" xml:space="preserve">
+    <value>パンチパターンが定義されていません</value>
+  </data>
+  <data name="EventAudit_MissingPunchPatterns" xml:space="preserve">
+    <value>パンチパターンの欠損</value>
+  </data>
+  <data name="EventAudit_MissingScore" xml:space="preserve">
+    <value>スコア-Oのコースでは、すべてのコントロールにスコアを記載するか、またはどのコントロールにもスコアを記載しないようにしてください</value>
+  </data>
+  <data name="EventAudit_MissingScores" xml:space="preserve">
+    <value>スコアの欠損</value>
+  </data>
+  <data name="EventAudit_MissingStart" xml:space="preserve">
+    <value>正規のコースではスタートコントロールを置くべきです</value>
+  </data>
+  <data name="EventAudit_MissingStartScore" xml:space="preserve">
+    <value>スコア-Oのコースではスタートコントロールを置くべきです</value>
+  </data>
+  <data name="EventAudit_No" xml:space="preserve">
+    <value>いいえ</value>
+  </data>
+  <data name="EventAudit_NoProblems" xml:space="preserve">
+    <value>問題は見つかりませんでした。</value>
+  </data>
+  <data name="EventAudit_Title" xml:space="preserve">
+    <value>{0} のイベント監査</value>
+  </data>
+  <data name="EventAudit_UnusedControls" xml:space="preserve">
+    <value>未使用のコントロール</value>
+  </data>
+  <data name="EventAudit_UnusedControlsExplanation" xml:space="preserve">
+    <value>以下のコントロールは全コントロールのコレクションに含まれていますが、どのコースにも使用されていません。除去するには「未使用のコントロールを除去」コマンドを「イベント」メニューから実行してください。それらのコントロールが以降このレポートで表示されなくなります。</value>
+  </data>
+  <data name="EventAudit_Yes" xml:space="preserve">
+    <value>はい</value>
+  </data>
+  <data name="LegLength_Average" xml:space="preserve">
+    <value>平均</value>
+  </data>
+  <data name="LegLength_CourseInfo" xml:space="preserve">
+    <value>{0} ({1} コントロール、 {2}, {3} m 登高)</value>
+  </data>
+  <data name="LegLength_CourseInfoNoClimb" xml:space="preserve">
+    <value>{0} ({1} コントロール、 {2})</value>
+  </data>
+  <data name="LegLength_Title" xml:space="preserve">
+    <value>{0} のレッグ長レポート</value>
+  </data>
+  <data name="Load_ControlLoadSection" xml:space="preserve">
+    <value>コントロールごとの走行人数</value>
+  </data>
+  <data name="Load_LegLoadSection" xml:space="preserve">
+    <value>レッグごとの走行人数</value>
+  </data>
+  <data name="Load_MissingLoads" xml:space="preserve">
+    <value>走行人数の設定されていないコースがあります。そのため、下の表の走行人数は不正確なものとなっています。走行人数を設定するには、[コース]メニューから[走行人数]を選択してください。</value>
+  </data>
+  <data name="Load_OnlyLegsMoreThanOnce" xml:space="preserve">
+    <value>(次の表には1つ以上のコースで使われているレッグのみが表示されます。)</value>
+  </data>
+  <data name="Load_Title" xml:space="preserve">
+    <value>{0} の走行人数のサマリ</value>
+  </data>
+  <data name="Load_Warning" xml:space="preserve">
+    <value>注意:</value>
+  </data>
+  <data name="RelayVariation_BranchWarning" xml:space="preserve">
+    <value>警告: 指定されたチームごとのレッグパターン数に従って割り当てると、 コントロール {0} のフォークが均等に使用されません。 {2} の分岐が {1} 個のレッグパターンで使用されるのに対して、{4} の分岐は {3} 個のレッグパターンで使用されます。 </value>
+  </data>
+  <data name="RelayVariation_LegHeader" xml:space="preserve">
+    <value>レッグ {0}</value>
+  </data>
+  <data name="RelayVariation_NoTeams" xml:space="preserve">
+    <value>チーム数とレッグ数を設定し、「バリエーションを割り当て」ボタンを押してください。</value>
+  </data>
+  <data name="RelayVariation_TeamNumber" xml:space="preserve">
+    <value>チーム {0}</value>
+  </data>
+  <data name="RelayVariation_Title" xml:space="preserve">
+    <value>{0} のリレーアサインメント</value>
+  </data>
+</root>

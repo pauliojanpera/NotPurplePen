@@ -1,0 +1,723 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="tabPage1.Text" xml:space="preserve">
+    <value>Všechny kontroly</value>
+  </data>
+  <data name="radioButtonDescriptions.Text" xml:space="preserve">
+    <value>Popisy</value>
+  </data>
+  <data name="radioButtonTopology.Text" xml:space="preserve">
+    <value>Pořadí</value>
+  </data>
+  <data name="mapViewerTopology.Text" xml:space="preserve">
+    <value>mapViewerTopology</value>
+  </data>
+  <data name="openFileDialog.Filter" xml:space="preserve">
+    <value>Soubory Purple Pen|*.ppen|Všechny soubory|*.*</value>
+  </data>
+  <data name="saveFileDialog.Filter" xml:space="preserve">
+    <value>Soubor Purple Pen|*.ppen</value>
+  </data>
+  <data name="newEventMenu.Text" xml:space="preserve">
+    <value>&amp;Nový závod...</value>
+  </data>
+  <data name="openMenu.Text" xml:space="preserve">
+    <value>&amp;Otevřít...</value>
+  </data>
+  <data name="saveMenu.Text" xml:space="preserve">
+    <value>&amp;Uložit</value>
+  </data>
+  <data name="saveAsMenu.Text" xml:space="preserve">
+    <value>Uložit &amp;jako...</value>
+  </data>
+  <data name="createOcadFilesMenu.Text" xml:space="preserve">
+    <value>Vytvořit &amp;soubory OCAD...</value>
+  </data>
+  <data name="createImageFilesMenu.Text" xml:space="preserve">
+    <value>Vytvořit  &amp;JPEG mapy...</value>
+  </data>
+  <data name="createDescriptionPdfMenu.Text" xml:space="preserve">
+    <value>&amp;Popisy kontrol...</value>
+  </data>
+  <data name="createPunchcardPdfMenu.Text" xml:space="preserve">
+    <value>Razící průkazy</value>
+  </data>
+  <data name="createCoursePdfMenu.Text" xml:space="preserve">
+    <value>&amp;Tratě...</value>
+  </data>
+  <data name="createPDFsMenu.Text" xml:space="preserve">
+    <value>Vytvořit P&amp;DF...</value>
+  </data>
+  <data name="createRouteGadgetFilesMenu.Text" xml:space="preserve">
+    <value>Vytvořit soubory Route&amp;Gadget...</value>
+  </data>
+  <data name="createRouteReviewFilesToolStripMenuItem.Text" xml:space="preserve">
+    <value>Vytvořit soubory na Analýzu Trati</value>
+  </data>
+  <data name="createXmlMenu.Text" xml:space="preserve">
+    <value>Vytvořit soubory Data &amp;Interchange File (IOF XML)...</value>
+  </data>
+  <data name="createGPXFileMenu.Text" xml:space="preserve">
+    <value>Vytvořit GP&amp;X...</value>
+  </data>
+  <data name="createKMLFileMenu.Text" xml:space="preserve">
+    <value>Vytvořit &amp;KML soubor...</value>
+  </data>
+  <data name="printDescriptionsMenu.Text" xml:space="preserve">
+    <value>Tisk &amp;popisů...</value>
+  </data>
+  <data name="printPunchCardsMenu.Text" xml:space="preserve">
+    <value>Tisk Průkaze&amp;k...</value>
+  </data>
+  <data name="printCoursesMenu.Text" xml:space="preserve">
+    <value>Tisknout &amp;tratě...</value>
+  </data>
+  <data name="printAreaThisPartMenu.Text" xml:space="preserve">
+    <value>&amp;Pouze tutu část</value>
+  </data>
+  <data name="printAreaThisCourseMenu.Text" xml:space="preserve">
+    <value>&amp;Tato trať</value>
+  </data>
+  <data name="printAreaAllCoursesMenu.Text" xml:space="preserve">
+    <value>&amp;Všechny tratě</value>
+  </data>
+  <data name="setPrintAreaMenu.Text" xml:space="preserve">
+    <value>Nastavit o&amp;blast tisku</value>
+  </data>
+  <data name="programLanguageMenu.Text" xml:space="preserve">
+    <value>&amp;Jazyk programu...</value>
+  </data>
+  <data name="exitMenu.Text" xml:space="preserve">
+    <value>&amp;Konec</value>
+  </data>
+  <data name="fileMenu.Text" xml:space="preserve">
+    <value>&amp;Soubor</value>
+  </data>
+  <data name="cancelMenu.Text" xml:space="preserve">
+    <value>&amp;Smazat výběr</value>
+  </data>
+  <data name="undoMenu.Text" xml:space="preserve">
+    <value>&amp;Zpět</value>
+  </data>
+  <data name="redoMenu.Text" xml:space="preserve">
+    <value>Z&amp;novu</value>
+  </data>
+  <data name="deleteMenu.Text" xml:space="preserve">
+    <value>&amp;Smazat</value>
+  </data>
+  <data name="editMenu.Text" xml:space="preserve">
+    <value>&amp;Úpravy</value>
+  </data>
+  <data name="entireCourseMenu.Text" xml:space="preserve">
+    <value>&amp;Celá trať</value>
+  </data>
+  <data name="entireMapMenu.Text" xml:space="preserve">
+    <value>Celá &amp;mapa</value>
+  </data>
+  <data name="zoom50Menu.Text" xml:space="preserve">
+    <value>50%</value>
+  </data>
+  <data name="zoom100Menu.Text" xml:space="preserve">
+    <value>100 %</value>
+  </data>
+  <data name="zoom150Menu.Text" xml:space="preserve">
+    <value>150 %</value>
+  </data>
+  <data name="zoom200Menu.Text" xml:space="preserve">
+    <value>200 %</value>
+  </data>
+  <data name="zoom300Menu.Text" xml:space="preserve">
+    <value>300 %</value>
+  </data>
+  <data name="zoom500Menu.Text" xml:space="preserve">
+    <value>500 %</value>
+  </data>
+  <data name="zoom1000Menu.Text" xml:space="preserve">
+    <value>1000 %</value>
+  </data>
+  <data name="zoomMenu.Text" xml:space="preserve">
+    <value>&amp;Zvětšení</value>
+  </data>
+  <data name="veryLowIntensityMenu.Text" xml:space="preserve">
+    <value>&amp;Velmi nízká</value>
+  </data>
+  <data name="lowIntensityMenu.Text" xml:space="preserve">
+    <value>Níz&amp;ká</value>
+  </data>
+  <data name="mediumIntensityMenu.Text" xml:space="preserve">
+    <value>&amp;Střední</value>
+  </data>
+  <data name="highIntensityMenu.Text" xml:space="preserve">
+    <value>&amp;Vysoká</value>
+  </data>
+  <data name="fullIntensityMenu.Text" xml:space="preserve">
+    <value>P&amp;lné</value>
+  </data>
+  <data name="mapIntensityMenu.Text" xml:space="preserve">
+    <value>&amp;Intenzita Mapy</value>
+  </data>
+  <data name="normalQualityMenu.Text" xml:space="preserve">
+    <value>Nízká</value>
+  </data>
+  <data name="highQualityMenu.Text" xml:space="preserve">
+    <value>Vysoká</value>
+  </data>
+  <data name="mapQualityMenu.Text" xml:space="preserve">
+    <value>&amp;Kvalita mapy</value>
+  </data>
+  <data name="showPrintAreaMenu.Text" xml:space="preserve">
+    <value>Zobrazit &amp;Tiskovou oblast</value>
+  </data>
+  <data name="showPopupsMenu.Text" xml:space="preserve">
+    <value>Zobrazit vyskakovací informaci</value>
+  </data>
+  <data name="allControlsMenu.Text" xml:space="preserve">
+    <value>&amp;Všechny kontroly</value>
+  </data>
+  <data name="otherCoursesMenu.Text" xml:space="preserve">
+    <value>Ostatní tratě...</value>
+  </data>
+  <data name="clearOtherCoursesMenu.Text" xml:space="preserve">
+    <value>Vymazat ostatní tratě</value>
+  </data>
+  <data name="viewMenu.Text" xml:space="preserve">
+    <value>&amp;Zobrazit</value>
+  </data>
+  <data name="addStartMenu.Text" xml:space="preserve">
+    <value>&amp;Start</value>
+  </data>
+  <data name="addControlMenu.Text" xml:space="preserve">
+    <value>&amp;Kontrola</value>
+  </data>
+  <data name="addFinishMenu.Text" xml:space="preserve">
+    <value>&amp;Cíl</value>
+  </data>
+  <data name="addDescriptionsMenu.Text" xml:space="preserve">
+    <value>P&amp;opisy</value>
+  </data>
+  <data name="mapExchangeControlMenuItem.Text" xml:space="preserve">
+    <value>Výměna mapy na &amp;kontrole</value>
+  </data>
+  <data name="mapExchangeSeparateMenuItem.Text" xml:space="preserve">
+    <value>Značený úsek na výměnu mapy</value>
+  </data>
+  <data name="addMapExchangeMenu.Text" xml:space="preserve">
+    <value>&amp;Výměna map</value>
+  </data>
+  <data name="addVariationMenu.Text" xml:space="preserve">
+    <value>V&amp;arianty</value>
+  </data>
+  <data name="addTextLineMenu.Text" xml:space="preserve">
+    <value>Texty a čáry</value>
+  </data>
+  <data name="addMapIssueMenu.Text" xml:space="preserve">
+    <value>Intervalový start</value>
+  </data>
+  <data name="addMandatoryCrossingMenu.Text" xml:space="preserve">
+    <value>Povinný průchod</value>
+  </data>
+  <data name="addOptCrossingMenu.Text" xml:space="preserve">
+    <value>Volitelný průchod</value>
+  </data>
+  <data name="addOutOfBoundsMenu.Text" xml:space="preserve">
+    <value>Zakázaný prostor</value>
+  </data>
+  <data name="addDangerousMenu.Text" xml:space="preserve">
+    <value>Nebezpečná oblast</value>
+  </data>
+  <data name="addWaterMenu.Text" xml:space="preserve">
+    <value>Občerstvení</value>
+  </data>
+  <data name="addFirstAidMenu.Text" xml:space="preserve">
+    <value>První pomoc</value>
+  </data>
+  <data name="addForbiddenMenu.Text" xml:space="preserve">
+    <value>Zakázané křížení</value>
+  </data>
+  <data name="addBoundaryMenu.Text" xml:space="preserve">
+    <value>Nepřekonatelná hranice</value>
+  </data>
+  <data name="addRegMarkMenu.Text" xml:space="preserve">
+    <value>Soutisková značka</value>
+  </data>
+  <data name="whiteOutMenu.Text" xml:space="preserve">
+    <value>Zabílená oblast</value>
+  </data>
+  <data name="addTextMenu.Text" xml:space="preserve">
+    <value>Text</value>
+  </data>
+  <data name="addImageMenu.Text" xml:space="preserve">
+    <value>Obrázek</value>
+  </data>
+  <data name="addLineMenu.Text" xml:space="preserve">
+    <value>Čára</value>
+  </data>
+  <data name="addRectangleMenu.Text" xml:space="preserve">
+    <value>Obdélník</value>
+  </data>
+  <data name="addEllipseMenu.Text" xml:space="preserve">
+    <value>Elipsa</value>
+  </data>
+  <data name="addMenu.Text" xml:space="preserve">
+    <value>&amp;Přidat</value>
+  </data>
+  <data name="changeMapFileMenu.Text" xml:space="preserve">
+    <value>&amp;Mapový soubor...</value>
+  </data>
+  <data name="changeCodesMenu.Text" xml:space="preserve">
+    <value>Změnit &amp;kódy kontrol...</value>
+  </data>
+  <data name="autoNumberingMenu.Text" xml:space="preserve">
+    <value>Automatické číslová&amp;ní...</value>
+  </data>
+  <data name="removeUnusedControlsMenu.Text" xml:space="preserve">
+    <value>Odstranit nepo&amp;užité kontroly...</value>
+  </data>
+  <data name="punchPatternsMenu.Text" xml:space="preserve">
+    <value>Vzo&amp;ry ražení</value>
+  </data>
+  <data name="descriptionStd2004Menu.Text" xml:space="preserve">
+    <value>2004 Standard popisků</value>
+  </data>
+  <data name="descriptionStd2018Menu.Text" xml:space="preserve">
+    <value>2018/2024 Standard popisků</value>
+  </data>
+  <data name="mapStd2000Menu.Text" xml:space="preserve">
+    <value>ISOM2000 Mapový klíč</value>
+  </data>
+  <data name="mapStd2017Menu.Text" xml:space="preserve">
+    <value>ISOM2017 Mapový klíč</value>
+  </data>
+  <data name="mapStdSpr2019Menu.Text" xml:space="preserve">
+    <value>ISSprOM 2019 Mapový klíč</value>
+  </data>
+  <data name="iOFStandardsToolStripMenuItem.Text" xml:space="preserve">
+    <value>IOF &amp;Standards</value>
+  </data>
+  <data name="customizeDescriptionsMenu.Text" xml:space="preserve">
+    <value>&amp;Upravit textové popisy</value>
+  </data>
+  <data name="customizeCourseAppearanceMenu.Text" xml:space="preserve">
+    <value>Upr&amp;avit vzhled</value>
+  </data>
+  <data name="eventMenu.Text" xml:space="preserve">
+    <value>Závo&amp;d</value>
+  </data>
+  <data name="addCourseMenu.Text" xml:space="preserve">
+    <value>Přid&amp;at trať...</value>
+  </data>
+  <data name="deleteCourseMenu.Text" xml:space="preserve">
+    <value>&amp;Smazat trať</value>
+  </data>
+  <data name="duplicateCourseMenu.Text" xml:space="preserve">
+    <value>D&amp;uplikovat trať</value>
+  </data>
+  <data name="propertiesMenu.Text" xml:space="preserve">
+    <value>&amp;Vlastnosti...</value>
+  </data>
+  <data name="courseOrderMenu.Text" xml:space="preserve">
+    <value>Pořadí tratí</value>
+  </data>
+  <data name="courseLoadMenu.Text" xml:space="preserve">
+    <value>Poč&amp;ty startujících</value>
+  </data>
+  <data name="courseVariationReportMenu.Text" xml:space="preserve">
+    <value>Úseky štafet</value>
+  </data>
+  <data name="courseMenu.Text" xml:space="preserve">
+    <value>&amp;Trať</value>
+  </data>
+  <data name="deleteItemMenu.Text" xml:space="preserve">
+    <value>&amp;Smazat</value>
+  </data>
+  <data name="deleteForkMenu.Text" xml:space="preserve">
+    <value>Smazat větvení</value>
+  </data>
+  <data name="addBendMenu.Text" xml:space="preserve">
+    <value>Přida &amp;ohyb</value>
+  </data>
+  <data name="removeBendMenu.Text" xml:space="preserve">
+    <value>Odebrat o&amp;hyb</value>
+  </data>
+  <data name="addGapMenu.Text" xml:space="preserve">
+    <value>Přidat &amp;mezeru</value>
+  </data>
+  <data name="removeGapMenu.Text" xml:space="preserve">
+    <value>Odebrat me&amp;zeru</value>
+  </data>
+  <data name="changeTextMenu.Text" xml:space="preserve">
+    <value>Změnit &amp;text...</value>
+  </data>
+  <data name="changeLineAppearanceMenu.Text" xml:space="preserve">
+    <value>Změnit vzhled čáry</value>
+  </data>
+  <data name="rotateMenu.Text" xml:space="preserve">
+    <value>&amp;Otočit</value>
+  </data>
+  <data name="stretchMenu.Text" xml:space="preserve">
+    <value>&amp;Stretch</value>
+  </data>
+  <data name="noFlaggingMenu.Text" xml:space="preserve">
+    <value>Bez zančení</value>
+  </data>
+  <data name="entireFlaggingMenu.Text" xml:space="preserve">
+    <value>Celý úsek je značený</value>
+  </data>
+  <data name="beginFlaggingMenu.Text" xml:space="preserve">
+    <value>Začátek úseku je značený</value>
+  </data>
+  <data name="endFlaggingMenu.Text" xml:space="preserve">
+    <value>Konec úseku je značený</value>
+  </data>
+  <data name="legFlaggingMenu.Text" xml:space="preserve">
+    <value>&amp;Značení úseku</value>
+  </data>
+  <data name="changeDisplayedCoursesMenu.Text" xml:space="preserve">
+    <value>Z&amp;měnit zobrazené tratě</value>
+  </data>
+  <data name="itemMenu.Text" xml:space="preserve">
+    <value>Ob&amp;jekt</value>
+  </data>
+  <data name="courseSummaryMenu.Text" xml:space="preserve">
+    <value>Shrnutí tratí</value>
+  </data>
+  <data name="eventAuditMenu.Text" xml:space="preserve">
+    <value>&amp;Revize závodu</value>
+  </data>
+  <data name="legLengthsMenu.Text" xml:space="preserve">
+    <value>Dé&amp;lky úseků</value>
+  </data>
+  <data name="controlCrossrefMenu.Text" xml:space="preserve">
+    <value>Užití kontrol</value>
+  </data>
+  <data name="controlAndLegLoadMenu.Text" xml:space="preserve">
+    <value>užití kontrol a úseků</value>
+  </data>
+  <data name="reportMenu.Text" xml:space="preserve">
+    <value>&amp;Výkazy</value>
+  </data>
+  <data name="helpContentsMenu.Text" xml:space="preserve">
+    <value>&amp;Nápověda Purple Pen</value>
+  </data>
+  <data name="helpTranslatedMenu.Text" xml:space="preserve">
+    <value>Nápověda Purple Pen (přeložená)</value>
+  </data>
+  <data name="mainWebSiteToolMenu.Text" xml:space="preserve">
+    <value>&amp;Webová stránka Purple Pen</value>
+  </data>
+  <data name="supportWebSiteMenu.Text" xml:space="preserve">
+    <value>&amp;Podpora/Hlášení chyb</value>
+  </data>
+  <data name="donateWebSiteMenu.Text" xml:space="preserve">
+    <value>&amp;Přispějte</value>
+  </data>
+  <data name="aboutMenu.Text" xml:space="preserve">
+    <value>&amp;O programu Purple Pen</value>
+  </data>
+  <data name="symbolBrowserMenu.Text" xml:space="preserve">
+    <value>Prohlížeč symbolů</value>
+  </data>
+  <data name="descriptionBrowserMenu.Text" xml:space="preserve">
+    <value>Prohlížení popisů</value>
+  </data>
+  <data name="controlTesterMenu.Text" xml:space="preserve">
+    <value>Zkoušeč kontrol</value>
+  </data>
+  <data name="mapTesterMenu.Text" xml:space="preserve">
+    <value>Zkoušeč map</value>
+  </data>
+  <data name="courseSelectorTesterMenu.Text" xml:space="preserve">
+    <value>Course Selector Tester</value>
+  </data>
+  <data name="dotGridTesterToolStripMenuItem.Text" xml:space="preserve">
+    <value>Dot Grid Tester</value>
+  </data>
+  <data name="dumpOCADFileMenu.Text" xml:space="preserve">
+    <value>Dump OCAD File</value>
+  </data>
+  <data name="reportTesterToolStripMenuItem.Text" xml:space="preserve">
+    <value>Tester reportů</value>
+  </data>
+  <data name="fontMetricsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Font Metrics</value>
+  </data>
+  <data name="crashToolStripMenuItem.Text" xml:space="preserve">
+    <value>Selhání</value>
+  </data>
+  <data name="debugMenu.Text" xml:space="preserve">
+    <value>Ladění</value>
+  </data>
+  <data name="addDescriptionLanguageMenu.Text" xml:space="preserve">
+    <value>Přidat jazyk popisů</value>
+  </data>
+  <data name="addTranslatedTextsMenu.Text" xml:space="preserve">
+    <value>Přidat přeložené texty</value>
+  </data>
+  <data name="mergeSymbolsMenu.Text" xml:space="preserve">
+    <value>Sloučit Symbols.xml...</value>
+  </data>
+  <data name="translateMenu.Text" xml:space="preserve">
+    <value>Přeloži&amp;t popisy</value>
+  </data>
+  <data name="helpMenu.Text" xml:space="preserve">
+    <value>&amp;Nápověda</value>
+  </data>
+  <data name="openToolStripButton.Text" xml:space="preserve">
+    <value>Otevřít</value>
+  </data>
+  <data name="openToolStripButton.ToolTipText" xml:space="preserve">
+    <value>Otevřít (Ctrl+O)</value>
+  </data>
+  <data name="saveToolStripButton.Text" xml:space="preserve">
+    <value>Uložit</value>
+  </data>
+  <data name="saveToolStripButton.ToolTipText" xml:space="preserve">
+    <value>Uložit (Ctrl+S)</value>
+  </data>
+  <data name="undoToolStripButton.Text" xml:space="preserve">
+    <value>Zpět</value>
+  </data>
+  <data name="undoToolStripButton.ToolTipText" xml:space="preserve">
+    <value>Zpět (Ctrl+Z)</value>
+  </data>
+  <data name="redoToolStripButton.Text" xml:space="preserve">
+    <value>Znovu</value>
+  </data>
+  <data name="redoToolStripButton.ToolTipText" xml:space="preserve">
+    <value>Znovu (Ctrl+Y)</value>
+  </data>
+  <data name="deleteToolStripButton.Text" xml:space="preserve">
+    <value>Smazat (Del)</value>
+  </data>
+  <data name="addStartToolStripButton.Text" xml:space="preserve">
+    <value>Přidat Start</value>
+  </data>
+  <data name="addControlToolStripButton.Text" xml:space="preserve">
+    <value>Přidat kontrolu</value>
+  </data>
+  <data name="addControlToolStripButton.ToolTipText" xml:space="preserve">
+    <value>Přidat kontrolu (Ctrl+A)</value>
+  </data>
+  <data name="addFinishToolStripButton.Text" xml:space="preserve">
+    <value>Přidat Cíl</value>
+  </data>
+  <data name="descriptionsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Přidat popisy</value>
+  </data>
+  <data name="mapExchangeControlToolStripMenuItem.Text" xml:space="preserve">
+    <value>Výměna map na kontrole</value>
+  </data>
+  <data name="mapExchangeSeparateToolStripMenuItem.Text" xml:space="preserve">
+    <value>Značený úsek na výměnu map</value>
+  </data>
+  <data name="mapExchangeToolStripMenu.Text" xml:space="preserve">
+    <value>Přidat výměnu map</value>
+  </data>
+  <data name="addVariationToolStripButton.Text" xml:space="preserve">
+    <value>Přidej variantu</value>
+  </data>
+  <data name="mapIssuePointToolStripMenuItem.Text" xml:space="preserve">
+    <value>Intervalový start</value>
+  </data>
+  <data name="mandatoryCrossingPointToolStripMenuItem.Text" xml:space="preserve">
+    <value>Povinný průchod</value>
+  </data>
+  <data name="optionalCrossingPointToolStripMenuItem.Text" xml:space="preserve">
+    <value>Volitelný průchod</value>
+  </data>
+  <data name="outOfBoundsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Zakázaný prostor</value>
+  </data>
+  <data name="dangerousToolStripMenuItem.Text" xml:space="preserve">
+    <value>Nebezpečná oblast</value>
+  </data>
+  <data name="waterLocationToolStripMenuItem.Text" xml:space="preserve">
+    <value>Občerstvení</value>
+  </data>
+  <data name="firstAidLocationToolStripMenuItem.Text" xml:space="preserve">
+    <value>První pomoc</value>
+  </data>
+  <data name="forbiddenRouteMarkingToolStripMenuItem.Text" xml:space="preserve">
+    <value>Zakázané křížení</value>
+  </data>
+  <data name="boundaryToolStripMenuItem.Text" xml:space="preserve">
+    <value>Nepřekonatelná hranice</value>
+  </data>
+  <data name="registrationMarkToolStripMenuItem.Text" xml:space="preserve">
+    <value>Soutisková značka</value>
+  </data>
+  <data name="whiteOutToolStripMenuItem.Text" xml:space="preserve">
+    <value>Zabílená oblast</value>
+  </data>
+  <data name="textToolStripMenuItem.Text" xml:space="preserve">
+    <value>Text</value>
+  </data>
+  <data name="imageToolStripMenuItem.Text" xml:space="preserve">
+    <value>Obrázek</value>
+  </data>
+  <data name="lineToolStripMenuItem.Text" xml:space="preserve">
+    <value>Čára</value>
+  </data>
+  <data name="rectangleToolStripMenuItem.Text" xml:space="preserve">
+    <value>Obdélník</value>
+  </data>
+  <data name="ellipseToolStripMenuItem.Text" xml:space="preserve">
+    <value>Elipsa</value>
+  </data>
+  <data name="specialItemToolStripMenu.Text" xml:space="preserve">
+    <value>Přidat speciální prvek</value>
+  </data>
+  <data name="addBendToolStripButton.ToolTipText" xml:space="preserve">
+    <value>Přidat ohyb (Ctrl+B)</value>
+  </data>
+  <data name="addGapToolStripButton.Text" xml:space="preserve">
+    <value>toolStripButton1</value>
+  </data>
+  <data name="addGapToolStripButton.ToolTipText" xml:space="preserve">
+    <value>Přidat mezeru (Ctrl+G)</value>
+  </data>
+  <data name="zoomAmountLabel.Text" xml:space="preserve">
+    <value>Zvětšení: 100 %</value>
+  </data>
+  <data name="locationDisplay.Text" xml:space="preserve">
+    <value>X:-999.99 Y:-999.99</value>
+  </data>
+  <data name="saveXmlFileDialog.Filter" xml:space="preserve">
+    <value>IOF XML verze 2.0.3|*.xml|IOF XML verze 3.0|*.xml</value>
+  </data>
+  <data name="saveXmlFileDialog.Title" xml:space="preserve">
+    <value>Vytvořit soubor IOF XML</value>
+  </data>
+  <data name="openImageDialog.Filter" xml:space="preserve">
+    <value>Obrázkový soubor|*.jpg;*.jpeg;*.gif;*.png;*.bmp;*.tif;*.tiff</value>
+  </data>
+  <data name="saveGpxFileDialog.Filter" xml:space="preserve">
+    <value>GPX soubor|*.gpx</value>
+  </data>
+  <data name="saveGpxFileDialog.Title" xml:space="preserve">
+    <value>Vyrobit GPX soubor</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Purple Pen</value>
+  </data>
+  <data name="addSpecialItemMenu.Text" xml:space="preserve">
+    <value>Vložit spec&amp;iální symbol</value>
+  </data>
+</root>

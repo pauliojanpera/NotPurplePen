@@ -1,0 +1,4434 @@
+# Purple Pen localization file
+# Copyright (C) 2008
+# This file is distributed under the same license as the Purple Pen package.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Purple Pen 3.5.1\n"
+"Report-Msgid-Bugs-To: peter@golde.org\n"
+"POT-Creation-Date: 2024-06-10 17:35-07:00\n"
+"PO-Revision-Date: \n"
+"Last-Translator:  FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: AboutForm.resx, copyrightLabel.Text
+msgid "Copyright © by Peter Golde"
+msgstr "Telif Hakkı   Peter Golde e aittir"
+
+#: AboutForm.resx, freeLabel.Text
+msgid "Purple Pen is free software and may be copied and shared."
+msgstr "Purple Pen ücretsiz bir yazılımdır kopyalanıp "
+"paylaşılabilir."
+
+#: AboutForm.resx, disclaimerLabel.Text
+msgid "THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND "
+"CONTRIBUTORS \"AS IS\" AND ANY EXPRESS OR IMPLIED "
+"WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED "
+"WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR "
+"PURPOSE ARE DISCLAIMED."
+msgstr "BU YAZILIM, TESCİL HAKKI SAHİPLERİ  VE DİĞER KATKI "
+"VERENLER TARAFINDAN \"OLDUĞU GİBİ\" SAĞLANMAKTA VE HER TÜRLÜ "
+"DİREKT/DOLAYLI (HIZLI VE AMACA ÖZEL) GARANTİYİ "
+"İÇERMEKTEDİR. \r\n"
+"ANCAK BUNLARLA SINIRLI OLMAKSIZIN, YAZILIMIN BELİRLİ BİR "
+"AMACA UYGUN SATILABİLİRLİĞİ VE KONDİSYONUNA(YAZILIMIN "
+"DURUMUNA) BAĞLI İLGİLİ ÖZEL GARANTİLER REDDEDİLMEKTEDİR."
+
+#: AboutForm.resx, okButton.Text
+#: InitialScreen.resx, okButton.Text
+#: LicenseForm.resx, okButton.Text
+#: MissingFonts.resx, okButton.Text
+#: OkCancelDialog.resx, okButton.Text
+msgid "OK"
+msgstr "Tamam"
+
+#: AboutForm.resx, creditsButton.Text
+msgid "Credits"
+msgstr "Destekleyenler"
+
+#: AboutForm.resx, licenseButton.Text
+msgid "View Full License"
+msgstr "Tüm Lisansı Görüntüle"
+
+#: AboutForm.resx, $this.Text
+msgid "About Purple Pen"
+msgstr "Purple Pen Hakkında"
+
+#: AddCourse.resx, firstControlLabel.Text
+msgid "First control number:"
+msgstr "Birinci Kontrol Numarası:"
+
+#: AddCourse.resx, descriptionAppearanceLabel.Text
+#: AllControlsProperties.resx, descriptionAppearanceLabel.Text
+msgid "Description appearance:"
+msgstr "Görüntü açıklaması:"
+
+#: AddCourse.resx, mapScaleLabel.Text
+#: AllControlsProperties.resx, printingScaleLabel.Text
+msgid "Map printing scale:"
+msgstr "Harita Baskı Ölçeği:"
+
+#: AddCourse.resx, descKindCombo.Items
+#: AllControlsProperties.resx, descKindCombo.Items
+#: PrintDescriptions.resx, descriptionKindCombo.Items1
+msgid "Symbols"
+msgstr "Semboller"
+
+#: AddCourse.resx, descKindCombo.Items1
+#: AllControlsProperties.resx, descKindCombo.Items1
+#: ChangeText.resx, groupBox3.Text
+#: EnterSymbolText.resx, textColumn.HeaderText
+#: MainFrame.resx, addTextMenu.Text
+#: MainFrame.resx, textToolStripMenuItem.Text
+#: PrintDescriptions.resx, descriptionKindCombo.Items2
+#: SelectionDescriptionText.resx, SpecialName_Text
+msgid "Text"
+msgstr "Metin"
+
+#: AddCourse.resx, descKindCombo.Items2
+#: AllControlsProperties.resx, descKindCombo.Items2
+msgid "Symbols and text"
+msgstr "Sembol ve Metin"
+
+#: AddCourse.resx, labelKindLabel.Text
+msgid "Control circle labels:"
+msgstr "Kontrol Noktası Etiketi:"
+
+#: AddCourse.resx, labelKindCombo.Items
+msgid "Sequence number (3)"
+msgstr "Sıra Numarası (3)"
+
+#: AddCourse.resx, labelKindCombo.Items1
+msgid "Control code (145)"
+msgstr "Kontrol Kodu (145)"
+
+#: AddCourse.resx, labelKindCombo.Items2
+msgid "Sequence and code (3-145)"
+msgstr "Sıra No ve Kontrol Kodu (3-145)"
+
+#: AddCourse.resx, labelKindCombo.Items3
+msgid "Sequence and score (3(30))"
+msgstr "Sıra No ve Nokta(3(30))"
+
+#: AddCourse.resx, labelKindCombo.Items4
+msgid "Code and score (145(30))"
+msgstr "Kod ve Nokta"
+
+#: AddCourse.resx, labelKindCombo.Items5
+msgid "Score (30)"
+msgstr "Skor (30)"
+
+#: AddCourse.resx, scoreColumnLabel.Text
+msgid "Show points in:"
+msgstr "Noktaları Göster:"
+
+#: AddCourse.resx, scoreColumnCombo.Items
+msgid "Column A"
+msgstr "Sütun A"
+
+#: AddCourse.resx, scoreColumnCombo.Items1
+msgid "Column B"
+msgstr "Sütun B"
+
+#: AddCourse.resx, scoreColumnCombo.Items2
+msgid "Column H"
+msgstr "Sütun H"
+
+#: AddCourse.resx, scoreColumnCombo.Items3
+msgid "(do not display)"
+msgstr "(Gösterme)"
+
+#: AddCourse.resx, groupBox1.Text
+#: AllControlsProperties.resx, appearanceGroupBox.Text
+#: ChangeText.resx, groupBox1.Text
+#: CreatePdfCourses.resx, groupBoxAppearance.Text
+#: LinePropertiesDialog.resx, groupBox2.Text
+#: PrintCourses.resx, groupBoxAppearance.Text
+#: PrintDescriptions.resx, layoutGroup.Text
+#: PrintPunches.resx, layoutGroup.Text
+msgid "Appearance"
+msgstr "Görünüm"
+
+#: AddCourse.resx, oneToPrefixLabel.Text
+#: AllControlsProperties.resx, oneToPrefix.Text
+msgid "1 : "
+msgstr "1 : "
+
+#: AddCourse.resx, secondaryTitleGroup.Text
+msgid "Class list / Secondary title"
+msgstr "Sınıf Listesi/ İkinci Başlık"
+
+#: AddCourse.resx, secondaryTitleDescription.Text
+msgid "The following (optional) text will appear on the second "
+"line of the control description sheet:"
+msgstr "Aşağıdaki metin (isteğe bağlı olarak), kontrol açılma "
+"sayfasının ikinci satırında görünür:"
+
+#: AddCourse.resx, lengthLabel.Text
+#: SelectionDescriptionText.resx, Length
+msgid "Length:"
+msgstr "Uzunluk:"
+
+#: AddCourse.resx, climbLabel.Text
+#: SelectionDescriptionText.resx, Climb
+msgid "Climb:"
+msgstr "Tırmanma:"
+
+#: AddCourse.resx, courseTypeLabel.Text
+msgid "Course type:"
+msgstr "Parkur Tipi:"
+
+#: AddCourse.resx, courseNameLabel.Text
+msgid "Course name:"
+msgstr "Parkur Adı:"
+
+#: AddCourse.resx, courseKindCombo.Items
+msgid "Normal Course"
+msgstr "Normal Parkur"
+
+#: AddCourse.resx, courseKindCombo.Items1
+msgid "Score Course"
+msgstr "Parkur Puanı"
+
+#: AddCourse.resx, metersSuffix.Text
+msgid "meters"
+msgstr "metre"
+
+#: AddCourse.resx, kmSuffix.Text
+msgid "km"
+msgstr "km"
+
+#: AddCourse.resx, $this.Text
+#: CommandNameText.resx, NewCourse
+msgid "New Course"
+msgstr "Yeni Parkur"
+
+#: AddForkDialog.resx, labelWhichType.Text
+msgid "What type of variation would you like to add?"
+msgstr "Nasıl bir varyasyon eklemek istersiniz?"
+
+#: AddForkDialog.resx, radioButtonFork.Text
+msgid "Fork"
+msgstr "Ayrım"
+
+#: AddForkDialog.resx, radioButtonLoop.Text
+msgid "Loop"
+msgstr "Döngü"
+
+#: AddForkDialog.resx, labelNumberBranches.Text
+msgid "Number of branches:"
+msgstr "Sınıf Sayısı:"
+
+#: AddForkDialog.resx, comboBoxNumberBranches.Items
+msgid "2"
+msgstr "2"
+
+#: AddForkDialog.resx, comboBoxNumberBranches.Items1
+msgid "3"
+msgstr "3"
+
+#: AddForkDialog.resx, comboBoxNumberBranches.Items2
+msgid "4"
+msgstr "4"
+
+#: AddForkDialog.resx, comboBoxNumberBranches.Items3
+msgid "5"
+msgstr "5"
+
+#: AddForkDialog.resx, comboBoxNumberBranches.Items4
+msgid "6"
+msgstr "6"
+
+#: AddForkDialog.resx, comboBoxNumberBranches.Items5
+msgid "7"
+msgstr "7"
+
+#: AddForkDialog.resx, comboBoxNumberBranches.Items6
+msgid "8"
+msgstr "8"
+
+#: AddForkDialog.resx, comboBoxNumberBranches.Items7
+msgid "9"
+msgstr "9"
+
+#: AddForkDialog.resx, comboBoxNumberBranches.Items8
+msgid "10"
+msgstr "10"
+
+#: AddForkDialog.resx, labelNumberLoops.Text
+msgid "Number of loops:"
+msgstr "Döngü Sayısı:"
+
+#: AddForkDialog.resx, labelSummary.Text
+msgid "The loop control will be visited 4 times. There are 24 "
+"different ways through the loops."
+msgstr "Döngü kontrolü 4 kez ziyaret edilecek. Döngüler boyunca 24 "
+"farklı yol vardır."
+
+#: AddForkDialog.resx, $this.Text
+#: CommandNameText.resx, AddVariation
+#: MainFrame.resx, addVariationToolStripButton.Text
+msgid "Add Variation"
+msgstr "Varyasyon Ekle"
+
+#: AddTextLine.resx, textLineLabel.Text
+msgid "Enter text to place on separate line of control "
+"descriptions:"
+msgstr "Kontrol açıklamalarının ayrı satırlarına yerleştirilecek "
+"metni girin:"
+
+#: AddTextLine.resx, coursesLabel.Text
+msgid "Courses:"
+msgstr "Parkurlar:"
+
+#: AddTextLine.resx, positionLabel.Text
+msgid "Position:"
+msgstr "Konum:"
+
+#: AddTextLine.resx, comboBoxPosition.Items
+msgid "Above {0}"
+msgstr "Yukarıda {0}"
+
+#: AddTextLine.resx, comboBoxPosition.Items1
+msgid "Below {0}"
+msgstr "Altında {0}"
+
+#: AddTextLine.resx, comboBoxCourses.Items
+msgid "This course only"
+msgstr "Sadece Bu Parkur"
+
+#: AddTextLine.resx, comboBoxCourses.Items1
+msgid "All courses with {0}"
+msgstr "Bütün Parkurlar {0}"
+
+#: AddTextLine.resx, $this.Text
+#: CommandNameText.resx, AddTextLine
+msgid "Add Text Line"
+msgstr "Metin Satırı Ekle"
+
+#: AllControlsProperties.resx, allControlsPropertiesLabel.Text
+msgid "These settings control how the map and descriptions for "
+"All Controls are printed."
+msgstr "Bu ayarlar, haritanın ve tüm kontrol noktalarının "
+"açıklamalarının nasıl  yazılacağını kontrol eder."
+
+#: AllControlsProperties.resx, $this.Text
+msgid "All Controls Properties"
+msgstr "Tüm Kontrol Noktaların  Özellikleri"
+
+#: AutoNumbering.resx, disallowInvertibleCheckBox.Text
+#: NewEventNumbering.resx, disallowInvertibleCheckBox.Text
+msgid "Disallow codes that could be read upside-down (e.g., "
+"\"68\"/\"89\")"
+msgstr "Ters okunan kodlara izin verme (Örnek, \"69\"/\"89\")"
+
+#: AutoNumbering.resx, renumberExistingRadioButton.Text
+msgid "Renumber existing controls also"
+msgstr "Atanan Kontrol noktalarını yeniden adlandır"
+
+#: AutoNumbering.resx, newControlsOnlyRadioButton.Text
+msgid "Apply these settings to newly created controls only"
+msgstr "Bu ayarları yalnızca yeni oluşturulan denetime uygulayın"
+
+#: AutoNumbering.resx, existingControlsGroupBox.Text
+msgid "Existing Controls"
+msgstr "Mevcut Kontoller"
+
+#: AutoNumbering.resx, automaticNumberingLabel.Text
+msgid "Newly created controls are automatically numbered "
+"according to the following settings."
+msgstr "Yeni oluşturulan kontroller otomatik olarak tanımlanan "
+"ayarlara göre numaralandırılır."
+
+#: AutoNumbering.resx, startingCodeLabel.Text
+#: NewEventNumbering.resx, startingCodeLabel.Text
+msgid "Starting code:"
+msgstr "Başlangıç Kodu:"
+
+#: AutoNumbering.resx, $this.Text
+#: CommandNameText.resx, AutoNumbering
+msgid "Automatic Numbering"
+msgstr "Otomatik Numaralandırma"
+
+#: ChangeAllCodes.resx, OldCode.HeaderText
+msgid "Original Code"
+msgstr "Orijinal Kod"
+
+#: ChangeAllCodes.resx, NewCode.HeaderText
+msgid "New Code"
+msgstr "Yeni Kod"
+
+#: ChangeAllCodes.resx, changeControlCodesLabel.Text
+msgid "To change the code for one or more controls,click in the "
+"\"New Code\" column and enter the new code. "
+msgstr "Bir veya birden fazla kontrolü değiştirmek için \"Yeni Kod\" "
+"sütununa tıklayıp yeni kodu girin. "
+
+#: ChangeAllCodes.resx, $this.Text
+msgid "Change Control Codes"
+msgstr "Kontrol Kodlarını Değiştir"
+
+#: ChangeCourseOrder.resx, moveDownButton.Text
+msgid "Move down"
+msgstr "Aşağı Taşı"
+
+#: ChangeCourseOrder.resx, courseOrderLabel.Text
+msgid "Use the \"Move Up\" and \"Move Down\" buttons to change the "
+"order that courses are listed in the user interface, "
+"reports, and printing."
+msgstr "Kullanıcı ara yüzündeki raporda ve yazıcıda listelenen "
+"derslerin sırasını değiştirmek için aşağı yukarı tuşlarını "
+"kullanın."
+
+#: ChangeCourseOrder.resx, moveUpButton.Text
+msgid "Move up"
+msgstr "Yukarı taşı"
+
+#: ChangeCourseOrder.resx, $this.Text
+msgid "Course Order"
+msgstr "Parkur Sırası"
+
+#: ChangeMapFile.resx, mapFileDisplay.Text
+msgid "Current Map File"
+msgstr "Seçili Harita"
+
+#: ChangeMapFile.resx, buttonChooseFile.Text
+#: NewEventMapFile.resx, chooseMapFileButton.Text
+msgid "&Choose map file..."
+msgstr "&Harita dosyası seç..."
+
+#: ChangeMapFile.resx, openFileDialog.Filter
+#: NewEventMapFile.resx, openFileDialog.Filter
+msgid "All map "
+"files|*.ocd;*.omap;*.xmap;*.pdf;*.jpeg;*.jpg;*.tiff;*.tif;*."
+"bmp;*.png;*.gif|OCAD files (*.ocd)|*.ocd|Open Orienteering "
+"Mapper Files|*.omap;*.xmap|PDF files (*.pdf)|*.pdf|Image "
+"files|*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif"
+msgstr "Tüm harita "
+"dosyaları|*.ocd;*.omap;*.xmap;*.pdf;*.jpeg;*.jpg;*.tiff;*.ti"
+"f;*.bmp;*.png;*.gif|OCAD files (*.ocd)|*.ocd|Open "
+"Orienteering Mapper Files|*.omap;*.xmap|PDF files "
+"(*.pdf)|*.pdf|Image "
+"files|*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif"
+
+#: ChangeMapFile.resx, labelDpi.Text
+msgid "Resolution:"
+msgstr "Çözünürlük:"
+
+#: ChangeMapFile.resx, labelScale.Text
+#: SelectLocationsForMove.resx, labelScale.Text
+msgid "Scale:"
+msgstr "Ölçek:"
+
+#: ChangeMapFile.resx, labelOneTo.Text
+msgid "1 :"
+msgstr "1:"
+
+#: ChangeMapFile.resx, labelDpi2.Text
+#: NewEventBitmapScale.resx, dpiLabel.Text
+msgid "dots per inch"
+msgstr "inç başına nokta sayısı"
+
+#: ChangeMapFile.resx, $this.Text
+#: NewEventMapFile.resx, labelTitle.Text
+msgid "Map File"
+msgstr "Harita Dosyası"
+
+#: ChangeSpecialCourses.resx, changeDisplayedCoursesLabel.Text
+msgid "Choose the courses that this object will be displayed on:"
+msgstr "Bu nesnenin üzerinde görüntülenecek parkuru seçin:"
+
+#: ChangeSpecialCourses.resx, $this.Text
+#: CommandNameText.resx, ChangeDisplayedCourses
+msgid "Change Displayed Courses"
+msgstr "Görüntülenen Parkurları Değiştir"
+
+#: ChangeText.resx, eventTitleMenuItem.Text
+#: NewEventTitle.resx, labelTitle.Text
+msgid "Event Title"
+msgstr "Etkinlik Başlığı"
+
+#: ChangeText.resx, courseNameMenuItem.Text
+#: CourseLoad.resx, CourseName.HeaderText
+#: SelectionDescriptionText.resx, SpecialName_CourseName
+msgid "Course Name"
+msgstr "Parkur Adı"
+
+#: ChangeText.resx, coursePartMenuItem.Text
+msgid "Course Part"
+msgstr "Parkur Bölümü"
+
+#: ChangeText.resx, variationMenuItem.Text
+msgid "Course Variation"
+msgstr "Parkur Varyansonu"
+
+#: ChangeText.resx, courseLengthMenuItem.Text
+msgid "Course Length"
+msgstr "Parkur Uzunluğu"
+
+#: ChangeText.resx, courseClimbMenuItem.Text
+msgid "Course Climb"
+msgstr "Parkur Tırmanma Mesafesi"
+
+#: ChangeText.resx, classListMenuItem.Text
+msgid "Class List"
+msgstr "Kategori Listesi"
+
+#: ChangeText.resx, printScaleMenuItem.Text
+#: NewEventPrintScale.resx, labelTitle.Text
+msgid "Print Scale"
+msgstr "Baskı Ölçeği"
+
+#: ChangeText.resx, relayTeamMenuItem.Text
+msgid "Relay Team"
+msgstr "Bayrak Yarışı Takımı"
+
+#: ChangeText.resx, relayLegMenuItem.Text
+msgid "Relay Leg"
+msgstr "Bayrak Yarışı Ayağı"
+
+#: ChangeText.resx, fileNameMenuItem.Text
+#: CreateRouteGadget.resx, nameGroupBox.Text
+msgid "File Name"
+msgstr "Dosya Adı"
+
+#: ChangeText.resx, mapFileNameMenuItem.Text
+msgid "Map File Name"
+msgstr "Harita Dosya Adı"
+
+#: ChangeText.resx, buttonChangeColor.Text
+msgid "Change Color..."
+msgstr "Renk Değiştir..."
+
+#: ChangeText.resx, label2.Text
+#: CourseAppearanceDialog.resx, label9.Text
+#: LinePropertiesDialog.resx, label1.Text
+msgid "Color:"
+msgstr "Renk:"
+
+#: ChangeText.resx, checkBoxItalic.Text
+msgid "Italic"
+msgstr "Eğik"
+
+#: ChangeText.resx, checkBoxBold.Text
+msgid "Bold"
+msgstr "Kalın"
+
+#: ChangeText.resx, label1.Text
+msgid "Font:"
+msgstr "Yazı Tipi:"
+
+#: ChangeText.resx, label3.Text
+#: PrinterMargins.resx, labelPaper.Text
+msgid "Size:"
+msgstr "Boyut:"
+
+#: ChangeText.resx, labelFontSizeMm.Text
+#: CourseAppearanceDialog.resx, label12.Text
+#: CourseAppearanceDialog.resx, label10.Text
+#: CourseAppearanceDialog.resx, label8.Text
+#: CourseAppearanceDialog.resx, label4.Text
+#: CourseAppearanceDialog.resx, label2.Text
+#: CourseAppearanceDialog.resx, labelMM1.Text
+#: LinePropertiesDialog.resx, labelWidthMm.Text
+#: LinePropertiesDialog.resx, labelGapSizeMm.Text
+#: LinePropertiesDialog.resx, labelDashSizeMm.Text
+#: LinePropertiesDialog.resx, labelRadiusMm.Text
+#: PrintDescriptions.resx, mmSuffixLabel.Text
+#: PrintPunches.resx, mmSuffixLabel.Text
+msgid "mm"
+msgstr "mm"
+
+#: ChangeText.resx, checkBoxAutoFontSize.Text
+#: MiscText.resx, AutomaticLength
+msgid "Automatic"
+msgstr "Otomarik"
+
+#: ChangeText.resx, groupBox2.Text
+#: LinePropertiesDialog.resx, groupBox1.Text
+msgid "Sample"
+msgstr "Örnek"
+
+#: ChangeText.resx, insertSpecialButton.Text
+msgid "Insert Special Text"
+msgstr "Özel Metin Giriniz"
+
+#: ColorChooserDialog.resx, label5.Text
+#: CourseAppearanceDialog.resx, label5.Text
+msgid "Black:"
+msgstr "Siyah:"
+
+#: ColorChooserDialog.resx, label6.Text
+#: CourseAppearanceDialog.resx, label6.Text
+msgid "Yellow:"
+msgstr "Sarı:"
+
+#: ColorChooserDialog.resx, label3.Text
+#: CourseAppearanceDialog.resx, label3.Text
+msgid "Magenta:"
+msgstr "Mor:"
+
+#: ColorChooserDialog.resx, label1.Text
+#: CourseAppearanceDialog.resx, label1.Text
+msgid "Cyan:"
+msgstr "Cam Göbeği:"
+
+#: ColorChooserDialog.resx, groupBoxPreview.Text
+#: CourseAppearanceDialog.resx, groupBoxPreview.Text
+msgid "Preview"
+msgstr "Önizleme"
+
+#: ColorChooserDialog.resx, $this.Text
+msgid "Choose Color"
+msgstr "Renk Seçin"
+
+#: CommandNameText.resx, ChangeSymbol
+msgid "Change Symbol"
+msgstr "Sembol Değiştir"
+
+#: CommandNameText.resx, ChangeCode
+msgid "Change Control Code"
+msgstr "Kontrol Kod'u Değiştir"
+
+#: CommandNameText.resx, ChangeControl
+msgid "Change Control"
+msgstr "Kontrol Değiştir"
+
+#: CommandNameText.resx, ChangeScore
+msgid "Change Control Points"
+msgstr "Kontrol Noktası Değiştir"
+
+#: CommandNameText.resx, ChangeTitle
+msgid "Change Title"
+msgstr "Başlığı Değiştir"
+
+#: CommandNameText.resx, ChangeClimb
+msgid "Change Climb"
+msgstr "Tırmanış Mesafesi Değiştir"
+
+#: CommandNameText.resx, ChangeCourseName
+msgid "Change Course Name"
+msgstr "Parkur Adını Değiştir"
+
+#: CommandNameText.resx, ChangeTextLine
+msgid "Change Text Line"
+msgstr "Yazı Alanını Değiştir"
+
+#: CommandNameText.resx, ChangeScale
+msgid "Update Map Scale"
+msgstr "Harita Ölçeğini Güncelle"
+
+#: CommandNameText.resx, MoveControl
+msgid "Move Control"
+msgstr "Hedef'i Taşı"
+
+#: CommandNameText.resx, MoveControlNumber
+msgid "Move Control Number"
+msgstr "Hedef Numarasını Taşı"
+
+#: CommandNameText.resx, MoveObject
+msgid "Move Object"
+msgstr "Nesne Taşı"
+
+#: CommandNameText.resx, DeleteControl
+msgid "Delete Control"
+msgstr "Hedef Sil"
+
+#: CommandNameText.resx, DeleteObject
+msgid "Delete Object"
+msgstr "Nesne Sil"
+
+#: CommandNameText.resx, DeleteTextLine
+msgid "Delete Text Line"
+msgstr "Metin Alanını Sil"
+
+#: CommandNameText.resx, AddControl
+#: MainFrame.resx, addControlToolStripButton.Text
+msgid "Add Control"
+msgstr "Hedef  Ekle"
+
+#: CommandNameText.resx, AddStart
+#: MainFrame.resx, addStartToolStripButton.Text
+msgid "Add Start"
+msgstr "Başlangıç Ekle"
+
+#: CommandNameText.resx, AddFinish
+#: MainFrame.resx, addFinishToolStripButton.Text
+msgid "Add Finish"
+msgstr "Bitiş Ekle"
+
+#: CommandNameText.resx, AddCrossingPoint
+msgid "Add Mandatory Crossing Point"
+msgstr "Zorunlu Geçiş Noktası Ekle"
+
+#: CommandNameText.resx, AddObject
+msgid "Add Object"
+msgstr "Nesne Ekle"
+
+#: CommandNameText.resx, DeleteCourse
+msgid "Delete Course"
+msgstr "Parkur Sil"
+
+#: CommandNameText.resx, ChangeCourseProperties
+msgid "Change Course Properties"
+msgstr "Parkur Özelliklerini Değiştir"
+
+#: CommandNameText.resx, ChangeAllControlsProperties
+msgid "Change All Controls Properties"
+msgstr "Tüm Kontrol Noktalarını Değiştir"
+
+#: CommandNameText.resx, NewEvent
+#: NewEventWizard.resx, $this.Text
+msgid "Create New Event"
+msgstr "Yeni Etkinlik Oluştur"
+
+#: CommandNameText.resx, SetLegFlagging
+msgid "Change Leg Flagging"
+msgstr "Bayrak Yarışı Ayağını Değiştir"
+
+#: CommandNameText.resx, ChangeCodes
+msgid "Change Codes"
+msgstr "Kod Değiştir"
+
+#: CommandNameText.resx, MoveBend
+msgid "Move Leg Bend"
+msgstr "Bayrak Yarış Ayağı Bükmesi Taşı"
+
+#: CommandNameText.resx, AddBend
+msgid "Add Bend"
+msgstr "Bükme Ekle"
+
+#: CommandNameText.resx, AddCorner
+msgid "Add Corner"
+msgstr "Köşe Ekle"
+
+#: CommandNameText.resx, DeleteBend
+msgid "Remove Bend"
+msgstr "Bükme Sil"
+
+#: CommandNameText.resx, DeleteCorner
+msgid "Remove Corner"
+msgstr "Köşe Sil"
+
+#: CommandNameText.resx, AddGap
+msgid "Add Gap"
+msgstr "Boşluk Sil"
+
+#: CommandNameText.resx, RemoveGap
+msgid "Remove Gap"
+msgstr "Boşluğu kaldır"
+
+#: CommandNameText.resx, MoveGap
+msgid "Move Gap"
+msgstr "Boşluğu Taşi"
+
+#: CommandNameText.resx, Rotate
+msgid "Rotate"
+msgstr "Döndür"
+
+#: CommandNameText.resx, ChangePunchPatterns
+msgid "Change Punch Patterns"
+msgstr "Zımba Kalıplarını Değiştir"
+
+#: CommandNameText.resx, ChangePunchcardFormat
+msgid "Change Punch Card Layout"
+msgstr "Delgi Kartı Düzenini Değiştir"
+
+#: CommandNameText.resx, SetPrintArea
+#: SetPrintAreaDialog.resx, $this.Text
+msgid "Set Print Area"
+msgstr "Yazdırma Alanı Ayarla"
+
+#: CommandNameText.resx, SetCourseLoad
+msgid "Change Competitor Load"
+msgstr "Yarışmacı Yüklemesi Değiştir"
+
+#: CommandNameText.resx, SetCustomSymbolText
+#: CustomSymbolText.resx, $this.Text
+msgid "Customize Description Text"
+msgstr "Açıklama Metinini Özelleştir"
+
+#: CommandNameText.resx, ChangeCourseOrder
+msgid "Change Course Order"
+msgstr "Parkur Sırasını Değiştir"
+
+#: CommandNameText.resx, ChangeMapFile
+msgid "Change Map File"
+msgstr "Harita Dosyasını Değiştir"
+
+#: CommandNameText.resx, IgnoreMissingFonts
+msgid "Ignore Missing Fonts"
+msgstr "Eksik Fontları Yoksay"
+
+#: CommandNameText.resx, RemoveUnusedControls
+msgid "Remove Unused Controls"
+msgstr "Kullanılmayan Kontrolleri Kaldır"
+
+#: CommandNameText.resx, SetDescriptionLanguage
+msgid "Change Description Language"
+msgstr "Açıklama Dilini Değiştir"
+
+#: CommandNameText.resx, ChangeText
+#: MiscText.resx, ChangeTextTitle
+msgid "Change Text"
+msgstr "Metni Değiştir"
+
+#: CommandNameText.resx, ChangeCourseAppearance
+msgid "Customize Course Appearance"
+msgstr "Parkurun Görünüşünü Özelleştirme"
+
+#: CommandNameText.resx, AddMapExchange
+msgid "Add Map Exchange"
+msgstr "Harita Değişimi Ekle"
+
+#: CommandNameText.resx, DeleteMapExchangeAtControl
+msgid "Delete Map Exchange"
+msgstr "Harita Değişimi Sil"
+
+#: CommandNameText.resx, ChangePartProperties
+msgid "Change Course Part Properties"
+msgstr "Parkur Bölüm Özelliklerini Değiştirme"
+
+#: CommandNameText.resx, ChangeLineAppearance
+#: MiscText.resx, ChangeLineAppearanceTitle
+msgid "Change Line Appearance"
+msgstr "Satır Görünümünü Değiştir"
+
+#: CommandNameText.resx, DuplicateCourse
+#: MiscText.resx, DuplicateCourseTitle
+msgid "Duplicate Course"
+msgstr "Parkur Çoğalt"
+
+#: CommandNameText.resx, CreateMapFiles
+msgid "Create {0} &Files"
+msgstr "Dosya &{0} Oluştur"
+
+#: CommandNameText.resx, DeleteFork
+msgid "Delete Fork/Loop"
+msgstr "Ayrım/Döngü Sil"
+
+#: CommandNameText.resx, RelayTeamVariations
+#: TeamVariationsForm.resx, $this.Text
+msgid "Relay Team Variations"
+msgstr "Bayrak Takımı Varyasyonları"
+
+#: CommandNameText.resx, AddMapIssue
+msgid "Add Map Issue Point"
+msgstr "Harita veriş noktası ekle"
+
+#: CommandNameText.resx, ChangeDescriptionStandard
+msgid "Set Control Description Standard"
+msgstr "Kontrol Tanımı Standardını Ayarla"
+
+#: CommandNameText.resx, ChangeMapStandard
+msgid "Set Map Standard"
+msgstr "Harita Standardını Ayarla"
+
+#: CommandNameText.resx, Stretch
+msgid "Stretch"
+msgstr "Uzat"
+
+#: CommandNameText.resx, SetLiveloxImportableEventId
+msgid "Publish to Livelox"
+msgstr "Livelox'ta yayınla"
+
+#: CommandNameText.resx, MoveAllControls
+#: MoveAllControls.resx, $this.Text
+#: SelectLocationsForMove.resx, $this.Text
+msgid "Move All Controls"
+msgstr "Tüm Kontol Noktalarını Taşı"
+
+#: CommandNameText.resx, AddMapFlip
+msgid "Add Map Flip"
+msgstr "Harita Değişimi Ekle"
+
+#: CourseAppearanceDialog.resx, comboBoxScaleItemSizes.Items
+msgid "Do not scale"
+msgstr "Ölçeklendirme yapma"
+
+#: CourseAppearanceDialog.resx, comboBoxScaleItemSizes.Items1
+msgid "Relative to map scale"
+msgstr "Harita Ölçeğini Güncelle"
+
+#: CourseAppearanceDialog.resx, comboBoxScaleItemSizes.Items2
+msgid "Relative to 1:15000"
+msgstr "1:15000 e göre güncelle"
+
+#: CourseAppearanceDialog.resx, label11.Text
+msgid "Scale item sizes:"
+msgstr "Ölçek boyutu:"
+
+#: CourseAppearanceDialog.resx, labelAutoGapSize.Text
+msgid "Automatic leg gap size:"
+msgstr "Otomatik bacak boşluğu boyutu:"
+
+#: CourseAppearanceDialog.resx, labelOutlineWidth.Text
+msgid "White outline around numbers:"
+msgstr "Sayıların etrafındaki beyaz anahat:"
+
+#: CourseAppearanceDialog.resx, label7.Text
+msgid "Center dot diameter:"
+msgstr "Merkez nokta çapı:"
+
+#: CourseAppearanceDialog.resx, comboBoxControlNumberStyle.Items
+msgid "Arial"
+msgstr "Arial"
+
+#: CourseAppearanceDialog.resx, comboBoxControlNumberStyle.Items1
+msgid "Arial Bold"
+msgstr "Arial Kalın"
+
+#: CourseAppearanceDialog.resx, comboBoxControlNumberStyle.Items2
+msgid "Roboto"
+msgstr ""
+
+#: CourseAppearanceDialog.resx, comboBoxControlNumberStyle.Items3
+msgid "Roboto Bold"
+msgstr ""
+
+#: CourseAppearanceDialog.resx, labelControlNumberStyle.Text
+msgid "Control number style:"
+msgstr "Kontrol numarası stili:"
+
+#: CourseAppearanceDialog.resx, labelControlNumber.Text
+msgid "Control number height:"
+msgstr "Kontrol numarası yüksekliği:"
+
+#: CourseAppearanceDialog.resx, labelLineWidth.Text
+msgid "Line width:"
+msgstr "Hat genişliği:"
+
+#: CourseAppearanceDialog.resx, labelControlCircle.Text
+msgid "Control circle diameter:"
+msgstr "Kontrol çemberi çapı:"
+
+#: CourseAppearanceDialog.resx, checkBoxStandardSizes.Text
+msgid "Use IOF standard sizes"
+msgstr "IOF standart boyutlarını kullan"
+
+#: CourseAppearanceDialog.resx, groupBoxSizes.Text
+msgid "Item Sizes"
+msgstr "Nesne Boyutu"
+
+#: CourseAppearanceDialog.resx, checkBoxBlendPurple.Text
+msgid "Blend purple with underlying map colors"
+msgstr "Mor ile temel harita renklerini karıştırın"
+
+#: CourseAppearanceDialog.resx, checkBoxDefaultPurple.Text
+msgid "Use purple color from map"
+msgstr "Haritadan mor rengi kullan"
+
+#: CourseAppearanceDialog.resx, groupBoxPurple.Text
+msgid "Purple Color"
+msgstr "Mor Renk"
+
+#: CourseAppearanceDialog.resx, comboBoxDescriptionColor.Items
+#: MiscText.resx, Black
+msgid "Black"
+msgstr "Siyah"
+
+#: CourseAppearanceDialog.resx, comboBoxDescriptionColor.Items1
+#: MiscText.resx, Purple
+msgid "Purple"
+msgstr "Mor"
+
+#: CourseAppearanceDialog.resx, groupBox1.Text
+#: SelectionDescriptionText.resx, SpecialName_Descriptions
+msgid "Control Descriptions"
+msgstr "Kontrol Açıklamaları"
+
+#: CourseAppearanceDialog.resx, checkBoxOverprint.Text
+msgid "Use overprint effect for colors marked \"overprint\""
+msgstr "\"Üst baskı\" olarak işaretlenmiş renkler için üst baskı "
+"efektini kullanın"
+
+#: CourseAppearanceDialog.resx, groupBoxOcadMap.Text
+msgid "Advanced"
+msgstr "Gelişmiş"
+
+#: CourseAppearanceDialog.resx, $this.Text
+msgid "Customize Appearance"
+msgstr "Görünüşü özelleştirme"
+
+#: CourseLoad.resx, Load.HeaderText
+msgid "Competitor Load"
+msgstr "Yarışmacı Yükü"
+
+#: CourseLoad.resx, courseLoadLabel.Text
+msgid "Set the number of competitors on each course by clicking "
+"in the second column and typing a number."
+msgstr "İkinci sütuna tıklayıp bir sayı yazarak her kparkurdaki "
+"yarışmacı sayısını ayarlayın."
+
+#: CourseLoad.resx, $this.Text
+msgid "Course Load"
+msgstr "Parkur Yükle"
+
+#: CoursePartBanner.resx, variationsLabel.Text
+msgid "Course Variation: "
+msgstr "Parkur Varyasyonu: "
+
+#: CoursePartBanner.resx, buttonProperties.Text
+msgid "Properties..."
+msgstr "Özellikler..."
+
+#: CoursePartBanner.resx, coursePartLabel.Text
+msgid "Course Part: "
+msgstr "Parkur Bölümü: "
+
+#: CoursePartProperties.resx, checkBoxDisplayFinish.Text
+msgid "Display finish circle on this course part"
+msgstr "Bu parkur bölümünde bitiş çemberini göster"
+
+#: CoursePartProperties.resx, label1.Text
+msgid "These settings control the appearance of this part of a "
+"multi-part course."
+msgstr "Bu ayarlar, çok parçalı bir parkurun bu bölümünün "
+"görünümünü kontrol eder."
+
+#: CoursePartProperties.resx, $this.Text
+msgid "Course Part Properties"
+msgstr "Parkur Bölümü Özellikleri"
+
+#: CourseSelector.resx, selectAll.Text
+msgid "All"
+msgstr "Tamamı"
+
+#: CourseSelector.resx, selectNone.Text
+#: SelectionDescriptionText.resx, CourseList_None
+msgid "None"
+msgstr "Yok"
+
+#: CourseSelector.resx, buttonChooseVariations.Text
+msgid "Choose Variations..."
+msgstr "Varyasyonları Seçin..."
+
+#: CreateGpx.resx, coursesGroupBox.Text
+#: CreateImageFiles.resx, coursesGroupBox.Text
+#: CreateKmlFiles.resx, coursesGroupBox.Text
+#: CreateOcadFiles.resx, coursesGroupBox.Text
+#: CreatePdfCourses.resx, coursesGroupBox.Text
+#: PrintCourses.resx, coursesGroupBox.Text
+#: PrintDescriptions.resx, coursesGroupBox.Text
+#: PrintPunches.resx, coursesGroupBox.Text
+#: ReportText.resx, ColumnHeader_Courses
+msgid "Courses"
+msgstr "Parkur"
+
+#: CreateGpx.resx, namePrefixLabel.Text
+#: CreatePdfCourses.resx, fileNamePrefixLabel.Text
+msgid "Name prefix:"
+msgstr "İsim öneki:"
+
+#: CreateGpx.resx, waypointGroupBox.Text
+msgid "Waypoints"
+msgstr "Yol işaretleri"
+
+#: CreateGpx.resx, headerLabel.Text
+msgid "A GPX File contains GPS coordinates for controls, and can "
+"be loaded onto a GPS or smartphone to verify the correct "
+"location of controls."
+msgstr "Bir GPX Dosyası kontroller için GPS koordinatları içerir "
+"ve kontrollerin doğru yerini doğrulamak için bir GPS veya "
+"akıllı telefona yüklenebilir."
+
+#: CreateGpx.resx, $this.Text
+#: MainFrame.resx, saveGpxFileDialog.Title
+msgid "Create GPX File"
+msgstr "GPX dosysı oluştur"
+
+#: CreateImageFiles.resx, createButton.Text
+#: CreateKmlFiles.resx, createButton.Text
+#: CreateOcadFiles.resx, createButton.Text
+#: CreatePdfCourses.resx, okButton.Text
+#: CreateRouteGadget.resx, createButton.Text
+msgid "Create"
+msgstr "Oluştur"
+
+#: CreateImageFiles.resx, cancelButton.Text
+#: CreateKmlFiles.resx, cancelButton.Text
+#: CreateOcadFiles.resx, cancelButton.Text
+#: CreateRouteGadget.resx, cancelButton.Text
+#: MiscText.resx, CrashCancel
+#: NewEventWizard.resx, cancelButton.Text
+#: NonPrintableObjects.resx, cancelButton.Text
+#: OkCancelDialog.resx, cancelButton.Text
+#: OperationInProgress.resx, cancelButton.Text
+#: OverwritingOcadFilesDialog.resx, buttonCancel.Text
+#: PrintDescriptions.resx, cancelButton.Text
+#: PrintPunches.resx, cancelButton.Text
+#: SelectLocationsForMove.resx, buttonCancel.Text
+#: SetPrintAreaDialog.resx, cancelButton.Text
+msgid "Cancel"
+msgstr "Vazgeç"
+
+#: CreateImageFiles.resx, folderBrowserDialog.Description
+#: CreateKmlFiles.resx, folderBrowserDialog.Description
+#: CreateOcadFiles.resx, folderBrowserDialog.Description
+#: CreateRouteGadget.resx, folderBrowserDialog.Description
+msgid "Select a folder for the OCAD files"
+msgstr "OCAD dosyaları için bir klasör seçin"
+
+#: CreateImageFiles.resx, outputGroupBox.Text
+#: CreateKmlFiles.resx, outputGroupBox.Text
+#: CreateOcadFiles.resx, outputGroupBox.Text
+#: PrintCourses.resx, printerGroup.Text
+#: PrintDescriptions.resx, printerGroup.Text
+#: PrintPunches.resx, printerGroup.Text
+msgid "Output"
+msgstr "Çıktı"
+
+#: CreateImageFiles.resx, fileFormatLabel.Text
+#: CreateOcadFiles.resx, fileFormatLabel.Text
+msgid "File format:"
+msgstr "Dosya formatı:"
+
+#: CreateImageFiles.resx, fileFormatCombo.Items
+msgid "PNG"
+msgstr "PNG"
+
+#: CreateImageFiles.resx, fileFormatCombo.Items1
+msgid "JPEG"
+msgstr "JPEG"
+
+#: CreateImageFiles.resx, fileFormatCombo.Items2
+msgid "GIF"
+msgstr "GIF"
+
+#: CreateImageFiles.resx, fileNamePrefixLabel.Text
+#: CreateKmlFiles.resx, fileNamePrefixLabel.Text
+#: CreateOcadFiles.resx, fileNamePrefixLabel.Text
+msgid "File name prefix:"
+msgstr "Dosya adı öneki:"
+
+#: CreateImageFiles.resx, label1.Text
+msgid "World file:"
+msgstr "Web dosyası:"
+
+#: CreateImageFiles.resx, comboBoxDpi.Items
+msgid "100"
+msgstr "100"
+
+#: CreateImageFiles.resx, comboBoxDpi.Items1
+msgid "150"
+msgstr "150"
+
+#: CreateImageFiles.resx, comboBoxDpi.Items2
+msgid "200"
+msgstr "200"
+
+#: CreateImageFiles.resx, comboBoxDpi.Items3
+msgid "300"
+msgstr "300"
+
+#: CreateImageFiles.resx, comboBoxDpi.Items4
+msgid "400"
+msgstr "400"
+
+#: CreateImageFiles.resx, comboBoxDpi.Items5
+msgid "500"
+msgstr "500"
+
+#: CreateImageFiles.resx, comboBoxDpi.Items6
+msgid "600"
+msgstr "600"
+
+#: CreateImageFiles.resx, dpiLabel.Text
+msgid "Dpi:"
+msgstr "Dpi:"
+
+#: CreateImageFiles.resx, comboBoxWorldFile.Items
+#: ReportText.resx, EventAudit_No
+msgid "No"
+msgstr "Hayır"
+
+#: CreateImageFiles.resx, comboBoxWorldFile.Items1
+#: ReportText.resx, EventAudit_Yes
+msgid "Yes"
+msgstr "Evet"
+
+#: CreateImageFiles.resx, labelColorModel.Text
+msgid "Color model:"
+msgstr "Renk modeli:"
+
+#: CreateImageFiles.resx, comboBoxColorModel.Items
+#: CreatePdfCourses.resx, comboBoxColorModel.Items
+#: PrintCourses.resx, comboBoxColorModel.Items1
+msgid "RGB"
+msgstr "RGB"
+
+#: CreateImageFiles.resx, comboBoxColorModel.Items1
+#: CreatePdfCourses.resx, comboBoxColorModel.Items1
+#: PrintCourses.resx, comboBoxColorModel.Items2
+msgid "CMYK"
+msgstr "CMYK"
+
+#: CreateImageFiles.resx, selectOtherDirectoryButton.Text
+#: CreateKmlFiles.resx, selectOtherDirectoryButton.Text
+#: CreateOcadFiles.resx, selectOtherDirectoryButton.Text
+#: CreatePdfCourses.resx, selectOtherDirectoryButton.Text
+#: CreateRouteGadget.resx, selectOtherDirectoryButton.Text
+msgid "Select folder..."
+msgstr "Dosya Seç..."
+
+#: CreateImageFiles.resx, coursesDirectory.Text
+#: CreateKmlFiles.resx, coursesDirectory.Text
+#: CreateOcadFiles.resx, coursesDirectory.Text
+#: CreatePdfCourses.resx, coursesDirectory.Text
+#: CreateRouteGadget.resx, coursesDirectory.Text
+msgid "Same folder as Purple Pen file"
+msgstr "Purple Pen dosyasıyla aynı klasör"
+
+#: CreateImageFiles.resx, mapDirectory.Text
+#: CreateKmlFiles.resx, mapDirectory.Text
+#: CreateOcadFiles.resx, mapDirectory.Text
+#: CreatePdfCourses.resx, mapDirectory.Text
+#: CreateRouteGadget.resx, mapDirectory.Text
+msgid "Same folder as map file"
+msgstr "Harita dosyası ile aynı klasör"
+
+#: CreateImageFiles.resx, otherDirectory.Text
+#: CreateKmlFiles.resx, otherDirectory.Text
+#: CreateOcadFiles.resx, otherDirectory.Text
+#: CreatePdfCourses.resx, otherDirectory.Text
+#: CreateRouteGadget.resx, otherDirectory.Text
+msgid "Other folder"
+msgstr "Diğer klasör"
+
+#: CreateImageFiles.resx, folderGroupBox.Text
+#: CreateKmlFiles.resx, folderGroupBox.Text
+#: CreateOcadFiles.resx, folderGroupBox.Text
+#: CreatePdfCourses.resx, folderGroupBox.Text
+#: CreateRouteGadget.resx, folderGroupBox.Text
+msgid "Folder"
+msgstr "Dosya"
+
+#: CreateImageFiles.resx, $this.Text
+msgid "Create Image Files"
+msgstr "Görüntü Dosyası Oluştur"
+
+#: CreateKmlFiles.resx, filesLabel.Text
+#: CreatePdfCourses.resx, filesLabel.Text
+msgid "Files:"
+msgstr "Dosyalar:"
+
+#: CreateKmlFiles.resx, filesCombo.Items
+#: CreatePdfCourses.resx, comboBoxFileFormat.Items
+msgid "One for all courses"
+msgstr "Tüm parkurlar için bir tane"
+
+#: CreateKmlFiles.resx, filesCombo.Items1
+#: CreatePdfCourses.resx, comboBoxFileFormat.Items1
+msgid "One per course"
+msgstr "Parkur için bir tane"
+
+#: CreateKmlFiles.resx, $this.Text
+msgid "Create KML File"
+msgstr "KML Dosyası Oluştur"
+
+#: CreateOcadFiles.resx, $this.Text
+msgid "Create OCAD Files"
+msgstr "OCAD Dosyası Oluştur"
+
+#: CreatePdfCourses.resx, checkBoxMergeParts.Text
+#: PrintCourses.resx, checkBoxMergeParts.Text
+msgid "Print Map Exchanges on Same Map "
+msgstr "Harita Değişimlerini Aynı Harita Üzerinde Yazdırın "
+
+#: CreatePdfCourses.resx, labelColorModel.Text
+#: PrintCourses.resx, labelColorModel.Text
+msgid "Color Model:"
+msgstr "Renk Modeli:"
+
+#: CreatePdfCourses.resx, comboBoxMultiPage.Items
+#: PrintCourses.resx, comboBoxMultiPage.Items
+msgid "Crop to a single page"
+msgstr "Tek bir sayfaya yerleştir"
+
+#: CreatePdfCourses.resx, comboBoxMultiPage.Items1
+#: PrintCourses.resx, comboBoxMultiPage.Items1
+msgid "Print on multiple pages"
+msgstr "Birden fazla sayfaya yazdırma"
+
+#: CreatePdfCourses.resx, labelAppearanceInfo.Text
+#: PrintCourses.resx, labelAppearanceInfo.Text
+msgid "If the print area is too large to fit on one page:"
+msgstr "Yazdırma alanı bir sayfaya sığmayacak kadar büyükse:"
+
+#: CreatePdfCourses.resx, comboBoxFileFormat.Items2
+msgid "One per course part/variation"
+msgstr "Parkur bölümü/varyasyonu başına bir adet"
+
+#: CreatePdfCourses.resx, outputGroupBox.Text
+msgid "Files"
+msgstr "Dosyalar"
+
+#: CreatePdfCourses.resx, folderBrowserDialog.Description
+msgid "Select a folder for the PDF files"
+msgstr "PDF dosyaları için bir klasör seçin"
+
+#: CreatePdfCourses.resx, $this.Text
+msgid "Create PDF Files"
+msgstr "PDF dosyası oluştur"
+
+#: CreateRouteGadget.resx, label1.Text
+msgid "Enter the name (without .xml or .gif) for both of the "
+"RouteGadget files:"
+msgstr "RouteGadget dosyalarının her ikisi için de ad girin (.xml "
+"veya .gif olmadan):"
+
+#: CreateRouteGadget.resx, learnMoreLink.Text
+msgid "Learn more about RouteGadget"
+msgstr "RouteGadget hakkında daha fazla bilgi edinin"
+
+#: CreateRouteGadget.resx, label2.Text
+msgid "RouteGadget requires both an image file (.gif) and IOF XML "
+"file (.xml). Choose the name and folder for both of these "
+"files."
+msgstr "RouteGadget, hem bir görüntü dosyası (.gif) hem de IOF XML "
+"dosyası (.xml) gerektirir. Bu dosyaların her ikisi için de "
+"adı ve klasörü seçin."
+
+#: CreateRouteGadget.resx, comboBoxIofXml.Items
+msgid "2.0.3"
+msgstr "2.0.3"
+
+#: CreateRouteGadget.resx, comboBoxIofXml.Items1
+msgid "3.0"
+msgstr "3.0"
+
+#: CreateRouteGadget.resx, labelIofXml.Text
+msgid "IOF XML Version:"
+msgstr "IOF XML Versiyon:"
+
+#: CreateRouteGadget.resx, groupBox1.Text
+msgid "IOF XML"
+msgstr "IOF XML"
+
+#: CreateRouteGadget.resx, $this.Text
+msgid "Create RouteGadget Files"
+msgstr "RouteGadget Dosyaları Oluşturun"
+
+#: CustomSymbolText.resx, labelChooseLanguage.Text
+msgid "Choose the language used for textual control descriptions:"
+msgstr "Metinsel kontrol açıklamaları için kullanılan dili seçin:"
+
+#: CustomSymbolText.resx, labelSymbolName.Text
+msgid "Symbol name:"
+msgstr "Sembol ad:"
+
+#: CustomSymbolText.resx, labelCustomizedText.Text
+msgid "Customized text:"
+msgstr "Özelleştirilmiş metin:"
+
+#: CustomSymbolText.resx, buttonChangeText.Text
+msgid "Change text..."
+msgstr "Metni değiştir..."
+
+#: CustomSymbolText.resx, buttonDefault.Text
+msgid "Reset to standard"
+msgstr "Standarda sıfırla"
+
+#: CustomSymbolText.resx, labelStandardText.Text
+msgid "Standard text:"
+msgstr "Standart metin:"
+
+#: CustomSymbolText.resx, checkBoxShowKey.Text
+msgid "Show meaning below symbolic descriptions"
+msgstr "Sembolik açıklamaların altında anlamı göster"
+
+#: CustomSymbolText.resx, labelCustomizeText.Text
+msgid "Click on a description symbol to customize the text that "
+"is used in textual control descriptions."
+msgstr "Metinsel kontrol açıklamalarında kullanılan metni "
+"özelleştirmek için bir açıklama sembolüne tıklayın."
+
+#: CustomSymbolText.resx, checkBoxDefaultLanguage.Text
+msgid "Make this the default language for new events"
+msgstr "Bunu yeni etkinlikler için varsayılan dil yap"
+
+#: DownloadProgressDialog.resx, $this.Text
+msgid "Downloading"
+msgstr "İndiriliyor"
+
+#: EnterSymbolText.resx, numberColumn.HeaderText
+msgid "Number"
+msgstr "Sayı"
+
+#: EnterSymbolText.resx, genderColumn.HeaderText
+msgid "Gender"
+msgstr "Cinsiyet"
+
+#: EnterSymbolText.resx, caseColumn.HeaderText
+msgid "Case"
+msgstr "Durum"
+
+#: EnterSymbolText.resx, checkBoxPlural.Text
+msgid "Show plural forms"
+msgstr "Çoğul formları göster"
+
+#: EnterSymbolText.resx, checkBoxGender.Text
+msgid "Show gender forms"
+msgstr "Cinsiyet formlarını göster"
+
+#: EnterSymbolText.resx, labelDescription.Text
+msgid "Enter the customized text for the symbol in the \"Text\" "
+"column."
+msgstr "Sembol için özelleştirilmiş metni \"Metin\" sütununa girin."
+
+#: EnterSymbolText.resx, labelGenderChooser.Text
+msgid "Gender:"
+msgstr "Cinsiyet:"
+
+#: EnterSymbolText.resx, labelCaseChooser.Text
+msgid "Case of modified symbol:"
+msgstr "Değiştirilmiş sembol durumu:"
+
+#: EnterSymbolText.resx, checkBoxCases.Text
+msgid "Show case forms"
+msgstr "Durum formlarını göster"
+
+#: EnterSymbolText.resx, $this.Text
+msgid "Customized Symbol Text"
+msgstr "Özelleştirilmiş Sembol Metni"
+
+#: InitialScreen.resx, openLastRadioButton.Text
+msgid "Open last viewed event"
+msgstr "Son görüntülenen etkinliği aç"
+
+#: InitialScreen.resx, openSampleRadioButton.Text
+msgid "Open a sample event"
+msgstr "Örnek bir etkinlik açın"
+
+#: InitialScreen.resx, createNewRadioButton.Text
+msgid "Create a new event..."
+msgstr "Yeni etkinlik oluştur..."
+
+#: InitialScreen.resx, openExistingRadioButton.Text
+msgid "Open an existing event..."
+msgstr "Mevcut bir etkinliği aç..."
+
+#: InitialScreen.resx, label1.Text
+msgid "Purple Pen is free software and may be copied and shared. "
+"Development of Purple Pen is supported only by your "
+"donations."
+msgstr "Purple Pen ücretsiz bir yazılımdır ve kopyalanabilir ve "
+"paylaşılabilir. Purple Pen'in gelişimi sadece "
+"bağışlarınızla destekleniyor."
+
+#: InitialScreen.resx, donationLink.Text
+msgid "Make a donation"
+msgstr "Bağış yapın"
+
+#: InitialScreen.resx, $this.Text
+msgid "Welcome to Purple Pen"
+msgstr "Purple Pen'e Hoş Geldiniz"
+
+#: LegAssignmentsDialog.resx, BranchColumn.HeaderText
+msgid "Branch"
+msgstr "Dal"
+
+#: LegAssignmentsDialog.resx, LegsColumn.HeaderText
+msgid "Legs"
+msgstr "Bacaklar"
+
+#: LegAssignmentsDialog.resx, labelDescription.Text
+msgid "To assign a specific leg to a specific branch, type the "
+"leg number(s) below. Legs not assigned to a branch will be "
+"distributed among remaining branches randomly."
+msgstr "Belirli bir şubeye belirli bir bacak atamak için, aşağıya "
+"bacak numaralarını yazın. Bir şubeye atanmayan bacaklar, "
+"kalan şubelere rastgele dağıtılacaktır."
+
+#: LegAssignmentsDialog.resx, linkLabel.Text
+msgid "More information..."
+msgstr "Ayrıntılı bilgi..."
+
+#: LegAssignmentsDialog.resx, $this.Text
+msgid "Leg Assignments"
+msgstr "Bacak Atamaları"
+
+#: LicenseForm.resx, bsdLicenseLinkLabel.Text
+msgid "Purple Pen is provided under a \"BSD\" style license."
+msgstr "Purple Pen, \"BSD\" tarzı bir lisans altında sağlanır."
+
+#: LicenseForm.resx, $this.Text
+msgid "Purple Pen License"
+msgstr "Purple Pen Lisansı"
+
+#: LinePropertiesDialog.resx, buttonChangeColor.Text
+msgid " Change Color..."
+msgstr " Renk Değiştir..."
+
+#: LinePropertiesDialog.resx, label2.Text
+msgid "Style:"
+msgstr "Stil:"
+
+#: LinePropertiesDialog.resx, comboBoxStyle.Items
+msgid "Single"
+msgstr "Tek"
+
+#: LinePropertiesDialog.resx, comboBoxStyle.Items1
+msgid "Double"
+msgstr "Çift"
+
+#: LinePropertiesDialog.resx, comboBoxStyle.Items2
+msgid "Dashed"
+msgstr "Kesikli"
+
+#: LinePropertiesDialog.resx, labelWidth.Text
+#: PrinterMargins.resx, label2.Text
+msgid "Width:"
+msgstr "Genişlik:"
+
+#: LinePropertiesDialog.resx, labelGapSize.Text
+msgid "Gap Size:"
+msgstr "Boşluk Boyutu:"
+
+#: LinePropertiesDialog.resx, labelDashSize.Text
+msgid "Dash Size:"
+msgstr "Çizgi Boyutu:"
+
+#: LinePropertiesDialog.resx, labelCornerRadius.Text
+msgid "Corner Radius:"
+msgstr "Köşe yarıçapı:"
+
+#: MainFrame.resx, tabPage1.Text
+msgid "All Controls"
+msgstr "Tüm Kontroller"
+
+#: MainFrame.resx, radioButtonDescriptions.Text
+msgid "Descriptions"
+msgstr "Açıklamalar"
+
+#: MainFrame.resx, radioButtonTopology.Text
+msgid "Ordering"
+msgstr "Sipariş"
+
+#: MainFrame.resx, mapViewerTopology.Text
+msgid "mapViewerTopology"
+msgstr "mapViewerTopoloji"
+
+#: MainFrame.resx, openFileDialog.Filter
+msgid "Purple Pen files|*.ppen|All files|*.*"
+msgstr "Purple Pen dosyası|*.ppen|Tüm dosyalar|*.*"
+
+#: MainFrame.resx, saveFileDialog.Filter
+msgid "Purple Pen file|*.ppen"
+msgstr "Purple Pen dosyası|*.ppen"
+
+#: MainFrame.resx, fileMenu.Text
+msgid "&File"
+msgstr "&Dosya"
+
+#: MainFrame.resx, newEventMenu.Text
+msgid "&New Event..."
+msgstr "&Yeni etkinlik..."
+
+#: MainFrame.resx, openMenu.Text
+msgid "&Open..."
+msgstr "&Aç..."
+
+#: MainFrame.resx, saveMenu.Text
+msgid "&Save"
+msgstr "&Kaydet"
+
+#: MainFrame.resx, saveAsMenu.Text
+msgid "Save &As..."
+msgstr "Farklı kaydet..."
+
+#: MainFrame.resx, createOcadFilesMenu.Text
+msgid "Create OCAD &Files..."
+msgstr "OCAD ve Dosyalar Oluştur ..."
+
+#: MainFrame.resx, createImageFilesMenu.Text
+msgid "Create Ima&ge Files..."
+msgstr "Ima&ge Dosyası Oluştur..."
+
+#: MainFrame.resx, createPDFsMenu.Text
+msgid "Create P&DFs"
+msgstr "P&DF ler oluştur"
+
+#: MainFrame.resx, createDescriptionPdfMenu.Text
+msgid "&Descriptions..."
+msgstr "&Açıklamalar..."
+
+#: MainFrame.resx, createPunchcardPdfMenu.Text
+msgid "Pu&nch Cards..."
+msgstr "Delme Kartları Yazdır..."
+
+#: MainFrame.resx, createCoursePdfMenu.Text
+msgid "&Courses..."
+msgstr "&Parkurlar..."
+
+#: MainFrame.resx, createRouteReviewFilesToolStripMenuItem.Text
+msgid "Create Route Review Files"
+msgstr "Rota İnceleme Dosyaları Oluşturun"
+
+#: MainFrame.resx, createRouteGadgetFilesMenu.Text
+msgid "Create RouteGadget Files..."
+msgstr "RouteGadget Dosyaları Oluşturun..."
+
+#: MainFrame.resx, createXmlMenu.Text
+msgid "Create Data &Interchange File (IOF XML)..."
+msgstr "Veri ve Değişim Dosyası Oluştur (IOF XML)..."
+
+#: MainFrame.resx, createGPXFileMenu.Text
+msgid "Create G&PX File..."
+msgstr "G&PX Dosyası Oluştur..."
+
+#: MainFrame.resx, createKMLFileMenu.Text
+msgid "Create &KML File..."
+msgstr "&KML Dosyası Oluştur..."
+
+#: MainFrame.resx, printDescriptionsMenu.Text
+msgid "&Print Descriptions..."
+msgstr "Açıklamaları &Yazdır..."
+
+#: MainFrame.resx, printPunchCardsMenu.Text
+msgid "Print Pu&nch Cards..."
+msgstr "Delme Kartları Yazdır..."
+
+#: MainFrame.resx, printCoursesMenu.Text
+msgid "Print &Courses..."
+msgstr "Yazdır & Parkurları..."
+
+#: MainFrame.resx, setPrintAreaMenu.Text
+msgid "Set Print A&rea"
+msgstr "Yazdırma Alanını& Ayarla"
+
+#: MainFrame.resx, printAreaThisPartMenu.Text
+msgid "This &Part Only"
+msgstr "&Yalnızca bu bölümü"
+
+#: MainFrame.resx, printAreaThisCourseMenu.Text
+msgid "&This Course"
+msgstr "&Bu Parkuru"
+
+#: MainFrame.resx, printAreaAllCoursesMenu.Text
+msgid "&All Courses"
+msgstr "&Tüm Parkurlar"
+
+#: MainFrame.resx, programLanguageMenu.Text
+msgid "Program &Language..."
+msgstr "Program &Dili..."
+
+#: MainFrame.resx, exitMenu.Text
+msgid "E&xit"
+msgstr "E&xit"
+
+#: MainFrame.resx, editMenu.Text
+msgid "&Edit"
+msgstr "&Düzenle"
+
+#: MainFrame.resx, cancelMenu.Text
+#: MiscText.resx, ClearSelectionWithShortcut
+msgid "&Clear Selection"
+msgstr "&Seçili olanı temizle"
+
+#: MainFrame.resx, undoMenu.Text
+#: MiscText.resx, UndoWithShortcut
+msgid "&Undo"
+msgstr "&Geri al"
+
+#: MainFrame.resx, redoMenu.Text
+#: MiscText.resx, RedoWithShortcut
+msgid "&Redo"
+msgstr "&Yinele"
+
+#: MainFrame.resx, deleteMenu.Text
+#: MainFrame.resx, deleteItemMenu.Text
+msgid "&Delete"
+msgstr "&Sil"
+
+#: MainFrame.resx, viewMenu.Text
+msgid "&View"
+msgstr "&Görünüm"
+
+#: MainFrame.resx, entireCourseMenu.Text
+msgid "Entire &Course"
+msgstr "Bütün &Parkur"
+
+#: MainFrame.resx, entireMapMenu.Text
+msgid "Entire &Map"
+msgstr "Bütün &Harita"
+
+#: MainFrame.resx, zoomMenu.Text
+msgid "&Zoom"
+msgstr "&Yaklaştır"
+
+#: MainFrame.resx, zoom50Menu.Text
+msgid "50%"
+msgstr "50%"
+
+#: MainFrame.resx, zoom100Menu.Text
+msgid "100%"
+msgstr "100%"
+
+#: MainFrame.resx, zoom150Menu.Text
+msgid "150%"
+msgstr "150%"
+
+#: MainFrame.resx, zoom200Menu.Text
+msgid "200%"
+msgstr "200%"
+
+#: MainFrame.resx, zoom300Menu.Text
+msgid "300%"
+msgstr "300%"
+
+#: MainFrame.resx, zoom500Menu.Text
+msgid "500%"
+msgstr "500%"
+
+#: MainFrame.resx, zoom1000Menu.Text
+msgid "1000%"
+msgstr "1000%"
+
+#: MainFrame.resx, mapIntensityMenu.Text
+msgid "Map &Intensity"
+msgstr "Harita &Yoğunluk"
+
+#: MainFrame.resx, veryLowIntensityMenu.Text
+msgid "&Very Low"
+msgstr "&Çok düşük"
+
+#: MainFrame.resx, lowIntensityMenu.Text
+msgid "&Low"
+msgstr "&Düşük"
+
+#: MainFrame.resx, mediumIntensityMenu.Text
+msgid "&Medium"
+msgstr "&Orta"
+
+#: MainFrame.resx, highIntensityMenu.Text
+msgid "&High"
+msgstr "& Yüksek"
+
+#: MainFrame.resx, fullIntensityMenu.Text
+msgid "&Full"
+msgstr "&Tam"
+
+#: MainFrame.resx, mapQualityMenu.Text
+msgid "Map &Quality"
+msgstr "Harita &Kalite"
+
+#: MainFrame.resx, normalQualityMenu.Text
+msgid "Low"
+msgstr "Düşük"
+
+#: MainFrame.resx, highQualityMenu.Text
+msgid "High"
+msgstr "Yüksek"
+
+#: MainFrame.resx, showPrintAreaMenu.Text
+msgid "Show P&rint Area"
+msgstr "Baskı &Alanını Göster"
+
+#: MainFrame.resx, showPopupsMenu.Text
+msgid "Show &Popup Information"
+msgstr "&Açılır Bilgiyi Göster"
+
+#: MainFrame.resx, allControlsMenu.Text
+msgid "&All Controls"
+msgstr "%Tüm Hedefler"
+
+#: MainFrame.resx, otherCoursesMenu.Text
+msgid "Other Courses..."
+msgstr "Diğer Parkurlar..."
+
+#: MainFrame.resx, clearOtherCoursesMenu.Text
+msgid "Clear Other Courses"
+msgstr "Diğer Parkurları Temizle"
+
+#: MainFrame.resx, addMenu.Text
+msgid "&Add"
+msgstr "&Ekle"
+
+#: MainFrame.resx, addStartMenu.Text
+msgid "&Start"
+msgstr "&Başlama"
+
+#: MainFrame.resx, addControlMenu.Text
+msgid "&Control"
+msgstr "& Kontrol"
+
+#: MainFrame.resx, addFinishMenu.Text
+#: MiscText.resx, FinishButtonText
+msgid "&Finish"
+msgstr "&Bitiş"
+
+#: MainFrame.resx, addDescriptionsMenu.Text
+msgid "&Descriptions"
+msgstr "& Açıklamalar"
+
+#: MainFrame.resx, addMapExchangeMenu.Text
+msgid "Map Flip/E&xchange"
+msgstr "Harita &Değişimi"
+
+#: MainFrame.resx, addMapFlipMenuItem.Text
+msgid "Map &Flip at Control Point"
+msgstr "Harita &Kontrol Noktasında Çevir"
+
+#: MainFrame.resx, mapExchangeControlMenuItem.Text
+msgid "Map Exchange at &Control Point"
+msgstr "&Kontrol Noktasında Harita Değişimi"
+
+#: MainFrame.resx, mapExchangeSeparateMenuItem.Text
+msgid "Flagged &Route to Map Exchange"
+msgstr "Harita Değişimine Yönelik İşaretli Rota"
+
+#: MainFrame.resx, addVariationMenu.Text
+msgid "&Variation..."
+msgstr "&Varyasyon..."
+
+#: MainFrame.resx, addTextLineMenu.Text
+msgid "Text &Line..."
+msgstr "Metin &Çizgi..."
+
+#: MainFrame.resx, addMapIssueMenu.Text
+#: MainFrame.resx, mapIssuePointToolStripMenuItem.Text
+#: MiscText.resx, MapIssue_Long
+#: MiscText.resx, MapIssue_Medium
+msgid "Timed Start"
+msgstr "Zamanlayıcı Başlatma"
+
+#: MainFrame.resx, addMandatoryCrossingMenu.Text
+#: MainFrame.resx, mandatoryCrossingPointToolStripMenuItem.Text
+msgid "Mandatory Crossing Point"
+msgstr "Zorunlu Geçiş Noktası"
+
+#: MainFrame.resx, addOptCrossingMenu.Text
+#: MainFrame.resx, optionalCrossingPointToolStripMenuItem.Text
+#: SelectionDescriptionText.resx, SpecialName_OptCrossing
+msgid "Optional Crossing Point"
+msgstr "Opsiyonel Geçiş Noktası"
+
+#: MainFrame.resx, addOutOfBoundsMenu.Text
+#: MainFrame.resx, outOfBoundsToolStripMenuItem.Text
+msgid "Out Of Bounds Area"
+msgstr "Sınır Dışı Alan"
+
+#: MainFrame.resx, addDangerousMenu.Text
+#: MainFrame.resx, dangerousToolStripMenuItem.Text
+#: SelectionDescriptionText.resx, SpecialName_Dangerous
+msgid "Dangerous Area"
+msgstr "Tehlikeli Alan"
+
+#: MainFrame.resx, addWaterMenu.Text
+#: MainFrame.resx, waterLocationToolStripMenuItem.Text
+#: SelectionDescriptionText.resx, SpecialName_Water
+msgid "Water Location"
+msgstr "Su Noktası"
+
+#: MainFrame.resx, addFirstAidMenu.Text
+#: MainFrame.resx, firstAidLocationToolStripMenuItem.Text
+#: SelectionDescriptionText.resx, SpecialName_FirstAid
+msgid "First Aid Location"
+msgstr "İlk yardım Noktası"
+
+#: MainFrame.resx, addForbiddenMenu.Text
+#: MainFrame.resx, forbiddenRouteMarkingToolStripMenuItem.Text
+msgid "Forbidden Route Marking"
+msgstr "Yasak Güzergah İşaretleme"
+
+#: MainFrame.resx, addBoundaryMenu.Text
+#: MainFrame.resx, boundaryToolStripMenuItem.Text
+#: SelectionDescriptionText.resx, SpecialName_Boundary
+msgid "Uncrossable Boundary"
+msgstr "Aşılmaz Sınır"
+
+#: MainFrame.resx, addRegMarkMenu.Text
+#: MainFrame.resx, registrationMarkToolStripMenuItem.Text
+#: SelectionDescriptionText.resx, SpecialName_RegMark
+msgid "Registration Mark"
+msgstr "Kayıt İşareti"
+
+#: MainFrame.resx, whiteOutMenu.Text
+#: MainFrame.resx, whiteOutToolStripMenuItem.Text
+#: SelectionDescriptionText.resx, SpecialName_WhiteOut
+msgid "White Out Area"
+msgstr "Beyaz Dış Alan"
+
+#: MainFrame.resx, addImageMenu.Text
+#: MainFrame.resx, imageToolStripMenuItem.Text
+#: SelectionDescriptionText.resx, SpecialName_Image
+msgid "Image"
+msgstr "Resim"
+
+#: MainFrame.resx, addLineMenu.Text
+#: MainFrame.resx, lineToolStripMenuItem.Text
+#: SelectionDescriptionText.resx, SpecialName_Line
+msgid "Line"
+msgstr "Çizgi"
+
+#: MainFrame.resx, addRectangleMenu.Text
+#: MainFrame.resx, rectangleToolStripMenuItem.Text
+#: SelectionDescriptionText.resx, SpecialName_Rectangle
+msgid "Rectangle"
+msgstr "Dikdörtgen"
+
+#: MainFrame.resx, addEllipseMenu.Text
+#: MainFrame.resx, ellipseToolStripMenuItem.Text
+msgid "Ellipse"
+msgstr "Elips"
+
+#: MainFrame.resx, eventMenu.Text
+msgid "Eve&nt"
+msgstr "Etkinlik"
+
+#: MainFrame.resx, changeMapFileMenu.Text
+msgid "&Map File..."
+msgstr "& Harita Dosyası ..."
+
+#: MainFrame.resx, changeCodesMenu.Text
+msgid "Change Control &Codes..."
+msgstr "Kontrol &Kodlarını Değiştir..."
+
+#: MainFrame.resx, autoNumberingMenu.Text
+msgid "Automatic &Numbering..."
+msgstr "Otomatik &Numaralandırma..."
+
+#: MainFrame.resx, removeUnusedControlsMenu.Text
+msgid "Remove &Unused Controls..."
+msgstr "Kullanılmayan Kontrolleri Kaldır..."
+
+#: MainFrame.resx, moveAllControlsMenu.Text
+msgid "Mo&ve All Controls..."
+msgstr "Tüm Noktaları Ta&şı..."
+
+#: MainFrame.resx, punchPatternsMenu.Text
+msgid "&Punch Patterns..."
+msgstr "Zımba Desenleri..."
+
+#: MainFrame.resx, iOFStandardsToolStripMenuItem.Text
+msgid "IOF &Standards"
+msgstr "IOF &Standartları"
+
+#: MainFrame.resx, descriptionStd2004Menu.Text
+msgid "2004 Description Standard"
+msgstr "2004 Tanım Satandardı"
+
+#: MainFrame.resx, descriptionStd2018Menu.Text
+msgid "2018/2024 Description Standard"
+msgstr "2018/2024 Tanım Satandardı"
+
+#: MainFrame.resx, mapStd2000Menu.Text
+msgid "ISOM2000 Map Standard"
+msgstr "ISOM2000 Harita Standardı"
+
+#: MainFrame.resx, mapStd2017Menu.Text
+msgid "ISOM2017 Map Standard"
+msgstr "ISOM2017 Harita Standardı"
+
+#: MainFrame.resx, mapStdSpr2019Menu.Text
+msgid "ISSprOM 2019 Map Standard"
+msgstr "ISSprOM 2019 Harita Standardı"
+
+#: MainFrame.resx, customizeDescriptionsMenu.Text
+msgid "Customize &Description Text..."
+msgstr "&Açıklama Metnini Özelleştir..."
+
+#: MainFrame.resx, customizeCourseAppearanceMenu.Text
+msgid "Customize &Appearance..."
+msgstr "&Görünüşü özelleştirme..."
+
+#: MainFrame.resx, courseMenu.Text
+msgid "&Course"
+msgstr "&Parkur"
+
+#: MainFrame.resx, addCourseMenu.Text
+msgid "&Add Course..."
+msgstr "&Parkur ekle..."
+
+#: MainFrame.resx, deleteCourseMenu.Text
+msgid "&Delete Course"
+msgstr "&Parkur Sil"
+
+#: MainFrame.resx, duplicateCourseMenu.Text
+msgid "D&uplicate Course..."
+msgstr "Parkuru Çoğalt..."
+
+#: MainFrame.resx, propertiesMenu.Text
+msgid "&Properties..."
+msgstr "Özellikler..."
+
+#: MainFrame.resx, courseOrderMenu.Text
+msgid "Course &Order..."
+msgstr "Parkur &Sırası..."
+
+#: MainFrame.resx, courseLoadMenu.Text
+msgid "Competitor &Load..."
+msgstr "Rakip &Yükle..."
+
+#: MainFrame.resx, courseVariationReportMenu.Text
+msgid "Relay Team &Variations..."
+msgstr "Röle Takımı & Varyasyonlar..."
+
+#: MainFrame.resx, itemMenu.Text
+msgid "&Item"
+msgstr "&Nesne"
+
+#: MainFrame.resx, deleteForkMenu.Text
+msgid "Delete For&k/Loop"
+msgstr "Ayrım/Döngü Sil"
+
+#: MainFrame.resx, addBendMenu.Text
+msgid "Add &Bend"
+msgstr "Ekle&Kıvrım"
+
+#: MainFrame.resx, removeBendMenu.Text
+msgid "Remove B&end"
+msgstr "Bükme Sil"
+
+#: MainFrame.resx, addGapMenu.Text
+msgid "Add &Gap"
+msgstr "Ekle&Açıklık"
+
+#: MainFrame.resx, removeGapMenu.Text
+msgid "Remove Ga&p"
+msgstr "Boşluğu kaldır"
+
+#: MainFrame.resx, changeTextMenu.Text
+msgid "Change &Text..."
+msgstr "Değiştir &Metin..."
+
+#: MainFrame.resx, changeLineAppearanceMenu.Text
+msgid "Change Line &Appearance..."
+msgstr "Satır &Görünümünü Değiştir..."
+
+#: MainFrame.resx, rotateMenu.Text
+msgid "R&otate"
+msgstr "Döndür"
+
+#: MainFrame.resx, stretchMenu.Text
+msgid "&Stretch"
+msgstr "Uzat"
+
+#: MainFrame.resx, legFlaggingMenu.Text
+msgid "&Leg Flagging"
+msgstr "&Bacak İşaretleme"
+
+#: MainFrame.resx, noFlaggingMenu.Text
+msgid "No Flagging"
+msgstr "İşaretleme Yok"
+
+#: MainFrame.resx, entireFlaggingMenu.Text
+msgid "Entire Leg Flagged"
+msgstr "Tüm Bacak İşaretlendi"
+
+#: MainFrame.resx, beginFlaggingMenu.Text
+msgid "Beginning of Leg Flagged"
+msgstr "Bacak Bayraklı Başlangıcı"
+
+#: MainFrame.resx, endFlaggingMenu.Text
+msgid "End of Leg Flagged"
+msgstr "Bacak Sonu İşaretlendi"
+
+#: MainFrame.resx, changeDisplayedCoursesMenu.Text
+msgid "Change Displa&yed Courses..."
+msgstr "Görüntülenen Parkurları Değiştir..."
+
+#: MainFrame.resx, reportMenu.Text
+msgid "&Reports"
+msgstr "&Rapor"
+
+#: MainFrame.resx, courseSummaryMenu.Text
+msgid "Course &Summary"
+msgstr "Parkur & Özet"
+
+#: MainFrame.resx, eventAuditMenu.Text
+msgid "Event &Audit"
+msgstr "Etkinlik & Denetim"
+
+#: MainFrame.resx, legLengthsMenu.Text
+msgid "&Leg Lengths"
+msgstr "&Bacak Uzunlukları"
+
+#: MainFrame.resx, controlCrossrefMenu.Text
+msgid "Control &Cross-reference"
+msgstr "Kontrol &Çapraz referans"
+
+#: MainFrame.resx, controlAndLegLoadMenu.Text
+msgid "Control and Leg Loa&d"
+msgstr "Kontrol ve Bacak Yükleme"
+
+#: MainFrame.resx, helpMenu.Text
+msgid "&Help"
+msgstr "&Yardım"
+
+#: MainFrame.resx, helpContentsMenu.Text
+msgid "Purple Pen &Help"
+msgstr "Purple Pen &Yardım"
+
+#: MainFrame.resx, helpTranslatedMenu.Text
+msgid "Purple Pen Help (Translated)"
+msgstr "Purple Pen Yardım (Çeviri)"
+
+#: MainFrame.resx, mainWebSiteToolMenu.Text
+msgid "Purple Pen &Web Site"
+msgstr "Purple Pen &Web Sitesi"
+
+#: MainFrame.resx, supportWebSiteMenu.Text
+msgid "&Support/Bug Reporting"
+msgstr "&Destek/Hata Raporlama"
+
+#: MainFrame.resx, donateWebSiteMenu.Text
+msgid "Make a &Donation"
+msgstr "Bağış Yap"
+
+#: MainFrame.resx, aboutMenu.Text
+msgid "&About Purple Pen"
+msgstr "&Purple Pen Hakkında"
+
+#: MainFrame.resx, debugMenu.Text
+msgid "Debug"
+msgstr "Hata ayıklama"
+
+#: MainFrame.resx, symbolBrowserMenu.Text
+msgid "Symbol Browser"
+msgstr "Sembol Tarayıcı"
+
+#: MainFrame.resx, descriptionBrowserMenu.Text
+msgid "Description Browser"
+msgstr "Açıklama Tarayıcı"
+
+#: MainFrame.resx, controlTesterMenu.Text
+msgid "Control Tester"
+msgstr "Kontrol Testi"
+
+#: MainFrame.resx, mapTesterMenu.Text
+msgid "Map Tester"
+msgstr "Harita Testi"
+
+#: MainFrame.resx, courseSelectorTesterMenu.Text
+msgid "Course Selector Tester"
+msgstr "Parkur Seçme Testi"
+
+#: MainFrame.resx, dotGridTesterToolStripMenuItem.Text
+msgid "Dot Grid Tester"
+msgstr "Grid Noktası Testi"
+
+#: MainFrame.resx, dumpOCADFileMenu.Text
+msgid "Dump OCAD File"
+msgstr "OCAD Dosyası Dökümü"
+
+#: MainFrame.resx, reportTesterToolStripMenuItem.Text
+msgid "Report Tester"
+msgstr "Rapor Testi"
+
+#: MainFrame.resx, fontMetricsToolStripMenuItem.Text
+msgid "Font Metrics"
+msgstr "Metrik Yazı Tipi"
+
+#: MainFrame.resx, missingTranslationsMenuItem.Text
+msgid "Missing Description Translations"
+msgstr "Açıklama Çevirileri Eksik"
+
+#: MainFrame.resx, crashToolStripMenuItem.Text
+msgid "Crash"
+msgstr "Çarpışmak"
+
+#: MainFrame.resx, translateMenu.Text
+msgid "&Translate Description Text"
+msgstr "&Açıklama Metni Çevirisi"
+
+#: MainFrame.resx, addDescriptionLanguageMenu.Text
+msgid "Add Description Language..."
+msgstr "Tanım Dili Ekle..."
+
+#: MainFrame.resx, addTranslatedTextsMenu.Text
+msgid "Add Translated Texts..."
+msgstr "Çevrilmiş Metinleri Ekle..."
+
+#: MainFrame.resx, mergeSymbolsMenu.Text
+msgid "Merge Symbols.xml..."
+msgstr "Sembolleri Birleştir.xml..."
+
+#: MainFrame.resx, openToolStripButton.Text
+msgid "Open"
+msgstr "Aç"
+
+#: MainFrame.resx, openToolStripButton.ToolTipText
+msgid "Open (Ctrl+O)"
+msgstr "Aç (Ctrl+O)"
+
+#: MainFrame.resx, saveToolStripButton.Text
+#: MiscText.resx, CrashSave
+msgid "Save"
+msgstr "Kaydet"
+
+#: MainFrame.resx, saveToolStripButton.ToolTipText
+msgid "Save (Ctrl+S)"
+msgstr "Kaydet (Ctrl+S)"
+
+#: MainFrame.resx, undoToolStripButton.Text
+#: MiscText.resx, Undo
+msgid "Undo"
+msgstr "Geri Al"
+
+#: MainFrame.resx, undoToolStripButton.ToolTipText
+msgid "Undo (Ctrl+Z)"
+msgstr "Geri Al (Ctrl+Z)"
+
+#: MainFrame.resx, redoToolStripButton.Text
+#: MiscText.resx, Redo
+msgid "Redo"
+msgstr "Yinele"
+
+#: MainFrame.resx, redoToolStripButton.ToolTipText
+msgid "Redo (Ctrl+Y)"
+msgstr "Yinele (Ctrl+Y)"
+
+#: MainFrame.resx, deleteToolStripButton.Text
+msgid "Delete (Del)"
+msgstr "Sil (DEL)"
+
+#: MainFrame.resx, addControlToolStripButton.ToolTipText
+msgid "Add Control (Ctrl+A)"
+msgstr "Hedef Ekle (Ctrl+A)"
+
+#: MainFrame.resx, descriptionsToolStripMenuItem.Text
+msgid "Add Descriptions"
+msgstr "Açıklama Ekle"
+
+#: MainFrame.resx, mapFlipMenuItem.Text
+msgid "Map Flip at Control Point"
+msgstr "Kontrol Noktasında Harita Çevirme"
+
+#: MainFrame.resx, mapExchangeControlToolStripMenuItem.Text
+msgid "Map Exchange at Control Point"
+msgstr "Kontrol Noktasında Harita Değişimi"
+
+#: MainFrame.resx, mapExchangeSeparateToolStripMenuItem.Text
+msgid "Flagged Route to Map Exchange"
+msgstr "Harita Değişim Rotası"
+
+#: MainFrame.resx, mapExchangeToolStripMenu.Text
+msgid "Add Map Flip/Exchange"
+msgstr "Harita Değişimi Ekle"
+
+#: MainFrame.resx, specialItemToolStripMenu.Text
+msgid "Add Special Item"
+msgstr "Özel Nesne Ekle"
+
+#: MainFrame.resx, addBendToolStripButton.ToolTipText
+msgid "Add Bend (Ctrl+B)"
+msgstr "Add Bend (Ctrl+B)"
+
+#: MainFrame.resx, addGapToolStripButton.Text
+msgid "toolStripButton1"
+msgstr "toolStripButton1"
+
+#: MainFrame.resx, addGapToolStripButton.ToolTipText
+msgid "Add Gap (Ctrl+G)"
+msgstr "Add Gap (Ctrl+G)"
+
+#: MainFrame.resx, zoomAmountLabel.Text
+msgid "Zoom: 100%"
+msgstr "Zoom: 100%"
+
+#: MainFrame.resx, locationDisplay.Text
+msgid "X:-999.99 Y:-999.99"
+msgstr "X:-999.99 Y:-999.99"
+
+#: MainFrame.resx, saveXmlFileDialog.Filter
+msgid "IOF XML version 2.0.3|*.xml|IOF XML version 3.0|*.xml"
+msgstr "IOF XML version 2.0.3|*.xml|IOF XML version 3.0|*.xml"
+
+#: MainFrame.resx, saveXmlFileDialog.Title
+msgid "Create XML Interchange File"
+msgstr "XML Interchange Dosyası Yarat"
+
+#: MainFrame.resx, openImageDialog.Filter
+msgid "Image file|*.jpg;*.jpeg;*.gif;*.png;*.bmp;*.tif;*.tiff"
+msgstr "Image file|*.jpg;*.jpeg;*.gif;*.png;*.bmp;*.tif;*.tiff"
+
+#: MainFrame.resx, saveGpxFileDialog.Filter
+msgid "GPX file|*.gpx"
+msgstr "GPX file|*.gpx"
+
+#: MainFrame.resx, $this.Text
+#: MiscText.resx, AppTitle
+msgid "Purple Pen"
+msgstr "Purple Pen"
+
+#: MiscText.resx, CtrlZ
+msgid "Ctrl+Z"
+msgstr "Ctrl+Z"
+
+#: MiscText.resx, CtrlY
+msgid "Ctrl+Y"
+msgstr "Ctrl+Y"
+
+#: MiscText.resx, Esc
+msgid "Esc"
+msgstr "Esc"
+
+#: MiscText.resx, NoSymbol
+msgid "No symbol"
+msgstr "Sembol Yok"
+
+#: MiscText.resx, AllControls
+msgid "All controls"
+msgstr "Tüm hedefler"
+
+#: MiscText.resx, CannotLoadFile
+msgid "Cannot load '{0}' for the following reason:"
+msgstr "Aşağıdaki nedenden dolayı '{0}' yüklenemiyor:"
+
+#: MiscText.resx, CannotSaveFile
+msgid "Cannot save '{0}' for the following reason:"
+msgstr "'{0}' şu nedenle kaydedilemiyor:"
+
+#: MiscText.resx, CannotLoadMapFile
+msgid "Cannot load map file '{0}' for the following reason:"
+msgstr "Aşağıdaki nedenden dolayı '{0}' harita dosyası yüklenemiyor:"
+
+#: MiscText.resx, CannotReadImageFile
+msgid "Cannot read image file '{0}'."
+msgstr "'{0}' resim dosyası okunamıyor."
+
+#: MiscText.resx, CannotPrint
+msgid "Cannot print '{0}' for the following reason:"
+msgstr "Aşağıdaki nedenden dolayı '{0}' harita dosyası yüklenmiyor:"
+
+#: MiscText.resx, CannotCreateFile
+msgid "Cannot create '{0}' for the following reason:"
+msgstr "Aşağıdaki nedenden dolayı '{0}' harita dosyası yüklenmiyor:"
+
+#: MiscText.resx, CannotCreateDirectory
+msgid "Cannot create folder '{0}' for the following reason:"
+msgstr "Aşağıdaki nedenden dolayı '{0}' klasörü oluşturulamıyor:"
+
+#: MiscText.resx, CannotReadMap
+msgid "Cannot read map for the following reason: '{0}' Using "
+"Optimize/Repair and re-saving in OCAD may fix problems."
+msgstr "Harita şu nedenden dolayı okunamıyor: '{0}' "
+"Optimize/Onar'ı kullanmak ve OCAD'de yeniden kaydetmek "
+"sorunları çözebilir."
+
+#: MiscText.resx, CannotCreateOcadFiles
+msgid "Cannot create OCAD files for the following reason:"
+msgstr "Aşağıdaki nedenden dolayı OCAD dosyaları oluşturulamıyor:"
+
+#: MiscText.resx, SaveChanges
+msgid "Do you want to save the changes you made to '{0}'?"
+msgstr "Aşağıdaki nedenlerden dolayı OCAD dosyaları oluşturulamıyor:"
+
+#: MiscText.resx, FileAlreadyExists
+msgid "File '{0}' already exists in the specified folder. Click "
+"the \"Back\" button and choose a new folder or a new event "
+"title."
+msgstr "'{0}' dosyası belirtilen klasörde zaten var. \"Geri\" "
+"düğmesini tıklayın ve yeni bir klasör veya yeni bir "
+"etkinlik başlığı seçin."
+
+#: MiscText.resx, CodeInUse
+msgid "The control code '{0}' is already used by another control."
+msgstr "'{0}' kontrol kodu zaten başka bir kontrol tarafından "
+"kullanılıyor."
+
+#: MiscText.resx, BadScore
+msgid "The points for a control must be an integer 1-999."
+msgstr "Bir kontrol için noktalar 1-999 arasında bir tamsayı "
+"olmalıdır."
+
+#: MiscText.resx, BadClimb
+msgid "The climb for a course must be a number 0-9999, or blank."
+msgstr "Bir parkur için tırmanış 0-9999 arasında veya boş olmalıdır."
+
+#: MiscText.resx, BadLoad
+msgid "The load for a course must be an integer 0-999999, or blank."
+msgstr "Bir parkurun boyutu 0-999999 arasında bir tamsayı veya boş "
+"olmalıdır."
+
+#: MiscText.resx, CancelOperationWithShortcut
+msgid "Ca&ncel Operation"
+msgstr "İşlemi İptal Et"
+
+#: MiscText.resx, CancelOperation
+msgid "Cancel Operation"
+msgstr "İşlemi İptal Et"
+
+#: MiscText.resx, EnterScore
+msgid "Enter new score"
+msgstr "Yeni puan gir"
+
+#: MiscText.resx, EnterCode
+msgid "Enter new code"
+msgstr "Yeni kod gir"
+
+#: MiscText.resx, EnterDimensions
+msgid "Enter feature size\n"
+"Use / for height on a slope\n"
+"Use | for two features"
+msgstr "Özellik boyutunu girin\n"
+"Yokuşta yükseklik için / kullanın\n"
+"Kullanım | iki özellik için"
+
+#: MiscText.resx, EnterEventTitle
+msgid "Enter new event title\n"
+"Use | to separate lines\n"
+"(affects all courses)"
+msgstr "Yeni etkinlik başlığı girin\n"
+"Kullanım | satırları ayırmak\n"
+"(tüm dersleri etkiler)"
+
+#: MiscText.resx, EnterSecondaryTitle
+msgid "Enter new secondary title\n"
+"Use | to separate lines"
+msgstr "Yeni ikincil başlık girin\n"
+"Kullan | satırları ayırmak"
+
+#: MiscText.resx, EnterCourseName
+msgid "Enter new course name"
+msgstr "Yeni parkur adı gir"
+
+#: MiscText.resx, EnterClimb
+msgid "Enter new climb in meters"
+msgstr "Metre cinsinden yeni tırmanışı girin"
+
+#: MiscText.resx, EnterSymbolText
+msgid "Enter new symbol meaning\n"
+"(affects all courses)"
+msgstr "Yeni sembol anlamını girin\n"
+"(tüm dersleri etkiler)"
+
+#: MiscText.resx, EnterTextLine
+msgid "Enter new text\n"
+"Use | to separate lines"
+msgstr "Yeni metin girin\n"
+"Kullan | satırları ayırmak"
+
+#: MiscText.resx, DeleteMultipleControlsFromControlsCollection
+msgid "Controls {0} are no longer used by any course. Do you want "
+"to delete these controls from the control collection?"
+msgstr "{0} kontrolleri artık hiçbir parkur tarafından "
+"kullanılmıyor. Bu kontrolleri kontrol koleksiyonundan "
+"silmek istiyor musunuz?"
+
+#: MiscText.resx, DeleteControlFromControlsCollection
+msgid "Control {0} is no longer used by any course. Do you want "
+"to delete this control from the control collection?"
+msgstr "Kontrol {0} artık hiçbir parkur tarafından kullanılmıyor. "
+"Bu kontrolü kontrol koleksiyonundan silmek istiyor musunuz?"
+
+#: MiscText.resx, DeleteControlFromAllControls
+msgid "Control {0} is currently used by the following courses: "
+"{1}. Do you want to delete this control anyway?"
+msgstr "Kontrol {0} şu anda aşağıdaki parkurar tarafından "
+"kullanılmaktadır: {1}. Bu kontrolü yine de silmek istiyor "
+"musunuz?"
+
+#: MiscText.resx, CodeBadLength
+msgid "A control code must be one, two, or three letters or digits."
+msgstr "Bir kontrol kodu bir, iki veya üç harf veya rakamdan "
+"oluşmalıdır."
+
+#: MiscText.resx, CodeContainsSpace
+msgid "A control code must not contain a space."
+msgstr "Bir kontrol kodu boşluk içermemelidir."
+
+#: MiscText.resx, CodeBeginsWithZero
+msgid "A control code should not begin with zero."
+msgstr "Bir kontrol kodu sıfır ile başlamamalıdır."
+
+#: MiscText.resx, CodeCouldBeUpsideDown
+msgid "A control code should not look like another number when "
+"upside-down."
+msgstr "Bir kontrol kodu, ters çevrildiğinde başka bir sayı gibi "
+"görünmemelidir."
+
+#: MiscText.resx, DuplicateCode
+msgid "The code \"{0}\" is used more than once."
+msgstr "\"{0}\" kodu birden fazla kez kullanılır."
+
+#: MiscText.resx, BadScale
+msgid "The print scale must be a number between 100 and 100,000."
+msgstr "Baskı ölçeği 100 ile 100.000 arasında bir sayı olmalıdır."
+
+#: MiscText.resx, CoursePropertiesTitle
+msgid "Course Properties"
+msgstr "Parkur Özellikleri"
+
+#: MiscText.resx, Landscape
+#: PrintDescriptions.resx, orientation.Text
+#: PrinterMargins.resx, radioButtonLandscape.Text
+#: PrintPunches.resx, orientation.Text
+msgid "Landscape"
+msgstr "Düzenlemek"
+
+#: MiscText.resx, Portrait
+#: PrinterMargins.resx, radioButtonPortrait.Text
+msgid "Portrait"
+msgstr "Portre"
+
+#: MiscText.resx, PageTooSmall
+msgid "The page size is too small for any descriptions to be "
+"printed."
+msgstr "Sayfa boyutu, herhangi bir açıklamanın yazdırılması için "
+"çok küçük."
+
+#: MiscText.resx, VersionLabel
+msgid "Version {0}"
+msgstr "Versiyon {0}"
+
+#: MiscText.resx, NewerVersionAvailable
+msgid "Version {0} of Purple Pen is now available for download. "
+"(You are currently running version {1}.)\n"
+"\n"
+"Would you like to download and install the latest version?"
+msgstr "Purple Pen'in {0} sürümü şimdi indirilebilir. (Şu anda {1} "
+"sürümünü çalıştırıyorsunuz.)\n"
+"\n"
+"En son sürümü indirip yüklemek ister misiniz?"
+
+#: MiscText.resx, HelpFileNotFound
+msgid "Help file '{0}' could not be opened."
+msgstr "Yardım dosyası '{0}' açılamadı."
+
+#: MiscText.resx, Zoom
+msgid "Zoom"
+msgstr "Yakınlaştır"
+
+#: MiscText.resx, MissingMapFile
+msgid "The map file \"{0}\" could not be found.\n"
+"\n"
+"Most likely, the map file has been moved or deleted, or "
+"the Purple Pen file has been moved (possibly to a "
+"different computer). The map file must be present every "
+"time the Purple Pen event file is loaded. If you send a "
+"Purple Pen event file to another person, be sure that "
+"person has a copy of the map file also.\n"
+"\n"
+"After pressing OK, try to find a copy of the map file on "
+"your computer."
+msgstr "\"{0}\" harita dosyası bulunamadı.\n"
+"\n"
+"Büyük olasılıkla harita dosyası taşınmış veya silinmiştir "
+"ya da Mor Kalem dosyası taşınmıştır (muhtemelen farklı bir "
+"bilgisayara). Purple Pen olay dosyası her yüklendiğinde "
+"harita dosyası mevcut olmalıdır. Purple Pen olay dosyasını "
+"başka bir kişiye gönderirseniz, o kişide de harita "
+"dosyasının bir kopyasının bulunduğundan emin olun.\n"
+"\n"
+"Tamam düğmesine bastıktan sonra, bilgisayarınızda harita "
+"dosyasının bir kopyasını bulmaya çalışın."
+
+#: MiscText.resx, NoUnusedControls
+msgid "All controls are used in a course."
+msgstr "Tüm kontroller bir kursta kullanılır."
+
+#: MiscText.resx, NextButtonText
+#: NewEventWizard.resx, nextButton.Text
+msgid "&Next >"
+msgstr "&Sonraki >"
+
+#: MiscText.resx, Control_Code
+msgid "Control {0}"
+msgstr "Kontrol {0}"
+
+#: MiscText.resx, Finish
+msgid "Finish"
+msgstr "Bitiş"
+
+#: MiscText.resx, Finish_Short
+msgid "F"
+msgstr "F"
+
+#: MiscText.resx, MandCrossing_Long
+msgid "Mandatory crossing point"
+msgstr "Zorunlu geçiş noktası"
+
+#: MiscText.resx, MandCrossing_Medium
+msgid "Crossing"
+msgstr "Geçiş Noktası"
+
+#: MiscText.resx, MandCrossing_Short
+msgid "C"
+msgstr "C"
+
+#: MiscText.resx, Margins_All
+msgid "All: {0}"
+msgstr "Tüm: {0}"
+
+#: MiscText.resx, Margins_LRTB
+msgid "Left: {0}, Right: {1}, Top: {2}, Bottom: {3}"
+msgstr "Sol: {0}, Sağ: {1}, Üst: {2}, Alt: {3}"
+
+#: MiscText.resx, Start
+msgid "Start"
+msgstr "Başlama"
+
+#: MiscText.resx, Start_Short
+msgid "S"
+msgstr "S"
+
+#: MiscText.resx, Version_Alpha
+msgid "Alpha {0}"
+msgstr "Alfa {0}"
+
+#: MiscText.resx, Version_Beta
+msgid "Beta {0}"
+msgstr "Beta {0}"
+
+#: MiscText.resx, Version_RC
+msgid "RC {0}"
+msgstr "RC {0}"
+
+#: MiscText.resx, Plural
+msgid "plural"
+msgstr "çoğul"
+
+#: MiscText.resx, Singular
+msgid "singular"
+msgstr "tekil"
+
+#: MiscText.resx, RequireStar
+msgid "The customized text requires a \"*\" to indicate where the "
+"object being modified is placed."
+msgstr "Özelleştirilmiş metin, değiştirilen nesnenin nereye "
+"yerleştirildiğini belirtmek için bir \"*\" gerektirir."
+
+#: MiscText.resx, AppSubtitle
+msgid "course setting for orienteering"
+msgstr "Oryantiring için parkur planlama"
+
+#: MiscText.resx, AddTextSpecialExplanation
+msgid "Enter the text you wish to place on the map. After "
+"pressing OK, drag the mouse to place the text in the "
+"desired location."
+msgstr "Harita üzerine yerleştirmek istediğiniz metni girin. Tamam "
+"düğmesine bastıktan sonra, metni istediğiniz konuma "
+"yerleştirmek için fareyi sürükleyin."
+
+#: MiscText.resx, AddTextSpecialTitle
+msgid "Add Text"
+msgstr "Metin ekle"
+
+#: MiscText.resx, ChangeTextSpecialExplanation
+msgid "Enter the new text."
+msgstr "Yeni metni girin."
+
+#: MiscText.resx, MapFileChanged
+msgid "Another program has changed the map file \"{0}\". Purple Pen "
+"will now reload the map."
+msgstr "Başka bir program \"{0}\" harita dosyasını değiştirdi. "
+"Purple Pen şimdi haritayı yeniden yükleyecek."
+
+#: MiscText.resx, ChangeDescriptionLanguage
+msgid "The current event has textual control descriptions in {0}. "
+"Would you like to change the language of control "
+"descriptions to {1}?"
+msgstr "Geçerli olay {0}'da metinsel kontrol açıklamalarına "
+"sahiptir. Kontrol açıklamalarının dilini {1} olarak "
+"değiştirmek ister misiniz?"
+
+#: MiscText.resx, OpenLastEvent
+msgid "Open \"{0}\""
+msgstr "Açık \"{0}\""
+
+#: MiscText.resx, ClosePPBeforeLoadingOCAD
+msgid "Purple Pen must be closed before loading the created OCAD "
+"files."
+msgstr "Oluşturulan OCAD dosyaları yüklenmeden önce Purple Pen "
+"kapatılmalıdır."
+
+#: MiscText.resx, NoCoursesSelected
+msgid "No courses were selected to print."
+msgstr "Yazdırmak için hiçbir parkur seçilmedi."
+
+#: MiscText.resx, TranslatedHelpWebSite
+msgid "*** If there exists a web site in the translated language "
+"that contains documentation for Purple Pen, enter the URL "
+"(including http) as the translation of this item. "
+"Otherwise leave it alone."
+msgstr "*** Çevrilen dilde Purple Pen için dokümantasyon içeren "
+"bir web sitesi varsa, bu öğenin çevirisi olarak URL'yi "
+"(http dahil) girin. Aksi takdirde olduğu gibi bırakın."
+
+#: MiscText.resx, MapExchange_Long
+msgid "Map exchange"
+msgstr "Harita değişimi"
+
+#: MiscText.resx, MapExchange_Medium
+msgid "Exchange"
+msgstr "Değiştirme"
+
+#: MiscText.resx, MapExchange_Short
+msgid "MX"
+msgstr "MX"
+
+#: MiscText.resx, PartN
+msgid "Part {0}"
+msgstr "Bölüm {0}"
+
+#: MiscText.resx, AllParts
+msgid "All Parts"
+msgstr "Tüm Bölümler"
+
+#: MiscText.resx, PartXOfY
+msgid "Part {0} (of {1})"
+msgstr "Bölüm {0} (of {1})"
+
+#: MiscText.resx, CrashEmail
+msgid "Contact Email"
+msgstr "Kontak E-mail"
+
+#: MiscText.resx, CrashIntro
+msgid "An error has occurred. In order to help us fix the "
+"problem, please enter your email address and additional "
+"information, and send us an error report."
+msgstr "Bir hata oluştu. Sorunu çözmemize yardımcı olmak için "
+"lütfen e-posta adresinizi ve ek bilgilerinizi girin ve "
+"bize bir hata raporu gönderin."
+
+#: MiscText.resx, CrashMessage
+msgid "Please tell us what you were doing in the program, to help "
+"fix the problem"
+msgstr "Sorunu çözmemize yardımcı olmak için lütfen programda ne "
+"yaptığınızı bize bildirin"
+
+#: MiscText.resx, CrashSend
+msgid "Send Report"
+msgstr "Rapor Gönder"
+
+#: MiscText.resx, CannotAddDescriptionsToAllParts
+msgid "Descriptions may not be added to a course with a map "
+"exchange if \"All Parts\" is being displayed. Switch to the "
+"part you wish to add descriptions to, and then choose \"Add "
+"Descriptions\" again."
+msgstr "\"Tüm Parçalar\" görüntüleniyorsa, harita değişimi olan bir "
+"rotaya açıklamalar eklenemez. Açıklama eklemek istediğiniz "
+"bölüme geçin ve ardından tekrar \"Açıklama Ekle\"yi seçin."
+
+#: MiscText.resx, PdfConverterNotFound
+msgid "PdfConverter.exe not found"
+msgstr "PdfConverter.exe bulunamadı"
+
+#: MiscText.resx, PdfConversionFailed
+msgid "Pdfium PDF converter failed to read PDF file successfully"
+msgstr "Pdfium PDF dönüştürücü, PDF dosyasını başarıyla okuyamadı"
+
+#: MiscText.resx, PdfResultNotReadable
+msgid "Could not read result of PDF conversion from file '{0}'"
+msgstr "'{0}' dosyasından PDF dönüştürmenin sonucu okunamadı"
+
+#: MiscText.resx, CannotCreatePdfs
+msgid "Cannot create PDFs for the following reason:"
+msgstr "Aşağıdaki nedenden dolayı PDF oluşturulamıyor:"
+
+#: MiscText.resx, UserDefined
+msgid "User Defined"
+msgstr "Kullanıcı Tanımlı"
+
+#: MiscText.resx, PdfMapSize
+msgid "Map size from PDF"
+msgstr "PDF'den harita boyutu"
+
+#: MiscText.resx, CancelledByUser
+msgid "Cancelled by user"
+msgstr "Kullanıcı tarafından iptal edildi"
+
+#: MiscText.resx, CreatingFile
+msgid "Creating {0}..."
+msgstr "Oluşturuluyor {0}..."
+
+#: MiscText.resx, PrintingPage
+msgid "Printing page {0} (of {1})"
+msgstr "{0} sayfası yazdırılıyor (/{1})"
+
+#: MiscText.resx, MapFileDeleted
+msgid "The map file \"{0}\" has been deleted. Please try to restore "
+"the map file, then press \"Ok\"."
+msgstr "\"{0}\" harita dosyası silindi. Lütfen harita dosyasını geri "
+"yüklemeyi deneyin ve ardından \"Tamam\"a basın."
+
+#: MiscText.resx, BadDotNetFramework
+msgid "The  .NET framework on your computer does not appear to be "
+"correctly installed. Please visit http://microsoft.com/net "
+"and install the latest version of the .NET framework for "
+"your Windows operating system."
+msgstr "Bilgisayarınızdaki .NET çerçevesi doğru şekilde yüklenmiş "
+"görünmüyor. Lütfen http://microsoft.com/net adresini "
+"ziyaret edin ve Windows işletim sisteminiz için .NET "
+"çerçevesinin en son sürümünü yükleyin."
+
+#: MiscText.resx, ChooseOtherColor
+msgid "Choose Color..."
+msgstr "Renk seç..."
+
+#: MiscText.resx, CustomColor
+msgid "Custom Color"
+msgstr "Ana Renk"
+
+#: MiscText.resx, DarkBlue
+msgid "Dark Blue"
+msgstr "Lacivert"
+
+#: MiscText.resx, Green
+msgid "Green"
+msgstr "Yeşil"
+
+#: MiscText.resx, LightBlue
+msgid "Light Blue"
+msgstr "Lacivert"
+
+#: MiscText.resx, Red
+msgid "Red"
+msgstr "Kırmızı"
+
+#: MiscText.resx, Yellow
+msgid "Yellow"
+msgstr "Sarı"
+
+#: MiscText.resx, AddLineExplanation
+msgid "Set the appearance of the line. After pressing OK, drag "
+"the mouse to draw the line segments in the desired location."
+msgstr "Çizginin görünümünü ayarlayın. Tamam düğmesine bastıktan "
+"sonra, çizgi parçalarını istediğiniz konuma çizmek için "
+"fareyi sürükleyin."
+
+#: MiscText.resx, AddLineTitle
+msgid "Add Line"
+msgstr "Çizgi Ekle"
+
+#: MiscText.resx, AddRectangleExplanation
+msgid "Set the appearance of the rectangle. After pressing OK, "
+"drag the mouse to place the rectangle in the desired "
+"location."
+msgstr "Dikdörtgenin görünümünü ayarlayın. Tamam düğmesine "
+"bastıktan sonra, dikdörtgeni istediğiniz konuma "
+"yerleştirmek için fareyi sürükleyin."
+
+#: MiscText.resx, AddRectangleTitle
+msgid "Add Rectangle"
+msgstr "Dikdörtgen ekle"
+
+#: MiscText.resx, ChangeLineAppearanceExplanation
+msgid "Change the appearance of the line or rectangle."
+msgstr "Satır Görünümünü Değiştir"
+
+#: MiscText.resx, GpxMustBeOcadMap
+msgid "The map file must be an OCAD file to use GPX files."
+msgstr "GPX dosyalarını kullanmak için harita dosyası bir OCAD "
+"dosyası olmalıdır."
+
+#: MiscText.resx, GpxMustHaveCoordSystem
+msgid "The OCAD file must have a coordinate system defined to use "
+"GPX files."
+msgstr "OCAD dosyasının GPX dosyalarını kullanmak için tanımlanmış "
+"bir koordinat sistemine sahip olması gerekir."
+
+#: MiscText.resx, GpxMustHaveRealWorldCoord
+msgid "The OCAD file must have real world coordinates defined to "
+"use GPX files."
+msgstr "GPX dosyalarını kullanmak için OCAD dosyasında gerçek "
+"dünya koordinatları tanımlanmış olmalıdır."
+
+#: MiscText.resx, GpxReprojectFailure
+msgid "Could not reproject points; either the coordinate system "
+"or the real world coordinates in the OCAD map are wrong."
+msgstr "Noktalar yeniden projelendirilemedi; OCAD haritasındaki "
+"koordinat sistemi veya gerçek dünya koordinatları yanlış."
+
+#: MiscText.resx, GpxUnsupportedCoordSystem
+msgid "The OCAD file uses a coordinate system that is not "
+"supported by Purple Pen."
+msgstr "OCAD dosyası Purple Pen tarafından desteklenmeyen bir "
+"koordinat sistemi kullanır."
+
+#: MiscText.resx, BadLength
+msgid "The length for a course must be a number 0.1 - 99.9, or "
+"blank to calculate length automatically."
+msgstr "Bir kursun uzunluğu 0,1 - 99,9 arasında bir sayı olmalı "
+"veya uzunluğun otomatik olarak hesaplanması için boş "
+"bırakılmalıdır."
+
+#: MiscText.resx, EnterLength
+msgid "Enter length in km, or leave blank to calculate "
+"automatically"
+msgstr "Uzunluğu km cinsinden girin veya otomatik olarak "
+"hesaplanması için boş bırakın"
+
+#: MiscText.resx, PausePrinting
+msgid "Finished printing \"{0}\". Press OK to begin printing \"{1}\"."
+msgstr "\"{0}\" yazdırma işlemi tamamlandı. \"{1}\" yazdırmaya "
+"başlamak için OK düğmesine basın."
+
+#: MiscText.resx, OCAD
+msgid "OCAD"
+msgstr "OCAD"
+
+#: MiscText.resx, OpenOrienteeringMapper
+msgid "OOM"
+msgstr "OOM"
+
+#: MiscText.resx, AllVariations
+msgid "All Variations"
+msgstr "Tüm Varyasyonlar"
+
+#: MiscText.resx, ForkSummary
+msgid "Suitable for use in relays with {0} participants per team."
+msgstr "Takım başına {0} katılımcısı olan bayrak yarışları için "
+"uygun."
+
+#: MiscText.resx, LoopSummary
+msgid "The central control in the loop will be visited {0} times. "
+"There are {1} possible paths through the loops."
+msgstr "Loplar arasında {1} olası yol var. Merkezdeki lop hedefi "
+"{0} kez ziyaret edilecek."
+
+#: MiscText.resx, CantRearrangeSplitControl
+msgid "A control that starts a fork or loop cannot be dragged to "
+"a new place in the course."
+msgstr "Çatalı ya da lopu başlatan hedef parkurda yeni bir yere "
+"sürüklenemez/ taşınamaz."
+
+#: MiscText.resx, TooManyVariations
+msgid "Too many total variations in this course. The number of "
+"distinct variations is limited to {0}."
+msgstr "Bu parkurda çok fazla toplam varyasyon var. Ayırt edici "
+"varyasyon sayısı {0} a sınırlandırılmıştır."
+
+#: MiscText.resx, CannotAddVariation
+msgid "Cannot add variation."
+msgstr "Varyasyon eklenemez."
+
+#: MiscText.resx, VariationAlreadyExists
+msgid "A variation already exists at this control."
+msgstr "bu hedefte bir varyasyon zaten mevcut."
+
+#: MiscText.resx, VariationMustSelectControl
+msgid "A control or leg must be selected to add a variation."
+msgstr "Bir varyasyon eklemek için hedef ya da yarış ayağı "
+"seçilmeli."
+
+#: MiscText.resx, VariationNotFinish
+msgid "A variation cannot be added to a finish control."
+msgstr "Bir hedefi bitirmek için varyasyon eklenemez."
+
+#: MiscText.resx, VariationNotInAllControls
+msgid "A variation cannot be added to the All Controls view."
+msgstr "Tüm hedeflerin ön izlemesine bir varyasyon eklenemez."
+
+#: MiscText.resx, VariationNotInScoreCourse
+msgid "A variation cannot be added to a score course."
+msgstr "Skor parkuruna varyasyon eklenemez."
+
+#: MiscText.resx, VariationNotLastControl
+msgid "A variation cannot be added to the last control. Add a "
+"finish control first."
+msgstr "Önce bitiş hedefi ekleyin. Son hedefe varyasyon eklenemez."
+
+#: MiscText.resx, BadLegNumber
+msgid "'{0}' is not a valid leg number for branch '{1}'"
+msgstr "'{0}' dalı '{1}' için geçerli bir yarış ayağı değildir"
+
+#: MiscText.resx, LegNotAssigned
+msgid "Leg {0} should be assigned to one of branches {1}"
+msgstr "Yarış ayağı {0} parkur dallarından {1} e atanmalı"
+
+#: MiscText.resx, LegUsedTwice
+msgid "Leg {0} is assigned to both branch '{1}' and branch '{2}'"
+msgstr "Yarış ayağı {0} parkur dallarından hem {1} e hem de {2} ye "
+"atanmalı"
+
+#: MiscText.resx, CannotReadMapOOM
+msgid "Cannot read map for the following reason: '{0}' Opening "
+"and re-saving the map in the latest version of "
+"OpenOrienteering Mapper may fix problems."
+msgstr "Aşağıdaki sebep yüzünden haritayı okuyamıyor. '{0}' "
+"OpenOrienteering Mapper'ın son versiyonunda açmak ve "
+"tekrar kaydetmek sorunu çöze bilir."
+
+#: MiscText.resx, MapIssue_Short
+msgid "TS"
+msgstr "TS"
+
+#: MiscText.resx, BaseMapHasVisibleTemplatesThatMayNotAppear
+msgid "The underlying OCAD map has visible template files. In "
+"OCAD 8 and below, these templates may not appear due to "
+"limitations in OCAD."
+msgstr "OCAD altlık haritası görülebilir şablon dosyalara sahip. "
+"OCAD 8 ya da daha altında OCAD kısıtlamaları yüzünden bu "
+"şablonlar görünmeyebilir."
+
+#: MiscText.resx, ImagesMayAppearBadlyLayeredInOcad10Below
+msgid "Due to limitations of the OCAD file format (in OCAD 10 and "
+"below), image objects will appear underneath courses and "
+"white out areas in the exported OCAD files. Please check "
+"the OCAD files to make sure your images appear as desired."
+msgstr "OCAD 10 ve altındaki kısıtlamalar yüzünden, görsel "
+"nesneler parkurun altında görünecektir ve dışarı aktarılan "
+"OCAD dosyalarını beyaz gösterecektir. Lütfen istenilen "
+"görseli elde etmek için OCAD dosyalarını kontrol edin."
+
+#: MiscText.resx, CannotCreateImageFiles
+msgid "Cannot create image files for the following reason:"
+msgstr "Aşağıdaki sebeplerden görsel dosya oluşturamaz:"
+
+#: MiscText.resx, CreatePdf
+msgid "Create PDF"
+msgstr "PDF oluştur"
+
+#: MiscText.resx, PdfFilter
+msgid "PDF File|*.pdf"
+msgstr "PDF Dosyası|*.pdf"
+
+#: MiscText.resx, LegAssignedOuterBranch
+msgid "Leg {0} never reaches branch '{1}': it was assigned to go "
+"a different way in a containing fork."
+msgstr "Yarış ayağı {0} dal {1} e hiç ulaşmıyor. Var olan çatalda "
+"farklı bir yöne gitmesi için atanmış."
+
+#: MiscText.resx, AddEllipseExplanation
+msgid "Set the appearance of the ellipse. After pressing OK, drag "
+"the mouse to place the ellipse in the desired location."
+msgstr "Elipsin görünümünü ayarlayın. Tamam'a bastıktan sonra, "
+"elipsi istediğiniz konuma yerleştirmek için fareyi "
+"sürükleyin."
+
+#: MiscText.resx, AddEllipseTitle
+msgid "Add Ellipse"
+msgstr "Elips Ekle"
+
+#: MiscText.resx, UninstallNonStoreVersion
+msgid "An older version of Purple Pen is still installed. To "
+"prevent confusion caused by having two versions of Purple "
+"Pen installed, it is strongly recommended that the older "
+"version be removed. Remove it now?"
+msgstr ""
+
+#: MissingFonts.resx, checkBoxDontWarnAgain.Text
+msgid "Don't warn about missing fonts for this event again"
+msgstr "Bu etkinlik için eksik yazı karakteri için tekrar uyarma"
+
+#: MissingFonts.resx, labelWarning.Text
+msgid "Map file \"{0}\" uses fonts that are not installed on your "
+"computer. Text using these fonts will be drawn and printed "
+"with a default font, which may cause text to appear "
+"differently than the map designer intended. \n"
+"\n"
+"To fix this problem, find and install the fonts listed "
+"below with the Windows control panel, then start Purple "
+"Pen again.\n"
+msgstr "Harita dosyası \"{0}\", bilgisayarınızda yüklü olmayan yazı "
+"tiplerini kullanır. Bu yazı tiplerini kullanan metin, "
+"metnin harita tasarımcısının amaçladığından farklı "
+"görünmesine neden olabilecek varsayılan bir yazı tipiyle "
+"çizilecek ve yazdırılacaktır.\n"
+"\n"
+"Bu sorunu gidermek için Windows denetim masası ile aşağıda "
+"listelenen yazı tiplerini bulup yükleyin, ardından Purple "
+"Pen'i yeniden başlatın.\n"
+
+#: MissingFonts.resx, $this.Text
+msgid "Missing Fonts"
+msgstr "Eksik Fontları Yoksay"
+
+#: MoveAllControls.resx, labelDescription.Text
+msgid "Which way would you like to move all controls on the map?"
+msgstr "Haritadaki tüm kontrolleri hangi yöne taşımak istersiniz?"
+
+#: MoveAllControls.resx, radioButtonMove.Text
+msgid "Move Only"
+msgstr "Yalnızca Taşı"
+
+#: MoveAllControls.resx, radioButtonMoveAndScale.Text
+msgid "Move and Scale"
+msgstr "Taşı ve Ölçeklendir"
+
+#: MoveAllControls.resx, radioButtonMoveAndRotate.Text
+msgid "Move and Rotate"
+msgstr "Taşı ve Döndür"
+
+#: MoveAllControls.resx, radioButtonMoveRotateScale.Text
+msgid "Move, Scale, and Rotate"
+msgstr "Taşı, Ölçeklendir ve Döndür"
+
+#: NewEventBitmapScale.resx, bitmapScaleLabel.Text
+msgid "When using an image file as a map, you must specify the "
+"resolution of the image and the map scale. \n"
+"\n"
+"The resolution of the image indicates how may pixels or "
+"dots are in the image for each inch on the paper map; "
+"usually termed dots per inch or \"dpi\".\n"
+"\n"
+"The scale of the map indicates the relationship between "
+"the paper map and the real world.\n"
+msgstr "Bir görüntü dosyasını harita olarak kullanırken, "
+"görüntünün çözünürlüğünü ve harita ölçeğini "
+"belirtmelisiniz.\n"
+"\n"
+"Görüntünün çözünürlüğü, kağıt haritasındaki her inç için "
+"görüntüde piksellerin veya noktaların nasıl olabileceğini "
+"gösterir; genellikle inç başına nokta veya \"dpi\" olarak "
+"adlandırılır.\n"
+"\n"
+"Haritanın ölçeği, kağıt harita ile gerçek dünya arasındaki "
+"ilişkiyi gösterir.\n"
+
+#: NewEventBitmapScale.resx, resolutionLabel.Text
+msgid "Image resolution:"
+msgstr "Resim çözünürlüğü:"
+
+#: NewEventBitmapScale.resx, oneToPrefixLabel.Text
+#: NewEventPrintScale.resx, oneToPrefixLabel1.Text
+#: NewEventPrintScale.resx, oneToPrefixLabel2.Text
+msgid "1:"
+msgstr "1:"
+
+#: NewEventBitmapScale.resx, mapScaleLabel.Text
+#: NewEventPrintScale.resx, mapScaleLabel.Text
+msgid "Map scale:"
+msgstr "Harita ölçeği:"
+
+#: NewEventBitmapScale.resx, labelTitle.Text
+msgid "Bitmap Resolution"
+msgstr "Bitmap Çözünürlüğü"
+
+#: NewEventBitmapScale.resx, pdfScaleLabel.Text
+msgid "When using an PDF file as a map, you must specify the map "
+"scale. \n"
+"\n"
+"The scale of the map indicates the relationship between "
+"the paper map and the real world.\n"
+msgstr "Bir PDF dosyasını harita olarak kullanırken harita "
+"ölçeğini belirtmelisiniz.\n"
+"\n"
+"Haritanın ölçeği, kağıt harita ile gerçek dünya arasındaki "
+"ilişkiyi gösterir.\n"
+
+#: NewEventDirectory.resx, newEventDirectoryLabel.Text
+msgid "What folder (directory) do you want to save your course "
+"event file in?"
+msgstr "Parkur olay dosyanızı hangi klasöre (dizin) kaydetmek "
+"istiyorsunuz?"
+
+#: NewEventDirectory.resx, useMapDirectory.Text
+msgid "In the same folder as the map file."
+msgstr "Harita dosyası ile aynı klasörde."
+
+#: NewEventDirectory.resx, useOtherFolder.Text
+msgid "In another folder I choose."
+msgstr "Seçtiğim başka bir klasörde."
+
+#: NewEventDirectory.resx, chooseFolder.Text
+msgid "Choose Folder..."
+msgstr "Dosya Seç..."
+
+#: NewEventDirectory.resx, folderBrowserDialog.Description
+msgid "Select the folder for your event file"
+msgstr "Etkinlik dosyanız için klasörü seçin"
+
+#: NewEventDirectory.resx, directoryDisplay.Text
+msgid "Selected Folder"
+msgstr "Seçili Klasör"
+
+#: NewEventDirectory.resx, labelTitle.Text
+msgid "Event File Location"
+msgstr "Etkinlik Dosyası Konumu"
+
+#: NewEventFinal.resx, newEventFinalLabel.Text
+msgid "Click \"Finish\" to create your new event. Your event file "
+"will be saved as:"
+msgstr "Yeni etkinliğinizi oluşturmak için \"Bitir\"e tıklayın. "
+"Etkinlik dosyanız şu şekilde kaydedilecektir:"
+
+#: NewEventFinal.resx, afterEventCreatedLabel.Text
+msgid "After your event is created, select \"New Course...\" from "
+"the Course menu to create one or more courses."
+msgstr "Etkinliğiniz oluşturulduktan sonra, bir veya daha fazla "
+"parkur oluşturmak için Parkur menüsünden \"Yeni Parkur...\" "
+"öğesini seçin."
+
+#: NewEventFinal.resx, labelTitle.Text
+msgid "Create Event"
+msgstr "Etkinlik Oluştur"
+
+#: NewEventMapFile.resx, newEventMapFileLabel.Text
+msgid "In order to design your courses, you must select the map "
+"file you will be using. Typically this is an OCAD or "
+"OpenOrienteering Mapper file (although PDFs and image "
+"files like JPEGs can be used instead). Click the "
+"\"Choose...\" button to select a map file."
+msgstr "Parkurlarınızı tasarlamak için kullanacağınız harita "
+"dosyasını seçmelisiniz. Tipik olarak bu bir OCAD veya "
+"OpenOrienteering harita dosyasıdır (ancak bunun yerine "
+"PDF'ler ve JPEG'ler gibi görüntü dosyaları "
+"kullanılabilir). Bir harita dosyası seçmek için \"Seç...\" "
+"düğmesini tıklayın."
+
+#: NewEventMapFile.resx, mapFileDisplay.Text
+msgid "Selected Map File"
+msgstr "Harta Dosyasını Seç"
+
+#: NewEventMapFile.resx, infoMessage.Text
+msgid "The map file was successfully loaded. If you send your "
+"Purple Pen file to someone else, they must have the map "
+"file also."
+msgstr "Harita dosyası başarıyla yüklendi. Purple Pen dosyanızı "
+"başka birine gönderirseniz, harita dosyasına da sahip "
+"olması gerekir."
+
+#: NewEventNumbering.resx, newEventNumberingLabel.Text
+msgid "Newly created controls are automatically numbered. Please "
+"choose the starting control number to use."
+msgstr "Yeni oluşturulan kontroller otomatik olarak "
+"numaralandırılır. Lütfen kullanmak için başlangıç kontrol "
+"numarasını seçin."
+
+#: NewEventNumbering.resx, changeLaterLabel.Text
+msgid "(This setting can be changed later using Event/Automatic "
+"Numbering)"
+msgstr "(Bu ayar daha sonra Olay/Otomatik Numaralandırma "
+"kullanılarak değiştirilebilir)"
+
+#: NewEventNumbering.resx, labelTitle.Text
+msgid "Control Numbering"
+msgstr "Kontrol Numaralandırma"
+
+#: NewEventPrintScale.resx, newEventPrintScaleLabel.Text
+msgid "What scale will you be using to print your courses? In "
+"most cases, you will want to use the existing scale of the "
+"map.\n"
+"\n"
+msgstr "Parkurlarınızı yazdırmak için hangi ölçeği "
+"kullanacaksınız? Çoğu durumda, haritanın mevcut ölçeğini "
+"kullanmak isteyeceksiniz.\n"
+"\n"
+
+#: NewEventPrintScale.resx, defaultPrintScaleLabel.Text
+msgid "Default &printing scale:"
+msgstr "Varsayılan &baskı ölçeği:"
+
+#: NewEventPrintScale.resx, changeLaterLabel.Text
+msgid "(You can change the printing scale later for any course by "
+"choosing Course/Properties.)"
+msgstr "(Yazdırma ölçeğini daha sonra Kurs/Özellikler'i seçerek "
+"herhangi bir kurs için değiştirebilirsiniz)"
+
+#: NewEventStandards.resx, changeLaterLabel.Text
+msgid "(These settings can be changed later using Event/IOF "
+"Standards)"
+msgstr "(Bu ayarlar daha sonra Event/IOF Standartları kullanılarak "
+"değiştirilebilir)"
+
+#: NewEventStandards.resx, labelTitle.Text
+msgid "IOF Standards"
+msgstr "IOF Standardı"
+
+#: NewEventStandards.resx, radioButtonMapSpr2019.Text
+msgid "ISSprOM 2019"
+msgstr "ISSprOM 2019"
+
+#: NewEventStandards.resx, radioButtonMap2017.Text
+msgid "ISOM 2017"
+msgstr "ISOM 2017"
+
+#: NewEventStandards.resx, radioButtonMap2000.Text
+msgid "ISOM 2000 / ISSOM 2007"
+msgstr "ISOM 2000 / ISSOM 2007"
+
+#: NewEventStandards.resx, groupBoxMapStandard.Text
+msgid "IOF Map Standard"
+msgstr "IOF Harita Standardı"
+
+#: NewEventStandards.resx, radioButtonDescriptions2018.Text
+msgid "Descriptions 2018 or 2024"
+msgstr "2018/2024 Tanımlamalar"
+
+#: NewEventStandards.resx, radioButtonDescriptions2004.Text
+msgid "Descriptions 2004"
+msgstr "2004 Tanımlamalar"
+
+#: NewEventStandards.resx, groupBoxDescriptionStandard.Text
+msgid "IOF Description Standard"
+msgstr "IOF Tanım Standardı"
+
+#: NewEventStandards.resx, labelStandardsIntro.Text
+msgid "Which versions of IOF standards would you like Purple Pen "
+"to follow?"
+msgstr "Purple Pen'in IOF standartlarının hangi sürümlerini "
+"izlemesini istersiniz?"
+
+#: NewEventTitle.resx, newEventTitleLabel.Text
+msgid "The event title will be displayed on the first line of "
+"every control description sheet. It is also used as the "
+"file name for storing your event on disk.\n"
+"\n"
+"To fit on the description sheet, it should be less than 25 "
+"characters in length. Examples of good event titles are "
+"\"US Champs Day 1\" or \"Riverview Park, 4/12/06\"."
+msgstr "Olay başlığı, her kontrol açıklama sayfasının ilk "
+"satırında görüntülenecektir. Ayrıca, etkinliğinizi diskte "
+"depolamak için dosya adı olarak da kullanılır.\n"
+"\n"
+"Açıklama sayfasına sığması için uzunluğu 25 karakterden az "
+"olmalıdır. İyi etkinlik başlıklarına örnek olarak "
+"\"Cumhuriyet Bayramı\" veya \"Atatürk Parkı, 19.05.2023\" "
+"verilebilir."
+
+#: NewEventTitle.resx, eventTitleLabel.Text
+msgid "Event Title:"
+msgstr "Etkinlik Başlığı:"
+
+#: NewEventWizard.resx, backButton.Text
+msgid "< &Back"
+msgstr "< &Geri"
+
+#: NonPrintableObjects.resx, labelWarning.Text
+msgid "Map file \"{0}\" contains objects or symbols that are not "
+"fully supported by Purple Pen, and may not print "
+"correctly. The objects that may not print correctly are "
+"listed below.\n"
+"\n"
+"For printing competition maps, it is suggested that "
+"courses be exported to OCAD files (use File/Create OCAD "
+"Files...) and to print the maps from OCAD.\n"
+msgstr "Harita dosyası \"{0}\", Purple Pen tarafından tam olarak "
+"desteklenmeyen nesneler veya semboller içeriyor ve doğru "
+"şekilde yazdırılamayabilir. Doğru yazdırılamayan nesneler "
+"aşağıda listelenmiştir.\n"
+"\n"
+"Yarışma haritalarını yazdırmak için kursların OCAD "
+"dosyalarına aktarılması (Dosya/OCAD Dosyaları Oluşturu... "
+"kullanın) ve haritaların OCAD'den yazdırılması önerilir.\n"
+
+#: NonPrintableObjects.resx, okButton.Text
+msgid "Continue"
+msgstr "Devam"
+
+#: NonPrintableObjects.resx, $this.Text
+msgid "Map File Cannot Be Printed Accurately"
+msgstr "Harita Dosyası Doğru Yazdırılamıyor"
+
+#: OperationInProgress.resx, $this.Text
+msgid "Operation In Progress"
+msgstr "İşlem Devam Ediyor"
+
+#: OverwritingOcadFilesDialog.resx, confirmReplaceLabel.Text
+msgid "The following files already exist. If you continue, they "
+"will be replaced."
+msgstr "Aşağıdaki dosyalar zaten var. Devam ederseniz, "
+"değiştirilecekler."
+
+#: OverwritingOcadFilesDialog.resx, buttonOK.Text
+msgid "Replace"
+msgstr "Yer değiştir"
+
+#: OverwritingOcadFilesDialog.resx, $this.Text
+msgid "Confirm Replace Files"
+msgstr "Dosyaları Değiştirmeyi Onayla"
+
+#: PdfConversionInProgress.resx, labelReadingPDF.Text
+msgid "PDFium PDF converter is reading your PDF..."
+msgstr "PDFium PDF dönüştürücü, PDF'nizi okuyor..."
+
+#: PdfConversionInProgress.resx, labelFailure.Text
+msgid "PDF reading has failed. The errors are shown below."
+msgstr "PDF okuma başarısız oldu. Hatalar aşağıda gösterilmiştir."
+
+#: PdfConversionInProgress.resx, $this.Text
+msgid "Reading PDF"
+msgstr "PDF Okuma"
+
+#: PrintCourses.resx, okButton.Text
+#: PrintDescriptions.resx, printButton.Text
+#: PrintPunches.resx, printButton.Text
+msgid "Print"
+msgstr "Yazdır"
+
+#: PrintCourses.resx, printerChange.Text
+#: PrintDescriptions.resx, printerChange.Text
+#: PrintPunches.resx, printerChange.Text
+msgid "Change Printer..."
+msgstr "Yazıcı Değiştir..."
+
+#: PrintCourses.resx, printerName.Text
+#: PrintDescriptions.resx, printerName.Text
+#: PrintPunches.resx, printerName.Text
+msgid "Printer Name"
+msgstr "Yazıcı Adı"
+
+#: PrintCourses.resx, printerLabel.Text
+#: PrintDescriptions.resx, printerLabel.Text
+#: PrintPunches.resx, printerLabel.Text
+msgid "Printer:"
+msgstr "Yazıcı:"
+
+#: PrintCourses.resx, previewButton.Text
+#: PrintDescriptions.resx, previewButton.Text
+#: PrintPunches.resx, previewButton.Text
+msgid "Preview..."
+msgstr "Önizleme..."
+
+#: PrintCourses.resx, copiesLabel.Text
+msgid "Copies of each course:"
+msgstr "Her parkurun kopyaları:"
+
+#: PrintCourses.resx, checkBoxPausePrinting.Text
+msgid "Pause printing after each course or part"
+msgstr "Her parkur veya bölümden sonra yazdırmayı duraklat"
+
+#: PrintCourses.resx, copiesGroupBox.Text
+#: PrintDescriptions.resx, copiesGroupBox.Text
+#: PrintPunches.resx, copiesGroupBox.Text
+msgid "Copies"
+msgstr "Kopya Sayısı"
+
+#: PrintCourses.resx, comboBoxColorModel.Items
+msgid "OCAD Compatible"
+msgstr "OCAD ile uyumlu"
+
+#: PrintCourses.resx, $this.Text
+msgid "Print Courses"
+msgstr "Parkur Yazdır"
+
+#: PrintDescriptions.resx, marginChange.Text
+#: PrintPunches.resx, marginChange.Text
+msgid "Change Margins..."
+msgstr "Kenar Boşluğunu Değiştir..."
+
+#: PrintDescriptions.resx, paperSize.Text
+#: PrintPunches.resx, paperSize.Text
+msgid "Tabloid (11\"x17\")"
+msgstr "Tablet (11\"x17\")"
+
+#: PrintDescriptions.resx, paperSizeLabel.Text
+#: PrintPunches.resx, paperSizeLabel.Text
+msgid "Paper Size:"
+msgstr "Kağıt Boyutu:"
+
+#: PrintDescriptions.resx, margins.Text
+#: PrintPunches.resx, margins.Text
+msgid "Top: 0.55\", Bottom: 0.55\", Left: 0.55\", Right: 0.55\""
+msgstr "Üst: 0,55\", Alt: 0,55\", Sol: 0,55\", Sağ: 0,55\""
+
+#: PrintDescriptions.resx, marginsLabel.Text
+#: PrintPunches.resx, marginsLabel.Text
+msgid "Margins:"
+msgstr "Kenar Boşluğu ({0})"
+
+#: PrintDescriptions.resx, orientationLabel.Text
+#: PrintPunches.resx, orientationLabel.Text
+msgid "Orientation:"
+msgstr "Yönlendirme:"
+
+#: PrintDescriptions.resx, descriptionKindCombo.Items
+msgid "Course default"
+msgstr "Parkur varsayılanı"
+
+#: PrintDescriptions.resx, descriptionKindCombo.Items3
+msgid "Symbols & Text"
+msgstr "Sembol & Metin"
+
+#: PrintDescriptions.resx, descriptionTypeLabel.Text
+msgid "Description type:"
+msgstr "Açıklama türü:"
+
+#: PrintDescriptions.resx, lineSizeLabel.Text
+msgid "Line size:"
+msgstr "Çizgi Boyutu:"
+
+#: PrintDescriptions.resx, descriptionsLabel.Text
+msgid "descriptions per course"
+msgstr "parkur başına açıklamalar"
+
+#: PrintDescriptions.resx, copiesCombo.Items
+msgid "one copy of each course"
+msgstr "her parkur için bir kopya"
+
+#: PrintDescriptions.resx, copiesCombo.Items1
+msgid "one page of each course"
+msgstr "her parkur için bir sayfa"
+
+#: PrintDescriptions.resx, copiesCombo.Items2
+msgid "multiple pages of each course"
+msgstr "her parkur için birden fazla sayfa"
+
+#: PrintDescriptions.resx, whatToPrintLabel.Text
+msgid "Print:"
+msgstr "Yazdır:"
+
+#: PrintDescriptions.resx, $this.Text
+msgid "Print Descriptions"
+msgstr "Açıklamaları Yazdır"
+
+#: PrinterMargins.resx, label3.Text
+msgid "Height:"
+msgstr "Yükseklik:"
+
+#: PrinterMargins.resx, groupBoxPaperSize.Text
+msgid "Paper Size ({0})"
+msgstr "Kağıt Boyutu ({0})"
+
+#: PrinterMargins.resx, groupBox1.Text
+msgid "Orientation"
+msgstr "Yönlendirme"
+
+#: PrinterMargins.resx, label1.Text
+msgid "Left:"
+msgstr "Sol:"
+
+#: PrinterMargins.resx, label4.Text
+msgid "Top:"
+msgstr "Üst:"
+
+#: PrinterMargins.resx, label5.Text
+msgid "Right:"
+msgstr "Sağ:"
+
+#: PrinterMargins.resx, label6.Text
+msgid "Bottom:"
+msgstr "Alt:"
+
+#: PrinterMargins.resx, groupBoxMargins.Text
+msgid "Margins ({0})"
+msgstr "Kenar Boşluğu ({0})"
+
+#: PrinterMargins.resx, $this.Text
+msgid "Page Setup"
+msgstr "Sayfa Ayarı"
+
+#: PrintPunches.resx, punchCardLayoutButton.Text
+#: PunchPatternDialog.resx, formatButton.Text
+msgid "Punch Card Layout..."
+msgstr "Kontrol Kartı Yerleşimi..."
+
+#: PrintPunches.resx, punchBoxSizeLabel.Text
+msgid "Punch box size:"
+msgstr "Kontrol Kartı Boyutu:"
+
+#: PrintPunches.resx, descriptionsLabel.Text
+msgid "Copies:"
+msgstr "Kopya:"
+
+#: PrintPunches.resx, $this.Text
+msgid "Print Punch Cards"
+msgstr "Delikli Kartları Yazdır"
+
+#: PunchcardLayoutDialog.resx, boxOrderGroupBox.Text
+msgid "Box Order"
+msgstr "Kutu  Ekleme"
+
+#: PunchcardLayoutDialog.resx, sizeGroupBox.Text
+msgid "Size"
+msgstr "Boyut"
+
+#: PunchcardLayoutDialog.resx, columnsLabel.Text
+msgid "Columns:"
+msgstr "Sütunlar:"
+
+#: PunchcardLayoutDialog.resx, rowsLabel.Text
+msgid "Rows:"
+msgstr "Satırlar:"
+
+#: PunchcardLayoutDialog.resx, $this.Text
+msgid "Punch Card Layout"
+msgstr "Delikli Kart Düzeni"
+
+#: PunchPatternDialog.resx, punchPatternsLabel.Text
+msgid "Click on a control code in the left-side list, and design "
+"the punch pattern in the right side. Red codes indicate "
+"controls that have no punch pattern defined."
+msgstr "Sol taraftaki kontrol koduna tıklayın ve sağ taraftaki "
+"delgi modelini tasarlayın. Kırmızı kodlar, tanımlı zımba "
+"deseni olmayan kontrolleri gösterir."
+
+#: PunchPatternDialog.resx, $this.Text
+msgid "Punch Patterns"
+msgstr "Zımba Desenleri"
+
+#: ReportForm.resx, printButton.Text
+#: TeamVariationsForm.resx, buttonPrint.Text
+msgid "Print..."
+msgstr "Yazdır..."
+
+#: ReportForm.resx, previewButton.Text
+#: TeamVariationsForm.resx, buttonPrintPreview.Text
+msgid "Print Preview..."
+msgstr "Baskı Önizleme..."
+
+#: ReportForm.resx, okButton.Text
+#: TeamVariationsForm.resx, buttonClose.Text
+msgid "Close"
+msgstr "Kapat"
+
+#: ReportText.resx, ColumnHeader_Climb
+msgid "Climb"
+msgstr "Tırmanış"
+
+#: ReportText.resx, ColumnHeader_Code
+msgid "Code"
+msgstr "Kod"
+
+#: ReportText.resx, ColumnHeader_Column
+msgid "Column"
+msgstr "Sütun"
+
+#: ReportText.resx, ColumnHeader_Control
+msgid "Control"
+msgstr "Kontrol"
+
+#: ReportText.resx, ColumnHeader_ControlCodes
+msgid "Control codes"
+msgstr "Kontrol kodları"
+
+#: ReportText.resx, ColumnHeader_Controls
+msgid "Controls"
+msgstr "Kontroller"
+
+#: ReportText.resx, ColumnHeader_Course
+msgid "Course"
+msgstr "Parkur"
+
+#: ReportText.resx, ColumnHeader_Distance
+msgid "Distance"
+msgstr "Mesafe"
+
+#: ReportText.resx, ColumnHeader_Item
+msgid "Item"
+msgstr "Nesne"
+
+#: ReportText.resx, ColumnHeader_Leg
+msgid "Leg"
+msgstr "Ayak"
+
+#: ReportText.resx, ColumnHeader_Length
+msgid "Length"
+msgstr "Boy"
+
+#: ReportText.resx, ColumnHeader_Load
+msgid "Load"
+msgstr "Yükle"
+
+#: ReportText.resx, ColumnHeader_Location
+msgid "Location"
+msgstr "Yer"
+
+#: ReportText.resx, ColumnHeader_NumberOfCourses
+msgid "# Courses"
+msgstr "#Parkurlar"
+
+#: ReportText.resx, ColumnHeader_Reason
+msgid "Reason"
+msgstr "Sebep"
+
+#: ReportText.resx, ColumnHeader_SameSymbol
+msgid "Same symbol?"
+msgstr "Aynı sembol mi?"
+
+#: ReportText.resx, ColumnHeader_Visits
+msgid "Visits"
+msgstr "Ziyarteler"
+
+#: ReportText.resx, CourseSummary_Title
+msgid "Course Summary for {0}"
+msgstr "{0} için Parkur Özeti"
+
+#: ReportText.resx, CrossRef_Title
+msgid "Control cross-reference for {0}"
+msgstr "{0} için çapraz referans kontrolü"
+
+#: ReportText.resx, EventAudit_BothDirectionsLegs
+msgid "Legs Run in Both Directions"
+msgstr "Bacaklar her iki yöne hareket eder"
+
+#: ReportText.resx, EventAudit_CloseTogetherControls
+msgid "Close Together Controls"
+msgstr "Kontrolleri Birlikte Kapat"
+
+#: ReportText.resx, EventAudit_CloseTogetherExplanation
+msgid "The following table shows all control pairs that are "
+"within {0} meters of each other. The same symbol column "
+"shows whether the two controls have the same primary "
+"symbol (column D)."
+msgstr "Aşağıdaki tabloda, birbirlerinin {0} metre içerisindeki "
+"tüm kontrol çiftleri gösterilmektedir. Aynı sembol sütunu, "
+"iki kontrolün aynı birincil sembolü (D sütunu) olup "
+"olmadığını gösterir."
+
+#: ReportText.resx, EventAudit_MissingBoxes
+msgid "Missing Description Boxes"
+msgstr "Eksik Açıklama Kutuları"
+
+#: ReportText.resx, EventAudit_MissingClimb
+msgid "Regular courses should indicate the amount of climb"
+msgstr "Düzenli kurslarda tırmanış miktarını belirtmelisiniz"
+
+#: ReportText.resx, EventAudit_MissingD
+msgid "All controls must have a main feature in column D"
+msgstr "Tüm denetimler D sütununda bir ana özelliğe sahip olmalıdır"
+
+#: ReportText.resx, EventAudit_MissingEBetween
+msgid "When \"between\" is in column G, two features must be shown "
+"in columns D and E"
+msgstr "\"Arasında\", G sütununda olduğunda, D ve E sütunlarında iki "
+"özellik gösterilmelidir"
+
+#: ReportText.resx, EventAudit_MissingEJunction
+msgid "When \"junction\" or \"crossing\" is in column F, two features "
+"must be shown in columns D and E"
+msgstr "\"Kavşak\" veya \"geçiş\" F sütununda olduğunda, D ve E "
+"sütunlarında iki özellik gösterilmelidir"
+
+#: ReportText.resx, EventAudit_MissingFinish
+msgid "Regular courses should have a finish circle"
+msgstr "Düzenli parkurlarda bitiş çemberi olmalıdır"
+
+#: ReportText.resx, EventAudit_MissingItems
+msgid "Missing Items in Courses"
+msgstr "Parkurlarda Eksik Nesneler"
+
+#: ReportText.resx, EventAudit_MissingLoad
+msgid "Course should have expected competitor load"
+msgstr "Kursun yarışmacı yükünü beklemesi gerekirdi"
+
+#: ReportText.resx, EventAudit_MissingPunch
+msgid "No punch pattern defined"
+msgstr "Tanımlama kalıbı yok"
+
+#: ReportText.resx, EventAudit_MissingPunchPatterns
+msgid "Missing Punch Patterns"
+msgstr "Eksik Punch Kalıpları"
+
+#: ReportText.resx, EventAudit_MissingScore
+msgid "Score course should have score set for all controls or no "
+"controls"
+msgstr "Skor dersinin tüm kontroller için puan seti veya kontrolü "
+"yok olmalıdır"
+
+#: ReportText.resx, EventAudit_MissingScores
+msgid "Missing Scores"
+msgstr "Eksik Puanlar"
+
+#: ReportText.resx, EventAudit_MissingStart
+msgid "Regular courses should have a start triangle"
+msgstr "Düzenli kurslarda başlangıç üçgeni olmalıdır"
+
+#: ReportText.resx, EventAudit_MissingStartScore
+msgid "Score courses should have a start triangle"
+msgstr "Score courses should have a start triangle"
+
+#: ReportText.resx, EventAudit_NoProblems
+msgid "No problems found."
+msgstr "Hiçbir sorun bulunamadı."
+
+#: ReportText.resx, EventAudit_RepeatControl
+msgid "Course \"{0}\" contains control \"{1}\" twice in a row."
+msgstr "Parkur  \"{0}\" kontrol içerir\"{1}\" arka arkaya iki kez."
+
+#: ReportText.resx, EventAudit_RepeatedControls
+msgid "Repeated Controls"
+msgstr "Tekrarlanan Hedefler"
+
+#: ReportText.resx, EventAudit_ScoreDuplicateControl
+msgid "Score course \"{0}\" contains control \"{1}\" twice. "
+msgstr "Skor parkuru \"{0}\" kontrol içerir \"{1}\" iki kez. "
+
+#: ReportText.resx, EventAudit_Title
+msgid "Event Audit for {0}"
+msgstr "Etkinlik Denetimi için {0}"
+
+#: ReportText.resx, EventAudit_UnusedControls
+#: UnusedControls.resx, $this.Text
+msgid "Unused Controls"
+msgstr "Kullanılmayan Hedefler"
+
+#: ReportText.resx, EventAudit_UnusedControlsExplanation
+msgid "The following controls are present in the All Controls "
+"collection but are not used in any course. To remove them, "
+"use the \"Remove Unused Controls\" command on the \"Event\" "
+"menu. These controls will not be considered further in "
+"this report."
+msgstr "Aşağıdaki denetimler Tüm Denetimler koleksiyonunda "
+"bulunur; ancak herhangi bir derste kullanılmaz. Bunları "
+"kaldırmak için \"Etkinlik\" menüsündeki \"Kullanılmayan "
+"Kontrolleri Kaldır\" komutunu kullanın. Bu kontroller, bu "
+"raporda daha fazla düşünülmeyecektir."
+
+#: ReportText.resx, LegLength_Average
+msgid "Average"
+msgstr "Ortalama"
+
+#: ReportText.resx, LegLength_CourseInfo
+msgid "{0} ({1} controls, {2}, {3} m climb)"
+msgstr "{0} ({1} hedefler, {2}, {3} m tırmanma)"
+
+#: ReportText.resx, LegLength_CourseInfoNoClimb
+msgid "{0} ({1} controls, {2})"
+msgstr "{0} ({1} hedefler, {2})"
+
+#: ReportText.resx, LegLength_Title
+msgid "Leg Length Report for {0}"
+msgstr "{0} için Ayak Uzunluğu Raporu"
+
+#: ReportText.resx, Load_ButterflyExists
+msgid "Some controls are visited multiple times on the same "
+"course. The second load number counts each visit to a "
+"control separately."
+msgstr "Bazı hedefler aynı parkurda birden çok kez ziyaret edilir. "
+"İkinci yük sayısı, bir hedefe yapılan her ziyareti ayrı "
+"olarak sayar."
+
+#: ReportText.resx, Load_ControlLoadSection
+msgid "Control load"
+msgstr "Kontrol Ekle"
+
+#: ReportText.resx, Load_LegLoadSection
+msgid "Leg load"
+msgstr "Ayak ekle"
+
+#: ReportText.resx, Load_MissingLoads
+msgid "Some or all courses do not have competitor loads set for "
+"them. The loads listed below may be incorrect or missing "
+"for this reason. To set competitor loads, select "
+"\"Competitor Load\" from the \"Course\" menu."
+msgstr "Bazı veya tüm derslerin kendileri için belirlenmiş rakip "
+"yükleri yoktur. Aşağıda listelenen yükler bu nedenle "
+"yanlış veya eksik olabilir. Rakip yükleri ayarlamak için "
+"\"Course\" menüsünden \"Competitor Load\" ı seçin."
+
+#: ReportText.resx, Load_OnlyLegsMoreThanOnce
+msgid "(only legs used by more than one course appear in the "
+"following table)"
+msgstr "(Sadece birden fazla ders tarafından kullanılan bacaklar "
+"aşağıdaki tabloda görünür)"
+
+#: ReportText.resx, Load_Title
+msgid "Competitor Load Summary for {0}"
+msgstr "{0} için Yarışmacı Yükü Özeti"
+
+#: ReportText.resx, Load_VariationsExist
+msgid "One or more courses has variations. Load numbers will be "
+"computed assuming that competitors are evenly distributed "
+"between forks."
+msgstr "Bir veya daha fazla parkurun varyasyonları vardır. Yük "
+"sayıları, rakiplerin çatallar arasında eşit olarak "
+"dağıldığı varsayılarak hesaplanacaktır."
+
+#: ReportText.resx, Load_Visit
+msgid "({0} visits)"
+msgstr "({0} ziyaret)"
+
+#: ReportText.resx, Load_Warning
+msgid "WARNING:"
+msgstr "UYARI:"
+
+#: ReportText.resx, Note
+msgid "NOTE: "
+msgstr "NOT: "
+
+#: ReportText.resx, RelayVariation_BranchWarning
+msgid "Warning: due to the number of legs specified, the fork at "
+"control {0} will not be used evenly. {1} leg(s) will use "
+"branch(es) {2}, while {3} leg(s) will use branch(es) {4}. "
+msgstr "Uyarı: Belirtilen bacaklar nedeniyle, {0} denetimindeki "
+"çatal eşit şekilde kullanılamaz. {1} bacak dalları {2}, "
+"{3} bacakları ise dalları {4} kullanacaktır. "
+
+#: ReportText.resx, RelayVariation_LegHeader
+msgid "Leg {0}"
+msgstr "Ayak{0}"
+
+#: ReportText.resx, RelayVariation_NoTeams
+msgid "No relay teams have been defined yet. Selected the desired "
+"number of teams and legs and press the \"Assign Variations\" "
+"button."
+msgstr "Henüz hiçbir röle ekibi tanımlanmamıştır. İstenen takım ve "
+"bacak sayısını seçip \"Varyasyonları Ata\" düğmesine basın."
+
+#: ReportText.resx, RelayVariation_TeamNumber
+msgid "Team {0}"
+msgstr "Ekip {0}"
+
+#: ReportText.resx, RelayVariation_Title
+msgid "Relay Assignments for {0}"
+msgstr "{0} için Röle Atanmaları"
+
+#: SelectionDescriptionText.resx, AwayFromControl
+msgid "away from control"
+msgstr "kontrol dışı"
+
+#: SelectionDescriptionText.resx, CompetitorLoad
+msgid "Competitor load:"
+msgstr "Yarışmacı yükü:"
+
+#: SelectionDescriptionText.resx, ControlsInUse
+msgid "Controls in use:"
+msgstr "Kullanımdaki kontroller:"
+
+#: SelectionDescriptionText.resx, ControlsNotInUse
+msgid "Controls not in use:"
+msgstr "Kullanılmayan kontroller:"
+
+#: SelectionDescriptionText.resx, Control_Plural
+msgid "controls"
+msgstr "kontroller"
+
+#: SelectionDescriptionText.resx, Control_Singular
+msgid "control"
+msgstr "kontrol"
+
+#: SelectionDescriptionText.resx, CourseList_AllCourses
+msgid "All courses"
+msgstr "Tüm Parkurlar"
+
+#: SelectionDescriptionText.resx, CourseName
+msgid "Course \"{0}\""
+msgstr "Parkur \"{0}\""
+
+#: SelectionDescriptionText.resx, CustomizedSymbolDesc
+msgid "Customized symbol description"
+msgstr "Özelleştirilmiş sembol açıklaması"
+
+#: SelectionDescriptionText.resx, EntireLeg
+msgid "entire leg"
+msgstr "tüm bacak"
+
+#: SelectionDescriptionText.resx, FinishFunnel
+msgid "finish funnel"
+msgstr "son huni"
+
+#: SelectionDescriptionText.resx, Finish_Plural
+msgid "finishes"
+msgstr "bitiriş"
+
+#: SelectionDescriptionText.resx, Finish_Singular
+msgid "finish"
+msgstr "bitiş"
+
+#: SelectionDescriptionText.resx, Flagging
+msgid "Flagging:"
+msgstr "İşaretleme:"
+
+#: SelectionDescriptionText.resx, IntoControl
+msgid "into control"
+msgstr "kontrol altında"
+
+#: SelectionDescriptionText.resx, IntoFinishFunnel
+msgid "into finish funnel"
+msgstr "son huniye girin"
+
+#: SelectionDescriptionText.resx, LineHeight
+msgid "Line height:"
+msgstr "Satır yüksekliği:"
+
+#: SelectionDescriptionText.resx, Location
+msgid "Location:"
+msgstr "Yer:"
+
+#: SelectionDescriptionText.resx, MandCrossing_Plural
+msgid "mandatory crossing points"
+msgstr "zorunlu geçiş noktaları"
+
+#: SelectionDescriptionText.resx, MandCrossing_Singular
+msgid "mandatory crossing point"
+msgstr "zorunlu geçiş noktası"
+
+#: SelectionDescriptionText.resx, None
+msgid "none"
+msgstr "none"
+
+#: SelectionDescriptionText.resx, SpecialName_Forbidden
+msgid "Forbidden Route"
+msgstr "Yasak Rota"
+
+#: SelectionDescriptionText.resx, SpecialName_OOB
+msgid "Out-of-bounds Area"
+msgstr "Sınırların dışında kalan alan"
+
+#: SelectionDescriptionText.resx, Start_Plural
+msgid "starts"
+msgstr "başlamalar"
+
+#: SelectionDescriptionText.resx, Start_Singular
+msgid "start"
+msgstr "başlama"
+
+#: SelectionDescriptionText.resx, TextDescription
+msgid "Text description:"
+msgstr "Metin açıklaması:"
+
+#: SelectionDescriptionText.resx, TextLine
+msgid "Text line"
+msgstr "Metin satırı"
+
+#: SelectionDescriptionText.resx, TextLine_AboveAllCourses
+msgid "Appears above {0}, in all courses that contain {0}"
+msgstr "{0} 'nın üstünde, {0} öğesini içeren tüm derslerde görünüyor"
+
+#: SelectionDescriptionText.resx, TextLine_AboveThisCourse
+msgid "Appears above {0}, in this course only"
+msgstr "{0} 'n üzerinde, yalnızca bu derste gösterilir"
+
+#: SelectionDescriptionText.resx, TextLine_BelowAllCourses
+msgid "Appears below {0}, in all courses that contain {0}"
+msgstr "{0} 'ın altında {0} içeren tüm derslerde görünüyor"
+
+#: SelectionDescriptionText.resx, TextLine_BelowThisCourse
+msgid "Appears below {0}, in this course only"
+msgstr "{0} 'nın altında, yalnızca bu derste yer almaktadır"
+
+#: SelectionDescriptionText.resx, TotalControls
+msgid "Total controls:"
+msgstr "Toplam kontroller:"
+
+#: SelectionDescriptionText.resx, TotalScore
+msgid "Total score:"
+msgstr "Toplam puan:"
+
+#: SelectionDescriptionText.resx, UsedInCourses
+msgid "Used in courses:"
+msgstr "Pakurda Kullanılır:"
+
+#: SelectionDescriptionText.resx, FileName
+msgid "Name:"
+msgstr "İsim:"
+
+#: SelectionDescriptionText.resx, MapExchange_Plural
+msgid "map exchanges"
+msgstr "harita değişimleri"
+
+#: SelectionDescriptionText.resx, MapExchange_Singular
+msgid "map exchange"
+msgstr "harita değişimi"
+
+#: SelectionDescriptionText.resx, MapExchangeAtControl
+msgid "Map exchange at {0}"
+msgstr "{0} 'daki harita değişimi"
+
+#: SelectionDescriptionText.resx, Load
+msgid "Load:"
+msgstr "Yükle:"
+
+#: SelectionDescriptionText.resx, UsedIn
+msgid "Used in:"
+msgstr "Kullanılan:"
+
+#: SelectionDescriptionText.resx, CourseNameAndPart
+msgid "Course \"{0}\", Part {1}"
+msgstr "Parkur \"{0}\", Bölüm {1}"
+
+#: SelectionDescriptionText.resx, CalculatedLength
+msgid "Calculated Length:"
+msgstr "Hesaplanan Uzunluk:"
+
+#: SelectionDescriptionText.resx, MapIssue_Plural
+msgid "map issue points"
+msgstr "harita veriş noktaları ekle"
+
+#: SelectionDescriptionText.resx, MapIssue_Singular
+msgid "map issue point"
+msgstr "harita veriş noktası ekle"
+
+#: SelectionDescriptionText.resx, MapFlipAtControl
+msgid "Map flip at {0}"
+msgstr "{0} konumunda harita çevirme"
+
+#: SelectLocationsForMove.resx, labelArrowFirstControl.Text
+#: SelectLocationsForMove.resx, labelArrowFirstNewLocation.Text
+#: SelectLocationsForMove.resx, labelArrowSecondControl.Text
+#: SelectLocationsForMove.resx, labelArrowSecondNewLocation.Text
+#: SelectLocationsForMove.resx, labelArrowConfirmLocations.Text
+msgid "è"
+msgstr "é"
+
+#: SelectLocationsForMove.resx, labelFirstControl.Text
+msgid "Select first control or registration mark to move"
+msgstr "Taşınacak ilk kontrolü veya kayıt işaretini seçin"
+
+#: SelectLocationsForMove.resx, labelSecondNewLocation.Text
+msgid "Choose new location for second control/mark"
+msgstr "İkinci kontrol/işaret için yeni konum seçin"
+
+#: SelectLocationsForMove.resx, labelConfirmLocations.Text
+msgid "Confirm new locations"
+msgstr "Yeni konumları onaylayın"
+
+#: SelectLocationsForMove.resx, labelRotation.Text
+msgid "Rotation:"
+msgstr "Çevirme"
+
+#: SelectLocationsForMove.resx, labelYOffset.Text
+msgid "Y Offset:"
+msgstr "Y Ofset:"
+
+#: SelectLocationsForMove.resx, labelXOffset.Text
+msgid "X Offset:"
+msgstr "X Ofset:"
+
+#: SelectLocationsForMove.resx, labelSecondControl.Text
+msgid "Select second control or registration mark to move"
+msgstr "Taşınacak ikinci kontrolü veya kayıt işaretini seçin"
+
+#: SelectLocationsForMove.resx, labelFirstNewLocation.Text
+msgid "Choose new location for first control/mark"
+msgstr "İlk kontrol/hedef için yeni konum seçin"
+
+#: SelectLocationsForMove.resx, buttonBack.Text
+msgid "Back"
+msgstr "Geri Dön"
+
+#: SelectLocationsForMove.resx, buttonConfirm.Text
+msgid "Confirm"
+msgstr "Onaylamak"
+
+#: SelectVariations.resx, comboBoxVariations.Items
+msgid "Each Variation Separately"
+msgstr "Her Varyasyon Ayrı Olarak"
+
+#: SelectVariations.resx, comboBoxVariations.Items1
+msgid "Each Relay Leg Separately"
+msgstr "Her  Ayak Ayrı"
+
+#: SelectVariations.resx, comboBoxVariations.Items2
+msgid "All Variations Combined"
+msgstr "Tüm Varyansonlar Birleştirildi"
+
+#: SelectVariations.resx, label1.Text
+msgid "Variations:"
+msgstr "Varyasyonlar:"
+
+#: SelectVariations.resx, labelAllVariations.Text
+msgid "Display all the forks together on a single map."
+msgstr "Tüm çatalları tek bir haritada birlikte görüntüleyin."
+
+#: SelectVariations.resx, labelSeparateVariations.Text
+msgid "One map for each possible variation through the course."
+msgstr "Kurs boyunca olası her varyasyon için bir harita."
+
+#: SelectVariations.resx, labelByLeg.Text
+msgid "One map for each leg on the relay teams that you choose."
+msgstr "Seçtiğiniz röle takımlarındaki her bir bacak için bir "
+"harita."
+
+#: SelectVariations.resx, labelByLegNotAvailable.Text
+msgid "You must first define relay teams by selecting Relay Team "
+"Variations... from the Course menu."
+msgstr "Önce Kurs menüsünden Röle Ekibi Varyasyonları ... 'nı "
+"seçerek geçiş ekiplerini tanımlamalısınız."
+
+#: SelectVariations.resx, checkBoxSelectIndividualVariations.Text
+msgid "Select Individual Variations"
+msgstr "Bireysel Varyasyonları Seç"
+
+#: SelectVariations.resx, labelNumberOfTeams.Text
+msgid "This course has {0} relay teams assigned. Use Relay Team "
+"Variations... from the Course menu to change the number of "
+"teams."
+msgstr "Bu derste {0} röle ekibi görevlendirildi. Takım sayısını "
+"değiştirmek için Ders menüsünden Röle Ekibi Varyasyonları "
+"... kullanın."
+
+#: SelectVariations.resx, label3.Text
+msgid "to"
+msgstr "göre"
+
+#: SelectVariations.resx, label2.Text
+msgid "Select which teams to print/export:"
+msgstr "Yazdır / dışa aktarmak için takımları seçin:"
+
+#: SelectVariations.resx, $this.Text
+msgid "Choose Variations"
+msgstr "Varyasyonları seçin"
+
+#: SetPrintAreaDialog.resx, okButton.Text
+msgid "Done"
+msgstr "Uygula"
+
+#: SetPrintAreaDialog.resx, setPrintAreaLabel.Text
+msgid "Set the desired printing area by dragging with the mouse."
+msgstr "Fareyle sürükleyerek istediğiniz yazdırma alanını ayarlayın."
+
+#: SetPrintAreaDialog.resx, groupBoxPaperSize.Text
+msgid "Paper Size"
+msgstr "Kağıt boyutu"
+
+#: SetPrintAreaDialog.resx, checkBoxAutomatic.Text
+msgid "Set Print Area Automatically"
+msgstr "Baskı Alanını Otomatik Olarak Ayarlayın"
+
+#: SetPrintAreaDialog.resx, checkBoxFixSizeToPaper.Text
+msgid "Fix Print Area Size to Paper Size"
+msgstr "Baskı Alanı Boyutunu Kağıt Boyutu'na Düzelt"
+
+#: SetUILanguage.resx, introLabel.Text
+msgid "Select the language that you would like to use for the "
+"user interface of Purple Pen (menus, windows, etc.)"
+msgstr "Purple Pen kullanıcı arabirimi için kullanmak istediğiniz "
+"dili seçin (menüler, pencereler vb.)"
+
+#: SetUILanguage.resx, $this.Text
+msgid "Program Language"
+msgstr "Program Dili"
+
+#: StatusBarText.resx, DefaultStatus
+msgid "Left mouse button: select object;   Right mouse button: "
+"move map;   Scroll wheel: zoom in/out"
+msgstr "Sol fare düğmesi: nesneyi seçin; Sağ fare düğmesi: "
+"haritayı taşımak; Kaydırma tekerleği: yakınlaştırma / "
+"uzaklaştırma"
+
+#: StatusBarText.resx, DefaultRectangle
+msgid "Left mouse button: move/size rectangle;   Right mouse "
+"button: move map;   Scroll wheel: zoom in/out"
+msgstr "Sol fare düğmesi: dikdörtgen / boyut taşı; Sağ fare "
+"düğmesi: haritayı taşımak; Kaydırma tekerleği: "
+"yakınlaştırma / uzaklaştırma"
+
+#: StatusBarText.resx, DragObject
+msgid "Hold down left mouse button and drag to move selected object"
+msgstr "Sol fare tuşunu basılı tutun ve seçilen nesneyi taşımak "
+"için sürükleyin"
+
+#: StatusBarText.resx, DragCorner
+msgid "Hold down left mouse button and drag corner point to move it"
+msgstr "Sol fare tuşunu basılı tutun ve taşımak için köşe "
+"noktasını sürükleyin"
+
+#: StatusBarText.resx, DraggingObject
+msgid "Move object to desired location and release mouse button"
+msgstr "Nesneyi istediğiniz yere taşıyın ve fare tuşunu bırakın"
+
+#: StatusBarText.resx, DraggingCorner
+msgid "Move corner point to desired location and release mouse "
+"button"
+msgstr "Köşeyi istediğiniz konuma taşıyın ve fare tuşunu bırakın"
+
+#: StatusBarText.resx, AddingControl
+msgid "Click left mouse button to place new control"
+msgstr "Yeni kontrolü yerleştirmek için sol fare tuşunu tıklayın"
+
+#: StatusBarText.resx, AddingExistingControl
+msgid "Click left mouse button to add existing control \"{0}\" to "
+"course"
+msgstr "Varolan \"{0}\" kontrolü parkura eklemek için farenizin sol "
+"tuşuna tıklayın"
+
+#: StatusBarText.resx, AddingStart
+msgid "Click left mouse button to place new start"
+msgstr "Yeni başlatmak için sol fare tuşunu tıklayın"
+
+#: StatusBarText.resx, AddingExistingStart
+msgid "Click left mouse button to add existing start to course"
+msgstr "Mevcut başlangıca kursa eklemek için farenizin sol tuşuna "
+"tıklayın"
+
+#: StatusBarText.resx, AddingFinish
+msgid "Click left mouse button to place new finish"
+msgstr "Yeni bitirmek için sol fare düğmesini tıklayın"
+
+#: StatusBarText.resx, AddingExistingFinish
+msgid "Click left mouse button to add existing finish to course"
+msgstr "Mevcut bitirmeyi rotaya eklemek için farenizin sol tuşuna "
+"tıklayın"
+
+#: StatusBarText.resx, AddingCrossingPoint
+msgid "Click left mouse button to place new mandatory crossing "
+"point"
+msgstr "Zorunlu yeni geçiş noktasını yerleştirmek için sol fare "
+"düğmesini tıklayın"
+
+#: StatusBarText.resx, AddingExistingCrossingPoint
+msgid "Click left mouse button to add existing mandatory crossing "
+"point to course"
+msgstr "Mevcut zorunlu geçiş noktasını rotaya eklemek için sol "
+"fare tuşunu tıklayın"
+
+#: StatusBarText.resx, AddingObject
+msgid "Click left mouse button to place new object"
+msgstr "Yeni nesne yerleştirmek için sol fare tuşunu tıklayın"
+
+#: StatusBarText.resx, AddingBend
+msgid "Click left mouse button at the location of the bend"
+msgstr "Viraj yerinde sol fare tuşunu tıklayın"
+
+#: StatusBarText.resx, AddingCorner
+msgid "Click left mouse button to add a new corner"
+msgstr "Yeni bir köşe eklemek için sol fare tuşunu tıklayın"
+
+#: StatusBarText.resx, DeletingBend
+msgid "Click left mouse button on a bend to remove it"
+msgstr "Bir virajı kaldırmak için farenin sol tuşuna tıklayın"
+
+#: StatusBarText.resx, DeletingCorner
+msgid "Click left mouse button on a corner to remove it"
+msgstr "Kaldırmak için bir köşedeki sol fare düğmesini tıklayın"
+
+#: StatusBarText.resx, AddingControlGap
+msgid "Click left mouse button on the control circle to add a "
+"small gap; hold down left mouse button and drag to create "
+"a large gap"
+msgstr "Küçük bir boşluk eklemek için kontrol çemberindeki sol "
+"fare düğmesini tıklayın; Sol fare tuşunu basılı tutun ve "
+"büyük bir boşluk oluşturmak için sürükleyin"
+
+#: StatusBarText.resx, RemovingControlGap
+msgid "Click left mouse button on a gap in the control circle to "
+"remove it"
+msgstr "Kontrol grubundaki boşluğu kaldırmak için fareyle sol "
+"tıklayın"
+
+#: StatusBarText.resx, AddingLegGap
+msgid "Click left mouse button to create small gap; hold down "
+"left mouse button and drag to create a large gap in the leg"
+msgstr "Küçük boşluk oluşturmak için sol fare tuşunu tıklayın; Sol "
+"fare tuşunu basılı tutun ve bacakta geniş bir boşluk "
+"oluşturmak için sürükleyin"
+
+#: StatusBarText.resx, RemovingLegGap
+msgid "Click left mouse button on a gap in the leg to remove it"
+msgstr "Kaldırmak için bacağın bir boşluğunda farenin sol "
+"düğmesini tıklayın"
+
+#: StatusBarText.resx, SizeRectangle
+msgid "Hold down left mouse button and drag to size the selected "
+"object"
+msgstr "Sol fare tuşunu basılı tutun ve seçilen nesnenin boyutunu "
+"değiştirmek için sürükleyin"
+
+#: StatusBarText.resx, SizingRectangle
+msgid "Move edge(s) to desired location and release mouse button"
+msgstr "Kenarları istenilen yere taşıyın ve fare düğmesini bırakın"
+
+#: StatusBarText.resx, AddingDescription
+msgid "Hold down left mouse button and drag to create control "
+"descriptions"
+msgstr "Sol fare tuşunu basılı tutun ve kontrol açıklamaları "
+"oluşturmak için sürükleyin"
+
+#: StatusBarText.resx, RotatingObject
+msgid "Click left mouse button when the crossing point is rotated "
+"to the correct angle"
+msgstr "Geçiş noktası doğru açıya döndürüldüğünde farenin sol "
+"tuşuna tıklayın"
+
+#: StatusBarText.resx, AddingLineArea
+msgid "Hold down left mouse button and drag to add a line "
+"segment; click the left mouse button to finish adding object"
+msgstr "Sol fare tuşunu basılı tutun ve bir çizgi parçası eklemek "
+"için sürükleyin; Nesneyi eklemeyi bitirmek için farenin "
+"sol düğmesini tıklayın"
+
+#: StatusBarText.resx, AddingText
+msgid "Hold down left mouse button and drag to create text"
+msgstr "Sol fare tuşunu basılı tutun ve metin oluşturmak için "
+"sürükleyin"
+
+#: StatusBarText.resx, AddingExistingMapExchange
+msgid "Click left mouse button to add existing map exchange to "
+"course"
+msgstr "Var olan harita değişimini rotaya eklemek için farenizin "
+"sol tuşuna tıklayın"
+
+#: StatusBarText.resx, AddingMapExchange
+msgid "Click left mouse button to place new map exchange"
+msgstr "Yeni harita değişimi yapmak için farenizin sol tuşuna "
+"tıklayın"
+
+#: StatusBarText.resx, AddingMapExchangeToControl
+msgid "Click left mouse button to add map exchange at control "
+"\"{0}\" "
+msgstr "Harita değişimini kontrole eklemek için sol fare tuşunu "
+"tıklayın. \"{0}\" "
+
+#: StatusBarText.resx, AddingRectangle
+msgid "Hold down left mouse button and drag to create object"
+msgstr "Sol fare tuşunu basılı tutun ve nesneyi oluşturmak için "
+"sürükleyin"
+
+#: StatusBarText.resx, DraggingTopologyObject
+msgid "Drag control number to reorder it in the course (hold "
+"shift to duplicate)"
+msgstr "Parkur numaralarını yeniden sıralamak için sürükleyin "
+"(Çoğaltmak için Kaydıra basılı tutunuz)"
+
+#: StatusBarText.resx, AddingExistingMapIssue
+msgid "Click left mouse button to add existing map issue point to "
+"course"
+msgstr "Harita basımında rotayı eklemek için farenin sol düğmesine "
+"basınız"
+
+#: StatusBarText.resx, AddingMapIssue
+msgid "Click left mouse button to place new map issue point"
+msgstr "Yeni harita dağıtım noktası yerleştirmek için farenin sol "
+"düğmesine tıklayınız"
+
+#: StatusBarText.resx, StretchingObject
+msgid "Hold down left mouse button and drag to stretch the "
+"stretch the crossing point"
+msgstr "Geçiş noktasını uzatmak için farenin sol tuşuna basılı "
+"tatarak sürükleyin"
+
+#: StatusBarText.resx, ControlForMoveAllControls
+msgid "Click the left mouse button on a control or registration "
+"mark to move to a new location"
+msgstr "Yeni bir konuma taşımak için bir kontrol veya kayıt "
+"işaretinin üzerinde sol fare düğmesine tıklayın"
+
+#: StatusBarText.resx, NewLocationForMoveAllControls
+msgid "Click the left mouse button on the new location for the "
+"control or registration mark"
+msgstr "Kontrol veya kayıt işaretinin yeni konumu üzerinde farenin "
+"sol tuşuna tıklayın"
+
+#: TeamVariationsForm.resx, buttonExport.Text
+msgid "Export..."
+msgstr "Dışarı aktar..."
+
+#: TeamVariationsForm.resx, label2.Text
+msgid "Number of legs:"
+msgstr "Bacak sayısı:"
+
+#: TeamVariationsForm.resx, buttonCalculate.Text
+msgid "Assign Variations"
+msgstr "Varyasyon Ata"
+
+#: TeamVariationsForm.resx, label1.Text
+msgid "Number of teams:"
+msgstr "Takım Sayısı:"
+
+#: TeamVariationsForm.resx, fixedLegsLink.Text
+msgid "Assign fixed legs to branches..."
+msgstr "Her ayağa sabit hedefler atayın."
+
+#: TeamVariationsForm.resx, label3.Text
+msgid "Team numbers start at: "
+msgstr "Takım numaraları şuradan başlar: "
+
+#: TeamVariationsForm.resx, checkBoxHideVariationsFromMap.Text
+msgid "Hide variation codes on map"
+msgstr "Haritada varyasyon kodlarını gizle"
+
+#: TeamVariationsForm.resx, saveFileDialog.Filter
+msgid "IOF XML 3.0|*.xml|Spreadsheet (CSV)|*.csv"
+msgstr "IOF XML 3.0|*.xml|Tablo (CSV)|*.csv"
+
+#: UnusedControls.resx, okButton.Text
+msgid "Delete"
+msgstr "Sil"
+
+#: UnusedControls.resx, unusedControlsLabel.Text
+msgid "The following controls are in the All Controls collection, "
+"but not used in any course. Click Delete to remove all "
+"checked controls."
+msgstr "Tüm Denetimler koleksiyonunda bulunur ancak herhangi bir "
+"derste kullanılmaz. İşaretli kontrollerin tümünü kaldırmak "
+"için Sil düğmesini tıklayın."
+
+#: ViewAdditionalCourses.resx, labelInstructions.Text
+msgid "Choose additional courses to view with course \"{0}\"."
+msgstr "Parkurları görmek için ek parkurları seçin \"{0}\"."
+
+#: ViewAdditionalCourses.resx, $this.Text
+msgid "View Additional Courses"
+msgstr "Ek parkurları görüntüleyin"
+
