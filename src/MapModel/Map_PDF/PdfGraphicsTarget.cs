@@ -36,6 +36,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.IO;
+using System.Globalization;
 
 using SysDraw = System.Drawing;
 using PointF = System.Drawing.PointF;
@@ -71,20 +73,32 @@ namespace PurplePen.MapModel
         private Dictionary<object, XBrush> brushMap = new Dictionary<object, XBrush>(new IdentityComparer<object>());
         private Dictionary<object, XFont> fontMap = new Dictionary<object, XFont>(new IdentityComparer<object>());
         private Dictionary<object, XGraphicsPath> pathMap = new Dictionary<object, XGraphicsPath>(new IdentityComparer<object>());
+        private static readonly List<string> debugLogBuffer = new List<string>(); // Buffer for debug messages
+        private readonly string logDirectory;
 
         // Bitmaps above this size are split when drawing.
         private const int BITMAP_DRAW_LIMIT = 4000000;
 
-        public Pdf_GraphicsTarget(XGraphics gfx, bool cmykMode)
+        public Pdf_GraphicsTarget(XGraphics gfx, bool cmykMode, string logDirectory = null)
         {
             this.gfx = gfx;
             this.cmykMode = cmykMode;
+            this.logDirectory = logDirectory;
             stateStack = new Stack<XGraphicsState>();
             stringFormat = new XStringFormat();
             stringFormat.Alignment = XStringAlignment.Near;
             stringFormat.LineAlignment = XLineAlignment.Near;
             stringFormat.FormatFlags = XStringFormatFlags.MeasureTrailingSpaces;
         }
+
+        // Debugging log helper: buffers messages instead of writing to file
+#if true
+        private static void LogDebug(string method, string message)
+        {
+            string logLine = $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff}] {method}: {message}";
+            debugLogBuffer.Add(logLine);
+        }
+#endif
 
         public XGraphics XGraphics
         {
@@ -435,11 +449,25 @@ namespace PurplePen.MapModel
             gfx.DrawString(text, GetFont(fontKey), GetBrush(brushKey), upperLeft, stringFormat);
 
 #else
+#if true
+            LogDebug(nameof(DrawText),
+                $"Input: text='{text.Replace("\n", "\\n")}', fontKey={fontKey}, brushKey={brushKey}, " +
+                $"upperLeft={{X={upperLeft.X.ToString("F3", CultureInfo.InvariantCulture)},Y={upperLeft.Y.ToString("F3", CultureInfo.InvariantCulture)}}}");
+#endif
+
             XFont font = GetFont(fontKey);
             XBrush brush = GetBrush(brushKey);
 
+#if true
+            LogDebug(nameof(DrawText),
+                $"Font: Name={font.Name}, Size={font.Size.ToString("F3", CultureInfo.InvariantCulture)}, Style={font.Style}, " +
+                $"FontFamily={font.FontFamily.Name ?? "null"}");
+#endif
             List<StringGlyph> glyphs = GetGlyphs(text);
 
+#if true
+            LogDebug(nameof(DrawText), $"Glyphs: Count={glyphs.Count}");
+#endif
             SysDraw.FontStyle fs = default(SysDraw.FontStyle);
             if ((font.Style & XFontStyle.Bold) != 0)
                 fs |= SysDraw.FontStyle.Bold;
@@ -447,9 +475,26 @@ namespace PurplePen.MapModel
                 fs |= SysDraw.FontStyle.Italic;
             SysDraw.Font sdFont = GdiplusFontLoader.CreateFont(font.Name, (float)font.Size, fs);
 
+#if true
+            LogDebug(nameof(DrawText),
+                $"GdiFont: Name={sdFont.Name}, Size={sdFont.Size.ToString("F3", CultureInfo.InvariantCulture)}, Style={sdFont.Style}, " +
+                $"Unit={sdFont.Unit}");
+#endif
+
             List<RectangleF> rects = MeasureAllCharacterRanges(text, glyphs, sdFont, upperLeft);
 
+#if true
+            string rectsLog = string.Join(", ", rects.Select(r =>
+                $"{{X={r.X.ToString("F3", CultureInfo.InvariantCulture)},Y={r.Y.ToString("F3", CultureInfo.InvariantCulture)},W={r.Width.ToString("F3", CultureInfo.InvariantCulture)},H={r.Height.ToString("F3", CultureInfo.InvariantCulture)}}}"));
+            LogDebug(nameof(DrawText), $"MeasuredRectangles: [{rectsLog}]");
+#endif
+
             for (int i = 0; i < glyphs.Count; ++i) {
+#if true
+                LogDebug(nameof(DrawText),
+                    $"DrawingGlyph: Index={i}, Text='{glyphs[i].Text.Replace("\n", "\\n")}', " +
+                    $"Position={{X={rects[i].X.ToString("F3", CultureInfo.InvariantCulture)},Y={rects[i].Y.ToString("F3", CultureInfo.InvariantCulture)}}}");
+#endif
                 gfx.DrawString(glyphs[i].Text, font, brush, rects[i].Location, stringFormat);
             }
 #endif
@@ -461,32 +506,78 @@ namespace PurplePen.MapModel
             const int MAXRANGES = 32;
             List<RectangleF> rects = new List<RectangleF>();
 
+#if true
+            LogDebug(nameof(MeasureAllCharacterRanges),
+                $"Input: text='{text.Replace("\n", "\\n")}', glyphCount={glyphs.Count}, " +
+                $"fontName={font.Name}, fontSize={font.Size.ToString("F3", CultureInfo.InvariantCulture)}, " +
+                $"upperLeft={{X={upperLeft.X.ToString("F3", CultureInfo.InvariantCulture)},Y={upperLeft.Y.ToString("F3", CultureInfo.InvariantCulture)}}}");
+#endif
+
             RectangleF formatRectangle = new RectangleF(upperLeft, new SizeF(1E9F, 1E9F));
             
+#if true
+            LogDebug(nameof(MeasureAllCharacterRanges),
+                $"FormatRectangle: {{X={formatRectangle.X.ToString("F3", CultureInfo.InvariantCulture)},Y={formatRectangle.Y.ToString("F3", CultureInfo.InvariantCulture)}," +
+                $"W={formatRectangle.Width.ToString("F3", CultureInfo.InvariantCulture)},H={formatRectangle.Height.ToString("F3", CultureInfo.InvariantCulture)}}}");
+#endif
             StringFormat sf = new StringFormat(StringFormat.GenericTypographic);
             sf.Alignment = StringAlignment.Near;
             sf.LineAlignment = StringAlignment.Near;
             sf.FormatFlags |= StringFormatFlags.NoClip;
             sf.FormatFlags |= StringFormatFlags.MeasureTrailingSpaces;
 
+#if true
+            LogDebug(nameof(MeasureAllCharacterRanges),
+                $"StringFormat: Alignment={sf.Alignment}, LineAlignment={sf.LineAlignment}, " +
+                $"FormatFlags={sf.FormatFlags}");
+#endif
             SysDraw.CharacterRange[] ranges = (from gl in glyphs select new SysDraw.CharacterRange(gl.Index, gl.Length)).ToArray();
             SysDraw.Graphics gr = GetHiresGraphics();
 
+#if true
+            string rangesLog = string.Join(", ", ranges.Select(r => $"{{Index={r.First},Length={r.Length}}}"));
+            LogDebug(nameof(MeasureAllCharacterRanges), $"CharacterRanges: [{rangesLog}]");
+#endif
             for (int i = 0; i < glyphs.Count; i += MAXRANGES) {
                 int l = Math.Min(MAXRANGES, glyphs.Count - i);
+#if true
+                LogDebug(nameof(MeasureAllCharacterRanges),
+                    $"ProcessingBatch: StartIndex={i}, Count={l}");
+#endif
                 sf.SetMeasurableCharacterRanges(ranges.Skip(i).Take(l).ToArray());
                 SysDraw.Region[] regions = gr.MeasureCharacterRanges(text, font, formatRectangle, sf);
+#if true
+                LogDebug(nameof(MeasureAllCharacterRanges), $"Regions: Count={regions.Length}");
+
+                foreach (SysDraw.Region r in regions) {
+                    RectangleF bounds = r.GetBounds(gr);
+
+                    LogDebug(nameof(MeasureAllCharacterRanges),
+                        $"Region[{i + regions.ToList().IndexOf(r)}]: Bounds={{X={bounds.X.ToString("F3", CultureInfo.InvariantCulture)},Y={bounds.Y.ToString("F3", CultureInfo.InvariantCulture)}," +
+                        $"W={bounds.Width.ToString("F3", CultureInfo.InvariantCulture)},H={bounds.Height.ToString("F3", CultureInfo.InvariantCulture)} }}");
+
+                    rects.Add(bounds);
+                    r.Dispose();
+                }
+#else
                 foreach (SysDraw.Region r in regions) {
                     rects.Add(r.GetBounds(gr));
                     r.Dispose();
                 }
+#endif
             }
-            
+           
+#if true
+            LogDebug(nameof(MeasureAllCharacterRanges), $"Output: RectangleCount={rects.Count}");
+#endif
             return rects;
         }
 
         private List<StringGlyph> GetGlyphs(string text)
         {
+#if true
+            LogDebug(nameof(GetGlyphs), $"Input: text='{text.Replace("\n", "\\n")}'");
+#endif
             List<StringGlyph> glyphs = new List<StringGlyph>();
 
             if (!string.IsNullOrEmpty(text)) {
@@ -494,8 +585,18 @@ namespace PurplePen.MapModel
                 while (enumerator.MoveNext()) {
                     string grapheme = enumerator.GetTextElement();
                     glyphs.Add(new StringGlyph(enumerator.ElementIndex, grapheme.Length, grapheme));
+
+#if true
+                    LogDebug(nameof(GetGlyphs),
+                        $"Glyph: Index={enumerator.ElementIndex}, Length={grapheme.Length}, " +
+                        $"Text='{grapheme.Replace("\n", "\\n")}'");
+#endif
                 }
             }
+
+#if true
+            LogDebug(nameof(GetGlyphs), $"Output: GlyphCount={glyphs.Count}");
+#endif
 
             return glyphs;
         }
@@ -695,6 +796,23 @@ namespace PurplePen.MapModel
                 return path;
             else
                 throw new ArgumentException("Given key does not have a path created for it", "pathKey");
+        }
+
+        public static void WriteDebugLogToDirectory(string directory)
+        {
+            if (debugLogBuffer.Count > 0)
+            {
+                try
+                {
+                    string logPath = Path.Combine(directory, "DrawTextDebug.log");
+                    File.WriteAllLines(logPath, debugLogBuffer);
+                    debugLogBuffer.Clear();
+                }
+                catch
+                {
+                    // Ignore file I/O errors to avoid affecting the main process
+                }
+            }
         }
 
         public void Dispose()

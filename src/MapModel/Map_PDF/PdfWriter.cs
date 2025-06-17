@@ -50,6 +50,7 @@ using PurplePen.Graphics2D;
 
 using PdfSharp.Pdf;
 using PdfSharp.Drawing;
+using System.IO;
 
 namespace PurplePen.MapModel
 {
@@ -165,6 +166,10 @@ namespace PurplePen.MapModel
         public void Save(string filename)
         {
             document.Save(filename);
+
+            // Write debug log to the same directory as the PDF
+            string logDir = Path.GetDirectoryName(filename);
+            PurplePen.MapModel.Pdf_GraphicsTarget.WriteDebugLogToDirectory(logDir);
         }
     }
 }
