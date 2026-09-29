@@ -59,17 +59,16 @@ jobs:
     - name: Build tests
       run: dotnet build src/PurplePen_Tests/PurplePen_Tests.csproj -c Debug --no-restore
 
-    # .runsettings sets TEST_SILENTRUN so anything wanting UI fails instead of
-    # blocking the runner.
+    # ci.runsettings runs the suite silently and serially; see the file for why
+    # parallelism has to be off.
     #
-    # CreateBitmapTests runs separately: a PDF conversion in it can fire its
-    # completion callback after the progress dialog is disposed, and the
-    # unhandled exception takes the whole test host down, which would hide
-    # every test scheduled after it.
+    # CreateBitmapTests is separated because this fork's print-scale fix makes
+    # it diverge from the baseline images on purpose, so it is reported rather
+    # than allowed to fail the run.
     - name: Run tests
-      run: dotnet test src/PurplePen_Tests/PurplePen_Tests.csproj -c Debug --no-build --settings src/.runsettings --filter "FullyQualifiedName!~CreateBitmapTests" --logger "console;verbosity=normal"
+      run: dotnet test src/PurplePen_Tests/PurplePen_Tests.csproj -c Debug --no-build --settings .github/ci.runsettings --filter "FullyQualifiedName!~CreateBitmapTests" --logger "console;verbosity=normal"
 
     - name: Run CreateBitmapTests
       if: always()
       continue-on-error: true
-      run: dotnet test src/PurplePen_Tests/PurplePen_Tests.csproj -c Debug --no-build --settings src/.runsettings --filter "FullyQualifiedName~CreateBitmapTests" --logger "console;verbosity=normal"
+      run: dotnet test src/PurplePen_Tests/PurplePen_Tests.csproj -c Debug --no-build --settings .github/ci.runsettings --filter "FullyQualifiedName~CreateBitmapTests" --logger "console;verbosity=normal"
