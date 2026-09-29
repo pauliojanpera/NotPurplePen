@@ -39,6 +39,13 @@ jobs:
     - name: Install HTML Help Workshop
       run: choco install html-help-workshop --no-progress --yes
 
+    # DotSpatial.Projections.Tests compares the managed projections against the
+    # real proj.4 library. The committed x86 and x64 proj.dll both import
+    # MSVCR100.dll, which is not on the runner, so LoadLibrary fails and the
+    # type initializer throws.
+    - name: Install Visual C++ 2010 runtime
+      run: choco install vcredist2010 --no-progress --yes
+
     # msbuild rather than dotnet build: the solution contains the native C++
     # projects that Map_GDIPlus copies into its output.
     - name: Build
