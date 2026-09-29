@@ -45,6 +45,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestingUtils;
 using System.Globalization;
 using System.Threading;
+using System.Threading.Tasks;
 
 // Things to test:
 // -- score course
@@ -58,49 +59,49 @@ namespace PurplePen.Tests
         TestUI ui;
         Controller controller;
 
-        public void Setup(string filename)
+        public async Task Setup(string filename)
         {
             ui = TestUI.Create();
             controller = ui.controller;
-            bool success = controller.LoadInitialFile(TestUtil.GetTestFile(filename), true);
+            bool success = await controller.LoadInitialFile(TestUtil.GetTestFile(filename), true);
             Assert.IsTrue(success);
         }
 
 
         [TestMethod]
-        public void ExportXmlTestV2()
+        public async Task ExportXmlTestV2()
         {
             Dictionary<string, string> exceptions = ExportXmlVersion2.TestFileExceptionMap();
 
             string outputFile = TestUtil.GetTestFile("exportxml\\marymoor_actual.xml");
             string expectedFile = TestUtil.GetTestFile("exportxml\\marymoor_expected.xml");
 
-            Setup("exportxml\\marymoor.ppen");
+            await Setup("exportxml\\marymoor.ppen");
 
             controller.ExportXml(outputFile, RectangleF.FromLTRB(-29.5F, -113.1F, 232.9F, 86.7F), 2);
 
-            TestUtil.CompareTextFileBaseline(outputFile, expectedFile, exceptions);
+            TextFileTestUtil.CompareTextFileBaseline(outputFile, expectedFile, exceptions);
             File.Delete(outputFile);
         }
 
         [TestMethod]
-        public void ExportXmlTestV3()
+        public async Task ExportXmlTestV3()
         {
             Dictionary<string, string> exceptions = ExportXmlVersion3.TestFileExceptionMap();
 
             string outputFile = TestUtil.GetTestFile("exportxml\\marymoor_actual_v3.xml");
             string expectedFile = TestUtil.GetTestFile("exportxml\\marymoor_expected_v3.xml");
 
-            Setup("exportxml\\marymoor.ppen");
+            await Setup("exportxml\\marymoor.ppen");
 
             controller.ExportXml(outputFile, RectangleF.FromLTRB(-29.5F, -113.1F, 232.9F, 86.7F), 3);
 
-            TestUtil.CompareTextFileBaseline(outputFile, expectedFile, exceptions);
+            TextFileTestUtil.CompareTextFileBaseline(outputFile, expectedFile, exceptions);
             File.Delete(outputFile);
         }
 
         [TestMethod]
-        public void ExportXmlTestOtherLocaleV2()
+        public async Task ExportXmlTestOtherLocaleV2()
         {
             CultureInfo cultureUISave = Thread.CurrentThread.CurrentUICulture;
             CultureInfo cultureSave = Thread.CurrentThread.CurrentCulture;
@@ -113,11 +114,11 @@ namespace PurplePen.Tests
                 string outputFile = TestUtil.GetTestFile("exportxml\\marymoor_actual.xml");
                 string expectedFile = TestUtil.GetTestFile("exportxml\\marymoor_expected.xml");
 
-                Setup("exportxml\\marymoor.ppen");
+                await Setup("exportxml\\marymoor.ppen");
 
                 controller.ExportXml(outputFile, RectangleF.FromLTRB(-29.5F, -113.1F, 232.9F, 86.7F), 2);
 
-                TestUtil.CompareTextFileBaseline(outputFile, expectedFile, exceptions);
+                TextFileTestUtil.CompareTextFileBaseline(outputFile, expectedFile, exceptions);
                 File.Delete(outputFile);
             }
             finally {
@@ -127,7 +128,7 @@ namespace PurplePen.Tests
         }
 
         [TestMethod]
-        public void ExportXmlTestOtherLocaleV3()
+        public async Task ExportXmlTestOtherLocaleV3()
         {
             CultureInfo cultureUISave = Thread.CurrentThread.CurrentUICulture;
             CultureInfo cultureSave = Thread.CurrentThread.CurrentCulture;
@@ -140,11 +141,11 @@ namespace PurplePen.Tests
                 string outputFile = TestUtil.GetTestFile("exportxml\\marymoor_actual_v3.xml");
                 string expectedFile = TestUtil.GetTestFile("exportxml\\marymoor_expected_v3.xml");
 
-                Setup("exportxml\\marymoor.ppen");
+                await Setup("exportxml\\marymoor.ppen");
 
                 controller.ExportXml(outputFile, RectangleF.FromLTRB(-29.5F, -113.1F, 232.9F, 86.7F), 3);
 
-                TestUtil.CompareTextFileBaseline(outputFile, expectedFile, exceptions);
+                TextFileTestUtil.CompareTextFileBaseline(outputFile, expectedFile, exceptions);
                 File.Delete(outputFile);
             }
             finally {
@@ -154,98 +155,98 @@ namespace PurplePen.Tests
         }
 
         [TestMethod]
-        public void ExportXmlTestMapExchangeV2()
+        public async Task ExportXmlTestMapExchangeV2()
         {
             Dictionary<string, string> exceptions = ExportXmlVersion2.TestFileExceptionMap();
 
             string outputFile = TestUtil.GetTestFile("exportxml\\mapexchange1_actual.xml");
             string expectedFile = TestUtil.GetTestFile("exportxml\\mapexchange1_expected.xml");
 
-            Setup("exportxml\\mapexchange1.ppen");
+            await Setup("exportxml\\mapexchange1.ppen");
 
             controller.ExportXml(outputFile, RectangleF.FromLTRB(-29.5F, -113.1F, 232.9F, 86.7F), 2);
 
-            TestUtil.CompareTextFileBaseline(outputFile, expectedFile, exceptions);
+            TextFileTestUtil.CompareTextFileBaseline(outputFile, expectedFile, exceptions);
             File.Delete(outputFile);
         }
 
         [TestMethod]
-        public void ExportXmlTestMapExchangeV3()
+        public async Task ExportXmlTestMapExchangeV3()
         {
             Dictionary<string, string> exceptions = ExportXmlVersion3.TestFileExceptionMap();
 
             string outputFile = TestUtil.GetTestFile("exportxml\\mapexchange1_actual_v3.xml");
             string expectedFile = TestUtil.GetTestFile("exportxml\\mapexchange1_expected_v3.xml");
 
-            Setup("exportxml\\mapexchange1.ppen");
+            await Setup("exportxml\\mapexchange1.ppen");
 
             controller.ExportXml(outputFile, RectangleF.FromLTRB(-29.5F, -113.1F, 232.9F, 86.7F), 3);
 
-            TestUtil.CompareTextFileBaseline(outputFile, expectedFile, exceptions);
+            TextFileTestUtil.CompareTextFileBaseline(outputFile, expectedFile, exceptions);
             File.Delete(outputFile);
         }
 
         [TestMethod]
-        public void ExportGeoreferencedXmlTestV2()
+        public async Task ExportGeoreferencedXmlTestV2()
         {
             Dictionary<string, string> exceptions = ExportXmlVersion2.TestFileExceptionMap();
 
             string outputFile = TestUtil.GetTestFile("exportxml\\teanaway_actual.xml");
             string expectedFile = TestUtil.GetTestFile("exportxml\\teanaway_expected.xml");
 
-            Setup("exportxml\\teanawayxml.ppen");
+            await Setup("exportxml\\teanawayxml.ppen");
 
             controller.ExportXml(outputFile, RectangleF.FromLTRB(-22F, -270F, 257F, -54F), 2);
 
-            TestUtil.CompareTextFileBaseline(outputFile, expectedFile, exceptions);
+            TextFileTestUtil.CompareTextFileBaseline(outputFile, expectedFile, exceptions);
             File.Delete(outputFile);
         }
 
         [TestMethod]
-        public void ExportGeoreferencedXmlTestV3()
+        public async Task ExportGeoreferencedXmlTestV3()
         {
             Dictionary<string, string> exceptions = ExportXmlVersion3.TestFileExceptionMap();
 
             string outputFile = TestUtil.GetTestFile("exportxml\\teanaway_actual_v3.xml");
             string expectedFile = TestUtil.GetTestFile("exportxml\\teanaway_expected_v3.xml");
 
-            Setup("exportxml\\teanawayxml.ppen");
+            await Setup("exportxml\\teanawayxml.ppen");
 
             controller.ExportXml(outputFile, RectangleF.FromLTRB(-22F, -270F, 257F, -54F), 3);
 
-            TestUtil.CompareTextFileBaseline(outputFile, expectedFile, exceptions);
+            TextFileTestUtil.CompareTextFileBaseline(outputFile, expectedFile, exceptions);
             File.Delete(outputFile);
         }
 
         [TestMethod]
-        public void ExportRelayV2()
+        public async Task ExportRelayV2()
         {
             Dictionary<string, string> exceptions = ExportXmlVersion2.TestFileExceptionMap();
 
             string outputFile = TestUtil.GetTestFile("exportxml\\relay_actual.xml");
             string expectedFile = TestUtil.GetTestFile("exportxml\\relay_expected.xml");
 
-            Setup("exportxml\\relay.ppen");
+            await Setup("exportxml\\relay.ppen");
 
             controller.ExportXml(outputFile, RectangleF.FromLTRB(-22F, -270F, 257F, -54F), 2);
 
-            TestUtil.CompareTextFileBaseline(outputFile, expectedFile, exceptions);
+            TextFileTestUtil.CompareTextFileBaseline(outputFile, expectedFile, exceptions);
             File.Delete(outputFile);
         }
 
         [TestMethod]
-        public void ExportRelayV3()
+        public async Task ExportRelayV3()
         {
             Dictionary<string, string> exceptions = ExportXmlVersion3.TestFileExceptionMap();
 
             string outputFile = TestUtil.GetTestFile("exportxml\\relay_actual_v3.xml");
             string expectedFile = TestUtil.GetTestFile("exportxml\\relay_expected_v3.xml");
 
-            Setup("exportxml\\relay.ppen");
+            await Setup("exportxml\\relay.ppen");
 
             controller.ExportXml(outputFile, RectangleF.FromLTRB(-22F, -270F, 257F, -54F), 3);
 
-            TestUtil.CompareTextFileBaseline(outputFile, expectedFile, exceptions);
+            TextFileTestUtil.CompareTextFileBaseline(outputFile, expectedFile, exceptions);
             File.Delete(outputFile);
         }
 

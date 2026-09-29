@@ -20,6 +20,9 @@ Pain points:
 		the resulting path. Hopefully there are no conics, but I don't think
 		that there should be.
 
+		This is now an official PdfSharp for .NET Core: https://github.com/empira/PDFsharp and
+		a nuget for it.
+
 		Here's pages that describes converting a quadratic Bezier to a cubic:
 
 		https://fontforge.org/docs/techref/bezier.html
@@ -37,11 +40,23 @@ Pain points:
 
    Reports use Web Browser control for rendering and printing. There is an HTML renderers
    for Avalonia which should be good enough for reports, but printing will be difficult. Maybe can print
-   by launching a browser and printing from there. This should be doable.
+   by launching a browser and printing from there. This should be doable. We can use PuppeteerSharp for printing
+   or maybe Chrome (if installed) or AppleScript for Mac. cups can also print HTML but may not handle
+   the pagination well. I think PuppeteerSharp is probably the best bet, and we can use it on Windows too. 
+   Here's a Gemini conversation that covers these options: https://gemini.google.com/share/8fdeb8d0cfa5
+   Looks like Avalonia 12 has covered this now with the NativeWebView control. It has support for triggering printing.
+   
+   Or maybe just do our own rendering implementation for reports. HTML does have some nice styling and word-wrapping features in 
+   tables that would take some work, but it would be more self-contained and not require a browser. We could use SkiaSharp to do 
+   the rendering, and then print the resulting PDF, and also allow saving reports to PDFs, which we didn't have a direct solution
+   for before (but Microsoft Print to PDF). This would make print preview easier and more consistent too.
 
    Generally printing is hard. On mac and linux print by creating a PDF and that launching a command
    line app that prints a pdf. The lp can be used. Need to figure out a way to determine which printers
-   can be used.
+   can be used. This can all be done: lpstat to get list of printers, and lpoptions to get options for each printer.
+   Look at xdg-desktop-portal for Linux -- may be better way to do this. 
+   Another thought for printing: just use the NativeWebView control to do printing. Just initialize it with a 
+   PDF?
 
    Localization is somewhat tricky in Avalonia. There are resources for this.
 
@@ -58,3 +73,63 @@ Pain points:
 
    Reading PDFs. Needing PdiumSharp. There are a bunch of versions on GitHub. Need to look
    them over to see which is best. Probably still package as an EXE. Use similar caching strategy as before.
+   Look at PDFiumCore.
+
+   CrashReporter - need to redo this to be cross platform and use web request to a web server
+   instead of email.
+
+   Be sure to visit all #if PORTING.
+
+   Things not yet ported:
+       - Pause after each page when printing.
+	   - Installing Roboto fonts into the OS fonts.
+	   - JPEG quality setting; should be 80 like it was before, or maybe settable.
+	   - Check GIF quantization settings. Should maybe disable dithering?
+	   - Handling count in printing courses.
+
+
+There are some string resources with extra & or _ prefixes that shouldn't be there. See the event wizard,
+for example, but this needs a more detailed review of all UI strings.
+
+Possible fonts to use for UI:
+Inter Tight
+Didact Gothic
+Sofia Sans
+Fira Sans
+Source Sans 3  <-- this is what I currently chose.
+Lato
+
+Dialogs remaining to port:
+DownloadProgressDialog (Should be able to use OperationInProgressDialog instead).
+PrintCourses
+
+
+Hand cursor isn't show when dragging map.
+
+Consider turning on Aliasing for printing, when we do explicit printing on Windows.
+
+List of stuff:
+  - check for new versions; download and install. Different for Windows/Mac/Linux, although the checking for new versions can be shared.
+    we should update the checking mechanism to be more robust and have a better format. Probably use NetSparkle.
+
+
+  After Beta 1:
+  - Arial/Times New Roman fonts for linux. Use CrossCore fonts for these. Not really that important because most Linux
+    includes them already, but be good for at least Arial and Times New Roman, I think.
+  - Update localization from our old localizations. Figure out how to remove duplicates.
+  - New localization platform.
+  - Direct printing. Different for Windows/Mac/Linux.
+  - Help file.
+  - Hand cursor isn't show when dragging map.
+  - Checking for and installing Roboto fonts.
+  - Dialogs for localizing descriptions text.
+  - Move to a new localization platform.
+  - Move PurplePen tests to a PurplePenCore test project. Leave maybe a few behind that are Windows specific.
+  - Make SampleEvent not saveable at all.
+  - Pause after each page when printing.
+  - JPEG quality setting; should be 80 like it was before, or maybe settable. 
+  - Check GIF quantization settings. Should maybe disable dithering?
+  - Handling count in printing courses.
+
+Later:
+  - Update PdfSharp to latest version.

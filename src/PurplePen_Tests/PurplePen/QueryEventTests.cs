@@ -33,19 +33,19 @@
  */
 
 #if TEST
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PurplePen.MapModel;
+using PurplePen_Tests.PurplePen;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.IO;
 using System.Diagnostics;
-using System.Globalization;
 using System.Drawing;
+using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestingUtils;
-
-using PurplePen.MapModel;
 
 namespace PurplePen.Tests
 {
@@ -1253,15 +1253,15 @@ namespace PurplePen.Tests
             FlaggingKind flagging;
 
             flagging = QueryEvent.GetLegFlagging(eventDB, ControlId(1), ControlId(2));
-            Assert.AreEqual(flagging, FlaggingKind.None);
+            Assert.AreEqual(FlaggingKind.None, flagging);
             flagging = QueryEvent.GetLegFlagging(eventDB, ControlId(2), ControlId(3));
-            Assert.AreEqual(flagging, FlaggingKind.All);
+            Assert.AreEqual(FlaggingKind.All, flagging);
             flagging = QueryEvent.GetLegFlagging(eventDB, ControlId(3), ControlId(4));
-            Assert.AreEqual(flagging, FlaggingKind.Begin);
+            Assert.AreEqual(FlaggingKind.Begin, flagging);
             flagging = QueryEvent.GetLegFlagging(eventDB, ControlId(4), ControlId(5));
-            Assert.AreEqual(flagging, FlaggingKind.None);
+            Assert.AreEqual(FlaggingKind.None, flagging);
             flagging = QueryEvent.GetLegFlagging(eventDB, ControlId(5), ControlId(6));
-            Assert.AreEqual(flagging, FlaggingKind.All);
+            Assert.AreEqual(FlaggingKind.All, flagging);
         }
 
         [TestMethod]
@@ -1274,7 +1274,7 @@ namespace PurplePen.Tests
             gaps = QueryEvent.GetLegGaps(eventDB, ControlId(1), ControlId(2));
             TestUtil.TestEnumerableAnyOrder(gaps, new LegGap[] { new LegGap(7, 3.5F), new LegGap(25, 9) });
             gaps = QueryEvent.GetLegGaps(eventDB, ControlId(5), ControlId(6));
-            Assert.AreEqual(gaps, null);
+            Assert.IsNull(gaps);
         }
 
         [TestMethod]
@@ -2009,7 +2009,7 @@ namespace PurplePen.Tests
             Assert.IsFalse(result);
 
             undomgr.BeginCommand(1038, "add image");
-            ChangeEvent.AddImageSpecial(eventDB, new RectangleF(0, 0, 1, 1), (Bitmap)Image.FromFile(TestUtil.GetTestFile("coursesymbols\\mrsneeze.jpg")), "test.jpg");
+            ChangeEvent.AddImageSpecial(eventDB, new RectangleF(0, 0, 1, 1), PurplePenTestUtils.LoadBitmap(TestUtil.GetTestFile("coursesymbols\\mrsneeze.jpg")), "test.jpg");
             undomgr.EndCommand(1038);
 
             result = QueryEvent.IsImageNameUsed(eventDB, "test.jpg");
@@ -2028,14 +2028,14 @@ namespace PurplePen.Tests
             Assert.AreEqual("mrsneeze(1).jpg", result);
 
             undomgr.BeginCommand(1038, "add image");
-            ChangeEvent.AddImageSpecial(eventDB, new RectangleF(0, 0, 1, 1), (Bitmap)Image.FromFile(TestUtil.GetTestFile("coursesymbols\\mrsneeze.jpg")), result);
+            ChangeEvent.AddImageSpecial(eventDB, new RectangleF(0, 0, 1, 1), PurplePenTestUtils.LoadBitmap(TestUtil.GetTestFile("coursesymbols\\mrsneeze.jpg")), result);
             undomgr.EndCommand(1038);
 
             result = QueryEvent.UniqueImageName(eventDB, "mrsneeze.jpg");
             Assert.AreEqual("mrsneeze(2).jpg", result);
 
             undomgr.BeginCommand(1038, "add image");
-            ChangeEvent.AddImageSpecial(eventDB, new RectangleF(0, 0, 1, 1), (Bitmap)Image.FromFile(TestUtil.GetTestFile("coursesymbols\\mrsneeze.jpg")), "foo");
+            ChangeEvent.AddImageSpecial(eventDB, new RectangleF(0, 0, 1, 1), PurplePenTestUtils.LoadBitmap(TestUtil.GetTestFile("coursesymbols\\mrsneeze.jpg")), "foo");
             undomgr.EndCommand(1038);
 
             result = QueryEvent.UniqueImageName(eventDB, "foo");

@@ -44,6 +44,7 @@ namespace PurplePen
 {
     public partial class AutoNumbering: OkCancelDialog
     {
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int FirstCode {
             get {
                 return (int) startingCodeNumericUpDown.Value;
@@ -60,6 +61,7 @@ namespace PurplePen
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool DisallowInvertibleCodes
         {
             get
@@ -72,6 +74,7 @@ namespace PurplePen
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool RenumberExisting {
             get
             {
@@ -208,11 +211,6 @@ namespace PurplePen
             this.PerformLayout();
 
         }
-        private CheckBox disallowInvertibleCheckBox;
-        private GroupBox existingControlsGroupBox;
-        private RadioButton renumberExistingRadioButton;
-        private RadioButton newControlsOnlyRadioButton;
-        private Label automaticNumberingLabel;       
 
         #endregion
     }

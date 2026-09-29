@@ -1,0 +1,449 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="AvPurplePen.App"
+             xmlns:local="using:AvPurplePen"
+             xmlns:resx="using:AvPurplePen"
+             xmlns:semi="https://irihi.tech/semi"
+             >
+             <!-- Theme variant is set in App.axaml.cs -->
+
+    <!-- ============ macOS APPLICATION MENU ============ -->
+    <!-- The menu named after the program, at the left end of the macOS menu bar. About and
+         Program Language belong here rather than in Help and File, so the copies in those menus
+         hide themselves on macOS (see the IsNotMacOS bindings in MainWindow.axaml). Avalonia
+         appends the standard Services/Hide/Quit block to this menu, so those items are not
+         declared here. On Windows and Linux there is no application menu and this is ignored.
+
+         The items use Click handlers rather than {Binding SomeCommand}: this menu is built once at
+         startup and outlives any one MainWindowViewModel, and it is also on screen while the
+         welcome screen is up, when no MainWindowViewModel exists at all. -->
+    <NativeMenu.Menu>
+        <NativeMenu>
+            <NativeMenuItem Header="{resx:Localize MainFrame_aboutMenu_Text}"
+                            Click="AboutMenuItem_Click"/>
+            <NativeMenuItemSeparator/>
+            <NativeMenuItem Header="{resx:Localize MainFrame_programLanguageMenu_Text}"
+                            Click="ProgramLanguageMenuItem_Click"/>
+        </NativeMenu>
+    </NativeMenu.Menu>
+
+    <Application.DataTemplates>
+        <local:ViewLocator/>
+    </Application.DataTemplates>
+
+    <Application.Resources>
+        <FontFamily x:Key="DefaultFontFamily">avares://PurplePen/Assets/UIFonts#Source Sans 3</FontFamily>
+        <!-- Override Semi.Avalonia's default font (Inter) with our embedded font -->
+        <FontFamily x:Key="SemiFontFamilyRegular">avares://PurplePen/Assets/UIFonts#Source Sans 3</FontFamily>
+
+        <!-- Fixed-pitch font, used where column alignment matters (currently the error
+             details dialog's stack traces). No monospace font is embedded, so this names
+             the usual platform faces; Avalonia falls through the list to the first one
+             that resolves, and to the platform default if none do.
+             NOTE: ErrorDetailsDialog.axaml repeats this list in a local resource override.
+             Keep the two in step; see the comment there for why the override is needed. -->
+        <FontFamily x:Key="MonospaceFontFamily">Consolas,Menlo,DejaVu Sans Mono,Courier New</FontFamily>
+
+        <!-- Override Semi.Avalonia's menu popup max height (default 400) to prevent scrolling -->
+        <x:Double x:Key="MenuFlyoutMaxHeight">10000</x:Double>
+
+        <!-- Flyout sizing overrides (defaults: min 100, max 600) -->
+        <x:Double x:Key="FlyoutMinHeight">60</x:Double>
+        <x:Double x:Key="FlyoutMaxHeight">1000</x:Double>
+
+        <!-- Top-level menu bar item padding (File, Edit, ...): default is "16 0". -->
+        <Thickness x:Key="TopLevelMenuItemPadding">10 2</Thickness>
+
+        <!-- Top-level menu bar item min height: default is SemiHeightControlDefault (32). -->
+        <x:Double x:Key="TopLevelMenuItemMinHeight">24</x:Double>
+
+        <!-- Menu item padding: default is "16 8" (horiz vert). Reduce vertical padding. -->
+        <Thickness x:Key="MenuItemPadding">16 2</Thickness>
+
+        <!-- ComboBox dropdown item padding: default is "12 8" (horiz vert). -->
+        <Thickness x:Key="ComboBoxItemDefaultPadding">12 4</Thickness>
+
+        <!-- ListBox item padding: default is "12 8" (horiz vert). -->
+        <Thickness x:Key="ListBoxItemDefaultPadding">8 2</Thickness> 
+
+        <!-- Menu item text: full black -->
+        <SolidColorBrush x:Key="MenuItemForeground" Color="Black"/>
+        <!-- Menu and ComboBox item hover background: Blue5 at 25% opacity -->
+        <SolidColorBrush x:Key="MenuItemPointeroverBackground" Color="{StaticResource SemiBlue5Color}" Opacity="0.25"/>
+        <!-- Text selection highlight: same Blue5 at 25% opacity used for menu/dropdown highlighting -->
+        <SolidColorBrush x:Key="TextSelectionHighlightBackground" Color="{StaticResource SemiBlue5Color}" Opacity="0.25"/>
+        <SolidColorBrush x:Key="ComboBoxItemPointeroverBackground" Color="{StaticResource SemiBlue5Color}" Opacity="0.25"/>
+        <SolidColorBrush x:Key="ComboBoxItemSelectedBackground" Color="Transparent"/>
+        <SolidColorBrush x:Key="ComboBoxItemSelectedPointeroverBackground" Color="{StaticResource SemiBlue5Color}" Opacity="0.25"/>
+
+        <!-- Dialog background color -->
+        <SolidColorBrush x:Key="DialogBackground" Color="#F9F6F1"/>
+
+        <!-- Input control background colors -->
+        <SolidColorBrush x:Key="InputBackground" Color="#FBFBFB"/>
+        <SolidColorBrush x:Key="InputActiveBackground" Color="#FFFFFF"/>
+
+        <!-- Dark grey border for input controls, popups, splitters, group boxes -->
+        <SolidColorBrush x:Key="DarkGreyBorder" Color="{StaticResource SemiGrey3Color}"/>
+        <!-- Card tab border — same as DarkGreyBorder so selected tab border is visible -->
+        <SolidColorBrush x:Key="TabControlSeparatorBorderBrush" Color="{StaticResource SemiGrey3Color}"/>
+        <SolidColorBrush x:Key="ComboBoxPopupBorderBrush" Color="{StaticResource SemiGrey3Color}"/>
+        <SolidColorBrush x:Key="ComboBoxSelectorBorderedBorderBrush" Color="{StaticResource SemiGrey3Color}"/>
+        <SolidColorBrush x:Key="HeaderedContentControlBorderBrush" Color="{StaticResource SemiGrey3Color}"/>
+        <SolidColorBrush x:Key="GridSplitterBackground" Color="{StaticResource SemiGrey4Color}"/>
+
+        <!-- Tooltip styling: dark text on light yellow background -->
+        <StaticResource x:Key="ToolTipForeground" ResourceKey="SemiColorText0"/>
+        <SolidColorBrush x:Key="ToolTipBackground" Color="{StaticResource SemiYellow1Color}"/>
+        <StaticResource x:Key="ToolTipBorderBrush" ResourceKey="DarkGreyBorder"/>
+
+        <!-- Tab strip: selected tab text full black (default is SemiColorText0 / #1C1F23) -->
+        <SolidColorBrush x:Key="TabItemLineHeaderSelectedForeground" Color="Black"/>
+
+        <!-- Tab strip: regular weight for selected tabs (default is SemiBold/600) -->
+        <FontWeight x:Key="TabItemSelectedFontWeight">Regular</FontWeight>
+        <!-- Tab strip: compact height (default is 32) -->
+        <x:Double x:Key="TabItemCardDefaultHeight">24</x:Double>
+
+    </Application.Resources>
+
+
+    <Application.Styles>
+        <semi:SemiTheme Locale="en-US" />
+        <semi:DataGridSemiTheme />
+
+        <!-- Use embedded Source Sans 3 as the default font for all controls -->
+        <Style Selector=":is(TemplatedControl)">
+            <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
+        </Style>
+        <Style Selector="TextBlock">
+            <Setter Property="FontFamily" Value="{DynamicResource DefaultFontFamily}"/>
+        </Style>
+
+        <!-- Wizard page header (bold title shown in the New Event wizard's top title strip) -->
+        <Style Selector="TextBlock.wizardHeader">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <!-- Tab strip: smaller font size, adjust padding and margin -->
+        <Style Selector="TabStripItem">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="6 1 6 0"/>
+            <Setter Property="Margin" Value="1 0 0 0"/>
+        </Style>
+        <Style Selector="TabStrip TabStripItem:nth-last-child(1)">
+            <!-- remove special case for last tab item so all tabs have the same margin -->
+            <Setter Property="Margin" Value="1 0 0 0"/>
+        </Style>
+        <Style Selector="TabStripItem:selected">
+            <!-- because the active tab has border changes, adjust the padding so the text doesn't move -->
+            <Setter Property="Padding" Value="5 0 5 0"/>
+        </Style>
+        <!-- Left indent for the tab strip items (Padding on TabStrip has no effect because
+             the CardTabStrip template doesn't bind Padding to the outer Border) -->
+        <Style Selector="TabStrip /template/ ItemsPresenter#PART_ItemsPresenter">
+            <Setter Property="Margin" Value="2 0 0 0"/>
+        </Style>
+
+        <!-- Making the border separators a little smaller than the default 1px makes it actually
+             look like 1 pixel. Otherwise it rounds weirdly up to 2pm on 125% scaling. Using 0.8px
+             makes it look like 1px at all common scaling levels. -->
+        <Style Selector="TabStrip /template/ Border#PART_BorderSeparator">
+            <Setter Property="Height" Value="0.8"/>
+        </Style>
+
+
+        <!-- Selected text in every TextBox (including the inner ones in ComboBox,
+             AutoCompleteBox, NumericUpDown): black text on a light blue background,
+             matching the highlight color used in menus and drop-down lists. The Semi
+             HighContrast theme otherwise selects with a dark blue background. -->
+        <Style Selector="TextBox">
+            <Setter Property="SelectionBrush" Value="{DynamicResource TextSelectionHighlightBackground}"/>
+            <Setter Property="SelectionForegroundBrush" Value="Black"/>
+        </Style>
+
+        <!-- Global input control overrides (Small size + border + background styling)
+             :not(#PART_EditableTextBox) excludes the inner TextBox inside editable ComboBox. -->
+        <Style Selector="TextBox:not(#PART_EditableTextBox)">
+            <Setter Property="MinHeight" Value="{DynamicResource TextBoxSmallHeight}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource DarkGreyBorder}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="{DynamicResource InputBackground}"/>
+        </Style>
+        <Style Selector="TextBox:not(#PART_EditableTextBox):pointerover /template/ Border#PART_ContentPresenterBorder">
+            <Setter Property="Background" Value="{DynamicResource InputActiveBackground}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource DarkGreyBorder}"/>
+        </Style>
+        <Style Selector="TextBox:not(#PART_EditableTextBox):focus /template/ Border#PART_ContentPresenterBorder">
+            <Setter Property="Background" Value="{DynamicResource InputActiveBackground}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource SemiColorFocusBorder}"/>
+        </Style>
+        <Style Selector="TextBox:not(#PART_EditableTextBox):focus:pointerover /template/ Border#PART_ContentPresenterBorder">
+            <Setter Property="BorderBrush" Value="{DynamicResource SemiColorFocusBorder}"/>
+        </Style>
+        <Style Selector="ListBox">
+            <Setter Property="BorderBrush" Value="{DynamicResource DarkGreyBorder}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="3"/>
+            <Setter Property="Background" Value="{DynamicResource InputBackground}"/>
+        </Style>
+        <Style Selector="ListBox /template/ ScrollViewer#PART_ScrollViewer">
+            <Setter Property="Margin" Value="0 0 2 0"/>
+        </Style>
+        <Style Selector="ListBox:focus-within">
+            <Setter Property="Background" Value="{DynamicResource InputActiveBackground}"/>
+        </Style>
+        <Style Selector="ListBox:pointerover">
+            <Setter Property="Background" Value="{DynamicResource InputActiveBackground}"/>
+        </Style>
+        <Style Selector="AutoCompleteBox">
+            <Setter Property="MinHeight" Value="{DynamicResource AutoCompleteBoxSmallHeight}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource DarkGreyBorder}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="{DynamicResource InputBackground}"/>
+        </Style>
+        <Style Selector="AutoCompleteBox:pointerover">
+            <Setter Property="Background" Value="{DynamicResource InputActiveBackground}"/>
+        </Style>
+        <Style Selector="AutoCompleteBox:focus">
+            <Setter Property="Background" Value="{DynamicResource InputActiveBackground}"/>
+        </Style>
+        <Style Selector="ComboBox">
+            <Setter Property="MinHeight" Value="{DynamicResource ComboBoxSmallHeight}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource DarkGreyBorder}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="{DynamicResource InputBackground}"/>
+        </Style>
+        <!-- Reset inner TextBox height in editable ComboBox so it doesn't force a larger size -->
+        <Style Selector="ComboBox TextBox#PART_EditableTextBox">
+            <Setter Property="MinHeight" Value="0"/>
+        </Style>
+        <Style Selector="ComboBox:pointerover">
+            <Setter Property="Background" Value="{DynamicResource InputActiveBackground}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource DarkGreyBorder}"/>
+        </Style>
+        <Style Selector="ComboBox:focus">
+            <Setter Property="Background" Value="{DynamicResource InputActiveBackground}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource SemiColorFocusBorder}"/>
+        </Style>
+        <Style Selector="ComboBox:focus:pointerover">
+            <Setter Property="BorderBrush" Value="{DynamicResource SemiColorFocusBorder}"/>
+        </Style>
+        <Style Selector="ComboBox:dropdownopen">
+            <Setter Property="Background" Value="{DynamicResource InputActiveBackground}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource DarkGreyBorder}"/>
+        </Style>
+        <Style Selector="ComboBox:dropdownopen /template/ PathIcon#DropDownGlyph">
+            <Setter Property="Foreground" Value="{DynamicResource SemiColorText0}"/>
+        </Style>
+        <Style Selector="NumericUpDown">
+            <Setter Property="MinHeight" Value="{DynamicResource NumericUpDownSmallHeight}"/>
+            <Setter Property="Background" Value="{DynamicResource InputBackground}"/>
+        </Style>
+        <Style Selector="NumericUpDown:pointerover">
+            <Setter Property="Background" Value="{DynamicResource InputActiveBackground}"/>
+        </Style>
+        <Style Selector="NumericUpDown:focus-within">
+            <Setter Property="Background" Value="{DynamicResource InputActiveBackground}"/>
+        </Style>
+        <!-- Keep focus off the NumericUpDown's small up/down arrow buttons, both when tabbing
+             and when clicking them, so it stays in the text box; the arrow keys already change
+             the value from there. The Semi ButtonSpinner template doesn't set IsTabStop on its
+             RepeatButtons (Fluent binds it to the spinner's), so it must be reached through
+             both nested templates. App.axaml.cs moves focus back to the text box after an
+             arrow is clicked. -->
+        <Style Selector="NumericUpDown /template/ ButtonSpinner /template/ RepeatButton">
+            <Setter Property="IsTabStop" Value="False"/>
+            <Setter Property="Focusable" Value="False"/>
+        </Style>
+
+        <!-- Dialog button border (must target template part — Semi doesn't
+             use TemplateBinding for BorderBrush on the ContentPresenter).
+             :not(.borderless) lets a Button opt out via Classes="borderless"
+             so the BorderlessButton ControlTheme can take effect. -->
+        <Style Selector="Window.dialog Button:not(.borderless) /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="BorderBrush" Value="{DynamicResource SemiGrey4}"/>
+        </Style>
+        <Style Selector="Window.dialog Button:not(.borderless):pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="BorderBrush" Value="{DynamicResource SemiGrey5}"/>
+        </Style>
+        <Style Selector="Window.dialog Button:not(.borderless):pressed /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="BorderBrush" Value="{DynamicResource SemiGrey5}"/>
+        </Style>
+        <Style Selector="Window.dialog Button:not(.borderless):disabled /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="BorderBrush" Value="{DynamicResource SemiGrey2}"/>
+        </Style>
+        <!-- Default (Enter) button gets accent border, but not when disabled -->
+        <Style Selector="Window.dialog Button[IsDefault=True]:not(.borderless):not(:disabled) /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="BorderBrush" Value="{DynamicResource SemiColorFocusBorder}"/>
+        </Style>
+
+        <!-- Dialog text: use Medium (500) weight by default.
+             Inherited by all children unless they set their own FontWeight
+             (e.g. Button ControlTheme, inline SemiBold on GroupBox headers). -->
+        <Style Selector="Window.dialog">
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Background" Value="{DynamicResource DialogBackground}"/>
+        </Style>
+
+        <!-- Style HeaderedContentControl to look like a Windows GroupBox:
+             bordered rectangle with the header text overlapping the top border. -->
+        <Style Selector="HeaderedContentControl">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource SemiGrey2}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Padding" Value="8,4,8,8"/>
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Grid>
+                        <!-- The border, pushed down slightly so the header overlaps it -->
+                        <Border BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="{TemplateBinding CornerRadius}"
+                                Margin="0,10,0,0">
+                            <ContentPresenter Name="PART_ContentPresenter"
+                                              Content="{TemplateBinding Content}"
+                                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                                              Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <!-- Header text with an opaque background to "cut" the border -->
+                        <ContentPresenter Name="PART_HeaderPresenter"
+                                          Content="{TemplateBinding Header}"
+                                          HorizontalAlignment="Left"
+                                          VerticalAlignment="Top"
+                                          Margin="12,0,0,0"
+                                          Padding="4,0"
+                                          Background="{DynamicResource DialogBackground}"
+                                          FontWeight="Bold"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+        <!-- ==================== Toolbar Styles ==================== -->
+
+        <!-- Toolbar container: gradient background from lighter at top to darker at bottom -->
+        <Style Selector="StackPanel.toolbar">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+                        <GradientStop Color="#F8F8F8" Offset="0"/>
+                        <GradientStop Color="#E0E0E0" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Toolbar buttons: transparent background, highlight on hover -->
+        <Style Selector="StackPanel.toolbar > Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="2"/>
+            <Setter Property="MinWidth" Value="0"/>
+            <Setter Property="MinHeight" Value="0"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style Selector="StackPanel.toolbar > Button /template/ ContentPresenter#PART_ContentPresenter">
+        </Style>
+        <Style Selector="StackPanel.toolbar > Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="#30000000"/>
+            <Setter Property="BorderBrush" Value="#50000000"/>
+        </Style>
+
+        <!-- Toolbar text: smaller font size -->
+        <Style Selector="StackPanel.toolbar TextBlock">
+            <Setter Property="FontSize" Value="12.5"/>
+            <Setter Property="FontWeight" Value="Regular"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <Style Selector="StackPanel.toolbar PathIcon">
+            <Setter Property="Foreground" Value="{DynamicResource SemiColorText0}"/>
+        </Style>
+
+        <!-- Toolbar separators: thin vertical bars -->
+        <Style Selector="StackPanel.toolbar > Separator">
+            <Setter Property="Width" Value="1"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Margin" Value="2,3"/>
+            <Setter Property="Background" Value="#A0A0A0"/>
+        </Style>
+
+        <!-- Toolbar dropdown menus: a single-item top-level Menu styled to look like a toolbar
+             button. Unlike Button+Flyout, a Menu uses the native menu interaction handler, which
+             gives press-to-open / drag-over / release-to-select in one gesture. -->
+        <Style Selector="StackPanel.toolbar > Menu">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style Selector="StackPanel.toolbar > Menu > MenuItem">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="2"/>
+            <Setter Property="Padding" Value="2"/>
+            <Setter Property="MinWidth" Value="0"/>
+            <Setter Property="MinHeight" Value="0"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <!-- Highlight on hover and while the submenu is open (:selected), matching the buttons. -->
+        <Style Selector="StackPanel.toolbar > Menu > MenuItem:pointerover /template/ Border#PART_LayoutRoot">
+            <Setter Property="Background" Value="#30000000"/>
+            <Setter Property="BorderBrush" Value="#50000000"/>
+        </Style>
+        <Style Selector="StackPanel.toolbar > Menu > MenuItem:selected /template/ Border#PART_LayoutRoot">
+            <Setter Property="Background" Value="#30000000"/>
+            <Setter Property="BorderBrush" Value="#50000000"/>
+        </Style>
+
+        <!-- Status bar zoom slider: smaller thumb and track to fit in 26px status bar -->
+        <Style Selector="Slider.statusBarSlider /template/ Thumb">
+            <Setter Property="Width" Value="12"/>
+            <Setter Property="Height" Value="12"/>
+        </Style>
+        <Style Selector="Slider.statusBarSlider">
+            <Setter Property="Margin" Value="1,5,1,0"/>
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+        <Style Selector="Slider.statusBarSlider /template/ RepeatButton#PART_IncreaseButton">
+            <Setter Property="Background" Value="{DynamicResource SemiGrey2Color}"/>
+        </Style>
+
+        <!-- Override DataValidationErrors to show only a red border + tooltip
+             instead of the default inline error text that disrupts layout. -->
+        <Style Selector="DataValidationErrors">
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <DockPanel>
+                        <ContentPresenter Name="PART_ContentPresenter"
+                                          Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"/>
+                    </DockPanel>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+
+        <!-- When a TextBox has a validation error, show the error as a tooltip. -->
+
+        <Style Selector="TextBox:error /template/ Border#PART_ContentPresenterBorder">
+            <Setter Property="BorderBrush" Value="{DynamicResource SemiColorDanger}"/>
+            <Setter Property="Background" Value="{StaticResource SemiRed1Color}"/>
+        </Style>
+        <Style Selector="TextBox:error">
+            <Setter Property="ToolTip.Tip">
+                <Template>
+                    <ItemsControl ItemsSource="{Binding $parent[TextBox].(DataValidationErrors.Errors)}"
+                                  Foreground="Red"
+                                  FontSize="12"/>
+                </Template>
+            </Setter>
+        </Style>
+
+    </Application.Styles>
+</Application>

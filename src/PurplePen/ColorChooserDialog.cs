@@ -17,6 +17,7 @@ namespace PurplePen
             InitializeComponent();
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public CmykColor Color
         {
             get
@@ -50,7 +51,7 @@ namespace PurplePen
 
         private void pictureBoxPreview_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.Clear(SwopColorConverter.CmykToRgbColor(Color));
+            e.Graphics.Clear(SwopColorConverter.Instance.ToColor(Color));
         }
 
         private void upDown_ValueChanged(object sender, EventArgs e)
@@ -162,7 +163,7 @@ namespace PurplePen
             if (colorAndText.Color != null) {
                 // Create a rectangle filled with the color. 
                 Rectangle rectangle = new Rectangle(2, e.Bounds.Top + 2, colorRectangleWidth, e.Bounds.Height - 4);
-                e.Graphics.FillRectangle(new SolidBrush(SwopColorConverter.CmykToRgbColor(colorAndText.Color)), rectangle);
+                e.Graphics.FillRectangle(new SolidBrush(SwopColorConverter.Instance.ToColor(colorAndText.Color)), rectangle);
             }
 
             // Draw each string in the array, using a different size, color, 

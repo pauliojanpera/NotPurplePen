@@ -32,26 +32,27 @@
  * OF SUCH DAMAGE.
  */
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Printing;
-using System.Text;
-using System.Windows.Forms;
-using System.Diagnostics;
-using System.IO;
-using System.Net;
-using System.Reflection;
-using System.Globalization;
-using System.Linq;
-using System.Threading;
-using PurplePen.MapView;
-using PurplePen.MapModel;
-
 using PurplePen.DebugUI;
 using PurplePen.Graphics2D;
 using PurplePen.Livelox;
+using PurplePen.MapModel;
+using PurplePen.MapView;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Printing;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Reflection;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using static SkiaSharp.HarfBuzz.SKShaper;
 using static PurplePen.BitmapCreationSettings;
 using PurplePen.Livelox.ApiContracts;
 
@@ -68,9 +69,12 @@ namespace PurplePen
 
         TextPart[] selectionDesc;         // The current selection description.
 
-        DescriptionPrintSettings descPrintSettings = new DescriptionPrintSettings();     // printing settings for the description;
-        PunchPrintSettings punchPrintSettings = new PunchPrintSettings();     // printing settings for the description;
+        DescriptionPrintSettings descPrintSettings = new DescriptionPrintSettings();     // printing settings for the description
+        PageSettings descPrintPageSettings = new PageSettings() { Margins = new Margins(50, 50, 50, 50) };     // page settings for the descriptions, default is 1/2 inch margins.
+        CorePunchPrintSettings punchPrintSettings = new CorePunchPrintSettings();     // printing settings for the punch cards
+        PageSettings punchPrintPageSettings = new PageSettings() { Margins = new Margins(50, 50, 50, 50) };     // page settings for the punch cards, default is 1/2 inch margins.
         CoursePrintSettings coursePrintSettings = new CoursePrintSettings();   // printing settings for courses.
+        PageSettings coursePrintPageSettings = new PageSettings() { Margins = new Margins(0, 0, 0, 0) };     // page settings for courses, default is 0 margins.
         CoursePdfSettings coursePdfSettings = null;   // PDF creation settings for courses.
         OcadCreationSettings ocadCreationSettingsPrevious = null;     // creation settings for OCAD creation, if it has been done before.
         ExportKmlSettings exportKmlSettingsPrevious = null;     // creation settings for KML creation, if it has been done before.
@@ -123,7 +127,7 @@ namespace PurplePen
             vScrollbarWidth = scrollBar.GetPreferredSize(new Size(200, 200)).Width;
             scrollBar.Dispose();
 
-            showToolTips = Settings.Default.ShowPopupInfo;
+            showToolTips = UserSettings.Current.ShowPopupInfo;
 
             SetMenuIcons();
 
@@ -176,13 +180,30 @@ namespace PurplePen
             descriptionControl.SymbolDB = symbolDB;
         }
 
+        public void QueueIdleEvent()
+        {
+            // Schedule a dummy method to run as soon as possible.
+            // This forces the message loop to cycle and return to Idle state.
+            if (this.IsHandleCreated) {
+                this.BeginInvoke(new Action(() => { }));
+            }
+        }
+
+        public void PostDelayedAction(Action action)
+        {
+            if (this.IsHandleCreated) {
+                this.BeginInvoke(action);
+            }
+        }
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool HidePrintArea
         {
             get { return hidePrintArea; }
             set
             {
                 hidePrintArea = value;
-                controller.ForceChangeUpdate();
+                controller.ForceChangeUpdate(true);
             }
         }
 
@@ -201,9 +222,18 @@ namespace PurplePen
             }
         }
 
-        public void InitiateMapDragging(PointF initialPos, System.Windows.Forms.MouseButtons buttonEnd)
+        private MouseButtons MouseButtonFromPointerButton(PointerButton buttonEnd)
         {
-            mapViewer.BeginMapDragging(Util.PointFromPointF(mapViewer.WorldToPixel(initialPos)), buttonEnd);
+            switch (buttonEnd) {
+            case PointerButton.Left:
+                return MouseButtons.Left;
+            case PointerButton.Right:
+                return MouseButtons.Right;
+            case PointerButton.Middle:
+                return MouseButtons.Middle;
+            default:
+                throw new InvalidOperationException("Unexpected PointerButton value");
+            }
         }
 
         // Prompt the user for a file name to open.
@@ -230,7 +260,7 @@ namespace PurplePen
         }
 
         // Show an error message, with no choice.
-        public void ErrorMessage(string message)
+        public Task ErrorMessage(string message)
         {
             IWin32Window owner = this;
             if (!this.Visible)
@@ -240,59 +270,78 @@ namespace PurplePen
                 descriptionControl.CloseAnyPopup();
 
             MessageBox.Show(owner, message, MiscText.AppTitle, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+            return Task.CompletedTask;
         }
 
         // Show an warning message, with no choice.
-        public void WarningMessage(string message)
+        public Task WarningMessage(string message)
         {
             if (descriptionControl != null)
                 descriptionControl.CloseAnyPopup();
 
             MessageBox.Show(this, message, MiscText.AppTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+            return Task.CompletedTask;
         }
 
         // Show an informational message, with no choice.
-        public void InfoMessage(string message)
+        public Task InfoMessage(string message)
         {
             if (descriptionControl != null)
                 descriptionControl.CloseAnyPopup();
 
             MessageBox.Show(this, message, MiscText.AppTitle, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+            return Task.CompletedTask;
         }
 
         // Show a ok-cancel message.
-        public bool OKCancelMessage(string message, bool okDefault)
+        public Task<bool> OKCancelMessage(string message, bool okDefault)
         {
             if (descriptionControl != null)
                 descriptionControl.CloseAnyPopup();
 
             DialogResult result = MessageBox.Show(this, message, MiscText.AppTitle, MessageBoxButtons.OKCancel, MessageBoxIcon.Information, okDefault ? MessageBoxDefaultButton.Button1 : MessageBoxDefaultButton.Button2);
-            return result == DialogResult.OK;
+            return Task.FromResult(result == DialogResult.OK);
         }
 
         // Ask a yes-no question.
-        public bool YesNoQuestion(string message, bool yesDefault)
+        public Task<bool> YesNoQuestion(string message, bool yesDefault)
         {
             if (descriptionControl != null)
                 descriptionControl.CloseAnyPopup();
 
             DialogResult result = MessageBox.Show(this, message, MiscText.AppTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question, yesDefault ? MessageBoxDefaultButton.Button1 : MessageBoxDefaultButton.Button2);
-            return result == DialogResult.Yes;
+            return Task.FromResult(result == DialogResult.Yes);
+        }
+
+        private YesNoCancel YesNoCancelFromDialogResult(DialogResult dialogResult)
+        {
+            switch (dialogResult) {
+                case DialogResult.Yes:
+                    return YesNoCancel.Yes;
+                case DialogResult.No:
+                    return YesNoCancel.No;
+                case DialogResult.Cancel:
+                    return YesNoCancel.Cancel;
+                default:
+                    throw new InvalidOperationException("Unexpected DialogResult value");
+            }
         }
 
         // Ask a yes-no-cancel question.
-        public DialogResult YesNoCancelQuestion(string message, bool yesDefault)
+        public Task<YesNoCancel> YesNoCancelQuestion(string message, bool yesDefault)
         {
             if (descriptionControl != null)
                 descriptionControl.CloseAnyPopup();
 
-            return MessageBox.Show(this, message, MiscText.AppTitle, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, yesDefault ? MessageBoxDefaultButton.Button1 : MessageBoxDefaultButton.Button2);
+            DialogResult result = MessageBox.Show(this, message, MiscText.AppTitle, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, yesDefault ? MessageBoxDefaultButton.Button1 : MessageBoxDefaultButton.Button2);
+            return Task.FromResult(YesNoCancelFromDialogResult(result));
         }
 
-        public DialogResult MovingSharedControl(string controlCode, string otherCourses)
+        public async Task<YesNoCancel> MovingSharedControl(string controlCode, string otherCourses)
         {
             using (MoveControlChoiceDialog dialog = new MoveControlChoiceDialog(controlCode, otherCourses)) {
-                return dialog.ShowDialog();
+                DialogResult result = dialog.ShowDialog();
+                return YesNoCancelFromDialogResult(result);
             }
         }
 
@@ -318,9 +367,9 @@ namespace PurplePen
             if (mapDisplay != controller.MapDisplay) {
                 // The mapDisplay object is new. This currently only happens on startup.
                 mapDisplay = controller.MapDisplay;
-                mapDisplay.MapIntensity = Settings.Default.MapIntensity;
-                mapDisplay.AntiAlias = Settings.Default.MapHighQuality;
-                controller.ShowAllControls = Settings.Default.ViewAllControls;
+                mapDisplay.MapIntensity = UserSettings.Current.MapIntensity;
+                mapDisplay.AntiAlias = UserSettings.Current.MapHighQuality;
+                controller.ShowAllControls = UserSettings.Current.ViewAllControls;
                 mapViewer.SetMap(mapDisplay);
                 ShowRectangle(mapDisplay.MapBounds);
             }
@@ -432,7 +481,7 @@ namespace PurplePen
         // Update the print area in the map pane.
         void UpdatePrintArea()
         {
-            if (hidePrintArea || !Settings.Default.ShowPrintArea)
+            if (hidePrintArea || !UserSettings.Current.ShowPrintArea)
                 mapDisplay.SetPrintArea(null);
             else
                 mapDisplay.SetPrintArea(controller.GetCurrentPrintAreaRectangle(PrintAreaKind.OnePart));
@@ -686,7 +735,7 @@ namespace PurplePen
             showPopupsMenu.Checked = showToolTips;
 
             // Update checkmark on View/Show Print Area
-            showPrintAreaMenu.Checked = Settings.Default.ShowPrintArea;
+            showPrintAreaMenu.Checked = UserSettings.Current.ShowPrintArea;
 
             // Update Delete menu item
             deleteToolStripButton.Enabled =  deleteMenu.Enabled = deleteItemMenu.Enabled = controller.CanDeleteSelection();
@@ -898,7 +947,7 @@ namespace PurplePen
 
 
 
-        void Application_Idle(object sender, EventArgs e)
+        async void Application_Idle(object sender, EventArgs e)
         {
             if (IsDisposed)
                 return;
@@ -930,7 +979,7 @@ namespace PurplePen
 
                     if (checkForUpdatedMapFile) {
                         checkForUpdatedMapFile = false;
-                        controller.CheckForChangedMapFile();
+                        await controller.CheckForChangedMapFile();
                     }
                 }
             }
@@ -1009,24 +1058,24 @@ namespace PurplePen
             Close();
         }
 
-        private void MainFrame_FormClosing(object sender, FormClosingEventArgs e)
+        private async void MainFrame_FormClosing(object sender, FormClosingEventArgs e)
         {
             // Either File/Exit or the close button clicked. See if we can exit.
 
-            bool exit = controller.TryCloseFile();
+            bool exit = await controller.TryCloseFile();
             if (!exit)
                 e.Cancel = true;
         }
 
 
-        private void openMenu_Click(object sender, EventArgs e)
+        private async void openMenu_Click(object sender, EventArgs e)
         {
             // Try to close the current file. If that succeeds, then ask for a new file and try to open it.
-            bool closeSuccess = controller.TryCloseFile();
+            bool closeSuccess = await controller.TryCloseFile();
             if (closeSuccess) {
                 string newFilename = GetOpenFileName();
                 if (newFilename != null) {
-                    bool success = controller.LoadNewFile(newFilename);
+                    bool success = await controller.LoadNewFile(newFilename);
                     if (!success) {
                         // This is bad news. The old file is gone, and we don't have a new file. Go back to initial screen is the best solution, 
                         // I guess.
@@ -1043,15 +1092,15 @@ namespace PurplePen
         }
 
 
-        private void newEventMenu_Click(object sender, EventArgs e)
+        private async void newEventMenu_Click(object sender, EventArgs e)
         {
             // Try to close the current file. If that succeeds, then ask for a new file and try to open it.
-            bool closeSuccess = controller.TryCloseFile();
+            bool closeSuccess = await controller.TryCloseFile();
             if (closeSuccess) {
                 NewEventWizard wizard = new NewEventWizard();
                 DialogResult result = wizard.ShowDialog();
                 if (result == DialogResult.OK) {
-                    bool success = controller.NewEvent(wizard.CreateEventInfo);
+                    bool success = await controller.NewEvent(wizard.CreateEventInfo);
                     if (!success) {
                         // This is bad news. The old file is gone, and we don't have a new file. Go back to initial screen is the best solution, 
                         // I guess.
@@ -1119,22 +1168,22 @@ namespace PurplePen
                 controller.Redo();
         }
 
-        private void deleteMenu_Click(object sender, EventArgs e)
+        private async void deleteMenu_Click(object sender, EventArgs e)
         {
-            controller.DeleteSelection();
+            await controller.DeleteSelection();
         }
 
-        private void deleteForkMenu_Click(object sender, EventArgs e)
+        private async void deleteForkMenu_Click(object sender, EventArgs e)
         {
-            controller.DeleteFork();
+            await controller.DeleteFork();
         }
 
 
         private void allControlsMenu_Click(object sender, EventArgs e)
         {
             controller.ShowAllControls = !controller.ShowAllControls;
-            Settings.Default.ViewAllControls = controller.ShowAllControls;
-            Settings.Default.Save();
+            UserSettings.Current.ViewAllControls = controller.ShowAllControls;
+            UserSettings.Current.Save();
         }
 
         private void otherCoursesMenu_Click(object sender, EventArgs e)
@@ -1182,11 +1231,11 @@ namespace PurplePen
             controller.BeginAddControlMode(ControlPointKind.MapExchange, MapExchangeType.None);
         }
 
-        private void addVariationMenu_Click(object sender, EventArgs e)
+        private async void addVariationMenu_Click(object sender, EventArgs e)
         {
             string reason;
             if (controller.CanAddVariation(out reason) != CommandStatus.Enabled) {
-                ErrorMessage(reason);
+                await ErrorMessage(reason);
                 return;                
             }
 
@@ -1195,7 +1244,7 @@ namespace PurplePen
             DialogResult result = addForkDialog.ShowDialog(this);
 
             if (result == DialogResult.OK) {
-                controller.AddVariation(addForkDialog.Loop, addForkDialog.NumberOfBranches);
+                await controller.AddVariation(addForkDialog.Loop, addForkDialog.NumberOfBranches);
             }
 
             addForkDialog.Dispose();
@@ -1212,22 +1261,22 @@ namespace PurplePen
         {
             double intensityAmount = (double) ((ToolStripMenuItem) sender).Tag;
             mapDisplay.MapIntensity = (float) intensityAmount;
-            Settings.Default.MapIntensity = mapDisplay.MapIntensity;
-            Settings.Default.Save();
+            UserSettings.Current.MapIntensity = mapDisplay.MapIntensity;
+            UserSettings.Current.Save();
         }
 
         private void showPopupsMenu_Click(object sender, EventArgs e)
         {
             showToolTips = !showToolTips;
-            Settings.Default.ShowPopupInfo = showToolTips;
-            Settings.Default.Save();
+            UserSettings.Current.ShowPopupInfo = showToolTips;
+            UserSettings.Current.Save();
         }
 
         private void showPrintAreaMenu_Click(object sender, EventArgs e)
         {
-            Settings.Default.ShowPrintArea = !Settings.Default.ShowPrintArea;
-            Settings.Default.Save();
-            controller.ForceChangeUpdate();
+            UserSettings.Current.ShowPrintArea = !UserSettings.Current.ShowPrintArea;
+            UserSettings.Current.Save();
+            controller.ForceChangeUpdate(true);
         }
 
         private void courseTabs_Selected(object sender, TabControlEventArgs e)
@@ -1235,9 +1284,9 @@ namespace PurplePen
             controller.SelectTab(courseTabs.SelectedIndex);
         }
 
-        private void descriptionControl_Change(DescriptionControl sender, DescriptionControl.ChangeKind kind, int line, int box, object newValue)
+        private async void descriptionControl_Change(DescriptionControl sender, DescriptionChangeKind kind, int line, int box, object newValue)
         {
-            controller.DescriptionChange(kind, line, box, newValue);
+            await controller.DescriptionChange(kind, line, box, newValue);
         }
 
         private void descriptionControl_SelectedIndexChange(object sender, EventArgs e)
@@ -1254,10 +1303,10 @@ namespace PurplePen
                 controller.MouseMoved(Pane.Map, location, mapViewer.PixelSize);
 
                 // Update the mouse cursor.
-                mapViewer.Cursor = controller.GetMouseCursor(Pane.Map, location, mapViewer.PixelSize);
+                mapViewer.Cursor = WindowsUtil.CursorFromMousePointerShape(controller.GetMouseCursor(Pane.Map, location, mapViewer.PixelSize));
             }
 
-            PointF pixelLocation = Util.PointFromPointF(mapViewer.WorldToPixel(location));
+            PointF pixelLocation = Geometry.PointFromPointF(mapViewer.WorldToPixel(location));
             if (pixelLocation != lastTooltipLocation)
                 toolTip.Hide(mapViewer);
 
@@ -1267,7 +1316,7 @@ namespace PurplePen
 
         private void mapViewerTopology_OnPointerMove(object sender, bool inViewport, PointF location)
         {
-            PointF pixelLocation = Util.PointFromPointF(mapViewerTopology.WorldToPixel(location));
+            PointF pixelLocation = Geometry.PointFromPointF(mapViewerTopology.WorldToPixel(location));
             if (pixelLocation != lastTooltipLocation)
                 toolTip.Hide(mapViewerTopology);
         }
@@ -1279,7 +1328,7 @@ namespace PurplePen
             if (showToolTips && controller.GetToolTip(Pane.Map, location, mapViewer.PixelSize, out tipText, out titleText)) {
                 toolTip.Hide(mapViewer);
                 toolTip.ToolTipTitle = titleText;
-                lastTooltipLocation = Util.PointFromPointF(mapViewer.WorldToPixel(location));
+                lastTooltipLocation = Geometry.PointFromPointF(mapViewer.WorldToPixel(location));
                 toolTip.Show(tipText, mapViewer, lastTooltipLocation.X, lastTooltipLocation.Y + 24, 7000);
             }
         }
@@ -1290,7 +1339,7 @@ namespace PurplePen
             if (showToolTips && controller.GetToolTip(Pane.Topology, location, mapViewer.PixelSize, out tipText, out titleText)) {
                 toolTip.Hide(mapViewerTopology);
                 toolTip.ToolTipTitle = titleText;
-                lastTooltipLocation = Util.PointFromPointF(mapViewerTopology.WorldToPixel(location));
+                lastTooltipLocation = Geometry.PointFromPointF(mapViewerTopology.WorldToPixel(location));
                 toolTip.Show(tipText, mapViewerTopology, lastTooltipLocation.X, lastTooltipLocation.Y + 24, 7000);
             }
         }
@@ -1312,23 +1361,27 @@ namespace PurplePen
             }
         }
 
-        private MapViewer.DragAction mapViewer_OnMouseEvent(object sender, MouseAction action, int buttonNumber, bool[] whichButtonsDown, PointF location, PointF locationStart)
+#pragma warning disable VSTHRD002    // Everything in the WinForms version is actually synchronous, so this can't deadlock.
+        private DragAction mapViewer_OnMouseEvent(object sender, MouseAction action, int buttonNumber, bool[] whichButtonsDown, PointF location, PointF locationStart)
         {
             if (action != MouseAction.Move)
                 toolTip.Hide(mapViewer);
 
-            return HandleMouseEvent(Pane.Map, mapViewer, action, buttonNumber, whichButtonsDown, location, locationStart);
+            Task<DragAction> task = HandleMouseEvent(Pane.Map, mapViewer, action, buttonNumber, whichButtonsDown, location, locationStart);
+            return task.Result;   // Everything in the WinForms version is actually synchronous, so this can't deadlock.
         }
 
-        private MapViewer.DragAction mapViewerTopology_OnMouseEvent(object sender, MouseAction action, int buttonNumber, bool[] whichButtonsDown, PointF location, PointF locationStart)
+        private DragAction mapViewerTopology_OnMouseEvent(object sender, MouseAction action, int buttonNumber, bool[] whichButtonsDown, PointF location, PointF locationStart)
         {
             if (action != MouseAction.Move)
                 toolTip.Hide(mapViewerTopology);
 
-            return HandleMouseEvent(Pane.Topology, mapViewerTopology, action, buttonNumber, whichButtonsDown, location, locationStart);
+            Task<DragAction> task = HandleMouseEvent(Pane.Topology, mapViewerTopology, action, buttonNumber, whichButtonsDown, location, locationStart);
+            return task.Result;   // Everything in the WinForms version is actually synchronous, so this can't deadlock.
         }
+#pragma warning restore VSTHRD002
 
-        private MapViewer.DragAction HandleMouseEvent(Pane pane, MapViewer activePaneMapViewer, MouseAction action, int buttonNumber, bool[] whichButtonsDown, PointF location, PointF locationStart)
+        private async Task<DragAction> HandleMouseEvent(Pane pane, MapViewer activePaneMapViewer, MouseAction action, int buttonNumber, bool[] whichButtonsDown, PointF location, PointF locationStart)
         {
             if (action == MouseAction.Down && buttonNumber == MapViewer.LeftMouseButton)
                 return controller.LeftButtonDown(pane, location, activePaneMapViewer.PixelSize);
@@ -1339,23 +1392,23 @@ namespace PurplePen
             else if (action == MouseAction.Up && buttonNumber == MapViewer.RightMouseButton)
                 controller.RightButtonUp(pane, location, activePaneMapViewer.PixelSize);
             else if (action == MouseAction.Click && buttonNumber == MapViewer.LeftMouseButton)
-                controller.LeftButtonClick(pane, location, activePaneMapViewer.PixelSize);
+                await controller.LeftButtonClick(pane, location, activePaneMapViewer.PixelSize);
             else if (action == MouseAction.Click && buttonNumber == MapViewer.RightMouseButton)
-                controller.RightButtonClick(pane, location, activePaneMapViewer.PixelSize);
+                await controller.RightButtonClick(pane, location, activePaneMapViewer.PixelSize);
             else if (action == MouseAction.Drag && buttonNumber == MapViewer.LeftMouseButton)
                 controller.LeftButtonDrag(pane, location, locationStart, activePaneMapViewer.PixelSize);
             else if (action == MouseAction.Drag && buttonNumber == MapViewer.RightMouseButton)
                 controller.RightButtonDrag(pane, location, locationStart, activePaneMapViewer.PixelSize);
             else if (action == MouseAction.DragEnd && buttonNumber == MapViewer.LeftMouseButton)
-                controller.LeftButtonEndDrag(pane, location, locationStart, activePaneMapViewer.PixelSize);
+                await controller.LeftButtonEndDrag(pane, location, locationStart, activePaneMapViewer.PixelSize);
             else if (action == MouseAction.DragEnd && buttonNumber == MapViewer.RightMouseButton)
-                controller.RightButtonEndDrag(pane, location, locationStart, activePaneMapViewer.PixelSize);
+                await controller.RightButtonEndDrag(pane, location, locationStart, activePaneMapViewer.PixelSize);
             else if (action == MouseAction.DragCancel && buttonNumber == MapViewer.LeftMouseButton)
                 controller.LeftButtonCancelDrag(pane);
             else if (action == MouseAction.DragCancel && buttonNumber == MapViewer.RightMouseButton)
                 controller.RightButtonCancelDrag(pane);
 
-            return MapViewer.DragAction.None;
+            return DragAction.None;
         }
 
         private void mapViewer_KeyDown(object sender, KeyEventArgs e)
@@ -1426,9 +1479,9 @@ namespace PurplePen
             }
         }
 
-        private void deleteCourseMenu_Click(object sender, EventArgs e)
+        private async void deleteCourseMenu_Click(object sender, EventArgs e)
         {
-            controller.DeleteCurrentCourse();
+            await controller.DeleteCurrentCourse();
         }
 
         private void addCourseMenu_Click(object sender, EventArgs e)
@@ -1608,10 +1661,7 @@ namespace PurplePen
 
         private void addDescriptionsMenu_Click(object sender, EventArgs e)
         {
-            if (controller.CanAddDescriptions())
-                controller.BeginAddDescriptionMode();
-            else
-                InfoMessage(MiscText.CannotAddDescriptionsToAllParts);
+            controller.BeginAddDescriptionMode();
         }
 
         private void addMapIssueMenu_Click(object sender, EventArgs e)
@@ -1970,14 +2020,14 @@ namespace PurplePen
         }
 
         // Show help of the given kind.
-        private void ShowHelp(HelpNavigator navigator, object parameter)
+        private async void ShowHelp(HelpNavigator navigator, object parameter)
         {
             if (helpFileUrl == null) {
                 string helpFileName = Util.GetFileInAppDirectory(HELP_FILE_NAME);
                 if (File.Exists(helpFileName))
                     helpFileUrl = new Uri(helpFileName);
                 else {
-                    ErrorMessage(string.Format(MiscText.HelpFileNotFound, helpFileName));
+                    await ErrorMessage(string.Format(MiscText.HelpFileNotFound, helpFileName));
                     return;
                 }
             }
@@ -1999,7 +2049,7 @@ namespace PurplePen
 
         private void helpTranslatedMenu_Click(object sender, EventArgs e)
         {
-            Util.GoToWebPage(MiscText.TranslatedHelpWebSite);
+            WindowsUtil.GoToWebPage(MiscText.TranslatedHelpWebSite);
         }
 
         private void helpIndexMenu_Click(object sender, EventArgs e)
@@ -2059,8 +2109,8 @@ namespace PurplePen
         private void SetQuality(bool highQuality)
         {
             mapDisplay.AntiAlias = highQuality;
-            Settings.Default.MapHighQuality = highQuality;
-            Settings.Default.Save();
+            UserSettings.Current.MapHighQuality = highQuality;
+            UserSettings.Current.Save();
         }
 
         private void changeCodesMenu_Click(object sender, EventArgs e)
@@ -2185,13 +2235,13 @@ namespace PurplePen
             dialog.Dispose();
         }
 
-        private void removeUnusedControlsMenu_Click(object sender, EventArgs e)
+        private async void removeUnusedControlsMenu_Click(object sender, EventArgs e)
         {
             List<KeyValuePair<Id<ControlPoint>,string>> unusedControls = controller.GetUnusedControls();
 
             if (unusedControls.Count == 0) {
                 // No controls to delete. Tell the user.
-                InfoMessage(MiscText.NoUnusedControls);
+                await InfoMessage(MiscText.NoUnusedControls);
             }
             else {
                 // Put up the dialog and do it.
@@ -2237,12 +2287,15 @@ namespace PurplePen
             PrintDescriptions printDescDialog = new PrintDescriptions(controller.GetEventDB(), false);
             printDescDialog.controller = controller;
             printDescDialog.PrintSettings = descPrintSettings;
+            printDescDialog.PrinterPageSettings = descPrintPageSettings;
 
             // show the dialog, on success, print.
             if (printDescDialog.ShowDialog(this) == DialogResult.OK) {
                 // Save the settings for the next invocation of the dialog.
                 descPrintSettings = printDescDialog.PrintSettings;
-                controller.PrintDescriptions(descPrintSettings, false);
+                descPrintPageSettings = printDescDialog.PrinterPageSettings;
+                controller.PrintDescriptions(WindowsUtil.GetWinFormsPrintTarget(descPrintPageSettings, this, false),
+                    descPrintSettings, WindowsUtil.PrintingPaperSizeWithMarginsFromPageSettings(descPrintPageSettings));
             }
 
             // And the dialog is done.
@@ -2256,6 +2309,7 @@ namespace PurplePen
             PrintDescriptions printDescDialog = new PrintDescriptions(controller.GetEventDB(), true);
             printDescDialog.controller = controller;
             printDescDialog.PrintSettings = descPrintSettings;
+            printDescDialog.PrinterPageSettings = descPrintPageSettings;
 
             // show the dialog, on success, print.
             if (printDescDialog.ShowDialog(this) == DialogResult.OK) {
@@ -2270,7 +2324,8 @@ namespace PurplePen
                 if (savePdfDialog.ShowDialog(this) == DialogResult.OK) {
                     // Save the settings for the next invocation of the dialog.
                     descPrintSettings = printDescDialog.PrintSettings;
-                    controller.CreateDescriptionsPdf(descPrintSettings, savePdfDialog.FileName);
+                    descPrintPageSettings = printDescDialog.PrinterPageSettings;
+                    controller.CreateDescriptionsPdf(descPrintSettings, WindowsUtil.PrintingPaperSizeWithMarginsFromPageSettings(descPrintPageSettings), savePdfDialog.FileName);
                 }
             }
 
@@ -2286,13 +2341,17 @@ namespace PurplePen
             PrintPunches printPunchesDialog = new PrintPunches(controller.GetEventDB(), false);
             printPunchesDialog.controller = controller;
             printPunchesDialog.PrintSettings = punchPrintSettings;
+            printPunchesDialog.PrinterPageSettings = punchPrintPageSettings;
             printPunchesDialog.PrintSettings.Count = 1;
 
             // show the dialog, on success, print.
             if (printPunchesDialog.ShowDialog(this) == DialogResult.OK) {
                 // Save the settings for the next invocation of the dialog.
                 punchPrintSettings = printPunchesDialog.PrintSettings;
-                controller.PrintPunches(punchPrintSettings, false);
+                punchPrintPageSettings = printPunchesDialog.PrinterPageSettings;
+                controller.PrintPunches(WindowsUtil.GetWinFormsPrintTarget(punchPrintPageSettings, this, false), 
+                                        punchPrintSettings,
+                                        WindowsUtil.PrintingPaperSizeWithMarginsFromPageSettings(punchPrintPageSettings));
             }
 
             // And the dialog is done.
@@ -2306,6 +2365,7 @@ namespace PurplePen
             PrintPunches printPunchesDialog = new PrintPunches(controller.GetEventDB(), true);
             printPunchesDialog.controller = controller;
             printPunchesDialog.PrintSettings = punchPrintSettings;
+            printPunchesDialog.PrinterPageSettings = punchPrintPageSettings;
             printPunchesDialog.PrintSettings.Count = 1;
 
             // show the dialog, on success, print.
@@ -2321,7 +2381,8 @@ namespace PurplePen
                 if (savePdfDialog.ShowDialog(this) == DialogResult.OK) {
                     // Save the settings for the next invocation of the dialog.
                     punchPrintSettings = printPunchesDialog.PrintSettings;
-                    controller.CreatePunchesPdf(punchPrintSettings, savePdfDialog.FileName);
+                    punchPrintPageSettings = printPunchesDialog.PrinterPageSettings;
+                    controller.CreatePunchesPdf(punchPrintSettings, WindowsUtil.PrintingPaperSizeWithMarginsFromPageSettings(punchPrintPageSettings), savePdfDialog.FileName);
                 }
             }
 
@@ -2355,7 +2416,10 @@ namespace PurplePen
             if (printCoursesDialog.ShowDialog(this) == DialogResult.OK) {
                 // Save the settings for the next invocation of the dialog.
                 coursePrintSettings = printCoursesDialog.PrintSettings;
-                controller.PrintCourses(coursePrintSettings, false);
+                coursePrintPageSettings = printCoursesDialog.PageSettings;
+                controller.PrintCourses(WindowsUtil.GetWinFormsPrintTarget(coursePrintPageSettings, this, false),
+                                        coursePrintSettings, 
+                                        WindowsUtil.PrintingPaperSizeWithMarginsFromPageSettings(coursePrintPageSettings));
             }
 
             // And the dialog is done.
@@ -2416,12 +2480,12 @@ namespace PurplePen
             createPdfDialog.Dispose();
         }
 
-        private void createGpxMenu_Click(object sender, EventArgs e)
+        private async void createGpxMenu_Click(object sender, EventArgs e)
         {
             // First check and give immediate message if we can't do coordinate mapping.
             string message;
             if (!controller.CanExportGpxOrKml(out message)) {
-                ErrorMessage(message);
+                await ErrorMessage(message);
                 return;
             }
 
@@ -2546,7 +2610,7 @@ namespace PurplePen
 
         // Find a new map file. This is like ChangeMapFile, but this UI is somewhat different -- we just show the
         // Open File dialog at first, and if we use it to select an OK OCAD file, then we close immediately too.
-        public bool FindMissingMapFile(string missingMapFile)
+        public Task<bool> FindMissingMapFile(string missingMapFile)
         {
             // Initialize dialog.
             ChangeMapFile dialog = new ChangeMapFile();
@@ -2565,14 +2629,14 @@ namespace PurplePen
             // Apply new map file.
             if (result == DialogResult.OK) {
                 controller.ChangeMapFile(dialog.MapType, dialog.MapFile, dialog.MapScale, dialog.Dpi);
-                return true;
+                return Task.FromResult(true);
             }
             else
-                return false;
+                return Task.FromResult(false);
         }
 
 
-        private void createOcadFilesMenu_Click(object sender, EventArgs e)
+        private async void createOcadFilesMenu_Click(object sender, EventArgs e)
         {
             bool success = false;
 
@@ -2633,7 +2697,7 @@ namespace PurplePen
                 // Give any other warning messages.
                 List<string> warnings = controller.OcadFilesWarnings(createOcadFilesDialog.OcadCreationSettings);
                 foreach (string warning in warnings) {
-                    WarningMessage(warning);
+                    await WarningMessage(warning);
                 }
 
                 // Save settings persisted between invocations of this dialog.
@@ -2642,7 +2706,7 @@ namespace PurplePen
 
                 // PP keeps bitmaps in memory and locks them. Tell the user to close PP.
                 if (mapDisplay.MapType == MapType.Bitmap)
-                    InfoMessage(MiscText.ClosePPBeforeLoadingOCAD);
+                    await InfoMessage(MiscText.ClosePPBeforeLoadingOCAD);
 
                 break;
             }
@@ -2654,21 +2718,21 @@ namespace PurplePen
             // Check if they need to be installed, ask the user, and if they say yes, install the fonts.
             if (success) {
                 if (controller.ShouldInstallRobotoFonts()) {
-                    if (YesNoQuestion(MiscText.AskInstallRobotoFonts, true)) {
+                    if (await YesNoQuestion(MiscText.AskInstallRobotoFonts, true)) {
                         bool installSucceeded = controller.InstallRobotoFonts();
                         if (!installSucceeded)
-                            ErrorMessage(MiscText.RobotoFontsInstallFailed);
+                            await ErrorMessage(MiscText.RobotoFontsInstallFailed);
                     }
                 }
             }
         }
 
-        private void createKmlFilesMenu_Click(object sender, EventArgs e)
+        private async void createKmlFilesMenu_Click(object sender, EventArgs e)
         {
             // First check and give immediate message if we can't do coordinate mapping.
             string message;
             if (!controller.CanExportGpxOrKml(out message)) {
-                ErrorMessage(message);
+                await ErrorMessage(message);
                 return;
             }
 
@@ -2897,17 +2961,17 @@ namespace PurplePen
 
         private void supportWebSiteMenu_Click(object sender, EventArgs e)
         {
-            Util.GoToWebPage("http://purple-pen.org#support");
+            WindowsUtil.GoToWebPage("http://purple-pen.org#support");
         }
 
         private void mainWebSiteToolMenu_Click(object sender, EventArgs e)
         {
-            Util.GoToWebPage("http://purple-pen.org");
+            WindowsUtil.GoToWebPage("http://purple-pen.org");
         }
 
         private void donateWebSiteMenu_Click(object sender, EventArgs e)
         {
-            Util.GoToWebPage("http://purple-pen.org#donate");
+            WindowsUtil.GoToWebPage("http://purple-pen.org#donate");
         }
 
         private void courseSummaryMenu_Click(object sender, EventArgs e)
@@ -2916,7 +2980,7 @@ namespace PurplePen
 
             string testReport = reportGenerator.CreateCourseSummaryReport(controller.GetEventDB());
 
-            ReportForm reportForm = new ReportForm(Util.RemoveHotkeyPrefix(courseSummaryMenu.Text), "", testReport, "ReportsCourseSummary.htm");
+            ReportForm reportForm = new ReportForm(WindowsUtil.RemoveHotkeyPrefix(courseSummaryMenu.Text), "", testReport, "ReportsCourseSummary.htm");
             reportForm.ShowDialog(this);
             reportForm.Dispose();
         }
@@ -2927,7 +2991,7 @@ namespace PurplePen
 
             string testReport = reportGenerator.CreateCrossReferenceReport(controller.GetEventDB());
 
-            ReportForm reportForm = new ReportForm(Util.RemoveHotkeyPrefix(controlCrossrefMenu.Text), "", testReport, "ReportsControlCrossReference.htm");
+            ReportForm reportForm = new ReportForm(WindowsUtil.RemoveHotkeyPrefix(controlCrossrefMenu.Text), "", testReport, "ReportsControlCrossReference.htm");
             reportForm.ShowDialog(this);
             reportForm.Dispose();
         }
@@ -2938,7 +3002,7 @@ namespace PurplePen
 
             string testReport = reportGenerator.CreateLoadReport(controller.GetEventDB());
 
-            ReportForm reportForm = new ReportForm(Util.RemoveHotkeyPrefix(controlAndLegLoadMenu.Text), "", testReport, "ReportsControlAndLegLoad.htm");
+            ReportForm reportForm = new ReportForm(WindowsUtil.RemoveHotkeyPrefix(controlAndLegLoadMenu.Text), "", testReport, "ReportsControlAndLegLoad.htm");
             reportForm.ShowDialog(this);
             reportForm.Dispose();
         }
@@ -2949,7 +3013,7 @@ namespace PurplePen
 
             string testReport = reportGenerator.CreateLegLengthReport(controller.GetEventDB());
 
-            ReportForm reportForm = new ReportForm(Util.RemoveHotkeyPrefix(legLengthsMenu.Text), "", testReport, "ReportsLegLengths.htm");
+            ReportForm reportForm = new ReportForm(WindowsUtil.RemoveHotkeyPrefix(legLengthsMenu.Text), "", testReport, "ReportsLegLengths.htm");
             reportForm.ShowDialog(this);
             reportForm.Dispose();
         }
@@ -2960,7 +3024,7 @@ namespace PurplePen
 
             string testReport = reportGenerator.CreateEventAuditReport(controller.GetEventDB());
 
-            ReportForm reportForm = new ReportForm(Util.RemoveHotkeyPrefix(eventAuditMenu.Text), "", testReport, "ReportsEventAudit.htm");
+            ReportForm reportForm = new ReportForm(WindowsUtil.RemoveHotkeyPrefix(eventAuditMenu.Text), "", testReport, "ReportsEventAudit.htm");
             reportForm.ShowDialog(this);
             reportForm.Dispose();
         }
@@ -3028,7 +3092,7 @@ namespace PurplePen
             }
         }
 
-        void ExportVariationReport(TeamVariationsForm form, TeamVariationsForm.ExportFileType exportFileType, string exportFileName)
+        void ExportVariationReport(TeamVariationsForm form, VariationExportFileType exportFileType, string exportFileName)
         {
             VariationReportData variationReportData = controller.GetVariationReportData(form.RelaySettings);
             controller.ExportRelayVariationsReport(form.RelaySettings, exportFileType, exportFileName);
@@ -3099,7 +3163,7 @@ namespace PurplePen
 
 
 
-        private void programLanguageMenu_Click(object sender, EventArgs e)
+        private async void programLanguageMenu_Click(object sender, EventArgs e)
         {
             SetUILanguage dialog = new SetUILanguage();
 
@@ -3107,10 +3171,10 @@ namespace PurplePen
 
             if (dialog.ShowDialog() == DialogResult.OK && dialog.Culture != null) {
                 System.Threading.Thread.CurrentThread.CurrentUICulture = dialog.Culture;
-                Settings.Default.UILanguage = dialog.Culture.Name;
-                Settings.Default.Save();
+                UserSettings.Current.UILanguage = dialog.Culture.Name;
+                UserSettings.Current.Save();
 
-                controller.ForceChangeUpdate();     // make the controller update state.
+                controller.ForceChangeUpdate(true);     // make the controller update state.
 
                 ReloadMainFrameStrings();
                 UpdateLabelsAndScrollBars();
@@ -3120,7 +3184,7 @@ namespace PurplePen
 
                 if (controller.GetDescriptionLanguage() != dialog.Culture.Name && controller.HasDescriptionLanguage(dialog.Culture.Name)) {
                     // The current description language does not match the new program language. Offer to change it to match.
-                    if (YesNoQuestion(string.Format(MiscText.ChangeDescriptionLanguage,
+                    if (await YesNoQuestion(string.Format(MiscText.ChangeDescriptionLanguage,
                                                                         CultureInfo.GetCultureInfo(controller.GetDescriptionLanguage()).NativeName,
                                                                         CultureInfo.GetCultureInfo(dialog.Culture.Name).NativeName),
                                                  true)) 

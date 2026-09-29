@@ -27,6 +27,7 @@ namespace PurplePen
             InitUnits();
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public PaperSize PaperSize
         {
             get
@@ -42,6 +43,7 @@ namespace PurplePen
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public int MarginSize
         {
             get
@@ -57,6 +59,7 @@ namespace PurplePen
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool Landscape
         {
             get
@@ -80,7 +83,7 @@ namespace PurplePen
             decimal increment;
             decimal maximum;
 
-            if (RegionInfo.CurrentRegion.IsMetric)
+            if (Util.IsCurrentCultureMetric())
             {
                 units = "mm";
                 decimalPlaces = 1;
@@ -105,9 +108,9 @@ namespace PurplePen
 
         private void InitPaperSizes()
         {
-            for (int i = 0; i < MapUtil.StandardPaperSizes.Length; ++i)
+            for (int i = 0; i < PrintingStandards.StandardPaperSizes.Length; ++i)
             {
-                comboBoxPaperSize.Items.Add(Util.GetPaperSizeText(MapUtil.StandardPaperSizes[i]));
+                comboBoxPaperSize.Items.Add(Util.GetPaperSizeText(PrintingStandards.StandardPaperSizes[i]));
             }
 
             comboBoxPaperSize.Items.Add(MiscText.UserDefined);
@@ -116,10 +119,10 @@ namespace PurplePen
         private void UpdateDialog()
         {
             bool foundStandardSize = false;
-            for (int i = 0; i < MapUtil.StandardPaperSizes.Length; ++i)
+            for (int i = 0; i < PrintingStandards.StandardPaperSizes.Length; ++i)
             {
-                if (MapUtil.StandardPaperSizes[i].Width == paperSize.Width &&
-                    MapUtil.StandardPaperSizes[i].Height == paperSize.Height)
+                if ((int) Math.Round(PrintingStandards.StandardPaperSizes[i].SizeInHundreths.Width) == paperSize.Width &&
+                    (int) Math.Round(PrintingStandards.StandardPaperSizes[i].SizeInHundreths.Height) == paperSize.Height)
                 {
                     comboBoxPaperSize.SelectedIndex = i;
                     foundStandardSize = true;
@@ -128,7 +131,7 @@ namespace PurplePen
 
             if (!foundStandardSize)
             {
-                comboBoxPaperSize.SelectedIndex = MapUtil.StandardPaperSizes.Length;
+                comboBoxPaperSize.SelectedIndex = PrintingStandards.StandardPaperSizes.Length;
                 upDownWidth.Enabled = upDownHeight.Enabled = true;
             }
             else
@@ -148,8 +151,8 @@ namespace PurplePen
         {
             string paperSizeText;
 
-            if (comboBoxPaperSize.SelectedIndex < MapUtil.StandardPaperSizes.Length && comboBoxPaperSize.SelectedIndex >= 0)
-                paperSizeText = MapUtil.StandardPaperSizes[comboBoxPaperSize.SelectedIndex].PaperName;
+            if (comboBoxPaperSize.SelectedIndex < PrintingStandards.StandardPaperSizes.Length && comboBoxPaperSize.SelectedIndex >= 0)
+                paperSizeText = PrintingStandards.StandardPaperSizes[comboBoxPaperSize.SelectedIndex].Name;
             else
                 paperSizeText = comboBoxPaperSize.SelectedText;
 
@@ -168,12 +171,12 @@ namespace PurplePen
 
         private void comboBoxPaperSize_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBoxPaperSize.SelectedIndex < MapUtil.StandardPaperSizes.Length)
+            if (comboBoxPaperSize.SelectedIndex < PrintingStandards.StandardPaperSizes.Length)
             {
                 upDownWidth.Enabled = upDownHeight.Enabled = false;
-                PaperSize ps = MapUtil.StandardPaperSizes[comboBoxPaperSize.SelectedIndex];
-                upDownWidth.Value = Util.GetDistanceValue(ps.Width);
-                upDownHeight.Value = Util.GetDistanceValue(ps.Height);
+                PrintingPaperSize ps = PrintingStandards.StandardPaperSizes[comboBoxPaperSize.SelectedIndex];
+                upDownWidth.Value = Util.GetDistanceValue((int) Math.Round(ps.SizeInHundreths.Width));
+                upDownHeight.Value = Util.GetDistanceValue((int) Math.Round(ps.SizeInHundreths.Height));
             }
             else
             {

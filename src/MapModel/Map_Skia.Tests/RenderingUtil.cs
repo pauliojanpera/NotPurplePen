@@ -1,69 +1,54 @@
-﻿extern alias Graphics2DStd;
-
-using System;
+﻿using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 using System.Drawing;
-using System.Drawing.Imaging;
 
 using SkiaSharp;
 
 namespace Map_Skia.Tests
 {
-    using Graphics2DStd::PurplePen.Graphics2D;
+    using PurplePen.Graphics2D;
     using PurplePen.MapModel;
     using TestingUtils;
     using Map_Skia;
-    using Graphics2DStd::System.Drawing.Drawing2D;
     using System.Diagnostics;
+
+
     public static class RenderingUtil
     {
-
-        // Write a bitmap to a PNG.
-        public static void WriteBitmap(Bitmap bmp, string filename)
-        {
-            bmp.Save(filename, ImageFormat.Png);
-        }
-
-
 
         public static void RenderingTest(int width, RectangleF drawingRectangle, bool inverted, string pngFileName, Action<IGraphicsTarget> draw)
         {
             int height = (int)Math.Ceiling(width * drawingRectangle.Height / drawingRectangle.Width);
 
-            Bitmap bitmapNew = new Bitmap(width, height, PixelFormat.Format32bppPArgb);
-            BitmapData data = bitmapNew.LockBits(new Rectangle(0, 0, width, height), ImageLockMode.ReadWrite, bitmapNew.PixelFormat);
-
-            using (var surface = SKSurface.Create(new SKImageInfo(width, height, SKImageInfo.PlatformColorType, SKAlphaType.Premul), data.Scan0, data.Stride)) {
-                var skcanvas = surface.Canvas;
+            using (SKBitmap bitmapNew = new SKBitmap(width, height))
+            using (SKCanvas skcanvas = new SKCanvas(bitmapNew)) {
                 skcanvas.Clear(SKColors.White);
 
                 using (Skia_GraphicsTarget grTarget = new Skia_GraphicsTarget(skcanvas)) {
-                    grTarget.PushTransform(GetTransform(bitmapNew, drawingRectangle, inverted));
+                    grTarget.PushTransform(GetTransform(width, height, drawingRectangle, inverted));
                     draw(grTarget);
                 }
+
+                string directoryName = Path.GetDirectoryName(pngFileName);
+                string newBitmapName = Path.Combine(directoryName,
+                                            Path.GetFileNameWithoutExtension(pngFileName) + "_new.png");
+                File.Delete(newBitmapName);
+
+                BitmapTestUtil.CompareBitmapBaseline(bitmapNew, pngFileName);
             }
-            bitmapNew.UnlockBits(data);
-
-            string directoryName = Path.GetDirectoryName(pngFileName);
-            string newBitmapName = Path.Combine(directoryName,
-                                        Path.GetFileNameWithoutExtension(pngFileName) + "_new.png");
-            File.Delete(newBitmapName);
-
-            TestUtil.CompareBitmapBaseline(bitmapNew, pngFileName);
         }
 
-        static Skia_Bitmap RenderBitmap(Map map, Size bitmapSize, RectangleF mapArea, bool usePatternBitmaps, bool useOverprinting, float intensity)
+        static Skia_Bitmap RenderBitmap(Map map, Size bitmapSize, RectangleF mapArea, RenderOptions renderOptions, bool usePatternBitmaps, bool useOverprinting, bool antiAlias, float intensity)
         {
             var grTarget = new Skia_BitmapGraphicsTarget(bitmapSize.Width, bitmapSize.Height, false, CmykColor.FromCmyk(0, 0, 0, 0), mapArea, true, null, intensity);
             using (grTarget) {
-                grTarget.PushAntiAliasing(false);
+                grTarget.PushAntiAliasing(antiAlias);
 
-                RenderOptions renderOpts = new RenderOptions();
+                RenderOptions renderOpts = renderOptions;
                 renderOpts.usePatternBitmaps = usePatternBitmaps;
                 renderOpts.renderTemplates = RenderTemplateOption.MapAndTemplates;
                 renderOpts.blendOverprintedColors = useOverprinting;
@@ -77,24 +62,15 @@ namespace Map_Skia.Tests
 
         }
 
-        static Bitmap BitmapFromLockedSkiaBitmap(SKBitmap bitmap)
-        {
-            IntPtr length;
-            IntPtr pixels = bitmap.GetPixels(out length);
-            return new Bitmap(bitmap.Width, bitmap.Height, bitmap.RowBytes, bitmap.AlphaType == SKAlphaType.Opaque ? PixelFormat.Format32bppRgb : PixelFormat.Format32bppPArgb, pixels);
-        }
-
-        static void CompareBitmapBaseline(Skia_Bitmap skiaBitmapNew, string baselineFileName)
+        static void CompareBitmapBaseline(Skia_Bitmap skiaBitmapNew, string baselineFileName, int maxPixelDiff)
         {
             SKBitmap skBitmap = skiaBitmapNew.Bitmap;
-            Bitmap bitmapNew = BitmapFromLockedSkiaBitmap(skBitmap);
-            TestUtil.CompareBitmapBaseline(bitmapNew, baselineFileName);
-            bitmapNew.Dispose();
+            BitmapTestUtil.CompareBitmapBaseline(skBitmap, baselineFileName, maxPixelDiff);
         }
 
         // Verifies a test file. Returns true on success, false on failure. In the failure case, 
         // a difference bitmap is written out.
-        public static bool VerifyTestFile(string filename, bool usePatternBitmaps, bool useOverprinting, bool testLightenedColor, bool roundtripToOcadFile, int minOcadVersion, int maxOcadVersion)
+        public static bool VerifyTestFile(string filename, RenderOptions renderOptions, bool usePatternBitmaps, bool useOverprinting, bool testLightenedColor, bool roundtripToOcadFile, bool antiAlias, int minOcadVersion, int maxOcadVersion, int maxPixelDiff)
         {
 
             string pngFileName;
@@ -139,16 +115,16 @@ namespace Map_Skia.Tests
             sw.Start();
 
             // Draw into a new bitmap.
-            Skia_Bitmap bitmapNew = RenderBitmap(map, size, mapArea, usePatternBitmaps, useOverprinting, 1.0F);
+            Skia_Bitmap bitmapNew = RenderBitmap(map, size, mapArea, renderOptions, usePatternBitmaps, useOverprinting, antiAlias, 1.0F);
             sw.Stop();
-            Console.WriteLine("Rendered bitmap '{0}' to output '{4}' rect={1} size={2} in {3} ms", mapFileName, mapArea, size, sw.ElapsedMilliseconds, pngFileName);
+            //Console.WriteLine("Rendered bitmap '{0}' to output '{4}' rect={1} size={2} in {3} ms", mapFileName, mapArea, size, sw.ElapsedMilliseconds, pngFileName);
 
-            CompareBitmapBaseline(bitmapNew, pngFileName);
+            CompareBitmapBaseline(bitmapNew, pngFileName, maxPixelDiff);
 
             if (testLightenedColor) {
                 string lightenedPngFileName = Path.Combine(Path.GetDirectoryName(pngFileName), Path.GetFileNameWithoutExtension(pngFileName) + "_light.png");
-                Skia_Bitmap bitmapLight = RenderBitmap(map, size, mapArea, usePatternBitmaps, useOverprinting, 0.4F);
-                CompareBitmapBaseline(bitmapLight, lightenedPngFileName);
+                Skia_Bitmap bitmapLight = RenderBitmap(map, size, mapArea, renderOptions, usePatternBitmaps, useOverprinting, antiAlias, 0.4F);
+                CompareBitmapBaseline(bitmapLight, lightenedPngFileName, maxPixelDiff);
                 bitmapLight.Dispose();
             }
 
@@ -162,9 +138,9 @@ namespace Map_Skia.Tests
                     InputOutput.ReadFile(ocadFileName, map);
 
                     // Draw into a new bitmap.
-                    bitmapNew = RenderBitmap(map, size, mapArea, usePatternBitmaps, useOverprinting, 1.0F);
+                    bitmapNew = RenderBitmap(map, size, mapArea, renderOptions, usePatternBitmaps, useOverprinting, antiAlias, 1.0F);
 
-                    CompareBitmapBaseline(bitmapNew, pngFileName);
+                    CompareBitmapBaseline(bitmapNew, pngFileName, maxPixelDiff);
 
                     File.Delete(ocadFileName);
                 }
@@ -181,17 +157,16 @@ namespace Map_Skia.Tests
             sw.Start();
 
             // Draw into a new bitmap.
-            Skia_Bitmap bitmapNew = RenderBitmap(map, size, mapArea, true, false, 1.0F);
+            Skia_Bitmap bitmapNew = RenderBitmap(map, size, mapArea, new RenderOptions(), true, false, true, 1.0F);
 
             sw.Stop();
-            Console.WriteLine("Rendered bitmap '{0}' in {1} ms", name, sw.ElapsedMilliseconds);
+            //Console.WriteLine("Rendered bitmap '{0}' in {1} ms", name, sw.ElapsedMilliseconds);
         }
 
-        static Matrix GetTransform(Bitmap bitmap, RectangleF rectangle, bool inverted)
+        static Matrix GetTransform(int bitmapWidth, int bitmapHeight, RectangleF rectangle, bool inverted)
         {
-            Size bitmapSize = bitmap.Size;
-            PointF midpoint = new PointF(bitmapSize.Width / 2.0F, bitmapSize.Height / 2.0F);
-            float scaleFactor = (float)bitmapSize.Width / rectangle.Width;
+            PointF midpoint = new PointF(bitmapWidth / 2.0F, bitmapHeight / 2.0F);
+            float scaleFactor = (float)bitmapWidth / rectangle.Width;
             PointF centerPoint = new PointF((rectangle.Left + rectangle.Right) / 2, (rectangle.Top + rectangle.Bottom) / 2);
             Matrix matrix = new Matrix();
             matrix.Translate(midpoint.X, midpoint.Y);

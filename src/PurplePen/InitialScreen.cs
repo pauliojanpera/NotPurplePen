@@ -32,14 +32,16 @@
  * OF SUCH DAMAGE.
  */
 
+using PurplePen.MapModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace PurplePen
 {
@@ -53,8 +55,8 @@ namespace PurplePen
             openSampleRadioButton.Enabled = File.Exists(SampleEventFileName());
 
             // Only enable last event if it exists.
-            if (File.Exists(Settings.Default.LastLoadedFile)) {
-                openLastRadioButton.Text = string.Format(MiscText.OpenLastEvent, Path.GetFileNameWithoutExtension(Settings.Default.LastLoadedFile));
+            if (File.Exists(UserSettings.Current.LastLoadedFile)) {
+                openLastRadioButton.Text = string.Format(MiscText.OpenLastEvent, Path.GetFileNameWithoutExtension(UserSettings.Current.LastLoadedFile));
             }
             else {
                 openLastRadioButton.Enabled = false;
@@ -64,7 +66,7 @@ namespace PurplePen
         }
 
         // Create new event was selected.
-        public void CreateNewEvent()
+        public async Task CreateNewEvent()
         {
             NewEventWizard wizard = new NewEventWizard();
             DialogResult result = wizard.ShowDialog(this);
@@ -82,7 +84,7 @@ namespace PurplePen
                 Controller controller = new Controller(mainFrame);
 
                 // Create the new event.
-                if (controller.InitialNewEvent(wizard.CreateEventInfo)) {
+                if (await controller.InitialNewEvent(wizard.CreateEventInfo)) {
                     // success
 
                     // show the main frame with the new event.
@@ -102,13 +104,13 @@ namespace PurplePen
         }
 
         // Open existing event was selected.
-        public void OpenExistingEvent()
+        public async Task OpenExistingEvent()
         {
             MainFrame mainFrame = new MainFrame();
             Controller controller = new Controller(mainFrame);
 
             string fileName = mainFrame.GetOpenFileName();
-            if (fileName == null || ! controller.LoadInitialFile(fileName, true)) {
+            if (fileName == null || !await controller.LoadInitialFile(fileName, true)) {
                 // User cancelled or the file didn't load. 
                 // Go back and show the initial screen again.
                 mainFrame.Dispose();
@@ -124,12 +126,12 @@ namespace PurplePen
         }
 
         // Open existing event was selected.
-        public void OpenLastViewedEvent()
+        public async Task OpenLastViewedEvent()
         {
             MainFrame mainFrame = new MainFrame();
             Controller controller = new Controller(mainFrame);
 
-            if (!controller.LoadInitialFile(Settings.Default.LastLoadedFile, true)) {
+            if (!await controller.LoadInitialFile(UserSettings.Current.LastLoadedFile, true)) {
                 // User cancelled or the file didn't load. 
                 // Go back and show the initial screen again.
                 mainFrame.Dispose();
@@ -151,12 +153,12 @@ namespace PurplePen
         }
 
         // Open sample event was selected
-        public void OpenSampleEvent()
+        public async Task OpenSampleEvent()
         {
             MainFrame mainFrame = new MainFrame();
             Controller controller = new Controller(mainFrame);
 
-            if (!controller.LoadInitialFile(SampleEventFileName(), false)) {        // Don't set sample event as the last loaded file.
+            if (!await controller.LoadInitialFile(SampleEventFileName(), false)) {        // Don't set sample event as the last loaded file.
                 // File didn't load. 
                 // Go back and show the initial screen again.
                 mainFrame.Dispose();
@@ -178,19 +180,19 @@ namespace PurplePen
             Dispose();      // The initial screen is over and out.
         }
 
-        private void okButton_Click(object sender, EventArgs e)
+        private async void okButton_Click(object sender, EventArgs e)
         {
             if (openExistingRadioButton.Checked) {
-                OpenExistingEvent();
+                await OpenExistingEvent();
             }
             else if (openLastRadioButton.Checked) {
-                OpenLastViewedEvent();
+                await OpenLastViewedEvent();
             }
             else if (createNewRadioButton.Checked) {
-                CreateNewEvent();
+                await CreateNewEvent();
             }
             else if (openSampleRadioButton.Checked) {
-                OpenSampleEvent();
+                await OpenSampleEvent();
             }
             else
                 Debug.Fail("how can this happen?");
@@ -203,7 +205,7 @@ namespace PurplePen
 
         private void donationLink_Click(object sender, EventArgs e)
         {
-            Util.GoToWebPage("http://purple-pen.org/donate.htm");
+            WindowsUtil.GoToWebPage("http://purple-pen.org/donate.htm");
         }
 
         private void donationLink_Click(object sender, LinkLabelLinkClickedEventArgs e)
@@ -227,7 +229,7 @@ namespace PurplePen
 
         private void backgroundPanel_Paint(object sender, PaintEventArgs e)
         {
-            GraphicsHelper.DrawPurplePenLogo(e.Graphics, backgroundPanel);
+            LogoDrawing.DrawPurplePenLogo(new GDIPlus_GraphicsTarget(e.Graphics), backgroundPanel.ClientRectangle);
         }
 
         private void InitialScreen_Shown(object sender, EventArgs e)

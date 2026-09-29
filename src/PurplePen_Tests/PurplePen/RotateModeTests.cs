@@ -42,6 +42,7 @@ using PurplePen.MapView;
 
 using TestingUtils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Threading.Tasks;
 
 namespace PurplePen.Tests
 {
@@ -53,7 +54,7 @@ namespace PurplePen.Tests
         EventDB eventDB;
 
         [TestInitialize]
-        public void Setup()
+        public async Task Setup()
         {
             ui = TestUI.Create();
             controller = ui.controller;
@@ -61,13 +62,13 @@ namespace PurplePen.Tests
 
             string fileName = TestUtil.GetTestFile("modes\\crossings.ppen");
 
-            bool success = controller.LoadInitialFile(fileName, true);
+            bool success = await controller.LoadInitialFile(fileName, true);
             Assert.IsTrue(success);
         }
 
         // Rotate a mandatory crossing point.
         [TestMethod]
-        public void RotateMandatoryCrossing()
+        public async Task RotateMandatoryCrossing()
         {
             CourseObj[] highlights;
 
@@ -76,8 +77,8 @@ namespace PurplePen.Tests
 
             // Select mandatory crossing point.
             var dragAction = controller.LeftButtonDown(Pane.Map, new PointF(25.4F, 25.5F), 0.2F);
-            Assert.AreEqual(MapViewer.DragAction.DelayedDrag, dragAction);
-            controller.LeftButtonClick(Pane.Map, new PointF(25.4F, 25.5F), 0.3F);
+            Assert.AreEqual(DragAction.DelayedMapPan, dragAction);
+            await controller.LeftButtonClick(Pane.Map, new PointF(25.4F, 25.5F), 0.3F);
 
             highlights = (CourseObj[]) controller.GetHighlights(Pane.Map);
             Assert.AreEqual(1, highlights.Length);
@@ -104,7 +105,7 @@ namespace PurplePen.Tests
             Assert.AreEqual(187.7F, obj.orientation, 0.1F);
 
             // Mouse down somewhere.
-            MapViewer.DragAction action = controller.LeftButtonDown(Pane.Map, new PointF(44, 29), 0.1F);
+            DragAction action = controller.LeftButtonDown(Pane.Map, new PointF(44, 29), 0.1F);
 
             // The highlight should be in the same place, but rotated again.
             highlights = (CourseObj[]) controller.GetHighlights(Pane.Map);
@@ -121,7 +122,7 @@ namespace PurplePen.Tests
 
         // Rotate a optional crossing point.
         [TestMethod]
-        public void RotateOptionalCrossing()
+        public async Task RotateOptionalCrossing()
         {
             CourseObj[] highlights;
 
@@ -130,8 +131,8 @@ namespace PurplePen.Tests
 
             // Select mandatory crossing point.
             var dragAction = controller.LeftButtonDown(Pane.Map, new PointF(76, -5F), 0.2F);
-            Assert.AreEqual(MapViewer.DragAction.DelayedDrag, dragAction);
-            controller.LeftButtonClick(Pane.Map, new PointF(76, -5F), 0.3F);
+            Assert.AreEqual(DragAction.DelayedMapPan, dragAction);
+            await controller.LeftButtonClick(Pane.Map, new PointF(76, -5F), 0.3F);
 
             highlights = (CourseObj[]) controller.GetHighlights(Pane.Map);
             Assert.AreEqual(1, highlights.Length);
@@ -158,7 +159,7 @@ namespace PurplePen.Tests
             Assert.AreEqual(97.8F, obj.orientation, 0.1F);
 
             // Mouse down somewhere.
-            MapViewer.DragAction action = controller.LeftButtonDown(Pane.Map, new PointF(44, 29), 0.1F);
+            DragAction action = controller.LeftButtonDown(Pane.Map, new PointF(44, 29), 0.1F);
 
             // The highlight should be in the same place, but rotated again.
             highlights = (CourseObj[]) controller.GetHighlights(Pane.Map);

@@ -1,0 +1,420 @@
+// MainWindow.axaml.cs
+//
+// Code-behind for the main window. Handles UI events that need
+// direct window interaction (like showing modal dialogs), which
+// don't fit cleanly into the ViewModel layer.
+
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Input;
+using Avalonia.Interactivity;
+using AvUtil;
+using PurplePen;
+using PurplePen.ViewModels;
+using System;
+using System.Drawing;
+using System.Globalization;
+using System.Linq;
+using System.Threading;
+
+namespace AvPurplePen.Views
+{
+    /// <summary>
+    /// The main application window.
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        private MousePointerShape _mapMousePointerShape = new MousePointerShape(PredefinedMousePointerShape.Arrow);
+        private MousePointerShape _topologyMousePointerShape = new MousePointerShape(PredefinedMousePointerShape.Arrow);
+
+        // Set to true once the user has confirmed exit (the current file was closed
+        // successfully). While false, the window's close button (the X) is intercepted
+        // and routed through the Exit command so the user is prompted to save first.
+        private bool exitConfirmed = false;
+
+        // The ViewModel whose ExitRequested event we are currently subscribed to.
+        // Tracked so we can unsubscribe when the DataContext changes.
+        private MainWindowViewModel? subscribedViewModel;
+
+        // Has the MousePointerShape that should be used in the map viewer.
+        public static readonly DirectProperty<MainWindow, MousePointerShape> MapMousePointerShapeProperty =
+                AvaloniaProperty.RegisterDirect<MainWindow, MousePointerShape>(
+                    nameof(MapMousePointerShape),
+                    getter: o => o.MapMousePointerShape,
+                    setter: (o, value) => o.MapMousePointerShape = value);
+
+        // Has the MousePointerShape that should be used in the topology view.
+        public static readonly DirectProperty<MainWindow, MousePointerShape> TopologyMousePointerShapeProperty =
+                AvaloniaProperty.RegisterDirect<MainWindow, MousePointerShape>(
+                    nameof(TopologyMousePointerShape),
+                    getter: o => o.TopologyMousePointerShape,
+                    setter: (o, value) => o.TopologyMousePointerShape = value);
+
+        /// <summary>
+        /// Initializes the main window and its components.
+        /// </summary>
+        public MainWindow()
+        {
+            InitializeComponent();
+            ApplicationIdleService.ApplicationIdle += ApplicationIdle;
+
+            // Track modifier-key state at the window level (tunneling, including handled events) so it is
+            // current regardless of which child control has focus when the Help menu is opened.
+            AddHandler(KeyDownEvent, TrackModifiers, RoutingStrategies.Tunnel, handledEventsToo: true);
+            AddHandler(KeyUpEvent, TrackModifiers, RoutingStrategies.Tunnel, handledEventsToo: true);
+
+            // Keys that no focused control used, such as the arrow keys that scroll the map. Bubbling, and not
+            // for handled events, so the focused control always gets first chance at the key.
+            AddHandler(KeyDownEvent, MainWindow_KeyDown, RoutingStrategies.Bubble);
+
+            // The window's close button (the X) and the File/Exit menu both route through
+            // the ViewModel's Exit command, which prompts to save before allowing the exit.
+            DataContextChanged += MainWindow_DataContextChanged;
+            Closing += MainWindow_Closing;
+            Activated += MainWindow_Activated;
+        }
+
+        // Keep our subscription to the ViewModel's ExitRequested event in sync with the
+        // current DataContext.
+        private void MainWindow_DataContextChanged(object? sender, EventArgs e)
+        {
+            if (subscribedViewModel != null) {
+                subscribedViewModel.ExitRequested -= ViewModel_ExitRequested;
+                subscribedViewModel.ReloadInitialScreenRequested -= ViewModel_ReloadInitialScreenRequested;
+                subscribedViewModel = null;
+            }
+
+            if (DataContext is MainWindowViewModel viewModel) {
+                viewModel.ExitRequested += ViewModel_ExitRequested;
+                viewModel.ReloadInitialScreenRequested += ViewModel_ReloadInitialScreenRequested;
+                subscribedViewModel = viewModel;
+            }
+        }
+
+        // Raised by the ViewModel when the current file has been closed but a new event could not be
+        // created or loaded, so there is no open file.
+        private void ViewModel_ReloadInitialScreenRequested()
+        {
+            ShowInitialScreenInstead();
+        }
+
+        /// <summary>
+        /// Replaces this main window with the welcome screen. Used both when the ViewModel closes
+        /// the current file without opening another, and when a file named on the command line
+        /// fails to load. Bypasses the save prompt in MainWindow_Closing, because in both cases
+        /// there is nothing left to save.
+        /// </summary>
+        public void ShowInitialScreenInstead()
+        {
+            InitialScreenWindow initialScreen = new InitialScreenWindow {
+                DataContext = new InitialScreenViewModel(),
+            };
+
+            // Make the welcome screen the application's main window. This keeps the app alive when this
+            // window closes and makes the dialog service parent modal dialogs to the welcome screen.
+            if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop) {
+                desktop.MainWindow = initialScreen;
+            }
+
+            initialScreen.Show();
+            initialScreen.Activate();
+
+            // The current file is already closed, so bypass the save prompt in the close handler and
+            // close this main window.
+            exitConfirmed = true;
+            Close();
+        }
+
+        // Raised by the ViewModel once the current file has been closed successfully and
+        // the application should exit. Allow the window to actually close now.
+        private void ViewModel_ExitRequested()
+        {
+            exitConfirmed = true;
+            if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop) {
+                desktop.Shutdown();
+            }
+            else {
+                Close();
+            }
+        }
+
+        // Intercept the window's close button. Until the user has confirmed the exit (via
+        // the Exit command, which prompts to save), cancel the close and run that command.
+        private void MainWindow_Closing(object? sender, WindowClosingEventArgs e)
+        {
+            if (exitConfirmed)
+                return;   // exit already confirmed; let the window close.
+
+            e.Cancel = true;
+            if (DataContext is MainWindowViewModel viewModel && viewModel.ExitCommand.CanExecute(null)) {
+                viewModel.ExitCommand.Execute(null);
+            }
+        }
+
+        // Records the currently-held keyboard modifiers from any key event and updates whether the
+        // hidden Debug and Translate submenus in the Help menu are shown. They are revealed only while
+        // Ctrl+Shift or Ctrl+Alt is held down (matching the WinForms helpMenu_DropDownOpening behavior).
+        // The main menu is a NativeMenu, whose items are not controls and so can neither be named nor
+        // have their submenu-opening event handled; the visibility is therefore driven from the
+        // ViewModel as the modifiers change, rather than being evaluated when the Help menu opens.
+        private void TrackModifiers(object? sender, KeyEventArgs e)
+        {
+            bool show = (e.KeyModifiers & (KeyModifiers.Control | KeyModifiers.Shift)) == (KeyModifiers.Control | KeyModifiers.Shift) ||
+                        (e.KeyModifiers & (KeyModifiers.Control | KeyModifiers.Alt)) == (KeyModifiers.Control | KeyModifiers.Alt);
+            if (DataContext is MainWindowViewModel viewModel) {
+                viewModel.ShowHiddenHelpMenus = show;
+            }
+        }
+
+        // Handles key presses that bubbled up to the window without being used by the focused control.
+        // Unmodified arrow keys scroll the main map by the same step as clicking a scroll bar arrow.
+        // Plain keys like these belong here rather than in Window.KeyBindings, because Avalonia runs
+        // KeyBindings before the focused control sees the key, so a binding would take the key away
+        // from any control that uses it.
+        //   sender: the window.
+        //   e: the key event arguments.
+        private void MainWindow_KeyDown(object? sender, KeyEventArgs e)
+        {
+            if (e.Handled || e.KeyModifiers != KeyModifiers.None)
+                return;
+
+            switch (e.Key) {
+            case Key.Left:
+                mapViewer.ScrollBySmallIncrements(-1, 0);
+                break;
+            case Key.Right:
+                mapViewer.ScrollBySmallIncrements(1, 0);
+                break;
+            case Key.Up:
+                mapViewer.ScrollBySmallIncrements(0, -1);
+                break;
+            case Key.Down:
+                mapViewer.ScrollBySmallIncrements(0, 1);
+                break;
+            default:
+                return;
+            }
+
+            e.Handled = true;
+        }
+
+        public MousePointerShape MapMousePointerShape {
+            get => _mapMousePointerShape;
+            set {
+                _mapMousePointerShape = value;
+                mapViewer.Cursor = Cursors.CursorFromMousePointerShape(value);
+            }
+        }
+
+        public MousePointerShape TopologyMousePointerShape {
+            get => _topologyMousePointerShape;
+            set {
+                _topologyMousePointerShape = value;
+                mapViewerTopology.Cursor = Cursors.CursorFromMousePointerShape(value);
+            }
+        }
+
+        // Mouse activity in the main map viewer.
+        private async void MapViewer_MouseActivity(object? sender, MapViewer.FancyMouseEventArgs e)
+        {
+            MainWindowViewModel? vm = this.DataContext as MainWindowViewModel;
+            if (vm == null)
+                return;
+
+            // Only left and right buttons have meaning (except for move)
+            if (e.Button != MouseButton.Left && e.Button != MouseButton.Right && e.FancyAction != MapViewer.FancyMouseAction.Move)
+                return;
+
+            bool isRightButton = (e.Button == MouseButton.Right);
+            PointF location = Conv.ToPointF(e.WorldLocation);
+            PointF locationStart = Conv.ToPointF(e.WorldDragStart);
+            float pixelSize = mapViewer.PixelSize;
+            DragAction dragAction = DragAction.None;
+            
+            switch (e.FancyAction) {
+            case MapViewer.FancyMouseAction.Move:
+                vm.MapViewerMouseMove(location, pixelSize);
+                break;
+
+            case MapViewer.FancyMouseAction.Down:
+                if (isRightButton)
+                    dragAction = vm.MapViewerRightButtonDown(location, pixelSize);
+                else
+                    dragAction = vm.MapViewerLeftButtonDown(location, pixelSize);
+                break;
+
+            case MapViewer.FancyMouseAction.Drag:
+                if (isRightButton)
+                    vm.MapViewerRightButtonDrag(location, locationStart, pixelSize);
+                else
+                    vm.MapViewerLeftButtonDrag(location, locationStart, pixelSize);
+                break;
+
+            case MapViewer.FancyMouseAction.Up:
+                if (isRightButton) 
+                    vm.MapViewerRightButtonUp(location, pixelSize);
+                else
+                    vm.MapViewerLeftButtonUp(location, pixelSize);
+                break;
+
+            case MapViewer.FancyMouseAction.DragEnd:
+                if (isRightButton)
+                    await vm.MapViewerRightButtonEndDrag(location, locationStart, pixelSize);
+                else
+                    await vm.MapViewerLeftButtonEndDrag(location, locationStart, pixelSize);
+                break;
+
+            case MapViewer.FancyMouseAction.Click:
+                if (isRightButton)
+                    await vm.MapViewerRightButtonClick(location, pixelSize);
+                else
+                    await vm.MapViewerLeftButtonClick(location, pixelSize);
+                break;
+
+            case MapViewer.FancyMouseAction.DragCancel:
+                if (isRightButton)
+                    vm.MapViewerRightButtonCancelDrag();
+                else
+                    vm.MapViewerLeftButtonCancelDrag();
+                break;
+
+            case MapViewer.FancyMouseAction.Hover:
+                break;
+
+            default:
+                break;
+            }
+
+            switch (dragAction) {
+            case DragAction.None:
+                e.MouseDownResult = MapViewer.MouseDownResult.None; break;
+            case DragAction.SuppressClick:
+                e.MouseDownResult = MapViewer.MouseDownResult.SuppressClick; break;
+            case DragAction.MapPan:
+                e.MouseDownResult = MapViewer.MouseDownResult.ImmediatePan;  break;
+            case DragAction.ImmediateDrag:
+                e.MouseDownResult = MapViewer.MouseDownResult.ImmediateDrag; break;
+            case DragAction.DelayedDrag:
+                e.MouseDownResult = MapViewer.MouseDownResult.DelayedDrag; break;
+            case DragAction.DelayedMapPan:
+                e.MouseDownResult = MapViewer.MouseDownResult.DelayedPan; break;
+            default:
+                break;
+            }
+        }
+
+        // Mouse activity in the topology viewer.
+        private async void TopologyViewer_MouseActivity(object? sender, MapViewer.FancyMouseEventArgs e)
+        {
+            MainWindowViewModel? vm = this.DataContext as MainWindowViewModel;
+            if (vm == null)
+                return;
+
+            // Only left and right buttons have meaning (except for move)
+            if (e.Button != MouseButton.Left && e.Button != MouseButton.Right && e.FancyAction != MapViewer.FancyMouseAction.Move)
+                return;
+
+            bool isRightButton = (e.Button == MouseButton.Right);
+            PointF location = Conv.ToPointF(e.WorldLocation);
+            PointF locationStart = Conv.ToPointF(e.WorldDragStart);
+            float pixelSize = mapViewer.PixelSize;
+            DragAction dragAction = DragAction.None;
+
+            switch (e.FancyAction) {
+            case MapViewer.FancyMouseAction.Move:
+                vm.TopologyViewerMouseMove(location, pixelSize);
+                break;
+
+            case MapViewer.FancyMouseAction.Down:
+                if (isRightButton)
+                    dragAction = vm.TopologyViewerRightButtonDown(location, pixelSize);
+                else
+                    dragAction = vm.TopologyViewerLeftButtonDown(location, pixelSize);
+                break;
+
+            case MapViewer.FancyMouseAction.Drag:
+                if (isRightButton)
+                    vm.TopologyViewerRightButtonDrag(location, locationStart, pixelSize);
+                else
+                    vm.TopologyViewerLeftButtonDrag(location, locationStart, pixelSize);
+                break;
+
+            case MapViewer.FancyMouseAction.Up:
+                if (isRightButton)
+                    vm.TopologyViewerRightButtonUp(location, pixelSize);
+                else
+                    vm.TopologyViewerLeftButtonUp(location, pixelSize);
+                break;
+
+            case MapViewer.FancyMouseAction.DragEnd:
+                if (isRightButton)
+                    await vm.TopologyViewerRightButtonEndDrag(location, locationStart, pixelSize);
+                else
+                    await vm.TopologyViewerLeftButtonEndDrag(location, locationStart, pixelSize);
+                break;
+
+            case MapViewer.FancyMouseAction.Click:
+                if (isRightButton)
+                    await vm.TopologyViewerRightButtonClick(location, pixelSize);
+                else
+                    await vm.TopologyViewerLeftButtonClick(location, pixelSize);
+                break;
+
+            case MapViewer.FancyMouseAction.DragCancel:
+                if (isRightButton)
+                    vm.TopologyViewerRightButtonCancelDrag();
+                else
+                    vm.TopologyViewerLeftButtonCancelDrag();
+                break;
+
+            case MapViewer.FancyMouseAction.Hover:
+                break;
+
+            default:
+                break;
+            }
+
+            switch (dragAction) {
+            case DragAction.None:
+                e.MouseDownResult = MapViewer.MouseDownResult.None; break;
+            case DragAction.SuppressClick:
+                e.MouseDownResult = MapViewer.MouseDownResult.SuppressClick; break;
+            case DragAction.MapPan:
+                e.MouseDownResult = MapViewer.MouseDownResult.ImmediatePan; break;
+            case DragAction.ImmediateDrag:
+                e.MouseDownResult = MapViewer.MouseDownResult.ImmediateDrag; break;
+            case DragAction.DelayedDrag:
+                e.MouseDownResult = MapViewer.MouseDownResult.DelayedDrag; break;
+            case DragAction.DelayedMapPan:
+                e.MouseDownResult = MapViewer.MouseDownResult.DelayedPan; break;
+            default:
+                break;
+            }
+        }
+
+        // Called when this window becomes the active window. Lets the ViewModel react to the user
+        // returning to the application (for example, to notice that the map file changed on disk).
+        private void MainWindow_Activated(object? sender, EventArgs e)
+        {
+            if (this.IsVisible) {
+                if (this.DataContext is MainWindowViewModel viewModel) {
+                    viewModel.WindowActivated();
+                }
+            }
+        }
+
+        // This is called when the application becomes idle after processing input. We can use this to update
+        // the UI in response to changes that may have occurred.
+        private void ApplicationIdle(object? sender, System.EventArgs e)
+        {
+            if (this.IsVisible) {
+                // The application is idle. If the application state has changed, update the
+                // user interface to match.
+                if (this.DataContext is MainWindowViewModel viewModel) {
+                    viewModel.UpdateStateOnIdle();
+                }
+            }
+        }
+    }
+}

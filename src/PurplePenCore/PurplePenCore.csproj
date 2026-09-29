@@ -1,0 +1,230 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <RootNamespace>PurplePen</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DefineConstants>TRACE;DEBUG;TEST;PORTING</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <CodeAnalysisRuleSet>..\Tools\PurplePenRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DefineConstants>TRACE;TEST;PORTING</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'StorePkg|AnyCPU'">
+    <OutputPath>bin\StorePkg\</OutputPath>
+    <DefineConstants>TRACE;TEST,MSSTORE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <None Remove="swopsamples.dat" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Content Include="symbols.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <EmbeddedResource Include="..\PurplePen\Images\ConstructionBoundary_OcadToolbox.png" Link="Resources\OcadToolbox\ConstructionBoundary_OcadToolbox.png" />
+    <EmbeddedResource Include="..\PurplePen\Images\Construction_OcadToolbox.png" Link="Resources\OcadToolbox\Construction_OcadToolbox.png" />
+    <EmbeddedResource Include="..\PurplePen\Images\Control_OcadToolbox.png" Link="Resources\OcadToolbox\Control_OcadToolbox.png" />
+    <EmbeddedResource Include="..\PurplePen\Images\Crossing_OcadToolbox.png" Link="Resources\OcadToolbox\Crossing_OcadToolbox.png" />
+    <EmbeddedResource Include="..\PurplePen\Images\Dangerous_OcadToolbox.png" Link="Resources\OcadToolbox\Dangerous_OcadToolbox.png" />
+    <EmbeddedResource Include="..\PurplePen\Images\DashedLine_OcadToolbox.png" Link="Resources\OcadToolbox\DashedLine_OcadToolbox.png" />
+    <EmbeddedResource Include="..\PurplePen\Images\DescLine_OcadToolbox.png" Link="Resources\OcadToolbox\DescLine_OcadToolbox.png" />
+    <EmbeddedResource Include="..\PurplePen\Images\DescText_OcadToolbox.png" Link="Resources\OcadToolbox\DescText_OcadToolbox.png" />
+    <EmbeddedResource Include="..\PurplePen\Images\ExchangeStart_OcadToolbox.png" Link="Resources\OcadToolbox\ExchangeStart_OcadToolbox.png" />
+    <EmbeddedResource Include="..\PurplePen\Images\Finish_OcadToolbox.png" Link="Resources\OcadToolbox\Finish_OcadToolbox.png" />
+    <EmbeddedResource Include="..\PurplePen\Images\FirstAid_OcadToolbox.png" Link="Resources\OcadToolbox\FirstAid_OcadToolbox.png" />
+    <EmbeddedResource Include="..\PurplePen\Images\Forbidden_OcadToolbox.png" Link="Resources\OcadToolbox\Forbidden_OcadToolbox.png" />
+    <EmbeddedResource Include="..\PurplePen\Images\LineSpecial_OcadToolbox.png" Link="Resources\OcadToolbox\LineSpecial_OcadToolbox.png" />
+    <EmbeddedResource Include="..\PurplePen\Images\Line_OcadToolbox.png" Link="Resources\OcadToolbox\Line_OcadToolbox.png" />
+    <EmbeddedResource Include="..\PurplePen\Images\MapIssue_OcadToolbox.png" Link="Resources\OcadToolbox\MapIssue_OcadToolbox.png" />
+    <EmbeddedResource Include="..\PurplePen\Images\Number_OcadToolbox.png" Link="Resources\OcadToolbox\Number_OcadToolbox.png" />
+    <EmbeddedResource Include="..\PurplePen\Images\OOB_OcadToolbox.png" Link="Resources\OcadToolbox\OOB_OcadToolbox.png" />
+    <EmbeddedResource Include="..\PurplePen\Images\Registration_OcadToolbox.png" Link="Resources\OcadToolbox\Registration_OcadToolbox.png" />
+    <EmbeddedResource Include="..\PurplePen\Images\Start_OcadToolbox.png" Link="Resources\OcadToolbox\Start_OcadToolbox.png" />
+    <EmbeddedResource Include="..\PurplePen\Images\Water_OcadToolbox.png" Link="Resources\OcadToolbox\Water_OcadToolbox.png" />
+    <EmbeddedResource Include="..\PurplePen\Images\WhiteOut_OcadToolbox.png" Link="Resources\OcadToolbox\WhiteOut_OcadToolbox.png" />
+    <EmbeddedResource Include="Resources\logobkgd.png" />
+    <EmbeddedResource Include="Resources\swopsamples.dat" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DotSpatialProjectionsLite\DotSpatial.Projections\DotSpatial.Projections.csproj" />
+    <ProjectReference Include="..\MapModel\Graphics2D\Graphics2D.csproj" />
+    <ProjectReference Include="..\MapModel\MapModel\MapModel.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="CommandNameText.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CommandNameText.resx</DependentUpon>
+    </Compile>
+    <Compile Update="CommandNameText.*.Designer.cs">
+      <DependentUpon>CommandNameText.resx</DependentUpon>
+    </Compile>
+    <Compile Update="MiscText.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MiscText.resx</DependentUpon>
+    </Compile>
+    <Compile Update="MiscText.*.Designer.cs">
+      <DependentUpon>MiscText.resx</DependentUpon>
+    </Compile>
+    <Compile Update="ReportText.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ReportText.resx</DependentUpon>
+    </Compile>
+    <Compile Update="ReportText.*.Designer.cs">
+      <DependentUpon>ReportText.resx</DependentUpon>
+    </Compile>
+    <Compile Update="SelectionDescriptionText.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SelectionDescriptionText.resx</DependentUpon>
+    </Compile>
+    <Compile Update="SelectionDescriptionText.*.Designer.cs">
+      <DependentUpon>SelectionDescriptionText.resx</DependentUpon>
+    </Compile>
+    <Compile Update="StatusBarText.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>StatusBarText.resx</DependentUpon>
+    </Compile>
+    <Compile Update="StatusBarText.*.Designer.cs">
+      <DependentUpon>StatusBarText.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="CommandNameText.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CommandNameText.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CommandNameText.*.resx">
+      <DependentUpon>CommandNameText.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CoreMiscText.*.resx">
+      <DependentUpon>CoreMiscText.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="MiscText.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MiscText.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="MiscText.*.resx">
+      <DependentUpon>MiscText.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="ReportText.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ReportText.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="ReportText.*.resx">
+      <DependentUpon>ReportText.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="SelectionDescriptionText.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SelectionDescriptionText.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="SelectionDescriptionText.*.resx">
+      <DependentUpon>SelectionDescriptionText.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="StatusBarText.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>StatusBarText.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="StatusBarText.*.resx">
+      <DependentUpon>StatusBarText.resx</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\OcadToolbox\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+    <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="fonts\Roboto-Black.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="fonts\Roboto-BlackItalic.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="fonts\Roboto-Bold.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="fonts\Roboto-BoldItalic.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="fonts\Roboto-Italic.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="fonts\Roboto-Light.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="fonts\Roboto-LightItalic.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="fonts\Roboto-Medium.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="fonts\Roboto-MediumItalic.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="fonts\Roboto-Regular.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="fonts\Roboto-Thin.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="fonts\Roboto-ThinItalic.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="fonts\RobotoCondensed-Bold.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="fonts\RobotoCondensed-BoldItalic.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="fonts\RobotoCondensed-Italic.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="fonts\RobotoCondensed-Light.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="fonts\RobotoCondensed-LightItalic.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="fonts\RobotoCondensed-Regular.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="fonts\texgyrepagella-bolditalic.otf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

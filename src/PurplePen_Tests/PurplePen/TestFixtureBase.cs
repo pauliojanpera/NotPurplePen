@@ -32,10 +32,13 @@
  * OF SUCH DAMAGE.
  */
 
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PurplePen.Graphics2D;
+using PurplePen.MapModel;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace PurplePen.Tests
 {
@@ -56,6 +59,8 @@ namespace PurplePen.Tests
             get { return testContextInstance; }
             set { testContextInstance = value; }
         }
+
+
 
         internal CourseDesignator Designator(int id)
         {

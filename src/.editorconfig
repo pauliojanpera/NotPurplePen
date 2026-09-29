@@ -1,0 +1,17 @@
+﻿[*.cs]
+
+# MSTEST0037: Use proper 'Assert' methods
+dotnet_diagnostic.MSTEST0037.severity = suggestion
+
+# VSTHRD200: Use "Async" suffix for async methods
+dotnet_diagnostic.VSTHRD200.severity = none
+
+[AvPurplePen/**.cs]
+# VSTHRD100: Avoid "async void" methods (acceptable for UI event handlers)
+dotnet_diagnostic.VSTHRD100.severity = none
+
+[PurplePen/**.cs]
+# VSTHRD100: Avoid "async void" methods (acceptable for UI event handlers)
+dotnet_diagnostic.VSTHRD100.severity = none
+# VSTHRD103: using non-Async version of a method (e.g., ShowDialog)
+dotnet_diagnostic.VSTHRD103.severity = none

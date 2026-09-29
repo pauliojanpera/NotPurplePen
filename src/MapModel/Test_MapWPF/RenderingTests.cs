@@ -7,7 +7,6 @@ using System.Windows;
 using System.Diagnostics;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-//using NUnit.Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using PurplePen.MapModel;
@@ -17,6 +16,8 @@ using TestingUtils;
 using RenderOptions = PurplePen.MapModel.RenderOptions;
 using RectangleF = System.Drawing.RectangleF;
 using PointF = System.Drawing.PointF;
+using Matrix = System.Windows.Media.Matrix;
+using Graphics2DMatrix = PurplePen.Graphics2D.Matrix;   
 
 namespace TestWpfMap
 {
@@ -26,25 +27,13 @@ namespace TestWpfMap
     [TestClass]
     public class RenderingTests
     {
-        private TestContext testContextInstance;
-
         private const int MAX_PIXEL_DIFFERENCE = 30;
 
         /// <summary>
         ///Gets or sets the test context which provides
         ///information about and functionality for the current test run.
         ///</summary>
-        public TestContext TestContext
-        {
-            get
-            {
-                return testContextInstance;
-            }
-            set
-            {
-                testContextInstance = value;
-            }
-        }
+        public TestContext TestContext { get; set; }
 
         #region Additional test attributes
         //
@@ -119,7 +108,7 @@ namespace TestWpfMap
             File.Delete(newBitmapName);
             WritePng(bitmapNew, newBitmapName);
 
-            TestUtil.CompareBitmapBaseline(newBitmapName, pngFileName, MAX_PIXEL_DIFFERENCE);
+            BitmapTestUtil.CompareBitmapBaseline(newBitmapName, pngFileName, MAX_PIXEL_DIFFERENCE);
         }
 
 
@@ -221,11 +210,11 @@ namespace TestWpfMap
             BitmapSource bitmapNew = RenderBitmap(map, bmWidth, bmHeight, mapArea);
 
             sw.Stop();
-            Console.WriteLine("Rendered bitmap '{0}' rect={1} size=({2},{3}) in {4} ms", mapFileName, mapArea, bmWidth, bmHeight, sw.ElapsedMilliseconds);
+            //Console.WriteLine("Rendered bitmap '{0}' rect={1} size=({2},{3}) in {4} ms", mapFileName, mapArea, bmWidth, bmHeight, sw.ElapsedMilliseconds);
 
 
             WritePng(bitmapNew, newBitmapName);
-            TestUtil.CompareBitmapBaseline(newBitmapName, pngFileName, MAX_PIXEL_DIFFERENCE);
+            BitmapTestUtil.CompareBitmapBaseline(newBitmapName, pngFileName, MAX_PIXEL_DIFFERENCE);
 
             if (testLightenedColor) {
                 using (map.Write()) {
@@ -242,7 +231,7 @@ namespace TestWpfMap
                 string lightenedPngFileName = Path.Combine(Path.GetDirectoryName(pngFileName), Path.GetFileNameWithoutExtension(pngFileName) + "_light.png");
                 BitmapSource bitmapLight = RenderBitmap(map, bmWidth, bmHeight, mapArea);
                 WritePng(bitmapLight, newBitmapName);
-                TestUtil.CompareBitmapBaseline(newBitmapName, lightenedPngFileName, MAX_PIXEL_DIFFERENCE);
+                BitmapTestUtil.CompareBitmapBaseline(newBitmapName, lightenedPngFileName, MAX_PIXEL_DIFFERENCE);
             }
 
             if (roundtripToOcadFile) {
@@ -260,7 +249,7 @@ namespace TestWpfMap
                     // Draw into a new bitmap.
                     bitmapNew = RenderBitmap(map, bmWidth, bmHeight, mapArea);
                     WritePng(bitmapNew, newBitmapName);
-                    TestUtil.CompareBitmapBaseline(newBitmapName, pngFileName, MAX_PIXEL_DIFFERENCE);
+                    BitmapTestUtil.CompareBitmapBaseline(newBitmapName, pngFileName, MAX_PIXEL_DIFFERENCE);
 
                     File.Delete(ocadFileName);
                 }
@@ -277,7 +266,7 @@ namespace TestWpfMap
             BitmapSource bitmapNew = RenderBitmap(map, width, height, mapArea);
 
             sw.Stop();
-            Console.WriteLine("Rendered bitmap '{0}' in {1} ms", name, sw.ElapsedMilliseconds);
+            //Console.WriteLine("Rendered bitmap '{0}' in {1} ms", name, sw.ElapsedMilliseconds);
         }
 
         public void TimeTeanWest() {
@@ -296,14 +285,14 @@ namespace TestWpfMap
         {
             string fullname = TestUtil.GetTestFile("wpfrender\\" + filename);
             bool ok = VerifyTestFile(fullname, true, testLightenedColor, roundtripToOcad, minOcadVersion, maxOcadVersion);
-            Assert.IsTrue(ok, string.Format("Rendering test {0} did not compare correctly.", filename), ok);
+            Assert.IsTrue(ok, string.Format("Rendering test {0} did not compare correctly.", filename));
         }
 
         void CheckTestNoPatternBitmaps(string filename, bool testLightenedColor, bool roundtripToOcad, int minOcadVersion, int maxOcadVersion)
         {
             string fullname = TestUtil.GetTestFile("wpfrender\\" + filename);
             bool ok = VerifyTestFile(fullname, false, testLightenedColor, roundtripToOcad, minOcadVersion, maxOcadVersion);
-            Assert.IsTrue(ok, string.Format("Rendering test {0} did not compare correctly.", filename), ok);
+            Assert.IsTrue(ok, string.Format("Rendering test {0} did not compare correctly.", filename));
         }
 
         [TestMethod]
@@ -313,10 +302,10 @@ namespace TestWpfMap
                         grTarget => {
                             IGraphicsBitmap bitmap = new GDIPlus_FileLoader(TestUtil.GetTestFileDirectory()).LoadBitmap(TestUtil.GetTestFile("wpfrender\\Jellyfish.jpg"), false);
 
-                            grTarget.DrawBitmap(bitmap, new RectangleF(100, 100, 800, 400), BitmapScaling.HighQuality, 0.01F);
+                            grTarget.DrawBitmap(bitmap, new RectangleF(100, 100, 800, 400), BitmapScaling.HighQuality);
 
                             grTarget.DrawBitmapPart(bitmap, bitmap.PixelWidth * 3 / 10, bitmap.PixelHeight * 2 / 10, bitmap.PixelWidth * 5 / 10, bitmap.PixelHeight * 4 / 10,
-                                                    new RectangleF(100, 500, 800, 400), BitmapScaling.NearestNeighbor, 0.01F);
+                                                    new RectangleF(100, 500, 800, 400), BitmapScaling.NearestNeighbor);
 
                             bitmap.Dispose();
                         });
@@ -365,37 +354,37 @@ namespace TestWpfMap
             CheckTest("isomarea9.txt", true, true, 6, 9);
         }
 
-        [TestMethod]
+        [TestMethod, DoNotParallelize]
         public void OffsetAreaPattern()
         {
             CheckTest("offsetpattern.txt", false, true, 6, 11);
         }
 
-        [TestMethod]
+        [TestMethod, DoNotParallelize]
         public void OffsetAreaPatternNoBitmap()
         {
             CheckTestNoPatternBitmaps("offsetpattern_nopatbm.txt", false, true, 6, 11);
         }
 
-        [TestMethod]
+        [TestMethod, DoNotParallelize]
         public void OffsetAreaPatternRotated()
         {
             CheckTest("offsetpatternrot.txt", false, true, 6, 11);
         }
 
-        [TestMethod]
+        [TestMethod, DoNotParallelize]
         public void OffsetAreaPatternRotated2()
         {
             CheckTest("offsetpatternrot2.txt", false, true, 6, 11);
         }
 
-        [TestMethod]
+        [TestMethod, DoNotParallelize]
         public void OffsetAreaPatternRotatedNoBitmap()
         {
             CheckTestNoPatternBitmaps("offsetpatternrot_nopatbm.txt", false, true, 6, 11);
         }
 
-        [TestMethod]
+        [TestMethod, DoNotParallelize]
         public void OffsetAreaPatternRotated2NoBitmap()
         {
             CheckTestNoPatternBitmaps("offsetpatternrot2_nopatbm.txt", false, true, 6, 11);
@@ -457,7 +446,7 @@ namespace TestWpfMap
             CheckTest("punchbox9.txt", false, false, 6, 9);
         }
 
-        [TestMethod]
+        [TestMethod, DoNotParallelize]
         public void LakeSammMap()
         {
             CheckTest("lksamm1.txt", false, true, 6, 9);
@@ -466,7 +455,7 @@ namespace TestWpfMap
             CheckTest("lksamm4.txt", false, true, 6, 9);
         }
 
-        [TestMethod]
+        [TestMethod, DoNotParallelize]
         public void LakeSammMap9()
         {
             CheckTest("lksamm9_1.txt", false, false, 6, 9);

@@ -54,6 +54,7 @@ namespace PurplePen
             FixedBranchAssignments = new FixedBranchAssignments();
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string DefaultExportFileName
         {
             get
@@ -65,6 +66,7 @@ namespace PurplePen
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int FirstTeamNumber {
             get {
                 return (int)upDownFirstTeamNumber.Value;
@@ -74,6 +76,7 @@ namespace PurplePen
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int NumberOfTeams { 
             get
             {
@@ -85,6 +88,7 @@ namespace PurplePen
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int NumberOfLegs
         {
             get
@@ -97,6 +101,7 @@ namespace PurplePen
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool HideVariationsOnMap {
             get {
                 return checkBoxHideVariationsFromMap.Checked;
@@ -106,6 +111,7 @@ namespace PurplePen
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public RelaySettings RelaySettings
         {
             get {
@@ -119,6 +125,7 @@ namespace PurplePen
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public FixedBranchAssignments FixedBranchAssignments { get; set; }
         
         // Send the body of the report.
@@ -164,18 +171,17 @@ namespace PurplePen
         private void buttonExport_Click(object sender, EventArgs e)
         {
             if (saveFileDialog.ShowDialog() == DialogResult.OK) {
-                ExportFileType exportFileType;
+                VariationExportFileType exportFileType;
                 string exportFileName = saveFileDialog.FileName;
                 if (saveFileDialog.FilterIndex == 2)
-                    exportFileType = ExportFileType.Csv;
+                    exportFileType = VariationExportFileType.Csv;
                 else
-                    exportFileType = ExportFileType.Xml;
+                    exportFileType = VariationExportFileType.Xml;
 
                 ExportFilePressed?.Invoke(this, new ExportFilePressedEventArgs(exportFileType, exportFileName));
             }
         }
 
-        public enum ExportFileType { Xml, Csv};
 
         public class VariationInfoEventArgs: EventArgs
         {
@@ -195,10 +201,10 @@ namespace PurplePen
 
         public class ExportFilePressedEventArgs: EventArgs
         {
-            public ExportFileType FileType;
+            public VariationExportFileType FileType;
             public string FileName;
 
-            public ExportFilePressedEventArgs(ExportFileType fileType, string fileName)
+            public ExportFilePressedEventArgs(VariationExportFileType fileType, string fileName)
             {
                 FileType = fileType;
                 FileName = fileName;

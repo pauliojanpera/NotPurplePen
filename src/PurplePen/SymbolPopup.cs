@@ -32,11 +32,13 @@
  * OF SUCH DAMAGE.
  */
 
+using PurplePen.Graphics2D;
+using PurplePen.MapModel;
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
-using System.Drawing;
 using System.Diagnostics;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace PurplePen
 {
@@ -44,7 +46,7 @@ namespace PurplePen
     /// Handles the popup menu that can display symbols and/or text boxes for
     /// changing the boxes in a description.
     /// </summary>
-    class SymbolPopup
+    class SymbolPopup : IDisposable
     {
         SymbolDB symbolDB;
         int boxSize;            // Size of each image box.
@@ -76,6 +78,19 @@ namespace PurplePen
         {
             this.symbolDB = symbolDB;
             this.boxSize = boxSize;
+        }
+
+        // Dispose managed resources.
+        public void Dispose()
+        {
+            dropdown?.Dispose();
+            dropdown = null;
+            infoLabel?.Dispose();
+            infoLabel = null;
+            separator?.Dispose();
+            separator = null;
+            textbox?.Dispose();
+            textbox = null;
         }
 
         // Language for the symbol names.
@@ -318,7 +333,9 @@ namespace PurplePen
                 Graphics g = Graphics.FromImage(bm);
                 g.Clear(Color.Transparent);
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-                symbol.Draw(g, Color.Black, new RectangleF(0, 0, bm.Width, bm.Height));
+                using (GDIPlus_GraphicsTarget grTarget = new GDIPlus_GraphicsTarget(g)) {
+                    symbol.Draw(grTarget, CmykColor.FromColor(Color.Black), new RectangleF(0, 0, bm.Width, bm.Height));
+                }
                 g.Dispose();
 
                 symbolImageCache.Add(symbol.Id, bm);

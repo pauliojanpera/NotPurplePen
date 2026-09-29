@@ -36,12 +36,13 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Drawing.Drawing2D;
+using Draw2D = System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading;
 using PurplePen.Graphics2D;
+using PurplePen.MapModel;
 
 namespace PurplePen.MapView
 {
@@ -62,7 +63,9 @@ namespace PurplePen.MapView
         public const int CountMouseButtons = 2;
         bool[] mouseDown = new bool[CountMouseButtons];			// state of mouse buttons
         bool[] canDrag = new bool[CountMouseButtons];			// is a drag allowed with this button?
+        bool[] canDragPan = new bool[CountMouseButtons];	    // is a drag pan allowed with this button?
         bool[] mouseDrag = new bool[CountMouseButtons];			// is a drag in progress with this button?
+        bool[] suppressClick = new bool[CountMouseButtons];     // if true, suppress a click event on mouse up.
         PointF[] downPos = new PointF[CountMouseButtons];		// position mouse button went down, in world coordinates
         int[] downTime = new int[CountMouseButtons];			// time mouse button went down, from Environment.TickCount
 
@@ -92,7 +95,6 @@ namespace PurplePen.MapView
         Point lastDragScrollPoint;								// last point we dragged to
 
         // Events that we raise
-        public enum DragAction { None, MapDrag, ImmediateDrag, DelayedDrag };
         public delegate void PointerEventHandler(object sender, bool inViewport, PointF location);
         public delegate DragAction MouseEventHandler(object sender, MouseAction action, int buttonNumber, bool[] whichButtonsDown, PointF location, PointF locationStart);
         public event EventHandler OnViewportChange;
@@ -307,7 +309,7 @@ namespace PurplePen.MapView
 
         Graphics GetWorldGraphics() {
             Graphics g = CreateGraphics();
-            g.Transform = xformWorldToPixel;
+            g.Transform = xformWorldToPixel.ToSysDrawMatrix();
             return g;
         }
 
@@ -342,6 +344,8 @@ namespace PurplePen.MapView
         #endregion
 
         #region Property accessors
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+
         public float ZoomFactor {
             get { return zoom; }
             set { 
@@ -359,6 +363,7 @@ namespace PurplePen.MapView
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public PointF CenterPoint {
             get { return centerPoint; }
             set {
@@ -379,6 +384,7 @@ namespace PurplePen.MapView
             get { return mouseInView; }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public RectangleF Viewport {
             get {
                 return viewport;
@@ -406,6 +412,7 @@ namespace PurplePen.MapView
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool ShowGrid {
             get { 
                 return gridOn;
@@ -428,6 +435,7 @@ namespace PurplePen.MapView
         }
 
         [DefaultValue(10F)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public float MaxZoomFactor
         {
             get { return maxZoom; }
@@ -439,6 +447,7 @@ namespace PurplePen.MapView
         }
 
         [DefaultValue(0.1F)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public float MinZoomFactor
         {
             get { return minZoom; }
@@ -449,6 +458,7 @@ namespace PurplePen.MapView
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool ShowSymbolBounds
         {
             get
@@ -524,6 +534,7 @@ namespace PurplePen.MapView
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int VScrollValue
         {
             get
@@ -545,31 +556,28 @@ namespace PurplePen.MapView
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public int HoverDelay { get; set; }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool MiddleButtonAutoDrag { get; set; } = true;
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public WheelAction MouseWheelAction { get; set; } = MapViewer.WheelAction.Zoom;
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Size MouseWheelScrollAmount { get; set; } = new Size(0, 20);
 
         public enum ConstrainedScrollingMode { None, KeepSome, KeepAll, PinTop, PinCenter}
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public ConstrainedScrollingMode ConstrainedScrolling { get; set; } = ConstrainedScrollingMode.None;
 
         #endregion Property Accessors
 
         #region Change handling
-        void MapChanged(Region regionChanged) {
-            if (regionChanged != null) {
-                // Transform the changed region into pixel coordinates and invalidate it.
-                Region copy = regionChanged.Clone();
-                copy.Transform(xformWorldToPixel);
-                Invalidate(copy); 
-            }
-            else {
-                Invalidate();
-            }
+        void MapChanged() {
+            Invalidate();
 
             // Check if we need to scroll things to be within bounds again.
             PointF constrainedCenter = ConstrainCenterPoint(centerPoint, viewport.Size, GetScrollBounds());
@@ -601,24 +609,12 @@ namespace PurplePen.MapView
             // Set the rendering origin so the hatch brushes draw correctly and don't scroll weirdly.
             PointF origin = WorldToPixel(new PointF(0, 0));
             g.RenderingOrigin = Util.PointFromPointF(origin);
-            g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+            g.PixelOffsetMode = Draw2D.PixelOffsetMode.HighQuality;
 
-            foreach (IMapViewerHighlight h in highlights) {
-                h.DrawHighlight(g, xformWorldToPixel);
-            }
-        }
-
-        void EraseHighlights(Graphics g, Rectangle visRect, IMapViewerHighlight[] highlights) {
-            if (highlights == null)
-                return;
-
-            // Get brush that erases.
-            Brush eraseBrush = viewcache.GetCacheBrush(ClientSize, viewport, xformWorldToPixel);
-
-            g.PixelOffsetMode = PixelOffsetMode.HighQuality;
-
-            foreach (IMapViewerHighlight h in highlights) {
-                h.EraseHighlight(g, xformWorldToPixel, eraseBrush);
+            using (GDIPlus_GraphicsTarget grTarget = new GDIPlus_GraphicsTarget(g)) {
+                foreach (IMapViewerHighlight h in highlights) {
+                    h.DrawHighlight(grTarget, xformWorldToPixel, 1.0);
+                }
             }
         }
 
@@ -657,7 +653,7 @@ namespace PurplePen.MapView
             RectangleF accum = new RectangleF();
             foreach (IMapViewerHighlight h in highlights) {
                 RectangleF bound = WorldToPixel(h.GetHighlightBounds());
-                int borderPixels = h.GetBorderPixels();
+                int borderPixels = h.GetBorderPixels(1.0);
                 bound.Inflate(borderPixels, borderPixels);
                 if (accum.IsEmpty)
                     accum = bound;
@@ -735,6 +731,12 @@ namespace PurplePen.MapView
                         DisableHoverTimer();
                     }
 
+                    // Is a drag pan being started?
+                    if (mouseDown[buttonNumber] && !mouseDrag[buttonNumber] && canDragPan[buttonNumber] && !dragScrollingInProgress &&
+                        WorldToPixelDistance(Util.DistanceF(mouseLocation, downPos[buttonNumber])) >= MinDragDistance) {
+                        BeginMapDragging(Geometry.PointFromPointF(WorldToPixel(downPos[buttonNumber])), buttonNumber == LeftMouseButton ? MouseButtons.Left : MouseButtons.Right);
+                    }
+
                     // is a drag in progress?
                     if (OnMouseEvent != null && mouseDown[buttonNumber] && mouseDrag[buttonNumber]) {
                         OnMouseEvent(this, MouseAction.Drag, buttonNumber, mouseDown, mouseLocation, downPos[buttonNumber]);
@@ -757,20 +759,32 @@ namespace PurplePen.MapView
             mouseDown[buttonNumber] = true;
             mouseDrag[buttonNumber] = false;
             canDrag[buttonNumber] = false;
+            canDragPan[buttonNumber] = false;
+            suppressClick[buttonNumber] = false;
             downPos[buttonNumber] = worldMouse;
             downTime[buttonNumber] = Environment.TickCount;
 
             if (OnMouseEvent != null) {
                 DragAction dragAction = OnMouseEvent(this, MouseAction.Down, buttonNumber, mouseDown, worldMouse, worldMouse);
                 canDrag[buttonNumber] = (dragAction == DragAction.ImmediateDrag || dragAction == DragAction.DelayedDrag);
+
                 if (dragAction == DragAction.ImmediateDrag) {
                     mouseDrag[buttonNumber] = true;
                     DisableHoverTimer();
                 }
 
-                if (dragAction == DragAction.MapDrag) {
+                if (dragAction == DragAction.DelayedMapPan) {
+                    canDragPan[buttonNumber] = true;
+                }
+
+                if (dragAction == DragAction.MapPan) {
                     // Map dragging has been requested.
                     BeginMapDragging(new Point(xViewport, yViewport), (buttonNumber == LeftMouseButton) ? MouseButtons.Left : MouseButtons.Right);
+                }
+
+                if (dragAction == DragAction.SuppressClick) {
+                    // Do not create a click action on mouse up.
+                    suppressClick[buttonNumber] = true;
                 }
             }
 
@@ -783,7 +797,7 @@ namespace PurplePen.MapView
             bool wasDrag = mouseDrag[buttonNumber];
             bool wasClick = false;
 
-            if (wasDown && !wasDrag &&
+            if (wasDown && !wasDrag && !suppressClick[buttonNumber] &&
                 WorldToPixelDistance(Util.DistanceF(worldMouse, downPos[buttonNumber])) <= MaxClickDistance &&
                 Environment.TickCount - downTime[buttonNumber] <= MaxClickTime) {
                 wasClick = true;
@@ -792,6 +806,7 @@ namespace PurplePen.MapView
 
             mouseDown[buttonNumber] = false;
             mouseDrag[buttonNumber] = false;
+            suppressClick[buttonNumber] = false;
 
             if (OnMouseEvent != null) {
                 if (wasDrag)
@@ -847,9 +862,11 @@ namespace PurplePen.MapView
             ScrollView(dxPixels, dyPixels);
         }
 
-
-        [DllImport("user32.dll")]
-        private static extern bool ScrollWindow(IntPtr hwnd, int dx, int dy, IntPtr lpRect, IntPtr lpClipRect);
+        static class NativeMethods
+        {
+            [DllImport("user32.dll")]
+            public static extern bool ScrollWindow(IntPtr hwnd, int dx, int dy, IntPtr lpRect, IntPtr lpClipRect);
+        }
 
         // Scroll the view by a certain number of PIXELs.
         public void ScrollView(int dxPixels, int dyPixels) {
@@ -867,7 +884,7 @@ namespace PurplePen.MapView
             }
 
             bool success;
-            success = ScrollWindow(this.Handle, dxPixels, dyPixels, IntPtr.Zero, IntPtr.Zero);
+            success = NativeMethods.ScrollWindow(this.Handle, dxPixels, dyPixels, IntPtr.Zero, IntPtr.Zero);
 
             if (success) {
                 // Clear the "uncovered area" (looks better).
@@ -967,7 +984,7 @@ namespace PurplePen.MapView
         // view would be. The size of the bitmap will be exactly the client size of the view.
         public Bitmap CreateSnapshotView() {
             Rectangle rect = new Rectangle(new Point(0,0), ClientSize);
-            Bitmap bitmap = new Bitmap(rect.Width, rect.Height, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
+            Bitmap bitmap = new Bitmap(rect.Width, rect.Height, GDIPlus_GraphicsTarget.NonAlphaPixelFormat);
 
             using (Graphics g = Graphics.FromImage(bitmap)) {
                 Draw(g, rect);
@@ -1045,6 +1062,25 @@ namespace PurplePen.MapView
 
         }
         #endregion
+
+        // Dispose managed resources owned by this control.
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing) {
+                viewcache?.Dispose();
+                viewcache = null;
+                compositedBitmap?.Dispose();
+                compositedBitmap = null;
+                xformWorldToPixel?.Dispose();
+                xformWorldToPixel = null;
+                xformPixelToWorld?.Dispose();
+                xformPixelToWorld = null;
+                DragCursor?.Dispose();
+                hoverTimer?.Dispose();
+                hoverTimer = null;
+            }
+            base.Dispose(disposing);
+        }
 
         #region Event handlers
 

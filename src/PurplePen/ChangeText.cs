@@ -50,6 +50,7 @@ namespace PurplePen
             textBoxMain_TextChanged(this, EventArgs.Empty);
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string UserText
         {
             set
@@ -62,6 +63,7 @@ namespace PurplePen
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string FontName
         {
             set
@@ -82,6 +84,7 @@ namespace PurplePen
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool FontBold
         {
             set
@@ -95,6 +98,7 @@ namespace PurplePen
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool FontItalic
         {
             set
@@ -108,25 +112,28 @@ namespace PurplePen
             }
         }
 
-        public FontStyle FontStyle
+        public TextEffects TextEffects
         {
             get
             {
-                return Util.GetFontStyle(FontBold, FontItalic);
+                return Util.GetTextEffects(FontBold, FontItalic);
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public SpecialColor FontColor
         {
             get { return colorChooser.Color;  }
             set { colorChooser.Color = value; }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool FontSizeAutomatic {
             get { return checkBoxAutoFontSize.Checked; }
             set { checkBoxAutoFontSize.Checked = value; }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public float FontSize {
             get { return (float) upDownFontSize.Value; }
             set { upDownFontSize.Value = (decimal) value; }
@@ -218,24 +225,24 @@ namespace PurplePen
         {
             string expandedText = textExpander(this.UserText);
             float emHeight = pictureBoxPreview.Height * 0.7F;
-            Color textColor = SwopColorConverter.CmykToRgbColor(colorChooser.CmykColor);
+            Color textColor = SwopColorConverter.Instance.ToColor(colorChooser.CmykColor);
 
             if (!checkBoxAutoFontSize.Checked) {
-                emHeight = GetEmHeight(e.Graphics, this.FontName, this.FontStyle, (float)upDownFontSize.Value);
+                emHeight = GetEmHeight(e.Graphics, this.FontName, this.TextEffects, (float)upDownFontSize.Value);
             }
 
             StringFormat stringFormat = new StringFormat(StringFormat.GenericDefault);
             stringFormat.LineAlignment = StringAlignment.Center;
             stringFormat.FormatFlags |= StringFormatFlags.NoWrap;
-            using (Font font = GdiplusFontLoader.CreateFont(this.FontName, emHeight, this.FontStyle)) 
+            using (Font font = ((GdiplusFontLoader)Services.FontLoader).CreateFont(this.FontName, emHeight, this.TextEffects)) 
             using (Brush brush = new SolidBrush(textColor)) {
                 e.Graphics.DrawString(expandedText, font, brush, pictureBoxPreview.ClientRectangle, stringFormat);
             }
         }
 
-        private float GetEmHeight(Graphics graphics, string fontName, FontStyle fontStyle, float desiredDigitHeight)
+        private float GetEmHeight(Graphics graphics, string fontName, TextEffects textEffects, float desiredDigitHeight)
         {
-            return ((float)pictureBoxPreview.Height / 10) * desiredDigitHeight * BasicTextCourseObj.EmHeightToDigitHeightRatio(fontName, fontStyle);
+            return ((float)pictureBoxPreview.Height / 10) * desiredDigitHeight * BasicTextCourseObj.EmHeightToDigitHeightRatio(fontName, textEffects);
         }
 
         private void listBoxFonts_SelectedIndexChanged(object sender, EventArgs e)

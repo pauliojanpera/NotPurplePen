@@ -33,15 +33,18 @@
  */
 
 #if TEST
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PurplePen_Tests.PurplePen;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Printing;
-using System.Diagnostics;
 using System.IO;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Text;
+using System.Threading.Tasks;
 using TestingUtils;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace PurplePen.Tests
 {
@@ -58,26 +61,41 @@ namespace PurplePen.Tests
             controller = ui.controller;
         }
 
-        private void PunchPrintingTest(string basename, PunchPrintSettings punchPrintSettings)
+        private void PunchPrintingTest(string basename, CorePunchPrintSettings punchPrintSettings, PageSettings punchPrintPageSettings)
         {
             // Get the pages of the printing.
-            PunchPrinting punchPrinter = new PunchPrinting(controller.GetEventDB(), controller, punchPrintSettings);
-            Bitmap[] bitmaps = punchPrinter.PrintBitmaps();
+            PunchPrinting punchPrinting = new PunchPrinting(controller.GetEventDB(), punchPrintSettings);
+
+            BitmapPrintingTarget bitmapPrintTarget = new BitmapPrintingTarget();
+
+            PrintManager printManager = new PrintManager("", bitmapPrintTarget, punchPrinting);
+            printManager.SetDefaultPaperSize(WindowsUtil.PrintingPaperSizeWithMarginsFromPageSettings(punchPrintPageSettings));
+            printManager.DoPrinting();
 
             // Check all the pages against the baseline.
+            Bitmap[] bitmaps = bitmapPrintTarget.Bitmaps;
+
             for (int page = 0; page < bitmaps.Length; ++page) {
                 Bitmap bm = bitmaps[page];
                 string baseFileName = basename + "_page" + (page + 1).ToString();
-                TestUtil.CheckBitmapsBase(bm, baseFileName);
+                BitmapTestUtil.CheckBitmapsBase(bm, baseFileName);
             }
         }
 
-        private void PunchPdfTest(string basename, PunchPrintSettings punchPrintSettings)
+        private void PunchPdfTest(string basename, CorePunchPrintSettings punchPrintSettings, PageSettings punchPrintPageSettings)
         {
-            // Get the pages of the printing.
-            PunchPrinting punchPrinter = new PunchPrinting(controller.GetEventDB(), controller, punchPrintSettings);
             string pdfFileName = TestUtil.GetTestFile(basename + ".pdf");
-            punchPrinter.PrintToPdf(pdfFileName, false);
+
+            // Print to PDF file(s).
+            PunchPrinting punchPrinting = new PunchPrinting(controller.GetEventDB(), punchPrintSettings);
+
+            PdfPrintTarget pdfPrintTarget = new PdfPrintTarget(pdfFileName, cmykMode: false);
+
+            PrintManager printManager = new PrintManager("", pdfPrintTarget, punchPrinting);
+            printManager.SetDefaultPaperSize(WindowsUtil.PrintingPaperSizeWithMarginsFromPageSettings(punchPrintPageSettings));
+            printManager.DoPrinting();
+
+            // Check the pages of the printing.
             CheckPdfDump(pdfFileName, TestUtil.GetTestFile(basename + "_baseline_page%d.png"));
         }
 
@@ -93,15 +111,15 @@ namespace PurplePen.Tests
             int pageNum = 1;
             for (; ; ) {
                 string pngExpectedPage = expectedPng.Replace("%d", pageNum.ToString());
-                pngExpectedPage = TestUtil.GetBitnessSpecificFileName(pngExpectedPage, true);
-                bool expectedPageExists = File.Exists(pngExpectedPage);
+                string specificExpectedPage = TestUtil.GetSpecificFileName(pngExpectedPage, throwOnNotFound: false);
+                bool expectedPageExists = specificExpectedPage != null;
                 string pngActualPage = pngFile.Replace("%d", pageNum.ToString());
                 bool actualPageExists = File.Exists(pngActualPage);
 
                 Assert.AreEqual(expectedPageExists, actualPageExists);
                 if (expectedPageExists) {
                     using (Bitmap bmNew = (Bitmap)Image.FromFile(pngActualPage)) {
-                        TestUtil.CompareBitmapBaseline(bmNew, pngExpectedPage);
+                        BitmapTestUtil.CompareBitmapBaseline(bmNew, pngExpectedPage);
                     }
                 }
                 else {
@@ -118,45 +136,56 @@ namespace PurplePen.Tests
 
 
         [TestMethod]
-        public void PrintPunches1()
+        public async Task PrintPunches1()
         {
-            controller.LoadInitialFile(TestUtil.GetTestFile("punchcards\\sample1.ppen"), true);
-            PunchPrintSettings punchPrintSettings = new PunchPrintSettings();
-            punchPrintSettings.BoxSize = 18;
+            await controller.LoadInitialFile(TestUtil.GetTestFile("punchcards\\sample1.ppen"), true);
 
+            CorePunchPrintSettings punchPrintSettings = new CorePunchPrintSettings();
+            punchPrintSettings.BoxSize = 18;
             punchPrintSettings.CourseIds = new Id<Course>[] { CourseId(1), CourseId(2), CourseId(3), CourseId(4), CourseId(0) };
-            PunchPrintingTest("punchcards\\desc1", punchPrintSettings);
+
+            PageSettings pageSettings = new PageSettings();
+            pageSettings.Margins = new Margins(50, 50, 50, 50);        // default to 1/2" margins.
+
+            PunchPrintingTest("punchcards\\desc1", punchPrintSettings, pageSettings);
         }
 
         [TestMethod]
-        public void PrintPunches2()
+        public async Task PrintPunches2()
         {
-            controller.LoadInitialFile(TestUtil.GetTestFile("punchcards\\sample1.ppen"), true);
-            PunchPrintSettings punchPrintSettings = new PunchPrintSettings();
-            punchPrintSettings.PageSettings.Landscape = true;
-            punchPrintSettings.PageSettings.Margins = new Margins(50, 50, 200, 200);
+            await controller.LoadInitialFile(TestUtil.GetTestFile("punchcards\\sample1.ppen"), true);
+            CorePunchPrintSettings punchPrintSettings = new CorePunchPrintSettings();
             punchPrintSettings.BoxSize = 9;
 
+            PageSettings pageSettings = new PageSettings();
+            pageSettings.Landscape = true;
+            pageSettings.Margins = new Margins(50, 50, 200, 200);
+
             punchPrintSettings.CourseIds = new Id<Course>[] { CourseId(0), CourseId(1), CourseId(2), CourseId(3), CourseId(4), CourseId(5), CourseId(6), CourseId(7) };
-            PunchPrintingTest("punchcards\\desc2", punchPrintSettings);
+            PunchPrintingTest("punchcards\\desc2", punchPrintSettings, pageSettings);
         }
 
         [TestMethod]
-        public void PrintPunchesRelay1()
+        public async Task PrintPunchesRelay1()
         {
-            controller.LoadInitialFile(TestUtil.GetTestFile("controller\\variations.ppen"), true);
-            PunchPrintSettings punchPrintSettings = new PunchPrintSettings();
+            await controller.LoadInitialFile(TestUtil.GetTestFile("controller\\variations.ppen"), true);
+
+            CorePunchPrintSettings punchPrintSettings = new CorePunchPrintSettings();
             punchPrintSettings.BoxSize = 18;
 
+            PageSettings pageSettings = new PageSettings();
+            pageSettings.Margins = new Margins(50, 50, 50, 50);        // default to 1/2" margins.
+
             punchPrintSettings.CourseIds = new Id<Course>[] { CourseId(2), CourseId(0) };
-            PunchPrintingTest("punchcards\\relay1", punchPrintSettings);
+            PunchPrintingTest("punchcards\\relay1", punchPrintSettings, pageSettings);
         }
 
         [TestMethod]
-        public void PrintPunchesRelay2()
+        public async Task PrintPunchesRelay2()
         {
-            controller.LoadInitialFile(TestUtil.GetTestFile("controller\\variations.ppen"), true);
-            PunchPrintSettings punchPrintSettings = new PunchPrintSettings();
+            await controller.LoadInitialFile(TestUtil.GetTestFile("controller\\variations.ppen"), true);
+
+            CorePunchPrintSettings punchPrintSettings = new CorePunchPrintSettings();
             punchPrintSettings.BoxSize = 18;
             punchPrintSettings.VariationChoicesPerCourse[CourseId(2)] =
                 new VariationChoices() {
@@ -165,15 +194,19 @@ namespace PurplePen.Tests
                     LastTeam = 3
                 };
 
+            PageSettings pageSettings = new PageSettings();
+            pageSettings.Margins = new Margins(50, 50, 50, 50);        // default to 1/2" margins.
+
             punchPrintSettings.CourseIds = new Id<Course>[] { CourseId(2) };
-            PunchPrintingTest("punchcards\\relay2", punchPrintSettings);
+            PunchPrintingTest("punchcards\\relay2", punchPrintSettings, pageSettings);
         }
 
         [TestMethod]
-        public void PrintPunchesRelay3()
+        public async Task PrintPunchesRelay3()
         {
-            controller.LoadInitialFile(TestUtil.GetTestFile("controller\\variations.ppen"), true);
-            PunchPrintSettings punchPrintSettings = new PunchPrintSettings();
+            await controller.LoadInitialFile(TestUtil.GetTestFile("controller\\variations.ppen"), true);
+
+            CorePunchPrintSettings punchPrintSettings = new CorePunchPrintSettings();
             punchPrintSettings.BoxSize = 18;
             punchPrintSettings.VariationChoicesPerCourse[CourseId(2)] =
                 new VariationChoices() {
@@ -181,45 +214,60 @@ namespace PurplePen.Tests
                 };
 
             punchPrintSettings.CourseIds = new Id<Course>[] { CourseId(2) };
-            PunchPrintingTest("punchcards\\relay3", punchPrintSettings);
+
+            PageSettings pageSettings = new PageSettings();
+            pageSettings.Margins = new Margins(50, 50, 50, 50);        // default to 1/2" margins.
+
+            PunchPrintingTest("punchcards\\relay3", punchPrintSettings, pageSettings);
         }
 
         [TestMethod]
-        public void PrintPunchesPdf1()
+        public async Task PrintPunchesPdf1()
         {
-            controller.LoadInitialFile(TestUtil.GetTestFile("punchcards\\sample1.ppen"), true);
-            PunchPrintSettings punchPrintSettings = new PunchPrintSettings();
+            await controller.LoadInitialFile(TestUtil.GetTestFile("punchcards\\sample1.ppen"), true);
+
+            CorePunchPrintSettings punchPrintSettings = new CorePunchPrintSettings();
             punchPrintSettings.BoxSize = 18;
-
             punchPrintSettings.CourseIds = new Id<Course>[] { CourseId(1), CourseId(2), CourseId(3), CourseId(4), CourseId(0) };
-            PunchPdfTest("punchcards\\descpdf1", punchPrintSettings);
+
+            PageSettings pageSettings = new PageSettings();
+            pageSettings.Margins = new Margins(50, 50, 50, 50);        // default to 1/2" margins.
+
+            PunchPdfTest("punchcards\\descpdf1", punchPrintSettings, pageSettings);
         }
 
         [TestMethod]
-        public void PrintPunchesPdf2()
+        public async Task PrintPunchesPdf2()
         {
-            controller.LoadInitialFile(TestUtil.GetTestFile("punchcards\\sample1.ppen"), true);
-            PunchPrintSettings punchPrintSettings = new PunchPrintSettings();
-            punchPrintSettings.PageSettings.Landscape = true;
-            punchPrintSettings.PageSettings.Margins = new Margins(50, 50, 200, 200);
+            await controller.LoadInitialFile(TestUtil.GetTestFile("punchcards\\sample1.ppen"), true);
+
+            CorePunchPrintSettings punchPrintSettings = new CorePunchPrintSettings();
             punchPrintSettings.BoxSize = 9;
 
             punchPrintSettings.CourseIds = new Id<Course>[] { CourseId(0), CourseId(1), CourseId(2), CourseId(3), CourseId(4), CourseId(5), CourseId(6), CourseId(7) };
-            PunchPdfTest("punchcards\\descpdf2", punchPrintSettings);
+
+            PageSettings pageSettings = new PageSettings();
+            pageSettings.Landscape = true;
+            pageSettings.Margins = new Margins(50, 50, 200, 200);
+            PunchPdfTest("punchcards\\descpdf2", punchPrintSettings, pageSettings);
         }
 
 
 
         [TestMethod]
-        public void PrintingException()
+        public async Task PrintingException()
         {
-            controller.LoadInitialFile(TestUtil.GetTestFile("punchcards\\sample1.ppen"), true);
-            PunchPrintSettings punchPrintSettings = new PunchPrintSettings();
+            await controller.LoadInitialFile(TestUtil.GetTestFile("punchcards\\sample1.ppen"), true);
+            CorePunchPrintSettings punchPrintSettings = new CorePunchPrintSettings();
 
             punchPrintSettings.CourseIds = new Id<Course>[] { CourseId(1), CourseId(2), CourseId(3) };
-            punchPrintSettings.PageSettings.PrinterSettings.PrinterName = "foobar";
 
-            bool success = controller.PrintPunches(punchPrintSettings, false);
+            PageSettings pageSettings = new PageSettings();
+            pageSettings.Margins = new Margins(50, 50, 50, 50);        // default to 1/2" margins.
+            pageSettings.PrinterSettings.PrinterName = "foobar";
+
+
+            bool success = controller.PrintPunches(WindowsUtil.GetWinFormsPrintTarget(pageSettings, null, false), punchPrintSettings, WindowsUtil.PrintingPaperSizeWithMarginsFromPageSettings(pageSettings));
 
             Assert.IsFalse(success);
             string expected =

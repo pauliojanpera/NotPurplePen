@@ -42,31 +42,30 @@ using System.IO;
 using System.Diagnostics;
 using NUnit.Framework;
 using TestingUtils;
-//using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace PurplePen.MapModel.Tests
 {
     using PurplePen.Graphics2D;
 
-    [TestFixture]
+    [TestFixture, Parallelizable(ParallelScope.Children)]
     public class Rendering 
     {
         private const int MAX_PIXEL_DIFF = 30;
 
         static Rendering()
         {
-            Uri uri = new Uri(typeof(Rendering).Assembly.CodeBase);
+            Uri uri = new Uri(typeof(Rendering).Assembly.Location);
             string executablePath = Path.GetDirectoryName(uri.LocalPath);
             string fontPath = Path.Combine(executablePath, "fonts");
 
-            GdiplusFontLoader.AddFontFile("Roboto", FontStyle.Regular, Path.Combine(fontPath, "Roboto-Regular.ttf"));
-            GdiplusFontLoader.AddFontFile("Roboto", FontStyle.Bold, Path.Combine(fontPath, "Roboto-Bold.ttf"));
-            GdiplusFontLoader.AddFontFile("Roboto", FontStyle.Italic, Path.Combine(fontPath, "Roboto-Italic.ttf"));
-            GdiplusFontLoader.AddFontFile("Roboto", FontStyle.Bold | FontStyle.Italic, Path.Combine(fontPath, "Roboto-BoldItalic.ttf"));
-            GdiplusFontLoader.AddFontFile("Roboto Condensed", FontStyle.Regular, Path.Combine(fontPath, "RobotoCondensed-Regular.ttf"));
-            GdiplusFontLoader.AddFontFile("Roboto Condensed", FontStyle.Bold, Path.Combine(fontPath, "RobotoCondensed-Bold.ttf"));
-            GdiplusFontLoader.AddFontFile("Roboto Condensed", FontStyle.Italic, Path.Combine(fontPath, "RobotoCondensed-Italic.ttf"));
-            GdiplusFontLoader.AddFontFile("Roboto Condensed", FontStyle.Bold | FontStyle.Italic, Path.Combine(fontPath, "RobotoCondensed-BoldItalic.ttf"));
+            GdiplusFontLoader.Instance.AddFontFile("Roboto", TextEffects.Regular, Path.Combine(fontPath, "Roboto-Regular.ttf"));
+            GdiplusFontLoader.Instance.AddFontFile("Roboto", TextEffects.Bold, Path.Combine(fontPath, "Roboto-Bold.ttf"));
+            GdiplusFontLoader.Instance.AddFontFile("Roboto", TextEffects.Italic, Path.Combine(fontPath, "Roboto-Italic.ttf"));
+            GdiplusFontLoader.Instance.AddFontFile("Roboto", TextEffects.Bold | TextEffects.Italic, Path.Combine(fontPath, "Roboto-BoldItalic.ttf"));
+            GdiplusFontLoader.Instance.AddFontFile("Roboto Condensed", TextEffects.Regular, Path.Combine(fontPath, "RobotoCondensed-Regular.ttf"));
+            GdiplusFontLoader.Instance.AddFontFile("Roboto Condensed", TextEffects.Bold, Path.Combine(fontPath, "RobotoCondensed-Bold.ttf"));
+            GdiplusFontLoader.Instance.AddFontFile("Roboto Condensed", TextEffects.Italic, Path.Combine(fontPath, "RobotoCondensed-Italic.ttf"));
+            GdiplusFontLoader.Instance.AddFontFile("Roboto Condensed", TextEffects.Bold | TextEffects.Italic, Path.Combine(fontPath, "RobotoCondensed-BoldItalic.ttf"));
         }
 
         // Write a bitmap to a PNG.
@@ -79,7 +78,7 @@ namespace PurplePen.MapModel.Tests
             int height = (int)Math.Ceiling(width * drawingRectangle.Height / drawingRectangle.Width);
 
             Bitmap bitmapNew;
-            using (GDIPlus_BitmapGraphicsTarget grTarget = new GDIPlus_BitmapGraphicsTarget(width, height, false, CmykColor.FromCmyk(0, 0, 0, 0), drawingRectangle, true)) {
+            using (GDIPlus_BitmapGraphicsTarget grTarget = new GDIPlus_BitmapGraphicsTarget(width, height, true, CmykColor.FromCmyk(0, 0, 0, 0), drawingRectangle, true)) {
                 draw(grTarget);
                 bitmapNew = grTarget.Bitmap;
             }
@@ -89,7 +88,7 @@ namespace PurplePen.MapModel.Tests
                                         Path.GetFileNameWithoutExtension(pngFileName) + "_new.png");
             File.Delete(newBitmapName);
 
-            TestUtil.CompareBitmapBaseline(bitmapNew, pngFileName, MAX_PIXEL_DIFF);
+            BitmapTestUtil.CompareBitmapBaseline(bitmapNew, pngFileName, MAX_PIXEL_DIFF);
         }
 
         [Test]
@@ -105,11 +104,11 @@ namespace PurplePen.MapModel.Tests
                     CmykColor purple = CmykColor.FromCmyk(0.1F, 0.9F, 0, 0.1F);
 
                     object penBlue = new object(), penGreen = new object(), penYellow = new object(), penBlack = new object(), penPurple = new object();
-                    grTarget.CreatePen(penBlue, blue, penWidth, LineCap.Round, LineJoin.Miter, 5);
-                    grTarget.CreatePen(penGreen, green, penWidth, LineCap.Round, LineJoin.Miter, 5);
-                    grTarget.CreatePen(penYellow, yellow, penWidth, LineCap.Round, LineJoin.Miter, 5);
-                    grTarget.CreatePen(penBlack, black, penWidth, LineCap.Round, LineJoin.Miter, 5);
-                    grTarget.CreatePen(penPurple, purple, penWidth, LineCap.Round, LineJoin.Miter, 5);
+                    grTarget.CreatePen(penBlue, blue, penWidth, LineCapMode.Round, LineJoinMode.Miter, 5);
+                    grTarget.CreatePen(penGreen, green, penWidth, LineCapMode.Round, LineJoinMode.Miter, 5);
+                    grTarget.CreatePen(penYellow, yellow, penWidth, LineCapMode.Round, LineJoinMode.Miter, 5);
+                    grTarget.CreatePen(penBlack, black, penWidth, LineCapMode.Round, LineJoinMode.Miter, 5);
+                    grTarget.CreatePen(penPurple, purple, penWidth, LineCapMode.Round, LineJoinMode.Miter, 5);
 
                     grTarget.DrawLine(penBlue, new PointF(-80, 60), new PointF(80, 60));
                     grTarget.DrawLine(penGreen, new PointF(-80, 30), new PointF(80, 30));
@@ -135,11 +134,11 @@ namespace PurplePen.MapModel.Tests
                     CmykColor purple = CmykColor.FromCmyk(0.1F, 0.9F, 0, 0.1F);
 
                     object penBlue = new object(), penGreen = new object(), penYellow = new object(), penBlack = new object(), penPurple = new object();
-                    grTarget.CreatePen(penBlue, blue, penWidth, LineCap.Round, LineJoin.Miter, 5);
-                    grTarget.CreatePen(penGreen, green, penWidth, LineCap.Round, LineJoin.Miter, 5);
-                    grTarget.CreatePen(penYellow, yellow, penWidth, LineCap.Round, LineJoin.Miter, 5);
-                    grTarget.CreatePen(penBlack, black, penWidth, LineCap.Round, LineJoin.Miter, 5);
-                    grTarget.CreatePen(penPurple, purple, penWidth * 2, LineCap.Round, LineJoin.Miter, 5);
+                    grTarget.CreatePen(penBlue, blue, penWidth, LineCapMode.Round, LineJoinMode.Miter, 5);
+                    grTarget.CreatePen(penGreen, green, penWidth, LineCapMode.Round, LineJoinMode.Miter, 5);
+                    grTarget.CreatePen(penYellow, yellow, penWidth, LineCapMode.Round, LineJoinMode.Miter, 5);
+                    grTarget.CreatePen(penBlack, black, penWidth, LineCapMode.Round, LineJoinMode.Miter, 5);
+                    grTarget.CreatePen(penPurple, purple, penWidth * 2, LineCapMode.Round, LineJoinMode.Miter, 5);
 
                     grTarget.DrawLine(penBlue, new PointF(-180, 60), new PointF(180, 60));
                     grTarget.DrawLine(penGreen, new PointF(-180, 30), new PointF(180, 30));
@@ -152,6 +151,7 @@ namespace PurplePen.MapModel.Tests
                 });
         }
 
+#if true
         [Test]
         public void PatternBrush() {
             GDIPlus_RenderingTest(800, new RectangleF(-103, -117, 200, 200), TestUtil.GetTestFile("rendering\\patternbrush_baseline.png"),
@@ -159,23 +159,23 @@ namespace PurplePen.MapModel.Tests
                     IBrushTarget brushTarget = grTarget.CreatePatternBrush(new SizeF(30, 20), 0, 60, 60);
 
                     object pen = new object();
-                    brushTarget.CreatePen(pen, CmykColor.FromRgb(1, 0, 0), 1.5F, LineCap.Round, LineJoin.Round, 5F);
+                    brushTarget.CreatePen(pen, CmykColor.FromRgb(1, 0, 0), 1.5F, LineCapMode.Round, LineJoinMode.Round, 5F);
                     brushTarget.DrawLine(pen, new PointF(-15, -10), new PointF(3, 10));
                     pen = new object();
-                    brushTarget.CreatePen(pen, CmykColor.FromRgb(0, 1, 0), 3.0F, LineCap.Round, LineJoin.Round, 5F);
+                    brushTarget.CreatePen(pen, CmykColor.FromRgb(0, 1, 0), 3.0F, LineCapMode.Round, LineJoinMode.Round, 5F);
                     brushTarget.DrawLine(pen, new PointF(3, 10), new PointF(15, -10));
 
                     pen = new object();
-                    brushTarget.CreatePen(pen, CmykColor.FromRgb(0, 0, 1), 3F, LineCap.Round, LineJoin.Round, 5F);
+                    brushTarget.CreatePen(pen, CmykColor.FromRgb(0, 0, 1), 3F, LineCapMode.Round, LineJoinMode.Round, 5F);
                     brushTarget.DrawEllipse(pen, new PointF(1, -2), 5, 4);
 
                     object brush = new object();
                     brushTarget.FinishBrush(brush);
 
-                    grTarget.FillPolygon(brush, new PointF[] { new PointF(-50, -60), new PointF(0, 30), new PointF(50, -60), new PointF(-50, 20), new PointF(50, 20) }, FillMode.Winding);
+                    grTarget.FillPolygon(brush, new PointF[] { new PointF(-50, -60), new PointF(0, 30), new PointF(50, -60), new PointF(-50, 20), new PointF(50, 20) }, AreaFillMode.Winding);
 
                     pen = new object();
-                    grTarget.CreatePen(pen, CmykColor.FromRgb(0, 0, 0), 0.5F, LineCap.Flat, LineJoin.Round, 5F);
+                    grTarget.CreatePen(pen, CmykColor.FromRgb(0, 0, 0), 0.5F, LineCapMode.Flat, LineJoinMode.Round, 5F);
                     grTarget.DrawLine(pen, new PointF(-30, -30), new PointF(30, 30));
                     grTarget.DrawLine(pen, new PointF(30, -30), new PointF(-30, 30));
                 });
@@ -189,27 +189,28 @@ namespace PurplePen.MapModel.Tests
                     IBrushTarget brushTarget = grTarget.CreatePatternBrush(new SizeF(30, 20), 147, 60, 60);
 
                     object pen = new object();
-                    brushTarget.CreatePen(pen, CmykColor.FromRgb(1, 0, 0), 1.5F, LineCap.Round, LineJoin.Round, 5F);
+                    brushTarget.CreatePen(pen, CmykColor.FromRgb(1, 0, 0), 1.5F, LineCapMode.Round, LineJoinMode.Round, 5F);
                     brushTarget.DrawLine(pen, new PointF(-15, -10), new PointF(3, 10));
                     pen = new object();
-                    brushTarget.CreatePen(pen, CmykColor.FromRgb(0, 1, 0), 3.0F, LineCap.Round, LineJoin.Round, 5F);
+                    brushTarget.CreatePen(pen, CmykColor.FromRgb(0, 1, 0), 3.0F, LineCapMode.Round, LineJoinMode.Round, 5F);
                     brushTarget.DrawLine(pen, new PointF(3, 10), new PointF(15, -10));
 
                     pen = new object();
-                    brushTarget.CreatePen(pen, CmykColor.FromRgb(0, 0, 1), 3F, LineCap.Round, LineJoin.Round, 5F);
+                    brushTarget.CreatePen(pen, CmykColor.FromRgb(0, 0, 1), 3F, LineCapMode.Round, LineJoinMode.Round, 5F);
                     brushTarget.DrawEllipse(pen, new PointF(1, -2), 5, 4);
 
                     object brush = new object();
                     brushTarget.FinishBrush(brush);
 
-                    grTarget.FillPolygon(brush, new PointF[] { new PointF(-50, -60), new PointF(0, 30), new PointF(50, -60), new PointF(-50, 20), new PointF(50, 20) }, FillMode.Winding);
+                    grTarget.FillPolygon(brush, new PointF[] { new PointF(-50, -60), new PointF(0, 30), new PointF(50, -60), new PointF(-50, 20), new PointF(50, 20) }, AreaFillMode.Winding);
 
                     pen = new object();
-                    grTarget.CreatePen(pen, CmykColor.FromRgb(0, 0, 0), 0.5F, LineCap.Flat, LineJoin.Round, 5F);
+                    grTarget.CreatePen(pen, CmykColor.FromRgb(0, 0, 0), 0.5F, LineCapMode.Flat, LineJoinMode.Round, 5F);
                     grTarget.DrawLine(pen, new PointF(-30, -30), new PointF(30, 30));
                     grTarget.DrawLine(pen, new PointF(30, -30), new PointF(-30, 30));
                 });
         }
+#endif
 
         [Test]
         public void TextMetrics()
@@ -220,7 +221,7 @@ namespace PurplePen.MapModel.Tests
             Assert.IsTrue(textMetrics.TextFaceIsInstalled("Trebuchet MS"));
             Assert.IsFalse(textMetrics.TextFaceIsInstalled("Banana"));
 
-            ITextFaceMetrics tnrMetrics = textMetrics.GetTextFaceMetrics("Times New Roman", 25, TextEffects.None);
+            ITextFaceMetrics tnrMetrics = textMetrics.GetTextFaceMetrics("Times New Roman", 25, TextEffects.Regular);
             Assert.AreEqual(25.0F, tnrMetrics.EmHeight, 0.1F);
             Assert.AreEqual(22.28F, tnrMetrics.Ascent, 0.1F);
             Assert.AreEqual(5.41F, tnrMetrics.Descent, 0.1F);
@@ -230,7 +231,7 @@ namespace PurplePen.MapModel.Tests
             Assert.AreEqual(27.69F, tnrMetrics.GetTextSize("Hello, world").Height, 0.1F);
 
 
-            tnrMetrics = textMetrics.GetTextFaceMetrics("Trebuchet MS", 50, TextEffects.None);
+            tnrMetrics = textMetrics.GetTextFaceMetrics("Trebuchet MS", 50, TextEffects.Regular);
             Assert.AreEqual(50.0F, tnrMetrics.EmHeight, 0.1F);
             Assert.AreEqual(46.95F, tnrMetrics.Ascent, 0.1F);
             Assert.AreEqual(11.11F, tnrMetrics.Descent, 0.1F);
@@ -244,7 +245,7 @@ namespace PurplePen.MapModel.Tests
 
         public static Bitmap RenderBitmap(Map map, Size bitmapSize, RectangleF mapArea, RenderOptions renderOpts, float intensity)
         {
-            var grTarget = new GDIPlus_BitmapGraphicsTarget(bitmapSize.Width, bitmapSize.Height, false, CmykColor.FromCmyk(0, 0, 0, 0), mapArea, true, null, intensity);
+            var grTarget = new GDIPlus_BitmapGraphicsTarget(bitmapSize.Width, bitmapSize.Height, true, CmykColor.FromCmyk(0, 0, 0, 0), mapArea, true, null, intensity);
             using (grTarget) {
                 renderOpts.renderTemplates = RenderTemplateOption.MapAndTemplates;
                 renderOpts.minResolution = mapArea.Width / (float)bitmapSize.Width;
@@ -259,7 +260,7 @@ namespace PurplePen.MapModel.Tests
 
         public static Bitmap RenderAntiAliasBitmap(Map map, Size bitmapSize, RectangleF mapArea, RenderOptions renderOpts, float intensity)
         {
-            var grTarget = new GDIPlus_BitmapGraphicsTarget(bitmapSize.Width, bitmapSize.Height, false, CmykColor.FromCmyk(0, 0, 0, 0), mapArea, true, null, intensity);
+            var grTarget = new GDIPlus_BitmapGraphicsTarget(bitmapSize.Width, bitmapSize.Height, true, CmykColor.FromCmyk(0, 0, 0, 0), mapArea, true, null, intensity);
             grTarget.PushAntiAliasing(true);
             using (grTarget) {
                 renderOpts.renderTemplates = RenderTemplateOption.MapAndTemplates;
@@ -322,14 +323,14 @@ namespace PurplePen.MapModel.Tests
             Bitmap bitmapNew = RenderBitmap(map, size, mapArea, renderOptions, 1.0F);
 
             sw.Stop();
-            Console.WriteLine("Rendered bitmap '{0}' to output '{4}' rect={1} size={2} in {3} ms", mapFileName, mapArea, size, sw.ElapsedMilliseconds, pngFileName);
+            //Console.WriteLine("Rendered bitmap '{0}' to output '{4}' rect={1} size={2} in {3} ms", mapFileName, mapArea, size, sw.ElapsedMilliseconds, pngFileName);
 
-            TestUtil.CompareBitmapBaseline(bitmapNew, pngFileName, MAX_PIXEL_DIFF);
+            BitmapTestUtil.CompareBitmapBaseline(bitmapNew, pngFileName, MAX_PIXEL_DIFF);
 
             if (testLightenedColor) {
                 string lightenedPngFileName = Path.Combine(Path.GetDirectoryName(pngFileName), Path.GetFileNameWithoutExtension(pngFileName) + "_light.png");
                 Bitmap bitmapLight = RenderBitmap(map, size, mapArea, renderOptions, 0.4F);
-                TestUtil.CompareBitmapBaseline(bitmapLight, lightenedPngFileName, MAX_PIXEL_DIFF);
+                BitmapTestUtil.CompareBitmapBaseline(bitmapLight, lightenedPngFileName, MAX_PIXEL_DIFF);
             }
 
             if (roundtripToOcadFile) {
@@ -347,7 +348,7 @@ namespace PurplePen.MapModel.Tests
                     // Draw into a new bitmap.
                     bitmapNew = RenderBitmap(map, size, mapArea, renderOptions, 1.0F);
 
-                    TestUtil.CompareBitmapBaseline(bitmapNew, pngFileName, MAX_PIXEL_DIFF);
+                    BitmapTestUtil.CompareBitmapBaseline(bitmapNew, pngFileName, MAX_PIXEL_DIFF);
 
                     File.Delete(ocadFileName);
                 }
@@ -368,7 +369,7 @@ namespace PurplePen.MapModel.Tests
             Bitmap bitmapNew = RenderAntiAliasBitmap(map, size, mapArea, renderOpts, 1.0F);
 
             sw.Stop();
-            Console.WriteLine("Rendered bitmap '{0}' in {1} ms", name, sw.ElapsedMilliseconds);
+            //Console.WriteLine("Rendered bitmap '{0}' in {1} ms", name, sw.ElapsedMilliseconds);
         }
 
 
@@ -497,7 +498,7 @@ namespace PurplePen.MapModel.Tests
             CheckTest("isompoints_2018.txt", false, true, 2018, 2018);
         }
 
-        [Test]
+        [Test, NonParallelizable]
         public void AreaSymbols()
         {
             CheckTest("isomarea.txt", true, true, 6, 12);
@@ -622,7 +623,7 @@ namespace PurplePen.MapModel.Tests
             CheckTest("zeroglyph6.txt", false, true, 6, 12);
         }
 
-        [Test]
+        [Test, NonParallelizable]
         public void OffsetAreaPattern() {
             CheckTest("offsetpattern.txt", false, true, 6, 12);
         }
@@ -632,7 +633,7 @@ namespace PurplePen.MapModel.Tests
             CheckTestNoPatternBitmaps("offsetpattern_nopatbm.txt", false, true, 6, 12);
         }
 
-        [Test]
+        [Test, NonParallelizable]
         public void OffsetAreaPatternRotated() {
             CheckTest("offsetpatternrot.txt", false, true, 6, 12);
         }
@@ -647,7 +648,7 @@ namespace PurplePen.MapModel.Tests
             CheckTestNoPatternBitmaps("offsetpatternrot_nopatbm.txt", false, true, 6, 12);
         }
 
-        [Test]
+        [Test, NonParallelizable]
         public void OffsetAreaPatternRotated2NoBitmap() {
             CheckTestNoPatternBitmaps("offsetpatternrot2_nopatbm.txt", false, true, 6, 12);
         }
@@ -771,7 +772,7 @@ namespace PurplePen.MapModel.Tests
             CheckTest("alllinetext.txt", false, true, 6, 12);
         }
 
-        [Test]
+        [Test, NonParallelizable]
         public void LineTextTop() {
             CheckTest("linetext_top.txt", false, true, 10, 12);
         }
@@ -1061,7 +1062,7 @@ namespace PurplePen.MapModel.Tests
 
 
 
-        [Test]
+        [Test, NonParallelizable]
         public void TemplateRendering()
         {
             CheckTest("template.txt", true, false, 9, 12);
@@ -1085,7 +1086,7 @@ namespace PurplePen.MapModel.Tests
             CheckTest("templatehide.txt", true, false, 9, 12);
         }
 
-        [Test]
+        [Test, NonParallelizable]
         public void TemplateFraction1()
         {
             CheckTest("template_fraction1.txt", false, true, 9, 12);
@@ -1228,6 +1229,12 @@ namespace PurplePen.MapModel.Tests
         }
 
         [Test]
+        public void FontFallback()
+        {
+            CheckTest("fontfallback.txt", false, false, 9, 12);
+        }
+
+        [Test]
         public void Marymoor11LowerLayers()
         {
             CheckTestLayers("marymoor11_lowerlayers.txt", null, 7, false, false, 11, 12);
@@ -1238,6 +1245,8 @@ namespace PurplePen.MapModel.Tests
         {
             CheckTestLayers("marymoor11_upperlayers.txt", 7, null, false, false, 11, 12);
         }
+
+
 
 
     }

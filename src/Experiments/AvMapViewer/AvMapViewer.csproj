@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" />
+    <PackageReference Include="Avalonia.Desktop" />
+    <PackageReference Include="Avalonia.Themes.Fluent" />
+    <PackageReference Include="Avalonia.Fonts.Inter" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Avalonia\AvUtil\AvUtil.csproj" />
+    <ProjectReference Include="..\..\MapModel\Graphics2D\Graphics2D.csproj" />
+    <ProjectReference Include="..\..\MapModel\MapModel\MapModel.csproj" />
+    <ProjectReference Include="..\..\MapModel\Map_SkiaStd\Map_SkiaStd.csproj" />
+  </ItemGroup>
+</Project>

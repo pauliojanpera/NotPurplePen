@@ -45,6 +45,7 @@ namespace PurplePen
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public FixedBranchAssignments FixedBranchAssignments
         {
             get {
@@ -114,7 +115,7 @@ namespace PurplePen
 
         private void linkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Util.ShowHelpTopic(this, HelpTopic);
+            WindowsUtil.ShowHelpTopic(this, HelpTopic);
         }
     }
 }

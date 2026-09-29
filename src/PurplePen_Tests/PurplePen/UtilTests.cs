@@ -111,7 +111,7 @@ namespace PurplePen.Tests
             Console.WriteLine("Before: ({0},{1})-({2},{3}), wid={4}, height={5}", r.Left, r.Top, r.Right, r.Bottom, r.Width, r.Height);
             s = Rectangle.Round(r);
             Console.WriteLine("After: ({0},{1})-({2},{3}), wid={4}, height={5}", s.Left, s.Top, s.Right, s.Bottom, s.Width, s.Height);
-            t = Util.Round(r);
+            t = Geometry.RoundRectangle(r);
             Console.WriteLine("After: ({0},{1})-({2},{3}), wid={4}, height={5}", t.Left, t.Top, t.Right, t.Bottom, t.Width, t.Height);
             Assert.AreEqual(1, t.Left);
             Assert.AreEqual(1, t.Top);
@@ -238,8 +238,10 @@ namespace PurplePen.Tests
             Assert.AreEqual("1.0.4", Util.PrettyVersionString("1.0.4.500"));
             Assert.AreEqual("2.0.0", Util.PrettyVersionString("2.0.0.500"));
             Assert.AreEqual("2.1.1 Beta 2", Util.PrettyVersionString("2.1.1.220"));
+            Assert.AreEqual("4.2.0 Beta 2 (Patch 1)", Util.PrettyVersionString("4.2.0.221"));
             Assert.AreEqual("1.0.0 RC 3", Util.PrettyVersionString("1.0.0.330"));
             Assert.AreEqual("1.0.1 Alpha 1", Util.PrettyVersionString("1.0.1.110"));
+            Assert.AreEqual("2.0.0 (Patch 2)", Util.PrettyVersionString("2.0.0.502"));
             Assert.AreEqual("baaz", Util.PrettyVersionString("baaz"));
         }
 
@@ -293,18 +295,18 @@ namespace PurplePen.Tests
         {
             float[] result;
 
-            result = Util.PrintScaleList(7500);
+            result = MapUtil.PrintScaleList(7500);
             CollectionAssert.AreEqual(new float[] { 4000, 5000, 7500, 10000, 15000 }, result);
 
-            result = Util.PrintScaleList(8000);
+            result = MapUtil.PrintScaleList(8000);
             CollectionAssert.AreEqual(new float[] { 4000, 5000, 7500, 8000, 10000, 15000 }, result);
         }
 
         [TestMethod]
         public void RemoveHotkeyPrefix()
         {
-            Assert.AreEqual("My Report", Util.RemoveHotkeyPrefix("My &Report"));
-            Assert.AreEqual("Hello", Util.RemoveHotkeyPrefix("Hello"));
+            Assert.AreEqual("My Report", WindowsUtil.RemoveHotkeyPrefix("My &Report"));
+            Assert.AreEqual("Hello", WindowsUtil.RemoveHotkeyPrefix("Hello"));
         }
 
         /*

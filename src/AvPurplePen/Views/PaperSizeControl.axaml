@@ -1,0 +1,192 @@
+<!--
+    PaperSizeControl.axaml
+
+    Reusable control for choosing a paper size (standard or user-defined),
+    margin, and orientation. The width/height/margin are exposed in hundredths
+    of an inch via the PaperWidth / PaperHeight / PaperMargin styled properties;
+    Landscape is a bool. Values are displayed in mm or inches according to the
+    current culture.
+
+    Migrated from WinForms PurplePen/PaperSizeControl.cs. Reused by the New
+    Event wizard's paper-size page (and, in future, SetPrintAreaDialog).
+-->
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:resx="using:AvPurplePen"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignWidth="280" d:DesignHeight="150"
+             x:Class="AvPurplePen.Views.PaperSizeControl">
+
+    <!-- Orientation is chosen with two side-by-side, mutually-exclusive
+         "buttons" (still RadioButtons under the hood, so GroupName handles the
+         exclusion and the existing code-behind wiring is unchanged). Each shows
+         an image with the Portrait/Landscape label below it; the selected one
+         gets an accent border and a light highlight. -->
+    <UserControl.Styles>
+        <Style Selector="RadioButton.orientation">
+            <Setter Property="Padding" Value="0"/>
+            <!-- Fixed width so the Portrait and Landscape buttons are identical
+                 in size despite differing image shapes and label lengths. -->
+            <Setter Property="Width" Value="86"/>
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border Name="PART_Border"
+                            Background="{DynamicResource InputBackground}"
+                            BorderBrush="{DynamicResource DarkGreyBorder}"
+                            BorderThickness="2"
+                            CornerRadius="4"
+                            Padding="4,2">
+                        <ContentPresenter Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+        <Style Selector="RadioButton.orientation:pointerover /template/ Border#PART_Border">
+            <Setter Property="BorderBrush" Value="#3399FF"/>
+        </Style>
+        <Style Selector="RadioButton.orientation:checked /template/ Border#PART_Border">
+            <Setter Property="BorderBrush" Value="#0066CC"/>
+            <Setter Property="Background" Value="#E6F0FA"/>
+        </Style>
+    </UserControl.Styles>
+
+    <!-- A vertical StackPanel root (rather than one big column-spanning grid)
+         so each section is measured at its full natural width. This matters for
+         the separate-margins group box: when it lived in a cell spanning the
+         outer grid's Auto columns, Avalonia under-measured its width and a
+         SizeToContent window clipped its right edge. As a top-level StackPanel
+         child it contributes its full desired width. -->
+    <StackPanel HorizontalAlignment="Left">
+
+        <StackPanel.Styles>
+            <Style Selector="TextBlock">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Margin" Value="0,0,6,0"/>
+            </Style>
+            <Style Selector="NumericUpDown">
+                <Setter Property="Width" Value="80"/>
+                <Setter Property="Margin" Value="0,3,4,3"/>
+            </Style>
+        </StackPanel.Styles>
+
+        <!-- Size section: paper-size combo, then width and height. -->
+        <Grid ColumnDefinitions="Auto,Auto,Auto,Auto,Auto,Auto"
+              RowDefinitions="Auto,Auto,Auto">
+
+            <!-- Row 0: paper size combo -->
+            <TextBlock Grid.Row="0" Grid.Column="0"
+                       Text="{resx:Localize PaperSizeControl_labelPaper_Text}"/>
+            <ComboBox x:Name="comboBoxPaperSize"
+                      Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="5"
+                      Margin="0,3,0,3"
+                      HorizontalAlignment="Stretch"
+                      SelectionChanged="ComboBoxPaperSize_SelectionChanged"/>
+
+            <!-- Row 1: width and height -->
+            <TextBlock Grid.Row="1" Grid.Column="0" 
+                       Text="{resx:Localize PaperSizeControl_labelWidth_Text}"/>
+            <NumericUpDown x:Name="upDownWidth"
+                           Grid.Row="1" Grid.Column="1"
+                           ValueChanged="UpDown_ValueChanged"/>
+            <TextBlock x:Name="labelUnitsWidth" Grid.Row="1" Grid.Column="2"/>
+
+            <TextBlock Grid.Row="1" Grid.Column="3" Margin="16,0,6,0"
+                       Text="{resx:Localize PaperSizeControl_labelHeight_Text}"/>
+            <NumericUpDown x:Name="upDownHeight"
+                           Grid.Row="1" Grid.Column="4"
+                           ValueChanged="UpDown_ValueChanged"/>
+            <TextBlock x:Name="labelUnitsHeight" Grid.Row="1" Grid.Column="5"/>
+
+            <!-- Row 2 (single-margin mode): one margin applied to all sides.
+                 Shown when SeparateMargins is false. -->
+            <TextBlock x:Name="labelMargin"
+                       Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4"
+                       Text="{resx:Localize PaperSizeControl_labelMargin_Text}"/>
+            <NumericUpDown x:Name="upDownMargin"
+                           Grid.Row="2" Grid.Column="4"
+                           ValueChanged="UpDown_ValueChanged"/>
+            <TextBlock x:Name="labelUnitsMargin" Grid.Row="2" Grid.Column="5"/>
+        </Grid>
+
+        <!-- Separate-margins mode: a "Margins" group box holding the four
+             margins in a two-by-two grid (top/bottom on the first row,
+             left/right on the second). Shown when SeparateMargins is true. -->
+        <HeaderedContentControl x:Name="groupSeparateMargins"
+                                Margin="0,3,0,3"
+                                Padding="8,8,8,4"
+                                HorizontalAlignment="Left"
+                                Header="{resx:Localize PaperSizeControl_groupBoxMargins_Text}">
+            <Grid ColumnDefinitions="Auto,Auto,Auto,Auto,Auto,Auto"
+                  RowDefinitions="Auto,Auto">
+                <!-- Top -->
+                <TextBlock Grid.Row="0" Grid.Column="0"
+                           Text="{resx:Localize PaperSizeControl_labelTop_Text}"/>
+                <NumericUpDown x:Name="upDownMarginTop"
+                               Grid.Row="0" Grid.Column="1"
+                               ValueChanged="UpDown_ValueChanged"/>
+                <TextBlock x:Name="labelUnitsMarginTop" Grid.Row="0" Grid.Column="2"/>
+                <!-- Bottom -->
+                <TextBlock Grid.Row="0" Grid.Column="3" Margin="16,0,6,0"
+                           Text="{resx:Localize PaperSizeControl_labelBottom_Text}"/>
+                <NumericUpDown x:Name="upDownMarginBottom"
+                               Grid.Row="0" Grid.Column="4"
+                               ValueChanged="UpDown_ValueChanged"/>
+                <TextBlock x:Name="labelUnitsMarginBottom" Grid.Row="0" Grid.Column="5"/>
+                <!-- Left -->
+                <TextBlock Grid.Row="1" Grid.Column="0"
+                           Text="{resx:Localize PaperSizeControl_labelLeft_Text}"/>
+                <NumericUpDown x:Name="upDownMarginLeft"
+                               Grid.Row="1" Grid.Column="1"
+                               ValueChanged="UpDown_ValueChanged"/>
+                <TextBlock x:Name="labelUnitsMarginLeft" Grid.Row="1" Grid.Column="2"/>
+                <!-- Right -->
+                <TextBlock Grid.Row="1" Grid.Column="3" Margin="16,0,6,0"
+                           Text="{resx:Localize PaperSizeControl_labelRight_Text}"/>
+                <NumericUpDown x:Name="upDownMarginRight"
+                               Grid.Row="1" Grid.Column="4"
+                               ValueChanged="UpDown_ValueChanged"/>
+                <TextBlock x:Name="labelUnitsMarginRight" Grid.Row="1" Grid.Column="5"/>
+            </Grid>
+        </HeaderedContentControl>
+
+        <!-- Orientation (two image buttons, see UserControl.Styles) -->
+        <StackPanel Orientation="Horizontal" Spacing="10" Margin="0,8,0,0"
+                    HorizontalAlignment="Center">
+            <RadioButton x:Name="radioPortrait"
+                         Classes="orientation"
+                         GroupName="Orientation"
+                         IsCheckedChanged="Orientation_Changed">
+                <StackPanel Orientation="Vertical" Spacing="0">
+                    <Image Source="/Assets/Images/Portrait.png"
+                           Width="34" Height="34"
+                           Stretch="Uniform"
+                           HorizontalAlignment="Center"/>
+                    <TextBlock Text="{resx:Localize PaperSizeControl_checkBoxPortrait_Text}"
+                               FontSize="12"
+                               HorizontalAlignment="Center"
+                               Margin="0"/>
+                </StackPanel>
+            </RadioButton>
+            <RadioButton x:Name="radioLandscape"
+                         Classes="orientation"
+                         GroupName="Orientation"
+                         IsCheckedChanged="Orientation_Changed">
+                <StackPanel Orientation="Vertical" Spacing="0">
+                    <Image Source="/Assets/Images/Landscape.png"
+                           Width="34" Height="34"
+                           Stretch="Uniform"
+                           HorizontalAlignment="Center"/>
+                    <TextBlock Text="{resx:Localize PaperSizeControl_checkBoxLandscape_Text}"
+                               FontSize="12"
+                               HorizontalAlignment="Center"
+                               Margin="0"/>
+                </StackPanel>
+            </RadioButton>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,122 @@
+/* Copyright (c) 2006-2008, Peter Golde
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are 
+ * met:
+ * 
+ * 1. Redistributions of source code must retain the above copyright
+ * notice, this list of conditions and the following disclaimer.
+ * 
+ * 2. Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ * 
+ * 3. Neither the name of Peter Golde, nor "Purple Pen", nor the names
+ * of its contributors may be used to endorse or promote products
+ * derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
+ * CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
+ * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY
+ * OF SUCH DAMAGE.
+ */
+
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+
+using PurplePen.Graphics2D;
+
+namespace PurplePen
+{
+
+    // A highlight is as object overlayed on the current map that shows the current selection.
+    // It is designed to draw/erase quickly, so it must be able to erase itself given a brush with the
+    // bitmap to erase with. The highlight draws in pixel coords, but it is passed a transform it can
+    // used. It has to not apply that transform to the Graphics, however, so that the textures look OK 
+    // which drawing and erasing.
+    public interface IMapViewerHighlight
+    {
+        // Get the bounding rectangle.
+        RectangleF GetHighlightBounds();
+
+        // Get extra border, in pixels, around GetHighlightBounds. layoutScale is the ratio between physical and logical pixels.
+        int GetBorderPixels(double layoutScale);
+
+        // Draw onto the (pixel coordinates) graphics, using the given world-to-pixel transformation.
+        // layoutScale is the ratio between physical and logical pixels, used to scale UI elements like handles.
+        void DrawHighlight(IGraphicsTarget g, Matrix xformWorldToPixel, double layoutScale);
+
+    }
+
+
+    public class RectangleHighlight: IMapViewerHighlight
+    {
+        const float penWidth = 3F;
+
+        RectangleF rect;
+        object redPenKey = new object();
+        object blueBrushKey = new object();
+
+        public RectangleHighlight(RectangleF rect)
+        {
+            this.rect = rect;
+        }
+
+        public void DrawHighlight(IGraphicsTarget g, Matrix xformWorldToPixel, double layoutScale)
+        {
+            if (! g.HasPen(redPenKey)) {
+                g.CreatePen(redPenKey, CmykColor.FromColor(Color.Red), penWidth, LineCapMode.Flat, LineJoinMode.Miter, 0);
+            }
+
+            if (! g.HasBrush(blueBrushKey)) {
+                g.CreateSolidBrush(blueBrushKey, CmykColor.FromColor(Color.FromArgb(64, Color.DarkBlue)));
+            }
+
+            PointF[] pts = { new PointF(rect.Left, rect.Bottom), new PointF(rect.Right, rect.Top) };
+            xformWorldToPixel.TransformPoints(pts);
+            RectangleF rectPixel = RectangleF.FromLTRB(pts[0].X, pts[0].Y, pts[1].X, pts[1].Y);
+
+            g.FillRectangle(blueBrushKey, new RectangleF(rectPixel.X, rectPixel.Y, rectPixel.Width, rectPixel.Height));
+            g.DrawRectangle(redPenKey, new RectangleF(rectPixel.X, rectPixel.Y, rectPixel.Width, rectPixel.Height));
+        }
+
+        public void EraseHighlight(IGraphicsTarget g, Matrix xformWorldToPixel, object eraseBrushKey)
+        {
+            PointF[] pts = { new PointF(rect.Left, rect.Bottom), new PointF(rect.Right, rect.Top) };
+            xformWorldToPixel.TransformPoints(pts);
+            RectangleF rectPixel = RectangleF.FromLTRB(pts[0].X, pts[0].Y, pts[1].X, pts[1].Y);
+
+            rectPixel.Inflate(penWidth / 2F, penWidth / 2F);
+            Rectangle r = Geometry.RoundRectangle(rectPixel);
+
+            g.FillRectangle(eraseBrushKey, r);
+        }
+
+        public RectangleF GetHighlightBounds()
+        {
+            return rect;
+        }
+
+        public int GetBorderPixels(double layoutScale)
+        {
+            return (int)Math.Ceiling(penWidth / 2);
+        }
+    }
+
+    // Describes the content of a tooltip shown in the map viewer: a bold header and a body.
+    public record ToolTipDescription(string header, string body);
+
+
+}

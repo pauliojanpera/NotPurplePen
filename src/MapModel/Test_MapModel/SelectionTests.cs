@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
@@ -276,10 +275,10 @@ namespace PurplePen.MapModel.Tests
             matrix.Translate(-centerPoint.X, -centerPoint.Y, MatrixOrder.Prepend);
 
             // Draw into a new bitmap.
-            Bitmap bitmapNew = new Bitmap(bitmapSize.Width, bitmapSize.Height, PixelFormat.Format24bppRgb);
+            Bitmap bitmapNew = new Bitmap(bitmapSize.Width, bitmapSize.Height, GDIPlus_GraphicsTarget.NonAlphaPixelFormat);
             using (Graphics g = Graphics.FromImage(bitmapNew)) {
                 g.Clear(Color.White);
-                g.Transform = matrix;
+                g.Transform = matrix.ToSysDrawMatrix();
 
                 float pixelSize = mapArea.Width / (float)bitmapSize.Width;
 
@@ -311,7 +310,7 @@ namespace PurplePen.MapModel.Tests
             highlightOpts.style = fidelity;
 
             object bluePen = new object();
-            grTarget.CreatePen(bluePen, CmykColor.FromRgb(0, 0, 1), pixelSize, LineCap.Flat, LineJoin.Miter, 5);
+            grTarget.CreatePen(bluePen, CmykColor.FromRgb(0, 0, 1), pixelSize, LineCapMode.Flat, LineJoinMode.Miter, 5);
 
             using (map.Read()) {
                 map.Draw(grTarget, rect, renderOpts, null);
@@ -420,7 +419,7 @@ namespace PurplePen.MapModel.Tests
             // Draw into a new bitmap.
             Bitmap bitmapNew = RenderBitmap(map, size, mapArea, draw);
 
-            TestUtil.CompareBitmapBaseline(bitmapNew, pngFileName, MAX_PIXEL_DIFF);
+            BitmapTestUtil.CompareBitmapBaseline(bitmapNew, pngFileName, MAX_PIXEL_DIFF);
 
             return true;
         }
@@ -623,7 +622,6 @@ namespace PurplePen.MapModel.Tests
         {
             CheckTest("hittestpunchbox.txt", HitTestMap);
         }
-
 
     }
 }

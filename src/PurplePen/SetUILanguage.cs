@@ -20,6 +20,7 @@ namespace PurplePen
             InitLanguages();
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public CultureInfo Culture
         {
             set
@@ -36,7 +37,7 @@ namespace PurplePen
         void InitLanguages()
         {
             // Search all sub-directories of program directory to find ones that are named like a language.
-            Uri uri = new Uri(typeof(SetUILanguage).Assembly.CodeBase);
+            Uri uri = new Uri(typeof(SetUILanguage).Assembly.Location);
             string baseDirectory = Path.GetDirectoryName(uri.LocalPath);
 
             // Look through subdirectories to find languages we have.

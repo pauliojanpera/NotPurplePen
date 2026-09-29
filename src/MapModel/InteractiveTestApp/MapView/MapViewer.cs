@@ -36,12 +36,12 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading;
 using PurplePen.Graphics2D;
+using PurplePen.MapModel;
 
 namespace InteractiveTestApp.MapView
 {
@@ -218,7 +218,7 @@ namespace InteractiveTestApp.MapView
 
         Graphics GetWorldGraphics() {
             Graphics g = CreateGraphics();
-            g.Transform = xformWorldToPixel;
+            g.Transform = xformWorldToPixel.ToSysDrawMatrix();
             return g;
         }
 
@@ -234,6 +234,7 @@ namespace InteractiveTestApp.MapView
         #endregion
 
         #region Property accessors
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public float ZoomFactor {
             get { return zoom; }
             set { 
@@ -250,6 +251,7 @@ namespace InteractiveTestApp.MapView
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public PointF CenterPoint {
             get { return centerPoint; }
             set {
@@ -266,10 +268,12 @@ namespace InteractiveTestApp.MapView
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool PointerInView {
             get { return mouseInView; }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public RectangleF Viewport {
             get {
                 return viewport;
@@ -288,6 +292,7 @@ namespace InteractiveTestApp.MapView
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool ShowGrid {
             get { 
                 return gridOn;
@@ -309,6 +314,7 @@ namespace InteractiveTestApp.MapView
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool ShowSymbolBounds
         {
             get
@@ -331,7 +337,7 @@ namespace InteractiveTestApp.MapView
             if (regionChanged != null) {
                 // Transform the changed region into pixel coordinates and invalidate it.
                 Region copy = regionChanged.Clone();
-                copy.Transform(xformWorldToPixel);
+                copy.Transform(xformWorldToPixel.ToSysDrawMatrix());
                 Invalidate(copy); 
             }
             else {
@@ -364,7 +370,7 @@ namespace InteractiveTestApp.MapView
             g.RenderingOrigin = Util.PointFromPointF(origin);
 
             foreach (IMapViewerHighlight h in highlights) {
-                h.DrawHighlight(g, xformWorldToPixel);
+                h.DrawHighlight(g, xformWorldToPixel.ToSysDrawMatrix());
             }
         }
 
@@ -376,7 +382,7 @@ namespace InteractiveTestApp.MapView
             Brush eraseBrush = viewcache.GetCacheBrush(ClientSize, viewport, xformWorldToPixel);
 
             foreach (IMapViewerHighlight h in highlights) {
-                h.EraseHighlight(g, xformWorldToPixel, eraseBrush);
+                h.EraseHighlight(g, xformWorldToPixel.ToSysDrawMatrix(), eraseBrush);
             }
         }
 
@@ -614,7 +620,7 @@ namespace InteractiveTestApp.MapView
             DrawCachedMap(g, clip);
             DrawHighlights(g, clip, currentHighlights);
 
-            g.MultiplyTransform(xformWorldToPixel);
+            g.MultiplyTransform(xformWorldToPixel.ToSysDrawMatrix());
 
             // Get the clip rectangle in world coordinates.
             clip.Inflate(1, 1); // prevent round-off errors....
@@ -628,7 +634,7 @@ namespace InteractiveTestApp.MapView
         // view would be. The size of the bitmap will be exactly the client size of the view.
         public Bitmap CreateSnapshotView() {
             Rectangle rect = new Rectangle(new Point(0,0), ClientSize);
-            Bitmap bitmap = new Bitmap(rect.Width, rect.Height, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
+            Bitmap bitmap = new Bitmap(rect.Width, rect.Height, GDIPlus_GraphicsTarget.NonAlphaPixelFormat);
 
             using (Graphics g = Graphics.FromImage(bitmap)) {
                 Draw(g, rect);

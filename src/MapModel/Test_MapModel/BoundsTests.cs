@@ -66,7 +66,7 @@ namespace PurplePen.MapModel.Tests
             matrix.Translate(-centerPoint.X, -centerPoint.Y);
 
             // Draw into a new bitmap.
-            Bitmap bitmapNew = new Bitmap(bitmapSize.Width, bitmapSize.Height, PixelFormat.Format24bppRgb);
+            Bitmap bitmapNew = new Bitmap(bitmapSize.Width, bitmapSize.Height, GDIPlus_GraphicsTarget.NonAlphaPixelFormat);
             using (Graphics g = Graphics.FromImage(bitmapNew)) {
                 RenderOptions renderOpts = new RenderOptions();
                 renderOpts.usePatternBitmaps = true;
@@ -120,7 +120,7 @@ namespace PurplePen.MapModel.Tests
             // Draw into a new bitmap.
             Bitmap bitmapNew = RenderBitmap(map, size, mapArea);
 
-            TestUtil.CompareBitmapBaseline(bitmapNew, pngFileName, MAX_PIXEL_DIFF);
+            BitmapTestUtil.CompareBitmapBaseline(bitmapNew, pngFileName, MAX_PIXEL_DIFF);
 
             return true;
         }
@@ -167,16 +167,16 @@ namespace PurplePen.MapModel.Tests
         public void TopText() {
             CheckTest("toptext.txt");
         }
-
-        [Test]
-        public void MidText() {
-            CheckTest("midtext.txt");
-        }
-
+        
         [Test]
         public void TextUnderline()
         {
             CheckTest("textunderline.txt");
+        }
+
+        [Test]
+        public void MidText() {
+            CheckTest("midtext.txt");
         }
 
         [Test]
@@ -190,7 +190,6 @@ namespace PurplePen.MapModel.Tests
         {
             CheckTest("layout_objects11.txt");
         }
-
     }
 
 }

@@ -39,6 +39,7 @@ using System.Drawing;
 using TestingUtils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+using PurplePen.Graphics2D;
 using PurplePen.MapModel;
 using System.Linq;
 
@@ -81,23 +82,21 @@ namespace PurplePen.Tests
             Map map = course.RenderToMap(new CourseLayout.MapRenderOptions());
 
             // Render map to the graphics.
-            Bitmap bm = new Bitmap(1000,1000);
-            using (Graphics g = Graphics.FromImage(bm)) {
-                RenderOptions options = new RenderOptions();
+            int width = 1000;
+            int height = 1000;
+            RenderOptions options = new RenderOptions();
 
-                options.usePatternBitmaps = true;
-                options.minResolution = (float) (rect.Width / bm.Width);
-                options.renderTemplates = RenderTemplateOption.MapAndTemplates;
+            options.usePatternBitmaps = true;
+            options.minResolution = rect.Width / width;
+            options.renderTemplates = RenderTemplateOption.MapAndTemplates;
 
-                g.ScaleTransform((float) (bm.Width / rect.Width), - (float) (bm.Height / rect.Height));
-                g.TranslateTransform(-rect.Left, -rect.Top-rect.Height);
-
-                g.Clear(Color.White);
+            Bitmap bm = TestRenderingUtils.RenderToBitmap(width, height, rect, true, (IGraphicsTarget graphicsTarget) => {
+                graphicsTarget.PushAntiAliasing(true);
                 using (map.Read())
-                    map.Draw(new GDIPlus_GraphicsTarget(g), rect, options, null);
-            }
+                    map.Draw(graphicsTarget, rect, options, null);
+            });
 
-            TestUtil.CheckBitmapsBase(bm, "courserenderer\\" + testName, MAX_PIXEL_DIFF);
+            BitmapTestUtil.CheckBitmapsBase(bm, "courserenderer\\" + testName, MAX_PIXEL_DIFF);
         }
 
         // Do CheckCourse for normal and special appearances.
@@ -349,6 +348,16 @@ namespace PurplePen.Tests
             CheckCourseBothAppearances2017("courserenderer\\mapexchange2.ppen", new CourseDesignator(CourseId(6), 1), false, "exch_part2", new RectangleF(-45, -60, 190, 190));
             CheckCourseBothAppearances2017("courserenderer\\mapexchange2.ppen", new CourseDesignator(CourseId(6), 2), false, "exch_part3", new RectangleF(-45, -60, 190, 190));
             CheckCourseBothAppearances2017("courserenderer\\mapexchange2.ppen", new CourseDesignator(CourseId(6), 3), false, "exch_part4", new RectangleF(-45, -60, 190, 190));
+        }
+
+        [TestMethod]
+        public void MapExchangeDifferentDescriptions()
+        {
+            CheckCourseBothAppearances("courserenderer\\mapexchange2.ppen", Designator(7), false, "exch_allparts_diff_desc", new RectangleF(-45, -60, 190, 190));
+            CheckCourseBothAppearances("courserenderer\\mapexchange2.ppen", new CourseDesignator(CourseId(7), 0), false, "diff_desc_exch_part1", new RectangleF(-45, -60, 190, 190));
+            CheckCourseBothAppearances("courserenderer\\mapexchange2.ppen", new CourseDesignator(CourseId(7), 1), false, "diff_desc_exch_part2", new RectangleF(-45, -60, 190, 190));
+            CheckCourseBothAppearances("courserenderer\\mapexchange2.ppen", new CourseDesignator(CourseId(7), 2), false, "diff_desc_exch_part3", new RectangleF(-45, -60, 190, 190));
+            CheckCourseBothAppearances("courserenderer\\mapexchange2.ppen", new CourseDesignator(CourseId(7), 3), false, "diff_desc_exch_part4", new RectangleF(-45, -60, 190, 190));
         }
 
         [TestMethod]

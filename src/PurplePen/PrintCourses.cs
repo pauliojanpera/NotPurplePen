@@ -46,9 +46,12 @@ namespace PurplePen
     // class which contains the settings.
     partial class PrintCourses: OkCancelDialog
     {
-        CoursePrintSettings settings;
+        CoursePrintSettings settings = new CoursePrintSettings();
+        PageSettings pageSettings = new PageSettings();
+
         internal Controller controller;
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public CoursePrintSettings PrintSettings
         {
             get {
@@ -58,6 +61,18 @@ namespace PurplePen
             set
             {
                 settings = value;
+                UpdateDialog();
+            }
+        }
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public PageSettings PageSettings {
+            get {
+                UpdateSettings();
+                return pageSettings;
+            }
+            set {
+                pageSettings = value;
                 UpdateDialog();
             }
         }
@@ -80,7 +95,6 @@ namespace PurplePen
         // Update the dialog with information from the settings.
         void UpdateDialog()
         {
-            PageSettings pageSettings = settings.PageSettings;
             PrinterSettings printerSettings = pageSettings.PrinterSettings;
 
             // Courses
@@ -130,15 +144,16 @@ namespace PurplePen
             controller.HandleExceptions(
                 delegate {
                     UpdateSettings();
-                    printDialog.PrinterSettings = settings.PageSettings.PrinterSettings;
-                    printDialog.PrinterSettings.DefaultPageSettings.Landscape = settings.PageSettings.Landscape;
-                    printDialog.PrinterSettings.DefaultPageSettings.PaperSize = settings.PageSettings.PaperSize;
-                    printDialog.PrinterSettings.DefaultPageSettings.PaperSource = settings.PageSettings.PaperSource;
+                    printDialog.PrinterSettings = pageSettings.PrinterSettings;
+                    printDialog.PrinterSettings.DefaultPageSettings.Landscape = pageSettings.Landscape;
+                    printDialog.PrinterSettings.DefaultPageSettings.PaperSize = pageSettings.PaperSize;
+                    printDialog.PrinterSettings.DefaultPageSettings.PaperSource = pageSettings.PaperSource;
                     DialogResult result = printDialog.ShowDialog(this);
                     if (result == DialogResult.OK) {
-                        settings.PageSettings.PaperSize = printDialog.PrinterSettings.DefaultPageSettings.PaperSize;
-                        settings.PageSettings.PaperSource = printDialog.PrinterSettings.DefaultPageSettings.PaperSource;
-                        settings.PageSettings.PrinterSettings = printDialog.PrinterSettings;
+                        pageSettings.PaperSize = printDialog.PrinterSettings.DefaultPageSettings.PaperSize;
+                        pageSettings.PaperSource = printDialog.PrinterSettings.DefaultPageSettings.PaperSource;
+                        pageSettings.PrinterSettings = printDialog.PrinterSettings;
+                        pageSettings.PrinterSettings.Copies = 1; // ignore copies from the print settings dialog.
                         UpdateDialog();
                     }
                 }
@@ -152,15 +167,19 @@ namespace PurplePen
             if (courseSelector.SelectedCourses.Length > 0)
                 return true;
             else {
-                ((MainFrame) Owner).ErrorMessage(MiscText.NoCoursesSelected);
+                ErrorMessage(MiscText.NoCoursesSelected);
                 return false;
             }
         }
 
         private void previewButton_Click(object sender, EventArgs e)
         {
-            if (SomeCoursesSelected())
-                controller.PrintCourses(PrintSettings, true);
+            if (SomeCoursesSelected()) {
+                controller.PrintCourses(WindowsUtil.GetWinFormsPrintTarget(PageSettings, this.Owner, true),
+                                        PrintSettings,
+                                        WindowsUtil.PrintingPaperSizeWithMarginsFromPageSettings(PageSettings));
+
+            }
         }
 
         private void okButton_Click(object sender, EventArgs e)
@@ -170,5 +189,12 @@ namespace PurplePen
             else
                 DialogResult = DialogResult.None;
         }
+
+        // Show an error message.
+        async void ErrorMessage(string message)
+        {
+            await ((MainFrame)Owner).ErrorMessage(message);
+        }
+
     }
 }

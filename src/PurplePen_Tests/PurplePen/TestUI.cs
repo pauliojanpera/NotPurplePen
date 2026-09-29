@@ -42,6 +42,7 @@ using TestingUtils;
 using PurplePen.MapView;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Threading.Tasks;
 
 namespace PurplePen.Tests
 {
@@ -49,7 +50,7 @@ namespace PurplePen.Tests
     // Everything goes through the output member, which is usuall a StringWriter but 
     // change be changed to Console.Out or a file. A few public data members can be used for setting
     // the results to queries.
-    class TestUI: IUserInterface
+    sealed class TestUI: IUserInterface, IDisposable
     {
         public Controller controller;
         public SymbolDB symbolDB;
@@ -57,7 +58,7 @@ namespace PurplePen.Tests
 
         // These data members change return values.
         public string returnOpenFileName = TestUtil.GetTestFile("sampleevent1.coursescribe");
-        public System.Windows.Forms.DialogResult returnQuestion = System.Windows.Forms.DialogResult.None;  // None means return default.
+        public YesNoCancel returnQuestion = YesNoCancel.None;  // None means return default.
 
         // This tracks the mouse position and pixel size.
         PointF mouseLocation;
@@ -70,10 +71,39 @@ namespace PurplePen.Tests
             return ui;
         }
 
+        private void Dispose(bool disposing)
+        {
+            if (disposing) {
+                output?.Dispose();
+                output = null;
+            }
+        }
+
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+            Dispose(disposing: true);
+        }
+
+
+
         public void Initialize(Controller controller, SymbolDB symbolDB)
         {
             this.controller = controller;
             this.symbolDB = symbolDB;
+        }
+
+        public void QueueIdleEvent()
+        {
+            // nothing to do.
+        }
+
+        public void PostDelayedAction(Action action)
+        {
+            // This is typically used for error messages. We run it immediately, which is fine for testing.
+            // We don't actually test for error messages right now. We might need to change this implementation
+            // to somehow delay.
+            action();
         }
 
         public void MouseMoved(float x, float y, float pixelSize)
@@ -83,7 +113,7 @@ namespace PurplePen.Tests
             controller.MouseMoved(Pane.Map, mouseLocation, pixelSize);
         }
 
-        public MapViewer.DragAction LeftButtonDown(float x, float y, float pixelSize)
+        public DragAction LeftButtonDown(float x, float y, float pixelSize)
         {
             this.mouseLocation = new PointF(x, y);
             this.pixelSize = pixelSize;
@@ -116,70 +146,75 @@ namespace PurplePen.Tests
             return returnOpenFileName;
         }
 
-        public void ErrorMessage(string message)
+#pragma warning disable VSTHRD103 // WriteLine synchronously blocks, await WriteLineAsync instead.
+        public Task ErrorMessage(string message)
         {
             output.WriteLine("ERROR: '{0}'", message);
+            return Task.CompletedTask;
         }
 
-        public void WarningMessage(string message)
+        public Task WarningMessage(string message)
         {
             output.WriteLine("WARNING: '{0}'", message);
+            return Task.CompletedTask;
         }
 
-        public void InfoMessage(string message)
+        public Task InfoMessage(string message)
         {
             output.WriteLine("INFO: '{0}'", message);
+            return Task.CompletedTask;
         }
 
-        public bool YesNoQuestion(string message, bool yesDefault)
+        public Task<bool> YesNoQuestion(string message, bool yesDefault)
         {
             output.WriteLine("YES/NO QUESTION: '{0}' (default {1})", message, yesDefault ? "yes" : "no");
             bool retVal;
 
-            if (returnQuestion == System.Windows.Forms.DialogResult.None)
+            if (returnQuestion == YesNoCancel.None)
                 retVal = yesDefault;
-            else if (returnQuestion == System.Windows.Forms.DialogResult.Yes)
+            else if (returnQuestion == YesNoCancel.Yes)
                 retVal = true;
             else
                 retVal = false;
             output.WriteLine("  (returned {0})", retVal ? "yes" : "no");
-            return retVal;
+            return Task.FromResult(retVal);
         }
 
-        public bool OKCancelMessage(string message, bool okDefault)
+        public Task<bool> OKCancelMessage(string message, bool okDefault)
         {
             output.WriteLine("OK/CANCEL MESSAGE: '{0}' (default {1})", message, okDefault ? "ok" : "cancel");
             bool retVal;
 
-            if (returnQuestion == System.Windows.Forms.DialogResult.None)
+            if (returnQuestion == YesNoCancel.None)
                 retVal = okDefault;
-            else if (returnQuestion == System.Windows.Forms.DialogResult.OK)
+            else if (returnQuestion == YesNoCancel.Yes)
                 retVal = true;
             else
                 retVal = false;
             output.WriteLine("  (returned {0})", retVal ? "ok" : "cancel");
-            return retVal;
+            return Task.FromResult(retVal);
         }
 
-        public System.Windows.Forms.DialogResult YesNoCancelQuestion(string message, bool yesDefault)
+        public Task<YesNoCancel> YesNoCancelQuestion(string message, bool yesDefault)
         {
             output.WriteLine("YES/NO/CANCEL QUESTION: '{0}' (default {1})", message, yesDefault ? "yes" : "no");
-            System.Windows.Forms.DialogResult retVal;
+            YesNoCancel retVal;
 
-            if (returnQuestion == System.Windows.Forms.DialogResult.None)
-                retVal = yesDefault ? System.Windows.Forms.DialogResult.Yes : System.Windows.Forms.DialogResult.No;
+            if (returnQuestion == YesNoCancel.None)
+                retVal = yesDefault ? YesNoCancel.Yes : YesNoCancel.No;
             else 
                 retVal = returnQuestion;
 
             output.WriteLine("  (returned {0})", retVal.ToString().ToLower());
-            return retVal;
+            return Task.FromResult(retVal);
         }
 
-        public System.Windows.Forms.DialogResult MovingSharedControl(string controlCode, string otherCourses)
+        public Task<YesNoCancel> MovingSharedControl(string controlCode, string otherCourses)
         {
             output.WriteLine("MOVING SHARED CONTROL QUESTION: '{0}' in '{1}'", controlCode, otherCourses);
-            return returnQuestion;
+            return Task.FromResult(returnQuestion);
         }
+#pragma warning restore VSTHRD103
 
 
         // Strings expected and returned from FindMissingMapFile.
@@ -187,18 +222,12 @@ namespace PurplePen.Tests
         public MapType newMapType;
         public float newMapDpi, newMapScale;
 
-        public bool FindMissingMapFile(string missingMapFile)
+        public Task<bool> FindMissingMapFile(string missingMapFile)
         {
             Assert.AreEqual(expectedMissingMapFile, missingMapFile);
             controller.ChangeMapFile(newMapType, newMapFile, newMapScale, newMapDpi);
-            return true;
+            return Task.FromResult(true);
         }
-
-        public void InitiateMapDragging(PointF initialPos, System.Windows.Forms.MouseButtons buttonEnd)
-        {
-            throw new NotSupportedException();
-        }
-
 
         public void ShowProgressDialog(bool knownDuration, Action onCancelPressed = null)
         {

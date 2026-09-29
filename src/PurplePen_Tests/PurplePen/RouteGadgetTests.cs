@@ -33,16 +33,17 @@
  */
 
 #if TEST
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PurplePen.Graphics2D;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.IO;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.IO;
+using System.Text;
+using System.Threading.Tasks;
 using TestingUtils;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace PurplePen.Tests
 {
@@ -65,8 +66,8 @@ namespace PurplePen.Tests
             mapDisplay.MapIntensity = 0.3F;
 
             ExportBitmap exporter = new ExportBitmap(mapDisplay.Clone());
-            exporter.CreateBitmap(filenameJpeg, RectangleF.FromLTRB(-90F, 10F, 60F, 105F), ImageFormat.Jpeg, 200F, null);
-            exporter.CreateBitmap(filenameGif, RectangleF.FromLTRB(-90F, 10F, 60F, 105F), ImageFormat.Gif, 200F, null);
+            exporter.CreateBitmap(filenameJpeg, RectangleF.FromLTRB(-90F, 10F, 60F, 105F), GraphicsBitmapFormat.JPEG, 200F, null);
+            exporter.CreateBitmap(filenameGif, RectangleF.FromLTRB(-90F, 10F, 60F, 105F), GraphicsBitmapFormat.GIF, 200F, null);
         }
 
 
@@ -83,7 +84,7 @@ namespace PurplePen.Tests
             mapDisplay.MapIntensity = 0.3F;
 
             ExportBitmap exporter = new ExportBitmap(mapDisplay.Clone());
-            exporter.CreateBitmap(filename, RectangleF.FromLTRB(0F, 70F, 300F, 400F), ImageFormat.Jpeg, 200F, null);
+            exporter.CreateBitmap(filename, RectangleF.FromLTRB(0F, 70F, 300F, 400F), GraphicsBitmapFormat.JPEG, 200F, null);
 
             Assert.IsFalse(mapDisplay.AntiAlias);
             Assert.AreEqual(0.3F, mapDisplay.MapIntensity);
@@ -92,7 +93,7 @@ namespace PurplePen.Tests
             Assert.AreEqual(200F, bmLoaded.VerticalResolution);
             Assert.AreEqual(200F, bmLoaded.HorizontalResolution);
 
-            TestUtil.CompareBitmapBaseline(bmLoaded, filenameBaseline);
+            BitmapTestUtil.CompareBitmapBaseline(bmLoaded, filenameBaseline);
             bmLoaded.Dispose();
             File.Delete(filename);
         }
@@ -109,7 +110,7 @@ namespace PurplePen.Tests
             mapDisplay.MapIntensity = 0.3F;
 
             ExportBitmap exporter = new ExportBitmap(mapDisplay.Clone());
-            exporter.CreateBitmapAutoDpi(filename, RectangleF.FromLTRB(0F, 70F, 300F, 200F), ImageFormat.Jpeg, 1700, 100, 200);
+            exporter.CreateBitmapAutoDpi(filename, RectangleF.FromLTRB(0F, 70F, 300F, 200F), GraphicsBitmapFormat.JPEG, 1700, 100, 200);
 
             Assert.IsFalse(mapDisplay.AntiAlias);
             Assert.AreEqual(0.3F, mapDisplay.MapIntensity);
@@ -118,7 +119,7 @@ namespace PurplePen.Tests
             Assert.AreEqual(140F, bmLoaded.VerticalResolution);
             Assert.AreEqual(140F, bmLoaded.HorizontalResolution);
 
-            TestUtil.CompareBitmapBaseline(bmLoaded, filenameBaseline);
+            BitmapTestUtil.CompareBitmapBaseline(bmLoaded, filenameBaseline);
             bmLoaded.Dispose();
             File.Delete(filename);
         }
@@ -135,7 +136,7 @@ namespace PurplePen.Tests
             mapDisplay.MapIntensity = 0.3F;
 
             ExportBitmap exporter = new ExportBitmap(mapDisplay.Clone());
-            exporter.CreateBitmapAutoDpi(filename, RectangleF.FromLTRB(0F, 70F, 100F, 100F), ImageFormat.Jpeg, 1700, 100, 200);
+            exporter.CreateBitmapAutoDpi(filename, RectangleF.FromLTRB(0F, 70F, 100F, 100F), GraphicsBitmapFormat.JPEG, 1700, 100, 200);
 
             Assert.IsFalse(mapDisplay.AntiAlias);
             Assert.AreEqual(0.3F, mapDisplay.MapIntensity);
@@ -144,7 +145,7 @@ namespace PurplePen.Tests
             Assert.AreEqual(200F, bmLoaded.VerticalResolution);
             Assert.AreEqual(200F, bmLoaded.HorizontalResolution);
 
-            TestUtil.CompareBitmapBaseline(bmLoaded, filenameBaseline);
+            BitmapTestUtil.CompareBitmapBaseline(bmLoaded, filenameBaseline);
             bmLoaded.Dispose();
             File.Delete(filename);
         }
@@ -162,7 +163,7 @@ namespace PurplePen.Tests
             mapDisplay.MapIntensity = 0.3F;
 
             ExportBitmap exporter = new ExportBitmap(mapDisplay.Clone());
-            exporter.CreateBitmapAutoDpi(filename, RectangleF.FromLTRB(0F, 70F, 600F, 600F), ImageFormat.Jpeg, 1700, 100, 200);
+            exporter.CreateBitmapAutoDpi(filename, RectangleF.FromLTRB(0F, 70F, 600F, 600F), GraphicsBitmapFormat.JPEG, 1700, 100, 200);
 
             Assert.IsFalse(mapDisplay.AntiAlias);
             Assert.AreEqual(0.3F, mapDisplay.MapIntensity);
@@ -171,7 +172,7 @@ namespace PurplePen.Tests
             Assert.AreEqual(100F, bmLoaded.VerticalResolution, MAX_PIXEL_DIFF);
             Assert.AreEqual(100F, bmLoaded.HorizontalResolution);
 
-            TestUtil.CompareBitmapBaseline(bmLoaded, filenameBaseline);
+            BitmapTestUtil.CompareBitmapBaseline(bmLoaded, filenameBaseline);
             bmLoaded.Dispose();
             File.Delete(filename);
         }
@@ -189,14 +190,14 @@ namespace PurplePen.Tests
             mapDisplay.MapIntensity = 0.3F;
 
             ExportBitmap exporter = new ExportBitmap(mapDisplay.Clone());
-            exporter.CreateBitmap(filename, RectangleF.FromLTRB(0F, 70F, 300F, 400F), ImageFormat.Gif, 200F, null);
+            exporter.CreateBitmap(filename, RectangleF.FromLTRB(0F, 70F, 300F, 400F), GraphicsBitmapFormat.GIF, 200F, null);
 
             Assert.IsFalse(mapDisplay.AntiAlias);
             Assert.AreEqual(0.3F, mapDisplay.MapIntensity);
 
             Bitmap bmLoaded = (Bitmap) Image.FromFile(filename);
 
-            TestUtil.CompareBitmapBaseline(bmLoaded, filenameBaseline);
+            BitmapTestUtil.CompareBitmapBaseline(bmLoaded, filenameBaseline);
             bmLoaded.Dispose();
             File.Delete(filename);
         }
@@ -215,24 +216,24 @@ namespace PurplePen.Tests
             mapDisplay.MapIntensity = 0.3F;
 
             ExportBitmap exporter = new ExportBitmap(mapDisplay.Clone());
-            exporter.CreateBitmap(filename, RectangleF.FromLTRB(-43.78F, 201.04F, 168.46F, 418.32F), ImageFormat.Gif, 200F, mapDisplay.CoordinateMapper);
+            exporter.CreateBitmap(filename, RectangleF.FromLTRB(-43.78F, 201.04F, 168.46F, 418.32F), GraphicsBitmapFormat.GIF, 200F, mapDisplay.CoordinateMapper);
 
             Assert.IsFalse(mapDisplay.AntiAlias);
             Assert.AreEqual(0.3F, mapDisplay.MapIntensity);
 
             Bitmap bmLoaded = (Bitmap)Image.FromFile(filename);
 
-            TestUtil.CompareBitmapBaseline(bmLoaded, filenameBaseline);
+            BitmapTestUtil.CompareBitmapBaseline(bmLoaded, filenameBaseline);
             bmLoaded.Dispose();
 
-            TestUtil.CompareTextFileBaseline(worldfile, worldfileBaseline);
+            TextFileTestUtil.CompareTextFileBaseline(worldfile, worldfileBaseline);
 
             File.Delete(filename);
             File.Delete(worldfile);
         }
 
         [TestMethod]
-        public void ExportRouteGadget()
+        public async Task ExportRouteGadget()
         {
             string ppenFileName = TestUtil.GetTestFile(@"routegadget\Sample Event.ppen");
             string xmlFileName = TestUtil.GetTestFile(@"routegadget\Sample Event.xml");
@@ -241,7 +242,7 @@ namespace PurplePen.Tests
             TestUI ui = TestUI.Create();
             Controller controller = ui.controller;
 
-            bool success = controller.LoadInitialFile(ppenFileName, true);
+            bool success = await controller.LoadInitialFile(ppenFileName, true);
             Assert.IsTrue(success);
 
             controller.MapDisplay.SetCourse(controller.GetCourseLayout());
@@ -251,15 +252,15 @@ namespace PurplePen.Tests
 
             Dictionary<string, string> exceptions = ExportXmlVersion2.TestFileExceptionMap();
 
-            TestUtil.CompareBitmapBaseline((Bitmap) Image.FromFile(gifFileName), TestUtil.GetTestFile(@"routegadget\Sample Event GIF.baseline.png"));
-            TestUtil.CompareTextFileBaseline(xmlFileName, TestUtil.GetTestFile(@"routegadget\Sample Event XML.baseline.xml"), exceptions);
+            BitmapTestUtil.CompareBitmapBaseline((Bitmap) Image.FromFile(gifFileName), TestUtil.GetTestFile(@"routegadget\Sample Event GIF.baseline.png"));
+            TextFileTestUtil.CompareTextFileBaseline(xmlFileName, TestUtil.GetTestFile(@"routegadget\Sample Event XML.baseline.xml"), exceptions);
 
             File.Delete(xmlFileName);
             File.Delete(gifFileName);
         }
 
         [TestMethod]
-        public void ExportRouteGadget2()
+        public async Task ExportRouteGadget2()
         {
             string ppenFileName = TestUtil.GetTestFile(@"routegadget\GRC.ppen");
             string xmlFileName = TestUtil.GetTestFile(@"routegadget\GRC.xml");
@@ -269,7 +270,7 @@ namespace PurplePen.Tests
             TestUI ui = TestUI.Create();
             Controller controller = ui.controller;
 
-            bool success = controller.LoadInitialFile(ppenFileName, true);
+            bool success = await controller.LoadInitialFile(ppenFileName, true);
             Assert.IsTrue(success);
 
             controller.MapDisplay.SetCourse(controller.GetCourseLayout());
@@ -279,9 +280,9 @@ namespace PurplePen.Tests
 
             Dictionary<string, string> exceptions = ExportXmlVersion3.TestFileExceptionMap();
 
-            TestUtil.CompareBitmapBaseline((Bitmap)Image.FromFile(gifFileName), TestUtil.GetTestFile(@"routegadget\GRC GIF.baseline.png"));
-            TestUtil.CompareTextFileBaseline(xmlFileName, TestUtil.GetTestFile(@"routegadget\GRC XML.baseline.xml"), exceptions);
-            TestUtil.CompareTextFileBaseline(worldFileName, TestUtil.GetTestFile(@"routegadget\GRC World File.baseline.gfw"), exceptions);
+            BitmapTestUtil.CompareBitmapBaseline((Bitmap)Image.FromFile(gifFileName), TestUtil.GetTestFile(@"routegadget\GRC GIF.baseline.png"));
+            TextFileTestUtil.CompareTextFileBaseline(xmlFileName, TestUtil.GetTestFile(@"routegadget\GRC XML.baseline.xml"), exceptions);
+            TextFileTestUtil.CompareTextFileBaseline(worldFileName, TestUtil.GetTestFile(@"routegadget\GRC World File.baseline.gfw"), exceptions);
 
             File.Delete(xmlFileName);
             File.Delete(gifFileName);

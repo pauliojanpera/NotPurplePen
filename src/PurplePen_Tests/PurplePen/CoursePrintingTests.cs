@@ -33,16 +33,18 @@
  */
 
 #if TEST
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PurplePen_Tests.PurplePen;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Printing;
-using System.Diagnostics;
 using System.IO;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TestingUtils;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
+using TestingUtils;
 
 namespace PurplePen.Tests
 {
@@ -152,14 +154,23 @@ namespace PurplePen.Tests
 
 
             // Get the pages of the printing.
-            CoursePrinting coursePrinter = new CoursePrinting(controller.GetEventDB(), ui.symbolDB, controller, mapDisplay.CloneToFullIntensity(), coursePrintSettings, appearance);
-            Bitmap[] bitmaps = coursePrinter.PrintBitmaps();
-            
+            PageSettings pageSettings = new PageSettings() { Margins = new Margins(0, 0, 0, 0) };
+            CoursePrinting coursePrinter = new CoursePrinting(controller.GetEventDB(), ui.symbolDB, controller, mapDisplay.CloneToFullIntensity(), coursePrintSettings, WindowsUtil.PrintingPaperSizeWithMarginsFromPageSettings(pageSettings), appearance);
+
+            BitmapPrintingTarget bitmapPrintTarget = new BitmapPrintingTarget();
+
+            PrintManager printManager = new PrintManager("", bitmapPrintTarget, coursePrinter);
+            printManager.SetDefaultPaperSize(WindowsUtil.PrintingPaperSizeWithMarginsFromPageSettings(pageSettings));
+            printManager.DoPrinting();
+
+            // Check all the pages against the baseline.
+            Bitmap[] bitmaps = bitmapPrintTarget.Bitmaps;
+
             // Check all the pages against the baseline.
             for (int page = 0; page < bitmaps.Length; ++page) {
                 Bitmap bm = bitmaps[page];
                 string baseFileName = basename + "_page" + (page + 1).ToString();
-                TestUtil.CheckBitmapsBase(bm, baseFileName, 15);
+                BitmapTestUtil.CheckBitmapsBase(bm, baseFileName, 15);
                 bm.Dispose();
             }
 
@@ -178,16 +189,16 @@ namespace PurplePen.Tests
                     Bitmap newBitmap = (Bitmap)Image.FromFile(newFileName);
 
                     // For some reason, the XPS anti-aliasing varies slightly. Allow pixel difference to account.
-                    TestUtil.CheckBitmapsBase(newBitmap, baseFileName, 25);
+                    BitmapTestUtil.CheckBitmapsBase(newBitmap, baseFileName, 25);
                 }
             }
 #endif // XPS_PRINTING
         }
 
         [TestMethod]
-        public void PrintCourses1()
+        public async Task PrintCourses1()
         {
-            controller.LoadInitialFile(TestUtil.GetTestFile("courseprinting\\marymoor.ppen"), true);
+            await controller.LoadInitialFile(TestUtil.GetTestFile("courseprinting\\marymoor.ppen"), true);
             CoursePrintSettings coursePrintSettings = new CoursePrintSettings();
             coursePrintSettings.CropLargePrintArea = false;
             coursePrintSettings.PrintingColorModel = ColorModel.CMYK;
@@ -197,9 +208,9 @@ namespace PurplePen.Tests
         }
 
         [TestMethod]
-        public void PrintCoursesNoBlend()
+        public async Task PrintCoursesNoBlend()
         {
-            controller.LoadInitialFile(TestUtil.GetTestFile("courseprinting\\marymoor.ppen"), true);
+            await controller.LoadInitialFile(TestUtil.GetTestFile("courseprinting\\marymoor.ppen"), true);
             CoursePrintSettings coursePrintSettings = new CoursePrintSettings();
             coursePrintSettings.CropLargePrintArea = false;
             coursePrintSettings.PrintingColorModel = ColorModel.CMYK;
@@ -212,9 +223,9 @@ namespace PurplePen.Tests
         }
 
         [TestMethod]
-        public void LordHillNoBlend()
+        public async Task LordHillNoBlend()
         {
-            controller.LoadInitialFile(TestUtil.GetTestFile("courseprinting\\Lord Hill Feb 2024 - Final.ppen"), true);
+            await controller.LoadInitialFile(TestUtil.GetTestFile("courseprinting\\Lord Hill Feb 2024 - Final.ppen"), true);
             CoursePrintSettings coursePrintSettings = new CoursePrintSettings();
             coursePrintSettings.CropLargePrintArea = false;
             coursePrintSettings.PrintingColorModel = ColorModel.CMYK;
@@ -228,9 +239,9 @@ namespace PurplePen.Tests
         }
 
         [TestMethod]
-        public void LordHillUpperLowerPurple()
+        public async Task LordHillUpperLowerPurple()
         {
-            controller.LoadInitialFile(TestUtil.GetTestFile("courseprinting\\Lord Hill Feb 2024 - Final.ppen"), true);
+            await controller.LoadInitialFile(TestUtil.GetTestFile("courseprinting\\Lord Hill Feb 2024 - Final.ppen"), true);
             CoursePrintSettings coursePrintSettings = new CoursePrintSettings();
             coursePrintSettings.CropLargePrintArea = false;
             coursePrintSettings.PrintingColorModel = ColorModel.CMYK;
@@ -245,9 +256,9 @@ namespace PurplePen.Tests
         }
 
         [TestMethod]
-        public void LordHillSprintUpperLowerPurple()
+        public async Task LordHillSprintUpperLowerPurple()
         {
-            controller.LoadInitialFile(TestUtil.GetTestFile("courseprinting\\Lord Hill Feb 2024 - Final.ppen"), true);
+            await controller.LoadInitialFile(TestUtil.GetTestFile("courseprinting\\Lord Hill Feb 2024 - Final.ppen"), true);
             CoursePrintSettings coursePrintSettings = new CoursePrintSettings();
             coursePrintSettings.CropLargePrintArea = false;
             coursePrintSettings.PrintingColorModel = ColorModel.CMYK;
@@ -262,9 +273,9 @@ namespace PurplePen.Tests
         }
 
         [TestMethod]
-        public void LordHillBlendPurple()
+        public async Task LordHillBlendPurple()
         {
-            controller.LoadInitialFile(TestUtil.GetTestFile("courseprinting\\Lord Hill Feb 2024 - Final.ppen"), true);
+            await controller.LoadInitialFile(TestUtil.GetTestFile("courseprinting\\Lord Hill Feb 2024 - Final.ppen"), true);
             CoursePrintSettings coursePrintSettings = new CoursePrintSettings();
             coursePrintSettings.CropLargePrintArea = false;
             coursePrintSettings.PrintingColorModel = ColorModel.CMYK;
@@ -279,9 +290,9 @@ namespace PurplePen.Tests
 
 
         [TestMethod]
-        public void PrintCoursesArial()
+        public async Task PrintCoursesArial()
         {
-            controller.LoadInitialFile(TestUtil.GetTestFile("courseprinting\\marymoor.ppen"), true);
+            await controller.LoadInitialFile(TestUtil.GetTestFile("courseprinting\\marymoor.ppen"), true);
             CoursePrintSettings coursePrintSettings = new CoursePrintSettings();
             coursePrintSettings.CropLargePrintArea = false;
             coursePrintSettings.PrintingColorModel = ColorModel.CMYK;
@@ -294,7 +305,7 @@ namespace PurplePen.Tests
         }
 
         [TestMethod]
-        public void PrintCourses2()
+        public async Task PrintCourses2()
         {
             CourseAppearance appearance = new CourseAppearance();
             appearance.controlCircleSize = 0.75F;  //smaller circles
@@ -308,7 +319,7 @@ namespace PurplePen.Tests
             appearance.purpleM = 0;
             appearance.purpleK = 0.30F;
 
-            controller.LoadInitialFile(TestUtil.GetTestFile("courseprinting\\marymoor.ppen"), true);
+            await controller.LoadInitialFile(TestUtil.GetTestFile("courseprinting\\marymoor.ppen"), true);
             CoursePrintSettings coursePrintSettings = new CoursePrintSettings();
             coursePrintSettings.CropLargePrintArea = false;
             coursePrintSettings.PrintingColorModel = ColorModel.RGB;
@@ -319,9 +330,9 @@ namespace PurplePen.Tests
 
         // Test with crop print area.
         [TestMethod]
-        public void PrintCourses3()
+        public async Task PrintCourses3()
         {
-            controller.LoadInitialFile(TestUtil.GetTestFile("courseprinting\\marymoor2.ppen"), true);
+            await controller.LoadInitialFile(TestUtil.GetTestFile("courseprinting\\marymoor2.ppen"), true);
             CoursePrintSettings coursePrintSettings = new CoursePrintSettings();
             coursePrintSettings.CropLargePrintArea = true;
             coursePrintSettings.PrintingColorModel = ColorModel.RGB;
@@ -332,9 +343,9 @@ namespace PurplePen.Tests
 
         // Test with graphics things
         [TestMethod]
-        public void PrintCourses4()
+        public async Task PrintCourses4()
         {
-            controller.LoadInitialFile(TestUtil.GetTestFile("courseprinting\\marymoor_graphics.ppen"), true);
+            await controller.LoadInitialFile(TestUtil.GetTestFile("courseprinting\\marymoor_graphics.ppen"), true);
             CoursePrintSettings coursePrintSettings = new CoursePrintSettings();
             coursePrintSettings.CropLargePrintArea = true;
             coursePrintSettings.PrintingColorModel = ColorModel.CMYK;
@@ -344,9 +355,9 @@ namespace PurplePen.Tests
         }
 
         [TestMethod]
-        public void PrintBitmapBaseMap()
+        public async Task PrintBitmapBaseMap()
         {
-            controller.LoadInitialFile(TestUtil.GetTestFile("courseprinting\\Lincoln Park.ppen"), true);
+            await controller.LoadInitialFile(TestUtil.GetTestFile("courseprinting\\Lincoln Park.ppen"), true);
             CoursePrintSettings coursePrintSettings = new CoursePrintSettings();
             coursePrintSettings.CropLargePrintArea = true;
             coursePrintSettings.PrintingColorModel = ColorModel.CMYK;
@@ -356,9 +367,9 @@ namespace PurplePen.Tests
         }
 
         [TestMethod]
-        public void PrintPdfBaseMap()
+        public async Task PrintPdfBaseMap()
         {
-            controller.LoadInitialFile(TestUtil.GetTestFile("courseprinting\\Lincoln Park PDF.ppen"), true);
+            await controller.LoadInitialFile(TestUtil.GetTestFile("courseprinting\\Lincoln Park PDF.ppen"), true);
             CoursePrintSettings coursePrintSettings = new CoursePrintSettings();
             coursePrintSettings.CropLargePrintArea = true;
             coursePrintSettings.PrintingColorModel = ColorModel.CMYK;
@@ -368,9 +379,9 @@ namespace PurplePen.Tests
         }
 
         [TestMethod]
-        public void PrintOverprint()
+        public async Task PrintOverprint()
         {
-            controller.LoadInitialFile(TestUtil.GetTestFile("courseprinting\\Overprint test.ppen"), true);
+            await controller.LoadInitialFile(TestUtil.GetTestFile("courseprinting\\Overprint test.ppen"), true);
             CoursePrintSettings coursePrintSettings = new CoursePrintSettings();
             coursePrintSettings.CropLargePrintArea = true;
             coursePrintSettings.PrintingColorModel = ColorModel.CMYK;
@@ -385,9 +396,9 @@ namespace PurplePen.Tests
         }
 
         [TestMethod]
-        public void PrintTemplatedBaseMap()
+        public async Task PrintTemplatedBaseMap()
         {
-            controller.LoadInitialFile(TestUtil.GetTestFile("courseprinting\\Template.ppen"), true);
+            await controller.LoadInitialFile(TestUtil.GetTestFile("courseprinting\\Template.ppen"), true);
             CoursePrintSettings coursePrintSettings = new CoursePrintSettings();
             coursePrintSettings.CropLargePrintArea = true;
             coursePrintSettings.PrintingColorModel = ColorModel.CMYK;
@@ -397,15 +408,16 @@ namespace PurplePen.Tests
         }
 
         [TestMethod]
-        public void PrintingException()
+        public async Task PrintingException()
         {
-            controller.LoadInitialFile(TestUtil.GetTestFile("courseprinting\\marymoor.ppen"), true);
+            await controller.LoadInitialFile(TestUtil.GetTestFile("courseprinting\\marymoor.ppen"), true);
             CoursePrintSettings coursePrintSettings = new CoursePrintSettings();
 
             coursePrintSettings.CourseIds = new Id<Course>[] { CourseId(1), CourseId(2), CourseId(3) };
-            coursePrintSettings.PageSettings.PrinterSettings.PrinterName = "foobar";
+            PageSettings pageSettings = new PageSettings() { Margins = new Margins(0, 0, 0, 0) };
+            pageSettings.PrinterSettings.PrinterName = "foobar";
 
-            bool success = controller.PrintCourses(coursePrintSettings, false);
+            bool success = controller.PrintCourses(WindowsUtil.GetWinFormsPrintTarget(pageSettings, null, false), coursePrintSettings, WindowsUtil.PrintingPaperSizeWithMarginsFromPageSettings(pageSettings));
 
             Assert.IsFalse(success);
             string expected =
@@ -418,9 +430,9 @@ Settings to access printer 'foobar' are not valid.'
         }
 
         [TestMethod]
-        public void PrintAreasAndPageSizes()
+        public async Task PrintAreasAndPageSizes()
         {
-            controller.LoadInitialFile(TestUtil.GetTestFile("courseprinting\\Lincoln Park PrintAreas 2.ppen"), true);
+            await controller.LoadInitialFile(TestUtil.GetTestFile("courseprinting\\Lincoln Park PrintAreas 2.ppen"), true);
             CoursePrintSettings coursePrintSettings = new CoursePrintSettings();
             coursePrintSettings.CropLargePrintArea = false;
             coursePrintSettings.PrintingColorModel = ColorModel.CMYK;

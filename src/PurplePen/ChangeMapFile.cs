@@ -22,6 +22,7 @@ namespace PurplePen
             UpdateMapFile();
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string MapFile
         {
             get
@@ -44,6 +45,7 @@ namespace PurplePen
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public float MapScale
         {
             get
@@ -60,6 +62,7 @@ namespace PurplePen
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public float Dpi
         {
             get
@@ -108,7 +111,7 @@ namespace PurplePen
                 float dpi, mapScale;
                 Size bitmapSize;
                 RectangleF mapBounds;
-                bool ok = MapUtil.ValidateMapFile(mapFile, out mapScale, out dpi, out bitmapSize, out mapBounds, out mapType, out int? _, out errorMessageText);
+                bool ok = CoreMapUtil.ValidateMapFile(mapFile, out mapScale, out dpi, out bitmapSize, out mapBounds, out mapType, out int? _, out errorMessageText);
                 if (ok) {
                     if (mapType == MapType.OCAD) {
                         panelScaleDpi.Visible = false;

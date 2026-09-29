@@ -32,26 +32,29 @@
  * OF SUCH DAMAGE.
  */
 
+using PurplePen.MapModel;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-
-using PurplePen.MapModel;
+using Gr2DMatrix = PurplePen.Graphics2D.Matrix;
+using SysDrawMatrix = System.Drawing.Drawing2D.Matrix;
 
 namespace PurplePen.MapModel
 {
     using PurplePen.Graphics2D;
-    using System.IO;
     using System.Drawing.Imaging;
-using System.Runtime.InteropServices;
+    using System.IO;
+    using System.Runtime.InteropServices;
+    using System.Runtime.InteropServices.ComTypes;
+    using System.Threading;
 
     // A GraphicsTarget encapsulates either a Graphics (for WinForms) or a DrawingContext (for WPF)
     public class GDIPlus_GraphicsTarget: IGraphicsTarget
     {
         public Graphics Graphics;
-        private GDIPlus_ColorConverter colorConverter;
+        private IColorConverter colorConverter;
         private float intensity;
         private ImageAttributes imageAttributes;
         private Stack<GraphicsState> stateStack;
@@ -66,14 +69,25 @@ using System.Runtime.InteropServices;
         // Bitmaps above this size are split when drawing.
         private const int BITMAP_DRAW_LIMIT = 10000000;
 
-        public GDIPlus_GraphicsTarget(Graphics g, GDIPlus_ColorConverter colorConverter, float intensity)
+#if NETFRAMEWORK
+        // These are the pixel modes we always used with .NET Framework.
+        public const PixelFormat AlphaPixelFormat = PixelFormat.Format32bppArgb;
+        public const PixelFormat NonAlphaPixelFormat = PixelFormat.Format24bppRgb;
+#else
+        // The System.Drawing in .net code doesn't work well with 24 bpp modes, so use
+        // 32 bpp modes for both alpha and non-alpha. 
+        public const PixelFormat AlphaPixelFormat = PixelFormat.Format32bppPArgb;
+        public const PixelFormat NonAlphaPixelFormat = PixelFormat.Format32bppPArgb;
+#endif
+
+        public GDIPlus_GraphicsTarget(Graphics g, IColorConverter colorConverter, float intensity)
         {
             this.Graphics = g;
-            this.colorConverter = colorConverter ?? new GDIPlus_ColorConverter();
+            this.colorConverter = colorConverter ?? DefaultColorConverter.Instance;
             this.intensity = intensity;
             if (intensity < 1.0F) {
                 imageAttributes = new ImageAttributes();
-                imageAttributes.SetColorMatrix(ComputeColorMatrix(intensity));
+                imageAttributes.SetColorMatrix(ComputeColorMatrix(intensity).ToSysDrawColorMatrix());
             }
 
             g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
@@ -86,7 +100,7 @@ using System.Runtime.InteropServices;
             stringFormat.FormatFlags |= StringFormatFlags.MeasureTrailingSpaces;
         }
 
-        public GDIPlus_GraphicsTarget(Graphics g, GDIPlus_ColorConverter colorConverter): this(g, colorConverter, 1.0F)
+        public GDIPlus_GraphicsTarget(Graphics g, IColorConverter colorConverter): this(g, colorConverter, 1.0F)
         {
         }
 
@@ -103,7 +117,7 @@ using System.Runtime.InteropServices;
             this.Graphics = newGraphics;
         }
 
-        public GDIPlus_ColorConverter ColorConverter
+        public IColorConverter ColorConverter
         {
             get { return colorConverter; }
         }
@@ -111,6 +125,26 @@ using System.Runtime.InteropServices;
         public float Intensity
         {
             get { return intensity; }
+            set {
+                // Pens and brushes have colors that were based on the intensity, so
+                // they must be destroyed.
+                foreach (Pen pen in penMap.Values)
+                    pen.Dispose();
+                penMap.Clear();
+
+                foreach (Brush brush in brushMap.Values)
+                    brush.Dispose();
+                brushMap.Clear();
+
+                intensity = value;
+                if (intensity < 1.0F) {
+                    imageAttributes = new ImageAttributes();
+                    imageAttributes.SetColorMatrix(ComputeColorMatrix(intensity).ToSysDrawColorMatrix());
+                }
+                else {
+                    imageAttributes = null;
+                }
+            }
         }
 
         private Color ConvertColor(CmykColor cmykColor)
@@ -160,28 +194,28 @@ using System.Runtime.InteropServices;
             return new GDIPlus_BrushTarget(this, g, bitmap, size, angle);
         }
 
-        public void CreatePen(object penKey, object brushKey, float width, LineCap caps, LineJoin join, float miterLimit)
+        public void CreatePen(object penKey, object brushKey, float width, LineCapMode caps, LineJoinMode join, float miterLimit)
         {
             if (penMap.ContainsKey(penKey))
                 throw new InvalidOperationException("Key already has a pen created for it");
 
             Brush brush = GetBrush(brushKey);
             Pen pen = new Pen(brush, width);
-            pen.StartCap = pen.EndCap = caps;
-            pen.LineJoin = join;
+            pen.StartCap = pen.EndCap = caps.ToSysDrawLineCap();
+            pen.LineJoin = join.ToSysDrawLineJoin();
             pen.MiterLimit = miterLimit;
 
             penMap.Add(penKey, pen);
         }
 
-        public void CreatePen(object penKey, CmykColor color, float width, LineCap caps, LineJoin join, float miterLimit)
+        public void CreatePen(object penKey, CmykColor color, float width, LineCapMode caps, LineJoinMode join, float miterLimit)
         {
             if (penMap.ContainsKey(penKey))
                 throw new InvalidOperationException("Key already has a pen created for it");
 
             Pen pen = new Pen(ConvertColor(color), width);
-            pen.StartCap = pen.EndCap = caps;
-            pen.LineJoin = join;
+            pen.StartCap = pen.EndCap = caps.ToSysDrawLineCap();
+            pen.LineJoin = join.ToSysDrawLineJoin();
             pen.MiterLimit = miterLimit;
 
             penMap.Add(penKey, pen);
@@ -193,24 +227,16 @@ using System.Runtime.InteropServices;
             if (fontMap.ContainsKey(fontKey))
                 throw new InvalidOperationException("Key already has a font created for it");
 
-            FontStyle fontStyle = FontStyle.Regular;
-            if ((effects & TextEffects.Bold) != 0)
-                fontStyle |= FontStyle.Bold;
-            if ((effects & TextEffects.Italic) != 0)
-                fontStyle |= FontStyle.Italic;
-            if ((effects & TextEffects.Underline) != 0)
-                fontStyle |= FontStyle.Underline;
-
             if (!GDIPlus_TextMetrics.FontFamilyIsInstalled(familyName))
                 familyName = "Arial";
 
             emHeight = Math.Max(emHeight, 0.01F);            // 0 size fonts cause exception!
-            Font font = GdiplusFontLoader.CreateFont(familyName, emHeight, fontStyle);
+            Font font = GdiplusFontLoader.Instance.CreateFont(familyName, emHeight, effects);
 
             fontMap.Add(fontKey, font);
         }
 
-        public void CreatePath(object pathKey, List<GraphicsPathPart> parts, FillMode windingMode)
+        public void CreatePath(object pathKey, List<GraphicsPathPart> parts, AreaFillMode windingMode)
         {
             if (pathMap.ContainsKey(pathKey))
                 throw new InvalidOperationException("Key already has a path created for it");
@@ -220,9 +246,9 @@ using System.Runtime.InteropServices;
             pathMap.Add(pathKey, path);
         }
 
-        private GraphicsPath GetGraphicsPath(List<GraphicsPathPart> parts, FillMode windingMode)
+        private GraphicsPath GetGraphicsPath(List<GraphicsPathPart> parts, AreaFillMode windingMode)
         {
-            GraphicsPath path = new GraphicsPath(windingMode);
+            GraphicsPath path = new GraphicsPath(windingMode.ToSysDrawFillMode());
             PointF startPoint = default(PointF);
 
             foreach (GraphicsPathPart part in parts) {
@@ -264,7 +290,7 @@ using System.Runtime.InteropServices;
         public void PushTransform(Matrix matrix)
         {
             stateStack.Push(Graphics.Save());
-            Graphics.MultiplyTransform(matrix, MatrixOrder.Prepend);
+            Graphics.MultiplyTransform(matrix.ToSysDrawMatrix(), System.Drawing.Drawing2D.MatrixOrder.Prepend);
         }
 
         // Pop the transform
@@ -281,7 +307,7 @@ using System.Runtime.InteropServices;
                 Graphics.IntersectClip(region);
         }
 
-        public void PushClip(List<GraphicsPathPart> parts, FillMode fillMode)
+        public void PushClip(List<GraphicsPathPart> parts, AreaFillMode fillMode)
         {
             stateStack.Push(Graphics.Save());
 
@@ -340,7 +366,6 @@ using System.Runtime.InteropServices;
         {
             // Blending not supported.
         }
-
 
         // Draw an line with a pen.
         public void DrawLine(object penKey, PointF start, PointF finish)
@@ -441,10 +466,10 @@ using System.Runtime.InteropServices;
         }
 
         // Fill a polygon with a brush
-        public void FillPolygon(object brushKey, PointF[] pts, FillMode windingMode)
+        public void FillPolygon(object brushKey, PointF[] pts, AreaFillMode windingMode)
         {
             try {
-                Graphics.FillPolygon(GetBrush(brushKey), pts, windingMode);
+                Graphics.FillPolygon(GetBrush(brushKey), pts, windingMode.ToSysDrawFillMode());
             }
             catch (Exception) {
                 // Do nothing. Very occasionally, GDI+ given an overflow exception or ExternalException or OutOfMemory exception. 
@@ -468,7 +493,7 @@ using System.Runtime.InteropServices;
         public void DrawPath(object penKey, List<GraphicsPathPart> parts)
         {
             try {
-                using (GraphicsPath grPath = GetGraphicsPath(parts, FillMode.Alternate)) {
+                using (GraphicsPath grPath = GetGraphicsPath(parts, AreaFillMode.Alternate)) {
                     Graphics.DrawPath(GetPen(penKey), grPath);
                 }
             }
@@ -490,7 +515,7 @@ using System.Runtime.InteropServices;
             }
         }
 
-        public void FillPath(object brushKey, List<GraphicsPathPart> parts, FillMode fillMode)
+        public void FillPath(object brushKey, List<GraphicsPathPart> parts, AreaFillMode fillMode)
         {
             try {
                 using (GraphicsPath grPath = GetGraphicsPath(parts, fillMode)) {
@@ -535,16 +560,16 @@ using System.Runtime.InteropServices;
         }
 
         // Draw a bitmap
-        public void DrawBitmap(IGraphicsBitmap bm, RectangleF rectangle, BitmapScaling scalingMode, float minResolution)
+        public void DrawBitmap(IGraphicsBitmap bm, RectangleF rectangle, BitmapScaling scalingMode)
         {
             // If the transformed rectangle is too large, we can run out of memory.
-            RectangleF transformedBounds = Geometry.BoundsOfTransformedRectangle(rectangle, Graphics.Transform);
+            RectangleF transformedBounds = Geometry.BoundsOfTransformedRectangle(rectangle, Graphics.Transform.ToGraphics2DMatrix());
             if (Math.Abs(transformedBounds.Width * transformedBounds.Height) > 35000000)
                 scalingMode = BitmapScaling.NearestNeighbor;
 
             if (bm.PixelHeight * bm.PixelWidth > BITMAP_DRAW_LIMIT) {
                 // Very large bitmaps can't be drawn in one piece.
-                DrawBitmapPartSplit(bm, 0, 0, bm.PixelWidth, bm.PixelHeight, rectangle, scalingMode, minResolution);
+                DrawBitmapPartSplit(bm, 0, 0, bm.PixelWidth, bm.PixelHeight, rectangle, scalingMode);
                 return;
             }
 
@@ -553,7 +578,7 @@ using System.Runtime.InteropServices;
 
             Graphics.InterpolationMode = GetInterpolationMode(scalingMode);
             try {
-                if (imageAttributes != null) {
+              if (imageAttributes != null) {
                     Graphics.DrawImage(gdiBitmap,
                         new PointF[3] { new PointF(rectangle.Left, rectangle.Top), new PointF(rectangle.Right, rectangle.Top), new PointF(rectangle.Left, rectangle.Bottom) },
                         new RectangleF(0, 0, gdiBitmap.Width, gdiBitmap.Height),
@@ -572,16 +597,16 @@ using System.Runtime.InteropServices;
         }
 
         // Draw part of a bitmap
-        public void DrawBitmapPart(IGraphicsBitmap bm, int x, int y, int width, int height, RectangleF rectangle, BitmapScaling scalingMode, float minResolution)
+        public void DrawBitmapPart(IGraphicsBitmap bm, int x, int y, int width, int height, RectangleF rectangle, BitmapScaling scalingMode)
         {
             // If the transformed rectangle is too large, we can run out of memory.
-            RectangleF transformedBounds = Geometry.BoundsOfTransformedRectangle(rectangle, Graphics.Transform);
+            RectangleF transformedBounds = Geometry.BoundsOfTransformedRectangle(rectangle, Graphics.Transform.ToGraphics2DMatrix());
             if (Math.Abs(transformedBounds.Width * transformedBounds.Height) > 35000000)
                 scalingMode = BitmapScaling.NearestNeighbor;
 
             if (width * height > BITMAP_DRAW_LIMIT) {
                 // Very large bitmaps can't be drawn in one piece.
-                DrawBitmapPartSplit(bm, x, y, width, height, rectangle, scalingMode, minResolution);
+                DrawBitmapPartSplit(bm, x, y, width, height, rectangle, scalingMode);
                 return;
             }
 
@@ -608,17 +633,17 @@ using System.Runtime.InteropServices;
             Graphics.InterpolationMode = oldMode;
         }
 
-        private void DrawBitmapPartSplit(IGraphicsBitmap bm, int x, int y, int width, int height, RectangleF rectangle, BitmapScaling scalingMode, float minResolution)
+        private void DrawBitmapPartSplit(IGraphicsBitmap bm, int x, int y, int width, int height, RectangleF rectangle, BitmapScaling scalingMode)
         {
             int xSrcSplit = x + width / 2, ySrcSplit = y + height / 2;
 
             float xDestSplit = rectangle.X + rectangle.Width * (xSrcSplit - x) / width;
             float yDestSplit = rectangle.Y + rectangle.Height * (ySrcSplit - y) / height;
 
-            DrawBitmapPart(bm, x, y, xSrcSplit - x, ySrcSplit - y,                                  RectangleF.FromLTRB(rectangle.X, rectangle.Y, xDestSplit, yDestSplit), scalingMode, minResolution);
-            DrawBitmapPart(bm, xSrcSplit, y, x + width - xSrcSplit, ySrcSplit - y,                  RectangleF.FromLTRB(xDestSplit, rectangle.Y, rectangle.Right, yDestSplit), scalingMode, minResolution);
-            DrawBitmapPart(bm, x, ySrcSplit, xSrcSplit - x, y + height - ySrcSplit,                 RectangleF.FromLTRB(rectangle.X, yDestSplit, xDestSplit, rectangle.Bottom), scalingMode, minResolution);
-            DrawBitmapPart(bm, xSrcSplit, ySrcSplit, x + width - xSrcSplit, y + height - ySrcSplit, RectangleF.FromLTRB(xDestSplit, yDestSplit, rectangle.Right, rectangle.Bottom), scalingMode, minResolution);
+            DrawBitmapPart(bm, x, y, xSrcSplit - x, ySrcSplit - y,                                  RectangleF.FromLTRB(rectangle.X, rectangle.Y, xDestSplit, yDestSplit), scalingMode);
+            DrawBitmapPart(bm, xSrcSplit, y, x + width - xSrcSplit, ySrcSplit - y,                  RectangleF.FromLTRB(xDestSplit, rectangle.Y, rectangle.Right, yDestSplit), scalingMode);
+            DrawBitmapPart(bm, x, ySrcSplit, xSrcSplit - x, y + height - ySrcSplit,                 RectangleF.FromLTRB(rectangle.X, yDestSplit, xDestSplit, rectangle.Bottom), scalingMode);
+            DrawBitmapPart(bm, xSrcSplit, ySrcSplit, x + width - xSrcSplit, y + height - ySrcSplit, RectangleF.FromLTRB(xDestSplit, yDestSplit, rectangle.Right, rectangle.Bottom), scalingMode);
         }
 
         private InterpolationMode GetInterpolationMode(BitmapScaling scalingMode)
@@ -767,17 +792,17 @@ using System.Runtime.InteropServices;
         Stack<BlendMode> blendStack = new Stack<BlendMode>();
         int width, height;
 
-        public GDIPlus_BitmapGraphicsTarget(int pixelWidth, int pixelHeight, bool alpha, CmykColor initialColor, RectangleF rectangle, bool inverted, GDIPlus_ColorConverter colorConverter = null, float intensity = 1.0F)
+        public GDIPlus_BitmapGraphicsTarget(int pixelWidth, int pixelHeight, bool alpha, CmykColor initialColor, RectangleF rectangle, bool inverted, IColorConverter colorConverter = null, float intensity = 1.0F)
             :this(GetBitmap(pixelWidth, pixelHeight, alpha), initialColor, rectangle, inverted, colorConverter, intensity)
         {
         }
 
-        public GDIPlus_BitmapGraphicsTarget(Bitmap bitmap, CmykColor initialColor, RectangleF rectangle, bool inverted, GDIPlus_ColorConverter colorConverter = null, float intensity = 1.0F)
+        public GDIPlus_BitmapGraphicsTarget(Bitmap bitmap, CmykColor initialColor, RectangleF rectangle, bool inverted, IColorConverter colorConverter = null, float intensity = 1.0F)
             :this(bitmap, initialColor, GetTransform(bitmap, rectangle, inverted), colorConverter, intensity)
         {
         }
 
-        public GDIPlus_BitmapGraphicsTarget(Bitmap bitmap, CmykColor initialColor, Matrix transform, GDIPlus_ColorConverter colorConverter = null, float intensity = 1.0F, Region clipRegion = null)
+        public GDIPlus_BitmapGraphicsTarget(Bitmap bitmap, CmykColor initialColor, Matrix transform, IColorConverter colorConverter = null, float intensity = 1.0F, Region clipRegion = null)
             : base(GetGraphics(bitmap, initialColor, transform, colorConverter, clipRegion), colorConverter, intensity)
         {
             width = bitmap.Width;
@@ -789,7 +814,7 @@ using System.Runtime.InteropServices;
         public int PixelWidth { get { return width; } }
         public int PixelHeight { get { return height; } }
 
-        static Graphics GetGraphics(Bitmap bitmap, CmykColor initialColor, Matrix transform, GDIPlus_ColorConverter colorConverter, Region clipRegion)
+        static Graphics GetGraphics(Bitmap bitmap, CmykColor initialColor, Matrix transform, IColorConverter colorConverter, Region clipRegion)
         {
             Graphics graphics = Graphics.FromImage(bitmap);
             graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
@@ -798,10 +823,10 @@ using System.Runtime.InteropServices;
             if (clipRegion != null)
                 graphics.IntersectClip(clipRegion);
 
-            graphics.Transform = transform;
+            graphics.Transform = transform.ToSysDrawMatrix();
 
             if (initialColor != null) {
-                colorConverter = colorConverter ?? new GDIPlus_ColorConverter();
+                colorConverter = colorConverter ?? DefaultColorConverter.Instance;
                 graphics.Clear(colorConverter.ToColor(initialColor));
             }
 
@@ -824,7 +849,7 @@ using System.Runtime.InteropServices;
 
         static Bitmap GetBitmap(int pixelWidth, int pixelHeight, bool alpha)
         {
-            PixelFormat format = alpha ? PixelFormat.Format32bppPArgb : PixelFormat.Format24bppRgb;
+            PixelFormat format = alpha ? AlphaPixelFormat : NonAlphaPixelFormat;
             return new Bitmap(pixelWidth, pixelHeight, format);
         }
 
@@ -855,7 +880,7 @@ using System.Runtime.InteropServices;
                 Bitmap newBitmap = new Bitmap(currentBitmap.Width, currentBitmap.Height, currentBitmap.PixelFormat);
                 Graphics newGraphics = Graphics.FromImage(newBitmap);
                 newGraphics.PixelOffsetMode = this.Graphics.PixelOffsetMode;
-                newGraphics.Clear(Color.White);
+                newGraphics.Clear(Color.White);   // TODO: !!! I'm pretty sure this should be Transparent instead of White to get the blending correct. Since I'm moving everything to Skia I'm not going to fix this now.
                 this.ChangeGraphics(newGraphics);
 
                 bitmapStack.Push(newBitmap);
@@ -955,7 +980,7 @@ using System.Runtime.InteropServices;
 
         public static bool FontFamilyIsInstalled(string familyName)
         {
-            return GdiplusFontLoader.FontFamilyIsInstalled(familyName);
+            return GdiplusFontLoader.Instance.FontFamilyIsInstalled(familyName);
         }
 
         public void Dispose()
@@ -967,24 +992,17 @@ using System.Runtime.InteropServices;
     {
         private Font font;
         private FontFamily fontFamily;
-        private FontStyle fontStyle;
+        private TextEffects textEffects;
         private StringFormat stringFormat;
         private float emHeight;
 
         public GDIPlus_TextFaceMetrics(string familyName, float emHeight, TextEffects effects)
         {
-            fontStyle = FontStyle.Regular;
-            if ((effects & TextEffects.Bold) != 0)
-                fontStyle |= FontStyle.Bold;
-            if ((effects & TextEffects.Italic) != 0)
-                fontStyle |= FontStyle.Italic;
-            if ((effects & TextEffects.Underline) != 0)
-                fontStyle |= FontStyle.Underline;
-
             float nominalFontSize = Math.Max(emHeight, 0.01F);            // 0 size fonts cause exception!
             this.emHeight = nominalFontSize;
+            this.textEffects = effects;
 
-            font = GdiplusFontLoader.CreateFont(familyName, nominalFontSize, fontStyle);
+            font = GdiplusFontLoader.Instance.CreateFont(familyName, nominalFontSize, effects);
             fontFamily = font.FontFamily;
 
             stringFormat = new StringFormat(StringFormat.GenericTypographic);
@@ -1006,8 +1024,8 @@ using System.Runtime.InteropServices;
             get
             {
                 if (recommendedLineSpacing < 0) {
-                    int nominalEmHeight = fontFamily.GetEmHeight(fontStyle);
-                    int nominalLineSpacing = fontFamily.GetLineSpacing(fontStyle);
+                    int nominalEmHeight = fontFamily.GetEmHeight(GdiplusFontLoader.FontStyleFromTextEffects(textEffects));
+                    int nominalLineSpacing = fontFamily.GetLineSpacing(GdiplusFontLoader.FontStyleFromTextEffects(textEffects));
                     recommendedLineSpacing = (nominalLineSpacing * emHeight) / nominalEmHeight;
                 }
 
@@ -1021,8 +1039,8 @@ using System.Runtime.InteropServices;
         {
             get {
                 if (ascent < 0) {
-                    int nominalEmHeight = fontFamily.GetEmHeight(fontStyle);
-                    int nominalAscent = fontFamily.GetCellAscent(fontStyle);
+                    int nominalEmHeight = fontFamily.GetEmHeight(GdiplusFontLoader.FontStyleFromTextEffects(textEffects));
+                    int nominalAscent = fontFamily.GetCellAscent(GdiplusFontLoader.FontStyleFromTextEffects(textEffects));
                     ascent = (nominalAscent * emHeight) / nominalEmHeight;
                 }
                 return ascent;
@@ -1034,8 +1052,8 @@ using System.Runtime.InteropServices;
         {
             get {
                 if (descent < 0) {
-                    int nominalEmHeight = fontFamily.GetEmHeight(fontStyle);
-                    int nominalDescent = fontFamily.GetCellDescent(fontStyle);
+                    int nominalEmHeight = fontFamily.GetEmHeight(GdiplusFontLoader.FontStyleFromTextEffects(textEffects));
+                    int nominalDescent = fontFamily.GetCellDescent(GdiplusFontLoader.FontStyleFromTextEffects(textEffects));
                     descent = (nominalDescent * emHeight) / nominalEmHeight;
                 }
                 return descent;
@@ -1048,7 +1066,7 @@ using System.Runtime.InteropServices;
             get {
                 if (capHeight < 0) {
                     GraphicsPath path = new GraphicsPath();
-                    path.AddString("W", fontFamily, (int)fontStyle, font.Size, new PointF(0, 0), stringFormat);
+                    path.AddString("W", fontFamily, (int)GdiplusFontLoader.FontStyleFromTextEffects(textEffects), font.Size, new PointF(0, 0), stringFormat);
                     capHeight = path.GetBounds().Height;
                 }
                 return capHeight;
@@ -1068,24 +1086,42 @@ using System.Runtime.InteropServices;
 
         public float  GetTextWidth(string text)
         {
-            return GetHiresGraphics().MeasureString(text, font, new PointF(0, 0), stringFormat).Width;
+            // This isn't actually the best way to measure text width, since it doesn't take kerning into account.
+            // We should use MeasureCharacterRanges instead, but since we are switching to SkiaSharp very soon, I'm
+            // not going to potentially change behavior now.
+
+            float width = GetHiresGraphics().MeasureString(text, font, new PointF(0, 0), stringFormat).Width;
+            return width;
         }
 
         public SizeF  GetTextSize(string text)
         {
+            // This isn't actually the best way to measure text width, since it doesn't take kerning into account.
+            // We should use MeasureCharacterRanges instead, but since we are switching to SkiaSharp very soon, I'm
+            // not going to potentially change behavior now.
+
             return GetHiresGraphics().MeasureString(text, font, new PointF(0, 0), stringFormat);
         }
 
-        [ThreadStatic]
-        static Graphics hiResGraphics = null;
-
-        private static Graphics GetHiresGraphics()
+        public RectangleF GetTightBoundingBox(PointF startpoint, string text)
         {
-            if (hiResGraphics == null) {
-                hiResGraphics = Graphics.FromImage(new Bitmap(1, 1));
-                hiResGraphics.ScaleTransform(10F, -10F);
-            }
-            return hiResGraphics;
+            GraphicsPath path = new GraphicsPath();
+            path.AddString(text, fontFamily, (int)GdiplusFontLoader.FontStyleFromTextEffects(textEffects), font.Size, startpoint, stringFormat);
+            return path.GetBounds();
+        }
+
+        private static ThreadLocal<Graphics> hiresGraphics = new ThreadLocal<Graphics>(() => {
+            Graphics g = Graphics.FromImage(new Bitmap(1, 1));
+            g.ScaleTransform(10F, -10F);
+            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+            return g;
+        });
+
+        // Returns a graphics scaled with negative Y and hi-resolution (50 units/pixel or so).
+        // Instances are per-thread, so that tests that use this can run in parallel.
+        public static Graphics GetHiresGraphics()
+        {
+            return hiresGraphics.Value;
         }
 
         public void  Dispose()
@@ -1109,6 +1145,19 @@ using System.Runtime.InteropServices;
             get { return bitmap; }
         }
 
+        // Resolution in DPI, delegated to the underlying System.Drawing.Bitmap.
+        public double HorizontalResolution
+        {
+            get { return bitmap != null ? bitmap.HorizontalResolution : 96; }
+            set { bitmap.SetResolution((float)value, bitmap.VerticalResolution); }
+        }
+
+        public double VerticalResolution
+        {
+            get { return bitmap != null ? bitmap.VerticalResolution : 96; }
+            set { bitmap.SetResolution(bitmap.HorizontalResolution, (float)value); }
+        }
+
         public int PixelWidth
         {
             get { return bitmap != null ? bitmap.Width : 0; }
@@ -1118,6 +1167,74 @@ using System.Runtime.InteropServices;
         {
             get { return bitmap != null ? bitmap.Height : 0; }
         }
+
+        public bool MustCopyBitsForGraphicsTarget => false;
+
+        public GraphicsBitmapFormat GetOriginalFormat()
+        {
+            ImageFormat format = bitmap.RawFormat;
+
+            if (format == null)
+                return GraphicsBitmapFormat.None;
+            else if (format.Equals(ImageFormat.Bmp))
+                return GraphicsBitmapFormat.BMP;
+            else if (format.Equals(ImageFormat.Gif))
+                return GraphicsBitmapFormat.GIF;
+            else if (format.Equals(ImageFormat.Jpeg))
+                return GraphicsBitmapFormat.JPEG;
+            else if (format.Equals(ImageFormat.Png))
+                return GraphicsBitmapFormat.PNG;
+            else if (format.Equals(ImageFormat.Tiff))
+                return GraphicsBitmapFormat.TIFF;
+            else if (format.Equals(ImageFormat.MemoryBmp))
+                return GraphicsBitmapFormat.None;
+            else
+                return GraphicsBitmapFormat.Unknown;
+        }
+
+        public Color GetPixel(int x, int y)
+        {
+            lock (bitmap) {
+                return bitmap.GetPixel(x, y);
+            }
+        }
+
+
+        public IGraphicsBitmap Crop(int x, int y, int width, int height)
+        {
+            Bitmap croppedBitmap = bitmap.Clone(new Rectangle(x, y, width, height), bitmap.PixelFormat);
+            return new GDIPlus_Bitmap(croppedBitmap);
+        }
+
+        public bool WriteToStream(GraphicsBitmapFormat format, Stream stream, int quality)
+        {
+            ImageFormat targetFormat = ImageFormatFromGraphicsBitmapFormat(format);
+            if (bitmap == null || targetFormat == null)
+                return false;
+
+            try {
+                BitmapUtil.SaveBitmap(bitmap, stream, targetFormat, quality);
+            }
+            catch (Exception) {
+                return false;
+            }
+
+            return true;
+        }
+
+        public IBitmapGraphicsTarget GetGraphicsTarget(bool copyBits, IColorConverter colorConverter = null)
+        {
+            Bitmap newBitmap;
+            if (copyBits) {
+                newBitmap = new Bitmap(bitmap);
+            }
+            else {
+                newBitmap = bitmap;
+            }
+
+            return new GDIPlus_BitmapGraphicsTarget(newBitmap, null, RectangleF.FromLTRB(0, 0, bitmap.Width, bitmap.Height), false, colorConverter);
+        }
+
 
         // Very large bitmaps can cause exceptions when drawing. This property 
         // says if the bitmap is very large.
@@ -1168,10 +1285,36 @@ using System.Runtime.InteropServices;
             get { return bitmap == null; }
         }
 
+        private ImageFormat ImageFormatFromGraphicsBitmapFormat(GraphicsBitmapFormat format)
+        {
+            switch (format) {
+            case GraphicsBitmapFormat.GIF:
+                return ImageFormat.Gif;
+            case GraphicsBitmapFormat.PNG:
+                return ImageFormat.Png;
+            case GraphicsBitmapFormat.JPEG:
+                return ImageFormat.Jpeg;
+            case GraphicsBitmapFormat.TIFF:
+                return ImageFormat.Tiff;
+            case GraphicsBitmapFormat.BMP:
+                return ImageFormat.Bmp;
+            }
+
+            return null;
+        }
+
         public GDIPlus_Bitmap(Bitmap bitmap)
         {
             this.bitmap = bitmap;
             this.shrunkBitmap = null;
+        }
+    }
+
+    public class GdiPlus_FileLoaderProvider : IFileLoaderProvider
+    {
+        public IFileLoader GetFileLoaderForDirectory(string path)
+        {
+            return new GDIPlus_FileLoader(path);
         }
     }
 
@@ -1259,7 +1402,7 @@ using System.Runtime.InteropServices;
             return newMap;
         }
 
-        private string SearchForFile(string path)
+        public string SearchForFile(string path)
         {
             try {
                 if (File.Exists(path))
@@ -1281,11 +1424,41 @@ using System.Runtime.InteropServices;
         }
     }
 
-    public class GDIPlus_ColorConverter
+    public class GDIPlus_GraphicsBitmapLoader : IGraphicsBitmapLoader
     {
-        public virtual Color ToColor(CmykColor cmykColor)
+        public IGraphicsBitmap CreateEmptyBitmap(int width, int height, Color? initialColor = null)
         {
-            return ColorConverter.ToColor(cmykColor);
+            return new GDIPlus_Bitmap(new Bitmap(width, height, GDIPlus_GraphicsTarget.AlphaPixelFormat));
+        }
+
+        public IGraphicsBitmap ReadBitmapFromStream(Stream stream)
+        {
+            // Create a new memory stream to hold the data, because the stream
+            // might close after this method returns, and Image.FromStream requires the stream to stay open for the
+            // lifetime of the image. By copying to a memory stream, we can avoid locking the original stream and allow
+            // it to be closed.
+            MemoryStream memStream = new MemoryStream();
+            stream.CopyTo(memStream);
+
+            // Seek back to the beginning before creating the image
+            memStream.Position = 0;
+            return new GDIPlus_Bitmap((Bitmap)Image.FromStream(memStream));
+        }
+
+        public void Dispose()
+        {
+        }
+    }
+
+    public class GDIPlus_BitmapGraphicsTargetProvider : IBitmapGraphicsTargetProvider
+    {
+        public IBitmapGraphicsTarget CreateBitmapGraphicsTarget(int width, int height, CmykColor initialColor, IColorConverter colorConverter)
+        {
+            return new GDIPlus_BitmapGraphicsTarget(width, height, true, initialColor, RectangleF.FromLTRB(0, 0, width, height), false, colorConverter);
+        }
+
+        public void Dispose()
+        {
         }
     }
 }

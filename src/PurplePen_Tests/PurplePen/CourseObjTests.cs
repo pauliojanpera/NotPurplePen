@@ -33,21 +33,21 @@
  */
 
 #if TEST
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PurplePen.Graphics2D;
+using PurplePen.MapModel;
+using PurplePen_Tests.PurplePen;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestingUtils;
-using PurplePen.MapModel;
-using PurplePen.Graphics2D;
 
 namespace PurplePen.Tests
 {
-    [TestClass]
+    [TestClass, DoNotParallelize]
     public class CourseObjTests: TestFixtureBase
     {
         CourseAppearance specialAppearance;
@@ -81,26 +81,28 @@ namespace PurplePen.Tests
         }
 
         // Draw a grid on the graphics
-        void DrawGrid(Graphics g, RectangleF rect, float spacing)
+        void DrawGrid(IGraphicsTarget g, RectangleF rect, float spacing)
         {
-            Pen pen = new Pen(Color.FromArgb(100, Color.MidnightBlue), 0.0F);
+            g.PushAntiAliasing(false);
+            object pen = new object();
+            CmykColor color = CmykColor.FromColor(Color.MidnightBlue);
+            color = CmykColor.FromCmyka(color.Cyan, color.Magenta, color.Yellow, color.Black, 0.4F);
+            g.CreatePen(pen, color, 0.032F, LineCapMode.Flat, LineJoinMode.Miter, 10);
 
             // Draw the grid.
             for (float x = (int) ((rect.Left) / spacing) * spacing; x <= rect.Right; x += spacing) {
-                g.DrawLine(pen, x, rect.Top, x, rect.Bottom);
+                g.DrawLine(pen, new PointF(x, rect.Top), new PointF(x, rect.Bottom));
             }
             for (float y = (int) ((rect.Top) / spacing) * spacing; y <= rect.Bottom; y += spacing) {
-                g.DrawLine(pen, rect.Left, y, rect.Right, y);
+                g.DrawLine(pen, new PointF(rect.Left, y), new PointF(rect.Right, y));
             }
-
-            pen.Dispose();
         }
 
         // Render one course object to a map.
         internal Map RenderCourseObjToMap(CourseObj courseobj)
         {
             CourseLayout.MapRenderOptions mapRenderOptions = new CourseLayout.MapRenderOptions();
-            Map map = new Map(new GDIPlus_TextMetrics(), null);
+            Map map = new Map(new Skia_TextMetrics(), null);
 
             using (map.Write()) {
                 Dictionary<object, SymDef> dict = new Dictionary<object, SymDef>();
@@ -108,7 +110,7 @@ namespace PurplePen.Tests
                 // Create white color and white-out symdef.
                 SymColor white = map.AddColorBottom("White", 44, 0, 0, 0, 0, false);
                 AreaSymDef whiteArea = new AreaSymDef("White out", "890", white, null);
-                whiteArea.ToolboxImage = MapUtil.CreateToolboxIcon(Properties.Resources.WhiteOut_OcadToolbox);
+                whiteArea.ToolboxImage = CoreMapUtil.CreateToolboxIcon(ImageResources.WhiteOut_OcadToolbox);
                 map.AddSymdef(whiteArea);
                 dict[CourseLayout.KeyWhiteOut] = whiteArea;
 
@@ -155,7 +157,7 @@ namespace PurplePen.Tests
         {
             Matrix m = new Matrix();
 
-            m.Translate(sizeBitmap.Width / 2, sizeBitmap.Height / 2);
+            m.Translate((sizeBitmap.Width / 2) + 0.5F, (sizeBitmap.Height / 2) + 0.5F);
             m.Scale((float) (sizeBitmap.Width / 8.0), -(float) (sizeBitmap.Height / 8.0));
             return m;
         }
@@ -166,31 +168,31 @@ namespace PurplePen.Tests
         {
             Map map = RenderCourseObjToMap(courseobj);
 
-            Bitmap bm = new Bitmap(250, 250);
-            using (Graphics g = Graphics.FromImage(bm)) {
+            Bitmap bm = TestRenderingUtils.RenderToBitmap(250, 250, new RectangleF(0, 0, 250F, 250F), false, g => {
                 RenderOptions options = new RenderOptions();
-
                 options.usePatternBitmaps = true;
-                options.minResolution = (float) (8.0 / bm.Width);
+                options.minResolution = (float)(8.0 / 250);
                 options.renderTemplates = RenderTemplateOption.MapAndTemplates;
 
-                g.MultiplyTransform(GetTransform(bm.Size));
+                object backColorBrush = new object();
+                g.CreateSolidBrush(backColorBrush, CmykColor.FromColor(backColor));
+                g.FillRectangle(backColorBrush, new RectangleF(-1, -1, 252, 252));
 
-                g.Clear(backColor);
+                g.PushTransform(GetTransform(new Size(250, 250)));
                 using (map.Read())
-                    map.Draw(new GDIPlus_GraphicsTarget(g), new RectangleF(-100F, -100F, 200F, 200F), options, null);
+                    map.Draw(g, new RectangleF(-100F, -100F, 200F, 200F), options, null);
+
                 DrawGrid(g, new RectangleF(-4.0F, -4.0F, 8.0F, 8.0F), 1.0F);
-            }
+            });
 
             return bm;
-
         }
 
         // Render to a bitmap and check against the saved version.
         internal void CheckRenderBitmap(CourseObj courseobj, string basename, Color backColor)
         {
             Bitmap bmNew = RenderToBitmap(courseobj, backColor);
-            TestUtil.CheckBitmapsBase(bmNew, "coursesymbols\\" + basename, MAX_PIXEL_DIFF);
+            BitmapTestUtil.CheckBitmapsBase(bmNew, "coursesymbols\\" + basename, MAX_PIXEL_DIFF);
         }
 
         // Render to a bitmap and check against the saved version.
@@ -852,49 +854,49 @@ namespace PurplePen.Tests
         [TestMethod]
         public void Text()
         {
-            CourseObj courseobj = new BasicTextCourseObj(SpecialId(0), "Fly", new RectangleF(-4, -2, 8, 6), "Times New Roman", FontStyle.Italic, SpecialColor.UpperPurple, -1);
+            CourseObj courseobj = new BasicTextCourseObj(SpecialId(0), "Fly", new RectangleF(-4, -2, 8, 6), "Times New Roman", TextEffects.Italic, SpecialColor.UpperPurple, -1);
             CheckRenderBitmap(courseobj, "text");
         }
 
         [TestMethod]
         public void Text2()
         {
-            CourseObj courseobj = new BasicTextCourseObj(SpecialId(0), "Fly", new RectangleF(-4, -2, 4, 6), "Times New Roman", FontStyle.Bold, SpecialColor.Black, -1);
+            CourseObj courseobj = new BasicTextCourseObj(SpecialId(0), "Fly", new RectangleF(-4, -2, 4, 6), "Times New Roman", TextEffects.Bold, SpecialColor.Black, -1);
             CheckRenderBitmap(courseobj, "text2");
         }
 
         [TestMethod]
         public void TextMissingFont()
         {
-            CourseObj courseobj = new BasicTextCourseObj(SpecialId(0), "Fly", new RectangleF(-4, -2, 4, 6), "Blazing", FontStyle.Bold, SpecialColor.Black, -1);
+            CourseObj courseobj = new BasicTextCourseObj(SpecialId(0), "Fly", new RectangleF(-4, -2, 4, 6), "Blazing", TextEffects.Bold, SpecialColor.Black, -1);
             CheckRenderBitmap(courseobj, "textmissing");
         }
 
         [TestMethod]
         public void TextEmpty()
         {
-            CourseObj courseobj = new BasicTextCourseObj(SpecialId(0), "", new RectangleF(-4, -2, 8, 6), "Arial", FontStyle.Bold, new SpecialColor(0.8F, 0.5F, 0, 0), -1);
+            CourseObj courseobj = new BasicTextCourseObj(SpecialId(0), "", new RectangleF(-4, -2, 8, 6), "Arial", TextEffects.Bold, new SpecialColor(0.8F, 0.5F, 0, 0), -1);
             CheckRenderBitmap(courseobj, "textempty");
         }
 
         [TestMethod]
         public void TextFixedHeight1()
         {
-            CourseObj courseobj = new BasicTextCourseObj(SpecialId(0), "012", new RectangleF(-4, -2.4F, 8, 6), "Times New Roman", FontStyle.Italic, SpecialColor.LowerPurple, 2F);
+            CourseObj courseobj = new BasicTextCourseObj(SpecialId(0), "012", new RectangleF(-4, -2.4F, 8, 6), "Times New Roman", TextEffects.Italic, SpecialColor.LowerPurple, 2F);
             CheckRenderBitmap(courseobj, "textfixedheight1");
         }
 
         [TestMethod]
         public void TextFixedHeight2()
         {
-            CourseObj courseobj = new BasicTextCourseObj(SpecialId(0), "\u00c2012y345", new RectangleF(-3, -2.7F, 7, 5), "Roboto Condensed", FontStyle.Bold, SpecialColor.UpperPurple, 1F);
+            CourseObj courseobj = new BasicTextCourseObj(SpecialId(0), "\u00c2012y345", new RectangleF(-3, -2.7F, 7, 5), "Roboto Condensed", TextEffects.Bold, SpecialColor.UpperPurple, 1F);
             CheckRenderBitmap(courseobj, "textfixedheight2");
         }
 
         [TestMethod]
         public void TextFixedHeightMissingFont()
         {
-            CourseObj courseobj = new BasicTextCourseObj(SpecialId(0), "\u00c2012y345", new RectangleF(-3, -2.7F, 7, 5), "Blazing", FontStyle.Bold, SpecialColor.LowerPurple, 1F);
+            CourseObj courseobj = new BasicTextCourseObj(SpecialId(0), "\u00c2012y345", new RectangleF(-3, -2.7F, 7, 5), "Blazing", TextEffects.Bold, SpecialColor.LowerPurple, 1F);
             CheckRenderBitmap(courseobj, "textfixedheightmissingfont");
         }
 
@@ -946,7 +948,7 @@ namespace PurplePen.Tests
 
         ImageCourseObj CreateImageCourseObj()
         {
-            Bitmap bm = (Bitmap)Image.FromFile(TestUtil.GetTestFile("coursesymbols\\mrsneeze.jpg"));
+            IGraphicsBitmap bm = PurplePenTestUtils.LoadBitmap(TestUtil.GetTestFile("coursesymbols\\mrsneeze.jpg"));
             return new ImageCourseObj(Id<Special>.None, 1.0F, defaultCourseAppearance, new PointF[] { new PointF(-0.5F, 2F), new PointF(2F, -1.859F) }, "mrsneeze.jpg", bm);
         }
 
@@ -1420,14 +1422,14 @@ namespace PurplePen.Tests
         public void DescriptionDump2()
         {
             CourseObj courseobj = CreateDescriptionCourseObj(defaultCourseAppearance, 2);
-            AssertDump(courseobj, @"Description:    scale:1  rect:{X=-4,Y=2.155,Width=7.515,Height=1.845} columns:2");
+            AssertDump(courseobj, @"Description:    scale:1  rect:{X=-4,Y=2.16,Width=7.52,Height=1.85} columns:2");
         }
 
         [TestMethod]
         public void ImageBitmapDump()
         {
             CourseObj courseobj = CreateImageCourseObj();
-            AssertDump(courseobj, @"Image:          scale:1  rect:{X=-0.5,Y=-1.859,Width=2.5,Height=3.859}");
+            AssertDump(courseobj, @"Image:          scale:1  rect:{X=-0.5,Y=-1.86,Width=2.5,Height=3.86}");
         }
 	
 
@@ -1436,30 +1438,14 @@ namespace PurplePen.Tests
         internal void CheckHighlightBitmap(CourseObj courseobj, string basename)
         {
             Bitmap bmNew = RenderToBitmap(courseobj, Color.White);
-            Bitmap bmEraseBrush = (Bitmap) bmNew.Clone();
             Bitmap bmHighlighted = (Bitmap) bmNew.Clone();
             Matrix matrix = GetTransform(bmNew.Size);
 
-            using (Graphics g = Graphics.FromImage(bmHighlighted)) {
-                g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixel;
-                courseobj.DrawHighlight(g, matrix);
-            }
-            Bitmap bmErased = (Bitmap) bmHighlighted.Clone();
-            TestUtil.CheckBitmapsBase(bmHighlighted, "coursesymbols\\" + basename);
+            TestRenderingUtils.RenderToExistingBitmap(bmHighlighted, grTarget => {
+                courseobj.DrawHighlight(grTarget, matrix, 1.0);
+            });
 
-            using (TextureBrush eraseBrush = new TextureBrush(bmEraseBrush))
-            using (Graphics g = Graphics.FromImage(bmErased)) {
-                g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixel;
-                courseobj.EraseHighlight(g, matrix, eraseBrush);
-            }
-
-            Bitmap bmDiff;
-            bmDiff = TestUtil.CompareBitmaps(bmNew, bmErased, Color.LightPink, Color.Transparent, MAX_PIXEL_DIFF);
-            if (bmDiff != null) 
-                bmDiff.Save(TestUtil.GetTestFile("coursesymbols\\" + basename + "_diff.png"), ImageFormat.Png);
-            Assert.IsNull(bmDiff, "after erase does not match with before highlight");
-
-            bmEraseBrush.Dispose();
+            BitmapTestUtil.CheckBitmapsBase(bmHighlighted, "coursesymbols\\" + basename);
         }
 
         // Reduce the scale by 50% and check also.
@@ -2039,42 +2025,42 @@ namespace PurplePen.Tests
         [TestMethod]
         public void TextHighlight()
         {
-            CourseObj courseobj = new BasicTextCourseObj(SpecialId(0), "sly", new RectangleF(-3.5F, -2.5F, 7, 6), "Times New Roman", FontStyle.Italic, SpecialColor.UpperPurple, -1);
+            CourseObj courseobj = new BasicTextCourseObj(SpecialId(0), "sly", new RectangleF(-3.5F, -2.5F, 7, 6), "Times New Roman", TextEffects.Italic, SpecialColor.UpperPurple, -1);
             CheckHighlightBitmap(courseobj, "text_highlight");
         }
 
         [TestMethod]
         public void TextHighlight2()
         {
-            CourseObj courseobj = new BasicTextCourseObj(SpecialId(0), "sly", new RectangleF(-3.5F, -2.5F, 4, 6), "Times New Roman", FontStyle.Italic, new SpecialColor(0.7F, 0.5F, 0, 0), -1);
+            CourseObj courseobj = new BasicTextCourseObj(SpecialId(0), "sly", new RectangleF(-3.5F, -2.5F, 4, 6), "Times New Roman", TextEffects.Italic, new SpecialColor(0.7F, 0.5F, 0, 0), -1);
             CheckHighlightBitmap(courseobj, "text_highlight2");
         }
 
         [TestMethod]
         public void TextHighlightMissingFont()
         {
-            CourseObj courseobj = new BasicTextCourseObj(SpecialId(0), "sly", new RectangleF(-3.5F, -2.5F, 4, 6), "Blazing", FontStyle.Bold, new SpecialColor(0.7F, 0.5F, 0, 0), -1);
+            CourseObj courseobj = new BasicTextCourseObj(SpecialId(0), "sly", new RectangleF(-3.5F, -2.5F, 4, 6), "Blazing", TextEffects.Bold, new SpecialColor(0.7F, 0.5F, 0, 0), -1);
             CheckHighlightBitmap(courseobj, "text_highlightmissingfont");
         }
 
         [TestMethod]
         public void TextFixedHeightHighlight()
         {
-            CourseObj courseobj = new BasicTextCourseObj(SpecialId(0), "\u00c2012y345", new RectangleF(-3, -2.7F, 7, 5), "Roboto Condensed", FontStyle.Bold, SpecialColor.LowerPurple, 1F);
+            CourseObj courseobj = new BasicTextCourseObj(SpecialId(0), "\u00c2012y345", new RectangleF(-3, -2.7F, 7, 5), "Roboto Condensed", TextEffects.Bold, SpecialColor.LowerPurple, 1F);
             CheckHighlightBitmap(courseobj, "textfixedheight_highlight");
         }
 
         [TestMethod]
         public void TextFixedHeightHighlight2()
         {
-            CourseObj courseobj = new BasicTextCourseObj(SpecialId(0), "123", new RectangleF(-3, -2.7F, 7, 5), "Times New Roman", FontStyle.Italic, SpecialColor.UpperPurple, 1F);
+            CourseObj courseobj = new BasicTextCourseObj(SpecialId(0), "123", new RectangleF(-3, -2.7F, 7, 5), "Times New Roman", TextEffects.Italic, SpecialColor.UpperPurple, 1F);
             CheckHighlightBitmap(courseobj, "textfixedheight2_highlight");
         }
 
         [TestMethod]
         public void TextFixedHeightHighlightMissingFont()
         {
-            CourseObj courseobj = new BasicTextCourseObj(SpecialId(0), "\u00c2012y345", new RectangleF(-3, -2.7F, 7, 5), "Blazing", FontStyle.Bold, SpecialColor.LowerPurple, 1F);
+            CourseObj courseobj = new BasicTextCourseObj(SpecialId(0), "\u00c2012y345", new RectangleF(-3, -2.7F, 7, 5), "Blazing", TextEffects.Bold, SpecialColor.LowerPurple, 1F);
             CheckHighlightBitmap(courseobj, "textfixedheightmissingfont_highlight");
         }
 
@@ -2115,11 +2101,11 @@ namespace PurplePen.Tests
             Bitmap bmNew = RenderToBitmap(courseobj, backColor);
             Matrix matrix = GetTransform(bmNew.Size);
 
-            using (Graphics g = Graphics.FromImage(bmNew)) {
-                g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixel;
-                offset.DrawHighlight(g, matrix);
-            }
-            TestUtil.CheckBitmapsBase(bmNew, "coursesymbols\\" + basename);
+            TestRenderingUtils.RenderToExistingBitmap(bmNew, grTarget => {
+                offset.DrawHighlight(grTarget, matrix, 1.0);
+            });
+
+            BitmapTestUtil.CheckBitmapsBase(bmNew, "coursesymbols\\" + basename);
         }
 
         internal void CheckOffsetBitmap(CourseObj courseobj, string basename)
@@ -2432,21 +2418,21 @@ namespace PurplePen.Tests
         [TestMethod]
         public void TextOffset()
         {
-            CourseObj courseobj = new BasicTextCourseObj(SpecialId(0), "sly", new RectangleF(-3.5F, -2.5F, 6.5F, 6), "Times New Roman", FontStyle.Italic, SpecialColor.LowerPurple, -1);
+            CourseObj courseobj = new BasicTextCourseObj(SpecialId(0), "sly", new RectangleF(-3.5F, -2.5F, 6.5F, 6), "Times New Roman", TextEffects.Italic, SpecialColor.LowerPurple, -1);
             CheckOffsetBitmap(courseobj, "text_offset");
         }
 
         [TestMethod]
         public void TextOffset2()
         {
-            CourseObj courseobj = new BasicTextCourseObj(SpecialId(0), "sly", new RectangleF(-3.5F, -2.5F, 4.5F, 6), "Times New Roman", FontStyle.Italic, new SpecialColor(0.8F, 0, 0.6F, 0), -1);
+            CourseObj courseobj = new BasicTextCourseObj(SpecialId(0), "sly", new RectangleF(-3.5F, -2.5F, 4.5F, 6), "Times New Roman", TextEffects.Italic, new SpecialColor(0.8F, 0, 0.6F, 0), -1);
             CheckOffsetBitmap(courseobj, "text2_offset");
         }
 
         [TestMethod]
         public void TextFixedHeightOffset()
         {
-            CourseObj courseobj = new BasicTextCourseObj(SpecialId(0), "\u00c2012y345", new RectangleF(-3, -2.7F, 7, 5), "Roboto Condensed", FontStyle.Bold, SpecialColor.UpperPurple, 1F);
+            CourseObj courseobj = new BasicTextCourseObj(SpecialId(0), "\u00c2012y345", new RectangleF(-3, -2.7F, 7, 5), "Roboto Condensed", TextEffects.Bold, SpecialColor.UpperPurple, 1F);
             CheckOffsetBitmap(courseobj, "textfixedheight_offset");
         }
 
@@ -2622,8 +2608,8 @@ namespace PurplePen.Tests
         [TestMethod]
         public void ImageBitmapEquals()
         {
-            Bitmap bm1 = (Bitmap)Image.FromFile(TestUtil.GetTestFile("coursesymbols\\mrsneeze.jpg"));
-            Bitmap bm2 = (Bitmap)Image.FromFile(TestUtil.GetTestFile("coursesymbols\\flower.png"));
+            IGraphicsBitmap bm1 = PurplePenTestUtils.LoadBitmap(TestUtil.GetTestFile("coursesymbols\\mrsneeze.jpg"));
+            IGraphicsBitmap bm2 = PurplePenTestUtils.LoadBitmap(TestUtil.GetTestFile("coursesymbols\\flower.png"));
             CourseObj courseObj1 = new ImageCourseObj(Id<Special>.None, 1.0F, defaultCourseAppearance, new PointF[] { new PointF(-0.5F, 2F), new PointF(2F, -1.859F) }, "mrsneeze.jpg", bm1);
             CourseObj courseObj2 = new ImageCourseObj(Id<Special>.None, 1.0F, defaultCourseAppearance, new PointF[] { new PointF(-0.5F, 2F), new PointF(2F, -1.859F) }, "mrsneeze.jpg", bm1);
             CourseObj courseObj3 = new ImageCourseObj(Id<Special>.None, 1.0F, defaultCourseAppearance, new PointF[] { new PointF(-0.5F, 2F), new PointF(2F, -1.859F) }, "flower.png", bm2);
@@ -2655,7 +2641,7 @@ namespace PurplePen.Tests
             PointF[] handles = courseobj.GetHandles();
 
             for (int i = 0; i < handles.Length; ++i)
-                Assert.AreSame(Util.MoveHandleCursor, courseobj.GetHandleCursor(handles[i]));
+                Assert.AreEqual(PredefinedMousePointerShape.MoveHandle, courseobj.GetHandleCursor(handles[i]).PredefinedShape);
         }
 	
 
@@ -2699,11 +2685,11 @@ namespace PurplePen.Tests
             PointF[] expected = { new PointF(left, top), new PointF(right, top), new PointF(left, bottom), new PointF(right, bottom),
                new PointF((left + right) / 2, top), new PointF((left + right) / 2, bottom),
                new PointF(left, (top + bottom) / 2), new PointF(right, (top + bottom) / 2) };
-            Cursor[] expectedCursors = { Cursors.SizeNWSE, Cursors.SizeNESW, Cursors.SizeNESW, Cursors.SizeNWSE, 
-                Cursors.SizeNS, Cursors.SizeNS, Cursors.SizeWE, Cursors.SizeWE };
+            PredefinedMousePointerShape[] expectedCursors = { PredefinedMousePointerShape.SizeNWSE, PredefinedMousePointerShape.SizeNESW, PredefinedMousePointerShape.SizeNESW, PredefinedMousePointerShape.SizeNWSE,
+                PredefinedMousePointerShape.SizeNS, PredefinedMousePointerShape.SizeNS, PredefinedMousePointerShape.SizeWE, PredefinedMousePointerShape.SizeWE };
 
             for (int i = 0; i < expected.Length; ++i)
-                Assert.AreSame(expectedCursors[i], courseObj.GetHandleCursor(expected[i]));
+                Assert.AreEqual(expectedCursors[i], courseObj.GetHandleCursor(expected[i]).PredefinedShape);
         }
 
         [TestMethod]
@@ -2716,11 +2702,11 @@ namespace PurplePen.Tests
             PointF[] expected = { new PointF(left, top), new PointF(right, top), new PointF(left, bottom), new PointF(right, bottom),
                new PointF((left + right) / 2, top), new PointF((left + right) / 2, bottom),
                new PointF(left, (top + bottom) / 2), new PointF(right, (top + bottom) / 2) };
-            Cursor[] expectedCursors = { Cursors.SizeNWSE, Cursors.SizeNESW, Cursors.SizeNESW, Cursors.SizeNWSE, 
-                Cursors.SizeNS, Cursors.SizeNS, Cursors.SizeWE, Cursors.SizeWE };
+            PredefinedMousePointerShape[] expectedCursors = { PredefinedMousePointerShape.SizeNWSE, PredefinedMousePointerShape.SizeNESW, PredefinedMousePointerShape.SizeNESW, PredefinedMousePointerShape.SizeNWSE, 
+                PredefinedMousePointerShape.SizeNS, PredefinedMousePointerShape.SizeNS, PredefinedMousePointerShape.SizeWE, PredefinedMousePointerShape.SizeWE };
 
             for (int i = 0; i < expected.Length; ++i)
-                Assert.AreSame(expectedCursors[i], courseObj.GetHandleCursor(expected[i]));
+                Assert.AreEqual(expectedCursors[i], courseObj.GetHandleCursor(expected[i]).PredefinedShape);
         }
 
         // Move a description handle and make sure the description ends up in the right place.

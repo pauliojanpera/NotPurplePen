@@ -36,28 +36,19 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using Draw2D = System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using System.Diagnostics;
 
+using PurplePen.Graphics2D;
+using PurplePen.MapModel;
+
 namespace PurplePen.MapView {
-    public delegate void MapDisplayChanged(Region changedRegion);
-
-    // This interface encapsulates something that can be cached for drawing in the ViewCache. It
-    // needs to be able to draw itself, and also notify when it has changed. The graphics is always
-    // set up in world coordinates, as it the visible rectangle and the changedRegion.
-    public interface IMapDisplay
-    {
-        RectangleF Bounds { get; }
-        void Draw(Bitmap bitmap, Matrix transform, Region clipRegion = null);
-
-        event MapDisplayChanged Changed;
-    }
 
 	// The ViewCache class caches a bitmap of a particular view of the map, so that
 	// it can be quickly redrawn.
-	class ViewCache {
+	class ViewCache: IDisposable {
 		Bitmap bitmap;			// stores the cached view
 		Size bitmapSize;		// size of the bitmap and the cached view.
 		RectangleF mapView;		// The part of the map that is being cached in the bitmap
@@ -71,6 +62,8 @@ namespace PurplePen.MapView {
 		//  both false -- some bits are valid, as specified in invalidRegion.
 		Region invalidRegion;	   // The invalid region of the bitmap, in bitmap coordinates.
         long changeNumber;         // incremented every time re-validated.
+
+		bool disposed = false;
 
 		void MarkAllValid() {
             if (!allValid)
@@ -97,6 +90,48 @@ namespace PurplePen.MapView {
 			this.mapDisplay = mapDisplay;
 			mapDisplay.Changed += MapChanged;
 		}
+
+        // Dispose pattern - release managed resources and unsubscribe from events.
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposed)
+                return;
+
+            if (disposing) {
+                // Unsubscribe from map display events
+                if (mapDisplay != null)
+                    mapDisplay.Changed -= MapChanged;
+
+                // Dispose managed disposable resources
+                if (bitmap != null) {
+                    bitmap.Dispose();
+                    bitmap = null;
+                }
+
+                if (invalidRegion != null) {
+                    invalidRegion.Dispose();
+                    invalidRegion = null;
+                }
+
+                if (bitmapBrush != null) {
+                    bitmapBrush.Dispose();
+                    bitmapBrush = null;
+                }
+
+                if (matTransform != null) {
+                    matTransform.Dispose();
+                    matTransform = null;
+                }
+            }
+
+            disposed = true;
+        }
 
 
         // This is the main entry point to the ViewCache. It asks to draw the part of the map into the graphics
@@ -153,10 +188,11 @@ namespace PurplePen.MapView {
 				bitmapBrush = null;
 
 				if (allInvalid) {
-                    mapDisplay.Draw(bitmap, transform, null);
+                    mapDisplay.Draw(new GDIPlus_Bitmap(bitmap), transform, null);
 				}
 				else {
-                    mapDisplay.Draw(bitmap, transform, invalidRegion);
+					Graphics g = WindowsUtil.GetHiresGraphics();
+                    mapDisplay.Draw(new GDIPlus_Bitmap(bitmap), transform, invalidRegion.GetBounds(g));
 				}
 			}
 
@@ -179,7 +215,7 @@ namespace PurplePen.MapView {
 			// Set newBitmap to the new bitmap's size.
 			if (bitmap == null || bitmapSize != sizeView) {
 				// Need a new bitmap.
-				newBitmap = new Bitmap(sizeView.Width, sizeView.Height, PixelFormat.Format24bppRgb);
+				newBitmap = new Bitmap(sizeView.Width, sizeView.Height, GDIPlus_GraphicsTarget.NonAlphaPixelFormat);
 				MarkAllInvalid();  // CONSIDER: it seems like it should be possible to preserve parts of the bitmap
 				// it this case, but I can't get it to work properly without some drawing glitches
 				// from rounding errors. The rest of the code is written to try to handle the case
@@ -234,7 +270,7 @@ namespace PurplePen.MapView {
 								invalidRegion.MakeEmpty();
 							}
 							else {
-								invalidRegion.Transform(transformOldToNew);
+								invalidRegion.Transform(transformOldToNew.ToSysDrawMatrix());
 							}
 							Region exposed = new Region(newBitmapRect);
 							exposed.Exclude(copy);
@@ -266,32 +302,14 @@ namespace PurplePen.MapView {
 		float GetMinResolution(Graphics g) {
 			// Determine pixel size in world coordinates.
 			PointF[] pts = {new PointF(0,0), new PointF(1, 0)};
-			g.TransformPoints(CoordinateSpace.World, CoordinateSpace.Device, pts);
+			g.TransformPoints(Draw2D.CoordinateSpace.World, Draw2D.CoordinateSpace.Device, pts);
 			return Util.DistanceF(pts[0], pts[1]);
 		}
 
 
 		// Called whenever the map display changes.
-		void MapChanged(Region regionChanged) {
-			if (regionChanged == null) {
-				// null region means everything.
-				MarkAllInvalid();
-			}
-
-			if (allInvalid)
-				return;     // nothing more to do.
-
-			// Copy the region and transform to bitmap coords.
-			Region copy = regionChanged.Clone();
-			copy.Transform(matTransform);
-
-			// Union with the invalid region.
-			if (allValid) {
-				allValid = false;
-				invalidRegion = regionChanged;
-			}
-			else
-				invalidRegion.Union(regionChanged);
+		void MapChanged() {
+			MarkAllInvalid();
 		}
 	}
 }

@@ -48,16 +48,13 @@ using SysDraw2D = System.Drawing.Drawing2D;
 using PointF = System.Drawing.PointF;
 using RectangleF = System.Drawing.RectangleF;
 using SizeF = System.Drawing.SizeF;
-using Matrix = System.Drawing.Drawing2D.Matrix;
-using FillMode = System.Drawing.Drawing2D.FillMode;
-using LineJoin = System.Drawing.Drawing2D.LineJoin;
-using LineCap = System.Drawing.Drawing2D.LineCap;
 using Bitmap = System.Drawing.Bitmap;
 using WpfMatrix = System.Windows.Media.Matrix;
 
 namespace PurplePen.MapModel
 {
     using PurplePen.Graphics2D;
+    using PurplePen.MapModel;
     using Geometry = System.Windows.Media.Geometry;
     using System.Windows.Media.Imaging;
 
@@ -83,6 +80,15 @@ namespace PurplePen.MapModel
         {
         }
 
+        public float Intensity {
+            get { return 1.0F; }
+            set {
+                if (value != 1.0F) {
+                    throw new ArgumentException("Only intensities of 1.0 are supported", "value");
+                }
+            }
+        }
+
         public WPF_ColorConverter ColorConverter
         {
             get { return colorConverter; }
@@ -98,14 +104,14 @@ namespace PurplePen.MapModel
             brushMap.Add(brushKey, brush);
         }
 
-        public void CreatePen(object penKey, CmykColor color, float width, SysDraw2D.LineCap caps, SysDraw2D.LineJoin join, float miterLimit)
+        public void CreatePen(object penKey, CmykColor color, float width, LineCapMode caps, LineJoinMode join, float miterLimit)
         {
             object brushKey = new object();
             CreateSolidBrush(brushKey, color);
             CreatePen(penKey, brushKey, width, caps, join, miterLimit);
         }
 
-        public void CreatePen(object penKey, object brushKey, float width, SysDraw2D.LineCap caps, SysDraw2D.LineJoin join, float miterLimit)
+        public void CreatePen(object penKey, object brushKey, float width, LineCapMode caps, LineJoinMode join, float miterLimit)
         {
             if (penMap.ContainsKey(penKey))
                 throw new InvalidOperationException("Key already has a pen created for it");
@@ -114,13 +120,13 @@ namespace PurplePen.MapModel
             
             switch (caps)
             {
-                case System.Drawing.Drawing2D.LineCap.Flat:
+                case LineCapMode.Flat:
                     pen.StartLineCap = pen.EndLineCap = PenLineCap.Flat;
                     break;
-                case System.Drawing.Drawing2D.LineCap.Round:
+                case LineCapMode.Round:
                     pen.StartLineCap = pen.EndLineCap = PenLineCap.Round;
                     break;
-                case System.Drawing.Drawing2D.LineCap.Square:
+                case LineCapMode.Square:
                     pen.StartLineCap = pen.EndLineCap = PenLineCap.Square;
                     break;
                 default:
@@ -129,14 +135,14 @@ namespace PurplePen.MapModel
 
             switch (join)
             {
-                case System.Drawing.Drawing2D.LineJoin.Bevel:
+                case LineJoinMode.Bevel:
                     pen.LineJoin = PenLineJoin.Bevel;
                     break;
-                case System.Drawing.Drawing2D.LineJoin.Miter:
+                case LineJoinMode.Miter:
                     pen.LineJoin = PenLineJoin.Miter;
                     pen.MiterLimit = miterLimit;
                     break;
-                case System.Drawing.Drawing2D.LineJoin.Round:
+                case LineJoinMode.Round:
                     pen.LineJoin = PenLineJoin.Round;
                     break;
                 default:
@@ -170,7 +176,7 @@ namespace PurplePen.MapModel
             fontMap.Add(fontKey, font);
         }
 
-        public void CreatePath(object pathKey, List<GraphicsPathPart> parts, FillMode windingMode)
+        public void CreatePath(object pathKey, List<GraphicsPathPart> parts, AreaFillMode windingMode)
         {
             if (geometryMap.ContainsKey(pathKey))
                 throw new InvalidOperationException("Key already has a path created for it");
@@ -179,10 +185,10 @@ namespace PurplePen.MapModel
             geometryMap.Add(pathKey, geo);
         }
 
-        private StreamGeometry GetGeometry(List<GraphicsPathPart> parts, FillMode windingMode)
+        private StreamGeometry GetGeometry(List<GraphicsPathPart> parts, AreaFillMode windingMode)
         {
             StreamGeometry geo = new StreamGeometry();
-            geo.FillRule = (windingMode == FillMode.Alternate) ? FillRule.EvenOdd : FillRule.Nonzero;
+            geo.FillRule = (windingMode == AreaFillMode.Alternate) ? FillRule.EvenOdd : FillRule.Nonzero;
             StreamGeometryContext geoContext = geo.Open();
 
             GraphicsPathPart[] partArray = parts.ToArray();
@@ -246,7 +252,7 @@ namespace PurplePen.MapModel
             ++pushLevel;
         }
 
-        public void PushClip(List<GraphicsPathPart> parts, FillMode windingMode)
+        public void PushClip(List<GraphicsPathPart> parts, AreaFillMode windingMode)
         {
             StreamGeometry geo = GetGeometry(parts, windingMode);
             DrawingContext.PushClip(geo);
@@ -366,7 +372,7 @@ namespace PurplePen.MapModel
         }
 
         // Fill a polygon with a brush
-        public void FillPolygon(object brushKey, PointF[] pts, SysDraw2D.FillMode windingMode)
+        public void FillPolygon(object brushKey, PointF[] pts, AreaFillMode windingMode)
         {
             Point[] points = new Point[pts.Length];
             for (int i = 0; i < pts.Length; ++i)
@@ -374,7 +380,7 @@ namespace PurplePen.MapModel
 
             PathSegment segment = new PolyLineSegment(points, true);
             PathFigure figure = new PathFigure(points[points.Length - 1], new PathSegment[] { segment }, true);
-            PathGeometry geometry = new PathGeometry(new PathFigure[] { figure }, windingMode == SysDraw2D.FillMode.Winding ? FillRule.Nonzero : FillRule.EvenOdd, System.Windows.Media.Transform.Identity);
+            PathGeometry geometry = new PathGeometry(new PathFigure[] { figure }, windingMode == AreaFillMode.Winding ? FillRule.Nonzero : FillRule.EvenOdd, System.Windows.Media.Transform.Identity);
             DrawingContext.DrawGeometry(GetBrush(brushKey), null, geometry);
         }
 
@@ -386,7 +392,7 @@ namespace PurplePen.MapModel
 
         public void DrawPath(object penKey, List<GraphicsPathPart> parts)
         {
-            StreamGeometry geo = GetGeometry(parts, FillMode.Alternate);
+            StreamGeometry geo = GetGeometry(parts, AreaFillMode.Alternate);
             DrawingContext.DrawGeometry(null, GetPen(penKey), geo);
         }
 
@@ -396,7 +402,7 @@ namespace PurplePen.MapModel
             DrawingContext.DrawGeometry(GetBrush(brushKey), null, GetGeometry(pathKey));
         }
 
-        public void FillPath(object brushKey, List<GraphicsPathPart> parts, FillMode windingMode)
+        public void FillPath(object brushKey, List<GraphicsPathPart> parts, AreaFillMode windingMode)
         {
             StreamGeometry geo = GetGeometry(parts, windingMode);
             DrawingContext.DrawGeometry(GetBrush(brushKey), null, geo);
@@ -430,13 +436,13 @@ namespace PurplePen.MapModel
         private static extern bool DeleteObject(IntPtr hObject);
 
         // Draw a bitmap
-        public void DrawBitmap(IGraphicsBitmap bm, RectangleF rectangle, BitmapScaling scalingMode, float minResolution)
+        public void DrawBitmap(IGraphicsBitmap bm, RectangleF rectangle, BitmapScaling scalingMode)
         {
-            DrawBitmapPart(bm, 0, 0, bm.PixelWidth, bm.PixelHeight, rectangle, scalingMode, minResolution);
+            DrawBitmapPart(bm, 0, 0, bm.PixelWidth, bm.PixelHeight, rectangle, scalingMode);
         }
 
         // Draw part of a bitmap
-        public void DrawBitmapPart(IGraphicsBitmap bm, int x, int y, int width, int height, RectangleF rectangle, BitmapScaling scalingMode, float minResolution)
+        public void DrawBitmapPart(IGraphicsBitmap bm, int x, int y, int width, int height, RectangleF rectangle, BitmapScaling scalingMode)
         {
             GDIPlus_Bitmap gdiBitmap = (GDIPlus_Bitmap)bm;
             var hBitmap = gdiBitmap.Bitmap.GetHbitmap();
@@ -737,6 +743,15 @@ namespace PurplePen.MapModel
         {
             FormattedText formattedText = new FormattedText(text, CultureInfo.CurrentUICulture, FlowDirection.LeftToRight, typeface, emHeight, Brushes.Black, null, 1.0);
             return new SizeF((float)formattedText.WidthIncludingTrailingWhitespace, (float)formattedText.Height);
+        }
+
+        // The following code has never been tested.
+        public RectangleF GetTightBoundingBox(PointF startpoint, string text)
+        {
+            FormattedText formattedText = new FormattedText(text, CultureInfo.CurrentUICulture, FlowDirection.LeftToRight, typeface, emHeight, Brushes.Black, null, 1.0);
+            Geometry geometry = formattedText.BuildGeometry(new Point(startpoint.X, startpoint.Y + VerticalDisplacement));
+            Rect bounds = geometry.Bounds;
+            return new RectangleF((float)bounds.X, (float)bounds.Y, (float)bounds.Width, (float)bounds.Height);
         }
 
         public void Dispose()

@@ -20,6 +20,7 @@ namespace PurplePen
             descKindCombo.SelectedIndex = 0;
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public float PrintScale
         {
             get { return printScale; }
@@ -30,6 +31,7 @@ namespace PurplePen
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public DescriptionKind DescKind
         {
             get
@@ -64,7 +66,7 @@ namespace PurplePen
         public void InitializePrintScales(float mapScale)
         {
             // Initialize the map scale box.
-            foreach (int scale in Util.PrintScaleList(mapScale))
+            foreach (int scale in MapUtil.PrintScaleList(mapScale))
                 this.scaleCombo.Items.Add(scale);
         }
 

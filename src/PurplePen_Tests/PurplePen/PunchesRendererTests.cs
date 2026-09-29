@@ -39,10 +39,10 @@ using System.Text;
 using System.Diagnostics;
 using System.IO;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestingUtils;
 
+using PurplePen.Graphics2D;
 using PurplePen.MapModel;
 
 namespace PurplePen.Tests
@@ -61,18 +61,13 @@ namespace PurplePen.Tests
 
             SizeF size = punchesRenderer.Measure();
 
-            Bitmap bm = new Bitmap((int) size.Width, (int) size.Height);
-            Graphics g = Graphics.FromImage(bm);
-
-            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-
-            g.Clear(Color.White);
-            punchesRenderer.Draw(new GDIPlus_GraphicsTarget(g), 0, 0, 0, punchesRenderer.Boxes.Height);
-
-            g.Dispose();
-
-            return bm;
+            int width = (int) size.Width;
+            int height = (int) size.Height;
+            RectangleF drawingRectangle = new RectangleF(0, 0, width, height);
+            return TestRenderingUtils.RenderToBitmap(width, height, drawingRectangle, false, graphicsTarget => {
+                graphicsTarget.PushAntiAliasing(true);
+                punchesRenderer.Draw(graphicsTarget, 0, 0, 0, punchesRenderer.Boxes.Height);
+            });
         }
 
         // Get the file name for a bitmap description for testing purposes. CourseID == 0 means all controls. Extra
@@ -109,7 +104,7 @@ namespace PurplePen.Tests
             courseView = CourseView.CreateViewingCourseView(eventDB, new CourseDesignator(id));
 
             Bitmap bmNew = RenderToBitmap(eventDB, courseView, format);
-            TestUtil.CheckBitmapsBase(bmNew, GetBitmapFileName(eventDB, id, ""));
+            BitmapTestUtil.CheckBitmapsBase(bmNew, GetBitmapFileName(eventDB, id, ""));
         }
 
         [TestMethod]

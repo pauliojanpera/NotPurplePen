@@ -47,6 +47,7 @@ using TestingUtils;
 namespace PurplePen.Tests
 {
     using PurplePen.MapModel;
+    using System.Threading.Tasks;
 
     [TestClass]
     public class SelectionMgrTests: TestFixtureBase
@@ -65,9 +66,9 @@ namespace PurplePen.Tests
 
 
         [TestMethod]
-        public void TabList()
+        public async Task TabList()
         {
-            bool success = controller.LoadInitialFile(TestUtil.GetTestFile("selectionmgr\\sampleevent1.coursescribe"), true);
+            bool success = await controller.LoadInitialFile(TestUtil.GetTestFile("selectionmgr\\sampleevent1.coursescribe"), true);
             Assert.IsTrue(success);
 
             Assert.AreEqual(7, selectionMgr.TabCount);
@@ -93,9 +94,9 @@ namespace PurplePen.Tests
         }
 
         [TestMethod]
-        public void AddRemoveTabs()
+        public async Task AddRemoveTabs()
         {
-            bool success = controller.LoadInitialFile(TestUtil.GetTestFile("selectionmgr\\sampleevent1.coursescribe"), true);
+            bool success = await controller.LoadInitialFile(TestUtil.GetTestFile("selectionmgr\\sampleevent1.coursescribe"), true);
             Assert.IsTrue(success);
 
             Assert.AreEqual(7, selectionMgr.TabCount);
@@ -130,9 +131,9 @@ namespace PurplePen.Tests
         }
 
         [TestMethod]
-        public void ActiveTab()
+        public async Task ActiveTab()
         {
-            bool success = controller.LoadInitialFile(TestUtil.GetTestFile("selectionmgr\\sampleevent1.coursescribe"), true);
+            bool success = await controller.LoadInitialFile(TestUtil.GetTestFile("selectionmgr\\sampleevent1.coursescribe"), true);
             Assert.IsTrue(success);
 
             Assert.AreEqual(7, selectionMgr.TabCount);
@@ -158,9 +159,9 @@ namespace PurplePen.Tests
         }
 
         [TestMethod]
-        public void ActiveDescription()
+        public async Task ActiveDescription()
         {
-            bool success = controller.LoadInitialFile(TestUtil.GetTestFile("selectionmgr\\sampleevent1.coursescribe"), true);
+            bool success = await controller.LoadInitialFile(TestUtil.GetTestFile("selectionmgr\\sampleevent1.coursescribe"), true);
             Assert.IsTrue(success);
 
             selectionMgr.ActiveTab = 3;
@@ -226,10 +227,10 @@ namespace PurplePen.Tests
             writer = new StringWriter();
         }
 
-        void RoundtripSelectedLines(string testFileName, bool singleLineOnly)
+        async Task RoundtripSelectedLines(string testFileName, bool singleLineOnly)
         {
 
-            bool success = controller.LoadInitialFile(TestUtil.GetTestFile(testFileName), true);
+            bool success = await controller.LoadInitialFile(TestUtil.GetTestFile(testFileName), true);
             Assert.IsTrue(success);
 
             // Make sure every line in every tab can be selected.
@@ -253,45 +254,45 @@ namespace PurplePen.Tests
         }
 
         [TestMethod]
-        public void RoundtripSelectedLine()
+        public async Task RoundtripSelectedLine()
         {
-            RoundtripSelectedLines("selectionmgr\\sampleevent1.coursescribe", true);
+            await RoundtripSelectedLines("selectionmgr\\sampleevent1.coursescribe", true);
         }
 
         [TestMethod]
-        public void RoundtripSelectedLine2()
+        public async Task RoundtripSelectedLine2()
         {
-            RoundtripSelectedLines("selectionmgr\\speciallegs.coursescribe", true);
+            await RoundtripSelectedLines("selectionmgr\\speciallegs.coursescribe", true);
         }
 
         [TestMethod]
-        public void RoundtripSelectedLine3()
+        public async Task RoundtripSelectedLine3()
         {
-            RoundtripSelectedLines("selectionmgr\\sampleevent5.ppen", true);
+            await RoundtripSelectedLines("selectionmgr\\sampleevent5.ppen", true);
         }
 
         [TestMethod]
-        public void RoundtripSelectedLine4()
+        public async Task RoundtripSelectedLine4()
         {
-            RoundtripSelectedLines("selectionmgr\\desctext.ppen", true);
+            await RoundtripSelectedLines("selectionmgr\\desctext.ppen", true);
         }
 
         [TestMethod]
-        public void RoundtripSelectedLine5()
+        public async Task RoundtripSelectedLine5()
         {
-            RoundtripSelectedLines("selectionmgr\\sampleevent6.coursescribe", false);
+            await RoundtripSelectedLines("selectionmgr\\sampleevent6.coursescribe", false);
         }
 
         [TestMethod]
-        public void RoundtripSelectedLine6()
+        public async Task RoundtripSelectedLine6()
         {
-            RoundtripSelectedLines("selectionmgr\\mapexchange2.ppen", false);
+            await RoundtripSelectedLines("selectionmgr\\mapexchange2.ppen", false);
         }
 
         [TestMethod]
-        public void RoundtripSelectedLine7()
+        public async Task RoundtripSelectedLine7()
         {
-            RoundtripSelectedLines("selectionmgr\\desctextmultiline.ppen", false);
+            await RoundtripSelectedLines("selectionmgr\\desctextmultiline.ppen", false);
         }
 
 
@@ -304,9 +305,9 @@ namespace PurplePen.Tests
         }
 
         [TestMethod]
-        public void ClearSelection()
+        public async Task ClearSelection()
         {
-            bool success = controller.LoadInitialFile(TestUtil.GetTestFile("selectionmgr\\sampleevent1.coursescribe"), true);
+            bool success = await controller.LoadInitialFile(TestUtil.GetTestFile("selectionmgr\\sampleevent1.coursescribe"), true);
             Assert.IsTrue(success);
 
             selectionMgr.ActiveTab = 0;
@@ -325,9 +326,9 @@ namespace PurplePen.Tests
         }
 
         [TestMethod]
-        public void SelectCourseView()
+        public async Task SelectCourseView()
         {
-            bool success = controller.LoadInitialFile(TestUtil.GetTestFile("selectionmgr\\sampleevent1.coursescribe"), true);
+            bool success = await controller.LoadInitialFile(TestUtil.GetTestFile("selectionmgr\\sampleevent1.coursescribe"), true);
             Assert.IsTrue(success);
 
             selectionMgr.SelectCourseView(Designator(3));
@@ -337,9 +338,9 @@ namespace PurplePen.Tests
         }
 
         [TestMethod]
-        public void SetSelection()
+        public async Task SetSelection()
         {
-            bool success = controller.LoadInitialFile(TestUtil.GetTestFile("selectionmgr\\sampleevent1.coursescribe"), true);
+            bool success = await controller.LoadInitialFile(TestUtil.GetTestFile("selectionmgr\\sampleevent1.coursescribe"), true);
             Assert.IsTrue(success);
 
             selectionMgr.SelectCourseView(Designator(4));
@@ -375,9 +376,9 @@ namespace PurplePen.Tests
         }
 
         [TestMethod]
-        public void SelectMultilineTitle()
+        public async Task SelectMultilineTitle()
         {
-            bool success = controller.LoadInitialFile(TestUtil.GetTestFile("selectionmgr\\sampleevent6.coursescribe"), true);
+            bool success = await controller.LoadInitialFile(TestUtil.GetTestFile("selectionmgr\\sampleevent6.coursescribe"), true);
             Assert.IsTrue(success);
 
             selectionMgr.SelectCourseView(Designator(1));
@@ -401,9 +402,9 @@ namespace PurplePen.Tests
         }
 
         [TestMethod]
-        public void SelectLeg()
+        public async Task SelectLeg()
         {
-            bool success = controller.LoadInitialFile(TestUtil.GetTestFile("selectionmgr\\sampleevent4.coursescribe"), true);
+            bool success = await controller.LoadInitialFile(TestUtil.GetTestFile("selectionmgr\\sampleevent4.coursescribe"), true);
             Assert.IsTrue(success);
 
             selectionMgr.SelectCourseView(Designator(4));
@@ -411,8 +412,8 @@ namespace PurplePen.Tests
             selectionMgr.SelectLeg(CourseControlId(13), CourseControlId(14), LegInsertionLoc.Normal);
 
             CheckSelectedLines(-1, -1);
-            SelectionMgr.SelectionInfo selectionInfo = selectionMgr.Selection;
-            Assert.AreEqual(SelectionMgr.SelectionKind.Leg, selectionInfo.SelectionKind);
+            SelectionInfo selectionInfo = selectionMgr.Selection;
+            Assert.AreEqual(SelectionKind.Leg, selectionInfo.SelectionKind);
             Assert.AreEqual(22, selectionInfo.SelectedControl.id);
             Assert.AreEqual(13, selectionInfo.SelectedCourseControl.id);
             Assert.AreEqual(14, selectionInfo.SelectedCourseControl2.id);
@@ -424,17 +425,17 @@ namespace PurplePen.Tests
         }
 
         [TestMethod]
-        public void SelectLeg2()
+        public async Task SelectLeg2()
         {
-            bool success = controller.LoadInitialFile(TestUtil.GetTestFile("selectionmgr\\speciallegs.coursescribe"), true);
+            bool success = await controller.LoadInitialFile(TestUtil.GetTestFile("selectionmgr\\speciallegs.coursescribe"), true);
             Assert.IsTrue(success);
 
             selectionMgr.SelectCourseView(Designator(1));
             selectionMgr.SelectLeg(CourseControlId(2), CourseControlId(3), LegInsertionLoc.Normal);
 
             CheckSelectedLines(4, 4);
-            SelectionMgr.SelectionInfo selectionInfo = selectionMgr.Selection;
-            Assert.AreEqual(SelectionMgr.SelectionKind.Leg, selectionInfo.SelectionKind);
+            SelectionInfo selectionInfo = selectionMgr.Selection;
+            Assert.AreEqual(SelectionKind.Leg, selectionInfo.SelectionKind);
             Assert.AreEqual(2, selectionInfo.SelectedControl.id);
             Assert.AreEqual(2, selectionInfo.SelectedCourseControl.id);
             Assert.AreEqual(3, selectionInfo.SelectedCourseControl2.id);
@@ -445,9 +446,9 @@ namespace PurplePen.Tests
         }
 
         [TestMethod]
-        public void SelectLegTestObj()
+        public async Task SelectLegTestObj()
         {
-            bool success = controller.LoadInitialFile(TestUtil.GetTestFile("selectionmgr\\sampleevent4.coursescribe"), true);
+            bool success = await controller.LoadInitialFile(TestUtil.GetTestFile("selectionmgr\\sampleevent4.coursescribe"), true);
             Assert.IsTrue(success);
 
             selectionMgr.SelectCourseView(Designator(4));
@@ -460,8 +461,8 @@ namespace PurplePen.Tests
                 }
             }
 
-            SelectionMgr.SelectionInfo selectionInfo = selectionMgr.Selection;
-            Assert.AreEqual(SelectionMgr.SelectionKind.Leg, selectionInfo.SelectionKind);
+            SelectionInfo selectionInfo = selectionMgr.Selection;
+            Assert.AreEqual(SelectionKind.Leg, selectionInfo.SelectionKind);
             Assert.AreEqual(22, selectionInfo.SelectedControl.id);
             Assert.AreEqual(13, selectionInfo.SelectedCourseControl.id);
             Assert.AreEqual(14, selectionInfo.SelectedCourseControl2.id);
@@ -473,9 +474,9 @@ namespace PurplePen.Tests
         }
 	
         [TestMethod]
-        public void SelectSpecial()
+        public async Task SelectSpecial()
         {
-            bool success = controller.LoadInitialFile(TestUtil.GetTestFile("selectionmgr\\sampleevent4.coursescribe"), true);
+            bool success = await controller.LoadInitialFile(TestUtil.GetTestFile("selectionmgr\\sampleevent4.coursescribe"), true);
             Assert.IsTrue(success);
 
             selectionMgr.SelectCourseView(Designator(4));
@@ -483,8 +484,8 @@ namespace PurplePen.Tests
             selectionMgr.SelectSpecial(SpecialId(5));
 
             CheckSelectedLines(-1, -1);
-            SelectionMgr.SelectionInfo selectionInfo = selectionMgr.Selection;
-            Assert.AreEqual(SelectionMgr.SelectionKind.Special, selectionInfo.SelectionKind);
+            SelectionInfo selectionInfo = selectionMgr.Selection;
+            Assert.AreEqual(SelectionKind.Special, selectionInfo.SelectionKind);
             Assert.AreEqual(0, selectionInfo.SelectedControl.id);
             Assert.AreEqual(0, selectionInfo.SelectedCourseControl.id);
             Assert.AreEqual(5, selectionInfo.SelectedSpecial.id);
@@ -492,71 +493,71 @@ namespace PurplePen.Tests
             CourseObj[] selectedObjects = selectionMgr.SelectedCourseObjects;
             Assert.AreEqual(1, selectedObjects.Length);
             Assert.AreEqual(@"BasicText:      special:5  scale:1  text:Banana Apple  top-left:(13,17)
-                font-name:Times New Roman  font-style:Bold  font-height:9.530931  rect:(13,17)-(71,1)", selectedObjects[0].ToString());
+                font-name:Times New Roman  font-style:Bold  font-height:9.6181  rect:(13,17)-(71,1)", selectedObjects[0].ToString());
         }
 
         [TestMethod]
-        public void SelectTextLine()
+        public async Task SelectTextLine()
         {
-            bool success = controller.LoadInitialFile(TestUtil.GetTestFile("selectionmgr\\desctext.ppen"), true);
+            bool success = await controller.LoadInitialFile(TestUtil.GetTestFile("selectionmgr\\desctext.ppen"), true);
             Assert.IsTrue(success);
 
             selectionMgr.SelectCourseView(Designator(6));
 
             selectionMgr.SelectTextLine(ControlId(18), CourseControlId(208), DescriptionLine.TextLineKind.BeforeCourseControl);            
-            SelectionMgr.SelectionInfo selectionInfo = selectionMgr.Selection;
-            Assert.AreEqual(SelectionMgr.SelectionKind.TextLine, selectionInfo.SelectionKind);
+            SelectionInfo selectionInfo = selectionMgr.Selection;
+            Assert.AreEqual(SelectionKind.TextLine, selectionInfo.SelectionKind);
             Assert.AreEqual(18, selectionInfo.SelectedControl.id);
             Assert.AreEqual(208, selectionInfo.SelectedCourseControl.id);
             Assert.AreEqual(DescriptionLine.TextLineKind.BeforeCourseControl, selectionInfo.SelectedTextLineKind);
 
             selectionMgr.SelectTextLine(ControlId(18), CourseControlId(208), DescriptionLine.TextLineKind.AfterCourseControl);
             selectionInfo = selectionMgr.Selection;
-            Assert.AreEqual(SelectionMgr.SelectionKind.TextLine, selectionInfo.SelectionKind);
+            Assert.AreEqual(SelectionKind.TextLine, selectionInfo.SelectionKind);
             Assert.AreEqual(18, selectionInfo.SelectedControl.id);
             Assert.AreEqual(208, selectionInfo.SelectedCourseControl.id);
             Assert.AreEqual(DescriptionLine.TextLineKind.AfterCourseControl, selectionInfo.SelectedTextLineKind);
 
             selectionMgr.SelectTextLine(ControlId(18), CourseControlId(208), DescriptionLine.TextLineKind.BeforeControl);
             selectionInfo = selectionMgr.Selection;
-            Assert.AreEqual(SelectionMgr.SelectionKind.TextLine, selectionInfo.SelectionKind);
+            Assert.AreEqual(SelectionKind.TextLine, selectionInfo.SelectionKind);
             Assert.AreEqual(18, selectionInfo.SelectedControl.id);
             Assert.AreEqual(208, selectionInfo.SelectedCourseControl.id);
             Assert.AreEqual(DescriptionLine.TextLineKind.BeforeControl, selectionInfo.SelectedTextLineKind);
 
             selectionMgr.SelectTextLine(ControlId(18), CourseControlId(208), DescriptionLine.TextLineKind.AfterControl);
             selectionInfo = selectionMgr.Selection;
-            Assert.AreEqual(SelectionMgr.SelectionKind.TextLine, selectionInfo.SelectionKind);
+            Assert.AreEqual(SelectionKind.TextLine, selectionInfo.SelectionKind);
             Assert.AreEqual(18, selectionInfo.SelectedControl.id);
             Assert.AreEqual(208, selectionInfo.SelectedCourseControl.id);
             Assert.AreEqual(DescriptionLine.TextLineKind.AfterControl, selectionInfo.SelectedTextLineKind);
         }
 
         [TestMethod]
-        public void SelectKeyLine()
+        public async Task SelectKeyLine()
         {
-            bool success = controller.LoadInitialFile(TestUtil.GetTestFile("selectionmgr\\sampleevent5.ppen"), true);
+            bool success = await controller.LoadInitialFile(TestUtil.GetTestFile("selectionmgr\\sampleevent5.ppen"), true);
             Assert.IsTrue(success);
 
             selectionMgr.SelectCourseView(Designator(5));
 
             selectionMgr.SelectKeyLine(ui.symbolDB["5.6"]);            // light pole
-            SelectionMgr.SelectionInfo selectionInfo = selectionMgr.Selection;
-            Assert.AreEqual(SelectionMgr.SelectionKind.Key, selectionInfo.SelectionKind);
+            SelectionInfo selectionInfo = selectionMgr.Selection;
+            Assert.AreEqual(SelectionKind.Key, selectionInfo.SelectionKind);
             Assert.AreEqual("5.6", selectionInfo.SelectedKeySymbol.Id);
             CheckSelectedLines(16, 16);
 
             selectionMgr.SelectDescriptionLine(17);
             selectionInfo = selectionMgr.Selection;
-            Assert.AreEqual(SelectionMgr.SelectionKind.Key, selectionInfo.SelectionKind);
+            Assert.AreEqual(SelectionKind.Key, selectionInfo.SelectionKind);
             Assert.AreEqual("12.1", selectionInfo.SelectedKeySymbol.Id);
         }
 	
 
         [TestMethod]
-        public void SelectSpecialCourseObj()
+        public async Task SelectSpecialCourseObj()
         {
-            bool success = controller.LoadInitialFile(TestUtil.GetTestFile("selectionmgr\\sampleevent4.coursescribe"), true);
+            bool success = await controller.LoadInitialFile(TestUtil.GetTestFile("selectionmgr\\sampleevent4.coursescribe"), true);
             Assert.IsTrue(success);
 
             // Select a special in all controls.
@@ -567,8 +568,8 @@ namespace PurplePen.Tests
             selectionMgr.SelectCourseObject(courseobject);
 
             CheckSelectedLines(-1, -1);
-            SelectionMgr.SelectionInfo selectionInfo = selectionMgr.Selection;
-            Assert.AreEqual(SelectionMgr.SelectionKind.Special, selectionInfo.SelectionKind);
+            SelectionInfo selectionInfo = selectionMgr.Selection;
+            Assert.AreEqual(SelectionKind.Special, selectionInfo.SelectionKind);
             Assert.AreEqual(0, selectionInfo.SelectedControl.id);
             Assert.AreEqual(0, selectionInfo.SelectedCourseControl.id);
             Assert.AreEqual(4, selectionInfo.SelectedSpecial.id);
@@ -586,7 +587,7 @@ namespace PurplePen.Tests
 
             CheckSelectedLines(-1, -1);
             selectionInfo = selectionMgr.Selection;
-            Assert.AreEqual(SelectionMgr.SelectionKind.Special, selectionInfo.SelectionKind);
+            Assert.AreEqual(SelectionKind.Special, selectionInfo.SelectionKind);
             Assert.AreEqual(0, selectionInfo.SelectedControl.id);
             Assert.AreEqual(0, selectionInfo.SelectedCourseControl.id);
             Assert.AreEqual(3, selectionInfo.SelectedSpecial.id);
@@ -595,12 +596,12 @@ namespace PurplePen.Tests
             Assert.AreEqual(1, selectedObjects.Length);
             Assert.AreEqual(@"Boundary:       special:3  scale:0.6666667  path:N(11,2)--N(0,-7)--N(-12,-3)", selectedObjects[0].ToString());
         }
-	
 
+#pragma warning disable VSTHRD103 // WriteLine synchronously blocks. Await WriteLineAsync instead
         [TestMethod]
-        public void SelectedCourseObjects()
+        public async Task SelectedCourseObjects()
         {
-            bool success = controller.LoadInitialFile(TestUtil.GetTestFile("selectionmgr\\sampleevent1.coursescribe"), true);
+            bool success = await controller.LoadInitialFile(TestUtil.GetTestFile("selectionmgr\\sampleevent1.coursescribe"), true);
             Assert.IsTrue(success);
 
             StringWriter writer = new StringWriter();
@@ -630,11 +631,12 @@ Code:           control:9  scale:1  text:211  top-left:(36.41,-3.71)
             Assert.AreEqual(expected, dump);
 
         }
+#pragma warning restore VSTHRD103
 
         [TestMethod]
-        public void SelectCourseObjectAllControls()
+        public async Task SelectCourseObjectAllControls()
         {
-            bool success = controller.LoadInitialFile(TestUtil.GetTestFile("selectionmgr\\marymoor1.coursescribe"), true);
+            bool success = await controller.LoadInitialFile(TestUtil.GetTestFile("selectionmgr\\marymoor1.coursescribe"), true);
             Assert.IsTrue(success);
 
             selectionMgr.SelectCourseView(Designator(0));
@@ -662,10 +664,10 @@ Code:           control:9  scale:1  text:211  top-left:(36.41,-3.71)
         }
 
         [TestMethod]
-        public void SelectCourseObjectNormalCourse()
+        public async Task SelectCourseObjectNormalCourse()
         {
             CourseObj courseobject;
-            bool success = controller.LoadInitialFile(TestUtil.GetTestFile("selectionmgr\\marymoor1.coursescribe"), true);
+            bool success = await controller.LoadInitialFile(TestUtil.GetTestFile("selectionmgr\\marymoor1.coursescribe"), true);
             Assert.IsTrue(success);
 
             selectionMgr.SelectCourseView(Designator(3));
@@ -688,41 +690,41 @@ Code:           control:9  scale:1  text:211  top-left:(36.41,-3.71)
         }
 
         [TestMethod]
-        public void GetSelectionInfo()
+        public async Task GetSelectionInfo()
         {
-            SelectionMgr.SelectionInfo info;
+            SelectionInfo info;
 
-            bool success = controller.LoadInitialFile(TestUtil.GetTestFile("selectionmgr\\sampleevent1.coursescribe"), true);
+            bool success = await controller.LoadInitialFile(TestUtil.GetTestFile("selectionmgr\\sampleevent1.coursescribe"), true);
             Assert.IsTrue(success);
 
             selectionMgr.SelectCourseView(Designator(0));
             info = selectionMgr.Selection;
             Assert.AreEqual(0, info.ActiveCourseDesignator.CourseId.id);
-            Assert.AreEqual(SelectionMgr.SelectionKind.None, info.SelectionKind);
+            Assert.AreEqual(SelectionKind.None, info.SelectionKind);
 
             selectionMgr.SelectControl(ControlId(5));
             info = selectionMgr.Selection;
             Assert.AreEqual(0, info.ActiveCourseDesignator.CourseId.id);
-            Assert.AreEqual(SelectionMgr.SelectionKind.Control, info.SelectionKind);
+            Assert.AreEqual(SelectionKind.Control, info.SelectionKind);
             Assert.AreEqual(5, info.SelectedControl.id);
             Assert.AreEqual(0, info.SelectedCourseControl.id);
 
             selectionMgr.SelectCourseView(Designator(6));
             info = selectionMgr.Selection;
             Assert.AreEqual(6, info.ActiveCourseDesignator.CourseId.id);
-            Assert.AreEqual(SelectionMgr.SelectionKind.None, info.SelectionKind);
+            Assert.AreEqual(SelectionKind.None, info.SelectionKind);
 
             selectionMgr.SelectCourseControl(CourseControlId(204));
             info = selectionMgr.Selection;
             Assert.AreEqual(6, info.ActiveCourseDesignator.CourseId.id);
-            Assert.AreEqual(SelectionMgr.SelectionKind.Control, info.SelectionKind);
+            Assert.AreEqual(SelectionKind.Control, info.SelectionKind);
             Assert.AreEqual(8, info.SelectedControl.id);
             Assert.AreEqual(204, info.SelectedCourseControl.id);
 
             selectionMgr.SelectTitle();
             info = selectionMgr.Selection;
             Assert.AreEqual(6, info.ActiveCourseDesignator.CourseId.id);
-            Assert.AreEqual(SelectionMgr.SelectionKind.Title, info.SelectionKind);
+            Assert.AreEqual(SelectionKind.Title, info.SelectionKind);
             Assert.AreEqual(0, info.SelectedControl.id);
             Assert.AreEqual(0, info.SelectedCourseControl.id);
 
@@ -730,16 +732,16 @@ Code:           control:9  scale:1  text:211  top-left:(36.41,-3.71)
             selectionMgr.SelectSecondaryTitle();
             info = selectionMgr.Selection;
             Assert.AreEqual(5, info.ActiveCourseDesignator.CourseId.id);
-            Assert.AreEqual(SelectionMgr.SelectionKind.SecondaryTitle, info.SelectionKind);
+            Assert.AreEqual(SelectionKind.SecondaryTitle, info.SelectionKind);
             Assert.AreEqual(0, info.SelectedControl.id);
             Assert.AreEqual(0, info.SelectedCourseControl.id);
         }
 
         [TestMethod]
-        public void SetAllControlsDisplay()
+        public async Task SetAllControlsDisplay()
         {
             StringWriter writer = new StringWriter();
-            bool success = controller.LoadInitialFile(TestUtil.GetTestFile("selectionmgr\\sampleevent3.coursescribe"), true);
+            bool success = await controller.LoadInitialFile(TestUtil.GetTestFile("selectionmgr\\sampleevent3.coursescribe"), true);
             Assert.IsTrue(success);
 
             selectionMgr.SelectCourseView(Designator(1));
@@ -817,9 +819,9 @@ ControlNumber:  control:2  course-control:2  scale:1  text:1  top-left:(7.54,20.
         }
 
         [TestMethod]
-        public void MapExchangeSelectionChanges()
+        public async Task MapExchangeSelectionChanges()
         {
-            bool success = controller.LoadInitialFile(TestUtil.GetTestFile("selectionmgr\\mapexchange2.ppen"), true);
+            bool success = await controller.LoadInitialFile(TestUtil.GetTestFile("selectionmgr\\mapexchange2.ppen"), true);
             Assert.IsTrue(success);
 
             UndoMgr undoMgr = controller.GetUndoMgr();

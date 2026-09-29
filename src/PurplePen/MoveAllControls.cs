@@ -23,7 +23,7 @@ namespace PurplePen
                 else if (radioButtonMoveRotateScale.Checked)
                     return MoveAllControlsAction.MoveRotateScale;
 
-                throw new Exception("Shouldn't get here");
+                throw new InvalidOperationException("No valid action is selected in MoveAllControls.");
             }
         }
 
@@ -33,8 +33,4 @@ namespace PurplePen
         }
     }
 
-    public enum MoveAllControlsAction
-    {
-        None, Move, MoveScale, MoveRotate, MoveRotateScale
-    }
 }

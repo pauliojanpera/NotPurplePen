@@ -4,6 +4,7 @@ using System.ComponentModel;
 
 using System.Drawing;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PurplePen
@@ -24,6 +25,7 @@ namespace PurplePen
             InitializeComponent();
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public List<SymbolText> SymbolTexts
         {
             get
@@ -201,9 +203,9 @@ namespace PurplePen
         }
 
         // Show an error message.
-        void ErrorMessage(string message)
+        async void ErrorMessage(string message)
         {
-            ((MainFrame) (Owner.Owner)).ErrorMessage(message);
+            await ((MainFrame) (Owner.Owner)).ErrorMessage(message);
         }
 
         private void dataGridView_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)

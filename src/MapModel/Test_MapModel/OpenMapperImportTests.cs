@@ -101,7 +101,7 @@ namespace PurplePen.MapModel.Tests
             else
                 result = Rendering.RenderBitmap(map, size, area, renderOpts, 1.0F);
 
-            TestUtil.CompareBitmapBaseline(result, TestUtil.GetTestFile("openmapper\\" + baseline), MAX_PIXEL_DIFF);
+            BitmapTestUtil.CompareBitmapBaseline(result, TestUtil.GetTestFile("openmapper\\" + baseline), MAX_PIXEL_DIFF);
         }
 
         void VerifyRendering(Map map, RectangleF area, string baseline)
@@ -122,7 +122,7 @@ namespace PurplePen.MapModel.Tests
 
             Bitmap result = Rendering.RenderBitmap(map, size, area, renderOpts, 1.0F);
 
-            TestUtil.CompareBitmapBaseline(result, TestUtil.GetTestFile("openmapper\\" + baseline), MAX_PIXEL_DIFF);
+            BitmapTestUtil.CompareBitmapBaseline(result, TestUtil.GetTestFile("openmapper\\" + baseline), MAX_PIXEL_DIFF);
         }
 
         void VerifyRenderingOverprint(Map map, RectangleF area, string baseline)
@@ -143,7 +143,7 @@ namespace PurplePen.MapModel.Tests
 
             Bitmap result = Rendering.RenderBitmap(map, size, area, renderOpts, 1.0F);
 
-            TestUtil.CompareBitmapBaseline(result, TestUtil.GetTestFile("openmapper\\" + baseline), MAX_PIXEL_DIFF);
+            BitmapTestUtil.CompareBitmapBaseline(result, TestUtil.GetTestFile("openmapper\\" + baseline), MAX_PIXEL_DIFF);
         }
 
         private void RoundTrip(string basename, RectangleF area, string baseline, int version, Map map)
@@ -221,7 +221,7 @@ namespace PurplePen.MapModel.Tests
 
             Bitmap result = Rendering.RenderBitmap(map, size, area, renderOpts, 1.0F);
 
-            TestUtil.CompareBitmapBaseline(result, TestUtil.GetTestFile("openmapper\\" + baseline), MAX_PIXEL_DIFF);
+            BitmapTestUtil.CompareBitmapBaseline(result, TestUtil.GetTestFile("openmapper\\" + baseline), MAX_PIXEL_DIFF);
         }
 
         [Test]
@@ -497,7 +497,7 @@ namespace PurplePen.MapModel.Tests
             }
         }
 
-        
+
         [Test]
         public void SPUMap()
         {
@@ -515,8 +515,7 @@ namespace PurplePen.MapModel.Tests
                 VerifyRenderingAndRoundtrip(baseName, rect, "NSeattleCollege.png");
             }
         }
-    
-        
+
         [Test]
         public void DotSpacing()
         {
@@ -783,7 +782,6 @@ namespace PurplePen.MapModel.Tests
                 VerifyRenderingAndRoundtrip(baseName, rect, "massysprint.png");
             }
         }
-
         [Test]
         public void MissingFonts()
         {
@@ -865,15 +863,6 @@ namespace PurplePen.MapModel.Tests
             }
         }
 
-        [Test]
-        public void MultiLineBelow()
-        {
-            RectangleF rect = RectangleF.FromLTRB(-16, -94, 94, 10);
-            foreach (string baseName in new[] { "multilinebelow.xmap", "multilinebelow.omap" }) {
-                VerifyRenderingAndRoundtrip(baseName, rect, "multilinebelow_baseline.png");
-            }
-        }
-
 
         [Test]
         public void BadHatching()
@@ -881,6 +870,15 @@ namespace PurplePen.MapModel.Tests
             RectangleF rect = RectangleF.FromLTRB(130, 73, 187, 120);
             foreach (string baseName in new[] { "badhatching.xmap", "badhatching.omap" }) {
                 VerifyRenderingAndRoundtrip(baseName, rect, "badhatching_baseline.png", 9);
+            }
+        }
+
+        [Test]
+        public void MultiLineBelow()
+        {
+            RectangleF rect = RectangleF.FromLTRB(-16, -94, 94, 10);
+            foreach (string baseName in new[] { "multilinebelow.xmap", "multilinebelow.omap" }) {
+                VerifyRenderingAndRoundtrip(baseName, rect, "multilinebelow_baseline.png");
             }
         }
 
@@ -897,8 +895,8 @@ namespace PurplePen.MapModel.Tests
         public void GeorefTemplate2()
         {
             RectangleF rect = RectangleF.FromLTRB(-130, -255, 130, 260);
-            foreach (string baseName in new[] { "whitekirk-utm30.omap" }) {
-                VerifyRenderingAndRoundtrip(baseName, rect, "whitekirk-utm30.png", 9);
+            foreach (string baseName in new[] { "whitekirkutm30.omap" }) {
+                VerifyRenderingAndRoundtrip(baseName, rect, "whitekirkutm30.png", 9);
             }
         }
 
@@ -906,8 +904,8 @@ namespace PurplePen.MapModel.Tests
         public void GeorefTemplate3()
         {
             RectangleF rect = RectangleF.FromLTRB(-130, -255, 130, 260);
-            foreach (string baseName in new[] { "whitekirk-3857.omap" }) {
-                VerifyRenderingAndRoundtrip(baseName, rect, "whitekirk-3857.png", 9);
+            foreach (string baseName in new[] { "whitekirk3857.omap" }) {
+                VerifyRenderingAndRoundtrip(baseName, rect, "whitekirk3857.png", 9);
             }
         }
 
@@ -915,23 +913,25 @@ namespace PurplePen.MapModel.Tests
         public void GeorefTemplate4()
         {
             RectangleF rect = RectangleF.FromLTRB(-130, -255, 130, 260);
-            foreach (string baseName in new[] { "whitekirk-27700.omap" }) {
-                VerifyRenderingAndRoundtrip(baseName, rect, "whitekirk-27700.png", 9);
+            foreach (string baseName in new[] { "whitekirk27700.omap" }) {
+                VerifyRenderingAndRoundtrip(baseName, rect, "whitekirk27700.png", 9);
             }
         }
 
-        [Test]
-        public void Overprinting()
-        {
-            RectangleF rect = RectangleF.FromLTRB(-19.37F, -12.27F, 18.86F, 9.87F);
-            VerifyRenderingAndRoundtripOverprint("overprinting.omap", rect, "overprinting.png", 9);
-        }
 
         [Test]
         public void OcadBorderedAreas()
         {
             RectangleF rect = RectangleF.FromLTRB(-6.14393663F, -7.31703424F, 11.7064838F, 5.76173735F);
             VerifyRenderingOcadAndRoundtrip("borderedarea9.ocd", rect, "borderedarea9.png", 9);
+        }
+
+
+        [Test]
+        public void Overprinting()
+        {
+            RectangleF rect = RectangleF.FromLTRB(-19.37F, -12.27F, 18.86F, 9.87F);
+            VerifyRenderingAndRoundtripOverprint("overprinting.omap", rect, "overprinting.png", 9);
         }
 
     }

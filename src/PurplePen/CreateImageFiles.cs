@@ -57,6 +57,7 @@ namespace PurplePen
         }
 
         // Get the settings for creating OCAD files.
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public BitmapCreationSettings BitmapCreationSettings {
             get
             {
@@ -70,6 +71,7 @@ namespace PurplePen
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool WorldFileEnabled {
             get {
                 return comboBoxWorldFile.Enabled;
@@ -142,6 +144,8 @@ namespace PurplePen
                 comboBoxWorldFile.SelectedIndex = 1;
             else
                 comboBoxWorldFile.SelectedIndex = 0;
+
+            comboBoxPrintBaseMap.SelectedIndex = settings.DontPrintBaseMap ? 1 : 0;
         }
 
         // Update the settings with information from the dialog.
@@ -194,6 +198,9 @@ namespace PurplePen
 
             // World file
             settings.WorldFile = (comboBoxWorldFile.SelectedIndex == 1);
+
+            // Print base map.
+            settings.DontPrintBaseMap = (comboBoxPrintBaseMap.SelectedIndex == 1);
         }
 
         private void selectOtherDirectoryButton_Click(object sender, EventArgs e)

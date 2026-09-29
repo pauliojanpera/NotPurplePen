@@ -32,10 +32,11 @@
  * OF SUCH DAMAGE.
  */
 
+using PurplePen.Graphics2D;
+using PurplePen.MapModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Text;
@@ -101,6 +102,7 @@ namespace PurplePen
         }
 
         // Get the language id of the selected language.
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string LangId
         {
             get
@@ -115,6 +117,7 @@ namespace PurplePen
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool UseAsDefaultLanguage
         {
             get { return checkBoxDefaultLanguage.Checked; }
@@ -276,7 +279,9 @@ namespace PurplePen
                 e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
                 Symbol symbol = symbolDB[id];
-                symbol.Draw(e.Graphics, foreColor, symbolGraphicsBounds);
+                using (GDIPlus_GraphicsTarget grTarget = new GDIPlus_GraphicsTarget(e.Graphics)) {
+                    symbol.Draw(grTarget, CmykColor.FromColor(foreColor), symbolGraphicsBounds);
+                }
 
                 e.Graphics.SmoothingMode = oldSmoothing;
 

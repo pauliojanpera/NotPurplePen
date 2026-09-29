@@ -36,16 +36,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
 using System.Diagnostics;
-using System.Xml;
-using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestingUtils;
 
+using PurplePen.Graphics2D;
 using PurplePen.MapModel;
 
 namespace PurplePen.Tests
@@ -54,19 +50,24 @@ namespace PurplePen.Tests
     public class SymbolDBTests
     {
         // Draw a grid on the graphics
-        void DrawGrid(Graphics g, RectangleF rect, float spacing)
+        void DrawGrid(IGraphicsTarget g, RectangleF rect, float spacing)
         {
-            Pen pen = new Pen(Color.FromArgb(100, Color.MidnightBlue), 0.0F);
+            g.PushAntiAliasing(false);
+
+            object pen = new object();
+            CmykColor color = CmykColor.FromColor(Color.MidnightBlue);
+            color = CmykColor.FromCmyka(color.Cyan, color.Magenta, color.Yellow, color.Black, 0.4F);
+            g.CreatePen(pen, color, 0.032F, LineCapMode.Flat, LineJoinMode.Miter, 10);
 
             // Draw the grid.
-            for (float x = (int) ((rect.Left) / spacing) * spacing; x <= rect.Right; x += spacing) {
-                g.DrawLine(pen, x, rect.Top, x, rect.Bottom);
+            for (float x = (int)((rect.Left) / spacing) * spacing; x <= rect.Right; x += spacing) {
+                g.DrawLine(pen, new PointF(x, rect.Top), new PointF(x, rect.Bottom));
             }
-            for (float y = (int) ((rect.Top) / spacing) * spacing; y <= rect.Bottom; y += spacing) {
-                g.DrawLine(pen, rect.Left, y, rect.Right, y);
+            for (float y = (int)((rect.Top) / spacing) * spacing; y <= rect.Bottom; y += spacing) {
+                g.DrawLine(pen, new PointF(rect.Left, y), new PointF(rect.Right, y));
             }
 
-            pen.Dispose();
+            g.PopAntiAliasing();
         }
 
         static Bitmap RenderToBitmap(Symbol sym)
@@ -78,14 +79,13 @@ namespace PurplePen.Tests
                 width *= 8;  // directive symbol.
             }
 
-            Bitmap bm = new Bitmap(width, height);
-            Graphics g = Graphics.FromImage(bm);
-            g.Clear(Color.White);
             RectangleF rect = new RectangleF(0.0F, 0.0F, width, height);
 
-            sym.Draw(g, Color.Black, rect);
-
-            g.Dispose();
+            // The "-0.5F" in the coordinates is for compatibility with the old GDI+ based tests, which offset the drawing by 0.5 pixels,
+            // compared to Skia.
+            Bitmap bm = TestRenderingUtils.RenderToBitmap(width, height, new RectangleF(-0.5F, -0.5F, width, height), false, grTarget => {
+                sym.Draw(grTarget, CmykColor.FromColor(Color.Black), rect);
+            });
 
             return bm;
         }
@@ -98,7 +98,7 @@ namespace PurplePen.Tests
 
             foreach (Symbol symbol in symbolDB.AllSymbols) {
                 Bitmap bmNew = RenderToBitmap(symbol);
-                TestUtil.CheckBitmapsBase(bmNew, "symbols\\" + symbol.Id);
+                BitmapTestUtil.CheckBitmapsBase(bmNew, "symbols\\" + symbol.Id);
             }
         }
 
@@ -115,9 +115,9 @@ namespace PurplePen.Tests
 
             Assert.AreSame(symbols[0], symbolDB["1.10"]);
             Assert.AreEqual('D', symbols[0].Kind);
-            Assert.AreEqual(symbols[0].Id, "1.10");
-            Assert.AreEqual(symbols[0].GetName("en"), "Knoll");
-            Assert.AreEqual(symbols[0].GetText("en"), "knoll");
+            Assert.AreEqual("1.10", symbols[0].Id);
+            Assert.AreEqual("Knoll", symbols[0].GetName("en"));
+            Assert.AreEqual("knoll", symbols[0].GetText("en"));
             Assert.AreEqual(1, symbols[0].strokes.Length);
             Assert.AreEqual(Symbol.SymbolStrokes.Disc, symbols[0].strokes[0].kind);
             Assert.AreEqual(10F, symbols[0].strokes[0].radius);
@@ -127,15 +127,15 @@ namespace PurplePen.Tests
 
             Assert.AreSame(symbols[1], symbolDB["1.14"]);
             Assert.AreEqual('D', symbols[1].Kind);
-            Assert.AreEqual(symbols[1].Id, "1.14");
-            Assert.AreEqual(symbols[1].GetName("en"), "Pit");
-            Assert.AreEqual(symbols[1].GetText("en"), "pit");
-            Assert.AreEqual(symbols[1].GetPluralText("en"), "pits");
+            Assert.AreEqual("1.14", symbols[1].Id);
+            Assert.AreEqual("Pit", symbols[1].GetName("en"));
+            Assert.AreEqual("pit", symbols[1].GetText("en"));
+            Assert.AreEqual("pits", symbols[1].GetPluralText("en"));
             Assert.AreEqual(1, symbols[1].strokes.Length);
             Assert.AreEqual(Symbol.SymbolStrokes.Polyline, symbols[1].strokes[0].kind);
             Assert.AreEqual(5F, symbols[1].strokes[0].thickness);
-            Assert.AreEqual(LineCap.Round, symbols[1].strokes[0].ends);
-            Assert.AreEqual(LineJoin.Miter, symbols[1].strokes[0].corners);
+            Assert.AreEqual(LineCapMode.Round, symbols[1].strokes[0].ends);
+            Assert.AreEqual(LineJoinMode.Miter, symbols[1].strokes[0].corners);
             Assert.AreEqual(3, symbols[1].strokes[0].points.Length);
             Assert.AreEqual(-40F, symbols[1].strokes[0].points[0].X);
             Assert.AreEqual(50F, symbols[1].strokes[0].points[0].Y);
@@ -147,10 +147,10 @@ namespace PurplePen.Tests
 
             Assert.AreSame(symbols[2], symbolDB["5.17"]);
             Assert.AreEqual('D', symbols[2].Kind);
-            Assert.AreEqual(symbols[2].Id, "5.17");
-            Assert.AreEqual(symbols[2].GetName("en"), "Boundary stone, Cairn");
-            Assert.AreEqual(symbols[2].GetText("en"), "cairn");
-            Assert.AreEqual(symbols[2].GetPluralText("en"), "cairns");
+            Assert.AreEqual("5.17", symbols[2].Id);
+            Assert.AreEqual("Boundary stone, Cairn", symbols[2].GetName("en"));
+            Assert.AreEqual("cairn", symbols[2].GetText("en"));
+            Assert.AreEqual("cairns", symbols[2].GetPluralText("en"));
             Assert.AreEqual(2, symbols[2].strokes.Length);
 
             Assert.AreEqual(Symbol.SymbolStrokes.Circle, symbols[2].strokes[0].kind);
@@ -169,17 +169,17 @@ namespace PurplePen.Tests
 
             Assert.AreSame(symbols[3], symbolDB["4.1"]);
             Assert.AreEqual('D', symbols[3].Kind);
-            Assert.AreEqual(symbols[3].Id, "4.1");
-            Assert.AreEqual(symbols[3].GetName("en"), "Open land");
-            Assert.AreEqual(symbols[3].GetText("en"), "open land");
-            Assert.AreEqual(symbols[3].GetPluralText("en"), "open land");
-            Assert.AreEqual(symbols[3].GetText("de"), "smelly");
-            Assert.AreEqual(symbols[3].GetText("xx"), "gibberish");
-            Assert.AreEqual(symbols[3].GetPluralText("xx"), "plural gibberish");
+            Assert.AreEqual("4.1", symbols[3].Id);
+            Assert.AreEqual("Open land", symbols[3].GetName("en"));
+            Assert.AreEqual("open land", symbols[3].GetText("en"));
+            Assert.AreEqual("open land", symbols[3].GetPluralText("en"));
+            Assert.AreEqual("smelly", symbols[3].GetText("de"));
+            Assert.AreEqual("gibberish", symbols[3].GetText("xx"));
+            Assert.AreEqual("plural gibberish", symbols[3].GetPluralText("xx"));
             Assert.AreEqual(1, symbols[3].strokes.Length);
             Assert.AreEqual(Symbol.SymbolStrokes.Polygon, symbols[3].strokes[0].kind);
             Assert.AreEqual(5F, symbols[3].strokes[0].thickness);
-            Assert.AreEqual(LineJoin.Miter, symbols[3].strokes[0].corners);
+            Assert.AreEqual(LineJoinMode.Miter, symbols[3].strokes[0].corners);
             Assert.AreEqual(4, symbols[3].strokes[0].points.Length);
             Assert.AreEqual(0.0, symbols[3].strokes[0].points[0].X);
             Assert.AreEqual(50F, symbols[3].strokes[0].points[0].Y);
@@ -194,8 +194,8 @@ namespace PurplePen.Tests
             Assert.AreSame(symbols[4], symbolDB["2.2"]);
             Assert.AreEqual('D', symbols[4].Kind);
             Assert.AreEqual("2.2", symbols[4].Id);
-            Assert.AreEqual(symbols[4].GetName("en"), "Rock pillar");
-            Assert.AreEqual(symbols[4].GetText("en"), "rock pillar");
+            Assert.AreEqual("Rock pillar", symbols[4].GetName("en"));
+            Assert.AreEqual("rock pillar", symbols[4].GetText("en"));
             Assert.AreEqual(1, symbols[4].strokes.Length);
             Assert.AreEqual(Symbol.SymbolStrokes.FilledPolygon, symbols[4].strokes[0].kind);
             Assert.AreEqual(3, symbols[4].strokes[0].points.Length);
@@ -210,12 +210,12 @@ namespace PurplePen.Tests
             Assert.AreSame(symbols[5], symbolDB["1.3"]);
             Assert.AreEqual('D', symbols[5].Kind);
             Assert.AreEqual("1.3", symbols[5].Id);
-            Assert.AreEqual(symbols[5].GetName("en"), "Reentrant");
-            Assert.AreEqual(symbols[5].GetText("en"), "reentrant");
+            Assert.AreEqual("Reentrant", symbols[5].GetName("en"));
+            Assert.AreEqual("reentrant", symbols[5].GetText("en"));
             Assert.AreEqual(1, symbols[5].strokes.Length);
             Assert.AreEqual(Symbol.SymbolStrokes.PolyBezier, symbols[5].strokes[0].kind);
             Assert.AreEqual(12.5F, symbols[5].strokes[0].thickness);
-            Assert.AreEqual(LineCap.Flat, symbols[5].strokes[0].ends);
+            Assert.AreEqual(LineCapMode.Flat, symbols[5].strokes[0].ends);
             Assert.AreEqual(13, symbols[5].strokes[0].points.Length);
             Assert.AreEqual(-80F, symbols[5].strokes[0].points[0].X);
             Assert.AreEqual(-80F, symbols[5].strokes[0].points[0].Y);
@@ -248,8 +248,8 @@ namespace PurplePen.Tests
             Assert.AreSame(symbols[6], symbolDB["0.4"]);
             Assert.AreEqual('Q', symbols[6].Kind);
             Assert.AreEqual("0.4", symbols[6].Id);
-            Assert.AreEqual(symbols[6].GetName("en"), "Filled ellipse");
-            Assert.AreEqual(symbols[6].GetText("en"), "ellipse");
+            Assert.AreEqual("Filled ellipse", symbols[6].GetName("en"));
+            Assert.AreEqual("ellipse", symbols[6].GetText("en"));
             Assert.AreEqual(1, symbols[6].strokes.Length);
             Assert.AreEqual(Symbol.SymbolStrokes.FilledPolyBezier, symbols[6].strokes[0].kind);
             Assert.AreEqual(13, symbols[6].strokes[0].points.Length);
@@ -357,7 +357,7 @@ namespace PurplePen.Tests
         // Render one course object to a map.
         internal Map RenderSymbolToMap(Symbol sym, float boxSize)
         {
-            Map map = new Map(new GDIPlus_TextMetrics(), null);
+            Map map = new Map(new Skia_TextMetrics(), null);
 
             using (map.Write()) {
                 //Dictionary<object, SymDef> dict = new Dictionary<object, SymDef>();
@@ -393,33 +393,28 @@ namespace PurplePen.Tests
 
             Map map = RenderSymbolToMap(sym, 8.0F);
 
-            Bitmap bm = new Bitmap(width, height);
-            using (Graphics g = Graphics.FromImage(bm)) {
+            Bitmap bm = TestRenderingUtils.RenderToBitmap(width, height, new RectangleF(-0.5F, -0.5F, width, height), false, grTarget => {
                 RenderOptions options = new RenderOptions();
 
                 options.usePatternBitmaps = true;
-                options.minResolution = (float) (8.0 / bm.Width);
+                options.minResolution = (float)(8.0 / width);
                 options.renderTemplates = RenderTemplateOption.MapAndTemplates;
 
-                Matrix saveTransform = g.Transform;
+                grTarget.PushTransform(GetTransform(new Size(width, height)));
 
-                g.MultiplyTransform(GetTransform(bm.Size));
-
-                g.Clear(Color.White);
-
-                DrawGrid(g, new RectangleF(-4.0F, -4.0F, 8.0F, 8.0F), 1.0F);
+                DrawGrid(grTarget, new RectangleF(-4.0F, -4.0F, 8.0F, 8.0F), 1.0F);
 
                 using (map.Read())
-                    map.Draw(new GDIPlus_GraphicsTarget(g), new RectangleF(-100F, -100F, 200F, 200F), options, null);
+                    map.Draw(grTarget, new RectangleF(-100F, -100F, 200F, 200F), options, null);
+
+                grTarget.PopTransform();
 
                 // Now use normal drawing to super-impose.
-                g.Transform = saveTransform;
-                RectangleF rect = new RectangleF(0.0F, 0.0F, bm.Width, bm.Height);
-                sym.Draw(g, Color.FromArgb(50, Color.Black), rect);
-            }
+                RectangleF rect = new RectangleF(0.0F, 0.0F, width, height);
+                sym.Draw(grTarget, CmykColor.FromColor(Color.FromArgb(50, Color.Black)), rect);
+            });
 
             return bm;
-
         }
 
         [TestMethod]
@@ -429,7 +424,7 @@ namespace PurplePen.Tests
 
             foreach (Symbol symbol in symbolDB.AllSymbols) {
                 Bitmap bmNew = RenderSymbolMapToBitmap(symbol);
-                TestUtil.CheckBitmapsBase(bmNew, "symbols\\" + symbol.Id + "_ocad");
+                BitmapTestUtil.CheckBitmapsBase(bmNew, "symbols\\" + symbol.Id + "_ocad");
             }
         }
 

@@ -41,10 +41,12 @@ src/SetupIS/SetupIS
 .bzr/
 
 **/.vs
+src/.claude/
 Thumbs.db
 *.opendb
 *.db
 src/Innosetup/output/
+src/Innosetup/publish/
 
 
 # Visual C++ cache files
@@ -58,6 +60,7 @@ ipch/
 *_temp.*
 *_diff.png
 *_new.png
+*_tempnew.png
 *.crunchproject.local.xml
 src/TestResults
 src/tools/TranslateTool/TestResults
@@ -69,13 +72,15 @@ src/TestFiles/controller/ocad_create3/*.ocd
 src/TestFiles/controller/ocad_create4/*.ocd
 src/TestFiles/controller/ocad_create5/*.ocd
 src/TestFiles/controller/ocad_create6/*.ocd
+/src/TestFiles/controller/ocad_create12/mrsneeze.jpg
+/src/TestFiles/controller/ocad_create13/mrsneeze.jpg
+src/TestFiles/modes/ocad_print_area/*.ocd
 doc/userdocs/Help/_vti_cnf
 doc/userdocs/Help/_vti_pvt
 doc/userdocs/Help/*.log
 doc/userdocs/Help/desktop.ini
 src/PPenDXCore.Solution
 *.DS_Store
-src/TestFiles/rendering/startendglyph9_tempnew.png
 *.VC.opendb
 *.VC.db
 src/packages/
@@ -111,5 +116,17 @@ src/.vs/
 /src/PurplePenMsixInstaller/BundleArtifacts/Upload/x86.txt
 src/MsixInstaller/AppPackages/
 src/MsftStoreInstaller/AppPackages/
-/src/FontInstaller/output/Roboto Font Installer.exe
+/src/FontInstaller/output/
 loc/po/tar/
+/src/Help/output/Purple Pen Help.log
+/src/TestFiles/controller/ocad_create10/Lincoln-CMYK.gif
+
+# JetBrains files.
+**/.idea
+
+# Random files for local testing.
+/testing
+/tmp
+
+# Pagefind search index for the web help; rebuilt by doc/userdocs/WebHelp/build-search.cmd.
+/doc/userdocs/WebHelp/pagefind/

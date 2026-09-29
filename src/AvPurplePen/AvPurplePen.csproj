@@ -1,0 +1,131 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <ApplicationIcon>Assets\AppIcon\PurplePenBeta.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>$(DefineConstants);PORTING</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>$(DefineConstants);PORTING</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
+    <AvaloniaResource Include="Assets\**" />
+    <Folder Include="Samples\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\doc\userdocs\Sample\Sample Event.ppen" Link="Samples\Sample Event.ppen">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\doc\userdocs\Sample\SampleMap.ocd" Link="Samples\SampleMap.ocd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <!-- Exclude ImageSharp from ReadyToRun — it grows from 1.7 MB to 30 MB
+       and is only used for metadata/format detection, not on the hot path. -->
+  <ItemGroup>
+    <PublishReadyToRunExclude Include="SixLabors.ImageSharp.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" />
+    <PackageReference Include="Avalonia.Desktop" />
+    <PackageReference Include="Avalonia.Controls.DataGrid" />
+    <PackageReference Include="Avalonia.Controls.WebView" />
+    <PackageReference Include="Avalonia.HtmlRenderer" />
+    <PackageReference Include="Semi.Avalonia" />
+    <PackageReference Include="Semi.Avalonia.DataGrid" />
+
+    <!--Condition below is needed to remove AvaloniaUI.DiagnosticsSupport package from build output in Release configuration.-->
+    <PackageReference Include="AvaloniaUI.DiagnosticsSupport">
+      <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
+      <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="CommunityToolkit.Mvvm" />
+
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+    <PackageReference Include="Microsoft.Extensions.Http" />
+    <PackageReference Include="Microsoft.Extensions.Http.Resilience" />
+
+    <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Avalonia\AvUtil\AvUtil.csproj" />
+    <ProjectReference Include="..\MapModel\Graphics2D\Graphics2D.csproj" />
+    <ProjectReference Include="..\MapModel\MapModel\MapModel.csproj" />
+    <ProjectReference Include="..\MapModel\Map_PDF\Map_PDF.csproj" />
+    <ProjectReference Include="..\MapModel\Map_SkiaStd\Map_SkiaStd.csproj" />
+    <!-- PdfConverter is a standalone exe tool, not a compile-time dependency.
+         Built via custom target below to avoid publish pipeline trying to
+         resolve its outputs (which fails with ReadyToRun/RID-specific paths). -->
+    <!--<ProjectReference Include="..\PdfConverter\PdfConverter.csproj" />-->
+    <ProjectReference Include="..\PurplePenCore\PurplePenCore.csproj" />
+    <ProjectReference Include="..\PurplePenViewModels\PurplePenViewModels.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="UIText.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UIText.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Dialogs\SwitchLanguageDialog.axaml.cs">
+      <DependentUpon>SwitchLanguageDialog.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="UIText.*.Designer.cs">
+      <DependentUpon>UIText.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="UIText.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>UIText.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="UIText.*.resx">
+      <DependentUpon>UIText.resx</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <!-- Build PdfConverter as a standalone exe tool.
+       Uses a direct MSBuild task instead of ProjectReference so the publish
+       pipeline does not try to resolve PdfConverter's output files (which
+       fails when PublishReadyToRun adds a RID-specific output path). -->
+  <PropertyGroup>
+    <PdfConverterOutputDir>..\PdfConverter\bin\$(Configuration)\net10.0\</PdfConverterOutputDir>
+    <AssemblyName>PurplePen</AssemblyName>
+    <RootNamespace>AvPurplePen</RootNamespace>
+  </PropertyGroup>
+
+  <Target Name="BuildPdfConverter" BeforeTargets="Build;Publish">
+    <MSBuild Projects="..\PdfConverter\PdfConverter.csproj" Targets="Build" Properties="Configuration=$(Configuration);TargetFramework=net10.0;RuntimeIdentifier=;SelfContained=;PublishDir=;PublishReadyToRun=" />
+  </Target>
+
+  <!-- Copy PdfConverter output to AvPurplePen output directory after build. -->
+  <Target Name="CopyPdfConverterToBuildOutput" AfterTargets="Build" DependsOnTargets="BuildPdfConverter">
+    <ItemGroup>
+      <PdfConverterBuildFiles Include="$(PdfConverterOutputDir)**\*.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(PdfConverterBuildFiles)" DestinationFiles="@(PdfConverterBuildFiles->'$(OutputPath)%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+  </Target>
+
+  <!-- Copy PdfConverter output to publish directory after publish. -->
+  <Target Name="CopyPdfConverterToPublishOutput" AfterTargets="Publish" DependsOnTargets="BuildPdfConverter">
+    <ItemGroup>
+      <PdfConverterPublishFiles Include="$(PdfConverterOutputDir)**\*.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(PdfConverterPublishFiles)" DestinationFiles="@(PdfConverterPublishFiles->'$(PublishDir)%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+  </Target>
+</Project>

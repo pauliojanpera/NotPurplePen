@@ -40,32 +40,55 @@ using SysDraw = System.Drawing;
 using PointF = System.Drawing.PointF;
 using RectangleF = System.Drawing.RectangleF;
 using SizeF = System.Drawing.SizeF;
-using Matrix = System.Drawing.Drawing2D.Matrix;
-using FillMode = System.Drawing.Drawing2D.FillMode;
-using LineJoin = System.Drawing.Drawing2D.LineJoin;
-using LineCap = System.Drawing.Drawing2D.LineCap;
 
 using PurplePen.MapModel;
 using PurplePen.Graphics2D;
 
 using PdfSharp.Pdf;
 using PdfSharp.Drawing;
-using System.IO;
+using PdfSharp.Fonts;
 
 namespace PurplePen.MapModel
 {
-    public class PdfWriter
+    // These should only be created by PdfWriter.
+    internal class PdfDocumentWriter: IPdfDocumentWriter
     {
+        private string fileName;
         private PdfDocument document;
+        private PdfGlyphSubstituter glyphSubstituter;
 
-        // Create a PdfWriter with the given title.
-        public PdfWriter(string title, bool cmykMode)
+        static PdfDocumentWriter()
         {
+            // Set our font resolver so we can use our fonts in PDF output. This is tightly
+            // coupled with PdfGraphicsTarget because it relies on the same font resolver to get the font data for measuring text.
+           GlobalFontSettings.FontResolver = new PdfFontResolver();
+        }
+
+        // Create a PdfDocumentWriter with the given title.
+        public PdfDocumentWriter(string fileName, string title, bool cmykMode)
+        {
+            this.fileName = fileName;
             document = new PdfDocument();
+
+            // Declare PDF 1.4 rather than PdfSharp's default of 1.7. Everything we emit is within
+            // 1.4 -- transparency groups, blend modes and soft masks were all introduced there, and
+            // we never write the object or cross-reference streams that would require 1.5. Some
+            // print-shop RIPs are conservative about the version in the header, and Purple Pen 3.5.5
+            // produced 1.4 files that printed without trouble, so there is nothing to gain by
+            // claiming a higher version than we use.
+            document.Version = 14;
+
             document.Info.Title = title;
             document.Options.NoCompression = false;
             document.Options.CompressContentStreams = true;
             document.Options.ColorMode = cmykMode ? PdfColorMode.Cmyk : PdfColorMode.Rgb;
+
+            // Hook text rendering so the graphics targets can hand PDFsharp the glyphs that
+            // HarfBuzz shaped, rather than letting PDFsharp map characters to glyphs itself.
+            // The event belongs to the document, so it is hooked once here and the substituter
+            // is shared by every page's graphics target.
+            glyphSubstituter = new PdfGlyphSubstituter();
+            document.RenderEvents.RenderTextEvent += glyphSubstituter.OnRenderText;
         }
 
         // Get a page.
@@ -82,7 +105,7 @@ namespace PurplePen.MapModel
             XGraphics gfx = XGraphics.FromPdfPage(page);
 
             // Get a graphics target
-            IGraphicsTarget target = new Pdf_GraphicsTarget(gfx, document.Options.ColorMode == PdfColorMode.Cmyk);
+            IGraphicsTarget target = new Pdf_GraphicsTarget(gfx, document.Options.ColorMode == PdfColorMode.Cmyk, glyphSubstituter);
 
             // Change units to hundreths of inch from points.
             Matrix matrix = new Matrix();
@@ -92,64 +115,85 @@ namespace PurplePen.MapModel
             return target;
         }
 
-        // Get a page that is a copy of a PDF page.
-        public IGraphicsTarget BeginCopiedPage(PdfImporter pdfImporter, int pageNumber)
+        // Test whether a page is readable. Throws an exception if not.
+        public static void TestReadingPage(string pathName, int pageNumber)
         {
-            PdfPage pageToCopy = pdfImporter.GetPage(pageNumber);
-
-            // Create an copy of an existing page
-            PdfPage page = document.AddPage(pageToCopy);
-
-            // Get an XGraphics object for drawing
-            XGraphics gfx = XGraphics.FromPdfPage(page);
-
-            // Get a graphics target
-            IGraphicsTarget target = new Pdf_GraphicsTarget(gfx, document.Options.ColorMode == PdfColorMode.Cmyk);
-
-            PointF cropBoxOriginInPoints = CropboxOriginInPoints(pageToCopy);
-
-            // Change units to hundreths of inch from points.
-            Matrix matrix = new Matrix();
-
-            matrix.Translate(cropBoxOriginInPoints.X, cropBoxOriginInPoints.Y);
-            matrix.Scale(72F / 100F, 72F / 100F);
-            target.PushTransform(matrix);
-
-            return target;
+            using (PdfImporter importer = new PdfImporter(pathName)) {
+                PdfPage page = importer.GetPage(pageNumber);
+                XForm xform = importer.GetXForm(pageNumber);
+                xform.Dispose();
+            }
         }
 
         // Get a page that is a copy of a PDF page.
-        public IGraphicsTarget BeginCopiedPartialPage(PdfImporter pdfImporter, int pageNumber, SizeF sizeInInches, RectangleF partialSourcePageInInches)
+        public IGraphicsTarget BeginCopiedPage(string importedPdfPath, int pageNumber)
         {
-            XForm xformToCopy = pdfImporter.GetXForm(pageNumber);
-            PdfPage pageToCopy = pdfImporter.GetPage(pageNumber);
+            using (PdfImporter pdfImporter = new PdfImporter(importedPdfPath)) {
+                PdfPage pageToCopy = pdfImporter.GetPage(pageNumber);
 
-            PointF cropBoxOriginInPoints = CropboxOriginInPoints(pageToCopy);
+                // Create an copy of an existing page
+                PdfPage page = document.AddPage(pageToCopy);
 
-            IGraphicsTarget target = BeginPage(sizeInInches);
+                // Get an XGraphics object for drawing
+                XGraphics gfx = XGraphics.FromPdfPage(page);
 
-            // Create transform that maps the source page to the destination. Destination is in hundreths of inches so must match that.
-            RectangleF destRect = new RectangleF(0, 0, sizeInInches.Width * 100, sizeInInches.Height * 100);
-            RectangleF srcRect = new RectangleF(partialSourcePageInInches.Left * 100, partialSourcePageInInches.Top * 100, partialSourcePageInInches.Width * 100, partialSourcePageInInches.Height * 100);
-            srcRect.Offset(cropBoxOriginInPoints.X / 72 * 100, cropBoxOriginInPoints.Y / 72 * 100);
-            Matrix transform = Geometry.CreateRectangleTransform(srcRect, destRect);
+                // Get a graphics target
+                IGraphicsTarget target = new Pdf_GraphicsTarget(gfx, document.Options.ColorMode == PdfColorMode.Cmyk, glyphSubstituter);
 
-            target.PushTransform(transform);
-            XGraphics xGraphics = ((Pdf_GraphicsTarget)target).XGraphics;
-            xGraphics.DrawImage(xformToCopy, new RectangleF(0, 0, (float) xformToCopy.PointWidth / 72F * 100F, (float) xformToCopy.PointHeight / 72F * 100F));
-            target.PopTransform();
+                PointF cropBoxOriginInPoints = CropboxOriginInPoints(pageToCopy);
 
-            xformToCopy.Dispose();
+                // Change units to hundreths of inch from points.
+                Matrix matrix = new Matrix();
 
-            return target;
+                matrix.Translate(cropBoxOriginInPoints.X, cropBoxOriginInPoints.Y);
+                matrix.Scale(72F / 100F, 72F / 100F);
+                target.PushTransform(matrix);
+
+                //pageToCopy.Close();
+
+                return target;
+            }
         }
 
-        PointF CropboxOriginInPoints(PdfPage pageToCopy)
+        // Get a page that is a copy of a PDF page.
+        // sizeInInches is the size of the new page, in inches.
+        // partialSourcePageInInches is the rectangle on the source page to copy, in inches. This maps to destinationCropInInches.
+        // destinationCropInInches in the rectangle on the destination page to draw into, in inches. If you want the whole page, use new RectangleF(0,0,sizeInInches.Width,sizeInInches.Height)
+        public IGraphicsTarget BeginCopiedPartialPage(string importedPdfPath, int pageNumber, SizeF sizeInInches, RectangleF partialSourcePageInInches, RectangleF destinationCropInInches)
+        {
+            using (PdfImporter pdfImporter = new PdfImporter(importedPdfPath))
+            using (XForm xformToCopy = pdfImporter.GetXForm(pageNumber)) {
+                PdfPage pageToCopy = pdfImporter.GetPage(pageNumber);
+
+                PointF cropBoxOriginInPoints = CropboxOriginInPoints(pageToCopy);
+
+                IGraphicsTarget target = BeginPage(sizeInInches);
+
+                // Initial target is entire page. Push a clip to restrict to destinationCropInInches.
+                RectangleF destRect = new RectangleF(destinationCropInInches.Left * 100, destinationCropInInches.Top * 100, destinationCropInInches.Width * 100, destinationCropInInches.Height * 100);
+                target.PushClip(destRect);
+
+                // Create transform that maps the source page to the destination crop rect. Destination is in hundreths of inches so must match that.
+                RectangleF srcRect = new RectangleF(partialSourcePageInInches.Left * 100, partialSourcePageInInches.Top * 100, partialSourcePageInInches.Width * 100, partialSourcePageInInches.Height * 100);
+                srcRect.Offset(cropBoxOriginInPoints.X / 72 * 100, cropBoxOriginInPoints.Y / 72 * 100);
+                Matrix transform = Geometry.CreateRectangleTransform(srcRect, destRect);
+
+                target.PushTransform(transform);
+                XGraphics xGraphics = ((Pdf_GraphicsTarget)target).XGraphics;
+                xGraphics.DrawImage(xformToCopy, new XRect(0, 0, xformToCopy.PointWidth / 72F * 100F, xformToCopy.PointHeight / 72F * 100F));
+                target.PopTransform();
+                target.PopClip();
+
+                return target;
+            }
+        }
+
+        private PointF CropboxOriginInPoints(PdfPage pageToCopy)
         {
             PdfRectangle cropRect = pageToCopy.CropBox;
-            if (!cropRect.IsEmpty) {
+            if (!cropRect.IsZero) {
                 double translateX = cropRect.Location.X;
-                double translateY = pageToCopy.Height - (cropRect.Location.Y + cropRect.Size.Height);
+                double translateY = pageToCopy.Height.Point - (cropRect.Location.Y + cropRect.Size.Height);
                 return new PointF((float)translateX, (float)translateY);
             }
             else {
@@ -162,14 +206,31 @@ namespace PurplePen.MapModel
             target.Dispose();
         }
 
-        // Save the PDF to a specific file
-        public void Save(string filename)
+        // Save the PDF 
+        public void Save()
         {
-            document.Save(filename);
+            document.Save(fileName);
+        }
+    }
 
-            // Write debug log to the same directory as the PDF
-            string logDir = Path.GetDirectoryName(filename);
-            PurplePen.MapModel.Pdf_GraphicsTarget.WriteDebugLogToDirectory(logDir);
+    // Class that can create PdfDocumentWriter instances.
+    public class PdfWriter: IPdfWriter
+    {
+        public bool CanReadPdfPage(string pdfImport, int pageImport)
+        {
+            try {
+                PdfDocumentWriter.TestReadingPage(pdfImport, pageImport);
+            }
+            catch (Exception) {
+                return false;
+            }
+
+            return true;
+        }
+
+        public IPdfDocumentWriter CreateDocument(string fileName, string title, bool cmykMode)
+        {
+            return new PdfDocumentWriter(fileName, title, cmykMode);
         }
     }
 }
