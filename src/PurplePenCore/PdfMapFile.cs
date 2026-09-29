@@ -150,23 +150,49 @@ namespace PurplePen
             }
         }
 
+        // Records the converter's result when it exits, and announces it.
+        //
+        // Runs on a thread pool thread, as the completion callback of the
+        // converter process. Nothing may propagate out of it: an exception there
+        // is unhandled and takes the whole process down. The completion event is
+        // raised whatever happens on the way, because callers wait for it before
+        // they look at the result.
         private void ProcessExited(object sender, EventArgs e)
         {
-            process.WaitForExit();
+            try {
+                process.WaitForExit();
 
-            lock (stderrOutput) {
-                conversionOutput = stderrOutput.ToString();
+                lock (stderrOutput) {
+                    conversionOutput = stderrOutput.ToString();
+                }
+
+                status = process.ExitCode == 0 ? ConversionStatus.Success : ConversionStatus.Failure;
+                process.Dispose();
+                process = null;
+
+                if (status == ConversionStatus.Failure && !string.IsNullOrWhiteSpace(pngFileName)) {
+                    // A half-written image is worth removing, but the converter or
+                    // a virus scanner may still hold it open, and it matters less
+                    // than reporting the conversion's outcome.
+                    try {
+                        File.Delete(pngFileName);
+                    }
+                    catch (IOException) {
+                    }
+                    catch (UnauthorizedAccessException) {
+                    }
+                }
             }
-
-            status = process.ExitCode == 0 ? ConversionStatus.Success : ConversionStatus.Failure;
-            process.Dispose();
-            process = null;
-
-            if (status == ConversionStatus.Failure && !string.IsNullOrWhiteSpace(pngFileName))
-                File.Delete(pngFileName);
-
-            if (ConversionCompleted != null)
-                ConversionCompleted(this, EventArgs.Empty);
+            catch (Exception ex) {
+                if (status == ConversionStatus.Working)
+                    status = ConversionStatus.Failure;
+                if (string.IsNullOrEmpty(conversionOutput))
+                    conversionOutput = ex.Message;
+            }
+            finally {
+                if (ConversionCompleted != null)
+                    ConversionCompleted(this, EventArgs.Empty);
+            }
         }
 
         internal string FindPdfConverterExe()
