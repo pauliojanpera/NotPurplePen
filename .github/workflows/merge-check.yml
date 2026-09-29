@@ -15,6 +15,12 @@ jobs:
     steps:
     - name: Checkout source
       uses: actions/checkout@v4
+      with:
+        # GitVersion, used by the PdfSharp subtree, reads tags and history.
+        fetch-depth: 0
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
@@ -23,6 +29,14 @@ jobs:
 
     - name: Restore
       run: dotnet restore src/PurplePen_Tests/PurplePen_Tests.csproj
+
+    # Map_GDIPlus copies these native DLLs into its output. The solution wires
+    # them as build dependencies rather than project references, so building the
+    # managed projects alone does not produce them.
+    - name: Build native GDI+ helpers
+      run: |
+        msbuild src/MapModel/GDIPlusNative/GDIPlusNative.vcxproj /p:Configuration=Debug /p:Platform=Win32
+        msbuild src/MapModel/GDIPlusNative64/GDIPlusNative64.vcxproj /p:Configuration=Debug /p:Platform=x64
 
     - name: Build PurplePenCore
       run: dotnet build src/PurplePenCore/PurplePenCore.csproj -c Debug --no-restore
