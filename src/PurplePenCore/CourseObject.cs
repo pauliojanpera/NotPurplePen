@@ -3037,11 +3037,13 @@ namespace PurplePen
     {
         DescriptionRenderer renderer;        // The description renderer that holds the description.
         float[] aspectAnglesByColumns;       // array describing the angles that are closest for each number of columns.
+        int startLine;
 
         // Create a new description course object.
-        public DescriptionCourseObj(Id<Special> specialId, PointF topLeft, float cellSize, SymbolDB symbolDB, DescriptionLine[] description, DescriptionKind kind, bool columnHScore, int numColumns)
+        public DescriptionCourseObj(Id<Special> specialId, PointF topLeft, float cellSize, SymbolDB symbolDB, DescriptionLine[] description, int startLine, DescriptionKind kind, bool columnHScore, int numColumns)
             : base(Id<ControlPoint>.None, Id<CourseControl>.None, specialId, 1, new CourseAppearance(), GetRect(topLeft, cellSize, symbolDB, description, kind, numColumns))
         {
+
             // Create the renderer.
             renderer = new DescriptionRenderer(symbolDB);
             renderer.Description = description;
@@ -3051,6 +3053,7 @@ namespace PurplePen
             renderer.CellSize = cellSize;
             renderer.NumberOfColumns = numColumns;
             aspectAnglesByColumns = ComputeAspectAngles();
+            this.startLine = startLine;
         }
 
         // Get the rectangle used by the description.
@@ -3095,6 +3098,17 @@ namespace PurplePen
         public float CellSize {
             get {
                 return renderer.CellSize;
+            }
+        }
+
+        public int StartLine
+        {
+            get
+            {
+                return startLine;
+            }
+            set {
+                startLine = value;
             }
         }
 

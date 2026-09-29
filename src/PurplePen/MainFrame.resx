@@ -4025,4 +4025,45 @@
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>PurplePen.DpiFixedForm, PurplePen, Version=3.5.3.500, Culture=neutral, PublicKeyToken=null</value>
   </data>
+  <data name="publishCoursesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>287, 22</value>
+  </data>
+  <data name="publishCoursesToolStripMenuItem.Text" xml:space="preserve">
+    <value>Publish courses...</value>
+  </data>
+  <data name="splitToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>223, 22</value>
+  </data>
+  <data name="splitToolStripMenuItem.Text" xml:space="preserve">
+    <value>S&amp;plit</value>
+  </data>
+  <data name="publishCoursesToolStripButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wgAADsIBFShKgAAAAIdJREFUOE+VjtENwCAIRLu5c/S3W3UD0yVsoEJPRMVLLhA4nh7HlYvn834aexm2
+        N9SjqinEDvDQyoVII6+sAJrxAF2oys64IgCXEWkeAXVHon5m1gow0haAKpoktQcAREOOeKd5AZhfYEWT
+        uOoxAlJKbAkN9OcCAOmb2Q7AUxgw9BIQ9XeXywuJ7aw2owJg9QAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="publishCoursesToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Transparent</value>
+  </data>
+  <data name="publishCoursesToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 22</value>
+  </data>
+  <data name="publishCoursesToolStripButton.Text" xml:space="preserve">
+    <value>Publish courses...</value>
+  </data>
+  <data name="&gt;&gt;publishCoursesToolStripMenuItem.Name" xml:space="preserve">
+    <value>publishCoursesToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;publishCoursesToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;splitToolStripMenuItem.Name" xml:space="preserve">
+    <value>splitToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;splitToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

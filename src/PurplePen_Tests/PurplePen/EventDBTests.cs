@@ -649,7 +649,7 @@ namespace PurplePen.Tests
             sp5.color = new SpecialColor(0.2F, 0.5F, 0.3F, 0F);
             sp5.courses = new CourseDesignator[2] { Designator(2), new CourseDesignator(CourseId(3), 1) };
             sp6 = new Special(SpecialKind.Descriptions, new PointF[2] { new PointF(5, 6), new PointF(11, 6) });
-            sp6.numColumns = 2;
+            sp6.fragments[0].numColumns = 2;
             sp7 = new Special(SpecialKind.Text, new PointF[2] { new PointF(8, 7), new PointF(18, 5) });
             sp7.fontName = "Courier New";
             sp7.fontBold = false;

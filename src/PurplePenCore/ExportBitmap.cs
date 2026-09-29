@@ -65,7 +65,7 @@ namespace PurplePen
 
         // Create a bitmap file of the mapDisplay supplied at construction.
         // If mapperForWorldFile is not null and real world coords are defined, also create a world file.
-        public void CreateBitmap(string fileName, RectangleF rect, GraphicsBitmapFormat imageFormat, float dpi, CoordinateMapper mapperForWorldFile)
+        public void CreateBitmap(string fileName, RectangleF rect, GraphicsBitmapFormat imageFormat, float dpi, CoordinateMapper mapperForWorldFile, bool autoRotate = false, int quality = 95)
         {
             float bitmapWidth, bitmapHeight; // size of the bitmap in pixels.
             int pixelWidth, pixelHeight; // bitmapWidth/Height, rounded up to integer.
@@ -75,12 +75,20 @@ namespace PurplePen
             pixelWidth = (int)Math.Ceiling(bitmapWidth);
             pixelHeight = (int)Math.Ceiling(bitmapHeight);
 
-            IGraphicsBitmap bitmap = Services.BitmapLoader.CreateEmptyBitmap(pixelWidth, pixelHeight);
+            // Landscape output is turned to portrait by drawing through a rotated transform into a
+            // bitmap with swapped dimensions, rather than rotating the pixels after the fact.
+            bool rotate = autoRotate && bitmapWidth > bitmapHeight;
+
+            IGraphicsBitmap bitmap = Services.BitmapLoader.CreateEmptyBitmap(rotate ? pixelHeight : pixelWidth, rotate ? pixelWidth : pixelHeight);
             bitmap.HorizontalResolution = dpi;
             bitmap.VerticalResolution = dpi;
 
             // Set the transform
             Matrix transform = Geometry.CreateInvertedRectangleTransform(rect, new RectangleF(0, 0, bitmapWidth, bitmapHeight));
+            if (rotate) {
+                // Quarter turn clockwise: (x, y) -> (bitmapHeight - y, x).
+                transform.Multiply(new Matrix(0, 1, -1, 0, bitmapHeight, 0), MatrixOrder.Append);
+            }
 
             // And draw.
             mapDisplay.Draw(bitmap, transform);
@@ -88,9 +96,7 @@ namespace PurplePen
             // JPEG and GIF have special code paths because the default Save method isn't
             // really good enough.
             using (Stream stream = new FileStream(fileName, FileMode.Create, FileAccess.Write)) {
-                // Currently we just use a quality of 80 for JPEG. This is a good compromise between quality and file size.
-                // Maybe we should allow the user to set this in the future.
-                bitmap.WriteToStream(imageFormat, stream, 80);
+                bitmap.WriteToStream(imageFormat, stream, quality);
             }
 
             bitmap.Dispose();

@@ -243,12 +243,11 @@ namespace PurplePen
             string element = temp.ElementName;
 
             xmlinput.MoveToContent();
-
             while (xmlinput.Name == element) {
                 Id<T> id = new Id<T>(xmlinput.GetAttributeInt("id"));
                 T obj = new T();
                 obj.ReadAttributesAndContent(xmlinput);
-                if (IsPresent(id)) 
+                if (IsPresent(id))
                     xmlinput.BadXml("Duplicate id '{0}'", id);
 
                 dict[id] = obj;

@@ -944,7 +944,7 @@ namespace PurplePen.Tests
                     Assert.AreEqual(-70, special.locations[0].Y);
                     Assert.AreEqual(13.575F, special.locations[1].X, 0.01F);
                     Assert.AreEqual(-70, special.locations[1].Y);
-                    Assert.AreEqual(4, special.numColumns);
+                    Assert.AreEqual(4, special.fragments[0].numColumns);
                     Assert.IsFalse(special.allCourses);
                     Assert.AreEqual(1, special.courses.Length);
                     Assert.AreEqual(CourseDesignator.AllControls, special.courses[0]);

@@ -567,6 +567,15 @@ After pressing OK, try to find a copy of the map file on your computer.</value>
   <data name="LowerPurple" xml:space="preserve">
     <value>Lower Purple</value>
   </data>
+  <data name="PublishFailed" xml:space="preserve">
+    <value>Failed to publish: {0}</value>
+  </data>
+  <data name="PublishSucceeded" xml:space="preserve">
+    <value>Published successfully.</value>
+  </data>
+  <data name="DefaultPublishPath" xml:space="preserve">
+    <value>..\Print\System</value>
+  </data>
   <data name="GpxMustBeOcadMap" xml:space="preserve">
     <value>The map file must be an OCAD file to use GPX files.</value>
   </data>

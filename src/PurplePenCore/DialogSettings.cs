@@ -100,6 +100,8 @@ namespace PurplePen
         public bool PrintMapExchangesOnOneMap = false;
         public BitmapKind ExportedBitmapKind = BitmapCreationSettings.BitmapKind.Png;
         public float Dpi;
+        public bool AutoRotate = false;
+        public int Quality = 95;
         public bool WorldFile;                      // Create a world file?
         public ColorModel ColorModel = ColorModel.CMYK;
 

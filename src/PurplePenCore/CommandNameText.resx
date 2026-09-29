@@ -258,6 +258,12 @@
   <data name="AddTextLine" xml:space="preserve">
     <value>Add Text Line</value>
   </data>
+  <data name="AddDescriptionsFragment" xml:space="preserve">
+    <value>Add Descriptions Fragment</value>
+  </data>
+  <data name="RemoveDescriptionsFragment" xml:space="preserve">
+    <value>Remove Descriptions Fragment</value>
+  </data>
   <data name="RemoveUnusedControls" xml:space="preserve">
     <value>Remove Unused Controls</value>
   </data>

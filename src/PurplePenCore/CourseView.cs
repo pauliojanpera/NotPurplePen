@@ -77,11 +77,13 @@ namespace PurplePen
         {
             public readonly Id<Special> SpecialId;
             public readonly CourseDesignator CourseDesignator;
+            public readonly IEnumerable<int> DescriptionsFragmentStartLines;
 
-            public DescriptionView(Id<Special> specialId, CourseDesignator courseDesignator)
+            public DescriptionView(Id<Special> specialId, CourseDesignator courseDesignator, IEnumerable<int> descriptionsFragmentStartLines)
             {
                 this.SpecialId = specialId;
                 this.CourseDesignator = courseDesignator;
+                this.DescriptionsFragmentStartLines = descriptionsFragmentStartLines.Reverse();
             }
         }
             
@@ -380,6 +382,7 @@ namespace PurplePen
             }
         }
 
+
         // Get the ratio between course objects and the map size. If course objects scale with
         // the map, then this is always 1.0.
         public float CourseObjRatio(CourseAppearance appearance)
@@ -617,19 +620,24 @@ namespace PurplePen
             ComputeStatistics();
         }
 
+        private static IEnumerable<int> GetDescriptionsFragmentStartLines(Special special)
+        {
+            return special.fragments.ConvertAll(f => f.startLine);
+        }
         // Add the appropriate specials for the given course to the course view.
         // If descriptionSpecialOnly is true, then only description sheet specials are added.
         private void AddSpecials(CourseDesignator courseDesignator, CourseViewOptions options)
         {
             foreach (Id<Special> specialId in eventDB.AllSpecialIds) {
-                SpecialKind specialKind = eventDB.GetSpecial(specialId).kind;
+                Special special = eventDB.GetSpecial(specialId);
+                SpecialKind specialKind = special.kind;
 
                 if (ShouldAddSpecial(specialKind, options)) {
                     if (specialKind == SpecialKind.Descriptions) {
                         // Descriptions can now be associated with all parts of a multi-part course.
                         // When a description has "all parts", it appears on each individual part as well as when viewing all parts together.
                         if (QueryEvent.CourseContainsSpecial(eventDB, courseDesignator, specialId))
-                            descriptionViews.Add(new DescriptionView(specialId, courseDesignator));
+                            descriptionViews.Add(new DescriptionView(specialId, courseDesignator, GetDescriptionsFragmentStartLines(special)));
                     }
                     else {
                         if (QueryEvent.CourseContainsSpecial(eventDB, courseDesignator, specialId))
@@ -740,7 +748,7 @@ namespace PurplePen
 
                 if (special.kind == SpecialKind.Descriptions) {
                     if (options.showDescriptionSpecials && QueryEvent.CourseContainsSpecial(eventDB, CourseDesignator.AllControls, specialId))
-                        courseView.descriptionViews.Add(new DescriptionView(specialId, CourseDesignator.AllControls));
+                        courseView.descriptionViews.Add(new DescriptionView(specialId, CourseDesignator.AllControls, GetDescriptionsFragmentStartLines(special)));
                 }
                 else {
                     if (options.showNonDescriptionSpecials && QueryEvent.CourseContainsSpecial(eventDB, CourseDesignator.AllControls, specialId))
@@ -1034,7 +1042,6 @@ namespace PurplePen
             {
                 courseView.controlViews[0].legTo = new int[1] { courseView.controlViews[1].courseControlIds[0].id};
             }
-
 
             courseView.Finish();
             return courseView;

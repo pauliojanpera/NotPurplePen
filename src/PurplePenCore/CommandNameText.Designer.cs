@@ -97,6 +97,15 @@ namespace PurplePen {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Descriptions Fragment.
+        /// </summary>
+        internal static string AddDescriptionsFragment {
+            get {
+                return ResourceManager.GetString("AddDescriptionsFragment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Finish.
         /// </summary>
         public static string AddFinish {
@@ -570,6 +579,15 @@ namespace PurplePen {
         public static string RelayTeamVariations {
             get {
                 return ResourceManager.GetString("RelayTeamVariations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove Descriptions Fragment.
+        /// </summary>
+        internal static string RemoveDescriptionsFragment {
+            get {
+                return ResourceManager.GetString("RemoveDescriptionsFragment", resourceCulture);
             }
         }
         

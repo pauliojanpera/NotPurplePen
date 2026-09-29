@@ -22,6 +22,7 @@
     <HelpCompiler>c:\program files (x86)\html help workshop\hhc.exe</HelpCompiler>
     <!-- Define the help project file -->
     <HelpProjectFile>..\..\doc\userdocs\help\Purple Pen Help.hhp</HelpProjectFile>
+    <OutputDir>$(MSBuildProjectDirectory)\output\</OutputDir>
   </PropertyGroup>
 
   <ItemGroup>
