@@ -48,3 +48,13 @@ jobs:
     # solution's C++ projects.
     - name: Test
       run: dotnet test PPen.slnx --settings:.runsettings --no-build -c Release
+
+    # Inno Setup's own output is redirected to a log file by the project, so the
+    # console only shows its exit code.
+    - name: Upload Inno Setup log
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: innosetup-log
+        path: src/Innosetup/output/*.log
+        if-no-files-found: warn
