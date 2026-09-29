@@ -5,16 +5,15 @@
 
   Parallelism has to be off. AssemblyInfo.cs opts the assembly into
   method-level parallelism, and the classes that build WinForms UI opt back
-  out with DoNotParallelize -- but CompatibilityTests does not, even though
-  each of its tests constructs a MainFrame. Concurrent MainFrame construction
-  races in WinForms' own KeysConverter, whose localized-key dictionary is not
+  out with DoNotParallelize. CompatibilityTests does not, even though each of
+  its tests constructs a MainFrame. Concurrent MainFrame construction races in
+  WinForms' own KeysConverter, whose localized-key dictionary is not
   thread-safe, and the unhandled exception takes the test host down.
 -->
 <RunSettings>
   <RunConfiguration>
     <MaxCpuCount>1</MaxCpuCount>
     <EnvironmentVariables>
-      <!-- Fail rather than block the runner waiting on a dialog. -->
       <TEST_SILENTRUN>True</TEST_SILENTRUN>
     </EnvironmentVariables>
   </RunConfiguration>
