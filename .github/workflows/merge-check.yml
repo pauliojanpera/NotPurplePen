@@ -32,11 +32,13 @@ jobs:
 
     # Map_GDIPlus copies these native DLLs into its output. The solution wires
     # them as build dependencies rather than project references, so building the
-    # managed projects alone does not produce them.
+    # managed projects alone does not produce them. The x64 configuration does
+    # not override OutDir, so it lands under $(SolutionDir)x64\Debug and
+    # SolutionDir has to be supplied when building the project on its own.
     - name: Build native GDI+ helpers
       run: |
-        msbuild src/MapModel/GDIPlusNative/GDIPlusNative.vcxproj /p:Configuration=Debug /p:Platform=Win32
-        msbuild src/MapModel/GDIPlusNative64/GDIPlusNative64.vcxproj /p:Configuration=Debug /p:Platform=x64
+        msbuild src/MapModel/GDIPlusNative/GDIPlusNative.vcxproj /p:Configuration=Debug /p:Platform=Win32 /p:SolutionDir=${{ github.workspace }}/src/
+        msbuild src/MapModel/GDIPlusNative64/GDIPlusNative64.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:SolutionDir=${{ github.workspace }}/src/
 
     - name: Build PurplePenCore
       run: dotnet build src/PurplePenCore/PurplePenCore.csproj -c Debug --no-restore
