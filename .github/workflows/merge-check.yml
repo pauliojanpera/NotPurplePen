@@ -40,6 +40,16 @@ jobs:
         msbuild src/MapModel/GDIPlusNative/GDIPlusNative.vcxproj /p:Configuration=Debug /p:Platform=Win32 /p:SolutionDir=${{ github.workspace }}/src/
         msbuild src/MapModel/GDIPlusNative64/GDIPlusNative64.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:SolutionDir=${{ github.workspace }}/src/
 
+    - name: Install HTML Help Workshop
+      run: choco install html-help-workshop --no-progress --yes
+
+    # PurplePen copies the compiled help file and the font installer into its
+    # output, so both have to exist before it is built.
+    - name: Build help and font installer
+      run: |
+        msbuild src/Help/Help.csproj /p:Configuration=Debug /p:Platform=AnyCPU /restore
+        msbuild src/FontInstaller/FontInstaller.csproj /p:Configuration=Debug /p:Platform=AnyCPU /restore
+
     - name: Build PurplePenCore
       run: dotnet build src/PurplePenCore/PurplePenCore.csproj -c Debug --no-restore
 
