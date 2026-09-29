@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using PurplePen;
 
@@ -15,6 +16,11 @@ namespace PurplePen.Tests
     // user to press Cancel, which never happens on a build machine.
     class HeadlessPdfLoadingStatus : IPdfLoadingStatus
     {
+        // Long enough for a large map to rasterize, short enough that a converter
+        // which never reports back is named rather than waited on. An unattended
+        // run has nobody to cancel it, so the wait has to end by itself.
+        private static readonly TimeSpan conversionTimeout = TimeSpan.FromMinutes(3);
+
         private readonly ManualResetEventSlim completed = new ManualResetEventSlim(false);
         private readonly object sync = new object();
         private bool succeeded;
@@ -22,10 +28,17 @@ namespace PurplePen.Tests
         // Waits for the conversion to finish and reports whether it succeeded.
         //
         // Parameters:
-        //   fileName - the PDF being converted; unused, as nothing is displayed.
+        //   fileName - the PDF being converted, named if the wait elapses.
         public bool ShowLoadingStatus(string fileName)
         {
-            completed.Wait();
+            if (!completed.Wait(conversionTimeout)) {
+                lock (sync) {
+                    completed.Reset();
+                }
+
+                throw new TimeoutException(string.Format(
+                    "Converting '{0}' did not report completion within {1}.", fileName, conversionTimeout));
+            }
 
             lock (sync) {
                 bool result = succeeded;
