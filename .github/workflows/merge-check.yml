@@ -1,7 +1,7 @@
 name: Merge check (build only)
 
-# Compile-only verification for the upstream merge. Deliberately stops after
-# building: no version bumping, no installer, no GitHub Pages deploy.
+# Compile-and-test verification for the upstream merge. Deliberately stops after
+# testing: no version bumping, no installer, no GitHub Pages deploy.
 on:
   push:
     branches: [ 'experiment/**' ]
@@ -27,52 +27,31 @@ jobs:
       with:
         dotnet-version: '10.0.x'
 
-    - name: Restore
-      run: dotnet restore src/PurplePen_Tests/PurplePen_Tests.csproj
-
-    # Map_GDIPlus copies these native DLLs into its output. The solution wires
-    # them as build dependencies rather than project references, so building the
-    # managed projects alone does not produce them. The x64 configuration does
-    # not override OutDir, so it lands under $(SolutionDir)x64\Debug and
-    # SolutionDir has to be supplied when building the project on its own.
-    - name: Build native GDI+ helpers
-      run: |
-        msbuild src/MapModel/GDIPlusNative/GDIPlusNative.vcxproj /p:Configuration=Debug /p:Platform=Win32 /p:SolutionDir=${{ github.workspace }}/src/
-        msbuild src/MapModel/GDIPlusNative64/GDIPlusNative64.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:SolutionDir=${{ github.workspace }}/src/
-
     - name: Install HTML Help Workshop
       run: choco install html-help-workshop --no-progress --yes
 
-    # PurplePen copies the compiled help file and the font installer into its
-    # output, so both have to exist before it is built.
-    - name: Build help and font installer
-      run: |
-        msbuild src/Help/Help.csproj /p:Configuration=Debug /p:Platform=AnyCPU /restore
-        msbuild src/FontInstaller/FontInstaller.csproj /p:Configuration=Debug /p:Platform=AnyCPU /restore
+    - name: Restore
+      run: dotnet restore src/PPen.slnx
 
-    - name: Build PurplePenCore
-      run: dotnet build src/PurplePenCore/PurplePenCore.csproj -c Debug --no-restore
+    - name: Build solution
+      run: msbuild src/PPen.slnx /p:Configuration=Debug /p:Platform="Any CPU" /p:DisableDisposableSigningCertificate=true /p:NoWarn=CS1591
 
-    - name: Build PurplePen (WinForms)
-      run: dotnet build src/PurplePen/PurplePen.csproj -c Debug --no-restore
-
-    - name: Build tests
-      run: dotnet build src/PurplePen_Tests/PurplePen_Tests.csproj -c Debug --no-restore
-
-    # The bulk of the suite runs in parallel, as the assembly asks for. Only the
-    # classes that build a MainFrame have to be serialised: MainFrameTests and
-    # CompatibilityTests both construct one per test without opting out of
-    # parallelism, and concurrent construction races in WinForms' KeysConverter.
     - name: Run tests
+      timeout-minutes: 6
       run: dotnet test src/PurplePen_Tests/PurplePen_Tests.csproj -c Debug --no-build --settings src/.runsettings --filter "FullyQualifiedName!~CompatibilityTests&FullyQualifiedName!~MainFrameTests&FullyQualifiedName!~CreateBitmapTests" --logger "console;verbosity=normal"
 
+    # MainFrameTests and CompatibilityTests construct a MainFrame per test
+    # without opting out of the assembly's method-level parallelism, and
+    # concurrent construction races in WinForms' KeysConverter.
     - name: Run UI-building tests serially
       if: always()
+      timeout-minutes: 4
       run: dotnet test src/PurplePen_Tests/PurplePen_Tests.csproj -c Debug --no-build --settings .github/ci.runsettings --filter "FullyQualifiedName~CompatibilityTests|FullyQualifiedName~MainFrameTests" --logger "console;verbosity=normal"
 
     # This fork's print-scale fix makes these diverge from the baseline images
     # on purpose, so they are reported rather than allowed to fail the run.
     - name: Run CreateBitmapTests
       if: always()
+      timeout-minutes: 4
       continue-on-error: true
       run: dotnet test src/PurplePen_Tests/PurplePen_Tests.csproj -c Debug --no-build --settings .github/ci.runsettings --filter "FullyQualifiedName~CreateBitmapTests" --logger "console;verbosity=normal"
