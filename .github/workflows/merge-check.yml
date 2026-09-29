@@ -1,0 +1,65 @@
+name: Merge check (build only)
+
+# Compile-only verification for the upstream merge. Deliberately stops after
+# building: no version bumping, no installer, no GitHub Pages deploy.
+on:
+  push:
+    branches: [ 'experiment/**' ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build merged tree
+    runs-on: windows-2022
+
+    steps:
+    - name: Checkout source
+      uses: actions/checkout@v4
+      with:
+        # GitVersion, used by the PdfSharp subtree, reads tags and history.
+        fetch-depth: 0
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+
+    - name: Restore
+      run: dotnet restore src/PurplePen_Tests/PurplePen_Tests.csproj
+
+    # Map_GDIPlus copies these native DLLs into its output. The solution wires
+    # them as build dependencies rather than project references, so building the
+    # managed projects alone does not produce them. The x64 configuration does
+    # not override OutDir, so it lands under $(SolutionDir)x64\Debug and
+    # SolutionDir has to be supplied when building the project on its own.
+    - name: Build native GDI+ helpers
+      run: |
+        msbuild src/MapModel/GDIPlusNative/GDIPlusNative.vcxproj /p:Configuration=Debug /p:Platform=Win32 /p:SolutionDir=${{ github.workspace }}/src/
+        msbuild src/MapModel/GDIPlusNative64/GDIPlusNative64.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:SolutionDir=${{ github.workspace }}/src/
+
+    - name: Install HTML Help Workshop
+      run: choco install html-help-workshop --no-progress --yes
+
+    # PurplePen copies the compiled help file and the font installer into its
+    # output, so both have to exist before it is built.
+    - name: Build help and font installer
+      run: |
+        msbuild src/Help/Help.csproj /p:Configuration=Debug /p:Platform=AnyCPU /restore
+        msbuild src/FontInstaller/FontInstaller.csproj /p:Configuration=Debug /p:Platform=AnyCPU /restore
+
+    - name: Build PurplePenCore
+      run: dotnet build src/PurplePenCore/PurplePenCore.csproj -c Debug --no-restore
+
+    - name: Build PurplePen (WinForms)
+      run: dotnet build src/PurplePen/PurplePen.csproj -c Debug --no-restore
+
+    - name: Build tests
+      run: dotnet build src/PurplePen_Tests/PurplePen_Tests.csproj -c Debug --no-restore
+
+    # .runsettings sets TEST_SILENTRUN so anything wanting UI fails instead of
+    # blocking the runner.
+    - name: Run tests
+      run: dotnet test src/PurplePen_Tests/PurplePen_Tests.csproj -c Debug --no-build --settings src/.runsettings --logger "console;verbosity=normal"
