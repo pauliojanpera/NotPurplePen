@@ -58,3 +58,8 @@ jobs:
 
     - name: Build tests
       run: dotnet build src/PurplePen_Tests/PurplePen_Tests.csproj -c Debug --no-restore
+
+    # .runsettings sets TEST_SILENTRUN so anything wanting UI fails instead of
+    # blocking the runner.
+    - name: Run tests
+      run: dotnet test src/PurplePen_Tests/PurplePen_Tests.csproj -c Debug --no-build --settings src/.runsettings --logger "console;verbosity=normal"
