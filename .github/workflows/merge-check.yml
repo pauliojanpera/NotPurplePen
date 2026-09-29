@@ -1,0 +1,34 @@
+name: Merge check (build only)
+
+# Compile-only verification for the upstream merge. Deliberately stops after
+# building: no version bumping, no installer, no GitHub Pages deploy.
+on:
+  push:
+    branches: [ 'experiment/**' ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build merged tree
+    runs-on: windows-2022
+
+    steps:
+    - name: Checkout source
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+
+    - name: Restore
+      run: dotnet restore src/PurplePen_Tests/PurplePen_Tests.csproj
+
+    - name: Build PurplePenCore
+      run: dotnet build src/PurplePenCore/PurplePenCore.csproj -c Debug --no-restore
+
+    - name: Build PurplePen (WinForms)
+      run: dotnet build src/PurplePen/PurplePen.csproj -c Debug --no-restore
+
+    - name: Build tests
+      run: dotnet build src/PurplePen_Tests/PurplePen_Tests.csproj -c Debug --no-restore
