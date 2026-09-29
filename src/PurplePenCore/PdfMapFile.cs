@@ -13,6 +13,7 @@ namespace PurplePen
     {
         private string pdfFileName;
         private string pngFileName;
+        private string cachePublishDestination;   // cache name a conversion in progress is published under, or null
         private ConversionStatus status;
         private string conversionOutput;
         private StringBuilder stderrOutput;
@@ -92,7 +93,13 @@ namespace PurplePen
                 return status;
             }
 
-            return BeginUncachedConversion(cacheFileName, Resolution);
+            // Convert into a file of this conversion's own and publish it under the
+            // cache name once it is complete. The cache is shared by every map with
+            // the same contents, so writing the image in place would let one
+            // conversion read or delete what another is still writing.
+            cachePublishDestination = cacheFileName;
+            string partialFileName = cacheFileName + "." + Guid.NewGuid().ToString("N") + ".tmp";
+            return BeginUncachedConversion(partialFileName, Resolution);
         }
 
         // Try to begin conversion into bitmap. 
@@ -170,6 +177,9 @@ namespace PurplePen
                 process.Dispose();
                 process = null;
 
+                if (status == ConversionStatus.Success && cachePublishDestination != null)
+                    PublishToCache();
+
                 if (status == ConversionStatus.Failure && !string.IsNullOrWhiteSpace(pngFileName)) {
                     // A half-written image is worth removing, but the converter or
                     // a virus scanner may still hold it open, and it matters less
@@ -192,6 +202,35 @@ namespace PurplePen
             finally {
                 if (ConversionCompleted != null)
                     ConversionCompleted(this, EventArgs.Empty);
+            }
+        }
+
+        // Gives a finished conversion its cache name.
+        //
+        // The move is atomic, so the cache never names a partly written image. A
+        // conversion of the same map that finished first has already produced an
+        // equivalent image, so its result is kept and this one discarded.
+        private void PublishToCache()
+        {
+            string destination = cachePublishDestination;
+            cachePublishDestination = null;
+
+            try {
+                File.Move(pngFileName, destination);
+                pngFileName = destination;
+            }
+            catch (IOException) {
+                if (File.Exists(destination)) {
+                    try {
+                        File.Delete(pngFileName);
+                    }
+                    catch (IOException) {
+                    }
+                    catch (UnauthorizedAccessException) {
+                    }
+
+                    pngFileName = destination;
+                }
             }
         }
 
