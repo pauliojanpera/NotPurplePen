@@ -26,6 +26,12 @@ jobs:
       with:
         dotnet-version: '10.0.x'
 
+    # AvPurplePen's BuildPdfConverter target invokes PdfConverter through the
+    # MSBuild task, which does not restore it. A developer's tree already has
+    # those assets from a solution build; a clean checkout does not.
+    - name: Restore
+      run: dotnet restore src/PPen.slnx
+
     - name: Create setup
       working-directory: src/Innosetup
       shell: cmd
