@@ -1,0 +1,135 @@
+name: Build NotPurplePen
+
+on:
+  push:
+    branches: [ dev ]
+    paths:
+      - 'src/**'
+      - '.github/**'
+     
+jobs:
+  build:
+    name: Build and Package
+    runs-on: windows-2022
+
+    env:
+      Solution_Path: src/PPen.sln
+      Configuration: Release
+      Platform: "Mixed Platforms"
+      MsftStoreInstallerProject: "{FDEAD95B-8416-467C-A8DD-492D00C6602A}"
+      GithubPagesUrl: "https://pauliojanpera.github.io/NotPurplePen/downloads/"
+      ReleaseBaseUrl: "https://github.com/pauliojanpera/NotPurplePen/releases/download"
+
+    steps:
+    - name: Checkout source
+      uses: actions/checkout@v4
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Install NuGet CLI
+      uses: nuget/setup-nuget@v1
+
+    - name: Restore NuGet packages
+      run: nuget restore $env:Solution_Path
+
+    - name: Install HTML Help Workshop
+      run: choco install html-help-workshop --no-progress --yes
+
+    - name: Extract and set version number
+      shell: pwsh
+      run: |
+        $versionNumberCs = "src/PurplePen/VersionNumber.cs"
+        $content = Get-Content -Path $versionNumberCs -Raw
+        $bumpedVersion = [int[]]((([regex]::Match($content, 'Current = "([\d.]+)"')).Groups[1].Value).Split('.'))
+        $bumpedVersion[-1] += ${{ github.run_number }}
+        $prerelease = ('_prerelease', '')[$bumpedVersion[-1] -ge 500]
+        $bumpedVersion = $bumpedVersion -join '.'
+        $content = $content -replace 'Current = "[\d.]+"', "Current = ""$bumpedVersion"""
+        Set-Content -Path $versionNumberCs -Value $content
+        echo "PRERELEASE=$prerelease" >> $env:GITHUB_ENV
+        echo "BUMPED_VERSION=$bumpedVersion" >> $env:GITHUB_ENV
+        echo "RELEASE_FILE_NAME=notpurplepen-setup-$bumpedVersion.exe" >> $env:GITHUB_ENV
+        echo "RELEASE_URL=$env:ReleaseBaseUrl/$bumpedVersion/$releaseFilename" >> $env:GITHUB_ENV
+
+    - name: Modify version display format in Util.cs
+      shell: pwsh
+      run: |
+        $utilCs = "src/PurplePen/Util.cs"
+        $content = Get-Content -Path $utilCs -Raw
+        $oldCode = 'if \(v\.Revision >= VersionNumber\.Stable\)\s*modifier = "";'
+        $newCode = 'if (v.Revision == VersionNumber.Stable) modifier = ""; else if (v.Revision > VersionNumber.Stable) modifier = " " + string.Format("dev build {0}", v.Revision-VersionNumber.Stable);'
+        $content = $content -replace $oldCode, $newCode
+        Set-Content -Path $utilCs -Value $content
+    
+    - name: Update downloadLocation in Updater.cs
+      shell: pwsh
+      run: |
+        $updaterFile = "src/PurplePen/Updater.cs"
+        $content = Get-Content -Path $updaterFile -Raw
+        $content = $content -replace 'downloadLocation = "[^"]+"', "downloadLocation = ""$env:GithubPagesUrl"""
+        Set-Content -Path $updaterFile -Value $content
+
+    - name: Update Inno Setup script with version
+      shell: pwsh
+      run: |
+        $issFile = "src/Innosetup/PurplePen.iss"
+        $content = Get-Content -Path $issFile -Raw
+        $newVersion = "${{ env.BUMPED_VERSION }}"
+        $content = $content -replace '(#define MyAppVersion\s*")[^"]+(")', "`${1}$newVersion`$2"
+        $content = $content -replace '(OutputBaseFilename\s*=)\s*purplepen-setup', "`$1 notpurplepen-setup-$newVersion"
+        Set-Content -Path $issFile -Value $content
+
+    - name: Remove MsftStoreInstallerProject build targets
+      shell: pwsh
+      run: |
+        $solutionPath = "$env:Solution_Path"
+        $content = Get-Content -Path $solutionPath -Raw
+        $projectGuid = "$env:MsftStoreInstallerProject"
+        $config = "$env:Configuration"
+        $platform = "$env:Platform"
+        $pattern = "$projectGuid\.$config\|$platform\.Build\.0 = .*\r?\n\s*$projectGuid\.$config\|$platform\.Deploy\.0 = .*\r?\n"
+        $newContent = $content -replace $pattern, ''
+        Set-Content -Path $solutionPath -Value $newContent
+
+    - name: Build solution
+      run: msbuild $env:Solution_Path /p:Configuration=$env:Configuration /t:Build /p:Platform="$env:Platform" /p:DisableDisposableSigningCertificate=true /p:NoWarn=CS1591
+
+    - name: Copy the installer with metadata to GitHub Pages
+      shell: pwsh
+      run: |
+        $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss UTC"
+        $commitMessages = git log -n 10 --pretty=%s | ForEach-Object { "<li>$_</li>" }
+        $commitList = $commitMessages -join "`n        "
+        $filename = "${{ env.RELEASE_FILE_NAME }}"
+        $version = "${{ env.BUMPED_VERSION }}"
+        $htmlContent = @"
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>NotPurplePen download</title>
+        </head>
+        <body>
+            <p>Latest development build: <a href="downloads/notpurplepen-setup-latest.exe">$version</a> ($timestamp)</p>
+            <p>
+                <ul>
+                    $commitList
+                </ul>
+            </p>
+        </body>
+        </html>
+        "@
+        New-Item -Path "downloads" -ItemType Directory -Force
+        Copy-Item -Path "src/Innosetup/output/$filename" -Destination "downloads/notpurplepen-setup-latest.exe"
+        Set-Content -Path "downloads/latest${{ env.PRERELEASE }}_version.txt" -Value "$version`nnotpurplepen-setup-latest.exe"
+        Set-Content -Path "index.html" -Value $htmlContent
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./
+        publish_branch: gh-pages
+        force_orphan: true
