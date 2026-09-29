@@ -1,23 +1,18 @@
-name: Merge check
+name: Build installer
 
-# Builds and tests with the commands AGENTS.md documents, run from src/ as the
-# documented paths assume. No installer, no version bumping, no Pages deploy.
+# Builds the installer with the project's own script, src/Innosetup/create-setup.bat,
+# which publishes AvPurplePen and PdfConverter, derives the version from the
+# compiled assembly and runs Inno Setup. No Pages deploy, no release.
 on:
   push:
     branches: [ 'experiment/**' ]
   workflow_dispatch:
 
 jobs:
-  build:
-    name: Build and test
+  installer:
+    name: Build installer
     runs-on: windows-2022
-    # A safety net, not a diagnosis: a hung test host should cost minutes, not
-    # the six-hour default.
     timeout-minutes: 45
-
-    defaults:
-      run:
-        working-directory: src
 
     steps:
     - name: Checkout source
@@ -26,25 +21,22 @@ jobs:
         # GitVersion, used by the PdfSharp subtree, reads tags and history.
         fetch-depth: 0
 
-    - name: Setup MSBuild
-      uses: microsoft/setup-msbuild@v2
-
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '10.0.x'
 
-    - name: Install HTML Help Workshop
-      run: choco install html-help-workshop --no-progress --yes
+    - name: Create setup
+      working-directory: src/Innosetup
+      shell: cmd
+      run: create-setup.bat
 
-    # /restore rather than a separate dotnet restore: Innosetup is excluded from
-    # the Debug build but built in Release, and restoring with properties that
-    # differ from the build leaves its assets file where the build cannot see it.
-    - name: Build
-      run: msbuild PPen.slnx /restore /p:Configuration=Release
-
-    # --no-build -c Release so the tests run against what msbuild just produced;
-    # dotnet test would otherwise rebuild in Debug, and it cannot build the
-    # solution's C++ projects.
-    - name: Test
-      run: dotnet test PPen.slnx --settings:.runsettings --no-build -c Release
+    - name: Upload installer and logs
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: installer
+        path: |
+          src/Innosetup/output/*.exe
+          src/Innosetup/output/*.log
+        if-no-files-found: warn
