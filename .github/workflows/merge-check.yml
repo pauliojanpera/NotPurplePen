@@ -1,18 +1,25 @@
-name: Build installer
+name: Tests
 
-# Builds the installer with the project's own script, src/Innosetup/create-setup.bat,
-# which publishes AvPurplePen and PdfConverter, derives the version from the
-# compiled assembly and runs Inno Setup. No Pages deploy, no release.
+# Runs the test suite only. Packaging lives in build.yml; the two must not
+# overlap, or every push to a branch builds the installer twice.
+#
+# Debug rather than Release: PPen.slnx excludes Innosetup from Debug, so this
+# builds the code and its tests without invoking the installer, which needs the
+# separate publish sequence in src/Innosetup/create-setup.bat.
 on:
   push:
     branches: [ 'experiment/**' ]
   workflow_dispatch:
 
 jobs:
-  installer:
-    name: Build installer
+  test:
+    name: Test
     runs-on: windows-2022
     timeout-minutes: 45
+
+    defaults:
+      run:
+        working-directory: src
 
     steps:
     - name: Checkout source
@@ -21,28 +28,21 @@ jobs:
         # GitVersion, used by the PdfSharp subtree, reads tags and history.
         fetch-depth: 0
 
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '10.0.x'
 
-    # AvPurplePen's BuildPdfConverter target invokes PdfConverter through the
-    # MSBuild task, which does not restore it. A developer's tree already has
-    # those assets from a solution build; a clean checkout does not.
-    - name: Restore
-      run: dotnet restore src/PPen.slnx
+    - name: Install HTML Help Workshop
+      run: choco install html-help-workshop --no-progress --yes
 
-    - name: Create setup
-      working-directory: src/Innosetup
-      shell: cmd
-      run: create-setup.bat
+    # msbuild rather than dotnet build: the solution contains the native C++
+    # projects that Map_GDIPlus copies into its output.
+    - name: Build
+      run: msbuild PPen.slnx /restore /p:Configuration=Debug
 
-    - name: Upload installer and logs
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: installer
-        path: |
-          src/Innosetup/output/*.exe
-          src/Innosetup/output/*.log
-        if-no-files-found: warn
+    - name: Test
+      run: dotnet test PPen.slnx --settings:.runsettings --no-build -c Debug
