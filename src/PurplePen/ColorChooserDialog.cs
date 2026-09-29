@@ -36,6 +36,7 @@ namespace PurplePen
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool Overprint
         {
             get
