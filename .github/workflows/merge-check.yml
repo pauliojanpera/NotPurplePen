@@ -1,7 +1,7 @@
-name: Merge check (build only)
+name: Merge check
 
-# Compile-and-test verification for the upstream merge. Deliberately stops after
-# testing: no version bumping, no installer, no GitHub Pages deploy.
+# Builds and tests with the commands AGENTS.md documents, run from src/ as the
+# documented paths assume. No installer, no version bumping, no Pages deploy.
 on:
   push:
     branches: [ 'experiment/**' ]
@@ -9,8 +9,15 @@ on:
 
 jobs:
   build:
-    name: Build merged tree
+    name: Build and test
     runs-on: windows-2022
+    # A safety net, not a diagnosis: a hung test host should cost minutes, not
+    # the six-hour default.
+    timeout-minutes: 45
+
+    defaults:
+      run:
+        working-directory: src
 
     steps:
     - name: Checkout source
@@ -31,40 +38,13 @@ jobs:
       run: choco install html-help-workshop --no-progress --yes
 
     - name: Restore
-      run: dotnet restore src/PPen.slnx
+      run: dotnet restore PPen.slnx
 
-    - name: Build solution
-      run: msbuild src/PPen.slnx /p:Configuration=Debug /p:Platform="Any CPU" /p:DisableDisposableSigningCertificate=true /p:NoWarn=CS1591
+    - name: Build
+      run: msbuild PPen.slnx /p:Configuration=Release
 
-    # PdfMapFile launches PdfConverter.exe by name from beside its own assembly,
-    # but PurplePen.csproj pulls PdfConverter in as a ProjectReference, which
-    # contributes the assembly and not the apphost. AvPurplePen.csproj handles
-    # this with its CopyPdfConverterToBuildOutput target, copying the converter's
-    # whole output directory; this does the same for the test output.
-    - name: Copy PdfConverter output next to the tests
-      shell: pwsh
-      run: |
-        $src = "src/PdfConverter/bin/Debug/net10.0"
-        $dst = "src/PurplePen_Tests/bin/Debug/net10.0-windows"
-        Copy-Item "$src/*" $dst -Recurse -Force
-        Get-ChildItem $dst -Filter "PdfConverter*" | Select-Object -ExpandProperty Name
-
-    - name: Run tests
-      timeout-minutes: 6
-      run: dotnet test src/PurplePen_Tests/PurplePen_Tests.csproj -c Debug --no-build --settings src/.runsettings --filter "FullyQualifiedName!~CompatibilityTests&FullyQualifiedName!~MainFrameTests&FullyQualifiedName!~CreateBitmapTests" --logger "console;verbosity=normal"
-
-    # MainFrameTests and CompatibilityTests construct a MainFrame per test
-    # without opting out of the assembly's method-level parallelism, and
-    # concurrent construction races in WinForms' KeysConverter.
-    - name: Run UI-building tests serially
-      if: always()
-      timeout-minutes: 4
-      run: dotnet test src/PurplePen_Tests/PurplePen_Tests.csproj -c Debug --no-build --settings .github/ci.runsettings --filter "FullyQualifiedName~CompatibilityTests|FullyQualifiedName~MainFrameTests" --logger "console;verbosity=normal"
-
-    # This fork's print-scale fix makes these diverge from the baseline images
-    # on purpose, so they are reported rather than allowed to fail the run.
-    - name: Run CreateBitmapTests
-      if: always()
-      timeout-minutes: 4
-      continue-on-error: true
-      run: dotnet test src/PurplePen_Tests/PurplePen_Tests.csproj -c Debug --no-build --settings .github/ci.runsettings --filter "FullyQualifiedName~CreateBitmapTests" --logger "console;verbosity=normal"
+    # --no-build -c Release so the tests run against what msbuild just produced;
+    # dotnet test would otherwise rebuild in Debug, and it cannot build the
+    # solution's C++ projects.
+    - name: Test
+      run: dotnet test PPen.slnx --settings:.runsettings --no-build -c Release
