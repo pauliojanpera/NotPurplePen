@@ -36,6 +36,19 @@ jobs:
     - name: Build solution
       run: msbuild src/PPen.slnx /p:Configuration=Debug /p:Platform="Any CPU" /p:DisableDisposableSigningCertificate=true /p:NoWarn=CS1591
 
+    # PdfMapFile launches PdfConverter.exe by name from beside its own assembly,
+    # but PurplePen.csproj pulls PdfConverter in as a ProjectReference, which
+    # contributes the assembly and not the apphost. AvPurplePen.csproj handles
+    # this with its CopyPdfConverterToBuildOutput target, copying the converter's
+    # whole output directory; this does the same for the test output.
+    - name: Copy PdfConverter output next to the tests
+      shell: pwsh
+      run: |
+        $src = "src/PdfConverter/bin/Debug/net10.0"
+        $dst = "src/PurplePen_Tests/bin/Debug/net10.0-windows"
+        Copy-Item "$src/*" $dst -Recurse -Force
+        Get-ChildItem $dst -Filter "PdfConverter*" | Select-Object -ExpandProperty Name
+
     - name: Run tests
       timeout-minutes: 6
       run: dotnet test src/PurplePen_Tests/PurplePen_Tests.csproj -c Debug --no-build --settings src/.runsettings --filter "FullyQualifiedName!~CompatibilityTests&FullyQualifiedName!~MainFrameTests&FullyQualifiedName!~CreateBitmapTests" --logger "console;verbosity=normal"
