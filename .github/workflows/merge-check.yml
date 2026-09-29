@@ -37,11 +37,11 @@ jobs:
     - name: Install HTML Help Workshop
       run: choco install html-help-workshop --no-progress --yes
 
-    - name: Restore
-      run: dotnet restore PPen.slnx
-
+    # /restore rather than a separate dotnet restore: Innosetup is excluded from
+    # the Debug build but built in Release, and restoring with properties that
+    # differ from the build leaves its assets file where the build cannot see it.
     - name: Build
-      run: msbuild PPen.slnx /p:Configuration=Release
+      run: msbuild PPen.slnx /restore /p:Configuration=Release
 
     # --no-build -c Release so the tests run against what msbuild just produced;
     # dotnet test would otherwise rebuild in Debug, and it cannot build the
