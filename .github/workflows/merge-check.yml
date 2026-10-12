@@ -92,7 +92,7 @@ jobs:
     # A failed bitmap comparison writes what it rendered and where it differs
     # next to the baseline it compared against.
     - name: Upload rendering differences
-      if: failure()
+      if: always()
       uses: actions/upload-artifact@v4
       with:
         name: rendering-differences
