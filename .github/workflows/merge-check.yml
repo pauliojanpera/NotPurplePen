@@ -46,6 +46,41 @@ jobs:
     - name: Install Visual C++ 2010 runtime
       run: choco install vcredist2010 --no-progress --yes
 
+    # The rendering tests compare against baseline images produced on a machine
+    # with the Microsoft fonts installed. A runner carries Arial and Times New
+    # Roman but not Arial Narrow, and substituting a face moves every glyph, so
+    # the fonts come from a fixed store instead.
+    - name: Fetch fonts
+      uses: actions/checkout@v4
+      with:
+        repository: pauliojanpera/windows-fonts
+        token: ${{ secrets.FONTS_TOKEN }}
+        path: ci-fonts
+
+    - name: Install fonts
+      working-directory: ${{ github.workspace }}
+      shell: pwsh
+      run: |
+        $shell = New-Object -ComObject Shell.Application
+        $target = $shell.Namespace(0x14)
+        Get-ChildItem ci-fonts -Filter *.ttf | ForEach-Object {
+            # 0x4 suppresses the progress dialog, 0x10 answers yes to all.
+            $target.CopyHere($_.FullName, 0x14)
+        }
+
+        # An install that quietly does nothing would show up as a pile of
+        # unexplained rendering failures, so check for the face that is not on
+        # the runner to begin with.
+        Add-Type -AssemblyName System.Drawing
+        $families = [System.Drawing.FontFamily]::Families.Name
+        "Installed families: $($families.Count)"
+        foreach ($needed in 'Arial', 'Arial Narrow', 'Times New Roman') {
+            if ($families -notcontains $needed) {
+                throw "Font '$needed' is not installed after the install step."
+            }
+            "  present: $needed"
+        }
+
     # msbuild rather than dotnet build: the solution contains the native C++
     # projects that Map_GDIPlus copies into its output.
     - name: Build
