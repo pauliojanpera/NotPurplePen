@@ -88,3 +88,15 @@ jobs:
 
     - name: Test
       run: dotnet test PPen.slnx --settings:.runsettings --no-build -c Debug
+
+    # A failed bitmap comparison writes what it rendered and where it differs
+    # next to the baseline it compared against.
+    - name: Upload rendering differences
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: rendering-differences
+        path: |
+          src/**/*_actual.png
+          src/**/*_diff.png
+        if-no-files-found: warn
