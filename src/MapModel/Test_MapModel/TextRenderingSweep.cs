@@ -41,42 +41,44 @@ namespace PurplePen.MapModel.Tests
             Map map = new Map(new GDIPlus_TextMetrics(), new GDIPlus_FileLoader(directory));
             InputOutput.ReadFile(mapFileName, map);
 
-            ReportDefaults(size, mapArea);
+            ReportDefaults(directory, size, mapArea);
 
+            // PixelOffsetMode is left alone throughout: the bitmap target sets it
+            // to HighQuality, and overriding it swamps everything else.
             foreach (TextRenderingHint hint in new TextRenderingHint[] {
-                         TextRenderingHint.AntiAlias, TextRenderingHint.AntiAliasGridFit }) {
-                foreach (int contrast in new int[] { 0, 2, 4, 6, 8, 10, 12 }) {
-                    Render(map, size, mapArea, directory, hint, contrast, PixelOffsetMode.Default);
-                }
+                         TextRenderingHint.SystemDefault, TextRenderingHint.SingleBitPerPixel,
+                         TextRenderingHint.SingleBitPerPixelGridFit, TextRenderingHint.AntiAliasGridFit,
+                         TextRenderingHint.AntiAlias, TextRenderingHint.ClearTypeGridFit }) {
+                Render(map, size, mapArea, directory, hint, -1);
             }
 
-            foreach (PixelOffsetMode offset in new PixelOffsetMode[] {
-                         PixelOffsetMode.None, PixelOffsetMode.Half, PixelOffsetMode.HighQuality }) {
-                Render(map, size, mapArea, directory, TextRenderingHint.AntiAlias, -1, offset);
+            foreach (int contrast in new int[] { 0, 1, 2, 3, 4, 5, 6, 8, 10, 12 }) {
+                Render(map, size, mapArea, directory, TextRenderingHint.AntiAlias, contrast);
             }
         }
 
         // Writes down what GDI+ hands us before anything is changed. The initial
         // text contrast is taken from the machine, and is the first thing to
         // compare between two machines that render differently.
-        private static void ReportDefaults(Size size, RectangleF mapArea)
+        private static void ReportDefaults(string directory, Size size, RectangleF mapArea)
         {
             using (GDIPlus_BitmapGraphicsTarget grTarget = new GDIPlus_BitmapGraphicsTarget(
                        size.Width, size.Height, true, CmykColor.FromCmyk(0, 0, 0, 0), mapArea, true, null, 1.0F)) {
-                TestContext.WriteLine(string.Format(
-                    "SWEEP defaults: TextContrast={0} PixelOffsetMode={1} TextRenderingHint={2} SmoothingMode={3} CompositingQuality={4}",
+                string report = string.Format(
+                    "TextContrast={0}\r\nPixelOffsetMode={1}\r\nTextRenderingHint={2}\r\nSmoothingMode={3}\r\nCompositingQuality={4}\r\nDpiX={5}\r\nDpiY={6}\r\n",
                     grTarget.Graphics.TextContrast, grTarget.Graphics.PixelOffsetMode,
                     grTarget.Graphics.TextRenderingHint, grTarget.Graphics.SmoothingMode,
-                    grTarget.Graphics.CompositingQuality));
+                    grTarget.Graphics.CompositingQuality, grTarget.Graphics.DpiX, grTarget.Graphics.DpiY);
+                File.WriteAllText(Path.Combine(directory, "sweep_defaults_actual.txt"), report);
             }
         }
 
         // Renders the map once with the given settings and saves the result.
         //
         // Parameters:
-        //   contrast - the text contrast to set, or -1 to leave it alone.
+        //   contrast - the text contrast to set, or -1 to leave it as it comes.
         private static void Render(Map map, Size size, RectangleF mapArea, string directory,
-                                   TextRenderingHint hint, int contrast, PixelOffsetMode offset)
+                                   TextRenderingHint hint, int contrast)
         {
             RenderOptions renderOpts = new RenderOptions();
             renderOpts.usePatternBitmaps = true;
@@ -84,14 +86,13 @@ namespace PurplePen.MapModel.Tests
             renderOpts.renderTemplates = RenderTemplateOption.MapAndTemplates;
             renderOpts.minResolution = mapArea.Width / (float) size.Width;
 
-            string label = string.Format("hint{0}_contrast{1}_offset{2}", (int) hint, contrast, (int) offset);
+            string label = string.Format("hint{0}_contrast{1}", (int) hint, contrast);
 
             using (GDIPlus_BitmapGraphicsTarget grTarget = new GDIPlus_BitmapGraphicsTarget(
                        size.Width, size.Height, true, CmykColor.FromCmyk(0, 0, 0, 0), mapArea, true, null, 1.0F)) {
                 grTarget.Graphics.TextRenderingHint = hint;
                 if (contrast >= 0)
                     grTarget.Graphics.TextContrast = contrast;
-                grTarget.Graphics.PixelOffsetMode = offset;
 
                 using (map.Read())
                     map.Draw(grTarget, mapArea, renderOpts, null);
