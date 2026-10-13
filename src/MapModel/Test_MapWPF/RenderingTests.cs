@@ -29,7 +29,6 @@ namespace TestWpfMap
     static class DisplayContext
     {
         private static HwndSource source;
-        private static ContainerVisual root;
         private static bool tried;
 
         public static bool Enabled
@@ -64,29 +63,36 @@ namespace TestWpfMap
 
             if (!tried) {
                 tried = true;
-                try {
-                    HwndSourceParameters parameters = new HwndSourceParameters("TestDisplayContext");
-                    parameters.Width = 1;
-                    parameters.Height = 1;
-                    source = new HwndSource(parameters);
-                    root = new ContainerVisual();
-                    source.RootVisual = root;
-                    Report("window created, handle " + source.Handle + ", apartment " +
-                           System.Threading.Thread.CurrentThread.GetApartmentState());
-                }
-                catch (Exception e) {
-                    Report("unavailable, " + e.Message);
-                    source = null; root = null;
-                }
+                // A window needs an STA thread and the tests run MTA, so give it
+                // one of its own and leave it pumping.
+                System.Threading.ManualResetEventSlim ready = new System.Threading.ManualResetEventSlim(false);
+                System.Threading.Thread thread = new System.Threading.Thread(delegate () {
+                    try {
+                        HwndSourceParameters parameters = new HwndSourceParameters("TestDisplayContext");
+                        parameters.Width = 1;
+                        parameters.Height = 1;
+                        source = new HwndSource(parameters);
+                        source.RootVisual = new ContainerVisual();
+                        Report("window created, handle " + source.Handle + ", apartment " +
+                               System.Threading.Thread.CurrentThread.GetApartmentState());
+                    }
+                    catch (Exception e) {
+                        Report("unavailable, " + e.Message);
+                        source = null;
+                    }
+                    ready.Set();
+                    if (source != null)
+                        System.Windows.Threading.Dispatcher.Run();
+                });
+                thread.SetApartmentState(System.Threading.ApartmentState.STA);
+                thread.IsBackground = true;
+                thread.Start();
+                ready.Wait(System.TimeSpan.FromSeconds(30));
             }
 
-            if (root == null) {
-                Report("no window; the visual is rendered as before");
-                return;
-            }
-
-            if (!root.Children.Contains(visual))
-                root.Children.Add(visual);
+            // The window lives on its own thread, so this visual cannot join its
+            // tree. What is being measured is whether the process having a
+            // display target at all changes how glyphs are rasterized.
         }
 
         // Parameters:
@@ -94,8 +100,6 @@ namespace TestWpfMap
         //     only, so it cannot stay.
         public static void Detach(Visual visual)
         {
-            if (root != null && root.Children.Contains(visual))
-                root.Children.Remove(visual);
         }
     }
 
