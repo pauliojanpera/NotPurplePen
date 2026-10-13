@@ -11,6 +11,10 @@ on:
     branches: [ 'experiment/**' ]
   workflow_dispatch:
     inputs:
+      skip_fonts:
+        description: 'Wildcard of font files to leave uninstalled, to see what the runner''s own give'
+        type: string
+        default: ''
       wpf_display_experiment:
         description: 'Measure the WPF tests against a display context instead of running the suite'
         type: boolean
@@ -195,7 +199,15 @@ jobs:
         $started = Get-Date
         $registry = 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts'
         $added = 0; $replaced = 0; $kept = @(); $expected = @()
+        # Comma separated wildcards; a measurement asks what the runner's own
+        # copy of a face renders, without taking the store's out of the picture.
+        $skip = @('${{ inputs.skip_fonts }}' -split ',' | ForEach-Object { $_.Trim() } |
+                  Where-Object { $_ })
         foreach ($file in Get-ChildItem ci-fonts -Include *.ttf, *.otf, *.ttc -Recurse) {
+            if ($skip | Where-Object { $file.Name -like $_ }) {
+                "leaving the runner's own $($file.Name)"
+                continue
+            }
             $target = Join-Path $env:WINDIR "Fonts\$($file.Name)"
             $existed = Test-Path $target
             try {
