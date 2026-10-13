@@ -1085,45 +1085,6 @@ namespace PdfSharp.Fonts.OpenType
             Read();
         }
 
-        /// <summary>
-        /// Builds the table for a font that carries none. TrueType predates OS/2
-        /// and kept bold and italic in head.macStyle and the vertical metrics in
-        /// hhea; the remaining fields take the values a minimal OS/2 table has.
-        /// The font descriptor reads all of them.
-        /// </summary>
-        /// <param name="fontData">The font being read.</param>
-        /// <param name="head">The font header table, or null if the font has none.</param>
-        /// <param name="hhea">The horizontal header table the metrics come from.</param>
-        public OS2Table(OpenTypeFontFace fontData, FontHeaderTable? head, HorizontalHeaderTable hhea)
-            : base(fontData, Tag)
-        {
-            int unitsPerEm = head != null && head.unitsPerEm > 0 ? head.unitsPerEm : 1000;
-            int macStyle = head != null ? head.macStyle : 0;
-            bool bold = (macStyle & 1) != 0;
-            bool italic = (macStyle & 2) != 0;
-
-            version = 1;
-            usWeightClass = (ushort)(bold ? 700 : 400);
-            usWidthClass = 5;
-            fsSelection = (ushort)((bold ? (int)FontSelectionFlags.Bold : 0) |
-                                   (italic ? (int)FontSelectionFlags.Italic : 0));
-            if (fsSelection == 0)
-                fsSelection = (ushort)FontSelectionFlags.Regular;
-
-            yStrikeoutSize = (short)(unitsPerEm / 20);
-            yStrikeoutPosition = (short)(unitsPerEm / 4);
-            panose = new byte[10];
-            achVendID = "";
-            usFirstCharIndex = 0x20;
-            usLastCharIndex = 0xFFFF;
-
-            sTypoAscender = hhea.ascender;
-            sTypoDescender = hhea.descender;
-            sTypoLineGap = hhea.lineGap;
-            usWinAscent = (ushort)(hhea.ascender > 0 ? hhea.ascender : 0);
-            usWinDescent = (ushort)(hhea.descender < 0 ? -hhea.descender : hhea.descender);
-        }
-
         public void Read()
         {
             try
