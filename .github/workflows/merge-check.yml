@@ -86,10 +86,19 @@ jobs:
                 Copy-Item $file.FullName $target -Force -ErrorAction Stop
             }
             catch {
-                # The runner's own copy stays. Worth knowing, because its version
-                # is then what the rendering tests compare against.
-                $kept += $file.Name
-                continue
+                # The font directory belongs to TrustedInstaller, so replacing a
+                # face Windows ships with needs ownership first. Whose version is
+                # in place decides what the rendering tests compare against, so
+                # it is worth the detour.
+                & takeown /f $target /a 2>&1 | Out-Null
+                & icacls $target /grant '*S-1-5-32-544:F' 2>&1 | Out-Null
+                try {
+                    Copy-Item $file.FullName $target -Force -ErrorAction Stop
+                }
+                catch {
+                    $kept += $file.Name
+                    continue
+                }
             }
             if ($existed) { $replaced++ } else { $added++ }
             $suffix = if ($file.Extension -eq '.otf') { '(OpenType)' } else { '(TrueType)' }
