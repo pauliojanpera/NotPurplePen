@@ -312,6 +312,7 @@ jobs:
               <TEST_ALT_BASELINE_ROOT>$altRoot</TEST_ALT_BASELINE_ROOT>
               <TEST_ALT_BASELINE_LOG>$altLog</TEST_ALT_BASELINE_LOG>
               <TEST_FONT_DUMP>$fontDump</TEST_FONT_DUMP>
+              <TEST_FONT_DUMP_MAP>$PWD\MapModel\TestFiles\wpfrender\layout_objects11.ocd</TEST_FONT_DUMP_MAP>
             </EnvironmentVariables>
           </RunConfiguration>
           <InProcDataCollectionRunSettings>

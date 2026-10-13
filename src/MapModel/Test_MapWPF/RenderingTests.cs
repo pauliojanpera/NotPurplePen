@@ -66,6 +66,25 @@ namespace TestWpfMap
                 }
             }
 
+            // And what the map in question actually asks for.
+            string mapFile = Environment.GetEnvironmentVariable("TEST_FONT_DUMP_MAP");
+            if (!string.IsNullOrEmpty(mapFile) && File.Exists(mapFile)) {
+                report.AppendLine();
+                report.AppendLine("text symbols in " + Path.GetFileName(mapFile) + ":");
+                Map map = new Map(new WPF_TextMetrics(), null);
+                InputOutput.ReadFile(mapFile, map);
+                using (map.Read()) {
+                    foreach (SymDef symdef in map.AllSymdefs) {
+                        TextSymDef text = symdef as TextSymDef;
+                        if (text != null) {
+                            report.AppendLine(string.Format(CultureInfo.InvariantCulture,
+                                "    {0,-28} font {1,-22} size {2:F2}",
+                                symdef.Name, text.FontName, text.FontEmHeight));
+                        }
+                    }
+                }
+            }
+
             try {
                 File.WriteAllText(path, report.ToString());
             }
