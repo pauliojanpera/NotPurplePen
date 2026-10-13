@@ -11,8 +11,8 @@ on:
     branches: [ 'experiment/**' ]
   workflow_dispatch:
     inputs:
-      text_contrast_sweep:
-        description: 'Measure which TextContrastLevel reproduces the WPF baselines, instead of running the suite'
+      wpf_runtime_sweep:
+        description: 'Measure which .NET runtime reproduces the WPF baselines, instead of running the suite'
         type: boolean
         default: false
 
@@ -234,7 +234,7 @@ jobs:
       run: msbuild PPen.slnx /restore /p:Configuration=Debug
 
     - name: Test
-      if: ${{ ! inputs.text_contrast_sweep }}
+      if: ${{ ! inputs.wpf_runtime_sweep }}
       shell: pwsh
       run: |
         # The collector names each test as it begins; see its own source for why
@@ -291,44 +291,47 @@ jobs:
     # anywhere, and guessing it one value at a time costs a suite run apiece.
     # The WPF rendering tests are the only ones that answer the question and
     # they take well under a minute, so ask all seven at once.
-    - name: Measure WPF text contrast
-      if: ${{ inputs.text_contrast_sweep }}
+    # The baselines carry whatever WPF last drew them with, and a servicing
+    # update to the glyph rasterizer moves the edge ramp while leaving the
+    # glyph cores alone. Nothing in the run records which runtime drew them,
+    # so ask every runtime the machine can be given.
+    - name: Measure WPF against each runtime
+      if: ${{ inputs.wpf_runtime_sweep }}
       shell: pwsh
       run: |
-        # These tests render gray scale, and that path takes its contrast from
-        # the system font smoothing settings, which WPF consults only while the
-        # Avalon.Graphics key is absent.
-        foreach ($hive in 'HKCU:', 'HKLM:') {
-            Remove-Item "$hive\SOFTWARE\Microsoft\Avalon.Graphics" -Recurse -Force `
-                        -ErrorAction SilentlyContinue
-        }
+        $config = Get-ChildItem MapModel/Test_MapWPF/bin/Debug -Recurse `
+                                -Filter Test_MapWPF.runtimeconfig.json | Select-Object -First 1
+        if (-not $config) { throw "No runtimeconfig to pin; was the test project built?" }
+        $original = Get-Content $config.FullName -Raw
 
-        Add-Type -Namespace Native -Name Spi -MemberDefinition @'
-        [DllImport("user32.dll", SetLastError = true)]
-        public static extern bool SystemParametersInfo(uint action, uint param, System.IntPtr value, uint winIni);
-        '@
+        $script = Join-Path $env:RUNNER_TEMP 'dotnet-install.ps1'
+        Invoke-WebRequest https://dot.net/v1/dotnet-install.ps1 -OutFile $script
 
-        # SPI_SETFONTSMOOTHINGCONTRAST, written through and broadcast so that
-        # the test host picks it up when it starts.
+        $env:DOTNET_ROLL_FORWARD = 'Disable'
         $results = @()
-        foreach ($contrast in 1000, 1200, 1400, 1600, 1800, 2000, 2200) {
-            [Native.Spi]::SystemParametersInfo(0x200D, 0, [System.IntPtr]$contrast, 3) | Out-Null
+        foreach ($version in '10.0.9', '10.0.10', '10.0.11', '10.0.12') {
+            & $script -Runtime windowsdesktop -Version $version -InstallDir $env:DOTNET_ROOT | Out-Null
+
+            # Roll-forward is off, so the file has to name the build exactly.
+            $pinned = $original -replace '"version"\s*:\s*"[0-9]+\.[0-9]+\.[0-9]+"', ('"version": "' + $version + '"')
+            Set-Content $config.FullName $pinned -Encoding UTF8
 
             $output = dotnet test MapModel/Test_MapWPF/Test_MapWPF.csproj `
                                  --settings:.runsettings --no-build -c Debug 2>&1 | Out-String
             $m = [regex]::Match($output, 'Failed:\s*(\d+),\s*Passed:\s*(\d+)')
             $failed = if ($m.Success) { [int]$m.Groups[1].Value } else { -1 }
             $passed = if ($m.Success) { [int]$m.Groups[2].Value } else { -1 }
-            "FontSmoothingContrast $contrast -> failed $failed, passed $passed"
-            $results += [pscustomobject]@{ Contrast = $contrast; Failed = $failed; Passed = $passed }
+            "WindowsDesktop $version -> failed $failed, passed $passed"
+            $results += [pscustomobject]@{ Runtime = $version; Failed = $failed; Passed = $passed }
         }
+        Set-Content $config.FullName $original -Encoding UTF8
 
         ""
         "=== Summary ==="
         $results | Format-Table -AutoSize | Out-String | Write-Host
         $best = $results | Where-Object { $_.Failed -ge 0 } | Sort-Object Failed | Select-Object -First 1
         if ($best) {
-            "Fewest failures at FontSmoothingContrast $($best.Contrast): $($best.Failed) failed, $($best.Passed) passed."
+            "Fewest failures on WindowsDesktop $($best.Runtime): $($best.Failed) failed, $($best.Passed) passed."
         }
 
         # A measurement that ran is not a step that failed, whatever exit the
