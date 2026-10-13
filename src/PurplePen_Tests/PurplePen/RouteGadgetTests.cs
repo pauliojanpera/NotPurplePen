@@ -55,6 +55,11 @@ namespace PurplePen.Tests
 
         const int MAX_PIXEL_DIFF = 30;
 
+        // What these tests read back is a JPEG, so it differs from the
+        // baseline by however this machine's encoder rounds. The difference
+        // is in the last bit or two of a channel, not in what the image shows.
+        const int MAX_JPEG_PIXEL_DIFF = 3;
+
         public void CompareFiles()
         {
             MapDisplay mapDisplay = new MapDisplay();
@@ -93,7 +98,7 @@ namespace PurplePen.Tests
             Assert.AreEqual(200F, bmLoaded.VerticalResolution);
             Assert.AreEqual(200F, bmLoaded.HorizontalResolution);
 
-            BitmapTestUtil.CompareBitmapBaseline(bmLoaded, filenameBaseline);
+            BitmapTestUtil.CompareBitmapBaseline(bmLoaded, filenameBaseline, MAX_JPEG_PIXEL_DIFF);
             bmLoaded.Dispose();
             File.Delete(filename);
         }
@@ -119,7 +124,7 @@ namespace PurplePen.Tests
             Assert.AreEqual(140F, bmLoaded.VerticalResolution);
             Assert.AreEqual(140F, bmLoaded.HorizontalResolution);
 
-            BitmapTestUtil.CompareBitmapBaseline(bmLoaded, filenameBaseline);
+            BitmapTestUtil.CompareBitmapBaseline(bmLoaded, filenameBaseline, MAX_JPEG_PIXEL_DIFF);
             bmLoaded.Dispose();
             File.Delete(filename);
         }
@@ -145,7 +150,7 @@ namespace PurplePen.Tests
             Assert.AreEqual(200F, bmLoaded.VerticalResolution);
             Assert.AreEqual(200F, bmLoaded.HorizontalResolution);
 
-            BitmapTestUtil.CompareBitmapBaseline(bmLoaded, filenameBaseline);
+            BitmapTestUtil.CompareBitmapBaseline(bmLoaded, filenameBaseline, MAX_JPEG_PIXEL_DIFF);
             bmLoaded.Dispose();
             File.Delete(filename);
         }
@@ -172,7 +177,7 @@ namespace PurplePen.Tests
             Assert.AreEqual(100F, bmLoaded.VerticalResolution, MAX_PIXEL_DIFF);
             Assert.AreEqual(100F, bmLoaded.HorizontalResolution);
 
-            BitmapTestUtil.CompareBitmapBaseline(bmLoaded, filenameBaseline);
+            BitmapTestUtil.CompareBitmapBaseline(bmLoaded, filenameBaseline, MAX_JPEG_PIXEL_DIFF);
             bmLoaded.Dispose();
             File.Delete(filename);
         }
