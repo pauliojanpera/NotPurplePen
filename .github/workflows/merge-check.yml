@@ -70,10 +70,8 @@ jobs:
         # to. Handing each one to the shell namespace instead costs seconds
         # apiece, which over a hundred fonts is most of a coffee break.
         #
-        # The registry entry has to carry the name the font calls itself, which
-        # only the file knows: a map asking for "SwitzerlandBlack" finds nothing
-        # if the entry reads "SWZBLKN", and the renderer quietly substitutes
-        # whatever it considers nearest.
+        # The entry has to carry the name the font calls itself, which only the
+        # file knows; filed under anything else a face is not found by name.
         Add-Type -Namespace Native -Name Gdi -MemberDefinition @'
         [DllImport("gdi32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern int AddFontResource(string fileName);
@@ -230,59 +228,6 @@ jobs:
         }
         "All $((Get-Content expected-fonts.txt).Count) families resolve by name."
 
-    # The WPF rendering baselines were produced on a desktop, where these values
-    # exist. Left unset, WPF falls back to the font smoothing the session
-    # reports, and a runner with no monitor reports something else: glyph edges
-    # come out lighter, which costs every wpfrender comparison 8 to 23 units
-    # against a tolerance of 30, with the geometry matching exactly.
-    #
-    # Documented defaults, from the WPF ClearType registry settings topic. The
-    # point is less which numbers these are than that they are fixed rather than
-    # inherited: TextContrastLevel (0-6) sets the stem weight and is the knob to
-    # step if the baselines want heavier or lighter text than this produces.
-    - name: Pin WPF text rendering
-      shell: pwsh
-      env:
-        CLEARTYPE_LEVEL: 0      # 0-100; 0 renders gray scale, which both sides already do
-        TEXT_CONTRAST_LEVEL: 1  # 0-6; larger is a wider stem
-        GAMMA_LEVEL: 1900       # 1000-2200
-        PIXEL_STRUCTURE: 0      # 0 flat, 1 RGB, 2 BGR
-      run: |
-        # Settings are per display device. A runner has the one virtual display,
-        # which Windows names DISPLAY1; any key already present names a display
-        # WPF would consult, so carry those along rather than leave one behind
-        # holding whatever it holds.
-        $displays = @('DISPLAY1')
-        foreach ($hive in 'HKCU:', 'HKLM:') {
-            $root = "$hive\SOFTWARE\Microsoft\Avalon.Graphics"
-            if (Test-Path $root) {
-                $displays += (Get-ChildItem $root | ForEach-Object { $_.PSChildName })
-            }
-        }
-        $displays = $displays | Where-Object { $_ } | Sort-Object -Unique
-
-        foreach ($display in $displays) {
-            foreach ($hive in 'HKCU:', 'HKLM:') {
-                $key = "$hive\SOFTWARE\Microsoft\Avalon.Graphics\$display"
-                New-Item -Path $key -Force | Out-Null
-            }
-
-            # ClearTypeLevel and TextContrastLevel are per user, GammaLevel and
-            # PixelStructure per machine.
-            $user = "HKCU:\SOFTWARE\Microsoft\Avalon.Graphics\$display"
-            $machine = "HKLM:\SOFTWARE\Microsoft\Avalon.Graphics\$display"
-            New-ItemProperty $user -Name ClearTypeLevel `
-                -Value ([int]$env:CLEARTYPE_LEVEL) -PropertyType DWord -Force | Out-Null
-            New-ItemProperty $user -Name TextContrastLevel `
-                -Value ([int]$env:TEXT_CONTRAST_LEVEL) -PropertyType DWord -Force | Out-Null
-            New-ItemProperty $machine -Name GammaLevel `
-                -Value ([int]$env:GAMMA_LEVEL) -PropertyType DWord -Force | Out-Null
-            New-ItemProperty $machine -Name PixelStructure `
-                -Value ([int]$env:PIXEL_STRUCTURE) -PropertyType DWord -Force | Out-Null
-
-            "$display -> ClearTypeLevel=$env:CLEARTYPE_LEVEL TextContrastLevel=$env:TEXT_CONTRAST_LEVEL GammaLevel=$env:GAMMA_LEVEL PixelStructure=$env:PIXEL_STRUCTURE"
-        }
-
     # msbuild rather than dotnet build: the solution contains the native C++
     # projects that Map_GDIPlus copies into its output.
     - name: Build
@@ -350,17 +295,32 @@ jobs:
       if: ${{ inputs.text_contrast_sweep }}
       shell: pwsh
       run: |
-        $display = 'HKCU:\SOFTWARE\Microsoft\Avalon.Graphics\DISPLAY1'
+        # These tests render gray scale, and that path takes its contrast from
+        # the system font smoothing settings, which WPF consults only while the
+        # Avalon.Graphics key is absent.
+        foreach ($hive in 'HKCU:', 'HKLM:') {
+            Remove-Item "$hive\SOFTWARE\Microsoft\Avalon.Graphics" -Recurse -Force `
+                        -ErrorAction SilentlyContinue
+        }
+
+        Add-Type -Namespace Native -Name Spi -MemberDefinition @'
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern bool SystemParametersInfo(uint action, uint param, System.IntPtr value, uint winIni);
+        '@
+
+        # SPI_SETFONTSMOOTHINGCONTRAST, written through and broadcast so that
+        # the test host picks it up when it starts.
         $results = @()
-        foreach ($level in 0..6) {
-            Set-ItemProperty $display -Name TextContrastLevel -Value $level -Type DWord
+        foreach ($contrast in 1000, 1200, 1400, 1600, 1800, 2000, 2200) {
+            [Native.Spi]::SystemParametersInfo(0x200D, 0, [System.IntPtr]$contrast, 3) | Out-Null
+
             $output = dotnet test MapModel/Test_MapWPF/Test_MapWPF.csproj `
                                  --settings:.runsettings --no-build -c Debug 2>&1 | Out-String
             $m = [regex]::Match($output, 'Failed:\s*(\d+),\s*Passed:\s*(\d+)')
             $failed = if ($m.Success) { [int]$m.Groups[1].Value } else { -1 }
             $passed = if ($m.Success) { [int]$m.Groups[2].Value } else { -1 }
-            "TextContrastLevel $level -> failed $failed, passed $passed"
-            $results += [pscustomobject]@{ Level = $level; Failed = $failed; Passed = $passed }
+            "FontSmoothingContrast $contrast -> failed $failed, passed $passed"
+            $results += [pscustomobject]@{ Contrast = $contrast; Failed = $failed; Passed = $passed }
         }
 
         ""
@@ -368,8 +328,12 @@ jobs:
         $results | Format-Table -AutoSize | Out-String | Write-Host
         $best = $results | Where-Object { $_.Failed -ge 0 } | Sort-Object Failed | Select-Object -First 1
         if ($best) {
-            "Fewest failures at TextContrastLevel $($best.Level): $($best.Failed) failed, $($best.Passed) passed."
+            "Fewest failures at FontSmoothingContrast $($best.Contrast): $($best.Failed) failed, $($best.Passed) passed."
         }
+
+        # A measurement that ran is not a step that failed, whatever exit the
+        # test runs left behind.
+        exit 0
 
     # A failed bitmap comparison writes what it rendered and where it differs
     # next to the baseline it compared against.
