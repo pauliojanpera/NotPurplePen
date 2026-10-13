@@ -61,12 +61,27 @@ jobs:
       working-directory: ${{ github.workspace }}
       shell: pwsh
       run: |
-        $shell = New-Object -ComObject Shell.Application
-        $target = $shell.Namespace(0x14)
-        Get-ChildItem ci-fonts -Filter *.ttf | ForEach-Object {
-            # 0x4 suppresses the progress dialog, 0x10 answers yes to all.
-            $target.CopyHere($_.FullName, 0x14)
+        # Copying the file and registering it is what installing a font amounts
+        # to. Handing each one to the shell namespace instead costs seconds
+        # apiece, which over a hundred fonts is most of a coffee break.
+        Add-Type -Namespace Native -Name Gdi -MemberDefinition @'
+        [DllImport("gdi32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+        public static extern int AddFontResource(string fileName);
+        '@
+
+        $started = Get-Date
+        $registry = 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts'
+        $installed = 0
+        foreach ($file in Get-ChildItem ci-fonts -Include *.ttf, *.otf, *.ttc -Recurse) {
+            $target = Join-Path $env:WINDIR "Fonts\$($file.Name)"
+            Copy-Item $file.FullName $target -Force
+            $suffix = if ($file.Extension -eq '.otf') { '(OpenType)' } else { '(TrueType)' }
+            New-ItemProperty -Path $registry -Name "$($file.BaseName) $suffix" `
+                             -Value $file.Name -PropertyType String -Force | Out-Null
+            [Native.Gdi]::AddFontResource($target) | Out-Null
+            $installed++
         }
+        "Installed $installed fonts in $([int]((Get-Date) - $started).TotalSeconds) s"
 
         # An install that quietly does nothing would show up as a pile of
         # unexplained rendering failures, so check for the face that is not on
@@ -74,7 +89,8 @@ jobs:
         Add-Type -AssemblyName System.Drawing
         $families = [System.Drawing.FontFamily]::Families.Name
         "Installed families: $($families.Count)"
-        foreach ($needed in 'Arial', 'Arial Narrow', 'Times New Roman') {
+        foreach ($needed in 'Arial', 'Arial Narrow', 'Times New Roman', 'Tekton',
+                            'Switzerland', 'Forte', 'Ameretto', 'Palatino Linotype') {
             if ($families -notcontains $needed) {
                 throw "Font '$needed' is not installed after the install step."
             }
