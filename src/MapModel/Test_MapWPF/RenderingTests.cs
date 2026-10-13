@@ -37,6 +37,24 @@ namespace TestWpfMap
             get { return Environment.GetEnvironmentVariable("TEST_DISPLAY_CONTEXT") == "1"; }
         }
 
+        // Records what happened where the step running the measurement can
+        // read it; the test host's console is only shown for tests that fail.
+        //
+        // Parameters:
+        //   message - what to record.
+        private static void Report(string message)
+        {
+            Console.WriteLine("DisplayContext: " + message);
+            string path = Environment.GetEnvironmentVariable("TEST_DISPLAY_LOG");
+            if (string.IsNullOrEmpty(path))
+                return;
+            try {
+                File.AppendAllText(path, "DisplayContext: " + message + Environment.NewLine);
+            }
+            catch (IOException) {
+            }
+        }
+
         // Parameters:
         //   visual - the visual about to be rendered.
         public static void Attach(Visual visual)
@@ -53,15 +71,21 @@ namespace TestWpfMap
                     source = new HwndSource(parameters);
                     root = new ContainerVisual();
                     source.RootVisual = root;
-                    Console.WriteLine("DisplayContext: window created, handle " + source.Handle);
+                    Report("window created, handle " + source.Handle + ", apartment " +
+                           System.Threading.Thread.CurrentThread.GetApartmentState());
                 }
                 catch (Exception e) {
-                    Console.WriteLine("DisplayContext: unavailable, " + e.Message);
+                    Report("unavailable, " + e.Message);
                     source = null; root = null;
                 }
             }
 
-            if (root != null && !root.Children.Contains(visual))
+            if (root == null) {
+                Report("no window; the visual is rendered as before");
+                return;
+            }
+
+            if (!root.Children.Contains(visual))
                 root.Children.Add(visual);
         }
 

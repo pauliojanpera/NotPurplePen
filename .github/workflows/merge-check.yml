@@ -313,8 +313,14 @@ jobs:
             @{ Name = 'STA only';             Display = $false; Sta = $true  },
             @{ Name = 'display context, STA'; Display = $true;  Sta = $true  }
         )) {
+            # The helper writes here, because the test host's console is only
+            # shown for tests that fail and the window is made once, early.
+            $marker = Join-Path $PWD 'display-context.log'
+            Remove-Item $marker -ErrorAction SilentlyContinue
+
             $testArgs = @('test', 'MapModel/Test_MapWPF/Test_MapWPF.csproj',
-                      '--settings:.runsettings', '--no-build', '-c', 'Debug')
+                      '--settings:.runsettings', '--no-build', '-c', 'Debug',
+                      '-e', "TEST_DISPLAY_LOG=$marker")
             if ($case.Display) { $testArgs += @('-e', 'TEST_DISPLAY_CONTEXT=1') }
             if ($case.Sta)     { $testArgs += @('--', 'RunConfiguration.ExecutionApartmentState=STA') }
 
@@ -323,8 +329,8 @@ jobs:
             $failed = if ($m.Success) { [int]$m.Groups[1].Value } else { -1 }
             $passed = if ($m.Success) { [int]$m.Groups[2].Value } else { -1 }
 
-            # The helper says whether the window could be made at all.
-            $note = ([regex]::Match($output, 'DisplayContext: [^\r\n]*')).Value
+            $note = (@(Get-Content $marker -ErrorAction SilentlyContinue) | Select-Object -Unique) -join '; '
+            if (-not $note) { $note = '(helper silent)' }
             "$($case.Name) -> failed $failed, passed $passed    $note"
             $results += [pscustomobject]@{ Case = $case.Name; Failed = $failed; Passed = $passed }
         }
