@@ -410,6 +410,9 @@ namespace PdfSharp.Fonts.OpenType
 
                 if (Seek(ControlValueProgram.Tag) != -1)
                     prep = new ControlValueProgram(this);
+
+                if (os2 == null! && hhea != null!)
+                    os2 = new OS2Table(this, head, hhea);
             }
             catch (Exception ex)
             {
