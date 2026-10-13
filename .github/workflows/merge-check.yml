@@ -279,7 +279,7 @@ jobs:
         $altLog = Join-Path $PWD 'alt-baselines.log'
         Remove-Item $altRoot -Recurse -Force -ErrorAction SilentlyContinue
         Remove-Item $altLog -ErrorAction SilentlyContinue
-        git archive --format=zip -o alt-baselines.zip 81379316 src/MapModel/TestFiles/wpfrender
+        git archive --format=zip -o alt-baselines.zip 81379316 MapModel/TestFiles/wpfrender
         Expand-Archive alt-baselines.zip -DestinationPath $altRoot -Force
         "alternate baselines: $((Get-ChildItem $altRoot -Recurse -Filter *.png).Count) files from 81379316"
         $stdout = Join-Path $PWD 'test-stdout.log'
