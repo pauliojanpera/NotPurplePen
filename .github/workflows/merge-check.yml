@@ -291,30 +291,51 @@ jobs:
     # anywhere, and guessing it one value at a time costs a suite run apiece.
     # The WPF rendering tests are the only ones that answer the question and
     # they take well under a minute, so ask all seven at once.
-    # A desktop renders through the graphics card and a runner has none, which
-    # WPF answers with a different rasterizer rather than a different setting.
-    # Nothing else accounts for an edge ramp that moves while the glyph cores
-    # stay put, so ask the machine to render both ways.
-    - name: Measure WPF against each render mode
+    # Gray scale text comes out of WPF two different ways. ClearType on a flat
+    # pixel structure renders gray with its enhanced contrast applied, which is
+    # darker at the edges than plain antialiasing and carries no color fringes
+    # either way. The baselines are the darker of the two.
+    - name: Measure WPF against each text path
       if: ${{ inputs.wpf_runtime_sweep }}
       shell: pwsh
       run: |
-        $key = 'HKCU:\SOFTWARE\Microsoft\Avalon.Graphics'
-        New-Item -Path $key -Force | Out-Null
+        Add-Type -Namespace Native -Name Spi -MemberDefinition @'
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern bool SystemParametersInfo(uint action, uint param, System.IntPtr value, uint winIni);
+        '@
 
+        $key = 'HKCU:\SOFTWARE\Microsoft\Avalon.Graphics\DISPLAY1'
+        $machine = 'HKLM:\SOFTWARE\Microsoft\Avalon.Graphics\DISPLAY1'
         $results = @()
-        foreach ($disabled in 0, 1) {
-            New-ItemProperty $key -Name DisableHWAcceleration -Value $disabled `
-                             -PropertyType DWord -Force | Out-Null
+
+        foreach ($case in @(
+            @{ Name = 'no key';                 Key = $false },
+            @{ Name = 'cleartype 0, flat';      Key = $true; Level = 0;   Pixel = 0 },
+            @{ Name = 'cleartype 100, flat';    Key = $true; Level = 100; Pixel = 0 },
+            @{ Name = 'cleartype 100, rgb';     Key = $true; Level = 100; Pixel = 1 },
+            @{ Name = 'cleartype 60, flat';     Key = $true; Level = 60;  Pixel = 0 }
+        )) {
+            foreach ($hive in 'HKCU:', 'HKLM:') {
+                Remove-Item "$hive\SOFTWARE\Microsoft\Avalon.Graphics" -Recurse -Force -ErrorAction SilentlyContinue
+            }
+            if ($case.Key) {
+                New-Item $key -Force | Out-Null
+                New-Item $machine -Force | Out-Null
+                New-ItemProperty $key -Name ClearTypeLevel -Value $case.Level -PropertyType DWord -Force | Out-Null
+                New-ItemProperty $machine -Name PixelStructure -Value $case.Pixel -PropertyType DWord -Force | Out-Null
+            }
+
+            # SPI_SETFONTSMOOTHING on, SPI_SETFONTSMOOTHINGTYPE to ClearType.
+            [Native.Spi]::SystemParametersInfo(0x004B, 1, [System.IntPtr]::Zero, 3) | Out-Null
+            [Native.Spi]::SystemParametersInfo(0x200B, 0, [System.IntPtr]2, 3) | Out-Null
 
             $output = dotnet test MapModel/Test_MapWPF/Test_MapWPF.csproj `
                                  --settings:.runsettings --no-build -c Debug 2>&1 | Out-String
             $m = [regex]::Match($output, 'Failed:\s*(\d+),\s*Passed:\s*(\d+)')
             $failed = if ($m.Success) { [int]$m.Groups[1].Value } else { -1 }
             $passed = if ($m.Success) { [int]$m.Groups[2].Value } else { -1 }
-            $mode = if ($disabled) { 'software' } else { 'default' }
-            "DisableHWAcceleration $disabled ($mode) -> failed $failed, passed $passed"
-            $results += [pscustomobject]@{ Mode = $mode; Failed = $failed; Passed = $passed }
+            "$($case.Name) -> failed $failed, passed $passed"
+            $results += [pscustomobject]@{ Case = $case.Name; Failed = $failed; Passed = $passed }
         }
 
         ""
