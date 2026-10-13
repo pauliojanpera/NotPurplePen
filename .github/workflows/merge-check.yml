@@ -269,6 +269,19 @@ jobs:
         dotnet build Testing/TestStartLog/TestStartLog.csproj -c Debug --nologo
         $collector = (Resolve-Path Testing/TestStartLog/bin/Debug/netstandard2.0/TestStartLog.dll).Path
         $progress = Join-Path $PWD 'test-progress.log'
+
+        # The WPF baselines have moved between two renderings, and this machine
+        # reproduces the earlier one exactly. Keep that set to hand so a
+        # comparison that fails against the tip can say whether it matches a
+        # baseline this project committed before, which separates a rendering
+        # this machine cannot make from one that has regressed.
+        $altRoot = Join-Path $PWD 'alt-baselines'
+        $altLog = Join-Path $PWD 'alt-baselines.log'
+        Remove-Item $altRoot -Recurse -Force -ErrorAction SilentlyContinue
+        Remove-Item $altLog -ErrorAction SilentlyContinue
+        git archive --format=zip -o alt-baselines.zip 81379316 src/MapModel/TestFiles/wpfrender
+        Expand-Archive alt-baselines.zip -DestinationPath $altRoot -Force
+        "alternate baselines: $((Get-ChildItem $altRoot -Recurse -Filter *.png).Count) files from 81379316"
         $stdout = Join-Path $PWD 'test-stdout.log'
         $stderr = Join-Path $PWD 'test-stderr.log'
         foreach ($f in $progress, $stdout, $stderr) { Remove-Item $f -ErrorAction SilentlyContinue }
@@ -282,6 +295,8 @@ jobs:
             <EnvironmentVariables>
               <TEST_SILENTRUN>True</TEST_SILENTRUN>
               <TEST_PROGRESS_LOG>$progress</TEST_PROGRESS_LOG>
+              <TEST_ALT_BASELINE_ROOT>$altRoot</TEST_ALT_BASELINE_ROOT>
+              <TEST_ALT_BASELINE_LOG>$altLog</TEST_ALT_BASELINE_LOG>
             </EnvironmentVariables>
           </RunConfiguration>
           <InProcDataCollectionRunSettings>
@@ -322,6 +337,13 @@ jobs:
         Get-Content $stderr -ErrorAction SilentlyContinue
 
         "$((@(Get-Content $progress -ErrorAction SilentlyContinue)).Count) tests started."
+
+        $matched = @(Get-Content $altLog -ErrorAction SilentlyContinue)
+        if ($matched.Count) {
+            ""
+            "$($matched.Count) comparisons matched the baseline as it stood at 81379316:"
+            $matched | Sort-Object -Unique
+        }
         exit $proc.ExitCode
 
     # Every text rendering setting this job can reach leaves the output alone,
