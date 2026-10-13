@@ -531,9 +531,15 @@ namespace PurplePen.MapModel
         // Draw text with upper-left corner of text at the given locations.
         public void DrawText(string text, object fontKey, object brushKey, PointF upperLeft)
         {
+            // EXPERIMENT: fill the glyph outlines instead of calling DrawString, which
+            // goes through the glyph rasterizer and its sampling grid.
+            Font gdiFont = GetFont(fontKey);
             // Occasonal GDI+ throws an exception if the font size is super small.
             try {
-                Graphics.DrawString(text, GetFont(fontKey), GetBrush(brushKey), upperLeft, stringFormat);
+                using (GraphicsPath grPath = new GraphicsPath(FillMode.Winding)) {
+                    grPath.AddString(text, gdiFont.FontFamily, (int) gdiFont.Style, gdiFont.Size, upperLeft, stringFormat);
+                    Graphics.FillPath(GetBrush(brushKey), grPath);
+                }
             }
             catch (Exception) {
                 // Do nothing. Very occasionally, GDI+ given an overflow exception or ExternalException or OutOfMemory exception. 
