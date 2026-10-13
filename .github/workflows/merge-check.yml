@@ -300,7 +300,7 @@ jobs:
       shell: pwsh
       run: |
         $config = Get-ChildItem MapModel/Test_MapWPF/bin/Debug -Recurse `
-                                -Filter Test_MapWPF.runtimeconfig.json | Select-Object -First 1
+                                -Filter TestProject1.runtimeconfig.json | Select-Object -First 1
         if (-not $config) { throw "No runtimeconfig to pin; was the test project built?" }
         $original = Get-Content $config.FullName -Raw
 
