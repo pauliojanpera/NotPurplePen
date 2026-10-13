@@ -478,12 +478,18 @@ namespace PurplePen
             }
         }
 
+        // The timestamp XmlConvert writes for a local time: an offset from UTC, or
+        // "Z" where the local time zone is UTC itself, and between one and seven
+        // fractional digits.
+        private const string TimestampPattern =
+            @"\d\d\d\d-\d\d-\d\dT\d\d:\d\d:\d\d(\.\d+)?([-+]\d\d:\d\d|Z)";
+
         // Return an exception map used to test exported XML files.
         public static Dictionary<string, string> TestFileExceptionMap()
         {
             Dictionary<string, string> exceptions = new Dictionary<string, string>();
-            exceptions[@"modifyTime=""\d\d\d\d-\d\d-\d\dT\d\d:\d\d:\d\d\.\d\d\d\d\d?\d?\d?-\d\d:00"""] = @"modifyTime=""\d\d\d\d-\d\d-\d\dT\d\d:\d\d:\d\d\.\d\d\d\d\d?\d?\d?-\d\d:00""";
-            exceptions[@"createTime=""\d\d\d\d-\d\d-\d\dT\d\d:\d\d:\d\d\.\d\d\d\d\d?\d?\d?-\d\d:00"""] = @"createTime=""\d\d\d\d-\d\d-\d\dT\d\d:\d\d:\d\d\.\d\d\d\d\d?\d?\d?-\d\d:00""";
+            exceptions[@"modifyTime=""" + TimestampPattern + @""""] = @"modifyTime=""" + TimestampPattern + @"""";
+            exceptions[@"createTime=""" + TimestampPattern + @""""] = @"createTime=""" + TimestampPattern + @"""";
             return exceptions;
         }
 
