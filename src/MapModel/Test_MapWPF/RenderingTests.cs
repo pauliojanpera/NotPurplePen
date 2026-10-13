@@ -5,6 +5,7 @@ using System.Linq;
 using System.IO;
 using System.Windows;
 using System.Diagnostics;
+using System.Globalization;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Interop;
@@ -26,6 +27,53 @@ namespace TestWpfMap
     // display-backed target its text rendering settings are documented to
     // apply to. Off unless TEST_DISPLAY_CONTEXT is set, so an ordinary run
     // is unchanged.
+    // Reports which file WPF resolves a face to, and what it measures with it.
+    // Two lines of the wrapped paragraph in layout_objects11 come out wider here
+    // than in the baseline while starting in the same place, which is advance
+    // widths; this says whose advance widths they are. Off unless
+    // TEST_FONT_DUMP names a file to write.
+    static class FontDump
+    {
+        public static void Write()
+        {
+            string path = Environment.GetEnvironmentVariable("TEST_FONT_DUMP");
+            if (string.IsNullOrEmpty(path))
+                return;
+
+            StringBuilder report = new StringBuilder();
+            foreach (string family in new[] { "Arial", "Georgia", "Times New Roman" }) {
+                Typeface typeface = new Typeface(family);
+                GlyphTypeface glyphs;
+                if (!typeface.TryGetGlyphTypeface(out glyphs)) {
+                    report.AppendLine(family + ": no glyph typeface");
+                    continue;
+                }
+
+                report.AppendLine(family + " <- " + glyphs.FontUri);
+                foreach (string text in new[] { "wrapped", "paragrap", "This is a", "h." }) {
+                    FormattedText measured = new FormattedText(text, CultureInfo.InvariantCulture,
+                        FlowDirection.LeftToRight, typeface, 100.0, Brushes.Black, null, 1.0);
+                    report.AppendLine(string.Format(CultureInfo.InvariantCulture,
+                        "    {0,-12} {1:F4}", text, measured.WidthIncludingTrailingWhitespace));
+                }
+
+                foreach (char c in "wrpedgaisT") {
+                    ushort index;
+                    if (glyphs.CharacterToGlyphMap.TryGetValue(c, out index)) {
+                        report.AppendLine(string.Format(CultureInfo.InvariantCulture,
+                            "    advance {0}  {1:F6}", c, glyphs.AdvanceWidths[index]));
+                    }
+                }
+            }
+
+            try {
+                File.WriteAllText(path, report.ToString());
+            }
+            catch (IOException) {
+            }
+        }
+    }
+
     static class DisplayContext
     {
         private static HwndSource source;
@@ -181,6 +229,7 @@ namespace TestWpfMap
             RenderTargetBitmap bitmapNew = new RenderTargetBitmap(width, height, 96.0, 96.0, PixelFormats.Pbgra32);
             TextOptions.SetTextRenderingMode(bitmapNew, TextRenderingMode.Aliased);
             TextOptions.SetTextRenderingMode(visual, TextRenderingMode.Aliased);
+            FontDump.Write();
             DisplayContext.Attach(visual);
             bitmapNew.Render(visual);
             DisplayContext.Detach(visual);
@@ -234,6 +283,7 @@ namespace TestWpfMap
             RenderTargetBitmap bitmapNew = new RenderTargetBitmap(bmWidth, bmHeight, 96.0, 96.0, PixelFormats.Pbgra32);
             TextOptions.SetTextRenderingMode(bitmapNew, TextRenderingMode.Aliased);
             TextOptions.SetTextRenderingMode(visual, TextRenderingMode.Aliased);
+            FontDump.Write();
             DisplayContext.Attach(visual);
             bitmapNew.Render(visual);
             DisplayContext.Detach(visual);

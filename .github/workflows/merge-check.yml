@@ -289,6 +289,8 @@ jobs:
         # this machine cannot make from one that has regressed.
         $altRoot = Join-Path $PWD 'alt-baselines'
         $altLog = Join-Path $PWD 'alt-baselines.log'
+        $fontDump = Join-Path $PWD 'font-dump.log'
+        Remove-Item $fontDump -ErrorAction SilentlyContinue
         Remove-Item $altRoot -Recurse -Force -ErrorAction SilentlyContinue
         Remove-Item $altLog -ErrorAction SilentlyContinue
         git archive --format=zip -o alt-baselines.zip 81379316 MapModel/TestFiles/wpfrender
@@ -309,6 +311,7 @@ jobs:
               <TEST_PROGRESS_LOG>$progress</TEST_PROGRESS_LOG>
               <TEST_ALT_BASELINE_ROOT>$altRoot</TEST_ALT_BASELINE_ROOT>
               <TEST_ALT_BASELINE_LOG>$altLog</TEST_ALT_BASELINE_LOG>
+              <TEST_FONT_DUMP>$fontDump</TEST_FONT_DUMP>
             </EnvironmentVariables>
           </RunConfiguration>
           <InProcDataCollectionRunSettings>
@@ -349,6 +352,12 @@ jobs:
         Get-Content $stderr -ErrorAction SilentlyContinue
 
         "$((@(Get-Content $progress -ErrorAction SilentlyContinue)).Count) tests started."
+
+        if (Test-Path $fontDump) {
+            ""
+            "=== what WPF resolved and measured ==="
+            Get-Content $fontDump
+        }
 
         $matched = @(Get-Content $altLog -ErrorAction SilentlyContinue)
         if ($matched.Count) {
