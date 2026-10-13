@@ -236,7 +236,9 @@ jobs:
         dotnet build Testing/TestStartLog/TestStartLog.csproj -c Debug --nologo
         $collector = (Resolve-Path Testing/TestStartLog/bin/Debug/netstandard2.0/TestStartLog.dll).Path
         $progress = Join-Path $PWD 'test-progress.log'
-        Remove-Item $progress -ErrorAction SilentlyContinue
+        $stdout = Join-Path $PWD 'test-stdout.log'
+        $stderr = Join-Path $PWD 'test-stderr.log'
+        foreach ($f in $progress, $stdout, $stderr) { Remove-Item $f -ErrorAction SilentlyContinue }
 
         # The committed .runsettings plus the collector, whose codebase has to
         # be a path only this run knows.
@@ -259,32 +261,36 @@ jobs:
         </RunSettings>
         "@ | Set-Content ci.runsettings -Encoding UTF8
 
-        # Run it as a child so this shell stays free to echo the progress the
-        # collector is writing while the suite is still going.
-        $proc = Start-Process dotnet -NoNewWindow -PassThru -ArgumentList @(
-            'test', 'PPen.slnx', '--settings:ci.runsettings', '--no-build', '-c', 'Debug')
+        # The run writes to files rather than to this console, so that only one
+        # writer reaches the log and a progress line cannot land in the middle
+        # of a result line.
+        $proc = Start-Process dotnet -NoNewWindow -PassThru `
+                              -RedirectStandardOutput $stdout -RedirectStandardError $stderr `
+                              -ArgumentList @('test', 'PPen.slnx', '--settings:ci.runsettings',
+                                              '--no-build', '-c', 'Debug')
 
-        $shown = 0
-        while (-not $proc.HasExited) {
-            Start-Sleep -Seconds 5
-            $lines = @(Get-Content $progress -ErrorAction SilentlyContinue)
-            if ($lines.Count -gt $shown) {
-                $lines[$shown..($lines.Count - 1)]
-                $shown = $lines.Count
+        $seen = @{ $stdout = 0; $progress = 0 }
+        function Show-New($path) {
+            $lines = @(Get-Content $path -ErrorAction SilentlyContinue)
+            if ($lines.Count -gt $seen[$path]) {
+                $lines[$seen[$path]..($lines.Count - 1)]
+                $seen[$path] = $lines.Count
             }
         }
 
+        while (-not $proc.HasExited) {
+            Start-Sleep -Seconds 5
+            Show-New $stdout
+            Show-New $progress
+        }
         $proc.WaitForExit()
-        $lines = @(Get-Content $progress -ErrorAction SilentlyContinue)
-        if ($lines.Count -gt $shown) { $lines[$shown..($lines.Count - 1)] }
-        "$($lines.Count) tests started."
+        Show-New $stdout
+        Show-New $progress
+        Get-Content $stderr -ErrorAction SilentlyContinue
 
+        "$((@(Get-Content $progress -ErrorAction SilentlyContinue)).Count) tests started."
         exit $proc.ExitCode
 
-    # Which stem weight the baselines were drawn at is not written down
-    # anywhere, and guessing it one value at a time costs a suite run apiece.
-    # The WPF rendering tests are the only ones that answer the question and
-    # they take well under a minute, so ask all seven at once.
     # A failed bitmap comparison writes what it rendered and where it differs
     # next to the baseline it compared against.
     - name: Upload rendering differences
