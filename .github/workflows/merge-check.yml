@@ -69,19 +69,38 @@ jobs:
         public static extern int AddFontResource(string fileName);
         '@
 
+        # A font file the system already has open cannot be overwritten; stopping
+        # the cache service releases most of them.
+        foreach ($name in 'FontCache', 'FontCache3.0.0.0') {
+            Get-Service $name -ErrorAction SilentlyContinue |
+                Stop-Service -Force -ErrorAction SilentlyContinue
+        }
+
         $started = Get-Date
         $registry = 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts'
-        $installed = 0
+        $added = 0; $replaced = 0; $kept = @()
         foreach ($file in Get-ChildItem ci-fonts -Include *.ttf, *.otf, *.ttc -Recurse) {
             $target = Join-Path $env:WINDIR "Fonts\$($file.Name)"
-            Copy-Item $file.FullName $target -Force
+            $existed = Test-Path $target
+            try {
+                Copy-Item $file.FullName $target -Force -ErrorAction Stop
+            }
+            catch {
+                # The runner's own copy stays. Worth knowing, because its version
+                # is then what the rendering tests compare against.
+                $kept += $file.Name
+                continue
+            }
+            if ($existed) { $replaced++ } else { $added++ }
             $suffix = if ($file.Extension -eq '.otf') { '(OpenType)' } else { '(TrueType)' }
             New-ItemProperty -Path $registry -Name "$($file.BaseName) $suffix" `
                              -Value $file.Name -PropertyType String -Force | Out-Null
             [Native.Gdi]::AddFontResource($target) | Out-Null
-            $installed++
         }
-        "Installed $installed fonts in $([int]((Get-Date) - $started).TotalSeconds) s"
+        Start-Service FontCache -ErrorAction SilentlyContinue
+
+        "Added $added, replaced $replaced, in $([int]((Get-Date) - $started).TotalSeconds) s"
+        if ($kept.Count) { "Kept the runner's copy of: $($kept -join ', ')" }
 
         # An install that quietly does nothing would show up as a pile of
         # unexplained rendering failures, so check for the face that is not on
