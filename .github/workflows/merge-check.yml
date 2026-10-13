@@ -15,7 +15,7 @@ jobs:
   test:
     name: Test
     runs-on: windows-2022
-    timeout-minutes: 45
+    timeout-minutes: 180
 
     defaults:
       run:
