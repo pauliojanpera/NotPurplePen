@@ -15,11 +15,16 @@ on:
         description: 'Measure which .NET runtime reproduces the WPF baselines, instead of running the suite'
         type: boolean
         default: false
+      runner_image:
+        description: 'Runner image to measure on'
+        type: choice
+        default: windows-2022
+        options: [ windows-2022, windows-2025 ]
 
 jobs:
   test:
     name: Test
-    runs-on: windows-2022
+    runs-on: ${{ inputs.runner_image || 'windows-2022' }}
     timeout-minutes: 180
 
     defaults:
@@ -299,6 +304,22 @@ jobs:
       if: ${{ inputs.wpf_runtime_sweep }}
       shell: pwsh
       run: |
+        # WPF hands glyphs to DirectWrite, which ships with Windows rather than
+        # with the app, so record what drew them.
+        "OS            $([System.Environment]::OSVersion.Version)"
+        foreach ($dll in "$env:WINDIR\System32\DWrite.dll",
+                         "$env:WINDIR\System32\d2d1.dll") {
+            if (Test-Path $dll) {
+                $v = (Get-Item $dll).VersionInfo.FileVersion
+                "$([System.IO.Path]::GetFileName($dll).PadRight(14))$v"
+            }
+        }
+        $gfx = Get-ChildItem "$env:ProgramFiles\dotnet\shared\Microsoft.WindowsDesktop.App" `
+                             -Recurse -Filter wpfgfx_cor3.dll -ErrorAction SilentlyContinue |
+               Select-Object -Last 1
+        if ($gfx) { "wpfgfx_cor3   $($gfx.VersionInfo.FileVersion)" }
+        ""
+
         Add-Type -Namespace Native -Name Spi -MemberDefinition @'
         [DllImport("user32.dll", SetLastError = true)]
         public static extern bool SystemParametersInfo(uint action, uint param, System.IntPtr value, uint winIni);
