@@ -7,6 +7,7 @@ using System.Windows;
 using System.Diagnostics;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Interop;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using PurplePen.MapModel;
@@ -21,6 +22,59 @@ using Graphics2DMatrix = PurplePen.Graphics2D.Matrix;
 
 namespace TestWpfMap
 {
+    // Roots the visual being rendered in a real window, so that WPF has the
+    // display-backed target its text rendering settings are documented to
+    // apply to. Off unless TEST_DISPLAY_CONTEXT is set, so an ordinary run
+    // is unchanged.
+    static class DisplayContext
+    {
+        private static HwndSource source;
+        private static ContainerVisual root;
+        private static bool tried;
+
+        public static bool Enabled
+        {
+            get { return Environment.GetEnvironmentVariable("TEST_DISPLAY_CONTEXT") == "1"; }
+        }
+
+        // Parameters:
+        //   visual - the visual about to be rendered.
+        public static void Attach(Visual visual)
+        {
+            if (!Enabled)
+                return;
+
+            if (!tried) {
+                tried = true;
+                try {
+                    HwndSourceParameters parameters = new HwndSourceParameters("TestDisplayContext");
+                    parameters.Width = 1;
+                    parameters.Height = 1;
+                    source = new HwndSource(parameters);
+                    root = new ContainerVisual();
+                    source.RootVisual = root;
+                    Console.WriteLine("DisplayContext: window created, handle " + source.Handle);
+                }
+                catch (Exception e) {
+                    Console.WriteLine("DisplayContext: unavailable, " + e.Message);
+                    source = null; root = null;
+                }
+            }
+
+            if (root != null && !root.Children.Contains(visual))
+                root.Children.Add(visual);
+        }
+
+        // Parameters:
+        //   visual - the visual just rendered; a visual may have one parent
+        //     only, so it cannot stay.
+        public static void Detach(Visual visual)
+        {
+            if (root != null && root.Children.Contains(visual))
+                root.Children.Remove(visual);
+        }
+    }
+
     /// <summary>
     /// Summary description for UnitTest1
     /// </summary>
@@ -99,7 +153,9 @@ namespace TestWpfMap
             RenderTargetBitmap bitmapNew = new RenderTargetBitmap(width, height, 96.0, 96.0, PixelFormats.Pbgra32);
             TextOptions.SetTextRenderingMode(bitmapNew, TextRenderingMode.Aliased);
             TextOptions.SetTextRenderingMode(visual, TextRenderingMode.Aliased);
+            DisplayContext.Attach(visual);
             bitmapNew.Render(visual);
+            DisplayContext.Detach(visual);
             bitmapNew.Freeze();
 
             string directoryName = Path.GetDirectoryName(pngFileName);
@@ -150,7 +206,9 @@ namespace TestWpfMap
             RenderTargetBitmap bitmapNew = new RenderTargetBitmap(bmWidth, bmHeight, 96.0, 96.0, PixelFormats.Pbgra32);
             TextOptions.SetTextRenderingMode(bitmapNew, TextRenderingMode.Aliased);
             TextOptions.SetTextRenderingMode(visual, TextRenderingMode.Aliased);
+            DisplayContext.Attach(visual);
             bitmapNew.Render(visual);
+            DisplayContext.Detach(visual);
             bitmapNew.Freeze();
 
             return bitmapNew;

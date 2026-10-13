@@ -10,6 +10,11 @@ on:
   push:
     branches: [ 'experiment/**' ]
   workflow_dispatch:
+    inputs:
+      wpf_display_experiment:
+        description: 'Measure the WPF tests against a display context instead of running the suite'
+        type: boolean
+        default: false
 
 jobs:
   test:
@@ -229,6 +234,7 @@ jobs:
       run: msbuild PPen.slnx /restore /p:Configuration=Debug
 
     - name: Test
+      if: ${{ ! inputs.wpf_display_experiment }}
       shell: pwsh
       run: |
         # The collector names each test as it begins; see its own source for why
@@ -290,6 +296,46 @@ jobs:
 
         "$((@(Get-Content $progress -ErrorAction SilentlyContinue)).Count) tests started."
         exit $proc.ExitCode
+
+    # Every text rendering setting this job can reach leaves the output alone,
+    # and WPF documents those settings as applying to text drawn to a display
+    # device. These tests render offscreen from a bare visual, which has
+    # neither a display nor an inheritance context. Give it both and see which
+    # of the two renderings the baselines hold comes out.
+    - name: Measure WPF against a display context
+      if: ${{ inputs.wpf_display_experiment }}
+      shell: pwsh
+      run: |
+        $results = @()
+        foreach ($case in @(
+            @{ Name = 'as it runs today';     Display = $false; Sta = $false },
+            @{ Name = 'display context';      Display = $true;  Sta = $false },
+            @{ Name = 'STA only';             Display = $false; Sta = $true  },
+            @{ Name = 'display context, STA'; Display = $true;  Sta = $true  }
+        )) {
+            $testArgs = @('test', 'MapModel/Test_MapWPF/Test_MapWPF.csproj',
+                      '--settings:.runsettings', '--no-build', '-c', 'Debug')
+            if ($case.Display) { $testArgs += @('-e', 'TEST_DISPLAY_CONTEXT=1') }
+            if ($case.Sta)     { $testArgs += @('--', 'RunConfiguration.ExecutionApartmentState=STA') }
+
+            $output = & dotnet $testArgs 2>&1 | Out-String
+            $m = [regex]::Match($output, 'Failed:\s*(\d+),\s*Passed:\s*(\d+)')
+            $failed = if ($m.Success) { [int]$m.Groups[1].Value } else { -1 }
+            $passed = if ($m.Success) { [int]$m.Groups[2].Value } else { -1 }
+
+            # The helper says whether the window could be made at all.
+            $note = ([regex]::Match($output, 'DisplayContext: [^\r\n]*')).Value
+            "$($case.Name) -> failed $failed, passed $passed    $note"
+            $results += [pscustomobject]@{ Case = $case.Name; Failed = $failed; Passed = $passed }
+        }
+
+        ""
+        "=== Summary ==="
+        $results | Format-Table -AutoSize | Out-String | Write-Host
+
+        # A measurement that ran is not a step that failed, whatever exit the
+        # test runs left behind.
+        exit 0
 
     # A failed bitmap comparison writes what it rendered and where it differs
     # next to the baseline it compared against.
