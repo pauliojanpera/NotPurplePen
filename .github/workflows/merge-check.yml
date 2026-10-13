@@ -368,39 +368,33 @@ jobs:
         }
         exit $proc.ExitCode
 
-    # Every text rendering setting this job can reach leaves the output alone,
-    # and WPF documents those settings as applying to text drawn to a display
-    # device. These tests render offscreen from a bare visual, which has
-    # neither a display nor an inheritance context. Give it both and see which
-    # of the two renderings the baselines hold comes out.
-    - name: Measure WPF against a display context
+    # Enhanced contrast thickens stems, which is what separates the two
+    # renderings the WPF baselines hold: the same glyph outlines with more or
+    # less coverage at their edges. The ClearType path and the gray scale path
+    # take it from different values, and these tests render gray scale.
+    - name: Measure WPF against grayscale contrast
       if: ${{ inputs.wpf_display_experiment }}
       shell: pwsh
       run: |
+        $user = 'HKCU:\SOFTWARE\Microsoft\Avalon.Graphics\DISPLAY1'
+        $machine = 'HKLM:\SOFTWARE\Microsoft\Avalon.Graphics\DISPLAY1'
+        New-Item $user -Force | Out-Null
+        New-Item $machine -Force | Out-Null
+
         $results = @()
-        foreach ($case in @(
-            @{ Name = 'as it runs today'; Display = $false },
-            @{ Name = 'display context';  Display = $true  }
-        )) {
-            # The helper writes here, because the test host's console is only
-            # shown for tests that fail and the window is made once, early.
-            $marker = Join-Path $PWD 'display-context.log'
-            Remove-Item $marker -ErrorAction SilentlyContinue
+        foreach ($level in 0, 50, 100, 200, 400, 1000) {
+            foreach ($key in $user, $machine) {
+                New-ItemProperty $key -Name GrayscaleEnhancedContrastLevel `
+                                 -Value $level -PropertyType DWord -Force | Out-Null
+            }
 
-            $testArgs = @('test', 'MapModel/Test_MapWPF/Test_MapWPF.csproj',
-                      '--settings:.runsettings', '--no-build', '-c', 'Debug',
-                      '-e', "TEST_DISPLAY_LOG=$marker")
-            if ($case.Display) { $testArgs += @('-e', 'TEST_DISPLAY_CONTEXT=1') }
-
-            $output = & dotnet $testArgs 2>&1 | Out-String
+            $output = dotnet test MapModel/Test_MapWPF/Test_MapWPF.csproj `
+                                 --settings:.runsettings --no-build -c Debug 2>&1 | Out-String
             $m = [regex]::Match($output, 'Failed:\s*(\d+),\s*Passed:\s*(\d+)')
             $failed = if ($m.Success) { [int]$m.Groups[1].Value } else { -1 }
             $passed = if ($m.Success) { [int]$m.Groups[2].Value } else { -1 }
-
-            $note = (@(Get-Content $marker -ErrorAction SilentlyContinue) | Select-Object -Unique) -join '; '
-            if (-not $note) { $note = '(helper silent)' }
-            "$($case.Name) -> failed $failed, passed $passed    $note"
-            $results += [pscustomobject]@{ Case = $case.Name; Failed = $failed; Passed = $passed }
+            "GrayscaleEnhancedContrastLevel $level -> failed $failed, passed $passed"
+            $results += [pscustomobject]@{ Level = $level; Failed = $failed; Passed = $passed }
         }
 
         ""
