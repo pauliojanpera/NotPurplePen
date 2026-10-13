@@ -10,6 +10,11 @@ on:
   push:
     branches: [ 'experiment/**' ]
   workflow_dispatch:
+    inputs:
+      text_contrast_sweep:
+        description: 'Measure which TextContrastLevel reproduces the WPF baselines, instead of running the suite'
+        type: boolean
+        default: false
 
 jobs:
   test:
@@ -64,9 +69,95 @@ jobs:
         # Copying the file and registering it is what installing a font amounts
         # to. Handing each one to the shell namespace instead costs seconds
         # apiece, which over a hundred fonts is most of a coffee break.
+        #
+        # The registry entry has to carry the name the font calls itself, which
+        # only the file knows: a map asking for "SwitzerlandBlack" finds nothing
+        # if the entry reads "SWZBLKN", and the renderer quietly substitutes
+        # whatever it considers nearest.
         Add-Type -Namespace Native -Name Gdi -MemberDefinition @'
         [DllImport("gdi32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern int AddFontResource(string fileName);
+        '@
+
+        Add-Type -Namespace Native -Name Sfnt -MemberDefinition @'
+        static int U16(byte[] d, int o) { return (d[o] << 8) | d[o + 1]; }
+        static int U32(byte[] d, int o) {
+            return (d[o] << 24) | (d[o + 1] << 16) | (d[o + 2] << 8) | d[o + 3];
+        }
+
+        // Returns { family, style } as read from the font's name table, with
+        // null entries when the file carries no usable name.
+        public static string[] Parse(string path)
+        {
+            byte[] d = System.IO.File.ReadAllBytes(path);
+            int start = (d[0] == 't' && d[1] == 't' && d[2] == 'c' && d[3] == 'f') ? U32(d, 12) : 0;
+
+            int table = -1;
+            int tableCount = U16(d, start + 4);
+            for (int i = 0; i < tableCount; i++) {
+                int o = start + 12 + 16 * i;
+                if (d[o] == 'n' && d[o + 1] == 'a' && d[o + 2] == 'm' && d[o + 3] == 'e')
+                    table = U32(d, o + 8);
+            }
+            if (table < 0) { return new string[] { null, null }; }
+
+            int count = U16(d, table + 2), strings = U16(d, table + 4);
+            string family = null, style = null, macFamily = null, macStyle = null;
+            for (int i = 0; i < count; i++) {
+                int p = table + 6 + 12 * i;
+                int platform = U16(d, p), language = U16(d, p + 4), nameId = U16(d, p + 6);
+                int len = U16(d, p + 8), offset = U16(d, p + 10);
+                if (nameId != 1 && nameId != 2) { continue; }
+
+                // Several of these faces carry localized style names, and a
+                // font filed as "Arial Negreta" is a font nothing asks for.
+                if (platform == 3 && language != 0x0409) { continue; }
+                if (platform == 1 && language != 0) { continue; }
+
+                int at = table + strings + offset;
+                if (at < 0 || at + len > d.Length) { continue; }
+                string s = (platform == 3)
+                    ? System.Text.Encoding.BigEndianUnicode.GetString(d, at, len)
+                    : System.Text.Encoding.ASCII.GetString(d, at, len);
+                s = s.Replace("\0", "").Trim();
+                if (s.Length == 0) { continue; }
+
+                // A Windows record is authoritative; the Macintosh one is a
+                // fallback, and in some older faces holds mojibake.
+                if (platform == 3) {
+                    if (nameId == 1 && family == null) { family = s; }
+                    if (nameId == 2 && style == null) { style = s; }
+                }
+                else {
+                    if (nameId == 1 && macFamily == null) { macFamily = s; }
+                    if (nameId == 2 && macStyle == null) { macStyle = s; }
+                }
+            }
+
+            if (family == null) { family = macFamily; }
+            if (style == null) { style = macStyle; }
+            return new string[] { family, style };
+        }
+
+        // Returns "Family" or "Family Style", the name Windows files a font
+        // under, or null when the file carries no usable name.
+        public static string FaceName(string path)
+        {
+            string[] parsed = Parse(path);
+            string family = parsed[0], style = parsed[1];
+            if (family == null) { return null; }
+
+            string lower = (style == null) ? "regular" : style.ToLowerInvariant();
+            bool plain = lower == "regular" || lower == "normal" || lower == "plain"
+                         || lower == "book" || lower == "roman" || lower == "standard";
+            return plain ? family : family + " " + style;
+        }
+
+        // The family alone, which is what FontFamily.Families reports.
+        public static string FamilyName(string path)
+        {
+            return Parse(path)[0];
+        }
         '@
 
         # A font file the system already has open cannot be overwritten; stopping
@@ -78,7 +169,7 @@ jobs:
 
         $started = Get-Date
         $registry = 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts'
-        $added = 0; $replaced = 0; $kept = @()
+        $added = 0; $replaced = 0; $kept = @(); $expected = @()
         foreach ($file in Get-ChildItem ci-fonts -Include *.ttf, *.otf, *.ttc -Recurse) {
             $target = Join-Path $env:WINDIR "Fonts\$($file.Name)"
             $existed = Test-Path $target
@@ -101,8 +192,13 @@ jobs:
                 }
             }
             if ($existed) { $replaced++ } else { $added++ }
+            $face = [Native.Sfnt]::FaceName($file.FullName)
+            if (-not $face) { $face = $file.BaseName }
+            $family = [Native.Sfnt]::FamilyName($file.FullName)
+            if ($family) { $expected += $family }
+
             $suffix = if ($file.Extension -eq '.otf') { '(OpenType)' } else { '(TrueType)' }
-            New-ItemProperty -Path $registry -Name "$($file.BaseName) $suffix" `
+            New-ItemProperty -Path $registry -Name "$face $suffix" `
                              -Value $file.Name -PropertyType String -Force | Out-Null
             [Native.Gdi]::AddFontResource($target) | Out-Null
         }
@@ -111,18 +207,80 @@ jobs:
         "Added $added, replaced $replaced, in $([int]((Get-Date) - $started).TotalSeconds) s"
         if ($kept.Count) { "Kept the runner's copy of: $($kept -join ', ')" }
 
-        # An install that quietly does nothing would show up as a pile of
-        # unexplained rendering failures, so check for the face that is not on
-        # the runner to begin with.
+        $expected = $expected | Sort-Object -Unique
+        $expected | Set-Content expected-fonts.txt -Encoding UTF8
+        "Font families the store provides: $($expected.Count)"
+
+    # Deliberately a step of its own, so the check runs in a process that did
+    # not call AddFontResource: that call registers a font with the calling
+    # process alone, so checking inside the install step confirms itself and
+    # says nothing about what the test run will see.
+    - name: Verify fonts
+      working-directory: ${{ github.workspace }}
+      shell: pwsh
+      run: |
         Add-Type -AssemblyName System.Drawing
         $families = [System.Drawing.FontFamily]::Families.Name
-        "Installed families: $($families.Count)"
-        foreach ($needed in 'Arial', 'Arial Narrow', 'Times New Roman', 'Tekton',
-                            'Switzerland', 'Forte', 'Ameretto', 'Palatino Linotype') {
-            if ($families -notcontains $needed) {
-                throw "Font '$needed' is not installed after the install step."
+        "Font families visible to a fresh process: $($families.Count)"
+
+        $missing = Get-Content expected-fonts.txt -Encoding UTF8 |
+                   Where-Object { $families -notcontains $_ }
+        if ($missing) {
+            throw "Installed but not resolvable by name: $($missing -join ', ')"
+        }
+        "All $((Get-Content expected-fonts.txt).Count) families resolve by name."
+
+    # The WPF rendering baselines were produced on a desktop, where these values
+    # exist. Left unset, WPF falls back to the font smoothing the session
+    # reports, and a runner with no monitor reports something else: glyph edges
+    # come out lighter, which costs every wpfrender comparison 8 to 23 units
+    # against a tolerance of 30, with the geometry matching exactly.
+    #
+    # Documented defaults, from the WPF ClearType registry settings topic. The
+    # point is less which numbers these are than that they are fixed rather than
+    # inherited: TextContrastLevel (0-6) sets the stem weight and is the knob to
+    # step if the baselines want heavier or lighter text than this produces.
+    - name: Pin WPF text rendering
+      shell: pwsh
+      env:
+        CLEARTYPE_LEVEL: 0      # 0-100; 0 renders gray scale, which both sides already do
+        TEXT_CONTRAST_LEVEL: 1  # 0-6; larger is a wider stem
+        GAMMA_LEVEL: 1900       # 1000-2200
+        PIXEL_STRUCTURE: 0      # 0 flat, 1 RGB, 2 BGR
+      run: |
+        # Settings are per display device. A runner has the one virtual display,
+        # which Windows names DISPLAY1; any key already present names a display
+        # WPF would consult, so carry those along rather than leave one behind
+        # holding whatever it holds.
+        $displays = @('DISPLAY1')
+        foreach ($hive in 'HKCU:', 'HKLM:') {
+            $root = "$hive\SOFTWARE\Microsoft\Avalon.Graphics"
+            if (Test-Path $root) {
+                $displays += (Get-ChildItem $root | ForEach-Object { $_.PSChildName })
             }
-            "  present: $needed"
+        }
+        $displays = $displays | Where-Object { $_ } | Sort-Object -Unique
+
+        foreach ($display in $displays) {
+            foreach ($hive in 'HKCU:', 'HKLM:') {
+                $key = "$hive\SOFTWARE\Microsoft\Avalon.Graphics\$display"
+                New-Item -Path $key -Force | Out-Null
+            }
+
+            # ClearTypeLevel and TextContrastLevel are per user, GammaLevel and
+            # PixelStructure per machine.
+            $user = "HKCU:\SOFTWARE\Microsoft\Avalon.Graphics\$display"
+            $machine = "HKLM:\SOFTWARE\Microsoft\Avalon.Graphics\$display"
+            New-ItemProperty $user -Name ClearTypeLevel `
+                -Value ([int]$env:CLEARTYPE_LEVEL) -PropertyType DWord -Force | Out-Null
+            New-ItemProperty $user -Name TextContrastLevel `
+                -Value ([int]$env:TEXT_CONTRAST_LEVEL) -PropertyType DWord -Force | Out-Null
+            New-ItemProperty $machine -Name GammaLevel `
+                -Value ([int]$env:GAMMA_LEVEL) -PropertyType DWord -Force | Out-Null
+            New-ItemProperty $machine -Name PixelStructure `
+                -Value ([int]$env:PIXEL_STRUCTURE) -PropertyType DWord -Force | Out-Null
+
+            "$display -> ClearTypeLevel=$env:CLEARTYPE_LEVEL TextContrastLevel=$env:TEXT_CONTRAST_LEVEL GammaLevel=$env:GAMMA_LEVEL PixelStructure=$env:PIXEL_STRUCTURE"
         }
 
     # msbuild rather than dotnet build: the solution contains the native C++
@@ -131,7 +289,87 @@ jobs:
       run: msbuild PPen.slnx /restore /p:Configuration=Debug
 
     - name: Test
-      run: dotnet test PPen.slnx --settings:.runsettings --no-build -c Debug
+      if: ${{ ! inputs.text_contrast_sweep }}
+      shell: pwsh
+      run: |
+        # The collector names each test as it begins; see its own source for why
+        # a logger cannot. It is not in the solution, so build it on its own.
+        dotnet build Testing/TestStartLog/TestStartLog.csproj -c Debug --nologo
+        $collector = (Resolve-Path Testing/TestStartLog/bin/Debug/netstandard2.0/TestStartLog.dll).Path
+        $progress = Join-Path $PWD 'test-progress.log'
+        Remove-Item $progress -ErrorAction SilentlyContinue
+
+        # The committed .runsettings plus the collector, whose codebase has to
+        # be a path only this run knows.
+        @"
+        <?xml version="1.0" encoding="utf-8"?>
+        <RunSettings>
+          <RunConfiguration>
+            <EnvironmentVariables>
+              <TEST_SILENTRUN>True</TEST_SILENTRUN>
+              <TEST_PROGRESS_LOG>$progress</TEST_PROGRESS_LOG>
+            </EnvironmentVariables>
+          </RunConfiguration>
+          <InProcDataCollectionRunSettings>
+            <InProcDataCollectors>
+              <InProcDataCollector friendlyName="TestStartLog" enabled="True"
+                                   assemblyQualifiedName="PurplePen.Testing.TestStartLog, TestStartLog, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+                                   codebase="$collector" />
+            </InProcDataCollectors>
+          </InProcDataCollectionRunSettings>
+        </RunSettings>
+        "@ | Set-Content ci.runsettings -Encoding UTF8
+
+        # Run it as a child so this shell stays free to echo the progress the
+        # collector is writing while the suite is still going.
+        $proc = Start-Process dotnet -NoNewWindow -PassThru -ArgumentList @(
+            'test', 'PPen.slnx', '--settings:ci.runsettings', '--no-build', '-c', 'Debug')
+
+        $shown = 0
+        while (-not $proc.HasExited) {
+            Start-Sleep -Seconds 5
+            $lines = @(Get-Content $progress -ErrorAction SilentlyContinue)
+            if ($lines.Count -gt $shown) {
+                $lines[$shown..($lines.Count - 1)]
+                $shown = $lines.Count
+            }
+        }
+
+        $proc.WaitForExit()
+        $lines = @(Get-Content $progress -ErrorAction SilentlyContinue)
+        if ($lines.Count -gt $shown) { $lines[$shown..($lines.Count - 1)] }
+        "$($lines.Count) tests started."
+
+        exit $proc.ExitCode
+
+    # Which stem weight the baselines were drawn at is not written down
+    # anywhere, and guessing it one value at a time costs a suite run apiece.
+    # The WPF rendering tests are the only ones that answer the question and
+    # they take well under a minute, so ask all seven at once.
+    - name: Measure WPF text contrast
+      if: ${{ inputs.text_contrast_sweep }}
+      shell: pwsh
+      run: |
+        $display = 'HKCU:\SOFTWARE\Microsoft\Avalon.Graphics\DISPLAY1'
+        $results = @()
+        foreach ($level in 0..6) {
+            Set-ItemProperty $display -Name TextContrastLevel -Value $level -Type DWord
+            $output = dotnet test MapModel/Test_MapWPF/Test_MapWPF.csproj `
+                                 --settings:.runsettings --no-build -c Debug 2>&1 | Out-String
+            $m = [regex]::Match($output, 'Failed:\s*(\d+),\s*Passed:\s*(\d+)')
+            $failed = if ($m.Success) { [int]$m.Groups[1].Value } else { -1 }
+            $passed = if ($m.Success) { [int]$m.Groups[2].Value } else { -1 }
+            "TextContrastLevel $level -> failed $failed, passed $passed"
+            $results += [pscustomobject]@{ Level = $level; Failed = $failed; Passed = $passed }
+        }
+
+        ""
+        "=== Summary ==="
+        $results | Format-Table -AutoSize | Out-String | Write-Host
+        $best = $results | Where-Object { $_.Failed -ge 0 } | Sort-Object Failed | Select-Object -First 1
+        if ($best) {
+            "Fewest failures at TextContrastLevel $($best.Level): $($best.Failed) failed, $($best.Passed) passed."
+        }
 
     # A failed bitmap comparison writes what it rendered and where it differs
     # next to the baseline it compared against.
