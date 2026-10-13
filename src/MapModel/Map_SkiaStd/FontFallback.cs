@@ -123,12 +123,9 @@ namespace Map_SkiaStd
 
             HashSet<uint> tags = new HashSet<uint>();
 
-            byte[] gsubTable, gposTable;
-            typeface.TryGetTableData(TagGSUB, out gsubTable);
-            typeface.TryGetTableData(TagGPOS, out gposTable);
-
-            AddScriptTagsFromTable(gsubTable, tags);
-            AddScriptTagsFromTable(gposTable, tags);
+            // GetTableData returns null for a table the font doesn't have.
+            AddScriptTagsFromTable(typeface.GetTableData(TagGSUB), tags);
+            AddScriptTagsFromTable(typeface.GetTableData(TagGPOS), tags);
 
             return tags;
         }
