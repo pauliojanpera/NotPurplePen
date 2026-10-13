@@ -65,10 +65,13 @@ namespace Map_SkiaStd
             if (typeface == null)
                 throw new ArgumentNullException(nameof(typeface));
 
-            // GetTableData returns null for a table the font doesn't have.
-            return FromTables(typeface.GetTableData(TagOS2),
-                              typeface.GetTableData(TagHhea),
-                              typeface.UnitsPerEm);
+            // A typeface need not carry either table, and one standing in for a font that
+            // isn't installed carries neither.
+            byte[] os2Table, hheaTable;
+            typeface.TryGetTableData(TagOS2, out os2Table);
+            typeface.TryGetTableData(TagHhea, out hheaTable);
+
+            return FromTables(os2Table, hheaTable, typeface.UnitsPerEm);
         }
 
         // Computes the vertical metrics from the raw contents of the OS/2 and hhea tables.
