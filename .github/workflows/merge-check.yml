@@ -291,48 +291,35 @@ jobs:
     # anywhere, and guessing it one value at a time costs a suite run apiece.
     # The WPF rendering tests are the only ones that answer the question and
     # they take well under a minute, so ask all seven at once.
-    # The baselines carry whatever WPF last drew them with, and a servicing
-    # update to the glyph rasterizer moves the edge ramp while leaving the
-    # glyph cores alone. Nothing in the run records which runtime drew them,
-    # so ask every runtime the machine can be given.
-    - name: Measure WPF against each runtime
+    # A desktop renders through the graphics card and a runner has none, which
+    # WPF answers with a different rasterizer rather than a different setting.
+    # Nothing else accounts for an edge ramp that moves while the glyph cores
+    # stay put, so ask the machine to render both ways.
+    - name: Measure WPF against each render mode
       if: ${{ inputs.wpf_runtime_sweep }}
       shell: pwsh
       run: |
-        $config = Get-ChildItem MapModel/Test_MapWPF/bin/Debug -Recurse `
-                                -Filter TestProject1.runtimeconfig.json | Select-Object -First 1
-        if (-not $config) { throw "No runtimeconfig to pin; was the test project built?" }
-        $original = Get-Content $config.FullName -Raw
+        $key = 'HKCU:\SOFTWARE\Microsoft\Avalon.Graphics'
+        New-Item -Path $key -Force | Out-Null
 
-        $script = Join-Path $env:RUNNER_TEMP 'dotnet-install.ps1'
-        Invoke-WebRequest https://dot.net/v1/dotnet-install.ps1 -OutFile $script
-
-        $env:DOTNET_ROLL_FORWARD = 'Disable'
         $results = @()
-        foreach ($version in '10.0.9', '10.0.10', '10.0.11', '10.0.12') {
-            & $script -Runtime windowsdesktop -Version $version -InstallDir $env:DOTNET_ROOT | Out-Null
-
-            # Roll-forward is off, so the file has to name the build exactly.
-            $pinned = $original -replace '"version"\s*:\s*"[0-9]+\.[0-9]+\.[0-9]+"', ('"version": "' + $version + '"')
-            Set-Content $config.FullName $pinned -Encoding UTF8
+        foreach ($disabled in 0, 1) {
+            New-ItemProperty $key -Name DisableHWAcceleration -Value $disabled `
+                             -PropertyType DWord -Force | Out-Null
 
             $output = dotnet test MapModel/Test_MapWPF/Test_MapWPF.csproj `
                                  --settings:.runsettings --no-build -c Debug 2>&1 | Out-String
             $m = [regex]::Match($output, 'Failed:\s*(\d+),\s*Passed:\s*(\d+)')
             $failed = if ($m.Success) { [int]$m.Groups[1].Value } else { -1 }
             $passed = if ($m.Success) { [int]$m.Groups[2].Value } else { -1 }
-            "WindowsDesktop $version -> failed $failed, passed $passed"
-            $results += [pscustomobject]@{ Runtime = $version; Failed = $failed; Passed = $passed }
+            $mode = if ($disabled) { 'software' } else { 'default' }
+            "DisableHWAcceleration $disabled ($mode) -> failed $failed, passed $passed"
+            $results += [pscustomobject]@{ Mode = $mode; Failed = $failed; Passed = $passed }
         }
-        Set-Content $config.FullName $original -Encoding UTF8
 
         ""
         "=== Summary ==="
         $results | Format-Table -AutoSize | Out-String | Write-Host
-        $best = $results | Where-Object { $_.Failed -ge 0 } | Sort-Object Failed | Select-Object -First 1
-        if ($best) {
-            "Fewest failures on WindowsDesktop $($best.Runtime): $($best.Failed) failed, $($best.Passed) passed."
-        }
 
         # A measurement that ran is not a step that failed, whatever exit the
         # test runs left behind.
