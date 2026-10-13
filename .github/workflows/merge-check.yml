@@ -352,4 +352,6 @@ jobs:
         path: |
           src/**/*_actual.png
           src/**/*_diff.png
+          src/**/*_actual.txt
+          src/**/*_actual.xml
         if-no-files-found: warn
