@@ -51,6 +51,33 @@ jobs:
     - name: Install Visual C++ 2010 runtime
       run: choco install vcredist2010 --no-progress --yes
 
+    # Ghostscript writes a PNG and the test deletes it a moment later, which
+    # the real-time scanner can still be holding open. The test's own retry
+    # gives it three seconds; a scan of a megabyte on a runner's disk does not
+    # always fit in that, and the failure reads as a file in use by another
+    # process.
+    - name: Exclude the workspace from real-time scanning
+      shell: pwsh
+      run: |
+        foreach ($path in $env:GITHUB_WORKSPACE, $env:RUNNER_TEMP, $env:TEMP) {
+            if ($path) {
+                Add-MpPreference -ExclusionPath $path -ErrorAction SilentlyContinue
+                "excluded $path"
+            }
+        }
+        Add-MpPreference -ExclusionProcess 'gswin32c.exe' -ErrorAction SilentlyContinue
+        Add-MpPreference -ExclusionProcess 'dotnet.exe' -ErrorAction SilentlyContinue
+        Add-MpPreference -ExclusionProcess 'testhost.exe' -ErrorAction SilentlyContinue
+
+        $p = Get-MpPreference -ErrorAction SilentlyContinue
+        if ($p) {
+            "exclusion paths now: $($p.ExclusionPath -join ', ')"
+            "exclusion processes now: $($p.ExclusionProcess -join ', ')"
+        }
+        else {
+            "Defender preferences unavailable; nothing excluded."
+        }
+
     # The rendering tests compare against baseline images produced on a machine
     # with the Microsoft fonts installed. A runner carries Arial and Times New
     # Roman but not Arial Narrow, and substituting a face moves every glyph, so
