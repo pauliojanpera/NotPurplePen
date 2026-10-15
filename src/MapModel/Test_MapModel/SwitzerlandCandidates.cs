@@ -70,11 +70,15 @@ namespace PurplePen.MapModel.Tests
                         grTarget.Bitmap.Save(Path.Combine(directory, "switz_" + label + "_actual.png"), ImageFormat.Png);
                     }
 
-                    using (FontFamily family = new FontFamily("Switzerland")) {
-                        report.AppendFormat("{0};em={1};asc={2};desc={3}\r\n", label,
-                            family.GetEmHeight(FontStyle.Regular), family.GetCellAscent(FontStyle.Regular),
-                            family.GetCellDescent(FontStyle.Regular));
-                    }
+                    // Read the family out of the loader, which prefers the private
+                    // collection. Reading the installed copy instead would report the
+                    // same numbers whatever was registered, and a silent fall back to
+                    // Arial would not show.
+                    FontFamily family = GdiplusFontLoader.Instance.CreateFontFamily("Switzerland");
+                    report.AppendFormat("{0};em={1};asc={2};desc={3};regular={4};bold={5}\r\n", label,
+                        family.GetEmHeight(FontStyle.Regular), family.GetCellAscent(FontStyle.Regular),
+                        family.GetCellDescent(FontStyle.Regular),
+                        family.IsStyleAvailable(FontStyle.Regular), family.IsStyleAvailable(FontStyle.Bold));
                 }
                 catch (Exception e) {
                     report.AppendFormat("{0};VIRHE;{1};{2}\r\n", label, e.GetType().Name, e.Message);
