@@ -285,6 +285,15 @@ jobs:
 
     # msbuild rather than dotnet build: the solution contains the native C++
     # projects that Map_GDIPlus copies into its output.
+    # Every font the runner has, copied out under the one family name the
+    # map asks for, so the sweep can put each through the same drawing path.
+    - name: Rename fonts for the sweep
+      shell: pwsh
+      run: |
+        python .github/scripts/rename-fonts.py Switzerland font-candidates `
+               $env:WINDIR\Fonts ci-fonts
+        "candidates: $((Get-ChildItem font-candidates -Filter *.ttf).Count)"
+
     - name: Build
       run: msbuild PPen.slnx /restore /p:Configuration=Debug
 
