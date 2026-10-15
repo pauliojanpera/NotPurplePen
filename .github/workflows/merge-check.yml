@@ -288,6 +288,7 @@ jobs:
     # Every font the runner has, copied out under the one family name the
     # map asks for, so the sweep can put each through the same drawing path.
     - name: Rename fonts for the sweep
+      working-directory: ${{ github.workspace }}
       shell: pwsh
       run: |
         python .github/scripts/rename-fonts.py Switzerland font-candidates `
