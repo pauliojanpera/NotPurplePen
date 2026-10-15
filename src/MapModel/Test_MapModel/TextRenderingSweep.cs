@@ -69,8 +69,38 @@ namespace PurplePen.MapModel.Tests
                     grTarget.Graphics.TextContrast, grTarget.Graphics.PixelOffsetMode,
                     grTarget.Graphics.TextRenderingHint, grTarget.Graphics.SmoothingMode,
                     grTarget.Graphics.CompositingQuality, grTarget.Graphics.DpiX, grTarget.Graphics.DpiY);
+                report += ReportFamilies();
                 File.WriteAllText(Path.Combine(directory, "sweep_defaults_actual.txt"), report);
             }
+        }
+
+        // Names each family the test maps ask for and the metrics GDI+ reports
+        // for it. The em height, ascent and descent identify which file is
+        // actually installed, which a family name alone does not.
+        private static string ReportFamilies()
+        {
+            string[] names = {
+                "Arial", "Arial Black", "Arial Narrow", "Switzerland", "SwitzerlandBlack",
+                "Forte", "Tekton", "Goudy Stout", "Franklin Gothic Book", "Verdana",
+                "Calibri", "Segoe UI Black", "Microsoft Sans Serif"
+            };
+
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            sb.Append("\r\nperhe;asennettu;emHeight;cellAscent;cellDescent;lineSpacing\r\n");
+            foreach (string name in names) {
+                try {
+                    using (FontFamily family = new FontFamily(name)) {
+                        FontStyle style = family.IsStyleAvailable(FontStyle.Regular) ? FontStyle.Regular : FontStyle.Bold;
+                        sb.AppendFormat("{0};kyllä;{1};{2};{3};{4}\r\n", name,
+                            family.GetEmHeight(style), family.GetCellAscent(style),
+                            family.GetCellDescent(style), family.GetLineSpacing(style));
+                    }
+                }
+                catch (Exception e) {
+                    sb.AppendFormat("{0};ei;{1}\r\n", name, e.GetType().Name);
+                }
+            }
+            return sb.ToString();
         }
 
         // Renders the map once with the given settings and saves the result.
