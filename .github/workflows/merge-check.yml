@@ -280,6 +280,25 @@ jobs:
         }
         "All $((Get-Content expected-fonts.txt).Count) families resolve by name."
 
+        # Families the tests require to be absent. A font store that grows one of
+        # these breaks tests a long way from the font itself, so the build says so
+        # here instead. Each entry names what depends on it.
+        $forbidden = [ordered]@{
+            'Tekton'       = 'Map_Skia.Tests BasicTests asserts it is not installed'
+            'Spyroclassic' = 'OcadImportTests.MissingFonts and ControllerTests.MissingFontWarning expect it missing'
+            'GeosansLight' = 'OcadImportTests.MissingFonts and ControllerTests.MissingFontWarning expect it missing'
+            'Aberdeen'     = 'ControllerTests.MissingFontWarning expects it missing'
+            'Ambrosia'     = 'OpenMapperImportTests.MissingFonts expects it missing'
+            'Switzerland'  = 'the Marymoor baselines are drawn with the Arial that PurplePen substitutes for it'
+        }
+
+        $present = $forbidden.Keys | Where-Object { $families -contains $_ }
+        if ($present) {
+            $why = $present | ForEach-Object { "  $_ : $($forbidden[$_])" }
+            throw "These families must not be installed:`n$($why -join "`n")"
+        }
+        "None of the $($forbidden.Count) families that must stay absent are installed."
+
     # msbuild rather than dotnet build: the solution contains the native C++
     # projects that Map_GDIPlus copies into its output.
     - name: Build
