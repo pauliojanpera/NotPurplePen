@@ -223,8 +223,7 @@ jobs:
         # candidates/ holds files the comparison experiment loads itself;
         # installing them would put several faces under one family name.
         foreach ($file in Get-ChildItem ci-fonts -Include *.ttf, *.otf, *.ttc -Recurse |
-                          Where-Object { $_.FullName -notmatch '\\candidates\\' -and
-                                         $_.Name -ne 'Switzerland.ttf' }) {
+                          Where-Object { $_.FullName -notmatch '\\candidates\\' }) {
             $target = Join-Path $env:WINDIR "Fonts\$($file.Name)"
             $existed = Test-Path $target
             try {
