@@ -299,6 +299,13 @@ jobs:
         }
         "None of the $($forbidden.Count) families that must stay absent are installed."
 
+    # The exported-XML baselines forgive their timestamps only in this zone's shape.
+    - name: Set the time zone the baselines were recorded in
+      shell: pwsh
+      run: |
+        tzutil /s "Pacific Standard Time"
+        "time zone now: $(tzutil /g)"
+
     # msbuild rather than dotnet build: the solution contains the native C++
     # projects that Map_GDIPlus copies into its output.
     - name: Build
