@@ -306,6 +306,11 @@ jobs:
 
     - name: Test
       shell: pwsh
+      env:
+        # Ten assemblies start at once and the machine is saturated while they
+        # do. vstest gives a test host ninety seconds to call back before it
+        # abandons the assembly, and Map_Skia.Tests does not always make it.
+        VSTEST_CONNECTION_TIMEOUT: 600
       run: |
         # The collector names each test as it begins; see its own source for why
         # a logger cannot. It is not in the solution, so build it on its own.
@@ -366,6 +371,22 @@ jobs:
         Get-Content $stderr -ErrorAction SilentlyContinue
 
         "$((@(Get-Content $progress -ErrorAction SilentlyContinue)).Count) tests started."
+
+        # An assembly whose test host never connects is abandoned with a bare
+        # "Test Run Aborted." that names nothing, and its absence from the
+        # results otherwise reads as a run that simply had fewer assemblies.
+        $out = @(Get-Content $stdout -ErrorAction SilentlyContinue)
+        $started = $out | ForEach-Object {
+            if ($_ -match 'Test run for .*\\([^\\]+\.dll) ') { $Matches[1] }
+        }
+        $reported = $out | ForEach-Object {
+            if ($_ -match '- (\S+\.dll) \(') { $Matches[1] }
+        }
+        $silent = $started | Where-Object { $reported -notcontains $_ }
+        if ($silent) {
+            ""
+            "no results reported by: $($silent -join ', ')"
+        }
 
         exit $proc.ExitCode
 
