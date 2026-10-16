@@ -79,11 +79,17 @@ namespace Map_PDF.Tests
 
         }
 
+        // How long to keep trying to delete a file another process still has open.
+        // Ghostscript has written the PNG and exited, but on a loaded machine the
+        // handle can outlive the process by seconds.
+        private static readonly TimeSpan DeleteTimeout = TimeSpan.FromSeconds(30);
+
         // Delete the PDF and PNG files, retrying if either file is temporarily unavailable.
         private static void DeletePdfAndPng(string pdfFileName, string pngFileName)
         {
             Random random = new Random();
-            int retryCount = 0;
+            Stopwatch elapsed = Stopwatch.StartNew();
+            bool collected = false;
 
             while (true) {
                 try {
@@ -92,10 +98,17 @@ namespace Map_PDF.Tests
                     return;
                 }
                 catch (IOException) {
-                    if (retryCount == 10)
+                    if (elapsed.Elapsed >= DeleteTimeout)
                         throw;
 
-                    ++retryCount;
+                    // A decoder that reached the file through a finalizable handle holds
+                    // it until that finalizer runs, which nothing else here makes happen.
+                    if (!collected) {
+                        collected = true;
+                        GC.Collect();
+                        GC.WaitForPendingFinalizers();
+                    }
+
                     Thread.Sleep(random.Next(30, 301));
                 }
             }
