@@ -54,11 +54,6 @@ namespace PurplePen.Tests
     public class ControllerTests: TestFixtureBase
     {
 
-        // The bitmaps an OCAD export writes out are JPEGs, so they differ
-        // from the baseline by however this machine's encoder rounds. The
-        // difference is in the last bit or two of a channel.
-        const int MAX_JPEG_PIXEL_DIFF = 3;
-
         TestUI ui;
         Controller controller;
 
@@ -1883,7 +1878,7 @@ Code:           layer:12  control:4  scale:1  text:GO  top-left:(38.29,-16.89)
 
             if (bitmapFileNames != null) {
                 for (int i = 0; i < bitmapFileNames.Length; ++i) {
-                    BitmapTestUtil.CompareBitmapBaseline(bitmapFileNames[i], bitmapFileBaselines[i], MAX_JPEG_PIXEL_DIFF);
+                    BitmapTestUtil.CompareBitmapBaseline(bitmapFileNames[i], bitmapFileBaselines[i]);
                 }
             }
 
