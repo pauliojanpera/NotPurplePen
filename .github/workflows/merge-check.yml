@@ -324,12 +324,33 @@ jobs:
             'Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll'
         )
 
+        # All at once rather than one after another: the longest assembly takes
+        # four minutes and the ten together take ten. Each writes to its own file
+        # so that one assembly's line cannot land in the middle of another's.
         $dotnet = Join-Path $env:ProgramFiles 'dotnet-x64\dotnet.exe'
+        $missing = $assemblies | Where-Object { -not (Test-Path $_) }
+        if ($missing) { throw "Not in the build: $($missing -join ', ')" }
+
+        $running = foreach ($dll in $assemblies) {
+            $log = Join-Path $PWD ("test-" + [IO.Path]::GetFileNameWithoutExtension($dll) + ".log")
+            [pscustomobject]@{
+                Dll = $dll
+                Log = $log
+                Process = Start-Process $dotnet -NoNewWindow -PassThru `
+                                        -RedirectStandardOutput $log -RedirectStandardError "$log.err" `
+                                        -ArgumentList @('test', $dll)
+            }
+        }
+
+        foreach ($one in $running) { $one.Process.WaitForExit() }
+
         $failed = @()
-        foreach ($dll in $assemblies) {
-            if (-not (Test-Path $dll)) { $failed += "$dll is not there"; continue }
-            & $dotnet test $dll
-            if ($LASTEXITCODE -ne 0) { $failed += $dll }
+        foreach ($one in $running) {
+            ""
+            "===== $($one.Dll)"
+            Get-Content $one.Log -ErrorAction SilentlyContinue
+            Get-Content "$($one.Log).err" -ErrorAction SilentlyContinue
+            if ($one.Process.ExitCode -ne 0) { $failed += $one.Dll }
         }
 
         $matched = @(Get-Content $altLog -ErrorAction SilentlyContinue)
