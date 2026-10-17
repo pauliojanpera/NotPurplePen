@@ -740,7 +740,7 @@ jobs:
         $dll = 'MapModel/Test_MapModel/bin/Debug/net10.0-windows/Test_MapModel.dll'
         $dotnet = Join-Path $env:ProgramFiles 'dotnet-x64\dotnet.exe'
         "Testing $dll with $dotnet"
-        & $dotnet test $dll --filter "FullyQualifiedName~Rendering|FullyQualifiedName~OpenMapperImport"
+        & $dotnet test $dll
         exit $LASTEXITCODE
 
     - name: Upload rendering differences
