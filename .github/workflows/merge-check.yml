@@ -262,7 +262,7 @@ jobs:
 
         $started = Get-Date
         $registry = 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts'
-        $added = 0; $replaced = 0; $kept = @(); $expected = @()
+        $added = 0; $replaced = 0; $kept = @(); $redirected = @(); $expected = @()
         foreach ($file in Get-ChildItem win11-fonts, ci-fonts -Include *.ttf, *.otf, *.ttc -Recurse) {
             $target = Join-Path $env:WINDIR "Fonts\$($file.Name)"
             $existed = Test-Path $target
@@ -280,8 +280,20 @@ jobs:
                     Copy-Item $file.FullName $target -Force -ErrorAction Stop
                 }
                 catch {
-                    $kept += $file.Name
-                    continue
+                    # A face Windows itself is drawing with cannot be overwritten
+                    # while it is open. The registry entry is keyed by the face
+                    # name rather than the file, so the same name can be made to
+                    # point at a copy under another one.
+                    $target = Join-Path $env:WINDIR "Fonts\store-$($file.Name)"
+                    try {
+                        Copy-Item $file.FullName $target -Force -ErrorAction Stop
+                        $existed = $false
+                        $redirected += $file.Name
+                    }
+                    catch {
+                        $kept += $file.Name
+                        continue
+                    }
                 }
             }
             if ($existed) { $replaced++ } else { $added++ }
@@ -292,12 +304,13 @@ jobs:
 
             $suffix = if ($file.Extension -eq '.otf') { '(OpenType)' } else { '(TrueType)' }
             New-ItemProperty -Path $registry -Name "$face $suffix" `
-                             -Value $file.Name -PropertyType String -Force | Out-Null
+                             -Value (Split-Path $target -Leaf) -PropertyType String -Force | Out-Null
             [Native.Gdi]::AddFontResource($target) | Out-Null
         }
         Start-Service FontCache -ErrorAction SilentlyContinue
 
         "Added $added, replaced $replaced, in $([int]((Get-Date) - $started).TotalSeconds) s"
+        if ($redirected.Count) { "In use, so filed under another name: $($redirected -join ', ')" }
         if ($kept.Count) { "Kept the runner's copy of: $($kept -join ', ')" }
 
         $expected = $expected | Sort-Object -Unique
