@@ -48,6 +48,22 @@ jobs:
         & reg export $link win11-fonts\systemlink.reg /y | Out-Null
         "SystemLink entries: $((Get-Item ('HKLM:\' + $link.Substring(5))).ValueCount)"
 
+    - name: What this image's GDI+ charges for Hangul
+      shell: pwsh
+      run: |
+        Add-Type -AssemblyName System.Drawing
+        $bitmap = New-Object System.Drawing.Bitmap 16, 16
+        $graphics = [System.Drawing.Graphics]::FromImage($bitmap)
+        $format = [System.Drawing.StringFormat]::GenericTypographic
+
+        foreach ($name in 'Arial', 'Malgun Gothic', 'Gulim', 'Segoe UI') {
+            try { $font = New-Object System.Drawing.Font $name, 22, ([System.Drawing.GraphicsUnit]::Pixel) }
+            catch { "  {0,-16} (not installed)" -f $name; continue }
+            $w = $graphics.MeasureString([char]0xD55C, $font, [System.Drawing.PointF]::Empty, $format).Width
+            "  {0,-16} {1,6:F2}" -f $name, $w
+            $font.Dispose()
+        }
+
     - name: Upload them
       uses: actions/upload-artifact@v4
       with:
