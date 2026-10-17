@@ -429,4 +429,5 @@ jobs:
         path: |
           src/**/*_actual.png
           src/**/*_diff.png
+          src/MapModel/TestFiles/pdfrender/fontfallback_temp.pdf
         if-no-files-found: warn
