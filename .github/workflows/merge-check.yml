@@ -52,6 +52,12 @@ jobs:
     - name: Build
       run: msbuild PPen.slnx /restore /p:Configuration=Debug
 
+    # The collector names each test as it begins; see its own source for why a
+    # logger cannot. It is not in the solution, so it is built on its own, and it
+    # travels with the build because the image that runs cannot build it either.
+    - name: Build the test collector
+      run: dotnet build Testing/TestStartLog/TestStartLog.csproj -c Debug --nologo
+
     - name: Keep the build
       uses: actions/upload-artifact@v4
       with:
@@ -331,6 +337,33 @@ jobs:
         $missing = $assemblies | Where-Object { -not (Test-Path $_) }
         if ($missing) { throw "Not in the build: $($missing -join ', ')" }
 
+        # Every assembly writes the name of each test it starts to one file, so
+        # that a run which stops says where it stopped.
+        $collector = (Resolve-Path Testing/TestStartLog/bin/Debug/netstandard2.0/TestStartLog.dll).Path
+        $progress = Join-Path $PWD 'test-progress.log'
+        Remove-Item $progress -ErrorAction SilentlyContinue
+
+        @"
+        <?xml version="1.0" encoding="utf-8"?>
+        <RunSettings>
+          <RunConfiguration>
+            <EnvironmentVariables>
+              <TEST_SILENTRUN>True</TEST_SILENTRUN>
+              <TEST_PROGRESS_LOG>$progress</TEST_PROGRESS_LOG>
+              <TEST_ALT_BASELINE_ROOT>$altRoot</TEST_ALT_BASELINE_ROOT>
+              <TEST_ALT_BASELINE_LOG>$altLog</TEST_ALT_BASELINE_LOG>
+            </EnvironmentVariables>
+          </RunConfiguration>
+          <InProcDataCollectionRunSettings>
+            <InProcDataCollectors>
+              <InProcDataCollector friendlyName="TestStartLog" enabled="True"
+                                   assemblyQualifiedName="PurplePen.Testing.TestStartLog, TestStartLog, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+                                   codebase="$collector" />
+            </InProcDataCollectors>
+          </InProcDataCollectionRunSettings>
+        </RunSettings>
+        "@ | Set-Content ci.runsettings -Encoding UTF8
+
         $running = foreach ($dll in $assemblies) {
             $log = Join-Path $PWD ("test-" + [IO.Path]::GetFileNameWithoutExtension($dll) + ".log")
             [pscustomobject]@{
@@ -338,11 +371,27 @@ jobs:
                 Log = $log
                 Process = Start-Process $dotnet -NoNewWindow -PassThru `
                                         -RedirectStandardOutput $log -RedirectStandardError "$log.err" `
-                                        -ArgumentList @('test', $dll)
+                                        -ArgumentList @('test', $dll, '--settings:ci.runsettings')
             }
         }
 
+        # What is running shows as it happens; what each assembly said comes at
+        # the end in one piece, so that no two of them share a line.
+        $script:seen = 0
+        function Show-New {
+            $lines = @(Get-Content $progress -ErrorAction SilentlyContinue)
+            if ($lines.Count -gt $script:seen) {
+                $lines[$script:seen..($lines.Count - 1)]
+                $script:seen = $lines.Count
+            }
+        }
+
+        while ($running | Where-Object { -not $_.Process.HasExited }) {
+            Start-Sleep -Seconds 5
+            Show-New
+        }
         foreach ($one in $running) { $one.Process.WaitForExit() }
+        Show-New
 
         $failed = @()
         foreach ($one in $running) {
@@ -353,12 +402,7 @@ jobs:
             if ($one.Process.ExitCode -ne 0) { $failed += $one.Dll }
         }
 
-        $matched = @(Get-Content $altLog -ErrorAction SilentlyContinue)
-        if ($matched.Count) {
-            ""
-            "$($matched.Count) comparisons matched the baseline as it stood at 81379316:"
-            $matched | Sort-Object -Unique
-        }
+        "$((@(Get-Content $progress -ErrorAction SilentlyContinue)).Count) tests started."
 
         $matched = @(Get-Content $altLog -ErrorAction SilentlyContinue)
         if ($matched.Count) {
