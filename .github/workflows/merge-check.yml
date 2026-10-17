@@ -24,6 +24,12 @@ jobs:
     steps:
     - name: Checkout source
       uses: actions/checkout@v4
+      with:
+        # GitVersion, which the PdfSharp subtree generates a class from, reads
+        # tags and history. Those come; the contents of files as they used to be
+        # do not, and they are two thirds of what a full clone drags along.
+        fetch-depth: 0
+        filter: blob:none
 
     # The WPF baselines have moved between two renderings and the image that runs
     # reproduces the earlier one exactly, so keep that set to hand: a comparison
@@ -32,9 +38,7 @@ jobs:
     # from one that has regressed. One commit of history is enough for it.
     - name: Take the baselines as they stood at 81379316
       run: |
-        # Fetching one commit by name needs the whole name, not the short one.
-        git fetch --depth=1 origin 813793163ec277ab5be1580545faa672f0674c8f
-        git archive --format=zip -o alt-baselines.zip 813793163ec277ab5be1580545faa672f0674c8f MapModel/TestFiles/wpfrender
+        git archive --format=zip -o alt-baselines.zip 81379316 MapModel/TestFiles/wpfrender
 
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v2
@@ -57,11 +61,8 @@ jobs:
     # exit code, and installs from Microsoft directly if the feed let it down.
     # msbuild rather than dotnet build: the solution contains the native C++
     # projects that Map_GDIPlus copies into its output.
-    # GitVersion, which the PdfSharp subtree asks for, reads tags and the whole
-    # history to settle an assembly version nothing here compares against. Turning
-    # it off is what lets the checkout be a shallow one.
     - name: Build
-      run: msbuild PPen.slnx /restore /p:Configuration=Debug /p:DisableGitVersionTask=true
+      run: msbuild PPen.slnx /restore /p:Configuration=Debug
 
     # The collector names each test as it begins; see its own source for why a
     # logger cannot. It is not in the solution, so it is built on its own, and it
