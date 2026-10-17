@@ -41,6 +41,13 @@ jobs:
         $files = Get-ChildItem win11-fonts
         "{0} faces, {1:N0} MB" -f $files.Count, (($files | Measure-Object Length -Sum).Sum / 1MB)
 
+        # Which face GDI+ reaches for when the one asked for has no glyph is not
+        # decided by the font files but by this list, and it is written differently
+        # on a desktop Windows than on a server one.
+        $link = 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontLink\SystemLink'
+        & reg export $link win11-fonts\systemlink.reg /y | Out-Null
+        "SystemLink entries: $((Get-Item ('HKLM:\' + $link.Substring(5))).ValueCount)"
+
     - name: Upload them
       uses: actions/upload-artifact@v4
       with:
@@ -156,6 +163,13 @@ jobs:
       with:
         name: win11-fonts
         path: win11-fonts
+
+    - name: Use the desktop font links
+      shell: pwsh
+      run: |
+        & reg import win11-fonts\systemlink.reg 2>&1 | Out-Null
+        $link = 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontLink\SystemLink'
+        "SystemLink entries now: $((Get-Item $link).ValueCount)"
 
     - name: Install fonts
       working-directory: ${{ github.workspace }}
