@@ -1,0 +1,355 @@
+name: Tests
+
+# Runs the test suite only. Packaging lives in build.yml; the two must not
+# overlap, or every push to a branch builds the installer twice.
+#
+# Debug rather than Release: PPen.slnx excludes Innosetup from Debug, so this
+# builds the code and its tests without invoking the installer, which needs the
+# separate publish sequence in src/Innosetup/create-setup.bat.
+on:
+  push:
+    branches: [ 'experiment/**' ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Test
+    runs-on: windows-2022
+    timeout-minutes: 180
+
+    defaults:
+      run:
+        working-directory: src
+
+    steps:
+    - name: Checkout source
+      uses: actions/checkout@v4
+      with:
+        # GitVersion, used by the PdfSharp subtree, reads tags and history.
+        fetch-depth: 0
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+
+    - name: Install HTML Help Workshop
+      run: choco install html-help-workshop --no-progress --yes
+
+    # DotSpatial.Projections.Tests compares the managed projections against the
+    # real proj.4 library. The committed x86 and x64 proj.dll both import
+    # MSVCR100.dll, which is not on the runner, so LoadLibrary fails and the
+    # type initializer throws.
+    - name: Install Visual C++ 2010 runtime
+      run: choco install vcredist2010 --no-progress --yes
+
+    # Ghostscript writes a PNG and the test deletes it a moment later, which
+    # the real-time scanner can still be holding open. The test's own retry
+    # gives it three seconds; a scan of a megabyte on a runner's disk does not
+    # always fit in that, and the failure reads as a file in use by another
+    # process.
+    - name: Exclude the workspace from real-time scanning
+      shell: pwsh
+      run: |
+        foreach ($path in $env:GITHUB_WORKSPACE, $env:RUNNER_TEMP, $env:TEMP) {
+            if ($path) {
+                Add-MpPreference -ExclusionPath $path -ErrorAction SilentlyContinue
+                "excluded $path"
+            }
+        }
+        Add-MpPreference -ExclusionProcess 'gswin32c.exe' -ErrorAction SilentlyContinue
+        Add-MpPreference -ExclusionProcess 'dotnet.exe' -ErrorAction SilentlyContinue
+        Add-MpPreference -ExclusionProcess 'testhost.exe' -ErrorAction SilentlyContinue
+
+        $p = Get-MpPreference -ErrorAction SilentlyContinue
+        if ($p) {
+            "exclusion paths now: $($p.ExclusionPath -join ', ')"
+            "exclusion processes now: $($p.ExclusionProcess -join ', ')"
+        }
+        else {
+            "Defender preferences unavailable; nothing excluded."
+        }
+
+    # The rendering tests compare against baseline images produced on a machine
+    # with the Microsoft fonts installed. A runner carries Arial and Times New
+    # Roman but not Arial Narrow, and substituting a face moves every glyph, so
+    # the fonts come from a fixed store instead.
+    - name: Fetch fonts
+      uses: actions/checkout@v4
+      with:
+        repository: pauliojanpera/windows-fonts
+        token: ${{ secrets.FONTS_TOKEN }}
+        path: ci-fonts
+
+    - name: Install fonts
+      working-directory: ${{ github.workspace }}
+      shell: pwsh
+      run: |
+        # Copying the file and registering it is what installing a font amounts
+        # to. Handing each one to the shell namespace instead costs seconds
+        # apiece, which over a hundred fonts is most of a coffee break.
+        #
+        # The entry has to carry the name the font calls itself, which only the
+        # file knows; filed under anything else a face is not found by name.
+        Add-Type -Namespace Native -Name Gdi -MemberDefinition @'
+        [DllImport("gdi32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+        public static extern int AddFontResource(string fileName);
+        '@
+
+        Add-Type -Namespace Native -Name Sfnt -MemberDefinition @'
+        static int U16(byte[] d, int o) { return (d[o] << 8) | d[o + 1]; }
+        static int U32(byte[] d, int o) {
+            return (d[o] << 24) | (d[o + 1] << 16) | (d[o + 2] << 8) | d[o + 3];
+        }
+
+        // Returns { family, style } as read from the font's name table, with
+        // null entries when the file carries no usable name.
+        public static string[] Parse(string path)
+        {
+            byte[] d = System.IO.File.ReadAllBytes(path);
+            int start = (d[0] == 't' && d[1] == 't' && d[2] == 'c' && d[3] == 'f') ? U32(d, 12) : 0;
+
+            int table = -1;
+            int tableCount = U16(d, start + 4);
+            for (int i = 0; i < tableCount; i++) {
+                int o = start + 12 + 16 * i;
+                if (d[o] == 'n' && d[o + 1] == 'a' && d[o + 2] == 'm' && d[o + 3] == 'e')
+                    table = U32(d, o + 8);
+            }
+            if (table < 0) { return new string[] { null, null }; }
+
+            int count = U16(d, table + 2), strings = U16(d, table + 4);
+            string family = null, style = null, macFamily = null, macStyle = null;
+            for (int i = 0; i < count; i++) {
+                int p = table + 6 + 12 * i;
+                int platform = U16(d, p), language = U16(d, p + 4), nameId = U16(d, p + 6);
+                int len = U16(d, p + 8), offset = U16(d, p + 10);
+                if (nameId != 1 && nameId != 2) { continue; }
+
+                // Several of these faces carry localized style names, and a
+                // font filed as "Arial Negreta" is a font nothing asks for.
+                if (platform == 3 && language != 0x0409) { continue; }
+                if (platform == 1 && language != 0) { continue; }
+
+                int at = table + strings + offset;
+                if (at < 0 || at + len > d.Length) { continue; }
+                string s = (platform == 3)
+                    ? System.Text.Encoding.BigEndianUnicode.GetString(d, at, len)
+                    : System.Text.Encoding.ASCII.GetString(d, at, len);
+                s = s.Replace("\0", "").Trim();
+                if (s.Length == 0) { continue; }
+
+                // A Windows record is authoritative; the Macintosh one is a
+                // fallback, and in some older faces holds mojibake.
+                if (platform == 3) {
+                    if (nameId == 1 && family == null) { family = s; }
+                    if (nameId == 2 && style == null) { style = s; }
+                }
+                else {
+                    if (nameId == 1 && macFamily == null) { macFamily = s; }
+                    if (nameId == 2 && macStyle == null) { macStyle = s; }
+                }
+            }
+
+            if (family == null) { family = macFamily; }
+            if (style == null) { style = macStyle; }
+            return new string[] { family, style };
+        }
+
+        // Returns "Family" or "Family Style", the name Windows files a font
+        // under, or null when the file carries no usable name.
+        public static string FaceName(string path)
+        {
+            string[] parsed = Parse(path);
+            string family = parsed[0], style = parsed[1];
+            if (family == null) { return null; }
+
+            string lower = (style == null) ? "regular" : style.ToLowerInvariant();
+            bool plain = lower == "regular" || lower == "normal" || lower == "plain"
+                         || lower == "book" || lower == "roman" || lower == "standard";
+            return plain ? family : family + " " + style;
+        }
+
+        // The family alone, which is what FontFamily.Families reports.
+        public static string FamilyName(string path)
+        {
+            return Parse(path)[0];
+        }
+        '@
+
+        # A font file the system already has open cannot be overwritten; stopping
+        # the cache service releases most of them.
+        foreach ($name in 'FontCache', 'FontCache3.0.0.0') {
+            Get-Service $name -ErrorAction SilentlyContinue |
+                Stop-Service -Force -ErrorAction SilentlyContinue
+        }
+
+        $started = Get-Date
+        $registry = 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts'
+        $added = 0; $replaced = 0; $kept = @(); $expected = @()
+        foreach ($file in Get-ChildItem ci-fonts -Include *.ttf, *.otf, *.ttc -Recurse) {
+            $target = Join-Path $env:WINDIR "Fonts\$($file.Name)"
+            $existed = Test-Path $target
+            try {
+                Copy-Item $file.FullName $target -Force -ErrorAction Stop
+            }
+            catch {
+                # The font directory belongs to TrustedInstaller, so replacing a
+                # face Windows ships with needs ownership first. Whose version is
+                # in place decides what the rendering tests compare against, so
+                # it is worth the detour.
+                & takeown /f $target /a 2>&1 | Out-Null
+                & icacls $target /grant '*S-1-5-32-544:F' 2>&1 | Out-Null
+                try {
+                    Copy-Item $file.FullName $target -Force -ErrorAction Stop
+                }
+                catch {
+                    $kept += $file.Name
+                    continue
+                }
+            }
+            if ($existed) { $replaced++ } else { $added++ }
+            $face = [Native.Sfnt]::FaceName($file.FullName)
+            if (-not $face) { $face = $file.BaseName }
+            $family = [Native.Sfnt]::FamilyName($file.FullName)
+            if ($family) { $expected += $family }
+
+            $suffix = if ($file.Extension -eq '.otf') { '(OpenType)' } else { '(TrueType)' }
+            New-ItemProperty -Path $registry -Name "$face $suffix" `
+                             -Value $file.Name -PropertyType String -Force | Out-Null
+            [Native.Gdi]::AddFontResource($target) | Out-Null
+        }
+        Start-Service FontCache -ErrorAction SilentlyContinue
+
+        "Added $added, replaced $replaced, in $([int]((Get-Date) - $started).TotalSeconds) s"
+        if ($kept.Count) { "Kept the runner's copy of: $($kept -join ', ')" }
+
+        $expected = $expected | Sort-Object -Unique
+        $expected | Set-Content expected-fonts.txt -Encoding UTF8
+        "Font families the store provides: $($expected.Count)"
+
+    # Deliberately a step of its own, so the check runs in a process that did
+    # not call AddFontResource: that call registers a font with the calling
+    # process alone, so checking inside the install step confirms itself and
+    # says nothing about what the test run will see.
+    - name: Verify fonts
+      working-directory: ${{ github.workspace }}
+      shell: pwsh
+      run: |
+        Add-Type -AssemblyName System.Drawing
+        $families = [System.Drawing.FontFamily]::Families.Name
+        "Font families visible to a fresh process: $($families.Count)"
+
+        $missing = Get-Content expected-fonts.txt -Encoding UTF8 |
+                   Where-Object { $families -notcontains $_ }
+        if ($missing) {
+            throw "Installed but not resolvable by name: $($missing -join ', ')"
+        }
+        "All $((Get-Content expected-fonts.txt).Count) families resolve by name."
+
+    # msbuild rather than dotnet build: the solution contains the native C++
+    # projects that Map_GDIPlus copies into its output.
+    - name: Build
+      run: msbuild PPen.slnx /restore /p:Configuration=Debug
+
+    - name: Test
+      shell: pwsh
+      run: |
+        # The collector names each test as it begins; see its own source for why
+        # a logger cannot. It is not in the solution, so build it on its own.
+        dotnet build Testing/TestStartLog/TestStartLog.csproj -c Debug --nologo
+        $collector = (Resolve-Path Testing/TestStartLog/bin/Debug/netstandard2.0/TestStartLog.dll).Path
+        $progress = Join-Path $PWD 'test-progress.log'
+
+        # The WPF baselines have moved between two renderings and this machine
+        # reproduces the earlier one exactly, so keep that set to hand: a
+        # comparison that fails against the tip can then say whether it matches
+        # a baseline this project committed before, which separates a rendering
+        # this machine cannot make from one that has regressed.
+        $altRoot = Join-Path $PWD 'alt-baselines'
+        $altLog = Join-Path $PWD 'alt-baselines.log'
+        Remove-Item $altRoot -Recurse -Force -ErrorAction SilentlyContinue
+        Remove-Item $altLog -ErrorAction SilentlyContinue
+        git archive --format=zip -o alt-baselines.zip 81379316 MapModel/TestFiles/wpfrender
+        Expand-Archive alt-baselines.zip -DestinationPath $altRoot -Force
+        "alternate baselines: $((Get-ChildItem $altRoot -Recurse -Filter *.png).Count) files from 81379316"
+
+        $stdout = Join-Path $PWD 'test-stdout.log'
+        $stderr = Join-Path $PWD 'test-stderr.log'
+        foreach ($f in $progress, $stdout, $stderr) { Remove-Item $f -ErrorAction SilentlyContinue }
+
+        # The committed .runsettings plus the collector, whose codebase has to
+        # be a path only this run knows.
+        @"
+        <?xml version="1.0" encoding="utf-8"?>
+        <RunSettings>
+          <RunConfiguration>
+            <EnvironmentVariables>
+              <TEST_SILENTRUN>True</TEST_SILENTRUN>
+              <TEST_PROGRESS_LOG>$progress</TEST_PROGRESS_LOG>
+              <TEST_ALT_BASELINE_ROOT>$altRoot</TEST_ALT_BASELINE_ROOT>
+              <TEST_ALT_BASELINE_LOG>$altLog</TEST_ALT_BASELINE_LOG>
+            </EnvironmentVariables>
+          </RunConfiguration>
+          <InProcDataCollectionRunSettings>
+            <InProcDataCollectors>
+              <InProcDataCollector friendlyName="TestStartLog" enabled="True"
+                                   assemblyQualifiedName="PurplePen.Testing.TestStartLog, TestStartLog, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+                                   codebase="$collector" />
+            </InProcDataCollectors>
+          </InProcDataCollectionRunSettings>
+        </RunSettings>
+        "@ | Set-Content ci.runsettings -Encoding UTF8
+
+        # The run writes to files rather than to this console, so that only one
+        # writer reaches the log and a progress line cannot land in the middle
+        # of a result line.
+        $proc = Start-Process dotnet -NoNewWindow -PassThru `
+                              -RedirectStandardOutput $stdout -RedirectStandardError $stderr `
+                              -ArgumentList @('test', 'PPen.slnx', '--settings:ci.runsettings',
+                                              '--no-build', '-c', 'Debug')
+
+        $seen = @{ $stdout = 0; $progress = 0 }
+        function Show-New($path) {
+            $lines = @(Get-Content $path -ErrorAction SilentlyContinue)
+            if ($lines.Count -gt $seen[$path]) {
+                $lines[$seen[$path]..($lines.Count - 1)]
+                $seen[$path] = $lines.Count
+            }
+        }
+
+        while (-not $proc.HasExited) {
+            Start-Sleep -Seconds 5
+            Show-New $stdout
+            Show-New $progress
+        }
+        $proc.WaitForExit()
+        Show-New $stdout
+        Show-New $progress
+        Get-Content $stderr -ErrorAction SilentlyContinue
+
+        "$((@(Get-Content $progress -ErrorAction SilentlyContinue)).Count) tests started."
+
+        $matched = @(Get-Content $altLog -ErrorAction SilentlyContinue)
+        if ($matched.Count) {
+            ""
+            "$($matched.Count) comparisons matched the baseline as it stood at 81379316:"
+            $matched | Sort-Object -Unique
+        }
+
+        exit $proc.ExitCode
+
+    # A failed bitmap comparison writes what it rendered and where it differs
+    # next to the baseline it compared against.
+    - name: Upload rendering differences
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: rendering-differences
+        path: |
+          src/**/*_actual.png
+          src/**/*_diff.png
+        if-no-files-found: warn
