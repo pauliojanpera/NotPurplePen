@@ -33,6 +33,11 @@ jobs:
         New-Item -ItemType Directory -Path win11-fonts | Out-Null
         Copy-Item (Join-Path $env:WINDIR 'Fonts\*') win11-fonts -Include *.ttf, *.ttc, *.otf -ErrorAction SilentlyContinue
 
+        # A variable font is not resolvable by family name through the interfaces
+        # the tests use, and the verification step rightly refuses one it cannot
+        # find. Nothing here draws with it.
+        Remove-Item win11-fonts\SegUIVar*.ttf -ErrorAction SilentlyContinue
+
         $files = Get-ChildItem win11-fonts
         "{0} faces, {1:N0} MB" -f $files.Count, (($files | Measure-Object Length -Sum).Sum / 1MB)
 
