@@ -45,7 +45,7 @@ namespace AvPurplePen
         /// and install scripts go into. CoreUpdater sweeps files older than ten days out of it
         /// whenever it checks for updates.
         /// </summary>
-        private static readonly string[] downloadDirectoryParts = { "PurplePen", "Updates" };
+        private static readonly string[] downloadDirectoryParts = { "NotPurplePen", "Updates" };
 
         /// <summary>
         /// Set once the check has been started. The user asked for one check per run: a second one

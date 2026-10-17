@@ -27,7 +27,7 @@ namespace AvPurplePen
                 RegisterServices();
 
                 // Set up user settings.
-                string userSettingsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "PurplePen", "PurplePenSettings.json");
+                string userSettingsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "NotPurplePen", "NotPurplePenSettings.json");
                 UserSettings.Initialize(userSettingsPath);
 
                 InitUILanguage();

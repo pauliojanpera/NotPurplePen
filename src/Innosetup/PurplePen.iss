@@ -673,38 +673,35 @@ end;
   #define Beta 0
 #endif
 #if Int(Beta) != 0
-  #define MyAppName "Purple Pen Beta"
-  #define MyAppId "{{E0070449-77A7-447C-A377-4A891577DD1E}"
-  #define MyProgId "PurplePen.PurplePenEventBeta"
+  #define MyAppName "NotPurplePen Beta"
+  #define MyAppId "{{80F7FBBB-8CDD-4B97-BB95-DF967EAA643E}"
+  #define MyProgId "NotPurplePen.NotPurplePenEventBeta"
   #ifndef MyOutputBase
-    #define MyOutputBase "purplepen-beta-setup"
+    #define MyOutputBase "notpurplepen-beta-setup"
   #endif
 #else
-  #define MyAppName "Purple Pen"
-  #define MyAppId "{{347D1E62-7134-4827-9679-4952BEC91C95}"
-  #define MyProgId "PurplePen.PurplePenEvent"
+  #define MyAppName "NotPurplePen"
+  #define MyAppId "{{E284DDEC-9B19-4C54-9644-AAAF715BE58B}"
+  #define MyProgId "NotPurplePen.NotPurplePenEvent"
   #ifndef MyOutputBase
-    #define MyOutputBase "purplepen-setup"
+    #define MyOutputBase "notpurplepen-setup"
   #endif
 #endif
 
 
-#define MyAppPublisher "Purple Pen Software"
-#define MyAppURL "http://purple-pen.org"
+#define MyAppPublisher "NotPurplePen"
+#define MyAppURL "https://pauliojanpera.github.io/NotPurplePen/"
 #define MyAppExeName "PurplePen.exe"
 #define BuildDir "publish\Main"
 #ifndef MyAppVersion
   #define MyAppVersion GetVersionNumbersString(BuildDir + "\PurplePen.exe")
 #endif
 
-; NOTE: The value of AppId uniquely identifies this application.
-; Do not use the same AppId value in installers for other applications.
-; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-;
-;This is the Main PurplePen App ID.
-;AppId={{347D1E62-7134-4827-9679-4952BEC91C95}
-;This is the Beta App ID:
-AppId={{E0070449-77A7-447C-A377-4A891577DD1E}
+; The value of AppId uniquely identifies this application. These are not
+; Purple Pen's, and must not become them: an installer sharing an AppId with
+; another product shares its uninstall entry, upgrades it in place, and takes
+; it away when uninstalled. Stable and beta carry one each, from MyAppId.
+AppId={#MyAppId}
 
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
@@ -742,9 +739,9 @@ PrivilegesRequired=admin
 ArchitecturesAllowed=x64compatible
 
 ; ArchitecturesInstallIn64BitMode is deliberately NOT set. Staying in 32-bit
-; install mode keeps the uninstall entry in the 32-bit registry view, which is
-; where Purple Pen 3.x registered its own — so upgrades are still detected and
-; performed in place. Install mode does not affect how the app itself runs.
+; install mode keeps the uninstall entry in the 32-bit registry view, where
+; this installer has always written it, so an installed copy is still found
+; and upgraded in place. Install mode does not affect how the app itself runs.
 ; Consequence: Is64BitInstallMode is False, so {commonpf}/{sys}/HKLM all resolve
 ; to the 32-bit view. Use {commonpf64} explicitly for the install directory, and
 ; do not rely on Dependency_IsX64 if an architecture-specific dependency is
@@ -851,8 +848,12 @@ Name: "{commonprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
 
 [Registry]
-Root: HKCR; SubKey: ".ppen"; ValueType: string; ValueData: "{#MyProgId}"; Flags: uninsdeletekey
-Root: HKCR; SubKey: "{#MyProgId}"; ValueType: string; ValueData: "Purple Pen Event File"; Flags: uninsdeletekey
+; The .ppen key is shared with any other program that opens these files, so
+; it is written without uninsdeletekey: removing the key on uninstall would
+; take another program's association with it. The ProgId below is this
+; installer's alone and goes when it goes.
+Root: HKCR; SubKey: ".ppen"; ValueType: string; ValueData: "{#MyProgId}"
+Root: HKCR; SubKey: "{#MyProgId}"; ValueType: string; ValueData: "NotPurplePen Event File"; Flags: uninsdeletekey
 Root: HKCR; SubKey: "{#MyProgId}\Shell\Open\Command"; ValueType: string; ValueData: """{app}\{#MyAppExeName}"" ""%1"""; Flags: uninsdeletekey
 Root: HKCR; Subkey: "{#MyProgId}\DefaultIcon"; ValueType: string; ValueData: "{app}\{#MyAppExeName},0"; Flags: uninsdeletekey
 
