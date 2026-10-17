@@ -510,6 +510,15 @@ jobs:
 
     # A failed bitmap comparison writes what it rendered and where it differs
     # next to the baseline it compared against.
+    - name: Keep the GDI+ test build
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-mapmodel-build
+        path: src/MapModel/Test_MapModel/bin/Debug/net10.0-windows
+        if-no-files-found: error
+        retention-days: 1
+
     - name: Upload rendering differences
       if: always()
       uses: actions/upload-artifact@v4
@@ -519,4 +528,59 @@ jobs:
           src/**/*_actual.png
           src/**/*_diff.png
           src/MapModel/TestFiles/pdfrender/fontfallback_temp.pdf
+        if-no-files-found: warn
+
+  # Everything GDI+ draws is compared against baselines recorded on a desktop
+  # Windows, and the two do not draw alike: asked to measure one Hangul syllable
+  # in Arial at 22 px, Server 2022 answers 24.20 and Windows 11 answers 22.00,
+  # with the same fonts installed. So the assembly that draws with GDI+ runs
+  # where its baselines came from. Nothing is built here; the image's Visual
+  # Studio has no toolset for the native projects.
+  gdiplus:
+    name: GDI+ rendering
+    needs: [fonts, test]
+    runs-on: windows-11-arm
+    timeout-minutes: 60
+
+    steps:
+    - name: Checkout source
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+
+    - name: Fetch the build
+      uses: actions/download-artifact@v4
+      with:
+        name: test-mapmodel-build
+        path: src/MapModel/Test_MapModel/bin/Debug/net10.0-windows
+
+    - name: Fetch fonts
+      uses: actions/checkout@v4
+      with:
+        repository: pauliojanpera/windows-fonts
+        token: ${{ secrets.FONTS_TOKEN }}
+        path: ci-fonts
+
+    - name: Run what draws with GDI+
+      working-directory: src
+      shell: pwsh
+      env:
+        TEST_SILENTRUN: 'True'
+      run: |
+        $dll = 'MapModel/Test_MapModel/bin/Debug/net10.0-windows/Test_MapModel.dll'
+        "Testing $dll"
+        & dotnet test $dll --filter "FullyQualifiedName~Rendering|FullyQualifiedName~OpenMapperImport"
+        exit $LASTEXITCODE
+
+    - name: Upload rendering differences
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: rendering-differences-win11
+        path: |
+          src/**/*_actual.png
+          src/**/*_diff.png
         if-no-files-found: warn
