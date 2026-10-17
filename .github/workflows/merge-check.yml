@@ -294,7 +294,7 @@ jobs:
         $started = Get-Date
         $registry = 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts'
         $added = 0; $replaced = 0; $kept = @(); $redirected = @(); $expected = @()
-        foreach ($file in Get-ChildItem win11-fonts, ci-fonts -Include *.ttf, *.otf, *.ttc -Recurse) {
+        foreach ($file in Get-ChildItem ci-fonts, win11-fonts -Include *.ttf, *.otf, *.ttc -Recurse) {
             $target = Join-Path $env:WINDIR "Fonts\$($file.Name)"
             $existed = Test-Path $target
             try {
