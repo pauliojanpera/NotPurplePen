@@ -176,20 +176,19 @@ jobs:
         token: ${{ secrets.FONTS_TOKEN }}
         path: ci-fonts
 
-    - name: Install fonts
+    # What the machine already carries, against what the store holds. Nothing is
+    # installed: this run answers what the stock image renders on its own, and
+    # which faces it has in a version other than the one the baselines were
+    # recorded with.
+    - name: Take stock of the fonts
       working-directory: ${{ github.workspace }}
       shell: pwsh
       run: |
-        # Copying the file and registering it is what installing a font amounts
-        # to. Handing each one to the shell namespace instead costs seconds
-        # apiece, which over a hundred fonts is most of a coffee break.
-        #
-        # The entry has to carry the name the font calls itself, which only the
-        # file knows; filed under anything else a face is not found by name.
-        Add-Type -Namespace Native -Name Gdi -MemberDefinition @'
-        [DllImport("gdi32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
-        public static extern int AddFontResource(string fileName);
-        '@
+        "image: $env:ImageOS $env:ImageVersion"
+        $cv = Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion'
+        "windows: $($cv.ProductName) $($cv.DisplayVersion) build $($cv.CurrentBuild).$($cv.UBR)"
+        "architecture: $env:PROCESSOR_ARCHITECTURE"
+        ""
 
         Add-Type -Namespace Native -Name Sfnt -MemberDefinition @'
         static int U16(byte[] d, int o) { return (d[o] << 8) | d[o + 1]; }
@@ -197,144 +196,129 @@ jobs:
             return (d[o] << 24) | (d[o + 1] << 16) | (d[o + 2] << 8) | d[o + 3];
         }
 
-        // Returns { family, style } as read from the font's name table, with
-        // null entries when the file carries no usable name.
-        public static string[] Parse(string path)
+        // One line per face in the file: family, style and the version the font
+        // calls itself, tab separated. A collection holds several.
+        public static string[] Faces(string path)
         {
             byte[] d = System.IO.File.ReadAllBytes(path);
-            int start = (d[0] == 't' && d[1] == 't' && d[2] == 'c' && d[3] == 'f') ? U32(d, 12) : 0;
-
-            int table = -1;
-            int tableCount = U16(d, start + 4);
-            for (int i = 0; i < tableCount; i++) {
-                int o = start + 12 + 16 * i;
-                if (d[o] == 'n' && d[o + 1] == 'a' && d[o + 2] == 'm' && d[o + 3] == 'e')
-                    table = U32(d, o + 8);
+            int[] starts;
+            if (d.Length > 16 && d[0] == 't' && d[1] == 't' && d[2] == 'c' && d[3] == 'f') {
+                int count = U32(d, 8);
+                starts = new int[count];
+                for (int i = 0; i < count; i++) { starts[i] = U32(d, 12 + 4 * i); }
             }
-            if (table < 0) { return new string[] { null, null }; }
-
-            int count = U16(d, table + 2), strings = U16(d, table + 4);
-            string family = null, style = null, macFamily = null, macStyle = null;
-            for (int i = 0; i < count; i++) {
-                int p = table + 6 + 12 * i;
-                int platform = U16(d, p), language = U16(d, p + 4), nameId = U16(d, p + 6);
-                int len = U16(d, p + 8), offset = U16(d, p + 10);
-                if (nameId != 1 && nameId != 2) { continue; }
-
-                // Several of these faces carry localized style names, and a
-                // font filed as "Arial Negreta" is a font nothing asks for.
-                if (platform == 3 && language != 0x0409) { continue; }
-                if (platform == 1 && language != 0) { continue; }
-
-                int at = table + strings + offset;
-                if (at < 0 || at + len > d.Length) { continue; }
-                string s = (platform == 3)
-                    ? System.Text.Encoding.BigEndianUnicode.GetString(d, at, len)
-                    : System.Text.Encoding.ASCII.GetString(d, at, len);
-                s = s.Replace("\0", "").Trim();
-                if (s.Length == 0) { continue; }
-
-                // A Windows record is authoritative; the Macintosh one is a
-                // fallback, and in some older faces holds mojibake.
-                if (platform == 3) {
-                    if (nameId == 1 && family == null) { family = s; }
-                    if (nameId == 2 && style == null) { style = s; }
-                }
-                else {
-                    if (nameId == 1 && macFamily == null) { macFamily = s; }
-                    if (nameId == 2 && macStyle == null) { macStyle = s; }
-                }
+            else {
+                starts = new int[] { 0 };
             }
 
-            if (family == null) { family = macFamily; }
-            if (style == null) { style = macStyle; }
-            return new string[] { family, style };
-        }
+            System.Collections.Generic.List<string> faces =
+                new System.Collections.Generic.List<string>();
+            foreach (int start in starts) {
+                int table = -1;
+                int tableCount = U16(d, start + 4);
+                for (int i = 0; i < tableCount; i++) {
+                    int o = start + 12 + 16 * i;
+                    if (d[o] == 'n' && d[o + 1] == 'a' && d[o + 2] == 'm' && d[o + 3] == 'e')
+                        table = U32(d, o + 8);
+                }
+                if (table < 0) { continue; }
 
-        // Returns "Family" or "Family Style", the name Windows files a font
-        // under, or null when the file carries no usable name.
-        public static string FaceName(string path)
-        {
-            string[] parsed = Parse(path);
-            string family = parsed[0], style = parsed[1];
-            if (family == null) { return null; }
+                int count = U16(d, table + 2), strings = U16(d, table + 4);
+                string[] win = new string[6], mac = new string[6];
+                for (int i = 0; i < count; i++) {
+                    int p = table + 6 + 12 * i;
+                    int platform = U16(d, p), language = U16(d, p + 4), nameId = U16(d, p + 6);
+                    int len = U16(d, p + 8), offset = U16(d, p + 10);
+                    if (nameId != 1 && nameId != 2 && nameId != 5) { continue; }
+                    if (platform == 3 && language != 0x0409) { continue; }
+                    if (platform == 1 && language != 0) { continue; }
 
-            string lower = (style == null) ? "regular" : style.ToLowerInvariant();
-            bool plain = lower == "regular" || lower == "normal" || lower == "plain"
-                         || lower == "book" || lower == "roman" || lower == "standard";
-            return plain ? family : family + " " + style;
-        }
+                    int at = table + strings + offset;
+                    if (at < 0 || at + len > d.Length) { continue; }
+                    string s = (platform == 3)
+                        ? System.Text.Encoding.BigEndianUnicode.GetString(d, at, len)
+                        : System.Text.Encoding.ASCII.GetString(d, at, len);
+                    s = s.Replace("\0", "").Trim();
+                    if (s.Length == 0) { continue; }
+                    if (platform == 3) { if (win[nameId] == null) { win[nameId] = s; } }
+                    else { if (mac[nameId] == null) { mac[nameId] = s; } }
+                }
 
-        // The family alone, which is what FontFamily.Families reports.
-        public static string FamilyName(string path)
-        {
-            return Parse(path)[0];
+                string family = win[1] ?? mac[1];
+                string style = win[2] ?? mac[2] ?? "Regular";
+                string version = win[5] ?? mac[5] ?? "";
+                if (family == null) { continue; }
+                faces.Add(family + "\t" + style + "\t" + version);
+            }
+            return faces.ToArray();
         }
         '@
 
-        # A font file the system already has open cannot be overwritten; stopping
-        # the cache service releases most of them.
-        foreach ($name in 'FontCache', 'FontCache3.0.0.0') {
-            Get-Service $name -ErrorAction SilentlyContinue |
-                Stop-Service -Force -ErrorAction SilentlyContinue
-        }
-
-        $started = Get-Date
-        $registry = 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts'
-        $added = 0; $replaced = 0; $kept = @(); $redirected = @(); $expected = @()
-        foreach ($file in Get-ChildItem ci-fonts -Include *.ttf, *.otf, *.ttc -Recurse) {
-            $target = Join-Path $env:WINDIR "Fonts\$($file.Name)"
-            $existed = Test-Path $target
-            try {
-                Copy-Item $file.FullName $target -Force -ErrorAction Stop
-            }
-            catch {
-                # The font directory belongs to TrustedInstaller, so replacing a
-                # face Windows ships with needs ownership first. Whose version is
-                # in place decides what the rendering tests compare against, so
-                # it is worth the detour.
-                & takeown /f $target /a 2>&1 | Out-Null
-                & icacls $target /grant '*S-1-5-32-544:F' 2>&1 | Out-Null
-                try {
-                    Copy-Item $file.FullName $target -Force -ErrorAction Stop
-                }
-                catch {
-                    # A face Windows itself is drawing with cannot be overwritten
-                    # while it is open. The registry entry is keyed by the face
-                    # name rather than the file, so the same name can be made to
-                    # point at a copy under another one.
-                    $target = Join-Path $env:WINDIR "Fonts\store-$($file.Name)"
-                    try {
-                        Copy-Item $file.FullName $target -Force -ErrorAction Stop
-                        $existed = $false
-                        $redirected += $file.Name
-                    }
-                    catch {
-                        $kept += $file.Name
-                        continue
+        # Parameters:
+        #   files - the font files to read.
+        #   label - where they came from, for the report.
+        function Read-Faces($files, $label) {
+            $out = @()
+            foreach ($file in $files) {
+                try { $faces = [Native.Sfnt]::Faces($file.FullName) }
+                catch { continue }
+                $hash = (Get-FileHash $file.FullName -Algorithm SHA256).Hash
+                foreach ($face in $faces) {
+                    $parts = $face -split "`t"
+                    $out += [pscustomobject]@{
+                        Source = $label; File = $file.Name; Bytes = $file.Length
+                        Sha256 = $hash
+                        Family = $parts[0]; Style = $parts[1]; Version = $parts[2]
                     }
                 }
             }
-            if ($existed) { $replaced++ } else { $added++ }
-            $face = [Native.Sfnt]::FaceName($file.FullName)
-            if (-not $face) { $face = $file.BaseName }
-            $family = [Native.Sfnt]::FamilyName($file.FullName)
-            if ($family) { $expected += $family }
-
-            $suffix = if ($file.Extension -eq '.otf') { '(OpenType)' } else { '(TrueType)' }
-            New-ItemProperty -Path $registry -Name "$face $suffix" `
-                             -Value (Split-Path $target -Leaf) -PropertyType String -Force | Out-Null
-            [Native.Gdi]::AddFontResource($target) | Out-Null
+            return $out
         }
-        Start-Service FontCache -ErrorAction SilentlyContinue
 
-        "Added $added, replaced $replaced, in $([int]((Get-Date) - $started).TotalSeconds) s"
-        if ($redirected.Count) { "In use, so filed under another name: $($redirected -join ', ')" }
-        if ($kept.Count) { "Kept the runner's copy of: $($kept -join ', ')" }
+        $pattern = @('*.ttf', '*.otf', '*.ttc')
+        $store = Read-Faces (Get-ChildItem ci-fonts -Include $pattern -Recurse) 'store'
+        $system = Read-Faces (Get-ChildItem (Join-Path $env:WINDIR 'Fonts') -Include $pattern) 'system'
+        "store: $($store.Count) faces in $(($store.File | Sort-Object -Unique).Count) files"
+        "system: $($system.Count) faces in $(($system.File | Sort-Object -Unique).Count) files"
+        ""
 
-        $expected = $expected | Sort-Object -Unique
-        $expected | Set-Content expected-fonts.txt -Encoding UTF8
-        "Font families the store provides: $($expected.Count)"
+        $byFace = @{}
+        foreach ($one in $system) { $byFace["$($one.Family)|$($one.Style)"] = $one }
+        $byFamily = @{}
+        foreach ($one in $system) { $byFamily[$one.Family] = $true }
+
+        $report = foreach ($one in $store) {
+            $match = $byFace["$($one.Family)|$($one.Style)"]
+            $verdict =
+                if (-not $byFamily.ContainsKey($one.Family)) { 'family absent' }
+                elseif (-not $match) { 'style absent' }
+                elseif ($match.Sha256 -eq $one.Sha256) { 'identical' }
+                elseif ($match.Version -eq $one.Version) { 'same version, other bytes' }
+                else { 'other version' }
+            [pscustomobject]@{
+                File = $one.File; Family = $one.Family; Style = $one.Style
+                StoreVersion = $one.Version
+                SystemFile = if ($match) { $match.File } else { '' }
+                SystemVersion = if ($match) { $match.Version } else { '' }
+                Verdict = $verdict
+            }
+        }
+
+        $report | Group-Object Verdict | Sort-Object Count -Descending |
+            ForEach-Object { "$($_.Count)`t$($_.Name)" }
+        ""
+        $report | Where-Object { $_.Verdict -ne 'identical' } |
+            Sort-Object Verdict, Family, Style |
+            Format-Table File, Family, Style, StoreVersion, SystemVersion, Verdict -AutoSize |
+            Out-String -Width 200
+
+        [pscustomobject]@{
+            ImageOS = $env:ImageOS; ImageVersion = $env:ImageVersion
+            ProductName = $cv.ProductName; DisplayVersion = $cv.DisplayVersion
+            Build = "$($cv.CurrentBuild).$($cv.UBR)"
+            Architecture = $env:PROCESSOR_ARCHITECTURE
+            Store = $store; System = $system; Report = $report
+        } | ConvertTo-Json -Depth 5 | Set-Content fonts-inventory.json -Encoding UTF8
 
     # The exported-XML baselines forgive their timestamps only in this zone's shape.
     - name: Set the time zone the baselines were recorded in
@@ -484,6 +468,14 @@ jobs:
             "Failed: $($failed -join ', ')"
             exit 1
         }
+
+    - name: Upload the font inventory
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: fonts-inventory-${{ matrix.id }}
+        path: fonts-inventory.json
+        if-no-files-found: warn
 
     - name: Upload rendering differences
       if: always()
