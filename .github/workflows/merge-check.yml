@@ -97,10 +97,46 @@ jobs:
   # Everything this needs but the build itself -- the image, the runtime, the
   # fonts -- takes two and a half minutes to put in place, and the build takes
   # six. So it starts alongside and waits only where it must.
+  # Ten assemblies on one four-core machine spent most of their time waiting for
+  # each other, so they are spread over several. The groups are sized by what
+  # each assembly measured, and the work every machine does before there is
+  # anything to run -- the runtime, the runtime library, the fonts -- happens on
+  # all of them at once anyway.
   test:
-    name: Test
+    name: Test (${{ matrix.name }})
     runs-on: windows-11-arm
     timeout-minutes: 60
+
+    strategy:
+      # One group's failures say nothing about another's, and a run that stops at
+      # the first of them leaves the rest unanswered.
+      fail-fast: false
+      matrix:
+        include:
+        - id: purplepen
+          name: PurplePen
+          assemblies: PurplePen_Tests/bin/Debug/net10.0-windows/PurplePen_Tests.dll
+        - id: pdf
+          name: PDF
+          assemblies: MapModel/Map_PDF.Tests/bin/Debug/net10.0/Map_PDF.Tests.dll
+        - id: mapmodel
+          name: MapModel
+          assemblies: MapModel/Test_MapModel/bin/Debug/net10.0-windows/Test_MapModel.dll
+        - id: wpf
+          name: WPF
+          assemblies: >-
+            MapModel/Test_MapWPF/bin/Debug/net10.0-windows/TestProject1.dll
+            PdfConverter.Tests/bin/Debug/net10.0-windows/PdfConverter.Tests.dll
+        - id: projections
+          name: projections
+          assemblies: DotSpatialProjectionsLite/DotSpatial.Projections.Tests/bin/Debug/net10.0/DotSpatial.Projections.Tests.dll
+        - id: skia
+          name: Skia
+          assemblies: >-
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
+            MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
+            PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
+            Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
 
     steps:
     - name: Checkout source
@@ -307,13 +343,14 @@ jobs:
         tzutil /s "Pacific Standard Time"
         "time zone now: $(tzutil /g)"
 
-    - name: Fetch the build
+    - name: Wait for the build
       shell: pwsh
       env:
         GH_TOKEN: ${{ github.token }}
       run: |
-        # This job did not wait on the build, so it waits here, and says so
-        # rather than looking stuck.
+        # This job did not wait on the build, so that everything it needs is in
+        # place by the time there is something to run. It waits here instead, and
+        # says so rather than looking stuck.
         $deadline = (Get-Date).AddMinutes(40)
         while ($true) {
             $state = & gh api "repos/$env:GITHUB_REPOSITORY/actions/runs/$env:GITHUB_RUN_ID/jobs" `
@@ -325,6 +362,11 @@ jobs:
             Start-Sleep -Seconds 15
         }
 
+    - name: Fetch the build
+      shell: pwsh
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
         & gh run download $env:GITHUB_RUN_ID --name build --dir src
         if ($LASTEXITCODE -ne 0) { throw 'The build could not be fetched.' }
 
@@ -335,6 +377,7 @@ jobs:
       shell: pwsh
       env:
         TEST_SILENTRUN: 'True'
+        ASSEMBLIES: ${{ matrix.assemblies }}
       run: |
         # The baselines as they stood at 81379316 travel with the build, so a
         # comparison that fails against the tip can say whether it matches one
@@ -350,23 +393,14 @@ jobs:
         "alternate baselines: $((Get-ChildItem $altRoot -Recurse -Filter *.png).Count) files from 81379316"
 
         # The assemblies rather than the solution: this image has no toolset for
-        # the native projects, so nothing here may be built.
-        $assemblies = @(
-            'MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll'
-            'MapModel/Map_PDF.Tests/bin/Debug/net10.0/Map_PDF.Tests.dll'
-            'MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll'
-            'MapModel/Test_MapModel/bin/Debug/net10.0-windows/Test_MapModel.dll'
-            'MapModel/Test_MapWPF/bin/Debug/net10.0-windows/TestProject1.dll'
-            'DotSpatialProjectionsLite/DotSpatial.Projections.Tests/bin/Debug/net10.0/DotSpatial.Projections.Tests.dll'
-            'PdfConverter.Tests/bin/Debug/net10.0-windows/PdfConverter.Tests.dll'
-            'PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll'
-            'PurplePen_Tests/bin/Debug/net10.0-windows/PurplePen_Tests.dll'
-            'Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll'
-        )
+        # the native projects, so nothing here may be built. Which of them this
+        # machine runs comes from the matrix.
+        $assemblies = $env:ASSEMBLIES -split '\s+' | Where-Object { $_ }
+        "assemblies: $($assemblies -join ', ')"
 
-        # All at once rather than one after another: the longest assembly takes
-        # four minutes and the ten together take ten. Each writes to its own file
-        # so that one assembly's line cannot land in the middle of another's.
+        # The group all at once rather than one after another. Each writes to its
+        # own file so that one assembly's line cannot land in the middle of
+        # another's.
         $dotnet = Join-Path $env:ProgramFiles 'dotnet-x64\dotnet.exe'
         $missing = $assemblies | Where-Object { -not (Test-Path $_) }
         if ($missing) { throw "Not in the build: $($missing -join ', ')" }
@@ -455,7 +489,7 @@ jobs:
       if: always()
       uses: actions/upload-artifact@v4
       with:
-        name: rendering-differences-win11
+        name: rendering-differences-${{ matrix.id }}
         path: |
           src/**/*_actual.png
           src/**/*_diff.png
