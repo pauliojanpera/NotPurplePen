@@ -12,7 +12,7 @@ on:
     # suite costs six machines and ten minutes. Ask for it by hand there.
     branches: [ master, dev, 'experiment/**' ]
   pull_request:
-    branches: [ master, dev, upstream-ci ]
+    branches: [ master, dev, base ]
   workflow_dispatch:
 
 jobs:
