@@ -125,7 +125,7 @@
     <value>Copyright © Peter Golde</value>
   </data>
   <data name="AboutForm_freeLabel_Text" xml:space="preserve">
-    <value>A Purple Pen szabadszoftver, másolható és megosztható.</value>
+    <value>A NotPurplePen szabadszoftver, másolható és megosztható.</value>
   </data>
   <data name="AboutForm_disclaimerLabel_Text" xml:space="preserve">
     <value>EZT A SZOFTVERT A SZERZŐI JOG TULAJDONOSAI ÉS A HOZZÁJÁRULÓK ÚGY BIZTOSÍTJÁK, „AHOGY VAN”, ÉS SEMMILYEN NYÍLT VAGY BURKOLT GARANCIA – BELEÉRTVE, DE NEM ERRE KORLÁTOZVA AZ ELADHATÓSÁGOT VAGY EGY ADOTT CÉLRA VALÓ ALKALMATOSSÁGOT – NEM ÉRVÉNYESÍTHETŐ.</value>
@@ -152,7 +152,7 @@
     <value>A teljes licensz</value>
   </data>
   <data name="AboutForm_Text" xml:space="preserve">
-    <value>A Purple Pen programról</value>
+    <value>A NotPurplePen programról</value>
   </data>
   <data name="AddCourse_firstControlLabel_Text" xml:space="preserve">
     <value>Első ellenőrzőpont:</value>
@@ -1214,19 +1214,19 @@
     <value>Könyvtár kiválasztása..</value>
   </data>
   <data name="CreateImageFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>A Purple Pen fájllal azonos könyvtár</value>
+    <value>A NotPurplePen fájllal azonos könyvtár</value>
   </data>
   <data name="CreateKmlFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>A Purple Pen fájllal azonos könyvtár</value>
+    <value>A NotPurplePen fájllal azonos könyvtár</value>
   </data>
   <data name="CreateOcadFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>A Purple Pen fájllal azonos könyvtár</value>
+    <value>A NotPurplePen fájllal azonos könyvtár</value>
   </data>
   <data name="CreatePdfCourses_coursesDirectory_Text" xml:space="preserve">
-    <value>A Purple Pen fájllal azonos könyvtár</value>
+    <value>A NotPurplePen fájllal azonos könyvtár</value>
   </data>
   <data name="CreateRouteGadget_coursesDirectory_Text" xml:space="preserve">
-    <value>A Purple Pen fájllal azonos könyvtár</value>
+    <value>A NotPurplePen fájllal azonos könyvtár</value>
   </data>
   <data name="CreateImageFiles_mapDirectory_Text" xml:space="preserve">
     <value>A térkép fájllal azonos könyvtár</value>
@@ -1439,13 +1439,13 @@
     <value>Létező esemény megnyitása</value>
   </data>
   <data name="InitialScreen_label1_Text" xml:space="preserve">
-    <value>A Purple Pen program szabadszoftver, így szabadon másolható és terjeszthető. A Purple Pen fejlesztését csak az Ön adománya támogatja.</value>
+    <value>A NotPurplePen program szabadszoftver, így szabadon másolható és terjeszthető. A NotPurplePen fejlesztését csak az Ön adománya támogatja.</value>
   </data>
   <data name="InitialScreen_donationLink_Text" xml:space="preserve">
     <value>Adományozás</value>
   </data>
   <data name="InitialScreen_Text" xml:space="preserve">
-    <value>Üdözöljük a Purple Pen-ben</value>
+    <value>Üdözöljük a NotPurplePen-ben</value>
   </data>
   <data name="LegAssignmentsDialog_BranchColumn_HeaderText" xml:space="preserve">
     <value>Elágazás</value>
@@ -1463,10 +1463,10 @@
     <value>Ág hozzárendelések</value>
   </data>
   <data name="LicenseForm_bsdLicenseLinkLabel_Text" xml:space="preserve">
-    <value>A Purple Pen  "BSD" stílusú licensz alatt közzétéve.</value>
+    <value>A NotPurplePen  "BSD" stílusú licensz alatt közzétéve.</value>
   </data>
   <data name="LicenseForm_Text" xml:space="preserve">
-    <value>Purple Pen licensz</value>
+    <value>NotPurplePen licensz</value>
   </data>
   <data name="LinePropertiesDialog_buttonChangeColor_Text" xml:space="preserve">
     <value> Szín módosítás...</value>
@@ -1511,10 +1511,10 @@
     <value>mapViewerTopology</value>
   </data>
   <data name="MainFrame_openFileDialog_Filter" xml:space="preserve">
-    <value>Purple Pen fájlok|*.ppen|Minden fájl|*.*</value>
+    <value>NotPurplePen fájlok|*.ppen|Minden fájl|*.*</value>
   </data>
   <data name="MainFrame_saveFileDialog_Filter" xml:space="preserve">
-    <value>Purple Pen fájl|*.ppen</value>
+    <value>NotPurplePen fájl|*.ppen</value>
   </data>
   <data name="MainFrame_newEventMenu_Text" xml:space="preserve">
     <value>Új _Esemény</value>
@@ -1967,13 +1967,13 @@
     <value>_Jelentések</value>
   </data>
   <data name="MainFrame_helpContentsMenu_Text" xml:space="preserve">
-    <value>Purple Pen _Súgó</value>
+    <value>NotPurplePen _Súgó</value>
   </data>
   <data name="MainFrame_helpTranslatedMenu_Text" xml:space="preserve">
-    <value>Purple Pen Súgó (lefordított)</value>
+    <value>NotPurplePen Súgó (lefordított)</value>
   </data>
   <data name="MainFrame_mainWebSiteToolMenu_Text" xml:space="preserve">
-    <value>Purple Pen _Web oldal</value>
+    <value>NotPurplePen _Web oldal</value>
   </data>
   <data name="MainFrame_supportWebSiteMenu_Text" xml:space="preserve">
     <value>_Segítség/Hibabejelentés</value>
@@ -1982,7 +1982,7 @@
     <value>_Támogatás</value>
   </data>
   <data name="MainFrame_aboutMenu_Text" xml:space="preserve">
-    <value>A Purple Pen programról</value>
+    <value>A NotPurplePen programról</value>
   </data>
   <data name="MainFrame_symbolBrowserMenu_Text" xml:space="preserve">
     <value>Szimbólum böngésző</value>
@@ -2114,10 +2114,10 @@
     <value>GPX fájl|*.gpx</value>
   </data>
   <data name="MainFrame_Text" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="MiscText_AppTitle" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="MiscText_CtrlZ" xml:space="preserve">
     <value>Ctrl+Z</value>
@@ -2274,7 +2274,7 @@ Használja a | jelet sorelválsztóként</value>
     <value>{0} verzió</value>
   </data>
   <data name="MiscText_NewerVersionAvailable" xml:space="preserve">
-    <value>A Purple Pen {0} verziója letölthető. (Az Ön jelenlegi verziója: {1}.)
+    <value>A NotPurplePen {0} verziója letölthető. (Az Ön jelenlegi verziója: {1}.)
 
 Kívánja letölteni és telepíteni a legújabb verziót?</value>
   </data>
@@ -2287,7 +2287,7 @@ Kívánja letölteni és telepíteni a legújabb verziót?</value>
   <data name="MiscText_MissingMapFile" xml:space="preserve">
     <value>A "{0}" térkép fájl nem található.
 
-Leggyakrabban áthelyezve, vagy letörölve lett a térkép fájl. Ha másik gépre próbáljuk átvinni a Purple Pen fájlt, akkor vele kell vinnünk a térkép fájlt is.
+Leggyakrabban áthelyezve, vagy letörölve lett a térkép fájl. Ha másik gépre próbáljuk átvinni a NotPurplePen fájlt, akkor vele kell vinnünk a térkép fájlt is.
 
 A Rendben lenyomása után próbálja megkeresni a térkép fájlt a számítógépén.</value>
   </data>
@@ -2361,7 +2361,7 @@ A Rendben lenyomása után próbálja megkeresni a térkép fájlt a számítóg
     <value>Írja be az új szöveget!</value>
   </data>
   <data name="MiscText_MapFileChanged" xml:space="preserve">
-    <value>Egy másik program módosította a(z) '{0}' térkép fájlt. A Purple Pen újra fogja olvasni.</value>
+    <value>Egy másik program módosította a(z) '{0}' térkép fájlt. A NotPurplePen újra fogja olvasni.</value>
   </data>
   <data name="MiscText_ChangeDescriptionLanguage" xml:space="preserve">
     <value>Az esemény tartalmaz szöveges pontleírást az alábbi pályákon: {0}. Biztosan megváltoztatja a nyelvet, az új nyelv {1} lesz?</value>
@@ -2370,13 +2370,13 @@ A Rendben lenyomása után próbálja megkeresni a térkép fájlt a számítóg
     <value>Megnyitás "{0}"</value>
   </data>
   <data name="MiscText_ClosePPBeforeLoadingOCAD" xml:space="preserve">
-    <value>A Purple Pen programot be kell zárni mielőtt betölti az elkészült OCAD fájlokat.</value>
+    <value>A NotPurplePen programot be kell zárni mielőtt betölti az elkészült OCAD fájlokat.</value>
   </data>
   <data name="MiscText_NoCoursesSelected" xml:space="preserve">
     <value>Egyetlen pályát sem választott a nyomtatáshoz.</value>
   </data>
   <data name="MiscText_TranslatedHelpWebSite" xml:space="preserve">
-    <value>*** Ha létezik web oldal amin megtalálható a Purple Pen dokumentációja a lefordított nyelven, írja be a címet (http-vel együtt) fordításként. Egyéb esetben hagyja üresen.</value>
+    <value>*** Ha létezik web oldal amin megtalálható a NotPurplePen dokumentációja a lefordított nyelven, írja be a címet (http-vel együtt) fordításként. Egyéb esetben hagyja üresen.</value>
   </data>
   <data name="MiscText_MapExchange_Long" xml:space="preserve">
     <value>Térképcsere</value>
@@ -2490,7 +2490,7 @@ A Rendben lenyomása után próbálja megkeresni a térkép fájlt a számítóg
     <value>Nem lehet újravetíteni a pontokat; valamelyik koordináta rendszer vagy a valós földi koordináták az OCAD fájlban hibásak.</value>
   </data>
   <data name="MiscText_GpxUnsupportedCoordSystem" xml:space="preserve">
-    <value>Az OCAD fájl a Purple Pen által nem ismert koordináta rendszert használ.</value>
+    <value>Az OCAD fájl a NotPurplePen által nem ismert koordináta rendszert használ.</value>
   </data>
   <data name="MiscText_BadLength" xml:space="preserve">
     <value>A pályahossz 0.1 - 99.9 között lehet, vagy üres az automatikus meghatározáshoz.</value>
@@ -2582,7 +2582,7 @@ A Rendben lenyomása után próbálja megkeresni a térkép fájlt a számítóg
   <data name="MissingFonts_labelWarning_Text" xml:space="preserve">
     <value>A térkép fájl "{0}" olyan betűtípusokat használ, amik nincsenek telepítve a számítógépén. A szövegek amik ezeket használják az alapértelmezett betútípussal jelennek meg és kerülnek nyomtatásre, ami jelentősen eltérhet attól amit a térkép tervezője megadott. 
 
-A probléma megoldására szerezze be és telepítse a Windows vezérlőpultban az alábbi betűtípusokat, majd indítsa újra a Purple Pen programot.
+A probléma megoldására szerezze be és telepítse a Windows vezérlőpultban az alábbi betűtípusokat, majd indítsa újra a NotPurplePen programot.
 </value>
   </data>
   <data name="MissingFonts_Text" xml:space="preserve">
@@ -2660,7 +2660,7 @@ A lépték a papír térkép és a valóság aránya.
     <value>Kiválasztott térkép fájl</value>
   </data>
   <data name="NewEventMapFile_infoMessage_Text" xml:space="preserve">
-    <value>A térkép fájl betöltése sikeres volt. Ha a Purple Pen fájlt továbbküldi valahová, akkor vele kell küldenie a térkép fájlt is!</value>
+    <value>A térkép fájl betöltése sikeres volt. Ha a NotPurplePen fájlt továbbküldi valahová, akkor vele kell küldenie a térkép fájlt is!</value>
   </data>
   <data name="NewEventNumbering_newEventNumberingLabel_Text" xml:space="preserve">
     <value>Az új ellenőrzőpontok automatikusan számozódnak. Kérem adja meg a kezdőértéket.</value>
@@ -2707,7 +2707,7 @@ A lépték a papír térkép és a valóság aránya.
     <value>IOF pontmegnevezések</value>
   </data>
   <data name="NewEventStandards_labelStandardsIntro_Text" xml:space="preserve">
-    <value>Melyik IOF szabványokat használja a Purple Pen?</value>
+    <value>Melyik IOF szabványokat használja a NotPurplePen?</value>
   </data>
   <data name="NewEventTitle_newEventTitleLabel_Text" xml:space="preserve">
     <value>Az esemény neve a pontleírások első sorában fog megjelenni. Ezt használjuk fájlnévként is az esemény lemezre írásakor.
@@ -2721,7 +2721,7 @@ Ahhoz, hogy elférjen a pontleíráson kevesebb mint 25 karaktert tartalmazzon. 
     <value>&lt; _Vissza</value>
   </data>
   <data name="NonPrintableObjects_labelWarning_Text" xml:space="preserve">
-    <value>A térkép fájl "{0}" tartalmaz olyan objektumokat vagy szimbólumokat amiket a Purple Pen nem teljesen támogat. Az objektumok amik nem nyomtathatók tökéletesen, a lenti listában szereplenek.
+    <value>A térkép fájl "{0}" tartalmaz olyan objektumokat vagy szimbólumokat amiket a NotPurplePen nem teljesen támogat. Az objektumok amik nem nyomtathatók tökéletesen, a lenti listában szereplenek.
 
 A versenytérképek nyomtatásához javasolt a pályákat OCAD formátumba exportálni (Fájl/OCAD fájlok létrehozása...) és a térképeket az OCAD-ben nyomtatni.
 </value>
@@ -3342,7 +3342,7 @@ A versenytérképek nyomtatásához javasolt a pályákat OCAD formátumba expor
     <value>Nyomtatási terület rögzítése a papírmérethez</value>
   </data>
   <data name="SetUILanguage_introLabel_Text" xml:space="preserve">
-    <value>Válasza ki a Purple Pen felhasználói felületének nyelvét (menük, ablakok, stb.)</value>
+    <value>Válasza ki a NotPurplePen felhasználói felületének nyelvét (menük, ablakok, stb.)</value>
   </data>
   <data name="SetUILanguage_Text" xml:space="preserve">
     <value>A program nyelve</value>

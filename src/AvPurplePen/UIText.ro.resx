@@ -122,7 +122,7 @@
     <value />
   </data>
   <data name="AboutForm_freeLabel_Text" xml:space="preserve">
-    <value>Purple Pen este software gratuit și poate fi copiat și distribuit.</value>
+    <value>NotPurplePen este software gratuit și poate fi copiat și distribuit.</value>
   </data>
   <data name="AboutForm_disclaimerLabel_Text" xml:space="preserve">
     <value>ACEST PROGRAM ESTE OFERIT DE CĂTRE DEȚINĂTORUL DREPTURILOR DE AUTOR ȘI CONTRIBUTORI "AȘA CUM ESTE" ȘI SUNT EXCLUSE ORICE GARAȚII IMPLICITE SAU EXPLICITE, SAU GARAȚII IMPLICITE DE COMERCIALIZARE SAU PENTRU UN ANUMIT SCOP, DAR FARĂ A SE LIMITA LA ACESTEA.</value>
@@ -149,7 +149,7 @@
     <value>Vizualizați întreaga licență</value>
   </data>
   <data name="AboutForm_Text" xml:space="preserve">
-    <value>Despre Purple Pen</value>
+    <value>Despre NotPurplePen</value>
   </data>
   <data name="AddCourse_firstControlLabel_Text" xml:space="preserve">
     <value>Numărul primului post:</value>
@@ -908,19 +908,19 @@
     <value>Selectare director...</value>
   </data>
   <data name="CreateImageFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>Același director ca și fișierul Purple Pen</value>
+    <value>Același director ca și fișierul NotPurplePen</value>
   </data>
   <data name="CreateKmlFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>Același director ca și fișierul Purple Pen</value>
+    <value>Același director ca și fișierul NotPurplePen</value>
   </data>
   <data name="CreateOcadFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>Același director ca și fișierul Purple Pen</value>
+    <value>Același director ca și fișierul NotPurplePen</value>
   </data>
   <data name="CreatePdfCourses_coursesDirectory_Text" xml:space="preserve">
-    <value>Același director ca și fișierul Purple Pen</value>
+    <value>Același director ca și fișierul NotPurplePen</value>
   </data>
   <data name="CreateRouteGadget_coursesDirectory_Text" xml:space="preserve">
-    <value>Același director ca și fișierul Purple Pen</value>
+    <value>Același director ca și fișierul NotPurplePen</value>
   </data>
   <data name="CreateImageFiles_mapDirectory_Text" xml:space="preserve">
     <value>Același director ca și fișierul hartă</value>
@@ -1061,22 +1061,22 @@
     <value>Deschidere eveniment existent...</value>
   </data>
   <data name="InitialScreen_Text" xml:space="preserve">
-    <value>Bunvenit în Purple Pen</value>
+    <value>Bunvenit în NotPurplePen</value>
   </data>
   <data name="LicenseForm_bsdLicenseLinkLabel_Text" xml:space="preserve">
-    <value>Purple Pen este oferit sub tipul de licență "BSD"</value>
+    <value>NotPurplePen este oferit sub tipul de licență "BSD"</value>
   </data>
   <data name="LicenseForm_Text" xml:space="preserve">
-    <value>Licența Purple Pen</value>
+    <value>Licența NotPurplePen</value>
   </data>
   <data name="MainFrame_tabPage1_Text" xml:space="preserve">
     <value>Toate Posturile</value>
   </data>
   <data name="MainFrame_openFileDialog_Filter" xml:space="preserve">
-    <value>Fișiere Purple Pen|*.ppen|Toate fișierele|*.*</value>
+    <value>Fișiere NotPurplePen|*.ppen|Toate fișierele|*.*</value>
   </data>
   <data name="MainFrame_saveFileDialog_Filter" xml:space="preserve">
-    <value>Fișier Purple Pen|*.ppen</value>
+    <value>Fișier NotPurplePen|*.ppen</value>
   </data>
   <data name="MainFrame_newEventMenu_Text" xml:space="preserve">
     <value>Evniment _Nou...</value>
@@ -1388,19 +1388,19 @@
     <value>_Rapoarte</value>
   </data>
   <data name="MainFrame_helpContentsMenu_Text" xml:space="preserve">
-    <value>_Asistență Purple Pen</value>
+    <value>_Asistență NotPurplePen</value>
   </data>
   <data name="MainFrame_helpTranslatedMenu_Text" xml:space="preserve">
-    <value>Asistență Purple Pen (Tradus)</value>
+    <value>Asistență NotPurplePen (Tradus)</value>
   </data>
   <data name="MainFrame_mainWebSiteToolMenu_Text" xml:space="preserve">
-    <value>Site-ul web Purple Pen</value>
+    <value>Site-ul web NotPurplePen</value>
   </data>
   <data name="MainFrame_supportWebSiteMenu_Text" xml:space="preserve">
     <value>Asistență/_Raportare erori</value>
   </data>
   <data name="MainFrame_aboutMenu_Text" xml:space="preserve">
-    <value>_Despre Purple Pen</value>
+    <value>_Despre NotPurplePen</value>
   </data>
   <data name="MainFrame_symbolBrowserMenu_Text" xml:space="preserve">
     <value>Fruzărire Simboluri</value>
@@ -1511,10 +1511,10 @@
     <value>Creare fișier schimb XML</value>
   </data>
   <data name="MainFrame_Text" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="MiscText_AppTitle" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="MiscText_CtrlZ" xml:space="preserve">
     <value>Ctrl+Z</value>
@@ -1672,7 +1672,7 @@ Folosiți | pentru a separa liniile</value>
   <data name="MiscText_MissingMapFile" xml:space="preserve">
     <value>Fișierul hartă "{0}" nu a putut fi găsit.
  
-Cel mai probabil, fișierul hartă a fost mutat sau șters, sau fișierul Purple Pen a fost mutat (probabil pe un alt calculator). Fișierul hartă trebuie să fie prezent oricând se încarcă fișierul Purple Pen cu evenimentul dorit. Dacă trimiteți fișierul Purple Pen cu evenimentul unei alte persoane, asigurați-vă deasemeni că persoana respectivă deține o copie a fișierului hartă.
+Cel mai probabil, fișierul hartă a fost mutat sau șters, sau fișierul NotPurplePen a fost mutat (probabil pe un alt calculator). Fișierul hartă trebuie să fie prezent oricând se încarcă fișierul NotPurplePen cu evenimentul dorit. Dacă trimiteți fișierul NotPurplePen cu evenimentul unei alte persoane, asigurați-vă deasemeni că persoana respectivă deține o copie a fișierului hartă.
  
 După ce apăsați OK, încercați să localizați o copie a fișierului hartă pe calculatorul dumneavoastră.</value>
   </data>
@@ -1746,7 +1746,7 @@ După ce apăsați OK, încercați să localizați o copie a fișierului hartă 
     <value>Introducere Text</value>
   </data>
   <data name="MiscText_MapFileChanged" xml:space="preserve">
-    <value>Un alt program a modificat fișierul hartă "{0}". Purple Pen va reîncărca harta.</value>
+    <value>Un alt program a modificat fișierul hartă "{0}". NotPurplePen va reîncărca harta.</value>
   </data>
   <data name="MiscText_ChangeDescriptionLanguage" xml:space="preserve">
     <value>Evenimentul curent are descrierea posturilor în limba {0}. Doriți să schimbați descrierea posturilor în limba {1}?</value>
@@ -1755,13 +1755,13 @@ După ce apăsați OK, încercați să localizați o copie a fișierului hartă 
     <value>Deschidere "{0}"</value>
   </data>
   <data name="MiscText_ClosePPBeforeLoadingOCAD" xml:space="preserve">
-    <value>Purple Pen trebuie să fie închis înainte de a încărca fișierele OCAD create.</value>
+    <value>NotPurplePen trebuie să fie închis înainte de a încărca fișierele OCAD create.</value>
   </data>
   <data name="MiscText_NoCoursesSelected" xml:space="preserve">
     <value>Nu a fost selectat nici un traseu pentru tipărire.</value>
   </data>
   <data name="MiscText_TranslatedHelpWebSite" xml:space="preserve">
-    <value>*** Dacă există un site în limba tradusă care conține documentație pentru Purple Pen, introduceți adresa de internet URL (inclusiv http) ca și traducere a acestui element. Altfel lăsați-l neatins.</value>
+    <value>*** Dacă există un site în limba tradusă care conține documentație pentru NotPurplePen, introduceți adresa de internet URL (inclusiv http) ca și traducere a acestui element. Altfel lăsați-l neatins.</value>
   </data>
   <data name="MissingFonts_checkBoxDontWarnAgain_Text" xml:space="preserve">
     <value>Nu mai avertiza lipsa fonturilor pentru acest eveniment.</value>
@@ -1769,7 +1769,7 @@ După ce apăsați OK, încercați să localizați o copie a fișierului hartă 
   <data name="MissingFonts_labelWarning_Text" xml:space="preserve">
     <value>Fișierul hartă "{0}" utilizează fonturi care nu sunt instalate pe acest calculator. Textele care folosesc aceste fonturi vof fi afișate si tipărite cu fontul implicit, care poate genera un aspect diferit față de designul original. 
 
-Pentru a remedia acceastă problemă, căutați și instalați fonturile listate dedesubt în Windows Control Panel, apoi restartați Purple Pen.
+Pentru a remedia acceastă problemă, căutați și instalați fonturile listate dedesubt în Windows Control Panel, apoi restartați NotPurplePen.
 </value>
   </data>
   <data name="MissingFonts_Text" xml:space="preserve">
@@ -1854,7 +1854,7 @@ Pentru a încăpea în tabelul de descriere, titlul ar trebui sa aibă o lungime
     <value>&lt; _Înapoi</value>
   </data>
   <data name="NonPrintableObjects_labelWarning_Text" xml:space="preserve">
-    <value>Fișierul hartă "{0}" conține obiecte sau simboluri care nu sunt suportate de Purple Pen, și e posibil să nu fie tipărite corect. Obiectele care e posibil să nu fie tipărite corect sunt listate mai jos.
+    <value>Fișierul hartă "{0}" conține obiecte sau simboluri care nu sunt suportate de NotPurplePen, și e posibil să nu fie tipărite corect. Obiectele care e posibil să nu fie tipărite corect sunt listate mai jos.
 
 Pentru a tipări hărți de concurs, se recomandă exportul traseelor în fișiere OCAD (folosind meniul Fișiere/Creare Fișiere OCAD...) și tipărirea lor din OCAD.
 </value>
@@ -2304,7 +2304,7 @@ Pentru a tipări hărți de concurs, se recomandă exportul traseelor în fișie
     <value>Setați zona de tipărire dorită prin tragerea cu mouse-ul.</value>
   </data>
   <data name="SetUILanguage_introLabel_Text" xml:space="preserve">
-    <value>Selectați limba în care să apară interfața utilizator a programului Purple Pen (meniuri, ferestre, etc.)</value>
+    <value>Selectați limba în care să apară interfața utilizator a programului NotPurplePen (meniuri, ferestre, etc.)</value>
   </data>
   <data name="SetUILanguage_Text" xml:space="preserve">
     <value>Limba Programului</value>

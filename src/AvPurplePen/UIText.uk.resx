@@ -125,7 +125,7 @@
     <value>Copyright © by Peter Golde</value>
   </data>
   <data name="AboutForm_freeLabel_Text" xml:space="preserve">
-    <value>Purple Pen є вільним програмним забезпеченням. Дозволяється копіювати та поширювати його.</value>
+    <value>NotPurplePen є вільним програмним забезпеченням. Дозволяється копіювати та поширювати його.</value>
   </data>
   <data name="AboutForm_disclaimerLabel_Text" xml:space="preserve">
     <value>ЦЕ ПРОГРАМНЕ ЗАБЕЗПЕЧЕННЯ НАДАЄТЬСЯ РОЗРОБНИКАМИ ТА ВЛАСНИКАМИ АВТОРСЬКИХ ПРАВ ЗА ПРИНЦИПОМ "ЯК Є" БЕЗ БУДЬ-ЯКИХ ЯВНИХ ЧИ НЕЯВНИХ ГАРАНТІЙ, В ТОМУ ЧИСЛІ, АЛЕ НЕ ВИКЛЮЧНО, БЕЗ ГАРАНТІЙ КОМЕРЦІЙНОЇ ЦІННОСТІ ТА ПРИДАТНОСТІ ДО ВИКОРИСТАННЯ.</value>
@@ -152,7 +152,7 @@
     <value>Переглянути текст ліцензії</value>
   </data>
   <data name="AboutForm_Text" xml:space="preserve">
-    <value>Про Purple Pen</value>
+    <value>Про NotPurplePen</value>
   </data>
   <data name="AddCourse_firstControlLabel_Text" xml:space="preserve">
     <value>Номер першого КП:</value>
@@ -1211,19 +1211,19 @@
     <value>Вибрати папку...</value>
   </data>
   <data name="CreateImageFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>Та сама папка що і для файлу Purple Pen</value>
+    <value>Та сама папка що і для файлу NotPurplePen</value>
   </data>
   <data name="CreateKmlFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>Та сама папка що і для файлу Purple Pen</value>
+    <value>Та сама папка що і для файлу NotPurplePen</value>
   </data>
   <data name="CreateOcadFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>Та сама папка що і для файлу Purple Pen</value>
+    <value>Та сама папка що і для файлу NotPurplePen</value>
   </data>
   <data name="CreatePdfCourses_coursesDirectory_Text" xml:space="preserve">
-    <value>Та сама папка що і для файлу Purple Pen</value>
+    <value>Та сама папка що і для файлу NotPurplePen</value>
   </data>
   <data name="CreateRouteGadget_coursesDirectory_Text" xml:space="preserve">
-    <value>Та сама папка що і для файлу Purple Pen</value>
+    <value>Та сама папка що і для файлу NotPurplePen</value>
   </data>
   <data name="CreateImageFiles_mapDirectory_Text" xml:space="preserve">
     <value>Та сама папка що і файл карти</value>
@@ -1412,13 +1412,13 @@
     <value>Відкрити існуючий захід...</value>
   </data>
   <data name="InitialScreen_label1_Text" xml:space="preserve">
-    <value>Purple Pen є безкоштовною програмою, яку дозволяється копіювати та поширювати. Розробка Purple Pen підтримується виключно завдяки пожертвам.</value>
+    <value>NotPurplePen є безкоштовною програмою, яку дозволяється копіювати та поширювати. Розробка NotPurplePen підтримується виключно завдяки пожертвам.</value>
   </data>
   <data name="InitialScreen_donationLink_Text" xml:space="preserve">
     <value>Зробити пожертву</value>
   </data>
   <data name="InitialScreen_Text" xml:space="preserve">
-    <value>Вітаємо у Purple Pen</value>
+    <value>Вітаємо у NotPurplePen</value>
   </data>
   <data name="LegAssignmentsDialog_BranchColumn_HeaderText" xml:space="preserve">
     <value>Гілка</value>
@@ -1436,10 +1436,10 @@
     <value>Призначення етапів</value>
   </data>
   <data name="LicenseForm_bsdLicenseLinkLabel_Text" xml:space="preserve">
-    <value>Purple Pen надається на умовах "BSD"-подібної ліцензії.</value>
+    <value>NotPurplePen надається на умовах "BSD"-подібної ліцензії.</value>
   </data>
   <data name="LicenseForm_Text" xml:space="preserve">
-    <value>Ліцензія Purple Pen</value>
+    <value>Ліцензія NotPurplePen</value>
   </data>
   <data name="LinePropertiesDialog_buttonChangeColor_Text" xml:space="preserve">
     <value> Змінити колір...</value>
@@ -1481,10 +1481,10 @@
     <value>Порядок</value>
   </data>
   <data name="MainFrame_openFileDialog_Filter" xml:space="preserve">
-    <value>Файли Purple Pen|*.ppen|Всі файли|*.*</value>
+    <value>Файли NotPurplePen|*.ppen|Всі файли|*.*</value>
   </data>
   <data name="MainFrame_saveFileDialog_Filter" xml:space="preserve">
-    <value>Файли Purple Pen|*.ppen</value>
+    <value>Файли NotPurplePen|*.ppen</value>
   </data>
   <data name="MainFrame_newEventMenu_Text" xml:space="preserve">
     <value>_Нова подія...</value>
@@ -1955,13 +1955,13 @@
     <value>Звіти</value>
   </data>
   <data name="MainFrame_helpContentsMenu_Text" xml:space="preserve">
-    <value>Довідка Purple Pen</value>
+    <value>Довідка NotPurplePen</value>
   </data>
   <data name="MainFrame_helpTranslatedMenu_Text" xml:space="preserve">
-    <value>Довідка Purple Pen (переклад)</value>
+    <value>Довідка NotPurplePen (переклад)</value>
   </data>
   <data name="MainFrame_mainWebSiteToolMenu_Text" xml:space="preserve">
-    <value>Purple Pen _Web сайт</value>
+    <value>NotPurplePen _Web сайт</value>
   </data>
   <data name="MainFrame_supportWebSiteMenu_Text" xml:space="preserve">
     <value>П_ідтримка/Звітувати про помилку</value>
@@ -1970,7 +1970,7 @@
     <value>Зробити пожерт_ву</value>
   </data>
   <data name="MainFrame_aboutMenu_Text" xml:space="preserve">
-    <value>Про Purple Pen</value>
+    <value>Про NotPurplePen</value>
   </data>
   <data name="MainFrame_symbolBrowserMenu_Text" xml:space="preserve">
     <value>Переглядач знаків</value>
@@ -2078,10 +2078,10 @@
     <value>Файл GPX|*.gpx</value>
   </data>
   <data name="MainFrame_Text" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="MiscText_AppTitle" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="MiscText_CtrlZ" xml:space="preserve">
     <value>Ctrl+Z</value>
@@ -2238,7 +2238,7 @@
     <value>Версія {0}</value>
   </data>
   <data name="MiscText_NewerVersionAvailable" xml:space="preserve">
-    <value>Версія {0} Purple Pen доступна для завантаження. (Наразі ви використовуєте версію {1}.)
+    <value>Версія {0} NotPurplePen доступна для завантаження. (Наразі ви використовуєте версію {1}.)
 
 Бажаєте завантажити та встановити новішу версію?</value>
   </data>
@@ -2251,7 +2251,7 @@
   <data name="MiscText_MissingMapFile" xml:space="preserve">
     <value>Не вдалося знайти файл карти "{0}".
 
-Імовірно файл карти було переміщено чи видалено, або було переміщено файл змагань Purple Pen (можливо на інший комп'ютер). Файл карти має бути присутнім під час відкриття файлу змагань Purple Pen. Коли ви пересилаєте файл з дистанціями Purple Pen іншій особі, переконайтеся що вона також має файл карти.
+Імовірно файл карти було переміщено чи видалено, або було переміщено файл змагань NotPurplePen (можливо на інший комп'ютер). Файл карти має бути присутнім під час відкриття файлу змагань NotPurplePen. Коли ви пересилаєте файл з дистанціями NotPurplePen іншій особі, переконайтеся що вона також має файл карти.
 
 Після натискання на OK, спробуйте знайти копію файла карти на вашому комп'ютері.</value>
   </data>
@@ -2325,7 +2325,7 @@
     <value>Введіть новий текст.</value>
   </data>
   <data name="MiscText_MapFileChanged" xml:space="preserve">
-    <value>Інша програма змінила файл карти "{0}". Зараз Purple Pen перезавантажить карту.</value>
+    <value>Інша програма змінила файл карти "{0}". Зараз NotPurplePen перезавантажить карту.</value>
   </data>
   <data name="MiscText_ChangeDescriptionLanguage" xml:space="preserve">
     <value>Змагання мають текстові легенди мовою {0}. Бажаєте змінити мову легенд КП на {1}?</value>
@@ -2334,7 +2334,7 @@
     <value>Відкрти "{0}"</value>
   </data>
   <data name="MiscText_ClosePPBeforeLoadingOCAD" xml:space="preserve">
-    <value>Необхідно закрити Purple Pen перед відкриттям створених файлів OCAD.</value>
+    <value>Необхідно закрити NotPurplePen перед відкриттям створених файлів OCAD.</value>
   </data>
   <data name="MiscText_NoCoursesSelected" xml:space="preserve">
     <value>Жодна дистанція не відмічена для друку</value>
@@ -2451,7 +2451,7 @@
     <value>Не вдалося спроектувати точки; або система координат, чи глобальні координати на карті OCAD неправильні.</value>
   </data>
   <data name="MiscText_GpxUnsupportedCoordSystem" xml:space="preserve">
-    <value>Файл OCAD використовує систему координат, що не підтримується Purple Pen.</value>
+    <value>Файл OCAD використовує систему координат, що не підтримується NotPurplePen.</value>
   </data>
   <data name="MiscText_BadLength" xml:space="preserve">
     <value>Довжина дистанції має бути числом від 0,1 до 99,9, або не заповнюється і підраховується автоматично.</value>
@@ -2549,7 +2549,7 @@
   <data name="MissingFonts_labelWarning_Text" xml:space="preserve">
     <value>Файл карти "{0}" використовує шрифти, що відсутні на комп'ютері. Текст, написаний такими шрифтами, буде відображено та роздруковано із використанням шрифта за замовченням, що може призвести до порушення до порушення дизайну. 
 
-Щоб виправити цю проблему, знайдіть та встановіть шрифти перелічені нижче за допомогою контрольної панелі Windows, тоді запустіть Purple Pen знову.
+Щоб виправити цю проблему, знайдіть та встановіть шрифти перелічені нижче за допомогою контрольної панелі Windows, тоді запустіть NotPurplePen знову.
 </value>
   </data>
   <data name="MissingFonts_Text" xml:space="preserve">
@@ -2627,7 +2627,7 @@
     <value>Вибрати файл карти</value>
   </data>
   <data name="NewEventMapFile_infoMessage_Text" xml:space="preserve">
-    <value>Файл карти успішно підключено. Якщо ви передаєте комусь файл Purple Pen, переконайтесь що отримувач має і файл карти.</value>
+    <value>Файл карти успішно підключено. Якщо ви передаєте комусь файл NotPurplePen, переконайтесь що отримувач має і файл карти.</value>
   </data>
   <data name="NewEventNumbering_newEventNumberingLabel_Text" xml:space="preserve">
     <value>Нові КП нумеруються автоматично. Виберіть із якого номеру слід почати нумерацію.</value>
@@ -2677,7 +2677,7 @@
     <value>Стандарт легенд IOF</value>
   </data>
   <data name="NewEventStandards_labelStandardsIntro_Text" xml:space="preserve">
-    <value>Яких стандартів IOF, ви би хотіли, щоб дотримувався Purple Pen?</value>
+    <value>Яких стандартів IOF, ви би хотіли, щоб дотримувався NotPurplePen?</value>
   </data>
   <data name="NewEventTitle_newEventTitleLabel_Text" xml:space="preserve">
     <value>Назву змагань буде відображено у першому рядку кожної таблиці легенд. Її також буде використано у назві файла для збереження ваших змагань на диску.
@@ -2691,7 +2691,7 @@
     <value>&lt; Назад</value>
   </data>
   <data name="NonPrintableObjects_labelWarning_Text" xml:space="preserve">
-    <value>Файл карти "{0}" місить об'єкти, що не повністю підтримуються Purple Pen і, можливо, будуть надруковані невірно. Такі об'єкти перелічені нижче.
+    <value>Файл карти "{0}" місить об'єкти, що не повністю підтримуються NotPurplePen і, можливо, будуть надруковані невірно. Такі об'єкти перелічені нижче.
 
 Для друку змагальних карт рекомендується експортувати дистанції у файли OCAD (меню Файл/Створити файли OCAD...) і виконати друк безпосередньо з OCAD.
 </value>
@@ -3303,7 +3303,7 @@
     <value>Закріпити області друку відповідно до розміру аркуша</value>
   </data>
   <data name="SetUILanguage_introLabel_Text" xml:space="preserve">
-    <value>Вберіть мову, якою ви бажаєте відображати інтерфейс Purple Pen (меню, вікна, тощо.)</value>
+    <value>Вберіть мову, якою ви бажаєте відображати інтерфейс NotPurplePen (меню, вікна, тощо.)</value>
   </data>
   <data name="SetUILanguage_Text" xml:space="preserve">
     <value>Мова програми</value>

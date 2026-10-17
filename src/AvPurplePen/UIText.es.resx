@@ -125,7 +125,7 @@
     <value>Copyright © Peter Golde</value>
   </data>
   <data name="AboutForm_freeLabel_Text" xml:space="preserve">
-    <value>Purple Pen es un software libre y puede copiarse y compartirse.</value>
+    <value>NotPurplePen es un software libre y puede copiarse y compartirse.</value>
   </data>
   <data name="AboutForm_disclaimerLabel_Text" xml:space="preserve">
     <value>ESTE SOFTWARE SE PROPORCIONA POR LOS PROPIETARIOS DEL COPYRIGHT Y COLABORADORES «TAL CUAL» Y SE DESESTIMA CUALQUIER GARANTÍA EXPRESA O IMPLÍCITA, INCLUYENDO, PERO NO LIMITADA A, LAS GARANTÍAS IMPLICITAS DE COMERCIALIZACIÓN Y APROVECHAIMIENTO PARA UN PROPÓSITO PARTICULAR.</value>
@@ -152,7 +152,7 @@
     <value>Ver licencia completa</value>
   </data>
   <data name="AboutForm_Text" xml:space="preserve">
-    <value>Acerca de Purple Pen</value>
+    <value>Acerca de NotPurplePen</value>
   </data>
   <data name="AddCourse_firstControlLabel_Text" xml:space="preserve">
     <value>Código del primer control:</value>
@@ -1211,19 +1211,19 @@
     <value>Seleccionar carpeta...</value>
   </data>
   <data name="CreateImageFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>Misma carpeta que el archivo de Purple Pen</value>
+    <value>Misma carpeta que el archivo de NotPurplePen</value>
   </data>
   <data name="CreateKmlFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>Misma carpeta que el archivo de Purple Pen</value>
+    <value>Misma carpeta que el archivo de NotPurplePen</value>
   </data>
   <data name="CreateOcadFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>Misma carpeta que el archivo de Purple Pen</value>
+    <value>Misma carpeta que el archivo de NotPurplePen</value>
   </data>
   <data name="CreatePdfCourses_coursesDirectory_Text" xml:space="preserve">
-    <value>Misma carpeta que el archivo de Purple Pen</value>
+    <value>Misma carpeta que el archivo de NotPurplePen</value>
   </data>
   <data name="CreateRouteGadget_coursesDirectory_Text" xml:space="preserve">
-    <value>Misma carpeta que el archivo de Purple Pen</value>
+    <value>Misma carpeta que el archivo de NotPurplePen</value>
   </data>
   <data name="CreateImageFiles_mapDirectory_Text" xml:space="preserve">
     <value>Misma carpeta que el archivo del mapa</value>
@@ -1424,13 +1424,13 @@
     <value>Abrir un evento existente...</value>
   </data>
   <data name="InitialScreen_label1_Text" xml:space="preserve">
-    <value>Purple Pen es software libre y puede copiarse y compartirse. El desarrollo de este programa se sostiene con sus donaciones.</value>
+    <value>NotPurplePen es software libre y puede copiarse y compartirse. El desarrollo de este programa se sostiene con sus donaciones.</value>
   </data>
   <data name="InitialScreen_donationLink_Text" xml:space="preserve">
     <value>Hacer una donación</value>
   </data>
   <data name="InitialScreen_Text" xml:space="preserve">
-    <value>Bienvenido a Purple Pen</value>
+    <value>Bienvenido a NotPurplePen</value>
   </data>
   <data name="LegAssignmentsDialog_BranchColumn_HeaderText" xml:space="preserve">
     <value>Rama</value>
@@ -1448,10 +1448,10 @@
     <value>Asignaciones de tramos</value>
   </data>
   <data name="LicenseForm_bsdLicenseLinkLabel_Text" xml:space="preserve">
-    <value>Purple Pen se suministra bajo una licencia de estilo «BSD».</value>
+    <value>NotPurplePen se suministra bajo una licencia de estilo «BSD».</value>
   </data>
   <data name="LicenseForm_Text" xml:space="preserve">
-    <value>Licencia de Purple Pen</value>
+    <value>Licencia de NotPurplePen</value>
   </data>
   <data name="LinePropertiesDialog_buttonChangeColor_Text" xml:space="preserve">
     <value> Cambiar color...</value>
@@ -1496,10 +1496,10 @@
     <value>mapViewerTopology</value>
   </data>
   <data name="MainFrame_openFileDialog_Filter" xml:space="preserve">
-    <value>Archivos Purple Pen|*.ppen|Todos los archivos|*.*</value>
+    <value>Archivos NotPurplePen|*.ppen|Todos los archivos|*.*</value>
   </data>
   <data name="MainFrame_saveFileDialog_Filter" xml:space="preserve">
-    <value>Archivo Purple Pen|*.ppen</value>
+    <value>Archivo NotPurplePen|*.ppen</value>
   </data>
   <data name="MainFrame_newEventMenu_Text" xml:space="preserve">
     <value>Evento _nuevo…</value>
@@ -1946,13 +1946,13 @@
     <value>_Informes</value>
   </data>
   <data name="MainFrame_helpContentsMenu_Text" xml:space="preserve">
-    <value>_Ayuda de Purple Pen</value>
+    <value>_Ayuda de NotPurplePen</value>
   </data>
   <data name="MainFrame_helpTranslatedMenu_Text" xml:space="preserve">
-    <value>Ayuda de Purple Pen (Traducida)</value>
+    <value>Ayuda de NotPurplePen (Traducida)</value>
   </data>
   <data name="MainFrame_mainWebSiteToolMenu_Text" xml:space="preserve">
-    <value>Página _web de Purple Pen</value>
+    <value>Página _web de NotPurplePen</value>
   </data>
   <data name="MainFrame_supportWebSiteMenu_Text" xml:space="preserve">
     <value>_Soporte / Informar de errores</value>
@@ -1961,7 +1961,7 @@
     <value>Hacer una _donación</value>
   </data>
   <data name="MainFrame_aboutMenu_Text" xml:space="preserve">
-    <value>A_cerca de Purple Pen</value>
+    <value>A_cerca de NotPurplePen</value>
   </data>
   <data name="MainFrame_symbolBrowserMenu_Text" xml:space="preserve">
     <value>Navegador de símbolos</value>
@@ -2093,10 +2093,10 @@
     <value>Archivo GPX|*.gpx</value>
   </data>
   <data name="MainFrame_Text" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="MiscText_AppTitle" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="MiscText_CtrlZ" xml:space="preserve">
     <value>Ctrl+Z</value>
@@ -2253,7 +2253,7 @@ Use | para separar líneas</value>
     <value>Versión {0}</value>
   </data>
   <data name="MiscText_NewerVersionAvailable" xml:space="preserve">
-    <value>La versión {0} de Purple Pen está disponible para su descarga (Está utilizando la versión {1}).
+    <value>La versión {0} de NotPurplePen está disponible para su descarga (Está utilizando la versión {1}).
 
 ¿Desea descargar e instalar la última versión?</value>
   </data>
@@ -2266,7 +2266,7 @@ Use | para separar líneas</value>
   <data name="MiscText_MissingMapFile" xml:space="preserve">
     <value>No se puede encontrar el archivo del mapa «{0}» .
 
-Probablemente, el archivo ha sido movido o borrado, o el archivo de Purple Pen ha sido movido (posiblemente a otro ordenador). El archivo del mapa tiene que estar disponible siempre que se abra un evento. Si ha recibido o enviado el archivo de un evento Purple Pen a otra persona, asegúrese de que le envía también el archivo del mapa.
+Probablemente, el archivo ha sido movido o borrado, o el archivo de NotPurplePen ha sido movido (posiblemente a otro ordenador). El archivo del mapa tiene que estar disponible siempre que se abra un evento. Si ha recibido o enviado el archivo de un evento NotPurplePen a otra persona, asegúrese de que le envía también el archivo del mapa.
 
 Presione Aceptar, e intente encontrar una copia del mapa en su ordenador.</value>
   </data>
@@ -2340,7 +2340,7 @@ Presione Aceptar, e intente encontrar una copia del mapa en su ordenador.</value
     <value>Introduce el nuevo texto</value>
   </data>
   <data name="MiscText_MapFileChanged" xml:space="preserve">
-    <value>Otro programa ha cambiado el archivo del mapa «{0}». Purple Pen va a cargar de nuevo el mapa.</value>
+    <value>Otro programa ha cambiado el archivo del mapa «{0}». NotPurplePen va a cargar de nuevo el mapa.</value>
   </data>
   <data name="MiscText_ChangeDescriptionLanguage" xml:space="preserve">
     <value>El evento actual tiene descripciones de controles textuales en {0}. ¿Quieres cambiar el idioma de la descripción de controles a {1}?</value>
@@ -2349,7 +2349,7 @@ Presione Aceptar, e intente encontrar una copia del mapa en su ordenador.</value
     <value>Abrir «{0}»</value>
   </data>
   <data name="MiscText_ClosePPBeforeLoadingOCAD" xml:space="preserve">
-    <value>Purple Pen debe cerrarse antes de leer los archivos OCAD creados.</value>
+    <value>NotPurplePen debe cerrarse antes de leer los archivos OCAD creados.</value>
   </data>
   <data name="MiscText_NoCoursesSelected" xml:space="preserve">
     <value>No se han seleccionado recorridos para imprimir.</value>
@@ -2466,7 +2466,7 @@ Presione Aceptar, e intente encontrar una copia del mapa en su ordenador.</value
     <value>No se ha podido volver a proyectar el punto. O el sistema de coordenadas o las coordenadas reales del mapa OCAD están mal.</value>
   </data>
   <data name="MiscText_GpxUnsupportedCoordSystem" xml:space="preserve">
-    <value>El archivo OCAD usa un sistema de coordenadas no admitido por Purple Pen.</value>
+    <value>El archivo OCAD usa un sistema de coordenadas no admitido por NotPurplePen.</value>
   </data>
   <data name="MiscText_BadLength" xml:space="preserve">
     <value>La longitud de un recorrido debe ser un número entre 0.1 - 99.9, o estar en blanco para que se calcule automaticamente.</value>
@@ -2558,7 +2558,7 @@ Presione Aceptar, e intente encontrar una copia del mapa en su ordenador.</value
   <data name="MissingFonts_labelWarning_Text" xml:space="preserve">
     <value>El archivo del mapa «{0}» usa fuentes no instaladas en su ordenador. El texto que use esas fuentes será formateado e imprimido con la fuente por defecto, lo que puede provocar que el texto aparezca de forma distinta a lo deseado. 
 
-Para resolver el problema, busca e instala la relación de fuentes que abajo se indican mediante el Panel de Control de Windows. Después arranca de nuevo Purple Pen.
+Para resolver el problema, busca e instala la relación de fuentes que abajo se indican mediante el Panel de Control de Windows. Después arranca de nuevo NotPurplePen.
 </value>
   </data>
   <data name="MissingFonts_Text" xml:space="preserve">
@@ -2636,7 +2636,7 @@ La escala indica la relación entre el mapa de papel y el mundo real.
     <value>Seleccionar archivo de mapa</value>
   </data>
   <data name="NewEventMapFile_infoMessage_Text" xml:space="preserve">
-    <value>El archivo del mapa se ha cargado con éxito. Si envía el archivo de Purple Pen a otra persona, esta también debe disponer del mapa.</value>
+    <value>El archivo del mapa se ha cargado con éxito. Si envía el archivo de NotPurplePen a otra persona, esta también debe disponer del mapa.</value>
   </data>
   <data name="NewEventNumbering_newEventNumberingLabel_Text" xml:space="preserve">
     <value>Los controles nuevos serán automáticamente numerados. Por favor, elija el primer código a usar.</value>
@@ -2697,7 +2697,7 @@ Para que entre en la descripción debe tener menos de 25 caracteres. Ejemplos de
     <value>&lt; _Anterior</value>
   </data>
   <data name="NonPrintableObjects_labelWarning_Text" xml:space="preserve">
-    <value>El archivo del mapa «{0}» contiene objetos o símbolos no soportados por Purple Pen, y puede que no se impriman correctamente. Los objetos que se imprimirán correctamente se señalan debajo.
+    <value>El archivo del mapa «{0}» contiene objetos o símbolos no soportados por NotPurplePen, y puede que no se impriman correctamente. Los objetos que se imprimirán correctamente se señalan debajo.
 
 Para imprimir mapas para una competición, se sugiere que los recorridos sean exportados a un archivo OCAD (usando Archivos/Crear archivo OCAD...) e imprimir el mapa desde OCAD.
 </value>
@@ -3318,7 +3318,7 @@ Para imprimir mapas para una competición, se sugiere que los recorridos sean ex
     <value>Ajustar el área de impresión al tamaño del papel</value>
   </data>
   <data name="SetUILanguage_introLabel_Text" xml:space="preserve">
-    <value>Selecciona el idioma que te gustaría utilizar para la interface de Purple Pen (menus, ventanas, etc.).</value>
+    <value>Selecciona el idioma que te gustaría utilizar para la interface de NotPurplePen (menus, ventanas, etc.).</value>
   </data>
   <data name="SetUILanguage_Text" xml:space="preserve">
     <value>Idioma del programa</value>

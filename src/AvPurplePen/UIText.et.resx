@@ -125,7 +125,7 @@
     <value>© Autoriõigused kuuluvad Peter Goldile</value>
   </data>
   <data name="AboutForm_freeLabel_Text" xml:space="preserve">
-    <value>Purple Pen on tasuta tarkvara, mida võib kopeerida ja jagada.</value>
+    <value>NotPurplePen on tasuta tarkvara, mida võib kopeerida ja jagada.</value>
   </data>
   <data name="AboutForm_disclaimerLabel_Text" xml:space="preserve">
     <value>SEE TARKVARA ON JAGATUD AUTORIÕIGUSE OMANIKE JA LEVITAJATE POOLT  "NII NAGU ON" JA OTSESEID EGA KAUDSEID GARANTIISID EI LUBATA.</value>
@@ -152,7 +152,7 @@
     <value>Tutvu põhilitsentsiga</value>
   </data>
   <data name="AboutForm_Text" xml:space="preserve">
-    <value>Programmist Purple Pen</value>
+    <value>Programmist NotPurplePen</value>
   </data>
   <data name="AddCourse_firstControlLabel_Text" xml:space="preserve">
     <value>Esimene kontrollpunkt:</value>
@@ -1226,19 +1226,19 @@
     <value>Vali kaust...</value>
   </data>
   <data name="CreateImageFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>Kausta kus asub Purple Pen fail</value>
+    <value>Kausta kus asub NotPurplePen fail</value>
   </data>
   <data name="CreateKmlFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>Kausta kus asub Purple Pen fail</value>
+    <value>Kausta kus asub NotPurplePen fail</value>
   </data>
   <data name="CreateOcadFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>Kausta kus asub Purple Pen fail</value>
+    <value>Kausta kus asub NotPurplePen fail</value>
   </data>
   <data name="CreatePdfCourses_coursesDirectory_Text" xml:space="preserve">
-    <value>Kausta kus asub Purple Pen fail</value>
+    <value>Kausta kus asub NotPurplePen fail</value>
   </data>
   <data name="CreateRouteGadget_coursesDirectory_Text" xml:space="preserve">
-    <value>Kausta kus asub Purple Pen fail</value>
+    <value>Kausta kus asub NotPurplePen fail</value>
   </data>
   <data name="CreateImageFiles_mapDirectory_Text" xml:space="preserve">
     <value>Kausta kus asub kaardi fail</value>
@@ -1451,13 +1451,13 @@
     <value>Ava eksisteeriv võistlus...</value>
   </data>
   <data name="InitialScreen_label1_Text" xml:space="preserve">
-    <value>Purple Pen (Lilla Pliiats) on tasuta tarkvara ja seda võib levitada. Purple Pen arendamist saab toetada annetuste kaudu.</value>
+    <value>NotPurplePen (Lilla Pliiats) on tasuta tarkvara ja seda võib levitada. NotPurplePen arendamist saab toetada annetuste kaudu.</value>
   </data>
   <data name="InitialScreen_donationLink_Text" xml:space="preserve">
     <value>Tee annetus</value>
   </data>
   <data name="InitialScreen_Text" xml:space="preserve">
-    <value>Teretulemast Purple Peni</value>
+    <value>Teretulemast NotPurplePeni</value>
   </data>
   <data name="LegAssignmentsDialog_BranchColumn_HeaderText" xml:space="preserve">
     <value>Haru</value>
@@ -1475,10 +1475,10 @@
     <value>Vahetuste omistamine</value>
   </data>
   <data name="LicenseForm_bsdLicenseLinkLabel_Text" xml:space="preserve">
-    <value>Purple Pen on välja antud "BSD" litsentsi alusel.</value>
+    <value>NotPurplePen on välja antud "BSD" litsentsi alusel.</value>
   </data>
   <data name="LicenseForm_Text" xml:space="preserve">
-    <value>Purple Pen litsents</value>
+    <value>NotPurplePen litsents</value>
   </data>
   <data name="LinePropertiesDialog_buttonChangeColor_Text" xml:space="preserve">
     <value> Muuda värvi ...</value>
@@ -1523,10 +1523,10 @@
     <value>kaardiVaateTopoloogia</value>
   </data>
   <data name="MainFrame_openFileDialog_Filter" xml:space="preserve">
-    <value>Purple Pen failid|*.ppen|Kõik failid|*.*</value>
+    <value>NotPurplePen failid|*.ppen|Kõik failid|*.*</value>
   </data>
   <data name="MainFrame_saveFileDialog_Filter" xml:space="preserve">
-    <value>Purple Pen fail|*.ppen</value>
+    <value>NotPurplePen fail|*.ppen</value>
   </data>
   <data name="MainFrame_newEventMenu_Text" xml:space="preserve">
     <value>_Uus võistlus...</value>
@@ -1997,10 +1997,10 @@
     <value>_Aruanded</value>
   </data>
   <data name="MainFrame_helpContentsMenu_Text" xml:space="preserve">
-    <value>Purple Pen _Abi</value>
+    <value>NotPurplePen _Abi</value>
   </data>
   <data name="MainFrame_helpTranslatedMenu_Text" xml:space="preserve">
-    <value>Purple Pen Abi (Tõlgitud)</value>
+    <value>NotPurplePen Abi (Tõlgitud)</value>
   </data>
   <data name="MainFrame_mainWebSiteToolMenu_Text" xml:space="preserve">
     <value>Purpe Pen _Kodulehekülg</value>
@@ -2012,7 +2012,7 @@
     <value>Tee _annetus</value>
   </data>
   <data name="MainFrame_aboutMenu_Text" xml:space="preserve">
-    <value>_Programmist Purple Pen</value>
+    <value>_Programmist NotPurplePen</value>
   </data>
   <data name="MainFrame_symbolBrowserMenu_Text" xml:space="preserve">
     <value>Sümbolite brauser</value>
@@ -2144,10 +2144,10 @@
     <value>GPX fail|*.gpx</value>
   </data>
   <data name="MainFrame_Text" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="MiscText_AppTitle" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="MiscText_CtrlZ" xml:space="preserve">
     <value>Ctrl+Z</value>
@@ -2304,7 +2304,7 @@ Kasuta | ridade eraldamiseks</value>
     <value>Versioon {0}</value>
   </data>
   <data name="MiscText_NewerVersionAvailable" xml:space="preserve">
-    <value>Versioon {0}  Purple Penist on olemas alla laadimiseks. (Sa kasutad hetkel versiooni {1}.)
+    <value>Versioon {0}  NotPurplePenist on olemas alla laadimiseks. (Sa kasutad hetkel versiooni {1}.)
 
 Kas soovid alla laadida ja installeerida viimase versiooni?</value>
   </data>
@@ -2316,7 +2316,7 @@ Kas soovid alla laadida ja installeerida viimase versiooni?</value>
   </data>
   <data name="MiscText_MissingMapFile" xml:space="preserve">
     <value>Kaardi faili "{0}" ei leidnud.
-Arvatavasti on kaardi faili asukoht muutunud või kustutatud, või on Purple Pen faili asukoht muutunud (näiteks teises arvutis). Kaardi fail peab olema kättesaadav alati, kui avatakse Purple Pen fail. Kui saadad faili teisele kasutajale, siis vaata, et ta saaks ka kaardi faili..
+Arvatavasti on kaardi faili asukoht muutunud või kustutatud, või on NotPurplePen faili asukoht muutunud (näiteks teises arvutis). Kaardi fail peab olema kättesaadav alati, kui avatakse NotPurplePen fail. Kui saadad faili teisele kasutajale, siis vaata, et ta saaks ka kaardi faili..
 Peale OK vajutamist, otsi kaardi fail arvutist..</value>
   </data>
   <data name="MiscText_NoUnusedControls" xml:space="preserve">
@@ -2389,7 +2389,7 @@ Peale OK vajutamist, otsi kaardi fail arvutist..</value>
     <value>Sisesta uus tekst.</value>
   </data>
   <data name="MiscText_MapFileChanged" xml:space="preserve">
-    <value>Mõni teine programm on muutnud kaardi faili "{0}". Purple Pen laeb kaardi uuesti.</value>
+    <value>Mõni teine programm on muutnud kaardi faili "{0}". NotPurplePen laeb kaardi uuesti.</value>
   </data>
   <data name="MiscText_ChangeDescriptionLanguage" xml:space="preserve">
     <value>Selle võistluse juures kasutatakse tekstilisi legende {0}. Kas soovid muuta legendide keeleks {1}?</value>
@@ -2398,13 +2398,13 @@ Peale OK vajutamist, otsi kaardi fail arvutist..</value>
     <value>Ava "{0}"</value>
   </data>
   <data name="MiscText_ClosePPBeforeLoadingOCAD" xml:space="preserve">
-    <value>Purple Pen peab olema suletud enne loodud OCAD failide avamist.</value>
+    <value>NotPurplePen peab olema suletud enne loodud OCAD failide avamist.</value>
   </data>
   <data name="MiscText_NoCoursesSelected" xml:space="preserve">
     <value>Ühtegi rada ei ole valitud trükkimiseks</value>
   </data>
   <data name="MiscText_TranslatedHelpWebSite" xml:space="preserve">
-    <value>*** Kui eksisteerib veebilehekülg kus on Purple Pen tõlgitud dokumentatsioon, sisesta aadress (koos http'ga) kui tõlke viide, muidu jäta tühjaks</value>
+    <value>*** Kui eksisteerib veebilehekülg kus on NotPurplePen tõlgitud dokumentatsioon, sisesta aadress (koos http'ga) kui tõlke viide, muidu jäta tühjaks</value>
   </data>
   <data name="MiscText_MapExchange_Long" xml:space="preserve">
     <value>Kaardivahetus</value>
@@ -2615,7 +2615,7 @@ Peale OK vajutamist, otsi kaardi fail arvutist..</value>
   </data>
   <data name="MissingFonts_labelWarning_Text" xml:space="preserve">
     <value>Kaardi fail "{0}" kasutab fonte, mis ei ole installeeritud sinu arvutisse. Selle fondiga tekstid joonistatakse vaikefondiga, mis võib välja näha teisiti, kui kaardi vormistaja on mõelnud.
-Probleemi kõrvaldamiseks leia ja installeeri fondid Windowsi Control Panel kaudu ja taaskäivita Purple Pen.
+Probleemi kõrvaldamiseks leia ja installeeri fondid Windowsi Control Panel kaudu ja taaskäivita NotPurplePen.
 </value>
   </data>
   <data name="MissingFonts_Text" xml:space="preserve">
@@ -2691,7 +2691,7 @@ Kaardi mõõtkava määrab suhte paber kaardi ja reaalse pikkuse vahel.
     <value>Vali kaardi fail</value>
   </data>
   <data name="NewEventMapFile_infoMessage_Text" xml:space="preserve">
-    <value>Kaardifail on edukalt loetud. Kui saadad Purple Pen faili edasi, siis pead lisama ka kaardifaili.</value>
+    <value>Kaardifail on edukalt loetud. Kui saadad NotPurplePen faili edasi, siis pead lisama ka kaardifaili.</value>
   </data>
   <data name="NewEventNumbering_newEventNumberingLabel_Text" xml:space="preserve">
     <value>Uued lisatud kontrollpunktid nummerdatakse automaatselt. Vali millisest numbrist alustatakse nummerdamist.</value>
@@ -2754,7 +2754,7 @@ Nimetus peaks olema lühem kui 25 märki, et ta mahuks legendilehele. Näiteks h
     <value>&lt; _Tagasi</value>
   </data>
   <data name="NonPrintableObjects_labelWarning_Text" xml:space="preserve">
-    <value>Kaardifail "{0}" sisaldab sümboleid, mida Purple Pen ei toeta ja võib trükkida valesti. Nimekiri sümbolitest mis võivad puududa väljatrükil on toodud allpool.
+    <value>Kaardifail "{0}" sisaldab sümboleid, mida NotPurplePen ei toeta ja võib trükkida valesti. Nimekiri sümbolitest mis võivad puududa väljatrükil on toodud allpool.
 Võisluste jaoks on soovitav eksportida radade failid OCADi formaati (menüüst Failid/Loo OCAD failid...) ja trükkida kaardid välja OCADist.
 </value>
   </data>
@@ -3374,7 +3374,7 @@ Võisluste jaoks on soovitav eksportida radade failid OCADi formaati (menüüst 
     <value>Sea trükiala suuruseks paberi suurus</value>
   </data>
   <data name="SetUILanguage_introLabel_Text" xml:space="preserve">
-    <value>Vali keel, mida soovid kastuada Purple Pen kasutajaliideses (menüüd, aknad jne)</value>
+    <value>Vali keel, mida soovid kastuada NotPurplePen kasutajaliideses (menüüd, aknad jne)</value>
   </data>
   <data name="SetUILanguage_Text" xml:space="preserve">
     <value>Programmi keel</value>

@@ -125,7 +125,7 @@
     <value>Copyright © Peter Golde</value>
   </data>
   <data name="AboutForm_freeLabel_Text" xml:space="preserve">
-    <value>Purple Pen je svobodný software a může být kopírován a šířen.</value>
+    <value>NotPurplePen je svobodný software a může být kopírován a šířen.</value>
   </data>
   <data name="AboutForm_disclaimerLabel_Text" xml:space="preserve">
     <value>TENTO SOFTWARE JE POSKYTOVÁN DRŽITELI AUTORSKÝCH PRÁV A PŘISPĚVATELI "TAK, JAK JE", A JAKÉKOLI VÝSLOVNÉ NEBO PŘEDPOKLÁDANÉ ZÁRUKY, MIMO JINÉ VČETNĚ PŘEDPOKLÁDANÝCH ZÁRUK PRODEJNOSTI A VHODNOSTI PRO URČITÝ ÚČEL, JSOU VYLOUČENY.</value>
@@ -152,7 +152,7 @@
     <value>Zobrazit celou licenci</value>
   </data>
   <data name="AboutForm_Text" xml:space="preserve">
-    <value>O Purple Pen</value>
+    <value>O NotPurplePen</value>
   </data>
   <data name="AddCourse_firstControlLabel_Text" xml:space="preserve">
     <value>Číslo první kontroly:</value>
@@ -1226,19 +1226,19 @@
     <value>Vybrat složku...</value>
   </data>
   <data name="CreateImageFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>Stejná složka jako u souboru Purple Pen</value>
+    <value>Stejná složka jako u souboru NotPurplePen</value>
   </data>
   <data name="CreateKmlFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>Stejná složka jako u souboru Purple Pen</value>
+    <value>Stejná složka jako u souboru NotPurplePen</value>
   </data>
   <data name="CreateOcadFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>Stejná složka jako u souboru Purple Pen</value>
+    <value>Stejná složka jako u souboru NotPurplePen</value>
   </data>
   <data name="CreatePdfCourses_coursesDirectory_Text" xml:space="preserve">
-    <value>Stejná složka jako u souboru Purple Pen</value>
+    <value>Stejná složka jako u souboru NotPurplePen</value>
   </data>
   <data name="CreateRouteGadget_coursesDirectory_Text" xml:space="preserve">
-    <value>Stejná složka jako u souboru Purple Pen</value>
+    <value>Stejná složka jako u souboru NotPurplePen</value>
   </data>
   <data name="CreateImageFiles_mapDirectory_Text" xml:space="preserve">
     <value>Stejná složka jako u mapového souboru</value>
@@ -1451,13 +1451,13 @@
     <value>Otevřít existující závod...</value>
   </data>
   <data name="InitialScreen_label1_Text" xml:space="preserve">
-    <value>Purple Pen je svobodný software a může být kopírován a sdílen. Vývoj Purple Penu je financován pouze z vašich darů.</value>
+    <value>NotPurplePen je svobodný software a může být kopírován a sdílen. Vývoj NotPurplePenu je financován pouze z vašich darů.</value>
   </data>
   <data name="InitialScreen_donationLink_Text" xml:space="preserve">
     <value>Přispět na vývoj</value>
   </data>
   <data name="InitialScreen_Text" xml:space="preserve">
-    <value>Vítejte v Purple Pen</value>
+    <value>Vítejte v NotPurplePen</value>
   </data>
   <data name="LegAssignmentsDialog_BranchColumn_HeaderText" xml:space="preserve">
     <value>Větvení</value>
@@ -1475,10 +1475,10 @@
     <value>Přiřazení úseků</value>
   </data>
   <data name="LicenseForm_bsdLicenseLinkLabel_Text" xml:space="preserve">
-    <value>Purple Pen je poskytován pod licencí kompatibilní s BSD.</value>
+    <value>NotPurplePen je poskytován pod licencí kompatibilní s BSD.</value>
   </data>
   <data name="LicenseForm_Text" xml:space="preserve">
-    <value>Licence Purple Pen</value>
+    <value>Licence NotPurplePen</value>
   </data>
   <data name="LinePropertiesDialog_buttonChangeColor_Text" xml:space="preserve">
     <value> Změnit barvu</value>
@@ -1523,10 +1523,10 @@
     <value>mapViewerTopology</value>
   </data>
   <data name="MainFrame_openFileDialog_Filter" xml:space="preserve">
-    <value>Soubory Purple Pen|*.ppen|Všechny soubory|*.*</value>
+    <value>Soubory NotPurplePen|*.ppen|Všechny soubory|*.*</value>
   </data>
   <data name="MainFrame_saveFileDialog_Filter" xml:space="preserve">
-    <value>Soubor Purple Pen|*.ppen</value>
+    <value>Soubor NotPurplePen|*.ppen</value>
   </data>
   <data name="MainFrame_newEventMenu_Text" xml:space="preserve">
     <value>_Nový závod...</value>
@@ -1997,13 +1997,13 @@
     <value>_Výkazy</value>
   </data>
   <data name="MainFrame_helpContentsMenu_Text" xml:space="preserve">
-    <value>_Nápověda Purple Pen</value>
+    <value>_Nápověda NotPurplePen</value>
   </data>
   <data name="MainFrame_helpTranslatedMenu_Text" xml:space="preserve">
-    <value>Nápověda Purple Pen (přeložená)</value>
+    <value>Nápověda NotPurplePen (přeložená)</value>
   </data>
   <data name="MainFrame_mainWebSiteToolMenu_Text" xml:space="preserve">
-    <value>_Webová stránka Purple Pen</value>
+    <value>_Webová stránka NotPurplePen</value>
   </data>
   <data name="MainFrame_supportWebSiteMenu_Text" xml:space="preserve">
     <value>_Podpora/Hlášení chyb</value>
@@ -2012,7 +2012,7 @@
     <value>_Přispějte</value>
   </data>
   <data name="MainFrame_aboutMenu_Text" xml:space="preserve">
-    <value>_O programu Purple Pen</value>
+    <value>_O programu NotPurplePen</value>
   </data>
   <data name="MainFrame_symbolBrowserMenu_Text" xml:space="preserve">
     <value>Prohlížeč symbolů</value>
@@ -2144,10 +2144,10 @@
     <value>GPX soubor|*.gpx</value>
   </data>
   <data name="MainFrame_Text" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="MiscText_AppTitle" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="MiscText_CtrlZ" xml:space="preserve">
     <value>Ctrl+Z</value>
@@ -2304,7 +2304,7 @@ užij | na řádky</value>
     <value>Verze {0}</value>
   </data>
   <data name="MiscText_NewerVersionAvailable" xml:space="preserve">
-    <value>Je k dispozici nová verze Purple Penu {0} (Teď máte {1}.)
+    <value>Je k dispozici nová verze NotPurplePenu {0} (Teď máte {1}.)
 
 Stáhnout a instalovat?</value>
   </data>
@@ -2391,7 +2391,7 @@ OK - zkus soubor s mapou najít.</value>
     <value>Zadejte nový text.</value>
   </data>
   <data name="MiscText_MapFileChanged" xml:space="preserve">
-    <value>Jiný program změnil mapu - soubor {0}. Purple Pen ji natáhne znovu.</value>
+    <value>Jiný program změnil mapu - soubor {0}. NotPurplePen ji natáhne znovu.</value>
   </data>
   <data name="MiscText_ChangeDescriptionLanguage" xml:space="preserve">
     <value>Aktuální závod má textový popis kontrol v jazyce {0}. Chcete změnit jazyk popisů kontrol na {1}?</value>
@@ -2400,13 +2400,13 @@ OK - zkus soubor s mapou najít.</value>
     <value>Otevřít "{0}"</value>
   </data>
   <data name="MiscText_ClosePPBeforeLoadingOCAD" xml:space="preserve">
-    <value>Purple Pen před načtením nového OCAD souboru.</value>
+    <value>NotPurplePen před načtením nového OCAD souboru.</value>
   </data>
   <data name="MiscText_NoCoursesSelected" xml:space="preserve">
     <value>Žádná trať nebyla vybrána k tisku.</value>
   </data>
   <data name="MiscText_TranslatedHelpWebSite" xml:space="preserve">
-    <value>*** Pokud existuje webová stránka v přeloženém jazyce, která obsahuje dokumentaci k Purple Pen, zadejte URL (včetně http) jako překlad této položky. Jinak to nechte být.</value>
+    <value>*** Pokud existuje webová stránka v přeloženém jazyce, která obsahuje dokumentaci k NotPurplePen, zadejte URL (včetně http) jako překlad této položky. Jinak to nechte být.</value>
   </data>
   <data name="MiscText_MapExchange_Long" xml:space="preserve">
     <value>Výměna mapy</value>
@@ -2520,7 +2520,7 @@ OK - zkus soubor s mapou najít.</value>
     <value>Nebylo možné překreslit body - buď souřadnicový systém nebo skutečné světové souřadnice v OCAD jsou chybné.</value>
   </data>
   <data name="MiscText_GpxUnsupportedCoordSystem" xml:space="preserve">
-    <value>Soubor OCAD používá souřadnicový systém, který Purple Pen nepodporuje.</value>
+    <value>Soubor OCAD používá souřadnicový systém, který NotPurplePen nepodporuje.</value>
   </data>
   <data name="MiscText_BadLength" xml:space="preserve">
     <value>Délka tratě musí být číslo v rozmezí 0.1 - 99.9, nebo prázdné pole pro automatický výpočet délky.</value>
@@ -2618,7 +2618,7 @@ OK - zkus soubor s mapou najít.</value>
   <data name="MissingFonts_labelWarning_Text" xml:space="preserve">
     <value>Mapový soubor "{0}" používá fonty, které nejsou nainstalované ve vašem počítači. Text používající tyto fonty bude nakreslen a vytištěn výchozím fontem, což může způsobit, že text bude vypadat jinak, než zamýšlel návrhář mapy. 
 
-Chcete-li tento problém vyřešit, vyhledejte a nainstalujte níže uvedené fonty pomocí ovládacího panelu Windows a poté znovu spusťte Purple Pen.
+Chcete-li tento problém vyřešit, vyhledejte a nainstalujte níže uvedené fonty pomocí ovládacího panelu Windows a poté znovu spusťte NotPurplePen.
 </value>
   </data>
   <data name="MissingFonts_Text" xml:space="preserve">
@@ -2694,7 +2694,7 @@ Měřítko mapy určuje vztah mezi papírovou mapou a reálným světem.
     <value>Vybraný mapový soubor</value>
   </data>
   <data name="NewEventMapFile_infoMessage_Text" xml:space="preserve">
-    <value>Mapa byla úspěšně načtena. Pokud chceš poslat svůj PurplePen soubor někomu jinému, musí mít soubor mapy také.</value>
+    <value>Mapa byla úspěšně načtena. Pokud chceš poslat svůj NotPurplePen soubor někomu jinému, musí mít soubor mapy také.</value>
   </data>
   <data name="NewEventNumbering_newEventNumberingLabel_Text" xml:space="preserve">
     <value>Nově vytvořené kontroly jsou automaticky očíslovány. Vyber prosím kód první kontroly.</value>
@@ -2758,7 +2758,7 @@ Aby se vešel na list popisů, měl by být kratší než 25 znaků. Příklady 
     <value>&lt; _Zpět</value>
   </data>
   <data name="NonPrintableObjects_labelWarning_Text" xml:space="preserve">
-    <value>mapový soubor "{0}" obsahuje objekty nebo symboly, které nejsou v Purple Pen plně podporovány , a nemusí se správně vytisknout. Objekty, které se nemusí vytisknout správně, jsou uvedeny níže.
+    <value>mapový soubor "{0}" obsahuje objekty nebo symboly, které nejsou v NotPurplePen plně podporovány , a nemusí se správně vytisknout. Objekty, které se nemusí vytisknout správně, jsou uvedeny níže.
 
 Pro tisk závodních map se doporučuje exportovat tratě do souborů OCAD (vyber Soubor/Vytvořit soubory OCAD...) a vytisknout mapy z OCADu.
 </value>
@@ -3379,7 +3379,7 @@ Pro tisk závodních map se doporučuje exportovat tratě do souborů OCAD (vybe
     <value>Fixovat tiskovou plochu na velikost papíru</value>
   </data>
   <data name="SetUILanguage_introLabel_Text" xml:space="preserve">
-    <value>Vyberte jazyk UI programu Purple Pen (rozhraní, menu, nastavení..)</value>
+    <value>Vyberte jazyk UI programu NotPurplePen (rozhraní, menu, nastavení..)</value>
   </data>
   <data name="SetUILanguage_Text" xml:space="preserve">
     <value>Jazyk programu</value>

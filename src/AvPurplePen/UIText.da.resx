@@ -125,7 +125,7 @@
     <value>Copyright © af Peter Golde</value>
   </data>
   <data name="AboutForm_freeLabel_Text" xml:space="preserve">
-    <value>Purple Pen er fri software og må kopieres og deles.</value>
+    <value>NotPurplePen er fri software og må kopieres og deles.</value>
   </data>
   <data name="AboutForm_disclaimerLabel_Text" xml:space="preserve">
     <value>DENNE SOFTWARE ER GIVET AF COPYRIGHT HOLDERNE OG BIDRAGER SOM DET ER OG ETHVERT UDTRYK ELLER  STILTIENDE GARANTI, INKLUSIV, MEN IKKE BEGRÆNSET TIL DE STILTIENDE GARANTIER AF SALGBARHED OG  TILPASSE ET BESTEMT FORMÅL ER FRASAGT.</value>
@@ -152,7 +152,7 @@
     <value>Se den fulde licens</value>
   </data>
   <data name="AboutForm_Text" xml:space="preserve">
-    <value>Om Purple Pen</value>
+    <value>Om NotPurplePen</value>
   </data>
   <data name="AddCourse_firstControlLabel_Text" xml:space="preserve">
     <value>Første kontrolnummer:</value>
@@ -1208,19 +1208,19 @@
     <value>Vælg mappe...</value>
   </data>
   <data name="CreateImageFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>Samme mappe som Purple Pen fil</value>
+    <value>Samme mappe som NotPurplePen fil</value>
   </data>
   <data name="CreateKmlFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>Samme mappe som Purple Pen fil</value>
+    <value>Samme mappe som NotPurplePen fil</value>
   </data>
   <data name="CreateOcadFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>Samme mappe som Purple Pen fil</value>
+    <value>Samme mappe som NotPurplePen fil</value>
   </data>
   <data name="CreatePdfCourses_coursesDirectory_Text" xml:space="preserve">
-    <value>Samme mappe som Purple Pen fil</value>
+    <value>Samme mappe som NotPurplePen fil</value>
   </data>
   <data name="CreateRouteGadget_coursesDirectory_Text" xml:space="preserve">
-    <value>Samme mappe som Purple Pen fil</value>
+    <value>Samme mappe som NotPurplePen fil</value>
   </data>
   <data name="CreateImageFiles_mapDirectory_Text" xml:space="preserve">
     <value>Samme mappe som kortfil</value>
@@ -1427,13 +1427,13 @@
     <value>Åben en eksisterende hændelse...</value>
   </data>
   <data name="InitialScreen_label1_Text" xml:space="preserve">
-    <value>Purple Pen er fri software og må kopieres og deles. Udvikling af Purple Pen er udelukkende understøttet af dine donationer.</value>
+    <value>NotPurplePen er fri software og må kopieres og deles. Udvikling af NotPurplePen er udelukkende understøttet af dine donationer.</value>
   </data>
   <data name="InitialScreen_donationLink_Text" xml:space="preserve">
     <value>Giv et bidrag</value>
   </data>
   <data name="InitialScreen_Text" xml:space="preserve">
-    <value>Velkommen til Purple Pen</value>
+    <value>Velkommen til NotPurplePen</value>
   </data>
   <data name="LegAssignmentsDialog_BranchColumn_HeaderText" xml:space="preserve">
     <value>Gren</value>
@@ -1451,10 +1451,10 @@
     <value>Ben tildelinger</value>
   </data>
   <data name="LicenseForm_bsdLicenseLinkLabel_Text" xml:space="preserve">
-    <value>Purple Pen er udgivet under en "BSD"-lignende licens.</value>
+    <value>NotPurplePen er udgivet under en "BSD"-lignende licens.</value>
   </data>
   <data name="LicenseForm_Text" xml:space="preserve">
-    <value>Purple Pen licens</value>
+    <value>NotPurplePen licens</value>
   </data>
   <data name="LinePropertiesDialog_buttonChangeColor_Text" xml:space="preserve">
     <value> Ændr farve...</value>
@@ -1499,10 +1499,10 @@
     <value>Kortviser typologi</value>
   </data>
   <data name="MainFrame_openFileDialog_Filter" xml:space="preserve">
-    <value>Purple Pen filer|*.ppen|Alle filer|*.*</value>
+    <value>NotPurplePen filer|*.ppen|Alle filer|*.*</value>
   </data>
   <data name="MainFrame_saveFileDialog_Filter" xml:space="preserve">
-    <value>Purple Pen file|*.ppen</value>
+    <value>NotPurplePen file|*.ppen</value>
   </data>
   <data name="MainFrame_newEventMenu_Text" xml:space="preserve">
     <value>_Ny hændelse...</value>
@@ -1955,13 +1955,13 @@
     <value>_Rapporter</value>
   </data>
   <data name="MainFrame_helpContentsMenu_Text" xml:space="preserve">
-    <value>Purple Pen _Hjælp</value>
+    <value>NotPurplePen _Hjælp</value>
   </data>
   <data name="MainFrame_helpTranslatedMenu_Text" xml:space="preserve">
-    <value>Purple Pen hjælp (oversat)</value>
+    <value>NotPurplePen hjælp (oversat)</value>
   </data>
   <data name="MainFrame_mainWebSiteToolMenu_Text" xml:space="preserve">
-    <value>Purple Pen _Webside</value>
+    <value>NotPurplePen _Webside</value>
   </data>
   <data name="MainFrame_supportWebSiteMenu_Text" xml:space="preserve">
     <value>_Support/Bug Rapportering</value>
@@ -1970,7 +1970,7 @@
     <value>Giv en _Donation</value>
   </data>
   <data name="MainFrame_aboutMenu_Text" xml:space="preserve">
-    <value>_Om Purple Pen</value>
+    <value>_Om NotPurplePen</value>
   </data>
   <data name="MainFrame_symbolBrowserMenu_Text" xml:space="preserve">
     <value>Symbol Browser</value>
@@ -2102,10 +2102,10 @@
     <value>GPX fil|*.gpx</value>
   </data>
   <data name="MainFrame_Text" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="MiscText_AppTitle" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="MiscText_CtrlZ" xml:space="preserve">
     <value>Ctrl+Z</value>
@@ -2262,7 +2262,7 @@ Brug | for at skille linjer</value>
     <value>Version {0}</value>
   </data>
   <data name="MiscText_NewerVersionAvailable" xml:space="preserve">
-    <value>Version {0} af Purple Pen er nu tilgængelig for download. Du bruger i øjeblikket versiom {1}.
+    <value>Version {0} af NotPurplePen er nu tilgængelig for download. Du bruger i øjeblikket versiom {1}.
 
 Ønsker du at downloade og installere den seneste version?</value>
   </data>
@@ -2275,7 +2275,7 @@ Brug | for at skille linjer</value>
   <data name="MiscText_MissingMapFile" xml:space="preserve">
     <value>Kortfilen"{0}" blev ikke fundet.
 
-Sandsynligvis er kortfilen blevet flyttet eller slettet, eller Purple Pen filen er blevet flyttet (muligvis til en anden computer). Kortfilen skal være til stede hver gang Purple Pen hændelsesfilen indlæses. Hvis du sender en Purple Pen hændelsesfil til en anden person, vær sikker på at den person også har en kopi af kortfilen.
+Sandsynligvis er kortfilen blevet flyttet eller slettet, eller NotPurplePen filen er blevet flyttet (muligvis til en anden computer). Kortfilen skal være til stede hver gang NotPurplePen hændelsesfilen indlæses. Hvis du sender en NotPurplePen hændelsesfil til en anden person, vær sikker på at den person også har en kopi af kortfilen.
 
 Efter at klikke OK, prøv at finde en kopi af kortfilen på din computer.</value>
   </data>
@@ -2346,7 +2346,7 @@ Efter at klikke OK, prøv at finde en kopi af kortfilen på din computer.</value
     <value>Indtast den nye tekst</value>
   </data>
   <data name="MiscText_MapFileChanged" xml:space="preserve">
-    <value>Et andet program har ændret kortfilen "{0}". Purple Pen vil nu genindlæse kortet.</value>
+    <value>Et andet program har ændret kortfilen "{0}". NotPurplePen vil nu genindlæse kortet.</value>
   </data>
   <data name="MiscText_ChangeDescriptionLanguage" xml:space="preserve">
     <value>Den nuværende hændelse har tekstuel kontrolbeskrivelser in {0}. Ønsker du at ændre sprog på kontrolbeskrivelser til {1}?</value>
@@ -2355,13 +2355,13 @@ Efter at klikke OK, prøv at finde en kopi af kortfilen på din computer.</value
     <value>Åben "{0}"</value>
   </data>
   <data name="MiscText_ClosePPBeforeLoadingOCAD" xml:space="preserve">
-    <value>Purple Pen skal lukkes før indlæsning af de oprettede OCADfiler.</value>
+    <value>NotPurplePen skal lukkes før indlæsning af de oprettede OCADfiler.</value>
   </data>
   <data name="MiscText_NoCoursesSelected" xml:space="preserve">
     <value>Ingen kurser var valgt til udskrift.</value>
   </data>
   <data name="MiscText_TranslatedHelpWebSite" xml:space="preserve">
-    <value>*** Hvis der eksisterer en webside i det oversatte sprog som indeholder dokumentation for Purple Pen, indtast den URL (inklusive http) som oversættelse af denne vare. Ellers lad den være.</value>
+    <value>*** Hvis der eksisterer en webside i det oversatte sprog som indeholder dokumentation for NotPurplePen, indtast den URL (inklusive http) som oversættelse af denne vare. Ellers lad den være.</value>
   </data>
   <data name="MiscText_MapExchange_Long" xml:space="preserve">
     <value>Kortudveksling</value>
@@ -2475,7 +2475,7 @@ Efter at klikke OK, prøv at finde en kopi af kortfilen på din computer.</value
     <value>Kunne ikke genprojekt punkter; enten er koordinaterne og de virkelige koordinater i OCAD kortet forkerte.</value>
   </data>
   <data name="MiscText_GpxUnsupportedCoordSystem" xml:space="preserve">
-    <value>OCADfil bruger et koordinatsystem som ikke er understøttet af Purple Pen.</value>
+    <value>OCADfil bruger et koordinatsystem som ikke er understøttet af NotPurplePen.</value>
   </data>
   <data name="MiscText_BadLength" xml:space="preserve">
     <value>Længden på et kursus skal være et nummer 0,1 - 99,9 eller blank for at udregne længden automatisk.</value>

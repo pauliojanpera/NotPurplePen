@@ -121,7 +121,7 @@
     <value>Copyright © by Peter Golde</value>
   </data>
   <data name="AboutForm_freeLabel_Text" xml:space="preserve">
-    <value>Purple Pen is gratis software en mag worden gekopieerd en gedeeld.</value>
+    <value>NotPurplePen is gratis software en mag worden gekopieerd en gedeeld.</value>
   </data>
   <data name="AboutForm_disclaimerLabel_Text" xml:space="preserve">
     <value>Deze software wordt verstrekt door de auteursrechthouders en de medewerkers "zoals ze is", en om het even welke uitdrukkelijke of impliciete garanties, inclusief -maar niet uitsluitend- de impliciete garanties van handelsgoed en geschiktheid voor een bepaald doel, worden afgewezen.</value>
@@ -148,7 +148,7 @@
     <value>Bekijke de volledige licentie</value>
   </data>
   <data name="AboutForm_Text" xml:space="preserve">
-    <value>Over Purple Pen</value>
+    <value>Over NotPurplePen</value>
   </data>
   <data name="AddCourse_firstControlLabel_Text" xml:space="preserve">
     <value>Nummer van eerste post:</value>
@@ -988,19 +988,19 @@
     <value>Kies folder...</value>
   </data>
   <data name="CreateImageFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>Zelfde folder als Purple Pen bestand</value>
+    <value>Zelfde folder als NotPurplePen bestand</value>
   </data>
   <data name="CreateKmlFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>Zelfde folder als Purple Pen bestand</value>
+    <value>Zelfde folder als NotPurplePen bestand</value>
   </data>
   <data name="CreateOcadFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>Zelfde folder als Purple Pen bestand</value>
+    <value>Zelfde folder als NotPurplePen bestand</value>
   </data>
   <data name="CreatePdfCourses_coursesDirectory_Text" xml:space="preserve">
-    <value>Zelfde folder als Purple Pen bestand</value>
+    <value>Zelfde folder als NotPurplePen bestand</value>
   </data>
   <data name="CreateRouteGadget_coursesDirectory_Text" xml:space="preserve">
-    <value>Zelfde folder als Purple Pen bestand</value>
+    <value>Zelfde folder als NotPurplePen bestand</value>
   </data>
   <data name="CreateImageFiles_mapDirectory_Text" xml:space="preserve">
     <value>Zelfde folder als kaartbestand</value>
@@ -1369,10 +1369,10 @@
     <value>GPX file|*.gpx</value>
   </data>
   <data name="MainFrame_Text" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="MiscText_AppTitle" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="MiscText_CtrlZ" xml:space="preserve">
     <value>Ctrl+Z</value>
@@ -1432,7 +1432,7 @@
     <value>enkelvoud</value>
   </data>
   <data name="MiscText_ClosePPBeforeLoadingOCAD" xml:space="preserve">
-    <value>Purple Pen moet worden afgesloten om de gecreëerde OCAD bestanden te laden.</value>
+    <value>NotPurplePen moet worden afgesloten om de gecreëerde OCAD bestanden te laden.</value>
   </data>
   <data name="MiscText_NoCoursesSelected" xml:space="preserve">
     <value>Er zijn geen routes gekozen om af te drukken.</value>
@@ -1495,7 +1495,7 @@
     <value>S_tandaard afdrukschaal:</value>
   </data>
   <data name="NonPrintableObjects_labelWarning_Text" xml:space="preserve">
-    <value>Kaartbestand "{0}" bevat (OCAD) objecten of symbolen die niet volledig worden ondersteund door Purple Pen, en worden misschien niet goed afgedrukt. De objecten die wellicht niet goed worden afgedrukt worden hier onder genoemd.
+    <value>Kaartbestand "{0}" bevat (OCAD) objecten of symbolen die niet volledig worden ondersteund door NotPurplePen, en worden misschien niet goed afgedrukt. De objecten die wellicht niet goed worden afgedrukt worden hier onder genoemd.
 
 Om wedstrijdkaarten af te drukken, wordt voorgesteld de routes als OCAD bestanden te exporteren (gebruik Bestand/Creëer OCAD bestanden...) en de kaarten met OCAD af te drukken.
 </value>

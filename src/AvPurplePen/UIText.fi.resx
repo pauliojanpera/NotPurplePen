@@ -125,7 +125,7 @@
     <value>Copyright © Peter Golde</value>
   </data>
   <data name="AboutForm_freeLabel_Text" xml:space="preserve">
-    <value>Purple Pen on vapaa ohjelma, jota saa kopioida ja jakaa.</value>
+    <value>NotPurplePen on vapaa ohjelma, jota saa kopioida ja jakaa.</value>
   </data>
   <data name="AboutForm_disclaimerLabel_Text" xml:space="preserve">
     <value>TEKIJÄNOIKEUKSIEN OMISTAJAT JA AVUSTAJAT TARJOAVAT TÄMÄN OHJELMAN ”SELLAISENAAN” ILMAN MITÄÄN SUORIA TAI EPÄSUORIA TAKUITA MUKAAN LUKIEN, MUTTA EI RAJOITTUEN, KIISTETÄÄN EPÄSUORAT TAKUUT OHJELMAN KÄYTETTÄVYYDESTÄ KAUPALLISIIN TARKOITUKSIIN JA SOPIVUUDESTA JOHONKIN TIETTYYN TARKOITUKSEEN.</value>
@@ -1244,19 +1244,19 @@
     <value>Valitse kansio...</value>
   </data>
   <data name="CreateImageFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>Samaan kuin Purple Pen -tiedosto</value>
+    <value>Samaan kuin NotPurplePen -tiedosto</value>
   </data>
   <data name="CreateKmlFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>Samaan kuin Purple Pen -tiedosto</value>
+    <value>Samaan kuin NotPurplePen -tiedosto</value>
   </data>
   <data name="CreateOcadFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>Samaan kuin Purple Pen -tiedosto</value>
+    <value>Samaan kuin NotPurplePen -tiedosto</value>
   </data>
   <data name="CreatePdfCourses_coursesDirectory_Text" xml:space="preserve">
-    <value>Samaan kuin Purple Pen -tiedosto</value>
+    <value>Samaan kuin NotPurplePen -tiedosto</value>
   </data>
   <data name="CreateRouteGadget_coursesDirectory_Text" xml:space="preserve">
-    <value>Samaan kuin Purple Pen -tiedosto</value>
+    <value>Samaan kuin NotPurplePen -tiedosto</value>
   </data>
   <data name="CreateImageFiles_mapDirectory_Text" xml:space="preserve">
     <value>Samaan kuin karttatiedosto</value>
@@ -1469,13 +1469,13 @@
     <value>Avaa olemassa oleva tapahtuma...</value>
   </data>
   <data name="InitialScreen_label1_Text" xml:space="preserve">
-    <value>Purple Pen is free software and may be copied and shared. Development of Purple Pen is supported only by your donations.</value>
+    <value>NotPurplePen is free software and may be copied and shared. Development of NotPurplePen is supported only by your donations.</value>
   </data>
   <data name="InitialScreen_donationLink_Text" xml:space="preserve">
     <value>Make a donation</value>
   </data>
   <data name="InitialScreen_Text" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="LegAssignmentsDialog_BranchColumn_HeaderText" xml:space="preserve">
     <value>Hajonta</value>
@@ -1493,10 +1493,10 @@
     <value>Osuusmäärittelyt</value>
   </data>
   <data name="LicenseForm_bsdLicenseLinkLabel_Text" xml:space="preserve">
-    <value>Ohjelman Purple Pen lisenssi on BSD-tyylinen.</value>
+    <value>Ohjelman NotPurplePen lisenssi on BSD-tyylinen.</value>
   </data>
   <data name="LicenseForm_Text" xml:space="preserve">
-    <value>Purple Pen lisenssi</value>
+    <value>NotPurplePen lisenssi</value>
   </data>
   <data name="LinePropertiesDialog_buttonChangeColor_Text" xml:space="preserve">
     <value> Vaihda väri...</value>
@@ -1541,10 +1541,10 @@
     <value>mapViewerTopology</value>
   </data>
   <data name="MainFrame_openFileDialog_Filter" xml:space="preserve">
-    <value>Purple Pen tiedostot|*.ppen|Kaikki tiedostot|*.*</value>
+    <value>NotPurplePen tiedostot|*.ppen|Kaikki tiedostot|*.*</value>
   </data>
   <data name="MainFrame_saveFileDialog_Filter" xml:space="preserve">
-    <value>Purple Pen tiedosto|*.ppen</value>
+    <value>NotPurplePen tiedosto|*.ppen</value>
   </data>
   <data name="MainFrame_newEventMenu_Text" xml:space="preserve">
     <value>_Uusi tapahtuma...</value>
@@ -2021,13 +2021,13 @@
     <value>Ra_portit</value>
   </data>
   <data name="MainFrame_helpContentsMenu_Text" xml:space="preserve">
-    <value>Purple Pen -_ohje</value>
+    <value>NotPurplePen -_ohje</value>
   </data>
   <data name="MainFrame_helpTranslatedMenu_Text" xml:space="preserve">
-    <value>Purple Pen -ohje (suomi)</value>
+    <value>NotPurplePen -ohje (suomi)</value>
   </data>
   <data name="MainFrame_mainWebSiteToolMenu_Text" xml:space="preserve">
-    <value>_Purple Pen -kotisivu</value>
+    <value>_NotPurplePen -kotisivu</value>
   </data>
   <data name="MainFrame_supportWebSiteMenu_Text" xml:space="preserve">
     <value>Tuki/_Virheraportointi</value>
@@ -2174,10 +2174,10 @@
     <value>GPX-tiedosto|*.gpx</value>
   </data>
   <data name="MainFrame_Text" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="MiscText_AppTitle" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="MiscText_CtrlZ" xml:space="preserve">
     <value>Ctrl+Z</value>
@@ -2334,7 +2334,7 @@ Käytä | -merkkiä erottamaan rivit</value>
     <value>Versio {0}</value>
   </data>
   <data name="MiscText_NewerVersionAvailable" xml:space="preserve">
-    <value>Purple Pen versio {0} on nyt ladattavissa. (Sinulla on nyt käytössä versio {1}.)
+    <value>NotPurplePen versio {0} on nyt ladattavissa. (Sinulla on nyt käytössä versio {1}.)
 
 Haluatko ladata ja asentaa viimeisimmän version?</value>
   </data>
@@ -2347,7 +2347,7 @@ Haluatko ladata ja asentaa viimeisimmän version?</value>
   <data name="MiscText_MissingMapFile" xml:space="preserve">
     <value>Karttatiedostoa "{0}" ei löytynyt.
 
-Todennäköisesti karttatiedosto on siirretty tai poistettu tai Purple Pen -tiedosto on siirretty (mahdollisesti toiselle tietokoneelle). Karttatiedosto on oltava aina, kun Purple Pen -tiedostoa käytetään. Jos lähetät Purple Pen -tiedoston jollekin muulle, muista lähettää myös karttatiedosto, ellei sitä ole vastaanottajalla.
+Todennäköisesti karttatiedosto on siirretty tai poistettu tai NotPurplePen -tiedosto on siirretty (mahdollisesti toiselle tietokoneelle). Karttatiedosto on oltava aina, kun NotPurplePen -tiedostoa käytetään. Jos lähetät NotPurplePen -tiedoston jollekin muulle, muista lähettää myös karttatiedosto, ellei sitä ole vastaanottajalla.
 
 Paina OK ja yritä etsiä karttatiedoston kopio tietokoneeltasi.</value>
   </data>
@@ -2421,7 +2421,7 @@ Paina OK ja yritä etsiä karttatiedoston kopio tietokoneeltasi.</value>
     <value>Syötä uusi teksti.</value>
   </data>
   <data name="MiscText_MapFileChanged" xml:space="preserve">
-    <value>Toinen ohjelma on muuttanut karttatiedostoa "{0}". Purple Pen lataa nyt kartan uudelleen.</value>
+    <value>Toinen ohjelma on muuttanut karttatiedostoa "{0}". NotPurplePen lataa nyt kartan uudelleen.</value>
   </data>
   <data name="MiscText_ChangeDescriptionLanguage" xml:space="preserve">
     <value>Tapahtuman sanallisten rastinmääritteiden kielenä on {0}. Haluatko muuttaa rastinmääritteet kielelle {1}?</value>
@@ -2430,13 +2430,13 @@ Paina OK ja yritä etsiä karttatiedoston kopio tietokoneeltasi.</value>
     <value>Avaa "{0}"</value>
   </data>
   <data name="MiscText_ClosePPBeforeLoadingOCAD" xml:space="preserve">
-    <value>Purple Pen pitää sulkea ennen kuin voit avata luotuja OCAD-tiedostoja.</value>
+    <value>NotPurplePen pitää sulkea ennen kuin voit avata luotuja OCAD-tiedostoja.</value>
   </data>
   <data name="MiscText_NoCoursesSelected" xml:space="preserve">
     <value>Yhtään rataa ei ole valittuna tulostettavaksi.</value>
   </data>
   <data name="MiscText_TranslatedHelpWebSite" xml:space="preserve">
-    <value>*** Jos on olemassa verkkosivusto, joka sisältää Purple Pen -ohjeita tällä käännöskielellä, syötä sen täydellinen URL-osoite (http://...). Muutoin jätä tyhjäksi.</value>
+    <value>*** Jos on olemassa verkkosivusto, joka sisältää NotPurplePen -ohjeita tällä käännöskielellä, syötä sen täydellinen URL-osoite (http://...). Muutoin jätä tyhjäksi.</value>
   </data>
   <data name="MiscText_MapExchange_Long" xml:space="preserve">
     <value>Kartanvaihto</value>
@@ -2550,7 +2550,7 @@ Paina OK ja yritä etsiä karttatiedoston kopio tietokoneeltasi.</value>
     <value>Ei voitu uudelleenprojektoida pisteitä. Joko koordinaatistossa tai maastokoordinaateissa OCAD-kartalla on virhe.</value>
   </data>
   <data name="MiscText_GpxUnsupportedCoordSystem" xml:space="preserve">
-    <value>Purple Pen ei tue OCAD-tiedoston käyttämää koordinaatistoa.</value>
+    <value>NotPurplePen ei tue OCAD-tiedoston käyttämää koordinaatistoa.</value>
   </data>
   <data name="MiscText_BadLength" xml:space="preserve">
     <value>Radan pituuden pitää olla numero väliltä 0.1 - 99.9 tai tyhjä, jolloin pituus lasketaan automaattisesti.</value>
@@ -2643,7 +2643,7 @@ Paina OK ja yritä etsiä karttatiedoston kopio tietokoneeltasi.</value>
     <value>Lisää ellipsi</value>
   </data>
   <data name="MiscText_UninstallNonStoreVersion" xml:space="preserve">
-    <value>Purple Pen -ohjelman vanhempi versio on edelleen asennettuna. Kahden version aiheuttamien sekaannusten välttämiseksi on erittäin suositeltavaa poistaa vanhempi versio. Poistetaanko se nyt?</value>
+    <value>NotPurplePen -ohjelman vanhempi versio on edelleen asennettuna. Kahden version aiheuttamien sekaannusten välttämiseksi on erittäin suositeltavaa poistaa vanhempi versio. Poistetaanko se nyt?</value>
   </data>
   <data name="MissingFonts_checkBoxDontWarnAgain_Text" xml:space="preserve">
     <value>Älä jatkossa varoita puuttuvista fonteista tässä tapahtumassa.</value>
@@ -2651,7 +2651,7 @@ Paina OK ja yritä etsiä karttatiedoston kopio tietokoneeltasi.</value>
   <data name="MissingFonts_labelWarning_Text" xml:space="preserve">
     <value>Karttatiedostossa "{0}" on käytössä fontteja, joita ei ole asennettu tietokoneellesi. Tekstit, joissa näitä fontteja on käytössä, piirretään ja tulostetaan oletusfontilla, mikä saattaa aiheuttaa, että teksti näkyy kartalla ei tavalla kuin kartan tekijä on tarkoittanut. 
 
-Korjataksesi ongelman, etsi ja asenna alla listatut fontit ja käynnistä Purple Pen sen jälkeen uudelleen.
+Korjataksesi ongelman, etsi ja asenna alla listatut fontit ja käynnistä NotPurplePen sen jälkeen uudelleen.
 </value>
   </data>
   <data name="MissingFonts_Text" xml:space="preserve">
@@ -2744,7 +2744,7 @@ Mittakaava ilmaisee kartan ja sen kuvaaman todellisen maaston mittojen välisen 
     <value>Valittu karttatiedosto</value>
   </data>
   <data name="NewEventMapFile_infoMessage_Text" xml:space="preserve">
-    <value>Karttatiedosto ladattiin onnistuneesti. Jos lähetät Purple Pen -tiedostosi jollekin muulle, muista lähettää myös karttatiedosto, ellei sitä ole vastaanottajalla.</value>
+    <value>Karttatiedosto ladattiin onnistuneesti. Jos lähetät NotPurplePen -tiedostosi jollekin muulle, muista lähettää myös karttatiedosto, ellei sitä ole vastaanottajalla.</value>
   </data>
   <data name="NewEventNumbering_newEventNumberingLabel_Text" xml:space="preserve">
     <value>Rastit numeroidaan automaattisesti. Valitse ensimmäinen käytössä oleva rastikoodi.</value>
@@ -2794,7 +2794,7 @@ Mittakaava ilmaisee kartan ja sen kuvaaman todellisen maaston mittojen välisen 
     <value>IOF:n rastinmääritestandardi</value>
   </data>
   <data name="NewEventStandards_labelStandardsIntro_Text" xml:space="preserve">
-    <value>Mitä IOF:n standardeja haluat Purple Penin noudattavan?</value>
+    <value>Mitä IOF:n standardeja haluat NotPurplePenin noudattavan?</value>
   </data>
   <data name="NewEventTitle_newEventTitleLabel_Text" xml:space="preserve">
     <value>Tapahtuman nimi näytetään kaikkien rastinmääritteiden ensimmäisellä rivillä. Sitä käytetään myös tiedoston nimenä, kun tapahtuma tallennetaan levylle.
@@ -2808,7 +2808,7 @@ Jotta nimi mahtuu rastinmääritteisiin, sen pitää olla alle 25 merkkiä pitk�
     <value>&lt; _Edellinen</value>
   </data>
   <data name="NonPrintableObjects_labelWarning_Text" xml:space="preserve">
-    <value>Karttatiedostossa "{0}" on kohteita tai symboleita, joita Purple Pen ei täysin tue ja siksi ne eivät ehkä tulostu kunnolla. Kohteet, jotka eivät ehkä tulostu kunnolla, on listattu alla.
+    <value>Karttatiedostossa "{0}" on kohteita tai symboleita, joita NotPurplePen ei täysin tue ja siksi ne eivät ehkä tulostu kunnolla. Kohteet, jotka eivät ehkä tulostu kunnolla, on listattu alla.
 
 Kilpailukarttojen tulostamiseksi on suositeltavaa viedä radat OCAD-tiedostoihin (Tiedosto/Vie OCAD-tiedostoihin...) ja tulostaa kartat OCAD:lla.
 </value>
@@ -3477,7 +3477,7 @@ Kilpailukarttojen tulostamiseksi on suositeltavaa viedä radat OCAD-tiedostoihin
     <value>Kiinnitä tulostusalueen koko paperikokoon</value>
   </data>
   <data name="SetUILanguage_introLabel_Text" xml:space="preserve">
-    <value>Valitse Purple Pen -ohjelman käyttöliittymän kieli</value>
+    <value>Valitse NotPurplePen -ohjelman käyttöliittymän kieli</value>
   </data>
   <data name="SetUILanguage_Text" xml:space="preserve">
     <value>Ohjelman kieli</value>

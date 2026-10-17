@@ -125,7 +125,7 @@
     <value>版权 ©  由 Peter Golde 开发</value>
   </data>
   <data name="AboutForm_freeLabel_Text" xml:space="preserve">
-    <value>紫笔是免费软件，可以复制和共享。</value>
+    <value>非紫笔是免费软件，可以复制和共享。</value>
   </data>
   <data name="AboutForm_disclaimerLabel_Text" xml:space="preserve">
     <value>该软件由版权持有人和贡献者提供，包括但不限于，商业性和其他用途默认放弃，提供任何明示或暗示的保证。</value>
@@ -152,7 +152,7 @@
     <value>查看完整的许可证</value>
   </data>
   <data name="AboutForm_Text" xml:space="preserve">
-    <value>关于紫笔软件</value>
+    <value>关于非紫笔软件</value>
   </data>
   <data name="AddCourse_firstControlLabel_Text" xml:space="preserve">
     <value>第一个检查点序号</value>
@@ -1238,19 +1238,19 @@
     <value>选择文件夹…</value>
   </data>
   <data name="CreateImageFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>紫笔文件相同的文件夹</value>
+    <value>非紫笔文件相同的文件夹</value>
   </data>
   <data name="CreateKmlFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>紫笔文件相同的文件夹</value>
+    <value>非紫笔文件相同的文件夹</value>
   </data>
   <data name="CreateOcadFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>紫笔文件相同的文件夹</value>
+    <value>非紫笔文件相同的文件夹</value>
   </data>
   <data name="CreatePdfCourses_coursesDirectory_Text" xml:space="preserve">
-    <value>紫笔文件相同的文件夹</value>
+    <value>非紫笔文件相同的文件夹</value>
   </data>
   <data name="CreateRouteGadget_coursesDirectory_Text" xml:space="preserve">
-    <value>紫笔文件相同的文件夹</value>
+    <value>非紫笔文件相同的文件夹</value>
   </data>
   <data name="CreateImageFiles_mapDirectory_Text" xml:space="preserve">
     <value>与地图文件相同的文件夹</value>
@@ -1463,13 +1463,13 @@
     <value>打开一个现有的赛事…</value>
   </data>
   <data name="InitialScreen_label1_Text" xml:space="preserve">
-    <value>紫笔是一个免费软件，可以进行复制和共享。紫笔软件的未来发展需要您的捐赠支持。</value>
+    <value>非紫笔是一个免费软件，可以进行复制和共享。非紫笔软件的未来发展需要您的捐赠支持。</value>
   </data>
   <data name="InitialScreen_donationLink_Text" xml:space="preserve">
     <value>捐赠</value>
   </data>
   <data name="InitialScreen_Text" xml:space="preserve">
-    <value>欢迎使用紫笔</value>
+    <value>欢迎使用非紫笔</value>
   </data>
   <data name="LegAssignmentsDialog_BranchColumn_HeaderText" xml:space="preserve">
     <value>分支</value>
@@ -1487,10 +1487,10 @@
     <value>路段分配</value>
   </data>
   <data name="LicenseForm_bsdLicenseLinkLabel_Text" xml:space="preserve">
-    <value>紫笔是根据“BSD”许可证提供的。</value>
+    <value>非紫笔是根据“BSD”许可证提供的。</value>
   </data>
   <data name="LicenseForm_Text" xml:space="preserve">
-    <value>紫笔许可证</value>
+    <value>非紫笔许可证</value>
   </data>
   <data name="LinePropertiesDialog_buttonChangeColor_Text" xml:space="preserve">
     <value> 改变颜色…</value>
@@ -1535,10 +1535,10 @@
     <value>地图视图</value>
   </data>
   <data name="MainFrame_openFileDialog_Filter" xml:space="preserve">
-    <value>紫笔文件|*.ppen|所有文件|*.*</value>
+    <value>非紫笔文件|*.ppen|所有文件|*.*</value>
   </data>
   <data name="MainFrame_saveFileDialog_Filter" xml:space="preserve">
-    <value>紫笔文件|*.ppen</value>
+    <value>非紫笔文件|*.ppen</value>
   </data>
   <data name="MainFrame_newEventMenu_Text" xml:space="preserve">
     <value>新的赛事(_N)</value>
@@ -2012,13 +2012,13 @@
     <value>报表(_R)</value>
   </data>
   <data name="MainFrame_helpContentsMenu_Text" xml:space="preserve">
-    <value>紫笔使用手册</value>
+    <value>非紫笔使用手册</value>
   </data>
   <data name="MainFrame_helpTranslatedMenu_Text" xml:space="preserve">
-    <value>紫笔使用手册（翻译）</value>
+    <value>非紫笔使用手册（翻译）</value>
   </data>
   <data name="MainFrame_mainWebSiteToolMenu_Text" xml:space="preserve">
-    <value>紫笔网站</value>
+    <value>非紫笔网站</value>
   </data>
   <data name="MainFrame_supportWebSiteMenu_Text" xml:space="preserve">
     <value>支持/错误报告</value>
@@ -2027,7 +2027,7 @@
     <value>进行捐赠</value>
   </data>
   <data name="MainFrame_aboutMenu_Text" xml:space="preserve">
-    <value>关于紫笔</value>
+    <value>关于非紫笔</value>
   </data>
   <data name="MainFrame_symbolBrowserMenu_Text" xml:space="preserve">
     <value>符号浏览器</value>
@@ -2165,10 +2165,10 @@
     <value>GPX文件| GPX *。</value>
   </data>
   <data name="MainFrame_Text" xml:space="preserve">
-    <value>紫笔</value>
+    <value>非紫笔</value>
   </data>
   <data name="MiscText_AppTitle" xml:space="preserve">
-    <value>紫笔</value>
+    <value>非紫笔</value>
   </data>
   <data name="MiscText_CtrlZ" xml:space="preserve">
     <value>撤消</value>
@@ -2324,7 +2324,7 @@
     <value>版本{0}</value>
   </data>
   <data name="MiscText_NewerVersionAvailable" xml:space="preserve">
-    <value>紫笔的{0}版本现在可以下载。（您当前正在运行版本{1}。）
+    <value>非紫笔的{0}版本现在可以下载。（您当前正在运行版本{1}。）
 
 是否要下载并安装最新版本？</value>
   </data>
@@ -2337,7 +2337,7 @@
   <data name="MiscText_MissingMapFile" xml:space="preserve">
     <value>找不到地图文件{0}。
 
-很可能地图文件已被移动或删除，或者紫笔文件已被移动（可能移动到其他计算机）。每次加载紫笔赛事文件时，地图文件必须存在。如果将紫笔赛事文件发送给其他人，请确保该人也有地图文件的副本。
+很可能地图文件已被移动或删除，或者非紫笔文件已被移动（可能移动到其他计算机）。每次加载非紫笔赛事文件时，地图文件必须存在。如果将非紫笔赛事文件发送给其他人，请确保该人也有地图文件的副本。
 
 按“确定”后，请尝试在计算机上查找地图文件的副本。</value>
   </data>
@@ -2411,7 +2411,7 @@
     <value>输入新的文本</value>
   </data>
   <data name="MiscText_MapFileChanged" xml:space="preserve">
-    <value>另一个程序已更改地图文件{0}。紫笔现在将重新加载地图。</value>
+    <value>另一个程序已更改地图文件{0}。非紫笔现在将重新加载地图。</value>
   </data>
   <data name="MiscText_ChangeDescriptionLanguage" xml:space="preserve">
     <value>当前赛事在{0}中有检查点说明文本。是否将这个检查点说明的语言更改为{1}？</value>
@@ -2420,13 +2420,13 @@
     <value>打开“{0}”</value>
   </data>
   <data name="MiscText_ClosePPBeforeLoadingOCAD" xml:space="preserve">
-    <value>紫笔必须在加载创建的OCAD文件之前关闭。</value>
+    <value>非紫笔必须在加载创建的OCAD文件之前关闭。</value>
   </data>
   <data name="MiscText_NoCoursesSelected" xml:space="preserve">
     <value>没有选择要打印的线路。</value>
   </data>
   <data name="MiscText_TranslatedHelpWebSite" xml:space="preserve">
-    <value>***如果存在一个包含紫笔文档的翻译语言网站，请输入URL（包括http）作为此项目的翻译。否则就别管它了。</value>
+    <value>***如果存在一个包含非紫笔文档的翻译语言网站，请输入URL（包括http）作为此项目的翻译。否则就别管它了。</value>
   </data>
   <data name="MiscText_MapExchange_Long" xml:space="preserve">
     <value>换图</value>
@@ -2540,7 +2540,7 @@
     <value>不能重投影点；要么是坐标系统或真实世界坐标系在OCAD地图是错的。</value>
   </data>
   <data name="MiscText_GpxUnsupportedCoordSystem" xml:space="preserve">
-    <value>OCAD文件中使用的坐标系不受紫笔支持。</value>
+    <value>OCAD文件中使用的坐标系不受非紫笔支持。</value>
   </data>
   <data name="MiscText_BadLength" xml:space="preserve">
     <value>线路长度必须为0.1-99.9，或者为空，才能自动计算长度。</value>
@@ -2638,7 +2638,7 @@
   <data name="MissingFonts_labelWarning_Text" xml:space="preserve">
     <value>地图文件{0}使用计算机上未安装的字体。使用这些字体的文本将使用默认字体绘制和打印，这可能会导致文本的显示方式不同于地图设计者的预期。
 
-若要解决此问题，请使用Windows控制面板查找并安装下面列出的字体，然后再次启动紫笔。
+若要解决此问题，请使用Windows控制面板查找并安装下面列出的字体，然后再次启动非紫笔。
 </value>
   </data>
   <data name="MissingFonts_Text" xml:space="preserve">
@@ -2725,7 +2725,7 @@
     <value>选择地图文件</value>
   </data>
   <data name="NewEventMapFile_infoMessage_Text" xml:space="preserve">
-    <value>已成功加载地图文件。如果你把你的紫笔文件发给别人，他们也必须有地图文件。</value>
+    <value>已成功加载地图文件。如果你把你的非紫笔文件发给别人，他们也必须有地图文件。</value>
   </data>
   <data name="NewEventNumbering_newEventNumberingLabel_Text" xml:space="preserve">
     <value>新创建的检查点是自动编号，请选择开始的编号。</value>
@@ -2775,7 +2775,7 @@
     <value>国际定联检查点说明标准</value>
   </data>
   <data name="NewEventStandards_labelStandardsIntro_Text" xml:space="preserve">
-    <value>您希望紫笔软件遵循哪些版本的国际定联标准？</value>
+    <value>您希望非紫笔软件遵循哪些版本的国际定联标准？</value>
   </data>
   <data name="NewEventTitle_newEventTitleLabel_Text" xml:space="preserve">
     <value>赛事标题将显示在每个检查点说明表的第一行。它还用作将赛事存储在硬盘上的文件名。
@@ -2788,7 +2788,7 @@
     <value>&lt; 上一步(_B)</value>
   </data>
   <data name="NonPrintableObjects_labelWarning_Text" xml:space="preserve">
-    <value>地图文件{0}包含紫笔不完全支持的对象或符号，并且可能无法正确打印。下面列出了可能无法正确打印的对象。
+    <value>地图文件{0}包含非紫笔不完全支持的对象或符号，并且可能无法正确打印。下面列出了可能无法正确打印的对象。
 
 对于打印比赛地图，建议将线路导出到OCAD文件（使用文件/创建OCAD文件…）并从OCAD打印地图。
 </value>
@@ -3457,7 +3457,7 @@
     <value>将打印区域大小固定为纸张尺寸</value>
   </data>
   <data name="SetUILanguage_introLabel_Text" xml:space="preserve">
-    <value>选择要用于紫笔用户界面（菜单、窗口等）的语言</value>
+    <value>选择要用于非紫笔用户界面（菜单、窗口等）的语言</value>
   </data>
   <data name="SetUILanguage_Text" xml:space="preserve">
     <value>程序语言</value>

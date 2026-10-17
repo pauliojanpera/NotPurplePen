@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutForm_freeLabel_Text" xml:space="preserve">
-    <value>Purple Pen je brezplačen program, ki se lahko kopira in posreduje.</value>
+    <value>NotPurplePen je brezplačen program, ki se lahko kopira in posreduje.</value>
   </data>
   <data name="AboutForm_disclaimerLabel_Text" xml:space="preserve">
     <value>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED</value>
@@ -898,19 +898,19 @@
     <value>Izberi mapo...</value>
   </data>
   <data name="CreateImageFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>Ista mapa kot datoteka Purple Pen</value>
+    <value>Ista mapa kot datoteka NotPurplePen</value>
   </data>
   <data name="CreateKmlFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>Ista mapa kot datoteka Purple Pen</value>
+    <value>Ista mapa kot datoteka NotPurplePen</value>
   </data>
   <data name="CreateOcadFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>Ista mapa kot datoteka Purple Pen</value>
+    <value>Ista mapa kot datoteka NotPurplePen</value>
   </data>
   <data name="CreatePdfCourses_coursesDirectory_Text" xml:space="preserve">
-    <value>Ista mapa kot datoteka Purple Pen</value>
+    <value>Ista mapa kot datoteka NotPurplePen</value>
   </data>
   <data name="CreateRouteGadget_coursesDirectory_Text" xml:space="preserve">
-    <value>Ista mapa kot datoteka Purple Pen</value>
+    <value>Ista mapa kot datoteka NotPurplePen</value>
   </data>
   <data name="CreateImageFiles_mapDirectory_Text" xml:space="preserve">
     <value>Ista mapa kot datoteka s karto</value>
@@ -1033,22 +1033,22 @@
     <value>Doniraj</value>
   </data>
   <data name="InitialScreen_Text" xml:space="preserve">
-    <value>Dobrodošli v programu Purple Pen</value>
+    <value>Dobrodošli v programu NotPurplePen</value>
   </data>
   <data name="LicenseForm_bsdLicenseLinkLabel_Text" xml:space="preserve">
-    <value>Purple Pen je na voljo z "BSD" uporabniško licenco.</value>
+    <value>NotPurplePen je na voljo z "BSD" uporabniško licenco.</value>
   </data>
   <data name="LicenseForm_Text" xml:space="preserve">
-    <value>Purple Pen licenca</value>
+    <value>NotPurplePen licenca</value>
   </data>
   <data name="MainFrame_tabPage1_Text" xml:space="preserve">
     <value>Vse kontrolne točke</value>
   </data>
   <data name="MainFrame_openFileDialog_Filter" xml:space="preserve">
-    <value>Purple Pen datoteke|*.ppen|Vse datoteke|*.*</value>
+    <value>NotPurplePen datoteke|*.ppen|Vse datoteke|*.*</value>
   </data>
   <data name="MainFrame_saveFileDialog_Filter" xml:space="preserve">
-    <value>Purple Pen datoteke|*.ppen</value>
+    <value>NotPurplePen datoteke|*.ppen</value>
   </data>
   <data name="MainFrame_newEventMenu_Text" xml:space="preserve">
     <value>_Nova prireditev...</value>
@@ -1357,13 +1357,13 @@
     <value>_Poročila</value>
   </data>
   <data name="MainFrame_helpContentsMenu_Text" xml:space="preserve">
-    <value>Purple Pen _Pomoč</value>
+    <value>NotPurplePen _Pomoč</value>
   </data>
   <data name="MainFrame_helpTranslatedMenu_Text" xml:space="preserve">
-    <value>Purple Pen Pomoč (prevedena)</value>
+    <value>NotPurplePen Pomoč (prevedena)</value>
   </data>
   <data name="MainFrame_mainWebSiteToolMenu_Text" xml:space="preserve">
-    <value>Purple Pen _spletna stran</value>
+    <value>NotPurplePen _spletna stran</value>
   </data>
   <data name="MainFrame_supportWebSiteMenu_Text" xml:space="preserve">
     <value>_Podpora/sporočanje napak</value>

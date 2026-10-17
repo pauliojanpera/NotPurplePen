@@ -125,7 +125,7 @@
     <value>Copyright © by Peter Golde</value>
   </data>
   <data name="AboutForm_freeLabel_Text" xml:space="preserve">
-    <value>Purple Pen är fri programvara och får spridas och delas.</value>
+    <value>NotPurplePen är fri programvara och får spridas och delas.</value>
   </data>
   <data name="AboutForm_disclaimerLabel_Text" xml:space="preserve">
     <value>DEN HÄR PROGRAMVARAN TILLHANDAHÅLLS AV UPPHOVSRÄTTSINNEHAVARNA OCH MEDARBETARNA "SOM DEN ÄR" OCH FRÅNSÄGER SIG NÅGRA SOM HELST UTTRYCKTA ELLER UNDERFÖRSTÅDDA GARANTIER, INKLUDERANDE, MEN EJ BEGRÄNSAD TILL, DE UNDERFÖRSTÅDDA GARANTIERNA AV SÄLJBARHET OCH LÄMPLIGHET FÖR ETT SÄRSKILT ÄNDAMÅL.</value>
@@ -152,7 +152,7 @@
     <value>Se hela licensen</value>
   </data>
   <data name="AboutForm_Text" xml:space="preserve">
-    <value>Om Purple Pen</value>
+    <value>Om NotPurplePen</value>
   </data>
   <data name="AddCourse_firstControlLabel_Text" xml:space="preserve">
     <value>Första kodsiffra:</value>
@@ -1247,19 +1247,19 @@
     <value>Välj mapp...</value>
   </data>
   <data name="CreateImageFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>Samma mapp som Purple Pen-filen</value>
+    <value>Samma mapp som NotPurplePen-filen</value>
   </data>
   <data name="CreateKmlFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>Samma mapp som Purple Pen-filen</value>
+    <value>Samma mapp som NotPurplePen-filen</value>
   </data>
   <data name="CreateOcadFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>Samma mapp som Purple Pen-filen</value>
+    <value>Samma mapp som NotPurplePen-filen</value>
   </data>
   <data name="CreatePdfCourses_coursesDirectory_Text" xml:space="preserve">
-    <value>Samma mapp som Purple Pen-filen</value>
+    <value>Samma mapp som NotPurplePen-filen</value>
   </data>
   <data name="CreateRouteGadget_coursesDirectory_Text" xml:space="preserve">
-    <value>Samma mapp som Purple Pen-filen</value>
+    <value>Samma mapp som NotPurplePen-filen</value>
   </data>
   <data name="CreateImageFiles_mapDirectory_Text" xml:space="preserve">
     <value>Samma mapp som kartfilen</value>
@@ -1472,13 +1472,13 @@
     <value>Öppna en befintlig tävling...</value>
   </data>
   <data name="InitialScreen_label1_Text" xml:space="preserve">
-    <value>Purple Pen är fri mjukvara och får kopieras och delas. Vidareutvecklingen av Purple Pen är helt beroende av frivilliga bidrag.</value>
+    <value>NotPurplePen är fri mjukvara och får kopieras och delas. Vidareutvecklingen av NotPurplePen är helt beroende av frivilliga bidrag.</value>
   </data>
   <data name="InitialScreen_donationLink_Text" xml:space="preserve">
     <value>Ge ett bidrag</value>
   </data>
   <data name="InitialScreen_Text" xml:space="preserve">
-    <value>Välkommen till Purple Pen</value>
+    <value>Välkommen till NotPurplePen</value>
   </data>
   <data name="LegAssignmentsDialog_BranchColumn_HeaderText" xml:space="preserve">
     <value>Gaffling</value>
@@ -1496,10 +1496,10 @@
     <value>Sträcktilldelning</value>
   </data>
   <data name="LicenseForm_bsdLicenseLinkLabel_Text" xml:space="preserve">
-    <value>Purple Pen tillhandahålls under en "BSD"-liknande licens</value>
+    <value>NotPurplePen tillhandahålls under en "BSD"-liknande licens</value>
   </data>
   <data name="LicenseForm_Text" xml:space="preserve">
-    <value>Licens för Purple Pen</value>
+    <value>Licens för NotPurplePen</value>
   </data>
   <data name="LinePropertiesDialog_buttonChangeColor_Text" xml:space="preserve">
     <value> Ändra färg...</value>
@@ -1544,10 +1544,10 @@
     <value>mapViewerTopology</value>
   </data>
   <data name="MainFrame_openFileDialog_Filter" xml:space="preserve">
-    <value>Purple Pen-filer|*.ppen|Alla filer|*.*</value>
+    <value>NotPurplePen-filer|*.ppen|Alla filer|*.*</value>
   </data>
   <data name="MainFrame_saveFileDialog_Filter" xml:space="preserve">
-    <value>Purple Pen-fil|*.ppen</value>
+    <value>NotPurplePen-fil|*.ppen</value>
   </data>
   <data name="MainFrame_newEventMenu_Text" xml:space="preserve">
     <value>_Ny tävling...</value>
@@ -2030,7 +2030,7 @@
     <value>Hjälp (översatt)</value>
   </data>
   <data name="MainFrame_mainWebSiteToolMenu_Text" xml:space="preserve">
-    <value>Purple Pen _Webbsida</value>
+    <value>NotPurplePen _Webbsida</value>
   </data>
   <data name="MainFrame_supportWebSiteMenu_Text" xml:space="preserve">
     <value>_Support/Felrapportering</value>
@@ -2039,7 +2039,7 @@
     <value>Ge ett bidrag</value>
   </data>
   <data name="MainFrame_aboutMenu_Text" xml:space="preserve">
-    <value>_Om Purple Pen</value>
+    <value>_Om NotPurplePen</value>
   </data>
   <data name="MainFrame_symbolBrowserMenu_Text" xml:space="preserve">
     <value>Symbolbläddrare</value>
@@ -2177,10 +2177,10 @@
     <value>GPX-fil|*.gpx</value>
   </data>
   <data name="MainFrame_Text" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="MiscText_AppTitle" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="MiscText_CtrlZ" xml:space="preserve">
     <value>Ctrl+Z</value>
@@ -2337,7 +2337,7 @@ Använd | för att separera rader</value>
     <value>Version {0}</value>
   </data>
   <data name="MiscText_NewerVersionAvailable" xml:space="preserve">
-    <value>Version {0} av Purple Pen finns nu tillgänglig för nedladdning. (Du kör just nu version {1}.)
+    <value>Version {0} av NotPurplePen finns nu tillgänglig för nedladdning. (Du kör just nu version {1}.)
 
 Vill du ladda ner och installera den senaste versionen?</value>
   </data>
@@ -2350,7 +2350,7 @@ Vill du ladda ner och installera den senaste versionen?</value>
   <data name="MiscText_MissingMapFile" xml:space="preserve">
     <value>Kartfilen '{0}' kunde inte hittas.
 
-Troligen har kartfilen flyttats eller tagits bort, eller så har Purple Pen-filen flyttats. Kartfilen måste finnas tillgänglig varje gång tävlingsfilen laddas in. Om du skickar en tävlingsfil till en annan person, så måste en kopia av kartfilen också följa med.
+Troligen har kartfilen flyttats eller tagits bort, eller så har NotPurplePen-filen flyttats. Kartfilen måste finnas tillgänglig varje gång tävlingsfilen laddas in. Om du skickar en tävlingsfil till en annan person, så måste en kopia av kartfilen också följa med.
 
 Tryck OK och försök hitta kartfilen på din dator.</value>
   </data>
@@ -2424,7 +2424,7 @@ Tryck OK och försök hitta kartfilen på din dator.</value>
     <value>Ange ny text.</value>
   </data>
   <data name="MiscText_MapFileChanged" xml:space="preserve">
-    <value>Ett annat program har ändrat i kart-filen "{0}". Purple Pen kommer nu ladda om kartan.</value>
+    <value>Ett annat program har ändrat i kart-filen "{0}". NotPurplePen kommer nu ladda om kartan.</value>
   </data>
   <data name="MiscText_ChangeDescriptionLanguage" xml:space="preserve">
     <value>Tävlingen har nuvarande kontrolldefinitioner på {0}. Vill du ändra språk till {1}?</value>
@@ -2433,13 +2433,13 @@ Tryck OK och försök hitta kartfilen på din dator.</value>
     <value>Öppna "{0}"</value>
   </data>
   <data name="MiscText_ClosePPBeforeLoadingOCAD" xml:space="preserve">
-    <value>Du måste stänga Purple Pen innan du kan öppna de skapade OCAD filerna.</value>
+    <value>Du måste stänga NotPurplePen innan du kan öppna de skapade OCAD filerna.</value>
   </data>
   <data name="MiscText_NoCoursesSelected" xml:space="preserve">
     <value>Ingen bana valdes för utskrift</value>
   </data>
   <data name="MiscText_TranslatedHelpWebSite" xml:space="preserve">
-    <value>*** Om det finns en webbsida på det översatta språket som innehåller hjälp för Purple Pen, fyll i adressen (med http://) som översättning för denna sak. Lämna annars blankt.</value>
+    <value>*** Om det finns en webbsida på det översatta språket som innehåller hjälp för NotPurplePen, fyll i adressen (med http://) som översättning för denna sak. Lämna annars blankt.</value>
   </data>
   <data name="MiscText_MapExchange_Long" xml:space="preserve">
     <value>Kartbyte</value>
@@ -2553,7 +2553,7 @@ Tryck OK och försök hitta kartfilen på din dator.</value>
     <value>Kunde inte projicera om punkter; antingen är koordinatsystemet eller de riktiga världskoordinaterna i OCAD-kartan fel.</value>
   </data>
   <data name="MiscText_GpxUnsupportedCoordSystem" xml:space="preserve">
-    <value>OCAD-filen använder ett koordinatsystem som inte stöds av Purple Pen.</value>
+    <value>OCAD-filen använder ett koordinatsystem som inte stöds av NotPurplePen.</value>
   </data>
   <data name="MiscText_BadLength" xml:space="preserve">
     <value>Längden på en bana måste vara ett nummer mellan 0.1 - 99.9 eller lämnas tom för att beräkna längden automatiskt.</value>
@@ -2646,7 +2646,7 @@ Tryck OK och försök hitta kartfilen på din dator.</value>
     <value>Lägg till ellips</value>
   </data>
   <data name="MiscText_UninstallNonStoreVersion" xml:space="preserve">
-    <value>En äldre version av Purple Pen är fortfarande installerad. För att förhindra förvirring orsakad av att ha två versioner av Purple Pen installerade, rekommenderas starkt att den äldre versionen tas bort. Ta bort den nu?</value>
+    <value>En äldre version av NotPurplePen är fortfarande installerad. För att förhindra förvirring orsakad av att ha två versioner av NotPurplePen installerade, rekommenderas starkt att den äldre versionen tas bort. Ta bort den nu?</value>
   </data>
   <data name="MiscText_AskInstallRobotoFonts" xml:space="preserve">
     <value>För att OCAD eller OpenOrienteering Mapper ska kunna visa kontrollbeskrivningarna korrekt måste teckensnitten "Roboto" och "Roboto Condensed" vara installerade på ditt system. Vill du installera dessa teckensnitt nu (rekommenderas starkt)?</value>
@@ -2660,7 +2660,7 @@ Tryck OK och försök hitta kartfilen på din dator.</value>
   <data name="MissingFonts_labelWarning_Text" xml:space="preserve">
     <value>Kartfil "{0}" använder teckensnitt som inte är installerade på datorn. Text med dessa teckensnitt kommer att visas med ett standardteckensnitt, vilket kan leda till att text ser annorlunda ut jämfört med hur kartritaren tänkt sig. 
 
-För att åtgärda problemet, leta upp och installera teckensnitten listade nedan (använd Windows kontrollpanel). Starta sedan om Purple Pen.
+För att åtgärda problemet, leta upp och installera teckensnitten listade nedan (använd Windows kontrollpanel). Starta sedan om NotPurplePen.
 </value>
   </data>
   <data name="MissingFonts_Text" xml:space="preserve">
@@ -2753,7 +2753,7 @@ Kartskalan anger relationen mellan papperskartan och verkligheten.
     <value>Vald kartfil</value>
   </data>
   <data name="NewEventMapFile_infoMessage_Text" xml:space="preserve">
-    <value>Kartfilen har laddats. Om du skickar din Purple Pen-fil till någon annan så måste dom även ha tillgång till denna kartfil.</value>
+    <value>Kartfilen har laddats. Om du skickar din NotPurplePen-fil till någon annan så måste dom även ha tillgång till denna kartfil.</value>
   </data>
   <data name="NewEventNumbering_newEventNumberingLabel_Text" xml:space="preserve">
     <value>Nya kontroller numreras automatiskt. Välj första kodsiffra att börja numreringen med.</value>
@@ -2803,7 +2803,7 @@ Kartskalan anger relationen mellan papperskartan och verkligheten.
     <value>IOF kontrollbeskrivningsnorm</value>
   </data>
   <data name="NewEventStandards_labelStandardsIntro_Text" xml:space="preserve">
-    <value>Vilken version av IOF-normerna vill du att Purple Pen ska använda?</value>
+    <value>Vilken version av IOF-normerna vill du att NotPurplePen ska använda?</value>
   </data>
   <data name="NewEventTitle_newEventTitleLabel_Text" xml:space="preserve">
     <value>Tävlingsnamnet kommer att visas på första raden på varje sida av kontrollbeskrivningen. Det används också som filnamn för att spara tävlingen på hårddisken.
@@ -2817,7 +2817,7 @@ För att passa in på kontrollbeskrivningen måste namnet vara mindre än 25 tec
     <value>&lt; _Bakåt</value>
   </data>
   <data name="NonPrintableObjects_labelWarning_Text" xml:space="preserve">
-    <value>Kartfilen {0} innehåller objekt eller symboler som Purple Pen inte har fullt stöd för och som därför kanske inte skrivs ut korrekt. De objekt som kan bli felaktiga vid utskrift listas här under.
+    <value>Kartfilen {0} innehåller objekt eller symboler som NotPurplePen inte har fullt stöd för och som därför kanske inte skrivs ut korrekt. De objekt som kan bli felaktiga vid utskrift listas här under.
 
 För att skriva ut tävlingskartor är det rekommenderat att banorna exporteras (använd Arkiv/Skapa OCAD-filer...) och istället skrivs ut med hjälp av OCAD.
 </value>
@@ -3486,7 +3486,7 @@ För att skriva ut tävlingskartor är det rekommenderat att banorna exporteras 
     <value>Lås storleken på utskriftsområdet till pappersstorleken</value>
   </data>
   <data name="SetUILanguage_introLabel_Text" xml:space="preserve">
-    <value>Välj det språk du vill använda i Purple Pen (menyer, fönster, etc.)</value>
+    <value>Välj det språk du vill använda i NotPurplePen (menyer, fönster, etc.)</value>
   </data>
   <data name="SetUILanguage_Text" xml:space="preserve">
     <value>Programspråk</value>

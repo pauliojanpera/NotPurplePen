@@ -306,7 +306,7 @@ namespace AvPurplePen
         private static void ReportFailedInitialLoad(string fileName, Exception exception)
         {
             try {
-                Console.Error.WriteLine("Purple Pen could not open \"{0}\":", fileName);
+                Console.Error.WriteLine("NotPurplePen could not open \"{0}\":", fileName);
                 Console.Error.WriteLine(exception.ToString());
             }
             catch (Exception) {

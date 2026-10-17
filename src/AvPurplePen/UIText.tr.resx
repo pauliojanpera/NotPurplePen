@@ -125,7 +125,7 @@
     <value>Telif Hakkı   Peter Golde e aittir</value>
   </data>
   <data name="AboutForm_freeLabel_Text" xml:space="preserve">
-    <value>Purple Pen ücretsiz bir yazılımdır kopyalanıp paylaşılabilir.</value>
+    <value>NotPurplePen ücretsiz bir yazılımdır kopyalanıp paylaşılabilir.</value>
   </data>
   <data name="AboutForm_disclaimerLabel_Text" xml:space="preserve">
     <value>BU YAZILIM, TESCİL HAKKI SAHİPLERİ  VE DİĞER KATKI VERENLER TARAFINDAN "OLDUĞU GİBİ" SAĞLANMAKTA VE HER TÜRLÜ DİREKT/DOLAYLI (HIZLI VE AMACA ÖZEL) GARANTİYİ İÇERMEKTEDİR. 
@@ -154,7 +154,7 @@ ANCAK BUNLARLA SINIRLI OLMAKSIZIN, YAZILIMIN BELİRLİ BİR AMACA UYGUN SATILAB�
     <value>Tüm Lisansı Görüntüle</value>
   </data>
   <data name="AboutForm_Text" xml:space="preserve">
-    <value>Purple Pen Hakkında</value>
+    <value>NotPurplePen Hakkında</value>
   </data>
   <data name="AddCourse_firstControlLabel_Text" xml:space="preserve">
     <value>Birinci Kontrol Numarası:</value>
@@ -1261,19 +1261,19 @@ ANCAK BUNLARLA SINIRLI OLMAKSIZIN, YAZILIMIN BELİRLİ BİR AMACA UYGUN SATILAB�
     <value>Dosya Seç...</value>
   </data>
   <data name="CreateImageFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>Purple Pen dosyasıyla aynı klasör</value>
+    <value>NotPurplePen dosyasıyla aynı klasör</value>
   </data>
   <data name="CreateKmlFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>Purple Pen dosyasıyla aynı klasör</value>
+    <value>NotPurplePen dosyasıyla aynı klasör</value>
   </data>
   <data name="CreateOcadFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>Purple Pen dosyasıyla aynı klasör</value>
+    <value>NotPurplePen dosyasıyla aynı klasör</value>
   </data>
   <data name="CreatePdfCourses_coursesDirectory_Text" xml:space="preserve">
-    <value>Purple Pen dosyasıyla aynı klasör</value>
+    <value>NotPurplePen dosyasıyla aynı klasör</value>
   </data>
   <data name="CreateRouteGadget_coursesDirectory_Text" xml:space="preserve">
-    <value>Purple Pen dosyasıyla aynı klasör</value>
+    <value>NotPurplePen dosyasıyla aynı klasör</value>
   </data>
   <data name="CreateImageFiles_mapDirectory_Text" xml:space="preserve">
     <value>Harita dosyası ile aynı klasör</value>
@@ -1486,13 +1486,13 @@ ANCAK BUNLARLA SINIRLI OLMAKSIZIN, YAZILIMIN BELİRLİ BİR AMACA UYGUN SATILAB�
     <value>Mevcut bir etkinliği aç...</value>
   </data>
   <data name="InitialScreen_label1_Text" xml:space="preserve">
-    <value>Purple Pen ücretsiz bir yazılımdır ve kopyalanabilir ve paylaşılabilir. Purple Pen'in gelişimi sadece bağışlarınızla destekleniyor.</value>
+    <value>NotPurplePen ücretsiz bir yazılımdır ve kopyalanabilir ve paylaşılabilir. NotPurplePen'in gelişimi sadece bağışlarınızla destekleniyor.</value>
   </data>
   <data name="InitialScreen_donationLink_Text" xml:space="preserve">
     <value>Bağış yapın</value>
   </data>
   <data name="InitialScreen_Text" xml:space="preserve">
-    <value>Purple Pen'e Hoş Geldiniz</value>
+    <value>NotPurplePen'e Hoş Geldiniz</value>
   </data>
   <data name="LegAssignmentsDialog_BranchColumn_HeaderText" xml:space="preserve">
     <value>Dal</value>
@@ -1510,10 +1510,10 @@ ANCAK BUNLARLA SINIRLI OLMAKSIZIN, YAZILIMIN BELİRLİ BİR AMACA UYGUN SATILAB�
     <value>Bacak Atamaları</value>
   </data>
   <data name="LicenseForm_bsdLicenseLinkLabel_Text" xml:space="preserve">
-    <value>Purple Pen, "BSD" tarzı bir lisans altında sağlanır.</value>
+    <value>NotPurplePen, "BSD" tarzı bir lisans altında sağlanır.</value>
   </data>
   <data name="LicenseForm_Text" xml:space="preserve">
-    <value>Purple Pen Lisansı</value>
+    <value>NotPurplePen Lisansı</value>
   </data>
   <data name="LinePropertiesDialog_buttonChangeColor_Text" xml:space="preserve">
     <value> Renk Değiştir...</value>
@@ -1558,10 +1558,10 @@ ANCAK BUNLARLA SINIRLI OLMAKSIZIN, YAZILIMIN BELİRLİ BİR AMACA UYGUN SATILAB�
     <value>mapViewerTopoloji</value>
   </data>
   <data name="MainFrame_openFileDialog_Filter" xml:space="preserve">
-    <value>Purple Pen dosyası|*.ppen|Tüm dosyalar|*.*</value>
+    <value>NotPurplePen dosyası|*.ppen|Tüm dosyalar|*.*</value>
   </data>
   <data name="MainFrame_saveFileDialog_Filter" xml:space="preserve">
-    <value>Purple Pen dosyası|*.ppen</value>
+    <value>NotPurplePen dosyası|*.ppen</value>
   </data>
   <data name="MainFrame_newEventMenu_Text" xml:space="preserve">
     <value>_Yeni etkinlik...</value>
@@ -2044,13 +2044,13 @@ ANCAK BUNLARLA SINIRLI OLMAKSIZIN, YAZILIMIN BELİRLİ BİR AMACA UYGUN SATILAB�
     <value>_Rapor</value>
   </data>
   <data name="MainFrame_helpContentsMenu_Text" xml:space="preserve">
-    <value>Purple Pen _Yardım</value>
+    <value>NotPurplePen _Yardım</value>
   </data>
   <data name="MainFrame_helpTranslatedMenu_Text" xml:space="preserve">
-    <value>Purple Pen Yardım (Çeviri)</value>
+    <value>NotPurplePen Yardım (Çeviri)</value>
   </data>
   <data name="MainFrame_mainWebSiteToolMenu_Text" xml:space="preserve">
-    <value>Purple Pen _Web Sitesi</value>
+    <value>NotPurplePen _Web Sitesi</value>
   </data>
   <data name="MainFrame_supportWebSiteMenu_Text" xml:space="preserve">
     <value>_Destek/Hata Raporlama</value>
@@ -2059,7 +2059,7 @@ ANCAK BUNLARLA SINIRLI OLMAKSIZIN, YAZILIMIN BELİRLİ BİR AMACA UYGUN SATILAB�
     <value>Bağış Yap</value>
   </data>
   <data name="MainFrame_aboutMenu_Text" xml:space="preserve">
-    <value>_Purple Pen Hakkında</value>
+    <value>_NotPurplePen Hakkında</value>
   </data>
   <data name="MainFrame_symbolBrowserMenu_Text" xml:space="preserve">
     <value>Sembol Tarayıcı</value>
@@ -2197,10 +2197,10 @@ ANCAK BUNLARLA SINIRLI OLMAKSIZIN, YAZILIMIN BELİRLİ BİR AMACA UYGUN SATILAB�
     <value>GPX file|*.gpx</value>
   </data>
   <data name="MainFrame_Text" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="MiscText_AppTitle" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="MiscText_CtrlZ" xml:space="preserve">
     <value>Ctrl+Z</value>
@@ -2357,7 +2357,7 @@ Kullan | satırları ayırmak</value>
     <value>Versiyon {0}</value>
   </data>
   <data name="MiscText_NewerVersionAvailable" xml:space="preserve">
-    <value>Purple Pen'in {0} sürümü şimdi indirilebilir. (Şu anda {1} sürümünü çalıştırıyorsunuz.)
+    <value>NotPurplePen'in {0} sürümü şimdi indirilebilir. (Şu anda {1} sürümünü çalıştırıyorsunuz.)
 
 En son sürümü indirip yüklemek ister misiniz?</value>
   </data>
@@ -2370,7 +2370,7 @@ En son sürümü indirip yüklemek ister misiniz?</value>
   <data name="MiscText_MissingMapFile" xml:space="preserve">
     <value>"{0}" harita dosyası bulunamadı.
 
-Büyük olasılıkla harita dosyası taşınmış veya silinmiştir ya da Mor Kalem dosyası taşınmıştır (muhtemelen farklı bir bilgisayara). Purple Pen olay dosyası her yüklendiğinde harita dosyası mevcut olmalıdır. Purple Pen olay dosyasını başka bir kişiye gönderirseniz, o kişide de harita dosyasının bir kopyasının bulunduğundan emin olun.
+Büyük olasılıkla harita dosyası taşınmış veya silinmiştir ya da Mor Kalem dosyası taşınmıştır (muhtemelen farklı bir bilgisayara). NotPurplePen olay dosyası her yüklendiğinde harita dosyası mevcut olmalıdır. NotPurplePen olay dosyasını başka bir kişiye gönderirseniz, o kişide de harita dosyasının bir kopyasının bulunduğundan emin olun.
 
 Tamam düğmesine bastıktan sonra, bilgisayarınızda harita dosyasının bir kopyasını bulmaya çalışın.</value>
   </data>
@@ -2444,7 +2444,7 @@ Tamam düğmesine bastıktan sonra, bilgisayarınızda harita dosyasının bir k
     <value>Yeni metni girin.</value>
   </data>
   <data name="MiscText_MapFileChanged" xml:space="preserve">
-    <value>Başka bir program "{0}" harita dosyasını değiştirdi. Purple Pen şimdi haritayı yeniden yükleyecek.</value>
+    <value>Başka bir program "{0}" harita dosyasını değiştirdi. NotPurplePen şimdi haritayı yeniden yükleyecek.</value>
   </data>
   <data name="MiscText_ChangeDescriptionLanguage" xml:space="preserve">
     <value>Geçerli olay {0}'da metinsel kontrol açıklamalarına sahiptir. Kontrol açıklamalarının dilini {1} olarak değiştirmek ister misiniz?</value>
@@ -2453,13 +2453,13 @@ Tamam düğmesine bastıktan sonra, bilgisayarınızda harita dosyasının bir k
     <value>Açık "{0}"</value>
   </data>
   <data name="MiscText_ClosePPBeforeLoadingOCAD" xml:space="preserve">
-    <value>Oluşturulan OCAD dosyaları yüklenmeden önce Purple Pen kapatılmalıdır.</value>
+    <value>Oluşturulan OCAD dosyaları yüklenmeden önce NotPurplePen kapatılmalıdır.</value>
   </data>
   <data name="MiscText_NoCoursesSelected" xml:space="preserve">
     <value>Yazdırmak için hiçbir parkur seçilmedi.</value>
   </data>
   <data name="MiscText_TranslatedHelpWebSite" xml:space="preserve">
-    <value>*** Çevrilen dilde Purple Pen için dokümantasyon içeren bir web sitesi varsa, bu öğenin çevirisi olarak URL'yi (http dahil) girin. Aksi takdirde olduğu gibi bırakın.</value>
+    <value>*** Çevrilen dilde NotPurplePen için dokümantasyon içeren bir web sitesi varsa, bu öğenin çevirisi olarak URL'yi (http dahil) girin. Aksi takdirde olduğu gibi bırakın.</value>
   </data>
   <data name="MiscText_MapExchange_Long" xml:space="preserve">
     <value>Harita değişimi</value>
@@ -2573,7 +2573,7 @@ Tamam düğmesine bastıktan sonra, bilgisayarınızda harita dosyasının bir k
     <value>Noktalar yeniden projelendirilemedi; OCAD haritasındaki koordinat sistemi veya gerçek dünya koordinatları yanlış.</value>
   </data>
   <data name="MiscText_GpxUnsupportedCoordSystem" xml:space="preserve">
-    <value>OCAD dosyası Purple Pen tarafından desteklenmeyen bir koordinat sistemi kullanır.</value>
+    <value>OCAD dosyası NotPurplePen tarafından desteklenmeyen bir koordinat sistemi kullanır.</value>
   </data>
   <data name="MiscText_BadLength" xml:space="preserve">
     <value>Bir kursun uzunluğu 0,1 - 99,9 arasında bir sayı olmalı veya uzunluğun otomatik olarak hesaplanması için boş bırakılmalıdır.</value>
@@ -2666,7 +2666,7 @@ Tamam düğmesine bastıktan sonra, bilgisayarınızda harita dosyasının bir k
     <value>Elips Ekle</value>
   </data>
   <data name="MiscText_UninstallNonStoreVersion" xml:space="preserve">
-    <value>Purple Pen'in eski bir sürümü hala yüklü. Purple Pen'in iki sürümünün yüklü olmasının yol açabileceği karışıklığı önlemek için, eski sürümün kaldırılması şiddetle tavsiye edilir. Şimdi kaldırmak ister misiniz?</value>
+    <value>NotPurplePen'in eski bir sürümü hala yüklü. NotPurplePen'in iki sürümünün yüklü olmasının yol açabileceği karışıklığı önlemek için, eski sürümün kaldırılması şiddetle tavsiye edilir. Şimdi kaldırmak ister misiniz?</value>
   </data>
   <data name="MiscText_AskInstallRobotoFonts" xml:space="preserve">
     <value>OCAD veya OpenOrienteering Mapper'ın kontrol açıklamalarını doğru şekilde görüntüleyebilmesi için sisteminizde "Roboto" ve "Roboto Condensed" yazı tiplerinin yüklü olması gerekir. Bu yazı tiplerini şimdi yüklemek ister misiniz (şiddetle tavsiye edilir)?</value>
@@ -2683,7 +2683,7 @@ Tamam düğmesine bastıktan sonra, bilgisayarınızda harita dosyasının bir k
   <data name="MissingFonts_labelWarning_Text" xml:space="preserve">
     <value>Harita dosyası "{0}", bilgisayarınızda yüklü olmayan yazı tiplerini kullanır. Bu yazı tiplerini kullanan metin, metnin harita tasarımcısının amaçladığından farklı görünmesine neden olabilecek varsayılan bir yazı tipiyle çizilecek ve yazdırılacaktır.
 
-Bu sorunu gidermek için Windows denetim masası ile aşağıda listelenen yazı tiplerini bulup yükleyin, ardından Purple Pen'i yeniden başlatın.
+Bu sorunu gidermek için Windows denetim masası ile aşağıda listelenen yazı tiplerini bulup yükleyin, ardından NotPurplePen'i yeniden başlatın.
 </value>
   </data>
   <data name="MissingFonts_Text" xml:space="preserve">
@@ -2776,7 +2776,7 @@ Haritanın ölçeği, kağıt harita ile gerçek dünya arasındaki ilişkiyi g�
     <value>Harta Dosyasını Seç</value>
   </data>
   <data name="NewEventMapFile_infoMessage_Text" xml:space="preserve">
-    <value>Harita dosyası başarıyla yüklendi. Purple Pen dosyanızı başka birine gönderirseniz, harita dosyasına da sahip olması gerekir.</value>
+    <value>Harita dosyası başarıyla yüklendi. NotPurplePen dosyanızı başka birine gönderirseniz, harita dosyasına da sahip olması gerekir.</value>
   </data>
   <data name="NewEventNumbering_newEventNumberingLabel_Text" xml:space="preserve">
     <value>Yeni oluşturulan kontroller otomatik olarak numaralandırılır. Lütfen kullanmak için başlangıç kontrol numarasını seçin.</value>
@@ -2826,7 +2826,7 @@ Haritanın ölçeği, kağıt harita ile gerçek dünya arasındaki ilişkiyi g�
     <value>IOF Tanım Standardı</value>
   </data>
   <data name="NewEventStandards_labelStandardsIntro_Text" xml:space="preserve">
-    <value>Purple Pen'in IOF standartlarının hangi sürümlerini izlemesini istersiniz?</value>
+    <value>NotPurplePen'in IOF standartlarının hangi sürümlerini izlemesini istersiniz?</value>
   </data>
   <data name="NewEventTitle_newEventTitleLabel_Text" xml:space="preserve">
     <value>Olay başlığı, her kontrol açıklama sayfasının ilk satırında görüntülenecektir. Ayrıca, etkinliğinizi diskte depolamak için dosya adı olarak da kullanılır.
@@ -2840,7 +2840,7 @@ Açıklama sayfasına sığması için uzunluğu 25 karakterden az olmalıdır. 
     <value>&lt; _Geri</value>
   </data>
   <data name="NonPrintableObjects_labelWarning_Text" xml:space="preserve">
-    <value>Harita dosyası "{0}", Purple Pen tarafından tam olarak desteklenmeyen nesneler veya semboller içeriyor ve doğru şekilde yazdırılamayabilir. Doğru yazdırılamayan nesneler aşağıda listelenmiştir.
+    <value>Harita dosyası "{0}", NotPurplePen tarafından tam olarak desteklenmeyen nesneler veya semboller içeriyor ve doğru şekilde yazdırılamayabilir. Doğru yazdırılamayan nesneler aşağıda listelenmiştir.
 
 Yarışma haritalarını yazdırmak için kursların OCAD dosyalarına aktarılması (Dosya/OCAD Dosyaları Oluşturu... kullanın) ve haritaların OCAD'den yazdırılması önerilir.
 </value>
@@ -3509,7 +3509,7 @@ Yarışma haritalarını yazdırmak için kursların OCAD dosyalarına aktarılm
     <value>Baskı Alanı Boyutunu Kağıt Boyutu'na Düzelt</value>
   </data>
   <data name="SetUILanguage_introLabel_Text" xml:space="preserve">
-    <value>Purple Pen kullanıcı arabirimi için kullanmak istediğiniz dili seçin (menüler, pencereler vb.)</value>
+    <value>NotPurplePen kullanıcı arabirimi için kullanmak istediğiniz dili seçin (menüler, pencereler vb.)</value>
   </data>
   <data name="SetUILanguage_Text" xml:space="preserve">
     <value>Program Dili</value>

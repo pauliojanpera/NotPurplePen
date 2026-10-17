@@ -51,7 +51,7 @@ public static class GetVersion
     private const int Stable = 500;
 
     // The product name that PROGRAM_TITLE is built from.
-    private const string ProgramName = "Purple Pen";
+    private const string ProgramName = "NotPurplePen";
 
     // Entry point. args[0] is "batch" or "bash", args[1] is the path to a
     // compiled DLL. Returns 0 on success, 1 on any error (with the reason

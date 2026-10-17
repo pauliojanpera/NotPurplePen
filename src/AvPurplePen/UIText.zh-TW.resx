@@ -121,7 +121,7 @@
     <value>版權為  Peter Golde 所有</value>
   </data>
   <data name="AboutForm_freeLabel_Text" xml:space="preserve">
-    <value>Purple Pen 是自由軟體，可以複製與分享。</value>
+    <value>NotPurplePen 是自由軟體，可以複製與分享。</value>
   </data>
   <data name="AboutForm_disclaimerLabel_Text" xml:space="preserve">
     <value>此軟體的版權所有者和貢獻者以“原樣”提供此軟體，不提供任何可預期或未知的產品保證，也包含，但不限於，針對特定目的之適合性和適用性而無法預知的產品保證。</value>
@@ -148,7 +148,7 @@
     <value>檢視完整的授權內容</value>
   </data>
   <data name="AboutForm_Text" xml:space="preserve">
-    <value>關於 Purple Pen 軟體</value>
+    <value>關於 NotPurplePen 軟體</value>
   </data>
   <data name="AddCourse_firstControlLabel_Text" xml:space="preserve">
     <value>第一個檢查點的序號</value>
@@ -1222,19 +1222,19 @@
     <value>選擇資料夾...</value>
   </data>
   <data name="CreateImageFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>同Purple Pen檔案的資料夾</value>
+    <value>同NotPurplePen檔案的資料夾</value>
   </data>
   <data name="CreateKmlFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>同Purple Pen檔案的資料夾</value>
+    <value>同NotPurplePen檔案的資料夾</value>
   </data>
   <data name="CreateOcadFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>同Purple Pen檔案的資料夾</value>
+    <value>同NotPurplePen檔案的資料夾</value>
   </data>
   <data name="CreatePdfCourses_coursesDirectory_Text" xml:space="preserve">
-    <value>同Purple Pen檔案的資料夾</value>
+    <value>同NotPurplePen檔案的資料夾</value>
   </data>
   <data name="CreateRouteGadget_coursesDirectory_Text" xml:space="preserve">
-    <value>同Purple Pen檔案的資料夾</value>
+    <value>同NotPurplePen檔案的資料夾</value>
   </data>
   <data name="CreateImageFiles_mapDirectory_Text" xml:space="preserve">
     <value>同地圖檔案的資料夾</value>
@@ -1447,13 +1447,13 @@
     <value>開啟既有的賽事...</value>
   </data>
   <data name="InitialScreen_label1_Text" xml:space="preserve">
-    <value>Purple Pen 是自由軟體，可以複製和共享。 Purple Pen 的研發僅靠您的捐款支持。</value>
+    <value>NotPurplePen 是自由軟體，可以複製和共享。 NotPurplePen 的研發僅靠您的捐款支持。</value>
   </data>
   <data name="InitialScreen_donationLink_Text" xml:space="preserve">
     <value>進行捐款</value>
   </data>
   <data name="InitialScreen_Text" xml:space="preserve">
-    <value>歡迎使用Purple Pen</value>
+    <value>歡迎使用NotPurplePen</value>
   </data>
   <data name="LegAssignmentsDialog_BranchColumn_HeaderText" xml:space="preserve">
     <value>分支</value>
@@ -1471,10 +1471,10 @@
     <value>賽段分配</value>
   </data>
   <data name="LicenseForm_bsdLicenseLinkLabel_Text" xml:space="preserve">
-    <value>Purple Pen 是在BSD授權條款下提供的。</value>
+    <value>NotPurplePen 是在BSD授權條款下提供的。</value>
   </data>
   <data name="LicenseForm_Text" xml:space="preserve">
-    <value>Purple Pen 授權條款</value>
+    <value>NotPurplePen 授權條款</value>
   </data>
   <data name="LinePropertiesDialog_buttonChangeColor_Text" xml:space="preserve">
     <value> 變更顏色...</value>
@@ -1519,10 +1519,10 @@
     <value>地圖檢視者拓樸</value>
   </data>
   <data name="MainFrame_openFileDialog_Filter" xml:space="preserve">
-    <value>Purple Pen 檔案|*.ppen|All files|*.*</value>
+    <value>NotPurplePen 檔案|*.ppen|All files|*.*</value>
   </data>
   <data name="MainFrame_saveFileDialog_Filter" xml:space="preserve">
-    <value>Purple Pen 檔案|*.ppen</value>
+    <value>NotPurplePen 檔案|*.ppen</value>
   </data>
   <data name="MainFrame_newEventMenu_Text" xml:space="preserve">
     <value>新增賽事(_N)...</value>
@@ -1993,13 +1993,13 @@
     <value>報告</value>
   </data>
   <data name="MainFrame_helpContentsMenu_Text" xml:space="preserve">
-    <value>Purple Pen 線上協助</value>
+    <value>NotPurplePen 線上協助</value>
   </data>
   <data name="MainFrame_helpTranslatedMenu_Text" xml:space="preserve">
-    <value>Purple Pen 線上協助 (已翻譯的)</value>
+    <value>NotPurplePen 線上協助 (已翻譯的)</value>
   </data>
   <data name="MainFrame_mainWebSiteToolMenu_Text" xml:space="preserve">
-    <value>Purple Pen 網站</value>
+    <value>NotPurplePen 網站</value>
   </data>
   <data name="MainFrame_supportWebSiteMenu_Text" xml:space="preserve">
     <value>支援/錯誤報告</value>
@@ -2008,7 +2008,7 @@
     <value>捐贈</value>
   </data>
   <data name="MainFrame_aboutMenu_Text" xml:space="preserve">
-    <value>關於Purple Pen</value>
+    <value>關於NotPurplePen</value>
   </data>
   <data name="MainFrame_symbolBrowserMenu_Text" xml:space="preserve">
     <value>符號瀏覽器</value>
@@ -2140,10 +2140,10 @@
     <value>GPX檔案|*.gpx</value>
   </data>
   <data name="MainFrame_Text" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="MiscText_AppTitle" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="MiscText_CtrlZ" xml:space="preserve">
     <value>Ctrl+Z</value>
@@ -2300,7 +2300,7 @@
     <value>{0} 版本</value>
   </data>
   <data name="MiscText_NewerVersionAvailable" xml:space="preserve">
-    <value>Purple Pen{0} 版本現在可以下載. (您目前是使用 {1}版本.)
+    <value>NotPurplePen{0} 版本現在可以下載. (您目前是使用 {1}版本.)
 
 您想要下載並安裝最新版本嗎?</value>
   </data>
@@ -2313,7 +2313,7 @@
   <data name="MiscText_MissingMapFile" xml:space="preserve">
     <value>地圖檔案 "{0}"找不到.
 
-最有可能的是，地圖檔案已經被移動或刪除，或者Purple Pen檔案已被移動（可能移動到另一台電腦）。 每次載入Purple Pen賽事檔案時地圖檔案都必須被顯示。 如果您將Purple Pen賽事檔案發送給另一個人，請確保該人也擁有地圖檔案的複製檔。
+最有可能的是，地圖檔案已經被移動或刪除，或者NotPurplePen檔案已被移動（可能移動到另一台電腦）。 每次載入NotPurplePen賽事檔案時地圖檔案都必須被顯示。 如果您將NotPurplePen賽事檔案發送給另一個人，請確保該人也擁有地圖檔案的複製檔。
 
 按下OK鍵之後, 試著在你的電腦找尋地圖檔案的複製檔.</value>
   </data>
@@ -2387,7 +2387,7 @@
     <value>輸入新的文字</value>
   </data>
   <data name="MiscText_MapFileChanged" xml:space="preserve">
-    <value>其他程式已經變更此地圖檔案"{0}". Purple Pen現在將重新載入此地圖.</value>
+    <value>其他程式已經變更此地圖檔案"{0}". NotPurplePen現在將重新載入此地圖.</value>
   </data>
   <data name="MiscText_ChangeDescriptionLanguage" xml:space="preserve">
     <value>目前的賽事在 {0}有文字式地檢查點說明.您想要變更檢查點說明的語言至 {1}嗎?</value>
@@ -2396,13 +2396,13 @@
     <value>開啟 "{0}"</value>
   </data>
   <data name="MiscText_ClosePPBeforeLoadingOCAD" xml:space="preserve">
-    <value>在載入建立的OCAD 檔案之前 Purple Pen 必須關閉.</value>
+    <value>在載入建立的OCAD 檔案之前 NotPurplePen 必須關閉.</value>
   </data>
   <data name="MiscText_NoCoursesSelected" xml:space="preserve">
     <value>沒有選取要列印的賽程.</value>
   </data>
   <data name="MiscText_TranslatedHelpWebSite" xml:space="preserve">
-    <value>*** 如果有包含 Purple Pen 文件檔案的翻譯語言網站，請輸入 URL（包括 http）作為此項目的翻譯。 否則就不用理會。</value>
+    <value>*** 如果有包含 NotPurplePen 文件檔案的翻譯語言網站，請輸入 URL（包括 http）作為此項目的翻譯。 否則就不用理會。</value>
   </data>
   <data name="MiscText_MapExchange_Long" xml:space="preserve">
     <value>地圖更換</value>
@@ -2516,7 +2516,7 @@
     <value>無法重新投影點； OCAD 地圖中的坐標系統或真實世界坐標是錯誤的。</value>
   </data>
   <data name="MiscText_GpxUnsupportedCoordSystem" xml:space="preserve">
-    <value>OCAD檔案採用不是Purple Pen支援的座標系統。</value>
+    <value>OCAD檔案採用不是NotPurplePen支援的座標系統。</value>
   </data>
   <data name="MiscText_BadLength" xml:space="preserve">
     <value>賽程的長度必須是0.1至99.9的數字，或是空白，將自動計算長度。</value>
@@ -2614,7 +2614,7 @@
   <data name="MissingFonts_labelWarning_Text" xml:space="preserve">
     <value>地圖檔案“{0}”使用的字型未安裝在您的電腦上。使用這些字型的文字將使用預設字型顯示和列印，這可能會導致文字與地圖設計者預期的不同。 
 
-要解決此問題，請使用 Windows 控制台尋找並安裝下面列出的字型，然後再次啟動 Purple Pen。
+要解決此問題，請使用 Windows 控制台尋找並安裝下面列出的字型，然後再次啟動 NotPurplePen。
 </value>
   </data>
   <data name="MissingFonts_Text" xml:space="preserve">
@@ -2692,7 +2692,7 @@
     <value>已選取的地圖檔案</value>
   </data>
   <data name="NewEventMapFile_infoMessage_Text" xml:space="preserve">
-    <value>地圖檔案已成功載入。 如果您將 Purple Pen 檔案傳送給其他人，他們也必須有地圖檔案。</value>
+    <value>地圖檔案已成功載入。 如果您將 NotPurplePen 檔案傳送給其他人，他們也必須有地圖檔案。</value>
   </data>
   <data name="NewEventNumbering_newEventNumberingLabel_Text" xml:space="preserve">
     <value>新建立的檢查點會自動編號。請選擇要採用的起始檢查點編號。</value>
@@ -2742,7 +2742,7 @@
     <value>IOF 檢查點說明規範</value>
   </data>
   <data name="NewEventStandards_labelStandardsIntro_Text" xml:space="preserve">
-    <value>您要Purple Pen遵循哪一個版本的 IOF 規範?</value>
+    <value>您要NotPurplePen遵循哪一個版本的 IOF 規範?</value>
   </data>
   <data name="NewEventTitle_newEventTitleLabel_Text" xml:space="preserve">
     <value>賽事標題將顯示在每個檢查點說明表的第一列。它也用在硬碟儲存賽事的檔案名稱上。
@@ -2756,7 +2756,7 @@
     <value>&lt; 上一步</value>
   </data>
   <data name="NonPrintableObjects_labelWarning_Text" xml:space="preserve">
-    <value>地圖檔案“{0}”包含 Purple Pen 不完全支援的物件或符號，可能無法正確列印。下面列出可能無法正確列印的物件。
+    <value>地圖檔案“{0}”包含 NotPurplePen 不完全支援的物件或符號，可能無法正確列印。下面列出可能無法正確列印的物件。
 
 對於列印比賽地圖，建議將賽程轉出到 OCAD 檔案（使用 檔案/建立 OCAD 檔案...）並從 OCAD 列印地圖。
 </value>
@@ -3377,7 +3377,7 @@
     <value>將列印範圍固定為紙張大小</value>
   </data>
   <data name="SetUILanguage_introLabel_Text" xml:space="preserve">
-    <value>選擇您要用於 Purple Pen 使用者介面（選單、視窗等）的語言</value>
+    <value>選擇您要用於 NotPurplePen 使用者介面（選單、視窗等）的語言</value>
   </data>
   <data name="SetUILanguage_Text" xml:space="preserve">
     <value>程式語言</value>

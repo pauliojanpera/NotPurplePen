@@ -122,7 +122,7 @@
     <value />
   </data>
   <data name="AboutForm_freeLabel_Text" xml:space="preserve">
-    <value>Purple Pen jest darmową aplikacją i jako taka może być kopiowany i udostępniany.</value>
+    <value>NotPurplePen jest darmową aplikacją i jako taka może być kopiowany i udostępniany.</value>
   </data>
   <data name="AboutForm_okButton_Text" xml:space="preserve">
     <value>OK</value>
@@ -146,7 +146,7 @@
     <value>Pokaż Licencję</value>
   </data>
   <data name="AboutForm_Text" xml:space="preserve">
-    <value>O Purple Pen</value>
+    <value>O NotPurplePen</value>
   </data>
   <data name="AddCourse_firstControlLabel_Text" xml:space="preserve">
     <value>Numer pierwszego PK:</value>
@@ -1058,19 +1058,19 @@
     <value>Wybierz folder...</value>
   </data>
   <data name="CreateImageFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>Folder z plikiem Purple Pen</value>
+    <value>Folder z plikiem NotPurplePen</value>
   </data>
   <data name="CreateKmlFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>Folder z plikiem Purple Pen</value>
+    <value>Folder z plikiem NotPurplePen</value>
   </data>
   <data name="CreateOcadFiles_coursesDirectory_Text" xml:space="preserve">
-    <value>Folder z plikiem Purple Pen</value>
+    <value>Folder z plikiem NotPurplePen</value>
   </data>
   <data name="CreatePdfCourses_coursesDirectory_Text" xml:space="preserve">
-    <value>Folder z plikiem Purple Pen</value>
+    <value>Folder z plikiem NotPurplePen</value>
   </data>
   <data name="CreateRouteGadget_coursesDirectory_Text" xml:space="preserve">
-    <value>Folder z plikiem Purple Pen</value>
+    <value>Folder z plikiem NotPurplePen</value>
   </data>
   <data name="CreateImageFiles_mapDirectory_Text" xml:space="preserve">
     <value>Folder z plikiem mapy</value>
@@ -1253,19 +1253,19 @@
     <value>Otwórz istniejące zawody...</value>
   </data>
   <data name="InitialScreen_label1_Text" xml:space="preserve">
-    <value>Purple Pen jest darmowym oprogramowaniem i może być kopiowane oraz współdzielone. Rozwój Purple Pen jest wspierany tylko poprzez Twoje darowizny.</value>
+    <value>NotPurplePen jest darmowym oprogramowaniem i może być kopiowane oraz współdzielone. Rozwój NotPurplePen jest wspierany tylko poprzez Twoje darowizny.</value>
   </data>
   <data name="InitialScreen_donationLink_Text" xml:space="preserve">
     <value>Przekaż datek</value>
   </data>
   <data name="InitialScreen_Text" xml:space="preserve">
-    <value>Witaj w Purple Pen</value>
+    <value>Witaj w NotPurplePen</value>
   </data>
   <data name="LicenseForm_bsdLicenseLinkLabel_Text" xml:space="preserve">
-    <value>Purple Pen jest wydany na licencji typu "BSD".</value>
+    <value>NotPurplePen jest wydany na licencji typu "BSD".</value>
   </data>
   <data name="LicenseForm_Text" xml:space="preserve">
-    <value>Licencja Purple Pen</value>
+    <value>Licencja NotPurplePen</value>
   </data>
   <data name="LinePropertiesDialog_buttonChangeColor_Text" xml:space="preserve">
     <value> Zmień kolor...</value>
@@ -1301,10 +1301,10 @@
     <value>Wszystkie PK</value>
   </data>
   <data name="MainFrame_openFileDialog_Filter" xml:space="preserve">
-    <value>Pliki Purple Pen|*.ppen|Wszystkie|*.*</value>
+    <value>Pliki NotPurplePen|*.ppen|Wszystkie|*.*</value>
   </data>
   <data name="MainFrame_saveFileDialog_Filter" xml:space="preserve">
-    <value>Plik Purple Pen|*.ppen</value>
+    <value>Plik NotPurplePen|*.ppen</value>
   </data>
   <data name="MainFrame_newEventMenu_Text" xml:space="preserve">
     <value>_Nowe zawody...</value>
@@ -1670,13 +1670,13 @@
     <value>_Raporty</value>
   </data>
   <data name="MainFrame_helpContentsMenu_Text" xml:space="preserve">
-    <value>_Pomoc Purple Pen</value>
+    <value>_Pomoc NotPurplePen</value>
   </data>
   <data name="MainFrame_helpTranslatedMenu_Text" xml:space="preserve">
-    <value>Pomoc Purple Pen (przetłumaczone)</value>
+    <value>Pomoc NotPurplePen (przetłumaczone)</value>
   </data>
   <data name="MainFrame_mainWebSiteToolMenu_Text" xml:space="preserve">
-    <value>Strona _domowa Purple Pen</value>
+    <value>Strona _domowa NotPurplePen</value>
   </data>
   <data name="MainFrame_supportWebSiteMenu_Text" xml:space="preserve">
     <value>_Wsparcie/Zgłaszanie błędów</value>
@@ -1685,7 +1685,7 @@
     <value>Złóź darowiznę</value>
   </data>
   <data name="MainFrame_aboutMenu_Text" xml:space="preserve">
-    <value>_O Purple Pen</value>
+    <value>_O NotPurplePen</value>
   </data>
   <data name="MainFrame_symbolBrowserMenu_Text" xml:space="preserve">
     <value>Przeglądarka symboli</value>
@@ -1811,10 +1811,10 @@
     <value>Plik GPX|*.gpx</value>
   </data>
   <data name="MainFrame_Text" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="MiscText_AppTitle" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="MiscText_CtrlZ" xml:space="preserve">
     <value>Ctrl+Z</value>
@@ -1965,7 +1965,7 @@ Użyj | aby rozdzielić linie
     <value>Wersja {0}</value>
   </data>
   <data name="MiscText_NewerVersionAvailable" xml:space="preserve">
-    <value>Wersja {0} Purple Pen jest dostępna do pobrania (obecnie używasz wersji {1}).</value>
+    <value>Wersja {0} NotPurplePen jest dostępna do pobrania (obecnie używasz wersji {1}).</value>
   </data>
   <data name="MiscText_HelpFileNotFound" xml:space="preserve">
     <value>Nie udało się otworzyć pliku pomocy '{0}'.</value>
@@ -2046,7 +2046,7 @@ Użyj | aby rozdzielić linie
     <value>Wprowadź nowy tekst.</value>
   </data>
   <data name="MiscText_MapFileChanged" xml:space="preserve">
-    <value>Inny program zmodyfikował plik mapy "{0}". Purple Pen przeładuje teraz tę mapę.</value>
+    <value>Inny program zmodyfikował plik mapy "{0}". NotPurplePen przeładuje teraz tę mapę.</value>
   </data>
   <data name="MiscText_ChangeDescriptionLanguage" xml:space="preserve">
     <value>Obecnie otwarte zawody posiadają opisy punktów kontrolnych w {0}. Czy cchesz zmienić ich język na {1}?</value>
@@ -2055,13 +2055,13 @@ Użyj | aby rozdzielić linie
     <value>Otwórz "{0}"</value>
   </data>
   <data name="MiscText_ClosePPBeforeLoadingOCAD" xml:space="preserve">
-    <value>Purple Pen musi zostać zamknięty przed załadowanie utworzonych plików OCAD.</value>
+    <value>NotPurplePen musi zostać zamknięty przed załadowanie utworzonych plików OCAD.</value>
   </data>
   <data name="MiscText_NoCoursesSelected" xml:space="preserve">
     <value>Żadne trasy nie zostały wybrane do druku.</value>
   </data>
   <data name="MiscText_TranslatedHelpWebSite" xml:space="preserve">
-    <value>*** Jeżeli istnieje strona WWW w przetłumaczonym języku, która zawiera dokumentację Purple Pen, wprowadź ten URL (poprzedzając go http) jako tłumaczenie. W przeciwnym wypadku pozostaw puste.</value>
+    <value>*** Jeżeli istnieje strona WWW w przetłumaczonym języku, która zawiera dokumentację NotPurplePen, wprowadź ten URL (poprzedzając go http) jako tłumaczenie. W przeciwnym wypadku pozostaw puste.</value>
   </data>
   <data name="MiscText_MapExchange_Long" xml:space="preserve">
     <value>Zmiana map</value>
@@ -2166,7 +2166,7 @@ Użyj | aby rozdzielić linie
     <value>Plik OCAD musi mieć zdefiniowany układ odniesienia z prawdziwymi współrzędnymi geograficznymi (nielokalne) aby można było używać plików GPX.</value>
   </data>
   <data name="MiscText_GpxUnsupportedCoordSystem" xml:space="preserve">
-    <value>Plik OCAD używa układu odniesienia, który nie jest wspierany przez Purple Pen.</value>
+    <value>Plik OCAD używa układu odniesienia, który nie jest wspierany przez NotPurplePen.</value>
   </data>
   <data name="MiscText_BadLength" xml:space="preserve">
     <value>Długość trasy musi być liczbą z przedziału 0,1 - 99,9 lub pozostać pusty (automatyczna kalkulacja długości trasy).</value>
@@ -2244,7 +2244,7 @@ Skala mapy określa powiązanie pomiędzy wydrukiem a rzeczywistością.
     <value>Wybierz plik mapy</value>
   </data>
   <data name="NewEventMapFile_infoMessage_Text" xml:space="preserve">
-    <value>Podkład mapy został pomyślnie załadowany. Jeżeli prześlesz plik Purple Pen osobie trzeciej, musisz pamiętać aby dołączyć również plik podkładu mapy.</value>
+    <value>Podkład mapy został pomyślnie załadowany. Jeżeli prześlesz plik NotPurplePen osobie trzeciej, musisz pamiętać aby dołączyć również plik podkładu mapy.</value>
   </data>
   <data name="NewEventNumbering_newEventNumberingLabel_Text" xml:space="preserve">
     <value>Nowo stworzone PK sa automatycznie numerowane. Podaj kod PK od którego zacząć automatyczne numerowanie.</value>
@@ -2774,7 +2774,7 @@ Skala mapy określa powiązanie pomiędzy wydrukiem a rzeczywistością.
     <value>Ustaw rozmiar obszaru wydruku na rozmiar papieru</value>
   </data>
   <data name="SetUILanguage_introLabel_Text" xml:space="preserve">
-    <value>Wybierz język, którego chceż użyć w interfejsie użytkownika programu Purple Pen (menu, okna, itp.)</value>
+    <value>Wybierz język, którego chceż użyć w interfejsie użytkownika programu NotPurplePen (menu, okna, itp.)</value>
   </data>
   <data name="SetUILanguage_Text" xml:space="preserve">
     <value>Język programu</value>

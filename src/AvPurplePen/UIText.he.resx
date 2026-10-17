@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutForm_freeLabel_Text" xml:space="preserve">
-    <value>Purple Pen היא תוכנה חופשית וניתן להעתיק או לשתף אותה</value>
+    <value>NotPurplePen היא תוכנה חופשית וניתן להעתיק או לשתף אותה</value>
   </data>
   <data name="AboutForm_licenseButton_Text" xml:space="preserve">
     <value>הצגת הרישיון המלא</value>
   </data>
   <data name="AboutForm_Text" xml:space="preserve">
-    <value>על אודות Purple Pen</value>
+    <value>על אודות NotPurplePen</value>
   </data>
   <data name="AddCourse_firstControlLabel_Text" xml:space="preserve">
     <value>מספר בקרה ראשון:</value>
