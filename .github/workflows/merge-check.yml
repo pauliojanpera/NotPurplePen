@@ -43,8 +43,38 @@ jobs:
     # real proj.4 library. The committed x86 and x64 proj.dll both import
     # MSVCR100.dll, which is not on the runner, so LoadLibrary fails and the
     # type initializer throws.
+    #
+    # choco exits zero when the community feed is unreachable and it installs
+    # nothing, so the step checks for the DLL afterwards instead of trusting the
+    # exit code, and installs from Microsoft directly if the feed let it down.
     - name: Install Visual C++ 2010 runtime
-      run: choco install vcredist2010 --no-progress --yes
+      shell: pwsh
+      run: |
+        $system32 = Join-Path $env:SystemRoot 'System32\msvcr100.dll'
+        $syswow64 = Join-Path $env:SystemRoot 'SysWOW64\msvcr100.dll'
+
+        for ($attempt = 1; $attempt -le 3 -and -not (Test-Path $system32); $attempt++) {
+            "chocolatey attempt $attempt"
+            choco install vcredist2010 --no-progress --yes
+            if (-not (Test-Path $system32)) { Start-Sleep -Seconds 15 }
+        }
+
+        if (-not (Test-Path $system32)) {
+            "the feed did not serve it; installing from Microsoft directly"
+            $base = 'https://download.microsoft.com/download/1/6/5/165255E7-1014-4D0A-B094-B6A430A6BFFC'
+            foreach ($installer in 'vcredist_x64.exe', 'vcredist_x86.exe') {
+                $local = Join-Path $env:RUNNER_TEMP $installer
+                Invoke-WebRequest -Uri "$base/$installer" -OutFile $local -UseBasicParsing
+                Start-Process -FilePath $local -ArgumentList '/q', '/norestart' -Wait
+            }
+        }
+
+        # The test host is 64-bit, so Proj4 loads x64\proj.dll and only the
+        # 64-bit runtime is load-bearing.
+        "System32: $(Test-Path $system32)  SysWOW64: $(Test-Path $syswow64)"
+        if (-not (Test-Path $system32)) {
+            throw 'msvcr100.dll is missing; proj.dll cannot load and every projection test would fail.'
+        }
 
     # Ghostscript writes a PNG and the test deletes it a moment later, which
     # the real-time scanner can still be holding open. The test's own retry
@@ -250,6 +280,32 @@ jobs:
         }
         "All $((Get-Content expected-fonts.txt).Count) families resolve by name."
 
+        # Families the tests require to be absent. A font store that grows one of
+        # these breaks tests a long way from the font itself, so the build says so
+        # here instead. Each entry names what depends on it.
+        $forbidden = [ordered]@{
+            'Tekton'       = 'Map_Skia.Tests BasicTests asserts it is not installed'
+            'Spyroclassic' = 'OcadImportTests.MissingFonts and ControllerTests.MissingFontWarning expect it missing'
+            'GeosansLight' = 'OcadImportTests.MissingFonts and ControllerTests.MissingFontWarning expect it missing'
+            'Aberdeen'     = 'ControllerTests.MissingFontWarning expects it missing'
+            'Ambrosia'     = 'OpenMapperImportTests.MissingFonts expects it missing'
+            'Switzerland'  = 'the Marymoor baselines are drawn with the Arial that PurplePen substitutes for it'
+        }
+
+        $present = $forbidden.Keys | Where-Object { $families -contains $_ }
+        if ($present) {
+            $why = $present | ForEach-Object { "  $_ : $($forbidden[$_])" }
+            throw "These families must not be installed:`n$($why -join "`n")"
+        }
+        "None of the $($forbidden.Count) families that must stay absent are installed."
+
+    # The exported-XML baselines forgive their timestamps only in this zone's shape.
+    - name: Set the time zone the baselines were recorded in
+      shell: pwsh
+      run: |
+        tzutil /s "Pacific Standard Time"
+        "time zone now: $(tzutil /g)"
+
     # msbuild rather than dotnet build: the solution contains the native C++
     # projects that Map_GDIPlus copies into its output.
     - name: Build
@@ -257,6 +313,11 @@ jobs:
 
     - name: Test
       shell: pwsh
+      env:
+        # Ten assemblies start at once and the machine is saturated while they
+        # do. vstest gives a test host ninety seconds to call back before it
+        # abandons the assembly, and Map_Skia.Tests does not always make it.
+        VSTEST_CONNECTION_TIMEOUT: 600
       run: |
         # The collector names each test as it begins; see its own source for why
         # a logger cannot. It is not in the solution, so build it on its own.
@@ -332,6 +393,22 @@ jobs:
         Get-Content $stderr -ErrorAction SilentlyContinue
 
         "$((@(Get-Content $progress -ErrorAction SilentlyContinue)).Count) tests started."
+
+        # An assembly whose test host never connects is abandoned with a bare
+        # "Test Run Aborted." that names nothing, and its absence from the
+        # results otherwise reads as a run that simply had fewer assemblies.
+        $out = @(Get-Content $stdout -ErrorAction SilentlyContinue)
+        $started = $out | ForEach-Object {
+            if ($_ -match 'Test run for .*\\([^\\]+\.dll) ') { $Matches[1] }
+        }
+        $reported = $out | ForEach-Object {
+            if ($_ -match '- (\S+\.dll) \(') { $Matches[1] }
+        }
+        $silent = $started | Where-Object { $reported -notcontains $_ }
+        if ($silent) {
+            ""
+            "no results reported by: $($silent -join ', ')"
+        }
 
         $matched = @(Get-Content $altLog -ErrorAction SilentlyContinue)
         if ($matched.Count) {
