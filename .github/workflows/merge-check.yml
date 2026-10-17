@@ -12,8 +12,56 @@ on:
   workflow_dispatch:
 
 jobs:
+  # The fallback faces decide what two dozen scripts look like, and the server
+  # images carry an older set than a desktop Windows does -- Segoe UI Emoji is
+  # redrawn between releases, and that one font is most of what FontFallback
+  # disagrees about. windows-11-arm is the only hosted image that is Windows 11
+  # rather than Windows Server, so the fonts are fetched from there. Nothing is
+  # built on it: its Visual Studio has no toolset the native projects can use.
+  fonts:
+    name: Fetch desktop fonts
+    runs-on: windows-11-arm
+
+    steps:
+    - name: Copy the fallback faces
+      shell: pwsh
+      run: |
+        # Every family the font fallback reached for in a run, as the embedded
+        # fonts of the PDF it leaves behind name them.
+        $names = @(
+            'seguiemj.ttf', 'seguisym.ttf', 'seguihis.ttf',
+            'malgun.ttf', 'malgunbd.ttf', 'malgunsl.ttf',
+            'msjh.ttc', 'msjhbd.ttc', 'msjhl.ttc',
+            'simsunb.ttf', 'mingliub.ttc',
+            'YuGothR.ttc', 'YuGothM.ttc', 'YuGothB.ttc', 'YuGothL.ttc',
+            'Nirmala.ttf', 'NirmalaB.ttf', 'NirmalaS.ttf',
+            'mmrtext.ttf', 'mmrtextb.ttf',
+            'ebrima.ttf', 'ebrimabd.ttf',
+            'LeelawUI.ttf', 'LeelaUIb.ttf', 'LeelUIsl.ttf'
+        )
+
+        New-Item -ItemType Directory -Path win11-fonts | Out-Null
+        $missing = @()
+        foreach ($name in $names) {
+            $path = Join-Path $env:WINDIR "Fonts\$name"
+            if (Test-Path $path) { Copy-Item $path win11-fonts }
+            else { $missing += $name }
+        }
+
+        "$((Get-ChildItem win11-fonts).Count) of $($names.Count) faces copied."
+        if ($missing.Count) { "Not on this image: $($missing -join ', ')" }
+        Get-ChildItem win11-fonts | ForEach-Object { "  {0,-18} {1,8:N0} B" -f $_.Name, $_.Length }
+
+    - name: Upload them
+      uses: actions/upload-artifact@v4
+      with:
+        name: win11-fonts
+        path: win11-fonts
+        if-no-files-found: error
+
   test:
     name: Test
+    needs: fonts
     runs-on: windows-2022
     timeout-minutes: 180
 
@@ -113,6 +161,12 @@ jobs:
         repository: pauliojanpera/windows-fonts
         token: ${{ secrets.FONTS_TOKEN }}
         path: ci-fonts
+
+    - name: Fetch the desktop fonts
+      uses: actions/download-artifact@v4
+      with:
+        name: win11-fonts
+        path: win11-fonts
 
     - name: Install fonts
       working-directory: ${{ github.workspace }}
@@ -220,7 +274,7 @@ jobs:
         $started = Get-Date
         $registry = 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts'
         $added = 0; $replaced = 0; $kept = @(); $expected = @()
-        foreach ($file in Get-ChildItem ci-fonts -Include *.ttf, *.otf, *.ttc -Recurse) {
+        foreach ($file in Get-ChildItem win11-fonts, ci-fonts -Include *.ttf, *.otf, *.ttc -Recurse) {
             $target = Join-Path $env:WINDIR "Fonts\$($file.Name)"
             $existed = Test-Path $target
             try {
