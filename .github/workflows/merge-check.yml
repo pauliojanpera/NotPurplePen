@@ -24,9 +24,16 @@ jobs:
     steps:
     - name: Checkout source
       uses: actions/checkout@v4
-      with:
-        # GitVersion, used by the PdfSharp subtree, reads tags and history.
-        fetch-depth: 0
+
+    # The WPF baselines have moved between two renderings and the image that runs
+    # reproduces the earlier one exactly, so keep that set to hand: a comparison
+    # that fails against the tip can then say whether it matches a baseline this
+    # project committed before, which separates a rendering that image cannot make
+    # from one that has regressed. One commit of history is enough for it.
+    - name: Take the baselines as they stood at 81379316
+      run: |
+        git fetch --depth=1 origin 81379316
+        git archive --format=zip -o alt-baselines.zip 81379316 MapModel/TestFiles/wpfrender
 
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v2
@@ -49,8 +56,11 @@ jobs:
     # exit code, and installs from Microsoft directly if the feed let it down.
     # msbuild rather than dotnet build: the solution contains the native C++
     # projects that Map_GDIPlus copies into its output.
+    # GitVersion, which the PdfSharp subtree asks for, reads tags and the whole
+    # history to settle an assembly version nothing here compares against. Turning
+    # it off is what lets the checkout be a shallow one.
     - name: Build
-      run: msbuild PPen.slnx /restore /p:Configuration=Debug
+      run: msbuild PPen.slnx /restore /p:Configuration=Debug /p:DisableGitVersionTask=true
 
     # The collector names each test as it begins; see its own source for why a
     # logger cannot. It is not in the solution, so it is built on its own, and it
@@ -58,28 +68,41 @@ jobs:
     - name: Build the test collector
       run: dotnet build Testing/TestStartLog/TestStartLog.csproj -c Debug --nologo
 
+    # Only what is run, not every project's output: each test project carries a
+    # copy of its dependencies, so the whole tree is several times the size.
     - name: Keep the build
       uses: actions/upload-artifact@v4
       with:
         name: build
-        path: src/**/bin/Debug/**
+        path: |
+          src/alt-baselines.zip
+          src/Testing/TestStartLog/bin/Debug/netstandard2.0
+          src/MapModel/Graphics2D.Tests/bin/Debug/net10.0
+          src/MapModel/Map_PDF.Tests/bin/Debug/net10.0
+          src/MapModel/Map_Skia.Tests/bin/Debug/net10.0
+          src/MapModel/Test_MapModel/bin/Debug/net10.0-windows
+          src/MapModel/Test_MapWPF/bin/Debug/net10.0-windows
+          src/DotSpatialProjectionsLite/DotSpatial.Projections.Tests/bin/Debug/net10.0
+          src/PdfConverter.Tests/bin/Debug/net10.0-windows
+          src/PurplePenViewModels.Tests/bin/Debug/net10.0
+          src/PurplePen_Tests/bin/Debug/net10.0-windows
+          src/Testing/TestUtil/bin/Debug/net10.0
         if-no-files-found: error
         retention-days: 1
         compression-level: 1
 
 
+  # Everything this needs but the build itself -- the image, the runtime, the
+  # fonts -- takes two and a half minutes to put in place, and the build takes
+  # six. So it starts alongside and waits only where it must.
   test:
     name: Test
-    needs: build
     runs-on: windows-11-arm
     timeout-minutes: 60
 
     steps:
     - name: Checkout source
       uses: actions/checkout@v4
-      with:
-        # The alternate baselines are read out of the history with git archive.
-        fetch-depth: 0
 
     # The native helper Map_GDIPlus loads is x64, so the test host has to be
     # too. On an Arm image that means the emulated build, which the default
@@ -93,20 +116,20 @@ jobs:
         "DOTNET_ROOT=$env:ProgramFiles\dotnet-x64" | Out-File $env:GITHUB_ENV -Append -Encoding utf8
         & "$env:ProgramFiles\dotnet-x64\dotnet.exe" --info | Select-Object -First 6
 
-    - name: Fetch the build
-      uses: actions/download-artifact@v4
-      with:
-        name: build
-        path: src
-
-    # DotSpatial.Projections checks itself against the real proj.4 library, whose
-    # committed x86 and x64 builds both import MSVCR100.dll.
     - name: Install Visual C++ 2010 runtime
       shell: pwsh
       run: |
-        choco install vcredist2010 --no-progress --yes
+        $base = 'https://download.microsoft.com/download/1/6/5/165255E7-1014-4D0A-B094-B6A430A6BFFC'
+        foreach ($installer in 'vcredist_x64.exe', 'vcredist_x86.exe') {
+            $local = Join-Path $env:RUNNER_TEMP $installer
+            Invoke-WebRequest -Uri "$base/$installer" -OutFile $local -UseBasicParsing
+            Start-Process -FilePath $local -ArgumentList '/q', '/norestart' -Wait
+        }
+
         $system32 = Join-Path $env:SystemRoot 'System32\msvcr100.dll'
-        "System32: $(Test-Path $system32)"
+        if (-not (Test-Path $system32)) {
+            throw 'msvcr100.dll is missing; proj.dll cannot load and every projection test would fail.'
+        }
 
     - name: Fetch fonts
       uses: actions/checkout@v4
@@ -282,37 +305,43 @@ jobs:
         tzutil /s "Pacific Standard Time"
         "time zone now: $(tzutil /g)"
 
+    - name: Fetch the build
+      shell: pwsh
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        # This job did not wait on the build, so it waits here, and says so
+        # rather than looking stuck.
+        $deadline = (Get-Date).AddMinutes(40)
+        while ($true) {
+            $state = & gh api "repos/$env:GITHUB_REPOSITORY/actions/runs/$env:GITHUB_RUN_ID/jobs" `
+                              --jq '.jobs[] | select(.name == "Build") | .conclusion'
+            if ($state -eq 'success') { break }
+            if ($state) { throw "The build finished as '$state'." }
+            if ((Get-Date) -gt $deadline) { throw 'The build did not finish in forty minutes.' }
+            "waiting for the build"
+            Start-Sleep -Seconds 15
+        }
+
+        & gh run download $env:GITHUB_RUN_ID --name build --dir src
+        if ($LASTEXITCODE -ne 0) { throw 'The build could not be fetched.' }
+
+    # DotSpatial.Projections checks itself against the real proj.4 library, whose
+    # committed x86 and x64 builds both import MSVCR100.dll.
     - name: Test
       working-directory: src
       shell: pwsh
       env:
         TEST_SILENTRUN: 'True'
       run: |
-        # The WPF baselines have moved between two renderings and this image
-        # reproduces the earlier one exactly, so keep that set to hand: a
-        # comparison that fails against the tip can then say whether it matches
-        # a baseline this project committed before, which separates a rendering
-        # this image cannot make from one that has regressed.
+        # The baselines as they stood at 81379316 travel with the build, so a
+        # comparison that fails against the tip can say whether it matches one
+        # this project committed before: that separates a rendering this image
+        # cannot make from one that has regressed.
         $altRoot = Join-Path $PWD 'alt-baselines'
         $altLog = Join-Path $PWD 'alt-baselines.log'
         Remove-Item $altRoot -Recurse -Force -ErrorAction SilentlyContinue
         Remove-Item $altLog -ErrorAction SilentlyContinue
-        git archive --format=zip -o alt-baselines.zip 81379316 MapModel/TestFiles/wpfrender
-        Expand-Archive alt-baselines.zip -DestinationPath $altRoot -Force
-        $env:TEST_ALT_BASELINE_ROOT = $altRoot
-        $env:TEST_ALT_BASELINE_LOG = $altLog
-        "alternate baselines: $((Get-ChildItem $altRoot -Recurse -Filter *.png).Count) files from 81379316"
-
-        # The WPF baselines have moved between two renderings and this image
-        # reproduces the earlier one exactly, so keep that set to hand: a
-        # comparison that fails against the tip can then say whether it matches
-        # a baseline this project committed before, which separates a rendering
-        # this image cannot make from one that has regressed.
-        $altRoot = Join-Path $PWD 'alt-baselines'
-        $altLog = Join-Path $PWD 'alt-baselines.log'
-        Remove-Item $altRoot -Recurse -Force -ErrorAction SilentlyContinue
-        Remove-Item $altLog -ErrorAction SilentlyContinue
-        git archive --format=zip -o alt-baselines.zip 81379316 MapModel/TestFiles/wpfrender
         Expand-Archive alt-baselines.zip -DestinationPath $altRoot -Force
         $env:TEST_ALT_BASELINE_ROOT = $altRoot
         $env:TEST_ALT_BASELINE_LOG = $altLog
