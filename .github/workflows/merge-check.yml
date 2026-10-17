@@ -176,6 +176,18 @@ jobs:
 
         "SystemLink entries after: $((Get-Item $link).ValueCount)"
 
+        foreach ($name in 'Arial', 'Tahoma', 'Microsoft Sans Serif', 'Segoe UI', 'MS Shell Dlg 2') {
+            $value = (Get-ItemProperty -Path $link -Name $name -ErrorAction SilentlyContinue).$name
+            if ($value) { "  $name -> $($value -join ' | ')" } else { "  $name -> (none)" }
+        }
+
+        # EXPERIMENT: put the legacy Korean face first for the family the map asks
+        # for, and see whether the Hangul stops being scaled.
+        $arial = @('GULIM.TTC,Gulim') +
+                 @((Get-ItemProperty -Path $link -Name 'Arial' -ErrorAction SilentlyContinue).'Arial')
+        Set-ItemProperty -Path $link -Name 'Arial' -Value $arial -Type MultiString
+        "  Arial now -> $(((Get-ItemProperty -Path $link -Name 'Arial').'Arial') -join ' | ')"
+
     - name: Install fonts
       working-directory: ${{ github.workspace }}
       shell: pwsh
