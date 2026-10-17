@@ -165,11 +165,16 @@ jobs:
         path: win11-fonts
 
     - name: Use the desktop font links
+      working-directory: ${{ github.workspace }}
       shell: pwsh
       run: |
-        & reg import win11-fonts\systemlink.reg 2>&1 | Out-Null
         $link = 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontLink\SystemLink'
-        "SystemLink entries now: $((Get-Item $link).ValueCount)"
+        "SystemLink entries before: $((Get-Item $link).ValueCount)"
+
+        & reg import win11-fonts\systemlink.reg
+        if ($LASTEXITCODE -ne 0) { throw "reg import failed with $LASTEXITCODE" }
+
+        "SystemLink entries after: $((Get-Item $link).ValueCount)"
 
     - name: Install fonts
       working-directory: ${{ github.workspace }}
