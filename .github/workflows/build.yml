@@ -100,17 +100,29 @@ jobs:
       id: version
       shell: pwsh
       run: |
-        $versionNumberCs = "src/PurplePenCore/VersionNumber.cs"
-        $content = Get-Content -Path $versionNumberCs -Raw
-        $match = [regex]::Match($content, 'Current = "([\d.]+)"')
-        if (-not $match.Success) { throw "Could not find Current in $versionNumberCs" }
-        $parts = [int[]]($match.Groups[1].Value.Split('.'))
+        # The number is declared twice, once for PurplePen and once for
+        # PurplePen.MapModel. The application reports the first and the
+        # assemblies take their version from the second, which is what the
+        # installer reads back out and what the updater compares against, so
+        # both have to say the same thing. A third would be found the same way.
+        $declarations = @(Get-ChildItem src -Recurse -Filter VersionNumber.cs |
+            Where-Object { (Get-Content $_.FullName -Raw) -match 'Current = "[\d.]+"' })
+        if (-not $declarations) { throw 'No VersionNumber.cs declares a version.' }
+
+        $declared = @($declarations | ForEach-Object {
+            ([regex]::Match((Get-Content $_.FullName -Raw), 'Current = "([\d.]+)"')).Groups[1].Value
+        } | Sort-Object -Unique)
+        if ($declared.Count -ne 1) { throw "The version is declared as $($declared -join ' and ')." }
+
+        $parts = [int[]]($declared[0].Split('.'))
         if ($parts.Length -ne 4) { throw "Expected four version components, got $($parts.Length)" }
         $parts[2] += ${{ github.run_number }}
         $version = $parts -join '.'
-        $content = $content -replace 'Current = "[\d.]+"', "Current = ""$version"""
-        Set-Content -Path $versionNumberCs -Value $content
-
+        foreach ($file in $declarations) {
+            (Get-Content $file.FullName -Raw) -replace 'Current = "[\d.]+"', ('Current = "' + $version + '"') |
+                Set-Content -Path $file.FullName -NoNewline
+        }
+        "version written to $($declarations.Count) declaration(s)"
         $channel = if ($parts[3] -lt 500) { 'beta' } else { 'main' }
         $ref = '${{ github.event.inputs.ref }}'
         if (-not $ref -and '${{ github.event_name }}' -eq 'pull_request') {
