@@ -1,0 +1,561 @@
+name: Tests
+
+# Runs the test suite only. Packaging lives in build.yml; the two must not
+# overlap, or every push to a branch builds the installer twice.
+#
+# Debug rather than Release: PPen.slnx excludes Innosetup from Debug, so this
+# builds the code and its tests without invoking the installer, which needs the
+# separate publish sequence in src/Innosetup/create-setup.bat.
+on:
+  push:
+    branches: [ 'experiment/**' ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build
+    runs-on: windows-2022
+    timeout-minutes: 180
+
+    defaults:
+      run:
+        working-directory: src
+
+    steps:
+    - name: Checkout source
+      uses: actions/checkout@v4
+      with:
+        # GitVersion, which the PdfSharp subtree generates a class from, reads
+        # tags and history. Those come; the contents of files as they used to be
+        # do not, and they are two thirds of what a full clone drags along.
+        fetch-depth: 0
+        filter: blob:none
+
+    # The WPF baselines have moved between two renderings and the image that runs
+    # reproduces the earlier one exactly, so keep that set to hand: a comparison
+    # that fails against the tip can then say whether it matches a baseline this
+    # project committed before, which separates a rendering that image cannot make
+    # from one that has regressed. One commit of history is enough for it.
+    - name: Take the baselines as they stood at 81379316
+      run: |
+        git archive --format=zip -o alt-baselines.zip 81379316 MapModel/TestFiles/wpfrender
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+
+    - name: Install HTML Help Workshop
+      run: choco install html-help-workshop --no-progress --yes
+
+    # DotSpatial.Projections.Tests compares the managed projections against the
+    # real proj.4 library. The committed x86 and x64 proj.dll both import
+    # MSVCR100.dll, which is not on the runner, so LoadLibrary fails and the
+    # type initializer throws.
+    #
+    # choco exits zero when the community feed is unreachable and it installs
+    # nothing, so the step checks for the DLL afterwards instead of trusting the
+    # exit code, and installs from Microsoft directly if the feed let it down.
+    # msbuild rather than dotnet build: the solution contains the native C++
+    # projects that Map_GDIPlus copies into its output.
+    - name: Build
+      run: msbuild PPen.slnx /restore /p:Configuration=Debug
+
+    # The collector names each test as it begins; see its own source for why a
+    # logger cannot. It is not in the solution, so it is built on its own, and it
+    # travels with the build because the image that runs cannot build it either.
+    - name: Build the test collector
+      run: dotnet build Testing/TestStartLog/TestStartLog.csproj -c Debug --nologo
+
+    # Only what is run, not every project's output: each test project carries a
+    # copy of its dependencies, so the whole tree is several times the size.
+    - name: Keep the build
+      uses: actions/upload-artifact@v4
+      with:
+        name: build
+        path: |
+          src/alt-baselines.zip
+          src/Testing/TestStartLog/bin/Debug/netstandard2.0
+          src/MapModel/Graphics2D.Tests/bin/Debug/net10.0
+          src/MapModel/Map_PDF.Tests/bin/Debug/net10.0
+          src/MapModel/Map_Skia.Tests/bin/Debug/net10.0
+          src/MapModel/Test_MapModel/bin/Debug/net10.0-windows
+          src/MapModel/Test_MapWPF/bin/Debug/net10.0-windows
+          src/DotSpatialProjectionsLite/DotSpatial.Projections.Tests/bin/Debug/net10.0
+          src/PdfConverter.Tests/bin/Debug/net10.0-windows
+          src/PurplePenViewModels.Tests/bin/Debug/net10.0
+          src/PurplePen_Tests/bin/Debug/net10.0-windows
+          src/Testing/TestUtil/bin/Debug/net10.0
+        if-no-files-found: error
+        retention-days: 1
+        compression-level: 1
+
+
+  # Everything this needs but the build itself -- the image, the runtime, the
+  # fonts -- takes two and a half minutes to put in place, and the build takes
+  # six. So it starts alongside and waits only where it must.
+  # Ten assemblies on one four-core machine spent most of their time waiting for
+  # each other, so they are spread over several. The groups are sized by what
+  # each assembly measured, and the work every machine does before there is
+  # anything to run -- the runtime, the runtime library, the fonts -- happens on
+  # all of them at once anyway.
+  test:
+    name: Test (${{ matrix.name }})
+    runs-on: windows-11-arm
+    timeout-minutes: 60
+
+    strategy:
+      # One group's failures say nothing about another's, and a run that stops at
+      # the first of them leaves the rest unanswered.
+      fail-fast: false
+      matrix:
+        include:
+        - id: purplepen
+          name: PurplePen
+          assemblies: PurplePen_Tests/bin/Debug/net10.0-windows/PurplePen_Tests.dll
+        - id: pdf
+          name: PDF
+          assemblies: MapModel/Map_PDF.Tests/bin/Debug/net10.0/Map_PDF.Tests.dll
+        - id: mapmodel
+          name: MapModel
+          assemblies: MapModel/Test_MapModel/bin/Debug/net10.0-windows/Test_MapModel.dll
+        - id: wpf
+          name: WPF
+          assemblies: >-
+            MapModel/Test_MapWPF/bin/Debug/net10.0-windows/TestProject1.dll
+            PdfConverter.Tests/bin/Debug/net10.0-windows/PdfConverter.Tests.dll
+        - id: projections
+          name: projections
+          assemblies: DotSpatialProjectionsLite/DotSpatial.Projections.Tests/bin/Debug/net10.0/DotSpatial.Projections.Tests.dll
+        - id: skia
+          name: Skia
+          assemblies: >-
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
+            MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
+            PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
+            Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
+
+    steps:
+    - name: Checkout source
+      uses: actions/checkout@v4
+
+    # The native helper Map_GDIPlus loads is x64, so the test host has to be
+    # too. On an Arm image that means the emulated build, which the default
+    # setup does not install.
+    - name: Setup .NET for x64
+      shell: pwsh
+      run: |
+        $install = Join-Path $env:RUNNER_TEMP 'dotnet-install.ps1'
+        Invoke-WebRequest https://dot.net/v1/dotnet-install.ps1 -OutFile $install -UseBasicParsing
+        & $install -Channel 10.0 -Architecture x64 -InstallDir "$env:ProgramFiles\dotnet-x64"
+        "DOTNET_ROOT=$env:ProgramFiles\dotnet-x64" | Out-File $env:GITHUB_ENV -Append -Encoding utf8
+        & "$env:ProgramFiles\dotnet-x64\dotnet.exe" --info | Select-Object -First 6
+
+    - name: Install Visual C++ 2010 runtime
+      shell: pwsh
+      run: |
+        $base = 'https://download.microsoft.com/download/1/6/5/165255E7-1014-4D0A-B094-B6A430A6BFFC'
+        foreach ($installer in 'vcredist_x64.exe', 'vcredist_x86.exe') {
+            $local = Join-Path $env:RUNNER_TEMP $installer
+            Invoke-WebRequest -Uri "$base/$installer" -OutFile $local -UseBasicParsing
+            Start-Process -FilePath $local -ArgumentList '/q', '/norestart' -Wait
+        }
+
+        $system32 = Join-Path $env:SystemRoot 'System32\msvcr100.dll'
+        if (-not (Test-Path $system32)) {
+            throw 'msvcr100.dll is missing; proj.dll cannot load and every projection test would fail.'
+        }
+
+    - name: Fetch fonts
+      uses: actions/checkout@v4
+      with:
+        repository: pauliojanpera/windows-fonts
+        token: ${{ secrets.FONTS_TOKEN }}
+        path: ci-fonts
+
+    # The baselines were recorded against one machine's fonts, so the machine is
+    # part of the fixture. A hosted image cannot be pinned to a version, so it is
+    # written down in .github/ci/environment.json and checked: a changed image says
+    # so in one message instead of a hundred unexplained rendering diffs.
+    #
+    # Of the faces the tests ask for, the image carries most; ci/fonts.json holds
+    # the rest, the ones no Windows installation has, and only those are
+    # installed. The store is checked against that list by hash, so a collection
+    # assembled elsewhere either is the one the baselines were recorded with or
+    # says which file it differs in.
+    - name: Check the machine and install the fonts it lacks
+      working-directory: ${{ github.workspace }}
+      shell: pwsh
+      run: |
+        "image: $env:ImageOS $env:ImageVersion"
+        $cv = Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion'
+        "windows: $($cv.ProductName) $($cv.DisplayVersion) build $($cv.CurrentBuild).$($cv.UBR)"
+        "architecture: $env:PROCESSOR_ARCHITECTURE"
+        ""
+
+        Add-Type -Namespace Native -Name Gdi -MemberDefinition @'
+        [DllImport("gdi32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+        public static extern int AddFontResource(string fileName);
+        '@
+
+        Add-Type -Namespace Native -Name Sfnt -MemberDefinition @'
+        static int U16(byte[] d, int o) { return (d[o] << 8) | d[o + 1]; }
+        static int U32(byte[] d, int o) {
+            return (d[o] << 24) | (d[o + 1] << 16) | (d[o + 2] << 8) | d[o + 3];
+        }
+
+        // One line per face in the file: family, style, and the version the font
+        // calls itself, tab separated. A collection holds several faces.
+        //
+        // Several of these faces carry localized names, and a font filed as
+        // "Arial Negreta" is a font nothing asks for; a Windows record is
+        // authoritative and the Macintosh one is a fallback, since in some older
+        // faces it holds mojibake.
+        public static string[] Faces(string path)
+        {
+            byte[] d = System.IO.File.ReadAllBytes(path);
+            int[] starts;
+            if (d.Length > 16 && d[0] == 't' && d[1] == 't' && d[2] == 'c' && d[3] == 'f') {
+                int count = U32(d, 8);
+                starts = new int[count];
+                for (int i = 0; i < count; i++) { starts[i] = U32(d, 12 + 4 * i); }
+            }
+            else {
+                starts = new int[] { 0 };
+            }
+
+            System.Collections.Generic.List<string> faces =
+                new System.Collections.Generic.List<string>();
+            foreach (int start in starts) {
+                if (start < 0 || start + 12 > d.Length) { continue; }
+
+                int table = -1;
+                int tableCount = U16(d, start + 4);
+                for (int i = 0; i < tableCount; i++) {
+                    int o = start + 12 + 16 * i;
+                    if (o + 16 > d.Length) { break; }
+                    if (d[o] == 'n' && d[o + 1] == 'a' && d[o + 2] == 'm' && d[o + 3] == 'e')
+                        table = U32(d, o + 8);
+                }
+                if (table < 0 || table + 6 > d.Length) { continue; }
+
+                int count = U16(d, table + 2), strings = U16(d, table + 4);
+                string[] win = new string[6], mac = new string[6];
+                for (int i = 0; i < count; i++) {
+                    int p = table + 6 + 12 * i;
+                    if (p + 12 > d.Length) { break; }
+                    int platform = U16(d, p), language = U16(d, p + 4), nameId = U16(d, p + 6);
+                    int len = U16(d, p + 8), offset = U16(d, p + 10);
+                    if (nameId != 1 && nameId != 2 && nameId != 5) { continue; }
+                    if (platform == 3 && language != 0x0409) { continue; }
+                    if (platform == 1 && language != 0) { continue; }
+
+                    int at = table + strings + offset;
+                    if (at < 0 || at + len > d.Length) { continue; }
+                    string s = (platform == 3)
+                        ? System.Text.Encoding.BigEndianUnicode.GetString(d, at, len)
+                        : System.Text.Encoding.ASCII.GetString(d, at, len);
+                    s = s.Replace("\0", "").Trim();
+                    if (s.Length == 0) { continue; }
+                    if (platform == 3) { if (win[nameId] == null) { win[nameId] = s; } }
+                    else { if (mac[nameId] == null) { mac[nameId] = s; } }
+                }
+
+                string family = win[1] ?? mac[1];
+                if (family == null) { continue; }
+                faces.Add(family + "\t" + (win[2] ?? mac[2] ?? "Regular") + "\t" + (win[5] ?? mac[5] ?? ""));
+            }
+            return faces.ToArray();
+        }
+        '@
+
+        # Parameters:
+        #   files - the font files to read.
+        #   label - where they came from, for the report.
+        function Read-Faces($files, $label) {
+            $out = New-Object System.Collections.Generic.List[object]
+            foreach ($file in $files) {
+                try { $faces = [Native.Sfnt]::Faces($file.FullName) } catch { continue }
+                foreach ($face in $faces) {
+                    $parts = $face -split "`t"
+                    $out.Add([pscustomobject]@{
+                        Source = $label; File = $file.Name; Path = $file.FullName
+                        Bytes = $file.Length; Sha256 = $null
+                        Family = $parts[0]; Style = $parts[1]; Version = $parts[2]
+                    })
+                }
+            }
+            return $out
+        }
+
+        # The name Windows files a font under: the family alone when the style is
+        # the plain one, the two together otherwise.
+        function Get-FaceLabel($family, $style) {
+            $lower = if ($style) { $style.ToLowerInvariant() } else { 'regular' }
+            $plain = @('regular', 'normal', 'plain', 'book', 'roman', 'standard')
+            if ($plain -contains $lower) { return $family }
+            return "$family $style"
+        }
+
+        $recorded = Get-Content .github/ci/environment.json -Raw | ConvertFrom-Json
+        $declared = Get-Content .github/ci/fonts.json -Raw | ConvertFrom-Json
+        $fontDir = Join-Path $env:WINDIR 'Fonts'
+        $wrong = New-Object System.Collections.Generic.List[string]
+
+        # The machine first.
+        $actual = [ordered]@{
+            'image os' = $env:ImageOS; 'image version' = $env:ImageVersion
+            'windows version' = $cv.DisplayVersion
+            'windows build' = "$($cv.CurrentBuild).$($cv.UBR)"
+            'architecture' = $env:PROCESSOR_ARCHITECTURE
+        }
+        $expected = [ordered]@{
+            'image os' = $recorded.image.os; 'image version' = $recorded.image.version
+            'windows version' = $recorded.windows.displayVersion
+            'windows build' = $recorded.windows.build
+            'architecture' = $recorded.windows.architecture
+        }
+        foreach ($key in $expected.Keys) {
+            if ($actual[$key] -ne $expected[$key]) {
+                $wrong.Add("$key is '$($actual[$key])', recorded as '$($expected[$key])'")
+            }
+        }
+
+        # Then the faces the tests take from it.
+        foreach ($one in $recorded.systemFonts) {
+            $path = Join-Path $fontDir $one.file
+            if (-not (Test-Path $path)) {
+                $wrong.Add("$($one.file) is not on this machine")
+                continue
+            }
+            $hash = (Get-FileHash $path -Algorithm SHA256).Hash
+            if ($hash -ne $one.sha256) {
+                $families = ($one.faces | ForEach-Object { $_.family }) -join ', '
+                $wrong.Add("$($one.file) ($families) hashes to $hash, recorded as $($one.sha256)")
+            }
+        }
+
+        # And the store against what it is declared to hold.
+        $kinds = @('*.ttf', '*.otf', '*.ttc')
+        $store = Read-Faces (Get-ChildItem ci-fonts -Include $kinds -Recurse) 'store'
+        $byFile = @{}
+        foreach ($one in $store) {
+            if (-not $byFile.ContainsKey($one.File)) {
+                $one.Sha256 = (Get-FileHash $one.Path -Algorithm SHA256).Hash
+                $byFile[$one.File] = $one
+            }
+        }
+        foreach ($one in $declared.files) {
+            $have = $byFile[$one.file]
+            if (-not $have) { $wrong.Add("$($one.file) is missing from the store"); continue }
+            if ($have.Sha256 -ne $one.sha256) {
+                $wrong.Add("$($one.file) hashes to $($have.Sha256), declared as $($one.sha256)")
+            }
+        }
+        # Anything else the store carries is never installed, so it cannot reach
+        # a rendering; it is only dead weight worth saying out loud.
+        $undeclared = $byFile.Keys | Where-Object { $_ -notin ($declared.files | ForEach-Object { $_.file }) }
+        if ($undeclared.Count) {
+            "The store carries $($undeclared.Count) file(s) nothing asks for: $(($undeclared | Sort-Object) -join ', ')"
+        }
+
+        if ($wrong.Count) {
+            "The machine is not the one the baselines were recorded against:"
+            $wrong | ForEach-Object { "  $_" }
+            ""
+            "Rendering compares against images produced on the recorded machine."
+            "Either restore it, or re-record the baselines and update the two files."
+            throw "$($wrong.Count) difference(s) from the recorded machine."
+        }
+        "The machine and the store are the recorded ones: $($recorded.systemFonts.Count) faces from the image, $($declared.files.Count) files from the store."
+
+        # A font file the system already has open cannot be overwritten; stopping
+        # the cache service releases most of them. Nothing installed here replaces
+        # a face the image ships, but the service also caches the absences.
+        foreach ($name in 'FontCache', 'FontCache3.0.0.0') {
+            Get-Service $name -ErrorAction SilentlyContinue |
+                Stop-Service -Force -ErrorAction SilentlyContinue
+        }
+
+        # Copying the file and registering it is what installing a font amounts
+        # to. Handing each one to the shell namespace instead costs seconds
+        # apiece. The entry has to carry the name the font calls itself, which
+        # only the file knows; filed under anything else a face is not found by
+        # name.
+        $started = Get-Date
+        $registry = 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts'
+        foreach ($one in $declared.files) {
+            $source = $byFile[$one.file]
+            $target = Join-Path $fontDir $one.file
+            Copy-Item $source.Path $target -Force
+
+            $label = Get-FaceLabel $source.Family $source.Style
+            $suffix = if ([IO.Path]::GetExtension($one.file) -eq '.otf') { '(OpenType)' } else { '(TrueType)' }
+            New-ItemProperty -Path $registry -Name "$label $suffix" `
+                             -Value $one.file -PropertyType String -Force | Out-Null
+            [Native.Gdi]::AddFontResource($target) | Out-Null
+        }
+        Start-Service FontCache -ErrorAction SilentlyContinue
+        "Installed $($declared.files.Count) fonts in $([int]((Get-Date) - $started).TotalSeconds) s"
+
+    # The exported-XML baselines forgive their timestamps only in this zone's shape.
+    - name: Set the time zone the baselines were recorded in
+      shell: pwsh
+      run: |
+        tzutil /s "Pacific Standard Time"
+        "time zone now: $(tzutil /g)"
+
+    - name: Wait for the build
+      shell: pwsh
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        # This job did not wait on the build, so that everything it needs is in
+        # place by the time there is something to run. It waits here instead, and
+        # says so rather than looking stuck.
+        $deadline = (Get-Date).AddMinutes(40)
+        while ($true) {
+            $state = & gh api "repos/$env:GITHUB_REPOSITORY/actions/runs/$env:GITHUB_RUN_ID/jobs" `
+                              --jq '.jobs[] | select(.name == "Build") | .conclusion'
+            if ($state -eq 'success') { break }
+            if ($state) { throw "The build finished as '$state'." }
+            if ((Get-Date) -gt $deadline) { throw 'The build did not finish in forty minutes.' }
+            "waiting for the build"
+            Start-Sleep -Seconds 15
+        }
+
+    - name: Fetch the build
+      shell: pwsh
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        & gh run download $env:GITHUB_RUN_ID --name build --dir src
+        if ($LASTEXITCODE -ne 0) { throw 'The build could not be fetched.' }
+
+    # DotSpatial.Projections checks itself against the real proj.4 library, whose
+    # committed x86 and x64 builds both import MSVCR100.dll.
+    - name: Test
+      working-directory: src
+      shell: pwsh
+      env:
+        TEST_SILENTRUN: 'True'
+        ASSEMBLIES: ${{ matrix.assemblies }}
+      run: |
+        # The baselines as they stood at 81379316 travel with the build, so a
+        # comparison that fails against the tip can say whether it matches one
+        # this project committed before: that separates a rendering this image
+        # cannot make from one that has regressed.
+        $altRoot = Join-Path $PWD 'alt-baselines'
+        $altLog = Join-Path $PWD 'alt-baselines.log'
+        Remove-Item $altRoot -Recurse -Force -ErrorAction SilentlyContinue
+        Remove-Item $altLog -ErrorAction SilentlyContinue
+        Expand-Archive alt-baselines.zip -DestinationPath $altRoot -Force
+        $env:TEST_ALT_BASELINE_ROOT = $altRoot
+        $env:TEST_ALT_BASELINE_LOG = $altLog
+        "alternate baselines: $((Get-ChildItem $altRoot -Recurse -Filter *.png).Count) files from 81379316"
+
+        # The assemblies rather than the solution: this image has no toolset for
+        # the native projects, so nothing here may be built. Which of them this
+        # machine runs comes from the matrix.
+        $assemblies = $env:ASSEMBLIES -split '\s+' | Where-Object { $_ }
+        "assemblies: $($assemblies -join ', ')"
+
+        # The group all at once rather than one after another. Each writes to its
+        # own file so that one assembly's line cannot land in the middle of
+        # another's.
+        $dotnet = Join-Path $env:ProgramFiles 'dotnet-x64\dotnet.exe'
+        $missing = $assemblies | Where-Object { -not (Test-Path $_) }
+        if ($missing) { throw "Not in the build: $($missing -join ', ')" }
+
+        # Every assembly writes the name of each test it starts to one file, so
+        # that a run which stops says where it stopped.
+        $collector = (Resolve-Path Testing/TestStartLog/bin/Debug/netstandard2.0/TestStartLog.dll).Path
+        $progress = Join-Path $PWD 'test-progress.log'
+        Remove-Item $progress -ErrorAction SilentlyContinue
+
+        @"
+        <?xml version="1.0" encoding="utf-8"?>
+        <RunSettings>
+          <RunConfiguration>
+            <EnvironmentVariables>
+              <TEST_SILENTRUN>True</TEST_SILENTRUN>
+              <TEST_PROGRESS_LOG>$progress</TEST_PROGRESS_LOG>
+              <TEST_ALT_BASELINE_ROOT>$altRoot</TEST_ALT_BASELINE_ROOT>
+              <TEST_ALT_BASELINE_LOG>$altLog</TEST_ALT_BASELINE_LOG>
+            </EnvironmentVariables>
+          </RunConfiguration>
+          <InProcDataCollectionRunSettings>
+            <InProcDataCollectors>
+              <InProcDataCollector friendlyName="TestStartLog" enabled="True"
+                                   assemblyQualifiedName="PurplePen.Testing.TestStartLog, TestStartLog, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+                                   codebase="$collector" />
+            </InProcDataCollectors>
+          </InProcDataCollectionRunSettings>
+        </RunSettings>
+        "@ | Set-Content ci.runsettings -Encoding UTF8
+
+        $running = foreach ($dll in $assemblies) {
+            $log = Join-Path $PWD ("test-" + [IO.Path]::GetFileNameWithoutExtension($dll) + ".log")
+            [pscustomobject]@{
+                Dll = $dll
+                Log = $log
+                Process = Start-Process $dotnet -NoNewWindow -PassThru `
+                                        -RedirectStandardOutput $log -RedirectStandardError "$log.err" `
+                                        -ArgumentList @('test', $dll, '--settings:ci.runsettings')
+            }
+        }
+
+        # What is running shows as it happens; what each assembly said comes at
+        # the end in one piece, so that no two of them share a line.
+        $script:seen = 0
+        function Show-New {
+            $lines = @(Get-Content $progress -ErrorAction SilentlyContinue)
+            if ($lines.Count -gt $script:seen) {
+                $lines[$script:seen..($lines.Count - 1)]
+                $script:seen = $lines.Count
+            }
+        }
+
+        while ($running | Where-Object { -not $_.Process.HasExited }) {
+            Start-Sleep -Seconds 5
+            Show-New
+        }
+        foreach ($one in $running) { $one.Process.WaitForExit() }
+        Show-New
+
+        $failed = @()
+        foreach ($one in $running) {
+            ""
+            "===== $($one.Dll)"
+            Get-Content $one.Log -ErrorAction SilentlyContinue
+            Get-Content "$($one.Log).err" -ErrorAction SilentlyContinue
+            if ($one.Process.ExitCode -ne 0) { $failed += $one.Dll }
+        }
+
+        "$((@(Get-Content $progress -ErrorAction SilentlyContinue)).Count) tests started."
+
+        $matched = @(Get-Content $altLog -ErrorAction SilentlyContinue)
+        if ($matched.Count) {
+            ""
+            "$($matched.Count) comparisons matched the baseline as it stood at 81379316:"
+            $matched | Sort-Object -Unique
+        }
+
+        if ($failed.Count) {
+            ""
+            "Failed: $($failed -join ', ')"
+            exit 1
+        }
+
+    - name: Upload rendering differences
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: rendering-differences-${{ matrix.id }}
+        path: |
+          src/**/*_actual.png
+          src/**/*_diff.png
+        if-no-files-found: warn

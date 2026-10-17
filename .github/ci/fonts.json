@@ -1,0 +1,449 @@
+{
+  "description": "The fonts the PurplePen rendering tests need that a Windows installation does not carry. Everything else the tests ask for comes from the machine itself, recorded in ci/environment.json. Assemble these from a licensed source and check them against this: a face of another version renders differently and the baselines will not match.",
+  "mustNotBeInstalled": [
+    "Spyroclassic",
+    "GeosansLight"
+  ],
+  "files": [
+    {
+      "file": "ANTQUAB.TTF",
+      "sha256": "134A9F8ECF618660305D7D34B6905375C1D5D7838EA15CDB2789BA94317F4117",
+      "faces": [
+        {
+          "family": "Book Antiqua",
+          "style": "Bold",
+          "version": "Version 2.35"
+        }
+      ]
+    },
+    {
+      "file": "ANTQUABI.TTF",
+      "sha256": "BC546E3E96F8CDD9E6CF02EB5C8AC5551EF20EF4639FF701C338EA281F56FBD0",
+      "faces": [
+        {
+          "family": "Book Antiqua",
+          "style": "Bold Italic",
+          "version": "Version 2.35"
+        }
+      ]
+    },
+    {
+      "file": "ANTQUAI.TTF",
+      "sha256": "6B00590BD7A52A94E9E90E35A28C1D2FA03F83F458D2F2DFBCED70A9C1EA0C80",
+      "faces": [
+        {
+          "family": "Book Antiqua",
+          "style": "Italic",
+          "version": "Version 2.35"
+        }
+      ]
+    },
+    {
+      "file": "ARIALN.TTF",
+      "sha256": "CAD552553CF2A75AFCA01955751AAA115E2A64FD6C6EEA42E1FBD236630B7E0A",
+      "faces": [
+        {
+          "family": "Arial Narrow",
+          "style": "Regular",
+          "version": "Version 2.40"
+        }
+      ]
+    },
+    {
+      "file": "ARIALNB.TTF",
+      "sha256": "6C4A4B643461DEF5411E0217B74A625DCF2FB681252EF5DA1DB0AF4EAE80AA7E",
+      "faces": [
+        {
+          "family": "Arial Narrow",
+          "style": "Bold",
+          "version": "Version 2.40"
+        }
+      ]
+    },
+    {
+      "file": "ARIALNBI.TTF",
+      "sha256": "161B859EFD20C69DDEBB23012A49F4F2030D56A0C1B9BCFD4DF753217CE3E358",
+      "faces": [
+        {
+          "family": "Arial Narrow",
+          "style": "Bold Italic",
+          "version": "Version 2.40"
+        }
+      ]
+    },
+    {
+      "file": "ARIALNI.TTF",
+      "sha256": "FAF73AA7CE40B77AD19C09507A2263FE3F3CE9FA5642E8A1CD54FB3C9F52D599",
+      "faces": [
+        {
+          "family": "Arial Narrow",
+          "style": "Italic",
+          "version": "Version 2.40"
+        }
+      ]
+    },
+    {
+      "file": "Ameretto.ttf",
+      "sha256": "475197EAD2C934D834D360E6ED01CA097EC2EC05F2C6C99EDD3E66DB050F6705",
+      "faces": [
+        {
+          "family": "Ameretto",
+          "style": "Italic",
+          "version": "Altsys Fontographer 4.1 12/20/94"
+        }
+      ]
+    },
+    {
+      "file": "Aubrey-Regular.ttf",
+      "sha256": "EF74CCE3D93995DAF20B37179F88DEE617335311A1110E52B1963EFA3C3C9C14",
+      "faces": [
+        {
+          "family": "Aubrey",
+          "style": "Regular",
+          "version": "Version 1.102; ttfautohint (v1.8.3)"
+        }
+      ]
+    },
+    {
+      "file": "BASKVILL.TTF",
+      "sha256": "529C972A6D5C1992C76E908255F655F98989B74B146058C90555AF6D925A1715",
+      "faces": [
+        {
+          "family": "Baskerville Old Face",
+          "style": "Regular",
+          "version": "Version 1.51"
+        }
+      ]
+    },
+    {
+      "file": "BKANT.TTF",
+      "sha256": "C019F155A0004760F32079C22C29EF0DDD223D0C2C79E2487122E66D38A53B32",
+      "faces": [
+        {
+          "family": "Book Antiqua",
+          "style": "Regular",
+          "version": "Version 2.35"
+        }
+      ]
+    },
+    {
+      "file": "BOD_B.TTF",
+      "sha256": "051B0031DB491FA893FEDDD485B917B24A9D12F15A1E99E782C2420DA0A3FFB5",
+      "faces": [
+        {
+          "family": "Bodoni MT",
+          "style": "Bold",
+          "version": "Version 2.10"
+        }
+      ]
+    },
+    {
+      "file": "BOD_BI.TTF",
+      "sha256": "9729E2AE73B15871DB606A18A48B8674CE2BAE35D76A511D3510C4A9DB2385EF",
+      "faces": [
+        {
+          "family": "Bodoni MT",
+          "style": "Bold Italic",
+          "version": "Version 2.10"
+        }
+      ]
+    },
+    {
+      "file": "BOD_BLAI.TTF",
+      "sha256": "29854F6597CA7B46DB601C7A2EB28C13E31EE0541C7A5A499581FDEE8DA1B1D5",
+      "faces": [
+        {
+          "family": "Bodoni MT Black",
+          "style": "Italic",
+          "version": "Version 2.10"
+        }
+      ]
+    },
+    {
+      "file": "BOD_BLAR.TTF",
+      "sha256": "63261985FC00D6DB2DDA4F22DA039C70F3C4C90AA0F087FC1B7A8C9856F2B551",
+      "faces": [
+        {
+          "family": "Bodoni MT Black",
+          "style": "Regular",
+          "version": "Version 2.10"
+        }
+      ]
+    },
+    {
+      "file": "BOD_CB.TTF",
+      "sha256": "F307DE012E77219A25EF59ADA33820A3E33F6865C911ACDD97440C15058713FD",
+      "faces": [
+        {
+          "family": "Bodoni MT Condensed",
+          "style": "Bold",
+          "version": "Version 2.10"
+        }
+      ]
+    },
+    {
+      "file": "BOD_CBI.TTF",
+      "sha256": "24FD78549262987502D83EA0BCE5B47A3A0AC85C3941921B241A73FCA08DD012",
+      "faces": [
+        {
+          "family": "Bodoni MT Condensed",
+          "style": "Bold Italic",
+          "version": "Version 2.10"
+        }
+      ]
+    },
+    {
+      "file": "BOD_CI.TTF",
+      "sha256": "37194E3C2D5B000443D23DC324B1367CBE2BE40F28C2A6C693E6051210432CA3",
+      "faces": [
+        {
+          "family": "Bodoni MT Condensed",
+          "style": "Italic",
+          "version": "Version 2.10"
+        }
+      ]
+    },
+    {
+      "file": "BOD_CR.TTF",
+      "sha256": "0F1F746F293E547F8189783C49AEE22A8B839698F7493B5915CC5B432C65D843",
+      "faces": [
+        {
+          "family": "Bodoni MT Condensed",
+          "style": "Regular",
+          "version": "Version 2.10"
+        }
+      ]
+    },
+    {
+      "file": "BOD_I.TTF",
+      "sha256": "960458B4C0851B8B9F1D047FE50F7FA01DDFBECAEC692521D262660882E9596A",
+      "faces": [
+        {
+          "family": "Bodoni MT",
+          "style": "Italic",
+          "version": "Version 2.10"
+        }
+      ]
+    },
+    {
+      "file": "BOD_PSTC.TTF",
+      "sha256": "D0EFCBB58042808781F33898DC0FBE5342DA22D813415A4DCB394872B1D19AFA",
+      "faces": [
+        {
+          "family": "Bodoni MT Poster Compressed",
+          "style": "Regular",
+          "version": "Version 2.10"
+        }
+      ]
+    },
+    {
+      "file": "BOD_R.TTF",
+      "sha256": "17B06990413AB318B9E9F2C05D3816059F56D7A678F4712849A3318A9E5E7C7A",
+      "faces": [
+        {
+          "family": "Bodoni MT",
+          "style": "Regular",
+          "version": "Version 2.10"
+        }
+      ]
+    },
+    {
+      "file": "COOPBL.TTF",
+      "sha256": "0518E37FD63C8B97D63A6CE678EACA254F0677AB94D420E99860772ECF348636",
+      "faces": [
+        {
+          "family": "Cooper Black",
+          "style": "Regular",
+          "version": "Version 1.51"
+        }
+      ]
+    },
+    {
+      "file": "FORTE.TTF",
+      "sha256": "7407F0814D04A4CC45127933DF1D6FFAB5C90E5E888D33A7279CD82C36426B30",
+      "faces": [
+        {
+          "family": "Forte",
+          "style": "Regular",
+          "version": "Version 1.60"
+        }
+      ]
+    },
+    {
+      "file": "FRABK.TTF",
+      "sha256": "9AD3D0E5EF31C4A9A98CB0E169E4E625286AA34C712ADD3E001C0100138730D4",
+      "faces": [
+        {
+          "family": "Franklin Gothic Book",
+          "style": "Regular",
+          "version": "Version 2.01"
+        }
+      ]
+    },
+    {
+      "file": "FRABKIT.TTF",
+      "sha256": "2FC6FF3C5253DCA997C68D592E8CFA066B516A782D4B2747ACF297C6523F9306",
+      "faces": [
+        {
+          "family": "Franklin Gothic Book",
+          "style": "Italic",
+          "version": "Version 2.01"
+        }
+      ]
+    },
+    {
+      "file": "GOUDYSTO.TTF",
+      "sha256": "AB475061E2479350A315BF3F72D65AE9ACC37BEBEF4CF8DF979F8F6CED659216",
+      "faces": [
+        {
+          "family": "Goudy Stout",
+          "style": "Regular",
+          "version": "Version 1.80"
+        }
+      ]
+    },
+    {
+      "file": "Hobo Regular.ttf",
+      "sha256": "717AE282EC4DDDC12A945AE7CBD040EAFE702BDE5DDCAA20D3889412DBE2E653",
+      "faces": [
+        {
+          "family": "Hobo",
+          "style": "Regular",
+          "version": "Altsys Fontographer 3.5  11/17/92"
+        }
+      ]
+    },
+    {
+      "file": "LBRITE.TTF",
+      "sha256": "736EB3BDC990636D283384CF6428B03A6632AE16E81DC72CD28AECD0CDADB017",
+      "faces": [
+        {
+          "family": "Lucida Bright",
+          "style": "Regular",
+          "version": "Version 1.67"
+        }
+      ]
+    },
+    {
+      "file": "LBRITED.TTF",
+      "sha256": "8012EB0EC90AB1B7A40EEC8987927D5764055E332BDB19AB5EEB3C1CF67987C8",
+      "faces": [
+        {
+          "family": "Lucida Bright",
+          "style": "Demibold",
+          "version": "Version 1.67"
+        }
+      ]
+    },
+    {
+      "file": "LBRITEDI.TTF",
+      "sha256": "B2D15815CE8F722E22885E67562A66F512F6412399D9400AC01FECD718D54839",
+      "faces": [
+        {
+          "family": "Lucida Bright",
+          "style": "Demibold Italic",
+          "version": "Version 1.67"
+        }
+      ]
+    },
+    {
+      "file": "LBRITEI.TTF",
+      "sha256": "D347D9AE8A42C63ED7DC15BBA992D00EE9E606E0AC499A8022757C275855F612",
+      "faces": [
+        {
+          "family": "Lucida Bright",
+          "style": "Italic",
+          "version": "Version 1.67"
+        }
+      ]
+    },
+    {
+      "file": "RAVIE.TTF",
+      "sha256": "7019D811B304287BE2223F1667E0989F862951CBBA660BDE13A86BB103D97B80",
+      "faces": [
+        {
+          "family": "Ravie",
+          "style": "Regular",
+          "version": "Version 1.00"
+        }
+      ]
+    },
+    {
+      "file": "Runic MT Condensed.ttf",
+      "sha256": "A2948D16370913DC7901ADBF2DF15D2550BCC98093195AF1D34C4064FDB04EE7",
+      "faces": [
+        {
+          "family": "Runic MT Condensed",
+          "style": "Regular",
+          "version": "Version 1.50"
+        }
+      ]
+    },
+    {
+      "file": "SWZBLKN.TTF",
+      "sha256": "C91E378A98812FEE37A779852161B0D810D32F82B63031241DBDB3411884BFAF",
+      "faces": [
+        {
+          "family": "SwitzerlandBlack",
+          "style": "Regular",
+          "version": "001.003"
+        }
+      ]
+    },
+    {
+      "file": "andalemo.ttf",
+      "sha256": "48D9BC613917709D3B0E0F4A6D4FE33A5C544C5035DFFE9E90BC11E50E822071",
+      "faces": [
+        {
+          "family": "Andale Mono",
+          "style": "Regular",
+          "version": "Version 2.00"
+        }
+      ]
+    },
+    {
+      "file": "arialnarrow.ttf",
+      "sha256": "E17B243CBF2E194890C561DBB63E515DC34E941EE1A7923748B336199B812F52",
+      "faces": [
+        {
+          "family": "Arial Narrow",
+          "style": "Regular",
+          "version": "Version 2.20"
+        }
+      ]
+    },
+    {
+      "file": "arialnarrow_bold.ttf",
+      "sha256": "40028E109BC41FF92016F8A8ED758C2B10C15ACEC0089B96B9EC79E03CFE15F6",
+      "faces": [
+        {
+          "family": "Arial Narrow",
+          "style": "Bold",
+          "version": "Version 2.20"
+        }
+      ]
+    },
+    {
+      "file": "arialnarrow_bolditalic.ttf",
+      "sha256": "33B474269AFC56F8BE57C8BFEACE3F1B34577B6C7A821EF04CF4CCF0075E8CDF",
+      "faces": [
+        {
+          "family": "Arial Narrow",
+          "style": "Bold Italic",
+          "version": "Version 2.20"
+        }
+      ]
+    },
+    {
+      "file": "arialnarrow_italic.ttf",
+      "sha256": "2D004912C2FD76CEF454DF6C2B6E4064065395445FE549A4A12BD79AA683BDDF",
+      "faces": [
+        {
+          "family": "Arial Narrow",
+          "style": "Italic",
+          "version": "Version 2.20"
+        }
+      ]
+    }
+  ]
+}
