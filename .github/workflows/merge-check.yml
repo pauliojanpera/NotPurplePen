@@ -77,6 +77,9 @@ jobs:
     steps:
     - name: Checkout source
       uses: actions/checkout@v4
+      with:
+        # The alternate baselines are read out of the history with git archive.
+        fetch-depth: 0
 
     # The native helper Map_GDIPlus loads is x64, so the test host has to be
     # too. On an Arm image that means the emulated build, which the default
