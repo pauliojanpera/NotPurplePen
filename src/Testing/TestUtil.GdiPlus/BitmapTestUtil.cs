@@ -134,10 +134,16 @@ namespace TestingUtils
             // Show the dialog.
             if (different) {
                 if (TestUtil.SilentRun) {
-                    // Nobody is watching, so leave the evidence on disk instead:
-                    // what was rendered, and where it differs from the baseline.
-                    SaveComparison(bmNew, difference, baselineFile);
-                    fail = true;
+                    if (MatchesAlternateBaseline(bmNew, baselineFile, maxPixelDifference)) {
+                        different = false;
+                        bmNew.Dispose();
+                    }
+                    else {
+                        // Nobody is watching, so leave the evidence on disk instead:
+                        // what was rendered, and where it differs from the baseline.
+                        SaveComparison(bmNew, difference, baselineFile);
+                        fail = true;
+                    }
                 }
                 else {
                     string tempNewFile = Path.Combine(Path.GetDirectoryName(baselineFile), Path.GetFileNameWithoutExtension(baselineFile) + "_tempnew.png");
@@ -162,6 +168,72 @@ namespace TestingUtils
             // Clean up and fail the test if desired.
             if (fail)
                 Assert.Fail(string.Format("Bitmap compare against baseline file '{0}' failed", Path.GetFileName(baselineFile)));
+        }
+
+        // A second set of baselines to fall back on, named by
+        // TEST_ALT_BASELINE_ROOT. A baseline that has moved leaves the run with
+        // no way to tell a rendering this machine cannot reproduce from one that
+        // has regressed; matching an older committed baseline exactly separates
+        // the two, and is reported rather than passed over in silence.
+        private static Dictionary<string, string> alternateBaselines;
+        private static readonly object alternateLock = new object();
+
+        // Parameters:
+        //   bmNew - the bitmap that was rendered.
+        //   baselineFile - the baseline it failed against.
+        //   maxPixelDifference - the tolerance that comparison used.
+        private static bool MatchesAlternateBaseline(Bitmap bmNew, string baselineFile, int maxPixelDifference)
+        {
+            string alternate = FindAlternateBaseline(baselineFile);
+            if (alternate == null)
+                return false;
+
+            using (Bitmap bmAlternate = (Bitmap)Image.FromFile(alternate))
+            using (Bitmap difference = CompareBitmaps(bmNew, bmAlternate, Color.LightPink, Color.Transparent, maxPixelDifference)) {
+                if (difference != null)
+                    return false;
+            }
+
+            string note = string.Format("Alternate baseline matched: {0}", Path.GetFileName(baselineFile));
+            Console.WriteLine(note);
+            string log = Environment.GetEnvironmentVariable("TEST_ALT_BASELINE_LOG");
+            if (!string.IsNullOrEmpty(log)) {
+                try {
+                    File.AppendAllText(log, note + Environment.NewLine);
+                }
+                catch (IOException) {
+                }
+            }
+
+            return true;
+        }
+
+        // Parameters:
+        //   baselineFile - full path of the baseline that did not match.
+        private static string FindAlternateBaseline(string baselineFile)
+        {
+            lock (alternateLock) {
+                if (alternateBaselines == null) {
+                    alternateBaselines = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+                    string root = Environment.GetEnvironmentVariable("TEST_ALT_BASELINE_ROOT");
+                    if (!string.IsNullOrEmpty(root) && Directory.Exists(root)) {
+                        foreach (string file in Directory.GetFiles(root, "*.png", SearchOption.AllDirectories))
+                            alternateBaselines[AlternateKey(file)] = file;
+                    }
+                }
+
+                string found;
+                return alternateBaselines.TryGetValue(AlternateKey(baselineFile), out found) ? found : null;
+            }
+        }
+
+        // The containing directory and the file name together. Baseline names
+        // repeat across the test directories but not within one, and this
+        // survives the alternate set being rooted somewhere else entirely.
+        private static string AlternateKey(string path)
+        {
+            string directory = Path.GetDirectoryName(path);
+            return (directory == null ? "" : Path.GetFileName(directory)) + "/" + Path.GetFileName(path);
         }
 
         // Writes what a failed comparison produced next to the baseline, so that an
