@@ -546,10 +546,17 @@ jobs:
     - name: Checkout source
       uses: actions/checkout@v4
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '10.0.x'
+    # The native helper Map_GDIPlus loads is x64, so the test host has to be
+    # too. On an Arm image that means the emulated build, which the default
+    # setup does not install.
+    - name: Setup .NET for x64
+      shell: pwsh
+      run: |
+        $install = Join-Path $env:RUNNER_TEMP 'dotnet-install.ps1'
+        Invoke-WebRequest https://dot.net/v1/dotnet-install.ps1 -OutFile $install -UseBasicParsing
+        & $install -Channel 10.0 -Architecture x64 -InstallDir "$env:ProgramFiles\dotnet-x64"
+        "DOTNET_ROOT=$env:ProgramFiles\dotnet-x64" | Out-File $env:GITHUB_ENV -Append -Encoding utf8
+        & "$env:ProgramFiles\dotnet-x64\dotnet.exe" --info | Select-Object -First 6
 
     - name: Fetch the build
       uses: actions/download-artifact@v4
@@ -571,8 +578,9 @@ jobs:
         TEST_SILENTRUN: 'True'
       run: |
         $dll = 'MapModel/Test_MapModel/bin/Debug/net10.0-windows/Test_MapModel.dll'
-        "Testing $dll"
-        & dotnet test $dll --filter "FullyQualifiedName~Rendering|FullyQualifiedName~OpenMapperImport"
+        $dotnet = Join-Path $env:ProgramFiles 'dotnet-x64\dotnet.exe'
+        "Testing $dll with $dotnet"
+        & $dotnet test $dll --filter "FullyQualifiedName~Rendering|FullyQualifiedName~OpenMapperImport"
         exit $LASTEXITCODE
 
     - name: Upload rendering differences
