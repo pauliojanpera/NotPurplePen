@@ -256,12 +256,39 @@ jobs:
         $rows = foreach ($entry in $updates) {
             "<li><a href=""downloads/$(Split-Path $entry.url -Leaf)"">$($entry.version)</a> &mdash; $($entry.channel)</li>"
         }
-        $trials = if (Test-Path site/trial) {
-            foreach ($directory in (Get-ChildItem site/trial -Directory | Sort-Object Name)) {
+        # Newest first, and a fixed address for it, so that the build to try is
+        # the one at the top and can be fetched without knowing which branch it
+        # came from or what it ended up being called. A redirect rather than a
+        # second copy: the installer is forty megabytes.
+        $trialBuilds = @()
+        if (Test-Path site/trial) {
+            foreach ($directory in (Get-ChildItem site/trial -Directory)) {
                 foreach ($file in (Get-ChildItem $directory.FullName -Filter *.exe)) {
-                    "<li><a href=""trial/$($directory.Name)/$($file.Name)"">$($directory.Name)</a> &mdash; $($file.Name)</li>"
+                    $trialBuilds += [pscustomobject]@{
+                        Slug = $directory.Name; Name = $file.Name; Version = Get-Version $file
+                    }
                 }
             }
+            $trialBuilds = @($trialBuilds | Sort-Object Version -Descending)
+        }
+        if ($trialBuilds.Count) {
+            $newest = $trialBuilds[0]
+            $target = "$($newest.Slug)/$($newest.Name)"
+            @"
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="refresh" content="0; url=$target">
+            <title>Latest trial build</title>
+        </head>
+        <body><p><a href="$target">$($newest.Name)</a></p></body>
+        </html>
+        "@ | Set-Content -Path site/trial/latest.html -Encoding utf8
+        }
+        $trials = foreach ($build in $trialBuilds) {
+            $mark = if ($build -eq $trialBuilds[0]) { ' &mdash; <strong>newest</strong>' } else { '' }
+            "<li><a href=""trial/$($build.Slug)/$($build.Name)"">$($build.Slug)</a> &mdash; $($build.Version)$mark</li>"
         }
         $commits = (git log -n 10 --pretty=%s | ForEach-Object { "<li>$_</li>" }) -join "`n        "
         @"
@@ -280,7 +307,8 @@ jobs:
                 $($rows -join "`n        ")
             </ul>
             <h2>Trial builds</h2>
-            <p>Built from a branch against the current upstream. Installed from here, never offered as an update.</p>
+            <p>Built from a branch against the current upstream. Installed from here, never offered as an update.
+               The newest is always at <a href="trial/latest.html">trial/latest.html</a>.</p>
             <ul>
                 $($trials -join "`n        ")
             </ul>
