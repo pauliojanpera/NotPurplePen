@@ -319,6 +319,16 @@ jobs:
         # abandons the assembly, and Map_Skia.Tests does not always make it.
         VSTEST_CONNECTION_TIMEOUT: 600
       run: |
+        # dotnet test evaluates every project in the solution, and the SDK's own
+        # MSBuild cannot load the two native C++ ones without being told where the
+        # C++ targets live. Four MSB4278 errors and a non-zero exit follow, whatever
+        # the tests did.
+        $vswhere = Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio\Installer\vswhere.exe'
+        $vs = & $vswhere -latest -products * -property installationPath
+        $env:VCTargetsPath = (Join-Path $vs 'MSBuild\Microsoft\VC\v170\')
+        "VCTargetsPath: $env:VCTargetsPath"
+        "exists: $(Test-Path (Join-Path $env:VCTargetsPath 'Microsoft.Cpp.Default.props'))"
+
         # The collector names each test as it begins; see its own source for why
         # a logger cannot. It is not in the solution, so build it on its own.
         dotnet build Testing/TestStartLog/TestStartLog.csproj -c Debug --nologo
