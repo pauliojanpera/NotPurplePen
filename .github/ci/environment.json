@@ -1,0 +1,734 @@
+{
+  "description": "The machine the rendering baselines were recorded against. A hosted image cannot be pinned, so it is recorded here and checked at the start of every test run: a change shows up as one message instead of a hundred unexplained rendering diffs.",
+  "image": {
+    "os": "win11-vs2026-arm64",
+    "version": "20261013.183.4"
+  },
+  "windows": {
+    "displayVersion": "25H2",
+    "build": "26200.9457",
+    "architecture": "ARM64"
+  },
+  "systemFonts": [
+    {
+      "file": "arial.ttf",
+      "sha256": "B3658EADAE55E682B5F69EB64C439C1ECC8F196C0BB8D4756D145D13BC86476A",
+      "faces": [
+        {
+          "family": "Arial",
+          "style": "Regular",
+          "version": "Version 7.06"
+        }
+      ]
+    },
+    {
+      "file": "arialbd.ttf",
+      "sha256": "E8F4E3BAF6CC35FED6FCCE3A540E8B39E8F6CDA1D22A28F2EC8F526FEF7A43F5",
+      "faces": [
+        {
+          "family": "Arial",
+          "style": "Bold",
+          "version": "Version 7.06"
+        }
+      ]
+    },
+    {
+      "file": "arialbi.ttf",
+      "sha256": "267A411525980D648F10A7222A6FF1EBE4D4FEEEFBF9B3100CAE2B5CFAB5594A",
+      "faces": [
+        {
+          "family": "Arial",
+          "style": "Bold Italic",
+          "version": "Version 7.06"
+        }
+      ]
+    },
+    {
+      "file": "ariali.ttf",
+      "sha256": "86B32DB9A06F9694E2A3760C42E5117BCDC5CC1255BB5186CA8CE0305E22F288",
+      "faces": [
+        {
+          "family": "Arial",
+          "style": "Italic",
+          "version": "Version 7.06"
+        }
+      ]
+    },
+    {
+      "file": "ariblk.ttf",
+      "sha256": "10DF702864B1F89CB29BA0D6B97C04228338D16807E13E8D8C74B91ABA5E5F23",
+      "faces": [
+        {
+          "family": "Arial Black",
+          "style": "Regular",
+          "version": "Version 5.23"
+        }
+      ]
+    },
+    {
+      "file": "calibri.ttf",
+      "sha256": "57E93FF143572BCC092C1F56202D43DDC07BB119AA104C6D7AF163470FB551F6",
+      "faces": [
+        {
+          "family": "Calibri",
+          "style": "Regular",
+          "version": "Version 6.27"
+        }
+      ]
+    },
+    {
+      "file": "calibrib.ttf",
+      "sha256": "0A8296747536EAD27D5F48F67E911CC3B207742B3F704E66995251D12FD422E5",
+      "faces": [
+        {
+          "family": "Calibri",
+          "style": "Bold",
+          "version": "Version 6.27"
+        }
+      ]
+    },
+    {
+      "file": "calibrii.ttf",
+      "sha256": "7F150E9EABE5DB3E1B0F9469DCA5C96176BC2FBB306DC9D48B7029DC69C52763",
+      "faces": [
+        {
+          "family": "Calibri",
+          "style": "Italic",
+          "version": "Version 6.27"
+        }
+      ]
+    },
+    {
+      "file": "calibril.ttf",
+      "sha256": "2DB491080305B349588B9851FB6FE960EEE04CD7C1097784A987287D782F0A54",
+      "faces": [
+        {
+          "family": "Calibri Light",
+          "style": "Regular",
+          "version": "Version 6.27"
+        }
+      ]
+    },
+    {
+      "file": "calibrili.ttf",
+      "sha256": "64CA9B15CA79927C3C4C69094BB41F78E5F0D79E9501D9D381A8794B220EEAD1",
+      "faces": [
+        {
+          "family": "Calibri Light",
+          "style": "Italic",
+          "version": "Version 6.27"
+        }
+      ]
+    },
+    {
+      "file": "calibriz.ttf",
+      "sha256": "760539BFEDBE24E7853CA8A621D9CB1F3DE52036C116E81AAE36B33C4AB60A7C",
+      "faces": [
+        {
+          "family": "Calibri",
+          "style": "Bold Italic",
+          "version": "Version 6.27"
+        }
+      ]
+    },
+    {
+      "file": "cambria.ttc",
+      "sha256": "84E70CCC1664482F4A960442C7A166C91A1B2CF98FF88C33CB73F79403F66D7B",
+      "faces": [
+        {
+          "family": "Cambria",
+          "style": "Regular",
+          "version": "Version 6.99"
+        },
+        {
+          "family": "Cambria Math",
+          "style": "Regular",
+          "version": "Version 6.99"
+        }
+      ]
+    },
+    {
+      "file": "cambriab.ttf",
+      "sha256": "6685C657A7E292083E28F19BBF1A1E90509CE3E1130DBC4ED1C62BA3F9140543",
+      "faces": [
+        {
+          "family": "Cambria",
+          "style": "Bold",
+          "version": "Version 6.98"
+        }
+      ]
+    },
+    {
+      "file": "cambriai.ttf",
+      "sha256": "6905F0AC846D1EC4326CD14A46CB7379204940AA293B098EE4C1A69723BBD165",
+      "faces": [
+        {
+          "family": "Cambria",
+          "style": "Italic",
+          "version": "Version 6.98"
+        }
+      ]
+    },
+    {
+      "file": "cambriaz.ttf",
+      "sha256": "FA90F376AD37F308A819B341C8185F788D30A1012829278592EAB45A41818D1A",
+      "faces": [
+        {
+          "family": "Cambria",
+          "style": "Bold Italic",
+          "version": "Version 6.98"
+        }
+      ]
+    },
+    {
+      "file": "comic.ttf",
+      "sha256": "FC7FBC3FB456A363F1F719B0EC62AE093C78124BB6DA046006AE7E217A6B8575",
+      "faces": [
+        {
+          "family": "Comic Sans MS",
+          "style": "Regular",
+          "version": "Version 5.15"
+        }
+      ]
+    },
+    {
+      "file": "comicbd.ttf",
+      "sha256": "128FDCFDFDD358E1624C15DD1F84A4D0689E59AFCDEFB81F8105EFB2253B9C00",
+      "faces": [
+        {
+          "family": "Comic Sans MS",
+          "style": "Bold",
+          "version": "Version 5.15"
+        }
+      ]
+    },
+    {
+      "file": "comici.ttf",
+      "sha256": "872CDEFEA79E25FF1A8A814109593C23ED66BA46F5BB843815D49E1AB4E0BE3C",
+      "faces": [
+        {
+          "family": "Comic Sans MS",
+          "style": "Italic",
+          "version": "Version 5.15"
+        }
+      ]
+    },
+    {
+      "file": "comicz.ttf",
+      "sha256": "36EB300A76582B7D39F3D34834CE1255F0B9B2830FB2E81485C4B85A5FF7F03B",
+      "faces": [
+        {
+          "family": "Comic Sans MS",
+          "style": "Bold Italic",
+          "version": "Version 5.15"
+        }
+      ]
+    },
+    {
+      "file": "corbel.ttf",
+      "sha256": "A183B77B655DF66793639AF7874828FB50F748DC4AF57AE40F758156F7F34634",
+      "faces": [
+        {
+          "family": "Corbel",
+          "style": "Regular",
+          "version": "Version 6.01"
+        }
+      ]
+    },
+    {
+      "file": "corbelb.ttf",
+      "sha256": "FA008372F8A94945D0DAEF9DAF0BFB9E3FBA3A25FD17F2607D47AC6861BD0303",
+      "faces": [
+        {
+          "family": "Corbel",
+          "style": "Bold",
+          "version": "Version 6.01"
+        }
+      ]
+    },
+    {
+      "file": "corbeli.ttf",
+      "sha256": "9BE778C9ED418770F6B5A02064D9C0B47A8FDEA1137618F0BEC9AC4072430A45",
+      "faces": [
+        {
+          "family": "Corbel",
+          "style": "Italic",
+          "version": "Version 6.01"
+        }
+      ]
+    },
+    {
+      "file": "corbell.ttf",
+      "sha256": "0E36DDF90102E476C6739CA4C8CC18BA8309D880C12558981D2E4D42DE78FC00",
+      "faces": [
+        {
+          "family": "Corbel Light",
+          "style": "Regular",
+          "version": "Version 6.01"
+        }
+      ]
+    },
+    {
+      "file": "corbelli.ttf",
+      "sha256": "A031500BCCD32B5D6E819699B774FC679C696ED4965B643D51A94EB398475550",
+      "faces": [
+        {
+          "family": "Corbel Light",
+          "style": "Italic",
+          "version": "Version 6.01"
+        }
+      ]
+    },
+    {
+      "file": "corbelz.ttf",
+      "sha256": "588F090AE3A6D31370457312683D14EE3A5BFBDAAA0A070B7C80225B55B23E78",
+      "faces": [
+        {
+          "family": "Corbel",
+          "style": "Bold Italic",
+          "version": "Version 6.01"
+        }
+      ]
+    },
+    {
+      "file": "cour.ttf",
+      "sha256": "E4A66A0259718D0C8F4B6E14319B4803CED45AFBDDF3ABBA8B8C3E2006856206",
+      "faces": [
+        {
+          "family": "Courier New",
+          "style": "Regular",
+          "version": "Version 6.95"
+        }
+      ]
+    },
+    {
+      "file": "courbd.ttf",
+      "sha256": "11E629CEF937CD08F942AA1BD994A71302DBE2819C72C6D4C183A623ACBB421A",
+      "faces": [
+        {
+          "family": "Courier New",
+          "style": "Bold",
+          "version": "Version 6.95"
+        }
+      ]
+    },
+    {
+      "file": "courbi.ttf",
+      "sha256": "2D61F452DE49B57D9EF14CE8896BC1CD2ED8285C2E9FB2E73E78A4B23F91D308",
+      "faces": [
+        {
+          "family": "Courier New",
+          "style": "Bold Italic",
+          "version": "Version 6.95"
+        }
+      ]
+    },
+    {
+      "file": "couri.ttf",
+      "sha256": "D82EEEB458F661D867F916D691FC6D3C53F8735FE4D5B04B54A5757321EE03E0",
+      "faces": [
+        {
+          "family": "Courier New",
+          "style": "Italic",
+          "version": "Version 6.95"
+        }
+      ]
+    },
+    {
+      "file": "georgia.ttf",
+      "sha256": "38DFFCAF1FAC89492F7C56C600A14DAF36AE42F7C21985CD4134AE113124A58F",
+      "faces": [
+        {
+          "family": "Georgia",
+          "style": "Regular",
+          "version": "Version 5.59"
+        }
+      ]
+    },
+    {
+      "file": "georgiab.ttf",
+      "sha256": "72A6CD94FAB6C179392075D3FB361E269CDDDFAD41BB7AB385FA22A37E49A900",
+      "faces": [
+        {
+          "family": "Georgia",
+          "style": "Bold",
+          "version": "Version 5.59"
+        }
+      ]
+    },
+    {
+      "file": "georgiai.ttf",
+      "sha256": "D3E4BAD27651D120AC8F2CEA42CF4B4F077264FB243F66B3CAFFCFD35465F49B",
+      "faces": [
+        {
+          "family": "Georgia",
+          "style": "Italic",
+          "version": "Version 5.59"
+        }
+      ]
+    },
+    {
+      "file": "georgiaz.ttf",
+      "sha256": "3F9E512F82EAF6F1B7869B82013FB79F6EAF1A41E75A0E7B96F31F35B1022AE4",
+      "faces": [
+        {
+          "family": "Georgia",
+          "style": "Bold Italic",
+          "version": "Version 5.59"
+        }
+      ]
+    },
+    {
+      "file": "impact.ttf",
+      "sha256": "D8BBDB72E3F930157824B2E59677D3A912D4512C14A948E6656A2E3FB0C935AD",
+      "faces": [
+        {
+          "family": "Impact",
+          "style": "Regular",
+          "version": "Version 5.11"
+        }
+      ]
+    },
+    {
+      "file": "pala.ttf",
+      "sha256": "E47D594E2E2BC31B28F87B6F66483D32F925843CEB002F919C7A403ACA48813D",
+      "faces": [
+        {
+          "family": "Palatino Linotype",
+          "style": "Regular",
+          "version": "Version 5.03"
+        }
+      ]
+    },
+    {
+      "file": "palab.ttf",
+      "sha256": "8E14668BBAE03F78ED668DBE3261218881960DCD9FB80AD6C1D1DFB4226A57C3",
+      "faces": [
+        {
+          "family": "Palatino Linotype",
+          "style": "Bold",
+          "version": "Version 5.03"
+        }
+      ]
+    },
+    {
+      "file": "palabi.ttf",
+      "sha256": "D0E722B91FFD5391CC2E7D6E976F274D5AEE9FE0B8D0FEDFFFE093763E695CDE",
+      "faces": [
+        {
+          "family": "Palatino Linotype",
+          "style": "Bold Italic",
+          "version": "Version 5.03"
+        }
+      ]
+    },
+    {
+      "file": "palai.ttf",
+      "sha256": "99F0AF2D1941707FECDA23DA38BAFBED5144A73A3720D773C05B9D4C445920ED",
+      "faces": [
+        {
+          "family": "Palatino Linotype",
+          "style": "Italic",
+          "version": "Version 5.03"
+        }
+      ]
+    },
+    {
+      "file": "segoeui.ttf",
+      "sha256": "8134DBCD09E7B123C9A7F229D49CFFBCB01352CC72EA5E1076B65D0DCA9F73CD",
+      "faces": [
+        {
+          "family": "Segoe UI",
+          "style": "Regular",
+          "version": "Version 5.71"
+        }
+      ]
+    },
+    {
+      "file": "segoeuib.ttf",
+      "sha256": "AEB9E4A6EC5CC59F4D72DF8189032D7DBB28F45161CF1552174818B5465DAC4E",
+      "faces": [
+        {
+          "family": "Segoe UI",
+          "style": "Bold",
+          "version": "Version 5.71"
+        }
+      ]
+    },
+    {
+      "file": "segoeuii.ttf",
+      "sha256": "BE525B9A6D307D73C23908CD269BE9BE754210A9D93C0C1EAAA126D2A174290A",
+      "faces": [
+        {
+          "family": "Segoe UI",
+          "style": "Italic",
+          "version": "Version 5.71"
+        }
+      ]
+    },
+    {
+      "file": "segoeuil.ttf",
+      "sha256": "866557576DFC772395301B581ECCEF4C0DAF1DBB75F9667F26784B260BCE7DA1",
+      "faces": [
+        {
+          "family": "Segoe UI Light",
+          "style": "Regular",
+          "version": "Version 5.71"
+        }
+      ]
+    },
+    {
+      "file": "segoeuisl.ttf",
+      "sha256": "3432DE66F335C7E3058154F7CBB13EF051195653A544B49B1992267E558B33EF",
+      "faces": [
+        {
+          "family": "Segoe UI Semilight",
+          "style": "Regular",
+          "version": "Version 5.71"
+        }
+      ]
+    },
+    {
+      "file": "segoeuiz.ttf",
+      "sha256": "C886161FA6D102090FF992519B6FDC73057A0E838E9D40B27E187E9E61300A92",
+      "faces": [
+        {
+          "family": "Segoe UI",
+          "style": "Bold Italic",
+          "version": "Version 5.71"
+        }
+      ]
+    },
+    {
+      "file": "seguibl.ttf",
+      "sha256": "BE191C94A0C7172870C3C87A136BD5AA67CDCA7BC091DE89242FB64ECB0F8FAE",
+      "faces": [
+        {
+          "family": "Segoe UI Black",
+          "style": "Regular",
+          "version": "Version 5.71"
+        }
+      ]
+    },
+    {
+      "file": "seguibli.ttf",
+      "sha256": "51D300301197DFB0621A8D8B275274D408DD15A7EDDA4CC4A8F7666504D582CD",
+      "faces": [
+        {
+          "family": "Segoe UI Black",
+          "style": "Italic",
+          "version": "Version 5.71"
+        }
+      ]
+    },
+    {
+      "file": "seguili.ttf",
+      "sha256": "3CB01ED58922781A62AF14E738CD96023957F60D8D6733920A8808614F477DD8",
+      "faces": [
+        {
+          "family": "Segoe UI Light",
+          "style": "Italic",
+          "version": "Version 5.71"
+        }
+      ]
+    },
+    {
+      "file": "seguisb.ttf",
+      "sha256": "2D9B22D71F72DE2823FEE5D9C8BC1B0FC32B2577C4C27B9EC6ABDBB8DF0E1731",
+      "faces": [
+        {
+          "family": "Segoe UI Semibold",
+          "style": "Regular",
+          "version": "Version 5.71"
+        }
+      ]
+    },
+    {
+      "file": "seguisbi.ttf",
+      "sha256": "454295546B78810C95FFD7FC9D57890ED15A03B7CFD0D7E3485786400152B740",
+      "faces": [
+        {
+          "family": "Segoe UI Semibold",
+          "style": "Italic",
+          "version": "Version 5.71"
+        }
+      ]
+    },
+    {
+      "file": "seguisli.ttf",
+      "sha256": "4DC2DB1870047663878DA07FA5F8217E518EF875C8AD33287FCBAD6ABA5A7E73",
+      "faces": [
+        {
+          "family": "Segoe UI Semilight",
+          "style": "Italic",
+          "version": "Version 5.71"
+        }
+      ]
+    },
+    {
+      "file": "tahoma.ttf",
+      "sha256": "9AF03D4AD44A3B413D92F7DE48B94AA7CC8A1471A75D498406EAE837F62EE1D1",
+      "faces": [
+        {
+          "family": "Tahoma",
+          "style": "Regular",
+          "version": "Version 7.05"
+        }
+      ]
+    },
+    {
+      "file": "tahomabd.ttf",
+      "sha256": "B16ED1A15E0CABEA8D41D9F8899C253CD61AC466AF5E3980D02BD0CF311C2267",
+      "faces": [
+        {
+          "family": "Tahoma",
+          "style": "Bold",
+          "version": "Version 7.05"
+        }
+      ]
+    },
+    {
+      "file": "times.ttf",
+      "sha256": "931C5DE5C70401D9324D5014C123802B4FB753000360CEB2F56C589403CD58C5",
+      "faces": [
+        {
+          "family": "Times New Roman",
+          "style": "Regular",
+          "version": "Version 7.12"
+        }
+      ]
+    },
+    {
+      "file": "timesbd.ttf",
+      "sha256": "54FBE2C70AF7C85A97BED0573227E3CCC4B2486012E3CA2A40C6BC77065846F5",
+      "faces": [
+        {
+          "family": "Times New Roman",
+          "style": "Bold",
+          "version": "Version 7.12"
+        }
+      ]
+    },
+    {
+      "file": "timesbi.ttf",
+      "sha256": "3A29D114CB5229E8DBDA5BEF6C69BE4A210A13B7277DE4D66E9FC86963226F6C",
+      "faces": [
+        {
+          "family": "Times New Roman",
+          "style": "Bold Italic",
+          "version": "Version 7.12"
+        }
+      ]
+    },
+    {
+      "file": "timesi.ttf",
+      "sha256": "E7F7A88B65188328AEA58670F955022E23C712F55679524729DA1E4E03C49D88",
+      "faces": [
+        {
+          "family": "Times New Roman",
+          "style": "Italic",
+          "version": "Version 7.12"
+        }
+      ]
+    },
+    {
+      "file": "trebuc.ttf",
+      "sha256": "FE3E8BDD64C1C9F3B9CF5189D06510C80D72CEC28E03D04BFFC560F77EEC58D1",
+      "faces": [
+        {
+          "family": "Trebuchet MS",
+          "style": "Regular",
+          "version": "Version 5.15"
+        }
+      ]
+    },
+    {
+      "file": "trebucbd.ttf",
+      "sha256": "DFCC306777A594D2815368547DD897E2AC82AFF8073E55D9E682569939E49B81",
+      "faces": [
+        {
+          "family": "Trebuchet MS",
+          "style": "Bold",
+          "version": "Version 5.15"
+        }
+      ]
+    },
+    {
+      "file": "trebucbi.ttf",
+      "sha256": "87942234AB0CC4400088648BEF8D1F7AFC4C44E676C7ED6B32CA31462C18307D",
+      "faces": [
+        {
+          "family": "Trebuchet MS",
+          "style": "Bold Italic",
+          "version": "Version 5.15"
+        }
+      ]
+    },
+    {
+      "file": "trebucit.ttf",
+      "sha256": "9C9DC0CD0FD6B1A06E8F406D04BB15A88AAF20328D3E166C12D6BC7994B781D2",
+      "faces": [
+        {
+          "family": "Trebuchet MS",
+          "style": "Italic",
+          "version": "Version 5.15"
+        }
+      ]
+    },
+    {
+      "file": "verdana.ttf",
+      "sha256": "6A8481FE107EE547893C018B13DBA291C2020BEC3DE5DA6525D9AC09F6BC2105",
+      "faces": [
+        {
+          "family": "Verdana",
+          "style": "Regular",
+          "version": "Version 5.33"
+        }
+      ]
+    },
+    {
+      "file": "verdanab.ttf",
+      "sha256": "F3245F5F38F61BD1CEEFB0F1338A5B88A21E6220832C2F43A38BBC7E1547C36F",
+      "faces": [
+        {
+          "family": "Verdana",
+          "style": "Bold",
+          "version": "Version 5.33"
+        }
+      ]
+    },
+    {
+      "file": "verdanai.ttf",
+      "sha256": "14F2EBCDAA1B77E5993A8533662E4BD3EBFE2C5771B6DAAFD8CCB39B2AD588B9",
+      "faces": [
+        {
+          "family": "Verdana",
+          "style": "Italic",
+          "version": "Version 5.33"
+        }
+      ]
+    },
+    {
+      "file": "verdanaz.ttf",
+      "sha256": "D71F81C83EC63EAA32D36D5DF7BE1D9E71D3EA9150F47CEBDA2924923CBBF18A",
+      "faces": [
+        {
+          "family": "Verdana",
+          "style": "Bold Italic",
+          "version": "Version 5.33"
+        }
+      ]
+    },
+    {
+      "file": "webdings.ttf",
+      "sha256": "67461FABD8329D0D8AD62689CAC642B34FAC81C754FF9077AD211160EC62282D",
+      "faces": [
+        {
+          "family": "Webdings",
+          "style": "Regular",
+          "version": "Version 5.01"
+        }
+      ]
+    }
+  ]
+}
