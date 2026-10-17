@@ -32,8 +32,9 @@ jobs:
     # from one that has regressed. One commit of history is enough for it.
     - name: Take the baselines as they stood at 81379316
       run: |
-        git fetch --depth=1 origin 81379316
-        git archive --format=zip -o alt-baselines.zip 81379316 MapModel/TestFiles/wpfrender
+        # Fetching one commit by name needs the whole name, not the short one.
+        git fetch --depth=1 origin 813793163ec277ab5be1580545faa672f0674c8f
+        git archive --format=zip -o alt-baselines.zip 813793163ec277ab5be1580545faa672f0674c8f MapModel/TestFiles/wpfrender
 
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v2
