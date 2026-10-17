@@ -1,6 +1,6 @@
 name: Build NotPurplePen
 
-# Packaging. The test suite lives in merge-check.yml; the two must not overlap,
+# Packaging. The test suite lives in tests.yml; the two must not overlap,
 # or every push builds the installer twice.
 #
 # Where a build goes follows from the branch it came from:
@@ -361,7 +361,7 @@ jobs:
         $deadline = (Get-Date).AddMinutes(40)
         while ($true) {
             $runs = & gh api "repos/$env:GITHUB_REPOSITORY/actions/runs?head_sha=$env:GITHUB_SHA" `
-                             --jq '.workflow_runs[] | select(.path == ".github/workflows/merge-check.yml") | "\(.status) \(.conclusion)"'
+                             --jq '.workflow_runs[] | select(.path == ".github/workflows/tests.yml") | "\(.status) \(.conclusion)"'
             if (-not $runs) { throw 'No test run for this commit; nothing to publish behind.' }
             $states = @($runs -split "`n" | Where-Object { $_ })
             if ($states | Where-Object { $_ -like 'completed success*' }) { break }
