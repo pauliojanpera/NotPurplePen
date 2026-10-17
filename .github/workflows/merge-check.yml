@@ -724,6 +724,16 @@ jobs:
       env:
         TEST_SILENTRUN: 'True'
       run: |
+        # The same fallback set the other job uses, so that the two images are
+        # asked the same question.
+        $altRoot = Join-Path $PWD 'alt-baselines'
+        Remove-Item $altRoot -Recurse -Force -ErrorAction SilentlyContinue
+        git archive --format=zip -o alt-baselines.zip 81379316 MapModel/TestFiles/wpfrender
+        Expand-Archive alt-baselines.zip -DestinationPath $altRoot -Force
+        $env:TEST_ALT_BASELINE_ROOT = $altRoot
+        $env:TEST_ALT_BASELINE_LOG = Join-Path $PWD 'alt-baselines.log'
+        "alternate baselines: $((Get-ChildItem $altRoot -Recurse -Filter *.png).Count) files"
+
         $dotnet = Join-Path $env:ProgramFiles 'dotnet-x64\dotnet.exe'
         $failed = 0
         foreach ($dll in 'MapModel/Test_MapModel/bin/Debug/net10.0-windows/Test_MapModel.dll',
@@ -732,6 +742,9 @@ jobs:
             & $dotnet test $dll
             if ($LASTEXITCODE -ne 0) { $failed = 1 }
         }
+        $matched = @(Get-Content $env:TEST_ALT_BASELINE_LOG -ErrorAction SilentlyContinue)
+        "$($matched.Count) comparisons matched the July baseline."
+
         exit $failed
 
     - name: Upload rendering differences
