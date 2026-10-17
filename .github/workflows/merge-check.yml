@@ -23,34 +23,18 @@ jobs:
     runs-on: windows-11-arm
 
     steps:
-    - name: Copy the fallback faces
+    - name: Copy the faces this image ships
       shell: pwsh
       run: |
-        # Every family the font fallback reached for in a run, as the embedded
-        # fonts of the PDF it leaves behind name them.
-        $names = @(
-            'seguiemj.ttf', 'seguisym.ttf', 'seguihis.ttf',
-            'malgun.ttf', 'malgunbd.ttf', 'malgunsl.ttf',
-            'msjh.ttc', 'msjhbd.ttc', 'msjhl.ttc',
-            'simsunb.ttf', 'mingliub.ttc',
-            'YuGothR.ttc', 'YuGothM.ttc', 'YuGothB.ttc', 'YuGothL.ttc',
-            'Nirmala.ttf', 'NirmalaB.ttf', 'NirmalaS.ttf',
-            'mmrtext.ttf', 'mmrtextb.ttf',
-            'ebrima.ttf', 'ebrimabd.ttf',
-            'LeelawUI.ttf', 'LeelaUIb.ttf', 'LeelUIsl.ttf'
-        )
-
+        # Which families the fallback reaches for depends on what is installed,
+        # and GDI+ and DirectWrite do not choose alike, so the whole directory
+        # comes along rather than a list of guesses. The store is installed after
+        # these, so a face it pins still wins.
         New-Item -ItemType Directory -Path win11-fonts | Out-Null
-        $missing = @()
-        foreach ($name in $names) {
-            $path = Join-Path $env:WINDIR "Fonts\$name"
-            if (Test-Path $path) { Copy-Item $path win11-fonts }
-            else { $missing += $name }
-        }
+        Copy-Item (Join-Path $env:WINDIR 'Fonts\*') win11-fonts -Include *.ttf, *.ttc, *.otf -ErrorAction SilentlyContinue
 
-        "$((Get-ChildItem win11-fonts).Count) of $($names.Count) faces copied."
-        if ($missing.Count) { "Not on this image: $($missing -join ', ')" }
-        Get-ChildItem win11-fonts | ForEach-Object { "  {0,-18} {1,8:N0} B" -f $_.Name, $_.Length }
+        $files = Get-ChildItem win11-fonts
+        "{0} faces, {1:N0} MB" -f $files.Count, (($files | Measure-Object Length -Sum).Sum / 1MB)
 
     - name: Upload them
       uses: actions/upload-artifact@v4
