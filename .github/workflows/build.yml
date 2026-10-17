@@ -10,16 +10,16 @@ name: Build NotPurplePen
 #                an integration branch carries a prerelease one and lands on
 #                "beta", which only prerelease installs ever ask for.
 #   wip/**       built and kept as a run artifact. Nothing is published.
-#   a pull request against upstream-ci
+#   a pull request against base
 #                published under trial/, on a channel no installed copy ever
 #                asks for. This is how a branch offered to upstream is checked
 #                against it. Such a branch is rooted at upstream and carries no
 #                workflow of its own, so pushing to it cannot run one and no
 #                naming convention can change that; a pull request can, because
-#                its workflow is read from the merge of base and branch, and
-#                upstream-ci is upstream plus this directory and nothing else.
+#                its workflow is read from the merge of base and branch.
 #   a dispatched ref
-#                the same, for a branch with no pull request open.
+#                the same, for a branch with no pull request open: merged with
+#                base and with the current upstream before it is built.
 
 on:
   push:
@@ -28,7 +28,7 @@ on:
       - 'src/**'
       - '.github/**'
   pull_request:
-    branches: [ upstream-ci ]
+    branches: [ base ]
   workflow_dispatch:
     inputs:
       ref:
@@ -53,18 +53,34 @@ jobs:
         # GitVersion, used by the PdfSharp subtree, reads tags and history.
         fetch-depth: 0
 
-    # A branch meant for upstream has to build against upstream as it is now,
-    # not as it was when the branch was cut.
+    # A pull request arrives already merged with its base. A dispatched ref does
+    # not, and a branch rooted at upstream carries neither this product's
+    # identity nor the fixes its tests need, so it is merged with base here --
+    # otherwise the installer it produced would be Purple Pen's and would
+    # install over it.
+    - name: Merge what this is built on
+      if: github.event.inputs.ref != ''
+      shell: pwsh
+      run: |
+        git fetch --no-tags origin base
+        if ($LASTEXITCODE -ne 0) { throw 'Could not fetch base.' }
+        git -c user.name=ci -c user.email=ci@localhost merge --no-edit FETCH_HEAD
+        if ($LASTEXITCODE -ne 0) { throw 'This branch does not merge with base.' }
+
+    # And against upstream as it is now, not as it was when the branch was cut.
     - name: Merge the current upstream
       if: github.event.inputs.ref != '' || github.event_name == 'pull_request'
       shell: pwsh
       run: |
-        git remote add upstream https://github.com/petergolde/PurplePen.git
-        git fetch --no-tags upstream master
+        # By URL rather than as a second remote: GitVersion, which the PdfSharp
+        # subtree generates a class from, refuses to run on a build server
+        # whose repository has more than one.
+        git fetch --no-tags https://github.com/petergolde/PurplePen.git master
         if ($LASTEXITCODE -ne 0) { throw 'Could not fetch upstream.' }
-        git -c user.name=ci -c user.email=ci@localhost merge --no-edit upstream/master
+        $head = git rev-parse --short FETCH_HEAD
+        git -c user.name=ci -c user.email=ci@localhost merge --no-edit FETCH_HEAD
         if ($LASTEXITCODE -ne 0) { throw 'This branch does not merge with the current upstream.' }
-        "merged with upstream/master at $(git rev-parse --short upstream/master)"
+        "merged with upstream master at $head"
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
