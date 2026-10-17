@@ -1363,7 +1363,7 @@ namespace PurplePen {
         /// <summary>
         ///   Looks up a localized string similar to Failed to publish: {0}.
         /// </summary>
-        internal static string PublishFailed {
+        public static string PublishFailed {
             get {
                 return ResourceManager.GetString("PublishFailed", resourceCulture);
             }
@@ -1372,7 +1372,7 @@ namespace PurplePen {
         /// <summary>
         ///   Looks up a localized string similar to Published successfully..
         /// </summary>
-        internal static string PublishSucceeded {
+        public static string PublishSucceeded {
             get {
                 return ResourceManager.GetString("PublishSucceeded", resourceCulture);
             }
@@ -1381,7 +1381,7 @@ namespace PurplePen {
         /// <summary>
         ///   Looks up a localized string similar to ..\Print\System.
         /// </summary>
-        internal static string DefaultPublishPath {
+        public static string DefaultPublishPath {
             get {
                 return ResourceManager.GetString("DefaultPublishPath", resourceCulture);
             }
