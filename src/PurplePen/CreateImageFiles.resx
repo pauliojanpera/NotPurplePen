@@ -132,7 +132,7 @@
     <value>4, 4, 4, 4</value>
   </data>
   <data name="courseSelector.Size" type="System.Drawing.Size, System.Drawing">
-    <value>218, 329</value>
+    <value>218, 387</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="courseSelector.TabIndex" type="System.Int32, mscorlib">
@@ -154,7 +154,7 @@
     <value>13, 12</value>
   </data>
   <data name="coursesGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>246, 360</value>
+    <value>246, 418</value>
   </data>
   <data name="coursesGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -181,7 +181,7 @@
     <value>True</value>
   </data>
   <data name="createButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>300, 381</value>
+    <value>300, 439</value>
   </data>
   <data name="createButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 25</value>
@@ -211,7 +211,7 @@
     <value>True</value>
   </data>
   <data name="cancelButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>407, 381</value>
+    <value>407, 439</value>
   </data>
   <data name="cancelButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 25</value>
@@ -631,10 +631,10 @@
     <value>6, 22</value>
   </data>
   <data name="tableLayoutPanel1.RowCount" type="System.Int32, mscorlib">
-    <value>6</value>
+    <value>8</value>
   </data>
   <data name="tableLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>227, 171</value>
+    <value>227, 229</value>
   </data>
   <data name="tableLayoutPanel1.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -652,13 +652,13 @@
     <value>0</value>
   </data>
   <data name="tableLayoutPanel1.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="filenamePrefixTextBox" Row="5" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="fileFormatLabel" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="fileFormatCombo" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="fileNamePrefixLabel" Row="5" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="label1" Row="4" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxDpi" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="dpiLabel" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxWorldFile" Row="4" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="labelColorModel" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxColorModel" Row="3" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxPrintBaseMap" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="labelPrintBaseMap" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,Percent,100" /&gt;&lt;Rows Styles="Percent,16.66667,Percent,16.66667,Percent,16.66667,Percent,16.66667,Percent,16.66667,Percent,16.66667" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="filenamePrefixTextBox" Row="5" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="fileFormatLabel" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="fileFormatCombo" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="fileNamePrefixLabel" Row="5" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="label1" Row="4" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxDpi" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="dpiLabel" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxWorldFile" Row="4" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="labelColorModel" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxColorModel" Row="3" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="comboBoxPrintBaseMap" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="labelPrintBaseMap" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="labelAutoRotate" Row="6" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="autoRotateCheckBox" Row="6" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="labelImageQuality" Row="7" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="imageQualityUpDown" Row="7" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,Percent,100" /&gt;&lt;Rows Styles="Percent,12.5,Percent,12.5,Percent,12.5,Percent,12.5,Percent,12.5,Percent,12.5,Percent,12.5,Percent,12.5" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="outputGroupBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>266, 12</value>
   </data>
   <data name="outputGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>240, 199</value>
+    <value>240, 257</value>
   </data>
   <data name="outputGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -871,7 +871,7 @@
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="selectOtherDirectoryButton" Row="4" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="coursesDirectory" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="mapDirectory" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="otherDirectory" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="otherDirectoryTextBox" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Percent,20.0008,Percent,20.0008,Percent,20.0008,Percent,19.9988,Percent,19.9988" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="folderGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>266, 217</value>
+    <value>266, 275</value>
   </data>
   <data name="folderGroupBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>240, 155</value>
@@ -901,7 +901,7 @@
     <value>96, 96</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>525, 420</value>
+    <value>525, 478</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Create Image Files</value>
@@ -917,5 +917,104 @@
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>PurplePen.BaseDialog, PurplePen, Version=3.5.3.500, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="labelImageQuality.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="labelImageQuality.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelImageQuality.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 154</value>
+  </data>
+  <data name="labelImageQuality.Size" type="System.Drawing.Size, System.Drawing">
+    <value>82, 15</value>
+  </data>
+  <data name="labelImageQuality.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="labelImageQuality.Text" xml:space="preserve">
+    <value>Image quality:</value>
+  </data>
+  <data name="&gt;&gt;labelImageQuality.Name" xml:space="preserve">
+    <value>labelImageQuality</value>
+  </data>
+  <data name="&gt;&gt;labelImageQuality.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelImageQuality.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;labelImageQuality.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;imageQualityUpDown.Name" xml:space="preserve">
+    <value>imageQualityUpDown</value>
+  </data>
+  <data name="&gt;&gt;imageQualityUpDown.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;imageQualityUpDown.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;imageQualityUpDown.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="labelAutoRotate.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="labelAutoRotate.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelAutoRotate.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 123</value>
+  </data>
+  <data name="labelAutoRotate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>70, 15</value>
+  </data>
+  <data name="labelAutoRotate.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="labelAutoRotate.Text" xml:space="preserve">
+    <value>Auto rotate:</value>
+  </data>
+  <data name="&gt;&gt;labelAutoRotate.Name" xml:space="preserve">
+    <value>labelAutoRotate</value>
+  </data>
+  <data name="&gt;&gt;labelAutoRotate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral,  PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelAutoRotate.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;labelAutoRotate.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="autoRotateCheckBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="autoRotateCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="autoRotateCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>103, 124</value>
+  </data>
+  <data name="autoRotateCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>15, 14</value>
+  </data>
+  <data name="autoRotateCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;autoRotateCheckBox.Name" xml:space="preserve">
+    <value>autoRotateCheckBox</value>
+  </data>
+  <data name="&gt;&gt;autoRotateCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;autoRotateCheckBox.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;autoRotateCheckBox.ZOrder" xml:space="preserve">
+    <value>11</value>
   </data>
 </root>

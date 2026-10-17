@@ -47,6 +47,7 @@ using System.Globalization;
 namespace PurplePen
 {
     using System.Linq;
+    using System.Windows.Input;
     using PurplePen.Graphics2D;
     using PurplePen.MapModel;
 
@@ -1330,6 +1331,7 @@ namespace PurplePen
                 n.printArea = (PrintArea) n.printArea.Clone();
             if (n.relaySettings != null)
                 n.relaySettings = n.relaySettings.Clone();
+
             return n;
         }
 
@@ -1458,7 +1460,7 @@ namespace PurplePen
                             overrideCourseLength = len;
                         else
                             overrideCourseLength = null;
-
+                        
                         xmlinput.Skip();
                         break;
 
@@ -1921,8 +1923,32 @@ namespace PurplePen
     /// A special describes a special additional object that isn't a control, and doesn't fit into the 
     /// normal control heirarchy. Special objects are often shared among all the courses.
     /// </summary>
-    public class Special: StorableObject
+    public class Special : StorableObject
     {
+        public class Fragment : ICloneable // for fragments of descriptions objects
+        {
+            public int startLine;
+            public int numColumns; // the number of columns
+
+            public Fragment(int startLine = 0, int numColumns = 1)
+            {
+                this.startLine = startLine;
+                this.numColumns = numColumns;
+            }
+
+            public override bool Equals(object obj)
+            {
+                if (!(obj is Fragment))
+                    return false;
+                Fragment other = (Fragment)obj;
+
+                return this.startLine == other.startLine && this.numColumns == other.numColumns;
+            }
+            public object Clone()
+            {
+                return new Fragment(startLine, numColumns);
+            }
+        }
         public SpecialKind kind;            // The kind of special.
         public PointF[] locations;          // The location of the control; might be one or more coordinates (two for a rectangle)
         public float orientation;           // For crossing points only, the orientation in degress
@@ -1939,7 +1965,7 @@ namespace PurplePen
         public string fontName;             // for text objects, the font name
         public bool fontBold, fontItalic;   // for text objects, the font style
         public float fontHeight = -1;       // for text objects, the font height (digit height, not em height), or -1 for auto (old style).
-        public int numColumns = 1;          // for description objects, the number of columns.
+        public List<Fragment> fragments = new List<Fragment> { new Fragment() };
         public IGraphicsBitmap imageBitmap; // for image objects, the bitmap.
         public byte[] imageData;            // for image objects, the encoded file the bitmap was decoded from, or null.
 
@@ -1953,6 +1979,7 @@ namespace PurplePen
             this.locations = (PointF[]) locations.Clone();
             this.allCourses = true;
         }
+
 
         public void Validate(Id<Special> id, EventDB.ValidateInfo validateInfo)
         {
@@ -1981,21 +2008,25 @@ namespace PurplePen
                 break;
 
             case SpecialKind.Text:
-            case SpecialKind.Descriptions:
             case SpecialKind.Image:
             case SpecialKind.Rectangle:
             case SpecialKind.Ellipse:
                 if (locations.Length != 2)
-                    throw new ApplicationException(string.Format("Text or descriptions object {0} should have 2 coordinates", id));
+                    throw new ApplicationException(string.Format("Text or graphic object {0} should have 2 coordinates", id));
                 break;
 
-            default:
+            case SpecialKind.Descriptions:
+                    if (locations.Length != fragments.Count*2)
+                        throw new ApplicationException(string.Format("Descriptions object {0} should have {1} coordinates to match the fragments", id, fragments.Count * 2));
+                    break;
+
+                default:
                 throw new ApplicationException("Bad special kind"); 
             }
 
             if (kind == SpecialKind.Text && text == null)
                 throw new ApplicationException(string.Format("Text object {0} should have non-null text", id));
-
+                                                            
             if (kind == SpecialKind.Text) {
                 if (fontName == null || fontName == "")
                     throw new ApplicationException(string.Format("Text object {0} should have non-null font name", id));
@@ -2009,8 +2040,8 @@ namespace PurplePen
             }
 
             if (kind == SpecialKind.Descriptions) {
-                if (numColumns < 1 || numColumns > 100)
-                    throw new ApplicationException(string.Format("Description object {0} should have 1-100 columns", id));
+                if (fragments.Count == 0 || fragments.Any(f => f.numColumns < 1 || f.numColumns > 100))
+                    throw new ApplicationException(string.Format("All fragments of the descriptions object {0} should have 1-100 columns", id));
             }
 
             if (kind == SpecialKind.Image) {
@@ -2065,6 +2096,7 @@ namespace PurplePen
             }
         }
 
+
         public override StorableObject Clone()
         {
             Special n = (Special) base.Clone();
@@ -2073,6 +2105,7 @@ namespace PurplePen
             }
 
             n.locations = (PointF[]) n.locations.Clone();
+            n.fragments = n.fragments.ConvertAll(fragment => (Fragment)fragment.Clone());
             return n;
         }
 
@@ -2113,7 +2146,7 @@ namespace PurplePen
                 return false;
             if (other.fontHeight != fontHeight)
                 return false;
-            if (other.numColumns != numColumns)
+            if (!other.fragments.SequenceEqual(fragments))
                 return false;
             if (other.imageBitmap != imageBitmap)
                 return false;
@@ -2216,10 +2249,11 @@ namespace PurplePen
                     break;
 
                 case "appearance":
-                    numColumns = xmlinput.GetAttributeInt("columns", 1);
+                    this.fragments[0] = new Fragment(0, xmlinput.GetAttributeInt("columns", 1));
 
                     if (kind == SpecialKind.Text || kind == SpecialKind.Line || kind == SpecialKind.Rectangle || kind == SpecialKind.Ellipse) {
-                        color = xmlinput.GetAttributeColor("color", SpecialColor.UpperPurple);
+                        bool overprint = xmlinput.GetAttributeBool("overprint", false);
+                        color = xmlinput.GetAttributeColor("color", SpecialColor.UpperPurple, overprint);
                     }
 
                     string lineKindValue = xmlinput.GetAttributeString("line-kind", "");
@@ -2235,7 +2269,18 @@ namespace PurplePen
                     if (kind == SpecialKind.Rectangle)
                         cornerRadius = xmlinput.GetAttributeFloat("corner-radius", 0);
 
-                    xmlinput.Skip();
+                    bool firstFragment = true;
+                    while (xmlinput.FindSubElement(firstFragment, "fragment"))
+                    {
+                        switch (xmlinput.Name)
+                        {
+                            case "fragment":
+                                fragments.Add(new Fragment(xmlinput.GetAttributeInt("start-line", -1), xmlinput.GetAttributeInt("columns", 1)));
+                                break;
+                        }
+                        xmlinput.Skip();
+                        firstFragment = false;
+                    }
                     break;
 
                 case "courses":
@@ -2338,10 +2383,21 @@ namespace PurplePen
                 xmloutput.WriteEndElement();
             }
 
-            if (kind == SpecialKind.Descriptions && numColumns > 1) {
-                xmloutput.WriteStartElement("appearance");
-                xmloutput.WriteAttributeString("columns", XmlConvert.ToString(numColumns));
-                xmloutput.WriteEndElement();
+            if (kind == SpecialKind.Descriptions)
+            {
+                if(fragments.Count > 1 || fragments[0].numColumns > 1)
+                {
+                    xmloutput.WriteStartElement("appearance");
+                    xmloutput.WriteAttributeString("columns", fragments[0].numColumns.ToString());
+                    foreach(Fragment fragment in fragments.Skip(1))
+                    {
+                        xmloutput.WriteStartElement("fragment");
+                        xmloutput.WriteAttributeString("start-line", fragment.startLine.ToString());
+                        xmloutput.WriteAttributeString("columns", fragment.numColumns.ToString());
+                        xmloutput.WriteEndElement();
+                    }
+                    xmloutput.WriteEndElement();
+                }
             }
 
             if (kind == SpecialKind.Text) {
@@ -2366,6 +2422,7 @@ namespace PurplePen
                     case LineKind.Dashed: xmloutput.WriteAttributeString("line-kind", "dashed"); break;
                 }
                 xmloutput.WriteAttributeString("color", color.ToString());
+                xmloutput.WriteAttributeString("overprint", color.Overprint.ToString().ToLower());
                 xmloutput.WriteAttributeString("line-width", XmlConvert.ToString(lineWidth));
                 if (lineKind == LineKind.Double || lineKind == LineKind.Dashed)
                     xmloutput.WriteAttributeString("gap-size", XmlConvert.ToString(gapSize));
@@ -3844,7 +3901,8 @@ namespace PurplePen
         /// </summary>
         public void Load(string filename)
         {
-            using (XmlInput xmlinput = new XmlInput(filename)) {
+            using (XmlInput xmlinput = new XmlInput(filename))
+            {
                 xmlinput.CheckElement(rootElement);
                 xmlinput.Read();
 

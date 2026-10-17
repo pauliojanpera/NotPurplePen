@@ -57,7 +57,8 @@ namespace PurplePen
         Directive,          // hit a directive (box always 0)
         DirectiveText,      // hit the text part of a directive (box is not valid)
         OtherTextLine,              // hit a text line (box is not valid)
-        Key                      // hit the key for custom special items at the bottom (box always 0)
+        Key,                      // hit the key for custom special items at the bottom (box always 0)
+        CuttingLine
     }
 
     // Indicates the hittest of a hit test operation.
@@ -466,6 +467,11 @@ namespace PurplePen
                     result.rect = new RectangleF(0, result.firstLine * cellSize, width, cellSize * (result.lastLine - result.firstLine + 1));
                     break;
 
+                case DescriptionLineKind.CuttingLine:
+                    result.kind = HitTestKind.CuttingLine;
+                    result.box = 0;
+                    result.rect = new RectangleF(0, iLine * cellSize, width, cellSize);
+                    break;
                 case DescriptionLineKind.Key:
                     result.kind = HitTestKind.Key;
                     result.box = 0;
@@ -710,19 +716,22 @@ namespace PurplePen
             // Draw side lines.
             float lineTop = -DescriptionAppearance.thickDescriptionLine / 2;
             float lineBottom = 100 + DescriptionAppearance.thickDescriptionLine / 2;
-            renderer.DrawLine(thickPen, 0, lineTop, 0, lineBottom);
-            if (! (descriptionKind == DescriptionKind.SymbolsAndText && (descriptionLine.kind == DescriptionLineKind.Title || descriptionLine.kind == DescriptionLineKind.SecondaryTitle || descriptionLine.kind == DescriptionLineKind.Text)))
-                renderer.DrawLine(thickPen, 800, lineTop, 800, lineBottom);
-            if (descriptionKind == DescriptionKind.SymbolsAndText)
-                renderer.DrawLine(thickPen, 1300, lineTop, 1300, lineBottom);
+            if (descriptionLine.kind != DescriptionLineKind.CuttingLine)
+            {
+                renderer.DrawLine(thickPen, 0, lineTop, 0, lineBottom);
+                if (!(descriptionKind == DescriptionKind.SymbolsAndText && (descriptionLine.kind == DescriptionLineKind.Title || descriptionLine.kind == DescriptionLineKind.SecondaryTitle || descriptionLine.kind == DescriptionLineKind.Text)))
+                    renderer.DrawLine(thickPen, 800, lineTop, 800, lineBottom);
+                if (descriptionKind == DescriptionKind.SymbolsAndText)
+                    renderer.DrawLine(thickPen, 1300, lineTop, 1300, lineBottom);
+            }
 
             switch (descriptionLine.kind) {
                 case DescriptionLineKind.Title:
-                    RenderSingleLineText(renderer, TITLE_FONT, TextAlignment.Center, (string) (descriptionLine.boxes[0]), 0, 0, fullWidth, 100, clipRect);
+                    RenderSingleLineText(renderer, TITLE_FONT, TextAlignment.Center, (string)(descriptionLine.textual), 0, 0, fullWidth, 100, clipRect);
                     break;
 
                 case DescriptionLineKind.SecondaryTitle:
-                    RenderSingleLineText(renderer, TITLE_FONT, TextAlignment.Center, (string) (descriptionLine.boxes[0]), 0, 0, fullWidth, 100, clipRect);
+                    RenderSingleLineText(renderer, TITLE_FONT, TextAlignment.Center, (string)(descriptionLine.textual), 0, 0, fullWidth, 100, clipRect);
                     break;
 
                 case DescriptionLineKind.Header2Box:
@@ -809,9 +818,12 @@ namespace PurplePen
                     break;
 
                 case DescriptionLineKind.Text:
-                    RenderWrappedText(renderer, TEXTLINE_FONT, TextAlignment.Left, (string) (descriptionLine.boxes[0]), 20, 0, fullWidth, 100, clipRect);
+                    RenderWrappedText(renderer, TEXTLINE_FONT, TextAlignment.Left, (string)(descriptionLine.textual), 20, 0, fullWidth, 100, clipRect);
                     break;
 
+                case DescriptionLineKind.CuttingLine:
+                    renderer.DrawLine(thickPen, 0, 50, fullWidth, 50);
+                    break;
                 default:
                     Debug.Fail("unknown description line kind");
                     break;

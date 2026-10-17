@@ -47,7 +47,6 @@ namespace PurplePen
     using System.Drawing.Imaging;
     using System.Globalization;
     using System.IO;
-    using System.Linq;
 
     // Class to output courses to bitmaps
     public class BitmapCreation
@@ -116,7 +115,6 @@ namespace PurplePen
         string CreateOutputFileName(CourseDesignator courseDesignator)
         {
             string basename = QueryEvent.CreateOutputFileName(eventDB, courseDesignator, bitmapCreationSettings.filePrefix, "", GetFileExtension());
-
             return Path.GetFullPath(Path.Combine(bitmapCreationSettings.outputDirectory, basename));
         }
 
@@ -150,7 +148,7 @@ namespace PurplePen
             }
         }
 
-        // Create a single PDF file
+        // Create a single bitmap file
         void CreateOneBitmap(string fileName, CourseDesignator courseDesignator)
         {
             MapDisplay currentMapDisplay = mapDisplay.Clone();
@@ -185,7 +183,8 @@ namespace PurplePen
             }
 
             ExportBitmap exportBitmap = new ExportBitmap(currentMapDisplay);
-            exportBitmap.CreateBitmap(fileName, mapRectangle, GetImageFormat(), bitmapCreationSettings.Dpi, coordinateMapper);
+            exportBitmap.CreateBitmap(fileName, mapRectangle, GetImageFormat(), bitmapCreationSettings.Dpi / courseView.ScaleRatio, coordinateMapper,
+                                      bitmapCreationSettings.AutoRotate, bitmapCreationSettings.Quality);
         }
     }
 }

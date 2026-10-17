@@ -53,6 +53,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static SkiaSharp.HarfBuzz.SKShaper;
+using static PurplePen.BitmapCreationSettings;
+using PurplePen.Livelox.ApiContracts;
 
 namespace PurplePen
 {
@@ -762,6 +764,7 @@ namespace PurplePen
             UpdateMenuItem(addTextLineMenu, controller.CanAddTextLine());
             UpdateMenuItem(mapFlipMenuItem, controller.CanAddMapFlipControl());
             UpdateMenuItem(addMapFlipMenuItem, controller.CanAddMapFlipControl());
+            UpdateMenuItem(splitToolStripMenuItem, controller.CanAddCuttingLine());
             UpdateMenuItem(mapExchangeControlMenuItem, controller.CanAddMapExchangeControl());
             UpdateMenuItem(mapExchangeControlToolStripMenuItem, controller.CanAddMapExchangeControl());
             UpdateMenuItem(mapExchangeSeparateMenuItem, controller.CanAddMapExchangeSeparate());
@@ -1537,6 +1540,7 @@ namespace PurplePen
             if (controller.CanDuplicateCurrentCourse()) {
                 // Initialize the dialog
                 AddCourse addCourseDialog = new AddCourse();
+                List<int> descriptionsCuts;
                 InitializeCoursePropertiesDialogWithCurrentValues(addCourseDialog);
                 addCourseDialog.SetTitle(MiscText.DuplicateCourseTitle);
                 addCourseDialog.HelpTopic = "CourseDuplicate.htm";
@@ -3389,6 +3393,76 @@ namespace PurplePen
         private void mapStd2017Menu_Click(object sender, EventArgs e)
         {
             controller.ChangeMapStandard("2017");
+        }
+
+        private void publishCourses_Click(object sender, EventArgs e)
+        {
+            using (var dlg = new PublishCoursesDialog(controller.GetEventDB()))
+            {
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    publishCourses(dlg.SelectedCourses, dlg.DataExchangeFolderPath, dlg.UseFileDirectory, dlg.UseMapDirectory);
+                }
+            }
+        }
+
+        private void publishCourses(Id<Course>[] courseIds, string printerDataExchangeFolderPath, bool useFileDirectory, bool useMapDirectory)
+        {
+            BitmapCreationSettings settings = new BitmapCreationSettings();
+            settings.CourseIds = courseIds;
+            settings.AllCourses = false;
+            settings.VariationChoicesPerCourse = settings.CourseIds.ToDictionary(
+                id => id,
+                id => new VariationChoices { Kind = VariationChoices.VariationChoicesKind.AllVariations }
+            );
+            settings.fileDirectory = false;
+            settings.mapDirectory = false;
+            settings.ExportedBitmapKind = BitmapCreationSettings.BitmapKind.Jpeg;
+            settings.Dpi = 600;
+            settings.ColorModel = ColorModel.RGB;
+            settings.Quality = 95;
+            settings.AutoRotate = true;
+            settings.outputDirectory = Path.IsPathRooted(printerDataExchangeFolderPath)
+                ? printerDataExchangeFolderPath
+                : Path.GetFullPath(Path.Combine(Path.GetDirectoryName(
+                    useMapDirectory ? controller.MapFileName
+                    : useFileDirectory ? controller.FileName
+                    : Directory.GetCurrentDirectory()), printerDataExchangeFolderPath));
+
+            CoursePdfSettings pdfSettings = new CoursePdfSettings();
+            string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(controller.FileName);
+            int idx = fileNameWithoutExtension.LastIndexOf(" (");
+            pdfSettings.outputDirectory = settings.outputDirectory + "\\" + ((idx >= 0) ? fileNameWithoutExtension.Substring(0, idx) : fileNameWithoutExtension);
+            if (File.Exists(pdfSettings.outputDirectory))
+            {
+                ErrorMessage(string.Format("File {0} prevents the creation of an output directory for the PDF's", pdfSettings.outputDirectory));
+                return;
+            }
+            if (!Directory.Exists(pdfSettings.outputDirectory))
+            {
+                Directory.CreateDirectory(pdfSettings.outputDirectory);
+            }
+            pdfSettings.CourseIds = settings.CourseIds;
+            pdfSettings.AllCourses = settings.AllCourses;
+            pdfSettings.fileDirectory = settings.fileDirectory;
+            pdfSettings.mapDirectory = settings.mapDirectory;
+            pdfSettings.ColorModel = ColorModel.CMYK;
+
+            try
+            {
+                controller.CreateBitmapFiles(settings);
+                controller.CreateCoursePdfs(pdfSettings);
+                InfoMessage(MiscText.PublishSucceeded);
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage(string.Format(MiscText.PublishFailed, ex.Message));
+            }
+        }
+
+        private void splitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            controller.AddCuttingLine();
         }
 
         private void mapStdSpr2019Menu_Click(object sender, EventArgs e)

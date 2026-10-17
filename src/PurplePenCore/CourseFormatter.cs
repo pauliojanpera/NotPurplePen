@@ -34,6 +34,7 @@
 
 using PurplePen.MapModel;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -43,6 +44,7 @@ using System.Text;
 namespace PurplePen
 {
     using PurplePen.Graphics2D;
+    using System.Linq;
     using System.Windows;
 
     // Macros used in text specials
@@ -80,17 +82,13 @@ namespace PurplePen
             ControlLabelKind labelKind = courseView.ControlLabelKind;
             float courseObjRatio = courseView.CourseObjRatio(appearance);
             List<CourseView.ControlView> controlViews = courseView.ControlViews;
-            CourseObj courseObj;
-
             if (options == null)
                 options = new CourseFormatterOptions();
 
 
             // Go through all the specials in the view and process them to create course objects
             foreach(Id<Special> specialId in courseView.SpecialIds) {
-                courseObj = CreateSpecial(eventDB, courseView, courseObjRatio, appearance, specialId, layer);
-                if (courseObj != null)
-                    courseLayout.AddCourseObject(courseObj);
+                courseLayout.AddCourseObject(CreateSpecial(eventDB, courseView, courseObjRatio, appearance, specialId, layer));
             }
 
             // Go through all the descriptions in the view and process them to create course objects
@@ -98,16 +96,17 @@ namespace PurplePen
             {
                 foreach (CourseView.DescriptionView descriptionView in courseView.DescriptionViews) {
                     // The layer depends on "descriptions in purple" setting in the course appearance.
-                    courseObj = CreateDescriptionSpecial(eventDB, symbolDB, descriptionView, appearance.descriptionsPurple ? layer : CourseLayer.Descriptions);
-                    if (courseObj != null)
+                    foreach (DescriptionCourseObj courseObj in CreateDescriptionSpecial(eventDB, symbolDB, descriptionView, appearance.descriptionsPurple ? layer : CourseLayer.Descriptions))
+                    {
                         courseLayout.AddCourseObject(courseObj);
+                    }
                 }
             }
 
             // Go through all the controls in the view and process them to create controls and legs.
             for (int controlIndex = 0; controlIndex < controlViews.Count; ++controlIndex) {
                 CourseView.ControlView controlView = controlViews[controlIndex];
-
+                CourseObj courseObj;
                 if (!controlView.hiddenControl) {
 
                     // Get the angles of the legs into and out of this control, in radians.
@@ -163,6 +162,7 @@ namespace PurplePen
             // No go through each control again and add an automatically placed number/code to each. We do this last so that the placement
             // of all fixed-position objects influences the auto-positioned numbers so that they don't interfere.
             if (options.showControlNumbers) {
+                CourseObj courseObj;
                 for (int controlIndex = 0; controlIndex < controlViews.Count; ++controlIndex) {
                     CourseView.ControlView controlView = controlViews[controlIndex];
 
@@ -608,18 +608,46 @@ namespace PurplePen
         }
 
         // Create the course objects associated with this special. Assign the given layer to it.
-        static CourseObj CreateDescriptionSpecial(EventDB eventDB, SymbolDB symbolDB, CourseView.DescriptionView descriptionView, CourseLayer layer)
+        static IEnumerable<DescriptionCourseObj> CreateDescriptionSpecial(EventDB eventDB, SymbolDB symbolDB, CourseView.DescriptionView descriptionView, CourseLayer layer)
         {
             Special special = eventDB.GetSpecial(descriptionView.SpecialId);
             Debug.Assert(special.kind == SpecialKind.Descriptions);
 
             DescriptionKind descKind;
             bool columnHScore;
-            DescriptionLine[] description = GetCourseDescription(eventDB, symbolDB, descriptionView.CourseDesignator, out descKind, out columnHScore);
-            CourseObj courseObj = new DescriptionCourseObj(descriptionView.SpecialId, special.locations[0], (float)Geometry.Distance(special.locations[0], special.locations[1]), 
-                                                          symbolDB, description, descKind, columnHScore, special.numColumns);
-            courseObj.layer = layer;
-            return courseObj;
+            DescriptionLine[] descriptions = GetCourseDescription(eventDB, symbolDB, descriptionView.CourseDesignator, out descKind, out columnHScore);
+                                                                                                 
+            // Generate a courseObj for each fragment of the descriptions.
+            int k = special.fragments.Count;
+            for (int i = 0; i < k; i++)
+            {
+                int startLine = special.fragments[i].startLine;
+                int endLine = (i < k - 1) ? special.fragments[i + 1].startLine : descriptions.Length;
+                if (startLine < descriptions.Length)
+                {
+                    int length = Math.Min(endLine, descriptions.Length) - startLine;
+                    DescriptionLine[] fragmentOfDescriptions = new DescriptionLine[length];
+                    Array.Copy(descriptions, startLine, fragmentOfDescriptions, 0, length);
+
+                    PointF a = special.locations[2 * i];
+                    PointF b = special.locations[2 * i + 1];
+                    float distance = (float)Geometry.Distance(a, b);
+
+                    DescriptionCourseObj courseObj = new DescriptionCourseObj(
+                        descriptionView.SpecialId,
+                        a,
+                        distance,
+                        symbolDB,
+                        fragmentOfDescriptions,
+                        startLine,
+                        descKind,
+                        columnHScore,
+                        special.fragments[i].numColumns
+                    );
+                    courseObj.layer = layer;
+                    yield return courseObj;
+                }
+            }
         }
 
         // Return the description and description kind for a given CourseView.

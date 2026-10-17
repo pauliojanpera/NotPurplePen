@@ -1650,7 +1650,8 @@ namespace PurplePen
 
             // We can delete any selected control or a special or a text line
             if (selection.SelectionKind == SelectionKind.Control || selection.SelectionKind == SelectionKind.Special ||
-                selection.SelectionKind == SelectionKind.TextLine || selection.SelectionKind == SelectionKind.MapExchangeOrFlipAtControl)
+                selection.SelectionKind == SelectionKind.TextLine || selection.SelectionKind == SelectionKind.MapExchangeOrFlipAtControl ||
+                selection.SelectionKind == SelectionKind.CuttingLine)
                 return true;
 
             return false;
@@ -1699,6 +1700,21 @@ namespace PurplePen
                 ChangeEvent.ChangeControlExchange(eventDB, selection.SelectedCourseControl, MapExchangeType.None);
                 undoMgr.EndCommand(812);
                 return true;
+            }
+            else if (selection.SelectionKind == SelectionKind.CuttingLine) {
+                int line, dummy;
+                selectionMgr.GetSelectedLines(out line, out dummy);
+                int numCuts = 0;
+                for (int i = 0; i < line; i++) {
+                    if (selectionMgr.ActiveDescription[i].kind == DescriptionLineKind.CuttingLine)
+                        numCuts++;
+                }
+                Id<Special> descriptionsId = FindActiveCourseDescriptionsSpecial();
+                if (descriptionsId.IsNotNone) {
+                    undoMgr.BeginCommand(18553, CommandNameText.RemoveDescriptionsFragment);
+                    ChangeEvent.RemoveDescriptionsFragment(eventDB, descriptionsId, line - numCuts);
+                    undoMgr.EndCommand(18553);
+                }
             }
 
             return false;
@@ -2229,29 +2245,35 @@ namespace PurplePen
             undoMgr.EndCommand(871);
         }
 
-        // Move a descripion to a new location, and possibly change the number of columns also.
-        public void MoveSpecial(Id<Special> specialId, PointF[] newLocations, int numColumns)
+        // Move a (fragment of a) descriptions object to a new location, and possibly change the number of columns also.
+        public void MoveSpecial(Id<Special> specialId, PointF[] newLocations, int numColumns, int startLine)
         {
             undoMgr.BeginCommand(871, CommandNameText.MoveObject);
-            ChangeEvent.ChangeSpecialLocations(eventDB, specialId, newLocations);
-            int currentNumColumns = QueryEvent.GetDescriptionColumns(eventDB, specialId);
-            if (numColumns != currentNumColumns) {
-                ChangeEvent.ChangeDescriptionColumns(eventDB, specialId, numColumns);
-            }
+            ChangeEvent.ChangeSpecialLocations(eventDB, specialId, newLocations, startLine);
+            ChangeEvent.ChangeDescriptionColumns(eventDB, specialId, numColumns, startLine);
             undoMgr.EndCommand(871);
         }
 
         // Move a special to a new location by translation
         public void MoveSpecialDelta(Id<Special> specialId, float deltaX, float deltaY)
         {
-            PointF[] newLocations = (PointF[])eventDB.GetSpecial(specialId).locations.Clone();
-
-            for (int i = 0; i < newLocations.Length; ++i) {
-                newLocations[i].X += deltaX;
-                newLocations[i].Y += deltaY;
-            }
-
+            Special special = eventDB.GetSpecial(specialId);
+            PointF[] newLocations = Array.ConvertAll(special.locations, location => new PointF(location.X + deltaX, location.Y + deltaY));
             MoveSpecial(specialId, newLocations);
+        }
+
+        // Move a fragment of a descriptions special to a new location by translation. Select the intended fragment by comparing the startLine.
+        public void MoveSpecialDelta(Id<Special> specialId, float deltaX, float deltaY, int startLine)
+        {
+            Special special = eventDB.GetSpecial(specialId);
+            int fragmentIndex = special.fragments.FindIndex(fragment => fragment.startLine == startLine);
+            if (fragmentIndex < 0)
+                return;
+            int startIndex = fragmentIndex * 2;
+            PointF[] fragmentLocations = new PointF[2];
+            fragmentLocations[0] = new PointF(special.locations[startIndex].X + deltaX, special.locations[startIndex].Y + deltaY);
+            fragmentLocations[1] = new PointF(special.locations[startIndex + 1].X + deltaX, special.locations[startIndex + 1].Y + deltaY);
+            MoveSpecial(specialId, fragmentLocations, special.fragments[fragmentIndex].numColumns, startLine);
         }
 
         // Move a special to a new location by changing one point
@@ -3315,6 +3337,52 @@ namespace PurplePen
             enableThisCourse = selection.SelectedCourseControl.IsNotNone;
             objectName = Util.ControlPointName(eventDB, selection.SelectedControl, NameStyle.Long);
             return true;
+        }
+
+        public CommandStatus CanAddCuttingLine()
+        {
+            SelectionInfo selection = selectionMgr.Selection;
+            if (selection.SelectionKind != SelectionKind.Control
+                && selection.SelectionKind != SelectionKind.Leg)
+                return CommandStatus.Disabled;
+
+            if (FindActiveCourseDescriptionsSpecial().IsNone)
+                return CommandStatus.Disabled;
+
+            return CommandStatus.Enabled;
+        }
+
+        private Id<Special> FindActiveCourseDescriptionsSpecial()
+        {
+            return eventDB.AllSpecialIds.FirstOrDefault(specialId => eventDB.GetSpecial(specialId).kind == SpecialKind.Descriptions &&
+                QueryEvent.GetSpecialDisplayedCourses(eventDB, specialId, false).Any(courseDesignator => courseDesignator.CourseId == selectionMgr.Selection.ActiveCourseDesignator.CourseId));
+        }
+
+        public void AddCuttingLine()
+        {
+            if (CanAddCuttingLine() != CommandStatus.Enabled)
+                return;
+
+            Id<Special> descriptionsId = FindActiveCourseDescriptionsSpecial();
+            if (descriptionsId.IsNone)
+                return;
+
+            SelectionInfo selection = selectionMgr.Selection;
+            DescriptionLine[] activeDescription = selectionMgr.ActiveDescription;
+
+            int descriptionsCutInsertLocation = 0;
+            for (int i = 0; i < activeDescription.Length; i++) {
+                DescriptionLine line = activeDescription[i];
+                if (line.courseControlId.IsNotNone && selection.SelectedCourseControl == line.courseControlId)
+                    break;
+
+                if (line.kind != DescriptionLineKind.CuttingLine)
+                    descriptionsCutInsertLocation++;
+            }
+
+            undoMgr.BeginCommand(8553, CommandNameText.AddDescriptionsFragment);
+            ChangeEvent.AddDescriptionsFragment(eventDB, descriptionsId, descriptionsCutInsertLocation);
+            undoMgr.EndCommand(8553);
         }
 
         public CommandStatus CanAddTextLine()

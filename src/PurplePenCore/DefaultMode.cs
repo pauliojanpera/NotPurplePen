@@ -571,22 +571,30 @@ namespace PurplePen
         public override async Task<bool> LeftButtonEndDrag(Pane pane, PointF location, PointF locationStart, float pixelSize)
         {
             Debug.Assert(pane == Pane.Map);
-
-            float deltaX = (location.X - startDrag.X);
-            float deltaY = (location.Y - startDrag.Y);
-
+            var deltaX = location.X - startDrag.X;
+            var deltaY = location.Y - startDrag.Y;
             if (courseObjectStart.specialId.IsNotNone) {
                 // Moving a special
                 Id<Special> specialId = courseObjectStart.specialId;
 
-                controller.MoveSpecialDelta(specialId, deltaX, deltaY);
+                if (courseObjectStart is DescriptionCourseObj)
+                {
+                    controller.MoveSpecialDelta(specialId, deltaX, deltaY, ((DescriptionCourseObj)courseObjectStart).StartLine);
+                }
+                else
+                {
+                    controller.MoveSpecialDelta(specialId, deltaX, deltaY);
+                }
             }
             else if ((courseObjectStart is ControlNumberCourseObj) || (courseObjectStart is CodeCourseObj)) {
                 // Dragging a number around. Update the course control with a new number.
-                PointF originalLocation = (courseObjectStart is ControlNumberCourseObj) ? ((ControlNumberCourseObj)courseObjectStart).centerPoint : ((CodeCourseObj)courseObjectStart).centerPoint;
-                PointF newLocation = PointF.Add(originalLocation, new SizeF(deltaX, deltaY));
-
-                controller.MoveControlNumber(courseObjectStart.controlId, courseObjectStart.courseControlId, newLocation);
+                PointF originalLocation = (courseObjectStart is ControlNumberCourseObj)
+                    ? ((ControlNumberCourseObj)courseObjectStart).centerPoint
+                    : ((CodeCourseObj)courseObjectStart).centerPoint;
+                controller.MoveControlNumber(
+                   courseObjectStart.controlId,
+                   courseObjectStart.courseControlId,
+                   new PointF(originalLocation.X + deltaX, originalLocation.Y + deltaY));
             }
             else {
                 // Move the control to the new location.
@@ -695,7 +703,7 @@ namespace PurplePen
                     // Moving a description. Descriptions are rather special in the way their locations are used.
                     DescriptionCourseObj descObj = (DescriptionCourseObj) courseObjectStart.Clone();
                     descObj.MoveHandle(handleLocation, location);
-                    controller.MoveSpecial(specialId, new PointF[2] { new PointF(descObj.rect.Left, descObj.rect.Bottom), new PointF(descObj.rect.Left + descObj.CellSize, descObj.rect.Bottom) }, descObj.NumberOfColumns);
+                    controller.MoveSpecial(specialId, new PointF[2] { new PointF(descObj.rect.Left, descObj.rect.Bottom), new PointF(descObj.rect.Left + descObj.CellSize, descObj.rect.Bottom) }, descObj.NumberOfColumns, descObj.StartLine);
                 }
                 else if (courseObjectStart is RectCourseObj) {
                     // Moving rectangle handles is sort of special too.
