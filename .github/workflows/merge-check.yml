@@ -435,7 +435,8 @@ jobs:
         # recorded where GDI+ is a different build. It runs on its own, on an
         # image that draws as those baselines do.
         $exceptGdiPlus = 'FullyQualifiedName!~PurplePen.MapModel.Tests' +
-                         '&FullyQualifiedName!~PurplePen.Tests.UndoMgrTests'
+                         '&FullyQualifiedName!~PurplePen.Tests.UndoMgrTests' +
+                         '&FullyQualifiedName!~TestWpfMap'
 
         # The run writes to files rather than to this console, so that only one
         # writer reaches the log and a progress line cannot land in the middle
@@ -499,7 +500,9 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: test-mapmodel-build
-        path: src/MapModel/Test_MapModel/bin/Debug/net10.0-windows
+        path: |
+          src/MapModel/Test_MapModel/bin/Debug/net10.0-windows
+          src/MapModel/Test_MapWPF/bin/Debug/net10.0-windows
         if-no-files-found: error
         retention-days: 1
 
@@ -546,7 +549,7 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: test-mapmodel-build
-        path: src/MapModel/Test_MapModel/bin/Debug/net10.0-windows
+        path: src/MapModel
 
     - name: Fetch fonts
       uses: actions/checkout@v4
@@ -721,11 +724,15 @@ jobs:
       env:
         TEST_SILENTRUN: 'True'
       run: |
-        $dll = 'MapModel/Test_MapModel/bin/Debug/net10.0-windows/Test_MapModel.dll'
         $dotnet = Join-Path $env:ProgramFiles 'dotnet-x64\dotnet.exe'
-        "Testing $dll with $dotnet"
-        & $dotnet test $dll
-        exit $LASTEXITCODE
+        $failed = 0
+        foreach ($dll in 'MapModel/Test_MapModel/bin/Debug/net10.0-windows/Test_MapModel.dll',
+                         'MapModel/Test_MapWPF/bin/Debug/net10.0-windows/TestProject1.dll') {
+            "Testing $dll"
+            & $dotnet test $dll
+            if ($LASTEXITCODE -ne 0) { $failed = 1 }
+        }
+        exit $failed
 
     - name: Upload rendering differences
       if: always()
