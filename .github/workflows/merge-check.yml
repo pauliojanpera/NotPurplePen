@@ -275,7 +275,11 @@ jobs:
         Remove-Item $altLog -ErrorAction SilentlyContinue
         git archive --format=zip -o alt-baselines.zip 81379316 MapModel/TestFiles/wpfrender
         Expand-Archive alt-baselines.zip -DestinationPath $altRoot -Force
-        "alternate baselines: $((Get-ChildItem $altRoot -Recurse -Filter *.png).Count) files from 81379316"
+
+        # And the renderings recorded on this runner for comparisons whose baseline
+        # was made on a machine with other fonts, or another build of GDI+.
+        Copy-Item TestFiles/ci-baselines/* -Destination $altRoot -Recurse -Force
+        "alternate baselines: $((Get-ChildItem $altRoot -Recurse -Filter *.png).Count) files"
 
         $stdout = Join-Path $PWD 'test-stdout.log'
         $stderr = Join-Path $PWD 'test-stderr.log'
@@ -336,7 +340,7 @@ jobs:
         $matched = @(Get-Content $altLog -ErrorAction SilentlyContinue)
         if ($matched.Count) {
             ""
-            "$($matched.Count) comparisons matched the baseline as it stood at 81379316:"
+            "$($matched.Count) comparisons matched an alternate baseline:"
             $matched | Sort-Object -Unique
         }
 
