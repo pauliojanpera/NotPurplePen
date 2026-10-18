@@ -81,7 +81,7 @@ namespace PurplePen.ViewModels
 
         /// <summary>Compression quality, for the formats that have one.</summary>
         [ObservableProperty]
-        private int quality = 95;
+        private int quality = 80;
 
         /// <summary>Selected color model — true for CMYK, false for RGB. Bound to the combo's SelectedIndex.</summary>
         [ObservableProperty]
