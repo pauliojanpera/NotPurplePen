@@ -31,7 +31,7 @@ namespace PurplePen.Tests
             string fileName = TestUtil.GetTestFile("pdfmaps\\Potholes.pdf");
             var pdfMap = new PdfMapFile(fileName);
             string pdfHash = pdfMap.GetCacheFileName(fileName);
-            Assert.AreEqual(Path.Combine(Path.GetTempPath(), $"PurplePen\\{expectedHash}.png"), pdfMap.GetCacheFileName(fileName));
+            Assert.AreEqual(Path.Combine(Path.GetTempPath(), $"NotPurplePen\\{expectedHash}.png"), pdfMap.GetCacheFileName(fileName));
         }
     }
 }
