@@ -186,7 +186,7 @@ namespace PurplePen
                 line.kind = kind;
                 line.boxes = new object[1];
                 line.boxes[0] = texts[index];
-                line.textual = texts[index];
+                line.textual = CourseFormatter.ExpandText(eventDB, courseView, texts[index]);
 
                 lines[index] = line;
             }
@@ -284,7 +284,7 @@ namespace PurplePen
                 line.kind = DescriptionLineKind.Text;
                 line.boxes = new object[1];
                 line.boxes[0] = texts[index];
-                line.textual = texts[index];
+                line.textual = CourseFormatter.ExpandText(eventDB, courseView, texts[index]);
                 line.courseControlId = courseControlId;
                 line.controlId = controlId;
                 line.textLineKind = textLineKind;
@@ -634,7 +634,7 @@ namespace PurplePen
             // Get the second title line.
             text = GetTitleLine2();
             if (text != null) {
-                lines = GetTitleLineFromText(DescriptionLineKind.SecondaryTitle, text);
+                lines = GetTitleLineFromText(DescriptionLineKind.SecondaryTitle, CourseFormatter.ExpandText(eventDB, courseView, text));
                 list.AddRange(lines);
             }
 
