@@ -100,6 +100,7 @@ namespace PurplePen
         public bool PrintMapExchangesOnOneMap = false;
         public BitmapKind ExportedBitmapKind = BitmapCreationSettings.BitmapKind.Png;
         public float Dpi;
+        public bool AutoRotate = false;             // Turn a landscape image to portrait?
         public bool WorldFile;                      // Create a world file?
         public ColorModel ColorModel = ColorModel.CMYK;
 
