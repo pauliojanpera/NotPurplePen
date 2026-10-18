@@ -78,6 +78,10 @@ namespace PurplePen.ViewModels
         [ObservableProperty]
         private string dpiText = "200";
 
+        /// <summary>Whether a landscape image is turned to portrait.</summary>
+        [ObservableProperty]
+        private bool autoRotate;
+
         /// <summary>Selected color model — true for CMYK, false for RGB. Bound to the combo's SelectedIndex.</summary>
         [ObservableProperty]
         private int colorModelIndex; // 0 = RGB, 1 = CMYK
@@ -142,6 +146,7 @@ namespace PurplePen.ViewModels
                     AllCourses = allCourses,
                     ExportedBitmapKind = SelectedFileFormat?.Kind ?? BitmapCreationSettings.BitmapKind.Png,
                     Dpi = dpi,
+                    AutoRotate = AutoRotate,
                     ColorModel = ColorModelIndex == 1 ? ColorModel.CMYK : ColorModel.RGB,
                     WorldFile = WorldFileIndex == 1,
                     DontPrintBaseMap = PrintBaseMapIndex == 1,
@@ -175,6 +180,7 @@ namespace PurplePen.ViewModels
                                      ?? AvailableFileFormats[0];
 
                 DpiText = value.Dpi.ToString(CultureInfo.CurrentCulture);
+                AutoRotate = value.AutoRotate;
                 ColorModelIndex = value.ColorModel == ColorModel.CMYK ? 1 : 0;
                 WorldFileIndex = value.WorldFile ? 1 : 0;
                 PrintBaseMapIndex = value.DontPrintBaseMap ? 1 : 0;
