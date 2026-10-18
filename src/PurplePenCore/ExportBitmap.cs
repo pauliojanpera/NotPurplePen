@@ -65,13 +65,13 @@ namespace PurplePen
 
         // Create a bitmap file of the mapDisplay supplied at construction.
         // If mapperForWorldFile is not null and real world coords are defined, also create a world file.
-        public void CreateBitmap(string fileName, RectangleF rect, GraphicsBitmapFormat imageFormat, float dpi, CoordinateMapper mapperForWorldFile, bool autoRotate = false, int quality = 95)
+        public void CreateBitmap(string fileName, RectangleF rect, GraphicsBitmapFormat imageFormat, float dpi, CoordinateMapper mapperForWorldFile, bool autoRotate = false, int quality = 95, float scaleRatio = 1.0F)
         {
             float bitmapWidth, bitmapHeight; // size of the bitmap in pixels.
             int pixelWidth, pixelHeight; // bitmapWidth/Height, rounded up to integer.
 
-            bitmapWidth = (rect.Width / 25.4F) * dpi;
-            bitmapHeight = (rect.Height / 25.4F) * dpi;
+            bitmapWidth = (rect.Width / 25.4F) * (dpi / scaleRatio);
+            bitmapHeight = (rect.Height / 25.4F) * (dpi / scaleRatio);
             pixelWidth = (int)Math.Ceiling(bitmapWidth);
             pixelHeight = (int)Math.Ceiling(bitmapHeight);
 
