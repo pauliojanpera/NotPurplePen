@@ -201,6 +201,16 @@ jobs:
         PACKAGE_VENDOR: NotPurplePen
         PACKAGE_MAINTAINER: NotPurplePen <pauliojanpera@users.noreply.github.com>
         PACKAGE_URL: https://pauliojanpera.github.io/NotPurplePen/
+        PACKAGE_DESCRIPTION: >-
+          NotPurplePen is a course setting program for orienteering races. It
+          allows you to design courses on top of an orienteering map, manage
+          control points, produce course descriptions using IOF control
+          description symbols, and export the results for printing and race
+          management.
+        # A reverse-DNS identifier, which AppStream will not accept with a
+        # hyphen in it -- the upstream one has one and does not validate where
+        # appstreamcli is installed to notice.
+        APPSTREAM_ID: io.github.pauliojanpera.NotPurplePen
         SETUP_REPO: 'false'
       run: ./build-linux-packages.sh
 
