@@ -2215,7 +2215,8 @@ namespace PurplePen
                     numColumns = xmlinput.GetAttributeInt("columns", 1);
 
                     if (kind == SpecialKind.Text || kind == SpecialKind.Line || kind == SpecialKind.Rectangle || kind == SpecialKind.Ellipse) {
-                        color = xmlinput.GetAttributeColor("color", SpecialColor.UpperPurple);
+                        bool overprint = xmlinput.GetAttributeBool("overprint", false);
+                        color = xmlinput.GetAttributeColor("color", SpecialColor.UpperPurple, overprint);
                     }
 
                     string lineKindValue = xmlinput.GetAttributeString("line-kind", "");
@@ -2344,6 +2345,8 @@ namespace PurplePen
                 xmloutput.WriteEndElement();
                 xmloutput.WriteStartElement("appearance");
                 xmloutput.WriteAttributeString("color", color.ToString());
+                if (color.Overprint)
+                    xmloutput.WriteAttributeString("overprint", XmlConvert.ToString(true));
                 xmloutput.WriteEndElement();
             }
 
@@ -2355,6 +2358,8 @@ namespace PurplePen
                     case LineKind.Dashed: xmloutput.WriteAttributeString("line-kind", "dashed"); break;
                 }
                 xmloutput.WriteAttributeString("color", color.ToString());
+                if (color.Overprint)
+                    xmloutput.WriteAttributeString("overprint", XmlConvert.ToString(true));
                 xmloutput.WriteAttributeString("line-width", XmlConvert.ToString(lineWidth));
                 if (lineKind == LineKind.Double || lineKind == LineKind.Dashed)
                     xmloutput.WriteAttributeString("gap-size", XmlConvert.ToString(gapSize));
