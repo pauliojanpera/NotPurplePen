@@ -1,7 +1,7 @@
 name: Build NotPurplePen
 
-# Packaging. The test suite lives in tests.yml; the two must not overlap,
-# or every push builds the installer twice.
+# Packaging for Windows, Linux and macOS. The test suite lives in tests.yml;
+# the two must not overlap, or every push builds everything twice.
 #
 # Where a build goes follows from the branch it came from:
 #
@@ -9,21 +9,22 @@ name: Build NotPurplePen
 #                release branch carries a stable revision and lands on "main";
 #                an integration branch carries a prerelease one and lands on
 #                "beta", which only prerelease installs ever ask for.
+#   base         published on a channel of its own. This is upstream plus what
+#                it takes to build and test it here, with none of the fork's
+#                features, and it is offered to nobody as an update.
+#   a pull request against base, or a dispatched ref
+#                published under trial/. Such a branch is rooted at upstream and
+#                carries no workflow of its own, so pushing to it cannot run one;
+#                a pull request can, because its workflow is read from the merge
+#                of base and branch.
 #   wip/**       built and kept as a run artifact. Nothing is published.
-#   a pull request against base
-#                published under trial/, on a channel no installed copy ever
-#                asks for. This is how a branch offered to upstream is checked
-#                against it. Such a branch is rooted at upstream and carries no
-#                workflow of its own, so pushing to it cannot run one and no
-#                naming convention can change that; a pull request can, because
-#                its workflow is read from the merge of base and branch.
-#   a dispatched ref
-#                the same, for a branch with no pull request open: merged with
-#                base and with the current upstream before it is built.
+#
+# No channel but main and beta is ever offered as an update: the application
+# asks for those two, or for main alone, and nothing else matches.
 
 on:
   push:
-    branches: [ master, dev, 'wip/**' ]
+    branches: [ master, dev, base, 'wip/**' ]
     paths:
       - 'src/**'
       - '.github/**'
@@ -32,18 +33,30 @@ on:
   workflow_dispatch:
     inputs:
       ref:
-        description: 'Branch or commit to build against the current upstream/master'
+        description: 'Branch or commit to build against base and the current upstream'
         required: false
         default: ''
 
+env:
+  GithubPagesUrl: "https://pauliojanpera.github.io/NotPurplePen/"
+
 jobs:
-  build:
-    name: Build and Package
-    runs-on: windows-2022
+  package:
+    name: Package (${{ matrix.platform }})
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 60
 
-    env:
-      GithubPagesUrl: "https://pauliojanpera.github.io/NotPurplePen/"
+    strategy:
+      # One platform's failure says nothing about another's.
+      fail-fast: false
+      matrix:
+        include:
+        - platform: win-x64
+          os: windows-2022
+        - platform: linux-x64
+          os: ubuntu-latest
+        - platform: osx-arm64
+          os: macos-latest
 
     steps:
     - name: Checkout source
@@ -56,40 +69,38 @@ jobs:
     # A pull request arrives already merged with its base. A dispatched ref does
     # not, and a branch rooted at upstream carries neither this product's
     # identity nor the fixes its tests need, so it is merged with base here --
-    # otherwise the installer it produced would be Purple Pen's and would
-    # install over it.
+    # otherwise the package it produced would be Purple Pen's and would install
+    # over it.
     - name: Merge what this is built on
       if: github.event.inputs.ref != ''
-      shell: pwsh
+      shell: bash
       run: |
         git fetch --no-tags origin base
-        if ($LASTEXITCODE -ne 0) { throw 'Could not fetch base.' }
         git -c user.name=ci -c user.email=ci@localhost merge --no-edit FETCH_HEAD
-        if ($LASTEXITCODE -ne 0) { throw 'This branch does not merge with base.' }
 
     # And against upstream as it is now, not as it was when the branch was cut.
+    # By URL rather than as a second remote: GitVersion, which the PdfSharp
+    # subtree generates a class from, refuses to run on a build server whose
+    # repository has more than one.
     - name: Merge the current upstream
       if: github.event.inputs.ref != '' || github.event_name == 'pull_request'
-      shell: pwsh
+      shell: bash
       run: |
-        # By URL rather than as a second remote: GitVersion, which the PdfSharp
-        # subtree generates a class from, refuses to run on a build server
-        # whose repository has more than one.
         git fetch --no-tags https://github.com/petergolde/PurplePen.git master
-        if ($LASTEXITCODE -ne 0) { throw 'Could not fetch upstream.' }
-        $head = git rev-parse --short FETCH_HEAD
+        head=$(git rev-parse --short FETCH_HEAD)
         git -c user.name=ci -c user.email=ci@localhost merge --no-edit FETCH_HEAD
-        if ($LASTEXITCODE -ne 0) { throw 'This branch does not merge with the current upstream.' }
-        "merged with upstream master at $head"
+        echo "merged with upstream master at $head"
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '10.0.x'
 
-    # VersionNumber.cs is the single source of truth. create-setup.bat reads the
-    # version back out of the compiled assembly with Installer\GetVersion.cs and
-    # derives the installer's name and beta identity from it.
+    # VersionNumber.cs is the single source of truth, and it is declared twice,
+    # once for PurplePen and once for PurplePen.MapModel. The application
+    # reports the first and the assemblies take their version from the second,
+    # which is what the installers read back out and what the updater compares
+    # against, so both have to say the same thing.
     #
     # The run number goes in the build component. The last component is not a
     # counter: it says what kind of build the source declares itself to be,
@@ -100,11 +111,6 @@ jobs:
       id: version
       shell: pwsh
       run: |
-        # The number is declared twice, once for PurplePen and once for
-        # PurplePen.MapModel. The application reports the first and the
-        # assemblies take their version from the second, which is what the
-        # installer reads back out and what the updater compares against, so
-        # both have to say the same thing. A third would be found the same way.
         $declarations = @(Get-ChildItem src -Recurse -Filter VersionNumber.cs |
             Where-Object { (Get-Content $_.FullName -Raw) -match 'Current = "[\d.]+"' })
         if (-not $declarations) { throw 'No VersionNumber.cs declares a version.' }
@@ -122,36 +128,28 @@ jobs:
             (Get-Content $file.FullName -Raw) -replace 'Current = "[\d.]+"', ('Current = "' + $version + '"') |
                 Set-Content -Path $file.FullName -NoNewline
         }
-        "version written to $($declarations.Count) declaration(s)"
-        $channel = if ($parts[3] -lt 500) { 'beta' } else { 'main' }
+
         $ref = '${{ github.event.inputs.ref }}'
-        if (-not $ref -and '${{ github.event_name }}' -eq 'pull_request') {
-            $ref = '${{ github.head_ref }}'
-        }
+        if (-not $ref -and '${{ github.event_name }}' -eq 'pull_request') { $ref = '${{ github.head_ref }}' }
+        $branch = '${{ github.ref_name }}'
         if ($ref) {
-            # Nothing installed asks for this channel, so a trial is installable
-            # by its link and is never offered to anyone as an update.
-            $destination = 'trial'
             $channel = 'trial'
             $slug = ($ref -replace '[^A-Za-z0-9._-]', '-').Trim('-').ToLowerInvariant()
         }
-        elseif ('${{ github.ref_name }}' -in @('master', 'dev')) {
-            $destination = 'channel'
+        elseif ($branch -eq 'base') { $channel = 'base'; $slug = '' }
+        elseif ($branch -in @('master', 'dev')) {
+            $channel = if ($parts[3] -lt 500) { 'beta' } else { 'main' }
             $slug = ''
         }
-        else {
-            $destination = 'none'
-            $slug = ''
-        }
+        else { $channel = 'none'; $slug = '' }
 
-        "version=$version"        >> $env:GITHUB_OUTPUT
-        "channel=$channel"        >> $env:GITHUB_OUTPUT
-        "destination=$destination" >> $env:GITHUB_OUTPUT
-        "slug=$slug"              >> $env:GITHUB_OUTPUT
-        Write-Host "Building $version for channel $channel, destination $destination$(if ($slug) { " ($slug)" })"
+        "version=$version" >> $env:GITHUB_OUTPUT
+        "channel=$channel" >> $env:GITHUB_OUTPUT
+        "slug=$slug"       >> $env:GITHUB_OUTPUT
+        Write-Host "Building $version for channel $channel$(if ($slug) { " ($slug)" })"
 
-    # AvPurplePen is what the installer ships, and its updater reads a manifest
-    # from a hardcoded upstream URL. Point it at this fork's copy instead.
+    # The updater reads a manifest from a hardcoded upstream URL. Point it at
+    # this fork's copy instead.
     - name: Point the updater at this fork
       shell: pwsh
       run: |
@@ -167,158 +165,229 @@ jobs:
     - name: Restore
       run: dotnet restore src/PPen.slnx
 
-    # The project's own script: publishes AvPurplePen and PdfConverter, copies
-    # the converter alongside, derives the version and runs Inno Setup.
-    - name: Create setup
+    - name: Build the Windows installer
+      if: matrix.platform == 'win-x64'
       working-directory: src/Innosetup
       shell: cmd
       run: create-setup.bat
 
-    - name: Collect the installer
+    # rpmbuild is the only prerequisite the image lacks; the rest -- rsync,
+    # dpkg-deb, curl, gpg -- are in the base system, and appimagetool is
+    # fetched and hash-checked by the script itself.
+    - name: Install the Linux packaging tools
+      if: matrix.platform == 'linux-x64'
+      run: sudo apt-get install -y --no-install-recommends rpm desktop-file-utils
+
+    # The identity comes from the environment rather than from config.sh, which
+    # is upstream's file: every setting in it can be given this way. SETUP_REPO
+    # is off because the packages would otherwise configure Purple Pen's own apt
+    # and dnf repositories on the machine they are installed on.
+    - name: Build the Linux packages
+      if: matrix.platform == 'linux-x64'
+      working-directory: src/Installer/LinuxInstaller
+      env:
+        PACKAGE_NAME: notpurplepen
+        DISPLAY_NAME: NotPurplePen
+        PACKAGE_VENDOR: NotPurplePen
+        PACKAGE_MAINTAINER: NotPurplePen <pauliojanpera@users.noreply.github.com>
+        PACKAGE_URL: https://pauliojanpera.github.io/NotPurplePen/
+        SETUP_REPO: 'false'
+      run: ./build-linux-packages.sh
+
+    # Unsigned: notarized distribution needs a Developer ID certificate, which
+    # this build has no access to. The result installs after the usual warning.
+    - name: Build the macOS disk image
+      if: matrix.platform == 'osx-arm64'
+      working-directory: src/Installer/MacInstaller
+      env:
+        BUNDLE_ID: io.github.pauliojanpera.NotPurplePen
+        BUNDLE_NAME: NotPurplePen
+        DISPLAY_NAME: NotPurplePen
+        DMG_VOLUME_NAME: NotPurplePen
+      run: ./build-mac-app.sh --skip-sign
+
+    # One descriptor per platform saying what came out and where each file
+    # belongs, so the publishing job does not have to read file names.
+    - name: Collect the packages
       shell: pwsh
       run: |
-        $installer = Get-ChildItem "src/Innosetup/output" -Filter "*.exe" |
-                     Sort-Object LastWriteTime -Descending | Select-Object -First 1
-        if (-not $installer) { throw "create-setup.bat produced no installer" }
-        New-Item -Path artifact -ItemType Directory -Force | Out-Null
-        Copy-Item $installer.FullName "artifact/notpurplepen-setup-${{ steps.version.outputs.version }}.exe"
+        $version = '${{ steps.version.outputs.version }}'
+        $channel = '${{ steps.version.outputs.channel }}'
+        New-Item artifact -ItemType Directory -Force | Out-Null
 
-    - name: Upload installer
+        $sources = switch ('${{ matrix.platform }}') {
+            'win-x64'    { @{ Directory = 'src/Innosetup/output'; Include = @('*.exe') } }
+            'linux-x64'  { @{ Directory = 'src/Installer/LinuxInstaller/output'; Include = @('*.deb', '*.rpm', '*.AppImage') } }
+            'osx-arm64'  { @{ Directory = 'src/Installer/MacInstaller/output'; Include = @('*.dmg') } }
+        }
+        $produced = @(Get-ChildItem $sources.Directory -Include $sources.Include -Recurse -ErrorAction SilentlyContinue)
+        if (-not $produced) { throw "Nothing was produced in $($sources.Directory)." }
+
+        # Only one file per platform can be offered as an update. A .deb or an
+        # .rpm is updated by the package manager that installed it, and this
+        # site is not one, so they are published to download and left out of
+        # the manifest.
+        $entries = foreach ($file in $produced) {
+            $extension = $file.Extension.ToLowerInvariant()
+            $platform = switch ($extension) {
+                '.appimage' { 'linux-appimage-x64' }
+                default     { '${{ matrix.platform }}' }
+            }
+            $offered = $extension -in @('.exe', '.dmg', '.appimage')
+            $name = "notpurplepen-$version-$platform$extension"
+            Copy-Item $file.FullName (Join-Path 'artifact' $name)
+            [ordered]@{
+                file = $name; platform = $platform; channel = $channel
+                version = $version; offered = $offered
+                sha256 = (Get-FileHash $file.FullName -Algorithm SHA256).Hash.ToLower()
+            }
+        }
+
+        [ordered]@{
+            platform = '${{ matrix.platform }}'; channel = $channel
+            version = $version; slug = '${{ steps.version.outputs.slug }}'
+            files = @($entries)
+        } | ConvertTo-Json -Depth 5 | Set-Content 'artifact/descriptor.json' -Encoding UTF8
+
+        Get-ChildItem artifact | ForEach-Object { "  $($_.Name)  $([int]($_.Length / 1MB)) MiB" }
+
+    - name: Upload the packages
       uses: actions/upload-artifact@v4
       with:
-        name: installer-${{ steps.version.outputs.version }}
-        path: |
-          artifact/*.exe
-          src/Innosetup/output/*.log
+        name: package-${{ matrix.platform }}
+        path: artifact/*
+
+  publish:
+    name: Publish
+    needs: package
+    if: >-
+      github.event.inputs.ref != '' ||
+      github.event_name == 'pull_request' ||
+      github.ref_name == 'master' || github.ref_name == 'dev' || github.ref_name == 'base'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+    - name: Fetch the packages
+      uses: actions/download-artifact@v4
+      with:
+        pattern: package-*
+        path: packages
 
     # What is already published, so that a deploy adds to it rather than
-    # replacing it: the two channels live on one site and each would otherwise
-    # erase the other.
+    # replacing it: every channel lives on one site and each would otherwise
+    # erase the others.
     - name: Take the published site
-      id: published
-      if: steps.version.outputs.destination != 'none'
       continue-on-error: true
       uses: actions/checkout@v4
       with:
         ref: gh-pages
         path: published
 
-    - name: Stage the site
-      if: steps.version.outputs.destination != 'none'
+    - name: Assemble the site
       shell: pwsh
       run: |
-        $version = '${{ steps.version.outputs.version }}'
-        $channel = '${{ steps.version.outputs.channel }}'
-        $slug = '${{ steps.version.outputs.slug }}'
-        $name = "notpurplepen-setup-$version.exe"
+        $pagesUrl = "$env:GithubPagesUrl"
+        $kept = @{ main = 3; beta = 3; base = 3; trial = 4 }
 
-        New-Item site/downloads -ItemType Directory -Force | Out-Null
-        if (Test-Path published/downloads) {
-            Copy-Item published/downloads/* site/downloads/ -Force -ErrorAction SilentlyContinue
-        }
-        if (Test-Path published/trial) {
-            Copy-Item published/trial site/ -Recurse -Force -ErrorAction SilentlyContinue
+        # catalog.json is the site's own record of what it holds. Names and
+        # directories are not parsed to work it out, because a package's name
+        # is the packaging tool's business and changes with it.
+        $catalog = @()
+        if (Test-Path published/catalog.json) {
+            $catalog = @((Get-Content published/catalog.json -Raw | ConvertFrom-Json).entries)
         }
 
-        if ($slug) {
-            New-Item "site/trial/$slug" -ItemType Directory -Force | Out-Null
-            Get-ChildItem "site/trial/$slug" -Filter *.exe | Remove-Item -Force
-            Copy-Item "artifact/$name" "site/trial/$slug/$name"
-        }
-        else {
-            Copy-Item "artifact/$name" "site/downloads/$name"
-        }
-
-        # The version in the file name carries the channel in its last
-        # component, so the published set can be pruned without keeping a
-        # record of what each file was.
-        function Get-Version($file) {
-            $m = [regex]::Match($file.Name, 'setup-(\d+\.\d+\.\d+\.\d+)\.exe$')
-            if ($m.Success) { return [version]$m.Groups[1].Value }
-            return $null
-        }
-        $keptPerChannel = 3
-        foreach ($group in (Get-ChildItem site/downloads -Filter *.exe |
-                            Where-Object { Get-Version $_ } |
-                            Group-Object { if ((Get-Version $_).Revision -lt 500) { 'beta' } else { 'main' } })) {
-            $group.Group | Sort-Object { Get-Version $_ } -Descending |
-                Select-Object -Skip $keptPerChannel | Remove-Item -Force
-        }
-
-        # A trial belongs to a branch, and old branches' trials are only weight;
-        # keep the few most recent, newest build number first.
-        $keptTrials = 4
-        if (Test-Path site/trial) {
-            Get-ChildItem site/trial -Directory |
-                Sort-Object { $_ | Get-ChildItem -Filter *.exe | ForEach-Object { Get-Version $_ } |
-                               Sort-Object -Descending | Select-Object -First 1 } -Descending |
-                Select-Object -Skip $keptTrials | Remove-Item -Recurse -Force
-        }
-
-        # One manifest for the whole site, holding the newest build of each
-        # channel. Schema per PurplePenCore/CoreUpdater.cs: a single "updates"
-        # array, read case-insensitively. Platform names are the runtime
-        # identifier the application reports, so a win-x64 publish is offered to
-        # win-x64. Trials are deliberately absent: they are installed from a
-        # link, never offered.
-        $updates = @()
-        foreach ($which in 'main', 'beta') {
-            $newest = Get-ChildItem site/downloads -Filter *.exe |
-                      Where-Object { $v = Get-Version $_; $v -and (($v.Revision -lt 500) -eq ($which -eq 'beta')) } |
-                      Sort-Object { Get-Version $_ } -Descending | Select-Object -First 1
-            if (-not $newest) { continue }
-            $updates += [ordered]@{
-                title    = "Purple Pen $((Get-Version $newest).ToString())"
-                version  = (Get-Version $newest).ToString()
-                platform = "win-x64"
-                channel  = $which
-                url      = "$env:GithubPagesUrl" + "downloads/$($newest.Name)"
-                sha256   = (Get-FileHash $newest.FullName -Algorithm SHA256).Hash.ToLower()
-                message  = ""
-            }
-        }
-        [ordered]@{ updates = $updates } | ConvertTo-Json -Depth 5 |
-            Set-Content -Path site/manifest.json -Encoding utf8
-
-        $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss UTC"
-        $rows = foreach ($entry in $updates) {
-            "<li><a href=""downloads/$(Split-Path $entry.url -Leaf)"">$($entry.version)</a> &mdash; $($entry.channel)</li>"
-        }
-        # Newest first, and a fixed address for it, so that the build to try is
-        # the one at the top and can be fetched without knowing which branch it
-        # came from or what it ended up being called. A redirect rather than a
-        # second copy: the installer is forty megabytes.
-        $trialBuilds = @()
-        if (Test-Path site/trial) {
-            foreach ($directory in (Get-ChildItem site/trial -Directory)) {
-                foreach ($file in (Get-ChildItem $directory.FullName -Filter *.exe)) {
-                    $trialBuilds += [pscustomobject]@{
-                        Slug = $directory.Name; Name = $file.Name; Version = Get-Version $file
-                    }
+        $added = @()
+        foreach ($descriptorFile in (Get-ChildItem packages -Recurse -Filter descriptor.json)) {
+            $descriptor = Get-Content $descriptorFile.FullName -Raw | ConvertFrom-Json
+            foreach ($entry in $descriptor.files) {
+                $directory = if ($descriptor.channel -eq 'trial') { "trial/$($descriptor.slug)" }
+                             else { "downloads/$($descriptor.channel)" }
+                $added += [pscustomobject]@{
+                    path = "$directory/$($entry.file)"; file = $entry.file
+                    channel = $descriptor.channel; slug = $descriptor.slug
+                    platform = $entry.platform; version = $entry.version
+                    offered = $entry.offered; sha256 = $entry.sha256
+                    source = (Join-Path $descriptorFile.DirectoryName $entry.file)
                 }
             }
-            $trialBuilds = @($trialBuilds | Sort-Object Version -Descending)
         }
-        if ($trialBuilds.Count) {
-            $newest = $trialBuilds[0]
-            $target = "$($newest.Slug)/$($newest.Name)"
-            @"
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta http-equiv="refresh" content="0; url=$target">
-            <title>Latest trial build</title>
-        </head>
-        <body><p><a href="$target">$($newest.Name)</a></p></body>
-        </html>
-        "@ | Set-Content -Path site/trial/latest.html -Encoding utf8
+
+        # A build replaces what the same channel, slug and platform published
+        # before; the rest of the catalog is carried forward.
+        $replaced = $added | ForEach-Object { "$($_.channel)|$($_.slug)|$($_.platform)|$($_.version)" }
+        $catalog = @($catalog | Where-Object {
+            "$($_.channel)|$($_.slug)|$($_.platform)|$($_.version)" -notin $replaced
+        })
+        $catalog += $added
+
+        # Keep the few most recent of each channel, counting by version rather
+        # than by file, so a version's platforms stay together.
+        $surviving = @()
+        foreach ($group in ($catalog | Group-Object { if ($_.channel -eq 'trial') { "trial/$($_.slug)" } else { $_.channel } })) {
+            $limit = if ($group.Name -like 'trial/*') { 1 } else { $kept[$group.Name] }
+            if (-not $limit) { $limit = 3 }
+            $versions = @($group.Group | Sort-Object { [version]$_.version } -Descending |
+                          ForEach-Object { $_.version } | Select-Object -Unique | Select-Object -First $limit)
+            $surviving += $group.Group | Where-Object { $_.version -in $versions }
         }
-        $trials = foreach ($build in $trialBuilds) {
-            $mark = if ($build -eq $trialBuilds[0]) { ' &mdash; <strong>newest</strong>' } else { '' }
-            "<li><a href=""trial/$($build.Slug)/$($build.Name)"">$($build.Slug)</a> &mdash; $($build.Version)$mark</li>"
+        # And only the newest few trials, whole.
+        $trialSlugs = @($surviving | Where-Object { $_.channel -eq 'trial' } |
+                        Sort-Object { [version]$_.version } -Descending |
+                        ForEach-Object { $_.slug } | Select-Object -Unique | Select-Object -First $kept['trial'])
+        $surviving = @($surviving | Where-Object { $_.channel -ne 'trial' -or $_.slug -in $trialSlugs })
+
+        New-Item site -ItemType Directory -Force | Out-Null
+        foreach ($entry in $surviving) {
+            $target = Join-Path 'site' $entry.path
+            New-Item (Split-Path $target) -ItemType Directory -Force | Out-Null
+            $source = if ($entry.PSObject.Properties['source'] -and $entry.source) { $entry.source }
+                      else { Join-Path 'published' $entry.path }
+            if (-not (Test-Path $source)) { continue }
+            Copy-Item $source $target -Force
         }
-        $commits = (git log -n 10 --pretty=%s | ForEach-Object { "<li>$_</li>" }) -join "`n        "
+        $surviving = @($surviving | Where-Object { Test-Path (Join-Path 'site' $_.path) })
+
+        [ordered]@{ entries = @($surviving | Select-Object path, file, channel, slug, platform, version, offered, sha256) } |
+            ConvertTo-Json -Depth 5 | Set-Content site/catalog.json -Encoding UTF8
+
+        # The manifest is the updater's view: the newest build of each platform
+        # on each channel it will ever ask for. Schema per
+        # PurplePenCore/CoreUpdater.cs -- a single "updates" array, read
+        # case-insensitively, with platform names as the application reports
+        # them. Nothing installed asks for "base" or "trial", so they are not
+        # in it.
+        $updates = @()
+        foreach ($entry in ($surviving | Where-Object { $_.offered -and $_.channel -in @('main', 'beta') } |
+                            Group-Object channel, platform)) {
+            $newest = $entry.Group | Sort-Object { [version]$_.version } -Descending | Select-Object -First 1
+            $updates += [ordered]@{
+                title = "NotPurplePen $($newest.version)"; version = $newest.version
+                platform = $newest.platform; channel = $newest.channel
+                url = $pagesUrl + $newest.path; sha256 = $newest.sha256; message = ""
+            }
+        }
+        [ordered]@{ updates = @($updates) } | ConvertTo-Json -Depth 5 |
+            Set-Content site/manifest.json -Encoding UTF8
+
+        function Section($title, $note, $rows) {
+            "<h2>$title</h2>" + $(if ($note) { "<p>$note</p>" }) +
+            $(if ($rows) { "<ul>" + ($rows -join "`n") + "</ul>" } else { "<p>None yet.</p>" })
+        }
+        function Rows($entries) {
+            $entries | Sort-Object { [version]$_.version } -Descending, platform, file | ForEach-Object {
+                "<li><a href=""$($_.path)"">$($_.file)</a> &mdash; $($_.platform)</li>"
+            }
+        }
+
+        $body = @()
+        $body += Section 'Releases' 'Offered to installed copies as updates.' (Rows ($surviving | Where-Object { $_.channel -eq 'main' }))
+        $body += Section 'Prereleases' 'Offered only to copies that are themselves prereleases.' (Rows ($surviving | Where-Object { $_.channel -eq 'beta' }))
+        $body += Section 'Upstream with this fork&rsquo;s build' 'Purple Pen as it stands upstream, built and named so it can be installed beside it. Never offered as an update.' (Rows ($surviving | Where-Object { $_.channel -eq 'base' }))
+        $body += Section 'Trial builds' 'Built from a branch against the current upstream. Installed from here, never offered as an update.' (Rows ($surviving | Where-Object { $_.channel -eq 'trial' }))
+
+        $timestamp = Get-Date -Format 'yyyy-MM-dd HH:mm:ss UTC'
         @"
         <!DOCTYPE html>
         <html lang="en">
@@ -329,31 +398,26 @@ jobs:
         </head>
         <body>
             <h1>NotPurplePen</h1>
-            <p>Updated $timestamp.</p>
-            <h2>Releases</h2>
+            <p>A fork of <a href="https://purple-pen.org">Purple Pen</a>, built for Windows, Linux and macOS.
+               Updated $timestamp.</p>
+            $($body -join "`n    ")
+            <h2>Notes</h2>
             <ul>
-                $($rows -join "`n        ")
-            </ul>
-            <h2>Trial builds</h2>
-            <p>Built from a branch against the current upstream. Installed from here, never offered as an update.
-               The newest is always at <a href="trial/latest.html">trial/latest.html</a>.</p>
-            <ul>
-                $($trials -join "`n        ")
-            </ul>
-            <h2>Latest commits</h2>
-            <ul>
-                $commits
+                <li>The .deb and .rpm packages are installed and removed by the system package manager and
+                    are not offered as updates from inside the application.</li>
+                <li>The macOS disk image is not signed, so the first launch needs the usual confirmation.</li>
             </ul>
         </body>
         </html>
-        "@ | Set-Content -Path site/index.html -Encoding utf8
+        "@ | Set-Content site/index.html -Encoding UTF8
 
-        Get-ChildItem site -Recurse -File | ForEach-Object { $_.FullName.Replace("$PWD\", '') }
+        "published:"
+        Get-ChildItem site -Recurse -File | ForEach-Object { "  $($_.FullName.Substring((Resolve-Path 'site').Path.Length + 1))" }
 
     # A release goes out only behind a green suite. A trial does not wait: the
-    # question it answers is whether the branch still builds against upstream.
+    # question it answers is whether the branch still builds.
     - name: Wait for the tests
-      if: steps.version.outputs.destination == 'channel'
+      if: github.event_name == 'push'
       shell: pwsh
       env:
         GH_TOKEN: ${{ github.token }}
@@ -372,12 +436,11 @@ jobs:
         }
 
     - name: Deploy to GitHub Pages
-      if: steps.version.outputs.destination != 'none'
       uses: peaceiris/actions-gh-pages@v4
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./site
         publish_branch: gh-pages
         # The site is assembled whole on each deploy, carrying forward what is
-        # still wanted, so an orphan commit keeps the installers out of history.
+        # still wanted, so an orphan commit keeps the packages out of history.
         force_orphan: true
