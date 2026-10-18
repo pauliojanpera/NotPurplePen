@@ -137,7 +137,10 @@ jobs:
         if (-not $ref -and $branch.StartsWith('wip/')) { $ref = $branch }
         if ($ref) {
             $channel = 'trial'
-            $slug = ($ref -replace '[^A-Za-z0-9._-]', '-').Trim('-').ToLowerInvariant()
+            # Named after the last part of the branch name alone, so that the
+            # wip/ branch a build is run from and the feature/ branch the work
+            # is on publish as one trial, where the newer replaces the older.
+            $slug = ((($ref -split '/')[-1]) -replace '[^A-Za-z0-9._-]', '-').Trim('-').ToLowerInvariant()
         }
         elseif ($branch -eq 'base') { $channel = 'base'; $slug = '' }
         elseif ($branch -in @('master', 'dev')) {
@@ -251,6 +254,7 @@ jobs:
             'linux-x64'  { @{ Directory = 'src/Installer/LinuxInstaller/output'; Include = @('*.deb', '*.rpm', '*.AppImage') } }
             'osx-arm64'  { @{ Directory = 'src/Installer/MacInstaller/output'; Include = @('*.dmg') } }
         }
+        $slug = '${{ steps.version.outputs.slug }}'
         $produced = @(Get-ChildItem $sources.Directory -Include $sources.Include -Recurse -ErrorAction SilentlyContinue)
         if (-not $produced) { throw "Nothing was produced in $($sources.Directory)." }
 
@@ -265,7 +269,12 @@ jobs:
                 default     { '${{ matrix.platform }}' }
             }
             $offered = $extension -in @('.exe', '.dmg', '.appimage')
-            $name = "notpurplepen-$version-$channel-$platform$extension"
+
+            # A trial says which branch it was built from, so that packages
+            # from several of them can sit in one download folder and be told
+            # apart.
+            $label = if ($slug) { "$channel-$slug" } else { $channel }
+            $name = "notpurplepen-$version-$label-$platform$extension"
             Copy-Item $file.FullName (Join-Path 'artifact' $name)
             [ordered]@{
                 file = $name; platform = $platform; channel = $channel
@@ -276,7 +285,7 @@ jobs:
 
         [ordered]@{
             platform = '${{ matrix.platform }}'; channel = $channel
-            version = $version; slug = '${{ steps.version.outputs.slug }}'
+            version = $version; slug = $slug
             files = @($entries)
         } | ConvertTo-Json -Depth 5 | Set-Content 'artifact/descriptor.json' -Encoding UTF8
 
