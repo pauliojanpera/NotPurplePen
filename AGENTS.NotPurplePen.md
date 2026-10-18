@@ -32,26 +32,26 @@ A change to a test baseline belongs in the same branch as the change that moved
 the output, and nowhere else. `base` therefore carries baselines moved by fixes
 offered upstream, and never ones moved by a feature.
 
-## A branch is verified by a pull request
+## A branch is verified from a wip branch
 
 ```
 git checkout -b feature/<name> upstream/master     # or: dev
 ...
-gh pr create --base base --head feature/<name>     # or: --base dev
+git checkout -b wip/<name> base                    # or: dev
+git merge feature/<name>
+git push origin wip/<name>
 ```
 
-The pull request is opened **in this repository**, against the branch the work
-is meant for -- `base` for what could go upstream, `dev` for what could not --
-and not to upstream. Both workflows carry a `pull_request` trigger for those
-branches, so the run tests the merge of the base branch and the branch, and
-publishes an installable package for Windows, Linux and macOS to
-<https://pauliojanpera.github.io/NotPurplePen/> under `trial/`.
+The work stays on the feature branch, rooted at what it is meant for, carrying
+nothing else. The `wip/**` branch is where it is run: rooted at `base` for what
+could go upstream, at `dev` for what could not, with the feature merged into
+it. The push runs the tests and publishes an installable package for Windows,
+Linux and macOS to <https://pauliojanpera.github.io/NotPurplePen/> under
+`trial/`, against the current upstream.
 
-A push to `wip/**` does what that pull request does, without one: the tests
-run, and the packages are published under `trial/`. A branch rooted at upstream
-carries no workflow, and a push cannot run one that is not in the branch it
-pushes, so a `wip/**` branch is rooted at `base` (or `dev`) with the work
-merged into it.
+It has to be that way round. A push runs only the workflows that are in the
+branch pushed, and a branch rooted at `upstream/master` has none, so pushing
+the feature branch itself runs nothing.
 
 A push to `experiment/**` runs the tests and produces nothing to install.
 
