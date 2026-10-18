@@ -12,11 +12,11 @@ name: Build NotPurplePen
 #   base         published on a channel of its own. This is upstream plus what
 #                it takes to build and test it here, with none of the fork's
 #                features, and it is offered to nobody as an update.
-#   a pull request against base, or a dispatched ref
-#                published under trial/. Such a branch is rooted at upstream and
-#                carries no workflow of its own, so pushing to it cannot run one;
-#                a pull request can, because its workflow is read from the merge
-#                of base and branch.
+#   a pull request, or a dispatched ref
+#                published under trial/. A branch rooted at upstream carries no
+#                workflow of its own, so pushing to it cannot run one; a pull
+#                request can, because its workflow is read from the merge of the
+#                base branch and the branch.
 #   wip/**       built and kept as a run artifact. Nothing is published.
 #
 # No channel but main and beta is ever offered as an update: the application
@@ -29,7 +29,7 @@ on:
       - 'src/**'
       - '.github/**'
   pull_request:
-    branches: [ base ]
+    branches: [ base, dev, master ]
   workflow_dispatch:
     inputs:
       ref:
