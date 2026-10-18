@@ -19,7 +19,7 @@ namespace AvPurplePen
         // folder. LocalApplicationData rather than ApplicationData (which holds
         // PurplePenSettings.json): this is a browser cache that can grow to tens of
         // megabytes, so it must not roam.
-        private const string applicationFolderName = "PurplePen";
+        private const string applicationFolderName = "NotPurplePen";
         private const string userDataFolderName = "WebView2";
 
         /// <summary>

@@ -253,7 +253,7 @@ namespace PurplePen
         private static string GetCacheDirectory()
         {
             string tempPath = Path.GetTempPath();
-            string cacheDirectory = Path.Combine(tempPath, "PurplePen");
+            string cacheDirectory = Path.Combine(tempPath, "NotPurplePen");
             if (!Directory.Exists(cacheDirectory))
                 Directory.CreateDirectory(cacheDirectory);
             return cacheDirectory;

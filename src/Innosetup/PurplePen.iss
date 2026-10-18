@@ -691,10 +691,10 @@ end;
 
 #define MyAppPublisher "NotPurplePen"
 #define MyAppURL "https://pauliojanpera.github.io/NotPurplePen/"
-#define MyAppExeName "PurplePen.exe"
+#define MyAppExeName "NotPurplePen.exe"
 #define BuildDir "publish\Main"
 #ifndef MyAppVersion
-  #define MyAppVersion GetVersionNumbersString(BuildDir + "\PurplePen.exe")
+  #define MyAppVersion GetVersionNumbersString(BuildDir + "\NotPurplePen.exe")
 #endif
 
 ; The value of AppId uniquely identifies this application. These are not
@@ -778,7 +778,7 @@ Source: "netcorecheck_x64.exe"; Flags: dontcopy noencryption
 Source: "dxwebsetup.exe"; Flags: dontcopy noencryption
 #endif
 
-Source: "{#BuildDir}\PurplePen.exe"; DestDir: "{app}"; Flags: ignoreversion 
+Source: "{#BuildDir}\NotPurplePen.exe"; DestDir: "{app}"; Flags: ignoreversion 
 Source: "{#BuildDir}\PdfConverter.exe"; DestDir: "{app}"; Flags: ignoreversion 
 Source: "{#BuildDir}\createdump.exe"; DestDir: "{app}"; Flags: ignoreversion 
 Source: "{#BuildDir}\*.dll"; DestDir: "{app}"; Flags: ignoreversion 
