@@ -23,7 +23,7 @@
 
 # Name of the .app bundle and the executable inside it. The executable name
 # must match AvPurplePen's <AssemblyName>, which is "PurplePen".
-: "${APP_NAME:=PurplePen}"
+: "${APP_NAME:=NotPurplePen}"
 
 # CFBundleName is shown in the macOS menu bar and is limited to 15 characters.
 : "${BUNDLE_NAME:=Purple Pen}"

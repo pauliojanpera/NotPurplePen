@@ -50,7 +50,7 @@ namespace AvUtil
 
             if (!cache.TryGetValue(assetPath, out (Bitmap original, Bitmap disabled) entry))
             {
-                Uri uri = new Uri("avares://PurplePen" + assetPath);
+                Uri uri = new Uri("avares://NotPurplePen" + assetPath);
                 Bitmap original = new Bitmap(AssetLoader.Open(uri));
                 Bitmap disabled = CreateDisabledGrayscale(original);
                 entry = (original, disabled);

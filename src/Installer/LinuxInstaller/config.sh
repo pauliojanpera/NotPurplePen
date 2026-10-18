@@ -25,7 +25,7 @@
 # Name of the executable produced by the build. Must match AvPurplePen's
 # <AssemblyName>, which is "PurplePen" -- note this differs in case from
 # PACKAGE_NAME.
-: "${APP_NAME:=PurplePen}"
+: "${APP_NAME:=NotPurplePen}"
 
 # Human-readable application name, shown in menus and package descriptions.
 : "${DISPLAY_NAME:=Purple Pen}"
