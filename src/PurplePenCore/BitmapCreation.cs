@@ -185,7 +185,8 @@ namespace PurplePen
             }
 
             ExportBitmap exportBitmap = new ExportBitmap(currentMapDisplay);
-            exportBitmap.CreateBitmap(fileName, mapRectangle, GetImageFormat(), bitmapCreationSettings.Dpi, coordinateMapper);
+            exportBitmap.CreateBitmap(fileName, mapRectangle, GetImageFormat(), bitmapCreationSettings.Dpi, coordinateMapper,
+                                      bitmapCreationSettings.Quality);
         }
     }
 }

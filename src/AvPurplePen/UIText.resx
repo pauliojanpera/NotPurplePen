@@ -1275,6 +1275,9 @@
   <data name="CreateImageFiles_labelColorModel_Text" xml:space="preserve">
     <value>Color model:</value>
   </data>
+  <data name="CreateImageFiles_labelImageQuality_Text" xml:space="preserve">
+    <value>Image quality:</value>
+  </data>
   <data name="CreateImageFiles_comboBoxColorModel_Items" xml:space="preserve">
     <value>RGB</value>
   </data>
