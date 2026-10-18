@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    AppStream metainfo for Purple Pen, installed as
+    AppStream metainfo for NotPurplePen, installed as
     /usr/share/metainfo/@APPSTREAM_ID@.appdata.xml.
 
     The at-sign-delimited tokens below are filled in by
@@ -30,12 +30,12 @@
 
   <description>
     <p>
-      Purple Pen is a course setting program for orienteering races. It lets
+      NotPurplePen is a course setting program for orienteering races. It lets
       you design courses on top of an orienteering map, manage control points,
       produce course descriptions using IOF control description symbols, and
       export the results for printing and race management.
     </p>
-    <p>Purple Pen can:</p>
+    <p>NotPurplePen can:</p>
     <ul>
       <li>Design courses directly on OCAD and OpenMapper maps</li>
       <li>Generate IOF-standard control descriptions automatically</li>
