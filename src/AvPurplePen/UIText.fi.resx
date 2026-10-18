@@ -3638,4 +3638,31 @@ Kilpailukarttojen tulostamiseksi on suositeltavaa viedä radat OCAD-tiedostoihin
   <data name="NewEventWizard_finishButton_Text" xml:space="preserve">
     <value>_Maali</value>
   </data>
+  <data name="MainFrame_publishCoursesMenu_Text" xml:space="preserve">
+    <value>Julkaise ratoja...</value>
+  </data>
+  <data name="PublishCoursesDialog_Text" xml:space="preserve">
+    <value>Julkaise ratoja</value>
+  </data>
+  <data name="PublishCoursesDialog_advancedSettingsButton_Text" xml:space="preserve">
+    <value>Lisäasetukset...</value>
+  </data>
+  <data name="PublishCoursesDialog_coursesGroupBox_Text" xml:space="preserve">
+    <value>Radat</value>
+  </data>
+  <data name="PublishCoursesDialog_fileDirectory_Text" xml:space="preserve">
+    <value>Suhteessa Purple Pen -tiedoston kansioon</value>
+  </data>
+  <data name="PublishCoursesDialog_mapDirectory_Text" xml:space="preserve">
+    <value>Suhteessa kartan kansioon</value>
+  </data>
+  <data name="PublishCoursesDialog_publishTargetFolderGroupBox_Text" xml:space="preserve">
+    <value>Julkaisun kohdekansio</value>
+  </data>
+  <data name="PublishCoursesDialog_selectDataExchangeFolderButton_Text" xml:space="preserve">
+    <value>Valitse kansio...</value>
+  </data>
+  <data name="MainFrame_publishCoursesToolStripButton_ToolTipText" xml:space="preserve">
+    <value>Julkaise ratoja</value>
+  </data>
 </root>

@@ -3874,4 +3874,31 @@ Purple Pen cannot install this kind of file for you. Open it yourself to install
   <data name="HelpButton_ToolTip" xml:space="preserve">
     <value>Help</value>
   </data>
+  <data name="MainFrame_publishCoursesMenu_Text" xml:space="preserve">
+    <value>Publish courses...</value>
+  </data>
+  <data name="PublishCoursesDialog_Text" xml:space="preserve">
+    <value>Publish courses</value>
+  </data>
+  <data name="PublishCoursesDialog_advancedSettingsButton_Text" xml:space="preserve">
+    <value>Advanced...</value>
+  </data>
+  <data name="PublishCoursesDialog_coursesGroupBox_Text" xml:space="preserve">
+    <value>Courses</value>
+  </data>
+  <data name="PublishCoursesDialog_fileDirectory_Text" xml:space="preserve">
+    <value>Relative to the folder of the Purple Pen file</value>
+  </data>
+  <data name="PublishCoursesDialog_mapDirectory_Text" xml:space="preserve">
+    <value>Relative to the folder of the map file</value>
+  </data>
+  <data name="PublishCoursesDialog_publishTargetFolderGroupBox_Text" xml:space="preserve">
+    <value>Publish target folder</value>
+  </data>
+  <data name="PublishCoursesDialog_selectDataExchangeFolderButton_Text" xml:space="preserve">
+    <value>Select folder...</value>
+  </data>
+  <data name="MainFrame_publishCoursesToolStripButton_ToolTipText" xml:space="preserve">
+    <value>Publish courses</value>
+  </data>
 </root>

@@ -27,6 +27,7 @@ namespace PurplePen
         public string NewEventMapStandard = "2017";
         public string NewEventDescriptionStandard = "2018";
         public string LiveloxSettings;
+        public string PublishTargetFolder;
 
         public static UserSettings Current;
 
