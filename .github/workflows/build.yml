@@ -17,7 +17,9 @@ name: Build NotPurplePen
 #                workflow of its own, so pushing to it cannot run one; a pull
 #                request can, because its workflow is read from the merge of the
 #                base branch and the branch.
-#   wip/**       built and kept as a run artifact. Nothing is published.
+#   wip/**       published under trial/ too, so a branch can be tried without
+#                opening a pull request. A wip branch carries the workflows
+#                itself, which is what lets a push to it run them at all.
 #
 # No channel but main and beta is ever offered as an update: the application
 # asks for those two, or for main alone, and nothing else matches.
@@ -83,7 +85,7 @@ jobs:
     # subtree generates a class from, refuses to run on a build server whose
     # repository has more than one.
     - name: Merge the current upstream
-      if: github.event.inputs.ref != '' || github.event_name == 'pull_request'
+      if: github.event.inputs.ref != '' || github.event_name == 'pull_request' || startsWith(github.ref_name, 'wip/')
       shell: bash
       run: |
         git fetch --no-tags https://github.com/petergolde/PurplePen.git master
@@ -132,6 +134,7 @@ jobs:
         $ref = '${{ github.event.inputs.ref }}'
         if (-not $ref -and '${{ github.event_name }}' -eq 'pull_request') { $ref = '${{ github.head_ref }}' }
         $branch = '${{ github.ref_name }}'
+        if (-not $ref -and $branch.StartsWith('wip/')) { $ref = $branch }
         if ($ref) {
             $channel = 'trial'
             $slug = ($ref -replace '[^A-Za-z0-9._-]', '-').Trim('-').ToLowerInvariant()
@@ -291,6 +294,7 @@ jobs:
     if: >-
       github.event.inputs.ref != '' ||
       github.event_name == 'pull_request' ||
+      startsWith(github.ref_name, 'wip/') ||
       github.ref_name == 'master' || github.ref_name == 'dev' || github.ref_name == 'base'
     runs-on: ubuntu-latest
     timeout-minutes: 60

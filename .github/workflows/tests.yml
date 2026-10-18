@@ -8,9 +8,7 @@ name: Tests
 # separate publish sequence in src/Innosetup/create-setup.bat.
 on:
   push:
-    # Not wip/**: a work branch wants a build to try, not a verdict, and the
-    # suite costs six machines and ten minutes. Ask for it by hand there.
-    branches: [ master, dev, base, 'experiment/**' ]
+    branches: [ master, dev, base, 'experiment/**', 'wip/**' ]
   pull_request:
     branches: [ master, dev, base ]
   workflow_dispatch:

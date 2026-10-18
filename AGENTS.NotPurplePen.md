@@ -47,8 +47,13 @@ branches, so the run tests the merge of the base branch and the branch, and
 publishes an installable package for Windows, Linux and macOS to
 <https://pauliojanpera.github.io/NotPurplePen/> under `trial/`.
 
-A push to `experiment/**` runs the tests and produces nothing to install. A push
-to `wip/**` builds the packages as a run artifact and publishes nothing.
+A push to `wip/**` does what that pull request does, without one: the tests
+run, and the packages are published under `trial/`. A branch rooted at upstream
+carries no workflow, and a push cannot run one that is not in the branch it
+pushes, so a `wip/**` branch is rooted at `base` (or `dev`) with the work
+merged into it.
+
+A push to `experiment/**` runs the tests and produces nothing to install.
 
 A branch is finished when that package can be downloaded, not when it is pushed.
 
