@@ -396,7 +396,8 @@ jobs:
             $(if ($rows) { "<ul>" + ($rows -join "`n") + "</ul>" } else { "<p>None yet.</p>" })
         }
         function Rows($entries) {
-            $entries | Sort-Object { [version]$_.version } -Descending, platform, file | ForEach-Object {
+            $entries | Sort-Object @{ Expression = { [version]$_.version }; Descending = $true },
+                                   @{ Expression = 'platform' }, @{ Expression = 'file' } | ForEach-Object {
                 "<li><a href=""$($_.path)"">$($_.file)</a> &mdash; $($_.platform)</li>"
             }
         }
