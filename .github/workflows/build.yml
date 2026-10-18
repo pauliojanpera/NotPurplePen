@@ -141,7 +141,15 @@ jobs:
             $channel = if ($parts[3] -lt 500) { 'beta' } else { 'main' }
             $slug = ''
         }
-        else { $channel = 'none'; $slug = '' }
+        else { $channel = 'local'; $slug = '' }
+
+        # The build says which section it came from, so that an installed copy
+        # knows whether it is on its way anywhere and can say what it is.
+        $channelFile = 'src/PurplePenCore/VersionNumber.cs'
+        $before = Get-Content $channelFile -Raw
+        $after = $before -replace 'Channel = "[^"]*"', ('Channel = "' + $channel + '"')
+        if ($after -eq $before) { throw "Channel not found in $channelFile" }
+        Set-Content -Path $channelFile -Value $after -NoNewline
 
         "version=$version" >> $env:GITHUB_OUTPUT
         "channel=$channel" >> $env:GITHUB_OUTPUT
@@ -254,7 +262,7 @@ jobs:
                 default     { '${{ matrix.platform }}' }
             }
             $offered = $extension -in @('.exe', '.dmg', '.appimage')
-            $name = "notpurplepen-$version-$platform$extension"
+            $name = "notpurplepen-$version-$channel-$platform$extension"
             Copy-Item $file.FullName (Join-Path 'artifact' $name)
             [ordered]@{
                 file = $name; platform = $platform; channel = $channel

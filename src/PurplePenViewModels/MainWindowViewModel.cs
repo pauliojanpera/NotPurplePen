@@ -308,7 +308,10 @@ namespace PurplePen.ViewModels
         {
             if (controller == null) { return; }
             string appName = MiscText.AppTitle;
-            if (Util.IsPrerelease(VersionNumber.Current)) {
+            if (VersionNumber.Channel == "base" || VersionNumber.Channel == "trial") {
+                appName += " (" + VersionNumber.Channel + ")";
+            }
+            else if (Util.IsPrerelease(VersionNumber.Current)) {
                 appName += " " + Util.PrereleaseModifier(VersionNumber.Current, stripNumber: true);
             }
             WindowTitle = string.Format("{0} - {1}", Path.GetFileNameWithoutExtension(controller.FileName), appName);

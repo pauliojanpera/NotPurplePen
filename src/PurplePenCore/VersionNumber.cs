@@ -46,6 +46,15 @@ namespace PurplePen
     {
         public const string Current = "4.0.0.220";
 
+        // Which section of the download site this build was published in:
+        // "main" or "beta" for a release and a prerelease of this program,
+        // "base" for upstream built under this name, "trial" for one branch
+        // built to try, and "local" for a build made anywhere else. Only the
+        // first two are ever published as updates, so a build from any other
+        // section asks for none: taking one would turn it into a different
+        // program than the one that was installed.
+        public const string Channel = "local";
+
         // The last component encodes the Alpha/Beta/RC/Stable notion.
         // 110 is Alpha 1, 220 is Beta 2, 500 is stable release
         public const int Alpha = 100;
