@@ -65,7 +65,7 @@ namespace PurplePen
 
         // Create a bitmap file of the mapDisplay supplied at construction.
         // If mapperForWorldFile is not null and real world coords are defined, also create a world file.
-        public void CreateBitmap(string fileName, RectangleF rect, GraphicsBitmapFormat imageFormat, float dpi, CoordinateMapper mapperForWorldFile)
+        public void CreateBitmap(string fileName, RectangleF rect, GraphicsBitmapFormat imageFormat, float dpi, CoordinateMapper mapperForWorldFile, bool autoRotate = false)
         {
             float bitmapWidth, bitmapHeight; // size of the bitmap in pixels.
             int pixelWidth, pixelHeight; // bitmapWidth/Height, rounded up to integer.
@@ -75,12 +75,20 @@ namespace PurplePen
             pixelWidth = (int)Math.Ceiling(bitmapWidth);
             pixelHeight = (int)Math.Ceiling(bitmapHeight);
 
-            IGraphicsBitmap bitmap = Services.BitmapLoader.CreateEmptyBitmap(pixelWidth, pixelHeight);
+            // Landscape output is turned to portrait by drawing through a rotated transform into a
+            // bitmap with swapped dimensions, rather than rotating the pixels after the fact.
+            bool rotate = autoRotate && bitmapWidth > bitmapHeight;
+
+            IGraphicsBitmap bitmap = Services.BitmapLoader.CreateEmptyBitmap(rotate ? pixelHeight : pixelWidth, rotate ? pixelWidth : pixelHeight);
             bitmap.HorizontalResolution = dpi;
             bitmap.VerticalResolution = dpi;
 
             // Set the transform
             Matrix transform = Geometry.CreateInvertedRectangleTransform(rect, new RectangleF(0, 0, bitmapWidth, bitmapHeight));
+            if (rotate) {
+                // Quarter turn clockwise: (x, y) -> (bitmapHeight - y, x).
+                transform.Multiply(new Matrix(0, 1, -1, 0, bitmapHeight, 0), MatrixOrder.Append);
+            }
 
             // And draw.
             mapDisplay.Draw(bitmap, transform);
@@ -98,7 +106,7 @@ namespace PurplePen
             if (mapperForWorldFile != null && mapperForWorldFile.HasRealWorldCoords) {
                 string extension = Path.GetExtension(fileName);
                 string worldFileName = Path.ChangeExtension(fileName, WorldFileExtension(extension));
-                CreateWorldFile(worldFileName, rect, bitmapWidth, bitmapHeight, mapperForWorldFile);
+                CreateWorldFile(worldFileName, rect, bitmapWidth, bitmapHeight, rotate, mapperForWorldFile);
             }
         }
 
@@ -130,10 +138,15 @@ namespace PurplePen
 
         // Create a world file using the given coordinate mapper.
         // See https://en.wikipedia.org/wiki/World_file
-        private void CreateWorldFile(string worldFileName, RectangleF rect, float bitmapWidth, float bitmapHeight, CoordinateMapper mapperForWorldFile)
+        private void CreateWorldFile(string worldFileName, RectangleF rect, float bitmapWidth, float bitmapHeight, bool rotated, CoordinateMapper mapperForWorldFile)
         {
             double a, b, c, d, e, f;
             Matrix transform = Geometry.CreateInvertedRectangleTransform(new RectangleF(0, 0, bitmapWidth, bitmapHeight), rect);
+            if (rotated) {
+                // The bitmap's coordinates are a quarter turn clockwise from the drawing's, so
+                // (x, y) -> (y, bitmapHeight - x) takes a pixel back to where it was drawn.
+                transform.Multiply(new Matrix(0, -1, 1, 0, 0, bitmapHeight), MatrixOrder.Prepend);
+            }
             PointF[] transformedPoints = Geometry.TransformPoints(new PointF[] { new PointF(0, 0), new PointF(1, 0), new PointF(0, 1) }, transform);
             double[] realX = new double[transformedPoints.Length];
             double[] realY = new double[transformedPoints.Length];
