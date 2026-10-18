@@ -65,7 +65,7 @@ namespace PurplePen
 
         // Create a bitmap file of the mapDisplay supplied at construction.
         // If mapperForWorldFile is not null and real world coords are defined, also create a world file.
-        public void CreateBitmap(string fileName, RectangleF rect, GraphicsBitmapFormat imageFormat, float dpi, CoordinateMapper mapperForWorldFile)
+        public void CreateBitmap(string fileName, RectangleF rect, GraphicsBitmapFormat imageFormat, float dpi, CoordinateMapper mapperForWorldFile, int quality = 95)
         {
             float bitmapWidth, bitmapHeight; // size of the bitmap in pixels.
             int pixelWidth, pixelHeight; // bitmapWidth/Height, rounded up to integer.
@@ -88,9 +88,7 @@ namespace PurplePen
             // JPEG and GIF have special code paths because the default Save method isn't
             // really good enough.
             using (Stream stream = new FileStream(fileName, FileMode.Create, FileAccess.Write)) {
-                // Currently we just use a quality of 80 for JPEG. This is a good compromise between quality and file size.
-                // Maybe we should allow the user to set this in the future.
-                bitmap.WriteToStream(imageFormat, stream, 80);
+                bitmap.WriteToStream(imageFormat, stream, quality);
             }
 
             bitmap.Dispose();

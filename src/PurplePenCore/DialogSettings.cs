@@ -100,6 +100,7 @@ namespace PurplePen
         public bool PrintMapExchangesOnOneMap = false;
         public BitmapKind ExportedBitmapKind = BitmapCreationSettings.BitmapKind.Png;
         public float Dpi;
+        public int Quality = 95;                    // Compression quality, for the formats that have one.
         public bool WorldFile;                      // Create a world file?
         public ColorModel ColorModel = ColorModel.CMYK;
 
