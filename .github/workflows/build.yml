@@ -163,7 +163,17 @@ jobs:
     # AvPurplePen builds PdfConverter through the MSBuild task, which does not
     # restore it, so a clean checkout has no assets file for that project.
     - name: Restore
+      if: matrix.platform == 'win-x64'
       run: dotnet restore src/PPen.slnx
+
+    # Not the solution: it holds the WPF and WinForms projects, which do not
+    # restore away from Windows. The packaging scripts publish these two and
+    # nothing else.
+    - name: Restore what is packaged
+      if: matrix.platform != 'win-x64'
+      run: |
+        dotnet restore src/AvPurplePen/AvPurplePen.csproj
+        dotnet restore src/PdfConverter/PdfConverter.csproj
 
     - name: Build the Windows installer
       if: matrix.platform == 'win-x64'
