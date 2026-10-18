@@ -31,6 +31,10 @@ namespace PurplePen.ViewModels
         [ObservableProperty]
         private decimal black;
 
+        /// <summary>Whether the colour prints over what is beneath it rather than knocking it out.</summary>
+        [ObservableProperty]
+        private bool overprint;
+
         /// <summary>
         /// Assembles/decomposes the four CMYK percentage fields into a
         /// <see cref="CmykColor"/>. The caller sets this before showing the

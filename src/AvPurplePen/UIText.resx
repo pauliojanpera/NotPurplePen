@@ -681,6 +681,9 @@
   <data name="CourseAppearanceDialog_label1_Text" xml:space="preserve">
     <value>Cyan:</value>
   </data>
+  <data name="ColorChooserDialog_checkBoxOverprint_Text" xml:space="preserve">
+    <value>Overprint</value>
+  </data>
   <data name="ColorChooserDialog_groupBoxPreview_Text" xml:space="preserve">
     <value>Preview</value>
   </data>

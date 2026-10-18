@@ -226,10 +226,11 @@ namespace AvPurplePen.Views
         {
             ColorChooserDialogViewModel vm = new ColorChooserDialogViewModel();
             vm.Color = startColor;
+            vm.Overprint = Color.Overprint;
 
             bool result = await Services.DialogService.ShowDialogAsync(vm);
             if (result) {
-                Color = new SpecialColor(vm.Color);
+                Color = new SpecialColor(vm.Color, vm.Overprint);
             }
         }
     }
