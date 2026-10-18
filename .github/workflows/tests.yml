@@ -10,7 +10,7 @@ on:
   push:
     # Not wip/**: a work branch wants a build to try, not a verdict, and the
     # suite costs six machines and ten minutes. Ask for it by hand there.
-    branches: [ master, dev, 'experiment/**' ]
+    branches: [ master, dev, base, 'experiment/**' ]
   pull_request:
     branches: [ master, dev, base ]
   workflow_dispatch:
