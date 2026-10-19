@@ -59,9 +59,12 @@ $catalog = @($catalog | Where-Object {
 $catalog += $added
 
 # Keep the few most recent of each channel, counting by version rather
-# than by file, so a version's platforms stay together.
+# than by file, so a version's platforms stay together. A trial is not
+# packaged for every platform at once -- each run packages the ones its
+# branch names -- so it keeps the newest build of each platform instead,
+# and the platform in each file's name tells them apart.
 $surviving = @()
-foreach ($group in ($catalog | Group-Object { if ($_.channel -eq 'trial') { "trial/$($_.slug)" } else { $_.channel } })) {
+foreach ($group in ($catalog | Group-Object { if ($_.channel -eq 'trial') { "trial/$($_.slug)/$($_.platform)" } else { $_.channel } })) {
     $limit = if ($group.Name -like 'trial/*') { 1 } else { $kept[$group.Name] }
     if (-not $limit) { $limit = 3 }
     $versions = @($group.Group | Sort-Object { [version]$_.version } -Descending |
