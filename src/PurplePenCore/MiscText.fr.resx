@@ -127,7 +127,7 @@
     <value>Échap</value>
   </data>
   <data name="AppTitle" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="NoSymbol" xml:space="preserve">
     <value>Pas de symbole</value>
@@ -257,7 +257,7 @@ Utiliser | pour séparer les lignes</value>
     <value>Version {0}</value>
   </data>
   <data name="NewerVersionAvailable" xml:space="preserve">
-    <value>La version {0} de Purple Pen est désormais disponible au téléchargement (vous utilisez actuellement la version {1}).
+    <value>La version {0} de NotPurplePen est désormais disponible au téléchargement (vous utilisez actuellement la version {1}).
 
 Souhaitez-vous télécharger et installer la dernière version ?</value>
   </data>
@@ -270,7 +270,7 @@ Souhaitez-vous télécharger et installer la dernière version ?</value>
   <data name="MissingMapFile" xml:space="preserve">
     <value>La carte "{0}" n'a pas été trouvée.
 
-Le fichier de la carte a probablement été déplacé ou supprimé, ou le fichier Purple Pen a été déplacé (éventuellement sur un ordinateur différent). Le fichier de la carte doit être systématiquement présent chaque fois que le fichier Purple Pen de la course est chargé. Si vous envoyez le fichier Purple Pen de la course à une autre personne, assurez-vous que cette personne possède également une copie du fichier de la carte.
+Le fichier de la carte a probablement été déplacé ou supprimé, ou le fichier NotPurplePen a été déplacé (éventuellement sur un ordinateur différent). Le fichier de la carte doit être systématiquement présent chaque fois que le fichier NotPurplePen de la course est chargé. Si vous envoyez le fichier NotPurplePen de la course à une autre personne, assurez-vous que cette personne possède également une copie du fichier de la carte.
 
 Après avoir cliqué sur OK, essayez de trouver une copie du fichier de la carte sur votre ordinateur.</value>
   </data>
@@ -332,7 +332,7 @@ Après avoir cliqué sur OK, essayez de trouver une copie du fichier de la carte
     <value>Modifier le texte</value>
   </data>
   <data name="MapFileChanged" xml:space="preserve">
-    <value>Un autre programme a modifié la carte "{0}". Purple Pen va recharger cette carte maintenant.</value>
+    <value>Un autre programme a modifié la carte "{0}". NotPurplePen va recharger cette carte maintenant.</value>
   </data>
   <data name="ChangeDescriptionLanguage" xml:space="preserve">
     <value>La course actuelle a des définitions de poste en {0}. Voulez vous changer la langue des définitions de poste pour le {1} ?</value>
@@ -341,13 +341,13 @@ Après avoir cliqué sur OK, essayez de trouver une copie du fichier de la carte
     <value>Ouvrir "{0}"</value>
   </data>
   <data name="ClosePPBeforeLoadingOCAD" xml:space="preserve">
-    <value>Purple Pen doit être fermé avant de charger les fichiers OCAD créés.</value>
+    <value>NotPurplePen doit être fermé avant de charger les fichiers OCAD créés.</value>
   </data>
   <data name="NoCoursesSelected" xml:space="preserve">
     <value>Aucun circuit sélectionné pour l'impression</value>
   </data>
   <data name="TranslatedHelpWebSite" xml:space="preserve">
-    <value>*** S'il existe un site web en langue française qui propose la documentation traduite de Purple Pen, entrer ici l'adresse URL complète (incluant http://). Sinon, laissez la zone vide.</value>
+    <value>*** S'il existe un site web en langue française qui propose la documentation traduite de NotPurplePen, entrer ici l'adresse URL complète (incluant http://). Sinon, laissez la zone vide.</value>
   </data>
   <data name="MapExchange_Long" xml:space="preserve">
     <value>Echange de carte</value>
@@ -458,7 +458,7 @@ Après avoir cliqué sur OK, essayez de trouver une copie du fichier de la carte
     <value>Pour utiliser des fichiers GPX, le fichier OCAD doit obligatoirement avoir des coordonnées du monde réel.</value>
   </data>
   <data name="GpxUnsupportedCoordSystem" xml:space="preserve">
-    <value>Le fichier OCAD utilise un système de coordonnées non supporté par Purple Pen.</value>
+    <value>Le fichier OCAD utilise un système de coordonnées non supporté par NotPurplePen.</value>
   </data>
   <data name="AutomaticLength" xml:space="preserve">
     <value>Automatique</value>
@@ -602,7 +602,7 @@ Après avoir cliqué sur OK, essayez de trouver une copie du fichier de la carte
     <value>RC {0}</value>
   </data>
   <data name="OpenFileDialog_PurplePenFilter" xml:space="preserve">
-    <value>Fichiers Purple Pen|*.ppen|Tous les fichiers|*.*</value>
+    <value>Fichiers NotPurplePen|*.ppen|Tous les fichiers|*.*</value>
   </data>
   <data name="ChangeMapFile_FileFilter" xml:space="preserve">
     <value>Tous les fichiers cartes|*.ocd;*.omap;*.xmap;*.pdf;*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif|fichiers OCAD (*.ocd)|*.ocd|fichiers Open Orienteering Mapper|*.omap;*.xmap|fichiers PDF (*.pdf)|*.pdf|fichiers Image|*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif</value>
@@ -611,7 +611,7 @@ Après avoir cliqué sur OK, essayez de trouver une copie du fichier de la carte
     <value>Fichier GPX|*.gpx</value>
   </data>
   <data name="SaveFileDialog_PurplePenFilter" xml:space="preserve">
-    <value>Fichier Purple Pen|*.ppen</value>
+    <value>Fichier NotPurplePen|*.ppen</value>
   </data>
   <data name="SaveXmlFileDialog_Filter" xml:space="preserve">
     <value>XML IOF version 3.0|*.xml|XML IOF version 2.0.3|*.xml</value>

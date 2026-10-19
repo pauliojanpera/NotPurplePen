@@ -127,7 +127,7 @@
     <value>Esc</value>
   </data>
   <data name="AppTitle" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="NoSymbol" xml:space="preserve">
     <value>Brak symbolu</value>
@@ -254,7 +254,7 @@ Użyj | aby rozdzielić linie
     <value>Wersja {0}</value>
   </data>
   <data name="NewerVersionAvailable" xml:space="preserve">
-    <value>Wersja {0} Purple Pen jest dostępna do pobrania (obecnie używasz wersji {1}).</value>
+    <value>Wersja {0} NotPurplePen jest dostępna do pobrania (obecnie używasz wersji {1}).</value>
   </data>
   <data name="HelpFileNotFound" xml:space="preserve">
     <value>Nie udało się otworzyć pliku pomocy '{0}'.</value>
@@ -323,7 +323,7 @@ Użyj | aby rozdzielić linie
     <value>Zmień Tekst</value>
   </data>
   <data name="MapFileChanged" xml:space="preserve">
-    <value>Inny program zmodyfikował plik mapy "{0}". Purple Pen przeładuje teraz tę mapę.</value>
+    <value>Inny program zmodyfikował plik mapy "{0}". NotPurplePen przeładuje teraz tę mapę.</value>
   </data>
   <data name="ChangeDescriptionLanguage" xml:space="preserve">
     <value>Obecnie otwarte zawody posiadają opisy punktów kontrolnych w {0}. Czy cchesz zmienić ich język na {1}?</value>
@@ -332,13 +332,13 @@ Użyj | aby rozdzielić linie
     <value>Otwórz "{0}"</value>
   </data>
   <data name="ClosePPBeforeLoadingOCAD" xml:space="preserve">
-    <value>Purple Pen musi zostać zamknięty przed załadowanie utworzonych plików OCAD.</value>
+    <value>NotPurplePen musi zostać zamknięty przed załadowanie utworzonych plików OCAD.</value>
   </data>
   <data name="NoCoursesSelected" xml:space="preserve">
     <value>Żadne trasy nie zostały wybrane do druku.</value>
   </data>
   <data name="TranslatedHelpWebSite" xml:space="preserve">
-    <value>*** Jeżeli istnieje strona WWW w przetłumaczonym języku, która zawiera dokumentację Purple Pen, wprowadź ten URL (poprzedzając go http) jako tłumaczenie. W przeciwnym wypadku pozostaw puste.</value>
+    <value>*** Jeżeli istnieje strona WWW w przetłumaczonym języku, która zawiera dokumentację NotPurplePen, wprowadź ten URL (poprzedzając go http) jako tłumaczenie. W przeciwnym wypadku pozostaw puste.</value>
   </data>
   <data name="MapExchange_Long" xml:space="preserve">
     <value>Zmiana map</value>
@@ -449,7 +449,7 @@ Użyj | aby rozdzielić linie
     <value>Plik OCAD musi mieć zdefiniowany układ odniesienia z prawdziwymi współrzędnymi geograficznymi (nielokalne) aby można było używać plików GPX.</value>
   </data>
   <data name="GpxUnsupportedCoordSystem" xml:space="preserve">
-    <value>Plik OCAD używa układu odniesienia, który nie jest wspierany przez Purple Pen.</value>
+    <value>Plik OCAD używa układu odniesienia, który nie jest wspierany przez NotPurplePen.</value>
   </data>
   <data name="AutomaticLength" xml:space="preserve">
     <value>Automatyczna</value>
@@ -506,13 +506,13 @@ Użyj | aby rozdzielić linie
     <value>RC {0}</value>
   </data>
   <data name="OpenFileDialog_PurplePenFilter" xml:space="preserve">
-    <value>Pliki Purple Pen|*.ppen|Wszystkie|*.*</value>
+    <value>Pliki NotPurplePen|*.ppen|Wszystkie|*.*</value>
   </data>
   <data name="GpxFilter" xml:space="preserve">
     <value>Plik GPX|*.gpx</value>
   </data>
   <data name="SaveFileDialog_PurplePenFilter" xml:space="preserve">
-    <value>Plik Purple Pen|*.ppen</value>
+    <value>Plik NotPurplePen|*.ppen</value>
   </data>
   <data name="SaveXmlFileDialog_Title" xml:space="preserve">
     <value>Utwórz plik XML</value>

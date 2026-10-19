@@ -127,7 +127,7 @@
     <value>Esc</value>
   </data>
   <data name="AppTitle" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="NoSymbol" xml:space="preserve">
     <value>Nici un simbol</value>
@@ -261,7 +261,7 @@ Folosiți | pentru a separa liniile</value>
   <data name="MissingMapFile" xml:space="preserve">
     <value>Fișierul hartă "{0}" nu a putut fi găsit.
  
-Cel mai probabil, fișierul hartă a fost mutat sau șters, sau fișierul Purple Pen a fost mutat (probabil pe un alt calculator). Fișierul hartă trebuie să fie prezent oricând se încarcă fișierul Purple Pen cu evenimentul dorit. Dacă trimiteți fișierul Purple Pen cu evenimentul unei alte persoane, asigurați-vă deasemeni că persoana respectivă deține o copie a fișierului hartă.
+Cel mai probabil, fișierul hartă a fost mutat sau șters, sau fișierul NotPurplePen a fost mutat (probabil pe un alt calculator). Fișierul hartă trebuie să fie prezent oricând se încarcă fișierul NotPurplePen cu evenimentul dorit. Dacă trimiteți fișierul NotPurplePen cu evenimentul unei alte persoane, asigurați-vă deasemeni că persoana respectivă deține o copie a fișierului hartă.
  
 După ce apăsați OK, încercați să localizați o copie a fișierului hartă pe calculatorul dumneavoastră.</value>
   </data>
@@ -323,7 +323,7 @@ După ce apăsați OK, încercați să localizați o copie a fișierului hartă 
     <value>Schimbare Text</value>
   </data>
   <data name="MapFileChanged" xml:space="preserve">
-    <value>Un alt program a modificat fișierul hartă "{0}". Purple Pen va reîncărca harta.</value>
+    <value>Un alt program a modificat fișierul hartă "{0}". NotPurplePen va reîncărca harta.</value>
   </data>
   <data name="ChangeDescriptionLanguage" xml:space="preserve">
     <value>Evenimentul curent are descrierea posturilor în limba {0}. Doriți să schimbați descrierea posturilor în limba {1}?</value>
@@ -332,13 +332,13 @@ După ce apăsați OK, încercați să localizați o copie a fișierului hartă 
     <value>Deschidere "{0}"</value>
   </data>
   <data name="ClosePPBeforeLoadingOCAD" xml:space="preserve">
-    <value>Purple Pen trebuie să fie închis înainte de a încărca fișierele OCAD create.</value>
+    <value>NotPurplePen trebuie să fie închis înainte de a încărca fișierele OCAD create.</value>
   </data>
   <data name="NoCoursesSelected" xml:space="preserve">
     <value>Nu a fost selectat nici un traseu pentru tipărire.</value>
   </data>
   <data name="TranslatedHelpWebSite" xml:space="preserve">
-    <value>*** Dacă există un site în limba tradusă care conține documentație pentru Purple Pen, introduceți adresa de internet URL (inclusiv http) ca și traducere a acestui element. Altfel lăsați-l neatins.</value>
+    <value>*** Dacă există un site în limba tradusă care conține documentație pentru NotPurplePen, introduceți adresa de internet URL (inclusiv http) ca și traducere a acestui element. Altfel lăsați-l neatins.</value>
   </data>
   <data name="CrashCancel" xml:space="preserve">
     <value>Anulare</value>
@@ -377,10 +377,10 @@ După ce apăsați OK, încercați să localizați o copie a fișierului hartă 
     <value>RC {0}</value>
   </data>
   <data name="OpenFileDialog_PurplePenFilter" xml:space="preserve">
-    <value>Fișiere Purple Pen|*.ppen|Toate fișierele|*.*</value>
+    <value>Fișiere NotPurplePen|*.ppen|Toate fișierele|*.*</value>
   </data>
   <data name="SaveFileDialog_PurplePenFilter" xml:space="preserve">
-    <value>Fișier Purple Pen|*.ppen</value>
+    <value>Fișier NotPurplePen|*.ppen</value>
   </data>
   <data name="SaveXmlFileDialog_Title" xml:space="preserve">
     <value>Creare fișier schimb XML</value>
