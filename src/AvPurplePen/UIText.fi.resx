@@ -1756,6 +1756,9 @@
   <data name="MainFrame_addTextLineMenu_Text" xml:space="preserve">
     <value>_Tekstirivi...</value>
   </data>
+  <data name="MainFrame_splitMenu_Text" xml:space="preserve">
+    <value>Halkai_se</value>
+  </data>
   <data name="MainFrame_addMapIssueMenu_Text" xml:space="preserve">
     <value>Aikalähtö</value>
   </data>
