@@ -47,7 +47,8 @@ nothing else. The `wip/**` branch is where it is run: rooted at `base` for what
 could go upstream, at `dev` for what could not, with the feature merged into
 it. The push runs the tests and publishes an installable package for Windows,
 Linux and macOS to <https://pauliojanpera.github.io/NotPurplePen/> under
-`trial/`.
+`trial/`. The package does not wait for the tests: it says the branch builds,
+and the test run says the rest.
 
 A wip branch named `wip/<platforms>/<name>` is packaged only for the platforms
 it names: `win`, `linux` or `mac`, or several joined with `+`, as in
