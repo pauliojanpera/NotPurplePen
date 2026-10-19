@@ -127,7 +127,7 @@
     <value>Esc</value>
   </data>
   <data name="AppTitle" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="NoSymbol" xml:space="preserve">
     <value>Ingen symbol</value>
@@ -257,7 +257,7 @@ Använd | för att separera rader</value>
     <value>Version {0}</value>
   </data>
   <data name="NewerVersionAvailable" xml:space="preserve">
-    <value>Version {0} av Purple Pen finns nu tillgänglig för nedladdning. (Du kör just nu version {1}.)
+    <value>Version {0} av NotPurplePen finns nu tillgänglig för nedladdning. (Du kör just nu version {1}.)
 
 Vill du ladda ner och installera den senaste versionen?</value>
   </data>
@@ -270,7 +270,7 @@ Vill du ladda ner och installera den senaste versionen?</value>
   <data name="MissingMapFile" xml:space="preserve">
     <value>Kartfilen '{0}' kunde inte hittas.
 
-Troligen har kartfilen flyttats eller tagits bort, eller så har Purple Pen-filen flyttats. Kartfilen måste finnas tillgänglig varje gång tävlingsfilen laddas in. Om du skickar en tävlingsfil till en annan person, så måste en kopia av kartfilen också följa med.
+Troligen har kartfilen flyttats eller tagits bort, eller så har NotPurplePen-filen flyttats. Kartfilen måste finnas tillgänglig varje gång tävlingsfilen laddas in. Om du skickar en tävlingsfil till en annan person, så måste en kopia av kartfilen också följa med.
 
 Tryck OK och försök hitta kartfilen på din dator.</value>
   </data>
@@ -332,7 +332,7 @@ Tryck OK och försök hitta kartfilen på din dator.</value>
     <value>Ändra text</value>
   </data>
   <data name="MapFileChanged" xml:space="preserve">
-    <value>Ett annat program har ändrat i kart-filen "{0}". Purple Pen kommer nu ladda om kartan.</value>
+    <value>Ett annat program har ändrat i kart-filen "{0}". NotPurplePen kommer nu ladda om kartan.</value>
   </data>
   <data name="ChangeDescriptionLanguage" xml:space="preserve">
     <value>Tävlingen har nuvarande kontrolldefinitioner på {0}. Vill du ändra språk till {1}?</value>
@@ -341,13 +341,13 @@ Tryck OK och försök hitta kartfilen på din dator.</value>
     <value>Öppna "{0}"</value>
   </data>
   <data name="ClosePPBeforeLoadingOCAD" xml:space="preserve">
-    <value>Du måste stänga Purple Pen innan du kan öppna de skapade OCAD filerna.</value>
+    <value>Du måste stänga NotPurplePen innan du kan öppna de skapade OCAD filerna.</value>
   </data>
   <data name="NoCoursesSelected" xml:space="preserve">
     <value>Ingen bana valdes för utskrift</value>
   </data>
   <data name="TranslatedHelpWebSite" xml:space="preserve">
-    <value>*** Om det finns en webbsida på det översatta språket som innehåller hjälp för Purple Pen, fyll i adressen (med http://) som översättning för denna sak. Lämna annars blankt.</value>
+    <value>*** Om det finns en webbsida på det översatta språket som innehåller hjälp för NotPurplePen, fyll i adressen (med http://) som översättning för denna sak. Lämna annars blankt.</value>
   </data>
   <data name="MapExchange_Long" xml:space="preserve">
     <value>Kartbyte</value>
@@ -458,7 +458,7 @@ Tryck OK och försök hitta kartfilen på din dator.</value>
     <value>OCAD-filen måste ha riktiga världskoordinater definierat för att kunna använda GPX-filer.</value>
   </data>
   <data name="GpxUnsupportedCoordSystem" xml:space="preserve">
-    <value>OCAD-filen använder ett koordinatsystem som inte stöds av Purple Pen.</value>
+    <value>OCAD-filen använder ett koordinatsystem som inte stöds av NotPurplePen.</value>
   </data>
   <data name="AutomaticLength" xml:space="preserve">
     <value>Automatisk</value>
@@ -548,7 +548,7 @@ Tryck OK och försök hitta kartfilen på din dator.</value>
     <value>Lägg till ellips</value>
   </data>
   <data name="UninstallNonStoreVersion" xml:space="preserve">
-    <value>En äldre version av Purple Pen är fortfarande installerad. För att förhindra förvirring orsakad av att ha två versioner av Purple Pen installerade, rekommenderas starkt att den äldre versionen tas bort. Ta bort den nu?</value>
+    <value>En äldre version av NotPurplePen är fortfarande installerad. För att förhindra förvirring orsakad av att ha två versioner av NotPurplePen installerade, rekommenderas starkt att den äldre versionen tas bort. Ta bort den nu?</value>
   </data>
   <data name="AskInstallRobotoFonts" xml:space="preserve">
     <value>För att OCAD eller OpenOrienteering Mapper ska kunna visa kontrollbeskrivningarna korrekt måste teckensnitten "Roboto" och "Roboto Condensed" vara installerade på ditt system. Vill du installera dessa teckensnitt nu (rekommenderas starkt)?</value>
@@ -623,7 +623,7 @@ Tryck OK och försök hitta kartfilen på din dator.</value>
     <value>RC {0}</value>
   </data>
   <data name="OpenFileDialog_PurplePenFilter" xml:space="preserve">
-    <value>Purple Pen-filer|*.ppen|Alla filer|*.*</value>
+    <value>NotPurplePen-filer|*.ppen|Alla filer|*.*</value>
   </data>
   <data name="ChangeMapFile_FileFilter" xml:space="preserve">
     <value>Alla kartfiler|*.ocd;*.omap;*.xmap;*.pdf;*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif|OCAD-filer (*.ocd)|*.ocd|Open Orienteering Mapper-filer|*.omap;*.xmap|PDF-filer (*.pdf)|*.pdf|Bildfiler|*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif</value>
@@ -632,7 +632,7 @@ Tryck OK och försök hitta kartfilen på din dator.</value>
     <value>GPX-fil|*.gpx</value>
   </data>
   <data name="SaveFileDialog_PurplePenFilter" xml:space="preserve">
-    <value>Purple Pen-fil|*.ppen</value>
+    <value>NotPurplePen-fil|*.ppen</value>
   </data>
   <data name="SaveXmlFileDialog_Filter" xml:space="preserve">
     <value>IOF XML version 3.0|*.xml|IOF XML version 2.0.3|*.xml</value>

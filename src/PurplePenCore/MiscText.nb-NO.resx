@@ -127,7 +127,7 @@
     <value>Esc</value>
   </data>
   <data name="AppTitle" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="NoSymbol" xml:space="preserve">
     <value>Ingen symbol</value>
@@ -256,7 +256,7 @@ Bruk | for å skille rader</value>
     <value>Versjon {0}</value>
   </data>
   <data name="NewerVersionAvailable" xml:space="preserve">
-    <value>Versjon {0} av Purple Pener nå tilgjengelig for nedlasting. (Du kjører versjon {1}.)
+    <value>Versjon {0} av NotPurplePener nå tilgjengelig for nedlasting. (Du kjører versjon {1}.)
 
 Vil du laste ned og installere seneste versjon?</value>
   </data>
@@ -269,7 +269,7 @@ Vil du laste ned og installere seneste versjon?</value>
   <data name="MissingMapFile" xml:space="preserve">
     <value>Kartfilen '{0}' kunne ikke finnes.
 
-Sannsynligvis er kartfilen eller Purple Pen filen flyttet eller kartfilen er fjernet. Kartfilen må være tilgjengelig hver gang arrangementfilen åpnes. Om du sender en arrangementsfil til en annen, må en kopi av kartfilen følge med.
+Sannsynligvis er kartfilen eller NotPurplePen filen flyttet eller kartfilen er fjernet. Kartfilen må være tilgjengelig hver gang arrangementfilen åpnes. Om du sender en arrangementsfil til en annen, må en kopi av kartfilen følge med.
 
 Trykk OK og forsøk å finne kartfilen på din datamaskin.</value>
   </data>
@@ -331,7 +331,7 @@ Trykk OK og forsøk å finne kartfilen på din datamaskin.</value>
     <value>Endre tekst</value>
   </data>
   <data name="MapFileChanged" xml:space="preserve">
-    <value>Et annet program har endret på kartet "{0}". Purple Pen vil lese inn kartet på nytt.</value>
+    <value>Et annet program har endret på kartet "{0}". NotPurplePen vil lese inn kartet på nytt.</value>
   </data>
   <data name="ChangeDescriptionLanguage" xml:space="preserve">
     <value>Arrangementet har tekstbeskrivelser på {0}. Vil du endre språk til {1}?</value>
@@ -340,7 +340,7 @@ Trykk OK og forsøk å finne kartfilen på din datamaskin.</value>
     <value>Åpne "{0}"</value>
   </data>
   <data name="ClosePPBeforeLoadingOCAD" xml:space="preserve">
-    <value>Purple Pen må avsluttes før du kan åpne filene i OCAD.</value>
+    <value>NotPurplePen må avsluttes før du kan åpne filene i OCAD.</value>
   </data>
   <data name="NoCoursesSelected" xml:space="preserve">
     <value>Ingen løyper ble valgt for utskrift.</value>
@@ -457,7 +457,7 @@ Trykk OK og forsøk å finne kartfilen på din datamaskin.</value>
     <value>OCAD filen må være georeferert for å kunne bruke GPX filer</value>
   </data>
   <data name="GpxUnsupportedCoordSystem" xml:space="preserve">
-    <value>OCAD filen bruker et ikke koordinatsystem som ikke er støttet av Purple Pen</value>
+    <value>OCAD filen bruker et ikke koordinatsystem som ikke er støttet av NotPurplePen</value>
   </data>
   <data name="AutomaticLength" xml:space="preserve">
     <value>Automatisk</value>
@@ -613,7 +613,7 @@ Trykk OK og forsøk å finne kartfilen på din datamaskin.</value>
     <value>RC {0}</value>
   </data>
   <data name="OpenFileDialog_PurplePenFilter" xml:space="preserve">
-    <value>Purple Pen filer|*.ppen|Alle filer|*.*</value>
+    <value>NotPurplePen filer|*.ppen|Alle filer|*.*</value>
   </data>
   <data name="ChangeMapFile_FileFilter" xml:space="preserve">
     <value>Alle kart filer|*.ocd;*.omap;*.xmap;*.pdf;*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif|OCAD filer (*.ocd)|*.ocd|Open Orienteering Mapper Filer|*.omap;*.xmap|PDF filer (*.pdf)|*.pdf|Bilde filer|*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif</value>
@@ -622,7 +622,7 @@ Trykk OK og forsøk å finne kartfilen på din datamaskin.</value>
     <value>GPX fil|*.gpx</value>
   </data>
   <data name="SaveFileDialog_PurplePenFilter" xml:space="preserve">
-    <value>Purple Pen fil|*.ppen</value>
+    <value>NotPurplePen fil|*.ppen</value>
   </data>
   <data name="SaveXmlFileDialog_Filter" xml:space="preserve">
     <value>IOF XML versjon 3.0|*.xml|IOF XML versjon 2.0.3|*.xml</value>

@@ -127,7 +127,7 @@
     <value>Esc</value>
   </data>
   <data name="AppTitle" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="NoSymbol" xml:space="preserve">
     <value>Без символ</value>
@@ -257,7 +257,7 @@
     <value>Версия {0}</value>
   </data>
   <data name="NewerVersionAvailable" xml:space="preserve">
-    <value>Налична е нова версия {0} на Purple Pen. (В момента използвате версия {1}).
+    <value>Налична е нова версия {0} на NotPurplePen. (В момента използвате версия {1}).
 
 Желаете ли да изтеглите и инсталирате последната версия?</value>
   </data>
@@ -270,7 +270,7 @@
   <data name="MissingMapFile" xml:space="preserve">
     <value>Картният файл "{0}" не може да бъде открит.
 
-Най-вероятно файлът е бил преместен или изтрит, или Purple Pen файлът е бил преместен (възможно е на друг компютър). Картният файл трябва да е наличен винаги, когато се зарежда Purple Pen файлът на състезанието. Ако изпратите Purple Pen файла на друг човек, уверете се, че той също има копие на картния файл.
+Най-вероятно файлът е бил преместен или изтрит, или NotPurplePen файлът е бил преместен (възможно е на друг компютър). Картният файл трябва да е наличен винаги, когато се зарежда NotPurplePen файлът на състезанието. Ако изпратите NotPurplePen файла на друг човек, уверете се, че той също има копие на картния файл.
 
 След като натиснете OK, опитайте да намерите копие на картния файл на вашия компютър.</value>
   </data>
@@ -332,7 +332,7 @@
     <value>Промени текста</value>
   </data>
   <data name="MapFileChanged" xml:space="preserve">
-    <value>Друга програма е променила картния файл „{0}“. Purple Pen ще презареди картата.</value>
+    <value>Друга програма е променила картния файл „{0}“. NotPurplePen ще презареди картата.</value>
   </data>
   <data name="ChangeDescriptionLanguage" xml:space="preserve">
     <value>Текущото състезание има текстови описания на контролните точки на {0}. Искате ли да промените езика на описанията на {1}?</value>
@@ -341,13 +341,13 @@
     <value>Отвори „{0}“</value>
   </data>
   <data name="ClosePPBeforeLoadingOCAD" xml:space="preserve">
-    <value>Purple Pen трябва да бъде затворен, преди да се заредят създадените OCAD файлове.</value>
+    <value>NotPurplePen трябва да бъде затворен, преди да се заредят създадените OCAD файлове.</value>
   </data>
   <data name="NoCoursesSelected" xml:space="preserve">
     <value>Няма избрани маршрути за печат.</value>
   </data>
   <data name="TranslatedHelpWebSite" xml:space="preserve">
-    <value>*** Ако съществува уебсайт на преведения език с документация за Purple Pen, въведете неговия URL адрес (включително http) като превод на този елемент. В противен случай оставете празно.</value>
+    <value>*** Ако съществува уебсайт на преведения език с документация за NotPurplePen, въведете неговия URL адрес (включително http) като превод на този елемент. В противен случай оставете празно.</value>
   </data>
   <data name="MapExchange_Long" xml:space="preserve">
     <value>Смяна на карта</value>
@@ -458,7 +458,7 @@
     <value>OCAD файлът трябва да има реални координати на терена, за да използва GPX файлове.</value>
   </data>
   <data name="GpxUnsupportedCoordSystem" xml:space="preserve">
-    <value>OCAD файлът използва координатна система, която не се поддържа от Purple Pen.</value>
+    <value>OCAD файлът използва координатна система, която не се поддържа от NotPurplePen.</value>
   </data>
   <data name="AutomaticLength" xml:space="preserve">
     <value>Автоматично</value>
@@ -548,7 +548,7 @@
     <value>Добави елипса</value>
   </data>
   <data name="UninstallNonStoreVersion" xml:space="preserve">
-    <value>На компютъра все още е инсталирана по-стара версия на Purple Pen. За да избегнете объркване при наличието на две версии, силно се препоръчва старата версия да бъде деинсталирана. Искате ли да я премахнете сега?</value>
+    <value>На компютъра все още е инсталирана по-стара версия на NotPurplePen. За да избегнете объркване при наличието на две версии, силно се препоръчва старата версия да бъде деинсталирана. Искате ли да я премахнете сега?</value>
   </data>
   <data name="AskInstallRobotoFonts" xml:space="preserve">
     <value>За да могат OCAD и OpenOrienteering Mapper да показват правилно описанията на контролните точки, трябва да бъдат инсталирани шрифтовете „Roboto“ и „Roboto Condensed“. Желаете ли да ги инсталирате сега (силно препоръчително)?</value>
@@ -626,7 +626,7 @@
     <value>RC {0}</value>
   </data>
   <data name="OpenFileDialog_PurplePenFilter" xml:space="preserve">
-    <value>Файлове на Purple Pen|.ppen|Всички файлове|.*</value>
+    <value>Файлове на NotPurplePen|.ppen|Всички файлове|.*</value>
   </data>
   <data name="ChangeMapFile_FileFilter" xml:space="preserve">
     <value>Всички картни файлове|.ocd;.omap;.xmap;.pdf;.jpeg;.jpg;.tiff;.tif;.bmp;.png;.gif|Файлове OCAD (.ocd)|.ocd|Файлове OpenOrienteering Mapper|.omap;.xmap|PDF файлове (.pdf)|.pdf|Изображения|.jpeg;.jpg;.tiff;.tif;.bmp;.png;.gif</value>
@@ -635,7 +635,7 @@
     <value>GPX файл|*.gpx</value>
   </data>
   <data name="SaveFileDialog_PurplePenFilter" xml:space="preserve">
-    <value>Файл на Purple Pen|*.ppen</value>
+    <value>Файл на NotPurplePen|*.ppen</value>
   </data>
   <data name="SaveXmlFileDialog_Filter" xml:space="preserve">
     <value>IOF XML версия 3.0|*.xml|IOF XML версия 2.0.3|*.xml</value>

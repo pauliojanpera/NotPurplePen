@@ -127,7 +127,7 @@
     <value>Esc</value>
   </data>
   <data name="AppTitle" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="NoSymbol" xml:space="preserve">
     <value>Puudub sümbol</value>
@@ -257,7 +257,7 @@ Kasuta | ridade eraldamiseks</value>
     <value>Versioon {0}</value>
   </data>
   <data name="NewerVersionAvailable" xml:space="preserve">
-    <value>Versioon {0}  Purple Penist on olemas alla laadimiseks. (Sa kasutad hetkel versiooni {1}.)
+    <value>Versioon {0}  NotPurplePenist on olemas alla laadimiseks. (Sa kasutad hetkel versiooni {1}.)
 
 Kas soovid alla laadida ja installeerida viimase versiooni?</value>
   </data>
@@ -269,7 +269,7 @@ Kas soovid alla laadida ja installeerida viimase versiooni?</value>
   </data>
   <data name="MissingMapFile" xml:space="preserve">
     <value>Kaardi faili "{0}" ei leidnud.
-Arvatavasti on kaardi faili asukoht muutunud või kustutatud, või on Purple Pen faili asukoht muutunud (näiteks teises arvutis). Kaardi fail peab olema kättesaadav alati, kui avatakse Purple Pen fail. Kui saadad faili teisele kasutajale, siis vaata, et ta saaks ka kaardi faili..
+Arvatavasti on kaardi faili asukoht muutunud või kustutatud, või on NotPurplePen faili asukoht muutunud (näiteks teises arvutis). Kaardi fail peab olema kättesaadav alati, kui avatakse NotPurplePen fail. Kui saadad faili teisele kasutajale, siis vaata, et ta saaks ka kaardi faili..
 Peale OK vajutamist, otsi kaardi fail arvutist..</value>
   </data>
   <data name="NoUnusedControls" xml:space="preserve">
@@ -330,7 +330,7 @@ Peale OK vajutamist, otsi kaardi fail arvutist..</value>
     <value>Muuda teksti</value>
   </data>
   <data name="MapFileChanged" xml:space="preserve">
-    <value>Mõni teine programm on muutnud kaardi faili "{0}". Purple Pen laeb kaardi uuesti.</value>
+    <value>Mõni teine programm on muutnud kaardi faili "{0}". NotPurplePen laeb kaardi uuesti.</value>
   </data>
   <data name="ChangeDescriptionLanguage" xml:space="preserve">
     <value>Selle võistluse juures kasutatakse tekstilisi legende {0}. Kas soovid muuta legendide keeleks {1}?</value>
@@ -339,13 +339,13 @@ Peale OK vajutamist, otsi kaardi fail arvutist..</value>
     <value>Ava "{0}"</value>
   </data>
   <data name="ClosePPBeforeLoadingOCAD" xml:space="preserve">
-    <value>Purple Pen peab olema suletud enne loodud OCAD failide avamist.</value>
+    <value>NotPurplePen peab olema suletud enne loodud OCAD failide avamist.</value>
   </data>
   <data name="NoCoursesSelected" xml:space="preserve">
     <value>Ühtegi rada ei ole valitud trükkimiseks</value>
   </data>
   <data name="TranslatedHelpWebSite" xml:space="preserve">
-    <value>*** Kui eksisteerib veebilehekülg kus on Purple Pen tõlgitud dokumentatsioon, sisesta aadress (koos http'ga) kui tõlke viide, muidu jäta tühjaks</value>
+    <value>*** Kui eksisteerib veebilehekülg kus on NotPurplePen tõlgitud dokumentatsioon, sisesta aadress (koos http'ga) kui tõlke viide, muidu jäta tühjaks</value>
   </data>
   <data name="MapExchange_Long" xml:space="preserve">
     <value>Kaardivahetus</value>
@@ -612,7 +612,7 @@ Peale OK vajutamist, otsi kaardi fail arvutist..</value>
     <value>RC {0}</value>
   </data>
   <data name="OpenFileDialog_PurplePenFilter" xml:space="preserve">
-    <value>Purple Pen failid|*.ppen|Kõik failid|*.*</value>
+    <value>NotPurplePen failid|*.ppen|Kõik failid|*.*</value>
   </data>
   <data name="ChangeMapFile_FileFilter" xml:space="preserve">
     <value>Kõik kaardi failid|*.ocd;*.omap;*.xmap;*.pdf;*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif|OCAD failid (*.ocd)|*.ocd|Open Orienteering Mapper Failid|*.omap;*.xmap|PDF files (*.pdf)|*.pdf|Image files|*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif</value>
@@ -621,7 +621,7 @@ Peale OK vajutamist, otsi kaardi fail arvutist..</value>
     <value>GPX fail|*.gpx</value>
   </data>
   <data name="SaveFileDialog_PurplePenFilter" xml:space="preserve">
-    <value>Purple Pen fail|*.ppen</value>
+    <value>NotPurplePen fail|*.ppen</value>
   </data>
   <data name="SaveXmlFileDialog_Filter" xml:space="preserve">
     <value>IOF XML versioon 3.0|*.xml|IOF XML versioon 2.0.3|*.xml</value>

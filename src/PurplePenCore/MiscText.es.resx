@@ -127,7 +127,7 @@
     <value>Esc</value>
   </data>
   <data name="AppTitle" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="NoSymbol" xml:space="preserve">
     <value>No hay símbolo</value>
@@ -257,7 +257,7 @@ Use | para separar líneas</value>
     <value>Versión {0}</value>
   </data>
   <data name="NewerVersionAvailable" xml:space="preserve">
-    <value>La versión {0} de Purple Pen está disponible para su descarga (Está utilizando la versión {1}).
+    <value>La versión {0} de NotPurplePen está disponible para su descarga (Está utilizando la versión {1}).
 
 ¿Desea descargar e instalar la última versión?</value>
   </data>
@@ -270,7 +270,7 @@ Use | para separar líneas</value>
   <data name="MissingMapFile" xml:space="preserve">
     <value>No se puede encontrar el archivo del mapa «{0}» .
 
-Probablemente, el archivo ha sido movido o borrado, o el archivo de Purple Pen ha sido movido (posiblemente a otro ordenador). El archivo del mapa tiene que estar disponible siempre que se abra un evento. Si ha recibido o enviado el archivo de un evento Purple Pen a otra persona, asegúrese de que le envía también el archivo del mapa.
+Probablemente, el archivo ha sido movido o borrado, o el archivo de NotPurplePen ha sido movido (posiblemente a otro ordenador). El archivo del mapa tiene que estar disponible siempre que se abra un evento. Si ha recibido o enviado el archivo de un evento NotPurplePen a otra persona, asegúrese de que le envía también el archivo del mapa.
 
 Presione Aceptar, e intente encontrar una copia del mapa en su ordenador.</value>
   </data>
@@ -332,7 +332,7 @@ Presione Aceptar, e intente encontrar una copia del mapa en su ordenador.</value
     <value>Cambiar texto</value>
   </data>
   <data name="MapFileChanged" xml:space="preserve">
-    <value>Otro programa ha cambiado el archivo del mapa «{0}». Purple Pen va a cargar de nuevo el mapa.</value>
+    <value>Otro programa ha cambiado el archivo del mapa «{0}». NotPurplePen va a cargar de nuevo el mapa.</value>
   </data>
   <data name="ChangeDescriptionLanguage" xml:space="preserve">
     <value>El evento actual tiene descripciones de controles textuales en {0}. ¿Quieres cambiar el idioma de la descripción de controles a {1}?</value>
@@ -341,7 +341,7 @@ Presione Aceptar, e intente encontrar una copia del mapa en su ordenador.</value
     <value>Abrir «{0}»</value>
   </data>
   <data name="ClosePPBeforeLoadingOCAD" xml:space="preserve">
-    <value>Purple Pen debe cerrarse antes de leer los archivos OCAD creados.</value>
+    <value>NotPurplePen debe cerrarse antes de leer los archivos OCAD creados.</value>
   </data>
   <data name="NoCoursesSelected" xml:space="preserve">
     <value>No se han seleccionado recorridos para imprimir.</value>
@@ -455,7 +455,7 @@ Presione Aceptar, e intente encontrar una copia del mapa en su ordenador.</value
     <value>El archivo OCAD debe tener definidas coordenadas reales para usar archivos GPX.</value>
   </data>
   <data name="GpxUnsupportedCoordSystem" xml:space="preserve">
-    <value>El archivo OCAD usa un sistema de coordenadas no admitido por Purple Pen.</value>
+    <value>El archivo OCAD usa un sistema de coordenadas no admitido por NotPurplePen.</value>
   </data>
   <data name="AutomaticLength" xml:space="preserve">
     <value>Automático</value>
@@ -605,7 +605,7 @@ Presione Aceptar, e intente encontrar una copia del mapa en su ordenador.</value
     <value>RC {0}</value>
   </data>
   <data name="OpenFileDialog_PurplePenFilter" xml:space="preserve">
-    <value>Archivos Purple Pen|*.ppen|Todos los archivos|*.*</value>
+    <value>Archivos NotPurplePen|*.ppen|Todos los archivos|*.*</value>
   </data>
   <data name="ChangeMapFile_FileFilter" xml:space="preserve">
     <value>Todos los archivos de mapa|*.ocd;*.omap;*.xmap;*.pdf;*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif|Ficheros de OCAD (*.ocd)|*.ocd|Archivos de Open Orienteering Mapper|*.omap;*.xmap|Archivos PDF (*.pdf)|*.pdf|Archivos de imágenes|*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif</value>
@@ -614,7 +614,7 @@ Presione Aceptar, e intente encontrar una copia del mapa en su ordenador.</value
     <value>Archivo GPX|*.gpx</value>
   </data>
   <data name="SaveFileDialog_PurplePenFilter" xml:space="preserve">
-    <value>Archivo Purple Pen|*.ppen</value>
+    <value>Archivo NotPurplePen|*.ppen</value>
   </data>
   <data name="SaveXmlFileDialog_Filter" xml:space="preserve">
     <value>IOF XML versión 3.0|*.xml|IOF XML versión 2.0.3|*.xml</value>

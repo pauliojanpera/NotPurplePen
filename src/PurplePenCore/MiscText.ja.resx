@@ -127,7 +127,7 @@
     <value>Esc</value>
   </data>
   <data name="AppTitle" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="NoSymbol" xml:space="preserve">
     <value>記号なし</value>
@@ -257,7 +257,7 @@
     <value>バージョン {0}</value>
   </data>
   <data name="NewerVersionAvailable" xml:space="preserve">
-    <value>Purple Penのバージョン {0} がダウンロードできます。 (現在ご利用中のバージョンは {1} です。)
+    <value>NotPurplePenのバージョン {0} がダウンロードできます。 (現在ご利用中のバージョンは {1} です。)
 
 最新バージョンをダウンロードしてインストールしますか?</value>
   </data>
@@ -270,7 +270,7 @@
   <data name="MissingMapFile" xml:space="preserve">
     <value>地図ファイル "{0}" が見つかりませんでした。
 
-地図ファイルが移動または削除されたか、Purple Penファイルが(他のコンピュータに)移動された可能性が考えられます。Purple Penのイベントファイルをロードする際は地図ファイルも存在しなくてはなりません。Purple Penのイベントファイルを他の人に送信する際は受信者も地図ファイルのコピーを持っているようにしてください。
+地図ファイルが移動または削除されたか、NotPurplePenファイルが(他のコンピュータに)移動された可能性が考えられます。NotPurplePenのイベントファイルをロードする際は地図ファイルも存在しなくてはなりません。NotPurplePenのイベントファイルを他の人に送信する際は受信者も地図ファイルのコピーを持っているようにしてください。
 
 OKを押し、コンピュータ上で地図ファイルのコピーを探してください。</value>
   </data>
@@ -332,7 +332,7 @@ OKを押し、コンピュータ上で地図ファイルのコピーを探して
     <value>テキストを変更</value>
   </data>
   <data name="MapFileChanged" xml:space="preserve">
-    <value>他のプログラムが地図ファイル "{0}" に変更を加えました。Purple Penは地図をリロードします。</value>
+    <value>他のプログラムが地図ファイル "{0}" に変更を加えました。NotPurplePenは地図をリロードします。</value>
   </data>
   <data name="ChangeDescriptionLanguage" xml:space="preserve">
     <value>現在のイベントは文字によるディスクリプションに {0} を使用しています。ディスクリプションの言語を{1} に変更しますか?</value>
@@ -341,13 +341,13 @@ OKを押し、コンピュータ上で地図ファイルのコピーを探して
     <value>"{0}" を開く</value>
   </data>
   <data name="ClosePPBeforeLoadingOCAD" xml:space="preserve">
-    <value>作成されたOCADファイルを読み込む前にPurple Penを閉じる必要があります。</value>
+    <value>作成されたOCADファイルを読み込む前にNotPurplePenを閉じる必要があります。</value>
   </data>
   <data name="NoCoursesSelected" xml:space="preserve">
     <value>印刷するコースが選択されていません。</value>
   </data>
   <data name="TranslatedHelpWebSite" xml:space="preserve">
-    <value>*** 翻訳先の言葉で書かれた Purple Pen のドキュメントを含むウェブサイトがある場合は、ここに http から始まる URL を入れてください。無い場合はそのまま空欄にしてください。</value>
+    <value>*** 翻訳先の言葉で書かれた NotPurplePen のドキュメントを含むウェブサイトがある場合は、ここに http から始まる URL を入れてください。無い場合はそのまま空欄にしてください。</value>
   </data>
   <data name="MapExchange_Long" xml:space="preserve">
     <value>地図交換所</value>
@@ -458,7 +458,7 @@ OKを押し、コンピュータ上で地図ファイルのコピーを探して
     <value>OCADファイルにはGPXファイル用に定義されたリアルワールド座標が必要です。</value>
   </data>
   <data name="GpxUnsupportedCoordSystem" xml:space="preserve">
-    <value>このOCADファイルはPurple Pen でサポートされていない座標系を使用しています。</value>
+    <value>このOCADファイルはNotPurplePen でサポートされていない座標系を使用しています。</value>
   </data>
   <data name="AutomaticLength" xml:space="preserve">
     <value>自動入力</value>
@@ -566,7 +566,7 @@ OKを押し、コンピュータ上で地図ファイルのコピーを探して
     <value>RC {0}</value>
   </data>
   <data name="OpenFileDialog_PurplePenFilter" xml:space="preserve">
-    <value>Purple Pen ファイル|*.ppen|すべてのファイル|*.*</value>
+    <value>NotPurplePen ファイル|*.ppen|すべてのファイル|*.*</value>
   </data>
   <data name="ChangeMapFile_FileFilter" xml:space="preserve">
     <value>すべての地図ファイル|*.ocd;*.omap;*.xmap;*.pdf;*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif|OCADファイル (*.ocd)|*.ocd|Open Orienteering Mapperファイル|*.omap;*.xmap|PDFファイル (*.pdf)|*.pdf|画像ファイル|*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif</value>
@@ -575,7 +575,7 @@ OKを押し、コンピュータ上で地図ファイルのコピーを探して
     <value>GPXファイル|*.gpx</value>
   </data>
   <data name="SaveFileDialog_PurplePenFilter" xml:space="preserve">
-    <value>Purple Pen ファイル|*.ppen</value>
+    <value>NotPurplePen ファイル|*.ppen</value>
   </data>
   <data name="SaveXmlFileDialog_Filter" xml:space="preserve">
     <value>IOF XML version 3.0|*.xml|IOF XML version 2.0.3|*.xml</value>

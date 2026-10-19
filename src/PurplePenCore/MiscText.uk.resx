@@ -127,7 +127,7 @@
     <value>Esc</value>
   </data>
   <data name="AppTitle" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="NoSymbol" xml:space="preserve">
     <value>Без знаку</value>
@@ -257,7 +257,7 @@
     <value>Версія {0}</value>
   </data>
   <data name="NewerVersionAvailable" xml:space="preserve">
-    <value>Версія {0} Purple Pen доступна для завантаження. (Наразі ви використовуєте версію {1}.)
+    <value>Версія {0} NotPurplePen доступна для завантаження. (Наразі ви використовуєте версію {1}.)
 
 Бажаєте завантажити та встановити новішу версію?</value>
   </data>
@@ -270,7 +270,7 @@
   <data name="MissingMapFile" xml:space="preserve">
     <value>Не вдалося знайти файл карти "{0}".
 
-Імовірно файл карти було переміщено чи видалено, або було переміщено файл змагань Purple Pen (можливо на інший комп'ютер). Файл карти має бути присутнім під час відкриття файлу змагань Purple Pen. Коли ви пересилаєте файл з дистанціями Purple Pen іншій особі, переконайтеся що вона також має файл карти.
+Імовірно файл карти було переміщено чи видалено, або було переміщено файл змагань NotPurplePen (можливо на інший комп'ютер). Файл карти має бути присутнім під час відкриття файлу змагань NotPurplePen. Коли ви пересилаєте файл з дистанціями NotPurplePen іншій особі, переконайтеся що вона також має файл карти.
 
 Після натискання на OK, спробуйте знайти копію файла карти на вашому комп'ютері.</value>
   </data>
@@ -332,7 +332,7 @@
     <value>Змінити текст</value>
   </data>
   <data name="MapFileChanged" xml:space="preserve">
-    <value>Інша програма змінила файл карти "{0}". Зараз Purple Pen перезавантажить карту.</value>
+    <value>Інша програма змінила файл карти "{0}". Зараз NotPurplePen перезавантажить карту.</value>
   </data>
   <data name="ChangeDescriptionLanguage" xml:space="preserve">
     <value>Змагання мають текстові легенди мовою {0}. Бажаєте змінити мову легенд КП на {1}?</value>
@@ -341,7 +341,7 @@
     <value>Відкрти "{0}"</value>
   </data>
   <data name="ClosePPBeforeLoadingOCAD" xml:space="preserve">
-    <value>Необхідно закрити Purple Pen перед відкриттям створених файлів OCAD.</value>
+    <value>Необхідно закрити NotPurplePen перед відкриттям створених файлів OCAD.</value>
   </data>
   <data name="NoCoursesSelected" xml:space="preserve">
     <value>Жодна дистанція не відмічена для друку</value>
@@ -455,7 +455,7 @@
     <value>Файл OCAD повинен мати визначені глобальні координати для використання GPX файлів.</value>
   </data>
   <data name="GpxUnsupportedCoordSystem" xml:space="preserve">
-    <value>Файл OCAD використовує систему координат, що не підтримується Purple Pen.</value>
+    <value>Файл OCAD використовує систему координат, що не підтримується NotPurplePen.</value>
   </data>
   <data name="AutomaticLength" xml:space="preserve">
     <value>Автоматично</value>
@@ -611,7 +611,7 @@
     <value>RC {0}</value>
   </data>
   <data name="OpenFileDialog_PurplePenFilter" xml:space="preserve">
-    <value>Файли Purple Pen|*.ppen|Всі файли|*.*</value>
+    <value>Файли NotPurplePen|*.ppen|Всі файли|*.*</value>
   </data>
   <data name="ChangeMapFile_FileFilter" xml:space="preserve">
     <value>Всі файли карт|*.ocd;*.omap;*.xmap;*.pdf;*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif|Файли OCAD (*.ocd)|*.ocd|Файли Open Orienteering Mapper|*.omap;*.xmap|Файли PDF (*.pdf)|*.pdf|Файли зображень|*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif</value>
@@ -620,7 +620,7 @@
     <value>Файл GPX|*.gpx</value>
   </data>
   <data name="SaveFileDialog_PurplePenFilter" xml:space="preserve">
-    <value>Файли Purple Pen|*.ppen</value>
+    <value>Файли NotPurplePen|*.ppen</value>
   </data>
   <data name="SaveXmlFileDialog_Filter" xml:space="preserve">
     <value>IOF XML версія 3.0|*.xml|IOF XML версія 2.0.3|*.xml</value>

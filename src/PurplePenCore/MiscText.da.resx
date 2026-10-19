@@ -127,7 +127,7 @@
     <value>Esc</value>
   </data>
   <data name="AppTitle" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="NoSymbol" xml:space="preserve">
     <value>Ingen symbol</value>
@@ -257,7 +257,7 @@ Brug | for at skille linjer</value>
     <value>Version {0}</value>
   </data>
   <data name="NewerVersionAvailable" xml:space="preserve">
-    <value>Version {0} af Purple Pen er nu tilgængelig for download. Du bruger i øjeblikket versiom {1}.
+    <value>Version {0} af NotPurplePen er nu tilgængelig for download. Du bruger i øjeblikket versiom {1}.
 
 Ønsker du at downloade og installere den seneste version?</value>
   </data>
@@ -270,7 +270,7 @@ Brug | for at skille linjer</value>
   <data name="MissingMapFile" xml:space="preserve">
     <value>Kortfilen"{0}" blev ikke fundet.
 
-Sandsynligvis er kortfilen blevet flyttet eller slettet, eller Purple Pen filen er blevet flyttet (muligvis til en anden computer). Kortfilen skal være til stede hver gang Purple Pen hændelsesfilen indlæses. Hvis du sender en Purple Pen hændelsesfil til en anden person, vær sikker på at den person også har en kopi af kortfilen.
+Sandsynligvis er kortfilen blevet flyttet eller slettet, eller NotPurplePen filen er blevet flyttet (muligvis til en anden computer). Kortfilen skal være til stede hver gang NotPurplePen hændelsesfilen indlæses. Hvis du sender en NotPurplePen hændelsesfil til en anden person, vær sikker på at den person også har en kopi af kortfilen.
 
 Efter at klikke OK, prøv at finde en kopi af kortfilen på din computer.</value>
   </data>
@@ -329,7 +329,7 @@ Efter at klikke OK, prøv at finde en kopi af kortfilen på din computer.</value
     <value>Ændr tekst</value>
   </data>
   <data name="MapFileChanged" xml:space="preserve">
-    <value>Et andet program har ændret kortfilen "{0}". Purple Pen vil nu genindlæse kortet.</value>
+    <value>Et andet program har ændret kortfilen "{0}". NotPurplePen vil nu genindlæse kortet.</value>
   </data>
   <data name="ChangeDescriptionLanguage" xml:space="preserve">
     <value>Den nuværende hændelse har tekstuel kontrolbeskrivelser in {0}. Ønsker du at ændre sprog på kontrolbeskrivelser til {1}?</value>
@@ -338,13 +338,13 @@ Efter at klikke OK, prøv at finde en kopi af kortfilen på din computer.</value
     <value>Åben "{0}"</value>
   </data>
   <data name="ClosePPBeforeLoadingOCAD" xml:space="preserve">
-    <value>Purple Pen skal lukkes før indlæsning af de oprettede OCADfiler.</value>
+    <value>NotPurplePen skal lukkes før indlæsning af de oprettede OCADfiler.</value>
   </data>
   <data name="NoCoursesSelected" xml:space="preserve">
     <value>Ingen kurser var valgt til udskrift.</value>
   </data>
   <data name="TranslatedHelpWebSite" xml:space="preserve">
-    <value>*** Hvis der eksisterer en webside i det oversatte sprog som indeholder dokumentation for Purple Pen, indtast den URL (inklusive http) som oversættelse af denne vare. Ellers lad den være.</value>
+    <value>*** Hvis der eksisterer en webside i det oversatte sprog som indeholder dokumentation for NotPurplePen, indtast den URL (inklusive http) som oversættelse af denne vare. Ellers lad den være.</value>
   </data>
   <data name="MapExchange_Long" xml:space="preserve">
     <value>Kortudveksling</value>
@@ -455,7 +455,7 @@ Efter at klikke OK, prøv at finde en kopi af kortfilen på din computer.</value
     <value>OCADfilen skal have virkelige koordinater definere for at bruge GPXfiler.</value>
   </data>
   <data name="GpxUnsupportedCoordSystem" xml:space="preserve">
-    <value>OCADfil bruger et koordinatsystem som ikke er understøttet af Purple Pen.</value>
+    <value>OCADfil bruger et koordinatsystem som ikke er understøttet af NotPurplePen.</value>
   </data>
   <data name="AutomaticLength" xml:space="preserve">
     <value>Automatisk</value>
@@ -602,7 +602,7 @@ Efter at klikke OK, prøv at finde en kopi af kortfilen på din computer.</value
     <value>RC {0}</value>
   </data>
   <data name="OpenFileDialog_PurplePenFilter" xml:space="preserve">
-    <value>Purple Pen filer|*.ppen|Alle filer|*.*</value>
+    <value>NotPurplePen filer|*.ppen|Alle filer|*.*</value>
   </data>
   <data name="ChangeMapFile_FileFilter" xml:space="preserve">
     <value>All kortfiler|*.ocd;*.omap;*.xmap;*.pdf;*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif|OCAD files (*.ocd)|*.ocd|Open Orienteering Mapper Files|*.omap;*.xmap|PDF files (*.pdf)|*.pdf|Image files|*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif</value>
@@ -611,7 +611,7 @@ Efter at klikke OK, prøv at finde en kopi af kortfilen på din computer.</value
     <value>GPX fil|*.gpx</value>
   </data>
   <data name="SaveFileDialog_PurplePenFilter" xml:space="preserve">
-    <value>Purple Pen file|*.ppen</value>
+    <value>NotPurplePen file|*.ppen</value>
   </data>
   <data name="SaveXmlFileDialog_Filter" xml:space="preserve">
     <value>IOF XML version 3.0|*.xml|IOF XML version 2.0.3|*.xml</value>
