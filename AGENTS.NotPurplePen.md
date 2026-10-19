@@ -49,6 +49,17 @@ it. The push runs the tests and publishes an installable package for Windows,
 Linux and macOS to <https://pauliojanpera.github.io/NotPurplePen/> under
 `trial/`.
 
+A wip branch named `wip/<platforms>/<name>` is packaged only for the platforms
+it names: `win`, `linux` or `mac`, or several joined with `+`, as in
+`wip/linux+mac/<name>`. The name picks the packages and nothing else; the tests
+run the same for every wip branch.
+
+The trial is named after `<name>` alone and keeps the newest build of each
+platform; each file's name says which platform it is for. Pushing a commit that
+is up as `wip/linux/<name>` to `wip/mac/<name>` as well adds macOS packages
+beside the Linux ones without running the tests again, since a commit is tested
+once whichever branches it reaches.
+
 It has to be that way round. A push runs only the workflows that are in the
 branch pushed, and a branch rooted at `upstream/master` has none, so pushing
 the feature branch itself runs nothing.
