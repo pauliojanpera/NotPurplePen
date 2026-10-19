@@ -323,6 +323,12 @@ jobs:
 
     # A release goes out only behind a green suite. A trial does not wait: the
     # question it answers is whether the branch still builds.
+    #
+    # The runs are looked up by commit rather than by branch, so a commit that
+    # reached two branches is answered by either of them: the tree is the same
+    # and so is the verdict. A run that was cancelled therefore settles nothing
+    # on its own, and the suite counts as failed only once every run of this
+    # commit has finished and none of them passed.
     - name: Wait for the tests
       if: github.event_name == 'push'
       shell: pwsh
@@ -336,7 +342,7 @@ jobs:
             if (-not $runs) { throw 'No test run for this commit; nothing to publish behind.' }
             $states = @($runs -split "`n" | Where-Object { $_ })
             if ($states | Where-Object { $_ -like 'completed success*' }) { break }
-            if ($states | Where-Object { $_ -like 'completed *' }) { throw "The tests finished as: $($states -join ', ')" }
+            if (-not ($states | Where-Object { $_ -notlike 'completed *' })) { throw "The tests finished as: $($states -join ', ')" }
             if ((Get-Date) -gt $deadline) { throw 'The tests did not finish in forty minutes.' }
             "waiting for the tests: $($states -join ', ')"
             Start-Sleep -Seconds 30
