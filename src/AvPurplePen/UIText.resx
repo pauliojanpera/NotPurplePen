@@ -1281,6 +1281,9 @@
   <data name="CreateImageFiles_labelAutoRotate_Text" xml:space="preserve">
     <value>Auto rotate:</value>
   </data>
+  <data name="CreateImageFiles_labelImageQuality_Text" xml:space="preserve">
+    <value>Image quality:</value>
+  </data>
   <data name="CreateImageFiles_comboBoxColorModel_Items" xml:space="preserve">
     <value>RGB</value>
   </data>

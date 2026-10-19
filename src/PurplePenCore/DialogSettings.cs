@@ -101,6 +101,7 @@ namespace PurplePen
         public BitmapKind ExportedBitmapKind = BitmapCreationSettings.BitmapKind.Png;
         public float Dpi;
         public bool AutoRotate = false;             // Turn a landscape image to portrait?
+        public int Quality = 80;                    // Compression quality, for the formats that have one.
         public bool WorldFile;                      // Create a world file?
         public ColorModel ColorModel = ColorModel.CMYK;
 
