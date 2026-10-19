@@ -1860,8 +1860,8 @@
   <data name="MainFrame_addTextLineMenu_Text" xml:space="preserve">
     <value>Text _Line...</value>
   </data>
-  <data name="MainFrame_splitDescriptionMenu_Text" xml:space="preserve">
-    <value>C_ut Description</value>
+  <data name="MainFrame_splitMenu_Text" xml:space="preserve">
+    <value>S_plit</value>
   </data>
   <data name="MainFrame_addMapIssueMenu_Text" xml:space="preserve">
     <value>Timed Start</value>

@@ -314,8 +314,6 @@
                     <!-- Text Line has no icon of its own; noIcon.png just keeps it indented (see above). -->
                     <NativeMenuItem Header="{resx:Localize MainFrame_addTextLineMenu_Text}" Command="{Binding AddTextLineCommand}"
                                     Icon="/Assets/Toolbar/noIcon.png"/>
-                    <NativeMenuItem Header="{resx:Localize MainFrame_splitDescriptionMenu_Text}" Command="{Binding AddCuttingLineCommand}"
-                                    Icon="/Assets/Toolbar/noIcon.png"/>
                     <NativeMenuItemSeparator/>
                     <NativeMenuItem Header="{resx:Localize MainFrame_addMapIssueMenu_Text}" Command="{Binding AddMapIssueCommand}"
                                     Icon="/Assets/Toolbar/mapIssuePointItem.png"/>
@@ -453,6 +451,8 @@
                                     Command="{Binding RotateCommand}"/>
                     <NativeMenuItem Header="{resx:Localize MainFrame_stretchMenu_Text}"
                                     Command="{Binding StretchCommand}"/>
+                    <NativeMenuItem Header="{resx:Localize MainFrame_splitMenu_Text}"
+                                    Command="{Binding AddCuttingLineCommand}"/>
                     <NativeMenuItem Header="{resx:Localize MainFrame_legFlaggingMenu_Text}"
                                     IsEnabled="{Binding CanSetLegFlagging}">
                         <NativeMenu>
