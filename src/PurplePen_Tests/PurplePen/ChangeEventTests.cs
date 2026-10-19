@@ -2271,7 +2271,7 @@ namespace PurplePen.Tests
             Assert.AreEqual(new PointF(34.5F, 40F), special.locations[1]);
             Assert.AreEqual(SpecialKind.Descriptions, special.kind);
             Assert.AreEqual(0F, special.orientation);
-            Assert.AreEqual(2, special.numColumns);
+            Assert.AreEqual(2, special.fragments[0].numColumns);
             Assert.IsTrue(special.allCourses);
 
             undomgr.Undo();
@@ -2297,7 +2297,7 @@ namespace PurplePen.Tests
             Assert.AreEqual(new PointF(5, -25.5F), special.locations[1]);
             Assert.AreEqual(SpecialKind.Descriptions, special.kind);
             Assert.AreEqual(0F, special.orientation);
-            Assert.AreEqual(1, special.numColumns);
+            Assert.AreEqual(1, special.fragments[0].numColumns);
             Assert.IsFalse(special.allCourses);
             TestUtil.TestEnumerableAnyOrder(special.courses, new CourseDesignator[] { Designator(1), Designator(3) });
 
