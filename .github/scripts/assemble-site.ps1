@@ -1,14 +1,28 @@
 # assemble-site.ps1
 #
-# Builds the published site whole, from what gh-pages already holds
-# (published/) plus what this run packaged (packages/), into site/.
+# Builds the published site whole, from the catalog gh-pages already holds
+# (published/catalog.json) plus what this run packaged (packages/), into
+# site/.
+#
+# The packages themselves are release assets and are not part of the site: a
+# published Pages site may hold no more than a gigabyte, and one version of
+# this program across five platforms is a quarter of that. What the site
+# carries is the index, the catalog and the manifest, which name the assets
+# by URL.
 #
 # Called from build.yml's publish job, once per attempt: a run that loses
-# the race to push re-clones gh-pages and calls this again, so it must be
+# the race to push re-reads gh-pages and calls this again, so it must be
 # able to run repeatedly in the same workspace.
 
-$pagesUrl = "$env:GithubPagesUrl"
+$repository = "$env:GITHUB_REPOSITORY"
 $kept = @{ main = 3; beta = 3; base = 3; trial = 4 }
+
+# Where a release serves the asset it was given. The tag comes from the
+# descriptor, so the rule that picks it is written once, where the packages
+# are collected.
+function AssetUrl($tag, $file) {
+    "https://github.com/$repository/releases/download/$tag/$file"
+}
 
 # catalog.json is the site's own record of what it holds. Names and
 # directories are not parsed to work it out, because a package's name
@@ -18,18 +32,20 @@ if (Test-Path published/catalog.json) {
     $catalog = @((Get-Content published/catalog.json -Raw | ConvertFrom-Json).entries)
 }
 
+# An entry written before the packages moved into releases names a file on
+# the site, which is not there to link to any more.
+$catalog = @($catalog | Where-Object { $_.PSObject.Properties['url'] -and $_.url })
+
 $added = @()
 foreach ($descriptorFile in (Get-ChildItem packages -Recurse -Filter descriptor.json)) {
     $descriptor = Get-Content $descriptorFile.FullName -Raw | ConvertFrom-Json
     foreach ($entry in $descriptor.files) {
-        $directory = if ($descriptor.channel -eq 'trial') { "trial/$($descriptor.slug)" }
-                     else { "downloads/$($descriptor.channel)" }
         $added += [pscustomobject]@{
-            path = "$directory/$($entry.file)"; file = $entry.file
+            tag = $descriptor.tag; url = (AssetUrl $descriptor.tag $entry.file)
+            file = $entry.file
             channel = $descriptor.channel; slug = $descriptor.slug
             platform = $entry.platform; version = $entry.version
             offered = $entry.offered; sha256 = $entry.sha256
-            source = (Join-Path $descriptorFile.DirectoryName $entry.file)
         }
     }
 }
@@ -59,17 +75,8 @@ $trialSlugs = @($surviving | Where-Object { $_.channel -eq 'trial' } |
 $surviving = @($surviving | Where-Object { $_.channel -ne 'trial' -or $_.slug -in $trialSlugs })
 
 New-Item site -ItemType Directory -Force | Out-Null
-foreach ($entry in $surviving) {
-    $target = Join-Path 'site' $entry.path
-    New-Item (Split-Path $target) -ItemType Directory -Force | Out-Null
-    $source = if ($entry.PSObject.Properties['source'] -and $entry.source) { $entry.source }
-              else { Join-Path 'published' $entry.path }
-    if (-not (Test-Path $source)) { continue }
-    Copy-Item $source $target -Force
-}
-$surviving = @($surviving | Where-Object { Test-Path (Join-Path 'site' $_.path) })
 
-[ordered]@{ entries = @($surviving | Select-Object path, file, channel, slug, platform, version, offered, sha256) } |
+[ordered]@{ entries = @($surviving | Select-Object tag, url, file, channel, slug, platform, version, offered, sha256) } |
     ConvertTo-Json -Depth 5 | Set-Content site/catalog.json -Encoding UTF8
 
 # The manifest is the updater's view: the newest build of each platform
@@ -85,7 +92,7 @@ foreach ($entry in ($surviving | Where-Object { $_.offered -and $_.channel -in @
     $updates += [ordered]@{
         title = "NotPurplePen $($newest.version)"; version = $newest.version
         platform = $newest.platform; channel = $newest.channel
-        url = $pagesUrl + $newest.path; sha256 = $newest.sha256; message = ""
+        url = $newest.url; sha256 = $newest.sha256; message = ""
     }
 }
 [ordered]@{ updates = @($updates) } | ConvertTo-Json -Depth 5 |
@@ -98,7 +105,7 @@ function Section($title, $note, $rows) {
 function Rows($entries) {
     $entries | Sort-Object @{ Expression = { [version]$_.version }; Descending = $true },
                            @{ Expression = 'platform' }, @{ Expression = 'file' } | ForEach-Object {
-        "<li><a href=""$($_.path)"">$($_.file)</a> &mdash; $($_.platform)</li>"
+        "<li><a href=""$($_.url)"">$($_.file)</a> &mdash; $($_.platform)</li>"
     }
 }
 
@@ -124,6 +131,7 @@ $timestamp = Get-Date -Format 'yyyy-MM-dd HH:mm:ss UTC'
     $($body -join "`n    ")
     <h2>Notes</h2>
     <ul>
+        <li>The downloads are served from this repository's releases, not from this site.</li>
         <li>The .deb and .rpm packages are installed and removed by the system package manager and
             are not offered as updates from inside the application.</li>
         <li>The macOS disk image is not signed, so the first launch needs the usual confirmation.</li>
@@ -134,3 +142,5 @@ $timestamp = Get-Date -Format 'yyyy-MM-dd HH:mm:ss UTC'
 
 "published:"
 Get-ChildItem site -Recurse -File | ForEach-Object { "  $($_.FullName.Substring((Resolve-Path 'site').Path.Length + 1))" }
+"catalogued:"
+$surviving | Sort-Object tag, file | ForEach-Object { "  $($_.tag)/$($_.file)" }
