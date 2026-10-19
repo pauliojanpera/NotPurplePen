@@ -2,7 +2,8 @@
     PublishCoursesDialog.axaml
 
     Dialog for publishing courses: a course list, and behind an Advanced
-    button the folder they are published into.
+    button the folder they are published into and how their images are
+    written.
 
     Migrated from WinForms PurplePen/PublishCoursesDialog.cs.
 -->
@@ -19,8 +20,8 @@
         x:DataType="vm:PublishCoursesDialogViewModel"
         Title="{resx:Localize PublishCoursesDialog_Text}"
         Icon="/Assets/transparent.ico"
-        d:DesignWidth="440" d:DesignHeight="420"
-        Width="440" Height="420"
+        d:DesignWidth="440" d:DesignHeight="500"
+        Width="440" Height="500"
         CanResize="True"
         CanMinimize="False"
         CanMaximize="False"
@@ -63,6 +64,36 @@
                 Margin="0,8,0,0"
                 IsVisible="{Binding IsAdvancedButtonVisible}"
                 Command="{Binding RevealAdvancedSettingsCommand}"/>
+
+        <!-- How the course images are written. Only the JPEGs take these; the
+             PDFs the same publish writes have neither. -->
+        <HeaderedContentControl DockPanel.Dock="Bottom"
+                                Header="{resx:Localize PublishCoursesDialog_imageFilesGroupBox_Text}"
+                                Padding="8"
+                                Margin="0,8,0,0"
+                                IsVisible="{Binding ShowAdvanced}">
+            <Grid ColumnDefinitions="Auto,8,*"
+                  RowDefinitions="Auto,4,Auto">
+
+                <!-- Row 0: Auto rotate -->
+                <TextBlock Grid.Row="0" Grid.Column="0"
+                           Text="{resx:Localize PublishCoursesDialog_labelAutoRotate_Text}"
+                           VerticalAlignment="Center"/>
+                <CheckBox x:Name="autoRotateCheckBox"
+                          Grid.Row="0" Grid.Column="2"
+                          IsChecked="{Binding AutoRotate, Mode=TwoWay}"/>
+
+                <!-- Row 2: Image quality -->
+                <TextBlock Grid.Row="2" Grid.Column="0"
+                           Text="{resx:Localize PublishCoursesDialog_labelImageQuality_Text}"
+                           VerticalAlignment="Center"/>
+                <NumericUpDown x:Name="imageQualityUpDown"
+                               Grid.Row="2" Grid.Column="2"
+                               Minimum="1" Maximum="100" Increment="1" FormatString="0"
+                               HorizontalAlignment="Left" Width="100"
+                               Value="{Binding Quality, Mode=TwoWay}"/>
+            </Grid>
+        </HeaderedContentControl>
 
         <!-- Publish target folder. The two checkboxes only apply to a relative
              path, so a rooted one disables them. -->

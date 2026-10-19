@@ -3901,6 +3901,15 @@ Purple Pen cannot install this kind of file for you. Open it yourself to install
   <data name="PublishCoursesDialog_fileDirectory_Text" xml:space="preserve">
     <value>Relative to the folder of the Purple Pen file</value>
   </data>
+  <data name="PublishCoursesDialog_imageFilesGroupBox_Text" xml:space="preserve">
+    <value>Image files</value>
+  </data>
+  <data name="PublishCoursesDialog_labelAutoRotate_Text" xml:space="preserve">
+    <value>Auto rotate:</value>
+  </data>
+  <data name="PublishCoursesDialog_labelImageQuality_Text" xml:space="preserve">
+    <value>Image quality:</value>
+  </data>
   <data name="PublishCoursesDialog_mapDirectory_Text" xml:space="preserve">
     <value>Relative to the folder of the map file</value>
   </data>

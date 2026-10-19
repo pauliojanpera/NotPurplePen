@@ -9119,6 +9119,33 @@ namespace AvPurplePen {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Image files.
+        /// </summary>
+        public static string PublishCoursesDialog_imageFilesGroupBox_Text {
+            get {
+                return ResourceManager.GetString("PublishCoursesDialog_imageFilesGroupBox_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auto rotate:.
+        /// </summary>
+        public static string PublishCoursesDialog_labelAutoRotate_Text {
+            get {
+                return ResourceManager.GetString("PublishCoursesDialog_labelAutoRotate_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Image quality:.
+        /// </summary>
+        public static string PublishCoursesDialog_labelImageQuality_Text {
+            get {
+                return ResourceManager.GetString("PublishCoursesDialog_labelImageQuality_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Relative to the folder of the map file.
         /// </summary>
         public static string PublishCoursesDialog_mapDirectory_Text {

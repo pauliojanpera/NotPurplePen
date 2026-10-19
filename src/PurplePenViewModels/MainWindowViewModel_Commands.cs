@@ -2569,6 +2569,8 @@ namespace PurplePen.ViewModels
                     VariationChoicesPerCourse = vm.VariationChoicesPerCourse,
                     ExportedBitmapKind = BitmapCreationSettings.BitmapKind.Jpeg,
                     Dpi = 600,
+                    AutoRotate = vm.AutoRotate,
+                    Quality = vm.Quality,
                     ColorModel = ColorModel.RGB,
                     fileDirectory = false,
                     mapDirectory = false,

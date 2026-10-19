@@ -3653,6 +3653,15 @@ Kilpailukarttojen tulostamiseksi on suositeltavaa viedä radat OCAD-tiedostoihin
   <data name="PublishCoursesDialog_fileDirectory_Text" xml:space="preserve">
     <value>Suhteessa Purple Pen -tiedoston kansioon</value>
   </data>
+  <data name="PublishCoursesDialog_imageFilesGroupBox_Text" xml:space="preserve">
+    <value>Kuvatiedostot</value>
+  </data>
+  <data name="PublishCoursesDialog_labelAutoRotate_Text" xml:space="preserve">
+    <value>Automaattinen kääntö:</value>
+  </data>
+  <data name="PublishCoursesDialog_labelImageQuality_Text" xml:space="preserve">
+    <value>Kuvanlaatu:</value>
+  </data>
   <data name="PublishCoursesDialog_mapDirectory_Text" xml:space="preserve">
     <value>Suhteessa kartan kansioon</value>
   </data>

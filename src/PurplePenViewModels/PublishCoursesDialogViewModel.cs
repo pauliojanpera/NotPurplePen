@@ -17,7 +17,8 @@ namespace PurplePen.ViewModels
     /// Usage: the caller sets <see cref="EventDB"/> and <see cref="PublishTargetFolder"/>,
     /// shows the dialog, and on OK reads <see cref="SelectedCourses"/>,
     /// <see cref="VariationChoicesPerCourse"/>, <see cref="PublishTargetFolder"/>,
-    /// <see cref="UseFileDirectory"/> and <see cref="UseMapDirectory"/>.
+    /// <see cref="UseFileDirectory"/>, <see cref="UseMapDirectory"/>,
+    /// <see cref="AutoRotate"/> and <see cref="Quality"/>.
     /// </summary>
     public partial class PublishCoursesDialogViewModel : ViewModelBase
     {
@@ -46,6 +47,14 @@ namespace PurplePen.ViewModels
         /// <summary>Resolve a relative target folder against the map file's folder.</summary>
         [ObservableProperty]
         private bool useMapDirectory;
+
+        /// <summary>Whether a landscape course image is turned to portrait.</summary>
+        [ObservableProperty]
+        private bool autoRotate = true;
+
+        /// <summary>Compression quality of the published JPEGs.</summary>
+        [ObservableProperty]
+        private int quality = 95;
 
         /// <summary>
         /// Whether the target folder group is shown. It starts hidden, so that
