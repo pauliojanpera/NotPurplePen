@@ -1923,6 +1923,36 @@ namespace PurplePen
     /// </summary>
     public class Special: StorableObject
     {
+        /// <summary>
+        /// One fragment of a descriptions object: the run of description lines that begins at
+        /// startLine, laid out in numColumns columns. A descriptions object carries one fragment
+        /// for each piece it is split into, in ascending order of start line, the first always
+        /// beginning at line 0, and one pair of locations for each fragment. Immutable, so that
+        /// cloning a Special can share them.
+        /// </summary>
+        public class DescriptionFragment
+        {
+            public readonly int startLine;      // First description line shown in this fragment.
+            public readonly int numColumns;     // Number of columns this fragment is laid out in.
+
+            public DescriptionFragment(int startLine = 0, int numColumns = 1)
+            {
+                this.startLine = startLine;
+                this.numColumns = numColumns;
+            }
+
+            public override bool Equals(object obj)
+            {
+                DescriptionFragment other = obj as DescriptionFragment;
+                return other != null && other.startLine == startLine && other.numColumns == numColumns;
+            }
+
+            public override int GetHashCode()
+            {
+                return startLine.GetHashCode() ^ numColumns.GetHashCode();
+            }
+        }
+
         public SpecialKind kind;            // The kind of special.
         public PointF[] locations;          // The location of the control; might be one or more coordinates (two for a rectangle)
         public float orientation;           // For crossing points only, the orientation in degress
@@ -1939,7 +1969,7 @@ namespace PurplePen
         public string fontName;             // for text objects, the font name
         public bool fontBold, fontItalic;   // for text objects, the font style
         public float fontHeight = -1;       // for text objects, the font height (digit height, not em height), or -1 for auto (old style).
-        public int numColumns = 1;          // for description objects, the number of columns.
+        public List<DescriptionFragment> fragments = new List<DescriptionFragment> { new DescriptionFragment() };   // for description objects, the fragments it is split into; never empty.
         public IGraphicsBitmap imageBitmap; // for image objects, the bitmap.
 
         public Special()
@@ -1980,12 +2010,16 @@ namespace PurplePen
                 break;
 
             case SpecialKind.Text:
-            case SpecialKind.Descriptions:
             case SpecialKind.Image:
             case SpecialKind.Rectangle:
             case SpecialKind.Ellipse:
                 if (locations.Length != 2)
-                    throw new ApplicationException(string.Format("Text or descriptions object {0} should have 2 coordinates", id));
+                    throw new ApplicationException(string.Format("Text or graphic object {0} should have 2 coordinates", id));
+                break;
+
+            case SpecialKind.Descriptions:
+                if (locations.Length != fragments.Count * 2)
+                    throw new ApplicationException(string.Format("Descriptions object {0} should have {1} coordinates, two for each fragment", id, fragments.Count * 2));
                 break;
 
             default:
@@ -2008,8 +2042,16 @@ namespace PurplePen
             }
 
             if (kind == SpecialKind.Descriptions) {
-                if (numColumns < 1 || numColumns > 100)
-                    throw new ApplicationException(string.Format("Description object {0} should have 1-100 columns", id));
+                if (fragments.Count == 0 || fragments[0].startLine != 0)
+                    throw new ApplicationException(string.Format("Descriptions object {0} should begin with a fragment starting at line 0", id));
+                for (int i = 1; i < fragments.Count; ++i) {
+                    if (fragments[i].startLine <= fragments[i - 1].startLine)
+                        throw new ApplicationException(string.Format("The fragments of descriptions object {0} should begin on ascending lines", id));
+                }
+                foreach (DescriptionFragment fragment in fragments) {
+                    if (fragment.numColumns < 1 || fragment.numColumns > 100)
+                        throw new ApplicationException(string.Format("Every fragment of descriptions object {0} should have 1-100 columns", id));
+                }
             }
 
             if (kind == SpecialKind.Image) {
@@ -2064,6 +2106,46 @@ namespace PurplePen
             }
         }
 
+        // Find the index of the fragment of a descriptions object that begins at the given
+        // description line, or -1 if no fragment begins there.
+        public int FindDescriptionFragment(int startLine)
+        {
+            return fragments.FindIndex(fragment => fragment.startLine == startLine);
+        }
+
+        // Split a descriptions object by inserting a fragment, together with the pair of
+        // locations that positions it. The new fragment goes where its start line belongs and
+        // takes the rectangle of the fragment it is split off from, to be dragged elsewhere
+        // from there. Does nothing if a fragment already begins on that line.
+        public void InsertDescriptionFragment(int startLine)
+        {
+            int index = fragments.FindIndex(existing => existing.startLine >= startLine);
+            if (index >= 0 && fragments[index].startLine == startLine)
+                return;
+            if (index < 0)
+                index = fragments.Count;
+
+            List<PointF> newLocations = new List<PointF>(locations);
+            newLocations.InsertRange(2 * index, new PointF[2] { locations[2 * index - 2], locations[2 * index - 1] });
+            locations = newLocations.ToArray();
+            fragments.Insert(index, new DescriptionFragment(startLine, fragments[index - 1].numColumns));
+        }
+
+        // Join the fragment that begins at the given description line to the one before it,
+        // removing it and its locations. The first fragment is the descriptions object itself
+        // and cannot be removed.
+        public void RemoveDescriptionFragment(int startLine)
+        {
+            int index = FindDescriptionFragment(startLine);
+            if (index <= 0)
+                return;
+
+            List<PointF> newLocations = new List<PointF>(locations);
+            newLocations.RemoveRange(2 * index, 2);
+            locations = newLocations.ToArray();
+            fragments.RemoveAt(index);
+        }
+
         public override StorableObject Clone()
         {
             Special n = (Special) base.Clone();
@@ -2072,6 +2154,7 @@ namespace PurplePen
             }
 
             n.locations = (PointF[]) n.locations.Clone();
+            n.fragments = new List<DescriptionFragment>(fragments);
             return n;
         }
 
@@ -2112,7 +2195,7 @@ namespace PurplePen
                 return false;
             if (other.fontHeight != fontHeight)
                 return false;
-            if (other.numColumns != numColumns)
+            if (!other.fragments.SequenceEqual(fragments))
                 return false;
             if (other.imageBitmap != imageBitmap)
                 return false;
@@ -2212,7 +2295,7 @@ namespace PurplePen
                     break;
 
                 case "appearance":
-                    numColumns = xmlinput.GetAttributeInt("columns", 1);
+                    fragments[0] = new DescriptionFragment(0, xmlinput.GetAttributeInt("columns", 1));
 
                     if (kind == SpecialKind.Text || kind == SpecialKind.Line || kind == SpecialKind.Rectangle || kind == SpecialKind.Ellipse) {
                         color = xmlinput.GetAttributeColor("color", SpecialColor.UpperPurple);
@@ -2231,7 +2314,14 @@ namespace PurplePen
                     if (kind == SpecialKind.Rectangle)
                         cornerRadius = xmlinput.GetAttributeFloat("corner-radius", 0);
 
-                    xmlinput.Skip();
+                    xmlinput.MoveToContent();
+
+                    bool firstFragment = true;
+                    while (xmlinput.FindSubElement(firstFragment, "fragment")) {
+                        fragments.Add(new DescriptionFragment(xmlinput.GetAttributeInt("start-line"), xmlinput.GetAttributeInt("columns", 1)));
+                        xmlinput.Skip();
+                        firstFragment = false;
+                    }
                     break;
 
                 case "courses":
@@ -2327,9 +2417,15 @@ namespace PurplePen
                 xmloutput.WriteEndElement();
             }
 
-            if (kind == SpecialKind.Descriptions && numColumns > 1) {
+            if (kind == SpecialKind.Descriptions && (fragments.Count > 1 || fragments[0].numColumns > 1)) {
                 xmloutput.WriteStartElement("appearance");
-                xmloutput.WriteAttributeString("columns", XmlConvert.ToString(numColumns));
+                xmloutput.WriteAttributeString("columns", XmlConvert.ToString(fragments[0].numColumns));
+                foreach (DescriptionFragment fragment in fragments.Skip(1)) {
+                    xmloutput.WriteStartElement("fragment");
+                    xmloutput.WriteAttributeString("start-line", XmlConvert.ToString(fragment.startLine));
+                    xmloutput.WriteAttributeString("columns", XmlConvert.ToString(fragment.numColumns));
+                    xmloutput.WriteEndElement();
+                }
                 xmloutput.WriteEndElement();
             }
 

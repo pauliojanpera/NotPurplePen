@@ -98,9 +98,8 @@ namespace PurplePen
             {
                 foreach (CourseView.DescriptionView descriptionView in courseView.DescriptionViews) {
                     // The layer depends on "descriptions in purple" setting in the course appearance.
-                    courseObj = CreateDescriptionSpecial(eventDB, symbolDB, descriptionView, appearance.descriptionsPurple ? layer : CourseLayer.Descriptions);
-                    if (courseObj != null)
-                        courseLayout.AddCourseObject(courseObj);
+                    foreach (DescriptionCourseObj descriptionObj in CreateDescriptionFragmentCourseObjects(eventDB, symbolDB, descriptionView, appearance.descriptionsPurple ? layer : CourseLayer.Descriptions))
+                        courseLayout.AddCourseObject(descriptionObj);
                 }
             }
 
@@ -607,8 +606,10 @@ namespace PurplePen
             return courseObj;
         }
 
-        // Create the course objects associated with this special. Assign the given layer to it.
-        static CourseObj CreateDescriptionSpecial(EventDB eventDB, SymbolDB symbolDB, CourseView.DescriptionView descriptionView, CourseLayer layer)
+        // Create the course objects associated with this descriptions special: one for each
+        // fragment it has been split into, showing the description lines that begin there.
+        // Assign the given layer to them.
+        static IEnumerable<DescriptionCourseObj> CreateDescriptionFragmentCourseObjects(EventDB eventDB, SymbolDB symbolDB, CourseView.DescriptionView descriptionView, CourseLayer layer)
         {
             Special special = eventDB.GetSpecial(descriptionView.SpecialId);
             Debug.Assert(special.kind == SpecialKind.Descriptions);
@@ -616,10 +617,23 @@ namespace PurplePen
             DescriptionKind descKind;
             bool columnHScore;
             DescriptionLine[] description = GetCourseDescription(eventDB, symbolDB, descriptionView.CourseDesignator, out descKind, out columnHScore);
-            CourseObj courseObj = new DescriptionCourseObj(descriptionView.SpecialId, special.locations[0], (float)Geometry.Distance(special.locations[0], special.locations[1]), 
-                                                          symbolDB, description, descKind, columnHScore, special.numColumns);
-            courseObj.layer = layer;
-            return courseObj;
+
+            for (int i = 0; i < special.fragments.Count; ++i) {
+                int startLine = special.fragments[i].startLine;
+                if (startLine >= description.Length)
+                    continue;           // The description has grown shorter since it was split here.
+
+                int endLine = (i + 1 < special.fragments.Count) ? Math.Min(special.fragments[i + 1].startLine, description.Length) : description.Length;
+                DescriptionLine[] fragmentLines = new DescriptionLine[endLine - startLine];
+                Array.Copy(description, startLine, fragmentLines, 0, fragmentLines.Length);
+
+                PointF topLeft = special.locations[2 * i];
+                float cellSize = (float) Geometry.Distance(topLeft, special.locations[2 * i + 1]);
+                DescriptionCourseObj courseObj = new DescriptionCourseObj(descriptionView.SpecialId, topLeft, cellSize,
+                                                                          symbolDB, fragmentLines, descKind, columnHScore, special.fragments[i].numColumns, startLine);
+                courseObj.layer = layer;
+                yield return courseObj;
+            }
         }
 
         // Return the description and description kind for a given CourseView.

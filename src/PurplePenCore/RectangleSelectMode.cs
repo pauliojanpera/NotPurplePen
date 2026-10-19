@@ -471,7 +471,7 @@ namespace PurplePen
                     // Moving a description. Descriptions are rather special in the way their locations are used.
                     DescriptionCourseObj descObj = (DescriptionCourseObj) courseObjectStart.Clone();
                     descObj.MoveHandle(handleLocation, location);
-                    controller.MoveSpecial(specialId, new PointF[2] { new PointF(descObj.rect.Left, descObj.rect.Bottom), new PointF(descObj.rect.Left + descObj.CellSize, descObj.rect.Bottom) });
+                    controller.MoveDescriptionFragment(specialId, descObj.StartLine, new PointF[2] { new PointF(descObj.rect.Left, descObj.rect.Bottom), new PointF(descObj.rect.Left + descObj.CellSize, descObj.rect.Bottom) }, descObj.NumberOfColumns);
                 }
                 else {
                     controller.MoveSpecialPoint(specialId, handleLocation, newHandleLocation);
