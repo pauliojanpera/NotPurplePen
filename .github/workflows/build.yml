@@ -398,8 +398,10 @@ jobs:
         path: repo
         sparse-checkout: .github/scripts
 
-    # A release goes out only behind a green suite. A trial does not wait: the
-    # question it answers is whether the branch still builds.
+    # A release goes out only behind a green suite, and so does base. A trial
+    # does not wait, whether a wip branch was pushed, a pull request opened or
+    # a ref dispatched: the question it answers is whether the branch still
+    # builds, and its packages need nothing the suite produces.
     #
     # The runs are looked up by commit rather than by branch, so a commit that
     # reached two branches is answered by either of them: the tree is the same
@@ -407,7 +409,7 @@ jobs:
     # on its own, and the suite counts as failed only once every run of this
     # commit has finished and none of them passed.
     - name: Wait for the tests
-      if: github.event_name == 'push'
+      if: github.event_name == 'push' && !startsWith(github.ref_name, 'wip/')
       shell: pwsh
       env:
         GH_TOKEN: ${{ github.token }}
