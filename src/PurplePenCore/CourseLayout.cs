@@ -190,7 +190,8 @@ namespace PurplePen
                         if (!customColors.ContainsKey(courseObject.CustomColor)) {
                             CmykColor cmyk = courseObject.CustomColor.CustomColor;
                             customColors.Add(courseObject.CustomColor, map.AddColor(string.Format("Color {0}", customColorId), customColorId,
-                                                                                    cmyk.Cyan, cmyk.Magenta, cmyk.Yellow, cmyk.Black, false));
+                                                                                    cmyk.Cyan, cmyk.Magenta, cmyk.Yellow, cmyk.Black,
+                                                                                    courseObject.CustomColor.Overprint));
                             ++customColorId;
                         }
                     }
