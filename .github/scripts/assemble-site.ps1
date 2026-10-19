@@ -105,8 +105,8 @@ function Rows($entries) {
 $body = @()
 $body += Section 'Releases' 'Offered to installed copies as updates.' (Rows ($surviving | Where-Object { $_.channel -eq 'main' }))
 $body += Section 'Prereleases' 'Offered only to copies that are themselves prereleases.' (Rows ($surviving | Where-Object { $_.channel -eq 'beta' }))
-$body += Section 'Upstream with this fork&rsquo;s build' 'Purple Pen as it stands upstream, built and named so it can be installed beside it. Never offered as an update.' (Rows ($surviving | Where-Object { $_.channel -eq 'base' }))
-$body += Section 'Trial builds' 'Built from a branch against the current upstream. Installed from here, never offered as an update.' (Rows ($surviving | Where-Object { $_.channel -eq 'trial' }))
+$body += Section 'Upstream with this fork&rsquo;s build' 'Purple Pen as this fork last took it from upstream, built and named so it can be installed beside it. Never offered as an update.' (Rows ($surviving | Where-Object { $_.channel -eq 'base' }))
+$body += Section 'Trial builds' 'A branch, merged with upstream as it stood when this was built. Installed from here, never offered as an update.' (Rows ($surviving | Where-Object { $_.channel -eq 'trial' }))
 
 $timestamp = Get-Date -Format 'yyyy-MM-dd HH:mm:ss UTC'
 @"
