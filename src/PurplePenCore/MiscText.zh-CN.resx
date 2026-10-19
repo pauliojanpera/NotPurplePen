@@ -127,7 +127,7 @@
     <value>Esc键</value>
   </data>
   <data name="AppTitle" xml:space="preserve">
-    <value>紫笔</value>
+    <value>非紫笔</value>
   </data>
   <data name="NoSymbol" xml:space="preserve">
     <value>没有符号</value>
@@ -256,7 +256,7 @@
     <value>版本{0}</value>
   </data>
   <data name="NewerVersionAvailable" xml:space="preserve">
-    <value>紫笔的{0}版本现在可以下载。（您当前正在运行版本{1}。）
+    <value>非紫笔的{0}版本现在可以下载。（您当前正在运行版本{1}。）
 
 是否要下载并安装最新版本？</value>
   </data>
@@ -269,7 +269,7 @@
   <data name="MissingMapFile" xml:space="preserve">
     <value>找不到地图文件{0}。
 
-很可能地图文件已被移动或删除，或者紫笔文件已被移动（可能移动到其他计算机）。每次加载紫笔赛事文件时，地图文件必须存在。如果将紫笔赛事文件发送给其他人，请确保该人也有地图文件的副本。
+很可能地图文件已被移动或删除，或者非紫笔文件已被移动（可能移动到其他计算机）。每次加载非紫笔赛事文件时，地图文件必须存在。如果将非紫笔赛事文件发送给其他人，请确保该人也有地图文件的副本。
 
 按“确定”后，请尝试在计算机上查找地图文件的副本。</value>
   </data>
@@ -331,7 +331,7 @@
     <value>更改文字</value>
   </data>
   <data name="MapFileChanged" xml:space="preserve">
-    <value>另一个程序已更改地图文件{0}。紫笔现在将重新加载地图。</value>
+    <value>另一个程序已更改地图文件{0}。非紫笔现在将重新加载地图。</value>
   </data>
   <data name="ChangeDescriptionLanguage" xml:space="preserve">
     <value>当前赛事在{0}中有检查点说明文本。是否将这个检查点说明的语言更改为{1}？</value>
@@ -340,13 +340,13 @@
     <value>打开“{0}”</value>
   </data>
   <data name="ClosePPBeforeLoadingOCAD" xml:space="preserve">
-    <value>紫笔必须在加载创建的OCAD文件之前关闭。</value>
+    <value>非紫笔必须在加载创建的OCAD文件之前关闭。</value>
   </data>
   <data name="NoCoursesSelected" xml:space="preserve">
     <value>没有选择要打印的线路。</value>
   </data>
   <data name="TranslatedHelpWebSite" xml:space="preserve">
-    <value>***如果存在一个包含紫笔文档的翻译语言网站，请输入URL（包括http）作为此项目的翻译。否则就别管它了。</value>
+    <value>***如果存在一个包含非紫笔文档的翻译语言网站，请输入URL（包括http）作为此项目的翻译。否则就别管它了。</value>
   </data>
   <data name="MapExchange_Long" xml:space="preserve">
     <value>换图</value>
@@ -457,7 +457,7 @@
     <value>该软件包文件必须真实世界坐标定义使用GPX文件。</value>
   </data>
   <data name="GpxUnsupportedCoordSystem" xml:space="preserve">
-    <value>OCAD文件中使用的坐标系不受紫笔支持。</value>
+    <value>OCAD文件中使用的坐标系不受非紫笔支持。</value>
   </data>
   <data name="AutomaticLength" xml:space="preserve">
     <value>自动</value>
@@ -613,7 +613,7 @@
     <value>RC {0}</value>
   </data>
   <data name="OpenFileDialog_PurplePenFilter" xml:space="preserve">
-    <value>紫笔文件|*.ppen|所有文件|*.*</value>
+    <value>非紫笔文件|*.ppen|所有文件|*.*</value>
   </data>
   <data name="ChangeMapFile_FileFilter" xml:space="preserve">
     <value>所有的地图文件|*.ocd;*.omap;*.xmap;*.pdf;*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif|OCAD文件 (*.ocd)|*.ocd|OOM文件|*.omap;*.xmap|PDF文件 (*.pdf)|*.pdf|图像文件|*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif</value>
@@ -622,7 +622,7 @@
     <value>GPX文件| GPX *。</value>
   </data>
   <data name="SaveFileDialog_PurplePenFilter" xml:space="preserve">
-    <value>紫笔文件|*.ppen</value>
+    <value>非紫笔文件|*.ppen</value>
   </data>
   <data name="SaveXmlFileDialog_Filter" xml:space="preserve">
     <value>国际定联XML版本 3.0|*.xml|国际定联XML版本 2.0.3|*.xml</value>

@@ -127,7 +127,7 @@
     <value>Esc</value>
   </data>
   <data name="AppTitle" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="NoSymbol" xml:space="preserve">
     <value>Sem símbolo</value>
@@ -260,7 +260,7 @@ Deseja excluir este controle mesmo assim?</value>
     <value>Versão {0}</value>
   </data>
   <data name="NewerVersionAvailable" xml:space="preserve">
-    <value>A versão {0} do Purple Pen já está disponível para download.
+    <value>A versão {0} do NotPurplePen já está disponível para download.
 (Você está executando a versão {1}.)
 
 Deseja baixar e instalar a versão mais recente?</value>
@@ -274,7 +274,7 @@ Deseja baixar e instalar a versão mais recente?</value>
   <data name="MissingMapFile" xml:space="preserve">
     <value>O arquivo de mapa "{0}" não foi encontrado.
 
-Muito provavelmente, o arquivo de mapa foi movido ou excluído, ou o arquivo Purple Pen foi movido (possivelmente para um computador diferente). O arquivo de mapa deve estar presente sempre que o arquivo de evento Purple Pen for carregado. Se você enviar um arquivo de evento Purple Pen para outra pessoa, certifique-se de que essa pessoa também tenha uma cópia do arquivo de mapa.
+Muito provavelmente, o arquivo de mapa foi movido ou excluído, ou o arquivo NotPurplePen foi movido (possivelmente para um computador diferente). O arquivo de mapa deve estar presente sempre que o arquivo de evento NotPurplePen for carregado. Se você enviar um arquivo de evento NotPurplePen para outra pessoa, certifique-se de que essa pessoa também tenha uma cópia do arquivo de mapa.
 
 Após pressionar OK, tente encontrar uma cópia do arquivo de mapa em seu computador.</value>
   </data>
@@ -337,7 +337,7 @@ Após pressionar OK, tente encontrar uma cópia do arquivo de mapa em seu comput
   </data>
   <data name="MapFileChanged" xml:space="preserve">
     <value>Outro programa alterou o arquivo de mapa "{0}".
-O Purple Pen agora recarregará o mapa.</value>
+O NotPurplePen agora recarregará o mapa.</value>
   </data>
   <data name="ChangeDescriptionLanguage" xml:space="preserve">
     <value>O evento atual tem o texto das descrições de controle em {0}. Deseja alterar o idioma da sinalética para {1}?</value>
@@ -346,13 +346,13 @@ O Purple Pen agora recarregará o mapa.</value>
     <value>Abrir "{0}"</value>
   </data>
   <data name="ClosePPBeforeLoadingOCAD" xml:space="preserve">
-    <value>A Purple Pen deve ser fechado antes de carregar os arquivos OCAD criados.</value>
+    <value>A NotPurplePen deve ser fechado antes de carregar os arquivos OCAD criados.</value>
   </data>
   <data name="NoCoursesSelected" xml:space="preserve">
     <value>Nenhum percurso foi selecionado para impressão.</value>
   </data>
   <data name="TranslatedHelpWebSite" xml:space="preserve">
-    <value>*** Se existir um web site no idioma traduzido que contenha documentação para Purple Pen, insira a URL (incluindo http) como a tradução deste item. Caso contrário, deixe-o em paz.</value>
+    <value>*** Se existir um web site no idioma traduzido que contenha documentação para NotPurplePen, insira a URL (incluindo http) como a tradução deste item. Caso contrário, deixe-o em paz.</value>
   </data>
   <data name="MapExchange_Long" xml:space="preserve">
     <value>Troca de Mapa</value>
@@ -465,7 +465,7 @@ Visite http://microsoft.com/net e instale a versão mais recente do framework .N
     <value>O arquivo OCAD deve ter coordenadas do mundo real definidas para usar arquivos GPX.</value>
   </data>
   <data name="GpxUnsupportedCoordSystem" xml:space="preserve">
-    <value>O arquivo OCAD usa um sistema de coordenadas que não é suportado por Purple Pen.</value>
+    <value>O arquivo OCAD usa um sistema de coordenadas que não é suportado por NotPurplePen.</value>
   </data>
   <data name="AutomaticLength" xml:space="preserve">
     <value>Automático</value>
@@ -626,7 +626,7 @@ Abrir e salvar novamente o mapa na versão mais recente do OpenOrienteering Mapp
     <value>RC {0}</value>
   </data>
   <data name="OpenFileDialog_PurplePenFilter" xml:space="preserve">
-    <value>Arquivos Purple Pen |*.ppen|All files|*.*</value>
+    <value>Arquivos NotPurplePen |*.ppen|All files|*.*</value>
   </data>
   <data name="ChangeMapFile_FileFilter" xml:space="preserve">
     <value>Todos os formatos de mapa|*.ocd;*.omap;*.xmap;*.pdf;*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif|arquivos OCAD(*.ocd)|*.ocd|arquivos Open Orienteering Mapper|*.omap;*.xmap|PDF files (*.pdf)|*.pdf|Image files|*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif</value>
@@ -635,7 +635,7 @@ Abrir e salvar novamente o mapa na versão mais recente do OpenOrienteering Mapp
     <value>Arquivo GPX |*.gpx</value>
   </data>
   <data name="SaveFileDialog_PurplePenFilter" xml:space="preserve">
-    <value>Arquivo Purple Pen |*.ppen</value>
+    <value>Arquivo NotPurplePen |*.ppen</value>
   </data>
   <data name="SaveXmlFileDialog_Filter" xml:space="preserve">
     <value>IOF XML versão 3.0|*.xml|IOF XML versão 2.0.3|*.xml</value>

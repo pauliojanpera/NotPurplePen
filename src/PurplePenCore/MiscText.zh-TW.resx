@@ -127,7 +127,7 @@
     <value>Esc 鍵</value>
   </data>
   <data name="AppTitle" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="NoSymbol" xml:space="preserve">
     <value>無符號</value>
@@ -257,7 +257,7 @@
     <value>{0} 版本</value>
   </data>
   <data name="NewerVersionAvailable" xml:space="preserve">
-    <value>Purple Pen{0} 版本現在可以下載. (您目前是使用 {1}版本.)
+    <value>NotPurplePen{0} 版本現在可以下載. (您目前是使用 {1}版本.)
 
 您想要下載並安裝最新版本嗎?</value>
   </data>
@@ -270,7 +270,7 @@
   <data name="MissingMapFile" xml:space="preserve">
     <value>地圖檔案 "{0}"找不到.
 
-最有可能的是，地圖檔案已經被移動或刪除，或者Purple Pen檔案已被移動（可能移動到另一台電腦）。 每次載入Purple Pen賽事檔案時地圖檔案都必須被顯示。 如果您將Purple Pen賽事檔案發送給另一個人，請確保該人也擁有地圖檔案的複製檔。
+最有可能的是，地圖檔案已經被移動或刪除，或者NotPurplePen檔案已被移動（可能移動到另一台電腦）。 每次載入NotPurplePen賽事檔案時地圖檔案都必須被顯示。 如果您將NotPurplePen賽事檔案發送給另一個人，請確保該人也擁有地圖檔案的複製檔。
 
 按下OK鍵之後, 試著在你的電腦找尋地圖檔案的複製檔.</value>
   </data>
@@ -332,7 +332,7 @@
     <value>變更文字</value>
   </data>
   <data name="MapFileChanged" xml:space="preserve">
-    <value>其他程式已經變更此地圖檔案"{0}". Purple Pen現在將重新載入此地圖.</value>
+    <value>其他程式已經變更此地圖檔案"{0}". NotPurplePen現在將重新載入此地圖.</value>
   </data>
   <data name="ChangeDescriptionLanguage" xml:space="preserve">
     <value>目前的賽事在 {0}有文字式地檢查點說明.您想要變更檢查點說明的語言至 {1}嗎?</value>
@@ -341,13 +341,13 @@
     <value>開啟 "{0}"</value>
   </data>
   <data name="ClosePPBeforeLoadingOCAD" xml:space="preserve">
-    <value>在載入建立的OCAD 檔案之前 Purple Pen 必須關閉.</value>
+    <value>在載入建立的OCAD 檔案之前 NotPurplePen 必須關閉.</value>
   </data>
   <data name="NoCoursesSelected" xml:space="preserve">
     <value>沒有選取要列印的賽程.</value>
   </data>
   <data name="TranslatedHelpWebSite" xml:space="preserve">
-    <value>*** 如果有包含 Purple Pen 文件檔案的翻譯語言網站，請輸入 URL（包括 http）作為此項目的翻譯。 否則就不用理會。</value>
+    <value>*** 如果有包含 NotPurplePen 文件檔案的翻譯語言網站，請輸入 URL（包括 http）作為此項目的翻譯。 否則就不用理會。</value>
   </data>
   <data name="MapExchange_Long" xml:space="preserve">
     <value>地圖更換</value>
@@ -458,7 +458,7 @@
     <value>OCAD檔案必須有GPX檔案定義的真實世界座標。</value>
   </data>
   <data name="GpxUnsupportedCoordSystem" xml:space="preserve">
-    <value>OCAD檔案採用不是Purple Pen支援的座標系統。</value>
+    <value>OCAD檔案採用不是NotPurplePen支援的座標系統。</value>
   </data>
   <data name="AutomaticLength" xml:space="preserve">
     <value>自動調整</value>
@@ -614,7 +614,7 @@
     <value>RC {0}</value>
   </data>
   <data name="OpenFileDialog_PurplePenFilter" xml:space="preserve">
-    <value>Purple Pen 檔案|*.ppen|All files|*.*</value>
+    <value>NotPurplePen 檔案|*.ppen|All files|*.*</value>
   </data>
   <data name="ChangeMapFile_FileFilter" xml:space="preserve">
     <value>所有的地圖檔案|*.ocd;*.omap;*.xmap;*.pdf;*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif|OCAD 檔案 (*.ocd)|*.ocd|OOM檔案|*.omap;*.xmap|PDF 檔案 (*.pdf)|*.pdf|圖片檔案|*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif</value>
@@ -623,7 +623,7 @@
     <value>GPX檔案|*.gpx</value>
   </data>
   <data name="SaveFileDialog_PurplePenFilter" xml:space="preserve">
-    <value>Purple Pen 檔案|*.ppen</value>
+    <value>NotPurplePen 檔案|*.ppen</value>
   </data>
   <data name="SaveXmlFileDialog_Filter" xml:space="preserve">
     <value>IOF XML 3.0版本|*.xml|IOF XML  2.0.3版本|*.xml</value>

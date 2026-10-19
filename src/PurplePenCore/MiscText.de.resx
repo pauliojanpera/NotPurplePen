@@ -127,7 +127,7 @@
     <value>Esc</value>
   </data>
   <data name="AppTitle" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="NoSymbol" xml:space="preserve">
     <value>Kein Symbol</value>
@@ -257,7 +257,7 @@
     <value>Version {0}</value>
   </data>
   <data name="NewerVersionAvailable" xml:space="preserve">
-    <value>Version {0} von Purple Pen ist nun verfügbar. (Sie verwenden zur Zeit Version {1}.)
+    <value>Version {0} von NotPurplePen ist nun verfügbar. (Sie verwenden zur Zeit Version {1}.)
 
 Wollen Sie die neueste Version herunterladen und installieren?</value>
   </data>
@@ -270,7 +270,7 @@ Wollen Sie die neueste Version herunterladen und installieren?</value>
   <data name="MissingMapFile" xml:space="preserve">
     <value>Die Kartendatei "{0}" kann nicht gefunden werden
 
-Vermutlich wurde sie verschoben oder gelöscht, oder die Purple Pen-Datei wurde verschoben (möglicherweise auf einen anderen Computer). Die Kartendatei muss immer vorhanden sein, wenn die Purple Pen Bahndatei geladen wird. Wenn die Purple Pen-Datei an eine andere Person gesendet wird, muss sie auch eine Kopie der Kartendatei erhalten.
+Vermutlich wurde sie verschoben oder gelöscht, oder die NotPurplePen-Datei wurde verschoben (möglicherweise auf einen anderen Computer). Die Kartendatei muss immer vorhanden sein, wenn die NotPurplePen Bahndatei geladen wird. Wenn die NotPurplePen-Datei an eine andere Person gesendet wird, muss sie auch eine Kopie der Kartendatei erhalten.
 
 Suchen Sie, nach Klicken auf "OK", nach der Kartendatei auf Ihrem Computer.</value>
   </data>
@@ -332,7 +332,7 @@ Suchen Sie, nach Klicken auf "OK", nach der Kartendatei auf Ihrem Computer.</val
     <value>Text ändern</value>
   </data>
   <data name="MapFileChanged" xml:space="preserve">
-    <value>Ein anderes Programm hat die Kartendatei "{0}" verändert. Purple Pen wird die Karte nun neu laden.</value>
+    <value>Ein anderes Programm hat die Kartendatei "{0}" verändert. NotPurplePen wird die Karte nun neu laden.</value>
   </data>
   <data name="ChangeDescriptionLanguage" xml:space="preserve">
     <value>Die Text-Postenbeschreibung des aktuellen Wettkampfes ist in {0} . Wollen Sie die Sprache der Postenbeschreibung in {1} ändern?</value>
@@ -341,13 +341,13 @@ Suchen Sie, nach Klicken auf "OK", nach der Kartendatei auf Ihrem Computer.</val
     <value>"{0}" öffnen</value>
   </data>
   <data name="ClosePPBeforeLoadingOCAD" xml:space="preserve">
-    <value>Purple Pen muss beendet werden, bevor die erstellten OCAD-Dateien geladen werden können.</value>
+    <value>NotPurplePen muss beendet werden, bevor die erstellten OCAD-Dateien geladen werden können.</value>
   </data>
   <data name="NoCoursesSelected" xml:space="preserve">
     <value>Es wurde keine Bahn zum Drucken ausgewählt.</value>
   </data>
   <data name="TranslatedHelpWebSite" xml:space="preserve">
-    <value>*** Wenn es eine Website in der Übersetzungssprache gibt, die eine Dokumentation für Purple Pen enthält, fügen Sie bitte die URL (mit "http") als Übersetzung für dieses Objekt ein oder lassen SIe es leer.</value>
+    <value>*** Wenn es eine Website in der Übersetzungssprache gibt, die eine Dokumentation für NotPurplePen enthält, fügen Sie bitte die URL (mit "http") als Übersetzung für dieses Objekt ein oder lassen SIe es leer.</value>
   </data>
   <data name="MapExchange_Long" xml:space="preserve">
     <value>Kartenwechsel</value>
@@ -458,7 +458,7 @@ Suchen Sie, nach Klicken auf "OK", nach der Kartendatei auf Ihrem Computer.</val
     <value>Um GPX-Dateien nutzen zu können, müssen für die OCAD-Datei Weltkoordinaten definiert sein.</value>
   </data>
   <data name="GpxUnsupportedCoordSystem" xml:space="preserve">
-    <value>Die OCAD-Datei verwendet ein Koordinatensystem, das von Purple Pen nicht unterstützt wird.</value>
+    <value>Die OCAD-Datei verwendet ein Koordinatensystem, das von NotPurplePen nicht unterstützt wird.</value>
   </data>
   <data name="AutomaticLength" xml:space="preserve">
     <value>Automatisch</value>
@@ -548,7 +548,7 @@ Suchen Sie, nach Klicken auf "OK", nach der Kartendatei auf Ihrem Computer.</val
     <value>Ellipse hinzufügen</value>
   </data>
   <data name="UninstallNonStoreVersion" xml:space="preserve">
-    <value>Eine ältere Version von Purple Pen ist noch installiert. Um Verwirrung durch zwei installierte Versionen von Purple Pen zu vermeiden, wird dringend empfohlen, die ältere Version zu entfernen. Entfernen Sie es jetzt?</value>
+    <value>Eine ältere Version von NotPurplePen ist noch installiert. Um Verwirrung durch zwei installierte Versionen von NotPurplePen zu vermeiden, wird dringend empfohlen, die ältere Version zu entfernen. Entfernen Sie es jetzt?</value>
   </data>
   <data name="AskInstallRobotoFonts" xml:space="preserve">
     <value>Damit OCAD oder OpenOrienteering Mapper die Steuerungsbeschreibungen korrekt anzeigen kann, müssen die Schriften "Roboto" und "Roboto Condensed" auf Ihrem System installiert sein. Möchten Sie diese Schriftarten jetzt installieren (dringend empfohlen)?</value>
@@ -623,7 +623,7 @@ Suchen Sie, nach Klicken auf "OK", nach der Kartendatei auf Ihrem Computer.</val
     <value>RC {0}</value>
   </data>
   <data name="OpenFileDialog_PurplePenFilter" xml:space="preserve">
-    <value>Purple Pen-Dateien|*.ppen|Alle Dateien|*.*</value>
+    <value>NotPurplePen-Dateien|*.ppen|Alle Dateien|*.*</value>
   </data>
   <data name="ChangeMapFile_FileFilter" xml:space="preserve">
     <value>Alle Kartendateien|*.ocd;*.omap;*.xmap;*.pdf;*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif|OCAD files (*.ocd)|*.ocd|Open Orienteering Mapper Files|*.omap;*.xmap|PDF files (*.pdf)|*.pdf|Image files|*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif</value>
@@ -632,7 +632,7 @@ Suchen Sie, nach Klicken auf "OK", nach der Kartendatei auf Ihrem Computer.</val
     <value>GPX-Datei|*.gpx</value>
   </data>
   <data name="SaveFileDialog_PurplePenFilter" xml:space="preserve">
-    <value>Purple Pen-Dateien|*.ppen</value>
+    <value>NotPurplePen-Dateien|*.ppen</value>
   </data>
   <data name="SaveXmlFileDialog_Filter" xml:space="preserve">
     <value>IOF XML version 3.0|*.xml|IOF XML version 2.0.3|*.xml</value>
