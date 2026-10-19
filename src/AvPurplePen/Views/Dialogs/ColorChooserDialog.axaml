@@ -113,6 +113,11 @@
                                Value="{Binding Black, Mode=TwoWay}"/>
             </Grid>
 
+            <CheckBox x:Name="checkBoxOverprint"
+                      Content="{resx:Localize ColorChooserDialog_checkBoxOverprint_Text}"
+                      IsChecked="{Binding Overprint, Mode=TwoWay}"
+                      Margin="0,0,0,8"/>
+
             <!-- Preview -->
             <HeaderedContentControl Header="{resx:Localize ColorChooserDialog_groupBoxPreview_Text}"
                                     Padding="8,10,8,8">

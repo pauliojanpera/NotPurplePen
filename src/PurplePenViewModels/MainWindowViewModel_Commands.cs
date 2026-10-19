@@ -43,6 +43,7 @@ namespace PurplePen.ViewModels
             CanChangeText = (controller.CanChangeText() == CommandStatus.Enabled);
             CanChangeLineAppearance = (controller.CanChangeLineAppearance() == CommandStatus.Enabled);
             CanAddTextLine = (controller.CanAddTextLine() == CommandStatus.Enabled);
+            CanAddCuttingLine = (controller.CanAddCuttingLine() == CommandStatus.Enabled);
             CanAddMapFlip = (controller.CanAddMapFlipControl() == CommandStatus.Enabled);
             CanAddMapExchangeSeparate = (controller.CanAddMapExchangeSeparate() == CommandStatus.Enabled);
             CanAddMapExchangeControl = (controller.CanAddMapExchangeControl() == CommandStatus.Enabled);
@@ -830,6 +831,21 @@ namespace PurplePen.ViewModels
 
         [ObservableProperty, NotifyCanExecuteChangedFor(nameof(AddTextLineCommand))]
         private bool canAddTextLine;
+
+        /// <summary>
+        /// Executes the Cut Description command. Cuts the description of the active course above
+        /// the selected control, so that the lines from there on are placed on their own.
+        /// </summary>
+        [RelayCommand(CanExecute = nameof(CanAddCuttingLine))]
+        private void AddCuttingLine()
+        {
+            if (controller == null) { return; }
+
+            controller.AddCuttingLine();
+        }
+
+        [ObservableProperty, NotifyCanExecuteChangedFor(nameof(AddCuttingLineCommand))]
+        private bool canAddCuttingLine;
 
 
         #endregion // Add control commands
@@ -2511,6 +2527,101 @@ namespace PurplePen.ViewModels
                 break;
             }
         }
+
+        /// <summary>
+        /// Executes the File/Publish Courses command: a JPEG of each chosen
+        /// course in the publish target folder, and a PDF of the same courses
+        /// in a subfolder of it named after the event file.
+        /// </summary>
+        [RelayCommand]
+        private async Task PublishCourses()
+        {
+            if (controller == null) { return; }
+
+            PublishCoursesDialogViewModel vm = new PublishCoursesDialogViewModel {
+                EventDB = controller.GetEventDB(),
+                PublishTargetFolder = UserSettings.Current.PublishTargetFolder
+                                      ?? MiscText.DefaultPublishPath.Replace('/', System.IO.Path.DirectorySeparatorChar),
+            };
+
+            // The loop lets the user come back to the dialog after an empty
+            // selection or a declined overwrite prompt.
+            while (await Services.DialogService.ShowDialogAsync(vm)) {
+                if (vm.SelectedCourses.Length == 0) {
+                    await ErrorMessage(MiscText.NoCoursesSelected);
+                    continue;
+                }
+
+                // A rooted target folder stands on its own; a relative one is
+                // resolved against the file the dialog's two checkboxes name.
+                string anchorDirectory =
+                    vm.UseMapDirectory ? System.IO.Path.GetDirectoryName(controller.MapFileName) ?? ""
+                    : vm.UseFileDirectory ? System.IO.Path.GetDirectoryName(controller.FileName) ?? ""
+                    : System.IO.Directory.GetCurrentDirectory();
+
+                string targetDirectory = System.IO.Path.IsPathRooted(vm.PublishTargetFolder)
+                    ? vm.PublishTargetFolder
+                    : System.IO.Path.GetFullPath(System.IO.Path.Combine(anchorDirectory, vm.PublishTargetFolder));
+
+                BitmapCreationSettings bitmapSettings = new BitmapCreationSettings {
+                    CourseIds = vm.SelectedCourses,
+                    AllCourses = false,
+                    VariationChoicesPerCourse = vm.VariationChoicesPerCourse,
+                    ExportedBitmapKind = BitmapCreationSettings.BitmapKind.Jpeg,
+                    Dpi = 600,
+                    AutoRotate = vm.AutoRotate,
+                    Quality = vm.Quality,
+                    ColorModel = ColorModel.RGB,
+                    fileDirectory = false,
+                    mapDirectory = false,
+                    outputDirectory = targetDirectory,
+                };
+
+                // The PDFs go in a subfolder named after the event file, with
+                // any " (...)" suffix dropped.
+                string eventName = System.IO.Path.GetFileNameWithoutExtension(controller.FileName) ?? "";
+                int suffix = eventName.LastIndexOf(" (", StringComparison.Ordinal);
+                if (suffix >= 0) {
+                    eventName = eventName.Substring(0, suffix);
+                }
+
+                CoursePdfSettings pdfSettings = new CoursePdfSettings {
+                    CourseIds = bitmapSettings.CourseIds,
+                    AllCourses = bitmapSettings.AllCourses,
+                    VariationChoicesPerCourse = bitmapSettings.VariationChoicesPerCourse,
+                    ColorModel = ColorModel.CMYK,
+                    fileDirectory = false,
+                    mapDirectory = false,
+                    outputDirectory = System.IO.Path.Combine(targetDirectory, eventName),
+                };
+
+                List<string> overwritingFiles = controller.OverwritingBitmapFiles(bitmapSettings);
+                overwritingFiles.AddRange(controller.OverwritingPdfFiles(pdfSettings));
+                if (overwritingFiles.Count > 0) {
+                    OverwritingFilesDialogViewModel overwriteVm = new OverwritingFilesDialogViewModel {
+                        Filenames = overwritingFiles,
+                    };
+                    if (!await Services.DialogService.ShowDialogAsync(overwriteVm))
+                        continue;
+                }
+
+                UserSettings.Current.PublishTargetFolder = vm.PublishTargetFolder;
+                UserSettings.Current.Save();
+
+                try {
+                    System.IO.Directory.CreateDirectory(pdfSettings.outputDirectory);
+                    controller.CreateBitmapFiles(bitmapSettings);
+                    controller.CreateCoursePdfs(pdfSettings);
+                    await InfoMessage(MiscText.PublishSucceeded);
+                }
+                catch (Exception ex) {
+                    await ErrorMessage(string.Format(MiscText.PublishFailed, ex.Message));
+                }
+
+                break;
+            }
+        }
+
 
         /// <summary>
         /// Executes the File/Create Route Gadget Files command.

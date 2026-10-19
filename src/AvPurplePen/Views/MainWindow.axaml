@@ -137,6 +137,8 @@
                     <NativeMenuItem Header="{resx:Localize MainFrame_createXmlMenu_Text}" Command="{Binding CreateXmlCommand}"/>
                     <NativeMenuItem Header="{resx:Localize MainFrame_createGPXFileMenu_Text}" Command="{Binding CreateGpxCommand}"/>
                     <NativeMenuItem Header="{resx:Localize MainFrame_createKMLFileMenu_Text}" Command="{Binding CreateKmlFilesCommand}"/>
+                    <NativeMenuItem Header="{resx:Localize MainFrame_publishCoursesMenu_Text}" Command="{Binding PublishCoursesCommand}"
+                                    Icon="/Assets/Toolbar/publishCourses.png"/>
                     <NativeMenuItemSeparator/>
                     <NativeMenuItem Header="{resx:Localize MainFrame_printDescriptionsMenu_Text}" Gesture="{OnPlatform Default='Ctrl+P', macOS='Cmd+P'}" Command="{Binding PrintDescriptionsCommand}"/>
                     <NativeMenuItem Header="{resx:Localize MainFrame_printPunchCardsMenu_Text}" Command="{Binding PrintPunchCardsCommand}"/>
@@ -313,6 +315,8 @@
                                     Icon="/Assets/Toolbar/addVariation.png"/>
                     <!-- Text Line has no icon of its own; noIcon.png just keeps it indented (see above). -->
                     <NativeMenuItem Header="{resx:Localize MainFrame_addTextLineMenu_Text}" Command="{Binding AddTextLineCommand}"
+                                    Icon="/Assets/Toolbar/noIcon.png"/>
+                    <NativeMenuItem Header="{resx:Localize MainFrame_splitDescriptionMenu_Text}" Command="{Binding AddCuttingLineCommand}"
                                     Icon="/Assets/Toolbar/noIcon.png"/>
                     <NativeMenuItemSeparator/>
                     <NativeMenuItem Header="{resx:Localize MainFrame_addMapIssueMenu_Text}" Command="{Binding AddMapIssueCommand}"
@@ -571,6 +575,14 @@
                     Command="{Binding SaveCommand}"
                     Padding="2,2">
                 <Image Source="/Assets/Toolbar/save.png" Width="16" Height="16"/>
+            </Button>
+
+            <!-- Publish courses (image only) -->
+            <Button x:Name="publishCoursesToolStripButton"
+                    ToolTip.Tip="{resx:Localize MainFrame_publishCoursesToolStripButton_ToolTipText}"
+                    Command="{Binding PublishCoursesCommand}"
+                    Padding="2,2">
+                <Image Source="/Assets/Toolbar/publishCourses.png" Width="16" Height="16"/>
             </Button>
             <Separator Width="1" Margin="3,2"/>
 

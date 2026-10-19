@@ -681,6 +681,9 @@
   <data name="CourseAppearanceDialog_label1_Text" xml:space="preserve">
     <value>Cyan:</value>
   </data>
+  <data name="ColorChooserDialog_checkBoxOverprint_Text" xml:space="preserve">
+    <value>Overprint</value>
+  </data>
   <data name="ColorChooserDialog_groupBoxPreview_Text" xml:space="preserve">
     <value>Preview</value>
   </data>
@@ -1275,6 +1278,12 @@
   <data name="CreateImageFiles_labelColorModel_Text" xml:space="preserve">
     <value>Color model:</value>
   </data>
+  <data name="CreateImageFiles_labelAutoRotate_Text" xml:space="preserve">
+    <value>Auto rotate:</value>
+  </data>
+  <data name="CreateImageFiles_labelImageQuality_Text" xml:space="preserve">
+    <value>Image quality:</value>
+  </data>
   <data name="CreateImageFiles_comboBoxColorModel_Items" xml:space="preserve">
     <value>RGB</value>
   </data>
@@ -1859,6 +1868,9 @@
   </data>
   <data name="MainFrame_addTextLineMenu_Text" xml:space="preserve">
     <value>Text _Line...</value>
+  </data>
+  <data name="MainFrame_splitDescriptionMenu_Text" xml:space="preserve">
+    <value>C_ut Description</value>
   </data>
   <data name="MainFrame_addMapIssueMenu_Text" xml:space="preserve">
     <value>Timed Start</value>
@@ -3873,5 +3885,41 @@ NotPurplePen cannot install this kind of file for you. Open it yourself to insta
   </data>
   <data name="HelpButton_ToolTip" xml:space="preserve">
     <value>Help</value>
+  </data>
+  <data name="MainFrame_publishCoursesMenu_Text" xml:space="preserve">
+    <value>Publish courses...</value>
+  </data>
+  <data name="PublishCoursesDialog_Text" xml:space="preserve">
+    <value>Publish courses</value>
+  </data>
+  <data name="PublishCoursesDialog_advancedSettingsButton_Text" xml:space="preserve">
+    <value>Advanced...</value>
+  </data>
+  <data name="PublishCoursesDialog_coursesGroupBox_Text" xml:space="preserve">
+    <value>Courses</value>
+  </data>
+  <data name="PublishCoursesDialog_fileDirectory_Text" xml:space="preserve">
+    <value>Relative to the folder of the Purple Pen file</value>
+  </data>
+  <data name="PublishCoursesDialog_imageFilesGroupBox_Text" xml:space="preserve">
+    <value>Image files</value>
+  </data>
+  <data name="PublishCoursesDialog_labelAutoRotate_Text" xml:space="preserve">
+    <value>Auto rotate:</value>
+  </data>
+  <data name="PublishCoursesDialog_labelImageQuality_Text" xml:space="preserve">
+    <value>Image quality:</value>
+  </data>
+  <data name="PublishCoursesDialog_mapDirectory_Text" xml:space="preserve">
+    <value>Relative to the folder of the map file</value>
+  </data>
+  <data name="PublishCoursesDialog_publishTargetFolderGroupBox_Text" xml:space="preserve">
+    <value>Publish target folder</value>
+  </data>
+  <data name="PublishCoursesDialog_selectDataExchangeFolderButton_Text" xml:space="preserve">
+    <value>Select folder...</value>
+  </data>
+  <data name="MainFrame_publishCoursesToolStripButton_ToolTipText" xml:space="preserve">
+    <value>Publish courses</value>
   </data>
 </root>

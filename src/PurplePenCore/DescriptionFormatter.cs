@@ -50,7 +50,8 @@ namespace PurplePen
         Normal,                                     // A normal 8-box line
         Directive,                                  // A finish or other directive. 2 boxes -- the finish symbol is box 0, the text (if any) is box 1.
         Text,                                         // An arbitrary text line. Uses 1 box for the text. Text is in box 0. 
-        Key                                           // A key line, giving the meaning of a special symbol. Symbol is box 0, meaning (in text) is box 1.
+        Key,                                          // A key line, giving the meaning of a special symbol. Symbol is box 0, meaning (in text) is box 1.
+        CuttingLine                                   // A line showing where the descriptions are split into separate rectangles. Uses no boxes.
     }
 
     /// <summary>
@@ -186,7 +187,7 @@ namespace PurplePen
                 line.kind = kind;
                 line.boxes = new object[1];
                 line.boxes[0] = texts[index];
-                line.textual = texts[index];
+                line.textual = CourseFormatter.ExpandText(eventDB, courseView, texts[index]);
 
                 lines[index] = line;
             }
@@ -284,7 +285,7 @@ namespace PurplePen
                 line.kind = DescriptionLineKind.Text;
                 line.boxes = new object[1];
                 line.boxes[0] = texts[index];
-                line.textual = texts[index];
+                line.textual = CourseFormatter.ExpandText(eventDB, courseView, texts[index]);
                 line.courseControlId = courseControlId;
                 line.controlId = controlId;
                 line.textLineKind = textLineKind;
@@ -634,7 +635,7 @@ namespace PurplePen
             // Get the second title line.
             text = GetTitleLine2();
             if (text != null) {
-                lines = GetTitleLineFromText(DescriptionLineKind.SecondaryTitle, text);
+                lines = GetTitleLineFromText(DescriptionLineKind.SecondaryTitle, CourseFormatter.ExpandText(eventDB, courseView, text));
                 list.AddRange(lines);
             }
 
@@ -736,8 +737,30 @@ namespace PurplePen
                 }
             }
 
+            // Show where the descriptions object has been split.
+            if (purpose == Purpose.ForUI && courseView.DescriptionViews.Count > 0) {
+                // A descriptions object is unique per course, so the first view is the one.
+                IReadOnlyList<int> fragmentStartLines = courseView.DescriptionViews[0].FragmentStartLines;
+
+                // Taken back to front, so that each insertion leaves the lines before it where they are.
+                // The first fragment begins the description rather than cutting it, and so has no line.
+                for (int i = fragmentStartLines.Count - 1; i >= 1; --i) {
+                    if (fragmentStartLines[i] < list.Count)
+                        list.Insert(fragmentStartLines[i], CreateCuttingLine());
+                }
+            }
+
             // And we're done!
             return list.ToArray();
+        }
+
+        // Create a line that shows where the descriptions are split into separate rectangles.
+        private static DescriptionLine CreateCuttingLine()
+        {
+            DescriptionLine line = new DescriptionLine();
+            line.kind = DescriptionLineKind.CuttingLine;
+            line.boxes = new object[0];
+            return line;
         }
 
         // Dump a description line to a text writer.
@@ -787,6 +810,10 @@ namespace PurplePen
 
                 case DescriptionLineKind.Directive:
                     writer.Write("     {0,16}: {1,-24}|", line.boxes[0] != null ? ((Symbol)(line.boxes[0])).Id : "", line.boxes[1] == null ? "" : (string)(line.boxes[1]));
+                    break;
+
+                case DescriptionLineKind.CuttingLine:
+                    writer.Write(" {0,-46}|", "-- cut --");
                     break;
             }
 

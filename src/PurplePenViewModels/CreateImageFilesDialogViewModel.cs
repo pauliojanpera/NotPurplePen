@@ -49,6 +49,7 @@ namespace PurplePen.ViewModels
 
         /// <summary>The selected file-format combo item.</summary>
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(IsQualityEnabled))]
         private BitmapKindOption? selectedFileFormat;
 
         /// <summary>File name prefix.</summary>
@@ -78,6 +79,14 @@ namespace PurplePen.ViewModels
         [ObservableProperty]
         private string dpiText = "200";
 
+        /// <summary>Whether a landscape image is turned to portrait.</summary>
+        [ObservableProperty]
+        private bool autoRotate;
+
+        /// <summary>Compression quality, for the formats that have one.</summary>
+        [ObservableProperty]
+        private int quality = 80;
+
         /// <summary>Selected color model — true for CMYK, false for RGB. Bound to the combo's SelectedIndex.</summary>
         [ObservableProperty]
         private int colorModelIndex; // 0 = RGB, 1 = CMYK
@@ -94,6 +103,10 @@ namespace PurplePen.ViewModels
 
         /// <summary>True when the "Other folder" textbox + button should be visible.</summary>
         public bool IsOtherDirectoryVisible => UseOtherDirectory;
+
+        /// <summary>True for the formats that have a quality to choose; PNG and GIF have none.</summary>
+        public bool IsQualityEnabled =>
+            SelectedFileFormat?.Kind == BitmapCreationSettings.BitmapKind.Jpeg;
 
         /// <summary>
         /// The bitmap file formats shown in the combo. Built per instance
@@ -142,6 +155,8 @@ namespace PurplePen.ViewModels
                     AllCourses = allCourses,
                     ExportedBitmapKind = SelectedFileFormat?.Kind ?? BitmapCreationSettings.BitmapKind.Png,
                     Dpi = dpi,
+                    AutoRotate = AutoRotate,
+                    Quality = Quality,
                     ColorModel = ColorModelIndex == 1 ? ColorModel.CMYK : ColorModel.RGB,
                     WorldFile = WorldFileIndex == 1,
                     DontPrintBaseMap = PrintBaseMapIndex == 1,
@@ -175,6 +190,8 @@ namespace PurplePen.ViewModels
                                      ?? AvailableFileFormats[0];
 
                 DpiText = value.Dpi.ToString(CultureInfo.CurrentCulture);
+                AutoRotate = value.AutoRotate;
+                Quality = value.Quality;
                 ColorModelIndex = value.ColorModel == ColorModel.CMYK ? 1 : 0;
                 WorldFileIndex = value.WorldFile ? 1 : 0;
                 PrintBaseMapIndex = value.DontPrintBaseMap ? 1 : 0;

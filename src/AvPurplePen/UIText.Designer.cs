@@ -5344,6 +5344,24 @@ namespace AvPurplePen {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Publish courses....
+        /// </summary>
+        public static string MainFrame_publishCoursesMenu_Text {
+            get {
+                return ResourceManager.GetString("MainFrame_publishCoursesMenu_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publish courses.
+        /// </summary>
+        public static string MainFrame_publishCoursesToolStripButton_ToolTipText {
+            get {
+                return ResourceManager.GetString("MainFrame_publishCoursesToolStripButton_ToolTipText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Punch Patterns....
         /// </summary>
         public static string MainFrame_punchPatternsMenu_Text {
@@ -9061,6 +9079,96 @@ namespace AvPurplePen {
         public static string PrintPunches_Text {
             get {
                 return ResourceManager.GetString("PrintPunches_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publish courses.
+        /// </summary>
+        public static string PublishCoursesDialog_Text {
+            get {
+                return ResourceManager.GetString("PublishCoursesDialog_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Advanced....
+        /// </summary>
+        public static string PublishCoursesDialog_advancedSettingsButton_Text {
+            get {
+                return ResourceManager.GetString("PublishCoursesDialog_advancedSettingsButton_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Courses.
+        /// </summary>
+        public static string PublishCoursesDialog_coursesGroupBox_Text {
+            get {
+                return ResourceManager.GetString("PublishCoursesDialog_coursesGroupBox_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Relative to the folder of the Purple Pen file.
+        /// </summary>
+        public static string PublishCoursesDialog_fileDirectory_Text {
+            get {
+                return ResourceManager.GetString("PublishCoursesDialog_fileDirectory_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Image files.
+        /// </summary>
+        public static string PublishCoursesDialog_imageFilesGroupBox_Text {
+            get {
+                return ResourceManager.GetString("PublishCoursesDialog_imageFilesGroupBox_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auto rotate:.
+        /// </summary>
+        public static string PublishCoursesDialog_labelAutoRotate_Text {
+            get {
+                return ResourceManager.GetString("PublishCoursesDialog_labelAutoRotate_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Image quality:.
+        /// </summary>
+        public static string PublishCoursesDialog_labelImageQuality_Text {
+            get {
+                return ResourceManager.GetString("PublishCoursesDialog_labelImageQuality_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Relative to the folder of the map file.
+        /// </summary>
+        public static string PublishCoursesDialog_mapDirectory_Text {
+            get {
+                return ResourceManager.GetString("PublishCoursesDialog_mapDirectory_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publish target folder.
+        /// </summary>
+        public static string PublishCoursesDialog_publishTargetFolderGroupBox_Text {
+            get {
+                return ResourceManager.GetString("PublishCoursesDialog_publishTargetFolderGroupBox_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select folder....
+        /// </summary>
+        public static string PublishCoursesDialog_selectDataExchangeFolderButton_Text {
+            get {
+                return ResourceManager.GetString("PublishCoursesDialog_selectDataExchangeFolderButton_Text", resourceCulture);
             }
         }
         

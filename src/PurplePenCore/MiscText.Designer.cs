@@ -691,6 +691,15 @@ namespace PurplePen {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ../Print/System.
+        /// </summary>
+        public static string DefaultPublishPath {
+            get {
+                return ResourceManager.GetString("DefaultPublishPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Control {0} is currently used by the following courses: {1}. Do you want to delete this control anyway?.
         /// </summary>
         public static string DeleteControlFromAllControls {
@@ -1357,6 +1366,24 @@ namespace PurplePen {
         public static string PrintingPage {
             get {
                 return ResourceManager.GetString("PrintingPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to publish: {0}.
+        /// </summary>
+        public static string PublishFailed {
+            get {
+                return ResourceManager.GetString("PublishFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Published successfully..
+        /// </summary>
+        public static string PublishSucceeded {
+            get {
+                return ResourceManager.GetString("PublishSucceeded", resourceCulture);
             }
         }
         
