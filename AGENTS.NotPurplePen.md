@@ -47,7 +47,7 @@ nothing else. The `wip/**` branch is where it is run: rooted at `base` for what
 could go upstream, at `dev` for what could not, with the feature merged into
 it. The push runs the tests and publishes an installable package for Windows,
 Linux and macOS to <https://pauliojanpera.github.io/NotPurplePen/> under
-`trial/`, against the current upstream.
+`trial/`.
 
 It has to be that way round. A push runs only the workflows that are in the
 branch pushed, and a branch rooted at `upstream/master` has none, so pushing

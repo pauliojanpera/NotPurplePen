@@ -80,19 +80,6 @@ jobs:
         git fetch --no-tags origin base
         git -c user.name=ci -c user.email=ci@localhost merge --no-edit FETCH_HEAD
 
-    # And against upstream as it is now, not as it was when the branch was cut.
-    # By URL rather than as a second remote: GitVersion, which the PdfSharp
-    # subtree generates a class from, refuses to run on a build server whose
-    # repository has more than one.
-    - name: Merge the current upstream
-      if: github.event.inputs.ref != '' || github.event_name == 'pull_request' || startsWith(github.ref_name, 'wip/')
-      shell: bash
-      run: |
-        git fetch --no-tags https://github.com/petergolde/PurplePen.git master
-        head=$(git rev-parse --short FETCH_HEAD)
-        git -c user.name=ci -c user.email=ci@localhost merge --no-edit FETCH_HEAD
-        echo "merged with upstream master at $head"
-
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
@@ -255,6 +242,13 @@ jobs:
             'osx-arm64'  { @{ Directory = 'src/Installer/MacInstaller/output'; Include = @('*.dmg') } }
         }
         $slug = '${{ steps.version.outputs.slug }}'
+
+        # Which release these packages go to. A channel's downloads sit in one
+        # release and age out of it together; a trial gets its own, which goes
+        # when the trial does. The tag is a handle for that store of assets,
+        # and nothing is ever built from it.
+        $tag = if ($channel -eq 'trial') { "trial-$slug" } else { "channel-$channel" }
+
         $produced = @(Get-ChildItem $sources.Directory -Include $sources.Include -Recurse -ErrorAction SilentlyContinue)
         if (-not $produced) { throw "Nothing was produced in $($sources.Directory)." }
 
@@ -285,7 +279,7 @@ jobs:
 
         [ordered]@{
             platform = '${{ matrix.platform }}'; channel = $channel
-            version = $version; slug = $slug
+            version = $version; slug = $slug; tag = $tag
             files = @($entries)
         } | ConvertTo-Json -Depth 5 | Set-Content 'artifact/descriptor.json' -Encoding UTF8
 
@@ -348,8 +342,62 @@ jobs:
             Start-Sleep -Seconds 30
         }
 
+    # The packages are release assets, and the site only names them. Uploading
+    # comes before the site is published, so that no manifest ever names an
+    # asset that is not there yet; what falls out of the catalog is taken away
+    # after the push, which is the same rule read the other way round.
+    # This job checks the source out under repo/, so the working directory is
+    # not a repository and gh has nothing to read a remote from. GH_REPO says
+    # which one it is working on; gh api needs no such thing, being given the
+    # path whole.
+    - name: Upload the packages to their release
+      shell: pwsh
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_REPO: ${{ github.repository }}
+      run: |
+        # What a release says about itself, for whoever arrives at it rather
+        # than at the site, which says the same in its own sections.
+        $about = @{
+            'main'  = @{ title = 'NotPurplePen'
+                         notes = 'Offered to installed copies as updates.' }
+            'beta'  = @{ title = 'NotPurplePen prereleases'
+                         notes = 'Offered only to copies that are themselves prereleases.' }
+            'base'  = @{ title = 'Upstream with this fork''s build'
+                         notes = 'Purple Pen as this fork last took it from upstream, built and named so it can be installed beside it. Never offered as an update.' }
+            'trial' = @{ title = 'Trial build'
+                         notes = 'A branch as it stands, packaged so it can be installed and tried. Never offered as an update.' }
+        }
+
+        function Exists($tag) {
+            & gh release view $tag --json tagName *> $null
+            return $LASTEXITCODE -eq 0
+        }
+
+        foreach ($descriptorFile in (Get-ChildItem packages -Recurse -Filter descriptor.json)) {
+            $descriptor = Get-Content $descriptorFile.FullName -Raw | ConvertFrom-Json
+            $tag = $descriptor.tag
+
+            # Two runs arriving together both find no release and both try to
+            # make one. The one that loses looks again rather than failing,
+            # because what it wanted now exists.
+            if (-not (Exists $tag)) {
+                $says = $about[$descriptor.channel]
+                $title = if ($descriptor.slug) { "$($says.title): $($descriptor.slug)" } else { $says.title }
+                $flags = @()
+                if ($descriptor.channel -ne 'main') { $flags += '--prerelease' }
+                $said = & gh release create $tag --title $title --notes $says.notes @flags 2>&1
+                if (-not (Exists $tag)) { throw "Could not create the release ${tag}: $said" }
+            }
+
+            $files = @($descriptor.files | ForEach-Object { Join-Path $descriptorFile.DirectoryName $_.file })
+            & gh release upload $tag @files --clobber
+            if ($LASTEXITCODE -ne 0) { throw "Could not upload to the release $tag." }
+            foreach ($file in $files) { "  $tag <- $(Split-Path $file -Leaf)" }
+        }
+
     # The site is assembled whole, carrying forward what is still wanted, and
-    # pushed as an orphan commit so the packages stay out of history. Two runs
+    # pushed as an orphan commit so that the branch keeps no history. Two runs
     # publishing at once would each assemble from the same starting point and
     # the later push would drop the earlier run's packages, which a plain force
     # push cannot even notice. --force-with-lease turns that into a rejected
@@ -367,7 +415,14 @@ jobs:
 
             rm -rf published site
             if [ -n "$before" ]; then
-                git clone --quiet --depth 1 --branch gh-pages "$remote" published
+                # Only catalog.json is read from what is published, so the
+                # clone takes the top-level files and leaves the rest of the
+                # branch on the server.
+                git clone --quiet --depth 1 --branch gh-pages --filter=blob:none --sparse "$remote" published
+                if [ ! -f published/catalog.json ]; then
+                    echo "::error::gh-pages holds no catalog.json. Publishing over it would drop every download it lists."
+                    exit 1
+                fi
             else
                 mkdir published
             fi
@@ -394,3 +449,51 @@ jobs:
 
         echo "::error::Every attempt to publish lost the race to another run."
         exit 1
+
+    # The catalog that is now published says what the site offers; assets it no
+    # longer names are taken away, and a release left holding none goes with
+    # its tag.
+    #
+    # The catalog is read back from gh-pages rather than from this run's copy,
+    # because another run may have published after this one: its packages are
+    # in the branch and not here, and reading the branch is what keeps them
+    # from being taken away as strangers.
+    - name: Take away what fell out of the catalog
+      shell: pwsh
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_REPO: ${{ github.repository }}
+      run: |
+        $published = & gh api "repos/$env:GITHUB_REPOSITORY/contents/catalog.json?ref=gh-pages" `
+                              -H 'Accept: application/vnd.github.raw'
+        if ($LASTEXITCODE -ne 0) { throw 'The published catalog could not be read.' }
+
+        $entries = @(($published | ConvertFrom-Json).entries)
+        if (-not $entries) {
+            'The published catalog names nothing, so nothing is taken away.'
+            exit 0
+        }
+
+        $wanted = @{}
+        foreach ($entry in $entries) { $wanted["$($entry.tag)/$($entry.file)"] = $true }
+
+        $tags = @(& gh release list --limit 200 --json tagName --jq '.[].tagName' |
+                  Where-Object { $_ -like 'channel-*' -or $_ -like 'trial-*' })
+        foreach ($tag in $tags) {
+            $assets = @(& gh release view $tag --json assets --jq '.assets[].name')
+            $stale = @($assets | Where-Object { -not $wanted.ContainsKey("$tag/$_") })
+
+            foreach ($name in $stale) {
+                "  $tag -> $name"
+                & gh release delete-asset $tag $name --yes
+                if ($LASTEXITCODE -ne 0) { throw "Could not take $name out of the release $tag." }
+            }
+
+            # A release holding nothing is left alone: another run may have
+            # just made it and not reached its upload yet.
+            if ($assets.Count -gt 0 -and $stale.Count -eq $assets.Count) {
+                "  $tag -> the release itself"
+                & gh release delete $tag --yes --cleanup-tag
+                if ($LASTEXITCODE -ne 0) { throw "Could not take away the release $tag." }
+            }
+        }
