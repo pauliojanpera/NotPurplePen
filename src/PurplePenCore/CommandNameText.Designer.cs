@@ -169,6 +169,24 @@ namespace PurplePen {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cut Description.
+        /// </summary>
+        public static string AddDescriptionFragment {
+            get {
+                return ResourceManager.GetString("AddDescriptionFragment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Join Description.
+        /// </summary>
+        public static string RemoveDescriptionFragment {
+            get {
+                return ResourceManager.GetString("RemoveDescriptionFragment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Variation.
         /// </summary>
         public static string AddVariation {

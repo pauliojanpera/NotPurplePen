@@ -77,11 +77,13 @@ namespace PurplePen
         {
             public readonly Id<Special> SpecialId;
             public readonly CourseDesignator CourseDesignator;
+            public readonly IReadOnlyList<int> FragmentStartLines;   // Description line each fragment begins at, ascending.
 
-            public DescriptionView(Id<Special> specialId, CourseDesignator courseDesignator)
+            public DescriptionView(Id<Special> specialId, CourseDesignator courseDesignator, IReadOnlyList<int> fragmentStartLines)
             {
                 this.SpecialId = specialId;
                 this.CourseDesignator = courseDesignator;
+                this.FragmentStartLines = fragmentStartLines;
             }
         }
             
@@ -617,6 +619,12 @@ namespace PurplePen
             ComputeStatistics();
         }
 
+        // The description line that each fragment of a descriptions object begins at, ascending.
+        private static IReadOnlyList<int> GetDescriptionFragmentStartLines(EventDB eventDB, Id<Special> specialId)
+        {
+            return eventDB.GetSpecial(specialId).fragments.ConvertAll(fragment => fragment.startLine);
+        }
+
         // Add the appropriate specials for the given course to the course view.
         // If descriptionSpecialOnly is true, then only description sheet specials are added.
         private void AddSpecials(CourseDesignator courseDesignator, CourseViewOptions options)
@@ -629,7 +637,7 @@ namespace PurplePen
                         // Descriptions can now be associated with all parts of a multi-part course.
                         // When a description has "all parts", it appears on each individual part as well as when viewing all parts together.
                         if (QueryEvent.CourseContainsSpecial(eventDB, courseDesignator, specialId))
-                            descriptionViews.Add(new DescriptionView(specialId, courseDesignator));
+                            descriptionViews.Add(new DescriptionView(specialId, courseDesignator, GetDescriptionFragmentStartLines(eventDB, specialId)));
                     }
                     else {
                         if (QueryEvent.CourseContainsSpecial(eventDB, courseDesignator, specialId))
@@ -740,7 +748,7 @@ namespace PurplePen
 
                 if (special.kind == SpecialKind.Descriptions) {
                     if (options.showDescriptionSpecials && QueryEvent.CourseContainsSpecial(eventDB, CourseDesignator.AllControls, specialId))
-                        courseView.descriptionViews.Add(new DescriptionView(specialId, CourseDesignator.AllControls));
+                        courseView.descriptionViews.Add(new DescriptionView(specialId, CourseDesignator.AllControls, GetDescriptionFragmentStartLines(eventDB, specialId)));
                 }
                 else {
                     if (options.showNonDescriptionSpecials && QueryEvent.CourseContainsSpecial(eventDB, CourseDesignator.AllControls, specialId))

@@ -1650,7 +1650,8 @@ namespace PurplePen
 
             // We can delete any selected control or a special or a text line
             if (selection.SelectionKind == SelectionKind.Control || selection.SelectionKind == SelectionKind.Special ||
-                selection.SelectionKind == SelectionKind.TextLine || selection.SelectionKind == SelectionKind.MapExchangeOrFlipAtControl)
+                selection.SelectionKind == SelectionKind.TextLine || selection.SelectionKind == SelectionKind.MapExchangeOrFlipAtControl ||
+                selection.SelectionKind == SelectionKind.CuttingLine)
                 return true;
 
             return false;
@@ -1691,6 +1692,17 @@ namespace PurplePen
                     ChangeEvent.ChangeTextLine(eventDB, selection.SelectedCourseControl, null, (textLineKind == DescriptionLine.TextLineKind.BeforeCourseControl));
 
                 undoMgr.EndCommand(811);
+                return true;
+            }
+            else if (selection.SelectionKind == SelectionKind.CuttingLine) {
+                // Join the fragment below the cutting line back to the one above it.
+                Id<Special> descriptionsId = FindActiveCourseDescriptionsSpecial();
+                if (descriptionsId.IsNone)
+                    return false;
+
+                undoMgr.BeginCommand(813, CommandNameText.RemoveDescriptionFragment);
+                ChangeEvent.RemoveDescriptionFragment(eventDB, descriptionsId, selection.SelectedFragmentStartLine);
+                undoMgr.EndCommand(813);
                 return true;
             }
             else if (selection.SelectionKind == SelectionKind.MapExchangeOrFlipAtControl) {
@@ -2229,16 +2241,31 @@ namespace PurplePen
             undoMgr.EndCommand(871);
         }
 
-        // Move a descripion to a new location, and possibly change the number of columns also.
-        public void MoveSpecial(Id<Special> specialId, PointF[] newLocations, int numColumns)
+        // Move one fragment of a descriptions object to a new location, and possibly change the
+        // number of columns also. An unsplit description has its one fragment starting at line 0.
+        public void MoveDescriptionFragment(Id<Special> specialId, int startLine, PointF[] newLocations, int numColumns)
         {
             undoMgr.BeginCommand(871, CommandNameText.MoveObject);
-            ChangeEvent.ChangeSpecialLocations(eventDB, specialId, newLocations);
-            int currentNumColumns = QueryEvent.GetDescriptionColumns(eventDB, specialId);
-            if (numColumns != currentNumColumns) {
-                ChangeEvent.ChangeDescriptionColumns(eventDB, specialId, numColumns);
-            }
+            ChangeEvent.ChangeDescriptionFragmentLocations(eventDB, specialId, startLine, newLocations);
+            ChangeEvent.ChangeDescriptionColumns(eventDB, specialId, numColumns, startLine);
             undoMgr.EndCommand(871);
+        }
+
+        // Move one fragment of a descriptions object by translation, leaving the others where
+        // they are.
+        public void MoveDescriptionFragmentDelta(Id<Special> specialId, int startLine, float deltaX, float deltaY)
+        {
+            Special special = eventDB.GetSpecial(specialId);
+            int index = special.FindDescriptionFragment(startLine);
+            if (index < 0)
+                return;
+
+            PointF[] newLocations = new PointF[2] {
+                new PointF(special.locations[2 * index].X + deltaX, special.locations[2 * index].Y + deltaY),
+                new PointF(special.locations[2 * index + 1].X + deltaX, special.locations[2 * index + 1].Y + deltaY)
+            };
+
+            MoveDescriptionFragment(specialId, startLine, newLocations, special.fragments[index].numColumns);
         }
 
         // Move a special to a new location by translation
@@ -3315,6 +3342,55 @@ namespace PurplePen
             enableThisCourse = selection.SelectedCourseControl.IsNotNone;
             objectName = Util.ControlPointName(eventDB, selection.SelectedControl, NameStyle.Long);
             return true;
+        }
+
+        // A description can be cut above the control or leg that is selected, as long as the
+        // active course shows a descriptions object to cut.
+        public CommandStatus CanAddCuttingLine()
+        {
+            SelectionInfo selection = selectionMgr.Selection;
+
+            if (selection.SelectionKind != SelectionKind.Control && selection.SelectionKind != SelectionKind.Leg)
+                return CommandStatus.Disabled;
+
+            if (FindActiveCourseDescriptionsSpecial().IsNone)
+                return CommandStatus.Disabled;
+
+            return CommandStatus.Enabled;
+        }
+
+        // Cut the descriptions of the active course above the selected control, so that the lines
+        // from there on are placed as a rectangle of their own.
+        public void AddCuttingLine()
+        {
+            if (CanAddCuttingLine() != CommandStatus.Enabled)
+                return;
+
+            SelectionInfo selection = selectionMgr.Selection;
+
+            // Count the description lines above the selected one. Cutting lines are shown in the
+            // description but are not description lines, so they do not count.
+            int startLine = 0;
+            foreach (DescriptionLine line in selectionMgr.ActiveDescription) {
+                if (line.courseControlId.IsNotNone && line.courseControlId == selection.SelectedCourseControl)
+                    break;
+                if (line.kind != DescriptionLineKind.CuttingLine)
+                    ++startLine;
+            }
+
+            undoMgr.BeginCommand(814, CommandNameText.AddDescriptionFragment);
+            ChangeEvent.AddDescriptionFragment(eventDB, FindActiveCourseDescriptionsSpecial(), startLine);
+            undoMgr.EndCommand(814);
+        }
+
+        // The descriptions object shown on the active course, or none if it shows none.
+        private Id<Special> FindActiveCourseDescriptionsSpecial()
+        {
+            Id<Course> activeCourseId = selectionMgr.Selection.ActiveCourseDesignator.CourseId;
+
+            return eventDB.AllSpecialIds.FirstOrDefault(specialId =>
+                eventDB.GetSpecial(specialId).kind == SpecialKind.Descriptions &&
+                QueryEvent.GetSpecialDisplayedCourses(eventDB, specialId, false).Any(courseDesignator => courseDesignator.CourseId == activeCourseId));
         }
 
         public CommandStatus CanAddTextLine()
