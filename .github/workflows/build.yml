@@ -366,7 +366,7 @@ jobs:
             'base'  = @{ title = 'Upstream with this fork''s build'
                          notes = 'Purple Pen as this fork last took it from upstream, built and named so it can be installed beside it. Never offered as an update.' }
             'trial' = @{ title = 'Trial build'
-                         notes = 'A branch, merged with upstream as it stood when this was built. Installed from here, never offered as an update.' }
+                         notes = 'A branch as it stands, packaged so it can be installed and tried. Never offered as an update.' }
         }
 
         function Exists($tag) {
