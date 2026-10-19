@@ -14,8 +14,78 @@ on:
   workflow_dispatch:
 
 jobs:
+  # The same commit can reach more than one branch -- a wip branch, and then the
+  # branch it was verified for -- and every push starts this workflow again over
+  # a tree that has already been measured. The runs of one commit settle it among
+  # themselves: the earliest of them runs the suite, and the others wait for it
+  # and end as it ended. The earliest is the smallest run id, which every run of
+  # the commit reads from the same list, so they agree on it without a lock.
+  #
+  # A waiting run ends as a pass only once the run it waited for has passed, so a
+  # pass always stands for a suite that was carried to the end and a later run
+  # may rest on it. A cancelled run leaves the tree unmeasured rather than
+  # failed, so the next run in line takes the work over instead of reporting a
+  # failure nobody saw.
+  decide:
+    name: Decide
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+
+    outputs:
+      run: ${{ steps.decide.outputs.run }}
+
+    steps:
+    - name: Find out whether this commit is already being tested
+      id: decide
+      shell: pwsh
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        $me = [long]$env:GITHUB_RUN_ID
+        $deadline = (Get-Date).AddMinutes(45)
+        while ($true) {
+            $lines = @(& gh api "repos/$env:GITHUB_REPOSITORY/actions/runs?head_sha=$env:GITHUB_SHA" `
+                                --jq '.workflow_runs[] | select(.path == ".github/workflows/tests.yml") | "\(.id) \(.status) \(.conclusion)"')
+            $runs = @($lines | Where-Object { $_ } | ForEach-Object {
+                $field = $_ -split ' '
+                [pscustomobject]@{ Id = [long]$field[0]; Status = $field[1]; Conclusion = $field[2] }
+            })
+            $answered = @($runs | Where-Object { $_.Id -ne $me -and $_.Status -eq 'completed' -and $_.Conclusion -ne 'cancelled' })
+
+            # Another run carried the suite to the end over this very tree, so
+            # its answer is this run's answer.
+            if ($answered | Where-Object { $_.Conclusion -eq 'success' }) {
+                "run $(($answered | Where-Object { $_.Conclusion -eq 'success' })[0].Id) has tested this commit"
+                "run=false" >> $env:GITHUB_OUTPUT
+                break
+            }
+            if ($answered) {
+                throw "Run $($answered[0].Id) tested this commit and finished as $($answered[0].Conclusion)."
+            }
+
+            # Nobody has finished one yet. The earliest run still going does the
+            # work and the others come back to look again.
+            $going = @($runs | Where-Object { $_.Status -ne 'completed' } | Sort-Object Id)
+            if ($going.Count -eq 0 -or $going[0].Id -eq $me) {
+                'running the suite for this commit'
+                "run=true" >> $env:GITHUB_OUTPUT
+                break
+            }
+            # A run that hangs must not take the commit with it: waiting ends,
+            # and the suite is run here after all.
+            if ((Get-Date) -gt $deadline) {
+                "run $($going[0].Id) has not finished; running the suite here"
+                "run=true" >> $env:GITHUB_OUTPUT
+                break
+            }
+            "waiting for run $($going[0].Id)"
+            Start-Sleep -Seconds 30
+        }
+
   build:
     name: Build
+    needs: decide
+    if: needs.decide.outputs.run == 'true'
     runs-on: windows-2022
     timeout-minutes: 180
 
@@ -106,6 +176,8 @@ jobs:
   # all of them at once anyway.
   test:
     name: Test (${{ matrix.name }})
+    needs: decide
+    if: needs.decide.outputs.run == 'true'
     runs-on: windows-11-arm
     timeout-minutes: 60
 

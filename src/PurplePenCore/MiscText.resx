@@ -127,7 +127,7 @@
     <value>Esc</value>
   </data>
   <data name="AppTitle" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="NoSymbol" xml:space="preserve">
     <value>No symbol</value>
@@ -260,7 +260,7 @@ Use | to separate lines</value>
     <value>Version {0}</value>
   </data>
   <data name="NewerVersionAvailable" xml:space="preserve">
-    <value>Version {0} of Purple Pen is now available for download. (You are currently running version {1}.)
+    <value>Version {0} of NotPurplePen is now available for download. (You are currently running version {1}.)
 
 Would you like to download and install the latest version?</value>
   </data>
@@ -273,7 +273,7 @@ Would you like to download and install the latest version?</value>
   <data name="MissingMapFile" xml:space="preserve">
     <value>The map file "{0}" could not be found.
 
-Most likely, the map file has been moved or deleted, or the Purple Pen file has been moved (possibly to a different computer). The map file must be present every time the Purple Pen event file is loaded. If you send a Purple Pen event file to another person, be sure that person has a copy of the map file also.
+Most likely, the map file has been moved or deleted, or the NotPurplePen file has been moved (possibly to a different computer). The map file must be present every time the NotPurplePen event file is loaded. If you send a NotPurplePen event file to another person, be sure that person has a copy of the map file also.
 
 After pressing OK, try to find a copy of the map file on your computer.</value>
   </data>
@@ -338,7 +338,7 @@ After pressing OK, try to find a copy of the map file on your computer.</value>
     <value>Change Text</value>
   </data>
   <data name="MapFileChanged" xml:space="preserve">
-    <value>Another program has changed the map file "{0}". Purple Pen will now reload the map.</value>
+    <value>Another program has changed the map file "{0}". NotPurplePen will now reload the map.</value>
   </data>
   <data name="ChangeDescriptionLanguage" xml:space="preserve">
     <value>The current event has textual control descriptions in {0}. Would you like to change the language of control descriptions to {1}?</value>
@@ -347,13 +347,13 @@ After pressing OK, try to find a copy of the map file on your computer.</value>
     <value>Open "{0}"</value>
   </data>
   <data name="ClosePPBeforeLoadingOCAD" xml:space="preserve">
-    <value>Purple Pen must be closed before loading the created OCAD files.</value>
+    <value>NotPurplePen must be closed before loading the created OCAD files.</value>
   </data>
   <data name="NoCoursesSelected" xml:space="preserve">
     <value>No courses were selected to print.</value>
   </data>
   <data name="TranslatedHelpWebSite" xml:space="preserve">
-    <value>*** If there exists a web site in the translated language that contains documentation for Purple Pen, enter the URL (including http) as the translation of this item. Otherwise leave it alone.</value>
+    <value>*** If there exists a web site in the translated language that contains documentation for NotPurplePen, enter the URL (including http) as the translation of this item. Otherwise leave it alone.</value>
   </data>
   <data name="MapExchange_Long" xml:space="preserve">
     <value>Map exchange</value>
@@ -465,7 +465,7 @@ After pressing OK, try to find a copy of the map file on your computer.</value>
     <value>The OCAD file must have real world coordinates defined to use GPX files.</value>
   </data>
   <data name="GpxUnsupportedCoordSystem" xml:space="preserve">
-    <value>The OCAD file uses a coordinate system that is not supported by Purple Pen.</value>
+    <value>The OCAD file uses a coordinate system that is not supported by NotPurplePen.</value>
   </data>
   <data name="AutomaticLength" xml:space="preserve">
     <value>Automatic</value>
@@ -556,7 +556,7 @@ After pressing OK, try to find a copy of the map file on your computer.</value>
     <value>Add Ellipse</value>
   </data>
   <data name="UninstallNonStoreVersion" xml:space="preserve">
-    <value>An older version of Purple Pen is still installed. To prevent confusion caused by having two versions of Purple Pen installed, it is strongly recommended that the older version be removed. Remove it now?</value>
+    <value>An older version of NotPurplePen is still installed. To prevent confusion caused by having two versions of NotPurplePen installed, it is strongly recommended that the older version be removed. Remove it now?</value>
   </data>
   <data name="AskInstallRobotoFonts" xml:space="preserve">
     <value>In order for OCAD or OpenOrienteering Mapper to correctly display the control descriptions, the "Roboto" and "Roboto Condensed" fonts must be installed on your system. Would you like to install those fonts now (strongly recommended)?</value>
@@ -647,7 +647,7 @@ After pressing OK, try to find a copy of the map file on your computer.</value>
     <value>Windows Store</value>
   </data>
   <data name="OpenFileDialog_PurplePenFilter" xml:space="preserve">
-    <value>Purple Pen files|*.ppen|All files|*.*</value>
+    <value>NotPurplePen files|*.ppen|All files|*.*</value>
   </data>
   <data name="ChangeMapFile_FileFilter" xml:space="preserve">
     <value>All map files|*.ocd;*.omap;*.xmap;*.pdf;*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif|OCAD files (*.ocd)|*.ocd|Open Orienteering Mapper Files|*.omap;*.xmap|PDF files (*.pdf)|*.pdf|Image files|*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif</value>
@@ -659,7 +659,7 @@ After pressing OK, try to find a copy of the map file on your computer.</value>
     <value>IOF XML 3.0|*.xml|Spreadsheet (CSV)|*.csv</value>
   </data>
   <data name="SaveFileDialog_PurplePenFilter" xml:space="preserve">
-    <value>Purple Pen file|*.ppen</value>
+    <value>NotPurplePen file|*.ppen</value>
   </data>
   <data name="SaveXmlFileDialog_Filter" xml:space="preserve">
     <value>IOF XML version 3.0|*.xml|IOF XML version 2.0.3|*.xml</value>

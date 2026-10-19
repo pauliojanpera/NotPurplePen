@@ -235,7 +235,7 @@ namespace PurplePen.Tests
                 CodePrefix = ""
             });
 
-            Assert.AreEqual("ERROR: 'Cannot create '" + outputFile + "' for the following reason:\r\n\r\nThe OCAD file uses a coordinate system that is not supported by Purple Pen.'\r\n", ui.output.ToString());
+            Assert.AreEqual("ERROR: 'Cannot create '" + outputFile + "' for the following reason:\r\n\r\nThe OCAD file uses a coordinate system that is not supported by NotPurplePen.'\r\n", ui.output.ToString());
             Assert.IsFalse(File.Exists(outputFile));
         }
 

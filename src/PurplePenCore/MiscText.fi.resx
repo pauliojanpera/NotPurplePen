@@ -127,7 +127,7 @@
     <value>Esc</value>
   </data>
   <data name="AppTitle" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="NoSymbol" xml:space="preserve">
     <value>Ei symbolia</value>
@@ -257,7 +257,7 @@ Käytä | -merkkiä erottamaan rivit</value>
     <value>Versio {0}</value>
   </data>
   <data name="NewerVersionAvailable" xml:space="preserve">
-    <value>Purple Pen versio {0} on nyt ladattavissa. (Sinulla on nyt käytössä versio {1}.)
+    <value>NotPurplePen versio {0} on nyt ladattavissa. (Sinulla on nyt käytössä versio {1}.)
 
 Haluatko ladata ja asentaa viimeisimmän version?</value>
   </data>
@@ -270,7 +270,7 @@ Haluatko ladata ja asentaa viimeisimmän version?</value>
   <data name="MissingMapFile" xml:space="preserve">
     <value>Karttatiedostoa "{0}" ei löytynyt.
 
-Todennäköisesti karttatiedosto on siirretty tai poistettu tai Purple Pen -tiedosto on siirretty (mahdollisesti toiselle tietokoneelle). Karttatiedosto on oltava aina, kun Purple Pen -tiedostoa käytetään. Jos lähetät Purple Pen -tiedoston jollekin muulle, muista lähettää myös karttatiedosto, ellei sitä ole vastaanottajalla.
+Todennäköisesti karttatiedosto on siirretty tai poistettu tai NotPurplePen -tiedosto on siirretty (mahdollisesti toiselle tietokoneelle). Karttatiedosto on oltava aina, kun NotPurplePen -tiedostoa käytetään. Jos lähetät NotPurplePen -tiedoston jollekin muulle, muista lähettää myös karttatiedosto, ellei sitä ole vastaanottajalla.
 
 Paina OK ja yritä etsiä karttatiedoston kopio tietokoneeltasi.</value>
   </data>
@@ -332,7 +332,7 @@ Paina OK ja yritä etsiä karttatiedoston kopio tietokoneeltasi.</value>
     <value>Muokkaa tekstiä</value>
   </data>
   <data name="MapFileChanged" xml:space="preserve">
-    <value>Toinen ohjelma on muuttanut karttatiedostoa "{0}". Purple Pen lataa nyt kartan uudelleen.</value>
+    <value>Toinen ohjelma on muuttanut karttatiedostoa "{0}". NotPurplePen lataa nyt kartan uudelleen.</value>
   </data>
   <data name="ChangeDescriptionLanguage" xml:space="preserve">
     <value>Tapahtuman sanallisten rastinmääritteiden kielenä on {0}. Haluatko muuttaa rastinmääritteet kielelle {1}?</value>
@@ -341,13 +341,13 @@ Paina OK ja yritä etsiä karttatiedoston kopio tietokoneeltasi.</value>
     <value>Avaa "{0}"</value>
   </data>
   <data name="ClosePPBeforeLoadingOCAD" xml:space="preserve">
-    <value>Purple Pen pitää sulkea ennen kuin voit avata luotuja OCAD-tiedostoja.</value>
+    <value>NotPurplePen pitää sulkea ennen kuin voit avata luotuja OCAD-tiedostoja.</value>
   </data>
   <data name="NoCoursesSelected" xml:space="preserve">
     <value>Yhtään rataa ei ole valittuna tulostettavaksi.</value>
   </data>
   <data name="TranslatedHelpWebSite" xml:space="preserve">
-    <value>*** Jos on olemassa verkkosivusto, joka sisältää Purple Pen -ohjeita tällä käännöskielellä, syötä sen täydellinen URL-osoite (http://...). Muutoin jätä tyhjäksi.</value>
+    <value>*** Jos on olemassa verkkosivusto, joka sisältää NotPurplePen -ohjeita tällä käännöskielellä, syötä sen täydellinen URL-osoite (http://...). Muutoin jätä tyhjäksi.</value>
   </data>
   <data name="MapExchange_Long" xml:space="preserve">
     <value>Kartanvaihto</value>
@@ -458,7 +458,7 @@ Paina OK ja yritä etsiä karttatiedoston kopio tietokoneeltasi.</value>
     <value>OCAD-tiedoston täytyy olla geo-viitattu, jotta GPX-tiedostoja voidaan käyttää.</value>
   </data>
   <data name="GpxUnsupportedCoordSystem" xml:space="preserve">
-    <value>Purple Pen ei tue OCAD-tiedoston käyttämää koordinaatistoa.</value>
+    <value>NotPurplePen ei tue OCAD-tiedoston käyttämää koordinaatistoa.</value>
   </data>
   <data name="AutomaticLength" xml:space="preserve">
     <value>Automaattinen</value>
@@ -548,7 +548,7 @@ Paina OK ja yritä etsiä karttatiedoston kopio tietokoneeltasi.</value>
     <value>Lisää ellipsi</value>
   </data>
   <data name="UninstallNonStoreVersion" xml:space="preserve">
-    <value>Purple Pen -ohjelman vanhempi versio on edelleen asennettuna. Kahden version aiheuttamien sekaannusten välttämiseksi on erittäin suositeltavaa poistaa vanhempi versio. Poistetaanko se nyt?</value>
+    <value>NotPurplePen -ohjelman vanhempi versio on edelleen asennettuna. Kahden version aiheuttamien sekaannusten välttämiseksi on erittäin suositeltavaa poistaa vanhempi versio. Poistetaanko se nyt?</value>
   </data>
   <data name="GpxMustBeOcadMap" xml:space="preserve">
     <value>Karttatiedoston pitää olla OCAD-tiedosto, jotta voit käyttää GPX-tiedostoja.</value>
@@ -617,7 +617,7 @@ Paina OK ja yritä etsiä karttatiedoston kopio tietokoneeltasi.</value>
     <value>RC {0}</value>
   </data>
   <data name="OpenFileDialog_PurplePenFilter" xml:space="preserve">
-    <value>Purple Pen tiedostot|*.ppen|Kaikki tiedostot|*.*</value>
+    <value>NotPurplePen tiedostot|*.ppen|Kaikki tiedostot|*.*</value>
   </data>
   <data name="ChangeMapFile_FileFilter" xml:space="preserve">
     <value>Kaikki karttatiedostot|*.ocd;*.omap;*.xmap;*.pdf;*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif|OCAD-tiedostot (*.ocd)|*.ocd|Open Orienteering Mapper -tiedostot|*.omap;*.xmap|PDF-tiedostot (*.pdf)|*.pdf|Kuvatiedostot|*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif</value>
@@ -626,7 +626,7 @@ Paina OK ja yritä etsiä karttatiedoston kopio tietokoneeltasi.</value>
     <value>GPX-tiedosto|*.gpx</value>
   </data>
   <data name="SaveFileDialog_PurplePenFilter" xml:space="preserve">
-    <value>Purple Pen tiedosto|*.ppen</value>
+    <value>NotPurplePen tiedosto|*.ppen</value>
   </data>
   <data name="SaveXmlFileDialog_Filter" xml:space="preserve">
     <value>IOF XML versio 3.0|*.xml|IOF XML versio 2.0.3|*.xml</value>

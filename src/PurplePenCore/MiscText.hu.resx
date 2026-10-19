@@ -127,7 +127,7 @@
     <value>Esc</value>
   </data>
   <data name="AppTitle" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="NoSymbol" xml:space="preserve">
     <value>Nincs szimbólum</value>
@@ -257,7 +257,7 @@ Használja a | jelet sorelválsztóként</value>
     <value>{0} verzió</value>
   </data>
   <data name="NewerVersionAvailable" xml:space="preserve">
-    <value>A Purple Pen {0} verziója letölthető. (Az Ön jelenlegi verziója: {1}.)
+    <value>A NotPurplePen {0} verziója letölthető. (Az Ön jelenlegi verziója: {1}.)
 
 Kívánja letölteni és telepíteni a legújabb verziót?</value>
   </data>
@@ -270,7 +270,7 @@ Kívánja letölteni és telepíteni a legújabb verziót?</value>
   <data name="MissingMapFile" xml:space="preserve">
     <value>A "{0}" térkép fájl nem található.
 
-Leggyakrabban áthelyezve, vagy letörölve lett a térkép fájl. Ha másik gépre próbáljuk átvinni a Purple Pen fájlt, akkor vele kell vinnünk a térkép fájlt is.
+Leggyakrabban áthelyezve, vagy letörölve lett a térkép fájl. Ha másik gépre próbáljuk átvinni a NotPurplePen fájlt, akkor vele kell vinnünk a térkép fájlt is.
 
 A Rendben lenyomása után próbálja megkeresni a térkép fájlt a számítógépén.</value>
   </data>
@@ -332,7 +332,7 @@ A Rendben lenyomása után próbálja megkeresni a térkép fájlt a számítóg
     <value>Szöveg módosítása</value>
   </data>
   <data name="MapFileChanged" xml:space="preserve">
-    <value>Egy másik program módosította a(z) '{0}' térkép fájlt. A Purple Pen újra fogja olvasni.</value>
+    <value>Egy másik program módosította a(z) '{0}' térkép fájlt. A NotPurplePen újra fogja olvasni.</value>
   </data>
   <data name="ChangeDescriptionLanguage" xml:space="preserve">
     <value>Az esemény tartalmaz szöveges pontleírást az alábbi pályákon: {0}. Biztosan megváltoztatja a nyelvet, az új nyelv {1} lesz?</value>
@@ -341,13 +341,13 @@ A Rendben lenyomása után próbálja megkeresni a térkép fájlt a számítóg
     <value>Megnyitás "{0}"</value>
   </data>
   <data name="ClosePPBeforeLoadingOCAD" xml:space="preserve">
-    <value>A Purple Pen programot be kell zárni mielőtt betölti az elkészült OCAD fájlokat.</value>
+    <value>A NotPurplePen programot be kell zárni mielőtt betölti az elkészült OCAD fájlokat.</value>
   </data>
   <data name="NoCoursesSelected" xml:space="preserve">
     <value>Egyetlen pályát sem választott a nyomtatáshoz.</value>
   </data>
   <data name="TranslatedHelpWebSite" xml:space="preserve">
-    <value>*** Ha létezik web oldal amin megtalálható a Purple Pen dokumentációja a lefordított nyelven, írja be a címet (http-vel együtt) fordításként. Egyéb esetben hagyja üresen.</value>
+    <value>*** Ha létezik web oldal amin megtalálható a NotPurplePen dokumentációja a lefordított nyelven, írja be a címet (http-vel együtt) fordításként. Egyéb esetben hagyja üresen.</value>
   </data>
   <data name="MapExchange_Long" xml:space="preserve">
     <value>Térképcsere</value>
@@ -458,7 +458,7 @@ A Rendben lenyomása után próbálja megkeresni a térkép fájlt a számítóg
     <value>Az OCAD fájl koordináta rendszere csak valós földi lehet GPX fájlok használatához.</value>
   </data>
   <data name="GpxUnsupportedCoordSystem" xml:space="preserve">
-    <value>Az OCAD fájl a Purple Pen által nem ismert koordináta rendszert használ.</value>
+    <value>Az OCAD fájl a NotPurplePen által nem ismert koordináta rendszert használ.</value>
   </data>
   <data name="AutomaticLength" xml:space="preserve">
     <value>Automatikus</value>
@@ -608,7 +608,7 @@ A Rendben lenyomása után próbálja megkeresni a térkép fájlt a számítóg
     <value>{0} RC</value>
   </data>
   <data name="OpenFileDialog_PurplePenFilter" xml:space="preserve">
-    <value>Purple Pen fájlok|*.ppen|Minden fájl|*.*</value>
+    <value>NotPurplePen fájlok|*.ppen|Minden fájl|*.*</value>
   </data>
   <data name="ChangeMapFile_FileFilter" xml:space="preserve">
     <value>Minden térkép fájl|*.ocd;*.pdf;*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif|OCAD fájlok (*.ocd)|*.ocd|Open Orienteering Mapper fájlok|*.omap;*.xmap|PDF fájlok (*.pdf)|*.pdf|Kép fájlok|*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif</value>
@@ -617,7 +617,7 @@ A Rendben lenyomása után próbálja megkeresni a térkép fájlt a számítóg
     <value>GPX fájl|*.gpx</value>
   </data>
   <data name="SaveFileDialog_PurplePenFilter" xml:space="preserve">
-    <value>Purple Pen fájl|*.ppen</value>
+    <value>NotPurplePen fájl|*.ppen</value>
   </data>
   <data name="SaveXmlFileDialog_Filter" xml:space="preserve">
     <value>IOF XML 3.0 verzió|*.xml|IOF XML 2.0.3 verzió|*.xml</value>

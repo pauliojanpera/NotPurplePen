@@ -127,7 +127,7 @@
     <value>Esc</value>
   </data>
   <data name="AppTitle" xml:space="preserve">
-    <value>Purple Pen</value>
+    <value>NotPurplePen</value>
   </data>
   <data name="NoSymbol" xml:space="preserve">
     <value>Žádný symbol</value>
@@ -257,7 +257,7 @@ užij | na řádky</value>
     <value>Verze {0}</value>
   </data>
   <data name="NewerVersionAvailable" xml:space="preserve">
-    <value>Je k dispozici nová verze Purple Penu {0} (Teď máte {1}.)
+    <value>Je k dispozici nová verze NotPurplePenu {0} (Teď máte {1}.)
 
 Stáhnout a instalovat?</value>
   </data>
@@ -332,7 +332,7 @@ OK - zkus soubor s mapou najít.</value>
     <value>Změnit text</value>
   </data>
   <data name="MapFileChanged" xml:space="preserve">
-    <value>Jiný program změnil mapu - soubor {0}. Purple Pen ji natáhne znovu.</value>
+    <value>Jiný program změnil mapu - soubor {0}. NotPurplePen ji natáhne znovu.</value>
   </data>
   <data name="ChangeDescriptionLanguage" xml:space="preserve">
     <value>Aktuální závod má textový popis kontrol v jazyce {0}. Chcete změnit jazyk popisů kontrol na {1}?</value>
@@ -341,13 +341,13 @@ OK - zkus soubor s mapou najít.</value>
     <value>Otevřít "{0}"</value>
   </data>
   <data name="ClosePPBeforeLoadingOCAD" xml:space="preserve">
-    <value>Purple Pen před načtením nového OCAD souboru.</value>
+    <value>NotPurplePen před načtením nového OCAD souboru.</value>
   </data>
   <data name="NoCoursesSelected" xml:space="preserve">
     <value>Žádná trať nebyla vybrána k tisku.</value>
   </data>
   <data name="TranslatedHelpWebSite" xml:space="preserve">
-    <value>*** Pokud existuje webová stránka v přeloženém jazyce, která obsahuje dokumentaci k Purple Pen, zadejte URL (včetně http) jako překlad této položky. Jinak to nechte být.</value>
+    <value>*** Pokud existuje webová stránka v přeloženém jazyce, která obsahuje dokumentaci k NotPurplePen, zadejte URL (včetně http) jako překlad této položky. Jinak to nechte být.</value>
   </data>
   <data name="MapExchange_Long" xml:space="preserve">
     <value>Výměna mapy</value>
@@ -458,7 +458,7 @@ OK - zkus soubor s mapou najít.</value>
     <value>Soubor OCAD musí mít definované skutečné světové souřadnice, aby bylo možné použít soubor GPX.</value>
   </data>
   <data name="GpxUnsupportedCoordSystem" xml:space="preserve">
-    <value>Soubor OCAD používá souřadnicový systém, který Purple Pen nepodporuje.</value>
+    <value>Soubor OCAD používá souřadnicový systém, který NotPurplePen nepodporuje.</value>
   </data>
   <data name="AutomaticLength" xml:space="preserve">
     <value>Automaticky</value>
@@ -614,7 +614,7 @@ OK - zkus soubor s mapou najít.</value>
     <value>RC {0}</value>
   </data>
   <data name="OpenFileDialog_PurplePenFilter" xml:space="preserve">
-    <value>Soubory Purple Pen|*.ppen|Všechny soubory|*.*</value>
+    <value>Soubory NotPurplePen|*.ppen|Všechny soubory|*.*</value>
   </data>
   <data name="ChangeMapFile_FileFilter" xml:space="preserve">
     <value>Všechny mapové soubory|*.ocd;*.omap;*.xmap;*.pdf;*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif|OCAD files (*.ocd)|*.ocd|Open Orienteering Mapper Files|*.omap;*.xmap|PDF files (*.pdf)|*.pdf|Image files|*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif</value>
@@ -623,7 +623,7 @@ OK - zkus soubor s mapou najít.</value>
     <value>GPX soubor|*.gpx</value>
   </data>
   <data name="SaveFileDialog_PurplePenFilter" xml:space="preserve">
-    <value>Soubor Purple Pen|*.ppen</value>
+    <value>Soubor NotPurplePen|*.ppen</value>
   </data>
   <data name="SaveXmlFileDialog_Filter" xml:space="preserve">
     <value>IOF XML verze 3.0|*.xml|IOF XML verze 2.0.3|*.xml</value>
