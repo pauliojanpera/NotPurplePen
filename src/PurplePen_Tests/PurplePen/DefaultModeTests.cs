@@ -709,7 +709,7 @@ namespace PurplePen.Tests
             Assert.AreEqual(-35.5F, newLocations[1].Y, 0.001);
 
             // Should be 3 columns.
-            Assert.AreEqual(3, eventDB.GetSpecial(SpecialId(8)).numColumns);
+            Assert.AreEqual(3, eventDB.GetSpecial(SpecialId(8)).fragments[0].numColumns);
         }
 
         [TestMethod]

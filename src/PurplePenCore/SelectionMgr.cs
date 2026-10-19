@@ -58,6 +58,7 @@ namespace PurplePen
         Id<Special> selectedSpecial;            // ID of the selected special, if any.
         Symbol selectedKeySymbol;             // Symbol of the selected symbol in the key (SelectionKind.Key)
         DescriptionLine.TextLineKind selectedTextLineKind;              // Which kind of text line (SelectionKind.TextLine)
+        int selectedFragmentStartLine;          // Which fragment of a split description (SelectionKind.CuttingLine), or -1.
 
         // These variable control additional course displays.
         bool showAllControls;              // If true, secondary display of all controls not in the primary.
@@ -177,6 +178,7 @@ namespace PurplePen
                 info.SelectedSpecial = selectedSpecial;
                 info.SelectedKeySymbol = selectedKeySymbol;
                 info.SelectedTextLineKind = selectedTextLineKind;
+                info.SelectedFragmentStartLine = selectedFragmentStartLine;
                 return info;
             }
         }
@@ -233,6 +235,19 @@ namespace PurplePen
             return id == "13.5control" || id == "15.6";
         }
 
+        // The description line that the fragment below the cutting line on the given line of the
+        // viewed description begins at.
+        private int GetFragmentStartLine(int descriptionLine)
+        {
+            int cuttingLines = 0;
+            for (int i = 0; i < descriptionLine; ++i) {
+                if (activeDescription[i].kind == DescriptionLineKind.CuttingLine)
+                    ++cuttingLines;
+            }
+
+            return descriptionLine - cuttingLines;
+        }
+
         public void SelectDescriptionLine(int line)
         {
             UpdateState();
@@ -249,6 +264,8 @@ namespace PurplePen
                     SetSelection(SelectionKind.Header, Id<CourseControl>.None, Id<CourseControl>.None, LegInsertionLoc.Normal, Id<ControlPoint>.None, Id<Special>.None, null, DescriptionLine.TextLineKind.None);
                 else if (kind == DescriptionLineKind.Key)
                     SetSelection(SelectionKind.Key, Id<CourseControl>.None, Id<CourseControl>.None, LegInsertionLoc.Normal, Id<ControlPoint>.None, Id<Special>.None, (Symbol) activeDescription[line].boxes[0], DescriptionLine.TextLineKind.None);
+                else if (kind == DescriptionLineKind.CuttingLine)
+                    SetSelection(SelectionKind.CuttingLine, Id<CourseControl>.None, Id<CourseControl>.None, LegInsertionLoc.Normal, Id<ControlPoint>.None, Id<Special>.None, null, DescriptionLine.TextLineKind.None, GetFragmentStartLine(line));
                 else if (kind == DescriptionLineKind.Text)
                     SetSelection(SelectionKind.TextLine, activeDescription[line].courseControlId, Id<CourseControl>.None, LegInsertionLoc.Normal, activeDescription[line].controlId, Id<Special>.None, null, activeDescription[line].textLineKind);
                 else if (kind == DescriptionLineKind.Directive && IsMapFlipOrExchangeAtControl(((Symbol)(activeDescription[line].boxes[0])).Id))
@@ -383,6 +400,12 @@ namespace PurplePen
             SetSelection(SelectionKind.TextLine, courseControlId, Id<CourseControl>.None, LegInsertionLoc.Normal, controlId, Id<Special>.None, null, textLineKind);
         }
 
+        // Select the cutting line above the fragment that begins at the given description line.
+        public void SelectCuttingLine(int fragmentStartLine)
+        {
+            SetSelection(SelectionKind.CuttingLine, Id<CourseControl>.None, Id<CourseControl>.None, LegInsertionLoc.Normal, Id<ControlPoint>.None, Id<Special>.None, null, DescriptionLine.TextLineKind.None, fragmentStartLine);
+        }
+
         // Set a map exchange at control line
         public void SelectMapExchangeAtControl(Id<ControlPoint> controlId, Id<CourseControl> courseControlId)
         {
@@ -393,7 +416,7 @@ namespace PurplePen
         // Sets the current selection. No feedback is provided as to whether the selection
         // is valid; if invalid, the selection will simply be cleared when it is retrieved.
         private void SetSelection(SelectionKind selectionKind, Id<CourseControl> courseControlId, Id<CourseControl> courseControlId2, LegInsertionLoc legInsertionLoc, 
-                                  Id<ControlPoint> controlId, Id<Special> specialId, Symbol keySymbol, DescriptionLine.TextLineKind textLineKind)
+                                  Id<ControlPoint> controlId, Id<Special> specialId, Symbol keySymbol, DescriptionLine.TextLineKind textLineKind, int fragmentStartLine = -1)
         {
             if (this.selectionKind != selectionKind || this.selectedCourseControl != courseControlId ||
                 this.selectedCourseControl2 != courseControlId2 || this.selectedControl != controlId || this.selectedSpecial != specialId) 
@@ -410,6 +433,7 @@ namespace PurplePen
             this.selectedSpecial = specialId;
             this.selectedKeySymbol = keySymbol;
             this.selectedTextLineKind = textLineKind;
+            this.selectedFragmentStartLine = fragmentStartLine;
         }
 
         // Sets the all controls display state.
@@ -763,6 +787,13 @@ namespace PurplePen
                         return;
                     }
                 }
+
+                if (selectionKind == SelectionKind.CuttingLine && lineKind == DescriptionLineKind.CuttingLine) {
+                    if (GetFragmentStartLine(line) == selectedFragmentStartLine) {
+                        selectedDescriptionLineFirst = selectedDescriptionLineLast = line;
+                        return;
+                    }
+                }
             }
 
             if (titleFound)
@@ -777,7 +808,8 @@ namespace PurplePen
             // No matching line.
             selectedDescriptionLineFirst = selectedDescriptionLineLast = -1;
 
-            if (selectionKind == SelectionKind.TextLine || selectionKind == SelectionKind.Key || selectionKind == SelectionKind.SecondaryTitle) {
+            if (selectionKind == SelectionKind.TextLine || selectionKind == SelectionKind.Key || selectionKind == SelectionKind.SecondaryTitle ||
+                selectionKind == SelectionKind.CuttingLine) {
                 // no matching line found. The selection must be gone.
                 ClearSelection();
             }

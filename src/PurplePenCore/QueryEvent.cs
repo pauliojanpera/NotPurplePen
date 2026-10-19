@@ -1438,11 +1438,15 @@ namespace PurplePen
             return ev.descriptionLangId;
         }
 
-        public static int GetDescriptionColumns(EventDB eventDB, Id<Special> specialId)
+        // Get the number of columns of the fragment of a descriptions object that begins at the
+        // given description line.
+        public static int GetDescriptionColumns(EventDB eventDB, Id<Special> specialId, int startLine = 0)
         {
             Special special = eventDB.GetSpecial(specialId);
             Debug.Assert(special.kind == SpecialKind.Descriptions);
-            return special.numColumns;
+            int index = special.FindDescriptionFragment(startLine);
+            Debug.Assert(index >= 0);
+            return special.fragments[index].numColumns;
         }
 
         // Get the event title, with particular string for newlines.
