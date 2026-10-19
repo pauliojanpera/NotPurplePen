@@ -938,15 +938,70 @@ namespace PurplePen
             eventDB.ReplaceSpecial(specialId, special);
         }
 
-        // Change the number of columns of a descriptions
-        public static void ChangeDescriptionColumns(EventDB eventDB, Id<Special> specialId, int numColumns)
+        // Change the number of columns of the fragment of a descriptions object that begins at
+        // the given description line.
+        public static void ChangeDescriptionColumns(EventDB eventDB, Id<Special> specialId, int numColumns, int startLine = 0)
         {
             Special special = eventDB.GetSpecial(specialId);
 
             Debug.Assert(special.kind == SpecialKind.Descriptions);
 
+            int index = special.FindDescriptionFragment(startLine);
+            if (index < 0 || special.fragments[index].numColumns == numColumns)
+                return;
+
             special = (Special)special.Clone();
-            special.numColumns = numColumns;
+            special.fragments[index] = new Special.DescriptionFragment(startLine, numColumns);
+
+            eventDB.ReplaceSpecial(specialId, special);
+        }
+
+        // Move one fragment of a descriptions object. Every fragment is given the cell size that
+        // follows from the new rectangle, so that the pieces stay the same size as each other.
+        public static void ChangeDescriptionFragmentLocations(EventDB eventDB, Id<Special> specialId, int startLine, PointF[] newLocations)
+        {
+            Special special = eventDB.GetSpecial(specialId);
+
+            Debug.Assert(special.kind == SpecialKind.Descriptions);
+
+            int index = special.FindDescriptionFragment(startLine);
+            if (index < 0)
+                return;
+
+            special = (Special) special.Clone();
+            special.locations[2 * index] = newLocations[0];
+            special.locations[2 * index + 1] = newLocations[1];
+
+            float cellSize = newLocations[1].X - newLocations[0].X;
+            for (int i = 0; i < special.locations.Length; i += 2)
+                special.locations[i + 1].X = special.locations[i].X + cellSize;
+
+            eventDB.ReplaceSpecial(specialId, special);
+        }
+
+        // Split a descriptions object at the given description line.
+        public static void AddDescriptionFragment(EventDB eventDB, Id<Special> specialId, int startLine)
+        {
+            Special special = eventDB.GetSpecial(specialId);
+
+            Debug.Assert(special.kind == SpecialKind.Descriptions);
+
+            special = (Special) special.Clone();
+            special.InsertDescriptionFragment(startLine);
+
+            eventDB.ReplaceSpecial(specialId, special);
+        }
+
+        // Join the fragment of a descriptions object that begins at the given description line to
+        // the one before it.
+        public static void RemoveDescriptionFragment(EventDB eventDB, Id<Special> specialId, int startLine)
+        {
+            Special special = eventDB.GetSpecial(specialId);
+
+            Debug.Assert(special.kind == SpecialKind.Descriptions);
+
+            special = (Special) special.Clone();
+            special.RemoveDescriptionFragment(startLine);
 
             eventDB.ReplaceSpecial(specialId, special);
         }
@@ -1412,7 +1467,7 @@ namespace PurplePen
             special.allCourses = allCourses;
             if (! allCourses)
                 special.courses = courses;
-            special.numColumns = numColumns;
+            special.fragments[0] = new Special.DescriptionFragment(0, numColumns);
             Id<Special> specialId =  eventDB.AddSpecial(special);
 
             // Descriptions special are unique per course -- enforce this.

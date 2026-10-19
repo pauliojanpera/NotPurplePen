@@ -18,9 +18,10 @@ namespace PurplePen
         public Id<Special> SelectedSpecial;
         public Symbol SelectedKeySymbol;
         public DescriptionLine.TextLineKind SelectedTextLineKind;
+        public int SelectedFragmentStartLine;   // For a cutting line, the description line the fragment below it begins at.
     }
 
-    public enum SelectionKind { None, Control, Special, Leg, Title, SecondaryTitle, Header, TextLine, Key, MapExchangeOrFlipAtControl };
+    public enum SelectionKind { None, Control, Special, Leg, Title, SecondaryTitle, Header, TextLine, Key, MapExchangeOrFlipAtControl, CuttingLine };
 
 
 }

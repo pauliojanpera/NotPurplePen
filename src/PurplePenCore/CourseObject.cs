@@ -3037,9 +3037,10 @@ namespace PurplePen
     {
         DescriptionRenderer renderer;        // The description renderer that holds the description.
         float[] aspectAnglesByColumns;       // array describing the angles that are closest for each number of columns.
+        int startLine;                       // First description line of the fragment this object shows.
 
         // Create a new description course object.
-        public DescriptionCourseObj(Id<Special> specialId, PointF topLeft, float cellSize, SymbolDB symbolDB, DescriptionLine[] description, DescriptionKind kind, bool columnHScore, int numColumns)
+        public DescriptionCourseObj(Id<Special> specialId, PointF topLeft, float cellSize, SymbolDB symbolDB, DescriptionLine[] description, DescriptionKind kind, bool columnHScore, int numColumns, int startLine = 0)
             : base(Id<ControlPoint>.None, Id<CourseControl>.None, specialId, 1, new CourseAppearance(), GetRect(topLeft, cellSize, symbolDB, description, kind, numColumns))
         {
             // Create the renderer.
@@ -3051,6 +3052,14 @@ namespace PurplePen
             renderer.CellSize = cellSize;
             renderer.NumberOfColumns = numColumns;
             aspectAnglesByColumns = ComputeAspectAngles();
+            this.startLine = startLine;
+        }
+
+        // The first description line shown by this object. Zero unless the descriptions object
+        // it belongs to has been split into fragments.
+        public int StartLine
+        {
+            get { return startLine; }
         }
 
         // Get the rectangle used by the description.
@@ -3190,6 +3199,8 @@ namespace PurplePen
                 return false;
             if (renderer.ColumnHScore != other.renderer.ColumnHScore)
                 return false;
+            if (startLine != other.startLine)
+                return false;
 
             // Check description 
             DescriptionLine[] myDesc = renderer.Description;
@@ -3217,6 +3228,8 @@ namespace PurplePen
             string text = base.ToString();
             if (NumberOfColumns > 1)
                 text += string.Format(" columns:{0}", NumberOfColumns);
+            if (StartLine > 0)
+                text += string.Format(" start-line:{0}", StartLine);
             return text;
         }
     }

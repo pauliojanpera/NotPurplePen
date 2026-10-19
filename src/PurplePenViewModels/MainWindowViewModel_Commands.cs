@@ -43,6 +43,7 @@ namespace PurplePen.ViewModels
             CanChangeText = (controller.CanChangeText() == CommandStatus.Enabled);
             CanChangeLineAppearance = (controller.CanChangeLineAppearance() == CommandStatus.Enabled);
             CanAddTextLine = (controller.CanAddTextLine() == CommandStatus.Enabled);
+            CanAddCuttingLine = (controller.CanAddCuttingLine() == CommandStatus.Enabled);
             CanAddMapFlip = (controller.CanAddMapFlipControl() == CommandStatus.Enabled);
             CanAddMapExchangeSeparate = (controller.CanAddMapExchangeSeparate() == CommandStatus.Enabled);
             CanAddMapExchangeControl = (controller.CanAddMapExchangeControl() == CommandStatus.Enabled);
@@ -830,6 +831,21 @@ namespace PurplePen.ViewModels
 
         [ObservableProperty, NotifyCanExecuteChangedFor(nameof(AddTextLineCommand))]
         private bool canAddTextLine;
+
+        /// <summary>
+        /// Executes the Cut Description command. Cuts the description of the active course above
+        /// the selected control, so that the lines from there on are placed on their own.
+        /// </summary>
+        [RelayCommand(CanExecute = nameof(CanAddCuttingLine))]
+        private void AddCuttingLine()
+        {
+            if (controller == null) { return; }
+
+            controller.AddCuttingLine();
+        }
+
+        [ObservableProperty, NotifyCanExecuteChangedFor(nameof(AddCuttingLineCommand))]
+        private bool canAddCuttingLine;
 
 
         #endregion // Add control commands

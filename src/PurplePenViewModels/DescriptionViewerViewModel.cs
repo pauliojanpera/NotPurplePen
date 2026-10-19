@@ -200,6 +200,10 @@ namespace PurplePen.ViewModels
                 popupKind = DescriptionChangeKind.TextLine;
                 break;
 
+            case HitTestKind.CuttingLine:
+                // Nothing in a cutting line to edit; it goes away by deleting the selection.
+                break;
+
             default: Debug.Fail("bad hit test kind"); break;
             }
 
