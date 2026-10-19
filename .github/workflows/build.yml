@@ -80,19 +80,6 @@ jobs:
         git fetch --no-tags origin base
         git -c user.name=ci -c user.email=ci@localhost merge --no-edit FETCH_HEAD
 
-    # And against upstream as it is now, not as it was when the branch was cut.
-    # By URL rather than as a second remote: GitVersion, which the PdfSharp
-    # subtree generates a class from, refuses to run on a build server whose
-    # repository has more than one.
-    - name: Merge the current upstream
-      if: github.event.inputs.ref != '' || github.event_name == 'pull_request' || startsWith(github.ref_name, 'wip/')
-      shell: bash
-      run: |
-        git fetch --no-tags https://github.com/petergolde/PurplePen.git master
-        head=$(git rev-parse --short FETCH_HEAD)
-        git -c user.name=ci -c user.email=ci@localhost merge --no-edit FETCH_HEAD
-        echo "merged with upstream master at $head"
-
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
