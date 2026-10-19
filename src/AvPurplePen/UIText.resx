@@ -1278,6 +1278,9 @@
   <data name="CreateImageFiles_labelColorModel_Text" xml:space="preserve">
     <value>Color model:</value>
   </data>
+  <data name="CreateImageFiles_labelAutoRotate_Text" xml:space="preserve">
+    <value>Auto rotate:</value>
+  </data>
   <data name="CreateImageFiles_comboBoxColorModel_Items" xml:space="preserve">
     <value>RGB</value>
   </data>
