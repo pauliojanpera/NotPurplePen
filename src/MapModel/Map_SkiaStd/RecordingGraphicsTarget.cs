@@ -35,6 +35,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace PurplePen.MapModel
 {
@@ -65,6 +66,9 @@ namespace PurplePen.MapModel
         // Brush targets created by CreatePatternBrush, which are disposed when this object is disposed.
         private List<RecordingGraphicsTarget> brushTargets = new List<RecordingGraphicsTarget>();
 
+        // The names of the IGraphicsTarget calls that the recorded commands make on playback.
+        private HashSet<string> recordedCallNames = new HashSet<string>(StringComparer.Ordinal);
+
         // Maps from caller key objects to recorded resources. Cleared when recording ends.
         private Dictionary<object, RecordedPath> pathMap = new Dictionary<object, RecordedPath>(new IdentityComparer<object>());
         private Dictionary<object, RecordedBrush> brushMap = new Dictionary<object, RecordedBrush>(new IdentityComparer<object>());
@@ -86,6 +90,20 @@ namespace PurplePen.MapModel
         public bool IsRecording
         {
             get { return isRecording; }
+        }
+
+        // The names of the IGraphicsTarget calls that playing back the recording makes, including those in
+        // pattern brushes, in ordinal order. A pattern brush is played back through CreatePatternBrush, and the
+        // part of a bitmap, which is recorded cropped, through DrawBitmap. Playback also asks the target whether
+        // it already has each path, brush, pen and font before creating it; those queries are not listed.
+        public IReadOnlyList<string> RecordedCallNames
+        {
+            get {
+                SortedSet<string> names = new SortedSet<string>(recordedCallNames, StringComparer.Ordinal);
+                foreach (RecordingGraphicsTarget brushTarget in brushTargets)
+                    names.UnionWith(brushTarget.RecordedCallNames);
+                return new List<string>(names);
+            }
         }
 
         // End recording. After this, no more IGraphicsTarget calls can be made, and Playback can be called.
@@ -136,9 +154,13 @@ namespace PurplePen.MapModel
         }
 
         // Add a command to the recording.
-        private void Record(Action<PlaybackState> command)
+        // command: the command, which makes its call on the target of a playback.
+        // callName: the name of the IGraphicsTarget call the command makes; by default the name of the member
+        //           that records it.
+        private void Record(Action<PlaybackState> command, [CallerMemberName] string callName = "")
         {
             commands.Add(command);
+            recordedCallNames.Add(callName);
         }
 
         // Get the intensity. Setting the intensity is recorded, and destroys all brushes and pens (as with other graphics targets).
@@ -545,7 +567,7 @@ namespace PurplePen.MapModel
         // Record drawing a recorded bitmap.
         private void RecordBitmapDraw(RecordedBitmap bitmap, RectangleF rectangle, BitmapScaling scalingMode)
         {
-            Record(s => s.Target.DrawBitmap(bitmap.GetImage(), rectangle, scalingMode));
+            Record(s => s.Target.DrawBitmap(bitmap.GetImage(), rectangle, scalingMode), nameof(DrawBitmap));
         }
 
         // Dispose of all recorded data.
@@ -568,6 +590,7 @@ namespace PurplePen.MapModel
                 brushTarget.DisposeCore();
             brushTargets.Clear();
             commands.Clear();
+            recordedCallNames.Clear();
             pathMap.Clear();
             brushMap.Clear();
             penMap.Clear();
@@ -877,7 +900,7 @@ namespace PurplePen.MapModel
 
                 RecordedPatternBrush brush = new RecordedPatternBrush(size, angle, bitmapWidth, bitmapHeight, this);
                 owningTarget.brushMap.Add(brushKey, brush);
-                owningTarget.Record(s => brush.CreateOn(s.Target));
+                owningTarget.Record(s => brush.CreateOn(s.Target), nameof(CreatePatternBrush));
             }
 
             // Does nothing: the recorded pattern is needed for playback, so it is owned and disposed by the owning target.

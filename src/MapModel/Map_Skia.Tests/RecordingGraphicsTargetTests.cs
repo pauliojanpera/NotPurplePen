@@ -150,6 +150,30 @@ namespace Map_Skia.Tests
             }
         }
 
+        [Test]
+        public void RecordedCallNamesAreTheCallsPlaybackMakes()
+        {
+            using (RecordingGraphicsTarget recorder = new RecordingGraphicsTarget())
+            using (Skia_Bitmap bitmap = new Skia_Bitmap(new SKBitmap(4, 4))) {
+                recorder.Intensity = 0.5F;
+
+                IBrushTarget brushTarget = recorder.CreatePatternBrush(new SizeF(10, 10), 0, 10, 10);
+                object penKey = new object(), patternKey = new object();
+                brushTarget.CreatePen(penKey, CmykColor.FromCmyk(0, 1, 0, 0), 1, LineCapMode.Flat, LineJoinMode.Miter, 1);
+                brushTarget.DrawLine(penKey, new PointF(0, 0), new PointF(5, 5));
+                brushTarget.FinishBrush(patternKey);
+
+                recorder.FillRectangle(patternKey, new RectangleF(0, 0, 50, 50));
+                recorder.DrawBitmapPart(bitmap, 1, 1, 2, 2, new RectangleF(0, 0, 10, 10), BitmapScaling.NearestNeighbor);
+
+                // The pattern brush is played back through CreatePatternBrush, and the bitmap part, recorded
+                // cropped, through DrawBitmap.
+                CollectionAssert.AreEqual(
+                    new[] { "CreatePatternBrush", "CreatePen", "DrawBitmap", "DrawLine", "FillRectangle", "Intensity" },
+                    recorder.RecordedCallNames);
+            }
+        }
+
         // Create objects with keys that are only referenced by the recorder. Returns weak references to the keys.
         [MethodImpl(MethodImplOptions.NoInlining)]
         private static WeakReference[] RecordWithKeys(RecordingGraphicsTarget recorder)
