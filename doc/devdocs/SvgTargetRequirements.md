@@ -21,16 +21,16 @@ Levels below: **Must** is required in the release that the delivery plan gives i
 
 ## Delivery
 
-The first release is the SVG export: the quickest result anyone can use, and small enough to offer to Purple Pen as it stands. It already writes the layout of maps and pages (L), one page per file, so later files keep the same shape. Later releases put several pages in a file, make the output smaller and prove it against Skia and the browsers, and the TypeScript port builds on them. Several maps per file follow when Purple Pen supports several maps per event.
+The first release is the SVG export: the quickest result anyone can use, and small enough to offer to Purple Pen as it stands. It already writes the layout of maps and pages (L), one page per file, so later files keep the same shape. From the first phase on, the output is judged by how Chromium renders it against Purple Pen's own baseline images. Later releases put several pages in a file, make the output smaller and check it in Firefox and WebKit, and the TypeScript port builds on them. Several maps per file follow when Purple Pen supports several maps per event.
 
 | Phase | Work | Release |
 | --- | --- | --- |
-| 1 | Drawing operations (D), map structure (M), the layout of maps and pages (L-1 to L-5), color (COL), georeferencing (G), compactness S-1 to S-4, S-8, S-9 and S-11, determinism and validity (F-2 to F-4, F-6) | First |
-| 2 | The export in the application (A), writing one page per file, course data (CD) and their tests (V-1, V-2, V-4, V-5, V-7) | First |
-| 3 | Text (T) and bitmaps (B) | First |
+| 1 | Drawing operations (D), map structure (M), the layout of maps and pages (L-1 to L-5), color (COL), georeferencing (G), compactness S-1 to S-4, S-8, S-9 and S-11, fidelity, determinism and validity (F-1 to F-4, F-6), and the quick workflow and tests that check them (V-1, V-3, V-9) | First |
+| 2 | The export in the application (A), writing one page per file, course data (CD) and their tests (V-2, V-4, V-5, V-7) | First |
+| 3 | Text (T), with embedded fonts, and bitmaps (B) | First |
 | 4 | Several pages per file, with views and Inkscape pages (L-6, L-7, V-8) | Later |
 | 5 | Symbol reuse, path merging, pattern brushes and compression (S-5 to S-7, S-10) | Later |
-| 6 | Fidelity against Skia and browser checks (F-1, F-5, V-3, V-6) | Later |
+| 6 | Firefox and WebKit (F-5, V-6) | Later |
 | 7 | The TypeScript port (P) | Later, in its own repository |
 
 ## Constraints
@@ -41,7 +41,7 @@ The target references only `Graphics2D`, so the porting application can translat
 | --- | --- | --- |
 | C-1 | The target is its own project, `src/MapModel/Map_Svg`, targeting `net10.0`. | Must |
 | C-2 | Its only project reference is `Graphics2D`. It references no Skia, GDI+, PdfSharp or Avalonia code and no package. | Must |
-| C-3 | Text measurement, color conversion, bitmap data, georeferencing and course data reach it only through `ITextMetrics`, `IColorConverter`, `IGraphicsBitmap` and plain values, passed in by the caller. | Must |
+| C-3 | Text measurement, font data, color conversion, bitmap data, georeferencing and course data reach it only through `ITextMetrics`, `IFontSubsetProvider`, `IColorConverter`, `IGraphicsBitmap` and plain values, passed in by the caller. | Must |
 | C-4 | It uses only C# constructs and .NET library calls that the map model already uses, so the porter needs no new rules for it. | Should |
 | C-5 | Number formatting is culture-independent: the target formats numbers with its own routine. | Must |
 | C-6 | Lookup tables are keyed by strings or by object identity, never by structs with custom equality. | Should |
@@ -55,13 +55,13 @@ flowchart LR
   subgraph T["Translated by the porter"]
     MapModel["MapModel<br/>Loads maps, draws them color by color"]
     MapSvg["Map_Svg (new)<br/>Writes compact SVG that keeps the map's structure"]
-    G2D["Graphics2D<br/>IGraphicsTarget, IStructuredGraphicsTarget,<br/>ITextMetrics, IColorConverter"]
+    G2D["Graphics2D<br/>IGraphicsTarget, IStructuredGraphicsTarget,<br/>ITextMetrics, IFontSubsetProvider, IColorConverter"]
     Swop["SwopColorConverter<br/>One file of PurplePenCore, with its data table"]
   end
   subgraph N["Stays in .NET"]
     Av["AvPurplePen<br/>Create SVG Files command and dialog"]
-    Core["PurplePenCore<br/>Lays out pages, runs the export, passes metrics,<br/>converter, georeferencing and course data"]
-    Skia["Map_SkiaStd<br/>Implements ITextMetrics"]
+    Core["PurplePenCore<br/>Lays out pages, runs the export, passes metrics, font subsets,<br/>converter, georeferencing and course data"]
+    Skia["Map_SkiaStd<br/>Implements ITextMetrics, opens font data"]
   end
   MapModel --> G2D
   MapSvg -- only reference --> G2D
@@ -159,7 +159,7 @@ The document describes the courses it draws, so that a reader can use it as an e
 
 ## Text
 
-Text stays text, placed with the same metrics the application uses, so the SVG and the bitmap export put every line in the same place.
+Text stays text, placed with the same metrics the application uses, so the SVG and the bitmap export put every line in the same place. It carries its fonts, so a browser draws it with the faces the map uses, whatever fonts the device has.
 
 | ID | Requirement | Level |
 | --- | --- | --- |
@@ -168,7 +168,11 @@ Text stays text, placed with the same metrics the application uses, so the SVG a
 | T-3 | Spaces are preserved, and text is escaped for XML. | Must |
 | T-4 | Underline and strikeout become text decorations. The Skia target does not draw underline yet. | May |
 | T-5 | Single-grapheme draws along a line, each under its own translation and rotation, merge into one text element with per-character positions and rotations when they belong to one object and share font and brush. The map draws line text grapheme by grapheme. | Should |
-| T-6 | Fonts are referenced by family name. Embedding font subsets needs font file access that no injected interface provides, so it waits for a later release. | Must |
+| T-6 | Every face the document draws is embedded as an `@font-face` rule in the style block, under the family name the map uses, holding a subset with only the glyphs drawn. Text elements keep the family name, so a tool that ignores `@font-face` finds an installed font of that name. | Must |
+| T-7 | The target collects the characters drawn in each face and asks for the subsets at the end of the document through `IFontSubsetProvider`, a new interface in `Graphics2D`. The application implements it: `Map_SkiaStd` already opens each face's font data for shaping, and PdfSharp's OpenType subsetter, which PDF export uses for its embedded subsets, cuts them. | Must |
+| T-8 | The fallback faces that Skia draws characters from, when the main face lacks them, are embedded too, so the browser draws the same glyphs. | Must |
+| T-9 | A face whose font file forbids embedding, in its `fsType` field, is referenced by name only. | Must |
+| T-10 | The rendering comparison (V-3) covers the text cases too, with a tolerance of their own for the way each system draws glyphs. | Must |
 
 ## Bitmaps
 
@@ -203,15 +207,15 @@ Size is the target's main design goal after the map structure: integer coordinat
 
 ## Fidelity and determinism
 
-The SVG must look like the Skia export and come out byte for byte the same on every run; the second property makes text baselines and the TypeScript comparison possible.
+The SVG must look in Chromium like Purple Pen's own renderings, and come out byte for byte the same on every run. The renderings decide correctness; the second property makes text baselines and the TypeScript comparison possible.
 
 | ID | Requirement | Level |
 | --- | --- | --- |
-| F-1 | Rasterized by the reference renderer, the SVG matches the Skia bitmap export of the same map, area and settings, compared with the existing `CompareBitmapBaseline` within a pixel tolerance. | Must |
+| F-1 | Rendered by Chromium, the SVG matches, within a pixel tolerance, the stored baseline image of the same drawing or map case: the images that the Skia tests compare against. | Must |
 | F-2 | The same input gives byte-identical output on every run, machine and platform: no time stamps; ids, class names and object numbers assigned in order of first use; nothing ordered by hash. | Must |
 | F-3 | The output is well-formed XML. It uses only `svg`, `g`, `defs`, `style`, `metadata`, `color-profile`, `view`, `path`, `circle`, `ellipse`, `use`, `clipPath`, `pattern`, `text` and `image`. References go through `xlink:href`, which SVG 1.1 tools need and browsers accept. Identity goes in `data-` attributes, and the tables go in the metadata, in the export's own XML namespace. Pages are also marked with Inkscape's own page elements, in Inkscape's namespace. | Must |
 | F-4 | Each page has the paper size of its page in PDF export's layout, in millimetres, turned for a landscape page, and its map fills the page's print rectangle at the course's print scale, so the page prints as the PDF page does. The root's width and height are those of the first page. | Must |
-| F-5 | Current Chromium, Firefox and WebKit display the output correctly, darken blending included. | Should |
+| F-5 | Current Firefox and WebKit display the output as Chromium does, darken blending included. | Should |
 | F-6 | Inkscape and Scribus open the output and read each color's CMYK values from it. This is checked by hand. | Must |
 
 ## Application integration
@@ -235,13 +239,14 @@ Every requirement above is checked in GitHub Actions on the `wip/` branch, excep
 | ID | Requirement | Level |
 | --- | --- | --- |
 | V-1 | A new NUnit project, `Map_Svg.Tests`, checks the SVG written for each drawing operation and structure call against expected text, including the errors of D-12. | Must |
-| V-2 | Baseline tests export a selected set of reference maps from the test folders and compare the SVG text with committed baselines. The set covers OCAD and OpenMapper maps, multi-colored point symbols, area patterns, text along lines, bitmaps, overprinted colors, a georeferenced map and a course with a map exchange. | Must |
-| V-3 | Fidelity tests rasterize the same exports with the reference renderer and compare them with the Skia bitmaps (F-1). | Must |
+| V-2 | Text baseline tests export a selected set of reference maps from the test folders and compare the SVG text with committed baselines, so that any change to the written SVG shows in review; the renderings (V-3) decide correctness. The set covers OCAD and OpenMapper maps, multi-colored point symbols, area patterns, text along lines, bitmaps, overprinted colors, a georeferenced map and a course with a map exchange. | Must |
+| V-3 | The rendering comparison draws the cases of `SimpleDrawingTests` and `RenderingTests` through the target, renders each SVG in Chromium through Playwright and compares the screenshot with the same `skia_render` baseline, as `RecordingGraphicsTargetTests` does for its target (F-1). It runs in one fixed Linux environment, with Chromium pinned by the Playwright version. | Must |
 | V-4 | Each baseline test exports twice and requires identical bytes. The baseline tests also run on Linux, so identity across platforms is checked, not assumed. Today's test job runs only on Windows on ARM. | Must |
 | V-5 | The job summary reports each reference map's SVG size, plain and gzip-compressed, so size changes show up in review. | Must |
-| V-6 | A browser check renders the reference SVGs in Chromium, Firefox and WebKit (F-5). | Should |
+| V-6 | A browser check renders the reference SVGs in Firefox and WebKit and compares them with Chromium's renderings (F-5). | Should |
 | V-7 | A structure test walks each reference export, traces every element to its map, color, symbol and object in the tables and every course object to its course and controls, and checks that an object drawn in several colors has the same number in all its runs (M-6, M-7, CD-2). | Must |
 | V-8 | A layout test exports a reference event into one file with several pages and checks that each map is defined once, that every page references its map and shows its own print area through its view, and that the document's own view box is the first page's (L-2 to L-7). | Must |
+| V-9 | A quick Linux workflow builds only the projects the current phase needs, runs that phase's tests with the rendering comparison, and keeps the written SVGs as a run artifact for checking by hand (F-6). The full run on the `wip/` branch stays the gate. | Should |
 
 ## Relation to the TypeScript port
 
@@ -253,7 +258,7 @@ The porting application translates `Graphics2D`, `MapModel` and `Map_Svg` from a
 | P-2 | DotSpatial is not translated. The port calls proj4js, the npm package [`proj4`](https://www.npmjs.com/package/proj4), which accepts Proj4 strings, in place of the `ProjectionUtil` calls that map import makes. The table of OCAD projection ids in `OcadToProj4Projection` translates as ordinary code. | Must |
 | P-3 | Values that pass through projection math are compared within a tolerance, since proj4js and DotSpatial compute them independently. | Must |
 | P-4 | `SwopColorConverter` lives in `PurplePenCore` and reads the embedded resource `swopsamples.dat`. The port needs it, with that data file, for its sRGB values to match. | Must |
-| P-5 | The comparison harness records every text metrics query of the .NET export and replays the answers to the TypeScript run, keeping measurement differences apart from translation errors. | Must |
+| P-5 | The comparison harness records every text metrics query and font subset of the .NET export and replays them to the TypeScript run, keeping measurement differences apart from translation errors. | Must |
 | P-6 | With metrics replayed, the TypeScript export of a reference map equals the .NET export byte for byte (F-2). The only allowed difference is one unit in a value whose last-bit rounding differs between the runtimes. | Must |
 
 ## Open decisions
@@ -262,8 +267,8 @@ Five choices remain open; none blocks starting on the target itself.
 
 | Decision | Options | Affects |
 | --- | --- | --- |
-| Reference renderer | A .NET rasterizer as a test-only dependency, or headless browsers, which would also cover F-5 | F-1, V-3, V-6 |
 | Requesting pattern brushes | A render option that the export sets, or a target capability saying its brushes are vectors | S-7 |
 | Quantization step for OpenMapper maps | A fixed 0.01 mm, or 0.001 mm chosen from the source format | S-1 |
 | Namespace of the tables | The fork's own, or Purple Pen's if the export goes upstream | M-7, CD-1, F-3 |
 | The WinForms application | Whether an offer to Purple Pen also needs the command in the WinForms application, if that is still what Purple Pen releases | A-1, C-8 |
+| Quick workflow | Its branch prefix, such as `svg/**`, and how the current phase picks the tests it runs | V-9 |
