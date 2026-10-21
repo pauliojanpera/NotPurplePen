@@ -4,16 +4,17 @@ Oct 21, 2026 · @Pauli
 
 ## Purpose and scope
 
-The SVG target is a new implementation of `IGraphicsTarget` that writes a map and its courses as compact SVG. The SVG is a map in its own right: every element traces back to the map object, symbol, color and map it came from, and the document carries the map's color table, symbol table and georeferencing. The target has two uses: an SVG export in the NotPurplePen application, built so that it can be offered to Purple Pen, and the drawing back end of a later TypeScript port of the map code.
+The SVG target is a new implementation of `IGraphicsTarget` that writes a map and its courses as compact SVG. The SVG is a map in its own right: every element traces back to the map object, symbol, color and map it came from, and the document carries the map's color table, symbol table and georeferencing, and the courses it draws. The target has two uses: an SVG export in the NotPurplePen application, built so that it can be offered to Purple Pen, and the drawing back end of a later TypeScript port of the map code.
 
 | In scope | Out of scope |
 | --- | --- |
 | The target, as its own project beside `Map_PDF` and `Map_SkiaStd` | Reading or importing SVG |
-| Calls through which the map code tells the target its maps, color runs and objects | Course semantics, such as control codes, legs and course lists |
-| An SVG export command with its own dialog in the Avalonia application | The WinForms application and GDI+ |
-| CMYK colors that Inkscape and Scribus read, beside sRGB for browsers | Copying a PDF base map as vectors, as PDF export does |
-| Tests and size reports in GitHub Actions | Display on screen inside the application |
-| Code that the porting application can translate | The porting application, which lives in its own repository |
+| Calls through which the map code tells the target its maps, color runs and objects | The WinForms application and GDI+ |
+| Course data: each course's controls and legs, and what each course object draws | Copying a PDF base map as vectors, as PDF export does |
+| An SVG export command with its own dialog in the Avalonia application | Display on screen inside the application |
+| CMYK colors that Inkscape and Scribus read, beside sRGB for browsers | The porting application, which lives in its own repository |
+| Tests and size reports in GitHub Actions | |
+| Code that the porting application can translate | |
 
 Levels below: **Must** is required in the release that the delivery plan gives it, **Should** is expected unless a stated reason prevents it, **May** is optional.
 
@@ -24,7 +25,7 @@ The first release is the SVG export: the quickest result anyone can use, and sma
 | Phase | Work | Release |
 | --- | --- | --- |
 | 1 | Drawing operations (D), map structure (M), color (COL), georeferencing (G), compactness S-1 to S-4, S-8, S-9 and S-11, determinism and validity (F-2 to F-4, F-6) | First |
-| 2 | The export in the application (A) and its tests (V-1, V-2, V-4, V-5, V-7, V-8) | First |
+| 2 | The export in the application (A), course data (CD) and their tests (V-1, V-2, V-4, V-5, V-7) | First |
 | 3 | Text (T) and bitmaps (B) | First |
 | 4 | Symbol reuse, path merging, pattern brushes and compression (S-5 to S-7, S-10) | Later |
 | 5 | Fidelity against Skia and browser checks (F-1, F-5, V-3, V-6) | Later |
@@ -38,13 +39,13 @@ The target references only `Graphics2D`, so the porting application can translat
 | --- | --- | --- |
 | C-1 | The target is its own project, `src/MapModel/Map_Svg`, targeting `net10.0`. | Must |
 | C-2 | Its only project reference is `Graphics2D`. It references no Skia, GDI+, PdfSharp or Avalonia code and no package. | Must |
-| C-3 | Text measurement, color conversion, bitmap data and georeferencing reach it only through `ITextMetrics`, `IColorConverter`, `IGraphicsBitmap` and plain values, passed in by the caller. | Must |
+| C-3 | Text measurement, color conversion, bitmap data, georeferencing and course data reach it only through `ITextMetrics`, `IColorConverter`, `IGraphicsBitmap` and plain values, passed in by the caller. | Must |
 | C-4 | It uses only C# constructs and .NET library calls that the map model already uses, so the porter needs no new rules for it. | Should |
 | C-5 | Number formatting is culture-independent: the target formats numbers with its own routine. | Must |
 | C-6 | Lookup tables are keyed by strings or by object identity, never by structs with custom equality. | Should |
 | C-7 | Every class and method has a header comment, and types are explicit instead of `var`, as the repository requires. | Must |
 | C-8 | The feature branch is rooted at `upstream/master`, so that it can be offered to Purple Pen as it stands. It is built and tested only in GitHub Actions, through a `wip/` branch rooted at `base` that merges it. | Must |
-| C-9 | The feature branch carries the target, the map code's structure calls and the Avalonia export together, since a feature must be reachable in the shipped application. | Must |
+| C-9 | The feature branch carries the target, the map code's structure calls, the course data and the Avalonia export together, since a feature must be reachable in the shipped application. | Must |
 | C-10 | Test baselines that this work moves are committed in the same branch. | Must |
 
 ```mermaid
@@ -57,7 +58,7 @@ flowchart LR
   end
   subgraph N["Stays in .NET"]
     Av["AvPurplePen<br/>Create SVG Files command and dialog"]
-    Core["PurplePenCore<br/>Lays out pages, runs the export,<br/>passes metrics, converter, georeferencing"]
+    Core["PurplePenCore<br/>Lays out pages, runs the export, passes metrics,<br/>converter, georeferencing and course data"]
     Skia["Map_SkiaStd<br/>Implements ITextMetrics"]
   end
   MapModel --> G2D
@@ -114,7 +115,7 @@ Colors keep the map's CMYK values. No browser supports CMYK colors in CSS ([MDN]
 | --- | --- | --- |
 | COL-1 | Under the CMYK color model, each style declares its color twice: first as plain sRGB, then as the same sRGB followed by `icc-color()` with the CMYK values. A reader that rejects the second declaration keeps the first. | Must |
 | COL-2 | The sRGB value comes from the converter for the chosen color model: `SwopColorConverter` for CMYK, `DefaultColorConverter` for RGB. Under the RGB model the styles carry sRGB only; the color table (M-7) keeps the CMYK values under either model. | Must |
-| COL-3 | `icc-color()` names one CMYK profile, declared once in the document, so that tools treat the values as CMYK. | Must |
+| COL-3 | `icc-color()` names a device CMYK profile, declared once in the document: the values are the map's own uncalibrated CMYK, and the document embeds or references no ICC profile. | Must |
 | COL-4 | CMYK values are written with the fewest digits that reproduce the values the map stores; OCAD's binary formats store half-percent steps. | Must |
 | COL-5 | A color with alpha below 1.0 gets a matching fill or stroke opacity; opaque colors carry no opacity. | Must |
 | COL-6 | sRGB values use the shortest hex notation, three digits when exact. | Should |
@@ -127,7 +128,18 @@ When the map has real-world coordinates, the document records them, so that a re
 | ID | Requirement | Level |
 | --- | --- | --- |
 | G-1 | When the map has real-world coordinates, the metadata records the affine transform from the document's map coordinates to real-world coordinates, computed with the `CoordinateMapper` that image export uses for world files. | Must |
-| G-2 | The metadata records the coordinate system: the map's EPSG code when it has one, otherwise its Proj4 string, otherwise its OCAD grid and zone id. | Must |
+| G-2 | The metadata records every identification of the coordinate system that the map has: its EPSG code, its Proj4 string and its OCAD grid and zone id. | Must |
+| G-3 | The table of OCAD grid ids in `OcadToProj4Projection` also gives the EPSG code of each grid that has one, so a map georeferenced by an OCAD grid id names its EPSG code too: OCAD grid 6005, ETRS-TM35FIN, is EPSG:3067. | Should |
+
+## Course data
+
+The document describes the courses it draws, so that a reader can use it as an event map: which controls each course visits, and which drawn object is which control or leg. None of this changes the drawing.
+
+| ID | Requirement | Level |
+| --- | --- | --- |
+| CD-1 | The metadata describes each course the document draws: its name, part and variation, its print scale, and its controls in order, each with its code, kind and position. | Must |
+| CD-2 | Each course object in the drawing carries what it draws: its kind and the controls of CD-1 it belongs to, one for a control circle, start, finish or control number, two for a leg. Objects that belong to no control, such as descriptions and special objects, carry their kind only. | Must |
+| CD-3 | `CourseLayout` records which map symbols each course object adds, and the export passes the target a lookup from those objects to their course attributes as plain strings. | Must |
 
 ## Text
 
@@ -184,7 +196,7 @@ The SVG must look like the Skia export and come out byte for byte the same on ev
 | F-3 | The output is well-formed XML. It uses only `svg`, `g`, `defs`, `style`, `metadata`, `color-profile`, `path`, `circle`, `ellipse`, `use`, `clipPath`, `pattern`, `text` and `image`. References go through `xlink:href`, which SVG 1.1 tools need and browsers accept. Identity goes in `data-` attributes, and the tables go in the metadata, in the export's own XML namespace. | Must |
 | F-4 | Each file is one page of PDF export's layout: the root's width and height are the page's paper size in millimetres, turned for a landscape page, and the map fills the page's print rectangle at the course's print scale, so the document prints as the PDF page does. | Must |
 | F-5 | Current Chromium, Firefox and WebKit display the output correctly, darken blending included. | Should |
-| F-6 | Inkscape and Scribus open the output and read each color's CMYK values from it. | Must |
+| F-6 | Inkscape and Scribus open the output and read each color's CMYK values from it. This is checked by hand. | Must |
 
 ## Application integration
 
@@ -202,18 +214,17 @@ An SVG export command, with a dialog of its own, writes pages laid out as PDF ex
 
 ## Verification
 
-Every requirement above is checked in GitHub Actions on the `wip/` branch; a requirement no test checks counts as unverified.
+Every requirement above is checked in GitHub Actions on the `wip/` branch, except F-6, which is checked by hand in Inkscape and Scribus; a requirement that nothing checks counts as unverified.
 
 | ID | Requirement | Level |
 | --- | --- | --- |
 | V-1 | A new NUnit project, `Map_Svg.Tests`, checks the SVG written for each drawing operation and structure call against expected text, including the errors of D-12. | Must |
-| V-2 | Baseline tests export a selected set of reference maps from the test folders and compare the SVG text with committed baselines. The set covers OCAD and OpenMapper maps, multi-colored point symbols, area patterns, text along lines, bitmaps, overprinted colors and a georeferenced map. | Must |
+| V-2 | Baseline tests export a selected set of reference maps from the test folders and compare the SVG text with committed baselines. The set covers OCAD and OpenMapper maps, multi-colored point symbols, area patterns, text along lines, bitmaps, overprinted colors, a georeferenced map and a course with a map exchange. | Must |
 | V-3 | Fidelity tests rasterize the same exports with the reference renderer and compare them with the Skia bitmaps (F-1). | Must |
 | V-4 | Each baseline test exports twice and requires identical bytes. The baseline tests also run on Linux, so identity across platforms is checked, not assumed. Today's test job runs only on Windows on ARM. | Must |
 | V-5 | The job summary reports each reference map's SVG size, plain and gzip-compressed, so size changes show up in review. | Must |
 | V-6 | A browser check renders the reference SVGs in Chromium, Firefox and WebKit (F-5). | Should |
-| V-7 | A Linux job opens a reference SVG in Inkscape and in Scribus from the command line, reads its colors back and compares their CMYK values with the map's (F-6). | Must |
-| V-8 | A structure test walks each reference export, traces every element to its map, color, symbol and object in the tables, and checks that an object drawn in several colors has the same number in all its runs (M-6, M-7). | Must |
+| V-7 | A structure test walks each reference export, traces every element to its map, color, symbol and object in the tables and every course object to its course and controls, and checks that an object drawn in several colors has the same number in all its runs (M-6, M-7, CD-2). | Must |
 
 ## Relation to the TypeScript port
 
@@ -230,14 +241,12 @@ The porting application translates `Graphics2D`, `MapModel` and `Map_Svg` from a
 
 ## Open decisions
 
-Seven choices remain open; none blocks starting on the target itself.
+Five choices remain open; none blocks starting on the target itself.
 
 | Decision | Options | Affects |
 | --- | --- | --- |
 | Reference renderer | A .NET rasterizer as a test-only dependency, or headless browsers, which would also cover F-5 | F-1, V-3, V-6 |
 | Requesting pattern brushes | A render option that the export sets, or a target capability saying its brushes are vectors | S-7 |
 | Quantization step for OpenMapper maps | A fixed 0.01 mm, or 0.001 mm chosen from the source format | S-1 |
-| CMYK profile | Which profile `icc-color()` names, such as the SWOP profile that also gives the sRGB values, and whether the document refers to it by name or by file | COL-3, V-7 |
-| Dialog layout | All settings in view, as in the PDF dialog, or the course list with the other settings behind an Advanced button, as in the Publish Courses dialog | A-1 |
-| Namespace of the tables | The fork's own, or Purple Pen's if the export goes upstream | M-7, F-3 |
+| Namespace of the tables | The fork's own, or Purple Pen's if the export goes upstream | M-7, CD-1, F-3 |
 | The WinForms application | Whether an offer to Purple Pen also needs the command in the WinForms application, if that is still what Purple Pen releases | A-1, C-8 |
