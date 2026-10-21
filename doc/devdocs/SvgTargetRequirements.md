@@ -14,24 +14,26 @@ The SVG target is a new implementation of `IGraphicsTarget` that writes maps and
 | Course data: each course's controls and legs, and what each course object draws | Copying a PDF base map as vectors, as PDF export does |
 | An SVG export command with its own dialog in the Avalonia application | Display on screen inside the application |
 | CMYK colors that Inkscape and Scribus read, beside sRGB for browsers | The porting application, which lives in its own repository |
-| Tests and size reports in GitHub Actions | |
+| Tests and size reports in GitHub Actions | Using the development loop for any other work |
+| A development loop for this feature, whose results a Claude session reads through git and the GitHub API | |
 | Code that the porting application can translate | |
 
 Levels below: **Must** is required in the release that the delivery plan gives it, **Should** is expected unless a stated reason prevents it, **May** is optional.
 
 ## Delivery
 
-The first release is the SVG export: the quickest result anyone can use, and small enough to offer to Purple Pen as it stands. It already writes the layout of maps and pages (L), one page per file, so later files keep the same shape. From the first phase on, the output is judged by how Chromium renders it against Purple Pen's own baseline images. Later releases put several pages in a file, make the output smaller and check it in Firefox and WebKit, and the TypeScript port builds on them. Several maps per file follow when Purple Pen supports several maps per event.
+The first release is the SVG export: the quickest result anyone can use, and small enough to offer to Purple Pen as it stands. It already writes the layout of maps and pages (L), one page per file, so later files keep the same shape. The development loop comes first, so that every later step is checked by it; from then on, the output is judged by how Chromium renders it against Purple Pen's own baseline images. Later releases put several pages in a file, make the output smaller and check it in Firefox and WebKit, and the TypeScript port builds on them. Several maps per file follow when Purple Pen supports several maps per event.
 
 | Phase | Work | Release |
 | --- | --- | --- |
-| 1 | Drawing operations (D), map structure (M), the layout of maps and pages (L-1 to L-5), color (COL), georeferencing (G), compactness S-1 to S-4, S-8, S-9 and S-11, fidelity, determinism and validity (F-1 to F-4, F-6), and the quick workflow and tests that check them (V-1, V-3, V-9) | First |
-| 2 | The export in the application (A), writing one page per file, course data (CD) and their tests (V-2, V-4, V-5, V-7) | First |
-| 3 | Text (T), with embedded fonts, and bitmaps (B) | First |
-| 4 | Several pages per file, with views and Inkscape pages (L-6, L-7, V-8) | Later |
-| 5 | Symbol reuse, path merging, pattern brushes and compression (S-5 to S-7, S-10) | Later |
-| 6 | Firefox and WebKit (F-5, V-6) | Later |
-| 7 | The TypeScript port (P) | Later, in its own repository |
+| 1 | The development loop (DL), before any code of the target | First |
+| 2 | Drawing operations (D), map structure (M), the layout of maps and pages (L-1 to L-5), color (COL), georeferencing (G), compactness S-1 to S-4, S-8, S-9 and S-11, fidelity, determinism and validity (F-1 to F-4, F-6), and the tests that check them (V-1, V-3) | First |
+| 3 | The export in the application (A), writing one page per file, course data (CD) and their tests (V-2, V-4, V-5, V-7) | First |
+| 4 | Text (T), with embedded fonts, and bitmaps (B) | First |
+| 5 | Several pages per file, with views and Inkscape pages (L-6, L-7, V-8) | Later |
+| 6 | Symbol reuse, path merging, pattern brushes and compression (S-5 to S-7, S-10) | Later |
+| 7 | Firefox and WebKit (F-5, V-6) | Later |
+| 8 | The TypeScript port (P) | Later, in its own repository |
 
 ## Constraints
 
@@ -246,7 +248,21 @@ Every requirement above is checked in GitHub Actions on the `wip/` branch, excep
 | V-6 | A browser check renders the reference SVGs in Firefox and WebKit and compares them with Chromium's renderings (F-5). | Should |
 | V-7 | A structure test walks each reference export, traces every element to its map, color, symbol and object in the tables and every course object to its course and controls, and checks that an object drawn in several colors has the same number in all its runs (M-6, M-7, CD-2). | Must |
 | V-8 | A layout test exports a reference event into one file with several pages and checks that each map is defined once, that every page references its map and shows its own print area through its view, and that the document's own view box is the first page's (L-2 to L-7). | Must |
-| V-9 | A quick Linux workflow builds only the projects the current phase needs, runs that phase's tests with the rendering comparison, and keeps the written SVGs as a run artifact for checking by hand (F-6). The full run on the `wip/` branch stays the gate. | Should |
+
+## Development loop
+
+Work on the SVG target, and no other work in the fork, is developed through a quick workflow of its own. A session pushes, the workflow builds and tests the current phase on Linux within minutes, and the session reads the result. Claude sessions in the cloud reach the GitHub API and git, but not the logs or artifacts of a workflow run, so everything a session needs comes back through those two channels. A change is finished only after the full run on a `wip/` branch.
+
+| ID | Requirement | Level |
+| --- | --- | --- |
+| DL-1 | The workflow runs on pushes to the SVG feature's own branch prefix, from branches rooted at `base` that merge the feature branch, and on demand for a feature branch, which it merges with `base` on the runner, as the Build workflow's dispatch input does. Nothing else in the fork triggers it. | Must |
+| DL-2 | It builds on Linux only the projects the current phase needs, caches the NuGet packages and the Playwright browser, and cancels its run in progress when a newer push to the same branch arrives. | Must |
+| DL-3 | It runs the current phase's tests together with the rendering comparison (V-3). | Must |
+| DL-4 | Each run pushes its results to a results branch of its own, which git fetches: the test report, each failure's message, the difference image of each failed rendering comparison, the written SVGs and the time each step took. Pushes made with the workflow's own token start no new runs, so the results cannot loop. | Must |
+| DL-5 | The run's check output carries the pass and fail counts and the first failures, and each failure is an annotation, so the verdict reads through the GitHub API without fetching anything. | Must |
+| DL-6 | The same files also go to a run artifact for downloading by hand, which includes the SVGs for the check in Inkscape and Scribus (F-6). | Must |
+| DL-7 | A session working on the SVG target pushes, follows the run through the GitHub API and reads the results branch. It counts a change as checked once the workflow passes, and as finished only after the full `wip/` run. | Must |
+| DL-8 | When the workflow exists, `AGENTS.NotPurplePen.md` gains one sentence: work on the SVG target follows this loop, and all other work is verified through `wip/` branches as before. | Must |
 
 ## Relation to the TypeScript port
 
@@ -271,4 +287,4 @@ Five choices remain open; none blocks starting on the target itself.
 | Quantization step for OpenMapper maps | A fixed 0.01 mm, or 0.001 mm chosen from the source format | S-1 |
 | Namespace of the tables | The fork's own, or Purple Pen's if the export goes upstream | M-7, CD-1, F-3 |
 | The WinForms application | Whether an offer to Purple Pen also needs the command in the WinForms application, if that is still what Purple Pen releases | A-1, C-8 |
-| Quick workflow | Its branch prefix, such as `svg/**`, and how the current phase picks the tests it runs | V-9 |
+| Development loop | Its branch prefix, such as `svg/**`, the names of its results branches, and how the current phase picks the tests it runs | DL-1, DL-3, DL-4 |
