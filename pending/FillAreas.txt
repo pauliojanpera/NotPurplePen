@@ -1,0 +1,4 @@
+CreateSolidBrush
+FillEllipse
+FillPolygon
+FillRectangle

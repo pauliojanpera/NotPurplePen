@@ -1,0 +1,7 @@
+CreatePen
+DrawArc
+DrawPolygon
+PopAntiAliasing
+PopTransform
+PushAntiAliasing
+PushTransform

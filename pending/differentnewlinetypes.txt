@@ -1,0 +1,14 @@
+CreateFont
+CreatePen
+CreateSolidBrush
+DrawEllipse
+DrawPath
+DrawPolyline
+DrawText
+FillEllipse
+FillPath
+FillPolygon
+PopAntiAliasing
+PopTransform
+PushAntiAliasing
+PushTransform

@@ -1,0 +1,8 @@
+CreatePen
+DrawBitmap
+DrawPolyline
+Intensity
+PopAntiAliasing
+PopTransform
+PushAntiAliasing
+PushTransform

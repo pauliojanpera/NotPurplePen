@@ -1,0 +1,9 @@
+CreatePen
+CreateSolidBrush
+DrawBitmap
+DrawPolyline
+FillPath
+PopAntiAliasing
+PopTransform
+PushAntiAliasing
+PushTransform

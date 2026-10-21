@@ -1,0 +1,7 @@
+CreateSolidBrush
+FillPath
+FillPolygon
+PopAntiAliasing
+PopTransform
+PushAntiAliasing
+PushTransform

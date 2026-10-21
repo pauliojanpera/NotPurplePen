@@ -1,0 +1,7 @@
+CreatePen
+CreateSolidBrush
+DrawPath
+DrawPolyline
+FillPolygon
+PopAntiAliasing
+PushAntiAliasing

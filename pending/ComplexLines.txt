@@ -1,0 +1,4 @@
+CreatePen
+DrawArc
+DrawEllipse
+DrawRectangle

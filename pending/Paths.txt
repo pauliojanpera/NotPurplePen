@@ -1,0 +1,6 @@
+CreatePath
+CreatePen
+CreateSolidBrush
+DrawPath
+FillPath
+PushTransform

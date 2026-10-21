@@ -1,0 +1,4 @@
+CreateSolidBrush
+FillPath
+PopAntiAliasing
+PushAntiAliasing

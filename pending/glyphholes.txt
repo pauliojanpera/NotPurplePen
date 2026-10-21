@@ -1,0 +1,9 @@
+CreatePath
+CreateSolidBrush
+FillPath
+PopAntiAliasing
+PopClip
+PopTransform
+PushAntiAliasing
+PushClip
+PushTransform

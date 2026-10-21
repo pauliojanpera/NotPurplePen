@@ -1,0 +1,10 @@
+CreateFont
+CreatePen
+CreateSolidBrush
+DrawLine
+DrawPolyline
+DrawText
+PopAntiAliasing
+PopTransform
+PushAntiAliasing
+PushTransform

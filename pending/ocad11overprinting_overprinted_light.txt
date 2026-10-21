@@ -1,0 +1,7 @@
+CreateSolidBrush
+FillPolygon
+Intensity
+PopAntiAliasing
+PopBlending
+PushAntiAliasing
+PushBlending

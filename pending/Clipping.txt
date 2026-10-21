@@ -1,0 +1,8 @@
+CreatePath
+CreatePen
+CreateSolidBrush
+DrawEllipse
+FillRectangle
+PopClip
+PushClip
+PushTransform

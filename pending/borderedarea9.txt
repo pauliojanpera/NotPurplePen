@@ -1,0 +1,14 @@
+CreatePath
+CreatePen
+CreateSolidBrush
+DrawPath
+DrawPolyline
+FillEllipse
+FillPath
+FillPolygon
+PopAntiAliasing
+PopClip
+PopTransform
+PushAntiAliasing
+PushClip
+PushTransform

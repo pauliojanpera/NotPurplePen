@@ -1,0 +1,193 @@
+case	calls
+aiimport_light	CreateFont, CreatePath, CreatePen, CreateSolidBrush, DrawLine, DrawPath, DrawPolygon, DrawText, FillPath, FillPolygon, Intensity, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+aiimport	CreateFont, CreatePath, CreatePen, CreateSolidBrush, DrawLine, DrawPath, DrawPolygon, DrawText, FillPath, FillPolygon, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+alllinetext	CreateFont, CreatePen, CreateSolidBrush, DrawPolyline, DrawText, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+angledashes9	CreatePen, DrawPolyline, PopAntiAliasing, PushAntiAliasing
+arialnarrow	CreateFont, CreateSolidBrush, DrawText, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+badpointyends	CreatePen, CreateSolidBrush, DrawPath, FillPolygon, PopAntiAliasing, PushAntiAliasing
+Bitmap	DrawBitmap
+BitmapPart	DrawBitmap
+bizzarro_dash11	CreatePen, DrawPolyline, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+borderedarea9	CreatePath, CreatePen, CreateSolidBrush, DrawPath, DrawPolyline, FillEllipse, FillPath, FillPolygon, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+Cambria	CreateFont, CreateSolidBrush, DrawText, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+Cambriabold	CreateFont, CreateSolidBrush, DrawText, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+charspace	CreateFont, CreatePen, CreateSolidBrush, DrawPolyline, DrawText, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+Clipping	CreatePath, CreatePen, CreateSolidBrush, DrawEllipse, FillRectangle, PopClip, PushClip, PushTransform
+clouds	CreateFont, CreatePath, CreatePen, CreateSolidBrush, DrawEllipse, DrawLine, DrawPath, DrawPolygon, DrawPolyline, DrawText, FillEllipse, FillPath, FillPolygon, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+clouds11	CreateFont, CreatePath, CreatePen, CreateSolidBrush, DrawEllipse, DrawLine, DrawPath, DrawPolygon, DrawPolyline, DrawText, FillEllipse, FillPath, FillPolygon, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+combospace	CreateFont, CreatePen, CreateSolidBrush, DrawPolyline, DrawText, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+ComplexLines	CreatePen, DrawArc, DrawEllipse, DrawRectangle
+corner_ends	CreatePen, DrawPath, DrawPolygon, DrawPolyline, PopAntiAliasing, PushAntiAliasing
+corner_ends9	CreatePen, DrawPath, DrawPolygon, DrawPolyline, PopAntiAliasing, PushAntiAliasing
+cornerglyphs6	CreatePen, DrawPolyline, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+cornerglyphs9	CreatePen, DrawPolyline, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+cutareaborder9	CreatePen, CreateSolidBrush, DrawPath, DrawPolyline, FillEllipse, FillPath, FillPolygon, PopAntiAliasing, PushAntiAliasing
+cutcircles	CreatePen, DrawArc, DrawPolygon, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+cutdoublesides6	CreatePen, DrawPath, DrawPolyline, PopAntiAliasing, PushAntiAliasing
+cutdoublesides9	CreatePen, DrawPath, DrawPolyline, PopAntiAliasing, PushAntiAliasing
+dashlengths6	CreatePen, DrawPolyline, PopAntiAliasing, PushAntiAliasing
+dashlengths9	CreatePen, DrawPolyline, PopAntiAliasing, PushAntiAliasing
+dashline	CreateFont, CreatePen, CreateSolidBrush, DrawPolyline, DrawText, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+dashline9	CreateFont, CreatePen, CreateSolidBrush, DrawPolyline, DrawText, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+dashmin	CreatePen, DrawPolyline, PopAntiAliasing, PushAntiAliasing
+dbldashlengths7	CreatePen, DrawPolyline, PopAntiAliasing, PushAntiAliasing
+dbldashlengths9	CreatePen, DrawPolyline, PopAntiAliasing, PushAntiAliasing
+decrease	CreatePen, CreateSolidBrush, DrawEllipse, DrawPath, DrawPolyline, FillEllipse, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+decreasesymbols	CreatePen, DrawPolyline, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+decreasesymbols6	CreatePen, DrawPolyline, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+deleteditems	CreatePen, DrawPolyline, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+differentnewlinetypes	CreateFont, CreatePen, CreateSolidBrush, DrawEllipse, DrawPath, DrawPolyline, DrawText, FillEllipse, FillPath, FillPolygon, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+doublelines6	CreatePen, CreateSolidBrush, DrawPolyline, FillPolygon, PopAntiAliasing, PushAntiAliasing
+doublelines9	CreatePen, CreateSolidBrush, DrawPolyline, FillPolygon, PopAntiAliasing, PushAntiAliasing
+euclid_dash11	CreatePen, DrawPolyline, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+fences	CreateFont, CreatePen, CreateSolidBrush, DrawPolyline, DrawText, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+fences9	CreateFont, CreatePen, CreateSolidBrush, DrawPolyline, DrawText, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+FillAreas	CreateSolidBrush, FillEllipse, FillPolygon, FillRectangle
+fontfallback	CreateFont, CreateSolidBrush, DrawText, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+frametext1	CreateFont, CreatePen, CreateSolidBrush, DrawPolyline, DrawText, DrawTextOutline, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+frametext2	CreateFont, CreatePen, CreateSolidBrush, DrawLine, DrawPolyline, DrawText, FillRectangle, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+frametext3	CreateFont, CreatePen, CreateSolidBrush, DrawPolyline, DrawText, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+framing_ocad6	CreateFont, CreatePen, CreateSolidBrush, DrawPolyline, DrawText, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+framing_ocad7	CreateFont, CreatePen, CreateSolidBrush, DrawPolyline, DrawText, DrawTextOutline, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+framing_ocad8	CreateFont, CreatePen, CreateSolidBrush, DrawPolyline, DrawText, DrawTextOutline, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+framingline-test	CreatePen, DrawPath, DrawPolyline, PopAntiAliasing, PushAntiAliasing
+framingline-test9	CreatePen, DrawPath, DrawPolyline, PopAntiAliasing, PushAntiAliasing
+FtCasey	CreateFont, CreatePen, CreateSolidBrush, DrawEllipse, DrawPath, DrawPolygon, DrawPolyline, DrawText, FillEllipse, FillPath, FillPolygon, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+glyphholes	CreatePath, CreateSolidBrush, FillPath, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+glyphholes9	CreatePath, CreateSolidBrush, FillPath, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+glyphs9	CreatePen, CreateSolidBrush, DrawEllipse, DrawPath, DrawPolygon, DrawPolyline, FillEllipse, FillPath, FillPolygon, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+graphicobjects9_light	CreatePath, CreatePen, CreateSolidBrush, DrawPath, DrawPolygon, DrawPolyline, FillPath, Intensity, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+graphicobjects9	CreatePath, CreatePen, CreateSolidBrush, DrawPath, DrawPolygon, DrawPolyline, FillPath, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+hiddensymbols	CreateFont, CreatePen, CreateSolidBrush, DrawPolyline, DrawText, FillPolygon, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+hiddensymbols9	CreateFont, CreatePen, CreateSolidBrush, DrawPolyline, DrawText, FillPolygon, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+holes	CreatePath, CreatePen, CreateSolidBrush, DrawLine, FillEllipse, FillPath, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+holes9	CreatePath, CreatePen, CreateSolidBrush, DrawLine, FillEllipse, FillPath, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+irregular1	CreateSolidBrush, FillEllipse, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+irregular2	CreateSolidBrush, FillEllipse, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+irregular3	CreatePath, CreatePen, CreateSolidBrush, DrawPolygon, FillEllipse, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+irregular4	CreateSolidBrush, FillEllipse, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+isomarea_light	CreatePath, CreatePen, CreateSolidBrush, DrawLine, DrawPolyline, FillEllipse, FillPolygon, Intensity, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+isomarea_nopatbm_light	CreatePath, CreatePen, CreateSolidBrush, DrawLine, DrawPolyline, FillEllipse, FillPolygon, Intensity, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+isomarea_nopatbm	CreatePath, CreatePen, CreateSolidBrush, DrawLine, DrawPolyline, FillEllipse, FillPolygon, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+isomarea	CreatePath, CreatePen, CreateSolidBrush, DrawLine, DrawPolyline, FillEllipse, FillPolygon, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+isomarea9_light	CreatePath, CreatePen, CreateSolidBrush, DrawLine, DrawPolyline, FillEllipse, FillPolygon, Intensity, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+isomarea9	CreatePath, CreatePen, CreateSolidBrush, DrawLine, DrawPolyline, FillEllipse, FillPolygon, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+isomareabug_nopatbm	CreatePath, CreatePen, CreateSolidBrush, DrawPolyline, FillPolygon, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+isomareabug	CreatePath, CreatePen, CreateSolidBrush, DrawPolyline, FillPolygon, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+isomlines_light	CreatePen, CreateSolidBrush, DrawPolyline, FillEllipse, FillPolygon, Intensity, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+isomlines	CreatePen, CreateSolidBrush, DrawPolyline, FillEllipse, FillPolygon, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+isomlines9_light	CreatePen, CreateSolidBrush, DrawPolyline, FillEllipse, FillPolygon, Intensity, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+isomlines9	CreatePen, CreateSolidBrush, DrawPolyline, FillEllipse, FillPolygon, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+isompoints_9	CreateFont, CreatePen, CreateSolidBrush, DrawEllipse, DrawPath, DrawPolygon, DrawPolyline, FillEllipse, FillPath, FillPolygon, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+isompoints_light	CreateFont, CreatePen, CreateSolidBrush, DrawEllipse, DrawPath, DrawPolygon, DrawPolyline, FillEllipse, FillPath, FillPolygon, Intensity, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+isompoints	CreateFont, CreatePen, CreateSolidBrush, DrawEllipse, DrawPath, DrawPolygon, DrawPolyline, FillEllipse, FillPath, FillPolygon, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+justify	CreateFont, CreatePen, CreateSolidBrush, DrawPolyline, DrawText, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+kern_text_outline	CreateFont, CreatePen, CreateSolidBrush, DrawPolyline, DrawText, DrawTextOutline, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+layout_objects11_light	CreateFont, CreatePen, CreateSolidBrush, DrawPath, DrawPolyline, DrawText, FillPath, FillPolygon, Intensity, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+layout_objects11	CreateFont, CreatePen, CreateSolidBrush, DrawPath, DrawPolyline, DrawText, FillPath, FillPolygon, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+layout_objects12_light	CreateFont, CreatePen, CreateSolidBrush, DrawPath, DrawPolyline, DrawText, FillPath, FillPolygon, Intensity, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+layout_objects12	CreateFont, CreatePen, CreateSolidBrush, DrawPath, DrawPolyline, DrawText, FillPath, FillPolygon, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+layoutbitmap11_light	CreatePen, DrawPolyline, Intensity, PopAntiAliasing, PushAntiAliasing
+layoutbitmap11	CreatePen, DrawPolyline, PopAntiAliasing, PushAntiAliasing
+linegaps10	CreatePen, CreateSolidBrush, DrawPath, DrawPolyline, FillEllipse, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+linetext_6	CreateFont, CreatePen, CreateSolidBrush, DrawPolyline, DrawText, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+linetext_9	CreateFont, CreatePen, CreateSolidBrush, DrawPolyline, DrawText, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+linetext_mid	CreateFont, CreatePen, CreateSolidBrush, DrawPolyline, DrawText, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+linetext_top	CreateFont, CreatePen, CreateSolidBrush, DrawPolyline, DrawText, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+linetext2_6	CreateFont, CreatePen, CreateSolidBrush, DrawPolyline, DrawText, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+linetext2_9	CreateFont, CreatePen, CreateSolidBrush, DrawPolyline, DrawText, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+linetext2_mid	CreateFont, CreatePen, CreateSolidBrush, DrawPolyline, DrawText, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+linetextspacing	CreateFont, CreatePen, CreateSolidBrush, DrawPath, DrawPolyline, DrawText, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+lksamm1	CreateFont, CreatePath, CreatePen, CreateSolidBrush, DrawEllipse, DrawLine, DrawPath, DrawPolygon, DrawPolyline, DrawText, FillEllipse, FillPath, FillPolygon, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+lksamm11_1	CreateFont, CreatePath, CreatePen, CreateSolidBrush, DrawEllipse, DrawLine, DrawPath, DrawPolygon, DrawPolyline, DrawText, FillEllipse, FillPath, FillPolygon, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+lksamm11_3	CreateFont, CreatePath, CreatePen, CreateSolidBrush, DrawEllipse, DrawLine, DrawPath, DrawPolygon, DrawPolyline, DrawText, FillEllipse, FillPath, FillPolygon, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+lksamm11_4	CreateFont, CreatePath, CreatePen, CreateSolidBrush, DrawEllipse, DrawLine, DrawPath, DrawPolyline, DrawText, FillEllipse, FillPath, FillPolygon, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+lksamm12_1	CreateFont, CreatePath, CreatePen, CreateSolidBrush, DrawEllipse, DrawLine, DrawPath, DrawPolygon, DrawPolyline, DrawText, FillEllipse, FillPath, FillPolygon, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+lksamm12_3	CreateFont, CreatePath, CreatePen, CreateSolidBrush, DrawEllipse, DrawLine, DrawPath, DrawPolygon, DrawPolyline, DrawText, FillEllipse, FillPath, FillPolygon, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+lksamm12_4	CreateFont, CreatePath, CreatePen, CreateSolidBrush, DrawEllipse, DrawLine, DrawPath, DrawPolyline, DrawText, FillEllipse, FillPath, FillPolygon, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+lksamm3	CreateFont, CreatePath, CreatePen, CreateSolidBrush, DrawEllipse, DrawLine, DrawPath, DrawPolygon, DrawPolyline, DrawText, FillEllipse, FillPath, FillPolygon, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+lksamm4	CreateFont, CreatePath, CreatePen, CreateSolidBrush, DrawEllipse, DrawLine, DrawPath, DrawPolyline, DrawText, FillEllipse, FillPath, FillPolygon, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+lksamm9_1	CreateFont, CreatePath, CreatePen, CreateSolidBrush, DrawEllipse, DrawLine, DrawPath, DrawPolygon, DrawPolyline, DrawText, FillEllipse, FillPath, FillPolygon, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+lksamm9_3	CreateFont, CreatePath, CreatePen, CreateSolidBrush, DrawEllipse, DrawLine, DrawPath, DrawPolygon, DrawPolyline, DrawText, FillEllipse, FillPath, FillPolygon, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+lksamm9_4	CreateFont, CreatePath, CreatePen, CreateSolidBrush, DrawEllipse, DrawLine, DrawPath, DrawPolyline, DrawText, FillEllipse, FillPath, FillPolygon, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+LordHill	CreateFont, CreatePath, CreatePen, CreateSolidBrush, DrawEllipse, DrawLine, DrawPath, DrawPolygon, DrawPolyline, DrawText, FillEllipse, FillPath, FillPolygon, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+LordHill11	CreateFont, CreatePath, CreatePen, CreateSolidBrush, DrawEllipse, DrawLine, DrawPath, DrawPolygon, DrawPolyline, DrawText, FillEllipse, FillPath, FillPolygon, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+MagNorthArrowBug	CreateFont, CreatePen, CreateSolidBrush, DrawPolyline, DrawText, FillPolygon, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+mainglyph7	CreatePen, DrawPath, DrawPolyline, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+mainglyph9	CreatePen, DrawPath, DrawPolyline, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+marymoor	CreateFont, CreatePath, CreatePen, CreateSolidBrush, DrawEllipse, DrawLine, DrawPath, DrawPolygon, DrawPolyline, DrawText, FillEllipse, FillPath, FillPolygon, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+marymoor11_lowerlayers	CreatePath, CreatePen, CreateSolidBrush, DrawPolygon, FillEllipse, FillPath, FillPolygon, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+marymoor11_upperlayers	CreateFont, CreatePath, CreatePen, CreateSolidBrush, DrawEllipse, DrawLine, DrawPath, DrawPolygon, DrawPolyline, DrawText, FillEllipse, FillPath, FillPolygon, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+marymoor11	CreateFont, CreatePath, CreatePen, CreateSolidBrush, DrawEllipse, DrawLine, DrawPath, DrawPolygon, DrawPolyline, DrawText, FillEllipse, FillPath, FillPolygon, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+max2glyph7	CreatePen, CreateSolidBrush, DrawPolyline, FillEllipse, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+max2glyph9	CreatePen, CreateSolidBrush, DrawPolyline, FillEllipse, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+midaligntext10	CreateFont, CreatePen, CreateSolidBrush, DrawPolyline, DrawText, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+missingcolor	CreatePath, CreatePen, CreateSolidBrush, DrawLine, DrawPath, DrawPolyline, FillEllipse, FillPath, FillPolygon, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+multimainglyph7	CreatePen, DrawPath, DrawPolyline, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+multimainglyph9	CreatePen, DrawPath, DrawPolyline, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+multisymonedash	CreatePen, DrawPolyline, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+newlines	CreateFont, CreatePen, CreateSolidBrush, DrawPolyline, DrawText, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+ocad11overprinting_overprinted_light	CreateSolidBrush, FillPolygon, Intensity, PopAntiAliasing, PopBlending, PushAntiAliasing, PushBlending
+ocad11overprinting_overprinted	CreateSolidBrush, FillPolygon, PopAntiAliasing, PopBlending, PushAntiAliasing, PushBlending
+ocad11templatealign	CreatePath, CreatePen, CreateSolidBrush, DrawPolygon, DrawPolyline, FillEllipse, FillPath, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+oddfenceends	CreatePen, DrawPolyline, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+offsetpattern_nopatbm	CreatePath, CreatePen, CreateSolidBrush, DrawEllipse, DrawPath, DrawPolyline, FillEllipse, FillPath, FillPolygon, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+offsetpattern	CreatePath, CreatePen, CreateSolidBrush, DrawEllipse, DrawPath, DrawPolyline, FillEllipse, FillPath, FillPolygon, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+offsetpatternrot_nopatbm	CreatePath, CreatePen, CreateSolidBrush, DrawEllipse, DrawPath, DrawPolyline, FillEllipse, FillPath, FillPolygon, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+offsetpatternrot	CreatePath, CreatePen, CreateSolidBrush, DrawEllipse, DrawPath, DrawPolyline, FillEllipse, FillPath, FillPolygon, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+offsetpatternrot2_nopatbm	CreatePath, CreatePen, CreateSolidBrush, DrawPolygon, FillEllipse, FillPolygon, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+offsetpatternrot2	CreatePath, CreatePen, CreateSolidBrush, DrawPolygon, FillEllipse, FillPolygon, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+paraindent6	CreateFont, CreatePen, CreateSolidBrush, DrawPolyline, DrawText, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+paraindent9	CreateFont, CreatePen, CreateSolidBrush, DrawPolyline, DrawText, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+paraspacing	CreateFont, CreatePen, CreateSolidBrush, DrawPolyline, DrawText, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+paraspacing9	CreateFont, CreatePen, CreateSolidBrush, DrawPolyline, DrawText, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+Paths	CreatePath, CreatePen, CreateSolidBrush, DrawPath, FillPath, PushTransform
+PatternBrush	CreatePatternBrush, CreatePen, DrawEllipse, DrawLine, FillPolygon
+PenistoneHill	CreateFont, CreatePath, CreatePen, CreateSolidBrush, DrawLine, DrawPath, DrawPolyline, DrawText, FillEllipse, FillPath, FillPolygon, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+pointyends6	CreatePen, CreateSolidBrush, DrawPath, DrawPolyline, FillPolygon, PopAntiAliasing, PushAntiAliasing
+pointyends9	CreatePen, CreateSolidBrush, DrawPath, DrawPolyline, FillPolygon, PopAntiAliasing, PushAntiAliasing
+punchbox11	CreateFont, CreatePen, CreateSolidBrush, DrawLine, DrawPath, DrawText, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+punchbox9	CreateFont, CreatePen, CreateSolidBrush, DrawLine, DrawPath, DrawText, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+punchboxbug	CreateFont, CreatePath, CreatePen, CreateSolidBrush, DrawEllipse, DrawLine, DrawPath, DrawPolygon, DrawPolyline, DrawText, FillEllipse, FillPath, FillPolygon, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+rectanglesymbols	CreatePen, DrawPath, DrawPolyline, PopAntiAliasing, PushAntiAliasing
+recursivetempl	CreatePath, CreateSolidBrush, FillEllipse, FillPath, FillPolygon, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+RobotoTest	CreateFont, CreatePen, CreateSolidBrush, DrawEllipse, DrawPath, DrawPolygon, DrawPolyline, DrawText, FillEllipse, FillPolygon, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+rotarea-test	CreatePath, CreatePen, CreateSolidBrush, DrawLine, DrawPolyline, FillEllipse, FillPolygon, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+rotarea-test9	CreatePath, CreatePen, CreateSolidBrush, DrawLine, DrawPolyline, FillEllipse, FillPolygon, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+RotatedPatternBrush	CreatePatternBrush, CreatePen, DrawEllipse, DrawLine, FillPolygon
+secgaponly6	CreatePen, DrawPolyline, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+secgaponly9	CreatePen, DrawPolyline, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+secglyph7	CreatePen, CreateSolidBrush, DrawPolyline, FillEllipse, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+secglyph9	CreatePen, CreateSolidBrush, DrawPolyline, FillEllipse, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+shortfences	CreatePen, DrawPolyline, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+SimpleLines	CreatePen, DrawLine, DrawPolygon, DrawPolyline, PopAntiAliasing, PushAntiAliasing
+simpletext_light	CreateFont, CreatePen, CreateSolidBrush, DrawPolyline, DrawText, Intensity, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+simpletext	CreateFont, CreatePen, CreateSolidBrush, DrawPolyline, DrawText, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+simpletext9_light	CreateFont, CreatePen, CreateSolidBrush, DrawPolyline, DrawText, Intensity, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+simpletext9	CreateFont, CreatePen, CreateSolidBrush, DrawPolyline, DrawText, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+startendglyph7	CreatePen, DrawPath, DrawPolyline, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+startendglyph9	CreatePen, DrawPath, DrawPolyline, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+tabbedtext	CreateFont, CreatePen, CreateSolidBrush, DrawPolyline, DrawText, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+teanwest	CreateFont, CreatePath, CreatePen, CreateSolidBrush, DrawEllipse, DrawLine, DrawPath, DrawPolygon, DrawPolyline, DrawText, FillEllipse, FillPath, FillPolygon, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+teanwest11	CreateFont, CreatePath, CreatePen, CreateSolidBrush, DrawEllipse, DrawLine, DrawPath, DrawPolygon, DrawPolyline, DrawText, FillEllipse, FillPath, FillPolygon, PopAntiAliasing, PopClip, PopTransform, PushAntiAliasing, PushClip, PushTransform
+template_fraction1	CreateSolidBrush, FillPath, PopAntiAliasing, PushAntiAliasing
+template_fraction2	CreatePen, DrawPolyline, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+template_light	CreatePen, CreateSolidBrush, DrawBitmap, DrawPolyline, FillPath, Intensity, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+template	CreatePen, CreateSolidBrush, DrawBitmap, DrawPolyline, FillPath, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+template2_light	CreatePen, DrawBitmap, DrawPolyline, Intensity, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+template2	CreatePen, DrawBitmap, DrawPolyline, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+templatehide_light	CreatePen, CreateSolidBrush, DrawPolyline, FillPath, Intensity, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+templatehide	CreatePen, CreateSolidBrush, DrawPolyline, FillPath, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+testlogo	CreatePen, DrawBitmap, DrawPolyline, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+Text	CreateFont, CreatePen, CreateSolidBrush, DrawText, DrawTextOutline, PopTransform, PushAntiAliasing, PushTransform
+textnarrowwrap	CreateFont, CreateSolidBrush, DrawText, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+textpoint10	CreateFont, CreatePen, CreateSolidBrush, DrawPolyline, DrawText, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+topaligntext10	CreateFont, CreatePen, CreateSolidBrush, DrawPolyline, DrawText, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+underlinetext	CreateFont, CreatePen, CreateSolidBrush, DrawLine, DrawPolyline, DrawText, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+wholestructure	CreateSolidBrush, FillPath, FillPolygon, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+wholestructure2	CreatePen, CreateSolidBrush, DrawEllipse, DrawPolyline, FillEllipse, FillPath, FillPolygon, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+wholestructure3	CreateSolidBrush, FillPath, FillPolygon, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+wholestructure4	CreatePen, CreateSolidBrush, DrawEllipse, DrawPolyline, FillEllipse, FillPath, FillPolygon, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+wordspace	CreateFont, CreatePen, CreateSolidBrush, DrawPolyline, DrawText, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+zeroglyph6	CreatePen, CreateSolidBrush, DrawEllipse, DrawPolygon, DrawPolyline, FillEllipse, FillPolygon, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform
+zeroglyph9	CreatePen, CreateSolidBrush, DrawEllipse, DrawPolygon, DrawPolyline, FillEllipse, FillPolygon, PopAntiAliasing, PopTransform, PushAntiAliasing, PushTransform

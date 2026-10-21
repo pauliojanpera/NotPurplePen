@@ -1,0 +1,5 @@
+CreatePatternBrush
+CreatePen
+DrawEllipse
+DrawLine
+FillPolygon

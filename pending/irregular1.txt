@@ -1,0 +1,6 @@
+CreateSolidBrush
+FillEllipse
+PopAntiAliasing
+PopTransform
+PushAntiAliasing
+PushTransform
