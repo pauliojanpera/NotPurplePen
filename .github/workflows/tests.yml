@@ -277,7 +277,9 @@ jobs:
     #
     # A machine that differs stops the tests, unless the run was started by hand
     # with machine_check set to report: the differences are then warnings, and
-    # the tests show which baselines they move.
+    # the tests show which baselines they move. Either way the log carries the
+    # record as that machine has it, in the file's own form, to replace the file
+    # with once the baselines hold on it.
     #
     # Of the faces the tests ask for, the image carries most; ci/fonts.json holds
     # the rest, the ones no Windows installation has, and only those are
@@ -424,7 +426,10 @@ jobs:
             $machineDifferences['windows'] = "is '$windows', required '$($required.windows)'"
         }
 
-        # Then the faces the tests take from it.
+        # Then the faces the tests take from it, each as this machine has it: a
+        # file that matches its record is the recorded entry, and one that does
+        # not is read again.
+        $machineFonts = New-Object System.Collections.Generic.List[object]
         foreach ($one in $required.systemFonts) {
             $path = Join-Path $fontDir $one.file
             if (-not (Test-Path $path)) {
@@ -432,10 +437,19 @@ jobs:
                 continue
             }
             $hash = (Get-FileHash $path -Algorithm SHA256).Hash
-            if ($hash -ne $one.sha256) {
-                $families = ($one.faces | ForEach-Object { $_.family }) -join ', '
-                $machineDifferences[$one.file] = "($families) hashes to $hash, recorded as $($one.sha256)"
+            if ($hash -eq $one.sha256) {
+                $machineFonts.Add($one)
+                continue
             }
+            $families = ($one.faces | ForEach-Object { $_.family }) -join ', '
+            $machineDifferences[$one.file] = "($families) hashes to $hash, recorded as $($one.sha256)"
+            $machineFonts.Add([pscustomobject]@{
+                file = $one.file
+                sha256 = $hash
+                faces = @(Read-Faces (Get-Item $path) 'machine' | ForEach-Object {
+                    [pscustomobject]@{ family = $_.Family; style = $_.Style; version = $_.Version }
+                })
+            })
         }
 
         # And the store against what it is declared to hold.
@@ -465,6 +479,16 @@ jobs:
         Write-Differences $machineDifferences 'The machine is not what the tests require of it (ci/environment.json):'
         Write-Differences $storeDifferences 'The store is not the one ci/fonts.json declares:'
 
+        # The record that replaces ci/environment.json once the baselines hold on
+        # this machine, folded away in the log.
+        if ($machineDifferences.Count) {
+            "::group::ci/environment.json as this machine has it"
+            [pscustomobject]@{ description = $required.description; windows = $windows; systemFonts = $machineFonts } |
+                ConvertTo-Json -Depth 5
+            "::endgroup::"
+            ""
+        }
+
         # A verdict goes on the run's page as an annotation, where it is read
         # without opening the log; an exception would leave there only an exit
         # code.
@@ -477,12 +501,14 @@ jobs:
             if ($env:MACHINE_CHECK -ne 'report') {
                 "Rendering compares against images made on a machine that had all of these. To see"
                 "which baselines the differences move, run this workflow by hand with machine_check"
-                "set to report; then re-record those baselines and update ci/environment.json."
+                "set to report; then re-record the baselines they move, if any, and replace"
+                "ci/environment.json with the record above."
                 "::error title=Stopped on a machine the tests do not expect::$verdict"
                 exit 1
             }
             "::warning title=Testing on a machine the tests do not expect::$verdict"
             "Testing anyway, as this run was started to report the differences rather than stop at them."
+            "If the tests pass here, the record above replaces ci/environment.json."
         }
         else {
             "The machine is what the tests require: $windows, and the $($required.systemFonts.Count) font files the tests take from it."
