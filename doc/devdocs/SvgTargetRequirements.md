@@ -27,11 +27,11 @@ The first release is the SVG export: the quickest result anyone can use, and sma
 | Phase | Work | Release |
 | --- | --- | --- |
 | 1 | The development loop (DL), before any code of the target | First |
-| 2 | Drawing operations (D), map structure (M), the layout of maps and pages (L-1 to L-5), color (COL), georeferencing (G), compactness S-1 to S-4, S-8, S-9 and S-11, fidelity, determinism and validity (F-1 to F-4, F-6), and the tests that check them (V-1, V-3) | First |
+| 2 | Drawing operations (D), map structure (M), the layout of maps and pages (L-1 to L-5), color (COL), georeferencing (G), compactness S-1 to S-4, S-8, S-9 and S-11, fidelity, determinism and validity (F-1 to F-4, F-6), and the tests that check them (V-1, V-3, V-9) | First |
 | 3 | The export in the application (A), writing one page per file, course data (CD) and their tests (V-2, V-4, V-5, V-7) | First |
 | 4 | Text (T), with embedded fonts, and bitmaps (B) | First |
 | 5 | Several pages per file, with views and Inkscape pages (L-6, L-7, V-8) | Later |
-| 6 | Symbol reuse, path merging, pattern brushes and compression (S-5 to S-7, S-10) | Later |
+| 6 | Symbol reuse, path merging, pattern brushes and compression (S-5 to S-7, S-10, S-12, S-13) | Later |
 | 7 | Firefox and WebKit (F-5, V-6) | Later |
 | 8 | The TypeScript port (P) | Later, in its own repository |
 
@@ -195,17 +195,19 @@ Size is the target's main design goal after the map structure: integer coordinat
 
 | ID | Requirement | Level |
 | --- | --- | --- |
-| S-1 | Coordinates and widths inside the map are integers in a quantization step of map millimetres, under the page transform (A-4). The default step is 0.01 mm, OCAD's own resolution, so geometry imported from OCAD keeps its exact values. The step is an export setting. | Must |
+| S-1 | Coordinates and widths inside the map are integers in one fixed step of 0.001 mm of map, under the page transform (A-4). The step keeps OCAD's 0.01 mm and OpenMapper's 0.001 mm values exact within 8 m of the map's origin, where the map model's 32-bit floats still resolve it, and rounds computed geometry finely enough that evenly spaced lines keep their spacing. | Must |
 | S-2 | Values that scale with distance, such as angles, scale factors and font sizes, keep enough digits that the resulting position error stays below one step over the extent they apply to. | Must |
 | S-3 | Path data uses the shortest valid encoding: relative or absolute per command, whichever is shorter, implicit command repetition, and no separator before a minus sign. | Must |
 | S-4 | Styles are classes in one style block, named by the shortest free names and shared by value: two pens of the same color and width share one class. Elements carry only a class, their geometry and their object number. | Must |
 | S-5 | One color's part of a point symbol, repeated under different translations and rotations, is defined once and placed by reference, one reference per object. Repeats are found by comparing the written fragment as a string. | Must |
 | S-6 | Consecutive draws of one object with the same style, and no transform, clip or blending change between them, merge into one path when the result renders the same within the fidelity tolerance (F-1). Opaque strokes always merge. Opaque fills merge when their bounds are disjoint, or when each is one contour under the nonzero rule, turned to the same orientation. Translucent colors never merge, and draws of different objects never merge (M-6). | Must |
-| S-7 | Area patterns that the map draws as regular patterns in clip mode become pattern brushes. The export requests them regardless of `MapDisplay`'s own rule, which turns them off when printing and when drawing antialiased below a minimum resolution of 0.007. The map code lets a target whose brushes are vectors skip its pixelation check, which at a minimum resolution of 0.01 mm refuses any tile wider or taller than 0.8 mm. Irregular patterns, and patterns not in clip mode, are drawn element by element. | Must |
+| S-7 | Area patterns that the map draws as regular patterns in clip mode become pattern brushes. The SVG target declares through `IStructuredGraphicsTarget` that its brushes are vectors; for such a target `MapDisplay` keeps pattern brushes on, and the map code skips its pixelation check, which at the 0.001 mm step would refuse any tile wider or taller than 0.08 mm. Irregular patterns, and patterns not in clip mode, are drawn element by element. | Must |
 | S-8 | A transform is written as a translation, rotation or scale when it is one, and as a matrix only otherwise. Groups open only to carry an attribute, and adjacent groups combine where their attributes and order allow. | Must |
 | S-9 | Elements are separated by single line breaks, with no indentation, comments, default-valued attributes or editor metadata. A line per element keeps baseline diffs readable for about one byte per element. | Must |
 | S-10 | The export can write the document gzip-compressed, as `.svgz`. | Should |
 | S-11 | Identity is written at the coarsest level that carries it: map, run and symbol on groups, the object number on elements. Bounding boxes and anchor points are not written, since a reader computes them from the geometry. | Must |
+| S-12 | Each pattern is defined once per color, in map coordinates, so it is anchored at the map's origin and its grid runs on across neighbouring areas, as OCAD draws it. An object's own pattern origin and rotation, which OpenMapper stores per object, become a transform on that object's fill, which keeps the shared definition. | Must |
+| S-13 | The brush path of the map code places each fill at its object's pattern origin, rotated or not, as element-by-element drawing does. | Must |
 
 ## Fidelity and determinism
 
@@ -213,7 +215,7 @@ The SVG must look in Chromium like Purple Pen's own renderings, and come out byt
 
 | ID | Requirement | Level |
 | --- | --- | --- |
-| F-1 | Rendered by Chromium, the SVG matches, within a pixel tolerance, the stored baseline image of the same drawing or map case: the images that the Skia tests compare against. | Must |
+| F-1 | Rendered by Chromium, the SVG matches, within a pixel tolerance, the reference image of the same drawing or map case: Purple Pen's Skia rendering of it at its best settings, antialiased and with pattern tiles off. | Must |
 | F-2 | The same input gives byte-identical output on every run, machine and platform: no time stamps; ids, class names and object numbers assigned in order of first use; nothing ordered by hash. | Must |
 | F-3 | The output is well-formed XML. It uses only `svg`, `g`, `defs`, `style`, `metadata`, `color-profile`, `view`, `path`, `circle`, `ellipse`, `use`, `clipPath`, `pattern`, `text` and `image`. References go through `xlink:href`, which SVG 1.1 tools need and browsers accept. Identity goes in `data-` attributes, and the tables go in the metadata, in the export's own XML namespace. Pages are also marked with Inkscape's own page elements, in Inkscape's namespace. | Must |
 | F-4 | Each page has the paper size of its page in PDF export's layout, in millimetres, turned for a landscape page, and its map fills the page's print rectangle at the course's print scale, so the page prints as the PDF page does. The root's width and height are those of the first page. | Must |
@@ -227,9 +229,9 @@ An SVG export command, with a dialog of its own, writes pages laid out as PDF ex
 | ID | Requirement | Level |
 | --- | --- | --- |
 | A-1 | A Create SVG Files command sits in the File menu next to the PDF commands and opens its own Avalonia dialog, built to the repository's dialog conventions. | Must |
-| A-2 | A settings class, `CourseSvgSettings`, holds the course, variation, map exchange, base map, control description, crop, color model, directory and prefix fields of PDF export's settings, with CMYK as the default color model, plus the quantization step, bitmap handling, JPEG quality and compression. | Must |
+| A-2 | A settings class, `CourseSvgSettings`, holds the course, variation, map exchange, base map, control description, crop, color model, directory and prefix fields of PDF export's settings, with CMYK as the default color model, plus bitmap handling, JPEG quality and compression. | Must |
 | A-3 | Pages are laid out by `CoursePageLayout` as for PDF export, and files are named by `QueryEvent.CreateOutputFileName`; a file holding one page of a course part that needs several carries the page number as a suffix. Code shared with `CoursePdf` is factored out, not copied. | Must |
-| A-4 | `MapDisplay` draws a map's parts and a course part's two layers separately, so that the export can place them as L-2 to L-4 require, at a minimum resolution equal to the quantization step, so nothing is simplified below the output's precision. Each page clips to its print rectangle and transforms its map into it, as PDF export does. | Must |
+| A-4 | `MapDisplay` draws a map's parts and a course part's two layers separately, so that the export can place them as L-2 to L-4 require, at a minimum resolution equal to the 0.001 mm step of S-1, so nothing is simplified below the output's precision. Each page clips to its print rectangle and transforms its map into it, as PDF export does. | Must |
 | A-5 | The target receives the map's own `TextMetricsProvider`, the converter from COL-2 and the georeferencing values of G-1 and G-2, so the application is the only place where the target meets Skia. | Must |
 | A-6 | Files about to be overwritten are listed for confirmation first, and the chosen settings are kept until another map loads, as PDF export does. | Must |
 | A-7 | New interface strings go into `UIText.resx`, which has no SVG strings yet. | Must |
@@ -242,12 +244,13 @@ Every requirement above is checked in GitHub Actions on the `wip/` branch, excep
 | --- | --- | --- |
 | V-1 | A new NUnit project, `Map_Svg.Tests`, checks the SVG written for each drawing operation and structure call against expected text, including the errors of D-12. | Must |
 | V-2 | Text baseline tests export a selected set of reference maps from the test folders and compare the SVG text with committed baselines, so that any change to the written SVG shows in review; the renderings (V-3) decide correctness. The set covers OCAD and OpenMapper maps, multi-colored point symbols, area patterns, text along lines, bitmaps, overprinted colors, a georeferenced map and a course with a map exchange. | Must |
-| V-3 | The rendering comparison draws the cases of `SimpleDrawingTests` and `RenderingTests` through the target, renders each SVG in Chromium through Playwright and compares the screenshot with the same `skia_render` baseline, as `RecordingGraphicsTargetTests` does for its target (F-1). It runs in one fixed Linux environment, with Chromium pinned by the Playwright version. Cases that need calls the target does not yet implement are pending, not failed (DL-5). | Must |
+| V-3 | The rendering comparison draws the cases of `SimpleDrawingTests` and `RenderingTests` through the target, renders each SVG in Chromium through Playwright and compares the screenshot with the case's reference image (F-1), much as `RecordingGraphicsTargetTests` compares its target with the Skia baselines. Areas of fine, evenly spaced lines, such as marsh, have a tolerance of their own, since two rasterizers differ most there. It runs in one fixed Linux environment, with Chromium pinned by the Playwright version. Cases that need calls the target does not yet implement are pending, not failed (DL-5). | Must |
 | V-4 | Each baseline test exports twice and requires identical bytes. The baseline tests also run on Linux, so identity across platforms is checked, not assumed. Today's test job runs only on Windows on ARM. | Must |
 | V-5 | The job summary reports each reference map's SVG size, plain and gzip-compressed, so size changes show up in review. | Must |
 | V-6 | A browser check renders the reference SVGs in Firefox and WebKit and compares them with Chromium's renderings (F-5). | Should |
 | V-7 | A structure test walks each reference export, traces every element to its map, color, symbol and object in the tables and every course object to its course and controls, and checks that an object drawn in several colors has the same number in all its runs (M-6, M-7, CD-2). | Must |
 | V-8 | A layout test exports a reference event into one file with several pages and checks that each map is defined once, that every page references its map and shows its own print area through its view, and that the document's own view box is the first page's (L-2 to L-7). | Must |
+| V-9 | The reference images are recorded from the same cases with the Skia target, antialiased and with pattern tiles off, into a folder of their own. The existing `skia_render` baselines stay as they are. | Must |
 
 ## Development loop
 
@@ -282,11 +285,8 @@ The porting application translates `Graphics2D`, `MapModel` and `Map_Svg` from a
 
 ## Open decisions
 
-Four choices remain open; none blocks starting on the target itself.
+One choice remains open; it does not block starting on the target itself.
 
 | Decision | Options | Affects |
 | --- | --- | --- |
-| Requesting pattern brushes | A render option that the export sets, or a target capability saying its brushes are vectors | S-7 |
-| Quantization step for OpenMapper maps | A fixed 0.01 mm, or 0.001 mm chosen from the source format | S-1 |
 | Namespace of the tables | The fork's own, or Purple Pen's if the export goes upstream | M-7, CD-1, F-3 |
-| The WinForms application | Whether an offer to Purple Pen also needs the command in the WinForms application, if that is still what Purple Pen releases | A-1, C-8 |
