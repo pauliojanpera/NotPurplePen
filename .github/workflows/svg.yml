@@ -1,0 +1,189 @@
+name: SVG loop
+
+# The development loop of the SVG target, and of no other work in this fork:
+# it builds the SVG test project on Linux, runs its tests, and returns the
+# verdict through the two channels a Claude session reaches -- git, as the
+# branch svg-results/<name>, and the GitHub API, as the check run "SVG loop
+# report". A session cannot read this run's log or its artifacts, so nothing
+# it needs may arrive only there.
+#
+#   svg/<name>  a branch rooted at base that merges feature/svg-target. A push
+#               to it runs the loop on it, and the results go to
+#               svg-results/<name>.
+#   dispatch    runs the loop on a feature branch, merged with base on the
+#               runner as the Build workflow merges its dispatched ref. The
+#               results go to svg-results/ and the last part of the branch's
+#               name.
+#
+# Results branches are pushed with this run's own token, which starts no run,
+# and their prefix is outside the trigger anyway.
+on:
+  push:
+    branches: [ 'svg/**' ]
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Feature branch to merge with base and run the loop on'
+        required: true
+
+# A newer push to the same branch leaves nothing to learn from the older run.
+concurrency:
+  group: svg-loop-${{ github.event.inputs.ref || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+  checks: write
+  actions: read
+
+jobs:
+  loop:
+    name: SVG loop
+    # Chromium's renderings are compared with reference images recorded on
+    # this same image, so the image is named rather than left to "latest".
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+
+    env:
+      RESULTS: ${{ github.workspace }}/svg-loop-results
+      DOTNET_NOLOGO: 'true'
+      DOTNET_CLI_TELEMETRY_OPTOUT: 'true'
+
+    steps:
+    # Trees and file contents of this commit only. A dispatched branch needs
+    # history too, to be merged with base.
+    - name: Checkout source
+      uses: actions/checkout@v4
+      with:
+        ref: ${{ github.event.inputs.ref || github.ref }}
+        fetch-depth: ${{ github.event_name == 'workflow_dispatch' && '0' || '1' }}
+        filter: blob:none
+
+    # The name the results go under, and the commit the report is attached
+    # to: for a dispatched branch its own tip, since the merge below exists
+    # only on this runner.
+    - name: Name the results
+      id: name
+      shell: bash
+      env:
+        INPUT_REF: ${{ github.event.inputs.ref }}
+      run: |
+        if [ "$GITHUB_EVENT_NAME" = workflow_dispatch ]; then
+            name=${INPUT_REF##*/}
+        else
+            name=${GITHUB_REF_NAME#svg/}
+        fi
+        echo "name=$name" >> "$GITHUB_OUTPUT"
+        echo "artifact=svg-loop-${name//\//-}" >> "$GITHUB_OUTPUT"
+        echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+        mkdir -p "$RESULTS"
+
+    # A branch rooted at upstream carries neither this fork's identity nor
+    # the fixes its tests need, so it is merged with base, as Build does.
+    - name: Merge what this is built on
+      if: github.event_name == 'workflow_dispatch'
+      shell: bash
+      run: |
+        git fetch --no-tags origin base
+        git -c user.name=ci -c user.email=ci@localhost merge --no-edit FETCH_HEAD
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+
+    - name: Cache NuGet packages
+      uses: actions/cache@v4
+      with:
+        path: ~/.nuget/packages
+        key: nuget-${{ runner.os }}-${{ hashFiles('src/Directory.Packages.props') }}
+        restore-keys: nuget-${{ runner.os }}-
+
+    # The test project and what it references, and nothing else, so the build
+    # grows as the target takes on references. The log goes to the results,
+    # since a failed build is a verdict too.
+    - name: Build
+      id: build
+      shell: bash
+      run: |
+        set -o pipefail
+        dotnet build src/MapModel/Map_Svg.Tests/Map_Svg.Tests.csproj -c Debug 2>&1 | tee "$RESULTS/build.log"
+
+    - name: Cache the Playwright browser
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/ms-playwright
+        key: playwright-${{ runner.os }}-${{ hashFiles('src/Directory.Packages.props') }}
+
+    # Playwright's own Chromium, whose version the Playwright package pins,
+    # rather than the Chrome the image happens to carry. Headless, it runs the
+    # shell build alone.
+    - name: Install Chromium
+      shell: pwsh
+      run: |
+        & src/MapModel/Map_Svg.Tests/bin/Debug/net10.0/playwright.ps1 install --with-deps --only-shell chromium
+        if ($LASTEXITCODE -ne 0) { throw "Playwright could not install Chromium." }
+
+    # Every test runs on every run. A case the target cannot draw yet is not a
+    # failure: the test is ignored, and the case is listed in the results
+    # with the calls it still needs.
+    - name: Test
+      id: test
+      shell: bash
+      env:
+        SVG_LOOP_RESULTS: ${{ env.RESULTS }}
+        TEST_SILENTRUN: 'True'
+      run: |
+        set +e
+        dotnet test src/MapModel/Map_Svg.Tests/Map_Svg.Tests.csproj -c Debug --no-build \
+            --logger 'trx;LogFileName=test-report.trx' --results-directory "$RESULTS" 2>&1 | tee "$RESULTS/test.log"
+        echo "exit=${PIPESTATUS[0]}" >> "$GITHUB_OUTPUT"
+
+    - name: Report
+      if: ${{ !cancelled() }}
+      shell: pwsh
+      env:
+        GH_TOKEN: ${{ github.token }}
+        HEAD_SHA: ${{ steps.name.outputs.sha }}
+        RESULTS_BRANCH: svg-results/${{ steps.name.outputs.name }}
+        BUILD_OUTCOME: ${{ steps.build.outcome }}
+        TEST_EXIT: ${{ steps.test.outputs.exit }}
+      run: ./.github/scripts/report-svg-loop.ps1
+
+    # One commit that replaces the branch, so what it holds is this run and
+    # nothing older.
+    - name: Publish the results
+      if: ${{ !cancelled() }}
+      shell: bash
+      env:
+        GH_TOKEN: ${{ github.token }}
+        RESULTS_BRANCH: svg-results/${{ steps.name.outputs.name }}
+        HEAD_SHA: ${{ steps.name.outputs.sha }}
+      run: |
+        cd "$RESULTS"
+        git init -q -b results
+        git add -A
+        git -c user.name=ci -c user.email=ci@localhost commit -q \
+            -m "SVG loop run $GITHUB_RUN_ID of $HEAD_SHA" -m "$(head -n 1 summary.md 2>/dev/null)"
+        git push -q --force "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "HEAD:refs/heads/$RESULTS_BRANCH"
+        echo "Results are on $RESULTS_BRANCH."
+
+    - name: Keep the results
+      if: ${{ !cancelled() }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ steps.name.outputs.artifact }}
+        path: ${{ env.RESULTS }}
+        if-no-files-found: warn
+        retention-days: 7
+
+    - name: Verdict
+      if: ${{ !cancelled() }}
+      shell: bash
+      env:
+        TEST_EXIT: ${{ steps.test.outputs.exit }}
+      run: |
+        if [ "$TEST_EXIT" != 0 ]; then
+            echo "The tests did not pass; the report has the failures."
+            exit 1
+        fi

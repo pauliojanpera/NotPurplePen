@@ -69,6 +69,12 @@ A push to `experiment/**` runs the tests and produces nothing to install.
 
 A branch is finished when that package can be downloaded, not when it is pushed.
 
+Work on the SVG target, and nothing else, is checked as it goes by its own
+loop: a push to `svg/<name>`, rooted at `base` with `feature/svg-target`
+merged in, runs `.github/workflows/svg.yml`, whose verdict comes back as the
+check run "SVG loop report" and the branch `svg-results/<name>`; the work is
+finished, as all other work is, only after a full run on a `wip/` branch.
+
 ## A feature has to be reachable in the application that ships
 
 The installer carries `AvPurplePen`, the Avalonia application, and
