@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -141,11 +142,12 @@ namespace Map_Skia.Tests
                 float left, right, top, bottom;
                 string area = reader.ReadLine();
                 string[] coords = area.Split(',');
-                left = float.Parse(coords[0]); bottom = float.Parse(coords[1]); right = float.Parse(coords[2]); top = float.Parse(coords[3]);
+                left = float.Parse(coords[0], CultureInfo.InvariantCulture); bottom = float.Parse(coords[1], CultureInfo.InvariantCulture);
+                right = float.Parse(coords[2], CultureInfo.InvariantCulture); top = float.Parse(coords[3], CultureInfo.InvariantCulture);
                 mapArea = new RectangleF(left, top, right - left, bottom - top);
                 string sizeLine = reader.ReadLine();
                 coords = sizeLine.Split(',');
-                size = new Size(int.Parse(coords[0]), int.Parse(coords[1]));
+                size = new Size(int.Parse(coords[0], CultureInfo.InvariantCulture), int.Parse(coords[1], CultureInfo.InvariantCulture));
             }
 
             // Convert to absolute paths.

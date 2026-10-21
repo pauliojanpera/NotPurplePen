@@ -651,13 +651,13 @@ namespace Map_Skia.Tests
         [Test]
         public void Clouds()
         {
-            CheckTestAntiAlias("Clouds.txt", false, true, 7, 12);
+            CheckTestAntiAlias("clouds.txt", false, true, 7, 12);
         }
 
         [Test]
         public void Clouds11()
         {
-            CheckTestAntiAlias("Clouds11.txt", false, false, 11, 12);
+            CheckTestAntiAlias("clouds11.txt", false, false, 11, 12);
         }
 
         [Test]
@@ -783,7 +783,7 @@ namespace Map_Skia.Tests
         [Test]
         public void PenistoneHill()
         {
-            CheckTest("penistonehill.txt", false, false, 7, 7);
+            CheckTest("PenistoneHill.txt", false, false, 7, 7);
         }
 
         [Test]
