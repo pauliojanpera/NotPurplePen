@@ -91,6 +91,7 @@
       <BuildType Solution="StorePkg|*" Project="Release" />
     </Project>
     <Project Path="MapModel/ProjectionDump/ProjectionDump.csproj" Id="4dd4c72d-39bf-4e52-aef9-128adcf67218" />
+    <Project Path="MapModel/RenderingTestCases/RenderingTestCases.csproj" />
     <Project Path="MapModel/Test_MapModel/Test_MapModel.csproj" Id="56183ac4-766d-4190-8641-4a3ad26456f8" />
     <Project Path="MapModel/Test_MapWPF/Test_MapWPF.csproj" Id="bbd89855-c12f-4823-aa6f-27482478e7f8" />
   </Folder>

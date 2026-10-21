@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- The drawings and map areas that the rendering tests of the graphics targets draw, with what reads, loads
+       and draws them, so that every test project draws the same cases in the same way. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <OutputType>Library</OutputType>
+    <Configurations>Debug;Release;StorePkg</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Testing\TestUtil\TestUtil.csproj" />
+    <ProjectReference Include="..\Graphics2D\Graphics2D.csproj" />
+    <ProjectReference Include="..\MapModel\MapModel.csproj" />
+    <ProjectReference Include="..\Map_SkiaStd\Map_SkiaStd.csproj" />
+  </ItemGroup>
+</Project>
