@@ -1,14 +1,6 @@
 {
-  "description": "The machine the rendering baselines were recorded against. A hosted image cannot be pinned, so it is recorded here and checked at the start of every test run: a change shows up as one message instead of a hundred unexplained rendering diffs.",
-  "image": {
-    "os": "win11-vs2026-arm64",
-    "version": "20261013.183.4"
-  },
-  "windows": {
-    "displayVersion": "25H2",
-    "build": "26200.9457",
-    "architecture": "ARM64"
-  },
+  "description": "What the rendering tests require of the machine that runs them: the edition and version of Windows, as the registry names them (Windows 11 still calls itself Windows 10 there), and each system font the tests use, by fingerprint, as they were when the baselines were recorded. A hosted image cannot be pinned, so this is checked at the start of every test run: a machine that differs shows up as one message instead of a hundred unexplained rendering diffs.",
+  "windows": "Windows 10 Enterprise 25H2",
   "systemFonts": [
     {
       "file": "arial.ttf",
