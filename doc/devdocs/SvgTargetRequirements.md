@@ -4,12 +4,13 @@ Oct 21, 2026 · @Pauli
 
 ## Purpose and scope
 
-The SVG target is a new implementation of `IGraphicsTarget` that writes a map and its courses as compact SVG. The SVG is a map in its own right: every element traces back to the map object, symbol, color and map it came from, and the document carries the map's color table, symbol table and georeferencing, and the courses it draws. The target has two uses: an SVG export in the NotPurplePen application, built so that it can be offered to Purple Pen, and the drawing back end of a later TypeScript port of the map code.
+The SVG target is a new implementation of `IGraphicsTarget` that writes maps and their courses as compact SVG. The SVG is a map in its own right: every element traces back to the map object, symbol, color and map it came from, and the document carries each map's color table, symbol table and georeferencing, and the courses it draws. The target has two uses: an SVG export in the NotPurplePen application, built so that it can be offered to Purple Pen, and the drawing back end of a later TypeScript port of the map code.
 
 | In scope | Out of scope |
 | --- | --- |
 | The target, as its own project beside `Map_PDF` and `Map_SkiaStd` | Reading or importing SVG |
-| Calls through which the map code tells the target its maps, color runs and objects | The WinForms application and GDI+ |
+| Calls through which the map code tells the target its maps, color runs and objects | Several maps per event in the application, which Purple Pen does not support yet |
+| A layout that holds any number of maps and courses, paired on pages | The WinForms application and GDI+ |
 | Course data: each course's controls and legs, and what each course object draws | Copying a PDF base map as vectors, as PDF export does |
 | An SVG export command with its own dialog in the Avalonia application | Display on screen inside the application |
 | CMYK colors that Inkscape and Scribus read, beside sRGB for browsers | The porting application, which lives in its own repository |
@@ -20,16 +21,17 @@ Levels below: **Must** is required in the release that the delivery plan gives i
 
 ## Delivery
 
-The first release is the SVG export: the quickest result anyone can use, and small enough to offer to Purple Pen as it stands. Later releases make the output smaller and prove it against Skia and the browsers, and the TypeScript port builds on them.
+The first release is the SVG export: the quickest result anyone can use, and small enough to offer to Purple Pen as it stands. It already writes the layout of maps and pages (L), one page per file, so later files keep the same shape. Later releases put several pages in a file, make the output smaller and prove it against Skia and the browsers, and the TypeScript port builds on them. Several maps per file follow when Purple Pen supports several maps per event.
 
 | Phase | Work | Release |
 | --- | --- | --- |
-| 1 | Drawing operations (D), map structure (M), color (COL), georeferencing (G), compactness S-1 to S-4, S-8, S-9 and S-11, determinism and validity (F-2 to F-4, F-6) | First |
-| 2 | The export in the application (A), course data (CD) and their tests (V-1, V-2, V-4, V-5, V-7) | First |
+| 1 | Drawing operations (D), map structure (M), the layout of maps and pages (L-1 to L-5), color (COL), georeferencing (G), compactness S-1 to S-4, S-8, S-9 and S-11, determinism and validity (F-2 to F-4, F-6) | First |
+| 2 | The export in the application (A), writing one page per file, course data (CD) and their tests (V-1, V-2, V-4, V-5, V-7) | First |
 | 3 | Text (T) and bitmaps (B) | First |
-| 4 | Symbol reuse, path merging, pattern brushes and compression (S-5 to S-7, S-10) | Later |
-| 5 | Fidelity against Skia and browser checks (F-1, F-5, V-3, V-6) | Later |
-| 6 | The TypeScript port (P) | Later, in its own repository |
+| 4 | Several pages per file, with views and Inkscape pages (L-6, L-7, V-8) | Later |
+| 5 | Symbol reuse, path merging, pattern brushes and compression (S-5 to S-7, S-10) | Later |
+| 6 | Fidelity against Skia and browser checks (F-1, F-5, V-3, V-6) | Later |
+| 7 | The TypeScript port (P) | Later, in its own repository |
 
 ## Constraints
 
@@ -80,13 +82,27 @@ A map's layering is its color table. `Map.Draw` draws one color at a time from t
 | ID | Requirement | Level |
 | --- | --- | --- |
 | M-1 | Elements are written in the order of the drawing calls. No optimization moves a draw past another, so the document keeps the map's layering. | Must |
-| M-2 | A new interface in `Graphics2D`, `IStructuredGraphicsTarget`, carries the calls below. The map code makes them only to a target that implements it, so every other target is unaffected. | Must |
+| M-2 | A new interface in `Graphics2D`, `IStructuredGraphicsTarget`, carries the calls below and those that build the layout of maps and pages (L). The map code makes them only to a target that implements it, so every other target is unaffected. | Must |
 | M-3 | `Map.DrawColor` opens a color run before the first object it draws in a color and closes it after the last. It passes the color as a key, with its position in the color table, its name, its CMYK values and its overprint flag. A color with nothing to draw opens no run. | Must |
 | M-4 | Around each object, `Map.DrawColor` passes the object and its symbol definition as keys, with the symbol's id and name. | Must |
-| M-5 | Every run belongs to a map: `MapDisplay` labels the base map and the course map, and `Map` labels each template with its file name. Drawing outside `Map.DrawColor`, such as a bitmap base map or an image template, sits under its map's label outside any run. | Must |
+| M-5 | Every run belongs to a map: the export labels each base map and each course drawing, and `Map` labels each template with its file name. Drawing outside `Map.DrawColor`, such as a bitmap base map or an image template, sits under its map's label outside any run. | Must |
 | M-6 | Within a run, consecutive objects of one symbol share a group, and each object's elements carry its number. Objects are numbered in the order they are first drawn, so an object drawn in several colors has the same number in each of its runs. | Must |
-| M-7 | The metadata holds, once each, a color table (map, position, name, CMYK values, overprint flag) and a symbol table (id, name, colors). Runs, symbol groups and objects refer to them, so any element traces back to its object, symbol, color and map. | Must |
+| M-7 | For every labeled map (M-5), the metadata holds, once, a color table (position, name, CMYK values, overprint flag) and a symbol table (id, name, colors). Runs, symbol groups and objects refer to the tables of their own map, so any element traces back to its object, symbol, color and map. | Must |
 | M-8 | The structure is always written; no setting removes it. | Must |
+
+## Maps, courses and pages
+
+A document holds maps, courses and pages. Each map is written once; each page pairs one map with one course part, or shows a map alone; any page can name any map, so any number of maps and courses fit the same layout. Purple Pen has one map per event today, so the export writes one map per file; several maps per file wait for Purple Pen to support them, and need no change to the layout.
+
+| ID | Requirement | Level |
+| --- | --- | --- |
+| L-1 | A document holds any number of maps and pages, and its course data any number of courses. Nothing in the layout assumes one map, one course or one page. | Must |
+| L-2 | Each map is written once, as a definition of its drawing, in two parts split where the course goes: the colors below the course's lower layer and the colors above it. When the event puts the whole course on top, the map is one part. | Must |
+| L-3 | Each page pairs one map with one course part, or shows a map alone. Under the page's clip and transform, it references the map's parts and draws the course part with them: the course's lower layer between the map's two parts, the rest on top. | Must |
+| L-4 | The export draws each map once, for the area of all the pages that use it, and then each page; pages share the map's drawing, and each page's clip shows its own print area. | Must |
+| L-5 | Ids, class names and object numbers are unique across the document. | Must |
+| L-6 | Each page carries a `<view>` of its print area, named after its course part, and an Inkscape page element. The first page lies at the document's own view box, which is the page browsers show. | Must |
+| L-7 | The export offers PDF export's file choices: all pages in one file, one file per course, or one file per course part. | Must |
 
 ## Drawing operations
 
@@ -123,12 +139,12 @@ Colors keep the map's CMYK values. No browser supports CMYK colors in CSS ([MDN]
 
 ## Georeferencing
 
-When the map has real-world coordinates, the document records them, so that a reader can place the map on a web map. They are the coordinates that image export writes into world files, together with the coordinate system, which a world file does not carry.
+When a map has real-world coordinates, the document records them with that map, so that a reader can place it on a web map. They are the coordinates that image export writes into world files, together with the coordinate system, which a world file does not carry.
 
 | ID | Requirement | Level |
 | --- | --- | --- |
-| G-1 | When the map has real-world coordinates, the metadata records the affine transform from the document's map coordinates to real-world coordinates, computed with the `CoordinateMapper` that image export uses for world files. | Must |
-| G-2 | The metadata records every identification of the coordinate system that the map has: its EPSG code, its Proj4 string and its OCAD grid and zone id. | Must |
+| G-1 | For each map with real-world coordinates, the metadata records the affine transform from the map's coordinates to real-world coordinates, computed with the `CoordinateMapper` that image export uses for world files. | Must |
+| G-2 | For each map, the metadata records every identification of its coordinate system that the map has: its EPSG code, its Proj4 string and its OCAD grid and zone id. | Must |
 | G-3 | The table of OCAD grid ids in `OcadToProj4Projection` also gives the EPSG code of each grid that has one, so a map georeferenced by an OCAD grid id names its EPSG code too: OCAD grid 6005, ETRS-TM35FIN, is EPSG:3067. | Should |
 
 ## Course data
@@ -137,7 +153,7 @@ The document describes the courses it draws, so that a reader can use it as an e
 
 | ID | Requirement | Level |
 | --- | --- | --- |
-| CD-1 | The metadata describes each course the document draws: its name, part and variation, its print scale, and its controls in order, each with its code, kind and position. | Must |
+| CD-1 | The metadata describes each course the document draws: its name, part and variation, its print scale, its controls in order, each with its code, kind and position, and for each part the map it is drawn on and the pages that show it. | Must |
 | CD-2 | Each course object in the drawing carries what it draws: its kind and the controls of CD-1 it belongs to, one for a control circle, start, finish or control number, two for a leg. Objects that belong to no control, such as descriptions and special objects, carry their kind only. | Must |
 | CD-3 | `CourseLayout` records which map symbols each course object adds, and the export passes the target a lookup from those objects to their course attributes as plain strings. | Must |
 
@@ -193,8 +209,8 @@ The SVG must look like the Skia export and come out byte for byte the same on ev
 | --- | --- | --- |
 | F-1 | Rasterized by the reference renderer, the SVG matches the Skia bitmap export of the same map, area and settings, compared with the existing `CompareBitmapBaseline` within a pixel tolerance. | Must |
 | F-2 | The same input gives byte-identical output on every run, machine and platform: no time stamps; ids, class names and object numbers assigned in order of first use; nothing ordered by hash. | Must |
-| F-3 | The output is well-formed XML. It uses only `svg`, `g`, `defs`, `style`, `metadata`, `color-profile`, `path`, `circle`, `ellipse`, `use`, `clipPath`, `pattern`, `text` and `image`. References go through `xlink:href`, which SVG 1.1 tools need and browsers accept. Identity goes in `data-` attributes, and the tables go in the metadata, in the export's own XML namespace. | Must |
-| F-4 | Each file is one page of PDF export's layout: the root's width and height are the page's paper size in millimetres, turned for a landscape page, and the map fills the page's print rectangle at the course's print scale, so the document prints as the PDF page does. | Must |
+| F-3 | The output is well-formed XML. It uses only `svg`, `g`, `defs`, `style`, `metadata`, `color-profile`, `view`, `path`, `circle`, `ellipse`, `use`, `clipPath`, `pattern`, `text` and `image`. References go through `xlink:href`, which SVG 1.1 tools need and browsers accept. Identity goes in `data-` attributes, and the tables go in the metadata, in the export's own XML namespace. Pages are also marked with Inkscape's own page elements, in Inkscape's namespace. | Must |
+| F-4 | Each page has the paper size of its page in PDF export's layout, in millimetres, turned for a landscape page, and its map fills the page's print rectangle at the course's print scale, so the page prints as the PDF page does. The root's width and height are those of the first page. | Must |
 | F-5 | Current Chromium, Firefox and WebKit display the output correctly, darken blending included. | Should |
 | F-6 | Inkscape and Scribus open the output and read each color's CMYK values from it. This is checked by hand. | Must |
 
@@ -206,8 +222,8 @@ An SVG export command, with a dialog of its own, writes pages laid out as PDF ex
 | --- | --- | --- |
 | A-1 | A Create SVG Files command sits in the File menu next to the PDF commands and opens its own Avalonia dialog, built to the repository's dialog conventions. | Must |
 | A-2 | A settings class, `CourseSvgSettings`, holds the course, variation, map exchange, base map, control description, crop, color model, directory and prefix fields of PDF export's settings, with CMYK as the default color model, plus the quantization step, bitmap handling, JPEG quality and compression. | Must |
-| A-3 | Pages are laid out by `CoursePageLayout` as for PDF export, and each page is one file, named by `QueryEvent.CreateOutputFileName`; when a course part needs several pages, its files carry the page number as a suffix. Code shared with `CoursePdf` is factored out, not copied. | Must |
-| A-4 | Each page is drawn as PDF export draws it: clipped to the page's print rectangle, with the map transformed into it, through `MapDisplay`, at a minimum resolution equal to the quantization step, so nothing is simplified below the output's precision. | Must |
+| A-3 | Pages are laid out by `CoursePageLayout` as for PDF export, and files are named by `QueryEvent.CreateOutputFileName`; a file holding one page of a course part that needs several carries the page number as a suffix. Code shared with `CoursePdf` is factored out, not copied. | Must |
+| A-4 | `MapDisplay` draws a map's parts and a course part's two layers separately, so that the export can place them as L-2 to L-4 require, at a minimum resolution equal to the quantization step, so nothing is simplified below the output's precision. Each page clips to its print rectangle and transforms its map into it, as PDF export does. | Must |
 | A-5 | The target receives the map's own `TextMetricsProvider`, the converter from COL-2 and the georeferencing values of G-1 and G-2, so the application is the only place where the target meets Skia. | Must |
 | A-6 | Files about to be overwritten are listed for confirmation first, and the chosen settings are kept until another map loads, as PDF export does. | Must |
 | A-7 | New interface strings go into `UIText.resx`, which has no SVG strings yet. | Must |
@@ -225,6 +241,7 @@ Every requirement above is checked in GitHub Actions on the `wip/` branch, excep
 | V-5 | The job summary reports each reference map's SVG size, plain and gzip-compressed, so size changes show up in review. | Must |
 | V-6 | A browser check renders the reference SVGs in Chromium, Firefox and WebKit (F-5). | Should |
 | V-7 | A structure test walks each reference export, traces every element to its map, color, symbol and object in the tables and every course object to its course and controls, and checks that an object drawn in several colors has the same number in all its runs (M-6, M-7, CD-2). | Must |
+| V-8 | A layout test exports a reference event into one file with several pages and checks that each map is defined once, that every page references its map and shows its own print area through its view, and that the document's own view box is the first page's (L-2 to L-7). | Must |
 
 ## Relation to the TypeScript port
 
