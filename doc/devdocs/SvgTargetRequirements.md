@@ -48,7 +48,7 @@ The target references only `Graphics2D`, so the porting application can translat
 | C-5 | Number formatting is culture-independent: the target formats numbers with its own routine. | Must |
 | C-6 | Lookup tables are keyed by strings or by object identity, never by structs with custom equality. | Should |
 | C-7 | Every class and method has a header comment, and types are explicit instead of `var`, as the repository requires. | Must |
-| C-8 | The feature branch is rooted at `upstream/master`, so that it can be offered to Purple Pen as it stands. It is built and tested only in GitHub Actions, through a `wip/` branch rooted at `base` that merges it. | Must |
+| C-8 | The feature branch, `feature/svg-target`, is rooted at `upstream/master`, so that it can be offered to Purple Pen as it stands. It is built and tested only in GitHub Actions, through a `wip/` branch rooted at `base` that merges it. | Must |
 | C-9 | The feature branch carries the target, the map code's structure calls, the course data and the Avalonia export together, since a feature must be reachable in the shipped application. | Must |
 | C-10 | Test baselines that this work moves are committed in the same branch. | Must |
 
@@ -242,7 +242,7 @@ Every requirement above is checked in GitHub Actions on the `wip/` branch, excep
 | --- | --- | --- |
 | V-1 | A new NUnit project, `Map_Svg.Tests`, checks the SVG written for each drawing operation and structure call against expected text, including the errors of D-12. | Must |
 | V-2 | Text baseline tests export a selected set of reference maps from the test folders and compare the SVG text with committed baselines, so that any change to the written SVG shows in review; the renderings (V-3) decide correctness. The set covers OCAD and OpenMapper maps, multi-colored point symbols, area patterns, text along lines, bitmaps, overprinted colors, a georeferenced map and a course with a map exchange. | Must |
-| V-3 | The rendering comparison draws the cases of `SimpleDrawingTests` and `RenderingTests` through the target, renders each SVG in Chromium through Playwright and compares the screenshot with the same `skia_render` baseline, as `RecordingGraphicsTargetTests` does for its target (F-1). It runs in one fixed Linux environment, with Chromium pinned by the Playwright version. | Must |
+| V-3 | The rendering comparison draws the cases of `SimpleDrawingTests` and `RenderingTests` through the target, renders each SVG in Chromium through Playwright and compares the screenshot with the same `skia_render` baseline, as `RecordingGraphicsTargetTests` does for its target (F-1). It runs in one fixed Linux environment, with Chromium pinned by the Playwright version. Cases that need calls the target does not yet implement are pending, not failed (DL-5). | Must |
 | V-4 | Each baseline test exports twice and requires identical bytes. The baseline tests also run on Linux, so identity across platforms is checked, not assumed. Today's test job runs only on Windows on ARM. | Must |
 | V-5 | The job summary reports each reference map's SVG size, plain and gzip-compressed, so size changes show up in review. | Must |
 | V-6 | A browser check renders the reference SVGs in Firefox and WebKit and compares them with Chromium's renderings (F-5). | Should |
@@ -251,18 +251,21 @@ Every requirement above is checked in GitHub Actions on the `wip/` branch, excep
 
 ## Development loop
 
-Work on the SVG target, and no other work in the fork, is developed through a quick workflow of its own. A session pushes, the workflow builds and tests the current phase on Linux within minutes, and the session reads the result. Claude sessions in the cloud reach the GitHub API and git, but not the logs or artifacts of a workflow run, so everything a session needs comes back through those two channels. A change is finished only after the full run on a `wip/` branch.
+Work on the SVG target, and no other work in the fork, is developed through a quick workflow of its own. A session pushes, the workflow builds and tests on Linux, within minutes, whatever the target can already do, and the session reads the result. Claude sessions in the cloud reach the GitHub API and git, but not the logs or artifacts of a workflow run, so everything a session needs comes back through those two channels. A change is finished only after the full run on a `wip/` branch.
 
 | ID | Requirement | Level |
 | --- | --- | --- |
-| DL-1 | The workflow runs on pushes to the SVG feature's own branch prefix, from branches rooted at `base` that merge the feature branch, and on demand for a feature branch, which it merges with `base` on the runner, as the Build workflow's dispatch input does. Nothing else in the fork triggers it. | Must |
-| DL-2 | It builds on Linux only the projects the current phase needs, caches the NuGet packages and the Playwright browser, and cancels its run in progress when a newer push to the same branch arrives. | Must |
-| DL-3 | It runs the current phase's tests together with the rendering comparison (V-3). | Must |
-| DL-4 | Each run pushes its results to a results branch of its own, which git fetches: the test report, each failure's message, the difference image of each failed rendering comparison, the written SVGs and the time each step took. Pushes made with the workflow's own token start no new runs, so the results cannot loop. | Must |
-| DL-5 | The run's check output carries the pass and fail counts and the first failures, and each failure is an annotation, so the verdict reads through the GitHub API without fetching anything. | Must |
-| DL-6 | The same files also go to a run artifact for downloading by hand, which includes the SVGs for the check in Inkscape and Scribus (F-6). | Must |
-| DL-7 | A session working on the SVG target pushes, follows the run through the GitHub API and reads the results branch. It counts a change as checked once the workflow passes, and as finished only after the full `wip/` run. | Must |
-| DL-8 | When the workflow exists, `AGENTS.NotPurplePen.md` gains one sentence: work on the SVG target follows this loop, and all other work is verified through `wip/` branches as before. | Must |
+| DL-1 | The workflow, `.github/workflows/svg.yml`, named SVG loop, runs on pushes to `svg/<name>` branches, which are rooted at `base` and merge the feature branch `feature/svg-target`, and on demand for a feature branch, which it merges with `base` on the runner, as the Build workflow's dispatch input does. Nothing else in the fork triggers it. | Must |
+| DL-2 | It builds on Linux the SVG test project and the projects it references, so the build grows as the phases add references. It caches the NuGet packages and the Playwright browser, and cancels its run in progress when a newer push to the same branch arrives. | Must |
+| DL-3 | Every test of the SVG target runs on every run; each is written together with the code it tests, so all of them can pass. The rendering comparison (V-3) compares the cases that the target can already draw. No setting names the current phase: the implementation's progress selects the cases. | Must |
+| DL-4 | A census draws each case of the rendering comparison into a counting target, which renders nothing, lists the calls the case makes, and answers questions such as whether pattern brushes are supported as the SVG target does. The cases' drawing comes from map files, so only drawing them shows what they need. | Must |
+| DL-5 | The SVG target declares the calls it fully implements; a call joins the list only when its whole requirement is met, `DrawText` with its embedded fonts. A case is compared only when every call it makes is on the list, and is otherwise reported as pending, with the calls it still needs. | Must |
+| DL-6 | A case that reaches a call the target cannot honor is reported as pending, not failed, through the error of D-12. | Must |
+| DL-7 | Each run replaces `svg-results/<name>` with one commit holding the test report, each failure's message, the difference image of each failed rendering comparison, the pending cases with the calls they need, the written SVGs and the time each step took. Pushes made with the workflow's own token start no new runs, and the separate prefix keeps results branches out of the trigger. | Must |
+| DL-8 | The run's check output carries the counts of passed, failed and pending cases, the pending cases counted by missing call, and the first failures, and each failure is an annotation, so the verdict reads through the GitHub API without fetching anything. | Must |
+| DL-9 | The same files also go to a run artifact for downloading by hand, which includes the SVGs for the check in Inkscape and Scribus (F-6). | Must |
+| DL-10 | A session working on the SVG target pushes, follows the run through the GitHub API and reads the results branch. It counts a change as checked once the workflow passes, and as finished only after the full `wip/` run. | Must |
+| DL-11 | When the workflow exists, `AGENTS.NotPurplePen.md` gains one sentence: work on the SVG target follows this loop, and all other work is verified through `wip/` branches as before. | Must |
 
 ## Relation to the TypeScript port
 
@@ -279,7 +282,7 @@ The porting application translates `Graphics2D`, `MapModel` and `Map_Svg` from a
 
 ## Open decisions
 
-Five choices remain open; none blocks starting on the target itself.
+Four choices remain open; none blocks starting on the target itself.
 
 | Decision | Options | Affects |
 | --- | --- | --- |
@@ -287,4 +290,3 @@ Five choices remain open; none blocks starting on the target itself.
 | Quantization step for OpenMapper maps | A fixed 0.01 mm, or 0.001 mm chosen from the source format | S-1 |
 | Namespace of the tables | The fork's own, or Purple Pen's if the export goes upstream | M-7, CD-1, F-3 |
 | The WinForms application | Whether an offer to Purple Pen also needs the command in the WinForms application, if that is still what Purple Pen releases | A-1, C-8 |
-| Development loop | Its branch prefix, such as `svg/**`, the names of its results branches, and how the current phase picks the tests it runs | DL-1, DL-3, DL-4 |
