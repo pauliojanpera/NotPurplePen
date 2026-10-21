@@ -1,0 +1,89 @@
+name: Segoe UI faces
+
+# A throwaway: reads the Segoe UI files of a windows-11-arm machine, with the
+# reader the machine check in tests.yml uses.
+on:
+  push:
+    branches: [ 'diag/**' ]
+
+jobs:
+  faces:
+    runs-on: windows-11-arm
+    steps:
+    - shell: pwsh
+      run: |
+        "image: $env:ImageOS $env:ImageVersion"
+        Add-Type -Namespace Native -Name Sfnt -MemberDefinition @'
+        static int U16(byte[] d, int o) { return (d[o] << 8) | d[o + 1]; }
+        static int U32(byte[] d, int o) {
+            return (d[o] << 24) | (d[o + 1] << 16) | (d[o + 2] << 8) | d[o + 3];
+        }
+
+        // One line per face in the file: family, style, and the version the font
+        // calls itself, tab separated. A collection holds several faces.
+        //
+        // Several of these faces carry localized names, and a font filed as
+        // "Arial Negreta" is a font nothing asks for; a Windows record is
+        // authoritative and the Macintosh one is a fallback, since in some older
+        // faces it holds mojibake.
+        public static string[] Faces(string path)
+        {
+            byte[] d = System.IO.File.ReadAllBytes(path);
+            int[] starts;
+            if (d.Length > 16 && d[0] == 't' && d[1] == 't' && d[2] == 'c' && d[3] == 'f') {
+                int count = U32(d, 8);
+                starts = new int[count];
+                for (int i = 0; i < count; i++) { starts[i] = U32(d, 12 + 4 * i); }
+            }
+            else {
+                starts = new int[] { 0 };
+            }
+
+            System.Collections.Generic.List<string> faces =
+                new System.Collections.Generic.List<string>();
+            foreach (int start in starts) {
+                if (start < 0 || start + 12 > d.Length) { continue; }
+
+                int table = -1;
+                int tableCount = U16(d, start + 4);
+                for (int i = 0; i < tableCount; i++) {
+                    int o = start + 12 + 16 * i;
+                    if (o + 16 > d.Length) { break; }
+                    if (d[o] == 'n' && d[o + 1] == 'a' && d[o + 2] == 'm' && d[o + 3] == 'e')
+                        table = U32(d, o + 8);
+                }
+                if (table < 0 || table + 6 > d.Length) { continue; }
+
+                int count = U16(d, table + 2), strings = U16(d, table + 4);
+                string[] win = new string[6], mac = new string[6];
+                for (int i = 0; i < count; i++) {
+                    int p = table + 6 + 12 * i;
+                    if (p + 12 > d.Length) { break; }
+                    int platform = U16(d, p), language = U16(d, p + 4), nameId = U16(d, p + 6);
+                    int len = U16(d, p + 8), offset = U16(d, p + 10);
+                    if (nameId != 1 && nameId != 2 && nameId != 5) { continue; }
+                    if (platform == 3 && language != 0x0409) { continue; }
+                    if (platform == 1 && language != 0) { continue; }
+
+                    int at = table + strings + offset;
+                    if (at < 0 || at + len > d.Length) { continue; }
+                    string s = (platform == 3)
+                        ? System.Text.Encoding.BigEndianUnicode.GetString(d, at, len)
+                        : System.Text.Encoding.ASCII.GetString(d, at, len);
+                    s = s.Replace("\0", "").Trim();
+                    if (s.Length == 0) { continue; }
+                    if (platform == 3) { if (win[nameId] == null) { win[nameId] = s; } }
+                    else { if (mac[nameId] == null) { mac[nameId] = s; } }
+                }
+
+                string family = win[1] ?? mac[1];
+                if (family == null) { continue; }
+                faces.Add(family + "\t" + (win[2] ?? mac[2] ?? "Regular") + "\t" + (win[5] ?? mac[5] ?? ""));
+            }
+            return faces.ToArray();
+        }
+        '@
+        foreach ($file in @('segoeui.ttf', 'segoeuib.ttf', 'segoeuii.ttf', 'segoeuil.ttf', 'segoeuisl.ttf', 'segoeuiz.ttf', 'seguibl.ttf', 'seguibli.ttf', 'seguili.ttf', 'seguisb.ttf', 'seguisbi.ttf', 'seguisli.ttf')) {
+            $path = Join-Path (Join-Path $env:WINDIR 'Fonts') $file
+            "$file`t$((Get-FileHash $path -Algorithm SHA256).Hash)`t$(([Native.Sfnt]::Faces($path)) -join ' | ')"
+        }
