@@ -48,13 +48,12 @@ function Limit-Text([string] $text, [int] $length) {
     return $text.Substring(0, $length - 1) + [char]0x2026
 }
 
-# The steps of this job so far, and how long each took.
+# The steps of this job that have finished, and how long each took.
 $stepRows = @(& gh api "repos/$env:GITHUB_REPOSITORY/actions/runs/$env:GITHUB_RUN_ID/jobs" `
-                  --jq '.jobs[] | select(.name == "SVG loop") | .steps[] | [.name, (.conclusion // .status), (.started_at // ""), (.completed_at // "")] | @tsv')
+                  --jq '.jobs[] | select(.name == "SVG loop") | .steps[] | select(.completed_at != null) | [.name, .conclusion, .started_at, .completed_at] | @tsv')
 $steps = @(foreach ($row in $stepRows) {
     $field = $row -split "`t"
-    $seconds = if ($field[2] -and $field[3]) { [int]([datetimeoffset]$field[3] - [datetimeoffset]$field[2]).TotalSeconds } else { '' }
-    [pscustomobject]@{ Name = $field[0]; Outcome = $field[1]; Seconds = $seconds }
+    [pscustomobject]@{ Name = $field[0]; Outcome = $field[1]; Seconds = [int]([datetimeoffset]$field[3] - [datetimeoffset]$field[2]).TotalSeconds }
 })
 
 # The tests, from the test report.
