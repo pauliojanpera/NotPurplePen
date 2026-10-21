@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -17,6 +16,7 @@ namespace Map_Skia.Tests
     using Map_Skia;
     using System.Diagnostics;
     using NUnit.Framework;
+    using RenderingTestCases;
 
 
     public static class RenderingUtil
@@ -31,7 +31,7 @@ namespace Map_Skia.Tests
                 skcanvas.Clear(SKColors.White);
 
                 using (Skia_GraphicsTarget grTarget = new Skia_GraphicsTarget(skcanvas)) {
-                    grTarget.PushTransform(GetTransform(width, height, drawingRectangle, inverted));
+                    grTarget.PushTransform(AreaInImage.CreateTransform(drawingRectangle, new Size(width, height), inverted));
                     draw(grTarget);
                 }
 
@@ -58,35 +58,43 @@ namespace Map_Skia.Tests
             }
         }
 
+        // The drawing cases as NUnit test cases, each named after its case.
+        public static IEnumerable<TestCaseData> DrawingTestCases
+        {
+            get { return DrawingCases.All.Select(drawingCase => new TestCaseData(drawingCase).SetName(drawingCase.Name)); }
+        }
+
+        // Draw a drawing case with Skia, and compare the image with its baseline.
+        public static void RenderingTest(DrawingCase drawingCase)
+        {
+            RenderingTest(drawingCase.PixelWidth, drawingCase.Area, false, drawingCase.SkiaBaselinePath, drawingCase.Draw);
+        }
+
+        // Record a drawing case, play the recording back twice with Skia, and compare each image with the case's
+        // baseline.
+        public static void RecordingRenderingTest(DrawingCase drawingCase)
+        {
+            RecordingRenderingTest(drawingCase.PixelWidth, drawingCase.Area, false, drawingCase.SkiaBaselinePath, drawingCase.Draw);
+        }
+
         static Skia_Bitmap RenderBitmap(Map map, Size bitmapSize, RectangleF mapArea, RenderOptions renderOptions, bool usePatternBitmaps, bool useOverprinting, bool antiAlias, float intensity, bool useRecording = false)
         {
-            var grTarget = new Skia_BitmapGraphicsTarget(bitmapSize.Width, bitmapSize.Height, false, CmykColor.FromCmyk(0, 0, 0, 0), mapArea, true, null, intensity);
+            Skia_BitmapGraphicsTarget grTarget = new Skia_BitmapGraphicsTarget(bitmapSize.Width, bitmapSize.Height, false, CmykColor.FromCmyk(0, 0, 0, 0), mapArea, true, null, intensity);
             using (grTarget) {
-                RenderOptions renderOpts = renderOptions;
-                renderOpts.usePatternBitmaps = usePatternBitmaps;
-                renderOpts.renderTemplates = RenderTemplateOption.MapAndTemplates;
-                renderOpts.blendOverprintedColors = useOverprinting;
-                renderOpts.minResolution = mapArea.Width / (float)bitmapSize.Width;
-
                 if (useRecording) {
                     // Record the drawing, then play it back onto the bitmap.
                     using (RecordingGraphicsTarget recorder = new RecordingGraphicsTarget(intensity)) {
-                        recorder.PushAntiAliasing(antiAlias);
-                        using (map.Read())
-                            map.Draw(recorder, mapArea, renderOpts, null);
+                        MapDrawing.DrawMapArea(recorder, map, mapArea, bitmapSize, renderOptions, usePatternBitmaps, useOverprinting, antiAlias);
                         recorder.EndRecording();
                         recorder.Playback(grTarget);
                     }
                 }
                 else {
-                    grTarget.PushAntiAliasing(antiAlias);
-                    using (map.Read())
-                        map.Draw(grTarget, mapArea, renderOpts, null);
+                    MapDrawing.DrawMapArea(grTarget, map, mapArea, bitmapSize, renderOptions, usePatternBitmaps, useOverprinting, antiAlias);
                 }
 
                 return ((Skia_Bitmap)grTarget.FinishBitmap());
             }
-
         }
 
         static void CompareBitmapBaseline(Skia_Bitmap skiaBitmapNew, string baselineFileName, int maxPixelDiff)
@@ -136,19 +144,11 @@ namespace Map_Skia.Tests
             Size size;
 
             // Read the test file, and get the other file names and the area.
-            using (StreamReader reader = new StreamReader(filename)) {
-                mapFileName = reader.ReadLine();
-                pngFileName = reader.ReadLine();
-                float left, right, top, bottom;
-                string area = reader.ReadLine();
-                string[] coords = area.Split(',');
-                left = float.Parse(coords[0], CultureInfo.InvariantCulture); bottom = float.Parse(coords[1], CultureInfo.InvariantCulture);
-                right = float.Parse(coords[2], CultureInfo.InvariantCulture); top = float.Parse(coords[3], CultureInfo.InvariantCulture);
-                mapArea = new RectangleF(left, top, right - left, bottom - top);
-                string sizeLine = reader.ReadLine();
-                coords = sizeLine.Split(',');
-                size = new Size(int.Parse(coords[0], CultureInfo.InvariantCulture), int.Parse(coords[1], CultureInfo.InvariantCulture));
-            }
+            RenderingDescriptor descriptor = RenderingDescriptor.Read(filename);
+            mapFileName = descriptor.MapFileName;
+            pngFileName = descriptor.BaselineFileName;
+            mapArea = descriptor.MapArea;
+            size = descriptor.PixelSize;
 
             // Convert to absolute paths.
             directoryName = Path.GetDirectoryName(filename);
@@ -163,8 +163,7 @@ namespace Map_Skia.Tests
             File.Delete(ocadFileName);
 
             // Create and open the map file.
-            Map map = new Map(new Skia_TextMetrics(), new Skia_FileLoader(directoryName));
-            InputOutput.ReadFile(mapFileName, map);
+            Map map = descriptor.LoadMap();
 
             // Draw into a new bitmap and compare.
             RenderAndCompare(map, size, mapArea, renderOptions, usePatternBitmaps, useOverprinting, antiAlias, 1.0F, pngFileName, maxPixelDiff, alsoTestRecording);
@@ -196,6 +195,16 @@ namespace Map_Skia.Tests
             return true;
         }
 
+        // Verifies a check of the map rendering tests, drawing and comparing it as VerifyTestFile does.
+        // check: the check to verify.
+        // maxPixelDiff: how much a color channel of a pixel may differ from the baseline.
+        public static bool VerifyTestFile(MapRenderingCheck check, int maxPixelDiff)
+        {
+            return VerifyTestFile(check.DescriptorPath, check.CreateRenderOptions(), check.UsePatternBitmaps, check.BlendOverprintedColors,
+                                  check.TestLightenedColor, check.RoundtripToOcadFile, check.AntiAlias, check.MinOcadVersion, check.MaxOcadVersion,
+                                  maxPixelDiff, check.AlsoTestRecording);
+        }
+
         public static void TimeMapRender(Map map, Size size, RectangleF mapArea, string name)
         {
             Stopwatch sw = new Stopwatch();
@@ -206,19 +215,6 @@ namespace Map_Skia.Tests
 
             sw.Stop();
             //Console.WriteLine("Rendered bitmap '{0}' in {1} ms", name, sw.ElapsedMilliseconds);
-        }
-
-        static Matrix GetTransform(int bitmapWidth, int bitmapHeight, RectangleF rectangle, bool inverted)
-        {
-            PointF midpoint = new PointF(bitmapWidth / 2.0F, bitmapHeight / 2.0F);
-            float scaleFactor = (float)bitmapWidth / rectangle.Width;
-            PointF centerPoint = new PointF((rectangle.Left + rectangle.Right) / 2, (rectangle.Top + rectangle.Bottom) / 2);
-            Matrix matrix = new Matrix();
-            matrix.Translate(midpoint.X, midpoint.Y);
-            matrix.Scale(scaleFactor, inverted ? -scaleFactor : scaleFactor);  // y scale is negative to get to cartesian orientation.
-            matrix.Translate(-centerPoint.X, -centerPoint.Y);
-
-            return matrix;
         }
     }
 }
