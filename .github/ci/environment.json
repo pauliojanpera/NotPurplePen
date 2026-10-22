@@ -1,14 +1,6 @@
 {
-  "description": "The machine the rendering baselines were recorded against. A hosted image cannot be pinned, so it is recorded here and checked at the start of every test run: a change shows up as one message instead of a hundred unexplained rendering diffs.",
-  "image": {
-    "os": "win11-vs2026-arm64",
-    "version": "20261013.183.4"
-  },
-  "windows": {
-    "displayVersion": "25H2",
-    "build": "26200.9457",
-    "architecture": "ARM64"
-  },
+  "description": "What the rendering tests require of the machine that runs them: the edition and version of Windows, as the registry names them (Windows 11 still calls itself Windows 10 there), and each system font the tests use, by fingerprint, as they were when the baselines were recorded. A hosted image cannot be pinned, so this is checked at the start of every test run: a machine that differs shows up as one message instead of a hundred unexplained rendering diffs.",
+  "windows": "Windows 10 Enterprise 25H2",
   "systemFonts": [
     {
       "file": "arial.ttf",
@@ -435,133 +427,133 @@
     },
     {
       "file": "segoeui.ttf",
-      "sha256": "8134DBCD09E7B123C9A7F229D49CFFBCB01352CC72EA5E1076B65D0DCA9F73CD",
+      "sha256": "704EADA12961A27FD271F7D3B09E2066520E758390C1776744EFF430FEE30F6E",
       "faces": [
         {
           "family": "Segoe UI",
           "style": "Regular",
-          "version": "Version 5.71"
+          "version": "Version 5.72"
         }
       ]
     },
     {
       "file": "segoeuib.ttf",
-      "sha256": "AEB9E4A6EC5CC59F4D72DF8189032D7DBB28F45161CF1552174818B5465DAC4E",
+      "sha256": "B169E636719880976A97E94E3B1CB3DBE5F4A38EABC037BF9F2A9165154C3AD2",
       "faces": [
         {
           "family": "Segoe UI",
           "style": "Bold",
-          "version": "Version 5.71"
+          "version": "Version 5.72"
         }
       ]
     },
     {
       "file": "segoeuii.ttf",
-      "sha256": "BE525B9A6D307D73C23908CD269BE9BE754210A9D93C0C1EAAA126D2A174290A",
+      "sha256": "F9FEAEEE8B20751C15700B4FB03571B335F52E91EDECE7FB7AA1CEAA6EEB0DB7",
       "faces": [
         {
           "family": "Segoe UI",
           "style": "Italic",
-          "version": "Version 5.71"
+          "version": "Version 5.72"
         }
       ]
     },
     {
       "file": "segoeuil.ttf",
-      "sha256": "866557576DFC772395301B581ECCEF4C0DAF1DBB75F9667F26784B260BCE7DA1",
+      "sha256": "0DBDDF9E20B2DC0FACD568C877AA1155B3597C09A7CA41D00CA580AF25D1CC51",
       "faces": [
         {
           "family": "Segoe UI Light",
           "style": "Regular",
-          "version": "Version 5.71"
+          "version": "Version 5.72"
         }
       ]
     },
     {
       "file": "segoeuisl.ttf",
-      "sha256": "3432DE66F335C7E3058154F7CBB13EF051195653A544B49B1992267E558B33EF",
+      "sha256": "288A8E3FCD0F6090881DCC469B557F55E0A85864ABE1CC24330BB4F08105F69B",
       "faces": [
         {
           "family": "Segoe UI Semilight",
           "style": "Regular",
-          "version": "Version 5.71"
+          "version": "Version 5.72"
         }
       ]
     },
     {
       "file": "segoeuiz.ttf",
-      "sha256": "C886161FA6D102090FF992519B6FDC73057A0E838E9D40B27E187E9E61300A92",
+      "sha256": "F2ECFF1A943929F07A7B872C948B1DE57FE688AC7D0BAB6FC9F624C95A97DBFE",
       "faces": [
         {
           "family": "Segoe UI",
           "style": "Bold Italic",
-          "version": "Version 5.71"
+          "version": "Version 5.72"
         }
       ]
     },
     {
       "file": "seguibl.ttf",
-      "sha256": "BE191C94A0C7172870C3C87A136BD5AA67CDCA7BC091DE89242FB64ECB0F8FAE",
+      "sha256": "BDF29C9B7484C631F19D6EF436A63D15F8A1A82BC856F1A0F6906C41A097D2B1",
       "faces": [
         {
           "family": "Segoe UI Black",
           "style": "Regular",
-          "version": "Version 5.71"
+          "version": "Version 5.72"
         }
       ]
     },
     {
       "file": "seguibli.ttf",
-      "sha256": "51D300301197DFB0621A8D8B275274D408DD15A7EDDA4CC4A8F7666504D582CD",
+      "sha256": "6EFCB158B0093BDEB6C308A93E10C2240E6510B99B756D9583CB59B7E219AAF9",
       "faces": [
         {
           "family": "Segoe UI Black",
           "style": "Italic",
-          "version": "Version 5.71"
+          "version": "Version 5.72"
         }
       ]
     },
     {
       "file": "seguili.ttf",
-      "sha256": "3CB01ED58922781A62AF14E738CD96023957F60D8D6733920A8808614F477DD8",
+      "sha256": "07BBF002D8DCCB6BF7DB8E31207076BF357FE92B1E5F82A20D2C941D59EBEB96",
       "faces": [
         {
           "family": "Segoe UI Light",
           "style": "Italic",
-          "version": "Version 5.71"
+          "version": "Version 5.72"
         }
       ]
     },
     {
       "file": "seguisb.ttf",
-      "sha256": "2D9B22D71F72DE2823FEE5D9C8BC1B0FC32B2577C4C27B9EC6ABDBB8DF0E1731",
+      "sha256": "6C3FD894B19950B10C34BF64069EF821EAF2F58F959146306FEE5B367472E501",
       "faces": [
         {
           "family": "Segoe UI Semibold",
           "style": "Regular",
-          "version": "Version 5.71"
+          "version": "Version 5.72"
         }
       ]
     },
     {
       "file": "seguisbi.ttf",
-      "sha256": "454295546B78810C95FFD7FC9D57890ED15A03B7CFD0D7E3485786400152B740",
+      "sha256": "16847ED882097CD1C0D45C63B6D75C3021F2133C64DB03796F57DAC198D0B2AD",
       "faces": [
         {
           "family": "Segoe UI Semibold",
           "style": "Italic",
-          "version": "Version 5.71"
+          "version": "Version 5.72"
         }
       ]
     },
     {
       "file": "seguisli.ttf",
-      "sha256": "4DC2DB1870047663878DA07FA5F8217E518EF875C8AD33287FCBAD6ABA5A7E73",
+      "sha256": "032EB41F836C3D6FD765DC4C287EA87F7F0C392A454FFC58D7E5FBE29D1FEE86",
       "faces": [
         {
           "family": "Segoe UI Semilight",
           "style": "Italic",
-          "version": "Version 5.71"
+          "version": "Version 5.72"
         }
       ]
     },

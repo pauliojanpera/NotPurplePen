@@ -12,6 +12,12 @@ on:
   pull_request:
     branches: [ master, dev, base ]
   workflow_dispatch:
+    inputs:
+      machine_check:
+        description: 'On a machine unlike the recorded one: stop, or report the differences and test anyway'
+        type: choice
+        options: [ stop, report ]
+        default: stop
 
 jobs:
   # The same commit can reach more than one branch -- a wip branch, and then the
@@ -26,6 +32,10 @@ jobs:
   # may rest on it. A cancelled run leaves the tree unmeasured rather than
   # failed, so the next run in line takes the work over instead of reporting a
   # failure nobody saw.
+  #
+  # A run started by hand is the exception: it is asked for to test the tree
+  # again, as when a run stopped at the machine check is repeated with the
+  # check reporting instead, so it runs the suite whatever the others found.
   decide:
     name: Decide
     runs-on: ubuntu-latest
@@ -41,6 +51,12 @@ jobs:
       env:
         GH_TOKEN: ${{ github.token }}
       run: |
+        if ($env:GITHUB_EVENT_NAME -eq 'workflow_dispatch') {
+            'started by hand: running the suite for this commit'
+            "run=true" >> $env:GITHUB_OUTPUT
+            exit 0
+        }
+
         $me = [long]$env:GITHUB_RUN_ID
         $deadline = (Get-Date).AddMinutes(45)
         while ($true) {
@@ -250,23 +266,37 @@ jobs:
         token: ${{ secrets.FONTS_TOKEN }}
         path: ci-fonts
 
-    # The baselines were recorded against one machine's fonts, so the machine is
-    # part of the fixture. A hosted image cannot be pinned to a version, so it is
-    # written down in .github/ci/environment.json and checked: a changed image says
-    # so in one message instead of a hundred unexplained rendering diffs.
+    # The baselines were recorded against one machine's fonts, so those fonts are
+    # part of the fixture. A hosted image cannot be pinned to a version, so what
+    # the tests require of it -- the edition and version of Windows, and each
+    # system font they use, by fingerprint -- is written down in
+    # .github/ci/environment.json and checked: a machine that differs says so in
+    # one message instead of a hundred unexplained rendering diffs. The image is
+    # replaced every few days and its Windows build with every monthly update, so
+    # both are only printed.
+    #
+    # A machine that differs stops the tests, unless the run was started by hand
+    # with machine_check set to report: the differences are then warnings, and
+    # the tests show which baselines they move. Either way the log carries the
+    # record as that machine has it, in the file's own form, to replace the file
+    # with once the baselines hold on it.
     #
     # Of the faces the tests ask for, the image carries most; ci/fonts.json holds
     # the rest, the ones no Windows installation has, and only those are
     # installed. The store is checked against that list by hash, so a collection
     # assembled elsewhere either is the one the baselines were recorded with or
-    # says which file it differs in.
+    # says which file it differs in. The store is this project's own to put
+    # right, so a difference in it stops every run.
     - name: Check the machine and install the fonts it lacks
       working-directory: ${{ github.workspace }}
       shell: pwsh
+      env:
+        MACHINE_CHECK: ${{ inputs.machine_check || 'stop' }}
       run: |
         "image: $env:ImageOS $env:ImageVersion"
         $cv = Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion'
-        "windows: $($cv.ProductName) $($cv.DisplayVersion) build $($cv.CurrentBuild).$($cv.UBR)"
+        $windows = "$($cv.ProductName) $($cv.DisplayVersion)"
+        "windows: $windows build $($cv.CurrentBuild).$($cv.UBR)"
         "architecture: $env:PROCESSOR_ARCHITECTURE"
         ""
 
@@ -374,42 +404,52 @@ jobs:
             return "$family $style"
         }
 
-        $recorded = Get-Content .github/ci/environment.json -Raw | ConvertFrom-Json
-        $declared = Get-Content .github/ci/fonts.json -Raw | ConvertFrom-Json
-        $fontDir = Join-Path $env:WINDIR 'Fonts'
-        $wrong = New-Object System.Collections.Generic.List[string]
-
-        # The machine first.
-        $actual = [ordered]@{
-            'image os' = $env:ImageOS; 'image version' = $env:ImageVersion
-            'windows version' = $cv.DisplayVersion
-            'windows build' = "$($cv.CurrentBuild).$($cv.UBR)"
-            'architecture' = $env:PROCESSOR_ARCHITECTURE
-        }
-        $expected = [ordered]@{
-            'image os' = $recorded.image.os; 'image version' = $recorded.image.version
-            'windows version' = $recorded.windows.displayVersion
-            'windows build' = $recorded.windows.build
-            'architecture' = $recorded.windows.architecture
-        }
-        foreach ($key in $expected.Keys) {
-            if ($actual[$key] -ne $expected[$key]) {
-                $wrong.Add("$key is '$($actual[$key])', recorded as '$($expected[$key])'")
+        # Parameters:
+        #   differences - what differs, each named with how it differs.
+        #   heading     - the line that introduces them, naming what they differ from.
+        function Write-Differences($differences, $heading) {
+            if ($differences.Count) {
+                $heading
+                $differences.GetEnumerator() | ForEach-Object { "  $($_.Key) $($_.Value)" }
+                ""
             }
         }
 
-        # Then the faces the tests take from it.
-        foreach ($one in $recorded.systemFonts) {
+        $required = Get-Content .github/ci/environment.json -Raw | ConvertFrom-Json
+        $declared = Get-Content .github/ci/fonts.json -Raw | ConvertFrom-Json
+        $fontDir = Join-Path $env:WINDIR 'Fonts'
+        $machineDifferences = [ordered]@{}
+        $storeDifferences = [ordered]@{}
+
+        # The machine first.
+        if ($windows -ne $required.windows) {
+            $machineDifferences['windows'] = "is '$windows', required '$($required.windows)'"
+        }
+
+        # Then the faces the tests take from it, each as this machine has it: a
+        # file that matches its record is the recorded entry, and one that does
+        # not is read again.
+        $machineFonts = New-Object System.Collections.Generic.List[object]
+        foreach ($one in $required.systemFonts) {
             $path = Join-Path $fontDir $one.file
             if (-not (Test-Path $path)) {
-                $wrong.Add("$($one.file) is not on this machine")
+                $machineDifferences[$one.file] = 'is not on this machine'
                 continue
             }
             $hash = (Get-FileHash $path -Algorithm SHA256).Hash
-            if ($hash -ne $one.sha256) {
-                $families = ($one.faces | ForEach-Object { $_.family }) -join ', '
-                $wrong.Add("$($one.file) ($families) hashes to $hash, recorded as $($one.sha256)")
+            if ($hash -eq $one.sha256) {
+                $machineFonts.Add($one)
+                continue
             }
+            $families = ($one.faces | ForEach-Object { $_.family }) -join ', '
+            $machineDifferences[$one.file] = "($families) hashes to $hash, recorded as $($one.sha256)"
+            $machineFonts.Add([pscustomobject]@{
+                file = $one.file
+                sha256 = $hash
+                faces = @(Read-Faces (Get-Item $path) 'machine' | ForEach-Object {
+                    [pscustomobject]@{ family = $_.Family; style = $_.Style; version = $_.Version }
+                })
+            })
         }
 
         # And the store against what it is declared to hold.
@@ -424,9 +464,9 @@ jobs:
         }
         foreach ($one in $declared.files) {
             $have = $byFile[$one.file]
-            if (-not $have) { $wrong.Add("$($one.file) is missing from the store"); continue }
+            if (-not $have) { $storeDifferences[$one.file] = 'is missing from the store'; continue }
             if ($have.Sha256 -ne $one.sha256) {
-                $wrong.Add("$($one.file) hashes to $($have.Sha256), declared as $($one.sha256)")
+                $storeDifferences[$one.file] = "hashes to $($have.Sha256), declared as $($one.sha256)"
             }
         }
         # Anything else the store carries is never installed, so it cannot reach
@@ -436,15 +476,44 @@ jobs:
             "The store carries $($undeclared.Count) file(s) nothing asks for: $(($undeclared | Sort-Object) -join ', ')"
         }
 
-        if ($wrong.Count) {
-            "The machine is not the one the baselines were recorded against:"
-            $wrong | ForEach-Object { "  $_" }
+        Write-Differences $machineDifferences 'The machine is not what the tests require of it (ci/environment.json):'
+        Write-Differences $storeDifferences 'The store is not the one ci/fonts.json declares:'
+
+        # The record that replaces ci/environment.json once the baselines hold on
+        # this machine, folded away in the log.
+        if ($machineDifferences.Count) {
+            "::group::ci/environment.json as this machine has it"
+            [pscustomobject]@{ description = $required.description; windows = $windows; systemFonts = $machineFonts } |
+                ConvertTo-Json -Depth 5
+            "::endgroup::"
             ""
-            "Rendering compares against images produced on the recorded machine."
-            "Either restore it, or re-record the baselines and update the two files."
-            throw "$($wrong.Count) difference(s) from the recorded machine."
         }
-        "The machine and the store are the recorded ones: $($recorded.systemFonts.Count) faces from the image, $($declared.files.Count) files from the store."
+
+        # A verdict goes on the run's page as an annotation, where it is read
+        # without opening the log; an exception would leave there only an exit
+        # code.
+        if ($storeDifferences.Count) {
+            "::error title=The store is not the declared one::The store differs from ci/fonts.json in $($storeDifferences.Keys -join ', ')."
+            exit 1
+        }
+        if ($machineDifferences.Count) {
+            $verdict = "The machine differs from ci/environment.json in $($machineDifferences.Keys -join ', ')."
+            if ($env:MACHINE_CHECK -ne 'report') {
+                "Rendering compares against images made on a machine that had all of these. To see"
+                "which baselines the differences move, run this workflow by hand with machine_check"
+                "set to report; then re-record the baselines they move, if any, and replace"
+                "ci/environment.json with the record above."
+                "::error title=Stopped on a machine the tests do not expect::$verdict"
+                exit 1
+            }
+            "::warning title=Testing on a machine the tests do not expect::$verdict"
+            "Testing anyway, as this run was started to report the differences rather than stop at them."
+            "If the tests pass here, the record above replaces ci/environment.json."
+        }
+        else {
+            "The machine is what the tests require: $windows, and the $($required.systemFonts.Count) font files the tests take from it."
+        }
+        "The store is the declared one: $($declared.files.Count) files."
 
         # A font file the system already has open cannot be overwritten; stopping
         # the cache service releases most of them. Nothing installed here replaces
