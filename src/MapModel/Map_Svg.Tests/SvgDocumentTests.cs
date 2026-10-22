@@ -885,6 +885,146 @@ namespace Map_Svg.Tests
             StringAssert.StartsWith(messageStart, error.Message);
         }
 
+        // A map at 1:10,000 in ETRS-TM35FIN, unturned, its origin at (386250, 6671500), with every identification, and
+        // the record the metadata holds of it: a step of map is 0.01 m of the real world.
+        private static readonly MapGeoreference tm35finGeoreference = new MapGeoreference(10, 0, 0, 10, 386250, 6671500, 3067,
+            "+proj=utm +zone=35 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs", 6005);
+        private const string Tm35finRecord =
+            "<npp:georeference transform=\"matrix(.01 0 0 .01 386250 6671500)\" epsg=\"3067\" " +
+            "proj4=\"+proj=utm +zone=35 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs\" ocad-grid-zone=\"6005\"/>\n";
+
+        // Structure a document as WriteOnePage does, through any structured target: one part holding one map labeled
+        // "map", on a page of 100 by 50 millimetres. Once the part has ended, the map is given each georeference in turn.
+        // target: the target to structure the document through.
+        // draw: draws within the map.
+        // georeferences: where the map lies in the real world, in the order they are given.
+        private static void StructureGeoreferencedPage(IStructuredGraphicsTarget target, Action<IStructuredGraphicsTarget> draw,
+                                                       params MapGeoreference[] georeferences)
+        {
+            using (Matrix mapToPage = new Matrix()) {
+                object part = new object(), map = new object();
+                target.BeginPart(part);
+                target.BeginMap(map, "map");
+                draw(target);
+                target.EndMap();
+                target.EndPart();
+                foreach (MapGeoreference georeference in georeferences)
+                    target.SetGeoreference(map, georeference);
+
+                mapToPage.Translate(0, 50);
+                mapToPage.Scale(1, -1);
+                target.AddPage(new SizeF(100, 50), new RectangleF(0, 0, 100, 50), mapToPage, new object[] { part });
+            }
+        }
+
+        // Write the document that StructureGeoreferencedPage structures.
+        // draw: draws within the map.
+        // georeferences: where the map lies in the real world, in the order they are given.
+        private static string WriteGeoreferencedPage(Action<IStructuredGraphicsTarget> draw, params MapGeoreference[] georeferences)
+        {
+            using (Svg_GraphicsTarget target = new Svg_GraphicsTarget(DefaultColorConverter.Instance, true)) {
+                StructureGeoreferencedPage(target, draw, georeferences);
+                return target.FinishDocument();
+            }
+        }
+
+        [Test]
+        public void AGeoreferencedMapRecordsTheTransformFromStepsToTheRealWorldAndEveryIdentification()
+        {
+            StringAssert.Contains("<npp:map n=\"1\" label=\"map\">\n" + Tm35finRecord + "</npp:map>\n",
+                                  WriteGeoreferencedPage(target => { }, tm35finGeoreference));
+        }
+
+        [Test]
+        public void ATurnedMapKeepsTheDigitsThatHoldAPositionWithinAStepOverTheMapsReach()
+        {
+            // At 1:15,000 and a grid scale factor of 0.99961234567, a step of map is 0.015 m of the real world: the
+            // translation keeps centimetres, and over the 8 m the map reaches the angle keeps six decimals and the scale ten.
+            double scale = 15 * 0.99961234567, angle = 1.23456789 * Math.PI / 180;
+            MapGeoreference turned = new MapGeoreference(scale * Math.Cos(angle), scale * Math.Sin(angle), -scale * Math.Sin(angle),
+                                                         scale * Math.Cos(angle), 386250.123456, 6671500.987654, 0, null, 0);
+            StringAssert.Contains("<npp:georeference transform=\"translate(386250.12 6671500.99)rotate(1.234568)scale(.0149941852)\"/>\n",
+                                  WriteGeoreferencedPage(target => { }, turned));
+        }
+
+        [Test]
+        public void IdentificationsAMapLacksAreLeftOutAndAMapWithoutAGeoreferenceRecordsNone()
+        {
+            MapGeoreference proj4Only = new MapGeoreference(10, 0, 0, 10, 0, 0, 0, " +proj=utm +zone=35 +datum=WGS84 +units=m +no_defs ", 0);
+            StringAssert.Contains("<npp:georeference transform=\"scale(.01)\" proj4=\"+proj=utm +zone=35 +datum=WGS84 +units=m +no_defs\"/>\n",
+                                  WriteGeoreferencedPage(target => { }, proj4Only));
+            MapGeoreference epsgAndGrid = new MapGeoreference(10, 0, 0, 10, 0, 0, 3067, "  ", 6005);
+            StringAssert.Contains("<npp:georeference transform=\"scale(.01)\" epsg=\"3067\" ocad-grid-zone=\"6005\"/>\n",
+                                  WriteGeoreferencedPage(target => { }, epsgAndGrid));
+
+            // A transform that takes a step of map to a unit of the real world moves nothing, so it is left out (S-9).
+            MapGeoreference stepsAsTheyAre = new MapGeoreference(1000, 0, 0, 1000, 0, 0, 0, null, 0);
+            StringAssert.Contains("<npp:map n=\"1\" label=\"map\">\n<npp:georeference/>\n</npp:map>\n",
+                                  WriteGeoreferencedPage(target => { }, stepsAsTheyAre));
+            StringAssert.Contains("<npp:map n=\"1\" label=\"map\"/>\n", WriteGeoreferencedPage(target => { }));
+        }
+
+        [Test]
+        public void AGeoreferenceComesBeforeTheTablesOfItsMap()
+        {
+            StringAssert.Contains("<npp:map n=\"1\" label=\"map\">\n" + Tm35finRecord +
+                                  "<npp:color position=\"2\" name=\"Black\" cmyk=\"0,0,0,1\"/>\n" +
+                                  "<npp:symbol n=\"1\" id=\"101.0\" name=\"Contour\" colors=\"2\"/>\n</npp:map>\n",
+                                  WriteGeoreferencedPage(target => DrawRunOfTwoObjects(target), tm35finGeoreference));
+        }
+
+        [Test]
+        public void AGeoreferenceGoesToTheMapItsKeyNamesAndReplacesAnEarlierOne()
+        {
+            StringAssert.Contains("<npp:map n=\"1\" label=\"map\">\n" + Tm35finRecord + "</npp:map>\n",
+                                  WriteGeoreferencedPage(target => { }, new MapGeoreference(10, 0, 0, 10, 0, 0, 3067, null, 0), tm35finGeoreference));
+
+            using (Svg_GraphicsTarget target = new Svg_GraphicsTarget(DefaultColorConverter.Instance, true))
+            using (Matrix mapToPage = new Matrix()) {
+                object part = new object(), baseMap = new object(), courseMap = new object();
+                target.BeginPart(part);
+                target.BeginMap(baseMap, "base");
+                target.EndMap();
+                target.BeginMap(courseMap, "course");
+                target.SetGeoreference(baseMap, tm35finGeoreference);
+                target.EndMap();
+                target.EndPart();
+                target.AddPage(new SizeF(100, 50), new RectangleF(0, 0, 100, 50), mapToPage, new object[] { part });
+                StringAssert.Contains("<npp:map n=\"1\" label=\"base\">\n" + Tm35finRecord + "</npp:map>\n<npp:map n=\"2\" label=\"course\"/>\n",
+                                      target.FinishDocument());
+            }
+        }
+
+        [Test]
+        public void ARecordingPlaysAGeoreferenceBackWithItsMap()
+        {
+            string drawnDirectly = WriteGeoreferencedPage(target => DrawRunOfTwoObjects(target), tm35finGeoreference);
+            using (StructuredRecordingGraphicsTarget recording = new StructuredRecordingGraphicsTarget()) {
+                StructureGeoreferencedPage(recording, target => DrawRunOfTwoObjects(target), tm35finGeoreference);
+                recording.EndRecording();
+                using (Svg_GraphicsTarget target = new Svg_GraphicsTarget(DefaultColorConverter.Instance, true)) {
+                    recording.Playback(target);
+                    Assert.AreEqual(drawnDirectly, target.FinishDocument());
+                }
+            }
+        }
+
+        [Test]
+        public void AGeoreferenceForAKeyThatNamesNoMapOrOnATileRaisesAnErrorNamingIt()
+        {
+            using (Svg_GraphicsTarget target = new Svg_GraphicsTarget(DefaultColorConverter.Instance, true)) {
+                object part = new object(), map = new object();
+                target.BeginPart(part);
+                AssertError("SetGeoreference: no map has begun with this key", () => target.SetGeoreference(map, tm35finGeoreference));
+                target.BeginMap(map, "map");
+                AssertError("SetGeoreference: no map has begun with this key", () => target.SetGeoreference(part, tm35finGeoreference));
+                target.SetGeoreference(map, tm35finGeoreference);
+
+                IStructuredGraphicsTarget tile = (IStructuredGraphicsTarget)target.CreatePatternBrush(new SizeF(2, 2), 0, 8, 8);
+                AssertError("SetGeoreference: a pattern brush's tile holds drawing alone", () => tile.SetGeoreference(map, tm35finGeoreference));
+            }
+        }
+
         [Test]
         public void TheSameDrawingWritesTheSameText()
         {

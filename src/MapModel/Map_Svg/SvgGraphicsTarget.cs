@@ -285,6 +285,17 @@ namespace PurplePen.MapModel
             document.AddPage(paperSize.Width, paperSize.Height, stepsToPage, document.ClipOf(clipPath.ToString(), false), clipPath.Bounds, parts);
         }
 
+        // Record where a map that has begun lies in the real world, which its record in the metadata then holds; a later
+        // call for the same map replaces it (G-1, G-2).
+        public void SetGeoreference(object mapKey, MapGeoreference georeference)
+        {
+            RequireDocumentTarget(nameof(SetGeoreference));
+            SvgMapRecord map;
+            if (!mapsByKey.TryGetValue(mapKey, out map))
+                throw new InvalidOperationException("SetGeoreference: no map has begun with this key.");
+            map.Georeference = georeference;
+        }
+
         // The intensity at which colors are drawn; setting it discards the brushes and pens, whose colors it changed.
         public float Intensity
         {

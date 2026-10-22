@@ -141,6 +141,15 @@ namespace PurplePen.MapModel
         public readonly List<SvgSymbolRecord> Symbols = new List<SvgSymbolRecord>();
         private readonly Dictionary<object, SvgSymbolRecord> symbolsByKey = new Dictionary<object, SvgSymbolRecord>(new IdentityComparer<object>());
 
+        // Where the map lies in the real world, or null when that is not known (G-1, G-2).
+        public MapGeoreference Georeference;
+
+        // Whether the metadata holds anything within the map's record: its georeference or a table.
+        public bool HasContent
+        {
+            get { return Georeference != null || Colors.Count > 0 || Symbols.Count > 0; }
+        }
+
         // Create the record of a map.
         // number: its number.
         // label: what it is called.
@@ -230,6 +239,10 @@ namespace PurplePen.MapModel
 
         // The gap between pages laid side by side, in millimetres.
         private const double GapBetweenPages = 10;
+
+        // How far from its origin a map's coordinates reach, in steps: the 8 m within which the map model's 32-bit
+        // floats still resolve a step (S-1), and over which a map's georeference keeps its digits (S-2).
+        private const double MapReachInSteps = 8000 * SvgNumbers.StepsPerMillimetre;
 
         // The paints of the document's styles.
         public readonly SvgPaints Paints;
@@ -373,8 +386,8 @@ namespace PurplePen.MapModel
             text.Append("</style>\n");
         }
 
-        // Write the metadata: the version of its format and the record of each map, with the tables of its colors and
-        // symbols (F-3, M-7).
+        // Write the metadata: the version of its format and the record of each map, with where it lies in the real world
+        // and the tables of its colors and symbols (F-3, G-1, G-2, M-7).
         // text: the text to append to.
         private void WriteMetadata(StringBuilder text)
         {
@@ -382,12 +395,14 @@ namespace PurplePen.MapModel
             foreach (SvgMapRecord map in Maps) {
                 text.Append("<npp:map n=\"").Append(SvgNumbers.FormatInteger(map.Number)).Append("\" label=\"")
                     .Append(EscapeAttribute(map.Label)).Append('"');
-                if (map.Colors.Count == 0 && map.Symbols.Count == 0) {
+                if (!map.HasContent) {
                     text.Append("/>\n");
                     continue;
                 }
 
                 text.Append(">\n");
+                if (map.Georeference != null)
+                    WriteGeoreferenceRecord(text, map.Georeference);
                 foreach (SvgColorRecord color in map.Colors)
                     WriteColorRecord(text, color);
                 foreach (SvgSymbolRecord symbol in map.Symbols)
@@ -395,6 +410,33 @@ namespace PurplePen.MapModel
                 text.Append("</npp:map>\n");
             }
             text.Append("</npp:document>\n</metadata>\n");
+        }
+
+        // Write the record of where a map lies in the real world: the transform from the coordinates its drawing is
+        // written in, steps of map, to real-world coordinates, written as every transform is and so left out when it
+        // moves nothing (S-8, S-9), with the digits that keep any point within the map's reach less than a step of map
+        // from where the exact transform takes it (S-2); and each identification of the coordinate system that the map
+        // has (G-1, G-2).
+        // text: the text to append to.
+        // georeference: where the map lies in the real world.
+        private static void WriteGeoreferenceRecord(StringBuilder text, MapGeoreference georeference)
+        {
+            SvgTransform stepsToRealWorld = new SvgTransform(
+                georeference.A / SvgNumbers.StepsPerMillimetre, georeference.B / SvgNumbers.StepsPerMillimetre,
+                georeference.C / SvgNumbers.StepsPerMillimetre, georeference.D / SvgNumbers.StepsPerMillimetre,
+                georeference.E, georeference.F);
+            string transform = stepsToRealWorld.Format(MapReachInSteps, stepsToRealWorld.LengthScale);
+
+            text.Append("<npp:georeference");
+            if (transform != "")
+                text.Append(" transform=\"").Append(transform).Append('"');
+            if (georeference.EpsgCode != 0)
+                text.Append(" epsg=\"").Append(SvgNumbers.FormatInteger(georeference.EpsgCode)).Append('"');
+            if (!string.IsNullOrWhiteSpace(georeference.Proj4String))
+                text.Append(" proj4=\"").Append(EscapeAttribute(georeference.Proj4String.Trim())).Append('"');
+            if (georeference.OcadGridAndZone != 0)
+                text.Append(" ocad-grid-zone=\"").Append(SvgNumbers.FormatInteger(georeference.OcadGridAndZone)).Append('"');
+            text.Append("/>\n");
         }
 
         // Write the record of a color: its position, name and CMYK values, which carry the fewest digits that give the

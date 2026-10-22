@@ -4,8 +4,9 @@ using SizeF = System.Drawing.SizeF;
 namespace PurplePen.Graphics2D
 {
     // A graphics target that keeps the structure of what it draws: the parts of drawings that a document defines once,
-    // the labeled maps within them, each map's color runs and objects, and the pages that show the parts. The map code
-    // makes these calls only to a target that implements this interface, so every other target is unaffected.
+    // the labeled maps within them, each map's color runs, objects and place in the real world, and the pages that show
+    // the parts. The map code makes these calls only to a target that implements this interface, so every other target
+    // is unaffected.
     public interface IStructuredGraphicsTarget : IGraphicsTarget
     {
         // Begin a part of a drawing, which the document defines once for every page that shows it. Drawing happens
@@ -55,5 +56,11 @@ namespace PurplePen.Graphics2D
         // mapToPage: the transform from map coordinates to millimetres on the paper, whose y axis points down.
         // partKeys: the parts the page shows, from the bottom up.
         void AddPage(SizeF paperSize, RectangleF mapArea, Matrix mapToPage, object[] partKeys);
+
+        // Record where a map lies in the real world, with the map; a later call for the same map replaces it.
+        // mapKey: the key of a map that has begun.
+        // georeference: the transform from the map's coordinates to real-world coordinates, and the identifications of
+        //               the coordinate system.
+        void SetGeoreference(object mapKey, MapGeoreference georeference);
     }
 }

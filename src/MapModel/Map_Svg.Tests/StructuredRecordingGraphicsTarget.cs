@@ -87,6 +87,13 @@ namespace Map_Svg.Tests
             RecordStructure(target => target.AddPage(paperSize, mapArea, transform, parts));
         }
 
+        // Record where a map lies in the real world; the georeference is a value that cannot change, so it is kept.
+        public void SetGeoreference(object mapKey, MapGeoreference georeference)
+        {
+            object map = StandInFor(mapKey);
+            RecordStructure(target => target.SetGeoreference(map, georeference));
+        }
+
         // The object that stands for a key of the caller's, made when the key is first seen.
         // key: the caller's key.
         private object StandInFor(object key)
