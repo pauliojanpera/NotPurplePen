@@ -1,0 +1,4671 @@
+{
+"-2060": {
+"code": 32760,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 60S",
+"deprecated": false
+},
+"-2059": {
+"code": 32759,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 59S",
+"deprecated": false
+},
+"-2058": {
+"code": 32758,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 58S",
+"deprecated": false
+},
+"-2057": {
+"code": 32757,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 57S",
+"deprecated": false
+},
+"-2056": {
+"code": 32756,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 56S",
+"deprecated": false
+},
+"-2055": {
+"code": 32755,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 55S",
+"deprecated": false
+},
+"-2054": {
+"code": 32754,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 54S",
+"deprecated": false
+},
+"-2053": {
+"code": 32753,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 53S",
+"deprecated": false
+},
+"-2052": {
+"code": 32752,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 52S",
+"deprecated": false
+},
+"-2051": {
+"code": 32751,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 51S",
+"deprecated": false
+},
+"-2050": {
+"code": 32750,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 50S",
+"deprecated": false
+},
+"-2049": {
+"code": 32749,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 49S",
+"deprecated": false
+},
+"-2048": {
+"code": 32748,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 48S",
+"deprecated": false
+},
+"-2047": {
+"code": 32747,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 47S",
+"deprecated": false
+},
+"-2046": {
+"code": 32746,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 46S",
+"deprecated": false
+},
+"-2045": {
+"code": 32745,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 45S",
+"deprecated": false
+},
+"-2044": {
+"code": 32744,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 44S",
+"deprecated": false
+},
+"-2043": {
+"code": 32743,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 43S",
+"deprecated": false
+},
+"-2042": {
+"code": 32742,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 42S",
+"deprecated": false
+},
+"-2041": {
+"code": 32741,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 41S",
+"deprecated": false
+},
+"-2040": {
+"code": 32740,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 40S",
+"deprecated": false
+},
+"-2039": {
+"code": 32739,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 39S",
+"deprecated": false
+},
+"-2038": {
+"code": 32738,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 38S",
+"deprecated": false
+},
+"-2037": {
+"code": 32737,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 37S",
+"deprecated": false
+},
+"-2036": {
+"code": 32736,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 36S",
+"deprecated": false
+},
+"-2035": {
+"code": 32735,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 35S",
+"deprecated": false
+},
+"-2034": {
+"code": 32734,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 34S",
+"deprecated": false
+},
+"-2033": {
+"code": 32733,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 33S",
+"deprecated": false
+},
+"-2032": {
+"code": 32732,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 32S",
+"deprecated": false
+},
+"-2031": {
+"code": 32731,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 31S",
+"deprecated": false
+},
+"-2030": {
+"code": 32730,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 30S",
+"deprecated": false
+},
+"-2029": {
+"code": 32729,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 29S",
+"deprecated": false
+},
+"-2028": {
+"code": 32728,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 28S",
+"deprecated": false
+},
+"-2027": {
+"code": 32727,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 27S",
+"deprecated": false
+},
+"-2026": {
+"code": 32726,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 26S",
+"deprecated": false
+},
+"-2025": {
+"code": 32725,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 25S",
+"deprecated": false
+},
+"-2024": {
+"code": 32724,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 24S",
+"deprecated": false
+},
+"-2023": {
+"code": 32723,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 23S",
+"deprecated": false
+},
+"-2022": {
+"code": 32722,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 22S",
+"deprecated": false
+},
+"-2021": {
+"code": 32721,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 21S",
+"deprecated": false
+},
+"-2020": {
+"code": 32720,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 20S",
+"deprecated": false
+},
+"-2019": {
+"code": 32719,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 19S",
+"deprecated": false
+},
+"-2018": {
+"code": 32718,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 18S",
+"deprecated": false
+},
+"-2017": {
+"code": 32717,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 17S",
+"deprecated": false
+},
+"-2016": {
+"code": 32716,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 16S",
+"deprecated": false
+},
+"-2015": {
+"code": 32715,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 15S",
+"deprecated": false
+},
+"-2014": {
+"code": 32714,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 14S",
+"deprecated": false
+},
+"-2013": {
+"code": 32713,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 13S",
+"deprecated": false
+},
+"-2012": {
+"code": 32712,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 12S",
+"deprecated": false
+},
+"-2011": {
+"code": 32711,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 11S",
+"deprecated": false
+},
+"-2010": {
+"code": 32710,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 10S",
+"deprecated": false
+},
+"-2009": {
+"code": 32709,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 9S",
+"deprecated": false
+},
+"-2008": {
+"code": 32708,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 8S",
+"deprecated": false
+},
+"-2007": {
+"code": 32707,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 7S",
+"deprecated": false
+},
+"-2006": {
+"code": 32706,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 6S",
+"deprecated": false
+},
+"-2005": {
+"code": 32705,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 5S",
+"deprecated": false
+},
+"-2004": {
+"code": 32704,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 4S",
+"deprecated": false
+},
+"-2003": {
+"code": 32703,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 3S",
+"deprecated": false
+},
+"-2002": {
+"code": 32702,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 2S",
+"deprecated": false
+},
+"-2001": {
+"code": 32701,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 1S",
+"deprecated": false
+},
+"2001": {
+"code": 32601,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 1N",
+"deprecated": false
+},
+"2002": {
+"code": 32602,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 2N",
+"deprecated": false
+},
+"2003": {
+"code": 32603,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 3N",
+"deprecated": false
+},
+"2004": {
+"code": 32604,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 4N",
+"deprecated": false
+},
+"2005": {
+"code": 32605,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 5N",
+"deprecated": false
+},
+"2006": {
+"code": 32606,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 6N",
+"deprecated": false
+},
+"2007": {
+"code": 32607,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 7N",
+"deprecated": false
+},
+"2008": {
+"code": 32608,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 8N",
+"deprecated": false
+},
+"2009": {
+"code": 32609,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 9N",
+"deprecated": false
+},
+"2010": {
+"code": 32610,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 10N",
+"deprecated": false
+},
+"2011": {
+"code": 32611,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 11N",
+"deprecated": false
+},
+"2012": {
+"code": 32612,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 12N",
+"deprecated": false
+},
+"2013": {
+"code": 32613,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 13N",
+"deprecated": false
+},
+"2014": {
+"code": 32614,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 14N",
+"deprecated": false
+},
+"2015": {
+"code": 32615,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 15N",
+"deprecated": false
+},
+"2016": {
+"code": 32616,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 16N",
+"deprecated": false
+},
+"2017": {
+"code": 32617,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 17N",
+"deprecated": false
+},
+"2018": {
+"code": 32618,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 18N",
+"deprecated": false
+},
+"2019": {
+"code": 32619,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 19N",
+"deprecated": false
+},
+"2020": {
+"code": 32620,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 20N",
+"deprecated": false
+},
+"2021": {
+"code": 32621,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 21N",
+"deprecated": false
+},
+"2022": {
+"code": 32622,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 22N",
+"deprecated": false
+},
+"2023": {
+"code": 32623,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 23N",
+"deprecated": false
+},
+"2024": {
+"code": 32624,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 24N",
+"deprecated": false
+},
+"2025": {
+"code": 32625,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 25N",
+"deprecated": false
+},
+"2026": {
+"code": 32626,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 26N",
+"deprecated": false
+},
+"2027": {
+"code": 32627,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 27N",
+"deprecated": false
+},
+"2028": {
+"code": 32628,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 28N",
+"deprecated": false
+},
+"2029": {
+"code": 32629,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 29N",
+"deprecated": false
+},
+"2030": {
+"code": 32630,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 30N",
+"deprecated": false
+},
+"2031": {
+"code": 32631,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 31N",
+"deprecated": false
+},
+"2032": {
+"code": 32632,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 32N",
+"deprecated": false
+},
+"2033": {
+"code": 32633,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 33N",
+"deprecated": false
+},
+"2034": {
+"code": 32634,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 34N",
+"deprecated": false
+},
+"2035": {
+"code": 32635,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 35N",
+"deprecated": false
+},
+"2036": {
+"code": 32636,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 36N",
+"deprecated": false
+},
+"2037": {
+"code": 32637,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 37N",
+"deprecated": false
+},
+"2038": {
+"code": 32638,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 38N",
+"deprecated": false
+},
+"2039": {
+"code": 32639,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 39N",
+"deprecated": false
+},
+"2040": {
+"code": 32640,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 40N",
+"deprecated": false
+},
+"2041": {
+"code": 32641,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 41N",
+"deprecated": false
+},
+"2042": {
+"code": 32642,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 42N",
+"deprecated": false
+},
+"2043": {
+"code": 32643,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 43N",
+"deprecated": false
+},
+"2044": {
+"code": 32644,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 44N",
+"deprecated": false
+},
+"2045": {
+"code": 32645,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 45N",
+"deprecated": false
+},
+"2046": {
+"code": 32646,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 46N",
+"deprecated": false
+},
+"2047": {
+"code": 32647,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 47N",
+"deprecated": false
+},
+"2048": {
+"code": 32648,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 48N",
+"deprecated": false
+},
+"2049": {
+"code": 32649,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 49N",
+"deprecated": false
+},
+"2050": {
+"code": 32650,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 50N",
+"deprecated": false
+},
+"2051": {
+"code": 32651,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 51N",
+"deprecated": false
+},
+"2052": {
+"code": 32652,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 52N",
+"deprecated": false
+},
+"2053": {
+"code": 32653,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 53N",
+"deprecated": false
+},
+"2054": {
+"code": 32654,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 54N",
+"deprecated": false
+},
+"2055": {
+"code": 32655,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 55N",
+"deprecated": false
+},
+"2056": {
+"code": 32656,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 56N",
+"deprecated": false
+},
+"2057": {
+"code": 32657,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 57N",
+"deprecated": false
+},
+"2058": {
+"code": 32658,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 58N",
+"deprecated": false
+},
+"2059": {
+"code": 32659,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 59N",
+"deprecated": false
+},
+"2060": {
+"code": 32660,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / UTM zone 60N",
+"deprecated": false
+},
+"3028": {
+"code": 31257,
+"group": "confirmed",
+"problems": [],
+"name": "MGI / Austria GK M28",
+"deprecated": false
+},
+"3031": {
+"code": 31258,
+"group": "confirmed",
+"problems": [],
+"name": "MGI / Austria GK M31",
+"deprecated": false
+},
+"3034": {
+"code": 31259,
+"group": "confirmed",
+"problems": [],
+"name": "MGI / Austria GK M34",
+"deprecated": false
+},
+"3035": {
+"code": 31254,
+"group": "confirmed",
+"problems": [],
+"name": "MGI / Austria GK West",
+"deprecated": false
+},
+"3036": {
+"code": 31255,
+"group": "confirmed",
+"problems": [],
+"name": "MGI / Austria GK Central",
+"deprecated": false
+},
+"3038": {
+"code": 31256,
+"group": "confirmed",
+"problems": [],
+"name": "MGI / Austria GK East",
+"deprecated": false
+},
+"4001": {
+"code": 31300,
+"group": "confirmed",
+"problems": [],
+"name": "BD72 / Belge Lambert 72",
+"deprecated": false
+},
+"4002": {
+"code": 3447,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-BEL [BEREF2002] / Belgian Lambert 2005",
+"deprecated": false
+},
+"4003": {
+"code": 3812,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-BEL [BEREF2002] / Belgian Lambert 2008",
+"deprecated": false
+},
+"5000": {
+"code": 27700,
+"group": "confirmed",
+"problems": [],
+"name": "OSGB36 / British National Grid",
+"deprecated": false
+},
+"6001": {
+"code": 2391,
+"group": "confirmed",
+"problems": [],
+"name": "KKJ / Finland zone 1",
+"deprecated": false
+},
+"6002": {
+"code": 2392,
+"group": "confirmed",
+"problems": [],
+"name": "KKJ / Finland zone 2",
+"deprecated": false
+},
+"6003": {
+"code": 2393,
+"group": "confirmed",
+"problems": [],
+"name": "KKJ / Finland Uniform Coordinate System",
+"deprecated": false
+},
+"6004": {
+"code": 2394,
+"group": "confirmed",
+"problems": [],
+"name": "KKJ / Finland zone 4",
+"deprecated": false
+},
+"6005": {
+"code": 3067,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-FIN [EUREF-FIN] / TM35FIN(E,N)",
+"deprecated": false
+},
+"6019": {
+"code": 3126,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-FIN [EUREF-FIN] / ETRS-GK19FIN",
+"deprecated": false
+},
+"6020": {
+"code": 3127,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-FIN [EUREF-FIN] / ETRS-GK20FIN",
+"deprecated": false
+},
+"6021": {
+"code": 3128,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-FIN [EUREF-FIN] / ETRS-GK21FIN",
+"deprecated": false
+},
+"6022": {
+"code": 3129,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-FIN [EUREF-FIN] / ETRS-GK22FIN",
+"deprecated": false
+},
+"6023": {
+"code": 3130,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-FIN [EUREF-FIN] / ETRS-GK23FIN",
+"deprecated": false
+},
+"6024": {
+"code": 3131,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-FIN [EUREF-FIN] / ETRS-GK24FIN",
+"deprecated": false
+},
+"6025": {
+"code": 3132,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-FIN [EUREF-FIN] / ETRS-GK25FIN",
+"deprecated": false
+},
+"6026": {
+"code": 3133,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-FIN [EUREF-FIN] / ETRS-GK26FIN",
+"deprecated": false
+},
+"6027": {
+"code": 3134,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-FIN [EUREF-FIN] / ETRS-GK27FIN",
+"deprecated": false
+},
+"6028": {
+"code": 3135,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-FIN [EUREF-FIN] / ETRS-GK28FIN",
+"deprecated": false
+},
+"6029": {
+"code": 3136,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-FIN [EUREF-FIN] / ETRS-GK29FIN",
+"deprecated": false
+},
+"6030": {
+"code": 3137,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-FIN [EUREF-FIN] / ETRS-GK30FIN",
+"deprecated": false
+},
+"6031": {
+"code": 3138,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-FIN [EUREF-FIN] / ETRS-GK31FIN",
+"deprecated": false
+},
+"6032": {
+"code": 3387,
+"group": "confirmed",
+"problems": [],
+"name": "KKJ / Finland zone 5",
+"deprecated": false
+},
+"7001": {
+"code": 27591,
+"group": "confirmed",
+"problems": [],
+"name": "NTF (Paris) / Nord France",
+"deprecated": true
+},
+"7002": {
+"code": 27581,
+"group": "confirmed",
+"problems": [],
+"name": "NTF (Paris) / France I",
+"deprecated": true
+},
+"7003": {
+"code": 27592,
+"group": "confirmed",
+"problems": [],
+"name": "NTF (Paris) / Centre France",
+"deprecated": true
+},
+"7004": {
+"code": 27572,
+"group": "confirmed",
+"problems": [],
+"name": "NTF (Paris) / Lambert zone II",
+"deprecated": false
+},
+"7005": {
+"code": 27593,
+"group": "confirmed",
+"problems": [],
+"name": "NTF (Paris) / Sud France",
+"deprecated": true
+},
+"7006": {
+"code": 27583,
+"group": "confirmed",
+"problems": [],
+"name": "NTF (Paris) / France III",
+"deprecated": true
+},
+"7007": {
+"code": 27594,
+"group": "confirmed",
+"problems": [],
+"name": "NTF (Paris) / Corse",
+"deprecated": true
+},
+"7008": {
+"code": 27584,
+"group": "confirmed",
+"problems": [],
+"name": "NTF (Paris) / France IV",
+"deprecated": true
+},
+"7009": {
+"code": 2154,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-FRA [RGF93 v1] / Lambert-93",
+"deprecated": false
+},
+"7010": {
+"code": 3942,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-FRA [RGF93 v1] / CC42",
+"deprecated": false
+},
+"7011": {
+"code": 3943,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-FRA [RGF93 v1] / CC43",
+"deprecated": false
+},
+"7012": {
+"code": 3944,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-FRA [RGF93 v1] / CC44",
+"deprecated": false
+},
+"7013": {
+"code": 3945,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-FRA [RGF93 v1] / CC45",
+"deprecated": false
+},
+"7014": {
+"code": 3946,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-FRA [RGF93 v1] / CC46",
+"deprecated": false
+},
+"7015": {
+"code": 3947,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-FRA [RGF93 v1] / CC47",
+"deprecated": false
+},
+"7016": {
+"code": 3948,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-FRA [RGF93 v1] / CC48",
+"deprecated": false
+},
+"7017": {
+"code": 3949,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-FRA [RGF93 v1] / CC49",
+"deprecated": false
+},
+"7018": {
+"code": 3950,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-FRA [RGF93 v1] / CC50",
+"deprecated": false
+},
+"8002": {
+"code": 31466,
+"group": "confirmed",
+"problems": [],
+"name": "DHDN / 3-degree Gauss-Kruger zone 2",
+"deprecated": false
+},
+"8003": {
+"code": 31467,
+"group": "confirmed",
+"problems": [],
+"name": "DHDN / 3-degree Gauss-Kruger zone 3",
+"deprecated": false
+},
+"8004": {
+"code": 31468,
+"group": "confirmed",
+"problems": [],
+"name": "DHDN / 3-degree Gauss-Kruger zone 4",
+"deprecated": false
+},
+"8005": {
+"code": 31469,
+"group": "confirmed",
+"problems": [],
+"name": "DHDN / 3-degree Gauss-Kruger zone 5",
+"deprecated": false
+},
+"8006": {
+"code": 25831,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89 / UTM zone 31N",
+"deprecated": false
+},
+"8007": {
+"code": 25832,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89 / UTM zone 32N",
+"deprecated": false
+},
+"8008": {
+"code": 25833,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89 / UTM zone 33N",
+"deprecated": false
+},
+"8013": {
+"code": 3068,
+"group": "confirmed",
+"problems": [],
+"name": "DHDN / Soldner Berlin",
+"deprecated": false
+},
+"8014": {
+"code": 3068,
+"group": "confirmed",
+"problems": [],
+"name": "DHDN / Soldner Berlin",
+"deprecated": false
+},
+"9003": {
+"code": 2157,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-IRE [ETRF2000] / Irish Transverse Mercator",
+"deprecated": false
+},
+"11001": {
+"code": 30161,
+"group": "confirmed",
+"problems": [],
+"name": "Tokyo / Japan Plane Rectangular CS I",
+"deprecated": false
+},
+"11002": {
+"code": 30162,
+"group": "confirmed",
+"problems": [],
+"name": "Tokyo / Japan Plane Rectangular CS II",
+"deprecated": false
+},
+"11003": {
+"code": 30163,
+"group": "confirmed",
+"problems": [],
+"name": "Tokyo / Japan Plane Rectangular CS III",
+"deprecated": false
+},
+"11004": {
+"code": 30164,
+"group": "confirmed",
+"problems": [],
+"name": "Tokyo / Japan Plane Rectangular CS IV",
+"deprecated": false
+},
+"11005": {
+"code": 30165,
+"group": "confirmed",
+"problems": [],
+"name": "Tokyo / Japan Plane Rectangular CS V",
+"deprecated": false
+},
+"11006": {
+"code": 30166,
+"group": "confirmed",
+"problems": [],
+"name": "Tokyo / Japan Plane Rectangular CS VI",
+"deprecated": false
+},
+"11007": {
+"code": 30167,
+"group": "confirmed",
+"problems": [],
+"name": "Tokyo / Japan Plane Rectangular CS VII",
+"deprecated": false
+},
+"11008": {
+"code": 30168,
+"group": "confirmed",
+"problems": [],
+"name": "Tokyo / Japan Plane Rectangular CS VIII",
+"deprecated": false
+},
+"11009": {
+"code": 30169,
+"group": "confirmed",
+"problems": [],
+"name": "Tokyo / Japan Plane Rectangular CS IX",
+"deprecated": false
+},
+"11010": {
+"code": 30170,
+"group": "confirmed",
+"problems": [],
+"name": "Tokyo / Japan Plane Rectangular CS X",
+"deprecated": false
+},
+"11011": {
+"code": 30171,
+"group": "confirmed",
+"problems": [],
+"name": "Tokyo / Japan Plane Rectangular CS XI",
+"deprecated": false
+},
+"11012": {
+"code": 30172,
+"group": "confirmed",
+"problems": [],
+"name": "Tokyo / Japan Plane Rectangular CS XII",
+"deprecated": false
+},
+"11013": {
+"code": 30173,
+"group": "confirmed",
+"problems": [],
+"name": "Tokyo / Japan Plane Rectangular CS XIII",
+"deprecated": false
+},
+"11014": {
+"code": 30174,
+"group": "confirmed",
+"problems": [],
+"name": "Tokyo / Japan Plane Rectangular CS XIV",
+"deprecated": false
+},
+"11015": {
+"code": 30175,
+"group": "confirmed",
+"problems": [],
+"name": "Tokyo / Japan Plane Rectangular CS XV",
+"deprecated": false
+},
+"11016": {
+"code": 30176,
+"group": "confirmed",
+"problems": [],
+"name": "Tokyo / Japan Plane Rectangular CS XVI",
+"deprecated": false
+},
+"11017": {
+"code": 30177,
+"group": "confirmed",
+"problems": [],
+"name": "Tokyo / Japan Plane Rectangular CS XVII",
+"deprecated": false
+},
+"11018": {
+"code": 30178,
+"group": "confirmed",
+"problems": [],
+"name": "Tokyo / Japan Plane Rectangular CS XVIII",
+"deprecated": false
+},
+"11019": {
+"code": 30179,
+"group": "confirmed",
+"problems": [],
+"name": "Tokyo / Japan Plane Rectangular CS XIX",
+"deprecated": false
+},
+"11020": {
+"code": 2443,
+"group": "confirmed",
+"problems": [],
+"name": "JGD2000 / Japan Plane Rectangular CS I",
+"deprecated": false
+},
+"11021": {
+"code": 2444,
+"group": "confirmed",
+"problems": [],
+"name": "JGD2000 / Japan Plane Rectangular CS II",
+"deprecated": false
+},
+"11022": {
+"code": 2445,
+"group": "confirmed",
+"problems": [],
+"name": "JGD2000 / Japan Plane Rectangular CS III",
+"deprecated": false
+},
+"11023": {
+"code": 2446,
+"group": "confirmed",
+"problems": [],
+"name": "JGD2000 / Japan Plane Rectangular CS IV",
+"deprecated": false
+},
+"11024": {
+"code": 2447,
+"group": "confirmed",
+"problems": [],
+"name": "JGD2000 / Japan Plane Rectangular CS V",
+"deprecated": false
+},
+"11025": {
+"code": 2448,
+"group": "confirmed",
+"problems": [],
+"name": "JGD2000 / Japan Plane Rectangular CS VI",
+"deprecated": false
+},
+"11026": {
+"code": 2449,
+"group": "confirmed",
+"problems": [],
+"name": "JGD2000 / Japan Plane Rectangular CS VII",
+"deprecated": false
+},
+"11027": {
+"code": 2450,
+"group": "confirmed",
+"problems": [],
+"name": "JGD2000 / Japan Plane Rectangular CS VIII",
+"deprecated": false
+},
+"11028": {
+"code": 2451,
+"group": "confirmed",
+"problems": [],
+"name": "JGD2000 / Japan Plane Rectangular CS IX",
+"deprecated": false
+},
+"11029": {
+"code": 2452,
+"group": "confirmed",
+"problems": [],
+"name": "JGD2000 / Japan Plane Rectangular CS X",
+"deprecated": false
+},
+"11030": {
+"code": 2453,
+"group": "confirmed",
+"problems": [],
+"name": "JGD2000 / Japan Plane Rectangular CS XI",
+"deprecated": false
+},
+"11031": {
+"code": 2454,
+"group": "confirmed",
+"problems": [],
+"name": "JGD2000 / Japan Plane Rectangular CS XII",
+"deprecated": false
+},
+"11032": {
+"code": 2455,
+"group": "confirmed",
+"problems": [],
+"name": "JGD2000 / Japan Plane Rectangular CS XIII",
+"deprecated": false
+},
+"11033": {
+"code": 2456,
+"group": "confirmed",
+"problems": [],
+"name": "JGD2000 / Japan Plane Rectangular CS XIV",
+"deprecated": false
+},
+"11034": {
+"code": 2457,
+"group": "confirmed",
+"problems": [],
+"name": "JGD2000 / Japan Plane Rectangular CS XV",
+"deprecated": false
+},
+"11035": {
+"code": 2458,
+"group": "confirmed",
+"problems": [],
+"name": "JGD2000 / Japan Plane Rectangular CS XVI",
+"deprecated": false
+},
+"11036": {
+"code": 2459,
+"group": "confirmed",
+"problems": [],
+"name": "JGD2000 / Japan Plane Rectangular CS XVII",
+"deprecated": false
+},
+"11037": {
+"code": 2460,
+"group": "confirmed",
+"problems": [],
+"name": "JGD2000 / Japan Plane Rectangular CS XVIII",
+"deprecated": false
+},
+"11039": {
+"code": 2461,
+"group": "confirmed",
+"problems": [],
+"name": "JGD2000 / Japan Plane Rectangular CS XIX",
+"deprecated": false
+},
+"12001": {
+"code": 27391,
+"group": "confirmed",
+"problems": [],
+"name": "NGO 1948 (Oslo) / NGO zone I",
+"deprecated": false
+},
+"12002": {
+"code": 27392,
+"group": "confirmed",
+"problems": [],
+"name": "NGO 1948 (Oslo) / NGO zone II",
+"deprecated": false
+},
+"12003": {
+"code": 27393,
+"group": "confirmed",
+"problems": [],
+"name": "NGO 1948 (Oslo) / NGO zone III",
+"deprecated": false
+},
+"12004": {
+"code": 27394,
+"group": "confirmed",
+"problems": [],
+"name": "NGO 1948 (Oslo) / NGO zone IV",
+"deprecated": false
+},
+"12005": {
+"code": 27395,
+"group": "confirmed",
+"problems": [],
+"name": "NGO 1948 (Oslo) / NGO zone V",
+"deprecated": false
+},
+"12006": {
+"code": 27396,
+"group": "confirmed",
+"problems": [],
+"name": "NGO 1948 (Oslo) / NGO zone VI",
+"deprecated": false
+},
+"12007": {
+"code": 27397,
+"group": "confirmed",
+"problems": [],
+"name": "NGO 1948 (Oslo) / NGO zone VII",
+"deprecated": false
+},
+"12008": {
+"code": 27398,
+"group": "confirmed",
+"problems": [],
+"name": "NGO 1948 (Oslo) / NGO zone VIII",
+"deprecated": false
+},
+"12009": {
+"code": 23031,
+"group": "confirmed",
+"problems": [],
+"name": "ED50 / UTM zone 31N",
+"deprecated": false
+},
+"12010": {
+"code": 23032,
+"group": "confirmed",
+"problems": [],
+"name": "ED50 / UTM zone 32N",
+"deprecated": false
+},
+"12011": {
+"code": 23033,
+"group": "confirmed",
+"problems": [],
+"name": "ED50 / UTM zone 33N",
+"deprecated": false
+},
+"12012": {
+"code": 23034,
+"group": "confirmed",
+"problems": [],
+"name": "ED50 / UTM zone 34N",
+"deprecated": false
+},
+"12013": {
+"code": 23035,
+"group": "confirmed",
+"problems": [],
+"name": "ED50 / UTM zone 35N",
+"deprecated": false
+},
+"12014": {
+"code": 23036,
+"group": "confirmed",
+"problems": [],
+"name": "ED50 / UTM zone 36N",
+"deprecated": false
+},
+"13002": {
+"code": 3006,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-SWE [SWEREF 99 TM]",
+"deprecated": false
+},
+"13003": {
+"code": 3007,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-SWE [SWEREF 99 12 00]",
+"deprecated": false
+},
+"13004": {
+"code": 3008,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-SWE [SWEREF 99 13 30]",
+"deprecated": false
+},
+"13005": {
+"code": 3009,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-SWE [SWEREF 99 15 00]",
+"deprecated": false
+},
+"13006": {
+"code": 3010,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-SWE [SWEREF 99 16 30]",
+"deprecated": false
+},
+"13007": {
+"code": 3011,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-SWE [SWEREF 99 18 00]",
+"deprecated": false
+},
+"13008": {
+"code": 3012,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-SWE [SWEREF 99 14 15]",
+"deprecated": false
+},
+"13009": {
+"code": 3013,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-SWE [SWEREF 99 15 45]",
+"deprecated": false
+},
+"13010": {
+"code": 3014,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-SWE [SWEREF 99 17 15]",
+"deprecated": false
+},
+"13011": {
+"code": 3015,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-SWE [SWEREF 99 18 45]",
+"deprecated": false
+},
+"13012": {
+"code": 3016,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-SWE [SWEREF 99 20 15]",
+"deprecated": false
+},
+"13013": {
+"code": 3017,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-SWE [SWEREF 99 21 45]",
+"deprecated": false
+},
+"13014": {
+"code": 3018,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-SWE [SWEREF 99 23 15]",
+"deprecated": false
+},
+"14001": {
+"code": 21781,
+"group": "confirmed",
+"problems": [],
+"name": "CH1903 / LV03",
+"deprecated": false
+},
+"14002": {
+"code": 2056,
+"group": "confirmed",
+"problems": [],
+"name": "CH1903+ / LV95",
+"deprecated": false
+},
+"15001": {
+"code": 3912,
+"group": "confirmed",
+"problems": [],
+"name": "MGI 1901 / Slovene National Grid",
+"deprecated": false
+},
+"15002": {
+"code": 3794,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-SVN [D96] / Slovene National Grid",
+"deprecated": false
+},
+"16002": {
+"code": 4686,
+"group": "confirmed",
+"problems": [],
+"name": "MAGNA-SIRGAS",
+"deprecated": false
+},
+"16003": {
+"code": 23031,
+"group": "confirmed",
+"problems": [],
+"name": "ED50 / UTM zone 31N",
+"deprecated": false
+},
+"16004": {
+"code": 23032,
+"group": "confirmed",
+"problems": [],
+"name": "ED50 / UTM zone 32N",
+"deprecated": false
+},
+"16005": {
+"code": 23033,
+"group": "confirmed",
+"problems": [],
+"name": "ED50 / UTM zone 33N",
+"deprecated": false
+},
+"16006": {
+"code": 23034,
+"group": "confirmed",
+"problems": [],
+"name": "ED50 / UTM zone 34N",
+"deprecated": false
+},
+"16007": {
+"code": 25832,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89 / UTM zone 32N",
+"deprecated": false
+},
+"16008": {
+"code": 25833,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89 / UTM zone 33N",
+"deprecated": false
+},
+"17001": {
+"code": 2206,
+"group": "confirmed",
+"problems": [],
+"name": "ED50 / 3-degree Gauss-Kruger zone 9",
+"deprecated": false
+},
+"17002": {
+"code": 2207,
+"group": "confirmed",
+"problems": [],
+"name": "ED50 / 3-degree Gauss-Kruger zone 10",
+"deprecated": false
+},
+"17003": {
+"code": 2208,
+"group": "confirmed",
+"problems": [],
+"name": "ED50 / 3-degree Gauss-Kruger zone 11",
+"deprecated": false
+},
+"17004": {
+"code": 2209,
+"group": "confirmed",
+"problems": [],
+"name": "ED50 / 3-degree Gauss-Kruger zone 12",
+"deprecated": false
+},
+"17005": {
+"code": 2210,
+"group": "confirmed",
+"problems": [],
+"name": "ED50 / 3-degree Gauss-Kruger zone 13",
+"deprecated": false
+},
+"17006": {
+"code": 2211,
+"group": "confirmed",
+"problems": [],
+"name": "ED50 / 3-degree Gauss-Kruger zone 14",
+"deprecated": false
+},
+"17007": {
+"code": 2212,
+"group": "confirmed",
+"problems": [],
+"name": "ED50 / 3-degree Gauss-Kruger zone 15",
+"deprecated": false
+},
+"19000": {
+"code": 2193,
+"group": "confirmed",
+"problems": [],
+"name": "NZGD2000 / New Zealand Transverse Mercator 2000",
+"deprecated": false
+},
+"20001": {
+"code": 28348,
+"group": "confirmed",
+"problems": [],
+"name": "GDA94 / MGA zone 48",
+"deprecated": false
+},
+"20002": {
+"code": 28349,
+"group": "confirmed",
+"problems": [],
+"name": "GDA94 / MGA zone 49",
+"deprecated": false
+},
+"20003": {
+"code": 28350,
+"group": "confirmed",
+"problems": [],
+"name": "GDA94 / MGA zone 50",
+"deprecated": false
+},
+"20004": {
+"code": 28351,
+"group": "confirmed",
+"problems": [],
+"name": "GDA94 / MGA zone 51",
+"deprecated": false
+},
+"20005": {
+"code": 28352,
+"group": "confirmed",
+"problems": [],
+"name": "GDA94 / MGA zone 52",
+"deprecated": false
+},
+"20006": {
+"code": 28353,
+"group": "confirmed",
+"problems": [],
+"name": "GDA94 / MGA zone 53",
+"deprecated": false
+},
+"20007": {
+"code": 28354,
+"group": "confirmed",
+"problems": [],
+"name": "GDA94 / MGA zone 54",
+"deprecated": false
+},
+"20008": {
+"code": 28355,
+"group": "confirmed",
+"problems": [],
+"name": "GDA94 / MGA zone 55",
+"deprecated": false
+},
+"20009": {
+"code": 28356,
+"group": "confirmed",
+"problems": [],
+"name": "GDA94 / MGA zone 56",
+"deprecated": false
+},
+"20010": {
+"code": 28357,
+"group": "confirmed",
+"problems": [],
+"name": "GDA94 / MGA zone 57",
+"deprecated": false
+},
+"20011": {
+"code": 28358,
+"group": "confirmed",
+"problems": [],
+"name": "GDA94 / MGA zone 58",
+"deprecated": false
+},
+"20012": {
+"code": 3112,
+"group": "confirmed",
+"problems": [],
+"name": "GDA94 / Geoscience Australia Lambert",
+"deprecated": false
+},
+"21001": {
+"code": 23032,
+"group": "confirmed",
+"problems": [],
+"name": "ED50 / UTM zone 32N",
+"deprecated": false
+},
+"21002": {
+"code": 23033,
+"group": "confirmed",
+"problems": [],
+"name": "ED50 / UTM zone 33N",
+"deprecated": false
+},
+"21003": {
+"code": 25832,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89 / UTM zone 32N",
+"deprecated": false
+},
+"21004": {
+"code": 25833,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89 / UTM zone 33N",
+"deprecated": false
+},
+"24000": {
+"code": 4272,
+"group": "confirmed",
+"problems": [],
+"name": "NZGD49",
+"deprecated": false
+},
+"26000": {
+"code": 3346,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-LTU [LKS94] / Lithuania TM",
+"deprecated": false
+},
+"27000": {
+"code": 3301,
+"group": "confirmed",
+"problems": [],
+"name": "Estonian Coordinate System of 1997",
+"deprecated": false
+},
+"28000": {
+"code": 3059,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-LVA [LKS-92] / Latvia TM",
+"deprecated": false
+},
+"29000": {
+"code": 2100,
+"group": "confirmed",
+"problems": [],
+"name": "GGRS87 / TM87",
+"deprecated": false
+},
+"30001": {
+"code": 23028,
+"group": "confirmed",
+"problems": [],
+"name": "ED50 / UTM zone 28N",
+"deprecated": false
+},
+"30002": {
+"code": 23029,
+"group": "confirmed",
+"problems": [],
+"name": "ED50 / UTM zone 29N",
+"deprecated": false
+},
+"30003": {
+"code": 23030,
+"group": "confirmed",
+"problems": [],
+"name": "ED50 / UTM zone 30N",
+"deprecated": false
+},
+"30004": {
+"code": 23030,
+"group": "confirmed",
+"problems": [],
+"name": "ED50 / UTM zone 30N",
+"deprecated": false
+},
+"30005": {
+"code": 23031,
+"group": "confirmed",
+"problems": [],
+"name": "ED50 / UTM zone 31N",
+"deprecated": false
+},
+"30006": {
+"code": 23031,
+"group": "confirmed",
+"problems": [],
+"name": "ED50 / UTM zone 31N",
+"deprecated": false
+},
+"31007": {
+"code": 3765,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-HRV [HTRS96] / Croatia TM",
+"deprecated": false
+},
+"32000": {
+"code": 23033,
+"group": "confirmed",
+"problems": [],
+"name": "ED50 / UTM zone 33N",
+"deprecated": false
+},
+"33001": {
+"code": 2169,
+"group": "confirmed",
+"problems": [],
+"name": "LUREF / Luxembourg TM",
+"deprecated": false
+},
+"33002": {
+"code": 23031,
+"group": "confirmed",
+"problems": [],
+"name": "ED50 / UTM zone 31N",
+"deprecated": false
+},
+"35000": {
+"code": 2462,
+"group": "confirmed",
+"problems": [],
+"name": "Albanian 1987 / Gauss-Kruger zone 4",
+"deprecated": false
+},
+"36001": {
+"code": 25833,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89 / UTM zone 33N",
+"deprecated": false
+},
+"36002": {
+"code": 25834,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89 / UTM zone 34N",
+"deprecated": false
+},
+"37001": {
+"code": 25834,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89 / UTM zone 34N",
+"deprecated": false
+},
+"37002": {
+"code": 25835,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89 / UTM zone 35N",
+"deprecated": false
+},
+"38004": {
+"code": 3057,
+"group": "confirmed",
+"problems": [],
+"name": "ISN93 / Lambert 1993",
+"deprecated": false
+},
+"39000": {
+"code": 23033,
+"group": "confirmed",
+"problems": [],
+"name": "ED50 / UTM zone 33N",
+"deprecated": false
+},
+"40000": {
+"code": 23032,
+"group": "confirmed",
+"problems": [],
+"name": "ED50 / UTM zone 32N",
+"deprecated": false
+},
+"41002": {
+"code": 23031,
+"group": "confirmed",
+"problems": [],
+"name": "ED50 / UTM zone 31N",
+"deprecated": false
+},
+"41003": {
+"code": 23032,
+"group": "confirmed",
+"problems": [],
+"name": "ED50 / UTM zone 32N",
+"deprecated": false
+},
+"42001": {
+"code": 27493,
+"group": "confirmed",
+"problems": [],
+"name": "Datum 73 / Modified Portuguese Grid",
+"deprecated": false
+},
+"42002": {
+"code": 23028,
+"group": "confirmed",
+"problems": [],
+"name": "ED50 / UTM zone 28N",
+"deprecated": false
+},
+"44000": {
+"code": 23033,
+"group": "confirmed",
+"problems": [],
+"name": "ED50 / UTM zone 33N",
+"deprecated": false
+},
+"46001": {
+"code": 5514,
+"group": "confirmed",
+"problems": [
+"Krovak parameters not compared"
+],
+"name": "S-JTSK / Krovak East North",
+"deprecated": false
+},
+"46002": {
+"code": 28403,
+"group": "confirmed",
+"problems": [],
+"name": "Pulkovo 1942 / Gauss-Kruger zone 3",
+"deprecated": true
+},
+"47001": {
+"code": 5514,
+"group": "confirmed",
+"problems": [
+"Krovak parameters not compared"
+],
+"name": "S-JTSK / Krovak East North",
+"deprecated": false
+},
+"47002": {
+"code": 28403,
+"group": "confirmed",
+"problems": [],
+"name": "Pulkovo 1942 / Gauss-Kruger zone 3",
+"deprecated": true
+},
+"47003": {
+"code": 28404,
+"group": "confirmed",
+"problems": [],
+"name": "Pulkovo 1942 / Gauss-Kruger zone 4",
+"deprecated": false
+},
+"48001": {
+"code": 2180,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89 / PL-1992",
+"deprecated": false
+},
+"48002": {
+"code": 2176,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-POL [PL-ETRF2000] / CS2000/15",
+"deprecated": false
+},
+"48003": {
+"code": 2177,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-POL [PL-ETRF2000] / CS2000/18",
+"deprecated": false
+},
+"48004": {
+"code": 2178,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-POL [PL-ETRF2000] / CS2000/21",
+"deprecated": false
+},
+"48005": {
+"code": 2179,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89-POL [PL-ETRF2000] / CS2000/24",
+"deprecated": false
+},
+"50001": {
+"code": 26929,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Alabama East",
+"deprecated": false
+},
+"50002": {
+"code": 26930,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Alabama West",
+"deprecated": false
+},
+"50004": {
+"code": 26932,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Alaska zone 2",
+"deprecated": false
+},
+"50005": {
+"code": 26933,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Alaska zone 3",
+"deprecated": false
+},
+"50006": {
+"code": 26934,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Alaska zone 4",
+"deprecated": false
+},
+"50007": {
+"code": 26935,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Alaska zone 5",
+"deprecated": false
+},
+"50008": {
+"code": 26936,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Alaska zone 6",
+"deprecated": false
+},
+"50009": {
+"code": 26937,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Alaska zone 7",
+"deprecated": false
+},
+"50010": {
+"code": 26938,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Alaska zone 8",
+"deprecated": false
+},
+"50011": {
+"code": 26939,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Alaska zone 9",
+"deprecated": false
+},
+"50012": {
+"code": 26940,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Alaska zone 10",
+"deprecated": false
+},
+"50013": {
+"code": 26948,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Arizona East",
+"deprecated": false
+},
+"50014": {
+"code": 26949,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Arizona Central",
+"deprecated": false
+},
+"50015": {
+"code": 26950,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Arizona West",
+"deprecated": false
+},
+"50016": {
+"code": 26951,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Arkansas North",
+"deprecated": false
+},
+"50017": {
+"code": 26952,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Arkansas South",
+"deprecated": false
+},
+"50018": {
+"code": 26941,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / California zone 1",
+"deprecated": false
+},
+"50019": {
+"code": 26942,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / California zone 2",
+"deprecated": false
+},
+"50020": {
+"code": 26943,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / California zone 3",
+"deprecated": false
+},
+"50021": {
+"code": 26944,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / California zone 4",
+"deprecated": false
+},
+"50022": {
+"code": 26945,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / California zone 5",
+"deprecated": false
+},
+"50023": {
+"code": 26946,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / California zone 6",
+"deprecated": false
+},
+"50024": {
+"code": 26953,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Colorado North",
+"deprecated": false
+},
+"50025": {
+"code": 26954,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Colorado Central",
+"deprecated": false
+},
+"50026": {
+"code": 26955,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Colorado South",
+"deprecated": false
+},
+"50027": {
+"code": 26956,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Connecticut",
+"deprecated": false
+},
+"50028": {
+"code": 26957,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Delaware",
+"deprecated": false
+},
+"50029": {
+"code": 26958,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Florida East",
+"deprecated": false
+},
+"50030": {
+"code": 26959,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Florida West",
+"deprecated": false
+},
+"50031": {
+"code": 26960,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Florida North",
+"deprecated": false
+},
+"50032": {
+"code": 26966,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Georgia East",
+"deprecated": false
+},
+"50033": {
+"code": 26967,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Georgia West",
+"deprecated": false
+},
+"50034": {
+"code": 26961,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Hawaii zone 1",
+"deprecated": false
+},
+"50035": {
+"code": 26962,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Hawaii zone 2",
+"deprecated": false
+},
+"50036": {
+"code": 26963,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Hawaii zone 3",
+"deprecated": false
+},
+"50037": {
+"code": 26964,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Hawaii zone 4",
+"deprecated": false
+},
+"50038": {
+"code": 26965,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Hawaii zone 5",
+"deprecated": false
+},
+"50039": {
+"code": 26968,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Idaho East",
+"deprecated": false
+},
+"50040": {
+"code": 26969,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Idaho Central",
+"deprecated": false
+},
+"50041": {
+"code": 26970,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Idaho West",
+"deprecated": false
+},
+"50042": {
+"code": 26971,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Illinois East",
+"deprecated": false
+},
+"50043": {
+"code": 26972,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Illinois West",
+"deprecated": false
+},
+"50044": {
+"code": 26973,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Indiana East",
+"deprecated": false
+},
+"50045": {
+"code": 26974,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Indiana West",
+"deprecated": false
+},
+"50046": {
+"code": 26975,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Iowa North",
+"deprecated": false
+},
+"50047": {
+"code": 26976,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Iowa South",
+"deprecated": false
+},
+"50048": {
+"code": 26977,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Kansas North",
+"deprecated": false
+},
+"50049": {
+"code": 26978,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Kansas South",
+"deprecated": false
+},
+"50050": {
+"code": 26979,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Kentucky North",
+"deprecated": true
+},
+"50051": {
+"code": 26980,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Kentucky South",
+"deprecated": false
+},
+"50052": {
+"code": 26981,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Louisiana North",
+"deprecated": false
+},
+"50053": {
+"code": 26982,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Louisiana South",
+"deprecated": false
+},
+"50054": {
+"code": 32199,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Louisiana Offshore",
+"deprecated": false
+},
+"50055": {
+"code": 26983,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Maine East",
+"deprecated": false
+},
+"50056": {
+"code": 26984,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Maine West",
+"deprecated": false
+},
+"50057": {
+"code": 26985,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Maryland",
+"deprecated": false
+},
+"50058": {
+"code": 26986,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Massachusetts Mainland",
+"deprecated": false
+},
+"50059": {
+"code": 26987,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Massachusetts Island",
+"deprecated": false
+},
+"50060": {
+"code": 26988,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Michigan North",
+"deprecated": false
+},
+"50061": {
+"code": 26989,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Michigan Central",
+"deprecated": false
+},
+"50062": {
+"code": 26990,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Michigan South",
+"deprecated": false
+},
+"50063": {
+"code": 26991,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Minnesota North",
+"deprecated": false
+},
+"50064": {
+"code": 26992,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Minnesota Central",
+"deprecated": false
+},
+"50065": {
+"code": 26993,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Minnesota South",
+"deprecated": false
+},
+"50066": {
+"code": 26994,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Mississippi East",
+"deprecated": false
+},
+"50067": {
+"code": 26995,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Mississippi West",
+"deprecated": false
+},
+"50068": {
+"code": 26996,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Missouri East",
+"deprecated": false
+},
+"50069": {
+"code": 26997,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Missouri Central",
+"deprecated": false
+},
+"50070": {
+"code": 26998,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Missouri West",
+"deprecated": false
+},
+"50071": {
+"code": 32100,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Montana",
+"deprecated": false
+},
+"50072": {
+"code": 32104,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Nebraska",
+"deprecated": false
+},
+"50073": {
+"code": 32107,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Nevada East",
+"deprecated": false
+},
+"50074": {
+"code": 32108,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Nevada Central",
+"deprecated": false
+},
+"50075": {
+"code": 32109,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Nevada West",
+"deprecated": false
+},
+"50076": {
+"code": 32110,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / New Hampshire",
+"deprecated": false
+},
+"50077": {
+"code": 32111,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / New Jersey",
+"deprecated": false
+},
+"50078": {
+"code": 32112,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / New Mexico East",
+"deprecated": false
+},
+"50079": {
+"code": 32113,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / New Mexico Central",
+"deprecated": false
+},
+"50080": {
+"code": 32114,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / New Mexico West",
+"deprecated": false
+},
+"50081": {
+"code": 32115,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / New York East",
+"deprecated": false
+},
+"50082": {
+"code": 32116,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / New York Central",
+"deprecated": false
+},
+"50083": {
+"code": 32117,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / New York West",
+"deprecated": false
+},
+"50084": {
+"code": 32118,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / New York Long Island",
+"deprecated": false
+},
+"50085": {
+"code": 32119,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / North Carolina",
+"deprecated": false
+},
+"50086": {
+"code": 32120,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / North Dakota North",
+"deprecated": false
+},
+"50087": {
+"code": 32121,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / North Dakota South",
+"deprecated": false
+},
+"50088": {
+"code": 32122,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Ohio North",
+"deprecated": false
+},
+"50089": {
+"code": 32123,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Ohio South",
+"deprecated": false
+},
+"50090": {
+"code": 32124,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Oklahoma North",
+"deprecated": false
+},
+"50091": {
+"code": 32125,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Oklahoma South",
+"deprecated": false
+},
+"50092": {
+"code": 32126,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Oregon North",
+"deprecated": false
+},
+"50093": {
+"code": 32127,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Oregon South",
+"deprecated": false
+},
+"50094": {
+"code": 32128,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Pennsylvania North",
+"deprecated": false
+},
+"50095": {
+"code": 32129,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Pennsylvania South",
+"deprecated": false
+},
+"50096": {
+"code": 32130,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Rhode Island",
+"deprecated": false
+},
+"50097": {
+"code": 32133,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / South Carolina",
+"deprecated": false
+},
+"50098": {
+"code": 32134,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / South Dakota North",
+"deprecated": false
+},
+"50099": {
+"code": 32135,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / South Dakota South",
+"deprecated": false
+},
+"50100": {
+"code": 32136,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Tennessee",
+"deprecated": false
+},
+"50101": {
+"code": 32137,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Texas North",
+"deprecated": false
+},
+"50102": {
+"code": 32138,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Texas North Central",
+"deprecated": false
+},
+"50103": {
+"code": 32139,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Texas Central",
+"deprecated": false
+},
+"50104": {
+"code": 32140,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Texas South Central",
+"deprecated": false
+},
+"50105": {
+"code": 32141,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Texas South",
+"deprecated": false
+},
+"50106": {
+"code": 32142,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Utah North",
+"deprecated": false
+},
+"50107": {
+"code": 32143,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Utah Central",
+"deprecated": false
+},
+"50108": {
+"code": 32144,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Utah South",
+"deprecated": false
+},
+"50109": {
+"code": 32145,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Vermont",
+"deprecated": false
+},
+"50110": {
+"code": 32146,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Virginia North",
+"deprecated": false
+},
+"50111": {
+"code": 32147,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Virginia South",
+"deprecated": false
+},
+"50112": {
+"code": 32148,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Washington North",
+"deprecated": false
+},
+"50113": {
+"code": 32149,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Washington South",
+"deprecated": false
+},
+"50114": {
+"code": 32150,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / West Virginia North",
+"deprecated": false
+},
+"50115": {
+"code": 32151,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / West Virginia South",
+"deprecated": false
+},
+"50116": {
+"code": 32152,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Wisconsin North",
+"deprecated": false
+},
+"50117": {
+"code": 32153,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Wisconsin Central",
+"deprecated": false
+},
+"50118": {
+"code": 32154,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Wisconsin South",
+"deprecated": false
+},
+"50119": {
+"code": 32155,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Wyoming East",
+"deprecated": false
+},
+"50120": {
+"code": 32156,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Wyoming East Central",
+"deprecated": false
+},
+"50121": {
+"code": 32157,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Wyoming West Central",
+"deprecated": false
+},
+"50122": {
+"code": 32158,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Wyoming West",
+"deprecated": false
+},
+"50123": {
+"code": 32158,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / Wyoming West",
+"deprecated": false
+},
+"52004": {
+"code": 22521,
+"group": "confirmed",
+"problems": [],
+"name": "Corrego Alegre 1970-72 / UTM zone 21S",
+"deprecated": false
+},
+"52005": {
+"code": 22522,
+"group": "confirmed",
+"problems": [],
+"name": "Corrego Alegre 1970-72 / UTM zone 22S",
+"deprecated": false
+},
+"52006": {
+"code": 22523,
+"group": "confirmed",
+"problems": [],
+"name": "Corrego Alegre 1970-72 / UTM zone 23S",
+"deprecated": false
+},
+"52007": {
+"code": 22524,
+"group": "confirmed",
+"problems": [],
+"name": "Corrego Alegre 1970-72 / UTM zone 24S",
+"deprecated": false
+},
+"52008": {
+"code": 22525,
+"group": "confirmed",
+"problems": [],
+"name": "Corrego Alegre 1970-72 / UTM zone 25S",
+"deprecated": false
+},
+"52017": {
+"code": 31978,
+"group": "confirmed",
+"problems": [],
+"name": "SIRGAS 2000 / UTM zone 18S",
+"deprecated": false
+},
+"52018": {
+"code": 31979,
+"group": "confirmed",
+"problems": [],
+"name": "SIRGAS 2000 / UTM zone 19S",
+"deprecated": false
+},
+"52019": {
+"code": 31980,
+"group": "confirmed",
+"problems": [],
+"name": "SIRGAS 2000 / UTM zone 20S",
+"deprecated": false
+},
+"52020": {
+"code": 31981,
+"group": "confirmed",
+"problems": [],
+"name": "SIRGAS 2000 / UTM zone 21S",
+"deprecated": false
+},
+"52021": {
+"code": 31982,
+"group": "confirmed",
+"problems": [],
+"name": "SIRGAS 2000 / UTM zone 22S",
+"deprecated": false
+},
+"52022": {
+"code": 31983,
+"group": "confirmed",
+"problems": [],
+"name": "SIRGAS 2000 / UTM zone 23S",
+"deprecated": false
+},
+"52023": {
+"code": 31984,
+"group": "confirmed",
+"problems": [],
+"name": "SIRGAS 2000 / UTM zone 24S",
+"deprecated": false
+},
+"52024": {
+"code": 31985,
+"group": "confirmed",
+"problems": [],
+"name": "SIRGAS 2000 / UTM zone 25S",
+"deprecated": false
+},
+"53000": {
+"code": 2039,
+"group": "confirmed",
+"problems": [],
+"name": "Israel 1993 / Israeli TM Grid",
+"deprecated": false
+},
+"56000": {
+"code": 3857,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / Pseudo-Mercator",
+"deprecated": false
+},
+"57000": {
+"code": 2041,
+"group": "confirmed",
+"problems": [],
+"name": "Abidjan 1987 / UTM zone 30N",
+"deprecated": false
+},
+"61000": {
+"code": 2326,
+"group": "confirmed",
+"problems": [],
+"name": "Hong Kong 1980 Grid System",
+"deprecated": false
+},
+"62001": {
+"code": 26901,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / UTM zone 1N",
+"deprecated": false
+},
+"62002": {
+"code": 26902,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / UTM zone 2N",
+"deprecated": false
+},
+"62004": {
+"code": 26903,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / UTM zone 3N",
+"deprecated": false
+},
+"62005": {
+"code": 26904,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / UTM zone 4N",
+"deprecated": false
+},
+"62006": {
+"code": 26905,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / UTM zone 5N",
+"deprecated": false
+},
+"62007": {
+"code": 26906,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / UTM zone 6N",
+"deprecated": false
+},
+"62008": {
+"code": 26907,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / UTM zone 7N",
+"deprecated": false
+},
+"62009": {
+"code": 26908,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / UTM zone 8N",
+"deprecated": false
+},
+"62010": {
+"code": 26909,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / UTM zone 9N",
+"deprecated": false
+},
+"62011": {
+"code": 26910,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / UTM zone 10N",
+"deprecated": false
+},
+"62012": {
+"code": 26911,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / UTM zone 11N",
+"deprecated": false
+},
+"62013": {
+"code": 26912,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / UTM zone 12N",
+"deprecated": false
+},
+"62014": {
+"code": 26913,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / UTM zone 13N",
+"deprecated": false
+},
+"62015": {
+"code": 26914,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / UTM zone 14N",
+"deprecated": false
+},
+"62016": {
+"code": 26915,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / UTM zone 15N",
+"deprecated": false
+},
+"62017": {
+"code": 26916,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / UTM zone 16N",
+"deprecated": false
+},
+"62018": {
+"code": 26917,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / UTM zone 17N",
+"deprecated": false
+},
+"62019": {
+"code": 26918,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / UTM zone 18N",
+"deprecated": false
+},
+"62020": {
+"code": 26919,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / UTM zone 19N",
+"deprecated": false
+},
+"62021": {
+"code": 26920,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / UTM zone 20N",
+"deprecated": false
+},
+"62022": {
+"code": 26921,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / UTM zone 21N",
+"deprecated": false
+},
+"62023": {
+"code": 26922,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / UTM zone 22N",
+"deprecated": false
+},
+"62024": {
+"code": 26923,
+"group": "confirmed",
+"problems": [],
+"name": "NAD83 / UTM zone 23N",
+"deprecated": false
+},
+"63001": {
+"code": 25828,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89 / UTM zone 28N",
+"deprecated": false
+},
+"63002": {
+"code": 25829,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89 / UTM zone 29N",
+"deprecated": false
+},
+"63003": {
+"code": 25830,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89 / UTM zone 30N",
+"deprecated": false
+},
+"63004": {
+"code": 25831,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89 / UTM zone 31N",
+"deprecated": false
+},
+"63005": {
+"code": 25832,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89 / UTM zone 32N",
+"deprecated": false
+},
+"63006": {
+"code": 25833,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89 / UTM zone 33N",
+"deprecated": false
+},
+"63007": {
+"code": 25834,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89 / UTM zone 34N",
+"deprecated": false
+},
+"63008": {
+"code": 25835,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89 / UTM zone 35N",
+"deprecated": false
+},
+"63009": {
+"code": 25836,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89 / UTM zone 36N",
+"deprecated": false
+},
+"63010": {
+"code": 25837,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89 / UTM zone 37N",
+"deprecated": false
+},
+"63011": {
+"code": 25838,
+"group": "confirmed",
+"problems": [],
+"name": "ETRS89 / UTM zone 38N",
+"deprecated": true
+},
+"64000": {
+"code": 3785,
+"group": "confirmed",
+"problems": [],
+"name": "Popular Visualisation CRS / Mercator",
+"deprecated": true
+},
+"65000": {
+"code": 3857,
+"group": "confirmed",
+"problems": [],
+"name": "WGS 84 / Pseudo-Mercator",
+"deprecated": false
+},
+"66013": {
+"code": 2222,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 213360.0, EPSG 700000.0"
+],
+"name": "NAD83 / Arizona East (ft)",
+"deprecated": false
+},
+"66014": {
+"code": 2223,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 213360.0, EPSG 700000.0"
+],
+"name": "NAD83 / Arizona Central (ft)",
+"deprecated": false
+},
+"66015": {
+"code": 2224,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 213360.0, EPSG 700000.0"
+],
+"name": "NAD83 / Arizona West (ft)",
+"deprecated": false
+},
+"66016": {
+"code": 3433,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 399999.99998984, EPSG 1312333.3333"
+],
+"name": "NAD83 / Arkansas North (ftUS)",
+"deprecated": false
+},
+"66017": {
+"code": 3434,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 399999.99998984, EPSG 1312333.3333",
+"y_0: proj4 399999.99998984, EPSG 1312333.3333"
+],
+"name": "NAD83 / Arkansas South (ftUS)",
+"deprecated": false
+},
+"66018": {
+"code": 2225,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 2000000.0001016, EPSG 6561666.667",
+"y_0: proj4 500000.0001016001, EPSG 1640416.667"
+],
+"name": "NAD83 / California zone 1 (ftUS)",
+"deprecated": false
+},
+"66019": {
+"code": 2226,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 2000000.0001016, EPSG 6561666.667",
+"y_0: proj4 500000.0001016001, EPSG 1640416.667"
+],
+"name": "NAD83 / California zone 2 (ftUS)",
+"deprecated": false
+},
+"66020": {
+"code": 2227,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 2000000.0001016, EPSG 6561666.667",
+"y_0: proj4 500000.0001016001, EPSG 1640416.667"
+],
+"name": "NAD83 / California zone 3 (ftUS)",
+"deprecated": false
+},
+"66021": {
+"code": 2228,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 2000000.0001016, EPSG 6561666.667",
+"y_0: proj4 500000.0001016001, EPSG 1640416.667"
+],
+"name": "NAD83 / California zone 4 (ftUS)",
+"deprecated": false
+},
+"66022": {
+"code": 2229,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 2000000.0001016, EPSG 6561666.667",
+"y_0: proj4 500000.0001016001, EPSG 1640416.667"
+],
+"name": "NAD83 / California zone 5 (ftUS)",
+"deprecated": false
+},
+"66023": {
+"code": 2230,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 2000000.0001016, EPSG 6561666.667",
+"y_0: proj4 500000.0001016001, EPSG 1640416.667"
+],
+"name": "NAD83 / California zone 6 (ftUS)",
+"deprecated": false
+},
+"66024": {
+"code": 2231,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 914401.8288036576, EPSG 3000000.0",
+"y_0: proj4 304800.6096012192, EPSG 1000000.0"
+],
+"name": "NAD83 / Colorado North (ftUS)",
+"deprecated": false
+},
+"66025": {
+"code": 2232,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 914401.8288036576, EPSG 3000000.0",
+"y_0: proj4 304800.6096012192, EPSG 1000000.0"
+],
+"name": "NAD83 / Colorado Central (ftUS)",
+"deprecated": false
+},
+"66026": {
+"code": 2233,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 914401.8288036576, EPSG 3000000.0",
+"y_0: proj4 304800.6096012192, EPSG 1000000.0"
+],
+"name": "NAD83 / Colorado South (ftUS)",
+"deprecated": false
+},
+"66027": {
+"code": 2234,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 304800.6096012192, EPSG 1000000.0",
+"y_0: proj4 152400.3048006096, EPSG 500000.0"
+],
+"name": "NAD83 / Connecticut (ftUS)",
+"deprecated": false
+},
+"66028": {
+"code": 2235,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 200000.0001016002, EPSG 656166.667"
+],
+"name": "NAD83 / Delaware (ftUS)",
+"deprecated": false
+},
+"66029": {
+"code": 2236,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 200000.0001016002, EPSG 656166.667"
+],
+"name": "NAD83 / Florida East (ftUS)",
+"deprecated": false
+},
+"66030": {
+"code": 2237,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 200000.0001016002, EPSG 656166.667"
+],
+"name": "NAD83 / Florida West (ftUS)",
+"deprecated": false
+},
+"66031": {
+"code": 2238,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 600000.0, EPSG 1968500.0"
+],
+"name": "NAD83 / Florida North (ftUS)",
+"deprecated": false
+},
+"66032": {
+"code": 2239,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 200000.0001016002, EPSG 656166.667"
+],
+"name": "NAD83 / Georgia East (ftUS)",
+"deprecated": false
+},
+"66033": {
+"code": 2240,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 699999.9998983998, EPSG 2296583.333"
+],
+"name": "NAD83 / Georgia West (ftUS)",
+"deprecated": false
+},
+"66036": {
+"code": 3759,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 500000.00001016, EPSG 1640416.6667"
+],
+"name": "NAD83 / Hawaii zone 3 (ftUS)",
+"deprecated": false
+},
+"66039": {
+"code": 2241,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 200000.0001016002, EPSG 656166.667"
+],
+"name": "NAD83 / Idaho East (ftUS)",
+"deprecated": false
+},
+"66040": {
+"code": 2242,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 500000.0001016001, EPSG 1640416.667"
+],
+"name": "NAD83 / Idaho Central (ftUS)",
+"deprecated": false
+},
+"66041": {
+"code": 2243,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 800000.0001016001, EPSG 2624666.667"
+],
+"name": "NAD83 / Idaho West (ftUS)",
+"deprecated": false
+},
+"66042": {
+"code": 3435,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 300000.0000000001, EPSG 984250.0"
+],
+"name": "NAD83 / Illinois East (ftUS)",
+"deprecated": false
+},
+"66043": {
+"code": 3436,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 699999.9999898402, EPSG 2296583.3333"
+],
+"name": "NAD83 / Illinois West (ftUS)",
+"deprecated": false
+},
+"66044": {
+"code": 2244,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 99999.99989839978, EPSG 328083.333",
+"y_0: proj4 249364.9987299975, EPSG 818125.0"
+],
+"name": "NAD83 / Indiana East (ftUS)",
+"deprecated": true
+},
+"66045": {
+"code": 2245,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 900000.0, EPSG 2952750.0",
+"y_0: proj4 249364.9987299975, EPSG 818125.0"
+],
+"name": "NAD83 / Indiana West (ftUS)",
+"deprecated": true
+},
+"66046": {
+"code": 3417,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 1500000.0, EPSG 4921250.0",
+"y_0: proj4 999999.9999898402, EPSG 3280833.3333"
+],
+"name": "NAD83 / Iowa North (ftUS)",
+"deprecated": false
+},
+"66047": {
+"code": 3418,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 500000.00001016, EPSG 1640416.6667"
+],
+"name": "NAD83 / Iowa South (ftUS)",
+"deprecated": false
+},
+"66048": {
+"code": 3419,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 399999.99998984, EPSG 1312333.3333"
+],
+"name": "NAD83 / Kansas North (ftUS)",
+"deprecated": false
+},
+"66049": {
+"code": 3420,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 399999.99998984, EPSG 1312333.3333",
+"y_0: proj4 399999.99998984, EPSG 1312333.3333"
+],
+"name": "NAD83 / Kansas South (ftUS)",
+"deprecated": false
+},
+"66050": {
+"code": 2246,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 500000.0001016001, EPSG 1640416.667"
+],
+"name": "NAD83 / Kentucky North (ftUS)",
+"deprecated": false
+},
+"66051": {
+"code": 2247,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 500000.0001016001, EPSG 1640416.667",
+"y_0: proj4 500000.0001016001, EPSG 1640416.667"
+],
+"name": "NAD83 / Kentucky South (ftUS)",
+"deprecated": false
+},
+"66052": {
+"code": 3451,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 999999.9999898402, EPSG 3280833.3333"
+],
+"name": "NAD83 / Louisiana North (ftUS)",
+"deprecated": false
+},
+"66053": {
+"code": 3452,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 999999.9999898402, EPSG 3280833.3333"
+],
+"name": "NAD83 / Louisiana South (ftUS)",
+"deprecated": false
+},
+"66054": {
+"code": 3453,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 999999.9999898402, EPSG 3280833.3333"
+],
+"name": "NAD83 / Louisiana Offshore (ftUS)",
+"deprecated": false
+},
+"66055": {
+"code": 26847,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 300000.0000000001, EPSG 984250.0"
+],
+"name": "NAD83 / Maine East (ftUS)",
+"deprecated": false
+},
+"66056": {
+"code": 26848,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 900000.0, EPSG 2952750.0"
+],
+"name": "NAD83 / Maine West (ftUS)",
+"deprecated": false
+},
+"66057": {
+"code": 2248,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 399999.9998983998, EPSG 1312333.333"
+],
+"name": "NAD83 / Maryland (ftUS)",
+"deprecated": false
+},
+"66058": {
+"code": 2249,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 200000.0001016002, EPSG 656166.667",
+"y_0: proj4 750000.0, EPSG 2460625.0"
+],
+"name": "NAD83 / Massachusetts Mainland (ftUS)",
+"deprecated": false
+},
+"66059": {
+"code": 2250,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 500000.0001016001, EPSG 1640416.667"
+],
+"name": "NAD83 / Massachusetts Island (ftUS)",
+"deprecated": false
+},
+"66060": {
+"code": 2251,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 7999999.999968001, EPSG 26246719.16"
+],
+"name": "NAD83 / Michigan North (ft)",
+"deprecated": false
+},
+"66061": {
+"code": 2252,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 5999999.999976001, EPSG 19685039.37"
+],
+"name": "NAD83 / Michigan Central (ft)",
+"deprecated": false
+},
+"66062": {
+"code": 2253,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 3999999.999984, EPSG 13123359.58"
+],
+"name": "NAD83 / Michigan South (ft)",
+"deprecated": false
+},
+"66063": {
+"code": 26849,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 800000.0000101599, EPSG 2624666.6667",
+"y_0: proj4 99999.99998983997, EPSG 328083.3333"
+],
+"name": "NAD83 / Minnesota North (ftUS)",
+"deprecated": false
+},
+"66064": {
+"code": 26850,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 800000.0000101599, EPSG 2624666.6667",
+"y_0: proj4 99999.99998983997, EPSG 328083.3333"
+],
+"name": "NAD83 / Minnesota Central (ftUS)",
+"deprecated": false
+},
+"66065": {
+"code": 26851,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 800000.0000101599, EPSG 2624666.6667",
+"y_0: proj4 99999.99998983997, EPSG 328083.3333"
+],
+"name": "NAD83 / Minnesota South (ftUS)",
+"deprecated": false
+},
+"66066": {
+"code": 2254,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 300000.0000000001, EPSG 984250.0"
+],
+"name": "NAD83 / Mississippi East (ftUS)",
+"deprecated": false
+},
+"66067": {
+"code": 2255,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 699999.9998983998, EPSG 2296583.333"
+],
+"name": "NAD83 / Mississippi West (ftUS)",
+"deprecated": false
+},
+"66071": {
+"code": 2256,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 599999.9999976, EPSG 1968503.937"
+],
+"name": "NAD83 / Montana (ft)",
+"deprecated": false
+},
+"66072": {
+"code": 26852,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 500000.00001016, EPSG 1640416.6667"
+],
+"name": "NAD83 / Nebraska (ftUS)",
+"deprecated": false
+},
+"66073": {
+"code": 3421,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 200000.00001016, EPSG 656166.6667",
+"y_0: proj4 8000000.000010163, EPSG 26246666.6667"
+],
+"name": "NAD83 / Nevada East (ftUS)",
+"deprecated": false
+},
+"66074": {
+"code": 3422,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 500000.00001016, EPSG 1640416.6667",
+"y_0: proj4 6000000.0, EPSG 19685000.0"
+],
+"name": "NAD83 / Nevada Central (ftUS)",
+"deprecated": false
+},
+"66075": {
+"code": 3423,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 800000.0000101599, EPSG 2624666.6667",
+"y_0: proj4 3999999.99998984, EPSG 13123333.3333"
+],
+"name": "NAD83 / Nevada West (ftUS)",
+"deprecated": false
+},
+"66076": {
+"code": 3437,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 300000.0000000001, EPSG 984250.0"
+],
+"name": "NAD83 / New Hampshire (ftUS)",
+"deprecated": false
+},
+"66077": {
+"code": 3424,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 150000.0, EPSG 492125.0"
+],
+"name": "NAD83 / New Jersey (ftUS)",
+"deprecated": false
+},
+"66078": {
+"code": 2257,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 165000.0, EPSG 541337.5"
+],
+"name": "NAD83 / New Mexico East (ftUS)",
+"deprecated": false
+},
+"66079": {
+"code": 2258,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 500000.0001016001, EPSG 1640416.667"
+],
+"name": "NAD83 / New Mexico Central (ftUS)",
+"deprecated": false
+},
+"66080": {
+"code": 2259,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 830000.0001016001, EPSG 2723091.667"
+],
+"name": "NAD83 / New Mexico West (ftUS)",
+"deprecated": false
+},
+"66081": {
+"code": 2260,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 150000.0, EPSG 492125.0"
+],
+"name": "NAD83 / New York East (ftUS)",
+"deprecated": false
+},
+"66082": {
+"code": 2261,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 249999.9998983998, EPSG 820208.333"
+],
+"name": "NAD83 / New York Central (ftUS)",
+"deprecated": false
+},
+"66083": {
+"code": 2262,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 350000.0001016001, EPSG 1148291.667"
+],
+"name": "NAD83 / New York West (ftUS)",
+"deprecated": false
+},
+"66084": {
+"code": 2263,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 300000.0000000001, EPSG 984250.0"
+],
+"name": "NAD83 / New York Long Island (ftUS)",
+"deprecated": false
+},
+"66085": {
+"code": 2264,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 609601.2192024384, EPSG 2000000.0"
+],
+"name": "NAD83 / North Carolina (ftUS)",
+"deprecated": false
+},
+"66086": {
+"code": 2265,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 599999.9999976, EPSG 1968503.937"
+],
+"name": "NAD83 / North Dakota North (ft)",
+"deprecated": false
+},
+"66087": {
+"code": 2266,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 599999.9999976, EPSG 1968503.937"
+],
+"name": "NAD83 / North Dakota South (ft)",
+"deprecated": false
+},
+"66088": {
+"code": 3734,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 600000.0, EPSG 1968500.0"
+],
+"name": "NAD83 / Ohio North (ftUS)",
+"deprecated": false
+},
+"66089": {
+"code": 3735,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 600000.0, EPSG 1968500.0"
+],
+"name": "NAD83 / Ohio South (ftUS)",
+"deprecated": false
+},
+"66090": {
+"code": 2267,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 600000.0, EPSG 1968500.0"
+],
+"name": "NAD83 / Oklahoma North (ftUS)",
+"deprecated": false
+},
+"66091": {
+"code": 2268,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 600000.0, EPSG 1968500.0"
+],
+"name": "NAD83 / Oklahoma South (ftUS)",
+"deprecated": false
+},
+"66092": {
+"code": 2269,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 2500000.0001424, EPSG 8202099.738"
+],
+"name": "NAD83 / Oregon North (ft)",
+"deprecated": false
+},
+"66093": {
+"code": 2270,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 1500000.0001464, EPSG 4921259.843"
+],
+"name": "NAD83 / Oregon South (ft)",
+"deprecated": false
+},
+"66094": {
+"code": 2271,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 600000.0, EPSG 1968500.0"
+],
+"name": "NAD83 / Pennsylvania North (ftUS)",
+"deprecated": false
+},
+"66095": {
+"code": 2272,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 600000.0, EPSG 1968500.0"
+],
+"name": "NAD83 / Pennsylvania South (ftUS)",
+"deprecated": false
+},
+"66096": {
+"code": 3438,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 99999.99998983997, EPSG 328083.3333"
+],
+"name": "NAD83 / Rhode Island (ftUS)",
+"deprecated": false
+},
+"66097": {
+"code": 2273,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 609600.0, EPSG 2000000.0"
+],
+"name": "NAD83 / South Carolina (ft)",
+"deprecated": false
+},
+"66098": {
+"code": 3454,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 600000.0, EPSG 1968500.0"
+],
+"name": "NAD83 / South Dakota North (ftUS)",
+"deprecated": true
+},
+"66099": {
+"code": 3455,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 600000.0, EPSG 1968500.0"
+],
+"name": "NAD83 / South Dakota South (ftUS)",
+"deprecated": false
+},
+"66100": {
+"code": 2274,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 600000.0, EPSG 1968500.0"
+],
+"name": "NAD83 / Tennessee (ftUS)",
+"deprecated": false
+},
+"66101": {
+"code": 2275,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 200000.0001016002, EPSG 656166.667",
+"y_0: proj4 999999.9998983998, EPSG 3280833.333"
+],
+"name": "NAD83 / Texas North (ftUS)",
+"deprecated": false
+},
+"66102": {
+"code": 2276,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 600000.0, EPSG 1968500.0",
+"y_0: proj4 2000000.0001016, EPSG 6561666.667"
+],
+"name": "NAD83 / Texas North Central (ftUS)",
+"deprecated": false
+},
+"66103": {
+"code": 2277,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 699999.9998983998, EPSG 2296583.333",
+"y_0: proj4 3000000.0, EPSG 9842500.0"
+],
+"name": "NAD83 / Texas Central (ftUS)",
+"deprecated": false
+},
+"66104": {
+"code": 2278,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 600000.0, EPSG 1968500.0",
+"y_0: proj4 3999999.9998984, EPSG 13123333.333"
+],
+"name": "NAD83 / Texas South Central (ftUS)",
+"deprecated": false
+},
+"66105": {
+"code": 2279,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 300000.0000000001, EPSG 984250.0",
+"y_0: proj4 5000000.0001016, EPSG 16404166.667"
+],
+"name": "NAD83 / Texas South (ftUS)",
+"deprecated": false
+},
+"66106": {
+"code": 3560,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 500000.00001016, EPSG 1640416.6667",
+"y_0: proj4 999999.9999898402, EPSG 3280833.3333"
+],
+"name": "NAD83 / Utah North (ftUS)",
+"deprecated": false
+},
+"66107": {
+"code": 3566,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 500000.00001016, EPSG 1640416.6667",
+"y_0: proj4 2000000.00001016, EPSG 6561666.6667"
+],
+"name": "NAD83 / Utah Central (ftUS)",
+"deprecated": false
+},
+"66108": {
+"code": 3567,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 500000.00001016, EPSG 1640416.6667",
+"y_0: proj4 3000000.0, EPSG 9842500.0"
+],
+"name": "NAD83 / Utah South (ftUS)",
+"deprecated": false
+},
+"66110": {
+"code": 2283,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 3500000.0001016, EPSG 11482916.667",
+"y_0: proj4 2000000.0001016, EPSG 6561666.667"
+],
+"name": "NAD83 / Virginia North (ftUS)",
+"deprecated": false
+},
+"66111": {
+"code": 2284,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 3500000.0001016, EPSG 11482916.667",
+"y_0: proj4 999999.9998983998, EPSG 3280833.333"
+],
+"name": "NAD83 / Virginia South (ftUS)",
+"deprecated": false
+},
+"66112": {
+"code": 2285,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 500000.0001016001, EPSG 1640416.667"
+],
+"name": "NAD83 / Washington North (ftUS)",
+"deprecated": false
+},
+"66113": {
+"code": 2286,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 500000.0001016001, EPSG 1640416.667"
+],
+"name": "NAD83 / Washington South (ftUS)",
+"deprecated": false
+},
+"66114": {
+"code": 26853,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 600000.0, EPSG 1968500.0"
+],
+"name": "NAD83 / West Virginia North (ftUS)",
+"deprecated": false
+},
+"66115": {
+"code": 26854,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 600000.0, EPSG 1968500.0"
+],
+"name": "NAD83 / West Virginia South (ftUS)",
+"deprecated": false
+},
+"66116": {
+"code": 2287,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 600000.0, EPSG 1968500.0"
+],
+"name": "NAD83 / Wisconsin North (ftUS)",
+"deprecated": false
+},
+"66117": {
+"code": 2288,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 600000.0, EPSG 1968500.0"
+],
+"name": "NAD83 / Wisconsin Central (ftUS)",
+"deprecated": false
+},
+"66118": {
+"code": 2289,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 600000.0, EPSG 1968500.0"
+],
+"name": "NAD83 / Wisconsin South (ftUS)",
+"deprecated": false
+},
+"66119": {
+"code": 3736,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 200000.00001016, EPSG 656166.6667"
+],
+"name": "NAD83 / Wyoming East (ftUS)",
+"deprecated": false
+},
+"66120": {
+"code": 3737,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 399999.99998984, EPSG 1312333.3333",
+"y_0: proj4 99999.99998983997, EPSG 328083.3333"
+],
+"name": "NAD83 / Wyoming East Central (ftUS)",
+"deprecated": false
+},
+"66121": {
+"code": 3738,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 600000.0, EPSG 1968500.0"
+],
+"name": "NAD83 / Wyoming West Central (ftUS)",
+"deprecated": false
+},
+"66122": {
+"code": 3739,
+"group": "confirmed",
+"problems": [
+"x_0: proj4 800000.0000101599, EPSG 2624666.6667",
+"y_0: proj4 99999.99998983997, EPSG 328083.3333"
+],
+"name": "NAD83 / Wyoming West (ftUS)",
+"deprecated": false
+},
+"68000": {
+"code": 21037,
+"group": "confirmed",
+"problems": [],
+"name": "Arc 1960 / UTM zone 37S",
+"deprecated": false
+},
+"69000": {
+"code": 2586,
+"group": "confirmed",
+"problems": [],
+"name": "Pulkovo 1942 / 3-degree Gauss-Kruger CM 33E",
+"deprecated": false
+},
+"70000": {
+"code": 2019,
+"group": "confirmed",
+"problems": [],
+"name": "NAD27(76) / MTM zone 10",
+"deprecated": false
+},
+"9001": {
+"code": 29902,
+"group": "mismatch",
+"problems": [],
+"name": "TM65 / Irish Grid",
+"deprecated": false
+},
+"9002": {
+"code": 29903,
+"group": "mismatch",
+"problems": [],
+"name": "TM75 / Irish Grid",
+"deprecated": false
+},
+"34000": {
+"code": 29902,
+"group": "mismatch",
+"problems": [],
+"name": "TM65 / Irish Grid",
+"deprecated": false
+},
+"41001": {
+"code": 28991,
+"group": "mismatch",
+"problems": [],
+"name": "RD Old",
+"deprecated": false
+},
+"41004": {
+"code": 28992,
+"group": "mismatch",
+"problems": [],
+"name": "RD",
+"deprecated": false
+},
+"49000": {
+"code": 23700,
+"group": "mismatch",
+"problems": [],
+"name": "HD72 / EOV",
+"deprecated": false
+},
+"54001": {
+"code": 3375,
+"group": "mismatch",
+"problems": [],
+"name": "GDM2000 / Peninsula RSO",
+"deprecated": false
+},
+"54002": {
+"code": 3376,
+"group": "mismatch",
+"problems": [],
+"name": "GDM2000 / East Malaysia BRSO",
+"deprecated": false
+},
+"6006": {
+"code": 3873,
+"group": "not_in_authority",
+"problems": [],
+"name": "ETRS89-FIN [EUREF-FIN] / GK19FIN",
+"deprecated": false
+},
+"6007": {
+"code": 3874,
+"group": "not_in_authority",
+"problems": [],
+"name": "ETRS89-FIN [EUREF-FIN] / GK20FIN",
+"deprecated": false
+},
+"6008": {
+"code": 3875,
+"group": "not_in_authority",
+"problems": [],
+"name": "ETRS89-FIN [EUREF-FIN] / GK21FIN",
+"deprecated": false
+},
+"6009": {
+"code": 3876,
+"group": "not_in_authority",
+"problems": [],
+"name": "ETRS89-FIN [EUREF-FIN] / GK22FIN",
+"deprecated": false
+},
+"6010": {
+"code": 3877,
+"group": "not_in_authority",
+"problems": [],
+"name": "ETRS89-FIN [EUREF-FIN] / GK23FIN",
+"deprecated": false
+},
+"6011": {
+"code": 3878,
+"group": "not_in_authority",
+"problems": [],
+"name": "ETRS89-FIN [EUREF-FIN] / GK24FIN",
+"deprecated": false
+},
+"6012": {
+"code": 3879,
+"group": "not_in_authority",
+"problems": [],
+"name": "ETRS89-FIN [EUREF-FIN] / GK25FIN",
+"deprecated": false
+},
+"6013": {
+"code": 3880,
+"group": "not_in_authority",
+"problems": [],
+"name": "ETRS89-FIN [EUREF-FIN] / GK26FIN",
+"deprecated": false
+},
+"6014": {
+"code": 3881,
+"group": "not_in_authority",
+"problems": [],
+"name": "ETRS89-FIN [EUREF-FIN] / GK27FIN",
+"deprecated": false
+},
+"6015": {
+"code": 3882,
+"group": "not_in_authority",
+"problems": [],
+"name": "ETRS89-FIN [EUREF-FIN] / GK28FIN",
+"deprecated": false
+},
+"6016": {
+"code": 3883,
+"group": "not_in_authority",
+"problems": [],
+"name": "ETRS89-FIN [EUREF-FIN] / GK29FIN",
+"deprecated": false
+},
+"6017": {
+"code": 3884,
+"group": "not_in_authority",
+"problems": [],
+"name": "ETRS89-FIN [EUREF-FIN] / GK30FIN",
+"deprecated": false
+},
+"6018": {
+"code": 3885,
+"group": "not_in_authority",
+"problems": [],
+"name": "ETRS89-FIN [EUREF-FIN] / GK31FIN",
+"deprecated": false
+},
+"13001": {
+"code": 6124,
+"group": "not_in_authority",
+"problems": [],
+"name": "WGS 84 / EPSG Arctic zone 4-12",
+"deprecated": false
+},
+"16009": {
+"code": 6707,
+"group": "not_in_authority",
+"problems": [],
+"name": "ETRS89-ITA [RDN2008] / UTM zone 32N (N-E)",
+"deprecated": false
+},
+"16010": {
+"code": 6708,
+"group": "not_in_authority",
+"problems": [],
+"name": "ETRS89-ITA [RDN2008] / UTM zone 33N (N-E)",
+"deprecated": false
+},
+"16011": {
+"code": 6875,
+"group": "not_in_authority",
+"problems": [],
+"name": "ETRS89-ITA [RDN2008] / Italy zone (N-E)",
+"deprecated": false
+},
+"16012": {
+"code": 6876,
+"group": "not_in_authority",
+"problems": [],
+"name": "ETRS89-ITA [RDN2008] / Zone 12 (N-E)",
+"deprecated": false
+},
+"17008": {
+"code": 7006,
+"group": "not_in_authority",
+"problems": [
+"ellipsoid: proj4 (6378249.145, 293.46630000000715), EPSG Clarke 1880 (RGS) (6378249.145, 293.465)"
+],
+"name": "Nahrwan 1934 / UTM zone 38N",
+"deprecated": false
+},
+"18001": {
+"code": 2046,
+"group": "not_in_authority",
+"problems": [],
+"name": "Hartebeesthoek94 / Lo15",
+"deprecated": false
+},
+"18002": {
+"code": 2047,
+"group": "not_in_authority",
+"problems": [],
+"name": "Hartebeesthoek94 / Lo17",
+"deprecated": false
+},
+"18003": {
+"code": 2048,
+"group": "not_in_authority",
+"problems": [],
+"name": "Hartebeesthoek94 / Lo19",
+"deprecated": false
+},
+"18004": {
+"code": 2049,
+"group": "not_in_authority",
+"problems": [],
+"name": "Hartebeesthoek94 / Lo21",
+"deprecated": false
+},
+"18005": {
+"code": 2050,
+"group": "not_in_authority",
+"problems": [],
+"name": "Hartebeesthoek94 / Lo23",
+"deprecated": false
+},
+"18006": {
+"code": 2051,
+"group": "not_in_authority",
+"problems": [],
+"name": "Hartebeesthoek94 / Lo25",
+"deprecated": false
+},
+"18007": {
+"code": 2052,
+"group": "not_in_authority",
+"problems": [],
+"name": "Hartebeesthoek94 / Lo27",
+"deprecated": false
+},
+"18008": {
+"code": 2053,
+"group": "not_in_authority",
+"problems": [],
+"name": "Hartebeesthoek94 / Lo29",
+"deprecated": false
+},
+"18009": {
+"code": 2054,
+"group": "not_in_authority",
+"problems": [],
+"name": "Hartebeesthoek94 / Lo31",
+"deprecated": false
+},
+"18010": {
+"code": 2055,
+"group": "not_in_authority",
+"problems": [],
+"name": "Hartebeesthoek94 / Lo33",
+"deprecated": false
+}
+}
