@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -44,7 +45,8 @@ namespace Map_Svg.Tests
         }
 
         // Draw a case through the SVG target, render the document in Chromium and compare the image with the case's
-        // reference image, or end the test as pending.
+        // reference image, or end the test as pending. A case with no reference image recorded yet is compared with
+        // one rendered now, which goes to the loop's results for recording, and fails.
         private static async Task CompareWithReferenceAsync(ComparisonCase comparisonCase)
         {
             string document;
@@ -57,22 +59,34 @@ namespace Map_Svg.Tests
             }
 
             string svgPath = LoopResults.SaveSvg(comparisonCase.Name, document);
-            using (SKBitmap reference = LoadReferenceImage(comparisonCase))
+            string referencePath = TestUtil.GetTestFile(Path.Combine("svg_reference", comparisonCase.Name + ".png"));
+            bool referenceRecorded = File.Exists(referencePath);
+            using (SKBitmap reference = referenceRecorded ? SKBitmap.Decode(referencePath) : RenderReferenceForRecording(comparisonCase))
             using (SKBitmap rendering = await ChromiumRenderer.RenderAsync(svgPath, comparisonCase.PixelSize)) {
-                ImageComparison.AssertImagesMatch(comparisonCase.Name, reference, rendering, MaxPixelDifference);
+                string difference = ImageComparison.DescribeDifference(comparisonCase.Name, reference, rendering, MaxPixelDifference);
+                if (!referenceRecorded) {
+                    Assert.Fail(string.Format("No reference image of {0} is recorded in svg_reference; the loop's results hold one under references/. Compared with it: {1}",
+                                              comparisonCase.Name, difference ?? "Chromium's image matches."));
+                }
+                if (difference != null)
+                    Assert.Fail(difference);
             }
         }
 
-        // Write the SVG document of a case's recording, its area filling the image; a call that the target cannot
-        // honor ends the test as pending.
+        // Write the SVG document of a case's recording: one map in one part, shown on a page the size of the image,
+        // whose millimetres the renderer makes pixels. A call that the target cannot honor ends the test as pending.
         private static string WriteDocument(ComparisonCase comparisonCase, RecordingGraphicsTarget recording)
         {
             try {
-                using (Svg_GraphicsTarget target = new Svg_GraphicsTarget())
+                using (Svg_GraphicsTarget target = new Svg_GraphicsTarget(DefaultColorConverter.Instance, true))
                 using (Matrix areaToImage = comparisonCase.CreateAreaToImageTransform()) {
-                    target.PushTransform(areaToImage);
+                    object part = new object();
+                    target.BeginPart(part);
+                    target.BeginMap(comparisonCase, comparisonCase.Name);
                     recording.Playback(target);
-                    target.PopTransform();
+                    target.EndMap();
+                    target.EndPart();
+                    target.AddPage(new SizeF(comparisonCase.PixelSize.Width, comparisonCase.PixelSize.Height), comparisonCase.Area, areaToImage, new object[] { part });
                     return target.FinishDocument();
                 }
             }
@@ -81,13 +95,13 @@ namespace Map_Svg.Tests
             }
         }
 
-        // Load a case's reference image from TestFiles/svg_reference, failing the test if none is recorded.
-        private static SKBitmap LoadReferenceImage(ComparisonCase comparisonCase)
+        // Render a case's reference image, and save it in the loop's results as references/<name>.png, from where it
+        // is recorded into TestFiles/svg_reference.
+        private static SKBitmap RenderReferenceForRecording(ComparisonCase comparisonCase)
         {
-            string path = TestUtil.GetTestFile(Path.Combine("svg_reference", comparisonCase.Name + ".png"));
-            if (!File.Exists(path))
-                Assert.Fail(string.Format("No reference image of {0} has been recorded in svg_reference.", comparisonCase.Name));
-            return SKBitmap.Decode(path);
+            SKBitmap reference = comparisonCase.RenderReference();
+            LoopResults.SaveImage(Path.Combine("references", comparisonCase.Name + ".png"), reference);
+            return reference;
         }
 
         // Record in the loop's results that a case is pending until the target implements the given calls, and

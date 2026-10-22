@@ -30,7 +30,8 @@ namespace Map_Svg.Tests
 
                 string svgPath = LoopResults.SaveSvg("chromium-rendering-check", document);
                 using (SKBitmap rendering = await ChromiumRenderer.RenderAsync(svgPath, new Size(40, 30))) {
-                    ImageComparison.AssertImagesMatch("chromium-rendering-check", expected, rendering, 0);
+                    string difference = ImageComparison.DescribeDifference("chromium-rendering-check", expected, rendering, 0);
+                    Assert.IsNull(difference, difference);
                 }
             }
         }

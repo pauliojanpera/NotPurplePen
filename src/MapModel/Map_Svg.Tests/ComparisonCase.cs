@@ -6,6 +6,7 @@ using System.Linq;
 using PurplePen.Graphics2D;
 using PurplePen.MapModel;
 using RenderingTestCases;
+using SkiaSharp;
 
 namespace Map_Svg.Tests
 {
@@ -107,6 +108,23 @@ namespace Map_Svg.Tests
                 recording.Dispose();
                 throw;
             }
+        }
+
+        // Render the case's reference image with the Skia target: anti-aliased, on white, with the case's area filling
+        // the image (V-9).
+        public SKBitmap RenderReference()
+        {
+            SKBitmap reference = new SKBitmap(PixelSize.Width, PixelSize.Height);
+            using (SKCanvas canvas = new SKCanvas(reference)) {
+                canvas.Clear(SKColors.White);
+                using (Skia_GraphicsTarget target = new Skia_GraphicsTarget(canvas))
+                using (Matrix areaToImage = CreateAreaToImageTransform()) {
+                    target.PushTransform(areaToImage);
+                    target.PushAntiAliasing(true);
+                    draw(target);
+                }
+            }
+            return reference;
         }
 
         // Create the transform from the case's area to the pixels of its image.

@@ -32,17 +32,11 @@ namespace Map_Svg.Tests
                 .Select(parameter => parameter.ParameterType.IsValueType ? Activator.CreateInstance(parameter.ParameterType) : null)
                 .ToArray();
 
-            TargetInvocationException invocation = Assert.Throws<TargetInvocationException>(() => method.Invoke(new Svg_GraphicsTarget(), arguments));
+            Svg_GraphicsTarget target = new Svg_GraphicsTarget(DefaultColorConverter.Instance, true);
+            TargetInvocationException invocation = Assert.Throws<TargetInvocationException>(() => method.Invoke(target, arguments));
             Svg_UnsupportedCallException unsupportedCall = invocation.InnerException as Svg_UnsupportedCallException;
             Assert.IsNotNull(unsupportedCall, string.Format("{0} raised {1}", method.Name, invocation.InnerException));
             Assert.AreEqual(GetCallName(method), unsupportedCall.CallName);
-        }
-
-        [Test]
-        public void FinishingTheDocumentRaisesAnErrorNamingIt()
-        {
-            Svg_UnsupportedCallException unsupportedCall = Assert.Throws<Svg_UnsupportedCallException>(() => new Svg_GraphicsTarget().FinishDocument());
-            Assert.AreEqual(nameof(Svg_GraphicsTarget.FinishDocument), unsupportedCall.CallName);
         }
 
         // Get the name that a member's calls go by: a property's own name for its accessors.

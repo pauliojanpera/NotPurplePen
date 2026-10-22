@@ -8,9 +8,11 @@ using SkiaSharp;
 namespace Map_Svg.Tests
 {
     // The directory where the SVG loop collects what a run produced besides its test report: every SVG document
-    // written, under svg/; the calls each pending case still needs, under pending/; and for each failed comparison
-    // Chromium's image and the difference image, under renderings/ and differences/. The SVG_LOOP_RESULTS
-    // environment variable names it; without it, it is svg-loop-results in the test run's work directory.
+    // written, under svg/; the calls each pending case still needs, under pending/; how far each compared image
+    // differs, under measurements/; the reference image of a case that has none recorded yet, under references/; and
+    // for each failed comparison Chromium's image and the difference image, under renderings/ and differences/. The
+    // SVG_LOOP_RESULTS environment variable names it; without it, it is svg-loop-results in the test run's work
+    // directory.
     public static class LoopResults
     {
         // The full path of the directory.
@@ -38,6 +40,16 @@ namespace Map_Svg.Tests
             string path = Path.Combine(ResultsDirectory, "pending", name + ".txt");
             Directory.CreateDirectory(Path.GetDirectoryName(path));
             File.WriteAllLines(path, callNames, new UTF8Encoding(false));
+        }
+
+        // Save text in a file.
+        // relativePath: the path of the file within the directory.
+        // text: the text.
+        public static void SaveText(string relativePath, string text)
+        {
+            string path = Path.Combine(ResultsDirectory, relativePath);
+            Directory.CreateDirectory(Path.GetDirectoryName(path));
+            File.WriteAllText(path, text, new UTF8Encoding(false));
         }
 
         // Save an image as a PNG file.

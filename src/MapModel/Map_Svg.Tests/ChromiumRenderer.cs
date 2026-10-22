@@ -1,5 +1,6 @@
 using System;
 using System.Drawing;
+using System.IO;
 using System.Threading.Tasks;
 using Microsoft.Playwright;
 using SkiaSharp;
@@ -23,7 +24,8 @@ namespace Map_Svg.Tests
             return await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
         }
 
-        // Render an SVG file as an image of the given size, with the document's top left corner at the image's.
+        // Render an SVG file as an image of the given size, on white: the document, whose own size may be in
+        // millimetres, is scaled to fill the image.
         // svgPath: the path of the SVG file.
         // pixelSize: the size of the image in pixels.
         public static async Task<SKBitmap> RenderAsync(string svgPath, Size pixelSize)
@@ -34,13 +36,29 @@ namespace Map_Svg.Tests
                 DeviceScaleFactor = 1,
             });
             try {
-                await page.GotoAsync(new Uri(svgPath).AbsoluteUri);
+                await page.GotoAsync(new Uri(WritePageShowing(svgPath, pixelSize)).AbsoluteUri);
                 byte[] png = await page.ScreenshotAsync(new PageScreenshotOptions { Type = ScreenshotType.Png });
                 return SKBitmap.Decode(png);
             }
             finally {
                 await page.CloseAsync();
             }
+        }
+
+        // Write an HTML page that shows an SVG file as an image of the given size at its top left corner, as a browser
+        // shows a standalone SVG document, and return the page's path.
+        // svgPath: the path of the SVG file, whose name names the page.
+        // pixelSize: the size of the image in pixels.
+        private static string WritePageShowing(string svgPath, Size pixelSize)
+        {
+            string directory = Path.Combine(Path.GetTempPath(), "svg-loop-pages");
+            Directory.CreateDirectory(directory);
+            string pagePath = Path.Combine(directory, Path.GetFileNameWithoutExtension(svgPath) + ".html");
+            File.WriteAllText(pagePath,
+                "<!DOCTYPE html><html><head><style>html,body{margin:0;background:#fff}img{display:block}</style></head><body>" +
+                "<img src=\"" + new Uri(svgPath).AbsoluteUri + "\" width=\"" + pixelSize.Width + "\" height=\"" + pixelSize.Height + "\">" +
+                "</body></html>");
+            return pagePath;
         }
 
         // Close the browser and the Playwright driver, if they were started.
