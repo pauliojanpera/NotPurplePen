@@ -1,0 +1,92 @@
+case	calls
+aiimport_light	CreateFont, DrawText
+aiimport	CreateFont, DrawText
+alllinetext	CreateFont, DrawText
+arialnarrow	CreateFont, DrawText
+Bitmap	DrawBitmap
+BitmapPart	DrawBitmap
+Cambria	CreateFont, DrawText
+Cambriabold	CreateFont, DrawText
+charspace	CreateFont, DrawText
+clouds	CreateFont, DrawText
+clouds11	CreateFont, DrawText
+combospace	CreateFont, DrawText
+dashline	CreateFont, DrawText
+dashline9	CreateFont, DrawText
+differentnewlinetypes	CreateFont, DrawText
+fences	CreateFont, DrawText
+fences9	CreateFont, DrawText
+fontfallback	CreateFont, DrawText
+frametext1	CreateFont, DrawText, DrawTextOutline
+frametext2	CreateFont, DrawText
+frametext3	CreateFont, DrawText
+framing_ocad6	CreateFont, DrawText
+framing_ocad7	CreateFont, DrawText, DrawTextOutline
+framing_ocad8	CreateFont, DrawText, DrawTextOutline
+FtCasey	CreateFont, DrawText
+hiddensymbols	CreateFont, DrawText
+hiddensymbols9	CreateFont, DrawText
+isompoints_9	CreateFont
+isompoints_light	CreateFont
+isompoints	CreateFont
+justify	CreateFont, DrawText
+kern_text_outline	CreateFont, DrawText, DrawTextOutline
+layout_objects11_light	CreateFont, DrawText
+layout_objects11	CreateFont, DrawText
+layout_objects12_light	CreateFont, DrawText
+layout_objects12	CreateFont, DrawText
+linetext_6	CreateFont, DrawText
+linetext_9	CreateFont, DrawText
+linetext_mid	CreateFont, DrawText
+linetext_top	CreateFont, DrawText
+linetext2_6	CreateFont, DrawText
+linetext2_9	CreateFont, DrawText
+linetext2_mid	CreateFont, DrawText
+linetextspacing	CreateFont, DrawText
+lksamm1	CreateFont, DrawText
+lksamm11_1	CreateFont, DrawText
+lksamm11_3	CreateFont, DrawText
+lksamm11_4	CreateFont, DrawText
+lksamm12_1	CreateFont, DrawText
+lksamm12_3	CreateFont, DrawText
+lksamm12_4	CreateFont, DrawText
+lksamm3	CreateFont, DrawText
+lksamm4	CreateFont, DrawText
+lksamm9_1	CreateFont, DrawText
+lksamm9_3	CreateFont, DrawText
+lksamm9_4	CreateFont, DrawText
+LordHill	CreateFont, DrawText
+LordHill11	CreateFont, DrawText
+MagNorthArrowBug	CreateFont, DrawText
+marymoor	CreateFont, DrawText
+marymoor11_upperlayers	CreateFont, DrawText
+marymoor11	CreateFont, DrawText
+midaligntext10	CreateFont, DrawText
+newlines	CreateFont, DrawText
+paraindent6	CreateFont, DrawText
+paraindent9	CreateFont, DrawText
+paraspacing	CreateFont, DrawText
+paraspacing9	CreateFont, DrawText
+PenistoneHill	CreateFont, DrawText
+punchbox11	CreateFont, DrawText
+punchbox9	CreateFont, DrawText
+punchboxbug	CreateFont, DrawText
+RobotoTest	CreateFont, DrawText
+simpletext_light	CreateFont, DrawText
+simpletext	CreateFont, DrawText
+simpletext9_light	CreateFont, DrawText
+simpletext9	CreateFont, DrawText
+tabbedtext	CreateFont, DrawText
+teanwest	CreateFont, DrawText
+teanwest11	CreateFont, DrawText
+template_light	DrawBitmap
+template	DrawBitmap
+template2_light	DrawBitmap
+template2	DrawBitmap
+testlogo	DrawBitmap
+Text	CreateFont, DrawText, DrawTextOutline
+textnarrowwrap	CreateFont, DrawText
+textpoint10	CreateFont, DrawText
+topaligntext10	CreateFont, DrawText
+underlinetext	CreateFont, DrawText
+wordspace	CreateFont, DrawText

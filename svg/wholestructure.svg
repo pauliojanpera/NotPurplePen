@@ -1,0 +1,387 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="1044mm" height="643mm" viewBox="0 0 1044 643">
+<style>
+.a{fill:#ffe6a6;fill:#ffe6a6 icc-color(cmyk,0,.1,.35,0);fill-rule:evenodd}
+.b{fill:#ccffb2;fill:#ccffb2 icc-color(cmyk,.2,0,.3,0);fill-rule:evenodd}
+.c{fill:#86cdff;fill:#86cdff icc-color(cmyk,.475,.195,0,0);fill-rule:evenodd}
+.d{fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="wholestructure">
+<npp:color position="0" name="Yellow 50%- Area Feature" cmyk="0,.1,.35,0"/>
+<npp:color position="6" name="Green 20% - Area Feature" cmyk=".2,0,.3,0"/>
+<npp:color position="17" name="Blue 50% - Area Feature" cmyk=".475,.195,0,0"/>
+<npp:color position="33" name="Black 100%" cmyk="0,0,0,1" overprint="1"/>
+<npp:symbol n="1" id="209.0" name="Dense Boulder Field, Difficult to Run" colors="0 33"/>
+<npp:symbol n="2" id="208.0" name="Boulder Field, Normal to Run" colors="6 33"/>
+<npp:symbol n="3" id="208.4" name="Boulder Field, Normal to Run" colors="17 33"/>
+</npp:map>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="b">
+<path d="M-20074-4791H4343v15038h-24417z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g data-c="0">
+<g data-s="1">
+<path class="a" data-o="1" d="M-18370 1000c-1000-1660-470-3830 1200-4840 1660-1010 3830-480 4830 1180 1010 1660 480 3830-1180 4840-1670 1010-3840 470-4850-1180z"/>
+<path class="a" data-o="2" d="M-6520 8980l150-2530 7680 640-230 2340-7600-450z"/>
+</g>
+</g>
+<g data-c="6">
+<g data-s="2">
+<path class="b" data-o="3" d="M-13420 6570c-1010-1160-900-2910 250-3920s2900-900 3920 260c1010 1150 890 2900-260 3910s-2900 900-3910-250z"/>
+</g>
+</g>
+<g data-c="17">
+<g data-s="3">
+<path class="c" data-o="4" d="M-8140 20c-70-1670 2540-3130 5830-3270C970-3390 3690-2150 3760-480c70 1650-2540 3110-5820 3250-3290 140-6010-1100-6080-2750z"/>
+</g>
+</g>
+<g data-c="33">
+<g data-s="2">
+<g transform="translate(-13000 2000)">
+<path class="d" data-o="3" d="M190 750l160-550 480 110-640 440z"/>
+</g>
+<g transform="translate(-11000 2000)">
+<path class="d" data-o="3" d="M-890 430l600-70 110 480-710-410z"/>
+<path class="d" data-o="3" d="M190 750l160-550 480 110-640 440z"/>
+</g>
+<g transform="translate(-14000 4000)">
+<path class="d" data-o="3" d="M80-740l440 420 360-350-800-70z"/>
+<path class="d" data-o="3" d="M190 750l160-550 480 110-640 440z"/>
+</g>
+<g transform="translate(-12000 4000)">
+<path class="d" data-o="3" d="M-890 430l600-70 110 480-710-410z"/>
+<path class="d" data-o="3" d="M80-740l440 420 360-350-800-70z"/>
+<path class="d" data-o="3" d="M190 750l160-550 480 110-640 440z"/>
+<path class="d" data-o="3" d="M-830-170l540-210-150-490-390 700z"/>
+</g>
+<g transform="translate(-10000 4000)">
+<path class="d" data-o="3" d="M-890 430l600-70 110 480-710-410z"/>
+<path class="d" data-o="3" d="M80-740l440 420 360-350-800-70z"/>
+<path class="d" data-o="3" d="M190 750l160-550 480 110-640 440z"/>
+<path class="d" data-o="3" d="M-830-170l540-210-150-490-390 700z"/>
+</g>
+<g transform="translate(-13000 6000)">
+<path class="d" data-o="3" d="M80-740l440 420 360-350-800-70z"/>
+<path class="d" data-o="3" d="M190 750l160-550 480 110-640 440z"/>
+<path class="d" data-o="3" d="M-830-170l540-210-150-490-390 700z"/>
+</g>
+<g transform="translate(-11000 6000)">
+<path class="d" data-o="3" d="M-890 430l600-70 110 480-710-410z"/>
+<path class="d" data-o="3" d="M80-740l440 420 360-350-800-70z"/>
+<path class="d" data-o="3" d="M190 750l160-550 480 110-640 440z"/>
+<path class="d" data-o="3" d="M-830-170l540-210-150-490-390 700z"/>
+</g>
+<g transform="translate(-9000 6000)">
+<path class="d" data-o="3" d="M-890 430l600-70 110 480-710-410z"/>
+<path class="d" data-o="3" d="M-830-170l540-210-150-490-390 700z"/>
+</g>
+<g transform="translate(-12000 8000)">
+<path class="d" data-o="3" d="M80-740l440 420 360-350-800-70z"/>
+</g>
+</g>
+<g data-s="3">
+<g transform="translate(-7000-2000)">
+<path class="d" data-o="4" d="M190 750l160-550 480 110-640 440z"/>
+</g>
+<g transform="translate(-5000-2000)">
+<path class="d" data-o="4" d="M-890 430l600-70 110 480-710-410z"/>
+<path class="d" data-o="4" d="M80-740l440 420 360-350-800-70z"/>
+<path class="d" data-o="4" d="M190 750l160-550 480 110-640 440z"/>
+</g>
+<g transform="translate(-3000-2000)">
+<path class="d" data-o="4" d="M-890 430l600-70 110 480-710-410z"/>
+<path class="d" data-o="4" d="M80-740l440 420 360-350-800-70z"/>
+<path class="d" data-o="4" d="M190 750l160-550 480 110-640 440z"/>
+<path class="d" data-o="4" d="M-830-170l540-210-150-490-390 700z"/>
+</g>
+<g transform="translate(-1000-2000)">
+<path class="d" data-o="4" d="M-890 430l600-70 110 480-710-410z"/>
+<path class="d" data-o="4" d="M80-740l440 420 360-350-800-70z"/>
+<path class="d" data-o="4" d="M190 750l160-550 480 110-640 440z"/>
+<path class="d" data-o="4" d="M-830-170l540-210-150-490-390 700z"/>
+</g>
+<g transform="translate(1000-2000)">
+<path class="d" data-o="4" d="M-890 430l600-70 110 480-710-410z"/>
+<path class="d" data-o="4" d="M190 750l160-550 480 110-640 440z"/>
+<path class="d" data-o="4" d="M-830-170l540-210-150-490-390 700z"/>
+</g>
+<g transform="translate(3000-2000)">
+<path class="d" data-o="4" d="M-890 430l600-70 110 480-710-410z"/>
+</g>
+<g transform="translate(-8000)">
+<path class="d" data-o="4" d="M80-740l440 420 360-350-800-70z"/>
+<path class="d" data-o="4" d="M190 750l160-550 480 110-640 440z"/>
+</g>
+<g transform="translate(-6000)">
+<path class="d" data-o="4" d="M-890 430l600-70 110 480-710-410z"/>
+<path class="d" data-o="4" d="M80-740l440 420 360-350-800-70z"/>
+<path class="d" data-o="4" d="M190 750l160-550 480 110-640 440z"/>
+<path class="d" data-o="4" d="M-830-170l540-210-150-490-390 700z"/>
+</g>
+<g transform="translate(-4000)">
+<path class="d" data-o="4" d="M-890 430l600-70 110 480-710-410z"/>
+<path class="d" data-o="4" d="M80-740l440 420 360-350-800-70z"/>
+<path class="d" data-o="4" d="M190 750l160-550 480 110-640 440z"/>
+<path class="d" data-o="4" d="M-830-170l540-210-150-490-390 700z"/>
+</g>
+<g transform="translate(-2000)">
+<path class="d" data-o="4" d="M-890 430l600-70 110 480-710-410z"/>
+<path class="d" data-o="4" d="M80-740l440 420 360-350-800-70z"/>
+<path class="d" data-o="4" d="M190 750l160-550 480 110-640 440z"/>
+<path class="d" data-o="4" d="M-830-170l540-210-150-490-390 700z"/>
+</g>
+<path class="d" data-o="4" d="M-890 430l600-70 110 480-710-410z"/>
+<path class="d" data-o="4" d="M80-740l440 420 360-350-800-70z"/>
+<path class="d" data-o="4" d="M190 750l160-550 480 110-640 440z"/>
+<path class="d" data-o="4" d="M-830-170l540-210-150-490-390 700z"/>
+<g transform="translate(2000)">
+<path class="d" data-o="4" d="M-890 430l600-70 110 480-710-410z"/>
+<path class="d" data-o="4" d="M80-740l440 420 360-350-800-70z"/>
+<path class="d" data-o="4" d="M190 750l160-550 480 110-640 440z"/>
+<path class="d" data-o="4" d="M-830-170l540-210-150-490-390 700z"/>
+</g>
+<g transform="translate(4000)">
+<path class="d" data-o="4" d="M-830-170l540-210-150-490-390 700z"/>
+</g>
+<g transform="translate(-7000 2000)">
+<path class="d" data-o="4" d="M80-740l440 420 360-350-800-70z"/>
+</g>
+<g transform="translate(-5000 2000)">
+<path class="d" data-o="4" d="M80-740l440 420 360-350-800-70z"/>
+<path class="d" data-o="4" d="M-830-170l540-210-150-490-390 700z"/>
+</g>
+<g transform="translate(-3000 2000)">
+<path class="d" data-o="4" d="M80-740l440 420 360-350-800-70z"/>
+<path class="d" data-o="4" d="M190 750l160-550 480 110-640 440z"/>
+<path class="d" data-o="4" d="M-830-170l540-210-150-490-390 700z"/>
+</g>
+<g transform="translate(-1000 2000)">
+<path class="d" data-o="4" d="M80-740l440 420 360-350-800-70z"/>
+<path class="d" data-o="4" d="M-830-170l540-210-150-490-390 700z"/>
+</g>
+<g transform="translate(1000 2000)">
+<path class="d" data-o="4" d="M80-740l440 420 360-350-800-70z"/>
+<path class="d" data-o="4" d="M-830-170l540-210-150-490-390 700z"/>
+</g>
+</g>
+<g data-s="1">
+<g transform="translate(-18000-4000)">
+<path class="d" data-o="1" d="M140 490l420 400 380-340-800-60z"/>
+</g>
+<g transform="translate(-16000-4000)">
+<path class="d" data-o="1" d="M-170-920l20 580 500 20-520-600z"/>
+<path class="d" data-o="1" d="M530-370l220 530-440 240 220-770z"/>
+<path class="d" data-o="1" d="M70 50-430-270-730 150 70 50z"/>
+<path class="d" data-o="1" d="M770-300l40-580-500-60 460 640z"/>
+<path class="d" data-o="1" d="M140 490l420 400 380-340-800-60z"/>
+<path class="d" data-o="1" d="M-220 950-360 380l470-160-330 730z"/>
+<path class="d" data-o="1" d="M-930 250l30 570 510 10-540-580z"/>
+</g>
+<g transform="translate(-14000-4000)">
+<path class="d" data-o="1" d="M530-370l220 530-440 240 220-770z"/>
+<path class="d" data-o="1" d="M70 50-430-270-730 150 70 50z"/>
+<path class="d" data-o="1" d="M-370-960-910-760l140 480 400-680z"/>
+<path class="d" data-o="1" d="M140 490l420 400 380-340-800-60z"/>
+<path class="d" data-o="1" d="M-220 950-360 380l470-160-330 730z"/>
+<path class="d" data-o="1" d="M-930 250l30 570 510 10-540-580z"/>
+</g>
+<g transform="translate(-12000-4000)">
+<path class="d" data-o="1" d="M-930 250l30 570 510 10-540-580z"/>
+</g>
+<g transform="translate(-19000-2000)">
+<path class="d" data-o="1" d="M530-370l220 530-440 240 220-770z"/>
+<path class="d" data-o="1" d="M770-300l40-580-500-60 460 640z"/>
+<path class="d" data-o="1" d="M140 490l420 400 380-340-800-60z"/>
+</g>
+<g transform="translate(-17000-2000)">
+<path class="d" data-o="1" d="M-170-920l20 580 500 20-520-600z"/>
+<path class="d" data-o="1" d="M530-370l220 530-440 240 220-770z"/>
+<path class="d" data-o="1" d="M70 50-430-270-730 150 70 50z"/>
+<path class="d" data-o="1" d="M-370-960-910-760l140 480 400-680z"/>
+<path class="d" data-o="1" d="M770-300l40-580-500-60 460 640z"/>
+<path class="d" data-o="1" d="M140 490l420 400 380-340-800-60z"/>
+<path class="d" data-o="1" d="M-220 950-360 380l470-160-330 730z"/>
+<path class="d" data-o="1" d="M-930 250l30 570 510 10-540-580z"/>
+</g>
+<g transform="translate(-15000-2000)">
+<path class="d" data-o="1" d="M-170-920l20 580 500 20-520-600z"/>
+<path class="d" data-o="1" d="M530-370l220 530-440 240 220-770z"/>
+<path class="d" data-o="1" d="M70 50-430-270-730 150 70 50z"/>
+<path class="d" data-o="1" d="M-370-960-910-760l140 480 400-680z"/>
+<path class="d" data-o="1" d="M770-300l40-580-500-60 460 640z"/>
+<path class="d" data-o="1" d="M140 490l420 400 380-340-800-60z"/>
+<path class="d" data-o="1" d="M-220 950-360 380l470-160-330 730z"/>
+<path class="d" data-o="1" d="M-930 250l30 570 510 10-540-580z"/>
+</g>
+<g transform="translate(-13000-2000)">
+<path class="d" data-o="1" d="M-170-920l20 580 500 20-520-600z"/>
+<path class="d" data-o="1" d="M530-370l220 530-440 240 220-770z"/>
+<path class="d" data-o="1" d="M70 50-430-270-730 150 70 50z"/>
+<path class="d" data-o="1" d="M-370-960-910-760l140 480 400-680z"/>
+<path class="d" data-o="1" d="M770-300l40-580-500-60 460 640z"/>
+<path class="d" data-o="1" d="M140 490l420 400 380-340-800-60z"/>
+<path class="d" data-o="1" d="M-220 950-360 380l470-160-330 730z"/>
+<path class="d" data-o="1" d="M-930 250l30 570 510 10-540-580z"/>
+</g>
+<g transform="translate(-11000-2000)">
+<path class="d" data-o="1" d="M-930 250l30 570 510 10-540-580z"/>
+</g>
+<g transform="translate(-18000)">
+<path class="d" data-o="1" d="M-170-920l20 580 500 20-520-600z"/>
+<path class="d" data-o="1" d="M530-370l220 530-440 240 220-770z"/>
+<path class="d" data-o="1" d="M70 50-430-270-730 150 70 50z"/>
+<path class="d" data-o="1" d="M-370-960-910-760l140 480 400-680z"/>
+<path class="d" data-o="1" d="M770-300l40-580-500-60 460 640z"/>
+<path class="d" data-o="1" d="M140 490l420 400 380-340-800-60z"/>
+<path class="d" data-o="1" d="M-220 950-360 380l470-160-330 730z"/>
+<path class="d" data-o="1" d="M-930 250l30 570 510 10-540-580z"/>
+</g>
+<g transform="translate(-16000)">
+<path class="d" data-o="1" d="M-170-920l20 580 500 20-520-600z"/>
+<path class="d" data-o="1" d="M530-370l220 530-440 240 220-770z"/>
+<path class="d" data-o="1" d="M70 50-430-270-730 150 70 50z"/>
+<path class="d" data-o="1" d="M-370-960-910-760l140 480 400-680z"/>
+<path class="d" data-o="1" d="M770-300l40-580-500-60 460 640z"/>
+<path class="d" data-o="1" d="M140 490l420 400 380-340-800-60z"/>
+<path class="d" data-o="1" d="M-220 950-360 380l470-160-330 730z"/>
+<path class="d" data-o="1" d="M-930 250l30 570 510 10-540-580z"/>
+</g>
+<g transform="translate(-14000)">
+<path class="d" data-o="1" d="M-170-920l20 580 500 20-520-600z"/>
+<path class="d" data-o="1" d="M530-370l220 530-440 240 220-770z"/>
+<path class="d" data-o="1" d="M70 50-430-270-730 150 70 50z"/>
+<path class="d" data-o="1" d="M-370-960-910-760l140 480 400-680z"/>
+<path class="d" data-o="1" d="M770-300l40-580-500-60 460 640z"/>
+<path class="d" data-o="1" d="M140 490l420 400 380-340-800-60z"/>
+<path class="d" data-o="1" d="M-220 950-360 380l470-160-330 730z"/>
+<path class="d" data-o="1" d="M-930 250l30 570 510 10-540-580z"/>
+</g>
+<g transform="translate(-12000)">
+<path class="d" data-o="1" d="M-170-920l20 580 500 20-520-600z"/>
+<path class="d" data-o="1" d="M70 50-430-270-730 150 70 50z"/>
+<path class="d" data-o="1" d="M-370-960-910-760l140 480 400-680z"/>
+<path class="d" data-o="1" d="M-220 950-360 380l470-160-330 730z"/>
+<path class="d" data-o="1" d="M-930 250l30 570 510 10-540-580z"/>
+</g>
+<g transform="translate(-19000 2000)">
+<path class="d" data-o="1" d="M770-300l40-580-500-60 460 640z"/>
+</g>
+<g transform="translate(-17000 2000)">
+<path class="d" data-o="1" d="M-170-920l20 580 500 20-520-600z"/>
+<path class="d" data-o="1" d="M530-370l220 530-440 240 220-770z"/>
+<path class="d" data-o="1" d="M70 50-430-270-730 150 70 50z"/>
+<path class="d" data-o="1" d="M-370-960-910-760l140 480 400-680z"/>
+<path class="d" data-o="1" d="M770-300l40-580-500-60 460 640z"/>
+<path class="d" data-o="1" d="M140 490l420 400 380-340-800-60z"/>
+<path class="d" data-o="1" d="M-220 950-360 380l470-160-330 730z"/>
+</g>
+<g transform="translate(-15000 2000)">
+<path class="d" data-o="1" d="M-170-920l20 580 500 20-520-600z"/>
+<path class="d" data-o="1" d="M530-370l220 530-440 240 220-770z"/>
+<path class="d" data-o="1" d="M70 50-430-270-730 150 70 50z"/>
+<path class="d" data-o="1" d="M-370-960-910-760l140 480 400-680z"/>
+<path class="d" data-o="1" d="M770-300l40-580-500-60 460 640z"/>
+<path class="d" data-o="1" d="M140 490l420 400 380-340-800-60z"/>
+<path class="d" data-o="1" d="M-220 950-360 380l470-160-330 730z"/>
+<path class="d" data-o="1" d="M-930 250l30 570 510 10-540-580z"/>
+</g>
+<g transform="translate(-13000 2000)">
+<path class="d" data-o="1" d="M-170-920l20 580 500 20-520-600z"/>
+<path class="d" data-o="1" d="M70 50-430-270-730 150 70 50z"/>
+<path class="d" data-o="1" d="M-370-960-910-760l140 480 400-680z"/>
+<path class="d" data-o="1" d="M770-300l40-580-500-60 460 640z"/>
+<path class="d" data-o="1" d="M-930 250l30 570 510 10-540-580z"/>
+</g>
+<g transform="translate(-7000 6000)">
+<path class="d" data-o="2" d="M140 490l420 400 380-340-800-60z"/>
+</g>
+<g transform="translate(-5000 6000)">
+<path class="d" data-o="2" d="M140 490l420 400 380-340-800-60z"/>
+<path class="d" data-o="2" d="M-220 950-360 380l470-160-330 730z"/>
+<path class="d" data-o="2" d="M-930 250l30 570 510 10-540-580z"/>
+</g>
+<g transform="translate(-3000 6000)">
+<path class="d" data-o="2" d="M140 490l420 400 380-340-800-60z"/>
+<path class="d" data-o="2" d="M-220 950-360 380l470-160-330 730z"/>
+<path class="d" data-o="2" d="M-930 250l30 570 510 10-540-580z"/>
+</g>
+<g transform="translate(-1000 6000)">
+<path class="d" data-o="2" d="M-220 950-360 380l470-160-330 730z"/>
+</g>
+<g transform="translate(-6000 8000)">
+<path class="d" data-o="2" d="M-170-920l20 580 500 20-520-600z"/>
+<path class="d" data-o="2" d="M530-370l220 530-440 240 220-770z"/>
+<path class="d" data-o="2" d="M70 50-430-270-730 150 70 50z"/>
+<path class="d" data-o="2" d="M-370-960-910-760l140 480 400-680z"/>
+<path class="d" data-o="2" d="M770-300l40-580-500-60 460 640z"/>
+<path class="d" data-o="2" d="M140 490l420 400 380-340-800-60z"/>
+<path class="d" data-o="2" d="M-220 950-360 380l470-160-330 730z"/>
+<path class="d" data-o="2" d="M-930 250l30 570 510 10-540-580z"/>
+</g>
+<g transform="translate(-4000 8000)">
+<path class="d" data-o="2" d="M-170-920l20 580 500 20-520-600z"/>
+<path class="d" data-o="2" d="M530-370l220 530-440 240 220-770z"/>
+<path class="d" data-o="2" d="M70 50-430-270-730 150 70 50z"/>
+<path class="d" data-o="2" d="M-370-960-910-760l140 480 400-680z"/>
+<path class="d" data-o="2" d="M770-300l40-580-500-60 460 640z"/>
+<path class="d" data-o="2" d="M140 490l420 400 380-340-800-60z"/>
+<path class="d" data-o="2" d="M-220 950-360 380l470-160-330 730z"/>
+<path class="d" data-o="2" d="M-930 250l30 570 510 10-540-580z"/>
+</g>
+<g transform="translate(-2000 8000)">
+<path class="d" data-o="2" d="M-170-920l20 580 500 20-520-600z"/>
+<path class="d" data-o="2" d="M530-370l220 530-440 240 220-770z"/>
+<path class="d" data-o="2" d="M70 50-430-270-730 150 70 50z"/>
+<path class="d" data-o="2" d="M-370-960-910-760l140 480 400-680z"/>
+<path class="d" data-o="2" d="M770-300l40-580-500-60 460 640z"/>
+<path class="d" data-o="2" d="M140 490l420 400 380-340-800-60z"/>
+<path class="d" data-o="2" d="M-220 950-360 380l470-160-330 730z"/>
+<path class="d" data-o="2" d="M-930 250l30 570 510 10-540-580z"/>
+</g>
+<g transform="translate(0 8000)">
+<path class="d" data-o="2" d="M-170-920l20 580 500 20-520-600z"/>
+<path class="d" data-o="2" d="M530-370l220 530-440 240 220-770z"/>
+<path class="d" data-o="2" d="M70 50-430-270-730 150 70 50z"/>
+<path class="d" data-o="2" d="M-370-960-910-760l140 480 400-680z"/>
+<path class="d" data-o="2" d="M770-300l40-580-500-60 460 640z"/>
+<path class="d" data-o="2" d="M140 490l420 400 380-340-800-60z"/>
+<path class="d" data-o="2" d="M-220 950-360 380l470-160-330 730z"/>
+<path class="d" data-o="2" d="M-930 250l30 570 510 10-540-580z"/>
+</g>
+<g transform="translate(2000 8000)">
+<path class="d" data-o="2" d="M-370-960-910-760l140 480 400-680z"/>
+<path class="d" data-o="2" d="M-930 250l30 570 510 10-540-580z"/>
+</g>
+<g transform="translate(-5000 10000)">
+<path class="d" data-o="2" d="M-370-960-910-760l140 480 400-680z"/>
+<path class="d" data-o="2" d="M770-300l40-580-500-60 460 640z"/>
+</g>
+<g transform="translate(-3000 10000)">
+<path class="d" data-o="2" d="M-170-920l20 580 500 20-520-600z"/>
+<path class="d" data-o="2" d="M-370-960-910-760l140 480 400-680z"/>
+<path class="d" data-o="2" d="M770-300l40-580-500-60 460 640z"/>
+</g>
+<g transform="translate(-1000 10000)">
+<path class="d" data-o="2" d="M-170-920l20 580 500 20-520-600z"/>
+<path class="d" data-o="2" d="M-370-960-910-760l140 480 400-680z"/>
+<path class="d" data-o="2" d="M770-300l40-580-500-60 460 640z"/>
+</g>
+<g transform="translate(1000 10000)">
+<path class="d" data-o="2" d="M-170-920l20 580 500 20-520-600z"/>
+<path class="d" data-o="2" d="M-370-960-910-760l140 480 400-680z"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<g transform="matrix(.0427569 0 0-.0427569 858.3 438.14)" clip-path="url(#b)">
+<use xlink:href="#a"/>
+</g>
+</svg>
