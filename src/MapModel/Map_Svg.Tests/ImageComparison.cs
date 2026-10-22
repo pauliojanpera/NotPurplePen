@@ -48,7 +48,8 @@ namespace Map_Svg.Tests
         }
 
         // Measure, for each pixel, how many levels a color channel of either image lies beyond the range the tolerance
-        // holds it to in the other image: zero where every channel lies within it, both ways round.
+        // holds it to in the other image: zero where every channel lies within it, both ways round, and zero at an edge
+        // where the two images, blurred, agree within the tolerance's edge levels.
         // expected: the image to match.
         // rendering: Chromium's image, of the same size.
         // tolerance: how far the images may differ.
@@ -57,21 +58,25 @@ namespace Map_Svg.Tests
             int width = expected.Width, height = expected.Height;
             byte[][] expectedChannels = SplitChannels(expected), renderedChannels = SplitChannels(rendering);
             int[] excess = new int[width * height];
+            bool[] atEdge = new bool[width * height];
             for (int channel = 0; channel < 3; ++channel) {
-                RaiseExcess(excess, renderedChannels[channel], expectedChannels[channel], width, height, tolerance);
-                RaiseExcess(excess, expectedChannels[channel], renderedChannels[channel], width, height, tolerance);
+                CompareWithinReach(excess, atEdge, renderedChannels[channel], expectedChannels[channel], width, height, tolerance);
+                CompareWithinReach(excess, atEdge, expectedChannels[channel], renderedChannels[channel], width, height, tolerance);
             }
+            PassEdgesWhoseBlurredImagesAgree(excess, atEdge, expectedChannels, renderedChannels, width, height, tolerance);
             return excess;
         }
 
         // Raise each pixel's excess to how far a channel of one image lies beyond the range that channel takes in the
-        // other image within the tolerance's reach, widened by its slack.
+        // other image within the tolerance's reach, widened by its slack, and mark the pixels where that range is wider
+        // than the slack: an edge lies within reach of them.
         // excess: the excess of each pixel so far.
+        // atEdge: whether an edge lies within reach of each pixel, so far.
         // values: the channel held to the range.
         // range: the channel whose neighbourhoods give the range.
         // width, height: the size of the images.
         // tolerance: how far the images may differ.
-        private static void RaiseExcess(int[] excess, byte[] values, byte[] range, int width, int height, PixelTolerance tolerance)
+        private static void CompareWithinReach(int[] excess, bool[] atEdge, byte[] values, byte[] range, int width, int height, PixelTolerance tolerance)
         {
             byte[] lowest = FindWithinReach(range, width, height, tolerance.Reach, false);
             byte[] highest = FindWithinReach(range, width, height, tolerance.Reach, true);
@@ -79,7 +84,94 @@ namespace Map_Svg.Tests
                 int beyond = Math.Max(lowest[index] - tolerance.Slack - values[index], values[index] - highest[index] - tolerance.Slack);
                 if (beyond > excess[index])
                     excess[index] = beyond;
+                if (highest[index] - lowest[index] > tolerance.Slack)
+                    atEdge[index] = true;
             }
+        }
+
+        // Clear the excess of each pixel outside the range at an edge where the two images, each blurred, differ by no
+        // more than the tolerance's edge levels in any channel: there the rasterizers mixed the colors of meeting edges
+        // each their own way.
+        // excess: the excess of each pixel.
+        // atEdge: whether an edge lies within reach of each pixel.
+        // expected, rendering: the channels of the two images.
+        // width, height: the size of the images.
+        // tolerance: how far the images may differ.
+        private static void PassEdgesWhoseBlurredImagesAgree(int[] excess, bool[] atEdge, byte[][] expected, byte[][] rendering, int width, int height, PixelTolerance tolerance)
+        {
+            if (tolerance.EdgeBlur <= 0)
+                return;
+            bool[] passing = new bool[excess.Length];
+            bool anyToJudge = false;
+            for (int index = 0; index < excess.Length; ++index) {
+                passing[index] = excess[index] > 0 && atEdge[index];
+                anyToJudge |= passing[index];
+            }
+            if (!anyToJudge)
+                return;
+
+            double[] kernel = MakeGaussianKernel(tolerance.EdgeBlur);
+            for (int channel = 0; channel < 3; ++channel) {
+                double[] blurredExpected = Blur(expected[channel], width, height, kernel);
+                double[] blurredRendering = Blur(rendering[channel], width, height, kernel);
+                for (int index = 0; index < excess.Length; ++index) {
+                    if (passing[index] && Math.Abs(blurredExpected[index] - blurredRendering[index]) > tolerance.EdgeLevels)
+                        passing[index] = false;
+                }
+            }
+            for (int index = 0; index < excess.Length; ++index) {
+                if (passing[index])
+                    excess[index] = 0;
+            }
+        }
+
+        // Make the weights of a Gaussian blur, reaching four standard deviations to each side, summing to 1.
+        // standardDeviation: the standard deviation, in pixels.
+        private static double[] MakeGaussianKernel(double standardDeviation)
+        {
+            int radius = (int) Math.Ceiling(4 * standardDeviation);
+            double[] kernel = new double[2 * radius + 1];
+            double sum = 0;
+            for (int offset = -radius; offset <= radius; ++offset) {
+                kernel[offset + radius] = Math.Exp(-offset * offset / (2 * standardDeviation * standardDeviation));
+                sum += kernel[offset + radius];
+            }
+            for (int index = 0; index < kernel.Length; ++index)
+                kernel[index] /= sum;
+            return kernel;
+        }
+
+        // Blur a channel along its rows and then its columns, counting what lies beyond the image as white.
+        // values: the channel.
+        // width, height: the size of the image.
+        // kernel: the weights of the blur.
+        private static double[] Blur(byte[] values, int width, int height, double[] kernel)
+        {
+            int radius = kernel.Length / 2;
+            double[] alongRows = new double[values.Length];
+            for (int y = 0; y < height; ++y) {
+                for (int x = 0; x < width; ++x) {
+                    double sum = 0;
+                    for (int step = -radius; step <= radius; ++step) {
+                        int column = x + step;
+                        sum += kernel[step + radius] * ((column < 0 || column >= width) ? 255 : values[y * width + column]);
+                    }
+                    alongRows[y * width + x] = sum;
+                }
+            }
+
+            double[] result = new double[values.Length];
+            for (int y = 0; y < height; ++y) {
+                for (int x = 0; x < width; ++x) {
+                    double sum = 0;
+                    for (int step = -radius; step <= radius; ++step) {
+                        int row = y + step;
+                        sum += kernel[step + radius] * ((row < 0 || row >= height) ? 255 : alongRows[row * width + x]);
+                    }
+                    result[y * width + x] = sum;
+                }
+            }
+            return result;
         }
 
         // Find, for each pixel, the lowest or highest value a channel takes within reach of it, counting what lies beyond

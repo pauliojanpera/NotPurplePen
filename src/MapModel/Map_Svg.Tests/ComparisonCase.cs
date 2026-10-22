@@ -110,14 +110,16 @@ namespace Map_Svg.Tests
             }
         }
 
-        // Render the case's reference image with the Skia target: anti-aliased, on white, with the case's area filling
-        // the image (V-9).
+        // Render the case's reference image with the Skia target: anti-aliased, its clips too, on white, with the case's
+        // area filling the image (V-9). The Skia target clips with SkiaSharp's default, aliased, while Chromium
+        // anti-aliases every clip path whatever its shape-rendering, so an aliased clip edge could not be matched.
         public SKBitmap RenderReference()
         {
             SKBitmap reference = new SKBitmap(PixelSize.Width, PixelSize.Height);
             using (SKCanvas canvas = new SKCanvas(reference)) {
                 canvas.Clear(SKColors.White);
-                using (Skia_GraphicsTarget target = new Skia_GraphicsTarget(canvas))
+                using (Skia_GraphicsTarget skiaTarget = new Skia_GraphicsTarget(canvas))
+                using (AntiAliasedClipsTarget target = new AntiAliasedClipsTarget(skiaTarget))
                 using (Matrix areaToImage = CreateAreaToImageTransform()) {
                     target.PushTransform(areaToImage);
                     target.PushAntiAliasing(true);

@@ -4,8 +4,9 @@ using SkiaSharp;
 
 namespace Map_Svg.Tests
 {
-    // Checks the pixel tolerance of the rendering comparison: shades along an edge pass, while a recolored inside, a
-    // missing line or a shape out of place fails, both ways round, with blank paper beyond the image (F-1).
+    // Checks the pixel tolerance of the rendering comparison: shades along an edge pass, and so does a mix where edges
+    // meet that blurring evens out, while a recolored inside, a missing line, a gap or a shape out of place fails, both
+    // ways round, with blank paper beyond the image (F-1).
     [TestFixture]
     public class PixelToleranceTests
     {
@@ -27,27 +28,68 @@ namespace Map_Svg.Tests
         [Test]
         public void AnInsideMayDifferByTheSlackOnly()
         {
-            int[,] expected = new int[7, 7];
-            int[,] rendering = new int[7, 7];
+            int[,] expected = new int[9, 9];
+            int[,] rendering = new int[9, 9];
             Fill(expected, 100);
             Fill(rendering, 100);
-            rendering[3, 3] = 100 + PixelTolerance.Default.Slack;
+            FillBlock(rendering, 2, 2, 5, 100 + PixelTolerance.Default.Slack);
             Assert.AreEqual(0, CountPixelsOutside(expected, rendering));
 
-            rendering[3, 3] = 100 + PixelTolerance.Default.Slack + 1;
-            Assert.AreEqual(1, CountPixelsOutside(expected, rendering));
+            // Inside the block neither image has an edge within reach: its middle three by three pixels fail.
+            FillBlock(rendering, 2, 2, 5, 100 + PixelTolerance.Default.Slack + 1);
+            Assert.AreEqual(9, CountPixelsOutside(expected, rendering));
         }
 
         [Test]
         public void ARecoloredInsideFails()
         {
-            using (SKBitmap expected = MakeImage(new int[7, 7], new SKColor(204, 76, 0)))
-            using (SKBitmap rendering = MakeImage(new int[7, 7], new SKColor(204, 76, 0))) {
-                rendering.SetPixel(3, 3, new SKColor(204, 76, 10));
+            using (SKBitmap expected = MakeImage(new int[9, 9], new SKColor(204, 76, 0)))
+            using (SKBitmap rendering = MakeImage(new int[9, 9], new SKColor(204, 76, 0))) {
+                for (int y = 2; y < 7; ++y)
+                    for (int x = 2; x < 7; ++x)
+                        rendering.SetPixel(x, y, new SKColor(204, 76, 10));
                 int[] excess = ImageComparison.MeasureExcess(expected, rendering, PixelTolerance.Default);
-                Assert.AreEqual(1, excess.Count(pixelExcess => pixelExcess > 0));
+                Assert.AreEqual(9, excess.Count(pixelExcess => pixelExcess > 0));
                 Assert.AreEqual(10 - PixelTolerance.Default.Slack, excess.Max());
             }
+        }
+
+        [Test]
+        public void AShadeWhereEdgesMeetPassesWhenTheBlurredImagesAgree()
+        {
+            // Where black meets dark grey, one rasterizer lets the white beneath show through and the other does not.
+            int[,] expected = new int[9, 9];
+            int[,] rendering = new int[9, 9];
+            foreach (int[,] levels in new int[][,] { expected, rendering }) {
+                FillBlock(levels, 0, 0, 9, 60);
+                for (int y = 0; y < 4; ++y)
+                    for (int x = 0; x < 9; ++x)
+                        levels[y, x] = 0;
+            }
+            for (int x = 0; x < 9; ++x) {
+                expected[4, x] = 100;
+                rendering[4, x] = 30;
+            }
+            Assert.AreEqual(0, CountPixelsOutside(expected, rendering));
+        }
+
+        [Test]
+        public void AWhiteGapWhereEdgesMeetFails()
+        {
+            // The gap stays away from the image's sides, beyond which lies white paper.
+            int[,] expected = new int[9, 13];
+            int[,] rendering = new int[9, 13];
+            foreach (int[,] levels in new int[][,] { expected, rendering }) {
+                FillBlock(levels, 0, 0, 13, 60);
+                for (int y = 0; y < 4; ++y)
+                    for (int x = 0; x < 13; ++x)
+                        levels[y, x] = 0;
+                for (int x = 0; x < 13; ++x)
+                    levels[4, x] = 30;
+            }
+            for (int x = 2; x < 11; ++x)
+                rendering[4, x] = 255;
+            Assert.AreEqual(9, CountPixelsOutside(expected, rendering));
         }
 
         [Test]
@@ -112,8 +154,18 @@ namespace Map_Svg.Tests
         // level: the level to set.
         private static void Fill(int[,] levels, int level)
         {
-            for (int y = 0; y < levels.GetLength(0); ++y)
-                for (int x = 0; x < levels.GetLength(1); ++x)
+            FillBlock(levels, 0, 0, System.Math.Max(levels.GetLength(0), levels.GetLength(1)), level);
+        }
+
+        // Set the levels of a square block of an image, as far as it lies within the image.
+        // levels: the image's levels, row by row.
+        // left, top: the block's corner.
+        // side: the block's side.
+        // level: the level to set.
+        private static void FillBlock(int[,] levels, int left, int top, int side, int level)
+        {
+            for (int y = top; y < System.Math.Min(top + side, levels.GetLength(0)); ++y)
+                for (int x = left; x < System.Math.Min(left + side, levels.GetLength(1)); ++x)
                     levels[y, x] = level;
         }
 
