@@ -22,7 +22,7 @@ namespace PurplePen.MapModel
         // The declarations of the shape's style, which name its class when it is written (S-4).
         private readonly string style;
 
-        // The attributes that give the shape's geometry, such as d="M0 0h10" or cx="0" cy="0" r="5".
+        // The attributes that give the shape's geometry, such as d="M0 0h10" or cx="5" r="5".
         private readonly string geometry;
 
         // The bounds of the geometry, in steps.

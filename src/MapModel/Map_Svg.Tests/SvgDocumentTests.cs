@@ -126,6 +126,27 @@ namespace Map_Svg.Tests
         }
 
         [Test]
+        public void CentersAtZeroAreLeftOutAsTheDefault()
+        {
+            string document = WriteOnePage(target => {
+                object black = new object();
+                target.CreateSolidBrush(black, CmykColor.FromCmyk(0, 0, 0, 1));
+                target.FillEllipse(black, Point(0, 0), 1, 1);
+                target.FillEllipse(black, Point(0, 3), 2, 1);
+                target.FillEllipse(black, Point(4, 0), 1, 1);
+            });
+            Assert.AreEqual(OnePageDocument(
+                new string[] { ".a{fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)}" },
+                new string[] {
+                    "<g data-m=\"1\">",
+                    "<circle class=\"a\" r=\"1000\"/>",
+                    "<ellipse class=\"a\" cy=\"3000\" rx=\"2000\" ry=\"1000\"/>",
+                    "<circle class=\"a\" cx=\"4000\" r=\"1000\"/>",
+                    "</g>",
+                }), document);
+        }
+
+        [Test]
         public void ATranslucentColorUnderTheAlternateModeCarriesItsOpacityAndTheEvenOddRule()
         {
             string document = WriteOnePage(target => {
@@ -214,13 +235,13 @@ namespace Map_Svg.Tests
                 new string[] {
                     "<g data-m=\"1\">",
                     "<g transform=\"translate(20000 30000)\">",
-                    "<circle class=\"a\" cx=\"0\" cy=\"0\" r=\"1000\"/>",
+                    "<circle class=\"a\" r=\"1000\"/>",
                     "</g>",
                     "<g transform=\"translate(20000 30000)rotate(45)\">",
                     "<path class=\"a\" d=\"M-1000-1000h2000v2000h-2000z\"/>",
                     "</g>",
                     "<g transform=\"matrix(1 0 .5 1 0 0)\">",
-                    "<circle class=\"a\" cx=\"0\" cy=\"0\" r=\"1000\"/>",
+                    "<circle class=\"a\" r=\"1000\"/>",
                     "</g>",
                     "<circle class=\"a\" cx=\"5000\" cy=\"5000\" r=\"1000\"/>",
                     "</g>",
@@ -281,8 +302,8 @@ namespace Map_Svg.Tests
                 new string[] { ".a{fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)}" },
                 new string[] {
                     "<g transform=\"translate(10000 10000)\" data-m=\"1\">",
-                    "<circle class=\"a\" cx=\"1000\" cy=\"0\" r=\"1000\"/>",
-                    "<circle class=\"a\" cx=\"2000\" cy=\"0\" r=\"1000\"/>",
+                    "<circle class=\"a\" cx=\"1000\" r=\"1000\"/>",
+                    "<circle class=\"a\" cx=\"2000\" r=\"1000\"/>",
                     "</g>",
                 }), document);
         }
@@ -299,7 +320,7 @@ namespace Map_Svg.Tests
                     target.FillEllipse(black, Point(0, 0), 1, 1);
                 }
             });
-            StringAssert.Contains("<g transform=\"translate(1000 2000)\" data-m=\"1\">\n<circle class=\"a\" cx=\"0\" cy=\"0\" r=\"1000\"/>\n</g>\n", document);
+            StringAssert.Contains("<g transform=\"translate(1000 2000)\" data-m=\"1\">\n<circle class=\"a\" r=\"1000\"/>\n</g>\n", document);
         }
 
         [Test]

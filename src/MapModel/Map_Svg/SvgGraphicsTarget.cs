@@ -530,7 +530,8 @@ namespace PurplePen.MapModel
             return new SvgShape("path", style, "d=\"" + path + "\"", path.Bounds);
         }
 
-        // An ellipse shape, a circle when its radii are equal in steps.
+        // An ellipse shape, a circle when its radii are equal in steps. A center coordinate of 0 is the default, which
+        // is left out (S-9).
         // style: the declarations of its style.
         // center: its center, in millimetres.
         // radiusX, radiusY: its radii, in millimetres.
@@ -542,7 +543,8 @@ namespace PurplePen.MapModel
             bounds.Include(cx - rx, cy - ry);
             bounds.Include(cx + rx, cy + ry);
 
-            string position = "cx=\"" + SvgNumbers.FormatInteger(cx) + "\" cy=\"" + SvgNumbers.FormatInteger(cy) + "\" ";
+            string position = (cx != 0 ? "cx=\"" + SvgNumbers.FormatInteger(cx) + "\" " : "")
+                            + (cy != 0 ? "cy=\"" + SvgNumbers.FormatInteger(cy) + "\" " : "");
             if (rx == ry)
                 return new SvgShape("circle", style, position + "r=\"" + SvgNumbers.FormatInteger(rx) + "\"", bounds);
             return new SvgShape("ellipse", style, position + "rx=\"" + SvgNumbers.FormatInteger(rx) + "\" ry=\"" + SvgNumbers.FormatInteger(ry) + "\"", bounds);
