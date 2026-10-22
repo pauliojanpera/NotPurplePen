@@ -324,7 +324,7 @@ namespace Map_Svg.Tests
         }
 
         [Test]
-        public void PagesAfterTheFirstLieToItsRight()
+        public void PagesAfterTheFirstLieToItsRightAndEqualClipsShareADefinition()
         {
             using (Svg_GraphicsTarget target = new Svg_GraphicsTarget(DefaultColorConverter.Instance, true))
             using (Matrix mapToPage = new Matrix()) {
@@ -338,9 +338,243 @@ namespace Map_Svg.Tests
 
                 string document = target.FinishDocument();
                 StringAssert.Contains("<g transform=\"matrix(.001 0 0-.001 0 50)\" clip-path=\"url(#b)\">\n<use xlink:href=\"#a\"/>\n</g>\n", document);
-                StringAssert.Contains("<g transform=\"matrix(.001 0 0-.001 110 50)\" clip-path=\"url(#c)\">\n<use xlink:href=\"#a\"/>\n</g>\n", document);
+                StringAssert.Contains("<g transform=\"matrix(.001 0 0-.001 110 50)\" clip-path=\"url(#b)\">\n<use xlink:href=\"#a\"/>\n</g>\n", document);
+                Assert.AreEqual(1, document.Split(new[] { "<clipPath" }, StringSplitOptions.None).Length - 1);
                 StringAssert.Contains(RootOf100By50, document);
             }
+        }
+
+        // The declarations of a black stroke, which every class of a black pen begins with.
+        private const string BlackStroke = "fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1)";
+
+        // Make a path part.
+        // kind: the kind of part.
+        // points: its points.
+        private static GraphicsPathPart Part(GraphicsPathPartKind kind, params PointF[] points)
+        {
+            return new GraphicsPathPart(kind, points);
+        }
+
+        [Test]
+        public void PensWriteOnlyWhatDiffersFromTheDefaults()
+        {
+            string document = WriteOnePage(target => {
+                CmykColor black = CmykColor.FromCmyk(0, 0, 0, 1);
+                object plain = new object(), round = new object(), square = new object(), longMiters = new object(), noMiters = new object();
+                target.CreatePen(plain, black, 0.35F, LineCapMode.Flat, LineJoinMode.Miter, 4);
+                target.CreatePen(round, black, 0.35F, LineCapMode.Round, LineJoinMode.Round, 4);
+                target.CreatePen(square, black, 0.35F, LineCapMode.Square, LineJoinMode.Bevel, 4);
+                target.CreatePen(longMiters, black, 0.35F, LineCapMode.Flat, LineJoinMode.Miter, 2.5F);
+                target.CreatePen(noMiters, black, 0.35F, LineCapMode.Flat, LineJoinMode.Miter, 1);
+                object[] pens = { plain, round, square, longMiters, noMiters };
+                for (int index = 0; index < pens.Length; ++index)
+                    target.DrawLine(pens[index], Point(0, index), Point(10, index));
+            });
+            Assert.AreEqual(OnePageDocument(
+                new string[] {
+                    ".a{" + BlackStroke + ";stroke-width:350}",
+                    ".b{" + BlackStroke + ";stroke-width:350;stroke-linecap:round;stroke-linejoin:round}",
+                    ".c{" + BlackStroke + ";stroke-width:350;stroke-linecap:square;stroke-linejoin:bevel}",
+                    ".d{" + BlackStroke + ";stroke-width:350;stroke-miterlimit:2.5}",
+                    ".e{" + BlackStroke + ";stroke-width:350;stroke-linejoin:bevel}",
+                },
+                new string[] {
+                    "<g data-m=\"1\">",
+                    "<path class=\"a\" d=\"M0 0h10000\"/>",
+                    "<path class=\"b\" d=\"M0 1000h10000\"/>",
+                    "<path class=\"c\" d=\"M0 2000h10000\"/>",
+                    "<path class=\"d\" d=\"M0 3000h10000\"/>",
+                    "<path class=\"e\" d=\"M0 4000h10000\"/>",
+                    "</g>",
+                }), document);
+        }
+
+        [Test]
+        public void ShapesAreStrokedAsPathsCirclesAndEllipses()
+        {
+            string document = WriteOnePage(target => {
+                object pen = new object();
+                target.CreatePen(pen, CmykColor.FromCmyk(0, 0, 0, 1), 0.5F, LineCapMode.Round, LineJoinMode.Round, 4);
+                target.DrawPolyline(pen, new PointF[] { Point(0, 0), Point(10, 0), Point(10, 10) });
+                target.DrawPolygon(pen, new PointF[] { Point(20, 0), Point(30, 0), Point(25, 8) });
+                target.DrawRectangle(pen, new RectangleF(40, 0, 10, 5));
+                target.DrawEllipse(pen, Point(60, 5), 3, 3);
+                target.DrawEllipse(pen, Point(70, 5), 4, 2);
+            });
+            Assert.AreEqual(OnePageDocument(
+                new string[] { ".a{" + BlackStroke + ";stroke-width:500;stroke-linecap:round;stroke-linejoin:round}" },
+                new string[] {
+                    "<g data-m=\"1\">",
+                    "<path class=\"a\" d=\"M0 0h10000v10000\"/>",
+                    "<path class=\"a\" d=\"M20000 0h10000l-5000 8000z\"/>",
+                    "<path class=\"a\" d=\"M40000 0h10000v5000H40000z\"/>",
+                    "<circle class=\"a\" cx=\"60000\" cy=\"5000\" r=\"3000\"/>",
+                    "<ellipse class=\"a\" cx=\"70000\" cy=\"5000\" rx=\"4000\" ry=\"2000\"/>",
+                    "</g>",
+                }), document);
+        }
+
+        [Test]
+        public void ArcsTurnFromTheXAxisTowardsTheYAxisAndAFullTurnIsACircle()
+        {
+            string document = WriteOnePage(target => {
+                object pen = new object();
+                target.CreatePen(pen, CmykColor.FromCmyk(0, 0, 0, 1), 0.5F, LineCapMode.Flat, LineJoinMode.Miter, 4);
+                target.DrawArc(pen, Point(0, 0), 10, 0, 90);
+                target.DrawArc(pen, Point(0, 0), 10, 0, -270);
+                target.DrawArc(pen, Point(0, 0), 10, 45, 360);
+            });
+            Assert.AreEqual(OnePageDocument(
+                new string[] { ".a{" + BlackStroke + ";stroke-width:500}" },
+                new string[] {
+                    "<g data-m=\"1\">",
+                    "<path class=\"a\" d=\"M10000 0A10000 10000 0 0 1 0 10000\"/>",
+                    "<path class=\"a\" d=\"M10000 0A10000 10000 0 1 0 0 10000\"/>",
+                    "<circle class=\"a\" r=\"10000\"/>",
+                    "</g>",
+                }), document);
+        }
+
+        [Test]
+        public void APenOfABrushStrokesWithTheBrushsPaint()
+        {
+            string document = WriteOnePage(target => {
+                object brush = new object(), pen = new object();
+                target.CreateSolidBrush(brush, CmykColor.FromCmyk(0, 1, 1, 0));
+                target.CreatePen(pen, brush, 1, LineCapMode.Flat, LineJoinMode.Miter, 4);
+                target.DrawLine(pen, Point(0, 0), Point(5, 5));
+            });
+            Assert.AreEqual(OnePageDocument(
+                new string[] { ".a{fill:none;stroke:#f00;stroke:#f00 icc-color(cmyk,0,1,1,0);stroke-width:1000}" },
+                new string[] { "<g data-m=\"1\">", "<path class=\"a\" d=\"M0 0l5000 5000\"/>", "</g>" }), document);
+        }
+
+        [Test]
+        public void ClippedJoinsAndHairlinesAreNotHonored()
+        {
+            using (Svg_GraphicsTarget target = new Svg_GraphicsTarget(DefaultColorConverter.Instance, true)) {
+                CmykColor black = CmykColor.FromCmyk(0, 0, 0, 1);
+                Svg_UnsupportedCallException error = Assert.Throws<Svg_UnsupportedCallException>(
+                    () => target.CreatePen(new object(), black, 1, LineCapMode.Flat, LineJoinMode.MiterClipped, 4));
+                Assert.AreEqual("CreatePen", error.CallName);
+                error = Assert.Throws<Svg_UnsupportedCallException>(() => target.CreatePen(new object(), black, 0, LineCapMode.Flat, LineJoinMode.Miter, 4));
+                Assert.AreEqual("CreatePen", error.CallName);
+            }
+        }
+
+        [Test]
+        public void PathsTakeTheirPartsAndFillUnderTheirRule()
+        {
+            List<GraphicsPathPart> parts = new List<GraphicsPathPart> {
+                Part(GraphicsPathPartKind.Start, Point(0, 0)),
+                Part(GraphicsPathPartKind.Lines, Point(10, 0), Point(10, 10)),
+                Part(GraphicsPathPartKind.Beziers, Point(10, 15), Point(5, 20), Point(0, 20)),
+                Part(GraphicsPathPartKind.Close),
+            };
+            string document = WriteOnePage(target => {
+                object path = new object(), brush = new object(), pen = new object();
+                target.CreatePath(path, parts, AreaFillMode.Alternate);
+                target.CreateSolidBrush(brush, CmykColor.FromCmyk(0, 0, 0, 1));
+                target.CreatePen(pen, CmykColor.FromCmyk(0, 0, 0, 1), 0.1F, LineCapMode.Flat, LineJoinMode.Miter, 4);
+                target.FillPath(brush, path);
+                target.DrawPath(pen, path);
+                target.FillPath(brush, parts, AreaFillMode.Winding);
+                target.DrawPath(pen, parts);
+                Assert.IsTrue(target.HasPath(path));
+            });
+            const string data = "M0 0h10000v10000c0 5000-5000 10000-10000 10000z";
+            Assert.AreEqual(OnePageDocument(
+                new string[] {
+                    ".a{fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd}",
+                    ".b{" + BlackStroke + ";stroke-width:100}",
+                    ".c{fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)}",
+                },
+                new string[] {
+                    "<g data-m=\"1\">",
+                    "<path class=\"a\" d=\"" + data + "\"/>",
+                    "<path class=\"b\" d=\"" + data + "\"/>",
+                    "<path class=\"c\" d=\"" + data + "\"/>",
+                    "<path class=\"b\" d=\"" + data + "\"/>",
+                    "</g>",
+                }), document);
+        }
+
+        [Test]
+        public void ClipsAreGroupsThatNestAndShareEqualDefinitions()
+        {
+            string document = WriteOnePage(target => {
+                object brush = new object();
+                target.CreateSolidBrush(brush, CmykColor.FromCmyk(0, 0, 0, 1));
+                target.PushClip(new RectangleF(0, 0, 10, 10));
+                target.FillRectangle(brush, new RectangleF(0, 0, 20, 20));
+                target.PushClip(new RectangleF[] { new RectangleF(20, 0, 5, 5), new RectangleF(30, 0, 5, 5) });
+                target.FillEllipse(brush, Point(5, 5), 1, 1);
+                target.PopClip();
+                target.PopClip();
+                target.FillEllipse(brush, Point(50, 5), 1, 1);
+                target.PushClip(new RectangleF(0, 0, 10, 10));
+                target.FillEllipse(brush, Point(8, 8), 1, 1);
+                target.PopClip();
+                target.PushClip(new List<GraphicsPathPart> { Part(GraphicsPathPartKind.Start, Point(0, 0)), Part(GraphicsPathPartKind.Lines, Point(10, 0), Point(0, 10), Point(10, 10)), Part(GraphicsPathPartKind.Close) },
+                                AreaFillMode.Alternate);
+                target.FillEllipse(brush, Point(2, 2), 1, 1);
+                target.PopClip();
+            });
+            StringAssert.Contains(string.Join("\n", new string[] {
+                "<defs>", "<color-profile name=\"cmyk\"/>",
+                "<clipPath id=\"b\">", "<path d=\"M0 0h10000v10000H0z\"/>", "</clipPath>",
+                "<clipPath id=\"c\">", "<path d=\"M20000 0h5000v5000h-5000zM30000 0h5000v5000h-5000z\"/>", "</clipPath>",
+                "<clipPath id=\"d\">", "<path class=\"b\" d=\"M0 0h10000L0 10000h10000z\"/>", "</clipPath>",
+                "<clipPath id=\"e\">", "<path d=\"M0 0h100000v50000H0z\"/>", "</clipPath>",
+                "<g id=\"a\">",
+                "<g data-m=\"1\">",
+                "<g clip-path=\"url(#b)\">",
+                "<path class=\"a\" d=\"M0 0h20000v20000H0z\"/>",
+                "<g clip-path=\"url(#c)\">",
+                "<circle class=\"a\" cx=\"5000\" cy=\"5000\" r=\"1000\"/>",
+                "</g>",
+                "</g>",
+                "<circle class=\"a\" cx=\"50000\" cy=\"5000\" r=\"1000\"/>",
+                "<g clip-path=\"url(#b)\">",
+                "<circle class=\"a\" cx=\"8000\" cy=\"8000\" r=\"1000\"/>",
+                "</g>",
+                "<g clip-path=\"url(#d)\">",
+                "<circle class=\"a\" cx=\"2000\" cy=\"2000\" r=\"1000\"/>",
+                "</g>",
+                "</g>",
+                "</g>",
+                "</defs>",
+            }), document);
+            StringAssert.Contains(".b{clip-rule:evenodd}", document);
+        }
+
+        [Test]
+        public void BlendingDarkensWhatLiesBelowAndBlendingGroupsNeverMerge()
+        {
+            bool supported = false;
+            string document = WriteOnePage(target => {
+                object brush = new object();
+                target.CreateSolidBrush(brush, CmykColor.FromCmyk(0, 0, 0, 1));
+                supported = target.PushBlending(BlendMode.Darken);
+                target.FillEllipse(brush, Point(1, 1), 1, 1);
+                target.PopBlending();
+                target.PushBlending(BlendMode.Darken);
+                target.FillEllipse(brush, Point(3, 3), 1, 1);
+                target.PopBlending();
+            });
+            Assert.IsTrue(supported);
+            Assert.AreEqual(OnePageDocument(
+                new string[] { ".a{mix-blend-mode:darken}", ".b{fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)}" },
+                new string[] {
+                    "<g data-m=\"1\">",
+                    "<g class=\"a\">",
+                    "<circle class=\"b\" cx=\"1000\" cy=\"1000\" r=\"1000\"/>",
+                    "</g>",
+                    "<g class=\"a\">",
+                    "<circle class=\"b\" cx=\"3000\" cy=\"3000\" r=\"1000\"/>",
+                    "</g>",
+                    "</g>",
+                }), document);
         }
 
         [Test]

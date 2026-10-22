@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using PurplePen.Graphics2D;
 
 using PointF = System.Drawing.PointF;
@@ -17,13 +18,17 @@ namespace PurplePen.MapModel
     {
         // The calls the target fully implements, each to its whole requirement (DL-5).
         private static readonly HashSet<string> fullyImplementedCalls = new HashSet<string>(StringComparer.Ordinal) {
-            nameof(Intensity), nameof(PushTransform), nameof(PopTransform), nameof(PushAntiAliasing), nameof(PopAntiAliasing),
-            nameof(CreateSolidBrush), nameof(FillEllipse), nameof(FillPolygon), nameof(FillRectangle),
+            nameof(Intensity), nameof(PushTransform), nameof(PopTransform), nameof(PushClip), nameof(PopClip),
+            nameof(PushAntiAliasing), nameof(PopAntiAliasing), nameof(PushBlending), nameof(PopBlending),
+            nameof(CreatePath), nameof(CreateSolidBrush), nameof(CreatePen),
             nameof(HasPath), nameof(HasBrush), nameof(HasPen), nameof(HasFont),
+            nameof(DrawLine), nameof(DrawArc), nameof(DrawEllipse), nameof(FillEllipse), nameof(DrawRectangle),
+            nameof(FillRectangle), nameof(DrawPolygon), nameof(DrawPolyline), nameof(FillPolygon), nameof(DrawPath),
+            nameof(FillPath),
         };
 
         // What opened a group that is still open, which the call that closes it must match.
-        private enum Opener { BeginPart, BeginMap, PushTransform, PushAntiAliasing }
+        private enum Opener { BeginPart, BeginMap, PushTransform, PushClip, PushAntiAliasing, PushBlending }
 
         // A group still open, with what opened it and the anti-aliasing in force before it.
         private sealed class OpenGroup
@@ -40,6 +45,19 @@ namespace PurplePen.MapModel
             }
         }
 
+        // A path created under a key, with the rule it is filled and clipped under.
+        private sealed class StoredPath
+        {
+            public readonly SvgPathData Data;
+            public readonly bool EvenOdd;
+
+            public StoredPath(SvgPathData data, bool evenOdd)
+            {
+                Data = data;
+                EvenOdd = evenOdd;
+            }
+        }
+
         // The document being written.
         private readonly SvgDocument document;
 
@@ -50,12 +68,10 @@ namespace PurplePen.MapModel
         private readonly Dictionary<object, SvgPart> partsByKey = new Dictionary<object, SvgPart>(new IdentityComparer<object>());
         private readonly Dictionary<object, SvgMapRecord> mapsByKey = new Dictionary<object, SvgMapRecord>(new IdentityComparer<object>());
 
-        // The declarations that paint a fill with each brush, by the brush's key.
-        private readonly Dictionary<object, string> brushes = new Dictionary<object, string>(new IdentityComparer<object>());
-
-        // The pens, paths and fonts, by their keys; the calls that create them are still to come.
+        // The brushes, the declarations each pen strokes with, the paths and the fonts, by their keys (D-10).
+        private readonly Dictionary<object, SvgBrush> brushes = new Dictionary<object, SvgBrush>(new IdentityComparer<object>());
         private readonly Dictionary<object, string> pens = new Dictionary<object, string>(new IdentityComparer<object>());
-        private readonly Dictionary<object, string> paths = new Dictionary<object, string>(new IdentityComparer<object>());
+        private readonly Dictionary<object, StoredPath> paths = new Dictionary<object, StoredPath>(new IdentityComparer<object>());
         private readonly Dictionary<object, string> fonts = new Dictionary<object, string>(new IdentityComparer<object>());
 
         // The intensity that colors are drawn at.
@@ -145,7 +161,7 @@ namespace PurplePen.MapModel
             SvgPathData clipPath = RectanglePath(mapArea);
             SvgTransform stepsToMillimetres = new SvgTransform(1 / SvgNumbers.StepsPerMillimetre, 0, 0, 1 / SvgNumbers.StepsPerMillimetre, 0, 0);
             SvgTransform stepsToPage = SvgTransform.FromMatrix(mapToPage, 1).After(stepsToMillimetres);
-            document.AddPage(paperSize.Width, paperSize.Height, stepsToPage, new SvgClip(clipPath.ToString(), false), clipPath.Bounds, parts);
+            document.AddPage(paperSize.Width, paperSize.Height, stepsToPage, document.ClipOf(clipPath.ToString(), false), clipPath.Bounds, parts);
         }
 
         // The intensity at which colors are drawn; setting it discards the brushes and pens, whose colors it changed.
@@ -172,34 +188,38 @@ namespace PurplePen.MapModel
             Close(Opener.PushTransform, nameof(PopTransform));
         }
 
-        // Clip to a path created with CreatePath.
+        // Clip to a path created with CreatePath, under its rule; nested clips intersect (D-2).
         public void PushClip(object pathKey)
         {
-            throw new Svg_UnsupportedCallException(nameof(PushClip));
+            StoredPath path = GetPath(pathKey, nameof(PushClip));
+            OpenClip(path.Data, path.EvenOdd, nameof(PushClip));
         }
 
-        // Clip to a rectangle.
+        // Clip to a rectangle (D-2).
         public void PushClip(RectangleF rectangle)
         {
-            throw new Svg_UnsupportedCallException(nameof(PushClip));
+            OpenClip(RectanglePath(rectangle), false, nameof(PushClip));
         }
 
-        // Clip to the union of rectangles.
+        // Clip to the union of rectangles: one subpath each, all turning the same way, under the nonzero rule (D-2).
         public void PushClip(RectangleF[] rectangles)
         {
-            throw new Svg_UnsupportedCallException(nameof(PushClip));
+            SvgPathData path = new SvgPathData();
+            foreach (RectangleF rectangle in rectangles)
+                AddRectangle(path, rectangle);
+            OpenClip(path, false, nameof(PushClip));
         }
 
-        // Clip to a path given by its parts.
+        // Clip to a path given by its parts, under the rule of its fill mode (D-2).
         public void PushClip(List<GraphicsPathPart> parts, AreaFillMode windingMode)
         {
-            throw new Svg_UnsupportedCallException(nameof(PushClip));
+            OpenClip(PathOfParts(parts), windingMode == AreaFillMode.Alternate, nameof(PushClip));
         }
 
         // End the clip of the last PushClip.
         public void PopClip()
         {
-            throw new Svg_UnsupportedCallException(nameof(PopClip));
+            Close(Opener.PushClip, nameof(PopClip));
         }
 
         // Draw anti-aliased, or with crisp edges, until the matching PopAntiAliasing (D-9). A group carries the change
@@ -220,22 +240,29 @@ namespace PurplePen.MapModel
             Close(Opener.PushAntiAliasing, nameof(PopAntiAliasing));
         }
 
-        // Blend what is drawn until the matching PopBlending; return whether the mode is supported.
+        // Blend what is drawn until the matching PopBlending with what lies below it, by darken, and return true (D-8).
+        // The map opens the blending around the run of one overprinted color, so a group blends that run as a whole.
         public bool PushBlending(BlendMode blendMode)
         {
-            throw new Svg_UnsupportedCallException(nameof(PushBlending));
+            RequireOpenPart(nameof(PushBlending));
+            if (blendMode != BlendMode.Darken)
+                throw new Svg_UnsupportedCallException(nameof(PushBlending));
+            Open(Opener.PushBlending, new SvgGroup { Style = "mix-blend-mode:darken", Blends = true });
+            return true;
         }
 
         // End the blending of the last PushBlending.
         public void PopBlending()
         {
-            throw new Svg_UnsupportedCallException(nameof(PopBlending));
+            Close(Opener.PushBlending, nameof(PopBlending));
         }
 
-        // Create a path under a key.
+        // Create a path under a key, filled and clipped under the rule of its fill mode (D-3, D-10).
         public void CreatePath(object key, List<GraphicsPathPart> parts, AreaFillMode windingMode)
         {
-            throw new Svg_UnsupportedCallException(nameof(CreatePath));
+            if (paths.ContainsKey(key))
+                throw new InvalidOperationException("CreatePath: the key has a path already.");
+            paths.Add(key, new StoredPath(PathOfParts(parts), windingMode == AreaFillMode.Alternate));
         }
 
         // Create a solid brush under a key, its color at the current intensity (D-10, D-11).
@@ -243,7 +270,7 @@ namespace PurplePen.MapModel
         {
             if (brushes.ContainsKey(key))
                 throw new InvalidOperationException("CreateSolidBrush: the key has a brush already.");
-            brushes.Add(key, document.Paints.Paint("fill", AtIntensity(color)));
+            brushes.Add(key, new SvgBrush(AtIntensity(color)));
         }
 
         // Whether pattern brushes are supported.
@@ -258,16 +285,17 @@ namespace PurplePen.MapModel
             throw new Svg_UnsupportedCallException(nameof(CreatePatternBrush));
         }
 
-        // Create a pen that strokes with a brush, under a key.
+        // Create a pen that strokes with a brush's paint, under a key (D-5, D-6).
         public void CreatePen(object key, object brushKey, float width, LineCapMode caps, LineJoinMode join, float miterLimit)
         {
-            throw new Svg_UnsupportedCallException(nameof(CreatePen));
+            SvgBrush brush = GetBrush(brushKey, nameof(CreatePen));
+            AddPen(key, brush.Paint(document.Paints, "stroke"), width, caps, join, miterLimit);
         }
 
-        // Create a pen of a solid color, under a key.
+        // Create a pen of a color at the current intensity, under a key (D-5, D-11).
         public void CreatePen(object key, CmykColor color, float width, LineCapMode caps, LineJoinMode join, float miterLimit)
         {
-            throw new Svg_UnsupportedCallException(nameof(CreatePen));
+            AddPen(key, document.Paints.Paint("stroke", AtIntensity(color)), width, caps, join, miterLimit);
         }
 
         // Create a font under a key.
@@ -300,94 +328,115 @@ namespace PurplePen.MapModel
             return fonts.ContainsKey(fontKey);
         }
 
-        // Draw a line with a pen.
+        // Draw a line with a pen, as a path (D-4, F-3).
         public void DrawLine(object penKey, PointF start, PointF finish)
         {
-            throw new Svg_UnsupportedCallException(nameof(DrawLine));
+            string stroke = GetPen(penKey, nameof(DrawLine));
+            SvgPathData path = new SvgPathData();
+            path.MoveTo(SvgNumbers.ToSteps(start.X), SvgNumbers.ToSteps(start.Y));
+            path.LineTo(SvgNumbers.ToSteps(finish.X), SvgNumbers.ToSteps(finish.Y));
+            AddPath(stroke, path, nameof(DrawLine));
         }
 
-        // Draw an arc with a pen.
+        // Draw an arc with a pen. Its angles are degrees turning from the x axis towards the y axis, as Skia's are, and
+        // an arc of a full turn or more is the whole circle, which Skia then draws as a closed oval (D-4).
         public void DrawArc(object penKey, PointF center, float radius, float startAngle, float sweepAngle)
         {
-            throw new Svg_UnsupportedCallException(nameof(DrawArc));
+            string stroke = GetPen(penKey, nameof(DrawArc));
+            if (Math.Abs(sweepAngle) >= 360) {
+                AddShape(EllipseShape(stroke, center, radius, radius), nameof(DrawArc));
+                return;
+            }
+
+            double start = startAngle * Math.PI / 180, end = (startAngle + sweepAngle) * Math.PI / 180;
+            long radiusInSteps = Math.Abs(SvgNumbers.ToSteps(radius));
+            SvgPathData path = new SvgPathData();
+            path.MoveTo(SvgNumbers.ToSteps(center.X + radius * Math.Cos(start)), SvgNumbers.ToSteps(center.Y + radius * Math.Sin(start)));
+            path.ArcTo(radiusInSteps, radiusInSteps, Math.Abs(sweepAngle) > 180, sweepAngle > 0,
+                       SvgNumbers.ToSteps(center.X + radius * Math.Cos(end)), SvgNumbers.ToSteps(center.Y + radius * Math.Sin(end)));
+            long centerX = SvgNumbers.ToSteps(center.X), centerY = SvgNumbers.ToSteps(center.Y);
+            path.Bounds.Include(centerX - radiusInSteps, centerY - radiusInSteps);
+            path.Bounds.Include(centerX + radiusInSteps, centerY + radiusInSteps);
+            AddPath(stroke, path, nameof(DrawArc));
         }
 
-        // Draw an ellipse with a pen.
+        // Draw an ellipse with a pen, as a circle when its radii are equal (D-4).
         public void DrawEllipse(object penKey, PointF center, float radiusX, float radiusY)
         {
-            throw new Svg_UnsupportedCallException(nameof(DrawEllipse));
+            string stroke = GetPen(penKey, nameof(DrawEllipse));
+            AddShape(EllipseShape(stroke, center, radiusX, radiusY), nameof(DrawEllipse));
         }
 
         // Fill an ellipse with a brush, as a circle when its radii are equal (D-4).
         public void FillEllipse(object brushKey, PointF center, float radiusX, float radiusY)
         {
-            string fill = GetBrush(brushKey, nameof(FillEllipse));
+            string fill = GetFill(brushKey, nameof(FillEllipse));
             AddShape(EllipseShape(fill, center, radiusX, radiusY), nameof(FillEllipse));
         }
 
-        // Draw a rectangle with a pen.
+        // Draw a rectangle with a pen, as a closed path (D-4).
         public void DrawRectangle(object penKey, RectangleF rect)
         {
-            throw new Svg_UnsupportedCallException(nameof(DrawRectangle));
+            string stroke = GetPen(penKey, nameof(DrawRectangle));
+            AddPath(stroke, RectanglePath(rect), nameof(DrawRectangle));
         }
 
         // Fill a rectangle with a brush, as a path (D-4, F-3).
         public void FillRectangle(object brushKey, RectangleF rect)
         {
-            string fill = GetBrush(brushKey, nameof(FillRectangle));
-            AddShape(PathShape(fill, RectanglePath(rect)), nameof(FillRectangle));
+            string fill = GetFill(brushKey, nameof(FillRectangle));
+            AddPath(fill, RectanglePath(rect), nameof(FillRectangle));
         }
 
-        // Draw a closed polygon with a pen.
+        // Draw a closed polygon with a pen (D-4).
         public void DrawPolygon(object penKey, PointF[] pts)
         {
-            throw new Svg_UnsupportedCallException(nameof(DrawPolygon));
+            string stroke = GetPen(penKey, nameof(DrawPolygon));
+            AddPath(stroke, PathThrough(pts, true), nameof(DrawPolygon));
         }
 
-        // Draw an open polyline with a pen.
+        // Draw an open polyline with a pen (D-4).
         public void DrawPolyline(object penKey, PointF[] pts)
         {
-            throw new Svg_UnsupportedCallException(nameof(DrawPolyline));
+            string stroke = GetPen(penKey, nameof(DrawPolyline));
+            AddPath(stroke, PathThrough(pts, false), nameof(DrawPolyline));
         }
 
         // Fill a polygon with a brush, under the even-odd rule in the alternate mode and the nonzero rule in the winding
         // mode (D-3).
         public void FillPolygon(object brushKey, PointF[] pts, AreaFillMode windingMode)
         {
-            string fill = GetBrush(brushKey, nameof(FillPolygon));
-            if (pts.Length == 0)
-                return;
-
-            SvgPathData path = new SvgPathData();
-            path.MoveTo(SvgNumbers.ToSteps(pts[0].X), SvgNumbers.ToSteps(pts[0].Y));
-            for (int index = 1; index < pts.Length; ++index)
-                path.LineTo(SvgNumbers.ToSteps(pts[index].X), SvgNumbers.ToSteps(pts[index].Y));
-            path.Close();
-            AddShape(PathShape(FillUnderRule(fill, windingMode), path), nameof(FillPolygon));
+            string fill = GetFill(brushKey, nameof(FillPolygon));
+            AddPath(FillUnderRule(fill, windingMode == AreaFillMode.Alternate), PathThrough(pts, true), nameof(FillPolygon));
         }
 
-        // Draw a path created with CreatePath with a pen.
+        // Draw a path created with CreatePath with a pen (D-3).
         public void DrawPath(object penKey, object pathKey)
         {
-            throw new Svg_UnsupportedCallException(nameof(DrawPath));
+            string stroke = GetPen(penKey, nameof(DrawPath));
+            AddPath(stroke, GetPath(pathKey, nameof(DrawPath)).Data, nameof(DrawPath));
         }
 
-        // Draw a path given by its parts with a pen.
+        // Draw a path given by its parts with a pen (D-3).
         public void DrawPath(object penKey, List<GraphicsPathPart> parts)
         {
-            throw new Svg_UnsupportedCallException(nameof(DrawPath));
+            string stroke = GetPen(penKey, nameof(DrawPath));
+            AddPath(stroke, PathOfParts(parts), nameof(DrawPath));
         }
 
-        // Fill a path created with CreatePath with a brush.
+        // Fill a path created with CreatePath with a brush, under the path's rule (D-3).
         public void FillPath(object brushKey, object pathKey)
         {
-            throw new Svg_UnsupportedCallException(nameof(FillPath));
+            string fill = GetFill(brushKey, nameof(FillPath));
+            StoredPath path = GetPath(pathKey, nameof(FillPath));
+            AddPath(FillUnderRule(fill, path.EvenOdd), path.Data, nameof(FillPath));
         }
 
-        // Fill a path given by its parts with a brush.
+        // Fill a path given by its parts with a brush, under the rule of its fill mode (D-3).
         public void FillPath(object brushKey, List<GraphicsPathPart> parts, AreaFillMode windingMode)
         {
-            throw new Svg_UnsupportedCallException(nameof(FillPath));
+            string fill = GetFill(brushKey, nameof(FillPath));
+            AddPath(FillUnderRule(fill, windingMode == AreaFillMode.Alternate), PathOfParts(parts), nameof(FillPath));
         }
 
         // Draw text with its upper left corner at a point.
@@ -436,6 +485,16 @@ namespace PurplePen.MapModel
             openGroups.Push(new OpenGroup(opener, group, antiAlias));
         }
 
+        // Open a group that clips what is drawn within it to a path, in the current frame (D-2).
+        // path: the path.
+        // evenOdd: whether the path clips under the even-odd rule rather than the nonzero one.
+        // callName: the name of the call that clips.
+        private void OpenClip(SvgPathData path, bool evenOdd, string callName)
+        {
+            RequireOpenPart(callName);
+            Open(Opener.PushClip, new SvgGroup { Clip = document.ClipOf(path.ToString(), evenOdd) });
+        }
+
         // Close the innermost open group, which the closing call must match.
         // opener: what the group must have been opened by.
         // callName: the name of the closing call.
@@ -477,15 +536,106 @@ namespace PurplePen.MapModel
             openGroups.Peek().Group.Children.Add(shape);
         }
 
+        // Add a path shape within the innermost open group, unless the path is empty and draws nothing.
+        // style: the declarations of its style.
+        // path: its data.
+        // callName: the name of the call that draws it.
+        private void AddPath(string style, SvgPathData path, string callName)
+        {
+            RequireOpenPart(callName);
+            if (!path.IsEmpty)
+                AddShape(new SvgShape("path", style, "d=\"" + path + "\"", path.Bounds), callName);
+        }
+
+        // Add a pen: its paint, then its width, cap and join, each left out where it is SVG's default (D-5, S-9).
+        // key: the pen's key.
+        // paint: the declarations that paint the stroke.
+        // width: the width of the stroke, in millimetres.
+        // caps: the caps of its ends.
+        // join: the joins of its corners.
+        // miterLimit: how far a mitered corner may reach, in widths of the stroke.
+        private void AddPen(object key, string paint, float width, LineCapMode caps, LineJoinMode join, float miterLimit)
+        {
+            if (pens.ContainsKey(key))
+                throw new InvalidOperationException("CreatePen: the key has a pen already.");
+            // A width of zero is a hairline to Skia, one device pixel at any scale, which a document has no unit for.
+            if (width == 0)
+                throw new Svg_UnsupportedCallException(nameof(CreatePen));
+
+            StringBuilder style = new StringBuilder("fill:none;").Append(paint);
+            style.Append(";stroke-width:").Append(SvgNumbers.FormatInteger(SvgNumbers.ToSteps(width)));
+            switch (caps) {
+                case LineCapMode.Flat:
+                    break;
+                case LineCapMode.Square:
+                    style.Append(";stroke-linecap:square");
+                    break;
+                case LineCapMode.Round:
+                    style.Append(";stroke-linecap:round");
+                    break;
+                default:
+                    throw new Svg_UnsupportedCallException(nameof(CreatePen));
+            }
+            switch (join) {
+                case LineJoinMode.Miter:
+                    // Skia bevels every corner under a limit of 1 or less, which SVG would take for an error.
+                    if (miterLimit <= 1)
+                        style.Append(";stroke-linejoin:bevel");
+                    else if (miterLimit != 4)
+                        style.Append(";stroke-miterlimit:").Append(SvgNumbers.FormatShortest(miterLimit));
+                    break;
+                case LineJoinMode.Bevel:
+                    style.Append(";stroke-linejoin:bevel");
+                    break;
+                case LineJoinMode.Round:
+                    style.Append(";stroke-linejoin:round");
+                    break;
+                default:
+                    // MiterClipped, which the Skia target rejects too (D-5).
+                    throw new Svg_UnsupportedCallException(nameof(CreatePen));
+            }
+            pens.Add(key, style.ToString());
+        }
+
+        // The brush under a key.
+        // brushKey: the key of the brush.
+        // callName: the name of the call that paints with it.
+        private SvgBrush GetBrush(object brushKey, string callName)
+        {
+            SvgBrush brush;
+            if (!brushes.TryGetValue(brushKey, out brush))
+                throw new InvalidOperationException(callName + ": the key has no brush.");
+            return brush;
+        }
+
         // The declarations of a brush's fill.
         // brushKey: the key of the brush.
         // callName: the name of the call that fills with it.
-        private string GetBrush(object brushKey, string callName)
+        private string GetFill(object brushKey, string callName)
         {
-            string fill;
-            if (!brushes.TryGetValue(brushKey, out fill))
-                throw new InvalidOperationException(callName + ": the key has no brush.");
-            return fill;
+            return GetBrush(brushKey, callName).Paint(document.Paints, "fill");
+        }
+
+        // The declarations of a pen's stroke.
+        // penKey: the key of the pen.
+        // callName: the name of the call that strokes with it.
+        private string GetPen(object penKey, string callName)
+        {
+            string stroke;
+            if (!pens.TryGetValue(penKey, out stroke))
+                throw new InvalidOperationException(callName + ": the key has no pen.");
+            return stroke;
+        }
+
+        // The path under a key.
+        // pathKey: the key of the path.
+        // callName: the name of the call that uses it.
+        private StoredPath GetPath(object pathKey, string callName)
+        {
+            StoredPath path;
+            if (!paths.TryGetValue(pathKey, out path))
+                throw new InvalidOperationException(callName + ": the key has no path.");
+            return path;
         }
 
         // A color at the current intensity: below 1, its CMYK components scaled before conversion, as the Skia target
@@ -498,36 +648,87 @@ namespace PurplePen.MapModel
             return CmykColor.FromCmyka(color.Cyan * intensity, color.Magenta * intensity, color.Yellow * intensity, color.Black * intensity, color.Alpha);
         }
 
-        // The declarations of a fill under a fill mode's rule: nonzero, the default, for the winding mode, and even-odd
-        // for the alternate one (D-3).
+        // The declarations of a fill under its rule: nonzero, the default, or even-odd (D-3).
         // fill: the declarations of the fill.
-        // windingMode: the fill mode.
-        private static string FillUnderRule(string fill, AreaFillMode windingMode)
+        // evenOdd: whether the fill is under the even-odd rule.
+        private static string FillUnderRule(string fill, bool evenOdd)
         {
-            return windingMode == AreaFillMode.Alternate ? fill + ";fill-rule:evenodd" : fill;
+            return evenOdd ? fill + ";fill-rule:evenodd" : fill;
+        }
+
+        // The path through points, in steps; closed for a polygon, open for a polyline.
+        // points: the points, in millimetres.
+        // close: whether the path closes.
+        private static SvgPathData PathThrough(PointF[] points, bool close)
+        {
+            SvgPathData path = new SvgPathData();
+            if (points.Length == 0)
+                return path;
+            path.MoveTo(SvgNumbers.ToSteps(points[0].X), SvgNumbers.ToSteps(points[0].Y));
+            for (int index = 1; index < points.Length; ++index)
+                path.LineTo(SvgNumbers.ToSteps(points[index].X), SvgNumbers.ToSteps(points[index].Y));
+            if (close)
+                path.Close();
+            return path;
+        }
+
+        // The path of parts, in steps: a start moves, lines draw straight lines, Beziers draw cubic curves three points
+        // at a time, and a close closes the subpath (D-3). A line or curve with no point before it starts at the origin,
+        // as it does in Skia.
+        // parts: the parts, in millimetres.
+        private static SvgPathData PathOfParts(List<GraphicsPathPart> parts)
+        {
+            SvgPathData path = new SvgPathData();
+            foreach (GraphicsPathPart part in parts) {
+                switch (part.Kind) {
+                    case GraphicsPathPartKind.Start:
+                        path.MoveTo(SvgNumbers.ToSteps(part.Points[0].X), SvgNumbers.ToSteps(part.Points[0].Y));
+                        break;
+                    case GraphicsPathPartKind.Lines:
+                        if (path.IsEmpty)
+                            path.MoveTo(0, 0);
+                        foreach (PointF point in part.Points)
+                            path.LineTo(SvgNumbers.ToSteps(point.X), SvgNumbers.ToSteps(point.Y));
+                        break;
+                    case GraphicsPathPartKind.Beziers:
+                        if (path.IsEmpty)
+                            path.MoveTo(0, 0);
+                        for (int index = 0; index + 2 < part.Points.Length; index += 3) {
+                            path.CubicTo(SvgNumbers.ToSteps(part.Points[index].X), SvgNumbers.ToSteps(part.Points[index].Y),
+                                         SvgNumbers.ToSteps(part.Points[index + 1].X), SvgNumbers.ToSteps(part.Points[index + 1].Y),
+                                         SvgNumbers.ToSteps(part.Points[index + 2].X), SvgNumbers.ToSteps(part.Points[index + 2].Y));
+                        }
+                        break;
+                    case GraphicsPathPartKind.Close:
+                        if (!path.IsEmpty)
+                            path.Close();
+                        break;
+                }
+            }
+            return path;
         }
 
         // The path of a rectangle, in steps.
         // rectangle: the rectangle, in millimetres.
         private static SvgPathData RectanglePath(RectangleF rectangle)
         {
+            SvgPathData path = new SvgPathData();
+            AddRectangle(path, rectangle);
+            return path;
+        }
+
+        // Add a rectangle to a path as a closed subpath, from its top left corner along the top first, as Skia adds one.
+        // path: the path.
+        // rectangle: the rectangle, in millimetres.
+        private static void AddRectangle(SvgPathData path, RectangleF rectangle)
+        {
             long left = SvgNumbers.ToSteps(rectangle.Left), top = SvgNumbers.ToSteps(rectangle.Top);
             long right = SvgNumbers.ToSteps(rectangle.Right), bottom = SvgNumbers.ToSteps(rectangle.Bottom);
-            SvgPathData path = new SvgPathData();
             path.MoveTo(left, top);
             path.LineTo(right, top);
             path.LineTo(right, bottom);
             path.LineTo(left, bottom);
             path.Close();
-            return path;
-        }
-
-        // A path shape.
-        // style: the declarations of its style.
-        // path: its data.
-        private static SvgShape PathShape(string style, SvgPathData path)
-        {
-            return new SvgShape("path", style, "d=\"" + path + "\"", path.Bounds);
         }
 
         // An ellipse shape, a circle when its radii are equal in steps. A center coordinate of 0 is the default, which

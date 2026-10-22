@@ -107,6 +107,9 @@ namespace PurplePen.MapModel
         // The pages, in the order they were added.
         private readonly List<SvgPage> pages = new List<SvgPage>();
 
+        // The clips, by their rule and path data, so that equal clips share one definition.
+        private readonly Dictionary<string, SvgClip> clips = new Dictionary<string, SvgClip>(StringComparer.Ordinal);
+
         // Where the next page goes: the left edge, in millimetres.
         private double nextPageLeft;
 
@@ -115,6 +118,21 @@ namespace PurplePen.MapModel
         public SvgDocument(SvgPaints paints)
         {
             Paints = paints;
+        }
+
+        // The clip of a path filled under a rule. Equal clips are one, whose definition every group that clips to it
+        // shares: a clip path is read in the user space of what refers to it, so the same data serves every frame.
+        // pathData: the data of the path, in steps.
+        // evenOdd: whether the path is filled under the even-odd rule.
+        public SvgClip ClipOf(string pathData, bool evenOdd)
+        {
+            string key = (evenOdd ? "e" : "n") + pathData;
+            SvgClip clip;
+            if (!clips.TryGetValue(key, out clip)) {
+                clip = new SvgClip(pathData, evenOdd);
+                clips.Add(key, clip);
+            }
+            return clip;
         }
 
         // Add a page, to the right of the pages before it; the first lies at the document's own view box.
