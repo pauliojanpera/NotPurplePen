@@ -718,7 +718,7 @@ namespace PurplePen.MapModel
         {
             RequireOpenPart(callName);
             if (!path.IsEmpty)
-                AddShape(new SvgShape("path", style, "d=\"" + path + "\"", path.Bounds), callName);
+                AddShape(new SvgPath(style, path), callName);
         }
 
         // Add a brush under a key.
@@ -915,24 +915,14 @@ namespace PurplePen.MapModel
             path.Close();
         }
 
-        // An ellipse shape, a circle when its radii are equal in steps. A center coordinate of 0 is the default, which
-        // is left out (S-9).
+        // An ellipse shape, in whole steps.
         // style: its style.
         // center: its center, in millimetres.
         // radiusX, radiusY: its radii, in millimetres.
         private static SvgShape EllipseShape(SvgStyle style, PointF center, float radiusX, float radiusY)
         {
-            long cx = SvgNumbers.ToSteps(center.X), cy = SvgNumbers.ToSteps(center.Y);
-            long rx = Math.Abs(SvgNumbers.ToSteps(radiusX)), ry = Math.Abs(SvgNumbers.ToSteps(radiusY));
-            SvgBounds bounds = new SvgBounds();
-            bounds.Include(cx - rx, cy - ry);
-            bounds.Include(cx + rx, cy + ry);
-
-            string position = (cx != 0 ? "cx=\"" + SvgNumbers.FormatInteger(cx) + "\" " : "")
-                            + (cy != 0 ? "cy=\"" + SvgNumbers.FormatInteger(cy) + "\" " : "");
-            if (rx == ry)
-                return new SvgShape("circle", style, position + "r=\"" + SvgNumbers.FormatInteger(rx) + "\"", bounds);
-            return new SvgShape("ellipse", style, position + "rx=\"" + SvgNumbers.FormatInteger(rx) + "\" ry=\"" + SvgNumbers.FormatInteger(ry) + "\"", bounds);
+            return new SvgEllipse(style, SvgNumbers.ToSteps(center.X), SvgNumbers.ToSteps(center.Y),
+                                  Math.Abs(SvgNumbers.ToSteps(radiusX)), Math.Abs(SvgNumbers.ToSteps(radiusY)));
         }
     }
 }

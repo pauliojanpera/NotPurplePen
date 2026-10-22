@@ -51,6 +51,12 @@ namespace PurplePen.MapModel
             get { return A == 1 && B == 0 && C == 0 && D == 1 && E == 0 && F == 0; }
         }
 
+        // Whether the transform only moves, without turning, scaling or shearing.
+        public bool IsTranslation
+        {
+            get { return A == 1 && B == 0 && C == 0 && D == 1; }
+        }
+
         // Whether two transforms have the same elements.
         // other: the other transform.
         public bool HasSameElements(SvgTransform other)

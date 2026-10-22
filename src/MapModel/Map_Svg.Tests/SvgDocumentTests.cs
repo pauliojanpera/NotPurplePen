@@ -208,7 +208,7 @@ namespace Map_Svg.Tests
                 using (Matrix translation = new Matrix()) {
                     translation.Translate(20, 30);
                     target.PushTransform(translation);
-                    target.FillEllipse(black, Point(0, 0), 1, 1);
+                    target.FillRectangle(black, new RectangleF(-1, -1, 2, 2));
                     target.PopTransform();
                 }
                 using (Matrix rotation = new Matrix()) {
@@ -235,7 +235,7 @@ namespace Map_Svg.Tests
                 new string[] {
                     "<g data-m=\"1\">",
                     "<g transform=\"translate(20000 30000)\">",
-                    "<circle class=\"a\" r=\"1000\"/>",
+                    "<path class=\"a\" d=\"M-1000-1000h2000v2000h-2000z\"/>",
                     "</g>",
                     "<g transform=\"translate(20000 30000)rotate(45)\">",
                     "<path class=\"a\" d=\"M-1000-1000h2000v2000h-2000z\"/>",
@@ -293,7 +293,7 @@ namespace Map_Svg.Tests
                     using (Matrix translation = new Matrix()) {
                         translation.Translate(10, 10);
                         target.PushTransform(translation);
-                        target.FillEllipse(black, Point(x, 0), 1, 1);
+                        target.FillRectangle(black, new RectangleF(x, 0, 1, 1));
                         target.PopTransform();
                     }
                 }
@@ -302,8 +302,38 @@ namespace Map_Svg.Tests
                 new string[] { ".a{fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)}" },
                 new string[] {
                     "<g transform=\"translate(10000 10000)\" data-m=\"1\">",
-                    "<circle class=\"a\" cx=\"1000\" r=\"1000\"/>",
-                    "<circle class=\"a\" cx=\"2000\" r=\"1000\"/>",
+                    "<path class=\"a\" d=\"M1000 0h1000v1000H1000z\"/>",
+                    "<path class=\"a\" d=\"M2000 0h1000v1000H2000z\"/>",
+                    "</g>",
+                }), document);
+        }
+
+        [Test]
+        public void AGroupThatOnlyMovesOneEllipseGivesWayToTheEllipseMovedIntoPlace()
+        {
+            string document = WriteOnePage(target => {
+                object black = new object();
+                target.CreateSolidBrush(black, CmykColor.FromCmyk(0, 0, 0, 1));
+                using (Matrix translation = new Matrix()) {
+                    translation.Translate(20.0004F, 30.0006F);
+                    target.PushTransform(translation);
+                    target.FillEllipse(black, Point(1, 0), 2, 1);
+                    target.PopTransform();
+                    target.PushTransform(translation);
+                    target.FillEllipse(black, Point(0, 0), 1, 1);
+                    target.FillEllipse(black, Point(3, 0), 1, 1);
+                    target.PopTransform();
+                }
+            });
+            Assert.AreEqual(OnePageDocument(
+                new string[] { ".a{fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)}" },
+                new string[] {
+                    "<g data-m=\"1\">",
+                    "<ellipse class=\"a\" cx=\"21000\" cy=\"30001\" rx=\"2000\" ry=\"1000\"/>",
+                    "<g transform=\"translate(20000 30001)\">",
+                    "<circle class=\"a\" r=\"1000\"/>",
+                    "<circle class=\"a\" cx=\"3000\" r=\"1000\"/>",
+                    "</g>",
                     "</g>",
                 }), document);
         }
@@ -317,10 +347,10 @@ namespace Map_Svg.Tests
                 using (Matrix translation = new Matrix()) {
                     translation.Translate(1, 2);
                     target.PushTransform(translation);
-                    target.FillEllipse(black, Point(0, 0), 1, 1);
+                    target.FillRectangle(black, new RectangleF(0, 0, 1, 1));
                 }
             });
-            StringAssert.Contains("<g transform=\"translate(1000 2000)\" data-m=\"1\">\n<circle class=\"a\" r=\"1000\"/>\n</g>\n", document);
+            StringAssert.Contains("<g transform=\"translate(1000 2000)\" data-m=\"1\">\n<path class=\"a\" d=\"M0 0h1000v1000H0z\"/>\n</g>\n", document);
         }
 
         [Test]

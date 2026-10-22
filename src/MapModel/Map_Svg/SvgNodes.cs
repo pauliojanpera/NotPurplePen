@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 
 namespace PurplePen.MapModel
 {
@@ -13,51 +14,130 @@ namespace PurplePen.MapModel
         public abstract void Write(SvgWriter writer);
     }
 
-    // A shape drawn with one style: a path, a circle or an ellipse (F-3).
-    public sealed class SvgShape : SvgNode
+    // A shape drawn with one style: a path, a circle or an ellipse (F-3). Its element carries its class, the number of
+    // its object, if any, and its geometry, and nothing else (S-4, S-11).
+    public abstract class SvgShape : SvgNode
     {
-        // The name of the element.
-        private readonly string elementName;
-
         // The shape's style, which names its class when it is written (S-4).
-        private readonly SvgStyle style;
-
-        // The attributes that give the shape's geometry, such as d="M0 0h10" or cx="5" r="5".
-        private readonly string geometry;
-
-        // The bounds of the geometry, in steps.
-        private readonly SvgBounds bounds;
+        protected readonly SvgStyle Style;
 
         // The number of the object the shape belongs to, or 0 for none (M-6).
         public int ObjectNumber;
 
         // Create a shape.
-        // elementName: the name of the element.
         // style: its style.
-        // geometry: the attributes that give its geometry.
-        // bounds: the bounds of its geometry.
-        public SvgShape(string elementName, SvgStyle style, string geometry, SvgBounds bounds)
+        protected SvgShape(SvgStyle style)
         {
-            this.elementName = elementName;
-            this.style = style;
-            this.geometry = geometry;
-            this.bounds = bounds;
+            Style = style;
         }
 
-        // The bounds of the geometry.
+        // Write the element: its class, the number of its object, if any, and its geometry.
+        public override void Write(SvgWriter writer)
+        {
+            string className = writer.ClassOf(Style.Resolve(writer));
+            writer.Text.Append('<').Append(ElementName).Append(" class=\"").Append(className).Append('"');
+            if (ObjectNumber != 0)
+                writer.Text.Append(" data-o=\"").Append(SvgNumbers.FormatInteger(ObjectNumber)).Append('"');
+            writer.Text.Append(' ');
+            AppendGeometry(writer.Text);
+            writer.Text.Append("/>\n");
+        }
+
+        // The name of the element.
+        protected abstract string ElementName { get; }
+
+        // Append the attributes that give the shape's geometry.
+        // text: the text to append to.
+        protected abstract void AppendGeometry(StringBuilder text);
+    }
+
+    // A path (F-3).
+    public sealed class SvgPath : SvgShape
+    {
+        // The path's data, in steps.
+        private readonly SvgPathData data;
+
+        // Create a path.
+        // style: its style.
+        // data: its data.
+        public SvgPath(SvgStyle style, SvgPathData data)
+            : base(style)
+        {
+            this.data = data;
+        }
+
+        // The bounds of the path's points, control points included.
         public override SvgBounds GetBounds()
         {
+            return data.Bounds;
+        }
+
+        // The name of the element.
+        protected override string ElementName
+        {
+            get { return "path"; }
+        }
+
+        // Append the path's data.
+        protected override void AppendGeometry(StringBuilder text)
+        {
+            text.Append("d=\"").Append(data.ToString()).Append('"');
+        }
+    }
+
+    // An ellipse, written as a circle when its radii are equal. A center coordinate of 0 is the default, which is left
+    // out (F-3, S-9).
+    public sealed class SvgEllipse : SvgShape
+    {
+        // The center and the radii, in steps.
+        private readonly long centerX, centerY, radiusX, radiusY;
+
+        // Create an ellipse.
+        // style: its style.
+        // centerX, centerY: its center, in steps.
+        // radiusX, radiusY: its radii, in steps.
+        public SvgEllipse(SvgStyle style, long centerX, long centerY, long radiusX, long radiusY)
+            : base(style)
+        {
+            this.centerX = centerX;
+            this.centerY = centerY;
+            this.radiusX = radiusX;
+            this.radiusY = radiusY;
+        }
+
+        // The same ellipse moved by a whole number of steps, in the same object.
+        // x, y: how far it moves along each axis, in steps.
+        public SvgEllipse MovedBy(long x, long y)
+        {
+            return new SvgEllipse(Style, centerX + x, centerY + y, radiusX, radiusY) { ObjectNumber = ObjectNumber };
+        }
+
+        // The bounds of the ellipse.
+        public override SvgBounds GetBounds()
+        {
+            SvgBounds bounds = new SvgBounds();
+            bounds.Include(centerX - radiusX, centerY - radiusY);
+            bounds.Include(centerX + radiusX, centerY + radiusY);
             return bounds;
         }
 
-        // Write the element: its class, the number of its object, if any, and its geometry, and nothing else (S-4, S-11).
-        public override void Write(SvgWriter writer)
+        // The name of the element: a circle when the radii are equal.
+        protected override string ElementName
         {
-            string className = writer.ClassOf(style.Resolve(writer));
-            writer.Text.Append('<').Append(elementName).Append(" class=\"").Append(className).Append('"');
-            if (ObjectNumber != 0)
-                writer.Text.Append(" data-o=\"").Append(SvgNumbers.FormatInteger(ObjectNumber)).Append('"');
-            writer.Text.Append(' ').Append(geometry).Append("/>\n");
+            get { return radiusX == radiusY ? "circle" : "ellipse"; }
+        }
+
+        // Append the center, where it is not the default, and the radii.
+        protected override void AppendGeometry(StringBuilder text)
+        {
+            if (centerX != 0)
+                text.Append("cx=\"").Append(SvgNumbers.FormatInteger(centerX)).Append("\" ");
+            if (centerY != 0)
+                text.Append("cy=\"").Append(SvgNumbers.FormatInteger(centerY)).Append("\" ");
+            if (radiusX == radiusY)
+                text.Append("r=\"").Append(SvgNumbers.FormatInteger(radiusX)).Append('"');
+            else
+                text.Append("rx=\"").Append(SvgNumbers.FormatInteger(radiusX)).Append("\" ry=\"").Append(SvgNumbers.FormatInteger(radiusY)).Append('"');
         }
     }
 
@@ -146,7 +226,8 @@ namespace PurplePen.MapModel
         }
 
         // Tidy the group and everything within it, and return what takes its place in its parent: nothing when it holds
-        // nothing, its children when it carries nothing, and otherwise the group itself (S-8).
+        // nothing, its children when it carries nothing, the ellipse it holds moved into place when it only moves a
+        // single ellipse, and otherwise the group itself (S-8).
         public List<SvgNode> Tidy()
         {
             TidyChildren();
@@ -164,6 +245,14 @@ namespace PurplePen.MapModel
                 Absorb(onlyChild);
                 onlyChild = Children.Count == 1 ? Children[0] as SvgGroup : null;
             }
+
+            // The center of an ellipse takes the move in whole steps, as every coordinate is written.
+            SvgEllipse onlyEllipse = Children.Count == 1 ? Children[0] as SvgEllipse : null;
+            if (onlyEllipse != null && Transform != null && Transform.IsTranslation && Clip == null && Style == null && Identity == null) {
+                replacement.Add(onlyEllipse.MovedBy(SvgNumbers.RoundHalfUp(Transform.E), SvgNumbers.RoundHalfUp(Transform.F)));
+                return replacement;
+            }
+
             replacement.Add(this);
             return replacement;
         }
