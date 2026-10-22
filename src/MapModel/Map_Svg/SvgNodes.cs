@@ -1,0 +1,273 @@
+using System.Collections.Generic;
+
+namespace PurplePen.MapModel
+{
+    // A node of a document being written: a shape, a group of nodes, or a reference to a part.
+    public abstract class SvgNode
+    {
+        // The bounds of what the node draws, in its parent's frame.
+        public abstract SvgBounds GetBounds();
+
+        // Write the node and everything within it, one element to a line (S-9).
+        // writer: the writer of the document.
+        public abstract void Write(SvgWriter writer);
+    }
+
+    // A shape drawn with one style: a path, a circle or an ellipse (F-3).
+    public sealed class SvgShape : SvgNode
+    {
+        // The name of the element.
+        private readonly string elementName;
+
+        // The shape's style, which names its class when it is written (S-4).
+        private readonly SvgStyle style;
+
+        // The attributes that give the shape's geometry, such as d="M0 0h10" or cx="5" r="5".
+        private readonly string geometry;
+
+        // The bounds of the geometry, in steps.
+        private readonly SvgBounds bounds;
+
+        // The number of the object the shape belongs to, or 0 for none (M-6).
+        public int ObjectNumber;
+
+        // Create a shape.
+        // elementName: the name of the element.
+        // style: its style.
+        // geometry: the attributes that give its geometry.
+        // bounds: the bounds of its geometry.
+        public SvgShape(string elementName, SvgStyle style, string geometry, SvgBounds bounds)
+        {
+            this.elementName = elementName;
+            this.style = style;
+            this.geometry = geometry;
+            this.bounds = bounds;
+        }
+
+        // The bounds of the geometry.
+        public override SvgBounds GetBounds()
+        {
+            return bounds;
+        }
+
+        // Write the element: its class, the number of its object, if any, and its geometry, and nothing else (S-4, S-11).
+        public override void Write(SvgWriter writer)
+        {
+            string className = writer.ClassOf(style.Resolve(writer));
+            writer.Text.Append('<').Append(elementName).Append(" class=\"").Append(className).Append('"');
+            if (ObjectNumber != 0)
+                writer.Text.Append(" data-o=\"").Append(SvgNumbers.FormatInteger(ObjectNumber)).Append('"');
+            writer.Text.Append(' ').Append(geometry).Append("/>\n");
+        }
+    }
+
+    // A group that encloses what a push or a structure call opened it for, with the attributes it carries: a transform,
+    // a clip, a style, or the identity of what it holds. Groups are tidied before they are written (S-8).
+    public sealed class SvgGroup : SvgNode
+    {
+        // The transform from the group's frame to its parent's, or null for none.
+        public SvgTransform Transform;
+
+        // The clip, in the group's own frame, or null for none.
+        public SvgClip Clip;
+
+        // The declarations of the group's style, or null for none.
+        public string Style;
+
+        // Whether the style blends the group with what lies below it, so that it never merges with another group.
+        public bool Blends;
+
+        // The attributes that give the identity of what the group holds, such as data-m="1", or null for none.
+        public string Identity;
+
+        // What the group holds, in drawing order.
+        public List<SvgNode> Children = new List<SvgNode>();
+
+        // The bounds of what the group draws, in its parent's frame, once computed.
+        private SvgBounds bounds;
+
+        // Whether the group carries anything that its children would not carry without it.
+        public bool CarriesAttributes
+        {
+            get { return Transform != null || Clip != null || Style != null || Identity != null; }
+        }
+
+        // The bounds of what the group draws, in its parent's frame.
+        public override SvgBounds GetBounds()
+        {
+            if (bounds == null) {
+                SvgBounds inner = GetBoundsOfChildren();
+                if (Transform == null) {
+                    bounds = inner;
+                }
+                else {
+                    bounds = new SvgBounds();
+                    bounds.IncludeTransformed(inner, Transform);
+                }
+            }
+            return bounds;
+        }
+
+        // The bounds of what the group draws, in its own frame.
+        public SvgBounds GetBoundsOfChildren()
+        {
+            SvgBounds inner = new SvgBounds();
+            foreach (SvgNode child in Children)
+                inner.Include(child.GetBounds());
+            return inner;
+        }
+
+        // Write the group's start tag, its children and its end tag.
+        public override void Write(SvgWriter writer)
+        {
+            writer.Text.Append("<g");
+            if (Style != null)
+                writer.Text.Append(" class=\"").Append(writer.ClassOf(Style)).Append('"');
+            if (Transform != null) {
+                string transform = Transform.Format(GetBoundsOfChildren().ReachFromOrigin, 1);
+                if (transform.Length > 0)
+                    writer.Text.Append(" transform=\"").Append(transform).Append('"');
+            }
+            if (Clip != null)
+                writer.Text.Append(" clip-path=\"url(#").Append(writer.IdOfClip(Clip)).Append(")\"");
+            if (Identity != null)
+                writer.Text.Append(' ').Append(Identity);
+            writer.Text.Append(">\n");
+            WriteChildren(writer);
+            writer.Text.Append("</g>\n");
+        }
+
+        // Write the children.
+        // writer: the writer of the document.
+        public void WriteChildren(SvgWriter writer)
+        {
+            foreach (SvgNode child in Children)
+                child.Write(writer);
+        }
+
+        // Tidy the group and everything within it, and return what takes its place in its parent: nothing when it holds
+        // nothing, its children when it carries nothing, and otherwise the group itself (S-8).
+        public List<SvgNode> Tidy()
+        {
+            TidyChildren();
+
+            List<SvgNode> replacement = new List<SvgNode>();
+            if (Children.Count == 0)
+                return replacement;
+            if (!CarriesAttributes) {
+                replacement.AddRange(Children);
+                return replacement;
+            }
+
+            SvgGroup onlyChild = Children.Count == 1 ? Children[0] as SvgGroup : null;
+            while (onlyChild != null && CanAbsorb(onlyChild)) {
+                Absorb(onlyChild);
+                onlyChild = Children.Count == 1 ? Children[0] as SvgGroup : null;
+            }
+            replacement.Add(this);
+            return replacement;
+        }
+
+        // Tidy the children: each in turn, with adjacent groups that carry the same attributes merged into one.
+        public void TidyChildren()
+        {
+            List<SvgNode> tidied = new List<SvgNode>();
+            foreach (SvgNode child in Children) {
+                SvgGroup group = child as SvgGroup;
+                if (group == null) {
+                    AppendMerging(tidied, child);
+                    continue;
+                }
+                foreach (SvgNode node in group.Tidy())
+                    AppendMerging(tidied, node);
+            }
+            Children = tidied;
+            bounds = null;
+        }
+
+        // Append a tidied node to tidied nodes, merging it into the last of them when both are groups that carry the
+        // same attributes; the children of a merged group then meet the last one's children, and merge in turn.
+        // nodes: the tidied nodes.
+        // node: the node to append.
+        private static void AppendMerging(List<SvgNode> nodes, SvgNode node)
+        {
+            SvgGroup previous = nodes.Count > 0 ? nodes[nodes.Count - 1] as SvgGroup : null;
+            SvgGroup current = node as SvgGroup;
+            if (previous != null && current != null && previous.CarriesTheSameAttributesAs(current)) {
+                foreach (SvgNode child in current.Children)
+                    AppendMerging(previous.Children, child);
+                previous.bounds = null;
+            }
+            else {
+                nodes.Add(node);
+            }
+        }
+
+        // Whether another group carries the same attributes, so that the two can be one group when adjacent; groups that
+        // blend never merge, since blending each of two groups differs from blending them together where they overlap.
+        // other: the other group.
+        private bool CarriesTheSameAttributesAs(SvgGroup other)
+        {
+            if (Blends || other.Blends)
+                return false;
+            bool sameTransform = (Transform == null) ? other.Transform == null
+                                                     : other.Transform != null && Transform.HasSameElements(other.Transform);
+            return sameTransform && Clip == other.Clip && Style == other.Style && Identity == other.Identity;
+        }
+
+        // Whether the group can take on the attributes of its only child and hold the child's children instead, with
+        // nothing drawn differently: not when both carry one kind of attribute, and not when the child's transform would
+        // move this group's clip.
+        // child: the only child.
+        private bool CanAbsorb(SvgGroup child)
+        {
+            if (Style != null && child.Style != null)
+                return false;
+            if (Identity != null && child.Identity != null)
+                return false;
+            if (Clip != null && (child.Clip != null || child.Transform != null))
+                return false;
+            return true;
+        }
+
+        // Take on the attributes of the only child and hold its children instead.
+        // child: the only child.
+        private void Absorb(SvgGroup child)
+        {
+            if (child.Transform != null)
+                Transform = (Transform == null) ? child.Transform : Transform.After(child.Transform);
+            Clip = Clip ?? child.Clip;
+            Style = Style ?? child.Style;
+            Blends = Blends || child.Blends;
+            Identity = Identity ?? child.Identity;
+            Children = child.Children;
+            bounds = null;
+        }
+    }
+
+    // A reference to a part, by which a page shows it.
+    public sealed class SvgPartReference : SvgNode
+    {
+        // The part referred to.
+        private readonly SvgPart part;
+
+        // Create a reference to a part.
+        // part: the part.
+        public SvgPartReference(SvgPart part)
+        {
+            this.part = part;
+        }
+
+        // The bounds of the part.
+        public override SvgBounds GetBounds()
+        {
+            return part.Content.GetBoundsOfChildren();
+        }
+
+        // Write the reference, through xlink:href, which SVG 1.1 readers need (F-3).
+        public override void Write(SvgWriter writer)
+        {
+            writer.Text.Append("<use xlink:href=\"#").Append(writer.IdOf(part)).Append("\"/>\n");
+        }
+    }
+}
