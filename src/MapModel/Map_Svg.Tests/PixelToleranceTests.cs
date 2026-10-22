@@ -5,8 +5,8 @@ using SkiaSharp;
 namespace Map_Svg.Tests
 {
     // Checks the pixel tolerance of the rendering comparison: shades along an edge pass, and so does a mix where edges
-    // meet that blurring evens out, while a recolored inside, a missing line, a gap or a shape out of place fails, both
-    // ways round, with blank paper beyond the image (F-1).
+    // meet that blurring evens out, faint or dark, while a recolored inside, a missing line, a gap or a shape out of
+    // place fails, however faint, both ways round, with blank paper beyond the image (F-1).
     [TestFixture]
     public class PixelToleranceTests
     {
@@ -74,6 +74,47 @@ namespace Map_Svg.Tests
         }
 
         [Test]
+        public void AFaintSeamPassesWhenTheBlurredImagesAgreeWithinItsContrast()
+        {
+            // Where two faint shades meet, one rasterizer mixes in more of the white beneath than the other. The blurred
+            // images differ by about 6 levels there, within the share of the 19 levels of contrast around the seam.
+            int[,] expected = new int[9, 13];
+            int[,] rendering = new int[9, 13];
+            foreach (int[,] levels in new int[][,] { expected, rendering }) {
+                for (int x = 0; x < 13; ++x) {
+                    for (int y = 0; y < 4; ++y)
+                        levels[y, x] = 231;
+                    for (int y = 5; y < 9; ++y)
+                        levels[y, x] = 243;
+                }
+            }
+            for (int x = 0; x < 13; ++x) {
+                expected[4, x] = 250;
+                rendering[4, x] = 236;
+            }
+            Assert.AreEqual(0, CountPixelsOutside(expected, rendering));
+        }
+
+        [Test]
+        public void AFaintLineShiftedByTwoPixelsFails()
+        {
+            // A line 24 levels from white, as faint as the faintest drawing of the comparison, moved two pixels aside.
+            // Its blurred images differ by 14 levels at most, which a fixed limit of 40 levels would let pass.
+            int[,] expected = new int[12, 12];
+            int[,] rendering = new int[12, 12];
+            Fill(expected, 255);
+            Fill(rendering, 255);
+            for (int y = 0; y < 12; ++y) {
+                expected[y, 4] = expected[y, 5] = 231;
+                rendering[y, 6] = rendering[y, 7] = 231;
+            }
+            PixelTolerance tolerance = PixelTolerance.Default;
+            PixelTolerance withoutContrast = new PixelTolerance(tolerance.Reach, tolerance.Slack, tolerance.EdgeBlur, tolerance.EdgeLevels, double.MaxValue);
+            Assert.AreEqual(0, CountPixelsOutside(expected, rendering, withoutContrast));
+            Assert.AreEqual(24, CountPixelsOutside(expected, rendering));
+        }
+
+        [Test]
         public void AWhiteGapWhereEdgesMeetFails()
         {
             // The gap stays away from the image's sides, beyond which lies white paper.
@@ -130,9 +171,17 @@ namespace Map_Svg.Tests
         // expected, rendering: the grey levels of the images, row by row.
         private static int CountPixelsOutside(int[,] expected, int[,] rendering)
         {
+            return CountPixelsOutside(expected, rendering, PixelTolerance.Default);
+        }
+
+        // Count the pixels of two grey images that lie outside a tolerance.
+        // expected, rendering: the grey levels of the images, row by row.
+        // tolerance: the tolerance.
+        private static int CountPixelsOutside(int[,] expected, int[,] rendering, PixelTolerance tolerance)
+        {
             using (SKBitmap expectedImage = MakeImage(expected, null))
             using (SKBitmap renderedImage = MakeImage(rendering, null))
-                return ImageComparison.MeasureExcess(expectedImage, renderedImage, PixelTolerance.Default).Count(pixelExcess => pixelExcess > 0);
+                return ImageComparison.MeasureExcess(expectedImage, renderedImage, tolerance).Count(pixelExcess => pixelExcess > 0);
         }
 
         // Make a white image of a black square.

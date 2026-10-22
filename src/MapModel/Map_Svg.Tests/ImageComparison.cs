@@ -49,7 +49,7 @@ namespace Map_Svg.Tests
 
         // Measure, for each pixel, how many levels a color channel of either image lies beyond the range the tolerance
         // holds it to in the other image: zero where every channel lies within it, both ways round, and zero at an edge
-        // where the two images, blurred, agree within the tolerance's edge levels.
+        // where the two images, blurred, agree within the tolerance's edge levels and edge share of the contrast.
         // expected: the image to match.
         // rendering: Chromium's image, of the same size.
         // tolerance: how far the images may differ.
@@ -89,9 +89,10 @@ namespace Map_Svg.Tests
             }
         }
 
-        // Clear the excess of each pixel outside the range at an edge where the two images, each blurred, differ by no
-        // more than the tolerance's edge levels in any channel: there the rasterizers mixed the colors of meeting edges
-        // each their own way.
+        // Clear the excess of each pixel outside the range at an edge where the two images, each blurred, differ in every
+        // channel by no more than the tolerance's edge levels, and no more than its edge share of the contrast around the
+        // pixel: there the rasterizers mixed the colors of meeting edges each their own way. Held to its contrast, a
+        // faint edge is held as closely as a dark one.
         // excess: the excess of each pixel.
         // atEdge: whether an edge lies within reach of each pixel.
         // expected, rendering: the channels of the two images.
@@ -101,28 +102,64 @@ namespace Map_Svg.Tests
         {
             if (tolerance.EdgeBlur <= 0)
                 return;
-            bool[] passing = new bool[excess.Length];
+            double[] kernel = MakeGaussianKernel(tolerance.EdgeBlur);
+            int blurReach = kernel.Length / 2;
+
+            // The levels the blurred images may differ by at each pixel to judge, or -1 where there is none to judge.
+            double[] allowed = new double[excess.Length];
             bool anyToJudge = false;
-            for (int index = 0; index < excess.Length; ++index) {
-                passing[index] = excess[index] > 0 && atEdge[index];
-                anyToJudge |= passing[index];
+            for (int y = 0; y < height; ++y) {
+                for (int x = 0; x < width; ++x) {
+                    int index = y * width + x;
+                    if (excess[index] > 0 && atEdge[index]) {
+                        allowed[index] = Math.Min(tolerance.EdgeLevels, tolerance.EdgeShare * MeasureContrast(expected, rendering, width, height, x, y, blurReach));
+                        anyToJudge = true;
+                    }
+                    else {
+                        allowed[index] = -1;
+                    }
+                }
             }
             if (!anyToJudge)
                 return;
 
-            double[] kernel = MakeGaussianKernel(tolerance.EdgeBlur);
             for (int channel = 0; channel < 3; ++channel) {
                 double[] blurredExpected = Blur(expected[channel], width, height, kernel);
                 double[] blurredRendering = Blur(rendering[channel], width, height, kernel);
                 for (int index = 0; index < excess.Length; ++index) {
-                    if (passing[index] && Math.Abs(blurredExpected[index] - blurredRendering[index]) > tolerance.EdgeLevels)
-                        passing[index] = false;
+                    if (allowed[index] >= 0 && Math.Abs(blurredExpected[index] - blurredRendering[index]) > allowed[index])
+                        allowed[index] = -1;
                 }
             }
             for (int index = 0; index < excess.Length; ++index) {
-                if (passing[index])
+                if (allowed[index] >= 0)
                     excess[index] = 0;
             }
+        }
+
+        // Measure the contrast around a pixel: the widest range a color channel takes within a reach of it in either
+        // image, counting what lies beyond the images as white.
+        // expected, rendering: the channels of the two images.
+        // width, height: the size of the images.
+        // x, y: the pixel.
+        // reach: how many pixels away the range is taken.
+        private static int MeasureContrast(byte[][] expected, byte[][] rendering, int width, int height, int x, int y, int reach)
+        {
+            int contrast = 0;
+            foreach (byte[][] channels in new byte[][][] { expected, rendering }) {
+                foreach (byte[] values in channels) {
+                    int lowest = 255, highest = 0;
+                    for (int row = y - reach; row <= y + reach; ++row) {
+                        for (int column = x - reach; column <= x + reach; ++column) {
+                            int value = (row < 0 || row >= height || column < 0 || column >= width) ? 255 : values[row * width + column];
+                            lowest = Math.Min(lowest, value);
+                            highest = Math.Max(highest, value);
+                        }
+                    }
+                    contrast = Math.Max(contrast, highest - lowest);
+                }
+            }
+            return contrast;
         }
 
         // Make the weights of a Gaussian blur, reaching four standard deviations to each side, summing to 1.
