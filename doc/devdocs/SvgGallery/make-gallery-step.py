@@ -1,12 +1,14 @@
 """Make one step of the SVG gallery from a copy of the SVG loop's results.
 
-Usage: python3 -I make-gallery-step.py <results copy> <gallery folder> <step id> <case,case,...>
+Usage: python3 -I make-gallery-step.py <results copy> <reference folder> <gallery folder> <step id> <case,case,...>
 
-<results copy> is a checkout of svg-results/<name>. For each case named, writes into <gallery folder>/<step id>/
-the case's SVG, its Skia reference and its Chromium rendering as RGB PNGs, and a difference image: the
-reference ghosted to a pale grey, with every pixel whose largest channel difference exceeds 0 painted in one of
-four blues, binned at the thresholds the loop's measurements count (8, 32, 64). The page's BINS hold the same
-blues.
+<results copy> is a checkout of svg-results/<name>, holding Chromium's image of each case named under renderings/:
+the loop's own for a case outside the tolerance, else one render-cases.mjs made. A case's Skia reference is the
+run's own under references/ when its reference was not recorded yet, else the recorded one in <reference folder>,
+the svg_reference of the commit the loop ran. For each case named, writes into <gallery folder>/<step id>/ the
+case's SVG, its Skia reference and its Chromium rendering as RGB PNGs, and a difference image: the reference
+ghosted to a pale grey, with every pixel whose largest channel difference exceeds 0 painted in one of four blues,
+binned at the thresholds the loop's measurements count (8, 32, 64). The page's BINS hold the same blues.
 
 Prints the step's figures as JSON for the page's LOG and STANDING: per case its size, measurements, drawing
 elements and the 24-pixel window holding the most difference, where the detail opens; and the pending census,
@@ -87,13 +89,19 @@ def read_census(path):
     return {case: [call.strip() for call in calls.split(",")] for case, calls in rows}
 
 
+def find_reference(results, reference_folder, name):
+    """Return the path of a case's reference image: the run's own, else the recorded one."""
+    run_reference = os.path.join(results, "references", name + ".png")
+    return run_reference if os.path.exists(run_reference) else os.path.join(reference_folder, name + ".png")
+
+
 def main():
-    results, gallery, step, case_list = sys.argv[1:5]
+    results, reference_folder, gallery, step, case_list = sys.argv[1:6]
     out = os.path.join(gallery, step)
     os.makedirs(out, exist_ok=True)
     cases = []
     for name in case_list.split(","):
-        reference = read_rgb(os.path.join(results, "references", name + ".png"))
+        reference = read_rgb(find_reference(results, reference_folder, name))
         rendering = read_rgb(os.path.join(results, "renderings", name + ".png"))
         picture, difference = make_difference_image(reference, rendering)
         Image.fromarray(reference).save(os.path.join(out, name + "-skia.png"), optimize=True)
