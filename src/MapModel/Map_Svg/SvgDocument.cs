@@ -31,6 +31,31 @@ namespace PurplePen.MapModel
         }
     }
 
+    // A pattern: a tile repeated across the user space of what it paints, its middle on the origin and turned by its
+    // angle, as the Skia target repeats the tile its brush target drew (D-7). The document defines it once, however
+    // many styles paint with it.
+    public sealed class SvgPattern
+    {
+        // What the tile holds, in a frame whose origin is the middle of the tile.
+        public readonly SvgGroup Content = new SvgGroup();
+
+        // The size of the tile, in steps.
+        public readonly float Width, Height;
+
+        // The angle the pattern is turned by, in degrees from the x axis towards the y axis.
+        public readonly float Angle;
+
+        // Create a pattern, its tile still to be drawn.
+        // width, height: the size of the tile, in steps.
+        // angle: the angle it is turned by, in degrees.
+        public SvgPattern(float width, float height, float angle)
+        {
+            Width = width;
+            Height = height;
+            Angle = angle;
+        }
+    }
+
     // A labeled map, as the metadata records it (M-5, M-7).
     public sealed class SvgMapRecord
     {
@@ -147,8 +172,8 @@ namespace PurplePen.MapModel
             nextPageLeft += width + GapBetweenPages;
         }
 
-        // Write the document's text: the style block, the metadata, the definitions of clips and parts, and then the
-        // pages. Classes and ids are named in the order they are first used (F-2).
+        // Write the document's text: the style block, the metadata, the definitions of clips, patterns and parts, and
+        // then the pages. Classes and ids are named in the order they are first used (F-2).
         public string Write()
         {
             foreach (SvgPart part in Parts)
@@ -166,6 +191,11 @@ namespace PurplePen.MapModel
                 WritePage(writer, page);
             string pagesText = writer.TakeText();
 
+            // A tile may paint with further patterns, which join the list as they are first referred to.
+            for (int index = 0; index < writer.PatternsReferredTo.Count; ++index)
+                WritePattern(writer, writer.PatternsReferredTo[index]);
+            string patternsText = writer.TakeText();
+
             foreach (SvgClip clip in writer.ClipsReferredTo) {
                 writer.Text.Append("<clipPath id=\"").Append(writer.IdOfClip(clip)).Append("\">\n<path ");
                 if (clip.EvenOdd)
@@ -178,11 +208,11 @@ namespace PurplePen.MapModel
             WriteRootStartTag(text);
             WriteStyleBlock(text, writer);
             WriteMetadata(text);
-            if (Paints.RefersToCmykProfile || clipsText.Length > 0 || partsText.Length > 0) {
+            if (Paints.RefersToCmykProfile || clipsText.Length > 0 || patternsText.Length > 0 || partsText.Length > 0) {
                 text.Append("<defs>\n");
                 if (Paints.RefersToCmykProfile)
                     text.Append("<color-profile name=\"").Append(SvgPaints.CmykProfileName).Append("\"/>\n");
-                text.Append(clipsText).Append(partsText).Append("</defs>\n");
+                text.Append(clipsText).Append(patternsText).Append(partsText).Append("</defs>\n");
             }
             text.Append(pagesText).Append("</svg>\n");
             return text.ToString();
@@ -246,6 +276,25 @@ namespace PurplePen.MapModel
             writer.Text.Append("</g>\n");
         }
 
+        // Write a pattern's definition: its tile, in the user space of what it paints, turned by its angle, with a view
+        // box that keeps the tile's own coordinates, whose origin is the tile's middle (D-7).
+        // writer: the writer of the document.
+        // pattern: the pattern.
+        private static void WritePattern(SvgWriter writer, SvgPattern pattern)
+        {
+            pattern.Content.TidyChildren();
+            string left = SvgNumbers.FormatShortest(-pattern.Width / 2), top = SvgNumbers.FormatShortest(-pattern.Height / 2);
+            string width = SvgNumbers.FormatShortest(pattern.Width), height = SvgNumbers.FormatShortest(pattern.Height);
+            writer.Text.Append("<pattern id=\"").Append(writer.IdOfPattern(pattern)).Append("\" patternUnits=\"userSpaceOnUse\" x=\"")
+                       .Append(left).Append("\" y=\"").Append(top).Append("\" width=\"").Append(width).Append("\" height=\"").Append(height)
+                       .Append("\" viewBox=\"").Append(left).Append(' ').Append(top).Append(' ').Append(width).Append(' ').Append(height).Append('"');
+            if (pattern.Angle != 0)
+                writer.Text.Append(" patternTransform=\"rotate(").Append(SvgNumbers.FormatShortest(pattern.Angle)).Append(")\"");
+            writer.Text.Append(">\n");
+            pattern.Content.WriteChildren(writer);
+            writer.Text.Append("</pattern>\n");
+        }
+
         // Escape text for an attribute's value.
         // value: the text.
         public static string EscapeAttribute(string value)
@@ -271,8 +320,10 @@ namespace PurplePen.MapModel
         private readonly SvgNames ids = new SvgNames();
         private readonly Dictionary<object, string> idOfDefinition = new Dictionary<object, string>(new IdentityComparer<object>());
 
-        // The clips referred to, in the order they were first referred to, which the definitions then hold.
+        // The clips and the patterns referred to, each in the order they were first referred to, which the definitions
+        // then hold.
         public readonly List<SvgClip> ClipsReferredTo = new List<SvgClip>();
+        public readonly List<SvgPattern> PatternsReferredTo = new List<SvgPattern>();
 
         // Return the text written so far, and start anew.
         public string TakeText()
@@ -314,6 +365,15 @@ namespace PurplePen.MapModel
             if (!idOfDefinition.ContainsKey(clip))
                 ClipsReferredTo.Add(clip);
             return IdOf(clip);
+        }
+
+        // The id of a pattern, which the definitions then hold.
+        // pattern: the pattern.
+        public string IdOfPattern(SvgPattern pattern)
+        {
+            if (!idOfDefinition.ContainsKey(pattern))
+                PatternsReferredTo.Add(pattern);
+            return IdOf(pattern);
         }
     }
 }

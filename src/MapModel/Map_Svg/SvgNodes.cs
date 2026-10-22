@@ -19,8 +19,8 @@ namespace PurplePen.MapModel
         // The name of the element.
         private readonly string elementName;
 
-        // The declarations of the shape's style, which name its class when it is written (S-4).
-        private readonly string style;
+        // The shape's style, which names its class when it is written (S-4).
+        private readonly SvgStyle style;
 
         // The attributes that give the shape's geometry, such as d="M0 0h10" or cx="5" r="5".
         private readonly string geometry;
@@ -30,10 +30,10 @@ namespace PurplePen.MapModel
 
         // Create a shape.
         // elementName: the name of the element.
-        // style: the declarations of its style.
+        // style: its style.
         // geometry: the attributes that give its geometry.
         // bounds: the bounds of its geometry.
-        public SvgShape(string elementName, string style, string geometry, SvgBounds bounds)
+        public SvgShape(string elementName, SvgStyle style, string geometry, SvgBounds bounds)
         {
             this.elementName = elementName;
             this.style = style;
@@ -50,8 +50,8 @@ namespace PurplePen.MapModel
         // Write the element: its class and its geometry, and nothing else (S-4).
         public override void Write(SvgWriter writer)
         {
-            writer.Text.Append('<').Append(elementName).Append(" class=\"").Append(writer.ClassOf(style)).Append("\" ")
-                       .Append(geometry).Append("/>\n");
+            string className = writer.ClassOf(style.Resolve(writer));
+            writer.Text.Append('<').Append(elementName).Append(" class=\"").Append(className).Append("\" ").Append(geometry).Append("/>\n");
         }
     }
 

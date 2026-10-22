@@ -20,15 +20,16 @@ namespace PurplePen.MapModel
         private static readonly HashSet<string> fullyImplementedCalls = new HashSet<string>(StringComparer.Ordinal) {
             nameof(Intensity), nameof(PushTransform), nameof(PopTransform), nameof(PushClip), nameof(PopClip),
             nameof(PushAntiAliasing), nameof(PopAntiAliasing), nameof(PushBlending), nameof(PopBlending),
-            nameof(CreatePath), nameof(CreateSolidBrush), nameof(CreatePen),
+            nameof(CreatePath), nameof(CreateSolidBrush), nameof(SupportsPatternBrushes), nameof(CreatePatternBrush), nameof(CreatePen),
             nameof(HasPath), nameof(HasBrush), nameof(HasPen), nameof(HasFont),
             nameof(DrawLine), nameof(DrawArc), nameof(DrawEllipse), nameof(FillEllipse), nameof(DrawRectangle),
             nameof(FillRectangle), nameof(DrawPolygon), nameof(DrawPolyline), nameof(FillPolygon), nameof(DrawPath),
             nameof(FillPath),
         };
 
-        // What opened a group that is still open, which the call that closes it must match.
-        private enum Opener { BeginPart, BeginMap, PushTransform, PushClip, PushAntiAliasing, PushBlending }
+        // What opened a group that is still open, which the call that closes it must match. The bottom group is a
+        // part's, or in the target of a pattern brush, the tile's.
+        private enum Opener { BeginPart, CreatePatternBrush, BeginMap, PushTransform, PushClip, PushAntiAliasing, PushBlending }
 
         // A group still open, with what opened it and the anti-aliasing in force before it.
         private sealed class OpenGroup
@@ -58,19 +59,53 @@ namespace PurplePen.MapModel
             }
         }
 
+        // The target that draws a pattern brush's tile, as the target that created the brush draws, but with keys of its
+        // own; FinishBrush makes the tile a brush of the target that created it (D-7).
+        private sealed class PatternBrushTarget : Svg_GraphicsTarget, IBrushTarget
+        {
+            // The target that created the brush.
+            private readonly Svg_GraphicsTarget creator;
+
+            // The pattern whose tile is drawn.
+            private readonly SvgPattern pattern;
+
+            // Create the target of a pattern brush's tile.
+            // creator: the target that creates the brush.
+            // pattern: the pattern whose tile it draws.
+            public PatternBrushTarget(Svg_GraphicsTarget creator, SvgPattern pattern)
+                : base(creator, pattern)
+            {
+                this.creator = creator;
+                this.pattern = pattern;
+            }
+
+            // Make the tile a brush of the target that created it, under a key, closing every group still open in the
+            // tile; the tile then takes no more drawing.
+            public void FinishBrush(object brushKey)
+            {
+                CloseThrough(Opener.CreatePatternBrush, nameof(FinishBrush));
+                creator.AddBrush(brushKey, new SvgBrush(pattern), nameof(FinishBrush));
+            }
+        }
+
         // The document being written.
         private readonly SvgDocument document;
 
-        // The groups still open, the innermost on top; the bottom one is the part's, while a part is open.
+        // Whether the target draws a pattern brush's tile, which holds drawing alone, rather than a document of parts,
+        // maps and pages.
+        private readonly bool drawsPatternTile;
+
+        // The groups still open, the innermost on top; the bottom one is the part's while a part is open, or the tile's
+        // until a pattern brush is finished.
         private readonly Stack<OpenGroup> openGroups = new Stack<OpenGroup>();
 
         // The parts and the maps, by their keys.
         private readonly Dictionary<object, SvgPart> partsByKey = new Dictionary<object, SvgPart>(new IdentityComparer<object>());
         private readonly Dictionary<object, SvgMapRecord> mapsByKey = new Dictionary<object, SvgMapRecord>(new IdentityComparer<object>());
 
-        // The brushes, the declarations each pen strokes with, the paths and the fonts, by their keys (D-10).
+        // The brushes, the style each pen strokes with, the paths and the fonts, by their keys (D-10).
         private readonly Dictionary<object, SvgBrush> brushes = new Dictionary<object, SvgBrush>(new IdentityComparer<object>());
-        private readonly Dictionary<object, string> pens = new Dictionary<object, string>(new IdentityComparer<object>());
+        private readonly Dictionary<object, SvgStyle> pens = new Dictionary<object, SvgStyle>(new IdentityComparer<object>());
         private readonly Dictionary<object, StoredPath> paths = new Dictionary<object, StoredPath>(new IdentityComparer<object>());
         private readonly Dictionary<object, string> fonts = new Dictionary<object, string>(new IdentityComparer<object>());
 
@@ -88,6 +123,18 @@ namespace PurplePen.MapModel
             document = new SvgDocument(new SvgPaints(colorConverter, declaresCmykColors));
         }
 
+        // Create the target of a pattern brush's tile, which writes into the same document at the intensity of the target
+        // that creates the brush, and draws anti-aliased until told otherwise.
+        // creator: the target that creates the brush.
+        // pattern: the pattern whose tile it draws.
+        private Svg_GraphicsTarget(Svg_GraphicsTarget creator, SvgPattern pattern)
+        {
+            document = creator.document;
+            intensity = creator.intensity;
+            drawsPatternTile = true;
+            openGroups.Push(new OpenGroup(Opener.CreatePatternBrush, pattern.Content, antiAlias));
+        }
+
         // Whether the target fully implements an IGraphicsTarget call, so that a drawing which makes it can be
         // compared with its reference image.
         // callName: the name of the IGraphicsTarget member.
@@ -99,6 +146,7 @@ namespace PurplePen.MapModel
         // Finish the document, closing every group still open, and return its text.
         public string FinishDocument()
         {
+            RequireDocumentTarget(nameof(FinishDocument));
             openGroups.Clear();
             return document.Write();
         }
@@ -106,6 +154,7 @@ namespace PurplePen.MapModel
         // Begin a part of a drawing; parts do not nest.
         public void BeginPart(object partKey)
         {
+            RequireDocumentTarget(nameof(BeginPart));
             if (openGroups.Count > 0)
                 throw new InvalidOperationException("BeginPart: a part is open already; parts do not nest.");
             if (partsByKey.ContainsKey(partKey))
@@ -121,12 +170,14 @@ namespace PurplePen.MapModel
         // End the part begun last, closing every group still open within it.
         public void EndPart()
         {
+            RequireDocumentTarget(nameof(EndPart));
             CloseThrough(Opener.BeginPart, nameof(EndPart));
         }
 
         // Begin a labeled map within the part or map that is open (M-5).
         public void BeginMap(object mapKey, string label)
         {
+            RequireDocumentTarget(nameof(BeginMap));
             RequireOpenPart(nameof(BeginMap));
 
             SvgMapRecord map;
@@ -141,12 +192,14 @@ namespace PurplePen.MapModel
         // End the map begun last, closing every group still open within it.
         public void EndMap()
         {
+            RequireDocumentTarget(nameof(EndMap));
             CloseThrough(Opener.BeginMap, nameof(EndMap));
         }
 
         // Add a page that shows parts within an area of the map, transformed onto its paper (L-3, F-4).
         public void AddPage(SizeF paperSize, RectangleF mapArea, Matrix mapToPage, object[] partKeys)
         {
+            RequireDocumentTarget(nameof(AddPage));
             if (openGroups.Count > 0)
                 throw new InvalidOperationException("AddPage: a part is open; pages are added outside parts.");
 
@@ -268,24 +321,28 @@ namespace PurplePen.MapModel
         // Create a solid brush under a key, its color at the current intensity (D-10, D-11).
         public void CreateSolidBrush(object key, CmykColor color)
         {
-            if (brushes.ContainsKey(key))
-                throw new InvalidOperationException("CreateSolidBrush: the key has a brush already.");
-            brushes.Add(key, new SvgBrush(AtIntensity(color)));
+            AddBrush(key, new SvgBrush(AtIntensity(color)), nameof(CreateSolidBrush));
         }
 
-        // Whether pattern brushes are supported.
+        // Pattern brushes are supported, as patterns of vectors (D-7).
         public bool SupportsPatternBrushes
         {
-            get { throw new Svg_UnsupportedCallException(nameof(SupportsPatternBrushes)); }
+            get { return true; }
         }
 
-        // Create a target that draws one tile of a pattern brush.
+        // Create a pattern brush: return the target that draws its tile, whose middle is the origin of the tile's
+        // coordinates, and whose FinishBrush makes it a brush of this target that repeats the tile across the user space
+        // of what it paints, turned by an angle (D-7). The size of the bitmap, which a raster target draws the tile into,
+        // is of no use to vectors.
+        // size: the size of the tile.
+        // angle: the angle the pattern is turned by, in degrees from the x axis towards the y axis.
         public IBrushTarget CreatePatternBrush(SizeF size, float angle, int bitmapWidth, int bitmapHeight)
         {
-            throw new Svg_UnsupportedCallException(nameof(CreatePatternBrush));
+            float width = (float)(size.Width * SvgNumbers.StepsPerMillimetre), height = (float)(size.Height * SvgNumbers.StepsPerMillimetre);
+            return new PatternBrushTarget(this, new SvgPattern(width, height, angle));
         }
 
-        // Create a pen that strokes with a brush's paint, under a key (D-5, D-6).
+        // Create a pen that strokes with a brush's paint, a color or a pattern, under a key (D-5, D-6).
         public void CreatePen(object key, object brushKey, float width, LineCapMode caps, LineJoinMode join, float miterLimit)
         {
             SvgBrush brush = GetBrush(brushKey, nameof(CreatePen));
@@ -295,7 +352,7 @@ namespace PurplePen.MapModel
         // Create a pen of a color at the current intensity, under a key (D-5, D-11).
         public void CreatePen(object key, CmykColor color, float width, LineCapMode caps, LineJoinMode join, float miterLimit)
         {
-            AddPen(key, document.Paints.Paint("stroke", AtIntensity(color)), width, caps, join, miterLimit);
+            AddPen(key, new SvgStyle(document.Paints.Paint("stroke", AtIntensity(color))), width, caps, join, miterLimit);
         }
 
         // Create a font under a key.
@@ -331,7 +388,7 @@ namespace PurplePen.MapModel
         // Draw a line with a pen, as a path (D-4, F-3).
         public void DrawLine(object penKey, PointF start, PointF finish)
         {
-            string stroke = GetPen(penKey, nameof(DrawLine));
+            SvgStyle stroke = GetPen(penKey, nameof(DrawLine));
             SvgPathData path = new SvgPathData();
             path.MoveTo(SvgNumbers.ToSteps(start.X), SvgNumbers.ToSteps(start.Y));
             path.LineTo(SvgNumbers.ToSteps(finish.X), SvgNumbers.ToSteps(finish.Y));
@@ -342,7 +399,7 @@ namespace PurplePen.MapModel
         // an arc of a full turn or more is the whole circle, which Skia then draws as a closed oval (D-4).
         public void DrawArc(object penKey, PointF center, float radius, float startAngle, float sweepAngle)
         {
-            string stroke = GetPen(penKey, nameof(DrawArc));
+            SvgStyle stroke = GetPen(penKey, nameof(DrawArc));
             if (Math.Abs(sweepAngle) >= 360) {
                 AddShape(EllipseShape(stroke, center, radius, radius), nameof(DrawArc));
                 return;
@@ -363,42 +420,42 @@ namespace PurplePen.MapModel
         // Draw an ellipse with a pen, as a circle when its radii are equal (D-4).
         public void DrawEllipse(object penKey, PointF center, float radiusX, float radiusY)
         {
-            string stroke = GetPen(penKey, nameof(DrawEllipse));
+            SvgStyle stroke = GetPen(penKey, nameof(DrawEllipse));
             AddShape(EllipseShape(stroke, center, radiusX, radiusY), nameof(DrawEllipse));
         }
 
         // Fill an ellipse with a brush, as a circle when its radii are equal (D-4).
         public void FillEllipse(object brushKey, PointF center, float radiusX, float radiusY)
         {
-            string fill = GetFill(brushKey, nameof(FillEllipse));
+            SvgStyle fill = GetFill(brushKey, nameof(FillEllipse));
             AddShape(EllipseShape(fill, center, radiusX, radiusY), nameof(FillEllipse));
         }
 
         // Draw a rectangle with a pen, as a closed path (D-4).
         public void DrawRectangle(object penKey, RectangleF rect)
         {
-            string stroke = GetPen(penKey, nameof(DrawRectangle));
+            SvgStyle stroke = GetPen(penKey, nameof(DrawRectangle));
             AddPath(stroke, RectanglePath(rect), nameof(DrawRectangle));
         }
 
         // Fill a rectangle with a brush, as a path (D-4, F-3).
         public void FillRectangle(object brushKey, RectangleF rect)
         {
-            string fill = GetFill(brushKey, nameof(FillRectangle));
+            SvgStyle fill = GetFill(brushKey, nameof(FillRectangle));
             AddPath(fill, RectanglePath(rect), nameof(FillRectangle));
         }
 
         // Draw a closed polygon with a pen (D-4).
         public void DrawPolygon(object penKey, PointF[] pts)
         {
-            string stroke = GetPen(penKey, nameof(DrawPolygon));
+            SvgStyle stroke = GetPen(penKey, nameof(DrawPolygon));
             AddPath(stroke, PathThrough(pts, true), nameof(DrawPolygon));
         }
 
         // Draw an open polyline with a pen (D-4).
         public void DrawPolyline(object penKey, PointF[] pts)
         {
-            string stroke = GetPen(penKey, nameof(DrawPolyline));
+            SvgStyle stroke = GetPen(penKey, nameof(DrawPolyline));
             AddPath(stroke, PathThrough(pts, false), nameof(DrawPolyline));
         }
 
@@ -406,28 +463,28 @@ namespace PurplePen.MapModel
         // mode (D-3).
         public void FillPolygon(object brushKey, PointF[] pts, AreaFillMode windingMode)
         {
-            string fill = GetFill(brushKey, nameof(FillPolygon));
+            SvgStyle fill = GetFill(brushKey, nameof(FillPolygon));
             AddPath(FillUnderRule(fill, windingMode == AreaFillMode.Alternate), PathThrough(pts, true), nameof(FillPolygon));
         }
 
         // Draw a path created with CreatePath with a pen (D-3).
         public void DrawPath(object penKey, object pathKey)
         {
-            string stroke = GetPen(penKey, nameof(DrawPath));
+            SvgStyle stroke = GetPen(penKey, nameof(DrawPath));
             AddPath(stroke, GetPath(pathKey, nameof(DrawPath)).Data, nameof(DrawPath));
         }
 
         // Draw a path given by its parts with a pen (D-3).
         public void DrawPath(object penKey, List<GraphicsPathPart> parts)
         {
-            string stroke = GetPen(penKey, nameof(DrawPath));
+            SvgStyle stroke = GetPen(penKey, nameof(DrawPath));
             AddPath(stroke, PathOfParts(parts), nameof(DrawPath));
         }
 
         // Fill a path created with CreatePath with a brush, under the path's rule (D-3).
         public void FillPath(object brushKey, object pathKey)
         {
-            string fill = GetFill(brushKey, nameof(FillPath));
+            SvgStyle fill = GetFill(brushKey, nameof(FillPath));
             StoredPath path = GetPath(pathKey, nameof(FillPath));
             AddPath(FillUnderRule(fill, path.EvenOdd), path.Data, nameof(FillPath));
         }
@@ -435,7 +492,7 @@ namespace PurplePen.MapModel
         // Fill a path given by its parts with a brush, under the rule of its fill mode (D-3).
         public void FillPath(object brushKey, List<GraphicsPathPart> parts, AreaFillMode windingMode)
         {
-            string fill = GetFill(brushKey, nameof(FillPath));
+            SvgStyle fill = GetFill(brushKey, nameof(FillPath));
             AddPath(FillUnderRule(fill, windingMode == AreaFillMode.Alternate), PathOfParts(parts), nameof(FillPath));
         }
 
@@ -468,12 +525,24 @@ namespace PurplePen.MapModel
         {
         }
 
-        // Fail a call unless a part is open, as drawing happens only within one.
+        // Fail a call unless a part is open, as drawing happens only within one, or in the target of a pattern brush,
+        // unless the brush is still being drawn.
         // callName: the name of the call.
         private void RequireOpenPart(string callName)
         {
-            if (openGroups.Count == 0)
-                throw new InvalidOperationException(callName + ": no part is open; drawing happens between BeginPart and EndPart.");
+            if (openGroups.Count == 0) {
+                throw new InvalidOperationException(callName + (drawsPatternTile ? ": the pattern brush is finished, and its tile takes no more drawing."
+                                                                                 : ": no part is open; drawing happens between BeginPart and EndPart."));
+            }
+        }
+
+        // Fail a call that structures the document when the target draws a pattern brush's tile, which holds drawing
+        // alone.
+        // callName: the name of the call.
+        private void RequireDocumentTarget(string callName)
+        {
+            if (drawsPatternTile)
+                throw new InvalidOperationException(callName + ": a pattern brush's tile holds drawing alone, without parts, maps or pages.");
         }
 
         // Open a group within the innermost open one.
@@ -537,24 +606,35 @@ namespace PurplePen.MapModel
         }
 
         // Add a path shape within the innermost open group, unless the path is empty and draws nothing.
-        // style: the declarations of its style.
+        // style: its style.
         // path: its data.
         // callName: the name of the call that draws it.
-        private void AddPath(string style, SvgPathData path, string callName)
+        private void AddPath(SvgStyle style, SvgPathData path, string callName)
         {
             RequireOpenPart(callName);
             if (!path.IsEmpty)
                 AddShape(new SvgShape("path", style, "d=\"" + path + "\"", path.Bounds), callName);
         }
 
+        // Add a brush under a key.
+        // key: the brush's key.
+        // brush: the brush.
+        // callName: the name of the call that creates it.
+        private void AddBrush(object key, SvgBrush brush, string callName)
+        {
+            if (brushes.ContainsKey(key))
+                throw new InvalidOperationException(callName + ": the key has a brush already.");
+            brushes.Add(key, brush);
+        }
+
         // Add a pen: its paint, then its width, cap and join, each left out where it is SVG's default (D-5, S-9).
         // key: the pen's key.
-        // paint: the declarations that paint the stroke.
+        // paint: the style that paints the stroke.
         // width: the width of the stroke, in millimetres.
         // caps: the caps of its ends.
         // join: the joins of its corners.
         // miterLimit: how far a mitered corner may reach, in widths of the stroke.
-        private void AddPen(object key, string paint, float width, LineCapMode caps, LineJoinMode join, float miterLimit)
+        private void AddPen(object key, SvgStyle paint, float width, LineCapMode caps, LineJoinMode join, float miterLimit)
         {
             if (pens.ContainsKey(key))
                 throw new InvalidOperationException("CreatePen: the key has a pen already.");
@@ -562,16 +642,15 @@ namespace PurplePen.MapModel
             if (width == 0)
                 throw new Svg_UnsupportedCallException(nameof(CreatePen));
 
-            StringBuilder style = new StringBuilder("fill:none;").Append(paint);
-            style.Append(";stroke-width:").Append(SvgNumbers.FormatInteger(SvgNumbers.ToSteps(width)));
+            StringBuilder strokeShape = new StringBuilder(";stroke-width:").Append(SvgNumbers.FormatInteger(SvgNumbers.ToSteps(width)));
             switch (caps) {
                 case LineCapMode.Flat:
                     break;
                 case LineCapMode.Square:
-                    style.Append(";stroke-linecap:square");
+                    strokeShape.Append(";stroke-linecap:square");
                     break;
                 case LineCapMode.Round:
-                    style.Append(";stroke-linecap:round");
+                    strokeShape.Append(";stroke-linecap:round");
                     break;
                 default:
                     throw new Svg_UnsupportedCallException(nameof(CreatePen));
@@ -580,21 +659,21 @@ namespace PurplePen.MapModel
                 case LineJoinMode.Miter:
                     // Skia bevels every corner under a limit of 1 or less, which SVG would take for an error.
                     if (miterLimit <= 1)
-                        style.Append(";stroke-linejoin:bevel");
+                        strokeShape.Append(";stroke-linejoin:bevel");
                     else if (miterLimit != 4)
-                        style.Append(";stroke-miterlimit:").Append(SvgNumbers.FormatShortest(miterLimit));
+                        strokeShape.Append(";stroke-miterlimit:").Append(SvgNumbers.FormatShortest(miterLimit));
                     break;
                 case LineJoinMode.Bevel:
-                    style.Append(";stroke-linejoin:bevel");
+                    strokeShape.Append(";stroke-linejoin:bevel");
                     break;
                 case LineJoinMode.Round:
-                    style.Append(";stroke-linejoin:round");
+                    strokeShape.Append(";stroke-linejoin:round");
                     break;
                 default:
                     // MiterClipped, which the Skia target rejects too (D-5).
                     throw new Svg_UnsupportedCallException(nameof(CreatePen));
             }
-            pens.Add(key, style.ToString());
+            pens.Add(key, paint.Around("fill:none;", strokeShape.ToString()));
         }
 
         // The brush under a key.
@@ -608,20 +687,20 @@ namespace PurplePen.MapModel
             return brush;
         }
 
-        // The declarations of a brush's fill.
+        // The style of a brush's fill.
         // brushKey: the key of the brush.
         // callName: the name of the call that fills with it.
-        private string GetFill(object brushKey, string callName)
+        private SvgStyle GetFill(object brushKey, string callName)
         {
             return GetBrush(brushKey, callName).Paint(document.Paints, "fill");
         }
 
-        // The declarations of a pen's stroke.
+        // The style of a pen's stroke.
         // penKey: the key of the pen.
         // callName: the name of the call that strokes with it.
-        private string GetPen(object penKey, string callName)
+        private SvgStyle GetPen(object penKey, string callName)
         {
-            string stroke;
+            SvgStyle stroke;
             if (!pens.TryGetValue(penKey, out stroke))
                 throw new InvalidOperationException(callName + ": the key has no pen.");
             return stroke;
@@ -648,12 +727,12 @@ namespace PurplePen.MapModel
             return CmykColor.FromCmyka(color.Cyan * intensity, color.Magenta * intensity, color.Yellow * intensity, color.Black * intensity, color.Alpha);
         }
 
-        // The declarations of a fill under its rule: nonzero, the default, or even-odd (D-3).
-        // fill: the declarations of the fill.
+        // The style of a fill under its rule: nonzero, the default, or even-odd (D-3).
+        // fill: the style of the fill.
         // evenOdd: whether the fill is under the even-odd rule.
-        private static string FillUnderRule(string fill, bool evenOdd)
+        private static SvgStyle FillUnderRule(SvgStyle fill, bool evenOdd)
         {
-            return evenOdd ? fill + ";fill-rule:evenodd" : fill;
+            return evenOdd ? fill.Around("", ";fill-rule:evenodd") : fill;
         }
 
         // The path through points, in steps; closed for a polygon, open for a polyline.
@@ -733,10 +812,10 @@ namespace PurplePen.MapModel
 
         // An ellipse shape, a circle when its radii are equal in steps. A center coordinate of 0 is the default, which
         // is left out (S-9).
-        // style: the declarations of its style.
+        // style: its style.
         // center: its center, in millimetres.
         // radiusX, radiusY: its radii, in millimetres.
-        private static SvgShape EllipseShape(string style, PointF center, float radiusX, float radiusY)
+        private static SvgShape EllipseShape(SvgStyle style, PointF center, float radiusX, float radiusY)
         {
             long cx = SvgNumbers.ToSteps(center.X), cy = SvgNumbers.ToSteps(center.Y);
             long rx = Math.Abs(SvgNumbers.ToSteps(radiusX)), ry = Math.Abs(SvgNumbers.ToSteps(radiusY));

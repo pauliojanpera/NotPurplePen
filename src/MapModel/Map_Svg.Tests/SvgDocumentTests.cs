@@ -577,6 +577,127 @@ namespace Map_Svg.Tests
                 }), document);
         }
 
+        // Create a pattern brush whose tile holds a black dot at its middle.
+        // target: the target that creates the brush.
+        // brushKey: the brush's key.
+        // size: the size of the tile.
+        // angle: the angle of the pattern.
+        private static void CreateDottedBrush(IGraphicsTarget target, object brushKey, SizeF size, float angle)
+        {
+            using (IBrushTarget tile = target.CreatePatternBrush(size, angle, 16, 16)) {
+                object dot = new object();
+                tile.CreateSolidBrush(dot, CmykColor.FromCmyk(0, 0, 0, 1));
+                tile.FillEllipse(dot, Point(0, 0), 0.25F, 0.25F);
+                tile.FinishBrush(brushKey);
+            }
+        }
+
+        [Test]
+        public void APatternRepeatsItsTileWithTheTilesMiddleOnTheOriginTurnedByItsAngle()
+        {
+            string document = WriteOnePage(target => {
+                Assert.IsTrue(target.SupportsPatternBrushes);
+                object brush = new object();
+                using (IBrushTarget tile = target.CreatePatternBrush(new SizeF(4, 2), 30, 99, 99)) {
+                    object pen = new object();
+                    tile.CreatePen(pen, CmykColor.FromCmyk(0, 0, 0, 1), 0.5F, LineCapMode.Flat, LineJoinMode.Miter, 4);
+                    tile.DrawLine(pen, Point(-2, 0), Point(2, 0));
+                    tile.FinishBrush(brush);
+                }
+                target.FillRectangle(brush, new RectangleF(0, 0, 10, 10));
+            });
+            string expected = string.Join("\n", new string[] {
+                RootOf100By50,
+                "<style>",
+                ".a{fill:url(#b)}",
+                ".b{" + BlackStroke + ";stroke-width:500}",
+                "</style>",
+                "<metadata>", "<npp:document version=\"1\">", "<npp:map n=\"1\" label=\"map\"/>", "</npp:document>", "</metadata>",
+                "<defs>",
+                "<color-profile name=\"cmyk\"/>",
+                "<clipPath id=\"c\">", "<path d=\"M0 0h100000v50000H0z\"/>", "</clipPath>",
+                "<pattern id=\"b\" patternUnits=\"userSpaceOnUse\" x=\"-2000\" y=\"-1000\" width=\"4000\" height=\"2000\" viewBox=\"-2000 -1000 4000 2000\" patternTransform=\"rotate(30)\">",
+                "<path class=\"b\" d=\"M-2000 0h4000\"/>",
+                "</pattern>",
+                "<g id=\"a\">", "<g data-m=\"1\">", "<path class=\"a\" d=\"M0 0h10000v10000H0z\"/>", "</g>", "</g>",
+                "</defs>",
+                "<g transform=\"matrix(.001 0 0-.001 0 50)\" clip-path=\"url(#c)\">", "<use xlink:href=\"#a\"/>", "</g>",
+                "</svg>",
+            }) + "\n";
+            Assert.AreEqual(expected, document);
+        }
+
+        [Test]
+        public void APenOfAPatternBrushStrokesWithThePattern()
+        {
+            string document = WriteOnePage(target => {
+                object brush = new object(), pen = new object();
+                CreateDottedBrush(target, brush, new SizeF(1, 1), 0);
+                target.CreatePen(pen, brush, 1, LineCapMode.Round, LineJoinMode.Round, 4);
+                target.DrawLine(pen, Point(0, 0), Point(5, 5));
+                target.FillPolygon(brush, new PointF[] { Point(0, 0), Point(4, 0), Point(0, 4) }, AreaFillMode.Alternate);
+            });
+            StringAssert.Contains(".a{fill:none;stroke:url(#b);stroke-width:1000;stroke-linecap:round;stroke-linejoin:round}\n", document);
+            StringAssert.Contains(".b{fill:url(#b);fill-rule:evenodd}\n", document);
+            StringAssert.Contains("<path class=\"a\" d=\"M0 0l5000 5000\"/>\n<path class=\"b\" d=\"M0 0h4000L0 4000z\"/>\n", document);
+            Assert.AreEqual(1, document.Split(new[] { "<pattern" }, StringSplitOptions.None).Length - 1);
+        }
+
+        [Test]
+        public void PatternsAreNamedInTheOrderTheyAreFirstUsedAndOnlyThoseUsedAreWritten()
+        {
+            string document = WriteOnePage(target => {
+                object small = new object(), unused = new object(), large = new object();
+                CreateDottedBrush(target, small, new SizeF(2, 2), 0);
+                CreateDottedBrush(target, unused, new SizeF(4, 4), 0);
+                CreateDottedBrush(target, large, new SizeF(6, 6), 0);
+                target.FillRectangle(large, new RectangleF(0, 0, 10, 10));
+                target.FillRectangle(small, new RectangleF(20, 0, 10, 10));
+            });
+            StringAssert.Contains("<pattern id=\"b\" patternUnits=\"userSpaceOnUse\" x=\"-3000\" y=\"-3000\" width=\"6000\" height=\"6000\" viewBox=\"-3000 -3000 6000 6000\">", document);
+            StringAssert.Contains("<pattern id=\"c\" patternUnits=\"userSpaceOnUse\" x=\"-1000\" y=\"-1000\" width=\"2000\" height=\"2000\" viewBox=\"-1000 -1000 2000 2000\">", document);
+            Assert.AreEqual(2, document.Split(new[] { "<pattern" }, StringSplitOptions.None).Length - 1);
+            StringAssert.Contains(".a{fill:url(#b)}\n.b{fill:url(#c)}\n", document);
+        }
+
+        [Test]
+        public void ATileIsDrawnAtTheIntensityOfTheTargetThatCreatesItWithKeysOfItsOwn()
+        {
+            string document = WriteOnePage(target => {
+                target.Intensity = 0.5F;
+                object brush = new object();
+                using (IBrushTarget tile = target.CreatePatternBrush(new SizeF(2, 2), 0, 8, 8)) {
+                    object dot = new object();
+                    tile.CreateSolidBrush(dot, CmykColor.FromCmyk(0, 0, 0, 1));
+                    tile.FillEllipse(dot, Point(0, 0), 0.25F, 0.25F);
+                    Assert.IsFalse(target.HasBrush(dot));
+                    tile.FinishBrush(brush);
+                }
+                Assert.IsTrue(target.HasBrush(brush));
+                target.FillRectangle(brush, new RectangleF(0, 0, 10, 10));
+            });
+            StringAssert.Contains("icc-color(cmyk,0,0,0,.5)", document);
+        }
+
+        [Test]
+        public void ATileHoldsDrawingAloneAndTakesNoneOnceItsBrushIsFinished()
+        {
+            using (Svg_GraphicsTarget target = new Svg_GraphicsTarget(DefaultColorConverter.Instance, true))
+            using (Matrix matrix = new Matrix()) {
+                IBrushTarget tile = target.CreatePatternBrush(new SizeF(2, 2), 0, 8, 8);
+                IStructuredGraphicsTarget structuredTile = (IStructuredGraphicsTarget)tile;
+                InvalidOperationException error = Assert.Throws<InvalidOperationException>(() => structuredTile.BeginPart(new object()));
+                StringAssert.StartsWith("BeginPart: a pattern brush's tile holds drawing alone", error.Message);
+
+                object brush = new object();
+                tile.FinishBrush(brush);
+                error = Assert.Throws<InvalidOperationException>(() => tile.PushTransform(matrix));
+                StringAssert.StartsWith("PushTransform: the pattern brush is finished", error.Message);
+                error = Assert.Throws<InvalidOperationException>(() => target.CreatePatternBrush(new SizeF(2, 2), 0, 8, 8).FinishBrush(brush));
+                StringAssert.StartsWith("FinishBrush: the key has a brush already", error.Message);
+            }
+        }
+
         [Test]
         public void TheSameDrawingWritesTheSameText()
         {
