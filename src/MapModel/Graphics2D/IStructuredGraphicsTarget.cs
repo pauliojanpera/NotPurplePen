@@ -4,8 +4,8 @@ using SizeF = System.Drawing.SizeF;
 namespace PurplePen.Graphics2D
 {
     // A graphics target that keeps the structure of what it draws: the parts of drawings that a document defines once,
-    // the labeled maps within them, and the pages that show the parts. The map code makes these calls only to a target
-    // that implements this interface, so every other target is unaffected.
+    // the labeled maps within them, each map's color runs and objects, and the pages that show the parts. The map code
+    // makes these calls only to a target that implements this interface, so every other target is unaffected.
     public interface IStructuredGraphicsTarget : IGraphicsTarget
     {
         // Begin a part of a drawing, which the document defines once for every page that shows it. Drawing happens
@@ -24,6 +24,29 @@ namespace PurplePen.Graphics2D
 
         // End the map begun last, closing every group still open within it.
         void EndMap();
+
+        // Begin a run of one color of the map that is open: what the map draws in that color, between two runs of the
+        // colors below and above it. Runs do not nest.
+        // colorKey: the key that identifies the color within its map.
+        // position: the color's position in the map's color table, counting from 0 at the bottom.
+        // name: the color's name.
+        // color: the color's CMYK values, as the map stores them.
+        // overprint: whether the color overprints the colors below it.
+        void BeginColorRun(object colorKey, int position, string name, CmykColor color, bool overprint);
+
+        // End the color run begun last, closing every group still open within it.
+        void EndColorRun();
+
+        // Begin an object of the map that is open, within a color run or, for an object of the image or layout layer,
+        // outside any; everything drawn until EndObject is the object's. Objects do not nest.
+        // objectKey: the key that identifies the object, the same in each of its runs.
+        // symbolKey: the key that identifies the object's symbol within its map.
+        // symbolId: the symbol's id, such as "101.0".
+        // symbolName: the symbol's name.
+        void BeginObject(object objectKey, object symbolKey, string symbolId, string symbolName);
+
+        // End the object begun last, whose drawing has closed every group it opened.
+        void EndObject();
 
         // Add a page that shows parts within an area of the map, transformed onto its paper. Pages are added after the
         // parts they show, outside any part.

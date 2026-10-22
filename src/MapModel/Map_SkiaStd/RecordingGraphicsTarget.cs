@@ -163,6 +163,20 @@ namespace PurplePen.MapModel
             recordedCallNames.Add(callName);
         }
 
+        // Add a command that makes an IStructuredGraphicsTarget call, for a subclass that records them: played back
+        // onto a target that keeps the structure of what it draws, the command makes its call, and onto any other
+        // target it does nothing. Structure calls are not drawing calls, so RecordedCallNames does not list them.
+        // command: the command, which makes its call on the structured target of a playback.
+        protected void RecordStructure(Action<IStructuredGraphicsTarget> command)
+        {
+            CheckRecording();
+            commands.Add(state => {
+                IStructuredGraphicsTarget structuredTarget = state.Target as IStructuredGraphicsTarget;
+                if (structuredTarget != null)
+                    command(structuredTarget);
+            });
+        }
+
         // Get the intensity. Setting the intensity is recorded, and destroys all brushes and pens (as with other graphics targets).
         public float Intensity
         {

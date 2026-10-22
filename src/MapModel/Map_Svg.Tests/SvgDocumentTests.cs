@@ -698,6 +698,163 @@ namespace Map_Svg.Tests
             }
         }
 
+        // Fill a dot at a point as the drawing of an object.
+        // target: the target.
+        // brush: the brush to fill with.
+        // objectKey, symbolKey: the object's key and its symbol's.
+        // symbolId, symbolName: the symbol's id and name.
+        // x: where the dot lies along the x axis.
+        private static void DrawObject(IStructuredGraphicsTarget target, object brush, object objectKey, object symbolKey, string symbolId, string symbolName, float x)
+        {
+            target.BeginObject(objectKey, symbolKey, symbolId, symbolName);
+            target.FillEllipse(brush, Point(x, 0), 1, 1);
+            target.EndObject();
+        }
+
+        [Test]
+        public void RunsSymbolsAndObjectsCarryTheMapsStructureAndTheMetadataItsTables()
+        {
+            string document = WriteOnePage(target => {
+                object brush = new object(), brown = new object(), black = new object();
+                object contour = new object(), cliff = new object(), first = new object(), second = new object(), third = new object();
+                target.CreateSolidBrush(brush, CmykColor.FromCmyk(0, 0, 0, 1));
+                target.BeginColorRun(brown, 3, "Brown", CmykColor.FromCmyk(0, 0.56F, 1, 0.18F), false);
+                DrawObject(target, brush, first, contour, "101.0", "Contour", 2);
+                DrawObject(target, brush, second, contour, "101.0", "Contour", 4);
+                DrawObject(target, brush, third, cliff, "201.0", "Cliff", 6);
+                target.EndColorRun();
+                target.BeginColorRun(black, 5, "Black & \"key\"", CmykColor.FromCmyk(0, 0, 0, 1), true);
+                DrawObject(target, brush, first, contour, "101.0", "Contour", 2);
+                target.EndColorRun();
+            });
+            StringAssert.Contains(string.Join("\n", new string[] {
+                "<npp:map n=\"1\" label=\"map\">",
+                "<npp:color position=\"3\" name=\"Brown\" cmyk=\"0,.56,1,.18\"/>",
+                "<npp:color position=\"5\" name=\"Black &amp; &quot;key&quot;\" cmyk=\"0,0,0,1\" overprint=\"1\"/>",
+                "<npp:symbol n=\"1\" id=\"101.0\" name=\"Contour\" colors=\"3 5\"/>",
+                "<npp:symbol n=\"2\" id=\"201.0\" name=\"Cliff\" colors=\"3\"/>",
+                "</npp:map>",
+            }) + "\n", document);
+            StringAssert.Contains(string.Join("\n", new string[] {
+                "<g data-m=\"1\">",
+                "<g data-c=\"3\">",
+                "<g data-s=\"1\">",
+                "<circle class=\"a\" data-o=\"1\" cx=\"2000\" r=\"1000\"/>",
+                "<circle class=\"a\" data-o=\"2\" cx=\"4000\" r=\"1000\"/>",
+                "</g>",
+                "<g data-s=\"2\">",
+                "<circle class=\"a\" data-o=\"3\" cx=\"6000\" r=\"1000\"/>",
+                "</g>",
+                "</g>",
+                "<g data-c=\"5\">",
+                "<g data-s=\"1\">",
+                "<circle class=\"a\" data-o=\"1\" cx=\"2000\" r=\"1000\"/>",
+                "</g>",
+                "</g>",
+                "</g>",
+            }) + "\n", document);
+        }
+
+        [Test]
+        public void ObjectsOutsideRunsSitInTheirMapAndASymbolGroupClosesWithWhatHoldsIt()
+        {
+            string document = WriteOnePage(target => {
+                object brush = new object(), image = new object(), photo = new object(), purple = new object(), course = new object(), start = new object();
+                target.CreateSolidBrush(brush, CmykColor.FromCmyk(0, 0, 0, 1));
+                DrawObject(target, brush, photo, image, "", "Image", 2);
+                target.BeginColorRun(purple, 0, "Purple", CmykColor.FromCmyk(0.35F, 0.85F, 0, 0), true);
+                Assert.IsTrue(target.PushBlending(BlendMode.Darken));
+                DrawObject(target, brush, start, course, "701.0", "Start", 4);
+                target.PopBlending();
+                target.EndColorRun();
+            });
+            StringAssert.Contains("<npp:symbol n=\"1\" name=\"Image\"/>\n<npp:symbol n=\"2\" id=\"701.0\" name=\"Start\" colors=\"0\"/>\n", document);
+            StringAssert.Contains(string.Join("\n", new string[] {
+                "<g data-m=\"1\">",
+                "<g data-s=\"1\">",
+                "<circle class=\"a\" data-o=\"1\" cx=\"2000\" r=\"1000\"/>",
+                "</g>",
+                "<g data-c=\"0\">",
+                "<g class=\"b\" data-s=\"2\">",
+                "<circle class=\"a\" data-o=\"2\" cx=\"4000\" r=\"1000\"/>",
+                "</g>",
+                "</g>",
+                "</g>",
+            }) + "\n", document);
+            StringAssert.Contains(".b{mix-blend-mode:darken}", document);
+        }
+
+        [Test]
+        public void StructureCallsOutOfTurnRaiseErrorsNamingThem()
+        {
+            using (Svg_GraphicsTarget target = new Svg_GraphicsTarget(DefaultColorConverter.Instance, true))
+            using (Matrix matrix = new Matrix()) {
+                CmykColor black = CmykColor.FromCmyk(0, 0, 0, 1);
+                object part = new object(), map = new object(), run = new object(), item = new object(), symbol = new object();
+                target.BeginPart(part);
+                AssertError("BeginColorRun: no map is open", () => target.BeginColorRun(run, 0, "Black", black, false));
+                AssertError("BeginObject: no map is open", () => target.BeginObject(item, symbol, "1", "One"));
+
+                target.BeginMap(map, "map");
+                target.BeginColorRun(run, 0, "Black", black, false);
+                AssertError("BeginColorRun: a color run is open already", () => target.BeginColorRun(new object(), 1, "Brown", black, false));
+                AssertError("EndObject: no object is open", () => target.EndObject());
+
+                target.BeginObject(item, symbol, "1", "One");
+                AssertError("BeginObject: an object is open already", () => target.BeginObject(new object(), symbol, "1", "One"));
+                AssertError("EndColorRun: the object begun last has not ended", () => target.EndColorRun());
+                target.PushTransform(matrix);
+                AssertError("EndObject: the object's drawing left a group opened by PushTransform open", () => target.EndObject());
+                target.PopTransform();
+                target.EndObject();
+                target.EndColorRun();
+
+                IStructuredGraphicsTarget tile = (IStructuredGraphicsTarget)target.CreatePatternBrush(new SizeF(2, 2), 0, 8, 8);
+                AssertError("BeginObject: a pattern brush's tile holds drawing alone", () => tile.BeginObject(item, symbol, "1", "One"));
+            }
+        }
+
+        [Test]
+        public void ARecordingPlaysItsStructureBackOntoATargetThatKeepsItAndIsLeftOutElsewhere()
+        {
+            string drawnDirectly = WriteOnePage(target => DrawRunOfTwoObjects(target));
+            string playedBack;
+            using (StructuredRecordingGraphicsTarget recording = new StructuredRecordingGraphicsTarget()) {
+                DrawRunOfTwoObjects(recording);
+                recording.EndRecording();
+                CollectionAssert.AreEqual(new string[] { "CreateSolidBrush", "FillEllipse" }, recording.RecordedCallNames);
+                playedBack = WriteOnePage(target => recording.Playback(target));
+                using (RecordingGraphicsTarget plain = new RecordingGraphicsTarget()) {
+                    recording.Playback(plain);
+                    plain.EndRecording();
+                    CollectionAssert.AreEqual(new string[] { "CreateSolidBrush", "FillEllipse" }, plain.RecordedCallNames);
+                }
+            }
+            Assert.AreEqual(drawnDirectly, playedBack);
+            StringAssert.Contains("data-o=\"2\"", playedBack);
+        }
+
+        // Draw a run of one color holding two objects of one symbol.
+        // target: the target to draw into.
+        private static void DrawRunOfTwoObjects(IStructuredGraphicsTarget target)
+        {
+            object brush = new object(), color = new object(), symbol = new object();
+            target.CreateSolidBrush(brush, CmykColor.FromCmyk(0, 0, 0, 1));
+            target.BeginColorRun(color, 2, "Black", CmykColor.FromCmyk(0, 0, 0, 1), false);
+            DrawObject(target, brush, new object(), symbol, "101.0", "Contour", 2);
+            DrawObject(target, brush, new object(), symbol, "101.0", "Contour", 4);
+            target.EndColorRun();
+        }
+
+        // Assert that an action raises an InvalidOperationException whose message begins with the given text.
+        // messageStart: how the message begins.
+        // action: the action.
+        private static void AssertError(string messageStart, TestDelegate action)
+        {
+            InvalidOperationException error = Assert.Throws<InvalidOperationException>(action);
+            StringAssert.StartsWith(messageStart, error.Message);
+        }
+
         [Test]
         public void TheSameDrawingWritesTheSameText()
         {

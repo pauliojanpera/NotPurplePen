@@ -28,21 +28,25 @@ namespace PurplePen.MapModel
         };
 
         // What opened a group that is still open, which the call that closes it must match. The bottom group is a
-        // part's, or in the target of a pattern brush, the tile's.
-        private enum Opener { BeginPart, CreatePatternBrush, BeginMap, PushTransform, PushClip, PushAntiAliasing, PushBlending }
+        // part's, or in the target of a pattern brush, the tile's. A symbol's group is opened by the first of its
+        // consecutive objects rather than by a call of its own, and closes with the group that holds it.
+        private enum Opener { BeginPart, CreatePatternBrush, BeginMap, BeginColorRun, BeginObject, PushTransform, PushClip, PushAntiAliasing, PushBlending }
 
-        // A group still open, with what opened it and the anti-aliasing in force before it.
+        // A group still open: what opened it, the anti-aliasing in force before it, and the record of what it holds,
+        // if any: the map of a map's group, the color of a run's, or the symbol of a symbol's.
         private sealed class OpenGroup
         {
             public readonly Opener Opener;
             public readonly SvgGroup Group;
             public readonly bool AntiAliasBefore;
+            public readonly object Record;
 
-            public OpenGroup(Opener opener, SvgGroup group, bool antiAliasBefore)
+            public OpenGroup(Opener opener, SvgGroup group, bool antiAliasBefore, object record)
             {
                 Opener = opener;
                 Group = group;
                 AntiAliasBefore = antiAliasBefore;
+                Record = record;
             }
         }
 
@@ -99,6 +103,9 @@ namespace PurplePen.MapModel
         // until a pattern brush is finished.
         private readonly Stack<OpenGroup> openGroups = new Stack<OpenGroup>();
 
+        // The key of the object begun and not yet ended, or null for none.
+        private object openObjectKey;
+
         // The parts and the maps, by their keys.
         private readonly Dictionary<object, SvgPart> partsByKey = new Dictionary<object, SvgPart>(new IdentityComparer<object>());
         private readonly Dictionary<object, SvgMapRecord> mapsByKey = new Dictionary<object, SvgMapRecord>(new IdentityComparer<object>());
@@ -132,7 +139,7 @@ namespace PurplePen.MapModel
             document = creator.document;
             intensity = creator.intensity;
             drawsPatternTile = true;
-            openGroups.Push(new OpenGroup(Opener.CreatePatternBrush, pattern.Content, antiAlias));
+            openGroups.Push(new OpenGroup(Opener.CreatePatternBrush, pattern.Content, antiAlias, null));
         }
 
         // Whether the target fully implements an IGraphicsTarget call, so that a drawing which makes it can be
@@ -148,6 +155,7 @@ namespace PurplePen.MapModel
         {
             RequireDocumentTarget(nameof(FinishDocument));
             openGroups.Clear();
+            openObjectKey = null;
             return document.Write();
         }
 
@@ -164,7 +172,7 @@ namespace PurplePen.MapModel
             partsByKey.Add(partKey, part);
             document.Parts.Add(part);
             antiAlias = true;
-            openGroups.Push(new OpenGroup(Opener.BeginPart, part.Content, antiAlias));
+            openGroups.Push(new OpenGroup(Opener.BeginPart, part.Content, antiAlias, null));
         }
 
         // End the part begun last, closing every group still open within it.
@@ -186,7 +194,7 @@ namespace PurplePen.MapModel
                 mapsByKey.Add(mapKey, map);
                 document.Maps.Add(map);
             }
-            Open(Opener.BeginMap, new SvgGroup { Identity = "data-m=\"" + SvgNumbers.FormatInteger(map.Number) + "\"" });
+            Open(Opener.BeginMap, new SvgGroup { Identity = "data-m=\"" + SvgNumbers.FormatInteger(map.Number) + "\"" }, map);
         }
 
         // End the map begun last, closing every group still open within it.
@@ -194,6 +202,66 @@ namespace PurplePen.MapModel
         {
             RequireDocumentTarget(nameof(EndMap));
             CloseThrough(Opener.BeginMap, nameof(EndMap));
+        }
+
+        // Begin a run of a color of the map that is open, outside any other run, and record the color in the map's
+        // color table. The run's group carries the color's position in the table (M-3, M-7).
+        public void BeginColorRun(object colorKey, int position, string name, CmykColor color, bool overprint)
+        {
+            RequireDocumentTarget(nameof(BeginColorRun));
+            OpenGroup map = FindOpenMap(nameof(BeginColorRun));
+            foreach (OpenGroup openGroup in openGroups) {
+                if (openGroup.Opener == Opener.BeginColorRun)
+                    throw new InvalidOperationException("BeginColorRun: a color run is open already; runs do not nest.");
+            }
+            CloseSymbolGroup(nameof(BeginColorRun));
+
+            SvgColorRecord colorRecord = ((SvgMapRecord)map.Record).RecordColor(colorKey, position, name, color, overprint);
+            Open(Opener.BeginColorRun, new SvgGroup { Identity = "data-c=\"" + SvgNumbers.FormatInteger(colorRecord.Position) + "\"" }, colorRecord);
+        }
+
+        // End the color run begun last, closing every group still open within it.
+        public void EndColorRun()
+        {
+            RequireDocumentTarget(nameof(EndColorRun));
+            CloseThrough(Opener.BeginColorRun, nameof(EndColorRun));
+        }
+
+        // Begin an object of the map that is open, and record its symbol in the map's symbol table, with the color of
+        // the run it is drawn in, if any. Consecutive objects of one symbol share a group, which carries the symbol's
+        // number, and every element drawn until EndObject carries the object's (M-4, M-6, M-7).
+        public void BeginObject(object objectKey, object symbolKey, string symbolId, string symbolName)
+        {
+            RequireDocumentTarget(nameof(BeginObject));
+            if (openObjectKey != null)
+                throw new InvalidOperationException("BeginObject: an object is open already; objects do not nest.");
+            OpenGroup map = FindOpenMap(nameof(BeginObject));
+
+            SvgSymbolRecord symbol = ((SvgMapRecord)map.Record).RecordSymbol(symbolKey, symbolId, symbolName);
+            foreach (OpenGroup openGroup in openGroups) {
+                if (openGroup == map)
+                    break;
+                if (openGroup.Opener == Opener.BeginColorRun)
+                    symbol.AddColor(((SvgColorRecord)openGroup.Record).Position);
+            }
+
+            if (openGroups.Peek().Record != symbol) {
+                CloseSymbolGroup(nameof(BeginObject));
+                Open(Opener.BeginObject, new SvgGroup { Identity = "data-s=\"" + SvgNumbers.FormatInteger(symbol.Number) + "\"" }, symbol);
+            }
+            openObjectKey = objectKey;
+        }
+
+        // End the object begun last, whose drawing must have closed every group it opened. Its symbol's group stays
+        // open for the next object of the symbol.
+        public void EndObject()
+        {
+            RequireDocumentTarget(nameof(EndObject));
+            if (openObjectKey == null)
+                throw new InvalidOperationException("EndObject: no object is open.");
+            if (openGroups.Peek().Opener != Opener.BeginObject)
+                throw new InvalidOperationException("EndObject: the object's drawing left a group opened by " + openGroups.Peek().Opener + " open.");
+            openObjectKey = null;
         }
 
         // Add a page that shows parts within an area of the map, transformed onto its paper (L-3, F-4).
@@ -550,8 +618,40 @@ namespace PurplePen.MapModel
         // group: the group.
         private void Open(Opener opener, SvgGroup group)
         {
+            Open(opener, group, null);
+        }
+
+        // Open a group within the innermost open one, with the record of what it holds.
+        // opener: what opens it.
+        // group: the group.
+        // record: the record of the map, color or symbol it holds, or null for none.
+        private void Open(Opener opener, SvgGroup group, object record)
+        {
             openGroups.Peek().Group.Children.Add(group);
-            openGroups.Push(new OpenGroup(opener, group, antiAlias));
+            openGroups.Push(new OpenGroup(opener, group, antiAlias, record));
+        }
+
+        // The group of the innermost map that is open.
+        // callName: the name of the call that needs it.
+        private OpenGroup FindOpenMap(string callName)
+        {
+            foreach (OpenGroup openGroup in openGroups) {
+                if (openGroup.Opener == Opener.BeginMap)
+                    return openGroup;
+            }
+            throw new InvalidOperationException(callName + ": no map is open; runs and objects belong to a map.");
+        }
+
+        // Close the group of a symbol when it is the innermost open group: a call that closes or begins something
+        // around it ends the symbol's consecutive objects, once the last of them has ended.
+        // callName: the name of that call.
+        private void CloseSymbolGroup(string callName)
+        {
+            if (openGroups.Count == 0 || openGroups.Peek().Opener != Opener.BeginObject)
+                return;
+            if (openObjectKey != null)
+                throw new InvalidOperationException(callName + ": the object begun last has not ended.");
+            openGroups.Pop();
         }
 
         // Open a group that clips what is drawn within it to a path, in the current frame (D-2).
@@ -569,6 +669,7 @@ namespace PurplePen.MapModel
         // callName: the name of the closing call.
         private void Close(Opener opener, string callName)
         {
+            CloseSymbolGroup(callName);
             if (openGroups.Count == 0 || openGroups.Peek().Opener != opener) {
                 string innermost = openGroups.Count == 0 ? "nothing" : "a group opened by " + openGroups.Peek().Opener;
                 throw new InvalidOperationException(callName + " closes a group opened by " + opener + ", but the innermost open group is " + innermost + ".");
@@ -588,6 +689,8 @@ namespace PurplePen.MapModel
             }
             if (!open)
                 throw new InvalidOperationException(callName + " closes a group opened by " + opener + ", but none is open.");
+            if (openObjectKey != null)
+                throw new InvalidOperationException(callName + ": the object begun last has not ended.");
 
             OpenGroup closed;
             do {
@@ -596,12 +699,14 @@ namespace PurplePen.MapModel
             } while (closed.Opener != opener);
         }
 
-        // Add a shape within the innermost open group.
+        // Add a shape within the innermost open group, as an element of the object begun last, if it has not ended.
         // shape: the shape.
         // callName: the name of the call that draws it.
         private void AddShape(SvgShape shape, string callName)
         {
             RequireOpenPart(callName);
+            if (openObjectKey != null)
+                shape.ObjectNumber = document.NumberOf(openObjectKey);
             openGroups.Peek().Group.Children.Add(shape);
         }
 

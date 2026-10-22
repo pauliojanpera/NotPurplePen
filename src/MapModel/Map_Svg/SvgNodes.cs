@@ -28,6 +28,9 @@ namespace PurplePen.MapModel
         // The bounds of the geometry, in steps.
         private readonly SvgBounds bounds;
 
+        // The number of the object the shape belongs to, or 0 for none (M-6).
+        public int ObjectNumber;
+
         // Create a shape.
         // elementName: the name of the element.
         // style: its style.
@@ -47,11 +50,14 @@ namespace PurplePen.MapModel
             return bounds;
         }
 
-        // Write the element: its class and its geometry, and nothing else (S-4).
+        // Write the element: its class, the number of its object, if any, and its geometry, and nothing else (S-4, S-11).
         public override void Write(SvgWriter writer)
         {
             string className = writer.ClassOf(style.Resolve(writer));
-            writer.Text.Append('<').Append(elementName).Append(" class=\"").Append(className).Append("\" ").Append(geometry).Append("/>\n");
+            writer.Text.Append('<').Append(elementName).Append(" class=\"").Append(className).Append('"');
+            if (ObjectNumber != 0)
+                writer.Text.Append(" data-o=\"").Append(SvgNumbers.FormatInteger(ObjectNumber)).Append('"');
+            writer.Text.Append(' ').Append(geometry).Append("/>\n");
         }
     }
 

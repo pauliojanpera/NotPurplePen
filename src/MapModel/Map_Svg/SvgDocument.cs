@@ -56,7 +56,75 @@ namespace PurplePen.MapModel
         }
     }
 
-    // A labeled map, as the metadata records it (M-5, M-7).
+    // A color of a map's color table, as the metadata records it once a run of it begins (M-3, M-7).
+    public sealed class SvgColorRecord
+    {
+        // The color's position in the map's color table, counting from 0 at the bottom, by which its runs refer to it.
+        public readonly int Position;
+
+        // The color's name.
+        public readonly string Name;
+
+        // The color's CMYK values, as the map stores them.
+        public readonly CmykColor Color;
+
+        // Whether the color overprints the colors below it.
+        public readonly bool Overprint;
+
+        // Create the record of a color.
+        // position: its position in the color table.
+        // name: its name.
+        // color: its CMYK values.
+        // overprint: whether it overprints.
+        public SvgColorRecord(int position, string name, CmykColor color, bool overprint)
+        {
+            Position = position;
+            Name = name;
+            Color = color;
+            Overprint = overprint;
+        }
+    }
+
+    // A symbol of a map, as the metadata records it once an object of it begins: its number, by which the groups of
+    // its objects refer to it, its id and name, and the colors its objects are drawn in (M-6, M-7).
+    public sealed class SvgSymbolRecord
+    {
+        // The number by which the symbol's groups refer to it, counting from 1 in the order the map's symbols first
+        // begin an object.
+        public readonly int Number;
+
+        // The symbol's id, such as "101.0".
+        public readonly string Id;
+
+        // The symbol's name.
+        public readonly string Name;
+
+        // The positions of the colors its objects are drawn in, from the bottom up.
+        public readonly List<int> ColorPositions = new List<int>();
+
+        // Create the record of a symbol.
+        // number: its number within its map.
+        // id: its id.
+        // name: its name.
+        public SvgSymbolRecord(int number, string id, string name)
+        {
+            Number = number;
+            Id = id;
+            Name = name;
+        }
+
+        // Record that an object of the symbol is drawn in a color.
+        // position: the color's position in the color table.
+        public void AddColor(int position)
+        {
+            int index = ColorPositions.BinarySearch(position);
+            if (index < 0)
+                ColorPositions.Insert(~index, position);
+        }
+    }
+
+    // A labeled map, as the metadata records it: its number and label, and the tables of the colors and symbols
+    // drawn in it, which its runs, symbol groups and objects refer to (M-5, M-7).
     public sealed class SvgMapRecord
     {
         // The number by which the map's groups refer to it, counting from 1 in the order maps first begin.
@@ -65,6 +133,14 @@ namespace PurplePen.MapModel
         // What the map is called.
         public readonly string Label;
 
+        // The colors of the map's runs, from the bottom of the color table up, and the same by their keys.
+        public readonly List<SvgColorRecord> Colors = new List<SvgColorRecord>();
+        private readonly Dictionary<object, SvgColorRecord> colorsByKey = new Dictionary<object, SvgColorRecord>(new IdentityComparer<object>());
+
+        // The symbols of the map's objects, in the order of their numbers, and the same by their keys.
+        public readonly List<SvgSymbolRecord> Symbols = new List<SvgSymbolRecord>();
+        private readonly Dictionary<object, SvgSymbolRecord> symbolsByKey = new Dictionary<object, SvgSymbolRecord>(new IdentityComparer<object>());
+
         // Create the record of a map.
         // number: its number.
         // label: what it is called.
@@ -72,6 +148,41 @@ namespace PurplePen.MapModel
         {
             Number = number;
             Label = label;
+        }
+
+        // The record of a color of the map, made when a run of it first begins.
+        // colorKey: the key that identifies the color within the map.
+        // position: its position in the color table.
+        // name: its name.
+        // color: its CMYK values.
+        // overprint: whether it overprints.
+        public SvgColorRecord RecordColor(object colorKey, int position, string name, CmykColor color, bool overprint)
+        {
+            SvgColorRecord record;
+            if (!colorsByKey.TryGetValue(colorKey, out record)) {
+                record = new SvgColorRecord(position, name, color.Clone(), overprint);
+                colorsByKey.Add(colorKey, record);
+                int index = 0;
+                while (index < Colors.Count && Colors[index].Position < position)
+                    ++index;
+                Colors.Insert(index, record);
+            }
+            return record;
+        }
+
+        // The record of a symbol of the map, numbered when an object of it first begins.
+        // symbolKey: the key that identifies the symbol within the map.
+        // id: its id.
+        // name: its name.
+        public SvgSymbolRecord RecordSymbol(object symbolKey, string id, string name)
+        {
+            SvgSymbolRecord record;
+            if (!symbolsByKey.TryGetValue(symbolKey, out record)) {
+                record = new SvgSymbolRecord(Symbols.Count + 1, id, name);
+                symbolsByKey.Add(symbolKey, record);
+                Symbols.Add(record);
+            }
+            return record;
         }
     }
 
@@ -135,6 +246,9 @@ namespace PurplePen.MapModel
         // The clips, by their rule and path data, so that equal clips share one definition.
         private readonly Dictionary<string, SvgClip> clips = new Dictionary<string, SvgClip>(StringComparer.Ordinal);
 
+        // The numbers of the objects drawn, by their keys.
+        private readonly Dictionary<object, int> objectNumbers = new Dictionary<object, int>(new IdentityComparer<object>());
+
         // Where the next page goes: the left edge, in millimetres.
         private double nextPageLeft;
 
@@ -158,6 +272,19 @@ namespace PurplePen.MapModel
                 clips.Add(key, clip);
             }
             return clip;
+        }
+
+        // The number of an object, which its elements carry: objects are numbered across the document from 1, in the
+        // order they are first drawn, so an object drawn in several runs has the same number in each (M-6, L-5).
+        // objectKey: the key that identifies the object.
+        public int NumberOf(object objectKey)
+        {
+            int number;
+            if (!objectNumbers.TryGetValue(objectKey, out number)) {
+                number = objectNumbers.Count + 1;
+                objectNumbers.Add(objectKey, number);
+            }
+            return number;
         }
 
         // Add a page, to the right of the pages before it; the first lies at the document's own view box.
@@ -246,16 +373,73 @@ namespace PurplePen.MapModel
             text.Append("</style>\n");
         }
 
-        // Write the metadata: the version of its format and the record of each map (F-3, M-7).
+        // Write the metadata: the version of its format and the record of each map, with the tables of its colors and
+        // symbols (F-3, M-7).
         // text: the text to append to.
         private void WriteMetadata(StringBuilder text)
         {
             text.Append("<metadata>\n<npp:document version=\"").Append(FormatVersion).Append("\">\n");
             foreach (SvgMapRecord map in Maps) {
                 text.Append("<npp:map n=\"").Append(SvgNumbers.FormatInteger(map.Number)).Append("\" label=\"")
-                    .Append(EscapeAttribute(map.Label)).Append("\"/>\n");
+                    .Append(EscapeAttribute(map.Label)).Append('"');
+                if (map.Colors.Count == 0 && map.Symbols.Count == 0) {
+                    text.Append("/>\n");
+                    continue;
+                }
+
+                text.Append(">\n");
+                foreach (SvgColorRecord color in map.Colors)
+                    WriteColorRecord(text, color);
+                foreach (SvgSymbolRecord symbol in map.Symbols)
+                    WriteSymbolRecord(text, symbol);
+                text.Append("</npp:map>\n");
             }
             text.Append("</npp:document>\n</metadata>\n");
+        }
+
+        // Write the record of a color: its position, name and CMYK values, which carry the fewest digits that give the
+        // map's own values back, and whether it overprints, when it does (M-7, COL-4).
+        // text: the text to append to.
+        // color: the record of the color.
+        private static void WriteColorRecord(StringBuilder text, SvgColorRecord color)
+        {
+            text.Append("<npp:color position=\"").Append(SvgNumbers.FormatInteger(color.Position)).Append('"');
+            if (!string.IsNullOrEmpty(color.Name))
+                text.Append(" name=\"").Append(EscapeAttribute(color.Name)).Append('"');
+            text.Append(" cmyk=\"");
+            float[] components = { color.Color.Cyan, color.Color.Magenta, color.Color.Yellow, color.Color.Black };
+            for (int index = 0; index < components.Length; ++index) {
+                if (index > 0)
+                    text.Append(',');
+                text.Append(SvgNumbers.FormatShortest(components[index]));
+            }
+            text.Append('"');
+            if (color.Overprint)
+                text.Append(" overprint=\"1\"");
+            text.Append("/>\n");
+        }
+
+        // Write the record of a symbol: its number, id and name, and the positions of the colors its objects are drawn
+        // in, when they are drawn in any (M-7).
+        // text: the text to append to.
+        // symbol: the record of the symbol.
+        private static void WriteSymbolRecord(StringBuilder text, SvgSymbolRecord symbol)
+        {
+            text.Append("<npp:symbol n=\"").Append(SvgNumbers.FormatInteger(symbol.Number)).Append('"');
+            if (!string.IsNullOrEmpty(symbol.Id))
+                text.Append(" id=\"").Append(EscapeAttribute(symbol.Id)).Append('"');
+            if (!string.IsNullOrEmpty(symbol.Name))
+                text.Append(" name=\"").Append(EscapeAttribute(symbol.Name)).Append('"');
+            if (symbol.ColorPositions.Count > 0) {
+                text.Append(" colors=\"");
+                for (int index = 0; index < symbol.ColorPositions.Count; ++index) {
+                    if (index > 0)
+                        text.Append(' ');
+                    text.Append(SvgNumbers.FormatInteger(symbol.ColorPositions[index]));
+                }
+                text.Append('"');
+            }
+            text.Append("/>\n");
         }
 
         // Write a page: a group that clips the parts to the area the page shows and transforms them onto its paper.
