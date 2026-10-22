@@ -171,7 +171,10 @@ In order of priority. A task ends with its commits on `feature/svg-target`, its 
 ## Waiting on @Pauli
 
 - **F-6**, opening the output in Inkscape and Scribus, by hand at the end of phase 2.
-- **The Windows image's fonts.** Whether `.github/ci/environment.json` on `dev` takes up Segoe UI 5.72, which `base` records and GitHub's Windows image 20261018.189.1 carries, or accepts both it and 5.71, the font of the image before. Until then `dev` stops its Windows tests on the new image. `base`'s Windows tests passed on Oct 22.
+
+## The test machine
+
+`.github/ci/environment.json` records Segoe UI 5.72, which GitHub's Windows image 20261018.189.1 carries, on both `base` and `dev`. @Pauli settled that `dev` matches `base` here. `dev` took it up by merging `base` (7d1ce11), which also brought `dev` the SVG loop, the machine check that requires only the Windows version and the fonts, and the fork instructions' pointer to this file. Check that `dev`'s Tests run 39861565207, the first after the merge, is green.
 
 ## The previous executor
 
