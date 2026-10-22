@@ -498,7 +498,7 @@ jobs:
         for attempt in 1 2 3 4 5; do
             before=$(git ls-remote "$remote" gh-pages | cut -f1)
 
-            rm -rf published site
+            rm -rf published site gallery
             if [ -n "$before" ]; then
                 # Only catalog.json is read from what is published, so the
                 # clone takes the top-level files and leaves the rest of the
@@ -514,6 +514,15 @@ jobs:
 
             pwsh repo/.github/scripts/assemble-site.ps1
             touch site/.nojekyll
+
+            # The SVG target's gallery is kept on the branch svg-gallery and
+            # served under svg/, so every publish copies that branch in whole.
+            gallery_commit=$(git ls-remote "$remote" svg-gallery | cut -f1)
+            if [ -n "$gallery_commit" ]; then
+                git clone --quiet --depth 1 --branch svg-gallery "$remote" gallery
+                mkdir site/svg
+                git -C gallery archive HEAD | tar -x -C site/svg
+            fi
 
             git -C site init --quiet --initial-branch gh-pages
             git -C site config user.name ci
