@@ -12,6 +12,7 @@ Where the work on the SVG target stands against the phases of [its requirements]
 | `feature/svg-target` | The work, rooted at `upstream/master` (C-8), with the three `fix/` branches below merged in |
 | `svg/svg-target` | `base` with `feature/svg-target` merged in, rebuilt for each loop run (DL-1) |
 | `svg-results/svg-target` | The results of the latest loop run (DL-7) |
+| `svg-gallery` | The gallery served at <https://pauliojanpera.github.io/NotPurplePen/svg/>: its page, fonts and each step's drawings, as one commit that each update replaces. Every publish of the site copies it into `svg/`. |
 | `fix/backslashes-in-test-file-paths`, `fix/culture-independent-descriptor-parsing`, `fix/case-of-test-file-names` | Changes the tests need on Linux, each to be offered to Purple Pen on its own |
 | `experiment/svg-target`, `experiment/machine-record`, `svg/diagnose-recording`, `svg-results/diagnose-recording`, `diag/segoe-ui-faces` | Throwaway runs; nothing depends on them |
 
@@ -21,6 +22,7 @@ The SVG loop, `.github/workflows/svg.yml`, and the machine check of the Windows 
 
 - **Loop run.** Rebuild `svg/svg-target` as one merge commit of `origin/base` and `origin/feature/svg-target` (`git merge-tree --write-tree`, then `git commit-tree`), push it with `--force-with-lease`, follow the run through the GitHub API, and read `summary.md`, `failures.md` and `pending.tsv` on `svg-results/svg-target`. Its `measurements/`, `references/`, `differences/` and `renderings/` hold the numbers and images of the comparison.
 - **Local run.** In a cloud session, install the .NET 10 SDK with `dotnet-install.sh --channel 10.0 --azure-feed https://dotnetcli.blob.core.windows.net/dotnet`, build `src/MapModel/Map_Svg.Tests`, install Playwright's pinned Chromium with `bin/Debug/net10.0/playwright.ps1 install --only-shell chromium` (PowerShell from its GitHub release), and run `dotnet test` with `SVG_LOOP_RESULTS` naming a results directory. The run reproduces the loop's measurements and reference images byte for byte. The environment's proxy lets through the hosts this needs: api.nuget.org, dotnetcli.blob.core.windows.net, cdn.playwright.dev and storage.googleapis.com.
+- **Gallery.** When a step ends, add it to the gallery. Clone `svg-gallery`, and run `SvgGallery/make-gallery-step.py` beside this file on a checkout of `svg-results/svg-target`, naming the step and the cases to show: it writes the step's folder and prints the figures and census that `index.html` takes into `LOG` and `STANDING`. Move the course's states on, look at the page with `SvgGallery/look-at-gallery.mjs`, and publish it with `SvgGallery/publish-svg-gallery.sh`, which replaces `svg-gallery`'s commit and puts the gallery under `svg/` on `gh-pages`. A `wip/` branch made before `build.yml` copied `svg-gallery` into the site publishes without it, until the next publish from `base`, `dev` or a newer branch.
 - **Full run.** A change is finished only after a `wip/` branch rooted at `base`, with the feature merged in, has run the Windows suite (DL-10). That suite stops on a machine whose Windows version or system fonts differ from `.github/ci/environment.json`; a run started by hand with `machine_check` set to `report` tests anyway, and the stopped job's log prints the record that machine would need.
 
 ## Status
@@ -33,7 +35,7 @@ The SVG loop, `.github/workflows/svg.yml`, and the machine check of the Windows 
 
 | Step of phase 2 | Status |
 | --- | --- |
-| 1. The document, its layout and its writers (L-1 to L-5, F-2 to F-4, COL-1 to COL-6, S-1 to S-4, S-8, S-9, S-11) | Code on `feature/svg-target` (c00a818). Loop run 39737924049: 62 passed, 4 failed, 188 pending. The failures are the first comparable cases, FillAreas, irregular1, irregular2 and irregular4, which have no reference image recorded yet; recording them waits on the tolerance below. |
+| 1. The document, its layout and its writers (L-1 to L-5, F-2 to F-4, COL-1 to COL-6, S-1 to S-4, S-8, S-9, S-11) | Code on `feature/svg-target` (efa6995). Loop run 39744433244: 74 passed, 0 failed, 188 pending. The first comparable cases, FillAreas, irregular1, irregular2 and irregular4, match their recorded references within the pixel tolerance. |
 | 2. The drawing operations (D-1 to D-12) | Next |
 | 3. The map structure (M-1 to M-8) | To come |
 | 4. Georeferencing (G-1 to G-3), then the full `wip/` run, with F-6 checked by hand | To come |
@@ -51,14 +53,14 @@ The calls the target fully implements, in the sense of DL-5: `Intensity`, `PushT
 - **Anti-aliasing.** Browsers anti-alias by default, so a group carries `shape-rendering` only where the mode changes.
 - **Errors.** A call the target does not implement yet raises `Svg_UnsupportedCallException`, which makes a comparison case pending; a call out of turn raises an `InvalidOperationException` that names it.
 - **The comparison.** Each case is one map in one part on one page whose millimetres are the image's pixels, and Chromium shows the SVG through an HTML page that sizes it to the image. Reference images are rendered by the Skia target from the case's own drawing, anti-aliased on white (V-9); a missing one goes to the results' `references/`, from where it is committed into `src/MapModel/TestFiles/svg_reference`.
+- **The pixel tolerance (F-1).** A pixel of Chromium's image passes when each color channel lies within the range that channel takes in the reference within one pixel, give or take 4 levels, and the same holds the other way round; beyond the image both count as white paper, which keeps shapes cut by the image's edge fair. Inside a shape this asks for a match within 4 levels; along an edge it lets any shade between the colors meeting there pass, which is where Chromium's Skia and SkiaSharp's differ, by up to 108 levels in the first cases while every shape lies within 0.15 pixel of its place. Those cases pass with no pixel beyond a slack of 2, and fail it shifted by two pixels, with a feature removed, with features two pixels wider or with an ink six levels redder. `PixelTolerance` holds the rule, so that a case can carry a tolerance of its own, as V-3 foresees for fine evenly spaced lines; the check of Chromium's rendering on whole pixels keeps an exact one.
 
 ## Waiting on @Pauli
 
-- **The pixel tolerance (F-1).** The first four cases differ only at anti-aliased edges, since the references come from SkiaSharp's Skia and the renderings from that of Chromium 153: the ink lies within a third of a pixel in both, Chromium's carry 1.2–1.6% more of it, and edge pixels differ by up to 108 in a channel. The rule being measured holds every pixel whose neighbourhood in the reference is uniform to an exact match, and lets an edge pixel match anything within one pixel of it; it goes to @Pauli before it goes in.
 - **F-6**, opening the output in Inkscape and Scribus, by hand at the end of phase 2.
 
 ## Next
 
-1. Measure the tolerance rule on the four cases, and propose it.
-2. Record their reference images.
-3. Step 2, the drawing operations, in the order of the census on `svg-results/svg-target`.
+1. Leave default-valued attributes out (S-9): every dot of the irregular maps is written `<circle class="a" cx="0" cy="0" r="100"/>`, under a group that only translates it.
+2. Step 2, the drawing operations, in the order of the census on `svg-results/svg-target`.
+3. Add each step to the gallery when it ends.
