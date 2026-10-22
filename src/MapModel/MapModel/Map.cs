@@ -2259,12 +2259,16 @@ namespace PurplePen.MapModel
             return s1.SortOrder.CompareTo(s2.SortOrder);
         }
 
-        // Draw a particular color layer. If curColor is ImageColor or LayoutColor, draw the image layer or Layout layer 
+        // Draw a particular color layer. If curColor is ImageColor or LayoutColor, draw the image layer or Layout layer
+        // A target that keeps the structure of what it draws is told where the run of a color of the color table begins
+        // and ends, and where each object begins and ends.
         private void DrawColor(IGraphicsTarget g, SymColor curColor, RectangleF rect, RenderOptions renderOpts, Action throwOnCancel)
         {
             int symbolsDrawn = 0;
             bool anySymbolsDrawn = false;
             bool mustPopBlending = false;
+            IStructuredGraphicsTarget structuredTarget = g as IStructuredGraphicsTarget;
+            bool opensColorRun = structuredTarget != null && !curColor.IsSpecialLayer;
 
             //TraceLine("Drawing color {0}", curColor.Name ?? "special layer");
 
@@ -2285,14 +2289,21 @@ namespace PurplePen.MapModel
                             if (bounds.IntersectsWith(rect) &&
                                 curSym.MayIntersectRect(rect)) 
                             {
+                                if (opensColorRun && !anySymbolsDrawn)
+                                    structuredTarget.BeginColorRun(curColor, colors.IndexOf(curColor), curColor.Name, curColor.CmykColor, curColor.OverPrint);
+
                                 if (renderOpts.blendOverprintedColors && curColor.OverPrint && !anySymbolsDrawn) {
                                     // We need to blend this color.
                                     g.PushBlending(BlendMode.Darken);
                                     mustPopBlending = true;
                                 }
-                                
+
                                 //TraceLine("Drawing symbol with definition '{0}' and bounds ({1},{2})-({3},{4})", symdef.Name, bounds.Left, bounds.Top, bounds.Right, bounds.Bottom);
+                                if (structuredTarget != null)
+                                    structuredTarget.BeginObject(curSym, symdef, symdef.SymbolId, symdef.Name);
                                 curSym.Draw(g, curColor, renderOpts);
+                                if (structuredTarget != null)
+                                    structuredTarget.EndObject();
                                 ++symbolsDrawn;
                                 anySymbolsDrawn = true;
 
@@ -2313,6 +2324,8 @@ namespace PurplePen.MapModel
 
             if (mustPopBlending)
                 g.PopBlending();
+            if (opensColorRun && anySymbolsDrawn)
+                structuredTarget.EndColorRun();
 
             //TraceLine("Drawing color {0}: drew {1} symbols.", curColor.Name ?? "special layer", symbolsDrawn);
         }
@@ -2330,10 +2343,17 @@ namespace PurplePen.MapModel
                 renderOptsNew.colorBeginDrawExclusive = null;
                 renderOptsNew.colorEndDrawInclusive = null;
 
-                // Draw from bottom to top.
+                // Draw from bottom to top. A target that keeps the structure of what it draws labels each template
+                // with its file name.
+                IStructuredGraphicsTarget structuredTarget = g as IStructuredGraphicsTarget;
                 for (int i = loadedTemplates.Count - 1; i >= 0; --i) {
-                    if (loadedTemplates[i] != null && loadedTemplates[i].DrawAboveMap == aboveMap)
+                    if (loadedTemplates[i] != null && loadedTemplates[i].DrawAboveMap == aboveMap) {
+                        if (structuredTarget != null)
+                            structuredTarget.BeginMap(loadedTemplates[i], System.IO.Path.GetFileName(templates[i].absoluteFileName));
                         loadedTemplates[i].Draw(g, rect, renderOptsNew, throwOnCancel, templateRecursionCount);
+                        if (structuredTarget != null)
+                            structuredTarget.EndMap();
+                    }
 
                     if (throwOnCancel != null)
                         throwOnCancel();

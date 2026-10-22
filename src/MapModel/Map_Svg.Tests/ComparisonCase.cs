@@ -95,10 +95,10 @@ namespace Map_Svg.Tests
             });
         }
 
-        // Record the case's drawing.
+        // Record the case's drawing, with the structure calls that the map code makes to a target that keeps them.
         public RecordingGraphicsTarget Record()
         {
-            RecordingGraphicsTarget recording = new RecordingGraphicsTarget();
+            RecordingGraphicsTarget recording = new StructuredRecordingGraphicsTarget();
             try {
                 draw(recording);
                 recording.EndRecording();
