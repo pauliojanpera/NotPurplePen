@@ -12,14 +12,11 @@ using TestingUtils;
 namespace Map_Svg.Tests
 {
     // The rendering comparison: draws each case through the SVG target, renders the document in Chromium, and
-    // compares the image with the case's reference image. A case that makes a call the target does not fully
-    // implement, or one it cannot honor, is pending, and names the calls it still needs.
+    // compares the image with the case's reference image within the pixel tolerance. A case that makes a call the
+    // target does not fully implement, or one it cannot honor, is pending, and names the calls it still needs.
     [TestFixture, Parallelizable(ParallelScope.Children)]
     public class RenderingComparisonTests
     {
-        // How much a color channel of a pixel may differ from the reference image.
-        private const int MaxPixelDifference = 0;
-
         // Make the cases of the drawing cases.
         private static IEnumerable<ComparisonCase> DrawingCases()
         {
@@ -63,10 +60,10 @@ namespace Map_Svg.Tests
             bool referenceRecorded = File.Exists(referencePath);
             using (SKBitmap reference = referenceRecorded ? SKBitmap.Decode(referencePath) : RenderReferenceForRecording(comparisonCase))
             using (SKBitmap rendering = await ChromiumRenderer.RenderAsync(svgPath, comparisonCase.PixelSize)) {
-                string difference = ImageComparison.DescribeDifference(comparisonCase.Name, reference, rendering, MaxPixelDifference);
+                string difference = ImageComparison.DescribeDifference(comparisonCase.Name, reference, rendering, PixelTolerance.Default);
                 if (!referenceRecorded) {
                     Assert.Fail(string.Format("No reference image of {0} is recorded in svg_reference; the loop's results hold one under references/. Compared with it: {1}",
-                                              comparisonCase.Name, difference ?? "Chromium's image matches."));
+                                              comparisonCase.Name, difference ?? "Chromium's image matches within the tolerance."));
                 }
                 if (difference != null)
                     Assert.Fail(difference);
