@@ -688,6 +688,19 @@ namespace PurplePen.MapModel
             }
         }
 
+        // The EPSG code of the coordinate system, however the map names it: the code it was given, or the code of its
+        // OCAD grid and zone, or 0 when it has neither. Epsg holds only a code the map was given.
+        public int CoordinateSystemEpsg
+        {
+            get
+            {
+                if (epsg != 0)
+                    return epsg;
+                else
+                    return OcadToProj4Projection.EpsgCodeFromOcadProjectionId(realWorldGridAndZone);
+            }
+        }
+
         // The string that the Proj4 libraries used to identify a projection.
         public string Proj4String
         {
