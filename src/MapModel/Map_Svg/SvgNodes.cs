@@ -3,7 +3,7 @@ using System.Text;
 
 namespace PurplePen.MapModel
 {
-    // A node of a document being written: a shape, a group of nodes, or a reference to a part.
+    // A node of a document being written: a drawn element, a group of nodes, or a reference to a part.
     public abstract class SvgNode
     {
         // The bounds of what the node draws, in its parent's frame.
@@ -14,15 +14,27 @@ namespace PurplePen.MapModel
         public abstract void Write(SvgWriter writer);
     }
 
+    // An element that a drawing call writes. Drawn within an object, it carries the object's number (M-6, S-11).
+    public abstract class SvgElement : SvgNode
+    {
+        // The number of the object the element belongs to, or 0 for none.
+        public int ObjectNumber;
+
+        // Write the number of the element's object, if it belongs to one.
+        // writer: the writer of the document.
+        protected void WriteObjectNumber(SvgWriter writer)
+        {
+            if (ObjectNumber != 0)
+                writer.Text.Append(" data-o=\"").Append(SvgNumbers.FormatInteger(ObjectNumber)).Append('"');
+        }
+    }
+
     // A shape drawn with one style: a path, a circle or an ellipse (F-3). Its element carries its class, the number of
     // its object, if any, and its geometry, and nothing else (S-4, S-11).
-    public abstract class SvgShape : SvgNode
+    public abstract class SvgShape : SvgElement
     {
         // The shape's style, which names its class when it is written (S-4).
         protected readonly SvgStyle Style;
-
-        // The number of the object the shape belongs to, or 0 for none (M-6).
-        public int ObjectNumber;
 
         // Create a shape.
         // style: its style.
@@ -36,8 +48,7 @@ namespace PurplePen.MapModel
         {
             string className = writer.ClassOf(Style.Resolve(writer));
             writer.Text.Append('<').Append(ElementName).Append(" class=\"").Append(className).Append('"');
-            if (ObjectNumber != 0)
-                writer.Text.Append(" data-o=\"").Append(SvgNumbers.FormatInteger(ObjectNumber)).Append('"');
+            WriteObjectNumber(writer);
             writer.Text.Append(' ');
             AppendGeometry(writer.Text);
             writer.Text.Append("/>\n");

@@ -480,7 +480,7 @@ namespace PurplePen.MapModel
         {
             SvgStyle stroke = GetPen(penKey, nameof(DrawArc));
             if (Math.Abs(sweepAngle) >= 360) {
-                AddShape(EllipseShape(stroke, center, radius, radius), nameof(DrawArc));
+                AddElement(EllipseShape(stroke, center, radius, radius), nameof(DrawArc));
                 return;
             }
 
@@ -500,14 +500,14 @@ namespace PurplePen.MapModel
         public void DrawEllipse(object penKey, PointF center, float radiusX, float radiusY)
         {
             SvgStyle stroke = GetPen(penKey, nameof(DrawEllipse));
-            AddShape(EllipseShape(stroke, center, radiusX, radiusY), nameof(DrawEllipse));
+            AddElement(EllipseShape(stroke, center, radiusX, radiusY), nameof(DrawEllipse));
         }
 
         // Fill an ellipse with a brush, as a circle when its radii are equal (D-4).
         public void FillEllipse(object brushKey, PointF center, float radiusX, float radiusY)
         {
             SvgStyle fill = GetFill(brushKey, nameof(FillEllipse));
-            AddShape(EllipseShape(fill, center, radiusX, radiusY), nameof(FillEllipse));
+            AddElement(EllipseShape(fill, center, radiusX, radiusY), nameof(FillEllipse));
         }
 
         // Draw a rectangle with a pen, as a closed path (D-4).
@@ -710,15 +710,15 @@ namespace PurplePen.MapModel
             } while (closed.Opener != opener);
         }
 
-        // Add a shape within the innermost open group, as an element of the object begun last, if it has not ended.
-        // shape: the shape.
+        // Add an element within the innermost open group, as an element of the object begun last, if it has not ended.
+        // element: the element.
         // callName: the name of the call that draws it.
-        private void AddShape(SvgShape shape, string callName)
+        private void AddElement(SvgElement element, string callName)
         {
             RequireOpenPart(callName);
             if (openObjectKey != null)
-                shape.ObjectNumber = document.NumberOf(openObjectKey);
-            openGroups.Peek().Group.Children.Add(shape);
+                element.ObjectNumber = document.NumberOf(openObjectKey);
+            openGroups.Peek().Group.Children.Add(element);
         }
 
         // Add a path shape within the innermost open group, unless the path is empty and draws nothing.
@@ -729,7 +729,7 @@ namespace PurplePen.MapModel
         {
             RequireOpenPart(callName);
             if (!path.IsEmpty)
-                AddShape(new SvgPath(style, path), callName);
+                AddElement(new SvgPath(style, path), callName);
         }
 
         // Add a brush under a key.
