@@ -27,8 +27,9 @@ The SVG loop, `.github/workflows/svg.yml`, and the machine check of the Windows 
 - **Environment.** Linux with the .NET 10 SDK, PowerShell, Node with Playwright, and Python 3 with NumPy, SciPy and Pillow. In a cloud session, install the SDK with `dotnet-install.sh --channel 10.0 --azure-feed https://dotnetcli.blob.core.windows.net/dotnet`. Build `src/MapModel/Map_Svg.Tests`, then install Playwright's pinned Chromium with `bin/Debug/net10.0/playwright.ps1 install --only-shell chromium` (PowerShell from its GitHub release). Where GitHub's releases are out of reach, PowerShell installs as the .NET tool `PowerShell` from NuGet. The Playwright package's own driver also installs the browser without PowerShell: `bin/Debug/net10.0/.playwright/node/linux-x64/node bin/Debug/net10.0/.playwright/package/cli.js install --only-shell chromium`. The hosts this needs are api.nuget.org, dotnetcli.blob.core.windows.net, cdn.playwright.dev and storage.googleapis.com. A sparse checkout of `src/DotSpatialProjectionsLite`, `src/MapModel/{Graphics2D,MapModel,Map_Skia.Tests,Map_SkiaStd,Map_Svg,Map_Svg.Tests,RenderingTestCases}`, `src/MapModel/TestFiles/{pdfrender,rendering,skia_render,svg_reference}` and `src/Testing` builds and runs the SVG tests. The application's phases need `src/PurplePenCore`, `src/AvPurplePen`, `src/PurplePenViewModels` and their tests too.
 - **Local run.** Run `dotnet test` on `src/MapModel/Map_Svg.Tests` with `SVG_LOOP_RESULTS` naming a results directory. The run reproduces the loop's measurements, documents and reference images byte for byte, and takes about two minutes.
 - **Loop run.**
-  - Rebuild `svg/svg-target` as one merge commit of `origin/base` and `origin/feature/svg-target`: `git merge-tree --write-tree`, then `git commit-tree`.
-  - Push it with `--force-with-lease`, and follow the run through the GitHub API.
+  - Start it by hand on the feature branch: `gh workflow run svg.yml -R pauliojanpera/NotPurplePen --ref dev -f ref=feature/svg-target`. The runner merges `base` into the branch, and the check run is attached to the branch's tip. `gh run list --workflow=svg.yml --event=workflow_dispatch --limit 1` gives the run's id; wait for it in the background, not by asking the API again and again.
+  - To run the loop with a change to the workflow or its scripts, rebuild `svg/svg-target` instead, as one merge commit of the `ci/` branch, or `origin/base`, and `origin/feature/svg-target` (`git merge-tree --write-tree`, then `git commit-tree`), and push it with `--force-with-lease`.
+  - The summary's "Since the previous run" says what changed from the results the branch held before, and `changes.md` lists each change; read them first.
   - Read `summary.md`, `failures.md` and `pending.tsv` on `svg-results/svg-target`. Its `measurements/`, `references/`, `differences/` and `renderings/` hold the numbers and images of the comparison.
   - A run whose tests pass can still fail in "Publish the results", when GitHub answers the push of the results with an Internal Server Error, as loop run 39985693403 first did. Its results are kept as the artifact `svg-loop-<name>` all the same; re-run its failed job to publish them.
   - Work on a branch beside `feature/svg-target` runs the same way on `svg/<name>`, with its results on `svg-results/<name>`.
@@ -54,7 +55,7 @@ The SVG loop, `.github/workflows/svg.yml`, and the machine check of the Windows 
 
 | Phase | Status |
 | --- | --- |
-| 1, the development loop | Done. The dispatch mode of `svg.yml`, on `dev`, the default branch, since 7d1ce11, is still untried. |
+| 1, the development loop | Done. Since Oct 23 the results push is retried and the summary reports what changed since the previous run (`ci/svg-loop-report`, on `base` as 05873a9 and on `dev` as eb4d05d); the dispatch mode works, first run 40024278778. |
 | 2, drawing, structure, layout, color and georeferencing | Done: steps 1 to 4, and the full run green. F-6, checked by hand, waits on @Pauli. |
 | 3, the export in the application and course data | Not started. @Pauli left the order of phases 3 and 4 to the executor, and the task list takes phase 4 first. |
 | 4, text and bitmaps | Step 1, bitmaps, done; step 2, text, not started |
@@ -80,13 +81,7 @@ The calls the target fully implements, in the sense of DL-5: `Intensity`, `PushT
 
 In order of priority. A task ends with its commits on `feature/svg-target`, its loop green, the gallery and this file brought up to date.
 
-1. **The loop's first improvements**, before text (see "The loop's improvements" under Decisions):
-   - retry the push of the results in `svg.yml`'s "Publish the results";
-   - report in `summary.md` what changed since the results the branch held before: cases newly drawn, failing or pending, changed measurements, and the size of each SVG;
-   - try `svg.yml`'s dispatch mode on `feature/svg-target`, and run the loop that way instead of through `svg/` merge commits if it works.
-
-   They change `base`'s workflow and scripts, so they go on a `ci/` branch landed on `base` and `dev`, as `ci/mixed-runner-images` was.
-2. **Text (T-1 to T-10).** Not started; it unblocks 84 cases. It covers:
+1. **Text (T-1 to T-10).** Not started; it unblocks 84 cases. It covers:
    - fonts with open licences kept in the repository, which the SVG tests register under the families the test maps use, so that the text references do not move with the runner's font packages;
    - `DrawText` and `DrawTextOutline` with the injected `ITextMetrics`;
    - a check of where Chromium puts each character, read through the SVG DOM in the test page and compared in millimetres with the glyph positions of Skia's shaping, which PDF export writes;
@@ -96,18 +91,18 @@ In order of priority. A task ends with its commits on `feature/svg-target`, its 
    - the text cases' own tolerance (T-10).
 
    Check the tolerance again with `SvgTolerance/` once the cases come.
-3. **Phase 3: the export in the application (A-1 to A-7, CD-1 to CD-3, V-2, V-4, V-5, V-7).** Not started. Work in stages:
+2. **Phase 3: the export in the application (A-1 to A-7, CD-1 to CD-3, V-2, V-4, V-5, V-7).** Not started. Work in stages:
    - a short design of where the export lives, how it shares `CoursePdf`'s layout code (A-3) and how `MapDisplay` draws a map's parts and a course part's layers apart (A-4);
    - the few `IStructuredGraphicsTarget` calls the course data needs (CD-1 to CD-3);
    - the core: `CourseSvgSettings`, the writer and the baseline tests. The writer gives each map that has one its georeference, `SetGeoreference(mapKey, coordinateMapper.GetMapGeoreference())`, once the map has begun (G-1, G-2, A-5). It passes the bitmap handling the user chose as `SvgBitmapOptions`, storing a linked bitmap beside the SVG through `storeLinkedBitmap` (B-4), and draws at full intensity (B-6);
    - the Avalonia command and dialog, to `AGENTS.md`'s conventions (A-1, A-6, A-7).
 
    Each stage gets a `wip/linux/` run for the Windows suite. The baseline tests also export one course to PDF and to SVG and compare each color's CMYK values.
-4. **The loop's later improvements:**
+3. **The loop's later improvements:**
    - keep every Chromium rendering in the run's artifact, so that the gallery and the tolerance checks need no local Chromium;
    - mark the calls the target will never honor, such as a bitmap drawn lighter (B-6), apart in `pending.tsv` and the summary;
    - after text, read each SVG back into page coordinates and compare its geometry with the case's drawing calls, within a step.
-5. **Keep the record.** Bring this file up to date whenever a task ends or changes hands, and keep the gallery current: about every 30 minutes of work.
+4. **Keep the record.** Bring this file up to date whenever a task ends or changes hands, and keep the gallery current: about every 30 minutes of work.
 
 ## Decisions
 
