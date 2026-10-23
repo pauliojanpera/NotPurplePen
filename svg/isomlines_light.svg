@@ -1,0 +1,920 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="1498mm" height="1079mm" viewBox="0 0 1498 1079">
+<style>
+.a{fill:none;stroke:#f5d9c2;stroke:#f5d9c2 icc-color(cmyk,0,.112,.2,.038);stroke-width:1440;stroke-miterlimit:5}
+.b{fill:none;stroke:#f5d9c2;stroke:#f5d9c2 icc-color(cmyk,0,.112,.2,.038);stroke-width:1020;stroke-miterlimit:5}
+.c{fill:none;stroke:#f5d9c2;stroke:#f5d9c2 icc-color(cmyk,0,.112,.2,.038);stroke-width:720;stroke-linejoin:bevel}
+.d{fill:none;stroke:#f5d9c2;stroke:#f5d9c2 icc-color(cmyk,0,.112,.2,.038);stroke-width:720;stroke-miterlimit:5}
+.e{fill:none;stroke:#edb487;stroke:#edb487 icc-color(cmyk,0,.224,.4,.072000004);stroke-width:210;stroke-linecap:round;stroke-linejoin:round}
+.f{fill:none;stroke:#edb487;stroke:#edb487 icc-color(cmyk,0,.224,.4,.072000004);stroke-width:380;stroke-linecap:round;stroke-linejoin:round}
+.g{fill:none;stroke:#edb487;stroke:#edb487 icc-color(cmyk,0,.224,.4,.072000004);stroke-width:210;stroke-linejoin:bevel}
+.h{fill:none;stroke:#edb487;stroke:#edb487 icc-color(cmyk,0,.224,.4,.072000004);stroke-width:270;stroke-linejoin:bevel}
+.i{fill:#edb487;fill:#edb487 icc-color(cmyk,0,.224,.4,.072000004)}
+.j{fill:none;stroke:#edb487;stroke:#edb487 icc-color(cmyk,0,.224,.4,.072000004);stroke-width:380;stroke-linecap:round;stroke-linejoin:bevel}
+.k{fill:none;stroke:#a6edff;stroke:#a6edff icc-color(cmyk,.34800002,.072000004,0,0);stroke-width:380;stroke-linejoin:bevel}
+.l{fill:none;stroke:#a6edff;stroke:#a6edff icc-color(cmyk,.34800002,.072000004,0,0);stroke-width:210;stroke-linejoin:bevel}
+.m{fill:#a6edff;fill:#a6edff icc-color(cmyk,.34800002,.072000004,0,0)}
+.n{fill:none;stroke:#a6edff;stroke:#a6edff icc-color(cmyk,.34800002,.072000004,0,0);stroke-width:270;stroke-linejoin:bevel}
+.o{fill:none;stroke:#ccc;stroke:#ccc icc-color(cmyk,0,0,0,.2);stroke-width:380;stroke-linejoin:round}
+.p{fill:none;stroke:#999;stroke:#999 icc-color(cmyk,0,0,0,.4);stroke-width:270;stroke-linejoin:round}
+.q{fill:none;stroke:#f9e8db;stroke:#f9e8db icc-color(cmyk,0,.068,.120000005,.022);stroke-width:750;stroke-miterlimit:5}
+.r{fill:none;stroke:#f5d9c2;stroke:#f5d9c2 icc-color(cmyk,0,.112,.2,.038);stroke-width:1170;stroke-miterlimit:5}
+.s{fill:none;stroke:#f5d9c2;stroke:#f5d9c2 icc-color(cmyk,0,.112,.2,.038);stroke-width:750;stroke-miterlimit:5}
+.t{fill:none;stroke:#f5d9c2;stroke:#f5d9c2 icc-color(cmyk,0,.112,.2,.038);stroke-width:450;stroke-miterlimit:5}
+.u{fill:none;stroke:#fff;stroke:#fff icc-color(cmyk,0,0,0,0);stroke-width:380;stroke-linejoin:bevel}
+.v{fill:none;stroke:#999;stroke:#999 icc-color(cmyk,0,0,0,.4);stroke-width:520;stroke-linejoin:bevel}
+.w{fill:none;stroke:#999;stroke:#999 icc-color(cmyk,0,0,0,.4);stroke-width:180;stroke-linejoin:bevel}
+.x{fill:none;stroke:#999;stroke:#999 icc-color(cmyk,0,0,0,.4);stroke-width:270;stroke-linejoin:bevel}
+.y{fill:none;stroke:#999;stroke:#999 icc-color(cmyk,0,0,0,.4);stroke-width:380;stroke-linejoin:bevel}
+.z{fill:#999;fill:#999 icc-color(cmyk,0,0,0,.4)}
+.A{fill:none;stroke:#999;stroke:#999 icc-color(cmyk,0,0,0,.4);stroke-width:210;stroke-linejoin:bevel}
+.B{fill:none;stroke:#999;stroke:#999 icc-color(cmyk,0,0,0,.4);stroke-width:210;stroke-linejoin:round}
+.C{fill:none;stroke:#999;stroke:#999 icc-color(cmyk,0,0,0,.4);stroke-width:270;stroke-linecap:round;stroke-linejoin:round}
+.D{fill:none;stroke:#999;stroke:#999 icc-color(cmyk,0,0,0,.4);stroke-width:270;stroke-miterlimit:5}
+.E{fill:none;stroke:#999;stroke:#999 icc-color(cmyk,0,0,0,.4);stroke-width:240;stroke-linejoin:bevel}
+.F{fill:#999;fill:#999 icc-color(cmyk,0,0,0,.4);fill-rule:evenodd}
+.G{fill:none;stroke:#999;stroke:#999 icc-color(cmyk,0,0,0,.4);stroke-width:150;stroke-linejoin:bevel}
+.H{fill:none;stroke:#a2ffaa;stroke:#a2ffaa icc-color(cmyk,.36400002,0,.332,0);stroke-width:750;stroke-linejoin:bevel}
+.I{fill:#a2ffaa;fill:#a2ffaa icc-color(cmyk,.36400002,0,.332,0)}
+.J{fill:none;stroke:#a2ffaa;stroke:#a2ffaa icc-color(cmyk,.36400002,0,.332,0);stroke-width:750;stroke-miterlimit:5}
+.K{fill:none;stroke:#f9f;stroke:#f9f icc-color(cmyk,0,.4,0,0);stroke-width:520;stroke-linejoin:bevel}
+.L{fill:none;stroke:#f9f;stroke:#f9f icc-color(cmyk,0,.4,0,0);stroke-width:1050;stroke-linejoin:bevel}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="isomlines_light">
+<npp:color position="12" name="Brown 50%" cmyk="0,.28,.5,.095"/>
+<npp:color position="18" name="Brown" cmyk="0,.56,1,.18" overprint="1"/>
+<npp:color position="21" name="Blue" cmyk=".87,.18,0,0" overprint="1"/>
+<npp:color position="22" name="Street borderlines 50%" cmyk="0,0,0,.5"/>
+<npp:color position="23" name="Street borderlines" cmyk="0,0,0,1" overprint="1"/>
+<npp:color position="24" name="Street infill 30%" cmyk="0,.17,.3,.055"/>
+<npp:color position="25" name="Street infill" cmyk="0,.28,.5,.095"/>
+<npp:color position="26" name="White for road under construct." cmyk="0,0,0,0"/>
+<npp:color position="27" name="Black" cmyk="0,0,0,1" overprint="1"/>
+<npp:color position="28" name="Green for Ski-O" cmyk=".91,0,.83,0" overprint="1"/>
+<npp:color position="32" name="Purple" cmyk="0,1,0,0" overprint="1"/>
+<npp:symbol n="1" id="501.0" name="Motorway" colors="12 23 25 27"/>
+<npp:symbol n="2" id="501.1" name="Motorway under construction" colors="12 23 25 26 27"/>
+<npp:symbol n="3" id="502.0" name="Major road" colors="12 23 25"/>
+<npp:symbol n="4" id="502.1" name="Major road under construction" colors="12 23 25 26"/>
+<npp:symbol n="5" id="503.0" name="Minor road" colors="12 23 25"/>
+<npp:symbol n="6" id="503.1" name="Minor road under construction" colors="12 23 25 26"/>
+<npp:symbol n="7" id="101.0" name="Contour" colors="18"/>
+<npp:symbol n="8" id="102.0" name="Index Contour" colors="18"/>
+<npp:symbol n="9" id="103.0" name="Form line" colors="18"/>
+<npp:symbol n="10" id="106.0" name="Earth bank" colors="18"/>
+<npp:symbol n="11" id="106.1" name="Earth bank: main line" colors="18"/>
+<npp:symbol n="12" id="106.2" name="Earth bank: tag line" colors="18"/>
+<npp:symbol n="13" id="107.0" name="Earth wall" colors="18"/>
+<npp:symbol n="14" id="108.0" name="Small earth wall" colors="18"/>
+<npp:symbol n="15" id="109.0" name="Erosion gully" colors="18"/>
+<npp:symbol n="16" id="110.0" name="Small erosion gully" colors="18"/>
+<npp:symbol n="17" id="305.0" name="Crossable watercourse" colors="21"/>
+<npp:symbol n="18" id="306.0" name="Crossable small watercourse" colors="21"/>
+<npp:symbol n="19" id="307.0" name="Minor water channel" colors="21"/>
+<npp:symbol n="20" id="308.0" name="Narrow marsh" colors="21"/>
+<npp:symbol n="21" id="601.1" name="Magnetic north line" colors="21"/>
+<npp:symbol n="22" id="861.1" name="Road without car traffic" colors="22 24"/>
+<npp:symbol n="23" id="861.3" name="Road without car tr. under cons" colors="22 24 26"/>
+<npp:symbol n="24" id="862.1" name="Stairway" colors="22 24 27"/>
+<npp:symbol n="25" id="861.0" name="Road without car traffic" colors="23 24"/>
+<npp:symbol n="26" id="861.2" name="Road without car tr. under cons" colors="23 24 26"/>
+<npp:symbol n="27" id="862.0" name="Stairway" colors="23 24 27"/>
+<npp:symbol n="28" id="201.0" name="Impassable cliff" colors="27"/>
+<npp:symbol n="29" id="201.1" name="Impassable cliff" colors="27"/>
+<npp:symbol n="30" id="203.0" name="Passable rock face" colors="27"/>
+<npp:symbol n="31" id="203.1" name="Passable rock face" colors="27"/>
+<npp:symbol n="32" id="301.1" name="Bank line" colors="27"/>
+<npp:symbol n="33" id="309.1" name="Bank line" colors="27"/>
+<npp:symbol n="34" id="414.0" name="Distinct cultivation boundary" colors="27"/>
+<npp:symbol n="35" id="416.0" name="Distinct vegetation boundary" colors="27"/>
+<npp:symbol n="36" id="504.0" name="Road" colors="27"/>
+<npp:symbol n="37" id="505.0" name="Vehicle track" colors="27"/>
+<npp:symbol n="38" id="506.0" name="Footpath" colors="27"/>
+<npp:symbol n="39" id="507.0" name="Small footpath" colors="27"/>
+<npp:symbol n="40" id="508.0" name="Less distinct small path" colors="27"/>
+<npp:symbol n="41" id="509.0" name="Narrow ride" colors="27"/>
+<npp:symbol n="42" id="515.0" name="Railway" colors="27"/>
+<npp:symbol n="43" id="516.0" name="Power line" colors="27"/>
+<npp:symbol n="44" id="517.0" name="Major power line" colors="27"/>
+<npp:symbol n="45" id="518.0" name="Tunnel" colors="27"/>
+<npp:symbol n="46" id="519.0" name="Stone wall" colors="27"/>
+<npp:symbol n="47" id="520.0" name="Ruined stone wall" colors="27"/>
+<npp:symbol n="48" id="521.0" name="High stone wall" colors="27"/>
+<npp:symbol n="49" id="522.0" name="Fence" colors="27"/>
+<npp:symbol n="50" id="523.0" name="Ruined fence" colors="27"/>
+<npp:symbol n="51" id="524.0" name="High fence" colors="27"/>
+<npp:symbol n="52" id="528.1" name="Bounding line" colors="27"/>
+<npp:symbol n="53" id="529.1" name="Bounding line" colors="27"/>
+<npp:symbol n="54" id="530.0" name="Ruin" colors="27"/>
+<npp:symbol n="55" id="531.0" name="Firing range" colors="27"/>
+<npp:symbol n="56" id="531.1" name="Firing range: target" colors="27"/>
+<npp:symbol n="57" id="533.0" name="Crossable pipeline" colors="27"/>
+<npp:symbol n="58" id="534.0" name="Uncrossable pipeline" colors="27"/>
+<npp:symbol n="59" id="601.0" name="Magnetic north line" colors="27"/>
+<npp:symbol n="60" id="801.0" name="Track &gt; 2 m" colors="28"/>
+<npp:symbol n="61" id="802.0" name="Track 1-2 m" colors="28"/>
+<npp:symbol n="62" id="803.0" name="Track 0.8-1 m" colors="28"/>
+<npp:symbol n="63" id="804.0" name="Road covered with snow" colors="28"/>
+<npp:symbol n="64" id="805.0" name="Sanded or snowless road" colors="28"/>
+<npp:symbol n="65" id="704.0" name="Line" colors="32"/>
+<npp:symbol n="66" id="705.0" name="Marked route" colors="32"/>
+<npp:symbol n="67" id="707.0" name="Uncrossable boundary" colors="32"/>
+</npp:map>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="b">
+<path d="M-32268-14476h51518v37109h-51518z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g data-c="12">
+<g data-s="1">
+<path class="a" data-o="1" d="M-18920 16720h9000"/>
+</g>
+<g data-s="2">
+<path class="a" data-o="2" d="M-18800 14080h8760"/>
+</g>
+<g data-s="3">
+<path class="b" data-o="3" d="M-18800 11760h8840"/>
+</g>
+<g data-s="4">
+<path class="b" data-o="4" d="M-18840 9800h8840"/>
+</g>
+<g data-s="5">
+<path class="c" data-o="5" d="M-18680 7960h8680"/>
+</g>
+<g data-s="6">
+<path class="d" data-o="6" d="M-18760 6200h8680"/>
+</g>
+</g>
+<g data-c="18">
+<g data-s="7">
+<path class="e" data-o="7" d="M-29920 19360h9880"/>
+</g>
+<g data-s="8">
+<path class="f" data-o="8" d="M-30000 18040h10000"/>
+</g>
+<g data-s="9">
+<path class="g" data-o="9" d="M-30000 16640h1680"/>
+<path class="g" data-o="9" d="M-27940 16640h1680"/>
+<path class="g" data-o="9" d="M-25880 16640h1680"/>
+<path class="g" data-o="9" d="M-23820 16640h1680"/>
+<path class="g" data-o="9" d="M-21760 16640h1680"/>
+</g>
+<g data-s="10">
+<path class="h" data-o="10" d="M-30000 15480h10040"/>
+<g transform="translate(-29433 15480)">
+<path class="g" data-o="10" d="M0 0v-900"/>
+</g>
+<g transform="translate(-28320 15480)">
+<path class="g" data-o="10" d="M0 0v-900"/>
+</g>
+<g transform="translate(-27207 15480)">
+<path class="g" data-o="10" d="M0 0v-900"/>
+</g>
+<g transform="translate(-26093 15480)">
+<path class="g" data-o="10" d="M0 0v-900"/>
+</g>
+<g transform="translate(-24980 15480)">
+<path class="g" data-o="10" d="M0 0v-900"/>
+</g>
+<g transform="translate(-23867 15480)">
+<path class="g" data-o="10" d="M0 0v-900"/>
+</g>
+<g transform="translate(-22753 15480)">
+<path class="g" data-o="10" d="M0 0v-900"/>
+</g>
+<g transform="translate(-21640 15480)">
+<path class="g" data-o="10" d="M0 0v-900"/>
+</g>
+<g transform="translate(-20527 15480)">
+<path class="g" data-o="10" d="M0 0v-900"/>
+</g>
+</g>
+<g data-s="11">
+<path class="h" data-o="11" d="M-30040 13480h10000"/>
+</g>
+<g data-s="12">
+<path class="g" data-o="12" d="M-30040 11880h10080"/>
+</g>
+<g data-s="13">
+<path class="g" data-o="13" d="M-29960 10480h9880"/>
+<circle class="i" data-o="13" cx="-28310" cy="10480" r="300"/>
+<circle class="i" data-o="13" cx="-25020" cy="10480" r="300"/>
+<circle class="i" data-o="13" cx="-21730" cy="10480" r="300"/>
+</g>
+<g data-s="14">
+<path class="g" data-o="14" d="M-30000 8920h3131"/>
+<path class="g" data-o="14" d="M-26489 8920h2938"/>
+<path class="g" data-o="14" d="M-23171 8920h3131"/>
+<circle class="i" data-o="14" cx="-28337" cy="8920" r="300"/>
+<circle class="i" data-o="14" cx="-25020" cy="8920" r="300"/>
+<circle class="i" data-o="14" cx="-21703" cy="8920" r="300"/>
+</g>
+<g data-s="15">
+<path class="j" data-o="15" d="M-28840 7360h7640"/>
+<path class="i" data-o="15" d="M-29960 7360l560-127 560-63v380l-560-63z"/>
+<path class="i" data-o="15" d="M-20080 7360l-560-127-560-63v380l560-63z"/>
+</g>
+<g data-s="16">
+<circle class="i" data-o="16" cx="-29960" cy="5960" r="190"/>
+<circle class="i" data-o="16" cx="-29197" cy="5960" r="190"/>
+<circle class="i" data-o="16" cx="-28434" cy="5960" r="190"/>
+<circle class="i" data-o="16" cx="-27671" cy="5960" r="190"/>
+<circle class="i" data-o="16" cx="-26908" cy="5960" r="190"/>
+<circle class="i" data-o="16" cx="-26145" cy="5960" r="190"/>
+<circle class="i" data-o="16" cx="-25382" cy="5960" r="190"/>
+<circle class="i" data-o="16" cx="-24618" cy="5960" r="190"/>
+<circle class="i" data-o="16" cx="-23855" cy="5960" r="190"/>
+<circle class="i" data-o="16" cx="-23092" cy="5960" r="190"/>
+<circle class="i" data-o="16" cx="-22329" cy="5960" r="190"/>
+<circle class="i" data-o="16" cx="-21566" cy="5960" r="190"/>
+<circle class="i" data-o="16" cx="-20803" cy="5960" r="190"/>
+<circle class="i" data-o="16" cx="-20040" cy="5960" r="190"/>
+</g>
+</g>
+<g data-c="21">
+<g data-s="17">
+<path class="k" data-o="17" d="M-29960-4400h10040"/>
+</g>
+<g data-s="18">
+<path class="l" data-o="18" d="M-30000-5640h9960"/>
+</g>
+<g data-s="19">
+<path class="l" data-o="19" d="M-29960-6960h1712"/>
+<path class="l" data-o="19" d="M-27868-6960h1712"/>
+<path class="l" data-o="19" d="M-25776-6960h1712"/>
+<path class="l" data-o="19" d="M-23684-6960h1712"/>
+<path class="l" data-o="19" d="M-21592-6960h1712"/>
+</g>
+<g data-s="20">
+<circle class="m" data-o="20" cx="-30000" cy="-8200" r="190"/>
+<circle class="m" data-o="20" cx="-29228" cy="-8200" r="190"/>
+<circle class="m" data-o="20" cx="-28455" cy="-8200" r="190"/>
+<circle class="m" data-o="20" cx="-27683" cy="-8200" r="190"/>
+<circle class="m" data-o="20" cx="-26911" cy="-8200" r="190"/>
+<circle class="m" data-o="20" cx="-26138" cy="-8200" r="190"/>
+<circle class="m" data-o="20" cx="-25366" cy="-8200" r="190"/>
+<circle class="m" data-o="20" cx="-24594" cy="-8200" r="190"/>
+<circle class="m" data-o="20" cx="-23822" cy="-8200" r="190"/>
+<circle class="m" data-o="20" cx="-23049" cy="-8200" r="190"/>
+<circle class="m" data-o="20" cx="-22277" cy="-8200" r="190"/>
+<circle class="m" data-o="20" cx="-21505" cy="-8200" r="190"/>
+<circle class="m" data-o="20" cx="-20732" cy="-8200" r="190"/>
+<circle class="m" data-o="20" cx="-19960" cy="-8200" r="190"/>
+</g>
+<g data-s="21">
+<path class="n" data-o="21" d="M-8440-8200H40"/>
+</g>
+</g>
+<g data-c="22">
+<g data-s="22">
+<path class="o" data-o="22" d="M1560-2595h11640"/>
+<path class="o" data-o="22" d="M1560-3725h11640"/>
+</g>
+<g data-s="23">
+<path class="o" data-o="23" d="M1600-6835h11580"/>
+<path class="o" data-o="23" d="M1600-7965h11580"/>
+</g>
+<g data-s="24">
+<path class="o" data-o="24" d="M16485-560v-9000"/>
+<path class="o" data-o="24" d="M15355-560v-9000"/>
+</g>
+</g>
+<g data-c="23">
+<g data-s="1">
+<path class="p" data-o="1" d="M-18920 17440h9000"/>
+<path class="p" data-o="1" d="M-18920 16000h9000"/>
+</g>
+<g data-s="2">
+<path class="p" data-o="2" d="M-18800 14800h8760"/>
+<path class="p" data-o="2" d="M-18800 13360h8760"/>
+</g>
+<g data-s="3">
+<path class="p" data-o="3" d="M-18800 12270h8840"/>
+<path class="p" data-o="3" d="M-18800 11250h8840"/>
+</g>
+<g data-s="4">
+<path class="p" data-o="4" d="M-18840 10310h8840"/>
+<path class="p" data-o="4" d="M-18840 9290h8840"/>
+</g>
+<g data-s="5">
+<path class="p" data-o="5" d="M-18680 8320h8680"/>
+<path class="p" data-o="5" d="M-18680 7600h8680"/>
+</g>
+<g data-s="6">
+<path class="p" data-o="6" d="M-18760 6560h8680"/>
+<path class="p" data-o="6" d="M-18760 5840h8680"/>
+</g>
+<g data-s="25">
+<path class="p" data-o="25" d="M1640-610h11200"/>
+<path class="p" data-o="25" d="M1640-1630h11200"/>
+</g>
+<g data-s="26">
+<path class="p" data-o="26" d="M1600-4890h11540"/>
+<path class="p" data-o="26" d="M1600-5910h11540"/>
+</g>
+<g data-s="27">
+<path class="p" data-o="27" d="M1802-9050l11180-40"/>
+<path class="p" data-o="27" d="M1798-10070l11180-40"/>
+</g>
+</g>
+<g data-c="24">
+<g data-s="25">
+<path class="q" data-o="25" d="M1640-1120h11200"/>
+</g>
+<g data-s="22">
+<path class="q" data-o="22" d="M1560-3160h11640"/>
+</g>
+<g data-s="26">
+<path class="q" data-o="26" d="M1600-5400h11540"/>
+</g>
+<g data-s="23">
+<path class="q" data-o="23" d="M1600-7400h11580"/>
+</g>
+<g data-s="27">
+<path class="q" data-o="27" d="M1800-9560l11180-40"/>
+</g>
+<g data-s="24">
+<path class="q" data-o="24" d="M15920-560v-9000"/>
+</g>
+</g>
+<g data-c="25">
+<g data-s="1">
+<path class="r" data-o="1" d="M-18920 16720h9000"/>
+</g>
+<g data-s="2">
+<path class="r" data-o="2" d="M-18800 14080h8760"/>
+</g>
+<g data-s="3">
+<path class="s" data-o="3" d="M-18800 11760h8840"/>
+</g>
+<g data-s="4">
+<path class="s" data-o="4" d="M-18840 9800h8840"/>
+</g>
+<g data-s="5">
+<path class="t" data-o="5" d="M-18680 7960h8680"/>
+</g>
+<g data-s="6">
+<path class="t" data-o="6" d="M-18760 6200h8680"/>
+</g>
+</g>
+<g data-c="26">
+<g data-s="2">
+<g transform="translate(-16610 14080)">
+<path class="u" data-o="2" d="M0 850V-860"/>
+</g>
+<g transform="translate(-12230 14080)">
+<path class="u" data-o="2" d="M0 850V-860"/>
+</g>
+</g>
+<g data-s="4">
+<g transform="translate(-16630 9800)">
+<path class="u" data-o="4" d="M0 660V-660"/>
+</g>
+<g transform="translate(-12210 9800)">
+<path class="u" data-o="4" d="M0 660V-660"/>
+</g>
+</g>
+<g data-s="6">
+<g transform="translate(-16590 6200)">
+<path class="u" data-o="6" d="M0 510V-510"/>
+</g>
+<g transform="translate(-12250 6200)">
+<path class="u" data-o="6" d="M0 510V-510"/>
+</g>
+</g>
+<g data-s="26">
+<g transform="translate(3523-5400)">
+<path class="u" data-o="26" d="M10 640V-650"/>
+</g>
+<g transform="translate(7370-5400)">
+<path class="u" data-o="26" d="M10 640V-650"/>
+</g>
+<g transform="translate(11217-5400)">
+<path class="u" data-o="26" d="M10 640V-650"/>
+</g>
+</g>
+<g data-s="23">
+<g transform="translate(3530-7400)">
+<path class="u" data-o="23" d="M0 750V-750"/>
+</g>
+<g transform="translate(7390-7400)">
+<path class="u" data-o="23" d="M0 750V-750"/>
+</g>
+<g transform="translate(11250-7400)">
+<path class="u" data-o="23" d="M0 750V-750"/>
+</g>
+</g>
+</g>
+<g data-c="27">
+<g data-s="28">
+<path class="v" data-o="28" d="M-30040 4400h10040"/>
+<g transform="translate(-29950 4400)">
+<path class="w" data-o="28" d="M0 0v-750"/>
+</g>
+<g transform="translate(-29054 4400)">
+<path class="w" data-o="28" d="M0 0v-750"/>
+</g>
+<g transform="translate(-28158 4400)">
+<path class="w" data-o="28" d="M0 0v-750"/>
+</g>
+<g transform="translate(-27261 4400)">
+<path class="w" data-o="28" d="M0 0v-750"/>
+</g>
+<g transform="translate(-26365 4400)">
+<path class="w" data-o="28" d="M0 0v-750"/>
+</g>
+<g transform="translate(-25468 4400)">
+<path class="w" data-o="28" d="M0 0v-750"/>
+</g>
+<g transform="translate(-24572 4400)">
+<path class="w" data-o="28" d="M0 0v-750"/>
+</g>
+<g transform="translate(-23675 4400)">
+<path class="w" data-o="28" d="M0 0v-750"/>
+</g>
+<g transform="translate(-22779 4400)">
+<path class="w" data-o="28" d="M0 0v-750"/>
+</g>
+<g transform="translate(-21883 4400)">
+<path class="w" data-o="28" d="M0 0v-750"/>
+</g>
+<g transform="translate(-20986 4400)">
+<path class="w" data-o="28" d="M0 0v-750"/>
+</g>
+<g transform="translate(-20090 4400)">
+<path class="w" data-o="28" d="M0 0v-750"/>
+</g>
+</g>
+<g data-s="29">
+<path class="v" data-o="29" d="M-30040 2160h10040"/>
+</g>
+<g data-s="30">
+<path class="x" data-o="30" d="M-29960 560h9920"/>
+<g transform="translate(-29871 560)">
+<path class="w" data-o="30" d="M0 0v-750"/>
+</g>
+<g transform="translate(-28986 560)">
+<path class="w" data-o="30" d="M0 0v-750"/>
+</g>
+<g transform="translate(-28100 560)">
+<path class="w" data-o="30" d="M0 0v-750"/>
+</g>
+<g transform="translate(-27214 560)">
+<path class="w" data-o="30" d="M0 0v-750"/>
+</g>
+<g transform="translate(-26329 560)">
+<path class="w" data-o="30" d="M0 0v-750"/>
+</g>
+<g transform="translate(-25443 560)">
+<path class="w" data-o="30" d="M0 0v-750"/>
+</g>
+<g transform="translate(-24557 560)">
+<path class="w" data-o="30" d="M0 0v-750"/>
+</g>
+<g transform="translate(-23671 560)">
+<path class="w" data-o="30" d="M0 0v-750"/>
+</g>
+<g transform="translate(-22786 560)">
+<path class="w" data-o="30" d="M0 0v-750"/>
+</g>
+<g transform="translate(-21900 560)">
+<path class="w" data-o="30" d="M0 0v-750"/>
+</g>
+<g transform="translate(-21014 560)">
+<path class="w" data-o="30" d="M0 0v-750"/>
+</g>
+<g transform="translate(-20129 560)">
+<path class="w" data-o="30" d="M0 0v-750"/>
+</g>
+</g>
+<g data-s="31">
+<path class="y" data-o="31" d="M-30080-1480h10040"/>
+</g>
+<g data-s="32">
+<path class="x" data-o="32" d="M-30000-3120h10040"/>
+</g>
+<g data-s="33">
+<path class="x" data-o="33" d="M-30000-9600h10040"/>
+</g>
+<g data-s="34">
+<path class="w" data-o="34" d="M-18680 19360h8600"/>
+</g>
+<g data-s="35">
+<circle class="z" data-o="35" cx="-18720" cy="18120" r="165"/>
+<circle class="z" data-o="35" cx="-17997" cy="18120" r="165"/>
+<circle class="z" data-o="35" cx="-17273" cy="18120" r="165"/>
+<circle class="z" data-o="35" cx="-16550" cy="18120" r="165"/>
+<circle class="z" data-o="35" cx="-15827" cy="18120" r="165"/>
+<circle class="z" data-o="35" cx="-15103" cy="18120" r="165"/>
+<circle class="z" data-o="35" cx="-14380" cy="18120" r="165"/>
+<circle class="z" data-o="35" cx="-13657" cy="18120" r="165"/>
+<circle class="z" data-o="35" cx="-12933" cy="18120" r="165"/>
+<circle class="z" data-o="35" cx="-12210" cy="18120" r="165"/>
+<circle class="z" data-o="35" cx="-11487" cy="18120" r="165"/>
+<circle class="z" data-o="35" cx="-10763" cy="18120" r="165"/>
+<circle class="z" data-o="35" cx="-10040" cy="18120" r="165"/>
+</g>
+<g data-s="1">
+<path class="x" data-o="1" d="M-18920 16720h9000"/>
+</g>
+<g data-s="2">
+<path class="x" data-o="2" d="M-18800 14080h2000"/>
+<path class="x" data-o="2" d="M-16420 14080h4000"/>
+<path class="x" data-o="2" d="M-12040 14080h2000"/>
+</g>
+<g data-s="36">
+<path class="v" data-o="36" d="M-18880 4400h8880"/>
+</g>
+<g data-s="37">
+<path class="v" data-o="37" d="M-18760 2720h4120"/>
+<path class="v" data-o="37" d="M-14120 2720h4120"/>
+</g>
+<g data-s="38">
+<path class="y" data-o="38" d="M-18800 1280h2707"/>
+<path class="y" data-o="38" d="M-15713 1280h2706"/>
+<path class="y" data-o="38" d="M-12627 1280h2707"/>
+</g>
+<g data-s="39">
+<path class="x" data-o="39" d="M-18880 80h1480"/>
+<path class="x" data-o="39" d="M-17020 80h1480"/>
+<path class="x" data-o="39" d="M-15160 80h1480"/>
+<path class="x" data-o="39" d="M-13300 80h1480"/>
+<path class="x" data-o="39" d="M-11440 80h1480"/>
+</g>
+<g data-s="40">
+<path class="x" data-o="40" d="M-18840-1280h1635"/>
+<path class="x" data-o="40" d="M-16825-1280h1635"/>
+<path class="x" data-o="40" d="M-13690-1280h1635"/>
+<path class="x" data-o="40" d="M-11675-1280h1635"/>
+</g>
+<g data-s="41">
+<path class="A" data-o="41" d="M-19000-2920h4185"/>
+<path class="A" data-o="41" d="M-14065-2920h4185"/>
+</g>
+<g data-s="42">
+<path class="v" data-o="42" d="M-18880-4320h8800"/>
+<g transform="translate(-16680-4320)">
+<path class="v" data-o="42" d="M0 790V-800"/>
+</g>
+<g transform="translate(-12280-4320)">
+<path class="v" data-o="42" d="M0 790V-800"/>
+</g>
+</g>
+<g data-s="43">
+<path class="A" data-o="43" d="M-18880-6480h8760"/>
+<g transform="translate(-10120-6480)">
+<path class="A" data-o="43" d="M0 540V-560"/>
+</g>
+</g>
+<g data-s="44">
+<path class="B" data-o="44" d="M-19040-7950h9080"/>
+<path class="B" data-o="44" d="M-19040-9090h9080"/>
+<g transform="translate(-9960-8520)">
+<path class="A" data-o="44" d="M0 1110v-2240"/>
+</g>
+</g>
+<g data-s="45">
+<path class="C" data-o="45" d="M-8360 19080H40"/>
+<g transform="translate(-8360 19080)">
+<path class="D" data-o="45" d="M0 0-450 780"/>
+</g>
+<g transform="translate(40 19080)">
+<path class="D" data-o="45" d="M0 0l450 780"/>
+</g>
+</g>
+<g data-s="46">
+<path class="A" data-o="46" d="M-8480 17360H200"/>
+<circle class="z" data-o="46" cx="-6307" cy="17360" r="300"/>
+<circle class="z" data-o="46" cx="-1973" cy="17360" r="300"/>
+</g>
+<g data-s="47">
+<path class="A" data-o="47" d="M-8560 15400h4230"/>
+<path class="A" data-o="47" d="M-3950 15400H280"/>
+<circle class="z" data-o="47" cx="-6347" cy="15400" r="300"/>
+<circle class="z" data-o="47" cx="-1933" cy="15400" r="300"/>
+</g>
+<g data-s="48">
+<path class="x" data-o="48" d="M-8680 13400H240"/>
+<circle class="z" data-o="48" cx="-6975" cy="13400" r="375"/>
+<circle class="z" data-o="48" cx="-2515" cy="13400" r="375"/>
+<circle class="z" data-o="48" cx="-5925" cy="13400" r="375"/>
+<circle class="z" data-o="48" cx="-1465" cy="13400" r="375"/>
+</g>
+<g data-s="49">
+<path class="A" data-o="49" d="M-8640 11360H200"/>
+<g transform="translate(-4220 11360)">
+<path class="A" data-o="49" d="M0 0-380-650"/>
+</g>
+</g>
+<g data-s="50">
+<path class="A" data-o="50" d="M-8720 9600h4390"/>
+<path class="A" data-o="50" d="M-3950 9600H440"/>
+<g transform="translate(-6427 9600)">
+<path class="A" data-o="50" d="M0 0-380-650"/>
+</g>
+<g transform="translate(-1853 9600)">
+<path class="A" data-o="50" d="M0 0-380-650"/>
+</g>
+</g>
+<g data-s="51">
+<path class="x" data-o="51" d="M-8880 7720H320"/>
+<g transform="translate(-7032 7720)">
+<path class="A" data-o="51" d="M0 0-380-650"/>
+</g>
+<g transform="translate(-2428 7720)">
+<path class="A" data-o="51" d="M0 0-380-650"/>
+</g>
+<g transform="translate(-6132 7720)">
+<path class="A" data-o="51" d="M0 0-380-650"/>
+</g>
+<g transform="translate(-1528 7720)">
+<path class="A" data-o="51" d="M0 0-380-650"/>
+</g>
+</g>
+<g data-s="52">
+<path class="v" data-o="52" d="M-8880 5880H160"/>
+</g>
+<g data-s="53">
+<path class="w" data-o="53" d="M-8800 4400H160"/>
+</g>
+<g data-s="54">
+<path class="E" data-o="54" d="M-8720 2760h1925"/>
+<path class="E" data-o="54" d="M-6415 2760h1925"/>
+<path class="E" data-o="54" d="M-4110 2760h1925"/>
+<path class="E" data-o="54" d="M-1805 2760H120"/>
+</g>
+<g data-s="55">
+<path class="v" data-o="55" d="M-8720 1360h6450"/>
+<g transform="translate(280 1360)">
+<path class="F" data-o="55" d="M0 0-3000 900-2550 0l-450-900L0 0z"/>
+<path class="y" data-o="55" d="M0 1050v-2100"/>
+</g>
+</g>
+<g data-s="56">
+<path class="y" data-o="56" d="M-8600-1040H240"/>
+</g>
+<g data-s="57">
+<path class="A" data-o="57" d="M-8720-2800H80"/>
+<g transform="translate(-6517-2800)">
+<path class="A" data-o="57" d="M-530 520 0 0-530-530"/>
+</g>
+<g transform="translate(-2123-2800)">
+<path class="A" data-o="57" d="M-530 520 0 0-530-530"/>
+</g>
+</g>
+<g data-s="58">
+<path class="x" data-o="58" d="M-8640-4920H120"/>
+<g transform="translate(-6902-4920)">
+<path class="A" data-o="58" d="M-530 520 0 0-530-530"/>
+</g>
+<g transform="translate(-2518-4920)">
+<path class="A" data-o="58" d="M-530 520 0 0-530-530"/>
+</g>
+<g transform="translate(-6002-4920)">
+<path class="A" data-o="58" d="M-530 520 0 0-530-530"/>
+</g>
+<g transform="translate(-1618-4920)">
+<path class="A" data-o="58" d="M-530 520 0 0-530-530"/>
+</g>
+</g>
+<g data-s="59">
+<path class="A" data-o="59" d="M-8560-6840H40"/>
+</g>
+<g data-s="27">
+<g transform="translate(1800-9560)rotate(-.2)">
+<path class="G" data-o="27" d="M0 400v-810"/>
+</g>
+<g transform="translate(2545-9563)rotate(-.2)">
+<path class="G" data-o="27" d="M0 400v-810"/>
+</g>
+<g transform="translate(3291-9565)rotate(-.2)">
+<path class="G" data-o="27" d="M0 400v-810"/>
+</g>
+<g transform="translate(4036-9568)rotate(-.2)">
+<path class="G" data-o="27" d="M0 400v-810"/>
+</g>
+<g transform="translate(4781-9571)rotate(-.2)">
+<path class="G" data-o="27" d="M0 400v-810"/>
+</g>
+<g transform="translate(5527-9573)rotate(-.2)">
+<path class="G" data-o="27" d="M0 400v-810"/>
+</g>
+<g transform="translate(6272-9576)rotate(-.2)">
+<path class="G" data-o="27" d="M0 400v-810"/>
+</g>
+<g transform="translate(7017-9579)rotate(-.2)">
+<path class="G" data-o="27" d="M0 400v-810"/>
+</g>
+<g transform="translate(7763-9581)rotate(-.2)">
+<path class="G" data-o="27" d="M0 400v-810"/>
+</g>
+<g transform="translate(8508-9584)rotate(-.2)">
+<path class="G" data-o="27" d="M0 400v-810"/>
+</g>
+<g transform="translate(9253-9587)rotate(-.2)">
+<path class="G" data-o="27" d="M0 400v-810"/>
+</g>
+<g transform="translate(9999-9589)rotate(-.2)">
+<path class="G" data-o="27" d="M0 400v-810"/>
+</g>
+<g transform="translate(10744-9592)rotate(-.2)">
+<path class="G" data-o="27" d="M0 400v-810"/>
+</g>
+<g transform="translate(11489-9595)rotate(-.2)">
+<path class="G" data-o="27" d="M0 400v-810"/>
+</g>
+<g transform="translate(12235-9597)rotate(-.2)">
+<path class="G" data-o="27" d="M0 400v-810"/>
+</g>
+<g transform="translate(12980-9600)rotate(-.2)">
+<path class="G" data-o="27" d="M0 400v-810"/>
+</g>
+<g transform="translate(2174-9561)rotate(-.2)">
+<path class="G" data-o="27" d="M0 370v-750"/>
+</g>
+<g transform="translate(2920-9564)rotate(-.2)">
+<path class="G" data-o="27" d="M0 370v-750"/>
+</g>
+<g transform="translate(3665-9567)rotate(-.2)">
+<path class="G" data-o="27" d="M0 370v-750"/>
+</g>
+<g transform="translate(4410-9569)rotate(-.2)">
+<path class="G" data-o="27" d="M0 370v-750"/>
+</g>
+<g transform="translate(5156-9572)rotate(-.2)">
+<path class="G" data-o="27" d="M0 370v-750"/>
+</g>
+<g transform="translate(5901-9575)rotate(-.2)">
+<path class="G" data-o="27" d="M0 370v-750"/>
+</g>
+<g transform="translate(6646-9577)rotate(-.2)">
+<path class="G" data-o="27" d="M0 370v-750"/>
+</g>
+<g transform="translate(7392-9580)rotate(-.2)">
+<path class="G" data-o="27" d="M0 370v-750"/>
+</g>
+<g transform="translate(8137-9583)rotate(-.2)">
+<path class="G" data-o="27" d="M0 370v-750"/>
+</g>
+<g transform="translate(8882-9585)rotate(-.2)">
+<path class="G" data-o="27" d="M0 370v-750"/>
+</g>
+<g transform="translate(9628-9588)rotate(-.2)">
+<path class="G" data-o="27" d="M0 370v-750"/>
+</g>
+<g transform="translate(10373-9591)rotate(-.2)">
+<path class="G" data-o="27" d="M0 370v-750"/>
+</g>
+<g transform="translate(11118-9593)rotate(-.2)">
+<path class="G" data-o="27" d="M0 370v-750"/>
+</g>
+<g transform="translate(11864-9596)rotate(-.2)">
+<path class="G" data-o="27" d="M0 370v-750"/>
+</g>
+<g transform="translate(12609-9599)rotate(-.2)">
+<path class="G" data-o="27" d="M0 370v-750"/>
+</g>
+</g>
+<g data-s="24">
+<g transform="matrix(0-1 1 0 15920-560)">
+<path class="G" data-o="24" d="M0 400v-810"/>
+</g>
+<g transform="matrix(0-1 1 0 15920-1310)">
+<path class="G" data-o="24" d="M0 400v-810"/>
+</g>
+<g transform="matrix(0-1 1 0 15920-2060)">
+<path class="G" data-o="24" d="M0 400v-810"/>
+</g>
+<g transform="matrix(0-1 1 0 15920-2810)">
+<path class="G" data-o="24" d="M0 400v-810"/>
+</g>
+<g transform="matrix(0-1 1 0 15920-3560)">
+<path class="G" data-o="24" d="M0 400v-810"/>
+</g>
+<g transform="matrix(0-1 1 0 15920-4310)">
+<path class="G" data-o="24" d="M0 400v-810"/>
+</g>
+<g transform="matrix(0-1 1 0 15920-5060)">
+<path class="G" data-o="24" d="M0 400v-810"/>
+</g>
+<g transform="matrix(0-1 1 0 15920-5810)">
+<path class="G" data-o="24" d="M0 400v-810"/>
+</g>
+<g transform="matrix(0-1 1 0 15920-6560)">
+<path class="G" data-o="24" d="M0 400v-810"/>
+</g>
+<g transform="matrix(0-1 1 0 15920-7310)">
+<path class="G" data-o="24" d="M0 400v-810"/>
+</g>
+<g transform="matrix(0-1 1 0 15920-8060)">
+<path class="G" data-o="24" d="M0 400v-810"/>
+</g>
+<g transform="matrix(0-1 1 0 15920-8810)">
+<path class="G" data-o="24" d="M0 400v-810"/>
+</g>
+<g transform="matrix(0-1 1 0 15920-9560)">
+<path class="G" data-o="24" d="M0 400v-810"/>
+</g>
+<g transform="matrix(0-1 1 0 15920-935)">
+<path class="G" data-o="24" d="M0 370v-750"/>
+</g>
+<g transform="matrix(0-1 1 0 15920-1685)">
+<path class="G" data-o="24" d="M0 370v-750"/>
+</g>
+<g transform="matrix(0-1 1 0 15920-2435)">
+<path class="G" data-o="24" d="M0 370v-750"/>
+</g>
+<g transform="matrix(0-1 1 0 15920-3185)">
+<path class="G" data-o="24" d="M0 370v-750"/>
+</g>
+<g transform="matrix(0-1 1 0 15920-3935)">
+<path class="G" data-o="24" d="M0 370v-750"/>
+</g>
+<g transform="matrix(0-1 1 0 15920-4685)">
+<path class="G" data-o="24" d="M0 370v-750"/>
+</g>
+<g transform="matrix(0-1 1 0 15920-5435)">
+<path class="G" data-o="24" d="M0 370v-750"/>
+</g>
+<g transform="matrix(0-1 1 0 15920-6185)">
+<path class="G" data-o="24" d="M0 370v-750"/>
+</g>
+<g transform="matrix(0-1 1 0 15920-6935)">
+<path class="G" data-o="24" d="M0 370v-750"/>
+</g>
+<g transform="matrix(0-1 1 0 15920-7685)">
+<path class="G" data-o="24" d="M0 370v-750"/>
+</g>
+<g transform="matrix(0-1 1 0 15920-8435)">
+<path class="G" data-o="24" d="M0 370v-750"/>
+</g>
+<g transform="matrix(0-1 1 0 15920-9185)">
+<path class="G" data-o="24" d="M0 370v-750"/>
+</g>
+</g>
+</g>
+<g data-c="28">
+<g data-s="60">
+<path class="H" data-o="60" d="M2400 12840h8120"/>
+</g>
+<g data-s="61">
+<path class="H" data-o="61" d="M2520 10840h1615"/>
+<path class="H" data-o="61" d="M4885 10840h3230"/>
+<path class="H" data-o="61" d="M8865 10840h1615"/>
+</g>
+<g data-s="62">
+<circle class="I" data-o="62" cx="2520" cy="8600" r="375"/>
+<circle class="I" data-o="62" cx="3860" cy="8600" r="375"/>
+<circle class="I" data-o="62" cx="5200" cy="8600" r="375"/>
+<circle class="I" data-o="62" cx="6540" cy="8600" r="375"/>
+<circle class="I" data-o="62" cx="7880" cy="8600" r="375"/>
+<circle class="I" data-o="62" cx="9220" cy="8600" r="375"/>
+<circle class="I" data-o="62" cx="10560" cy="8600" r="375"/>
+</g>
+<g data-s="63">
+<g transform="matrix(1-.003 .003 1 2240 6640)">
+<path class="H" data-o="63" d="M0 1120v-2250"/>
+</g>
+<g transform="matrix(1-.003 .003 1 8880 6620)">
+<path class="H" data-o="63" d="M0 1120v-2250"/>
+</g>
+<g transform="matrix(1-.003 .003 1 15520 6600)">
+<path class="H" data-o="63" d="M0 1120v-2250"/>
+</g>
+</g>
+<g data-s="64">
+<g transform="translate(2160 2720)rotate(-.33)">
+<path class="J" data-o="64" d="M-1050 1120 0-1130l1050 2250"/>
+</g>
+<g transform="translate(9180 2680)rotate(-.33)">
+<path class="J" data-o="64" d="M-1050 1120 0-1130l1050 2250"/>
+</g>
+<g transform="translate(16200 2640)rotate(-.33)">
+<path class="J" data-o="64" d="M-1050 1120 0-1130l1050 2250"/>
+</g>
+</g>
+</g>
+<g data-c="32">
+<g data-s="65">
+<path class="K" data-o="65" d="M2880 19120h7720"/>
+</g>
+<g data-s="66">
+<path class="K" data-o="66" d="M2640 17160h3585"/>
+<path class="K" data-o="66" d="M6975 17160h3585"/>
+</g>
+<g data-s="67">
+<path class="L" data-o="67" d="M2640 15480h7880"/>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<g transform="matrix(.0290771 0 0-.0290771 938.26 658.09)" clip-path="url(#b)">
+<use xlink:href="#a"/>
+</g>
+</svg>

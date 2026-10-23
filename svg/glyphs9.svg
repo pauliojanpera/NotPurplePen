@@ -1,0 +1,215 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="997mm" height="873mm" viewBox="0 0 997 873">
+<style>
+.a{fill:none;stroke:#0f0;stroke:#0f0 icc-color(cmyk,1,0,1,0);stroke-width:450;stroke-linecap:round;stroke-linejoin:round}
+.b{fill:none;stroke:#0f0;stroke:#0f0 icc-color(cmyk,1,0,1,0);stroke-width:450;stroke-miterlimit:5}
+.c{fill:#0f0;fill:#0f0 icc-color(cmyk,1,0,1,0);fill-rule:evenodd}
+.d{fill:none;stroke:#0f0;stroke:#0f0 icc-color(cmyk,1,0,1,0);stroke-width:350;stroke-miterlimit:5}
+.e{fill:none;stroke:#00f;stroke:#00f icc-color(cmyk,1,1,0,0);stroke-width:250;stroke-miterlimit:5}
+.f{fill:none;stroke:#00f;stroke:#00f icc-color(cmyk,1,1,0,0);stroke-width:250;stroke-linecap:round;stroke-linejoin:round}
+.g{fill:none;stroke:#00f;stroke:#00f icc-color(cmyk,1,1,0,0);stroke-width:450;stroke-linejoin:bevel}
+.h{fill:#00f;fill:#00f icc-color(cmyk,1,1,0,0);fill-rule:evenodd}
+.i{fill:#00f;fill:#00f icc-color(cmyk,1,1,0,0)}
+.j{fill:#f00;fill:#f00 icc-color(cmyk,0,1,1,0)}
+.k{fill:none;stroke:#f00;stroke:#f00 icc-color(cmyk,0,1,1,0);stroke-width:350;stroke-linejoin:bevel}
+.l{fill:none;stroke:#f00;stroke:#f00 icc-color(cmyk,0,1,1,0);stroke-width:250;stroke-miterlimit:5}
+.m{fill:none;stroke:#f00;stroke:#f00 icc-color(cmyk,0,1,1,0);stroke-width:450;stroke-linecap:round;stroke-linejoin:round}
+.n{fill:#f00;fill:#f00 icc-color(cmyk,0,1,1,0);fill-rule:evenodd}
+.o{fill:none;stroke:#f00;stroke:#f00 icc-color(cmyk,0,1,1,0);stroke-width:350;stroke-miterlimit:5}
+.p{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:450;stroke-linejoin:bevel}
+.q{fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="glyphs9">
+<npp:color position="0" name="Green" cmyk="1,0,1,0"/>
+<npp:color position="1" name="Blue" cmyk="1,1,0,0"/>
+<npp:color position="2" name="Red" cmyk="0,1,1,0"/>
+<npp:color position="3" name="Black" cmyk="0,0,0,1"/>
+<npp:symbol n="1" id="1.4" name="lines" colors="0 1 2"/>
+<npp:symbol n="2" id="1.5" name="beziers" colors="0 1 3"/>
+<npp:symbol n="3" id="2.0" name="polygon" colors="0 1 2"/>
+<npp:symbol n="4" id="1.6" name="ellipses" colors="0 2 3"/>
+<npp:symbol n="5" id="1.7" colors="0 1 2 3"/>
+<npp:symbol n="6" id="1.2" name="circle 2" colors="0"/>
+<npp:symbol n="7" id="1.3" name="circles not at 0" colors="1 2"/>
+<npp:symbol n="8" id="1.1" name="Point symbols 1 circle" colors="2"/>
+</npp:map>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="b">
+<path d="M-14555-15264h30610v26803h-30610z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g data-c="0">
+<g data-s="1">
+<g transform="translate(4350 7630)">
+<path class="a" data-o="1" d="M1820 2730l-40-1190-950-70 270-1070"/>
+</g>
+<g transform="translate(2280 4830)rotate(155.1)">
+<path class="a" data-o="2" d="M1820 2730l-40-1190-950-70 270-1070"/>
+</g>
+</g>
+<g data-s="2">
+<g transform="translate(10610 7370)">
+<path class="b" data-o="3" d="M-840 3920c-380-1720-2560-3600-940-4300C-640-880 770-2850 1080-1630c470 1880-560 5570 1190 4720"/>
+</g>
+<g transform="translate(7080 860)rotate(135.3)">
+<path class="b" data-o="4" d="M-840 3920c-380-1720-2560-3600-940-4300C-640-880 770-2850 1080-1630c470 1880-560 5570 1190 4720"/>
+</g>
+</g>
+<g data-s="3">
+<g transform="translate(-11710-3960)">
+<path class="a" data-o="5" d="M-1780 1250l970-2490L1200 60-550 2090l-1230-840z"/>
+</g>
+<g transform="translate(-990-4550)rotate(56.3)">
+<path class="a" data-o="6" d="M-1780 1250l970-2490L1200 60-550 2090l-1230-840z"/>
+</g>
+</g>
+<g data-s="4">
+<g transform="translate(10810-5920)">
+<path class="b" data-o="7" d="M-100-850c-160-680 20-1320 410-1410 380-90 830 400 990 1080 150 670-20 1310-400 1400C510 310 60-180-100-850z"/>
+</g>
+<g transform="translate(6350-8970)rotate(58)">
+<path class="b" data-o="8" d="M-100-850c-160-680 20-1320 410-1410 380-90 830 400 990 1080 150 670-20 1310-400 1400C510 310 60-180-100-850z"/>
+</g>
+</g>
+<g data-s="5">
+<g transform="translate(-7670-9480)">
+<path class="c" data-o="9" d="M1580-670c-270-460-230-1420-680-1140-460 280-1470 290-1130 720C240-490 180 390 950 410l630-1080z"/>
+</g>
+<g transform="translate(790-12310)rotate(95.1)">
+<path class="c" data-o="10" d="M1580-670c-270-460-230-1420-680-1140-460 280-1470 290-1130 720C240-490 180 390 950 410l630-1080z"/>
+</g>
+</g>
+<g data-s="6">
+<circle class="d" data-o="11" cx="-7280" cy="8410" r="750"/>
+<circle class="d" data-o="12" cx="-4480" cy="8450" r="750"/>
+</g>
+</g>
+<g data-c="1">
+<g data-s="1">
+<g transform="translate(4350 7630)">
+<path class="e" data-o="1" d="M-2550-90l950-770 730 1520L530-490"/>
+</g>
+<g transform="translate(2280 4830)rotate(155.1)">
+<path class="e" data-o="2" d="M-2550-90l950-770 730 1520L530-490"/>
+</g>
+</g>
+<g data-s="2">
+<g transform="translate(10610 7370)">
+<path class="f" data-o="3" d="M-40 2640c510 260 1250 1220 1280 650 60-1540 250-860 670-800 1780 260 930-1720 840-2130"/>
+</g>
+<g transform="translate(7080 860)rotate(135.3)">
+<path class="f" data-o="4" d="M-40 2640c510 260 1250 1220 1280 650 60-1540 250-860 670-800 1780 260 930-1720 840-2130"/>
+</g>
+</g>
+<g data-s="3">
+<g transform="translate(-11710-3960)">
+<path class="g" data-o="5" d="M360 3310l970-2490 2590 1310-1720 1100-1840 80z"/>
+</g>
+<g transform="translate(-990-4550)rotate(56.3)">
+<path class="g" data-o="6" d="M360 3310l970-2490 2590 1310-1720 1100-1840 80z"/>
+</g>
+</g>
+<g data-s="5">
+<g transform="translate(-7670-9480)">
+<path class="h" data-o="9" d="M280 3280c-220-360-20-880 460-1160 460-270 1010-210 1230 150 210 350 0 870-460 1150-470 280-1020 210-1230-140z"/>
+</g>
+<g transform="translate(790-12310)rotate(95.1)">
+<path class="h" data-o="10" d="M280 3280c-220-360-20-880 460-1160 460-270 1010-210 1230 150 210 350 0 870-460 1150-470 280-1020 210-1230-140z"/>
+</g>
+</g>
+<g data-s="7">
+<g transform="translate(-8660 2130)">
+<circle class="i" data-o="13" cx="-940" cy="890" r="375"/>
+<circle class="i" data-o="13" cx="690" cy="990" r="375"/>
+<circle class="i" data-o="13" cx="-750" cy="-570" r="1000"/>
+</g>
+<g transform="translate(-3450 3210)rotate(61.6)">
+<circle class="i" data-o="14" cx="-940" cy="890" r="375"/>
+<circle class="i" data-o="14" cx="690" cy="990" r="375"/>
+<circle class="i" data-o="14" cx="-750" cy="-570" r="1000"/>
+</g>
+</g>
+</g>
+<g data-c="2">
+<g data-s="8">
+<circle class="j" data-o="15" cx="-12140" cy="9320" r="500"/>
+<circle class="j" data-o="16" cx="-10250" cy="9020" r="500"/>
+<circle class="j" data-o="17" cx="-11370" cy="7070" r="500"/>
+</g>
+<g data-s="1">
+<g transform="translate(4350 7630)">
+<path class="k" data-o="1" d="M-2090 1680l830 680 540-780L0 2800"/>
+</g>
+<g transform="translate(2280 4830)rotate(155.1)">
+<path class="k" data-o="2" d="M-2090 1680l830 680 540-780L0 2800"/>
+</g>
+</g>
+<g data-s="3">
+<g transform="translate(-11710-3960)">
+<path class="l" data-o="5" d="M-120-240l1810-3280 170 2190 2260 870-4240 220z"/>
+</g>
+<g transform="translate(-990-4550)rotate(56.3)">
+<path class="l" data-o="6" d="M-120-240l1810-3280 170 2190 2260 870-4240 220z"/>
+</g>
+</g>
+<g data-s="4">
+<g transform="translate(10810-5920)">
+<path class="m" data-o="7" d="M1080 2100c-160-680 20-1320 410-1410 380-90 830 400 990 1080 150 670-20 1310-400 1400-390 90-840-400-1000-1070z"/>
+</g>
+<g transform="translate(6350-8970)rotate(58)">
+<path class="m" data-o="8" d="M1080 2100c-160-680 20-1320 410-1410 380-90 830 400 990 1080 150 670-20 1310-400 1400-390 90-840-400-1000-1070z"/>
+</g>
+</g>
+<g data-s="5">
+<g transform="translate(-7670-9480)">
+<path class="n" data-o="9" d="M-2110 890-440 2680 140 660-2630 120l520 770z"/>
+</g>
+<g transform="translate(790-12310)rotate(95.1)">
+<path class="n" data-o="10" d="M-2110 890-440 2680 140 660-2630 120l520 770z"/>
+</g>
+</g>
+<g data-s="7">
+<circle class="o" data-o="13" cx="-9590" cy="3030" r="750"/>
+<g transform="translate(-3450 3210)rotate(61.6)">
+<circle class="o" data-o="14" cx="-930" cy="900" r="750"/>
+</g>
+</g>
+</g>
+<g data-c="3">
+<g data-s="2">
+<g transform="translate(10610 7370)">
+<path class="p" data-o="3" d="M-2260 770c390 270 970 1640 1250 1250 160-240 1380-700 1640-560"/>
+</g>
+<g transform="translate(7080 860)rotate(135.3)">
+<path class="p" data-o="4" d="M-2260 770c390 270 970 1640 1250 1250 160-240 1380-700 1640-560"/>
+</g>
+</g>
+<g data-s="4">
+<g transform="translate(10810-5920)">
+<path class="p" data-o="7" d="M-1640 1420c-160-680 20-1320 410-1410 380-90 830 400 990 1080 150 670-20 1310-400 1400-390 90-840-400-1000-1070z"/>
+</g>
+<g transform="translate(6350-8970)rotate(58)">
+<path class="p" data-o="8" d="M-1640 1420c-160-680 20-1320 410-1410 380-90 830 400 990 1080 150 670-20 1310-400 1400-390 90-840-400-1000-1070z"/>
+</g>
+</g>
+<g data-s="5">
+<g transform="translate(-7670-9480)">
+<path class="q" data-o="9" d="M2550 430l1150 1670 160-1890-1190 1580 1910-330L2570 420l-20 10z"/>
+</g>
+<g transform="translate(790-12310)rotate(95.1)">
+<path class="q" data-o="10" d="M2550 430l1150 1670 160-1890-1190 1580 1910-330L2570 420l-20 10z"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<g transform="matrix(.0325713 0 0-.0325713 474.08 375.83)" clip-path="url(#b)">
+<use xlink:href="#a"/>
+</g>
+</svg>
