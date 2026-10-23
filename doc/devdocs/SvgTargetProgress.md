@@ -9,12 +9,12 @@ Where the work on the SVG target stands against the phases of [its requirements]
 | Branch | Holds |
 | --- | --- |
 | `docs/svg-target-requirements` | The requirements, this file, and the tools beside it: `SvgGallery/`, `SvgTolerance/` and `SvgGeoreference/` |
-| `feature/svg-target` | The work, rooted at `upstream/master` (C-8), with the three `fix/` branches below merged in. Its tip, 43eb51e, holds phase 2's steps 1 to 4: step 4's record of a map's georeference (734778e), the EPSG codes of OCAD's grids (af9f9df) and the georeference's computation (43eb51e). |
-| `wip/linux/svg-target` | Phase 2's full run: `base` with `feature/svg-target` merged in (DL-10), green in Tests run 39980577132 |
+| `feature/svg-target` | The work, rooted at `upstream/master` (C-8), with the three `fix/` branches below merged in. Its tip, d58cb9e, holds phase 2's steps 1 to 4 and phase 4's step 1: step 4's record of a map's georeference (734778e), the EPSG codes of OCAD's grids (af9f9df) and the georeference's computation (43eb51e); then the base of every drawn element (0b0701b), the bitmaps (75bcf6b) and their five references (d58cb9e). |
+| `wip/linux/svg-target` | The full runs: `base` with `feature/svg-target` merged in (DL-10). Phase 2's was green in Tests run 39980577132; with the bitmaps, fbfcd6a was green in Tests run 39986756022. |
 | `svg/svg-target` | `base` with `feature/svg-target` merged in, rebuilt for each loop run (DL-1) |
 | `svg-results/svg-target` | The results of the latest loop run (DL-7) |
 | `feature/svg-georeference`, `svg/svg-georeference`, `svg-results/svg-georeference` | The target's side of G-1 and G-2, rebased onto 828fd87 as 734778e and merged into `feature/svg-target`; nothing depends on them |
-| `feature/svg-bitmaps` | Phase 4's bitmaps: one commit of unfinished work, b5caf74, rooted at 033d648, to be finished and rewritten before it merges. See the task list. |
+| `feature/svg-bitmaps`, `svg/svg-bitmaps`, `svg-results/svg-bitmaps` | Phase 4's bitmaps, finished from the unfinished b5caf74 as 0b0701b, 75bcf6b and d58cb9e, which `feature/svg-target` took as they stand; nothing depends on them |
 | `svg-gallery` | The gallery served at <https://pauliojanpera.github.io/NotPurplePen/svg/>: its page, fonts and each entry's drawings, as one commit that each update replaces. Every publish of the site copies it into `svg/`. |
 | `fix/backslashes-in-test-file-paths`, `fix/culture-independent-descriptor-parsing`, `fix/case-of-test-file-names` | Changes the tests need on Linux, each to be offered to Purple Pen on its own |
 | `feature/svg-edge-tolerance`, `svg/svg-edge-tolerance`, `svg-results/svg-edge-tolerance` | The tolerance's edge criterion, merged into `feature/svg-target` as 033d648; nothing depends on them |
@@ -30,12 +30,13 @@ The SVG loop, `.github/workflows/svg.yml`, and the machine check of the Windows 
   - Rebuild `svg/svg-target` as one merge commit of `origin/base` and `origin/feature/svg-target`: `git merge-tree --write-tree`, then `git commit-tree`.
   - Push it with `--force-with-lease`, and follow the run through the GitHub API.
   - Read `summary.md`, `failures.md` and `pending.tsv` on `svg-results/svg-target`. Its `measurements/`, `references/`, `differences/` and `renderings/` hold the numbers and images of the comparison.
+  - A run whose tests pass can still fail in "Publish the results", when GitHub answers the push of the results with an Internal Server Error, as loop run 39985693403 first did. Its results are kept as the artifact `svg-loop-<name>` all the same; re-run its failed job to publish them.
   - Work on a branch beside `feature/svg-target` runs the same way on `svg/<name>`, with its results on `svg-results/<name>`.
 - **New references.** A case that becomes drawable fails once, for want of a recorded reference, and the run holds the reference under `references/`. Check that the case's comparison is within the tolerance, copy the image into `src/MapModel/TestFiles/svg_reference` (`git add --sparse` in a sparse checkout), and commit it in its own commit.
 - **Gallery.** Keep it current: publish whenever there is something new to show, about every 30 minutes of work, and at the end of each step.
   - Clone `svg-gallery`, and check out `svg-results/svg-target`.
   - The loop keeps Chromium's image of a case only when it falls outside the tolerance, so render the cases to show with `SvgGallery/render-cases.mjs` beside this file. `CHROMIUM_EXECUTABLE` names the headless shell of the tests' Playwright package, and its images match the loop's pixel for pixel.
-  - Run `SvgGallery/make-gallery-step.py` on the checkout and the `svg_reference` of the commit the loop ran, naming the entry and the cases to show. It writes the entry's folder and prints the figures and census that `index.html` takes into `LOG` and `STANDING`.
+  - Run `SvgGallery/make-gallery-step.py` on the checkout and the `svg_reference` of the commit the loop ran, naming the entry and the cases to show. It writes the entry's folder and prints the figures and census that `index.html` takes into `LOG` and `STANDING`. The census counts apart the drawings that wait only because they draw a bitmap lighter, which the target never will (B-6). A case that matches its reference exactly has no window of most difference, so choose its detail by hand.
   - Move the course's states on, and look at the page with `SvgGallery/look-at-gallery.mjs`.
   - Publish it with `SvgGallery/publish-svg-gallery.sh`, which replaces `svg-gallery`'s commit and puts the gallery under `svg/` on `gh-pages`.
   - A `wip/` branch made before `build.yml` copied `svg-gallery` into the site publishes without it, until the next publish from `base`, `dev` or a newer branch.
@@ -55,8 +56,8 @@ The SVG loop, `.github/workflows/svg.yml`, and the machine check of the Windows 
 | --- | --- |
 | 1, the development loop | Done. The dispatch mode of `svg.yml`, on `dev`, the default branch, since 7d1ce11, is still untried. |
 | 2, drawing, structure, layout, color and georeferencing | Done: steps 1 to 4, and the full run green. F-6, checked by hand, waits on @Pauli. |
-| 3, the export in the application and course data | Not started. @Pauli left the order of phases 3 and 4 to the executor; both may go on beside phase 2's end. |
-| 4, text and bitmaps | Bitmaps under way on `feature/svg-bitmaps`; text not started |
+| 3, the export in the application and course data | Not started. @Pauli left the order of phases 3 and 4 to the executor, and the task list takes phase 4 first. |
+| 4, text and bitmaps | Step 1, bitmaps, done; step 2, text, not started |
 | 5 to 8 | Not started |
 
 | Step of phase 2 | Status |
@@ -66,29 +67,20 @@ The SVG loop, `.github/workflows/svg.yml`, and the machine check of the Windows 
 | 3. The map structure (M-1 to M-8) | Done (f075a0c, loop run 39817113317) |
 | 4. Georeferencing (G-1 to G-3), then the full `wip/` run, with F-6 checked by hand | Done: the record (734778e, loop run 39975400945), the EPSG codes of OCAD's grids (af9f9df, loop run 39979057271) and the computation (43eb51e, loop run 39980571564). The full run, Tests run 39980577132 on `wip/linux/svg-target`, passed, G-3's and the georeference's tests included |
 
-On `feature/svg-target` at 43eb51e, loop run 39980571564 gives 179 passed, 0 failed, 91 pending. The 101 drawn cases all match their recorded references within the pixel tolerance. Of the 91 pending, 84 wait on `CreateFont` and 7 on `DrawBitmap` alone.
+| Step of phase 4 | Status |
+| --- | --- |
+| 1. Bitmaps (B-1 to B-6) | Done (0b0701b, 75bcf6b, d58cb9e; loop run 39985693403). The full run, Tests run 39986756022 on `wip/linux/svg-target`, passed |
+| 2. Text (T-1 to T-10) | Not started |
 
-The calls the target fully implements, in the sense of DL-5: `Intensity`, `PushTransform`, `PopTransform`, `PushClip`, `PopClip`, `PushAntiAliasing`, `PopAntiAliasing`, `PushBlending`, `PopBlending`, `CreatePath`, `CreateSolidBrush`, `SupportsPatternBrushes`, `CreatePatternBrush`, `CreatePen`, `HasPath`, `HasBrush`, `HasPen`, `HasFont`, `DrawLine`, `DrawArc`, `DrawEllipse`, `FillEllipse`, `DrawRectangle`, `FillRectangle`, `DrawPolygon`, `DrawPolyline`, `FillPolygon`, `DrawPath`, `FillPath`.
+On `feature/svg-target` at d58cb9e, loop run 39985693403 gives 190 passed, 0 failed, 86 pending. The 106 drawn cases all match their recorded references within the pixel tolerance. Of the 86 pending, 84 wait on `CreateFont`. The other 2, template_light and template2_light, wait on `DrawBitmap` alone and always will: they draw their templates at an intensity below 1 (B-6).
+
+The calls the target fully implements, in the sense of DL-5: `Intensity`, `PushTransform`, `PopTransform`, `PushClip`, `PopClip`, `PushAntiAliasing`, `PopAntiAliasing`, `PushBlending`, `PopBlending`, `CreatePath`, `CreateSolidBrush`, `SupportsPatternBrushes`, `CreatePatternBrush`, `CreatePen`, `HasPath`, `HasBrush`, `HasPen`, `HasFont`, `DrawLine`, `DrawArc`, `DrawEllipse`, `FillEllipse`, `DrawRectangle`, `FillRectangle`, `DrawPolygon`, `DrawPolyline`, `FillPolygon`, `DrawPath`, `FillPath`, `DrawBitmap`, `DrawBitmapPart`.
 
 ## Tasks
 
 In order of priority. A task ends with its commits on `feature/svg-target`, its loop green, the gallery and this file brought up to date.
 
-1. **Bitmaps (B-1 to B-6).** b5caf74 on `feature/svg-bitmaps` is unfinished work. It holds:
-   - `SvgBitmapOptions`: embedded, linked through a store the caller gives, or left out, and the JPEG quality (B-3, B-4);
-   - `SvgImage` and `SvgDocument.ImageOf`, which hold each written bitmap once, keyed by its data, and write the images last among the definitions (B-5);
-   - `SvgImageUse`, which draws an image over its rectangle through `<use>` and a transform;
-   - `SvgElement`, a base for elements that carry an object number.
-
-   Still to do:
-   - Rebase it onto `feature/svg-target`, whose 828fd87 split `SvgShape` into `SvgPath` and `SvgEllipse`, by making `SvgShape` derive from `SvgElement`.
-   - Write `DrawBitmap` and `DrawBitmapPart` through `IGraphicsBitmap.WriteToStream`, in its own format when that is PNG or JPEG and as PNG otherwise.
-   - Render `NearestNeighbor` pixelated (B-2).
-   - Raise the error of D-12 at an intensity below 1 (B-6).
-   - Add document tests and the new references, and measure Chromium's smoothing against Skia's.
-   - Add `DrawBitmap` to the fully implemented calls only when all of B-1 to B-6 hold.
-   - Rewrite the commit into proper ones before merging.
-2. **Text (T-1 to T-10).** Not started; it unblocks 84 cases. It covers:
+1. **Text (T-1 to T-10).** Not started; it unblocks 84 cases. It covers:
    - `DrawText` and `DrawTextOutline` with the injected `ITextMetrics`;
    - `IFontSubsetProvider`, a new interface in `Graphics2D`, implemented by the application, and by the tests through `Map_SkiaStd`'s font loading and PdfSharp's subsetter;
    - `@font-face` subsets in the style block, the fallback faces, and the `fsType` check;
@@ -96,14 +88,14 @@ In order of priority. A task ends with its commits on `feature/svg-target`, its 
    - the text cases' own tolerance (T-10).
 
    Check the tolerance again with `SvgTolerance/` once the cases come.
-3. **Phase 3: the export in the application (A-1 to A-7, CD-1 to CD-3, V-2, V-4, V-5, V-7).** Not started. Work in stages:
+2. **Phase 3: the export in the application (A-1 to A-7, CD-1 to CD-3, V-2, V-4, V-5, V-7).** Not started. Work in stages:
    - a short design of where the export lives, how it shares `CoursePdf`'s layout code (A-3) and how `MapDisplay` draws a map's parts and a course part's layers apart (A-4);
    - the few `IStructuredGraphicsTarget` calls the course data needs (CD-1 to CD-3);
-   - the core: `CourseSvgSettings`, the writer and the baseline tests. The writer gives each map that has one its georeference, `SetGeoreference(mapKey, coordinateMapper.GetMapGeoreference())`, once the map has begun (G-1, G-2, A-5);
+   - the core: `CourseSvgSettings`, the writer and the baseline tests. The writer gives each map that has one its georeference, `SetGeoreference(mapKey, coordinateMapper.GetMapGeoreference())`, once the map has begun (G-1, G-2, A-5). It passes the bitmap handling the user chose as `SvgBitmapOptions`, storing a linked bitmap beside the SVG through `storeLinkedBitmap` (B-4), and draws at full intensity (B-6);
    - the Avalonia command and dialog, to `AGENTS.md`'s conventions (A-1, A-6, A-7).
 
    Each stage gets a `wip/linux/` run for the Windows suite.
-4. **Keep the record.** Bring this file up to date whenever a task ends or changes hands, and keep the gallery current: about every 30 minutes of work.
+3. **Keep the record.** Bring this file up to date whenever a task ends or changes hands, and keep the gallery current: about every 30 minutes of work.
 
 ## Decisions
 
@@ -151,6 +143,13 @@ In order of priority. A task ends with its commits on `feature/svg-target`, its 
   - The bitmap size, a hint to raster targets, is not used.
   - A style refers to its pattern as `url(#)` until the document is written, when the pattern's id is named in the order patterns are first used. Only patterns that a style paints with are written.
   - Equal patterns are separate definitions until S-12 shares them, in phase 6.
+- **Bitmaps.** A bitmap is written through `IGraphicsBitmap.WriteToStream`: as JPEG at the options' quality, 90 by default, when JPEG is its own format, and as PNG otherwise (B-3). The document defines each distinct data once, as an `<image>` with an id after the parts, so the drawing comes before the long data (B-5).
+  - Each draw is a `<use>` of the image carrying its object's number, under the transform from the image's pixels to the rectangle, with the digits the image's diagonal needs. A part is the bitmap cropped (B-1).
+  - Nearest-neighbor scaling is a class with `image-rendering:optimizeSpeed;image-rendering:pixelated`; the other modes leave Chromium's smoothing (B-2). Through `<use>`, Chromium samples pixelated as Skia does: BitmapPart matches its reference exactly.
+  - `SvgBitmapOptions` embed the data as a base64 data URI, the default; link it through `storeLinkedBitmap`, which stores the data and gives the href; or leave bitmaps out (B-4).
+  - A bitmap drawn at an intensity below 1 raises `Svg_UnsupportedCallException` naming the call (B-6).
+  - Smoothed, an upright bitmap differs from Skia's along a few rows and columns of pixels, by at most 10 levels in Bitmap and 22 in testlogo's logo; a template its map turns differs throughout, by up to 87 levels in single pixels. All five are within the tolerance, which needed no change.
+  - Each draw encodes its bitmap anew, and the document keeps the first of equal data. Encoding once per bitmap would save time where one bitmap is drawn often; it is not done.
 - **Blending.** Darken is the only mode, written as a group with `mix-blend-mode:darken` that never merges with its neighbours; the map opens it around the run of one overprinted color, so the group blends that run as a whole (D-8). Any other mode is an unsupported call.
 - **The comparison.** Each case is one map in one part on one page whose millimetres are the image's pixels, and Chromium shows the SVG through an HTML page that sizes it to the image.
   - The census records each case with `StructuredRecordingGraphicsTarget`: a `RecordingGraphicsTarget` that also records, through `RecordStructure`, the structure calls the map code makes, and plays them back onto a target that keeps structure (DL-4). They are not drawing calls, so the census leaves them out.
