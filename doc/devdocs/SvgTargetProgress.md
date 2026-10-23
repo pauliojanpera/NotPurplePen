@@ -80,22 +80,34 @@ The calls the target fully implements, in the sense of DL-5: `Intensity`, `PushT
 
 In order of priority. A task ends with its commits on `feature/svg-target`, its loop green, the gallery and this file brought up to date.
 
-1. **Text (T-1 to T-10).** Not started; it unblocks 84 cases. It covers:
+1. **The loop's first improvements**, before text (see "The loop's improvements" under Decisions):
+   - retry the push of the results in `svg.yml`'s "Publish the results";
+   - report in `summary.md` what changed since the results the branch held before: cases newly drawn, failing or pending, changed measurements, and the size of each SVG;
+   - try `svg.yml`'s dispatch mode on `feature/svg-target`, and run the loop that way instead of through `svg/` merge commits if it works.
+
+   They change `base`'s workflow and scripts, so they go on a `ci/` branch landed on `base` and `dev`, as `ci/mixed-runner-images` was.
+2. **Text (T-1 to T-10).** Not started; it unblocks 84 cases. It covers:
+   - fonts with open licences kept in the repository, which the SVG tests register under the families the test maps use, so that the text references do not move with the runner's font packages;
    - `DrawText` and `DrawTextOutline` with the injected `ITextMetrics`;
+   - a check of where Chromium puts each character, read through the SVG DOM in the test page and compared in millimetres with the glyph positions of Skia's shaping, which PDF export writes;
    - `IFontSubsetProvider`, a new interface in `Graphics2D`, implemented by the application, and by the tests through `Map_SkiaStd`'s font loading and PdfSharp's subsetter;
    - `@font-face` subsets in the style block, the fallback faces, and the `fsType` check;
    - the merging of line text (T-5);
    - the text cases' own tolerance (T-10).
 
    Check the tolerance again with `SvgTolerance/` once the cases come.
-2. **Phase 3: the export in the application (A-1 to A-7, CD-1 to CD-3, V-2, V-4, V-5, V-7).** Not started. Work in stages:
+3. **Phase 3: the export in the application (A-1 to A-7, CD-1 to CD-3, V-2, V-4, V-5, V-7).** Not started. Work in stages:
    - a short design of where the export lives, how it shares `CoursePdf`'s layout code (A-3) and how `MapDisplay` draws a map's parts and a course part's layers apart (A-4);
    - the few `IStructuredGraphicsTarget` calls the course data needs (CD-1 to CD-3);
    - the core: `CourseSvgSettings`, the writer and the baseline tests. The writer gives each map that has one its georeference, `SetGeoreference(mapKey, coordinateMapper.GetMapGeoreference())`, once the map has begun (G-1, G-2, A-5). It passes the bitmap handling the user chose as `SvgBitmapOptions`, storing a linked bitmap beside the SVG through `storeLinkedBitmap` (B-4), and draws at full intensity (B-6);
    - the Avalonia command and dialog, to `AGENTS.md`'s conventions (A-1, A-6, A-7).
 
-   Each stage gets a `wip/linux/` run for the Windows suite.
-3. **Keep the record.** Bring this file up to date whenever a task ends or changes hands, and keep the gallery current: about every 30 minutes of work.
+   Each stage gets a `wip/linux/` run for the Windows suite. The baseline tests also export one course to PDF and to SVG and compare each color's CMYK values.
+4. **The loop's later improvements:**
+   - keep every Chromium rendering in the run's artifact, so that the gallery and the tolerance checks need no local Chromium;
+   - mark the calls the target will never honor, such as a bitmap drawn lighter (B-6), apart in `pending.tsv` and the summary;
+   - after text, read each SVG back into page coordinates and compare its geometry with the case's drawing calls, within a step.
+5. **Keep the record.** Bring this file up to date whenever a task ends or changes hands, and keep the gallery current: about every 30 minutes of work.
 
 ## Decisions
 
@@ -137,6 +149,8 @@ In order of priority. A task ends with its commits on `feature/svg-target`, its 
 - **The EPSG codes of OCAD's grids (G-3).** A row of `OcadToProj4Projection`'s table carries an EPSG code only where PROJ's definition of the code and the row's Proj4 string have the same unit and put every point of the code's area of use within 1 mm of each other. A deprecated code gives way to the replacement EPSG names, where that one passes.
   - 624 of the 642 rows carry one. `SvgGeoreference/README.md` lists the eight left without one and why, and `check_with_pyproj.py` beside it repeats the check.
   - Four of the eight follow EPSG definitions withdrawn as wrong, and place points 29 m to 170 km from EPSG's corrected systems; see "Waiting on @Pauli".
+- **The loop's improvements.** On Oct 23 @Pauli asked whether the loop should be improved, and agreed to all the improvements in the task list, fonts in the repository included, leaving their order to the executor.
+  - He also asked whether the SVG should be measured against a vector PDF baseline. A PDF rendered to pixels would add a third rasterizer and check what the Skia references already check, so the comparison stays with Skia. Vector checks go where pixels are blind: where Chromium puts each character (text), the geometry of each SVG against its drawing calls (after text), and the CMYK values of PDF and SVG export (phase 3).
 - **Offering to Purple Pen.** @Pauli asked on Oct 23 that easily separable work be kept in mind as pull requests of its own, weighing the use of each piece. A change useful to Purple Pen on its own therefore goes on a branch of its own rooted at `upstream/master`, as the three `fix/` branches are, and `feature/svg-target` merges it; the weighing comes before the piece is built. The EPSG codes of OCAD's grids are not useful on their own, as only the SVG export reads them, so they stay on `feature/svg-target`. A correction of the four grids under "Waiting on @Pauli" would be useful on its own, if OCAD defines them as EPSG's corrected systems.
 - **Pattern brushes.** `CreatePatternBrush` returns a target that draws the tile as the target draws, with keys of its own and at its creator's intensity, and refuses structure calls. `FinishBrush` makes the tile a brush of its creator, and a pen made from it strokes with the pattern (D-6, D-7).
   - The document defines the pattern in the user space of what it paints, as the Skia target repeats its tile: `x`, `y` and a `viewBox` put the tile's middle on the origin, in the tile's own coordinates, and `patternTransform` turns it by the brush's angle.
