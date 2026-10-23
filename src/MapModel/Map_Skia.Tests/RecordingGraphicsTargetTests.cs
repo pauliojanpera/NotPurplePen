@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Runtime.CompilerServices;
 
 namespace Map_Skia.Tests
@@ -8,6 +9,7 @@ namespace Map_Skia.Tests
     using NUnit.Framework;
     using PurplePen.Graphics2D;
     using PurplePen.MapModel;
+    using RenderingTestCases;
     using SkiaSharp;
     using TestingUtils;
 
@@ -16,206 +18,12 @@ namespace Map_Skia.Tests
     [TestFixture]
     public class RecordingGraphicsTargetTests
     {
-        [Test]
-        public void RecordingSimpleLines()
+        // Record each drawing case, play the recording back twice, and compare both images with the case's
+        // baseline.
+        [TestCaseSource(typeof(RenderingUtil), nameof(RenderingUtil.DrawingTestCases))]
+        public void RecordAndPlayBack(DrawingCase drawingCase)
         {
-            RenderingUtil.RecordingRenderingTest(500, RectangleF.FromLTRB(0, 0, 800, 1100), false, TestUtil.GetTestFile("skia_render\\simplelines.png"),
-                grTarget => {
-                    grTarget.PushAntiAliasing(true);
-
-                    object penKey1 = new object();
-                    grTarget.CreatePen(penKey1, CmykColor.FromColor(Color.DarkBlue), 20, LineCapMode.Flat, LineJoinMode.Bevel, 1);
-                    grTarget.DrawLine(penKey1, new PointF(100, 100), new PointF(600, 150));
-
-                    object penKey2 = new object();
-                    grTarget.CreatePen(penKey2, CmykColor.FromColor(Color.LightBlue), 40, LineCapMode.Round, LineJoinMode.Round, 1);
-                    grTarget.DrawLine(penKey2, new PointF(100, 200), new PointF(600, 250));
-
-                    object penKey3 = new object();
-                    grTarget.CreatePen(penKey3, CmykColor.FromColor(Color.IndianRed), 80, LineCapMode.Square, LineJoinMode.Miter, 2);
-                    grTarget.DrawLine(penKey3, new PointF(100, 300), new PointF(600, 350));
-
-                    grTarget.DrawPolyline(penKey1, new PointF[]
-                         { new PointF(150, 400), new PointF(150, 450), new PointF(400, 400), new PointF(300, 500) });
-
-                    grTarget.DrawPolyline(penKey2, new PointF[]
-                        { new PointF(150, 500), new PointF(150, 550), new PointF(400, 500), new PointF(300, 600) });
-
-                    grTarget.DrawPolyline(penKey3, new PointF[]
-                        { new PointF(120, 700), new PointF(150, 750), new PointF(400, 700), new PointF(300, 800) });
-
-                    grTarget.DrawPolygon(penKey1, new PointF[]
-                        { new PointF(500, 400), new PointF(700, 500), new PointF(650, 600), new PointF(535, 520) });
-
-                    grTarget.DrawPolygon(penKey2, new PointF[]
-                        { new PointF(500, 600), new PointF(700, 700), new PointF(650, 800), new PointF(535, 720) });
-
-                    grTarget.DrawPolygon(penKey3, new PointF[]
-                        { new PointF(500, 800), new PointF(700, 900), new PointF(650, 1000), new PointF(535, 920) });
-
-                    grTarget.PopAntiAliasing();
-                }
-            );
-        }
-
-        [Test]
-        public void RecordingPaths()
-        {
-            RenderingUtil.RecordingRenderingTest(500, RectangleF.FromLTRB(0, 0, 800, 1100), false, TestUtil.GetTestFile("skia_render\\paths.png"),
-               grTarget => {
-                   Matrix mat = new Matrix();
-                   mat.Translate(425, 250);
-                   grTarget.PushTransform(mat);
-
-                   object penKey1 = new object(), pathKey1 = new Object();
-                   grTarget.CreatePen(penKey1, CmykColor.FromColor(Color.Red), 7.0F, LineCapMode.Flat, LineJoinMode.Miter, 5F);
-                   grTarget.CreatePath(pathKey1, new List<GraphicsPathPart> {
-                            new GraphicsPathPart(GraphicsPathPartKind.Start, new PointF[1] {new PointF(-70, -70)}),
-                            new GraphicsPathPart(GraphicsPathPartKind.Lines,  new PointF[] { new PointF(-10, 50), new PointF(20, 50), new PointF(70, -90) }),
-                            new GraphicsPathPart(GraphicsPathPartKind.Close, new PointF[0]),
-                       },
-                       AreaFillMode.Alternate);
-
-                   grTarget.DrawPath(penKey1, pathKey1);
-
-                   object penKey2 = new object(), pathKey2 = new Object();
-                   grTarget.CreatePen(penKey2, CmykColor.FromColor(Color.Green), 3.0F, LineCapMode.Round, LineJoinMode.Round, 5F);
-                   grTarget.CreatePath(pathKey2, new List<GraphicsPathPart> {
-                            new GraphicsPathPart(GraphicsPathPartKind.Start, new PointF[1] {new PointF(-70, -70)}),
-                            new GraphicsPathPart(GraphicsPathPartKind.Beziers,  new PointF[] { new PointF(-10, 50), new PointF(20, 50), new PointF(70, -90) }),
-                            new GraphicsPathPart(GraphicsPathPartKind.Start, new PointF[1] {new PointF(0, 0)}),
-                            new GraphicsPathPart(GraphicsPathPartKind.Lines,  new PointF[] { new PointF(-50, 50), new PointF(50, 50) }),
-                            new GraphicsPathPart(GraphicsPathPartKind.Close, new PointF[0] )},
-                       AreaFillMode.Alternate);
-                   grTarget.DrawPath(penKey2, pathKey2);
-
-                   mat = new Matrix();
-                   mat.Translate(0, 350);
-                   grTarget.PushTransform(mat);
-
-                   object brushKey3 = new object(), pathKey3 = new Object();
-                   grTarget.CreateSolidBrush(brushKey3, CmykColor.FromColor(Color.IndianRed));
-                   grTarget.CreatePath(pathKey3, new List<GraphicsPathPart> {
-                            new GraphicsPathPart(GraphicsPathPartKind.Start, new PointF[1] {new PointF(-70, -70)}),
-                            new GraphicsPathPart(GraphicsPathPartKind.Beziers,  new PointF[] { new PointF(-10, 50), new PointF(20, 50), new PointF(70, -90) }),
-                            new GraphicsPathPart(GraphicsPathPartKind.Close, new PointF[0] )},
-                       AreaFillMode.Alternate);
-                   grTarget.FillPath(brushKey3, pathKey3);
-               }
-            );
-        }
-
-        [Test]
-        public void RecordingClipping()
-        {
-            RenderingUtil.RecordingRenderingTest(500, RectangleF.FromLTRB(0, 0, 800, 1100), false, TestUtil.GetTestFile("skia_render\\clipping.png"),
-                grTarget => {
-                    Matrix mat = new Matrix();
-                    mat.Translate(425, 250);
-                    mat.Scale(2, 2);
-                    grTarget.PushTransform(mat);
-
-                    object pathKey = new object(), brushKey = new object(), penKey = new object();
-
-                    grTarget.CreatePath(pathKey, new List<GraphicsPathPart> {
-                            new GraphicsPathPart(GraphicsPathPartKind.Start, new PointF[1] {new PointF(-50, -30)}),
-                            new GraphicsPathPart(GraphicsPathPartKind.Lines,  new PointF[] {new PointF(0, 80), new PointF(50, -30), new PointF(-50, 50), new PointF(50, 50)})},
-                            AreaFillMode.Alternate);
-
-                    grTarget.PushClip(pathKey);
-
-                    grTarget.CreateSolidBrush(brushKey, CmykColor.FromColor(Color.Red));
-                    grTarget.FillRectangle(brushKey, new RectangleF(-100, -100, 200, 200));
-
-                    grTarget.CreatePen(penKey, CmykColor.FromColor(Color.Green), 15.0F, LineCapMode.Flat, LineJoinMode.Bevel, 5F);
-                    grTarget.DrawEllipse(penKey, new PointF(0, 0), 40, 50);
-
-                    grTarget.PopClip();
-                }
-            );
-        }
-
-        [Test]
-        public void RecordingText()
-        {
-            RenderingUtil.RecordingRenderingTest(500, RectangleF.FromLTRB(0, 0, 800, 1100), false, TestUtil.GetTestFile("skia_render\\text.png"),
-                grTarget => {
-                    grTarget.PushAntiAliasing(true);
-
-                    object fontKey = new object(), brushKey = new object();
-
-                    grTarget.CreateFont(fontKey, "Cambria", 90, TextEffects.Italic);
-                    grTarget.CreateSolidBrush(brushKey, CmykColor.FromColor(Color.BlueViolet));
-                    grTarget.DrawText("Hello", fontKey, brushKey, new PointF(100, 100));
-
-                    Matrix mat = new Matrix();
-                    mat.RotateAt(45, new PointF(100, 200));
-                    grTarget.PushTransform(mat);
-                    grTarget.DrawText("Hello", fontKey, brushKey, new PointF(100, 200));
-                    grTarget.PopTransform();
-
-                    object fontKey2 = new object(), penKey2 = new object();
-                    grTarget.CreateFont(fontKey2, "Times New Roman", 170, TextEffects.Bold | TextEffects.Italic);
-                    grTarget.CreatePen(penKey2, CmykColor.FromColor(Color.Crimson), 1, LineCapMode.Round, LineJoinMode.Round, 2);
-                    grTarget.DrawTextOutline("Hi There", fontKey2, penKey2, new PointF(100, 500));
-                }
-            );
-        }
-
-        [Test]
-        public void RecordingBitmap()
-        {
-            RenderingUtil.RecordingRenderingTest(1000, RectangleF.FromLTRB(0, 0, 800, 1100), false, TestUtil.GetTestFile("skia_render\\bitmap.png"),
-                grTarget => {
-                    using (Skia_Bitmap penguins = new Skia_Bitmap(SKBitmap.Decode(TestUtil.GetTestFile("pdfrender\\penguins.jpg")))) {
-                        grTarget.DrawBitmap(penguins, new RectangleF(100, 100, 600, 400), BitmapScaling.MediumQuality);
-                        grTarget.DrawBitmap(penguins, new RectangleF(200, 800, 150, 100), BitmapScaling.MediumQuality);
-                    }
-                }
-            );
-        }
-
-        [Test]
-        public void RecordingBitmapPart()
-        {
-            RenderingUtil.RecordingRenderingTest(1000, RectangleF.FromLTRB(0, 0, 800, 1100), false, TestUtil.GetTestFile("skia_render\\bitmappart.png"),
-                grTarget => {
-                    using (Skia_Bitmap bitmap = new Skia_Bitmap(SKBitmap.Decode(TestUtil.GetTestFile("pdfrender\\penguins.jpg")))) {
-                        grTarget.DrawBitmapPart(bitmap, bitmap.PixelWidth * 3 / 10, bitmap.PixelHeight * 2 / 10, bitmap.PixelWidth * 5 / 10, bitmap.PixelHeight * 4 / 10,
-                                        new RectangleF(100, 500, 600, 400), BitmapScaling.NearestNeighbor);
-                    }
-                }
-            );
-        }
-
-        [Test]
-        public void RecordingPatternBrush()
-        {
-            RenderingUtil.RecordingRenderingTest(800, new RectangleF(-103, -117, 200, 200), false, TestUtil.GetTestFile("skia_render\\patternbrush.png"),
-                grTarget => {
-                    IBrushTarget brushTarget = grTarget.CreatePatternBrush(new SizeF(30, 20), 0, 60, 60);
-
-                    object pen = new object();
-                    brushTarget.CreatePen(pen, CmykColor.FromRgb(1, 0, 0), 1.5F, LineCapMode.Round, LineJoinMode.Round, 5F);
-                    brushTarget.DrawLine(pen, new PointF(-15, -10), new PointF(3, 10));
-                    pen = new object();
-                    brushTarget.CreatePen(pen, CmykColor.FromRgb(0, 1, 0), 3.0F, LineCapMode.Round, LineJoinMode.Round, 5F);
-                    brushTarget.DrawLine(pen, new PointF(3, 10), new PointF(15, -10));
-
-                    pen = new object();
-                    brushTarget.CreatePen(pen, CmykColor.FromRgb(0, 0, 1), 3F, LineCapMode.Round, LineJoinMode.Round, 5F);
-                    brushTarget.DrawEllipse(pen, new PointF(1, -2), 5, 4);
-
-                    object brush = new object();
-                    brushTarget.FinishBrush(brush);
-
-                    grTarget.FillPolygon(brush, new PointF[] { new PointF(-50, -60), new PointF(0, 30), new PointF(50, -60), new PointF(-50, 20), new PointF(50, 20) }, AreaFillMode.Winding);
-
-                    object pen2 = new object();
-                    grTarget.CreatePen(pen2, CmykColor.FromRgb(0, 0, 0), 0.5F, LineCapMode.Flat, LineJoinMode.Round, 5F);
-                    grTarget.DrawLine(pen2, new PointF(-30, -30), new PointF(30, 30));
-                    grTarget.DrawLine(pen2, new PointF(30, -30), new PointF(-30, 30));
-                });
+            RenderingUtil.RecordingRenderingTest(drawingCase);
         }
 
         [Test]
@@ -223,7 +31,7 @@ namespace Map_Skia.Tests
         {
             // Area symbols use pattern brushes; also tests the lightened (intensity) variant.
             // Renders both directly and through a RecordingGraphicsTarget.
-            string fullname = TestUtil.GetTestFile("skia_render\\isomarea.txt");
+            string fullname = TestUtil.GetTestFile(Path.Combine("skia_render", "isomarea.txt"));
             bool ok = RenderingUtil.VerifyTestFile(fullname, new RenderOptions(), true, false, true, false, false, 6, 12, 0, true);
             Assert.IsTrue(ok);
         }
@@ -339,6 +147,30 @@ namespace Map_Skia.Tests
 
                 // Playback still works without the keys.
                 DrawToBitmap(grTarget => recorder.Playback(grTarget)).Dispose();
+            }
+        }
+
+        [Test]
+        public void RecordedCallNamesAreTheCallsPlaybackMakes()
+        {
+            using (RecordingGraphicsTarget recorder = new RecordingGraphicsTarget())
+            using (Skia_Bitmap bitmap = new Skia_Bitmap(new SKBitmap(4, 4))) {
+                recorder.Intensity = 0.5F;
+
+                IBrushTarget brushTarget = recorder.CreatePatternBrush(new SizeF(10, 10), 0, 10, 10);
+                object penKey = new object(), patternKey = new object();
+                brushTarget.CreatePen(penKey, CmykColor.FromCmyk(0, 1, 0, 0), 1, LineCapMode.Flat, LineJoinMode.Miter, 1);
+                brushTarget.DrawLine(penKey, new PointF(0, 0), new PointF(5, 5));
+                brushTarget.FinishBrush(patternKey);
+
+                recorder.FillRectangle(patternKey, new RectangleF(0, 0, 50, 50));
+                recorder.DrawBitmapPart(bitmap, 1, 1, 2, 2, new RectangleF(0, 0, 10, 10), BitmapScaling.NearestNeighbor);
+
+                // The pattern brush is played back through CreatePatternBrush, and the bitmap part, recorded
+                // cropped, through DrawBitmap.
+                CollectionAssert.AreEqual(
+                    new[] { "CreatePatternBrush", "CreatePen", "DrawBitmap", "DrawLine", "FillRectangle", "Intensity" },
+                    recorder.RecordedCallNames);
             }
         }
 
