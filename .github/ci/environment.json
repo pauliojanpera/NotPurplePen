@@ -1,5 +1,5 @@
 {
-  "description": "What the rendering tests require of the machine that runs them: the edition and version of Windows, as the registry names them (Windows 11 still calls itself Windows 10 there), and each system font the tests use, by fingerprint, as they were when the baselines were recorded. A hosted image cannot be pinned, so this is checked at the start of every test run: a machine that differs shows up as one message instead of a hundred unexplained rendering diffs.",
+  "description": "What the rendering tests require of the machine that runs them: the edition and version of Windows, as the registry names them (Windows 11 still calls itself Windows 10 there), and each system font the tests use, by fingerprint, as they were when the baselines were recorded. A hosted image cannot be pinned, so this is checked at the start of every test run: a machine that differs shows up as one warning, which explains the rendering diffs it causes, if any.",
   "windows": "Windows 10 Enterprise 25H2",
   "systemFonts": [
     {
