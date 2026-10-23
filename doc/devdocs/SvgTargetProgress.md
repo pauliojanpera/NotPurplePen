@@ -9,7 +9,8 @@ Where the work on the SVG target stands against the phases of [its requirements]
 | Branch | Holds |
 | --- | --- |
 | `docs/svg-target-requirements` | The requirements, this file, and the tools beside it: `SvgGallery/`, `SvgTolerance/` and `SvgGeoreference/` |
-| `feature/svg-target` | The work, rooted at `upstream/master` (C-8), with the three `fix/` branches below merged in. Its tip, 734778e, holds phase 2's steps 1 to 3 and the target's side of step 4's G-1 and G-2. |
+| `feature/svg-target` | The work, rooted at `upstream/master` (C-8), with the three `fix/` branches below merged in. Its tip, 43eb51e, holds phase 2's steps 1 to 4: step 4's record of a map's georeference (734778e), the EPSG codes of OCAD's grids (af9f9df) and the georeference's computation (43eb51e). |
+| `wip/linux/svg-target` | Phase 2's full run: `base` with `feature/svg-target` merged in (DL-10) |
 | `svg/svg-target` | `base` with `feature/svg-target` merged in, rebuilt for each loop run (DL-1) |
 | `svg-results/svg-target` | The results of the latest loop run (DL-7) |
 | `feature/svg-georeference`, `svg/svg-georeference`, `svg-results/svg-georeference` | The target's side of G-1 and G-2, rebased onto 828fd87 as 734778e and merged into `feature/svg-target`; nothing depends on them |
@@ -38,7 +39,13 @@ The SVG loop, `.github/workflows/svg.yml`, and the machine check of the Windows 
   - Move the course's states on, and look at the page with `SvgGallery/look-at-gallery.mjs`.
   - Publish it with `SvgGallery/publish-svg-gallery.sh`, which replaces `svg-gallery`'s commit and puts the gallery under `svg/` on `gh-pages`.
   - A `wip/` branch made before `build.yml` copied `svg-gallery` into the site publishes without it, until the next publish from `base`, `dev` or a newer branch.
-- **Full run.** A change is finished only after a `wip/` branch rooted at `base`, with the feature merged in, has run the Windows suite (DL-10). Name it `wip/linux/<name>` to package Linux alone. The suite stops on a machine whose Windows version or system fonts differ from `.github/ci/environment.json`; a run started by hand with `machine_check` set to `report` tests anyway, and the stopped job's log prints the record that machine would need.
+- **Full run.** A change is finished only after a `wip/` branch rooted at `base`, with the feature merged in, has run the Windows suite (DL-10). Name it `wip/linux/<name>` to package Linux alone. A machine whose Windows version or system fonts differ from `.github/ci/environment.json` is named in a warning and tested anyway, and its job's log prints the record that machine has, which replaces the file when baselines are recorded on it. A run started by hand with `machine_check` set to `stop` stops there instead.
+- **Windows-only tests on Linux.** `Test_MapModel` and `PurplePen_Tests` target Windows, but one test file of theirs runs on Linux in a stand-in project of its own:
+  - name it as the suite's assembly, so that `Test_MapModel`'s internals stay visible, and compile only that file with `TEST` defined;
+  - reference the projects it needs, with the Linux native packages `SkiaSharp.NativeAssets.Linux` and `HarfBuzzSharp.NativeAssets.Linux`;
+  - register Skia's services as `GlobalTestSetup` does, and put a `TestFiles` link beside it for `TestUtil` to find.
+
+  It checks a test before the Windows suite runs it.
 - **Working in parallel.** On Oct 22 the work ran in up to three agents at once. Each had its own worktree and its own branch, rooted at `feature/svg-target`, and its own loop on `svg/<name>`. One session merged their branches, rebased onto the latest `feature/svg-target`, and alone published the gallery and edited this file. That split keeps the agents out of each other's way, and suits a next executor as well as working serially does. From Oct 23 @Pauli asked for the work to go on without parallel agents, and one session carries it serially.
 - **Tolerance and georeferencing research.** `SvgTolerance/` holds the scripts that chose the pixel tolerance, to run again whenever new cases arrive. `SvgGeoreference/` holds the checks of the EPSG codes of OCAD's grids for G-3.
 
@@ -47,7 +54,7 @@ The SVG loop, `.github/workflows/svg.yml`, and the machine check of the Windows 
 | Phase | Status |
 | --- | --- |
 | 1, the development loop | Done. The dispatch mode of `svg.yml` is untried until the workflow reaches `dev`, the default branch. |
-| 2, drawing, structure, layout, color and georeferencing | Steps 1 to 3 done; step 4 under way. Then the full `wip/` run, with F-6 checked by hand. |
+| 2, drawing, structure, layout, color and georeferencing | Steps 1 to 4 done; the full `wip/` run is under way, then F-6, checked by hand. |
 | 3, the export in the application and course data | Not started. @Pauli left the order of phases 3 and 4 to the executor; both may go on beside phase 2's end. |
 | 4, text and bitmaps | Bitmaps under way on `feature/svg-bitmaps`; text not started |
 | 5 to 8 | Not started |
@@ -57,9 +64,9 @@ The SVG loop, `.github/workflows/svg.yml`, and the machine check of the Windows 
 | 1. The document, its layout and its writers (L-1 to L-5, F-2 to F-4, COL-1 to COL-6, S-1 to S-4, S-8, S-9, S-11) | Done (efa6995, loop run 39744433244) |
 | 2. The drawing operations (D-1 to D-12) | Done (639332d, loop run 39783503957) |
 | 3. The map structure (M-1 to M-8) | Done (f075a0c, loop run 39817113317) |
-| 4. Georeferencing (G-1 to G-3), then the full `wip/` run, with F-6 checked by hand | Under way: the target's side of G-1 and G-2 is done (734778e, loop run 39975400945); G-3 and the computation of a map's georeference remain; see the task list |
+| 4. Georeferencing (G-1 to G-3), then the full `wip/` run, with F-6 checked by hand | Done: the record (734778e, loop run 39975400945), the EPSG codes of OCAD's grids (af9f9df, loop run 39979057271) and the computation (43eb51e, loop run 39980571564). The full run, Tests run 39980577132 on `wip/linux/svg-target`, is under way; see the task list |
 
-On `feature/svg-target` at 734778e, loop run 39975400945 gives 179 passed, 0 failed, 91 pending. The 101 drawn cases all match their recorded references within the pixel tolerance. Of the 91 pending, 84 wait on `CreateFont` and 7 on `DrawBitmap` alone.
+On `feature/svg-target` at 43eb51e, loop run 39980571564 gives 179 passed, 0 failed, 91 pending. The 101 drawn cases all match their recorded references within the pixel tolerance. Of the 91 pending, 84 wait on `CreateFont` and 7 on `DrawBitmap` alone.
 
 The calls the target fully implements, in the sense of DL-5: `Intensity`, `PushTransform`, `PopTransform`, `PushClip`, `PopClip`, `PushAntiAliasing`, `PopAntiAliasing`, `PushBlending`, `PopBlending`, `CreatePath`, `CreateSolidBrush`, `SupportsPatternBrushes`, `CreatePatternBrush`, `CreatePen`, `HasPath`, `HasBrush`, `HasPen`, `HasFont`, `DrawLine`, `DrawArc`, `DrawEllipse`, `FillEllipse`, `DrawRectangle`, `FillRectangle`, `DrawPolygon`, `DrawPolyline`, `FillPolygon`, `DrawPath`, `FillPath`.
 
@@ -67,13 +74,8 @@ The calls the target fully implements, in the sense of DL-5: `Intensity`, `PushT
 
 In order of priority. A task ends with its commits on `feature/svg-target`, its loop green, the gallery and this file brought up to date.
 
-1. **The EPSG codes of OCAD's grids (G-3).** Follow `SvgGeoreference/README.md`:
-   - take the confirmed codes into `OcadToProj4Projection`'s table, with a lookup;
-   - check the rest one by one, and leave out what cannot be confirmed;
-   - test it in the map model's tests of `MapProjection`.
-2. **The georeference's computation (G-1, A-5).** In `src/PurplePenCore`, beside `CoordinateMapper` (`GpxFile.cs`) and the world-file code of `ExportBitmap.cs`, add the function the export calls to build a map's `MapGeoreference`, with tests where PurplePenCore's coordinate code is tested. These tests run only in the Windows suite.
-3. **Phase 2's full run.** Push `wip/linux/svg-target`, rooted at `base` with `feature/svg-target` merged in, and get the Windows suite green. Base's latest Windows tests passed on Oct 22, the machine check included. Hand @Pauli the run's SVGs for F-6. Then mark phase 2 done here and in the gallery.
-4. **Bitmaps (B-1 to B-6).** b5caf74 on `feature/svg-bitmaps` is unfinished work. It holds:
+1. **Phase 2's full run.** `wip/linux/svg-target`, rooted at `base` with `feature/svg-target` merged in, runs the Windows suite, which also runs G-3's tests in `Test_MapModel` and the georeference's in `PurplePen_Tests`. Once it is green, hand @Pauli the run's SVGs for F-6, then mark phase 2 done here and in the gallery.
+2. **Bitmaps (B-1 to B-6).** b5caf74 on `feature/svg-bitmaps` is unfinished work. It holds:
    - `SvgBitmapOptions`: embedded, linked through a store the caller gives, or left out, and the JPEG quality (B-3, B-4);
    - `SvgImage` and `SvgDocument.ImageOf`, which hold each written bitmap once, keyed by its data, and write the images last among the definitions (B-5);
    - `SvgImageUse`, which draws an image over its rectangle through `<use>` and a transform;
@@ -87,7 +89,7 @@ In order of priority. A task ends with its commits on `feature/svg-target`, its 
    - Add document tests and the new references, and measure Chromium's smoothing against Skia's.
    - Add `DrawBitmap` to the fully implemented calls only when all of B-1 to B-6 hold.
    - Rewrite the commit into proper ones before merging.
-5. **Text (T-1 to T-10).** Not started; it unblocks 84 cases. It covers:
+3. **Text (T-1 to T-10).** Not started; it unblocks 84 cases. It covers:
    - `DrawText` and `DrawTextOutline` with the injected `ITextMetrics`;
    - `IFontSubsetProvider`, a new interface in `Graphics2D`, implemented by the application, and by the tests through `Map_SkiaStd`'s font loading and PdfSharp's subsetter;
    - `@font-face` subsets in the style block, the fallback faces, and the `fsType` check;
@@ -95,14 +97,14 @@ In order of priority. A task ends with its commits on `feature/svg-target`, its 
    - the text cases' own tolerance (T-10).
 
    Check the tolerance again with `SvgTolerance/` once the cases come.
-6. **Phase 3: the export in the application (A-1 to A-7, CD-1 to CD-3, V-2, V-4, V-5, V-7).** Not started. Work in stages:
+4. **Phase 3: the export in the application (A-1 to A-7, CD-1 to CD-3, V-2, V-4, V-5, V-7).** Not started. Work in stages:
    - a short design of where the export lives, how it shares `CoursePdf`'s layout code (A-3) and how `MapDisplay` draws a map's parts and a course part's layers apart (A-4);
    - the few `IStructuredGraphicsTarget` calls the course data needs (CD-1 to CD-3);
-   - the core: `CourseSvgSettings`, the writer and the baseline tests;
+   - the core: `CourseSvgSettings`, the writer and the baseline tests. The writer gives each map that has one its georeference, `SetGeoreference(mapKey, coordinateMapper.GetMapGeoreference())`, once the map has begun (G-1, G-2, A-5);
    - the Avalonia command and dialog, to `AGENTS.md`'s conventions (A-1, A-6, A-7).
 
    Each stage gets a `wip/linux/` run for the Windows suite.
-7. **Keep the record.** Bring this file up to date whenever a task ends or changes hands, and keep the gallery current: about every 30 minutes of work.
+5. **Keep the record.** Bring this file up to date whenever a task ends or changes hands, and keep the gallery current: about every 30 minutes of work.
 
 ## Decisions
 
@@ -139,6 +141,12 @@ In order of priority. A task ends with its commits on `feature/svg-target`, its 
   - A map's record in the metadata opens with `npp:georeference`, ahead of its tables, so a map with a georeference and no tables still has a record.
   - Its `transform` takes steps of map to the real world. It is written as every transform is (S-8), and left out when it moves nothing (S-9). It keeps the digits that hold a point within a step of map over the 8 m the map's coordinates reach (S-2).
   - `epsg`, `proj4` and `ocad-grid-zone` follow where the map has them.
+  - `CoordinateMapper.GetMapGeoreference` computes it. The transform is where `GetRealWorld`, which world files are written with, puts the map's origin and unit vectors. It gives null for a map without real-world coordinates. OCAD's grid 1000, which says that a map has no coordinate system, identifies none.
+  - `RealWorldCoords.CoordinateSystemEpsg` gives the EPSG code however the map names its system: a code it was given, or the code of its OCAD grid. `Epsg` keeps holding only a given code, which `OpenMapperExport` writes as such.
+- **The EPSG codes of OCAD's grids (G-3).** A row of `OcadToProj4Projection`'s table carries an EPSG code only where PROJ's definition of the code and the row's Proj4 string have the same unit and put every point of the code's area of use within 1 mm of each other. A deprecated code gives way to the replacement EPSG names, where that one passes.
+  - 624 of the 642 rows carry one. `SvgGeoreference/README.md` lists the eight left without one and why, and `check_with_pyproj.py` beside it repeats the check.
+  - Four of the eight follow EPSG definitions withdrawn as wrong, and place points 29 m to 170 km from EPSG's corrected systems; see "Waiting on @Pauli".
+- **Offering to Purple Pen.** @Pauli asked on Oct 23 that easily separable work be kept in mind as pull requests of its own, weighing the use of each piece. A change useful to Purple Pen on its own therefore goes on a branch of its own rooted at `upstream/master`, as the three `fix/` branches are, and `feature/svg-target` merges it; the weighing comes before the piece is built. The EPSG codes of OCAD's grids are not useful on their own, as only the SVG export reads them, so they stay on `feature/svg-target`. A correction of the four grids under "Waiting on @Pauli" would be useful on its own, if OCAD defines them as EPSG's corrected systems.
 - **Pattern brushes.** `CreatePatternBrush` returns a target that draws the tile as the target draws, with keys of its own and at its creator's intensity, and refuses structure calls. `FinishBrush` makes the tile a brush of its creator, and a pen made from it strokes with the pattern (D-6, D-7).
   - The document defines the pattern in the user space of what it paints, as the Skia target repeats its tile: `x`, `y` and a `viewBox` put the tile's middle on the origin, in the tile's own coordinates, and `patternTransform` turns it by the brush's angle.
   - The bitmap size, a hint to raster targets, is not used.
@@ -167,10 +175,21 @@ In order of priority. A task ends with its commits on `feature/svg-target`, its 
 ## Waiting on @Pauli
 
 - **F-6**, opening the output in Inkscape and Scribus, by hand at the end of phase 2.
+- **Four grids that follow withdrawn EPSG definitions.** Grids 50050 (Kentucky North), 66044 and 66045 (Indiana East and West) and 66098 (South Dakota North) follow 26979, 2244, 2245 and 3454, which EPSG withdrew as wrong. Correcting their Proj4 strings would move maps already georeferenced by them, so it is @Pauli's call, and probably upstream's. Until then they name no EPSG code. Raised on Oct 23.
 
 ## The test machine
 
-`.github/ci/environment.json` records Segoe UI 5.72, which GitHub's Windows image 20261018.189.1 carries, on both `base` and `dev`. @Pauli settled that `dev` matches `base` here. `dev` took it up by merging `base` (7d1ce11), which also brought `dev` the SVG loop, the machine check that requires only the Windows version and the fonts, and the fork instructions' pointer to this file. Check that `dev`'s Tests run 39861565207, the first after the merge, is green.
+`.github/ci/environment.json` records Segoe UI 5.72, on both `base` and `dev`, which @Pauli settled should match here. GitHub's windows-11-arm runners serve several images at once:
+- 20261018.189.1 and 20261021.192.1 carry Segoe UI 5.72;
+- 20261013.183.4 still carries 5.71, and the suite passes on both versions.
+
+The machine check used to stop every job on a machine unlike the record. It stopped three jobs of `dev`'s Tests run 39861565207, and `base`'s run 39742515380 passed only on its fifth attempt.
+
+`ci/mixed-runner-images`, landed on `base` as e0582c6 and on `dev` as 050ad37, changes two things:
+- **The machine check.** It reports such a machine as a warning and tests anyway; `machine_check` set to `stop` in a run started by hand stops there.
+- **Publishing.** It follows the commit's newest test run, and after a failure watches for a re-run until its 40-minute deadline.
+
+`base`'s Tests run 39978811765 took the verdict of `wip/linux/mixed-runner-images`'s run 39976836532. `dev`'s Tests run 39978845567 passed, and both Builds published behind the new wait.
 
 ## The previous executor
 
