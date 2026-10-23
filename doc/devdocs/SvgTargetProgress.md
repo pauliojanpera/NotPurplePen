@@ -9,10 +9,10 @@ Where the work on the SVG target stands against the phases of [its requirements]
 | Branch | Holds |
 | --- | --- |
 | `docs/svg-target-requirements` | The requirements, this file, and the tools beside it: `SvgGallery/`, `SvgTolerance/` and `SvgGeoreference/` |
-| `feature/svg-target` | The work, rooted at `upstream/master` (C-8), with the three `fix/` branches below merged in. Its tip, 828fd87, holds phase 2's steps 1 to 3. |
+| `feature/svg-target` | The work, rooted at `upstream/master` (C-8), with the three `fix/` branches below merged in. Its tip, 734778e, holds phase 2's steps 1 to 3 and the target's side of step 4's G-1 and G-2. |
 | `svg/svg-target` | `base` with `feature/svg-target` merged in, rebuilt for each loop run (DL-1) |
 | `svg-results/svg-target` | The results of the latest loop run (DL-7) |
-| `feature/svg-georeference` | Step 4, georeferencing: one commit, 9d83a38, rooted at f075a0c and not yet merged. See the task list. |
+| `feature/svg-georeference`, `svg/svg-georeference`, `svg-results/svg-georeference` | The target's side of G-1 and G-2, rebased onto 828fd87 as 734778e and merged into `feature/svg-target`; nothing depends on them |
 | `feature/svg-bitmaps` | Phase 4's bitmaps: one commit of unfinished work, b5caf74, rooted at 033d648, to be finished and rewritten before it merges. See the task list. |
 | `svg-gallery` | The gallery served at <https://pauliojanpera.github.io/NotPurplePen/svg/>: its page, fonts and each entry's drawings, as one commit that each update replaces. Every publish of the site copies it into `svg/`. |
 | `fix/backslashes-in-test-file-paths`, `fix/culture-independent-descriptor-parsing`, `fix/case-of-test-file-names` | Changes the tests need on Linux, each to be offered to Purple Pen on its own |
@@ -23,7 +23,7 @@ The SVG loop, `.github/workflows/svg.yml`, and the machine check of the Windows 
 
 ## How to pick the work up
 
-- **Environment.** Linux with the .NET 10 SDK, PowerShell, Node with Playwright, and Python 3 with NumPy, SciPy and Pillow. In a cloud session, install the SDK with `dotnet-install.sh --channel 10.0 --azure-feed https://dotnetcli.blob.core.windows.net/dotnet`. Build `src/MapModel/Map_Svg.Tests`, then install Playwright's pinned Chromium with `bin/Debug/net10.0/playwright.ps1 install --only-shell chromium` (PowerShell from its GitHub release). The hosts this needs are api.nuget.org, dotnetcli.blob.core.windows.net, cdn.playwright.dev and storage.googleapis.com. A sparse checkout of `src/DotSpatialProjectionsLite`, `src/MapModel/{Graphics2D,MapModel,Map_Skia.Tests,Map_SkiaStd,Map_Svg,Map_Svg.Tests,RenderingTestCases}`, `src/MapModel/TestFiles/{pdfrender,rendering,skia_render,svg_reference}` and `src/Testing` builds and runs the SVG tests. The application's phases need `src/PurplePenCore`, `src/AvPurplePen`, `src/PurplePenViewModels` and their tests too.
+- **Environment.** Linux with the .NET 10 SDK, PowerShell, Node with Playwright, and Python 3 with NumPy, SciPy and Pillow. In a cloud session, install the SDK with `dotnet-install.sh --channel 10.0 --azure-feed https://dotnetcli.blob.core.windows.net/dotnet`. Build `src/MapModel/Map_Svg.Tests`, then install Playwright's pinned Chromium with `bin/Debug/net10.0/playwright.ps1 install --only-shell chromium` (PowerShell from its GitHub release). Where GitHub's releases are out of reach, PowerShell installs as the .NET tool `PowerShell` from NuGet. The Playwright package's own driver also installs the browser without PowerShell: `bin/Debug/net10.0/.playwright/node/linux-x64/node bin/Debug/net10.0/.playwright/package/cli.js install --only-shell chromium`. The hosts this needs are api.nuget.org, dotnetcli.blob.core.windows.net, cdn.playwright.dev and storage.googleapis.com. A sparse checkout of `src/DotSpatialProjectionsLite`, `src/MapModel/{Graphics2D,MapModel,Map_Skia.Tests,Map_SkiaStd,Map_Svg,Map_Svg.Tests,RenderingTestCases}`, `src/MapModel/TestFiles/{pdfrender,rendering,skia_render,svg_reference}` and `src/Testing` builds and runs the SVG tests. The application's phases need `src/PurplePenCore`, `src/AvPurplePen`, `src/PurplePenViewModels` and their tests too.
 - **Local run.** Run `dotnet test` on `src/MapModel/Map_Svg.Tests` with `SVG_LOOP_RESULTS` naming a results directory. The run reproduces the loop's measurements, documents and reference images byte for byte, and takes about two minutes.
 - **Loop run.**
   - Rebuild `svg/svg-target` as one merge commit of `origin/base` and `origin/feature/svg-target`: `git merge-tree --write-tree`, then `git commit-tree`.
@@ -39,7 +39,7 @@ The SVG loop, `.github/workflows/svg.yml`, and the machine check of the Windows 
   - Publish it with `SvgGallery/publish-svg-gallery.sh`, which replaces `svg-gallery`'s commit and puts the gallery under `svg/` on `gh-pages`.
   - A `wip/` branch made before `build.yml` copied `svg-gallery` into the site publishes without it, until the next publish from `base`, `dev` or a newer branch.
 - **Full run.** A change is finished only after a `wip/` branch rooted at `base`, with the feature merged in, has run the Windows suite (DL-10). Name it `wip/linux/<name>` to package Linux alone. The suite stops on a machine whose Windows version or system fonts differ from `.github/ci/environment.json`; a run started by hand with `machine_check` set to `report` tests anyway, and the stopped job's log prints the record that machine would need.
-- **Working in parallel.** On Oct 22 the work ran in up to three agents at once. Each had its own worktree and its own branch, rooted at `feature/svg-target`, and its own loop on `svg/<name>`. One session merged their branches, rebased onto the latest `feature/svg-target`, and alone published the gallery and edited this file. That split keeps the agents out of each other's way, and suits a next executor as well as working serially does.
+- **Working in parallel.** On Oct 22 the work ran in up to three agents at once. Each had its own worktree and its own branch, rooted at `feature/svg-target`, and its own loop on `svg/<name>`. One session merged their branches, rebased onto the latest `feature/svg-target`, and alone published the gallery and edited this file. That split keeps the agents out of each other's way, and suits a next executor as well as working serially does. From Oct 23 @Pauli asked for the work to go on without parallel agents, and one session carries it serially.
 - **Tolerance and georeferencing research.** `SvgTolerance/` holds the scripts that chose the pixel tolerance, to run again whenever new cases arrive. `SvgGeoreference/` holds the checks of the EPSG codes of OCAD's grids for G-3.
 
 ## Status
@@ -57,9 +57,9 @@ The SVG loop, `.github/workflows/svg.yml`, and the machine check of the Windows 
 | 1. The document, its layout and its writers (L-1 to L-5, F-2 to F-4, COL-1 to COL-6, S-1 to S-4, S-8, S-9, S-11) | Done (efa6995, loop run 39744433244) |
 | 2. The drawing operations (D-1 to D-12) | Done (639332d, loop run 39783503957) |
 | 3. The map structure (M-1 to M-8) | Done (f075a0c, loop run 39817113317) |
-| 4. Georeferencing (G-1 to G-3), then the full `wip/` run, with F-6 checked by hand | Under way: the target's side of G-1 and G-2 is on `feature/svg-georeference`; see the task list |
+| 4. Georeferencing (G-1 to G-3), then the full `wip/` run, with F-6 checked by hand | Under way: the target's side of G-1 and G-2 is done (734778e, loop run 39975400945); G-3 and the computation of a map's georeference remain; see the task list |
 
-On `feature/svg-target` at 828fd87, loop run 39860395988 gives 172 passed, 0 failed, 91 pending. The 101 drawn cases all match their recorded references within the pixel tolerance. Of the 91 pending, 84 wait on `CreateFont` and 7 on `DrawBitmap` alone.
+On `feature/svg-target` at 734778e, loop run 39975400945 gives 179 passed, 0 failed, 91 pending. The 101 drawn cases all match their recorded references within the pixel tolerance. Of the 91 pending, 84 wait on `CreateFont` and 7 on `DrawBitmap` alone.
 
 The calls the target fully implements, in the sense of DL-5: `Intensity`, `PushTransform`, `PopTransform`, `PushClip`, `PopClip`, `PushAntiAliasing`, `PopAntiAliasing`, `PushBlending`, `PopBlending`, `CreatePath`, `CreateSolidBrush`, `SupportsPatternBrushes`, `CreatePatternBrush`, `CreatePen`, `HasPath`, `HasBrush`, `HasPen`, `HasFont`, `DrawLine`, `DrawArc`, `DrawEllipse`, `FillEllipse`, `DrawRectangle`, `FillRectangle`, `DrawPolygon`, `DrawPolyline`, `FillPolygon`, `DrawPath`, `FillPath`.
 
@@ -67,35 +67,27 @@ The calls the target fully implements, in the sense of DL-5: `Intensity`, `PushT
 
 In order of priority. A task ends with its commits on `feature/svg-target`, its loop green, the gallery and this file brought up to date.
 
-1. **Georeferencing, the target's side (G-1, G-2).** 9d83a38 on `feature/svg-georeference` adds:
-   - `MapGeoreference` to `Graphics2D`: the affine transform from millimetres of map to the real world, and the EPSG code, Proj4 string and OCAD grid and zone id;
-   - `SetGeoreference(mapKey, georeference)` at the end of `IStructuredGraphicsTarget`;
-   - its recording in `StructuredRecordingGraphicsTarget`;
-   - `npp:georeference` in the map's metadata, ahead of its tables;
-   - its document tests.
-
-   It was not yet run in the loop. Rebase it onto `feature/svg-target` (the two touch `SvgDocumentTests.cs`, `SvgGraphicsTarget.cs` and `SvgDocument.cs`), run the local suite and the loop on `svg/svg-georeference`, and merge it.
-2. **The EPSG codes of OCAD's grids (G-3).** Follow `SvgGeoreference/README.md`:
+1. **The EPSG codes of OCAD's grids (G-3).** Follow `SvgGeoreference/README.md`:
    - take the confirmed codes into `OcadToProj4Projection`'s table, with a lookup;
    - check the rest one by one, and leave out what cannot be confirmed;
    - test it in the map model's tests of `MapProjection`.
-3. **The georeference's computation (G-1, A-5).** In `src/PurplePenCore`, beside `CoordinateMapper` (`GpxFile.cs`) and the world-file code of `ExportBitmap.cs`, add the function the export calls to build a map's `MapGeoreference`, with tests where PurplePenCore's coordinate code is tested. These tests run only in the Windows suite.
-4. **Phase 2's full run.** Push `wip/linux/svg-target`, rooted at `base` with `feature/svg-target` merged in, and get the Windows suite green. Base's latest Windows tests passed on Oct 22, the machine check included. Hand @Pauli the run's SVGs for F-6. Then mark phase 2 done here and in the gallery.
-5. **Bitmaps (B-1 to B-6).** b5caf74 on `feature/svg-bitmaps` is unfinished work. It holds:
+2. **The georeference's computation (G-1, A-5).** In `src/PurplePenCore`, beside `CoordinateMapper` (`GpxFile.cs`) and the world-file code of `ExportBitmap.cs`, add the function the export calls to build a map's `MapGeoreference`, with tests where PurplePenCore's coordinate code is tested. These tests run only in the Windows suite.
+3. **Phase 2's full run.** Push `wip/linux/svg-target`, rooted at `base` with `feature/svg-target` merged in, and get the Windows suite green. Base's latest Windows tests passed on Oct 22, the machine check included. Hand @Pauli the run's SVGs for F-6. Then mark phase 2 done here and in the gallery.
+4. **Bitmaps (B-1 to B-6).** b5caf74 on `feature/svg-bitmaps` is unfinished work. It holds:
    - `SvgBitmapOptions`: embedded, linked through a store the caller gives, or left out, and the JPEG quality (B-3, B-4);
    - `SvgImage` and `SvgDocument.ImageOf`, which hold each written bitmap once, keyed by its data, and write the images last among the definitions (B-5);
    - `SvgImageUse`, which draws an image over its rectangle through `<use>` and a transform;
    - `SvgElement`, a base for elements that carry an object number.
 
    Still to do:
-   - Rebase it onto 828fd87, which split `SvgShape` into `SvgPath` and `SvgEllipse`, by making `SvgShape` derive from `SvgElement`.
+   - Rebase it onto `feature/svg-target`, whose 828fd87 split `SvgShape` into `SvgPath` and `SvgEllipse`, by making `SvgShape` derive from `SvgElement`.
    - Write `DrawBitmap` and `DrawBitmapPart` through `IGraphicsBitmap.WriteToStream`, in its own format when that is PNG or JPEG and as PNG otherwise.
    - Render `NearestNeighbor` pixelated (B-2).
    - Raise the error of D-12 at an intensity below 1 (B-6).
    - Add document tests and the new references, and measure Chromium's smoothing against Skia's.
    - Add `DrawBitmap` to the fully implemented calls only when all of B-1 to B-6 hold.
    - Rewrite the commit into proper ones before merging.
-6. **Text (T-1 to T-10).** Not started; it unblocks 84 cases. It covers:
+5. **Text (T-1 to T-10).** Not started; it unblocks 84 cases. It covers:
    - `DrawText` and `DrawTextOutline` with the injected `ITextMetrics`;
    - `IFontSubsetProvider`, a new interface in `Graphics2D`, implemented by the application, and by the tests through `Map_SkiaStd`'s font loading and PdfSharp's subsetter;
    - `@font-face` subsets in the style block, the fallback faces, and the `fsType` check;
@@ -103,14 +95,14 @@ In order of priority. A task ends with its commits on `feature/svg-target`, its 
    - the text cases' own tolerance (T-10).
 
    Check the tolerance again with `SvgTolerance/` once the cases come.
-7. **Phase 3: the export in the application (A-1 to A-7, CD-1 to CD-3, V-2, V-4, V-5, V-7).** Not started. Work in stages:
+6. **Phase 3: the export in the application (A-1 to A-7, CD-1 to CD-3, V-2, V-4, V-5, V-7).** Not started. Work in stages:
    - a short design of where the export lives, how it shares `CoursePdf`'s layout code (A-3) and how `MapDisplay` draws a map's parts and a course part's layers apart (A-4);
    - the few `IStructuredGraphicsTarget` calls the course data needs (CD-1 to CD-3);
    - the core: `CourseSvgSettings`, the writer and the baseline tests;
    - the Avalonia command and dialog, to `AGENTS.md`'s conventions (A-1, A-6, A-7).
 
    Each stage gets a `wip/linux/` run for the Windows suite.
-8. **Keep the record.** Bring this file up to date whenever a task ends or changes hands, and keep the gallery current: about every 30 minutes of work.
+7. **Keep the record.** Bring this file up to date whenever a task ends or changes hands, and keep the gallery current: about every 30 minutes of work.
 
 ## Decisions
 
@@ -120,7 +112,7 @@ In order of priority. A task ends with its commits on `feature/svg-target`, its 
   - `AddPage(paperSize, mapArea, mapToPage, partKeys)`, made outside parts;
   - `BeginColorRun(colorKey, position, name, color, overprint)` with `EndColorRun`;
   - `BeginObject(objectKey, symbolKey, symbolId, symbolName)` with `EndObject`;
-  - `SetGeoreference(mapKey, MapGeoreference)`, which is on `feature/svg-georeference`.
+  - `SetGeoreference(mapKey, MapGeoreference)`, which a later call for the same map replaces.
 - **Shared code.** `IdentityComparer` lives in `Graphics2D`, from where every graphics target, the SVG target too, keys its resources by identity (C-4, C-6).
 - **The document.** Parts are groups with ids in `<defs>`. A page is a group carrying the page's transform and a clip of its map area, with a `<use>` for each part it shows. Pages after the first lie to its right, 10 mm apart, and the root has the first page's size in millimetres. The metadata's root is `npp:document version="1"`, holding an `npp:map` with the number and label of each map, whose groups carry `data-m`.
 - **Numbers.** Coordinates are whole steps of 0.001 mm, rounded half up as `floor(x + 0.5)`, which every runtime does alike (P-6). A transform carries the digits that the reach of its content needs: within half a step for its translation, and within 0.45 of a step for its linear part, shared between angle (0.2), scale (0.2) and shear (0.05).
@@ -143,6 +135,10 @@ In order of priority. A task ends with its commits on `feature/svg-target`, its 
   - Each element carries `data-o`, its object's number, counted across the document from 1 in the order objects are first drawn, so an object drawn in several runs has one number (M-6, S-11).
   - Each `npp:map` holds, in table order, an `npp:color` for each color its runs drew: `position`, `name`, `cmyk` with the digits of `icc-color()`, and `overprint="1"` when it overprints. Then comes an `npp:symbol` for each symbol its objects drew: `n`, `id`, `name`, and `colors`, the positions of the colors its objects were drawn in (M-7).
   - The structure adds about 21 % to the SVG of the 101 drawn cases, most of it the object numbers.
+- **Georeferencing.** `MapGeoreference`, a plain value in `Graphics2D`, carries the affine transform from millimetres of map to real-world coordinates and the map's EPSG code, Proj4 string and OCAD grid and zone id (G-1, G-2).
+  - A map's record in the metadata opens with `npp:georeference`, ahead of its tables, so a map with a georeference and no tables still has a record.
+  - Its `transform` takes steps of map to the real world. It is written as every transform is (S-8), and left out when it moves nothing (S-9). It keeps the digits that hold a point within a step of map over the 8 m the map's coordinates reach (S-2).
+  - `epsg`, `proj4` and `ocad-grid-zone` follow where the map has them.
 - **Pattern brushes.** `CreatePatternBrush` returns a target that draws the tile as the target draws, with keys of its own and at its creator's intensity, and refuses structure calls. `FinishBrush` makes the tile a brush of its creator, and a pen made from it strokes with the pattern (D-6, D-7).
   - The document defines the pattern in the user space of what it paints, as the Skia target repeats its tile: `x`, `y` and a `viewBox` put the tile's middle on the origin, in the tile's own coordinates, and `patternTransform` turns it by the brush's angle.
   - The bitmap size, a hint to raster targets, is not used.
