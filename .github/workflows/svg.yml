@@ -151,7 +151,9 @@ jobs:
       run: ./.github/scripts/report-svg-loop.ps1
 
     # One commit that replaces the branch, so what it holds is this run and
-    # nothing older.
+    # nothing older. GitHub sometimes answers a push with a server error, so a
+    # failed push is tried again before the results are given up on; pushing
+    # the same commit again changes nothing.
     - name: Publish the results
       if: ${{ !cancelled() }}
       shell: bash
@@ -165,8 +167,18 @@ jobs:
         git add -A
         git -c user.name=ci -c user.email=ci@localhost commit -q \
             -m "SVG loop run $GITHUB_RUN_ID of $HEAD_SHA" -m "$(head -n 1 summary.md 2>/dev/null)"
-        git push -q --force "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "HEAD:refs/heads/$RESULTS_BRANCH"
-        echo "Results are on $RESULTS_BRANCH."
+        for attempt in 1 2 3 4 5; do
+            if git push -q --force "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "HEAD:refs/heads/$RESULTS_BRANCH"; then
+                echo "Results are on $RESULTS_BRANCH."
+                exit 0
+            fi
+            if [ "$attempt" -lt 5 ]; then
+                echo "Pushing the results failed; trying again in $((attempt * 15)) seconds."
+                sleep $((attempt * 15))
+            fi
+        done
+        echo "::error::The results could not be pushed to $RESULTS_BRANCH in 5 attempts."
+        exit 1
 
     - name: Keep the results
       if: ${{ !cancelled() }}
