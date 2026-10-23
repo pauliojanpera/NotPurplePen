@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="661mm" height="328mm" viewBox="0 0 661 328">
+<style>
+.a{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:180;stroke-miterlimit:5}
+.b{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:140;stroke-linejoin:bevel}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="shortfences">
+<npp:color position="48" name="Black" cmyk="0,0,0,1" overprint="1"/>
+<npp:symbol n="1" id="524.0" name="High fence" colors="48"/>
+</npp:map>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="b">
+<path d="M34592 67630h5746v2851h-5746z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g data-c="48">
+<g data-s="1">
+<path class="a" data-o="1" d="M37450 68490l-50 1020 520 190"/>
+<g transform="translate(37440 68700)rotate(92.81)">
+<path class="b" data-o="1" d="M0 0-250-430"/>
+</g>
+<g transform="translate(37410 69300)rotate(92.81)">
+<path class="b" data-o="1" d="M0 0-250-430"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<g transform="matrix(.1150403 0 0-.1150403-3979.5 8108.1)" clip-path="url(#b)">
+<use xlink:href="#a"/>
+</g>
+</svg>

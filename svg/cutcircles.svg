@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="665mm" height="830mm" viewBox="0 0 665 830">
+<style>
+.a{fill:none;stroke:#3dff17;stroke:#3dff17 icc-color(cmyk,.76,0,.91,0);stroke-width:270;stroke-miterlimit:5}
+.b{fill:none;stroke:#f0f;stroke:#f0f icc-color(cmyk,0,1,0,0);stroke-width:520;stroke-linecap:round;stroke-linejoin:round}
+.c{fill:none;stroke:#f0f;stroke:#f0f icc-color(cmyk,0,1,0,0);stroke-width:520;stroke-miterlimit:5}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="cutcircles">
+<npp:color position="16" name="Green" cmyk=".76,0,.91,0" overprint="1"/>
+<npp:color position="33" name="Purple" cmyk="0,1,0,0"/>
+<npp:symbol n="1" id="419.0" name="Special vegetation feature" colors="16"/>
+<npp:symbol n="2" id="701.0" name="Start" colors="33"/>
+<npp:symbol n="3" id="702.0" name="Control point" colors="33"/>
+<npp:symbol n="4" id="706.0" name="Finish" colors="33"/>
+</npp:map>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="b">
+<path d="M-16000-20000h51000v47000h-51000z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g data-c="16">
+<g transform="translate(14920 13920)" data-s="1">
+<path class="a" data-o="1" d="M0 465a465 465 0 1 1 399-704"/>
+</g>
+</g>
+<g data-c="33">
+<g transform="translate(2520 17200)" data-s="2">
+<path class="b" data-o="2" d="M-50 5890l5190-8850H-5130L-50 5890z"/>
+</g>
+<g data-s="3">
+<g transform="translate(-3990 3060)rotate(-.5)">
+<path class="c" data-o="3" d="M-954 4131A4240 4240 0 0 1-4231-274"/>
+<path class="c" data-o="3" d="M-340-4226A4240 4240 0 0 1 4228 325"/>
+</g>
+<g transform="translate(-5400-14720)">
+<path class="c" data-o="4" d="M-2371 3515a4240 4240 0 1 1 6319-5062"/>
+</g>
+<g transform="translate(27960 10800)">
+<path class="c" data-o="5" d="M-1925 3778a4240 4240 0 0 1-2132-2545"/>
+<path class="c" data-o="5" d="M-4009-1380a4240 4240 0 0 1 2332-2514"/>
+<path class="c" data-o="5" d="M1805-3836a4240 4240 0 0 1 2172 2365"/>
+<path class="c" data-o="5" d="M3958 1519a4240 4240 0 0 1-2126 2305"/>
+</g>
+<g transform="translate(24880-13370)rotate(-179)">
+<path class="c" data-o="6" d="M-74 4239A4240 4240 0 1 1 4237-163"/>
+</g>
+</g>
+<g transform="translate(15650-1780)rotate(-48)" data-s="4">
+<path class="c" data-o="7" d="M-2120-2773A3490 3490 0 1 1 0 3490"/>
+<path class="c" data-o="7" d="M-3031-3964A4990 4990 0 1 1 0 4990"/>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<g transform="matrix(.0130392 0 0-.0130392 208.63 460.64)" clip-path="url(#b)">
+<use xlink:href="#a"/>
+</g>
+</svg>

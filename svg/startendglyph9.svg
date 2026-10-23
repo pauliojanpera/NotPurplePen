@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="906mm" height="658mm" viewBox="0 0 906 658">
+<style>
+.a{fill:none;stroke:#ff8040;stroke:#ff8040 icc-color(cmyk,0,.5,.75,0);stroke-width:300;stroke-linecap:round;stroke-linejoin:round}
+.b{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:200;stroke-linecap:round;stroke-linejoin:round}
+.c{fill:none;stroke:#00f;stroke:#00f icc-color(cmyk,1,1,0,0);stroke-width:60;stroke-miterlimit:5}
+.d{fill:none;stroke:#f00;stroke:#f00 icc-color(cmyk,0,1,1,0);stroke-width:60;stroke-miterlimit:5}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="startendglyph9">
+<npp:color position="0" name="Orange" cmyk="0,.5,.75,0"/>
+<npp:color position="1" name="Black" cmyk="0,0,0,1"/>
+<npp:color position="2" name="Blue" cmyk="1,1,0,0"/>
+<npp:color position="3" name="Red" cmyk="0,1,1,0"/>
+<npp:symbol n="1" id="1.3" name="shortened to end" colors="0 1 2 3"/>
+<npp:symbol n="2" id="1.1" name="Line with start/end glyphs" colors="1 2 3"/>
+</npp:map>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="b">
+<path d="M-15767-9116H4773V5801h-20540z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g data-c="0">
+<g data-s="1">
+<path class="a" data-o="1" d="M-2950-7500-490-6360"/>
+<path class="a" data-o="2" d="M-6810-6600-790-4420"/>
+<path class="a" data-o="3" d="M630-8600l2260 1420 720 1580"/>
+</g>
+</g>
+<g data-c="1">
+<g data-s="2">
+<path class="b" data-o="4" d="M-13650 30c3070 1920 4560 6680 7680 4830C-3950 3650-2830 500-910 1870 770 3060 4430 3440 2800 210"/>
+<path class="b" data-o="5" d="M-8960-30-6920 0"/>
+<path class="b" data-o="6" d="M-10480-6160l60 290 210-260 120 290"/>
+<path class="b" data-o="7" d="M-2300-1210l-80-10"/>
+</g>
+<g data-s="1">
+<path class="b" data-o="2" d="M-6810-6600l1787 647"/>
+</g>
+</g>
+<g data-c="2">
+<g data-s="2">
+<g transform="translate(2800 210)rotate(-115.2)">
+<path class="c" data-o="4" d="M-820-30c0-450 380-810 830-800 450 0 810 380 800 830 0 450-380 810-830 800-450 0-810-380-800-830z"/>
+<path class="c" data-o="4" d="M-10 810-420-720 790 0 20 810"/>
+</g>
+<g transform="translate(-6920)rotate(.84)">
+<path class="c" data-o="5" d="M-820-30c0-450 380-810 830-800 450 0 810 380 800 830 0 450-380 810-830 800-450 0-810-380-800-830z"/>
+<path class="c" data-o="5" d="M-10 810-420-720 790 0 20 810"/>
+</g>
+<g transform="translate(-10090-5840)rotate(67.52)">
+<path class="c" data-o="6" d="M-820-30c0-450 380-810 830-800 450 0 810 380 800 830 0 450-380 810-830 800-450 0-810-380-800-830z"/>
+<path class="c" data-o="6" d="M-10 810-420-720 790 0 20 810"/>
+</g>
+<g transform="translate(-2380-1220)rotate(-172.88)">
+<path class="c" data-o="7" d="M-820-30c0-450 380-810 830-800 450 0 810 380 800 830 0 450-380 810-830 800-450 0-810-380-800-830z"/>
+<path class="c" data-o="7" d="M-10 810-420-720 790 0 20 810"/>
+</g>
+</g>
+<g transform="translate(-790-4420)rotate(19.91)" data-s="1">
+<path class="c" data-o="2" d="M-820-30c0-450 380-810 830-800 450 0 810 380 800 830 0 450-380 810-830 800-450 0-810-380-800-830z"/>
+<path class="c" data-o="2" d="M-10 810-420-720 790 0 20 810"/>
+</g>
+</g>
+<g data-c="3">
+<g data-s="2">
+<g transform="translate(-13650 30)rotate(33.57)">
+<path class="d" data-o="4" d="M-660 0-10 1620l320-840 510 170-340-530L640-10-680 10"/>
+</g>
+<g transform="translate(-8960-30)rotate(.84)">
+<path class="d" data-o="5" d="M-660 0-10 1620l320-840 510 170-340-530L640-10-680 10"/>
+</g>
+<g transform="translate(-10480-6160)rotate(78.31)">
+<path class="d" data-o="6" d="M-660 0-10 1620l320-840 510 170-340-530L640-10-680 10"/>
+</g>
+<g transform="translate(-2300-1210)rotate(-172.88)">
+<path class="d" data-o="7" d="M-660 0-10 1620l320-840 510 170-340-530L640-10-680 10"/>
+</g>
+</g>
+<g transform="translate(-6810-6600)rotate(19.91)" data-s="1">
+<path class="d" data-o="2" d="M-660 0-10 1620l320-840 510 170-340-530L640-10-680 10"/>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<g transform="matrix(.044109 0 0-.044109 695.48 255.89)" clip-path="url(#b)">
+<use xlink:href="#a"/>
+</g>
+</svg>

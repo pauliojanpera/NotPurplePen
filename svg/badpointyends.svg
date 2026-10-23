@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="756mm" height="500mm" viewBox="0 0 756 500">
+<style>
+.a{fill:none;stroke:#a80000;stroke:#a80000 icc-color(cmyk,0,.68,.91,.34);stroke-width:380;stroke-linecap:round;stroke-linejoin:bevel}
+.b{fill:#a80000;fill:#a80000 icc-color(cmyk,0,.68,.91,.34)}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="badpointyends">
+<npp:color position="26" name="Brown" cmyk="0,.68,.91,.34" overprint="1"/>
+<npp:symbol n="1" id="109.0" name="Erosion gully" colors="26"/>
+</npp:map>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="b">
+<path d="M-109118 116879h29736v19666h-29736z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g data-c="26">
+<g data-s="1">
+<path class="a" data-o="1" d="M-93274 130914c-646-538-1156-972-1976-1634-960-790-1470-1150-2420-1960-600-510-940-720-1500-1260-3-3-7-6-10-10"/>
+<path class="b" data-o="1" d="M-92430 131610l-478-228-437-280 243-292 355 377z"/>
+<path class="b" data-o="1" d="M-99890 125380l295 443 336 414 260-277-419-318z"/>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<g transform="matrix(.02542389 0 0-.02542389 2774.19 3471.51)" clip-path="url(#b)">
+<use xlink:href="#a"/>
+</g>
+</svg>
