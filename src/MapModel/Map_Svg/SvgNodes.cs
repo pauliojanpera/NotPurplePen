@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -14,7 +15,8 @@ namespace PurplePen.MapModel
         public abstract void Write(SvgWriter writer);
     }
 
-    // An element that a drawing call writes. Drawn within an object, it carries the object's number (M-6, S-11).
+    // An element that a drawing call writes: a shape, or the use of an image. Drawn within an object, it carries the
+    // object's number (M-6, S-11).
     public abstract class SvgElement : SvgNode
     {
         // The number of the object the element belongs to, or 0 for none.
@@ -149,6 +151,56 @@ namespace PurplePen.MapModel
                 text.Append("r=\"").Append(SvgNumbers.FormatInteger(radiusX)).Append('"');
             else
                 text.Append("rx=\"").Append(SvgNumbers.FormatInteger(radiusX)).Append("\" ry=\"").Append(SvgNumbers.FormatInteger(radiusY)).Append('"');
+        }
+    }
+
+    // The use of an image, which draws it over a rectangle through the image's one definition (B-1, B-5).
+    public sealed class SvgImageUse : SvgElement
+    {
+        // The image.
+        private readonly SvgImage image;
+
+        // The transform from the image's pixels to the rectangle, in steps.
+        private readonly SvgTransform placement;
+
+        // The declarations of the element's style, or null for none.
+        private readonly string style;
+
+        // The bounds of the rectangle, in steps.
+        private readonly SvgBounds bounds;
+
+        // Create the use of an image.
+        // image: the image.
+        // placement: the transform from its pixels to the rectangle, in steps.
+        // style: the declarations of the element's style, or null for none.
+        // bounds: the bounds of the rectangle.
+        public SvgImageUse(SvgImage image, SvgTransform placement, string style, SvgBounds bounds)
+        {
+            this.image = image;
+            this.placement = placement;
+            this.style = style;
+            this.bounds = bounds;
+        }
+
+        // The bounds of the rectangle.
+        public override SvgBounds GetBounds()
+        {
+            return bounds;
+        }
+
+        // Write the element: its class, if any, the number of its object, if any, the reference to the image and the
+        // placement, with the digits that the image's corners need (S-2, S-4).
+        public override void Write(SvgWriter writer)
+        {
+            writer.Text.Append("<use");
+            if (style != null)
+                writer.Text.Append(" class=\"").Append(writer.ClassOf(style)).Append('"');
+            WriteObjectNumber(writer);
+            writer.Text.Append(" xlink:href=\"#").Append(writer.IdOfImage(image)).Append('"');
+            string transform = placement.Format(Math.Sqrt((double)image.Width * image.Width + (double)image.Height * image.Height), 1);
+            if (transform.Length > 0)
+                writer.Text.Append(" transform=\"").Append(transform).Append('"');
+            writer.Text.Append("/>\n");
         }
     }
 

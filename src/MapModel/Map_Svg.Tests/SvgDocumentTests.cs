@@ -8,7 +8,7 @@ using PurplePen.MapModel;
 namespace Map_Svg.Tests
 {
     // Checks the documents that the SVG target writes, against expected text (V-1): the layout of maps and pages, the
-    // calls it implements, and the errors of calls out of turn (L-1 to L-5, D-12, F-2 to F-4, COL-1 to COL-6).
+    // calls it implements, and the errors of calls out of turn (L-1 to L-5, D-12, F-2 to F-4, COL-1 to COL-6, B-1 to B-6).
     [TestFixture]
     public class SvgDocumentTests
     {
@@ -21,9 +21,10 @@ namespace Map_Svg.Tests
         // shows the map from (0, 0) to (100, 50), its y axis turned to point down, and return the document.
         // draw: draws within the map.
         // declaresCmykColors: whether colors carry their CMYK values.
-        private static string WriteOnePage(Action<Svg_GraphicsTarget> draw, bool declaresCmykColors = true)
+        // bitmapOptions: how bitmaps reach the document, or null for the default.
+        private static string WriteOnePage(Action<Svg_GraphicsTarget> draw, bool declaresCmykColors = true, SvgBitmapOptions bitmapOptions = null)
         {
-            using (Svg_GraphicsTarget target = new Svg_GraphicsTarget(DefaultColorConverter.Instance, declaresCmykColors))
+            using (Svg_GraphicsTarget target = new Svg_GraphicsTarget(DefaultColorConverter.Instance, declaresCmykColors, bitmapOptions ?? SvgBitmapOptions.Default))
             using (Matrix mapToPage = new Matrix()) {
                 object part = new object();
                 target.BeginPart(part);
@@ -65,6 +66,45 @@ namespace Map_Svg.Tests
                 "</svg>"
             });
             return string.Join("\n", lines) + "\n";
+        }
+
+        // The document that WriteOnePage writes when its part draws images, which the definitions hold after the part's,
+        // so that the page's clip, named last, takes the id after theirs.
+        // styleLines: the classes, one to a line.
+        // partLines: the lines within the part's definition.
+        // imageLines: the definitions of the images.
+        // clipId: the id of the page's clip.
+        private static string OnePageDocumentWithImages(string[] styleLines, string[] partLines, string[] imageLines, string clipId)
+        {
+            List<string> lines = new List<string> { RootOf100By50 };
+            if (styleLines.Length > 0) {
+                lines.Add("<style>");
+                lines.AddRange(styleLines);
+                lines.Add("</style>");
+            }
+            lines.AddRange(new string[] {
+                "<metadata>", "<npp:document version=\"1\">", "<npp:map n=\"1\" label=\"map\"/>", "</npp:document>", "</metadata>",
+                "<defs>", "<clipPath id=\"" + clipId + "\">", "<path d=\"M0 0h100000v50000H0z\"/>", "</clipPath>", "<g id=\"a\">"
+            });
+            lines.AddRange(partLines);
+            lines.Add("</g>");
+            lines.AddRange(imageLines);
+            lines.AddRange(new string[] {
+                "</defs>",
+                "<g transform=\"matrix(.001 0 0-.001 0 50)\" clip-path=\"url(#" + clipId + ")\">", "<use xlink:href=\"#a\"/>", "</g>",
+                "</svg>"
+            });
+            return string.Join("\n", lines) + "\n";
+        }
+
+        // The data URI of the data that a test bitmap writes.
+        // name: the bitmap's name.
+        // format: the format it is written in.
+        // quality: the quality, which JPEG alone carries.
+        private static string DataUri(string name, GraphicsBitmapFormat format, int quality)
+        {
+            byte[] data = System.Text.Encoding.ASCII.GetBytes(TestBitmap.WrittenText(name, format, quality));
+            return "data:" + (format == GraphicsBitmapFormat.JPEG ? "image/jpeg" : "image/png") + ";base64," + Convert.ToBase64String(data);
         }
 
         // A point.
@@ -1023,6 +1063,147 @@ namespace Map_Svg.Tests
                 IStructuredGraphicsTarget tile = (IStructuredGraphicsTarget)target.CreatePatternBrush(new SizeF(2, 2), 0, 8, 8);
                 AssertError("SetGeoreference: a pattern brush's tile holds drawing alone", () => tile.SetGeoreference(map, tm35finGeoreference));
             }
+        }
+
+        [Test]
+        public void ABitmapIsDefinedOnceAsAnImageAndPlacedOverEachRectangleItCovers()
+        {
+            // 40 by 20 pixels over 20 by 10 millimetres is 500 steps a pixel, and over 40 by 40 millimetres 1000 by 2000.
+            TestBitmap logo = new TestBitmap("logo", 40, 20, GraphicsBitmapFormat.PNG);
+            string document = WriteOnePage(target => {
+                target.DrawBitmap(logo, new RectangleF(10, 10, 20, 10), BitmapScaling.MediumQuality);
+                target.DrawBitmap(logo, new RectangleF(50, 5, 40, 40), BitmapScaling.HighQuality);
+            });
+            Assert.AreEqual(OnePageDocumentWithImages(
+                new string[0],
+                new string[] {
+                    "<g data-m=\"1\">",
+                    "<use xlink:href=\"#b\" transform=\"matrix(500 0 0 500 10000 10000)\"/>",
+                    "<use xlink:href=\"#b\" transform=\"matrix(1000 0 0 2000 50000 5000)\"/>",
+                    "</g>",
+                },
+                new string[] { "<image id=\"b\" width=\"40\" height=\"20\" xlink:href=\"" + DataUri("logo", GraphicsBitmapFormat.PNG, 0) + "\"/>" },
+                "c"), document);
+        }
+
+        [Test]
+        public void APartOfABitmapIsItsCroppedImageWrittenOnceHoweverOftenItIsDrawn()
+        {
+            TestBitmap logo = new TestBitmap("logo", 40, 20, GraphicsBitmapFormat.PNG);
+            string document = WriteOnePage(target => {
+                target.DrawBitmapPart(logo, 5, 5, 10, 10, new RectangleF(1, 2, 3, 4), BitmapScaling.MediumQuality);
+                target.DrawBitmapPart(logo, 5, 5, 10, 10, new RectangleF(10, 20, 10, 10), BitmapScaling.MediumQuality);
+                target.DrawBitmapPart(logo, 0, 0, 20, 20, new RectangleF(30, 20, 10, 10), BitmapScaling.MediumQuality);
+            });
+            Assert.AreEqual(OnePageDocumentWithImages(
+                new string[0],
+                new string[] {
+                    "<g data-m=\"1\">",
+                    "<use xlink:href=\"#b\" transform=\"matrix(300 0 0 400 1000 2000)\"/>",
+                    "<use xlink:href=\"#b\" transform=\"translate(10000 20000)scale(1000)\"/>",
+                    "<use xlink:href=\"#c\" transform=\"matrix(500 0 0 500 30000 20000)\"/>",
+                    "</g>",
+                },
+                new string[] {
+                    "<image id=\"b\" width=\"10\" height=\"10\" xlink:href=\"" + DataUri("logo[5,5,10,10]", GraphicsBitmapFormat.PNG, 0) + "\"/>",
+                    "<image id=\"c\" width=\"20\" height=\"20\" xlink:href=\"" + DataUri("logo[0,0,20,20]", GraphicsBitmapFormat.PNG, 0) + "\"/>",
+                },
+                "d"), document);
+        }
+
+        [Test]
+        public void AJpegBitmapStaysJpegAtTheOptionsQualityAndBitmapsOfOtherFormatsBecomePng()
+        {
+            string document = WriteOnePage(target => {
+                target.DrawBitmap(new TestBitmap("photo", 30, 30, GraphicsBitmapFormat.JPEG), new RectangleF(0, 0, 30, 30), BitmapScaling.HighQuality);
+                target.DrawBitmap(new TestBitmap("scan", 30, 30, GraphicsBitmapFormat.TIFF), new RectangleF(30, 0, 30, 30), BitmapScaling.HighQuality);
+                target.DrawBitmap(new TestBitmap("drawn", 30, 30, GraphicsBitmapFormat.None), new RectangleF(60, 0, 30, 30), BitmapScaling.HighQuality);
+            }, true, new SvgBitmapOptions(SvgBitmapHandling.Embedded, 75, null));
+            StringAssert.Contains("<image id=\"b\" width=\"30\" height=\"30\" xlink:href=\"" + DataUri("photo", GraphicsBitmapFormat.JPEG, 75) + "\"/>\n" +
+                                  "<image id=\"c\" width=\"30\" height=\"30\" xlink:href=\"" + DataUri("scan", GraphicsBitmapFormat.PNG, 0) + "\"/>\n" +
+                                  "<image id=\"d\" width=\"30\" height=\"30\" xlink:href=\"" + DataUri("drawn", GraphicsBitmapFormat.PNG, 0) + "\"/>\n",
+                                  document);
+            StringAssert.Contains("data:image/jpeg;base64," + Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes("photo as JPEG at 75")), document);
+        }
+
+        [Test]
+        public void NearestNeighborScalingRendersPixelatedAndTheOtherScalingsSmooth()
+        {
+            TestBitmap logo = new TestBitmap("logo", 40, 20, GraphicsBitmapFormat.PNG);
+            string document = WriteOnePage(target => {
+                target.DrawBitmap(logo, new RectangleF(10, 10, 20, 10), BitmapScaling.NearestNeighbor);
+                target.DrawBitmap(logo, new RectangleF(10, 30, 20, 10), BitmapScaling.MediumQuality);
+                target.DrawBitmap(logo, new RectangleF(50, 30, 20, 10), BitmapScaling.NearestNeighbor);
+            });
+            Assert.AreEqual(OnePageDocumentWithImages(
+                new string[] { ".a{image-rendering:optimizeSpeed;image-rendering:pixelated}" },
+                new string[] {
+                    "<g data-m=\"1\">",
+                    "<use class=\"a\" xlink:href=\"#b\" transform=\"matrix(500 0 0 500 10000 10000)\"/>",
+                    "<use xlink:href=\"#b\" transform=\"matrix(500 0 0 500 10000 30000)\"/>",
+                    "<use class=\"a\" xlink:href=\"#b\" transform=\"matrix(500 0 0 500 50000 30000)\"/>",
+                    "</g>",
+                },
+                new string[] { "<image id=\"b\" width=\"40\" height=\"20\" xlink:href=\"" + DataUri("logo", GraphicsBitmapFormat.PNG, 0) + "\"/>" },
+                "c"), document);
+        }
+
+        [Test]
+        public void ABitmapDrawnWithinAnObjectCarriesTheObjectsNumber()
+        {
+            string document = WriteOnePage(target => {
+                object image = new object(), symbol = new object();
+                target.BeginObject(image, symbol, "1.0", "Image");
+                target.DrawBitmap(new TestBitmap("logo", 40, 20, GraphicsBitmapFormat.PNG), new RectangleF(10, 10, 20, 10), BitmapScaling.MediumQuality);
+                target.EndObject();
+            });
+            StringAssert.Contains("<use data-o=\"1\" xlink:href=\"#b\" transform=\"matrix(500 0 0 500 10000 10000)\"/>\n", document);
+        }
+
+        [Test]
+        public void LinkedBitmapsAreStoredOnceBesideTheDocumentAndLeftOutBitmapsAreNotWritten()
+        {
+            List<string> stored = new List<string>();
+            SvgBitmapOptions linked = new SvgBitmapOptions(SvgBitmapHandling.Linked, 90, (data, format) => {
+                stored.Add(System.Text.Encoding.ASCII.GetString(data) + " " + format);
+                return "map-files/" + stored.Count + (format == GraphicsBitmapFormat.JPEG ? ".jpg" : ".png");
+            });
+            TestBitmap logo = new TestBitmap("logo", 40, 20, GraphicsBitmapFormat.PNG);
+            Action<Svg_GraphicsTarget> drawTwice = target => {
+                target.DrawBitmap(logo, new RectangleF(10, 10, 20, 10), BitmapScaling.MediumQuality);
+                target.DrawBitmap(logo, new RectangleF(10, 30, 20, 10), BitmapScaling.MediumQuality);
+            };
+
+            string document = WriteOnePage(drawTwice, true, linked);
+            CollectionAssert.AreEqual(new string[] { "logo as PNG PNG" }, stored);
+            StringAssert.Contains("<image id=\"b\" width=\"40\" height=\"20\" xlink:href=\"map-files/1.png\"/>\n", document);
+
+            Assert.AreEqual(WriteOnePage(target => { }),
+                            WriteOnePage(drawTwice, true, new SvgBitmapOptions(SvgBitmapHandling.LeftOut, 90, null)));
+        }
+
+        [Test]
+        public void ABitmapDrawnBelowFullIntensityRaisesAnErrorNamingTheCall()
+        {
+            WriteOnePage(target => {
+                TestBitmap logo = new TestBitmap("logo", 40, 20, GraphicsBitmapFormat.PNG);
+                target.Intensity = 0.5F;
+                Svg_UnsupportedCallException error = Assert.Throws<Svg_UnsupportedCallException>(
+                    () => target.DrawBitmap(logo, new RectangleF(10, 10, 20, 10), BitmapScaling.MediumQuality));
+                Assert.AreEqual("DrawBitmap", error.CallName);
+                error = Assert.Throws<Svg_UnsupportedCallException>(
+                    () => target.DrawBitmapPart(logo, 0, 0, 10, 10, new RectangleF(10, 10, 20, 10), BitmapScaling.MediumQuality));
+                Assert.AreEqual("DrawBitmapPart", error.CallName);
+                Assert.AreEqual(0, logo.Writes);
+            });
+        }
+
+        [Test]
+        public void BitmapOptionsRefuseAQualityOutOfRangeAndLinkingWithoutAStore()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => new SvgBitmapOptions(SvgBitmapHandling.Embedded, 101, null));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new SvgBitmapOptions(SvgBitmapHandling.Embedded, -1, null));
+            Assert.Throws<ArgumentNullException>(() => new SvgBitmapOptions(SvgBitmapHandling.Linked, 90, null));
         }
 
         [Test]

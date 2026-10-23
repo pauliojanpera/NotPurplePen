@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using PurplePen.Graphics2D;
 
@@ -24,7 +25,7 @@ namespace PurplePen.MapModel
             nameof(HasPath), nameof(HasBrush), nameof(HasPen), nameof(HasFont),
             nameof(DrawLine), nameof(DrawArc), nameof(DrawEllipse), nameof(FillEllipse), nameof(DrawRectangle),
             nameof(FillRectangle), nameof(DrawPolygon), nameof(DrawPolyline), nameof(FillPolygon), nameof(DrawPath),
-            nameof(FillPath),
+            nameof(FillPath), nameof(DrawBitmap), nameof(DrawBitmapPart),
         };
 
         // What opened a group that is still open, which the call that closes it must match. The bottom group is a
@@ -116,6 +117,9 @@ namespace PurplePen.MapModel
         private readonly Dictionary<object, StoredPath> paths = new Dictionary<object, StoredPath>(new IdentityComparer<object>());
         private readonly Dictionary<object, string> fonts = new Dictionary<object, string>(new IdentityComparer<object>());
 
+        // How the bitmaps drawn into the document reach it (B-3, B-4).
+        private readonly SvgBitmapOptions bitmapOptions;
+
         // The intensity that colors are drawn at.
         private float intensity = 1;
 
@@ -126,17 +130,28 @@ namespace PurplePen.MapModel
         // colorConverter: converts colors to sRGB, as the chosen color model does (COL-2).
         // declaresCmykColors: whether colors also carry their CMYK values, as under the CMYK color model (COL-1).
         public Svg_GraphicsTarget(IColorConverter colorConverter, bool declaresCmykColors)
+            : this(colorConverter, declaresCmykColors, SvgBitmapOptions.Default)
+        {
+        }
+
+        // Create a target that writes a document, with the bitmaps drawn into it written as the options say (B-3, B-4).
+        // colorConverter: converts colors to sRGB, as the chosen color model does (COL-2).
+        // declaresCmykColors: whether colors also carry their CMYK values, as under the CMYK color model (COL-1).
+        // bitmapOptions: how bitmaps reach the document.
+        public Svg_GraphicsTarget(IColorConverter colorConverter, bool declaresCmykColors, SvgBitmapOptions bitmapOptions)
         {
             document = new SvgDocument(new SvgPaints(colorConverter, declaresCmykColors));
+            this.bitmapOptions = bitmapOptions;
         }
 
         // Create the target of a pattern brush's tile, which writes into the same document at the intensity of the target
-        // that creates the brush, and draws anti-aliased until told otherwise.
+        // that creates the brush, with its bitmap options, and draws anti-aliased until told otherwise.
         // creator: the target that creates the brush.
         // pattern: the pattern whose tile it draws.
         private Svg_GraphicsTarget(Svg_GraphicsTarget creator, SvgPattern pattern)
         {
             document = creator.document;
+            bitmapOptions = creator.bitmapOptions;
             intensity = creator.intensity;
             drawsPatternTile = true;
             openGroups.Push(new OpenGroup(Opener.CreatePatternBrush, pattern.Content, antiAlias, null));
@@ -587,16 +602,25 @@ namespace PurplePen.MapModel
             throw new Svg_UnsupportedCallException(nameof(DrawTextOutline));
         }
 
-        // Draw a bitmap over a rectangle.
+        // Draw a bitmap over a rectangle, its first pixel at the rectangle's left and top, as the Skia target draws it
+        // (B-1); pixelated for nearest-neighbor scaling, and smooth otherwise (B-2).
         public void DrawBitmap(IGraphicsBitmap bm, RectangleF rectangle, BitmapScaling scalingMode)
         {
-            throw new Svg_UnsupportedCallException(nameof(DrawBitmap));
+            AddImage(bm, rectangle, scalingMode, nameof(DrawBitmap));
         }
 
-        // Draw part of a bitmap over a rectangle.
+        // Draw part of a bitmap over a rectangle, as the bitmap cropped to the part (B-1).
         public void DrawBitmapPart(IGraphicsBitmap bm, int x, int y, int width, int height, RectangleF rectangle, BitmapScaling scalingMode)
         {
-            throw new Svg_UnsupportedCallException(nameof(DrawBitmapPart));
+            RequireImageDrawing(nameof(DrawBitmapPart));
+            IGraphicsBitmap part = bm.Crop(x, y, width, height);
+            try {
+                AddImage(part, rectangle, scalingMode, nameof(DrawBitmapPart));
+            }
+            finally {
+                if (!ReferenceEquals(part, bm))
+                    part.Dispose();
+            }
         }
 
         // Release nothing: the target holds no unmanaged resources.
@@ -719,6 +743,49 @@ namespace PurplePen.MapModel
             if (openObjectKey != null)
                 element.ObjectNumber = document.NumberOf(openObjectKey);
             openGroups.Peek().Group.Children.Add(element);
+        }
+
+        // Require that a bitmap can be drawn: within an open part, and at full intensity, since the elements a document
+        // holds cannot lighten an image (B-6, D-12).
+        // callName: the name of the call that draws the bitmap.
+        private void RequireImageDrawing(string callName)
+        {
+            RequireOpenPart(callName);
+            if (intensity < 1)
+                throw new Svg_UnsupportedCallException(callName);
+        }
+
+        // Add the use of a bitmap's image over a rectangle, the bitmap's first pixel at the rectangle's left and top. The
+        // image is written as the options say: in its own format when that is JPEG, at the options' quality, and as PNG
+        // otherwise (B-3), embedded or linked, once however often the same data is drawn (B-4, B-5), or left out. A
+        // nearest-neighbor scaling renders pixelated, the others smooth (B-2).
+        // bitmap: the bitmap.
+        // rectangle: the rectangle it covers.
+        // scalingMode: how it is scaled.
+        // callName: the name of the call that draws it.
+        private void AddImage(IGraphicsBitmap bitmap, RectangleF rectangle, BitmapScaling scalingMode, string callName)
+        {
+            RequireImageDrawing(callName);
+            if (bitmapOptions.Handling == SvgBitmapHandling.LeftOut)
+                return;
+
+            GraphicsBitmapFormat format = bitmap.GetOriginalFormat() == GraphicsBitmapFormat.JPEG ? GraphicsBitmapFormat.JPEG : GraphicsBitmapFormat.PNG;
+            byte[] data;
+            using (MemoryStream stream = new MemoryStream()) {
+                if (!bitmap.WriteToStream(format, stream, bitmapOptions.JpegQuality))
+                    throw new InvalidOperationException(callName + ": the bitmap cannot be written as " + format + ".");
+                data = stream.ToArray();
+            }
+            SvgImage image = document.ImageOf(data, format, bitmap.PixelWidth, bitmap.PixelHeight, bitmapOptions);
+
+            long left = SvgNumbers.ToSteps(rectangle.Left), top = SvgNumbers.ToSteps(rectangle.Top);
+            long right = SvgNumbers.ToSteps(rectangle.Right), bottom = SvgNumbers.ToSteps(rectangle.Bottom);
+            SvgTransform placement = new SvgTransform((right - left) / (double)bitmap.PixelWidth, 0, 0, (bottom - top) / (double)bitmap.PixelHeight, left, top);
+            SvgBounds bounds = new SvgBounds();
+            bounds.Include(left, top);
+            bounds.Include(right, bottom);
+            string style = scalingMode == BitmapScaling.NearestNeighbor ? "image-rendering:optimizeSpeed;image-rendering:pixelated" : null;
+            AddElement(new SvgImageUse(image, placement, style, bounds), callName);
         }
 
         // Add a path shape within the innermost open group, unless the path is empty and draws nothing.

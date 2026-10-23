@@ -56,6 +56,27 @@ namespace PurplePen.MapModel
         }
     }
 
+    // An image: a bitmap's written data, which the document holds once however often it is drawn, and the size in
+    // pixels that the elements drawing it scale to their rectangles (B-3 to B-5).
+    public sealed class SvgImage
+    {
+        // The size of the image, in pixels.
+        public readonly int Width, Height;
+
+        // The reference to the image's data: a data URI when embedded, or the reference to a linked file.
+        public readonly string Href;
+
+        // Create an image.
+        // width, height: its size in pixels.
+        // href: the reference to its data.
+        public SvgImage(int width, int height, string href)
+        {
+            Width = width;
+            Height = height;
+            Href = href;
+        }
+    }
+
     // A color of a map's color table, as the metadata records it once a run of it begins (M-3, M-7).
     public sealed class SvgColorRecord
     {
@@ -262,6 +283,9 @@ namespace PurplePen.MapModel
         // The numbers of the objects drawn, by their keys.
         private readonly Dictionary<object, int> objectNumbers = new Dictionary<object, int>(new IdentityComparer<object>());
 
+        // The images, by their written data, so that a bitmap drawn again, or its same part, is held once (B-5).
+        private readonly Dictionary<string, SvgImage> images = new Dictionary<string, SvgImage>(StringComparer.Ordinal);
+
         // Where the next page goes: the left edge, in millimetres.
         private double nextPageLeft;
 
@@ -300,6 +324,26 @@ namespace PurplePen.MapModel
             return number;
         }
 
+        // The image of a bitmap's written data, made when the data is first seen: embedded as a data URI, or stored
+        // through the options as a linked file, once whatever the number of bitmaps that write the same data (B-4, B-5).
+        // data: the written data.
+        // format: its format, PNG or JPEG.
+        // width, height: the bitmap's size in pixels.
+        // options: how bitmaps reach the document.
+        public SvgImage ImageOf(byte[] data, GraphicsBitmapFormat format, int width, int height, SvgBitmapOptions options)
+        {
+            string base64 = Convert.ToBase64String(data);
+            SvgImage image;
+            if (!images.TryGetValue(base64, out image)) {
+                string href = options.Handling == SvgBitmapHandling.Linked
+                    ? options.StoreLinkedBitmap(data, format)
+                    : "data:" + (format == GraphicsBitmapFormat.JPEG ? "image/jpeg" : "image/png") + ";base64," + base64;
+                image = new SvgImage(width, height, href);
+                images.Add(base64, image);
+            }
+            return image;
+        }
+
         // Add a page, to the right of the pages before it; the first lies at the document's own view box.
         // width, height: the size of the paper in millimetres.
         // stepsToPage: the transform from the steps of the parts to the page's millimetres.
@@ -312,8 +356,9 @@ namespace PurplePen.MapModel
             nextPageLeft += width + GapBetweenPages;
         }
 
-        // Write the document's text: the style block, the metadata, the definitions of clips, patterns and parts, and
-        // then the pages. Classes and ids are named in the order they are first used (F-2).
+        // Write the document's text: the style block, the metadata, the definitions of clips, patterns, parts and images,
+        // and then the pages. Classes and ids are named in the order they are first used (F-2); the images, whose data
+        // dwarfs the rest, come last among the definitions.
         public string Write()
         {
             foreach (SvgPart part in Parts)
@@ -336,6 +381,13 @@ namespace PurplePen.MapModel
                 WritePattern(writer, writer.PatternsReferredTo[index]);
             string patternsText = writer.TakeText();
 
+            foreach (SvgImage image in writer.ImagesReferredTo) {
+                writer.Text.Append("<image id=\"").Append(writer.IdOfImage(image)).Append("\" width=\"").Append(SvgNumbers.FormatInteger(image.Width))
+                           .Append("\" height=\"").Append(SvgNumbers.FormatInteger(image.Height)).Append("\" xlink:href=\"")
+                           .Append(EscapeAttribute(image.Href)).Append("\"/>\n");
+            }
+            string imagesText = writer.TakeText();
+
             foreach (SvgClip clip in writer.ClipsReferredTo) {
                 writer.Text.Append("<clipPath id=\"").Append(writer.IdOfClip(clip)).Append("\">\n<path ");
                 if (clip.EvenOdd)
@@ -348,11 +400,11 @@ namespace PurplePen.MapModel
             WriteRootStartTag(text);
             WriteStyleBlock(text, writer);
             WriteMetadata(text);
-            if (Paints.RefersToCmykProfile || clipsText.Length > 0 || patternsText.Length > 0 || partsText.Length > 0) {
+            if (Paints.RefersToCmykProfile || clipsText.Length > 0 || patternsText.Length > 0 || partsText.Length > 0 || imagesText.Length > 0) {
                 text.Append("<defs>\n");
                 if (Paints.RefersToCmykProfile)
                     text.Append("<color-profile name=\"").Append(SvgPaints.CmykProfileName).Append("\"/>\n");
-                text.Append(clipsText).Append(patternsText).Append(partsText).Append("</defs>\n");
+                text.Append(clipsText).Append(patternsText).Append(partsText).Append(imagesText).Append("</defs>\n");
             }
             text.Append(pagesText).Append("</svg>\n");
             return text.ToString();
@@ -546,10 +598,11 @@ namespace PurplePen.MapModel
         private readonly SvgNames ids = new SvgNames();
         private readonly Dictionary<object, string> idOfDefinition = new Dictionary<object, string>(new IdentityComparer<object>());
 
-        // The clips and the patterns referred to, each in the order they were first referred to, which the definitions
-        // then hold.
+        // The clips, the patterns and the images referred to, each in the order they were first referred to, which the
+        // definitions then hold.
         public readonly List<SvgClip> ClipsReferredTo = new List<SvgClip>();
         public readonly List<SvgPattern> PatternsReferredTo = new List<SvgPattern>();
+        public readonly List<SvgImage> ImagesReferredTo = new List<SvgImage>();
 
         // Return the text written so far, and start anew.
         public string TakeText()
@@ -600,6 +653,15 @@ namespace PurplePen.MapModel
             if (!idOfDefinition.ContainsKey(pattern))
                 PatternsReferredTo.Add(pattern);
             return IdOf(pattern);
+        }
+
+        // The id of an image, which the definitions then hold.
+        // image: the image.
+        public string IdOfImage(SvgImage image)
+        {
+            if (!idOfDefinition.ContainsKey(image))
+                ImagesReferredTo.Add(image);
+            return IdOf(image);
         }
     }
 }
