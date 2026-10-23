@@ -27,7 +27,10 @@ loop's renderings pixel for pixel.
 
 ## Last results
 
-Over the 101 drawn cases of loop run 39820482035: every rendering passes, and the rule fails all 101 shifted by
-two pixels, all 101 with features two pixels wider, 91 of the 92 with a solid feature removed (irregular3 passes),
-and 88 of the 100 with ink to recolor with their ink six levels redder; the other 12 hold their ink in strokes and
-dots too thin to have an inside. Run them again whenever a phase brings new cases, such as text or bitmaps.
+Over the 106 drawn cases of loop run 39985693403, the 101 of phase 2 and the five that draw bitmaps: every
+rendering passes, and the rule fails all 106 shifted by two pixels, all 106 with features two pixels wider, 96 of the
+97 with a solid feature removed (irregular3 passes), and 93 of the 105 with ink to recolor with their ink six levels
+redder; the other 12 hold their ink in strokes and dots too thin to have an inside. The five bitmap cases fail with
+every planted error. Pixels outside the band at an edge occur in 57 cases, template and template2 among them; there
+the blurred images differ by at most 34.6 levels, and by at most 0.36 of the contrast (multisymonedash). Run them
+again whenever a phase brings new cases, such as text.

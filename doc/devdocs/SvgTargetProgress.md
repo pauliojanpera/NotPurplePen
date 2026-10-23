@@ -160,15 +160,15 @@ In order of priority. A task ends with its commits on `feature/svg-target`, its 
   - Inside a shape this asks for a match within 4 levels; along an edge it lets any shade between the colors meeting there pass.
   - Where the edges of two shapes meet in one pixel, each rasterizer mixes their colors with the one beneath its own way, which can fall outside every neighbour's range. Such a pixel, with an edge within reach, passes when the two images, each blurred by a Gaussian of one pixel with white paper beyond them, differ there in every channel by at most 40 levels and by at most 0.4 of the contrast around it. The contrast is the widest range a channel takes in either image within the blur's reach of 4 pixels.
 
-  In the 101 drawn cases, pixels differ by up to 191 levels along edges. In 55 of them, pixels where edges meet lie up to 102 levels outside the range; there the blurred images differ by at most 34.6 levels, and by at most a third of the contrast.
+  In the 106 drawn cases, pixels differ by up to 191 levels along edges. In 57 of them, pixels where edges meet lie up to 102 levels outside the range; there the blurred images differ by at most 34.6 levels, and by at most 0.36 of the contrast.
 
   With errors planted in Chromium's images, the rule fails:
-  - all 101 cases shifted by two pixels, the faintest included;
-  - all 101 with features two pixels wider;
-  - 91 of the 92 with a solid feature when their smallest one is removed;
-  - 88 of the 100 with ink to change when their ink is six levels redder.
+  - all 106 cases shifted by two pixels, the faintest included;
+  - all 106 with features two pixels wider;
+  - 96 of the 97 with a solid feature when their smallest one is removed;
+  - 93 of the 105 with ink to change when their ink is six levels redder.
 
-  The other 12 hold their ink in strokes and dots too thin to have an inside.
+  The other 12 hold their ink in strokes and dots too thin to have an inside. The five bitmap cases fail with every planted error; checked again over loop run 39985693403.
 
 ## Waiting on @Pauli
 
