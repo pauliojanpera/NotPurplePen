@@ -14,10 +14,10 @@ on:
   workflow_dispatch:
     inputs:
       machine_check:
-        description: 'On a machine unlike the recorded one: stop, or report the differences and test anyway'
+        description: 'On a machine unlike the recorded one: report the differences and test anyway, or stop'
         type: choice
-        options: [ stop, report ]
-        default: stop
+        options: [ report, stop ]
+        default: report
 
 jobs:
   # The same commit can reach more than one branch -- a wip branch, and then the
@@ -34,8 +34,8 @@ jobs:
   # failure nobody saw.
   #
   # A run started by hand is the exception: it is asked for to test the tree
-  # again, as when a run stopped at the machine check is repeated with the
-  # check reporting instead, so it runs the suite whatever the others found.
+  # again, as when a failure may have come from the machine it ran on, so it
+  # runs the suite whatever the others found.
   decide:
     name: Decide
     runs-on: ubuntu-latest
@@ -271,15 +271,17 @@ jobs:
     # the tests require of it -- the edition and version of Windows, and each
     # system font they use, by fingerprint -- is written down in
     # .github/ci/environment.json and checked: a machine that differs says so in
-    # one message instead of a hundred unexplained rendering diffs. The image is
+    # one warning, which explains any rendering diffs it causes. The image is
     # replaced every few days and its Windows build with every monthly update, so
     # both are only printed.
     #
-    # A machine that differs stops the tests, unless the run was started by hand
-    # with machine_check set to report: the differences are then warnings, and
-    # the tests show which baselines they move. Either way the log carries the
-    # record as that machine has it, in the file's own form, to replace the file
-    # with once the baselines hold on it.
+    # A machine that differs is tested anyway: the differences are warnings, and
+    # the tests show whether they move any baseline. The runners carry more than
+    # one image at a time, and a font updated without changing a rendering would
+    # otherwise stop runs at random. A run started by hand can stop at the
+    # differences instead, with machine_check set to stop. Either way the log
+    # carries the record as that machine has it, in the file's own form, to
+    # replace the file with when baselines are recorded on it.
     #
     # Of the faces the tests ask for, the image carries most; ci/fonts.json holds
     # the rest, the ones no Windows installation has, and only those are
@@ -291,7 +293,7 @@ jobs:
       working-directory: ${{ github.workspace }}
       shell: pwsh
       env:
-        MACHINE_CHECK: ${{ inputs.machine_check || 'stop' }}
+        MACHINE_CHECK: ${{ inputs.machine_check || 'report' }}
       run: |
         "image: $env:ImageOS $env:ImageVersion"
         $cv = Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion'
@@ -498,17 +500,16 @@ jobs:
         }
         if ($machineDifferences.Count) {
             $verdict = "The machine differs from ci/environment.json in $($machineDifferences.Keys -join ', ')."
-            if ($env:MACHINE_CHECK -ne 'report') {
-                "Rendering compares against images made on a machine that had all of these. To see"
-                "which baselines the differences move, run this workflow by hand with machine_check"
-                "set to report; then re-record the baselines they move, if any, and replace"
-                "ci/environment.json with the record above."
+            if ($env:MACHINE_CHECK -eq 'stop') {
+                "Rendering compares against images made on a machine that had all of these, and this"
+                "run was started to stop at a machine that differs. To see which baselines the"
+                "differences move, run it again with machine_check set to report."
                 "::error title=Stopped on a machine the tests do not expect::$verdict"
                 exit 1
             }
             "::warning title=Testing on a machine the tests do not expect::$verdict"
-            "Testing anyway, as this run was started to report the differences rather than stop at them."
-            "If the tests pass here, the record above replaces ci/environment.json."
+            "Testing anyway: the tests show whether the differences move any baseline. If they do,"
+            "re-record the baselines they move and replace ci/environment.json with the record above."
         }
         else {
             "The machine is what the tests require: $windows, and the $($required.systemFonts.Count) font files the tests take from it."
