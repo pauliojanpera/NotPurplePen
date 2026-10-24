@@ -1,0 +1,1105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NotPurplePen SVG Logbook</title>
+<meta name="description" content="What NotPurplePen's SVG target can draw after each step of its work, compared pixel by pixel with the Skia target's reference images.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="NotPurplePen SVG Logbook">
+<meta property="og:description" content="What NotPurplePen's SVG target can draw after each step of its work, compared pixel by pixel with the Skia target's reference images.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='11' fill='none' stroke='%23cc00ff' stroke-width='3.5'/%3E%3C/svg%3E">
+<link rel="preload" href="fonts/barlow-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/barlow-condensed-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face { font-family: "Barlow"; font-style: normal; font-weight: 400; font-display: swap; src: url("fonts/barlow-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Barlow"; font-style: normal; font-weight: 500; font-display: swap; src: url("fonts/barlow-latin-500-normal.woff2") format("woff2"); }
+@font-face { font-family: "Barlow"; font-style: normal; font-weight: 600; font-display: swap; src: url("fonts/barlow-latin-600-normal.woff2") format("woff2"); }
+@font-face { font-family: "Barlow Condensed"; font-style: normal; font-weight: 600; font-display: swap; src: url("fonts/barlow-condensed-latin-600-normal.woff2") format("woff2"); }
+@font-face { font-family: "IBM Plex Mono"; font-style: normal; font-weight: 400; font-display: swap; src: url("fonts/ibm-plex-mono-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "IBM Plex Mono"; font-style: normal; font-weight: 500; font-display: swap; src: url("fonts/ibm-plex-mono-latin-500-normal.woff2") format("woff2"); }
+
+/* Layout: one reading column. The plan is drawn as an orienteering course in overprint purple, then the
+   latest standing, then the log, newest step first. Map images stay on white paper in both themes. */
+:root {
+  color-scheme: light;
+  --paper: #f6f5f8;
+  --sheet: #fdfcfe;
+  --map: #ffffff;
+  --ink: #1b1720;
+  --ink-2: #48424f;
+  --muted: #6c6575;
+  --rule: #e3dfe8;
+  --rule-strong: #cbc5d2;
+  --overprint: #cc00ff;
+  --overprint-on-map: #cc00ff;
+  --accent: #8f00bd;
+  --drawn: #7a00a8;
+  --step2: #b23fe0;
+  --phase4: #d394ec;
+  --lighter: #8a8392;
+  --pen: #c4bdcc;
+  --outside: #c77700;
+  --tooltip: #1b1720;
+  --tooltip-ink: #f6f5f8;
+  --font-display: "Barlow Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --font-body: "Barlow", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --paper: #131016;
+    --sheet: #1c1821;
+    --ink: #ece8f1;
+    --ink-2: #cbc4d4;
+    --muted: #a49cae;
+    --rule: #2e2935;
+    --rule-strong: #463f4f;
+    --overprint: #d65cff;
+    --accent: #df7bff;
+    --drawn: #f1c6ff;
+    --step2: #d071f7;
+    --phase4: #8f45b3;
+    --lighter: #9089a0;
+    --pen: #5f5870;
+    --outside: #f0a04b;
+    --tooltip: #ece8f1;
+    --tooltip-ink: #131016;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+img { max-width: 100%; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.55 var(--font-body); }
+.page {
+  max-width: 1040px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 32px 72px;
+  display: grid; gap: 56px;
+}
+a { color: var(--accent); text-underline-offset: 2px; }
+a:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+code, .mono { font-family: var(--font-mono); font-size: .92em; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; line-height: 1.1; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(38px, 7vw, 60px); letter-spacing: -.01em; }
+h2 { font-size: clamp(28px, 4.4vw, 36px); }
+h3 { font-size: 22px; }
+p { margin: 0; }
+.eyebrow { font: 500 13px/1.3 var(--font-body); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.prose { max-width: 66ch; display: grid; gap: 12px; color: var(--ink-2); }
+.meta { color: var(--muted); font-size: 14px; }
+
+/* The masthead and the course */
+.masthead { display: grid; gap: 14px; }
+.masthead .lede { max-width: 64ch; color: var(--ink-2); font-size: 17px; }
+.course { margin: 18px 0 0; display: grid; gap: 10px; }
+.course-drawing { width: 100%; }
+.course-drawing svg { display: block; width: 100%; height: auto; overflow: visible; }
+.course-drawing .symbol { fill: none; stroke: var(--overprint); stroke-width: 2; }
+.course-drawing .leg { stroke: var(--overprint); stroke-width: 2; }
+.course-drawing .number { fill: var(--overprint); font: 600 17px var(--font-display); }
+.course-drawing .name { fill: var(--ink); font: 500 13px var(--font-body); }
+.course-drawing .state { fill: var(--muted); font: 500 10.5px var(--font-body); letter-spacing: .08em; text-transform: uppercase; }
+.course-drawing .is-upcoming .symbol, .course-drawing .is-upcoming .number, .course-drawing .leg.is-upcoming { opacity: .38; }
+.course-drawing .is-upcoming .name { fill: var(--muted); }
+.course-drawing .is-current .state { fill: var(--accent); }
+.course-drawing .halo { fill: none; stroke: var(--overprint); stroke-width: 2; transform-box: fill-box; transform-origin: center; animation: halo 2.6s ease-out infinite; }
+@keyframes halo { 0% { transform: scale(1); opacity: .5; } 100% { transform: scale(1.75); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .course-drawing .halo { animation: none; opacity: .3; transform: scale(1.4); } }
+.course figcaption { color: var(--muted); font-size: 14px; max-width: 70ch; }
+
+/* Where it stands */
+.standing { display: grid; gap: 28px; }
+.standing-head { display: grid; gap: 6px; }
+.tally { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 20px 40px; align-items: end; }
+.hero { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.hero-n { font: 600 64px/1 var(--font-body); color: var(--ink); }
+.hero-of { font: 500 20px/1.2 var(--font-body); color: var(--ink-2); }
+.tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.tile { display: grid; gap: 2px; align-content: start; }
+.tile .label { font-size: 14px; color: var(--muted); }
+.tile .value { font: 600 30px/1.1 var(--font-body); }
+.share { grid-column: 1 / -1; display: grid; gap: 10px; }
+.share-bar { display: flex; gap: 2px; height: 18px; }
+.share-bar span { display: block; height: 100%; min-width: 3px; }
+.share-bar span:first-child { border-radius: 4px 0 0 4px; }
+.share-bar span:last-child { border-radius: 0 4px 4px 0; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 22px; padding: 0; margin: 0; list-style: none; font-size: 14px; color: var(--ink-2); }
+.legend li { display: flex; align-items: center; gap: 8px; }
+.legend .key { width: 12px; height: 12px; border-radius: 3px; flex: none; }
+.legend b { font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; }
+
+.callout { display: grid; gap: 8px; padding: 18px 20px; background: var(--sheet); border: 1px solid var(--rule); border-left: 3px solid var(--overprint); border-radius: 6px; max-width: 760px; }
+.chip { justify-self: start; display: inline-flex; align-items: center; gap: 6px; font: 600 12px/1 var(--font-body); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+.chip::before { content: ""; width: 8px; height: 8px; border-radius: 50%; border: 2px solid currentColor; }
+.callout h3 { font-size: 21px; }
+.callout p { color: var(--ink-2); max-width: 70ch; }
+
+.census { display: grid; gap: 14px; position: relative; }
+.census-rows { display: grid; gap: 6px; }
+.census-row { display: grid; grid-template-columns: 9.5em minmax(0, 1fr); align-items: center; gap: 12px; padding: 2px 4px; margin: 0 -4px; border-radius: 4px; cursor: default; }
+.census-row:hover, .census-row:focus-visible { background: var(--sheet); }
+.census-row .call { font: 400 13px/1.2 var(--font-mono); color: var(--ink-2); text-align: right; overflow-wrap: anywhere; }
+.census-row .track { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.census-row .bar { height: 14px; border-radius: 0 4px 4px 0; flex: none; min-width: 2px; }
+.census-row .call small { display: block; font: 400 11.5px/1.3 var(--font-body); color: var(--muted); }
+.census-row .count { font-size: 13px; color: var(--ink-2); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.tooltip { position: absolute; z-index: 5; pointer-events: none; background: var(--tooltip); color: var(--tooltip-ink); padding: 8px 10px; border-radius: 6px; font-size: 13px; line-height: 1.35; max-width: 240px; box-shadow: 0 4px 14px rgba(0,0,0,.18); }
+.tooltip strong { display: block; font-size: 15px; font-variant-numeric: tabular-nums; }
+.table-view summary { cursor: pointer; color: var(--accent); font-size: 14px; width: max-content; }
+.table-scroll { overflow-x: auto; margin-top: 10px; }
+table { border-collapse: collapse; font-size: 14px; min-width: 420px; }
+th, td { text-align: left; padding: 5px 14px 5px 0; border-bottom: 1px solid var(--rule); }
+th { font-weight: 600; color: var(--muted); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+table.findings { min-width: 560px; }
+table.findings caption { caption-side: top; text-align: left; font-size: 13px; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; padding-bottom: 6px; }
+table.findings td.zero { color: var(--accent); font-weight: 600; }
+
+/* The log */
+.log, .entries { display: grid; gap: 40px; }
+.entry { display: grid; gap: 22px; }
+.entry-head { display: grid; gap: 8px; padding-top: 22px; border-top: 1px solid var(--rule-strong); }
+.entry-head h3 { font-size: clamp(26px, 4vw, 32px); }
+.cases { display: grid; gap: 28px; }
+.case { display: grid; gap: 16px; min-width: 0; padding: 20px; background: var(--sheet); border: 1px solid var(--rule); border-radius: 8px; }
+.case-head { display: grid; gap: 4px; }
+.case-title { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
+.case-title h4 { margin: 0; min-width: 0; font: 500 19px/1.2 var(--font-mono); overflow-wrap: anywhere; }
+.case-title .kind { font-size: 13px; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; }
+.case-head p { color: var(--ink-2); max-width: 70ch; }
+
+.layer-switch { display: inline-flex; flex-wrap: wrap; gap: 2px; padding: 3px; border: 1px solid var(--rule-strong); border-radius: 8px; background: var(--paper); justify-self: start; }
+.layer-switch input { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
+.layer-switch label { padding: 5px 12px; border-radius: 6px; font: 500 14px/1.25 var(--font-body); color: var(--ink-2); cursor: pointer; }
+.layer-switch input:checked + label { background: var(--sheet); color: var(--ink); box-shadow: 0 0 0 1px var(--rule-strong); }
+.layer-switch input:focus-visible + label { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+.frame { position: relative; margin: 0; width: min(100%, calc(66vh * var(--ratio))); aspect-ratio: var(--ratio); background: var(--map); border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; cursor: crosshair; touch-action: pan-y; }
+.frame img { display: block; width: 100%; height: 100%; user-select: none; -webkit-user-drag: none; }
+.marker { position: absolute; border: 2px solid var(--overprint-on-map); border-radius: 50%; transform: translate(-50%, -50%); pointer-events: none; box-shadow: 0 0 0 1px rgba(255,255,255,.85); }
+.hint { font-size: 13px; color: var(--muted); }
+
+.details { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.details figure { margin: 0; display: grid; gap: 6px; min-width: 0; align-content: start; }
+/* A detail's border lies outside its pixels, so that each image pixel covers whole device pixels. */
+.details canvas { box-sizing: content-box; display: block; aspect-ratio: 1; background: var(--map); border: 1px solid var(--rule); border-radius: 4px; }
+.details canvas.raster { image-rendering: pixelated; }
+.details figure.is-shown canvas { border-color: var(--overprint); box-shadow: 0 0 0 1px var(--overprint); }
+.details figcaption { font-size: 13px; line-height: 1.3; color: var(--ink-2); }
+.details figcaption span { display: block; color: var(--muted); }
+
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px 28px; margin: 0; }
+.facts div { min-width: 0; }
+.facts dt { font: 500 12px/1.3 var(--font-body); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.facts dd { margin: 4px 0 0; color: var(--ink-2); }
+.facts dd b { color: var(--ink); font-weight: 600; }
+.bins { display: flex; flex-wrap: wrap; gap: 4px 14px; padding: 0; margin: 6px 0 0; list-style: none; font-size: 13px; }
+.bins li { display: flex; align-items: center; gap: 6px; font-variant-numeric: tabular-nums; }
+.bins .key { width: 12px; height: 12px; border-radius: 3px; box-shadow: 0 0 0 1px var(--rule); }
+.bins .bin { color: var(--muted); }
+
+.source summary { cursor: pointer; color: var(--accent); font-size: 14px; width: max-content; }
+.source pre { margin: 10px 0 0; padding: 12px 14px; background: var(--paper); border: 1px solid var(--rule); border-radius: 6px; overflow-x: auto; font: 12px/1.5 var(--font-mono); color: var(--ink-2); max-height: 420px; }
+
+footer { color: var(--muted); font-size: 14px; display: grid; gap: 8px; max-width: 72ch; padding-top: 22px; border-top: 1px solid var(--rule-strong); }
+
+@media (max-width: 720px) {
+  .tally { grid-template-columns: minmax(0, 1fr); }
+  .details { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .case { padding: 14px; }
+  .census-row { grid-template-columns: 8.2em minmax(0, 1fr); gap: 8px; }
+  .census-row .call { font-size: 12px; }
+  .hero-n { font-size: 56px; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="masthead">
+    <p class="eyebrow">NotPurplePen · SVG target</p>
+    <h1>SVG Logbook</h1>
+    <p class="lede">NotPurplePen, a fork of the orienteering course-setting program Purple Pen, is getting a graphics target that writes maps and courses as SVG. After each step of the work, this log shows the test drawings the target can draw, each three ways: drawn from its SVG by your browser, drawn by the Skia target as the reference, and drawn from the SVG by Chromium in the test run.</p>
+    <figure class="course">
+      <div class="course-drawing" id="course-drawing"></div>
+      <figcaption>The plan to the first release, drawn as a course. Controls 1 to 4 are the four steps of phase 2; 5 is phase 4, text and bitmaps, which is taken before phase 3; 6 is phase 3, the export in the application with its course data.</figcaption>
+    </figure>
+  </header>
+
+  <section class="standing" aria-labelledby="standing-title">
+    <div class="standing-head">
+      <h2 id="standing-title">Where it stands</h2>
+      <p class="meta" id="standing-meta"></p>
+    </div>
+    <div class="tally" id="tally"></div>
+    <div class="callout" id="decision"></div>
+    <div class="census" id="census"></div>
+  </section>
+
+  <section class="log" aria-labelledby="log-title">
+    <h2 id="log-title">Log</h2>
+    <div class="entries" id="entries"></div>
+  </section>
+
+  <footer id="footer"></footer>
+</div>
+
+<script>
+"use strict";
+
+const REPOSITORY = "https://github.com/pauliojanpera/NotPurplePen";
+
+// The plan to the first release, in course order. State: done, current or upcoming.
+const COURSE = [
+  { kind: "start", name: "The loop", state: "done" },
+  { kind: "control", number: 1, name: "Document", state: "done" },
+  { kind: "control", number: 2, name: "Drawing", state: "done" },
+  { kind: "control", number: 3, name: "Map structure", state: "done" },
+  { kind: "control", number: 4, name: "Georeferencing", state: "done" },
+  { kind: "control", number: 5, name: "Text, bitmaps", state: "current" },
+  { kind: "control", number: 6, name: "Export", state: "upcoming" },
+  { kind: "finish", name: "First release", state: "upcoming" },
+];
+const STATE_WORDS = { done: "done", current: "under way", upcoming: "to come" };
+
+// The latest loop run, and the calls its waiting drawings need, with the work that adds each call. A drawing that
+// waits only because it draws a bitmap lighter never comes (B-6).
+const STANDING = {
+  run: 40089777192, date: "Oct 24, 2026", commit: "d7aeeed",
+  drawn: 187, outside: 0, waiting: 5, waitingOnStep2Only: 0, drawnLighterOnly: 2, penOnly: 3, testsPassing: 286,
+  calls: [
+    ["CreatePen", 3, 3, "pen"], ["DrawBitmap", 2, 2, "lighter"],
+  ].map(([call, cases, alone, comesIn]) => ({ call, cases, alone, comesIn })),
+};
+const COMES_IN = {
+  step2: "Added in step 2",
+  phase4: "Comes with text, in phase 4",
+  lighter: "Never: the export draws no bitmap lighter (B-6)",
+  pen: "Not yet: a pen of no width, Skia’s hairline, has no width in a document (D-5)",
+};
+
+// The difference bins, as the loop's measurements count them, and their blues in the difference images.
+const BINS = [
+  { label: "1–8", color: "#86b6ef", from: "beyond 0", to: "beyond 8" },
+  { label: "9–32", color: "#3987e5", from: "beyond 8", to: "beyond 32" },
+  { label: "33–64", color: "#1c5cab", from: "beyond 32", to: "beyond 64" },
+  { label: "65 and up", color: "#0d366b", from: "beyond 64", to: null },
+];
+
+// The layers each drawing can be shown as, and the files that hold them.
+const LAYERS = [
+  { key: "svg", label: "SVG", caption: "Vector, drawn by this browser", file: name => name + ".svg", raster: false },
+  { key: "skia", label: "Skia", caption: "The reference", file: name => name + "-skia.png", raster: true },
+  { key: "chromium", label: "Chromium", caption: "In the test run", file: name => name + "-chromium.png", raster: true },
+  { key: "difference", label: "Differences", caption: "Darker blue, larger", file: name => name + "-difference.png", raster: true },
+];
+
+// The log, newest step first. Each step's files are in the folder named by its id.
+const LOG = [
+  {
+    id: "p4-text",
+    step: "Phase 4 · step 2",
+    title: "Text",
+    date: "Oct 24, 2026",
+    run: 40089777192, commit: "685db93",
+    text: [
+      "The SVG target draws text. Each text is a text element at its baseline, in the family the map names, and each cluster of its characters starts where the Skia target’s shaping starts it, written as its position along the baseline. Browsers cap a font’s size at 10,000 units, which a map’s thousandths of a millimetre pass in any text over 10 mm tall, so each text is set in millimetres under a transform that scales it a thousandfold. A framed text’s frame is the same text, stroked beneath it.",
+      "Where Chromium puts each character is checked as well as the pixels: each test opens the document in Chromium, reads where every character starts through the SVG DOM, and sets it against where Skia’s shaping puts its glyph, which is where the PDF export writes it. The check’s first run found the target’s first way of writing kerning, as shifts from the browser’s own advances, carrying along the browser’s rounding of each advance: the last of 40 characters stood 0.6 pixels off. Written as positions, every character of the 81 drawings lies within 0.063 pixels, and a case fails beyond 0.1. A position given to a mark would part it from its letter, so a list of positions stops at a cluster of several characters and a span of its own carries on.",
+      "Each face is embedded in the document as a font of its own: the font the map names under its family, and each face that font fallback draws characters in under that face’s name. A browser draws the text from the document’s fonts alone, never from the viewer’s, so what the map’s maker set is what every reader sees. The tests’ Chromium sees no font of the system’s but a sentinel whose every glyph is a filled box, and the tests’ own process sees none either: the faces it falls back to are Noto faces kept with the tests, cut down to the characters the test maps draw. So fontfallback draws the same on every machine, and its document takes 822 KB, where the machine’s whole faces took 57 MB. Until a subsetter is chosen, the faces the maps name are embedded whole, nearly all of a text drawing’s document.",
+      "The references show each glyph where the shaping puts it. Purple Pen’s Skia target rounded each glyph’s origin to a whole pixel, which made turned text wander by up to half a pixel; with subpixel positioning on, a fix offered to Purple Pen on its own, the references draw what the SVG draws. On GitHub’s runners Chromium hinted the glyphs, which moved them by up to three pixels, so the tests start it with hinting off wherever they run.",
+      "Chromium shades the edges of glyphs otherwise than Skia does, a whole glyph at a time: darker at plain glyphs, and darker or lighter at the frames of framed text, by up to 75 levels once both images are blurred, where drawings without text differ by at most 35. A drawing with text is held to a tolerance of its own, the same rule with 80 levels at an edge instead of 40; within it the drawings with text match their references, and it still fails each of them shifted by two pixels or drawn two pixels wider. The target now draws 187 of the 192 test drawings within the tolerance, on GitHub’s runner as here. Of the other five, two draw a bitmap lighter, which the export never will, and three a hairline pen, which has no width in a document.",
+    ],
+    findings: {
+      caption: "Seven of the 81 drawings with text",
+      columns: ["Drawing", "Largest difference", "Pixels beyond 8", "Character offset, px", "SVG bytes"],
+      rows: [
+        ["simpletext, Times New Roman laid out", 196, 43431, 0.0216, 539667],
+        ["frametext3, framed text", 190, 35948, 0.0178, 2124770],
+        ["kern_text_outline, kerned and outlined", 197, 39652, 0.0632, 559598],
+        ["RobotoTest, a course in Roboto", 183, 8576, 0.0082, 934394],
+        ["lksamm1, a map’s title and legend", 198, 44686, 0.0306, 2261599],
+        ["Cambria, drawn in Caladea", 144, 1749, 0.0018, 109978],
+        ["fontfallback, twenty scripts", 198, 44801, 0.0174, 821606],
+      ],
+    },
+    cases: [
+      {
+        name: "simpletext", kind: "Map area", width: 1537, height: 1079, window: { left: 132, top: 146, size: 24 },
+        description: "Text in Times New Roman, which the tests draw in Liberation Serif, laid out every way a map lays it out: centered, aligned right, justified and wrapped, unformatted with line breaks of its own, and turned. The one face embedded is nearly all of the document.",
+        drawnAs: "84 texts and 69 paths", svgBytes: 539667,
+        measurements: { "largest difference": 196, "pixels": 1658423, "beyond 0": 51803, "beyond 8": 43431, "beyond 32": 25645, "beyond 64": 9538 },
+      },
+      {
+        name: "frametext3", kind: "Map area", width: 1177, height: 779, window: { left: 140, top: 500, size: 24 },
+        description: "Framed text: each text drawn over its frame, the same text stroked in another color, some of it turned along a line or spaced out. The largest edge difference of all 81 drawings lies here, where a frame meets its glyph: 75 levels once both images are blurred, Chromium darker in places and lighter in others.",
+        drawnAs: "134 texts and 31 paths", svgBytes: 2124770,
+        measurements: { "largest difference": 190, "pixels": 916883, "beyond 0": 44541, "beyond 8": 35948, "beyond 32": 20687, "beyond 64": 6725 },
+      },
+      {
+        name: "kern_text_outline", kind: "Map area", width: 1704, height: 840, window: { left: 1031, top: 296, size: 24 },
+        description: "Pairs that kerning pulls together, AV, Ya and To, and digits, in magenta with an outline, upright and turned. Its line of 40 characters is where the shifts of the first texts drifted most, 0.6 pixels by its end; placed by their positions, its characters lie within 0.063 pixels of the shaping.",
+        drawnAs: "90 texts and 14 paths", svgBytes: 559598,
+        measurements: { "largest difference": 197, "pixels": 1431360, "beyond 0": 48735, "beyond 8": 39652, "beyond 32": 21397, "beyond 64": 10411 },
+      },
+      {
+        name: "RobotoTest", kind: "Map area", width: 850, height: 629, window: { left: 549, top: 302, size: 24 },
+        description: "A course drawn in Roboto and Roboto Condensed, bold and regular: its control numbers and its description sheet. Each of the four faces is embedded once, under a family of its own.",
+        drawnAs: "70 texts, 153 paths and 23 circles", svgBytes: 934394,
+        measurements: { "largest difference": 183, "pixels": 534650, "beyond 0": 12371, "beyond 8": 8576, "beyond 32": 3903, "beyond 64": 1189 },
+      },
+      {
+        name: "lksamm1", kind: "Map area", width: 1398, height: 1079, window: { left: 272, top: 733, size: 24 },
+        description: "A real map’s title and legend over the map itself, in Arial bold and regular. Half of the document is the map’s own drawing.",
+        drawnAs: "109 texts, 12124 paths and 346 circles", svgBytes: 2261599,
+        measurements: { "largest difference": 198, "pixels": 1508442, "beyond 0": 68556, "beyond 8": 44686, "beyond 32": 21140, "beyond 64": 8909 },
+      },
+      {
+        name: "Cambria", kind: "Map area", width: 678, height: 159, window: { left: 143, top: 88, size: 24 },
+        description: "A word in Cambria, which the tests draw in Caladea, a font with Cambria’s metrics, wherever they run. Before, a machine whose fontconfig knew Caladea drew it in Caladea, and GitHub’s runner drew it in Liberation Sans.",
+        drawnAs: "a text", svgBytes: 109978,
+        measurements: { "largest difference": 144, "pixels": 107802, "beyond 0": 2562, "beyond 8": 1749, "beyond 32": 1029, "beyond 64": 289 },
+      },
+      {
+        name: "fontfallback", kind: "Map area", width: 1093, height: 936, window: { left: 656, top: 744, size: 24 },
+        description: "Text in twenty scripts, with symbols and emoji, in Arial, each character Arial lacks drawn in one of fifteen Noto faces kept with the tests, cut down to the characters drawn: the same faces on every machine, embedded under their own names. One ideograph that none of them has is drawn as a box.",
+        drawnAs: "198 texts", svgBytes: 821606,
+        measurements: { "largest difference": 198, "pixels": 1023048, "beyond 0": 74193, "beyond 8": 44801, "beyond 32": 22922, "beyond 64": 8813 },
+      },
+    ],
+  },
+  {
+    id: "p4-bitmaps",
+    step: "Phase 4 · step 1",
+    title: "Bitmaps",
+    date: "Oct 23, 2026",
+    run: 39985693403, commit: "d58cb9e",
+    text: [
+      "The SVG target draws bitmaps. A bitmap that a drawing draws, whole or in part, is written once, as an image among the document’s definitions after everything that uses it: as a JPEG when it was read from one, at a quality of 90 unless the export asks for another, and as a PNG otherwise. Each drawing of it is a use of the image, whose transform takes the image’s pixels onto the rectangle it is drawn into. The photograph of Bitmap below is drawn twice and written once.",
+      "Chromium samples a bitmap much as Skia does. A use drawn with nearest-neighbor sampling asks for pixelated rendering, and BitmapPart matches its reference pixel for pixel. A smoothed bitmap drawn upright differs only along a few rows and columns of pixels, by at most 10 levels in a channel in the photograph and 22 in the logo; the two templates that their maps turn differ throughout, by up to 87 levels in single pixels. All are within the tolerance.",
+      "The image data is nearly all of each document: the photograph’s PNG of 1.5 MB takes 2.0 MB as base64, beside 735 bytes for the rest of Bitmap’s SVG. Besides embedding, the default, the target can link each bitmap as a file that the export stores beside the SVG, or leave bitmaps out (B-4).",
+      "A bitmap drawn lighter, as a map drawn at an intensity below 1 draws its templates, raises the target’s error instead: no element the document may use can lighten an image, and the export always draws at full intensity (B-6). template_light and template2_light, the two such drawings, are the only ones the target will never draw. The SVG target now draws 106 of the 192 test drawings; the other 84 waiting need text, which comes next.",
+    ],
+    findings: {
+      caption: "The five drawings with bitmaps",
+      columns: ["Drawing", "Largest difference", "Pixels beyond 8", "SVG bytes", "Image data"],
+      rows: [
+        ["Bitmap, a photograph drawn twice", 10, 2, 2127283, 2126548],
+        ["BitmapPart, its middle, pixelated", 0, 0, 461495, 460748],
+        ["template, a map’s template", 70, 7918, 1110768, 1108796],
+        ["template2, a map’s turned template", 87, 32275, 1417600, 1415856],
+        ["testlogo, a map’s logo template", 50, 591, 44114, 42848],
+      ],
+    },
+    cases: [
+      {
+        name: "Bitmap", kind: "Drawing", width: 1000, height: 1375, window: { left: 300, top: 300, size: 24 },
+        description: "A photograph of 1024 by 768 pixels drawn at two sizes, smoothed as it is shrunk. The SVG holds it once, as a PNG, and two uses place it. Chromium differs almost only along four rows and a column of the larger copy and a row of the smaller, by at most 10 levels.",
+        drawnAs: "an image, used twice", svgBytes: 2127283,
+        measurements: { "largest difference": 10, "pixels": 1375000, "beyond 0": 1834, "beyond 8": 2, "beyond 32": 0, "beyond 64": 0 },
+      },
+      {
+        name: "BitmapPart", kind: "Drawing", width: 1000, height: 1375, window: { left: 446, top: 775, size: 24 },
+        description: "The middle of the same photograph, 512 by 307 pixels, scaled up with nearest-neighbor sampling. Its use asks for pixelated rendering, and Chromium’s image is Skia’s, pixel for pixel.",
+        drawnAs: "an image, pixelated", svgBytes: 461495,
+        measurements: { "largest difference": 0, "pixels": 1375000, "beyond 0": 0, "beyond 8": 0, "beyond 32": 0, "beyond 64": 0 },
+      },
+      {
+        name: "template2", kind: "Map area", width: 741, height: 632, window: { left: 192, top: 261, size: 24 },
+        description: "A photograph of a frosted forest as the template of template2.ocd, turned under the map’s eight lines. Chromium smooths it a little differently from Skia, most where the frost is finest.",
+        drawnAs: "an image and 8 paths", svgBytes: 1417600,
+        measurements: { "largest difference": 87, "pixels": 468312, "beyond 0": 144252, "beyond 8": 32275, "beyond 32": 1445, "beyond 64": 21 },
+      },
+      {
+        name: "testlogo", kind: "Map area", width: 761, height: 463, window: { left: 176, top: 191, size: 24 },
+        description: "A logo as the template of test.ocd, under the outline the map draws around it. Within the logo, Chromium differs along a few rows and columns of pixels, by at most 22 levels; the larger differences lie along the outline’s edges.",
+        drawnAs: "an image and a path", svgBytes: 44114,
+        measurements: { "largest difference": 50, "pixels": 352343, "beyond 0": 2791, "beyond 8": 591, "beyond 32": 25, "beyond 64": 0 },
+      },
+    ],
+  },
+  {
+    id: "s4",
+    step: "Phase 2 · step 4",
+    title: "Georeferencing",
+    date: "Oct 23, 2026",
+    run: 39980571564, commit: "43eb51e",
+    text: [
+      "A map with real-world coordinates now says where it lies. Its record in the metadata opens with the transform from the steps its drawing is written in to real-world coordinates, and names its coordinate system every way the map does: by EPSG code, by Proj4 string, and by OCAD grid and zone. The transform is the one image export writes into world files, so an SVG and a bitmap with its world file land in the same place on a web map.",
+      "OCAD names a map’s coordinate system by grid ids of its own, and Purple Pen’s table of them now gives the EPSG code of each grid that has one: OCAD grid 6005, ETRS-TM35FIN, is EPSG:3067. A grid takes a code only where PROJ’s definition of that code puts every point of the code’s area of use within a millimetre of where Purple Pen’s own definition of the grid puts it.",
+      "None of this changes a drawing: the 101 drawings render as before, their SVGs and every measurement byte for byte the same. The test drawings carry no georeference, since a map gets one from the export, which comes in phase 3. With this step, phase 2 is done; the full test suite passes on Windows, and opening the output in Inkscape and Scribus, checked by hand, remains.",
+    ],
+    findings: {
+      caption: "OCAD’s grids and their EPSG codes",
+      columns: ["Grids", "Count"],
+      rows: [
+        ["Name the code the grid list gives them", 614],
+        ["Name the code EPSG replaced a deprecated one with", 10],
+        ["Name none: their definition takes another Clarke 1880", 3],
+        ["Name none: they follow a definition EPSG withdrew as wrong", 4],
+        ["Name none: EPSG deprecated their code without a replacement", 1],
+        ["Have no EPSG code in the list", 10],
+      ],
+    },
+    cases: [],
+  },
+  {
+    id: "s3",
+    step: "Phase 2 · step 3",
+    title: "The map’s structure",
+    date: "Oct 22, 2026",
+    run: 39817113317, commit: "3d5074a",
+    text: [
+      "Every element now traces back to the map, color, symbol and object it came from. The map code tells the target where the run of each color of the color table begins and ends and where each object begins and ends, and labels each template with its file name. A run is a group carrying the color’s position in the table; consecutive objects of one symbol share a group carrying the symbol’s number; and each element carries its object’s number, which is the same in every color the object is drawn in.",
+      "Each map’s metadata holds its color table, with each color’s CMYK values and whether it overprints, and its symbol table, with the colors each symbol is drawn in. Open the SVG of ocad11overprinting below to read them: seven runs, of which the three that overprint darken what lies below them.",
+      "The drawings render as before, every measurement unchanged. The structure adds 21 % to the SVG of the 101 drawings, most of it the object number on each element.",
+    ],
+    findings: {
+      caption: "What the structure holds, and what it costs",
+      columns: ["Drawing", "Maps", "Colors", "Symbols", "Objects", "Bytes before", "Bytes after"],
+      rows: [
+        ["ocad11overprinting", 1, 7, 7, 7, 1691, 2981],
+        ["isomlines9", 1, 11, 67, 67, 23148, 34504],
+        ["missingcolor", 1, 10, 37, 120, 292559, 342897],
+        ["marymoor11_lowerlayers", 1, 8, 11, 332, 554951, 674400],
+        ["recursivetempl", 3, 3, 2, 2, 112000, 137464],
+      ],
+    },
+    cases: [
+      {
+        name: "ocad11overprinting_overprinted", kind: "Map area", width: 663, height: 384, window: { left: 295, top: 25, size: 24 },
+        description: "Bars of seven colors in ocad11blending.ocd, with the colors that overprint blended. Its SVG holds the map’s color and symbol tables in the metadata, and a run, a symbol group and a numbered object for each bar.",
+        drawnAs: "7 objects in 7 runs", svgBytes: 2981,
+        measurements: { "largest difference": 62, "pixels": 254592, "beyond 0": 5499, "beyond 8": 2162, "beyond 32": 246, "beyond 64": 0 },
+      },
+    ],
+  },
+  {
+    id: "s2-patterns",
+    step: "Phase 2 · step 2",
+    title: "Pattern brushes",
+    date: "Oct 22, 2026",
+    run: 39783503957, commit: "1e94ef1",
+    text: [
+      "A pattern brush’s tile is drawn through a target of its own, with every drawing call the target has, and becomes a pattern in the document: the tile’s middle sits on the origin of what it paints, and the pattern turns by the brush’s angle, as the Skia target repeats its tile. A pen made from the brush strokes with the pattern, and only patterns that something paints with are written.",
+      "The Skia target draws the tile into a bitmap, here 60 by 60 pixels for a tile of 30 by 20 units, and resamples it, which leaves its edges ragged when magnified; the SVG pattern holds vectors, and Chromium draws them sharp. The two still match within the tolerance.",
+      "That completes the drawing operations of step 2. The SVG target draws 101 of the 192 test drawings, and the other 91 wait on text and bitmaps, which come in phase 4. Step 3 gives the document the map’s structure: its color runs, symbols and objects.",
+    ],
+    cases: [
+      {
+        name: "PatternBrush", kind: "Drawing", width: 800, height: 800, window: { left: 345, top: 347, size: 24 },
+        description: "A star filled with a pattern brush whose tile holds a red and a green line and a blue ellipse, crossed by two thin black lines.",
+        drawnAs: "5 paths and an ellipse, 3 of them in the tile", svgBytes: 1535,
+        measurements: { "largest difference": 121, "pixels": 640000, "beyond 0": 14174, "beyond 8": 10107, "beyond 32": 4323, "beyond 64": 469 },
+      },
+      {
+        name: "RotatedPatternBrush", kind: "Drawing", width: 800, height: 800, window: { left: 341, top: 372, size: 24 },
+        description: "The same star, its pattern turned by 147°.",
+        drawnAs: "5 paths and an ellipse, 3 of them in the tile", svgBytes: 1573,
+        measurements: { "largest difference": 137, "pixels": 640000, "beyond 0": 14813, "beyond 8": 9507, "beyond 32": 2972, "beyond 64": 211 },
+      },
+    ],
+  },
+  {
+    id: "s2",
+    step: "Phase 2 · step 2",
+    title: "Strokes, paths, clips and blending",
+    date: "Oct 22, 2026",
+    run: 39780319225, commit: "29902ee",
+    text: [
+      "The SVG target strokes as well as fills. A pen is a class of its paint and width, with its cap and join only where they differ from SVG’s defaults. Lines, polylines, polygons, rectangles and paths are stroked as paths, ellipses as circles and ellipses, and arcs as arc commands that turn from the x axis towards the y axis, as Skia’s do. Paths are built from their parts and filled under the rule of their fill mode.",
+      "A clip is a group whose clip path the document defines once, however many groups clip to it, the page among them. Overprinting is a group that darkens what lies below it, around the run of a color that overprints: in ocad11overprinting below, the purple crosses the colors beneath it without hiding them.",
+      "That draws 95 more of the 192 test drawings, 99 in all, and every one matches its Skia reference within the pixel tolerance. Of the 93 still waiting, 2 need pattern brushes, the rest of this step, and 91 need text or bitmaps, which come in phase 4.",
+    ],
+    cases: [
+      {
+        name: "missingcolor", kind: "Map area", width: 761, height: 500, window: { left: 617, top: 288, size: 24 },
+        description: "A corner of FireMountain.ocd, an orienteering map: contours, green vegetation and its stripes, paths and tracks, a stream and marshes.",
+        drawnAs: "459 paths and 3,670 circles", svgBytes: 292559,
+        measurements: { "largest difference": 151, "pixels": 380500, "beyond 0": 35371, "beyond 8": 9930, "beyond 32": 478, "beyond 64": 2 },
+      },
+      {
+        name: "ocad11overprinting_overprinted", kind: "Map area", width: 663, height: 384, window: { left: 295, top: 25, size: 24 },
+        description: "Bars of seven colors in ocad11blending.ocd, with the colors that overprint blended: where the purple crosses a color beneath it, each channel takes the darker of the two, as overprinted inks darken each other.",
+        drawnAs: "7 paths, 3 of them in darkening groups", svgBytes: 1691,
+        measurements: { "largest difference": 62, "pixels": 254592, "beyond 0": 5499, "beyond 8": 2162, "beyond 32": 246, "beyond 64": 0 },
+      },
+      {
+        name: "isomarea9", kind: "Map area", width: 1398, height: 1079, window: { left: 433, top: 686, size: 24 },
+        description: "The area symbols of ISOM in an OCAD 9 map, each pattern drawn element by element and clipped to its area.",
+        drawnAs: "169 paths and 276 circles", svgBytes: 29010,
+        measurements: { "largest difference": 92, "pixels": 1508442, "beyond 0": 15833, "beyond 8": 4397, "beyond 32": 677, "beyond 64": 26 },
+      },
+      {
+        name: "isomlines9", kind: "Map area", width: 1498, height: 1079, window: { left: 1019, top: 932, size: 24 },
+        description: "The line symbols of ISOM in an OCAD 9 map: plain, dashed, double and decorated lines.",
+        drawnAs: "255 paths and 62 circles", svgBytes: 23148,
+        measurements: { "largest difference": 64, "pixels": 1616342, "beyond 0": 9351, "beyond 8": 3717, "beyond 32": 303, "beyond 64": 0 },
+      },
+      {
+        name: "doublelines9", kind: "Map area", width: 776, height: 743, window: { left: 644, top: 533, size: 24 },
+        description: "Double lines in an OCAD 9 map: two border lines, each of its own color, width and dashes, with or without a fill between them, some crossing a cyan area.",
+        drawnAs: "84 paths", svgBytes: 6457,
+        measurements: { "largest difference": 64, "pixels": 576568, "beyond 0": 10591, "beyond 8": 2693, "beyond 32": 376, "beyond 64": 0 },
+      },
+      {
+        name: "SimpleLines", kind: "Drawing", width: 500, height: 688, window: { left: 240, top: 66, size: 24 },
+        description: "Lines, polylines and polygons with three pens: flat ends and beveled corners, round ends and corners, and square ends with mitered corners.",
+        drawnAs: "9 paths", svgBytes: 1601,
+        measurements: { "largest difference": 30, "pixels": 344000, "beyond 0": 3215, "beyond 8": 638, "beyond 32": 0, "beyond 64": 0 },
+      },
+      {
+        name: "ComplexLines", kind: "Drawing", width: 500, height: 688, window: { left: 230, top: 370, size: 24 },
+        description: "A rectangle, an ellipse and an arc of 200° stroked with a wide pen, and a rectangle with a thin one.",
+        drawnAs: "3 paths and an ellipse", svgBytes: 1126,
+        measurements: { "largest difference": 97, "pixels": 344000, "beyond 0": 2302, "beyond 8": 767, "beyond 32": 174, "beyond 64": 12 },
+      },
+      {
+        name: "Paths", kind: "Drawing", width: 500, height: 688, window: { left: 248, top: 154, size: 24 },
+        description: "Paths of lines and Bézier curves, stroked and filled under nested transforms; one has two subpaths.",
+        drawnAs: "3 paths", svgBytes: 1216,
+        measurements: { "largest difference": 59, "pixels": 344000, "beyond 0": 1188, "beyond 8": 588, "beyond 32": 79, "beyond 64": 0 },
+      },
+      {
+        name: "Clipping", kind: "Drawing", width: 500, height: 688, window: { left: 242, top: 209, size: 24 },
+        description: "A red square and a green ellipse clipped to a five-pointed star drawn as one self-crossing path, under the even-odd rule, which leaves the star’s middle out.",
+        drawnAs: "a path and an ellipse", svgBytes: 1030,
+        measurements: { "largest difference": 55, "pixels": 344000, "beyond 0": 542, "beyond 8": 73, "beyond 32": 7, "beyond 64": 0 },
+      },
+    ],
+  },
+  {
+    id: "s2-edges",
+    step: "Phase 2 · step 2",
+    title: "Where edges meet",
+    date: "Oct 22, 2026",
+    run: 39780319225, commit: "1c30965",
+    text: [
+      "Where the edges of two shapes meet in one pixel, Chromium and the Skia reference each mix the two colors and the paper beneath in their own way, and the mix can lie outside every color the other image has around that pixel: in 53 of the 99 drawings it does, by up to 60 levels.",
+      "Such a pixel passes when the two images, each blurred by a Gaussian of one pixel, differ there by at most 40 levels in every channel; at those pixels they differ by at most 34.2. The errors planted in Chromium’s images change the blurred image more and fail, with two exceptions: ink six levels redder passes in strokes too thin to have an inside, and decreasesymbols, whose darkest pixel lies 24 levels from white, passes even shifted by two pixels.",
+      "The Skia target clips aliased, SkiaSharp’s default, while Chromium anti-aliases every clip path whatever its shape-rendering, so the references are drawn with their clips anti-aliased. The first four, drawn without clips, come out exactly the same.",
+    ],
+    findings: {
+      caption: "Drawings outside the tolerance, of those the error changes",
+      columns: ["Chromium’s image", "Drawings", "Outside"],
+      rows: [
+        ["As rendered", 99, 0],
+        ["Shifted 2 px", 99, 97],
+        ["Features 2 px wider", 99, 99],
+        ["Smallest solid feature removed", 99, 95],
+        ["Ink 6 levels redder", 98, 86],
+      ],
+    },
+    cases: [],
+  },
+  {
+    id: "s1-tolerance",
+    step: "Phase 2 · step 1",
+    title: "How close is close enough",
+    date: "Oct 22, 2026",
+    run: 39744433244, commit: "24aad08",
+    text: [
+      "Chromium and the Skia target shade antialiased edges differently, so the comparison now holds each pixel to the colors the reference has around it, not to the one pixel at its place: each color channel may lie anywhere in the range it takes within one pixel, give or take 4 levels, and the same must hold the other way round. Beyond the image both count as white paper, which keeps shapes cut by the image’s edge fair.",
+      "The four drawings pass with no pixel outside it, and their references are now recorded. To see that the rule still catches what matters, the same drawings were compared again with errors planted in Chromium’s images. A shift of one pixel is within its reach, so the large shapes of FillAreas pass it, while the dense dots of the map areas already show it.",
+    ],
+    findings: {
+      caption: "Pixels outside the tolerance",
+      columns: ["Chromium’s image", "FillAreas", "irregular1", "irregular2", "irregular4"],
+      rows: [
+        ["As rendered", 0, 0, 0, 0],
+        ["Shifted 1 px", 0, 3945, 3174, 2331],
+        ["Shifted 2 px", 2089, 130915, 108797, 53462],
+        ["Smallest feature removed", 4710, 44, 49, 16],
+        ["Ink 6 levels redder", 66473, 65224, 40175, 292],
+        ["Features 2 px wider", 9352, 394452, 321929, 153722],
+      ],
+    },
+    cases: [],
+  },
+  {
+    id: "s1",
+    step: "Phase 2 · step 1",
+    title: "The document and filled shapes",
+    date: "Oct 22, 2026",
+    run: 39737924049, commit: "c00a818",
+    text: [
+      "The SVG target writes its first documents. Each part of a drawing is defined once, and a page shows it through a clip and a transform onto paper measured in millimetres. Coordinates are whole steps of 0.001 mm, path data takes each command’s shortest form, styles are classes shared by value, and every color is sRGB followed by its CMYK.",
+      "Of the drawing calls, the target fills rectangles, ellipses and polygons so far. That is all four of the 192 test drawings use, so they are the first it draws. They match the Skia reference except along anti-aliased edges, where Chromium shades the pixels a little darker.",
+    ],
+    cases: [
+      {
+        name: "irregular1", kind: "Map area", width: 1904, height: 966, window: { left: 1868, top: 415, size: 24 },
+        description: "The five areas of the test map irregular1.ocd, two brown and three black, filled with dots that OCAD’s irregular structure shifts at random from their grid.",
+        drawnAs: "3,639 circles", svgBytes: 308985,
+        measurements: { "largest difference": 108, "pixels": 1839264, "beyond 0": 108199, "beyond 8": 59901, "beyond 32": 8330, "beyond 64": 298 },
+      },
+      {
+        name: "irregular2", kind: "Map area", width: 1904, height: 966, window: { left: 1524, top: 613, size: 24 },
+        description: "The same five areas in irregular2.ocd, with the dots in straighter rows.",
+        drawnAs: "3,649 circles", svgBytes: 309778,
+        measurements: { "largest difference": 70, "pixels": 1839264, "beyond 0": 88321, "beyond 8": 51095, "beyond 32": 6624, "beyond 64": 6 },
+      },
+      {
+        name: "irregular4", kind: "Map area", width: 1904, height: 966, window: { left: 982, top: 247, size: 24 },
+        description: "The same areas in irregular4.ocd, seen from farther out, so each dot is only a few pixels across.",
+        drawnAs: "3,655 circles", svgBytes: 312935,
+        measurements: { "largest difference": 65, "pixels": 1839264, "beyond 0": 54572, "beyond 8": 27093, "beyond 32": 1504, "beyond 64": 1 },
+      },
+      {
+        name: "FillAreas", kind: "Drawing", width: 500, height: 688, window: { left: 113, top: 488, size: 24 },
+        description: "A rectangle and an ellipse, and a self-intersecting polygon filled with each fill rule: even-odd leaves the star’s middle empty, nonzero fills it.",
+        drawnAs: "4 shapes", svgBytes: 1044,
+        measurements: { "largest difference": 77, "pixels": 344000, "beyond 0": 1467, "beyond 8": 34, "beyond 32": 23, "beyond 64": 4 },
+      },
+    ],
+  },
+];
+
+const SVG_NS = "http://www.w3.org/2000/svg";
+const formatCount = value => value.toLocaleString("en-US");
+const formatShare = (part, whole) => {
+  const percent = 100 * part / whole;
+  return (percent < 1 ? percent.toFixed(2) : percent.toFixed(1)) + " %";
+};
+const formatKilobytes = bytes => bytes < 10240 ? (bytes / 1024).toFixed(1) + " KB"
+  : bytes < 1048576 ? Math.round(bytes / 1024) + " KB" : (bytes / 1048576).toFixed(1) + " MB";
+const runLink = run => REPOSITORY + "/actions/runs/" + run;
+const commitLink = commit => REPOSITORY + "/commit/" + commit;
+
+// Make an HTML element with attributes and children; strings become text nodes, nested lists are flattened.
+function make(tag, attributes, ...children) {
+  const element = document.createElement(tag);
+  for (const [name, value] of Object.entries(attributes || {})) {
+    if (value === false || value === null || value === undefined) continue;
+    if (name === "class") element.className = value;
+    else if (name === "style") element.style.cssText = value;
+    else element.setAttribute(name, value === true ? "" : value);
+  }
+  for (const child of children.flat(Infinity)) {
+    if (child === null || child === undefined || child === false) continue;
+    element.append(typeof child === "string" ? document.createTextNode(child) : child);
+  }
+  return element;
+}
+
+// Make an SVG element with attributes.
+function makeSvg(tag, attributes) {
+  const element = document.createElementNS(SVG_NS, tag);
+  for (const [name, value] of Object.entries(attributes || {})) element.setAttribute(name, value);
+  return element;
+}
+
+// Make a link that opens outside the page.
+function makeLink(href, text) {
+  return make("a", { href, target: "_blank", rel: "noopener" }, text);
+}
+
+/* The course */
+
+// Return how far below a control's centre the baseline of its name lies.
+function labelBaseline(node, radius) {
+  return (node.kind === "finish" ? radius * 1.4 : node.kind === "start" ? radius * 1.2 : radius) + 20;
+}
+
+// Draw the plan as a course: one row on wide screens, two rows snaking back on narrow ones.
+function drawCourse() {
+  const host = document.getElementById("course-drawing");
+  const width = Math.max(280, Math.round(host.clientWidth));
+  const columns = width >= 640 ? COURSE.length : Math.ceil(COURSE.length / 2);
+  const cell = width / columns;
+  const radius = Math.min(14, cell * 0.16);
+  const rowHeight = 104;
+  const rows = Math.ceil(COURSE.length / columns);
+  const positions = COURSE.map((node, index) => {
+    const row = Math.floor(index / columns);
+    const column = row % 2 === 0 ? index % columns : columns - 1 - (index % columns);
+    return { x: (column + 0.5) * cell, y: 26 + row * rowHeight };
+  });
+  const height = 26 + (rows - 1) * rowHeight + radius * 1.4 + 44;
+  const svg = makeSvg("svg", { viewBox: `0 0 ${width} ${height}`, role: "img",
+    "aria-label": COURSE.map(node => `${node.name}: ${STATE_WORDS[node.state]}`).join("; ") });
+
+  const clearance = node => node.kind === "start" ? radius * 1.55 + 4 : node.kind === "finish" ? radius * 1.4 + 4 : radius + 4;
+  const labelTop = node => labelBaseline(node, radius) - 14;
+  const labelBottom = node => labelBaseline(node, radius) + 22;
+  for (let index = 0; index + 1 < COURSE.length; index++) {
+    const from = positions[index], to = positions[index + 1];
+    const length = Math.hypot(to.x - from.x, to.y - from.y);
+    const ux = (to.x - from.x) / length, uy = (to.y - from.y) / length;
+    const a = clearance(COURSE[index]), b = clearance(COURSE[index + 1]);
+    if (length <= a + b) continue;
+    const legClass = "leg" + (COURSE[index + 1].state === "upcoming" ? " is-upcoming" : "");
+    // A leg down to the next row is cut where it would cross the labels under its first control.
+    const pieces = to.y > from.y
+      ? [[from.y + a, from.y + labelTop(COURSE[index])], [from.y + labelBottom(COURSE[index]), to.y - b]]
+      : [[null, null]];
+    for (const [start, end] of pieces) {
+      if (start !== null && end - start < 6) continue;
+      svg.append(makeSvg("line", start === null
+        ? { class: legClass, x1: from.x + ux * a, y1: from.y + uy * a, x2: to.x - ux * b, y2: to.y - uy * b }
+        : { class: legClass, x1: from.x, y1: start, x2: to.x, y2: end }));
+    }
+  }
+
+  COURSE.forEach((node, index) => {
+    const { x, y } = positions[index];
+    const group = makeSvg("g", { class: "is-" + node.state });
+    if (node.state === "current") group.append(makeSvg("circle", { class: "halo", cx: x, cy: y, r: radius }));
+    if (node.kind === "start") {
+      const next = positions[index + 1];
+      const angle = Math.atan2(next.y - y, next.x - x);
+      const corner = radius * 1.55;
+      const points = [0, 2 * Math.PI / 3, 4 * Math.PI / 3]
+        .map(turn => [x + corner * Math.cos(angle + turn), y + corner * Math.sin(angle + turn)].map(v => v.toFixed(2)).join(","));
+      group.append(makeSvg("polygon", { class: "symbol", points: points.join(" ") }));
+    } else if (node.kind === "finish") {
+      group.append(makeSvg("circle", { class: "symbol", cx: x, cy: y, r: radius }));
+      group.append(makeSvg("circle", { class: "symbol", cx: x, cy: y, r: radius * 1.4 }));
+    } else {
+      group.append(makeSvg("circle", { class: "symbol", cx: x, cy: y, r: radius }));
+      const number = makeSvg("text", { class: "number", x: x + radius * 0.8 + 3, y: y - radius * 0.8 - 1 });
+      number.textContent = String(node.number);
+      group.append(number);
+    }
+    const nameY = y + labelBaseline(node, radius);
+    const name = makeSvg("text", { class: "name", x, y: nameY, "text-anchor": "middle" });
+    name.textContent = node.name;
+    const state = makeSvg("text", { class: "state", x, y: nameY + 16, "text-anchor": "middle" });
+    state.textContent = STATE_WORDS[node.state];
+    group.append(name, state);
+    svg.append(group);
+  });
+  host.replaceChildren(svg);
+}
+
+/* Where it stands */
+
+// Show the latest standing: how many drawings the target draws, and what the others wait for.
+function showStanding() {
+  const total = STANDING.drawn + (STANDING.outside || 0) + STANDING.waiting;
+  const penOnly = STANDING.penOnly || 0;
+  const waitingOnPhase4 = STANDING.waiting - STANDING.waitingOnStep2Only - STANDING.drawnLighterOnly - penOnly;
+  document.getElementById("standing-meta").append(
+    "After loop run ", makeLink(runLink(STANDING.run), String(STANDING.run)), ` on ${STANDING.date}, at commit `,
+    makeLink(commitLink(STANDING.commit), STANDING.commit), ".");
+
+  // A segment with no drawings in it is left out, as is the step 2 tile once step 2 adds nothing more.
+  const segments = [
+    { label: "Drawn within the tolerance", value: STANDING.drawn, color: "var(--drawn)" },
+    { label: "Drawn, outside the tolerance on GitHub’s runner", value: STANDING.outside || 0, color: "var(--outside)" },
+    { label: "Need only calls that step 2 adds", value: STANDING.waitingOnStep2Only, color: "var(--step2)" },
+    { label: STANDING.waitingOnStep2Only ? "Need text too" : "Need text", value: waitingOnPhase4, color: "var(--phase4)" },
+    { label: "Draw a bitmap lighter, which the export never does", value: STANDING.drawnLighterOnly, color: "var(--lighter)" },
+    { label: "Draw with a hairline pen, which has no width in a document", value: penOnly, color: "var(--pen)" },
+  ].filter(segment => segment.value > 0);
+  const reach = STANDING.waitingOnStep2Only
+    ? { label: "Within reach after step 2", value: STANDING.drawn + STANDING.waitingOnStep2Only }
+    : waitingOnPhase4 ? { label: "Waiting on text", value: waitingOnPhase4 }
+    : { label: "Left undrawn", value: STANDING.waiting };
+  document.getElementById("tally").append(
+    make("div", {},
+      make("p", { class: "hero" },
+        make("span", { class: "hero-n" }, String(STANDING.drawn)),
+        make("span", { class: "hero-of" }, `of ${total} test drawings the SVG target can draw`))),
+    make("div", { class: "tiles" },
+      make("div", { class: "tile" }, make("span", { class: "label" }, reach.label),
+        make("span", { class: "value" }, String(reach.value))),
+      make("div", { class: "tile" }, make("span", { class: "label" }, "Tests passing"),
+        make("span", { class: "value" }, String(STANDING.testsPassing)))),
+    make("div", { class: "share" },
+      make("div", { class: "share-bar", role: "img",
+        "aria-label": segments.map(segment => `${segment.label}: ${segment.value}`).join(", ") },
+        segments.map(segment => make("span", { style: `flex: ${segment.value} 1 0; background: ${segment.color}` }))),
+      make("ul", { class: "legend" }, segments.map(segment =>
+        make("li", {}, make("span", { class: "key", style: `background: ${segment.color}` }),
+          make("span", {}, segment.label + " "), make("b", {}, String(segment.value)))))));
+
+  document.getElementById("decision").append(
+    make("span", { class: "chip" }, "Pixel tolerance"),
+    make("h3", {}, "How close is close enough"),
+    make("p", {}, "A pixel of Chromium’s image passes when each of its color channels lies within the range that channel takes in the reference within one pixel, give or take 4 levels, and the same holds the other way round. Beyond the image both count as white paper. Inside a shape that asks for a match within 4 levels; along an edge, where two rasterizers shade antialiased pixels differently, any shade between the colors meeting there passes. Where the edges of two shapes meet in one pixel, each rasterizer mixes their colors with the one beneath its own way, and such a pixel passes when the two images, each blurred by a Gaussian of one pixel, differ there by at most 40 levels and by at most 0.4 of the contrast around it, so a faint drawing is held as closely as a dark one. A drawing with text may differ there by 80 levels: Chromium shades the edges of glyphs otherwise than Skia does, a whole glyph at a time."));
+
+  showCensus();
+}
+
+// Chart the calls the waiting drawings need, one bar per call, with a tooltip and a table view.
+function showCensus() {
+  const host = document.getElementById("census");
+  const tooltip = make("div", { class: "tooltip", hidden: true, role: "status" });
+  const rows = STANDING.calls.map(entry => {
+    const row = make("div", { class: "census-row", tabindex: "0",
+        "aria-label": `${entry.call}: ${entry.cases} drawings. ${COMES_IN[entry.comesIn]}.` +
+                      (entry.alone ? ` ${entry.alone} need only this call.` : "") },
+      make("span", { class: "call" }, entry.call,
+        entry.alone ? make("small", {}, `${entry.alone} need only this`) : null),
+      make("span", { class: "track" },
+        make("span", { class: "bar", style: `width: calc((100% - 3.4em) * ${entry.cases / STANDING.waiting}); background: var(--${entry.comesIn})` }),
+        make("span", { class: "count" }, String(entry.cases))));
+    const show = event => {
+      tooltip.replaceChildren(
+        make("strong", {}, `${entry.cases} of ${STANDING.waiting} drawings`),
+        make("span", {}, `make ${entry.call}. ${COMES_IN[entry.comesIn]}.`),
+        entry.alone ? make("span", {}, ` ${entry.alone} need no other call.`) : null);
+      tooltip.hidden = false;
+      const box = host.getBoundingClientRect();
+      const anchor = event && event.clientX !== undefined
+        ? { x: event.clientX - box.left, y: event.clientY - box.top }
+        : { x: row.offsetLeft + row.offsetWidth * 0.4, y: row.offsetTop + row.offsetHeight / 2 };
+      const left = Math.min(Math.max(0, anchor.x + 14), box.width - tooltip.offsetWidth);
+      tooltip.style.left = left + "px";
+      tooltip.style.top = (anchor.y + 16) + "px";
+    };
+    row.addEventListener("pointermove", show);
+    row.addEventListener("focus", () => show(null));
+    row.addEventListener("pointerleave", () => { tooltip.hidden = true; });
+    row.addEventListener("blur", () => { tooltip.hidden = true; });
+    return row;
+  });
+
+  const table = make("table", {},
+    make("thead", {}, make("tr", {}, make("th", {}, "Call"), make("th", { class: "num" }, "Drawings"),
+      make("th", { class: "num" }, "Need only it"), make("th", {}, "Comes"))),
+    make("tbody", {}, STANDING.calls.map(entry => make("tr", {},
+      make("td", {}, make("code", {}, entry.call)), make("td", { class: "num" }, String(entry.cases)),
+      make("td", { class: "num" }, String(entry.alone)), make("td", {}, COMES_IN[entry.comesIn])))));
+
+  host.append(
+    make("div", { class: "standing-head" },
+      make("h3", {}, `What the ${STANDING.waiting} waiting drawings need`),
+      make("p", { class: "meta" }, `Each bar counts the waiting drawings that make the call; a bar the full width would be all ${STANDING.waiting}.`)),
+    make("ul", { class: "legend" }, Object.keys(COMES_IN).filter(work => STANDING.calls.some(entry => entry.comesIn === work)).map(work =>
+      make("li", {}, make("span", { class: "key", style: `background: var(--${work})` }), COMES_IN[work]))),
+    make("div", { class: "census-rows" }, rows),
+    make("details", { class: "table-view" }, make("summary", {}, "Show as a table"),
+      make("div", { class: "table-scroll" }, table)),
+    tooltip);
+}
+
+/* The log */
+
+// Load each drawing's images once its card comes near the screen.
+const cardWatcher = new IntersectionObserver(entries => {
+  for (const entry of entries) {
+    if (!entry.isIntersecting) continue;
+    cardWatcher.unobserve(entry.target);
+    entry.target.loadImages();
+  }
+}, { rootMargin: "800px 0px" });
+
+// Show every step of the log, newest first, each card loading its images as it nears the screen.
+function showLog() {
+  const host = document.getElementById("entries");
+  for (const entry of LOG) {
+    const cards = entry.cases.map(drawing => makeCase(entry, drawing));
+    host.append(make("article", { class: "entry", id: entry.id },
+      make("div", { class: "entry-head" },
+        make("p", { class: "eyebrow" }, entry.step + " · " + entry.date),
+        make("h3", {}, entry.title),
+        make("p", { class: "meta" }, "Loop run ", makeLink(runLink(entry.run), String(entry.run)),
+          ", code at commit ", makeLink(commitLink(entry.commit), entry.commit), ".")),
+      make("div", { class: "prose" }, entry.text.map(paragraph => make("p", {}, paragraph))),
+      entry.findings ? makeFindings(entry.findings) : null,
+      cards.length ? make("div", { class: "cases" }, cards) : null));
+    for (const card of cards) cardWatcher.observe(card);
+  }
+}
+
+// Make the table of an entry's findings: a label per row, then a count per column.
+function makeFindings(findings) {
+  return make("div", { class: "table-scroll" },
+    make("table", { class: "findings" },
+      make("caption", {}, findings.caption),
+      make("thead", {}, make("tr", {}, findings.columns.map((column, index) =>
+        make("th", { class: index ? "num" : "" }, column)))),
+      make("tbody", {}, findings.rows.map(([label, ...counts]) => make("tr", {},
+        make("td", {}, label), counts.map(count => make("td", { class: "num" + (count ? "" : " zero") }, formatCount(count))))))));
+}
+
+// Make one drawing's card: the drawing as any layer, a magnified detail of all four, and its figures.
+function makeCase(entry, drawing) {
+  const id = entry.id + "-" + drawing.name;
+  const folder = entry.id + "/";
+  const images = {};
+
+  const shown = make("img", { width: drawing.width, height: drawing.height, draggable: "false",
+    alt: `${drawing.name}, ${LAYERS[0].caption.toLowerCase()}` });
+  const marker = make("span", { class: "marker", "aria-hidden": "true" });
+  const frame = make("figure", { class: "frame", tabindex: "0", style: `--ratio: ${drawing.width / drawing.height}`,
+    "aria-label": `${drawing.name}. Click or tap to choose the detail; arrow keys move it.` }, shown, marker);
+
+  const switcher = make("div", { class: "layer-switch", role: "radiogroup", "aria-label": `Show ${drawing.name} as` },
+    LAYERS.map((layer, index) => [
+      make("input", { type: "radio", id: `${id}-${layer.key}`, name: `${id}-layer`, value: layer.key, checked: index === 0 }),
+      make("label", { for: `${id}-${layer.key}` }, layer.label)]));
+
+  const details = LAYERS.map(layer => {
+    const canvas = make("canvas", { class: layer.raster ? "raster" : "", width: "96", height: "96",
+      role: "img", "aria-label": `${drawing.name} magnified, ${layer.caption.toLowerCase()}` });
+    const figure = make("figure", { class: layer.key === "svg" ? "is-shown" : "" }, canvas,
+      make("figcaption", {}, layer.label, make("span", {}, layer.caption)));
+    return { layer, canvas, figure };
+  });
+
+  const view = { drawing, images, window: { ...drawing.window }, marker, frame, details, layer: LAYERS[0] };
+  switcher.addEventListener("change", event => {
+    view.layer = LAYERS.find(candidate => candidate.key === event.target.value);
+    if (shown.src) shown.src = folder + view.layer.file(drawing.name);
+    shown.alt = `${drawing.name}, ${view.layer.caption.toLowerCase()}`;
+    for (const detail of details) detail.figure.classList.toggle("is-shown", detail.layer === view.layer);
+  });
+
+  const moveWindowTo = (imageX, imageY) => {
+    const size = view.window.size;
+    view.window.left = Math.round(Math.min(Math.max(imageX - size / 2, 0), drawing.width - size));
+    view.window.top = Math.round(Math.min(Math.max(imageY - size / 2, 0), drawing.height - size));
+    placeMarker(view);
+    drawDetails(view);
+  };
+  const pointAt = event => {
+    const box = frame.getBoundingClientRect();
+    moveWindowTo((event.clientX - box.left) / box.width * drawing.width, (event.clientY - box.top) / box.height * drawing.height);
+  };
+  frame.addEventListener("click", pointAt);
+  frame.addEventListener("pointermove", event => { if (event.buttons === 1 && event.pointerType === "mouse") pointAt(event); });
+  frame.addEventListener("keydown", event => {
+    const step = event.shiftKey ? 24 : 4;
+    const moves = { ArrowLeft: [-step, 0], ArrowRight: [step, 0], ArrowUp: [0, -step], ArrowDown: [0, step] };
+    if (!moves[event.key]) return;
+    event.preventDefault();
+    const size = view.window.size;
+    moveWindowTo(view.window.left + size / 2 + moves[event.key][0], view.window.top + size / 2 + moves[event.key][1]);
+  });
+  new ResizeObserver(() => { placeMarker(view); drawDetails(view); }).observe(frame);
+
+  const m = drawing.measurements;
+  const card = make("article", { class: "case", id },
+    make("header", { class: "case-head" },
+      make("div", { class: "case-title" }, make("h4", {}, drawing.name), make("span", { class: "kind" }, drawing.kind)),
+      make("p", {}, drawing.description)),
+    switcher,
+    frame,
+    make("p", { class: "hint" }, "The circle marks the detail below, magnified ", make("span", { class: "zoom" }, ""),
+      ". Click or tap the drawing to move it."),
+    make("div", { class: "details" }, details.map(detail => detail.figure)),
+    make("dl", { class: "facts" },
+      make("div", {}, make("dt", {}, "Written as"),
+        make("dd", {}, make("b", {}, drawing.drawnAs), ` in ${formatKilobytes(drawing.svgBytes)} of SVG, ${drawing.width} × ${drawing.height} px`)),
+      make("div", {}, make("dt", {}, "Differs from Skia"),
+        m["beyond 0"]
+          ? make("dd", {}, make("b", {}, formatShare(m["beyond 0"], m.pixels)), ` of pixels, by at most ${m["largest difference"]} of 255 in a channel`)
+          : make("dd", {}, make("b", {}, "In no pixel"), ": Chromium’s image is the reference’s"),
+        make("ul", { class: "bins", "aria-label": "Pixels by their largest difference in a channel" }, BINS.map(bin =>
+          make("li", {}, make("span", { class: "key", style: `background: ${bin.color}` }),
+            make("span", { class: "bin" }, bin.label), formatCount(m[bin.from] - (bin.to ? m[bin.to] : 0))))))),
+    makeSourceView(folder + drawing.name + ".svg"));
+  view.zoomLabel = card.querySelector(".zoom");
+
+  card.loadImages = () => {
+    shown.src = folder + view.layer.file(drawing.name);
+    for (const layer of LAYERS) {
+      const image = new Image();
+      image.decoding = "async";
+      image.src = folder + layer.file(drawing.name);
+      images[layer.key] = image;
+    }
+    Promise.all(Object.values(images).map(image => image.decode().catch(() => null))).then(() => drawDetails(view));
+  };
+  return card;
+}
+
+// Show the first lines of a drawing's SVG, fetched when opened.
+function makeSourceView(path) {
+  const pre = make("pre", {}, "");
+  const details = make("details", { class: "source" }, make("summary", {}, "First lines of the SVG"), pre);
+  details.addEventListener("toggle", () => {
+    if (!details.open || pre.dataset.loaded) return;
+    pre.dataset.loaded = "yes";
+    pre.textContent = "Loading…";
+    fetch(path).then(response => response.text()).then(text => {
+      const lines = text.split("\n");
+      const head = lines.slice(0, 40).map(line => line.length > 140 ? line.slice(0, 140) + " …" : line);
+      pre.textContent = head.join("\n") + (lines.length > 40 ? `\n… ${formatCount(lines.length - 40)} more lines` : "");
+    }).catch(() => { pre.textContent = "The SVG could not be read."; });
+  });
+  return details;
+}
+
+// Put the circle on the detail's window, never smaller than a fingertip's target.
+function placeMarker(view) {
+  const { drawing, window: area, marker, frame } = view;
+  const scale = frame.clientWidth / drawing.width;
+  const diameter = Math.max(26, area.size * 1.5 * scale);
+  marker.style.width = marker.style.height = diameter + "px";
+  marker.style.left = ((area.left + area.size / 2) / drawing.width * 100) + "%";
+  marker.style.top = ((area.top + area.size / 2) / drawing.height * 100) + "%";
+}
+
+// Draw the detail window of each layer, raster layers pixel for pixel and the SVG as vectors.
+function drawDetails(view) {
+  const { drawing, images, window: area } = view;
+  const ratio = window.devicePixelRatio || 1;
+  let shownScale = 0;
+  for (const { layer, canvas } of view.details) {
+    // Each image pixel takes a whole number of device pixels, so the canvas is sized down to fit its cell.
+    const available = (canvas.parentElement.clientWidth || 162) - 2;
+    const factor = Math.max(1, Math.floor(available * ratio / area.size));
+    const side = factor * area.size;
+    if (canvas.width !== side) { canvas.width = side; canvas.height = side; }
+    canvas.style.width = (side / ratio) + "px";
+    shownScale = factor / ratio;
+    const context = canvas.getContext("2d");
+    context.fillStyle = "#ffffff";
+    context.fillRect(0, 0, side, side);
+    const image = images[layer.key];
+    if (!image || !image.complete || !image.naturalWidth) continue;
+    if (layer.raster) {
+      context.imageSmoothingEnabled = false;
+      context.drawImage(image, area.left, area.top, area.size, area.size, 0, 0, side, side);
+      if (factor >= 6) {
+        context.strokeStyle = "rgba(40, 30, 50, 0.09)";
+        context.lineWidth = 1;
+        context.beginPath();
+        for (let i = 1; i < area.size; i++) {
+          context.moveTo(i * factor + 0.5, 0); context.lineTo(i * factor + 0.5, side);
+          context.moveTo(0, i * factor + 0.5); context.lineTo(side, i * factor + 0.5);
+        }
+        context.stroke();
+      }
+    } else {
+      const scale = image.naturalWidth / drawing.width;
+      context.imageSmoothingEnabled = true;
+      context.drawImage(image, area.left * scale, area.top * scale, area.size * scale, area.size * scale, 0, 0, side, side);
+    }
+  }
+  if (view.zoomLabel) view.zoomLabel.textContent = `${Math.round(shownScale)} times`;
+}
+
+// Say where the images and fonts come from.
+function showFooter() {
+  document.getElementById("footer").append(
+    make("p", {}, "Each step’s images come from the loop run named in its entry. The references are drawn by NotPurplePen’s Skia target through SkiaSharp, and the renderings by Chromium in GitHub Actions. A difference image ghosts the reference in grey and paints every pixel that differs in the blue of its largest channel difference."),
+    make("p", {}, "The plan, its requirements and where the work stands: ",
+      makeLink(REPOSITORY + "/blob/docs/svg-target-requirements/doc/devdocs/SvgTargetRequirements.md", "SvgTargetRequirements.md"), " and ",
+      makeLink(REPOSITORY + "/blob/docs/svg-target-requirements/doc/devdocs/SvgTargetProgress.md", "SvgTargetProgress.md"), "."),
+    make("p", {}, "Set in Barlow and IBM Plex Mono, under the SIL Open Font License (",
+      make("a", { href: "fonts/LICENSE-Barlow.txt" }, "Barlow"), ", ",
+      make("a", { href: "fonts/LICENSE-BarlowCondensed.txt" }, "Barlow Condensed"), ", ",
+      make("a", { href: "fonts/LICENSE-IBMPlexMono.txt" }, "IBM Plex Mono"), ")."));
+}
+
+drawCourse();
+showStanding();
+showLog();
+showFooter();
+let courseWidth = document.getElementById("course-drawing").clientWidth;
+new ResizeObserver(entries => {
+  const width = Math.round(entries[0].contentRect.width);
+  if (width !== courseWidth) { courseWidth = width; drawCourse(); }
+}).observe(document.getElementById("course-drawing"));
+</script>
+</body>
+</html>
