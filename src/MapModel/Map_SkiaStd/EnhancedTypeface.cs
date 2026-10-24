@@ -230,6 +230,9 @@ namespace Map_SkiaStd
         // ordinary font file, and the face's position within the collection when the data is a
         // TrueType collection (.ttc). Anything that reads the font data must use this to pick
         // the right face out of it.
+        // Serializes the reads of the font stream, which GetFontData() rewinds.
+        private readonly object fontStreamLock = new object();
+
         public int FontDataCollectionIndex
         {
             get { return ttcIndex; }
@@ -237,12 +240,22 @@ namespace Map_SkiaStd
 
         // Get the data of the font. For a font that lives in a TrueType collection this is the
         // whole collection; use FontDataCollectionIndex to select the face.
+        //
+        // Every caller reads the face's one stream, and a cached face is shared between threads,
+        // so the stream is rewound and read under a lock. A read that falls short, as another
+        // thread's rewind in mid-read made it do, is an error rather than data padded with zeros.
         public byte[] GetFontData()
         {
-            fontStream.Rewind();
-            byte[] data = new byte[fontStream.Length];
-            fontStream.Read(data, fontStream.Length);
-            return data;
+            lock (fontStreamLock)
+            {
+                if (!fontStream.Rewind())
+                    throw new InvalidOperationException("The font data cannot be read from its start.");
+                byte[] data = new byte[fontStream.Length];
+                int read = fontStream.Read(data, data.Length);
+                if (read != data.Length)
+                    throw new InvalidOperationException("The font data ended after " + read + " of its " + data.Length + " bytes.");
+                return data;
+            }
         }
 
         // Returns true if this typeface contains a glyph for the given Unicode codepoint.
@@ -480,6 +493,18 @@ namespace Map_SkiaStd
             return mainEntry;
         }
 
+        // Returns the typeface that draws the given Unicode codepoint, as the text is segmented
+        // for shaping: the main typeface whenever it can render the codepoint properly, and
+        // otherwise whatever the platform's font fallback offers. A target that embeds the
+        // faces of its text asks for them through this.
+        //
+        // Parameters:
+        //   codepoint - the codepoint.
+        public ShapedTypeface TypefaceForCodepoint(int codepoint)
+        {
+            return FindTypefaceForCodepoint(codepoint);
+        }
+
         // Segments the input text into contiguous runs, where each run uses a single typeface.
         // Adjacent characters that map to the same typeface are merged into one run.
         //
@@ -710,7 +735,9 @@ namespace Map_SkiaStd
                     {
                         skFont.Edging = paint.IsAntialias ? SKFontEdging.Antialias : SKFontEdging.Alias;
                         skFont.Hinting = SKFontHinting.None;
-                        skFont.Subpixel = false;
+                        // Subpixel positioning keeps each glyph at the fractional position the shaping gave it;
+                        // without it Skia rounds each glyph's origin to a whole device pixel.
+                        skFont.Subpixel = true;
                         skFont.EmbeddedBitmaps = false;
                         skFont.LinearMetrics = true;
                         skFont.BaselineSnap = false;
@@ -923,6 +950,7 @@ namespace Map_SkiaStd
                     {
                         GlyphId = run.GlyphIds[i],
                         GlyphText = glyphText,
+                        ClusterStart = clusterStart,
                         Position = new SKPoint(
                             origin.X + run.Positions[i].X,
                             origin.Y + ascent + run.Positions[i].Y
@@ -970,6 +998,10 @@ namespace Map_SkiaStd
     {
         public int GlyphId;
         public string GlyphText;
+        // The index, in the text as shaped, of the first character of the cluster the glyph draws:
+        // the glyphs of one cluster share it, and so tell apart from equal clusters side by side.
+        // The text as shaped is in Unicode normalization form C.
+        public int ClusterStart;
         public SKPoint Position;
         public SKTypeface Typeface;
     }
@@ -1283,10 +1315,13 @@ namespace Map_SkiaStd
                     }
                 }
 
-                // SKTypeface.FromFamilyName always returns something. We want to return null if it can't find a reasonable match,
-                // so we have to apply some heuristics (encapsulated in IsGoodFamilyNameMatch) to the result to determine
-                // if it's a good match or just a fallback.
+                // SKTypeface.FromFamilyName returns something whenever the platform has any font to fall back to. We want to return
+                // null if it can't find a reasonable match, so we have to apply some heuristics (encapsulated in IsGoodFamilyNameMatch)
+                // to the result to determine if it's a good match or just a fallback. Where fontconfig knows no font of the family
+                // and none to fall back to, as with a configuration of a few fonts and no aliases, it returns null.
                 SKTypeface typeface = SKTypeface.FromFamilyName(familyName, weight, width, slant);
+                if (typeface == null)
+                    return null;
                 if (!IsGoodFamilyNameMatch(familyName, typeface)) {
                     typeface.Dispose();
                     return null;
@@ -1314,7 +1349,8 @@ namespace Map_SkiaStd
 
             // If its the default fallback family, it's not a good match.
             // This is a heuristic to detect when Skia fails to find any reasonable match and just returns the default font.
-            return (result.FamilyName != skiaDefaultFont.FamilyName);
+            // A platform with no default font has nothing to fall back to.
+            return skiaDefaultFont == null || result.FamilyName != skiaDefaultFont.FamilyName;
         }
 
 
