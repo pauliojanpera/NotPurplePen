@@ -710,7 +710,9 @@ namespace Map_SkiaStd
                     {
                         skFont.Edging = paint.IsAntialias ? SKFontEdging.Antialias : SKFontEdging.Alias;
                         skFont.Hinting = SKFontHinting.None;
-                        skFont.Subpixel = false;
+                        // Subpixel positioning keeps each glyph at the fractional position the shaping gave it;
+                        // without it Skia rounds each glyph's origin to a whole device pixel.
+                        skFont.Subpixel = true;
                         skFont.EmbeddedBitmaps = false;
                         skFont.LinearMetrics = true;
                         skFont.BaselineSnap = false;
