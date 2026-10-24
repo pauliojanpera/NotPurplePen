@@ -54,12 +54,14 @@ namespace Map_Svg.Tests
         private static async Task CompareWithReferenceAsync(ComparisonCase comparisonCase)
         {
             string document;
+            PixelTolerance tolerance;
             using (RecordingGraphicsTarget recording = comparisonCase.Record()) {
                 List<string> missingCalls = recording.RecordedCallNames.Where(callName => !Svg_GraphicsTarget.FullyImplements(callName)).ToList();
                 if (missingCalls.Count > 0)
                     throw Pending(comparisonCase, missingCalls);
 
                 document = WriteDocument(comparisonCase, recording);
+                tolerance = ToleranceFor(recording.RecordedCallNames);
             }
 
             string svgPath = LoopResults.SaveSvg(comparisonCase.Name, document);
@@ -67,7 +69,7 @@ namespace Map_Svg.Tests
             bool referenceRecorded = File.Exists(referencePath);
             using (SKBitmap reference = referenceRecorded ? SKBitmap.Decode(referencePath) : RenderReferenceForRecording(comparisonCase))
             using (SKBitmap rendering = await ChromiumRenderer.RenderAsync(svgPath, comparisonCase.PixelSize)) {
-                string difference = ImageComparison.DescribeDifference(comparisonCase.Name, reference, rendering, PixelTolerance.Default);
+                string difference = ImageComparison.DescribeDifference(comparisonCase.Name, reference, rendering, tolerance);
                 if (!referenceRecorded) {
                     Assert.Fail(string.Format("No reference image of {0} is recorded in svg_reference; the loop's results hold one under references/. Compared with it: {1}",
                                               comparisonCase.Name, difference ?? "Chromium's image matches within the tolerance."));
@@ -75,6 +77,15 @@ namespace Map_Svg.Tests
                 if (difference != null)
                     Assert.Fail(difference);
             }
+        }
+
+        // Choose the tolerance a drawing is compared within: the one for text when it draws text, whose glyphs
+        // Chromium shades otherwise than Skia does, else the default.
+        // callNames: the names of the calls the drawing makes.
+        private static PixelTolerance ToleranceFor(IEnumerable<string> callNames)
+        {
+            bool drawsText = callNames.Any(callName => callName == nameof(Svg_GraphicsTarget.DrawText) || callName == nameof(Svg_GraphicsTarget.DrawTextOutline));
+            return drawsText ? PixelTolerance.Text : PixelTolerance.Default;
         }
 
         // Write the SVG document of a case's recording: one map in one part, shown on a page the size of the image,
