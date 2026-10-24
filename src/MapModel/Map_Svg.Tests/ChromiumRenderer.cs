@@ -85,7 +85,8 @@ namespace Map_Svg.Tests
         // size. The file is opened as a document of its own and sized to the image, its shapes are taken out, as the
         // texts do not depend on them, and each part it uses is put in place of its use, so that the texts are laid out
         // at the scale they are drawn at: a text inside a definition is laid out at the definition's own scale, where
-        // Chromium caps its size. Each face is loaded before any text is measured.
+        // Chromium caps its size. Each face is loaded before any text is measured. A line text, whose characters each
+        // carry a position and a turn of their own (T-5), is left out: no shaping of its characters as one line holds.
         // svgPath: the path of the SVG file.
         // pixelSize: the size of the image in pixels.
         public static async Task<List<DrawnText>> ReadTextPositionsAsync(string svgPath, Size pixelSize)
@@ -127,7 +128,7 @@ namespace Map_Svg.Tests
             await document.fonts.ready;
             const texts = [];
             for (const text of document.querySelectorAll('text')) {
-                if (text.closest('defs'))
+                if (text.closest('defs') || text.hasAttribute('rotate'))
                     continue;
                 const style = getComputedStyle(text);
                 const matrix = text.getScreenCTM();

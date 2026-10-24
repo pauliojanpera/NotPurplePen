@@ -1427,6 +1427,95 @@ namespace Map_Svg.Tests
         }
 
         [Test]
+        public void CharactersDrawnOneByOneAlongALineMergeIntoOneTextWithAPositionAndATurnEach()
+        {
+            string document = WriteText(target => {
+                object font = new object(), black = new object();
+                target.CreateFont(font, "Arial", 2, TextEffects.Regular);
+                target.CreateSolidBrush(black, CmykColor.FromCmyk(0, 0, 0, 1));
+                string[] characters = { "a", "b", "c" };
+                for (int index = 0; index < characters.Length; ++index) {
+                    using (Matrix placement = new Matrix()) {
+                        placement.Translate(10 * index, 5);
+                        placement.Rotate(30 * index);
+                        target.PushTransform(placement);
+                        target.DrawText(characters[index], font, black, Point(0, 0));
+                        target.PopTransform();
+                    }
+                }
+            }, null);
+            StringAssert.Contains("<text class=\"a\" transform=\"scale(1000)\" x=\"0 9.2 18.614\" y=\"6.6 6.386 5.8\" rotate=\"0 30 60\">abc</text>\n", document);
+            Assert.AreEqual(1, CountOccurrences(document, "<text"));
+        }
+
+        [Test]
+        public void CharactersScaledOrInAnotherFontAreNotMergedIntoALineText()
+        {
+            string document = WriteText(target => {
+                object font = new object(), other = new object(), black = new object();
+                target.CreateFont(font, "Arial", 2, TextEffects.Regular);
+                target.CreateFont(other, "Arial", 3, TextEffects.Regular);
+                target.CreateSolidBrush(black, CmykColor.FromCmyk(0, 0, 0, 1));
+                using (Matrix placement = new Matrix()) {
+                    placement.Translate(0, 5);
+                    target.PushTransform(placement);
+                    target.DrawText("a", font, black, Point(0, 0));
+                    target.PopTransform();
+                }
+                using (Matrix placement = new Matrix()) {
+                    placement.Translate(10, 5);
+                    target.PushTransform(placement);
+                    target.DrawText("b", other, black, Point(0, 0));
+                    target.PopTransform();
+                }
+                using (Matrix placement = new Matrix()) {
+                    placement.Translate(20, 5);
+                    placement.Scale(2, 2);
+                    target.PushTransform(placement);
+                    target.DrawText("c", other, black, Point(0, 0));
+                    target.PopTransform();
+                }
+            }, null);
+            StringAssert.DoesNotContain("rotate=", document);
+            Assert.AreEqual(3, CountOccurrences(document, "<text"));
+        }
+
+        [Test]
+        public void CharactersThatShapingSetsByTheirNeighboursKeepTextsOfTheirOwnBetweenLineTexts()
+        {
+            // An Arabic letter, which joins its neighbours; the fraction slash, which makes the digits around it a
+            // fraction; and a combining mark, which attaches to the letter before it.
+            string[] characters = { "a", "b", "ب", "c", "d", "1", "⁄", "2", "e", "́", "f", "g" };
+            string document = WriteText(target => {
+                object font = new object(), black = new object();
+                target.CreateFont(font, "Arial", 2, TextEffects.Regular);
+                target.CreateSolidBrush(black, CmykColor.FromCmyk(0, 0, 0, 1));
+                for (int index = 0; index < characters.Length; ++index) {
+                    using (Matrix placement = new Matrix()) {
+                        placement.Translate(10 * index, 5);
+                        placement.Rotate(10 * index);
+                        target.PushTransform(placement);
+                        target.DrawText(characters[index], font, black, Point(0, 0));
+                        target.PopTransform();
+                    }
+                }
+            }, null);
+            foreach (string merged in new string[] { "ab", "cd1", "2e", "fg" })
+                StringAssert.IsMatch("<text [^>]* rotate=\"[^\"]*\">" + merged + "</text>\n", document);
+            Assert.AreEqual(4, CountOccurrences(document, "rotate="));
+            Assert.AreEqual(7, CountOccurrences(document, "<text"));
+        }
+
+        [Test]
+        public void ShapingSetsLettersOfTheSimpleScriptsAndTheirPunctuationAloneButNotMarksJoinersOrJoiningScripts()
+        {
+            foreach (string character in new string[] { "a", " ", "é", "Ω", "Ж", "Ա", "ა", "–", "→", "中", "あ", "가", "\U00020000" })
+                Assert.IsTrue(SvgLineText.IsShapedAlone(character), "U+{0:X4}", char.ConvertToUtf32(character, 0));
+            foreach (string character in new string[] { "́", "‍", "‌", "️", "ب", "क", "ำ", "ᄀ", "א", "⁄", "∕", "\U0001F3FB", "\U0001F1EB", "", "\t" })
+                Assert.IsFalse(SvgLineText.IsShapedAlone(character), "U+{0:X4}", char.ConvertToUtf32(character, 0));
+        }
+
+        [Test]
         public void ARunInAFallbackFaceThatCrossesTheEndOfAListOfPositionsIsClosedAndOpenedAgainAfterIt()
         {
             string document = WriteText(target => {
@@ -1540,6 +1629,17 @@ namespace Map_Svg.Tests
                     target.AddPage(new SizeF(10, 10), new RectangleF(0, 0, 10, 10), identity, new object[] { part }));
                 StringAssert.StartsWith("AddPage: a part is open", error.Message);
             }
+        }
+    
+        // How many times a string occurs in a document.
+        // document: the document.
+        // part: the string.
+        private static int CountOccurrences(string document, string part)
+        {
+            int count = 0;
+            for (int index = document.IndexOf(part, StringComparison.Ordinal); index >= 0; index = document.IndexOf(part, index + part.Length, StringComparison.Ordinal))
+                ++count;
+            return count;
         }
     }
 }
