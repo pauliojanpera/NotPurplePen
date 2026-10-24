@@ -1,6 +1,6 @@
 # SVG Graphics Target — Progress
 
-Oct 23, 2026 · kept current by the sessions doing the work
+Oct 24, 2026 · kept current by the sessions doing the work
 
 Where the work on the SVG target stands against the phases of [its requirements](SvgTargetRequirements.md): what is done, what is under way and on which branch, what was decided and why, what waits on @Pauli, and the tasks that come next. It is written so that another executor can pick the work up from it and the branches alone: nothing a session keeps outside GitHub, such as its scratch folders, is needed. A session updates this file whenever a step ends, a task changes hands or a decision is taken.
 
@@ -10,6 +10,7 @@ Where the work on the SVG target stands against the phases of [its requirements]
 | --- | --- |
 | `docs/svg-target-requirements` | The requirements, this file, and the tools beside it: `SvgGallery/`, `SvgTolerance/` and `SvgGeoreference/` |
 | `feature/svg-target` | The work, rooted at `upstream/master` (C-8), with the three `fix/` branches below merged in. Its tip, d58cb9e, holds phase 2's steps 1 to 4 and phase 4's step 1: step 4's record of a map's georeference (734778e), the EPSG codes of OCAD's grids (af9f9df) and the georeference's computation (43eb51e); then the base of every drawn element (0b0701b), the bitmaps (75bcf6b) and their five references (d58cb9e). |
+| `feature/svg-text` | Phase 4's text, under way, rooted at `feature/svg-target`'s d58cb9e. Its tip, 975d23c, is one commit of work in progress, to be rewritten into the commits that finish the step; pushing it runs nothing. It leaves `CreateFont`, `DrawText` and `DrawTextOutline` out of DL-5's list, so its text cases stay pending; to compare them locally, add the three to the list without committing it. |
 | `wip/linux/svg-target` | The full runs: `base` with `feature/svg-target` merged in (DL-10). Phase 2's was green in Tests run 39980577132; with the bitmaps, fbfcd6a was green in Tests run 39986756022. |
 | `svg/svg-target` | `base` with `feature/svg-target` merged in, rebuilt for each loop run (DL-1) |
 | `svg-results/svg-target` | The results of the latest loop run (DL-7) |
@@ -49,7 +50,8 @@ The SVG loop, `.github/workflows/svg.yml`, and the machine check of the Windows 
 
   It checks a test before the Windows suite runs it.
 - **Working in parallel.** On Oct 22 the work ran in up to three agents at once. Each had its own worktree and its own branch, rooted at `feature/svg-target`, and its own loop on `svg/<name>`. One session merged their branches, rebased onto the latest `feature/svg-target`, and alone published the gallery and edited this file. That split keeps the agents out of each other's way, and suits a next executor as well as working serially does. From Oct 23 @Pauli asked for the work to go on without parallel agents, and one session carries it serially.
-- **Session transcripts.** A session can end at any moment, when its tokens run out, so archive the session's full transcript at least every half an hour of work, as often as the gallery is published, and before a long break: on the branch `sessions` of the private repository `pauliojanpera/windows-fonts`, with `archive-session.sh` there (attach the repository with push access; its README says how to search the transcripts). Its `archive-if-due.sh`, run in the background by a post-commit hook of your clone, archives whenever the last archive is 25 minutes old. Claude Code keeps the transcript in `~/.claude/projects/<project>/<session id>.jsonl`; an executor that cannot read its own writes a journal of the session instead. The transcripts are searched when the question is what an executor did or tried; they are not read through, and this file stays the handover.
+- **Session transcripts.** A session can end at any moment, when its tokens run out or its machine is restarted, so archive the transcripts at least every half an hour of work, as often as the gallery is published, and before a long break: on the branch `sessions` of the private repository `pauliojanpera/windows-fonts`, with `archive-session.sh <executor> <transcript>...` there (attach the repository with push access; its README says how to search the transcripts). Its `archive-if-due.sh`, run in the background by a post-commit hook of your clone, archives every transcript of the machine whenever the last archive is 10 minutes old. An archived file is replaced only by a transcript that extends it, and a transcript rewritten with less in it goes beside it as a revision. Claude Code keeps the transcript in `~/.claude/projects/<project>/<session id>.jsonl`; an executor that cannot read its own writes a journal of the session instead. The transcripts are searched when the question is what an executor did or tried; they are not read through, and this file stays the handover.
+- **After a restart.** A restart of the machine can take its clones, worktrees, scratchpad and tools, and with them everything not pushed: on Oct 24 one did, and the next kept the disk. The `sessions` README lists what to do, in order: attach and clone again, put the hook back, archive at once, find what was lost against the restored transcript, and rebuild the work that was not committed with its `replay-edits.py`, which replays the transcript's edits onto the commit the work began from. Push work in progress at each step to a branch whose push runs nothing, such as `feature/svg-text`, and little needs rebuilding.
 - **Tolerance and georeferencing research.** `SvgTolerance/` holds the scripts that chose the pixel tolerance, to run again whenever new cases arrive. `SvgGeoreference/` holds the checks of the EPSG codes of OCAD's grids for G-3.
 
 ## Status
@@ -59,7 +61,7 @@ The SVG loop, `.github/workflows/svg.yml`, and the machine check of the Windows 
 | 1, the development loop | Done. Since Oct 23 the results push is retried and the summary reports what changed since the previous run (`ci/svg-loop-report`, on `base` as 05873a9 and on `dev` as eb4d05d); the dispatch mode works, first run 40024278778. |
 | 2, drawing, structure, layout, color and georeferencing | Done: steps 1 to 4, and the full run green. F-6, checked by hand, waits on @Pauli. |
 | 3, the export in the application and course data | Not started. @Pauli left the order of phases 3 and 4 to the executor, and the task list takes phase 4 first. |
-| 4, text and bitmaps | Step 1, bitmaps, done; step 2, text, not started |
+| 4, text and bitmaps | Step 1, bitmaps, done; step 2, text, under way on `feature/svg-text` |
 | 5 to 8 | Not started |
 
 | Step of phase 2 | Status |
@@ -72,7 +74,7 @@ The SVG loop, `.github/workflows/svg.yml`, and the machine check of the Windows 
 | Step of phase 4 | Status |
 | --- | --- |
 | 1. Bitmaps (B-1 to B-6) | Done (0b0701b, 75bcf6b, d58cb9e; loop run 39985693403). The full run, Tests run 39986756022 on `wip/linux/svg-target`, passed |
-| 2. Text (T-1 to T-10) | Not started |
+| 2. Text (T-1 to T-10) | Under way on `feature/svg-text` (975d23c). With the text calls in DL-5's list locally, 6 text cases are compared: MagNorthArrowBug matches its reference; frametext2, kern_text_outline, RobotoTest, differentnewlinetypes and PenistoneHill have 490, 379, 81, 73 and 60 pixels outside the pixel tolerance, mostly where master rounds its glyph positions (see Decisions) |
 
 On `feature/svg-target` at d58cb9e, loop run 39985693403 gives 190 passed, 0 failed, 86 pending. The 106 drawn cases all match their recorded references within the pixel tolerance. Of the 86 pending, 84 wait on `CreateFont`. The other 2, template_light and template2_light, wait on `DrawBitmap` alone and always will: they draw their templates at an intensity below 1 (B-6).
 
@@ -82,14 +84,13 @@ The calls the target fully implements, in the sense of DL-5: `Intensity`, `PushT
 
 In order of priority. A task ends with its commits on `feature/svg-target`, its loop green, the gallery and this file brought up to date.
 
-1. **Text (T-1 to T-10).** Not started; it unblocks 84 cases. It covers:
-   - fonts with open licences kept in the repository, which the SVG tests register under the families the test maps use, so that the text references do not move with the runner's font packages;
-   - `DrawText` and `DrawTextOutline` with the injected `ITextMetrics`;
+1. **Text (T-1 to T-10).** Under way on `feature/svg-text`; it unblocks 84 cases. Done there: Liberation Sans and Serif kept in the repository and registered by the SVG tests as Arial and Times New Roman, beside Roboto from `Map_Skia.Tests`; `DrawText` and `DrawTextOutline` with the injected `ITextMetrics`, each text at its baseline with its kerning as `dx`; `IFontSubsetProvider`, a new interface in `Graphics2D`, implemented for the tests through `Map_SkiaStd`'s font loading; the `@font-face` rules, the fallback faces and the `fsType` check, with whole faces embedded until the subsetter is chosen. Left:
+   - the subsetter, once @Pauli has chosen (T-7, see Waiting on @Pauli);
+   - the families the test maps name that the tests do not register yet, such as Georgia, Calibri and Arial Narrow, so that no case draws in a font of the runner's own, and a way for the fallback case's scripts and emoji;
    - a check of where Chromium puts each character, read through the SVG DOM in the test page and compared in millimetres with the glyph positions of Skia's shaping, which PDF export writes;
-   - `IFontSubsetProvider`, a new interface in `Graphics2D`, implemented by the application, and by the tests through `Map_SkiaStd`'s font loading and PdfSharp's subsetter;
-   - `@font-face` subsets in the style block, the fallback faces, and the `fsType` check;
    - the merging of line text (T-5);
-   - the text cases' own tolerance (T-10).
+   - the text cases' own tolerance (T-10), which has to allow for master's rounding of glyph positions;
+   - the 84 cases' references, the loop, the full run and the gallery's entry.
 
    Check the tolerance again with `SvgTolerance/` once the cases come.
 2. **Phase 3: the export in the application (A-1 to A-7, CD-1 to CD-3, V-2, V-4, V-5, V-7).** Not started. Work in stages:
@@ -147,7 +148,8 @@ In order of priority. A task ends with its commits on `feature/svg-target`, its 
   - Four of the eight follow EPSG definitions withdrawn as wrong, and place points 29 m to 170 km from EPSG's corrected systems; see "Waiting on @Pauli".
 - **The loop's improvements.** On Oct 23 @Pauli asked whether the loop should be improved, and agreed to all the improvements in the task list, fonts in the repository included, leaving their order to the executor.
   - He also asked whether the SVG should be measured against a vector PDF baseline. A PDF rendered to pixels would add a third rasterizer and check what the Skia references already check, so the comparison stays with Skia. Vector checks go where pixels are blind: where Chromium puts each character (text), the geometry of each SVG against its drawing calls (after text), and the CMYK values of PDF and SVG export (phase 3).
-- **Session transcripts.** On Oct 24 @Pauli asked for the sessions' full transcripts to be kept on GitHub, in a private repository, and chose the private `windows-fonts`, on a branch of their own. They are archived as the executors record them, unfiltered, since no token or secret reaches an executor's transcript, and at least every half an hour, since a session's tokens can run out at any moment.
+- **Session transcripts.** On Oct 24 @Pauli asked for the sessions' full transcripts to be kept on GitHub, in a private repository, and chose the private `windows-fonts`, on a branch of their own. They are archived as the executors record them, unfiltered, since no token or secret reaches an executor's transcript, and at least every half an hour, since a session's tokens can run out at any moment. Later that night a restart took the machine's files, among them the text work that was neither committed nor pushed, and the turn under way; the text work was rebuilt from the transcript. The archive turned out to lack the session's first two hours: a compaction had moved the session to a new transcript, and the archive took only the newest. Since then every transcript of the machine is archived, an archived file is never replaced by a transcript that does not extend it, and, as @Pauli suggested, the interval is 10 minutes; git stores each archive as a delta of the one before, so the shorter interval adds no bytes.
+- **Master's glyph positions.** On Oct 24 @Pauli pointed out uneven kerning in master's image of frametext2, and asked that the SVG not replicate master's typesetting bugs. Master's Skia target shapes text with HarfBuzz to fractional positions but draws it with `SKFont.Subpixel` off, which rounds each glyph's origin to a whole device pixel, so that in rotated text the glyphs wander by up to half a pixel along and across the line. The SVG keeps the shaped positions. With subpixel positioning on in the references, the cases outside the tolerance fall from 490 pixels to 37 (frametext2), 379 to 85 (kern_text_outline), 81 to 21 (RobotoTest) and 73 to 48 (differentnewlinetypes), while PenistoneHill rises from 60 to 85, which is still to be understood. How the comparison allows for the rounding is part of T-10. Turning subpixel positioning on in master is a fix that could be offered to Purple Pen, but it moves the Skia baselines of every text case.
 - **Offering to Purple Pen.** @Pauli asked on Oct 23 that easily separable work be kept in mind as pull requests of its own, weighing the use of each piece. A change useful to Purple Pen on its own therefore goes on a branch of its own rooted at `upstream/master`, as the three `fix/` branches are, and `feature/svg-target` merges it; the weighing comes before the piece is built. The EPSG codes of OCAD's grids are not useful on their own, as only the SVG export reads them, so they stay on `feature/svg-target`. A correction of the four grids under "Waiting on @Pauli" would be useful on its own, if OCAD defines them as EPSG's corrected systems.
 - **Pattern brushes.** `CreatePatternBrush` returns a target that draws the tile as the target draws, with keys of its own and at its creator's intensity, and refuses structure calls. `FinishBrush` makes the tile a brush of its creator, and a pen made from it strokes with the pattern (D-6, D-7).
   - The document defines the pattern in the user space of what it paints, as the Skia target repeats its tile: `x`, `y` and a `viewBox` put the tile's middle on the origin, in the tile's own coordinates, and `patternTransform` turns it by the brush's angle.
@@ -184,6 +186,7 @@ In order of priority. A task ends with its commits on `feature/svg-target`, its 
 ## Waiting on @Pauli
 
 - **F-6**, opening the output in Inkscape and Scribus, by hand at the end of phase 2. Handed over on Oct 23: the SVGs of loop run 39980571564, in its artifact `svg-loop-svg-target` (kept until Oct 30) and in `svg/` on `svg-results/svg-target`. Each color's CMYK values should read from its `icc-color()`.
+- **The subsetter (T-7).** Asked on Oct 24. PDFsharp's subsetter, which T-7 names, cuts subsets that Chromium rejects, as they lack the OS/2, name and post tables. With those added, a subset of 13 glyphs of Liberation Sans takes 26 KB, since PDFsharp keeps a slot for each of the font's 2,620 glyphs, where a subsetter that renumbers the glyphs makes it in 1.5 KB. The recommendation is to write that one, about 400 lines beside `Map_SkiaStd`'s font code, and reword T-7; the alternative is PDFsharp's with a fix-up, some 15–25 KB more per face in every SVG. Until then the tests embed whole faces.
 - **Four grids that follow withdrawn EPSG definitions.** Grids 50050 (Kentucky North), 66044 and 66045 (Indiana East and West) and 66098 (South Dakota North) follow 26979, 2244, 2245 and 3454, which EPSG withdrew as wrong. Correcting their Proj4 strings would move maps already georeferenced by them, so it is @Pauli's call, and probably upstream's. Until then they name no EPSG code. Raised on Oct 23.
 
 ## The test machine
