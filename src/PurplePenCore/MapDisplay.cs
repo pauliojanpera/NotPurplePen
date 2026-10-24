@@ -774,8 +774,8 @@ namespace PurplePen
         }
 
         // Whether the map and the course are drawn in four layers rather than two: the map is an OCAD map, and the course
-        // has a lower layer, which goes between two parts of the map.
-        private bool HasLayersAboveCourse
+        // has a lower layer, which goes between two parts of the map. Without, MapAboveCourse and CourseUpper draw nothing.
+        public bool HasLayersAboveCourse
         {
             get { return mapType == MapType.OCAD && LowerPurpleMapLayer != null; }
         }
