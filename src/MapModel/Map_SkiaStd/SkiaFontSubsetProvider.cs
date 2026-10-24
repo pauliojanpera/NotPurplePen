@@ -58,7 +58,7 @@ namespace Map_SkiaStd
                         continue;
                     OpenTypeFont font = OpenTypeFont.Read(face.GetFontData(), face.FontDataCollectionIndex);
                     byte[] data = font.ForbidsEmbedding ? null : font.ForbidsSubsetting ? font.Write() : cut(font, ofFace);
-                    subsets.Add(new FontFaceSubset(ofFace, data));
+                    subsets.Add(new FontFaceSubset(ofFace, data, face.Typeface.FamilyName, face == mainFace));
                 }
                 return subsets;
             }

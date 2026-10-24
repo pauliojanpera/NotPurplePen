@@ -24,13 +24,23 @@ namespace PurplePen.Graphics2D
         // The face's OpenType font data, cut to those characters, or null when the face may not be embedded.
         public readonly byte[] FontData;
 
+        // The family the face names itself with.
+        public readonly string FaceName;
+
+        // Whether the face is the font's own, rather than one that characters the font lacks fall back to.
+        public readonly bool IsMainFace;
+
         // Create the subset of a face.
         // characters: the characters, as Unicode code points, that the face draws.
         // fontData: the OpenType font data cut to them, or null when the face may not be embedded.
-        public FontFaceSubset(IList<int> characters, byte[] fontData)
+        // faceName: the family the face names itself with.
+        // isMainFace: whether the face is the font's own.
+        public FontFaceSubset(IList<int> characters, byte[] fontData, string faceName, bool isMainFace)
         {
             Characters = characters;
             FontData = fontData;
+            FaceName = faceName;
+            IsMainFace = isMainFace;
         }
     }
 }

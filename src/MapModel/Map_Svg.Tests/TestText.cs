@@ -113,9 +113,9 @@ namespace Map_Svg.Tests
             List<int> own = characters.Where(character => character <= 0xFF).ToList();
             List<int> fallback = characters.Where(character => character > 0xFF).ToList();
             if (own.Count > 0)
-                subsets.Add(new FontFaceSubset(own, familyName == "Forbidden" ? null : Encoding.UTF8.GetBytes(Describe(familyName, effects, own))));
+                subsets.Add(new FontFaceSubset(own, familyName == "Forbidden" ? null : Encoding.UTF8.GetBytes(Describe(familyName, effects, own)), familyName, true));
             if (fallback.Count > 0)
-                subsets.Add(new FontFaceSubset(fallback, Encoding.UTF8.GetBytes(Describe("Fallback", effects, fallback))));
+                subsets.Add(new FontFaceSubset(fallback, Encoding.UTF8.GetBytes(Describe("Fallback", effects, fallback)), "Fallback", false));
             return subsets;
         }
 

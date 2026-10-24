@@ -6,8 +6,9 @@ using PurplePen.Graphics2D;
 
 namespace PurplePen.MapModel
 {
-    // A face that the document's text is drawn in: a family with its weight and style, and the characters drawn in it,
-    // for which the document embeds the face (T-6).
+    // A font face that the document's text is drawn in: a family with its weight and style, the characters drawn in it,
+    // and the faces that draw them, the font's own and those its characters fall back to, which the document embeds
+    // (T-6, T-8).
     public sealed class SvgFontFace
     {
         // The family, as the map names it.
@@ -18,6 +19,14 @@ namespace PurplePen.MapModel
 
         // The characters drawn in the face, as Unicode code points.
         private readonly SortedSet<int> characters = new SortedSet<int>();
+
+        // The faces that draw the characters, and the family each is embedded under: the font's own under the map's
+        // family, and each fallback face under a family of its own.
+        private readonly List<FontFaceSubset> subsets = new List<FontFaceSubset>();
+        private readonly List<string> subsetFamilies = new List<string>();
+
+        // The family of the fallback face that draws each character the font's own face does not.
+        private readonly Dictionary<int, string> fallbackFamilies = new Dictionary<int, string>();
 
         // Create a face.
         // family: the family, as the map names it.
@@ -71,23 +80,47 @@ namespace PurplePen.MapModel
             return quoted.Append('"').ToString();
         }
 
-        // Append the face's @font-face rule for one subset: the family, weight and style that text asks for, the font
-        // data, and the characters the subset draws, unless it draws every character drawn in the face (T-6, T-8).
-        // text: the text to append to.
-        // subset: the subset.
-        // onlySubset: whether the subset is the only one of the face, and so draws every character drawn in it.
-        public void AppendFontFaceRule(StringBuilder text, FontFaceSubset subset, bool onlySubset)
+        // Set the faces that draw the characters, and the families they are embedded under.
+        // faceSubsets: the faces, each with the characters it draws.
+        // familyOfFallback: the family a fallback face is embedded under.
+        public void SetSubsets(IList<FontFaceSubset> faceSubsets, Func<FontFaceSubset, string> familyOfFallback)
         {
-            text.Append("@font-face{font-family:").Append(QuotedFamily);
-            if (Bold)
-                text.Append(";font-weight:700");
-            if (Italic)
-                text.Append(";font-style:italic");
-            text.Append(";src:url(data:").Append(IsCompactFontFormat(subset.FontData) ? "font/otf" : "font/ttf").Append(";base64,")
-                .Append(Convert.ToBase64String(subset.FontData)).Append(')');
-            if (!onlySubset)
-                text.Append(";unicode-range:").Append(FormatUnicodeRange(subset.Characters));
-            text.Append("}\n");
+            foreach (FontFaceSubset subset in faceSubsets) {
+                string family = subset.IsMainFace ? Family : familyOfFallback(subset);
+                subsets.Add(subset);
+                subsetFamilies.Add(family);
+                if (!subset.IsMainFace) {
+                    foreach (int character in subset.Characters)
+                        fallbackFamilies[character] = family;
+                }
+            }
+        }
+
+        // The family of the fallback face that draws a character, or null when the font's own face draws it.
+        // character: the character, as a Unicode code point.
+        public string FallbackFamilyOf(int character)
+        {
+            string family;
+            return fallbackFamilies.TryGetValue(character, out family) ? family : null;
+        }
+
+        // Append an @font-face rule for each face that draws the characters and may be embedded: its family, the weight
+        // and style that text asks for, and its font data (T-6, T-8, T-9).
+        // text: the text to append to.
+        public void AppendFontFaceRules(StringBuilder text)
+        {
+            for (int index = 0; index < subsets.Count; ++index) {
+                byte[] data = subsets[index].FontData;
+                if (data == null)
+                    continue;
+                text.Append("@font-face{font-family:").Append(QuoteFamily(subsetFamilies[index]));
+                if (Bold)
+                    text.Append(";font-weight:700");
+                if (Italic)
+                    text.Append(";font-style:italic");
+                text.Append(";src:url(data:").Append(IsCompactFontFormat(data) ? "font/otf" : "font/ttf").Append(";base64,")
+                    .Append(Convert.ToBase64String(data)).Append(")}\n");
+            }
         }
 
         // Whether font data holds outlines in the Compact Font Format, which an OpenType file signs with "OTTO".
@@ -95,28 +128,6 @@ namespace PurplePen.MapModel
         private static bool IsCompactFontFormat(byte[] fontData)
         {
             return fontData.Length >= 4 && fontData[0] == 'O' && fontData[1] == 'T' && fontData[2] == 'T' && fontData[3] == 'O';
-        }
-
-        // Format characters as a CSS unicode-range: runs of consecutive code points as ranges, each in hexadecimal.
-        // characters: the characters, as Unicode code points.
-        public static string FormatUnicodeRange(IList<int> characters)
-        {
-            List<int> sorted = new List<int>(characters);
-            sorted.Sort();
-            StringBuilder range = new StringBuilder();
-            int index = 0;
-            while (index < sorted.Count) {
-                int first = sorted[index], last = first;
-                while (index + 1 < sorted.Count && sorted[index + 1] <= last + 1)
-                    last = sorted[++index];
-                ++index;
-                if (range.Length > 0)
-                    range.Append(',');
-                range.Append("U+").Append(first.ToString("X", CultureInfo.InvariantCulture));
-                if (last != first)
-                    range.Append('-').Append(last.ToString("X", CultureInfo.InvariantCulture));
-            }
-            return range.ToString();
         }
     }
 }

@@ -1411,18 +1411,50 @@ namespace Map_Svg.Tests
         }
 
         [Test]
-        public void CharactersFromFallbackFacesAreEmbeddedForTheirOwnRange()
+        public void AFallbackFaceIsEmbeddedUnderItsOwnFamilyWhichItsRunsName()
         {
             string document = WriteText(target => {
                 object font = new object(), black = new object();
                 target.CreateFont(font, "Arial", 2, TextEffects.Regular);
                 target.CreateSolidBrush(black, CmykColor.FromCmyk(0, 0, 0, 1));
-                target.DrawText("ab中文\U0001F600", font, black, Point(0, 0));
+                target.DrawText("ab中文\U0001F600c", font, black, Point(0, 0));
             }, new TestFontSubsets());
-            StringAssert.Contains("@font-face{font-family:\"Arial\";src:url(" + TestFontSubsets.DataUri("Arial", TextEffects.Regular, "ab") +
-                                  ");unicode-range:U+61-62}\n", document);
-            StringAssert.Contains("@font-face{font-family:\"Arial\";src:url(" + TestFontSubsets.DataUri("Fallback", TextEffects.Regular, "中文\U0001F600") +
-                                  ");unicode-range:U+4E2D,U+6587,U+1F600}\n", document);
+            StringAssert.Contains("@font-face{font-family:\"Arial\";src:url(" + TestFontSubsets.DataUri("Arial", TextEffects.Regular, "abc") + ")}\n", document);
+            StringAssert.Contains("@font-face{font-family:\"Fallback\";src:url(" + TestFontSubsets.DataUri("Fallback", TextEffects.Regular, "中文\U0001F600") + ")}\n", document);
+            StringAssert.Contains(".b{font-family:\"Fallback\"}\n", document);
+            StringAssert.Contains(">ab<tspan class=\"b\">中文\U0001F600</tspan>c</text>\n", document);
+            StringAssert.DoesNotContain("unicode-range", document);
+        }
+
+        [Test]
+        public void FallbackFacesOfTheSameFamilyAndStyleForTwoFontsGetFamiliesOfTheirOwn()
+        {
+            string document = WriteText(target => {
+                object arial = new object(), tahoma = new object(), black = new object();
+                target.CreateFont(arial, "Arial", 2, TextEffects.Regular);
+                target.CreateFont(tahoma, "Tahoma", 2, TextEffects.Regular);
+                target.CreateSolidBrush(black, CmykColor.FromCmyk(0, 0, 0, 1));
+                target.DrawText("中", arial, black, Point(0, 0));
+                target.DrawText("文", tahoma, black, Point(0, 10));
+            }, new TestFontSubsets());
+            StringAssert.Contains("@font-face{font-family:\"Fallback\";src:url(" + TestFontSubsets.DataUri("Fallback", TextEffects.Regular, "中") + ")}\n", document);
+            StringAssert.Contains("@font-face{font-family:\"Fallback 2\";src:url(" + TestFontSubsets.DataUri("Fallback", TextEffects.Regular, "文") + ")}\n", document);
+            StringAssert.Contains("><tspan class=\"b\">中</tspan></text>\n", document);
+            StringAssert.Contains("><tspan class=\"d\">文</tspan></text>\n", document);
+        }
+
+        [Test]
+        public void TheEmojiPresentationSelectorIsWrittenAsTheTextPresentationSelector()
+        {
+            string document = WriteText(target => {
+                object font = new object(), black = new object();
+                target.CreateFont(font, "Arial", 2, TextEffects.Regular);
+                target.CreateSolidBrush(black, CmykColor.FromCmyk(0, 0, 0, 1));
+                target.DrawText("a\u2764\uFE0F", font, black, Point(0, 0));
+            }, null);
+            // Ordinal, since a culture-sensitive search passes over variation selectors.
+            Assert.IsTrue(document.Contains(">a\u2764\uFE0E</text>\n", StringComparison.Ordinal));
+            Assert.IsFalse(document.Contains('\uFE0F'));
         }
 
         [Test]
@@ -1472,7 +1504,6 @@ namespace Map_Svg.Tests
         {
             Assert.AreEqual("\"Arial\"", SvgFontFace.QuoteFamily("Arial"));
             Assert.AreEqual("\"a\\\"b\\\\c\"", SvgFontFace.QuoteFamily("a\"b\\c"));
-            Assert.AreEqual("U+20,U+41-43,U+1F600", SvgFontFace.FormatUnicodeRange(new int[] { 0x43, 0x41, 0x20, 0x42, 0x1F600 }));
         }
 
         [Test]

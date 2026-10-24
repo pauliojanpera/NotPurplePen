@@ -1017,7 +1017,7 @@ namespace PurplePen.MapModel
             bounds.Include(SvgNumbers.ToSteps(upperLeft.X), SvgNumbers.ToSteps(upperLeft.Y));
             bounds.Include(SvgNumbers.ToSteps(upperLeft.X + metrics.GetTextWidth(drawn)), SvgNumbers.ToSteps(upperLeft.Y + metrics.Ascent + metrics.Descent));
             font.Face.AddCharacters(drawn);
-            AddElement(new SvgText(paint.Around(font.Declarations + ";", ""), SvgNumbers.ToSteps(upperLeft.X),
+            AddElement(new SvgText(paint.Around(font.Declarations + ";", ""), font.Face, SvgNumbers.ToSteps(upperLeft.X),
                                    SvgNumbers.ToSteps(upperLeft.Y + metrics.Ascent), kerning, drawn, bounds), callName);
         }
 

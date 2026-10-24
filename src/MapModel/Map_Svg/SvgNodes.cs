@@ -218,8 +218,14 @@ namespace PurplePen.MapModel
         // The decimals that keep a step in a text's own units.
         public const int TextUnitDecimals = 3;
 
+        // The variation selectors that ask for a character's emoji and its text presentation.
+        private const char EmojiPresentationSelector = '\uFE0F', TextPresentationSelector = '\uFE0E';
+
         // The style: the font and the paint, which name the element's class (S-4).
         private readonly SvgStyle style;
+
+        // The font face, which knows the fallback face that draws each character the font's own face does not.
+        private readonly SvgFontFace face;
 
         // The start of the baseline, in steps.
         private readonly long x, y;
@@ -235,13 +241,15 @@ namespace PurplePen.MapModel
 
         // Create a text.
         // style: its font and paint.
+        // face: its font face.
         // x, y: the start of its baseline, in steps.
         // kerning: the kerning before each character after the first, in steps, without the zeros that end it.
         // text: the characters.
         // bounds: the bounds of the text.
-        public SvgText(SvgStyle style, long x, long y, long[] kerning, string text, SvgBounds bounds)
+        public SvgText(SvgStyle style, SvgFontFace face, long x, long y, long[] kerning, string text, SvgBounds bounds)
         {
             this.style = style;
+            this.face = face;
             this.x = x;
             this.y = y;
             this.kerning = kerning;
@@ -256,7 +264,11 @@ namespace PurplePen.MapModel
         }
 
         // Write the element, in millimetres under a transform that places its baseline's start and scales it to steps.
-        // The kerning is written as dx, whose first value, the shift of the first character, is 0.
+        // The kerning is written as dx, whose first value, the shift of the first character, is 0. Each run of characters
+        // that a fallback face draws is a tspan naming that face's family, so that a viewer draws it in the face the
+        // application drew it in, and the emoji presentation selector is written as the text presentation selector:
+        // the application draws the face's glyph, while a browser would take a color emoji font of its own for an
+        // emoji presentation sequence, whatever face the text names (T-8).
         public override void Write(SvgWriter writer)
         {
             writer.Text.Append("<text class=\"").Append(writer.ClassOf(style.Resolve(writer))).Append('"');
@@ -271,16 +283,32 @@ namespace PurplePen.MapModel
                 writer.Text.Append('"');
             }
             writer.Text.Append('>');
-            foreach (char character in text) {
+            string runFamily = null;
+            for (int index = 0; index < text.Length; ++index) {
+                char character = text[index];
+                if (!char.IsLowSurrogate(character)) {
+                    string family = face.FallbackFamilyOf(char.ConvertToUtf32(text, index));
+                    if (family != runFamily) {
+                        if (runFamily != null)
+                            writer.Text.Append("</tspan>");
+                        if (family != null)
+                            writer.Text.Append("<tspan class=\"").Append(writer.ClassOf("font-family:" + SvgFontFace.QuoteFamily(family))).Append("\">");
+                        runFamily = family;
+                    }
+                }
                 if (character == '&')
                     writer.Text.Append("&amp;");
                 else if (character == '<')
                     writer.Text.Append("&lt;");
                 else if (character == '>')
                     writer.Text.Append("&gt;");
+                else if (character == EmojiPresentationSelector)
+                    writer.Text.Append(TextPresentationSelector);
                 else
                     writer.Text.Append(character);
             }
+            if (runFamily != null)
+                writer.Text.Append("</tspan>");
             writer.Text.Append("</text>\n");
         }
     }

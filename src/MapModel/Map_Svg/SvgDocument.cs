@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using PurplePen.Graphics2D;
 
@@ -293,6 +294,9 @@ namespace PurplePen.MapModel
         // What gives the font data the document embeds for its faces, or null when it embeds none (T-6, T-7).
         private readonly IFontSubsetProvider fontSubsets;
 
+        // Whether the faces that draw the fonts' characters have been asked for and named.
+        private bool fontFacesResolved;
+
         // Where the next page goes: the left edge, in millimetres.
         private double nextPageLeft;
 
@@ -395,6 +399,7 @@ namespace PurplePen.MapModel
         {
             foreach (SvgPart part in Parts)
                 part.Content.TidyChildren();
+            ResolveFontFaces();
 
             SvgWriter writer = new SvgWriter();
             foreach (SvgPart part in Parts) {
@@ -457,23 +462,50 @@ namespace PurplePen.MapModel
             text.Append(">\n");
         }
 
-        // Write the @font-face rules of the faces text is drawn in, in the order they were first drawn in, each face
-        // with a rule for each of its subsets that may be embedded (T-6 to T-9); and, when there is text, the rule that
+        // Ask for the faces that draw the characters of each font, and name the family of each fallback face: the family
+        // the face names itself with, and a number after it when a face of that family, weight and style is embedded
+        // already. Every face is then embedded under a family of its own, and a text names the family of each run that a
+        // fallback face draws, so that a viewer draws each character in the face the application drew it in, and never
+        // in a font of its own (T-8). A face that may not be embedded keeps its own family, which an installed font may
+        // answer to (T-9). The faces are resolved once, before the text that names them is written.
+        private void ResolveFontFaces()
+        {
+            if (fontSubsets == null || fontFacesResolved)
+                return;
+            fontFacesResolved = true;
+            HashSet<string> taken = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            foreach (SvgFontFace face in fontFaces)
+                taken.Add(FamilyKey(face.Family, face.Bold, face.Italic));
+            foreach (SvgFontFace face in fontFaces) {
+                face.SetSubsets(fontSubsets.GetSubsets(face.Family, face.Effects, face.Characters), subset => {
+                    if (subset.FontData == null)
+                        return subset.FaceName;
+                    string family = subset.FaceName;
+                    for (int number = 2; !taken.Add(FamilyKey(family, face.Bold, face.Italic)); ++number)
+                        family = subset.FaceName + " " + number.ToString(CultureInfo.InvariantCulture);
+                    return family;
+                });
+            }
+        }
+
+        // The key of a family with a weight and style, which no two embedded faces share.
+        // family: the family.
+        // bold, italic: whether the face is bold, and whether it is italic.
+        private static string FamilyKey(string family, bool bold, bool italic)
+        {
+            return (bold ? "b" : "-") + (italic ? "i" : "-") + family;
+        }
+
+        // Write the @font-face rules of the faces text is drawn in, in the order they were first drawn in, each font with
+        // a rule for each face that draws its characters and may be embedded (T-6 to T-9); and, when there is text, the rule that
         // every text element follows: no kerning or ligatures of the browser's own, since the kerning is written with the
         // text and the application draws no ligatures; emoji in the faces embedded, as the application draws them, where
         // a browser would take a color emoji font of its own (T-8); and spaces kept as they are (T-3). Return the rules.
         private string WriteFontFaces()
         {
             StringBuilder rules = new StringBuilder();
-            if (fontSubsets != null) {
-                foreach (SvgFontFace face in fontFaces) {
-                    IList<FontFaceSubset> subsets = fontSubsets.GetSubsets(face.Family, face.Effects, face.Characters);
-                    foreach (FontFaceSubset subset in subsets) {
-                        if (subset.FontData != null)
-                            face.AppendFontFaceRule(rules, subset, subsets.Count == 1);
-                    }
-                }
-            }
+            foreach (SvgFontFace face in fontFaces)
+                face.AppendFontFaceRules(rules);
             if (fontFaces.Count > 0)
                 rules.Append("text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white-space:pre}\n");
             return rules.ToString();
