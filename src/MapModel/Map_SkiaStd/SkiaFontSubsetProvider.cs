@@ -9,12 +9,19 @@ namespace Map_SkiaStd
     // Gives a target that embeds its fonts, such as the SVG target, the font data of the faces the Skia target draws
     // text with (T-7 to T-9). Each character drawn in a font goes to the face that EnhancedTypeface draws it with: the
     // font's own face, or the face the platform's font fallback offers for a character the font lacks. Each face's
-    // data is cut to its characters, unless the face's permissions forbid subsetting; a face whose permissions forbid
-    // embedding gives no data, and is referred to by name only.
+    // data is cut to its characters, by HarfBuzz's subsetter unless the provider is given another, and unless the
+    // face's permissions forbid subsetting; a face whose permissions forbid embedding gives no data, and is referred to
+    // by name only.
     public sealed class SkiaFontSubsetProvider : IFontSubsetProvider
     {
         // Cuts a face's data to characters: the face, and its characters as Unicode code points.
         private readonly Func<OpenTypeFont, IList<int>, byte[]> cut;
+
+        // Create a provider that cuts each face with HarfBuzz's subsetter (HarfBuzzSubsetter).
+        public SkiaFontSubsetProvider()
+            : this(HarfBuzzSubsetter.Cut)
+        {
+        }
 
         // Create a provider that cuts each face with a subsetter.
         // cut: cuts a face to characters, given as Unicode code points, and returns the font data.
