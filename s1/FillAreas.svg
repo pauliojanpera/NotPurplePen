@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="500mm" height="688mm" viewBox="0 0 500 688">
+<style>
+.a{fill:#00f;fill:#00f icc-color(cmyk,1,1,0,0)}
+.b{fill:#800000;fill:#800000 icc-color(cmyk,0,.5,.5,.5);fill-rule:evenodd}
+.c{fill:#800000;fill:#800000 icc-color(cmyk,0,.5,.5,.5)}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="FillAreas"/>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="b">
+<path d="M0 0h800000v1100000H0z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<path class="a" d="M100000 200000h500000v200000H100000z"/>
+<ellipse class="a" cx="350000" cy="550000" rx="250000" ry="70000"/>
+<path class="b" d="M100000 1000000l100000-200000 100000 200000-200000-150000h200000z"/>
+<path class="c" d="M500000 1000000l100000-200000 100000 200000-200000-150000h200000z"/>
+</g>
+</g>
+</defs>
+<g transform="translate(0 .25)scale(.000625)" clip-path="url(#b)">
+<use xlink:href="#a"/>
+</g>
+</svg>
