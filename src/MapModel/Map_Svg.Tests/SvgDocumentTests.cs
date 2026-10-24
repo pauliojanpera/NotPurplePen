@@ -1244,7 +1244,7 @@ namespace Map_Svg.Tests
         }
 
         // The rule that every text element follows, as the style block writes it after the fonts.
-        private const string TextRule = "text{font-kerning:none;font-variant-ligatures:none;white-space:pre}";
+        private const string TextRule = "text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white-space:pre}";
 
         // The class of black text in a font, as the style block writes it.
         // name: the class's name.

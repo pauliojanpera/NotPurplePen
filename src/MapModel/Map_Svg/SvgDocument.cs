@@ -460,7 +460,8 @@ namespace PurplePen.MapModel
         // Write the @font-face rules of the faces text is drawn in, in the order they were first drawn in, each face
         // with a rule for each of its subsets that may be embedded (T-6 to T-9); and, when there is text, the rule that
         // every text element follows: no kerning or ligatures of the browser's own, since the kerning is written with the
-        // text and the application draws no ligatures, and spaces kept as they are (T-3). Return the rules.
+        // text and the application draws no ligatures; emoji in the faces embedded, as the application draws them, where
+        // a browser would take a color emoji font of its own (T-8); and spaces kept as they are (T-3). Return the rules.
         private string WriteFontFaces()
         {
             StringBuilder rules = new StringBuilder();
@@ -474,7 +475,7 @@ namespace PurplePen.MapModel
                 }
             }
             if (fontFaces.Count > 0)
-                rules.Append("text{font-kerning:none;font-variant-ligatures:none;white-space:pre}\n");
+                rules.Append("text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white-space:pre}\n");
             return rules.ToString();
         }
 

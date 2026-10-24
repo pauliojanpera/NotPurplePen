@@ -107,14 +107,12 @@ namespace PurplePen.MapModel
             {
                 List<long> kerning = new List<long>();
                 int last = -1;
-                TextElementEnumerator clusters = StringInfo.GetTextElementEnumerator(text);
-                clusters.MoveNext();
-                string first = clusters.GetTextElement();
+                List<string> clusters = Clusters(text);
+                string first = clusters[0];
                 AddZeros(kerning, CharacterCount(first) - 1);
                 int start = first.Length;
                 float widthBefore = Metrics.GetTextWidth(first);
-                while (clusters.MoveNext()) {
-                    string cluster = clusters.GetTextElement();
+                foreach (string cluster in clusters.GetRange(1, clusters.Count - 1)) {
                     float width = Metrics.GetTextWidth(text.Substring(0, start + cluster.Length));
                     long shift = SvgNumbers.ToSteps(width - widthBefore - Advance(cluster));
                     kerning.Add(shift);
@@ -126,6 +124,37 @@ namespace PurplePen.MapModel
                 }
                 kerning.RemoveRange(last + 1, kerning.Count - last - 1);
                 return kerning.ToArray();
+            }
+
+            // The clusters of a text that shaping sets as one: its grapheme clusters, where a cluster that ends in a virama
+            // also takes in the one after it, as the virama joins the consonants on either side into one syllable.
+            // text: the text.
+            private static List<string> Clusters(string text)
+            {
+                List<string> clusters = new List<string>();
+                TextElementEnumerator elements = StringInfo.GetTextElementEnumerator(text);
+                while (elements.MoveNext()) {
+                    string element = elements.GetTextElement();
+                    if (clusters.Count > 0 && EndsInVirama(clusters[clusters.Count - 1]))
+                        clusters[clusters.Count - 1] += element;
+                    else
+                        clusters.Add(element);
+                }
+                return clusters;
+            }
+
+            // The viramas of the scripts of the Basic Multilingual Plane, the characters of canonical combining class 9,
+            // which shaping joins with the consonants on either side.
+            private static readonly HashSet<char> viramas = new HashSet<char>("\u094D\u09CD\u0A4D\u0ACD\u0B4D\u0BCD\u0C4D\u0CCD\u0D3B\u0D3C\u0D4D\u0DCA\u0E3A\u0EBA\u0F84\u1039\u103A\u1714\u1715\u1734\u17D2\u1A60\u1B44\u1BAA\u1BAB\u1BF2\u1BF3\u2D7F\uA806\uA82C\uA8C4\uA953\uA9C0\uAAF6\uABED");
+
+            // Whether a cluster ends in a virama, or in a virama and a zero-width joiner or non-joiner.
+            // cluster: the cluster.
+            private static bool EndsInVirama(string cluster)
+            {
+                int last = cluster.Length - 1;
+                if (last > 0 && (cluster[last] == '\u200D' || cluster[last] == '\u200C'))
+                    --last;
+                return viramas.Contains(cluster[last]);
             }
 
             // The characters of a text, each surrogate pair one.
