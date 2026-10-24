@@ -562,6 +562,20 @@ namespace PurplePen
         }
 
 
+        // Whether setting a course records which course object added each symbol of the course's map, as an export that
+        // says what each object it draws of the course is asks (CD-3). Off by default, as the display has no use for it.
+        public bool RecordsCourseObjects { get; set; }
+
+        // For each symbol of the course's map, the course object that added it, recorded when the course was set if
+        // RecordsCourseObjects was on; else empty.
+        public IReadOnlyDictionary<PurplePen.MapModel.Symbol, CourseObj> CourseObjectsOfSymbols
+        {
+            get { return courseObjectOfSymbol; }
+        }
+
+        // The course object that added each symbol of the course's map, when recorded.
+        private Dictionary<PurplePen.MapModel.Symbol, CourseObj> courseObjectOfSymbol = new Dictionary<PurplePen.MapModel.Symbol, CourseObj>();
+
         // Set the courses being displayed.
         public void SetCourse(CourseLayout newCourse)
         {
@@ -571,10 +585,11 @@ namespace PurplePen
                 renderOptions.LowerColorsBelowWhiteOut = (LowerPurpleMapLayer != null);
 
                 course = newCourse;
+                courseObjectOfSymbol = new Dictionary<PurplePen.MapModel.Symbol, CourseObj>();
                 if (course == null)
                     courseMap = null;
                 else
-                    courseMap = course.RenderToMap(renderOptions);
+                    courseMap = course.RenderToMap(renderOptions, RecordsCourseObjects ? courseObjectOfSymbol : null);
 
                 RaiseChanged();
             }
