@@ -58,6 +58,28 @@ the map one part (L-2).
 model, and no print area, so no outline. A PDF map, which PDF export copies as vectors, is drawn as the bitmap
 `MapDisplay` makes of it (B-1 to B-6).
 
+## Course data (stage 2, CD-1 to CD-3)
+
+- **Which symbols each course object adds (CD-3).** `CourseLayout.RenderToMap` gets an overload that also fills a
+  dictionary from each map `Symbol` to the `CourseObj` that added it, by the map's symbols before and after each
+  `CourseObj.AddToMap`. The map code already opens each symbol as an object, with the `Symbol` as its key
+  (`Map.Draw`'s `BeginObject(curSym, ...)`), so the key reaches the target unchanged.
+- **What the target is told.** Two calls join `IStructuredGraphicsTarget`, with plain data only, as `Graphics2D`
+  carries no course types:
+  - `DescribeCourse(object courseKey, CourseRecord course)`: the name, part, variation and print scale, and the
+    controls in order, each with its code, kind and position in map coordinates (CD-1), and the parts that draw it;
+  - `DescribeObjects(object mapKey, IReadOnlyDictionary<object, CourseObjectRecord> objects)`: for each object key of
+    the course's map, its course, its kind, and its controls: one for a control circle, start, finish or control
+    number, two for a leg, none for a description or a special object (CD-2).
+- **What the document writes.** Elements keep only their object number (S-11). The metadata gains, for each course,
+  `<npp:course>` with its controls as `<npp:control>` children, and for each course object an `<npp:object n="..."
+  course="..." kind="..." controls="..."/>` keyed by the object number its elements carry. The element and attribute
+  names are a proposal, to settle with @Pauli before the format's version is raised.
+- **Kinds.** From the `CourseObj` class: `ControlCourseObj` control, `StartCourseObj` start, `FinishCourseObj`
+  finish, `ControlNumberCourseObj` control-number, `LegCourseObj`, `FlaggedLegCourseObj` and `TopologyLegCourseObj`
+  leg, `DescriptionCourseObj` description, and each special its own kind; controls from `courseControlId`, and for a
+  leg from both ends.
+
 ## Stages after this one
 
 1. **The refactor:** `MapDisplay.Draw` by layer and the code shared with `CoursePdf`, on `feature/svg-export` rooted at
