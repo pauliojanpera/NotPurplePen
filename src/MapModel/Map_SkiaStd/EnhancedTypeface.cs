@@ -230,6 +230,9 @@ namespace Map_SkiaStd
         // ordinary font file, and the face's position within the collection when the data is a
         // TrueType collection (.ttc). Anything that reads the font data must use this to pick
         // the right face out of it.
+        // Serializes the reads of the font stream, which GetFontData() rewinds.
+        private readonly object fontStreamLock = new object();
+
         public int FontDataCollectionIndex
         {
             get { return ttcIndex; }
@@ -237,12 +240,22 @@ namespace Map_SkiaStd
 
         // Get the data of the font. For a font that lives in a TrueType collection this is the
         // whole collection; use FontDataCollectionIndex to select the face.
+        //
+        // Every caller reads the face's one stream, and a cached face is shared between threads,
+        // so the stream is rewound and read under a lock. A read that falls short, as another
+        // thread's rewind in mid-read made it do, is an error rather than data padded with zeros.
         public byte[] GetFontData()
         {
-            fontStream.Rewind();
-            byte[] data = new byte[fontStream.Length];
-            fontStream.Read(data, fontStream.Length);
-            return data;
+            lock (fontStreamLock)
+            {
+                if (!fontStream.Rewind())
+                    throw new InvalidOperationException("The font data cannot be read from its start.");
+                byte[] data = new byte[fontStream.Length];
+                int read = fontStream.Read(data, data.Length);
+                if (read != data.Length)
+                    throw new InvalidOperationException("The font data ended after " + read + " of its " + data.Length + " bytes.");
+                return data;
+            }
         }
 
         // Returns true if this typeface contains a glyph for the given Unicode codepoint.
