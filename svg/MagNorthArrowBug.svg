@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="682mm" height="352mm" viewBox="0 0 682 352" xml:lang="und">
+<style>
+@font-face{font-family:"Book Antiqua";font-weight:700;src:url(data:font/ttf;base64,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)}
+text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white-space:pre}
+.a{font-size:3.528px;font-family:"Book Antiqua";font-weight:700;fill:#21d1ff;fill:#21d1ff icc-color(cmyk,.87,.18,0,0)}
+.b{fill:none;stroke:#21d1ff;stroke:#21d1ff icc-color(cmyk,.87,.18,0,0);stroke-width:270;stroke-linejoin:bevel}
+.c{fill:#21d1ff;fill:#21d1ff icc-color(cmyk,.87,.18,0,0);fill-rule:evenodd}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="MagNorthArrowBug">
+<npp:color position="9" name="Blue" cmyk=".87,.18,0,0" overprint="1"/>
+<npp:color position="35" name="Blue" cmyk=".87,.18,0,0" overprint="1"/>
+<npp:symbol n="1" id="1.16" name="MN Text" colors="9"/>
+<npp:symbol n="2" id="601.2" name="Magnetic north line (blue) with arrow" colors="35"/>
+<npp:symbol n="3" id="601.3" name="Magnetic north line arrow switched off" colors="35"/>
+<npp:symbol n="4" id="601.4" name="Magnetic north line arrow deleted" colors="35"/>
+</npp:map>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="b">
+<path d="M-17310-10408h96144v49623h-96144z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g data-c="9">
+<g data-s="1">
+<g transform="matrix(1 0 0-1 7900 28650)">
+<text class="a" data-o="1" transform="translate(-4803)scale(1000)" x="0 2.548 4.51 6.665 8.627">Usual</text>
+</g>
+<g transform="matrix(1 0 0-1 29130 31730)">
+<text class="a" data-o="2" transform="translate(-9801)scale(1000)" x="0 1.962 4.117">end</text>
+<text class="a" data-o="2" transform="translate(-2549)scale(1000)" x="0 1.962 3.924 7.061 9.216 11.371">symbol</text>
+<text class="a" data-o="2" transform="matrix(1000 0 0 1000-10290 4233)" x="0 1.962 4.706 5.686 6.861 8.823 10.978 12.94">switched</text>
+<text class="a" data-o="2" transform="translate(5785 4233)scale(1000)" x="0 2.155 3.33">off</text>
+</g>
+<g transform="matrix(1 0 0-1 51970 32070)">
+<text class="a" data-o="3" transform="translate(-9801)scale(1000)" x="0 1.962 4.117">end</text>
+<text class="a" data-o="3" transform="translate(-2549)scale(1000)" x="0 1.962 3.924 7.061 9.216 11.371">symbol</text>
+<text class="a" data-o="3" transform="matrix(1000 0 0 1000-6175 4233)" x="0 2.155 4.117 5.097 7.059 8.234 10.196">deleted</text>
+</g>
+</g>
+</g>
+<g data-c="35">
+<g data-s="2">
+<path class="b" data-o="4" d="M7830-3700v29210"/>
+<g transform="matrix(0 1-1 0 7830 26110)">
+<path class="c" data-o="4" d="M-6000-2010v4000L0 0-6000-2010z"/>
+</g>
+</g>
+<g data-s="3">
+<path class="b" data-o="5" d="M29730-3700v29510"/>
+</g>
+<g data-s="4">
+<path class="b" data-o="6" d="M51980-3700v29510"/>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<g transform="matrix(.00709355 0 0-.00709355 122.788 278.174)" clip-path="url(#b)">
+<use xlink:href="#a"/>
+</g>
+</svg>

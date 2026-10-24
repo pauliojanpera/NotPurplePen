@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="1398mm" height="1079mm" viewBox="0 0 1398 1079">
+<style>
+.a{fill:none;stroke:#00f;stroke:#00f icc-color(cmyk,1,1,0,0);stroke-width:1000;stroke-linecap:round;stroke-linejoin:round}
+.b{fill:none;stroke:#0f0;stroke:#0f0 icc-color(cmyk,1,0,1,0);stroke-width:500;stroke-linecap:round;stroke-linejoin:round}
+.c{fill:none;stroke:#f00;stroke:#f00 icc-color(cmyk,0,1,1,0);stroke-width:700;stroke-linejoin:bevel}
+.d{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:300;stroke-linejoin:bevel}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="framingline-test9">
+<npp:color position="0" name="Blue" cmyk="1,1,0,0"/>
+<npp:color position="1" name="Green" cmyk="1,0,1,0"/>
+<npp:color position="2" name="Red" cmyk="0,1,1,0"/>
+<npp:color position="3" name="Black" cmyk="0,0,0,1"/>
+<npp:symbol n="1" id="1.1" colors="0 1"/>
+<npp:symbol n="2" id="1.0" name="Dashed Line with red framing" colors="2 3"/>
+</npp:map>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="b">
+<path d="M-21248 5035H6510v21425h-27758z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g data-c="0">
+<g data-s="1">
+<path class="a" data-o="1" d="M-5100 21540c-1150-1240-250-3940 2000-6020 2230-2070 4990-2760 6140-1520 1140 1230 250 3930-1990 6000-2250 2080-5000 2770-6150 1540z"/>
+<path class="a" data-o="2" d="M-18670 17840c1470-520 3520 250 3680-1300 140-1430-870-2830 360-3560"/>
+</g>
+</g>
+<g data-c="1">
+<g data-s="1">
+<path class="b" data-o="1" d="M-5100 21540c-1150-1240-250-3940 2000-6020 2230-2070 4990-2760 6140-1520 1140 1230 250 3930-1990 6000-2250 2080-5000 2770-6150 1540z"/>
+<path class="b" data-o="2" d="M-18670 17840c1470-520 3520 250 3680-1300 140-1430-870-2830 360-3560"/>
+</g>
+</g>
+<g data-c="2">
+<g data-s="2">
+<path class="c" data-o="3" d="M-20040 20000l10240-160 4640-9920 10110 60"/>
+</g>
+</g>
+<g data-c="3">
+<g data-s="2">
+<path class="d" data-o="3" d="M-18056 19969l4505-70"/>
+<path class="d" data-o="3" d="M-12062 19875l2262-35 857-1832"/>
+<path class="d" data-o="3" d="M-8375 16793l1721-3680"/>
+<path class="d" data-o="3" d="M-6085 11898l925-1978 2094 12"/>
+<path class="d" data-o="3" d="M-1571 9941l4527 27"/>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<g transform="matrix(.0503631 0 0-.0503631 1070.12 1332.6)" clip-path="url(#b)">
+<use xlink:href="#a"/>
+</g>
+</svg>

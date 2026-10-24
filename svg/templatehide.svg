@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="877mm" height="654mm" viewBox="0 0 877 654">
+<style>
+.a{fill:none;stroke:#a80000;stroke:#a80000 icc-color(cmyk,0,.68,.91,.34);stroke-width:180;stroke-linejoin:bevel}
+.b{fill:#85ccff;fill:#85ccff icc-color(cmyk,.48,.2,0,0);fill-rule:evenodd}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="templatehide">
+<npp:color position="19" name="Brown" cmyk="0,.68,.91,.34" overprint="1"/>
+<npp:color position="21" name="Blue 50%" cmyk=".48,.2,0,0"/>
+<npp:symbol n="1" id="118.0" name="Special landform feature" colors="19"/>
+<npp:symbol n="2" id="301.0" name="Lake" colors="21"/>
+</npp:map>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="b">
+<path d="M-77607-20053h68989v51447h-68989z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g data-c="19">
+<g data-s="1">
+<g transform="translate(-60280 1480)">
+<path class="a" data-o="1" d="M-400-400l800 800"/>
+<path class="a" data-o="1" d="M-400 400l800-800"/>
+</g>
+<g transform="translate(-37720 21240)">
+<path class="a" data-o="2" d="M-400-400l800 800"/>
+<path class="a" data-o="2" d="M-400 400l800-800"/>
+</g>
+</g>
+</g>
+<g data-c="21">
+<g data-s="2">
+<path class="b" data-o="3" d="M-70450 1550c550-1060 7660 1570 15810 5840 8140 4270 14350 8620 13790 9680-550 1060-7660-1570-15800-5840-8150-4270-14360-8630-13800-9680z"/>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<g transform="matrix(.01271223 0 0-.01271223 986.56 399.08)" clip-path="url(#b)">
+<use xlink:href="#a"/>
+</g>
+</svg>

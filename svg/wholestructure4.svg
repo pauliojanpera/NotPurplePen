@@ -1,0 +1,598 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="1016mm" height="681mm" viewBox="0 0 1016 681">
+<style>
+.a{fill:#ffe6a6;fill:#ffe6a6 icc-color(cmyk,0,.1,.35,0);fill-rule:evenodd}
+.b{fill:#ccffb2;fill:#ccffb2 icc-color(cmyk,.2,0,.3,0);fill-rule:evenodd}
+.c{fill:#86cdff;fill:#86cdff icc-color(cmyk,.475,.195,0,0);fill-rule:evenodd}
+.d{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-linejoin:bevel}
+.e{fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)}
+.f{fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd}
+.g{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="wholestructure4">
+<npp:color position="0" name="Yellow 50%- Area Feature" cmyk="0,.1,.35,0"/>
+<npp:color position="6" name="Green 20% - Area Feature" cmyk=".2,0,.3,0"/>
+<npp:color position="17" name="Blue 50% - Area Feature" cmyk=".475,.195,0,0"/>
+<npp:color position="33" name="Black 100%" cmyk="0,0,0,1" overprint="1"/>
+<npp:symbol n="1" id="208.5" name="Boulder Field, Normal to Run" colors="0 33"/>
+<npp:symbol n="2" id="208.0" name="Boulder Field, Normal to Run" colors="6 33"/>
+<npp:symbol n="3" id="208.4" name="Boulder Field, Normal to Run" colors="17 33"/>
+</npp:map>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="b">
+<path d="M-26091-7789H7514v22524h-33605z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g data-c="0">
+<g data-s="1">
+<path class="a" data-o="1" d="M-4460 12480c-660-1350 1240-3630 4260-5120 3010-1480 5980-1590 6640-240 660 1330-1250 3620-4250 5100-3020 1480-5990 1600-6650 260z"/>
+<path class="a" data-o="2" d="M-4520 7480c500-560 1680-330 2620 520 940 840 1300 1990 800 2540-490 560-1670 320-2610-520-940-850-1300-1990-810-2540z"/>
+<path class="a" data-o="3" d="M1540 6600C390 5670 430 3700 1660 2180 2870 660 4790 190 5940 1120c1150 920 1100 2890-110 4410-1220 1520-3140 1990-4290 1070z"/>
+</g>
+</g>
+<g data-c="6">
+<g data-s="2">
+<path class="b" data-o="4" d="M-14090 8890c-1010-1160-900-2910 250-3920s2900-900 3920 260c1010 1150 890 2900-260 3910s-2900 900-3910-250z"/>
+<path class="b" data-o="5" d="M-16520 12220c-2470-1300-3740-3750-2830-5480s3640-2080 6120-780c2460 1290 3720 3740 2820 5470-910 1730-3650 2080-6110 790z"/>
+</g>
+</g>
+<g data-c="17">
+<g data-s="3">
+<path class="c" data-o="6" d="M-24740-2100c-90-1870 4930-3620 11190-3910 6250-290 11410 1000 11490 2870 90 1850-4930 3600-11180 3890-6260 290-11420-1000-11500-2850z"/>
+<path class="c" data-o="7" d="M-3740 5460c-840 310-2300-1570-3270-4200-960-2620-1070-5000-230-5300 820-310 2280 1570 3250 4190 960 2630 1070 5010 250 5310z"/>
+</g>
+</g>
+<g data-c="33">
+<g transform="rotate(161.6)" data-s="2">
+<g transform="translate(14000-6000)">
+<path class="d" data-o="4" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="4" cx="440" cy="510" r="300"/>
+</g>
+<g transform="translate(12000-4000)">
+<path class="f" data-o="4" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="4" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="4" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="4" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(14000-4000)">
+<path class="f" data-o="4" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="4" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="4" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="4" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(16000-4000)">
+<path class="f" data-o="4" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="4" d="M-300 900-830 380l620-210"/>
+</g>
+<g transform="translate(12000-2000)">
+<path class="f" data-o="4" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="4" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="4" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="4" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(14000-2000)">
+<path class="f" data-o="4" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="4" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="4" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="4" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(16000-2000)">
+<path class="f" data-o="4" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="4" d="M-300 900-830 380l620-210"/>
+</g>
+<circle class="g" data-o="4" cx="12440" cy="-560" r="150"/>
+<g transform="translate(14000)">
+<path class="f" data-o="4" d="M-830-170l540-210-150-490-390 700z"/>
+<circle class="g" data-o="4" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(14000-8000)">
+<path class="d" data-o="5" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="5" cx="440" cy="510" r="300"/>
+</g>
+<g transform="translate(16000-8000)">
+<path class="d" data-o="5" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="5" cx="440" cy="510" r="300"/>
+</g>
+<g transform="translate(18000-8000)">
+<path class="d" data-o="5" d="M-300 900-830 380l620-210"/>
+</g>
+<g transform="translate(14000-6000)">
+<path class="f" data-o="5" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="5" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="5" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="5" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(16000-6000)">
+<path class="f" data-o="5" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="5" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="5" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="5" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(18000-6000)">
+<path class="f" data-o="5" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="5" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="5" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="5" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(20000-6000)">
+<path class="d" data-o="5" d="M-300 900-830 380l620-210"/>
+</g>
+<g transform="translate(14000-4000)">
+<path class="f" data-o="5" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="5" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="5" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="5" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(16000-4000)">
+<path class="f" data-o="5" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="5" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="5" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="5" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(18000-4000)">
+<path class="f" data-o="5" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="5" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="5" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="5" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(20000-4000)">
+<path class="f" data-o="5" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="5" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="5" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="5" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(14000-2000)">
+<circle class="e" data-o="5" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="5" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(16000-2000)">
+<path class="f" data-o="5" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="5" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="5" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="5" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(18000-2000)">
+<path class="f" data-o="5" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="5" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="5" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="5" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(20000-2000)">
+<path class="f" data-o="5" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="5" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="5" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="5" cx="440" cy="-560" r="150"/>
+</g>
+<circle class="g" data-o="5" cx="16440" cy="-560" r="150"/>
+<g transform="translate(18000)">
+<path class="f" data-o="5" d="M-830-170l540-210-150-490-390 700z"/>
+<circle class="g" data-o="5" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(20000)">
+<path class="f" data-o="5" d="M-830-170l540-210-150-490-390 700z"/>
+<circle class="g" data-o="5" cx="440" cy="-560" r="150"/>
+</g>
+</g>
+<g transform="rotate(41.9)" data-s="1">
+<g transform="translate(8000 2000)">
+<path class="d" data-o="1" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="1" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="1" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(10000 2000)">
+<path class="f" data-o="1" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="1" d="M-300 900-830 380l620-210"/>
+</g>
+<g transform="translate(6000 4000)">
+<circle class="e" data-o="1" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="1" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(8000 4000)">
+<path class="f" data-o="1" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="1" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="1" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="1" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(10000 4000)">
+<path class="f" data-o="1" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="1" d="M-300 900-830 380l620-210"/>
+<circle class="g" data-o="1" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(6000 6000)">
+<path class="f" data-o="1" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="1" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="1" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="1" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(8000 6000)">
+<path class="f" data-o="1" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="1" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="1" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="1" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(10000 6000)">
+<path class="f" data-o="1" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="1" d="M-300 900-830 380l620-210"/>
+</g>
+<g transform="translate(4000 8000)">
+<circle class="e" data-o="1" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="1" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(6000 8000)">
+<path class="f" data-o="1" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="1" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="1" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="1" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(8000 8000)">
+<path class="f" data-o="1" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="1" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="1" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="1" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(10000 8000)">
+<path class="f" data-o="1" d="M-830-170l540-210-150-490-390 700z"/>
+</g>
+<g transform="translate(4000 10000)">
+<circle class="e" data-o="1" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="1" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(6000 10000)">
+<path class="f" data-o="1" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="1" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="1" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="1" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(8000 10000)">
+<path class="f" data-o="1" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="1" d="M-300 900-830 380l620-210"/>
+<circle class="g" data-o="1" cx="440" cy="-560" r="150"/>
+</g>
+<circle class="g" data-o="1" cx="4440" cy="11440" r="150"/>
+<g transform="translate(6000 12000)">
+<path class="f" data-o="1" d="M-830-170l540-210-150-490-390 700z"/>
+<circle class="g" data-o="1" cx="440" cy="-560" r="150"/>
+</g>
+<circle class="e" data-o="2" cx="2440" cy="8510" r="300"/>
+<g transform="translate(4000 8000)">
+<path class="d" data-o="2" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="2" cx="440" cy="510" r="300"/>
+</g>
+<g transform="translate(6000 8000)">
+<path class="d" data-o="2" d="M-300 900-830 380l620-210"/>
+</g>
+<g transform="translate(4000 10000)">
+<path class="f" data-o="2" d="M-830-170l540-210-150-490-390 700z"/>
+<circle class="g" data-o="2" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(4000-2000)">
+<path class="d" data-o="3" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="3" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="3" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(6000-2000)">
+<path class="f" data-o="3" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="3" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="3" cx="440" cy="510" r="300"/>
+</g>
+<g transform="translate(4000)">
+<path class="f" data-o="3" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="3" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="3" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="3" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(6000)">
+<path class="f" data-o="3" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="3" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="3" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="3" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(8000)">
+<path class="f" data-o="3" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="3" d="M-300 900-830 380l620-210"/>
+</g>
+<g transform="translate(4000 2000)">
+<path class="f" data-o="3" d="M-830-170l540-210-150-490-390 700z"/>
+<circle class="e" data-o="3" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="3" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(6000 2000)">
+<path class="f" data-o="3" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="3" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="3" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="3" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(8000 2000)">
+<path class="f" data-o="3" d="M-830-170l540-210-150-490-390 700z"/>
+</g>
+<g transform="translate(6000 4000)">
+<path class="f" data-o="3" d="M-830-170l540-210-150-490-390 700z"/>
+</g>
+</g>
+<g transform="rotate(-100.5)" data-s="3">
+<g transform="translate(6000-24000)">
+<path class="d" data-o="6" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="6" cx="440" cy="510" r="300"/>
+</g>
+<g transform="translate(8000-24000)">
+<path class="d" data-o="6" d="M-300 900-830 380l620-210"/>
+</g>
+<g transform="translate(4000-22000)">
+<circle class="e" data-o="6" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="6" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(6000-22000)">
+<path class="f" data-o="6" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="6" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="6" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="6" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(8000-22000)">
+<path class="f" data-o="6" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="6" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="6" cx="440" cy="510" r="300"/>
+</g>
+<g transform="translate(4000-20000)">
+<path class="f" data-o="6" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="6" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="6" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="6" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(6000-20000)">
+<path class="f" data-o="6" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="6" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="6" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="6" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(8000-20000)">
+<path class="f" data-o="6" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="6" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="6" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="6" cx="440" cy="-560" r="150"/>
+</g>
+<circle class="e" data-o="6" cx="2440" cy="-17490" r="300"/>
+<g transform="translate(4000-18000)">
+<path class="f" data-o="6" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="6" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="6" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="6" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(6000-18000)">
+<path class="f" data-o="6" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="6" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="6" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="6" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(8000-18000)">
+<path class="f" data-o="6" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="6" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="6" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="6" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(2000-16000)">
+<circle class="e" data-o="6" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="6" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(4000-16000)">
+<path class="f" data-o="6" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="6" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="6" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="6" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(6000-16000)">
+<path class="f" data-o="6" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="6" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="6" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="6" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(8000-16000)">
+<path class="f" data-o="6" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="6" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="6" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="6" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(2000-14000)">
+<path class="d" data-o="6" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="6" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="6" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(4000-14000)">
+<path class="f" data-o="6" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="6" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="6" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="6" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(6000-14000)">
+<path class="f" data-o="6" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="6" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="6" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="6" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(8000-14000)">
+<path class="f" data-o="6" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="6" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="6" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="6" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(2000-12000)">
+<path class="f" data-o="6" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="6" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="6" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="6" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(4000-12000)">
+<path class="f" data-o="6" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="6" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="6" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="6" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(6000-12000)">
+<path class="f" data-o="6" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="6" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="6" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="6" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(8000-12000)">
+<path class="f" data-o="6" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="6" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="6" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="6" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(2000-10000)">
+<path class="f" data-o="6" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="6" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="6" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="6" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(4000-10000)">
+<path class="f" data-o="6" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="6" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="6" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="6" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(6000-10000)">
+<path class="f" data-o="6" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="6" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="6" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="6" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(8000-10000)">
+<path class="f" data-o="6" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="6" d="M-300 900-830 380l620-210"/>
+</g>
+<g transform="translate(2000-8000)">
+<path class="f" data-o="6" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="6" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="6" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="6" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(4000-8000)">
+<path class="f" data-o="6" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="6" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="6" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="6" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(6000-8000)">
+<path class="f" data-o="6" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="6" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="6" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="6" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(8000-8000)">
+<path class="f" data-o="6" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="6" d="M-300 900-830 380l620-210"/>
+</g>
+<g transform="translate(2000-6000)">
+<path class="f" data-o="6" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="6" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="6" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="6" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(4000-6000)">
+<path class="f" data-o="6" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="6" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="6" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="6" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(6000-6000)">
+<path class="f" data-o="6" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="6" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="6" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="6" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(2000-4000)">
+<path class="f" data-o="6" d="M-830-170l540-210-150-490-390 700z"/>
+<circle class="e" data-o="6" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="6" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(4000-4000)">
+<path class="f" data-o="6" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="6" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="6" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="6" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(6000-4000)">
+<path class="f" data-o="6" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="6" d="M-300 900-830 380l620-210"/>
+<circle class="g" data-o="6" cx="440" cy="-560" r="150"/>
+</g>
+<circle class="g" data-o="6" cx="2440" cy="-2560" r="150"/>
+<g transform="translate(4000-2000)">
+<path class="f" data-o="6" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="6" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="6" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="6" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(2000-8000)">
+<path class="d" data-o="7" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="7" cx="440" cy="510" r="300"/>
+</g>
+<g transform="translate(4000-8000)">
+<path class="d" data-o="7" d="M-300 900-830 380l620-210"/>
+</g>
+<g transform="translate(-4000-6000)">
+<path class="d" data-o="7" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="7" cx="440" cy="510" r="300"/>
+</g>
+<g transform="translate(-2000-6000)">
+<path class="f" data-o="7" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="7" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="7" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="7" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(0-6000)">
+<path class="f" data-o="7" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="7" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="7" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="7" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(2000-6000)">
+<path class="f" data-o="7" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="7" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="7" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="7" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(4000-6000)">
+<path class="f" data-o="7" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="7" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="7" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="7" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(6000-6000)">
+<path class="f" data-o="7" d="M-830-170l540-210-150-490-390 700z"/>
+</g>
+<g transform="translate(-4000-4000)">
+<path class="f" data-o="7" d="M-830-170l540-210-150-490-390 700z"/>
+<circle class="g" data-o="7" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(-2000-4000)">
+<path class="f" data-o="7" d="M-830-170l540-210-150-490-390 700z"/>
+<path class="d" data-o="7" d="M-300 900-830 380l620-210"/>
+<circle class="e" data-o="7" cx="440" cy="510" r="300"/>
+<circle class="g" data-o="7" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(0-4000)">
+<path class="f" data-o="7" d="M-830-170l540-210-150-490-390 700z"/>
+<circle class="g" data-o="7" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(2000-4000)">
+<path class="f" data-o="7" d="M-830-170l540-210-150-490-390 700z"/>
+<circle class="g" data-o="7" cx="440" cy="-560" r="150"/>
+</g>
+<g transform="translate(4000-4000)">
+<path class="f" data-o="7" d="M-830-170l540-210-150-490-390 700z"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<g transform="matrix(.0302341 0 0-.0302341 788.83 445.5)" clip-path="url(#b)">
+<use xlink:href="#a"/>
+</g>
+</svg>
