@@ -13,6 +13,7 @@ They need bash, Python 3 with Pillow, Node, git and the GitHub CLI signed in to 
 | `wait-run.sh <run id>` | Waits for a GitHub Actions run and prints its conclusion and jobs. Start it in the background and be told when the run ends. |
 | `render-cases.sh <worktree> <results> <references> <cases>` | Renders cases' SVGs in Chromium exactly as the tests do, the sentinel font and the flags included, for the gallery and the tolerance research, through `../SvgGallery/render-cases.mjs`. |
 | `fetch-artifact.sh <run id> <artifact> <folder>` | Downloads and unpacks one artifact of a run into a folder of its own. |
+| `check-embedded-fonts.py [--ots <ots-sanitize>] [--quiet] <SVGs or folders>` | Lists the fonts the documents embed, with their sizes and glyph counts, and checks each with the OpenType Sanitizer, which browsers run on every web font: a font it rejects draws no text. Exits 1 when it rejects one. |
 | `record-baselines.py [--dry-run] <artifact folder> <fix worktree> <wip worktree>` | Writes the renderings a Tests run left of its failed bitmap comparisons over their baselines: on the fix branch where the baseline is upstream's, on the wip branch where base moved it. |
 
 Set `ARCHIVE_TRAILERS` to the executor's attribution lines and `push-svg-loop.sh` ends its commits with them, as the
