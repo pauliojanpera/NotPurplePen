@@ -1272,14 +1272,14 @@ namespace Map_Svg.Tests
                 },
                 new string[] {
                     "<g data-m=\"1\">",
-                    "<text class=\"a\" transform=\"translate(10000 22000)scale(1000)\">Map</text>",
+                    "<text class=\"a\" transform=\"translate(10000 22000)scale(1000)\" x=\"0 1.25 2.5\">Map</text>",
                     "</g>",
                 }), document);
             CollectionAssert.AreEqual(new string[] { "Arial Regular Map" }, subsets.Requests);
         }
 
         [Test]
-        public void TextCarriesTheKerningOfTheApplicationsShaping()
+        public void TextPlacesEachCharacterWhereTheApplicationsShapingStartsIt()
         {
             string document = WriteText(target => {
                 object font = new object(), black = new object();
@@ -1289,13 +1289,13 @@ namespace Map_Svg.Tests
                 target.DrawText("AVX", font, black, Point(0, 10));
                 target.DrawText("XYZ", font, black, Point(0, 20));
             }, null);
-            StringAssert.Contains("<text class=\"a\" transform=\"translate(0 2000)scale(1000)\" dx=\"0 -.25 -.2\">AVA</text>\n", document);
-            StringAssert.Contains("<text class=\"a\" transform=\"translate(0 12000)scale(1000)\" dx=\"0 -.25\">AVX</text>\n", document);
-            StringAssert.Contains("<text class=\"a\" transform=\"translate(0 22000)scale(1000)\">XYZ</text>\n", document);
+            StringAssert.Contains("<text class=\"a\" transform=\"translate(0 2000)scale(1000)\" x=\"0 1 2.05\">AVA</text>\n", document);
+            StringAssert.Contains("<text class=\"a\" transform=\"translate(0 12000)scale(1000)\" x=\"0 1 2.25\">AVX</text>\n", document);
+            StringAssert.Contains("<text class=\"a\" transform=\"translate(0 22000)scale(1000)\" x=\"0 1.25 2.5\">XYZ</text>\n", document);
         }
 
         [Test]
-        public void AMarkKeepsItsPlaceByItsLetterAndKerningMovesWholeClusters()
+        public void AMarkKeepsItsPlaceByItsLetterAndTheClustersAfterItAreLaidOutByATspan()
         {
             string document = WriteText(target => {
                 object font = new object(), black = new object();
@@ -1303,7 +1303,7 @@ namespace Map_Svg.Tests
                 target.CreateSolidBrush(black, CmykColor.FromCmyk(0, 0, 0, 1));
                 target.DrawText("x\u0301AV", font, black, Point(0, 0));
             }, null);
-            StringAssert.Contains("<text class=\"a\" transform=\"translate(0 2000)scale(1000)\" dx=\"0 0 0 -.25\">x\u0301AV</text>\n", document);
+            StringAssert.Contains("<text class=\"a\" transform=\"translate(0 2000)scale(1000)\">x\u0301<tspan x=\"1.25 2.25\">AV</tspan></text>\n", document);
         }
 
         [Test]
@@ -1316,7 +1316,7 @@ namespace Map_Svg.Tests
                 target.DrawText("Big", font, black, Point(0, 0));
             }, null);
             StringAssert.Contains(BlackTextClass("a", "font-size:20px;font-family:\"Arial\""), document);
-            StringAssert.Contains("<text class=\"a\" transform=\"translate(0 16000)scale(1000)\">Big</text>\n", document);
+            StringAssert.Contains("<text class=\"a\" transform=\"translate(0 16000)scale(1000)\" x=\"0 10 20\">Big</text>\n", document);
         }
 
         [Test]
@@ -1346,7 +1346,7 @@ namespace Map_Svg.Tests
                 target.CreateSolidBrush(black, CmykColor.FromCmyk(0, 0, 0, 1));
                 target.DrawText(" a < b & c > d  \u0001", font, black, Point(1, 1));
             }, null);
-            StringAssert.Contains("<text class=\"a\" transform=\"translate(1000 2600)scale(1000)\"> a &lt; b &amp; c &gt; d  </text>\n", document);
+            StringAssert.Contains("<text class=\"a\" transform=\"translate(1000 2600)scale(1000)\" x=\"0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15\"> a &lt; b &amp; c &gt; d  </text>\n", document);
         }
 
         [Test]
@@ -1424,6 +1424,18 @@ namespace Map_Svg.Tests
             StringAssert.Contains(".b{font-family:\"Fallback\"}\n", document);
             StringAssert.Contains(">ab<tspan class=\"b\">中文\U0001F600</tspan>c</text>\n", document);
             StringAssert.DoesNotContain("unicode-range", document);
+        }
+
+        [Test]
+        public void ARunInAFallbackFaceThatCrossesTheEndOfAListOfPositionsIsClosedAndOpenedAgainAfterIt()
+        {
+            string document = WriteText(target => {
+                object font = new object(), black = new object();
+                target.CreateFont(font, "Arial", 2, TextEffects.Regular);
+                target.CreateSolidBrush(black, CmykColor.FromCmyk(0, 0, 0, 1));
+                target.DrawText("中x́文", font, black, Point(0, 0));
+            }, new TestFontSubsets());
+            StringAssert.Contains(" x=\"0 1\"><tspan class=\"b\">中</tspan>x<tspan class=\"b\">́</tspan><tspan x=\"2\"><tspan class=\"b\">文</tspan></tspan></text>\n", document);
         }
 
         [Test]

@@ -96,34 +96,22 @@ namespace PurplePen.MapModel
                                (face.Bold ? ";font-weight:700" : "") + (face.Italic ? ";font-style:italic" : "");
             }
 
-            // The kerning before each character of text after the first, in steps, without the zeros that end it: how far
-            // the application's shaping moves each grapheme cluster from where the advances of the clusters before it,
-            // each drawn alone, would put it. That is the width of the text up to and with the cluster, less the width
-            // up to the cluster before and the cluster's own advance. A cluster, such as a letter with its marks, an
-            // Indic syllable or an emoji sequence, is shaped as one, and a mark drawn alone would take the room of a
-            // placeholder, so only a cluster's first character is moved and the others keep their places by it.
-            // text: the text, whose surrogate pairs each make one character.
-            public long[] Kerning(string text)
+            // The clusters of a text that shaping sets as one, each with where the application's shaping starts it along
+            // the baseline, in steps from the text's start: the width of the text up to and with the cluster, less the
+            // cluster's own advance. A cluster, such as a letter with its marks, an Indic syllable or an emoji sequence, is
+            // shaped as one, and a mark drawn alone would take the room of a placeholder, so a cluster's characters after
+            // the first keep their places by it.
+            // text: the text.
+            public List<TextCluster> Layout(string text)
             {
-                List<long> kerning = new List<long>();
-                int last = -1;
-                List<string> clusters = Clusters(text);
-                string first = clusters[0];
-                AddZeros(kerning, CharacterCount(first) - 1);
-                int start = first.Length;
-                float widthBefore = Metrics.GetTextWidth(first);
-                foreach (string cluster in clusters.GetRange(1, clusters.Count - 1)) {
-                    float width = Metrics.GetTextWidth(text.Substring(0, start + cluster.Length));
-                    long shift = SvgNumbers.ToSteps(width - widthBefore - Advance(cluster));
-                    kerning.Add(shift);
-                    if (shift != 0)
-                        last = kerning.Count - 1;
-                    AddZeros(kerning, CharacterCount(cluster) - 1);
-                    widthBefore = width;
-                    start += cluster.Length;
+                List<TextCluster> layout = new List<TextCluster>();
+                int end = 0;
+                foreach (string cluster in Clusters(text)) {
+                    end += cluster.Length;
+                    float start = end == cluster.Length ? 0 : Metrics.GetTextWidth(text.Substring(0, end)) - Advance(cluster);
+                    layout.Add(new TextCluster(cluster, SvgNumbers.ToSteps(start)));
                 }
-                kerning.RemoveRange(last + 1, kerning.Count - last - 1);
-                return kerning.ToArray();
+                return layout;
             }
 
             // The clusters of a text that shaping sets as one: its grapheme clusters, where a cluster that ends in a virama
@@ -157,24 +145,7 @@ namespace PurplePen.MapModel
                 return viramas.Contains(cluster[last]);
             }
 
-            // The characters of a text, each surrogate pair one.
-            // text: the text.
-            private static int CharacterCount(string text)
-            {
-                int count = 0;
-                for (int index = 0; index < text.Length; index += char.IsSurrogatePair(text, index) ? 2 : 1)
-                    ++count;
-                return count;
-            }
 
-            // Add zeros to the kerning, for the characters of a cluster after its first.
-            // kerning: the kerning.
-            // count: how many.
-            private static void AddZeros(List<long> kerning, int count)
-            {
-                for (int index = 0; index < count; ++index)
-                    kerning.Add(0);
-            }
 
             // The advance of a cluster drawn alone, in millimetres.
             // character: the cluster.
@@ -996,8 +967,8 @@ namespace PurplePen.MapModel
         }
 
         // Add text within the innermost open group: its baseline starts at the upper left corner lowered by the font's
-        // ascent, as the application draws it, and each character after the first is moved by the kerning that the
-        // application's shaping puts between it and the one before (T-1). The text is composed as the application
+        // ascent, as the application draws it, and each cluster of characters starts where the application's shaping
+        // starts it (T-1). The text is composed as the application
         // composes it before shaping, and its characters are recorded with its face, which the document embeds (T-6).
         // font: the font.
         // paint: the style of its fill or stroke.
@@ -1012,13 +983,13 @@ namespace PurplePen.MapModel
                 return;
 
             ITextFaceMetrics metrics = font.Metrics;
-            long[] kerning = font.Kerning(drawn);
+            List<TextCluster> layout = font.Layout(drawn);
             SvgBounds bounds = new SvgBounds();
             bounds.Include(SvgNumbers.ToSteps(upperLeft.X), SvgNumbers.ToSteps(upperLeft.Y));
             bounds.Include(SvgNumbers.ToSteps(upperLeft.X + metrics.GetTextWidth(drawn)), SvgNumbers.ToSteps(upperLeft.Y + metrics.Ascent + metrics.Descent));
             font.Face.AddCharacters(drawn);
             AddElement(new SvgText(paint.Around(font.Declarations + ";", ""), font.Face, SvgNumbers.ToSteps(upperLeft.X),
-                                   SvgNumbers.ToSteps(upperLeft.Y + metrics.Ascent), kerning, drawn, bounds), callName);
+                                   SvgNumbers.ToSteps(upperLeft.Y + metrics.Ascent), layout, bounds), callName);
         }
 
         // Text composed to the precomposed form, as the application composes it before shaping, and without the

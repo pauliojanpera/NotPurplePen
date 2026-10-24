@@ -210,9 +210,9 @@ namespace PurplePen.MapModel
     // none, in steps (S-9, S-11); then the characters, escaped for XML.
     public sealed class SvgText : SvgElement
     {
-        // The steps in a unit of a text's own coordinates. A text is set in millimetres, its size, its kerning and the
-        // positions of its characters, and scaled to steps by its transform, which also places it: browsers cap the
-        // font size, Chromium at 10,000 units, which in steps would make all text over 10 mm 10 mm high (T-1).
+        // The steps in a unit of a text's own coordinates. A text is set in millimetres, its size and the positions of
+        // its characters, and scaled to steps by its transform, which also places it: browsers cap the font size,
+        // Chromium at 10,000 units, which in steps would make all text over 10 mm 10 mm high (T-1).
         public const double StepsPerTextUnit = SvgNumbers.StepsPerMillimetre;
 
         // The decimals that keep a step in a text's own units.
@@ -230,11 +230,8 @@ namespace PurplePen.MapModel
         // The start of the baseline, in steps.
         private readonly long x, y;
 
-        // The kerning before each character after the first, in steps, without the zeros that end it.
-        private readonly long[] kerning;
-
-        // The characters.
-        private readonly string text;
+        // The clusters of characters, each with where it starts along the baseline.
+        private readonly IList<TextCluster> clusters;
 
         // The bounds of the text: from its start to its advance, and from its top to its descent.
         private readonly SvgBounds bounds;
@@ -243,17 +240,15 @@ namespace PurplePen.MapModel
         // style: its font and paint.
         // face: its font face.
         // x, y: the start of its baseline, in steps.
-        // kerning: the kerning before each character after the first, in steps, without the zeros that end it.
-        // text: the characters.
+        // clusters: the clusters of characters, each with where it starts along the baseline.
         // bounds: the bounds of the text.
-        public SvgText(SvgStyle style, SvgFontFace face, long x, long y, long[] kerning, string text, SvgBounds bounds)
+        public SvgText(SvgStyle style, SvgFontFace face, long x, long y, IList<TextCluster> clusters, SvgBounds bounds)
         {
             this.style = style;
             this.face = face;
             this.x = x;
             this.y = y;
-            this.kerning = kerning;
-            this.text = text;
+            this.clusters = clusters;
             this.bounds = bounds;
         }
 
@@ -264,11 +259,15 @@ namespace PurplePen.MapModel
         }
 
         // Write the element, in millimetres under a transform that places its baseline's start and scales it to steps.
-        // The kerning is written as dx, whose first value, the shift of the first character, is 0. Each run of characters
-        // that a fallback face draws is a tspan naming that face's family, so that a viewer draws it in the face the
-        // application drew it in, and the emoji presentation selector is written as the text presentation selector:
-        // the application draws the face's glyph, while a browser would take a color emoji font of its own for an
-        // emoji presentation sequence, whatever face the text names (T-8).
+        // Each cluster's first character is placed where the cluster starts, by x, so that no viewer's own advances
+        // move it: browsers round the advances of glyphs, which over a line would add up to a pixel and more, and
+        // differ from one another. A position given to a character after the first of a cluster would part it from
+        // the others, as browsers place each character given a position by itself, so a list of positions ends at
+        // the first cluster of several characters, and the clusters after it are placed by the list of a tspan of
+        // their own. Each run of characters that a fallback face draws is a tspan naming that face's family, so that
+        // a viewer draws it in the face the application drew it in, and the emoji presentation selector is written as
+        // the text presentation selector: the application draws the face's glyph, while a browser would take a color
+        // emoji font of its own for an emoji presentation sequence, whatever face the text names (T-8).
         public override void Write(SvgWriter writer)
         {
             writer.Text.Append("<text class=\"").Append(writer.ClassOf(style.Resolve(writer))).Append('"');
@@ -276,40 +275,105 @@ namespace PurplePen.MapModel
             double width = bounds.MaxX - bounds.MinX, height = bounds.MaxY - bounds.MinY;
             SvgTransform placement = new SvgTransform(StepsPerTextUnit, 0, 0, StepsPerTextUnit, x, y);
             writer.Text.Append(" transform=\"").Append(placement.Format(Math.Sqrt(width * width + height * height) / StepsPerTextUnit, 1)).Append('"');
-            if (kerning.Length > 0) {
-                writer.Text.Append(" dx=\"0");
-                foreach (long shift in kerning)
-                    writer.Text.Append(' ').Append(SvgNumbers.FormatDecimal(shift / StepsPerTextUnit, TextUnitDecimals));
-                writer.Text.Append('"');
-            }
+            int placedUpTo = EndOfPlacement(0);
+            if (placedUpTo > 1)
+                WritePositions(writer, 0, placedUpTo);
             writer.Text.Append('>');
             string runFamily = null;
-            for (int index = 0; index < text.Length; ++index) {
-                char character = text[index];
-                if (!char.IsLowSurrogate(character)) {
-                    string family = face.FallbackFamilyOf(char.ConvertToUtf32(text, index));
-                    if (family != runFamily) {
-                        if (runFamily != null)
-                            writer.Text.Append("</tspan>");
-                        if (family != null)
-                            writer.Text.Append("<tspan class=\"").Append(writer.ClassOf("font-family:" + SvgFontFace.QuoteFamily(family))).Append("\">");
-                        runFamily = family;
-                    }
+            bool inPlacement = false;
+            for (int index = 0; index < clusters.Count; ++index) {
+                if (index == placedUpTo) {
+                    // A new list of positions begins with this cluster, in a tspan of its own.
+                    if (runFamily != null)
+                        writer.Text.Append("</tspan>");
+                    if (inPlacement)
+                        writer.Text.Append("</tspan>");
+                    runFamily = null;
+                    placedUpTo = EndOfPlacement(index);
+                    writer.Text.Append("<tspan");
+                    WritePositions(writer, index, placedUpTo);
+                    writer.Text.Append('>');
+                    inPlacement = true;
                 }
-                if (character == '&')
-                    writer.Text.Append("&amp;");
-                else if (character == '<')
-                    writer.Text.Append("&lt;");
-                else if (character == '>')
-                    writer.Text.Append("&gt;");
-                else if (character == EmojiPresentationSelector)
-                    writer.Text.Append(TextPresentationSelector);
-                else
-                    writer.Text.Append(character);
+                string characters = clusters[index].Characters;
+                for (int position = 0; position < characters.Length; ++position) {
+                    char character = characters[position];
+                    if (!char.IsLowSurrogate(character)) {
+                        string family = face.FallbackFamilyOf(char.ConvertToUtf32(characters, position));
+                        if (family != runFamily) {
+                            if (runFamily != null)
+                                writer.Text.Append("</tspan>");
+                            if (family != null)
+                                writer.Text.Append("<tspan class=\"").Append(writer.ClassOf("font-family:" + SvgFontFace.QuoteFamily(family))).Append("\">");
+                            runFamily = family;
+                        }
+                    }
+                    if (character == '&')
+                        writer.Text.Append("&amp;");
+                    else if (character == '<')
+                        writer.Text.Append("&lt;");
+                    else if (character == '>')
+                        writer.Text.Append("&gt;");
+                    else if (character == EmojiPresentationSelector)
+                        writer.Text.Append(TextPresentationSelector);
+                    else
+                        writer.Text.Append(character);
+                }
             }
             if (runFamily != null)
                 writer.Text.Append("</tspan>");
+            if (inPlacement)
+                writer.Text.Append("</tspan>");
             writer.Text.Append("</text>\n");
+        }
+
+        // The end of the clusters that one list of positions places, from a first one: up to and with the first cluster
+        // of several characters, or all the rest. A surrogate pair is one character, as it is to a list of positions.
+        // first: the first cluster the list places.
+        private int EndOfPlacement(int first)
+        {
+            int end = first;
+            while (end < clusters.Count) {
+                string characters = clusters[end++].Characters;
+                if (characters.Length > (char.IsSurrogatePair(characters, 0) ? 2 : 1))
+                    break;
+            }
+            return end;
+        }
+
+        // Write the x attribute that places a range of clusters, each where it starts along the baseline.
+        // writer: the writer.
+        // first: the first cluster of the range.
+        // end: the end of the range.
+        private void WritePositions(SvgWriter writer, int first, int end)
+        {
+            writer.Text.Append(" x=\"");
+            for (int index = first; index < end; ++index) {
+                if (index > first)
+                    writer.Text.Append(' ');
+                writer.Text.Append(SvgNumbers.FormatDecimal(clusters[index].Start / StepsPerTextUnit, TextUnitDecimals));
+            }
+            writer.Text.Append('"');
+        }
+    }
+
+    // A cluster of characters that shaping sets as one, such as a letter with its marks, and where the application's
+    // shaping starts it along its text's baseline.
+    public sealed class TextCluster
+    {
+        // The characters.
+        public readonly string Characters;
+
+        // Where the cluster starts, in steps from the start of the text's baseline.
+        public readonly long Start;
+
+        // Create a cluster.
+        // characters: its characters.
+        // start: where it starts, in steps from the start of the text's baseline.
+        public TextCluster(string characters, long start)
+        {
+            Characters = characters;
+            Start = start;
         }
     }
 
