@@ -175,6 +175,7 @@ Text stays text, placed with the same metrics the application uses, so the SVG a
 | T-8 | The fallback faces that Skia draws characters from, when the main face lacks them, are embedded too, so the browser draws the same glyphs. | Must |
 | T-9 | A face whose font file forbids embedding, in its `fsType` field, is referenced by name only. | Must |
 | T-10 | The rendering comparison (V-3) covers the text cases too, with a tolerance of their own for the way each system draws glyphs. | Must |
+| T-11 | A document that draws text names the language of its text as undetermined, `xml:lang="und"` on the root, so that a viewer shapes it as the application does, in no language, and not with the forms a font holds for the language of the reader's locale. | Must |
 
 ## Bitmaps
 
