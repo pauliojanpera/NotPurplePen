@@ -7,9 +7,11 @@ namespace Map_Svg.Tests
 {
     // Registers the fonts that the tests draw text in, before any test runs, so that the Skia target finds them
     // whatever fonts the machine has: Liberation Sans as Arial, Liberation Serif as Times New Roman, Caladea as Cambria,
-    // Carlito as Calibri, and Roboto and Roboto Condensed under their own names. Arial is the family every other family
-    // falls back to: on Linux the tests' fontconfig offers no font of the machine's (TestFontConfig), where a machine's
-    // own would map Cambria and Calibri to Caladea and Carlito where those are installed and to nothing where not.
+    // Carlito as Calibri, and Roboto and Roboto Condensed under their own names; and Roboto's variable face as Roboto
+    // Variable, regular and bold, which, loaded from its file, draws its default instance whichever is asked for. Arial
+    // is the family every other family falls back to: on Linux the tests' fontconfig offers no font of the machine's
+    // (TestFontConfig), where a machine's own would map Cambria and Calibri to Caladea and Carlito where those are
+    // installed and to nothing where not.
     [SetUpFixture]
     public class TestFonts
     {
@@ -26,6 +28,8 @@ namespace Map_Svg.Tests
             Register(folder, "Roboto", SKFontStyleWeight.Bold, SKFontStyleWidth.Normal, "Roboto-Bold");
             Register(folder, "Roboto", SKFontStyleWeight.Normal, SKFontStyleWidth.Condensed, "RobotoCondensed-Regular");
             Register(folder, "Roboto", SKFontStyleWeight.Bold, SKFontStyleWidth.Condensed, "RobotoCondensed-Bold");
+            Register(folder, "Roboto Variable", SKFontStyleWeight.Normal, SKFontStyleSlant.Upright, "variable/RobotoVariable-Test");
+            Register(folder, "Roboto Variable", SKFontStyleWeight.Bold, SKFontStyleSlant.Upright, "variable/RobotoVariable-Test");
             SkiaFontManager.SetDefaultFontFamilyName("Arial");
         }
 

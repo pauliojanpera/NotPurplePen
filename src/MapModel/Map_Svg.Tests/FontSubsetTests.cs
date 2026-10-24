@@ -2,17 +2,21 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using HarfBuzzSharp;
 using Map_SkiaStd;
 using NUnit.Framework;
+using PurplePen.Graphics2D;
+using PurplePen.MapModel;
+using RenderingTestCases;
 using SkiaSharp;
 
 namespace Map_Svg.Tests
 {
     // Tests of the subsets that HarfBuzzSubsetter cuts (T-7): what they hold, that HarfBuzz, as a browser runs it,
     // shapes the text from a subset into the glyphs and positions the application's HarfBuzz shapes it into from the
-    // whole face, the face's box under characters the face lacks, and the subsets of symbol fonts.
+    // whole face, the face's box under characters the face lacks, and the subsets of symbol fonts and variable fonts.
     [TestFixture]
     public class FontSubsetTests
     {
@@ -222,6 +226,116 @@ namespace Map_Svg.Tests
             return await ChromiumRenderer.RenderAsync(LoopResults.SaveSvg(name, document), new Size(160, 50));
         }
 
+        // The variable face of the tests, which TestFonts registers as Roboto Variable.
+        private const string VariableFace = "variable/RobotoVariable-Test.ttf";
+
+        [Test]
+        public void AVariableFaceIsCutToAStaticFaceAtItsDefaultLocation()
+        {
+            byte[] whole = File.ReadAllBytes(FontPath(VariableFace));
+            const string text = "Hamburgefonstiv 0123";
+            byte[] subset = HarfBuzzSubsetter.Cut(OpenTypeFont.Read(whole, 0), CodePoints(text));
+            OpenTypeFont font = OpenTypeFont.Read(subset, 0);
+            foreach (string tag in new string[] { "fvar", "gvar", "avar", "HVAR" })
+                Assert.IsFalse(font.Tables.ContainsKey(tag), tag);
+            AssertShapesAlike(whole, subset, text);
+        }
+
+        [Test]
+        public void AVariableFaceIsCutAtTheLocationOfTheInstanceItsTypefaceIsNamedAfter()
+        {
+            byte[] whole = File.ReadAllBytes(FontPath(VariableFace));
+            OpenTypeFont font = OpenTypeFont.Read(whole, 0);
+            font.Location = VariableFont.LocationDrawn(font, "Roboto-Bold");
+            const string text = "Hamburgefonstiv";
+            byte[] subset = HarfBuzzSubsetter.Cut(font, CodePoints(text));
+            Assert.IsFalse(OpenTypeFont.Read(subset, 0).Tables.ContainsKey("fvar"));
+            using (Shaper atBold = new Shaper(whole, font.Location))
+            using (Shaper fromSubset = new Shaper(subset))
+            using (Shaper atDefault = new Shaper(whole)) {
+                foreach (char character in text) {
+                    Assert.AreEqual(atBold.Metrics(atBold.Glyph(character)), fromSubset.Metrics(fromSubset.Glyph(character)), "{0}: its advance and extents", character);
+                    Assert.AreNotEqual(atDefault.Metrics(atDefault.Glyph(character)), fromSubset.Metrics(fromSubset.Glyph(character)), "{0}: not the regular", character);
+                }
+            }
+        }
+
+        [Test]
+        public void TheInstanceATypefaceIsNamedAfterIsFoundByItsOwnNameOrByTheNameMadeForIt()
+        {
+            OpenTypeFont font = OpenTypeFont.Read(File.ReadAllBytes(FontPath(VariableFace)), 0);
+            CollectionAssert.AreEquivalent(new Dictionary<string, float> { { "wght", 700 }, { "wdth", 100 } }, VariableFont.LocationDrawn(font, "Roboto-Bold"));
+            CollectionAssert.AreEquivalent(new Dictionary<string, float> { { "wght", 400 }, { "wdth", 75 } }, VariableFont.LocationDrawn(font, "Roboto-CondensedRegular"));
+            Assert.IsNull(VariableFont.LocationDrawn(font, "Roboto"), "the default instance, as FreeType names it");
+            Assert.IsNull(VariableFont.LocationDrawn(OpenTypeFont.Read(File.ReadAllBytes(FontPath("LiberationSans-Regular.ttf")), 0), "LiberationSans"));
+
+            // Without the names of its instances, each instance is known by the name made of name 25 and its subfamily.
+            byte[] fvar = font.Tables["fvar"];
+            int axisCount = OpenTypeFont.ReadUInt16(fvar, 8), instanceCount = OpenTypeFont.ReadUInt16(fvar, 12), instanceSize = OpenTypeFont.ReadUInt16(fvar, 14);
+            int instances = OpenTypeFont.ReadUInt16(fvar, 4) + axisCount * OpenTypeFont.ReadUInt16(fvar, 10);
+            Assert.AreEqual(6 + 4 * axisCount, instanceSize, "the instances carry PostScript names");
+            byte[] unnamed = new byte[instances + instanceCount * (instanceSize - 2)];
+            System.Buffer.BlockCopy(fvar, 0, unnamed, 0, instances);
+            for (int instance = 0; instance < instanceCount; ++instance)
+                System.Buffer.BlockCopy(fvar, instances + instance * instanceSize, unnamed, instances + instance * (instanceSize - 2), instanceSize - 2);
+            OpenTypeFont.WriteUInt16(unnamed, 14, instanceSize - 2);
+            font.Tables["fvar"] = unnamed;
+            CollectionAssert.AreEquivalent(new Dictionary<string, float> { { "wght", 700 }, { "wdth", 75 } }, VariableFont.LocationDrawn(font, "Roboto-CondensedBold"));
+        }
+
+        [Test]
+        public async Task ChromiumDrawsAVariableFaceWhereTheApplicationDrawsIt()
+        {
+            // Loaded from its file, the face draws its default instance, the regular, for the bold too.
+            RectangleF area = new RectangleF(0, 0, 120, 30);
+            Size pixels = new Size(1200, 300);
+            string difference = await CompareTextDrawing("variable-face", area, pixels, target => {
+                object regular = new object(), bold = new object(), black = new object();
+                target.CreateFont(regular, "Roboto Variable", 8, TextEffects.Regular);
+                target.CreateFont(bold, "Roboto Variable", 8, TextEffects.Bold);
+                target.CreateSolidBrush(black, CmykColor.FromCmyk(0, 0, 0, 1));
+                target.DrawText("Hamburgefonstiv 0123", regular, black, new PointF(2, 2));
+                target.DrawText("Hamburgefonstiv 0123", bold, black, new PointF(2, 16));
+            });
+            Assert.IsNull(difference, difference);
+        }
+
+        // Draw text through the Skia target and through the SVG target, render the document in Chromium, and describe
+        // how far its image lies from Skia's, or return null if within the tolerance for text.
+        // name: the name of the drawing among the run's SVGs.
+        // area: the area of drawing coordinates the image shows.
+        // pixels: the size of the image.
+        // draw: draws the text.
+        private static async Task<string> CompareTextDrawing(string name, RectangleF area, Size pixels, Action<IGraphicsTarget> draw)
+        {
+            using (SKBitmap reference = new SKBitmap(pixels.Width, pixels.Height)) {
+                using (SKCanvas canvas = new SKCanvas(reference)) {
+                    canvas.Clear(SKColors.White);
+                    using (Skia_GraphicsTarget target = new Skia_GraphicsTarget(canvas))
+                    using (Matrix areaToImage = AreaInImage.CreateTransform(area, pixels, false)) {
+                        target.PushTransform(areaToImage);
+                        target.PushAntiAliasing(true);
+                        draw(target);
+                    }
+                }
+
+                string document;
+                using (Svg_GraphicsTarget target = new Svg_GraphicsTarget(DefaultColorConverter.Instance, true, SvgBitmapOptions.Default, new Skia_TextMetrics(), new SkiaFontSubsetProvider()))
+                using (Matrix areaToImage = AreaInImage.CreateTransform(area, pixels, false)) {
+                    object part = new object(), map = new object();
+                    target.BeginPart(part);
+                    target.BeginMap(map, name);
+                    draw(target);
+                    target.EndMap();
+                    target.EndPart();
+                    target.AddPage(new SizeF(pixels.Width, pixels.Height), area, areaToImage, new object[] { part });
+                    document = target.FinishDocument();
+                }
+                using (SKBitmap rendering = await ChromiumRenderer.RenderAsync(LoopResults.SaveSvg(name, document), pixels))
+                    return ImageComparison.DescribeDifference(name, reference, rendering, PixelTolerance.Text);
+            }
+        }
+
         // The path of a test font.
         // name: the font's file, within the fonts folder.
         private static string FontPath(string name)
@@ -275,13 +389,20 @@ namespace Map_Svg.Tests
             private readonly SKTypeface typeface;
             private readonly SKFont outlines;
 
-            // Load a face.
+            // Load a face, at a location of its design space if it is variable.
             // data: the font data.
-            public Shaper(byte[] data)
+            // location: the coordinates of its axes, by tag, or null for the default location.
+            public Shaper(byte[] data, IDictionary<string, float> location = null)
             {
                 blob = Blob.FromStream(new MemoryStream(data));
                 face = new Face(blob, 0);
                 font = new HarfBuzzSharp.Font(face);
+                if (location != null) {
+                    List<HarfBuzzVariation> variations = new List<HarfBuzzVariation>();
+                    foreach (KeyValuePair<string, float> axis in location)
+                        variations.Add(new HarfBuzzVariation { Tag = ((uint)axis.Key[0] << 24) | ((uint)axis.Key[1] << 16) | ((uint)axis.Key[2] << 8) | axis.Key[3], Value = axis.Value });
+                    hb_font_set_variations(font.Handle, variations.ToArray(), (uint)variations.Count);
+                }
                 typeface = SKTypeface.FromData(SKData.CreateCopy(data));
                 Assert.IsNotNull(typeface, "Skia loads the face");
                 outlines = new SKFont(typeface, 1000) { Hinting = SKFontHinting.None };
@@ -327,6 +448,15 @@ namespace Map_Svg.Tests
                 }
             }
 
+            // A glyph's advance and extents in HarfBuzz, at the face's location.
+            // glyph: the glyph.
+            public string Metrics(uint glyph)
+            {
+                GlyphExtents extents;
+                font.TryGetGlyphExtents(glyph, out extents);
+                return font.GetHorizontalGlyphAdvance(glyph) + " " + extents.XBearing + " " + extents.YBearing + " " + extents.Width + " " + extents.Height;
+            }
+
             // The outline of a glyph, unhinted, as SVG path data.
             // glyph: the glyph.
             public string Outline(uint glyph)
@@ -334,6 +464,17 @@ namespace Map_Svg.Tests
                 using (SKPath path = outlines.GetGlyphPath((ushort)glyph))
                     return path == null ? "" : path.ToSvgPathData();
             }
+
+            // hb_variation_t: the coordinate of one axis.
+            [StructLayout(LayoutKind.Sequential)]
+            private struct HarfBuzzVariation
+            {
+                public uint Tag;
+                public float Value;
+            }
+
+            [DllImport("libHarfBuzzSharp", CallingConvention = CallingConvention.Cdecl)]
+            private static extern void hb_font_set_variations(IntPtr font, HarfBuzzVariation[] variations, uint count);
 
             // Release the face.
             public void Dispose()

@@ -59,7 +59,7 @@ namespace Map_SkiaStd
             if (unicode == null)
                 return null;
 
-            OpenTypeFont copy = new OpenTypeFont { SfntVersion = font.SfntVersion };
+            OpenTypeFont copy = new OpenTypeFont { SfntVersion = font.SfntVersion, Location = font.Location };
             foreach (KeyValuePair<string, byte[]> table in font.Tables)
                 copy.Tables[table.Key] = table.Value;
             copy.Tables["cmap"] = unicode;

@@ -20,6 +20,12 @@ Every other family the test maps name falls back to Arial, as the Skia target fa
   no face above has; `fallback/make-fallback-fonts.py` fetches them at pinned commits and makes them anew, and says
   how to add characters. A character none of them has is drawn as a box.
 
+- `variable/RobotoVariable-Test.ttf`: Roboto's variable face, with its axes of weight and width, cut down to the
+  printable characters of ASCII, under the SIL Open Font License in `variable/OFL.txt`. The tests register it as
+  Roboto Variable, regular and bold, which, loaded from its file, draws its default instance whichever is asked for:
+  the subsetter must make it static there, where a browser would draw the bold heavier.
+  `variable/make-variable-font.py` fetches it at a pinned commit and makes it anew.
+
 - `Sentinel.ttf`: the only font of the system's that the tests' Chromium sees on Linux, made for these tests and
   released to the public domain (CC0 1.0). Every glyph it draws is a filled box, so that a character a browser would
   draw in a font of the machine's, rather than in the faces the document embeds, shows as a box and fails.
