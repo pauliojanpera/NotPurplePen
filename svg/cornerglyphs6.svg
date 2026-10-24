@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="882mm" height="785mm" viewBox="0 0 882 785">
+<style>
+.a{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:200;stroke-linejoin:bevel}
+.b{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:150;stroke-linejoin:round}
+.c{fill:none;stroke:#00f;stroke:#00f icc-color(cmyk,1,1,0,0);stroke-width:100;stroke-miterlimit:5}
+.d{fill:none;stroke:#f00;stroke:#f00 icc-color(cmyk,0,1,1,0);stroke-width:100;stroke-miterlimit:5}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="cornerglyphs6">
+<npp:color position="0" name="Black" cmyk="0,0,0,1"/>
+<npp:color position="1" name="Blue" cmyk="1,1,0,0"/>
+<npp:color position="2" name="Red" cmyk="0,1,1,0"/>
+<npp:symbol n="1" id="1.1" colors="0 1"/>
+<npp:symbol n="2" id="1.2" colors="0 2"/>
+</npp:map>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="b">
+<path d="M-51747-22966h70232v62508h-70232z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g data-c="0">
+<g data-s="1">
+<path class="a" data-o="1" d="M-36560 32160l6880 3440-2400-27840-10320 3040 6320 2960-11600 800 3600-24160L4640 4800l-16320 8640"/>
+</g>
+<g data-s="2">
+<path class="b" data-o="2" d="M-23763 14997l11097 4486L5176 36038l4749-19787"/>
+<path class="b" data-o="2" d="M-22957 13003l11463 4634L3944 31962l3891-16213"/>
+<path class="b" data-o="3" d="M-32246-8225l11615-4057-2387 11726 18075-12214 8935-146 7754 11594"/>
+<path class="b" data-o="3" d="M-32954-10255l15185-5303-2093 10274 14245-9626 10745-174 8406 12566"/>
+</g>
+</g>
+<g data-c="1">
+<g data-s="1">
+<g transform="translate(-29680 35600)rotate(-34.181)">
+<path class="c" data-o="1" d="M0 3561-550 0H540L10 3561"/>
+</g>
+<g transform="translate(-32080 7760)rotate(-145.67)">
+<path class="c" data-o="1" d="M0 2750-550 0H540L10 2750"/>
+</g>
+<g transform="translate(-42400 10800)rotate(94.341)">
+<path class="c" data-o="1" d="M0 4910-550 0H540L10 4910"/>
+</g>
+<g transform="translate(-36080 13760)rotate(100.576)">
+<path class="c" data-o="1" d="M0 5220-550 0H540L10 5220"/>
+</g>
+<g transform="translate(-47680 14560)rotate(-132.735)">
+<path class="c" data-o="1" d="M0 2777-550 0H540L10 2777"/>
+</g>
+<g transform="translate(-44080-9600)rotate(-32.529)">
+<path class="c" data-o="1" d="M0 2652-550 0H540L10 2652"/>
+</g>
+<g transform="translate(4640 4800)rotate(84.284)">
+<path class="c" data-o="1" d="M0 4609-550 0H540L10 4609"/>
+</g>
+</g>
+</g>
+<g data-c="2">
+<g data-s="2">
+<g transform="translate(-12080 18560)rotate(32.43)">
+<path class="d" data-o="2" d="M0 1017v-2034"/>
+</g>
+<g transform="translate(4560 34000)rotate(-16.82)">
+<path class="d" data-o="2" d="M0 1981v-3962"/>
+</g>
+<g transform="translate(-19200-13920)rotate(41.13)">
+<path class="d" data-o="3" d="M0 2023v-4046"/>
+</g>
+<g transform="translate(-21440-2920)rotate(33.731)">
+<path class="d" data-o="3" d="M0 2644v-5288"/>
+</g>
+<g transform="translate(-5280-13840)rotate(-17.49)">
+<path class="d" data-o="3" d="M0 1043v-2086"/>
+</g>
+<g transform="translate(4560-14000)rotate(27.65)">
+<path class="d" data-o="3" d="M0 1139v-2278"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<g transform="matrix(.01255836 0 0-.01255836 649.85 496.58)" clip-path="url(#b)">
+<use xlink:href="#a"/>
+</g>
+</svg>

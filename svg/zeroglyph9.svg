@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="778mm" height="532mm" viewBox="0 0 778 532">
+<style>
+.a{fill:none;stroke:#f00;stroke:#f00 icc-color(cmyk,0,1,1,0);stroke-width:60;stroke-linejoin:bevel}
+.b{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-miterlimit:5}
+.c{fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd}
+.d{fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="zeroglyph9">
+<npp:color position="0" name="Red" cmyk="0,1,1,0"/>
+<npp:color position="1" name="Black" cmyk="0,0,0,1"/>
+<npp:symbol n="1" id="1.1" name="Glyph weird stuff" colors="0 1"/>
+</npp:map>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="b">
+<path d="M-4036-2902h8445v5775h-8445z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g data-c="0">
+<g transform="translate(-20-20)" data-s="1">
+<path class="a" data-o="1" d="M-3640 2800v-5560h7800v5560h-7800z"/>
+</g>
+</g>
+<g data-c="1">
+<g transform="translate(-20-20)" data-s="1">
+<path class="b" data-o="1" d="M-730 0H850L-10 1840-680 0"/>
+<path class="c" data-o="1" d="M1390 1020V-100h1180v1130H1390v-10z"/>
+<circle class="b" data-o="1" cx="-2030" cy="-1380" r="500"/>
+<circle class="d" data-o="1" cx="1510" cy="-1580" r="500"/>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<g transform="matrix(.092122 0 0-.092122 371.8 264.7)" clip-path="url(#b)">
+<use xlink:href="#a"/>
+</g>
+</svg>
