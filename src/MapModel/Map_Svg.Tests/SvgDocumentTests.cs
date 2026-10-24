@@ -17,6 +17,11 @@ namespace Map_Svg.Tests
             "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" " +
             "xmlns:npp=\"https://pauliojanpera.github.io/NotPurplePen/svg\" width=\"100mm\" height=\"50mm\" viewBox=\"0 0 100 50\">";
 
+        // The start tag of a document whose first page is 100 by 50 millimetres and which draws text (T-11).
+        private const string RootOf100By50WithText =
+            "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" " +
+            "xmlns:npp=\"https://pauliojanpera.github.io/NotPurplePen/svg\" width=\"100mm\" height=\"50mm\" viewBox=\"0 0 100 50\" xml:lang=\"und\">";
+
         // Draw within one part holding one map labeled "map", show the part on a page of 100 by 50 millimetres that
         // shows the map from (0, 0) to (100, 50), its y axis turned to point down, and return the document.
         // draw: draws within the map.
@@ -48,9 +53,10 @@ namespace Map_Svg.Tests
         // styleLines: the classes, one to a line.
         // partLines: the lines within the part's definition.
         // refersToCmykProfile: whether a color refers to the CMYK profile, which the definitions then declare.
-        private static string OnePageDocument(string[] styleLines, string[] partLines, bool refersToCmykProfile = true)
+        // drawsText: whether the part draws text, which the root then names the language of.
+        private static string OnePageDocument(string[] styleLines, string[] partLines, bool refersToCmykProfile = true, bool drawsText = false)
         {
-            List<string> lines = new List<string> { RootOf100By50 };
+            List<string> lines = new List<string> { drawsText ? RootOf100By50WithText : RootOf100By50 };
             if (styleLines.Length > 0) {
                 lines.Add("<style>");
                 lines.AddRange(styleLines);
@@ -1274,7 +1280,7 @@ namespace Map_Svg.Tests
                     "<g data-m=\"1\">",
                     "<text class=\"a\" transform=\"translate(10000 22000)scale(1000)\" x=\"0 1.25 2.5\">Map</text>",
                     "</g>",
-                }), document);
+                }, drawsText: true), document);
             CollectionAssert.AreEqual(new string[] { "Arial Regular Map" }, subsets.Requests);
         }
 
@@ -1569,6 +1575,24 @@ namespace Map_Svg.Tests
             }, new TestFontSubsets());
             StringAssert.DoesNotContain("@font-face", document);
             StringAssert.Contains("<style>\n" + TextRule + "\n" + BlackTextClass("a", "font-size:2px;font-family:\"Forbidden\"") + "\n", document);
+        }
+
+        [Test]
+        public void ADocumentThatDrawsTextNamesItsLanguageAsUndetermined()
+        {
+            string withText = WriteText(target => {
+                object font = new object(), black = new object();
+                target.CreateFont(font, "Arial", 2, TextEffects.Regular);
+                target.CreateSolidBrush(black, CmykColor.FromCmyk(0, 0, 0, 1));
+                target.DrawText("x", font, black, Point(0, 0));
+            }, null);
+            StringAssert.StartsWith(RootOf100By50WithText + "\n", withText);
+            string withoutText = WriteOnePage(target => {
+                object black = new object();
+                target.CreateSolidBrush(black, CmykColor.FromCmyk(0, 0, 0, 1));
+                target.FillRectangle(black, new RectangleF(0, 0, 10, 10));
+            });
+            StringAssert.StartsWith(RootOf100By50 + "\n", withoutText);
         }
 
         [Test]
