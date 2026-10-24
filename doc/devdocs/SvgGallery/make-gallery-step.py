@@ -13,7 +13,8 @@ binned at the thresholds the loop's measurements count (8, 32, 64). The page's B
 Prints the step's figures as JSON for the page's LOG and STANDING: per case its size, measurements, drawing
 elements and the 24-pixel window holding the most difference, where the detail opens; and the pending census,
 each call with the drawings that need it, those that need only it, and the work that adds it, with the number of
-drawings that wait only on step 2's calls and of those that wait only because they draw a bitmap lighter.
+drawings that wait only on step 2's calls, of those that wait only because they draw a bitmap lighter, and of those
+that wait only on a pen no document can express.
 """
 import json
 import os
@@ -32,9 +33,11 @@ WINDOW = 24           # side of the detail window, in image pixels
 
 # The work that adds each call, by the requirements' plan: drawing in phase 2's step 2, text and bitmaps in
 # phase 4. The target draws bitmaps since phase 4's first step, so a case still pending on a bitmap call draws the
-# bitmap lighter, at an intensity below 1, which no element of a document can (B-6): no work adds it.
+# bitmap lighter, at an intensity below 1, which no element of a document can (B-6): no work adds it. Since step 2, a
+# case pending on CreatePen draws with a pen that has no form in a document, a hairline of no width or a clipped miter
+# join (D-5), which no work in the plan adds either.
 WORK_THAT_ADDS_CALL = {
-    "CreatePen": "step2", "DrawPolyline": "step2", "DrawPath": "step2", "FillPath": "step2",
+    "CreatePen": "pen", "DrawPolyline": "step2", "DrawPath": "step2", "FillPath": "step2",
     "CreatePath": "step2", "PushClip": "step2", "PopClip": "step2", "DrawLine": "step2",
     "DrawEllipse": "step2", "DrawPolygon": "step2", "CreatePatternBrush": "step2", "DrawArc": "step2",
     "PushBlending": "step2", "PopBlending": "step2", "DrawRectangle": "step2",
@@ -136,11 +139,13 @@ def main():
                                 if all(WORK_THAT_ADDS_CALL[call] == "step2" for call in case_calls))
     drawn_lighter_only = sum(1 for case_calls in census.values()
                              if all(WORK_THAT_ADDS_CALL[call] == "lighter" for call in case_calls))
+    pen_only = sum(1 for case_calls in census.values() if all(WORK_THAT_ADDS_CALL[call] == "pen" for call in case_calls))
     print(json.dumps({
         "cases": cases,
         "waiting": len(census),
         "waitingOnStep2Only": waiting_on_step2_only,
         "drawnLighterOnly": drawn_lighter_only,
+        "penOnly": pen_only,
         "calls": sorted(calls.values(), key=lambda row: (-row["cases"], row["call"])),
     }, indent=1))
 

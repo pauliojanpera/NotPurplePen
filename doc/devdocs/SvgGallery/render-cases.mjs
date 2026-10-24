@@ -53,7 +53,13 @@ function writePageShowing(pagesFolder, svgPath, size) {
 }
 
 const { chromium } = await import(playwrightModule);
-const browser = await chromium.launch({ headless: true, executablePath: chromiumExecutable });
+// The flags ChromiumRenderer starts the browser with: text unhinted, in grayscale and in sRGB, whichever headless shell
+// this is. For a case with text, FONTCONFIG_FILE has to name a fontconfig file offering the sentinel font alone, as
+// ChromiumRenderer writes one.
+const browser = await chromium.launch({
+    headless: true, executablePath: chromiumExecutable,
+    args: ["--font-render-hinting=none", "--disable-lcd-text", "--force-color-profile=srgb"],
+});
 const pagesFolder = fs.mkdtempSync(path.join(fs.realpathSync(process.env.TMPDIR || "/tmp"), "svg-gallery-pages-"));
 fs.mkdirSync(path.join(results, "renderings"), { recursive: true });
 try {
