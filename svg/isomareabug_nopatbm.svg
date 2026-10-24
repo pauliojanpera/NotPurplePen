@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="1398mm" height="1079mm" viewBox="0 0 1398 1079">
+<style>
+.a{fill:#ffba36;fill:#ffba36 icc-color(cmyk,0,.27,.79,0);fill-rule:evenodd}
+.b{fill:none;stroke:#3dff17;stroke:#3dff17 icc-color(cmyk,.76,0,.91,0);stroke-width:300;stroke-linejoin:bevel}
+.c{clip-rule:evenodd}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="isomareabug_nopatbm">
+<npp:color position="7" name="Yellow" cmyk="0,.27,.79,0"/>
+<npp:color position="15" name="Green" cmyk=".76,0,.91,0" overprint="1"/>
+<npp:symbol n="1" id="413.0" name="Vineyard" colors="7 15"/>
+</npp:map>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="b">
+<path class="c" d="M-4960-5120l6080 160-320-4400-6120 200 480 4000-120 40z"/>
+</clipPath>
+<clipPath id="c">
+<path d="M-26021-18091h48079v37108h-48079z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g data-c="7">
+<g data-s="1">
+<path class="a" data-o="1" d="M-4960-5120l6080 160-320-4400-6120 200 480 4000-120 40z"/>
+</g>
+</g>
+<g data-c="15">
+<g clip-path="url(#b)" data-s="1">
+<g transform="rotate(90)">
+<g transform="matrix(0-1 1 0-8550 0)">
+<path class="b" data-o="1" d="M0-960V970"/>
+</g>
+<g transform="matrix(0-1 1 0-5700 0)">
+<path class="b" data-o="1" d="M0-960V970"/>
+</g>
+<g transform="matrix(0-1 1 0-9975 1280)">
+<path class="b" data-o="1" d="M0-960V970"/>
+</g>
+<g transform="matrix(0-1 1 0-7125 1280)">
+<path class="b" data-o="1" d="M0-960V970"/>
+</g>
+<g transform="matrix(0-1 1 0-4275 1280)">
+<path class="b" data-o="1" d="M0-960V970"/>
+</g>
+<g transform="matrix(0-1 1 0-8550 2560)">
+<path class="b" data-o="1" d="M0-960V970"/>
+</g>
+<g transform="matrix(0-1 1 0-5700 2560)">
+<path class="b" data-o="1" d="M0-960V970"/>
+</g>
+<g transform="matrix(0-1 1 0-9975 3840)">
+<path class="b" data-o="1" d="M0-960V970"/>
+</g>
+<g transform="matrix(0-1 1 0-7125 3840)">
+<path class="b" data-o="1" d="M0-960V970"/>
+</g>
+<g transform="matrix(0-1 1 0-4275 3840)">
+<path class="b" data-o="1" d="M0-960V970"/>
+</g>
+<g transform="matrix(0-1 1 0-8550 5120)">
+<path class="b" data-o="1" d="M0-960V970"/>
+</g>
+<g transform="matrix(0-1 1 0-5700 5120)">
+<path class="b" data-o="1" d="M0-960V970"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<g transform="matrix(.0290772 0 0-.0290772 756.62 552.97)" clip-path="url(#c)">
+<use xlink:href="#a"/>
+</g>
+</svg>

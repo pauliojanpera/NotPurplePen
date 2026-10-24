@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="500mm" height="500mm" viewBox="0 0 500 500">
+<style>
+.a{fill:none;stroke:#a80000;stroke:#a80000 icc-color(cmyk,0,.68,.91,.34);stroke-width:270;stroke-linejoin:bevel}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="deleteditems">
+<npp:color position="19" name="Brown" cmyk="0,.68,.91,.34" overprint="1"/>
+<npp:symbol n="1" id="118.0" name="Special landform feature" colors="19"/>
+</npp:map>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="b">
+<path d="M-6000-6000H6000V6000H-6000z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g data-c="19">
+<g data-s="1">
+<g transform="translate(-2270 970)">
+<path class="a" data-o="1" d="M-600-600 600 600"/>
+<path class="a" data-o="1" d="M-600 600 600-600"/>
+</g>
+<g transform="translate(1330-2380)">
+<path class="a" data-o="2" d="M-600-600 600 600"/>
+<path class="a" data-o="2" d="M-600 600 600-600"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<g transform="matrix(.041667 0 0-.041667 250 250)" clip-path="url(#b)">
+<use xlink:href="#a"/>
+</g>
+</svg>
