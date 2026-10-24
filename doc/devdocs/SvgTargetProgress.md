@@ -209,7 +209,7 @@ The `fix/` branches, each made on upstream's history with only its own commits, 
 | Branch | What it changes | In this fork |
 | --- | --- | --- |
 | `fix/skia-subpixel-glyph-positions` | Draw glyphs at their shaped subpixel positions in the Skia target | Ready: its full run passed on `wip/linux/skia-subpixel-glyph-positions` (Tests run 40084278496) with every baseline it moves recorded; six runs found them one image per test at a time, as a test stops at its first image that differs, and a run of `experiment/subpixel-record-all`, whose comparisons went on past a difference, found the last 31 at once. Merged into `feature/svg-text` |
-| `fix/skia-null-system-typeface` | Take a missing system typeface as no match instead of dereferencing it | Under test on `wip/linux/skia-null-system-typeface` (Tests run 40089461485); merged into `feature/svg-text` |
+| `fix/skia-null-system-typeface` | Take a missing system typeface as no match instead of dereferencing it | Ready: its full run passed on `wip/linux/skia-null-system-typeface` (Tests run 40089461485); merged into `feature/svg-text` |
 | `fix/skia-font-data-race` | Read a face's font data whole under a lock, from any number of threads | Ready: its full run passed on `wip/linux/skia-font-data-race` (Tests run 40071740434); merged into `feature/svg-text` |
 | `fix/backslashes-in-test-file-paths` | Find test files named with backslashes on any platform | Merged into `feature/svg-target` |
 | `fix/case-of-test-file-names` | Spell four test file names as the files are spelled | Merged into `feature/svg-target` |
