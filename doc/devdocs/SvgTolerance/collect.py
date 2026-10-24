@@ -4,8 +4,10 @@ band with an edge within reach, the blurred difference and the contrast around i
 
 Usage: python3 -I collect.py <data folder> <out folder> [worker index] [worker count]
 Writes <out folder>/<case>.npz holding, for each variant (real, shift2, removed, redder, wider), the arrays
-<variant>_inside (count), <variant>_difference (N x 3) and <variant>_contrast9 (N x 3), <variant>_contrast5 (N x 3).
-A variant whose planted image equals the rendering is left out.
+<variant>_inside (count), <variant>_difference (N x 3), <variant>_signed (N x 3), <variant>_contrast9 (N x 3) and
+<variant>_contrast5 (N x 3). The signed difference is the reference's blurred image less the rendering's: above zero
+where the rendering is darker, below where it is lighter. A variant whose planted image equals the rendering is left
+out.
 """
 import os
 import sys
@@ -63,8 +65,9 @@ def measure(e, r):
         outside |= ((other < low) | (other > high)).any(axis=2)
     at_edge = (contrast(e, r, 3) > SLACK).any(axis=2)
     rescue = outside & at_edge
-    difference = np.abs(blur(e) - blur(r))[rescue].astype(np.float32)
-    return int((outside & ~at_edge).sum()), difference, contrast(e, r, 9)[rescue].astype(np.float32), contrast(e, r, 5)[rescue].astype(np.float32)
+    signed = (blur(e) - blur(r))[rescue].astype(np.float32)
+    return (int((outside & ~at_edge).sum()), np.abs(signed), signed, contrast(e, r, 9)[rescue].astype(np.float32),
+            contrast(e, r, 5)[rescue].astype(np.float32))
 
 
 def main():
@@ -81,9 +84,10 @@ def main():
         variants = {"real": r}
         variants.update(plant_errors(e, r))
         for label, image in variants.items():
-            inside, difference, contrast9, contrast5 = measure(e, image)
+            inside, difference, signed, contrast9, contrast5 = measure(e, image)
             arrays[label + "_inside"] = np.array(inside)
             arrays[label + "_difference"] = difference
+            arrays[label + "_signed"] = signed
             arrays[label + "_contrast9"] = contrast9
             arrays[label + "_contrast5"] = contrast5
         np.savez_compressed(os.path.join(out, name + ".npz"), **arrays)
