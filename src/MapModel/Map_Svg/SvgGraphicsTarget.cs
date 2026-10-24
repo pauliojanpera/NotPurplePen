@@ -23,7 +23,7 @@ namespace PurplePen.MapModel
             nameof(Intensity), nameof(PushTransform), nameof(PopTransform), nameof(PushClip), nameof(PopClip),
             nameof(PushAntiAliasing), nameof(PopAntiAliasing), nameof(PushBlending), nameof(PopBlending),
             nameof(CreatePath), nameof(CreateSolidBrush), nameof(SupportsPatternBrushes), nameof(CreatePatternBrush), nameof(CreatePen),
-            nameof(HasPath), nameof(HasBrush), nameof(HasPen), nameof(HasFont),
+            nameof(HasPath), nameof(HasBrush), nameof(HasPen), nameof(HasFont), nameof(CreateFont), nameof(DrawText), nameof(DrawTextOutline), /* EXPERIMENT */
             nameof(DrawLine), nameof(DrawArc), nameof(DrawEllipse), nameof(FillEllipse), nameof(DrawRectangle),
             nameof(FillRectangle), nameof(DrawPolygon), nameof(DrawPolyline), nameof(FillPolygon), nameof(DrawPath),
             nameof(FillPath), nameof(DrawBitmap), nameof(DrawBitmapPart),
