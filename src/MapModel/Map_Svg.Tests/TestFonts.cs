@@ -8,8 +8,8 @@ namespace Map_Svg.Tests
     // Registers the fonts that the tests draw text in, before any test runs, so that the Skia target finds them
     // whatever fonts the machine has: Liberation Sans as Arial, Liberation Serif as Times New Roman, Caladea as Cambria,
     // Carlito as Calibri, and Roboto and Roboto Condensed under their own names. Arial is the family every other family
-    // falls back to, unless the machine's fontconfig maps it to a font of its own, as it maps Cambria and Calibri to
-    // Caladea and Carlito where those are installed and to nothing where they are not.
+    // falls back to: on Linux the tests' fontconfig offers no font of the machine's (TestFontConfig), where a machine's
+    // own would map Cambria and Calibri to Caladea and Carlito where those are installed and to nothing where not.
     [SetUpFixture]
     public class TestFonts
     {
