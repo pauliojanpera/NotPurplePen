@@ -447,7 +447,12 @@ namespace PurplePen.MapModel
             return text.ToString();
         }
 
-        // Write the root's start tag, sized to the first page (F-4).
+        // Write the root's start tag, sized to the first page (F-4), and, when the document draws text, naming the
+        // language of its text as undetermined (T-11). A browser shapes text that names no language in the language of
+        // the reader's locale, with the forms a font holds for that language, its locl feature: Caladea draws a
+        // Romanian ş with a comma below. The application shapes every text with no language, as the HarfBuzz that
+        // HarfBuzzSharp ships is built without the C library's locale, so a font draws the document's text in its
+        // default forms wherever it is read, as in the application.
         // text: the text to append to.
         private void WriteRootStartTag(StringBuilder text)
         {
@@ -459,6 +464,8 @@ namespace PurplePen.MapModel
                 text.Append(" width=\"").Append(width).Append("mm\" height=\"").Append(height)
                     .Append("mm\" viewBox=\"0 0 ").Append(width).Append(' ').Append(height).Append('"');
             }
+            if (fontFaces.Count > 0)
+                text.Append(" xml:lang=\"und\"");
             text.Append(">\n");
         }
 

@@ -289,7 +289,7 @@ namespace Map_Svg.Tests
             // Loaded from its file, the face draws its default instance, the regular, for the bold too.
             RectangleF area = new RectangleF(0, 0, 120, 30);
             Size pixels = new Size(1200, 300);
-            string difference = await CompareTextDrawing("variable-face", area, pixels, target => {
+            string difference = await TextDrawingComparison.CompareAsync("variable-face", area, pixels, target => {
                 object regular = new object(), bold = new object(), black = new object();
                 target.CreateFont(regular, "Roboto Variable", 8, TextEffects.Regular);
                 target.CreateFont(bold, "Roboto Variable", 8, TextEffects.Bold);
@@ -298,42 +298,6 @@ namespace Map_Svg.Tests
                 target.DrawText("Hamburgefonstiv 0123", bold, black, new PointF(2, 16));
             });
             Assert.IsNull(difference, difference);
-        }
-
-        // Draw text through the Skia target and through the SVG target, render the document in Chromium, and describe
-        // how far its image lies from Skia's, or return null if within the tolerance for text.
-        // name: the name of the drawing among the run's SVGs.
-        // area: the area of drawing coordinates the image shows.
-        // pixels: the size of the image.
-        // draw: draws the text.
-        private static async Task<string> CompareTextDrawing(string name, RectangleF area, Size pixels, Action<IGraphicsTarget> draw)
-        {
-            using (SKBitmap reference = new SKBitmap(pixels.Width, pixels.Height)) {
-                using (SKCanvas canvas = new SKCanvas(reference)) {
-                    canvas.Clear(SKColors.White);
-                    using (Skia_GraphicsTarget target = new Skia_GraphicsTarget(canvas))
-                    using (Matrix areaToImage = AreaInImage.CreateTransform(area, pixels, false)) {
-                        target.PushTransform(areaToImage);
-                        target.PushAntiAliasing(true);
-                        draw(target);
-                    }
-                }
-
-                string document;
-                using (Svg_GraphicsTarget target = new Svg_GraphicsTarget(DefaultColorConverter.Instance, true, SvgBitmapOptions.Default, new Skia_TextMetrics(), new SkiaFontSubsetProvider()))
-                using (Matrix areaToImage = AreaInImage.CreateTransform(area, pixels, false)) {
-                    object part = new object(), map = new object();
-                    target.BeginPart(part);
-                    target.BeginMap(map, name);
-                    draw(target);
-                    target.EndMap();
-                    target.EndPart();
-                    target.AddPage(new SizeF(pixels.Width, pixels.Height), area, areaToImage, new object[] { part });
-                    document = target.FinishDocument();
-                }
-                using (SKBitmap rendering = await ChromiumRenderer.RenderAsync(LoopResults.SaveSvg(name, document), pixels))
-                    return ImageComparison.DescribeDifference(name, reference, rendering, PixelTolerance.Text);
-            }
         }
 
         // The path of a test font.
