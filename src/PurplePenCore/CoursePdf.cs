@@ -143,44 +143,8 @@ namespace PurplePen
 #endif
         List<Pair<string, IEnumerable<CourseDesignator>>> GetFilesToCreate()
         {
-            List<Pair<string, IEnumerable<CourseDesignator>>> fileList = new List<Pair<string, IEnumerable<CourseDesignator>>>();
-
-            switch (coursePdfSettings.FileCreation) {
-                case CoursePdfSettings.PdfFileCreation.SingleFile:
-                    // All pages go into a single file.
-                    fileList.Add(new Pair<string, IEnumerable<CourseDesignator>>(CreateOutputFileName(null),
-                                 QueryEvent.EnumerateCourseDesignators(eventDB, coursePdfSettings.CourseIds, coursePdfSettings.VariationChoicesPerCourse, !coursePdfSettings.PrintMapExchangesOnOneMap)));
-                    break;
-
-                case CoursePdfSettings.PdfFileCreation.FilePerCourse:
-                    // Create a file for each course.
-                    foreach (Id<Course> courseId in coursePdfSettings.CourseIds) {
-                        fileList.Add(new Pair<string, IEnumerable<CourseDesignator>>(CreateOutputFileName(new CourseDesignator(courseId)),
-                                     QueryEvent.EnumerateCourseDesignators(eventDB, new Id<Course>[1] { courseId }, coursePdfSettings.VariationChoicesPerCourse, !coursePdfSettings.PrintMapExchangesOnOneMap)));
-                    }
-                    break;
-
-                case CoursePdfSettings.PdfFileCreation.FilePerCoursePart:
-                    // Create a file for each course part or variation (or both)
-                    foreach (CourseDesignator designator in 
-                             QueryEvent.EnumerateCourseDesignators(eventDB, coursePdfSettings.CourseIds, 
-                                                                   coursePdfSettings.VariationChoicesPerCourse, !coursePdfSettings.PrintMapExchangesOnOneMap)) {
-                        fileList.Add(new Pair<string, IEnumerable<CourseDesignator>>(CreateOutputFileName(designator), new[] { designator }));
-                    }
-
-                    break;
-            }
-
-            return fileList;
-        }
-
-        // Get the full output file name. Uses the name of the course, removes bad characters,
-        // checks for duplication of the map file name. Puts in the directory given in the creationSettings.
-        string CreateOutputFileName(CourseDesignator courseDesignator)
-        {
-            string basename = QueryEvent.CreateOutputFileName(eventDB, courseDesignator, coursePdfSettings.filePrefix, "", ".pdf");
-
-            return Path.GetFullPath(Path.Combine(coursePdfSettings.outputDirectory, basename));
+            return CourseOutputPages.GetFilesToCreate(eventDB, coursePdfSettings.FileCreation, coursePdfSettings.CourseIds, coursePdfSettings.VariationChoicesPerCourse,
+                                                      coursePdfSettings.PrintMapExchangesOnOneMap, coursePdfSettings.filePrefix, coursePdfSettings.outputDirectory, ".pdf");
         }
 
         // Create a single PDF file
@@ -264,24 +228,8 @@ namespace PurplePen
         // The core printing routine. 
         void DrawPage(IGraphicsTarget graphicsTarget, CoursePage page)
         {
-            // Get the course view for the course we are printing.
-            CourseView courseView = CourseView.CreatePrintingCourseView(eventDB, page.courseDesignator);
-
-            // Get the correct purple color to print the course in.
-            short ocadId;
-            float purpleC, purpleM, purpleY, purpleK;
-            bool purpleOverprint;
-            FindPurple.GetPurpleColor(mapDisplay, appearance, out ocadId, out purpleC, out purpleM, out purpleY, out purpleK, out purpleOverprint);
-
-            // Create a course layout from the view.
-            CourseLayout layout = new CourseLayout();
-            layout.SetLayerColor(CourseLayer.Descriptions, NormalCourseAppearance.blackColorOcadId, NormalCourseAppearance.blackColorName, NormalCourseAppearance.blackColorC, NormalCourseAppearance.blackColorM, NormalCourseAppearance.blackColorY, NormalCourseAppearance.blackColorK, false);
-            layout.SetLayerColor(CourseLayer.MainCourse, ocadId, NormalCourseAppearance.courseColorName, purpleC, purpleM, purpleY, purpleK, purpleOverprint);
-            layout.SetLowerLayerColor(CourseLayer.MainCourse, NormalCourseAppearance.lowerPurpleOcadId, NormalCourseAppearance.lowerPurpleColorName, purpleC, purpleM, purpleY, purpleK, purpleOverprint);
-
-            CourseFormatterOptions formatterOptions = new CourseFormatterOptions();
-            formatterOptions.showDescriptions = coursePdfSettings.RenderControlDescriptions;
-            CourseFormatter.FormatCourseToLayout(symbolDB, courseView, appearance, layout, CourseLayer.MainCourse, formatterOptions);
+            // Create the layout of the course, in its purple.
+            CourseLayout layout = CourseOutputPages.CreateCourseLayout(eventDB, symbolDB, mapDisplay, appearance, page.courseDesignator, coursePdfSettings.RenderControlDescriptions);
 
             // Set the course layout into the map display
             mapDisplay.SetCourse(layout);
