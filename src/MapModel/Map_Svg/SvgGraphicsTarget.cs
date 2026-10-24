@@ -64,6 +64,73 @@ namespace PurplePen.MapModel
             }
         }
 
+        // A font created under a key: the face it draws in, its size, the application's metrics of it, and the
+        // declarations that set it in a text's class (T-1).
+        private sealed class FontRecord
+        {
+            // The face, which records the characters drawn in it.
+            public readonly SvgFontFace Face;
+
+            // The application's metrics of the font, which lay its text out.
+            public readonly ITextFaceMetrics Metrics;
+
+            // The declarations of the font: its size in steps, family, weight and style. They are written as longhands,
+            // since the shorthand font would reset the kerning and ligatures that the rule of every text element sets.
+            public readonly string Declarations;
+
+            // The advance of each character drawn alone, in millimetres, by the character.
+            private readonly Dictionary<string, float> advances = new Dictionary<string, float>(StringComparer.Ordinal);
+
+            // Create the record of a font.
+            // face: the face it draws in.
+            // emHeight: its size, in millimetres.
+            // metrics: the application's metrics of it.
+            public FontRecord(SvgFontFace face, float emHeight, ITextFaceMetrics metrics)
+            {
+                Face = face;
+                Metrics = metrics;
+                Declarations = "font-size:" + SvgNumbers.FormatInteger(SvgNumbers.ToSteps(emHeight)) + "px;font-family:" + face.QuotedFamily +
+                               (face.Bold ? ";font-weight:700" : "") + (face.Italic ? ";font-style:italic" : "");
+            }
+
+            // The kerning before each character of text after the first, in steps, without the zeros that end it: how far
+            // the application's shaping moves the character from where the advances of the characters before it, each
+            // drawn alone, would put it. That is the width of the text up to and with the character, less the width up
+            // to the character before and the character's own advance.
+            // text: the text, whose surrogate pairs each make one character.
+            public long[] Kerning(string text)
+            {
+                List<long> kerning = new List<long>();
+                int last = -1;
+                int start = char.IsSurrogatePair(text, 0) ? 2 : 1;
+                float widthBefore = Metrics.GetTextWidth(text.Substring(0, start));
+                while (start < text.Length) {
+                    int length = char.IsSurrogatePair(text, start) ? 2 : 1;
+                    float width = Metrics.GetTextWidth(text.Substring(0, start + length));
+                    long shift = SvgNumbers.ToSteps(width - widthBefore - Advance(text.Substring(start, length)));
+                    kerning.Add(shift);
+                    if (shift != 0)
+                        last = kerning.Count - 1;
+                    widthBefore = width;
+                    start += length;
+                }
+                kerning.RemoveRange(last + 1, kerning.Count - last - 1);
+                return kerning.ToArray();
+            }
+
+            // The advance of a character drawn alone, in millimetres.
+            // character: the character, a surrogate pair for a character beyond the Basic Multilingual Plane.
+            private float Advance(string character)
+            {
+                float advance;
+                if (!advances.TryGetValue(character, out advance)) {
+                    advance = Metrics.GetTextWidth(character);
+                    advances.Add(character, advance);
+                }
+                return advance;
+            }
+        }
+
         // The target that draws a pattern brush's tile, as the target that created the brush draws, but with keys of its
         // own; FinishBrush makes the tile a brush of the target that created it (D-7).
         private sealed class PatternBrushTarget : Svg_GraphicsTarget, IBrushTarget
@@ -115,7 +182,10 @@ namespace PurplePen.MapModel
         private readonly Dictionary<object, SvgBrush> brushes = new Dictionary<object, SvgBrush>(new IdentityComparer<object>());
         private readonly Dictionary<object, SvgStyle> pens = new Dictionary<object, SvgStyle>(new IdentityComparer<object>());
         private readonly Dictionary<object, StoredPath> paths = new Dictionary<object, StoredPath>(new IdentityComparer<object>());
-        private readonly Dictionary<object, string> fonts = new Dictionary<object, string>(new IdentityComparer<object>());
+        private readonly Dictionary<object, FontRecord> fonts = new Dictionary<object, FontRecord>(new IdentityComparer<object>());
+
+        // The metrics the application lays text out with, or null when the target draws no text (T-1).
+        private readonly ITextMetrics textMetrics;
 
         // How the bitmaps drawn into the document reach it (B-3, B-4).
         private readonly SvgBitmapOptions bitmapOptions;
@@ -134,14 +204,29 @@ namespace PurplePen.MapModel
         {
         }
 
-        // Create a target that writes a document, with the bitmaps drawn into it written as the options say (B-3, B-4).
+        // Create a target that writes a document, with the bitmaps drawn into it written as the options say (B-3, B-4),
+        // and draws no text.
         // colorConverter: converts colors to sRGB, as the chosen color model does (COL-2).
         // declaresCmykColors: whether colors also carry their CMYK values, as under the CMYK color model (COL-1).
         // bitmapOptions: how bitmaps reach the document.
         public Svg_GraphicsTarget(IColorConverter colorConverter, bool declaresCmykColors, SvgBitmapOptions bitmapOptions)
+            : this(colorConverter, declaresCmykColors, bitmapOptions, null, null)
         {
-            document = new SvgDocument(new SvgPaints(colorConverter, declaresCmykColors));
+        }
+
+        // Create a target that writes a document, with the bitmaps drawn into it written as the options say (B-3, B-4),
+        // and its text laid out with the application's metrics, in the faces the font data embeds (T-1, T-6, T-7).
+        // colorConverter: converts colors to sRGB, as the chosen color model does (COL-2).
+        // declaresCmykColors: whether colors also carry their CMYK values, as under the CMYK color model (COL-1).
+        // bitmapOptions: how bitmaps reach the document.
+        // textMetrics: the metrics the application lays text out with, or null to draw no text.
+        // fontSubsets: what gives the font data of the faces text is drawn in, or null to embed no fonts.
+        public Svg_GraphicsTarget(IColorConverter colorConverter, bool declaresCmykColors, SvgBitmapOptions bitmapOptions,
+                                  ITextMetrics textMetrics, IFontSubsetProvider fontSubsets)
+        {
+            document = new SvgDocument(new SvgPaints(colorConverter, declaresCmykColors), fontSubsets);
             this.bitmapOptions = bitmapOptions;
+            this.textMetrics = textMetrics;
         }
 
         // Create the target of a pattern brush's tile, which writes into the same document at the intensity of the target
@@ -152,6 +237,7 @@ namespace PurplePen.MapModel
         {
             document = creator.document;
             bitmapOptions = creator.bitmapOptions;
+            textMetrics = creator.textMetrics;
             intensity = creator.intensity;
             drawsPatternTile = true;
             openGroups.Push(new OpenGroup(Opener.CreatePatternBrush, pattern.Content, antiAlias, null));
@@ -449,10 +535,14 @@ namespace PurplePen.MapModel
             AddPen(key, new SvgStyle(document.Paints.Paint("stroke", AtIntensity(color))), width, caps, join, miterLimit);
         }
 
-        // Create a font under a key.
+        // Create a font under a key: its face, its size and its metrics, which lay out the text drawn in it (T-1).
         public void CreateFont(object key, string familyName, float emHeight, TextEffects effects)
         {
-            throw new Svg_UnsupportedCallException(nameof(CreateFont));
+            if (textMetrics == null)
+                throw new Svg_UnsupportedCallException(nameof(CreateFont));
+            if (fonts.ContainsKey(key))
+                throw new InvalidOperationException("CreateFont: the key has a font already.");
+            fonts.Add(key, new FontRecord(document.FontFaceOf(familyName, effects), emHeight, textMetrics.GetTextFaceMetrics(familyName, emHeight, effects)));
         }
 
         // Whether a path exists under a key (D-10).
@@ -590,16 +680,20 @@ namespace PurplePen.MapModel
             AddPath(FillUnderRule(fill, windingMode == AreaFillMode.Alternate), PathOfParts(parts), nameof(FillPath));
         }
 
-        // Draw text with its upper left corner at a point.
+        // Draw text with its upper left corner at a point, filled with a brush (T-1, T-3).
         public void DrawText(string text, object fontKey, object brushKey, PointF upperLeft)
         {
-            throw new Svg_UnsupportedCallException(nameof(DrawText));
+            if (textMetrics == null)
+                throw new Svg_UnsupportedCallException(nameof(DrawText));
+            AddText(GetFont(fontKey, nameof(DrawText)), GetFill(brushKey, nameof(DrawText)), text, upperLeft, nameof(DrawText));
         }
 
-        // Draw the outline of text with its upper left corner at a point.
+        // Draw the outline of text with its upper left corner at a point, stroked with a pen and not filled (T-2).
         public void DrawTextOutline(string text, object fontKey, object penKey, PointF upperLeft)
         {
-            throw new Svg_UnsupportedCallException(nameof(DrawTextOutline));
+            if (textMetrics == null)
+                throw new Svg_UnsupportedCallException(nameof(DrawTextOutline));
+            AddText(GetFont(fontKey, nameof(DrawTextOutline)), GetPen(penKey, nameof(DrawTextOutline)), text, upperLeft, nameof(DrawTextOutline));
         }
 
         // Draw a bitmap over a rectangle, its first pixel at the rectangle's left and top, as the Skia target draws it
@@ -623,9 +717,12 @@ namespace PurplePen.MapModel
             }
         }
 
-        // Release nothing: the target holds no unmanaged resources.
+        // Release the metrics of the fonts, which the application may hold font data for.
         public void Dispose()
         {
+            foreach (FontRecord font in fonts.Values)
+                font.Metrics.Dispose();
+            fonts.Clear();
         }
 
         // Fail a call unless a part is open, as drawing happens only within one, or in the target of a pattern brush,
@@ -786,6 +883,64 @@ namespace PurplePen.MapModel
             bounds.Include(right, bottom);
             string style = scalingMode == BitmapScaling.NearestNeighbor ? "image-rendering:optimizeSpeed;image-rendering:pixelated" : null;
             AddElement(new SvgImageUse(image, placement, style, bounds), callName);
+        }
+
+        // Add text within the innermost open group: its baseline starts at the upper left corner lowered by the font's
+        // ascent, as the application draws it, and each character after the first is moved by the kerning that the
+        // application's shaping puts between it and the one before (T-1). The text is composed as the application
+        // composes it before shaping, and its characters are recorded with its face, which the document embeds (T-6).
+        // font: the font.
+        // paint: the style of its fill or stroke.
+        // text: the text.
+        // upperLeft: its upper left corner.
+        // callName: the name of the call that draws it.
+        private void AddText(FontRecord font, SvgStyle paint, string text, PointF upperLeft, string callName)
+        {
+            RequireOpenPart(callName);
+            string drawn = ComposeForXml(text);
+            if (drawn.Length == 0)
+                return;
+
+            ITextFaceMetrics metrics = font.Metrics;
+            long[] kerning = font.Kerning(drawn);
+            SvgBounds bounds = new SvgBounds();
+            bounds.Include(SvgNumbers.ToSteps(upperLeft.X), SvgNumbers.ToSteps(upperLeft.Y));
+            bounds.Include(SvgNumbers.ToSteps(upperLeft.X + metrics.GetTextWidth(drawn)), SvgNumbers.ToSteps(upperLeft.Y + metrics.Ascent + metrics.Descent));
+            font.Face.AddCharacters(drawn);
+            AddElement(new SvgText(paint.Around(font.Declarations + ";", ""), SvgNumbers.ToSteps(upperLeft.X),
+                                   SvgNumbers.ToSteps(upperLeft.Y + metrics.Ascent), kerning, drawn, bounds), callName);
+        }
+
+        // Text composed to the precomposed form, as the application composes it before shaping, and without the
+        // characters that XML cannot hold: controls other than tab, line feed and carriage return, U+FFFE and U+FFFF,
+        // and unpaired surrogates.
+        // text: the text.
+        private static string ComposeForXml(string text)
+        {
+            StringBuilder kept = new StringBuilder(text.Length);
+            for (int index = 0; index < text.Length; ++index) {
+                char character = text[index];
+                if (char.IsSurrogatePair(text, index)) {
+                    kept.Append(character).Append(text[++index]);
+                }
+                else if (!char.IsSurrogate(character) && character != '\uFFFE' && character != '\uFFFF' &&
+                         (character >= ' ' || character == '\t' || character == '\n' || character == '\r')) {
+                    kept.Append(character);
+                }
+            }
+            string composed = kept.ToString();
+            return composed.IsNormalized(NormalizationForm.FormC) ? composed : composed.Normalize(NormalizationForm.FormC);
+        }
+
+        // The font under a key.
+        // fontKey: the key of the font.
+        // callName: the name of the call that draws with it.
+        private FontRecord GetFont(object fontKey, string callName)
+        {
+            FontRecord font;
+            if (!fonts.TryGetValue(fontKey, out font))
+                throw new InvalidOperationException(callName + ": the key has no font.");
+            return font;
         }
 
         // Add a path shape within the innermost open group, unless the path is empty and draws nothing.

@@ -22,9 +22,13 @@ namespace Map_Svg.Tests
         // draw: draws within the map.
         // declaresCmykColors: whether colors carry their CMYK values.
         // bitmapOptions: how bitmaps reach the document, or null for the default.
-        private static string WriteOnePage(Action<Svg_GraphicsTarget> draw, bool declaresCmykColors = true, SvgBitmapOptions bitmapOptions = null)
+        // textMetrics: the metrics that lay text out, or null to draw no text.
+        // fontSubsets: what gives the font data of the faces drawn in, or null to embed no fonts.
+        private static string WriteOnePage(Action<Svg_GraphicsTarget> draw, bool declaresCmykColors = true, SvgBitmapOptions bitmapOptions = null,
+                                           ITextMetrics textMetrics = null, IFontSubsetProvider fontSubsets = null)
         {
-            using (Svg_GraphicsTarget target = new Svg_GraphicsTarget(DefaultColorConverter.Instance, declaresCmykColors, bitmapOptions ?? SvgBitmapOptions.Default))
+            using (Svg_GraphicsTarget target = new Svg_GraphicsTarget(DefaultColorConverter.Instance, declaresCmykColors, bitmapOptions ?? SvgBitmapOptions.Default,
+                                                                      textMetrics, fontSubsets))
             using (Matrix mapToPage = new Matrix()) {
                 object part = new object();
                 target.BeginPart(part);
@@ -1229,6 +1233,203 @@ namespace Map_Svg.Tests
                 target.PopAntiAliasing();
             }));
             StringAssert.StartsWith("PopAntiAliasing closes a group opened by PushAntiAliasing, but the innermost open group is a group opened by PushTransform", error.Message);
+        }
+
+        // Draw text with the test metrics and font subsets, and return the document.
+        // draw: draws within the map.
+        // fontSubsets: the font subsets, or null to embed no fonts.
+        private static string WriteText(Action<Svg_GraphicsTarget> draw, IFontSubsetProvider fontSubsets)
+        {
+            return WriteOnePage(draw, true, null, new TestTextMetrics(), fontSubsets);
+        }
+
+        // The rule that every text element follows, as the style block writes it after the fonts.
+        private const string TextRule = "text{font-kerning:none;font-variant-ligatures:none;white-space:pre}";
+
+        // The class of black text in a font, as the style block writes it.
+        // name: the class's name.
+        // font: the font's declaration.
+        private static string BlackTextClass(string name, string font)
+        {
+            return "." + name + "{" + font + ";fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)}";
+        }
+
+        [Test]
+        public void TextStartsItsBaselineAtTheUpperLeftCornerLoweredByTheAscent()
+        {
+            TestFontSubsets subsets = new TestFontSubsets();
+            string document = WriteText(target => {
+                object font = new object(), black = new object();
+                target.CreateFont(font, "Arial", 2.5F, TextEffects.Regular);
+                target.CreateSolidBrush(black, CmykColor.FromCmyk(0, 0, 0, 1));
+                target.DrawText("Map", font, black, Point(10, 20));
+            }, subsets);
+            Assert.AreEqual(OnePageDocument(
+                new string[] {
+                    "@font-face{font-family:\"Arial\";src:url(" + TestFontSubsets.DataUri("Arial", TextEffects.Regular, "Map") + ")}",
+                    TextRule,
+                    BlackTextClass("a", "font-size:2500px;font-family:\"Arial\""),
+                },
+                new string[] {
+                    "<g data-m=\"1\">",
+                    "<text class=\"a\" x=\"10000\" y=\"22000\">Map</text>",
+                    "</g>",
+                }), document);
+            CollectionAssert.AreEqual(new string[] { "Arial Regular Map" }, subsets.Requests);
+        }
+
+        [Test]
+        public void TextCarriesTheKerningOfTheApplicationsShaping()
+        {
+            string document = WriteText(target => {
+                object font = new object(), black = new object();
+                target.CreateFont(font, "Arial", 2.5F, TextEffects.Regular);
+                target.CreateSolidBrush(black, CmykColor.FromCmyk(0, 0, 0, 1));
+                target.DrawText("AVA", font, black, Point(0, 0));
+                target.DrawText("AVX", font, black, Point(0, 10));
+                target.DrawText("XYZ", font, black, Point(0, 20));
+            }, null);
+            StringAssert.Contains("<text class=\"a\" y=\"2000\" dx=\"0 -250 -200\">AVA</text>\n", document);
+            StringAssert.Contains("<text class=\"a\" y=\"12000\" dx=\"0 -250\">AVX</text>\n", document);
+            StringAssert.Contains("<text class=\"a\" y=\"22000\">XYZ</text>\n", document);
+        }
+
+        [Test]
+        public void TextKeepsItsSpacesAndEscapesWhatXmlCannotHoldAsItIs()
+        {
+            string document = WriteText(target => {
+                object font = new object(), black = new object();
+                target.CreateFont(font, "Arial", 2, TextEffects.Regular);
+                target.CreateSolidBrush(black, CmykColor.FromCmyk(0, 0, 0, 1));
+                target.DrawText(" a < b & c > d  \u0001", font, black, Point(1, 1));
+            }, null);
+            StringAssert.Contains("<text class=\"a\" x=\"1000\" y=\"2600\"> a &lt; b &amp; c &gt; d  </text>\n", document);
+        }
+
+        [Test]
+        public void TextIsComposedAsTheApplicationComposesItBeforeShaping()
+        {
+            TestFontSubsets subsets = new TestFontSubsets();
+            string document = WriteText(target => {
+                object font = new object(), black = new object();
+                target.CreateFont(font, "Arial", 2, TextEffects.Regular);
+                target.CreateSolidBrush(black, CmykColor.FromCmyk(0, 0, 0, 1));
+                target.DrawText("Å", font, black, Point(0, 0));
+            }, subsets);
+            StringAssert.Contains(">Å</text>\n", document);
+            CollectionAssert.AreEqual(new string[] { "Arial Regular Å" }, subsets.Requests);
+        }
+
+        [Test]
+        public void BoldAndItalicFacesAreDeclaredWithTheirWeightAndStyle()
+        {
+            string document = WriteText(target => {
+                object font = new object(), black = new object();
+                target.CreateFont(font, "Times New Roman", 3, TextEffects.Bold | TextEffects.Italic);
+                target.CreateSolidBrush(black, CmykColor.FromCmyk(0, 0, 0, 1));
+                target.DrawText("T", font, black, Point(0, 0));
+            }, new TestFontSubsets());
+            StringAssert.Contains("@font-face{font-family:\"Times New Roman\";font-weight:700;font-style:italic;src:url(" +
+                                  TestFontSubsets.DataUri("Times New Roman", TextEffects.Bold | TextEffects.Italic, "T") + ")}\n", document);
+            StringAssert.Contains(BlackTextClass("a", "font-size:3000px;font-family:\"Times New Roman\";font-weight:700;font-style:italic") + "\n", document);
+        }
+
+        [Test]
+        public void TextOutlinesAreStrokedWithThePenAndNotFilled()
+        {
+            string document = WriteText(target => {
+                object font = new object(), pen = new object();
+                target.CreateFont(font, "Arial", 2, TextEffects.Regular);
+                target.CreatePen(pen, CmykColor.FromCmyk(0, 1, 1, 0), 0.1F, LineCapMode.Flat, LineJoinMode.Miter, 4);
+                target.DrawTextOutline("O", font, pen, Point(0, 0));
+            }, null);
+            StringAssert.Contains(".a{font-size:2000px;font-family:\"Arial\";fill:none;stroke:#f00;stroke:#f00 icc-color(cmyk,0,1,1,0);stroke-width:100}\n", document);
+            StringAssert.Contains("<text class=\"a\" y=\"1600\">O</text>\n", document);
+        }
+
+        [Test]
+        public void AFaceIsEmbeddedOnceForAllTheCharactersDrawnInIt()
+        {
+            TestFontSubsets subsets = new TestFontSubsets();
+            string document = WriteText(target => {
+                object small = new object(), large = new object(), bold = new object(), black = new object();
+                target.CreateFont(small, "Arial", 2, TextEffects.Regular);
+                target.CreateFont(large, "Arial", 4, TextEffects.Regular);
+                target.CreateFont(bold, "Arial", 2, TextEffects.Bold);
+                target.CreateSolidBrush(black, CmykColor.FromCmyk(0, 0, 0, 1));
+                target.DrawText("bab", small, black, Point(0, 0));
+                target.DrawText("cab", large, black, Point(0, 10));
+                target.DrawText("ab", bold, black, Point(0, 20));
+            }, subsets);
+            CollectionAssert.AreEqual(new string[] { "Arial Regular abc", "Arial Bold ab" }, subsets.Requests);
+            StringAssert.Contains(BlackTextClass("a", "font-size:2000px;font-family:\"Arial\""), document);
+            StringAssert.Contains(BlackTextClass("b", "font-size:4000px;font-family:\"Arial\""), document);
+            StringAssert.Contains(BlackTextClass("c", "font-size:2000px;font-family:\"Arial\";font-weight:700"), document);
+        }
+
+        [Test]
+        public void CharactersFromFallbackFacesAreEmbeddedForTheirOwnRange()
+        {
+            string document = WriteText(target => {
+                object font = new object(), black = new object();
+                target.CreateFont(font, "Arial", 2, TextEffects.Regular);
+                target.CreateSolidBrush(black, CmykColor.FromCmyk(0, 0, 0, 1));
+                target.DrawText("ab中文\U0001F600", font, black, Point(0, 0));
+            }, new TestFontSubsets());
+            StringAssert.Contains("@font-face{font-family:\"Arial\";src:url(" + TestFontSubsets.DataUri("Arial", TextEffects.Regular, "ab") +
+                                  ");unicode-range:U+61-62}\n", document);
+            StringAssert.Contains("@font-face{font-family:\"Arial\";src:url(" + TestFontSubsets.DataUri("Fallback", TextEffects.Regular, "中文\U0001F600") +
+                                  ");unicode-range:U+4E2D,U+6587,U+1F600}\n", document);
+        }
+
+        [Test]
+        public void AFaceThatMayNotBeEmbeddedIsReferredToByNameOnly()
+        {
+            string document = WriteText(target => {
+                object font = new object(), black = new object();
+                target.CreateFont(font, "Forbidden", 2, TextEffects.Regular);
+                target.CreateSolidBrush(black, CmykColor.FromCmyk(0, 0, 0, 1));
+                target.DrawText("x", font, black, Point(0, 0));
+            }, new TestFontSubsets());
+            StringAssert.DoesNotContain("@font-face", document);
+            StringAssert.Contains("<style>\n" + TextRule + "\n" + BlackTextClass("a", "font-size:2000px;font-family:\"Forbidden\"") + "\n", document);
+        }
+
+        [Test]
+        public void TextCarriesTheNumberOfItsObject()
+        {
+            string document = WriteText(target => {
+                object font = new object(), black = new object(), objectKey = new object(), symbolKey = new object();
+                target.CreateFont(font, "Arial", 2, TextEffects.Regular);
+                target.CreateSolidBrush(black, CmykColor.FromCmyk(0, 0, 0, 1));
+                target.BeginObject(objectKey, symbolKey, "1.0", "Text");
+                target.DrawText("a", font, black, Point(1, 0));
+                target.EndObject();
+            }, null);
+            StringAssert.Contains("<text class=\"a\" data-o=\"1\" x=\"1000\" y=\"1600\">a</text>\n", document);
+        }
+
+        [Test]
+        public void FontsExistUnderTheirKeys()
+        {
+            WriteText(target => {
+                object font = new object();
+                Assert.IsFalse(target.HasFont(font));
+                target.CreateFont(font, "Arial", 2, TextEffects.Regular);
+                Assert.IsTrue(target.HasFont(font));
+                InvalidOperationException error = Assert.Throws<InvalidOperationException>(() => target.CreateFont(font, "Arial", 2, TextEffects.Regular));
+                StringAssert.StartsWith("CreateFont: the key has a font already", error.Message);
+                error = Assert.Throws<InvalidOperationException>(() => target.DrawText("a", new object(), new object(), Point(0, 0)));
+                StringAssert.StartsWith("DrawText: the key has no font", error.Message);
+            }, null);
+        }
+
+        [Test]
+        public void FamilyNamesAreQuotedForCss()
+        {
+            Assert.AreEqual("\"Arial\"", SvgFontFace.QuoteFamily("Arial"));
+            Assert.AreEqual("\"a\\\"b\\\\c\"", SvgFontFace.QuoteFamily("a\"b\\c"));
+            Assert.AreEqual("U+20,U+41-43,U+1F600", SvgFontFace.FormatUnicodeRange(new int[] { 0x43, 0x41, 0x20, 0x42, 0x1F600 }));
         }
 
         [Test]

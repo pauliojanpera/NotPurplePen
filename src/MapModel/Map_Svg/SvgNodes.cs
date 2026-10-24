@@ -204,6 +204,79 @@ namespace PurplePen.MapModel
         }
     }
 
+    // A text in one font and one paint, its baseline starting at a point, each character after the first moved by the
+    // kerning between it and the one before, as the application's shaping kerns them (T-1 to T-3). Its element carries
+    // its class, the number of its object, if any, its start, unless at the origin, and the kerning, unless there is
+    // none, in steps (S-9, S-11); then the characters, escaped for XML.
+    public sealed class SvgText : SvgElement
+    {
+        // The style: the font and the paint, which name the element's class (S-4).
+        private readonly SvgStyle style;
+
+        // The start of the baseline, in steps.
+        private readonly long x, y;
+
+        // The kerning before each character after the first, in steps, without the zeros that end it.
+        private readonly long[] kerning;
+
+        // The characters.
+        private readonly string text;
+
+        // The bounds of the text: from its start to its advance, and from its top to its descent.
+        private readonly SvgBounds bounds;
+
+        // Create a text.
+        // style: its font and paint.
+        // x, y: the start of its baseline, in steps.
+        // kerning: the kerning before each character after the first, in steps, without the zeros that end it.
+        // text: the characters.
+        // bounds: the bounds of the text.
+        public SvgText(SvgStyle style, long x, long y, long[] kerning, string text, SvgBounds bounds)
+        {
+            this.style = style;
+            this.x = x;
+            this.y = y;
+            this.kerning = kerning;
+            this.text = text;
+            this.bounds = bounds;
+        }
+
+        // The bounds of the text.
+        public override SvgBounds GetBounds()
+        {
+            return bounds;
+        }
+
+        // Write the element. The kerning is written as dx, whose first value, the shift of the first character, is 0.
+        public override void Write(SvgWriter writer)
+        {
+            writer.Text.Append("<text class=\"").Append(writer.ClassOf(style.Resolve(writer))).Append('"');
+            WriteObjectNumber(writer);
+            if (x != 0)
+                writer.Text.Append(" x=\"").Append(SvgNumbers.FormatInteger(x)).Append('"');
+            if (y != 0)
+                writer.Text.Append(" y=\"").Append(SvgNumbers.FormatInteger(y)).Append('"');
+            if (kerning.Length > 0) {
+                writer.Text.Append(" dx=\"0");
+                foreach (long shift in kerning)
+                    writer.Text.Append(' ').Append(SvgNumbers.FormatInteger(shift));
+                writer.Text.Append('"');
+            }
+            writer.Text.Append('>');
+            foreach (char character in text) {
+                if (character == '&')
+                    writer.Text.Append("&amp;");
+                else if (character == '<')
+                    writer.Text.Append("&lt;");
+                else if (character == '>')
+                    writer.Text.Append("&gt;");
+                else
+                    writer.Text.Append(character);
+            }
+            writer.Text.Append("</text>\n");
+        }
+    }
+
     // A group that encloses what a push or a structure call opened it for, with the attributes it carries: a transform,
     // a clip, a style, or the identity of what it holds. Groups are tidied before they are written (S-8).
     public sealed class SvgGroup : SvgNode

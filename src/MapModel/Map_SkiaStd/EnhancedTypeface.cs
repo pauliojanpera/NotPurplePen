@@ -480,6 +480,18 @@ namespace Map_SkiaStd
             return mainEntry;
         }
 
+        // Returns the typeface that draws the given Unicode codepoint, as the text is segmented
+        // for shaping: the main typeface whenever it can render the codepoint properly, and
+        // otherwise whatever the platform's font fallback offers. A target that embeds the
+        // faces of its text asks for them through this.
+        //
+        // Parameters:
+        //   codepoint - the codepoint.
+        public ShapedTypeface TypefaceForCodepoint(int codepoint)
+        {
+            return FindTypefaceForCodepoint(codepoint);
+        }
+
         // Segments the input text into contiguous runs, where each run uses a single typeface.
         // Adjacent characters that map to the same typeface are merged into one run.
         //

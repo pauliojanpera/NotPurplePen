@@ -286,14 +286,46 @@ namespace PurplePen.MapModel
         // The images, by their written data, so that a bitmap drawn again, or its same part, is held once (B-5).
         private readonly Dictionary<string, SvgImage> images = new Dictionary<string, SvgImage>(StringComparer.Ordinal);
 
+        // The faces that text is drawn in, in the order they are first drawn in, and by their family, weight and style.
+        private readonly List<SvgFontFace> fontFaces = new List<SvgFontFace>();
+        private readonly Dictionary<string, SvgFontFace> fontFacesByName = new Dictionary<string, SvgFontFace>(StringComparer.Ordinal);
+
+        // What gives the font data the document embeds for its faces, or null when it embeds none (T-6, T-7).
+        private readonly IFontSubsetProvider fontSubsets;
+
         // Where the next page goes: the left edge, in millimetres.
         private double nextPageLeft;
 
-        // Create a document.
+        // Create a document that embeds no fonts.
         // paints: the paints of its styles.
         public SvgDocument(SvgPaints paints)
+            : this(paints, null)
+        {
+        }
+
+        // Create a document.
+        // paints: the paints of its styles.
+        // fontSubsets: what gives the font data it embeds for the faces its text is drawn in, or null to embed none.
+        public SvgDocument(SvgPaints paints, IFontSubsetProvider fontSubsets)
         {
             Paints = paints;
+            this.fontSubsets = fontSubsets;
+        }
+
+        // The face of a family, weight and style that text is drawn in, made when text is first drawn in it.
+        // family: the family, as the map names it.
+        // effects: the effects that ask for the weight and style.
+        public SvgFontFace FontFaceOf(string family, TextEffects effects)
+        {
+            bool bold = (effects & TextEffects.Bold) != 0, italic = (effects & TextEffects.Italic) != 0;
+            string name = (bold ? "b" : "-") + (italic ? "i" : "-") + family;
+            SvgFontFace face;
+            if (!fontFacesByName.TryGetValue(name, out face)) {
+                face = new SvgFontFace(family, bold, italic);
+                fontFacesByName.Add(name, face);
+                fontFaces.Add(face);
+            }
+            return face;
         }
 
         // The clip of a path filled under a rule. Equal clips are one, whose definition every group that clips to it
@@ -398,7 +430,7 @@ namespace PurplePen.MapModel
 
             StringBuilder text = new StringBuilder();
             WriteRootStartTag(text);
-            WriteStyleBlock(text, writer);
+            WriteStyleBlock(text, writer, WriteFontFaces());
             WriteMetadata(text);
             if (Paints.RefersToCmykProfile || clipsText.Length > 0 || patternsText.Length > 0 || partsText.Length > 0 || imagesText.Length > 0) {
                 text.Append("<defs>\n");
@@ -425,14 +457,37 @@ namespace PurplePen.MapModel
             text.Append(">\n");
         }
 
-        // Write the style block: one class to a line, in the order the classes were named (S-4).
+        // Write the @font-face rules of the faces text is drawn in, in the order they were first drawn in, each face
+        // with a rule for each of its subsets that may be embedded (T-6 to T-9); and, when there is text, the rule that
+        // every text element follows: no kerning or ligatures of the browser's own, since the kerning is written with the
+        // text and the application draws no ligatures, and spaces kept as they are (T-3). Return the rules.
+        private string WriteFontFaces()
+        {
+            StringBuilder rules = new StringBuilder();
+            if (fontSubsets != null) {
+                foreach (SvgFontFace face in fontFaces) {
+                    IList<FontFaceSubset> subsets = fontSubsets.GetSubsets(face.Family, face.Effects, face.Characters);
+                    foreach (FontFaceSubset subset in subsets) {
+                        if (subset.FontData != null)
+                            face.AppendFontFaceRule(rules, subset, subsets.Count == 1);
+                    }
+                }
+            }
+            if (fontFaces.Count > 0)
+                rules.Append("text{font-kerning:none;font-variant-ligatures:none;white-space:pre}\n");
+            return rules.ToString();
+        }
+
+        // Write the style block: the rules of the fonts and text, then one class to a line, in the order the classes were
+        // named (S-4).
         // text: the text to append to.
         // writer: the writer that named the classes.
-        private static void WriteStyleBlock(StringBuilder text, SvgWriter writer)
+        // fontRules: the rules of the fonts and text, or nothing when there is no text.
+        private static void WriteStyleBlock(StringBuilder text, SvgWriter writer, string fontRules)
         {
-            if (writer.StylesInOrder.Count == 0)
+            if (writer.StylesInOrder.Count == 0 && fontRules.Length == 0)
                 return;
-            text.Append("<style>\n");
+            text.Append("<style>\n").Append(fontRules);
             foreach (string style in writer.StylesInOrder)
                 text.Append('.').Append(writer.ClassOf(style)).Append('{').Append(style).Append("}\n");
             text.Append("</style>\n");

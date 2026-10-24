@@ -7,6 +7,7 @@ using NUnit.Framework;
 using PurplePen.Graphics2D;
 using PurplePen.MapModel;
 using SkiaSharp;
+using Map_SkiaStd;
 using TestingUtils;
 
 namespace Map_Svg.Tests
@@ -17,6 +18,12 @@ namespace Map_Svg.Tests
     [TestFixture, Parallelizable(ParallelScope.Children)]
     public class RenderingComparisonTests
     {
+        // The metrics the Skia target lays text out with, which the SVG target lays it out with too (T-1).
+        private static readonly ITextMetrics textMetrics = new Skia_TextMetrics();
+
+        // The font data of the faces the Skia target draws text with, which the documents embed (T-6 to T-9).
+        private static readonly IFontSubsetProvider fontSubsets = new SkiaFontSubsetProvider((font, characters) => font.Write());
+
         // Make the cases of the drawing cases.
         private static IEnumerable<ComparisonCase> DrawingCases()
         {
@@ -75,7 +82,7 @@ namespace Map_Svg.Tests
         private static string WriteDocument(ComparisonCase comparisonCase, RecordingGraphicsTarget recording)
         {
             try {
-                using (Svg_GraphicsTarget target = new Svg_GraphicsTarget(DefaultColorConverter.Instance, true))
+                using (Svg_GraphicsTarget target = new Svg_GraphicsTarget(DefaultColorConverter.Instance, true, SvgBitmapOptions.Default, textMetrics, fontSubsets))
                 using (Matrix areaToImage = comparisonCase.CreateAreaToImageTransform()) {
                     object part = new object();
                     target.BeginPart(part);
