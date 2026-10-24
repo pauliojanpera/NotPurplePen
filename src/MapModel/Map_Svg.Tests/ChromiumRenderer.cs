@@ -25,10 +25,16 @@ namespace Map_Svg.Tests
         // every glyph is a filled box: a document must draw its text in the faces it embeds, so a character that a
         // browser would draw in a font of the machine's shows as a box and fails the comparison, instead of passing in
         // a system font that happens to look the same (T-8). Chromium draws no text at all without one system font.
+        // Chromium hints glyphs unless told not to, which moves them by up to three pixels off the positions the
+        // shaping gives, so the browser draws text unhinted, in grayscale, and in sRGB, wherever the tests run: some
+        // installations of the headless shell start it so, and the one GitHub's runners install does not.
         private static async Task<IBrowser> LaunchBrowserAsync()
         {
             playwright = await Playwright.CreateAsync();
-            BrowserTypeLaunchOptions options = new BrowserTypeLaunchOptions { Headless = true };
+            BrowserTypeLaunchOptions options = new BrowserTypeLaunchOptions {
+                Headless = true,
+                Args = new[] { "--font-render-hinting=none", "--disable-lcd-text", "--force-color-profile=srgb" },
+            };
             if (OperatingSystem.IsLinux()) {
                 Dictionary<string, string> environment = new Dictionary<string, string>(StringComparer.Ordinal);
                 foreach (DictionaryEntry variable in Environment.GetEnvironmentVariables())
