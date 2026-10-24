@@ -1,6 +1,10 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
+using System.Security;
 using System.Threading.Tasks;
 using Microsoft.Playwright;
 using SkiaSharp;
@@ -17,11 +21,36 @@ namespace Map_Svg.Tests
         // The Playwright driver that started the browser.
         private static IPlaywright playwright;
 
-        // Start Playwright and its Chromium.
+        // Start Playwright and its Chromium. On Linux the browser sees no font of the system's but the sentinel, whose
+        // every glyph is a filled box: a document must draw its text in the faces it embeds, so a character that a
+        // browser would draw in a font of the machine's shows as a box and fails the comparison, instead of passing in
+        // a system font that happens to look the same (T-8). Chromium draws no text at all without one system font.
         private static async Task<IBrowser> LaunchBrowserAsync()
         {
             playwright = await Playwright.CreateAsync();
-            return await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            BrowserTypeLaunchOptions options = new BrowserTypeLaunchOptions { Headless = true };
+            if (OperatingSystem.IsLinux()) {
+                Dictionary<string, string> environment = new Dictionary<string, string>(StringComparer.Ordinal);
+                foreach (DictionaryEntry variable in Environment.GetEnvironmentVariables())
+                    environment[(string)variable.Key] = (string)variable.Value;
+                environment["FONTCONFIG_FILE"] = WriteSentinelFontConfig();
+                options.Env = environment;
+            }
+            return await playwright.Chromium.LaunchAsync(options);
+        }
+
+        // Write a fontconfig file that offers the sentinel font alone, in a folder of this run's, and return its path.
+        private static string WriteSentinelFontConfig()
+        {
+            string folder = Path.Combine(Path.GetTempPath(), "svg-tests-fonts-" + Environment.ProcessId.ToString(CultureInfo.InvariantCulture));
+            string fonts = Path.Combine(folder, "fonts");
+            Directory.CreateDirectory(fonts);
+            File.Copy(Path.Combine(AppContext.BaseDirectory, "fonts", "Sentinel.ttf"), Path.Combine(fonts, "Sentinel.ttf"), true);
+            string config = Path.Combine(folder, "fonts.conf");
+            File.WriteAllText(config, "<?xml version=\"1.0\"?>\n<!DOCTYPE fontconfig SYSTEM \"fonts.dtd\">\n<fontconfig>\n" +
+                                      "  <dir>" + SecurityElement.Escape(fonts) + "</dir>\n" +
+                                      "  <cachedir>" + SecurityElement.Escape(Path.Combine(folder, "cache")) + "</cachedir>\n</fontconfig>\n");
+            return config;
         }
 
         // Render an SVG file as an image of the given size, on white: the document, whose own size may be in
