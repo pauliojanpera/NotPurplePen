@@ -210,6 +210,14 @@ namespace PurplePen.MapModel
     // none, in steps (S-9, S-11); then the characters, escaped for XML.
     public sealed class SvgText : SvgElement
     {
+        // The steps in a unit of a text's own coordinates. A text is set in millimetres, its size, its kerning and the
+        // positions of its characters, and scaled to steps by its transform, which also places it: browsers cap the
+        // font size, Chromium at 10,000 units, which in steps would make all text over 10 mm 10 mm high (T-1).
+        public const double StepsPerTextUnit = SvgNumbers.StepsPerMillimetre;
+
+        // The decimals that keep a step in a text's own units.
+        public const int TextUnitDecimals = 3;
+
         // The style: the font and the paint, which name the element's class (S-4).
         private readonly SvgStyle style;
 
@@ -247,19 +255,19 @@ namespace PurplePen.MapModel
             return bounds;
         }
 
-        // Write the element. The kerning is written as dx, whose first value, the shift of the first character, is 0.
+        // Write the element, in millimetres under a transform that places its baseline's start and scales it to steps.
+        // The kerning is written as dx, whose first value, the shift of the first character, is 0.
         public override void Write(SvgWriter writer)
         {
             writer.Text.Append("<text class=\"").Append(writer.ClassOf(style.Resolve(writer))).Append('"');
             WriteObjectNumber(writer);
-            if (x != 0)
-                writer.Text.Append(" x=\"").Append(SvgNumbers.FormatInteger(x)).Append('"');
-            if (y != 0)
-                writer.Text.Append(" y=\"").Append(SvgNumbers.FormatInteger(y)).Append('"');
+            double width = bounds.MaxX - bounds.MinX, height = bounds.MaxY - bounds.MinY;
+            SvgTransform placement = new SvgTransform(StepsPerTextUnit, 0, 0, StepsPerTextUnit, x, y);
+            writer.Text.Append(" transform=\"").Append(placement.Format(Math.Sqrt(width * width + height * height) / StepsPerTextUnit, 1)).Append('"');
             if (kerning.Length > 0) {
                 writer.Text.Append(" dx=\"0");
                 foreach (long shift in kerning)
-                    writer.Text.Append(' ').Append(SvgNumbers.FormatInteger(shift));
+                    writer.Text.Append(' ').Append(SvgNumbers.FormatDecimal(shift / StepsPerTextUnit, TextUnitDecimals));
                 writer.Text.Append('"');
             }
             writer.Text.Append('>');

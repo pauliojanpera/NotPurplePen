@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -54,12 +55,16 @@ namespace Map_Svg.Tests
         public float SpaceWidth { get { return 0.5F * EmHeight; } }
         public float RecommendedLineSpacing { get { return 1.2F * EmHeight; } }
 
-        // The width of text: half an em for each character, a surrogate pair making one, and the kerning of its pairs.
+        // The width of text: half an em for each character, a surrogate pair making one, and the kerning of its pairs. A
+        // combining mark takes no room after another character, but at the start of the text, as shaping draws it alone,
+        // the room of the placeholder that it puts under the mark.
         // text: the text.
         public float GetTextWidth(string text)
         {
             float ems = 0;
             for (int index = 0; index < text.Length; index += char.IsSurrogatePair(text, index) ? 2 : 1) {
+                if (index > 0 && CharUnicodeInfo.GetUnicodeCategory(text, index) == UnicodeCategory.NonSpacingMark)
+                    continue;
                 ems += 0.5F;
                 float kerning;
                 if (index + 1 < text.Length && kerningPairs.TryGetValue(text.Substring(index, 2), out kerning))

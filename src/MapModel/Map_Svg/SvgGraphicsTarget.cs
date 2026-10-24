@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using PurplePen.Graphics2D;
@@ -74,8 +75,9 @@ namespace PurplePen.MapModel
             // The application's metrics of the font, which lay its text out.
             public readonly ITextFaceMetrics Metrics;
 
-            // The declarations of the font: its size in steps, family, weight and style. They are written as longhands,
-            // since the shorthand font would reset the kerning and ligatures that the rule of every text element sets.
+            // The declarations of the font: its size in millimetres, the units a text is set in, its family, weight and
+            // style. They are written as longhands, since the shorthand font would reset the kerning and ligatures that
+            // the rule of every text element sets.
             public readonly string Declarations;
 
             // The advance of each character drawn alone, in millimetres, by the character.
@@ -89,37 +91,64 @@ namespace PurplePen.MapModel
             {
                 Face = face;
                 Metrics = metrics;
-                Declarations = "font-size:" + SvgNumbers.FormatInteger(SvgNumbers.ToSteps(emHeight)) + "px;font-family:" + face.QuotedFamily +
+                Declarations = "font-size:" + SvgNumbers.FormatDecimal(SvgNumbers.ToSteps(emHeight) / SvgText.StepsPerTextUnit, SvgText.TextUnitDecimals) +
+                               "px;font-family:" + face.QuotedFamily +
                                (face.Bold ? ";font-weight:700" : "") + (face.Italic ? ";font-style:italic" : "");
             }
 
             // The kerning before each character of text after the first, in steps, without the zeros that end it: how far
-            // the application's shaping moves the character from where the advances of the characters before it, each
-            // drawn alone, would put it. That is the width of the text up to and with the character, less the width up
-            // to the character before and the character's own advance.
+            // the application's shaping moves each grapheme cluster from where the advances of the clusters before it,
+            // each drawn alone, would put it. That is the width of the text up to and with the cluster, less the width
+            // up to the cluster before and the cluster's own advance. A cluster, such as a letter with its marks, an
+            // Indic syllable or an emoji sequence, is shaped as one, and a mark drawn alone would take the room of a
+            // placeholder, so only a cluster's first character is moved and the others keep their places by it.
             // text: the text, whose surrogate pairs each make one character.
             public long[] Kerning(string text)
             {
                 List<long> kerning = new List<long>();
                 int last = -1;
-                int start = char.IsSurrogatePair(text, 0) ? 2 : 1;
-                float widthBefore = Metrics.GetTextWidth(text.Substring(0, start));
-                while (start < text.Length) {
-                    int length = char.IsSurrogatePair(text, start) ? 2 : 1;
-                    float width = Metrics.GetTextWidth(text.Substring(0, start + length));
-                    long shift = SvgNumbers.ToSteps(width - widthBefore - Advance(text.Substring(start, length)));
+                TextElementEnumerator clusters = StringInfo.GetTextElementEnumerator(text);
+                clusters.MoveNext();
+                string first = clusters.GetTextElement();
+                AddZeros(kerning, CharacterCount(first) - 1);
+                int start = first.Length;
+                float widthBefore = Metrics.GetTextWidth(first);
+                while (clusters.MoveNext()) {
+                    string cluster = clusters.GetTextElement();
+                    float width = Metrics.GetTextWidth(text.Substring(0, start + cluster.Length));
+                    long shift = SvgNumbers.ToSteps(width - widthBefore - Advance(cluster));
                     kerning.Add(shift);
                     if (shift != 0)
                         last = kerning.Count - 1;
+                    AddZeros(kerning, CharacterCount(cluster) - 1);
                     widthBefore = width;
-                    start += length;
+                    start += cluster.Length;
                 }
                 kerning.RemoveRange(last + 1, kerning.Count - last - 1);
                 return kerning.ToArray();
             }
 
-            // The advance of a character drawn alone, in millimetres.
-            // character: the character, a surrogate pair for a character beyond the Basic Multilingual Plane.
+            // The characters of a text, each surrogate pair one.
+            // text: the text.
+            private static int CharacterCount(string text)
+            {
+                int count = 0;
+                for (int index = 0; index < text.Length; index += char.IsSurrogatePair(text, index) ? 2 : 1)
+                    ++count;
+                return count;
+            }
+
+            // Add zeros to the kerning, for the characters of a cluster after its first.
+            // kerning: the kerning.
+            // count: how many.
+            private static void AddZeros(List<long> kerning, int count)
+            {
+                for (int index = 0; index < count; ++index)
+                    kerning.Add(0);
+            }
+
+            // The advance of a cluster drawn alone, in millimetres.
+            // character: the cluster.
             private float Advance(string character)
             {
                 float advance;
@@ -128,6 +157,58 @@ namespace PurplePen.MapModel
                     advances.Add(character, advance);
                 }
                 return advance;
+            }
+        }
+
+        // A pen created under a key: the paint of its stroke, and its width, cap and join, which a shape's stroke writes in
+        // steps and a text's in millimetres, the units text is set in (D-5, T-2).
+        private sealed class PenRecord
+        {
+            // The style that paints the stroke.
+            private readonly SvgStyle paint;
+
+            // Whether the stroke paints with a pattern.
+            public readonly bool IsPattern;
+
+            // The width of the stroke, in steps.
+            private readonly long width;
+
+            // The declarations of its cap and join, each left out where it is SVG's default.
+            private readonly string capAndJoin;
+
+            // The style of the stroke in steps and in millimetres, each made when first asked for.
+            private SvgStyle inSteps, inTextUnits;
+
+            // Create the record of a pen.
+            // paint: the style that paints the stroke.
+            // isPattern: whether it paints with a pattern.
+            // width: the width of the stroke, in steps.
+            // capAndJoin: the declarations of its cap and join.
+            public PenRecord(SvgStyle paint, bool isPattern, long width, string capAndJoin)
+            {
+                this.paint = paint;
+                IsPattern = isPattern;
+                this.width = width;
+                this.capAndJoin = capAndJoin;
+            }
+
+            // The style of the stroke of a shape, with its width in steps.
+            public SvgStyle InSteps
+            {
+                get { return inSteps ?? (inSteps = Stroke(SvgNumbers.FormatInteger(width))); }
+            }
+
+            // The style of the stroke of a text, with its width in millimetres.
+            public SvgStyle InTextUnits
+            {
+                get { return inTextUnits ?? (inTextUnits = Stroke(SvgNumbers.FormatDecimal(width / SvgText.StepsPerTextUnit, SvgText.TextUnitDecimals))); }
+            }
+
+            // The style of the stroke with a width.
+            // widthText: the width, formatted.
+            private SvgStyle Stroke(string widthText)
+            {
+                return paint.Around("fill:none;", ";stroke-width:" + widthText + capAndJoin);
             }
         }
 
@@ -180,7 +261,7 @@ namespace PurplePen.MapModel
 
         // The brushes, the style each pen strokes with, the paths and the fonts, by their keys (D-10).
         private readonly Dictionary<object, SvgBrush> brushes = new Dictionary<object, SvgBrush>(new IdentityComparer<object>());
-        private readonly Dictionary<object, SvgStyle> pens = new Dictionary<object, SvgStyle>(new IdentityComparer<object>());
+        private readonly Dictionary<object, PenRecord> pens = new Dictionary<object, PenRecord>(new IdentityComparer<object>());
         private readonly Dictionary<object, StoredPath> paths = new Dictionary<object, StoredPath>(new IdentityComparer<object>());
         private readonly Dictionary<object, FontRecord> fonts = new Dictionary<object, FontRecord>(new IdentityComparer<object>());
 
@@ -526,13 +607,13 @@ namespace PurplePen.MapModel
         public void CreatePen(object key, object brushKey, float width, LineCapMode caps, LineJoinMode join, float miterLimit)
         {
             SvgBrush brush = GetBrush(brushKey, nameof(CreatePen));
-            AddPen(key, brush.Paint(document.Paints, "stroke"), width, caps, join, miterLimit);
+            AddPen(key, brush.Paint(document.Paints, "stroke"), brush.IsPattern, width, caps, join, miterLimit);
         }
 
         // Create a pen of a color at the current intensity, under a key (D-5, D-11).
         public void CreatePen(object key, CmykColor color, float width, LineCapMode caps, LineJoinMode join, float miterLimit)
         {
-            AddPen(key, new SvgStyle(document.Paints.Paint("stroke", AtIntensity(color))), width, caps, join, miterLimit);
+            AddPen(key, new SvgStyle(document.Paints.Paint("stroke", AtIntensity(color))), false, width, caps, join, miterLimit);
         }
 
         // Create a font under a key: its face, its size and its metrics, which lay out the text drawn in it (T-1).
@@ -685,7 +766,7 @@ namespace PurplePen.MapModel
         {
             if (textMetrics == null)
                 throw new Svg_UnsupportedCallException(nameof(DrawText));
-            AddText(GetFont(fontKey, nameof(DrawText)), GetFill(brushKey, nameof(DrawText)), text, upperLeft, nameof(DrawText));
+            AddText(GetFont(fontKey, nameof(DrawText)), GetTextFill(brushKey, nameof(DrawText)), text, upperLeft, nameof(DrawText));
         }
 
         // Draw the outline of text with its upper left corner at a point, stroked with a pen and not filled (T-2).
@@ -693,7 +774,7 @@ namespace PurplePen.MapModel
         {
             if (textMetrics == null)
                 throw new Svg_UnsupportedCallException(nameof(DrawTextOutline));
-            AddText(GetFont(fontKey, nameof(DrawTextOutline)), GetPen(penKey, nameof(DrawTextOutline)), text, upperLeft, nameof(DrawTextOutline));
+            AddText(GetFont(fontKey, nameof(DrawTextOutline)), GetTextPen(penKey, nameof(DrawTextOutline)), text, upperLeft, nameof(DrawTextOutline));
         }
 
         // Draw a bitmap over a rectangle, its first pixel at the rectangle's left and top, as the Skia target draws it
@@ -968,11 +1049,12 @@ namespace PurplePen.MapModel
         // Add a pen: its paint, then its width, cap and join, each left out where it is SVG's default (D-5, S-9).
         // key: the pen's key.
         // paint: the style that paints the stroke.
+        // isPattern: whether it paints with a pattern.
         // width: the width of the stroke, in millimetres.
         // caps: the caps of its ends.
         // join: the joins of its corners.
         // miterLimit: how far a mitered corner may reach, in widths of the stroke.
-        private void AddPen(object key, SvgStyle paint, float width, LineCapMode caps, LineJoinMode join, float miterLimit)
+        private void AddPen(object key, SvgStyle paint, bool isPattern, float width, LineCapMode caps, LineJoinMode join, float miterLimit)
         {
             if (pens.ContainsKey(key))
                 throw new InvalidOperationException("CreatePen: the key has a pen already.");
@@ -980,7 +1062,7 @@ namespace PurplePen.MapModel
             if (width == 0)
                 throw new Svg_UnsupportedCallException(nameof(CreatePen));
 
-            StringBuilder strokeShape = new StringBuilder(";stroke-width:").Append(SvgNumbers.FormatInteger(SvgNumbers.ToSteps(width)));
+            StringBuilder strokeShape = new StringBuilder();
             switch (caps) {
                 case LineCapMode.Flat:
                     break;
@@ -1011,7 +1093,7 @@ namespace PurplePen.MapModel
                     // MiterClipped, which the Skia target rejects too (D-5).
                     throw new Svg_UnsupportedCallException(nameof(CreatePen));
             }
-            pens.Add(key, paint.Around("fill:none;", strokeShape.ToString()));
+            pens.Add(key, new PenRecord(paint, isPattern, SvgNumbers.ToSteps(width), strokeShape.ToString()));
         }
 
         // The brush under a key.
@@ -1033,15 +1115,46 @@ namespace PurplePen.MapModel
             return GetBrush(brushKey, callName).Paint(document.Paints, "fill");
         }
 
-        // The style of a pen's stroke.
+        // The style of a pen's stroke of a shape.
         // penKey: the key of the pen.
         // callName: the name of the call that strokes with it.
         private SvgStyle GetPen(object penKey, string callName)
         {
-            SvgStyle stroke;
-            if (!pens.TryGetValue(penKey, out stroke))
+            return GetPenRecord(penKey, callName).InSteps;
+        }
+
+        // The style of a pen's stroke of a text, whose units are millimetres. A pattern is defined in steps, and would
+        // be drawn a thousand times its size inside a text, so a pattern's stroke is not written yet.
+        // penKey: the key of the pen.
+        // callName: the name of the call that strokes with it.
+        private SvgStyle GetTextPen(object penKey, string callName)
+        {
+            PenRecord pen = GetPenRecord(penKey, callName);
+            if (pen.IsPattern)
+                throw new Svg_UnsupportedCallException(callName);
+            return pen.InTextUnits;
+        }
+
+        // The pen under a key.
+        // penKey: the key of the pen.
+        // callName: the name of the call that strokes with it.
+        private PenRecord GetPenRecord(object penKey, string callName)
+        {
+            PenRecord pen;
+            if (!pens.TryGetValue(penKey, out pen))
                 throw new InvalidOperationException(callName + ": the key has no pen.");
-            return stroke;
+            return pen;
+        }
+
+        // The style of a brush's fill of a text, whose units are millimetres. A pattern is defined in steps, and would be
+        // drawn a thousand times its size inside a text, so a pattern's fill is not written yet.
+        // brushKey: the key of the brush.
+        // callName: the name of the call that fills with it.
+        private SvgStyle GetTextFill(object brushKey, string callName)
+        {
+            if (GetBrush(brushKey, callName).IsPattern)
+                throw new Svg_UnsupportedCallException(callName);
+            return GetFill(brushKey, callName);
         }
 
         // The path under a key.

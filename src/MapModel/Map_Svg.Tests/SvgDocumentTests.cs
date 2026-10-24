@@ -1268,11 +1268,11 @@ namespace Map_Svg.Tests
                 new string[] {
                     "@font-face{font-family:\"Arial\";src:url(" + TestFontSubsets.DataUri("Arial", TextEffects.Regular, "Map") + ")}",
                     TextRule,
-                    BlackTextClass("a", "font-size:2500px;font-family:\"Arial\""),
+                    BlackTextClass("a", "font-size:2.5px;font-family:\"Arial\""),
                 },
                 new string[] {
                     "<g data-m=\"1\">",
-                    "<text class=\"a\" x=\"10000\" y=\"22000\">Map</text>",
+                    "<text class=\"a\" transform=\"translate(10000 22000)scale(1000)\">Map</text>",
                     "</g>",
                 }), document);
             CollectionAssert.AreEqual(new string[] { "Arial Regular Map" }, subsets.Requests);
@@ -1289,9 +1289,52 @@ namespace Map_Svg.Tests
                 target.DrawText("AVX", font, black, Point(0, 10));
                 target.DrawText("XYZ", font, black, Point(0, 20));
             }, null);
-            StringAssert.Contains("<text class=\"a\" y=\"2000\" dx=\"0 -250 -200\">AVA</text>\n", document);
-            StringAssert.Contains("<text class=\"a\" y=\"12000\" dx=\"0 -250\">AVX</text>\n", document);
-            StringAssert.Contains("<text class=\"a\" y=\"22000\">XYZ</text>\n", document);
+            StringAssert.Contains("<text class=\"a\" transform=\"translate(0 2000)scale(1000)\" dx=\"0 -.25 -.2\">AVA</text>\n", document);
+            StringAssert.Contains("<text class=\"a\" transform=\"translate(0 12000)scale(1000)\" dx=\"0 -.25\">AVX</text>\n", document);
+            StringAssert.Contains("<text class=\"a\" transform=\"translate(0 22000)scale(1000)\">XYZ</text>\n", document);
+        }
+
+        [Test]
+        public void AMarkKeepsItsPlaceByItsLetterAndKerningMovesWholeClusters()
+        {
+            string document = WriteText(target => {
+                object font = new object(), black = new object();
+                target.CreateFont(font, "Arial", 2.5F, TextEffects.Regular);
+                target.CreateSolidBrush(black, CmykColor.FromCmyk(0, 0, 0, 1));
+                target.DrawText("x\u0301AV", font, black, Point(0, 0));
+            }, null);
+            StringAssert.Contains("<text class=\"a\" transform=\"translate(0 2000)scale(1000)\" dx=\"0 0 0 -.25\">x\u0301AV</text>\n", document);
+        }
+
+        [Test]
+        public void TextOverTenMillimetresKeepsItsSizeThoughBrowsersCapTheFontSize()
+        {
+            string document = WriteText(target => {
+                object font = new object(), black = new object();
+                target.CreateFont(font, "Arial", 20, TextEffects.Regular);
+                target.CreateSolidBrush(black, CmykColor.FromCmyk(0, 0, 0, 1));
+                target.DrawText("Big", font, black, Point(0, 0));
+            }, null);
+            StringAssert.Contains(BlackTextClass("a", "font-size:20px;font-family:\"Arial\""), document);
+            StringAssert.Contains("<text class=\"a\" transform=\"translate(0 16000)scale(1000)\">Big</text>\n", document);
+        }
+
+        [Test]
+        public void TextPaintedWithAPatternIsNotHonoredYet()
+        {
+            using (Svg_GraphicsTarget target = new Svg_GraphicsTarget(DefaultColorConverter.Instance, true, SvgBitmapOptions.Default, new TestTextMetrics(), null)) {
+                object font = new object(), pattern = new object(), pen = new object();
+                target.CreateFont(font, "Arial", 2.5F, TextEffects.Regular);
+                using (IBrushTarget tile = target.CreatePatternBrush(new SizeF(2, 2), 0, 8, 8)) {
+                    object dot = new object();
+                    tile.CreateSolidBrush(dot, CmykColor.FromCmyk(0, 0, 0, 1));
+                    tile.FillEllipse(dot, Point(0, 0), 0.25F, 0.25F);
+                    tile.FinishBrush(pattern);
+                }
+                target.CreatePen(pen, pattern, 0.1F, LineCapMode.Flat, LineJoinMode.Miter, 4);
+                Assert.AreEqual("DrawText", Assert.Throws<Svg_UnsupportedCallException>(() => target.DrawText("a", font, pattern, Point(0, 0))).CallName);
+                Assert.AreEqual("DrawTextOutline", Assert.Throws<Svg_UnsupportedCallException>(() => target.DrawTextOutline("a", font, pen, Point(0, 0))).CallName);
+            }
         }
 
         [Test]
@@ -1303,7 +1346,7 @@ namespace Map_Svg.Tests
                 target.CreateSolidBrush(black, CmykColor.FromCmyk(0, 0, 0, 1));
                 target.DrawText(" a < b & c > d  \u0001", font, black, Point(1, 1));
             }, null);
-            StringAssert.Contains("<text class=\"a\" x=\"1000\" y=\"2600\"> a &lt; b &amp; c &gt; d  </text>\n", document);
+            StringAssert.Contains("<text class=\"a\" transform=\"translate(1000 2600)scale(1000)\"> a &lt; b &amp; c &gt; d  </text>\n", document);
         }
 
         [Test]
@@ -1331,7 +1374,7 @@ namespace Map_Svg.Tests
             }, new TestFontSubsets());
             StringAssert.Contains("@font-face{font-family:\"Times New Roman\";font-weight:700;font-style:italic;src:url(" +
                                   TestFontSubsets.DataUri("Times New Roman", TextEffects.Bold | TextEffects.Italic, "T") + ")}\n", document);
-            StringAssert.Contains(BlackTextClass("a", "font-size:3000px;font-family:\"Times New Roman\";font-weight:700;font-style:italic") + "\n", document);
+            StringAssert.Contains(BlackTextClass("a", "font-size:3px;font-family:\"Times New Roman\";font-weight:700;font-style:italic") + "\n", document);
         }
 
         [Test]
@@ -1343,8 +1386,8 @@ namespace Map_Svg.Tests
                 target.CreatePen(pen, CmykColor.FromCmyk(0, 1, 1, 0), 0.1F, LineCapMode.Flat, LineJoinMode.Miter, 4);
                 target.DrawTextOutline("O", font, pen, Point(0, 0));
             }, null);
-            StringAssert.Contains(".a{font-size:2000px;font-family:\"Arial\";fill:none;stroke:#f00;stroke:#f00 icc-color(cmyk,0,1,1,0);stroke-width:100}\n", document);
-            StringAssert.Contains("<text class=\"a\" y=\"1600\">O</text>\n", document);
+            StringAssert.Contains(".a{font-size:2px;font-family:\"Arial\";fill:none;stroke:#f00;stroke:#f00 icc-color(cmyk,0,1,1,0);stroke-width:.1}\n", document);
+            StringAssert.Contains("<text class=\"a\" transform=\"translate(0 1600)scale(1000)\">O</text>\n", document);
         }
 
         [Test]
@@ -1362,9 +1405,9 @@ namespace Map_Svg.Tests
                 target.DrawText("ab", bold, black, Point(0, 20));
             }, subsets);
             CollectionAssert.AreEqual(new string[] { "Arial Regular abc", "Arial Bold ab" }, subsets.Requests);
-            StringAssert.Contains(BlackTextClass("a", "font-size:2000px;font-family:\"Arial\""), document);
-            StringAssert.Contains(BlackTextClass("b", "font-size:4000px;font-family:\"Arial\""), document);
-            StringAssert.Contains(BlackTextClass("c", "font-size:2000px;font-family:\"Arial\";font-weight:700"), document);
+            StringAssert.Contains(BlackTextClass("a", "font-size:2px;font-family:\"Arial\""), document);
+            StringAssert.Contains(BlackTextClass("b", "font-size:4px;font-family:\"Arial\""), document);
+            StringAssert.Contains(BlackTextClass("c", "font-size:2px;font-family:\"Arial\";font-weight:700"), document);
         }
 
         [Test]
@@ -1392,7 +1435,7 @@ namespace Map_Svg.Tests
                 target.DrawText("x", font, black, Point(0, 0));
             }, new TestFontSubsets());
             StringAssert.DoesNotContain("@font-face", document);
-            StringAssert.Contains("<style>\n" + TextRule + "\n" + BlackTextClass("a", "font-size:2000px;font-family:\"Forbidden\"") + "\n", document);
+            StringAssert.Contains("<style>\n" + TextRule + "\n" + BlackTextClass("a", "font-size:2px;font-family:\"Forbidden\"") + "\n", document);
         }
 
         [Test]
@@ -1406,7 +1449,7 @@ namespace Map_Svg.Tests
                 target.DrawText("a", font, black, Point(1, 0));
                 target.EndObject();
             }, null);
-            StringAssert.Contains("<text class=\"a\" data-o=\"1\" x=\"1000\" y=\"1600\">a</text>\n", document);
+            StringAssert.Contains("<text class=\"a\" data-o=\"1\" transform=\"translate(1000 1600)scale(1000)\">a</text>\n", document);
         }
 
         [Test]
