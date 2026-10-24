@@ -27,7 +27,11 @@ namespace Map_SkiaStd
     //   would draw from a font of the viewer's system instead (MissingCharacterBox).
     //
     // A symbol font, whose character map the subsetter would drop, is first given a character map for Unicode that maps
-    // each character as HarfBuzz maps it through the symbol encoding (SymbolFont).
+    // each character as HarfBuzz maps it through the symbol encoding (SymbolFont). A variable font is made static where
+    // the application draws it (VariableFont), every axis pinned: a browser would set a variable font's axes from the
+    // text's style, its weight among them, where the application may draw it elsewhere, as it draws a face loaded from
+    // a file at its default location whatever weight was asked for. A variable font the subsetter cannot make static
+    // keeps its axes.
     //
     // It drops the hinting, which the application does not draw with, and the gasp table, which says how to smooth
     // hinted glyphs; and it keeps, beside the names the subsetter keeps by default, the font's license and the address
@@ -90,7 +94,11 @@ namespace Map_SkiaStd
                     }
                 }
 
-                byte[] subset = Subset(face, kept, boxed.Count > 0);
+                byte[] subset = null;
+                if (unicodeFont.Tables.ContainsKey("fvar"))
+                    subset = Subset(face, kept, boxed.Count > 0, true, unicodeFont.Location);
+                if (subset == null)
+                    subset = Subset(face, kept, boxed.Count > 0, false, null);
                 if (subset == null)
                     return data;
                 return boxed.Count > 0 ? MissingCharacterBox.Add(subset, boxed) : subset;
@@ -180,7 +188,9 @@ namespace Map_SkiaStd
         // face: the face.
         // characters: the characters to keep.
         // keepNotdefOutline: whether to keep the outline of .notdef, which the box is copied from.
-        private static byte[] Subset(Face face, SortedSet<int> characters, bool keepNotdefOutline)
+        // pinAxes: whether to make a variable face static, each of its axes pinned at the location or else at its default.
+        // location: the coordinates of the axes to pin elsewhere than at their defaults, by tag, or null.
+        private static byte[] Subset(Face face, SortedSet<int> characters, bool keepNotdefOutline, bool pinAxes, IDictionary<string, float> location)
         {
             IntPtr input = hb_subset_input_create_or_fail();
             if (input == IntPtr.Zero)
@@ -197,6 +207,16 @@ namespace Map_SkiaStd
                     hb_set_add(names, name);
                 hb_set_add(hb_subset_input_set(input, DropTableTagSet), TagOf("gasp"));
                 hb_subset_input_set_flags(input, NoHinting | (keepNotdefOutline ? NotdefOutline : 0));
+                if (pinAxes) {
+                    if (hb_subset_input_pin_all_axes_to_default(input, face.Handle) == 0)
+                        return null;
+                    if (location != null) {
+                        foreach (KeyValuePair<string, float> axis in location) {
+                            if (hb_subset_input_pin_axis_location(input, face.Handle, TagOf(axis.Key), axis.Value) == 0)
+                                return null;
+                        }
+                    }
+                }
 
                 IntPtr subset = hb_subset_or_fail(face.Handle, input);
                 if (subset == IntPtr.Zero)
@@ -242,6 +262,12 @@ namespace Map_SkiaStd
 
         [DllImport(HarfBuzz, CallingConvention = CallingConvention.Cdecl)]
         private static extern void hb_subset_input_set_flags(IntPtr input, uint flags);
+
+        [DllImport(HarfBuzz, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int hb_subset_input_pin_all_axes_to_default(IntPtr input, IntPtr face);
+
+        [DllImport(HarfBuzz, CallingConvention = CallingConvention.Cdecl)]
+        private static extern int hb_subset_input_pin_axis_location(IntPtr input, IntPtr face, uint axisTag, float axisValue);
 
         [DllImport(HarfBuzz, CallingConvention = CallingConvention.Cdecl)]
         private static extern IntPtr hb_subset_or_fail(IntPtr face, IntPtr input);

@@ -16,6 +16,10 @@ namespace Map_SkiaStd
         // The version of the font's outlines: 0x00010000 for TrueType outlines, "OTTO" for the Compact Font Format.
         public uint SfntVersion;
 
+        // Where in the design space of a variable font the application draws the face (VariableFont): the coordinate
+        // of each axis named, by the axis's tag, the others at their defaults; null for the default location.
+        public IDictionary<string, float> Location;
+
         // Read a face of a font file.
         // data: the font file, a single font or a TrueType collection.
         // collectionIndex: the face within a collection; 0 for a single font.
