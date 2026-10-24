@@ -26,6 +26,9 @@ namespace Map_SkiaStd
     // - the face's box, its .notdef glyph, under each character the face lacks and draws as that box, which a browser
     //   would draw from a font of the viewer's system instead (MissingCharacterBox).
     //
+    // A symbol font, whose character map the subsetter would drop, is first given a character map for Unicode that maps
+    // each character as HarfBuzz maps it through the symbol encoding (SymbolFont).
+    //
     // It drops the hinting, which the application does not draw with, and the gasp table, which says how to smooth
     // hinted glyphs; and it keeps, beside the names the subsetter keeps by default, the font's license and the address
     // of the license, which licenses such as the SIL Open Font License ask a copy of the font to carry.
@@ -65,7 +68,10 @@ namespace Map_SkiaStd
         // characters: the characters, as Unicode code points.
         public static byte[] Cut(OpenTypeFont font, IList<int> characters)
         {
-            byte[] data = font.Write();
+            OpenTypeFont unicodeFont = SymbolFont.WithUnicodeCharacterMap(font);
+            if (unicodeFont == null)
+                return font.Write();
+            byte[] data = unicodeFont.Write();
             using (Blob blob = Blob.FromStream(new MemoryStream(data)))
             using (Face face = new Face(blob, 0))
             using (HarfBuzzSharp.Font shaping = new HarfBuzzSharp.Font(face)) {

@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
+using System.Threading.Tasks;
 using HarfBuzzSharp;
 using Map_SkiaStd;
 using NUnit.Framework;
@@ -10,7 +12,7 @@ namespace Map_Svg.Tests
 {
     // Tests of the subsets that HarfBuzzSubsetter cuts (T-7): what they hold, that HarfBuzz, as a browser runs it,
     // shapes the text from a subset into the glyphs and positions the application's HarfBuzz shapes it into from the
-    // whole face, and the face's box under characters the face lacks.
+    // whole face, the face's box under characters the face lacks, and the subsets of symbol fonts.
     [TestFixture]
     public class FontSubsetTests
     {
@@ -74,17 +76,34 @@ namespace Map_Svg.Tests
         public void TheSubsetShapesTheTextAsTheWholeFaceDoes(string fontName, string text)
         {
             byte[] whole = File.ReadAllBytes(FontPath(fontName));
+            AssertShapesAlike(whole, HarfBuzzSubsetter.Cut(OpenTypeFont.Read(whole, 0), CodePoints(text)), text);
+        }
+
+        [Test]
+        public void ASymbolFontIsCutWithACharacterMapThatMapsTheTextAsHarfBuzzMapsItInTheWholeFont()
+        {
+            byte[] whole = SymbolFontFrom("LiberationSans-Regular.ttf");
+            const string text = "Map \uF041\uF042";
+            using (Shaper shaper = new Shaper(whole))
+                Assert.IsTrue(shaper.Has('M') && shaper.Has(0xF04D), "HarfBuzz maps M through the symbol subtable, as U+F04D");
             byte[] subset = HarfBuzzSubsetter.Cut(OpenTypeFont.Read(whole, 0), CodePoints(text));
-            using (Shaper fromWhole = new Shaper(whole))
-            using (Shaper fromSubset = new Shaper(subset)) {
-                ShapedGlyph[] expected = fromWhole.Shape(text), shaped = fromSubset.Shape(text);
-                Assert.AreEqual(expected.Length, shaped.Length, "the count of glyphs");
-                for (int index = 0; index < expected.Length; ++index) {
-                    string where = "glyph " + index + " of " + expected.Length;
-                    Assert.AreEqual(expected[index].Cluster, shaped[index].Cluster, where + ": its cluster");
-                    Assert.AreEqual(expected[index].Position, shaped[index].Position, where + ": its advance and offset");
-                    Assert.AreEqual(fromWhole.Outline(expected[index].Glyph), fromSubset.Outline(shaped[index].Glyph), where + ": its outline");
-                }
+            Assert.IsTrue(OpenTypeFont.Read(subset, 0).Tables.ContainsKey("cmap"), "the subset has a character map");
+            AssertShapesAlike(whole, subset, text);
+        }
+
+        [Test]
+        public async Task ChromiumDrawsTheTextOfASymbolFontFromItsSubsetAsFromTheWholeFont()
+        {
+            byte[] whole = SymbolFontFrom("LiberationSans-Regular.ttf");
+            const string text = "Map";
+            byte[] subset = HarfBuzzSubsetter.Cut(OpenTypeFont.Read(whole, 0), CodePoints(text));
+            using (SKBitmap fromWhole = await RenderText("symbol-whole", whole, text))
+            using (SKBitmap fromSubset = await RenderText("symbol-subset", subset, text))
+            using (SKBitmap fromSentinel = await RenderText("symbol-sentinel", null, text)) {
+                string difference = ImageComparison.DescribeDifference("symbol-subset", fromWhole, fromSubset, PixelTolerance.Exact);
+                Assert.IsNull(difference, difference);
+                Assert.IsNotNull(ImageComparison.DescribeDifference("symbol-sentinel", fromWhole, fromSentinel, PixelTolerance.Exact),
+                                 "the text is drawn from the font, not from the sentinel");
             }
         }
 
@@ -123,6 +142,84 @@ namespace Map_Svg.Tests
                 Assert.IsTrue(shaper.Has('\u4E2D'));
                 Assert.IsFalse(shaper.Has('a'));
             }
+        }
+
+        // Assert that HarfBuzz shapes a text from a subset into the glyphs, clusters, advances and offsets it shapes it
+        // into from the whole face, glyphs compared by their outlines.
+        // whole: the whole face.
+        // subset: the subset.
+        // text: the text.
+        private static void AssertShapesAlike(byte[] whole, byte[] subset, string text)
+        {
+            using (Shaper fromWhole = new Shaper(whole))
+            using (Shaper fromSubset = new Shaper(subset)) {
+                ShapedGlyph[] expected = fromWhole.Shape(text), shaped = fromSubset.Shape(text);
+                Assert.AreEqual(expected.Length, shaped.Length, "the count of glyphs");
+                for (int index = 0; index < expected.Length; ++index) {
+                    string where = "glyph " + index + " of " + expected.Length;
+                    Assert.AreEqual(expected[index].Cluster, shaped[index].Cluster, where + ": its cluster");
+                    Assert.AreEqual(expected[index].Position, shaped[index].Position, where + ": its advance and offset");
+                    Assert.AreEqual(fromWhole.Outline(expected[index].Glyph), fromSubset.Outline(shaped[index].Glyph), where + ": its outline");
+                }
+            }
+        }
+
+        // A symbol font made from a test font: the characters U+0020 to U+00FF it has, mapped under U+F020 to U+F0FF in a
+        // character map whose one subtable is for the Windows symbol encoding, as a symbol font maps its characters.
+        // name: the test font's file, within the fonts folder.
+        private static byte[] SymbolFontFrom(string name)
+        {
+            byte[] data = File.ReadAllBytes(FontPath(name));
+            List<int[]> mappings = new List<int[]>();
+            using (Shaper shaper = new Shaper(data)) {
+                for (int character = 0x20; character <= 0xFF; ++character) {
+                    uint glyph = shaper.Glyph(character);
+                    if (glyph != 0)
+                        mappings.Add(new int[] { 0xF000 + character, (int)glyph });
+                }
+            }
+
+            // One subtable of format 4, a segment for each code mapped by a delta, and the segment that ends the table.
+            int segments = mappings.Count + 1, start = 12;
+            byte[] cmap = new byte[start + 16 + 8 * segments];
+            OpenTypeFont.WriteUInt16(cmap, 2, 1);
+            OpenTypeFont.WriteUInt16(cmap, 4, 3);
+            OpenTypeFont.WriteUInt32(cmap, 8, (uint)start);
+            int power = 1, log2 = 0;
+            while (power * 2 <= segments) {
+                power *= 2;
+                ++log2;
+            }
+            OpenTypeFont.WriteUInt16(cmap, start, 4);
+            OpenTypeFont.WriteUInt16(cmap, start + 2, 16 + 8 * segments);
+            OpenTypeFont.WriteUInt16(cmap, start + 6, 2 * segments);
+            OpenTypeFont.WriteUInt16(cmap, start + 8, 2 * power);
+            OpenTypeFont.WriteUInt16(cmap, start + 10, log2);
+            OpenTypeFont.WriteUInt16(cmap, start + 12, 2 * segments - 2 * power);
+            int ends = start + 14, starts = ends + 2 * segments + 2, deltas = starts + 2 * segments;
+            for (int segment = 0; segment < segments; ++segment) {
+                int code = segment < mappings.Count ? mappings[segment][0] : 0xFFFF;
+                int glyph = segment < mappings.Count ? mappings[segment][1] : 0;
+                OpenTypeFont.WriteUInt16(cmap, ends + 2 * segment, code);
+                OpenTypeFont.WriteUInt16(cmap, starts + 2 * segment, code);
+                OpenTypeFont.WriteUInt16(cmap, deltas + 2 * segment, (glyph - code) & 0xFFFF);
+            }
+
+            OpenTypeFont font = OpenTypeFont.Read(data, 0);
+            font.Tables["cmap"] = cmap;
+            return font.Write();
+        }
+
+        // Render a text in Chromium, in a font embedded in the document, or with no font, in the sentinel.
+        // name: the name of the document among the run's SVGs.
+        // fontData: the font, or null.
+        // text: the text.
+        private static async Task<SKBitmap> RenderText(string name, byte[] fontData, string text)
+        {
+            string fontFace = fontData == null ? "" : "@font-face{font-family:\"Test\";src:url(data:font/ttf;base64," + Convert.ToBase64String(fontData) + ")}";
+            string document = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"160\" height=\"50\"><style>" + fontFace +
+                              "text{font-family:\"Test\";font-size:32px;font-kerning:none}</style><text x=\"8\" y=\"38\">" + text + "</text></svg>";
+            return await ChromiumRenderer.RenderAsync(LoopResults.SaveSvg(name, document), new Size(160, 50));
         }
 
         // The path of a test font.
