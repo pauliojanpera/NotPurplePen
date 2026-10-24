@@ -23,4 +23,11 @@
     <PackageReference Include="NUnit3TestAdapter" />
     <PackageReference Include="SkiaSharp.NativeAssets.Linux" />
   </ItemGroup>
+
+  <!-- The fonts the tests draw text in, registered by TestFonts. -->
+  <ItemGroup>
+    <None Include="fonts\**" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\Map_Skia.Tests\fonts\Roboto-Regular.ttf;..\Map_Skia.Tests\fonts\Roboto-Bold.ttf;..\Map_Skia.Tests\fonts\RobotoCondensed-Regular.ttf;..\Map_Skia.Tests\fonts\RobotoCondensed-Bold.ttf"
+          Link="fonts\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
 </Project>

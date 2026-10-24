@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using PurplePen.Graphics2D;
 
@@ -286,14 +287,49 @@ namespace PurplePen.MapModel
         // The images, by their written data, so that a bitmap drawn again, or its same part, is held once (B-5).
         private readonly Dictionary<string, SvgImage> images = new Dictionary<string, SvgImage>(StringComparer.Ordinal);
 
+        // The faces that text is drawn in, in the order they are first drawn in, and by their family, weight and style.
+        private readonly List<SvgFontFace> fontFaces = new List<SvgFontFace>();
+        private readonly Dictionary<string, SvgFontFace> fontFacesByName = new Dictionary<string, SvgFontFace>(StringComparer.Ordinal);
+
+        // What gives the font data the document embeds for its faces, or null when it embeds none (T-6, T-7).
+        private readonly IFontSubsetProvider fontSubsets;
+
+        // Whether the faces that draw the fonts' characters have been asked for and named.
+        private bool fontFacesResolved;
+
         // Where the next page goes: the left edge, in millimetres.
         private double nextPageLeft;
 
-        // Create a document.
+        // Create a document that embeds no fonts.
         // paints: the paints of its styles.
         public SvgDocument(SvgPaints paints)
+            : this(paints, null)
+        {
+        }
+
+        // Create a document.
+        // paints: the paints of its styles.
+        // fontSubsets: what gives the font data it embeds for the faces its text is drawn in, or null to embed none.
+        public SvgDocument(SvgPaints paints, IFontSubsetProvider fontSubsets)
         {
             Paints = paints;
+            this.fontSubsets = fontSubsets;
+        }
+
+        // The face of a family, weight and style that text is drawn in, made when text is first drawn in it.
+        // family: the family, as the map names it.
+        // effects: the effects that ask for the weight and style.
+        public SvgFontFace FontFaceOf(string family, TextEffects effects)
+        {
+            bool bold = (effects & TextEffects.Bold) != 0, italic = (effects & TextEffects.Italic) != 0;
+            string name = (bold ? "b" : "-") + (italic ? "i" : "-") + family;
+            SvgFontFace face;
+            if (!fontFacesByName.TryGetValue(name, out face)) {
+                face = new SvgFontFace(family, bold, italic);
+                fontFacesByName.Add(name, face);
+                fontFaces.Add(face);
+            }
+            return face;
         }
 
         // The clip of a path filled under a rule. Equal clips are one, whose definition every group that clips to it
@@ -363,6 +399,7 @@ namespace PurplePen.MapModel
         {
             foreach (SvgPart part in Parts)
                 part.Content.TidyChildren();
+            ResolveFontFaces();
 
             SvgWriter writer = new SvgWriter();
             foreach (SvgPart part in Parts) {
@@ -398,7 +435,7 @@ namespace PurplePen.MapModel
 
             StringBuilder text = new StringBuilder();
             WriteRootStartTag(text);
-            WriteStyleBlock(text, writer);
+            WriteStyleBlock(text, writer, WriteFontFaces());
             WriteMetadata(text);
             if (Paints.RefersToCmykProfile || clipsText.Length > 0 || patternsText.Length > 0 || partsText.Length > 0 || imagesText.Length > 0) {
                 text.Append("<defs>\n");
@@ -425,14 +462,65 @@ namespace PurplePen.MapModel
             text.Append(">\n");
         }
 
-        // Write the style block: one class to a line, in the order the classes were named (S-4).
+        // Ask for the faces that draw the characters of each font, and name the family of each fallback face: the family
+        // the face names itself with, and a number after it when a face of that family, weight and style is embedded
+        // already. Every face is then embedded under a family of its own, and a text names the family of each run that a
+        // fallback face draws, so that a viewer draws each character in the face the application drew it in, and never
+        // in a font of its own (T-8). A face that may not be embedded keeps its own family, which an installed font may
+        // answer to (T-9). The faces are resolved once, before the text that names them is written.
+        private void ResolveFontFaces()
+        {
+            if (fontSubsets == null || fontFacesResolved)
+                return;
+            fontFacesResolved = true;
+            HashSet<string> taken = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            foreach (SvgFontFace face in fontFaces)
+                taken.Add(FamilyKey(face.Family, face.Bold, face.Italic));
+            foreach (SvgFontFace face in fontFaces) {
+                face.SetSubsets(fontSubsets.GetSubsets(face.Family, face.Effects, face.Characters), subset => {
+                    if (subset.FontData == null)
+                        return subset.FaceName;
+                    string family = subset.FaceName;
+                    for (int number = 2; !taken.Add(FamilyKey(family, face.Bold, face.Italic)); ++number)
+                        family = subset.FaceName + " " + number.ToString(CultureInfo.InvariantCulture);
+                    return family;
+                });
+            }
+        }
+
+        // The key of a family with a weight and style, which no two embedded faces share.
+        // family: the family.
+        // bold, italic: whether the face is bold, and whether it is italic.
+        private static string FamilyKey(string family, bool bold, bool italic)
+        {
+            return (bold ? "b" : "-") + (italic ? "i" : "-") + family;
+        }
+
+        // Write the @font-face rules of the faces text is drawn in, in the order they were first drawn in, each font with
+        // a rule for each face that draws its characters and may be embedded (T-6 to T-9); and, when there is text, the rule that
+        // every text element follows: no kerning or ligatures of the browser's own, since the kerning is written with the
+        // text and the application draws no ligatures; emoji in the faces embedded, as the application draws them, where
+        // a browser would take a color emoji font of its own (T-8); and spaces kept as they are (T-3). Return the rules.
+        private string WriteFontFaces()
+        {
+            StringBuilder rules = new StringBuilder();
+            foreach (SvgFontFace face in fontFaces)
+                face.AppendFontFaceRules(rules);
+            if (fontFaces.Count > 0)
+                rules.Append("text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white-space:pre}\n");
+            return rules.ToString();
+        }
+
+        // Write the style block: the rules of the fonts and text, then one class to a line, in the order the classes were
+        // named (S-4).
         // text: the text to append to.
         // writer: the writer that named the classes.
-        private static void WriteStyleBlock(StringBuilder text, SvgWriter writer)
+        // fontRules: the rules of the fonts and text, or nothing when there is no text.
+        private static void WriteStyleBlock(StringBuilder text, SvgWriter writer, string fontRules)
         {
-            if (writer.StylesInOrder.Count == 0)
+            if (writer.StylesInOrder.Count == 0 && fontRules.Length == 0)
                 return;
-            text.Append("<style>\n");
+            text.Append("<style>\n").Append(fontRules);
             foreach (string style in writer.StylesInOrder)
                 text.Append('.').Append(writer.ClassOf(style)).Append('{').Append(style).Append("}\n");
             text.Append("</style>\n");

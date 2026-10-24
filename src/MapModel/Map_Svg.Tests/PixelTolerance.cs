@@ -24,6 +24,16 @@ namespace Map_Svg.Tests
         // levels redder; the other 12 hold their ink in strokes and dots too thin to have an inside.
         public static readonly PixelTolerance Default = new PixelTolerance(1, 4, 1, 40, 0.4);
 
+        // The tolerance of a drawing that draws text. Chromium shades the edges of glyphs, and of the frames drawn
+        // around them, otherwise than Skia does, a whole glyph at a time: over the first 81 drawings with text, their
+        // blurred images differ at an edge by up to 75 levels (frametext3), darker or lighter, and by at most 0.37 of
+        // the contrast around it. So the edge levels are 80 here, and all else is as Default holds it. The rule passes
+        // all 81, and fails each of them shifted by two pixels or with its features two pixels wider, 63 of the 80
+        // with a solid feature with its smallest one removed, and 62 of the 81 with their ink six levels redder. Every
+        // rule of this form that passes the 81 passes 15 of those removals: their blurred differences are no larger
+        // than real ones.
+        public static readonly PixelTolerance Text = new PixelTolerance(1, 4, 1, 80, 0.4);
+
         // No tolerance at all, for shapes on whole pixels, which every rasterizer draws alike.
         public static readonly PixelTolerance Exact = new PixelTolerance(0, 0, 0, 0, 0);
 

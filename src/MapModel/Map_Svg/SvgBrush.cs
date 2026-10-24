@@ -26,6 +26,12 @@ namespace PurplePen.MapModel
             this.pattern = pattern;
         }
 
+        // Whether the brush paints with a pattern, which is defined in the document's steps.
+        public bool IsPattern
+        {
+            get { return pattern != null; }
+        }
+
         // The style that paints a property with the brush, such as "fill:#f00" or "stroke:url(#)".
         // paints: the paints of the document.
         // property: "fill" or "stroke".
