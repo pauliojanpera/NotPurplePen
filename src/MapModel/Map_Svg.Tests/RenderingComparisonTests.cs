@@ -22,8 +22,9 @@ namespace Map_Svg.Tests
         // The metrics the Skia target lays text out with, which the SVG target lays it out with too (T-1).
         private static readonly ITextMetrics textMetrics = new Skia_TextMetrics();
 
-        // The font data of the faces the Skia target draws text with, which the documents embed (T-6 to T-9).
-        private static readonly IFontSubsetProvider fontSubsets = new SkiaFontSubsetProvider((font, characters) => font.Write());
+        // The font data of the faces the Skia target draws text with, cut to the characters each document draws in
+        // them, which the documents embed (T-6 to T-9).
+        private static readonly IFontSubsetProvider fontSubsets = new SkiaFontSubsetProvider();
 
         // Make the cases of the drawing cases.
         private static IEnumerable<ComparisonCase> DrawingCases()
