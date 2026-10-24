@@ -950,6 +950,7 @@ namespace Map_SkiaStd
                     {
                         GlyphId = run.GlyphIds[i],
                         GlyphText = glyphText,
+                        ClusterStart = clusterStart,
                         Position = new SKPoint(
                             origin.X + run.Positions[i].X,
                             origin.Y + ascent + run.Positions[i].Y
@@ -997,6 +998,10 @@ namespace Map_SkiaStd
     {
         public int GlyphId;
         public string GlyphText;
+        // The index, in the text as shaped, of the first character of the cluster the glyph draws:
+        // the glyphs of one cluster share it, and so tell apart from equal clusters side by side.
+        // The text as shaped is in Unicode normalization form C.
+        public int ClusterStart;
         public SKPoint Position;
         public SKTypeface Typeface;
     }

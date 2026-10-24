@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Security;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.Playwright;
 using SkiaSharp;
@@ -79,6 +80,66 @@ namespace Map_Svg.Tests
                 await page.CloseAsync();
             }
         }
+
+        // Read where Chromium puts each character of each text an SVG file draws, as it draws the file at an image's
+        // size. The file is opened as a document of its own and sized to the image, its shapes are taken out, as the
+        // texts do not depend on them, and each part it uses is put in place of its use, so that the texts are laid out
+        // at the scale they are drawn at: a text inside a definition is laid out at the definition's own scale, where
+        // Chromium caps its size. Each face is loaded before any text is measured.
+        // svgPath: the path of the SVG file.
+        // pixelSize: the size of the image in pixels.
+        public static async Task<List<DrawnText>> ReadTextPositionsAsync(string svgPath, Size pixelSize)
+        {
+            IBrowser chromium = await browser.Value;
+            IPage page = await chromium.NewPageAsync(new BrowserNewPageOptions {
+                ViewportSize = new ViewportSize { Width = pixelSize.Width, Height = pixelSize.Height },
+                DeviceScaleFactor = 1,
+            });
+            try {
+                await page.GotoAsync(new Uri(svgPath).AbsoluteUri);
+                string texts = await page.EvaluateAsync<string>(readTextPositions, new[] { pixelSize.Width, pixelSize.Height });
+                return JsonSerializer.Deserialize<List<DrawnText>>(texts);
+            }
+            finally {
+                await page.CloseAsync();
+            }
+        }
+
+        // The script that reads the texts' positions, given the image's width and height, as JSON for DrawnText.
+        private const string readTextPositions = @"async ([width, height]) => {
+            const root = document.documentElement;
+            root.setAttribute('width', width);
+            root.setAttribute('height', height);
+            for (const shape of Array.from(document.querySelectorAll('circle, ellipse, image, line, path, polygon, polyline, rect')))
+                shape.remove();
+            for (const use of Array.from(document.querySelectorAll('use'))) {
+                const href = use.getAttribute('href') || use.getAttributeNS('http://www.w3.org/1999/xlink', 'href') || '';
+                const definition = document.getElementById(href.replace(/^#/, ''));
+                if (!definition || definition.localName !== 'g')
+                    continue;
+                const part = definition.closest('defs') ? definition : definition.cloneNode(true);
+                part.removeAttribute('id');
+                if (use.hasAttribute('transform'))
+                    part.setAttribute('transform', use.getAttribute('transform'));
+                use.replaceWith(part);
+            }
+            await Promise.all(Array.from(document.fonts).map(face => face.load()));
+            await document.fonts.ready;
+            const texts = [];
+            for (const text of document.querySelectorAll('text')) {
+                if (text.closest('defs'))
+                    continue;
+                const style = getComputedStyle(text);
+                const matrix = text.getScreenCTM();
+                const starts = [];
+                for (let index = 0; index < text.getNumberOfChars(); ++index)
+                    starts.push(text.getStartPositionOfChar(index).x);
+                texts.push({ Text: text.textContent, Family: style.fontFamily, Size: parseFloat(style.fontSize),
+                             Weight: parseInt(style.fontWeight, 10), Italic: style.fontStyle === 'italic',
+                             Scale: Math.hypot(matrix.a, matrix.b), Starts: starts });
+            }
+            return JSON.stringify(texts);
+        }";
 
         // Write an HTML page that shows an SVG file as an image of the given size at its top left corner, as a browser
         // shows a standalone SVG document, and return the page's path.

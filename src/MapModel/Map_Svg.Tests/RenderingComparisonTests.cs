@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Globalization;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -54,14 +55,14 @@ namespace Map_Svg.Tests
         private static async Task CompareWithReferenceAsync(ComparisonCase comparisonCase)
         {
             string document;
-            PixelTolerance tolerance;
+            bool drawsText;
             using (RecordingGraphicsTarget recording = comparisonCase.Record()) {
                 List<string> missingCalls = recording.RecordedCallNames.Where(callName => !Svg_GraphicsTarget.FullyImplements(callName)).ToList();
                 if (missingCalls.Count > 0)
                     throw Pending(comparisonCase, missingCalls);
 
                 document = WriteDocument(comparisonCase, recording);
-                tolerance = ToleranceFor(recording.RecordedCallNames);
+                drawsText = DrawsText(recording.RecordedCallNames);
             }
 
             string svgPath = LoopResults.SaveSvg(comparisonCase.Name, document);
@@ -69,7 +70,16 @@ namespace Map_Svg.Tests
             bool referenceRecorded = File.Exists(referencePath);
             using (SKBitmap reference = referenceRecorded ? SKBitmap.Decode(referencePath) : RenderReferenceForRecording(comparisonCase))
             using (SKBitmap rendering = await ChromiumRenderer.RenderAsync(svgPath, comparisonCase.PixelSize)) {
-                string difference = ImageComparison.DescribeDifference(comparisonCase.Name, reference, rendering, tolerance);
+                string difference = ImageComparison.DescribeDifference(comparisonCase.Name, reference, rendering, drawsText ? PixelTolerance.Text : PixelTolerance.Default);
+                if (drawsText) {
+                    TextPositionMeasurement positions = await MeasureTextPositionsAsync(comparisonCase, svgPath);
+                    if (positions.LargestOffset > TextPositionTolerance) {
+                        string misplaced = string.Format(CultureInfo.InvariantCulture,
+                                                         "Chromium puts a character of {0} {1:0.###} pixels from where Skia's shaping puts its glyph, more than {2} pixels: {3}.",
+                                                         comparisonCase.Name, positions.LargestOffset, TextPositionTolerance, positions.Where);
+                        difference = difference == null ? misplaced : difference + " " + misplaced;
+                    }
+                }
                 if (!referenceRecorded) {
                     Assert.Fail(string.Format("No reference image of {0} is recorded in svg_reference; the loop's results hold one under references/. Compared with it: {1}",
                                               comparisonCase.Name, difference ?? "Chromium's image matches within the tolerance."));
@@ -79,13 +89,34 @@ namespace Map_Svg.Tests
             }
         }
 
-        // Choose the tolerance a drawing is compared within: the one for text when it draws text, whose glyphs
-        // Chromium shades otherwise than Skia does, else the default.
+        // Whether a drawing draws text, which is compared within the tolerance for text, as Chromium shades glyphs
+        // otherwise than Skia does, and whose characters' positions are measured too.
         // callNames: the names of the calls the drawing makes.
-        private static PixelTolerance ToleranceFor(IEnumerable<string> callNames)
+        private static bool DrawsText(IEnumerable<string> callNames)
         {
-            bool drawsText = callNames.Any(callName => callName == nameof(Svg_GraphicsTarget.DrawText) || callName == nameof(Svg_GraphicsTarget.DrawTextOutline));
-            return drawsText ? PixelTolerance.Text : PixelTolerance.Default;
+            return callNames.Any(callName => callName == nameof(Svg_GraphicsTarget.DrawText) || callName == nameof(Svg_GraphicsTarget.DrawTextOutline));
+        }
+
+        // How far, in pixels of the image, Chromium may put a character of a text from where Skia's shaping puts its
+        // glyph, which is where the Skia target draws it and the PDF export writes it. The document places each cluster
+        // of characters by a position written to a thousandth of a millimetre, so Chromium puts it there within the
+        // rounding of that and of the widths the target is given in single precision: over the 78 text cases, within
+        // 0.063 pixels. Without the positions it advances each glyph by its own rounding of the advance, which over a
+        // line of 40 characters came to 0.6 pixels.
+        private const double TextPositionTolerance = 0.1;
+
+        // Measure where Chromium puts the characters of a drawing's texts against where Skia's shaping puts their
+        // glyphs, and record it in the loop's results as text-positions/<name>.tsv, each cluster measured in
+        // text-positions/<name>.clusters.tsv.
+        // comparisonCase: the case.
+        // svgPath: the path of its SVG document.
+        private static async Task<TextPositionMeasurement> MeasureTextPositionsAsync(ComparisonCase comparisonCase, string svgPath)
+        {
+            List<DrawnText> texts = await ChromiumRenderer.ReadTextPositionsAsync(svgPath, comparisonCase.PixelSize);
+            TextPositionMeasurement measurement = TextPositionMeasurement.Measure(texts, textMetrics);
+            LoopResults.SaveText(Path.Combine("text-positions", comparisonCase.Name + ".tsv"), measurement.ToTsv());
+            LoopResults.SaveText(Path.Combine("text-positions", comparisonCase.Name + ".clusters.tsv"), measurement.ClustersToTsv());
+            return measurement;
         }
 
         // Write the SVG document of a case's recording: one map in one part, shown on a page the size of the image,
