@@ -122,6 +122,7 @@
                     <NativeMenuItemSeparator/>
                     <NativeMenuItem Header="{Binding CreateOcadFilesCommandName}" Command="{Binding CreateOcadFilesCommand}"/>
                     <NativeMenuItem Header="{resx:Localize MainFrame_createImageFilesMenu_Text}" Command="{Binding CreateImageFilesCommand}"/>
+                    <NativeMenuItem Header="{resx:Localize MainFrame_createSvgFilesMenu_Text}" Command="{Binding CreateCourseSvgCommand}"/>
                     <NativeMenuItem Header="{resx:Localize MainFrame_createPDFsMenu_Text}">
                         <NativeMenu>
                             <NativeMenuItem Header="{resx:Localize MainFrame_createDescriptionPdfMenu_Text}" Command="{Binding CreateDescriptionPdfCommand}"/>
