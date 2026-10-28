@@ -94,7 +94,24 @@ namespace Map_Svg.Tests
             RecordStructure(target => target.SetGeoreference(map, georeference));
         }
 
-        // The object that stands for a key of the caller's, made when the key is first seen.
+        // Record describing the course a map draws.
+        public void DescribeCourse(object mapKey, CourseRecord course)
+        {
+            object map = StandInFor(mapKey);
+            RecordStructure(target => target.DescribeCourse(map, course));
+        }
+
+        // Record describing a course's objects of a map, each by the stand-in of its key.
+        public void DescribeObjects(object mapKey, IReadOnlyDictionary<object, CourseObjectRecord> objects)
+        {
+            object map = StandInFor(mapKey);
+            Dictionary<object, CourseObjectRecord> standIns = new Dictionary<object, CourseObjectRecord>();
+            foreach (KeyValuePair<object, CourseObjectRecord> pair in objects)
+                standIns[StandInFor(pair.Key)] = pair.Value;
+            RecordStructure(target => target.DescribeObjects(map, standIns));
+        }
+
+                // The object that stands for a key of the caller's, made when the key is first seen.
         // key: the caller's key.
         private object StandInFor(object key)
         {

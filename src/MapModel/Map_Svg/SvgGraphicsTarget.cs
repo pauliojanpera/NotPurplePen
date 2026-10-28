@@ -420,6 +420,7 @@ namespace PurplePen.MapModel
             OpenGroup map = FindOpenMap(nameof(BeginObject));
 
             SvgSymbolRecord symbol = ((SvgMapRecord)map.Record).RecordSymbol(symbolKey, symbolId, symbolName);
+            ((SvgMapRecord)map.Record).RecordObject(objectKey);
             foreach (OpenGroup openGroup in openGroups) {
                 if (openGroup == map)
                     break;
@@ -476,6 +477,30 @@ namespace PurplePen.MapModel
             if (!mapsByKey.TryGetValue(mapKey, out map))
                 throw new InvalidOperationException("SetGeoreference: no map has begun with this key.");
             map.Georeference = georeference;
+        }
+
+        // Record the course that a map draws, with the map (CD-1).
+        // mapKey: the key of a map that has begun.
+        // course: the course.
+        public void DescribeCourse(object mapKey, CourseRecord course)
+        {
+            RequireDocumentTarget(nameof(DescribeCourse));
+            SvgMapRecord map;
+            if (!mapsByKey.TryGetValue(mapKey, out map))
+                throw new InvalidOperationException("DescribeCourse: no map has begun with this key.");
+            map.Course = course;
+        }
+
+        // Record what each object that a course added to a map draws, by the objects' keys (CD-2, CD-3).
+        // mapKey: the key of a map that has begun.
+        // objects: for each object's key, what the object draws.
+        public void DescribeObjects(object mapKey, IReadOnlyDictionary<object, CourseObjectRecord> objects)
+        {
+            RequireDocumentTarget(nameof(DescribeObjects));
+            SvgMapRecord map;
+            if (!mapsByKey.TryGetValue(mapKey, out map))
+                throw new InvalidOperationException("DescribeObjects: no map has begun with this key.");
+            map.ObjectDescriptions = objects;
         }
 
         // The intensity at which colors are drawn; setting it discards the brushes and pens, whose colors it changed.
