@@ -65,16 +65,18 @@ model, and no print area, so no outline. A PDF map, which PDF export copies as v
   `CourseObj.AddToMap`. The map code already opens each symbol as an object, with the `Symbol` as its key
   (`Map.Draw`'s `BeginObject(curSym, ...)`), so the key reaches the target unchanged.
 - **What the target is told.** Two calls join `IStructuredGraphicsTarget`, with plain data only, as `Graphics2D`
-  carries no course types:
-  - `DescribeCourse(object courseKey, CourseRecord course)`: the name, part, variation and print scale, and the
-    controls in order, each with its code, kind and position in map coordinates (CD-1), and the parts that draw it;
+  carries no course types (`Graphics2D/CourseRecords.cs`):
+  - `DescribeCourse(object mapKey, CourseRecord course)`, with the course's map: the name, part, variation and print
+    scale, and the controls in order, each with its code, kind and position in map coordinates (CD-1);
   - `DescribeObjects(object mapKey, IReadOnlyDictionary<object, CourseObjectRecord> objects)`: for each object key of
-    the course's map, its course, its kind, and its controls: one for a control circle, start, finish or control
-    number, two for a leg, none for a description or a special object (CD-2).
-- **What the document writes.** Elements keep only their object number (S-11). The metadata gains, for each course,
-  `<npp:course>` with its controls as `<npp:control>` children, and for each course object an `<npp:object n="..."
-  course="..." kind="..." controls="..."/>` keyed by the object number its elements carry. The element and attribute
-  names are a proposal, to settle with @Pauli before the format's version is raised.
+    the course's map, its kind and its controls, by their places in the course's list: one for a control circle,
+    start, finish or control number, two for a leg, none for a description or a special object (CD-2).
+- **What the document writes.** Elements keep only their object number (S-11). The course map's `<npp:map>` record
+  gains `<npp:course name="..." part="..." variation="..." scale="...">` with an `<npp:control n="..." code="..."
+  kind="..." x="..." y="..."/>` for each control, its position in steps of map as the drawing writes coordinates, and
+  an `<npp:object n="..." kind="..." controls="..."/>` for each described object that drew an element, keyed by the
+  number its elements carry. The names are a proposal, to settle with @Pauli before the format's version is raised;
+  version 1 only gains elements.
 - **Kinds.** From the `CourseObj` class: `ControlCourseObj` control, `StartCourseObj` start, `FinishCourseObj`
   finish, `ControlNumberCourseObj` control-number, `LegCourseObj`, `FlaggedLegCourseObj` and `TopologyLegCourseObj`
   leg, `DescriptionCourseObj` description, and each special its own kind; controls from `courseControlId`, and for a
