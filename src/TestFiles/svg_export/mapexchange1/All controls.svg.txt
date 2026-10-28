@@ -1,0 +1,2257 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="215.9mm" height="279.4mm" viewBox="0 0 215.9 279.4" xml:lang="und">
+<style>
+@font-face{font-family:"Roboto Condensed";font-weight:700;src:url(data:font/ttf;base64,sha256:8c2440f0098fc14d74251ea1e0a8591d034c2e956ed3fc6711eb64171519e633)}
+@font-face{font-family:"Roboto Condensed";src:url(data:font/ttf;base64,sha256:9abb00c652c7d0661d384456c2e2329ccbd34480c2690da59d0cca8b20e5ad62)}
+text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white-space:pre}
+.a{shape-rendering:crispEdges}
+.b{fill:#fff;fill:#fff icc-color(cmyk,0,0,0,0);fill-rule:evenodd}
+.c{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:219;stroke-miterlimit:5}
+.d{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:109;stroke-miterlimit:5}
+.e{font-size:2.758px;font-family:"Roboto Condensed";font-weight:700;fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)}
+.f{font-size:2.758px;font-family:"Roboto Condensed";fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)}
+.g{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-miterlimit:5}
+.h{fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)}
+.i{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-linejoin:round}
+.j{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-miterlimit:5}
+.k{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:219;stroke-linecap:round;stroke-linejoin:round}
+.l{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:219;stroke-linecap:round;stroke-miterlimit:5}
+.m{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:328;stroke-linecap:round;stroke-linejoin:round}
+.n{fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd}
+.o{fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-miterlimit:5}
+.p{font-size:4.18px;font-family:"Roboto Condensed";font-weight:700;fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)}
+.q{fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:250;stroke-miterlimit:5}
+.r{clip-rule:evenodd}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="All controls">
+<npp:color position="0" name="White" cmyk="0,0,0,0"/>
+<npp:color position="1" name="Black" cmyk="0,0,0,1"/>
+<npp:color position="2" name="Lower purple" cmyk=".35,.85,0,0"/>
+<npp:color position="3" name="Purple" cmyk=".35,.85,0,0"/>
+<npp:symbol n="1" id="890" name="White out" colors="0"/>
+<npp:symbol n="2" id="810.0" name="Description: line" colors="1"/>
+<npp:symbol n="3" id="810.1" name="Description: line" colors="1"/>
+<npp:symbol n="4" id="810.2" name="Description: text" colors="1"/>
+<npp:symbol n="5" id="810.4" name="Description: text" colors="1"/>
+<npp:symbol n="6" id="800.0" name="Description: Start" colors="1"/>
+<npp:symbol n="7" id="800.1" name="Description: Clearing" colors="1"/>
+<npp:symbol n="8" id="800.2" name="Description: Eastern" colors="1"/>
+<npp:symbol n="9" id="800.3" name="Description: Thicket" colors="1"/>
+<npp:symbol n="10" id="800.4" name="Description: East edge" colors="1"/>
+<npp:symbol n="11" id="800.5" name="Description: Distinctive tree" colors="1"/>
+<npp:symbol n="12" id="800.6" name="Description: North-west tip" colors="1"/>
+<npp:symbol n="13" id="800.7" name="Description: Forest corner" colors="1"/>
+<npp:symbol n="14" id="800.8" name="Description: East corner (outside)" colors="1"/>
+<npp:symbol n="15" id="800.9" name="Description: Copse" colors="1"/>
+<npp:symbol n="16" id="801.0" name="Description: South tip" colors="1"/>
+<npp:symbol n="17" id="801.1" name="Description: Hill" colors="1"/>
+<npp:symbol n="18" id="801.2" name="Description: West part" colors="1"/>
+<npp:symbol n="19" id="801.3" name="Description: North-west edge" colors="1"/>
+<npp:symbol n="20" id="801.4" name="Description: Vegetation boundary" colors="1"/>
+<npp:symbol n="21" id="801.5" name="Description: Junction" colors="1"/>
+<npp:symbol n="22" id="801.6" name="Description: Minor water channel, ditch" colors="1"/>
+<npp:symbol n="23" id="801.7" name="Description: Crossing" colors="1"/>
+<npp:symbol n="24" id="801.8" name="Description: Special item" colors="1"/>
+<npp:symbol n="25" id="801.9" name="Description: East side" colors="1"/>
+<npp:symbol n="26" id="802.0" name="Description: South-west tip" colors="1"/>
+<npp:symbol n="27" id="802.1" name="Description: Depression" colors="1"/>
+<npp:symbol n="28" id="802.2" name="Description: North-west side" colors="1"/>
+<npp:symbol n="29" id="802.3" name="Description: North-east part" colors="1"/>
+<npp:symbol n="30" id="802.4" name="Description: Road" colors="1"/>
+<npp:symbol n="31" id="802.5" name="Description: South-west end" colors="1"/>
+<npp:symbol n="32" id="802.6" name="Description: North-west part" colors="1"/>
+<npp:symbol n="33" id="802.7" name="Description: West corner (outside)" colors="1"/>
+<npp:symbol n="34" id="802.8" name="Description: South-west side" colors="1"/>
+<npp:symbol n="35" id="802.9" name="Description: Boulder" colors="1"/>
+<npp:symbol n="36" id="803.0" name="Description: Western" colors="1"/>
+<npp:symbol n="37" id="803.1" name="Description: Track, Path" colors="1"/>
+<npp:symbol n="38" id="803.2" name="Description: North side" colors="1"/>
+<npp:symbol n="39" id="803.3" name="Description: River, stream, water course" colors="1"/>
+<npp:symbol n="40" id="803.4" name="Description: North-east end" colors="1"/>
+<npp:symbol n="41" id="803.5" name="Description: South side" colors="1"/>
+<npp:symbol n="42" id="803.6" name="Description: Fence" colors="1"/>
+<npp:symbol n="43" id="803.7" name="Description: North-west corner (outside)" colors="1"/>
+<npp:symbol n="44" id="803.8" name="Description: Northern" colors="1"/>
+<npp:symbol n="45" id="803.9" name="Description: West side" colors="1"/>
+<npp:symbol n="46" id="804.0" name="Description: Southern" colors="1"/>
+<npp:symbol n="47" id="804.1" name="Description: Building" colors="1"/>
+<npp:symbol n="48" id="804.2" name="Description: South-west corner (outside)" colors="1"/>
+<npp:symbol n="49" id="804.3" name="Description: West edge" colors="1"/>
+<npp:symbol n="50" id="804.4" name="Description: South corner (inside)" colors="1"/>
+<npp:symbol n="51" id="804.5" name="Description: Navigate to finish (no tapes)" colors="1"/>
+<npp:symbol n="52" id="804.6" name="Description: Mandatory crossing point or points" colors="1"/>
+<npp:symbol n="53" id="701" name="Start" colors="2"/>
+<npp:symbol n="54" id="702" name="Control point" colors="2"/>
+<npp:symbol n="55" id="706" name="Finish" colors="2"/>
+<npp:symbol n="56" id="708.0" name="Crossing point" colors="2"/>
+<npp:symbol n="57" id="720.0" name="Control code" colors="2"/>
+<npp:symbol n="58" id="710" name="Dangerous area" colors="3"/>
+<npp:course name="All controls" scale="10000">
+<npp:control n="1" kind="start" x="56800" y="-8700"/>
+<npp:control n="2" kind="start" x="41672" y="41540"/>
+<npp:control n="3" kind="map-exchange" x="115600" y="-11800"/>
+<npp:control n="4" code="31" kind="control" x="-9657" y="-10583"/>
+<npp:control n="5" code="32" kind="control" x="83741" y="-16404"/>
+<npp:control n="6" code="36" kind="control" x="128400" y="6100"/>
+<npp:control n="7" code="37" kind="control" x="121800" y="-23000"/>
+<npp:control n="8" code="38" kind="control" x="50300" y="2900"/>
+<npp:control n="9" code="39" kind="control" x="129200" y="37700"/>
+<npp:control n="10" code="40" kind="control" x="124200" y="29500"/>
+<npp:control n="11" code="41" kind="control" x="28000" y="6200"/>
+<npp:control n="12" code="42" kind="control" x="38400" y="-14000"/>
+<npp:control n="13" code="43" kind="control" x="84000" y="34500"/>
+<npp:control n="14" code="44" kind="control" x="37600" y="-22800"/>
+<npp:control n="15" code="45" kind="control" x="55900" y="25600"/>
+<npp:control n="16" code="46" kind="control" x="-9200" y="8300"/>
+<npp:control n="17" code="47" kind="control" x="2510" y="31320"/>
+<npp:control n="18" code="48" kind="control" x="21500" y="40200"/>
+<npp:control n="19" code="49" kind="control" x="22000" y="-20800"/>
+<npp:control n="20" code="50" kind="control" x="45200" y="22800"/>
+<npp:control n="21" code="51" kind="control" x="16400" y="-11900"/>
+<npp:control n="22" code="52" kind="control" x="43000" y="-11100"/>
+<npp:control n="23" code="53" kind="control" x="25800" y="-10500"/>
+<npp:control n="24" code="54" kind="control" x="53700" y="8200"/>
+<npp:control n="25" code="55" kind="control" x="51200" y="10500"/>
+<npp:control n="26" code="56" kind="control" x="81300" y="24000"/>
+<npp:control n="27" code="57" kind="control" x="90000" y="19300"/>
+<npp:control n="28" code="58" kind="control" x="20300" y="-4000"/>
+<npp:control n="29" code="59" kind="control" x="51200" y="-27000"/>
+<npp:control n="30" code="60" kind="control" x="-12887" y="25331"/>
+<npp:control n="31" code="70" kind="control" x="21300" y="11800"/>
+<npp:control n="32" code="71" kind="control" x="40100" y="17400"/>
+<npp:control n="33" code="72" kind="control" x="-700" y="10300"/>
+<npp:control n="34" code="73" kind="control" x="57400" y="-13800"/>
+<npp:control n="35" code="74" kind="control" x="61200" y="-18800"/>
+<npp:control n="36" code="75" kind="control" x="72000" y="27000"/>
+<npp:control n="37" code="76" kind="control" x="5600" y="-5700"/>
+<npp:control n="38" code="77" kind="control" x="74700" y="19200"/>
+<npp:control n="39" code="78" kind="control" x="93900" y="28100"/>
+<npp:control n="40" code="79" kind="control" x="119800" y="8600"/>
+<npp:control n="41" code="80" kind="control" x="41900" y="6800"/>
+<npp:control n="42" kind="finish" x="53200" y="-2800"/>
+<npp:control n="43" kind="finish" x="-1720" y="-31221"/>
+<npp:control n="44" kind="crossing" x="31618" y="21696"/>
+<npp:control n="45" kind="crossing" x="104643" y="16140"/>
+<npp:control n="46" kind="crossing" x="-23416" y="-3175"/>
+</npp:course>
+<npp:object n="1" kind="description"/>
+<npp:object n="2" kind="description"/>
+<npp:object n="3" kind="description"/>
+<npp:object n="4" kind="description"/>
+<npp:object n="5" kind="description"/>
+<npp:object n="6" kind="description"/>
+<npp:object n="7" kind="description"/>
+<npp:object n="8" kind="description"/>
+<npp:object n="9" kind="description"/>
+<npp:object n="10" kind="description"/>
+<npp:object n="11" kind="description"/>
+<npp:object n="12" kind="description"/>
+<npp:object n="13" kind="description"/>
+<npp:object n="14" kind="description"/>
+<npp:object n="15" kind="description"/>
+<npp:object n="16" kind="description"/>
+<npp:object n="17" kind="description"/>
+<npp:object n="18" kind="description"/>
+<npp:object n="19" kind="description"/>
+<npp:object n="20" kind="description"/>
+<npp:object n="21" kind="description"/>
+<npp:object n="22" kind="description"/>
+<npp:object n="23" kind="description"/>
+<npp:object n="24" kind="description"/>
+<npp:object n="25" kind="description"/>
+<npp:object n="26" kind="description"/>
+<npp:object n="27" kind="description"/>
+<npp:object n="28" kind="description"/>
+<npp:object n="29" kind="description"/>
+<npp:object n="30" kind="description"/>
+<npp:object n="31" kind="description"/>
+<npp:object n="32" kind="description"/>
+<npp:object n="33" kind="description"/>
+<npp:object n="34" kind="description"/>
+<npp:object n="35" kind="description"/>
+<npp:object n="36" kind="description"/>
+<npp:object n="37" kind="description"/>
+<npp:object n="38" kind="description"/>
+<npp:object n="39" kind="description"/>
+<npp:object n="40" kind="description"/>
+<npp:object n="41" kind="description"/>
+<npp:object n="42" kind="description"/>
+<npp:object n="43" kind="description"/>
+<npp:object n="44" kind="description"/>
+<npp:object n="45" kind="description"/>
+<npp:object n="46" kind="description"/>
+<npp:object n="47" kind="description"/>
+<npp:object n="48" kind="description"/>
+<npp:object n="49" kind="description"/>
+<npp:object n="50" kind="description"/>
+<npp:object n="51" kind="description"/>
+<npp:object n="52" kind="description"/>
+<npp:object n="53" kind="description"/>
+<npp:object n="54" kind="description"/>
+<npp:object n="55" kind="description"/>
+<npp:object n="56" kind="description"/>
+<npp:object n="57" kind="description"/>
+<npp:object n="58" kind="description"/>
+<npp:object n="59" kind="description"/>
+<npp:object n="60" kind="description"/>
+<npp:object n="61" kind="description"/>
+<npp:object n="62" kind="description"/>
+<npp:object n="63" kind="description"/>
+<npp:object n="64" kind="description"/>
+<npp:object n="65" kind="description"/>
+<npp:object n="66" kind="description"/>
+<npp:object n="67" kind="description"/>
+<npp:object n="68" kind="description"/>
+<npp:object n="69" kind="description"/>
+<npp:object n="70" kind="description"/>
+<npp:object n="71" kind="description"/>
+<npp:object n="72" kind="description"/>
+<npp:object n="73" kind="description"/>
+<npp:object n="74" kind="description"/>
+<npp:object n="75" kind="description"/>
+<npp:object n="76" kind="description"/>
+<npp:object n="77" kind="description"/>
+<npp:object n="78" kind="description"/>
+<npp:object n="79" kind="description"/>
+<npp:object n="80" kind="description"/>
+<npp:object n="81" kind="description"/>
+<npp:object n="82" kind="description"/>
+<npp:object n="83" kind="description"/>
+<npp:object n="84" kind="description"/>
+<npp:object n="85" kind="description"/>
+<npp:object n="86" kind="description"/>
+<npp:object n="87" kind="description"/>
+<npp:object n="88" kind="description"/>
+<npp:object n="89" kind="description"/>
+<npp:object n="90" kind="description"/>
+<npp:object n="91" kind="description"/>
+<npp:object n="92" kind="description"/>
+<npp:object n="93" kind="description"/>
+<npp:object n="94" kind="description"/>
+<npp:object n="95" kind="description"/>
+<npp:object n="96" kind="description"/>
+<npp:object n="97" kind="description"/>
+<npp:object n="98" kind="description"/>
+<npp:object n="99" kind="description"/>
+<npp:object n="100" kind="description"/>
+<npp:object n="101" kind="description"/>
+<npp:object n="102" kind="description"/>
+<npp:object n="103" kind="description"/>
+<npp:object n="104" kind="description"/>
+<npp:object n="105" kind="description"/>
+<npp:object n="106" kind="description"/>
+<npp:object n="107" kind="description"/>
+<npp:object n="108" kind="description"/>
+<npp:object n="109" kind="description"/>
+<npp:object n="110" kind="description"/>
+<npp:object n="111" kind="description"/>
+<npp:object n="112" kind="description"/>
+<npp:object n="113" kind="description"/>
+<npp:object n="114" kind="description"/>
+<npp:object n="115" kind="description"/>
+<npp:object n="116" kind="description"/>
+<npp:object n="117" kind="description"/>
+<npp:object n="118" kind="description"/>
+<npp:object n="119" kind="description"/>
+<npp:object n="120" kind="description"/>
+<npp:object n="121" kind="description"/>
+<npp:object n="122" kind="description"/>
+<npp:object n="123" kind="description"/>
+<npp:object n="124" kind="description"/>
+<npp:object n="125" kind="description"/>
+<npp:object n="126" kind="description"/>
+<npp:object n="127" kind="description"/>
+<npp:object n="128" kind="description"/>
+<npp:object n="129" kind="description"/>
+<npp:object n="130" kind="description"/>
+<npp:object n="131" kind="description"/>
+<npp:object n="132" kind="description"/>
+<npp:object n="133" kind="description"/>
+<npp:object n="134" kind="description"/>
+<npp:object n="135" kind="description"/>
+<npp:object n="136" kind="description"/>
+<npp:object n="137" kind="description"/>
+<npp:object n="138" kind="description"/>
+<npp:object n="139" kind="description"/>
+<npp:object n="140" kind="description"/>
+<npp:object n="141" kind="description"/>
+<npp:object n="142" kind="description"/>
+<npp:object n="143" kind="description"/>
+<npp:object n="144" kind="description"/>
+<npp:object n="145" kind="description"/>
+<npp:object n="146" kind="description"/>
+<npp:object n="147" kind="description"/>
+<npp:object n="148" kind="description"/>
+<npp:object n="149" kind="description"/>
+<npp:object n="150" kind="description"/>
+<npp:object n="151" kind="description"/>
+<npp:object n="152" kind="description"/>
+<npp:object n="153" kind="description"/>
+<npp:object n="154" kind="description"/>
+<npp:object n="155" kind="description"/>
+<npp:object n="156" kind="description"/>
+<npp:object n="157" kind="description"/>
+<npp:object n="158" kind="description"/>
+<npp:object n="159" kind="description"/>
+<npp:object n="160" kind="description"/>
+<npp:object n="161" kind="description"/>
+<npp:object n="162" kind="description"/>
+<npp:object n="163" kind="description"/>
+<npp:object n="164" kind="description"/>
+<npp:object n="165" kind="description"/>
+<npp:object n="166" kind="description"/>
+<npp:object n="167" kind="description"/>
+<npp:object n="168" kind="description"/>
+<npp:object n="169" kind="description"/>
+<npp:object n="170" kind="description"/>
+<npp:object n="171" kind="description"/>
+<npp:object n="172" kind="description"/>
+<npp:object n="173" kind="description"/>
+<npp:object n="174" kind="description"/>
+<npp:object n="175" kind="description"/>
+<npp:object n="176" kind="description"/>
+<npp:object n="177" kind="description"/>
+<npp:object n="178" kind="description"/>
+<npp:object n="179" kind="description"/>
+<npp:object n="180" kind="description"/>
+<npp:object n="181" kind="description"/>
+<npp:object n="182" kind="description"/>
+<npp:object n="183" kind="description"/>
+<npp:object n="184" kind="description"/>
+<npp:object n="185" kind="description"/>
+<npp:object n="186" kind="description"/>
+<npp:object n="187" kind="description"/>
+<npp:object n="188" kind="description"/>
+<npp:object n="189" kind="description"/>
+<npp:object n="190" kind="description"/>
+<npp:object n="191" kind="description"/>
+<npp:object n="192" kind="description"/>
+<npp:object n="193" kind="description"/>
+<npp:object n="194" kind="description"/>
+<npp:object n="195" kind="description"/>
+<npp:object n="196" kind="description"/>
+<npp:object n="197" kind="description"/>
+<npp:object n="198" kind="description"/>
+<npp:object n="199" kind="description"/>
+<npp:object n="200" kind="description"/>
+<npp:object n="201" kind="description"/>
+<npp:object n="202" kind="description"/>
+<npp:object n="203" kind="description"/>
+<npp:object n="204" kind="description"/>
+<npp:object n="205" kind="description"/>
+<npp:object n="206" kind="description"/>
+<npp:object n="207" kind="description"/>
+<npp:object n="208" kind="description"/>
+<npp:object n="209" kind="description"/>
+<npp:object n="210" kind="description"/>
+<npp:object n="211" kind="description"/>
+<npp:object n="212" kind="description"/>
+<npp:object n="213" kind="description"/>
+<npp:object n="214" kind="description"/>
+<npp:object n="215" kind="description"/>
+<npp:object n="216" kind="description"/>
+<npp:object n="217" kind="description"/>
+<npp:object n="218" kind="description"/>
+<npp:object n="219" kind="description"/>
+<npp:object n="220" kind="description"/>
+<npp:object n="221" kind="description"/>
+<npp:object n="222" kind="description"/>
+<npp:object n="223" kind="description"/>
+<npp:object n="224" kind="description"/>
+<npp:object n="225" kind="description"/>
+<npp:object n="226" kind="description"/>
+<npp:object n="227" kind="description"/>
+<npp:object n="228" kind="description"/>
+<npp:object n="229" kind="description"/>
+<npp:object n="230" kind="description"/>
+<npp:object n="231" kind="description"/>
+<npp:object n="232" kind="description"/>
+<npp:object n="233" kind="description"/>
+<npp:object n="234" kind="description"/>
+<npp:object n="235" kind="description"/>
+<npp:object n="236" kind="description"/>
+<npp:object n="237" kind="description"/>
+<npp:object n="238" kind="description"/>
+<npp:object n="239" kind="description"/>
+<npp:object n="240" kind="description"/>
+<npp:object n="241" kind="description"/>
+<npp:object n="242" kind="description"/>
+<npp:object n="243" kind="description"/>
+<npp:object n="244" kind="description"/>
+<npp:object n="245" kind="description"/>
+<npp:object n="246" kind="description"/>
+<npp:object n="247" kind="description"/>
+<npp:object n="248" kind="description"/>
+<npp:object n="249" kind="description"/>
+<npp:object n="250" kind="description"/>
+<npp:object n="251" kind="description"/>
+<npp:object n="252" kind="description"/>
+<npp:object n="253" kind="description"/>
+<npp:object n="254" kind="description"/>
+<npp:object n="255" kind="description"/>
+<npp:object n="256" kind="description"/>
+<npp:object n="257" kind="description"/>
+<npp:object n="258" kind="description"/>
+<npp:object n="259" kind="description"/>
+<npp:object n="260" kind="description"/>
+<npp:object n="261" kind="description"/>
+<npp:object n="262" kind="description"/>
+<npp:object n="263" kind="description"/>
+<npp:object n="264" kind="description"/>
+<npp:object n="265" kind="description"/>
+<npp:object n="266" kind="description"/>
+<npp:object n="267" kind="description"/>
+<npp:object n="268" kind="description"/>
+<npp:object n="269" kind="description"/>
+<npp:object n="270" kind="description"/>
+<npp:object n="271" kind="description"/>
+<npp:object n="272" kind="description"/>
+<npp:object n="273" kind="description"/>
+<npp:object n="274" kind="description"/>
+<npp:object n="275" kind="description"/>
+<npp:object n="276" kind="description"/>
+<npp:object n="277" kind="description"/>
+<npp:object n="278" kind="description"/>
+<npp:object n="279" kind="description"/>
+<npp:object n="280" kind="description"/>
+<npp:object n="281" kind="description"/>
+<npp:object n="282" kind="description"/>
+<npp:object n="283" kind="description"/>
+<npp:object n="284" kind="description"/>
+<npp:object n="285" kind="description"/>
+<npp:object n="286" kind="description"/>
+<npp:object n="287" kind="description"/>
+<npp:object n="288" kind="description"/>
+<npp:object n="289" kind="description"/>
+<npp:object n="290" kind="description"/>
+<npp:object n="291" kind="description"/>
+<npp:object n="292" kind="description"/>
+<npp:object n="293" kind="description"/>
+<npp:object n="294" kind="description"/>
+<npp:object n="295" kind="description"/>
+<npp:object n="296" kind="description"/>
+<npp:object n="297" kind="description"/>
+<npp:object n="298" kind="description"/>
+<npp:object n="299" kind="description"/>
+<npp:object n="300" kind="description"/>
+<npp:object n="301" kind="description"/>
+<npp:object n="302" kind="description"/>
+<npp:object n="303" kind="description"/>
+<npp:object n="304" kind="description"/>
+<npp:object n="305" kind="description"/>
+<npp:object n="306" kind="description"/>
+<npp:object n="307" kind="description"/>
+<npp:object n="308" kind="description"/>
+<npp:object n="309" kind="description"/>
+<npp:object n="310" kind="description"/>
+<npp:object n="311" kind="description"/>
+<npp:object n="312" kind="description"/>
+<npp:object n="313" kind="description"/>
+<npp:object n="314" kind="description"/>
+<npp:object n="315" kind="description"/>
+<npp:object n="316" kind="description"/>
+<npp:object n="317" kind="description"/>
+<npp:object n="318" kind="description"/>
+<npp:object n="319" kind="description"/>
+<npp:object n="320" kind="description"/>
+<npp:object n="321" kind="description"/>
+<npp:object n="322" kind="description"/>
+<npp:object n="323" kind="description"/>
+<npp:object n="324" kind="description"/>
+<npp:object n="325" kind="description"/>
+<npp:object n="326" kind="description"/>
+<npp:object n="327" kind="description"/>
+<npp:object n="328" kind="description"/>
+<npp:object n="329" kind="description"/>
+<npp:object n="330" kind="description"/>
+<npp:object n="331" kind="description"/>
+<npp:object n="332" kind="description"/>
+<npp:object n="333" kind="description"/>
+<npp:object n="334" kind="description"/>
+<npp:object n="335" kind="description"/>
+<npp:object n="336" kind="description"/>
+<npp:object n="337" kind="description"/>
+<npp:object n="338" kind="description"/>
+<npp:object n="339" kind="description"/>
+<npp:object n="340" kind="description"/>
+<npp:object n="341" kind="description"/>
+<npp:object n="342" kind="description"/>
+<npp:object n="343" kind="description"/>
+<npp:object n="344" kind="description"/>
+<npp:object n="345" kind="description"/>
+<npp:object n="346" kind="description"/>
+<npp:object n="347" kind="description"/>
+<npp:object n="348" kind="description"/>
+<npp:object n="349" kind="description"/>
+<npp:object n="350" kind="description"/>
+<npp:object n="351" kind="description"/>
+<npp:object n="352" kind="description"/>
+<npp:object n="353" kind="description"/>
+<npp:object n="354" kind="description"/>
+<npp:object n="355" kind="description"/>
+<npp:object n="356" kind="description"/>
+<npp:object n="357" kind="description"/>
+<npp:object n="358" kind="description"/>
+<npp:object n="359" kind="description"/>
+<npp:object n="360" kind="description"/>
+<npp:object n="361" kind="description"/>
+<npp:object n="362" kind="description"/>
+<npp:object n="363" kind="description"/>
+<npp:object n="364" kind="description"/>
+<npp:object n="365" kind="description"/>
+<npp:object n="366" kind="description"/>
+<npp:object n="367" kind="description"/>
+<npp:object n="368" kind="description"/>
+<npp:object n="369" kind="description"/>
+<npp:object n="370" kind="description"/>
+<npp:object n="371" kind="description"/>
+<npp:object n="372" kind="description"/>
+<npp:object n="373" kind="description"/>
+<npp:object n="374" kind="description"/>
+<npp:object n="375" kind="description"/>
+<npp:object n="376" kind="description"/>
+<npp:object n="377" kind="description"/>
+<npp:object n="378" kind="description"/>
+<npp:object n="379" kind="description"/>
+<npp:object n="380" kind="description"/>
+<npp:object n="381" kind="description"/>
+<npp:object n="382" kind="description"/>
+<npp:object n="383" kind="description"/>
+<npp:object n="384" kind="description"/>
+<npp:object n="385" kind="description"/>
+<npp:object n="386" kind="description"/>
+<npp:object n="387" kind="description"/>
+<npp:object n="388" kind="description"/>
+<npp:object n="389" kind="description"/>
+<npp:object n="390" kind="description"/>
+<npp:object n="391" kind="description"/>
+<npp:object n="392" kind="description"/>
+<npp:object n="393" kind="description"/>
+<npp:object n="394" kind="description"/>
+<npp:object n="395" kind="description"/>
+<npp:object n="396" kind="description"/>
+<npp:object n="397" kind="description"/>
+<npp:object n="398" kind="description"/>
+<npp:object n="399" kind="description"/>
+<npp:object n="400" kind="description"/>
+<npp:object n="401" kind="description"/>
+<npp:object n="402" kind="description"/>
+<npp:object n="403" kind="description"/>
+<npp:object n="404" kind="description"/>
+<npp:object n="405" kind="description"/>
+<npp:object n="406" kind="description"/>
+<npp:object n="407" kind="description"/>
+<npp:object n="408" kind="description"/>
+<npp:object n="409" kind="description"/>
+<npp:object n="410" kind="description"/>
+<npp:object n="411" kind="description"/>
+<npp:object n="412" kind="description"/>
+<npp:object n="413" kind="description"/>
+<npp:object n="414" kind="description"/>
+<npp:object n="415" kind="description"/>
+<npp:object n="416" kind="description"/>
+<npp:object n="417" kind="description"/>
+<npp:object n="418" kind="description"/>
+<npp:object n="419" kind="description"/>
+<npp:object n="420" kind="description"/>
+<npp:object n="421" kind="description"/>
+<npp:object n="422" kind="description"/>
+<npp:object n="423" kind="description"/>
+<npp:object n="424" kind="description"/>
+<npp:object n="425" kind="description"/>
+<npp:object n="426" kind="description"/>
+<npp:object n="427" kind="description"/>
+<npp:object n="428" kind="description"/>
+<npp:object n="429" kind="description"/>
+<npp:object n="430" kind="description"/>
+<npp:object n="431" kind="description"/>
+<npp:object n="432" kind="description"/>
+<npp:object n="433" kind="description"/>
+<npp:object n="434" kind="description"/>
+<npp:object n="435" kind="description"/>
+<npp:object n="436" kind="description"/>
+<npp:object n="437" kind="description"/>
+<npp:object n="438" kind="description"/>
+<npp:object n="439" kind="description"/>
+<npp:object n="440" kind="description"/>
+<npp:object n="441" kind="description"/>
+<npp:object n="442" kind="description"/>
+<npp:object n="443" kind="description"/>
+<npp:object n="444" kind="description"/>
+<npp:object n="445" kind="description"/>
+<npp:object n="446" kind="description"/>
+<npp:object n="447" kind="description"/>
+<npp:object n="448" kind="description"/>
+<npp:object n="449" kind="description"/>
+<npp:object n="450" kind="description"/>
+<npp:object n="451" kind="description"/>
+<npp:object n="452" kind="description"/>
+<npp:object n="453" kind="description"/>
+<npp:object n="454" kind="description"/>
+<npp:object n="455" kind="description"/>
+<npp:object n="456" kind="description"/>
+<npp:object n="457" kind="description"/>
+<npp:object n="458" kind="description"/>
+<npp:object n="459" kind="description"/>
+<npp:object n="460" kind="description"/>
+<npp:object n="461" kind="description"/>
+<npp:object n="462" kind="description"/>
+<npp:object n="463" kind="description"/>
+<npp:object n="464" kind="description"/>
+<npp:object n="465" kind="description"/>
+<npp:object n="466" kind="description"/>
+<npp:object n="467" kind="description"/>
+<npp:object n="468" kind="description"/>
+<npp:object n="469" kind="description"/>
+<npp:object n="470" kind="description"/>
+<npp:object n="471" kind="description"/>
+<npp:object n="472" kind="description"/>
+<npp:object n="473" kind="description"/>
+<npp:object n="474" kind="description"/>
+<npp:object n="475" kind="description"/>
+<npp:object n="476" kind="description"/>
+<npp:object n="477" kind="description"/>
+<npp:object n="478" kind="description"/>
+<npp:object n="479" kind="description"/>
+<npp:object n="480" kind="description"/>
+<npp:object n="481" kind="description"/>
+<npp:object n="482" kind="description"/>
+<npp:object n="483" kind="description"/>
+<npp:object n="484" kind="description"/>
+<npp:object n="485" kind="description"/>
+<npp:object n="486" kind="description"/>
+<npp:object n="487" kind="description"/>
+<npp:object n="488" kind="description"/>
+<npp:object n="489" kind="description"/>
+<npp:object n="490" kind="description"/>
+<npp:object n="491" kind="description"/>
+<npp:object n="492" kind="description"/>
+<npp:object n="493" kind="description"/>
+<npp:object n="494" kind="description"/>
+<npp:object n="495" kind="description"/>
+<npp:object n="496" kind="description"/>
+<npp:object n="497" kind="description"/>
+<npp:object n="498" kind="description"/>
+<npp:object n="499" kind="description"/>
+<npp:object n="500" kind="description"/>
+<npp:object n="501" kind="description"/>
+<npp:object n="502" kind="description"/>
+<npp:object n="503" kind="description"/>
+<npp:object n="504" kind="description"/>
+<npp:object n="505" kind="description"/>
+<npp:object n="506" kind="description"/>
+<npp:object n="507" kind="description"/>
+<npp:object n="508" kind="description"/>
+<npp:object n="509" kind="description"/>
+<npp:object n="510" kind="description"/>
+<npp:object n="511" kind="description"/>
+<npp:object n="512" kind="description"/>
+<npp:object n="513" kind="description"/>
+<npp:object n="514" kind="description"/>
+<npp:object n="515" kind="description"/>
+<npp:object n="516" kind="description"/>
+<npp:object n="517" kind="description"/>
+<npp:object n="518" kind="description"/>
+<npp:object n="519" kind="description"/>
+<npp:object n="520" kind="description"/>
+<npp:object n="521" kind="description"/>
+<npp:object n="522" kind="description"/>
+<npp:object n="523" kind="description"/>
+<npp:object n="524" kind="description"/>
+<npp:object n="525" kind="description"/>
+<npp:object n="526" kind="description"/>
+<npp:object n="527" kind="description"/>
+<npp:object n="528" kind="description"/>
+<npp:object n="529" kind="description"/>
+<npp:object n="530" kind="description"/>
+<npp:object n="531" kind="description"/>
+<npp:object n="532" kind="description"/>
+<npp:object n="533" kind="description"/>
+<npp:object n="534" kind="description"/>
+<npp:object n="535" kind="description"/>
+<npp:object n="536" kind="description"/>
+<npp:object n="537" kind="description"/>
+<npp:object n="538" kind="description"/>
+<npp:object n="539" kind="description"/>
+<npp:object n="540" kind="description"/>
+<npp:object n="541" kind="description"/>
+<npp:object n="542" kind="description"/>
+<npp:object n="543" kind="description"/>
+<npp:object n="544" kind="description"/>
+<npp:object n="545" kind="description"/>
+<npp:object n="546" kind="description"/>
+<npp:object n="547" kind="description"/>
+<npp:object n="548" kind="description"/>
+<npp:object n="549" kind="description"/>
+<npp:object n="550" kind="description"/>
+<npp:object n="551" kind="description"/>
+<npp:object n="552" kind="description"/>
+<npp:object n="553" kind="description"/>
+<npp:object n="554" kind="description"/>
+<npp:object n="555" kind="description"/>
+<npp:object n="556" kind="description"/>
+<npp:object n="557" kind="description"/>
+<npp:object n="558" kind="description"/>
+<npp:object n="559" kind="description"/>
+<npp:object n="560" kind="description"/>
+<npp:object n="561" kind="description"/>
+<npp:object n="562" kind="description"/>
+<npp:object n="563" kind="description"/>
+<npp:object n="564" kind="description"/>
+<npp:object n="565" kind="description"/>
+<npp:object n="566" kind="description"/>
+<npp:object n="567" kind="description"/>
+<npp:object n="568" kind="description"/>
+<npp:object n="569" kind="description"/>
+<npp:object n="570" kind="start"/>
+<npp:object n="571" kind="start"/>
+<npp:object n="572" kind="start"/>
+<npp:object n="573" kind="control"/>
+<npp:object n="574" kind="control"/>
+<npp:object n="575" kind="control"/>
+<npp:object n="576" kind="control"/>
+<npp:object n="577" kind="control"/>
+<npp:object n="578" kind="control"/>
+<npp:object n="579" kind="control"/>
+<npp:object n="580" kind="control"/>
+<npp:object n="581" kind="control"/>
+<npp:object n="582" kind="control"/>
+<npp:object n="583" kind="control"/>
+<npp:object n="584" kind="control"/>
+<npp:object n="585" kind="control"/>
+<npp:object n="586" kind="control"/>
+<npp:object n="587" kind="control"/>
+<npp:object n="588" kind="control"/>
+<npp:object n="589" kind="control"/>
+<npp:object n="590" kind="control"/>
+<npp:object n="591" kind="control"/>
+<npp:object n="592" kind="control"/>
+<npp:object n="593" kind="control"/>
+<npp:object n="594" kind="control"/>
+<npp:object n="595" kind="control"/>
+<npp:object n="596" kind="control"/>
+<npp:object n="597" kind="control"/>
+<npp:object n="598" kind="control"/>
+<npp:object n="599" kind="control"/>
+<npp:object n="600" kind="control"/>
+<npp:object n="601" kind="control"/>
+<npp:object n="602" kind="control"/>
+<npp:object n="603" kind="control"/>
+<npp:object n="604" kind="control"/>
+<npp:object n="605" kind="control"/>
+<npp:object n="606" kind="control"/>
+<npp:object n="607" kind="control"/>
+<npp:object n="608" kind="control"/>
+<npp:object n="609" kind="control"/>
+<npp:object n="610" kind="control"/>
+<npp:object n="611" kind="finish"/>
+<npp:object n="612" kind="finish"/>
+<npp:object n="613" kind="crossing"/>
+<npp:object n="614" kind="crossing"/>
+<npp:object n="615" kind="crossing"/>
+<npp:object n="616" kind="code"/>
+<npp:object n="617" kind="code"/>
+<npp:object n="618" kind="code"/>
+<npp:object n="619" kind="code"/>
+<npp:object n="620" kind="code"/>
+<npp:object n="621" kind="code"/>
+<npp:object n="622" kind="code"/>
+<npp:object n="623" kind="code"/>
+<npp:object n="624" kind="code"/>
+<npp:object n="625" kind="code"/>
+<npp:object n="626" kind="code"/>
+<npp:object n="627" kind="code"/>
+<npp:object n="628" kind="code"/>
+<npp:object n="629" kind="code"/>
+<npp:object n="630" kind="code"/>
+<npp:object n="631" kind="code"/>
+<npp:object n="632" kind="code"/>
+<npp:object n="633" kind="code"/>
+<npp:object n="634" kind="code"/>
+<npp:object n="635" kind="code"/>
+<npp:object n="636" kind="code"/>
+<npp:object n="637" kind="code"/>
+<npp:object n="638" kind="code"/>
+<npp:object n="639" kind="code"/>
+<npp:object n="640" kind="code"/>
+<npp:object n="641" kind="code"/>
+<npp:object n="642" kind="code"/>
+<npp:object n="643" kind="code"/>
+<npp:object n="644" kind="code"/>
+<npp:object n="645" kind="code"/>
+<npp:object n="646" kind="code"/>
+<npp:object n="647" kind="code"/>
+<npp:object n="648" kind="code"/>
+<npp:object n="649" kind="code"/>
+<npp:object n="650" kind="code"/>
+<npp:object n="651" kind="code"/>
+<npp:object n="652" kind="code"/>
+<npp:object n="653" kind="code"/>
+<npp:object n="654" kind="dangerous"/>
+</npp:map>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="b">
+<path class="r" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
+</clipPath>
+<clipPath id="c">
+<path d="M-77972-199853h215900V79547H-77972z"/>
+</clipPath>
+<g id="a">
+<g class="a" data-m="1">
+<g data-c="0">
+<g data-s="1">
+<path class="b" data-o="1" d="M-75803 44582h35454v-210536h-35454V44582z"/>
+</g>
+</g>
+<g data-c="1">
+<g data-s="2">
+<path class="c" data-o="2" d="M-75584 44363h35016"/>
+<path class="c" data-o="3" d="M-75584 44473v-4596"/>
+<path class="c" data-o="4" d="M-40568 44473v-4596"/>
+<path class="c" data-o="5" d="M-75584 39986h35016"/>
+<path class="c" data-o="6" d="M-75584 40096v-4596"/>
+<path class="c" data-o="7" d="M-40568 40096v-4596"/>
+<path class="c" data-o="8" d="M-62453 40096v-4596"/>
+<path class="c" data-o="9" d="M-75584 35609h35016"/>
+<path class="c" data-o="10" d="M-75584 35719v-4596"/>
+<path class="c" data-o="11" d="M-40568 35719v-4596"/>
+<path class="c" data-o="12" d="M-62453 35719v-4596"/>
+<path class="c" data-o="13" d="M-49322 35719v-4596"/>
+<path class="c" data-o="14" d="M-75584 31232h35016"/>
+<path class="c" data-o="15" d="M-75584 31342v-4596"/>
+<path class="c" data-o="16" d="M-40568 31342v-4596"/>
+<path class="c" data-o="17" d="M-62453 31342v-4596"/>
+<path class="c" data-o="18" d="M-49322 31342v-4596"/>
+<path class="c" data-o="19" d="M-75584 26855h35016"/>
+<path class="c" data-o="20" d="M-75584 26965v-4596"/>
+<path class="c" data-o="21" d="M-40568 26965v-4596"/>
+<path class="c" data-o="22" d="M-62453 26965v-4596"/>
+<path class="c" data-o="23" d="M-49322 26965v-4596"/>
+<path class="c" data-o="24" d="M-75584 22478h35016"/>
+<path class="c" data-o="25" d="M-75584 22588v-4596"/>
+<path class="c" data-o="26" d="M-40568 22588v-4596"/>
+<path class="c" data-o="27" d="M-62453 22588v-4596"/>
+<path class="c" data-o="28" d="M-49322 22588v-4596"/>
+<path class="c" data-o="29" d="M-75584 18210v-4595"/>
+<path class="c" data-o="30" d="M-40568 18210v-4595"/>
+<path class="c" data-o="31" d="M-62453 18210v-4595"/>
+<path class="c" data-o="32" d="M-49322 18210v-4595"/>
+<path class="c" data-o="33" d="M-75584 13833V9237"/>
+<path class="c" data-o="34" d="M-40568 13833V9237"/>
+<path class="c" data-o="35" d="M-62453 13833V9237"/>
+<path class="c" data-o="36" d="M-49322 13833V9237"/>
+<path class="c" data-o="37" d="M-75584 9347h35016"/>
+<path class="c" data-o="38" d="M-75584 9456V4860"/>
+<path class="c" data-o="39" d="M-40568 9456V4860"/>
+<path class="c" data-o="40" d="M-62453 9456V4860"/>
+<path class="c" data-o="41" d="M-49322 9456V4860"/>
+<path class="c" data-o="42" d="M-75584 5079V483"/>
+<path class="c" data-o="43" d="M-40568 5079V483"/>
+<path class="c" data-o="44" d="M-62453 5079V483"/>
+<path class="c" data-o="45" d="M-49322 5079V483"/>
+<path class="c" data-o="46" d="M-75584 702v-4596"/>
+<path class="c" data-o="47" d="M-40568 702v-4596"/>
+<path class="c" data-o="48" d="M-62453 702v-4596"/>
+<path class="c" data-o="49" d="M-49322 702v-4596"/>
+<path class="c" data-o="50" d="M-75584-3784h35016"/>
+<path class="c" data-o="51" d="M-75584-3675v-4596"/>
+<path class="c" data-o="52" d="M-40568-3675v-4596"/>
+<path class="c" data-o="53" d="M-62453-3675v-4596"/>
+<path class="c" data-o="54" d="M-49322-3675v-4596"/>
+<path class="c" data-o="55" d="M-75584-8052v-4596"/>
+<path class="c" data-o="56" d="M-40568-8052v-4596"/>
+<path class="c" data-o="57" d="M-62453-8052v-4596"/>
+<path class="c" data-o="58" d="M-49322-8052v-4596"/>
+<path class="c" data-o="59" d="M-75584-12429v-4596"/>
+<path class="c" data-o="60" d="M-40568-12429v-4596"/>
+<path class="c" data-o="61" d="M-62453-12429v-4596"/>
+<path class="c" data-o="62" d="M-49322-12429v-4596"/>
+<path class="c" data-o="63" d="M-75584-16915h35016"/>
+<path class="c" data-o="64" d="M-75584-16806v-4596"/>
+<path class="c" data-o="65" d="M-40568-16806v-4596"/>
+<path class="c" data-o="66" d="M-62453-16806v-4596"/>
+<path class="c" data-o="67" d="M-49322-16806v-4596"/>
+<path class="c" data-o="68" d="M-75584-21183v-4596"/>
+<path class="c" data-o="69" d="M-40568-21183v-4596"/>
+<path class="c" data-o="70" d="M-62453-21183v-4596"/>
+<path class="c" data-o="71" d="M-49322-21183v-4596"/>
+<path class="c" data-o="72" d="M-75584-25560v-4596"/>
+<path class="c" data-o="73" d="M-40568-25560v-4596"/>
+<path class="c" data-o="74" d="M-62453-25560v-4596"/>
+<path class="c" data-o="75" d="M-49322-25560v-4596"/>
+<path class="c" data-o="76" d="M-75584-30047h35016"/>
+<path class="c" data-o="77" d="M-75584-29937v-4596"/>
+<path class="c" data-o="78" d="M-40568-29937v-4596"/>
+<path class="c" data-o="79" d="M-62453-29937v-4596"/>
+<path class="c" data-o="80" d="M-49322-29937v-4596"/>
+<path class="c" data-o="81" d="M-75584-34314v-4596"/>
+<path class="c" data-o="82" d="M-40568-34314v-4596"/>
+<path class="c" data-o="83" d="M-62453-34314v-4596"/>
+<path class="c" data-o="84" d="M-49322-34314v-4596"/>
+<path class="c" data-o="85" d="M-75584-38691v-4596"/>
+<path class="c" data-o="86" d="M-40568-38691v-4596"/>
+<path class="c" data-o="87" d="M-62453-38691v-4596"/>
+<path class="c" data-o="88" d="M-49322-38691v-4596"/>
+<path class="c" data-o="89" d="M-75584-43178h35016"/>
+<path class="c" data-o="90" d="M-75584-43068v-4596"/>
+<path class="c" data-o="91" d="M-40568-43068v-4596"/>
+<path class="c" data-o="92" d="M-62453-43068v-4596"/>
+<path class="c" data-o="93" d="M-49322-43068v-4596"/>
+<path class="c" data-o="94" d="M-75584-47445v-4596"/>
+<path class="c" data-o="95" d="M-40568-47445v-4596"/>
+<path class="c" data-o="96" d="M-62453-47445v-4596"/>
+<path class="c" data-o="97" d="M-49322-47445v-4596"/>
+<path class="c" data-o="98" d="M-75584-51823v-4595"/>
+<path class="c" data-o="99" d="M-40568-51823v-4595"/>
+<path class="c" data-o="100" d="M-62453-51823v-4595"/>
+<path class="c" data-o="101" d="M-49322-51823v-4595"/>
+<path class="c" data-o="102" d="M-75584-56309h35016"/>
+<path class="c" data-o="103" d="M-75584-56200v-4595"/>
+<path class="c" data-o="104" d="M-40568-56200v-4595"/>
+<path class="c" data-o="105" d="M-62453-56200v-4595"/>
+<path class="c" data-o="106" d="M-49322-56200v-4595"/>
+<path class="c" data-o="107" d="M-75584-60577v-4596"/>
+<path class="c" data-o="108" d="M-40568-60577v-4596"/>
+<path class="c" data-o="109" d="M-62453-60577v-4596"/>
+<path class="c" data-o="110" d="M-49322-60577v-4596"/>
+<path class="c" data-o="111" d="M-75584-64954v-4596"/>
+<path class="c" data-o="112" d="M-40568-64954v-4596"/>
+<path class="c" data-o="113" d="M-62453-64954v-4596"/>
+<path class="c" data-o="114" d="M-49322-64954v-4596"/>
+<path class="c" data-o="115" d="M-75584-69440h35016"/>
+<path class="c" data-o="116" d="M-75584-69331v-4596"/>
+<path class="c" data-o="117" d="M-40568-69331v-4596"/>
+<path class="c" data-o="118" d="M-62453-69331v-4596"/>
+<path class="c" data-o="119" d="M-49322-69331v-4596"/>
+<path class="c" data-o="120" d="M-75584-73708v-4596"/>
+<path class="c" data-o="121" d="M-40568-73708v-4596"/>
+<path class="c" data-o="122" d="M-62453-73708v-4596"/>
+<path class="c" data-o="123" d="M-49322-73708v-4596"/>
+<path class="c" data-o="124" d="M-75584-78085v-4596"/>
+<path class="c" data-o="125" d="M-40568-78085v-4596"/>
+<path class="c" data-o="126" d="M-62453-78085v-4596"/>
+<path class="c" data-o="127" d="M-49322-78085v-4596"/>
+<path class="c" data-o="128" d="M-75584-82571h35016"/>
+<path class="c" data-o="129" d="M-75584-82462v-4596"/>
+<path class="c" data-o="130" d="M-40568-82462v-4596"/>
+<path class="c" data-o="131" d="M-62453-82462v-4596"/>
+<path class="c" data-o="132" d="M-49322-82462v-4596"/>
+<path class="c" data-o="133" d="M-75584-86839v-4596"/>
+<path class="c" data-o="134" d="M-40568-86839v-4596"/>
+<path class="c" data-o="135" d="M-62453-86839v-4596"/>
+<path class="c" data-o="136" d="M-49322-86839v-4596"/>
+<path class="c" data-o="137" d="M-75584-91216v-4596"/>
+<path class="c" data-o="138" d="M-40568-91216v-4596"/>
+<path class="c" data-o="139" d="M-62453-91216v-4596"/>
+<path class="c" data-o="140" d="M-49322-91216v-4596"/>
+<path class="c" data-o="141" d="M-75584-95703h35016"/>
+<path class="c" data-o="142" d="M-75584-95593v-4596"/>
+<path class="c" data-o="143" d="M-40568-95593v-4596"/>
+<path class="c" data-o="144" d="M-62453-95593v-4596"/>
+<path class="c" data-o="145" d="M-49322-95593v-4596"/>
+<path class="c" data-o="146" d="M-75584-99970v-4596"/>
+<path class="c" data-o="147" d="M-40568-99970v-4596"/>
+<path class="c" data-o="148" d="M-62453-99970v-4596"/>
+<path class="c" data-o="149" d="M-49322-99970v-4596"/>
+<path class="c" data-o="150" d="M-75584-104347v-4596"/>
+<path class="c" data-o="151" d="M-40568-104347v-4596"/>
+<path class="c" data-o="152" d="M-62453-104347v-4596"/>
+<path class="c" data-o="153" d="M-49322-104347v-4596"/>
+<path class="c" data-o="154" d="M-75584-108834h35016"/>
+<path class="c" data-o="155" d="M-75584-108724v-4596"/>
+<path class="c" data-o="156" d="M-40568-108724v-4596"/>
+<path class="c" data-o="157" d="M-62453-108724v-4596"/>
+<path class="c" data-o="158" d="M-49322-108724v-4596"/>
+<path class="c" data-o="159" d="M-75584-113101v-4596"/>
+<path class="c" data-o="160" d="M-40568-113101v-4596"/>
+<path class="c" data-o="161" d="M-62453-113101v-4596"/>
+<path class="c" data-o="162" d="M-49322-113101v-4596"/>
+<path class="c" data-o="163" d="M-75584-117478v-4596"/>
+<path class="c" data-o="164" d="M-40568-117478v-4596"/>
+<path class="c" data-o="165" d="M-62453-117478v-4596"/>
+<path class="c" data-o="166" d="M-49322-117478v-4596"/>
+<path class="c" data-o="167" d="M-75584-121965h35016"/>
+<path class="c" data-o="168" d="M-75584-121855v-4596"/>
+<path class="c" data-o="169" d="M-40568-121855v-4596"/>
+<path class="c" data-o="170" d="M-62453-121855v-4596"/>
+<path class="c" data-o="171" d="M-49322-121855v-4596"/>
+<path class="c" data-o="172" d="M-75584-126233v-4595"/>
+<path class="c" data-o="173" d="M-40568-126233v-4595"/>
+<path class="c" data-o="174" d="M-62453-126233v-4595"/>
+<path class="c" data-o="175" d="M-49322-126233v-4595"/>
+<path class="c" data-o="176" d="M-75584-130610v-4595"/>
+<path class="c" data-o="177" d="M-40568-130610v-4595"/>
+<path class="c" data-o="178" d="M-62453-130610v-4595"/>
+<path class="c" data-o="179" d="M-49322-130610v-4595"/>
+<path class="c" data-o="180" d="M-75584-135096h35016"/>
+<path class="c" data-o="181" d="M-75584-134987v-4596"/>
+<path class="c" data-o="182" d="M-40568-134987v-4596"/>
+<path class="c" data-o="183" d="M-62453-134987v-4596"/>
+<path class="c" data-o="184" d="M-49322-134987v-4596"/>
+<path class="c" data-o="185" d="M-75584-139364v-4596"/>
+<path class="c" data-o="186" d="M-40568-139364v-4596"/>
+<path class="c" data-o="187" d="M-62453-139364v-4596"/>
+<path class="c" data-o="188" d="M-49322-139364v-4596"/>
+<path class="c" data-o="189" d="M-75584-143850h35016"/>
+<path class="c" data-o="190" d="M-75584-143741v-4596"/>
+<path class="c" data-o="191" d="M-40568-143741v-4596"/>
+<path class="c" data-o="192" d="M-75584-148227h35016"/>
+<path class="c" data-o="193" d="M-75584-148118v-4596"/>
+<path class="c" data-o="194" d="M-40568-148118v-4596"/>
+<path class="c" data-o="195" d="M-75584-152604h35016"/>
+<path class="c" data-o="196" d="M-75584-152495v-4596"/>
+<path class="c" data-o="197" d="M-40568-152495v-4596"/>
+<path class="c" data-o="198" d="M-75584-156981h35016"/>
+<path class="c" data-o="199" d="M-75584-156872v-4596"/>
+<path class="c" data-o="200" d="M-40568-156872v-4596"/>
+<path class="c" data-o="201" d="M-75584-161358h35016"/>
+<path class="c" data-o="202" d="M-75584-165735h35016"/>
+<path class="c" data-o="203" d="M-75584-161249v-4596"/>
+<path class="c" data-o="204" d="M-40568-161249v-4596"/>
+</g>
+<g data-s="3">
+<path class="d" data-o="205" d="M-71207 35719v-4596"/>
+<path class="d" data-o="206" d="M-66830 35719v-4596"/>
+<path class="d" data-o="207" d="M-58076 35719v-4596"/>
+<path class="d" data-o="208" d="M-53699 35719v-4596"/>
+<path class="d" data-o="209" d="M-44945 35719v-4596"/>
+<path class="d" data-o="210" d="M-71207 31342v-4596"/>
+<path class="d" data-o="211" d="M-66830 31342v-4596"/>
+<path class="d" data-o="212" d="M-58076 31342v-4596"/>
+<path class="d" data-o="213" d="M-53699 31342v-4596"/>
+<path class="d" data-o="214" d="M-44945 31342v-4596"/>
+<path class="d" data-o="215" d="M-71207 26965v-4596"/>
+<path class="d" data-o="216" d="M-66830 26965v-4596"/>
+<path class="d" data-o="217" d="M-58076 26965v-4596"/>
+<path class="d" data-o="218" d="M-53699 26965v-4596"/>
+<path class="d" data-o="219" d="M-44945 26965v-4596"/>
+<path class="d" data-o="220" d="M-71207 22588v-4596"/>
+<path class="d" data-o="221" d="M-66830 22588v-4596"/>
+<path class="d" data-o="222" d="M-58076 22588v-4596"/>
+<path class="d" data-o="223" d="M-53699 22588v-4596"/>
+<path class="d" data-o="224" d="M-44945 22588v-4596"/>
+<path class="d" data-o="225" d="M-75584 18101h35016"/>
+<path class="d" data-o="226" d="M-71207 18210v-4595"/>
+<path class="d" data-o="227" d="M-66830 18210v-4595"/>
+<path class="d" data-o="228" d="M-58076 18210v-4595"/>
+<path class="d" data-o="229" d="M-53699 18210v-4595"/>
+<path class="d" data-o="230" d="M-44945 18210v-4595"/>
+<path class="d" data-o="231" d="M-75584 13724h35016"/>
+<path class="d" data-o="232" d="M-71207 13833V9237"/>
+<path class="d" data-o="233" d="M-66830 13833V9237"/>
+<path class="d" data-o="234" d="M-58076 13833V9237"/>
+<path class="d" data-o="235" d="M-53699 13833V9237"/>
+<path class="d" data-o="236" d="M-44945 13833V9237"/>
+<path class="d" data-o="237" d="M-71207 9456V4860"/>
+<path class="d" data-o="238" d="M-66830 9456V4860"/>
+<path class="d" data-o="239" d="M-58076 9456V4860"/>
+<path class="d" data-o="240" d="M-53699 9456V4860"/>
+<path class="d" data-o="241" d="M-44945 9456V4860"/>
+<path class="d" data-o="242" d="M-75584 4970h35016"/>
+<path class="d" data-o="243" d="M-71207 5079V483"/>
+<path class="d" data-o="244" d="M-66830 5079V483"/>
+<path class="d" data-o="245" d="M-58076 5079V483"/>
+<path class="d" data-o="246" d="M-53699 5079V483"/>
+<path class="d" data-o="247" d="M-44945 5079V483"/>
+<path class="d" data-o="248" d="M-75584 593h35016"/>
+<path class="d" data-o="249" d="M-71207 702v-4596"/>
+<path class="d" data-o="250" d="M-66830 702v-4596"/>
+<path class="d" data-o="251" d="M-58076 702v-4596"/>
+<path class="d" data-o="252" d="M-53699 702v-4596"/>
+<path class="d" data-o="253" d="M-44945 702v-4596"/>
+<path class="d" data-o="254" d="M-71207-3675v-4596"/>
+<path class="d" data-o="255" d="M-66830-3675v-4596"/>
+<path class="d" data-o="256" d="M-58076-3675v-4596"/>
+<path class="d" data-o="257" d="M-53699-3675v-4596"/>
+<path class="d" data-o="258" d="M-44945-3675v-4596"/>
+<path class="d" data-o="259" d="M-75584-8161h35016"/>
+<path class="d" data-o="260" d="M-71207-8052v-4596"/>
+<path class="d" data-o="261" d="M-66830-8052v-4596"/>
+<path class="d" data-o="262" d="M-58076-8052v-4596"/>
+<path class="d" data-o="263" d="M-53699-8052v-4596"/>
+<path class="d" data-o="264" d="M-44945-8052v-4596"/>
+<path class="d" data-o="265" d="M-75584-12538h35016"/>
+<path class="d" data-o="266" d="M-71207-12429v-4596"/>
+<path class="d" data-o="267" d="M-66830-12429v-4596"/>
+<path class="d" data-o="268" d="M-58076-12429v-4596"/>
+<path class="d" data-o="269" d="M-53699-12429v-4596"/>
+<path class="d" data-o="270" d="M-44945-12429v-4596"/>
+<path class="d" data-o="271" d="M-71207-16806v-4596"/>
+<path class="d" data-o="272" d="M-66830-16806v-4596"/>
+<path class="d" data-o="273" d="M-58076-16806v-4596"/>
+<path class="d" data-o="274" d="M-53699-16806v-4596"/>
+<path class="d" data-o="275" d="M-44945-16806v-4596"/>
+<path class="d" data-o="276" d="M-75584-21293h35016"/>
+<path class="d" data-o="277" d="M-71207-21183v-4596"/>
+<path class="d" data-o="278" d="M-66830-21183v-4596"/>
+<path class="d" data-o="279" d="M-58076-21183v-4596"/>
+<path class="d" data-o="280" d="M-53699-21183v-4596"/>
+<path class="d" data-o="281" d="M-44945-21183v-4596"/>
+<path class="d" data-o="282" d="M-75584-25670h35016"/>
+<path class="d" data-o="283" d="M-71207-25560v-4596"/>
+<path class="d" data-o="284" d="M-66830-25560v-4596"/>
+<path class="d" data-o="285" d="M-58076-25560v-4596"/>
+<path class="d" data-o="286" d="M-53699-25560v-4596"/>
+<path class="d" data-o="287" d="M-44945-25560v-4596"/>
+<path class="d" data-o="288" d="M-71207-29937v-4596"/>
+<path class="d" data-o="289" d="M-66830-29937v-4596"/>
+<path class="d" data-o="290" d="M-58076-29937v-4596"/>
+<path class="d" data-o="291" d="M-53699-29937v-4596"/>
+<path class="d" data-o="292" d="M-44945-29937v-4596"/>
+<path class="d" data-o="293" d="M-75584-34424h35016"/>
+<path class="d" data-o="294" d="M-71207-34314v-4596"/>
+<path class="d" data-o="295" d="M-66830-34314v-4596"/>
+<path class="d" data-o="296" d="M-58076-34314v-4596"/>
+<path class="d" data-o="297" d="M-53699-34314v-4596"/>
+<path class="d" data-o="298" d="M-44945-34314v-4596"/>
+<path class="d" data-o="299" d="M-75584-38801h35016"/>
+<path class="d" data-o="300" d="M-71207-38691v-4596"/>
+<path class="d" data-o="301" d="M-66830-38691v-4596"/>
+<path class="d" data-o="302" d="M-58076-38691v-4596"/>
+<path class="d" data-o="303" d="M-53699-38691v-4596"/>
+<path class="d" data-o="304" d="M-44945-38691v-4596"/>
+<path class="d" data-o="305" d="M-71207-43068v-4596"/>
+<path class="d" data-o="306" d="M-66830-43068v-4596"/>
+<path class="d" data-o="307" d="M-58076-43068v-4596"/>
+<path class="d" data-o="308" d="M-53699-43068v-4596"/>
+<path class="d" data-o="309" d="M-44945-43068v-4596"/>
+<path class="d" data-o="310" d="M-75584-47555h35016"/>
+<path class="d" data-o="311" d="M-71207-47445v-4596"/>
+<path class="d" data-o="312" d="M-66830-47445v-4596"/>
+<path class="d" data-o="313" d="M-58076-47445v-4596"/>
+<path class="d" data-o="314" d="M-53699-47445v-4596"/>
+<path class="d" data-o="315" d="M-44945-47445v-4596"/>
+<path class="d" data-o="316" d="M-75584-51932h35016"/>
+<path class="d" data-o="317" d="M-71207-51823v-4595"/>
+<path class="d" data-o="318" d="M-66830-51823v-4595"/>
+<path class="d" data-o="319" d="M-58076-51823v-4595"/>
+<path class="d" data-o="320" d="M-53699-51823v-4595"/>
+<path class="d" data-o="321" d="M-44945-51823v-4595"/>
+<path class="d" data-o="322" d="M-71207-56200v-4595"/>
+<path class="d" data-o="323" d="M-66830-56200v-4595"/>
+<path class="d" data-o="324" d="M-58076-56200v-4595"/>
+<path class="d" data-o="325" d="M-53699-56200v-4595"/>
+<path class="d" data-o="326" d="M-44945-56200v-4595"/>
+<path class="d" data-o="327" d="M-75584-60686h35016"/>
+<path class="d" data-o="328" d="M-71207-60577v-4596"/>
+<path class="d" data-o="329" d="M-66830-60577v-4596"/>
+<path class="d" data-o="330" d="M-58076-60577v-4596"/>
+<path class="d" data-o="331" d="M-53699-60577v-4596"/>
+<path class="d" data-o="332" d="M-44945-60577v-4596"/>
+<path class="d" data-o="333" d="M-75584-65063h35016"/>
+<path class="d" data-o="334" d="M-71207-64954v-4596"/>
+<path class="d" data-o="335" d="M-66830-64954v-4596"/>
+<path class="d" data-o="336" d="M-58076-64954v-4596"/>
+<path class="d" data-o="337" d="M-53699-64954v-4596"/>
+<path class="d" data-o="338" d="M-44945-64954v-4596"/>
+<path class="d" data-o="339" d="M-71207-69331v-4596"/>
+<path class="d" data-o="340" d="M-66830-69331v-4596"/>
+<path class="d" data-o="341" d="M-58076-69331v-4596"/>
+<path class="d" data-o="342" d="M-53699-69331v-4596"/>
+<path class="d" data-o="343" d="M-44945-69331v-4596"/>
+<path class="d" data-o="344" d="M-75584-73817h35016"/>
+<path class="d" data-o="345" d="M-71207-73708v-4596"/>
+<path class="d" data-o="346" d="M-66830-73708v-4596"/>
+<path class="d" data-o="347" d="M-58076-73708v-4596"/>
+<path class="d" data-o="348" d="M-53699-73708v-4596"/>
+<path class="d" data-o="349" d="M-44945-73708v-4596"/>
+<path class="d" data-o="350" d="M-75584-78194h35016"/>
+<path class="d" data-o="351" d="M-71207-78085v-4596"/>
+<path class="d" data-o="352" d="M-66830-78085v-4596"/>
+<path class="d" data-o="353" d="M-58076-78085v-4596"/>
+<path class="d" data-o="354" d="M-53699-78085v-4596"/>
+<path class="d" data-o="355" d="M-44945-78085v-4596"/>
+<path class="d" data-o="356" d="M-71207-82462v-4596"/>
+<path class="d" data-o="357" d="M-66830-82462v-4596"/>
+<path class="d" data-o="358" d="M-58076-82462v-4596"/>
+<path class="d" data-o="359" d="M-53699-82462v-4596"/>
+<path class="d" data-o="360" d="M-44945-82462v-4596"/>
+<path class="d" data-o="361" d="M-75584-86948h35016"/>
+<path class="d" data-o="362" d="M-71207-86839v-4596"/>
+<path class="d" data-o="363" d="M-66830-86839v-4596"/>
+<path class="d" data-o="364" d="M-58076-86839v-4596"/>
+<path class="d" data-o="365" d="M-53699-86839v-4596"/>
+<path class="d" data-o="366" d="M-44945-86839v-4596"/>
+<path class="d" data-o="367" d="M-75584-91325h35016"/>
+<path class="d" data-o="368" d="M-71207-91216v-4596"/>
+<path class="d" data-o="369" d="M-66830-91216v-4596"/>
+<path class="d" data-o="370" d="M-58076-91216v-4596"/>
+<path class="d" data-o="371" d="M-53699-91216v-4596"/>
+<path class="d" data-o="372" d="M-44945-91216v-4596"/>
+<path class="d" data-o="373" d="M-71207-95593v-4596"/>
+<path class="d" data-o="374" d="M-66830-95593v-4596"/>
+<path class="d" data-o="375" d="M-58076-95593v-4596"/>
+<path class="d" data-o="376" d="M-53699-95593v-4596"/>
+<path class="d" data-o="377" d="M-44945-95593v-4596"/>
+<path class="d" data-o="378" d="M-75584-100080h35016"/>
+<path class="d" data-o="379" d="M-71207-99970v-4596"/>
+<path class="d" data-o="380" d="M-66830-99970v-4596"/>
+<path class="d" data-o="381" d="M-58076-99970v-4596"/>
+<path class="d" data-o="382" d="M-53699-99970v-4596"/>
+<path class="d" data-o="383" d="M-44945-99970v-4596"/>
+<path class="d" data-o="384" d="M-75584-104457h35016"/>
+<path class="d" data-o="385" d="M-71207-104347v-4596"/>
+<path class="d" data-o="386" d="M-66830-104347v-4596"/>
+<path class="d" data-o="387" d="M-58076-104347v-4596"/>
+<path class="d" data-o="388" d="M-53699-104347v-4596"/>
+<path class="d" data-o="389" d="M-44945-104347v-4596"/>
+<path class="d" data-o="390" d="M-71207-108724v-4596"/>
+<path class="d" data-o="391" d="M-66830-108724v-4596"/>
+<path class="d" data-o="392" d="M-58076-108724v-4596"/>
+<path class="d" data-o="393" d="M-53699-108724v-4596"/>
+<path class="d" data-o="394" d="M-44945-108724v-4596"/>
+<path class="d" data-o="395" d="M-75584-113211h35016"/>
+<path class="d" data-o="396" d="M-71207-113101v-4596"/>
+<path class="d" data-o="397" d="M-66830-113101v-4596"/>
+<path class="d" data-o="398" d="M-58076-113101v-4596"/>
+<path class="d" data-o="399" d="M-53699-113101v-4596"/>
+<path class="d" data-o="400" d="M-44945-113101v-4596"/>
+<path class="d" data-o="401" d="M-75584-117588h35016"/>
+<path class="d" data-o="402" d="M-71207-117478v-4596"/>
+<path class="d" data-o="403" d="M-66830-117478v-4596"/>
+<path class="d" data-o="404" d="M-58076-117478v-4596"/>
+<path class="d" data-o="405" d="M-53699-117478v-4596"/>
+<path class="d" data-o="406" d="M-44945-117478v-4596"/>
+<path class="d" data-o="407" d="M-71207-121855v-4596"/>
+<path class="d" data-o="408" d="M-66830-121855v-4596"/>
+<path class="d" data-o="409" d="M-58076-121855v-4596"/>
+<path class="d" data-o="410" d="M-53699-121855v-4596"/>
+<path class="d" data-o="411" d="M-44945-121855v-4596"/>
+<path class="d" data-o="412" d="M-75584-126342h35016"/>
+<path class="d" data-o="413" d="M-71207-126233v-4595"/>
+<path class="d" data-o="414" d="M-66830-126233v-4595"/>
+<path class="d" data-o="415" d="M-58076-126233v-4595"/>
+<path class="d" data-o="416" d="M-53699-126233v-4595"/>
+<path class="d" data-o="417" d="M-44945-126233v-4595"/>
+<path class="d" data-o="418" d="M-75584-130719h35016"/>
+<path class="d" data-o="419" d="M-71207-130610v-4595"/>
+<path class="d" data-o="420" d="M-66830-130610v-4595"/>
+<path class="d" data-o="421" d="M-58076-130610v-4595"/>
+<path class="d" data-o="422" d="M-53699-130610v-4595"/>
+<path class="d" data-o="423" d="M-44945-130610v-4595"/>
+<path class="d" data-o="424" d="M-71207-134987v-4596"/>
+<path class="d" data-o="425" d="M-66830-134987v-4596"/>
+<path class="d" data-o="426" d="M-58076-134987v-4596"/>
+<path class="d" data-o="427" d="M-53699-134987v-4596"/>
+<path class="d" data-o="428" d="M-44945-134987v-4596"/>
+<path class="d" data-o="429" d="M-75584-139473h35016"/>
+<path class="d" data-o="430" d="M-71207-139364v-4596"/>
+<path class="d" data-o="431" d="M-66830-139364v-4596"/>
+<path class="d" data-o="432" d="M-58076-139364v-4596"/>
+<path class="d" data-o="433" d="M-53699-139364v-4596"/>
+<path class="d" data-o="434" d="M-44945-139364v-4596"/>
+</g>
+<g data-s="4">
+<g transform="matrix(1 0 0-1-58076 43830)">
+<text class="e" data-o="435" transform="matrix(1000 0 0 1000-9861 2620)" x="0 2.091 3.389 4.328 5.558 7.603 8.975 10.348">Marymoor</text>
+<text class="e" data-o="435" transform="translate(2036 2620)scale(1000)" x="0 2.065 2.811 4.476">WIOL</text>
+<text class="e" data-o="435" transform="translate(8467 2620)scale(1000)">2</text>
+</g>
+<g transform="matrix(1 0 0-1-69019 39453)">
+<text class="e" data-o="436" transform="matrix(1000 0 0 1000-6351 2620)" x="0 1.647 2.341">All</text>
+<text class="e" data-o="436" transform="matrix(1000 0 0 1000-2679 2620)" x="0 1.268 2.64 3.998 4.845 5.71 7.082 7.777">controls</text>
+</g>
+<g transform="matrix(1 0 0-1-51511 39453)">
+<text class="e" data-o="437" transform="matrix(1000 0 0 1000-6227 2620)" x="0 1.395">38</text>
+<text class="e" data-o="437" transform="matrix(1000 0 0 1000-2802 2620)" x="0 1.268 2.64 3.998 4.845 5.71 7.082 7.777">controls</text>
+</g>
+</g>
+<g data-s="5">
+<g transform="matrix(1 0 0-1-69019 21944)">
+<text class="f" data-o="438" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">31</text>
+</g>
+<g transform="matrix(1 0 0-1-69019 17567)">
+<text class="f" data-o="439" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">32</text>
+</g>
+<g transform="matrix(1 0 0-1-69019 13190)">
+<text class="f" data-o="440" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">36</text>
+</g>
+<g transform="matrix(1 0 0-1-69019 8813)">
+<text class="f" data-o="441" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">37</text>
+</g>
+<g transform="matrix(1 0 0-1-69019 4436)">
+<text class="f" data-o="442" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">38</text>
+</g>
+<g transform="matrix(1 0 0-1-69019 59)">
+<text class="f" data-o="443" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">39</text>
+</g>
+<g transform="matrix(1 0 0-1-69019-4318)">
+<text class="f" data-o="444" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">40</text>
+</g>
+<g transform="matrix(1 0 0-1-69019-8695)">
+<text class="f" data-o="445" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">41</text>
+</g>
+<g transform="matrix(1 0 0-1-69019-13072)">
+<text class="f" data-o="446" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">42</text>
+</g>
+<g transform="matrix(1 0 0-1-69019-17449)">
+<text class="f" data-o="447" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">43</text>
+</g>
+<g transform="matrix(1 0 0-1-69019-21826)">
+<text class="f" data-o="448" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">44</text>
+</g>
+<g transform="matrix(1 0 0-1-69019-26203)">
+<text class="f" data-o="449" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">45</text>
+</g>
+<g transform="matrix(1 0 0-1-69019-30580)">
+<text class="f" data-o="450" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">46</text>
+</g>
+<g transform="matrix(1 0 0-1-69019-34957)">
+<text class="f" data-o="451" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">47</text>
+</g>
+<g transform="matrix(1 0 0-1-69019-39334)">
+<text class="f" data-o="452" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">48</text>
+</g>
+<g transform="matrix(1 0 0-1-69019-43712)">
+<text class="f" data-o="453" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">49</text>
+</g>
+<g transform="matrix(1 0 0-1-69019-48089)">
+<text class="f" data-o="454" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">50</text>
+</g>
+<g transform="matrix(1 0 0-1-69019-52466)">
+<text class="f" data-o="455" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">51</text>
+</g>
+<g transform="matrix(1 0 0-1-69019-56843)">
+<text class="f" data-o="456" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">52</text>
+</g>
+<g transform="matrix(1 0 0-1-69019-61220)">
+<text class="f" data-o="457" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">53</text>
+</g>
+<g transform="matrix(1 0 0-1-69019-65597)">
+<text class="f" data-o="458" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">54</text>
+</g>
+<g transform="matrix(1 0 0-1-69019-69974)">
+<text class="f" data-o="459" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">55</text>
+</g>
+<g transform="matrix(1 0 0-1-69019-74351)">
+<text class="f" data-o="460" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">56</text>
+</g>
+<g transform="matrix(1 0 0-1-69019-78728)">
+<text class="f" data-o="461" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">57</text>
+</g>
+<g transform="matrix(1 0 0-1-69019-83105)">
+<text class="f" data-o="462" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">58</text>
+</g>
+<g transform="matrix(1 0 0-1-69019-87482)">
+<text class="f" data-o="463" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">59</text>
+</g>
+<g transform="matrix(1 0 0-1-69019-91859)">
+<text class="f" data-o="464" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">60</text>
+</g>
+<g transform="matrix(1 0 0-1-69019-96236)">
+<text class="f" data-o="465" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">70</text>
+</g>
+<g transform="matrix(1 0 0-1-69019-100613)">
+<text class="f" data-o="466" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">71</text>
+</g>
+<g transform="matrix(1 0 0-1-69019-104990)">
+<text class="f" data-o="467" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">72</text>
+</g>
+<g transform="matrix(1 0 0-1-69019-109367)">
+<text class="f" data-o="468" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">73</text>
+</g>
+<g transform="matrix(1 0 0-1-69019-113745)">
+<text class="f" data-o="469" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">74</text>
+</g>
+<g transform="matrix(1 0 0-1-69019-118122)">
+<text class="f" data-o="470" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">75</text>
+</g>
+<g transform="matrix(1 0 0-1-69019-122499)">
+<text class="f" data-o="471" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">76</text>
+</g>
+<g transform="matrix(1 0 0-1-69019-126876)">
+<text class="f" data-o="472" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">77</text>
+</g>
+<g transform="matrix(1 0 0-1-69019-131253)">
+<text class="f" data-o="473" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">78</text>
+</g>
+<g transform="matrix(1 0 0-1-69019-135630)">
+<text class="f" data-o="474" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">79</text>
+</g>
+<g transform="matrix(1 0 0-1-69019-140007)">
+<text class="f" data-o="475" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">80</text>
+</g>
+</g>
+<g data-s="6">
+<g transform="translate(-73396 33421)">
+<path class="g" data-o="476" d="M-1226 1423v-2846L1247 0-1226 1423z"/>
+</g>
+<g transform="translate(-73396 29044)">
+<path class="g" data-o="477" d="M-1226 1423v-2846L1247 0-1226 1423z"/>
+</g>
+<g transform="translate(-73396 24667)">
+<path class="g" data-o="478" d="M-1226 1423v-2846L1247 0-1226 1423z"/>
+</g>
+</g>
+<g transform="translate(-60265 33421)" data-s="7">
+<circle class="h" data-o="479" cy="1444" r="164"/>
+<circle class="h" data-o="479" cx="722" cy="1251" r="164"/>
+<circle class="h" data-o="479" cx="1251" cy="722" r="164"/>
+<circle class="h" data-o="479" cx="1444" r="164"/>
+<circle class="h" data-o="479" cx="1251" cy="-722" r="164"/>
+<circle class="h" data-o="479" cx="722" cy="-1251" r="164"/>
+<circle class="h" data-o="479" cy="-1444" r="164"/>
+<circle class="h" data-o="479" cx="-722" cy="-1251" r="164"/>
+<circle class="h" data-o="479" cx="-1251" cy="-722" r="164"/>
+<circle class="h" data-o="479" cx="-1444" r="164"/>
+<circle class="h" data-o="479" cx="-1251" cy="722" r="164"/>
+<circle class="h" data-o="479" cx="-722" cy="1251" r="164"/>
+</g>
+<g data-s="8">
+<g transform="translate(-64642 24667)">
+<path class="i" data-o="480" d="M-1423 0h2846"/>
+<path class="j" data-o="480" d="M766-657 1423 0 766 657"/>
+</g>
+<g transform="translate(-64642-19104)">
+<path class="i" data-o="481" d="M-1423 0h2846"/>
+<path class="j" data-o="481" d="M766-657 1423 0 766 657"/>
+</g>
+</g>
+<g data-s="9">
+<g transform="translate(-60265 24667)">
+<path class="i" data-o="482" d="M460 1554-1554-460"/>
+<path class="i" data-o="482" d="M1029 1029-1029-1029"/>
+<path class="i" data-o="482" d="M1554 460-460-1554"/>
+<path class="i" data-o="482" d="M-460 1554 1554-460"/>
+<path class="i" data-o="482" d="M-1029 1029l2058-2058"/>
+<path class="i" data-o="482" d="M-1554 460 460-1554"/>
+</g>
+<g transform="translate(-60265 7158)">
+<path class="i" data-o="483" d="M460 1554-1554-460"/>
+<path class="i" data-o="483" d="M1029 1029-1029-1029"/>
+<path class="i" data-o="483" d="M1554 460-460-1554"/>
+<path class="i" data-o="483" d="M-460 1554 1554-460"/>
+<path class="i" data-o="483" d="M-1029 1029l2058-2058"/>
+<path class="i" data-o="483" d="M-1554 460 460-1554"/>
+</g>
+<g transform="translate(-60265-10350)">
+<path class="i" data-o="484" d="M460 1554-1554-460"/>
+<path class="i" data-o="484" d="M1029 1029-1029-1029"/>
+<path class="i" data-o="484" d="M1554 460-460-1554"/>
+<path class="i" data-o="484" d="M-460 1554 1554-460"/>
+<path class="i" data-o="484" d="M-1029 1029l2058-2058"/>
+<path class="i" data-o="484" d="M-1554 460 460-1554"/>
+</g>
+<g transform="translate(-55888-19104)">
+<path class="i" data-o="485" d="M460 1554-1554-460"/>
+<path class="i" data-o="485" d="M1029 1029-1029-1029"/>
+<path class="i" data-o="485" d="M1554 460-460-1554"/>
+<path class="i" data-o="485" d="M-460 1554 1554-460"/>
+<path class="i" data-o="485" d="M-1029 1029l2058-2058"/>
+<path class="i" data-o="485" d="M-1554 460 460-1554"/>
+</g>
+<g transform="translate(-60265-27858)">
+<path class="i" data-o="486" d="M460 1554-1554-460"/>
+<path class="i" data-o="486" d="M1029 1029-1029-1029"/>
+<path class="i" data-o="486" d="M1554 460-460-1554"/>
+<path class="i" data-o="486" d="M-460 1554 1554-460"/>
+<path class="i" data-o="486" d="M-1029 1029l2058-2058"/>
+<path class="i" data-o="486" d="M-1554 460 460-1554"/>
+</g>
+<g transform="translate(-60265-36612)">
+<path class="i" data-o="487" d="M460 1554-1554-460"/>
+<path class="i" data-o="487" d="M1029 1029-1029-1029"/>
+<path class="i" data-o="487" d="M1554 460-460-1554"/>
+<path class="i" data-o="487" d="M-460 1554 1554-460"/>
+<path class="i" data-o="487" d="M-1029 1029l2058-2058"/>
+<path class="i" data-o="487" d="M-1554 460 460-1554"/>
+</g>
+<g transform="translate(-60265-54120)">
+<path class="i" data-o="488" d="M460 1554-1554-460"/>
+<path class="i" data-o="488" d="M1029 1029-1029-1029"/>
+<path class="i" data-o="488" d="M1554 460-460-1554"/>
+<path class="i" data-o="488" d="M-460 1554 1554-460"/>
+<path class="i" data-o="488" d="M-1029 1029l2058-2058"/>
+<path class="i" data-o="488" d="M-1554 460 460-1554"/>
+</g>
+<g transform="translate(-55888-67252)">
+<path class="i" data-o="489" d="M460 1554-1554-460"/>
+<path class="i" data-o="489" d="M1029 1029-1029-1029"/>
+<path class="i" data-o="489" d="M1554 460-460-1554"/>
+<path class="i" data-o="489" d="M-460 1554 1554-460"/>
+<path class="i" data-o="489" d="M-1029 1029l2058-2058"/>
+<path class="i" data-o="489" d="M-1554 460 460-1554"/>
+</g>
+<g transform="translate(-60265-76006)">
+<path class="i" data-o="490" d="M460 1554-1554-460"/>
+<path class="i" data-o="490" d="M1029 1029-1029-1029"/>
+<path class="i" data-o="490" d="M1554 460-460-1554"/>
+<path class="i" data-o="490" d="M-460 1554 1554-460"/>
+<path class="i" data-o="490" d="M-1029 1029l2058-2058"/>
+<path class="i" data-o="490" d="M-1554 460 460-1554"/>
+</g>
+<g transform="translate(-60265-80383)">
+<path class="i" data-o="491" d="M460 1554-1554-460"/>
+<path class="i" data-o="491" d="M1029 1029-1029-1029"/>
+<path class="i" data-o="491" d="M1554 460-460-1554"/>
+<path class="i" data-o="491" d="M-460 1554 1554-460"/>
+<path class="i" data-o="491" d="M-1029 1029l2058-2058"/>
+<path class="i" data-o="491" d="M-1554 460 460-1554"/>
+</g>
+<g transform="translate(-60265-89137)">
+<path class="i" data-o="492" d="M460 1554-1554-460"/>
+<path class="i" data-o="492" d="M1029 1029-1029-1029"/>
+<path class="i" data-o="492" d="M1554 460-460-1554"/>
+<path class="i" data-o="492" d="M-460 1554 1554-460"/>
+<path class="i" data-o="492" d="M-1029 1029l2058-2058"/>
+<path class="i" data-o="492" d="M-1554 460 460-1554"/>
+</g>
+<g transform="translate(-60265-93514)">
+<path class="i" data-o="493" d="M460 1554-1554-460"/>
+<path class="i" data-o="493" d="M1029 1029-1029-1029"/>
+<path class="i" data-o="493" d="M1554 460-460-1554"/>
+<path class="i" data-o="493" d="M-460 1554 1554-460"/>
+<path class="i" data-o="493" d="M-1029 1029l2058-2058"/>
+<path class="i" data-o="493" d="M-1554 460 460-1554"/>
+</g>
+</g>
+<g data-s="10">
+<g transform="translate(-47134 24667)">
+<circle class="c" data-o="494" r="1204"/>
+<path class="i" data-o="494" d="M766 0h875"/>
+</g>
+<g transform="translate(-47134-93514)">
+<circle class="c" data-o="495" r="1204"/>
+<path class="i" data-o="495" d="M766 0h875"/>
+</g>
+</g>
+<g data-s="11">
+<g transform="translate(-60265 11535)">
+<path class="i" data-o="496" d="M0-875v-657"/>
+<path class="i" data-o="496" d="M0 1532-810-766H810L0 1532z"/>
+</g>
+<g transform="translate(-60265-62875)">
+<path class="i" data-o="497" d="M0-875v-657"/>
+<path class="i" data-o="497" d="M0 1532-810-766H810L0 1532z"/>
+</g>
+<g transform="translate(-60265-102268)">
+<path class="i" data-o="498" d="M0-875v-657"/>
+<path class="i" data-o="498" d="M0 1532-810-766H810L0 1532z"/>
+</g>
+<g transform="translate(-60265-111022)">
+<path class="i" data-o="499" d="M0-875v-657"/>
+<path class="i" data-o="499" d="M0 1532-810-766H810L0 1532z"/>
+</g>
+<g transform="translate(-60265-115399)">
+<path class="i" data-o="500" d="M0-875v-657"/>
+<path class="i" data-o="500" d="M0 1532-810-766H810L0 1532z"/>
+</g>
+</g>
+<g transform="translate(-47134 7158)" data-s="12">
+<circle class="h" data-o="501" cx="-929" cy="929" r="274"/>
+<path class="k" data-o="501" d="M1470-542-464 464 542-1470"/>
+</g>
+<g data-s="13">
+<g transform="translate(-60265 2781)">
+<path class="i" data-o="502" d="M0 0v1444L-1444 0 0-1444 1444 0H0z"/>
+</g>
+<g transform="translate(-60265-141662)">
+<path class="i" data-o="503" d="M0 0v1444L-1444 0 0-1444 1444 0H0z"/>
+</g>
+</g>
+<g transform="translate(-47134 2781)" data-s="14">
+<circle class="h" data-o="504" cx="1204" r="274"/>
+<path class="k" data-o="504" d="M-875-1423 547 0-875 1423"/>
+</g>
+<g data-s="15">
+<g transform="translate(-60265-1596)">
+<path class="i" data-o="505" d="M-503-875v-657"/>
+<path class="i" data-o="505" d="M503-875v-657"/>
+<path class="i" data-o="505" d="M-1313-766l810 2298L0 104l503 1428 810-2298h-2626z"/>
+</g>
+<g transform="translate(-60265-137285)">
+<path class="i" data-o="506" d="M-503-875v-657"/>
+<path class="i" data-o="506" d="M503-875v-657"/>
+<path class="i" data-o="506" d="M-1313-766l810 2298L0 104l503 1428 810-2298h-2626z"/>
+</g>
+</g>
+<g transform="translate(-47134-1596)" data-s="16">
+<circle class="h" data-o="507" cy="-1313" r="274"/>
+<path class="k" data-o="507" d="M657 1423 0-657-657 1423"/>
+</g>
+<g data-s="17">
+<g transform="translate(-60265-5973)">
+<path class="j" data-o="508" d="M0 1055c891 0 1641-469 1641-1055S891-1055 0-1055-1641-586-1641 0-891 1055 0 1055z"/>
+</g>
+<g transform="translate(-60265-40989)">
+<path class="j" data-o="509" d="M0 1055c891 0 1641-469 1641-1055S891-1055 0-1055-1641-586-1641 0-891 1055 0 1055z"/>
+</g>
+<g transform="translate(-60265-58498)">
+<path class="j" data-o="510" d="M0 1055c891 0 1641-469 1641-1055S891-1055 0-1055-1641-586-1641 0-891 1055 0 1055z"/>
+</g>
+</g>
+<g transform="translate(-47134-5973)" data-s="18">
+<circle class="c" data-o="511" r="1423"/>
+<circle class="h" data-o="511" cx="-766" r="274"/>
+</g>
+<g data-s="19">
+<g transform="translate(-47134-10350)">
+<circle class="c" data-o="512" r="1204"/>
+<path class="i" data-o="512" d="M-542 542l-619 619"/>
+</g>
+<g transform="translate(-47134-67252)">
+<circle class="c" data-o="513" r="1204"/>
+<path class="i" data-o="513" d="M-542 542l-619 619"/>
+</g>
+</g>
+<g data-s="20">
+<g transform="translate(-60265-14727)">
+<circle class="h" data-o="514" cx="-1094" cy="1313" r="164"/>
+<circle class="h" data-o="514" cx="-547" cy="985" r="164"/>
+<circle class="h" data-o="514" cy="657" r="164"/>
+<circle class="h" data-o="514" cx="547" cy="328" r="164"/>
+<circle class="h" data-o="514" cx="1094" r="164"/>
+<circle class="h" data-o="514" cx="547" cy="-328" r="164"/>
+<circle class="h" data-o="514" cy="-657" r="164"/>
+<circle class="h" data-o="514" cx="-547" cy="-985" r="164"/>
+<circle class="h" data-o="514" cx="-1094" cy="-1313" r="164"/>
+</g>
+<g transform="translate(-55888-14727)">
+<circle class="h" data-o="515" cx="-1094" cy="1313" r="164"/>
+<circle class="h" data-o="515" cx="-547" cy="985" r="164"/>
+<circle class="h" data-o="515" cy="657" r="164"/>
+<circle class="h" data-o="515" cx="547" cy="328" r="164"/>
+<circle class="h" data-o="515" cx="1094" r="164"/>
+<circle class="h" data-o="515" cx="547" cy="-328" r="164"/>
+<circle class="h" data-o="515" cy="-657" r="164"/>
+<circle class="h" data-o="515" cx="-547" cy="-985" r="164"/>
+<circle class="h" data-o="515" cx="-1094" cy="-1313" r="164"/>
+</g>
+</g>
+<g data-s="21">
+<g transform="translate(-51511-14727)">
+<path class="i" data-o="516" d="M1204 1532-1204-1532"/>
+<path class="i" data-o="516" d="M-1204 1532 0 0"/>
+</g>
+<g transform="translate(-51511-84760)">
+<path class="i" data-o="517" d="M1204 1532-1204-1532"/>
+<path class="i" data-o="517" d="M-1204 1532 0 0"/>
+</g>
+<g transform="translate(-51511-128530)">
+<path class="i" data-o="518" d="M1204 1532-1204-1532"/>
+<path class="i" data-o="518" d="M-1204 1532 0 0"/>
+</g>
+</g>
+<g data-s="22">
+<g transform="translate(-60265-19104)">
+<path class="l" data-o="519" d="M-1050 1401c-88-88-88-88-176-175-350-351 0-701 351-351 350 351 700 0 350-350s0-700 350-350 700 0 350-350 0-700 350-350 701 0 350-350c-350-351 0-701 351-351 87 88 87 88 175 176"/>
+<path class="k" data-o="519" d="M-700 1751l591-591"/>
+<path class="k" data-o="519" d="M219 832l613-613"/>
+<path class="k" data-o="519" d="M1160-109l591-591"/>
+<path class="k" data-o="519" d="M-1751 700l591-591"/>
+<path class="k" data-o="519" d="M-832-219l613-613"/>
+<path class="k" data-o="519" d="M109-1160l591-591"/>
+</g>
+<g transform="translate(-60265-67252)">
+<path class="l" data-o="520" d="M-1050 1401c-88-88-88-88-176-175-350-351 0-701 351-351 350 351 700 0 350-350s0-700 350-350 700 0 350-350 0-700 350-350 701 0 350-350c-350-351 0-701 351-351 87 88 87 88 175 176"/>
+<path class="k" data-o="520" d="M-700 1751l591-591"/>
+<path class="k" data-o="520" d="M219 832l613-613"/>
+<path class="k" data-o="520" d="M1160-109l591-591"/>
+<path class="k" data-o="520" d="M-1751 700l591-591"/>
+<path class="k" data-o="520" d="M-832-219l613-613"/>
+<path class="k" data-o="520" d="M109-1160l591-591"/>
+</g>
+<g transform="translate(-55888-119776)">
+<path class="l" data-o="521" d="M-1050 1401c-88-88-88-88-176-175-350-351 0-701 351-351 350 351 700 0 350-350s0-700 350-350 700 0 350-350 0-700 350-350 701 0 350-350c-350-351 0-701 351-351 87 88 87 88 175 176"/>
+<path class="k" data-o="521" d="M-700 1751l591-591"/>
+<path class="k" data-o="521" d="M219 832l613-613"/>
+<path class="k" data-o="521" d="M1160-109l591-591"/>
+<path class="k" data-o="521" d="M-1751 700l591-591"/>
+<path class="k" data-o="521" d="M-832-219l613-613"/>
+<path class="k" data-o="521" d="M109-1160l591-591"/>
+</g>
+<g transform="translate(-60265-128530)">
+<path class="l" data-o="522" d="M-1050 1401c-88-88-88-88-176-175-350-351 0-701 351-351 350 351 700 0 350-350s0-700 350-350 700 0 350-350 0-700 350-350 701 0 350-350c-350-351 0-701 351-351 87 88 87 88 175 176"/>
+<path class="k" data-o="522" d="M-700 1751l591-591"/>
+<path class="k" data-o="522" d="M219 832l613-613"/>
+<path class="k" data-o="522" d="M1160-109l591-591"/>
+<path class="k" data-o="522" d="M-1751 700l591-591"/>
+<path class="k" data-o="522" d="M-832-219l613-613"/>
+<path class="k" data-o="522" d="M109-1160l591-591"/>
+</g>
+<g transform="translate(-55888-128530)">
+<path class="l" data-o="523" d="M-1050 1401c-88-88-88-88-176-175-350-351 0-701 351-351 350 351 700 0 350-350s0-700 350-350 700 0 350-350 0-700 350-350 701 0 350-350c-350-351 0-701 351-351 87 88 87 88 175 176"/>
+<path class="k" data-o="523" d="M-700 1751l591-591"/>
+<path class="k" data-o="523" d="M219 832l613-613"/>
+<path class="k" data-o="523" d="M1160-109l591-591"/>
+<path class="k" data-o="523" d="M-1751 700l591-591"/>
+<path class="k" data-o="523" d="M-832-219l613-613"/>
+<path class="k" data-o="523" d="M109-1160l591-591"/>
+</g>
+</g>
+<g data-s="23">
+<g transform="translate(-51511-19104)">
+<path class="i" data-o="524" d="M1532 1532-1532-1532"/>
+<path class="i" data-o="524" d="M-1532 1532l3064-3064"/>
+</g>
+<g transform="translate(-51511-67252)">
+<path class="i" data-o="525" d="M1532 1532-1532-1532"/>
+<path class="i" data-o="525" d="M-1532 1532l3064-3064"/>
+</g>
+<g transform="translate(-51511-119776)">
+<path class="i" data-o="526" d="M1532 1532-1532-1532"/>
+<path class="i" data-o="526" d="M-1532 1532l3064-3064"/>
+</g>
+<g transform="translate(-51511-124153)">
+<path class="i" data-o="527" d="M1532 1532-1532-1532"/>
+<path class="i" data-o="527" d="M-1532 1532l3064-3064"/>
+</g>
+</g>
+<g transform="translate(-60265-23481)" data-s="24">
+<path class="i" data-o="528" d="M985 985-985-985"/>
+<path class="i" data-o="528" d="M-985 985 985-985"/>
+</g>
+<g data-s="25">
+<g transform="translate(-47134-23481)">
+<circle class="c" data-o="529" cx="-438" r="1204"/>
+<circle class="h" data-o="529" cx="1423" r="274"/>
+</g>
+<g transform="translate(-47134-76006)">
+<circle class="c" data-o="530" cx="-438" r="1204"/>
+<circle class="h" data-o="530" cx="1423" r="274"/>
+</g>
+</g>
+<g transform="translate(-47134-27858)" data-s="26">
+<circle class="h" data-o="531" cx="-929" cy="-929" r="274"/>
+<path class="k" data-o="531" d="M1470 542-464-464 542 1470"/>
+</g>
+<g data-s="27">
+<g transform="translate(-60265-32235)">
+<path class="j" data-o="532" d="M0 1055c891 0 1641-469 1641-1055S891-1055 0-1055-1641-586-1641 0-891 1055 0 1055z"/>
+<path class="i" data-o="532" d="M1576 0H657"/>
+<path class="i" data-o="532" d="M-1576 0h919"/>
+</g>
+<g transform="translate(-60265-49743)">
+<path class="j" data-o="533" d="M0 1055c891 0 1641-469 1641-1055S891-1055 0-1055-1641-586-1641 0-891 1055 0 1055z"/>
+<path class="i" data-o="533" d="M1576 0H657"/>
+<path class="i" data-o="533" d="M-1576 0h919"/>
+</g>
+</g>
+<g data-s="28">
+<g transform="translate(-47134-32235)">
+<circle class="c" data-o="534" cx="309" cy="-309" r="1204"/>
+<circle class="h" data-o="534" cx="-1006" cy="1006" r="274"/>
+</g>
+<g transform="translate(-47134-36612)">
+<circle class="c" data-o="535" cx="309" cy="-309" r="1204"/>
+<circle class="h" data-o="535" cx="-1006" cy="1006" r="274"/>
+</g>
+<g transform="translate(-47134-54120)">
+<circle class="c" data-o="536" cx="309" cy="-309" r="1204"/>
+<circle class="h" data-o="536" cx="-1006" cy="1006" r="274"/>
+</g>
+<g transform="translate(-47134-80383)">
+<circle class="c" data-o="537" cx="309" cy="-309" r="1204"/>
+<circle class="h" data-o="537" cx="-1006" cy="1006" r="274"/>
+</g>
+</g>
+<g transform="translate(-47134-40989)" data-s="29">
+<circle class="c" data-o="538" r="1423"/>
+<circle class="h" data-o="538" cx="542" cy="542" r="274"/>
+</g>
+<g data-s="30">
+<g transform="translate(-60265-45366)">
+<path class="m" data-o="539" d="M-1598-1598l3196 3196"/>
+</g>
+<g transform="translate(-55888-84760)">
+<path class="m" data-o="540" d="M-1598-1598l3196 3196"/>
+</g>
+</g>
+<g transform="translate(-47134-45366)" data-s="31">
+<path class="k" data-o="541" d="M1006 1006-1006-1006"/>
+<path class="k" data-o="541" d="M-619-1393l-774 774"/>
+</g>
+<g transform="translate(-47134-49743)" data-s="32">
+<circle class="c" data-o="542" r="1423"/>
+<circle class="h" data-o="542" cx="-542" cy="542" r="274"/>
+</g>
+<g transform="translate(-47134-58498)" data-s="33">
+<circle class="h" data-o="543" cx="-1204" r="274"/>
+<path class="k" data-o="543" d="M875-1423-547 0 875 1423"/>
+</g>
+<g data-s="34">
+<g transform="translate(-47134-62875)">
+<circle class="c" data-o="544" cx="309" cy="309" r="1204"/>
+<circle class="h" data-o="544" cx="-1006" cy="-1006" r="274"/>
+</g>
+<g transform="translate(-47134-115399)">
+<circle class="c" data-o="545" cx="309" cy="309" r="1204"/>
+<circle class="h" data-o="545" cx="-1006" cy="-1006" r="274"/>
+</g>
+</g>
+<g transform="translate(-60265-71629)" data-s="35">
+<path class="n" data-o="546" d="M0 1094l1263-2188h-2526L0 1094z"/>
+</g>
+<g transform="translate(-64642-76006)" data-s="36">
+<path class="i" data-o="547" d="M-1423 0h2846"/>
+<path class="j" data-o="547" d="M-766-657-1423 0l657 657"/>
+</g>
+<g data-s="37">
+<g transform="translate(-60265-84760)">
+<path class="i" data-o="548" d="M-1641-1641l787 787"/>
+<path class="i" data-o="548" d="M394 394-394-394"/>
+<path class="i" data-o="548" d="M1641 1641 854 854"/>
+</g>
+<g transform="translate(-60265-119776)">
+<path class="i" data-o="549" d="M-1641-1641l787 787"/>
+<path class="i" data-o="549" d="M394 394-394-394"/>
+<path class="i" data-o="549" d="M1641 1641 854 854"/>
+</g>
+<g transform="translate(-55888-124153)">
+<path class="i" data-o="550" d="M-1641-1641l787 787"/>
+<path class="i" data-o="550" d="M394 394-394-394"/>
+<path class="i" data-o="550" d="M1641 1641 854 854"/>
+</g>
+</g>
+<g transform="translate(-47134-89137)" data-s="38">
+<circle class="c" data-o="551" cy="-438" r="1204"/>
+<circle class="h" data-o="551" cy="1423" r="274"/>
+</g>
+<g data-s="39">
+<g transform="translate(-60265-97891)">
+<path class="j" data-o="552" d="M-1313 1751c-110-110-110-110-219-219-438-438 0-875 438-438 437 438 875 0 437-437-437-438 0-876 438-438s876 0 438-438 0-875 438-438c437 438 875 0 437-437-437-438 0-876 438-438 109 109 109 109 219 219"/>
+</g>
+<g transform="translate(-60265-124153)">
+<path class="j" data-o="553" d="M-1313 1751c-110-110-110-110-219-219-438-438 0-875 438-438 437 438 875 0 437-437-437-438 0-876 438-438s876 0 438-438 0-875 438-438c437 438 875 0 437-437-437-438 0-876 438-438 109 109 109 109 219 219"/>
+</g>
+</g>
+<g transform="translate(-47134-97891)" data-s="40">
+<path class="k" data-o="554" d="M-1006-1006l2012 2012"/>
+<path class="k" data-o="554" d="M619 1393l774-774"/>
+</g>
+<g transform="translate(-47134-102268)" data-s="41">
+<circle class="c" data-o="555" cy="438" r="1204"/>
+<circle class="h" data-o="555" cy="-1423" r="274"/>
+</g>
+<g transform="translate(-60265-106645)" data-s="42">
+<path class="i" data-o="556" d="M1094 1532-1094-657"/>
+<path class="i" data-o="556" d="M1094 1532V657"/>
+<path class="i" data-o="556" d="M365 803V-73"/>
+<path class="i" data-o="556" d="M-365 73v-876"/>
+<path class="i" data-o="556" d="M-1094-657v-875"/>
+</g>
+<g transform="translate(-47134-106645)" data-s="43">
+<circle class="h" data-o="557" cx="-961" cy="961" r="274"/>
+<path class="k" data-o="557" d="M1516 496H-496v-2012"/>
+</g>
+<g transform="translate(-64642-111022)" data-s="44">
+<path class="i" data-o="558" d="M0-1423v2846"/>
+<path class="j" data-o="558" d="M-657 766 0 1423l657-657"/>
+</g>
+<g transform="translate(-47134-111022)" data-s="45">
+<circle class="c" data-o="559" cx="438" r="1204"/>
+<circle class="h" data-o="559" cx="-1423" r="274"/>
+</g>
+<g transform="translate(-64642-115399)" data-s="46">
+<path class="i" data-o="560" d="M0-1423v2846"/>
+<path class="j" data-o="560" d="M-657-766 0-1423l657 657"/>
+</g>
+<g transform="translate(-60265-132908)" data-s="47">
+<path class="n" data-o="561" d="M-1094-1094v2188h2188v-2188h-2188z"/>
+</g>
+<g transform="translate(-47134-132908)" data-s="48">
+<circle class="h" data-o="562" cx="-961" cy="-961" r="274"/>
+<path class="k" data-o="562" d="M1516-496H-496v2012"/>
+</g>
+<g transform="translate(-47134-137285)" data-s="49">
+<circle class="c" data-o="563" r="1204"/>
+<path class="i" data-o="563" d="M-766 0h-875"/>
+</g>
+<g transform="translate(-47134-141662)" data-s="50">
+<circle class="h" data-o="564" cy="-274" r="274"/>
+<path class="k" data-o="564" d="M-1423 328 0-1094 1423 328"/>
+</g>
+<g data-s="51">
+<g transform="translate(-58076-146039)">
+<circle class="c" data-o="565" cx="-15320" r="1532"/>
+<circle class="c" data-o="565" cx="15320" r="1532"/>
+<circle class="c" data-o="565" cx="15320" r="1094"/>
+<path class="i" data-o="565" d="M-12146 1532-13678 0l1532-1532"/>
+<path class="i" data-o="565" d="M12146 1532 13678 0l-1532-1532"/>
+</g>
+<g transform="translate(-58076-150416)">
+<circle class="c" data-o="566" cx="-15320" r="1532"/>
+<circle class="c" data-o="566" cx="15320" r="1532"/>
+<circle class="c" data-o="566" cx="15320" r="1094"/>
+<path class="i" data-o="566" d="M-12146 1532-13678 0l1532-1532"/>
+<path class="i" data-o="566" d="M12146 1532 13678 0l-1532-1532"/>
+</g>
+</g>
+<g data-s="52">
+<g transform="translate(-58076-154793)">
+<path class="j" data-o="567" d="M-3283 1532C-1751 0 1751 0 3283 1532"/>
+<path class="j" data-o="567" d="M-3283-1532C-1751 0 1751 0 3283-1532"/>
+<circle class="c" data-o="567" cx="-15320" r="1532"/>
+<circle class="c" data-o="567" cx="15320" r="1532"/>
+<path class="i" data-o="567" d="M-12146 1532-13678 0l1532-1532"/>
+<path class="i" data-o="567" d="M12146 1532 13678 0l-1532-1532"/>
+</g>
+<g transform="translate(-58076-159170)">
+<path class="j" data-o="568" d="M-3283 1532C-1751 0 1751 0 3283 1532"/>
+<path class="j" data-o="568" d="M-3283-1532C-1751 0 1751 0 3283-1532"/>
+<circle class="c" data-o="568" cx="-15320" r="1532"/>
+<circle class="c" data-o="568" cx="15320" r="1532"/>
+<path class="i" data-o="568" d="M-12146 1532-13678 0l1532-1532"/>
+<path class="i" data-o="568" d="M12146 1532 13678 0l-1532-1532"/>
+</g>
+<g transform="translate(-58076-163547)">
+<path class="j" data-o="569" d="M-3283 1532C-1751 0 1751 0 3283 1532"/>
+<path class="j" data-o="569" d="M-3283-1532C-1751 0 1751 0 3283-1532"/>
+<circle class="c" data-o="569" cx="-15320" r="1532"/>
+<circle class="c" data-o="569" cx="15320" r="1532"/>
+<path class="i" data-o="569" d="M-12146 1532-13678 0l1532-1532"/>
+<path class="i" data-o="569" d="M12146 1532 13678 0l-1532-1532"/>
+</g>
+</g>
+</g>
+<g data-c="2">
+<g data-s="53">
+<g transform="translate(56800-8700)">
+<path class="o" data-o="570" d="M0 4041l3500-6062h-7000L0 4041z"/>
+</g>
+<g transform="translate(41672 41540)">
+<path class="o" data-o="571" d="M0 4041l3500-6062h-7000L0 4041z"/>
+</g>
+<g transform="translate(115600-11800)">
+<path class="o" data-o="572" d="M0 4041l3500-6062h-7000L0 4041z"/>
+</g>
+</g>
+<g data-s="54">
+<circle class="o" data-o="573" cx="-9657" cy="-10583" r="2825"/>
+<circle class="o" data-o="574" cx="83741" cy="-16404" r="2825"/>
+<circle class="o" data-o="575" cx="128400" cy="6100" r="2825"/>
+<circle class="o" data-o="576" cx="121800" cy="-23000" r="2825"/>
+<circle class="o" data-o="577" cx="50300" cy="2900" r="2825"/>
+<circle class="o" data-o="578" cx="129200" cy="37700" r="2825"/>
+<circle class="o" data-o="579" cx="124200" cy="29500" r="2825"/>
+<circle class="o" data-o="580" cx="28000" cy="6200" r="2825"/>
+<circle class="o" data-o="581" cx="38400" cy="-14000" r="2825"/>
+<circle class="o" data-o="582" cx="84000" cy="34500" r="2825"/>
+<circle class="o" data-o="583" cx="37600" cy="-22800" r="2825"/>
+<circle class="o" data-o="584" cx="55900" cy="25600" r="2825"/>
+<circle class="o" data-o="585" cx="-9200" cy="8300" r="2825"/>
+<circle class="o" data-o="586" cx="2510" cy="31320" r="2825"/>
+<circle class="o" data-o="587" cx="21500" cy="40200" r="2825"/>
+<circle class="o" data-o="588" cx="22000" cy="-20800" r="2825"/>
+<circle class="o" data-o="589" cx="45200" cy="22800" r="2825"/>
+<circle class="o" data-o="590" cx="16400" cy="-11900" r="2825"/>
+<circle class="o" data-o="591" cx="43000" cy="-11100" r="2825"/>
+<circle class="o" data-o="592" cx="25800" cy="-10500" r="2825"/>
+<circle class="o" data-o="593" cx="53700" cy="8200" r="2825"/>
+<circle class="o" data-o="594" cx="51200" cy="10500" r="2825"/>
+<circle class="o" data-o="595" cx="81300" cy="24000" r="2825"/>
+<circle class="o" data-o="596" cx="90000" cy="19300" r="2825"/>
+<circle class="o" data-o="597" cx="20300" cy="-4000" r="2825"/>
+<circle class="o" data-o="598" cx="51200" cy="-27000" r="2825"/>
+<circle class="o" data-o="599" cx="-12887" cy="25331" r="2825"/>
+<circle class="o" data-o="600" cx="21300" cy="11800" r="2825"/>
+<circle class="o" data-o="601" cx="40100" cy="17400" r="2825"/>
+<circle class="o" data-o="602" cx="-700" cy="10300" r="2825"/>
+<circle class="o" data-o="603" cx="57400" cy="-13800" r="2825"/>
+<circle class="o" data-o="604" cx="61200" cy="-18800" r="2825"/>
+<circle class="o" data-o="605" cx="72000" cy="27000" r="2825"/>
+<circle class="o" data-o="606" cx="5600" cy="-5700" r="2825"/>
+<circle class="o" data-o="607" cx="74700" cy="19200" r="2825"/>
+<circle class="o" data-o="608" cx="93900" cy="28100" r="2825"/>
+<circle class="o" data-o="609" cx="119800" cy="8600" r="2825"/>
+<circle class="o" data-o="610" cx="41900" cy="6800" r="2825"/>
+</g>
+<g data-s="55">
+<g transform="translate(53200-2800)">
+<circle class="o" data-o="611" r="2325"/>
+<circle class="o" data-o="611" r="3325"/>
+</g>
+<g transform="translate(-1720-31221)">
+<circle class="o" data-o="612" r="2325"/>
+<circle class="o" data-o="612" r="3325"/>
+</g>
+</g>
+<g data-s="56">
+<g transform="translate(31618 21696)">
+<path class="o" data-o="613" d="M-850-1500c500 850 500 2150 0 3000"/>
+<path class="o" data-o="613" d="M850-1500c-500 850-500 2150 0 3000"/>
+</g>
+<g transform="translate(104643 16140)">
+<path class="o" data-o="614" d="M-850-1500c500 850 500 2150 0 3000"/>
+<path class="o" data-o="614" d="M850-1500c-500 850-500 2150 0 3000"/>
+</g>
+<g transform="translate(-23416-3175)">
+<path class="o" data-o="615" d="M-850-1500c500 850 500 2150 0 3000"/>
+<path class="o" data-o="615" d="M850-1500c-500 850-500 2150 0 3000"/>
+</g>
+</g>
+<g data-s="57">
+<g transform="matrix(1 0 0-1-16865-11016)">
+<text class="p" data-o="616" transform="translate(0 3972)scale(1000)" x="0 2.114">31</text>
+</g>
+<g transform="matrix(1 0 0-1 86719-10955)">
+<text class="p" data-o="617" transform="translate(0 3972)scale(1000)" x="0 2.114">32</text>
+</g>
+<g transform="matrix(1 0 0-1 131530 6022)">
+<text class="p" data-o="618" transform="translate(0 3972)scale(1000)" x="0 2.114">36</text>
+</g>
+<g transform="matrix(1 0 0-1 123483-24822)">
+<text class="p" data-o="619" transform="translate(0 3972)scale(1000)" x="0 2.114">37</text>
+</g>
+<g transform="matrix(1 0 0-1 43092 2468)">
+<text class="p" data-o="620" transform="translate(0 3972)scale(1000)" x="0 2.114">38</text>
+</g>
+<g transform="matrix(1 0 0-1 131496 44077)">
+<text class="p" data-o="621" transform="translate(0 3972)scale(1000)" x="0 2.114">39</text>
+</g>
+<g transform="matrix(1 0 0-1 117675 28140)">
+<text class="p" data-o="622" transform="translate(0 3972)scale(1000)" x="0 2.114">40</text>
+</g>
+<g transform="matrix(1 0 0-1 28617 3978)">
+<text class="p" data-o="623" transform="translate(0 3972)scale(1000)" x="0 2.114">41</text>
+</g>
+<g transform="matrix(1 0 0-1 32488-7161)">
+<text class="p" data-o="624" transform="translate(0 3972)scale(1000)" x="0 2.114">42</text>
+</g>
+<g transform="matrix(1 0 0-1 81255 41797)">
+<text class="p" data-o="625" transform="translate(0 3972)scale(1000)" x="0 2.114">43</text>
+</g>
+<g transform="matrix(1 0 0-1 33128-25071)">
+<text class="p" data-o="626" transform="translate(0 3972)scale(1000)" x="0 2.114">44</text>
+</g>
+<g transform="matrix(1 0 0-1 55069 32897)">
+<text class="p" data-o="627" transform="translate(0 3972)scale(1000)" x="0 2.114">45</text>
+</g>
+<g transform="matrix(1 0 0-1-16408 7868)">
+<text class="p" data-o="628" transform="translate(0 3972)scale(1000)" x="0 2.114">46</text>
+</g>
+<g transform="matrix(1 0 0-1 5489 36769)">
+<text class="p" data-o="629" transform="translate(0 3972)scale(1000)" x="0 2.114">47</text>
+</g>
+<g transform="matrix(1 0 0-1 24479 45649)">
+<text class="p" data-o="630" transform="translate(0 3972)scale(1000)" x="0 2.114">48</text>
+</g>
+<g transform="matrix(1 0 0-1 19572-23080)">
+<text class="p" data-o="631" transform="translate(0 3972)scale(1000)" x="0 2.114">49</text>
+</g>
+<g transform="matrix(1 0 0-1 42455 30097)">
+<text class="p" data-o="632" transform="translate(0 3972)scale(1000)" x="0 2.114">50</text>
+</g>
+<g transform="matrix(1 0 0-1 9875-13260)">
+<text class="p" data-o="633" transform="translate(0 3972)scale(1000)" x="0 2.114">51</text>
+</g>
+<g transform="matrix(1 0 0-1 45559-12178)">
+<text class="p" data-o="634" transform="translate(0 3972)scale(1000)" x="0 2.114">52</text>
+</g>
+<g transform="matrix(1 0 0-1 26417-12722)">
+<text class="p" data-o="635" transform="translate(0 3972)scale(1000)" x="0 2.114">53</text>
+</g>
+<g transform="matrix(1 0 0-1 56830 8122)">
+<text class="p" data-o="636" transform="translate(0 3972)scale(1000)" x="0 2.114">54</text>
+</g>
+<g transform="matrix(1 0 0-1 46354 17739)">
+<text class="p" data-o="637" transform="translate(0 3972)scale(1000)" x="0 2.114">55</text>
+</g>
+<g transform="matrix(1 0 0-1 84279 29449)">
+<text class="p" data-o="638" transform="translate(0 3972)scale(1000)" x="0 2.114">56</text>
+</g>
+<g transform="matrix(1 0 0-1 89511 17020)">
+<text class="p" data-o="639" transform="translate(0 3972)scale(1000)" x="0 2.114">57</text>
+</g>
+<g transform="matrix(1 0 0-1 14388 2839)">
+<text class="p" data-o="640" transform="translate(0 3972)scale(1000)" x="0 2.114">58</text>
+</g>
+<g transform="matrix(1 0 0-1 48772-29280)">
+<text class="p" data-o="641" transform="translate(0 3972)scale(1000)" x="0 2.114">59</text>
+</g>
+<g transform="matrix(1 0 0-1-9908 30780)">
+<text class="p" data-o="642" transform="translate(0 3972)scale(1000)" x="0 2.114">60</text>
+</g>
+<g transform="matrix(1 0 0-1 14512 17895)">
+<text class="p" data-o="643" transform="translate(0 3972)scale(1000)" x="0 2.114">70</text>
+</g>
+<g transform="matrix(1 0 0-1 32892 16968)">
+<text class="p" data-o="644" transform="translate(0 3972)scale(1000)" x="0 2.114">71</text>
+</g>
+<g transform="matrix(1 0 0-1 2279 15749)">
+<text class="p" data-o="645" transform="translate(0 3972)scale(1000)" x="0 2.114">72</text>
+</g>
+<g transform="matrix(1 0 0-1 51828-15797)">
+<text class="p" data-o="646" transform="translate(0 3972)scale(1000)" x="0 2.114">73</text>
+</g>
+<g transform="matrix(1 0 0-1 63759-19878)">
+<text class="p" data-o="647" transform="translate(0 3972)scale(1000)" x="0 2.114">74</text>
+</g>
+<g transform="matrix(1 0 0-1 68260 34297)">
+<text class="p" data-o="648" transform="translate(0 3972)scale(1000)" x="0 2.114">75</text>
+</g>
+<g transform="matrix(1 0 0-1-312 1139)">
+<text class="p" data-o="649" transform="translate(0 3972)scale(1000)" x="0 2.114">76</text>
+</g>
+<g transform="matrix(1 0 0-1 70228 16929)">
+<text class="p" data-o="650" transform="translate(0 3972)scale(1000)" x="0 2.114">77</text>
+</g>
+<g transform="matrix(1 0 0-1 97204 32448)">
+<text class="p" data-o="651" transform="translate(0 3972)scale(1000)" x="0 2.114">78</text>
+</g>
+<g transform="matrix(1 0 0-1 112441 13695)">
+<text class="p" data-o="652" transform="translate(0 3972)scale(1000)" x="0 2.114">79</text>
+</g>
+<g transform="matrix(1 0 0-1 34346 9665)">
+<text class="p" data-o="653" transform="translate(0 3972)scale(1000)" x="0 2.114">80</text>
+</g>
+</g>
+</g>
+<g data-c="3">
+<g clip-path="url(#b)" data-s="58">
+<g transform="rotate(45)">
+<path class="q" data-o="654" d="M39850 15600h40972"/>
+<path class="q" data-o="654" d="M39850 16200h40972"/>
+<path class="q" data-o="654" d="M39850 16800h40972"/>
+<path class="q" data-o="654" d="M39850 17400h40972"/>
+<path class="q" data-o="654" d="M39850 18000h40972"/>
+<path class="q" data-o="654" d="M39850 18600h40972"/>
+<path class="q" data-o="654" d="M39850 19200h40972"/>
+<path class="q" data-o="654" d="M39850 19800h40972"/>
+<path class="q" data-o="654" d="M39850 20400h40972"/>
+<path class="q" data-o="654" d="M39850 21000h40972"/>
+<path class="q" data-o="654" d="M39850 21600h40972"/>
+<path class="q" data-o="654" d="M39850 22200h40972"/>
+<path class="q" data-o="654" d="M39850 22800h40972"/>
+<path class="q" data-o="654" d="M39850 23400h40972"/>
+<path class="q" data-o="654" d="M39850 24000h40972"/>
+<path class="q" data-o="654" d="M39850 24600h40972"/>
+<path class="q" data-o="654" d="M39850 25200h40972"/>
+<path class="q" data-o="654" d="M39850 25800h40972"/>
+<path class="q" data-o="654" d="M39850 26400h40972"/>
+<path class="q" data-o="654" d="M39850 27000h40972"/>
+<path class="q" data-o="654" d="M39850 27600h40972"/>
+<path class="q" data-o="654" d="M39850 28200h40972"/>
+<path class="q" data-o="654" d="M39850 28800h40972"/>
+<path class="q" data-o="654" d="M39850 29400h40972"/>
+<path class="q" data-o="654" d="M39850 30000h40972"/>
+<path class="q" data-o="654" d="M39850 30600h40972"/>
+<path class="q" data-o="654" d="M39850 31200h40972"/>
+<path class="q" data-o="654" d="M39850 31800h40972"/>
+<path class="q" data-o="654" d="M39850 32400h40972"/>
+<path class="q" data-o="654" d="M39850 33000h40972"/>
+<path class="q" data-o="654" d="M39850 33600h40972"/>
+<path class="q" data-o="654" d="M39850 34200h40972"/>
+<path class="q" data-o="654" d="M39850 34800h40972"/>
+<path class="q" data-o="654" d="M39850 35400h40972"/>
+<path class="q" data-o="654" d="M39850 36000h40972"/>
+<path class="q" data-o="654" d="M39850 36600h40972"/>
+<path class="q" data-o="654" d="M39850 37200h40972"/>
+<path class="q" data-o="654" d="M39850 37800h40972"/>
+<path class="q" data-o="654" d="M39850 38400h40972"/>
+<path class="q" data-o="654" d="M39850 39000h40972"/>
+<path class="q" data-o="654" d="M39850 39600h40972"/>
+<path class="q" data-o="654" d="M39850 40200h40972"/>
+<path class="q" data-o="654" d="M39850 40800h40972"/>
+<path class="q" data-o="654" d="M39850 41400h40972"/>
+<path class="q" data-o="654" d="M39850 42000h40972"/>
+<path class="q" data-o="654" d="M39850 42600h40972"/>
+<path class="q" data-o="654" d="M39850 43200h40972"/>
+<path class="q" data-o="654" d="M39850 43800h40972"/>
+<path class="q" data-o="654" d="M39850 44400h40972"/>
+<path class="q" data-o="654" d="M39850 45000h40972"/>
+<path class="q" data-o="654" d="M39850 45600h40972"/>
+<path class="q" data-o="654" d="M39850 46200h40972"/>
+<path class="q" data-o="654" d="M39850 46800h40972"/>
+<path class="q" data-o="654" d="M39850 47400h40972"/>
+<path class="q" data-o="654" d="M39850 48000h40972"/>
+<path class="q" data-o="654" d="M39850 48600h40972"/>
+<path class="q" data-o="654" d="M39850 49200h40972"/>
+<path class="q" data-o="654" d="M39850 49800h40972"/>
+<path class="q" data-o="654" d="M39850 50400h40972"/>
+<path class="q" data-o="654" d="M39850 51000h40972"/>
+<path class="q" data-o="654" d="M39850 51600h40972"/>
+<path class="q" data-o="654" d="M39850 52200h40972"/>
+<path class="q" data-o="654" d="M39850 52800h40972"/>
+<path class="q" data-o="654" d="M39850 53400h40972"/>
+<path class="q" data-o="654" d="M39850 54000h40972"/>
+<path class="q" data-o="654" d="M39850 54600h40972"/>
+<path class="q" data-o="654" d="M39850 55200h40972"/>
+<path class="q" data-o="654" d="M39850 55800h40972"/>
+<path class="q" data-o="654" d="M39850 56400h40972"/>
+</g>
+<g transform="rotate(135)">
+<path class="q" data-o="654" d="M15528-81000h40973"/>
+<path class="q" data-o="654" d="M15528-80400h40973"/>
+<path class="q" data-o="654" d="M15528-79800h40973"/>
+<path class="q" data-o="654" d="M15528-79200h40973"/>
+<path class="q" data-o="654" d="M15528-78600h40973"/>
+<path class="q" data-o="654" d="M15528-78000h40973"/>
+<path class="q" data-o="654" d="M15528-77400h40973"/>
+<path class="q" data-o="654" d="M15528-76800h40973"/>
+<path class="q" data-o="654" d="M15528-76200h40973"/>
+<path class="q" data-o="654" d="M15528-75600h40973"/>
+<path class="q" data-o="654" d="M15528-75000h40973"/>
+<path class="q" data-o="654" d="M15528-74400h40973"/>
+<path class="q" data-o="654" d="M15528-73800h40973"/>
+<path class="q" data-o="654" d="M15528-73200h40973"/>
+<path class="q" data-o="654" d="M15528-72600h40973"/>
+<path class="q" data-o="654" d="M15528-72000h40973"/>
+<path class="q" data-o="654" d="M15528-71400h40973"/>
+<path class="q" data-o="654" d="M15528-70800h40973"/>
+<path class="q" data-o="654" d="M15528-70200h40973"/>
+<path class="q" data-o="654" d="M15528-69600h40973"/>
+<path class="q" data-o="654" d="M15528-69000h40973"/>
+<path class="q" data-o="654" d="M15528-68400h40973"/>
+<path class="q" data-o="654" d="M15528-67800h40973"/>
+<path class="q" data-o="654" d="M15528-67200h40973"/>
+<path class="q" data-o="654" d="M15528-66600h40973"/>
+<path class="q" data-o="654" d="M15528-66000h40973"/>
+<path class="q" data-o="654" d="M15528-65400h40973"/>
+<path class="q" data-o="654" d="M15528-64800h40973"/>
+<path class="q" data-o="654" d="M15528-64200h40973"/>
+<path class="q" data-o="654" d="M15528-63600h40973"/>
+<path class="q" data-o="654" d="M15528-63000h40973"/>
+<path class="q" data-o="654" d="M15528-62400h40973"/>
+<path class="q" data-o="654" d="M15528-61800h40973"/>
+<path class="q" data-o="654" d="M15528-61200h40973"/>
+<path class="q" data-o="654" d="M15528-60600h40973"/>
+<path class="q" data-o="654" d="M15528-60000h40973"/>
+<path class="q" data-o="654" d="M15528-59400h40973"/>
+<path class="q" data-o="654" d="M15528-58800h40973"/>
+<path class="q" data-o="654" d="M15528-58200h40973"/>
+<path class="q" data-o="654" d="M15528-57600h40973"/>
+<path class="q" data-o="654" d="M15528-57000h40973"/>
+<path class="q" data-o="654" d="M15528-56400h40973"/>
+<path class="q" data-o="654" d="M15528-55800h40973"/>
+<path class="q" data-o="654" d="M15528-55200h40973"/>
+<path class="q" data-o="654" d="M15528-54600h40973"/>
+<path class="q" data-o="654" d="M15528-54000h40973"/>
+<path class="q" data-o="654" d="M15528-53400h40973"/>
+<path class="q" data-o="654" d="M15528-52800h40973"/>
+<path class="q" data-o="654" d="M15528-52200h40973"/>
+<path class="q" data-o="654" d="M15528-51600h40973"/>
+<path class="q" data-o="654" d="M15528-51000h40973"/>
+<path class="q" data-o="654" d="M15528-50400h40973"/>
+<path class="q" data-o="654" d="M15528-49800h40973"/>
+<path class="q" data-o="654" d="M15528-49200h40973"/>
+<path class="q" data-o="654" d="M15528-48600h40973"/>
+<path class="q" data-o="654" d="M15528-48000h40973"/>
+<path class="q" data-o="654" d="M15528-47400h40973"/>
+<path class="q" data-o="654" d="M15528-46800h40973"/>
+<path class="q" data-o="654" d="M15528-46200h40973"/>
+<path class="q" data-o="654" d="M15528-45600h40973"/>
+<path class="q" data-o="654" d="M15528-45000h40973"/>
+<path class="q" data-o="654" d="M15528-44400h40973"/>
+<path class="q" data-o="654" d="M15528-43800h40973"/>
+<path class="q" data-o="654" d="M15528-43200h40973"/>
+<path class="q" data-o="654" d="M15528-42600h40973"/>
+<path class="q" data-o="654" d="M15528-42000h40973"/>
+<path class="q" data-o="654" d="M15528-41400h40973"/>
+<path class="q" data-o="654" d="M15528-40800h40973"/>
+<path class="q" data-o="654" d="M15528-40200h40973"/>
+<path class="q" data-o="654" d="M15528-39600h40973"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<g transform="matrix(.001 0 0-.001 77.972 79.547)" clip-path="url(#c)">
+<use xlink:href="#a"/>
+</g>
+</svg>
