@@ -1007,15 +1007,29 @@ namespace Map_SkiaStd
     }
 
 
-    // Manages private SKTypeFace instances, or falls back to system-installed fonts if not found. 
+    // Manages private SKTypeFace instances, or falls back to system-installed fonts if not found.
     // Also handles parsing of font family name suffixes to match requested font styles to available system fonts,
     // and provides a default font family name to use when no match is found.
+    //
+    // The private fonts can also be made a fixed font set, the only fonts there are (see RegisteredFontsOnly), so that
+    // text comes out the same on every machine whatever fonts the machine has.
     public static class SkiaFontManager
     {
         private static object lockObj = new object();
         private static Dictionary<FontKey, string> privateTypeFace = new Dictionary<FontKey, string>();
         private static string defaultFontFamilyName = "Arial";
         private static readonly SuffixEntry[] allSuffixes = BuildSuffixTable();
+
+        // Whether fonts come only from the fixed font set; see RegisteredFontsOnly.
+        private static bool registeredFontsOnly;
+
+        // The private font files in the order each was first registered, which is the order in which fallback searches
+        // the fixed font set for a character, and the family each was first registered under.
+        private static readonly List<string> registeredFontFiles = new List<string>();
+        private static readonly Dictionary<string, string> familyOfFontFile = new Dictionary<string, string>(StringComparer.Ordinal);
+
+        // The private font files that fallback has opened to look for characters in, kept open so that each is read once.
+        private static readonly Dictionary<string, FontFileCoverage> coverageOfFontFile = new Dictionary<string, FontFileCoverage>(StringComparer.Ordinal);
 
 
         // The default typeface for our current platform. Skia uses this as a fallback when Skia's font matching
@@ -1038,6 +1052,36 @@ namespace Map_SkiaStd
                 if (!privateTypeFace.ContainsKey(fontKey)) {
                     privateTypeFace.Add(fontKey, fontFilePath);
                 }
+
+                if (!familyOfFontFile.ContainsKey(fontFilePath)) {
+                    familyOfFontFile.Add(fontFilePath, familyName);
+                    registeredFontFiles.Add(fontFilePath);
+                }
+            }
+        }
+
+        // Whether fonts come only from the fixed font set: the font files registered with AddFontFile. When true, no
+        // font of the system's is looked up, for a family or for a character. A family the set lacks is drawn in the
+        // default family (SetDefaultFontFamilyName), which the set should hold, or else in the first font registered;
+        // and a character a font lacks is drawn in the first font of the set, in the order the files were registered,
+        // that has it, or not at all. The same set then gives the same text on every machine, whatever fonts the machine
+        // has, which tests that compare output across machines need. False by default, when the private fonts are
+        // searched first and the system's fonts after them.
+        //
+        // Set it before any text is drawn: setting it releases the faces already resolved that no one holds, but a face
+        // still held stays cached as it was resolved.
+        public static bool RegisteredFontsOnly
+        {
+            get {
+                lock (lockObj) {
+                    return registeredFontsOnly;
+                }
+            }
+            set {
+                lock (lockObj) {
+                    registeredFontsOnly = value;
+                }
+                ShapedTypeface.ClearCache();
             }
         }
 
@@ -1089,6 +1133,12 @@ namespace Map_SkiaStd
                     // We default to the default font family name set (usually "Arial"), not to the platform default font. This is how OCAD works.
                     // So try again with the default family name.
                     typeface = CreateTypeface(defaultFontFamilyName, weight, width, slant);
+                }
+
+                if (typeface == null && registeredFontsOnly && registeredFontFiles.Count > 0) {
+                    // The fixed font set lacks the default family too. Its first font stands in, rather than a font of the
+                    // system's, which would make the text depend on the machine.
+                    typeface = SKTypeface.FromFile(registeredFontFiles[0]);
                 }
 
                 if (typeface == null) {
@@ -1315,6 +1365,10 @@ namespace Map_SkiaStd
                     }
                 }
 
+                // With fonts from the fixed font set alone, there is nowhere else to look.
+                if (registeredFontsOnly)
+                    return null;
+
                 // SKTypeface.FromFamilyName returns something whenever the platform has any font to fall back to. We want to return
                 // null if it can't find a reasonable match, so we have to apply some heuristics (encapsulated in IsGoodFamilyNameMatch)
                 // to the result to determine if it's a good match or just a fallback. Where fontconfig knows no font of the family
@@ -1368,7 +1422,8 @@ namespace Map_SkiaStd
         }
 
         // Returns an array of all available font family names, combining both
-        // private registered fonts and system fonts from SKFontManager.Default.
+        // private registered fonts and system fonts from SKFontManager.Default,
+        // or the private fonts alone when they are the fixed font set (RegisteredFontsOnly).
         // For system fonts, each font style in a family generates a suffixed name
         // based on its weight,\ and width (e.g., "Bahnschrift Light",
         // "Bahnschrift SemiBold Condensed").
@@ -1378,15 +1433,17 @@ namespace Map_SkiaStd
         public static string[] GetFontFamilies()
         {
             HashSet<string> familyNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            bool withSystemFonts;
 
             lock (lockObj) {
                 foreach (FontKey key in privateTypeFace.Keys) {
                     familyNames.Add(key.familyName);
                 }
+                withSystemFonts = !registeredFontsOnly;
             }
 
             SKFontManager systemFontManager = SKFontManager.Default;
-            foreach (string family in systemFontManager.FontFamilies) {
+            foreach (string family in withSystemFonts ? systemFontManager.FontFamilies : Enumerable.Empty<string>()) {
                 using (SKFontStyleSet styleSet = systemFontManager.GetFontStyles(family)) {
                     // Check if all styles in this family share the same weight or width.
                     // If so, suppress that suffix even if the value isn't Normal/Bold.
@@ -1438,7 +1495,79 @@ namespace Map_SkiaStd
         {
             lock (lockObj) {
                 privateTypeFace.Clear();
+                registeredFontFiles.Clear();
+                familyOfFontFile.Clear();
+                foreach (FontFileCoverage coverage in coverageOfFontFile.Values) {
+                    coverage.Dispose();
+                }
+                coverageOfFontFile.Clear();
             }
+        }
+
+        // Returns a typeface of the fixed font set for a codepoint that a text's font lacks, for fallback when fonts come
+        // only from the set (RegisteredFontsOnly), or null when no font of the set has the codepoint. The set's files are
+        // searched in the order they were registered, and the first that has a glyph for the codepoint is taken; but of
+        // the family it was registered under, the face that best matches the requested style is taken instead when it
+        // has the glyph too. For a script that needs a font's layout tables to be shaped (see ComplexScripts), a file
+        // that declares the script comes before one that only has the glyph. The caller owns the typeface returned.
+        //
+        // Parameters:
+        //   codepoint - the Unicode codepoint that needs a font.
+        //   weight, width, slant - the style the text asked for.
+        public static SKTypeface MatchCharacterInRegisteredFonts(int codepoint, SKFontStyleWeight weight, SKFontStyleWidth width, SKFontStyleSlant slant)
+        {
+            uint primaryTag = 0, secondaryTag = 0;
+            bool needsLayoutTables = ComplexScripts.MayRequireLayoutTables(codepoint) &&
+                                     ComplexScripts.TryGetRequiredTags(HarfBuzzSharp.UnicodeFunctions.Default.GetScript(codepoint), out primaryTag, out secondaryTag);
+
+            lock (lockObj) {
+                string found = null, foundWithoutLayoutTables = null;
+                foreach (string fontFile in registeredFontFiles) {
+                    FontFileCoverage coverage = CoverageOfFontFile(fontFile);
+                    if (coverage == null || !coverage.HasGlyph(codepoint))
+                        continue;
+                    if (needsLayoutTables && !coverage.DeclaresScript(primaryTag, secondaryTag)) {
+                        if (foundWithoutLayoutTables == null)
+                            foundWithoutLayoutTables = fontFile;
+                        continue;
+                    }
+                    found = fontFile;
+                    break;
+                }
+
+                if (found == null)
+                    found = foundWithoutLayoutTables;
+                if (found == null)
+                    return null;
+
+                string nearestStyle = FindBestPrivateFontMatch(familyOfFontFile[found], weight, width, slant);
+                if (nearestStyle != null && nearestStyle != found) {
+                    FontFileCoverage coverage = CoverageOfFontFile(nearestStyle);
+                    if (coverage != null && coverage.HasGlyph(codepoint) &&
+                        (!needsLayoutTables || found == foundWithoutLayoutTables || coverage.DeclaresScript(primaryTag, secondaryTag)))
+                        found = nearestStyle;
+                }
+
+                return SKTypeface.FromFile(found);
+            }
+        }
+
+        // Returns the opened private font file that tells which characters the file has, opening it the first time, or
+        // null when Skia cannot read the file.
+        //
+        // IMPORTANT: Must be called while holding lockObj.
+        //
+        // Parameters:
+        //   fontFile - the full path of a registered font file.
+        private static FontFileCoverage CoverageOfFontFile(string fontFile)
+        {
+            FontFileCoverage coverage;
+            if (!coverageOfFontFile.TryGetValue(fontFile, out coverage)) {
+                SKTypeface typeface = SKTypeface.FromFile(fontFile);
+                coverage = typeface == null ? null : new FontFileCoverage(typeface);
+                coverageOfFontFile.Add(fontFile, coverage);
+            }
+            return coverage;
         }
 
         // Finds the best-matching font file path from the private font collection using
@@ -1695,6 +1824,46 @@ namespace Map_SkiaStd
         }
 
         private enum SuffixKind { Weight, Width, Slant }
+
+        // A private font file opened to tell which characters it has glyphs for and which scripts its layout tables
+        // declare, for fallback within the fixed font set.
+        private sealed class FontFileCoverage : IDisposable
+        {
+            private readonly SKTypeface typeface;
+            private readonly SKFont font;
+            private HashSet<uint> declaredScriptTags;
+
+            // Take ownership of the typeface of a font file.
+            // typeface: the typeface, read from the file.
+            public FontFileCoverage(SKTypeface typeface)
+            {
+                this.typeface = typeface;
+                font = new SKFont(typeface);
+            }
+
+            // Whether the file has a glyph for a codepoint.
+            // codepoint: the Unicode codepoint.
+            public bool HasGlyph(int codepoint)
+            {
+                return font.GetGlyph(codepoint) != 0;
+            }
+
+            // Whether the file's layout tables declare a script by either of its tags.
+            // primary, secondary: the script's OpenType tags, as ComplexScripts gives them.
+            public bool DeclaresScript(uint primary, uint secondary)
+            {
+                if (declaredScriptTags == null)
+                    declaredScriptTags = ComplexScripts.ReadDeclaredScriptTags(typeface);
+                return declaredScriptTags.Contains(primary) || declaredScriptTags.Contains(secondary);
+            }
+
+            // Release the font and the typeface.
+            public void Dispose()
+            {
+                font.Dispose();
+                typeface.Dispose();
+            }
+        }
 
         // Struct to hold a key for distinguishing fonts.
         private struct FontKey

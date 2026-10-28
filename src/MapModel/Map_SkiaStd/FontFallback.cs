@@ -191,6 +191,10 @@ namespace Map_SkiaStd
     // Private fonts registered through SkiaFontManager.AddFontFile are deliberately not
     // considered: the platform cannot see them, and fallback is about covering codepoints the
     // chosen font lacks, not about substituting for the chosen font.
+    //
+    // The exception is a fixed font set (SkiaFontManager.RegisteredFontsOnly): then the platform
+    // is not asked at all, and the set's own fonts are searched instead, in the order they were
+    // registered, so that the fallback does not depend on the fonts the machine has.
     public static class FontFallbackResolver
     {
         // Cache of resolved fallbacks, keyed by everything that can change the answer. A null
@@ -248,18 +252,25 @@ namespace Map_SkiaStd
             return cache.TryGetValue(key, out entry) ? entry : resolved;
         }
 
-        // Asks the platform for a font covering the codepoint and wraps the result in a
-        // cached ShapedTypeface. Returns null if the platform has nothing.
+        // Asks the platform for a font covering the codepoint, or the fixed font set when fonts
+        // come from it alone, and wraps the result in a cached ShapedTypeface. Returns null if
+        // nothing has the codepoint.
         private static ShapedTypeface Match(int codepoint, string familyName,
                                             SKFontStyleWeight weight, SKFontStyleWidth width, SKFontStyleSlant slant,
                                             string languageTag)
         {
-            string[] bcp47 = string.IsNullOrEmpty(languageTag) ? null : new string[] { languageTag };
+            SKTypeface matched;
+            if (SkiaFontManager.RegisteredFontsOnly) {
+                matched = SkiaFontManager.MatchCharacterInRegisteredFonts(codepoint, weight, width, slant);
+            }
+            else {
+                string[] bcp47 = string.IsNullOrEmpty(languageTag) ? null : new string[] { languageTag };
 
-            // An empty family name must be passed as null, or the platform treats it as a
-            // request for a family literally called "".
-            SKTypeface matched = SKFontManager.Default.MatchCharacter(
-                string.IsNullOrEmpty(familyName) ? null : familyName, weight, width, slant, bcp47, codepoint);
+                // An empty family name must be passed as null, or the platform treats it as a
+                // request for a family literally called "".
+                matched = SKFontManager.Default.MatchCharacter(
+                    string.IsNullOrEmpty(familyName) ? null : familyName, weight, width, slant, bcp47, codepoint);
+            }
 
             if (matched == null)
                 return null;
