@@ -82,6 +82,28 @@ model, and no print area, so no outline. A PDF map, which PDF export copies as v
   leg, `DescriptionCourseObj` description, and each special its own kind; controls from `courseControlId`, and for a
   leg from both ends.
 
+## Baseline tests (V-2, V-4, V-5)
+
+`CourseSvgBaselineTests` in `Map_Svg.Tests`, beside `CourseSvgExportTests`, so that the SVG loop runs them on Linux
+(V-4): each exports a reference event's courses, compares each file's text with a baseline committed in
+`src/TestFiles/svg_export`, and writes a missing or changed file to the loop's results, from where it is committed, as
+the comparison does with its references. Each file is also exported a second time and compared byte for byte, and the
+results record each file's size, plain and gzip-compressed, which the loop's summary reports (V-5). The renderings of
+the comparison decide whether the drawing is right; the baselines show in review what changed in the text.
+
+The set, from events whose maps load on a case-sensitive file system, smallest maps first:
+
+- `controller/mapexchange1.ppen`: courses with map exchanges, and no map, so its files are small;
+- `courseprinting/Overprint test.ppen`: an OCAD map with overprinted colors and the course's purple blended;
+- `controller/Lincoln Park.ppen`: a bitmap map, which the files embed;
+- `findpurple/OOM_ISOM_Blank.ppen`: an OpenMapper map, its all-controls page;
+- `controller/Madrona Permanent11.ppen`: an OCAD map with area patterns, multi-colored point symbols and text along
+  lines;
+- a georeferenced OCAD map among the test maps, to be found.
+
+Several events name their maps with another case than the files have, such as `Marymoor.ocd` for `marymoor.ocd`,
+and so load only on Windows; spelling them as the files are spelled belongs on `fix/case-of-test-file-names`.
+
 ## Stages after this one
 
 1. **The refactor:** `MapDisplay.Draw` by layer and the code shared with `CoursePdf`, on `feature/svg-export` rooted at
