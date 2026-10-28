@@ -18,6 +18,7 @@
     <ProjectReference Include="..\RenderingTestCases\RenderingTestCases.csproj" />
     <ProjectReference Include="..\..\PurplePenCore\PurplePenCore.csproj" />
     <PackageReference Include="HarfBuzzSharp.NativeAssets.Linux" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="Microsoft.Playwright" />
     <PackageReference Include="NUnit" />
