@@ -66,6 +66,7 @@ namespace AvPurplePen
             services.AddSingleton<IBitmapGraphicsTargetProvider, SkiaBitmapGraphicsTargetProvider>();
             services.AddSingleton<IFontLoader>(SkiaFontLoader.Instance); 
             services.AddSingleton<ITextMetrics, Skia_TextMetrics>();
+            services.AddSingleton<IFontSubsetProvider, SkiaFontSubsetProvider>();
             services.AddSingleton<IFileLoaderProvider, SkiaFileLoaderProvider>();
             services.AddSingleton<IPdfWriter, PdfWriter>();
             services.AddSingleton<IApplicationIdleService, ApplicationIdleServiceAdapter>();

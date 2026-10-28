@@ -1427,6 +1427,45 @@ namespace PurplePen
             return coursePdf.OverwrittenFiles();
         }
 
+        // Create SVG files of courses, one page to a file. Returns false if an error occurred, which it reports.
+        public bool CreateCourseSvgs(CourseSvgSettings courseSvgSettings)
+        {
+            SetOutputDirectory(courseSvgSettings);
+
+            bool success = HandleExceptions(
+                delegate {
+                    MapDisplay clonedMapDisplay = mapDisplay.CloneToFullIntensity();
+
+                    CourseAppearance courseAppearance = GetCourseAppearance();
+                    CourseSvg courseSvg = new CourseSvg(eventDB, symbolDB, this, clonedMapDisplay, courseSvgSettings, courseAppearance);
+                    courseSvg.CreateSvgs();
+                },
+                MiscText.CannotCreateSvgs);
+
+            return success;
+        }
+
+        // Get the list of files that creating SVG files would overwrite.
+        public List<string> OverwritingSvgFiles(CourseSvgSettings courseSvgSettings)
+        {
+            SetOutputDirectory(courseSvgSettings);
+
+            CourseSvg courseSvg = new CourseSvg(eventDB, symbolDB, this, mapDisplay.CloneToFullIntensity(), courseSvgSettings, GetCourseAppearance());
+            return courseSvg.OverwrittenFiles();
+        }
+
+        // Set the outputDirectory field of CourseSvgSettings.
+        private void SetOutputDirectory(CourseSvgSettings courseSvgSettings)
+        {
+            // Process the fileDirectory and mapDirectory fields.
+            if (courseSvgSettings.fileDirectory) {
+                courseSvgSettings.outputDirectory = Path.GetDirectoryName(FileName);
+            }
+            else if (courseSvgSettings.mapDirectory) {
+                courseSvgSettings.outputDirectory = Path.GetDirectoryName(MapFileName);
+            }
+        }
+
         // Set the outputDirectory field of OcadCreationSettings.
         private void SetOutputDirectory(OcadCreationSettings creationSettings)
         {
