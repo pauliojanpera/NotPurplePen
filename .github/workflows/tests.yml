@@ -177,6 +177,8 @@ jobs:
           src/PurplePenViewModels.Tests/bin/Debug/net10.0
           src/PurplePen_Tests/bin/Debug/net10.0-windows
           src/Testing/TestUtil/bin/Debug/net10.0
+          src/MapModel/Map_Svg.Tests/bin/Debug/net10.0
+          !src/MapModel/Map_Svg.Tests/bin/Debug/net10.0/.playwright
         if-no-files-found: error
         retention-days: 1
         compression-level: 1
@@ -201,6 +203,13 @@ jobs:
       # One group's failures say nothing about another's, and a run that stops at
       # the first of them leaves the rest unanswered.
       fail-fast: false
+      # An assembly that only some branches build is marked with a leading ?, and
+      # is left out where the build lacks it. One followed by |<filter> runs only
+      # the tests the filter picks, which it hands to dotnet test, so it can hold
+      # no space. Map_Svg.Tests, which the SVG work alone has, runs its baselines
+      # here, the same ones the SVG loop checks on Linux, so that the two check
+      # that the SVG export comes out the same on both; its other tests draw in
+      # Chromium and belong to the loop.
       matrix:
         include:
         - id: purplepen
@@ -227,6 +236,7 @@ jobs:
             MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
             PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
             Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
+            ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
 
     steps:
     - name: Checkout source
@@ -603,16 +613,27 @@ jobs:
 
         # The assemblies rather than the solution: this image has no toolset for
         # the native projects, so nothing here may be built. Which of them this
-        # machine runs comes from the matrix.
-        $assemblies = $env:ASSEMBLIES -split '\s+' | Where-Object { $_ }
-        "assemblies: $($assemblies -join ', ')"
+        # machine runs comes from the matrix, each with the filter of its tests
+        # and whether the build may lack it.
+        $assemblies = @(foreach ($entry in ($env:ASSEMBLIES -split '\s+' | Where-Object { $_ })) {
+            $path, $filter = $entry.TrimStart('?') -split '\|', 2
+            [pscustomobject]@{ Path = $path; Filter = $filter; Optional = $entry.StartsWith('?') }
+        })
+        "assemblies: $(($assemblies | ForEach-Object { $_.Path + $(if ($_.Filter) { " ($($_.Filter))" }) }) -join ', ')"
 
         # The group all at once rather than one after another. Each writes to its
         # own file so that one assembly's line cannot land in the middle of
         # another's.
         $dotnet = Join-Path $env:ProgramFiles 'dotnet-x64\dotnet.exe'
-        $missing = $assemblies | Where-Object { -not (Test-Path $_) }
-        if ($missing) { throw "Not in the build: $($missing -join ', ')" }
+        $missing = @($assemblies | Where-Object { -not (Test-Path $_.Path) })
+        foreach ($one in ($missing | Where-Object { $_.Optional })) { "not in this branch's build, so not run: $($one.Path)" }
+        $required = @($missing | Where-Object { -not $_.Optional })
+        if ($required.Count) { throw "Not in the build: $(($required | ForEach-Object { $_.Path }) -join ', ')" }
+        $assemblies = @($assemblies | Where-Object { Test-Path $_.Path })
+
+        # What the SVG baselines write when they fail, which the artifact keeps.
+        $svgResults = Join-Path $PWD 'svg-loop-results'
+        Remove-Item $svgResults -Recurse -Force -ErrorAction SilentlyContinue
 
         # Every assembly writes the name of each test it starts to one file, so
         # that a run which stops says where it stopped.
@@ -629,6 +650,7 @@ jobs:
               <TEST_PROGRESS_LOG>$progress</TEST_PROGRESS_LOG>
               <TEST_ALT_BASELINE_ROOT>$altRoot</TEST_ALT_BASELINE_ROOT>
               <TEST_ALT_BASELINE_LOG>$altLog</TEST_ALT_BASELINE_LOG>
+              <SVG_LOOP_RESULTS>$svgResults</SVG_LOOP_RESULTS>
             </EnvironmentVariables>
           </RunConfiguration>
           <InProcDataCollectionRunSettings>
@@ -641,14 +663,16 @@ jobs:
         </RunSettings>
         "@ | Set-Content ci.runsettings -Encoding UTF8
 
-        $running = foreach ($dll in $assemblies) {
-            $log = Join-Path $PWD ("test-" + [IO.Path]::GetFileNameWithoutExtension($dll) + ".log")
+        $running = foreach ($assembly in $assemblies) {
+            $log = Join-Path $PWD ("test-" + [IO.Path]::GetFileNameWithoutExtension($assembly.Path) + ".log")
+            $arguments = @('test', $assembly.Path, '--settings:ci.runsettings')
+            if ($assembly.Filter) { $arguments += @('--filter', $assembly.Filter) }
             [pscustomobject]@{
-                Dll = $dll
+                Dll = $assembly.Path
                 Log = $log
                 Process = Start-Process $dotnet -NoNewWindow -PassThru `
                                         -RedirectStandardOutput $log -RedirectStandardError "$log.err" `
-                                        -ArgumentList @('test', $dll, '--settings:ci.runsettings')
+                                        -ArgumentList $arguments
             }
         }
 
@@ -702,4 +726,5 @@ jobs:
         path: |
           src/**/*_actual.png
           src/**/*_diff.png
+          src/svg-loop-results
         if-no-files-found: warn

@@ -8,7 +8,10 @@
 #
 # The summary also says what changed since the results the branch held before
 # this run: tests that changed their outcome, and the drawings whose SVG or
-# measurements changed. changes.md lists each change.
+# measurements changed. changes.md lists each change. And it gives the size of
+# each file the SVG export writes of the reference events, plain and
+# gzip-compressed, which the baseline tests record in export-sizes.tsv, beside
+# the size it had before.
 #
 # Called from svg.yml after the tests, and after a failed build too, when there
 # is no test report and the build's errors are the verdict.
@@ -104,10 +107,26 @@ function Read-Drawings([string] $directory) {
     return $drawings
 }
 
+# The sizes of the files the SVG export wrote of the reference events, which
+# its baseline tests record in export-sizes.tsv: for each file its event, its
+# name, and its size plain and gzip-compressed, in the order recorded. None
+# when a directory has no such record.
+#
+# Parameters:
+#   directory - the results directory.
+function Read-ExportSizes([string] $directory) {
+    $path = Join-Path $directory 'export-sizes.tsv'
+    if (-not (Test-Path $path)) { return @() }
+    return @(Get-Content $path | Select-Object -Skip 1 | Where-Object { $_ } | ForEach-Object {
+        $fields = $_ -split "`t"
+        [pscustomobject]@{ Event = $fields[0]; File = $fields[1]; Bytes = [long]$fields[2]; Gzip = [long]$fields[3] }
+    })
+}
+
 # The results the branch held before this run, cloned into a directory of
 # their own: the subject of their commit, which names the run and commit they
-# came from, their tests and their drawings. $null when the branch does not
-# exist yet or cannot be read.
+# came from, their tests, their drawings and the sizes of the reference
+# exports. $null when the branch does not exist yet or cannot be read.
 function Read-PreviousResults {
     $directory = Join-Path ([IO.Path]::GetTempPath()) 'svg-loop-previous'
     if (Test-Path $directory) { Remove-Item $directory -Recurse -Force }
@@ -118,6 +137,7 @@ function Read-PreviousResults {
         Subject = (& git -C $directory log -1 --format=%s)
         Tests = Read-TestReport (Join-Path $directory 'test-report.trx')
         Drawings = Read-Drawings $directory
+        ExportSizes = Read-ExportSizes $directory
     }
 }
 
@@ -294,6 +314,28 @@ elseif ($previous) {
         $summary.Add('| Test or drawing | What changed |')
         $summary.Add('| --- | --- |')
         foreach ($row in ($changes | Select-Object -First 30)) { $summary.Add("| $($row.Name) | $($row.Change) |") }
+    }
+}
+$exportSizes = Read-ExportSizes $results
+if ($exportSizes.Count) {
+    $sizesBefore = @{}
+    if ($previous) { foreach ($row in $previous.ExportSizes) { $sizesBefore["$($row.Event)/$($row.File)"] = $row } }
+    $totalBytes = ($exportSizes | Measure-Object -Property Bytes -Sum).Sum
+    $totalGzip = ($exportSizes | Measure-Object -Property Gzip -Sum).Sum
+    $summary.Add('')
+    $summary.Add('## Sizes of the reference exports (export-sizes.tsv)')
+    $summary.Add('')
+    $summary.Add("The $($exportSizes.Count) files the SVG export writes of the reference events come to $(Format-Bytes $totalBytes) bytes, $(Format-Bytes $totalGzip) gzip-compressed.")
+    $summary.Add('')
+    $summary.Add('| Event | File | Bytes | Gzip bytes | Before |')
+    $summary.Add('| --- | --- | ---: | ---: | --- |')
+    foreach ($row in $exportSizes) {
+        $before = $sizesBefore["$($row.Event)/$($row.File)"]
+        $was = if (-not $previous -or -not $previous.ExportSizes.Count) { '' }
+               elseif (-not $before) { 'new' }
+               elseif ($before.Bytes -eq $row.Bytes -and $before.Gzip -eq $row.Gzip) { 'the same' }
+               else { "$(Format-Bytes $before.Bytes) / $(Format-Bytes $before.Gzip)" }
+        $summary.Add("| $($row.Event) | $($row.File) | $(Format-Bytes $row.Bytes) | $(Format-Bytes $row.Gzip) | $was |")
     }
 }
 if ($byCall.Count) {
