@@ -1,7 +1,9 @@
 # The fonts of the SVG tests
 
-The SVG tests draw text in these fonts, whatever fonts the machine has, so that a text case's reference image comes
-out the same on every machine and does not move when the runner's font packages change.
+The SVG tests draw text in these fonts alone, whatever fonts the machine has, so that a text case's reference image
+and every document come out the same on every machine, Windows or Linux, and do not move when the runner's font
+packages change. `TestFonts` registers them and makes them a fixed font set (`SkiaFontManager.RegisteredFontsOnly`):
+no font of the machine's is looked up, for a family or for a character a face lacks.
 
 - `Liberation*.ttf`: Liberation Sans and Liberation Serif 2.1.5, under the SIL Open Font License in `OFL.txt`. They
   have the metrics of Arial and Times New Roman, and the tests register them under those names.
@@ -13,12 +15,13 @@ out the same on every machine and does not move when the runner's font packages 
 
 Every other family the test maps name falls back to Arial, as the Skia target falls back to its default family.
 
-- `fallback/`: the faces the Skia target falls back to for a character a text's face lacks, which it asks the
-  platform for. On Linux the tests' process sees these alone (`TestFontConfig`), as their Chromium sees the sentinel
-  alone, so that fontfallback draws the same on every machine. They are Noto faces under the SIL Open Font License in
-  `fallback/OFL.txt`, cut down to the characters in `fallback/characters.txt`, the characters the test maps draw that
-  no face above has; `fallback/make-fallback-fonts.py` fetches them at pinned commits and makes them anew, and says
-  how to add characters. A character none of them has is drawn as a box.
+- `fallback/`: the faces the Skia target falls back to for a character a text's face lacks. The fixed set looks for
+  such a character in the faces above first and then in these, in the order of their files' names, and never in a face
+  of the machine's, so that fontfallback draws the same on every machine; the tests' Chromium likewise sees the
+  sentinel alone. They are Noto faces under the SIL Open Font License in `fallback/OFL.txt`, cut down to the
+  characters in `fallback/characters.txt`, the characters the test maps draw that no face above has;
+  `fallback/make-fallback-fonts.py` fetches them at pinned commits and makes them anew, and says how to add
+  characters. A character none of them has is drawn as a box.
 
 - `variable/RobotoVariable-Test.ttf`: Roboto's variable face, with its axes of weight and width, cut down to the
   printable characters of ASCII, under the SIL Open Font License in `variable/OFL.txt`. The tests register it as
