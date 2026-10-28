@@ -1,4 +1,5 @@
-﻿using RectangleF = System.Drawing.RectangleF;
+﻿using System.Collections.Generic;
+using RectangleF = System.Drawing.RectangleF;
 using SizeF = System.Drawing.SizeF;
 
 namespace PurplePen.Graphics2D
@@ -62,5 +63,17 @@ namespace PurplePen.Graphics2D
         // georeference: the transform from the map's coordinates to real-world coordinates, and the identifications of
         //               the coordinate system.
         void SetGeoreference(object mapKey, MapGeoreference georeference);
+
+        // Describe the course that a map draws, with the map (CD-1); a later call for the same map replaces it.
+        // mapKey: the key of a map that has begun.
+        // course: the course.
+        void DescribeCourse(object mapKey, CourseRecord course);
+
+        // Describe the objects of a map that a course added to it, by the keys the map's objects begin with (CD-2,
+        // CD-3); a later call for the same map replaces it. Objects the map draws that the lookup lacks are not
+        // described.
+        // mapKey: the key of a map that has begun.
+        // objects: for each object's key, what the object draws.
+        void DescribeObjects(object mapKey, IReadOnlyDictionary<object, CourseObjectRecord> objects);
     }
 }

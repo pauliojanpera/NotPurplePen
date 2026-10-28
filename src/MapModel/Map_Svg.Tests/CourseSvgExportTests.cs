@@ -52,6 +52,14 @@ namespace Map_Svg.Tests
             // page's proportions, at 4 pixels to the millimetre.
             string document = File.ReadAllText(Path.Combine(first, files[0]));
             StringAssert.Contains("<npp:map n=\"1\" label=\"LordHill_ver16_2024Jan_scaled.omap\">", document);
+
+            // The course map's record describes the course, its controls in order, and what each of its objects draws,
+            // by the number its elements carry (CD-1, CD-2).
+            StringAssert.IsMatch("<npp:course name=\"[^\"]+\" scale=\"7500\">\n<npp:control n=\"1\" kind=\"start\" x=\"-?[0-9]+\" y=\"-?[0-9]+\"/>\n<npp:control n=\"2\" code=\"[0-9]+\" kind=\"control\"", document);
+            StringAssert.IsMatch("<npp:object n=\"[0-9]+\" kind=\"leg\" controls=\"1 2\"/>", document);
+            StringAssert.IsMatch("<npp:object n=\"[0-9]+\" kind=\"control\" controls=\"2\"/>", document);
+            StringAssert.IsMatch("<npp:object n=\"[0-9]+\" kind=\"control-number\" controls=\"2\"/>", document);
+            StringAssert.IsMatch("<npp:object n=\"[0-9]+\" kind=\"description\"/>", document);
             string svgPath = LoopResults.SaveSvg("course-export-" + Path.GetFileNameWithoutExtension(files[0]), document);
             System.Text.RegularExpressions.Match size = System.Text.RegularExpressions.Regex.Match(document, "width=\"([0-9.]+)mm\" height=\"([0-9.]+)mm\"");
             Assert.IsTrue(size.Success, "the page's size");

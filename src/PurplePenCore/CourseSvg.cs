@@ -54,6 +54,7 @@ namespace PurplePen
             mapDisplay.AntiAlias = false;
             mapDisplay.Printing = true;
             mapDisplay.ColorModel = settings.ColorModel;
+            mapDisplay.RecordsCourseObjects = true;
             if (settings.DontPrintBaseMap)
                 mapDisplay.SetMapFile(MapType.None, null);
         }
@@ -161,6 +162,8 @@ namespace PurplePen
                     AddPart(target, parts, courseKey, page.description, null, MapDisplayLayer.CourseUpper, page.mapRectangle);
                 }
 
+                DescribeCourse(target, courseKey, page);
+
                 using (Matrix mapToPage = MapToPage(page))
                     target.AddPage(PaperSize(page), page.mapRectangle, mapToPage, parts.ToArray());
 
@@ -188,6 +191,102 @@ namespace PurplePen
             target.EndMap();
             target.EndPart();
             parts.Add(partKey);
+        }
+
+        // Describe, with the course's map, the course a page draws (CD-1), and each object of the course's map by the
+        // course object that added it: its kind and the course's controls it belongs to (CD-2, CD-3).
+        // target: the SVG target.
+        // courseKey: the key of the course's map.
+        // page: the page.
+        private void DescribeCourse(Svg_GraphicsTarget target, object courseKey, CoursePage page)
+        {
+            CourseView courseView = CourseView.CreatePrintingCourseView(eventDB, page.courseDesignator);
+            CourseRecord course = new CourseRecord {
+                Name = courseView.CourseName,
+                Part = page.courseDesignator.AllParts ? 0 : page.courseDesignator.Part + 1,
+                Variation = page.courseDesignator.IsVariation ? page.courseDesignator.VariationInfo.CodeString : null,
+                PrintScale = courseView.PrintScale,
+            };
+            Dictionary<Id<CourseControl>, int> placeOfCourseControl = new Dictionary<Id<CourseControl>, int>();
+            foreach (CourseView.ControlView controlView in courseView.ControlViews) {
+                ControlPoint control = eventDB.GetControl(controlView.controlId);
+                course.Controls.Add(new CourseControlRecord { Code = control.code, Kind = KindOf(control.kind), Position = control.location });
+                if (controlView.courseControlIds != null) {
+                    foreach (Id<CourseControl> courseControlId in controlView.courseControlIds) {
+                        if (!placeOfCourseControl.ContainsKey(courseControlId))
+                            placeOfCourseControl.Add(courseControlId, course.Controls.Count);
+                    }
+                }
+            }
+            target.DescribeCourse(courseKey, course);
+
+            Dictionary<object, CourseObjectRecord> objects = new Dictionary<object, CourseObjectRecord>(ReferenceEqualityComparer.Instance);
+            Dictionary<CourseObj, CourseObjectRecord> recordOfCourseObject = new Dictionary<CourseObj, CourseObjectRecord>(ReferenceEqualityComparer.Instance);
+            foreach (KeyValuePair<PurplePen.MapModel.Symbol, CourseObj> pair in mapDisplay.CourseObjectsOfSymbols) {
+                CourseObjectRecord record;
+                if (!recordOfCourseObject.TryGetValue(pair.Value, out record)) {
+                    record = DescribeObject(pair.Value, placeOfCourseControl);
+                    recordOfCourseObject.Add(pair.Value, record);
+                }
+                objects[pair.Key] = record;
+            }
+            target.DescribeObjects(courseKey, objects);
+        }
+
+        // What a course object draws: its kind and the places of the course's controls it belongs to, its control, or
+        // a leg's two.
+        // courseObject: the course object.
+        // placeOfCourseControl: the place, from 1, of each course control in the course's list of controls.
+        private static CourseObjectRecord DescribeObject(CourseObj courseObject, Dictionary<Id<CourseControl>, int> placeOfCourseControl)
+        {
+            List<int> controls = new List<int>();
+            int place;
+            if (courseObject.courseControlId.IsNotNone && placeOfCourseControl.TryGetValue(courseObject.courseControlId, out place))
+                controls.Add(place);
+            LineCourseObj line = courseObject as LineCourseObj;
+            if (line != null && line.courseControlId2.IsNotNone && placeOfCourseControl.TryGetValue(line.courseControlId2, out place))
+                controls.Add(place);
+            return new CourseObjectRecord { Kind = KindOf(courseObject), Controls = controls.ToArray() };
+        }
+
+        // The kind of a control, as the document names it.
+        // kind: the kind of the control point.
+        private static string KindOf(ControlPointKind kind)
+        {
+            switch (kind) {
+                case ControlPointKind.Start: return "start";
+                case ControlPointKind.Finish: return "finish";
+                case ControlPointKind.CrossingPoint: return "crossing";
+                case ControlPointKind.MapExchange: return "map-exchange";
+                case ControlPointKind.MapIssue: return "map-issue";
+                default: return "control";
+            }
+        }
+
+        // The kind of a course object, as the document names it: from its class, such as control-number for a
+        // ControlNumberCourseObj, with a few named apart.
+        // courseObject: the course object.
+        private static string KindOf(CourseObj courseObject)
+        {
+            string name = courseObject.GetType().Name;
+            if (name.EndsWith("CourseObj", StringComparison.Ordinal))
+                name = name.Substring(0, name.Length - "CourseObj".Length);
+            switch (name) {
+                case "OOB": return "out-of-bounds";
+                case "RegMark": return "registration-mark";
+                case "TempConstruction": return "construction";
+                case "TopologyLeg": return "leg";
+                case "LineSpecial": return "line";
+                case "RectSpecial": return "rectangle";
+                case "BasicText": return "text";
+            }
+            StringBuilder kind = new StringBuilder(name.Length + 4);
+            for (int index = 0; index < name.Length; ++index) {
+                if (char.IsUpper(name[index]) && index > 0)
+                    kind.Append('-');
+                kind.Append(char.ToLowerInvariant(name[index]));
+            }
+            return kind.ToString();
         }
 
         // The size of a page's paper in millimetres, turned for a landscape page (F-4).

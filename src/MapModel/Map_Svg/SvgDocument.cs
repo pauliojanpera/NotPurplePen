@@ -166,10 +166,29 @@ namespace PurplePen.MapModel
         // Where the map lies in the real world, or null when that is not known (G-1, G-2).
         public MapGeoreference Georeference;
 
-        // Whether the metadata holds anything within the map's record: its georeference or a table.
+        // The course the map draws, as an export describes it, or null (CD-1).
+        public CourseRecord Course;
+
+        // What each object that a course added to the map draws, by the object's key, or null (CD-2).
+        public IReadOnlyDictionary<object, CourseObjectRecord> ObjectDescriptions;
+
+        // The keys of the objects begun within the map, in the order each first began.
+        public readonly List<object> ObjectKeys = new List<object>();
+        private readonly HashSet<object> objectKeysSeen = new HashSet<object>(new IdentityComparer<object>());
+
+        // Whether the metadata holds anything within the map's record: its georeference, a table, its course or the
+        // descriptions of its objects.
         public bool HasContent
         {
-            get { return Georeference != null || Colors.Count > 0 || Symbols.Count > 0; }
+            get { return Georeference != null || Colors.Count > 0 || Symbols.Count > 0 || Course != null || ObjectDescriptions != null; }
+        }
+
+        // Record that an object has begun within the map.
+        // objectKey: the key that identifies the object.
+        public void RecordObject(object objectKey)
+        {
+            if (objectKeysSeen.Add(objectKey))
+                ObjectKeys.Add(objectKey);
         }
 
         // Create the record of a map.
@@ -345,6 +364,14 @@ namespace PurplePen.MapModel
                 clips.Add(key, clip);
             }
             return clip;
+        }
+
+        // The number of an object that has drawn an element, if it has.
+        // objectKey: the key that identifies the object.
+        // number: receives the object's number.
+        public bool TryGetNumber(object objectKey, out int number)
+        {
+            return objectNumbers.TryGetValue(objectKey, out number);
         }
 
         // The number of an object, which its elements carry: objects are numbered across the document from 1, in the
@@ -554,6 +581,10 @@ namespace PurplePen.MapModel
                     WriteColorRecord(text, color);
                 foreach (SvgSymbolRecord symbol in map.Symbols)
                     WriteSymbolRecord(text, symbol);
+                if (map.Course != null)
+                    WriteCourseRecord(text, map.Course);
+                if (map.ObjectDescriptions != null)
+                    WriteObjectRecords(text, map);
                 text.Append("</npp:map>\n");
             }
             text.Append("</npp:document>\n</metadata>\n");
@@ -606,6 +637,67 @@ namespace PurplePen.MapModel
             if (color.Overprint)
                 text.Append(" overprint=\"1\"");
             text.Append("/>\n");
+        }
+
+        // Write the record of the course a map draws: its name, part, variation and print scale, and its controls in the
+        // order the course visits them, each with its place, code, kind and position in steps of map, as the drawing
+        // gives coordinates (CD-1).
+        // text: the text to append to.
+        // course: the course.
+        private static void WriteCourseRecord(StringBuilder text, CourseRecord course)
+        {
+            text.Append("<npp:course");
+            if (!string.IsNullOrEmpty(course.Name))
+                text.Append(" name=\"").Append(EscapeAttribute(course.Name)).Append('"');
+            if (course.Part > 0)
+                text.Append(" part=\"").Append(SvgNumbers.FormatInteger(course.Part)).Append('"');
+            if (!string.IsNullOrEmpty(course.Variation))
+                text.Append(" variation=\"").Append(EscapeAttribute(course.Variation)).Append('"');
+            if (course.PrintScale > 0)
+                text.Append(" scale=\"").Append(SvgNumbers.FormatShortest(course.PrintScale)).Append('"');
+            if (course.Controls.Count == 0) {
+                text.Append("/>\n");
+                return;
+            }
+            text.Append(">\n");
+            for (int index = 0; index < course.Controls.Count; ++index) {
+                CourseControlRecord control = course.Controls[index];
+                text.Append("<npp:control n=\"").Append(SvgNumbers.FormatInteger(index + 1)).Append('"');
+                if (!string.IsNullOrEmpty(control.Code))
+                    text.Append(" code=\"").Append(EscapeAttribute(control.Code)).Append('"');
+                if (!string.IsNullOrEmpty(control.Kind))
+                    text.Append(" kind=\"").Append(EscapeAttribute(control.Kind)).Append('"');
+                text.Append(" x=\"").Append(SvgNumbers.FormatInteger(SvgNumbers.ToSteps(control.Position.X)))
+                    .Append("\" y=\"").Append(SvgNumbers.FormatInteger(SvgNumbers.ToSteps(control.Position.Y))).Append("\"/>\n");
+            }
+            text.Append("</npp:course>\n");
+        }
+
+        // Write the record of each object of a map that the course describes and that drew an element: its number, the
+        // one its elements carry, its kind, and the places of the course's controls it belongs to (CD-2).
+        // text: the text to append to.
+        // map: the record of the map.
+        private void WriteObjectRecords(StringBuilder text, SvgMapRecord map)
+        {
+            foreach (object objectKey in map.ObjectKeys) {
+                CourseObjectRecord description;
+                int number;
+                if (!map.ObjectDescriptions.TryGetValue(objectKey, out description) || description == null || !TryGetNumber(objectKey, out number))
+                    continue;
+                text.Append("<npp:object n=\"").Append(SvgNumbers.FormatInteger(number)).Append('"');
+                if (!string.IsNullOrEmpty(description.Kind))
+                    text.Append(" kind=\"").Append(EscapeAttribute(description.Kind)).Append('"');
+                if (description.Controls != null && description.Controls.Length > 0) {
+                    text.Append(" controls=\"");
+                    for (int index = 0; index < description.Controls.Length; ++index) {
+                        if (index > 0)
+                            text.Append(' ');
+                        text.Append(SvgNumbers.FormatInteger(description.Controls[index]));
+                    }
+                    text.Append('"');
+                }
+                text.Append("/>\n");
+            }
         }
 
         // Write the record of a symbol: its number, id and name, and the positions of the colors its objects are drawn
