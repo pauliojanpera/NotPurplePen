@@ -39,8 +39,8 @@ namespace Map_Svg.Tests
         [Test]
         public async Task AnEventIsWrittenAsAFileForEachPageTheSameEachTime()
         {
-            string first = await ExportAsync("courseprinting\\marymoor.ppen", "first", new Id<Course>(1), new Id<Course>(2));
-            string second = await ExportAsync("courseprinting\\marymoor.ppen", "second", new Id<Course>(1), new Id<Course>(2));
+            string first = await ExportAsync("courseprinting/Lord Hill Feb 2024 - Final.ppen", "first", new Id<Course>(2), new Id<Course>(3));
+            string second = await ExportAsync("courseprinting/Lord Hill Feb 2024 - Final.ppen", "second", new Id<Course>(2), new Id<Course>(3));
 
             string[] files = Directory.GetFiles(first, "*.svg").Select(Path.GetFileName).OrderBy(name => name, StringComparer.Ordinal).ToArray();
             Assert.GreaterOrEqual(files.Length, 2, "a file for each course");
@@ -48,28 +48,34 @@ namespace Map_Svg.Tests
             foreach (string file in files)
                 CollectionAssert.AreEqual(File.ReadAllBytes(Path.Combine(first, file)), File.ReadAllBytes(Path.Combine(second, file)), "{0} the same each time", file);
 
-            // Each page draws in Chromium: its map, its course in purple, its text.
+            // A page draws in Chromium: its map, and its course in purple. The image has the
+            // page's proportions, at 4 pixels to the millimetre.
             string document = File.ReadAllText(Path.Combine(first, files[0]));
-            StringAssert.Contains("<npp:map n=\"1\" label=\"marymoor.ocd\"", document);
+            StringAssert.Contains("<npp:map n=\"1\" label=\"LordHill_ver16_2024Jan_scaled.omap\">", document);
             string svgPath = LoopResults.SaveSvg("course-export-" + Path.GetFileNameWithoutExtension(files[0]), document);
-            using (SKBitmap rendering = await ChromiumRenderer.RenderAsync(svgPath, new Size(850, 1100))) {
-                int inked = 0, purple = 0;
-                for (int y = 0; y < rendering.Height; y += 2) {
-                    for (int x = 0; x < rendering.Width; x += 2) {
+            System.Text.RegularExpressions.Match size = System.Text.RegularExpressions.Regex.Match(document, "width=\"([0-9.]+)mm\" height=\"([0-9.]+)mm\"");
+            Assert.IsTrue(size.Success, "the page's size");
+            Size pixels = new Size((int)Math.Round(4 * double.Parse(size.Groups[1].Value, System.Globalization.CultureInfo.InvariantCulture)),
+                                   (int)Math.Round(4 * double.Parse(size.Groups[2].Value, System.Globalization.CultureInfo.InvariantCulture)));
+            using (SKBitmap rendering = await ChromiumRenderer.RenderAsync(svgPath, pixels)) {
+                LoopResults.SaveImage(Path.Combine("course-export", Path.GetFileNameWithoutExtension(files[0]) + ".png"), rendering);
+                int inked = 0, magenta = 0;
+                for (int y = 0; y < rendering.Height; ++y) {
+                    for (int x = 0; x < rendering.Width; ++x) {
                         SKColor pixel = rendering.GetPixel(x, y);
                         if (pixel.Red < 200 || pixel.Green < 200 || pixel.Blue < 200)
                             ++inked;
-                        if (pixel.Red > 120 && pixel.Blue > 120 && pixel.Green < 90)
-                            ++purple;
+                        if (pixel.Red - pixel.Green > 80 && pixel.Blue - pixel.Green > 40)
+                            ++magenta;
                     }
                 }
-                Assert.Greater(inked, 10000, "the map is drawn");
-                Assert.Greater(purple, 100, "the course is drawn in purple");
+                Assert.Greater(inked, 100000, "the map is drawn");
+                Assert.Greater(magenta, 2000, "the course is drawn in purple");
             }
         }
 
         // Load an event and export courses of it as SVG files into a folder of their own, and return the folder.
-        // eventFile: the event's file, among the test files.
+        // eventFile: the event's file, among the application's test files.
         // name: the name of the folder within this run's.
         // courseIds: the courses to export.
         private static async Task<string> ExportAsync(string eventFile, string name, params Id<Course>[] courseIds)
@@ -81,7 +87,8 @@ namespace Map_Svg.Tests
 
             RecordingUserInterface ui = new RecordingUserInterface();
             Controller controller = new Controller(ui);
-            Assert.IsTrue(await controller.LoadInitialFile(TestUtil.GetTestFile(eventFile), true), "loads: " + string.Join(" ", ui.Messages));
+            Assert.IsTrue(await controller.LoadInitialFile(ApplicationTestFile(eventFile), false), "loads: " + string.Join(" ", ui.Messages));
+            Assert.AreEqual(MapType.OCAD, controller.MapDisplay.MapType, "the map loads: " + controller.MapFileName + " " + string.Join(" ", ui.Messages));
             if (controller.LowerPurpleMapLayer != null)
                 controller.MapDisplay.LowerPurpleMapLayer = controller.LowerPurpleMapLayer;
 
@@ -93,6 +100,15 @@ namespace Map_Svg.Tests
             return directory;
         }
 
+        // The path of one of the application's test files, in src/TestFiles, beside the folder of MapModel's own, which
+        // TestUtil finds.
+        // name: the file's path within the folder, its parts separated by slashes.
+        private static string ApplicationTestFile(string name)
+        {
+            string mapModelFolder = Path.GetDirectoryName(TestUtil.GetTestFileDirectory());
+            return Path.GetFullPath(Path.Combine(mapModelFolder, "..", "TestFiles", name.Replace('/', Path.DirectorySeparatorChar)));
+        }
+
         // The user interface of a controller the tests drive, which records every message and answers every question
         // with its default.
         private sealed class RecordingUserInterface : IUserInterface
@@ -102,7 +118,7 @@ namespace Map_Svg.Tests
 
             public void Initialize(Controller controller, SymbolDB symbolDB) { }
             public void QueueIdleEvent() { }
-            public void PostDelayedAction(Action action) { }
+            public void PostDelayedAction(Action action) { action(); }
             public bool GetCurrentLocation(out PointF location, out float pixelSize) { location = PointF.Empty; pixelSize = 0.1F; return false; }
             public Task ErrorMessage(string message) { Messages.Add(message); return Task.CompletedTask; }
             public Task WarningMessage(string message) { Messages.Add(message); return Task.CompletedTask; }
