@@ -1027,6 +1027,20 @@ namespace Map_SkiaStd
         // or if that isn't found either, then the platform default font will be returned.
         public static SKTypeface CreateTypeface(string familyName, SKFontStyleWeight weight, SKFontStyleWidth width, SKFontStyleSlant slant)
         {
+            FontProbe.Begin();
+            SKTypeface probed = null;
+            try {
+                probed = CreateTypefaceUnprobed(familyName, weight, width, slant);
+                return probed;
+            }
+            finally {
+                FontProbe.End(familyName, weight, width, slant, probed);
+            }
+        }
+
+        // CreateTypeface, without the probe around it.
+        private static SKTypeface CreateTypefaceUnprobed(string familyName, SKFontStyleWeight weight, SKFontStyleWidth width, SKFontStyleSlant slant)
+        {
             SKTypeface typeface;
 
             lock (lockObj) {
@@ -1035,6 +1049,7 @@ namespace Map_SkiaStd
                 string privateFontPath = FindBestPrivateFontMatch(familyName, weight, width, slant);
                 if (privateFontPath != null) {
                     typeface = SKTypeface.FromFile(privateFontPath);
+                    FontProbe.Step("private " + privateFontPath);
                     Debug.Assert(typeface != null, "Failed to load typeface from private font file; check that you registered your font with a valid font file");
                     if (typeface != null) {
                         // If the family name wasn't what is in the font, re-record using information from the typeface. This allows us to re-get the font from the typeface; e.g., in
@@ -1056,6 +1071,7 @@ namespace Map_SkiaStd
                     // Still no font found in either the private collection or system fonts.
                     // We default to the default font family name set (usually "Arial"), not to the platform default font. This is how OCAD works.
                     // So try again with the default family name.
+                    FontProbe.Step("to default family " + defaultFontFamilyName);
                     typeface = CreateTypeface(defaultFontFamilyName, weight, width, slant);
                 }
 
@@ -1258,6 +1274,7 @@ namespace Map_SkiaStd
                 parsedWidth ?? (int)widthModifier,
                 parsedSlant.HasValue ? (SKFontStyleSlant)parsedSlant.Value : slantModifier);
 
+            FontProbe.Step("suffixes off: '" + baseName + "' " + parsedWeight + "/" + parsedWidth + "/" + parsedSlant);
             typeface = CreateTypefaceFromSystemOrPrivate(baseName, 
                 parsedWeight.HasValue ? (SKFontStyleWeight)parsedWeight.Value : weightModifier,
                 parsedWidth.HasValue ? (SKFontStyleWidth)parsedWidth.Value : widthModifier,
@@ -1279,6 +1296,7 @@ namespace Map_SkiaStd
                     // matching rules to find the best available variant for the requested style.
                     string privateFontPath = FindBestPrivateFontMatch(familyName, weight, width, slant);
                     if (privateFontPath != null) {
+                        FontProbe.Step("private " + privateFontPath);
                         return SKTypeface.FromFile(privateFontPath);
                     }
                 }
@@ -1287,7 +1305,9 @@ namespace Map_SkiaStd
                 // so we have to apply some heuristics (encapsulated in IsGoodFamilyNameMatch) to the result to determine
                 // if it's a good match or just a fallback.
                 SKTypeface typeface = SKTypeface.FromFamilyName(familyName, weight, width, slant);
+                FontProbe.Step("system '" + familyName + "' " + (int)weight + "/" + (int)width + "/" + slant + " gave " + (typeface == null ? "null" : "'" + typeface.FamilyName + "' " + typeface.FontWeight + "/" + typeface.FontWidth + "/" + typeface.FontSlant));
                 if (!IsGoodFamilyNameMatch(familyName, typeface)) {
+                    FontProbe.Step("not a good match");
                     typeface.Dispose();
                     return null;
                 }
