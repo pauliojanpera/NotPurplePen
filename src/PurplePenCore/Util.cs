@@ -208,9 +208,18 @@ namespace PurplePen
         // Determine if the current culture uses metric. This is based on the CultureInfo.CurrentCulture, 
         // NOT the RegionInfo.CurrentRegion, for compatibility for what we always did (and I think it's the 
         // right thing).
+        // A neutral culture, such as "en", names no region, so its specific culture's is taken. The invariant
+        // culture, which a machine whose locale is C or POSIX runs in, names none at all; RegionInfo.CurrentRegion
+        // gives it the invariant region, which is metric.
         public static bool IsCurrentCultureMetric()
         {
-            RegionInfo regionInfo = new RegionInfo(Thread.CurrentThread.CurrentCulture.Name);
+            CultureInfo culture = Thread.CurrentThread.CurrentCulture;
+            if (culture.IsNeutralCulture)
+                culture = CultureInfo.CreateSpecificCulture(culture.Name);
+            if (string.IsNullOrEmpty(culture.Name))
+                return true;
+
+            RegionInfo regionInfo = new RegionInfo(culture.Name);
             return regionInfo.IsMetric;
         }
 
