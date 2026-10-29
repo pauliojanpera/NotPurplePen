@@ -302,6 +302,26 @@ namespace PurplePen.Tests
             CollectionAssert.AreEqual(new float[] { 4000, 5000, 7500, 8000, 10000, 15000 }, result);
         }
 
+        // Whether a culture is metric is known for every culture, the invariant one and neutral ones too, which name
+        // no region of their own.
+        [TestMethod]
+        public void IsCurrentCultureMetric()
+        {
+            System.Globalization.CultureInfo original = System.Threading.Thread.CurrentThread.CurrentCulture;
+            try {
+                string[] names = { "", "en", "fi", "en-US", "en-GB", "fi-FI" };
+                bool[] metric = { true, false, true, false, true, true };
+                for (int i = 0; i < names.Length; ++i) {
+                    System.Threading.Thread.CurrentThread.CurrentCulture =
+                        names[i].Length == 0 ? System.Globalization.CultureInfo.InvariantCulture : new System.Globalization.CultureInfo(names[i]);
+                    Assert.AreEqual(metric[i], Util.IsCurrentCultureMetric(), "culture '{0}'", names[i]);
+                }
+            }
+            finally {
+                System.Threading.Thread.CurrentThread.CurrentCulture = original;
+            }
+        }
+
         [TestMethod]
         public void RemoveHotkeyPrefix()
         {
