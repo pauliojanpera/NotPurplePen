@@ -1,0 +1,343 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="906mm" height="639mm" viewBox="0 0 906 639">
+<style>
+.a{fill:none;stroke:#f00;stroke:#f00 icc-color(cmyk,0,1,1,0);stroke-width:100;stroke-linejoin:bevel}
+.b{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:300;stroke-linejoin:bevel}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="dashlengths6">
+<npp:color position="0" name="Red" cmyk="0,1,1,0"/>
+<npp:color position="1" name="Black" cmyk="0,0,0,1"/>
+<npp:symbol n="1" id="2.0" name="Red line" colors="0"/>
+<npp:symbol n="2" id="1.1" name="Basic dashed" colors="1"/>
+<npp:symbol n="3" id="1.2" name="Basic dashed" colors="1"/>
+<npp:symbol n="4" id="1.3" name="Basic dashed" colors="1"/>
+<npp:symbol n="5" id="1.4" name="Big dashed" colors="1"/>
+</npp:map>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="b">
+<path d="M-83497 20807h51014v35980h-51014z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g data-c="0">
+<g data-s="1">
+<path class="a" data-o="1" d="M-78610 55910v-620"/>
+<path class="a" data-o="2" d="M-77890 55890v-680"/>
+<path class="a" data-o="3" d="M-75730 55870v-700"/>
+<path class="a" data-o="4" d="M-74990 55870v-780"/>
+<path class="a" data-o="5" d="M-72810 55850v-820"/>
+<path class="a" data-o="6" d="M-72090 55830v-760"/>
+<path class="a" data-o="7" d="M-69150 55850v-740"/>
+<path class="a" data-o="8" d="M-67030 55890v-820"/>
+<path class="a" data-o="9" d="M-66250 55830v-720"/>
+<path class="a" data-o="10" d="M-64050 55830v-780"/>
+<path class="a" data-o="11" d="M-63290 55810v-680"/>
+<path class="a" data-o="12" d="M-78910 53630v-1000"/>
+<path class="a" data-o="13" d="M-78110 53570v-900"/>
+<path class="a" data-o="14" d="M-76230 53630v-980"/>
+<path class="a" data-o="15" d="M-75470 53610v-900"/>
+<path class="a" data-o="16" d="M-73580 53560v-900"/>
+<path class="a" data-o="17" d="M-72830 53590v-840"/>
+<path class="a" data-o="18" d="M-70950 53570v-860"/>
+<path class="a" data-o="19" d="M-70190 53530v-820"/>
+<path class="a" data-o="20" d="M-72330 51250v-840"/>
+<path class="a" data-o="21" d="M-73070 51290v-860"/>
+<path class="a" data-o="22" d="M-75170 51230v-800"/>
+<path class="a" data-o="23" d="M-75890 51230v-780"/>
+<path class="a" data-o="24" d="M-77990 51330v-860"/>
+<path class="a" data-o="25" d="M-78730 51270v-660"/>
+<path class="a" data-o="26" d="M-78650 49750v-760"/>
+<path class="a" data-o="27" d="M-77910 49760v-800"/>
+<path class="a" data-o="28" d="M-75870 49730v-640"/>
+<path class="a" data-o="29" d="M-75110 49670v-580"/>
+<path class="a" data-o="30" d="M-75730 47750v-660"/>
+<path class="a" data-o="31" d="M-76470 47810v-700"/>
+<path class="a" data-o="32" d="M-78150 47790v-700"/>
+<path class="a" data-o="33" d="M-78930 47810v-700"/>
+<path class="a" data-o="34" d="M-78650 46450v-640"/>
+<path class="a" data-o="35" d="M-77910 46470v-760"/>
+<path class="a" data-o="36" d="M-80250 55930v-700"/>
+<path class="a" data-o="37" d="M-61710 55790v-620"/>
+<path class="a" data-o="38" d="M-68790 53450v-680"/>
+<path class="a" data-o="39" d="M-80290 53510v-820"/>
+<path class="a" data-o="40" d="M-80290 51210v-740"/>
+<path class="a" data-o="41" d="M-70770 51130v-580"/>
+<path class="a" data-o="42" d="M-80210 49690v-620"/>
+<path class="a" data-o="43" d="M-73570 49650v-600"/>
+<path class="a" data-o="44" d="M-80210 47730v-660"/>
+<path class="a" data-o="45" d="M-74430 47750v-660"/>
+<path class="a" data-o="46" d="M-80270 46390v-680"/>
+<path class="a" data-o="47" d="M-76290 46470v-680"/>
+<path class="a" data-o="48" d="M-80280 44710v-680"/>
+<path class="a" data-o="49" d="M-77030 44690v-680"/>
+<path class="a" data-o="50" d="M-80290 43270v-540"/>
+<path class="a" data-o="51" d="M-78130 43290v-600"/>
+<path class="a" data-o="52" d="M-80210 41970v-500"/>
+<path class="a" data-o="53" d="M-78690 41970v-540"/>
+<path class="a" data-o="54" d="M-78270 44630v-560"/>
+<path class="a" data-o="55" d="M-79030 44670v-600"/>
+<path class="a" data-o="56" d="M-79590 43250v-580"/>
+<path class="a" data-o="57" d="M-78850 43250v-520"/>
+<path class="a" data-o="58" d="M-79830 41970v-520"/>
+<path class="a" data-o="59" d="M-79070 42010v-540"/>
+<path class="a" data-o="60" d="M-80160 40840v-520"/>
+<path class="a" data-o="61" d="M-79430 40810v-400"/>
+<path class="a" data-o="62" d="M-79430 40810v-400"/>
+<path class="a" data-o="63" d="M-80280 39940v1210"/>
+<path class="a" data-o="64" d="M-79330 40030v1090"/>
+<path class="a" data-o="65" d="M-50720 55150v-620"/>
+<path class="a" data-o="66" d="M-50000 55130v-680"/>
+<path class="a" data-o="67" d="M-47840 55110v-700"/>
+<path class="a" data-o="68" d="M-47100 55110v-780"/>
+<path class="a" data-o="69" d="M-44920 55090v-820"/>
+<path class="a" data-o="70" d="M-44200 55070v-760"/>
+<path class="a" data-o="71" d="M-41260 55090v-740"/>
+<path class="a" data-o="72" d="M-39140 55130v-820"/>
+<path class="a" data-o="73" d="M-38360 55070v-720"/>
+<path class="a" data-o="74" d="M-36160 55070v-780"/>
+<path class="a" data-o="75" d="M-35400 55050v-680"/>
+<path class="a" data-o="76" d="M-51020 52870v-1000"/>
+<path class="a" data-o="77" d="M-50220 52810v-900"/>
+<path class="a" data-o="78" d="M-48340 52870v-980"/>
+<path class="a" data-o="79" d="M-47580 52850v-900"/>
+<path class="a" data-o="80" d="M-45690 52800v-900"/>
+<path class="a" data-o="81" d="M-44940 52830v-840"/>
+<path class="a" data-o="82" d="M-43060 52810v-860"/>
+<path class="a" data-o="83" d="M-42300 52770v-820"/>
+<path class="a" data-o="84" d="M-44440 50490v-840"/>
+<path class="a" data-o="85" d="M-45180 50530v-860"/>
+<path class="a" data-o="86" d="M-47280 50470v-800"/>
+<path class="a" data-o="87" d="M-48000 50470v-780"/>
+<path class="a" data-o="88" d="M-50100 50570v-860"/>
+<path class="a" data-o="89" d="M-50840 50510v-660"/>
+<path class="a" data-o="90" d="M-50760 48990v-760"/>
+<path class="a" data-o="91" d="M-50020 49000v-800"/>
+<path class="a" data-o="92" d="M-47980 48970v-640"/>
+<path class="a" data-o="93" d="M-47220 48910v-580"/>
+<path class="a" data-o="94" d="M-47840 46990v-660"/>
+<path class="a" data-o="95" d="M-48580 47050v-700"/>
+<path class="a" data-o="96" d="M-50260 47030v-700"/>
+<path class="a" data-o="97" d="M-51040 47050v-700"/>
+<path class="a" data-o="98" d="M-50760 45690v-640"/>
+<path class="a" data-o="99" d="M-50020 45710v-760"/>
+<path class="a" data-o="100" d="M-52360 55170v-700"/>
+<path class="a" data-o="101" d="M-33820 55030v-620"/>
+<path class="a" data-o="102" d="M-40900 52690v-680"/>
+<path class="a" data-o="103" d="M-52400 52750v-820"/>
+<path class="a" data-o="104" d="M-52400 50450v-740"/>
+<path class="a" data-o="105" d="M-42880 50370v-580"/>
+<path class="a" data-o="106" d="M-52320 48930v-620"/>
+<path class="a" data-o="107" d="M-45680 48890v-600"/>
+<path class="a" data-o="108" d="M-52320 46970v-660"/>
+<path class="a" data-o="109" d="M-46540 46990v-660"/>
+<path class="a" data-o="110" d="M-52380 45630v-680"/>
+<path class="a" data-o="111" d="M-48400 45710v-680"/>
+<path class="a" data-o="112" d="M-52390 43950v-680"/>
+<path class="a" data-o="113" d="M-49140 43930v-680"/>
+<path class="a" data-o="114" d="M-52400 42510v-540"/>
+<path class="a" data-o="115" d="M-50240 42530v-600"/>
+<path class="a" data-o="116" d="M-52320 41210v-500"/>
+<path class="a" data-o="117" d="M-50800 41210v-540"/>
+<path class="a" data-o="118" d="M-50380 43870v-560"/>
+<path class="a" data-o="119" d="M-51140 43910v-600"/>
+<path class="a" data-o="120" d="M-52390 39180v1210"/>
+<path class="a" data-o="121" d="M-51440 39270v1090"/>
+<path class="a" data-o="122" d="M-79080 35350v-620"/>
+<path class="a" data-o="123" d="M-78360 35330v-680"/>
+<path class="a" data-o="124" d="M-76200 35310v-700"/>
+<path class="a" data-o="125" d="M-75460 35310v-780"/>
+<path class="a" data-o="126" d="M-73280 35290v-820"/>
+<path class="a" data-o="127" d="M-72560 35270v-760"/>
+<path class="a" data-o="128" d="M-69620 35290v-740"/>
+<path class="a" data-o="129" d="M-67500 35330v-820"/>
+<path class="a" data-o="130" d="M-66720 35270v-720"/>
+<path class="a" data-o="131" d="M-64520 35270v-780"/>
+<path class="a" data-o="132" d="M-63760 35250v-680"/>
+<path class="a" data-o="133" d="M-79380 33070v-1000"/>
+<path class="a" data-o="134" d="M-78580 33010v-900"/>
+<path class="a" data-o="135" d="M-76700 33070v-980"/>
+<path class="a" data-o="136" d="M-75940 33050v-900"/>
+<path class="a" data-o="137" d="M-74050 33000v-900"/>
+<path class="a" data-o="138" d="M-73300 33030v-840"/>
+<path class="a" data-o="139" d="M-71420 33010v-860"/>
+<path class="a" data-o="140" d="M-70660 32970v-820"/>
+<path class="a" data-o="141" d="M-72800 30690v-840"/>
+<path class="a" data-o="142" d="M-73540 30730v-860"/>
+<path class="a" data-o="143" d="M-75640 30670v-800"/>
+<path class="a" data-o="144" d="M-76360 30670v-780"/>
+<path class="a" data-o="145" d="M-78460 30770v-860"/>
+<path class="a" data-o="146" d="M-79200 30710v-660"/>
+<path class="a" data-o="147" d="M-79120 29190v-760"/>
+<path class="a" data-o="148" d="M-78380 29200v-800"/>
+<path class="a" data-o="149" d="M-76340 29170v-640"/>
+<path class="a" data-o="150" d="M-75580 29110v-580"/>
+<path class="a" data-o="151" d="M-76200 27190v-660"/>
+<path class="a" data-o="152" d="M-76940 27250v-700"/>
+<path class="a" data-o="153" d="M-78620 27230v-700"/>
+<path class="a" data-o="154" d="M-79400 27250v-700"/>
+<path class="a" data-o="155" d="M-79240 25870v-640"/>
+<path class="a" data-o="156" d="M-78260 25930v-760"/>
+<path class="a" data-o="157" d="M-80720 35370v-700"/>
+<path class="a" data-o="158" d="M-62180 35230v-620"/>
+<path class="a" data-o="159" d="M-69260 32890v-680"/>
+<path class="a" data-o="160" d="M-80760 32950v-820"/>
+<path class="a" data-o="161" d="M-80760 30650v-740"/>
+<path class="a" data-o="162" d="M-71240 30570v-580"/>
+<path class="a" data-o="163" d="M-80680 29130v-620"/>
+<path class="a" data-o="164" d="M-74040 29090v-600"/>
+<path class="a" data-o="165" d="M-80680 27170v-660"/>
+<path class="a" data-o="166" d="M-74900 27190v-660"/>
+<path class="a" data-o="167" d="M-80740 25830v-680"/>
+<path class="a" data-o="168" d="M-76760 25910v-680"/>
+<path class="a" data-o="169" d="M-80750 24150v-680"/>
+<path class="a" data-o="170" d="M-77500 24130v-680"/>
+<path class="a" data-o="171" d="M-80760 22710v-540"/>
+<path class="a" data-o="172" d="M-78600 22730v-600"/>
+<path class="a" data-o="173" d="M-78740 24070v-560"/>
+<path class="a" data-o="174" d="M-79500 24110v-600"/>
+<path class="a" data-o="175" d="M-80530 22720v-580"/>
+<path class="a" data-o="176" d="M-79780 22710v-520"/>
+<path class="a" data-o="177" d="M-80000 25860v-720"/>
+<path class="a" data-o="178" d="M-77500 25960v-820"/>
+<path class="a" data-o="179" d="M-78000 24100v-580"/>
+<path class="a" data-o="180" d="M-80240 24160v-700"/>
+<path class="a" data-o="181" d="M-80760 22710v-540"/>
+<path class="a" data-o="182" d="M-80760 22710v-540"/>
+<path class="a" data-o="183" d="M-79510 22700v-520"/>
+<path class="a" data-o="184" d="M-78780 22700v-520"/>
+<path class="a" data-o="185" d="M-46760 35090v-1760"/>
+<path class="a" data-o="186" d="M-44360 35010v-1680"/>
+<path class="a" data-o="187" d="M-49880 32130v-1520"/>
+<path class="a" data-o="188" d="M-47560 32210v-1440"/>
+<path class="a" data-o="189" d="M-52200 29010v-1040"/>
+<path class="a" data-o="190" d="M-49880 29010v-1280"/>
+<path class="a" data-o="191" d="M-52920 27090v-1120"/>
+<path class="a" data-o="192" d="M-50200 27090v-1200"/>
+</g>
+</g>
+<g data-c="1">
+<g data-s="2">
+<path class="b" data-o="193" d="M-80240 55600l1625-14"/>
+<path class="b" data-o="193" d="M-77869 55580l2166-19"/>
+<path class="b" data-o="193" d="M-74956 55554l2166-18"/>
+<path class="b" data-o="193" d="M-72043 55529l2166-18"/>
+<path class="b" data-o="193" d="M-69130 55504l2166-18"/>
+<path class="b" data-o="193" d="M-66217 55479l2166-19"/>
+<path class="b" data-o="193" d="M-63305 55454l1625-14"/>
+<path class="b" data-o="194" d="M-80280 53160h1420"/>
+<path class="b" data-o="194" d="M-78110 53160h1893"/>
+<path class="b" data-o="194" d="M-75467 53160h1894"/>
+<path class="b" data-o="194" d="M-72823 53160h1893"/>
+<path class="b" data-o="194" d="M-70180 53160h1420"/>
+<path class="b" data-o="195" d="M-80280 50840h1558"/>
+<path class="b" data-o="195" d="M-77972 50840h2077"/>
+<path class="b" data-o="195" d="M-75145 50840h2077"/>
+<path class="b" data-o="195" d="M-72318 50840h1558"/>
+<path class="b" data-o="196" d="M-80200 49360h1542"/>
+<path class="b" data-o="196" d="M-77908 49360h2056"/>
+<path class="b" data-o="196" d="M-75102 49360h1542"/>
+<path class="b" data-o="197" d="M-80280 46120h1625"/>
+<path class="b" data-o="197" d="M-77905 46120h1625"/>
+<path class="b" data-o="198" d="M-80280 44360h1265"/>
+<path class="b" data-o="198" d="M-78265 44360h1265"/>
+<path class="b" data-o="199" d="M-80280 43000h705"/>
+<path class="b" data-o="199" d="M-78825 43000h705"/>
+<path class="b" data-o="200" d="M-80200 41720h385"/>
+<path class="b" data-o="200" d="M-79065 41720h385"/>
+<path class="b" data-o="201" d="M-80280 40600h105"/>
+<path class="b" data-o="201" d="M-79425 40600h105"/>
+<path class="b" data-o="202" d="M-80200 47400h1278"/>
+<path class="b" data-o="202" d="M-78172 47400h1704"/>
+<path class="b" data-o="202" d="M-75718 47400h1278"/>
+</g>
+<g data-s="3">
+<path class="b" data-o="203" d="M-52350 54840l1625-14"/>
+<path class="b" data-o="203" d="M-49979 54820l2166-19"/>
+<path class="b" data-o="203" d="M-47066 54794l2166-18"/>
+<path class="b" data-o="203" d="M-44153 54769l2166-18"/>
+<path class="b" data-o="203" d="M-41240 54744l2166-18"/>
+<path class="b" data-o="203" d="M-38327 54719l2166-19"/>
+<path class="b" data-o="203" d="M-35415 54694l1625-14"/>
+<path class="b" data-o="204" d="M-52390 52400h1420"/>
+<path class="b" data-o="204" d="M-50220 52400h1893"/>
+<path class="b" data-o="204" d="M-47577 52400h1894"/>
+<path class="b" data-o="204" d="M-44933 52400h1893"/>
+<path class="b" data-o="204" d="M-42290 52400h1420"/>
+<path class="b" data-o="205" d="M-52390 50080h1558"/>
+<path class="b" data-o="205" d="M-50082 50080h2077"/>
+<path class="b" data-o="205" d="M-47255 50080h2077"/>
+<path class="b" data-o="205" d="M-44428 50080h1558"/>
+<path class="b" data-o="206" d="M-52310 48600h1542"/>
+<path class="b" data-o="206" d="M-50018 48600h2056"/>
+<path class="b" data-o="206" d="M-47212 48600h1542"/>
+<path class="b" data-o="207" d="M-52390 45360h1625"/>
+<path class="b" data-o="207" d="M-50015 45360h1625"/>
+<path class="b" data-o="208" d="M-52390 43600h1265"/>
+<path class="b" data-o="208" d="M-50375 43600h1265"/>
+<path class="b" data-o="209" d="M-52390 42240h2160"/>
+<path class="b" data-o="210" d="M-52310 40960h1520"/>
+<path class="b" data-o="211" d="M-52390 39840h960"/>
+<path class="b" data-o="212" d="M-52310 46640h1278"/>
+<path class="b" data-o="212" d="M-50282 46640h1704"/>
+<path class="b" data-o="212" d="M-47828 46640h1278"/>
+</g>
+<g data-s="4">
+<path class="b" data-o="213" d="M-80710 35040l1625-14"/>
+<path class="b" data-o="213" d="M-78339 35020l2166-19"/>
+<path class="b" data-o="213" d="M-75426 34994l2166-18"/>
+<path class="b" data-o="213" d="M-72513 34969l2166-18"/>
+<path class="b" data-o="213" d="M-69600 34944l2166-18"/>
+<path class="b" data-o="213" d="M-66687 34919l2166-19"/>
+<path class="b" data-o="213" d="M-63775 34894l1625-14"/>
+<path class="b" data-o="214" d="M-80750 32600h1420"/>
+<path class="b" data-o="214" d="M-78580 32600h1893"/>
+<path class="b" data-o="214" d="M-75937 32600h1894"/>
+<path class="b" data-o="214" d="M-73293 32600h1893"/>
+<path class="b" data-o="214" d="M-70650 32600h1420"/>
+<path class="b" data-o="215" d="M-80750 30280h1558"/>
+<path class="b" data-o="215" d="M-78442 30280h2077"/>
+<path class="b" data-o="215" d="M-75615 30280h2077"/>
+<path class="b" data-o="215" d="M-72788 30280h1558"/>
+<path class="b" data-o="216" d="M-80670 28800h1542"/>
+<path class="b" data-o="216" d="M-78378 28800h2056"/>
+<path class="b" data-o="216" d="M-75572 28800h1542"/>
+<path class="b" data-o="217" d="M-80750 25560h750"/>
+<path class="b" data-o="217" d="M-79250 25560h1000"/>
+<path class="b" data-o="217" d="M-77500 25560h750"/>
+<path class="b" data-o="218" d="M-80750 23800h534"/>
+<path class="b" data-o="218" d="M-79466 23800h712"/>
+<path class="b" data-o="218" d="M-78004 23800h534"/>
+<path class="b" data-o="219" d="M-80750 22440h198"/>
+<path class="b" data-o="219" d="M-79802 22440h264"/>
+<path class="b" data-o="219" d="M-78788 22440h198"/>
+<path class="b" data-o="220" d="M-80670 21160h6"/>
+<path class="b" data-o="220" d="M-79914 21160h8"/>
+<path class="b" data-o="220" d="M-79156 21160h6"/>
+<path class="b" data-o="221" d="M-80670 26840h1278"/>
+<path class="b" data-o="221" d="M-78642 26840h1704"/>
+<path class="b" data-o="221" d="M-76188 26840h1278"/>
+</g>
+<g data-s="5">
+<path class="b" data-o="222" d="M-52760 34450h5910"/>
+<path class="b" data-o="222" d="M-44350 34450h5910"/>
+<path class="b" data-o="223" d="M-52760 31490h2830"/>
+<path class="b" data-o="223" d="M-47430 31490h2830"/>
+<path class="b" data-o="224" d="M-52840 28530h590"/>
+<path class="b" data-o="224" d="M-49750 28530h590"/>
+<path class="b" data-o="225" d="M-52840 26530h70"/>
+<path class="b" data-o="225" d="M-50270 26530h70"/>
+<path class="b" data-o="226" d="M-52920 24690h0"/>
+<path class="b" data-o="227" d="M-52520 22850h0"/>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<g transform="matrix(.01775997 0 0-.01775997 1482.9 1008.53)" clip-path="url(#b)">
+<use xlink:href="#a"/>
+</g>
+</svg>

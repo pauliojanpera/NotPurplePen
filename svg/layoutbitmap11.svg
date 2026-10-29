@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="697mm" height="604mm" viewBox="0 0 697 604">
+<style>
+.a{fill:none;stroke:#d14200;stroke:#d14200 icc-color(cmyk,0,.56,1,.18);stroke-width:210;stroke-linecap:round;stroke-linejoin:round}
+.b{fill:none;stroke:#b300ff;stroke:#b300ff icc-color(cmyk,.29803923,1,0,0);stroke-width:1050;stroke-linejoin:bevel}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="layoutbitmap11">
+<npp:color position="19" name="Brown" cmyk="0,.56,1,.18" overprint="1"/>
+<npp:symbol n="1" id="101.0" name="Contour" colors="19"/>
+<npp:symbol n="2" id="-4" name="Layout object"/>
+</npp:map>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="b">
+<path d="M-235943-135539H9943V77539h-245886z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g data-c="19">
+<g data-s="1">
+<path class="a" data-o="1" d="M-13880 41840l40640 42240"/>
+<path class="a" data-o="2" d="M-163040 41920l-36160 41280"/>
+<path class="a" data-o="3" d="M-13880-116760l45760-27520"/>
+<path class="a" data-o="4" d="M-163080-116760l-25280-23360"/>
+<path class="a" data-o="5" d="M-49580 71180l41580 43380"/>
+<path class="a" data-o="6" d="M-211820 71180l-27220 22580"/>
+<path class="a" data-o="7" d="M-211820-19700l-28820-31180"/>
+</g>
+</g>
+<g data-s="2">
+<path class="b" data-o="8" d="M-2060-29300-162380 82700"/>
+</g>
+</g>
+</g>
+</defs>
+<g transform="matrix(.002834646 0 0-.002834646 668.815 219.795)" clip-path="url(#b)">
+<use xlink:href="#a"/>
+</g>
+</svg>

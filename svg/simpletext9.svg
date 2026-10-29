@@ -1,0 +1,210 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="1537mm" height="1079mm" viewBox="0 0 1537 1079" xml:lang="und">
+<style>
+@font-face{font-family:"Times New Roman";src:url(data:font/ttf;base64,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)}
+text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white-space:pre}
+.a{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:10;stroke-linejoin:bevel}
+.b{font-size:4.233px;font-family:"Times New Roman";fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="simpletext9">
+<npp:color position="0" name="Black" cmyk="0,0,0,1"/>
+<npp:symbol n="1" id="1.1" colors="0"/>
+<npp:symbol n="2" id="1.0" name="Simple texy symbol" colors="0"/>
+<npp:symbol n="3" id="1.2" colors="0"/>
+<npp:symbol n="4" id="1.3" colors="0"/>
+</npp:map>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="b">
+<path d="M-77061-42520H62073v97674H-77061z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g data-c="0">
+<g data-s="1">
+<path class="a" data-o="1" d="M-14780 1130l1580-960"/>
+<path class="a" data-o="2" d="M-14830-4020l2160 1380"/>
+<path class="a" data-o="3" d="M-11460-2640l1720-1770"/>
+<path class="a" data-o="4" d="M-10920 160l550 950"/>
+<path class="a" data-o="5" d="M-10090 310l1000 720"/>
+<path class="a" data-o="6" d="M-10710-2650l840-1060"/>
+<path class="a" data-o="7" d="M-9780-2640l210-1220"/>
+<path class="a" data-o="8" d="M-9620-2630l440-1400"/>
+<path class="a" data-o="9" d="M-8700-2650l80-1520"/>
+<path class="a" data-o="10" d="M17480-5180l3240 500"/>
+<path class="a" data-o="11" d="M14940-3840l4980 540"/>
+<path class="a" data-o="12" d="M16060-6940l3260-1100"/>
+<path class="a" data-o="13" d="M14200-4780l-3440 580"/>
+<path class="a" data-o="14" d="M13680-5420l-3680 500"/>
+<path class="a" data-o="15" d="M15660-7740l1720-1800"/>
+<path class="a" data-o="16" d="M13140-6120l-3440 280"/>
+<path class="a" data-o="17" d="M26720-60l2520 980"/>
+<path class="a" data-o="18" d="M27220-2280l3140-3420"/>
+<path class="a" data-o="19" d="M26020-2620l800-3580"/>
+<path class="a" data-o="20" d="M24000-2620l440-3800"/>
+<path class="a" data-o="21" d="M-9440-35460l-6040-1340"/>
+<path class="a" data-o="22" d="M-7400-36400l260-1220"/>
+<path class="a" data-o="23" d="M-8920-34300l-5660 200"/>
+<path class="a" data-o="24" d="M-7720-32760l-1000 2700"/>
+<path class="a" data-o="25" d="M-6220-33900l2100-20"/>
+<path class="a" data-o="26" d="M-7320-35300l1660-2520"/>
+<path class="a" data-o="27" d="M-64190 5770l-4440 6840"/>
+<path class="a" data-o="28" d="M-64270 10850l-3720 5120"/>
+<path class="a" data-o="29" d="M-63430 15850l-4800 1760"/>
+<path class="a" data-o="30" d="M-63710 21050l-5640 1600"/>
+<path class="a" data-o="31" d="M-46910 16650l8880 1080"/>
+<path class="a" data-o="32" d="M-46190 12170l6880 2840"/>
+<path class="a" data-o="33" d="M-42110 6490l3760 6360"/>
+<path class="a" data-o="34" d="M-56550 890h7320"/>
+<path class="a" data-o="35" d="M27930-12390l3240 5720"/>
+<path class="a" data-o="36" d="M23410-17830l11760-2840-2680 7160"/>
+<path class="a" data-o="37" d="M18730-13070l-6240-3440"/>
+<path class="a" data-o="38" d="M23970-9870l5200 3040"/>
+<path class="a" data-o="39" d="M29690-13590l5920 8520"/>
+<path class="a" data-o="40" d="M-18870 37410l-7240-2560"/>
+<path class="a" data-o="41" d="M-18310 32610l-8520 160"/>
+<path class="a" data-o="42" d="M-18990 26930l-6400 4200"/>
+<path class="a" data-o="43" d="M-63710 47890l-3520 3840"/>
+<path class="a" data-o="44" d="M-70630 39050l3680 2640"/>
+<path class="a" data-o="45" d="M-40870 27610l-6360 2840"/>
+<path class="a" data-o="46" d="M-31550 48210l-5240-2960"/>
+<path class="a" data-o="47" d="M-33070 32610l-4600 2240"/>
+<path class="a" data-o="48" d="M-29670 39890l-4040 200"/>
+<path class="a" data-o="49" d="M48610 37130l5200 2320"/>
+<path class="a" data-o="50" d="M48290 39850l5680 1640"/>
+<path class="a" data-o="51" d="M48610 32130l6040 1240"/>
+<path class="a" data-o="52" d="M21650 33530l-4680-2440"/>
+<path class="a" data-o="53" d="M19570 38890l-4400-2160"/>
+<path class="a" data-o="54" d="M27810 27210l5960 2200"/>
+<path class="a" data-o="55" d="M52250 23850l-3880 2720"/>
+<path class="a" data-o="56" d="M-66350-20230l2720 1480"/>
+<path class="a" data-o="57" d="M-57230-6270l-4760-2400"/>
+<path class="a" data-o="58" d="M-23550-24350l-2400 1800"/>
+<path class="a" data-o="59" d="M-22310-9950l-3680-2440"/>
+<path class="a" data-o="60" d="M-62230-23550l3200 1960"/>
+<path class="a" data-o="61" d="M-49630-4430l2040-920"/>
+<path class="a" data-o="62" d="M-57430-15230l2440 2440"/>
+<path class="a" data-o="63" d="M-23430-14230l-2840-1560"/>
+<path class="a" data-o="64" d="M-22870-7590l-3240 560"/>
+<path class="a" data-o="65" d="M19370 18050l-4160-1440"/>
+<path class="a" data-o="66" d="M16650 6290l-5520-1360"/>
+<path class="a" data-o="67" d="M12330 41730l-2640-3600"/>
+<path class="a" data-o="68" d="M22010 23570l-8400-1200"/>
+</g>
+<g data-s="2">
+<g transform="matrix(1 0 0-1-18990 35143)">
+<text class="b" data-o="69" transform="scale(1000)" x="0 2.586 4.703 5.879">This</text>
+<text class="b" data-o="69" transform="translate(8584)scale(1000)" x="0 1.176">is</text>
+<text class="b" data-o="69" transform="translate(12466)scale(1000)" x="0 1.41 3.526 4.936 8.229 10.108 11.284 12.46 14.339">formatted</text>
+<text class="b" data-o="69" transform="translate(0 5080)scale(1000)" x="0 1.176 3.055 5.172">text</text>
+<text class="b" data-o="69" transform="translate(7406 5080)scale(1000)" x="0 1.176 3.293 5.172">that</text>
+<text class="b" data-o="69" transform="translate(14813 5080)scale(1000)" x="0 1.647 3.764 5.881 7.997 9.174">should</text>
+<text class="b" data-o="69" transform="translate(27161 5080)scale(1000)" x="0 2.117">be</text>
+<text class="b" data-o="69" transform="translate(0 10160)scale(1000)" x="0 3.057 5.174 6.584">word</text>
+<text class="b" data-o="69" transform="translate(9759 10160)scale(1000)" x="0 3.057 4.467 6.346 8.463 10.579 12.458">wrapped</text>
+<text class="b" data-o="69" transform="translate(25392 10160)scale(1000)" x="0 1.176 3.293 4.469">into</text>
+<text class="b" data-o="69" transform="translate(0 15240)scale(1000)" x="0 1.647 3.526 5.643 7.522 8.932 10.811">several</text>
+<text class="b" data-o="69" transform="translate(13045 15240)scale(1000)" x="0 1.176 2.352 4.469 6.348">lines</text>
+<text class="b" data-o="69" transform="translate(22099 15240)scale(1000)" x="0 2.117">of</text>
+<text class="b" data-o="69" transform="translate(26684 15240)scale(1000)" x="0 1.176 3.055 5.172">text</text>
+<text class="b" data-o="69" transform="translate(0 20320)scale(1000)" x="0 2.117">by</text>
+<text class="b" data-o="69" transform="translate(5292 20320)scale(1000)" x="0 2.117 3.996 5.172 7.051 8.46 11.753 12.929 15.046 16.222 18.339">determining</text>
+<text class="b" data-o="69" transform="translate(26806 20320)scale(1000)" x="0 2.117 4.233">how</text>
+<text class="b" data-o="69" transform="translate(0 25400)scale(1000)" x="0 1.176">to</text>
+<text class="b" data-o="69" transform="translate(4351 25400)scale(1000)" x="0 2.117 3.526 5.405 7.284">break</text>
+<text class="b" data-o="69" transform="translate(14810 25400)scale(1000)" x="0 1.176 3.293">the</text>
+<text class="b" data-o="69" transform="translate(21041 25400)scale(1000)" x="0 1.176 2.352 4.469 6.348">lines</text>
+<text class="b" data-o="69" transform="translate(0 30480)scale(1000)" x="0 3.057 5.174 6.35 8.229">which</text>
+<text class="b" data-o="69" transform="translate(11404 30480)scale(1000)" x="0 3.293 5.172 7.288">make</text>
+<text class="b" data-o="69" transform="translate(21630 30480)scale(1000)" x="0 1.176">it</text>
+<text class="b" data-o="69" transform="translate(25040 30480)scale(1000)" x="0 2.117 4.233">up.</text>
+</g>
+<g transform="matrix(1 0 0-1-13360-2640)">
+<text class="b" data-o="70" transform="scale(1000)" x="0 2.586 4.703 5.879">This</text>
+<text class="b" data-o="70" transform="translate(8584)scale(1000)" x="0 1.176">is</text>
+<text class="b" data-o="70" transform="translate(12466)scale(1000)" x="0 2.117 4.233 5.643 7.76 9.169 12.462 14.341 15.517 16.694 18.573">unformatted</text>
+<text class="b" data-o="70" transform="translate(34214)scale(1000)" x="0 1.176 3.055 5.172">text</text>
+</g>
+<g transform="translate(26374-10922)rotate(-128.1)scale(1-1)">
+<text class="b" data-o="71" transform="scale(1000)" x="0 2.586 4.703 5.879">This</text>
+<text class="b" data-o="71" transform="translate(8584)scale(1000)" x="0 1.176">is</text>
+<text class="b" data-o="71" transform="translate(12466)scale(1000)" x="0 1.41 3.526 4.936 8.229 10.108 11.284 12.46 14.339">formatted</text>
+<text class="b" data-o="71" transform="translate(0 5080)scale(1000)" x="0 1.176 3.055 5.172">text</text>
+</g>
+<g transform="translate(15360-3300)rotate(-128.1)scale(1-1)">
+<text class="b" data-o="72" transform="scale(1000)" x="0 2.586 4.703 5.879">This</text>
+<text class="b" data-o="72" transform="translate(8584)scale(1000)" x="0 1.176">is</text>
+<text class="b" data-o="72" transform="translate(12466)scale(1000)" x="0 2.117 4.233 5.643 7.76 9.169 12.462 14.341 15.517 16.694 18.573">unformatted</text>
+<text class="b" data-o="72" transform="translate(34214)scale(1000)" x="0 1.176 3.055 5.172">text</text>
+</g>
+<g transform="matrix(1 0 0-1-64310 20970)">
+<text class="b" data-o="73" transform="scale(1000)" x="0 2.586 4.703 5.879">This</text>
+<text class="b" data-o="73" transform="translate(8584)scale(1000)" x="0 1.176">is</text>
+<text class="b" data-o="73" transform="translate(12466)scale(1000)" x="0 2.117 4.233 5.643 7.76 9.169 12.462 14.341 15.517 16.694 18.573">unformatted</text>
+<text class="b" data-o="73" transform="translate(34214)scale(1000)" x="0 1.176 3.055 5.172">text</text>
+<text class="b" data-o="73" transform="translate(0 5080)scale(1000)" x="0 3.057 4.233 5.409">with</text>
+<text class="b" data-o="73" transform="translate(8584 5080)scale(1000)" x="0 1.647 3.764 7.057">some</text>
+<text class="b" data-o="73" transform="translate(0 10160)scale(1000)" x="0 1.176 2.352 4.469">line</text>
+<text class="b" data-o="73" transform="translate(7406 10160)scale(1000)" x="0 2.117 3.526 5.405 7.284 9.401">breaks</text>
+<text class="b" data-o="73" transform="translate(0 15240)scale(1000)" x="0 1.176">in</text>
+<text class="b" data-o="73" transform="translate(4351 15240)scale(1000)" x="0 1.176 3.293">the</text>
+<text class="b" data-o="73" transform="translate(10581 15240)scale(1000)" x="0 3.293 4.469 6.586 8.702 9.878">middle</text>
+<text class="b" data-o="73" transform="translate(0 20320)scale(1000)" x="0 2.117">of</text>
+<text class="b" data-o="73" transform="translate(4585 20320)scale(1000)" x="0 1.176 2.352">it.</text>
+</g>
+<g transform="matrix(1 0 0-1-63670-8750)">
+<text class="b" data-o="74" transform="scale(1000)">1</text>
+<text class="b" data-o="74" transform="translate(0 5080)scale(1000)">2</text>
+<text class="b" data-o="74" transform="translate(0 10160)scale(1000)">3</text>
+</g>
+</g>
+<g data-s="3">
+<g transform="matrix(1 0 0-1-26030-7670)">
+<text class="b" data-o="75" transform="translate(-21402)scale(1000)" x="0 2.586 4.703 5.879">This</text>
+<text class="b" data-o="75" transform="translate(-12818)scale(1000)" x="0 1.176">is</text>
+<text class="b" data-o="75" transform="translate(-8936)scale(1000)" x="0 1.647 3.764 7.057">some</text>
+<text class="b" data-o="75" transform="matrix(1000 0 0 1000-28920 5080)" x="0 1.41 2.586 4.703 6.819">right</text>
+<text class="b" data-o="75" transform="matrix(1000 0 0 1000-19866 5080)" x="0 1.879 3.055 4.231 6.348 8.465 10.344">aligned</text>
+<text class="b" data-o="75" transform="matrix(1000 0 0 1000-6348 5080)" x="0 1.176 3.055 5.172">text</text>
+<text class="b" data-o="75" transform="matrix(1000 0 0 1000-10230 10160)" x="0 1.176 3.293 5.172">that</text>
+<text class="b" data-o="75" transform="matrix(1000 0 0 1000-2824 10160)" x="0 1.176">is</text>
+<text class="b" data-o="75" transform="matrix(1000 0 0 1000-33036 15240)" x="0 1.879 3.055 4.231 6.348 8.465 10.344">aligned</text>
+<text class="b" data-o="75" transform="matrix(1000 0 0 1000-19517 15240)" x="0 2.117">on</text>
+<text class="b" data-o="75" transform="matrix(1000 0 0 1000-14225 15240)" x="0 1.176 3.293">the</text>
+<text class="b" data-o="75" transform="matrix(1000 0 0 1000-7995 15240)" x="0 1.41 2.586 4.703 6.819">right</text>
+</g>
+<g transform="matrix(1 0 0-1 48530 36793)">
+<text class="b" data-o="76" transform="translate(-28922)scale(1000)" x="0 2.586 4.703 5.879">This</text>
+<text class="b" data-o="76" transform="translate(-20338)scale(1000)" x="0 1.176">is</text>
+<text class="b" data-o="76" transform="translate(-16456)scale(1000)" x="0 1.41 3.526 4.936 8.229 10.108 11.284 12.46 14.339">formatted</text>
+<text class="b" data-o="76" transform="matrix(1000 0 0 1000-26690 5080)" x="0 1.176 3.055 5.172">text</text>
+<text class="b" data-o="76" transform="matrix(1000 0 0 1000-19284 5080)" x="0 1.176 3.293 5.172">that</text>
+<text class="b" data-o="76" transform="matrix(1000 0 0 1000-11877 5080)" x="0 1.176">is</text>
+<text class="b" data-o="76" transform="matrix(1000 0 0 1000-7995 5080)" x="0 1.41 2.586 4.703 6.819">right</text>
+<text class="b" data-o="76" transform="matrix(1000 0 0 1000-14932 10160)" x="0 1.176 3.293 4.94 6.116 7.293 8.702 9.878 11.757 13.874">justified.</text>
+</g>
+</g>
+<g transform="matrix(1 0 0-1-50350 44970)" data-s="4">
+<text class="b" data-o="77" transform="translate(-13401)scale(1000)" x="0 2.586 4.703 5.879">This</text>
+<text class="b" data-o="77" transform="translate(-4816)scale(1000)" x="0 1.176">is</text>
+<text class="b" data-o="77" transform="translate(-934)scale(1000)" x="0 1.879 3.758 5.875 7.051 8.93 10.339 12.218">centered</text>
+<text class="b" data-o="77" transform="matrix(1000 0 0 1000-16515 5080)" x="0 1.176 3.055 5.172">text</text>
+<text class="b" data-o="77" transform="matrix(1000 0 0 1000-9108 5080)" x="0 1.176 3.293 5.172">that</text>
+<text class="b" data-o="77" transform="matrix(1000 0 0 1000-1702 5080)" x="0 1.176">is</text>
+<text class="b" data-o="77" transform="translate(2180 5080)scale(1000)" x="0 1.879 3.758 5.875 7.051 8.93 10.339 12.218">centered</text>
+<text class="b" data-o="77" transform="matrix(1000 0 0 1000-13045 10160)" x="0 1.879 3.289 5.405 7.522 9.639">around</text>
+<text class="b" data-o="77" transform="matrix(1000 0 0 1000-232 10160)">a</text>
+<text class="b" data-o="77" transform="translate(2706 10160)scale(1000)" x="0 1.879 3.758 5.875 7.051 8.93">center</text>
+<text class="b" data-o="77" transform="matrix(1000 0 0 1000-3174 15240)" x="0 1.176 2.352 4.469">line</text>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<g transform="matrix(.01104694 0 0-.01104694 851.29 609.28)" clip-path="url(#b)">
+<use xlink:href="#a"/>
+</g>
+</svg>

@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="839mm" height="465mm" viewBox="0 0 839 465" xml:lang="und">
+<style>
+@font-face{font-family:"Arial";src:url(data:font/ttf;base64,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)}
+@font-face{font-family:"Times New Roman";src:url(data:font/ttf;base64,AAEAAAANAIAAAwBQR0RFRgAQABYAAADcAAAAFkdQT1NEdEx1AAAA9AAAAB5HU1VCwdnFwQAAAeAAAABGT1MvMn92lxwAAAKAAAAAYGNtYXACXQJeAAAC4AAAAHxnbHlmrO/FQgAABbQAAAd4aGVhZArUp08AAAGoAAAANmhoZWENWwPlAAABVAAAACRobXR4Vm8EegAAAigAAABYbG9jYRVkEyoAAAF4AAAALm1heHAAdAHfAAABFAAAACBuYW1lMfZP9AAAA1wAAAJYcG9zdP+IAGQAAAE0AAAAIAABAAAADAAAAAAAAAACAAEAAAAVAAEAAAABAAAACgAcABwAAURGTFQACAAEAAAAAP//AAAAAAAAAAEAAAAWAVIAVACLAAYAAQAAAAAAAAAAAAAAAAADAAEAAwAAAAAAAP+FAGQAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAHIf5FAFcKqvum+t8KOgABAAAAAAAAAAAAAAAAAAAAFgAAAAAAFgA+AGsAjgDJAO8BIAFPAa4B3QIDAhgCYgKQArYC2gMVAzkDYAOIA7wAAAABAAAAAhmZ+YCPqF8PPPUAHwgAAAAAAMhE0M4AAAAA3Xtyfvum/ZMKOgfaAAAACAACAAAAAAAAAAEAAAAKAEQARAAHREZMVAAwYm9wbwAsY29wdAAsY3lybAAsZ3JlawAsaGVicgAsbGF0bgAsAAAAAAAEAAAAAP//AAAAAAAABjkAAAIAAIcEcwA7BccAOwTjACUDjQBIA40ATgQAAEoDjQBQBAAAWAQAABQCOQArAjkAKQY5ACsEAAAvBAAATgKqACkDHQBUAjkAFAQAABsFxwACBAAAEgADBGQBkAAFAAAFmgUzAAABJQWaBTMAAAOgAGQBpAEFAgIGAwUEBQIDBAAAAAEAAAAAAAAAAAAAAAAxQVNDAEAALgB4BYz+RgEzByEBu2AAAb/f9wAAA6wFPQAAACAADgAAAAIAAAADAAAAFAADAAEAAAAUAAQAaAAAABYAEAADAAYALgBGAEgAVABhAGUAaQBvAHUAeP//AAAALgBGAEgAVABhAGMAZwBsAHIAd////9P/vP+7/7D/pP+j/6L/oP+e/50AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJAHIAAwABBAkAAACsAToAAwABBAkAAQAgARoAAwABBAkAAgAOAQwAAwABBAkAAwA2ANYAAwABBAkABAAgARoAAwABBAkABQAaALwAAwABBAkABgAeAJ4AAwABBAkADQBqADQAAwABBAkADgA0AAAAaAB0AHQAcAA6AC8ALwBzAGMAcgBpAHAAdABzAC4AcwBpAGwALgBvAHIAZwAvAE8ARgBMAEwAaQBjAGUAbgBzAGUAZAAgAHUAbgBkAGUAcgAgAHQAaABlACAAUwBJAEwAIABPAHAAZQBuACAARgBvAG4AdAAgAEwAaQBjAGUAbgBzAGUALAAgAFYAZQByAHMAaQBvAG4AIAAxAC4AMQBMAGkAYgBlAHIAYQB0AGkAbwBuAFMAZQByAGkAZgBWAGUAcgBzAGkAbwBuACAAMgAuADEALgA1AEEAcwBjAGUAbgBkAGUAcgAgAC0AIABMAGkAYgBlAHIAYQB0AGkAbwBuACAAUwBlAHIAaQBmAFIAZQBnAHUAbABhAHIATABpAGIAZQByAGEAdABpAG8AbgAgAFMAZQByAGkAZgBEAGkAZwBpAHQAaQB6AGUAZAAgAGQAYQB0AGEAIABjAG8AcAB5AHIAaQBnAGgAdAAgACgAYwApACAAMgAwADEAMAAgAEcAbwBvAGcAbABlACAAQwBvAHIAcABvAHIAYQB0AGkAbwBuAC4ACgBDAG8AcAB5AHIAaQBnAGgAdAAgACgAYwApACAAMgAwADEAMgAgAFIAZQBkACAASABhAHQALAAgAEkAbgBjAC4AAQCH/+MBeQDVAAsAACUUBiMiJjU0NjMyFgF5RTQ0RUYzM0ZcMUhIMTNGRgABADsAAAQpBT0AFwAAAREXFSE1NxEnNSERIycmKwERITczESMnAajf/cGfrAPuQiBw1NsBix89PR8CWv32GzU1GwSeGjX+v9kO/dGg/mSiAAEAOwAABYsFPQAbAAAzNTcRJzUhFQcRIREnNSEVBxEXFSE1NxEhERcVO6ysAhmsAnesAhisrP3orP2JrDUbBJ4aNTUa/fECDxo1NRr7Yhs1NRsCNf3LGzUAAAEAJQAABMEFPQAUAAAhNTcRIyIPASMRIREjJy4BKwERFxUBO9Uz/V0bQwScRBseyngx1TUbBJcU0QE7/sXRBwv7axs1AAACAEj/7ANxA8EAGwAlAAABMhYVERcVIScGIyIRND4BPwE1NCYjIg8BIzU2AQcOARUUMzI2NwHRmpF1/v4TcrHxSaCYjUdKZFMiOKIBAIOGX49EYzIDwX6C/YUZLV5yARhee0EDBJNhXC91zSP+HgQFXm6wHxgAAQBO/+wDTgPFABYAACUOASMgETQ2MzIXESMnJiMgERQWMzI3A04xrFr+N+nZh6A3K1N0/vSjq5JsOSQpAfHr/R/++qYv/mjUtSEAAAIASv/sA+cFjQATAB0AACUGIyARNBIzMhcmPQEnNSERFxUhARQWMzI3ESYjIALTcZf+f9rUbG8GngFEdP74/h+AhHFaWXL+/EZaAeH3AQEXIYX0GC36uRktAc2+uycC5xEAAgBQ/+wDRgPFABUAHAAAARUUHgEzMjY3FQ4BIyImETQ2MyARFQEiBhUhNCYBBD1/ZzaUMDClVtvLzr8Baf6XaG8BklwB2RKKmVASCzgfLuwBBfby/mZSAZyopLOZAAMAWP5GA9kEGwAnADQAQAAAARQGIyInBx4BMyEyFhUUDgEjIiY1NDY3LgE1NyY1NDYzMhYXNxcHFgM0JiMhDgEVFBYzMjYBMjY1NCYjIgYVFBYDZsK2UkY/A0g2ARaYk3XiocDJSGA5Tp6ew7oldB/dI4tDKUZH/pQqNXyAp7X+s21bXmhpYmACg6KmD4MRHoR0aZxVdm01Z0UTXDWyStmaqA8KbyuQS/xsOUAkbzBWS3wCdX1/hXFyhIR4AAABABQAAAPlBY0AHQAAARQHPgEzMhYVERcVITU3ETQjIgcRFxUhNTcRJzUhAUYHSLc/enxy/mt9pl6Df/5kd4wBMgP2aC4pPI6H/ZYZLS0ZAl6sHf0TGS0tGQUCGC0AAgArAAACEgVMAAsAFQAAARQGIyImNTQ2MzIWAxcVITU3ESc1IQF7QC0sQEAsLUAKof4ZoIUBKwTfLEBALC1AQPs6GS0tGQMgGS0AAAEAKQAAAhAFjQAJAAAlFxUhNTcRJzUhAW+h/hmgoAFGRhktLRkFAhgtAAEAKwAABhkDxQAxAAABPgEzMhYXPgEzMhkBFxUhNTcRNCMiDgIHFhURFxUhNTcRNCYjIgcRFxUhNTcRJzUhAUZLqEBFdR1Nz0Twef5VjKAaRUU/FRGN/kKLVVVYg43+Vnd3ARMDYCs6NDkrQv7r/ZYZLS0ZAlisCAoNBDZB/ZYZLS0ZAlhTWR39GRktLRkDIBktAAABAC8AAAPhA8UAHAAAAT4BMzIWFREXFSE1NxE0JiMiBxEXFSE1NxEnNSEBRE2uOnp8cv5rfVFVWoN//mpxcQEMA2AsOY6H/ZYZLS0ZAlhTXx39ExktLRkDIBktAAIATv/sA7IDxQAKABYAAAEQISImNTQ2MzIWBzQmIyIGFRQWMzI2A7L+SNTY2NzW2rR+hoN1d4GEgAHb/hH+8e789/PYwrrg473EAAABACkAAAKYA8UAFAAAARUjJyIGBxEXFSE1NxEnNSEXPgEzApgrOjKJMqH+Qnd3ARIJPM08A8X+bhsW/UIZLS0ZAyAZLXUyXAABAFT/7ALTA8UAKAAAARQGIyImJzUzFxYzMjU0LwEuAjU0NjMyFxUjJyYjIgYVFBYXHgMC07GtRqkwLTFLeMKZWWVcMqmQZ5svKjVyUVVNTpNaPyMBCIyQHRLng0SmejQdIURjRnyPH81tL1BEOU4aMi5DVgAAAQAU/+wCLQSBABYAAAUiJjURIzU/ATMVMxUjERQWMzI3FQ4BAU5gX3t9ZT/X1zswOlMjhBRyZwKTLSfV1VT9f0FCEEEYHwAAAQAb/+wD3QOsABYAAAEUMzI3ESc1IREXFSEnDgEjIhkBJzUhATmgfGyOATN3/u4IR7o/8HgBHgEMrB8C5xkt/JoZLUwnOQEUAmYZLQAAAQAC/+wFvgOsABQAAAUjCwEjASc1IRUHGwEzGwEnNSEVBwQbTujlSv67bwG/nN/jVOLVmgFmaBQCbP2UA3oZLS0b/YUCZf2XAoEZLS0VAAABABIAAAPnA6wAGwAAJRUhNTcLARcVITU3CQEnNSEVBxsBJzUhFQcJAQPn/lZ92f6B/q5tATX+8G8Bqn210IEBUmz++AE1LS0tFwFN/rEVLS0QAZgBkRktLRv+8gEQGS0tFf6q/i4A)}
+text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white-space:pre}
+.a{font-size:4.233px;font-family:"Arial";fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)}
+.b{font-size:4.233px;font-family:"Times New Roman";fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)}
+.c{fill:none;stroke:#f00;stroke:#f00 icc-color(cmyk,0,1,1,0);stroke-width:50;stroke-linejoin:bevel}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="newlines">
+<npp:color position="0" name="Black" cmyk="0,0,0,1"/>
+<npp:color position="1" name="Red" cmyk="0,1,1,0"/>
+<npp:symbol n="1" id="1.4" colors="0"/>
+<npp:symbol n="2" id="1.0" name="Simple texy symbol" colors="0"/>
+<npp:symbol n="3" id="1.2" colors="0"/>
+<npp:symbol n="4" id="1.3" colors="0"/>
+<npp:symbol n="5" id="1.1" colors="1"/>
+</npp:map>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="b">
+<path d="M-7014-54015h131995v73156H-7014z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g data-c="0">
+<g data-s="1">
+<text class="a" data-o="1" transform="scale(1000-1000)" x="77.78 79.67 81.251 81.857 83.229 84.029 84.699 86.377 87.459 88.365 89.201 91.129 92.954 93.836 94.706 96.428 97.984 98.864 101.296 102.105 103.173 105.438 106.489 108.51 110.651 113.525 114.387 115.221 117.088 118.403" y="28.49 27.099 25.566 24.928 23.498 22.747 22.205 21.327 21.139 21.2 21.41 22.262 23.32 23.91 24.52 25.787 26.907 27.499 28.75 29.014 29.229 29.178 28.927 28.26 27.833 27.467 27.311 27.097 26.122 24.44" rotate="-36.357 -44.116 -46.471 -46.183 -43.179 -38.964 -27.631 -9.837 3.816 14.098 23.847 30.091 33.786 35.045 36.341 35.747 33.904 27.231 18.06 11.376 -1.288 -13.423 -18.25 -11.288 -7.257 -10.256 -14.373 -27.585 -51.988 -62.847">This is line textwith newlines</text>
+</g>
+<g data-s="2">
+<g transform="matrix(1 0 0-1 5060 7990)">
+<text class="b" data-o="2" transform="scale(1000)" x="0 2.586 4.703 5.879">This</text>
+<text class="b" data-o="2" transform="translate(8584)scale(1000)" x="0 1.176">is</text>
+<text class="b" data-o="2" transform="translate(12466)scale(1000)" x="0 1.41 3.289 5.405 7.522 8.698 10.577">regular</text>
+<text class="b" data-o="2" transform="translate(25512)scale(1000)" x="0 1.176 3.055 5.172">text</text>
+</g>
+<g transform="matrix(1 0 0-1 6180 790)">
+<text class="b" data-o="3" transform="scale(1000)" x="0 2.586 4.703 5.879">This</text>
+<text class="b" data-o="3" transform="translate(8584)scale(1000)" x="0 1.176">is</text>
+<text class="b" data-o="3" transform="translate(12466)scale(1000)" x="0 1.176 3.055 5.172">text</text>
+<text class="b" data-o="3" transform="translate(19873)scale(1000)" x="0 3.057 4.233 5.409">with</text>
+<text class="b" data-o="3" transform="translate(28457)scale(1000)" x="0 2.117 4.233">one</text>
+<text class="b" data-o="3" transform="translate(35628)scale(1000)" x="0 2.117 3.996 7.053 8.229 9.405 11.522">newline</text>
+</g>
+<g transform="matrix(1 0 0-1 7220-5690)">
+<text class="b" data-o="4" transform="translate(0 5080)scale(1000)" x="0 2.586 4.703 5.879">This</text>
+<text class="b" data-o="4" transform="translate(8584 5080)scale(1000)" x="0 1.176">is</text>
+<text class="b" data-o="4" transform="translate(12466 5080)scale(1000)" x="0 1.176 3.055 5.172">text</text>
+<text class="b" data-o="4" transform="translate(19873 5080)scale(1000)" x="0 3.057 4.233 5.409">with</text>
+<text class="b" data-o="4" transform="translate(28457 5080)scale(1000)" x="0 1.176 4.233">two</text>
+<text class="b" data-o="4" transform="translate(35866 5080)scale(1000)" x="0 2.117 3.996 7.053 8.229 9.405 11.522 13.401">newlines</text>
+</g>
+<g transform="matrix(1 0 0-1 79300 8403)">
+<text class="b" data-o="5" transform="translate(0 5080)scale(1000)" x="0 2.354 4.471 5.881 9.174 11.053 12.229 13.405 15.284">Formatted</text>
+<text class="b" data-o="5" transform="translate(18459 5080)scale(1000)" x="0 3.057 4.233 5.409">with</text>
+<text class="b" data-o="5" transform="translate(27043 5080)scale(1000)" x="0 1.176 4.233">two</text>
+<text class="b" data-o="5" transform="translate(0 10160)scale(1000)" x="0 2.117 3.996 7.053 8.229 9.405 11.522 13.401 15.048">newlines.</text>
+<text class="b" data-o="5" transform="translate(17165 10160)scale(1000)" x="0 3.057 4.936 6.112 7.288">Hello</text>
+<text class="b" data-o="5" transform="translate(27628 10160)scale(1000)" x="0 1.176 3.293 5.172 6.582 8.46">there.</text>
+<text class="b" data-o="5" transform="translate(0 20320)scale(1000)" x="0 2.586 4.703 5.879">This</text>
+<text class="b" data-o="5" transform="translate(8584 20320)scale(1000)" x="0 1.176">is</text>
+<text class="b" data-o="5" transform="translate(12466 20320)scale(1000)" x="0 3.293 5.409 6.819 8.698">more.</text>
+</g>
+</g>
+<g transform="matrix(1 0 0-1 54740-21130)" data-s="3">
+<text class="b" data-o="6" transform="translate(-50676)scale(1000)" x="0 2.586 4.703 5.879">This</text>
+<text class="b" data-o="6" transform="translate(-42091)scale(1000)" x="0 1.176">is</text>
+<text class="b" data-o="6" transform="translate(-38210)scale(1000)" x="0 1.41 2.586 4.703 6.819">right</text>
+<text class="b" data-o="6" transform="translate(-29156)scale(1000)" x="0 3.057 4.233 5.409">with</text>
+<text class="b" data-o="6" transform="translate(-20571)scale(1000)" x="0 2.117 4.233">one</text>
+<text class="b" data-o="6" transform="translate(-13401)scale(1000)" x="0 2.117 3.996 7.053 8.229 9.405 11.522">newline</text>
+</g>
+<g transform="matrix(1 0 0-1 29220-29837)" data-s="4">
+<text class="b" data-o="7" transform="translate(-18691)scale(1000)" x="0 2.354 4.471 5.881 9.174 11.053 12.229 13.405 15.284">Formatted</text>
+<text class="b" data-o="7" transform="translate(-233)scale(1000)" x="0 1.879 3.758 5.875 7.051 8.93">center</text>
+<text class="b" data-o="7" transform="translate(11165)scale(1000)" x="0 3.057 4.233 5.409">with</text>
+<text class="b" data-o="7" transform="matrix(1000 0 0 1000-10815 5080)" x="0 2.117 4.233">one</text>
+<text class="b" data-o="7" transform="matrix(1000 0 0 1000-3644 5080)" x="0 2.117 3.996 7.053 8.229 9.405 11.522 13.401">newline.</text>
+<text class="b" data-o="7" transform="matrix(1000 0 0 1000-5232 15240)" x="0 3.057 4.936 6.112 7.288 9.405">Hello.</text>
+</g>
+</g>
+<g data-c="1">
+<g data-s="5">
+<path class="c" data-o="8" d="M5140 10870-300 14950"/>
+<path class="c" data-o="9" d="M36340 10550l4240 4320"/>
+<path class="c" data-o="10" d="M36820 8310l5440 1280"/>
+<path class="c" data-o="11" d="M5780 8070-700 11750"/>
+<path class="c" data-o="12" d="M6180 3750 1940 5990"/>
+<path class="c" data-o="13" d="M6820 790 20 1510"/>
+<path class="c" data-o="14" d="M54980 1430l3520 320"/>
+<path class="c" data-o="15" d="M49540 3750l2000 4480"/>
+<path class="c" data-o="16" d="M7380-7850 2020-4490"/>
+<path class="c" data-o="17" d="M7860-10890l-7360 560"/>
+<path class="c" data-o="18" d="M57780-8810l2880 4560"/>
+<path class="c" data-o="19" d="M54580-20490l6640 2480"/>
+<path class="c" data-o="20" d="M49140-18250l3680 5200"/>
+<path class="c" data-o="21" d="M4260-18170l-7440 6240"/>
+<path class="c" data-o="22" d="M10660-26970l-4400 2800"/>
+<path class="c" data-o="23" d="M38820-34250l5680 2480"/>
+<path class="c" data-o="24" d="M33220-31930l-7440 720"/>
+<path class="c" data-o="25" d="M24020-42090l-5360 3920"/>
+<path class="c" data-o="26" d="M79220 6230l-10880 4000"/>
+<path class="c" data-o="27" d="M115300-490l4880 5200"/>
+<path class="c" data-o="28" d="M79460-9050l-6720 4560"/>
+<path class="c" data-o="29" d="M76020-26010l-7280 6080"/>
+<path class="c" data-o="30" d="M88500-18010l8240 2240"/>
+<path class="c" data-o="31" d="M118020-23690l4320 7360"/>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<g transform="matrix(.00635627 0 0-.00635627 44.585 121.664)" clip-path="url(#b)">
+<use xlink:href="#a"/>
+</g>
+</svg>

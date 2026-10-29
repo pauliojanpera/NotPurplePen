@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="761mm" height="431mm" viewBox="0 0 761 431">
+<style>
+.a{fill:none;stroke:#f90;stroke:#f90 icc-color(cmyk,0,.4,1,0);stroke-width:1330;stroke-miterlimit:5}
+.b{fill:none;stroke:#b2b2b2;stroke:#b2b2b2 icc-color(cmyk,0,0,0,.3);stroke-width:500;stroke-miterlimit:5}
+.c{fill:none;stroke:#21d0ff;stroke:#21d0ff icc-color(cmyk,.87,.185,0,0);stroke-width:100;stroke-linejoin:bevel}
+.d{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:200;stroke-linejoin:bevel}
+.e{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:250;stroke-linejoin:round}
+.f{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:1360;stroke-linejoin:bevel}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="multisymonedash">
+<npp:color position="4" name="Orange" cmyk="0,.4,1,0"/>
+<npp:color position="7" name="Black 30%" cmyk="0,0,0,.3"/>
+<npp:color position="15" name="Blue" cmyk=".87,.185,0,0"/>
+<npp:color position="18" name="Street borderlines" cmyk="0,0,0,1"/>
+<npp:color position="20" name="Black" cmyk="0,0,0,1"/>
+<npp:symbol n="1" id="1.1" name="bar scale" colors="4 20"/>
+<npp:symbol n="2" id="1.3" name="bar scale" colors="4 7 15 20"/>
+<npp:symbol n="3" id="506.0" name="Footpath" colors="18"/>
+</npp:map>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="b">
+<path d="M25101-74198h42331v23974H25101z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g data-c="4">
+<g data-s="1">
+<path class="a" data-o="1" d="M34290-57188l13410-15"/>
+<path class="a" data-o="1" d="M27470-57180l26900-30"/>
+<path class="a" data-o="2" d="M34480-59899l9820-42"/>
+<path class="a" data-o="2" d="M27660-59870l23310-100"/>
+<path class="a" data-o="3" d="M34160-54314l25380-13"/>
+<path class="a" data-o="3" d="M27340-54310l38870-20"/>
+<path class="a" data-o="4" d="M27900-65180l13470-110"/>
+</g>
+<g data-s="2">
+<path class="a" data-o="5" d="M61730-62730l-3600 2320-9120-8800-4440 3760"/>
+</g>
+</g>
+<g data-c="7">
+<g data-s="2">
+<path class="b" data-o="5" d="M56304-62172l-6681-6447"/>
+</g>
+</g>
+<g data-c="15">
+<g data-s="2">
+<g transform="translate(60505-61941)rotate(147.2)">
+<path class="c" data-o="5" d="M620 660l20-1330"/>
+</g>
+<g transform="translate(55364-63079)rotate(-136.02)">
+<path class="c" data-o="5" d="M620 660l20-1330"/>
+</g>
+<g transform="translate(50564-67711)rotate(-136.02)">
+<path class="c" data-o="5" d="M620 660l20-1330"/>
+</g>
+<g transform="translate(45568-66295)rotate(139.74)">
+<path class="c" data-o="5" d="M620 660l20-1330"/>
+</g>
+</g>
+</g>
+<g data-c="18">
+<g data-s="3">
+<path class="d" data-o="6" d="M28970-57210h0"/>
+</g>
+</g>
+<g data-c="20">
+<g data-s="1">
+<path class="e" data-o="1" d="M27471-56390l26900-30"/>
+<path class="e" data-o="1" d="M27469-57970l26900-30"/>
+<g transform="translate(30990-57184)rotate(-.064)">
+<path class="f" data-o="1" d="M-30 0h3330"/>
+</g>
+<g transform="translate(37660-57191)rotate(-.064)">
+<path class="f" data-o="1" d="M-30 0h3330"/>
+</g>
+<g transform="translate(44330-57199)rotate(-.064)">
+<path class="f" data-o="1" d="M-30 0h3330"/>
+</g>
+<g transform="translate(51000-57206)rotate(-.064)">
+<path class="f" data-o="1" d="M-30 0h3330"/>
+</g>
+<path class="e" data-o="2" d="M27663-59080l23310-100"/>
+<path class="e" data-o="2" d="M27657-60660l23310-100"/>
+<g transform="translate(29385-59877)rotate(-.246)">
+<path class="f" data-o="2" d="M-30 0h3330"/>
+</g>
+<g transform="translate(36055-59906)rotate(-.246)">
+<path class="f" data-o="2" d="M-30 0h3330"/>
+</g>
+<g transform="translate(42725-59935)rotate(-.246)">
+<path class="f" data-o="2" d="M-30 0h3330"/>
+</g>
+<g transform="translate(49395-59963)rotate(-.246)">
+<path class="f" data-o="2" d="M-30 0h3330"/>
+</g>
+<path class="e" data-o="3" d="M27340-53520l38870-20"/>
+<path class="e" data-o="3" d="M27340-55100l38870-20"/>
+<g transform="translate(36845-54315)rotate(-.029)">
+<path class="f" data-o="3" d="M-30 0h3330"/>
+</g>
+<g transform="translate(43515-54318)rotate(-.029)">
+<path class="f" data-o="3" d="M-30 0h3330"/>
+</g>
+<g transform="translate(50185-54322)rotate(-.029)">
+<path class="f" data-o="3" d="M-30 0h3330"/>
+</g>
+<g transform="translate(56855-54325)rotate(-.029)">
+<path class="f" data-o="3" d="M-30 0h3330"/>
+</g>
+<path class="e" data-o="4" d="M27906-64390l13470-110"/>
+<path class="e" data-o="4" d="M27894-65970l13470-110"/>
+</g>
+<g data-s="2">
+<path class="e" data-o="5" d="M61302-63394l-3074 1981-9183-8861-4986 4221"/>
+<path class="e" data-o="5" d="M62158-62066l-4126 2659-9057-8739-3894 3299"/>
+<g transform="translate(60505-61941)rotate(147.2)">
+<path class="f" data-o="5" d="M-30 0h640"/>
+</g>
+<g transform="translate(55364-63079)rotate(-136.02)">
+<path class="f" data-o="5" d="M-30 0h640"/>
+</g>
+<g transform="translate(50564-67711)rotate(-136.02)">
+<path class="f" data-o="5" d="M-30 0h640"/>
+</g>
+<g transform="translate(45568-66295)rotate(139.74)">
+<path class="f" data-o="5" d="M-30 0h640"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<g transform="matrix(.01797761 0 0-.01797761-451.26-902.91)" clip-path="url(#b)">
+<use xlink:href="#a"/>
+</g>
+</svg>
