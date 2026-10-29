@@ -9,9 +9,10 @@ namespace Map_Svg.Tests
 {
     // The directory where the SVG loop collects what a run produced besides its test report: every SVG document
     // written, under svg/; the calls each pending case still needs, under pending/; how far each compared image
-    // differs, under measurements/; the reference image of a case that has none recorded yet, under references/; and
-    // for each failed comparison Chromium's image and the difference image, under renderings/ and differences/. The
-    // SVG_LOOP_RESULTS environment variable names it; without it, it is svg-loop-results in the test run's work
+    // differs, under measurements/; the reference image of a case that has none recorded yet, under references/; for
+    // each failed comparison Chromium's image and the difference image, under renderings/ and differences/; and for a
+    // failed page of the export, whose reference is drawn anew in every run, that reference too, under course-pages/.
+    // The SVG_LOOP_RESULTS environment variable names it; without it, it is svg-loop-results in the test run's work
     // directory.
     public static class LoopResults
     {

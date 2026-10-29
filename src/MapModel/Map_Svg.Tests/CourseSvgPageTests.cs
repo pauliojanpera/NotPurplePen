@@ -13,13 +13,22 @@ namespace Map_Svg.Tests
     // application draws it with the Skia target, within the pixel tolerance of the rendering comparison (F-1): each
     // exported page draws as the application draws it. A page is drawn whole, its paper filling the image, at a
     // resolution at which every page of the reference events, on Letter or Tabloid paper, is a whole number of pixels
-    // across and down. Each page's SVG goes to the loop's results under svg/ and its measurements under measurements/,
-    // named page-<name>, as the comparison names its cases; the page as the application draws it and as Chromium draws
-    // it go under course-pages/, as <name>-skia.png and <name>-chromium.png. The culture is fixed, as the baseline
-    // tests fix it.
+    // across and down. The culture is fixed, as the baseline tests fix it.
+    //
+    // A page goes to the loop's results named page-<name>, as the comparison names its cases. Its SVG goes under svg/
+    // and its measurements under measurements/ in every run. Its images go there only when it falls outside the
+    // tolerance, as the comparison keeps a case's: Chromium's image under renderings/ and the image of the pixels
+    // outside the tolerance under differences/, and the page as the application draws it under course-pages/, as
+    // nothing else holds it: unlike a case's reference, it is drawn anew in every run and recorded nowhere. With
+    // SVG_LOOP_KEEP_PAGE_IMAGES set to 1, which the loop leaves unset, Chromium's image and the application's go under
+    // renderings/ and course-pages/ for every page, as the gallery needs them, and course-pages/ serves as the
+    // reference folder of its tools.
     [TestFixture, NonParallelizable, SetCulture("en-US"), SetUICulture("en-US")]
     public class CourseSvgPageTests
     {
+        // Whether the images of every page go to the loop's results, not only those of a page outside the tolerance.
+        private static readonly bool keepImagesOfEveryPage = System.Environment.GetEnvironmentVariable("SVG_LOOP_KEEP_PAGE_IMAGES") == "1";
+
         // The resolution pages are drawn at, in pixels to the inch. At 100, the smallest text of the reference pages,
         // the 2.3 mm Arial of printarea2's legend, which the tests draw in Liberation Sans, has stems 0.8 pixels wide,
         // and its i and l stand 2 pixels apart. A stem across two columns of pixels shades both alike, Chromium at 153
@@ -60,7 +69,8 @@ namespace Map_Svg.Tests
         }
 
         // Export a page of an event, render its file in Chromium, and compare the image with the page as the
-        // application draws it with the Skia target.
+        // application draws it with the Skia target. The images go to the loop's results only when they differ beyond
+        // the tolerance, unless the images of every page are kept.
         // name: the name of the page.
         // eventFile: the event's file, among the application's test files.
         // mapType: the kind of map the event is drawn on.
@@ -80,11 +90,14 @@ namespace Map_Svg.Tests
             Size pixelSize = page.PixelSizeAt(PixelsPerInch);
             using (SKBitmap reference = page.RenderReference(loadedEvent, settings, pixelSize))
             using (SKBitmap rendering = await ChromiumRenderer.RenderAsync(svgPath, pixelSize)) {
-                LoopResults.SaveImage(Path.Combine("course-pages", name + "-skia.png"), reference);
-                LoopResults.SaveImage(Path.Combine("course-pages", name + "-chromium.png"), rendering);
+                // Beyond the tolerance, the comparison has saved Chromium's image and the difference image.
                 string difference = ImageComparison.DescribeDifference(caseName, reference, rendering, DrawsText(document) ? PixelTolerance.Text : PixelTolerance.Default);
+                if (difference != null || keepImagesOfEveryPage)
+                    LoopResults.SaveImage(Path.Combine("course-pages", caseName + ".png"), reference);
+                if (difference == null && keepImagesOfEveryPage)
+                    LoopResults.SaveImage(Path.Combine("renderings", caseName + ".png"), rendering);
                 if (difference != null)
-                    Assert.Fail(difference);
+                    Assert.Fail(difference + " The page as the application draws it is course-pages/" + caseName + ".png.");
             }
         }
 
