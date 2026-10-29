@@ -22,12 +22,12 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <npp:control n="3" code="32" kind="control" x="69602" y="122359"/>
 <npp:control n="4" kind="finish" x="134321" y="35896"/>
 </npp:course>
-<npp:object n="1" kind="start"/>
-<npp:object n="2" kind="control"/>
-<npp:object n="3" kind="control"/>
-<npp:object n="4" kind="finish"/>
-<npp:object n="5" kind="code"/>
-<npp:object n="6" kind="code"/>
+<npp:object n="1" kind="start" controls="1"/>
+<npp:object n="2" kind="control" controls="2"/>
+<npp:object n="3" kind="control" controls="3"/>
+<npp:object n="4" kind="finish" controls="4"/>
+<npp:object n="5" kind="code" controls="2"/>
+<npp:object n="6" kind="code" controls="3"/>
 </npp:map>
 </npp:document>
 </metadata>

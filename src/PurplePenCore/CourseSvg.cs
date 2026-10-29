@@ -208,9 +208,12 @@ namespace PurplePen
                 PrintScale = courseView.PrintScale,
             };
             Dictionary<Id<CourseControl>, int> placeOfCourseControl = new Dictionary<Id<CourseControl>, int>();
+            Dictionary<Id<ControlPoint>, int> placeOfControl = new Dictionary<Id<ControlPoint>, int>();
             foreach (CourseView.ControlView controlView in courseView.ControlViews) {
                 ControlPoint control = eventDB.GetControl(controlView.controlId);
                 course.Controls.Add(new CourseControlRecord { Code = control.code, Kind = KindOf(control.kind), Position = control.location });
+                if (!placeOfControl.ContainsKey(controlView.controlId))
+                    placeOfControl.Add(controlView.controlId, course.Controls.Count);
                 if (controlView.courseControlIds != null) {
                     foreach (Id<CourseControl> courseControlId in controlView.courseControlIds) {
                         if (!placeOfCourseControl.ContainsKey(courseControlId))
@@ -225,7 +228,7 @@ namespace PurplePen
             foreach (KeyValuePair<PurplePen.MapModel.Symbol, CourseObj> pair in mapDisplay.CourseObjectsOfSymbols) {
                 CourseObjectRecord record;
                 if (!recordOfCourseObject.TryGetValue(pair.Value, out record)) {
-                    record = DescribeObject(pair.Value, placeOfCourseControl);
+                    record = DescribeObject(pair.Value, placeOfCourseControl, placeOfControl);
                     recordOfCourseObject.Add(pair.Value, record);
                 }
                 objects[pair.Key] = record;
@@ -234,14 +237,19 @@ namespace PurplePen
         }
 
         // What a course object draws: its kind and the places of the course's controls it belongs to, its control, or
-        // a leg's two.
+        // a leg's two. An object of a page of all controls belongs to no course control, and to its control point
+        // instead.
         // courseObject: the course object.
         // placeOfCourseControl: the place, from 1, of each course control in the course's list of controls.
-        private static CourseObjectRecord DescribeObject(CourseObj courseObject, Dictionary<Id<CourseControl>, int> placeOfCourseControl)
+        // placeOfControl: the first place, from 1, of each control point in the course's list of controls.
+        private static CourseObjectRecord DescribeObject(CourseObj courseObject, Dictionary<Id<CourseControl>, int> placeOfCourseControl,
+                                                         Dictionary<Id<ControlPoint>, int> placeOfControl)
         {
             List<int> controls = new List<int>();
             int place;
             if (courseObject.courseControlId.IsNotNone && placeOfCourseControl.TryGetValue(courseObject.courseControlId, out place))
+                controls.Add(place);
+            else if (courseObject.courseControlId.IsNone && courseObject.controlId.IsNotNone && placeOfControl.TryGetValue(courseObject.controlId, out place))
                 controls.Add(place);
             LineCourseObj line = courseObject as LineCourseObj;
             if (line != null && line.courseControlId2.IsNotNone && placeOfCourseControl.TryGetValue(line.courseControlId2, out place))

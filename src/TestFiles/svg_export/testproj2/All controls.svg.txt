@@ -26,18 +26,18 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <npp:control n="5" code="35" kind="control" x="-17475" y="-29757"/>
 <npp:control n="6" code="36" kind="control" x="12686" y="-18480"/>
 </npp:course>
-<npp:object n="7" kind="control"/>
-<npp:object n="8" kind="control"/>
-<npp:object n="9" kind="control"/>
-<npp:object n="10" kind="control"/>
-<npp:object n="11" kind="control"/>
-<npp:object n="12" kind="control"/>
-<npp:object n="13" kind="code"/>
-<npp:object n="14" kind="code"/>
-<npp:object n="15" kind="code"/>
-<npp:object n="16" kind="code"/>
-<npp:object n="17" kind="code"/>
-<npp:object n="18" kind="code"/>
+<npp:object n="7" kind="control" controls="1"/>
+<npp:object n="8" kind="control" controls="2"/>
+<npp:object n="9" kind="control" controls="3"/>
+<npp:object n="10" kind="control" controls="4"/>
+<npp:object n="11" kind="control" controls="5"/>
+<npp:object n="12" kind="control" controls="6"/>
+<npp:object n="13" kind="code" controls="1"/>
+<npp:object n="14" kind="code" controls="2"/>
+<npp:object n="15" kind="code" controls="3"/>
+<npp:object n="16" kind="code" controls="4"/>
+<npp:object n="17" kind="code" controls="5"/>
+<npp:object n="18" kind="code" controls="6"/>
 </npp:map>
 </npp:document>
 </metadata>

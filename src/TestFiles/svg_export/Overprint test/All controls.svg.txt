@@ -43,10 +43,10 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <npp:control n="2" code="31" kind="control" x="-1518" y="3551"/>
 <npp:control n="3" kind="finish" x="4817" y="-2180"/>
 </npp:course>
-<npp:object n="9" kind="start"/>
-<npp:object n="10" kind="control"/>
-<npp:object n="11" kind="finish"/>
-<npp:object n="12" kind="code"/>
+<npp:object n="9" kind="start" controls="1"/>
+<npp:object n="10" kind="control" controls="2"/>
+<npp:object n="11" kind="finish" controls="3"/>
+<npp:object n="12" kind="code" controls="2"/>
 </npp:map>
 </npp:document>
 </metadata>
