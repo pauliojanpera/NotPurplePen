@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Tests of the SVG target: what it writes for each call, and the rendering comparison, which draws the cases of
+       the Skia rendering tests through it and renders the documents in Chromium. The SVG loop runs them on Linux. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <OutputType>Library</OutputType>
+    <Configurations>Debug;Release;StorePkg</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Testing\TestUtil.Skia\TestUtil.Skia.csproj" />
+    <ProjectReference Include="..\..\Testing\TestUtil\TestUtil.csproj" />
+    <ProjectReference Include="..\Graphics2D\Graphics2D.csproj" />
+    <ProjectReference Include="..\MapModel\MapModel.csproj" />
+    <ProjectReference Include="..\Map_SkiaStd\Map_SkiaStd.csproj" />
+    <ProjectReference Include="..\Map_Svg\Map_Svg.csproj" />
+    <ProjectReference Include="..\RenderingTestCases\RenderingTestCases.csproj" />
+    <ProjectReference Include="..\..\PurplePenCore\PurplePenCore.csproj" />
+    <PackageReference Include="HarfBuzzSharp.NativeAssets.Linux" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="Microsoft.Playwright" />
+    <PackageReference Include="NUnit" />
+    <PackageReference Include="NUnit3TestAdapter" />
+    <PackageReference Include="SkiaSharp.NativeAssets.Linux" />
+  </ItemGroup>
+
+  <!-- The fonts the tests draw text in, registered by TestFonts. -->
+  <ItemGroup>
+    <None Include="fonts\**" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\Map_Skia.Tests\fonts\Roboto-Regular.ttf;..\Map_Skia.Tests\fonts\Roboto-Bold.ttf;..\Map_Skia.Tests\fonts\RobotoCondensed-Regular.ttf;..\Map_Skia.Tests\fonts\RobotoCondensed-Bold.ttf"
+          Link="fonts\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

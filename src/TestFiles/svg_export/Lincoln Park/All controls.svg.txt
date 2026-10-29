@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="215.9mm" height="279.4mm" viewBox="0 0 215.9 279.4" xml:lang="und">
+<style>
+@font-face{font-family:"Roboto Condensed";font-weight:700;src:url(data:font/ttf;base64,sha256:77c520a088da92e336ec8106a68c52295b8ad9a1e621672e9e4bff41595d4c9e)}
+text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white-space:pre}
+.a{fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-miterlimit:5}
+.b{font-size:4.18px;font-family:"Roboto Condensed";font-weight:700;fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="LincolnNov12.gif"/>
+<npp:map n="2" label="All controls">
+<npp:color position="2" name="Lower purple" cmyk=".35,.85,0,0"/>
+<npp:symbol n="1" id="701" name="Start" colors="2"/>
+<npp:symbol n="2" id="702" name="Control point" colors="2"/>
+<npp:symbol n="3" id="706" name="Finish" colors="2"/>
+<npp:symbol n="4" id="720.0" name="Control code" colors="2"/>
+<npp:course name="All controls" scale="5000">
+<npp:control n="1" kind="start" x="140207" y="57447"/>
+<npp:control n="2" code="31" kind="control" x="127508" y="110638"/>
+<npp:control n="3" code="32" kind="control" x="69602" y="122359"/>
+<npp:control n="4" kind="finish" x="134321" y="35896"/>
+</npp:course>
+<npp:object n="1" kind="start" controls="1"/>
+<npp:object n="2" kind="control" controls="2"/>
+<npp:object n="3" kind="control" controls="3"/>
+<npp:object n="4" kind="finish" controls="4"/>
+<npp:object n="5" kind="code" controls="2"/>
+<npp:object n="6" kind="code" controls="3"/>
+</npp:map>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="d">
+<path d="M-6477-13462h215900v279400H-6477z"/>
+</clipPath>
+<g id="a">
+<g transform="matrix(.0846667 0 0-.0846667 0 252476)" data-m="1">
+<use xlink:href="#b" transform="scale(1000)"/>
+</g>
+</g>
+<g id="c">
+<g data-m="2">
+<g data-c="2">
+<g transform="translate(140207 57447)" data-s="1">
+<path class="a" data-o="1" d="M0 4041l3500-6062h-7000L0 4041z"/>
+</g>
+<g data-s="2">
+<g transform="translate(127508 110638)">
+<path class="a" data-o="2" d="M2449-1407a2825 2825 0 1 1-4467-570"/>
+</g>
+<g transform="translate(69602 122359)">
+<path class="a" data-o="3" d="M110 2823a2825 2825 0 1 1 2267-4349"/>
+</g>
+</g>
+<g transform="translate(134321 35896)" data-s="3">
+<path class="a" data-o="4" d="M-1462-1808a2325 2325 0 1 1 80 3678"/>
+<path class="a" data-o="4" d="M-2091-2585a3325 3325 0 1 1 114 5259"/>
+</g>
+<g data-s="4">
+<g transform="matrix(1 0 0-1 130487 116087)">
+<text class="b" data-o="5" transform="translate(0 3972)scale(1000)" x="0 2.114">31</text>
+</g>
+<g transform="matrix(1 0 0-1 72581 127808)">
+<text class="b" data-o="6" transform="translate(0 3972)scale(1000)" x="0 2.114">32</text>
+</g>
+</g>
+</g>
+</g>
+</g>
+<image id="b" width="2397" height="2982" xlink:href="data:image/png;base64,sha256:d1655b716e0bed91935d4a9e700843bbcd353ec026e4b9ae86322ca55681976a"/>
+</defs>
+<g transform="matrix(.001 0 0-.001 6.477 265.938)" clip-path="url(#d)">
+<use xlink:href="#a"/>
+<use xlink:href="#c"/>
+</g>
+</svg>
