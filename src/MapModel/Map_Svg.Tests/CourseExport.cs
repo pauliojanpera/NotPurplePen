@@ -62,12 +62,18 @@ namespace Map_Svg.Tests
         //            event, in the order the event sorts them, after its page of all controls.
         public static async Task<string> ExportAsync(string eventFile, string name, MapType mapType, bool lowerPurpleLayer, Id<Course>[] courseIds)
         {
-            RegisterServices();
-            string directory = Path.Combine(Path.GetTempPath(), "svg-export-tests-" + Environment.ProcessId.ToString(System.Globalization.CultureInfo.InvariantCulture), name);
-            if (Directory.Exists(directory))
-                Directory.Delete(directory, true);
-            Directory.CreateDirectory(directory);
+            return Export(await LoadAsync(eventFile, mapType, lowerPurpleLayer), name, courseIds).outputDirectory;
+        }
 
+        // Load an event as the application loads it, with its map.
+        // eventFile: the event's file, among the application's test files.
+        // mapType: the kind of map the event is drawn on, which must load, or MapType.None for an event without one.
+        // lowerPurpleLayer: whether to draw the course in upper and lower purple, the lower above the map's layer that
+        //                   the application chooses by default, whatever the event's appearance says, so that each page
+        //                   draws the map in two parts with the course's lower layer between them.
+        public static async Task<LoadedEvent> LoadAsync(string eventFile, MapType mapType, bool lowerPurpleLayer)
+        {
+            RegisterServices();
             RecordingUserInterface ui = new RecordingUserInterface();
             Controller controller = new Controller(ui);
             Assert.IsTrue(await controller.LoadInitialFile(ApplicationTestFile(eventFile), false), "loads: " + string.Join(" ", ui.Messages));
@@ -80,16 +86,31 @@ namespace Map_Svg.Tests
             }
             if (controller.LowerPurpleMapLayer != null)
                 controller.MapDisplay.LowerPurpleMapLayer = controller.LowerPurpleMapLayer;
+            return new LoadedEvent(controller, ui.SymbolDB, ui.Messages);
+        }
+
+        // Export courses of a loaded event as SVG files into a folder of their own, and return the settings exported
+        // with, whose output directory is the folder.
+        // loadedEvent: the event.
+        // name: the name of the folder within this run's.
+        // courseIds: the courses to export, Id<Course>.None for the page of all controls; none for every course of the
+        //            event, in the order the event sorts them, after its page of all controls.
+        public static CourseSvgSettings Export(LoadedEvent loadedEvent, string name, Id<Course>[] courseIds)
+        {
+            string directory = Path.Combine(Path.GetTempPath(), "svg-export-tests-" + Environment.ProcessId.ToString(System.Globalization.CultureInfo.InvariantCulture), name);
+            if (Directory.Exists(directory))
+                Directory.Delete(directory, true);
+            Directory.CreateDirectory(directory);
 
             if (courseIds.Length == 0)
-                courseIds = new Id<Course>[] { Id<Course>.None }.Concat(QueryEvent.SortedCourseIds(controller.GetEventDB(), true)).ToArray();
+                courseIds = new Id<Course>[] { Id<Course>.None }.Concat(QueryEvent.SortedCourseIds(loadedEvent.Controller.GetEventDB(), true)).ToArray();
 
             CourseSvgSettings settings = new CourseSvgSettings {
                 mapDirectory = false, fileDirectory = false, outputDirectory = directory,
                 CourseIds = courseIds, AllCourses = false, ShowProgressDialog = false, CropLargePrintArea = false,
             };
-            Assert.IsTrue(controller.CreateCourseSvgs(settings), "exports: " + string.Join(" ", ui.Messages));
-            return directory;
+            Assert.IsTrue(loadedEvent.Controller.CreateCourseSvgs(settings), "exports: " + string.Join(" ", loadedEvent.Messages));
+            return settings;
         }
 
         // The names of the SVG files in a folder, in ordinal order.
@@ -108,6 +129,30 @@ namespace Map_Svg.Tests
             return Path.GetFullPath(Path.Combine(mapModelFolder, "..", "TestFiles", name.Replace('/', Path.DirectorySeparatorChar)));
         }
 
+        // An event a controller has loaded, with what exporting and drawing its pages needs besides the controller.
+        internal sealed class LoadedEvent
+        {
+            // The controller that loaded the event.
+            public readonly Controller Controller;
+
+            // The controller's symbols of the control descriptions.
+            public readonly SymbolDB SymbolDB;
+
+            // The messages the controller has shown.
+            public readonly List<string> Messages;
+
+            // Create a loaded event.
+            // controller: the controller that loaded the event.
+            // symbolDB: the controller's symbols of the control descriptions.
+            // messages: the messages the controller shows, as it shows them.
+            public LoadedEvent(Controller controller, SymbolDB symbolDB, List<string> messages)
+            {
+                Controller = controller;
+                SymbolDB = symbolDB;
+                Messages = messages;
+            }
+        }
+
         // The user interface of a controller the tests drive, which records every message and answers every question
         // with its default.
         private sealed class RecordingUserInterface : IUserInterface
@@ -115,7 +160,10 @@ namespace Map_Svg.Tests
             // The messages shown.
             public readonly List<string> Messages = new List<string>();
 
-            public void Initialize(Controller controller, SymbolDB symbolDB) { }
+            // The controller's symbols of the control descriptions, which it hands its user interface.
+            public SymbolDB SymbolDB { get; private set; }
+
+            public void Initialize(Controller controller, SymbolDB symbolDB) { SymbolDB = symbolDB; }
             public void QueueIdleEvent() { }
             public void PostDelayedAction(Action action) { action(); }
             public bool GetCurrentLocation(out PointF location, out float pixelSize) { location = PointF.Empty; pixelSize = 0.1F; return false; }
