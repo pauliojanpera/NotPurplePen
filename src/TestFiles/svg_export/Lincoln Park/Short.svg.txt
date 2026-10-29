@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="215.9mm" height="279.4mm" viewBox="0 0 215.9 279.4" xml:lang="und">
+<style>
+@font-face{font-family:"Roboto";src:url(data:font/ttf;base64,sha256:80fb20dcb32dff311ecdbac9863043ae0912df6f1172fe823dba1004ce2e22c1)}
+text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white-space:pre}
+.a{fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-miterlimit:5}
+.b{fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-linejoin:bevel}
+.c{font-size:5.57px;font-family:"Roboto";fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="LincolnNov12.gif"/>
+<npp:map n="2" label="Short">
+<npp:color position="2" name="Lower purple" cmyk=".35,.85,0,0"/>
+<npp:symbol n="1" id="701" name="Start" colors="2"/>
+<npp:symbol n="2" id="704" name="Line" colors="2"/>
+<npp:symbol n="3" id="702" name="Control point" colors="2"/>
+<npp:symbol n="4" id="706" name="Finish" colors="2"/>
+<npp:symbol n="5" id="703.0" name="Control number" colors="2"/>
+<npp:course name="Short" scale="5000">
+<npp:control n="1" kind="start" x="140207" y="57447"/>
+<npp:control n="2" code="31" kind="control" x="127508" y="110638"/>
+<npp:control n="3" code="32" kind="control" x="69602" y="122359"/>
+<npp:control n="4" kind="finish" x="134321" y="35896"/>
+</npp:course>
+<npp:object n="1" kind="start" controls="1"/>
+<npp:object n="2" kind="leg" controls="1 2"/>
+<npp:object n="3" kind="leg" controls="2 3"/>
+<npp:object n="4" kind="leg" controls="3 4"/>
+<npp:object n="5" kind="leg" controls="3 4"/>
+<npp:object n="6" kind="control" controls="2"/>
+<npp:object n="7" kind="control" controls="3"/>
+<npp:object n="8" kind="finish" controls="4"/>
+<npp:object n="9" kind="control-number" controls="2"/>
+<npp:object n="10" kind="control-number" controls="3"/>
+</npp:map>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="d">
+<path d="M-6477-13462h215900v279400H-6477z"/>
+</clipPath>
+<g id="a">
+<g transform="matrix(.0846667 0 0-.0846667 0 252476)" data-m="1">
+<use xlink:href="#b" transform="scale(1000)"/>
+</g>
+</g>
+<g id="c">
+<g data-m="2">
+<g data-c="2">
+<g transform="translate(140207 57447)rotate(13.427)" data-s="1">
+<path class="a" data-o="1" d="M0 4041l3500-6062h-7000L0 4041z"/>
+</g>
+<g data-s="2">
+<path class="b" data-o="2" d="M139269 61376l-11105 46514"/>
+<path class="b" data-o="3" d="M124739 111199l-52368 10600"/>
+<path class="b" data-o="4" d="M70220 119603l11582-51731 12520-7622"/>
+<path class="b" data-o="5" d="M107702 52103l23779-14478"/>
+</g>
+<g data-s="3">
+<g transform="translate(127508 110638)">
+<path class="a" data-o="6" d="M2449-1407a2825 2825 0 1 1-4467-570"/>
+</g>
+<g transform="translate(69602 122359)">
+<path class="a" data-o="7" d="M110 2823a2825 2825 0 1 1 2267-4349"/>
+</g>
+</g>
+<g transform="translate(134321 35896)" data-s="4">
+<path class="a" data-o="8" d="M-1462-1808a2325 2325 0 1 1 80 3678"/>
+<path class="a" data-o="8" d="M-2091-2585a3325 3325 0 1 1 114 5259"/>
+</g>
+<g data-s="5">
+<g transform="matrix(1 0 0-1 131408 118772)">
+<text class="c" data-o="9" transform="translate(0 5293)scale(1000)">1</text>
+</g>
+<g transform="matrix(1 0 0-1 63212 131206)">
+<text class="c" data-o="10" transform="translate(0 5293)scale(1000)">2</text>
+</g>
+</g>
+</g>
+</g>
+</g>
+<image id="b" width="2397" height="2982" xlink:href="data:image/png;base64,sha256:d1655b716e0bed91935d4a9e700843bbcd353ec026e4b9ae86322ca55681976a"/>
+</defs>
+<g transform="matrix(.001 0 0-.001 6.477 265.938)" clip-path="url(#d)">
+<use xlink:href="#a"/>
+<use xlink:href="#c"/>
+</g>
+</svg>

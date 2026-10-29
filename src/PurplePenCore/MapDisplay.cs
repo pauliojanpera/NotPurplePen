@@ -62,6 +62,11 @@ namespace PurplePen
 
     public enum ColorModel { OCADCompatible, RGB, CMYK };
 
+    // The layers a MapDisplay draws a page in, from the bottom up: the map up to the color that the course's lower layer
+    // goes above, the course's lower layer, the rest of the map, and the rest of the course. Without a lower purple
+    // layer, the first is the whole map and the second the whole course, and the other two draw nothing.
+    public enum MapDisplayLayer { MapBelowCourse, CourseLower, MapAboveCourse, CourseUpper };
+
 
     // The map display represents everything that is cached in the ViewCache and normally shown
     // on the map. It includes the map proper, as well as the courses and so forth drawn on top.
@@ -453,6 +458,18 @@ namespace PurplePen
         // Are we printing?
         public bool Printing { get; set; }
 
+        // Whether drawing for printing keeps the anti-aliasing of drawing for the screen: the map anti-aliased as
+        // AntiAlias says, and the course always. Off by default, so that printing turns anti-aliasing off. Printing
+        // still draws without pattern bitmaps.
+        public bool AntiAliasWhenPrinting { get; set; }
+
+        // Whether drawing turns anti-aliasing off because it is for printing: Printing is on and AntiAliasWhenPrinting
+        // is off.
+        private bool PrintingWithoutAntiAliasing
+        {
+            get { return Printing && !AntiAliasWhenPrinting; }
+        }
+
         // Anti-alias the map display?
         public bool ShowSymbolBounds
         {
@@ -557,6 +574,20 @@ namespace PurplePen
         }
 
 
+        // Whether setting a course records which course object added each symbol of the course's map, as an export that
+        // says what each object it draws of the course is asks (CD-3). Off by default, as the display has no use for it.
+        public bool RecordsCourseObjects { get; set; }
+
+        // For each symbol of the course's map, the course object that added it, recorded when the course was set if
+        // RecordsCourseObjects was on; else empty.
+        public IReadOnlyDictionary<PurplePen.MapModel.Symbol, CourseObj> CourseObjectsOfSymbols
+        {
+            get { return courseObjectOfSymbol; }
+        }
+
+        // The course object that added each symbol of the course's map, when recorded.
+        private Dictionary<PurplePen.MapModel.Symbol, CourseObj> courseObjectOfSymbol = new Dictionary<PurplePen.MapModel.Symbol, CourseObj>();
+
         // Set the courses being displayed.
         public void SetCourse(CourseLayout newCourse)
         {
@@ -566,10 +597,11 @@ namespace PurplePen
                 renderOptions.LowerColorsBelowWhiteOut = (LowerPurpleMapLayer != null);
 
                 course = newCourse;
+                courseObjectOfSymbol = new Dictionary<PurplePen.MapModel.Symbol, CourseObj>();
                 if (course == null)
                     courseMap = null;
                 else
-                    courseMap = course.RenderToMap(renderOptions);
+                    courseMap = course.RenderToMap(renderOptions, RecordsCourseObjects ? courseObjectOfSymbol : null);
 
                 RaiseChanged();
             }
@@ -718,21 +750,54 @@ namespace PurplePen
             }
         }
 
+        // Draw one layer of the map and course onto a graphics target, as Draw draws it among the others, so that a target
+        // that keeps the structure of what it draws can hold the layers apart.
+        // grTarget: the target to draw onto.
+        // layer: the layer to draw.
+        // visRect: the area of the map to draw, in map coordinates.
+        // minResolution: the smallest distance worth drawing, in map coordinates.
+        // throwOnCancel: called now and then to throw if drawing is to stop, or null.
+        public void Draw(IGraphicsTarget grTarget, MapDisplayLayer layer, RectangleF visRect, float minResolution, Action throwOnCancel)
+        {
+            DrawLayer(grTarget, layer, visRect, CreateRenderOptions(minResolution), ColorIdBelowWhiteOut(), throwOnCancel);
+        }
+
         // Draw the map and course onto a graphics. A helper for the other two draw methods.
 
         private void DrawHelper(IGraphicsTarget grTarget, RectangleF visRect, float minResolution, Action throwOnCancel)
         {
             if (throwOnCancel != null) { throwOnCancel(); }
 
+            RenderOptions renderOptions = CreateRenderOptions(minResolution);
+            short? colorIdBelowWhiteOut = ColorIdBelowWhiteOut();
+
+            // First draw the real map, then the course map on top, and when the course has a lower layer, the rest of the
+            // map and then the rest of the course.
+            DrawLayer(grTarget, MapDisplayLayer.MapBelowCourse, visRect, renderOptions, colorIdBelowWhiteOut, throwOnCancel);
+            DrawLayer(grTarget, MapDisplayLayer.CourseLower, visRect, renderOptions, colorIdBelowWhiteOut, throwOnCancel);
+            if (HasLayersAboveCourse) {
+                DrawLayer(grTarget, MapDisplayLayer.MapAboveCourse, visRect, renderOptions, colorIdBelowWhiteOut, throwOnCancel);
+                if (throwOnCancel != null) { throwOnCancel(); }
+                DrawLayer(grTarget, MapDisplayLayer.CourseUpper, visRect, renderOptions, colorIdBelowWhiteOut, throwOnCancel);
+            }
+
+            if (throwOnCancel != null) { throwOnCancel(); }
+            DrawPrintAreaOutline(grTarget, visRect);
+        }
+
+        // Whether the map and the course are drawn in four layers rather than two: the map is an OCAD map, and the course
+        // has a lower layer, which goes between two parts of the map. Without, MapAboveCourse and CourseUpper draw nothing.
+        public bool HasLayersAboveCourse
+        {
+            get { return mapType == MapType.OCAD && LowerPurpleMapLayer != null; }
+        }
+
+        // Create the options that every layer of the map and course is drawn with.
+        // minResolution: the smallest distance worth drawing, in map coordinates.
+        private RenderOptions CreateRenderOptions(float minResolution)
+        {
             RenderOptions renderOptions = new RenderOptions();
             renderOptions.minResolution = minResolution;
-            short? colorIdBelowWhiteOut = null;
-
-            // Get the color ID of the color just below the white-out color, which is where we divide between lower purple
-            // and upper purple.
-            if (LowerPurpleMapLayer != null && courseMap != null) {
-                colorIdBelowWhiteOut = ColorIdBelow(courseMap, CourseLayout.WHITEOUT_COLOR_OCADID);
-            }
 
             if (Printing)
                 renderOptions.usePatternBitmaps = false;   // don't use pattern bitmaps when printing, they cause some problems in some printer drivers and we want best quality.
@@ -744,81 +809,104 @@ namespace PurplePen
             renderOptions.showSymbolBounds = showBounds;
             renderOptions.renderTemplates = RenderTemplateOption.MapAndTemplates;
             renderOptions.blendOverprintedColors = ocadOverprintEffect;
+            return renderOptions;
+        }
 
-            // First draw the real map.
+        // Get the color ID of the color just below the white-out color, which is where we divide between lower purple
+        // and upper purple; or null when there is no lower purple layer.
+        private short? ColorIdBelowWhiteOut()
+        {
+            if (LowerPurpleMapLayer != null && courseMap != null)
+                return ColorIdBelow(courseMap, CourseLayout.WHITEOUT_COLOR_OCADID);
+            return null;
+        }
+
+        // Draw one layer of the map and course, with the options of the drawing it belongs to.
+        // grTarget: the target to draw onto.
+        // layer: the layer to draw.
+        // visRect: the area of the map to draw, in map coordinates.
+        // renderOptions: the options the drawing draws its layers with; the range of colors drawn is set here.
+        // colorIdBelowWhiteOut: the color ID just below the white-out color, or null when there is no lower purple layer.
+        // throwOnCancel: called now and then to throw if drawing is to stop, or null.
+        private void DrawLayer(IGraphicsTarget grTarget, MapDisplayLayer layer, RectangleF visRect, RenderOptions renderOptions, short? colorIdBelowWhiteOut, Action throwOnCancel)
+        {
             float saveIntensity;
 
-            switch (mapType) {
-            case MapType.OCAD:
-                saveIntensity = grTarget.Intensity;
-                grTarget.Intensity = mapIntensity;
-                grTarget.PushAntiAliasing(Printing ? false : antialiased);       // don't anti-alias on printer
+            switch (layer) {
+            case MapDisplayLayer.MapBelowCourse:
+                switch (mapType) {
+                case MapType.OCAD:
+                    saveIntensity = grTarget.Intensity;
+                    grTarget.Intensity = mapIntensity;
+                    grTarget.PushAntiAliasing(PrintingWithoutAntiAliasing ? false : antialiased);       // don't anti-alias on printer
 
+                    if (LowerPurpleMapLayer != null) {
+                        // Only draw the part below lower purple.
+                        renderOptions.colorBeginDrawExclusive = null;
+                        renderOptions.colorEndDrawInclusive = LowerPurpleMapLayer;
+                    }
+
+                    DrawOcadMap(grTarget, visRect, renderOptions, throwOnCancel);
+                    grTarget.PopAntiAliasing();
+                    grTarget.Intensity = saveIntensity;
+                    break;
+
+                case MapType.Bitmap:
+                case MapType.PDF:
+                    grTarget.PushAntiAliasing(PrintingWithoutAntiAliasing ? false : antialiased);       // don't anti-alias on printer
+                    DrawBitmapMap(grTarget, visRect, renderOptions.minResolution);
+                    grTarget.PopAntiAliasing();
+                    break;
+
+                case MapType.None:
+                    break;
+                }
+                break;
+
+            case MapDisplayLayer.CourseLower:
                 if (LowerPurpleMapLayer != null) {
-                    // Only draw the part below lower purple.
+                    // Only draw the part below the white-out layer, which is all of the lower purple.
                     renderOptions.colorBeginDrawExclusive = null;
-                    renderOptions.colorEndDrawInclusive = LowerPurpleMapLayer;
+                    renderOptions.colorEndDrawInclusive = colorIdBelowWhiteOut;
                 }
 
-                DrawOcadMap(grTarget, visRect, renderOptions, throwOnCancel);
-                grTarget.PopAntiAliasing();
-                grTarget.Intensity = saveIntensity;
+                DrawCourseMap(grTarget, visRect, renderOptions);
                 break;
 
-            case MapType.Bitmap:
-            case MapType.PDF:
-                grTarget.PushAntiAliasing(Printing ? false : antialiased);       // don't anti-alias on printer
-                DrawBitmapMap(grTarget, visRect, minResolution);
-                grTarget.PopAntiAliasing();
-                break;
+            case MapDisplayLayer.MapAboveCourse:
+                if (HasLayersAboveCourse) {
+                    // Draw the part of the map above the lower purple.
+                    saveIntensity = grTarget.Intensity;
+                    grTarget.Intensity = mapIntensity;
 
-            case MapType.None:
-                break;
-            }
+                    grTarget.PushAntiAliasing(PrintingWithoutAntiAliasing ? false : antialiased);       // don't anti-alias on printer
 
-            // Now draw the courseMap on top.
-            if (LowerPurpleMapLayer != null) {
-                // Only draw the part below the white-out layer, which is all of the lower purple.
-                renderOptions.colorBeginDrawExclusive = null;
-                renderOptions.colorEndDrawInclusive = colorIdBelowWhiteOut;
-            }
-
-            DrawCourseMap(grTarget, visRect, renderOptions);
-
-            if (mapType == MapType.OCAD && LowerPurpleMapLayer != null) {
-                // Draw the part of the map above the lower purple.
-                saveIntensity = grTarget.Intensity;
-                grTarget.Intensity = mapIntensity;
-
-                grTarget.PushAntiAliasing(Printing ? false : antialiased);       // don't anti-alias on printer
-
-                if (LowerPurpleMapLayer != null) {
-                    // Only draw the part below lower purple.
                     renderOptions.colorBeginDrawExclusive = LowerPurpleMapLayer;
                     renderOptions.colorEndDrawInclusive = null;
+
+                    DrawOcadMap(grTarget, visRect, renderOptions, throwOnCancel);
+                    grTarget.PopAntiAliasing();
+                    grTarget.Intensity = saveIntensity;
                 }
+                break;
 
-                DrawOcadMap(grTarget, visRect, renderOptions, throwOnCancel);
-                grTarget.PopAntiAliasing();
-                grTarget.Intensity = saveIntensity;
-
-                // Draw the rest of the course map on top.
-                if (throwOnCancel != null) { throwOnCancel(); }
-                renderOptions.colorBeginDrawExclusive = colorIdBelowWhiteOut;
-                renderOptions.colorEndDrawInclusive = null;
-                DrawCourseMap(grTarget, visRect, renderOptions);
+            case MapDisplayLayer.CourseUpper:
+                if (HasLayersAboveCourse) {
+                    // Draw the rest of the course map on top.
+                    renderOptions.colorBeginDrawExclusive = colorIdBelowWhiteOut;
+                    renderOptions.colorEndDrawInclusive = null;
+                    DrawCourseMap(grTarget, visRect, renderOptions);
+                }
+                break;
             }
-
-            if (throwOnCancel != null) { throwOnCancel(); }
-            DrawPrintAreaOutline(grTarget, visRect);
         }
 
         private void DrawCourseMap(IGraphicsTarget grTargetCourses, RectangleF visRect, RenderOptions renderOptions)
         {
-            if (Printing)
+            if (PrintingWithoutAntiAliasing)
                 grTargetCourses.PushAntiAliasing(false);
             else
-                grTargetCourses.PushAntiAliasing(true);   // always anti-alias the course unless printing
+                grTargetCourses.PushAntiAliasing(true);   // always anti-alias the course unless printing without anti-aliasing
 
             // Always turn blending on.
             bool saveBlendOverprintedColors = renderOptions.blendOverprintedColors;

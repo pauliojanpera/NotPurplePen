@@ -2355,6 +2355,67 @@ namespace PurplePen.ViewModels
         }
 
         /// <summary>
+        /// Executes the File/Create SVG Files command: one SVG file for each page of
+        /// the chosen courses, laid out as PDF export lays its pages out (A-1, A-6).
+        /// </summary>
+        [RelayCommand]
+        private async Task CreateCourseSvg()
+        {
+            if (controller == null) { return; }
+
+            if (! await CheckForNonRenderableObjects(false, true))
+                return;
+
+            bool isPdfMap = controller.MapType == MapType.PDF;
+
+            // Seed from previous settings or build defaults.
+            CourseSvgSettings settings;
+            if (courseSvgSettings != null) {
+                settings = courseSvgSettings.Clone();
+            }
+            else {
+                settings = new CourseSvgSettings {
+                    fileDirectory = true,
+                    mapDirectory = false,
+                    outputDirectory = System.IO.Path.GetDirectoryName(controller.FileName) ?? "",
+                };
+            }
+
+            if (isPdfMap) {
+                // As for PDF export: a PDF-backed map crops courses to its page.
+                settings.CropLargePrintArea = true;
+            }
+
+            CreateSvgCoursesDialogViewModel vm = new CreateSvgCoursesDialogViewModel {
+                EventDB = controller.GetEventDB(),
+                ShowMergeParts = controller.AnyMultipart(),
+                EnableChangeCropping = !isPdfMap,
+                Settings = settings,
+            };
+
+            // Show the dialog; on OK, create the files. The loop lets the user bail
+            // out of the "overwrite?" prompt and change the dialog again.
+            while (await Services.DialogService.ShowDialogAsync(vm)) {
+                CourseSvgSettings chosen = vm.Settings;
+
+                List<string> overwritingFiles = controller.OverwritingSvgFiles(chosen);
+                if (overwritingFiles.Count > 0) {
+                    OverwritingFilesDialogViewModel overwriteVm = new OverwritingFilesDialogViewModel {
+                        Filenames = overwritingFiles,
+                    };
+                    if (!await Services.DialogService.ShowDialogAsync(overwriteVm))
+                        continue;
+                }
+
+                // Save the settings for the next invocation of the dialog.
+                courseSvgSettings = chosen;
+                controller.CreateCourseSvgs(chosen);
+
+                break;
+            }
+        }
+
+        /// <summary>
         /// Executes the File/Create OCAD Files command.
         /// </summary>
         [RelayCommand]

@@ -64,6 +64,14 @@ namespace PurplePen.ViewModels
         // Same idea for the Create PDF Files dialog.
         private CoursePdfSettings? coursePdfSettings;
 
+        // And for the Create SVG Files dialog, forgotten when another map loads (see UpdateMapFile).
+        private CourseSvgSettings? courseSvgSettings;
+
+        // The map the window showed when it last updated: its type, its file, and for a bitmap its resolution.
+        private MapType mapTypeShown = MapType.None;
+        private string? mapFileNameShown;
+        private float mapDpiShown;
+
         // Persisted settings for the Print Descriptions / Create Description PDF
         // dialog. The printer / paper / margins live in their own fields because
         // the new ViewModel takes them as separate inputs.
@@ -343,6 +351,18 @@ namespace PurplePen.ViewModels
                 gpxCreationSettingsPrevious = null;
                 exportKmlSettingsPrevious = null;
                 routeGadgetCreationSettingsPrevious = null;
+            }
+
+            // Forget the settings of the Create SVG Files dialog when the event's map is not the map shown when the
+            // window last updated: another map has loaded, or a bitmap map's resolution has changed. The comparison
+            // above cannot tell, as the controller loads the event's map into the map display as soon as the event
+            // names it, before the window updates; it finds a new map only when the display could not load it.
+            float mapDpi = (controller.MapType == MapType.Bitmap) ? controller.MapDpi : 0;
+            if (controller.MapType != mapTypeShown || controller.MapFileName != mapFileNameShown || mapDpi != mapDpiShown) {
+                mapTypeShown = controller.MapType;
+                mapFileNameShown = controller.MapFileName;
+                mapDpiShown = mapDpi;
+                courseSvgSettings = null;
             }
 
 #if PORTING
