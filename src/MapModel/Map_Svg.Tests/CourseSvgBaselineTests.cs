@@ -28,7 +28,7 @@ namespace Map_Svg.Tests
     {
         // The reference events, each with the kind of map it is drawn on, the courses exported, or none for every course
         // of the event and its page of all controls, and what it covers.
-        private static readonly TestCaseData[] Events = {
+        internal static readonly TestCaseData[] Events = {
             // Courses with map exchanges, and no map.
             new TestCaseData("controller/mapexchange1.ppen", MapType.None, new int[0]).SetName("mapexchange1"),
             // An OCAD map with overprinted colors, and the course's purple blended.
