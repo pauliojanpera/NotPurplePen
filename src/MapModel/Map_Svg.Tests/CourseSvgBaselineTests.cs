@@ -26,39 +26,55 @@ namespace Map_Svg.Tests
     [TestFixture, NonParallelizable, SetCulture("en-US"), SetUICulture("en-US")]
     public class CourseSvgBaselineTests
     {
-        // The reference events, each with the kind of map it is drawn on, the courses exported, or none for every course
-        // of the event and its page of all controls, and what it covers.
+        // The reference events, each with the name its baselines go under, its file, the kind of map it is drawn on,
+        // the courses exported, or none for every course of the event and its page of all controls, and whether its
+        // course is drawn in upper and lower purple; and what it covers.
         internal static readonly TestCaseData[] Events = {
             // Courses with map exchanges, and no map.
-            new TestCaseData("controller/mapexchange1.ppen", MapType.None, new int[0]).SetName("mapexchange1"),
+            Event("mapexchange1", "controller/mapexchange1.ppen", MapType.None, new int[0], false),
             // An OCAD map with overprinted colors, and the course's purple blended.
-            new TestCaseData("courseprinting/Overprint test.ppen", MapType.OCAD, new int[0]).SetName("Overprint test"),
+            Event("Overprint test", "courseprinting/Overprint test.ppen", MapType.OCAD, new int[0], false),
+            // The same in upper and lower purple, so that each page draws the map in two parts, with the course's lower
+            // layer between them (L-2, L-3).
+            Event("Overprint test lower purple", "courseprinting/Overprint test.ppen", MapType.OCAD, new int[0], true),
             // A bitmap map, which the files embed.
-            new TestCaseData("controller/Lincoln Park.ppen", MapType.Bitmap, new int[0]).SetName("Lincoln Park"),
+            Event("Lincoln Park", "controller/Lincoln Park.ppen", MapType.Bitmap, new int[0], false),
             // An OpenMapper map.
-            new TestCaseData("modes/printarea2.ppen", MapType.OCAD, new int[] { 1 }).SetName("printarea2"),
+            Event("printarea2", "modes/printarea2.ppen", MapType.OCAD, new int[] { 1 }, false),
             // An OCAD map with area patterns, multi-colored point symbols and text along lines; one course, as each page
             // of it writes the whole map, of almost 2 MB.
-            new TestCaseData("controller/Madrona Permanent11.ppen", MapType.OCAD, new int[] { 1 }).SetName("Madrona Permanent11"),
+            Event("Madrona Permanent11", "controller/Madrona Permanent11.ppen", MapType.OCAD, new int[] { 1 }, false),
             // A georeferenced OCAD map, in the British National Grid.
-            new TestCaseData("gpx/testproj2.ppen", MapType.OCAD, new int[0]).SetName("testproj2"),
+            Event("testproj2", "gpx/testproj2.ppen", MapType.OCAD, new int[0], false),
         };
+
+        // A reference event, as a test case named by the name its baselines go under.
+        // name: the name.
+        // eventFile: the event's file, among the application's test files.
+        // mapType: the kind of map the event is drawn on.
+        // courses: the ids of the courses to export, or none for every course of the event and its page of all controls.
+        // lowerPurpleLayer: whether to draw the course in upper and lower purple.
+        private static TestCaseData Event(string name, string eventFile, MapType mapType, int[] courses, bool lowerPurpleLayer)
+        {
+            return new TestCaseData(name, eventFile, mapType, courses, lowerPurpleLayer).SetName(name);
+        }
 
         // The data of an embedded font or bitmap, and the type it is named with.
         private static readonly Regex EmbeddedData = new Regex("data:([A-Za-z0-9.+/-]+);base64,([A-Za-z0-9+/=]+)", RegexOptions.CultureInvariant);
 
         // Export courses of an event twice, and compare each file with the other export's and with its baseline.
+        // eventName: the name the event's baselines go under.
         // eventFile: the event's file, among the application's test files.
         // mapType: the kind of map the event is drawn on.
         // courses: the ids of the courses to export, or none for every course of the event, its page of all controls
         //          first.
+        // lowerPurpleLayer: whether to draw the course in upper and lower purple.
         [TestCaseSource(nameof(Events))]
-        public async Task AnEventIsExportedAsItsBaselinesSay(string eventFile, MapType mapType, int[] courses)
+        public async Task AnEventIsExportedAsItsBaselinesSay(string eventName, string eventFile, MapType mapType, int[] courses, bool lowerPurpleLayer)
         {
-            string eventName = Path.GetFileNameWithoutExtension(eventFile);
             Id<Course>[] courseIds = courses.Select(id => new Id<Course>(id)).ToArray();
-            string first = await CourseExport.ExportAsync(eventFile, "baseline/" + eventName + "/first", mapType, courseIds);
-            string second = await CourseExport.ExportAsync(eventFile, "baseline/" + eventName + "/second", mapType, courseIds);
+            string first = await CourseExport.ExportAsync(eventFile, "baseline/" + eventName + "/first", mapType, lowerPurpleLayer, courseIds);
+            string second = await CourseExport.ExportAsync(eventFile, "baseline/" + eventName + "/second", mapType, lowerPurpleLayer, courseIds);
 
             string[] files = CourseExport.SvgFilesIn(first);
             Assert.IsNotEmpty(files, "the export writes files");

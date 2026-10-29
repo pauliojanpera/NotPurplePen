@@ -46,7 +46,21 @@ namespace Map_Svg.Tests
         // mapType: the kind of map the event is drawn on, which must load, or MapType.None for an event without one.
         // courseIds: the courses to export, Id<Course>.None for the page of all controls; none for every course of the
         //            event, in the order the event sorts them, after its page of all controls.
-        public static async Task<string> ExportAsync(string eventFile, string name, MapType mapType, params Id<Course>[] courseIds)
+        public static Task<string> ExportAsync(string eventFile, string name, MapType mapType, params Id<Course>[] courseIds)
+        {
+            return ExportAsync(eventFile, name, mapType, false, courseIds);
+        }
+
+        // Load an event and export courses of it as SVG files into a folder of their own, and return the folder.
+        // eventFile: the event's file, among the application's test files.
+        // name: the name of the folder within this run's.
+        // mapType: the kind of map the event is drawn on, which must load, or MapType.None for an event without one.
+        // lowerPurpleLayer: whether to draw the course in upper and lower purple, the lower above the map's layer that
+        //                   the application chooses by default, whatever the event's appearance says, so that each page
+        //                   draws the map in two parts with the course's lower layer between them.
+        // courseIds: the courses to export, Id<Course>.None for the page of all controls; none for every course of the
+        //            event, in the order the event sorts them, after its page of all controls.
+        public static async Task<string> ExportAsync(string eventFile, string name, MapType mapType, bool lowerPurpleLayer, Id<Course>[] courseIds)
         {
             RegisterServices();
             string directory = Path.Combine(Path.GetTempPath(), "svg-export-tests-" + Environment.ProcessId.ToString(System.Globalization.CultureInfo.InvariantCulture), name);
@@ -58,6 +72,12 @@ namespace Map_Svg.Tests
             Controller controller = new Controller(ui);
             Assert.IsTrue(await controller.LoadInitialFile(ApplicationTestFile(eventFile), false), "loads: " + string.Join(" ", ui.Messages));
             Assert.AreEqual(mapType, controller.MapDisplay.MapType, "the map loads: " + controller.MapFileName + " " + string.Join(" ", ui.Messages));
+            if (lowerPurpleLayer) {
+                CourseAppearance appearance = (CourseAppearance)controller.GetCourseAppearance().Clone();
+                appearance.purpleColorBlend = PurpleColorBlend.UpperLowerPurple;
+                appearance.mapLayerForLowerPurple = controller.GetDefaultLowerPurpleLayer();
+                controller.SetCourseAppearance(appearance);
+            }
             if (controller.LowerPurpleMapLayer != null)
                 controller.MapDisplay.LowerPurpleMapLayer = controller.LowerPurpleMapLayer;
 

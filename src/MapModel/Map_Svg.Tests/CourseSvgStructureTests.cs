@@ -46,15 +46,16 @@ namespace Map_Svg.Tests
         private static readonly Regex UrlReference = new Regex(@"url\(#([^)]+)\)", RegexOptions.CultureInvariant);
 
         // Export courses of an event as the baseline tests do, and walk each file the export writes.
+        // eventName: the name the event's baselines go under.
         // eventFile: the event's file, among the application's test files.
         // mapType: the kind of map the event is drawn on.
         // courses: the ids of the courses to export, or none for every course of the event and its page of all controls.
+        // lowerPurpleLayer: whether to draw the course in upper and lower purple.
         [TestCaseSource(typeof(CourseSvgBaselineTests), nameof(CourseSvgBaselineTests.Events))]
-        public async Task EveryElementTracesToItsMapAndEveryCourseObjectToItsControls(string eventFile, MapType mapType, int[] courses)
+        public async Task EveryElementTracesToItsMapAndEveryCourseObjectToItsControls(string eventName, string eventFile, MapType mapType, int[] courses, bool lowerPurpleLayer)
         {
-            string eventName = Path.GetFileNameWithoutExtension(eventFile);
             Id<Course>[] courseIds = courses.Select(id => new Id<Course>(id)).ToArray();
-            string folder = await CourseExport.ExportAsync(eventFile, "structure/" + eventName, mapType, courseIds);
+            string folder = await CourseExport.ExportAsync(eventFile, "structure/" + eventName, mapType, lowerPurpleLayer, courseIds);
 
             List<string> problems = new List<string>();
             foreach (string file in CourseExport.SvgFilesIn(folder))
