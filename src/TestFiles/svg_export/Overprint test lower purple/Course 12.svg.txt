@@ -2,18 +2,17 @@
 <style>
 @font-face{font-family:"Roboto";src:url(data:font/ttf;base64,sha256:6152bb45934d66a50b068b68be6399ada483a588d8cad8ff5fd270be085257ee)}
 text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white-space:pre}
-.a{shape-rendering:crispEdges}
-.b{fill:#ffdba3;fill:#ffdba3 icc-color(cmyk,0,.14,.4,0);fill-rule:evenodd}
-.c{mix-blend-mode:darken}
-.d{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:520;stroke-linejoin:bevel}
-.e{fill:none;stroke:#ec008c;stroke:#ec008c icc-color(cmyk,0,1,0,0);stroke-width:140;stroke-miterlimit:5}
-.f{fill:none;stroke:#ec008c;stroke:#ec008c icc-color(cmyk,0,1,0,0);stroke-width:140;stroke-linejoin:bevel}
-.g{font-size:2.228px;font-family:"Roboto";fill:#ec008c;fill:#ec008c icc-color(cmyk,0,1,0,0)}
-.h{fill:#47b756;fill:#47b756 icc-color(cmyk,.71,0,.91,0);fill-rule:evenodd}
-.i{fill:none;stroke:#ad521d;stroke:#ad521d icc-color(cmyk,0,.68,.91,.34);stroke-width:380;stroke-linecap:round;stroke-linejoin:round}
-.j{fill:none;stroke:#ad521d;stroke:#ad521d icc-color(cmyk,0,.68,.91,.34);stroke-width:380;stroke-linecap:round;stroke-linejoin:bevel}
-.k{fill:#ad521d;fill:#ad521d icc-color(cmyk,0,.68,.91,.34)}
-.l{fill:#008bcf;fill:#008bcf icc-color(cmyk,.95,.3,0,0);fill-rule:evenodd}
+.a{fill:#ffdba3;fill:#ffdba3 icc-color(cmyk,0,.14,.4,0);fill-rule:evenodd}
+.b{mix-blend-mode:darken}
+.c{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:520;stroke-linejoin:bevel}
+.d{fill:none;stroke:#ec008c;stroke:#ec008c icc-color(cmyk,0,1,0,0);stroke-width:140;stroke-miterlimit:5}
+.e{fill:none;stroke:#ec008c;stroke:#ec008c icc-color(cmyk,0,1,0,0);stroke-width:140;stroke-linejoin:bevel}
+.f{font-size:2.228px;font-family:"Roboto";fill:#ec008c;fill:#ec008c icc-color(cmyk,0,1,0,0)}
+.g{fill:#47b756;fill:#47b756 icc-color(cmyk,.71,0,.91,0);fill-rule:evenodd}
+.h{fill:none;stroke:#ad521d;stroke:#ad521d icc-color(cmyk,0,.68,.91,.34);stroke-width:380;stroke-linecap:round;stroke-linejoin:round}
+.i{fill:none;stroke:#ad521d;stroke:#ad521d icc-color(cmyk,0,.68,.91,.34);stroke-width:380;stroke-linecap:round;stroke-linejoin:bevel}
+.j{fill:#ad521d;fill:#ad521d icc-color(cmyk,0,.68,.91,.34)}
+.k{fill:#008bcf;fill:#008bcf icc-color(cmyk,.95,.3,0,0);fill-rule:evenodd}
 </style>
 <metadata>
 <npp:document version="1">
@@ -60,70 +59,70 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <path d="M-54497-39226H52183v81280H-54497z"/>
 </clipPath>
 <g id="a">
-<g class="a" data-m="1">
+<g data-m="1">
 <g data-c="6">
 <g data-s="1">
-<path class="b" data-o="1" d="M-9530 2610l370-4790 15820 640-130 2280-15240 1510-820 360z"/>
+<path class="a" data-o="1" d="M-9530 2610l370-4790 15820 640-130 2280-15240 1510-820 360z"/>
 </g>
 </g>
 <g data-c="15">
-<g class="c" data-s="2">
-<path class="d" data-o="2" d="M-6230 970 4190 2650"/>
+<g class="b" data-s="2">
+<path class="c" data-o="2" d="M-6230 970 4190 2650"/>
 </g>
 </g>
 </g>
 </g>
 <g id="b">
 <g data-m="2">
-<g class="a" data-c="0">
+<g data-c="0">
 <g transform="translate(-6088-1411)rotate(-42.64)" data-s="1">
-<path class="e" data-o="3" d="M0 1616 1400-808h-2800L0 1616z"/>
+<path class="d" data-o="3" d="M0 1616 1400-808h-2800L0 1616z"/>
 </g>
 <g data-s="2">
-<path class="f" data-o="4" d="M-4993-222l2710 2942"/>
-<path class="f" data-o="5" d="M-680 2793l4511-4081"/>
+<path class="e" data-o="4" d="M-4993-222l2710 2942"/>
+<path class="e" data-o="5" d="M-680 2793l4511-4081"/>
 </g>
 <g data-s="3">
-<circle class="e" data-o="6" cx="-1518" cy="3551" r="1130"/>
+<circle class="d" data-o="6" cx="-1518" cy="3551" r="1130"/>
 </g>
 <g transform="translate(4817-2180)" data-s="4">
-<circle class="e" data-o="7" r="930"/>
-<circle class="e" data-o="7" r="1330"/>
+<circle class="d" data-o="7" r="930"/>
+<circle class="d" data-o="7" r="1330"/>
 </g>
 <g transform="matrix(1 0 0-1-2500 7598)" data-s="5">
-<text class="g" data-o="8" transform="translate(0 2117)scale(1000)">1</text>
+<text class="f" data-o="8" transform="translate(0 2117)scale(1000)">1</text>
 </g>
 </g>
 </g>
 </g>
 <g id="c">
-<g class="a" data-m="1">
+<g data-m="1">
 <g data-c="17">
-<g class="c" data-s="3">
-<path class="h" data-o="9" d="M1440 2340c-1480-270-4180 790-3700-630 290-880-140-2520 730-2190C-300-10 1740-610 1560 700l-120 1640z"/>
+<g class="b" data-s="3">
+<path class="g" data-o="9" d="M1440 2340c-1480-270-4180 790-3700-630 290-880-140-2520 730-2190C-300-10 1740-610 1560 700l-120 1640z"/>
 </g>
 </g>
-<g class="c" data-c="20">
+<g class="b" data-c="20">
 <g data-s="4">
-<path class="i" data-o="10" d="M-2750 1800C-4160-70-3780-2760-1910-4170-50-5580 2640-5210 4050-3340s1040 4560-830 5970-4560 1030-5970-830z"/>
+<path class="h" data-o="10" d="M-2750 1800C-4160-70-3780-2760-1910-4170-50-5580 2640-5210 4050-3340s1040 4560-830 5970-4560 1030-5970-830z"/>
 </g>
 <g data-s="5">
-<path class="j" data-o="11" d="M-492 2814 72-4114"/>
-<path class="k" data-o="11" d="M-580 3890l-82-548-20-544 379 31-107 533z"/>
-<path class="k" data-o="11" d="M160-5190-10-4662l-107 533 379 31-20-544z"/>
+<path class="i" data-o="11" d="M-492 2814 72-4114"/>
+<path class="j" data-o="11" d="M-580 3890l-82-548-20-544 379 31-107 533z"/>
+<path class="j" data-o="11" d="M160-5190-10-4662l-107 533 379 31-20-544z"/>
 </g>
 </g>
 <g data-c="22">
 <g data-s="6">
-<path class="l" data-o="12" d="M-1620 3090c-580 480-1550 260-2150-470-600-720-630-1710-50-2190 570-470 1540-260 2130 460 610 740 640 1730 70 2200z"/>
+<path class="k" data-o="12" d="M-1620 3090c-580 480-1550 260-2150-470-600-720-630-1710-50-2190 570-470 1540-260 2130 460 610 740 640 1730 70 2200z"/>
 </g>
 <g data-s="7">
-<path class="l" data-o="13" d="M-3170-1880c700-310 1520 10 1830 720 310 690-10 1520-710 1830-710 310-1530-20-1830-710-310-710 0-1530 710-1840z"/>
+<path class="k" data-o="13" d="M-3170-1880c700-310 1520 10 1830 720 310 690-10 1520-710 1830-710 310-1530-20-1830-710-310-710 0-1530 710-1840z"/>
 </g>
 </g>
 <g data-c="23">
-<g class="c" data-s="8">
-<path class="l" data-o="14" d="M1000 3770c0-480-1230-1130-890-1470C630 1760 1620 350 2280 740c610 360 1960 850 1550 1430L1000 3770z"/>
+<g class="b" data-s="8">
+<path class="k" data-o="14" d="M1000 3770c0-480-1230-1130-890-1470C630 1760 1620 350 2280 740c610 360 1960 850 1550 1430L1000 3770z"/>
 </g>
 </g>
 </g>

@@ -458,6 +458,18 @@ namespace PurplePen
         // Are we printing?
         public bool Printing { get; set; }
 
+        // Whether drawing for printing keeps the anti-aliasing of drawing for the screen: the map anti-aliased as
+        // AntiAlias says, and the course always. Off by default, so that printing turns anti-aliasing off. Printing
+        // still draws without pattern bitmaps.
+        public bool AntiAliasWhenPrinting { get; set; }
+
+        // Whether drawing turns anti-aliasing off because it is for printing: Printing is on and AntiAliasWhenPrinting
+        // is off.
+        private bool PrintingWithoutAntiAliasing
+        {
+            get { return Printing && !AntiAliasWhenPrinting; }
+        }
+
         // Anti-alias the map display?
         public bool ShowSymbolBounds
         {
@@ -826,7 +838,7 @@ namespace PurplePen
                 case MapType.OCAD:
                     saveIntensity = grTarget.Intensity;
                     grTarget.Intensity = mapIntensity;
-                    grTarget.PushAntiAliasing(Printing ? false : antialiased);       // don't anti-alias on printer
+                    grTarget.PushAntiAliasing(PrintingWithoutAntiAliasing ? false : antialiased);       // don't anti-alias on printer
 
                     if (LowerPurpleMapLayer != null) {
                         // Only draw the part below lower purple.
@@ -841,7 +853,7 @@ namespace PurplePen
 
                 case MapType.Bitmap:
                 case MapType.PDF:
-                    grTarget.PushAntiAliasing(Printing ? false : antialiased);       // don't anti-alias on printer
+                    grTarget.PushAntiAliasing(PrintingWithoutAntiAliasing ? false : antialiased);       // don't anti-alias on printer
                     DrawBitmapMap(grTarget, visRect, renderOptions.minResolution);
                     grTarget.PopAntiAliasing();
                     break;
@@ -867,7 +879,7 @@ namespace PurplePen
                     saveIntensity = grTarget.Intensity;
                     grTarget.Intensity = mapIntensity;
 
-                    grTarget.PushAntiAliasing(Printing ? false : antialiased);       // don't anti-alias on printer
+                    grTarget.PushAntiAliasing(PrintingWithoutAntiAliasing ? false : antialiased);       // don't anti-alias on printer
 
                     renderOptions.colorBeginDrawExclusive = LowerPurpleMapLayer;
                     renderOptions.colorEndDrawInclusive = null;
@@ -891,10 +903,10 @@ namespace PurplePen
 
         private void DrawCourseMap(IGraphicsTarget grTargetCourses, RectangleF visRect, RenderOptions renderOptions)
         {
-            if (Printing)
+            if (PrintingWithoutAntiAliasing)
                 grTargetCourses.PushAntiAliasing(false);
             else
-                grTargetCourses.PushAntiAliasing(true);   // always anti-alias the course unless printing
+                grTargetCourses.PushAntiAliasing(true);   // always anti-alias the course unless printing without anti-aliasing
 
             // Always turn blending on.
             bool saveBlendOverprintedColors = renderOptions.blendOverprintedColors;

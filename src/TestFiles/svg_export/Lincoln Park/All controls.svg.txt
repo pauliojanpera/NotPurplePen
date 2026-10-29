@@ -2,10 +2,8 @@
 <style>
 @font-face{font-family:"Roboto Condensed";font-weight:700;src:url(data:font/ttf;base64,sha256:77c520a088da92e336ec8106a68c52295b8ad9a1e621672e9e4bff41595d4c9e)}
 text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white-space:pre}
-.a{shape-rendering:crispEdges}
-.b{image-rendering:optimizeSpeed;image-rendering:pixelated}
-.c{fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-miterlimit:5}
-.d{font-size:4.18px;font-family:"Roboto Condensed";font-weight:700;fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)}
+.a{fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-miterlimit:5}
+.b{font-size:4.18px;font-family:"Roboto Condensed";font-weight:700;fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)}
 </style>
 <metadata>
 <npp:document version="1">
@@ -37,34 +35,34 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <path d="M-6477-13462h215900v279400H-6477z"/>
 </clipPath>
 <g id="a">
-<g class="a" transform="matrix(.0846667 0 0-.0846667 0 252476)" data-m="1">
-<use class="b" xlink:href="#b" transform="scale(1000)"/>
+<g transform="matrix(.0846667 0 0-.0846667 0 252476)" data-m="1">
+<use xlink:href="#b" transform="scale(1000)"/>
 </g>
 </g>
 <g id="c">
 <g data-m="2">
-<g class="a" data-c="2">
+<g data-c="2">
 <g transform="translate(140207 57447)" data-s="1">
-<path class="c" data-o="1" d="M0 4041l3500-6062h-7000L0 4041z"/>
+<path class="a" data-o="1" d="M0 4041l3500-6062h-7000L0 4041z"/>
 </g>
 <g data-s="2">
 <g transform="translate(127508 110638)">
-<path class="c" data-o="2" d="M2449-1407a2825 2825 0 1 1-4467-570"/>
+<path class="a" data-o="2" d="M2449-1407a2825 2825 0 1 1-4467-570"/>
 </g>
 <g transform="translate(69602 122359)">
-<path class="c" data-o="3" d="M110 2823a2825 2825 0 1 1 2267-4349"/>
+<path class="a" data-o="3" d="M110 2823a2825 2825 0 1 1 2267-4349"/>
 </g>
 </g>
 <g transform="translate(134321 35896)" data-s="3">
-<path class="c" data-o="4" d="M-1462-1808a2325 2325 0 1 1 80 3678"/>
-<path class="c" data-o="4" d="M-2091-2585a3325 3325 0 1 1 114 5259"/>
+<path class="a" data-o="4" d="M-1462-1808a2325 2325 0 1 1 80 3678"/>
+<path class="a" data-o="4" d="M-2091-2585a3325 3325 0 1 1 114 5259"/>
 </g>
 <g data-s="4">
 <g transform="matrix(1 0 0-1 130487 116087)">
-<text class="d" data-o="5" transform="translate(0 3972)scale(1000)" x="0 2.114">31</text>
+<text class="b" data-o="5" transform="translate(0 3972)scale(1000)" x="0 2.114">31</text>
 </g>
 <g transform="matrix(1 0 0-1 72581 127808)">
-<text class="d" data-o="6" transform="translate(0 3972)scale(1000)" x="0 2.114">32</text>
+<text class="b" data-o="6" transform="translate(0 3972)scale(1000)" x="0 2.114">32</text>
 </g>
 </g>
 </g>

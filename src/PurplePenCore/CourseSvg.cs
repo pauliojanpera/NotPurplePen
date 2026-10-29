@@ -49,10 +49,13 @@ namespace PurplePen
             this.settings = settings;
             this.appearance = appearance;
 
-            // Draw as PDF export draws: the map at full intensity, as for printing, in the chosen color model.
+            // Draw as PDF export draws: the map at full intensity, as for printing, so without pattern bitmaps, in the
+            // chosen color model; but anti-aliased, with a bitmap map scaled smoothly. Printing alone turns anti-aliasing
+            // off, which the PDF target ignores and the SVG target writes as crisp edges (D-9).
             mapDisplay.MapIntensity = 1.0F;
-            mapDisplay.AntiAlias = false;
+            mapDisplay.AntiAlias = true;
             mapDisplay.Printing = true;
+            mapDisplay.AntiAliasWhenPrinting = true;
             mapDisplay.ColorModel = settings.ColorModel;
             mapDisplay.RecordsCourseObjects = true;
             if (settings.DontPrintBaseMap)
