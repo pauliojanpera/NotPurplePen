@@ -193,7 +193,7 @@ jobs:
   # anything to run -- the runtime, the runtime library, the fonts -- happens on
   # all of them at once anyway.
   test:
-    name: Test (${{ matrix.name }})
+    name: Test (${{ matrix.name }} ${{ matrix.copy }})
     needs: decide
     if: needs.decide.outputs.run == 'true'
     runs-on: windows-11-arm
@@ -211,24 +211,8 @@ jobs:
       # that the SVG export comes out the same on both; its other tests draw in
       # Chromium and belong to the loop.
       matrix:
+        copy: [1, 2, 3, 4, 5, 6, 7, 8]
         include:
-        - id: purplepen
-          name: PurplePen
-          assemblies: PurplePen_Tests/bin/Debug/net10.0-windows/PurplePen_Tests.dll
-        - id: pdf
-          name: PDF
-          assemblies: MapModel/Map_PDF.Tests/bin/Debug/net10.0/Map_PDF.Tests.dll
-        - id: mapmodel
-          name: MapModel
-          assemblies: MapModel/Test_MapModel/bin/Debug/net10.0-windows/Test_MapModel.dll
-        - id: wpf
-          name: WPF
-          assemblies: >-
-            MapModel/Test_MapWPF/bin/Debug/net10.0-windows/TestProject1.dll
-            PdfConverter.Tests/bin/Debug/net10.0-windows/PdfConverter.Tests.dll
-        - id: projections
-          name: projections
-          assemblies: DotSpatialProjectionsLite/DotSpatial.Projections.Tests/bin/Debug/net10.0/DotSpatial.Projections.Tests.dll
         - id: skia
           name: Skia
           assemblies: >-
@@ -299,6 +283,24 @@ jobs:
     # assembled elsewhere either is the one the baselines were recorded with or
     # says which file it differs in. The store is this project's own to put
     # right, so a difference in it stops every run.
+    - name: Probe the fonts before the install
+      working-directory: ${{ github.workspace }}
+      shell: pwsh
+      run: |
+        "now $((Get-Date).ToUniversalTime().ToString('HH:mm:ss.fff'))"
+        $declared = Get-Content .github/ci/fonts.json -Raw | ConvertFrom-Json
+        $fontDir = Join-Path $env:WINDIR 'Fonts'
+        "store files already in the fonts folder: $(@($declared.files | Where-Object { Test-Path (Join-Path $fontDir $_.file) } | ForEach-Object { $_.file }) -join ', ')"
+        Get-Service FontCache, FontCache3.0.0.0 -ErrorAction SilentlyContinue | ForEach-Object { "service $($_.Name): $($_.Status) start=$($_.StartType)" }
+        Get-CimInstance Win32_Service -Filter "Name='FontCache'" -ErrorAction SilentlyContinue | ForEach-Object { "FontCache process $($_.ProcessId) state $($_.State)" }
+        $registry = Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts'
+        $names = @($registry.PSObject.Properties | Where-Object { $_.Name -match 'Narrow|Lucida|Baskerville|Antiqua|Bodoni|Forte|Cooper' } | ForEach-Object { "$($_.Name) = $($_.Value)" })
+        "registry entries of store families ($($names.Count)): $($names -join '; ')"
+        $user = Get-ItemProperty 'HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts' -ErrorAction SilentlyContinue
+        if ($user) { "per-user font entries: $(@($user.PSObject.Properties | Where-Object { $_.Name -notmatch '^PS' } | ForEach-Object { $_.Name }) -join '; ')" }
+        Get-ChildItem "$env:WINDIR\ServiceProfiles\LocalService\AppData\Local\FontCache" -Force -ErrorAction SilentlyContinue | ForEach-Object { "cache file $($_.Name) $($_.Length) $($_.LastWriteTimeUtc.ToString('HH:mm:ss'))" }
+        Get-ChildItem "$env:WINDIR\System32\FNTCACHE.DAT" -Force -ErrorAction SilentlyContinue | ForEach-Object { "cache file $($_.Name) $($_.Length) $($_.LastWriteTimeUtc.ToString('HH:mm:ss'))" }
+
     - name: Check the machine and install the fonts it lacks
       working-directory: ${{ github.workspace }}
       shell: pwsh
@@ -555,6 +557,21 @@ jobs:
         Start-Service FontCache -ErrorAction SilentlyContinue
         "Installed $($declared.files.Count) fonts in $([int]((Get-Date) - $started).TotalSeconds) s"
 
+    - name: Probe the fonts after the install
+      working-directory: ${{ github.workspace }}
+      shell: pwsh
+      run: |
+        "now $((Get-Date).ToUniversalTime().ToString('HH:mm:ss.fff'))"
+        Get-Service FontCache, FontCache3.0.0.0 -ErrorAction SilentlyContinue | ForEach-Object { "service $($_.Name): $($_.Status) start=$($_.StartType)" }
+        Get-CimInstance Win32_Service -Filter "Name='FontCache'" -ErrorAction SilentlyContinue | ForEach-Object { "FontCache process $($_.ProcessId) state $($_.State)" }
+        $registry = Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts'
+        $names = @($registry.PSObject.Properties | Where-Object { $_.Name -match 'Narrow|Lucida|Baskerville|Antiqua|Bodoni|Forte|Cooper' } | ForEach-Object { "$($_.Name) = $($_.Value)" })
+        "registry entries of store families ($($names.Count)): $($names -join '; ')"
+        $user = Get-ItemProperty 'HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts' -ErrorAction SilentlyContinue
+        if ($user) { "per-user font entries: $(@($user.PSObject.Properties | Where-Object { $_.Name -notmatch '^PS' } | ForEach-Object { $_.Name }) -join '; ')" }
+        Get-ChildItem "$env:WINDIR\ServiceProfiles\LocalService\AppData\Local\FontCache" -Force -ErrorAction SilentlyContinue | ForEach-Object { "cache file $($_.Name) $($_.Length) $($_.LastWriteTimeUtc.ToString('HH:mm:ss'))" }
+        Get-ChildItem "$env:WINDIR\System32\FNTCACHE.DAT" -Force -ErrorAction SilentlyContinue | ForEach-Object { "cache file $($_.Name) $($_.Length) $($_.LastWriteTimeUtc.ToString('HH:mm:ss'))" }
+
     # The exported-XML baselines forgive their timestamps only in this zone's shape.
     - name: Set the time zone the baselines were recorded in
       shell: pwsh
@@ -588,6 +605,21 @@ jobs:
       run: |
         & gh run download $env:GITHUB_RUN_ID --name build --dir src
         if ($LASTEXITCODE -ne 0) { throw 'The build could not be fetched.' }
+
+    - name: Probe the fonts before the tests
+      working-directory: ${{ github.workspace }}
+      shell: pwsh
+      run: |
+        "now $((Get-Date).ToUniversalTime().ToString('HH:mm:ss.fff'))"
+        Get-Service FontCache, FontCache3.0.0.0 -ErrorAction SilentlyContinue | ForEach-Object { "service $($_.Name): $($_.Status) start=$($_.StartType)" }
+        Get-CimInstance Win32_Service -Filter "Name='FontCache'" -ErrorAction SilentlyContinue | ForEach-Object { "FontCache process $($_.ProcessId) state $($_.State)" }
+        $registry = Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts'
+        $names = @($registry.PSObject.Properties | Where-Object { $_.Name -match 'Narrow|Lucida|Baskerville|Antiqua|Bodoni|Forte|Cooper' } | ForEach-Object { "$($_.Name) = $($_.Value)" })
+        "registry entries of store families ($($names.Count)): $($names -join '; ')"
+        $user = Get-ItemProperty 'HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts' -ErrorAction SilentlyContinue
+        if ($user) { "per-user font entries: $(@($user.PSObject.Properties | Where-Object { $_.Name -notmatch '^PS' } | ForEach-Object { $_.Name }) -join '; ')" }
+        Get-ChildItem "$env:WINDIR\ServiceProfiles\LocalService\AppData\Local\FontCache" -Force -ErrorAction SilentlyContinue | ForEach-Object { "cache file $($_.Name) $($_.Length) $($_.LastWriteTimeUtc.ToString('HH:mm:ss'))" }
+        Get-ChildItem "$env:WINDIR\System32\FNTCACHE.DAT" -Force -ErrorAction SilentlyContinue | ForEach-Object { "cache file $($_.Name) $($_.Length) $($_.LastWriteTimeUtc.ToString('HH:mm:ss'))" }
 
     # DotSpatial.Projections checks itself against the real proj.4 library, whose
     # committed x86 and x64 builds both import MSVCR100.dll.
@@ -651,6 +683,7 @@ jobs:
               <TEST_ALT_BASELINE_ROOT>$altRoot</TEST_ALT_BASELINE_ROOT>
               <TEST_ALT_BASELINE_LOG>$altLog</TEST_ALT_BASELINE_LOG>
               <SVG_LOOP_RESULTS>$svgResults</SVG_LOOP_RESULTS>
+              <FONT_PROBE_DIR>$svgResults\font-probe</FONT_PROBE_DIR>
             </EnvironmentVariables>
           </RunConfiguration>
           <InProcDataCollectionRunSettings>
@@ -718,11 +751,32 @@ jobs:
             exit 1
         }
 
+    - name: Show the font probe
+      if: always()
+      working-directory: ${{ github.workspace }}
+      shell: pwsh
+      run: |
+        "now $((Get-Date).ToUniversalTime().ToString('HH:mm:ss.fff'))"
+        Get-Service FontCache, FontCache3.0.0.0 -ErrorAction SilentlyContinue | ForEach-Object { "service $($_.Name): $($_.Status) start=$($_.StartType)" }
+        Get-CimInstance Win32_Service -Filter "Name='FontCache'" -ErrorAction SilentlyContinue | ForEach-Object { "FontCache process $($_.ProcessId) state $($_.State)" }
+        $registry = Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts'
+        $names = @($registry.PSObject.Properties | Where-Object { $_.Name -match 'Narrow|Lucida|Baskerville|Antiqua|Bodoni|Forte|Cooper' } | ForEach-Object { "$($_.Name) = $($_.Value)" })
+        "registry entries of store families ($($names.Count)): $($names -join '; ')"
+        $user = Get-ItemProperty 'HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts' -ErrorAction SilentlyContinue
+        if ($user) { "per-user font entries: $(@($user.PSObject.Properties | Where-Object { $_.Name -notmatch '^PS' } | ForEach-Object { $_.Name }) -join '; ')" }
+        Get-ChildItem "$env:WINDIR\ServiceProfiles\LocalService\AppData\Local\FontCache" -Force -ErrorAction SilentlyContinue | ForEach-Object { "cache file $($_.Name) $($_.Length) $($_.LastWriteTimeUtc.ToString('HH:mm:ss'))" }
+        Get-ChildItem "$env:WINDIR\System32\FNTCACHE.DAT" -Force -ErrorAction SilentlyContinue | ForEach-Object { "cache file $($_.Name) $($_.Length) $($_.LastWriteTimeUtc.ToString('HH:mm:ss'))" }
+        foreach ($log in Get-ChildItem src/svg-loop-results/font-probe -Filter *.log -ErrorAction SilentlyContinue) {
+            ""
+            "===== $($log.Name)"
+            Get-Content $log.FullName
+        }
+
     - name: Upload rendering differences
       if: always()
       uses: actions/upload-artifact@v4
       with:
-        name: rendering-differences-${{ matrix.id }}
+        name: rendering-differences-${{ matrix.id }}-${{ matrix.copy }}
         path: |
           src/**/*_actual.png
           src/**/*_diff.png
