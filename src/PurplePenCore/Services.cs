@@ -26,6 +26,7 @@ namespace PurplePen
         public static IBitmapGraphicsTargetProvider BitmapGraphicsTargetProvider => serviceProvider.GetRequiredService<IBitmapGraphicsTargetProvider>();
         public static IFontLoader FontLoader => serviceProvider.GetRequiredService<IFontLoader>();
         public static ITextMetrics TextMetricsProvider => serviceProvider.GetRequiredService<ITextMetrics>();
+        public static IFontSubsetProvider FontSubsetProvider => serviceProvider.GetRequiredService<IFontSubsetProvider>();
         public static IFileLoaderProvider FileLoaderProvider => serviceProvider.GetRequiredService<IFileLoaderProvider>();
         public static IPdfLoadingStatus PdfLoadingUI => serviceProvider.GetRequiredService<IPdfLoadingStatus>();
         public static IPdfWriter PdfWriter => serviceProvider.GetRequiredService<IPdfWriter>();
