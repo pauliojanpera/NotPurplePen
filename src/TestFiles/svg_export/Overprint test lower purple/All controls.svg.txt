@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="279.4mm" height="215.9mm" viewBox="0 0 279.4 215.9" xml:lang="und">
+<style>
+@font-face{font-family:"Roboto Condensed";font-weight:700;src:url(data:font/ttf;base64,sha256:f7926061835aeb1604c61b49417e2e47672beaa5740bb66aeed268b29f2225ff)}
+text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white-space:pre}
+.a{fill:#ffdba3;fill:#ffdba3 icc-color(cmyk,0,.14,.4,0);fill-rule:evenodd}
+.b{mix-blend-mode:darken}
+.c{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:520;stroke-linejoin:bevel}
+.d{fill:none;stroke:#ec008c;stroke:#ec008c icc-color(cmyk,0,1,0,0);stroke-width:140;stroke-miterlimit:5}
+.e{font-size:1.672px;font-family:"Roboto Condensed";font-weight:700;fill:#ec008c;fill:#ec008c icc-color(cmyk,0,1,0,0)}
+.f{fill:#47b756;fill:#47b756 icc-color(cmyk,.71,0,.91,0);fill-rule:evenodd}
+.g{fill:none;stroke:#ad521d;stroke:#ad521d icc-color(cmyk,0,.68,.91,.34);stroke-width:380;stroke-linecap:round;stroke-linejoin:round}
+.h{fill:none;stroke:#ad521d;stroke:#ad521d icc-color(cmyk,0,.68,.91,.34);stroke-width:380;stroke-linecap:round;stroke-linejoin:bevel}
+.i{fill:#ad521d;fill:#ad521d icc-color(cmyk,0,.68,.91,.34)}
+.j{fill:#008bcf;fill:#008bcf icc-color(cmyk,.95,.3,0,0);fill-rule:evenodd}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="overprint.ocd">
+<npp:color position="6" name="Yellow 50%" cmyk="0,.14,.4,0"/>
+<npp:color position="15" name="Black" cmyk="0,0,0,1" overprint="1"/>
+<npp:color position="17" name="Green" cmyk=".71,0,.91,0" overprint="1"/>
+<npp:color position="20" name="Brown" cmyk="0,.68,.91,.34" overprint="1"/>
+<npp:color position="22" name="Blue No Overprint" cmyk=".95,.3,0,0"/>
+<npp:color position="23" name="Blue" cmyk=".95,.3,0,0" overprint="1"/>
+<npp:symbol n="1" id="403.0" name="Rough open land" colors="6"/>
+<npp:symbol n="2" id="201.1" name="Impassable cliff" colors="15"/>
+<npp:symbol n="3" id="410.0" name="Vegetation: very diffic. to run" colors="17"/>
+<npp:symbol n="4" id="102.0" name="Index Contour" colors="20"/>
+<npp:symbol n="5" id="109.0" name="Erosion gully" colors="20"/>
+<npp:symbol n="6" id="301.0" name="Lake" colors="22"/>
+<npp:symbol n="7" id="302.1" name="Pond" colors="22"/>
+<npp:symbol n="8" id="302.0" name="Pond" colors="23"/>
+</npp:map>
+<npp:map n="2" label="All controls">
+<npp:color position="0" name="Lower purple" cmyk="0,1,0,0"/>
+<npp:symbol n="1" id="701" name="Start" colors="0"/>
+<npp:symbol n="2" id="702" name="Control point" colors="0"/>
+<npp:symbol n="3" id="706" name="Finish" colors="0"/>
+<npp:symbol n="4" id="720.0" name="Control code" colors="0"/>
+<npp:course name="All controls" scale="4000">
+<npp:control n="1" kind="start" x="-6088" y="-1411"/>
+<npp:control n="2" code="31" kind="control" x="-1518" y="3551"/>
+<npp:control n="3" kind="finish" x="4817" y="-2180"/>
+</npp:course>
+<npp:object n="3" kind="start" controls="1"/>
+<npp:object n="4" kind="control" controls="2"/>
+<npp:object n="5" kind="finish" controls="3"/>
+<npp:object n="6" kind="code" controls="2"/>
+</npp:map>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="e">
+<path d="M-54497-39974H52183v81280H-54497z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g data-c="6">
+<g data-s="1">
+<path class="a" data-o="1" d="M-9530 2610l370-4790 15820 640-130 2280-15240 1510-820 360z"/>
+</g>
+</g>
+<g data-c="15">
+<g class="b" data-s="2">
+<path class="c" data-o="2" d="M-6230 970 4190 2650"/>
+</g>
+</g>
+</g>
+</g>
+<g id="b">
+<g data-m="2">
+<g data-c="0">
+<g transform="translate(-6088-1411)" data-s="1">
+<path class="d" data-o="3" d="M0 1616 1400-808h-2800L0 1616z"/>
+</g>
+<g data-s="2">
+<circle class="d" data-o="4" cx="-1518" cy="3551" r="1130"/>
+</g>
+<g transform="translate(4817-2180)" data-s="3">
+<circle class="d" data-o="5" r="930"/>
+<circle class="d" data-o="5" r="1330"/>
+</g>
+<g transform="matrix(1 0 0-1-599 6102)" data-s="4">
+<text class="e" data-o="6" transform="translate(0 1589)scale(1000)" x="0 .846">31</text>
+</g>
+</g>
+</g>
+</g>
+<g id="c">
+<g data-m="1">
+<g data-c="17">
+<g class="b" data-s="3">
+<path class="f" data-o="7" d="M1440 2340c-1480-270-4180 790-3700-630 290-880-140-2520 730-2190C-300-10 1740-610 1560 700l-120 1640z"/>
+</g>
+</g>
+<g class="b" data-c="20">
+<g data-s="4">
+<path class="g" data-o="8" d="M-2750 1800C-4160-70-3780-2760-1910-4170-50-5580 2640-5210 4050-3340s1040 4560-830 5970-4560 1030-5970-830z"/>
+</g>
+<g data-s="5">
+<path class="h" data-o="9" d="M-492 2814 72-4114"/>
+<path class="i" data-o="9" d="M-580 3890l-82-548-20-544 379 31-107 533z"/>
+<path class="i" data-o="9" d="M160-5190-10-4662l-107 533 379 31-20-544z"/>
+</g>
+</g>
+<g data-c="22">
+<g data-s="6">
+<path class="j" data-o="10" d="M-1620 3090c-580 480-1550 260-2150-470-600-720-630-1710-50-2190 570-470 1540-260 2130 460 610 740 640 1730 70 2200z"/>
+</g>
+<g data-s="7">
+<path class="j" data-o="11" d="M-3170-1880c700-310 1520 10 1830 720 310 690-10 1520-710 1830-710 310-1530-20-1830-710-310-710 0-1530 710-1840z"/>
+</g>
+</g>
+<g data-c="23">
+<g class="b" data-s="8">
+<path class="j" data-o="12" d="M1000 3770c0-480-1230-1130-890-1470C630 1760 1620 350 2280 740c610 360 1960 850 1550 1430L1000 3770z"/>
+</g>
+</g>
+</g>
+</g>
+<g id="d">
+</g>
+</defs>
+<g transform="matrix(.0025 0 0-.0025 142.591 109.615)" clip-path="url(#e)">
+<use xlink:href="#a"/>
+<use xlink:href="#b"/>
+<use xlink:href="#c"/>
+<use xlink:href="#d"/>
+</g>
+</svg>
