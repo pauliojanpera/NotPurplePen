@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="279.4mm" height="215.9mm" viewBox="0 0 279.4 215.9" xml:lang="und">
+<style>
+@font-face{font-family:"Roboto Condensed";font-weight:700;src:url(data:font/ttf;base64,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)}
+text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white-space:pre}
+.a{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,1,1,1,1);stroke-width:100;stroke-linejoin:bevel}
+.b{fill:none;stroke:#b41d8e;stroke:#b41d8e icc-color(cmyk,.3,1,0,0);stroke-width:350;stroke-miterlimit:5}
+.c{font-size:4.18px;font-family:"Roboto Condensed";font-weight:700;fill:#b41d8e;fill:#b41d8e icc-color(cmyk,.3,1,0,0)}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="testproj2.ocd">
+<npp:georeference transform="translate(9000 7000)rotate(-15.5)scale(.015)" epsg="27700" proj4="+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +towgs84=446.448,-125.157,542.06,0.15,0.247,0.842,-20.489 +units=m +no_defs" ocad-grid-zone="5000"/>
+<npp:color position="30" name="All color separations" cmyk="1,1,1,1"/>
+<npp:symbol n="1" id="602.0" name="Registration mark" colors="30"/>
+</npp:map>
+<npp:map n="2" label="All controls">
+<npp:color position="2" name="Lower purple" cmyk=".3,1,0,0"/>
+<npp:symbol n="1" id="702" name="Control point" colors="2"/>
+<npp:symbol n="2" id="720.0" name="Control code" colors="2"/>
+<npp:course name="All controls" scale="15000">
+<npp:control n="1" code="31" kind="control" x="-34752" y="6089"/>
+<npp:control n="2" code="32" kind="control" x="-2914" y="26873"/>
+<npp:control n="3" code="33" kind="control" x="11965" y="10563"/>
+<npp:control n="4" code="34" kind="control" x="47246" y="-11433"/>
+<npp:control n="5" code="35" kind="control" x="-17475" y="-29757"/>
+<npp:control n="6" code="36" kind="control" x="12686" y="-18480"/>
+</npp:course>
+<npp:object n="7" kind="control" controls="1"/>
+<npp:object n="8" kind="control" controls="2"/>
+<npp:object n="9" kind="control" controls="3"/>
+<npp:object n="10" kind="control" controls="4"/>
+<npp:object n="11" kind="control" controls="5"/>
+<npp:object n="12" kind="control" controls="6"/>
+<npp:object n="13" kind="code" controls="1"/>
+<npp:object n="14" kind="code" controls="2"/>
+<npp:object n="15" kind="code" controls="3"/>
+<npp:object n="16" kind="code" controls="4"/>
+<npp:object n="17" kind="code" controls="5"/>
+<npp:object n="18" kind="code" controls="6"/>
+</npp:map>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="c">
+<path d="M-124999-101818h266700v203200h-266700z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g data-c="30">
+<g data-s="1">
+<g transform="translate(-34760 6080)">
+<path class="a" data-o="1" d="M-2000 0h4000"/>
+<path class="a" data-o="1" d="M0-2000v4000"/>
+</g>
+<g transform="translate(-2920 26880)">
+<path class="a" data-o="2" d="M-2000 0h4000"/>
+<path class="a" data-o="2" d="M0-2000v4000"/>
+</g>
+<g transform="translate(11960 10560)">
+<path class="a" data-o="3" d="M-2000 0h4000"/>
+<path class="a" data-o="3" d="M0-2000v4000"/>
+</g>
+<g transform="translate(47240-11440)">
+<path class="a" data-o="4" d="M-2000 0h4000"/>
+<path class="a" data-o="4" d="M0-2000v4000"/>
+</g>
+<g transform="translate(-17480-29760)">
+<path class="a" data-o="5" d="M-2000 0h4000"/>
+<path class="a" data-o="5" d="M0-2000v4000"/>
+</g>
+<g transform="translate(12680-18480)">
+<path class="a" data-o="6" d="M-2000 0h4000"/>
+<path class="a" data-o="6" d="M0-2000v4000"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+<g id="b">
+<g data-m="2">
+<g data-c="2">
+<g data-s="1">
+<circle class="b" data-o="7" cx="-34752" cy="6089" r="2825"/>
+<circle class="b" data-o="8" cx="-2914" cy="26873" r="2825"/>
+<circle class="b" data-o="9" cx="11965" cy="10563" r="2825"/>
+<circle class="b" data-o="10" cx="47246" cy="-11433" r="2825"/>
+<circle class="b" data-o="11" cx="-17475" cy="-29757" r="2825"/>
+<circle class="b" data-o="12" cx="12686" cy="-18480" r="2825"/>
+</g>
+<g data-s="2">
+<g transform="matrix(1 0 0-1-31773 11538)">
+<text class="c" data-o="13" transform="translate(0 3972)scale(1000)" x="0 2.114">31</text>
+</g>
+<g transform="matrix(1 0 0-1 65 32322)">
+<text class="c" data-o="14" transform="translate(0 3972)scale(1000)" x="0 2.114">32</text>
+</g>
+<g transform="matrix(1 0 0-1 14944 16012)">
+<text class="c" data-o="15" transform="translate(0 3972)scale(1000)" x="0 2.114">33</text>
+</g>
+<g transform="matrix(1 0 0-1 50224-5984)">
+<text class="c" data-o="16" transform="translate(0 3972)scale(1000)" x="0 2.114">34</text>
+</g>
+<g transform="matrix(1 0 0-1-14496-24308)">
+<text class="c" data-o="17" transform="translate(0 3972)scale(1000)" x="0 2.114">35</text>
+</g>
+<g transform="matrix(1 0 0-1 15665-13031)">
+<text class="c" data-o="18" transform="translate(0 3972)scale(1000)" x="0 2.114">36</text>
+</g>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<g transform="matrix(.001 0 0-.001 131.349 107.732)" clip-path="url(#c)">
+<use xlink:href="#a"/>
+<use xlink:href="#b"/>
+</g>
+</svg>
