@@ -74,7 +74,9 @@ namespace PurplePen.ViewModels
 
         // Persisted settings for the Print Descriptions / Create Description PDF
         // dialog. The printer / paper / margins live in their own fields because
-        // the new ViewModel takes them as separate inputs.
+        // the new ViewModel takes them as separate inputs. The settings, which
+        // choose among the event's courses, are reset to null when a new map file
+        // is loaded; the printer, paper and margins are kept.
         private DescriptionPrintSettings? descPrintSettings;
         private PrinterNameAndSettings? descPrinter;
         private PrintingPaperSizeWithMargins? descPaperSizeWithMargins;
@@ -344,25 +346,27 @@ namespace PurplePen.ViewModels
                 // A new map file has been loaded, or the DPI has changed.
                 MapZoomFactor = 1.0F;   // used if the map bounds are empty, then this zoom factor is preserved.
                 ShowMapRectangle(MapDisplay.MapBounds);
-
-                // Reset the per-dialog settings caches.
-                ocadCreationSettingsPrevious = null;
-                bitmapCreationSettingsPrevious = null;
-                gpxCreationSettingsPrevious = null;
-                exportKmlSettingsPrevious = null;
-                routeGadgetCreationSettingsPrevious = null;
             }
 
-            // Forget the settings of the Create SVG Files dialog when the event's map is not the map shown when the
-            // window last updated: another map has loaded, or a bitmap map's resolution has changed. The comparison
-            // above cannot tell, as the controller loads the event's map into the map display as soon as the event
-            // names it, before the window updates; it finds a new map only when the display could not load it.
+            // Reset the per-dialog settings caches when the event's map is not the map shown when the window last
+            // updated: another map has loaded, or a bitmap map's resolution has changed. The comparison above cannot
+            // tell, as the controller loads the event's map into the map display as soon as the event names it, before
+            // the window updates; it finds a new map only when the display could not load it.
             float mapDpi = (controller.MapType == MapType.Bitmap) ? controller.MapDpi : 0;
             if (controller.MapType != mapTypeShown || controller.MapFileName != mapFileNameShown || mapDpi != mapDpiShown) {
                 mapTypeShown = controller.MapType;
                 mapFileNameShown = controller.MapFileName;
                 mapDpiShown = mapDpi;
+
+                ocadCreationSettingsPrevious = null;
+                bitmapCreationSettingsPrevious = null;
+                gpxCreationSettingsPrevious = null;
+                exportKmlSettingsPrevious = null;
+                routeGadgetCreationSettingsPrevious = null;
+                coursePdfSettings = null;
                 courseSvgSettings = null;
+                descPrintSettings = null;
+                punchPrintSettings = null;
             }
 
 #if PORTING
