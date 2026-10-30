@@ -1,5 +1,5 @@
 """Print the titles of an agent's new steps every few minutes, each after the UTC time it was taken: the tool call's
-description, or its tool and file.
+description, or its tool and file. A dump with no new step says when the last step was taken.
 Keeps how far it got in a state file, so that a dump started again begins where the last one ended.
 
 Usage: python3 -I dump-titles.py <agent transcript.jsonl> <state file> <minutes> <most titles a dump shows>
@@ -50,6 +50,11 @@ def main():
             seen = len(found)
             with open(state, "w") as f:
                 f.write(str(seen))
+        elif found:
+            when, _, title = found[-1].partition(" ")
+            print("No new steps since %s UTC (%s)" % (when, title), flush=True)
+        else:
+            print("No steps yet", flush=True)
         time.sleep(minutes * 60)
 
 

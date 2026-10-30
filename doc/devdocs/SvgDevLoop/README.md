@@ -60,6 +60,6 @@ and started again when it expires after 30 minutes:
   agent's worktrees, each push of the branches named, and each run of them as it starts and ends, polling once a
   minute. `WATCH_SESSION_WORKTREES` names the session's own worktrees, colon-separated, to leave out.
 - `dump-titles.py <agent transcript.jsonl> <state file> 10 15` prints the titles of the agent's new steps every ten
-  minutes, the last 15 at most. A subagent's transcript is `~/.claude/projects/<project>/<session>/subagents/agent-<id>.jsonl`.
+  minutes, the last 15 at most, each after its UTC time; when there is none, it says when the last step was taken. A subagent's transcript is `~/.claude/projects/<project>/<session>/subagents/agent-<id>.jsonl`.
 
 The state files let a watch started again report only what is new.
