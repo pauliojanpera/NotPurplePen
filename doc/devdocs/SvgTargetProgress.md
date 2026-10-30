@@ -101,7 +101,7 @@ The calls the target fully implements, in the sense of DL-5: `Intensity`, `PushT
 **In flight (Oct 30):** a new session took the work over from this file and a record of the session before it. The merge into `dev` is done:
 - 9977b42 on `wip/linux/svg-into-dev` merges `feature/svg-target` (d3561c1) into `dev` (2f04f50). Its Tests run 40852781217 failed only the nine `CreateBitmapTests` whose 18 baselines the merge took from `dev`.
 - Tests run 40852786132 of `experiment/svg-into-dev-record-all` rendered all 18. Each has `dev`'s size and differs from `dev`'s baseline only at text, in 0.01 to 2.1 % of its pixels, about as much as the glyph positions moved the SVG side's images from upstream's; so each shows both changes.
-- 1dca01f writes them as the baselines, the two JPEG ones at quality 100 with full chroma as `record-baselines.py` does. Its Build run 41125184299 published the trial and its Tests run 41125184426 passed, 1277 of `PurplePen_Tests` among them. `dev` was fast-forwarded to 1dca01f at 20:52 UTC; its Tests run 41126627076 took that verdict.
+- 1dca01f writes them as the baselines, the two JPEG ones at quality 100 with full chroma as `record-baselines.py` does. Its Build run 41125184299 published the trial and its Tests run 41125184426 passed, 1277 of `PurplePen_Tests` among them. `dev` was fast-forwarded to 1dca01f at 20:52 UTC; its Tests run 41126627076 took that verdict, and its Build run 41126627077 published the packages for Windows, macOS and Linux.
 
 An agent now makes the fix of task 3; phase 5 follows it.
 
