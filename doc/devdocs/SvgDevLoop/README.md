@@ -50,3 +50,16 @@ the wip branch's tip to an `experiment/` branch with one commit more, in which `
 - `../SvgTolerance/` measures and chooses the pixel tolerance.
 - `../SvgGallery/` makes and publishes the gallery.
 - The `sessions` branch of `pauliojanpera/windows-fonts` keeps the sessions' transcripts, with its own scripts.
+
+## Following an agent
+
+The session reports an agent's progress at headline level as it goes, from two watches, each started as a Monitor
+and started again when it expires after 30 minutes:
+
+- `watch-agent.py <clone> <state.json> <since UTC> <branch substring>...` prints a line for each commit in the
+  agent's worktrees, each push of the branches named, and each run of them as it starts and ends, polling once a
+  minute. `WATCH_SESSION_WORKTREES` names the session's own worktrees, colon-separated, to leave out.
+- `dump-titles.py <agent transcript.jsonl> <state file> 10 15` prints the titles of the agent's new steps every ten
+  minutes, the last 15 at most. A subagent's transcript is `~/.claude/projects/<project>/<session>/subagents/agent-<id>.jsonl`.
+
+The state files let a watch started again report only what is new.
