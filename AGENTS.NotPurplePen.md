@@ -4,6 +4,11 @@ This fork's own instructions. `AGENTS.md` beside this one came from upstream and
 describes the code; where the two disagree about how work is built, tested or
 delivered, this file is the one that applies.
 
+## When the developer writes
+
+Answer first, and do nothing else until the answer is given: no tool call, no
+agent, no edit. Then do only what was asked.
+
 ## There is no Windows machine here
 
 Nothing is built or tested on the developer's own machine, because there is none
