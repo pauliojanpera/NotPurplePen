@@ -168,6 +168,52 @@ jobs:
       with:
         dotnet-version: '10.0.x'
 
+    # On a Mac, AvPurplePen targets net10.0-macos, which comes from the .NET
+    # macOS workload, and each release of the workload builds only with the
+    # Xcode whose major and minor version it was made against. The newest
+    # release wants an Xcode the runner does not have yet, so the workload is
+    # pinned to the newest release whose Xcode it has: 26.5.10318 wants 26.6.
+    # The pin names the manifest's own feature band, 10.0.100, under which
+    # every release of it is published, so it holds whatever 10.0 SDK
+    # setup-dotnet brings. The runner keeps several Xcodes side by side; the
+    # one the workload asks for is chosen through DEVELOPER_DIR, which the SDK
+    # and build-mac-app.sh both follow.
+    - name: Install the macOS workload, and choose the Xcode it builds with
+      if: matrix.platform == 'osx-arm64'
+      shell: bash
+      env:
+        MACOS_WORKLOAD: 26.5.10318
+      run: |
+        set -euo pipefail
+        dotnet workload config --update-mode manifests
+        printf '{ "microsoft.net.sdk.macos": "%s/10.0.100" }\n' "$MACOS_WORKLOAD" > "$RUNNER_TEMP/macos-workload.json"
+        dotnet workload install macos --from-rollback-file "$RUNNER_TEMP/macos-workload.json"
+
+        required=$(dotnet msbuild src/AvPurplePen/AvPurplePen.csproj -nologo \
+                       -p:Configuration=Release -p:RuntimeIdentifier=osx-arm64 \
+                       -getProperty:_RecommendedXcodeVersion)
+        if [ -z "$required" ]; then
+            echo "::error::The macOS workload did not say which Xcode it needs."
+            exit 1
+        fi
+        majorminor() { local v; v=$(cut -d. -f1-2 <<< "$1"); [[ $v == *.* ]] || v=$v.0; echo "$v"; }
+        wanted=$(majorminor "$required")
+
+        chosen=""
+        found=()
+        while IFS= read -r app; do
+            version=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$app/Contents/Info.plist" 2>/dev/null) || continue
+            found+=("$(basename "$app") $version")
+            if [ "$(majorminor "$version")" = "$wanted" ]; then chosen=$app; fi
+        done < <(ls -d /Applications/Xcode*.app | sort -V)
+
+        if [ -z "$chosen" ]; then
+            echo "::error::The macOS workload builds with Xcode $required, and the runner has none of $wanted: ${found[*]}"
+            exit 1
+        fi
+        echo "The macOS workload builds with Xcode $required; using $chosen"
+        echo "DEVELOPER_DIR=$chosen/Contents/Developer" >> "$GITHUB_ENV"
+
     # VersionNumber.cs is the single source of truth, and it is declared twice,
     # once for PurplePen and once for PurplePen.MapModel. The application
     # reports the first and the assemblies take their version from the second,
@@ -243,21 +289,6 @@ jobs:
         $replaced = $content -replace 'manifestUrl = "[^"]+"', "manifestUrl = ""$manifestUrl"""
         if ($replaced -eq $content) { throw "manifestUrl not found in $updateManager" }
         Set-Content -Path $updateManager -Value $replaced
-
-    # AvPurplePen builds PdfConverter through the MSBuild task, which does not
-    # restore it, so a clean checkout has no assets file for that project.
-    - name: Restore
-      if: matrix.platform == 'win-x64'
-      run: dotnet restore src/PPen.slnx
-
-    # Not the solution: it holds the WPF and WinForms projects, which do not
-    # restore away from Windows. The packaging scripts publish these two and
-    # nothing else.
-    - name: Restore what is packaged
-      if: matrix.platform != 'win-x64'
-      run: |
-        dotnet restore src/AvPurplePen/AvPurplePen.csproj
-        dotnet restore src/PdfConverter/PdfConverter.csproj
 
     - name: Build the Windows installer
       if: matrix.platform == 'win-x64'
