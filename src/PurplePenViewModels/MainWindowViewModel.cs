@@ -64,10 +64,17 @@ namespace PurplePen.ViewModels
         // Same idea for the Create PDF Files dialog.
         private CoursePdfSettings? coursePdfSettings;
 
+        // The map the window showed when it last updated: its type, its file, and for a bitmap its resolution.
+        private MapType mapTypeShown = MapType.None;
+        private string? mapFileNameShown;
+        private float mapDpiShown;
+
         // Persisted settings for the Print Descriptions / Create Description PDF
         // dialog. The paper / margins live in their own field because the new
         // ViewModel takes them as a separate input. The printer is kept by the
-        // platform's IDocumentPrinting, shared by all printing.
+        // platform's IDocumentPrinting, shared by all printing. The settings, which
+        // choose among the event's courses, are reset to null when a new map file
+        // is loaded; the paper and margins are kept.
         private DescriptionPrintSettings? descPrintSettings;
         private PrintingPaperSizeWithMargins? descPaperSizeWithMargins;
 
@@ -339,13 +346,27 @@ namespace PurplePen.ViewModels
                 // A new map file has been loaded, or the DPI has changed.
                 MapZoomFactor = 1.0F;   // used if the map bounds are empty, then this zoom factor is preserved.
                 ShowMapRectangle(MapDisplay.MapBounds);
+            }
 
-                // Reset the per-dialog settings caches.
+            // Reset the per-dialog settings caches when the event's map is not the map shown when the window last
+            // updated: another map has loaded, or a bitmap map's resolution has changed. The comparison above cannot
+            // tell, as the controller loads the event's map into the map display as soon as the event names it, before
+            // the window updates; it finds a new map only when the display could not load it.
+            float mapDpi = (controller.MapType == MapType.Bitmap) ? controller.MapDpi : 0;
+            if (controller.MapType != mapTypeShown || controller.MapFileName != mapFileNameShown || mapDpi != mapDpiShown) {
+                mapTypeShown = controller.MapType;
+                mapFileNameShown = controller.MapFileName;
+                mapDpiShown = mapDpi;
+
                 ocadCreationSettingsPrevious = null;
                 bitmapCreationSettingsPrevious = null;
                 gpxCreationSettingsPrevious = null;
                 exportKmlSettingsPrevious = null;
                 routeGadgetCreationSettingsPrevious = null;
+                coursePdfSettings = null;
+                descPrintSettings = null;
+                punchPrintSettings = null;
+                coursePrintSettings = null;
             }
 
 #if PORTING

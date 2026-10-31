@@ -81,6 +81,10 @@ namespace PurplePen
         GpxCreationSettings gpxCreationSettingsPrevious = null;  // creation settings for Gpx creation, if it has been done before.
         LiveloxPublishSettings liveloxPublishSettingsPrevious = null;  // settings for Livelox export, if it has been done before.
 
+        MapType mapTypeShown = MapType.None;   // type of the map shown when the window last updated.
+        string mapFileNameShown = null;        // file of the map shown when the window last updated.
+        float mapDpiShown = 0;                 // dpi of the map shown when the window last updated, if it is a bitmap.
+
         Uri helpFileUrl;                       // URL of the help file.
 
         Point lastTooltipLocation;
@@ -377,10 +381,28 @@ namespace PurplePen
 
                 mapViewer.ZoomFactor = 1.0F;   // used if the map bounds are empty, then this zoom factor is preserved.
                 ShowRectangle(mapDisplay.MapBounds);
+            }
 
-                // Reset the OCAD file creating settings dialog to default settings.
+            // Reset the file creating and printing settings dialogs to default settings when the event's map is not the map
+            // shown when the window last updated: another map has loaded, or a bitmap map's dpi has changed. The comparison
+            // above cannot tell, as the controller loads the event's map into the map display as soon as the event names it,
+            // before the window updates; it finds a new map only when the display could not load it. The page settings, which
+            // hold the printer, paper and margins, are kept.
+            float mapDpi = (controller.MapType == MapType.Bitmap) ? controller.MapDpi : 0;
+            if (controller.MapType != mapTypeShown || controller.MapFileName != mapFileNameShown || mapDpi != mapDpiShown) {
+                mapTypeShown = controller.MapType;
+                mapFileNameShown = controller.MapFileName;
+                mapDpiShown = mapDpi;
+
                 ocadCreationSettingsPrevious = null;
                 bitmapCreationSettingsPrevious = null;
+                gpxCreationSettingsPrevious = null;
+                exportKmlSettingsPrevious = null;
+                routeGadgetCreationSettingsPrevious = null;
+                coursePdfSettings = null;
+                descPrintSettings = new DescriptionPrintSettings();
+                punchPrintSettings = new CorePunchPrintSettings();
+                coursePrintSettings = new CoursePrintSettings();
             }
 
             if (mapDisplay.OcadOverprintEffect != controller.OcadOverprintEffect) {
