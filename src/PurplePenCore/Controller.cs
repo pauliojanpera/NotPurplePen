@@ -1289,6 +1289,58 @@ namespace PurplePen
         }
 
 
+        // Print to a printer, through the platform's printing support. The print function draws the document onto the
+        // IPrintingTarget passed to it and returns success or failure, e.g.
+        //     target => controller.PrintDescriptions(target, settings, paperSizeWithMargins)
+        // If documentPrinting.PrintUsingPdf is true, the document is drawn into a temporary PDF file, which is then
+        // printed with documentPrinting.PrintPdfAsync and deleted. Otherwise, it is drawn onto documentPrinting.GetPrintingTarget.
+        // colorModel: the color model used to render the pages.
+        // Returns success or failure; any errors are already reported to the user. Cancelling the print isn't a failure.
+        public async Task<bool> PrintToPrinterAsync(IDocumentPrinting documentPrinting, ColorModel colorModel, Func<IPrintingTarget, bool> print)
+        {
+            if (!documentPrinting.PrintUsingPdf) {
+                return print(documentPrinting.GetPrintingTarget(colorModel));
+            }
+
+            string documentTitle = QueryEvent.GetEventTitle(eventDB, " ");
+
+            // The PDF goes into its own temporary directory, so it can be named after the document; the
+            // name of the file may be shown as the name of the print job.
+            string tempDirectory = Path.Combine(Path.GetTempPath(), "PurplePen-" + Guid.NewGuid().ToString("N"));
+            string fileName = Util.FilterInvalidPathChars(documentTitle).Trim();
+            if (fileName == "")
+                fileName = "PurplePen";
+            string pdfPath = Path.Combine(tempDirectory, fileName + ".pdf");
+
+            try {
+                if (!HandleExceptions(() => Directory.CreateDirectory(tempDirectory), MiscText.CannotPrint, documentTitle))
+                    return false;
+
+                if (!print(new PdfPrintTarget(pdfPath, cmykMode: colorModel == ColorModel.CMYK)))
+                    return false;
+
+                try {
+                    await documentPrinting.PrintPdfAsync(pdfPath);
+                    return true;
+                }
+                catch (Exception e) {
+                    await ui.ErrorMessage(string.Format(MiscText.CannotPrint, documentTitle) + "\r\n\r\n" + e.Message);
+                    return false;
+                }
+            }
+            finally {
+                try {
+                    if (Directory.Exists(tempDirectory))
+                        Directory.Delete(tempDirectory, true);
+                }
+                catch (IOException) {
+                    // Leaving a temporary file behind is harmless.
+                }
+                catch (UnauthorizedAccessException) {
+                }
+            }
+        }
+
         // Print or print preview the descriptions. Returns success or failure; any errors are already reported to the user.
         public bool PrintDescriptions(IPrintingTarget printingTarget, DescriptionPrintSettings descriptionPrintSettings, PrintingPaperSizeWithMargins paperSizeWithMargins)
         {
@@ -1329,13 +1381,16 @@ namespace PurplePen
 
 
         // Print or print preview punch cards. Returns success or failure; any errors are already reported to the user.
-        public bool PrintPunches(IPrintingTarget printingTarget, CorePunchPrintSettings punchPrintSettings, PrintingPaperSizeWithMargins paperSizeWithMargins)
+        // punchcardFormat: the punch card layout to use, or null to use the event's. Lets a preview show a layout
+        // that hasn't been applied to the event yet.
+        public bool PrintPunches(IPrintingTarget printingTarget, CorePunchPrintSettings punchPrintSettings, PrintingPaperSizeWithMargins paperSizeWithMargins,
+                                 PunchcardFormat punchcardFormat = null)
         {
             string documentTitle = QueryEvent.GetEventTitle(eventDB, " ");
 
             bool success = HandleExceptions(
                 delegate {
-                    PunchPrinting punchPrinter = new PunchPrinting(eventDB, punchPrintSettings);
+                    PunchPrinting punchPrinter = new PunchPrinting(eventDB, punchPrintSettings, punchcardFormat);
 
                     PrintManager printManager = new PrintManager(documentTitle, printingTarget, punchPrinter);
                     printManager.SetDefaultPaperSize(paperSizeWithMargins);
@@ -1383,16 +1438,19 @@ namespace PurplePen
         }
 
         // Print or print preview the courses. Returns success or failure; any errors are already reported to the user.
-        public bool PrintCourses(IPrintingTarget printingTarget, CoursePrintSettings coursePrintSettings, PrintingPaperSizeWithMargins paperSizeWithMargins)
+        public bool PrintCourses(IPrintingTarget printingTarget, CoursePrintSettings coursePrintSettings)
         {
             string documentTitle = QueryEvent.GetEventTitle(eventDB, " ");
 
             bool success = HandleExceptions(
                 delegate {
-                    CoursePrinting coursePrinter = new CoursePrinting(eventDB, symbolDB, this, mapDisplay.CloneToFullIntensity(), coursePrintSettings, paperSizeWithMargins, GetCourseAppearance());
+                    CoursePrinting coursePrinter = new CoursePrinting(eventDB, symbolDB, this, mapDisplay.CloneToFullIntensity(), coursePrintSettings, GetCourseAppearance());
 
                     PrintManager printManager = new PrintManager(documentTitle, printingTarget, coursePrinter);
-                    printManager.SetDefaultPaperSize(paperSizeWithMargins);
+                    // Each course page supplies its own paper size, so the default paper size is never used. The
+                    // margins must be zero, because each page's print area already includes its margins.
+                    printManager.SetDefaultPaperSize(new PrintingPaperSizeWithMargins(
+                        PrintingStandards.StandardPaperSizes[PrintingStandards.DefaultEnglishPaperSizeIndex], new PrintingMarginSize(0)));
                     printManager.DoPrinting();
                 },
                 MiscText.CannotPrint, QueryEvent.GetEventTitle(eventDB, " "));
@@ -1412,6 +1470,26 @@ namespace PurplePen
                     CourseAppearance courseAppearance = GetCourseAppearance();
                     CoursePdf coursePdf = new CoursePdf(eventDB, symbolDB, this, clonedMapDisplay, coursePdfSettings, courseAppearance);
                     coursePdf.CreatePdfs();
+                },
+                MiscText.CannotCreatePdfs);
+
+            return success;
+        }
+
+        // Draw the pages that CreateCoursePdfs would put into the PDF files onto a printing target instead, to preview them.
+        // printing: whether to draw the map as for printing; false for a print preview shown on screen.
+        // Returns success or failure; any errors are already reported to the user.
+        public bool PrintCoursePdfPages(IPrintingTarget printingTarget, CoursePdfSettings coursePdfSettings, bool printing)
+        {
+            SetOutputDirectory(coursePdfSettings);
+
+            bool success = HandleExceptions(
+                delegate {
+                    MapDisplay clonedMapDisplay = mapDisplay.CloneToFullIntensity();
+
+                    CourseAppearance courseAppearance = GetCourseAppearance();
+                    CoursePdf coursePdf = new CoursePdf(eventDB, symbolDB, this, clonedMapDisplay, coursePdfSettings, courseAppearance);
+                    coursePdf.PrintPdfPages(printingTarget, printing);
                 },
                 MiscText.CannotCreatePdfs);
 

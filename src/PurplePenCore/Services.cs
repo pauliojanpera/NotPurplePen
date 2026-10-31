@@ -29,9 +29,13 @@ namespace PurplePen
         public static IFileLoaderProvider FileLoaderProvider => serviceProvider.GetRequiredService<IFileLoaderProvider>();
         public static IPdfLoadingStatus PdfLoadingUI => serviceProvider.GetRequiredService<IPdfLoadingStatus>();
         public static IPdfWriter PdfWriter => serviceProvider.GetRequiredService<IPdfWriter>();
+        public static IPdfConverter PdfConverter => serviceProvider.GetRequiredService<IPdfConverter>();
         public static IDialogService DialogService => serviceProvider.GetRequiredService<IDialogService>();
         public static IUILanguage UILanguage => serviceProvider.GetRequiredService<IUILanguage>();
         public static IWebsiteLauncher WebsiteLauncher => serviceProvider.GetRequiredService<IWebsiteLauncher>();
+
+        // Direct printing is optional: returns null if this platform has no direct printing implementation.
+        public static IDocumentPrinting DocumentPrinting => serviceProvider.GetService<IDocumentPrinting>();
     }
 
 }

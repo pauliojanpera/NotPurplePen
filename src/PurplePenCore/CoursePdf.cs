@@ -137,6 +137,44 @@ namespace PurplePen
             }
         }
 
+        // Draw the pages that CreatePdfs would create onto a printing target instead of into PDF files (e.g., to preview
+        // them). The pages of all the files are drawn in order, at the same paper sizes. The base map of a PDF map is drawn
+        // the normal way, rather than being copied from the PDF map file.
+        // printingTarget: the target to draw the pages onto.
+        // printing: whether to draw the map as for printing (no anti-aliasing, no pattern bitmaps, etc.); false for
+        //           a print preview shown on screen, which also anti-aliases the base map.
+        public void PrintPdfPages(IPrintingTarget printingTarget, bool printing)
+        {
+            mapDisplay.Printing = printing;
+            mapDisplay.AntiAlias = !printing;
+
+            List<CoursePage> pages = new List<CoursePage>();
+            foreach (var pair in GetFilesToCreate()) {
+                pages.AddRange(LayoutPages(pair.Second));
+            }
+
+            if (coursePdfSettings.DontPrintBaseMap) {
+                // Don't print the base map, just the course.
+                mapDisplay.SetMapFile(MapType.None, null);
+            }
+
+            printingTarget.StartPrinting(QueryEvent.GetEventTitle(eventDB, " "), pages.Count);
+
+            for (int i = 0; i < pages.Count; ++i) {
+                CoursePage page = pages[i];
+
+                // Same paper size as CreateOnePdfFile uses for the page.
+                SizeF paperSizeInInches = page.paperSize.SizeInInches;
+                if (page.landscape)
+                    paperSizeInInches = new SizeF(paperSizeInInches.Height, paperSizeInInches.Width);
+                PrintingPaperSize paperSize = new PrintingPaperSize(page.paperSize.Name, paperSizeInInches.Width * 100F, paperSizeInInches.Height * 100F);
+
+                printingTarget.PrintPage(i + 1, paperSize, grTarget => DrawPage(grTarget, page));
+            }
+
+            printingTarget.EndPrinting();
+        }
+
         // Get the files that we should create. along with the corresponding courses on them.
 #if TEST
         internal
@@ -289,7 +327,7 @@ namespace PurplePen
 
             // Set the transform, and the clip.
             Matrix transform = Geometry.CreateInvertedRectangleTransform(page.mapRectangle, page.printRectangle);
-            PushRectangleClip(graphicsTarget, page.printRectangle);
+            graphicsTarget.PushClip(page.printRectangle);
             graphicsTarget.PushTransform(transform);
             // Determine the resolution in map coordinates.
             Matrix inverseTransform = transform.Clone();
@@ -302,17 +340,6 @@ namespace PurplePen
 
             graphicsTarget.PopTransform();
             graphicsTarget.PopClip();
-        }
-
-        private void PushRectangleClip(IGraphicsTarget graphicsTarget, RectangleF rect)
-        {
-            object rectanglePath = new object();
-            graphicsTarget.CreatePath(rectanglePath, new List<GraphicsPathPart> {
-                new GraphicsPathPart(GraphicsPathPartKind.Start, new PointF[] { rect.Location }),
-                new GraphicsPathPart(GraphicsPathPartKind.Lines, new PointF[] { new PointF(rect.Right, rect.Top), new PointF(rect.Right, rect.Bottom), new PointF(rect.Left, rect.Bottom), new PointF(rect.Left, rect.Top)}),
-                new GraphicsPathPart(GraphicsPathPartKind.Close, new PointF[0])
-            }, AreaFillMode.Winding);
-            graphicsTarget.PushClip(rectanglePath);
         }
     }
 }

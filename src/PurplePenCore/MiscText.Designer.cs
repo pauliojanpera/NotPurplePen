@@ -385,6 +385,15 @@ namespace PurplePen {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The print job could not be sent to the printer..
+        /// </summary>
+        public static string CannotSendPrintJob {
+            get {
+                return ResourceManager.GetString("CannotSendPrintJob", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cannot read image file &apos;{0}&apos;..
         /// </summary>
         public static string CannotReadImageFile {
@@ -1294,15 +1303,6 @@ namespace PurplePen {
         public static string PdfConversionFailed {
             get {
                 return ResourceManager.GetString("PdfConversionFailed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to PdfConverter.exe not found.
-        /// </summary>
-        public static string PdfConverterNotFound {
-            get {
-                return ResourceManager.GetString("PdfConverterNotFound", resourceCulture);
             }
         }
         

@@ -2468,9 +2468,6 @@ Paina OK ja yritä etsiä karttatiedoston kopio tietokoneeltasi.</value>
   <data name="MiscText_CrashSend" xml:space="preserve">
     <value>Lähetä raportti</value>
   </data>
-  <data name="MiscText_PdfConverterNotFound" xml:space="preserve">
-    <value>PdfConverter.exe ei löytynyt</value>
-  </data>
   <data name="MiscText_PdfConversionFailed" xml:space="preserve">
     <value>Pdfium PDF-muunnin epäonnistui PDF-tiedoston lukemisessa</value>
   </data>
@@ -2877,12 +2874,6 @@ Kilpailukarttojen tulostamiseksi on suositeltavaa viedä radat OCAD-tiedostoihin
     <value>Tulostin:</value>
   </data>
   <data name="PrintCourses_previewButton_Text" xml:space="preserve">
-    <value>Esikatselu...</value>
-  </data>
-  <data name="PrintDescriptions_previewButton_Text" xml:space="preserve">
-    <value>Esikatselu...</value>
-  </data>
-  <data name="PrintPunches_previewButton_Text" xml:space="preserve">
     <value>Esikatselu...</value>
   </data>
   <data name="PrintCourses_copiesLabel_Text" xml:space="preserve">

@@ -2491,9 +2491,6 @@ Tamam düğmesine bastıktan sonra, bilgisayarınızda harita dosyasının bir k
   <data name="MiscText_CrashSend" xml:space="preserve">
     <value>Rapor Gönder</value>
   </data>
-  <data name="MiscText_PdfConverterNotFound" xml:space="preserve">
-    <value>PdfConverter.exe bulunamadı</value>
-  </data>
   <data name="MiscText_PdfConversionFailed" xml:space="preserve">
     <value>Pdfium PDF dönüştürücü, PDF dosyasını başarıyla okuyamadı</value>
   </data>
@@ -2909,12 +2906,6 @@ Yarışma haritalarını yazdırmak için kursların OCAD dosyalarına aktarılm
     <value>Yazıcı:</value>
   </data>
   <data name="PrintCourses_previewButton_Text" xml:space="preserve">
-    <value>Önizleme...</value>
-  </data>
-  <data name="PrintDescriptions_previewButton_Text" xml:space="preserve">
-    <value>Önizleme...</value>
-  </data>
-  <data name="PrintPunches_previewButton_Text" xml:space="preserve">
     <value>Önizleme...</value>
   </data>
   <data name="PrintCourses_copiesLabel_Text" xml:space="preserve">

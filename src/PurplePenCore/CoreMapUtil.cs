@@ -39,7 +39,7 @@ namespace PurplePen
             bool metric = Util.IsCurrentCultureMetric();
 
             if (printAreaRectangle.IsEmpty) {
-                PrintingPaperSize paperSize = PrintingStandards.StandardPaperSizes[metric ? PrintingStandards.DefaultMetricPaperSizeindex : PrintingStandards.DefaultEnglighPaperSizeIndex];
+                PrintingPaperSize paperSize = PrintingStandards.StandardPaperSizes[metric ? PrintingStandards.DefaultMetricPaperSizeindex : PrintingStandards.DefaultEnglishPaperSizeIndex];
                 pageWidth = (int) Math.Round(paperSize.SizeInHundreths.Width);
                 pageHeight = (int) Math.Round(paperSize.SizeInHundreths.Height);
                 pageMargin = 0;
@@ -63,7 +63,7 @@ namespace PurplePen
                         bestIndex = i;
                 }
                 if (bestIndex < 0)
-                    bestIndex = metric ? PrintingStandards.DefaultMetricPaperSizeindex : PrintingStandards.DefaultEnglighPaperSizeIndex;
+                    bestIndex = metric ? PrintingStandards.DefaultMetricPaperSizeindex : PrintingStandards.DefaultEnglishPaperSizeIndex;
 
                 pageWidth = (int) Math.Round(PrintingStandards.StandardPaperSizes[bestIndex].SizeInHundreths.Width);
                 pageHeight = (int) Math.Round(PrintingStandards.StandardPaperSizes[bestIndex].SizeInHundreths.Height);
@@ -181,16 +181,17 @@ namespace PurplePen
 
             PdfMapFile mapFile = new PdfMapFile(pdfFileName);
 
+            // Subscribe before starting: the conversion runs on a background thread and may finish
+            // before BeginConversion even returns. The event is only raised when a conversion was started.
+            mapFile.ConversionCompleted += delegate {
+                loadingStatus.LoadingComplete(mapFile.Status == PdfMapFile.ConversionStatus.Success, mapFile.ConversionOutput);
+            };
+
             bool ok = true;
             PdfMapFile.ConversionStatus status = mapFile.BeginConversion();
             if (status == PdfMapFile.ConversionStatus.Working) {
                 // Put up a modal dialog until loading is complete.
-                mapFile.ConversionCompleted += delegate {
-                    loadingStatus.LoadingComplete(mapFile.Status == PdfMapFile.ConversionStatus.Success, mapFile.ConversionOutput);
-                };
-                if (status == PdfMapFile.ConversionStatus.Working) {
-                    ok = loadingStatus.ShowLoadingStatus(pdfFileName);
-                }
+                ok = loadingStatus.ShowLoadingStatus(pdfFileName);
             }
 
             status = mapFile.Status;

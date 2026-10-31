@@ -68,6 +68,7 @@ namespace AvPurplePen
             services.AddSingleton<ITextMetrics, Skia_TextMetrics>();
             services.AddSingleton<IFileLoaderProvider, SkiaFileLoaderProvider>();
             services.AddSingleton<IPdfWriter, PdfWriter>();
+            services.AddSingleton<IPdfConverter, PdfConverterService>();
             services.AddSingleton<IApplicationIdleService, ApplicationIdleServiceAdapter>();
 
             services.AddSingleton<IDialogService, DialogService>();
@@ -75,6 +76,17 @@ namespace AvPurplePen
             services.AddSingleton<IWebsiteLauncher, WebsiteLauncherService>();
             services.AddSingleton<IEventDispatcherService, EventDispatcherService>();
             services.AddSingleton<StatisticsReporter>();
+
+            // Direct printing is platform-specific; with no implementation registered,
+            // the print commands tell the user to create a PDF instead.
+#if WINDOWS
+            services.AddSingleton<IDocumentPrinting, AvPurplePen.Platform.Windows.WindowsDocumentPrinting>();
+#elif MACOS
+            services.AddSingleton<IDocumentPrinting, AvPurplePen.Platform.Mac.MacDocumentPrinting>();
+#else
+            if (OperatingSystem.IsLinux())
+                services.AddSingleton<IDocumentPrinting, AvPurplePen.Platform.Linux.LinuxDocumentPrinting>();
+#endif
 
             // Transient (not singleton): PdfLoadingUI holds per-conversion state
             // (completion flag, dialog handle), so each PDF validation must get a

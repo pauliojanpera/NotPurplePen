@@ -2447,9 +2447,6 @@ O NotPurplePen agora recarregará o mapa.</value>
   <data name="MiscText_CrashSend" xml:space="preserve">
     <value>Enviar Relatório</value>
   </data>
-  <data name="MiscText_PdfConverterNotFound" xml:space="preserve">
-    <value>PdfConverter.exe não encontrado</value>
-  </data>
   <data name="MiscText_PdfConversionFailed" xml:space="preserve">
     <value>O conversor de PDF Pdfium falhou ao ler o arquivo PDF</value>
   </data>
@@ -2860,12 +2857,6 @@ Para a impressão dos mapas da competição, sugere-se exportar os percursos par
     <value>Impressora:</value>
   </data>
   <data name="PrintCourses_previewButton_Text" xml:space="preserve">
-    <value>Visualização...</value>
-  </data>
-  <data name="PrintDescriptions_previewButton_Text" xml:space="preserve">
-    <value>Visualização...</value>
-  </data>
-  <data name="PrintPunches_previewButton_Text" xml:space="preserve">
     <value>Visualização...</value>
   </data>
   <data name="PrintCourses_copiesLabel_Text" xml:space="preserve">

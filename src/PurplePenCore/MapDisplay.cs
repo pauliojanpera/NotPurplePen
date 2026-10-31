@@ -60,7 +60,7 @@ namespace PurplePen
 
     public delegate void MapDisplayChanged();
 
-    public enum ColorModel { OCADCompatible, RGB, CMYK };
+    public enum ColorModel { RGB, CMYK };
 
 
     // The map display represents everything that is cached in the ViewCache and normally shown
@@ -135,10 +135,7 @@ namespace PurplePen
                         map = null;
                     }
 
-                    if (pdfMapFile != null) {
-                        pdfMapFile.Dispose();
-                        pdfMapFile = null;
-                    }
+                    pdfMapFile = null;
 
                     if (courseMap != null) {
                         courseMap.Dispose();
