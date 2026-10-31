@@ -21,15 +21,15 @@
 <dict>
     <!-- Shown in the macOS menu bar. Limited to 15 characters. -->
     <key>CFBundleName</key>
-    <string>Purple Pen</string>
+    <string>NotPurplePen</string>
 
     <!-- Shown in Finder and the Dock. May be longer than 15 characters. -->
     <key>CFBundleDisplayName</key>
-    <string>Purple Pen</string>
+    <string>NotPurplePen</string>
 
     <!-- Built from Assets/AppIcon by the BuildMacAppIcon target in AvPurplePen.csproj. -->
     <key>CFBundleIconFile</key>
-    <string>PurplePen.icns</string>
+    <string>NotPurplePen.icns</string>
 
     <key>NSHumanReadableCopyright</key>
     <string>Copyright © 2006-2026 Peter Golde. All rights reserved.</string>
@@ -67,7 +67,7 @@
                 <string>public.data</string>
             </array>
             <key>UTTypeIconFile</key>
-            <string>PurplePen.icns</string>
+            <string>NotPurplePen.icns</string>
             <key>UTTypeTagSpecification</key>
             <dict>
                 <key>public.filename-extension</key>
@@ -88,7 +88,7 @@
                 <string>org.purple-pen.ppen</string>
             </array>
             <key>CFBundleTypeIconFile</key>
-            <string>PurplePen.icns</string>
+            <string>NotPurplePen.icns</string>
             <key>CFBundleTypeRole</key>
             <string>Editor</string>
             <key>LSHandlerRank</key>

@@ -300,13 +300,14 @@ jobs:
 
     # Unsigned: notarized distribution needs a Developer ID certificate, which
     # this build has no access to. The result installs after the usual warning.
+    # The bundle's identifier and names are no longer config.sh's to give: the
+    # SDK takes them from AvPurplePen.csproj and AvPurplePen/Info.plist, which
+    # carry this product's. Only the disk image's volume name is still read
+    # from the environment.
     - name: Build the macOS disk image
       if: matrix.platform == 'osx-arm64'
       working-directory: src/Installer/MacInstaller
       env:
-        BUNDLE_ID: io.github.pauliojanpera.NotPurplePen
-        BUNDLE_NAME: NotPurplePen
-        DISPLAY_NAME: NotPurplePen
         DMG_VOLUME_NAME: NotPurplePen
       run: ./build-mac-app.sh --skip-sign
 

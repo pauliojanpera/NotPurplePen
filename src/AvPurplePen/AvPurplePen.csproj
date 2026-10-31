@@ -47,7 +47,7 @@
     <SupportedOSPlatformVersion>13.0</SupportedOSPlatformVersion>
     <!-- CFBundleIdentifier. Must stay stable across releases: changing it makes macOS treat the
          app as a different application (losing its settings, permissions and file associations). -->
-    <ApplicationId>org.purple-pen.PurplePen</ApplicationId>
+    <ApplicationId>io.github.pauliojanpera.NotPurplePen</ApplicationId>
     <!-- No ApplicationTitle: in .NET 10 it also renames the bundle ("Purple Pen.app"), and existing
          installs are PurplePen.app, so a drag-install from the .dmg would leave two copies side by
          side. Without it the bundle is named after AssemblyName; CFBundleDisplayName is set in
@@ -85,7 +85,7 @@
     <_MacIconsetPng Include="Assets\AppIcon\$(MacIconFamily).1024x1024.png" IconsetName="icon_512x512@2x.png" />
   </ItemGroup>
 
-  <!-- Builds the bundle's PurplePen.icns from the PNGs above with iconutil (part of every macOS
+  <!-- Builds the bundle's NotPurplePen.icns from the PNGs above with iconutil (part of every macOS
        install, no Xcode needed), and adds it to Contents/Resources. Info.plist refers to it by
        name. The output name includes the family so that switching family rebuilds it. -->
   <Target Name="BuildMacAppIcon"
@@ -104,7 +104,7 @@
           DependsOnTargets="BuildMacAppIcon"
           Condition="'$([MSBuild]::GetTargetPlatformIdentifier($(TargetFramework)))' == 'macos'">
     <ItemGroup>
-      <BundleResource Include="$(IntermediateOutputPath)$(MacIconFamily).icns" LogicalName="PurplePen.icns" />
+      <BundleResource Include="$(IntermediateOutputPath)$(MacIconFamily).icns" LogicalName="NotPurplePen.icns" />
     </ItemGroup>
   </Target>
 
