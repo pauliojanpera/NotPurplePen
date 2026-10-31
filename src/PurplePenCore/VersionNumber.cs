@@ -48,11 +48,11 @@ namespace PurplePen
 
         // Which section of the download site this build was published in:
         // "main" or "beta" for a release and a prerelease of this program,
-        // "base" for upstream built under this name, "trial" for one branch
-        // built to try, and "local" for a build made anywhere else. Only the
-        // first two are ever published as updates, so a build from any other
-        // section asks for none: taking one would turn it into a different
-        // program than the one that was installed.
+        // "base" for upstream with this fork's bug fixes, built under this
+        // name, "trial" for one branch built to try, and "local" for a build
+        // made anywhere else. Only the first two are ever published as updates,
+        // so a build from any other section asks for none: taking one would
+        // turn it into a different program than the one that was installed.
         public const string Channel = "local";
 
         // The last component encodes the Alpha/Beta/RC/Stable notion.
