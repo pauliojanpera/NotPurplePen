@@ -8,7 +8,7 @@ name: Tests
 # separate publish sequence in src/Innosetup/create-setup.bat.
 on:
   push:
-    branches: [ master, dev, base, 'experiment/**', 'wip/**' ]
+    branches: [ master, dev, base, basewithfixes, 'experiment/**', 'wip/**' ]
   pull_request:
     branches: [ master, dev, base ]
   workflow_dispatch:
