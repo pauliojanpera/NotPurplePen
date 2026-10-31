@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="800mm" height="800mm" viewBox="0 0 800 800">
+<style>
+.a{fill:url(#b)}
+.b{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:500;stroke-linejoin:round}
+.c{fill:none;stroke:#f00;stroke:#f00 icc-color(cmyk,0,1,1,0);stroke-width:1500;stroke-linecap:round;stroke-linejoin:round}
+.d{fill:none;stroke:#0f0;stroke:#0f0 icc-color(cmyk,1,0,1,0);stroke-width:3000;stroke-linecap:round;stroke-linejoin:round}
+.e{fill:none;stroke:#00f;stroke:#00f icc-color(cmyk,1,1,0,0);stroke-width:3000;stroke-linecap:round;stroke-linejoin:round}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="RotatedPatternBrush"/>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="c">
+<path d="M-103000-117000H97000V83000h-200000z"/>
+</clipPath>
+<pattern id="b" patternUnits="userSpaceOnUse" x="-15000" y="-10000" width="30000" height="20000" viewBox="-15000 -10000 30000 20000" patternTransform="rotate(147)">
+<path class="c" d="M-15000-10000 3000 10000"/>
+<path class="d" d="M3000 10000l12000-20000"/>
+<ellipse class="e" cx="1000" cy="-2000" rx="5000" ry="4000"/>
+</pattern>
+<g id="a">
+<g data-m="1">
+<path class="a" d="M-50000-60000 0 30000l50000-90000-100000 80000H50000z"/>
+<path class="b" d="M-30000-30000l60000 60000"/>
+<path class="b" d="M30000-30000-30000 30000"/>
+</g>
+</g>
+</defs>
+<g transform="translate(412 468)scale(.004)" clip-path="url(#c)">
+<use xlink:href="#a"/>
+</g>
+</svg>

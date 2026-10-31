@@ -1,0 +1,248 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="215.9mm" height="279.4mm" viewBox="0 0 215.9 279.4" xml:lang="und">
+<style>
+@font-face{font-family:"Roboto";src:url(data:font/ttf;base64,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)}
+text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white-space:pre}
+.a{fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-linecap:round;stroke-linejoin:round}
+.b{fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-miterlimit:5}
+.c{fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-linejoin:bevel}
+.d{font-size:5.57px;font-family:"Roboto";fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)}
+.e{fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:250;stroke-miterlimit:5}
+.f{clip-rule:evenodd}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="Course 5-2">
+<npp:color position="2" name="Lower purple" cmyk=".35,.85,0,0"/>
+<npp:color position="3" name="Purple" cmyk=".35,.85,0,0"/>
+<npp:symbol n="1" id="713" name="Refreshment point" colors="2"/>
+<npp:symbol n="2" id="701" name="Start" colors="2"/>
+<npp:symbol n="3" id="704" name="Line" colors="2"/>
+<npp:symbol n="4" id="702" name="Control point" colors="2"/>
+<npp:symbol n="5" id="703.0" name="Control number" colors="2"/>
+<npp:symbol n="6" id="710" name="Dangerous area" colors="3"/>
+<npp:course name="Course 5" part="2" scale="10000">
+<npp:control n="1" kind="map-exchange" x="115600" y="-11800"/>
+<npp:control n="2" code="37" kind="control" x="121800" y="-23000"/>
+<npp:control n="3" code="36" kind="control" x="128400" y="6100"/>
+<npp:control n="4" code="39" kind="control" x="129200" y="37700"/>
+<npp:control n="5" code="43" kind="control" x="84000" y="34500"/>
+</npp:course>
+<npp:object n="1" kind="water"/>
+<npp:object n="2" kind="start" controls="1"/>
+<npp:object n="3" kind="leg" controls="1 2"/>
+<npp:object n="4" kind="leg" controls="2 3"/>
+<npp:object n="5" kind="leg" controls="3 4"/>
+<npp:object n="6" kind="leg" controls="4 5"/>
+<npp:object n="7" kind="control" controls="2"/>
+<npp:object n="8" kind="control" controls="3"/>
+<npp:object n="9" kind="control" controls="4"/>
+<npp:object n="10" kind="control" controls="5"/>
+<npp:object n="11" kind="control-number" controls="2"/>
+<npp:object n="12" kind="control-number" controls="3"/>
+<npp:object n="13" kind="control-number" controls="4"/>
+<npp:object n="14" kind="control-number" controls="5"/>
+<npp:object n="15" kind="dangerous"/>
+</npp:map>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="b">
+<path class="f" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
+</clipPath>
+<clipPath id="c">
+<path d="M-37712-132668h215901v279400H-37712z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g data-c="2">
+<g transform="translate(58076 42201)" data-s="1">
+<path class="a" data-o="1" d="M1500 1375c0 207-673 375-1500 375s-1500-168-1500-375 673-375 1500-375 1500 168 1500 375z"/>
+<path class="a" data-o="1" d="M1000-1500c0-138-449-250-1000-250s-1000 112-1000 250"/>
+<path class="a" data-o="1" d="M1500 1375l-500-2875"/>
+<path class="a" data-o="1" d="M-1500 1375l500-2875"/>
+</g>
+<g transform="translate(115600-11800)rotate(-151.032)" data-s="2">
+<path class="b" data-o="2" d="M0 4041l3500-6062h-7000L0 4041z"/>
+</g>
+<g data-s="3">
+<path class="c" data-o="3" d="M117557-15335l2875-5193"/>
+<path class="c" data-o="4" d="M122425-20245l5350 23590"/>
+<path class="c" data-o="5" d="M128471 8924l657 25952"/>
+<path class="c" data-o="6" d="M126382 37500l-39564-2800"/>
+</g>
+<g data-s="4">
+<circle class="b" data-o="7" cx="121800" cy="-23000" r="2825"/>
+<circle class="b" data-o="8" cx="128400" cy="6100" r="2825"/>
+<circle class="b" data-o="9" cx="129200" cy="37700" r="2825"/>
+<circle class="b" data-o="10" cx="84000" cy="34500" r="2825"/>
+</g>
+<g data-s="5">
+<g transform="matrix(1 0 0-1 124101-25848)">
+<text class="d" data-o="11" transform="translate(0 5293)scale(1000)" x="0 3.128">10</text>
+</g>
+<g transform="matrix(1 0 0-1 133222 7313)">
+<text class="d" data-o="12" transform="translate(0 5293)scale(1000)" x="0 3.128">11</text>
+</g>
+<g transform="matrix(1 0 0-1 132407 46598)">
+<text class="d" data-o="13" transform="translate(0 5293)scale(1000)" x="0 3.128">12</text>
+</g>
+<g transform="matrix(1 0 0-1 73505 33589)">
+<text class="d" data-o="14" transform="translate(0 5293)scale(1000)" x="0 3.128">13</text>
+</g>
+</g>
+</g>
+<g data-c="3">
+<g clip-path="url(#b)" data-s="6">
+<g transform="rotate(45)">
+<path class="e" data-o="15" d="M39850 15600h40972"/>
+<path class="e" data-o="15" d="M39850 16200h40972"/>
+<path class="e" data-o="15" d="M39850 16800h40972"/>
+<path class="e" data-o="15" d="M39850 17400h40972"/>
+<path class="e" data-o="15" d="M39850 18000h40972"/>
+<path class="e" data-o="15" d="M39850 18600h40972"/>
+<path class="e" data-o="15" d="M39850 19200h40972"/>
+<path class="e" data-o="15" d="M39850 19800h40972"/>
+<path class="e" data-o="15" d="M39850 20400h40972"/>
+<path class="e" data-o="15" d="M39850 21000h40972"/>
+<path class="e" data-o="15" d="M39850 21600h40972"/>
+<path class="e" data-o="15" d="M39850 22200h40972"/>
+<path class="e" data-o="15" d="M39850 22800h40972"/>
+<path class="e" data-o="15" d="M39850 23400h40972"/>
+<path class="e" data-o="15" d="M39850 24000h40972"/>
+<path class="e" data-o="15" d="M39850 24600h40972"/>
+<path class="e" data-o="15" d="M39850 25200h40972"/>
+<path class="e" data-o="15" d="M39850 25800h40972"/>
+<path class="e" data-o="15" d="M39850 26400h40972"/>
+<path class="e" data-o="15" d="M39850 27000h40972"/>
+<path class="e" data-o="15" d="M39850 27600h40972"/>
+<path class="e" data-o="15" d="M39850 28200h40972"/>
+<path class="e" data-o="15" d="M39850 28800h40972"/>
+<path class="e" data-o="15" d="M39850 29400h40972"/>
+<path class="e" data-o="15" d="M39850 30000h40972"/>
+<path class="e" data-o="15" d="M39850 30600h40972"/>
+<path class="e" data-o="15" d="M39850 31200h40972"/>
+<path class="e" data-o="15" d="M39850 31800h40972"/>
+<path class="e" data-o="15" d="M39850 32400h40972"/>
+<path class="e" data-o="15" d="M39850 33000h40972"/>
+<path class="e" data-o="15" d="M39850 33600h40972"/>
+<path class="e" data-o="15" d="M39850 34200h40972"/>
+<path class="e" data-o="15" d="M39850 34800h40972"/>
+<path class="e" data-o="15" d="M39850 35400h40972"/>
+<path class="e" data-o="15" d="M39850 36000h40972"/>
+<path class="e" data-o="15" d="M39850 36600h40972"/>
+<path class="e" data-o="15" d="M39850 37200h40972"/>
+<path class="e" data-o="15" d="M39850 37800h40972"/>
+<path class="e" data-o="15" d="M39850 38400h40972"/>
+<path class="e" data-o="15" d="M39850 39000h40972"/>
+<path class="e" data-o="15" d="M39850 39600h40972"/>
+<path class="e" data-o="15" d="M39850 40200h40972"/>
+<path class="e" data-o="15" d="M39850 40800h40972"/>
+<path class="e" data-o="15" d="M39850 41400h40972"/>
+<path class="e" data-o="15" d="M39850 42000h40972"/>
+<path class="e" data-o="15" d="M39850 42600h40972"/>
+<path class="e" data-o="15" d="M39850 43200h40972"/>
+<path class="e" data-o="15" d="M39850 43800h40972"/>
+<path class="e" data-o="15" d="M39850 44400h40972"/>
+<path class="e" data-o="15" d="M39850 45000h40972"/>
+<path class="e" data-o="15" d="M39850 45600h40972"/>
+<path class="e" data-o="15" d="M39850 46200h40972"/>
+<path class="e" data-o="15" d="M39850 46800h40972"/>
+<path class="e" data-o="15" d="M39850 47400h40972"/>
+<path class="e" data-o="15" d="M39850 48000h40972"/>
+<path class="e" data-o="15" d="M39850 48600h40972"/>
+<path class="e" data-o="15" d="M39850 49200h40972"/>
+<path class="e" data-o="15" d="M39850 49800h40972"/>
+<path class="e" data-o="15" d="M39850 50400h40972"/>
+<path class="e" data-o="15" d="M39850 51000h40972"/>
+<path class="e" data-o="15" d="M39850 51600h40972"/>
+<path class="e" data-o="15" d="M39850 52200h40972"/>
+<path class="e" data-o="15" d="M39850 52800h40972"/>
+<path class="e" data-o="15" d="M39850 53400h40972"/>
+<path class="e" data-o="15" d="M39850 54000h40972"/>
+<path class="e" data-o="15" d="M39850 54600h40972"/>
+<path class="e" data-o="15" d="M39850 55200h40972"/>
+<path class="e" data-o="15" d="M39850 55800h40972"/>
+<path class="e" data-o="15" d="M39850 56400h40972"/>
+</g>
+<g transform="rotate(135)">
+<path class="e" data-o="15" d="M15528-81000h40973"/>
+<path class="e" data-o="15" d="M15528-80400h40973"/>
+<path class="e" data-o="15" d="M15528-79800h40973"/>
+<path class="e" data-o="15" d="M15528-79200h40973"/>
+<path class="e" data-o="15" d="M15528-78600h40973"/>
+<path class="e" data-o="15" d="M15528-78000h40973"/>
+<path class="e" data-o="15" d="M15528-77400h40973"/>
+<path class="e" data-o="15" d="M15528-76800h40973"/>
+<path class="e" data-o="15" d="M15528-76200h40973"/>
+<path class="e" data-o="15" d="M15528-75600h40973"/>
+<path class="e" data-o="15" d="M15528-75000h40973"/>
+<path class="e" data-o="15" d="M15528-74400h40973"/>
+<path class="e" data-o="15" d="M15528-73800h40973"/>
+<path class="e" data-o="15" d="M15528-73200h40973"/>
+<path class="e" data-o="15" d="M15528-72600h40973"/>
+<path class="e" data-o="15" d="M15528-72000h40973"/>
+<path class="e" data-o="15" d="M15528-71400h40973"/>
+<path class="e" data-o="15" d="M15528-70800h40973"/>
+<path class="e" data-o="15" d="M15528-70200h40973"/>
+<path class="e" data-o="15" d="M15528-69600h40973"/>
+<path class="e" data-o="15" d="M15528-69000h40973"/>
+<path class="e" data-o="15" d="M15528-68400h40973"/>
+<path class="e" data-o="15" d="M15528-67800h40973"/>
+<path class="e" data-o="15" d="M15528-67200h40973"/>
+<path class="e" data-o="15" d="M15528-66600h40973"/>
+<path class="e" data-o="15" d="M15528-66000h40973"/>
+<path class="e" data-o="15" d="M15528-65400h40973"/>
+<path class="e" data-o="15" d="M15528-64800h40973"/>
+<path class="e" data-o="15" d="M15528-64200h40973"/>
+<path class="e" data-o="15" d="M15528-63600h40973"/>
+<path class="e" data-o="15" d="M15528-63000h40973"/>
+<path class="e" data-o="15" d="M15528-62400h40973"/>
+<path class="e" data-o="15" d="M15528-61800h40973"/>
+<path class="e" data-o="15" d="M15528-61200h40973"/>
+<path class="e" data-o="15" d="M15528-60600h40973"/>
+<path class="e" data-o="15" d="M15528-60000h40973"/>
+<path class="e" data-o="15" d="M15528-59400h40973"/>
+<path class="e" data-o="15" d="M15528-58800h40973"/>
+<path class="e" data-o="15" d="M15528-58200h40973"/>
+<path class="e" data-o="15" d="M15528-57600h40973"/>
+<path class="e" data-o="15" d="M15528-57000h40973"/>
+<path class="e" data-o="15" d="M15528-56400h40973"/>
+<path class="e" data-o="15" d="M15528-55800h40973"/>
+<path class="e" data-o="15" d="M15528-55200h40973"/>
+<path class="e" data-o="15" d="M15528-54600h40973"/>
+<path class="e" data-o="15" d="M15528-54000h40973"/>
+<path class="e" data-o="15" d="M15528-53400h40973"/>
+<path class="e" data-o="15" d="M15528-52800h40973"/>
+<path class="e" data-o="15" d="M15528-52200h40973"/>
+<path class="e" data-o="15" d="M15528-51600h40973"/>
+<path class="e" data-o="15" d="M15528-51000h40973"/>
+<path class="e" data-o="15" d="M15528-50400h40973"/>
+<path class="e" data-o="15" d="M15528-49800h40973"/>
+<path class="e" data-o="15" d="M15528-49200h40973"/>
+<path class="e" data-o="15" d="M15528-48600h40973"/>
+<path class="e" data-o="15" d="M15528-48000h40973"/>
+<path class="e" data-o="15" d="M15528-47400h40973"/>
+<path class="e" data-o="15" d="M15528-46800h40973"/>
+<path class="e" data-o="15" d="M15528-46200h40973"/>
+<path class="e" data-o="15" d="M15528-45600h40973"/>
+<path class="e" data-o="15" d="M15528-45000h40973"/>
+<path class="e" data-o="15" d="M15528-44400h40973"/>
+<path class="e" data-o="15" d="M15528-43800h40973"/>
+<path class="e" data-o="15" d="M15528-43200h40973"/>
+<path class="e" data-o="15" d="M15528-42600h40973"/>
+<path class="e" data-o="15" d="M15528-42000h40973"/>
+<path class="e" data-o="15" d="M15528-41400h40973"/>
+<path class="e" data-o="15" d="M15528-40800h40973"/>
+<path class="e" data-o="15" d="M15528-40200h40973"/>
+<path class="e" data-o="15" d="M15528-39600h40973"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<g transform="matrix(.001 0 0-.001 37.712 146.732)" clip-path="url(#c)">
+<use xlink:href="#a"/>
+</g>
+</svg>
