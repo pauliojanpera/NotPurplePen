@@ -116,7 +116,8 @@ def main():
                            check=True)
             labels = read_text(imagePath, LABELS, "CMYKRGBA:")
             values = read_text(imagePath, VALUES, "0123456789.")
-            channels = [[label.rstrip(":"), value] for label, value in zip(labels, values) if label.rstrip(":") != "A"]
+            channels = [[label.rstrip(":"), value] for label, value in zip(labels, values)
+                        if label.rstrip(":") in ("C", "M", "Y", "K", "R", "G", "B")]
             profile = read_text(imagePath, PROFILE, None)
             while profile and re.fullmatch(r"[vV]+", profile[-1]):
                 profile.pop()

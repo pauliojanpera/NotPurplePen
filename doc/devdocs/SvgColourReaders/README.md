@@ -11,11 +11,12 @@ writes each colour in a class rule of its `<style>` sheet, as sRGB and then as t
   File > Import > Get Vector File does, saves the document as SLA, and lists from it every colour with its colour space
   and values and every item with its fill colour, line colour and line width. `summarise_scribus.py` sums that up a
   line a file.
-- `inkscape_colours.py` starts Inkscape with its GUI under Xvfb and a D-Bus session of its own, with the CMS page as
-  its colour page, opens Fill and Stroke and selects each element through Inkscape's actions on D-Bus
-  (`dialog-open`, `select-clear`, `select-by-id`), captures the dialog and reads the profile, the channels and their
-  values with Tesseract. It keeps each captured dialog as a PNG. An element of the export is named by its `data-o`,
-  and `o<n>^` names its group: Inkscape shows a style set on a group on the group, and its children as unset.
+- `inkscape_colours.py` starts Inkscape with its GUI under Xvfb and a D-Bus session of its own, with the CMS page as its
+  colour page, opens Fill and Stroke and selects each element through Inkscape's actions on D-Bus (`dialog-open`,
+  `select-clear`, `select-by-id`), captures the dialog and reads the profile, the channels and their values with
+  Tesseract. It keeps each captured dialog as a PNG, which settles a misreading such as `ione>` for `<none>`. An element
+  of the export is named by its `data-o`, and `o<n>^` names its group: Inkscape shows a style set on a group on the
+  group, and its children as unset.
 - `render_chromium.py` draws each file in Playwright's Chromium, with the flags `ChromiumRenderer` passes, and counts
   the pixels that differ from the first file's drawing.
 - `make_variants.py` writes the variants below of one export and their sizes, plain and gzipped; `make_profile.py`
