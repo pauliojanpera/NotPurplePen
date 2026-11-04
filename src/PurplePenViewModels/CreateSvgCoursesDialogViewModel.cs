@@ -64,8 +64,7 @@ namespace PurplePen.ViewModels
         private int printBaseMapIndex;
 
         /// <summary>
-        /// 0 = RGB, 1 = CMYK. Maps to <see cref="PurplePen.ColorModel"/> via +1
-        /// (the underlying enum starts at OCADCompatible=0, RGB=1, CMYK=2).
+        /// 0 = RGB, 1 = CMYK, as <see cref="PurplePen.ColorModel"/> numbers them.
         /// </summary>
         [ObservableProperty]
         private int colorModelIndex = 1;
@@ -146,7 +145,7 @@ namespace PurplePen.ViewModels
                     DontPrintBaseMap = PrintBaseMapIndex == 1,
                     CropLargePrintArea = MultiPageIndex == 0,
                     PrintMapExchangesOnOneMap = MergeParts,
-                    ColorModel = (ColorModel)(ColorModelIndex + 1),
+                    ColorModel = (ColorModel)ColorModelIndex,
                     RenderControlDescriptions = RenderControlDescriptions,
                     ShowProgressDialog = ShowProgressDialog,
                     BitmapHandling = BitmapHandlingIndex == 1 ? SvgBitmapHandling.Linked
@@ -180,7 +179,7 @@ namespace PurplePen.ViewModels
                 PrintBaseMapIndex = value.DontPrintBaseMap ? 1 : 0;
                 MultiPageIndex = value.CropLargePrintArea ? 0 : 1;
                 MergeParts = value.PrintMapExchangesOnOneMap;
-                int colorIndex = (int)value.ColorModel - 1;
+                int colorIndex = (int)value.ColorModel;
                 if (colorIndex < 0) colorIndex = 0;
                 if (colorIndex > 1) colorIndex = 1;
                 ColorModelIndex = colorIndex;

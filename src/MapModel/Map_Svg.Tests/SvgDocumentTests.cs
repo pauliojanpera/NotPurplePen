@@ -899,12 +899,12 @@ namespace Map_Svg.Tests
         {
             string drawnDirectly = WriteOnePage(target => DrawRunOfTwoObjects(target));
             string playedBack;
-            using (StructuredRecordingGraphicsTarget recording = new StructuredRecordingGraphicsTarget()) {
+            using (StructuredRecordingGraphicsTarget recording = new StructuredRecordingGraphicsTarget(new SkiaBitmapGraphicsLoader())) {
                 DrawRunOfTwoObjects(recording);
                 recording.EndRecording();
                 CollectionAssert.AreEqual(new string[] { "CreateSolidBrush", "FillEllipse" }, recording.RecordedCallNames);
                 playedBack = WriteOnePage(target => recording.Playback(target));
-                using (RecordingGraphicsTarget plain = new RecordingGraphicsTarget()) {
+                using (RecordingGraphicsTarget plain = new RecordingGraphicsTarget(new SkiaBitmapGraphicsLoader())) {
                     recording.Playback(plain);
                     plain.EndRecording();
                     CollectionAssert.AreEqual(new string[] { "CreateSolidBrush", "FillEllipse" }, plain.RecordedCallNames);
@@ -1049,7 +1049,7 @@ namespace Map_Svg.Tests
         public void ARecordingPlaysAGeoreferenceBackWithItsMap()
         {
             string drawnDirectly = WriteGeoreferencedPage(target => DrawRunOfTwoObjects(target), tm35finGeoreference);
-            using (StructuredRecordingGraphicsTarget recording = new StructuredRecordingGraphicsTarget()) {
+            using (StructuredRecordingGraphicsTarget recording = new StructuredRecordingGraphicsTarget(new SkiaBitmapGraphicsLoader())) {
                 StructureGeoreferencedPage(recording, target => DrawRunOfTwoObjects(target), tm35finGeoreference);
                 recording.EndRecording();
                 using (Svg_GraphicsTarget target = new Svg_GraphicsTarget(DefaultColorConverter.Instance, true)) {

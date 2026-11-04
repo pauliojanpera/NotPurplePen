@@ -98,7 +98,7 @@ namespace Map_Svg.Tests
         // Record the case's drawing, with the structure calls that the map code makes to a target that keeps them.
         public RecordingGraphicsTarget Record()
         {
-            RecordingGraphicsTarget recording = new StructuredRecordingGraphicsTarget();
+            RecordingGraphicsTarget recording = new StructuredRecordingGraphicsTarget(new SkiaBitmapGraphicsLoader());
             try {
                 draw(recording);
                 recording.EndRecording();
@@ -118,7 +118,7 @@ namespace Map_Svg.Tests
             SKBitmap reference = new SKBitmap(PixelSize.Width, PixelSize.Height);
             using (SKCanvas canvas = new SKCanvas(reference)) {
                 canvas.Clear(SKColors.White);
-                using (Skia_GraphicsTarget skiaTarget = new Skia_GraphicsTarget(canvas))
+                using (Skia_GraphicsTarget skiaTarget = new Skia_GraphicsTarget(canvas, false))
                 using (AntiAliasedClipsTarget target = new AntiAliasedClipsTarget(skiaTarget))
                 using (Matrix areaToImage = CreateAreaToImageTransform()) {
                     target.PushTransform(areaToImage);

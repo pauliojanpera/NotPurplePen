@@ -176,7 +176,7 @@ namespace Map_Skia.Tests
         [Test]
         public void RecordedCallNamesAreTheCallsPlaybackMakes()
         {
-            using (RecordingGraphicsTarget recorder = new RecordingGraphicsTarget())
+            using (RecordingGraphicsTarget recorder = new RecordingGraphicsTarget(new SkiaBitmapGraphicsLoader()))
             using (Skia_Bitmap bitmap = new Skia_Bitmap(new SKBitmap(4, 4))) {
                 recorder.Intensity = 0.5F;
 
