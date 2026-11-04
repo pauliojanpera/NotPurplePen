@@ -24,7 +24,8 @@ run there has not been checked, and saying it "should work" is not a result.
 | branch | holds |
 |---|---|
 | `base` | upstream, what it takes to build and test upstream here, and this fork's identity -- upstream may not be built under Purple Pen's name |
-| `dev` | `base`, plus the fork's features and the changes of behaviour that come with them |
+| `basewithfixes` | `base`, plus the bug fixes offered upstream |
+| `dev` | `basewithfixes`, plus the fork's features and the changes of behaviour that come with them |
 | `master` | the same as `dev`, as a release |
 
 A change is made on a branch of its own, rooted at the branch it is meant for:
@@ -34,8 +35,8 @@ A change is made on a branch of its own, rooted at the branch it is meant for:
 - something that is this fork's alone is rooted at `dev`.
 
 A change to a test baseline belongs in the same branch as the change that moved
-the output, and nowhere else. `base` therefore carries baselines moved by fixes
-offered upstream, and never ones moved by a feature.
+the output, and nowhere else. `basewithfixes` therefore carries baselines moved
+by fixes offered upstream, and never ones moved by a feature.
 
 ## A branch is verified from a wip branch
 
