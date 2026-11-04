@@ -98,7 +98,7 @@ below, and on the known answers with both, which read alike.
 | profile-linked: id and `USWebCoatedSWOP.icc` beside the file | every item black | C, M, Y, K | same | +43 bytes | |
 | profile-embedded: id and Purple Pen's SWOP profile as a `data:` URI | every item black | C, M, Y, K | same | +743 KB | +435 KB |
 | profile-small | every item black | C, M, Y, K | same | +751 bytes: +10, +1.4, 0.0, 0.0 % | +9.7, +3.7, +0.1, 0.0 % |
-| inkscape-form: Inkscape's own form, above | colours; strokes filled black | C, M, Y, K | paints lost | +12.8 % | |
+| inkscape-form: Inkscape's own form, above | colours; strokes filled black | no profile, `<none>`: the name with dots is lost from style attributes | paints lost | +12.8 % | |
 | style-groups with the small profile | everything | C, M, Y, K, on the group a style sits on | same | +15, −2.5, −3.6, −13.7 % | +10.1, +3.2, +0.2, −0.4 % |
 
 "Same" is pixel for pixel, on the first page of each of the four files.
