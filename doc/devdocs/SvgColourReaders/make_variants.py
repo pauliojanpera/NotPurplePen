@@ -149,7 +149,8 @@ def data_uri(path):
 # The form Inkscape 1.2 writes for a colour of a linked profile: the profile named after its description, with
 # characters other than letters, digits, "_", ":", "-" and "." made "-", linked by a file URI and identified by its
 # path (DocumentProperties::linkSelectedProfile); each colour one declaration, "#rrggbb icc-color(name, c, m, y, k)"
-# (SPColor::toString), in the element's style attribute.
+# (SPColor::toString), in the element's style attribute. Colours the file already has on its elements keep their
+# declarations, with the profile renamed.
 def inkscape_form(text, profilePath, description):
     name = re.sub(r"[^A-Za-z0-9_:.-]", "-", description)
     if not re.match(r"[A-Za-z_:]", name):
@@ -158,18 +159,15 @@ def inkscape_form(text, profilePath, description):
     element = '<color-profile name="%s" xlink:href="%s" id="%s"/>' % (
         name, "file://" + urllib.parse.quote(path), escape(path))
 
-    def inkscape_numbers(value):
-        def numbers(match):
-            values = [repr(float(v)).rstrip("0").rstrip(".") if float(v) else "0" for v in match.group(1).split(",")]
-            return "icc-color(%s, %s)" % (name, ", ".join(("0" + v) if v.startswith(".") else v for v in values))
-        return re.sub(r"icc-color\(cmyk,([^)]*)\)", numbers, value)
+    def numbers(match):
+        values = [repr(float(v)).rstrip("0").rstrip(".") if float(v) else "0" for v in match.group(1).split(",")]
+        return "icc-color(%s, %s)" % (name, ", ".join(values))
 
     head, rules, order, tail = split_document(text)
-    for name_ in order:
-        rules[name_] = [(p, inkscape_numbers(v)) for p, v in last_paints(rules[name_])]
-    text = join_document(head, rules, order, tail)
-    text = move_declarations(text, is_colour_paint, asAttributes=False)
-    return with_profile(text, element)
+    for className in order:
+        rules[className] = last_paints(rules[className])
+    text = move_declarations(join_document(head, rules, order, tail), is_colour_paint, asAttributes=False)
+    return with_profile(re.sub(r"icc-color\(cmyk,([^)]*)\)", numbers, text), element)
 
 
 def main():

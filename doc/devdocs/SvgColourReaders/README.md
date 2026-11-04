@@ -59,7 +59,10 @@ For a profile it links itself (Document Properties > Color), Inkscape writes
 `<color-profile name="U.S.-Web-Coated--SWOP--v2" xlink:href="file:///.../USWebCoatedSWOP.icc" id="/.../USWebCoatedSWOP.icc"/>`,
 naming it after the profile's description with every character but letters, digits, `_`, `:`, `-` and `.` made `-`,
 and a colour as one declaration, `fill:#ab499c icc-color(U.S.-Web-Coated--SWOP--v2, 0.35, 0.85, 0, 0)`, in the
-element's style attribute (`DocumentProperties::linkSelectedProfile`, `SPColor::toString`).
+element's style attribute (`DocumentProperties::linkSelectedProfile`, `SPColor::toString`). It does not read that
+form back: from a style attribute or a class rule, an `icc-color()` naming `U.S.-Web-Coated--SWOP--v2` comes in with
+no profile (`<none>`), and only a presentation attribute keeps it (`profile-names.svg`, which needs
+`USWebCoatedSWOP.icc` beside it). A plain name such as `cmyk` reads from every form.
 
 **Chromium** keeps the first declaration of a pair and drops a paint it cannot parse, so a variant draws as now as
 long as an sRGB paint comes before or beneath each `icc-color()`.

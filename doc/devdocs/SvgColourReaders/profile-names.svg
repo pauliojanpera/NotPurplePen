@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100mm" height="20mm" viewBox="0 0 100 20">
+<style>
+.c{fill:#600000 icc-color(U.S.-Web-Coated--SWOP--v2, 0.16, 0.26, 0.36, 0.06)}
+</style>
+<defs>
+<color-profile id="p1" name="U.S.-Web-Coated--SWOP--v2" xlink:href="USWebCoatedSWOP.icc"/>
+<color-profile id="p2" name="swop" xlink:href="USWebCoatedSWOP.icc"/>
+</defs>
+<rect id="n1" x="2" y="2" width="8" height="8" style="fill:#a00000 icc-color(U.S.-Web-Coated--SWOP--v2, 0.13, 0.23, 0.33, 0.03)"/>
+<rect id="n2" x="12" y="2" width="8" height="8" fill="#900000 icc-color(U.S.-Web-Coated--SWOP--v2, 0.14, 0.24, 0.34, 0.04)"/>
+<rect id="n3" x="22" y="2" width="8" height="8" class="c"/>
+<rect id="n4" x="32" y="2" width="8" height="8" style="fill:#800000 icc-color(swop, 0.15, 0.25, 0.35, 0.05)"/>
+</svg>

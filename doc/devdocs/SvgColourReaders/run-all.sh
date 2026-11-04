@@ -36,6 +36,11 @@ for variant in as-now profile-id profile-linked-no-id profile-linked profile-emb
         "$work/inkscape-known" "$work/known/$variant.svg" a1:fill a2:fill s3:fill s4:fill k3:fill k4:stroke g1:fill \
         d1:fill 2>/dev/null >> "$work/inkscape-known.txt"
 done
+mkdir -p "$work/names"
+cp "$here/profile-names.svg" "$work/profiles/USWebCoatedSWOP.icc" "$work/names/"
+dbus-run-session -- xvfb-run -a -s "-screen 0 1400x900x24" python3 -I "$here/inkscape_colours.py" \
+    "$work/inkscape-names" "$work/names/profile-names.svg" n1:fill n2:fill n3:fill n4:fill 2>/dev/null \
+    > "$work/inkscape-names.txt"
 for variant in as-now profile-id profile-linked profile-embedded profile-small style-all-profile-small \
         style-groups-profile-small class-and-attr-profile-small inkscape-form; do
     dbus-run-session -- xvfb-run -a -s "-screen 0 1400x900x24" python3 -I "$here/inkscape_colours.py" \
