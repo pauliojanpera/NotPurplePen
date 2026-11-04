@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
-    <OutputType>Exe</OutputType>
     <RootNamespace>PurplePen.PdfConverter</RootNamespace>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Configurations>Debug;Release;StorePkg</Configurations>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'StorePkg|AnyCPU'">
@@ -11,13 +11,8 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
+  <ItemGroup>
     <PackageReference Include="PDFiumCore" />
-    <PackageReference Include="SkiaSharp" />
     <PackageReference Include="SixLabors.ImageSharp"/>
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
-    <ProjectReference Include="..\PdfiumViewer\PdfiumViewer\PdfiumViewer.csproj" />
   </ItemGroup>
 </Project>

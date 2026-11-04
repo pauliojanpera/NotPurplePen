@@ -14,7 +14,10 @@ namespace AvPurplePen
 {
     // Class that implements IThreadsafeSkiaDrawing to draw an IMapDisplay.
     // Basically adapts the IMapDisplay interface into IThreadsafeSkiaDrawing.
-    class CacheableMapDisplay : IThreadsafeSkiaDrawing
+    //
+    // Subscribes to the IMapDisplay's Changed event, so Dispose it when no longer used, so that a
+    // long-lived IMapDisplay doesn't keep it (and whatever is subscribed to it) alive.
+    class CacheableMapDisplay : IThreadsafeSkiaDrawing, IDisposable
     {
         IMapDisplay mapDisplay;
         IColorConverter colorConverter;
@@ -40,7 +43,7 @@ namespace AvPurplePen
             canvas.Clear(SKColors.White);
 
             if (mapDisplay != null) {
-                using (IGraphicsTarget grTarget = new Skia_GraphicsTarget(canvas, colorConverter)) {
+                using (IGraphicsTarget grTarget = new Skia_GraphicsTarget(canvas, false, colorConverter)) {
                     mapDisplay.Draw(grTarget, Conv.ToRectangleF(rectToDraw), minResolution, () => cancelToken.ThrowIfCancellationRequested());
                 }
             }
@@ -52,6 +55,12 @@ namespace AvPurplePen
         {
             bounds = mapDisplay.Bounds;
             DrawingChanged?.Invoke(this, EventArgs.Empty);
+        }
+
+        // Unsubscribe from the IMapDisplay's Changed event. Safe to call more than once.
+        public void Dispose()
+        {
+            mapDisplay.Changed -= MapDisplay_Changed;
         }
     }
 }

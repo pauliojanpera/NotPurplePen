@@ -60,7 +60,7 @@ namespace PurplePen
 
     public delegate void MapDisplayChanged();
 
-    public enum ColorModel { OCADCompatible, RGB, CMYK };
+    public enum ColorModel { RGB, CMYK };
 
     // The layers a MapDisplay draws a page in, from the bottom up: the map up to the color that the course's lower layer
     // goes above, the course's lower layer, the rest of the map, and the rest of the course. Without a lower purple
@@ -140,10 +140,7 @@ namespace PurplePen
                         map = null;
                     }
 
-                    if (pdfMapFile != null) {
-                        pdfMapFile.Dispose();
-                        pdfMapFile = null;
-                    }
+                    pdfMapFile = null;
 
                     if (courseMap != null) {
                         courseMap.Dispose();

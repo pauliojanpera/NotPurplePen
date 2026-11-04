@@ -30,7 +30,7 @@ namespace Map_Skia.Tests
             using (SKCanvas skcanvas = new SKCanvas(bitmapNew)) {
                 skcanvas.Clear(SKColors.White);
 
-                using (Skia_GraphicsTarget grTarget = new Skia_GraphicsTarget(skcanvas)) {
+                using (Skia_GraphicsTarget grTarget = new Skia_GraphicsTarget(skcanvas, false)) {
                     grTarget.PushTransform(AreaInImage.CreateTransform(drawingRectangle, new Size(width, height), inverted));
                     draw(grTarget);
                 }
@@ -48,7 +48,7 @@ namespace Map_Skia.Tests
         // into two separate bitmaps, each of which is compared against the baseline.
         public static void RecordingRenderingTest(int width, RectangleF drawingRectangle, bool inverted, string pngFileName, Action<IGraphicsTarget> draw)
         {
-            using (RecordingGraphicsTarget recorder = new RecordingGraphicsTarget()) {
+            using (RecordingGraphicsTarget recorder = new RecordingGraphicsTarget(new SkiaBitmapGraphicsLoader())) {
                 draw(recorder);
                 recorder.EndRecording();
 
@@ -83,7 +83,7 @@ namespace Map_Skia.Tests
             using (grTarget) {
                 if (useRecording) {
                     // Record the drawing, then play it back onto the bitmap.
-                    using (RecordingGraphicsTarget recorder = new RecordingGraphicsTarget(intensity)) {
+                    using (RecordingGraphicsTarget recorder = new RecordingGraphicsTarget(new SkiaBitmapGraphicsLoader(), intensity)) {
                         MapDrawing.DrawMapArea(recorder, map, mapArea, bitmapSize, renderOptions, usePatternBitmaps, useOverprinting, antiAlias);
                         recorder.EndRecording();
                         recorder.Playback(grTarget);

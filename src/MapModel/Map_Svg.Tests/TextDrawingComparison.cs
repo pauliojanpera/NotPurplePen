@@ -26,7 +26,7 @@ namespace Map_Svg.Tests
             using (SKBitmap reference = new SKBitmap(pixels.Width, pixels.Height)) {
                 using (SKCanvas canvas = new SKCanvas(reference)) {
                     canvas.Clear(SKColors.White);
-                    using (Skia_GraphicsTarget target = new Skia_GraphicsTarget(canvas))
+                    using (Skia_GraphicsTarget target = new Skia_GraphicsTarget(canvas, false))
                     using (Matrix areaToImage = AreaInImage.CreateTransform(area, pixels, false)) {
                         target.PushTransform(areaToImage);
                         target.PushAntiAliasing(true);

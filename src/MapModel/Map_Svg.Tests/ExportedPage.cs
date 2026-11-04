@@ -113,7 +113,7 @@ namespace Map_Svg.Tests
             SKBitmap reference = new SKBitmap(pixelSize.Width, pixelSize.Height);
             using (SKCanvas canvas = new SKCanvas(reference)) {
                 canvas.Clear(SKColors.White);
-                using (Skia_GraphicsTarget skiaTarget = new Skia_GraphicsTarget(canvas, colorConverter))
+                using (Skia_GraphicsTarget skiaTarget = new Skia_GraphicsTarget(canvas, false, colorConverter))
                 using (AntiAliasedClipsTarget target = new AntiAliasedClipsTarget(skiaTarget))
                 using (Matrix paperToImage = CreatePaperToImageTransform(pixelSize))
                 using (Matrix mapToPaper = CreateMapToPaperTransform()) {

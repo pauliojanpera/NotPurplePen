@@ -17,6 +17,13 @@ namespace Map_Svg.Tests
         // The objects that stand for the caller's keys, by those keys.
         private readonly Dictionary<object, object> standIns = new Dictionary<object, object>(new IdentityComparer<object>());
 
+        // Create a recorder, which starts in recording mode.
+        // bitmapLoader: loads the recorded bitmaps when they are played back, as bitmaps the playback target can draw.
+        public StructuredRecordingGraphicsTarget(IGraphicsBitmapLoader bitmapLoader)
+            : base(bitmapLoader)
+        {
+        }
+
         // End recording, and let go of the caller's keys.
         public override void EndRecording()
         {

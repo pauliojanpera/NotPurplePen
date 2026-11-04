@@ -79,11 +79,6 @@ namespace AvPurplePen.Views
 
             // The initial screen is over and out.
             Close();
-
-            // On macOS the two windows changing key status in quick succession sometimes leaves the
-            // menu bar showing only the application menu. Re-exporting the menu afterwards puts it
-            // back; no-op on the other platforms. See MacMenuUtilities.cs.
-            MacMenuUtilities.ReassertMenuBar(mainWindow);
         }
 
         /// <summary>
@@ -103,9 +98,11 @@ namespace AvPurplePen.Views
         private void LogoPanel_Paint(object? sender, SkiaDrawingView.PaintEventArgs e)
         {
             e.Canvas.Clear(SKColors.White);
-            LogoDrawing.DrawPurplePenLogo(
-                new Skia_GraphicsTarget(e.Canvas),
-                new RectangleF(0, 0, Convert.ToSingle(e.LogicalSize.Width), Convert.ToSingle(e.LogicalSize.Height)));
+            using (Skia_GraphicsTarget grTarget = new Skia_GraphicsTarget(e.Canvas, false)) {
+                LogoDrawing.DrawPurplePenLogo(
+                    grTarget,
+                    new RectangleF(0, 0, Convert.ToSingle(e.LogicalSize.Width), Convert.ToSingle(e.LogicalSize.Height)));
+            }
         }
     }
 }

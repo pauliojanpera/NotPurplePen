@@ -1150,6 +1150,15 @@ namespace AvPurplePen {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string CloseButton {
+            get {
+                return ResourceManager.GetString("CloseButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Preview.
         /// </summary>
         public static string ColorChooserDialog_groupBoxPreview_Text {
@@ -3945,6 +3954,46 @@ namespace AvPurplePen {
         public static string LinePropertiesDialog_labelWidthMm_Text {
             get {
                 return ResourceManager.GetString("LinePropertiesDialog_labelWidthMm_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The PDF file could not be opened, because no default application for viewing PDF files is set up..
+        /// </summary>
+        public static string LinuxPrinting_NoDefaultViewer {
+            get {
+                return ResourceManager.GetString("LinuxPrinting_NoDefaultViewer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Purple Pen cannot print directly on this system, because the desktop printing service (the Print interface of the XDG desktop portal) is not available.
+        ///
+        ///Would you like to open the document as a PDF file in your default PDF viewer, so that you can print it from there?
+        ///
+        ///IMPORTANT: When printing from the PDF viewer, turn off any page scaling (such as "Fit to page" or "Shrink to printable area"), so that the document prints at the correct size..
+        /// </summary>
+        public static string LinuxPrinting_PortalUnavailable {
+            get {
+                return ResourceManager.GetString("LinuxPrinting_PortalUnavailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The PDF file could not be opened in the default PDF viewer: {0}.
+        /// </summary>
+        public static string LinuxPrinting_ViewerFailed {
+            get {
+                return ResourceManager.GetString("LinuxPrinting_ViewerFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The PDF file could not be opened, because xdg-utils (which opens files in their default applications) is not installed..
+        /// </summary>
+        public static string LinuxPrinting_XdgUtilsMissing {
+            get {
+                return ResourceManager.GetString("LinuxPrinting_XdgUtilsMissing", resourceCulture);
             }
         }
         
@@ -7067,15 +7116,6 @@ namespace AvPurplePen {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PdfConverter.exe not found.
-        /// </summary>
-        public static string MiscText_PdfConverterNotFound {
-            get {
-                return ResourceManager.GetString("MiscText_PdfConverterNotFound", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to PDF File|*.pdf.
         /// </summary>
         public static string MiscText_PdfFilter {
@@ -8678,15 +8718,6 @@ namespace AvPurplePen {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Preview....
-        /// </summary>
-        public static string PrintDescriptions_previewButton_Text {
-            get {
-                return ResourceManager.GetString("PrintDescriptions_previewButton_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Print.
         /// </summary>
         public static string PrintDescriptions_printButton_Text {
@@ -8867,6 +8898,78 @@ namespace AvPurplePen {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to First page.
+        /// </summary>
+        public static string PrintPreviewDialog_firstPageButton_ToolTip {
+            get {
+                return ResourceManager.GetString("PrintPreviewDialog_firstPageButton_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fit Page.
+        /// </summary>
+        public static string PrintPreviewDialog_fitPageButton_Text {
+            get {
+                return ResourceManager.GetString("PrintPreviewDialog_fitPageButton_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last page.
+        /// </summary>
+        public static string PrintPreviewDialog_lastPageButton_ToolTip {
+            get {
+                return ResourceManager.GetString("PrintPreviewDialog_lastPageButton_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Next page.
+        /// </summary>
+        public static string PrintPreviewDialog_nextPageButton_ToolTip {
+            get {
+                return ResourceManager.GetString("PrintPreviewDialog_nextPageButton_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There are no pages to show..
+        /// </summary>
+        public static string PrintPreviewDialog_noPagesLabel_Text {
+            get {
+                return ResourceManager.GetString("PrintPreviewDialog_noPagesLabel_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Page {0} of {1}.
+        /// </summary>
+        public static string PrintPreviewDialog_pageNumberLabel_Text {
+            get {
+                return ResourceManager.GetString("PrintPreviewDialog_pageNumberLabel_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Previous page.
+        /// </summary>
+        public static string PrintPreviewDialog_previousPageButton_ToolTip {
+            get {
+                return ResourceManager.GetString("PrintPreviewDialog_previousPageButton_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Print Preview.
+        /// </summary>
+        public static string PrintPreviewDialog_Text {
+            get {
+                return ResourceManager.GetString("PrintPreviewDialog_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string PrintPunches_cancelButton_Text {
@@ -8980,15 +9083,6 @@ namespace AvPurplePen {
         public static string PrintPunches_paperSizeLabel_Text {
             get {
                 return ResourceManager.GetString("PrintPunches_paperSizeLabel_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Preview....
-        /// </summary>
-        public static string PrintPunches_previewButton_Text {
-            get {
-                return ResourceManager.GetString("PrintPunches_previewButton_Text", resourceCulture);
             }
         }
         
