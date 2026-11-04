@@ -15,12 +15,25 @@ namespace Map_Svg.Tests
         // The start tag of a document whose first page is 100 by 50 millimetres.
         private const string RootOf100By50 =
             "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" " +
-            "xmlns:npp=\"https://pauliojanpera.github.io/NotPurplePen/svg\" width=\"100mm\" height=\"50mm\" viewBox=\"0 0 100 50\">";
+            "xmlns:npp=\"https://pauliojanpera.github.io/NotPurplePen/svg\" " +
+            "xmlns:inkscape=\"http://www.inkscape.org/namespaces/inkscape\" xmlns:sodipodi=\"http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd\" " +
+            "width=\"100mm\" height=\"50mm\" viewBox=\"0 0 100 50\">";
 
         // The start tag of a document whose first page is 100 by 50 millimetres and which draws text (T-11).
         private const string RootOf100By50WithText =
             "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" " +
-            "xmlns:npp=\"https://pauliojanpera.github.io/NotPurplePen/svg\" width=\"100mm\" height=\"50mm\" viewBox=\"0 0 100 50\" xml:lang=\"und\">";
+            "xmlns:npp=\"https://pauliojanpera.github.io/NotPurplePen/svg\" " +
+            "xmlns:inkscape=\"http://www.inkscape.org/namespaces/inkscape\" xmlns:sodipodi=\"http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd\" " +
+            "width=\"100mm\" height=\"50mm\" viewBox=\"0 0 100 50\" xml:lang=\"und\">";
+
+        // The lines that mark the only page of a document, of 100 by 50 millimetres and with no name, as Inkscape's own page
+        // (L-6), which follow the metadata.
+        private static readonly string[] InkscapePageOf100By50 = {
+            "<sodipodi:namedview>", "<inkscape:page x=\"0\" y=\"0\" width=\"100\" height=\"50\"/>", "</sodipodi:namedview>",
+        };
+
+        // The view of the only page of a document, of 100 by 50 millimetres and with no name (L-6), before its group.
+        private const string ViewOf100By50 = "<view id=\"page\" viewBox=\"0 0 100 50\"/>";
 
         // Draw within one part holding one map labeled "map", show the part on a page of 100 by 50 millimetres that
         // shows the map from (0, 0) to (100, 50), its y axis turned to point down, and return the document.
@@ -44,7 +57,7 @@ namespace Map_Svg.Tests
 
                 mapToPage.Translate(0, 50);
                 mapToPage.Scale(1, -1);
-                target.AddPage(new SizeF(100, 50), new RectangleF(0, 0, 100, 50), mapToPage, new object[] { part });
+                target.AddPage(new SizeF(100, 50), new RectangleF(0, 0, 100, 50), mapToPage, new object[] { part }, null);
                 return target.FinishDocument();
             }
         }
@@ -64,6 +77,7 @@ namespace Map_Svg.Tests
             }
             lines.AddRange(new string[] {
                 "<metadata>", "<npp:document version=\"1\">", "<npp:map n=\"1\" label=\"map\"/>", "</npp:document>", "</metadata>",
+                InkscapePageOf100By50[0], InkscapePageOf100By50[1], InkscapePageOf100By50[2],
                 "<defs>"
             });
             if (refersToCmykProfile)
@@ -72,6 +86,7 @@ namespace Map_Svg.Tests
             lines.AddRange(partLines);
             lines.AddRange(new string[] {
                 "</g>", "</defs>",
+                ViewOf100By50,
                 "<g transform=\"matrix(.001 0 0-.001 0 50)\" clip-path=\"url(#b)\">", "<use xlink:href=\"#a\"/>", "</g>",
                 "</svg>"
             });
@@ -94,6 +109,7 @@ namespace Map_Svg.Tests
             }
             lines.AddRange(new string[] {
                 "<metadata>", "<npp:document version=\"1\">", "<npp:map n=\"1\" label=\"map\"/>", "</npp:document>", "</metadata>",
+                InkscapePageOf100By50[0], InkscapePageOf100By50[1], InkscapePageOf100By50[2],
                 "<defs>", "<clipPath id=\"" + clipId + "\">", "<path d=\"M0 0h100000v50000H0z\"/>", "</clipPath>", "<g id=\"a\">"
             });
             lines.AddRange(partLines);
@@ -101,6 +117,7 @@ namespace Map_Svg.Tests
             lines.AddRange(imageLines);
             lines.AddRange(new string[] {
                 "</defs>",
+                ViewOf100By50,
                 "<g transform=\"matrix(.001 0 0-.001 0 50)\" clip-path=\"url(#" + clipId + ")\">", "<use xlink:href=\"#a\"/>", "</g>",
                 "</svg>"
             });
@@ -133,6 +150,9 @@ namespace Map_Svg.Tests
                 "<npp:map n=\"1\" label=\"map\"/>",
                 "</npp:document>",
                 "</metadata>",
+                InkscapePageOf100By50[0],
+                InkscapePageOf100By50[1],
+                InkscapePageOf100By50[2],
                 "<defs>",
                 "<clipPath id=\"b\">",
                 "<path d=\"M0 0h100000v50000H0z\"/>",
@@ -140,6 +160,7 @@ namespace Map_Svg.Tests
                 "<g id=\"a\">",
                 "</g>",
                 "</defs>",
+                ViewOf100By50,
                 "<g transform=\"matrix(.001 0 0-.001 0 50)\" clip-path=\"url(#b)\">",
                 "<use xlink:href=\"#a\"/>",
                 "</g>",
@@ -413,14 +434,72 @@ namespace Map_Svg.Tests
                 target.EndPart();
                 mapToPage.Translate(0, 50);
                 mapToPage.Scale(1, -1);
-                target.AddPage(new SizeF(100, 50), new RectangleF(0, 0, 100, 50), mapToPage, new object[] { part });
-                target.AddPage(new SizeF(100, 50), new RectangleF(0, 0, 100, 50), mapToPage, new object[] { part });
+                target.AddPage(new SizeF(100, 50), new RectangleF(0, 0, 100, 50), mapToPage, new object[] { part }, null);
+                target.AddPage(new SizeF(100, 50), new RectangleF(0, 0, 100, 50), mapToPage, new object[] { part }, null);
 
                 string document = target.FinishDocument();
-                StringAssert.Contains("<g transform=\"matrix(.001 0 0-.001 0 50)\" clip-path=\"url(#b)\">\n<use xlink:href=\"#a\"/>\n</g>\n", document);
-                StringAssert.Contains("<g transform=\"matrix(.001 0 0-.001 110 50)\" clip-path=\"url(#b)\">\n<use xlink:href=\"#a\"/>\n</g>\n", document);
+                StringAssert.Contains(ViewOf100By50 + "\n<g transform=\"matrix(.001 0 0-.001 0 50)\" clip-path=\"url(#b)\">\n<use xlink:href=\"#a\"/>\n</g>\n", document);
+                StringAssert.Contains("<view id=\"page_2\" viewBox=\"110 0 100 50\"/>\n" +
+                                      "<g transform=\"matrix(.001 0 0-.001 110 50)\" clip-path=\"url(#b)\">\n<use xlink:href=\"#a\"/>\n</g>\n", document);
                 Assert.AreEqual(1, document.Split(new[] { "<clipPath" }, StringSplitOptions.None).Length - 1);
                 StringAssert.Contains(RootOf100By50, document);
+            }
+        }
+
+        [Test]
+        public void EachPageCarriesAViewOfItsPaperAndAnInkscapePageNamedAfterIt()
+        {
+            using (Svg_GraphicsTarget target = new Svg_GraphicsTarget(DefaultColorConverter.Instance, true))
+            using (Matrix mapToPage = new Matrix()) {
+                object part = new object();
+                target.BeginPart(part);
+                target.EndPart();
+                target.AddPage(new SizeF(215.9F, 279.4F), new RectangleF(0, 0, 100, 50), mapToPage, new object[] { part }, "Course 5-2");
+                target.AddPage(new SizeF(279.4F, 215.9F), new RectangleF(0, 0, 100, 50), mapToPage, new object[] { part }, "Course 5-2");
+                target.AddPage(new SizeF(100, 50), new RectangleF(0, 0, 100, 50), mapToPage, new object[] { part }, "1 & <2>");
+
+                string document = target.FinishDocument();
+                StringAssert.Contains(" xmlns:inkscape=\"http://www.inkscape.org/namespaces/inkscape\" xmlns:sodipodi=\"http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd\"" +
+                                      " width=\"215.9mm\" height=\"279.4mm\" viewBox=\"0 0 215.9 279.4\">\n", document);
+                StringAssert.Contains("</metadata>\n<sodipodi:namedview>\n" +
+                                      "<inkscape:page x=\"0\" y=\"0\" width=\"215.9\" height=\"279.4\" inkscape:label=\"Course 5-2\"/>\n" +
+                                      "<inkscape:page x=\"225.9\" y=\"0\" width=\"279.4\" height=\"215.9\" inkscape:label=\"Course 5-2\"/>\n" +
+                                      "<inkscape:page x=\"515.3\" y=\"0\" width=\"100\" height=\"50\" inkscape:label=\"1 &amp; &lt;2&gt;\"/>\n" +
+                                      "</sodipodi:namedview>\n<defs>\n", document);
+                StringAssert.Contains("<view id=\"Course_5-2\" viewBox=\"0 0 215.9 279.4\"/>\n<g ", document);
+                StringAssert.Contains("<view id=\"Course_5-2_2\" viewBox=\"225.9 0 279.4 215.9\"/>\n<g ", document);
+                StringAssert.Contains("<view id=\"_1_2_\" viewBox=\"515.3 0 100 50\"/>\n<g ", document);
+            }
+        }
+
+        [Test]
+        public void AViewIsNamedAfterItsPageAsAnXmlName()
+        {
+            Assert.AreEqual("Course_5-2", SvgDocument.XmlNameOf("Course 5-2"));
+            Assert.AreEqual("All_controls", SvgDocument.XmlNameOf("All controls"));
+            Assert.AreEqual("_1", SvgDocument.XmlNameOf("1"));
+            Assert.AreEqual("_-a", SvgDocument.XmlNameOf("-a"));
+            Assert.AreEqual("A_B", SvgDocument.XmlNameOf("A & B"));
+            Assert.AreEqual("Bl\u00e5_2.v", SvgDocument.XmlNameOf("Bl\u00e5 2.v"));
+            Assert.AreEqual("_", SvgDocument.XmlNameOf(":"));
+            Assert.AreEqual("a\U0001D49C", SvgDocument.XmlNameOf("a\U0001D49C"));
+            Assert.AreEqual("a_", SvgDocument.XmlNameOf("a\uD835"));
+        }
+
+        [Test]
+        public void TheIdsADocumentNamesSkipItsViews()
+        {
+            using (Svg_GraphicsTarget target = new Svg_GraphicsTarget(DefaultColorConverter.Instance, true))
+            using (Matrix mapToPage = new Matrix()) {
+                object part = new object();
+                target.BeginPart(part);
+                target.EndPart();
+                target.AddPage(new SizeF(100, 50), new RectangleF(0, 0, 100, 50), mapToPage, new object[] { part }, "a");
+
+                string document = target.FinishDocument();
+                StringAssert.Contains("<g id=\"b\">\n</g>\n", document);
+                StringAssert.Contains("<clipPath id=\"c\">", document);
+                StringAssert.Contains("<view id=\"a\" viewBox=\"0 0 100 50\"/>\n<g transform=\"scale(.001)\" clip-path=\"url(#c)\">\n<use xlink:href=\"#b\"/>\n</g>\n", document);
             }
         }
 
@@ -693,6 +772,7 @@ namespace Map_Svg.Tests
                 ".b{" + BlackStroke + ";stroke-width:500}",
                 "</style>",
                 "<metadata>", "<npp:document version=\"1\">", "<npp:map n=\"1\" label=\"map\"/>", "</npp:document>", "</metadata>",
+                InkscapePageOf100By50[0], InkscapePageOf100By50[1], InkscapePageOf100By50[2],
                 "<defs>",
                 "<color-profile name=\"cmyk\"/>",
                 "<clipPath id=\"c\">", "<path d=\"M0 0h100000v50000H0z\"/>", "</clipPath>",
@@ -701,6 +781,7 @@ namespace Map_Svg.Tests
                 "</pattern>",
                 "<g id=\"a\">", "<g data-m=\"1\">", "<path class=\"a\" d=\"M0 0h10000v10000H0z\"/>", "</g>", "</g>",
                 "</defs>",
+                ViewOf100By50,
                 "<g transform=\"matrix(.001 0 0-.001 0 50)\" clip-path=\"url(#c)\">", "<use xlink:href=\"#a\"/>", "</g>",
                 "</svg>",
             }) + "\n";
@@ -963,7 +1044,7 @@ namespace Map_Svg.Tests
 
                 mapToPage.Translate(0, 50);
                 mapToPage.Scale(1, -1);
-                target.AddPage(new SizeF(100, 50), new RectangleF(0, 0, 100, 50), mapToPage, new object[] { part });
+                target.AddPage(new SizeF(100, 50), new RectangleF(0, 0, 100, 50), mapToPage, new object[] { part }, null);
             }
         }
 
@@ -1039,7 +1120,7 @@ namespace Map_Svg.Tests
                 target.SetGeoreference(baseMap, tm35finGeoreference);
                 target.EndMap();
                 target.EndPart();
-                target.AddPage(new SizeF(100, 50), new RectangleF(0, 0, 100, 50), mapToPage, new object[] { part });
+                target.AddPage(new SizeF(100, 50), new RectangleF(0, 0, 100, 50), mapToPage, new object[] { part }, null);
                 StringAssert.Contains("<npp:map n=\"1\" label=\"base\">\n" + Tm35finRecord + "</npp:map>\n<npp:map n=\"2\" label=\"course\"/>\n",
                                       target.FinishDocument());
             }
@@ -1650,7 +1731,7 @@ namespace Map_Svg.Tests
                 object part = new object();
                 target.BeginPart(part);
                 InvalidOperationException error = Assert.Throws<InvalidOperationException>(() =>
-                    target.AddPage(new SizeF(10, 10), new RectangleF(0, 0, 10, 10), identity, new object[] { part }));
+                    target.AddPage(new SizeF(10, 10), new RectangleF(0, 0, 10, 10), identity, new object[] { part }, null));
                 StringAssert.StartsWith("AddPage: a part is open", error.Message);
             }
         }

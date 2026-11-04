@@ -11,17 +11,18 @@ namespace PurplePen
     using PurplePen.Graphics2D;
     using PurplePen.MapModel;
 
-    // Writes courses as SVG files, one page to a file (A-1 to A-6). Each page is laid out as PDF export lays it out, and
-    // drawn through the SVG target, which keeps the structure of what is drawn: the map in two parts, below and above
-    // the course's lower layer, and the course in its two layers between and over them (L-2, L-3). A page that needs a
-    // map without a lower purple layer, or no map, has fewer parts.
+    // Writes courses as SVG files (A-1 to A-6): all pages in one file, a file for each course or a file for each course
+    // part, as PDF export writes them (L-7). Each page is laid out as PDF export lays it out, and drawn through the SVG
+    // target, which keeps the structure of what is drawn: the map in two parts, below and above the course's lower
+    // layer, and the course in its two layers between and over them (L-2, L-3). A page that needs a map without a lower
+    // purple layer, or no map, has fewer parts. A file draws each map once, for all the pages that show it, and each
+    // page shows its own print area of the parts, through a view named after its course part (L-4, L-6).
     public class CourseSvg
     {
         // The smallest distance worth drawing, in millimetres of map: the step the target writes coordinates in (S-1, A-4).
         private const float MinResolution = 0.001F;
 
-        // Millimetres in an inch, and in a hundredth of an inch, which page layouts are measured in.
-        private const float MillimetresPerInch = 25.4F;
+        // Millimetres in a hundredth of an inch, which page layouts are measured in.
         private const float MillimetresPerHundredthOfInch = 0.254F;
 
         private readonly CourseSvgSettings settings;
@@ -71,30 +72,31 @@ namespace PurplePen
         // The files that writing would overwrite.
         public List<string> OverwrittenFiles()
         {
-            return (from filePage in GetPagesToCreate()
-                    where File.Exists(filePage.First)
-                    select filePage.First).ToList();
+            return (from file in GetFilesToCreate()
+                    where File.Exists(file.First)
+                    select file.First).ToList();
         }
 
         // Write the files, showing the progress if the settings ask for it.
         public void CreateSvgs()
         {
-            List<Pair<string, CoursePage>> pages = GetPagesToCreate();
-            totalPages = pages.Count;
+            List<Pair<string, List<CoursePage>>> files = GetFilesToCreate();
+            totalPages = files.Sum(file => file.Second.Count);
 
             if (settings.ShowProgressDialog)
                 controller.ShowProgressDialog(true);
 
             try {
                 currentPage = 0;
-                foreach (Pair<string, CoursePage> filePage in pages) {
+                foreach (Pair<string, List<CoursePage>> file in files) {
                     if (settings.ShowProgressDialog) {
-                        if (controller.UpdateProgressDialog(string.Format(MiscText.CreatingFile, Path.GetFileName(filePage.First)), (double) currentPage / (double) totalPages))
+                        if (controller.UpdateProgressDialog(string.Format(MiscText.CreatingFile, Path.GetFileName(file.First)), (double) currentPage / (double) totalPages))
                             throw new Exception(MiscText.CancelledByUser);
                     }
 
-                    WritePage(filePage.First, filePage.Second);
-                    currentPage += 1;
+                    if (file.Second.Count > 0)
+                        WriteFile(file.First, file.Second);
+                    currentPage += file.Second.Count;
                 }
             }
             finally {
@@ -103,45 +105,31 @@ namespace PurplePen
             }
         }
 
-        // Get each file to write, with the page it holds: a file for each course part, and when a course part needs
-        // several pages, a file for each page, named with the page's number after the part's name (A-3).
-        private List<Pair<string, CoursePage>> GetPagesToCreate()
+        // Get each file to write, with the pages it holds, as PDF export lays them out: all pages in one file, a file for
+        // each course or a file for each course part, as the settings choose, with every page laid out for the courses
+        // or course parts that go in the file (L-7).
+        private List<Pair<string, List<CoursePage>>> GetFilesToCreate()
         {
-            List<Pair<string, CoursePage>> pages = new List<Pair<string, CoursePage>>();
             List<Pair<string, IEnumerable<CourseDesignator>>> files = CourseOutputPages.GetFilesToCreate(
-                eventDB, CoursePdfSettings.PdfFileCreation.FilePerCoursePart, settings.CourseIds, settings.VariationChoicesPerCourse,
+                eventDB, settings.FileCreation, settings.CourseIds, settings.VariationChoicesPerCourse,
                 settings.PrintMapExchangesOnOneMap, settings.filePrefix, settings.outputDirectory, Extension);
 
             CoursePageLayout pageLayout = new CoursePageLayout(eventDB, symbolDB, controller, appearance, settings.CropLargePrintArea);
-            foreach (Pair<string, IEnumerable<CourseDesignator>> file in files) {
-                List<CoursePage> filePages = pageLayout.LayoutPages(file.Second);
-                for (int index = 0; index < filePages.Count; ++index) {
-                    string fileName = filePages.Count == 1 ? file.First : NumberedFileName(file.First, index + 1);
-                    pages.Add(new Pair<string, CoursePage>(fileName, filePages[index]));
-                }
-            }
-
-            return pages;
+            return (from file in files
+                    select new Pair<string, List<CoursePage>>(file.First, pageLayout.LayoutPages(file.Second))).ToList();
         }
 
-        // The name of the file of one page of several, with the page's number before the extension.
-        // fileName: the name of the file the pages would share.
-        // pageNumber: the page's number, from 1.
-        private static string NumberedFileName(string fileName, int pageNumber)
-        {
-            string extension = Path.GetExtension(fileName);
-            return fileName.Substring(0, fileName.Length - extension.Length) + "-" + pageNumber.ToString(System.Globalization.CultureInfo.InvariantCulture) + extension;
-        }
-
-        // Write one page as a file: the map's parts and the course's layers, each a part of the document, and the page
-        // that shows them through its print area.
+        // Write a file of pages. Each map is drawn once, as parts of the document, for the area of all the pages that
+        // show it (L-4): the base map's parts over the map rectangles of every page, and each course part's layers over
+        // those of its own pages. The parts are drawn in the order the pages first show them, from the bottom up within
+        // a page: the map below the course, the course part's lower layer, the map above the course and the part's
+        // upper layer for the first page, then the layers of each further course part. Then each page is added, showing
+        // the base map's parts and its own course part's through its print area, and named after its course part (L-3,
+        // L-6).
         // fileName: the file to write.
-        // page: the page.
-        private void WritePage(string fileName, CoursePage page)
+        // pages: the pages, in the order they print.
+        private void WriteFile(string fileName, List<CoursePage> pages)
         {
-            // Lay the course out in its purple and put it into the map display.
-            CourseLayout layout = CourseOutputPages.CreateCourseLayout(eventDB, symbolDB, mapDisplay, appearance, page.courseDesignator, settings.RenderControlDescriptions);
-            mapDisplay.SetCourse(layout);
             mapDisplay.SetPrintArea(null);
 
             IColorConverter colorConverter = settings.ColorModel == ColorModel.CMYK ? (IColorConverter) SwopColorConverter.Instance : (IColorConverter) DefaultColorConverter.Instance;
@@ -150,40 +138,100 @@ namespace PurplePen
 
             using (Svg_GraphicsTarget target = new Svg_GraphicsTarget(colorConverter, settings.ColorModel == ColorModel.CMYK, bitmapOptions,
                                                                       Services.TextMetricsProvider, Services.FontSubsetProvider)) {
-                object mapKey = new object(), courseKey = new object();
+                object mapKey = new object();
                 bool hasMap = mapDisplay.MapType != MapType.None;
                 string mapLabel = hasMap ? Path.GetFileName(mapDisplay.FileName) : null;
                 CoordinateMapper coordinateMapper = hasMap ? mapDisplay.CoordinateMapper : null;
                 MapGeoreference georeference = coordinateMapper == null ? null : coordinateMapper.GetMapGeoreference();
-                List<object> parts = new List<object>();
+                RectangleF mapArea = UnionOfMapRectangles(pages);
+                object mapBelowCourse = null, mapAboveCourse = null;
 
-                if (hasMap)
-                    AddPart(target, parts, mapKey, mapLabel, georeference, MapDisplayLayer.MapBelowCourse, page.mapRectangle);
-                AddPart(target, parts, courseKey, page.description, null, MapDisplayLayer.CourseLower, page.mapRectangle);
-                if (mapDisplay.HasLayersAboveCourse) {
-                    AddPart(target, parts, mapKey, mapLabel, null, MapDisplayLayer.MapAboveCourse, page.mapRectangle);
-                    AddPart(target, parts, courseKey, page.description, null, MapDisplayLayer.CourseUpper, page.mapRectangle);
+                // The course parts, each with its pages and the parts its layers are drawn in, in the order of their
+                // first pages.
+                List<CoursePartPages> courseParts = new List<CoursePartPages>();
+                foreach (CoursePage page in pages) {
+                    CoursePartPages coursePart = courseParts.FirstOrDefault(candidate => candidate.Designator.Equals(page.courseDesignator));
+                    if (coursePart == null) {
+                        coursePart = new CoursePartPages(page.courseDesignator);
+                        courseParts.Add(coursePart);
+                    }
+                    coursePart.Pages.Add(page);
                 }
 
-                DescribeCourse(target, courseKey, page);
+                foreach (CoursePartPages coursePart in courseParts) {
+                    // Lay the course part out in its purple and put it into the map display.
+                    CourseLayout layout = CourseOutputPages.CreateCourseLayout(eventDB, symbolDB, mapDisplay, appearance, coursePart.Designator, settings.RenderControlDescriptions);
+                    mapDisplay.SetCourse(layout);
 
-                using (Matrix mapToPage = MapToPage(page))
-                    target.AddPage(PaperSize(page), page.mapRectangle, mapToPage, parts.ToArray());
+                    CoursePage firstPage = coursePart.Pages[0];
+                    RectangleF courseArea = UnionOfMapRectangles(coursePart.Pages);
+                    if (hasMap && mapBelowCourse == null)
+                        mapBelowCourse = DrawPart(target, mapKey, mapLabel, georeference, MapDisplayLayer.MapBelowCourse, mapArea);
+                    coursePart.Lower = DrawPart(target, coursePart.Key, firstPage.description, null, MapDisplayLayer.CourseLower, courseArea);
+                    if (mapDisplay.HasLayersAboveCourse) {
+                        if (mapAboveCourse == null)
+                            mapAboveCourse = DrawPart(target, mapKey, mapLabel, null, MapDisplayLayer.MapAboveCourse, mapArea);
+                        coursePart.Upper = DrawPart(target, coursePart.Key, firstPage.description, null, MapDisplayLayer.CourseUpper, courseArea);
+                    }
+
+                    DescribeCourse(target, coursePart.Key, firstPage);
+                }
+
+                foreach (CoursePage page in pages) {
+                    CoursePartPages coursePart = courseParts.First(candidate => candidate.Designator.Equals(page.courseDesignator));
+                    object[] parts = new object[] { mapBelowCourse, coursePart.Lower, mapAboveCourse, coursePart.Upper }.Where(part => part != null).ToArray();
+                    using (Matrix mapToPage = MapToPage(page))
+                        target.AddPage(PaperSize(page), page.mapRectangle, mapToPage, parts, page.description);
+                }
 
                 WriteDocument(fileName, target.FinishDocument());
             }
         }
 
-        // Draw one layer of the page as a part of the document, holding one map.
+        // The pages of one course part in a file, with the key of the map its course drawing is, and the parts its two
+        // layers are drawn in.
+        private sealed class CoursePartPages
+        {
+            // The course part.
+            public readonly CourseDesignator Designator;
+
+            // The pages that show it, in the order they print.
+            public readonly List<CoursePage> Pages = new List<CoursePage>();
+
+            // The key of the map that its course drawing is, the same in both its parts.
+            public readonly object Key = new object();
+
+            // The keys of the parts its lower and upper layers are drawn in; the upper is null when the course is drawn
+            // in one layer.
+            public object Lower, Upper;
+
+            // Create the pages of a course part, with none yet.
+            // designator: the course part.
+            public CoursePartPages(CourseDesignator designator)
+            {
+                Designator = designator;
+            }
+        }
+
+        // The union of the map rectangles of pages: the area of the map they show between them.
+        // pages: the pages, at least one.
+        private static RectangleF UnionOfMapRectangles(List<CoursePage> pages)
+        {
+            RectangleF union = pages[0].mapRectangle;
+            foreach (CoursePage page in pages)
+                union = RectangleF.Union(union, page.mapRectangle);
+            return union;
+        }
+
+        // Draw one layer as a part of the document, holding one map, and return the part's key.
         // target: the SVG target.
-        // parts: the parts of the page so far, which the part is added to.
         // mapKey: the key of the map the layer draws, the same in each of the map's parts.
         // label: what the map is called.
         // georeference: where the map lies in the real world, recorded with it, or null.
         // layer: the layer to draw.
-        // mapArea: the area of the map the page shows.
-        private void AddPart(Svg_GraphicsTarget target, List<object> parts, object mapKey, string label, MapGeoreference georeference,
-                             MapDisplayLayer layer, RectangleF mapArea)
+        // mapArea: the area of the map to draw: that of all the pages that show the part.
+        private object DrawPart(Svg_GraphicsTarget target, object mapKey, string label, MapGeoreference georeference,
+                                MapDisplayLayer layer, RectangleF mapArea)
         {
             object partKey = new object();
             target.BeginPart(partKey);
@@ -193,7 +241,7 @@ namespace PurplePen
             mapDisplay.Draw(target, layer, mapArea, MinResolution, null);
             target.EndMap();
             target.EndPart();
-            parts.Add(partKey);
+            return partKey;
         }
 
         // Describe, with the course's map, the course a page draws (CD-1), and each object of the course's map by the
@@ -300,14 +348,15 @@ namespace PurplePen
             return kind.ToString();
         }
 
-        // The size of a page's paper in millimetres, turned for a landscape page (F-4).
+        // The size of a page's paper in millimetres, turned for a landscape page (F-4). Paper sizes are whole hundredths
+        // of an inch, which are converted as such, so that A5, 583 by 827 hundredths, is 148.082 by 210.058 millimetres
+        // and not those values with the error of inches held in single precision.
         // page: the page.
         private static SizeF PaperSize(CoursePage page)
         {
-            SizeF inches = new SizeF(page.paperSize.SizeInInches.Width, page.paperSize.SizeInInches.Height);
-            if (page.landscape)
-                inches = new SizeF(inches.Height, inches.Width);
-            return new SizeF(inches.Width * MillimetresPerInch, inches.Height * MillimetresPerInch);
+            double width = Math.Round(page.paperSize.SizeInInches.Width * 100.0) * 254 / 1000;
+            double height = Math.Round(page.paperSize.SizeInInches.Height * 100.0) * 254 / 1000;
+            return page.landscape ? new SizeF((float)height, (float)width) : new SizeF((float)width, (float)height);
         }
 
         // The transform from map coordinates to millimetres on a page's paper, with the y axis pointing down: PDF

@@ -133,7 +133,7 @@ namespace Map_Svg.Tests
                     recording.Playback(target);
                     target.EndMap();
                     target.EndPart();
-                    target.AddPage(new SizeF(comparisonCase.PixelSize.Width, comparisonCase.PixelSize.Height), comparisonCase.Area, areaToImage, new object[] { part });
+                    target.AddPage(new SizeF(comparisonCase.PixelSize.Width, comparisonCase.PixelSize.Height), comparisonCase.Area, areaToImage, new object[] { part }, null);
                     return target.FinishDocument();
                 }
             }

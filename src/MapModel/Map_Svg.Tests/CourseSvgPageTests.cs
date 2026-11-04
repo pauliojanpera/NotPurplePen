@@ -27,7 +27,7 @@ namespace Map_Svg.Tests
     public class CourseSvgPageTests
     {
         // Whether the images of every page go to the loop's results, not only those of a page outside the tolerance.
-        private static readonly bool keepImagesOfEveryPage = System.Environment.GetEnvironmentVariable("SVG_LOOP_KEEP_PAGE_IMAGES") == "1";
+        internal static readonly bool KeepImagesOfEveryPage = System.Environment.GetEnvironmentVariable("SVG_LOOP_KEEP_PAGE_IMAGES") == "1";
 
         // The resolution pages are drawn at, in pixels to the inch. At 100, the smallest text of the reference pages,
         // the 2.3 mm Arial of printarea2's legend, which the tests draw in Liberation Sans, has stems 0.8 pixels wide,
@@ -36,7 +36,7 @@ namespace Map_Svg.Tests
         // "il" and "ll", make a band four pixels wide of one shade, with no edge within the tolerance's reach, which the
         // tolerance holds as the inside of a shape: 34 pixels lie outside it, by up to 26 levels. At 150 and at 200,
         // each of the 20 pages of the seven reference events draws within it.
-        private const float PixelsPerInch = 150;
+        internal const float PixelsPerInch = 150;
 
         // The pages compared, each with its name, its event's file, the kind of map the event is drawn on, the courses
         // exported, whether the course is drawn in upper and lower purple, and the file the page is written in; and
@@ -92,9 +92,9 @@ namespace Map_Svg.Tests
             using (SKBitmap rendering = await ChromiumRenderer.RenderAsync(svgPath, pixelSize)) {
                 // Beyond the tolerance, the comparison has saved Chromium's image and the difference image.
                 string difference = ImageComparison.DescribeDifference(caseName, reference, rendering, DrawsText(document) ? PixelTolerance.Text : PixelTolerance.Default);
-                if (difference != null || keepImagesOfEveryPage)
+                if (difference != null || KeepImagesOfEveryPage)
                     LoopResults.SaveImage(Path.Combine("course-pages", caseName + ".png"), reference);
-                if (difference == null && keepImagesOfEveryPage)
+                if (difference == null && KeepImagesOfEveryPage)
                     LoopResults.SaveImage(Path.Combine("renderings", caseName + ".png"), rendering);
                 if (difference != null)
                     Assert.Fail(difference + " The page as the application draws it is course-pages/" + caseName + ".png.");
@@ -104,7 +104,7 @@ namespace Map_Svg.Tests
         // Whether a document draws text, and is compared within the tolerance for text, as Chromium shades glyphs
         // otherwise than Skia does: every page with a control number does.
         // document: the text of the document.
-        private static bool DrawsText(string document)
+        internal static bool DrawsText(string document)
         {
             return document.Contains("<text", System.StringComparison.Ordinal);
         }

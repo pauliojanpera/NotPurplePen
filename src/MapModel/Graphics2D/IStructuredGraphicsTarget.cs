@@ -56,7 +56,8 @@ namespace PurplePen.Graphics2D
         // mapArea: the area of map coordinates that the page shows; the parts are clipped to it.
         // mapToPage: the transform from map coordinates to millimetres on the paper, whose y axis points down.
         // partKeys: the parts the page shows, from the bottom up.
-        void AddPage(SizeF paperSize, RectangleF mapArea, Matrix mapToPage, object[] partKeys);
+        // name: what the page is called, such as the name of the course part it shows, or null for no name.
+        void AddPage(SizeF paperSize, RectangleF mapArea, Matrix mapToPage, object[] partKeys, string name);
 
         // Record where a map lies in the real world, with the map; a later call for the same map replaces it.
         // mapKey: the key of a map that has begun.

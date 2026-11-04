@@ -3919,9 +3919,6 @@ NotPurplePen cannot install this kind of file for you. Open it yourself to insta
   <data name="CreateSvgCourses_Text" xml:space="preserve">
     <value>Create SVG Files</value>
   </data>
-  <data name="CreateSvgCourses_filesInfoLabel_Text" xml:space="preserve">
-    <value>One file is created for each page.</value>
-  </data>
   <data name="CreateSvgCourses_bitmapsGroupBox_Text" xml:space="preserve">
     <value>Bitmaps</value>
   </data>

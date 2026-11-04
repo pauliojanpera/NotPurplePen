@@ -85,13 +85,13 @@ namespace Map_Svg.Tests
         }
 
         // Record adding a page; the transform and the list of parts are copied.
-        public void AddPage(SizeF paperSize, RectangleF mapArea, Matrix mapToPage, object[] partKeys)
+        public void AddPage(SizeF paperSize, RectangleF mapArea, Matrix mapToPage, object[] partKeys, string name)
         {
             Matrix transform = mapToPage.Clone();
             object[] parts = new object[partKeys.Length];
             for (int index = 0; index < partKeys.Length; ++index)
                 parts[index] = StandInFor(partKeys[index]);
-            RecordStructure(target => target.AddPage(paperSize, mapArea, transform, parts));
+            RecordStructure(target => target.AddPage(paperSize, mapArea, transform, parts, name));
         }
 
         // Record where a map lies in the real world; the georeference is a value that cannot change, so it is kept.

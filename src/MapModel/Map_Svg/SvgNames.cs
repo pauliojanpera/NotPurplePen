@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace PurplePen.MapModel
 {
     // Names the classes, or the ids, of a document: each in turn gets the shortest name not yet given, so the first
@@ -10,13 +13,27 @@ namespace PurplePen.MapModel
         // The characters that may follow the first.
         private const string FollowingCharacters = FirstCharacters + "0123456789";
 
-        // How many names have been given.
+        // How many names have been tried.
         private int count;
 
-        // Give the next name.
+        // The names given otherwise, which are not given again, such as the ids of the pages' views.
+        private readonly HashSet<string> reserved = new HashSet<string>(StringComparer.Ordinal);
+
+        // Keep a name from being given: it is given otherwise.
+        // name: the name.
+        public void Reserve(string name)
+        {
+            reserved.Add(name);
+        }
+
+        // Give the next name: the shortest not given yet and not reserved.
         public string Next()
         {
-            return NameOf(count++);
+            string name;
+            do {
+                name = NameOf(count++);
+            } while (reserved.Contains(name));
+            return name;
         }
 
         // The name given in a turn: all names of one character first, then those of two, and so on.

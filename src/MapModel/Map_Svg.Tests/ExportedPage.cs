@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Globalization;
 using System.IO;
 using PurplePen;
 using PurplePen.MapModel;
@@ -36,47 +35,40 @@ namespace Map_Svg.Tests
         // The page, as the export lays it out.
         public readonly CoursePage Page;
 
+        // Where the page lies among the pages of its file, from 0.
+        public readonly int PlaceInFile;
+
         // Create a page of the export.
         // fileName: the full path of the file the export writes the page in.
         // page: the page.
-        private ExportedPage(string fileName, CoursePage page)
+        // placeInFile: where the page lies among the pages of its file, from 0.
+        private ExportedPage(string fileName, CoursePage page, int placeInFile)
         {
             FileName = fileName;
             Page = page;
+            PlaceInFile = placeInFile;
         }
 
         // Lay out the pages that the export writes of an event with the given settings, each with its file, as CourseSvg
-        // lays them out: a file for each course part, and when a course part needs several pages, a file for each page,
-        // named with the page's number after the part's name.
+        // lays them out: the files that PDF export would write with the settings' choice of which pages go in each, each
+        // holding every page laid out for the courses or course parts that go in it, in the order they print (L-7).
         // loadedEvent: the event, loaded.
         // settings: the settings the event is exported with.
         public static List<ExportedPage> LayOut(CourseExport.LoadedEvent loadedEvent, CourseSvgSettings settings)
         {
             EventDB eventDB = loadedEvent.Controller.GetEventDB();
             List<Pair<string, IEnumerable<CourseDesignator>>> files = CourseOutputPages.GetFilesToCreate(
-                eventDB, CoursePdfSettings.PdfFileCreation.FilePerCoursePart, settings.CourseIds, settings.VariationChoicesPerCourse,
+                eventDB, settings.FileCreation, settings.CourseIds, settings.VariationChoicesPerCourse,
                 settings.PrintMapExchangesOnOneMap, settings.filePrefix, settings.outputDirectory, settings.Compress ? ".svgz" : ".svg");
-
             CoursePageLayout pageLayout = new CoursePageLayout(eventDB, loadedEvent.SymbolDB, loadedEvent.Controller,
                                                                loadedEvent.Controller.GetCourseAppearance(), settings.CropLargePrintArea);
             List<ExportedPage> pages = new List<ExportedPage>();
             foreach (Pair<string, IEnumerable<CourseDesignator>> file in files) {
                 List<CoursePage> filePages = pageLayout.LayoutPages(file.Second);
-                for (int index = 0; index < filePages.Count; ++index) {
-                    string fileName = filePages.Count == 1 ? file.First : NumberedFileName(file.First, index + 1);
-                    pages.Add(new ExportedPage(fileName, filePages[index]));
-                }
+                for (int index = 0; index < filePages.Count; ++index)
+                    pages.Add(new ExportedPage(file.First, filePages[index], index));
             }
             return pages;
-        }
-
-        // The name of the file of one page of several, with the page's number before the extension.
-        // fileName: the name of the file the pages would share.
-        // pageNumber: the page's number, from 1.
-        private static string NumberedFileName(string fileName, int pageNumber)
-        {
-            string extension = Path.GetExtension(fileName);
-            return fileName.Substring(0, fileName.Length - extension.Length) + "-" + pageNumber.ToString(CultureInfo.InvariantCulture) + extension;
         }
 
         // The size of the page's paper in millimetres, turned for a landscape page.
@@ -84,10 +76,9 @@ namespace Map_Svg.Tests
         {
             get
             {
-                SizeF inches = new SizeF(Page.paperSize.SizeInInches.Width, Page.paperSize.SizeInInches.Height);
-                if (Page.landscape)
-                    inches = new SizeF(inches.Height, inches.Width);
-                return new SizeF(inches.Width * MillimetresPerInch, inches.Height * MillimetresPerInch);
+                double width = Math.Round(Page.paperSize.SizeInInches.Width * 100.0) * 254 / 1000;
+                double height = Math.Round(Page.paperSize.SizeInInches.Height * 100.0) * 254 / 1000;
+                return Page.landscape ? new SizeF((float)height, (float)width) : new SizeF((float)width, (float)height);
             }
         }
 

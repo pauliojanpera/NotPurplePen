@@ -15,7 +15,7 @@ using TestingUtils;
 namespace Map_Svg.Tests
 {
     // Exports events through the application's SVG export, as its command does: the controller loads an event, and
-    // CourseSvg writes a file for each page into a folder of its own. The services the application's core draws and
+    // CourseSvg writes its files into a folder of their own, by default a file for each course part. The services the application's core draws and
     // measures with are the Skia ones the application registers, with the subsets of the faces the documents embed.
     internal static class CourseExport
     {
@@ -60,9 +60,11 @@ namespace Map_Svg.Tests
         //                   draws the map in two parts with the course's lower layer between them.
         // courseIds: the courses to export, Id<Course>.None for the page of all controls; none for every course of the
         //            event, in the order the event sorts them, after its page of all controls.
-        public static async Task<string> ExportAsync(string eventFile, string name, MapType mapType, bool lowerPurpleLayer, Id<Course>[] courseIds)
+        // fileCreation: which pages go in each file.
+        public static async Task<string> ExportAsync(string eventFile, string name, MapType mapType, bool lowerPurpleLayer, Id<Course>[] courseIds,
+                                                     CoursePdfSettings.PdfFileCreation fileCreation = CoursePdfSettings.PdfFileCreation.FilePerCoursePart)
         {
-            return Export(await LoadAsync(eventFile, mapType, lowerPurpleLayer), name, courseIds).outputDirectory;
+            return Export(await LoadAsync(eventFile, mapType, lowerPurpleLayer), name, courseIds, fileCreation).outputDirectory;
         }
 
         // Load an event as the application loads it, with its map.
@@ -95,7 +97,9 @@ namespace Map_Svg.Tests
         // name: the name of the folder within this run's.
         // courseIds: the courses to export, Id<Course>.None for the page of all controls; none for every course of the
         //            event, in the order the event sorts them, after its page of all controls.
-        public static CourseSvgSettings Export(LoadedEvent loadedEvent, string name, Id<Course>[] courseIds)
+        // fileCreation: which pages go in each file.
+        public static CourseSvgSettings Export(LoadedEvent loadedEvent, string name, Id<Course>[] courseIds,
+                                               CoursePdfSettings.PdfFileCreation fileCreation = CoursePdfSettings.PdfFileCreation.FilePerCoursePart)
         {
             string directory = Path.Combine(Path.GetTempPath(), "svg-export-tests-" + Environment.ProcessId.ToString(System.Globalization.CultureInfo.InvariantCulture), name);
             if (Directory.Exists(directory))
@@ -108,6 +112,7 @@ namespace Map_Svg.Tests
             CourseSvgSettings settings = new CourseSvgSettings {
                 mapDirectory = false, fileDirectory = false, outputDirectory = directory,
                 CourseIds = courseIds, AllCourses = false, ShowProgressDialog = false, CropLargePrintArea = false,
+                FileCreation = fileCreation,
             };
             Assert.IsTrue(loadedEvent.Controller.CreateCourseSvgs(settings), "exports: " + string.Join(" ", loadedEvent.Messages));
             return settings;

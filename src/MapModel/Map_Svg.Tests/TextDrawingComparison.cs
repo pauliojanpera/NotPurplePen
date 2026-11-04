@@ -43,7 +43,7 @@ namespace Map_Svg.Tests
                     draw(target);
                     target.EndMap();
                     target.EndPart();
-                    target.AddPage(new SizeF(pixels.Width, pixels.Height), area, areaToImage, new object[] { part });
+                    target.AddPage(new SizeF(pixels.Width, pixels.Height), area, areaToImage, new object[] { part }, null);
                     document = target.FinishDocument();
                 }
                 using (SKBitmap rendering = await ChromiumRenderer.RenderAsync(LoopResults.SaveSvg(name, document), pixels, locale))

@@ -85,7 +85,9 @@ namespace Map_Svg.Tests
         // pixelSize: the size of the image in pixels.
         // locale: the locale of the browser that renders it, a language tag such as "ro-RO", or null for the browser of
         // no locale of its own.
-        public static async Task<SKBitmap> RenderAsync(string svgPath, Size pixelSize, string locale = null)
+        // view: the id of a view of the document to show, as a link to the file with that fragment shows it, or null for
+        // the document's own view box.
+        public static async Task<SKBitmap> RenderAsync(string svgPath, Size pixelSize, string locale = null, string view = null)
         {
             IBrowser chromium = await BrowserIn(locale);
             IPage page = await chromium.NewPageAsync(new BrowserNewPageOptions {
@@ -93,7 +95,7 @@ namespace Map_Svg.Tests
                 DeviceScaleFactor = 1,
             });
             try {
-                await page.GotoAsync(new Uri(WritePageShowing(svgPath, pixelSize)).AbsoluteUri);
+                await page.GotoAsync(new Uri(WritePageShowing(svgPath, pixelSize, view)).AbsoluteUri);
                 byte[] png = await page.ScreenshotAsync(new PageScreenshotOptions { Type = ScreenshotType.Png });
                 return SKBitmap.Decode(png);
             }
@@ -167,14 +169,17 @@ namespace Map_Svg.Tests
         // shows a standalone SVG document, and return the page's path.
         // svgPath: the path of the SVG file, whose name names the page.
         // pixelSize: the size of the image in pixels.
-        private static string WritePageShowing(string svgPath, Size pixelSize)
+        // view: the id of a view of the document to show, which the page's name carries too, or null for the document's
+        // own view box.
+        private static string WritePageShowing(string svgPath, Size pixelSize, string view)
         {
             string directory = Path.Combine(Path.GetTempPath(), "svg-loop-pages");
             Directory.CreateDirectory(directory);
-            string pagePath = Path.Combine(directory, Path.GetFileNameWithoutExtension(svgPath) + ".html");
+            string pagePath = Path.Combine(directory, Path.GetFileNameWithoutExtension(svgPath) + (view == null ? "" : "-" + view) + ".html");
+            string source = new Uri(svgPath).AbsoluteUri + (view == null ? "" : "#" + Uri.EscapeDataString(view));
             File.WriteAllText(pagePath,
                 "<!DOCTYPE html><html><head><style>html,body{margin:0;background:#fff}img{display:block}</style></head><body>" +
-                "<img src=\"" + new Uri(svgPath).AbsoluteUri + "\" width=\"" + pixelSize.Width + "\" height=\"" + pixelSize.Height + "\">" +
+                "<img src=\"" + source + "\" width=\"" + pixelSize.Width + "\" height=\"" + pixelSize.Height + "\">" +
                 "</body></html>");
             return pagePath;
         }

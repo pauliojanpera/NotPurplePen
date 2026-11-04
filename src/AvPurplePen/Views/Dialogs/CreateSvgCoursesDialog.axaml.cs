@@ -18,7 +18,8 @@ using PurplePen.ViewModels;
 namespace AvPurplePen.Views
 {
     /// <summary>
-    /// Dialog for creating SVG files of one or more courses, one file to a page.
+    /// Dialog for creating SVG files of one or more courses, their pages gathered
+    /// into files as the user chooses.
     /// The caller must set DataContext to a <see cref="CreateSvgCoursesDialogViewModel"/>
     /// (with EventDB, ShowMergeParts, EnableChangeCropping, and Settings
     /// populated) before showing.
