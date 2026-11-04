@@ -27,8 +27,8 @@ def colours_of_sla(slaPath):
     return colours
 
 
-# The drawn items of a saved document, members of groups included and groups left out, each with its type and its
-# fill and line colours, read from its SLA file, where the copies a <use> makes share their names.
+# The drawn items of a saved document, members of groups included and groups left out, each with its type, its fill
+# and line colours and its line width in points, read from its SLA file, where the copies a <use> makes share their names.
 # slaPath: the saved document.
 def items_of_sla(slaPath):
     itemTypes = {"2": "image", "4": "text frame", "5": "line", "6": "polygon", "7": "polyline", "8": "path text"}
@@ -36,7 +36,8 @@ def items_of_sla(slaPath):
     for element in ElementTree.parse(slaPath).iter():
         if element.tag in ("PAGEOBJECT", "ITEM") and element.get("PTYPE") != "12":
             items.append({"type": itemTypes.get(element.get("PTYPE"), element.get("PTYPE")),
-                          "fill": element.get("PCOLOR", ""), "line": element.get("PCOLOR2", "")})
+                          "fill": element.get("PCOLOR", ""), "line": element.get("PCOLOR2", ""),
+                          "lineWidth": float(element.get("PWIDTH", "0"))})
     return items
 
 
