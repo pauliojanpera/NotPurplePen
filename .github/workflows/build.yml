@@ -534,13 +534,23 @@ jobs:
             # Two runs arriving together both find no release and both try to
             # make one. The one that loses looks again rather than failing,
             # because what it wanted now exists.
+            $says = $about[$descriptor.channel]
+            $title = if ($descriptor.slug) { "$($says.title): $($descriptor.slug)" } else { $says.title }
             if (-not (Exists $tag)) {
-                $says = $about[$descriptor.channel]
-                $title = if ($descriptor.slug) { "$($says.title): $($descriptor.slug)" } else { $says.title }
                 $flags = @()
                 if ($descriptor.channel -ne 'main') { $flags += '--prerelease' }
                 $said = & gh release create $tag --title $title --notes $says.notes @flags 2>&1
                 if (-not (Exists $tag)) { throw "Could not create the release ${tag}: $said" }
+            }
+            else {
+                # A release keeps what it was made saying, so one made before
+                # its channel was described anew is told what it says now.
+                $release = & gh release view $tag --json name,body | ConvertFrom-Json
+                if ($release.name -ne $title -or $release.body -ne $says.notes) {
+                    & gh release edit $tag --title $title --notes $says.notes | Out-Null
+                    if ($LASTEXITCODE -ne 0) { throw "Could not describe the release $tag anew." }
+                    "  $tag now says: $title"
+                }
             }
 
             $files = @($descriptor.files | ForEach-Object { Join-Path $descriptorFile.DirectoryName $_.file })
