@@ -8,7 +8,8 @@ using PurplePen.MapModel;
 namespace Map_Svg.Tests
 {
     // Checks the documents that the SVG target writes, against expected text (V-1): the layout of maps and pages, the
-    // calls it implements, and the errors of calls out of turn (L-1 to L-5, D-12, F-2 to F-4, COL-1 to COL-6, B-1 to B-6).
+    // calls it implements, where it puts styles, and the errors of calls out of turn (L-1 to L-5, D-12, S-4, S-8, F-2 to
+    // F-4, COL-1 to COL-6, B-1 to B-6).
     [TestFixture]
     public class SvgDocumentTests
     {
@@ -34,6 +35,15 @@ namespace Map_Svg.Tests
 
         // The view of the only page of a document, of 100 by 50 millimetres and with no name (L-6), before its group.
         private const string ViewOf100By50 = "<view id=\"page\" viewBox=\"0 0 100 50\"/>";
+
+        // The declaration of the CMYK profile that icc-color() names, with the device CMYK profile behind it (COL-3).
+        private const string CmykProfileLine = "<color-profile id=\"cmyk\" name=\"cmyk\" xlink:href=\"" + SvgPaints.CmykProfileHref + "\"/>";
+
+        // The style block of a document that draws no text, which has none (S-4).
+        private static readonly string[] NoStyleBlock = new string[0];
+
+        // The declarations of black fills.
+        private const string BlackFill = "fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)";
 
         // Draw within one part holding one map labeled "map", show the part on a page of 100 by 50 millimetres that
         // shows the map from (0, 0) to (100, 50), its y axis turned to point down, and return the document.
@@ -63,7 +73,7 @@ namespace Map_Svg.Tests
         }
 
         // The document that WriteOnePage writes, given the lines of its style block and the lines within its part.
-        // styleLines: the classes, one to a line.
+        // styleLines: the rules of the style block, one to a line, which only a document that draws text has.
         // partLines: the lines within the part's definition.
         // refersToCmykProfile: whether a color refers to the CMYK profile, which the definitions then declare.
         // drawsText: whether the part draws text, which the root then names the language of.
@@ -81,7 +91,7 @@ namespace Map_Svg.Tests
                 "<defs>"
             });
             if (refersToCmykProfile)
-                lines.Add("<color-profile name=\"cmyk\"/>");
+                lines.Add(CmykProfileLine);
             lines.AddRange(new string[] { "<clipPath id=\"b\">", "<path d=\"M0 0h100000v50000H0z\"/>", "</clipPath>", "<g id=\"a\">" });
             lines.AddRange(partLines);
             lines.AddRange(new string[] {
@@ -95,7 +105,7 @@ namespace Map_Svg.Tests
 
         // The document that WriteOnePage writes when its part draws images, which the definitions hold after the part's,
         // so that the page's clip, named last, takes the id after theirs.
-        // styleLines: the classes, one to a line.
+        // styleLines: the rules of the style block, one to a line, which only a document that draws text has.
         // partLines: the lines within the part's definition.
         // imageLines: the definitions of the images.
         // clipId: the id of the page's clip.
@@ -170,7 +180,7 @@ namespace Map_Svg.Tests
         }
 
         [Test]
-        public void FilledShapesShareTheClassOfTheirBrush()
+        public void FilledShapesOfTwoBrushesEachCarryTheStyleOfTheirBrush()
         {
             string document = WriteOnePage(target => {
                 object red = new object(), green = new object();
@@ -182,16 +192,13 @@ namespace Map_Svg.Tests
                 target.FillEllipse(green, Point(80, 25), 8, 4.5F);
             });
             Assert.AreEqual(OnePageDocument(
-                new string[] {
-                    ".a{fill:#f00;fill:#f00 icc-color(cmyk,0,1,1,0)}",
-                    ".b{fill:#0f0;fill:#0f0 icc-color(cmyk,1,0,1,0)}",
-                },
+                NoStyleBlock,
                 new string[] {
                     "<g data-m=\"1\">",
-                    "<path class=\"a\" d=\"M10000 10000h20000v5000H10000z\"/>",
-                    "<path class=\"b\" d=\"M40000 10000h10000l-5000 8500z\"/>",
-                    "<circle class=\"a\" cx=\"60000\" cy=\"25000\" r=\"5000\"/>",
-                    "<ellipse class=\"b\" cx=\"80000\" cy=\"25000\" rx=\"8000\" ry=\"4500\"/>",
+                    "<path style=\"fill:#f00;fill:#f00 icc-color(cmyk,0,1,1,0)\" d=\"M10000 10000h20000v5000H10000z\"/>",
+                    "<path style=\"fill:#0f0;fill:#0f0 icc-color(cmyk,1,0,1,0)\" d=\"M40000 10000h10000l-5000 8500z\"/>",
+                    "<circle style=\"fill:#f00;fill:#f00 icc-color(cmyk,0,1,1,0)\" cx=\"60000\" cy=\"25000\" r=\"5000\"/>",
+                    "<ellipse style=\"fill:#0f0;fill:#0f0 icc-color(cmyk,1,0,1,0)\" cx=\"80000\" cy=\"25000\" rx=\"8000\" ry=\"4500\"/>",
                     "</g>",
                 }), document);
         }
@@ -207,12 +214,12 @@ namespace Map_Svg.Tests
                 target.FillEllipse(black, Point(4, 0), 1, 1);
             });
             Assert.AreEqual(OnePageDocument(
-                new string[] { ".a{fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)}" },
+                NoStyleBlock,
                 new string[] {
-                    "<g data-m=\"1\">",
-                    "<circle class=\"a\" r=\"1000\"/>",
-                    "<ellipse class=\"a\" cy=\"3000\" rx=\"2000\" ry=\"1000\"/>",
-                    "<circle class=\"a\" cx=\"4000\" r=\"1000\"/>",
+                    "<g style=\"" + BlackFill + "\" data-m=\"1\">",
+                    "<circle r=\"1000\"/>",
+                    "<ellipse cy=\"3000\" rx=\"2000\" ry=\"1000\"/>",
+                    "<circle cx=\"4000\" r=\"1000\"/>",
                     "</g>",
                 }), document);
         }
@@ -226,8 +233,12 @@ namespace Map_Svg.Tests
                 target.FillPolygon(brush, new PointF[] { Point(0, 0), Point(10, 0), Point(0, 10), Point(10, 10) }, AreaFillMode.Alternate);
             });
             Assert.AreEqual(OnePageDocument(
-                new string[] { ".a{fill:#71b2e6;fill:#71b2e6 icc-color(cmyk,.455,.2,0,.1);fill-opacity:.25;fill-rule:evenodd}" },
-                new string[] { "<g data-m=\"1\">", "<path class=\"a\" d=\"M0 0h10000L0 10000h10000z\"/>", "</g>" }), document);
+                NoStyleBlock,
+                new string[] {
+                    "<g style=\"fill:#71b2e6;fill:#71b2e6 icc-color(cmyk,.455,.2,0,.1);fill-opacity:.25;fill-rule:evenodd\" data-m=\"1\">",
+                    "<path d=\"M0 0h10000L0 10000h10000z\"/>",
+                    "</g>",
+                }), document);
         }
 
         [Test]
@@ -239,8 +250,8 @@ namespace Map_Svg.Tests
                 target.FillRectangle(brush, new RectangleF(1, 2, 3, 4));
             }, false);
             Assert.AreEqual(OnePageDocument(
-                new string[] { ".a{fill:#ff8000}" },
-                new string[] { "<g data-m=\"1\">", "<path class=\"a\" d=\"M1000 2000h3000v4000H1000z\"/>", "</g>" },
+                NoStyleBlock,
+                new string[] { "<g style=\"fill:#ff8000\" data-m=\"1\">", "<path d=\"M1000 2000h3000v4000H1000z\"/>", "</g>" },
                 false), document);
         }
 
@@ -254,8 +265,12 @@ namespace Map_Svg.Tests
                 target.FillRectangle(brush, new RectangleF(1, 2, 3, 4));
             });
             Assert.AreEqual(OnePageDocument(
-                new string[] { ".a{fill:#b2e680;fill:#b2e680 icc-color(cmyk,.2,0,.4,.1)}" },
-                new string[] { "<g data-m=\"1\">", "<path class=\"a\" d=\"M1000 2000h3000v4000H1000z\"/>", "</g>" }), document);
+                NoStyleBlock,
+                new string[] {
+                    "<g style=\"fill:#b2e680;fill:#b2e680 icc-color(cmyk,.2,0,.4,.1)\" data-m=\"1\">",
+                    "<path d=\"M1000 2000h3000v4000H1000z\"/>",
+                    "</g>",
+                }), document);
         }
 
         [Test]
@@ -302,19 +317,19 @@ namespace Map_Svg.Tests
                 }
             });
             Assert.AreEqual(OnePageDocument(
-                new string[] { ".a{fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)}" },
+                NoStyleBlock,
                 new string[] {
-                    "<g data-m=\"1\">",
+                    "<g style=\"" + BlackFill + "\" data-m=\"1\">",
                     "<g transform=\"translate(20000 30000)\">",
-                    "<path class=\"a\" d=\"M-1000-1000h2000v2000h-2000z\"/>",
+                    "<path d=\"M-1000-1000h2000v2000h-2000z\"/>",
                     "</g>",
                     "<g transform=\"translate(20000 30000)rotate(45)\">",
-                    "<path class=\"a\" d=\"M-1000-1000h2000v2000h-2000z\"/>",
+                    "<path d=\"M-1000-1000h2000v2000h-2000z\"/>",
                     "</g>",
                     "<g transform=\"matrix(1 0 .5 1 0 0)\">",
-                    "<circle class=\"a\" r=\"1000\"/>",
+                    "<circle r=\"1000\"/>",
                     "</g>",
-                    "<circle class=\"a\" cx=\"5000\" cy=\"5000\" r=\"1000\"/>",
+                    "<circle cx=\"5000\" cy=\"5000\" r=\"1000\"/>",
                     "</g>",
                 }), document);
         }
@@ -336,18 +351,14 @@ namespace Map_Svg.Tests
                 target.PopAntiAliasing();
             });
             Assert.AreEqual(OnePageDocument(
+                NoStyleBlock,
                 new string[] {
-                    ".a{fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)}",
-                    ".b{shape-rendering:crispEdges}",
-                    ".c{shape-rendering:auto}",
-                },
-                new string[] {
-                    "<g data-m=\"1\">",
-                    "<circle class=\"a\" cx=\"1000\" cy=\"1000\" r=\"1000\"/>",
-                    "<g class=\"b\">",
-                    "<circle class=\"a\" cx=\"3000\" cy=\"3000\" r=\"1000\"/>",
-                    "<g class=\"c\">",
-                    "<circle class=\"a\" cx=\"5000\" cy=\"5000\" r=\"1000\"/>",
+                    "<g style=\"" + BlackFill + "\" data-m=\"1\">",
+                    "<circle cx=\"1000\" cy=\"1000\" r=\"1000\"/>",
+                    "<g style=\"shape-rendering:crispEdges\">",
+                    "<circle cx=\"3000\" cy=\"3000\" r=\"1000\"/>",
+                    "<g style=\"shape-rendering:auto\">",
+                    "<circle cx=\"5000\" cy=\"5000\" r=\"1000\"/>",
                     "</g>",
                     "</g>",
                     "</g>",
@@ -370,11 +381,11 @@ namespace Map_Svg.Tests
                 }
             });
             Assert.AreEqual(OnePageDocument(
-                new string[] { ".a{fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)}" },
+                NoStyleBlock,
                 new string[] {
-                    "<g transform=\"translate(10000 10000)\" data-m=\"1\">",
-                    "<path class=\"a\" d=\"M1000 0h1000v1000H1000z\"/>",
-                    "<path class=\"a\" d=\"M2000 0h1000v1000H2000z\"/>",
+                    "<g style=\"" + BlackFill + "\" transform=\"translate(10000 10000)\" data-m=\"1\">",
+                    "<path d=\"M1000 0h1000v1000H1000z\"/>",
+                    "<path d=\"M2000 0h1000v1000H2000z\"/>",
                     "</g>",
                 }), document);
         }
@@ -397,13 +408,13 @@ namespace Map_Svg.Tests
                 }
             });
             Assert.AreEqual(OnePageDocument(
-                new string[] { ".a{fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)}" },
+                NoStyleBlock,
                 new string[] {
-                    "<g data-m=\"1\">",
-                    "<ellipse class=\"a\" cx=\"21000\" cy=\"30001\" rx=\"2000\" ry=\"1000\"/>",
+                    "<g style=\"" + BlackFill + "\" data-m=\"1\">",
+                    "<ellipse cx=\"21000\" cy=\"30001\" rx=\"2000\" ry=\"1000\"/>",
                     "<g transform=\"translate(20000 30001)\">",
-                    "<circle class=\"a\" r=\"1000\"/>",
-                    "<circle class=\"a\" cx=\"3000\" r=\"1000\"/>",
+                    "<circle r=\"1000\"/>",
+                    "<circle cx=\"3000\" r=\"1000\"/>",
                     "</g>",
                     "</g>",
                 }), document);
@@ -421,7 +432,7 @@ namespace Map_Svg.Tests
                     target.FillRectangle(black, new RectangleF(0, 0, 1, 1));
                 }
             });
-            StringAssert.Contains("<g transform=\"translate(1000 2000)\" data-m=\"1\">\n<path class=\"a\" d=\"M0 0h1000v1000H0z\"/>\n</g>\n", document);
+            StringAssert.Contains("<g style=\"" + BlackFill + "\" transform=\"translate(1000 2000)\" data-m=\"1\">\n<path d=\"M0 0h1000v1000H0z\"/>\n</g>\n", document);
         }
 
         [Test]
@@ -503,7 +514,72 @@ namespace Map_Svg.Tests
             }
         }
 
-        // The declarations of a black stroke, which every class of a black pen begins with.
+        [Test]
+        public void AViewTakesAnotherIdThanTheColorProfilesUnderTheCmykColorModel()
+        {
+            foreach (bool declaresCmykColors in new bool[] { true, false }) {
+                using (Svg_GraphicsTarget target = new Svg_GraphicsTarget(DefaultColorConverter.Instance, declaresCmykColors))
+                using (Matrix mapToPage = new Matrix()) {
+                    object part = new object();
+                    target.BeginPart(part);
+                    target.EndPart();
+                    target.AddPage(new SizeF(100, 50), new RectangleF(0, 0, 100, 50), mapToPage, new object[] { part }, "cmyk");
+                    string viewId = declaresCmykColors ? "cmyk_2" : "cmyk";
+                    StringAssert.Contains("<view id=\"" + viewId + "\" viewBox=\"0 0 100 50\"/>\n", target.FinishDocument());
+                }
+            }
+        }
+
+        [Test]
+        public void TheColorProfileIsADeviceCmykOutputProfileDeclaredWithAnIdAndItsName()
+        {
+            string document = WriteOnePage(target => {
+                object black = new object();
+                target.CreateSolidBrush(black, CmykColor.FromCmyk(0, 0, 0, 1));
+                target.FillRectangle(black, new RectangleF(0, 0, 10, 10));
+            });
+            StringAssert.Contains("<defs>\n<color-profile id=\"cmyk\" name=\"cmyk\" xlink:href=\"data:application/vnd.iccprofile;base64,", document);
+
+            const string prefix = "data:application/vnd.iccprofile;base64,";
+            StringAssert.StartsWith(prefix, SvgPaints.CmykProfileHref);
+            byte[] profile = Convert.FromBase64String(SvgPaints.CmykProfileHref.Substring(prefix.Length));
+            Assert.AreEqual(516, profile.Length);
+            Assert.AreEqual(516, BigEndian(profile, 0, 4), "the size in the header");
+            Assert.AreEqual(0x02100000, BigEndian(profile, 8, 4), "version 2.1");
+            Assert.AreEqual("prtrCMYKLab ", System.Text.Encoding.ASCII.GetString(profile, 12, 12), "an output profile from CMYK to CIELAB");
+            Assert.AreEqual("acsp", System.Text.Encoding.ASCII.GetString(profile, 36, 4));
+
+            List<string> tags = new List<string>();
+            int table = 0;
+            for (int index = 0; index < BigEndian(profile, 128, 4); ++index) {
+                string signature = System.Text.Encoding.ASCII.GetString(profile, 132 + 12 * index, 4);
+                tags.Add(signature);
+                if (signature == "A2B0")
+                    table = BigEndian(profile, 136 + 12 * index, 4);
+            }
+            CollectionAssert.AreEqual(new string[] { "desc", "cprt", "wtpt", "A2B0" }, tags);
+            Assert.AreEqual("mft2", System.Text.Encoding.ASCII.GetString(profile, table, 4));
+            Assert.AreEqual(2, profile[table + 10], "two grid points a channel");
+            // The grid follows the table's header, its matrix, its counts and its input curves; its first point is no
+            // ink and its second black alone, whose lightness is the paper's white and none.
+            int grid = table + 68;
+            Assert.AreEqual(0xFF00, BigEndian(profile, grid, 2), "no ink");
+            Assert.AreEqual(0, BigEndian(profile, grid + 6, 2), "black alone");
+        }
+
+        // A number written big-endian, as ICC profiles write them.
+        // data: the bytes.
+        // offset: where the number begins.
+        // length: its length in bytes.
+        private static int BigEndian(byte[] data, int offset, int length)
+        {
+            int number = 0;
+            for (int index = 0; index < length; ++index)
+                number = (number << 8) | data[offset + index];
+            return number;
+        }
+
+        // The declarations of a black stroke, which every style of a black pen begins with.
         private const string BlackStroke = "fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1)";
 
         // Make a path part.
@@ -530,20 +606,14 @@ namespace Map_Svg.Tests
                     target.DrawLine(pens[index], Point(0, index), Point(10, index));
             });
             Assert.AreEqual(OnePageDocument(
-                new string[] {
-                    ".a{" + BlackStroke + ";stroke-width:350}",
-                    ".b{" + BlackStroke + ";stroke-width:350;stroke-linecap:round;stroke-linejoin:round}",
-                    ".c{" + BlackStroke + ";stroke-width:350;stroke-linecap:square;stroke-linejoin:bevel}",
-                    ".d{" + BlackStroke + ";stroke-width:350;stroke-miterlimit:2.5}",
-                    ".e{" + BlackStroke + ";stroke-width:350;stroke-linejoin:bevel}",
-                },
+                NoStyleBlock,
                 new string[] {
                     "<g data-m=\"1\">",
-                    "<path class=\"a\" d=\"M0 0h10000\"/>",
-                    "<path class=\"b\" d=\"M0 1000h10000\"/>",
-                    "<path class=\"c\" d=\"M0 2000h10000\"/>",
-                    "<path class=\"d\" d=\"M0 3000h10000\"/>",
-                    "<path class=\"e\" d=\"M0 4000h10000\"/>",
+                    "<path style=\"" + BlackStroke + ";stroke-width:350\" d=\"M0 0h10000\"/>",
+                    "<path style=\"" + BlackStroke + ";stroke-width:350;stroke-linecap:round;stroke-linejoin:round\" d=\"M0 1000h10000\"/>",
+                    "<path style=\"" + BlackStroke + ";stroke-width:350;stroke-linecap:square;stroke-linejoin:bevel\" d=\"M0 2000h10000\"/>",
+                    "<path style=\"" + BlackStroke + ";stroke-width:350;stroke-miterlimit:2.5\" d=\"M0 3000h10000\"/>",
+                    "<path style=\"" + BlackStroke + ";stroke-width:350;stroke-linejoin:bevel\" d=\"M0 4000h10000\"/>",
                     "</g>",
                 }), document);
         }
@@ -561,14 +631,14 @@ namespace Map_Svg.Tests
                 target.DrawEllipse(pen, Point(70, 5), 4, 2);
             });
             Assert.AreEqual(OnePageDocument(
-                new string[] { ".a{" + BlackStroke + ";stroke-width:500;stroke-linecap:round;stroke-linejoin:round}" },
+                NoStyleBlock,
                 new string[] {
-                    "<g data-m=\"1\">",
-                    "<path class=\"a\" d=\"M0 0h10000v10000\"/>",
-                    "<path class=\"a\" d=\"M20000 0h10000l-5000 8000z\"/>",
-                    "<path class=\"a\" d=\"M40000 0h10000v5000H40000z\"/>",
-                    "<circle class=\"a\" cx=\"60000\" cy=\"5000\" r=\"3000\"/>",
-                    "<ellipse class=\"a\" cx=\"70000\" cy=\"5000\" rx=\"4000\" ry=\"2000\"/>",
+                    "<g style=\"" + BlackStroke + ";stroke-width:500;stroke-linecap:round;stroke-linejoin:round\" data-m=\"1\">",
+                    "<path d=\"M0 0h10000v10000\"/>",
+                    "<path d=\"M20000 0h10000l-5000 8000z\"/>",
+                    "<path d=\"M40000 0h10000v5000H40000z\"/>",
+                    "<circle cx=\"60000\" cy=\"5000\" r=\"3000\"/>",
+                    "<ellipse cx=\"70000\" cy=\"5000\" rx=\"4000\" ry=\"2000\"/>",
                     "</g>",
                 }), document);
         }
@@ -584,12 +654,12 @@ namespace Map_Svg.Tests
                 target.DrawArc(pen, Point(0, 0), 10, 45, 360);
             });
             Assert.AreEqual(OnePageDocument(
-                new string[] { ".a{" + BlackStroke + ";stroke-width:500}" },
+                NoStyleBlock,
                 new string[] {
-                    "<g data-m=\"1\">",
-                    "<path class=\"a\" d=\"M10000 0A10000 10000 0 0 1 0 10000\"/>",
-                    "<path class=\"a\" d=\"M10000 0A10000 10000 0 1 0 0 10000\"/>",
-                    "<circle class=\"a\" r=\"10000\"/>",
+                    "<g style=\"" + BlackStroke + ";stroke-width:500\" data-m=\"1\">",
+                    "<path d=\"M10000 0A10000 10000 0 0 1 0 10000\"/>",
+                    "<path d=\"M10000 0A10000 10000 0 1 0 0 10000\"/>",
+                    "<circle r=\"10000\"/>",
                     "</g>",
                 }), document);
         }
@@ -604,8 +674,12 @@ namespace Map_Svg.Tests
                 target.DrawLine(pen, Point(0, 0), Point(5, 5));
             });
             Assert.AreEqual(OnePageDocument(
-                new string[] { ".a{fill:none;stroke:#f00;stroke:#f00 icc-color(cmyk,0,1,1,0);stroke-width:1000}" },
-                new string[] { "<g data-m=\"1\">", "<path class=\"a\" d=\"M0 0l5000 5000\"/>", "</g>" }), document);
+                NoStyleBlock,
+                new string[] {
+                    "<g style=\"fill:none;stroke:#f00;stroke:#f00 icc-color(cmyk,0,1,1,0);stroke-width:1000\" data-m=\"1\">",
+                    "<path d=\"M0 0l5000 5000\"/>",
+                    "</g>",
+                }), document);
         }
 
         [Test]
@@ -643,17 +717,13 @@ namespace Map_Svg.Tests
             });
             const string data = "M0 0h10000v10000c0 5000-5000 10000-10000 10000z";
             Assert.AreEqual(OnePageDocument(
-                new string[] {
-                    ".a{fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd}",
-                    ".b{" + BlackStroke + ";stroke-width:100}",
-                    ".c{fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)}",
-                },
+                NoStyleBlock,
                 new string[] {
                     "<g data-m=\"1\">",
-                    "<path class=\"a\" d=\"" + data + "\"/>",
-                    "<path class=\"b\" d=\"" + data + "\"/>",
-                    "<path class=\"c\" d=\"" + data + "\"/>",
-                    "<path class=\"b\" d=\"" + data + "\"/>",
+                    "<path style=\"" + BlackFill + ";fill-rule:evenodd\" d=\"" + data + "\"/>",
+                    "<path style=\"" + BlackStroke + ";stroke-width:100\" d=\"" + data + "\"/>",
+                    "<path style=\"" + BlackFill + "\" d=\"" + data + "\"/>",
+                    "<path style=\"" + BlackStroke + ";stroke-width:100\" d=\"" + data + "\"/>",
                     "</g>",
                 }), document);
         }
@@ -680,31 +750,30 @@ namespace Map_Svg.Tests
                 target.PopClip();
             });
             StringAssert.Contains(string.Join("\n", new string[] {
-                "<defs>", "<color-profile name=\"cmyk\"/>",
+                "<defs>", CmykProfileLine,
                 "<clipPath id=\"b\">", "<path d=\"M0 0h10000v10000H0z\"/>", "</clipPath>",
                 "<clipPath id=\"c\">", "<path d=\"M20000 0h5000v5000h-5000zM30000 0h5000v5000h-5000z\"/>", "</clipPath>",
-                "<clipPath id=\"d\">", "<path class=\"b\" d=\"M0 0h10000L0 10000h10000z\"/>", "</clipPath>",
+                "<clipPath id=\"d\">", "<path style=\"clip-rule:evenodd\" d=\"M0 0h10000L0 10000h10000z\"/>", "</clipPath>",
                 "<clipPath id=\"e\">", "<path d=\"M0 0h100000v50000H0z\"/>", "</clipPath>",
                 "<g id=\"a\">",
-                "<g data-m=\"1\">",
+                "<g style=\"" + BlackFill + "\" data-m=\"1\">",
                 "<g clip-path=\"url(#b)\">",
-                "<path class=\"a\" d=\"M0 0h20000v20000H0z\"/>",
+                "<path d=\"M0 0h20000v20000H0z\"/>",
                 "<g clip-path=\"url(#c)\">",
-                "<circle class=\"a\" cx=\"5000\" cy=\"5000\" r=\"1000\"/>",
+                "<circle cx=\"5000\" cy=\"5000\" r=\"1000\"/>",
                 "</g>",
                 "</g>",
-                "<circle class=\"a\" cx=\"50000\" cy=\"5000\" r=\"1000\"/>",
+                "<circle cx=\"50000\" cy=\"5000\" r=\"1000\"/>",
                 "<g clip-path=\"url(#b)\">",
-                "<circle class=\"a\" cx=\"8000\" cy=\"8000\" r=\"1000\"/>",
+                "<circle cx=\"8000\" cy=\"8000\" r=\"1000\"/>",
                 "</g>",
                 "<g clip-path=\"url(#d)\">",
-                "<circle class=\"a\" cx=\"2000\" cy=\"2000\" r=\"1000\"/>",
+                "<circle cx=\"2000\" cy=\"2000\" r=\"1000\"/>",
                 "</g>",
                 "</g>",
                 "</g>",
                 "</defs>",
             }), document);
-            StringAssert.Contains(".b{clip-rule:evenodd}", document);
         }
 
         [Test]
@@ -723,14 +792,14 @@ namespace Map_Svg.Tests
             });
             Assert.IsTrue(supported);
             Assert.AreEqual(OnePageDocument(
-                new string[] { ".a{mix-blend-mode:darken}", ".b{fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)}" },
+                NoStyleBlock,
                 new string[] {
                     "<g data-m=\"1\">",
-                    "<g class=\"a\">",
-                    "<circle class=\"b\" cx=\"1000\" cy=\"1000\" r=\"1000\"/>",
+                    "<g style=\"mix-blend-mode:darken;" + BlackFill + "\">",
+                    "<circle cx=\"1000\" cy=\"1000\" r=\"1000\"/>",
                     "</g>",
-                    "<g class=\"a\">",
-                    "<circle class=\"b\" cx=\"3000\" cy=\"3000\" r=\"1000\"/>",
+                    "<g style=\"mix-blend-mode:darken;" + BlackFill + "\">",
+                    "<circle cx=\"3000\" cy=\"3000\" r=\"1000\"/>",
                     "</g>",
                     "</g>",
                 }), document);
@@ -767,19 +836,15 @@ namespace Map_Svg.Tests
             });
             string expected = string.Join("\n", new string[] {
                 RootOf100By50,
-                "<style>",
-                ".a{fill:url(#b)}",
-                ".b{" + BlackStroke + ";stroke-width:500}",
-                "</style>",
                 "<metadata>", "<npp:document version=\"1\">", "<npp:map n=\"1\" label=\"map\"/>", "</npp:document>", "</metadata>",
                 InkscapePageOf100By50[0], InkscapePageOf100By50[1], InkscapePageOf100By50[2],
                 "<defs>",
-                "<color-profile name=\"cmyk\"/>",
+                CmykProfileLine,
                 "<clipPath id=\"c\">", "<path d=\"M0 0h100000v50000H0z\"/>", "</clipPath>",
                 "<pattern id=\"b\" patternUnits=\"userSpaceOnUse\" x=\"-2000\" y=\"-1000\" width=\"4000\" height=\"2000\" viewBox=\"-2000 -1000 4000 2000\" patternTransform=\"rotate(30)\">",
-                "<path class=\"b\" d=\"M-2000 0h4000\"/>",
+                "<path style=\"" + BlackStroke + ";stroke-width:500\" d=\"M-2000 0h4000\"/>",
                 "</pattern>",
-                "<g id=\"a\">", "<g data-m=\"1\">", "<path class=\"a\" d=\"M0 0h10000v10000H0z\"/>", "</g>", "</g>",
+                "<g id=\"a\">", "<g style=\"fill:url(#b)\" data-m=\"1\">", "<path d=\"M0 0h10000v10000H0z\"/>", "</g>", "</g>",
                 "</defs>",
                 ViewOf100By50,
                 "<g transform=\"matrix(.001 0 0-.001 0 50)\" clip-path=\"url(#c)\">", "<use xlink:href=\"#a\"/>", "</g>",
@@ -798,9 +863,8 @@ namespace Map_Svg.Tests
                 target.DrawLine(pen, Point(0, 0), Point(5, 5));
                 target.FillPolygon(brush, new PointF[] { Point(0, 0), Point(4, 0), Point(0, 4) }, AreaFillMode.Alternate);
             });
-            StringAssert.Contains(".a{fill:none;stroke:url(#b);stroke-width:1000;stroke-linecap:round;stroke-linejoin:round}\n", document);
-            StringAssert.Contains(".b{fill:url(#b);fill-rule:evenodd}\n", document);
-            StringAssert.Contains("<path class=\"a\" d=\"M0 0l5000 5000\"/>\n<path class=\"b\" d=\"M0 0h4000L0 4000z\"/>\n", document);
+            StringAssert.Contains("<path style=\"fill:none;stroke:url(#b);stroke-width:1000;stroke-linecap:round;stroke-linejoin:round\" d=\"M0 0l5000 5000\"/>\n" +
+                                  "<path style=\"fill:url(#b);fill-rule:evenodd\" d=\"M0 0h4000L0 4000z\"/>\n", document);
             Assert.AreEqual(1, document.Split(new[] { "<pattern" }, StringSplitOptions.None).Length - 1);
         }
 
@@ -818,7 +882,7 @@ namespace Map_Svg.Tests
             StringAssert.Contains("<pattern id=\"b\" patternUnits=\"userSpaceOnUse\" x=\"-3000\" y=\"-3000\" width=\"6000\" height=\"6000\" viewBox=\"-3000 -3000 6000 6000\">", document);
             StringAssert.Contains("<pattern id=\"c\" patternUnits=\"userSpaceOnUse\" x=\"-1000\" y=\"-1000\" width=\"2000\" height=\"2000\" viewBox=\"-1000 -1000 2000 2000\">", document);
             Assert.AreEqual(2, document.Split(new[] { "<pattern" }, StringSplitOptions.None).Length - 1);
-            StringAssert.Contains(".a{fill:url(#b)}\n.b{fill:url(#c)}\n", document);
+            StringAssert.Contains("<path style=\"fill:url(#b)\" d=\"M0 0h10000v10000H0z\"/>\n<path style=\"fill:url(#c)\" d=\"M20000 0h10000v10000H20000z\"/>\n", document);
         }
 
         [Test]
@@ -899,17 +963,17 @@ namespace Map_Svg.Tests
             StringAssert.Contains(string.Join("\n", new string[] {
                 "<g data-m=\"1\">",
                 "<g data-c=\"3\">",
-                "<g data-s=\"1\">",
-                "<circle class=\"a\" data-o=\"1\" cx=\"2000\" r=\"1000\"/>",
-                "<circle class=\"a\" data-o=\"2\" cx=\"4000\" r=\"1000\"/>",
+                "<g style=\"" + BlackFill + "\" data-s=\"1\">",
+                "<circle data-o=\"1\" cx=\"2000\" r=\"1000\"/>",
+                "<circle data-o=\"2\" cx=\"4000\" r=\"1000\"/>",
                 "</g>",
-                "<g data-s=\"2\">",
-                "<circle class=\"a\" data-o=\"3\" cx=\"6000\" r=\"1000\"/>",
+                "<g style=\"" + BlackFill + "\" data-s=\"2\">",
+                "<circle data-o=\"3\" cx=\"6000\" r=\"1000\"/>",
                 "</g>",
                 "</g>",
                 "<g data-c=\"5\">",
-                "<g data-s=\"1\">",
-                "<circle class=\"a\" data-o=\"1\" cx=\"2000\" r=\"1000\"/>",
+                "<g style=\"" + BlackFill + "\" data-s=\"1\">",
+                "<circle data-o=\"1\" cx=\"2000\" r=\"1000\"/>",
                 "</g>",
                 "</g>",
                 "</g>",
@@ -932,17 +996,16 @@ namespace Map_Svg.Tests
             StringAssert.Contains("<npp:symbol n=\"1\" name=\"Image\"/>\n<npp:symbol n=\"2\" id=\"701.0\" name=\"Start\" colors=\"0\"/>\n", document);
             StringAssert.Contains(string.Join("\n", new string[] {
                 "<g data-m=\"1\">",
-                "<g data-s=\"1\">",
-                "<circle class=\"a\" data-o=\"1\" cx=\"2000\" r=\"1000\"/>",
+                "<g style=\"" + BlackFill + "\" data-s=\"1\">",
+                "<circle data-o=\"1\" cx=\"2000\" r=\"1000\"/>",
                 "</g>",
                 "<g data-c=\"0\">",
-                "<g class=\"b\" data-s=\"2\">",
-                "<circle class=\"a\" data-o=\"2\" cx=\"4000\" r=\"1000\"/>",
+                "<g style=\"mix-blend-mode:darken;" + BlackFill + "\" data-s=\"2\">",
+                "<circle data-o=\"2\" cx=\"4000\" r=\"1000\"/>",
                 "</g>",
                 "</g>",
                 "</g>",
             }) + "\n", document);
-            StringAssert.Contains(".b{mix-blend-mode:darken}", document);
         }
 
         [Test]
@@ -1166,7 +1229,7 @@ namespace Map_Svg.Tests
                 target.DrawBitmap(logo, new RectangleF(50, 5, 40, 40), BitmapScaling.HighQuality);
             });
             Assert.AreEqual(OnePageDocumentWithImages(
-                new string[0],
+                NoStyleBlock,
                 new string[] {
                     "<g data-m=\"1\">",
                     "<use xlink:href=\"#b\" transform=\"matrix(500 0 0 500 10000 10000)\"/>",
@@ -1187,7 +1250,7 @@ namespace Map_Svg.Tests
                 target.DrawBitmapPart(logo, 0, 0, 20, 20, new RectangleF(30, 20, 10, 10), BitmapScaling.MediumQuality);
             });
             Assert.AreEqual(OnePageDocumentWithImages(
-                new string[0],
+                NoStyleBlock,
                 new string[] {
                     "<g data-m=\"1\">",
                     "<use xlink:href=\"#b\" transform=\"matrix(300 0 0 400 1000 2000)\"/>",
@@ -1227,12 +1290,12 @@ namespace Map_Svg.Tests
                 target.DrawBitmap(logo, new RectangleF(50, 30, 20, 10), BitmapScaling.NearestNeighbor);
             });
             Assert.AreEqual(OnePageDocumentWithImages(
-                new string[] { ".a{image-rendering:optimizeSpeed;image-rendering:pixelated}" },
+                NoStyleBlock,
                 new string[] {
                     "<g data-m=\"1\">",
-                    "<use class=\"a\" xlink:href=\"#b\" transform=\"matrix(500 0 0 500 10000 10000)\"/>",
+                    "<use style=\"image-rendering:optimizeSpeed;image-rendering:pixelated\" xlink:href=\"#b\" transform=\"matrix(500 0 0 500 10000 10000)\"/>",
                     "<use xlink:href=\"#b\" transform=\"matrix(500 0 0 500 10000 30000)\"/>",
-                    "<use class=\"a\" xlink:href=\"#b\" transform=\"matrix(500 0 0 500 50000 30000)\"/>",
+                    "<use style=\"image-rendering:optimizeSpeed;image-rendering:pixelated\" xlink:href=\"#b\" transform=\"matrix(500 0 0 500 50000 30000)\"/>",
                     "</g>",
                 },
                 new string[] { "<image id=\"b\" width=\"40\" height=\"20\" xlink:href=\"" + DataUri("logo", GraphicsBitmapFormat.PNG, 0) + "\"/>" },
@@ -1333,12 +1396,11 @@ namespace Map_Svg.Tests
         // The rule that every text element follows, as the style block writes it after the fonts.
         private const string TextRule = "text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white-space:pre}";
 
-        // The class of black text in a font, as the style block writes it.
-        // name: the class's name.
-        // font: the font's declaration.
-        private static string BlackTextClass(string name, string font)
+        // The style of black text in a font.
+        // font: the font's declarations.
+        private static string BlackText(string font)
         {
-            return "." + name + "{" + font + ";fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)}";
+            return font + ";" + BlackFill;
         }
 
         [Test]
@@ -1353,13 +1415,12 @@ namespace Map_Svg.Tests
             }, subsets);
             Assert.AreEqual(OnePageDocument(
                 new string[] {
-                    "@font-face{font-family:\"Arial\";src:url(" + TestFontSubsets.DataUri("Arial", TextEffects.Regular, "Map") + ")}",
+                    "@font-face{font-family:'Arial';src:url(" + TestFontSubsets.DataUri("Arial", TextEffects.Regular, "Map") + ")}",
                     TextRule,
-                    BlackTextClass("a", "font-size:2.5px;font-family:\"Arial\""),
                 },
                 new string[] {
-                    "<g data-m=\"1\">",
-                    "<text class=\"a\" transform=\"translate(10000 22000)scale(1000)\" x=\"0 1.25 2.5\">Map</text>",
+                    "<g style=\"" + BlackText("font-size:2.5px;font-family:'Arial'") + "\" data-m=\"1\">",
+                    "<text transform=\"translate(10000 22000)scale(1000)\" x=\"0 1.25 2.5\">Map</text>",
                     "</g>",
                 }, drawsText: true), document);
             CollectionAssert.AreEqual(new string[] { "Arial Regular Map" }, subsets.Requests);
@@ -1376,9 +1437,9 @@ namespace Map_Svg.Tests
                 target.DrawText("AVX", font, black, Point(0, 10));
                 target.DrawText("XYZ", font, black, Point(0, 20));
             }, null);
-            StringAssert.Contains("<text class=\"a\" transform=\"translate(0 2000)scale(1000)\" x=\"0 1 2.05\">AVA</text>\n", document);
-            StringAssert.Contains("<text class=\"a\" transform=\"translate(0 12000)scale(1000)\" x=\"0 1 2.25\">AVX</text>\n", document);
-            StringAssert.Contains("<text class=\"a\" transform=\"translate(0 22000)scale(1000)\" x=\"0 1.25 2.5\">XYZ</text>\n", document);
+            StringAssert.Contains("<text transform=\"translate(0 2000)scale(1000)\" x=\"0 1 2.05\">AVA</text>\n", document);
+            StringAssert.Contains("<text transform=\"translate(0 12000)scale(1000)\" x=\"0 1 2.25\">AVX</text>\n", document);
+            StringAssert.Contains("<text transform=\"translate(0 22000)scale(1000)\" x=\"0 1.25 2.5\">XYZ</text>\n", document);
         }
 
         [Test]
@@ -1390,7 +1451,7 @@ namespace Map_Svg.Tests
                 target.CreateSolidBrush(black, CmykColor.FromCmyk(0, 0, 0, 1));
                 target.DrawText("x\u0301AV", font, black, Point(0, 0));
             }, null);
-            StringAssert.Contains("<text class=\"a\" transform=\"translate(0 2000)scale(1000)\">x\u0301<tspan x=\"1.25 2.25\">AV</tspan></text>\n", document);
+            StringAssert.Contains("<text transform=\"translate(0 2000)scale(1000)\">x\u0301<tspan x=\"1.25 2.25\">AV</tspan></text>\n", document);
         }
 
         [Test]
@@ -1402,8 +1463,8 @@ namespace Map_Svg.Tests
                 target.CreateSolidBrush(black, CmykColor.FromCmyk(0, 0, 0, 1));
                 target.DrawText("Big", font, black, Point(0, 0));
             }, null);
-            StringAssert.Contains(BlackTextClass("a", "font-size:20px;font-family:\"Arial\""), document);
-            StringAssert.Contains("<text class=\"a\" transform=\"translate(0 16000)scale(1000)\" x=\"0 10 20\">Big</text>\n", document);
+            StringAssert.Contains("<g style=\"" + BlackText("font-size:20px;font-family:'Arial'") + "\" data-m=\"1\">\n" +
+                                  "<text transform=\"translate(0 16000)scale(1000)\" x=\"0 10 20\">Big</text>\n", document);
         }
 
         [Test]
@@ -1433,7 +1494,7 @@ namespace Map_Svg.Tests
                 target.CreateSolidBrush(black, CmykColor.FromCmyk(0, 0, 0, 1));
                 target.DrawText(" a < b & c > d  \u0001", font, black, Point(1, 1));
             }, null);
-            StringAssert.Contains("<text class=\"a\" transform=\"translate(1000 2600)scale(1000)\" x=\"0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15\"> a &lt; b &amp; c &gt; d  </text>\n", document);
+            StringAssert.Contains("<text transform=\"translate(1000 2600)scale(1000)\" x=\"0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15\"> a &lt; b &amp; c &gt; d  </text>\n", document);
         }
 
         [Test]
@@ -1459,9 +1520,9 @@ namespace Map_Svg.Tests
                 target.CreateSolidBrush(black, CmykColor.FromCmyk(0, 0, 0, 1));
                 target.DrawText("T", font, black, Point(0, 0));
             }, new TestFontSubsets());
-            StringAssert.Contains("@font-face{font-family:\"Times New Roman\";font-weight:700;font-style:italic;src:url(" +
+            StringAssert.Contains("@font-face{font-family:'Times New Roman';font-weight:700;font-style:italic;src:url(" +
                                   TestFontSubsets.DataUri("Times New Roman", TextEffects.Bold | TextEffects.Italic, "T") + ")}\n", document);
-            StringAssert.Contains(BlackTextClass("a", "font-size:3px;font-family:\"Times New Roman\";font-weight:700;font-style:italic") + "\n", document);
+            StringAssert.Contains("<g style=\"" + BlackText("font-size:3px;font-family:'Times New Roman';font-weight:700;font-style:italic") + "\" data-m=\"1\">\n", document);
         }
 
         [Test]
@@ -1473,8 +1534,8 @@ namespace Map_Svg.Tests
                 target.CreatePen(pen, CmykColor.FromCmyk(0, 1, 1, 0), 0.1F, LineCapMode.Flat, LineJoinMode.Miter, 4);
                 target.DrawTextOutline("O", font, pen, Point(0, 0));
             }, null);
-            StringAssert.Contains(".a{font-size:2px;font-family:\"Arial\";fill:none;stroke:#f00;stroke:#f00 icc-color(cmyk,0,1,1,0);stroke-width:.1}\n", document);
-            StringAssert.Contains("<text class=\"a\" transform=\"translate(0 1600)scale(1000)\">O</text>\n", document);
+            StringAssert.Contains("<g style=\"font-size:2px;font-family:'Arial';fill:none;stroke:#f00;stroke:#f00 icc-color(cmyk,0,1,1,0);stroke-width:.1\" data-m=\"1\">\n" +
+                                  "<text transform=\"translate(0 1600)scale(1000)\">O</text>\n", document);
         }
 
         [Test]
@@ -1492,9 +1553,9 @@ namespace Map_Svg.Tests
                 target.DrawText("ab", bold, black, Point(0, 20));
             }, subsets);
             CollectionAssert.AreEqual(new string[] { "Arial Regular abc", "Arial Bold ab" }, subsets.Requests);
-            StringAssert.Contains(BlackTextClass("a", "font-size:2px;font-family:\"Arial\""), document);
-            StringAssert.Contains(BlackTextClass("b", "font-size:4px;font-family:\"Arial\""), document);
-            StringAssert.Contains(BlackTextClass("c", "font-size:2px;font-family:\"Arial\";font-weight:700"), document);
+            StringAssert.Contains("<text style=\"" + BlackText("font-size:2px;font-family:'Arial'") + "\" ", document);
+            StringAssert.Contains("<text style=\"" + BlackText("font-size:4px;font-family:'Arial'") + "\" ", document);
+            StringAssert.Contains("<text style=\"" + BlackText("font-size:2px;font-family:'Arial';font-weight:700") + "\" ", document);
         }
 
         [Test]
@@ -1506,10 +1567,9 @@ namespace Map_Svg.Tests
                 target.CreateSolidBrush(black, CmykColor.FromCmyk(0, 0, 0, 1));
                 target.DrawText("ab中文\U0001F600c", font, black, Point(0, 0));
             }, new TestFontSubsets());
-            StringAssert.Contains("@font-face{font-family:\"Arial\";src:url(" + TestFontSubsets.DataUri("Arial", TextEffects.Regular, "abc") + ")}\n", document);
-            StringAssert.Contains("@font-face{font-family:\"Fallback\";src:url(" + TestFontSubsets.DataUri("Fallback", TextEffects.Regular, "中文\U0001F600") + ")}\n", document);
-            StringAssert.Contains(".b{font-family:\"Fallback\"}\n", document);
-            StringAssert.Contains(">ab<tspan class=\"b\">中文\U0001F600</tspan>c</text>\n", document);
+            StringAssert.Contains("@font-face{font-family:'Arial';src:url(" + TestFontSubsets.DataUri("Arial", TextEffects.Regular, "abc") + ")}\n", document);
+            StringAssert.Contains("@font-face{font-family:'Fallback';src:url(" + TestFontSubsets.DataUri("Fallback", TextEffects.Regular, "中文\U0001F600") + ")}\n", document);
+            StringAssert.Contains(">ab<tspan style=\"font-family:'Fallback'\">中文\U0001F600</tspan>c</text>\n", document);
             StringAssert.DoesNotContain("unicode-range", document);
         }
 
@@ -1531,7 +1591,7 @@ namespace Map_Svg.Tests
                     }
                 }
             }, null);
-            StringAssert.Contains("<text class=\"a\" transform=\"scale(1000)\" x=\"0 9.2 18.614\" y=\"6.6 6.386 5.8\" rotate=\"0 30 60\">abc</text>\n", document);
+            StringAssert.Contains("<text transform=\"scale(1000)\" x=\"0 9.2 18.614\" y=\"6.6 6.386 5.8\" rotate=\"0 30 60\">abc</text>\n", document);
             Assert.AreEqual(1, CountOccurrences(document, "<text"));
         }
 
@@ -1611,7 +1671,8 @@ namespace Map_Svg.Tests
                 target.CreateSolidBrush(black, CmykColor.FromCmyk(0, 0, 0, 1));
                 target.DrawText("中x́文", font, black, Point(0, 0));
             }, new TestFontSubsets());
-            StringAssert.Contains(" x=\"0 1\"><tspan class=\"b\">中</tspan>x<tspan class=\"b\">́</tspan><tspan x=\"2\"><tspan class=\"b\">文</tspan></tspan></text>\n", document);
+            StringAssert.Contains(" x=\"0 1\"><tspan style=\"font-family:'Fallback'\">中</tspan>x<tspan style=\"font-family:'Fallback'\">́</tspan>" +
+                                  "<tspan x=\"2\"><tspan style=\"font-family:'Fallback'\">文</tspan></tspan></text>\n", document);
         }
 
         [Test]
@@ -1625,10 +1686,10 @@ namespace Map_Svg.Tests
                 target.DrawText("中", arial, black, Point(0, 0));
                 target.DrawText("文", tahoma, black, Point(0, 10));
             }, new TestFontSubsets());
-            StringAssert.Contains("@font-face{font-family:\"Fallback\";src:url(" + TestFontSubsets.DataUri("Fallback", TextEffects.Regular, "中") + ")}\n", document);
-            StringAssert.Contains("@font-face{font-family:\"Fallback 2\";src:url(" + TestFontSubsets.DataUri("Fallback", TextEffects.Regular, "文") + ")}\n", document);
-            StringAssert.Contains("><tspan class=\"b\">中</tspan></text>\n", document);
-            StringAssert.Contains("><tspan class=\"d\">文</tspan></text>\n", document);
+            StringAssert.Contains("@font-face{font-family:'Fallback';src:url(" + TestFontSubsets.DataUri("Fallback", TextEffects.Regular, "中") + ")}\n", document);
+            StringAssert.Contains("@font-face{font-family:'Fallback 2';src:url(" + TestFontSubsets.DataUri("Fallback", TextEffects.Regular, "文") + ")}\n", document);
+            StringAssert.Contains("><tspan style=\"font-family:'Fallback'\">中</tspan></text>\n", document);
+            StringAssert.Contains("><tspan style=\"font-family:'Fallback 2'\">文</tspan></text>\n", document);
         }
 
         [Test]
@@ -1655,7 +1716,8 @@ namespace Map_Svg.Tests
                 target.DrawText("x", font, black, Point(0, 0));
             }, new TestFontSubsets());
             StringAssert.DoesNotContain("@font-face", document);
-            StringAssert.Contains("<style>\n" + TextRule + "\n" + BlackTextClass("a", "font-size:2px;font-family:\"Forbidden\"") + "\n", document);
+            StringAssert.Contains("<style>\n" + TextRule + "\n</style>\n", document);
+            StringAssert.Contains("<g style=\"" + BlackText("font-size:2px;font-family:'Forbidden'") + "\" data-m=\"1\">\n", document);
         }
 
         [Test]
@@ -1687,7 +1749,7 @@ namespace Map_Svg.Tests
                 target.DrawText("a", font, black, Point(1, 0));
                 target.EndObject();
             }, null);
-            StringAssert.Contains("<text class=\"a\" data-o=\"1\" transform=\"translate(1000 1600)scale(1000)\">a</text>\n", document);
+            StringAssert.Contains("<text data-o=\"1\" transform=\"translate(1000 1600)scale(1000)\">a</text>\n", document);
         }
 
         [Test]
@@ -1706,10 +1768,24 @@ namespace Map_Svg.Tests
         }
 
         [Test]
-        public void FamilyNamesAreQuotedForCss()
+        public void AFamilyIsEscapedForXmlInStyleAttributesAndInTheStyleBlock()
         {
-            Assert.AreEqual("\"Arial\"", SvgFontFace.QuoteFamily("Arial"));
-            Assert.AreEqual("\"a\\\"b\\\\c\"", SvgFontFace.QuoteFamily("a\"b\\c"));
+            string document = WriteText(target => {
+                object font = new object(), black = new object();
+                target.CreateFont(font, "A & \"B\" <C>", 2, TextEffects.Regular);
+                target.CreateSolidBrush(black, CmykColor.FromCmyk(0, 0, 0, 1));
+                target.DrawText("x", font, black, Point(0, 0));
+            }, new TestFontSubsets());
+            StringAssert.Contains("@font-face{font-family:'A &amp; \"B\" &lt;C&gt;';src:url(", document);
+            StringAssert.Contains("<g style=\"" + BlackText("font-size:2px;font-family:'A &amp; &quot;B&quot; &lt;C&gt;'") + "\" data-m=\"1\">\n", document);
+            Assert.DoesNotThrow(() => System.Xml.Linq.XDocument.Parse(document));
+        }
+
+        [Test]
+        public void FamilyNamesAreQuotedForCssInSingleQuotes()
+        {
+            Assert.AreEqual("'Arial'", SvgFontFace.QuoteFamily("Arial"));
+            Assert.AreEqual("'a\\'b\\\\c\"d'", SvgFontFace.QuoteFamily("a'b\\c\"d"));
         }
 
         [Test]

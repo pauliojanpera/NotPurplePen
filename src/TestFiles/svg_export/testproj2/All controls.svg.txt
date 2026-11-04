@@ -1,10 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" width="279.4mm" height="215.9mm" viewBox="0 0 279.4 215.9" xml:lang="und">
 <style>
-@font-face{font-family:"Roboto Condensed";font-weight:700;src:url(data:font/ttf;base64,sha256:3191633998df533680538956a978782849a3bcc10794b528375fe52160fdbe76)}
+@font-face{font-family:'Roboto Condensed';font-weight:700;src:url(data:font/ttf;base64,sha256:3191633998df533680538956a978782849a3bcc10794b528375fe52160fdbe76)}
 text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white-space:pre}
-.a{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,1,1,1,1);stroke-width:100;stroke-linejoin:bevel}
-.b{fill:none;stroke:#b41d8e;stroke:#b41d8e icc-color(cmyk,.3,1,0,0);stroke-width:350;stroke-miterlimit:5}
-.c{font-size:4.18px;font-family:"Roboto Condensed";font-weight:700;fill:#b41d8e;fill:#b41d8e icc-color(cmyk,.3,1,0,0)}
 </style>
 <metadata>
 <npp:document version="1">
@@ -44,7 +41,7 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <inkscape:page x="0" y="0" width="279.4" height="215.9" inkscape:label="All controls"/>
 </sodipodi:namedview>
 <defs>
-<color-profile name="cmyk"/>
+<color-profile id="cmyk" name="cmyk" xlink:href="data:application/vnd.iccprofile;base64,sha256:a4cb0af0777cef9b31261a9c8ab71ece6b5eac928efbc59a749e1aa667b43baa"/>
 <clipPath id="c">
 <path d="M-124999-101818h266700v203200h-266700z"/>
 </clipPath>
@@ -52,29 +49,29 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <g data-m="1">
 <g data-c="30">
 <g data-s="1">
-<g transform="translate(-34760 6080)">
-<path class="a" data-o="1" d="M-2000 0h4000"/>
-<path class="a" data-o="1" d="M0-2000v4000"/>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,1,1,1,1);stroke-width:100;stroke-linejoin:bevel" transform="translate(-34760 6080)">
+<path data-o="1" d="M-2000 0h4000"/>
+<path data-o="1" d="M0-2000v4000"/>
 </g>
-<g transform="translate(-2920 26880)">
-<path class="a" data-o="2" d="M-2000 0h4000"/>
-<path class="a" data-o="2" d="M0-2000v4000"/>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,1,1,1,1);stroke-width:100;stroke-linejoin:bevel" transform="translate(-2920 26880)">
+<path data-o="2" d="M-2000 0h4000"/>
+<path data-o="2" d="M0-2000v4000"/>
 </g>
-<g transform="translate(11960 10560)">
-<path class="a" data-o="3" d="M-2000 0h4000"/>
-<path class="a" data-o="3" d="M0-2000v4000"/>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,1,1,1,1);stroke-width:100;stroke-linejoin:bevel" transform="translate(11960 10560)">
+<path data-o="3" d="M-2000 0h4000"/>
+<path data-o="3" d="M0-2000v4000"/>
 </g>
-<g transform="translate(47240-11440)">
-<path class="a" data-o="4" d="M-2000 0h4000"/>
-<path class="a" data-o="4" d="M0-2000v4000"/>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,1,1,1,1);stroke-width:100;stroke-linejoin:bevel" transform="translate(47240-11440)">
+<path data-o="4" d="M-2000 0h4000"/>
+<path data-o="4" d="M0-2000v4000"/>
 </g>
-<g transform="translate(-17480-29760)">
-<path class="a" data-o="5" d="M-2000 0h4000"/>
-<path class="a" data-o="5" d="M0-2000v4000"/>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,1,1,1,1);stroke-width:100;stroke-linejoin:bevel" transform="translate(-17480-29760)">
+<path data-o="5" d="M-2000 0h4000"/>
+<path data-o="5" d="M0-2000v4000"/>
 </g>
-<g transform="translate(12680-18480)">
-<path class="a" data-o="6" d="M-2000 0h4000"/>
-<path class="a" data-o="6" d="M0-2000v4000"/>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,1,1,1,1);stroke-width:100;stroke-linejoin:bevel" transform="translate(12680-18480)">
+<path data-o="6" d="M-2000 0h4000"/>
+<path data-o="6" d="M0-2000v4000"/>
 </g>
 </g>
 </g>
@@ -83,32 +80,32 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <g id="b">
 <g data-m="2">
 <g data-c="2">
-<g data-s="1">
-<circle class="b" data-o="7" cx="-34752" cy="6089" r="2825"/>
-<circle class="b" data-o="8" cx="-2914" cy="26873" r="2825"/>
-<circle class="b" data-o="9" cx="11965" cy="10563" r="2825"/>
-<circle class="b" data-o="10" cx="47246" cy="-11433" r="2825"/>
-<circle class="b" data-o="11" cx="-17475" cy="-29757" r="2825"/>
-<circle class="b" data-o="12" cx="12686" cy="-18480" r="2825"/>
+<g style="fill:none;stroke:#b41d8e;stroke:#b41d8e icc-color(cmyk,.3,1,0,0);stroke-width:350;stroke-miterlimit:5" data-s="1">
+<circle data-o="7" cx="-34752" cy="6089" r="2825"/>
+<circle data-o="8" cx="-2914" cy="26873" r="2825"/>
+<circle data-o="9" cx="11965" cy="10563" r="2825"/>
+<circle data-o="10" cx="47246" cy="-11433" r="2825"/>
+<circle data-o="11" cx="-17475" cy="-29757" r="2825"/>
+<circle data-o="12" cx="12686" cy="-18480" r="2825"/>
 </g>
 <g data-s="2">
-<g transform="matrix(1 0 0-1-31773 11538)">
-<text class="c" data-o="13" transform="translate(0 3972)scale(1000)" x="0 2.114">31</text>
+<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#b41d8e;fill:#b41d8e icc-color(cmyk,.3,1,0,0)" transform="matrix(1 0 0-1-31773 11538)">
+<text data-o="13" transform="translate(0 3972)scale(1000)" x="0 2.114">31</text>
 </g>
-<g transform="matrix(1 0 0-1 65 32322)">
-<text class="c" data-o="14" transform="translate(0 3972)scale(1000)" x="0 2.114">32</text>
+<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#b41d8e;fill:#b41d8e icc-color(cmyk,.3,1,0,0)" transform="matrix(1 0 0-1 65 32322)">
+<text data-o="14" transform="translate(0 3972)scale(1000)" x="0 2.114">32</text>
 </g>
-<g transform="matrix(1 0 0-1 14944 16012)">
-<text class="c" data-o="15" transform="translate(0 3972)scale(1000)" x="0 2.114">33</text>
+<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#b41d8e;fill:#b41d8e icc-color(cmyk,.3,1,0,0)" transform="matrix(1 0 0-1 14944 16012)">
+<text data-o="15" transform="translate(0 3972)scale(1000)" x="0 2.114">33</text>
 </g>
-<g transform="matrix(1 0 0-1 50224-5984)">
-<text class="c" data-o="16" transform="translate(0 3972)scale(1000)" x="0 2.114">34</text>
+<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#b41d8e;fill:#b41d8e icc-color(cmyk,.3,1,0,0)" transform="matrix(1 0 0-1 50224-5984)">
+<text data-o="16" transform="translate(0 3972)scale(1000)" x="0 2.114">34</text>
 </g>
-<g transform="matrix(1 0 0-1-14496-24308)">
-<text class="c" data-o="17" transform="translate(0 3972)scale(1000)" x="0 2.114">35</text>
+<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#b41d8e;fill:#b41d8e icc-color(cmyk,.3,1,0,0)" transform="matrix(1 0 0-1-14496-24308)">
+<text data-o="17" transform="translate(0 3972)scale(1000)" x="0 2.114">35</text>
 </g>
-<g transform="matrix(1 0 0-1 15665-13031)">
-<text class="c" data-o="18" transform="translate(0 3972)scale(1000)" x="0 2.114">36</text>
+<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#b41d8e;fill:#b41d8e icc-color(cmyk,.3,1,0,0)" transform="matrix(1 0 0-1 15665-13031)">
+<text data-o="18" transform="translate(0 3972)scale(1000)" x="0 2.114">36</text>
 </g>
 </g>
 </g>

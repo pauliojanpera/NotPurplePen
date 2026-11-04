@@ -67,7 +67,7 @@ namespace Map_Svg.Tests
             return new TestCaseData(name, eventFile, mapType, courses, lowerPurpleLayer, fileCreation).SetName(name);
         }
 
-        // The data of an embedded font or bitmap, and the type it is named with.
+        // The data of an embedded font, bitmap or color profile, and the type it is named with.
         private static readonly Regex EmbeddedData = new Regex("data:([A-Za-z0-9.+/-]+);base64,([A-Za-z0-9+/=]+)", RegexOptions.CultureInvariant);
 
         // Export courses of an event twice, and compare each file with the other export's and with its baseline.
@@ -129,8 +129,8 @@ namespace Map_Svg.Tests
             Assert.IsEmpty(problems, string.Join("\n", problems));
         }
 
-        // The text a file's baseline holds: the file's text, with the data of each embedded font and bitmap replaced
-        // by the SHA-256 hash of its base64 text.
+        // The text a file's baseline holds: the file's text, with the data of each embedded font, bitmap and color
+        // profile replaced by the SHA-256 hash of its base64 text.
         // text: the text of the file.
         public static string BaselineText(string text)
         {

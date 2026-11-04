@@ -10,9 +10,24 @@ namespace PurplePen.MapModel
     // keeps the first, and a print tool reads the second.
     public sealed class SvgPaints
     {
-        // The name of the device CMYK profile that icc-color() refers to. The document declares it once and embeds or
-        // references no ICC profile, since the values are the map's own uncalibrated CMYK (COL-3).
+        // The name of the device CMYK profile that icc-color() refers to, which is also the id of its declaration: the
+        // document declares it once, with an ICC profile behind it, since Inkscape shows a color's CMYK values only
+        // through a profile that has an id and a CMYK ICC profile (COL-3, F-6).
         public const string CmykProfileName = "cmyk";
+
+        // The ICC profile behind the name, as a data URI: 516 bytes of version 2.1, a CMYK output profile whose one
+        // table, A2B0, takes CMYK to CIELAB as R = (1 - C)(1 - K), G = (1 - M)(1 - K) and B = (1 - Y)(1 - K) do, on a
+        // grid of two points a channel, which holds that exactly. The values stay the map's own uncalibrated CMYK; the
+        // profile serves the CMYK views and conversions of the tools that read it. The bytes are those of
+        // doc/devdocs/SvgColourReaders/device-cmyk.icc, which make_profile.py there writes with "naive 2".
+        public const string CmykProfileHref =
+            "data:application/vnd.iccprofile;base64," +
+            "AAACBAAAAAACEAAAcHJ0ckNNWUtMYWIgB+oACwAEAAAAAAAAYWNzcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPbWAAEAAAAA0y0AAAAAAAAAAAAAAAAAAAAA" +
+            "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZGVzYwAAALQAAABmY3BydAAAARwAAAAhd3RwdAAAAUAAAAAUQTJCMAAAAVQAAACwZGVzYwAAAAAAAAAM" +
+            "RGV2aWNlIENNWUsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB0ZXh0" +
+            "AAAAAE5vIGNvcHlyaWdodCwgdXNlIGZyZWVseQAAAABYWVogAAAAAAAA9tYAAQAAAADTLW1mdDIAAAAABAMCAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAA" +
+            "AAEAAAACAAIAAP//AAD//wAA//8AAP///wCAAX/6AACAAIAA+OZwQN1gAACAAIAAmW/djkN6AACAAIAAinLQ0cXhAACAAIAA5zJNVnEDAACAAIAA3/Awt9D6AACAAIAA" +
+            "S2bETQ/yAACAAIAAAACAAIAAAACAAIAAAAD//wAA//8AAP//";
 
         // Converts colors to sRGB.
         private readonly IColorConverter colorConverter;
@@ -22,6 +37,13 @@ namespace PurplePen.MapModel
 
         // Whether a declaration has referred to the CMYK profile, which the document then declares.
         public bool RefersToCmykProfile { get; private set; }
+
+        // Whether colors carry their CMYK values, as under the CMYK color model; the profile's id is then the document's
+        // to give, and no other id takes it (L-5).
+        public bool DeclaresCmykColors
+        {
+            get { return declaresCmykColors; }
+        }
 
         // Create the paints of a document.
         // colorConverter: converts colors to sRGB.

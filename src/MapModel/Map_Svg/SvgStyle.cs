@@ -1,8 +1,10 @@
+using System;
+
 namespace PurplePen.MapModel
 {
-    // The declarations of a shape's style, which name its class when the shape is written (S-4), and the pattern they
-    // paint with, if any. A pattern's id is named when the document is written, in the order patterns are first used
-    // (F-2), so the declarations refer to it as url(#), which the id then fills in.
+    // The declarations of an element's style, which the element, or the group that holds it, writes as its style
+    // attribute (S-4), and the pattern they paint with, if any. A pattern's id is named when the document is written,
+    // in the order patterns are first used (F-2), so the declarations refer to it as url(#), which the id then fills in.
     public sealed class SvgStyle
     {
         // How the declarations refer to their pattern, before its id is known.
@@ -36,6 +38,14 @@ namespace PurplePen.MapModel
         public SvgStyle Around(string before, string after)
         {
             return new SvgStyle(before + Declarations + after, Pattern);
+        }
+
+        // Whether another style is the same: the same declarations, painting with the same pattern, if any. Elements of
+        // the same style share it through their group (S-4).
+        // other: the other style, or null for none.
+        public bool IsSameAs(SvgStyle other)
+        {
+            return other != null && Pattern == other.Pattern && string.Equals(Declarations, other.Declarations, StringComparison.Ordinal);
         }
 
         // The declarations as they are written: with the pattern's id, which is named when the pattern is first used.
