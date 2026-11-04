@@ -25,13 +25,15 @@ Each reader was checked on `known-answers.svg`, which paints one rectangle in ea
 distinct values: a presentation attribute, a style attribute with one declaration and with two, Inkscape's spacing
 `icc-color(cmyk, 0.14, ...)`, a class with sRGB only, with `icc-color()` only and with both, a stroke class, a group's
 style, an element in `<defs>` and a `<use>` of it. Scribus gave every sRGB rectangle its RGB value and every
-`icc-color()` it read its CMYK values; Inkscape gave each the values written, as listed below.
+`icc-color()` it read its CMYK values; Inkscape, with a CMYK profile behind the name, gave each the values written, the
+group's on the group and the `<defs>` element's on that element, while it shows the group's rectangle and the `<use>`
+as unset.
 
 ## What each reads
 
-**Scribus 1.6.1** ignores the `<style>` sheet altogether. No class applies, so every element of the export gets
-SVG's initial style, a black fill and no stroke: the four gallery files come in as black shapes, strokes included
-(640 of 640 items of mapexchange1's Course 5, 20,438 of printarea2's Course 1). It applies a style attribute, a
+**Scribus 1.6.1** applies no class rule of a `<style>` sheet, not even one with sRGB alone. Every element of the
+export gets SVG's initial style, a black fill and no stroke: OverprintTestLowerPurple's Course 12, mapexchange1's
+Course 5 and printarea2's Course 1 come in as black shapes, strokes included (all of 17, 640 and 20,438 items). It applies a style attribute, a
 presentation attribute, a group's style and a `<use>`. It reads an `icc-color()` with four numbers after the profile
 name as CMYK whatever the profile, ignores `<color-profile>`, and takes the last paint declaration it can read, so
 `fill:#a00000;fill:#a00000 icc-color(cmyk,...)` is CMYK. The values pass through Qt's 8-bit `QColor`: 0.14 comes in as
@@ -73,7 +75,8 @@ Of OverprintTestLowerPurple's Course 12 from the gallery, with the sizes of the 
 Nov 4: OverprintTestLowerPurple-Course12 (7,521 bytes), mapexchange1-Course5 (51,995),
 printarea2-Course1 (1,731,272) and LincolnParkPrintAreas2 (4,970,821), each as a change from now, plain and with
 `gzip -9`. "Small profile" is `<color-profile id="cmyk" name="cmyk" xlink:href="data:...">` holding the 516-byte device
-CMYK profile, 751 bytes more than now.
+CMYK profile, 751 bytes more than now, which the sizes count; the readers ran on the export with the grid-5 profile
+below, and on the known answers with both, which read alike.
 
 | Variant | Scribus | Inkscape | Chromium | Size, plain | Size, gzip |
 | --- | --- | --- | --- | --- | --- |
@@ -85,7 +88,7 @@ CMYK profile, 751 bytes more than now.
 | attr-paint, attr-all: paints as presentation attributes, `fill="#ab499c icc-color(...)"` | colours (attr-all: everything) | as now | paints lost, 8,140 pixels differ | | |
 | class-and-attr: classes as now, and every declaration again as presentation attributes | everything | as now | same | +19, +121, +63, +61 % | +5.7, +5.1, +3.4, +2.7 % |
 | no-fallback: the classes without the sRGB declaration | every item black | as now | paints lost | | |
-| profile-id, profile-linked-no-id | every item black | R, G, B / no channels | same | +0.1 % | |
+| profile-id, profile-linked-no-id | every item black | R, G, B / no channels | same | +10, +33 bytes | |
 | profile-linked: id and `USWebCoatedSWOP.icc` beside the file | every item black | C, M, Y, K | same | +43 bytes | |
 | profile-embedded: id and Purple Pen's SWOP profile as a `data:` URI | every item black | C, M, Y, K | same | +743 KB | +435 KB |
 | profile-small | every item black | C, M, Y, K | same | +751 bytes: +10, +1.4, 0.0, 0.0 % | +9.7, +3.7, +0.1, 0.0 % |
