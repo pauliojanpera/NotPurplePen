@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 namespace PurplePen.MapModel
 {
-    // Names the classes, or the ids, of a document: each in turn gets the shortest name not yet given, so the first
-    // fifty-two are single letters (S-4, L-5). A name starts with a letter, which ids and class selectors require.
+    // Names the ids of a document: each in turn gets the shortest name not yet given, so the first fifty-two are single
+    // letters (L-5). A name starts with a letter, which ids require.
     public class SvgNames
     {
         // The characters that may start a name.

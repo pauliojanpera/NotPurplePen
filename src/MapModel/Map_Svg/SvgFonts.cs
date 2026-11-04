@@ -64,20 +64,21 @@ namespace PurplePen.MapModel
             get { return QuoteFamily(Family); }
         }
 
-        // Quote a family name for CSS, escaping what would end or break the string.
+        // Quote a family name for CSS, escaping what would end or break the string. The quotes are single, so that a
+        // style attribute, which double quotes delimit, need not escape them (S-4).
         // family: the family name.
         public static string QuoteFamily(string family)
         {
-            StringBuilder quoted = new StringBuilder("\"");
+            StringBuilder quoted = new StringBuilder("'");
             foreach (char character in family) {
-                if (character == '"' || character == '\\')
+                if (character == '\'' || character == '\\')
                     quoted.Append('\\').Append(character);
                 else if (character < ' ')
                     quoted.Append('\\').Append(((int)character).ToString("x", CultureInfo.InvariantCulture)).Append(' ');
                 else
                     quoted.Append(character);
             }
-            return quoted.Append('"').ToString();
+            return quoted.Append('\'').ToString();
         }
 
         // Set the faces that draw the characters, and the families they are embedded under.
@@ -105,7 +106,8 @@ namespace PurplePen.MapModel
         }
 
         // Append an @font-face rule for each face that draws the characters and may be embedded: its family, the weight
-        // and style that text asks for, and its font data (T-6, T-8, T-9).
+        // and style that text asks for, and its font data (T-6, T-8, T-9). The rules are the text of the style element,
+        // so a family is escaped for XML too.
         // text: the text to append to.
         public void AppendFontFaceRules(StringBuilder text)
         {
@@ -113,7 +115,7 @@ namespace PurplePen.MapModel
                 byte[] data = subsets[index].FontData;
                 if (data == null)
                     continue;
-                text.Append("@font-face{font-family:").Append(QuoteFamily(subsetFamilies[index]));
+                text.Append("@font-face{font-family:").Append(SvgDocument.EscapeText(QuoteFamily(subsetFamilies[index])));
                 if (Bold)
                     text.Append(";font-weight:700");
                 if (Italic)

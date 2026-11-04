@@ -426,7 +426,7 @@ namespace PurplePen.MapModel
 
         // Add a page, to the right of the pages before it; the first lies at the document's own view box. Its view is
         // named after it: its name as an XML name, followed by the first free of _2, _3 and so on when an earlier view
-        // has that name (L-6, L-5).
+        // has that name, or the color profile has (L-6, L-5).
         // width, height: the size of the paper in millimetres.
         // stepsToPage: the transform from the steps of the parts to the page's millimetres.
         // clip: the clip, in steps.
@@ -437,12 +437,19 @@ namespace PurplePen.MapModel
         {
             string baseId = XmlNameOf(string.IsNullOrEmpty(name) ? "page" : name);
             string viewId = baseId;
-            for (int number = 2; viewIds.Contains(viewId); ++number)
+            for (int number = 2; IsIdTaken(viewId); ++number)
                 viewId = baseId + "_" + SvgNumbers.FormatInteger(number);
             viewIds.Add(viewId);
 
             pages.Add(new SvgPage(name, viewId, width, height, nextPageLeft, stepsToPage, clip, clipBounds, parts));
             nextPageLeft = SvgNumbers.RoundHalfUp((nextPageLeft + width + GapBetweenPages) * SvgNumbers.StepsPerMillimetre) / SvgNumbers.StepsPerMillimetre;
+        }
+
+        // Whether an id is taken already: by a page's view, or, under the CMYK color model, by the color profile (L-5).
+        // id: the id.
+        private bool IsIdTaken(string id)
+        {
+            return viewIds.Contains(id) || (Paints.DeclaresCmykColors && id == SvgPaints.CmykProfileName);
         }
 
         // A name as an XML name, which an id must be: each run of characters that a name cannot hold becomes an
@@ -495,17 +502,22 @@ namespace PurplePen.MapModel
         }
 
         // Write the document's text: the style block, the metadata, the definitions of clips, patterns, parts and images,
-        // and then the pages. Classes and ids are named in the order they are first used (F-2); the images, whose data
-        // dwarfs the rest, come last among the definitions.
+        // and then the pages. Each part's groups are tidied and then carry the styles their elements share (S-8, S-4).
+        // Ids are named in the order they are first used (F-2); the images, whose data dwarfs the rest, come last among
+        // the definitions.
         public string Write()
         {
-            foreach (SvgPart part in Parts)
+            foreach (SvgPart part in Parts) {
                 part.Content.TidyChildren();
+                part.Content.ShareStyles();
+            }
             ResolveFontFaces();
 
             SvgWriter writer = new SvgWriter();
             foreach (string viewId in viewIds)
                 writer.ReserveId(viewId);
+            if (Paints.DeclaresCmykColors)
+                writer.ReserveId(SvgPaints.CmykProfileName);
             foreach (SvgPart part in Parts) {
                 writer.Text.Append("<g id=\"").Append(writer.IdOf(part)).Append("\">\n");
                 part.Content.WriteChildren(writer);
@@ -530,22 +542,24 @@ namespace PurplePen.MapModel
             string imagesText = writer.TakeText();
 
             foreach (SvgClip clip in writer.ClipsReferredTo) {
-                writer.Text.Append("<clipPath id=\"").Append(writer.IdOfClip(clip)).Append("\">\n<path ");
+                writer.Text.Append("<clipPath id=\"").Append(writer.IdOfClip(clip)).Append("\">\n<path");
                 if (clip.EvenOdd)
-                    writer.Text.Append("class=\"").Append(writer.ClassOf("clip-rule:evenodd")).Append("\" ");
-                writer.Text.Append("d=\"").Append(clip.PathData).Append("\"/>\n</clipPath>\n");
+                    writer.AppendStyle("clip-rule:evenodd");
+                writer.Text.Append(" d=\"").Append(clip.PathData).Append("\"/>\n</clipPath>\n");
             }
             string clipsText = writer.TakeText();
 
             StringBuilder text = new StringBuilder();
             WriteRootStartTag(text);
-            WriteStyleBlock(text, writer, WriteFontFaces());
+            WriteStyleBlock(text, WriteFontFaces());
             WriteMetadata(text);
             WriteInkscapePages(text);
             if (Paints.RefersToCmykProfile || clipsText.Length > 0 || patternsText.Length > 0 || partsText.Length > 0 || imagesText.Length > 0) {
                 text.Append("<defs>\n");
-                if (Paints.RefersToCmykProfile)
-                    text.Append("<color-profile name=\"").Append(SvgPaints.CmykProfileName).Append("\"/>\n");
+                if (Paints.RefersToCmykProfile) {
+                    text.Append("<color-profile id=\"").Append(SvgPaints.CmykProfileName).Append("\" name=\"").Append(SvgPaints.CmykProfileName)
+                        .Append("\" xlink:href=\"").Append(SvgPaints.CmykProfileHref).Append("\"/>\n");
+                }
                 text.Append(clipsText).Append(patternsText).Append(partsText).Append(imagesText).Append("</defs>\n");
             }
             text.Append(pagesText).Append("</svg>\n");
@@ -624,19 +638,15 @@ namespace PurplePen.MapModel
             return rules.ToString();
         }
 
-        // Write the style block: the rules of the fonts and text, then one class to a line, in the order the classes were
-        // named (S-4).
+        // Write the style block, when there is text: the rules of the fonts and the rule of the text. The block holds
+        // nothing else, since Scribus applies no rule of a style sheet: every other style is a style attribute (S-4).
         // text: the text to append to.
-        // writer: the writer that named the classes.
         // fontRules: the rules of the fonts and text, or nothing when there is no text.
-        private static void WriteStyleBlock(StringBuilder text, SvgWriter writer, string fontRules)
+        private static void WriteStyleBlock(StringBuilder text, string fontRules)
         {
-            if (writer.StylesInOrder.Count == 0 && fontRules.Length == 0)
+            if (fontRules.Length == 0)
                 return;
-            text.Append("<style>\n").Append(fontRules);
-            foreach (string style in writer.StylesInOrder)
-                text.Append('.').Append(writer.ClassOf(style)).Append('{').Append(style).Append("}\n");
-            text.Append("</style>\n");
+            text.Append("<style>\n").Append(fontRules).Append("</style>\n");
         }
 
         // Write the metadata: the version of its format and the record of each map, with where it lies in the real world
@@ -850,6 +860,7 @@ namespace PurplePen.MapModel
         private static void WritePattern(SvgWriter writer, SvgPattern pattern)
         {
             pattern.Content.TidyChildren();
+            pattern.Content.ShareStyles();
             string left = SvgNumbers.FormatShortest(-pattern.Width / 2), top = SvgNumbers.FormatShortest(-pattern.Height / 2);
             string width = SvgNumbers.FormatShortest(pattern.Width), height = SvgNumbers.FormatShortest(pattern.Height);
             writer.Text.Append("<pattern id=\"").Append(writer.IdOfPattern(pattern)).Append("\" patternUnits=\"userSpaceOnUse\" x=\"")
@@ -868,20 +879,20 @@ namespace PurplePen.MapModel
         {
             return value.Replace("&", "&amp;").Replace("<", "&lt;").Replace(">", "&gt;").Replace("\"", "&quot;");
         }
+
+        // Escape text for an element's content, such as the style element's.
+        // value: the text.
+        public static string EscapeText(string value)
+        {
+            return value.Replace("&", "&amp;").Replace("<", "&lt;").Replace(">", "&gt;");
+        }
     }
 
-    // Writes a document's text, and names its classes and ids in the order they are first used (F-2, S-4, L-5).
+    // Writes a document's text, and names its ids in the order they are first used (F-2, L-5).
     public sealed class SvgWriter
     {
         // The text being written.
         public StringBuilder Text = new StringBuilder();
-
-        // The names of the classes, and the style each was named for.
-        private readonly SvgNames classNames = new SvgNames();
-        private readonly Dictionary<string, string> classOfStyle = new Dictionary<string, string>(StringComparer.Ordinal);
-
-        // The styles, in the order their classes were named.
-        public readonly List<string> StylesInOrder = new List<string>();
 
         // The names of the ids, and what each was named for.
         private readonly SvgNames ids = new SvgNames();
@@ -901,17 +912,11 @@ namespace PurplePen.MapModel
             return text;
         }
 
-        // The class of a style, named when the style is first used; styles of the same declarations share it (S-4).
-        // style: the declarations of the style.
-        public string ClassOf(string style)
+        // Append a style attribute, its declarations escaped for XML (S-4).
+        // declarations: the declarations.
+        public void AppendStyle(string declarations)
         {
-            string name;
-            if (!classOfStyle.TryGetValue(style, out name)) {
-                name = classNames.Next();
-                classOfStyle.Add(style, name);
-                StylesInOrder.Add(style);
-            }
-            return name;
+            Text.Append(" style=\"").Append(SvgDocument.EscapeAttribute(declarations)).Append('"');
         }
 
         // Keep an id from being named for a definition: an element names it otherwise, as a page's view does.
