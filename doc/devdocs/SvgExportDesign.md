@@ -197,8 +197,45 @@ its own, so that the text of a file of several pages shows in review.
 A page's paper size is taken from whole hundredths of an inch in double precision, since the inches are held in
 single precision and wrote a 9 inch side as 228.59999 mm, and pages lie at whole micrometres.
 
+## Colours for Scribus and Inkscape (S-4, S-8, COL-1, COL-3, F-6)
+
+Written on Nov 4 from `feature/svg-target` at 756543f; the work is on `feature/svg-colours`. @Pauli chose the form
+that day from task 5's findings (`SvgColourReaders/README.md`, option 2 with the device CMYK profile). The change is
+the target's alone, in `Map_Svg`: the export and its settings stay as they are.
+
+- **Styles.** The target keeps each element's style as now, as declarations and the pattern they paint with. The
+  writer no longer names classes; after `TidyChildren` has tidied a part's groups or a pattern's tile (S-8), a pass
+  puts styles on groups: a group that holds elements of its own takes their style when every element within it, at
+  any depth, has that one style, unless an enclosing group carries it already, and those elements then carry none.
+  Every other element writes its style itself. A group's own declarations, anti-aliasing or blending, come first in
+  its `style` attribute, before its elements' style. A part's group and a pattern's tile are written without
+  attributes, so the elements directly within them carry their own styles.
+- **Everything the classes styled.** A clip path under the even-odd rule carries `style="clip-rule:evenodd"`, the use
+  of a pixelated image its `image-rendering`, and a run of a fallback face its `tspan`'s `font-family`. A family is
+  quoted in single quotes, in the attributes and in the `@font-face` rules alike, so that no attribute needs
+  `&quot;`, and every attribute's value is escaped for XML.
+- **The style sheet** keeps the `@font-face` rules and the rule that all text follows, and is written only when the
+  document draws text. Scribus reads neither: it draws text in installed fonts by their family, as Inkscape does, and
+  knows none of the rule's four properties.
+- **The profile.** `SvgPaints` holds the 516 bytes of `SvgColourReaders/device-cmyk.icc`, which `make_profile.py
+  naive 2` writes, and the document embeds them as `data:application/vnd.iccprofile;base64,` in its
+  `<color-profile id="cmyk" name="cmyk">` whenever a color refers to it. Under the CMYK color model the id `cmyk` is
+  kept from every other id and from the pages' views (L-5).
+- **Tests.** `SvgDocumentTests` expect the styles where the pass puts them; the renderings of the comparison and of
+  the course pages must not move, since Chromium draws as before; the export baselines (V-2) move in the styles' form
+  alone; and F-6 is read again with `SvgColourReaders/` on documents the new code writes.
+
+The findings predict the size: about a kilobyte more on a small course page, 751 bytes of it the profile, and 2.5 to
+14 % less on map-sized files, where most elements lose their class. A sketch of the pass on the baselines agrees, and
+finds one kind of page that grows: a description sheet, whose cells each hold their texts in a group of their own,
+which then carries the whole text style (mapexchange1's all-controls page, 18 % more).
+
 ## Open questions
 
+- Styles sit on the innermost group whose elements all share them, as @Pauli chose. On the outermost such group, a
+  style would be written once for a symbol's objects rather than once for each object or description cell: by the
+  sketch, mapexchange1's all-controls page would grow 6 % instead of 18 %, and printarea2's map shrink 8 % instead of
+  4 %, while Inkscape would show the colour on the symbol's group instead of each object's.
 - Phase 3 writes one page per file. Should the dialog already show L-7's three file choices, with all but one
   disabled, or only the one? (Phase 5 shows all three; see above.)
 - A PDF map is drawn as a bitmap. Is that acceptable for the first release, or should such events be refused?

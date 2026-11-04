@@ -102,7 +102,7 @@ A document holds maps, courses and pages. Each map is written once; each page pa
 | L-2 | Each map is written once, as a definition of its drawing, in two parts split where the course goes: the colors below the course's lower layer and the colors above it. When the event puts the whole course on top, the map is one part. | Must |
 | L-3 | Each page pairs one map with one course part, or shows a map alone. Under the page's clip and transform, it references the map's parts and draws the course part with them: the course's lower layer between the map's two parts, the rest on top. | Must |
 | L-4 | The export draws each map once, for the area of all the pages that use it, and then each page; pages share the map's drawing, and each page's clip shows its own print area. | Must |
-| L-5 | Ids, class names and object numbers are unique across the document. | Must |
+| L-5 | Ids and object numbers are unique across the document. `cmyk` is the color profile's id (COL-3), which no other id or page's view takes. | Must |
 | L-6 | Each page carries a `<view>` of its print area, named after its course part, and an Inkscape page element. The first page lies at the document's own view box, which is the page browsers show. | Must |
 | L-7 | The export offers PDF export's file choices: all pages in one file, one file per course, or one file per course part. | Must |
 
@@ -127,13 +127,13 @@ Every `IGraphicsTarget` call has an SVG equivalent, and the target reports patte
 
 ## Color
 
-Colors keep the map's CMYK values. No browser supports CMYK colors in CSS ([MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value/device-cmyk)), while Inkscape and Scribus read CMYK written as SVG 1.1 `icc-color()` ([Libre Arts](https://librearts.org/2011/09/how-to-get-cmyk-colors-from-inkscape-to-scribus/)), so each style carries both: sRGB for browsers, and the CMYK values for print tools.
+Colors keep the map's CMYK values. No browser supports CMYK colors in CSS ([MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value/device-cmyk)), while Inkscape and Scribus read CMYK written as SVG 1.1 `icc-color()` ([Libre Arts](https://librearts.org/2011/09/how-to-get-cmyk-colors-from-inkscape-to-scribus/)), so each style carries both: sRGB for browsers, and the CMYK values for print tools. What the two print tools read shapes the form ([`SvgColourReaders/`](SvgColourReaders/README.md), Nov 4): Scribus 1.6 applies no rule of a style sheet, so styles are attributes (S-4), and Inkscape shows a color's C, M, Y and K only when its profile has an id and a CMYK ICC profile behind it (COL-3).
 
 | ID | Requirement | Level |
 | --- | --- | --- |
-| COL-1 | Under the CMYK color model, each style declares its color twice: first as plain sRGB, then as the same sRGB followed by `icc-color()` with the CMYK values. A reader that rejects the second declaration keeps the first. | Must |
+| COL-1 | Under the CMYK color model, each style declares its color twice, in its `style` attribute (S-4): first as plain sRGB, then as the same sRGB followed by `icc-color()` with the CMYK values. A reader that rejects the second declaration keeps the first; Scribus and Inkscape read the second. | Must |
 | COL-2 | The sRGB value comes from the converter for the chosen color model: `SwopColorConverter` for CMYK, `DefaultColorConverter` for RGB. Under the RGB model the styles carry sRGB only; the color table (M-7) keeps the CMYK values under either model. | Must |
-| COL-3 | `icc-color()` names a device CMYK profile, declared once in the document: the values are the map's own uncalibrated CMYK, and the document embeds or references no ICC profile. | Must |
+| COL-3 | `icc-color()` names the profile `cmyk`, declared once in the document as `<color-profile id="cmyk" name="cmyk" xlink:href="data:application/vnd.iccprofile;base64,..."/>`, which embeds a device CMYK profile of 516 bytes: an ICC 2.1 output profile whose one table takes CMYK to CIELAB as R = (1 − C)(1 − K), G = (1 − M)(1 − K) and B = (1 − Y)(1 − K) do, written by `SvgColourReaders/make_profile.py`. The values are the map's own uncalibrated CMYK, and the profile owes nothing to the SWOP profile that `SwopColorConverter`'s table was sampled from, whose licence forbids modifying it. | Must |
 | COL-4 | CMYK values are written with the fewest digits that reproduce the values the map stores; OCAD's binary formats store half-percent steps. | Must |
 | COL-5 | A color with alpha below 1.0 gets a matching fill or stroke opacity; opaque colors carry no opacity. | Must |
 | COL-6 | sRGB values use the shortest hex notation, three digits when exact. | Should |
@@ -192,18 +192,18 @@ Bitmaps are embedded by default, written once each, and can instead be linked as
 
 ## Output compactness
 
-Size is the target's main design goal after the map structure: integer coordinates, styles and symbols written once, and merged paths, before any compression.
+Size is the target's main design goal after the map structure: integer coordinates, styles shared by the groups that hold them, symbols written once, and merged paths, before any compression.
 
 | ID | Requirement | Level |
 | --- | --- | --- |
 | S-1 | Coordinates and widths inside the map are integers in one fixed step of 0.001 mm of map, under the page transform (A-4). The step keeps OCAD's 0.01 mm and OpenMapper's 0.001 mm values exact within 8 m of the map's origin, where the map model's 32-bit floats still resolve it, and rounds computed geometry finely enough that evenly spaced lines keep their spacing. | Must |
 | S-2 | Values that scale with distance, such as angles, scale factors and font sizes, keep enough digits that the resulting position error stays below one step over the extent they apply to. | Must |
 | S-3 | Path data uses the shortest valid encoding: relative or absolute per command, whichever is shorter, implicit command repetition, and no separator before a minus sign. | Must |
-| S-4 | Styles are classes in one style block, named by the shortest free names and shared by value: two pens of the same color and width share one class. Elements carry only a class, their geometry and their object number. | Must |
+| S-4 | Each style is a `style` attribute, since Scribus applies no rule of a style sheet (F-6). It sits on the innermost group whose elements all share it, the group that holds them, and otherwise on each element; styles are equal when their declarations are, so two pens of the same color and width are one style. A group within one that carries its style does not repeat it, and a group's own declarations, such as its blending, come first in the same attribute. Elements carry only their style, when their group does not, their geometry and their object number. The style sheet keeps only the `@font-face` rules (T-6), which nothing else can hold, and the one rule that all text follows, whose properties Scribus reads nowhere. | Must |
 | S-5 | One color's part of a point symbol, repeated under different translations and rotations, is defined once and placed by reference, one reference per object. Repeats are found by comparing the written fragment as a string. | Must |
 | S-6 | Consecutive draws of one object with the same style, and no transform, clip or blending change between them, merge into one path when the result renders the same within the fidelity tolerance (F-1). Opaque strokes always merge. Opaque fills merge when their bounds are disjoint, or when each is one contour under the nonzero rule, turned to the same orientation. Translucent colors never merge, and draws of different objects never merge (M-6). | Must |
 | S-7 | Area patterns that the map draws as regular patterns in clip mode become pattern brushes. The SVG target declares through `IStructuredGraphicsTarget` that its brushes are vectors; for such a target `MapDisplay` keeps pattern brushes on, and the map code skips its pixelation check, which at the 0.001 mm step would refuse any tile wider or taller than 0.08 mm. Irregular patterns, and patterns not in clip mode, are drawn element by element. | Must |
-| S-8 | A transform is written as a translation, rotation or scale when it is one, and as a matrix only otherwise. Groups open only to carry an attribute, and adjacent groups combine where their attributes and order allow. | Must |
+| S-8 | A transform is written as a translation, rotation or scale when it is one, and as a matrix only otherwise. Groups open only to carry an attribute, and adjacent groups combine where their attributes and order allow. The styles that groups' elements share are put on the groups after the groups are tidied (S-4), so that a shared style neither keeps a group open nor keeps adjacent groups apart. | Must |
 | S-9 | Elements are separated by single line breaks, with no indentation, comments, default-valued attributes or editor metadata. A line per element keeps baseline diffs readable for about one byte per element. | Must |
 | S-10 | The export can write the document gzip-compressed, as `.svgz`. | Should |
 | S-11 | Identity is written at the coarsest level that carries it: map, run and symbol on groups, the object number on elements. Bounding boxes and anchor points are not written, since a reader computes them from the geometry. | Must |
@@ -217,11 +217,11 @@ The SVG must look in Chromium like Purple Pen's own renderings, and come out byt
 | ID | Requirement | Level |
 | --- | --- | --- |
 | F-1 | Rendered by Chromium, the SVG matches, within a pixel tolerance, the reference image of the same drawing or map case: Purple Pen's Skia rendering of it at its best settings, antialiased and with pattern tiles off. | Must |
-| F-2 | The same input gives byte-identical output on every run, machine and platform: no time stamps; ids, class names and object numbers assigned in order of first use; nothing ordered by hash. | Must |
-| F-3 | The output is well-formed XML. It uses only `svg`, `g`, `defs`, `style`, `metadata`, `color-profile`, `view`, `path`, `circle`, `ellipse`, `use`, `clipPath`, `pattern`, `text` and `image`. References go through `xlink:href`, which SVG 1.1 tools need and browsers accept. Identity goes in `data-` attributes, and the tables go in the metadata, in the namespace `https://pauliojanpera.github.io/NotPurplePen/svg` with the prefix `npp`; their root element carries a `version` attribute, so that the format can grow without breaking its readers. Pages are also marked with Inkscape's own page elements, `inkscape:page` inside a `sodipodi:namedview`, in Inkscape's namespaces. | Must |
+| F-2 | The same input gives byte-identical output on every run, machine and platform: no time stamps; ids and object numbers assigned in order of first use; nothing ordered by hash. | Must |
+| F-3 | The output is well-formed XML. It uses only `svg`, `g`, `defs`, `style`, `metadata`, `color-profile`, `view`, `path`, `circle`, `ellipse`, `use`, `clipPath`, `pattern`, `text` and `image`. Styles are `style` attributes (S-4), and the `color-profile` carries an `id`, its `name` and the profile it embeds (COL-3). References go through `xlink:href`, which SVG 1.1 tools need and browsers accept. Identity goes in `data-` attributes, and the tables go in the metadata, in the namespace `https://pauliojanpera.github.io/NotPurplePen/svg` with the prefix `npp`; their root element carries a `version` attribute, so that the format can grow without breaking its readers. Pages are also marked with Inkscape's own page elements, `inkscape:page` inside a `sodipodi:namedview`, in Inkscape's namespaces. | Must |
 | F-4 | Each page has the paper size of its page in PDF export's layout, in millimetres, turned for a landscape page, and its map fills the page's print rectangle at the course's print scale, so the page prints as the PDF page does. The root's width and height are those of the first page. | Must |
 | F-5 | Current Firefox and WebKit display the output as Chromium does, darken blending included. | Should |
-| F-6 | Inkscape and Scribus open the output and read each color's CMYK values from it. This is checked by hand. | Must |
+| F-6 | Inkscape and Scribus open the output and read each color's CMYK values from it. This is checked by hand, and without a person at the screen by the readers in `SvgColourReaders/`. | Must |
 
 ## Application integration
 
