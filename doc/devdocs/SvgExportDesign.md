@@ -128,9 +128,8 @@ question below: the dialog shows the three choices, all of them working.
 ### What goes in a file (L-7)
 
 - `CourseSvgSettings` gains PDF export's `FileCreation`, of PDF export's type `CoursePdfSettings.PdfFileCreation`:
-  all pages in one file, a file per course, or a file per course part. Its default is PDF export's, a file per course;
-  **to settle with @Pauli**, since a browser shows only a file's first page, whether one file per course part would
-  suit SVG better.
+  all pages in one file, a file per course, or a file per course part. Its default is PDF export's, a file per course,
+  as @Pauli settled on Nov 4, though a browser shows only a file's first page.
 - `CourseSvg` takes the files and their course designators from `CourseOutputPages.GetFilesToCreate` with that choice,
   as `CoursePdf` does, and every page that `CoursePageLayout` lays out for a file goes in that file. A course part that
   takes several pages, with the crop setting off, is one file of several pages, as in PDF export, so phase 3's
@@ -154,8 +153,8 @@ of the layout, each with the base map's parts and its own course part's (L-3).
 ### What a page carries (L-6)
 
 - `AddPage` gains a last parameter, `name`, what the page is called; `CourseSvg` passes `CoursePage.description`, its
-  course part's full name, such as "Course 5-2" or "All controls". This changes the interface @Pauli approved, **to
-  settle with @Pauli**.
+  course part's full name, such as "Course 5-2" or "All controls". This changes the interface @Pauli approved, and
+  @Pauli accepted it on Nov 4.
 - Each page's group follows a `<view>` whose box is the page's paper on the canvas, which holds the print area where
   the paper prints it: `viewBox="left 0 width height"`. The first page's is the root's view box (F-4), so `file.svg`
   and `file.svg#<first page>` show the same.
@@ -166,8 +165,8 @@ of the layout, each with the base map's parts and its own course part's (L-3).
   names itself skip the views' ids, so every id stays unique (L-5).
 - After the metadata, a `<sodipodi:namedview>` holds an `<inkscape:page x="..." y="..." width="..." height="..."
   inkscape:label="name"/>` for each page, in order, with the page's name as given. Inkscape reads its pages only as
-  children of that element, of Inkscape's other namespace, which F-3's list of elements does not name; adding it to
-  F-3 is **to settle with @Pauli**. Inkscape keeps its first page at the root's view box, as the document does.
+  children of that element, of Inkscape's other namespace, which F-3's list of elements names since
+  @Pauli settled it on Nov 4. Inkscape keeps its first page at the root's view box, as the document does.
 - Nothing joins the metadata: a page's maps are found through its uses (part, `data-m`, `npp:map`), and its course
   through its course map's `npp:course`.
 
