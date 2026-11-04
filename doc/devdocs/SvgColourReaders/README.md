@@ -110,3 +110,38 @@ licence lets the profiles be used, embedded in image files and bundled with appl
 ([text](https://scancode-licensedb.aboutcode.org/adobe-color-profile-bundling.html)). Whether a table sampled from its
 conversion, as `swopsamples.dat` and the grid profiles are, counts as a modification is open. The device CMYK profile
 owes nothing to it.
+
+## Proposal
+
+Every option gives the profile an id and an ICC profile, which is what Inkscape needs:
+`<color-profile id="cmyk" name="cmyk" xlink:href="data:application/vnd.iccprofile;base64,..."/>` holding the 516-byte
+device CMYK profile, 751 bytes in the document. The name stays `cmyk`. This changes COL-3, whose document "embeds or
+references no ICC profile", and gives F-3's `color-profile` an `id` and an `xlink:href`. The colour table (M-7) is
+unchanged.
+
+1. **The profile alone.** The classes stay as they are. Inkscape shows C, M, Y and K; Scribus still draws every item
+   black, so F-6 stays unmet for Scribus; Chromium draws as now. +751 bytes: +10 % on the 7.5 KB test page, +1.4 % on
+   mapexchange1, nothing measurable on the maps.
+2. **The profile, and the styles as style attributes on groups (recommended).** Each style becomes a `style`
+   attribute on the innermost group whose elements all share it, otherwise on the element, and the `<style>` sheet
+   keeps only `@font-face` and `text`. A paint keeps its two declarations, `fill:#ab499c;fill:#ab499c
+   icc-color(cmyk,.35,.85,0,0)`. This changes S-4 (styles are no longer classes, and are shared by sitting on a group;
+   elements carry a style attribute where their group does not), COL-1 (the pair is in a style attribute), COL-3 and
+   F-3 as in 1; S-8's group tidying would treat a style as a group's attribute. Scribus reads every colour as CMYK and
+   every stroke with its width, but not blending or miter limits; Inkscape shows C, M, Y and K, on the group the style
+   sits on, with its elements unset until the group is ungrouped, which moves the style onto them; Chromium draws as now.
+   Size, plain: −13.7 % on Lincoln Park, −3.6 % on printarea2, −2.5 % on mapexchange1, +15 % on the test page; gzipped,
+   −0.4 % to +10 %. Classes moved onto the same groups would make the files 1.5 % to 8.5 % smaller again, under 1 %
+   gzipped: that is the price of Scribus.
+3. **The profile, and style attributes as an export choice.** The export writes option 1's document, and option 2's
+   when asked to, for Scribus. This changes COL-3 and F-3 as in 1, and S-4 only for the choice, which needs a setting,
+   its own baselines and a word in the dialog. Scribus reads only documents written with the choice.
+
+Classes with every declaration repeated as presentation attributes beside them also read in all three (class-and-attr),
+but cost +61 % to +121 % plain, more than option 2, and keep each style twice.
+
+Option 2 is recommended: one document meets F-6 in both programs and draws in Chromium as now, and map-sized exports
+come out smaller than today's. For the profile, the device CMYK one is recommended: it carries the map's uncalibrated
+values as COL-3 means them, and owes nothing to Adobe's licence. The grid-5 profile sampled from `swopsamples.dat`
+(4,176 bytes, 5.6 KB in the document) would let Inkscape's Fix button and CMYK sliders compute colours near Purple
+Pen's (4.5 levels apart on average, against 35 for device CMYK), if a table sampled from Adobe's profile may be shipped.
