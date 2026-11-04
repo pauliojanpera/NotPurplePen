@@ -35,14 +35,14 @@ as unset.
 
 ## What each reads
 
-**Scribus 1.6.1** applies no class rule of a `<style>` sheet, not even one with sRGB alone. Every element of the
-export gets SVG's initial style, a black fill and no stroke: OverprintTestLowerPurple's Course 12, mapexchange1's
-Course 5 and printarea2's Course 1 come in as black shapes, strokes included (all of 17, 640 and 20,438 items). It applies a style attribute, a
-presentation attribute, a group's style and a `<use>`. It reads an `icc-color()` with four numbers after the profile
-name as CMYK whatever the profile, ignores `<color-profile>`, and takes the last paint declaration it can read, so
-`fill:#a00000;fill:#a00000 icc-color(cmyk,...)` is CMYK. The values pass through Qt's 8-bit `QColor`: 0.14 comes in as
-14.12 %, 0.68 as 67.84 %, within 0.2 % of the map's values. A colour equal to one of Scribus's own, such as black
-0/0/0/100 or magenta 0/100/0/0, takes that colour's name. It reports `stroke-miterlimit` and `mix-blend-mode` as
+**Scribus 1.6.1** applies no class rule of a `<style>` sheet, not even one with sRGB alone. Every element of the export
+gets SVG's initial style, a black fill and no stroke: OverprintTestLowerPurple's Course 12, mapexchange1's Course 5 and
+printarea2's Course 1 come in as black shapes, strokes included (all of 17, 640 and 20,438 items). It applies a style
+attribute, a presentation attribute, a group's style and a `<use>`. It reads an `icc-color()` with four numbers after
+the profile name as CMYK whatever the profile, ignores `<color-profile>`, and takes the last paint declaration it can
+read, so `fill:#a00000;fill:#a00000 icc-color(cmyk,...)` is CMYK. The values pass through Qt's 8-bit `QColor`: 0.14
+comes in as 14.12 %, 0.68 as 67.84 %, within 0.2 % of the map's values. A colour equal to one of Scribus's own, such as
+black 0/0/0/100 or magenta 0/100/0/0, takes that colour's name. It reports `stroke-miterlimit` and `mix-blend-mode` as
 unsupported, so overprinting is not shown.
 
 **Inkscape 1.2.2** reads `icc-color()` from every form: class, style attribute, presentation attribute, group, an
@@ -131,17 +131,17 @@ unchanged.
 1. **The profile alone.** The classes stay as they are. Inkscape shows C, M, Y and K; Scribus still draws every item
    black, so F-6 stays unmet for Scribus; Chromium draws as now. +751 bytes: +10 % on the 7.5 KB test page, +1.4 % on
    mapexchange1, nothing measurable on the maps.
-2. **The profile, and the styles as style attributes on groups (recommended).** Each style becomes a `style`
-   attribute on the innermost group whose elements all share it, otherwise on the element, and the `<style>` sheet
-   keeps only `@font-face` and `text`. A paint keeps its two declarations, `fill:#ab499c;fill:#ab499c
-   icc-color(cmyk,.35,.85,0,0)`. This changes S-4 (styles are no longer classes, and are shared by sitting on a group;
-   elements carry a style attribute where their group does not), COL-1 (the pair is in a style attribute), COL-3 and
-   F-3 as in 1; S-8's group tidying would treat a style as a group's attribute. Scribus reads every colour as CMYK and
-   every stroke with its width, but not blending or miter limits; Inkscape shows C, M, Y and K, on the group the style
-   sits on, with its elements unset until the group is ungrouped, which moves the style onto them; Chromium draws as now.
-   Size, plain: −13.7 % on Lincoln Park, −3.6 % on printarea2, −2.5 % on mapexchange1, +15 % on the test page; gzipped,
-   −0.4 % to +10 %. Classes moved onto the same groups would be 1.5 % to 8.5 % smaller than style attributes, and
-   under 1 % gzipped: that is what Scribus costs.
+2. **The profile, and the styles as style attributes on groups (recommended).** Each style becomes a `style` attribute
+   on the innermost group whose elements all share it, otherwise on the element, and the `<style>` sheet keeps only
+   `@font-face` and `text`. A paint keeps its two declarations, `fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)`.
+   This changes S-4 (styles are no longer classes, and are shared by sitting on a group; elements carry a style
+   attribute where their group does not), COL-1 (the pair is in a style attribute), COL-3 and F-3 as in 1; S-8's group
+   tidying would treat a style as a group's attribute. Scribus reads every colour as CMYK and every stroke with its
+   width, but not blending or miter limits; Inkscape shows C, M, Y and K, on the group the style sits on, with its
+   elements unset until the group is ungrouped, which moves the style onto them; Chromium draws as now. Size, plain:
+   −13.7 % on Lincoln Park, −3.6 % on printarea2, −2.5 % on mapexchange1, +15 % on the test page; gzipped, −0.4 %
+   to +10 %. Classes moved onto the same groups would be 1.5 % to 8.5 % smaller than style attributes, and under 1 %
+   gzipped: that is what Scribus costs.
 3. **The profile, and style attributes as an export choice.** The export writes option 1's document, and option 2's
    when asked to, for Scribus. This changes COL-3 and F-3 as in 1, and S-4 only for the choice, which needs a setting,
    its own baselines and a word in the dialog. Scribus reads only documents written with the choice.
