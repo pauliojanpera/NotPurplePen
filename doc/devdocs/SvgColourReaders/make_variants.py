@@ -99,6 +99,34 @@ def move_declarations(text, picks, asAttributes, keepClass=False):
     return join_document(head, rules, order, rewrite_classes(tail, attributes))
 
 
+# Each class moved to the innermost group whose children are all elements of that class and which has no class of
+# its own, from those elements; the group's children inherit it, since every property the classes set on elements is
+# inherited. asStyle then writes every class, on groups and elements, as a style attribute.
+def on_groups(text, asStyle):
+    head, rules, order, tail = split_document(text)
+    lines = tail.split("\n")
+    stack = []
+    for index, line in enumerate(lines):
+        if re.match(r"<g[ >]", line) and not line.endswith("/>"):
+            if stack:
+                stack[-1][2] = True
+            stack.append([index, [], False])
+        elif line == "</g>" and stack:
+            group, children, hasGroups = stack.pop()
+            classes = {name for _, name in children}
+            if children and not hasGroups and len(classes) == 1 and None not in classes \
+                    and ' class="' not in lines[group]:
+                name = classes.pop()
+                for child, _ in children:
+                    lines[child] = lines[child].replace(' class="%s"' % name, "", 1)
+                lines[group] = '<g class="%s"' % name + lines[group][2:]
+        elif stack and re.match(r"<[a-z]", line):
+            match = re.search(r' class="([^"]+)"', line)
+            stack[-1][1].append((index, match.group(1) if match else None))
+    text = join_document(head, rules, order, "\n".join(lines))
+    return move_declarations(text, lambda p, v: True, asAttributes=False) if asStyle else text
+
+
 # The class rules without the sRGB paint that each icc-color() paint repeats.
 def without_fallback(text):
     head, rules, order, tail = split_document(text)
@@ -170,7 +198,10 @@ def main():
         "profile-small": with_profile(text, small),
         "inkscape-form": inkscape_form(text, os.path.join(outFolder, os.path.basename(swopPath)),
                                        "U.S. Web Coated (SWOP) v2"),
+        "class-groups": on_groups(text, asStyle=False),
+        "style-groups": on_groups(text, asStyle=True),
         "style-all-profile-small": with_profile(move_declarations(text, anything, asAttributes=False), small),
+        "style-groups-profile-small": with_profile(on_groups(text, asStyle=True), small),
         "class-and-attr-profile-small": with_profile(
             move_declarations(text, lambda p, v: p in PRESENTATION_ATTRIBUTES, asAttributes=True, keepClass=True),
             small),
