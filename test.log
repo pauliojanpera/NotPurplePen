@@ -1,0 +1,10 @@
+Test run for /home/runner/work/NotPurplePen/NotPurplePen/src/MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+  Skipped MapArea(clouds) [111 ms]
+  Skipped MapArea(clouds11) [126 ms]
+  Skipped MapArea(template_light) [231 ms]
+  Skipped MapArea(template2_light) [209 ms]
+  Skipped MapArea(punchboxbug) [65 ms]
+Results File: /home/runner/work/NotPurplePen/NotPurplePen/svg-loop-results/test-report.trx
+
+Passed!  - Failed:     0, Passed:   349, Skipped:     5, Total:   354, Duration: 2 m 54 s - Map_Svg.Tests.dll (net10.0)
