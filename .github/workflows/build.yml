@@ -9,9 +9,13 @@ name: Build NotPurplePen
 #                release branch carries a stable revision and lands on "main";
 #                an integration branch carries a prerelease one and lands on
 #                "beta", which only prerelease installs ever ask for.
-#   base         published on a channel of its own. This is upstream plus what
-#                it takes to build and test it here, with none of the fork's
-#                features, and it is offered to nobody as an update.
+#   basewithfixes
+#                published on a channel of its own, "base". This is upstream
+#                plus what it takes to build and test it here and the bug fixes
+#                this fork offers it, with none of the fork's features, and it
+#                is offered to nobody as an update.
+#   base         not packaged. It is upstream plus what it takes to build and
+#                test it here, and what it builds is offered as basewithfixes.
 #   a pull request, or a dispatched ref
 #                published under trial/. A branch rooted at upstream carries no
 #                workflow of its own, so pushing to it cannot run one; a pull
@@ -34,10 +38,10 @@ name: Build NotPurplePen
 # without testing it again. A paths filter decides from the files a push
 # changed, which GitHub does not define for a branch created at a commit it
 # already has, so the trigger takes none, and the plan job asks master, dev and
-# base what they changed instead.
+# basewithfixes what they changed instead.
 on:
   push:
-    branches: [ master, dev, base, 'wip/**' ]
+    branches: [ master, dev, basewithfixes, 'wip/**' ]
   pull_request:
     branches: [ base, dev, master ]
   workflow_dispatch:
@@ -53,8 +57,8 @@ env:
 jobs:
   # What is packaged, and on which runner. A trial is packaged for the
   # platforms its wip branch names, and everything else for all three. A push
-  # to master, dev or base that changed nothing under src/ or .github/ since
-  # the commit it moved the branch from has nothing to package.
+  # to master, dev or basewithfixes that changed nothing under src/ or .github/
+  # since the commit it moved the branch from has nothing to package.
   plan:
     name: Plan
     runs-on: ubuntu-latest
@@ -92,7 +96,7 @@ jobs:
         declare -A named=([win]=win-x64 [linux]=linux-x64 [mac]=osx-arm64)
 
         # The branch a trial is named after, worked out as the version step
-        # works it out; empty for master, dev and base.
+        # works it out; empty for master, dev and basewithfixes.
         ref=$INPUT_REF
         if [ -z "$ref" ] && [ "$EVENT" = pull_request ]; then ref=$HEAD_REF; fi
         if [ -z "$ref" ] && [[ $BRANCH == wip/* ]]; then ref=$BRANCH; fi
@@ -270,7 +274,7 @@ jobs:
             # is on publish as one trial, where the newer replaces the older.
             $slug = ((($ref -split '/')[-1]) -replace '[^A-Za-z0-9._-]', '-').Trim('-').ToLowerInvariant()
         }
-        elseif ($branch -eq 'base') { $channel = 'base'; $slug = '' }
+        elseif ($branch -eq 'basewithfixes') { $channel = 'base'; $slug = '' }
         elseif ($branch -in @('master', 'dev')) {
             $channel = if ($parts[3] -lt 500) { 'beta' } else { 'main' }
             $slug = ''
@@ -425,7 +429,7 @@ jobs:
       github.event.inputs.ref != '' ||
       github.event_name == 'pull_request' ||
       startsWith(github.ref_name, 'wip/') ||
-      github.ref_name == 'master' || github.ref_name == 'dev' || github.ref_name == 'base'
+      github.ref_name == 'master' || github.ref_name == 'dev' || github.ref_name == 'basewithfixes'
     runs-on: ubuntu-latest
     timeout-minutes: 60
 
@@ -442,10 +446,10 @@ jobs:
         path: repo
         sparse-checkout: .github/scripts
 
-    # A release goes out only behind a green suite, and so does base. A trial
-    # does not wait, whether a wip branch was pushed, a pull request opened or
-    # a ref dispatched: the question it answers is whether the branch still
-    # builds, and its packages need nothing the suite produces.
+    # A release goes out only behind a green suite, and so does basewithfixes.
+    # A trial does not wait, whether a wip branch was pushed, a pull request
+    # opened or a ref dispatched: the question it answers is whether the branch
+    # still builds, and its packages need nothing the suite produces.
     #
     # The runs are looked up by commit rather than by branch, so a commit that
     # reached two branches is answered by either of them: the tree is the same
@@ -512,8 +516,8 @@ jobs:
                          notes = 'Offered to installed copies as updates.' }
             'beta'  = @{ title = 'NotPurplePen prereleases'
                          notes = 'Offered only to copies that are themselves prereleases.' }
-            'base'  = @{ title = 'Upstream with this fork''s build'
-                         notes = 'Purple Pen as this fork last took it from upstream, built and named so it can be installed beside it. Never offered as an update.' }
+            'base'  = @{ title = 'Upstream with this fork''s build and bug fixes'
+                         notes = 'Purple Pen as this fork last took it from upstream, with the bug fixes this fork offers it, built and named so it can be installed beside it. Never offered as an update.' }
             'trial' = @{ title = 'Trial build'
                          notes = 'A branch as it stands, packaged so it can be installed and tried. Never offered as an update.' }
         }
