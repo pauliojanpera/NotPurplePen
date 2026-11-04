@@ -68,6 +68,38 @@ namespace PurplePen
         }
     }
 
+    // Has all the settings for creating SVG files of courses (A-2): PDF export's settings that apply to a page, one page
+    // to a file, and how the bitmaps the map draws reach the files.
+    public class CourseSvgSettings
+    {
+        public Id<Course>[] CourseIds;          // Courses to write, None is all controls.
+        public bool AllCourses = true;          // If true, overrides CourseIds except for all controls.
+
+        public bool DontPrintBaseMap = false;    // If true, the base map is not drawn, just the course.
+        public bool CropLargePrintArea = true;       // If true, crop a large print area instead of writing multiple pages
+        public bool PrintMapExchangesOnOneMap = false;
+        public ColorModel ColorModel = ColorModel.CMYK;
+        public bool RenderControlDescriptions = true;
+        public bool ShowProgressDialog = true;
+
+        public bool mapDirectory, fileDirectory;     // directory to place output files in
+        public string outputDirectory;               // the output directory if mapDirectory and fileDirectoy are false.
+        public string filePrefix;                    // if non-null, non-empty, prefix this an "-" onto the front of files.
+
+        // variation choices for courses with variations.
+        public Dictionary<Id<Course>, VariationChoices> VariationChoicesPerCourse = new Dictionary<Id<Course>, VariationChoices>();
+
+        public SvgBitmapHandling BitmapHandling = SvgBitmapHandling.Embedded;   // how the map's bitmaps reach the files (B-4)
+        public int JpegQuality = 90;                 // the quality a bitmap whose own format is JPEG is written at (B-3)
+        public bool Compress = false;                // whether the files are written gzip-compressed, as .svgz (S-10)
+
+        public CourseSvgSettings Clone()
+        {
+            CourseSvgSettings n = (CourseSvgSettings)base.MemberwiseClone();
+            return n;
+        }
+    }
+
     // Has all the settings for creating OCAD files.
     public class OcadCreationSettings
     {

@@ -1,0 +1,206 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="279.4mm" height="215.9mm" viewBox="0 0 279.4 215.9" xml:lang="und">
+<style>
+@font-face{font-family:"Roboto";src:url(data:font/ttf;base64,sha256:b602bb8046ca7fc7fccbe57ce58d95bc41fe4116e8c2111b6f04904a275ea24e)}
+text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white-space:pre}
+.a{font-size:5.57px;font-family:"Roboto";fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)}
+.b{fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:250;stroke-miterlimit:5}
+.c{clip-rule:evenodd}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="Course 2-2">
+<npp:color position="2" name="Lower purple" cmyk=".35,.85,0,0"/>
+<npp:color position="3" name="Purple" cmyk=".35,.85,0,0"/>
+<npp:symbol n="1" id="703.0" name="Control number" colors="2"/>
+<npp:symbol n="2" id="710" name="Dangerous area" colors="3"/>
+<npp:course name="Course 2" part="2" scale="10000">
+<npp:control n="1" code="76" kind="control" x="5600" y="-5700"/>
+<npp:control n="2" code="72" kind="control" x="-700" y="10300"/>
+<npp:control n="3" code="70" kind="control" x="21300" y="11800"/>
+<npp:control n="4" kind="crossing" x="31618" y="21696"/>
+<npp:control n="5" code="50" kind="control" x="45200" y="22800"/>
+<npp:control n="6" code="75" kind="control" x="72000" y="27000"/>
+<npp:control n="7" code="55" kind="control" x="51200" y="10500"/>
+<npp:control n="8" code="38" kind="control" x="50300" y="2900"/>
+<npp:control n="9" kind="finish" x="53200" y="-2800"/>
+</npp:course>
+<npp:object n="1" kind="control-number" controls="5"/>
+<npp:object n="2" kind="control-number" controls="6"/>
+<npp:object n="3" kind="dangerous"/>
+</npp:map>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="b">
+<path class="c" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
+</clipPath>
+<clipPath id="c">
+<path d="M0 30000h90000v50000H0z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g data-c="2">
+<g data-s="1">
+<g transform="matrix(1 0 0-1 42744 32918)">
+<text class="a" data-o="1" transform="translate(0 5293)scale(1000)">7</text>
+</g>
+<g transform="matrix(1 0 0-1 75900 35134)">
+<text class="a" data-o="2" transform="translate(0 5293)scale(1000)">8</text>
+</g>
+</g>
+</g>
+<g data-c="3">
+<g clip-path="url(#b)" data-s="2">
+<g transform="rotate(45)">
+<path class="b" data-o="3" d="M39850 15600h40972"/>
+<path class="b" data-o="3" d="M39850 16200h40972"/>
+<path class="b" data-o="3" d="M39850 16800h40972"/>
+<path class="b" data-o="3" d="M39850 17400h40972"/>
+<path class="b" data-o="3" d="M39850 18000h40972"/>
+<path class="b" data-o="3" d="M39850 18600h40972"/>
+<path class="b" data-o="3" d="M39850 19200h40972"/>
+<path class="b" data-o="3" d="M39850 19800h40972"/>
+<path class="b" data-o="3" d="M39850 20400h40972"/>
+<path class="b" data-o="3" d="M39850 21000h40972"/>
+<path class="b" data-o="3" d="M39850 21600h40972"/>
+<path class="b" data-o="3" d="M39850 22200h40972"/>
+<path class="b" data-o="3" d="M39850 22800h40972"/>
+<path class="b" data-o="3" d="M39850 23400h40972"/>
+<path class="b" data-o="3" d="M39850 24000h40972"/>
+<path class="b" data-o="3" d="M39850 24600h40972"/>
+<path class="b" data-o="3" d="M39850 25200h40972"/>
+<path class="b" data-o="3" d="M39850 25800h40972"/>
+<path class="b" data-o="3" d="M39850 26400h40972"/>
+<path class="b" data-o="3" d="M39850 27000h40972"/>
+<path class="b" data-o="3" d="M39850 27600h40972"/>
+<path class="b" data-o="3" d="M39850 28200h40972"/>
+<path class="b" data-o="3" d="M39850 28800h40972"/>
+<path class="b" data-o="3" d="M39850 29400h40972"/>
+<path class="b" data-o="3" d="M39850 30000h40972"/>
+<path class="b" data-o="3" d="M39850 30600h40972"/>
+<path class="b" data-o="3" d="M39850 31200h40972"/>
+<path class="b" data-o="3" d="M39850 31800h40972"/>
+<path class="b" data-o="3" d="M39850 32400h40972"/>
+<path class="b" data-o="3" d="M39850 33000h40972"/>
+<path class="b" data-o="3" d="M39850 33600h40972"/>
+<path class="b" data-o="3" d="M39850 34200h40972"/>
+<path class="b" data-o="3" d="M39850 34800h40972"/>
+<path class="b" data-o="3" d="M39850 35400h40972"/>
+<path class="b" data-o="3" d="M39850 36000h40972"/>
+<path class="b" data-o="3" d="M39850 36600h40972"/>
+<path class="b" data-o="3" d="M39850 37200h40972"/>
+<path class="b" data-o="3" d="M39850 37800h40972"/>
+<path class="b" data-o="3" d="M39850 38400h40972"/>
+<path class="b" data-o="3" d="M39850 39000h40972"/>
+<path class="b" data-o="3" d="M39850 39600h40972"/>
+<path class="b" data-o="3" d="M39850 40200h40972"/>
+<path class="b" data-o="3" d="M39850 40800h40972"/>
+<path class="b" data-o="3" d="M39850 41400h40972"/>
+<path class="b" data-o="3" d="M39850 42000h40972"/>
+<path class="b" data-o="3" d="M39850 42600h40972"/>
+<path class="b" data-o="3" d="M39850 43200h40972"/>
+<path class="b" data-o="3" d="M39850 43800h40972"/>
+<path class="b" data-o="3" d="M39850 44400h40972"/>
+<path class="b" data-o="3" d="M39850 45000h40972"/>
+<path class="b" data-o="3" d="M39850 45600h40972"/>
+<path class="b" data-o="3" d="M39850 46200h40972"/>
+<path class="b" data-o="3" d="M39850 46800h40972"/>
+<path class="b" data-o="3" d="M39850 47400h40972"/>
+<path class="b" data-o="3" d="M39850 48000h40972"/>
+<path class="b" data-o="3" d="M39850 48600h40972"/>
+<path class="b" data-o="3" d="M39850 49200h40972"/>
+<path class="b" data-o="3" d="M39850 49800h40972"/>
+<path class="b" data-o="3" d="M39850 50400h40972"/>
+<path class="b" data-o="3" d="M39850 51000h40972"/>
+<path class="b" data-o="3" d="M39850 51600h40972"/>
+<path class="b" data-o="3" d="M39850 52200h40972"/>
+<path class="b" data-o="3" d="M39850 52800h40972"/>
+<path class="b" data-o="3" d="M39850 53400h40972"/>
+<path class="b" data-o="3" d="M39850 54000h40972"/>
+<path class="b" data-o="3" d="M39850 54600h40972"/>
+<path class="b" data-o="3" d="M39850 55200h40972"/>
+<path class="b" data-o="3" d="M39850 55800h40972"/>
+<path class="b" data-o="3" d="M39850 56400h40972"/>
+</g>
+<g transform="rotate(135)">
+<path class="b" data-o="3" d="M15528-81000h40973"/>
+<path class="b" data-o="3" d="M15528-80400h40973"/>
+<path class="b" data-o="3" d="M15528-79800h40973"/>
+<path class="b" data-o="3" d="M15528-79200h40973"/>
+<path class="b" data-o="3" d="M15528-78600h40973"/>
+<path class="b" data-o="3" d="M15528-78000h40973"/>
+<path class="b" data-o="3" d="M15528-77400h40973"/>
+<path class="b" data-o="3" d="M15528-76800h40973"/>
+<path class="b" data-o="3" d="M15528-76200h40973"/>
+<path class="b" data-o="3" d="M15528-75600h40973"/>
+<path class="b" data-o="3" d="M15528-75000h40973"/>
+<path class="b" data-o="3" d="M15528-74400h40973"/>
+<path class="b" data-o="3" d="M15528-73800h40973"/>
+<path class="b" data-o="3" d="M15528-73200h40973"/>
+<path class="b" data-o="3" d="M15528-72600h40973"/>
+<path class="b" data-o="3" d="M15528-72000h40973"/>
+<path class="b" data-o="3" d="M15528-71400h40973"/>
+<path class="b" data-o="3" d="M15528-70800h40973"/>
+<path class="b" data-o="3" d="M15528-70200h40973"/>
+<path class="b" data-o="3" d="M15528-69600h40973"/>
+<path class="b" data-o="3" d="M15528-69000h40973"/>
+<path class="b" data-o="3" d="M15528-68400h40973"/>
+<path class="b" data-o="3" d="M15528-67800h40973"/>
+<path class="b" data-o="3" d="M15528-67200h40973"/>
+<path class="b" data-o="3" d="M15528-66600h40973"/>
+<path class="b" data-o="3" d="M15528-66000h40973"/>
+<path class="b" data-o="3" d="M15528-65400h40973"/>
+<path class="b" data-o="3" d="M15528-64800h40973"/>
+<path class="b" data-o="3" d="M15528-64200h40973"/>
+<path class="b" data-o="3" d="M15528-63600h40973"/>
+<path class="b" data-o="3" d="M15528-63000h40973"/>
+<path class="b" data-o="3" d="M15528-62400h40973"/>
+<path class="b" data-o="3" d="M15528-61800h40973"/>
+<path class="b" data-o="3" d="M15528-61200h40973"/>
+<path class="b" data-o="3" d="M15528-60600h40973"/>
+<path class="b" data-o="3" d="M15528-60000h40973"/>
+<path class="b" data-o="3" d="M15528-59400h40973"/>
+<path class="b" data-o="3" d="M15528-58800h40973"/>
+<path class="b" data-o="3" d="M15528-58200h40973"/>
+<path class="b" data-o="3" d="M15528-57600h40973"/>
+<path class="b" data-o="3" d="M15528-57000h40973"/>
+<path class="b" data-o="3" d="M15528-56400h40973"/>
+<path class="b" data-o="3" d="M15528-55800h40973"/>
+<path class="b" data-o="3" d="M15528-55200h40973"/>
+<path class="b" data-o="3" d="M15528-54600h40973"/>
+<path class="b" data-o="3" d="M15528-54000h40973"/>
+<path class="b" data-o="3" d="M15528-53400h40973"/>
+<path class="b" data-o="3" d="M15528-52800h40973"/>
+<path class="b" data-o="3" d="M15528-52200h40973"/>
+<path class="b" data-o="3" d="M15528-51600h40973"/>
+<path class="b" data-o="3" d="M15528-51000h40973"/>
+<path class="b" data-o="3" d="M15528-50400h40973"/>
+<path class="b" data-o="3" d="M15528-49800h40973"/>
+<path class="b" data-o="3" d="M15528-49200h40973"/>
+<path class="b" data-o="3" d="M15528-48600h40973"/>
+<path class="b" data-o="3" d="M15528-48000h40973"/>
+<path class="b" data-o="3" d="M15528-47400h40973"/>
+<path class="b" data-o="3" d="M15528-46800h40973"/>
+<path class="b" data-o="3" d="M15528-46200h40973"/>
+<path class="b" data-o="3" d="M15528-45600h40973"/>
+<path class="b" data-o="3" d="M15528-45000h40973"/>
+<path class="b" data-o="3" d="M15528-44400h40973"/>
+<path class="b" data-o="3" d="M15528-43800h40973"/>
+<path class="b" data-o="3" d="M15528-43200h40973"/>
+<path class="b" data-o="3" d="M15528-42600h40973"/>
+<path class="b" data-o="3" d="M15528-42000h40973"/>
+<path class="b" data-o="3" d="M15528-41400h40973"/>
+<path class="b" data-o="3" d="M15528-40800h40973"/>
+<path class="b" data-o="3" d="M15528-40200h40973"/>
+<path class="b" data-o="3" d="M15528-39600h40973"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<g transform="matrix(.001 0 0-.001 94.7 162.95)" clip-path="url(#c)">
+<use xlink:href="#a"/>
+</g>
+</svg>
