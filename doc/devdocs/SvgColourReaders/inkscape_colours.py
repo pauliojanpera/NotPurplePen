@@ -1,13 +1,14 @@
-# What Inkscape 1.2 shows for the colours of an SVG file's elements, on the CMS page of its Fill and Stroke dialog: the
-# profile, and the channels with their values. Run it in an X server and a D-Bus session of its own, as
-# run-inkscape.sh does:
+# What Inkscape 1.2 or 1.4 shows for the colours of an SVG file's elements, on the CMS page of its Fill and Stroke
+# dialog: the profile, and the channels with their values. Run it in an X server and a D-Bus session of its own, as
+# run-all.sh does:
 #   dbus-run-session -- xvfb-run -a -s "-screen 0 1400x900x24" python3 -I inkscape_colours.py <out folder> <file.svg> <probe>...
 # A probe is an element's id, or o<n> for the first element whose data-o is n, or o<n>^ for that element's group,
 # then ":fill" or ":stroke". Inkscape is
 # started with a preferences file of its own that opens colours on the CMS page, the dialog is opened and each element
 # selected through Inkscape's actions on D-Bus, and the dialog is captured with ImageMagick's import and read with
 # Tesseract. <out folder>/<name>.json holds the readings, and <name>-<probe>.png each captured dialog, to check the
-# reading by eye. Needs inkscape, xdotool, gdbus, ImageMagick and tesseract.
+# reading by eye. Needs inkscape, xdotool, gdbus, ImageMagick and tesseract. INKSCAPE names another Inkscape than the
+# one on the path, such as a wrapper that runs Inkscape 1.4 in a chroot; its version picks the dialog's layout.
 import json
 import os
 import re
@@ -28,6 +29,12 @@ PROFILE = (210, 28, 135, 128)
 LABELS = (50, 200, 75, 150)
 VALUES = (42, 200, 357, 150)
 TABS = {"fill": (1050, 170), "stroke": (1160, 170)}
+# Inkscape 1.4 shows the profile's name further left on the CMS page, its tabs closer together, and the channels'
+# sliders so close to their labels that a wider crop takes in the slider of a dark colour.
+PROFILE_1_4 = (230, 28, 115, 128)
+LABELS_1_4 = (35, 200, 75, 150)
+TABS_1_4 = {"fill": (1030, 170), "stroke": (1130, 170)}
+INKSCAPE = os.environ.get("INKSCAPE", "inkscape")
 
 
 def run(*command):
@@ -88,9 +95,12 @@ def main():
     os.makedirs(os.path.join(configFolder, "inkscape"))
     open(os.path.join(configFolder, "inkscape", "preferences.xml"), "w").write(PREFERENCES)
     environment = dict(os.environ, XDG_CONFIG_HOME=configFolder)
-    inkscape = subprocess.Popen(["inkscape", "--with-gui", copyPath], env=environment,
+    version = re.search(r"Inkscape (\d+)\.(\d+)", run(INKSCAPE, "--version"))
+    newer = version is not None and (int(version.group(1)), int(version.group(2))) >= (1, 4)
+    profileBox, labelBox, tabs = (PROFILE_1_4, LABELS_1_4, TABS_1_4) if newer else (PROFILE, LABELS, TABS)
+    inkscape = subprocess.Popen([INKSCAPE, "--with-gui", copyPath], env=environment,
                                 stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    readings = {"file": os.path.basename(svgPath), "probes": {}}
+    readings = {"file": os.path.basename(svgPath), "inkscape": version.group(0) if version else "?", "probes": {}}
     try:
         window = ""
         for _ in range(120):
@@ -109,16 +119,16 @@ def main():
             activate("select-clear")
             activate("select-by-id", elementId)
             time.sleep(2)
-            run("xdotool", "mousemove", str(TABS[tab][0]), str(TABS[tab][1]), "click", "1")
+            run("xdotool", "mousemove", str(tabs[tab][0]), str(tabs[tab][1]), "click", "1")
             time.sleep(2)
             imagePath = os.path.join(outFolder, "%s-%s-%s.png" % (name, element.replace("^", "-group"), tab))
             subprocess.run(["import", "-window", "root", "-crop", "%dx%d+%d+%d" % DIALOG, "+repage", imagePath],
                            check=True)
-            labels = read_text(imagePath, LABELS, "CMYKRGBA:")
+            labels = read_text(imagePath, labelBox, "CMYKRGBA:")
             values = read_text(imagePath, VALUES, "0123456789.")
             channels = [[label.rstrip(":"), value] for label, value in zip(labels, values)
                         if label.rstrip(":") in ("C", "M", "Y", "K", "R", "G", "B")]
-            profile = read_text(imagePath, PROFILE, None)
+            profile = read_text(imagePath, profileBox, None)
             while profile and re.fullmatch(r"[vV]+", profile[-1]):
                 profile.pop()
             readings["probes"][probe] = {"profile": " ".join(profile), "channels": channels}

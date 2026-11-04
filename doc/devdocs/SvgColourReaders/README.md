@@ -16,7 +16,14 @@ writes each colour in a class rule of its `<style>` sheet, as sRGB and then as t
   `select-clear`, `select-by-id`), captures the dialog and reads the profile, the channels and their values with
   Tesseract. It keeps each captured dialog as a PNG, which settles a misreading such as `ione>` for `<none>`. An element
   of the export is named by its `data-o`, and `o<n>^` names its group: Inkscape shows a style set on a group on the
-  group, and its children as unset.
+  group, and its children as unset. `INKSCAPE` names another Inkscape, such as `inkscape-in-chroot.sh`, which runs the
+  Inkscape of a chroot (`INKSCAPE_CHROOT`) in the same X server and D-Bus session; the version picks the dialog's
+  layout, which differs a little in 1.4.
+- `pick_probes.py <export.svg> <count> [--unset]` picks probes for `inkscape_colours.py` from an export written with
+  style attributes: for each CMYK paint, the first object's element or group that carries it, as the reader can name
+  them, with what Inkscape should show; `--unset` adds an element whose group carries its style.
+- `expected_paints.py <export.svg>` counts the fills and strokes that reach the drawn elements of such an export,
+  through inheritance and `<use>`, for comparison with what `summarise_scribus.py` says Scribus made.
 - `render_chromium.py` draws each file in Playwright's Chromium, with the flags `ChromiumRenderer` passes, and counts
   the pixels that differ from the first file's drawing.
 - `make_variants.py` writes the variants below of one export and their sizes, plain and gzipped; `make_profile.py`
@@ -75,6 +82,26 @@ browser drops: `fill:#100000 icc-color(cmyk, 0.19, 0.29, 0.39, 0.09)`.
 
 **Chromium** keeps the first declaration of a pair and drops a paint it cannot parse, so a variant draws as now as
 long as an sRGB paint comes before or beneath each `icc-color()`.
+
+## The export as written (Nov 5)
+
+`feature/svg-colours` (9fe17bd) writes option 2 below with the device CMYK profile. Four of its exports, the same
+events as below as the SVG tests export them (`CourseSvgBaselineTests`, `CourseSvgLayoutTests`), read so:
+
+- **Scribus 1.6.1** made every element of OverprintTestLowerPurple's Course 12, mapexchange1's Course 5 and printarea2's
+  Course 1 an item with the fill, stroke and stroke width the file gives it: 17, 640 and 20,442 items, matching
+  `expected_paints.py` paint for paint. printarea2's hold 8,267 black and 3,506 white fills, which take the names of
+  Scribus's own Black and White, 3,576 other CMYK fills, 5,093 strokes with their widths, and 20 CMYK colours, each the
+  map's within Qt's steps of 1/255. Written as before, every item of the three was black, with no stroke. Lincoln Park
+  PrintAreas 2 (4.3 MB) was not read: Scribus had not imported it after ten minutes.
+- **Inkscape 1.2.2 and 1.4.2** showed for all four, Lincoln Park PrintAreas 2 included, the profile `cmyk` and C, M, Y
+  and K, the values written to two decimals, on each of the 27 groups probed that carry a style and on an element that
+  carries its own; and on an element whose group carries its style, its colour unset, as Inkscape shows a group's
+  style. 1.4.2 is Ubuntu 25.10's package, 1.4.2-3, run in a chroot made with debootstrap; deb.debian.org and
+  inkscape.org were out of reach, so Debian 13's own 1.4 was not tried.
+- **On the export as written before**, whose `<color-profile name="cmyk"/>` has neither an id nor a profile behind it,
+  Inkscape 1.4.2 shows R, G and B: the first three numbers of each `icc-color()`, without K, which is what @Pauli saw on
+  Nov 4, where 1.2.2 shows no channels at all. The version made the difference.
 
 ## The variants
 
