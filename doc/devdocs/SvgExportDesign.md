@@ -225,17 +225,19 @@ the target's alone, in `Map_Svg`: the export and its settings stay as they are.
   the course pages must not move, since Chromium draws as before; the export baselines (V-2) move in the styles' form
   alone; and F-6 is read again with `SvgColourReaders/` on documents the new code writes.
 
-The findings predict the size: about a kilobyte more on a small course page, 751 bytes of it the profile, and 2.5 to
-14 % less on map-sized files, where most elements lose their class. A sketch of the pass on the baselines agrees, and
-finds one kind of page that grows: a description sheet, whose cells each hold their texts in a group of their own,
-which then carries the whole text style (mapexchange1's all-controls page, 18 % more).
+The findings predicted the size, and SVG loop run 41895993797 of the change measured it: the 22 files of the baseline
+tests come to 6,972,977 bytes, 3.2 % less than 7,204,808, and to 3,154,577 gzip-compressed, 0.1 % more. Small course
+pages grow by about a kilobyte, 751 bytes of it the profile (Overprint test's Course 12, 13.9 %); maps shrink, as most
+of their elements lose their class (printarea2 3.7 %, Madrona Permanent11 11.8 %, Lincoln Park PrintAreas 2 13.7 %, as
+predicted); and a description sheet grows, as each of its cells holds its texts in a group of its own, which then
+carries the whole text style (mapexchange1's all-controls page, 16.6 %).
 
 ## Open questions
 
 - Styles sit on the innermost group whose elements all share them, as @Pauli chose. On the outermost such group, a
-  style would be written once for a symbol's objects rather than once for each object or description cell: by the
-  sketch, mapexchange1's all-controls page would grow 6 % instead of 18 %, and printarea2's map shrink 8 % instead of
-  4 %, while Inkscape would show the colour on the symbol's group instead of each object's.
+  style would be written once for a symbol's objects rather than once for each object or description cell: by a sketch
+  on the baselines, mapexchange1's all-controls page would grow 6 % instead of 17 %, and printarea2's map shrink 8 %
+  instead of 4 %, while Inkscape would show the colour on the symbol's group instead of each object's.
 - Phase 3 writes one page per file. Should the dialog already show L-7's three file choices, with all but one
   disabled, or only the one? (Phase 5 shows all three; see above.)
 - A PDF map is drawn as a bitmap. Is that acceptable for the first release, or should such events be refused?
