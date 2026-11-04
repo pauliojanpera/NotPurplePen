@@ -120,8 +120,81 @@ and so load only on Windows; spelling them as the files are spelled belongs on `
    loads; the overwrite confirmation through `OverwritingFilesDialog`; the strings in `UIText.resx`, after checking
    which exist.
 
+## Phase 5: several pages per file (L-6, L-7, V-8)
+
+Written on Nov 4 from `feature/svg-target` at 3c40d20; the work is on `feature/svg-pages`. It answers the first open
+question below: the dialog shows the three choices, all of them working.
+
+### What goes in a file (L-7)
+
+- `CourseSvgSettings` gains PDF export's `FileCreation`, of PDF export's type `CoursePdfSettings.PdfFileCreation`:
+  all pages in one file, a file per course, or a file per course part. Its default is PDF export's, a file per course;
+  **to settle with @Pauli**, since a browser shows only a file's first page, whether one file per course part would
+  suit SVG better.
+- `CourseSvg` takes the files and their course designators from `CourseOutputPages.GetFilesToCreate` with that choice,
+  as `CoursePdf` does, and every page that `CoursePageLayout` lays out for a file goes in that file. A course part that
+  takes several pages, with the crop setting off, is one file of several pages, as in PDF export, so phase 3's
+  numbered files (A-3) no longer arise.
+- The dialog shows PDF export's "Files:" choice where it said that each page is a file, with the PDF dialog's strings,
+  which are already translated: `CreatePdfCourses_filesLabel_Text` and `CreatePdfCourses_comboBoxFileFormat_Items` to
+  `_Items2`. `CreateSvgCourses_filesInfoLabel_Text` goes. The view model's `FileFormatIndex` numbers the choices as
+  `PdfFileCreation` does, as the PDF dialog's view model does.
+
+### How a file is drawn (L-2 to L-4)
+
+For each file, `CourseSvg` lays out its pages and then draws each map once: the base map's parts over the union of the
+map rectangles of all the file's pages, and each course part's two layers, a course drawing being a labeled map of its
+own (M-5), over the union of its own pages' rectangles. The parts are drawn in the order the pages first use them,
+from the bottom up within a page: for the first page the map below the course, its course part's lower layer, the map
+above it and the part's upper layer, as in phase 3; after them, the two layers of each further course part. A file of
+one page is then written as before, apart from what L-6 adds. Each course part is described (CD-1 to CD-3) once, under
+its own map key, while its layout is in the map display. Then the file gets one `AddPage` for each page, in the order
+of the layout, each with the base map's parts and its own course part's (L-3).
+
+### What a page carries (L-6)
+
+- `AddPage` gains a last parameter, `name`, what the page is called; `CourseSvg` passes `CoursePage.description`, its
+  course part's full name, such as "Course 5-2" or "All controls". This changes the interface @Pauli approved, **to
+  settle with @Pauli**.
+- Each page's group follows a `<view>` whose box is the page's paper on the canvas, which holds the print area where
+  the paper prints it: `viewBox="left 0 width height"`. The first page's is the root's view box (F-4), so `file.svg`
+  and `file.svg#<first page>` show the same.
+- The view's id is the page's name as an XML name: each run of characters that a name cannot hold becomes an
+  underscore, and one goes before a name that does not begin with a letter or an underscore ("Course 5-2" becomes
+  `Course_5-2`, "1" `_1`). A name an earlier page has takes the first free of `_2`, `_3` and so on, so the pages of a
+  course part that takes several are `X`, `X_2`, `X_3`. A page without a name is called `page`. The ids the document
+  names itself skip the views' ids, so every id stays unique (L-5).
+- After the metadata, a `<sodipodi:namedview>` holds an `<inkscape:page x="..." y="..." width="..." height="..."
+  inkscape:label="name"/>` for each page, in order, with the page's name as given. Inkscape reads its pages only as
+  children of that element, of Inkscape's other namespace, which F-3's list of elements does not name; adding it to
+  F-3 is **to settle with @Pauli**. Inkscape keeps its first page at the root's view box, as the document does.
+- Nothing joins the metadata: a page's maps are found through its uses (part, `data-m`, `npp:map`), and its course
+  through its course map's `npp:course`.
+
+### The layout test (V-8)
+
+`CourseSvgLayoutTests`, in `Map_Svg.Tests` beside the export's other tests, exports reference events with a file
+choice and checks each file:
+
+- it holds as many views, Inkscape pages and page groups as the layout gives the file pages, in the same order; each
+  view's box and each Inkscape page's are the page's paper, the pages laid left to right 10 mm apart; and the root's
+  view box, width and height are the first page's;
+- each map is defined once: one record each, at most one part for each of its layers whatever the number of pages,
+  and every part shown by some page;
+- each page uses the base map's parts and its own course part's, in the order of L-3, and its view is named after
+  that course part, the label of the course map it uses;
+- the structure walk of V-7 holds;
+- through its view, `<img src="file.svg#id">` sized to the page, Chromium draws each page as the application draws it
+  with the Skia target, within the tolerance of `CourseSvgPageTests`, so the view shows the page's own print area and
+  nothing of the pages beside it.
+
+The events: `courseprinting/Lincoln Park PrintAreas 2.ppen`, an OCAD map whose courses print on five paper sizes and
+orientations, all in one file; `Overprint test` in upper and lower purple, all in one file, its map in two parts
+shared by two pages; and `mapexchange1` with a file per course, so that Course 2 and Course 5 hold their parts' pages.
+The baseline tests (V-2) gain the last two files, so that the text of a file of several pages shows in review.
+
 ## Open questions
 
 - Phase 3 writes one page per file. Should the dialog already show L-7's three file choices, with all but one
-  disabled, or only the one?
+  disabled, or only the one? (Phase 5 shows all three; see above.)
 - A PDF map is drawn as a bitmap. Is that acceptable for the first release, or should such events be refused?
