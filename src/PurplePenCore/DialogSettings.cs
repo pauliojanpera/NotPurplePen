@@ -68,8 +68,8 @@ namespace PurplePen
         }
     }
 
-    // Has all the settings for creating SVG files of courses (A-2): PDF export's settings that apply to a page, one page
-    // to a file, and how the bitmaps the map draws reach the files.
+    // Has all the settings for creating SVG files of courses (A-2): PDF export's settings, with its choice of which pages
+    // go in each file (L-7), and how the bitmaps the map draws reach the files.
     public class CourseSvgSettings
     {
         public Id<Course>[] CourseIds;          // Courses to write, None is all controls.
@@ -78,6 +78,7 @@ namespace PurplePen
         public bool DontPrintBaseMap = false;    // If true, the base map is not drawn, just the course.
         public bool CropLargePrintArea = true;       // If true, crop a large print area instead of writing multiple pages
         public bool PrintMapExchangesOnOneMap = false;
+        public CoursePdfSettings.PdfFileCreation FileCreation = CoursePdfSettings.PdfFileCreation.FilePerCourse;  // which pages go in each file, as for PDF export
         public ColorModel ColorModel = ColorModel.CMYK;
         public bool RenderControlDescriptions = true;
         public bool ShowProgressDialog = true;

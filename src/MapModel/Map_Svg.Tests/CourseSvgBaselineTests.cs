@@ -27,8 +27,8 @@ namespace Map_Svg.Tests
     public class CourseSvgBaselineTests
     {
         // The reference events, each with the name its baselines go under, its file, the kind of map it is drawn on,
-        // the courses exported, or none for every course of the event and its page of all controls, and whether its
-        // course is drawn in upper and lower purple; and what it covers.
+        // the courses exported, or none for every course of the event and its page of all controls, whether its course
+        // is drawn in upper and lower purple, and which pages go in each file; and what it covers.
         internal static readonly TestCaseData[] Events = {
             // Courses with map exchanges, and no map.
             Event("mapexchange1", "controller/mapexchange1.ppen", MapType.None, new int[0], false),
@@ -46,6 +46,12 @@ namespace Map_Svg.Tests
             Event("Madrona Permanent11", "controller/Madrona Permanent11.ppen", MapType.OCAD, new int[] { 1 }, false),
             // A georeferenced OCAD map, in the British National Grid.
             Event("testproj2", "gpx/testproj2.ppen", MapType.OCAD, new int[0], false),
+            // Both pages of the map in two parts in one file, which defines the map's parts once for both (L-4, L-6).
+            Event("Overprint test lower purple in one file", "courseprinting/Overprint test.ppen", MapType.OCAD, new int[0], true,
+                  CoursePdfSettings.PdfFileCreation.SingleFile),
+            // A course with map exchanges in a file of its own, a page for each of its four parts (L-6, L-7).
+            Event("mapexchange1 Course 5 in a file", "controller/mapexchange1.ppen", MapType.None, new int[] { 6 }, false,
+                  CoursePdfSettings.PdfFileCreation.FilePerCourse),
         };
 
         // A reference event, as a test case named by the name its baselines go under.
@@ -54,9 +60,11 @@ namespace Map_Svg.Tests
         // mapType: the kind of map the event is drawn on.
         // courses: the ids of the courses to export, or none for every course of the event and its page of all controls.
         // lowerPurpleLayer: whether to draw the course in upper and lower purple.
-        private static TestCaseData Event(string name, string eventFile, MapType mapType, int[] courses, bool lowerPurpleLayer)
+        // fileCreation: which pages go in each file.
+        private static TestCaseData Event(string name, string eventFile, MapType mapType, int[] courses, bool lowerPurpleLayer,
+                                          CoursePdfSettings.PdfFileCreation fileCreation = CoursePdfSettings.PdfFileCreation.FilePerCoursePart)
         {
-            return new TestCaseData(name, eventFile, mapType, courses, lowerPurpleLayer).SetName(name);
+            return new TestCaseData(name, eventFile, mapType, courses, lowerPurpleLayer, fileCreation).SetName(name);
         }
 
         // The data of an embedded font or bitmap, and the type it is named with.
@@ -69,12 +77,14 @@ namespace Map_Svg.Tests
         // courses: the ids of the courses to export, or none for every course of the event, its page of all controls
         //          first.
         // lowerPurpleLayer: whether to draw the course in upper and lower purple.
+        // fileCreation: which pages go in each file.
         [TestCaseSource(nameof(Events))]
-        public async Task AnEventIsExportedAsItsBaselinesSay(string eventName, string eventFile, MapType mapType, int[] courses, bool lowerPurpleLayer)
+        public async Task AnEventIsExportedAsItsBaselinesSay(string eventName, string eventFile, MapType mapType, int[] courses, bool lowerPurpleLayer,
+                                                             CoursePdfSettings.PdfFileCreation fileCreation)
         {
             Id<Course>[] courseIds = courses.Select(id => new Id<Course>(id)).ToArray();
-            string first = await CourseExport.ExportAsync(eventFile, "baseline/" + eventName + "/first", mapType, lowerPurpleLayer, courseIds);
-            string second = await CourseExport.ExportAsync(eventFile, "baseline/" + eventName + "/second", mapType, lowerPurpleLayer, courseIds);
+            string first = await CourseExport.ExportAsync(eventFile, "baseline/" + eventName + "/first", mapType, lowerPurpleLayer, courseIds, fileCreation);
+            string second = await CourseExport.ExportAsync(eventFile, "baseline/" + eventName + "/second", mapType, lowerPurpleLayer, courseIds, fileCreation);
 
             string[] files = CourseExport.SvgFilesIn(first);
             Assert.IsNotEmpty(files, "the export writes files");

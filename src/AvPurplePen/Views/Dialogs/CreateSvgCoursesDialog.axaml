@@ -1,11 +1,11 @@
 <!--
     CreateSvgCoursesDialog.axaml
 
-    Dialog for exporting courses as SVG files, one file to a page (A-1). Laid out
-    as the Create PDF Files dialog is, whose strings it shares where it asks the
-    same: CourseSelector on the left, an Appearance group (page handling, include
-    base map, color model, optional merge-parts checkbox), a Files group (a note
-    that each page is a file, and the filename prefix), a Bitmaps group (how the
+    Dialog for exporting courses as SVG files (A-1, L-7). Laid out as the Create
+    PDF Files dialog is, whose strings it shares where it asks the same:
+    CourseSelector on the left, an Appearance group (page handling, include base
+    map, color model, optional merge-parts checkbox), a Files group (which pages
+    go in each file, and the filename prefix), a Bitmaps group (how the
     map's bitmaps reach the files, their JPEG quality, and compression), and a
     Folder group (3 radio buttons + folder picker).
 -->
@@ -136,10 +136,18 @@
                     <Grid ColumnDefinitions="Auto,8,*"
                           RowDefinitions="Auto,4,Auto">
 
-                        <!-- One file is created for each page. -->
-                        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
-                                   Text="{resx:Localize CreateSvgCourses_filesInfoLabel_Text}"
-                                   TextWrapping="Wrap"/>
+                        <!-- "Files:" -->
+                        <TextBlock Grid.Row="0" Grid.Column="0"
+                                   Text="{resx:Localize CreatePdfCourses_filesLabel_Text}"
+                                   VerticalAlignment="Center"/>
+                        <ComboBox x:Name="comboBoxFileFormat"
+                                  Grid.Row="0" Grid.Column="2"
+                                  HorizontalAlignment="Stretch"
+                                  SelectedIndex="{Binding FileFormatIndex, Mode=TwoWay}">
+                            <ComboBoxItem Content="{resx:Localize CreatePdfCourses_comboBoxFileFormat_Items}"/>
+                            <ComboBoxItem Content="{resx:Localize CreatePdfCourses_comboBoxFileFormat_Items1}"/>
+                            <ComboBoxItem Content="{resx:Localize CreatePdfCourses_comboBoxFileFormat_Items2}"/>
+                        </ComboBox>
 
                         <!-- "File name prefix:" -->
                         <TextBlock Grid.Row="2" Grid.Column="0"

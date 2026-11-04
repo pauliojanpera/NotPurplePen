@@ -19,8 +19,7 @@ namespace PurplePen.ViewModels
     /// Usage: the caller sets <see cref="EventDB"/>, <see cref="ShowMergeParts"/>
     /// and <see cref="EnableChangeCropping"/>, then assigns <see cref="Settings"/>
     /// to seed the dialog. After OK, read <see cref="Settings"/> for the user's
-    /// choices. The export writes one file for each page, so there is no choice
-    /// of how pages are gathered into files.
+    /// choices, among them which pages go in each file, as for PDF export.
     /// </summary>
     public partial class CreateSvgCoursesDialogViewModel : ViewModelBase
     {
@@ -88,6 +87,13 @@ namespace PurplePen.ViewModels
         [ObservableProperty]
         private bool compress;
 
+        /// <summary>
+        /// 0 = One for all courses, 1 = One per course, 2 = One per course part/variation.
+        /// Bound to the file-format combo's SelectedIndex.
+        /// </summary>
+        [ObservableProperty]
+        private int fileFormatIndex = 1; // matches CoursePdfSettings.PdfFileCreation
+
         /// <summary>File name prefix.</summary>
         [ObservableProperty]
         private string filePrefix = "";
@@ -145,6 +151,7 @@ namespace PurplePen.ViewModels
                     DontPrintBaseMap = PrintBaseMapIndex == 1,
                     CropLargePrintArea = MultiPageIndex == 0,
                     PrintMapExchangesOnOneMap = MergeParts,
+                    FileCreation = (CoursePdfSettings.PdfFileCreation)FileFormatIndex,
                     ColorModel = (ColorModel)ColorModelIndex,
                     RenderControlDescriptions = RenderControlDescriptions,
                     ShowProgressDialog = ShowProgressDialog,
@@ -179,6 +186,7 @@ namespace PurplePen.ViewModels
                 PrintBaseMapIndex = value.DontPrintBaseMap ? 1 : 0;
                 MultiPageIndex = value.CropLargePrintArea ? 0 : 1;
                 MergeParts = value.PrintMapExchangesOnOneMap;
+                FileFormatIndex = (int)value.FileCreation;
                 int colorIndex = (int)value.ColorModel;
                 if (colorIndex < 0) colorIndex = 0;
                 if (colorIndex > 1) colorIndex = 1;

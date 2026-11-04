@@ -51,11 +51,13 @@ namespace Map_Svg.Tests
         // mapType: the kind of map the event is drawn on.
         // courses: the ids of the courses to export, or none for every course of the event and its page of all controls.
         // lowerPurpleLayer: whether to draw the course in upper and lower purple.
+        // fileCreation: which pages go in each file.
         [TestCaseSource(typeof(CourseSvgBaselineTests), nameof(CourseSvgBaselineTests.Events))]
-        public async Task EveryElementTracesToItsMapAndEveryCourseObjectToItsControls(string eventName, string eventFile, MapType mapType, int[] courses, bool lowerPurpleLayer)
+        public async Task EveryElementTracesToItsMapAndEveryCourseObjectToItsControls(string eventName, string eventFile, MapType mapType, int[] courses, bool lowerPurpleLayer,
+                                                                                    CoursePdfSettings.PdfFileCreation fileCreation)
         {
             Id<Course>[] courseIds = courses.Select(id => new Id<Course>(id)).ToArray();
-            string folder = await CourseExport.ExportAsync(eventFile, "structure/" + eventName, mapType, lowerPurpleLayer, courseIds);
+            string folder = await CourseExport.ExportAsync(eventFile, "structure/" + eventName, mapType, lowerPurpleLayer, courseIds, fileCreation);
 
             List<string> problems = new List<string>();
             foreach (string file in CourseExport.SvgFilesIn(folder))
