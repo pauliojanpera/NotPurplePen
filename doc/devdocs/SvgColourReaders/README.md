@@ -20,6 +20,10 @@ writes each colour in a class rule of its `<style>` sheet, as sRGB and then as t
   the pixels that differ from the first file's drawing.
 - `make_variants.py` writes the variants below of one export and their sizes, plain and gzipped; `make_profile.py`
   writes a small CMYK output profile (below); `run-all.sh <work> <export.svg> <probes>` runs everything.
+- `variants/` holds the variants of OverprintTestLowerPurple-Course12.svg from the gallery, all but the embedded
+  SWOP profile (743 KB) and Inkscape's form (which names a path of the machine it was made on), with
+  `device-cmyk.icc`, the device CMYK profile, as the small profile; `profile-linked.svg` needs
+  `src/PurplePen/USWebCoatedSWOP.icc` beside it.
 
 Each reader was checked on `known-answers.svg`, which paints one rectangle in each form a colour can take, with
 distinct values: a presentation attribute, a style attribute with one declaration and with two, Inkscape's spacing
