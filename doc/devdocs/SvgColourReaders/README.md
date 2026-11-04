@@ -145,7 +145,8 @@ unchanged.
    gzipped: that is what Scribus costs.
 3. **The profile, and style attributes as an export choice.** The export writes option 1's document, and option 2's
    when asked to, for Scribus. This changes COL-3 and F-3 as in 1, and S-4 only for the choice, which needs a setting,
-   its own baselines and a word in the dialog. Scribus reads only documents written with the choice.
+   its own baselines and a word in the dialog. Scribus reads only documents written with the choice; the default
+   document's size is option 1's.
 
 Classes with every declaration repeated as presentation attributes beside them also read in all three (class-and-attr),
 but cost +19 % to +121 % plain, more than option 2, and keep each style twice.
@@ -155,3 +156,5 @@ come out smaller than today's. For the profile, the device CMYK one is recommend
 values as COL-3 means them, and owes nothing to Adobe's licence. The grid-5 profile sampled from `swopsamples.dat`
 (4,176 bytes, 5.6 KB in the document) would let Inkscape's Fix button and CMYK sliders compute colours near Purple
 Pen's (4.5 levels apart on average, against 35 for device CMYK), if a table sampled from Adobe's profile may be shipped.
+Whatever the export writes, Scribus keeps the values in steps of 1/255, and F-6 stays a check by hand, on documents
+written in the chosen form.
