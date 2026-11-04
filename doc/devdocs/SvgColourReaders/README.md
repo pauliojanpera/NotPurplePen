@@ -131,14 +131,14 @@ unchanged.
    every stroke with its width, but not blending or miter limits; Inkscape shows C, M, Y and K, on the group the style
    sits on, with its elements unset until the group is ungrouped, which moves the style onto them; Chromium draws as now.
    Size, plain: −13.7 % on Lincoln Park, −3.6 % on printarea2, −2.5 % on mapexchange1, +15 % on the test page; gzipped,
-   −0.4 % to +10 %. Classes moved onto the same groups would make the files 1.5 % to 8.5 % smaller again, under 1 %
-   gzipped: that is the price of Scribus.
+   −0.4 % to +10 %. Classes moved onto the same groups would be 1.5 % to 8.5 % smaller than style attributes, and
+   under 1 % gzipped: that is what Scribus costs.
 3. **The profile, and style attributes as an export choice.** The export writes option 1's document, and option 2's
    when asked to, for Scribus. This changes COL-3 and F-3 as in 1, and S-4 only for the choice, which needs a setting,
    its own baselines and a word in the dialog. Scribus reads only documents written with the choice.
 
 Classes with every declaration repeated as presentation attributes beside them also read in all three (class-and-attr),
-but cost +61 % to +121 % plain, more than option 2, and keep each style twice.
+but cost +19 % to +121 % plain, more than option 2, and keep each style twice.
 
 Option 2 is recommended: one document meets F-6 in both programs and draws in Chromium as now, and map-sized exports
 come out smaller than today's. For the profile, the device CMYK one is recommended: it carries the map's uncalibrated
