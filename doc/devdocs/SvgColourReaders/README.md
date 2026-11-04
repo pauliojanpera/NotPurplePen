@@ -66,9 +66,11 @@ For a profile it links itself (Document Properties > Color), Inkscape writes
 naming it after the profile's description with every character but letters, digits, `_`, `:`, `-` and `.` made `-`,
 and a colour as one declaration, `fill:#ab499c icc-color(U.S.-Web-Coated--SWOP--v2, 0.35, 0.85, 0, 0)`, in the
 element's style attribute (`DocumentProperties::linkSelectedProfile`, `SPColor::toString`). It does not read that
-form back: from a style attribute or a class rule, an `icc-color()` naming `U.S.-Web-Coated--SWOP--v2` comes in with
+name back: from a style attribute or a class rule, an `icc-color()` naming `U.S.-Web-Coated--SWOP--v2` comes in with
 no profile (`<none>`), and only a presentation attribute keeps it (`profile-names.svg`, which needs
-`USWebCoatedSWOP.icc` beside it). A plain name such as `cmyk` reads from every form.
+`USWebCoatedSWOP.icc` beside it). A plain name such as `cmyk` reads from every form. Any colour Inkscape rewrites,
+as when ungrouping moves a group's style onto its children, it writes in the same way, as one declaration that a
+browser drops: `fill:#100000 icc-color(cmyk, 0.19, 0.29, 0.39, 0.09)`.
 
 **Chromium** keeps the first declaration of a pair and drops a paint it cannot parse, so a variant draws as now as
 long as an sRGB paint comes before or beneath each `icc-color()`.
@@ -97,7 +99,7 @@ below, and on the known answers with both, which read alike.
 | profile-embedded: id and Purple Pen's SWOP profile as a `data:` URI | every item black | C, M, Y, K | same | +743 KB | +435 KB |
 | profile-small | every item black | C, M, Y, K | same | +751 bytes: +10, +1.4, 0.0, 0.0 % | +9.7, +3.7, +0.1, 0.0 % |
 | inkscape-form: Inkscape's own form, above | colours; strokes filled black | C, M, Y, K | paints lost | +12.8 % | |
-| style-groups with the small profile | everything | C, M, Y, K | same | +15, −2.5, −3.6, −13.7 % | +10.1, +3.2, +0.2, −0.4 % |
+| style-groups with the small profile | everything | C, M, Y, K, on the group a style sits on | same | +15, −2.5, −3.6, −13.7 % | +10.1, +3.2, +0.2, −0.4 % |
 
 "Same" is pixel for pixel, on the first page of each of the four files.
 
