@@ -2264,9 +2264,6 @@ OKを押し、コンピュータ上で地図ファイルのコピーを探して
   <data name="MiscText_CrashSend" xml:space="preserve">
     <value>レポート送信</value>
   </data>
-  <data name="MiscText_PdfConverterNotFound" xml:space="preserve">
-    <value>PdfConverter.exe が見つかりません</value>
-  </data>
   <data name="MiscText_PdfConversionFailed" xml:space="preserve">
     <value>Pdfium PDF converter がPDFファイルの正常な読み込みに失敗しました</value>
   </data>
@@ -2583,12 +2580,6 @@ OKを押し、コンピュータ上で地図ファイルのコピーを探して
     <value>プリンタ:</value>
   </data>
   <data name="PrintCourses_previewButton_Text" xml:space="preserve">
-    <value>プレビュー...</value>
-  </data>
-  <data name="PrintDescriptions_previewButton_Text" xml:space="preserve">
-    <value>プレビュー...</value>
-  </data>
-  <data name="PrintPunches_previewButton_Text" xml:space="preserve">
     <value>プレビュー...</value>
   </data>
   <data name="PrintCourses_copiesLabel_Text" xml:space="preserve">

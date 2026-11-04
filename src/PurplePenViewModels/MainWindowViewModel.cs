@@ -73,18 +73,21 @@ namespace PurplePen.ViewModels
         private float mapDpiShown;
 
         // Persisted settings for the Print Descriptions / Create Description PDF
-        // dialog. The printer / paper / margins live in their own fields because
-        // the new ViewModel takes them as separate inputs. The settings, which
+        // dialog. The paper / margins live in their own field because the new
+        // ViewModel takes them as a separate input. The printer is kept by the
+        // platform's IDocumentPrinting, shared by all printing. The settings, which
         // choose among the event's courses, are reset to null when a new map file
-        // is loaded; the printer, paper and margins are kept.
+        // is loaded; the paper and margins are kept.
         private DescriptionPrintSettings? descPrintSettings;
-        private PrinterNameAndSettings? descPrinter;
         private PrintingPaperSizeWithMargins? descPaperSizeWithMargins;
 
         // Same idea for the Print Punch Cards / Create Punchcard PDF dialog.
         private CorePunchPrintSettings? punchPrintSettings;
-        private PrinterNameAndSettings? punchPrinter;
         private PrintingPaperSizeWithMargins? punchPaperSizeWithMargins;
+
+        // Same idea for the Print Courses dialog. Course pages take their paper size
+        // from each course's print area, so there is no paper size to remember.
+        private CoursePrintSettings? coursePrintSettings;
 
         [ObservableProperty]
         private string windowTitle = MiscText.AppTitle;
@@ -367,6 +370,7 @@ namespace PurplePen.ViewModels
                 courseSvgSettings = null;
                 descPrintSettings = null;
                 punchPrintSettings = null;
+                coursePrintSettings = null;
             }
 
 #if PORTING

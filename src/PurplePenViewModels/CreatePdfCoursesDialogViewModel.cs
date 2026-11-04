@@ -6,18 +6,25 @@
 // individual ObservableProperty, and CoursePdfSettings is a computed property
 // whose getter assembles a fresh settings object and whose setter decomposes
 // an incoming one.
+//
+// When the caller supplies a Controller, the Preview… button records the
+// pages that would go into the PDF files with a RecordingPrintTarget and
+// shows them in the Print Preview dialog.
 
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace PurplePen.ViewModels
 {
     /// <summary>
     /// ViewModel for the Create PDF Files dialog.
     /// Usage: the caller sets <see cref="EventDB"/>, <see cref="ShowMergeParts"/>,
-    /// and <see cref="EnableChangeCropping"/>, then assigns <see cref="Settings"/>
+    /// <see cref="EnableChangeCropping"/>, and (to enable Preview)
+    /// <see cref="Controller"/>, then assigns <see cref="Settings"/>
     /// to seed the dialog. After OK, read <see cref="Settings"/> for the user's
     /// choices. The window title is fixed ("Create PDF Files") and set directly
     /// in the dialog AXAML.
@@ -29,6 +36,15 @@ namespace PurplePen.ViewModels
         /// <summary>The event database used to populate the course list.</summary>
         [ObservableProperty]
         private EventDB? eventDB;
+
+        /// <summary>
+        /// The Controller used to lay out and draw the pages for Preview. When
+        /// null, the Preview button is hidden.
+        /// </summary>
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(IsPreviewVisible))]
+        [NotifyCanExecuteChangedFor(nameof(PreviewCommand))]
+        private Controller? controller;
 
         /// <summary>
         /// Whether the "Print Map Exchanges on Same Map" checkbox is visible.
@@ -71,8 +87,7 @@ namespace PurplePen.ViewModels
 
         /// <summary>
         /// 0 = RGB, 1 = CMYK. Bound to the color-model combo's SelectedIndex.
-        /// Maps to <see cref="PurplePen.ColorModel"/> via +1 (the underlying
-        /// enum starts at OCADCompatible=0, RGB=1, CMYK=2).
+        /// Maps to <see cref="PurplePen.ColorModel"/>.
         /// </summary>
         [ObservableProperty]
         private int colorModelIndex;
@@ -124,6 +139,9 @@ namespace PurplePen.ViewModels
         /// <summary>True when the "Other folder" textbox + button should be visible.</summary>
         public bool IsOtherDirectoryVisible => UseOtherDirectory;
 
+        /// <summary>True when the Preview button is visible (i.e. a Controller was supplied).</summary>
+        public bool IsPreviewVisible => Controller != null;
+
         // ===== Settings: assembles / decomposes a CoursePdfSettings =====
 
         /// <summary>
@@ -149,8 +167,8 @@ namespace PurplePen.ViewModels
                     CropLargePrintArea = MultiPageIndex == 0,
                     PrintMapExchangesOnOneMap = MergeParts,
                     // The combo lists RGB then CMYK; the underlying enum is
-                    // OCADCompatible=0, RGB=1, CMYK=2. So index + 1.
-                    ColorModel = (ColorModel)(ColorModelIndex + 1),
+                    // RGB=0, CMYK=1. So index is correct.
+                    ColorModel = (ColorModel)(ColorModelIndex),
                     FileCreation = (CoursePdfSettings.PdfFileCreation)FileFormatIndex,
                     RenderControlDescriptions = RenderControlDescriptions,
                     ShowProgressDialog = ShowProgressDialog,
@@ -203,5 +221,33 @@ namespace PurplePen.ViewModels
                 UseOtherDirectory = !value.mapDirectory && !value.fileDirectory;
             }
         }
+
+        /// <summary>
+        /// Shows the pages that would be put into the PDF files with the current
+        /// settings in the Print Preview dialog. The view must push the
+        /// CourseSelector's selection into <see cref="SelectedCourseDesignators"/>
+        /// and <see cref="VariationChoicesPerCourse"/> before executing this.
+        /// Errors while laying out the pages are reported by the Controller.
+        /// </summary>
+        [RelayCommand(CanExecute = nameof(CanPreview))]
+        private async Task Preview()
+        {
+            if (Controller == null)
+                return;
+
+            using (RecordingPrintTarget printTarget = new RecordingPrintTarget(PdfPrintTarget.PdfDpi)) {
+                // The preview is shown on screen, so don't draw the map as for printing.
+                if (!Controller.PrintCoursePdfPages(printTarget, Settings, printing: false))
+                    return;
+
+                PrintPreviewDialogViewModel previewVm = new PrintPreviewDialogViewModel {
+                    PrintTarget = printTarget,
+                };
+                await Services.DialogService.ShowDialogAsync(previewVm);
+            }
+        }
+
+        // Preview is possible only when a Controller was supplied.
+        private bool CanPreview() => Controller != null;
     }
 }
