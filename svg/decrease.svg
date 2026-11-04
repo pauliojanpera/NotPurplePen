@@ -1,0 +1,681 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="1006mm" height="636mm" viewBox="0 0 1006 636">
+<style>
+.a{fill:none;stroke:#0db2ff;stroke:#0db2ff icc-color(cmyk,.95,.3,0,0);stroke-width:40;stroke-linecap:round;stroke-linejoin:round}
+.b{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:270;stroke-linejoin:bevel}
+.c{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:180;stroke-linejoin:bevel}
+.d{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:210;stroke-linejoin:round}
+.e{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:210;stroke-linejoin:bevel}
+.f{fill:none;stroke:#ff80ff;stroke:#ff80ff icc-color(cmyk,0,.5,0,0);stroke-width:180;stroke-linejoin:bevel}
+.g{fill:#ff80ff;fill:#ff80ff icc-color(cmyk,0,.5,0,0)}
+.h{fill:#a80000;fill:#a80000 icc-color(cmyk,0,.68,.91,.34)}
+.i{fill:none;stroke:#a80000;stroke:#a80000 icc-color(cmyk,0,.68,.91,.34);stroke-width:110;stroke-miterlimit:5}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="decrease">
+<npp:color position="22" name="Blue" cmyk=".95,.3,0,0"/>
+<npp:color position="28" name="Black" cmyk="0,0,0,1" overprint="1"/>
+<npp:color position="32" name="Purple 50%" cmyk="0,.5,0,0"/>
+<npp:color position="36" name="Layout color Brown" cmyk="0,.68,.91,.34"/>
+<npp:symbol n="1" id="1.0" colors="22 32 36"/>
+<npp:symbol n="2" id="1.1" colors="22 32 36"/>
+<npp:symbol n="3" id="203.0" name="Passable rock face" colors="28"/>
+<npp:symbol n="4" id="517.0" name="Major power line" colors="28 32"/>
+</npp:map>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="b">
+<path d="M-19047-13500h30112V5536h-30112z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g data-c="22">
+<g data-s="1">
+<path class="a" data-o="1" d="M-50-4310c460-1380-90-3080 1210-3740 1140-590 1610-1810 2850-1460"/>
+<path class="a" data-o="2" d="M2430-4030c1130-1440 3430-1860 2840-3590-400-1170 200-3190-1000-2910"/>
+</g>
+<g data-s="2">
+<path class="a" data-o="3" d="M-5960-7390l2960 2440 2800-3800-4300-290"/>
+</g>
+</g>
+<g data-c="28">
+<g data-s="3">
+<path class="b" data-o="4" d="M-7020-7670c-10-2530 3380-4600 7530-4610 4140-20 7550 2040 7550 4570 10 2520-3380 4580-7520 4600-4150 10-7560-2040-7560-4560z"/>
+<g transform="translate(-6944-8325)rotate(-78.3)">
+<path class="c" data-o="4" d="M0 0l1-82"/>
+</g>
+<g transform="matrix(.28-.96 .96 .28-6902-8484)">
+<path class="c" data-o="4" d="M0 0l1-164"/>
+</g>
+<g transform="translate(-6815-8739)rotate(-69.33)">
+<path class="c" data-o="4" d="M0 0l2-247"/>
+</g>
+<g transform="translate(-6659-9080)rotate(-61)">
+<path class="c" data-o="4" d="M0 0l2-329"/>
+</g>
+<g transform="translate(-6405-9492)rotate(-53.46)">
+<path class="c" data-o="4" d="M0 0l3-411"/>
+</g>
+<g transform="translate(-6020-9958)rotate(-46.71)">
+<path class="c" data-o="4" d="M0 0l3-493"/>
+</g>
+<g transform="translate(-5489-10447)rotate(-37.86)">
+<path class="c" data-o="4" d="M0 0l4-576"/>
+</g>
+<g transform="translate(-4825-10913)rotate(-32.68)">
+<path class="c" data-o="4" d="M0 0l4-658"/>
+</g>
+<g transform="translate(-4022-11342)rotate(-25.71)">
+<path class="c" data-o="4" d="M0 0l5-740"/>
+</g>
+<g transform="translate(-3073-11717)rotate(-16.52)">
+<path class="c" data-o="4" d="M0 0l6-822"/>
+</g>
+<g transform="translate(-1964-12014)rotate(-12.74)">
+<path class="c" data-o="4" d="M0 0l6-904"/>
+</g>
+<g transform="translate(-688-12213)rotate(-5.47)">
+<path class="c" data-o="4" d="M0 0l7-987"/>
+</g>
+<g transform="translate(771-12273)rotate(1.51)">
+<path class="c" data-o="4" d="M0 0l7-1069"/>
+</g>
+<g transform="translate(2324-12147)rotate(8.72)">
+<path class="c" data-o="4" d="M0 0l8-1151"/>
+</g>
+<g transform="translate(3886-11800)rotate(16.21)">
+<path class="c" data-o="4" d="M0 0l8-1233"/>
+</g>
+<g transform="translate(5430-11179)rotate(27.66)">
+<path class="c" data-o="4" d="M0 0l9-1316"/>
+</g>
+<g transform="translate(6892-10152)rotate(43.31)">
+<path class="c" data-o="4" d="M0 0l9-1398"/>
+</g>
+<g transform="translate(7923-8575)rotate(73.49)">
+<path class="c" data-o="4" d="M0 0l10-1480"/>
+</g>
+<g transform="translate(7995-7110)rotate(101.7)">
+<path class="c" data-o="4" d="M0 0l10-1480"/>
+</g>
+<g transform="translate(7095-5468)rotate(133.39)">
+<path class="c" data-o="4" d="M0 0l9-1398"/>
+</g>
+<g transform="translate(5675-4367)rotate(149.79)">
+<path class="c" data-o="4" d="M0 0l9-1316"/>
+</g>
+<g transform="translate(4159-3693)rotate(159.54)">
+<path class="c" data-o="4" d="M0 0l8-1233"/>
+</g>
+<g transform="translate(2621-3302)rotate(170.85)">
+<path class="c" data-o="4" d="M0 0l8-1151"/>
+</g>
+<g transform="translate(1093-3130)rotate(177.96)">
+<path class="c" data-o="4" d="M0 0l7-1069"/>
+</g>
+<g transform="translate(-374-3145)rotate(-174.82)">
+<path class="c" data-o="4" d="M0 0l7-987"/>
+</g>
+<g transform="translate(-1669-3307)rotate(-171.23)">
+<path class="c" data-o="4" d="M0 0l6-904"/>
+</g>
+<g transform="translate(-2788-3579)rotate(-163.81)">
+<path class="c" data-o="4" d="M0 0l6-822"/>
+</g>
+<g transform="translate(-3754-3918)rotate(-156.79)">
+<path class="c" data-o="4" d="M0 0l5-740"/>
+</g>
+<g transform="translate(-4573-4313)rotate(-150.12)">
+<path class="c" data-o="4" d="M0 0l4-658"/>
+</g>
+<g transform="translate(-5254-4744)rotate(-145.19)">
+<path class="c" data-o="4" d="M0 0l4-576"/>
+</g>
+<g transform="translate(-5806-5196)rotate(-136.81)">
+<path class="c" data-o="4" d="M0 0l3-493"/>
+</g>
+<g transform="translate(-6227-5639)rotate(-130.42)">
+<path class="c" data-o="4" d="M0 0l3-411"/>
+</g>
+<g transform="translate(-6515-6034)rotate(-123.27)">
+<path class="c" data-o="4" d="M0 0l2-329"/>
+</g>
+<g transform="translate(-6700-6359)rotate(-115.31)">
+<path class="c" data-o="4" d="M0 0l2-247"/>
+</g>
+<g transform="translate(-6809-6604)rotate(-111)">
+<path class="c" data-o="4" d="M0 0l1-164"/>
+</g>
+<g transform="translate(-6867-6754)rotate(-106.6)">
+<path class="c" data-o="4" d="M0 0l1-82"/>
+</g>
+<g transform="matrix(.28-.96 .96 .28-6871-8589)">
+<path class="c" data-o="4" d="M0 0l1-82"/>
+</g>
+<g transform="translate(-6814-8740)rotate(-69.3)">
+<path class="c" data-o="4" d="M0 0l1-164"/>
+</g>
+<g transform="translate(-6707-8985)rotate(-65.07)">
+<path class="c" data-o="4" d="M0 0l2-247"/>
+</g>
+<g transform="translate(-6524-9313)rotate(-57.13)">
+<path class="c" data-o="4" d="M0 0l2-329"/>
+</g>
+<g transform="translate(-6239-9709)rotate(-49.99)">
+<path class="c" data-o="4" d="M0 0l3-411"/>
+</g>
+<g transform="translate(-5822-10156)rotate(-43.6)">
+<path class="c" data-o="4" d="M0 0l3-493"/>
+</g>
+<g transform="translate(-5273-10613)rotate(-35.21)">
+<path class="c" data-o="4" d="M0 0l4-576"/>
+</g>
+<g transform="translate(-4593-11049)rotate(-30.26)">
+<path class="c" data-o="4" d="M0 0l4-658"/>
+</g>
+<g transform="translate(-3776-11450)rotate(-23.56)">
+<path class="c" data-o="4" d="M0 0l5-740"/>
+</g>
+<g transform="translate(-2812-11795)rotate(-16.52)">
+<path class="c" data-o="4" d="M0 0l6-822"/>
+</g>
+<g transform="translate(-1694-12073)rotate(-9.07)">
+<path class="c" data-o="4" d="M0 0l6-904"/>
+</g>
+<g transform="translate(-402-12241)rotate(-5.47)">
+<path class="c" data-o="4" d="M0 0l7-987"/>
+</g>
+<g transform="translate(1067-12265)rotate(1.51)">
+<path class="c" data-o="4" d="M0 0l7-1069"/>
+</g>
+<g transform="translate(2603-12104)rotate(8.72)">
+<path class="c" data-o="4" d="M0 0l8-1151"/>
+</g>
+<g transform="translate(4146-11720)rotate(20.16)">
+<path class="c" data-o="4" d="M0 0l8-1233"/>
+</g>
+<g transform="translate(5666-11050)rotate(29.97)">
+<path class="c" data-o="4" d="M0 0l9-1316"/>
+</g>
+<g transform="translate(7089-9952)rotate(46.42)">
+<path class="c" data-o="4" d="M0 0l9-1398"/>
+</g>
+<g transform="translate(7993-8310)rotate(78.09)">
+<path class="c" data-o="4" d="M0 0l10-1480"/>
+</g>
+<g transform="translate(7926-6845)rotate(106.3)">
+<path class="c" data-o="4" d="M0 0l10-1480"/>
+</g>
+<g transform="translate(6898-5268)rotate(136.49)">
+<path class="c" data-o="4" d="M0 0l9-1398"/>
+</g>
+<g transform="translate(5440-4238)rotate(152.1)">
+<path class="c" data-o="4" d="M0 0l9-1316"/>
+</g>
+<g transform="translate(3899-3612)rotate(163.46)">
+<path class="c" data-o="4" d="M0 0l8-1233"/>
+</g>
+<g transform="translate(2343-3257)rotate(170.85)">
+<path class="c" data-o="4" d="M0 0l8-1151"/>
+</g>
+<g transform="translate(798-3119)rotate(177.96)">
+<path class="c" data-o="4" d="M0 0l7-1069"/>
+</g>
+<g transform="translate(-661-3171)rotate(-174.82)">
+<path class="c" data-o="4" d="M0 0l7-987"/>
+</g>
+<g transform="translate(-1940-3364)rotate(-167.58)">
+<path class="c" data-o="4" d="M0 0l6-904"/>
+</g>
+<g transform="translate(-3050-3655)rotate(-163.81)">
+<path class="c" data-o="4" d="M0 0l6-822"/>
+</g>
+<g transform="translate(-4001-4025)rotate(-154.65)">
+<path class="c" data-o="4" d="M0 0l5-740"/>
+</g>
+<g transform="translate(-4806-4447)rotate(-147.71)">
+<path class="c" data-o="4" d="M0 0l4-658"/>
+</g>
+<g transform="translate(-5472-4909)rotate(-142.54)">
+<path class="c" data-o="4" d="M0 0l4-576"/>
+</g>
+<g transform="translate(-6006-5392)rotate(-133.71)">
+<path class="c" data-o="4" d="M0 0l3-493"/>
+</g>
+<g transform="translate(-6394-5856)rotate(-126.95)">
+<path class="c" data-o="4" d="M0 0l3-411"/>
+</g>
+<g transform="translate(-6651-6265)rotate(-119.39)">
+<path class="c" data-o="4" d="M0 0l2-329"/>
+</g>
+<g transform="translate(-6809-6605)rotate(-111.03)">
+<path class="c" data-o="4" d="M0 0l2-247"/>
+</g>
+<g transform="translate(-6898-6859)rotate(-106.6)">
+<path class="c" data-o="4" d="M0 0l1-164"/>
+</g>
+<g transform="translate(-6941-7017)rotate(-102)">
+<path class="c" data-o="4" d="M0 0l1-82"/>
+</g>
+<path class="b" data-o="5" d="M-15590 4200l-1800-5500 980-2220 3140-6410 1690-450 6050-1720"/>
+<g transform="translate(-15870 3343)rotate(-108.12)">
+<path class="c" data-o="5" d="M0 0l2-370"/>
+</g>
+<g transform="translate(-16118 2587)rotate(-108.12)">
+<path class="c" data-o="5" d="M0 0l5-740"/>
+</g>
+<g transform="translate(-16530 1327)rotate(-108.12)">
+<path class="c" data-o="5" d="M0 0l7-1110"/>
+</g>
+<g transform="translate(-17108-438)rotate(-108.12)">
+<path class="c" data-o="5" d="M0 0l10-1480"/>
+</g>
+<g transform="translate(-17032-2112)rotate(-66.18)">
+<path class="c" data-o="5" d="M0 0l10-1480"/>
+</g>
+<g transform="translate(-16063-4229)rotate(-63.9)">
+<path class="c" data-o="5" d="M0 0l10-1480"/>
+</g>
+<g transform="translate(-15250-5888)rotate(-63.9)">
+<path class="c" data-o="5" d="M0 0l10-1480"/>
+</g>
+<g transform="translate(-14437-7547)rotate(-63.9)">
+<path class="c" data-o="5" d="M0 0l10-1480"/>
+</g>
+<g transform="translate(-13625-9206)rotate(-63.9)">
+<path class="c" data-o="5" d="M0 0l10-1480"/>
+</g>
+<g transform="translate(-12691-10084)rotate(-14.91)">
+<path class="c" data-o="5" d="M0 0l10-1480"/>
+</g>
+<g transform="translate(-10812-10598)rotate(-15.87)">
+<path class="c" data-o="5" d="M0 0l10-1480"/>
+</g>
+<g transform="translate(-9193-11059)rotate(-15.87)">
+<path class="c" data-o="5" d="M0 0l8-1184"/>
+</g>
+<g transform="translate(-7934-11417)rotate(-15.87)">
+<path class="c" data-o="5" d="M0 0l6-888"/>
+</g>
+<g transform="translate(-7035-11672)rotate(-15.87)">
+<path class="c" data-o="5" d="M0 0l4-592"/>
+</g>
+<g transform="translate(-6495-11826)rotate(-15.87)">
+<path class="c" data-o="5" d="M0 0l2-296"/>
+</g>
+<g transform="translate(-15955 3086)rotate(-108.12)">
+<path class="c" data-o="5" d="M0 0l2-370"/>
+</g>
+<g transform="translate(-16202 2329)rotate(-108.12)">
+<path class="c" data-o="5" d="M0 0l5-740"/>
+</g>
+<g transform="translate(-16615 1069)rotate(-108.12)">
+<path class="c" data-o="5" d="M0 0l7-1110"/>
+</g>
+<g transform="translate(-17192-696)rotate(-108.12)">
+<path class="c" data-o="5" d="M0 0l10-1480"/>
+</g>
+<g transform="translate(-16923-2358)rotate(-66.18)">
+<path class="c" data-o="5" d="M0 0l10-1480"/>
+</g>
+<g transform="translate(-15945-4470)rotate(-63.9)">
+<path class="c" data-o="5" d="M0 0l10-1480"/>
+</g>
+<g transform="translate(-15132-6129)rotate(-63.9)">
+<path class="c" data-o="5" d="M0 0l10-1480"/>
+</g>
+<g transform="translate(-14319-7788)rotate(-63.9)">
+<path class="c" data-o="5" d="M0 0l10-1480"/>
+</g>
+<g transform="translate(-13507-9447)rotate(-63.9)">
+<path class="c" data-o="5" d="M0 0l10-1480"/>
+</g>
+<g transform="translate(-12426-10155)rotate(-14.91)">
+<path class="c" data-o="5" d="M0 0l10-1480"/>
+</g>
+<g transform="translate(-10549-10673)rotate(-15.87)">
+<path class="c" data-o="5" d="M0 0l10-1480"/>
+</g>
+<g transform="translate(-8931-11133)rotate(-15.87)">
+<path class="c" data-o="5" d="M0 0l8-1184"/>
+</g>
+<g transform="translate(-7672-11491)rotate(-15.87)">
+<path class="c" data-o="5" d="M0 0l6-888"/>
+</g>
+<g transform="translate(-6772-11747)rotate(-15.87)">
+<path class="c" data-o="5" d="M0 0l4-592"/>
+</g>
+<g transform="translate(-6233-11900)rotate(-15.87)">
+<path class="c" data-o="5" d="M0 0l2-296"/>
+</g>
+</g>
+<g data-s="4">
+<path class="d" data-o="6" d="M-14702 2337l3677-8048 1759 5514 4050-310 994 1385 3085-292 688 3407"/>
+<path class="d" data-o="6" d="M-15738 1863l4903-10732 2381 7466 3790-290 986 1375 3455-328 892 4413"/>
+<g transform="translate(-10930-7290)rotate(3.432)">
+<path class="e" data-o="6" d="M0 3080v-6216"/>
+<path class="e" data-o="6" d="M480 2997v-6133"/>
+</g>
+<g transform="translate(-8860-800)rotate(33.97)">
+<path class="e" data-o="6" d="M0 1415v-2856"/>
+<path class="e" data-o="6" d="M480 1377v-2818"/>
+</g>
+<g transform="translate(-4940-1100)rotate(24.98)">
+<path class="e" data-o="6" d="M0 1274v-2571"/>
+<path class="e" data-o="6" d="M480 1239v-2536"/>
+</g>
+<g transform="translate(-3950 280)rotate(24.46)">
+<path class="e" data-o="6" d="M0 1280v-2583"/>
+<path class="e" data-o="6" d="M480 1246v-2549"/>
+</g>
+<g transform="translate(-680-30)rotate(36.58)">
+<path class="e" data-o="6" d="M0 1494v-3014"/>
+<path class="e" data-o="6" d="M480 1453v-2973"/>
+</g>
+<g transform="translate(110 3880)rotate(78.58)">
+<path class="e" data-o="6" d="M0 1110v-2240"/>
+</g>
+</g>
+</g>
+<g data-c="32">
+<g data-s="1">
+<g transform="translate(77-4821)rotate(-78.3)">
+<path class="f" data-o="1" d="M0 0v129"/>
+</g>
+<g transform="translate(104-5023)rotate(-82.71)">
+<path class="f" data-o="1" d="M0 0v257"/>
+</g>
+<g transform="translate(147-5360)rotate(-82.71)">
+<path class="f" data-o="1" d="M0 0v386"/>
+</g>
+<g transform="translate(186-5844)rotate(-85.58)">
+<path class="f" data-o="1" d="M0 0v514"/>
+</g>
+<g transform="translate(242-6462)rotate(-81.7)">
+<path class="f" data-o="1" d="M0 0v643"/>
+</g>
+<g transform="translate(398-7174)rotate(-66.83)">
+<path class="f" data-o="1" d="M0 0v771"/>
+</g>
+<g transform="translate(875-7861)rotate(-40.71)">
+<path class="f" data-o="1" d="M0 0v900"/>
+</g>
+<g transform="translate(1582-8314)rotate(-38.4)">
+<path class="f" data-o="1" d="M0 0v771"/>
+</g>
+<g transform="translate(2140-8778)rotate(-41.57)">
+<path class="f" data-o="1" d="M0 0v643"/>
+</g>
+<g transform="translate(2593-9165)rotate(-35.41)">
+<path class="f" data-o="1" d="M0 0v514"/>
+</g>
+<g transform="translate(2971-9414)rotate(-28.01)">
+<path class="f" data-o="1" d="M0 0v386"/>
+</g>
+<g transform="translate(3272-9529)rotate(-13.36)">
+<path class="f" data-o="1" d="M0 0v257"/>
+</g>
+<g transform="translate(3471-9563)rotate(-4.8)">
+<path class="f" data-o="1" d="M0 0v129"/>
+</g>
+<g transform="translate(2783-4413)rotate(-44.1)">
+<path class="f" data-o="2" d="M0 0v112"/>
+</g>
+<g transform="translate(2910-4534)rotate(-40.2)">
+<path class="f" data-o="2" d="M0 0v225"/>
+</g>
+<g transform="translate(3129-4720)rotate(-40.2)">
+<path class="f" data-o="2" d="M0 0v337"/>
+</g>
+<g transform="translate(3445-4963)rotate(-35.29)">
+<path class="f" data-o="2" d="M0 0v450"/>
+</g>
+<g transform="translate(3860-5257)rotate(-35.29)">
+<path class="f" data-o="2" d="M0 0v563"/>
+</g>
+<g transform="translate(4364-5621)rotate(-36)">
+<path class="f" data-o="2" d="M0 0v675"/>
+</g>
+<g transform="translate(4932-6108)rotate(-50.36)">
+<path class="f" data-o="2" d="M0 0v787"/>
+</g>
+<g transform="translate(5339-6841)rotate(-78.14)">
+<path class="f" data-o="2" d="M0 0v900"/>
+</g>
+<g transform="translate(5246-7706)rotate(-105.63)">
+<path class="f" data-o="2" d="M0 0v787"/>
+</g>
+<g transform="translate(5128-8458)rotate(-95.28)">
+<path class="f" data-o="2" d="M0 0v675"/>
+</g>
+<g transform="translate(5094-9128)rotate(-92.15)">
+<path class="f" data-o="2" d="M0 0v563"/>
+</g>
+<g transform="translate(5064-9675)rotate(-96.21)">
+<path class="f" data-o="2" d="M0 0v450"/>
+</g>
+<g transform="translate(4996-10078)rotate(-107.59)">
+<path class="f" data-o="2" d="M0 0v337"/>
+</g>
+<g transform="translate(4888-10336)rotate(-118.2)">
+<path class="f" data-o="2" d="M0 0v225"/>
+</g>
+<g transform="translate(4773-10466)rotate(-153)">
+<path class="f" data-o="2" d="M0 0v112"/>
+</g>
+</g>
+<g data-s="2">
+<g transform="translate(-5590-7085)rotate(39.5)">
+<path class="f" data-o="3" d="M0 0v900"/>
+</g>
+<g transform="translate(-4850-6475)rotate(39.5)">
+<path class="f" data-o="3" d="M0 0v900"/>
+</g>
+<g transform="translate(-4110-5865)rotate(39.5)">
+<path class="f" data-o="3" d="M0 0v900"/>
+</g>
+<g transform="translate(-3370-5255)rotate(39.5)">
+<path class="f" data-o="3" d="M0 0v900"/>
+</g>
+<g transform="translate(-2720-5330)rotate(-53.62)">
+<path class="f" data-o="3" d="M0 0v900"/>
+</g>
+<g transform="translate(-2160-6090)rotate(-53.62)">
+<path class="f" data-o="3" d="M0 0v900"/>
+</g>
+<g transform="translate(-1600-6850)rotate(-53.62)">
+<path class="f" data-o="3" d="M0 0v900"/>
+</g>
+<g transform="translate(-1040-7610)rotate(-53.62)">
+<path class="f" data-o="3" d="M0 0v900"/>
+</g>
+<g transform="translate(-480-8370)rotate(-53.62)">
+<path class="f" data-o="3" d="M0 0v900"/>
+</g>
+<g transform="translate(-678-8782)rotate(-176.14)">
+<path class="f" data-o="3" d="M0 0v900"/>
+</g>
+<g transform="translate(-1565-8842)rotate(-176.14)">
+<path class="f" data-o="3" d="M0 0v771"/>
+</g>
+<g transform="translate(-2316-8893)rotate(-176.14)">
+<path class="f" data-o="3" d="M0 0v643"/>
+</g>
+<g transform="translate(-2930-8934)rotate(-176.14)">
+<path class="f" data-o="3" d="M0 0v514"/>
+</g>
+<g transform="translate(-3408-8966)rotate(-176.14)">
+<path class="f" data-o="3" d="M0 0v386"/>
+</g>
+<g transform="translate(-3749-8989)rotate(-176.14)">
+<path class="f" data-o="3" d="M0 0v257"/>
+</g>
+<g transform="translate(-3954-9003)rotate(-176.1)">
+<path class="f" data-o="3" d="M0 0v129"/>
+</g>
+</g>
+<g data-s="4">
+<g transform="translate(-10930-7290)rotate(3.432)">
+<circle class="g" data-o="6" cx="-10" cy="2997" r="250"/>
+</g>
+<g transform="translate(-8860-800)rotate(33.97)">
+<circle class="g" data-o="6" cx="-10" cy="1377" r="250"/>
+</g>
+<g transform="translate(-4940-1100)rotate(24.98)">
+<circle class="g" data-o="6" cx="-10" cy="1239" r="250"/>
+</g>
+<g transform="translate(-3950 280)rotate(24.46)">
+<circle class="g" data-o="6" cx="-10" cy="1246" r="250"/>
+</g>
+<g transform="translate(-680-30)rotate(36.58)">
+<circle class="g" data-o="6" cx="-10" cy="1453" r="250"/>
+</g>
+</g>
+</g>
+<g data-c="36">
+<g data-s="1">
+<g transform="translate(77-4821)rotate(-78.3)">
+<circle class="h" data-o="1" cx="1" cy="129" r="44"/>
+</g>
+<g transform="translate(104-5023)rotate(-82.71)">
+<circle class="i" data-o="1" cx="3" cy="257" r="32"/>
+</g>
+<g transform="translate(147-5360)rotate(-82.71)">
+<circle class="i" data-o="1" cx="4" cy="386" r="76"/>
+</g>
+<g transform="translate(186-5844)rotate(-85.58)">
+<circle class="i" data-o="1" cx="6" cy="514" r="119"/>
+</g>
+<g transform="translate(242-6462)rotate(-81.7)">
+<circle class="i" data-o="1" cx="7" cy="643" r="163"/>
+</g>
+<g transform="translate(398-7174)rotate(-66.83)">
+<circle class="i" data-o="1" cx="9" cy="771" r="206"/>
+</g>
+<g transform="translate(875-7861)rotate(-40.71)">
+<circle class="i" data-o="1" cx="10" cy="900" r="250"/>
+</g>
+<g transform="translate(1582-8314)rotate(-38.4)">
+<circle class="i" data-o="1" cx="9" cy="771" r="206"/>
+</g>
+<g transform="translate(2140-8778)rotate(-41.57)">
+<circle class="i" data-o="1" cx="7" cy="643" r="163"/>
+</g>
+<g transform="translate(2593-9165)rotate(-35.41)">
+<circle class="i" data-o="1" cx="6" cy="514" r="119"/>
+</g>
+<g transform="translate(2971-9414)rotate(-28.01)">
+<circle class="i" data-o="1" cx="4" cy="386" r="76"/>
+</g>
+<g transform="translate(3272-9529)rotate(-13.36)">
+<circle class="i" data-o="1" cx="3" cy="257" r="32"/>
+</g>
+<g transform="translate(3471-9563)rotate(-4.8)">
+<circle class="h" data-o="1" cx="1" cy="129" r="44"/>
+</g>
+<g transform="translate(2783-4413)rotate(-44.1)">
+<circle class="h" data-o="2" cx="1" cy="112" r="38"/>
+</g>
+<g transform="translate(2910-4534)rotate(-40.2)">
+<circle class="i" data-o="2" cx="2" cy="225" r="21"/>
+</g>
+<g transform="translate(3129-4720)rotate(-40.2)">
+<circle class="i" data-o="2" cx="4" cy="337" r="59"/>
+</g>
+<g transform="translate(3445-4963)rotate(-35.29)">
+<circle class="i" data-o="2" cx="5" cy="450" r="98"/>
+</g>
+<g transform="translate(3860-5257)rotate(-35.29)">
+<circle class="i" data-o="2" cx="6" cy="563" r="136"/>
+</g>
+<g transform="translate(4364-5621)rotate(-36)">
+<circle class="i" data-o="2" cx="7" cy="675" r="174"/>
+</g>
+<g transform="translate(4932-6108)rotate(-50.36)">
+<circle class="i" data-o="2" cx="9" cy="787" r="212"/>
+</g>
+<g transform="translate(5339-6841)rotate(-78.14)">
+<circle class="i" data-o="2" cx="10" cy="900" r="250"/>
+</g>
+<g transform="translate(5246-7706)rotate(-105.63)">
+<circle class="i" data-o="2" cx="9" cy="787" r="212"/>
+</g>
+<g transform="translate(5128-8458)rotate(-95.28)">
+<circle class="i" data-o="2" cx="7" cy="675" r="174"/>
+</g>
+<g transform="translate(5094-9128)rotate(-92.15)">
+<circle class="i" data-o="2" cx="6" cy="563" r="136"/>
+</g>
+<g transform="translate(5064-9675)rotate(-96.21)">
+<circle class="i" data-o="2" cx="5" cy="450" r="98"/>
+</g>
+<g transform="translate(4996-10078)rotate(-107.59)">
+<circle class="i" data-o="2" cx="4" cy="337" r="59"/>
+</g>
+<g transform="translate(4888-10336)rotate(-118.23)">
+<circle class="i" data-o="2" cx="2" cy="225" r="21"/>
+</g>
+<g transform="translate(4773-10466)rotate(-153)">
+<circle class="h" data-o="2" cx="1" cy="112" r="38"/>
+</g>
+</g>
+<g data-s="2">
+<g transform="translate(-5590-7085)rotate(39.5)">
+<circle class="i" data-o="3" cx="10" cy="900" r="250"/>
+</g>
+<g transform="translate(-4850-6475)rotate(39.5)">
+<circle class="i" data-o="3" cx="10" cy="900" r="250"/>
+</g>
+<g transform="translate(-4110-5865)rotate(39.5)">
+<circle class="i" data-o="3" cx="10" cy="900" r="250"/>
+</g>
+<g transform="translate(-3370-5255)rotate(39.5)">
+<circle class="i" data-o="3" cx="10" cy="900" r="250"/>
+</g>
+<g transform="translate(-2720-5330)rotate(-53.62)">
+<circle class="i" data-o="3" cx="10" cy="900" r="250"/>
+</g>
+<g transform="translate(-2160-6090)rotate(-53.62)">
+<circle class="i" data-o="3" cx="10" cy="900" r="250"/>
+</g>
+<g transform="translate(-1600-6850)rotate(-53.62)">
+<circle class="i" data-o="3" cx="10" cy="900" r="250"/>
+</g>
+<g transform="translate(-1040-7610)rotate(-53.62)">
+<circle class="i" data-o="3" cx="10" cy="900" r="250"/>
+</g>
+<g transform="translate(-480-8370)rotate(-53.62)">
+<circle class="i" data-o="3" cx="10" cy="900" r="250"/>
+</g>
+<g transform="translate(-678-8782)rotate(-176.14)">
+<circle class="i" data-o="3" cx="10" cy="900" r="250"/>
+</g>
+<g transform="translate(-1565-8842)rotate(-176.14)">
+<circle class="i" data-o="3" cx="9" cy="771" r="206"/>
+</g>
+<g transform="translate(-2316-8893)rotate(-176.14)">
+<circle class="i" data-o="3" cx="7" cy="643" r="163"/>
+</g>
+<g transform="translate(-2930-8934)rotate(-176.14)">
+<circle class="i" data-o="3" cx="6" cy="514" r="119"/>
+</g>
+<g transform="translate(-3408-8966)rotate(-176.14)">
+<circle class="i" data-o="3" cx="4" cy="386" r="76"/>
+</g>
+<g transform="translate(-3749-8989)rotate(-176.14)">
+<circle class="i" data-o="3" cx="3" cy="257" r="32"/>
+</g>
+<g transform="translate(-3954-9003)rotate(-176.1)">
+<circle class="h" data-o="3" cx="1" cy="129" r="44"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<g transform="matrix(.0334094 0 0-.0334094 636.34 184.96)" clip-path="url(#b)">
+<use xlink:href="#a"/>
+</g>
+</svg>

@@ -1,0 +1,1317 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="884mm" height="604mm" viewBox="0 0 884 604">
+<style>
+.a{fill:#ff0;fill:#ff0 icc-color(cmyk,0,0,1,0);fill-rule:evenodd}
+.b{fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd}
+.c{fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)}
+.d{fill:none;stroke:#0ff;stroke:#0ff icc-color(cmyk,1,0,0,0);stroke-width:60;stroke-linecap:round;stroke-linejoin:round}
+.e{fill:#0ff;fill:#0ff icc-color(cmyk,1,0,0,0)}
+.f{clip-rule:evenodd}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="offsetpatternrot2_nopatbm">
+<npp:color position="0" name="Yellow" cmyk="0,0,1,0"/>
+<npp:color position="1" name="Black" cmyk="0,0,0,1"/>
+<npp:color position="2" name="Blue" cmyk="1,0,0,0"/>
+<npp:symbol n="1" id="1.1" colors="0 1 2"/>
+<npp:symbol n="2" id="1.2" colors="2"/>
+</npp:map>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="b">
+<path class="f" d="M-9330 8790-12500-9140l20270-3580 3160 17920-20260 3590z"/>
+</clipPath>
+<clipPath id="c">
+<path d="M-12446-14594h29239V5384h-29239z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g data-c="0">
+<g data-s="1">
+<path class="a" data-o="1" d="M-9330 8790-12500-9140l20270-3580 3160 17920-20260 3590z"/>
+</g>
+</g>
+<g data-c="1">
+<g clip-path="url(#b)" data-s="1">
+<g transform="rotate(10)">
+<g transform="translate(-14000-16800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-12000-16800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-10000-16800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-8000-16800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-6000-16800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-4000-16800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-2000-16800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(0-16800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(2000-16800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(4000-16800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(6000-16800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(8000-16800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(10000-16800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(12000-16800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(14000-16800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-14000-14400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-12000-14400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-10000-14400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-8000-14400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-6000-14400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-4000-14400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-2000-14400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(0-14400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(2000-14400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(4000-14400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(6000-14400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(8000-14400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(10000-14400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(12000-14400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(14000-14400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-14000-12000)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-12000-12000)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-10000-12000)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-8000-12000)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-6000-12000)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-4000-12000)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-2000-12000)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(0-12000)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(2000-12000)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(4000-12000)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(6000-12000)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(8000-12000)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(10000-12000)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(12000-12000)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(14000-12000)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-14000-9600)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-12000-9600)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-10000-9600)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-8000-9600)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-6000-9600)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-4000-9600)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-2000-9600)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(0-9600)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(2000-9600)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(4000-9600)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(6000-9600)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(8000-9600)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(10000-9600)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(12000-9600)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(14000-9600)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-14000-7200)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-12000-7200)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-10000-7200)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-8000-7200)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-6000-7200)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-4000-7200)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-2000-7200)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(0-7200)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(2000-7200)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(4000-7200)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(6000-7200)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(8000-7200)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(10000-7200)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(12000-7200)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(14000-7200)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-14000-4800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-12000-4800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-10000-4800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-8000-4800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-6000-4800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-4000-4800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-2000-4800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(0-4800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(2000-4800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(4000-4800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(6000-4800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(8000-4800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(10000-4800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(12000-4800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(14000-4800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-14000-2400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-12000-2400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-10000-2400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-8000-2400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-6000-2400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-4000-2400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-2000-2400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(0-2400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(2000-2400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(4000-2400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(6000-2400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(8000-2400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(10000-2400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(12000-2400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(14000-2400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-14000)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-12000)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-10000)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-8000)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-6000)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-4000)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-2000)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(2000)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(4000)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(6000)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(8000)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(10000)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(12000)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(14000)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-14000 2400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-12000 2400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-10000 2400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-8000 2400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-6000 2400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-4000 2400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-2000 2400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(0 2400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(2000 2400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(4000 2400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(6000 2400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(8000 2400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(10000 2400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(12000 2400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(14000 2400)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-14000 4800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-12000 4800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-10000 4800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-8000 4800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-6000 4800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-4000 4800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-2000 4800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(0 4800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(2000 4800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(4000 4800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(6000 4800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(8000 4800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(10000 4800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(12000 4800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(14000 4800)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-14000 7200)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-12000 7200)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-10000 7200)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-8000 7200)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-6000 7200)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-4000 7200)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-2000 7200)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(0 7200)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(2000 7200)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(4000 7200)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(6000 7200)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(8000 7200)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(10000 7200)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(12000 7200)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(14000 7200)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-14000 9600)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-12000 9600)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-10000 9600)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-8000 9600)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-6000 9600)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-4000 9600)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(-2000 9600)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(0 9600)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(2000 9600)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(4000 9600)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(6000 9600)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(8000 9600)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(10000 9600)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(12000 9600)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(14000 9600)rotate(-10)">
+<path class="b" data-o="1" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle class="c" data-o="1" cx="-10" cy="2300" r="50"/>
+</g>
+</g>
+</g>
+</g>
+<g data-c="2">
+<g data-s="2">
+<path class="d" data-o="2" d="M-1270 930l1960 460 550-2320-1950-470-560 2330z"/>
+</g>
+<g clip-path="url(#b)" data-s="1">
+<g transform="rotate(10)">
+<g transform="translate(-14000-16800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-12000-16800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-10000-16800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-8000-16800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-6000-16800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-4000-16800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-2000-16800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(0-16800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(2000-16800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(4000-16800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(6000-16800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(8000-16800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(10000-16800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(12000-16800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(14000-16800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-14000-14400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-12000-14400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-10000-14400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-8000-14400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-6000-14400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-4000-14400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-2000-14400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(0-14400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(2000-14400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(4000-14400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(6000-14400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(8000-14400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(10000-14400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(12000-14400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(14000-14400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-14000-12000)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-12000-12000)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-10000-12000)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-8000-12000)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-6000-12000)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-4000-12000)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-2000-12000)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(0-12000)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(2000-12000)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(4000-12000)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(6000-12000)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(8000-12000)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(10000-12000)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(12000-12000)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(14000-12000)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-14000-9600)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-12000-9600)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-10000-9600)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-8000-9600)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-6000-9600)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-4000-9600)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-2000-9600)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(0-9600)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(2000-9600)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(4000-9600)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(6000-9600)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(8000-9600)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(10000-9600)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(12000-9600)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(14000-9600)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-14000-7200)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-12000-7200)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-10000-7200)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-8000-7200)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-6000-7200)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-4000-7200)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-2000-7200)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(0-7200)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(2000-7200)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(4000-7200)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(6000-7200)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(8000-7200)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(10000-7200)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(12000-7200)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(14000-7200)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-14000-4800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-12000-4800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-10000-4800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-8000-4800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-6000-4800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-4000-4800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-2000-4800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(0-4800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(2000-4800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(4000-4800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(6000-4800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(8000-4800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(10000-4800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(12000-4800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(14000-4800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-14000-2400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-12000-2400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-10000-2400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-8000-2400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-6000-2400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-4000-2400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-2000-2400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(0-2400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(2000-2400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(4000-2400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(6000-2400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(8000-2400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(10000-2400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(12000-2400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(14000-2400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-14000)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-12000)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-10000)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-8000)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-6000)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-4000)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-2000)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(2000)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(4000)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(6000)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(8000)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(10000)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(12000)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(14000)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-14000 2400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-12000 2400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-10000 2400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-8000 2400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-6000 2400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-4000 2400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-2000 2400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(0 2400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(2000 2400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(4000 2400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(6000 2400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(8000 2400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(10000 2400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(12000 2400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(14000 2400)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-14000 4800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-12000 4800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-10000 4800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-8000 4800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-6000 4800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-4000 4800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-2000 4800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(0 4800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(2000 4800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(4000 4800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(6000 4800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(8000 4800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(10000 4800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(12000 4800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(14000 4800)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-14000 7200)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-12000 7200)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-10000 7200)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-8000 7200)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-6000 7200)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-4000 7200)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-2000 7200)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(0 7200)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(2000 7200)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(4000 7200)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(6000 7200)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(8000 7200)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(10000 7200)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(12000 7200)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(14000 7200)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-14000 9600)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-12000 9600)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-10000 9600)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-8000 9600)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-6000 9600)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-4000 9600)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(-2000 9600)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(0 9600)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(2000 9600)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(4000 9600)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(6000 9600)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(8000 9600)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(10000 9600)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(12000 9600)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+<g transform="translate(14000 9600)rotate(-10)">
+<circle class="e" data-o="1" cy="10" r="50"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<g transform="matrix(.0302341 0 0-.0302341 376.29 162.78)" clip-path="url(#c)">
+<use xlink:href="#a"/>
+</g>
+</svg>

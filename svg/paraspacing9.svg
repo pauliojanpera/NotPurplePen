@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="761mm" height="500mm" viewBox="0 0 761 500" xml:lang="und">
+<style>
+@font-face{font-family:"Arial";src:url(data:font/ttf;base64,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)}
+text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white-space:pre}
+.a{font-size:2.822px;font-family:"Arial";fill:#a80000;fill:#a80000 icc-color(cmyk,0,.68,.91,.34)}
+.b{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:180;stroke-linejoin:bevel}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="paraspacing9">
+<npp:color position="19" name="Brown" cmyk="0,.68,.91,.34" overprint="1"/>
+<npp:color position="24" name="Street borderlines" cmyk="0,0,0,1" overprint="1"/>
+<npp:symbol n="1" id="902.0" name="Text 8 pt" colors="19"/>
+<npp:symbol n="2" id="902.1" name="Text 8 pt" colors="19"/>
+<npp:symbol n="3" id="861.5" name="Bounding line" colors="24"/>
+</npp:map>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="b">
+<path d="M-24284-40716h82063v53918h-82063z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g data-c="19">
+<g data-s="1">
+<g transform="matrix(1 0 0-1-11660 7550)">
+<text class="a" data-o="1" transform="scale(1000)" x="0 1.882 2.667 4.236 5.806 7.375 8.945 9.885">Standard</text>
+<text class="a" data-o="1" transform="translate(12238)scale(1000)" x="0 1.724">T8</text>
+<text class="a" data-o="1" transform="translate(16316)scale(1000)" x="0 .784 2.354 3.765">text</text>
+<text class="a" data-o="1" transform="translate(0 3387)scale(1000)" x="0 1.724 3.294 3.921">This</text>
+<text class="a" data-o="1" transform="translate(6116 3387)scale(1000)" x="0 .627">is</text>
+<text class="a" data-o="1" transform="translate(8938 3387)scale(1000)" x="0 1.57 3.139 4.079 6.43 8">normal</text>
+<text class="a" data-o="1" transform="translate(18349 3387)scale(1000)" x="0 1.57 3.139 4.079">para</text>
+<text class="a" data-o="1" transform="translate(0 6773)scale(1000)" x="0 1.411 2.981 4.55 5.961 6.588 8.158 9.728">spacing.</text>
+</g>
+<g transform="matrix(1 0 0-1-11200-6166)">
+<text class="a" data-o="2" transform="scale(1000)" x="0 1.724 3.294 3.921">This</text>
+<text class="a" data-o="2" transform="translate(6116)scale(1000)" x="0 .627">is</text>
+<text class="a" data-o="2" transform="translate(8938)scale(1000)" x="0 2.038 3.608 4.548">word</text>
+<text class="a" data-o="2" transform="translate(0 3387)scale(1000)" x="0 2.038 2.978 4.548 6.117 7.687 9.256">wrapped</text>
+<text class="a" data-o="2" transform="translate(11610 3387)scale(1000)" x="0 1.57 3.139 4.079 5.649">here,</text>
+<text class="a" data-o="2" transform="translate(18827 3387)scale(1000)" x="0 1.57 3.139">and</text>
+<text class="a" data-o="2" transform="translate(0 6773)scale(1000)" x="0 1.57 3.139">now</text>
+<text class="a" data-o="2" transform="translate(5961 6773)scale(1000)">a</text>
+<text class="a" data-o="2" transform="translate(8315 6773)scale(1000)" x="0 1.57 3.139">new</text>
+<text class="a" data-o="2" transform="translate(14276 6773)scale(1000)" x="0 1.57 3.139 4.079 5.649">para.</text>
+<text class="a" data-o="2" transform="translate(0 10160)scale(1000)" x="0 1.724 3.294 3.921">This</text>
+<text class="a" data-o="2" transform="translate(6116 10160)scale(1000)" x="0 .627">is</text>
+<text class="a" data-o="2" transform="translate(8938 10160)scale(1000)" x="0 .784 2.354">the</text>
+<text class="a" data-o="2" transform="translate(13645 10160)scale(1000)" x="0 1.57 3.139">new</text>
+<text class="a" data-o="2" transform="translate(0 13547)scale(1000)" x="0 1.57 3.139 4.079 5.649">para.</text>
+</g>
+</g>
+<g data-s="2">
+<g transform="matrix(1 0 0-1 19440-11176)">
+<text class="a" data-o="3" transform="scale(1000)" x="0 1.724 3.294 3.921">This</text>
+<text class="a" data-o="3" transform="translate(6116)scale(1000)" x="0 .627">is</text>
+<text class="a" data-o="3" transform="translate(8938)scale(1000)" x="0 2.038 3.608 4.548">word</text>
+<text class="a" data-o="3" transform="translate(0 3387)scale(1000)" x="0 2.038 2.978 4.548 6.117 7.687 9.256">wrapped</text>
+<text class="a" data-o="3" transform="translate(11610 3387)scale(1000)" x="0 1.57 3.139 4.079 5.649">here,</text>
+<text class="a" data-o="3" transform="translate(18827 3387)scale(1000)" x="0 1.57 3.139">and</text>
+<text class="a" data-o="3" transform="translate(0 6773)scale(1000)" x="0 1.57 3.139">now</text>
+<text class="a" data-o="3" transform="translate(5961 6773)scale(1000)">a</text>
+<text class="a" data-o="3" transform="translate(8315 6773)scale(1000)" x="0 1.57 3.139">new</text>
+<text class="a" data-o="3" transform="translate(14276 6773)scale(1000)" x="0 1.57 3.139 4.079 5.649">para.</text>
+<text class="a" data-o="3" transform="translate(0 12160)scale(1000)" x="0 1.724 3.294 3.921">This</text>
+<text class="a" data-o="3" transform="translate(6116 12160)scale(1000)" x="0 .627">is</text>
+<text class="a" data-o="3" transform="translate(8938 12160)scale(1000)" x="0 .784 2.354">the</text>
+<text class="a" data-o="3" transform="translate(13645 12160)scale(1000)" x="0 1.57 3.139">new</text>
+<text class="a" data-o="3" transform="translate(0 15547)scale(1000)" x="0 1.57 3.139 4.079 5.649">para.</text>
+</g>
+<g transform="matrix(1 0 0-1 18890 7680)">
+<text class="a" data-o="4" transform="scale(1000)" x="0 1.57 3.921">2mm</text>
+<text class="a" data-o="4" transform="translate(7056)scale(1000)" x="0 1.57 2.981 3.765 4.705">extra</text>
+<text class="a" data-o="4" transform="translate(14114)scale(1000)" x="0 1.724">T8</text>
+<text class="a" data-o="4" transform="translate(18191)scale(1000)" x="0 .784 2.354 3.765">text</text>
+<text class="a" data-o="4" transform="translate(0 5387)scale(1000)" x="0 1.724 3.294 3.921">This</text>
+<text class="a" data-o="4" transform="translate(6116 5387)scale(1000)" x="0 .627">is</text>
+<text class="a" data-o="4" transform="translate(8938 5387)scale(1000)" x="0 1.57 3.921">2mm</text>
+<text class="a" data-o="4" transform="translate(15994 5387)scale(1000)" x="0 1.57 3.139 4.079">para</text>
+<text class="a" data-o="4" transform="translate(0 10773)scale(1000)" x="0 1.411 2.981 4.55 5.961 6.588 8.158 9.728">spacing.</text>
+</g>
+</g>
+</g>
+<g data-c="24">
+<g data-s="3">
+<path class="b" data-o="5" d="M41600 7600l4880-1920"/>
+<path class="b" data-o="6" d="M40400 2280 45720 0"/>
+<path class="b" data-o="7" d="M29200-3120l8560-3560"/>
+<path class="b" data-o="8" d="M18960-2680l-4040-1280"/>
+<path class="b" data-o="9" d="M18960 4320l-3880-2760"/>
+<path class="b" data-o="10" d="M18960 9160l-4520 960"/>
+<path class="b" data-o="11" d="M19520-9320l-3000-3280"/>
+<path class="b" data-o="12" d="M19480-13120l-4520-3960"/>
+<path class="b" data-o="13" d="M19600-16480l-4280-3640"/>
+<path class="b" data-o="14" d="M19520-21520l-3920-2600"/>
+<path class="b" data-o="15" d="M19640-25240l-5000-800"/>
+<path class="b" data-o="16" d="M-11600 8240l-2760-2240"/>
+<path class="b" data-o="17" d="M-11600 6160l-3160-2800"/>
+<path class="b" data-o="18" d="M-11560 1200l-2840-3720"/>
+<path class="b" data-o="19" d="M-11200-4120l-2960-880"/>
+<path class="b" data-o="20" d="M-11160-8080l-3440 200"/>
+<path class="b" data-o="21" d="M-11040-11400l-3080 1800"/>
+<path class="b" data-o="22" d="M-11080-14280l-2400 2240"/>
+<path class="b" data-o="23" d="M-11040-18240l-2920 2800"/>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<g transform="matrix(.00927336 0 0-.00927336 225.196 122.43)" clip-path="url(#b)">
+<use xlink:href="#a"/>
+</g>
+</svg>

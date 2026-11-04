@@ -1,0 +1,178 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="776mm" height="743mm" viewBox="0 0 776 743">
+<style>
+.a{fill:none;stroke:#0ff;stroke:#0ff icc-color(cmyk,1,0,0,0);stroke-width:1000;stroke-miterlimit:5}
+.b{fill:#0ff;fill:#0ff icc-color(cmyk,1,0,0,0);fill-rule:evenodd}
+.c{fill:none;stroke:#db9603;stroke:#db9603 icc-color(cmyk,.14,.41,.99,0);stroke-width:1000;stroke-miterlimit:5}
+.d{fill:none;stroke:#db9603;stroke:#db9603 icc-color(cmyk,.14,.41,.99,0);stroke-width:600;stroke-linejoin:round}
+.e{fill:none;stroke:#0f0;stroke:#0f0 icc-color(cmyk,1,0,1,0);stroke-width:1000;stroke-miterlimit:5}
+.f{fill:none;stroke:#f00;stroke:#f00 icc-color(cmyk,0,1,1,0);stroke-width:400;stroke-linejoin:round}
+.g{fill:none;stroke:#f00;stroke:#f00 icc-color(cmyk,0,1,1,0);stroke-width:700;stroke-linejoin:round}
+.h{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:150;stroke-linejoin:bevel}
+.i{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:600;stroke-linejoin:round}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="doublelines9">
+<npp:color position="0" name="Blue" cmyk="1,0,0,0"/>
+<npp:color position="1" name="Brown" cmyk=".14,.41,.99,0"/>
+<npp:color position="2" name="Green" cmyk="1,0,1,0"/>
+<npp:color position="3" name="Red" cmyk="0,1,1,0"/>
+<npp:color position="4" name="Black" cmyk="0,0,0,1"/>
+<npp:symbol n="1" id="1.2" name="No right" colors="0 3"/>
+<npp:symbol n="2" id="2.2" name="Blue" colors="0"/>
+<npp:symbol n="3" id="1.1" name="No left" colors="1 3"/>
+<npp:symbol n="4" id="1.6" name="Different colors left right" colors="1 3"/>
+<npp:symbol n="5" id="1.8" name="Different colors dashed" colors="2 3 4"/>
+<npp:symbol n="6" id="1.9" name="One  dashed" colors="2 3 4"/>
+<npp:symbol n="7" id="2.1" name="One  dashed" colors="2 3 4"/>
+<npp:symbol n="8" id="1.4" name="Simple double line" colors="3"/>
+<npp:symbol n="9" id="1.3" name="different thickness double line" colors="3 4"/>
+</npp:map>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="b">
+<path d="M-39594-28649h70368v67375h-70368z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g data-c="0">
+<g data-s="1">
+<path class="a" data-o="1" d="M-31560 14600l2080 6720 5760 640 800-4080 5520 240 2560 3760 8320 320"/>
+<path class="a" data-o="2" d="M-31800-15880l2080 6720 5760 640 800-4080 5520 240 2560 3760 8320 320"/>
+</g>
+<g data-s="2">
+<path class="b" data-o="3" d="M11280 26240 5480-18700l16360-1890 3280 49070-10160-1520-3680-720z"/>
+</g>
+</g>
+<g data-c="1">
+<g data-s="3">
+<path class="c" data-o="4" d="M-32040-5640l2080 6720 5760 640 800-4080 5520 240 2560 3760 8320 320"/>
+</g>
+<g data-s="4">
+<path class="d" data-o="5" d="M-31276-25077l1925 6220 4508 501 790-4033 6609 287 2558 3758 7917 305"/>
+<path class="d" data-o="6" d="M-956 27643l1925 6220 4508 501 790-4033 6609 287 2558 3758 7917 305"/>
+</g>
+</g>
+<g data-c="2">
+<g data-s="5">
+<path class="e" data-o="7" d="M-2520 15800l2080 6720 5760 640 800-4080 5520 240 2560 3760 8320 320"/>
+</g>
+<g data-s="6">
+<path class="e" data-o="8" d="M-3040 4280l2080 6720 5760 640 800-4080 5520 240 2560 3760 8320 320"/>
+<path class="e" data-o="9" d="M20960 40l-8320-320-2560-3760-5520-240-800 4080-5760-640-2080-6720"/>
+</g>
+<g data-s="7">
+<path class="e" data-o="10" d="M21160-10760l-2283-88"/>
+<path class="e" data-o="10" d="M18141-10876l-2282-88"/>
+<path class="e" data-o="10" d="M15123-10992l-2283-88-1090-1600"/>
+<path class="e" data-o="10" d="M11370-13240l-1090-1600-2393-104"/>
+<path class="e" data-o="10" d="M7153-14976l-2393-104-333 1698"/>
+<path class="e" data-o="10" d="M4293-12698l-333 1698-2525-281"/>
+<path class="e" data-o="10" d="M725-11359l-2525-281-559-1807"/>
+<path class="e" data-o="10" d="M-2560-14096l-560-1808"/>
+<path class="e" data-o="10" d="M-3321-16553l-559-1807"/>
+</g>
+</g>
+<g data-c="3">
+<g data-s="3">
+<path class="f" data-o="4" d="M-31371-5847l1944 6282 4664 518 792-4038 6472 281 2559 3758 7967 307"/>
+</g>
+<g data-s="8">
+<path class="f" data-o="11" d="M-31309 26567l2216 7158 6856 762 808-4122 4568 199 2561 3762 8673 333"/>
+<path class="f" data-o="11" d="M-29971 26153l1944 6282 4664 518 792-4038 6472 281 2559 3758 7967 307"/>
+</g>
+<g data-s="9">
+<path class="g" data-o="12" d="M-31732 5251l2245 7252 7091 788 809-4130 4364 190 2562 3762 8748 336"/>
+<path class="f" data-o="12" d="M-30251 4793l1944 6282 4664 518 792-4038 6472 281 2559 3758 7967 307"/>
+</g>
+<g data-s="1">
+<path class="f" data-o="1" d="M-32229 14807l2216 7158 6856 762 808-4122 4568 199 2561 3762 8673 333"/>
+<path class="f" data-o="2" d="M-32469-15673l2216 7158 6856 762 808-4122 4568 199 2561 3762 8673 333"/>
+</g>
+<g data-s="4">
+<path class="f" data-o="5" d="M-32709-24633l2216 7158 6856 762 808-4122 4568 199 2561 3762 8673 333"/>
+<path class="f" data-o="6" d="M-2389 28087l2216 7158 6856 762 808-4122 4568 199 2561 3762 8673 333"/>
+</g>
+<g data-s="5">
+<path class="f" data-o="7" d="M-3189 16007l560 1807"/>
+<path class="f" data-o="7" d="M-2428 18463l559 1807"/>
+<path class="f" data-o="7" d="M-1668 20920l695 2245 2980 331"/>
+<path class="f" data-o="7" d="M2718 23575l3165 352 457-2331"/>
+<path class="f" data-o="7" d="M6474 20913l217-1108 1792 78"/>
+<path class="f" data-o="7" d="M9217 19915l2042 89 892 1310"/>
+<path class="f" data-o="7" d="M12532 21874l1288 1892 2636 101"/>
+<path class="f" data-o="7" d="M17192 23896l2282 87"/>
+<path class="f" data-o="7" d="M20210 24012l2283 87"/>
+</g>
+<g data-s="6">
+<path class="f" data-o="8" d="M-3709 4487l560 1807"/>
+<path class="f" data-o="8" d="M-2948 6943l559 1807"/>
+<path class="f" data-o="8" d="M-2188 9400l695 2245 2980 331"/>
+<path class="f" data-o="8" d="M2198 12055l3165 352 457-2331"/>
+<path class="f" data-o="8" d="M5954 9393l217-1108 1792 78"/>
+<path class="f" data-o="8" d="M8697 8395l2042 89 892 1310"/>
+<path class="f" data-o="8" d="M12012 10354l1288 1892 2636 101"/>
+<path class="f" data-o="8" d="M16672 12376l2282 87"/>
+<path class="f" data-o="8" d="M19690 12492l2283 87"/>
+<path class="f" data-o="9" d="M20987-659l-2283-88"/>
+<path class="f" data-o="9" d="M17968-776l-2282-87"/>
+<path class="f" data-o="9" d="M14950-892l-1930-74-891-1308"/>
+<path class="f" data-o="9" d="M11748-2834l-1287-1890-2744-119"/>
+<path class="f" data-o="9" d="M6983-4875l-2994-130-449 2289"/>
+<path class="f" data-o="9" d="M3406-2033 3197-967l-1884-209"/>
+<path class="f" data-o="9" d="M602-1255l-2069-230-424-1369"/>
+<path class="f" data-o="9" d="M-2092-3503l-559-1807"/>
+<path class="f" data-o="9" d="M-2852-5960l-559-1807"/>
+</g>
+<g data-s="7">
+<path class="f" data-o="10" d="M21187-11459l-2283-88"/>
+<path class="f" data-o="10" d="M18168-11576l-2282-87"/>
+<path class="f" data-o="10" d="M15150-11692l-1930-74-891-1308"/>
+<path class="f" data-o="10" d="M11948-13634l-1287-1890-2744-119"/>
+<path class="f" data-o="10" d="M7183-15675l-2994-130-449 2289"/>
+<path class="f" data-o="10" d="M3606-12833l-209 1066-1884-209"/>
+<path class="f" data-o="10" d="M802-12055l-2069-230-424-1369"/>
+<path class="f" data-o="10" d="M-1892-14303l-559-1807"/>
+<path class="f" data-o="10" d="M-2652-16760l-559-1807"/>
+</g>
+</g>
+<g data-c="4">
+<g data-s="9">
+<path class="h" data-o="12" d="M-30920 5000l2080 6720 5760 640 800-4080 5520 240 2560 3760 8320 320"/>
+</g>
+<g data-s="5">
+<path class="i" data-o="7" d="M-1756 15563l560 1807"/>
+<path class="i" data-o="7" d="M-995 18020l559 1807"/>
+<path class="i" data-o="7" d="M-235 20476l404 1307 2004 222"/>
+<path class="i" data-o="7" d="M2884 22084l1793 200 191-976"/>
+<path class="i" data-o="7" d="M5002 20625l465-2374 3081 134"/>
+<path class="i" data-o="7" d="M9282 18417l2794 121 1315 1932"/>
+<path class="i" data-o="7" d="M13772 21030l862 1266 1880 72"/>
+<path class="i" data-o="7" d="M17249 22397l2283 87"/>
+<path class="i" data-o="7" d="M20268 22513l2283 88"/>
+</g>
+<g data-s="6">
+<path class="i" data-o="8" d="M-2276 4043l1925 6220 4508 501 790-4033 6609 287 2558 3758 7917 305"/>
+<path class="i" data-o="9" d="M20929 839l-8723-335-2562-3762-4431-193-810 4127-7012-779-2235-7220"/>
+</g>
+<g data-s="7">
+<path class="i" data-o="10" d="M21129-9961l-2283-87"/>
+<path class="i" data-o="10" d="M18111-10077l-2283-87"/>
+<path class="i" data-o="10" d="M15092-10193l-2686-103-1317-1934"/>
+<path class="i" data-o="10" d="M10708-12790l-864-1268-1992-87"/>
+<path class="i" data-o="10" d="M7118-14177l-1705-74-201 1023"/>
+<path class="i" data-o="10" d="M5078-12545l-475 2421-3256-361"/>
+<path class="i" data-o="10" d="M636-10564l-3045-339-715-2307"/>
+<path class="i" data-o="10" d="M-3325-13860l-559-1807"/>
+<path class="i" data-o="10" d="M-4085-16316l-559-1807"/>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<g transform="matrix(.01102787 0 0-.01102787 436.63 427.07)" clip-path="url(#b)">
+<use xlink:href="#a"/>
+</g>
+</svg>

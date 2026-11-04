@@ -1,0 +1,252 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="633mm" height="582mm" viewBox="0 0 633 582" xml:lang="und">
+<style>
+@font-face{font-family:"Calibri";src:url(data:font/ttf;base64,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)}
+text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white-space:pre}
+.a{fill:#83f76c;fill:#83f76c icc-color(cmyk,.455,0,.545,.03);fill-rule:evenodd}
+.b{fill:none;stroke:#3dff00;stroke:#3dff00 icc-color(cmyk,.76,0,1,0);stroke-width:260;stroke-miterlimit:5}
+.c{fill:#3dff00;fill:#3dff00 icc-color(cmyk,.76,0,1,0);fill-rule:evenodd}
+.d{fill:none;stroke:#d98c66;stroke:#d98c66 icc-color(cmyk,.01,.31,.46,.14);stroke-width:4260;stroke-miterlimit:5}
+.e{fill:none;stroke:#d98c66;stroke:#d98c66 icc-color(cmyk,.01,.31,.46,.14);stroke-width:1000;stroke-miterlimit:5}
+.f{fill:#d98c66;fill:#d98c66 icc-color(cmyk,.01,.31,.46,.14);fill-rule:evenodd}
+.g{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:260;stroke-linejoin:bevel}
+.h{fill:none;stroke:#b21a00;stroke:#b21a00 icc-color(cmyk,.02,.62,.91,.28);stroke-width:140;stroke-linecap:round;stroke-linejoin:round}
+.i{fill:none;stroke:#b21a00;stroke:#b21a00 icc-color(cmyk,.02,.62,.91,.28);stroke-width:350;stroke-linecap:round;stroke-linejoin:round}
+.j{font-size:3.175px;font-family:"Calibri";fill:#b21a00;fill:#b21a00 icc-color(cmyk,.02,.62,.91,.28)}
+.k{fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)}
+.l{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:260;stroke-linejoin:round}
+.m{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:200;stroke-linejoin:bevel}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="differentnewlinetypes">
+<npp:color position="16" name="Green 60%" cmyk=".455,0,.545,.03"/>
+<npp:color position="17" name="Green" cmyk=".76,0,1,0"/>
+<npp:color position="21" name="Brown 50%" cmyk=".01,.31,.46,.14"/>
+<npp:color position="22" name="Center line" cmyk="0,0,0,1"/>
+<npp:color position="23" name="Brown" cmyk=".02,.62,.91,.28"/>
+<npp:color position="27" name="Black" cmyk="0,0,0,1"/>
+<npp:symbol n="1" id="408.0" name="Forest: difficult to run" colors="16"/>
+<npp:symbol n="2" id="418.0" name="Special vegetation feature" colors="17"/>
+<npp:symbol n="3" id="410.0" name="Vegetation: difficult to walk" colors="17"/>
+<npp:symbol n="4" id="501.1" name="Aurora Ave" colors="21 22 27"/>
+<npp:symbol n="5" id="502.0" name="Major road" colors="21 27"/>
+<npp:symbol n="6" id="530.0" name="Parking area" colors="21"/>
+<npp:symbol n="7" id="101.0" name="Contour" colors="23"/>
+<npp:symbol n="8" id="102.0" name="Index Contour" colors="23"/>
+<npp:symbol n="9" id="812.4" name="legend text" colors="23"/>
+<npp:symbol n="10" id="206.0" name="Boulder" colors="27"/>
+<npp:symbol n="11" id="301.1" name="Lake: Bank line" colors="27"/>
+<npp:symbol n="12" id="525.0" name="High fence" colors="27"/>
+<npp:symbol n="13" id="542.0" name="Special man-made feature" colors="27"/>
+</npp:map>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="b">
+<path d="M-83934-180942H40995v114863H-83934z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g data-c="16">
+<g data-s="1">
+<path class="a" data-o="1" d="M13320-121580l980 320c-170 710-180 1110-560 1740-130 200-580 100-580-130 0-320-130-480-70-810 60-440 30-670 230-1120z"/>
+</g>
+</g>
+<g data-c="17">
+<g data-s="2">
+<circle class="b" data-o="2" cx="9340" cy="-87000" r="475"/>
+<circle class="b" data-o="3" cx="10440" cy="-99220" r="475"/>
+</g>
+<g data-s="3">
+<path class="c" data-o="4" d="M3840-91100c390-1320 1010-4270 1570-5550 170-360 1240-670 1270-260 100 1160 80 4680-390 5730-250 530-230 1240-820 1200-510-20-890-90-1180-530l-450-590z"/>
+<path class="c" data-o="5" d="M5730-96870c-330-40 370-1390 510-2400 150-1020 690-1830 1020-1770 350 40 100 1020-250 1850-460 1010-320 2790-670 2730l-610-410z"/>
+<path class="c" data-o="6" d="M3190-88180c770 260 1240 310 1890 830 220 170 140 410 190 700 160 1210 90 1810-20 2780-30 320-720 870-1020 1170-600 570-1480 1000-1990 690-410-230 90-480-150-1290-130-350-180-790-110-1070 310-1410 560-2140 1210-3810z"/>
+</g>
+</g>
+<g data-c="21">
+<g data-s="4">
+<path class="d" data-o="7" d="M1090-90820l9500-31800"/>
+</g>
+<g data-s="5">
+<path class="e" data-o="8" d="M-3540-91580l8780 2950"/>
+</g>
+<g data-s="6">
+<path class="f" data-o="9" d="M5410-89320l-420 1230 510 30 500-140-590-1120z"/>
+</g>
+</g>
+<g data-c="22">
+<g data-s="4">
+<path class="g" data-o="7" d="M1090-90820l9500-31800"/>
+</g>
+</g>
+<g data-c="23">
+<g data-s="7">
+<path class="h" data-o="10" d="M4040-88350c-160 600-350 1120-550 1700-330 980-730 1450-770 2480-40 1150-210 1550-340 2710-100 930-150 1500 550 1780 480 190 1340 300 1850 230 1860-210 3110 100 4550-1130 850-700 1310-1230 1510-2320 90-560 330-790 740-1200 1080-1060 1540-1820 1910-3290 460-1820 1280-2760 940-4610-190-970-270-1520-840-2330-1240-1770-1740-2830-3410-4170-330-250-600-190-1010-120-960 150-1870-350-2360 490-620 1040-1040 1520-1400 2670-570 1890-860 2850-1280 4790-70 360 190 530 220 900"/>
+<path class="h" data-o="11" d="M4920-88120c-510 1130-1020 1630-1160 2860-100 790 50 1620 360 2350 170 410 760 330 1280 200 1220-340 2160-640 2680-1790 1010-2230 1960-3280 2190-5720 70-790-60-1240-380-1950-250-540-1220 60-1390-510-220-720-230-1150-660-1790-240-360-750-550-1090-260-750 690-1210 1120-1440 2120-250 1000-330 1530-340 2580-10 280 120 410 130 690"/>
+</g>
+<g data-s="8">
+<path class="i" data-o="12" d="M5430-88030c100 350 490 810 830 640 510-250 510-750 530-1320 20-730 400-2020-300-1820-470 130-1030 380-1060 1070"/>
+<path class="i" data-o="13" d="M13620-109510l-700-170"/>
+<path class="i" data-o="14" d="M12920-109680l-50-560"/>
+<path class="i" data-o="15" d="M13900-110220l-280 710"/>
+<path class="i" data-o="16" d="M12870-110240l70-570"/>
+<path class="i" data-o="17" d="M12940-110810l470-20 450 160"/>
+</g>
+<g transform="matrix(1 0 0-1-52800-73580)" data-s="9">
+<text class="j" data-o="18" transform="scale(1000)" x="0 1.316 2.991 4.629 5.662 7.336 9.004 9.838">contour,</text>
+<text class="j" data-o="18" transform="translate(11348)scale(1000)" x="0 .729 2.397 4.065 5.597">index</text>
+<text class="j" data-o="18" transform="translate(19038)scale(1000)" x="0 1.316 2.991 4.629 5.662 7.336 9.004">contour</text>
+<text class="j" data-o="18" transform="translate(0 5375)scale(1000)" x="0 .902 2.577 3.683">form</text>
+<text class="j" data-o="18" transform="translate(6938 5375)scale(1000)" x="0 .729 1.457 3.125 4.705">line,</text>
+<text class="j" data-o="18" transform="translate(13153 5375)scale(1000)" x="0 1.58 3.101 4.207 5.271">earth</text>
+<text class="j" data-o="18" transform="translate(20810 5375)scale(1000)" x="0 1.668 3.189 4.857">bank</text>
+<text class="j" data-o="18" transform="translate(0 10750)scale(1000)" x="0 1.443 3.111 4.786 5.514 6.243">knoll,</text>
+<text class="j" data-o="18" transform="translate(7753 10750)scale(1000)" x="0 1.242 3.778 5.299 6.028">small</text>
+<text class="j" data-o="18" transform="translate(15227 10750)scale(1000)" x="0 1.443 3.111 4.786 5.514 6.243">knoll,</text>
+<text class="j" data-o="18" transform="translate(22980 10750)scale(1000)" x="0 1.056 2.73 4.404 5.468 6.674 7.707 9.381 10.723">rootstock</text>
+<text class="j" data-o="18" transform="translate(0 16125)scale(1000)" x="0 1.668 3.248 4.916 5.981 7.561 8.803 10.044 10.773 12.447 14.115">depression,</text>
+<text class="j" data-o="18" transform="translate(15625 16125)scale(1000)" x="0 1.242 3.778 5.299 6.028">small</text>
+<text class="j" data-o="18" transform="translate(23099 16125)scale(1000)" x="0 1.668 3.248 4.916 5.981 7.561 8.803 10.044 10.773 12.447">depression</text>
+<text class="j" data-o="18" transform="translate(0 21500)scale(1000)" x="0 .729 3.265 4.933 6.454 7.696 8.937 10.458 12.126 12.855">impassable</text>
+<text class="j" data-o="18" transform="translate(15153 21500)scale(1000)" x="0 1.343 2.071 2.8 3.738 4.511">cliff,</text>
+<text class="j" data-o="18" transform="translate(21174 21500)scale(1000)" x="0 1.668 3.189 4.431 5.673 7.193 8.861 9.59">passable</text>
+<text class="j" data-o="18" transform="translate(33062 21500)scale(1000)" x="0 1.056 2.73 4.073">rock</text>
+<text class="j" data-o="18" transform="translate(39295 21500)scale(1000)" x="0 .907 2.428 3.77">face</text>
+<text class="j" data-o="18" transform="translate(0 26875)scale(1000)" x="0 1.668 3.342 5.011 5.739 7.407 8.987 9.821">boulder,</text>
+<text class="j" data-o="18" transform="translate(11331 26875)scale(1000)" x="0 .729 2.249 3.313 4.781">large</text>
+<text class="j" data-o="18" transform="translate(18410 26875)scale(1000)" x="0 1.668 3.342 5.011 5.739 7.407 8.987">boulder</text>
+<text class="j" data-o="18" transform="translate(0 32250)scale(1000)" x="0 1.668 3.342 5.011 5.739 7.407 8.987">boulder</text>
+<text class="j" data-o="18" transform="translate(10812 32250)scale(1000)" x="0 .969 1.698 3.277 4.006 5.674">field,</text>
+<text class="j" data-o="18" transform="translate(17996 32250)scale(1000)" x="0 1.668 3.342 5.011 5.739 7.407 8.987">boulder</text>
+<text class="j" data-o="18" transform="translate(28808 32250)scale(1000)" x="0 1.343 2.071 3.739 4.945 5.975 7.555">cluster</text>
+<text class="j" data-o="18" transform="translate(0 37625)scale(1000)" x="0 1.206 2.239 3.913 5.522">stony</text>
+<text class="j" data-o="18" transform="translate(7677 37625)scale(1000)" x="0 1.494 2.55 4.225 5.893 7.561 9.229">ground,</text>
+<text class="j" data-o="18" transform="translate(18416 37625)scale(1000)" x="0 1.242 2.763 4.431 6.099">sandy</text>
+<text class="j" data-o="18" transform="translate(26670 37625)scale(1000)" x="0 1.494 2.55 4.225 5.893 7.561">ground</text>
+<text class="j" data-o="18" transform="translate(0 43000)scale(1000)" x="0 2.234 3.725 4.755 6.334">water</text>
+<text class="j" data-o="18" transform="translate(8159 43000)scale(1000)" x="0 .902 2.577 4.245 5.883 6.908 8.429 9.158 10.826">fountain,</text>
+<text class="j" data-o="18" transform="translate(20495 43000)scale(1000)" x="0 .729 2.397 4.065 4.794 6 7.063 7.792 9.46 10.802">indistinct</text>
+<text class="j" data-o="18" transform="translate(33079 43000)scale(1000)" x="0 2.536 4.057 5.11 6.352">marsh</text>
+<text class="j" data-o="18" transform="translate(0 48375)scale(1000)" x="0 .902 2.577 3.642 5.221 6.428 7.491">forest:</text>
+<text class="j" data-o="18" transform="translate(9058 48375)scale(1000)" x="0 1.674 3.342 4.922 6.59">open,</text>
+<text class="j" data-o="18" transform="translate(17159 48375)scale(1000)" x="0 1.674 3.342 4.922">open</text>
+<text class="j" data-o="18" transform="translate(24467 48375)scale(1000)" x="0 .729 2.249 3.918">land</text>
+<text class="j" data-o="18" transform="translate(0 53750)scale(1000)" x="0 1.674 3.342 4.922">open</text>
+<text class="j" data-o="18" transform="translate(7308 53750)scale(1000)" x="0 .729 2.249 3.918">land</text>
+<text class="j" data-o="18" transform="translate(13612 53750)scale(1000)" x="0 2.27 3.435 4.677 5.993 7.485 8.503 9.533 11.113 12.178 13.757">w/scattered</text>
+<text class="j" data-o="18" transform="translate(29755 53750)scale(1000)" x="0 1.064 2.129 3.708 5.288 6.53">trees,</text>
+<text class="j" data-o="18" transform="translate(37795 53750)scale(1000)" x="0 1.056 2.73 4.398 5.893">rough</text>
+<text class="j" data-o="18" transform="translate(46073 53750)scale(1000)" x="0 1.674 3.342 4.922">open</text>
+<text class="j" data-o="18" transform="translate(53381 53750)scale(1000)" x="0 .729 2.249 3.918">land</text>
+<text class="j" data-o="18" transform="translate(0 59125)scale(1000)" x="0 .902 2.577 3.642 5.221 6.428 7.491">forest:</text>
+<text class="j" data-o="18" transform="translate(9058 59125)scale(1000)" x="0 1.242 1.97 3.632">slow</text>
+<text class="j" data-o="18" transform="translate(15678 59125)scale(1000)" x="0 1.107 2.775 4.443 6.111 6.84 8.508 10.038">running,</text>
+<text class="j" data-o="18" transform="translate(27226 59125)scale(1000)" x="0 1.403 2.983 4.451 6.014 7.038 8.53 9.593 10.322 11.996 13.664">vegetation:</text>
+<text class="j" data-o="18" transform="translate(42458 59125)scale(1000)" x="0 .729 3.265 4.933 6.454 7.696 8.937 10.458 12.126 12.855">impassable</text>
+<text class="j" data-o="18" transform="translate(0 64500)scale(1000)" x="0 1.206 2.27 3.938 6.474 8.142">stump,</text>
+<text class="j" data-o="18" transform="translate(9652 64500)scale(1000)" x="0 1.242 1.97 3.639 5.133 5.862">single</text>
+<text class="j" data-o="18" transform="translate(17811 64500)scale(1000)" x="0 1.064 2.129 3.708">tree</text>
+<text class="j" data-o="18" transform="translate(0 69875)scale(1000)" x="0 2.536 4.057 4.817 6.491">major</text>
+<text class="j" data-o="18" transform="translate(8316 69875)scale(1000)" x="0 1.056 2.73 4.251 5.919">road,</text>
+<text class="j" data-o="18" transform="translate(15745 69875)scale(1000)" x="0 2.536 3.265 4.933 6.607">minor</text>
+<text class="j" data-o="18" transform="translate(24177 69875)scale(1000)" x="0 1.056 2.73 4.251 5.919">road,</text>
+<text class="j" data-o="18" transform="translate(31606 69875)scale(1000)" x="0 1.668 3.136 4.539 6.119">paved</text>
+<text class="j" data-o="18" transform="translate(40111 69875)scale(1000)" x="0 1.668 3.159 4.223">path</text>
+<text class="j" data-o="18" transform="translate(0 75250)scale(1000)" x="0 1.494 2.536 4.004 5.407 6.987">gravel</text>
+<text class="j" data-o="18" transform="translate(8434 75250)scale(1000)" x="0 1.056 2.73 4.251 5.919">road,</text>
+<text class="j" data-o="18" transform="translate(15863 75250)scale(1000)" x="0 .729 2.249 3.313 4.781">large</text>
+<text class="j" data-o="18" transform="translate(22941 75250)scale(1000)" x="0 1.668 3.159 4.223 5.891">path,</text>
+<text class="j" data-o="18" transform="translate(30342 75250)scale(1000)" x="0 .902 2.577 4.251 5.314 6.983 8.474 9.537">footpath</text>
+<text class="j" data-o="18" transform="translate(0 80625)scale(1000)" x="0 1.242 3.778 5.299 6.028">small</text>
+<text class="j" data-o="18" transform="translate(7474 80625)scale(1000)" x="0 1.668 3.159 4.223 5.891">path,</text>
+<text class="j" data-o="18" transform="translate(14875 80625)scale(1000)" x="0 .729 2.397 4.065 4.794 6 7.063 7.792 9.46 10.802">indistinct</text>
+<text class="j" data-o="18" transform="translate(27459 80625)scale(1000)" x="0 1.668 3.159 4.223">path</text>
+<text class="j" data-o="18" transform="translate(0 86000)scale(1000)" x="0 1.206 2.239 3.913 5.581">stone</text>
+<text class="j" data-o="18" transform="translate(7879 86000)scale(1000)" x="0 2.234 3.755 4.483 5.212">wall,</text>
+<text class="j" data-o="18" transform="translate(14601 86000)scale(1000)" x="0 .89 2.47 4.138 5.48 7.06">fence,</text>
+<text class="j" data-o="18" transform="translate(23171 86000)scale(1000)" x="0 1.668 2.397 3.891">high</text>
+<text class="j" data-o="18" transform="translate(29448 86000)scale(1000)" x="0 .89 2.47 4.138 5.48">fence</text>
+<text class="j" data-o="18" transform="translate(0 91375)scale(1000)" x="0 1.668 3.336 4.065 4.794 6.462 7.19 8.858 10.389">building,</text>
+<text class="j" data-o="18" transform="translate(11898 91375)scale(1000)" x="0 2.536 4.057 5.725 8.262 9.782 11.45">manmade</text>
+<text class="j" data-o="18" transform="translate(25646 91375)scale(1000)" x="0 1.674 3.342 4.102 5.682 7.024">object</text>
+<text class="j" data-o="18" transform="translate(0 96750)scale(1000)" x="0 1.668 3.136 4.539 6.119">paved</text>
+<text class="j" data-o="18" transform="translate(8505 96750)scale(1000)" x="0 1.521 2.586 4.166 5.686">area,</text>
+<text class="j" data-o="18" transform="translate(15701 96750)scale(1000)" x="0 1.674 3.342">out</text>
+<text class="j" data-o="18" transform="translate(20825 96750)scale(1000)" x="0 1.674">of</text>
+<text class="j" data-o="18" transform="translate(24186 96750)scale(1000)" x="0 1.668 3.342 5.011 6.679 8.347">bounds</text>
+<text class="j" data-o="18" transform="translate(34492 96750)scale(1000)" x="0 1.521 2.586 4.166">area</text>
+</g>
+</g>
+<g data-c="27">
+<g data-s="10">
+<circle class="k" data-o="19" cx="13410" cy="-105260" r="300"/>
+</g>
+<g data-s="11">
+<path class="g" data-o="20" d="M4990-88090l510 30 500-140"/>
+</g>
+<g data-s="4">
+<path class="l" data-o="7" d="M3255-90173l9500-31800"/>
+<path class="l" data-o="7" d="M-1075-91467l9500-31800"/>
+</g>
+<g data-s="5">
+<path class="l" data-o="8" d="M-3741-90983l8780 2950"/>
+<path class="l" data-o="8" d="M-3339-92177l8780 2950"/>
+</g>
+<g data-s="12">
+<path class="g" data-o="21" d="M3180-89970l9490-31840h0"/>
+<g transform="translate(4161-93262)rotate(-73.4)">
+<path class="m" data-o="21" d="M0 0-380-660"/>
+</g>
+<g transform="translate(5377-97341)rotate(-73.4)">
+<path class="m" data-o="21" d="M0 0-380-660"/>
+</g>
+<g transform="translate(6593-101420)rotate(-73.4)">
+<path class="m" data-o="21" d="M0 0-380-660"/>
+</g>
+<g transform="translate(7808-105498)rotate(-73.4)">
+<path class="m" data-o="21" d="M0 0-380-660"/>
+</g>
+<g transform="translate(9024-109577)rotate(-73.4)">
+<path class="m" data-o="21" d="M0 0-380-660"/>
+</g>
+<g transform="translate(10240-113656)rotate(-73.4)">
+<path class="m" data-o="21" d="M0 0-380-660"/>
+</g>
+<g transform="translate(11455-117734)rotate(-73.4)">
+<path class="m" data-o="21" d="M0 0-380-660"/>
+</g>
+<g transform="translate(4395-94046)rotate(-73.4)">
+<path class="m" data-o="21" d="M0 0-380-660"/>
+</g>
+<g transform="translate(5610-98124)rotate(-73.4)">
+<path class="m" data-o="21" d="M0 0-380-660"/>
+</g>
+<g transform="translate(6826-102203)rotate(-73.4)">
+<path class="m" data-o="21" d="M0 0-380-660"/>
+</g>
+<g transform="translate(8042-106282)rotate(-73.4)">
+<path class="m" data-o="21" d="M0 0-380-660"/>
+</g>
+<g transform="translate(9257-110360)rotate(-73.4)">
+<path class="m" data-o="21" d="M0 0-380-660"/>
+</g>
+<g transform="translate(10473-114439)rotate(-73.4)">
+<path class="m" data-o="21" d="M0 0-380-660"/>
+</g>
+<g transform="translate(11689-118518)rotate(-73.4)">
+<path class="m" data-o="21" d="M0 0-380-660"/>
+</g>
+</g>
+<g transform="translate(-1610-71510)" data-s="13">
+<path class="g" data-o="22" d="M-520-520 520 520"/>
+<path class="g" data-o="22" d="M-520 520 520-520"/>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<g transform="matrix(.00506692 0 0-.00506692 425.284-334.819)" clip-path="url(#b)">
+<use xlink:href="#a"/>
+</g>
+</svg>

@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="1059mm" height="278mm" viewBox="0 0 1059 278" xml:lang="und">
+<style>
+@font-face{font-family:"Times New Roman";font-weight:700;font-style:italic;src:url(data:font/ttf;base64,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)}
+text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white-space:pre}
+.a{font-size:4.233px;font-family:"Times New Roman";font-weight:700;font-style:italic;fill:#0f0;fill:#0f0 icc-color(cmyk,1,0,1,0)}
+.b{font-size:4.233px;font-family:"Times New Roman";font-weight:700;font-style:italic;fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)}
+.c{fill:none;stroke:#f00;stroke:#f00 icc-color(cmyk,0,1,1,0);stroke-width:40;stroke-linejoin:bevel}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="framing_ocad6">
+<npp:color position="0" name="Green" cmyk="1,0,1,0"/>
+<npp:color position="1" name="Black" cmyk="0,0,0,1"/>
+<npp:color position="2" name="Red" cmyk="0,1,1,0"/>
+<npp:symbol n="1" id="1.0" colors="0 1"/>
+<npp:symbol n="2" id="1.1" colors="2"/>
+</npp:map>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="b">
+<path d="M-20964-3224h48016V9381h-48016z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g data-c="0">
+<g transform="matrix(1 0 0-1-20040 2280)" data-s="1">
+<text class="a" data-o="1" transform="translate(200-400)scale(1000)" x="0 2.586 4.94 6.116">This</text>
+<text class="a" data-o="1" transform="translate(9022-400)scale(1000)" x="0 1.176">is</text>
+<text class="a" data-o="1" transform="translate(12904-400)scale(1000)" x="0 1.647 3.764 7.057">some</text>
+<text class="a" data-o="1" transform="translate(22898-400)scale(1000)" x="0 1.41 3.057 5.174 8.467 10.346">framed</text>
+<text class="a" data-o="1" transform="translate(36419-400)scale(1000)" x="0 1.647 2.824 5.178 6.511">stuff</text>
+</g>
+</g>
+<g data-c="1">
+<g transform="matrix(1 0 0-1-20040 2280)" data-s="1">
+<text class="b" data-o="1" transform="scale(1000)" x="0 2.586 4.94 6.116">This</text>
+<text class="b" data-o="1" transform="translate(8822)scale(1000)" x="0 1.176">is</text>
+<text class="b" data-o="1" transform="translate(12704)scale(1000)" x="0 1.647 3.764 7.057">some</text>
+<text class="b" data-o="1" transform="translate(22698)scale(1000)" x="0 1.41 3.057 5.174 8.467 10.346">framed</text>
+<text class="b" data-o="1" transform="translate(36219)scale(1000)" x="0 1.647 2.824 5.178 6.511">stuff</text>
+</g>
+</g>
+<g data-c="2">
+<g data-s="2">
+<path class="c" data-o="2" d="M-19180 5540h2240"/>
+<path class="c" data-o="3" d="M5060 5180v1400"/>
+<path class="c" data-o="4" d="M-19220 5180l200 960"/>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<g transform="matrix(.0220552 0 0-.0220552 462.37 206.9)" clip-path="url(#b)">
+<use xlink:href="#a"/>
+</g>
+</svg>

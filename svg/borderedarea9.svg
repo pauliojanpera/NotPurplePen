@@ -1,0 +1,923 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="722mm" height="529mm" viewBox="0 0 722 529">
+<style>
+.a{fill:#ffdb99;fill:#ffdb99 icc-color(cmyk,0,.14,.4,0);fill-rule:evenodd}
+.b{fill:none;stroke:#a80000;stroke:#a80000 icc-color(cmyk,0,.68,.91,.34);stroke-width:140;stroke-linejoin:bevel}
+.c{fill:#85ccff;fill:#85ccff icc-color(cmyk,.48,.2,0,0);fill-rule:evenodd}
+.d{fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)}
+.e{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:180;stroke-linejoin:bevel}
+.f{clip-rule:evenodd}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="borderedarea9">
+<npp:color position="6" name="Yellow 50%" cmyk="0,.14,.4,0"/>
+<npp:color position="19" name="Brown" cmyk="0,.68,.91,.34" overprint="1"/>
+<npp:color position="21" name="Blue 50%" cmyk=".48,.2,0,0"/>
+<npp:color position="28" name="Black" cmyk="0,0,0,1" overprint="1"/>
+<npp:symbol n="1" id="211.0" name="Open sandy ground" colors="6 19 28"/>
+<npp:symbol n="2" id="301.0" name="Lake" colors="21 28"/>
+</npp:map>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="b">
+<path class="f" d="M5860 4950 2920 3010 6490-520 4390-2450l2350-2560 4480 4130-5360 5830z"/>
+</clipPath>
+<clipPath id="c">
+<path d="M-6144-7317h17850V5762H-6144z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g data-c="6">
+<g data-s="1">
+<path class="a" data-o="1" d="M5860 4950 2920 3010 6490-520 4390-2450l2350-2560 4480 4130-5360 5830z"/>
+</g>
+</g>
+<g data-c="19">
+<g data-s="1">
+<path class="b" data-o="1" d="M5860 4950l-855-564"/>
+<path class="b" data-o="1" d="M4817 4262l-854-564"/>
+<path class="b" data-o="1" d="M3775 3574l-855-564 767-758"/>
+<path class="b" data-o="1" d="M3854 2086l767-758"/>
+<path class="b" data-o="1" d="M4789 1162l767-758"/>
+<path class="b" data-o="1" d="M5723 238l767-758-964-886"/>
+<path class="b" data-o="1" d="M5354-1564l-964-886 678-739"/>
+<path class="b" data-o="1" d="M5226-3360l678-740"/>
+<path class="b" data-o="1" d="M6062-4271l678-739 759 700"/>
+<path class="b" data-o="1" d="M7670-4152l759 699"/>
+<path class="b" data-o="1" d="M8600-3295l760 700"/>
+<path class="b" data-o="1" d="M9531-2437l759 699"/>
+<path class="b" data-o="1" d="M10461-1580l759 700-762 829"/>
+<path class="b" data-o="1" d="M10300 120l-762 829"/>
+<path class="b" data-o="1" d="M9381 1120l-762 829"/>
+<path class="b" data-o="1" d="M8461 2121l-762 829"/>
+<path class="b" data-o="1" d="M7542 3121l-762 829"/>
+<path class="b" data-o="1" d="M6622 4121l-762 829"/>
+</g>
+</g>
+<g data-c="21">
+<g data-s="2">
+<path class="c" data-o="2" d="M-4410 3540c-870-1480-360-3410 1140-4280 1490-860 3410-350 4280 1130 860 1490 350 3420-1130 4280-1500 870-3430 360-4290-1130z"/>
+<path class="c" data-o="3" d="M-5560-2400c2890-1380 5660-6200 7250-3410 170 310 700 640 390 810C-130-3830-930-1990-3420-2050c-790-20-1680 680-1970-50l-170-300zm4020-1510c-230-210-240-560-30-790 210-220 560-230 790-10 220 210 240 560 30 780-210 230-570 240-790 20z"/>
+</g>
+</g>
+<g data-c="28">
+<g clip-path="url(#b)" data-s="1">
+<g transform="rotate(45)">
+<circle class="d" data-o="1" cx="-1350" cy="-11250" r="90"/>
+<circle class="d" data-o="1" cx="-900" cy="-11250" r="90"/>
+<circle class="d" data-o="1" cx="-450" cy="-11250" r="90"/>
+<circle class="d" data-o="1" cy="-11250" r="90"/>
+<circle class="d" data-o="1" cx="450" cy="-11250" r="90"/>
+<circle class="d" data-o="1" cx="900" cy="-11250" r="90"/>
+<circle class="d" data-o="1" cx="1350" cy="-11250" r="90"/>
+<circle class="d" data-o="1" cx="1800" cy="-11250" r="90"/>
+<circle class="d" data-o="1" cx="2250" cy="-11250" r="90"/>
+<circle class="d" data-o="1" cx="2700" cy="-11250" r="90"/>
+<circle class="d" data-o="1" cx="3150" cy="-11250" r="90"/>
+<circle class="d" data-o="1" cx="3600" cy="-11250" r="90"/>
+<circle class="d" data-o="1" cx="4050" cy="-11250" r="90"/>
+<circle class="d" data-o="1" cx="4500" cy="-11250" r="90"/>
+<circle class="d" data-o="1" cx="4950" cy="-11250" r="90"/>
+<circle class="d" data-o="1" cx="5400" cy="-11250" r="90"/>
+<circle class="d" data-o="1" cx="5850" cy="-11250" r="90"/>
+<circle class="d" data-o="1" cx="6300" cy="-11250" r="90"/>
+<circle class="d" data-o="1" cx="6750" cy="-11250" r="90"/>
+<circle class="d" data-o="1" cx="7200" cy="-11250" r="90"/>
+<circle class="d" data-o="1" cx="7650" cy="-11250" r="90"/>
+<circle class="d" data-o="1" cx="8100" cy="-11250" r="90"/>
+<circle class="d" data-o="1" cx="8550" cy="-11250" r="90"/>
+<circle class="d" data-o="1" cx="9000" cy="-11250" r="90"/>
+<circle class="d" data-o="1" cx="9450" cy="-11250" r="90"/>
+<circle class="d" data-o="1" cx="9900" cy="-11250" r="90"/>
+<circle class="d" data-o="1" cx="10350" cy="-11250" r="90"/>
+<circle class="d" data-o="1" cx="10800" cy="-11250" r="90"/>
+<circle class="d" data-o="1" cx="11250" cy="-11250" r="90"/>
+<circle class="d" data-o="1" cx="-1350" cy="-10800" r="90"/>
+<circle class="d" data-o="1" cx="-900" cy="-10800" r="90"/>
+<circle class="d" data-o="1" cx="-450" cy="-10800" r="90"/>
+<circle class="d" data-o="1" cy="-10800" r="90"/>
+<circle class="d" data-o="1" cx="450" cy="-10800" r="90"/>
+<circle class="d" data-o="1" cx="900" cy="-10800" r="90"/>
+<circle class="d" data-o="1" cx="1350" cy="-10800" r="90"/>
+<circle class="d" data-o="1" cx="1800" cy="-10800" r="90"/>
+<circle class="d" data-o="1" cx="2250" cy="-10800" r="90"/>
+<circle class="d" data-o="1" cx="2700" cy="-10800" r="90"/>
+<circle class="d" data-o="1" cx="3150" cy="-10800" r="90"/>
+<circle class="d" data-o="1" cx="3600" cy="-10800" r="90"/>
+<circle class="d" data-o="1" cx="4050" cy="-10800" r="90"/>
+<circle class="d" data-o="1" cx="4500" cy="-10800" r="90"/>
+<circle class="d" data-o="1" cx="4950" cy="-10800" r="90"/>
+<circle class="d" data-o="1" cx="5400" cy="-10800" r="90"/>
+<circle class="d" data-o="1" cx="5850" cy="-10800" r="90"/>
+<circle class="d" data-o="1" cx="6300" cy="-10800" r="90"/>
+<circle class="d" data-o="1" cx="6750" cy="-10800" r="90"/>
+<circle class="d" data-o="1" cx="7200" cy="-10800" r="90"/>
+<circle class="d" data-o="1" cx="7650" cy="-10800" r="90"/>
+<circle class="d" data-o="1" cx="8100" cy="-10800" r="90"/>
+<circle class="d" data-o="1" cx="8550" cy="-10800" r="90"/>
+<circle class="d" data-o="1" cx="9000" cy="-10800" r="90"/>
+<circle class="d" data-o="1" cx="9450" cy="-10800" r="90"/>
+<circle class="d" data-o="1" cx="9900" cy="-10800" r="90"/>
+<circle class="d" data-o="1" cx="10350" cy="-10800" r="90"/>
+<circle class="d" data-o="1" cx="10800" cy="-10800" r="90"/>
+<circle class="d" data-o="1" cx="11250" cy="-10800" r="90"/>
+<circle class="d" data-o="1" cx="-1350" cy="-10350" r="90"/>
+<circle class="d" data-o="1" cx="-900" cy="-10350" r="90"/>
+<circle class="d" data-o="1" cx="-450" cy="-10350" r="90"/>
+<circle class="d" data-o="1" cy="-10350" r="90"/>
+<circle class="d" data-o="1" cx="450" cy="-10350" r="90"/>
+<circle class="d" data-o="1" cx="900" cy="-10350" r="90"/>
+<circle class="d" data-o="1" cx="1350" cy="-10350" r="90"/>
+<circle class="d" data-o="1" cx="1800" cy="-10350" r="90"/>
+<circle class="d" data-o="1" cx="2250" cy="-10350" r="90"/>
+<circle class="d" data-o="1" cx="2700" cy="-10350" r="90"/>
+<circle class="d" data-o="1" cx="3150" cy="-10350" r="90"/>
+<circle class="d" data-o="1" cx="3600" cy="-10350" r="90"/>
+<circle class="d" data-o="1" cx="4050" cy="-10350" r="90"/>
+<circle class="d" data-o="1" cx="4500" cy="-10350" r="90"/>
+<circle class="d" data-o="1" cx="4950" cy="-10350" r="90"/>
+<circle class="d" data-o="1" cx="5400" cy="-10350" r="90"/>
+<circle class="d" data-o="1" cx="5850" cy="-10350" r="90"/>
+<circle class="d" data-o="1" cx="6300" cy="-10350" r="90"/>
+<circle class="d" data-o="1" cx="6750" cy="-10350" r="90"/>
+<circle class="d" data-o="1" cx="7200" cy="-10350" r="90"/>
+<circle class="d" data-o="1" cx="7650" cy="-10350" r="90"/>
+<circle class="d" data-o="1" cx="8100" cy="-10350" r="90"/>
+<circle class="d" data-o="1" cx="8550" cy="-10350" r="90"/>
+<circle class="d" data-o="1" cx="9000" cy="-10350" r="90"/>
+<circle class="d" data-o="1" cx="9450" cy="-10350" r="90"/>
+<circle class="d" data-o="1" cx="9900" cy="-10350" r="90"/>
+<circle class="d" data-o="1" cx="10350" cy="-10350" r="90"/>
+<circle class="d" data-o="1" cx="10800" cy="-10350" r="90"/>
+<circle class="d" data-o="1" cx="11250" cy="-10350" r="90"/>
+<circle class="d" data-o="1" cx="-1350" cy="-9900" r="90"/>
+<circle class="d" data-o="1" cx="-900" cy="-9900" r="90"/>
+<circle class="d" data-o="1" cx="-450" cy="-9900" r="90"/>
+<circle class="d" data-o="1" cy="-9900" r="90"/>
+<circle class="d" data-o="1" cx="450" cy="-9900" r="90"/>
+<circle class="d" data-o="1" cx="900" cy="-9900" r="90"/>
+<circle class="d" data-o="1" cx="1350" cy="-9900" r="90"/>
+<circle class="d" data-o="1" cx="1800" cy="-9900" r="90"/>
+<circle class="d" data-o="1" cx="2250" cy="-9900" r="90"/>
+<circle class="d" data-o="1" cx="2700" cy="-9900" r="90"/>
+<circle class="d" data-o="1" cx="3150" cy="-9900" r="90"/>
+<circle class="d" data-o="1" cx="3600" cy="-9900" r="90"/>
+<circle class="d" data-o="1" cx="4050" cy="-9900" r="90"/>
+<circle class="d" data-o="1" cx="4500" cy="-9900" r="90"/>
+<circle class="d" data-o="1" cx="4950" cy="-9900" r="90"/>
+<circle class="d" data-o="1" cx="5400" cy="-9900" r="90"/>
+<circle class="d" data-o="1" cx="5850" cy="-9900" r="90"/>
+<circle class="d" data-o="1" cx="6300" cy="-9900" r="90"/>
+<circle class="d" data-o="1" cx="6750" cy="-9900" r="90"/>
+<circle class="d" data-o="1" cx="7200" cy="-9900" r="90"/>
+<circle class="d" data-o="1" cx="7650" cy="-9900" r="90"/>
+<circle class="d" data-o="1" cx="8100" cy="-9900" r="90"/>
+<circle class="d" data-o="1" cx="8550" cy="-9900" r="90"/>
+<circle class="d" data-o="1" cx="9000" cy="-9900" r="90"/>
+<circle class="d" data-o="1" cx="9450" cy="-9900" r="90"/>
+<circle class="d" data-o="1" cx="9900" cy="-9900" r="90"/>
+<circle class="d" data-o="1" cx="10350" cy="-9900" r="90"/>
+<circle class="d" data-o="1" cx="10800" cy="-9900" r="90"/>
+<circle class="d" data-o="1" cx="11250" cy="-9900" r="90"/>
+<circle class="d" data-o="1" cx="-1350" cy="-9450" r="90"/>
+<circle class="d" data-o="1" cx="-900" cy="-9450" r="90"/>
+<circle class="d" data-o="1" cx="-450" cy="-9450" r="90"/>
+<circle class="d" data-o="1" cy="-9450" r="90"/>
+<circle class="d" data-o="1" cx="450" cy="-9450" r="90"/>
+<circle class="d" data-o="1" cx="900" cy="-9450" r="90"/>
+<circle class="d" data-o="1" cx="1350" cy="-9450" r="90"/>
+<circle class="d" data-o="1" cx="1800" cy="-9450" r="90"/>
+<circle class="d" data-o="1" cx="2250" cy="-9450" r="90"/>
+<circle class="d" data-o="1" cx="2700" cy="-9450" r="90"/>
+<circle class="d" data-o="1" cx="3150" cy="-9450" r="90"/>
+<circle class="d" data-o="1" cx="3600" cy="-9450" r="90"/>
+<circle class="d" data-o="1" cx="4050" cy="-9450" r="90"/>
+<circle class="d" data-o="1" cx="4500" cy="-9450" r="90"/>
+<circle class="d" data-o="1" cx="4950" cy="-9450" r="90"/>
+<circle class="d" data-o="1" cx="5400" cy="-9450" r="90"/>
+<circle class="d" data-o="1" cx="5850" cy="-9450" r="90"/>
+<circle class="d" data-o="1" cx="6300" cy="-9450" r="90"/>
+<circle class="d" data-o="1" cx="6750" cy="-9450" r="90"/>
+<circle class="d" data-o="1" cx="7200" cy="-9450" r="90"/>
+<circle class="d" data-o="1" cx="7650" cy="-9450" r="90"/>
+<circle class="d" data-o="1" cx="8100" cy="-9450" r="90"/>
+<circle class="d" data-o="1" cx="8550" cy="-9450" r="90"/>
+<circle class="d" data-o="1" cx="9000" cy="-9450" r="90"/>
+<circle class="d" data-o="1" cx="9450" cy="-9450" r="90"/>
+<circle class="d" data-o="1" cx="9900" cy="-9450" r="90"/>
+<circle class="d" data-o="1" cx="10350" cy="-9450" r="90"/>
+<circle class="d" data-o="1" cx="10800" cy="-9450" r="90"/>
+<circle class="d" data-o="1" cx="11250" cy="-9450" r="90"/>
+<circle class="d" data-o="1" cx="-1350" cy="-9000" r="90"/>
+<circle class="d" data-o="1" cx="-900" cy="-9000" r="90"/>
+<circle class="d" data-o="1" cx="-450" cy="-9000" r="90"/>
+<circle class="d" data-o="1" cy="-9000" r="90"/>
+<circle class="d" data-o="1" cx="450" cy="-9000" r="90"/>
+<circle class="d" data-o="1" cx="900" cy="-9000" r="90"/>
+<circle class="d" data-o="1" cx="1350" cy="-9000" r="90"/>
+<circle class="d" data-o="1" cx="1800" cy="-9000" r="90"/>
+<circle class="d" data-o="1" cx="2250" cy="-9000" r="90"/>
+<circle class="d" data-o="1" cx="2700" cy="-9000" r="90"/>
+<circle class="d" data-o="1" cx="3150" cy="-9000" r="90"/>
+<circle class="d" data-o="1" cx="3600" cy="-9000" r="90"/>
+<circle class="d" data-o="1" cx="4050" cy="-9000" r="90"/>
+<circle class="d" data-o="1" cx="4500" cy="-9000" r="90"/>
+<circle class="d" data-o="1" cx="4950" cy="-9000" r="90"/>
+<circle class="d" data-o="1" cx="5400" cy="-9000" r="90"/>
+<circle class="d" data-o="1" cx="5850" cy="-9000" r="90"/>
+<circle class="d" data-o="1" cx="6300" cy="-9000" r="90"/>
+<circle class="d" data-o="1" cx="6750" cy="-9000" r="90"/>
+<circle class="d" data-o="1" cx="7200" cy="-9000" r="90"/>
+<circle class="d" data-o="1" cx="7650" cy="-9000" r="90"/>
+<circle class="d" data-o="1" cx="8100" cy="-9000" r="90"/>
+<circle class="d" data-o="1" cx="8550" cy="-9000" r="90"/>
+<circle class="d" data-o="1" cx="9000" cy="-9000" r="90"/>
+<circle class="d" data-o="1" cx="9450" cy="-9000" r="90"/>
+<circle class="d" data-o="1" cx="9900" cy="-9000" r="90"/>
+<circle class="d" data-o="1" cx="10350" cy="-9000" r="90"/>
+<circle class="d" data-o="1" cx="10800" cy="-9000" r="90"/>
+<circle class="d" data-o="1" cx="11250" cy="-9000" r="90"/>
+<circle class="d" data-o="1" cx="-1350" cy="-8550" r="90"/>
+<circle class="d" data-o="1" cx="-900" cy="-8550" r="90"/>
+<circle class="d" data-o="1" cx="-450" cy="-8550" r="90"/>
+<circle class="d" data-o="1" cy="-8550" r="90"/>
+<circle class="d" data-o="1" cx="450" cy="-8550" r="90"/>
+<circle class="d" data-o="1" cx="900" cy="-8550" r="90"/>
+<circle class="d" data-o="1" cx="1350" cy="-8550" r="90"/>
+<circle class="d" data-o="1" cx="1800" cy="-8550" r="90"/>
+<circle class="d" data-o="1" cx="2250" cy="-8550" r="90"/>
+<circle class="d" data-o="1" cx="2700" cy="-8550" r="90"/>
+<circle class="d" data-o="1" cx="3150" cy="-8550" r="90"/>
+<circle class="d" data-o="1" cx="3600" cy="-8550" r="90"/>
+<circle class="d" data-o="1" cx="4050" cy="-8550" r="90"/>
+<circle class="d" data-o="1" cx="4500" cy="-8550" r="90"/>
+<circle class="d" data-o="1" cx="4950" cy="-8550" r="90"/>
+<circle class="d" data-o="1" cx="5400" cy="-8550" r="90"/>
+<circle class="d" data-o="1" cx="5850" cy="-8550" r="90"/>
+<circle class="d" data-o="1" cx="6300" cy="-8550" r="90"/>
+<circle class="d" data-o="1" cx="6750" cy="-8550" r="90"/>
+<circle class="d" data-o="1" cx="7200" cy="-8550" r="90"/>
+<circle class="d" data-o="1" cx="7650" cy="-8550" r="90"/>
+<circle class="d" data-o="1" cx="8100" cy="-8550" r="90"/>
+<circle class="d" data-o="1" cx="8550" cy="-8550" r="90"/>
+<circle class="d" data-o="1" cx="9000" cy="-8550" r="90"/>
+<circle class="d" data-o="1" cx="9450" cy="-8550" r="90"/>
+<circle class="d" data-o="1" cx="9900" cy="-8550" r="90"/>
+<circle class="d" data-o="1" cx="10350" cy="-8550" r="90"/>
+<circle class="d" data-o="1" cx="10800" cy="-8550" r="90"/>
+<circle class="d" data-o="1" cx="11250" cy="-8550" r="90"/>
+<circle class="d" data-o="1" cx="-1350" cy="-8100" r="90"/>
+<circle class="d" data-o="1" cx="-900" cy="-8100" r="90"/>
+<circle class="d" data-o="1" cx="-450" cy="-8100" r="90"/>
+<circle class="d" data-o="1" cy="-8100" r="90"/>
+<circle class="d" data-o="1" cx="450" cy="-8100" r="90"/>
+<circle class="d" data-o="1" cx="900" cy="-8100" r="90"/>
+<circle class="d" data-o="1" cx="1350" cy="-8100" r="90"/>
+<circle class="d" data-o="1" cx="1800" cy="-8100" r="90"/>
+<circle class="d" data-o="1" cx="2250" cy="-8100" r="90"/>
+<circle class="d" data-o="1" cx="2700" cy="-8100" r="90"/>
+<circle class="d" data-o="1" cx="3150" cy="-8100" r="90"/>
+<circle class="d" data-o="1" cx="3600" cy="-8100" r="90"/>
+<circle class="d" data-o="1" cx="4050" cy="-8100" r="90"/>
+<circle class="d" data-o="1" cx="4500" cy="-8100" r="90"/>
+<circle class="d" data-o="1" cx="4950" cy="-8100" r="90"/>
+<circle class="d" data-o="1" cx="5400" cy="-8100" r="90"/>
+<circle class="d" data-o="1" cx="5850" cy="-8100" r="90"/>
+<circle class="d" data-o="1" cx="6300" cy="-8100" r="90"/>
+<circle class="d" data-o="1" cx="6750" cy="-8100" r="90"/>
+<circle class="d" data-o="1" cx="7200" cy="-8100" r="90"/>
+<circle class="d" data-o="1" cx="7650" cy="-8100" r="90"/>
+<circle class="d" data-o="1" cx="8100" cy="-8100" r="90"/>
+<circle class="d" data-o="1" cx="8550" cy="-8100" r="90"/>
+<circle class="d" data-o="1" cx="9000" cy="-8100" r="90"/>
+<circle class="d" data-o="1" cx="9450" cy="-8100" r="90"/>
+<circle class="d" data-o="1" cx="9900" cy="-8100" r="90"/>
+<circle class="d" data-o="1" cx="10350" cy="-8100" r="90"/>
+<circle class="d" data-o="1" cx="10800" cy="-8100" r="90"/>
+<circle class="d" data-o="1" cx="11250" cy="-8100" r="90"/>
+<circle class="d" data-o="1" cx="-1350" cy="-7650" r="90"/>
+<circle class="d" data-o="1" cx="-900" cy="-7650" r="90"/>
+<circle class="d" data-o="1" cx="-450" cy="-7650" r="90"/>
+<circle class="d" data-o="1" cy="-7650" r="90"/>
+<circle class="d" data-o="1" cx="450" cy="-7650" r="90"/>
+<circle class="d" data-o="1" cx="900" cy="-7650" r="90"/>
+<circle class="d" data-o="1" cx="1350" cy="-7650" r="90"/>
+<circle class="d" data-o="1" cx="1800" cy="-7650" r="90"/>
+<circle class="d" data-o="1" cx="2250" cy="-7650" r="90"/>
+<circle class="d" data-o="1" cx="2700" cy="-7650" r="90"/>
+<circle class="d" data-o="1" cx="3150" cy="-7650" r="90"/>
+<circle class="d" data-o="1" cx="3600" cy="-7650" r="90"/>
+<circle class="d" data-o="1" cx="4050" cy="-7650" r="90"/>
+<circle class="d" data-o="1" cx="4500" cy="-7650" r="90"/>
+<circle class="d" data-o="1" cx="4950" cy="-7650" r="90"/>
+<circle class="d" data-o="1" cx="5400" cy="-7650" r="90"/>
+<circle class="d" data-o="1" cx="5850" cy="-7650" r="90"/>
+<circle class="d" data-o="1" cx="6300" cy="-7650" r="90"/>
+<circle class="d" data-o="1" cx="6750" cy="-7650" r="90"/>
+<circle class="d" data-o="1" cx="7200" cy="-7650" r="90"/>
+<circle class="d" data-o="1" cx="7650" cy="-7650" r="90"/>
+<circle class="d" data-o="1" cx="8100" cy="-7650" r="90"/>
+<circle class="d" data-o="1" cx="8550" cy="-7650" r="90"/>
+<circle class="d" data-o="1" cx="9000" cy="-7650" r="90"/>
+<circle class="d" data-o="1" cx="9450" cy="-7650" r="90"/>
+<circle class="d" data-o="1" cx="9900" cy="-7650" r="90"/>
+<circle class="d" data-o="1" cx="10350" cy="-7650" r="90"/>
+<circle class="d" data-o="1" cx="10800" cy="-7650" r="90"/>
+<circle class="d" data-o="1" cx="11250" cy="-7650" r="90"/>
+<circle class="d" data-o="1" cx="-1350" cy="-7200" r="90"/>
+<circle class="d" data-o="1" cx="-900" cy="-7200" r="90"/>
+<circle class="d" data-o="1" cx="-450" cy="-7200" r="90"/>
+<circle class="d" data-o="1" cy="-7200" r="90"/>
+<circle class="d" data-o="1" cx="450" cy="-7200" r="90"/>
+<circle class="d" data-o="1" cx="900" cy="-7200" r="90"/>
+<circle class="d" data-o="1" cx="1350" cy="-7200" r="90"/>
+<circle class="d" data-o="1" cx="1800" cy="-7200" r="90"/>
+<circle class="d" data-o="1" cx="2250" cy="-7200" r="90"/>
+<circle class="d" data-o="1" cx="2700" cy="-7200" r="90"/>
+<circle class="d" data-o="1" cx="3150" cy="-7200" r="90"/>
+<circle class="d" data-o="1" cx="3600" cy="-7200" r="90"/>
+<circle class="d" data-o="1" cx="4050" cy="-7200" r="90"/>
+<circle class="d" data-o="1" cx="4500" cy="-7200" r="90"/>
+<circle class="d" data-o="1" cx="4950" cy="-7200" r="90"/>
+<circle class="d" data-o="1" cx="5400" cy="-7200" r="90"/>
+<circle class="d" data-o="1" cx="5850" cy="-7200" r="90"/>
+<circle class="d" data-o="1" cx="6300" cy="-7200" r="90"/>
+<circle class="d" data-o="1" cx="6750" cy="-7200" r="90"/>
+<circle class="d" data-o="1" cx="7200" cy="-7200" r="90"/>
+<circle class="d" data-o="1" cx="7650" cy="-7200" r="90"/>
+<circle class="d" data-o="1" cx="8100" cy="-7200" r="90"/>
+<circle class="d" data-o="1" cx="8550" cy="-7200" r="90"/>
+<circle class="d" data-o="1" cx="9000" cy="-7200" r="90"/>
+<circle class="d" data-o="1" cx="9450" cy="-7200" r="90"/>
+<circle class="d" data-o="1" cx="9900" cy="-7200" r="90"/>
+<circle class="d" data-o="1" cx="10350" cy="-7200" r="90"/>
+<circle class="d" data-o="1" cx="10800" cy="-7200" r="90"/>
+<circle class="d" data-o="1" cx="11250" cy="-7200" r="90"/>
+<circle class="d" data-o="1" cx="-1350" cy="-6750" r="90"/>
+<circle class="d" data-o="1" cx="-900" cy="-6750" r="90"/>
+<circle class="d" data-o="1" cx="-450" cy="-6750" r="90"/>
+<circle class="d" data-o="1" cy="-6750" r="90"/>
+<circle class="d" data-o="1" cx="450" cy="-6750" r="90"/>
+<circle class="d" data-o="1" cx="900" cy="-6750" r="90"/>
+<circle class="d" data-o="1" cx="1350" cy="-6750" r="90"/>
+<circle class="d" data-o="1" cx="1800" cy="-6750" r="90"/>
+<circle class="d" data-o="1" cx="2250" cy="-6750" r="90"/>
+<circle class="d" data-o="1" cx="2700" cy="-6750" r="90"/>
+<circle class="d" data-o="1" cx="3150" cy="-6750" r="90"/>
+<circle class="d" data-o="1" cx="3600" cy="-6750" r="90"/>
+<circle class="d" data-o="1" cx="4050" cy="-6750" r="90"/>
+<circle class="d" data-o="1" cx="4500" cy="-6750" r="90"/>
+<circle class="d" data-o="1" cx="4950" cy="-6750" r="90"/>
+<circle class="d" data-o="1" cx="5400" cy="-6750" r="90"/>
+<circle class="d" data-o="1" cx="5850" cy="-6750" r="90"/>
+<circle class="d" data-o="1" cx="6300" cy="-6750" r="90"/>
+<circle class="d" data-o="1" cx="6750" cy="-6750" r="90"/>
+<circle class="d" data-o="1" cx="7200" cy="-6750" r="90"/>
+<circle class="d" data-o="1" cx="7650" cy="-6750" r="90"/>
+<circle class="d" data-o="1" cx="8100" cy="-6750" r="90"/>
+<circle class="d" data-o="1" cx="8550" cy="-6750" r="90"/>
+<circle class="d" data-o="1" cx="9000" cy="-6750" r="90"/>
+<circle class="d" data-o="1" cx="9450" cy="-6750" r="90"/>
+<circle class="d" data-o="1" cx="9900" cy="-6750" r="90"/>
+<circle class="d" data-o="1" cx="10350" cy="-6750" r="90"/>
+<circle class="d" data-o="1" cx="10800" cy="-6750" r="90"/>
+<circle class="d" data-o="1" cx="11250" cy="-6750" r="90"/>
+<circle class="d" data-o="1" cx="-1350" cy="-6300" r="90"/>
+<circle class="d" data-o="1" cx="-900" cy="-6300" r="90"/>
+<circle class="d" data-o="1" cx="-450" cy="-6300" r="90"/>
+<circle class="d" data-o="1" cy="-6300" r="90"/>
+<circle class="d" data-o="1" cx="450" cy="-6300" r="90"/>
+<circle class="d" data-o="1" cx="900" cy="-6300" r="90"/>
+<circle class="d" data-o="1" cx="1350" cy="-6300" r="90"/>
+<circle class="d" data-o="1" cx="1800" cy="-6300" r="90"/>
+<circle class="d" data-o="1" cx="2250" cy="-6300" r="90"/>
+<circle class="d" data-o="1" cx="2700" cy="-6300" r="90"/>
+<circle class="d" data-o="1" cx="3150" cy="-6300" r="90"/>
+<circle class="d" data-o="1" cx="3600" cy="-6300" r="90"/>
+<circle class="d" data-o="1" cx="4050" cy="-6300" r="90"/>
+<circle class="d" data-o="1" cx="4500" cy="-6300" r="90"/>
+<circle class="d" data-o="1" cx="4950" cy="-6300" r="90"/>
+<circle class="d" data-o="1" cx="5400" cy="-6300" r="90"/>
+<circle class="d" data-o="1" cx="5850" cy="-6300" r="90"/>
+<circle class="d" data-o="1" cx="6300" cy="-6300" r="90"/>
+<circle class="d" data-o="1" cx="6750" cy="-6300" r="90"/>
+<circle class="d" data-o="1" cx="7200" cy="-6300" r="90"/>
+<circle class="d" data-o="1" cx="7650" cy="-6300" r="90"/>
+<circle class="d" data-o="1" cx="8100" cy="-6300" r="90"/>
+<circle class="d" data-o="1" cx="8550" cy="-6300" r="90"/>
+<circle class="d" data-o="1" cx="9000" cy="-6300" r="90"/>
+<circle class="d" data-o="1" cx="9450" cy="-6300" r="90"/>
+<circle class="d" data-o="1" cx="9900" cy="-6300" r="90"/>
+<circle class="d" data-o="1" cx="10350" cy="-6300" r="90"/>
+<circle class="d" data-o="1" cx="10800" cy="-6300" r="90"/>
+<circle class="d" data-o="1" cx="11250" cy="-6300" r="90"/>
+<circle class="d" data-o="1" cx="-1350" cy="-5850" r="90"/>
+<circle class="d" data-o="1" cx="-900" cy="-5850" r="90"/>
+<circle class="d" data-o="1" cx="-450" cy="-5850" r="90"/>
+<circle class="d" data-o="1" cy="-5850" r="90"/>
+<circle class="d" data-o="1" cx="450" cy="-5850" r="90"/>
+<circle class="d" data-o="1" cx="900" cy="-5850" r="90"/>
+<circle class="d" data-o="1" cx="1350" cy="-5850" r="90"/>
+<circle class="d" data-o="1" cx="1800" cy="-5850" r="90"/>
+<circle class="d" data-o="1" cx="2250" cy="-5850" r="90"/>
+<circle class="d" data-o="1" cx="2700" cy="-5850" r="90"/>
+<circle class="d" data-o="1" cx="3150" cy="-5850" r="90"/>
+<circle class="d" data-o="1" cx="3600" cy="-5850" r="90"/>
+<circle class="d" data-o="1" cx="4050" cy="-5850" r="90"/>
+<circle class="d" data-o="1" cx="4500" cy="-5850" r="90"/>
+<circle class="d" data-o="1" cx="4950" cy="-5850" r="90"/>
+<circle class="d" data-o="1" cx="5400" cy="-5850" r="90"/>
+<circle class="d" data-o="1" cx="5850" cy="-5850" r="90"/>
+<circle class="d" data-o="1" cx="6300" cy="-5850" r="90"/>
+<circle class="d" data-o="1" cx="6750" cy="-5850" r="90"/>
+<circle class="d" data-o="1" cx="7200" cy="-5850" r="90"/>
+<circle class="d" data-o="1" cx="7650" cy="-5850" r="90"/>
+<circle class="d" data-o="1" cx="8100" cy="-5850" r="90"/>
+<circle class="d" data-o="1" cx="8550" cy="-5850" r="90"/>
+<circle class="d" data-o="1" cx="9000" cy="-5850" r="90"/>
+<circle class="d" data-o="1" cx="9450" cy="-5850" r="90"/>
+<circle class="d" data-o="1" cx="9900" cy="-5850" r="90"/>
+<circle class="d" data-o="1" cx="10350" cy="-5850" r="90"/>
+<circle class="d" data-o="1" cx="10800" cy="-5850" r="90"/>
+<circle class="d" data-o="1" cx="11250" cy="-5850" r="90"/>
+<circle class="d" data-o="1" cx="-1350" cy="-5400" r="90"/>
+<circle class="d" data-o="1" cx="-900" cy="-5400" r="90"/>
+<circle class="d" data-o="1" cx="-450" cy="-5400" r="90"/>
+<circle class="d" data-o="1" cy="-5400" r="90"/>
+<circle class="d" data-o="1" cx="450" cy="-5400" r="90"/>
+<circle class="d" data-o="1" cx="900" cy="-5400" r="90"/>
+<circle class="d" data-o="1" cx="1350" cy="-5400" r="90"/>
+<circle class="d" data-o="1" cx="1800" cy="-5400" r="90"/>
+<circle class="d" data-o="1" cx="2250" cy="-5400" r="90"/>
+<circle class="d" data-o="1" cx="2700" cy="-5400" r="90"/>
+<circle class="d" data-o="1" cx="3150" cy="-5400" r="90"/>
+<circle class="d" data-o="1" cx="3600" cy="-5400" r="90"/>
+<circle class="d" data-o="1" cx="4050" cy="-5400" r="90"/>
+<circle class="d" data-o="1" cx="4500" cy="-5400" r="90"/>
+<circle class="d" data-o="1" cx="4950" cy="-5400" r="90"/>
+<circle class="d" data-o="1" cx="5400" cy="-5400" r="90"/>
+<circle class="d" data-o="1" cx="5850" cy="-5400" r="90"/>
+<circle class="d" data-o="1" cx="6300" cy="-5400" r="90"/>
+<circle class="d" data-o="1" cx="6750" cy="-5400" r="90"/>
+<circle class="d" data-o="1" cx="7200" cy="-5400" r="90"/>
+<circle class="d" data-o="1" cx="7650" cy="-5400" r="90"/>
+<circle class="d" data-o="1" cx="8100" cy="-5400" r="90"/>
+<circle class="d" data-o="1" cx="8550" cy="-5400" r="90"/>
+<circle class="d" data-o="1" cx="9000" cy="-5400" r="90"/>
+<circle class="d" data-o="1" cx="9450" cy="-5400" r="90"/>
+<circle class="d" data-o="1" cx="9900" cy="-5400" r="90"/>
+<circle class="d" data-o="1" cx="10350" cy="-5400" r="90"/>
+<circle class="d" data-o="1" cx="10800" cy="-5400" r="90"/>
+<circle class="d" data-o="1" cx="11250" cy="-5400" r="90"/>
+<circle class="d" data-o="1" cx="-1350" cy="-4950" r="90"/>
+<circle class="d" data-o="1" cx="-900" cy="-4950" r="90"/>
+<circle class="d" data-o="1" cx="-450" cy="-4950" r="90"/>
+<circle class="d" data-o="1" cy="-4950" r="90"/>
+<circle class="d" data-o="1" cx="450" cy="-4950" r="90"/>
+<circle class="d" data-o="1" cx="900" cy="-4950" r="90"/>
+<circle class="d" data-o="1" cx="1350" cy="-4950" r="90"/>
+<circle class="d" data-o="1" cx="1800" cy="-4950" r="90"/>
+<circle class="d" data-o="1" cx="2250" cy="-4950" r="90"/>
+<circle class="d" data-o="1" cx="2700" cy="-4950" r="90"/>
+<circle class="d" data-o="1" cx="3150" cy="-4950" r="90"/>
+<circle class="d" data-o="1" cx="3600" cy="-4950" r="90"/>
+<circle class="d" data-o="1" cx="4050" cy="-4950" r="90"/>
+<circle class="d" data-o="1" cx="4500" cy="-4950" r="90"/>
+<circle class="d" data-o="1" cx="4950" cy="-4950" r="90"/>
+<circle class="d" data-o="1" cx="5400" cy="-4950" r="90"/>
+<circle class="d" data-o="1" cx="5850" cy="-4950" r="90"/>
+<circle class="d" data-o="1" cx="6300" cy="-4950" r="90"/>
+<circle class="d" data-o="1" cx="6750" cy="-4950" r="90"/>
+<circle class="d" data-o="1" cx="7200" cy="-4950" r="90"/>
+<circle class="d" data-o="1" cx="7650" cy="-4950" r="90"/>
+<circle class="d" data-o="1" cx="8100" cy="-4950" r="90"/>
+<circle class="d" data-o="1" cx="8550" cy="-4950" r="90"/>
+<circle class="d" data-o="1" cx="9000" cy="-4950" r="90"/>
+<circle class="d" data-o="1" cx="9450" cy="-4950" r="90"/>
+<circle class="d" data-o="1" cx="9900" cy="-4950" r="90"/>
+<circle class="d" data-o="1" cx="10350" cy="-4950" r="90"/>
+<circle class="d" data-o="1" cx="10800" cy="-4950" r="90"/>
+<circle class="d" data-o="1" cx="11250" cy="-4950" r="90"/>
+<circle class="d" data-o="1" cx="-1350" cy="-4500" r="90"/>
+<circle class="d" data-o="1" cx="-900" cy="-4500" r="90"/>
+<circle class="d" data-o="1" cx="-450" cy="-4500" r="90"/>
+<circle class="d" data-o="1" cy="-4500" r="90"/>
+<circle class="d" data-o="1" cx="450" cy="-4500" r="90"/>
+<circle class="d" data-o="1" cx="900" cy="-4500" r="90"/>
+<circle class="d" data-o="1" cx="1350" cy="-4500" r="90"/>
+<circle class="d" data-o="1" cx="1800" cy="-4500" r="90"/>
+<circle class="d" data-o="1" cx="2250" cy="-4500" r="90"/>
+<circle class="d" data-o="1" cx="2700" cy="-4500" r="90"/>
+<circle class="d" data-o="1" cx="3150" cy="-4500" r="90"/>
+<circle class="d" data-o="1" cx="3600" cy="-4500" r="90"/>
+<circle class="d" data-o="1" cx="4050" cy="-4500" r="90"/>
+<circle class="d" data-o="1" cx="4500" cy="-4500" r="90"/>
+<circle class="d" data-o="1" cx="4950" cy="-4500" r="90"/>
+<circle class="d" data-o="1" cx="5400" cy="-4500" r="90"/>
+<circle class="d" data-o="1" cx="5850" cy="-4500" r="90"/>
+<circle class="d" data-o="1" cx="6300" cy="-4500" r="90"/>
+<circle class="d" data-o="1" cx="6750" cy="-4500" r="90"/>
+<circle class="d" data-o="1" cx="7200" cy="-4500" r="90"/>
+<circle class="d" data-o="1" cx="7650" cy="-4500" r="90"/>
+<circle class="d" data-o="1" cx="8100" cy="-4500" r="90"/>
+<circle class="d" data-o="1" cx="8550" cy="-4500" r="90"/>
+<circle class="d" data-o="1" cx="9000" cy="-4500" r="90"/>
+<circle class="d" data-o="1" cx="9450" cy="-4500" r="90"/>
+<circle class="d" data-o="1" cx="9900" cy="-4500" r="90"/>
+<circle class="d" data-o="1" cx="10350" cy="-4500" r="90"/>
+<circle class="d" data-o="1" cx="10800" cy="-4500" r="90"/>
+<circle class="d" data-o="1" cx="11250" cy="-4500" r="90"/>
+<circle class="d" data-o="1" cx="-1350" cy="-4050" r="90"/>
+<circle class="d" data-o="1" cx="-900" cy="-4050" r="90"/>
+<circle class="d" data-o="1" cx="-450" cy="-4050" r="90"/>
+<circle class="d" data-o="1" cy="-4050" r="90"/>
+<circle class="d" data-o="1" cx="450" cy="-4050" r="90"/>
+<circle class="d" data-o="1" cx="900" cy="-4050" r="90"/>
+<circle class="d" data-o="1" cx="1350" cy="-4050" r="90"/>
+<circle class="d" data-o="1" cx="1800" cy="-4050" r="90"/>
+<circle class="d" data-o="1" cx="2250" cy="-4050" r="90"/>
+<circle class="d" data-o="1" cx="2700" cy="-4050" r="90"/>
+<circle class="d" data-o="1" cx="3150" cy="-4050" r="90"/>
+<circle class="d" data-o="1" cx="3600" cy="-4050" r="90"/>
+<circle class="d" data-o="1" cx="4050" cy="-4050" r="90"/>
+<circle class="d" data-o="1" cx="4500" cy="-4050" r="90"/>
+<circle class="d" data-o="1" cx="4950" cy="-4050" r="90"/>
+<circle class="d" data-o="1" cx="5400" cy="-4050" r="90"/>
+<circle class="d" data-o="1" cx="5850" cy="-4050" r="90"/>
+<circle class="d" data-o="1" cx="6300" cy="-4050" r="90"/>
+<circle class="d" data-o="1" cx="6750" cy="-4050" r="90"/>
+<circle class="d" data-o="1" cx="7200" cy="-4050" r="90"/>
+<circle class="d" data-o="1" cx="7650" cy="-4050" r="90"/>
+<circle class="d" data-o="1" cx="8100" cy="-4050" r="90"/>
+<circle class="d" data-o="1" cx="8550" cy="-4050" r="90"/>
+<circle class="d" data-o="1" cx="9000" cy="-4050" r="90"/>
+<circle class="d" data-o="1" cx="9450" cy="-4050" r="90"/>
+<circle class="d" data-o="1" cx="9900" cy="-4050" r="90"/>
+<circle class="d" data-o="1" cx="10350" cy="-4050" r="90"/>
+<circle class="d" data-o="1" cx="10800" cy="-4050" r="90"/>
+<circle class="d" data-o="1" cx="11250" cy="-4050" r="90"/>
+<circle class="d" data-o="1" cx="-1350" cy="-3600" r="90"/>
+<circle class="d" data-o="1" cx="-900" cy="-3600" r="90"/>
+<circle class="d" data-o="1" cx="-450" cy="-3600" r="90"/>
+<circle class="d" data-o="1" cy="-3600" r="90"/>
+<circle class="d" data-o="1" cx="450" cy="-3600" r="90"/>
+<circle class="d" data-o="1" cx="900" cy="-3600" r="90"/>
+<circle class="d" data-o="1" cx="1350" cy="-3600" r="90"/>
+<circle class="d" data-o="1" cx="1800" cy="-3600" r="90"/>
+<circle class="d" data-o="1" cx="2250" cy="-3600" r="90"/>
+<circle class="d" data-o="1" cx="2700" cy="-3600" r="90"/>
+<circle class="d" data-o="1" cx="3150" cy="-3600" r="90"/>
+<circle class="d" data-o="1" cx="3600" cy="-3600" r="90"/>
+<circle class="d" data-o="1" cx="4050" cy="-3600" r="90"/>
+<circle class="d" data-o="1" cx="4500" cy="-3600" r="90"/>
+<circle class="d" data-o="1" cx="4950" cy="-3600" r="90"/>
+<circle class="d" data-o="1" cx="5400" cy="-3600" r="90"/>
+<circle class="d" data-o="1" cx="5850" cy="-3600" r="90"/>
+<circle class="d" data-o="1" cx="6300" cy="-3600" r="90"/>
+<circle class="d" data-o="1" cx="6750" cy="-3600" r="90"/>
+<circle class="d" data-o="1" cx="7200" cy="-3600" r="90"/>
+<circle class="d" data-o="1" cx="7650" cy="-3600" r="90"/>
+<circle class="d" data-o="1" cx="8100" cy="-3600" r="90"/>
+<circle class="d" data-o="1" cx="8550" cy="-3600" r="90"/>
+<circle class="d" data-o="1" cx="9000" cy="-3600" r="90"/>
+<circle class="d" data-o="1" cx="9450" cy="-3600" r="90"/>
+<circle class="d" data-o="1" cx="9900" cy="-3600" r="90"/>
+<circle class="d" data-o="1" cx="10350" cy="-3600" r="90"/>
+<circle class="d" data-o="1" cx="10800" cy="-3600" r="90"/>
+<circle class="d" data-o="1" cx="11250" cy="-3600" r="90"/>
+<circle class="d" data-o="1" cx="-1350" cy="-3150" r="90"/>
+<circle class="d" data-o="1" cx="-900" cy="-3150" r="90"/>
+<circle class="d" data-o="1" cx="-450" cy="-3150" r="90"/>
+<circle class="d" data-o="1" cy="-3150" r="90"/>
+<circle class="d" data-o="1" cx="450" cy="-3150" r="90"/>
+<circle class="d" data-o="1" cx="900" cy="-3150" r="90"/>
+<circle class="d" data-o="1" cx="1350" cy="-3150" r="90"/>
+<circle class="d" data-o="1" cx="1800" cy="-3150" r="90"/>
+<circle class="d" data-o="1" cx="2250" cy="-3150" r="90"/>
+<circle class="d" data-o="1" cx="2700" cy="-3150" r="90"/>
+<circle class="d" data-o="1" cx="3150" cy="-3150" r="90"/>
+<circle class="d" data-o="1" cx="3600" cy="-3150" r="90"/>
+<circle class="d" data-o="1" cx="4050" cy="-3150" r="90"/>
+<circle class="d" data-o="1" cx="4500" cy="-3150" r="90"/>
+<circle class="d" data-o="1" cx="4950" cy="-3150" r="90"/>
+<circle class="d" data-o="1" cx="5400" cy="-3150" r="90"/>
+<circle class="d" data-o="1" cx="5850" cy="-3150" r="90"/>
+<circle class="d" data-o="1" cx="6300" cy="-3150" r="90"/>
+<circle class="d" data-o="1" cx="6750" cy="-3150" r="90"/>
+<circle class="d" data-o="1" cx="7200" cy="-3150" r="90"/>
+<circle class="d" data-o="1" cx="7650" cy="-3150" r="90"/>
+<circle class="d" data-o="1" cx="8100" cy="-3150" r="90"/>
+<circle class="d" data-o="1" cx="8550" cy="-3150" r="90"/>
+<circle class="d" data-o="1" cx="9000" cy="-3150" r="90"/>
+<circle class="d" data-o="1" cx="9450" cy="-3150" r="90"/>
+<circle class="d" data-o="1" cx="9900" cy="-3150" r="90"/>
+<circle class="d" data-o="1" cx="10350" cy="-3150" r="90"/>
+<circle class="d" data-o="1" cx="10800" cy="-3150" r="90"/>
+<circle class="d" data-o="1" cx="11250" cy="-3150" r="90"/>
+<circle class="d" data-o="1" cx="-1350" cy="-2700" r="90"/>
+<circle class="d" data-o="1" cx="-900" cy="-2700" r="90"/>
+<circle class="d" data-o="1" cx="-450" cy="-2700" r="90"/>
+<circle class="d" data-o="1" cy="-2700" r="90"/>
+<circle class="d" data-o="1" cx="450" cy="-2700" r="90"/>
+<circle class="d" data-o="1" cx="900" cy="-2700" r="90"/>
+<circle class="d" data-o="1" cx="1350" cy="-2700" r="90"/>
+<circle class="d" data-o="1" cx="1800" cy="-2700" r="90"/>
+<circle class="d" data-o="1" cx="2250" cy="-2700" r="90"/>
+<circle class="d" data-o="1" cx="2700" cy="-2700" r="90"/>
+<circle class="d" data-o="1" cx="3150" cy="-2700" r="90"/>
+<circle class="d" data-o="1" cx="3600" cy="-2700" r="90"/>
+<circle class="d" data-o="1" cx="4050" cy="-2700" r="90"/>
+<circle class="d" data-o="1" cx="4500" cy="-2700" r="90"/>
+<circle class="d" data-o="1" cx="4950" cy="-2700" r="90"/>
+<circle class="d" data-o="1" cx="5400" cy="-2700" r="90"/>
+<circle class="d" data-o="1" cx="5850" cy="-2700" r="90"/>
+<circle class="d" data-o="1" cx="6300" cy="-2700" r="90"/>
+<circle class="d" data-o="1" cx="6750" cy="-2700" r="90"/>
+<circle class="d" data-o="1" cx="7200" cy="-2700" r="90"/>
+<circle class="d" data-o="1" cx="7650" cy="-2700" r="90"/>
+<circle class="d" data-o="1" cx="8100" cy="-2700" r="90"/>
+<circle class="d" data-o="1" cx="8550" cy="-2700" r="90"/>
+<circle class="d" data-o="1" cx="9000" cy="-2700" r="90"/>
+<circle class="d" data-o="1" cx="9450" cy="-2700" r="90"/>
+<circle class="d" data-o="1" cx="9900" cy="-2700" r="90"/>
+<circle class="d" data-o="1" cx="10350" cy="-2700" r="90"/>
+<circle class="d" data-o="1" cx="10800" cy="-2700" r="90"/>
+<circle class="d" data-o="1" cx="11250" cy="-2700" r="90"/>
+<circle class="d" data-o="1" cx="-1350" cy="-2250" r="90"/>
+<circle class="d" data-o="1" cx="-900" cy="-2250" r="90"/>
+<circle class="d" data-o="1" cx="-450" cy="-2250" r="90"/>
+<circle class="d" data-o="1" cy="-2250" r="90"/>
+<circle class="d" data-o="1" cx="450" cy="-2250" r="90"/>
+<circle class="d" data-o="1" cx="900" cy="-2250" r="90"/>
+<circle class="d" data-o="1" cx="1350" cy="-2250" r="90"/>
+<circle class="d" data-o="1" cx="1800" cy="-2250" r="90"/>
+<circle class="d" data-o="1" cx="2250" cy="-2250" r="90"/>
+<circle class="d" data-o="1" cx="2700" cy="-2250" r="90"/>
+<circle class="d" data-o="1" cx="3150" cy="-2250" r="90"/>
+<circle class="d" data-o="1" cx="3600" cy="-2250" r="90"/>
+<circle class="d" data-o="1" cx="4050" cy="-2250" r="90"/>
+<circle class="d" data-o="1" cx="4500" cy="-2250" r="90"/>
+<circle class="d" data-o="1" cx="4950" cy="-2250" r="90"/>
+<circle class="d" data-o="1" cx="5400" cy="-2250" r="90"/>
+<circle class="d" data-o="1" cx="5850" cy="-2250" r="90"/>
+<circle class="d" data-o="1" cx="6300" cy="-2250" r="90"/>
+<circle class="d" data-o="1" cx="6750" cy="-2250" r="90"/>
+<circle class="d" data-o="1" cx="7200" cy="-2250" r="90"/>
+<circle class="d" data-o="1" cx="7650" cy="-2250" r="90"/>
+<circle class="d" data-o="1" cx="8100" cy="-2250" r="90"/>
+<circle class="d" data-o="1" cx="8550" cy="-2250" r="90"/>
+<circle class="d" data-o="1" cx="9000" cy="-2250" r="90"/>
+<circle class="d" data-o="1" cx="9450" cy="-2250" r="90"/>
+<circle class="d" data-o="1" cx="9900" cy="-2250" r="90"/>
+<circle class="d" data-o="1" cx="10350" cy="-2250" r="90"/>
+<circle class="d" data-o="1" cx="10800" cy="-2250" r="90"/>
+<circle class="d" data-o="1" cx="11250" cy="-2250" r="90"/>
+<circle class="d" data-o="1" cx="-1350" cy="-1800" r="90"/>
+<circle class="d" data-o="1" cx="-900" cy="-1800" r="90"/>
+<circle class="d" data-o="1" cx="-450" cy="-1800" r="90"/>
+<circle class="d" data-o="1" cy="-1800" r="90"/>
+<circle class="d" data-o="1" cx="450" cy="-1800" r="90"/>
+<circle class="d" data-o="1" cx="900" cy="-1800" r="90"/>
+<circle class="d" data-o="1" cx="1350" cy="-1800" r="90"/>
+<circle class="d" data-o="1" cx="1800" cy="-1800" r="90"/>
+<circle class="d" data-o="1" cx="2250" cy="-1800" r="90"/>
+<circle class="d" data-o="1" cx="2700" cy="-1800" r="90"/>
+<circle class="d" data-o="1" cx="3150" cy="-1800" r="90"/>
+<circle class="d" data-o="1" cx="3600" cy="-1800" r="90"/>
+<circle class="d" data-o="1" cx="4050" cy="-1800" r="90"/>
+<circle class="d" data-o="1" cx="4500" cy="-1800" r="90"/>
+<circle class="d" data-o="1" cx="4950" cy="-1800" r="90"/>
+<circle class="d" data-o="1" cx="5400" cy="-1800" r="90"/>
+<circle class="d" data-o="1" cx="5850" cy="-1800" r="90"/>
+<circle class="d" data-o="1" cx="6300" cy="-1800" r="90"/>
+<circle class="d" data-o="1" cx="6750" cy="-1800" r="90"/>
+<circle class="d" data-o="1" cx="7200" cy="-1800" r="90"/>
+<circle class="d" data-o="1" cx="7650" cy="-1800" r="90"/>
+<circle class="d" data-o="1" cx="8100" cy="-1800" r="90"/>
+<circle class="d" data-o="1" cx="8550" cy="-1800" r="90"/>
+<circle class="d" data-o="1" cx="9000" cy="-1800" r="90"/>
+<circle class="d" data-o="1" cx="9450" cy="-1800" r="90"/>
+<circle class="d" data-o="1" cx="9900" cy="-1800" r="90"/>
+<circle class="d" data-o="1" cx="10350" cy="-1800" r="90"/>
+<circle class="d" data-o="1" cx="10800" cy="-1800" r="90"/>
+<circle class="d" data-o="1" cx="11250" cy="-1800" r="90"/>
+<circle class="d" data-o="1" cx="-1350" cy="-1350" r="90"/>
+<circle class="d" data-o="1" cx="-900" cy="-1350" r="90"/>
+<circle class="d" data-o="1" cx="-450" cy="-1350" r="90"/>
+<circle class="d" data-o="1" cy="-1350" r="90"/>
+<circle class="d" data-o="1" cx="450" cy="-1350" r="90"/>
+<circle class="d" data-o="1" cx="900" cy="-1350" r="90"/>
+<circle class="d" data-o="1" cx="1350" cy="-1350" r="90"/>
+<circle class="d" data-o="1" cx="1800" cy="-1350" r="90"/>
+<circle class="d" data-o="1" cx="2250" cy="-1350" r="90"/>
+<circle class="d" data-o="1" cx="2700" cy="-1350" r="90"/>
+<circle class="d" data-o="1" cx="3150" cy="-1350" r="90"/>
+<circle class="d" data-o="1" cx="3600" cy="-1350" r="90"/>
+<circle class="d" data-o="1" cx="4050" cy="-1350" r="90"/>
+<circle class="d" data-o="1" cx="4500" cy="-1350" r="90"/>
+<circle class="d" data-o="1" cx="4950" cy="-1350" r="90"/>
+<circle class="d" data-o="1" cx="5400" cy="-1350" r="90"/>
+<circle class="d" data-o="1" cx="5850" cy="-1350" r="90"/>
+<circle class="d" data-o="1" cx="6300" cy="-1350" r="90"/>
+<circle class="d" data-o="1" cx="6750" cy="-1350" r="90"/>
+<circle class="d" data-o="1" cx="7200" cy="-1350" r="90"/>
+<circle class="d" data-o="1" cx="7650" cy="-1350" r="90"/>
+<circle class="d" data-o="1" cx="8100" cy="-1350" r="90"/>
+<circle class="d" data-o="1" cx="8550" cy="-1350" r="90"/>
+<circle class="d" data-o="1" cx="9000" cy="-1350" r="90"/>
+<circle class="d" data-o="1" cx="9450" cy="-1350" r="90"/>
+<circle class="d" data-o="1" cx="9900" cy="-1350" r="90"/>
+<circle class="d" data-o="1" cx="10350" cy="-1350" r="90"/>
+<circle class="d" data-o="1" cx="10800" cy="-1350" r="90"/>
+<circle class="d" data-o="1" cx="11250" cy="-1350" r="90"/>
+<circle class="d" data-o="1" cx="-1350" cy="-900" r="90"/>
+<circle class="d" data-o="1" cx="-900" cy="-900" r="90"/>
+<circle class="d" data-o="1" cx="-450" cy="-900" r="90"/>
+<circle class="d" data-o="1" cy="-900" r="90"/>
+<circle class="d" data-o="1" cx="450" cy="-900" r="90"/>
+<circle class="d" data-o="1" cx="900" cy="-900" r="90"/>
+<circle class="d" data-o="1" cx="1350" cy="-900" r="90"/>
+<circle class="d" data-o="1" cx="1800" cy="-900" r="90"/>
+<circle class="d" data-o="1" cx="2250" cy="-900" r="90"/>
+<circle class="d" data-o="1" cx="2700" cy="-900" r="90"/>
+<circle class="d" data-o="1" cx="3150" cy="-900" r="90"/>
+<circle class="d" data-o="1" cx="3600" cy="-900" r="90"/>
+<circle class="d" data-o="1" cx="4050" cy="-900" r="90"/>
+<circle class="d" data-o="1" cx="4500" cy="-900" r="90"/>
+<circle class="d" data-o="1" cx="4950" cy="-900" r="90"/>
+<circle class="d" data-o="1" cx="5400" cy="-900" r="90"/>
+<circle class="d" data-o="1" cx="5850" cy="-900" r="90"/>
+<circle class="d" data-o="1" cx="6300" cy="-900" r="90"/>
+<circle class="d" data-o="1" cx="6750" cy="-900" r="90"/>
+<circle class="d" data-o="1" cx="7200" cy="-900" r="90"/>
+<circle class="d" data-o="1" cx="7650" cy="-900" r="90"/>
+<circle class="d" data-o="1" cx="8100" cy="-900" r="90"/>
+<circle class="d" data-o="1" cx="8550" cy="-900" r="90"/>
+<circle class="d" data-o="1" cx="9000" cy="-900" r="90"/>
+<circle class="d" data-o="1" cx="9450" cy="-900" r="90"/>
+<circle class="d" data-o="1" cx="9900" cy="-900" r="90"/>
+<circle class="d" data-o="1" cx="10350" cy="-900" r="90"/>
+<circle class="d" data-o="1" cx="10800" cy="-900" r="90"/>
+<circle class="d" data-o="1" cx="11250" cy="-900" r="90"/>
+<circle class="d" data-o="1" cx="-1350" cy="-450" r="90"/>
+<circle class="d" data-o="1" cx="-900" cy="-450" r="90"/>
+<circle class="d" data-o="1" cx="-450" cy="-450" r="90"/>
+<circle class="d" data-o="1" cy="-450" r="90"/>
+<circle class="d" data-o="1" cx="450" cy="-450" r="90"/>
+<circle class="d" data-o="1" cx="900" cy="-450" r="90"/>
+<circle class="d" data-o="1" cx="1350" cy="-450" r="90"/>
+<circle class="d" data-o="1" cx="1800" cy="-450" r="90"/>
+<circle class="d" data-o="1" cx="2250" cy="-450" r="90"/>
+<circle class="d" data-o="1" cx="2700" cy="-450" r="90"/>
+<circle class="d" data-o="1" cx="3150" cy="-450" r="90"/>
+<circle class="d" data-o="1" cx="3600" cy="-450" r="90"/>
+<circle class="d" data-o="1" cx="4050" cy="-450" r="90"/>
+<circle class="d" data-o="1" cx="4500" cy="-450" r="90"/>
+<circle class="d" data-o="1" cx="4950" cy="-450" r="90"/>
+<circle class="d" data-o="1" cx="5400" cy="-450" r="90"/>
+<circle class="d" data-o="1" cx="5850" cy="-450" r="90"/>
+<circle class="d" data-o="1" cx="6300" cy="-450" r="90"/>
+<circle class="d" data-o="1" cx="6750" cy="-450" r="90"/>
+<circle class="d" data-o="1" cx="7200" cy="-450" r="90"/>
+<circle class="d" data-o="1" cx="7650" cy="-450" r="90"/>
+<circle class="d" data-o="1" cx="8100" cy="-450" r="90"/>
+<circle class="d" data-o="1" cx="8550" cy="-450" r="90"/>
+<circle class="d" data-o="1" cx="9000" cy="-450" r="90"/>
+<circle class="d" data-o="1" cx="9450" cy="-450" r="90"/>
+<circle class="d" data-o="1" cx="9900" cy="-450" r="90"/>
+<circle class="d" data-o="1" cx="10350" cy="-450" r="90"/>
+<circle class="d" data-o="1" cx="10800" cy="-450" r="90"/>
+<circle class="d" data-o="1" cx="11250" cy="-450" r="90"/>
+<circle class="d" data-o="1" cx="-1350" r="90"/>
+<circle class="d" data-o="1" cx="-900" r="90"/>
+<circle class="d" data-o="1" cx="-450" r="90"/>
+<circle class="d" data-o="1" r="90"/>
+<circle class="d" data-o="1" cx="450" r="90"/>
+<circle class="d" data-o="1" cx="900" r="90"/>
+<circle class="d" data-o="1" cx="1350" r="90"/>
+<circle class="d" data-o="1" cx="1800" r="90"/>
+<circle class="d" data-o="1" cx="2250" r="90"/>
+<circle class="d" data-o="1" cx="2700" r="90"/>
+<circle class="d" data-o="1" cx="3150" r="90"/>
+<circle class="d" data-o="1" cx="3600" r="90"/>
+<circle class="d" data-o="1" cx="4050" r="90"/>
+<circle class="d" data-o="1" cx="4500" r="90"/>
+<circle class="d" data-o="1" cx="4950" r="90"/>
+<circle class="d" data-o="1" cx="5400" r="90"/>
+<circle class="d" data-o="1" cx="5850" r="90"/>
+<circle class="d" data-o="1" cx="6300" r="90"/>
+<circle class="d" data-o="1" cx="6750" r="90"/>
+<circle class="d" data-o="1" cx="7200" r="90"/>
+<circle class="d" data-o="1" cx="7650" r="90"/>
+<circle class="d" data-o="1" cx="8100" r="90"/>
+<circle class="d" data-o="1" cx="8550" r="90"/>
+<circle class="d" data-o="1" cx="9000" r="90"/>
+<circle class="d" data-o="1" cx="9450" r="90"/>
+<circle class="d" data-o="1" cx="9900" r="90"/>
+<circle class="d" data-o="1" cx="10350" r="90"/>
+<circle class="d" data-o="1" cx="10800" r="90"/>
+<circle class="d" data-o="1" cx="11250" r="90"/>
+<circle class="d" data-o="1" cx="-1350" cy="450" r="90"/>
+<circle class="d" data-o="1" cx="-900" cy="450" r="90"/>
+<circle class="d" data-o="1" cx="-450" cy="450" r="90"/>
+<circle class="d" data-o="1" cy="450" r="90"/>
+<circle class="d" data-o="1" cx="450" cy="450" r="90"/>
+<circle class="d" data-o="1" cx="900" cy="450" r="90"/>
+<circle class="d" data-o="1" cx="1350" cy="450" r="90"/>
+<circle class="d" data-o="1" cx="1800" cy="450" r="90"/>
+<circle class="d" data-o="1" cx="2250" cy="450" r="90"/>
+<circle class="d" data-o="1" cx="2700" cy="450" r="90"/>
+<circle class="d" data-o="1" cx="3150" cy="450" r="90"/>
+<circle class="d" data-o="1" cx="3600" cy="450" r="90"/>
+<circle class="d" data-o="1" cx="4050" cy="450" r="90"/>
+<circle class="d" data-o="1" cx="4500" cy="450" r="90"/>
+<circle class="d" data-o="1" cx="4950" cy="450" r="90"/>
+<circle class="d" data-o="1" cx="5400" cy="450" r="90"/>
+<circle class="d" data-o="1" cx="5850" cy="450" r="90"/>
+<circle class="d" data-o="1" cx="6300" cy="450" r="90"/>
+<circle class="d" data-o="1" cx="6750" cy="450" r="90"/>
+<circle class="d" data-o="1" cx="7200" cy="450" r="90"/>
+<circle class="d" data-o="1" cx="7650" cy="450" r="90"/>
+<circle class="d" data-o="1" cx="8100" cy="450" r="90"/>
+<circle class="d" data-o="1" cx="8550" cy="450" r="90"/>
+<circle class="d" data-o="1" cx="9000" cy="450" r="90"/>
+<circle class="d" data-o="1" cx="9450" cy="450" r="90"/>
+<circle class="d" data-o="1" cx="9900" cy="450" r="90"/>
+<circle class="d" data-o="1" cx="10350" cy="450" r="90"/>
+<circle class="d" data-o="1" cx="10800" cy="450" r="90"/>
+<circle class="d" data-o="1" cx="11250" cy="450" r="90"/>
+<circle class="d" data-o="1" cx="-1350" cy="900" r="90"/>
+<circle class="d" data-o="1" cx="-900" cy="900" r="90"/>
+<circle class="d" data-o="1" cx="-450" cy="900" r="90"/>
+<circle class="d" data-o="1" cy="900" r="90"/>
+<circle class="d" data-o="1" cx="450" cy="900" r="90"/>
+<circle class="d" data-o="1" cx="900" cy="900" r="90"/>
+<circle class="d" data-o="1" cx="1350" cy="900" r="90"/>
+<circle class="d" data-o="1" cx="1800" cy="900" r="90"/>
+<circle class="d" data-o="1" cx="2250" cy="900" r="90"/>
+<circle class="d" data-o="1" cx="2700" cy="900" r="90"/>
+<circle class="d" data-o="1" cx="3150" cy="900" r="90"/>
+<circle class="d" data-o="1" cx="3600" cy="900" r="90"/>
+<circle class="d" data-o="1" cx="4050" cy="900" r="90"/>
+<circle class="d" data-o="1" cx="4500" cy="900" r="90"/>
+<circle class="d" data-o="1" cx="4950" cy="900" r="90"/>
+<circle class="d" data-o="1" cx="5400" cy="900" r="90"/>
+<circle class="d" data-o="1" cx="5850" cy="900" r="90"/>
+<circle class="d" data-o="1" cx="6300" cy="900" r="90"/>
+<circle class="d" data-o="1" cx="6750" cy="900" r="90"/>
+<circle class="d" data-o="1" cx="7200" cy="900" r="90"/>
+<circle class="d" data-o="1" cx="7650" cy="900" r="90"/>
+<circle class="d" data-o="1" cx="8100" cy="900" r="90"/>
+<circle class="d" data-o="1" cx="8550" cy="900" r="90"/>
+<circle class="d" data-o="1" cx="9000" cy="900" r="90"/>
+<circle class="d" data-o="1" cx="9450" cy="900" r="90"/>
+<circle class="d" data-o="1" cx="9900" cy="900" r="90"/>
+<circle class="d" data-o="1" cx="10350" cy="900" r="90"/>
+<circle class="d" data-o="1" cx="10800" cy="900" r="90"/>
+<circle class="d" data-o="1" cx="11250" cy="900" r="90"/>
+<circle class="d" data-o="1" cx="-1350" cy="1350" r="90"/>
+<circle class="d" data-o="1" cx="-900" cy="1350" r="90"/>
+<circle class="d" data-o="1" cx="-450" cy="1350" r="90"/>
+<circle class="d" data-o="1" cy="1350" r="90"/>
+<circle class="d" data-o="1" cx="450" cy="1350" r="90"/>
+<circle class="d" data-o="1" cx="900" cy="1350" r="90"/>
+<circle class="d" data-o="1" cx="1350" cy="1350" r="90"/>
+<circle class="d" data-o="1" cx="1800" cy="1350" r="90"/>
+<circle class="d" data-o="1" cx="2250" cy="1350" r="90"/>
+<circle class="d" data-o="1" cx="2700" cy="1350" r="90"/>
+<circle class="d" data-o="1" cx="3150" cy="1350" r="90"/>
+<circle class="d" data-o="1" cx="3600" cy="1350" r="90"/>
+<circle class="d" data-o="1" cx="4050" cy="1350" r="90"/>
+<circle class="d" data-o="1" cx="4500" cy="1350" r="90"/>
+<circle class="d" data-o="1" cx="4950" cy="1350" r="90"/>
+<circle class="d" data-o="1" cx="5400" cy="1350" r="90"/>
+<circle class="d" data-o="1" cx="5850" cy="1350" r="90"/>
+<circle class="d" data-o="1" cx="6300" cy="1350" r="90"/>
+<circle class="d" data-o="1" cx="6750" cy="1350" r="90"/>
+<circle class="d" data-o="1" cx="7200" cy="1350" r="90"/>
+<circle class="d" data-o="1" cx="7650" cy="1350" r="90"/>
+<circle class="d" data-o="1" cx="8100" cy="1350" r="90"/>
+<circle class="d" data-o="1" cx="8550" cy="1350" r="90"/>
+<circle class="d" data-o="1" cx="9000" cy="1350" r="90"/>
+<circle class="d" data-o="1" cx="9450" cy="1350" r="90"/>
+<circle class="d" data-o="1" cx="9900" cy="1350" r="90"/>
+<circle class="d" data-o="1" cx="10350" cy="1350" r="90"/>
+<circle class="d" data-o="1" cx="10800" cy="1350" r="90"/>
+<circle class="d" data-o="1" cx="11250" cy="1350" r="90"/>
+</g>
+</g>
+<g data-s="2">
+<path class="e" data-o="2" d="M-4410 3540c-870-1480-360-3410 1140-4280 1490-860 3410-350 4280 1130 860 1490 350 3420-1130 4280-1500 870-3430 360-4290-1130z"/>
+<path class="e" data-o="3" d="M-5560-2400c2890-1380 5660-6200 7250-3410 170 310 700 640 390 810C-130-3830-930-1990-3420-2050c-790-20-1680 680-1970-50l-170-300z"/>
+<path class="e" data-o="3" d="M-1540-3910c-230-210-240-560-30-790 210-220 560-230 790-10 220 210 240 560 30 780-210 230-570 240-790 20z"/>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<g transform="matrix(.0404472 0 0-.0404472 248.51 233.05)" clip-path="url(#c)">
+<use xlink:href="#a"/>
+</g>
+</svg>

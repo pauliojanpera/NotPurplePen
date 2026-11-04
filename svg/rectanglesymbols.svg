@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="1069mm" height="737mm" viewBox="0 0 1069 737">
+<style>
+.a{fill:none;stroke:#21d1ff;stroke:#21d1ff icc-color(cmyk,.87,.18,0,0);stroke-width:2000;stroke-linecap:round;stroke-linejoin:round}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="rectanglesymbols">
+<npp:color position="79" name="Blue Rectangle" cmyk=".87,.18,0,0"/>
+<npp:symbol n="1" id="950.0" name="Rectangle" colors="79"/>
+</npp:map>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="b">
+<path d="M-325697 14770h77224v53241h-77224z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g data-c="79">
+<g data-s="1">
+<path class="a" data-o="1" d="M-297600 54790h80c44 0 80 36 80 80h0c0 44-36 80-80 80h-80c-44 0-80-36-80-80h0c0-44 36-80 80-80z"/>
+<path class="a" data-o="2" d="M-281620 53910h560c320 0 580 260 580 580h0c0 320-260 580-580 580h-560c-320 0-580-260-580-580h0c0-320 260-580 580-580z"/>
+<path class="a" data-o="3" d="M-312320 27830h0c265 0 480 215 480 480v13360c0 265-215 480-480 480h0c-265 0-480-215-480-480V28310c0-265 215-480 480-480z"/>
+<path class="a" data-o="4" d="M-298480 38870h11680c376 0 680 304 680 680h0c0 376-304 680-680 680h-11680c-376 0-680-304-680-680h0c0-376 304-680 680-680z"/>
+<path class="a" data-o="5" d="M-272220 38950h0c630 0 1140 510 1140 1140v40c0 630-510 1140-1140 1140h0c-630 0-1140-510-1140-1140v-40c0-630 510-1140 1140-1140z"/>
+<path class="a" data-o="6" d="M-299320 29790h11400c110 0 200 90 200 200h0c0 110-90 200-200 200h-11400c-110 0-200-90-200-200h0c0-110 90-200 200-200z"/>
+<path class="a" data-o="7" d="M-275440 29630h15760c619 0 1120 501 1120 1120h0c0 619-501 1120-1120 1120h-15760c-619 0-1120-501-1120-1120h0c0-619 501-1120 1120-1120z"/>
+<path class="a" data-o="8" d="M-318480 17310h62880c2209 0 4000 1791 4000 4000v39840c0 2209-1791 4000-4000 4000h-62880c-2209 0-4000-1791-4000-4000V21310c0-2209 1791-4000 4000-4000z"/>
+<path class="a" data-o="9" d="M-316400 21710h14880"/>
+<path class="a" data-o="10" d="M-258120 61290v-5920"/>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<g transform="matrix(.01384275 0 0-.01384275 4508.55 941.46)" clip-path="url(#b)">
+<use xlink:href="#a"/>
+</g>
+</svg>

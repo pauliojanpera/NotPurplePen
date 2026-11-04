@@ -1,0 +1,225 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="1398mm" height="1079mm" viewBox="0 0 1398 1079" xml:lang="und">
+<style>
+@font-face{font-family:"Arial";font-weight:700;src:url(data:font/ttf;base64,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)}
+text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white-space:pre}
+.a{fill:none;stroke:#f00;stroke:#f00 icc-color(cmyk,0,1,1,0);stroke-width:150;stroke-linecap:round;stroke-linejoin:round}
+.b{fill:none;stroke:#f00;stroke:#f00 icc-color(cmyk,0,1,1,0);stroke-width:150;stroke-linejoin:bevel}
+.c{font-size:5.292px;font-family:"Arial";font-weight:700;fill:#f00;fill:#f00 icc-color(cmyk,0,1,1,0)}
+.d{fill:none;stroke:#f00;stroke:#f00 icc-color(cmyk,0,1,1,0);stroke-width:1000;stroke-linecap:round;stroke-linejoin:round}
+.e{font-size:5.292px;font-family:"Arial";font-weight:700;fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="punchbox9">
+<npp:color position="0" name="Red" cmyk="0,1,1,0"/>
+<npp:color position="1" name="Black" cmyk="0,0,0,1"/>
+<npp:symbol n="1" id="1.0" name="My Rectangle Symbol" colors="0"/>
+<npp:symbol n="2" id="1.3" name="My Rectangle Symbol" colors="0"/>
+<npp:symbol n="3" id="1.1" colors="1"/>
+</npp:map>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="b">
+<path d="M-85141-22103H59096V89222H-85141z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g data-c="0">
+<g data-s="1">
+<path class="a" data-o="1" d="M-62040-14160h85040c1657 0 3000 1343 3000 3000v53080c0 1657-1343 3000-3000 3000h-85040c-1657 0-3000-1343-3000-3000v-53080c0-1657 1343-3000 3000-3000z"/>
+<g transform="translate(-65040-14160)">
+<path class="b" data-o="1" d="M7003 0v59080"/>
+<path class="b" data-o="1" d="M14006 0v59080"/>
+<path class="b" data-o="1" d="M21009 0v59080"/>
+<path class="b" data-o="1" d="M28012 0v59080"/>
+<path class="b" data-o="1" d="M35015 0v59080"/>
+<path class="b" data-o="1" d="M42018 0v59080"/>
+<path class="b" data-o="1" d="M49022 0v59080"/>
+<path class="b" data-o="1" d="M56025 0v59080"/>
+<path class="b" data-o="1" d="M63028 0v59080"/>
+<path class="b" data-o="1" d="M70031 0v59080"/>
+<path class="b" data-o="1" d="M77034 0v59080"/>
+<path class="b" data-o="1" d="M84037 0v59080"/>
+<path class="b" data-o="1" d="M0 14770h91040"/>
+<path class="b" data-o="1" d="M0 29540h91040"/>
+<path class="b" data-o="1" d="M0 44310h91040"/>
+<g transform="matrix(1 0 0-1 1482 13870)">
+<text class="c" data-o="1" transform="translate(0 4790)scale(1000)" x="0 2.943">40</text>
+</g>
+<g transform="matrix(1 0 0-1 8485 13870)">
+<text class="c" data-o="1" transform="translate(0 4790)scale(1000)" x="0 2.943">41</text>
+</g>
+<g transform="matrix(1 0 0-1 15488 13870)">
+<text class="c" data-o="1" transform="translate(0 4790)scale(1000)" x="0 2.943">42</text>
+</g>
+<g transform="matrix(1 0 0-1 22491 13870)">
+<text class="c" data-o="1" transform="translate(0 4790)scale(1000)" x="0 2.943">43</text>
+</g>
+<g transform="matrix(1 0 0-1 29494 13870)">
+<text class="c" data-o="1" transform="translate(0 4790)scale(1000)" x="0 2.943">44</text>
+</g>
+<g transform="matrix(1 0 0-1 36497 13870)">
+<text class="c" data-o="1" transform="translate(0 4790)scale(1000)" x="0 2.943">45</text>
+</g>
+<g transform="matrix(1 0 0-1 43500 13870)">
+<text class="c" data-o="1" transform="translate(0 4790)scale(1000)" x="0 2.943">46</text>
+</g>
+<g transform="matrix(1 0 0-1 50503 13870)">
+<text class="c" data-o="1" transform="translate(0 4790)scale(1000)" x="0 2.943">47</text>
+</g>
+<g transform="matrix(1 0 0-1 57506 13870)">
+<text class="c" data-o="1" transform="translate(0 4790)scale(1000)" x="0 2.943">48</text>
+</g>
+<g transform="matrix(1 0 0-1 64509 13870)">
+<text class="c" data-o="1" transform="translate(0 4790)scale(1000)" x="0 2.943">49</text>
+</g>
+<g transform="matrix(1 0 0-1 71512 13870)">
+<text class="c" data-o="1" transform="translate(0 4790)scale(1000)" x="0 2.943">50</text>
+</g>
+<g transform="matrix(1 0 0-1 78516 13870)">
+<text class="c" data-o="1" transform="translate(0 4790)scale(1000)" x="0 2.943">51</text>
+</g>
+<g transform="matrix(1 0 0-1 85519 13870)">
+<text class="c" data-o="1" transform="translate(0 4790)scale(1000)" x="0 2.943">52</text>
+</g>
+<g transform="matrix(1 0 0-1 1482 28640)">
+<text class="c" data-o="1" transform="translate(0 4790)scale(1000)" x="0 2.943">27</text>
+</g>
+<g transform="matrix(1 0 0-1 8485 28640)">
+<text class="c" data-o="1" transform="translate(0 4790)scale(1000)" x="0 2.943">28</text>
+</g>
+<g transform="matrix(1 0 0-1 15488 28640)">
+<text class="c" data-o="1" transform="translate(0 4790)scale(1000)" x="0 2.943">29</text>
+</g>
+<g transform="matrix(1 0 0-1 22491 28640)">
+<text class="c" data-o="1" transform="translate(0 4790)scale(1000)" x="0 2.943">30</text>
+</g>
+<g transform="matrix(1 0 0-1 29494 28640)">
+<text class="c" data-o="1" transform="translate(0 4790)scale(1000)" x="0 2.943">31</text>
+</g>
+<g transform="matrix(1 0 0-1 36497 28640)">
+<text class="c" data-o="1" transform="translate(0 4790)scale(1000)" x="0 2.943">32</text>
+</g>
+<g transform="matrix(1 0 0-1 43500 28640)">
+<text class="c" data-o="1" transform="translate(0 4790)scale(1000)" x="0 2.943">33</text>
+</g>
+<g transform="matrix(1 0 0-1 50503 28640)">
+<text class="c" data-o="1" transform="translate(0 4790)scale(1000)" x="0 2.943">34</text>
+</g>
+<g transform="matrix(1 0 0-1 57506 28640)">
+<text class="c" data-o="1" transform="translate(0 4790)scale(1000)" x="0 2.943">35</text>
+</g>
+<g transform="matrix(1 0 0-1 64509 28640)">
+<text class="c" data-o="1" transform="translate(0 4790)scale(1000)" x="0 2.943">36</text>
+</g>
+<g transform="matrix(1 0 0-1 71512 28640)">
+<text class="c" data-o="1" transform="translate(0 4790)scale(1000)" x="0 2.943">37</text>
+</g>
+<g transform="matrix(1 0 0-1 78516 28640)">
+<text class="c" data-o="1" transform="translate(0 4790)scale(1000)" x="0 2.943">38</text>
+</g>
+<g transform="matrix(1 0 0-1 85519 28640)">
+<text class="c" data-o="1" transform="translate(0 4790)scale(1000)" x="0 2.943">39</text>
+</g>
+<g transform="matrix(1 0 0-1 1482 43410)">
+<text class="c" data-o="1" transform="translate(0 4790)scale(1000)" x="0 2.943">14</text>
+</g>
+<g transform="matrix(1 0 0-1 8485 43410)">
+<text class="c" data-o="1" transform="translate(0 4790)scale(1000)" x="0 2.943">15</text>
+</g>
+<g transform="matrix(1 0 0-1 15488 43410)">
+<text class="c" data-o="1" transform="translate(0 4790)scale(1000)" x="0 2.943">16</text>
+</g>
+<g transform="matrix(1 0 0-1 22491 43410)">
+<text class="c" data-o="1" transform="translate(0 4790)scale(1000)" x="0 2.943">17</text>
+</g>
+<g transform="matrix(1 0 0-1 29494 43410)">
+<text class="c" data-o="1" transform="translate(0 4790)scale(1000)" x="0 2.943">18</text>
+</g>
+<g transform="matrix(1 0 0-1 36497 43410)">
+<text class="c" data-o="1" transform="translate(0 4790)scale(1000)" x="0 2.943">19</text>
+</g>
+<g transform="matrix(1 0 0-1 43500 43410)">
+<text class="c" data-o="1" transform="translate(0 4790)scale(1000)" x="0 2.943">20</text>
+</g>
+<g transform="matrix(1 0 0-1 50503 43410)">
+<text class="c" data-o="1" transform="translate(0 4790)scale(1000)" x="0 2.943">21</text>
+</g>
+<g transform="matrix(1 0 0-1 57506 43410)">
+<text class="c" data-o="1" transform="translate(0 4790)scale(1000)" x="0 2.943">22</text>
+</g>
+<g transform="matrix(1 0 0-1 64509 43410)">
+<text class="c" data-o="1" transform="translate(0 4790)scale(1000)" x="0 2.943">23</text>
+</g>
+<g transform="matrix(1 0 0-1 71512 43410)">
+<text class="c" data-o="1" transform="translate(0 4790)scale(1000)" x="0 2.943">24</text>
+</g>
+<g transform="matrix(1 0 0-1 78516 43410)">
+<text class="c" data-o="1" transform="translate(0 4790)scale(1000)" x="0 2.943">25</text>
+</g>
+<g transform="matrix(1 0 0-1 85519 43410)">
+<text class="c" data-o="1" transform="translate(0 4790)scale(1000)" x="0 2.943">26</text>
+</g>
+<text class="c" data-o="1" transform="scale(1000-1000)" x="1.482 8.485 15.488 22.491 29.494 36.497 43.5 50.503 57.506" y="-53.39 -53.39 -53.39 -53.39 -53.39 -53.39 -53.39 -53.39 -53.39" rotate="0 0 0 0 0 0 0 0 0">123456789</text>
+<g transform="matrix(1 0 0-1 64509 58180)">
+<text class="c" data-o="1" transform="translate(0 4790)scale(1000)" x="0 2.943">10</text>
+</g>
+<g transform="matrix(1 0 0-1 71512 58180)">
+<text class="c" data-o="1" transform="translate(0 4790)scale(1000)" x="0 2.651">11</text>
+</g>
+<g transform="matrix(1 0 0-1 78516 58180)">
+<text class="c" data-o="1" transform="translate(0 4790)scale(1000)" x="0 2.943">12</text>
+</g>
+<g transform="matrix(1 0 0-1 85519 58180)">
+<text class="c" data-o="1" transform="translate(0 4790)scale(1000)" x="0 2.943">13</text>
+</g>
+</g>
+<path class="a" data-o="2" d="M-47020 71550h4720c1657 0 3000 1343 3000 3000v2000c0 1657-1343 3000-3000 3000h-4720c-1657 0-3000-1343-3000-3000v-2000c0-1657 1343-3000 3000-3000z"/>
+<g transform="translate(-50020 71550)">
+<path class="b" data-o="2" d="M5360 0v8000"/>
+<text class="c" data-o="2" transform="scale(1000-1000)" x="1.482 6.842" y="-2.31 -2.31" rotate="0 0">12</text>
+</g>
+</g>
+<g data-s="2">
+<path class="d" data-o="3" d="M-20980 47630h53680c1657 0 3000 1343 3000 3000v26000c0 1657-1343 3000-3000 3000h-53680c-1657 0-3000-1343-3000-3000V50630c0-1657 1343-3000 3000-3000z"/>
+<g transform="translate(-23980 47630)">
+<path class="b" data-o="3" d="M19893 0v32000"/>
+<path class="b" data-o="3" d="M39787 0v32000"/>
+<path class="b" data-o="3" d="M0 8000h59680"/>
+<path class="b" data-o="3" d="M0 16000h59680"/>
+<path class="b" data-o="3" d="M0 24000h59680"/>
+<g transform="matrix(1 0 0-1 1482 7100)">
+<text class="c" data-o="3" transform="translate(0 4790)scale(1000)" x="0 2.943">10</text>
+</g>
+<g transform="matrix(1 0 0-1 21375 7100)">
+<text class="c" data-o="3" transform="translate(0 4790)scale(1000)" x="0 2.651">11</text>
+</g>
+<g transform="matrix(1 0 0-1 41268 7100)">
+<text class="c" data-o="3" transform="translate(0 4790)scale(1000)" x="0 2.943">12</text>
+</g>
+<text class="c" data-o="3" transform="scale(1000-1000)" x="1.482 21.375 41.268 1.482 21.375 41.268 1.482 21.375 41.268" y="-10.31 -10.31 -10.31 -18.31 -18.31 -18.31 -26.31 -26.31 -26.31" rotate="0 0 0 0 0 0 0 0 0">789456123</text>
+</g>
+</g>
+</g>
+<g data-c="1">
+<g data-s="3">
+<g transform="matrix(1 0 0-1-28540 39250)">
+<text class="e" data-o="4" transform="scale(1000)">6</text>
+</g>
+<g transform="matrix(1 0 0-1 17300 65990)">
+<text class="e" data-o="5" transform="scale(1000)">6</text>
+</g>
+<g transform="matrix(1 0 0-1 20500-5070)">
+<text class="e" data-o="6" transform="scale(1000)" x="0 2.943">52</text>
+</g>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<g transform="matrix(.00969239 0 0-.00969239 825.219 864.771)" clip-path="url(#b)">
+<use xlink:href="#a"/>
+</g>
+</svg>

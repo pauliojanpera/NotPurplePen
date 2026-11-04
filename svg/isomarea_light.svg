@@ -1,0 +1,879 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="1398mm" height="1079mm" viewBox="0 0 1398 1079">
+<style>
+.a{fill:#fff1d7;fill:#fff1d7 icc-color(cmyk,0,.054,.158,0);fill-rule:evenodd}
+.b{fill:#ffe3ae;fill:#ffe3ae icc-color(cmyk,0,.108,.316,0)}
+.c{fill:#ffe3ae;fill:#ffe3ae icc-color(cmyk,0,.108,.316,0);fill-rule:evenodd}
+.d{fill:#fff;fill:#fff icc-color(cmyk,0,0,0,0)}
+.e{fill:#e0e0e0;fill:#e0e0e0 icc-color(cmyk,0,0,0,.120000005);fill-rule:evenodd}
+.f{fill:#f9e8db;fill:#f9e8db icc-color(cmyk,0,.068,.120000005,.022);fill-rule:evenodd}
+.g{fill:#f5d9c2;fill:#f5d9c2 icc-color(cmyk,0,.112,.2,.038);fill-rule:evenodd}
+.h{fill:#e8ffe3;fill:#e8ffe3 icc-color(cmyk,.092,0,.11000001,0);fill-rule:evenodd}
+.i{fill:#d1ffc7;fill:#d1ffc7 icc-color(cmyk,.18200001,0,.21800001,0);fill-rule:evenodd}
+.j{fill:none;stroke:#b1ffa2;stroke:#b1ffa2 icc-color(cmyk,.304,0,.36400002,0);stroke-width:180;stroke-miterlimit:5}
+.k{fill:#b1ffa2;fill:#b1ffa2 icc-color(cmyk,.304,0,.36400002,0);fill-rule:evenodd}
+.l{fill:#b1ffa2;fill:#b1ffa2 icc-color(cmyk,.304,0,.36400002,0)}
+.m{fill:none;stroke:#b1ffa2;stroke:#b1ffa2 icc-color(cmyk,.304,0,.36400002,0);stroke-width:300;stroke-linejoin:bevel}
+.n{fill:none;stroke:#fff;stroke:#fff icc-color(cmyk,0,0,0,0);stroke-width:600;stroke-miterlimit:5}
+.o{fill:#d8e399;fill:#d8e399 icc-color(cmyk,.152,.108,.4,0);fill-rule:evenodd}
+.p{fill:#d3f5ff;fill:#d3f5ff icc-color(cmyk,.17400001,.038,0,0);fill-rule:evenodd}
+.q{fill:#a6edff;fill:#a6edff icc-color(cmyk,.34800002,.072000004,0,0);fill-rule:evenodd}
+.r{fill:none;stroke:#a6edff;stroke:#a6edff icc-color(cmyk,.34800002,.072000004,0,0);stroke-width:380;stroke-miterlimit:5}
+.s{fill:none;stroke:#a6edff;stroke:#a6edff icc-color(cmyk,.34800002,.072000004,0,0);stroke-width:150;stroke-miterlimit:5}
+.t{fill:none;stroke:#a6edff;stroke:#a6edff icc-color(cmyk,.34800002,.072000004,0,0);stroke-width:150;stroke-linejoin:bevel}
+.u{fill:#999;fill:#999 icc-color(cmyk,0,0,0,.4);fill-rule:evenodd}
+.v{fill:#999;fill:#999 icc-color(cmyk,0,0,0,.4)}
+.w{fill:none;stroke:#a2ffaa;stroke:#a2ffaa icc-color(cmyk,.36400002,0,.332,0);stroke-width:270;stroke-miterlimit:5}
+.x{fill:none;stroke:#f9f;stroke:#f9f icc-color(cmyk,0,.4,0,0);stroke-width:380;stroke-miterlimit:5}
+.y{clip-rule:evenodd}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="isomarea_light">
+<npp:color position="6" name="Yellow 50%" cmyk="0,.135,.395,0"/>
+<npp:color position="7" name="Yellow" cmyk="0,.27,.79,0"/>
+<npp:color position="8" name="White for yellow" cmyk="0,0,0,0"/>
+<npp:color position="9" name="Black 30%" cmyk="0,0,0,.3"/>
+<npp:color position="11" name="Brown 30%" cmyk="0,.17,.3,.055"/>
+<npp:color position="12" name="Brown 50%" cmyk="0,.28,.5,.095"/>
+<npp:color position="13" name="Green 30%" cmyk=".23,0,.275,0"/>
+<npp:color position="14" name="Green 60%" cmyk=".455,0,.545,0"/>
+<npp:color position="15" name="Green" cmyk=".76,0,.91,0" overprint="1"/>
+<npp:color position="16" name="White for green" cmyk="0,0,0,0"/>
+<npp:color position="17" name="Yellow100%/Green 50%" cmyk=".38,.27,1,0"/>
+<npp:color position="20" name="Blue 50%" cmyk=".435,.095,0,0"/>
+<npp:color position="21" name="Blue" cmyk=".87,.18,0,0" overprint="1"/>
+<npp:color position="27" name="Black" cmyk="0,0,0,1" overprint="1"/>
+<npp:color position="28" name="Green for Ski-O" cmyk=".91,0,.83,0" overprint="1"/>
+<npp:color position="32" name="Purple" cmyk="0,1,0,0" overprint="1"/>
+<npp:symbol n="1" id="211.0" name="Open sandy ground" colors="6 27"/>
+<npp:symbol n="2" id="403.0" name="Rough open land" colors="6"/>
+<npp:symbol n="3" id="404.0" name="Rough open land with sc. trees" colors="6 8"/>
+<npp:symbol n="4" id="402.0" name="Open land with scattered trees" colors="7"/>
+<npp:symbol n="5" id="412.0" name="Orchard" colors="7 15"/>
+<npp:symbol n="6" id="413.0" name="Vineyard" colors="7 15"/>
+<npp:symbol n="7" id="415.0" name="Cultivated land" colors="7 27"/>
+<npp:symbol n="8" id="212.0" name="Bare rock" colors="9"/>
+<npp:symbol n="9" id="861.4" name="Paved area without car traffic" colors="11"/>
+<npp:symbol n="10" id="529.0" name="Paved area" colors="12"/>
+<npp:symbol n="11" id="406.0" name="Forest: slow running" colors="13"/>
+<npp:symbol n="12" id="411.0" name="Forest runnable in one dir." colors="13 16"/>
+<npp:symbol n="13" id="408.0" name="Forest: difficult to run" colors="14"/>
+<npp:symbol n="14" id="411.1" name="Forest runnable in one dir." colors="14 16"/>
+<npp:symbol n="15" id="407.0" name="Undergrowth: slow running" colors="15"/>
+<npp:symbol n="16" id="409.0" name="Undergrowth: difficult to run" colors="15"/>
+<npp:symbol n="17" id="410.0" name="Vegetation: very diffic. to run" colors="15"/>
+<npp:symbol n="18" id="411.2" name="Forest runnable in one dir." colors="15 16"/>
+<npp:symbol n="19" id="527.0" name="Settlement" colors="17"/>
+<npp:symbol n="20" id="301.0" name="Lake" colors="20"/>
+<npp:symbol n="21" id="302.0" name="Pond" colors="21"/>
+<npp:symbol n="22" id="309.0" name="Uncrossable marsh" colors="21"/>
+<npp:symbol n="23" id="310.0" name="Marsh" colors="21"/>
+<npp:symbol n="24" id="311.0" name="Indistinct marsh" colors="21"/>
+<npp:symbol n="25" id="202.0" name="Rock pillar/cliff" colors="27"/>
+<npp:symbol n="26" id="526.0" name="Building" colors="27"/>
+<npp:symbol n="27" id="806.0" name="Prepared areas" colors="28"/>
+<npp:symbol n="28" id="709.0" name="Out-of-bounds area" colors="32"/>
+<npp:symbol n="29" id="710.0" name="Dangerous area" colors="32"/>
+</npp:map>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="b">
+<path class="y" d="M2400 10680l560-4200 4040 360-360 4040-4280-120 40-80z"/>
+</clipPath>
+<clipPath id="c">
+<path class="y" d="M-12280 4600l80-3920 5960 40-160 4240-6080-440 200 80z"/>
+</clipPath>
+<clipPath id="d">
+<path class="y" d="M400 5200l4120-40-200-4440-4920 840 920 3560 80 80z"/>
+</clipPath>
+<clipPath id="e">
+<path class="y" d="M-19520 1320l5200-200-80-3520-4760 240-400 3480h40z"/>
+</clipPath>
+<clipPath id="f">
+<path class="y" d="M-11120-4760l5160-200-440-3200-4240-600-440 3920-40 80z"/>
+</clipPath>
+<clipPath id="g">
+<path class="y" d="M-4960-5120l6080 160-320-4400-6120 200 480 4000-120 40z"/>
+</clipPath>
+<clipPath id="h">
+<path class="y" d="M-5040 320 680-600 120-4600l-5680 200 480 4680 40 40z"/>
+</clipPath>
+<clipPath id="i">
+<path class="y" d="M2360-160l6680-160-360-4520-5440 640-840 4000-40 40z"/>
+</clipPath>
+<clipPath id="j">
+<path class="y" d="M-20400-3800l7640-720-40-3640-6160 640-1360 3760-80-40z"/>
+</clipPath>
+<clipPath id="k">
+<path class="y" d="M-18600 11200l4080-440-720-3320-4000 400 640 3440v-80z"/>
+</clipPath>
+<clipPath id="l">
+<path class="y" d="M-12880 10640l920-3960 4960-1200 480 4960-6440 280 80-80z"/>
+</clipPath>
+<clipPath id="m">
+<path class="y" d="M-2240 10960-4600 8040l680-2240 6160 360-4480 4640v160z"/>
+</clipPath>
+<clipPath id="n">
+<path class="y" d="M-11200 15320l-960-3280 2800 280 280 3840-2120-1000v160z"/>
+</clipPath>
+<clipPath id="o">
+<path class="y" d="M2280-5160l7280-800-480-4160-6160 40-640 4880v40z"/>
+</clipPath>
+<clipPath id="p">
+<path class="y" d="M2960-11400l600-4080 5720-40 200 4800-6560-720 40 40z"/>
+</clipPath>
+<clipPath id="q">
+<path class="y" d="M11280-3360l5440 40-80 7640-4040-1880-1160-5720-160-80z"/>
+</clipPath>
+<clipPath id="r">
+<path class="y" d="M8920 6400l5040-1360 2120 1920-1280 3200-6840-80 880-3640 80-40z"/>
+</clipPath>
+<clipPath id="s">
+<path d="M-26021-18091h48079v37108h-48079z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g data-c="6">
+<g data-s="1">
+<path class="a" data-o="1" d="M-11200 15320l-960-3280 2800 280 280 3840-2120-1000v160z"/>
+</g>
+<g data-s="2">
+<path class="a" data-o="2" d="M-19360 6520l4920-280-440-3920-4200-120-240 4240-40 80z"/>
+</g>
+<g data-s="3">
+<path class="a" data-o="3" d="M-12280 4600l80-3920 5960 40-160 4240-6080-440 200 80z"/>
+</g>
+</g>
+<g data-c="7">
+<g clip-path="url(#b)" data-s="4">
+<g transform="rotate(45)">
+<circle class="b" data-o="4" cx="6000" cy="-750" r="300"/>
+<circle class="b" data-o="4" cx="6750" cy="-750" r="300"/>
+<circle class="b" data-o="4" cx="7500" cy="-750" r="300"/>
+<circle class="b" data-o="4" cx="8250" cy="-750" r="300"/>
+<circle class="b" data-o="4" cx="9000" cy="-750" r="300"/>
+<circle class="b" data-o="4" cx="9750" cy="-750" r="300"/>
+<circle class="b" data-o="4" cx="10500" cy="-750" r="300"/>
+<circle class="b" data-o="4" cx="11250" cy="-750" r="300"/>
+<circle class="b" data-o="4" cx="12000" cy="-750" r="300"/>
+<circle class="b" data-o="4" cx="12750" cy="-750" r="300"/>
+<circle class="b" data-o="4" cx="6000" r="300"/>
+<circle class="b" data-o="4" cx="6750" r="300"/>
+<circle class="b" data-o="4" cx="7500" r="300"/>
+<circle class="b" data-o="4" cx="8250" r="300"/>
+<circle class="b" data-o="4" cx="9000" r="300"/>
+<circle class="b" data-o="4" cx="9750" r="300"/>
+<circle class="b" data-o="4" cx="10500" r="300"/>
+<circle class="b" data-o="4" cx="11250" r="300"/>
+<circle class="b" data-o="4" cx="12000" r="300"/>
+<circle class="b" data-o="4" cx="12750" r="300"/>
+<circle class="b" data-o="4" cx="6000" cy="750" r="300"/>
+<circle class="b" data-o="4" cx="6750" cy="750" r="300"/>
+<circle class="b" data-o="4" cx="7500" cy="750" r="300"/>
+<circle class="b" data-o="4" cx="8250" cy="750" r="300"/>
+<circle class="b" data-o="4" cx="9000" cy="750" r="300"/>
+<circle class="b" data-o="4" cx="9750" cy="750" r="300"/>
+<circle class="b" data-o="4" cx="10500" cy="750" r="300"/>
+<circle class="b" data-o="4" cx="11250" cy="750" r="300"/>
+<circle class="b" data-o="4" cx="12000" cy="750" r="300"/>
+<circle class="b" data-o="4" cx="12750" cy="750" r="300"/>
+<circle class="b" data-o="4" cx="6000" cy="1500" r="300"/>
+<circle class="b" data-o="4" cx="6750" cy="1500" r="300"/>
+<circle class="b" data-o="4" cx="7500" cy="1500" r="300"/>
+<circle class="b" data-o="4" cx="8250" cy="1500" r="300"/>
+<circle class="b" data-o="4" cx="9000" cy="1500" r="300"/>
+<circle class="b" data-o="4" cx="9750" cy="1500" r="300"/>
+<circle class="b" data-o="4" cx="10500" cy="1500" r="300"/>
+<circle class="b" data-o="4" cx="11250" cy="1500" r="300"/>
+<circle class="b" data-o="4" cx="12000" cy="1500" r="300"/>
+<circle class="b" data-o="4" cx="12750" cy="1500" r="300"/>
+<circle class="b" data-o="4" cx="6000" cy="2250" r="300"/>
+<circle class="b" data-o="4" cx="6750" cy="2250" r="300"/>
+<circle class="b" data-o="4" cx="7500" cy="2250" r="300"/>
+<circle class="b" data-o="4" cx="8250" cy="2250" r="300"/>
+<circle class="b" data-o="4" cx="9000" cy="2250" r="300"/>
+<circle class="b" data-o="4" cx="9750" cy="2250" r="300"/>
+<circle class="b" data-o="4" cx="10500" cy="2250" r="300"/>
+<circle class="b" data-o="4" cx="11250" cy="2250" r="300"/>
+<circle class="b" data-o="4" cx="12000" cy="2250" r="300"/>
+<circle class="b" data-o="4" cx="12750" cy="2250" r="300"/>
+<circle class="b" data-o="4" cx="6000" cy="3000" r="300"/>
+<circle class="b" data-o="4" cx="6750" cy="3000" r="300"/>
+<circle class="b" data-o="4" cx="7500" cy="3000" r="300"/>
+<circle class="b" data-o="4" cx="8250" cy="3000" r="300"/>
+<circle class="b" data-o="4" cx="9000" cy="3000" r="300"/>
+<circle class="b" data-o="4" cx="9750" cy="3000" r="300"/>
+<circle class="b" data-o="4" cx="10500" cy="3000" r="300"/>
+<circle class="b" data-o="4" cx="11250" cy="3000" r="300"/>
+<circle class="b" data-o="4" cx="12000" cy="3000" r="300"/>
+<circle class="b" data-o="4" cx="12750" cy="3000" r="300"/>
+<circle class="b" data-o="4" cx="6000" cy="3750" r="300"/>
+<circle class="b" data-o="4" cx="6750" cy="3750" r="300"/>
+<circle class="b" data-o="4" cx="7500" cy="3750" r="300"/>
+<circle class="b" data-o="4" cx="8250" cy="3750" r="300"/>
+<circle class="b" data-o="4" cx="9000" cy="3750" r="300"/>
+<circle class="b" data-o="4" cx="9750" cy="3750" r="300"/>
+<circle class="b" data-o="4" cx="10500" cy="3750" r="300"/>
+<circle class="b" data-o="4" cx="11250" cy="3750" r="300"/>
+<circle class="b" data-o="4" cx="12000" cy="3750" r="300"/>
+<circle class="b" data-o="4" cx="12750" cy="3750" r="300"/>
+<circle class="b" data-o="4" cx="6000" cy="4500" r="300"/>
+<circle class="b" data-o="4" cx="6750" cy="4500" r="300"/>
+<circle class="b" data-o="4" cx="7500" cy="4500" r="300"/>
+<circle class="b" data-o="4" cx="8250" cy="4500" r="300"/>
+<circle class="b" data-o="4" cx="9000" cy="4500" r="300"/>
+<circle class="b" data-o="4" cx="9750" cy="4500" r="300"/>
+<circle class="b" data-o="4" cx="10500" cy="4500" r="300"/>
+<circle class="b" data-o="4" cx="11250" cy="4500" r="300"/>
+<circle class="b" data-o="4" cx="12000" cy="4500" r="300"/>
+<circle class="b" data-o="4" cx="12750" cy="4500" r="300"/>
+<circle class="b" data-o="4" cx="6000" cy="5250" r="300"/>
+<circle class="b" data-o="4" cx="6750" cy="5250" r="300"/>
+<circle class="b" data-o="4" cx="7500" cy="5250" r="300"/>
+<circle class="b" data-o="4" cx="8250" cy="5250" r="300"/>
+<circle class="b" data-o="4" cx="9000" cy="5250" r="300"/>
+<circle class="b" data-o="4" cx="9750" cy="5250" r="300"/>
+<circle class="b" data-o="4" cx="10500" cy="5250" r="300"/>
+<circle class="b" data-o="4" cx="11250" cy="5250" r="300"/>
+<circle class="b" data-o="4" cx="12000" cy="5250" r="300"/>
+<circle class="b" data-o="4" cx="12750" cy="5250" r="300"/>
+<circle class="b" data-o="4" cx="6000" cy="6000" r="300"/>
+<circle class="b" data-o="4" cx="6750" cy="6000" r="300"/>
+<circle class="b" data-o="4" cx="7500" cy="6000" r="300"/>
+<circle class="b" data-o="4" cx="8250" cy="6000" r="300"/>
+<circle class="b" data-o="4" cx="9000" cy="6000" r="300"/>
+<circle class="b" data-o="4" cx="9750" cy="6000" r="300"/>
+<circle class="b" data-o="4" cx="10500" cy="6000" r="300"/>
+<circle class="b" data-o="4" cx="11250" cy="6000" r="300"/>
+<circle class="b" data-o="4" cx="12000" cy="6000" r="300"/>
+<circle class="b" data-o="4" cx="12750" cy="6000" r="300"/>
+</g>
+</g>
+<g data-s="5">
+<path class="c" data-o="5" d="M-11120-4760l5160-200-440-3200-4240-600-440 3920-40 80z"/>
+</g>
+<g data-s="6">
+<path class="c" data-o="6" d="M-4960-5120l6080 160-320-4400-6120 200 480 4000-120 40z"/>
+</g>
+<g data-s="7">
+<path class="c" data-o="7" d="M2280-5160l7280-800-480-4160-6160 40-640 4880v40z"/>
+</g>
+</g>
+<g data-c="8">
+<g clip-path="url(#c)" data-s="3">
+<g transform="rotate(45)">
+<circle class="d" data-o="3" cx="-8400" cy="5250" r="410"/>
+<circle class="d" data-o="3" cx="-7350" cy="5250" r="410"/>
+<circle class="d" data-o="3" cx="-6300" cy="5250" r="410"/>
+<circle class="d" data-o="3" cx="-5250" cy="5250" r="410"/>
+<circle class="d" data-o="3" cx="-4200" cy="5250" r="410"/>
+<circle class="d" data-o="3" cx="-3150" cy="5250" r="410"/>
+<circle class="d" data-o="3" cx="-2100" cy="5250" r="410"/>
+<circle class="d" data-o="3" cx="-1050" cy="5250" r="410"/>
+<circle class="d" data-o="3" cx="-8400" cy="6300" r="410"/>
+<circle class="d" data-o="3" cx="-7350" cy="6300" r="410"/>
+<circle class="d" data-o="3" cx="-6300" cy="6300" r="410"/>
+<circle class="d" data-o="3" cx="-5250" cy="6300" r="410"/>
+<circle class="d" data-o="3" cx="-4200" cy="6300" r="410"/>
+<circle class="d" data-o="3" cx="-3150" cy="6300" r="410"/>
+<circle class="d" data-o="3" cx="-2100" cy="6300" r="410"/>
+<circle class="d" data-o="3" cx="-1050" cy="6300" r="410"/>
+<circle class="d" data-o="3" cx="-8400" cy="7350" r="410"/>
+<circle class="d" data-o="3" cx="-7350" cy="7350" r="410"/>
+<circle class="d" data-o="3" cx="-6300" cy="7350" r="410"/>
+<circle class="d" data-o="3" cx="-5250" cy="7350" r="410"/>
+<circle class="d" data-o="3" cx="-4200" cy="7350" r="410"/>
+<circle class="d" data-o="3" cx="-3150" cy="7350" r="410"/>
+<circle class="d" data-o="3" cx="-2100" cy="7350" r="410"/>
+<circle class="d" data-o="3" cx="-1050" cy="7350" r="410"/>
+<circle class="d" data-o="3" cx="-8400" cy="8400" r="410"/>
+<circle class="d" data-o="3" cx="-7350" cy="8400" r="410"/>
+<circle class="d" data-o="3" cx="-6300" cy="8400" r="410"/>
+<circle class="d" data-o="3" cx="-5250" cy="8400" r="410"/>
+<circle class="d" data-o="3" cx="-4200" cy="8400" r="410"/>
+<circle class="d" data-o="3" cx="-3150" cy="8400" r="410"/>
+<circle class="d" data-o="3" cx="-2100" cy="8400" r="410"/>
+<circle class="d" data-o="3" cx="-1050" cy="8400" r="410"/>
+<circle class="d" data-o="3" cx="-8400" cy="9450" r="410"/>
+<circle class="d" data-o="3" cx="-7350" cy="9450" r="410"/>
+<circle class="d" data-o="3" cx="-6300" cy="9450" r="410"/>
+<circle class="d" data-o="3" cx="-5250" cy="9450" r="410"/>
+<circle class="d" data-o="3" cx="-4200" cy="9450" r="410"/>
+<circle class="d" data-o="3" cx="-3150" cy="9450" r="410"/>
+<circle class="d" data-o="3" cx="-2100" cy="9450" r="410"/>
+<circle class="d" data-o="3" cx="-1050" cy="9450" r="410"/>
+<circle class="d" data-o="3" cx="-8400" cy="10500" r="410"/>
+<circle class="d" data-o="3" cx="-7350" cy="10500" r="410"/>
+<circle class="d" data-o="3" cx="-6300" cy="10500" r="410"/>
+<circle class="d" data-o="3" cx="-5250" cy="10500" r="410"/>
+<circle class="d" data-o="3" cx="-4200" cy="10500" r="410"/>
+<circle class="d" data-o="3" cx="-3150" cy="10500" r="410"/>
+<circle class="d" data-o="3" cx="-2100" cy="10500" r="410"/>
+<circle class="d" data-o="3" cx="-1050" cy="10500" r="410"/>
+<circle class="d" data-o="3" cx="-8400" cy="11550" r="410"/>
+<circle class="d" data-o="3" cx="-7350" cy="11550" r="410"/>
+<circle class="d" data-o="3" cx="-6300" cy="11550" r="410"/>
+<circle class="d" data-o="3" cx="-5250" cy="11550" r="410"/>
+<circle class="d" data-o="3" cx="-4200" cy="11550" r="410"/>
+<circle class="d" data-o="3" cx="-3150" cy="11550" r="410"/>
+<circle class="d" data-o="3" cx="-2100" cy="11550" r="410"/>
+<circle class="d" data-o="3" cx="-1050" cy="11550" r="410"/>
+<circle class="d" data-o="3" cx="-8400" cy="12600" r="410"/>
+<circle class="d" data-o="3" cx="-7350" cy="12600" r="410"/>
+<circle class="d" data-o="3" cx="-6300" cy="12600" r="410"/>
+<circle class="d" data-o="3" cx="-5250" cy="12600" r="410"/>
+<circle class="d" data-o="3" cx="-4200" cy="12600" r="410"/>
+<circle class="d" data-o="3" cx="-3150" cy="12600" r="410"/>
+<circle class="d" data-o="3" cx="-2100" cy="12600" r="410"/>
+<circle class="d" data-o="3" cx="-1050" cy="12600" r="410"/>
+</g>
+</g>
+</g>
+<g data-c="9">
+<g data-s="8">
+<path class="e" data-o="8" d="M-7480 15960l4920-520-840-4040-1560 1160-3800-1200 1280 4680v-80z"/>
+</g>
+</g>
+<g data-c="11">
+<g data-s="9">
+<path class="f" data-o="9" d="M10680-12760l4680 400-440 8160-4040-320-440-8160 240-160v80z"/>
+</g>
+</g>
+<g data-c="12">
+<g data-s="10">
+<path class="g" data-o="10" d="M-4600-10480v-4360l6080-160-680 4600-5360-120-40 40z"/>
+</g>
+</g>
+<g data-c="13">
+<g data-s="11">
+<path class="h" data-o="11" d="M-4640 4960V800h3680l40 4480-1880-1280-1960 1080 120-120z"/>
+</g>
+<g data-s="12">
+<path class="h" data-o="12" d="M-5040 320 680-600 120-4600l-5680 200 480 4680 40 40z"/>
+</g>
+</g>
+<g data-c="14">
+<g data-s="13">
+<path class="i" data-o="13" d="M6160 5240l4520-600L9720 40 5640 840l560 4360-40 40z"/>
+</g>
+<g data-s="14">
+<path class="i" data-o="14" d="M2360-160l6680-160-360-4520-5440 640-840 4000-40 40z"/>
+</g>
+</g>
+<g data-c="15">
+<g clip-path="url(#d)" data-s="15">
+<g transform="rotate(90)">
+<path class="j" data-o="15" d="M720-5040h4480"/>
+<path class="j" data-o="15" d="M720-3780h4480"/>
+<path class="j" data-o="15" d="M720-2520h4480"/>
+<path class="j" data-o="15" d="M720-1260h4480"/>
+<path class="j" data-o="15" d="M720 0h4480"/>
+</g>
+</g>
+<g clip-path="url(#e)" data-s="16">
+<g transform="rotate(90)">
+<path class="j" data-o="16" d="M-2400 14490h3720"/>
+<path class="j" data-o="16" d="M-2400 15120h3720"/>
+<path class="j" data-o="16" d="M-2400 15750h3720"/>
+<path class="j" data-o="16" d="M-2400 16380h3720"/>
+<path class="j" data-o="16" d="M-2400 17010h3720"/>
+<path class="j" data-o="16" d="M-2400 17640h3720"/>
+<path class="j" data-o="16" d="M-2400 18270h3720"/>
+<path class="j" data-o="16" d="M-2400 18900h3720"/>
+<path class="j" data-o="16" d="M-2400 19530h3720"/>
+</g>
+</g>
+<g data-s="17">
+<path class="k" data-o="17" d="M-12080-400l5480-200-320-3360-5880 520 760 3080-40-40z"/>
+</g>
+<g data-s="18">
+<path class="k" data-o="18" d="M-20400-3800l7640-720-40-3640-6160 640-1360 3760-80-40z"/>
+</g>
+<g clip-path="url(#f)" data-s="5">
+<circle class="l" data-o="5" cx="-10800" cy="-8400" r="340"/>
+<circle class="l" data-o="5" cx="-9600" cy="-8400" r="340"/>
+<circle class="l" data-o="5" cx="-8400" cy="-8400" r="340"/>
+<circle class="l" data-o="5" cx="-7200" cy="-8400" r="340"/>
+<circle class="l" data-o="5" cx="-6000" cy="-8400" r="340"/>
+<circle class="l" data-o="5" cx="-10800" cy="-7200" r="340"/>
+<circle class="l" data-o="5" cx="-9600" cy="-7200" r="340"/>
+<circle class="l" data-o="5" cx="-8400" cy="-7200" r="340"/>
+<circle class="l" data-o="5" cx="-7200" cy="-7200" r="340"/>
+<circle class="l" data-o="5" cx="-6000" cy="-7200" r="340"/>
+<circle class="l" data-o="5" cx="-10800" cy="-6000" r="340"/>
+<circle class="l" data-o="5" cx="-9600" cy="-6000" r="340"/>
+<circle class="l" data-o="5" cx="-8400" cy="-6000" r="340"/>
+<circle class="l" data-o="5" cx="-7200" cy="-6000" r="340"/>
+<circle class="l" data-o="5" cx="-6000" cy="-6000" r="340"/>
+<circle class="l" data-o="5" cx="-10800" cy="-4800" r="340"/>
+<circle class="l" data-o="5" cx="-9600" cy="-4800" r="340"/>
+<circle class="l" data-o="5" cx="-8400" cy="-4800" r="340"/>
+<circle class="l" data-o="5" cx="-7200" cy="-4800" r="340"/>
+<circle class="l" data-o="5" cx="-6000" cy="-4800" r="340"/>
+</g>
+<g clip-path="url(#g)" data-s="6">
+<g transform="rotate(90)">
+<g transform="matrix(0-1 1 0-8550 0)">
+<path class="m" data-o="6" d="M0-960V970"/>
+</g>
+<g transform="matrix(0-1 1 0-5700 0)">
+<path class="m" data-o="6" d="M0-960V970"/>
+</g>
+<g transform="matrix(0-1 1 0-9975 1280)">
+<path class="m" data-o="6" d="M0-960V970"/>
+</g>
+<g transform="matrix(0-1 1 0-7125 1280)">
+<path class="m" data-o="6" d="M0-960V970"/>
+</g>
+<g transform="matrix(0-1 1 0-4275 1280)">
+<path class="m" data-o="6" d="M0-960V970"/>
+</g>
+<g transform="matrix(0-1 1 0-8550 2560)">
+<path class="m" data-o="6" d="M0-960V970"/>
+</g>
+<g transform="matrix(0-1 1 0-5700 2560)">
+<path class="m" data-o="6" d="M0-960V970"/>
+</g>
+<g transform="matrix(0-1 1 0-9975 3840)">
+<path class="m" data-o="6" d="M0-960V970"/>
+</g>
+<g transform="matrix(0-1 1 0-7125 3840)">
+<path class="m" data-o="6" d="M0-960V970"/>
+</g>
+<g transform="matrix(0-1 1 0-4275 3840)">
+<path class="m" data-o="6" d="M0-960V970"/>
+</g>
+<g transform="matrix(0-1 1 0-8550 5120)">
+<path class="m" data-o="6" d="M0-960V970"/>
+</g>
+<g transform="matrix(0-1 1 0-5700 5120)">
+<path class="m" data-o="6" d="M0-960V970"/>
+</g>
+</g>
+</g>
+</g>
+<g data-c="16">
+<g clip-path="url(#h)" data-s="12">
+<g transform="rotate(90)">
+<path class="n" data-o="12" d="M-4600 0H320"/>
+<path class="n" data-o="12" d="M-4600 2850H320"/>
+<path class="n" data-o="12" d="M-4600 5700H320"/>
+</g>
+</g>
+<g clip-path="url(#i)" data-s="14">
+<g transform="rotate(90)">
+<path class="n" data-o="14" d="M-4840-8550h4680"/>
+<path class="n" data-o="14" d="M-4840-5700h4680"/>
+<path class="n" data-o="14" d="M-4840-2850h4680"/>
+</g>
+</g>
+<g clip-path="url(#j)" data-s="18">
+<g transform="rotate(90)">
+<path class="n" data-o="18" d="M-8160 11400h4400"/>
+<path class="n" data-o="18" d="M-8160 14250h4400"/>
+<path class="n" data-o="18" d="M-8160 17100h4400"/>
+<path class="n" data-o="18" d="M-8160 19950h4400"/>
+</g>
+</g>
+</g>
+<g data-c="17">
+<g data-s="19">
+<path class="o" data-o="19" d="M-6440-12520l-4720-2280-1400 3640 1960 1760h4320l-160-3200v80z"/>
+</g>
+</g>
+<g data-c="20">
+<g data-s="20">
+<path class="p" data-o="20" d="M-1480 15320l520-2840 3120 720-520 3320-3040-1160-80-40z"/>
+</g>
+</g>
+<g data-c="21">
+<g data-s="21">
+<path class="q" data-o="21" d="M3640 15360l-800-3760 4480 320-3600 3280-80 160z"/>
+</g>
+<g clip-path="url(#k)" data-s="22">
+<path class="r" data-o="22" d="M-19240 7600h4720"/>
+<path class="r" data-o="22" d="M-19240 8360h4720"/>
+<path class="r" data-o="22" d="M-19240 9120h4720"/>
+<path class="r" data-o="22" d="M-19240 9880h4720"/>
+<path class="r" data-o="22" d="M-19240 10640h4720"/>
+<path class="r" data-o="22" d="M-19240 11400h4720"/>
+</g>
+<g clip-path="url(#l)" data-s="23">
+<path class="s" data-o="23" d="M-12960 5400h6440"/>
+<path class="s" data-o="23" d="M-12960 5850h6440"/>
+<path class="s" data-o="23" d="M-12960 6300h6440"/>
+<path class="s" data-o="23" d="M-12960 6750h6440"/>
+<path class="s" data-o="23" d="M-12960 7200h6440"/>
+<path class="s" data-o="23" d="M-12960 7650h6440"/>
+<path class="s" data-o="23" d="M-12960 8100h6440"/>
+<path class="s" data-o="23" d="M-12960 8550h6440"/>
+<path class="s" data-o="23" d="M-12960 9000h6440"/>
+<path class="s" data-o="23" d="M-12960 9450h6440"/>
+<path class="s" data-o="23" d="M-12960 9900h6440"/>
+<path class="s" data-o="23" d="M-12960 10350h6440"/>
+<path class="s" data-o="23" d="M-12960 10800h6440"/>
+</g>
+<g clip-path="url(#m)" data-s="24">
+<g transform="translate(-6020 5850)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(-4300 5850)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(-2580 5850)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(-860 5850)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(860 5850)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(2580 5850)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(-5160 6300)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(-3440 6300)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(-1720 6300)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(0 6300)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(1720 6300)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(-6020 6750)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(-4300 6750)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(-2580 6750)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(-860 6750)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(860 6750)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(2580 6750)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(-5160 7200)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(-3440 7200)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(-1720 7200)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(0 7200)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(1720 7200)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(-6020 7650)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(-4300 7650)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(-2580 7650)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(-860 7650)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(860 7650)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(2580 7650)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(-5160 8100)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(-3440 8100)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(-1720 8100)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(0 8100)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(1720 8100)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(-6020 8550)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(-4300 8550)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(-2580 8550)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(-860 8550)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(860 8550)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(2580 8550)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(-5160 9000)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(-3440 9000)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(-1720 9000)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(0 9000)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(1720 9000)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(-6020 9450)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(-4300 9450)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(-2580 9450)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(-860 9450)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(860 9450)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(2580 9450)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(-5160 9900)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(-3440 9900)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(-1720 9900)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(0 9900)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(1720 9900)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(-6020 10350)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(-4300 10350)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(-2580 10350)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(-860 10350)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(860 10350)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(2580 10350)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(-5160 10800)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(-3440 10800)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(-1720 10800)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(0 10800)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+<g transform="translate(1720 10800)">
+<path class="t" data-o="24" d="M-680 0H670"/>
+</g>
+</g>
+</g>
+<g data-c="27">
+<g data-s="25">
+<path class="u" data-o="25" d="M-16680 13440l920 1880 2600-1360-1640-2160-1720 1440-160 200z"/>
+</g>
+<g clip-path="url(#n)" data-s="1">
+<g transform="rotate(45)">
+<circle class="v" data-o="1" cy="14960" r="135"/>
+<circle class="v" data-o="1" cx="680" cy="14960" r="135"/>
+<circle class="v" data-o="1" cx="1360" cy="14960" r="135"/>
+<circle class="v" data-o="1" cx="2040" cy="14960" r="135"/>
+<circle class="v" data-o="1" cx="2720" cy="14960" r="135"/>
+<circle class="v" data-o="1" cx="3400" cy="14960" r="135"/>
+<circle class="v" data-o="1" cx="4080" cy="14960" r="135"/>
+<circle class="v" data-o="1" cx="4760" cy="14960" r="135"/>
+<circle class="v" data-o="1" cy="15640" r="135"/>
+<circle class="v" data-o="1" cx="680" cy="15640" r="135"/>
+<circle class="v" data-o="1" cx="1360" cy="15640" r="135"/>
+<circle class="v" data-o="1" cx="2040" cy="15640" r="135"/>
+<circle class="v" data-o="1" cx="2720" cy="15640" r="135"/>
+<circle class="v" data-o="1" cx="3400" cy="15640" r="135"/>
+<circle class="v" data-o="1" cx="4080" cy="15640" r="135"/>
+<circle class="v" data-o="1" cx="4760" cy="15640" r="135"/>
+<circle class="v" data-o="1" cy="16320" r="135"/>
+<circle class="v" data-o="1" cx="680" cy="16320" r="135"/>
+<circle class="v" data-o="1" cx="1360" cy="16320" r="135"/>
+<circle class="v" data-o="1" cx="2040" cy="16320" r="135"/>
+<circle class="v" data-o="1" cx="2720" cy="16320" r="135"/>
+<circle class="v" data-o="1" cx="3400" cy="16320" r="135"/>
+<circle class="v" data-o="1" cx="4080" cy="16320" r="135"/>
+<circle class="v" data-o="1" cx="4760" cy="16320" r="135"/>
+<circle class="v" data-o="1" cy="17000" r="135"/>
+<circle class="v" data-o="1" cx="680" cy="17000" r="135"/>
+<circle class="v" data-o="1" cx="1360" cy="17000" r="135"/>
+<circle class="v" data-o="1" cx="2040" cy="17000" r="135"/>
+<circle class="v" data-o="1" cx="2720" cy="17000" r="135"/>
+<circle class="v" data-o="1" cx="3400" cy="17000" r="135"/>
+<circle class="v" data-o="1" cx="4080" cy="17000" r="135"/>
+<circle class="v" data-o="1" cx="4760" cy="17000" r="135"/>
+<circle class="v" data-o="1" cy="17680" r="135"/>
+<circle class="v" data-o="1" cx="680" cy="17680" r="135"/>
+<circle class="v" data-o="1" cx="1360" cy="17680" r="135"/>
+<circle class="v" data-o="1" cx="2040" cy="17680" r="135"/>
+<circle class="v" data-o="1" cx="2720" cy="17680" r="135"/>
+<circle class="v" data-o="1" cx="3400" cy="17680" r="135"/>
+<circle class="v" data-o="1" cx="4080" cy="17680" r="135"/>
+<circle class="v" data-o="1" cx="4760" cy="17680" r="135"/>
+<circle class="v" data-o="1" cy="18360" r="135"/>
+<circle class="v" data-o="1" cx="680" cy="18360" r="135"/>
+<circle class="v" data-o="1" cx="1360" cy="18360" r="135"/>
+<circle class="v" data-o="1" cx="2040" cy="18360" r="135"/>
+<circle class="v" data-o="1" cx="2720" cy="18360" r="135"/>
+<circle class="v" data-o="1" cx="3400" cy="18360" r="135"/>
+<circle class="v" data-o="1" cx="4080" cy="18360" r="135"/>
+<circle class="v" data-o="1" cx="4760" cy="18360" r="135"/>
+<circle class="v" data-o="1" cy="19040" r="135"/>
+<circle class="v" data-o="1" cx="680" cy="19040" r="135"/>
+<circle class="v" data-o="1" cx="1360" cy="19040" r="135"/>
+<circle class="v" data-o="1" cx="2040" cy="19040" r="135"/>
+<circle class="v" data-o="1" cx="2720" cy="19040" r="135"/>
+<circle class="v" data-o="1" cx="3400" cy="19040" r="135"/>
+<circle class="v" data-o="1" cx="4080" cy="19040" r="135"/>
+<circle class="v" data-o="1" cx="4760" cy="19040" r="135"/>
+<circle class="v" data-o="1" cy="19720" r="135"/>
+<circle class="v" data-o="1" cx="680" cy="19720" r="135"/>
+<circle class="v" data-o="1" cx="1360" cy="19720" r="135"/>
+<circle class="v" data-o="1" cx="2040" cy="19720" r="135"/>
+<circle class="v" data-o="1" cx="2720" cy="19720" r="135"/>
+<circle class="v" data-o="1" cx="3400" cy="19720" r="135"/>
+<circle class="v" data-o="1" cx="4080" cy="19720" r="135"/>
+<circle class="v" data-o="1" cx="4760" cy="19720" r="135"/>
+</g>
+</g>
+<g clip-path="url(#o)" data-s="7">
+<circle class="v" data-o="7" cx="2400" cy="-9600" r="150"/>
+<circle class="v" data-o="7" cx="3600" cy="-9600" r="150"/>
+<circle class="v" data-o="7" cx="4800" cy="-9600" r="150"/>
+<circle class="v" data-o="7" cx="6000" cy="-9600" r="150"/>
+<circle class="v" data-o="7" cx="7200" cy="-9600" r="150"/>
+<circle class="v" data-o="7" cx="8400" cy="-9600" r="150"/>
+<circle class="v" data-o="7" cx="9600" cy="-9600" r="150"/>
+<circle class="v" data-o="7" cx="2400" cy="-8400" r="150"/>
+<circle class="v" data-o="7" cx="3600" cy="-8400" r="150"/>
+<circle class="v" data-o="7" cx="4800" cy="-8400" r="150"/>
+<circle class="v" data-o="7" cx="6000" cy="-8400" r="150"/>
+<circle class="v" data-o="7" cx="7200" cy="-8400" r="150"/>
+<circle class="v" data-o="7" cx="8400" cy="-8400" r="150"/>
+<circle class="v" data-o="7" cx="9600" cy="-8400" r="150"/>
+<circle class="v" data-o="7" cx="2400" cy="-7200" r="150"/>
+<circle class="v" data-o="7" cx="3600" cy="-7200" r="150"/>
+<circle class="v" data-o="7" cx="4800" cy="-7200" r="150"/>
+<circle class="v" data-o="7" cx="6000" cy="-7200" r="150"/>
+<circle class="v" data-o="7" cx="7200" cy="-7200" r="150"/>
+<circle class="v" data-o="7" cx="8400" cy="-7200" r="150"/>
+<circle class="v" data-o="7" cx="9600" cy="-7200" r="150"/>
+<circle class="v" data-o="7" cx="2400" cy="-6000" r="150"/>
+<circle class="v" data-o="7" cx="3600" cy="-6000" r="150"/>
+<circle class="v" data-o="7" cx="4800" cy="-6000" r="150"/>
+<circle class="v" data-o="7" cx="6000" cy="-6000" r="150"/>
+<circle class="v" data-o="7" cx="7200" cy="-6000" r="150"/>
+<circle class="v" data-o="7" cx="8400" cy="-6000" r="150"/>
+<circle class="v" data-o="7" cx="9600" cy="-6000" r="150"/>
+</g>
+<g data-s="26">
+<path class="u" data-o="26" d="M-19480-9160l320-4400 4840-240 480 4520-5560 80-80 40z"/>
+</g>
+</g>
+<g data-c="28">
+<g clip-path="url(#p)" data-s="27">
+<g transform="rotate(-45)">
+<path class="w" data-o="27" d="M9645-9810h8033"/>
+<path class="w" data-o="27" d="M9645-6540h8033"/>
+<path class="w" data-o="27" d="M9645-3270h8033"/>
+<path class="w" data-o="27" d="M9645 0h8033"/>
+</g>
+<g transform="rotate(45)">
+<path class="w" data-o="27" d="M-8910-16350h8033"/>
+<path class="w" data-o="27" d="M-8910-13080h8033"/>
+<path class="w" data-o="27" d="M-8910-9810h8033"/>
+</g>
+</g>
+</g>
+<g data-c="32">
+<g clip-path="url(#q)" data-s="28">
+<g transform="rotate(90)">
+<path class="x" data-o="28" d="M-3360-16640h7680"/>
+<path class="x" data-o="28" d="M-3360-15360h7680"/>
+<path class="x" data-o="28" d="M-3360-14080h7680"/>
+<path class="x" data-o="28" d="M-3360-12800h7680"/>
+<path class="x" data-o="28" d="M-3360-11520h7680"/>
+</g>
+</g>
+<g clip-path="url(#r)" data-s="29">
+<g transform="rotate(-45)">
+<path class="x" data-o="29" d="M-1556 8960h9362"/>
+<path class="x" data-o="29" d="M-1556 10240h9362"/>
+<path class="x" data-o="29" d="M-1556 11520h9362"/>
+<path class="x" data-o="29" d="M-1556 12800h9362"/>
+<path class="x" data-o="29" d="M-1556 14080h9362"/>
+<path class="x" data-o="29" d="M-1556 15360h9362"/>
+<path class="x" data-o="29" d="M-1556 16640h9362"/>
+<path class="x" data-o="29" d="M-1556 17920h9362"/>
+</g>
+<g transform="rotate(45)">
+<path class="x" data-o="29" d="M9192-7680h9362"/>
+<path class="x" data-o="29" d="M9192-6400h9362"/>
+<path class="x" data-o="29" d="M9192-5120h9362"/>
+<path class="x" data-o="29" d="M9192-3840h9362"/>
+<path class="x" data-o="29" d="M9192-2560h9362"/>
+<path class="x" data-o="29" d="M9192-1280h9362"/>
+<path class="x" data-o="29" d="M9192 0h9362"/>
+<path class="x" data-o="29" d="M9192 1280h9362"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<g transform="matrix(.0290772 0 0-.0290772 756.62 552.97)" clip-path="url(#s)">
+<use xlink:href="#a"/>
+</g>
+</svg>

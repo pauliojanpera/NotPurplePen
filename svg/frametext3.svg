@@ -1,0 +1,235 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="1177mm" height="779mm" viewBox="0 0 1177 779" xml:lang="und">
+<style>
+@font-face{font-family:"Times New Roman";font-style:italic;src:url(data:font/ttf;base64,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)}
+@font-face{font-family:"Arial";src:url(data:font/ttf;base64,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)}
+@font-face{font-family:"Times New Roman";font-weight:700;font-style:italic;src:url(data:font/ttf;base64,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)}
+@font-face{font-family:"Arial Narrow";font-style:italic;src:url(data:font/ttf;base64,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)}
+text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white-space:pre}
+.a{font-size:4.233px;font-family:"Times New Roman";font-style:italic;fill:#ff0;fill:#ff0 icc-color(cmyk,0,0,1,0)}
+.b{font-size:4.233px;font-family:"Arial";fill:#ff0;fill:#ff0 icc-color(cmyk,0,0,1,0)}
+.c{font-size:4.233px;font-family:"Times New Roman";font-weight:700;font-style:italic;fill:#ff0;fill:#ff0 icc-color(cmyk,0,0,1,0)}
+.d{font-size:3.175px;font-family:"Arial Narrow";font-style:italic;fill:#ff0;fill:#ff0 icc-color(cmyk,0,0,1,0)}
+.e{fill:none;stroke:#f00;stroke:#f00 icc-color(cmyk,0,1,1,0);stroke-width:100;stroke-linejoin:bevel}
+.f{font-size:4.233px;font-family:"Times New Roman";font-style:italic;fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)}
+.g{font-size:4.233px;font-family:"Arial";fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)}
+.h{font-size:4.233px;font-family:"Times New Roman";font-weight:700;font-style:italic;fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)}
+.i{font-size:3.175px;font-family:"Arial Narrow";font-style:italic;fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="frametext3">
+<npp:color position="0" name="Yellow" cmyk="0,0,1,0"/>
+<npp:color position="1" name="Red" cmyk="0,1,1,0"/>
+<npp:color position="2" name="Black" cmyk="0,0,0,1"/>
+<npp:symbol n="1" id="2.0" name="line text" colors="0 2"/>
+<npp:symbol n="2" id="1.1" colors="0 2"/>
+<npp:symbol n="3" id="1.7" colors="0 2"/>
+<npp:symbol n="4" id="1.3" colors="0 2"/>
+<npp:symbol n="5" id="1.4" colors="0 2"/>
+<npp:symbol n="6" id="1.8" colors="0 2"/>
+<npp:symbol n="7" id="1.6" colors="1"/>
+</npp:map>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="b">
+<path d="M-55984-43142h89749v59401h-89749z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g data-c="0">
+<g data-s="1">
+<text class="a" data-o="1" transform="scale(1000-1000)" x="-47.439 -45.668 -44.253 -43.104 -41.054 -40.007 -38.734 -36.877 -35.847 -33.72 -31.522 -30.147 -29.015 -28.474 -27.964 -28.039 -28.188" y="11.915 10.164 8.258 6.921 6.017 6.195 6.683 7.057 7.186 7.566 8.956 11.696 13.48 14.413 15.996 17.528 19.92" rotate="-45.638 -52.769 -47.018 -22.106 11.48 18.951 10.942 8.152 11.95 33.85 62.853 58.174 62.468 74.358 92.76 92.619 85.857">This is some line</text>
+</g>
+<g data-s="2">
+<g transform="matrix(1 0 0-1-7780 2600)">
+<text class="b" data-o="2" transform="translate(200-400)scale(1000)" x="0 2.586 4.94 5.881">This</text>
+<text class="b" data-o="2" transform="translate(9962-400)scale(1000)" x="0 .941">is</text>
+<text class="b" data-o="2" transform="translate(14783-400)scale(1000)" x="0 1.176 2.586 4.94 8.467 10.821">framed</text>
+<text class="b" data-o="2" transform="translate(29723-400)scale(1000)" x="0 1.176 3.531 5.647">text</text>
+</g>
+<g transform="matrix(1 0 0-1-8280-5728)">
+<text class="b" data-o="3" transform="translate(200-400)scale(1000)" x="0 2.824 5.178">And</text>
+<text class="b" data-o="3" transform="translate(9497-400)scale(1000)" x="0 2.117 4.471 7.997">some</text>
+<text class="b" data-o="3" transform="translate(200 4680)scale(1000)" x="0 3.057 4.467 6.821 9.176 11.53 13.884">wrapped</text>
+<text class="b" data-o="3" transform="translate(200 9760)scale(1000)" x="0 1.176 2.586 4.94 8.467 10.821">framed</text>
+<text class="b" data-o="3" transform="translate(15140 9760)scale(1000)" x="0 1.176 3.531 5.647">text</text>
+</g>
+</g>
+<g data-s="3">
+<g transform="translate(-20720 11290)rotate(25.6)scale(1-1)">
+<text class="b" data-o="4" transform="matrix(1000 0 0 1000-24912 400)" x="0 3.057 3.998 6.352 8.706">Right</text>
+<text class="b" data-o="4" transform="matrix(1000 0 0 1000-13853 400)" x="0 2.354 3.295 4.235 6.59 8.944 11.299">aligned</text>
+</g>
+<g transform="translate(-13815-7288)rotate(-46)scale(1-1)">
+<text class="b" data-o="5" transform="matrix(1000 0 0 1000-10083 400)" x="0 3.057 3.998 6.352 8.706">Right</text>
+<text class="b" data-o="5" transform="matrix(1000 0 0 1000-13853 5480)" x="0 2.354 3.295 4.235 6.59 8.944 11.299">aligned</text>
+</g>
+</g>
+<g transform="matrix(1 0 0-1-21400-25880)" data-s="4">
+<text class="a" data-o="6" transform="matrix(1000 0 0 1000-2000-3000)" x="0 3.526 5.643 7.133">More</text>
+<text class="a" data-o="6" transform="translate(8071-3000)scale(1000)" x="0 1.176 2.824 4.94 7.997 9.876">framed</text>
+<text class="a" data-o="6" transform="translate(21122-3000)scale(1000)" x="0 1.176 3.055 4.934">text</text>
+</g>
+<g transform="matrix(1 0 0-1-19160-38040)" data-s="5">
+<text class="c" data-o="7" transform="translate(3000 2000)scale(1000)" x="0 2.824 5.178">And</text>
+<text class="c" data-o="7" transform="translate(11353 2000)scale(1000)" x="0 2.117 4.233 6.35 7.526">again</text>
+<text class="c" data-o="7" transform="translate(22292 2000)scale(1000)" x="0 2.824 4 5.176">with</text>
+<text class="c" data-o="7" transform="translate(30880 2000)scale(1000)" x="0 1.647 2.824 4.703 5.879">style</text>
+</g>
+<g data-s="6">
+<g transform="matrix(1 0 0-1-43880-19246)">
+<text class="d" data-o="8" transform="matrix(1000 0 0 1000-6891 600)">C</text>
+<text class="d" data-o="8" transform="matrix(1000 0 0 1000-4157 600)">e</text>
+<text class="d" data-o="8" transform="matrix(1000 0 0 1000-1951 600)">n</text>
+<text class="d" data-o="8" transform="translate(256 600)scale(1000)">t</text>
+<text class="d" data-o="8" transform="translate(1579 600)scale(1000)">e</text>
+<text class="d" data-o="8" transform="translate(3786 600)scale(1000)">r</text>
+<text class="d" data-o="8" transform="translate(5285 600)scale(1000)">e</text>
+<text class="d" data-o="8" transform="matrix(1000 0 0 1000-4775 4410)">d</text>
+<text class="d" data-o="8" transform="matrix(1000 0 0 1000-1245 4410)">a</text>
+<text class="d" data-o="8" transform="translate(962 4410)scale(1000)">n</text>
+<text class="d" data-o="8" transform="translate(3168 4410)scale(1000)">d</text>
+<text class="d" data-o="8" transform="matrix(1000 0 0 1000-7333 8220)">w</text>
+<text class="d" data-o="8" transform="matrix(1000 0 0 1000-4599 8220)">r</text>
+<text class="d" data-o="8" transform="matrix(1000 0 0 1000-3101 8220)">a</text>
+<text class="d" data-o="8" transform="matrix(1000 0 0 1000-894 8220)">p</text>
+<text class="d" data-o="8" transform="translate(1313 8220)scale(1000)">p</text>
+<text class="d" data-o="8" transform="translate(3520 8220)scale(1000)">e</text>
+<text class="d" data-o="8" transform="translate(5726 8220)scale(1000)">d</text>
+</g>
+<g transform="matrix(1 0 0-1-39920-35760)">
+<text class="d" data-o="9" transform="matrix(1000 0 0 1000-12097 600)">J</text>
+<text class="d" data-o="9" transform="matrix(1000 0 0 1000-10069 600)">u</text>
+<text class="d" data-o="9" transform="matrix(1000 0 0 1000-7862 600)">s</text>
+<text class="d" data-o="9" transform="matrix(1000 0 0 1000-5833 600)">t</text>
+<text class="d" data-o="9" transform="matrix(1000 0 0 1000-3187 600)">c</text>
+<text class="d" data-o="9" transform="matrix(1000 0 0 1000-1158 600)">e</text>
+<text class="d" data-o="9" transform="translate(1048 600)scale(1000)">n</text>
+<text class="d" data-o="9" transform="translate(3255 600)scale(1000)">t</text>
+<text class="d" data-o="9" transform="translate(4578 600)scale(1000)">e</text>
+<text class="d" data-o="9" transform="translate(6785 600)scale(1000)">r</text>
+<text class="d" data-o="9" transform="translate(8284 600)scale(1000)">e</text>
+<text class="d" data-o="9" transform="translate(10490 600)scale(1000)">d</text>
+</g>
+</g>
+</g>
+<g data-c="1">
+<g data-s="7">
+<path class="e" data-o="10" d="M-42440 440l23000 11000"/>
+<path class="e" data-o="11" d="M-42720 240l-2680 5600"/>
+<path class="e" data-o="12" d="M-21000 10720l680-1360"/>
+<path class="e" data-o="13" d="M-20840-520l7400-7720"/>
+<path class="e" data-o="14" d="M-18120-10880-28520 80"/>
+<path class="e" data-o="15" d="M-27440-1560l2920 2920"/>
+<path class="e" data-o="16" d="M-20840-520l4200 4240"/>
+<path class="e" data-o="17" d="M-49000-9440l-1040 3080"/>
+<path class="e" data-o="18" d="M-48960-9560l-880-960"/>
+<path class="e" data-o="19" d="M-37080-17760l-560-3720"/>
+<path class="e" data-o="20" d="M-37120-19920l-9320 40"/>
+<path class="e" data-o="21" d="M-46440-23760h7000"/>
+<path class="e" data-o="22" d="M-41560-24240l480 3000"/>
+<path class="e" data-o="23" d="M-37400-27480l-10000-160"/>
+<path class="e" data-o="24" d="M-37640-25560l-760-4720"/>
+<path class="e" data-o="25" d="M-23560-22840l-1520-3840"/>
+<path class="e" data-o="26" d="M-22800-20040l-1160 2000"/>
+<path class="e" data-o="27" d="M-19520-20040l1920 3080"/>
+<path class="e" data-o="28" d="M6000-20400l3960 1160"/>
+<path class="e" data-o="29" d="M920-20520l3000 1480"/>
+<path class="e" data-o="30" d="M13160-12520l2760 2960"/>
+<path class="e" data-o="31" d="M-7040-2200-10600-560"/>
+<path class="e" data-o="32" d="M-840-2240 680-360"/>
+<path class="e" data-o="33" d="M-8680-8320l15600 120"/>
+<path class="e" data-o="34" d="M7880-10320v3640"/>
+<path class="e" data-o="35" d="M-16600-40000h31480"/>
+<path class="e" data-o="36" d="M-14800-38280l-3840-4360"/>
+<path class="e" data-o="37" d="M-7440 6040l2320-40"/>
+<path class="e" data-o="38" d="M-7440 5680l-40 2200"/>
+<path class="e" data-o="39" d="M19880 3040l-40 5200"/>
+</g>
+</g>
+<g data-c="2">
+<g data-s="1">
+<text class="f" data-o="1" transform="scale(1000-1000)" x="-46.8 -45.009 -43.61 -42.6 -40.879 -39.919 -38.553 -36.665 -35.678 -33.805 -31.919 -30.499 -29.408 -28.971 -28.578 -28.652 -28.764" y="12.12 10.288 8.448 7.364 6.665 6.86 7.329 7.694 7.835 8.232 9.497 12.267 14.024 14.863 16.266 17.8 20.263" rotate="-45.638 -52.769 -47.018 -22.106 11.48 18.951 10.942 8.152 11.95 33.85 62.853 58.174 62.468 74.358 92.76 92.619 85.857">This is some line</text>
+</g>
+<g data-s="2">
+<g transform="matrix(1 0 0-1-7780 2600)">
+<text class="g" data-o="2" transform="scale(1000)" x="0 2.586 4.94 5.881">This</text>
+<text class="g" data-o="2" transform="translate(9762)scale(1000)" x="0 .941">is</text>
+<text class="g" data-o="2" transform="translate(14583)scale(1000)" x="0 1.176 2.586 4.94 8.467 10.821">framed</text>
+<text class="g" data-o="2" transform="translate(29523)scale(1000)" x="0 1.176 3.531 5.647">text</text>
+</g>
+<g transform="matrix(1 0 0-1-8280-5728)">
+<text class="g" data-o="3" transform="scale(1000)" x="0 2.824 5.178">And</text>
+<text class="g" data-o="3" transform="translate(9297)scale(1000)" x="0 2.117 4.471 7.997">some</text>
+<text class="g" data-o="3" transform="translate(0 5080)scale(1000)" x="0 3.057 4.467 6.821 9.176 11.53 13.884">wrapped</text>
+<text class="g" data-o="3" transform="translate(0 10160)scale(1000)" x="0 1.176 2.586 4.94 8.467 10.821">framed</text>
+<text class="g" data-o="3" transform="translate(14940 10160)scale(1000)" x="0 1.176 3.531 5.647">text</text>
+</g>
+</g>
+<g data-s="3">
+<g transform="translate(-20720 11290)rotate(25.6)scale(1-1)">
+<text class="g" data-o="4" transform="translate(-24712)scale(1000)" x="0 3.057 3.998 6.352 8.706">Right</text>
+<text class="g" data-o="4" transform="translate(-13653)scale(1000)" x="0 2.354 3.295 4.235 6.59 8.944 11.299">aligned</text>
+</g>
+<g transform="translate(-13815-7288)rotate(-46)scale(1-1)">
+<text class="g" data-o="5" transform="translate(-9883)scale(1000)" x="0 3.057 3.998 6.352 8.706">Right</text>
+<text class="g" data-o="5" transform="matrix(1000 0 0 1000-13653 5080)" x="0 2.354 3.295 4.235 6.59 8.944 11.299">aligned</text>
+</g>
+</g>
+<g transform="matrix(1 0 0-1-21400-25880)" data-s="4">
+<text class="f" data-o="6" transform="scale(1000)" x="0 3.526 5.643 7.133">More</text>
+<text class="f" data-o="6" transform="translate(10071)scale(1000)" x="0 1.176 2.824 4.94 7.997 9.876">framed</text>
+<text class="f" data-o="6" transform="translate(23122)scale(1000)" x="0 1.176 3.055 4.934">text</text>
+</g>
+<g transform="matrix(1 0 0-1-19160-38040)" data-s="5">
+<text class="h" data-o="7" transform="scale(1000)" x="0 2.824 5.178">And</text>
+<text class="h" data-o="7" transform="translate(8353)scale(1000)" x="0 2.117 4.233 6.35 7.526">again</text>
+<text class="h" data-o="7" transform="translate(19292)scale(1000)" x="0 2.824 4 5.176">with</text>
+<text class="h" data-o="7" transform="translate(27880)scale(1000)" x="0 1.647 2.824 4.703 5.879">style</text>
+</g>
+<g data-s="6">
+<g transform="matrix(1 0 0-1-43880-19246)">
+<text class="i" data-o="8" transform="translate(-7191)scale(1000)">C</text>
+<text class="i" data-o="8" transform="translate(-4457)scale(1000)">e</text>
+<text class="i" data-o="8" transform="translate(-2251)scale(1000)">n</text>
+<text class="i" data-o="8" transform="translate(-44)scale(1000)">t</text>
+<text class="i" data-o="8" transform="translate(1279)scale(1000)">e</text>
+<text class="i" data-o="8" transform="translate(3486)scale(1000)">r</text>
+<text class="i" data-o="8" transform="translate(4985)scale(1000)">e</text>
+<text class="i" data-o="8" transform="matrix(1000 0 0 1000-5075 3810)">d</text>
+<text class="i" data-o="8" transform="matrix(1000 0 0 1000-1545 3810)">a</text>
+<text class="i" data-o="8" transform="translate(662 3810)scale(1000)">n</text>
+<text class="i" data-o="8" transform="translate(2868 3810)scale(1000)">d</text>
+<text class="i" data-o="8" transform="matrix(1000 0 0 1000-7633 7620)">w</text>
+<text class="i" data-o="8" transform="matrix(1000 0 0 1000-4899 7620)">r</text>
+<text class="i" data-o="8" transform="matrix(1000 0 0 1000-3401 7620)">a</text>
+<text class="i" data-o="8" transform="matrix(1000 0 0 1000-1194 7620)">p</text>
+<text class="i" data-o="8" transform="translate(1013 7620)scale(1000)">p</text>
+<text class="i" data-o="8" transform="translate(3220 7620)scale(1000)">e</text>
+<text class="i" data-o="8" transform="translate(5426 7620)scale(1000)">d</text>
+</g>
+<g transform="matrix(1 0 0-1-39920-35760)">
+<text class="i" data-o="9" transform="translate(-12397)scale(1000)">J</text>
+<text class="i" data-o="9" transform="translate(-10369)scale(1000)">u</text>
+<text class="i" data-o="9" transform="translate(-8162)scale(1000)">s</text>
+<text class="i" data-o="9" transform="translate(-6133)scale(1000)">t</text>
+<text class="i" data-o="9" transform="translate(-3487)scale(1000)">c</text>
+<text class="i" data-o="9" transform="translate(-1458)scale(1000)">e</text>
+<text class="i" data-o="9" transform="translate(748)scale(1000)">n</text>
+<text class="i" data-o="9" transform="translate(2955)scale(1000)">t</text>
+<text class="i" data-o="9" transform="translate(4278)scale(1000)">e</text>
+<text class="i" data-o="9" transform="translate(6485)scale(1000)">r</text>
+<text class="i" data-o="9" transform="translate(7984)scale(1000)">e</text>
+<text class="i" data-o="9" transform="translate(10190)scale(1000)">d</text>
+</g>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<g transform="matrix(.01311434 0 0-.01311434 734.2 213.23)" clip-path="url(#b)">
+<use xlink:href="#a"/>
+</g>
+</svg>

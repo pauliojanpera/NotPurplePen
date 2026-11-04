@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="761mm" height="431mm" viewBox="0 0 761 431">
+<style>
+.a{fill:none;stroke:#a80000;stroke:#a80000 icc-color(cmyk,0,.68,.91,.34);stroke-width:180;stroke-linejoin:bevel}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="template_fraction2">
+<npp:color position="19" name="Brown" cmyk="0,.68,.91,.34" overprint="1"/>
+<npp:symbol n="1" id="118.0" name="Special landform feature" colors="19"/>
+</npp:map>
+<npp:map n="2" label="Water lilies.jpg"/>
+<npp:map n="3" label="C:\Users\Peter\Documents\Programs\MapModel\src\TestFiles\rendering\t2.ocd"/>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="b">
+<path d="M-39617 20176h4027v2281h-4027z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g data-c="19">
+<g transform="translate(-37720 21240)" data-s="1">
+<path class="a" data-o="1" d="M-400-400l800 800"/>
+<path class="a" data-o="1" d="M-400 400l800-800"/>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<g transform="matrix(.188981 0 0-.188981 7486.9 4243.9)" clip-path="url(#b)">
+<use xlink:href="#a"/>
+</g>
+</svg>

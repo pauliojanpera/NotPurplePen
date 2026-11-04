@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="761mm" height="500mm" viewBox="0 0 761 500">
+<style>
+.a{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:210;stroke-miterlimit:5}
+.b{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:140;stroke-linejoin:bevel}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="oddfenceends">
+<npp:color position="28" name="Black" cmyk="0,0,0,1" overprint="1"/>
+<npp:symbol n="1" id="522.1" name="Passable fence or railing" colors="28"/>
+</npp:map>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="b">
+<path d="M4400-8583h9860v6479H4400z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g data-c="28">
+<g data-s="1">
+<path class="a" data-o="1" d="M8320-6640l-790 1830 1060 780"/>
+<g transform="translate(7925-5725)rotate(113.35)">
+<path class="b" data-o="1" d="M0 0-380-650"/>
+</g>
+<path class="a" data-o="2" d="M10240-6240l-960 1920 1440 800"/>
+<g transform="translate(9760-5280)rotate(116.57)">
+<path class="b" data-o="2" d="M0 0-380-650"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<g transform="matrix(.077179 0 0-.077179-339.56-162.41)" clip-path="url(#b)">
+<use xlink:href="#a"/>
+</g>
+</svg>

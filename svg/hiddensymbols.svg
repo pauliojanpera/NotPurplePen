@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="665mm" height="830mm" viewBox="0 0 665 830" xml:lang="und">
+<style>
+@font-face{font-family:"Arial";src:url(data:font/ttf;base64,AAEAAAANAIAAAwBQR0RFRgAQAAQAAAD4AAAAFkdQT1NEdEx1AAABEAAAAB5HU1VCwdnFwQAAAhAAAABGT1MvMnzPnDAAAAJYAAAAYGNtYXAAhwFJAAABzAAAAERnbHlmJBATCQAAArgAAADWaGVhZAsAi7AAAAGUAAAANmhoZWENlAOAAAABcAAAACRobXR4C84BjwAAAOgAAAAObG9jYQB+AFMAAADcAAAACm1heHAAYwGwAAABMAAAACBuYW1lMbJPEAAAA5AAAAJUcG9zdP/AAJYAAAFQAAAAIAAAAAAAEwBTAGsAAAYAAM0BxwCJBAAAOQAHAAAAAQAAAAwAAAAAAAAAAgABAAAAAwABAAAAAQAAAAoAHAAcAAFERkxUAAgABAAAAAD//wAAAAAAAAABAAAABAFSAFQAXAAGAAEAAAAAAAAAAAAAAAAABAABAAMAAAAAAAD/vQCWAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAABz7+TgBDCrT7pvp6CmoAAQAAAAAAAAAAAAAAAAAAAAMAAQAAAAIZmdK4XhJfDzz1AB8IAAAAAADIQPmaAAAAAN17Lhb7pv2TCmoH1wAAAAgAAgAAAAAAAAAAAAIAAAADAAAAFAADAAEAAAAUAAQAMAAAAAgACAACAAAAaQBzAHb//wAAAGkAcwB2////mP+P/40AAQAAAAAAAAAAAAEAAAAKAEQARAAHREZMVAAwYm9wbwAsY29wdAAsY3lybAAsZ3JlawAsaGVicgAsbGF0bgAsAAAAAAAEAAAAAP//AAAAAAAAAAMEowGQAAUAAAWaBTMAAAEbBZoFMwAAA9EAZgISCAUCCwYEAgICAgIEAAAAAQAAAAAAAAAAAAAAADFBU0MAQABpAHYF0/5RATMHPgGyYAABv9/3AAAEOgWBAAAAIAAsAAIAiQAAAT0FzAADAAcAABM1MxUDETMRibS0tAUgrKz64AQ6+8YAAQA5/+wDtgRLACoAAAEUBiMiJic3HgEzMjY1NCYvAS4CNTQ2MzIWFwcuASMiBhUUHgEXHgMDtufQytshnxeQgIl/WGKBm4NK08qz0xyiD4NuenQwXpePfkkoASuZpoWNH1dRVFRAUBoiKE1uUJSbfosUSE1KSy48KiUkPUphAAABAAcAAAP5BDoACgAAISMBMxMWFz8BEzMCZdX+d8DuDTgjJ/a/BDr9QCjFdXYCwgAAAAAACQByAAMAAQQJAAAArgE0AAMAAQQJAAEAHgEWAAMAAQQJAAIADgEIAAMAAQQJAAMANADUAAMAAQQJAAQAHgEWAAMAAQQJAAUAGgC6AAMAAQQJAAYAHACeAAMAAQQJAA0AagA0AAMAAQQJAA4ANAAAAGgAdAB0AHAAOgAvAC8AcwBjAHIAaQBwAHQAcwAuAHMAaQBsAC4AbwByAGcALwBPAEYATABMAGkAYwBlAG4AcwBlAGQAIAB1AG4AZABlAHIAIAB0AGgAZQAgAFMASQBMACAATwBwAGUAbgAgAEYAbwBuAHQAIABMAGkAYwBlAG4AcwBlACwAIABWAGUAcgBzAGkAbwBuACAAMQAuADEATABpAGIAZQByAGEAdABpAG8AbgBTAGEAbgBzAFYAZQByAHMAaQBvAG4AIAAyAC4AMQAuADUAQQBzAGMAZQBuAGQAZQByACAALQAgAEwAaQBiAGUAcgBhAHQAaQBvAG4AIABTAGEAbgBzAFIAZQBnAHUAbABhAHIATABpAGIAZQByAGEAdABpAG8AbgAgAFMAYQBuAHMARABpAGcAaQB0AGkAegBlAGQAIABkAGEAdABhACAAYwBvAHAAeQByAGkAZwBoAHQAIAAoAGMAKQAgADIAMAAxADAAIABHAG8AbwBnAGwAZQAgAEMAbwByAHAAbwByAGEAdABpAG8AbgAuACAACgBDAG8AcAB5AHIAaQBnAGgAdAAgACgAYwApACAAMgAwADEAMgAgAFIAZQBkACAASABhAHQALAAgAEkAbgBjAC4=)}
+text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white-space:pre}
+.a{fill:#ffba36;fill:#ffba36 icc-color(cmyk,0,.27,.79,0);fill-rule:evenodd}
+.b{fill:none;stroke:#e79f67;stroke:#e79f67 icc-color(cmyk,0,.28,.5,.095);stroke-width:1020;stroke-miterlimit:5}
+.c{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:270;stroke-linejoin:round}
+.d{fill:none;stroke:#e79f67;stroke:#e79f67 icc-color(cmyk,0,.28,.5,.095);stroke-width:750;stroke-miterlimit:5}
+.e{fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd}
+.f{font-size:8.361px;font-family:"Arial";fill:#f0f;fill:#f0f icc-color(cmyk,0,1,0,0)}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="hiddensymbols">
+<npp:color position="8" name="Yellow" cmyk="0,.27,.79,0"/>
+<npp:color position="13" name="Brown 50%" cmyk="0,.28,.5,.095"/>
+<npp:color position="24" name="Street borderlines" cmyk="0,0,0,1" overprint="1"/>
+<npp:color position="26" name="Street infill" cmyk="0,.28,.5,.095"/>
+<npp:color position="28" name="Black" cmyk="0,0,0,1" overprint="1"/>
+<npp:color position="33" name="Purple" cmyk="0,1,0,0"/>
+<npp:symbol n="1" id="401.0" name="Open land" colors="8"/>
+<npp:symbol n="2" id="502.0" name="Major road" colors="13 24 26"/>
+<npp:symbol n="3" id="209.0" name="Boulder cluster" colors="28"/>
+<npp:symbol n="4" id="703.0" name="Control number" colors="33"/>
+</npp:map>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="b">
+<path d="M-16000-20000h51000v47000h-51000z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g data-c="8">
+<g data-s="1">
+<path class="a" data-o="1" d="M-6640 6240l3040-4800 5440 4560-4080 1200-4400-880v-80z"/>
+</g>
+</g>
+<g data-c="13">
+<g data-s="2">
+<path class="b" data-o="2" d="M-4560-8480l4800-6080"/>
+</g>
+</g>
+<g data-c="24">
+<g data-s="2">
+<path class="c" data-o="2" d="M-4160-8164l4800-6080"/>
+<path class="c" data-o="2" d="M-4960-8796l4800-6080"/>
+</g>
+</g>
+<g data-c="26">
+<g data-s="2">
+<path class="d" data-o="2" d="M-4560-8480l4800-6080"/>
+</g>
+</g>
+<g data-c="28">
+<g transform="translate(-4080-4720)" data-s="3">
+<path class="e" data-o="3" d="M-600-450 0 610 600-450H-600z"/>
+</g>
+</g>
+<g data-c="33">
+<g transform="matrix(1 0 0-1-6800 14080)" data-s="4">
+<text class="f" data-o="4" transform="scale(1000)" x="0 4.18 6.038">vis</text>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<g transform="matrix(.0130392 0 0-.0130392 208.63 460.64)" clip-path="url(#b)">
+<use xlink:href="#a"/>
+</g>
+</svg>

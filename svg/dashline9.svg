@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="665mm" height="830mm" viewBox="0 0 665 830" xml:lang="und">
+<style>
+@font-face{font-family:"Arial";src:url(data:font/ttf;base64,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)}
+text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white-space:pre}
+.a{font-size:2.081px;font-family:"Arial";fill:#d14200;fill:#d14200 icc-color(cmyk,0,.56,1,.18)}
+.b{fill:none;stroke:#21d1ff;stroke:#21d1ff icc-color(cmyk,.87,.18,0,0);stroke-width:140;stroke-linejoin:bevel}
+.c{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:120;stroke-linejoin:bevel}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="dashline9">
+<npp:color position="18" name="Brown" cmyk="0,.56,1,.18" overprint="1"/>
+<npp:color position="21" name="Blue" cmyk=".87,.18,0,0" overprint="1"/>
+<npp:color position="27" name="Black" cmyk="0,0,0,1" overprint="1"/>
+<npp:symbol n="1" id="105.0" name="Contour value" colors="18"/>
+<npp:symbol n="2" id="307.0" name="Minor water channel" colors="21"/>
+<npp:symbol n="3" id="529.1" name="Bounding line" colors="27"/>
+</npp:map>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="b">
+<path d="M-24890 5223h13205v16480h-13205z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g data-c="18">
+<g data-s="1">
+<g transform="matrix(1 0 0-1-21980 16530)">
+<text class="a" data-o="1" transform="scale(1000)">2</text>
+</g>
+<g transform="matrix(1 0 0-1-22090 10220)">
+<text class="a" data-o="2" transform="scale(1000)">3</text>
+</g>
+<g transform="matrix(1 0 0-1-21910 7670)">
+<text class="a" data-o="3" transform="scale(1000)">4</text>
+</g>
+</g>
+</g>
+<g data-c="21">
+<g data-s="2">
+<path class="b" data-o="4" d="M-20000 20000h60"/>
+<path class="b" data-o="4" d="M-19690 20000h60"/>
+<path class="b" data-o="5" d="M-19990 19710h170"/>
+<path class="b" data-o="5" d="M-19570 19710h170"/>
+<path class="b" data-o="6" d="M-20000 19390l271 3"/>
+<path class="b" data-o="6" d="M-19481 19397l271 3"/>
+<path class="b" data-o="7" d="M-20000 19090h355"/>
+<path class="b" data-o="7" d="M-19395 19090h355"/>
+<path class="b" data-o="8" d="M-20000 18800l436 8"/>
+<path class="b" data-o="8" d="M-19316 18812l436 8"/>
+<path class="b" data-o="9" d="M-19990 18460l481 8"/>
+<path class="b" data-o="9" d="M-19261 18472l481 8"/>
+<path class="b" data-o="10" d="M-20000 18110h545"/>
+<path class="b" data-o="10" d="M-19205 18110h545"/>
+<path class="b" data-o="11" d="M-19990 17740h600"/>
+<path class="b" data-o="11" d="M-19140 17740h600"/>
+<path class="b" data-o="12" d="M-20000 17420h655"/>
+<path class="b" data-o="12" d="M-19095 17420h655"/>
+<path class="b" data-o="13" d="M-20000 17070h745"/>
+<path class="b" data-o="13" d="M-19005 17070h745"/>
+<path class="b" data-o="14" d="M-20000 16730h785"/>
+<path class="b" data-o="14" d="M-18965 16730h785"/>
+<path class="b" data-o="15" d="M-20000 16410h855"/>
+<path class="b" data-o="15" d="M-18895 16410h855"/>
+<path class="b" data-o="16" d="M-20000 16100h925"/>
+<path class="b" data-o="16" d="M-18825 16100h925"/>
+<path class="b" data-o="17" d="M-20000 15750h960"/>
+<path class="b" data-o="17" d="M-18790 15750h960"/>
+<path class="b" data-o="18" d="M-20000 15440h1020"/>
+<path class="b" data-o="18" d="M-18730 15440h1020"/>
+<path class="b" data-o="19" d="M-20000 15110h1070"/>
+<path class="b" data-o="19" d="M-18680 15110h1070"/>
+<path class="b" data-o="20" d="M-20000 14800h1130"/>
+<path class="b" data-o="20" d="M-18620 14800h1130"/>
+<path class="b" data-o="21" d="M-20000 14500h1185"/>
+<path class="b" data-o="21" d="M-18565 14500h1185"/>
+<path class="b" data-o="22" d="M-20000 14190h1265"/>
+<path class="b" data-o="22" d="M-18485 14190h1265"/>
+<path class="b" data-o="23" d="M-19990 13830h1310"/>
+<path class="b" data-o="23" d="M-18430 13830h1310"/>
+<path class="b" data-o="24" d="M-20010 13500h1385"/>
+<path class="b" data-o="24" d="M-18375 13500h1385"/>
+<path class="b" data-o="25" d="M-20000 13190h1445"/>
+<path class="b" data-o="25" d="M-18305 13190h1445"/>
+<path class="b" data-o="26" d="M-20000 12850h1495"/>
+<path class="b" data-o="26" d="M-18255 12850h1495"/>
+<path class="b" data-o="27" d="M-20000 12510h1600"/>
+<path class="b" data-o="27" d="M-18150 12510h1600"/>
+<path class="b" data-o="28" d="M-20000 12200h1620"/>
+<path class="b" data-o="28" d="M-18130 12200h1620"/>
+<path class="b" data-o="29" d="M-19990 11900l1000 6"/>
+<path class="b" data-o="29" d="M-18740 11907l1000 6"/>
+<path class="b" data-o="29" d="M-17490 11914l1000 6"/>
+<path class="b" data-o="30" d="M-20010 11550l1024 6"/>
+<path class="b" data-o="30" d="M-18737 11557l1024 6"/>
+<path class="b" data-o="30" d="M-17464 11564l1024 6"/>
+<path class="b" data-o="31" d="M-20010 11180h1253"/>
+<path class="b" data-o="31" d="M-18507 11180h1254"/>
+<path class="b" data-o="31" d="M-17003 11180h1253"/>
+<path class="b" data-o="32" d="M-20000 10880h1337"/>
+<path class="b" data-o="32" d="M-18413 10880h1336"/>
+<path class="b" data-o="32" d="M-16827 10880h1337"/>
+<path class="b" data-o="33" d="M-20010 10530h1400"/>
+<path class="b" data-o="33" d="M-18360 10530h1400"/>
+<path class="b" data-o="33" d="M-16710 10530h1400"/>
+<path class="b" data-o="34" d="M-20000 10150h1460"/>
+<path class="b" data-o="34" d="M-18290 10150h1460"/>
+<path class="b" data-o="34" d="M-16580 10150h1460"/>
+<path class="b" data-o="35" d="M-20010 9750h1497"/>
+<path class="b" data-o="35" d="M-18263 9750h1496"/>
+<path class="b" data-o="35" d="M-16517 9750h1497"/>
+<path class="b" data-o="36" d="M-20010 9430h1085"/>
+<path class="b" data-o="36" d="M-18675 9430h1085"/>
+<path class="b" data-o="36" d="M-17340 9430h1085"/>
+<path class="b" data-o="36" d="M-16005 9430h1085"/>
+<path class="b" data-o="37" d="M-20000 9130h1118"/>
+<path class="b" data-o="37" d="M-18632 9130h1117"/>
+<path class="b" data-o="37" d="M-17265 9130h1118"/>
+<path class="b" data-o="37" d="M-15898 9130h1118"/>
+<path class="b" data-o="38" d="M-20000 8780h1153"/>
+<path class="b" data-o="38" d="M-18597 8780h1152"/>
+<path class="b" data-o="38" d="M-17195 8780h1153"/>
+<path class="b" data-o="38" d="M-15793 8780h1153"/>
+<path class="b" data-o="39" d="M-20000 8440h1193"/>
+<path class="b" data-o="39" d="M-18557 8440h1192"/>
+<path class="b" data-o="39" d="M-17115 8440h1193"/>
+<path class="b" data-o="39" d="M-15672 8440h1192"/>
+<path class="b" data-o="40" d="M-20000 8080h1225"/>
+<path class="b" data-o="40" d="M-18525 8080h1225"/>
+<path class="b" data-o="40" d="M-17050 8080h1225"/>
+<path class="b" data-o="40" d="M-15575 8080h1225"/>
+</g>
+</g>
+<g data-c="27">
+<g data-s="3">
+<path class="c" data-o="41" d="M-22180 12010h1980"/>
+<path class="c" data-o="42" d="M-22130 9560h1990"/>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<g transform="matrix(.0503631 0 0-.0503631 1253.52 1093.05)" clip-path="url(#b)">
+<use xlink:href="#a"/>
+</g>
+</svg>

@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="1054mm" height="623mm" viewBox="0 0 1054 623">
+<style>
+.a{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:2000;stroke-linecap:round;stroke-linejoin:bevel}
+.b{fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)}
+.c{fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:2000;stroke-linecap:round;stroke-linejoin:round}
+.d{fill:none;stroke:#f00;stroke:#f00 icc-color(cmyk,0,1,1,0);stroke-width:100;stroke-linejoin:bevel}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="pointyends9">
+<npp:color position="0" name="Black" cmyk="0,0,0,1"/>
+<npp:color position="1" name="Red" cmyk="0,1,1,0"/>
+<npp:symbol n="1" id="1.1" colors="0"/>
+<npp:symbol n="2" id="1.3" colors="0"/>
+<npp:symbol n="3" id="1.2" name="Red line" colors="1"/>
+</npp:map>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="b">
+<path d="M-54575-10072h64718v38253h-64718z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g data-c="0">
+<g data-s="1">
+<path class="a" data-o="1" d="M-47272 25975l3857-126"/>
+<path class="b" data-o="1" d="M-49240 26040l962-698 973-366 66 1999-995-302z"/>
+<path class="b" data-o="1" d="M-39480 25720l-1990-601-1978-269 65 1998 1957-398z"/>
+<path class="a" data-o="2" d="M-49164 12513c1159-1525 3737-2513 6664-2363 3880 200 6970 2340 6850 4760-130 2420-3410 4240-7300 4040-2044-105-3867-746-5120-1681"/>
+<path class="b" data-o="2" d="M-49810 14190l-410-1165 242-1092 1629 1160-649 463z"/>
+<path class="b" data-o="2" d="M-49810 14190l-70 2121 1212 1752 1210-1593-1309-891z"/>
+<path class="a" data-o="3" d="M-50427-4148c1074-2113 4068-3679 7597-3742 4460-90 8170 2250 8220 5210 5 333-38 660-123 979"/>
+<path class="b" data-o="3" d="M-50850-2360l-537-1107 64-1120 1797 879-569 564z"/>
+<path class="b" data-o="3" d="M-36910 1130l1864-817 1280-1769-1937-495-365 1409z"/>
+<path class="a" data-o="4" d="M-36800 5984c-1209 507-2629 812-4140 846-2660 54-5051-753-6561-2035"/>
+<path class="b" data-o="4" d="M-35230 5130l-446 1052-752 729-750-1854 862-43z"/>
+<path class="b" data-o="4" d="M-49170 1640l-95 2072 1098 1828 1328-1495-1255-967z"/>
+<path class="a" data-o="5" d="M-18360 25480h5200"/>
+<path class="b" data-o="5" d="M-20360 25480l1000-666 1000-334v2000l-1000-334z"/>
+<path class="b" data-o="5" d="M-9160 25480l-2000-666-2000-334v2000l2000-334z"/>
+<path class="a" data-o="6" d="M-17560 19960h640"/>
+<path class="b" data-o="6" d="M-19560 19960l1000-666 1000-334v2000l-1000-334z"/>
+<path class="b" data-o="6" d="M-12920 19960l-2000-666-2000-334v2000l2000-334z"/>
+<path class="b" data-o="7" d="M-19320 15480l667-666 666-334v2000l-666-334z"/>
+<path class="b" data-o="7" d="M-15320 15480l-1333-666-1334-334v2000l1334-334z"/>
+<path class="b" data-o="8" d="M-19320 12120l360-666 360-334v2000l-360-334z"/>
+<path class="b" data-o="8" d="M-17160 12120l-720-666-720-334v2000l720-334z"/>
+<path class="b" data-o="9" d="M-18920 9240l147-666 146-334v2000l-146-334z"/>
+<path class="b" data-o="9" d="M-18040 9240l-293-666-294-334v2000l294-334z"/>
+<path class="b" data-o="10" d="M-19000 6120l53-666 54-334v2000l-54-334z"/>
+<path class="b" data-o="10" d="M-18680 6120l-107-666-106-334v2000l106-334z"/>
+</g>
+<g data-s="2">
+<path class="c" data-o="11" d="M80 26160h5200"/>
+<path class="b" data-o="11" d="M-1920 26160l1000-666 1000-334v2000l-1000-334z"/>
+<path class="b" data-o="11" d="M9280 26160l-2000-666-2000-334v2000l2000-334z"/>
+<path class="c" data-o="12" d="M880 20640h640"/>
+<path class="b" data-o="12" d="M-1120 20640l1000-666 1000-334v2000l-1000-334z"/>
+<path class="b" data-o="12" d="M5520 20640l-2000-666-2000-334v2000l2000-334z"/>
+<path class="b" data-o="13" d="M-880 16160l667-666 666-334v2000l-666-334z"/>
+<path class="b" data-o="13" d="M3120 16160l-1333-666-1334-334v2000l1334-334z"/>
+<path class="b" data-o="14" d="M-880 12800l360-666 360-334v2000l-360-334z"/>
+<path class="b" data-o="14" d="M1280 12800l-720-666-720-334v2000l720-334z"/>
+<path class="b" data-o="15" d="M-480 9920l147-666 146-334v2000l-146-334z"/>
+<path class="b" data-o="15" d="M400 9920l-293-666-294-334v2000l294-334z"/>
+<path class="b" data-o="16" d="M-560 6800l53-666 54-334v2000l-54-334z"/>
+<path class="b" data-o="16" d="M-240 6800l-107-666-106-334v2000l106-334z"/>
+</g>
+</g>
+<g data-c="1">
+<g data-s="3">
+<path class="d" data-o="17" d="M-39560 24440v2720"/>
+<path class="d" data-o="18" d="M-49320 24840v2800"/>
+<path class="d" data-o="19" d="M-35240 5080l1840 2640"/>
+<path class="d" data-o="20" d="M-49240 1720l-3920-400"/>
+<path class="d" data-o="21" d="M-36920 1080l3760 2000"/>
+<path class="d" data-o="22" d="M-50920-2280l-5040 400"/>
+<path class="d" data-o="23" d="M-20360 26440v-4080"/>
+<path class="d" data-o="24" d="M-9320 26280v-2320"/>
+<path class="d" data-o="25" d="M-13000 19400v1600"/>
+<path class="d" data-o="26" d="M-19560 19240v1600"/>
+<path class="d" data-o="27" d="M-15280 14480v2240"/>
+<path class="d" data-o="28" d="M-19320 14680v2320"/>
+<path class="d" data-o="29" d="M-17120 11040v2240"/>
+<path class="d" data-o="30" d="M-19320 11240v1920"/>
+<path class="d" data-o="31" d="M-18000 8160v2160"/>
+<path class="d" data-o="32" d="M-18920 8360v2000"/>
+<path class="d" data-o="33" d="M-18680 5040v2160"/>
+<path class="d" data-o="34" d="M-19000 5080v2160"/>
+<path class="d" data-o="35" d="M-1920 27120v-4080"/>
+<path class="d" data-o="36" d="M9120 26960v-2320"/>
+<path class="d" data-o="37" d="M5440 20080v1600"/>
+<path class="d" data-o="38" d="M-1120 19920v1600"/>
+<path class="d" data-o="39" d="M3040 15280v2240"/>
+<path class="d" data-o="40" d="M-880 15360v2320"/>
+<path class="d" data-o="41" d="M1260 11740v2240"/>
+<path class="d" data-o="42" d="M-900 11860v1920"/>
+<path class="d" data-o="43" d="M420 8840v2160"/>
+<path class="d" data-o="44" d="M-500 9000v2000"/>
+<path class="d" data-o="45" d="M-240 5740v2160"/>
+<path class="d" data-o="46" d="M-540 5740v2160"/>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<g transform="matrix(.016286 0 0-.016286 888.81 458.96)" clip-path="url(#b)">
+<use xlink:href="#a"/>
+</g>
+</svg>
