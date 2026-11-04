@@ -104,6 +104,8 @@ The calls the target fully implements, in the sense of DL-5: `Intensity`, `PushT
 
 ## Tasks
 
+**In flight (Nov 4, from 17:55 Helsinki):** task 5, the colours in Scribus and Inkscape, by one agent at effort max, as @Pauli asked: Inkscape 1.2.2 and Scribus 1.6.1 installed from Ubuntu's packages in the session's workspace, and variants of one export tested in each (an ICC profile behind the `cmyk` name, colours on the elements instead of in classes). Its scripts and findings go under `doc/devdocs/SvgColourReaders/`, with a proposal for how the export should write its colours, which the session puts to @Pauli by interview. The export itself is not changed yet.
+
 **Nov 4, phase 5 into `dev`:** done by the session. Phase 5 had turned two CRLF files into LF ones, `IStructuredGraphicsTarget.cs` and `DialogSettings.cs`, so its merge into `dev` (617b341) conflicted across the whole of `DialogSettings.cs`. 756543f gives both files back their CRLF and changes nothing else.
 - `wip/linux/svg-pages` (bac13f5, `base` with 756543f and ce9f4e3's two baselines): Build run 41841486308 passed. Tests run 41841486740 passed on its second attempt; the first failed in the projections job's setup, where the runner could not start an installer, before any test.
 - `wip/linux/svg-pages-into-dev` (dcfc076): Build run 41841490517 and Tests run 41841490485 passed.
