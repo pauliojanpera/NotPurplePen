@@ -162,11 +162,12 @@ In order of priority. A task ends with its commits on `feature/svg-target`, its 
    - area patterns written as pattern fills;
    - the course data in .ppen's terms and ids;
    - the deprecated EPSG codes named for the four grids.
-5. **The loop's later improvements:**
+5. **Scribus's colours** (F-6, Nov 4). Scribus draws every colour of an export black. The export writes each colour in a class of its `<style>` sheet, as an sRGB value and then again with `icc-color(cmyk,...)` naming a `<color-profile name="cmyk"/>`; Scribus's SVG import may not apply the sheet's classes, or may not read that form. Find which forms it reads, by running its import on variants of one export, and put to @Pauli, by interview, how the export should write its colours.
+6. **The loop's later improvements:**
    - keep every Chromium rendering in the run's artifact, so that the gallery and the tolerance checks need no local Chromium;
    - mark the calls the target will never honor, such as a bitmap drawn lighter (B-6), apart in `pending.tsv` and the summary;
    - after text, read each SVG back into page coordinates and compare its geometry with the case's drawing calls, within a step.
-6. **Keep the record.** Bring this file up to date whenever a task ends or changes hands, and keep the gallery current: about every 30 minutes of work.
+7. **Keep the record.** Bring this file up to date whenever a task ends or changes hands, and keep the gallery current: about every 30 minutes of work.
 
 ## Decisions
 
@@ -281,7 +282,7 @@ In order of priority. A task ends with its commits on `feature/svg-target`, its 
 
 ## Waiting on @Pauli
 
-- **F-6**, opening the output in Inkscape and Scribus, by hand: @Pauli checks it (Nov 4), on the exports in the gallery's `p5-pages` and `p3-export`, which the session listed with what to look for. The newest documents are the 200 drawings of loop run 40851833019 (d3561c1), in `svg/` on `svg-results/svg-export`, and the exported pages of the baseline tests, in `src/TestFiles/svg_export` on `feature/svg-target`. Each color's CMYK values should read from its `icc-color()`.
+- **F-6**, opening the output in Inkscape and Scribus, by hand. On Nov 4 @Pauli opened four exports from the gallery: mapexchange1's Course 5 and Lincoln Park PrintAreas 2 from `p5-pages`, and Overprint test lower purple's Course 12 and printarea2's Course 1 from `p3-export`. In Inkscape the pages show (Course 5's four parts, Lincoln Park's five print areas), overprinting works as described, and the legend's text is right. The purple markings outside the map's terrain on Lincoln Park's "All controls" and "Long" pages are the test event's own controls, which Chromium draws too and which matched Purple Pen's drawing in the layout test. Scribus draws every colour black (task 5). Still to be told: whether Inkscape reads each colour's CMYK values from its `icc-color()`. The newest documents are the 200 drawings of loop run 40851833019 (d3561c1), in `svg/` on `svg-results/svg-export`, and the exported pages of the baseline tests, in `src/TestFiles/svg_export` on `feature/svg-target`. Each color's CMYK values should read from its `icc-color()`.
 
 ## Ready to offer to Purple Pen
 
