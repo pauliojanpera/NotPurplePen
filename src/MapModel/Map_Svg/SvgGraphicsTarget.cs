@@ -447,8 +447,9 @@ namespace PurplePen.MapModel
             openObjectKey = null;
         }
 
-        // Add a page that shows parts within an area of the map, transformed onto its paper (L-3, F-4).
-        public void AddPage(SizeF paperSize, RectangleF mapArea, Matrix mapToPage, object[] partKeys)
+        // Add a page that shows parts within an area of the map, transformed onto its paper, named so that its view and
+        // its Inkscape page carry the name (L-3, L-6, F-4).
+        public void AddPage(SizeF paperSize, RectangleF mapArea, Matrix mapToPage, object[] partKeys, string name)
         {
             RequireDocumentTarget(nameof(AddPage));
             if (openGroups.Count > 0)
@@ -465,7 +466,7 @@ namespace PurplePen.MapModel
             SvgPathData clipPath = RectanglePath(mapArea);
             SvgTransform stepsToMillimetres = new SvgTransform(1 / SvgNumbers.StepsPerMillimetre, 0, 0, 1 / SvgNumbers.StepsPerMillimetre, 0, 0);
             SvgTransform stepsToPage = SvgTransform.FromMatrix(mapToPage, 1).After(stepsToMillimetres);
-            document.AddPage(paperSize.Width, paperSize.Height, stepsToPage, document.ClipOf(clipPath.ToString(), false), clipPath.Bounds, parts);
+            document.AddPage(paperSize.Width, paperSize.Height, stepsToPage, document.ClipOf(clipPath.ToString(), false), clipPath.Bounds, parts, name);
         }
 
         // Record where a map that has begun lies in the real world, which its record in the metadata then holds; a later

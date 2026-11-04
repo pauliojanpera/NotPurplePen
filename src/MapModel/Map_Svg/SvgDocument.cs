@@ -236,9 +236,16 @@ namespace PurplePen.MapModel
         }
     }
 
-    // A page: parts shown through a clip and a transform onto paper (L-3, F-4).
+    // A page: parts shown through a clip and a transform onto paper, with a view of its paper and an Inkscape page
+    // that carry its name (L-3, L-6, F-4).
     public sealed class SvgPage
     {
+        // What the page is called, or null for no name.
+        public readonly string Name;
+
+        // The id of the page's view: its name as an XML name, unique among the views (L-5).
+        public readonly string ViewId;
+
         // The size of the paper in millimetres.
         public readonly double Width, Height;
 
@@ -258,8 +265,11 @@ namespace PurplePen.MapModel
         public readonly List<SvgPart> Parts;
 
         // Create a page.
-        public SvgPage(double width, double height, double left, SvgTransform stepsToPage, SvgClip clip, SvgBounds clipBounds, List<SvgPart> parts)
+        public SvgPage(string name, string viewId, double width, double height, double left, SvgTransform stepsToPage, SvgClip clip, SvgBounds clipBounds,
+                       List<SvgPart> parts)
         {
+            Name = name;
+            ViewId = viewId;
             Width = width;
             Height = height;
             Left = left;
@@ -277,6 +287,10 @@ namespace PurplePen.MapModel
         // The namespace of the metadata, and the version of its format, which grows without breaking its readers (F-3).
         public const string MetadataNamespace = "https://pauliojanpera.github.io/NotPurplePen/svg";
         public const string FormatVersion = "1";
+
+        // The namespaces of Inkscape's elements and attributes, which mark the pages as Inkscape's own pages (L-6, F-3).
+        public const string InkscapeNamespace = "http://www.inkscape.org/namespaces/inkscape";
+        public const string SodipodiNamespace = "http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd";
 
         // The gap between pages laid side by side, in millimetres.
         private const double GapBetweenPages = 10;
@@ -296,6 +310,9 @@ namespace PurplePen.MapModel
 
         // The pages, in the order they were added.
         private readonly List<SvgPage> pages = new List<SvgPage>();
+
+        // The ids of the pages' views, which the ids the document names itself skip (L-5).
+        private readonly HashSet<string> viewIds = new HashSet<string>(StringComparer.Ordinal);
 
         // The clips, by their rule and path data, so that equal clips share one definition.
         private readonly Dictionary<string, SvgClip> clips = new Dictionary<string, SvgClip>(StringComparer.Ordinal);
@@ -407,16 +424,74 @@ namespace PurplePen.MapModel
             return image;
         }
 
-        // Add a page, to the right of the pages before it; the first lies at the document's own view box.
+        // Add a page, to the right of the pages before it; the first lies at the document's own view box. Its view is
+        // named after it: its name as an XML name, followed by the first free of _2, _3 and so on when an earlier view
+        // has that name (L-6, L-5).
         // width, height: the size of the paper in millimetres.
         // stepsToPage: the transform from the steps of the parts to the page's millimetres.
         // clip: the clip, in steps.
         // clipBounds: the bounds of the clip.
         // parts: the parts the page shows, from the bottom up.
-        public void AddPage(double width, double height, SvgTransform stepsToPage, SvgClip clip, SvgBounds clipBounds, List<SvgPart> parts)
+        // name: what the page is called, or null for no name, which names its view "page".
+        public void AddPage(double width, double height, SvgTransform stepsToPage, SvgClip clip, SvgBounds clipBounds, List<SvgPart> parts, string name)
         {
-            pages.Add(new SvgPage(width, height, nextPageLeft, stepsToPage, clip, clipBounds, parts));
-            nextPageLeft += width + GapBetweenPages;
+            string baseId = XmlNameOf(string.IsNullOrEmpty(name) ? "page" : name);
+            string viewId = baseId;
+            for (int number = 2; viewIds.Contains(viewId); ++number)
+                viewId = baseId + "_" + SvgNumbers.FormatInteger(number);
+            viewIds.Add(viewId);
+
+            pages.Add(new SvgPage(name, viewId, width, height, nextPageLeft, stepsToPage, clip, clipBounds, parts));
+            nextPageLeft = SvgNumbers.RoundHalfUp((nextPageLeft + width + GapBetweenPages) * SvgNumbers.StepsPerMillimetre) / SvgNumbers.StepsPerMillimetre;
+        }
+
+        // A name as an XML name, which an id must be: each run of characters that a name cannot hold becomes an
+        // underscore, and one goes before a name that does not begin with a letter or an underscore, so that "Course
+        // 5-2" becomes Course_5-2 and "1" _1. The characters are those of XML 1.0's names, without the colon.
+        // name: the name, not empty.
+        public static string XmlNameOf(string name)
+        {
+            StringBuilder xmlName = new StringBuilder(name.Length + 1);
+            bool replacing = false;
+            for (int index = 0; index < name.Length; ++index) {
+                int length = 1;
+                int codePoint = name[index];
+                if (char.IsHighSurrogate(name[index]) && index + 1 < name.Length && char.IsLowSurrogate(name[index + 1])) {
+                    codePoint = char.ConvertToUtf32(name[index], name[index + 1]);
+                    length = 2;
+                }
+                if (IsNameCharacter(codePoint)) {
+                    if (xmlName.Length == 0 && !IsNameStartCharacter(codePoint))
+                        xmlName.Append('_');
+                    xmlName.Append(name, index, length);
+                    replacing = false;
+                }
+                else if (!replacing) {
+                    xmlName.Append('_');
+                    replacing = true;
+                }
+                index += length - 1;
+            }
+            return xmlName.ToString();
+        }
+
+        // Whether a character may begin an XML name without a colon: NameStartChar of XML 1.0, fifth edition.
+        // codePoint: the character's code point.
+        private static bool IsNameStartCharacter(int codePoint)
+        {
+            return (codePoint >= 'A' && codePoint <= 'Z') || codePoint == '_' || (codePoint >= 'a' && codePoint <= 'z') ||
+                   (codePoint >= 0xC0 && codePoint <= 0xD6) || (codePoint >= 0xD8 && codePoint <= 0xF6) || (codePoint >= 0xF8 && codePoint <= 0x2FF) ||
+                   (codePoint >= 0x370 && codePoint <= 0x37D) || (codePoint >= 0x37F && codePoint <= 0x1FFF) || (codePoint >= 0x200C && codePoint <= 0x200D) ||
+                   (codePoint >= 0x2070 && codePoint <= 0x218F) || (codePoint >= 0x2C00 && codePoint <= 0x2FEF) || (codePoint >= 0x3001 && codePoint <= 0xD7FF) ||
+                   (codePoint >= 0xF900 && codePoint <= 0xFDCF) || (codePoint >= 0xFDF0 && codePoint <= 0xFFFD) || (codePoint >= 0x10000 && codePoint <= 0xEFFFF);
+        }
+
+        // Whether a character may be part of an XML name without a colon: NameChar of XML 1.0, fifth edition.
+        // codePoint: the character's code point.
+        private static bool IsNameCharacter(int codePoint)
+        {
+            return IsNameStartCharacter(codePoint) || codePoint == '-' || codePoint == '.' || (codePoint >= '0' && codePoint <= '9') || codePoint == 0xB7 ||
+                   (codePoint >= 0x300 && codePoint <= 0x36F) || (codePoint >= 0x203F && codePoint <= 0x2040);
         }
 
         // Write the document's text: the style block, the metadata, the definitions of clips, patterns, parts and images,
@@ -429,6 +504,8 @@ namespace PurplePen.MapModel
             ResolveFontFaces();
 
             SvgWriter writer = new SvgWriter();
+            foreach (string viewId in viewIds)
+                writer.ReserveId(viewId);
             foreach (SvgPart part in Parts) {
                 writer.Text.Append("<g id=\"").Append(writer.IdOf(part)).Append("\">\n");
                 part.Content.WriteChildren(writer);
@@ -464,6 +541,7 @@ namespace PurplePen.MapModel
             WriteRootStartTag(text);
             WriteStyleBlock(text, writer, WriteFontFaces());
             WriteMetadata(text);
+            WriteInkscapePages(text);
             if (Paints.RefersToCmykProfile || clipsText.Length > 0 || patternsText.Length > 0 || partsText.Length > 0 || imagesText.Length > 0) {
                 text.Append("<defs>\n");
                 if (Paints.RefersToCmykProfile)
@@ -486,6 +564,7 @@ namespace PurplePen.MapModel
             text.Append("<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns:npp=\"")
                 .Append(MetadataNamespace).Append('"');
             if (pages.Count > 0) {
+                text.Append(" xmlns:inkscape=\"").Append(InkscapeNamespace).Append("\" xmlns:sodipodi=\"").Append(SodipodiNamespace).Append('"');
                 string width = SvgNumbers.FormatShortest((float)pages[0].Width);
                 string height = SvgNumbers.FormatShortest((float)pages[0].Height);
                 text.Append(" width=\"").Append(width).Append("mm\" height=\"").Append(height)
@@ -723,11 +802,34 @@ namespace PurplePen.MapModel
             text.Append("/>\n");
         }
 
-        // Write a page: a group that clips the parts to the area the page shows and transforms them onto its paper.
+        // Write the pages as Inkscape's own pages, in the element Inkscape reads them from, each at its paper on the
+        // canvas and labeled with its name, so that the first lies at the document's own view box (L-6).
+        // text: the text to append to.
+        private void WriteInkscapePages(StringBuilder text)
+        {
+            if (pages.Count == 0)
+                return;
+            text.Append("<sodipodi:namedview>\n");
+            foreach (SvgPage page in pages) {
+                text.Append("<inkscape:page x=\"").Append(SvgNumbers.FormatShortest((float)page.Left)).Append("\" y=\"0\" width=\"")
+                    .Append(SvgNumbers.FormatShortest((float)page.Width)).Append("\" height=\"").Append(SvgNumbers.FormatShortest((float)page.Height)).Append('"');
+                if (!string.IsNullOrEmpty(page.Name))
+                    text.Append(" inkscape:label=\"").Append(EscapeAttribute(page.Name)).Append('"');
+                text.Append("/>\n");
+            }
+            text.Append("</sodipodi:namedview>\n");
+        }
+
+        // Write a page: the view of its paper on the canvas, named after it, and a group that clips the parts to the area
+        // the page shows and transforms them onto its paper (L-3, L-6).
         // writer: the writer of the document.
         // page: the page.
         private static void WritePage(SvgWriter writer, SvgPage page)
         {
+            writer.Text.Append("<view id=\"").Append(page.ViewId).Append("\" viewBox=\"").Append(SvgNumbers.FormatShortest((float)page.Left))
+                       .Append(" 0 ").Append(SvgNumbers.FormatShortest((float)page.Width)).Append(' ').Append(SvgNumbers.FormatShortest((float)page.Height))
+                       .Append("\"/>\n");
+
             SvgTransform stepsToCanvas = new SvgTransform(1, 0, 0, 1, page.Left, 0).After(page.StepsToPage);
             SvgBounds reached = new SvgBounds();
             reached.Include(page.ClipBounds);
@@ -810,6 +912,13 @@ namespace PurplePen.MapModel
                 StylesInOrder.Add(style);
             }
             return name;
+        }
+
+        // Keep an id from being named for a definition: an element names it otherwise, as a page's view does.
+        // id: the id.
+        public void ReserveId(string id)
+        {
+            ids.Reserve(id);
         }
 
         // The id of a definition, named when it is first used.

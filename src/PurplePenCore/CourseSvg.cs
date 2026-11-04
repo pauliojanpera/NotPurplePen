@@ -20,8 +20,7 @@ namespace PurplePen
         // The smallest distance worth drawing, in millimetres of map: the step the target writes coordinates in (S-1, A-4).
         private const float MinResolution = 0.001F;
 
-        // Millimetres in an inch, and in a hundredth of an inch, which page layouts are measured in.
-        private const float MillimetresPerInch = 25.4F;
+        // Millimetres in a hundredth of an inch, which page layouts are measured in.
         private const float MillimetresPerHundredthOfInch = 0.254F;
 
         private readonly CourseSvgSettings settings;
@@ -168,7 +167,7 @@ namespace PurplePen
                 DescribeCourse(target, courseKey, page);
 
                 using (Matrix mapToPage = MapToPage(page))
-                    target.AddPage(PaperSize(page), page.mapRectangle, mapToPage, parts.ToArray());
+                    target.AddPage(PaperSize(page), page.mapRectangle, mapToPage, parts.ToArray(), page.description);
 
                 WriteDocument(fileName, target.FinishDocument());
             }
@@ -300,14 +299,15 @@ namespace PurplePen
             return kind.ToString();
         }
 
-        // The size of a page's paper in millimetres, turned for a landscape page (F-4).
+        // The size of a page's paper in millimetres, turned for a landscape page (F-4). Paper sizes are whole hundredths
+        // of an inch, which are converted as such, so that A5, 583 by 827 hundredths, is 148.082 by 210.058 millimetres
+        // and not those values with the error of inches held in single precision.
         // page: the page.
         private static SizeF PaperSize(CoursePage page)
         {
-            SizeF inches = new SizeF(page.paperSize.SizeInInches.Width, page.paperSize.SizeInInches.Height);
-            if (page.landscape)
-                inches = new SizeF(inches.Height, inches.Width);
-            return new SizeF(inches.Width * MillimetresPerInch, inches.Height * MillimetresPerInch);
+            double width = Math.Round(page.paperSize.SizeInInches.Width * 100.0) * 254 / 1000;
+            double height = Math.Round(page.paperSize.SizeInInches.Height * 100.0) * 254 / 1000;
+            return page.landscape ? new SizeF((float)height, (float)width) : new SizeF((float)width, (float)height);
         }
 
         // The transform from map coordinates to millimetres on a page's paper, with the y axis pointing down: PDF

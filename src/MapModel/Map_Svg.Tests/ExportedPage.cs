@@ -84,10 +84,9 @@ namespace Map_Svg.Tests
         {
             get
             {
-                SizeF inches = new SizeF(Page.paperSize.SizeInInches.Width, Page.paperSize.SizeInInches.Height);
-                if (Page.landscape)
-                    inches = new SizeF(inches.Height, inches.Width);
-                return new SizeF(inches.Width * MillimetresPerInch, inches.Height * MillimetresPerInch);
+                double width = Math.Round(Page.paperSize.SizeInInches.Width * 100.0) * 254 / 1000;
+                double height = Math.Round(Page.paperSize.SizeInInches.Height * 100.0) * 254 / 1000;
+                return Page.landscape ? new SizeF((float)height, (float)width) : new SizeF((float)width, (float)height);
             }
         }
 

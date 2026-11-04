@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="279.4mm" height="215.9mm" viewBox="0 0 279.4 215.9" xml:lang="und">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" width="279.4mm" height="215.9mm" viewBox="0 0 279.4 215.9" xml:lang="und">
 <style>
 @font-face{font-family:"Roboto";src:url(data:font/ttf;base64,sha256:6152bb45934d66a50b068b68be6399ada483a588d8cad8ff5fd270be085257ee)}
 text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white-space:pre}
@@ -53,6 +53,9 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 </npp:map>
 </npp:document>
 </metadata>
+<sodipodi:namedview>
+<inkscape:page x="0" y="0" width="279.4" height="215.9" inkscape:label="Course 12"/>
+</sodipodi:namedview>
 <defs>
 <color-profile name="cmyk"/>
 <clipPath id="c">
@@ -124,6 +127,7 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 </g>
 </g>
 </defs>
+<view id="Course_12" viewBox="0 0 279.4 215.9"/>
 <g transform="matrix(.0025 0 0-.0025 142.591 111.485)" clip-path="url(#c)">
 <use xlink:href="#a"/>
 <use xlink:href="#b"/>
