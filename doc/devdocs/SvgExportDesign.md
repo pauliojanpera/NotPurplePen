@@ -190,8 +190,13 @@ choice and checks each file:
 
 The events: `courseprinting/Lincoln Park PrintAreas 2.ppen`, an OCAD map whose courses print on five paper sizes and
 orientations, all in one file; `Overprint test` in upper and lower purple, all in one file, its map in two parts
-shared by two pages; and `mapexchange1` with a file per course, so that Course 2 and Course 5 hold their parts' pages.
-The baseline tests (V-2) gain the last two files, so that the text of a file of several pages shows in review.
+shared by its pages, with Course 12's print area made twice as wide and high, so that its nine pages share one course
+drawing; and `mapexchange1` with a file per course, so that Course 2 and Course 5 hold their parts' pages. The baseline
+tests (V-2) gain `Overprint test` in upper and lower purple in one file and `mapexchange1`'s Course 5 in a file of
+its own, so that the text of a file of several pages shows in review.
+
+A page's paper size is taken from whole hundredths of an inch in double precision, since the inches are held in
+single precision and wrote a 9 inch side as 228.59999 mm, and pages lie at whole micrometres.
 
 ## Open questions
 
