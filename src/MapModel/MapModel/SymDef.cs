@@ -2228,10 +2228,11 @@ namespace PurplePen.MapModel
                 if (patternInfo.patternGlyph.HasColor(color)) {
                     // Faster to draw the pattern with a texture brush that has a bitmap
                     // of the pattern in it. Better quality to do it all with glyph drawing.
-                    // Choose based on the renderOptions.
-                    if (renderOpts.usePatternBitmaps && g.SupportsPatternBrushes && 
+                    // Choose based on the renderOptions. A brush whose tile is vectors draws
+                    // the pattern as glyph drawing does, so no tile is too pixelated for it.
+                    if (renderOpts.usePatternBitmaps && g.SupportsPatternBrushes &&
                         patternInfo.patternFillMode == PatternFillMode.Clip && !patternInfo.irregular &&
-                        !PatternBrushTooPixelated(patternInfo, renderOpts.minResolution)) 
+                        (GraphicsUtil.PatternBrushesAreVectors(g) || !PatternBrushTooPixelated(patternInfo, renderOpts.minResolution)))
                     {
                         CreatePatternBrushes(i, renderOpts.minResolution, g);
                         DrawPatternWithTexBrush(i, g, path, ignoreRotation ? 0 : angle, ignoreRotation ? new PointF() : rotationCenter, color, renderOpts);

@@ -76,5 +76,11 @@ namespace PurplePen.Graphics2D
         // mapKey: the key of a map that has begun.
         // objects: for each object's key, what the object draws.
         void DescribeObjects(object mapKey, IReadOnlyDictionary<object, CourseObjectRecord> objects);
+
+        // Whether the target's pattern brushes are vectors: a brush's tile keeps what is drawn into it as drawing, which
+        // no size of the tile pixelates, rather than as a bitmap of the size CreatePatternBrush suggests. The map code
+        // then draws a regular area pattern with a pattern brush however fine the resolution, and MapDisplay draws area
+        // patterns with pattern brushes for such a target even when printing.
+        bool PatternBrushesAreVectors { get; }
     }
 }

@@ -7,12 +7,17 @@ using PurplePen.Graphics2D;
 using PurplePen.MapModel;
 using RenderingTestCases;
 using SkiaSharp;
+using TestingUtils;
 
 namespace Map_Svg.Tests
 {
-    // A case of the rendering comparison: a drawing case, or a map area of the map rendering tests, drawn as its
-    // reference image is recorded. A map area is drawn anti-aliased, with area patterns drawn element by element,
-    // and with the blending, layers and intensity that the map rendering tests check it with.
+    // A case of the rendering comparison: a drawing case, a map area of the map rendering tests, or a map area that
+    // checks where pattern fills put an area's pattern, drawn as its reference image is recorded. A map area is drawn
+    // anti-aliased, with the blending, layers and intensity that the map rendering tests check it with, and with its
+    // regular area patterns drawn as the export draws them: with pattern brushes into a target whose brushes are
+    // vectors, as are the SVG target's and those of the recorder that stands in for it, and element by element into the
+    // Skia target that draws the reference image (V-9). The comparison thus checks where the brushes put the patterns
+    // (S-13).
     public sealed class ComparisonCase
     {
         // The intensity at which the map rendering tests check lightened colors.
@@ -78,6 +83,43 @@ namespace Map_Svg.Tests
             return cases;
         }
 
+        // Make the cases that check where pattern fills put an area's pattern (S-13): squares of a regular pattern turned
+        // or not, about the map's origin or about an origin of their own, built for the purpose, and the turned areas of
+        // an OpenMapper map, each with its own pattern origin, as its import tests draw them.
+        public static IEnumerable<ComparisonCase> MakeAreaPatternCases()
+        {
+            return new ComparisonCase[] {
+                MakeMapCase("patternorigins", PatternedAreaMap.AreaOfEveryPlacement, new Size(800, 800),
+                            () => PatternedAreaMap.Create(false, AreaSymDef.PatternFillMode.Clip, PatternedAreaMap.SquaresInEveryPlacement)),
+                MakeMapCase("rotarea_omap", RectangleF.FromLTRB(-37, -13, -10, 2), new Size(1000, 556),
+                            () => LoadMap(TestUtil.GetTestFile(Path.Combine("openmapper", "rotarea.omap")))),
+            };
+        }
+
+        // Make the case of a map's area, drawn as a map area of the map rendering tests is drawn, without blending.
+        // name: the name of the case.
+        // area: the area of the map that the image shows.
+        // pixelSize: the size of the image in pixels.
+        // createMap: creates the map, which the drawing disposes of.
+        private static ComparisonCase MakeMapCase(string name, RectangleF area, Size pixelSize, Func<Map> createMap)
+        {
+            return new ComparisonCase(name, area, pixelSize, true, target => {
+                using (Map map = createMap()) {
+                    MapDrawing.DrawMapArea(target, map, area, pixelSize, new RenderOptions(),
+                                           GraphicsUtil.PatternBrushesAreVectors(target), false, true);
+                }
+            });
+        }
+
+        // Load a map file, measuring its text with Skia and finding its templates beside it.
+        // path: the path of the map file.
+        private static Map LoadMap(string path)
+        {
+            Map map = new Map(new Skia_TextMetrics(), new Skia_FileLoader(Path.GetDirectoryName(path)));
+            InputOutput.ReadFile(path, map);
+            return map;
+        }
+
         // Make the case of a check's map area at an intensity.
         // name: the name of the case.
         // check: the check whose descriptor, blending and layers the case takes.
@@ -90,7 +132,7 @@ namespace Map_Svg.Tests
                     target.Intensity = intensity;
                 using (Map map = descriptor.LoadMap()) {
                     MapDrawing.DrawMapArea(target, map, descriptor.MapArea, descriptor.PixelSize, check.CreateRenderOptions(),
-                                           false, check.BlendOverprintedColors, true);
+                                           GraphicsUtil.PatternBrushesAreVectors(target), check.BlendOverprintedColors, true);
                 }
             });
         }

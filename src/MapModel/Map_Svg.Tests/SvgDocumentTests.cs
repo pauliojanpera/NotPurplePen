@@ -825,6 +825,7 @@ namespace Map_Svg.Tests
         {
             string document = WriteOnePage(target => {
                 Assert.IsTrue(target.SupportsPatternBrushes);
+                Assert.IsTrue(target.PatternBrushesAreVectors);
                 object brush = new object();
                 using (IBrushTarget tile = target.CreatePatternBrush(new SizeF(4, 2), 30, 99, 99)) {
                     object pen = new object();

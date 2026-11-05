@@ -118,7 +118,14 @@ namespace Map_Svg.Tests
             RecordStructure(target => target.DescribeObjects(map, standIns));
         }
 
-                // The object that stands for a key of the caller's, made when the key is first seen.
+        // Pattern brushes are vectors, as the SVG target's are, so that the map code draws into the recorder as it draws
+        // into the SVG target: its regular area patterns with pattern brushes, however fine the tile (S-7).
+        public bool PatternBrushesAreVectors
+        {
+            get { return true; }
+        }
+
+        // The object that stands for a key of the caller's, made when the key is first seen.
         // key: the caller's key.
         private object StandInFor(object key)
         {
