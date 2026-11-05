@@ -75,24 +75,24 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <circle data-o="10" r="2325"/>
 <circle data-o="10" r="3325"/>
 </g>
-<g data-s="5">
-<g style="font-size:5.57px;font-family:'Roboto';fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 57940 15796)">
+<g style="font-size:5.57px;font-family:'Roboto';fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" data-s="5">
+<g transform="matrix(1 0 0-1 57940 15796)">
 <text data-o="11" transform="translate(0 5293)scale(1000)" x="0 3.128">14</text>
 </g>
-<g style="font-size:5.57px;font-family:'Roboto';fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 17268 13293)">
+<g transform="matrix(1 0 0-1 17268 13293)">
 <text data-o="12" transform="translate(0 5293)scale(1000)" x="0 3.128">15</text>
 </g>
-<g style="font-size:5.57px;font-family:'Roboto';fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 30342-17083)">
+<g transform="matrix(1 0 0-1 30342-17083)">
 <text data-o="13" transform="translate(0 5293)scale(1000)" x="0 3.128">16</text>
 </g>
-<g style="font-size:5.57px;font-family:'Roboto';fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 39220 5196)">
+<g transform="matrix(1 0 0-1 39220 5196)">
 <text data-o="14" transform="translate(0 5293)scale(1000)" x="0 3.128">17</text>
 </g>
 </g>
 </g>
-<g data-c="3">
+<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:250;stroke-miterlimit:5" data-c="3">
 <g clip-path="url(#b)" data-s="6">
-<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:250;stroke-miterlimit:5" transform="rotate(45)">
+<g transform="rotate(45)">
 <path data-o="15" d="M39850 15600h40972"/>
 <path data-o="15" d="M39850 16200h40972"/>
 <path data-o="15" d="M39850 16800h40972"/>
@@ -163,7 +163,7 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <path data-o="15" d="M39850 55800h40972"/>
 <path data-o="15" d="M39850 56400h40972"/>
 </g>
-<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:250;stroke-miterlimit:5" transform="rotate(135)">
+<g transform="rotate(135)">
 <path data-o="15" d="M15528-81000h40973"/>
 <path data-o="15" d="M15528-80400h40973"/>
 <path data-o="15" d="M15528-79800h40973"/>

@@ -794,11 +794,11 @@ namespace Map_Svg.Tests
             Assert.AreEqual(OnePageDocument(
                 NoStyleBlock,
                 new string[] {
-                    "<g data-m=\"1\">",
-                    "<g style=\"mix-blend-mode:darken;" + BlackFill + "\">",
+                    "<g style=\"" + BlackFill + "\" data-m=\"1\">",
+                    "<g style=\"mix-blend-mode:darken\">",
                     "<circle cx=\"1000\" cy=\"1000\" r=\"1000\"/>",
                     "</g>",
-                    "<g style=\"mix-blend-mode:darken;" + BlackFill + "\">",
+                    "<g style=\"mix-blend-mode:darken\">",
                     "<circle cx=\"3000\" cy=\"3000\" r=\"1000\"/>",
                     "</g>",
                     "</g>",
@@ -961,18 +961,18 @@ namespace Map_Svg.Tests
                 "</npp:map>",
             }) + "\n", document);
             StringAssert.Contains(string.Join("\n", new string[] {
-                "<g data-m=\"1\">",
+                "<g style=\"" + BlackFill + "\" data-m=\"1\">",
                 "<g data-c=\"3\">",
-                "<g style=\"" + BlackFill + "\" data-s=\"1\">",
+                "<g data-s=\"1\">",
                 "<circle data-o=\"1\" cx=\"2000\" r=\"1000\"/>",
                 "<circle data-o=\"2\" cx=\"4000\" r=\"1000\"/>",
                 "</g>",
-                "<g style=\"" + BlackFill + "\" data-s=\"2\">",
+                "<g data-s=\"2\">",
                 "<circle data-o=\"3\" cx=\"6000\" r=\"1000\"/>",
                 "</g>",
                 "</g>",
                 "<g data-c=\"5\">",
-                "<g style=\"" + BlackFill + "\" data-s=\"1\">",
+                "<g data-s=\"1\">",
                 "<circle data-o=\"1\" cx=\"2000\" r=\"1000\"/>",
                 "</g>",
                 "</g>",
@@ -995,13 +995,53 @@ namespace Map_Svg.Tests
             });
             StringAssert.Contains("<npp:symbol n=\"1\" name=\"Image\"/>\n<npp:symbol n=\"2\" id=\"701.0\" name=\"Start\" colors=\"0\"/>\n", document);
             StringAssert.Contains(string.Join("\n", new string[] {
-                "<g data-m=\"1\">",
-                "<g style=\"" + BlackFill + "\" data-s=\"1\">",
+                "<g style=\"" + BlackFill + "\" data-m=\"1\">",
+                "<g data-s=\"1\">",
                 "<circle data-o=\"1\" cx=\"2000\" r=\"1000\"/>",
                 "</g>",
                 "<g data-c=\"0\">",
-                "<g style=\"mix-blend-mode:darken;" + BlackFill + "\" data-s=\"2\">",
+                "<g style=\"mix-blend-mode:darken\" data-s=\"2\">",
                 "<circle data-o=\"2\" cx=\"4000\" r=\"1000\"/>",
+                "</g>",
+                "</g>",
+                "</g>",
+            }) + "\n", document);
+        }
+
+        [Test]
+        public void AStyleSitsOnTheOutermostGroupWhoseElementsAllShareIt()
+        {
+            string document = WriteOnePage(target => {
+                object red = new object(), green = new object(), first = new object(), second = new object();
+                object contour = new object(), cliff = new object(), knoll = new object();
+                object one = new object(), two = new object(), three = new object(), four = new object();
+                target.CreateSolidBrush(red, CmykColor.FromCmyk(0, 1, 1, 0));
+                target.CreateSolidBrush(green, CmykColor.FromCmyk(1, 0, 1, 0));
+                target.BeginColorRun(first, 1, "First", CmykColor.FromCmyk(0, 1, 1, 0), false);
+                DrawObject(target, red, one, contour, "101.0", "Contour", 2);
+                DrawObject(target, red, two, cliff, "201.0", "Cliff", 4);
+                target.EndColorRun();
+                target.BeginColorRun(second, 2, "Second", CmykColor.FromCmyk(1, 0, 1, 0), false);
+                DrawObject(target, red, three, contour, "101.0", "Contour", 6);
+                DrawObject(target, green, four, knoll, "301.0", "Knoll", 8);
+                target.EndColorRun();
+            });
+            StringAssert.Contains(string.Join("\n", new string[] {
+                "<g data-m=\"1\">",
+                "<g style=\"fill:#f00;fill:#f00 icc-color(cmyk,0,1,1,0)\" data-c=\"1\">",
+                "<g data-s=\"1\">",
+                "<circle data-o=\"1\" cx=\"2000\" r=\"1000\"/>",
+                "</g>",
+                "<g data-s=\"2\">",
+                "<circle data-o=\"2\" cx=\"4000\" r=\"1000\"/>",
+                "</g>",
+                "</g>",
+                "<g data-c=\"2\">",
+                "<g style=\"fill:#f00;fill:#f00 icc-color(cmyk,0,1,1,0)\" data-s=\"1\">",
+                "<circle data-o=\"3\" cx=\"6000\" r=\"1000\"/>",
+                "</g>",
+                "<g style=\"fill:#0f0;fill:#0f0 icc-color(cmyk,1,0,1,0)\" data-s=\"3\">",
+                "<circle data-o=\"4\" cx=\"8000\" r=\"1000\"/>",
                 "</g>",
                 "</g>",
                 "</g>",

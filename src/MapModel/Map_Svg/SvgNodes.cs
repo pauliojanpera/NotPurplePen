@@ -846,11 +846,11 @@ namespace PurplePen.MapModel
             bounds = null;
         }
 
-        // Put each style that elements share on the innermost group that holds them, once the groups are tidied (S-4, S-8):
-        // a group that holds elements of its own carries the style that every element within it, at any depth, has,
-        // unless a group around it carries that style already, and its elements then carry none. This group carries
-        // none, since it is written without attributes: it is what a part or a pattern's tile holds, and the elements
-        // it holds itself carry their own styles.
+        // Put each style that elements share on the outermost group that holds them, once the groups are tidied (S-4, S-8):
+        // a group carries the style that every element within it, at any depth, has, unless a group around it carries
+        // one already, and its elements then carry none. This group carries none, since it is written without
+        // attributes: it is what a part or a pattern's tile holds, and the elements it holds itself carry their own
+        // styles.
         public void ShareStyles()
         {
             FindCommonStyle();
@@ -894,14 +894,14 @@ namespace PurplePen.MapModel
             return commonStyle;
         }
 
-        // Carry the style that the group's elements share, when it holds elements of its own and no group around it
-        // carries the style; tell each element it holds whether a group carries its style, and do the same within each
-        // group it holds.
+        // Carry the style that the group's elements share, when no group around it carries one; a group around it that
+        // does carries the style of all the elements within it, this group's too. Tell each element the group holds
+        // whether a group carries its style, and do the same within each group it holds.
         // carried: the style that a group around this one carries, or null for none.
         private void PlaceStyles(SvgStyle carried)
         {
             SharedStyle = null;
-            if (commonStyle != null && !commonStyle.IsSameAs(carried) && HoldsElements()) {
+            if (carried == null && commonStyle != null) {
                 SharedStyle = commonStyle;
                 carried = commonStyle;
             }
@@ -915,16 +915,6 @@ namespace PurplePen.MapModel
                 if (group != null)
                     group.PlaceStyles(carried);
             }
-        }
-
-        // Whether the group holds an element of its own, rather than only groups.
-        private bool HoldsElements()
-        {
-            foreach (SvgNode child in Children) {
-                if (child is SvgElement)
-                    return true;
-            }
-            return false;
         }
 
         // Append a tidied node to tidied nodes, merging it into the last of them when both are groups that carry the

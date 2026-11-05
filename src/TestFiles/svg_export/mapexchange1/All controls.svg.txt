@@ -787,8 +787,8 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 </clipPath>
 <g id="a">
 <g data-m="1">
-<g data-c="0">
-<g style="fill:#fff;fill:#fff icc-color(cmyk,0,0,0,0);fill-rule:evenodd" data-s="1">
+<g style="fill:#fff;fill:#fff icc-color(cmyk,0,0,0,0);fill-rule:evenodd" data-c="0">
+<g data-s="1">
 <path data-o="1" d="M-75803 44582h35454v-210536h-35454V44582z"/>
 </g>
 </g>
@@ -1230,145 +1230,145 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <path data-o="433" d="M-53699-139364v-4596"/>
 <path data-o="434" d="M-44945-139364v-4596"/>
 </g>
-<g data-s="4">
-<g style="font-size:2.758px;font-family:'Roboto Condensed';font-weight:700;fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="matrix(1 0 0-1-58076 43830)">
+<g style="font-size:2.758px;font-family:'Roboto Condensed';font-weight:700;fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" data-s="4">
+<g transform="matrix(1 0 0-1-58076 43830)">
 <text data-o="435" transform="matrix(1000 0 0 1000-9861 2620)" x="0 2.091 3.389 4.328 5.558 7.603 8.975 10.348">Marymoor</text>
 <text data-o="435" transform="translate(2036 2620)scale(1000)" x="0 2.065 2.811 4.476">WIOL</text>
 <text data-o="435" transform="translate(8467 2620)scale(1000)">2</text>
 </g>
-<g style="font-size:2.758px;font-family:'Roboto Condensed';font-weight:700;fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="matrix(1 0 0-1-69019 39453)">
+<g transform="matrix(1 0 0-1-69019 39453)">
 <text data-o="436" transform="matrix(1000 0 0 1000-6351 2620)" x="0 1.647 2.341">All</text>
 <text data-o="436" transform="matrix(1000 0 0 1000-2679 2620)" x="0 1.268 2.64 3.998 4.845 5.71 7.082 7.777">controls</text>
 </g>
-<g style="font-size:2.758px;font-family:'Roboto Condensed';font-weight:700;fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="matrix(1 0 0-1-51511 39453)">
+<g transform="matrix(1 0 0-1-51511 39453)">
 <text data-o="437" transform="matrix(1000 0 0 1000-6227 2620)" x="0 1.395">38</text>
 <text data-o="437" transform="matrix(1000 0 0 1000-2802 2620)" x="0 1.268 2.64 3.998 4.845 5.71 7.082 7.777">controls</text>
 </g>
 </g>
-<g data-s="5">
-<g style="font-size:2.758px;font-family:'Roboto Condensed';fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="matrix(1 0 0-1-69019 21944)">
+<g style="font-size:2.758px;font-family:'Roboto Condensed';fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" data-s="5">
+<g transform="matrix(1 0 0-1-69019 21944)">
 <text data-o="438" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">31</text>
 </g>
-<g style="font-size:2.758px;font-family:'Roboto Condensed';fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="matrix(1 0 0-1-69019 17567)">
+<g transform="matrix(1 0 0-1-69019 17567)">
 <text data-o="439" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">32</text>
 </g>
-<g style="font-size:2.758px;font-family:'Roboto Condensed';fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="matrix(1 0 0-1-69019 13190)">
+<g transform="matrix(1 0 0-1-69019 13190)">
 <text data-o="440" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">36</text>
 </g>
-<g style="font-size:2.758px;font-family:'Roboto Condensed';fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="matrix(1 0 0-1-69019 8813)">
+<g transform="matrix(1 0 0-1-69019 8813)">
 <text data-o="441" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">37</text>
 </g>
-<g style="font-size:2.758px;font-family:'Roboto Condensed';fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="matrix(1 0 0-1-69019 4436)">
+<g transform="matrix(1 0 0-1-69019 4436)">
 <text data-o="442" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">38</text>
 </g>
-<g style="font-size:2.758px;font-family:'Roboto Condensed';fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="matrix(1 0 0-1-69019 59)">
+<g transform="matrix(1 0 0-1-69019 59)">
 <text data-o="443" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">39</text>
 </g>
-<g style="font-size:2.758px;font-family:'Roboto Condensed';fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="matrix(1 0 0-1-69019-4318)">
+<g transform="matrix(1 0 0-1-69019-4318)">
 <text data-o="444" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">40</text>
 </g>
-<g style="font-size:2.758px;font-family:'Roboto Condensed';fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="matrix(1 0 0-1-69019-8695)">
+<g transform="matrix(1 0 0-1-69019-8695)">
 <text data-o="445" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">41</text>
 </g>
-<g style="font-size:2.758px;font-family:'Roboto Condensed';fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="matrix(1 0 0-1-69019-13072)">
+<g transform="matrix(1 0 0-1-69019-13072)">
 <text data-o="446" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">42</text>
 </g>
-<g style="font-size:2.758px;font-family:'Roboto Condensed';fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="matrix(1 0 0-1-69019-17449)">
+<g transform="matrix(1 0 0-1-69019-17449)">
 <text data-o="447" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">43</text>
 </g>
-<g style="font-size:2.758px;font-family:'Roboto Condensed';fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="matrix(1 0 0-1-69019-21826)">
+<g transform="matrix(1 0 0-1-69019-21826)">
 <text data-o="448" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">44</text>
 </g>
-<g style="font-size:2.758px;font-family:'Roboto Condensed';fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="matrix(1 0 0-1-69019-26203)">
+<g transform="matrix(1 0 0-1-69019-26203)">
 <text data-o="449" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">45</text>
 </g>
-<g style="font-size:2.758px;font-family:'Roboto Condensed';fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="matrix(1 0 0-1-69019-30580)">
+<g transform="matrix(1 0 0-1-69019-30580)">
 <text data-o="450" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">46</text>
 </g>
-<g style="font-size:2.758px;font-family:'Roboto Condensed';fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="matrix(1 0 0-1-69019-34957)">
+<g transform="matrix(1 0 0-1-69019-34957)">
 <text data-o="451" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">47</text>
 </g>
-<g style="font-size:2.758px;font-family:'Roboto Condensed';fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="matrix(1 0 0-1-69019-39334)">
+<g transform="matrix(1 0 0-1-69019-39334)">
 <text data-o="452" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">48</text>
 </g>
-<g style="font-size:2.758px;font-family:'Roboto Condensed';fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="matrix(1 0 0-1-69019-43712)">
+<g transform="matrix(1 0 0-1-69019-43712)">
 <text data-o="453" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">49</text>
 </g>
-<g style="font-size:2.758px;font-family:'Roboto Condensed';fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="matrix(1 0 0-1-69019-48089)">
+<g transform="matrix(1 0 0-1-69019-48089)">
 <text data-o="454" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">50</text>
 </g>
-<g style="font-size:2.758px;font-family:'Roboto Condensed';fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="matrix(1 0 0-1-69019-52466)">
+<g transform="matrix(1 0 0-1-69019-52466)">
 <text data-o="455" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">51</text>
 </g>
-<g style="font-size:2.758px;font-family:'Roboto Condensed';fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="matrix(1 0 0-1-69019-56843)">
+<g transform="matrix(1 0 0-1-69019-56843)">
 <text data-o="456" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">52</text>
 </g>
-<g style="font-size:2.758px;font-family:'Roboto Condensed';fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="matrix(1 0 0-1-69019-61220)">
+<g transform="matrix(1 0 0-1-69019-61220)">
 <text data-o="457" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">53</text>
 </g>
-<g style="font-size:2.758px;font-family:'Roboto Condensed';fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="matrix(1 0 0-1-69019-65597)">
+<g transform="matrix(1 0 0-1-69019-65597)">
 <text data-o="458" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">54</text>
 </g>
-<g style="font-size:2.758px;font-family:'Roboto Condensed';fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="matrix(1 0 0-1-69019-69974)">
+<g transform="matrix(1 0 0-1-69019-69974)">
 <text data-o="459" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">55</text>
 </g>
-<g style="font-size:2.758px;font-family:'Roboto Condensed';fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="matrix(1 0 0-1-69019-74351)">
+<g transform="matrix(1 0 0-1-69019-74351)">
 <text data-o="460" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">56</text>
 </g>
-<g style="font-size:2.758px;font-family:'Roboto Condensed';fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="matrix(1 0 0-1-69019-78728)">
+<g transform="matrix(1 0 0-1-69019-78728)">
 <text data-o="461" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">57</text>
 </g>
-<g style="font-size:2.758px;font-family:'Roboto Condensed';fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="matrix(1 0 0-1-69019-83105)">
+<g transform="matrix(1 0 0-1-69019-83105)">
 <text data-o="462" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">58</text>
 </g>
-<g style="font-size:2.758px;font-family:'Roboto Condensed';fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="matrix(1 0 0-1-69019-87482)">
+<g transform="matrix(1 0 0-1-69019-87482)">
 <text data-o="463" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">59</text>
 </g>
-<g style="font-size:2.758px;font-family:'Roboto Condensed';fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="matrix(1 0 0-1-69019-91859)">
+<g transform="matrix(1 0 0-1-69019-91859)">
 <text data-o="464" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">60</text>
 </g>
-<g style="font-size:2.758px;font-family:'Roboto Condensed';fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="matrix(1 0 0-1-69019-96236)">
+<g transform="matrix(1 0 0-1-69019-96236)">
 <text data-o="465" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">70</text>
 </g>
-<g style="font-size:2.758px;font-family:'Roboto Condensed';fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="matrix(1 0 0-1-69019-100613)">
+<g transform="matrix(1 0 0-1-69019-100613)">
 <text data-o="466" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">71</text>
 </g>
-<g style="font-size:2.758px;font-family:'Roboto Condensed';fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="matrix(1 0 0-1-69019-104990)">
+<g transform="matrix(1 0 0-1-69019-104990)">
 <text data-o="467" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">72</text>
 </g>
-<g style="font-size:2.758px;font-family:'Roboto Condensed';fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="matrix(1 0 0-1-69019-109367)">
+<g transform="matrix(1 0 0-1-69019-109367)">
 <text data-o="468" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">73</text>
 </g>
-<g style="font-size:2.758px;font-family:'Roboto Condensed';fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="matrix(1 0 0-1-69019-113745)">
+<g transform="matrix(1 0 0-1-69019-113745)">
 <text data-o="469" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">74</text>
 </g>
-<g style="font-size:2.758px;font-family:'Roboto Condensed';fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="matrix(1 0 0-1-69019-118122)">
+<g transform="matrix(1 0 0-1-69019-118122)">
 <text data-o="470" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">75</text>
 </g>
-<g style="font-size:2.758px;font-family:'Roboto Condensed';fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="matrix(1 0 0-1-69019-122499)">
+<g transform="matrix(1 0 0-1-69019-122499)">
 <text data-o="471" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">76</text>
 </g>
-<g style="font-size:2.758px;font-family:'Roboto Condensed';fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="matrix(1 0 0-1-69019-126876)">
+<g transform="matrix(1 0 0-1-69019-126876)">
 <text data-o="472" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">77</text>
 </g>
-<g style="font-size:2.758px;font-family:'Roboto Condensed';fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="matrix(1 0 0-1-69019-131253)">
+<g transform="matrix(1 0 0-1-69019-131253)">
 <text data-o="473" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">78</text>
 </g>
-<g style="font-size:2.758px;font-family:'Roboto Condensed';fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="matrix(1 0 0-1-69019-135630)">
+<g transform="matrix(1 0 0-1-69019-135630)">
 <text data-o="474" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">79</text>
 </g>
-<g style="font-size:2.758px;font-family:'Roboto Condensed';fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="matrix(1 0 0-1-69019-140007)">
+<g transform="matrix(1 0 0-1-69019-140007)">
 <text data-o="475" transform="matrix(1000 0 0 1000-1361 2620)" x="0 1.361">80</text>
 </g>
 </g>
-<g data-s="6">
-<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-miterlimit:5" transform="translate(-73396 33421)">
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-miterlimit:5" data-s="6">
+<g transform="translate(-73396 33421)">
 <path data-o="476" d="M-1226 1423v-2846L1247 0-1226 1423z"/>
 </g>
-<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-miterlimit:5" transform="translate(-73396 29044)">
+<g transform="translate(-73396 29044)">
 <path data-o="477" d="M-1226 1423v-2846L1247 0-1226 1423z"/>
 </g>
-<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-miterlimit:5" transform="translate(-73396 24667)">
+<g transform="translate(-73396 24667)">
 <path data-o="478" d="M-1226 1423v-2846L1247 0-1226 1423z"/>
 </g>
 </g>
@@ -1396,8 +1396,8 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <path style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-miterlimit:5" data-o="481" d="M766-657 1423 0 766 657"/>
 </g>
 </g>
-<g data-s="9">
-<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-linejoin:round" transform="translate(-60265 24667)">
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-linejoin:round" data-s="9">
+<g transform="translate(-60265 24667)">
 <path data-o="482" d="M460 1554-1554-460"/>
 <path data-o="482" d="M1029 1029-1029-1029"/>
 <path data-o="482" d="M1554 460-460-1554"/>
@@ -1405,7 +1405,7 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <path data-o="482" d="M-1029 1029l2058-2058"/>
 <path data-o="482" d="M-1554 460 460-1554"/>
 </g>
-<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-linejoin:round" transform="translate(-60265 7158)">
+<g transform="translate(-60265 7158)">
 <path data-o="483" d="M460 1554-1554-460"/>
 <path data-o="483" d="M1029 1029-1029-1029"/>
 <path data-o="483" d="M1554 460-460-1554"/>
@@ -1413,7 +1413,7 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <path data-o="483" d="M-1029 1029l2058-2058"/>
 <path data-o="483" d="M-1554 460 460-1554"/>
 </g>
-<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-linejoin:round" transform="translate(-60265-10350)">
+<g transform="translate(-60265-10350)">
 <path data-o="484" d="M460 1554-1554-460"/>
 <path data-o="484" d="M1029 1029-1029-1029"/>
 <path data-o="484" d="M1554 460-460-1554"/>
@@ -1421,7 +1421,7 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <path data-o="484" d="M-1029 1029l2058-2058"/>
 <path data-o="484" d="M-1554 460 460-1554"/>
 </g>
-<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-linejoin:round" transform="translate(-55888-19104)">
+<g transform="translate(-55888-19104)">
 <path data-o="485" d="M460 1554-1554-460"/>
 <path data-o="485" d="M1029 1029-1029-1029"/>
 <path data-o="485" d="M1554 460-460-1554"/>
@@ -1429,7 +1429,7 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <path data-o="485" d="M-1029 1029l2058-2058"/>
 <path data-o="485" d="M-1554 460 460-1554"/>
 </g>
-<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-linejoin:round" transform="translate(-60265-27858)">
+<g transform="translate(-60265-27858)">
 <path data-o="486" d="M460 1554-1554-460"/>
 <path data-o="486" d="M1029 1029-1029-1029"/>
 <path data-o="486" d="M1554 460-460-1554"/>
@@ -1437,7 +1437,7 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <path data-o="486" d="M-1029 1029l2058-2058"/>
 <path data-o="486" d="M-1554 460 460-1554"/>
 </g>
-<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-linejoin:round" transform="translate(-60265-36612)">
+<g transform="translate(-60265-36612)">
 <path data-o="487" d="M460 1554-1554-460"/>
 <path data-o="487" d="M1029 1029-1029-1029"/>
 <path data-o="487" d="M1554 460-460-1554"/>
@@ -1445,7 +1445,7 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <path data-o="487" d="M-1029 1029l2058-2058"/>
 <path data-o="487" d="M-1554 460 460-1554"/>
 </g>
-<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-linejoin:round" transform="translate(-60265-54120)">
+<g transform="translate(-60265-54120)">
 <path data-o="488" d="M460 1554-1554-460"/>
 <path data-o="488" d="M1029 1029-1029-1029"/>
 <path data-o="488" d="M1554 460-460-1554"/>
@@ -1453,7 +1453,7 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <path data-o="488" d="M-1029 1029l2058-2058"/>
 <path data-o="488" d="M-1554 460 460-1554"/>
 </g>
-<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-linejoin:round" transform="translate(-55888-67252)">
+<g transform="translate(-55888-67252)">
 <path data-o="489" d="M460 1554-1554-460"/>
 <path data-o="489" d="M1029 1029-1029-1029"/>
 <path data-o="489" d="M1554 460-460-1554"/>
@@ -1461,7 +1461,7 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <path data-o="489" d="M-1029 1029l2058-2058"/>
 <path data-o="489" d="M-1554 460 460-1554"/>
 </g>
-<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-linejoin:round" transform="translate(-60265-76006)">
+<g transform="translate(-60265-76006)">
 <path data-o="490" d="M460 1554-1554-460"/>
 <path data-o="490" d="M1029 1029-1029-1029"/>
 <path data-o="490" d="M1554 460-460-1554"/>
@@ -1469,7 +1469,7 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <path data-o="490" d="M-1029 1029l2058-2058"/>
 <path data-o="490" d="M-1554 460 460-1554"/>
 </g>
-<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-linejoin:round" transform="translate(-60265-80383)">
+<g transform="translate(-60265-80383)">
 <path data-o="491" d="M460 1554-1554-460"/>
 <path data-o="491" d="M1029 1029-1029-1029"/>
 <path data-o="491" d="M1554 460-460-1554"/>
@@ -1477,7 +1477,7 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <path data-o="491" d="M-1029 1029l2058-2058"/>
 <path data-o="491" d="M-1554 460 460-1554"/>
 </g>
-<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-linejoin:round" transform="translate(-60265-89137)">
+<g transform="translate(-60265-89137)">
 <path data-o="492" d="M460 1554-1554-460"/>
 <path data-o="492" d="M1029 1029-1029-1029"/>
 <path data-o="492" d="M1554 460-460-1554"/>
@@ -1485,7 +1485,7 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <path data-o="492" d="M-1029 1029l2058-2058"/>
 <path data-o="492" d="M-1554 460 460-1554"/>
 </g>
-<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-linejoin:round" transform="translate(-60265-93514)">
+<g transform="translate(-60265-93514)">
 <path data-o="493" d="M460 1554-1554-460"/>
 <path data-o="493" d="M1029 1029-1029-1029"/>
 <path data-o="493" d="M1554 460-460-1554"/>
@@ -1504,24 +1504,24 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <path style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-linejoin:round" data-o="495" d="M766 0h875"/>
 </g>
 </g>
-<g data-s="11">
-<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-linejoin:round" transform="translate(-60265 11535)">
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-linejoin:round" data-s="11">
+<g transform="translate(-60265 11535)">
 <path data-o="496" d="M0-875v-657"/>
 <path data-o="496" d="M0 1532-810-766H810L0 1532z"/>
 </g>
-<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-linejoin:round" transform="translate(-60265-62875)">
+<g transform="translate(-60265-62875)">
 <path data-o="497" d="M0-875v-657"/>
 <path data-o="497" d="M0 1532-810-766H810L0 1532z"/>
 </g>
-<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-linejoin:round" transform="translate(-60265-102268)">
+<g transform="translate(-60265-102268)">
 <path data-o="498" d="M0-875v-657"/>
 <path data-o="498" d="M0 1532-810-766H810L0 1532z"/>
 </g>
-<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-linejoin:round" transform="translate(-60265-111022)">
+<g transform="translate(-60265-111022)">
 <path data-o="499" d="M0-875v-657"/>
 <path data-o="499" d="M0 1532-810-766H810L0 1532z"/>
 </g>
-<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-linejoin:round" transform="translate(-60265-115399)">
+<g transform="translate(-60265-115399)">
 <path data-o="500" d="M0-875v-657"/>
 <path data-o="500" d="M0 1532-810-766H810L0 1532z"/>
 </g>
@@ -1530,11 +1530,11 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <circle style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" data-o="501" cx="-929" cy="929" r="274"/>
 <path style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:219;stroke-linecap:round;stroke-linejoin:round" data-o="501" d="M1470-542-464 464 542-1470"/>
 </g>
-<g data-s="13">
-<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-linejoin:round" transform="translate(-60265 2781)">
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-linejoin:round" data-s="13">
+<g transform="translate(-60265 2781)">
 <path data-o="502" d="M0 0v1444L-1444 0 0-1444 1444 0H0z"/>
 </g>
-<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-linejoin:round" transform="translate(-60265-141662)">
+<g transform="translate(-60265-141662)">
 <path data-o="503" d="M0 0v1444L-1444 0 0-1444 1444 0H0z"/>
 </g>
 </g>
@@ -1542,13 +1542,13 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <circle style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" data-o="504" cx="1204" r="274"/>
 <path style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:219;stroke-linecap:round;stroke-linejoin:round" data-o="504" d="M-875-1423 547 0-875 1423"/>
 </g>
-<g data-s="15">
-<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-linejoin:round" transform="translate(-60265-1596)">
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-linejoin:round" data-s="15">
+<g transform="translate(-60265-1596)">
 <path data-o="505" d="M-503-875v-657"/>
 <path data-o="505" d="M503-875v-657"/>
 <path data-o="505" d="M-1313-766l810 2298L0 104l503 1428 810-2298h-2626z"/>
 </g>
-<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-linejoin:round" transform="translate(-60265-137285)">
+<g transform="translate(-60265-137285)">
 <path data-o="506" d="M-503-875v-657"/>
 <path data-o="506" d="M503-875v-657"/>
 <path data-o="506" d="M-1313-766l810 2298L0 104l503 1428 810-2298h-2626z"/>
@@ -1558,14 +1558,14 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <circle style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" data-o="507" cy="-1313" r="274"/>
 <path style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:219;stroke-linecap:round;stroke-linejoin:round" data-o="507" d="M657 1423 0-657-657 1423"/>
 </g>
-<g data-s="17">
-<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-miterlimit:5" transform="translate(-60265-5973)">
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-miterlimit:5" data-s="17">
+<g transform="translate(-60265-5973)">
 <path data-o="508" d="M0 1055c891 0 1641-469 1641-1055S891-1055 0-1055-1641-586-1641 0-891 1055 0 1055z"/>
 </g>
-<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-miterlimit:5" transform="translate(-60265-40989)">
+<g transform="translate(-60265-40989)">
 <path data-o="509" d="M0 1055c891 0 1641-469 1641-1055S891-1055 0-1055-1641-586-1641 0-891 1055 0 1055z"/>
 </g>
-<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-miterlimit:5" transform="translate(-60265-58498)">
+<g transform="translate(-60265-58498)">
 <path data-o="510" d="M0 1055c891 0 1641-469 1641-1055S891-1055 0-1055-1641-586-1641 0-891 1055 0 1055z"/>
 </g>
 </g>
@@ -1583,8 +1583,8 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <path style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-linejoin:round" data-o="513" d="M-542 542l-619 619"/>
 </g>
 </g>
-<g data-s="20">
-<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="translate(-60265-14727)">
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" data-s="20">
+<g transform="translate(-60265-14727)">
 <circle data-o="514" cx="-1094" cy="1313" r="164"/>
 <circle data-o="514" cx="-547" cy="985" r="164"/>
 <circle data-o="514" cy="657" r="164"/>
@@ -1595,7 +1595,7 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <circle data-o="514" cx="-547" cy="-985" r="164"/>
 <circle data-o="514" cx="-1094" cy="-1313" r="164"/>
 </g>
-<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="translate(-55888-14727)">
+<g transform="translate(-55888-14727)">
 <circle data-o="515" cx="-1094" cy="1313" r="164"/>
 <circle data-o="515" cx="-547" cy="985" r="164"/>
 <circle data-o="515" cy="657" r="164"/>
@@ -1607,16 +1607,16 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <circle data-o="515" cx="-1094" cy="-1313" r="164"/>
 </g>
 </g>
-<g data-s="21">
-<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-linejoin:round" transform="translate(-51511-14727)">
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-linejoin:round" data-s="21">
+<g transform="translate(-51511-14727)">
 <path data-o="516" d="M1204 1532-1204-1532"/>
 <path data-o="516" d="M-1204 1532 0 0"/>
 </g>
-<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-linejoin:round" transform="translate(-51511-84760)">
+<g transform="translate(-51511-84760)">
 <path data-o="517" d="M1204 1532-1204-1532"/>
 <path data-o="517" d="M-1204 1532 0 0"/>
 </g>
-<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-linejoin:round" transform="translate(-51511-128530)">
+<g transform="translate(-51511-128530)">
 <path data-o="518" d="M1204 1532-1204-1532"/>
 <path data-o="518" d="M-1204 1532 0 0"/>
 </g>
@@ -1668,20 +1668,20 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <path style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:219;stroke-linecap:round;stroke-linejoin:round" data-o="523" d="M109-1160l591-591"/>
 </g>
 </g>
-<g data-s="23">
-<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-linejoin:round" transform="translate(-51511-19104)">
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-linejoin:round" data-s="23">
+<g transform="translate(-51511-19104)">
 <path data-o="524" d="M1532 1532-1532-1532"/>
 <path data-o="524" d="M-1532 1532l3064-3064"/>
 </g>
-<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-linejoin:round" transform="translate(-51511-67252)">
+<g transform="translate(-51511-67252)">
 <path data-o="525" d="M1532 1532-1532-1532"/>
 <path data-o="525" d="M-1532 1532l3064-3064"/>
 </g>
-<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-linejoin:round" transform="translate(-51511-119776)">
+<g transform="translate(-51511-119776)">
 <path data-o="526" d="M1532 1532-1532-1532"/>
 <path data-o="526" d="M-1532 1532l3064-3064"/>
 </g>
-<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-linejoin:round" transform="translate(-51511-124153)">
+<g transform="translate(-51511-124153)">
 <path data-o="527" d="M1532 1532-1532-1532"/>
 <path data-o="527" d="M-1532 1532l3064-3064"/>
 </g>
@@ -1738,11 +1738,11 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:219;stroke-miterlimit:5" data-o="538" r="1423"/>
 <circle style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" data-o="538" cx="542" cy="542" r="274"/>
 </g>
-<g data-s="30">
-<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:328;stroke-linecap:round;stroke-linejoin:round" transform="translate(-60265-45366)">
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:328;stroke-linecap:round;stroke-linejoin:round" data-s="30">
+<g transform="translate(-60265-45366)">
 <path data-o="539" d="M-1598-1598l3196 3196"/>
 </g>
-<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:328;stroke-linecap:round;stroke-linejoin:round" transform="translate(-55888-84760)">
+<g transform="translate(-55888-84760)">
 <path data-o="540" d="M-1598-1598l3196 3196"/>
 </g>
 </g>
@@ -1775,18 +1775,18 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <path style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-linejoin:round" data-o="547" d="M-1423 0h2846"/>
 <path style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-miterlimit:5" data-o="547" d="M-766-657-1423 0l657 657"/>
 </g>
-<g data-s="37">
-<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-linejoin:round" transform="translate(-60265-84760)">
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-linejoin:round" data-s="37">
+<g transform="translate(-60265-84760)">
 <path data-o="548" d="M-1641-1641l787 787"/>
 <path data-o="548" d="M394 394-394-394"/>
 <path data-o="548" d="M1641 1641 854 854"/>
 </g>
-<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-linejoin:round" transform="translate(-60265-119776)">
+<g transform="translate(-60265-119776)">
 <path data-o="549" d="M-1641-1641l787 787"/>
 <path data-o="549" d="M394 394-394-394"/>
 <path data-o="549" d="M1641 1641 854 854"/>
 </g>
-<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-linejoin:round" transform="translate(-55888-124153)">
+<g transform="translate(-55888-124153)">
 <path data-o="550" d="M-1641-1641l787 787"/>
 <path data-o="550" d="M394 394-394-394"/>
 <path data-o="550" d="M1641 1641 854 854"/>
@@ -1796,11 +1796,11 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:219;stroke-miterlimit:5" data-o="551" cy="-438" r="1204"/>
 <circle style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" data-o="551" cy="1423" r="274"/>
 </g>
-<g data-s="39">
-<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-miterlimit:5" transform="translate(-60265-97891)">
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-miterlimit:5" data-s="39">
+<g transform="translate(-60265-97891)">
 <path data-o="552" d="M-1313 1751c-110-110-110-110-219-219-438-438 0-875 438-438 437 438 875 0 437-437-437-438 0-876 438-438s876 0 438-438 0-875 438-438c437 438 875 0 437-437-437-438 0-876 438-438 109 109 109 109 219 219"/>
 </g>
-<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:274;stroke-linecap:round;stroke-miterlimit:5" transform="translate(-60265-124153)">
+<g transform="translate(-60265-124153)">
 <path data-o="553" d="M-1313 1751c-110-110-110-110-219-219-438-438 0-875 438-438 437 438 875 0 437-437-437-438 0-876 438-438s876 0 438-438 0-875 438-438c437 438 875 0 437-437-437-438 0-876 438-438 109 109 109 109 219 219"/>
 </g>
 </g>
@@ -1894,14 +1894,14 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 </g>
 </g>
 <g data-c="2">
-<g data-s="53">
-<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-miterlimit:5" transform="translate(56800-8700)">
+<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-miterlimit:5" data-s="53">
+<g transform="translate(56800-8700)">
 <path data-o="570" d="M0 4041l3500-6062h-7000L0 4041z"/>
 </g>
-<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-miterlimit:5" transform="translate(41672 41540)">
+<g transform="translate(41672 41540)">
 <path data-o="571" d="M0 4041l3500-6062h-7000L0 4041z"/>
 </g>
-<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-miterlimit:5" transform="translate(115600-11800)">
+<g transform="translate(115600-11800)">
 <path data-o="572" d="M0 4041l3500-6062h-7000L0 4041z"/>
 </g>
 </g>
@@ -1945,150 +1945,150 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <circle data-o="609" cx="119800" cy="8600" r="2825"/>
 <circle data-o="610" cx="41900" cy="6800" r="2825"/>
 </g>
-<g data-s="55">
-<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-miterlimit:5" transform="translate(53200-2800)">
+<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-miterlimit:5" data-s="55">
+<g transform="translate(53200-2800)">
 <circle data-o="611" r="2325"/>
 <circle data-o="611" r="3325"/>
 </g>
-<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-miterlimit:5" transform="translate(-1720-31221)">
+<g transform="translate(-1720-31221)">
 <circle data-o="612" r="2325"/>
 <circle data-o="612" r="3325"/>
 </g>
 </g>
-<g data-s="56">
-<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-miterlimit:5" transform="translate(31618 21696)">
+<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-miterlimit:5" data-s="56">
+<g transform="translate(31618 21696)">
 <path data-o="613" d="M-850-1500c500 850 500 2150 0 3000"/>
 <path data-o="613" d="M850-1500c-500 850-500 2150 0 3000"/>
 </g>
-<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-miterlimit:5" transform="translate(104643 16140)">
+<g transform="translate(104643 16140)">
 <path data-o="614" d="M-850-1500c500 850 500 2150 0 3000"/>
 <path data-o="614" d="M850-1500c-500 850-500 2150 0 3000"/>
 </g>
-<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-miterlimit:5" transform="translate(-23416-3175)">
+<g transform="translate(-23416-3175)">
 <path data-o="615" d="M-850-1500c500 850 500 2150 0 3000"/>
 <path data-o="615" d="M850-1500c-500 850-500 2150 0 3000"/>
 </g>
 </g>
-<g data-s="57">
-<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1-16865-11016)">
+<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" data-s="57">
+<g transform="matrix(1 0 0-1-16865-11016)">
 <text data-o="616" transform="translate(0 3972)scale(1000)" x="0 2.114">31</text>
 </g>
-<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 86719-10955)">
+<g transform="matrix(1 0 0-1 86719-10955)">
 <text data-o="617" transform="translate(0 3972)scale(1000)" x="0 2.114">32</text>
 </g>
-<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 131530 6022)">
+<g transform="matrix(1 0 0-1 131530 6022)">
 <text data-o="618" transform="translate(0 3972)scale(1000)" x="0 2.114">36</text>
 </g>
-<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 123483-24822)">
+<g transform="matrix(1 0 0-1 123483-24822)">
 <text data-o="619" transform="translate(0 3972)scale(1000)" x="0 2.114">37</text>
 </g>
-<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 43092 2468)">
+<g transform="matrix(1 0 0-1 43092 2468)">
 <text data-o="620" transform="translate(0 3972)scale(1000)" x="0 2.114">38</text>
 </g>
-<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 131496 44077)">
+<g transform="matrix(1 0 0-1 131496 44077)">
 <text data-o="621" transform="translate(0 3972)scale(1000)" x="0 2.114">39</text>
 </g>
-<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 117675 28140)">
+<g transform="matrix(1 0 0-1 117675 28140)">
 <text data-o="622" transform="translate(0 3972)scale(1000)" x="0 2.114">40</text>
 </g>
-<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 28617 3978)">
+<g transform="matrix(1 0 0-1 28617 3978)">
 <text data-o="623" transform="translate(0 3972)scale(1000)" x="0 2.114">41</text>
 </g>
-<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 32488-7161)">
+<g transform="matrix(1 0 0-1 32488-7161)">
 <text data-o="624" transform="translate(0 3972)scale(1000)" x="0 2.114">42</text>
 </g>
-<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 81255 41797)">
+<g transform="matrix(1 0 0-1 81255 41797)">
 <text data-o="625" transform="translate(0 3972)scale(1000)" x="0 2.114">43</text>
 </g>
-<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 33128-25071)">
+<g transform="matrix(1 0 0-1 33128-25071)">
 <text data-o="626" transform="translate(0 3972)scale(1000)" x="0 2.114">44</text>
 </g>
-<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 55069 32897)">
+<g transform="matrix(1 0 0-1 55069 32897)">
 <text data-o="627" transform="translate(0 3972)scale(1000)" x="0 2.114">45</text>
 </g>
-<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1-16408 7868)">
+<g transform="matrix(1 0 0-1-16408 7868)">
 <text data-o="628" transform="translate(0 3972)scale(1000)" x="0 2.114">46</text>
 </g>
-<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 5489 36769)">
+<g transform="matrix(1 0 0-1 5489 36769)">
 <text data-o="629" transform="translate(0 3972)scale(1000)" x="0 2.114">47</text>
 </g>
-<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 24479 45649)">
+<g transform="matrix(1 0 0-1 24479 45649)">
 <text data-o="630" transform="translate(0 3972)scale(1000)" x="0 2.114">48</text>
 </g>
-<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 19572-23080)">
+<g transform="matrix(1 0 0-1 19572-23080)">
 <text data-o="631" transform="translate(0 3972)scale(1000)" x="0 2.114">49</text>
 </g>
-<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 42455 30097)">
+<g transform="matrix(1 0 0-1 42455 30097)">
 <text data-o="632" transform="translate(0 3972)scale(1000)" x="0 2.114">50</text>
 </g>
-<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 9875-13260)">
+<g transform="matrix(1 0 0-1 9875-13260)">
 <text data-o="633" transform="translate(0 3972)scale(1000)" x="0 2.114">51</text>
 </g>
-<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 45559-12178)">
+<g transform="matrix(1 0 0-1 45559-12178)">
 <text data-o="634" transform="translate(0 3972)scale(1000)" x="0 2.114">52</text>
 </g>
-<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 26417-12722)">
+<g transform="matrix(1 0 0-1 26417-12722)">
 <text data-o="635" transform="translate(0 3972)scale(1000)" x="0 2.114">53</text>
 </g>
-<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 56830 8122)">
+<g transform="matrix(1 0 0-1 56830 8122)">
 <text data-o="636" transform="translate(0 3972)scale(1000)" x="0 2.114">54</text>
 </g>
-<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 46354 17739)">
+<g transform="matrix(1 0 0-1 46354 17739)">
 <text data-o="637" transform="translate(0 3972)scale(1000)" x="0 2.114">55</text>
 </g>
-<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 84279 29449)">
+<g transform="matrix(1 0 0-1 84279 29449)">
 <text data-o="638" transform="translate(0 3972)scale(1000)" x="0 2.114">56</text>
 </g>
-<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 89511 17020)">
+<g transform="matrix(1 0 0-1 89511 17020)">
 <text data-o="639" transform="translate(0 3972)scale(1000)" x="0 2.114">57</text>
 </g>
-<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 14388 2839)">
+<g transform="matrix(1 0 0-1 14388 2839)">
 <text data-o="640" transform="translate(0 3972)scale(1000)" x="0 2.114">58</text>
 </g>
-<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 48772-29280)">
+<g transform="matrix(1 0 0-1 48772-29280)">
 <text data-o="641" transform="translate(0 3972)scale(1000)" x="0 2.114">59</text>
 </g>
-<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1-9908 30780)">
+<g transform="matrix(1 0 0-1-9908 30780)">
 <text data-o="642" transform="translate(0 3972)scale(1000)" x="0 2.114">60</text>
 </g>
-<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 14512 17895)">
+<g transform="matrix(1 0 0-1 14512 17895)">
 <text data-o="643" transform="translate(0 3972)scale(1000)" x="0 2.114">70</text>
 </g>
-<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 32892 16968)">
+<g transform="matrix(1 0 0-1 32892 16968)">
 <text data-o="644" transform="translate(0 3972)scale(1000)" x="0 2.114">71</text>
 </g>
-<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 2279 15749)">
+<g transform="matrix(1 0 0-1 2279 15749)">
 <text data-o="645" transform="translate(0 3972)scale(1000)" x="0 2.114">72</text>
 </g>
-<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 51828-15797)">
+<g transform="matrix(1 0 0-1 51828-15797)">
 <text data-o="646" transform="translate(0 3972)scale(1000)" x="0 2.114">73</text>
 </g>
-<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 63759-19878)">
+<g transform="matrix(1 0 0-1 63759-19878)">
 <text data-o="647" transform="translate(0 3972)scale(1000)" x="0 2.114">74</text>
 </g>
-<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 68260 34297)">
+<g transform="matrix(1 0 0-1 68260 34297)">
 <text data-o="648" transform="translate(0 3972)scale(1000)" x="0 2.114">75</text>
 </g>
-<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1-312 1139)">
+<g transform="matrix(1 0 0-1-312 1139)">
 <text data-o="649" transform="translate(0 3972)scale(1000)" x="0 2.114">76</text>
 </g>
-<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 70228 16929)">
+<g transform="matrix(1 0 0-1 70228 16929)">
 <text data-o="650" transform="translate(0 3972)scale(1000)" x="0 2.114">77</text>
 </g>
-<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 97204 32448)">
+<g transform="matrix(1 0 0-1 97204 32448)">
 <text data-o="651" transform="translate(0 3972)scale(1000)" x="0 2.114">78</text>
 </g>
-<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 112441 13695)">
+<g transform="matrix(1 0 0-1 112441 13695)">
 <text data-o="652" transform="translate(0 3972)scale(1000)" x="0 2.114">79</text>
 </g>
-<g style="font-size:4.18px;font-family:'Roboto Condensed';font-weight:700;fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 34346 9665)">
+<g transform="matrix(1 0 0-1 34346 9665)">
 <text data-o="653" transform="translate(0 3972)scale(1000)" x="0 2.114">80</text>
 </g>
 </g>
 </g>
-<g data-c="3">
+<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:250;stroke-miterlimit:5" data-c="3">
 <g clip-path="url(#b)" data-s="58">
-<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:250;stroke-miterlimit:5" transform="rotate(45)">
+<g transform="rotate(45)">
 <path data-o="654" d="M39850 15600h40972"/>
 <path data-o="654" d="M39850 16200h40972"/>
 <path data-o="654" d="M39850 16800h40972"/>
@@ -2159,7 +2159,7 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <path data-o="654" d="M39850 55800h40972"/>
 <path data-o="654" d="M39850 56400h40972"/>
 </g>
-<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:250;stroke-miterlimit:5" transform="rotate(135)">
+<g transform="rotate(135)">
 <path data-o="654" d="M15528-81000h40973"/>
 <path data-o="654" d="M15528-80400h40973"/>
 <path data-o="654" d="M15528-79800h40973"/>

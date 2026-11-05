@@ -123,48 +123,48 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <circle data-o="27" r="2325"/>
 <circle data-o="27" r="3325"/>
 </g>
-<g data-s="5">
-<g style="font-size:5.57px;font-family:'Roboto';fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 42328-14532)">
+<g style="font-size:5.57px;font-family:'Roboto';fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" data-s="5">
+<g transform="matrix(1 0 0-1 42328-14532)">
 <text data-o="28" transform="translate(0 5293)scale(1000)">1</text>
 </g>
-<g style="font-size:5.57px;font-family:'Roboto';fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 10378-14368)">
+<g transform="matrix(1 0 0-1 10378-14368)">
 <text data-o="29" transform="translate(0 5293)scale(1000)">2</text>
 </g>
-<g style="font-size:5.57px;font-family:'Roboto';fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1-5308 37747)">
+<g transform="matrix(1 0 0-1-5308 37747)">
 <text data-o="30" transform="translate(0 5293)scale(1000)">3</text>
 </g>
-<g style="font-size:5.57px;font-family:'Roboto';fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 20380 50318)">
+<g transform="matrix(1 0 0-1 20380 50318)">
 <text data-o="31" transform="translate(0 5293)scale(1000)">4</text>
 </g>
-<g style="font-size:5.57px;font-family:'Roboto';fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 56150 35711)">
+<g transform="matrix(1 0 0-1 56150 35711)">
 <text data-o="32" transform="translate(0 5293)scale(1000)">5</text>
 </g>
-<g style="font-size:5.57px;font-family:'Roboto';fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 78844 34118)">
+<g transform="matrix(1 0 0-1 78844 34118)">
 <text data-o="33" transform="translate(0 5293)scale(1000)">6</text>
 </g>
-<g style="font-size:5.57px;font-family:'Roboto';fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 133100 45834)">
+<g transform="matrix(1 0 0-1 133100 45834)">
 <text data-o="34" transform="translate(0 5293)scale(1000)">7</text>
 </g>
-<g style="font-size:5.57px;font-family:'Roboto';fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 121877 5637)">
+<g transform="matrix(1 0 0-1 121877 5637)">
 <text data-o="35" transform="translate(0 5293)scale(1000)">8</text>
 </g>
-<g style="font-size:5.57px;font-family:'Roboto';fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 86623 15874)">
+<g transform="matrix(1 0 0-1 86623 15874)">
 <text data-o="36" transform="translate(0 5293)scale(1000)">9</text>
 </g>
-<g style="font-size:5.57px;font-family:'Roboto';fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 72464 15768)">
+<g transform="matrix(1 0 0-1 72464 15768)">
 <text data-o="37" transform="translate(0 5293)scale(1000)" x="0 3.128">10</text>
 </g>
-<g style="font-size:5.57px;font-family:'Roboto';fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 17268 13293)">
+<g transform="matrix(1 0 0-1 17268 13293)">
 <text data-o="38" transform="translate(0 5293)scale(1000)" x="0 3.128">11</text>
 </g>
-<g style="font-size:5.57px;font-family:'Roboto';fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 54540 10496)">
+<g transform="matrix(1 0 0-1 54540 10496)">
 <text data-o="39" transform="translate(0 5293)scale(1000)" x="0 3.128">12</text>
 </g>
 </g>
 </g>
-<g data-c="3">
+<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:250;stroke-miterlimit:5" data-c="3">
 <g clip-path="url(#b)" data-s="6">
-<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:250;stroke-miterlimit:5" transform="rotate(45)">
+<g transform="rotate(45)">
 <path data-o="40" d="M39850 15600h40972"/>
 <path data-o="40" d="M39850 16200h40972"/>
 <path data-o="40" d="M39850 16800h40972"/>
@@ -235,7 +235,7 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <path data-o="40" d="M39850 55800h40972"/>
 <path data-o="40" d="M39850 56400h40972"/>
 </g>
-<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:250;stroke-miterlimit:5" transform="rotate(135)">
+<g transform="rotate(135)">
 <path data-o="40" d="M15528-81000h40973"/>
 <path data-o="40" d="M15528-80400h40973"/>
 <path data-o="40" d="M15528-79800h40973"/>
