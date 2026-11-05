@@ -54,9 +54,10 @@ the map one part (L-2).
 - for each page, the parts `CourseLower` and `CourseUpper` of its course part, over its map rectangle;
 - `AddPage(paper size, map rectangle, transform, [MapBelowCourse, CourseLower, MapAboveCourse, CourseUpper])` (L-3).
 
-`MapDisplay` is set up as `CoursePdf` sets it: map intensity 1, `Printing`, so no pattern bitmaps, the chosen color
-model, and no print area, so no outline. A PDF map, which PDF export copies as vectors, is drawn as the bitmap
-`MapDisplay` makes of it (B-1 to B-6).
+`MapDisplay` is set up as `CoursePdf` sets it: map intensity 1, `Printing`, the chosen color model, and no print area,
+so no outline. For the SVG target, whose pattern brushes are vectors, it still draws regular area patterns with pattern
+brushes (S-7; see "Area patterns as pattern fills" below). A PDF map, which PDF export copies as vectors, is drawn as
+the bitmap `MapDisplay` makes of it (B-1 to B-6).
 
 ## Course data (stage 2, CD-1 to CD-3)
 
@@ -245,6 +246,103 @@ rather than 3.7 %, as a sketch on the baselines estimated; testproj2's all-contr
 than half of it the profile (Overprint test's Course 12, 18.3 %). The SVGs of the comparison come to 102,291,992 bytes,
 against 114,374,247; no measurement moved, and Chromium draws each export as before, pixel for pixel. Inkscape shows a
 colour on the group that carries it, a symbol's or a whole run's, rather than nearer each object.
+
+## Area patterns as pattern fills (S-7, S-12, S-13)
+
+Written on Nov 6 from `feature/svg-target` at 010704a; the work is on `feature/svg-area-patterns`, with the map code's
+fix on `fix/pattern-brush-origin`. @Pauli chose on Nov 4 that the export writes the regular patterns of area symbols as
+pattern fills, as Purple Pen draws them on screen, and the rest element by element, although PDF export draws every
+pattern element by element.
+
+- **Which patterns become fills (S-7).** `IStructuredGraphicsTarget.PatternBrushesAreVectors` says whether a target
+  keeps what is drawn into a pattern brush's tile as drawing, rather than as a bitmap of the size `CreatePatternBrush`
+  suggests. The SVG target says so, and so does `StructuredRecordingGraphicsTarget`, which records the comparison's
+  cases for it; `GraphicsUtil.PatternBrushesAreVectors` asks it of any target. For such a target
+  `MapDisplay.CreateRenderOptions` turns pattern brushes on, for printing too, and `AreaSymDef.DrawPatterns` skips
+  `PatternBrushTooPixelated`, which at the export's step of 0.001 mm refuses a brush for any tile wider or taller than
+  0.08 mm. Every other target draws as before, so the screen, print, PDF and bitmap output do not change. The map code
+  still draws a pattern with a brush only when it is regular and in clip mode: an irregular pattern, such as an OCAD
+  structure whose elements vary in place, and a pattern that draws only the elements lying wholly, partly or by their
+  middles within the area, are drawn element by element, as on screen. Hatchings are lines, which Purple Pen draws on
+  screen too (proposal 1 below).
+- **Where a fill puts the pattern (S-13).** Element by element, `DrawPattern` lays the pattern's grid out in a frame
+  that moves to the area's rotation center, turns by the area's angle and then the pattern's, and moves by the pattern's
+  offset, with every second row half a tile along when the rows are offset. The brush's tile holds the glyph at the
+  pattern's offset, unturned within the turned tile, and two rows of it in a tile twice as high when the rows are
+  offset; the target repeats the tile from the origin of the coordinates the fill is made in, turned by the pattern's
+  angle (D-7). A fill made in the frame that moves to the rotation center and turns by the area's angle therefore puts
+  every element where `DrawPattern` puts it. `DrawPatternWithTexBrush` makes the fill in that frame, clipped to the
+  area, whenever the angle is not zero or the rotation center is not the map's origin, and otherwise fills the area's
+  outline in map coordinates. An OCAD object turns its pattern about the map's origin. An OpenMapper object carries a
+  pattern origin of its own, which import makes its rotation center; until `fix/pattern-brush-origin` (b217b9d) the
+  brush took the frame only for a turned area, so an unturned one with a moved origin had its pattern laid out from the
+  map's origin, on screen as in the SVG, where printing lays it out from the area's origin. The fix is Purple Pen's own,
+  rooted at `upstream/master` and offered with the other `fix/` branches; `PatternBrushTests` in `Map_Skia.Tests` draws
+  areas both ways with Skia, turned and not, about the map's origin and about a moved one, and requires them to agree.
+  No baseline moves, as no test map has an unturned OpenMapper area with a moved origin.
+- **One definition for each pattern and color (S-12).** The map code makes one brush for each pattern of an area
+  symbol in each color it draws in, keyed in the symbol definition, and asks the target whether it has it before drawing
+  the tile; so a document defines each once, as a `<pattern>` in the user space of what it paints, which within a part
+  is steps of map. An unturned area whose pattern origin is the map's fills its outline with it, so the grid runs on
+  across neighbouring areas from the map's origin, as OCAD draws it. A turned area, or one with an origin of its own,
+  fills a rectangle around its outline, clipped to the outline, within a group that moves to its origin and turns by its
+  angle: the transform is on the area's fill, and every area shares the definition. Equal patterns of different symbols
+  stay separate definitions, which S-12 does not ask to share. S-12 is met, so phase 6 keeps symbol reuse, path merging
+  and compression.
+- **What the document holds.** A `<pattern>` with its tile for each brush, as D-7 writes it; in the part, each area's
+  path with `fill:url(#…)`, or its rectangle within the group of its frame. The tile holds each copy of the glyph that
+  the map draws across the tile's edges, and the pattern's own bounds cut them off. A copy that lies wholly outside the
+  tile draws nothing and is still written: the map draws such copies to cover a glyph that its offset moves beyond the
+  tile, and they cost a few hundred bytes in the reference exports.
+- **How the comparisons check it.** The references stay element-by-element drawings (V-9, F-1): the Skia target's
+  pattern brushes are bitmaps, so neither a comparison case's reference nor `ExportedPage`'s drawing of a page uses
+  them. The rendering comparison draws each map area for the SVG target as the export draws it, with pattern brushes
+  where the target's are vectors (`ComparisonCase`), so every case with a regular pattern in clip mode compares
+  Chromium's drawing of the fills with Skia's drawing of each element, and so does the comparison of exported pages for
+  Madrona Permanent11 and printarea2. Two cases join the comparison: `patternorigins`, four squares of a pattern built
+  for it (`PatternedAreaMap`), unturned and turned, about the map's origin and about origins of their own; and
+  `rotarea_omap`, OpenMapper's `rotarea.omap` over the area its import tests draw, whose turned areas carry their own
+  origins. `AreaPatternTests` check what the map writes into the target: one definition, the transforms of turned and
+  moved fills, and an irregular pattern and one outside clip mode element by element.
+
+The drawings of 54 cases and 6 pages changed, and all lie within the tolerance, as do the two new cases. Chromium puts
+the patterns where Skia's elements are: by phase correlation, its images of five pattern cases lie within 0.03 pixels of
+their references, as before. They are blurrier: Chromium draws a pattern's tile into a bitmap of whole pixels and scales
+that, so the mean difference from the reference rose, in offsetpattern from 0.21 to 0.72 levels. Where a screen's dots
+are about a pixel apart, as in teanwest, Chromium's tile averages them into a tint where Skia draws each dot, and
+64,366 pixels differ by more than 64 levels, against 306; each lies within the range its neighbours take in the
+reference, which the tolerance allows, as it does for any edge.
+
+The 22 files of the baseline tests come to 5,127,642 bytes, against 6,863,687, and to 3,042,340 gzip-compressed, against
+3,153,798. Madrona Permanent11's Course 1 falls from 1,464,679 to 349,484 bytes (76.1 %, and 38.2 % gzip-compressed),
+printarea2's from 1,597,686 to 976,836 (38.9 %, and 12.9 %); the other events have no regular pattern in clip mode. The
+SVGs of the comparison come to 31,025,226 bytes, against 102,291,992, most of it teanwest's 22.6 MB falling to 4.5 MB.
+
+**Inkscape and Scribus (F-6).** Read with `SvgColourReaders/`:
+
+- Inkscape 1.2.2 draws the fills, and shows on an area's group "Pattern fill" and the pattern's id. An element of the
+  tile, selected, shows the profile `cmyk` and the C, M, Y and K written: 0, 0.27, 0.79, 0 for rotarea's yellow dots.
+- Scribus 1.6.1 makes each `<pattern>` a pattern of its document, its elements in their CMYK colors, but fills no area
+  with it, so the areas lose their patterns. Two faults of its SVG import meet here. A fill that names a pattern without
+  an `xlink:href` gets an empty pattern name, as `SVGPlug::parseStyle` takes the name from the pattern's reference
+  rather than its id; the item is drawn with no fill. A pattern reached through another's `xlink:href`, as Inkscape
+  writes them, is linked, but its tile takes the numbers of its `width` and `height` as points, without the transform
+  of the user space it is used in: a tile 4 units wide in a document of millimetres comes out 4 points wide, and the
+  export's tiles, in steps under the pages' scale of 0.001, would come out hundreds of times too large. Of Madrona Permanent11's page Scribus made 1,970 items, 11 of them its open sandy
+  ground with no fill; of printarea2's 8,539, 26 of them with no fill, where it made 20,442 items of the page drawn
+  element by element.
+
+**Proposals for @Pauli.**
+
+1. Hatchings: (a) lines, as Purple Pen draws them on screen and in print; or (b) pattern fills too, through a new way
+   for the map code to draw a hatching with a brush of one line, for a target whose brushes are vectors. (b) would save
+   little, about 5 % of a map with much undergrowth (marymoor's 407 is 30 KB of 547 KB), and Scribus would lose the
+   hatchings as it loses the patterns. Recommended, and built: (a).
+2. Scribus: (a) pattern fills for every reader, Scribus showing the areas without their patterns until its import is
+   mended; (b) an export choice that draws every pattern element by element, for Scribus; or (c) every pattern element
+   by element, as before. (a) keeps the export at its smaller size, and Chromium and Inkscape draw it as Purple Pen
+   does; (b) needs a setting, a word in the dialog and its baselines; (c) gives up the patterns' savings, 76 % of
+   Madrona Permanent11. Recommended, and built: (a), with Scribus's two faults reported to its project.
 
 ## Open questions
 
