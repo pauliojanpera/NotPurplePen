@@ -53,10 +53,29 @@ namespace Map_SkiaStd
                 foreach (string family in watched)
                     known.Append(" '").Append(family).Append("'=").Append(Count(SKFontManager.Default, family));
                 Write("first use: default manager families=" + SKFontManager.Default.FontFamilyCount + " skiaDefault=" + Describe(SKTypeface.Default) + known);
+                WriteFamily("Arial");
+                foreach (SKFontStyleWeight weight in new SKFontStyleWeight[] { SKFontStyleWeight.Normal, SKFontStyleWeight.Bold }) {
+                    foreach (SKFontStyleSlant slant in new SKFontStyleSlant[] { SKFontStyleSlant.Upright, SKFontStyleSlant.Italic }) {
+                        using (SKTypeface match = SKTypeface.FromFamilyName("Arial", weight, SKFontStyleWidth.Condensed, slant))
+                            Write("first use: 'Arial' " + (int)weight + "/3/" + slant + " gives " + Describe(match));
+                    }
+                }
             }
             catch (Exception e) {
                 writer = null;
                 Console.Error.WriteLine("FontProbe could not start: " + e);
+            }
+        }
+
+        // Write each face of a family as the process's font manager lists it, in its order, with the face it creates.
+        private static void WriteFamily(string family)
+        {
+            using (SKFontStyleSet set = SKFontManager.Default.GetFontStyles(family)) {
+                for (int i = 0; i < set.Count; i++) {
+                    SKFontStyle style = set[i];
+                    using (SKTypeface face = set.CreateTypeface(i))
+                        Write("first use: '" + family + "' face " + i + " " + style.Weight + "/" + style.Width + "/" + style.Slant + " = " + Describe(face));
+                }
             }
         }
 

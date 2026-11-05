@@ -239,18 +239,117 @@ jobs:
             PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
             Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
             ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
-        - id: skia-w1
-          name: Skia warm-up 1
-          warmup: true
+        - id: skia-c4
+          name: Skia control 4
+          warmup: false
           assemblies: >-
             MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
             MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
             PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
             Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
             ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
-        - id: skia-w2
-          name: Skia warm-up 2
-          warmup: true
+        - id: skia-c5
+          name: Skia control 5
+          warmup: false
+          assemblies: >-
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
+            MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
+            PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
+            Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
+            ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
+        - id: skia-c6
+          name: Skia control 6
+          warmup: false
+          assemblies: >-
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
+            MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
+            PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
+            Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
+            ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
+        - id: skia-c7
+          name: Skia control 7
+          warmup: false
+          assemblies: >-
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
+            MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
+            PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
+            Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
+            ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
+        - id: skia-c8
+          name: Skia control 8
+          warmup: false
+          assemblies: >-
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
+            MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
+            PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
+            Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
+            ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
+        - id: skia-c9
+          name: Skia control 9
+          warmup: false
+          assemblies: >-
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
+            MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
+            PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
+            Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
+            ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
+        - id: skia-c10
+          name: Skia control 10
+          warmup: false
+          assemblies: >-
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
+            MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
+            PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
+            Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
+            ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
+        - id: skia-c11
+          name: Skia control 11
+          warmup: false
+          assemblies: >-
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
+            MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
+            PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
+            Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
+            ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
+        - id: skia-c12
+          name: Skia control 12
+          warmup: false
+          assemblies: >-
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
+            MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
+            PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
+            Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
+            ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
+        - id: skia-c13
+          name: Skia control 13
+          warmup: false
+          assemblies: >-
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
+            MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
+            PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
+            Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
+            ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
+        - id: skia-c14
+          name: Skia control 14
+          warmup: false
+          assemblies: >-
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
+            MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
+            PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
+            Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
+            ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
+        - id: skia-c15
+          name: Skia control 15
+          warmup: false
+          assemblies: >-
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
+            MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
+            PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
+            Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
+            ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
+        - id: skia-c16
+          name: Skia control 16
+          warmup: false
           assemblies: >-
             MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
             MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
