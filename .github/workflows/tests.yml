@@ -529,10 +529,22 @@ jobs:
         # A font file the system already has open cannot be overwritten; stopping
         # the cache service releases most of them. Nothing installed here replaces
         # a face the image ships, but the service also caches the absences.
-        foreach ($name in 'FontCache', 'FontCache3.0.0.0') {
-            Get-Service $name -ErrorAction SilentlyContinue |
-                Stop-Service -Force -ErrorAction SilentlyContinue
-        }
+        #
+        # The service has to stay down until every file is in: installing a font
+        # starts it again on demand, and it then builds a font set from the files
+        # in place so far. One such set, the image's fonts and the first file
+        # alone, still reached a test process minutes after the install, which
+        # drew Arial Narrow in Arial. So it is disabled for the copy, and given
+        # back its start mode and started again, as it was, once all the files
+        # are in place.
+        $stopped = @(foreach ($name in 'FontCache', 'FontCache3.0.0.0') {
+            $service = Get-Service $name -ErrorAction SilentlyContinue
+            if ($service) {
+                [pscustomobject]@{ Name = $name; StartType = "$($service.StartType)"; Running = $service.Status -eq 'Running' }
+                Set-Service $name -StartupType Disabled
+                $service | Stop-Service -Force -ErrorAction SilentlyContinue
+            }
+        })
 
         # Copying the file and registering it is what installing a font amounts
         # to. Handing each one to the shell namespace instead costs seconds
@@ -541,6 +553,7 @@ jobs:
         # name.
         $started = Get-Date
         $registry = 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts'
+        $filedUnder = @{}
         foreach ($one in $declared.files) {
             $source = $byFile[$one.file]
             $target = Join-Path $fontDir $one.file
@@ -550,10 +563,229 @@ jobs:
             $suffix = if ([IO.Path]::GetExtension($one.file) -eq '.otf') { '(OpenType)' } else { '(TrueType)' }
             New-ItemProperty -Path $registry -Name "$label $suffix" `
                              -Value $one.file -PropertyType String -Force | Out-Null
+            $filedUnder["$label $suffix"] = $one.file
             [Native.Gdi]::AddFontResource($target) | Out-Null
         }
-        Start-Service FontCache -ErrorAction SilentlyContinue
+        foreach ($one in $stopped) {
+            Set-Service $one.Name -StartupType $one.StartType
+            if ($one.Running -or $one.Name -eq 'FontCache') { Start-Service $one.Name -ErrorAction SilentlyContinue }
+        }
         "Installed $($declared.files.Count) fonts in $([int]((Get-Date) - $started).TotalSeconds) s"
+
+        # A font in place is not yet a font a program finds. Skia draws with
+        # DirectWrite, which takes the system's fonts from the font cache service
+        # when a program first asks for them, and the service learns of new fonts
+        # in its own time; a test that asked before then would draw a face it
+        # lacks in another, and the run would put that down to the rendering. So
+        # each face the store installed is looked for among the fonts DirectWrite
+        # gives a program started now, and opened, until all of them are there;
+        # one still missing after two minutes stops the job, named. DirectWrite
+        # files faces under families of its own -- Arial Narrow under Arial, at a
+        # narrower width -- so a face is looked for by the family and style names
+        # Windows files it under and the version it carries, as the store
+        # declares them.
+        #
+        # A face is looked for only if the registry names its file. Two files
+        # whose faces carry the same names, as two versions of one font do, are
+        # filed under the same entries, and the later file takes them: the
+        # earlier is installed for GDI alone, and DirectWrite, which takes the
+        # system's fonts from the registry, never has it.
+        $registered = @($filedUnder.Values)
+        $shadowed = @($declared.files | Where-Object { $registered -notcontains $_.file })
+        if ($shadowed.Count) {
+            "Filed under the names of later files, so installed for GDI alone: $(($shadowed | ForEach-Object { $_.file }) -join ', ')"
+        }
+        $facesSource = @'
+        using System;
+        using System.Collections.Generic;
+        using System.Linq;
+        using System.Runtime.InteropServices;
+
+        // The faces of DirectWrite's system font collection.
+        public static class SystemFaces
+        {
+            const int VersionStrings = 2, Win32FamilyNames = 11, Win32SubfamilyNames = 12;
+
+            // One line per face of the collection that a program starting now is
+            // given, leaving out faces DirectWrite simulates from another: its
+            // family names, style names and version strings, each list joined by
+            // '|', and "ok" or why it cannot be opened, tab separated.
+            public static string[] List()
+            {
+                List<string> lines = new List<string>();
+                IDWriteFontCollection collection = Collection(false);
+                for (uint f = 0; f < collection.GetFontFamilyCount(); f++) {
+                    IDWriteFontFamily family;
+                    Check(collection.GetFontFamily(f, out family));
+                    for (uint i = 0; i < family.GetFontCount(); i++) {
+                        IDWriteFont font;
+                        Check(family.GetFont(i, out font));
+                        if (font.GetSimulations() != 0) { continue; }
+                        IntPtr face;
+                        int hr = font.CreateFontFace(out face);
+                        if (hr >= 0) { Marshal.Release(face); }
+                        lines.Add(Strings(font, Win32FamilyNames) + "\t" + Strings(font, Win32SubfamilyNames) + "\t" +
+                                  Strings(font, VersionStrings) + "\t" + (hr >= 0 ? "ok" : "cannot be opened (0x" + hr.ToString("X8") + ")"));
+                    }
+                }
+                return lines.ToArray();
+            }
+
+            // Has DirectWrite look for changes to the system's fonts at once,
+            // rather than when the font cache service comes to them.
+            public static void CheckForUpdates()
+            {
+                Collection(true);
+            }
+
+            // The system font collection of the shared factory, which is the one
+            // Skia takes.
+            static IDWriteFontCollection Collection(bool checkForUpdates)
+            {
+                Guid iid = typeof(IDWriteFactory).GUID;
+                object factory;
+                Check(DWriteCreateFactory(0, ref iid, out factory));
+                IDWriteFontCollection collection;
+                Check(((IDWriteFactory)factory).GetSystemFontCollection(out collection, checkForUpdates));
+                return collection;
+            }
+
+            // Every string, in every language, of one of a face's informational
+            // strings, joined by '|'.
+            static string Strings(IDWriteFont font, int id)
+            {
+                IDWriteLocalizedStrings strings;
+                bool exists;
+                Check(font.GetInformationalStrings(id, out strings, out exists));
+                if (!exists || strings == null) { return ""; }
+                List<string> all = new List<string>();
+                for (uint i = 0; i < strings.GetCount(); i++) {
+                    uint length;
+                    Check(strings.GetStringLength(i, out length));
+                    IntPtr buffer = Marshal.AllocHGlobal((int)(length + 1) * 2);
+                    try {
+                        Check(strings.GetString(i, buffer, length + 1));
+                        all.Add(Marshal.PtrToStringUni(buffer).Replace("\0", "").Trim());
+                    }
+                    finally {
+                        Marshal.FreeHGlobal(buffer);
+                    }
+                }
+                return string.Join("|", all.Distinct());
+            }
+
+            static void Check(int hr)
+            {
+                if (hr < 0) { Marshal.ThrowExceptionForHR(hr); }
+            }
+
+            [DllImport("dwrite.dll")]
+            static extern int DWriteCreateFactory(int factoryType, ref Guid iid, [MarshalAs(UnmanagedType.IUnknown)] out object factory);
+
+            [ComImport, Guid("b859ee5a-d838-4b5b-a2e8-1adc7d93db48"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+            interface IDWriteFactory
+            {
+                [PreserveSig] int GetSystemFontCollection(out IDWriteFontCollection collection, [MarshalAs(UnmanagedType.Bool)] bool checkForUpdates);
+            }
+
+            [ComImport, Guid("a84cee02-3eea-4eee-a827-87c1a02a0fcc"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+            interface IDWriteFontCollection
+            {
+                [PreserveSig] uint GetFontFamilyCount();
+                [PreserveSig] int GetFontFamily(uint index, out IDWriteFontFamily family);
+            }
+
+            // IDWriteFontFamily, whose first three methods are IDWriteFontList's.
+            [ComImport, Guid("da20d8ef-812a-4c43-9802-62ec4abd7add"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+            interface IDWriteFontFamily
+            {
+                [PreserveSig] int GetFontCollection(out IntPtr collection);
+                [PreserveSig] uint GetFontCount();
+                [PreserveSig] int GetFont(uint index, out IDWriteFont font);
+            }
+
+            [ComImport, Guid("acd16696-8c14-4f5d-877e-fe3fc1d32737"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+            interface IDWriteFont
+            {
+                [PreserveSig] int GetFontFamily(out IntPtr family);
+                [PreserveSig] int GetWeight();
+                [PreserveSig] int GetStretch();
+                [PreserveSig] int GetStyle();
+                [PreserveSig] int IsSymbolFont();
+                [PreserveSig] int GetFaceNames(out IntPtr names);
+                [PreserveSig] int GetInformationalStrings(int id, out IDWriteLocalizedStrings strings, [MarshalAs(UnmanagedType.Bool)] out bool exists);
+                [PreserveSig] int GetSimulations();
+                [PreserveSig] void GetMetrics(IntPtr metrics);
+                [PreserveSig] int HasCharacter(uint codepoint, [MarshalAs(UnmanagedType.Bool)] out bool exists);
+                [PreserveSig] int CreateFontFace(out IntPtr face);
+            }
+
+            [ComImport, Guid("08256209-099a-4b34-b86d-c22b110e7771"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+            interface IDWriteLocalizedStrings
+            {
+                [PreserveSig] uint GetCount();
+                [PreserveSig] int FindLocaleName([MarshalAs(UnmanagedType.LPWStr)] string locale, out uint index, [MarshalAs(UnmanagedType.Bool)] out bool exists);
+                [PreserveSig] int GetLocaleNameLength(uint index, out uint length);
+                [PreserveSig] int GetLocaleName(uint index, IntPtr buffer, uint size);
+                [PreserveSig] int GetStringLength(uint index, out uint length);
+                [PreserveSig] int GetString(uint index, IntPtr buffer, uint size);
+            }
+        }
+        '@
+        $facesHelper = Join-Path $env:RUNNER_TEMP 'SystemFaces.dll'
+        Add-Type -TypeDefinition $facesSource -OutputAssembly $facesHelper -OutputType Library
+        Add-Type -Path $facesHelper
+
+        # Parameters:
+        #   listed - the lines SystemFaces.List gave.
+        # Returns each face the store declares that is not among them, or not
+        # one DirectWrite can open, with why.
+        function Get-MissingFaces($listed) {
+            $faces = @(foreach ($line in $listed) {
+                $parts = "$line" -split "`t"
+                if ($parts.Count -eq 4) {
+                    [pscustomobject]@{
+                        Families = $parts[0] -split '\|'; Styles = $parts[1] -split '\|'
+                        Versions = $parts[2] -split '\|'; Status = $parts[3]
+                    }
+                }
+            })
+            foreach ($one in @($declared.files | Where-Object { $registered -contains $_.file })) {
+                foreach ($face in $one.faces) {
+                    $found = @($faces | Where-Object {
+                        $_.Families -contains $face.family -and $_.Styles -contains $face.style -and
+                        (-not $face.version -or $_.Versions -contains $face.version)
+                    })
+                    $name = "$($face.family) $($face.style), $($face.version) ($($one.file))"
+                    if (-not $found.Count) { "$name, not found" }
+                    elseif (-not @($found | Where-Object { $_.Status -eq 'ok' }).Count) { "$name, $($found[0].Status)" }
+                }
+            }
+        }
+
+        $wanted = @($declared.files | Where-Object { $registered -contains $_.file } | ForEach-Object { $_.faces }).Count
+        $looking = Get-Date
+        while ($true) {
+            # A program started now: a new process, which takes the collection as
+            # DirectWrite finds it.
+            $listed = & pwsh -NoProfile -NonInteractive -Command "Add-Type -Path '$facesHelper'; [SystemFaces]::List()"
+            if ($LASTEXITCODE -ne 0) { throw "DirectWrite's fonts could not be listed: $listed" }
+            $missing = @(Get-MissingFaces $listed)
+            $waited = [int]((Get-Date) - $looking).TotalSeconds
+            if (-not $missing.Count) {
+                "DirectWrite has the $wanted faces the store installed that the registry names, $waited s after they were installed."
+                break
+            }
+            if ($waited -ge 120) {
+                "DirectWrite still lacks $($missing.Count) of the $wanted faces the store installed after $waited s:"
+                $missing | ForEach-Object { "  $_" }
+                "::error title=Installed fonts not found::DirectWrite does not have $($missing.Count) of the faces the store installed: $($missing -join '; ')."
+                exit 1
+            }
+            "after $waited s, DirectWrite lacks $($missing.Count) of the $wanted faces the store installed: $($missing -join '; ')"
+            [SystemFaces]::CheckForUpdates()
+            Start-Sleep -Seconds 2
+        }
 
     # The exported-XML baselines forgive their timestamps only in this zone's shape.
     - name: Set the time zone the baselines were recorded in
