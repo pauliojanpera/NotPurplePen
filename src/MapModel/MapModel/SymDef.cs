@@ -2243,7 +2243,11 @@ namespace PurplePen.MapModel
             }
         }
 
-        // Draw the pattern using the texture brush.
+        // Draw the pattern using the texture brush. The brush repeats its tile from the origin of the coordinates it fills,
+        // and DrawPattern lays the pattern's grid out from the rotation center, turned by the angle, whether or not the
+        // angle is zero. So unless the angle is zero and the rotation center is the map's origin, the fill is made in the
+        // pattern's own frame, clipped to the area: an OpenMapper object whose pattern origin is moved needs that even
+        // when its pattern is not turned.
         void DrawPatternWithTexBrush(int iPattern, IGraphicsTarget g, SymPathWithHoles path, float angle, PointF rotationCenter, SymColor color, RenderOptions renderOpts)
         {
             Debug.Assert(color != null);
@@ -2251,7 +2255,7 @@ namespace PurplePen.MapModel
             object brush = patternBrushes[new Pair<int, SymColor>(iPattern, color)];
             Debug.Assert(brush != null);
 
-            if (angle != 0.0F) {
+            if (angle != 0.0F || rotationCenter.X != 0.0F || rotationCenter.Y != 0.0F) {
                 // Set the clipping region to draw only inside the area.
                 g.PushClip(path.GetPathKey(g));
 
