@@ -15,13 +15,13 @@ writes each colour in a class rule of its `<style>` sheet, as sRGB and then as t
   colour page, opens Fill and Stroke and selects each element through Inkscape's actions on D-Bus (`dialog-open`,
   `select-clear`, `select-by-id`), captures the dialog and reads the profile, the channels and their values with
   Tesseract. It keeps each captured dialog as a PNG, which settles a misreading such as `ione>` for `<none>`. An element
-  of the export is named by its `data-o`, and `o<n>^` names its group: Inkscape shows a style set on a group on the
-  group, and its children as unset. `INKSCAPE` names another Inkscape, such as `inkscape-in-chroot.sh`, which runs the
+  of the export is named by its `data-o`, `o<n>^` names its group and `o<n>^^` the group around that, and so on:
+  Inkscape shows a style set on a group on the group, and its children as unset. `INKSCAPE` names another Inkscape, such as `inkscape-in-chroot.sh`, which runs the
   Inkscape of a chroot (`INKSCAPE_CHROOT`) in the same X server and D-Bus session; the version picks the dialog's
   layout, which differs a little in 1.4.
 - `pick_probes.py <export.svg> <count> [--unset]` picks probes for `inkscape_colours.py` from an export written with
   style attributes: for each CMYK paint, the first object's element or group that carries it, as the reader can name
-  them, with what Inkscape should show; `--unset` adds an element whose group carries its style.
+  them, with what Inkscape should show; `--unset` adds an element whose style a group around it carries.
 - `expected_paints.py <export.svg>` counts the fills and strokes that reach the drawn elements of such an export,
   through inheritance and `<use>`, for comparison with what `summarise_scribus.py` says Scribus made.
 - `render_chromium.py` draws each file in Playwright's Chromium, with the flags `ChromiumRenderer` passes, and counts
@@ -102,6 +102,13 @@ events as below as the SVG tests export them (`CourseSvgBaselineTests`, `CourseS
 - **On the export as written before**, whose `<color-profile name="cmyk"/>` has neither an id nor a profile behind it,
   Inkscape 1.4.2 shows R, G and B: the first three numbers of each `icc-color()`, without K, which is what @Pauli saw on
   Nov 4, where 1.2.2 shows no channels at all. The version made the difference.
+- **On the outermost group.** `feature/svg-style-groups` (010704a, Nov 5) puts a style that elements share on the
+  outermost group that holds them. Of its exports of the same four events, Scribus 1.6.1 made 17, 640 and 20,442 items
+  of the first three, each with the fill, stroke and stroke width `expected_paints.py` counts, printarea2's 20 CMYK
+  colours among them, as before. Inkscape 1.2.2 showed the profile `cmyk` and C, M, Y and K, the values written, on
+  each of the 53 groups probed that carry a style, one, two or three groups out from an object's first element (20, 31
+  and 2), and on an element that carries its own; and on the first element of each file, whose style a group around
+  it carries, its colour unset.
 
 ## The variants
 
