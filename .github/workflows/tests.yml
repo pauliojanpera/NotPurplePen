@@ -212,150 +212,366 @@ jobs:
       # Chromium and belong to the loop.
       matrix:
         include:
-        - id: skia-c1
+        - id: skia-control-1
           name: Skia control 1
-          warmup: false
+          arm: control
           assemblies: >-
             MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
             MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
             PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
             Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
             ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
-        - id: skia-c2
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+        - id: skia-control-2
           name: Skia control 2
-          warmup: false
+          arm: control
           assemblies: >-
             MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
             MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
             PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
             Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
             ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
-        - id: skia-c3
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+        - id: skia-control-3
           name: Skia control 3
-          warmup: false
+          arm: control
           assemblies: >-
             MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
             MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
             PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
             Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
             ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
-        - id: skia-c4
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+        - id: skia-control-4
           name: Skia control 4
-          warmup: false
+          arm: control
           assemblies: >-
             MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
             MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
             PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
             Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
             ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
-        - id: skia-c5
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+        - id: skia-control-5
           name: Skia control 5
-          warmup: false
+          arm: control
           assemblies: >-
             MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
             MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
             PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
             Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
             ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
-        - id: skia-c6
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+        - id: skia-control-6
           name: Skia control 6
-          warmup: false
+          arm: control
           assemblies: >-
             MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
             MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
             PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
             Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
             ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
-        - id: skia-c7
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+        - id: skia-control-7
           name: Skia control 7
-          warmup: false
+          arm: control
           assemblies: >-
             MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
             MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
             PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
             Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
             ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
-        - id: skia-c8
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+        - id: skia-control-8
           name: Skia control 8
-          warmup: false
+          arm: control
           assemblies: >-
             MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
             MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
             PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
             Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
             ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
-        - id: skia-c9
-          name: Skia control 9
-          warmup: false
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+        - id: skia-check-1
+          name: Skia check 1
+          arm: check
           assemblies: >-
             MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
             MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
             PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
             Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
             ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
-        - id: skia-c10
-          name: Skia control 10
-          warmup: false
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+        - id: skia-check-2
+          name: Skia check 2
+          arm: check
           assemblies: >-
             MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
             MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
             PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
             Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
             ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
-        - id: skia-c11
-          name: Skia control 11
-          warmup: false
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+        - id: skia-check-3
+          name: Skia check 3
+          arm: check
           assemblies: >-
             MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
             MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
             PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
             Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
             ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
-        - id: skia-c12
-          name: Skia control 12
-          warmup: false
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+        - id: skia-check-4
+          name: Skia check 4
+          arm: check
           assemblies: >-
             MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
             MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
             PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
             Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
             ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
-        - id: skia-c13
-          name: Skia control 13
-          warmup: false
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+        - id: skia-check-5
+          name: Skia check 5
+          arm: check
           assemblies: >-
             MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
             MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
             PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
             Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
             ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
-        - id: skia-c14
-          name: Skia control 14
-          warmup: false
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+        - id: skia-check-6
+          name: Skia check 6
+          arm: check
           assemblies: >-
             MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
             MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
             PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
             Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
             ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
-        - id: skia-c15
-          name: Skia control 15
-          warmup: false
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+        - id: skia-check-7
+          name: Skia check 7
+          arm: check
           assemblies: >-
             MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
             MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
             PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
             Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
             ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
-        - id: skia-c16
-          name: Skia control 16
-          warmup: false
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+        - id: skia-check-8
+          name: Skia check 8
+          arm: check
           assemblies: >-
             MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
             MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
             PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
             Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
             ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+        - id: skia-quiet-1
+          name: Skia quiet 1
+          arm: quiet
+          assemblies: >-
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
+            MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
+            PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
+            Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
+            ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+        - id: skia-quiet-2
+          name: Skia quiet 2
+          arm: quiet
+          assemblies: >-
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
+            MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
+            PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
+            Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
+            ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+        - id: skia-quiet-3
+          name: Skia quiet 3
+          arm: quiet
+          assemblies: >-
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
+            MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
+            PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
+            Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
+            ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+        - id: skia-quiet-4
+          name: Skia quiet 4
+          arm: quiet
+          assemblies: >-
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
+            MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
+            PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
+            Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
+            ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+        - id: skia-quiet-5
+          name: Skia quiet 5
+          arm: quiet
+          assemblies: >-
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
+            MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
+            PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
+            Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
+            ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+        - id: skia-quiet-6
+          name: Skia quiet 6
+          arm: quiet
+          assemblies: >-
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
+            MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
+            PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
+            Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
+            ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+        - id: skia-quiet-7
+          name: Skia quiet 7
+          arm: quiet
+          assemblies: >-
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
+            MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
+            PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
+            Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
+            ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+        - id: skia-quiet-8
+          name: Skia quiet 8
+          arm: quiet
+          assemblies: >-
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
+            MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
+            PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
+            Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
+            ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll|FullyQualifiedName~BasicTests.FontMatch_ExactMatch
 
     steps:
     - name: Checkout source
@@ -423,6 +639,7 @@ jobs:
       shell: pwsh
       env:
         MACHINE_CHECK: ${{ inputs.machine_check || 'report' }}
+        ARM: ${{ matrix.arm }}
       run: |
         "image: $env:ImageOS $env:ImageVersion"
         $cv = Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion'
@@ -645,21 +862,34 @@ jobs:
         }
         "The store is the declared one: $($declared.files.Count) files."
 
+        function Show-FontCache($when) {
+            $service = Get-CimInstance Win32_Service -Filter "Name='FontCache'" -ErrorAction SilentlyContinue
+            $files = @(Get-ChildItem "$env:WINDIR\ServiceProfiles\LocalService\AppData\Local\FontCache" -Force -Filter '*.dat' -ErrorAction SilentlyContinue | ForEach-Object { "$($_.Name)@$($_.LastWriteTimeUtc.ToString('HH:mm:ss.fff'))" })
+            "EXPERIMENT $((Get-Date).ToUniversalTime().ToString('HH:mm:ss.fff')) $when`: FontCache $($service.State) pid $($service.ProcessId) start $($service.StartMode); $($files -join ' ')"
+        }
+        Show-FontCache 'before the stop'
+        if ($env:ARM -eq 'quiet') { Set-Service FontCache -StartupType Disabled }
         # A font file the system already has open cannot be overwritten; stopping
         # the cache service releases most of them. Nothing installed here replaces
-        # a face the image ships, but the service also caches the absences.
-        foreach ($name in 'FontCache', 'FontCache3.0.0.0') {
-            Get-Service $name -ErrorAction SilentlyContinue |
-                Stop-Service -Force -ErrorAction SilentlyContinue
-        }
+        # a face the image ships, but the service also caches the absences. What
+        # was running is started again once the fonts are in place.
+        $stopped = @(foreach ($name in 'FontCache', 'FontCache3.0.0.0') {
+            $service = Get-Service $name -ErrorAction SilentlyContinue
+            if ($service) {
+                if ($service.Status -eq 'Running') { $name }
+                $service | Stop-Service -Force -ErrorAction SilentlyContinue
+            }
+        })
 
         # Copying the file and registering it is what installing a font amounts
         # to. Handing each one to the shell namespace instead costs seconds
         # apiece. The entry has to carry the name the font calls itself, which
         # only the file knows; filed under anything else a face is not found by
         # name.
+        Show-FontCache 'after the stop'
         $started = Get-Date
         $registry = 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts'
+        $filedUnder = @{}
         foreach ($one in $declared.files) {
             $source = $byFile[$one.file]
             $target = Join-Path $fontDir $one.file
@@ -669,26 +899,232 @@ jobs:
             $suffix = if ([IO.Path]::GetExtension($one.file) -eq '.otf') { '(OpenType)' } else { '(TrueType)' }
             New-ItemProperty -Path $registry -Name "$label $suffix" `
                              -Value $one.file -PropertyType String -Force | Out-Null
+            $filedUnder["$label $suffix"] = $one.file
             [Native.Gdi]::AddFontResource($target) | Out-Null
         }
-        Start-Service FontCache -ErrorAction SilentlyContinue
+        Show-FontCache 'after the files'
+        if ($env:ARM -eq 'quiet') { Set-Service FontCache -StartupType Automatic }
+        foreach ($name in @(@('FontCache') + $stopped | Select-Object -Unique)) {
+            Start-Service $name -ErrorAction SilentlyContinue
+        }
         "Installed $($declared.files.Count) fonts in $([int]((Get-Date) - $started).TotalSeconds) s"
+        Show-FontCache 'after the start'
+        if ($env:ARM -eq 'control') { "EXPERIMENT: no check in this arm"; exit 0 }
 
-    - name: Probe the fonts after the install
-      if: always()
-      working-directory: ${{ github.workspace }}
-      shell: pwsh
-      run: |
-        "now $((Get-Date).ToUniversalTime().ToString('HH:mm:ss.fff'))"
-        Get-Service FontCache, FontCache3.0.0.0 -ErrorAction SilentlyContinue | ForEach-Object { "service $($_.Name): $($_.Status) start=$($_.StartType)" }
-        Get-CimInstance Win32_Service -Filter "Name='FontCache'" -ErrorAction SilentlyContinue | ForEach-Object { "FontCache process $($_.ProcessId) state $($_.State)" }
-        $registry = Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts'
-        $names = @($registry.PSObject.Properties | Where-Object { $_.Name -match 'Narrow|Lucida|Baskerville|Antiqua|Bodoni|Forte|Cooper' } | ForEach-Object { "$($_.Name) = $($_.Value)" })
-        "registry entries of store families ($($names.Count)): $($names -join '; ')"
-        $user = Get-ItemProperty 'HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts' -ErrorAction SilentlyContinue
-        if ($user) { "per-user font entries: $(@($user.PSObject.Properties | Where-Object { $_.Name -notmatch '^PS' } | ForEach-Object { $_.Name }) -join '; ')" }
-        Get-ChildItem "$env:WINDIR\ServiceProfiles\LocalService\AppData\Local\FontCache" -Force -Recurse -ErrorAction SilentlyContinue | ForEach-Object { "cache file $($_.FullName.Substring($env:WINDIR.Length)) $($_.Length) $($_.LastWriteTimeUtc.ToString('HH:mm:ss.fff'))" }
-        Get-ChildItem "$env:WINDIR\System32\FNTCACHE.DAT" -Force -ErrorAction SilentlyContinue | ForEach-Object { "cache file $($_.Name) $($_.Length) $($_.LastWriteTimeUtc.ToString('HH:mm:ss.fff'))" }
+        # A font in place is not yet a font a program finds. Skia draws with
+        # DirectWrite, which takes the system's fonts from the font cache service
+        # when a program first asks for them, and the service learns of new fonts
+        # in its own time; a test that asked before then would draw a face it
+        # lacks in another, and the run would put that down to the rendering. So
+        # each face the store installed is looked for among the fonts DirectWrite
+        # gives a program started now, and opened, until all of them are there;
+        # one still missing after two minutes stops the job, named. DirectWrite
+        # files faces under families of its own -- Arial Narrow under Arial, at a
+        # narrower width -- so a face is looked for by the family and style names
+        # Windows files it under and the version it carries, as the store
+        # declares them.
+        #
+        # A face is looked for only if the registry names its file. The store
+        # holds two versions of Arial Narrow, whose faces carry the same names,
+        # so the later file takes each entry from the earlier one: the earlier
+        # file is installed for GDI alone, and DirectWrite, which takes the
+        # system's fonts from the registry, never has it.
+        $registered = @($filedUnder.Values)
+        $shadowed = @($declared.files | Where-Object { $registered -notcontains $_.file })
+        if ($shadowed.Count) {
+            "Filed under the names of later files, so installed for GDI alone: $(($shadowed | ForEach-Object { $_.file }) -join ', ')"
+        }
+        $facesSource = @'
+        using System;
+        using System.Collections.Generic;
+        using System.Linq;
+        using System.Runtime.InteropServices;
+
+        // The faces of DirectWrite's system font collection.
+        public static class SystemFaces
+        {
+            const int VersionStrings = 2, Win32FamilyNames = 11, Win32SubfamilyNames = 12;
+
+            // One line per face of the collection that a program starting now is
+            // given, leaving out faces DirectWrite simulates from another: its
+            // family names, style names and version strings, each list joined by
+            // '|', and "ok" or why it cannot be opened, tab separated.
+            public static string[] List()
+            {
+                List<string> lines = new List<string>();
+                IDWriteFontCollection collection = Collection(false);
+                for (uint f = 0; f < collection.GetFontFamilyCount(); f++) {
+                    IDWriteFontFamily family;
+                    Check(collection.GetFontFamily(f, out family));
+                    for (uint i = 0; i < family.GetFontCount(); i++) {
+                        IDWriteFont font;
+                        Check(family.GetFont(i, out font));
+                        if (font.GetSimulations() != 0) { continue; }
+                        IntPtr face;
+                        int hr = font.CreateFontFace(out face);
+                        if (hr >= 0) { Marshal.Release(face); }
+                        lines.Add(Strings(font, Win32FamilyNames) + "\t" + Strings(font, Win32SubfamilyNames) + "\t" +
+                                  Strings(font, VersionStrings) + "\t" + (hr >= 0 ? "ok" : "cannot be opened (0x" + hr.ToString("X8") + ")"));
+                    }
+                }
+                return lines.ToArray();
+            }
+
+            // Has DirectWrite look for changes to the system's fonts at once,
+            // rather than when the font cache service comes to them.
+            public static void CheckForUpdates()
+            {
+                Collection(true);
+            }
+
+            // The system font collection of the shared factory, which is the one
+            // Skia takes.
+            static IDWriteFontCollection Collection(bool checkForUpdates)
+            {
+                Guid iid = typeof(IDWriteFactory).GUID;
+                object factory;
+                Check(DWriteCreateFactory(0, ref iid, out factory));
+                IDWriteFontCollection collection;
+                Check(((IDWriteFactory)factory).GetSystemFontCollection(out collection, checkForUpdates));
+                return collection;
+            }
+
+            // Every string, in every language, of one of a face's informational
+            // strings, joined by '|'.
+            static string Strings(IDWriteFont font, int id)
+            {
+                IDWriteLocalizedStrings strings;
+                bool exists;
+                Check(font.GetInformationalStrings(id, out strings, out exists));
+                if (!exists || strings == null) { return ""; }
+                List<string> all = new List<string>();
+                for (uint i = 0; i < strings.GetCount(); i++) {
+                    uint length;
+                    Check(strings.GetStringLength(i, out length));
+                    IntPtr buffer = Marshal.AllocHGlobal((int)(length + 1) * 2);
+                    try {
+                        Check(strings.GetString(i, buffer, length + 1));
+                        all.Add(Marshal.PtrToStringUni(buffer).Replace("\0", "").Trim());
+                    }
+                    finally {
+                        Marshal.FreeHGlobal(buffer);
+                    }
+                }
+                return string.Join("|", all.Distinct());
+            }
+
+            static void Check(int hr)
+            {
+                if (hr < 0) { Marshal.ThrowExceptionForHR(hr); }
+            }
+
+            [DllImport("dwrite.dll")]
+            static extern int DWriteCreateFactory(int factoryType, ref Guid iid, [MarshalAs(UnmanagedType.IUnknown)] out object factory);
+
+            [ComImport, Guid("b859ee5a-d838-4b5b-a2e8-1adc7d93db48"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+            interface IDWriteFactory
+            {
+                [PreserveSig] int GetSystemFontCollection(out IDWriteFontCollection collection, [MarshalAs(UnmanagedType.Bool)] bool checkForUpdates);
+            }
+
+            [ComImport, Guid("a84cee02-3eea-4eee-a827-87c1a02a0fcc"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+            interface IDWriteFontCollection
+            {
+                [PreserveSig] uint GetFontFamilyCount();
+                [PreserveSig] int GetFontFamily(uint index, out IDWriteFontFamily family);
+            }
+
+            // IDWriteFontFamily, whose first three methods are IDWriteFontList's.
+            [ComImport, Guid("da20d8ef-812a-4c43-9802-62ec4abd7add"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+            interface IDWriteFontFamily
+            {
+                [PreserveSig] int GetFontCollection(out IntPtr collection);
+                [PreserveSig] uint GetFontCount();
+                [PreserveSig] int GetFont(uint index, out IDWriteFont font);
+            }
+
+            [ComImport, Guid("acd16696-8c14-4f5d-877e-fe3fc1d32737"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+            interface IDWriteFont
+            {
+                [PreserveSig] int GetFontFamily(out IntPtr family);
+                [PreserveSig] int GetWeight();
+                [PreserveSig] int GetStretch();
+                [PreserveSig] int GetStyle();
+                [PreserveSig] int IsSymbolFont();
+                [PreserveSig] int GetFaceNames(out IntPtr names);
+                [PreserveSig] int GetInformationalStrings(int id, out IDWriteLocalizedStrings strings, [MarshalAs(UnmanagedType.Bool)] out bool exists);
+                [PreserveSig] int GetSimulations();
+                [PreserveSig] void GetMetrics(IntPtr metrics);
+                [PreserveSig] int HasCharacter(uint codepoint, [MarshalAs(UnmanagedType.Bool)] out bool exists);
+                [PreserveSig] int CreateFontFace(out IntPtr face);
+            }
+
+            [ComImport, Guid("08256209-099a-4b34-b86d-c22b110e7771"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+            interface IDWriteLocalizedStrings
+            {
+                [PreserveSig] uint GetCount();
+                [PreserveSig] int FindLocaleName([MarshalAs(UnmanagedType.LPWStr)] string locale, out uint index, [MarshalAs(UnmanagedType.Bool)] out bool exists);
+                [PreserveSig] int GetLocaleNameLength(uint index, out uint length);
+                [PreserveSig] int GetLocaleName(uint index, IntPtr buffer, uint size);
+                [PreserveSig] int GetStringLength(uint index, out uint length);
+                [PreserveSig] int GetString(uint index, IntPtr buffer, uint size);
+            }
+        }
+        '@
+        $facesHelper = Join-Path $env:RUNNER_TEMP 'SystemFaces.dll'
+        Add-Type -TypeDefinition $facesSource -OutputAssembly $facesHelper -OutputType Library
+        Add-Type -Path $facesHelper
+
+        # Parameters:
+        #   listed - the lines SystemFaces.List gave.
+        # Returns each face the store declares that is not among them, or not
+        # one DirectWrite can open, with why.
+        function Get-MissingFaces($listed) {
+            $faces = @(foreach ($line in $listed) {
+                $parts = "$line" -split "`t"
+                if ($parts.Count -eq 4) {
+                    [pscustomobject]@{
+                        Families = $parts[0] -split '\|'; Styles = $parts[1] -split '\|'
+                        Versions = $parts[2] -split '\|'; Status = $parts[3]
+                    }
+                }
+            })
+            foreach ($one in @($declared.files | Where-Object { $registered -contains $_.file })) {
+                foreach ($face in $one.faces) {
+                    $found = @($faces | Where-Object {
+                        $_.Families -contains $face.family -and $_.Styles -contains $face.style -and
+                        (-not $face.version -or $_.Versions -contains $face.version)
+                    })
+                    $name = "$($face.family) $($face.style), $($face.version) ($($one.file))"
+                    if (-not $found.Count) { "$name, not found" }
+                    elseif (-not @($found | Where-Object { $_.Status -eq 'ok' }).Count) { "$name, $($found[0].Status)" }
+                }
+            }
+        }
+
+        $wanted = @($declared.files | Where-Object { $registered -contains $_.file } | ForEach-Object { $_.faces }).Count
+        $looking = Get-Date
+        while ($true) {
+            # A program started now: a new process, which takes the collection as
+            # DirectWrite finds it.
+            $listed = & pwsh -NoProfile -NonInteractive -Command "Add-Type -Path '$facesHelper'; [SystemFaces]::List()"
+            if ($LASTEXITCODE -ne 0) { throw "DirectWrite's fonts could not be listed: $listed" }
+            $missing = @(Get-MissingFaces $listed)
+            $waited = [int]((Get-Date) - $looking).TotalSeconds
+            if (-not $missing.Count) {
+                "DirectWrite has the $wanted faces the store installed that the registry names, $waited s after they were installed."
+                break
+            }
+            if ($waited -ge 120) {
+                "DirectWrite still lacks $($missing.Count) of the $wanted faces the store installed after $waited s:"
+                $missing | ForEach-Object { "  $_" }
+                "::error title=Installed fonts not found::DirectWrite does not have $($missing.Count) of the faces the store installed: $($missing -join '; ')."
+                exit 1
+            }
+            "after $waited s, DirectWrite lacks $($missing.Count) of the $wanted faces the store installed: $($missing -join '; ')"
+            [SystemFaces]::CheckForUpdates()
+            Start-Sleep -Seconds 2
+        }
 
     # The exported-XML baselines forgive their timestamps only in this zone's shape.
     - name: Set the time zone the baselines were recorded in
@@ -730,73 +1166,8 @@ jobs:
       shell: pwsh
       run: |
         "now $((Get-Date).ToUniversalTime().ToString('HH:mm:ss.fff'))"
-        Get-Service FontCache, FontCache3.0.0.0 -ErrorAction SilentlyContinue | ForEach-Object { "service $($_.Name): $($_.Status) start=$($_.StartType)" }
-        Get-CimInstance Win32_Service -Filter "Name='FontCache'" -ErrorAction SilentlyContinue | ForEach-Object { "FontCache process $($_.ProcessId) state $($_.State)" }
-        $registry = Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts'
-        $names = @($registry.PSObject.Properties | Where-Object { $_.Name -match 'Narrow|Lucida|Baskerville|Antiqua|Bodoni|Forte|Cooper' } | ForEach-Object { "$($_.Name) = $($_.Value)" })
-        "registry entries of store families ($($names.Count)): $($names -join '; ')"
-        $user = Get-ItemProperty 'HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts' -ErrorAction SilentlyContinue
-        if ($user) { "per-user font entries: $(@($user.PSObject.Properties | Where-Object { $_.Name -notmatch '^PS' } | ForEach-Object { $_.Name }) -join '; ')" }
+        Get-CimInstance Win32_Service -Filter "Name='FontCache'" -ErrorAction SilentlyContinue | ForEach-Object { "FontCache $($_.State) pid $($_.ProcessId) start $($_.StartMode)" }
         Get-ChildItem "$env:WINDIR\ServiceProfiles\LocalService\AppData\Local\FontCache" -Force -Recurse -ErrorAction SilentlyContinue | ForEach-Object { "cache file $($_.FullName.Substring($env:WINDIR.Length)) $($_.Length) $($_.LastWriteTimeUtc.ToString('HH:mm:ss.fff'))" }
-        Get-ChildItem "$env:WINDIR\System32\FNTCACHE.DAT" -Force -ErrorAction SilentlyContinue | ForEach-Object { "cache file $($_.Name) $($_.Length) $($_.LastWriteTimeUtc.ToString('HH:mm:ss.fff'))" }
-
-    # EXPERIMENT: what a new process's DirectWrite knows of the store's families now, and how long it takes the system's
-    # font collection, checked for updates, to know them all.
-    - name: Warm the font collection
-      if: matrix.warmup
-      working-directory: ${{ github.workspace }}
-      shell: pwsh
-      run: |
-        $source = @'
-        using System;
-        using System.Runtime.InteropServices;
-        using System.Text;
-        public static class DWriteProbe {
-            [DllImport("dwrite.dll")]
-            static extern int DWriteCreateFactory(int type, ref Guid iid, [MarshalAs(UnmanagedType.IUnknown)] out object factory);
-            [ComImport, Guid("b859ee5a-d838-4b5b-a2e8-1adc7d93db48"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-            interface IDWriteFactory { [PreserveSig] int GetSystemFontCollection(out IDWriteFontCollection c, [MarshalAs(UnmanagedType.Bool)] bool check); }
-            [ComImport, Guid("a84cee02-3eea-4eee-a827-87c1a02a0fcc"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-            interface IDWriteFontCollection {
-                [PreserveSig] uint GetFontFamilyCount();
-                [PreserveSig] int GetFontFamily(uint i, out IntPtr f);
-                [PreserveSig] int FindFamilyName([MarshalAs(UnmanagedType.LPWStr)] string n, out uint i, [MarshalAs(UnmanagedType.Bool)] out bool e);
-            }
-            public static string Missing(int type, bool check, string[] families) {
-                Guid iid = typeof(IDWriteFactory).GUID;
-                object o;
-                int hr = DWriteCreateFactory(type, ref iid, out o);
-                if (hr < 0) return "factory failed " + hr;
-                IDWriteFontCollection c;
-                hr = ((IDWriteFactory)o).GetSystemFontCollection(out c, check);
-                if (hr < 0) return "collection failed " + hr;
-                StringBuilder missing = new StringBuilder();
-                foreach (string f in families) {
-                    uint i; bool e;
-                    c.FindFamilyName(f, out i, out e);
-                    if (!e) missing.Append(f).Append("; ");
-                }
-                return "families=" + c.GetFontFamilyCount() + " missing: " + missing;
-            }
-        }
-        '@
-        Add-Type -TypeDefinition $source
-        $declared = Get-Content .github/ci/fonts.json -Raw | ConvertFrom-Json
-        $families = @($declared.files | ForEach-Object { $_.faces } | ForEach-Object { $_.family } | Sort-Object -Unique)
-        "store families: $($families -join ', ')"
-        $t = { (Get-Date).ToUniversalTime().ToString('HH:mm:ss.fff') }
-        "$(& $t) shared, as found: $([DWriteProbe]::Missing(0, $false, $families))"
-        "$(& $t) isolated, checked: $([DWriteProbe]::Missing(1, $true, $families))"
-        $started = Get-Date
-        while ($true) {
-            $answer = [DWriteProbe]::Missing(0, $true, $families)
-            "$(& $t) shared, checked: $answer"
-            if ($answer -match 'missing: $') { break }
-            if (((Get-Date) - $started).TotalSeconds -gt 120) { "gave up after two minutes"; break }
-            Start-Sleep -Seconds 2
-        }
-        Set-Content dwrite-probe.cs $source
-        "$(& $t) a new process, shared, as found: $(pwsh -NoProfile -Command "Add-Type -TypeDefinition (Get-Content -Raw dwrite-probe.cs); [DWriteProbe]::Missing(0, `$false, @('$($families -join "','")'))")"
 
     # DotSpatial.Projections checks itself against the real proj.4 library, whose
     # committed x86 and x64 builds both import MSVCR100.dll.
@@ -873,8 +1244,10 @@ jobs:
         </RunSettings>
         "@ | Set-Content ci.runsettings -Encoding UTF8
 
+        $index = 0
         $running = foreach ($assembly in $assemblies) {
-            $log = Join-Path $PWD ("test-" + [IO.Path]::GetFileNameWithoutExtension($assembly.Path) + ".log")
+            $index++
+            $log = Join-Path $PWD ("test-" + $index + "-" + [IO.Path]::GetFileNameWithoutExtension($assembly.Path) + ".log")
             $arguments = @('test', $assembly.Path, '--settings:ci.runsettings')
             if ($assembly.Filter) { $arguments += @('--filter', $assembly.Filter) }
             [pscustomobject]@{
@@ -934,15 +1307,8 @@ jobs:
       shell: pwsh
       run: |
         "now $((Get-Date).ToUniversalTime().ToString('HH:mm:ss.fff'))"
-        Get-Service FontCache, FontCache3.0.0.0 -ErrorAction SilentlyContinue | ForEach-Object { "service $($_.Name): $($_.Status) start=$($_.StartType)" }
-        Get-CimInstance Win32_Service -Filter "Name='FontCache'" -ErrorAction SilentlyContinue | ForEach-Object { "FontCache process $($_.ProcessId) state $($_.State)" }
-        $registry = Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts'
-        $names = @($registry.PSObject.Properties | Where-Object { $_.Name -match 'Narrow|Lucida|Baskerville|Antiqua|Bodoni|Forte|Cooper' } | ForEach-Object { "$($_.Name) = $($_.Value)" })
-        "registry entries of store families ($($names.Count)): $($names -join '; ')"
-        $user = Get-ItemProperty 'HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts' -ErrorAction SilentlyContinue
-        if ($user) { "per-user font entries: $(@($user.PSObject.Properties | Where-Object { $_.Name -notmatch '^PS' } | ForEach-Object { $_.Name }) -join '; ')" }
+        Get-CimInstance Win32_Service -Filter "Name='FontCache'" -ErrorAction SilentlyContinue | ForEach-Object { "FontCache $($_.State) pid $($_.ProcessId) start $($_.StartMode)" }
         Get-ChildItem "$env:WINDIR\ServiceProfiles\LocalService\AppData\Local\FontCache" -Force -Recurse -ErrorAction SilentlyContinue | ForEach-Object { "cache file $($_.FullName.Substring($env:WINDIR.Length)) $($_.Length) $($_.LastWriteTimeUtc.ToString('HH:mm:ss.fff'))" }
-        Get-ChildItem "$env:WINDIR\System32\FNTCACHE.DAT" -Force -ErrorAction SilentlyContinue | ForEach-Object { "cache file $($_.Name) $($_.Length) $($_.LastWriteTimeUtc.ToString('HH:mm:ss.fff'))" }
         foreach ($log in Get-ChildItem src/svg-loop-results/font-probe -Filter *.log -ErrorAction SilentlyContinue) {
             ""
             "===== $($log.Name)"

@@ -54,6 +54,11 @@ namespace Map_SkiaStd
                     known.Append(" '").Append(family).Append("'=").Append(Count(SKFontManager.Default, family));
                 Write("first use: default manager families=" + SKFontManager.Default.FontFamilyCount + " skiaDefault=" + Describe(SKTypeface.Default) + known);
                 WriteFamily("Arial");
+                WriteFamily("Book Antiqua");
+                StringBuilder families = new StringBuilder();
+                foreach (string family in SKFontManager.Default.FontFamilies)
+                    families.Append(family).Append('=').Append(Count(SKFontManager.Default, family)).Append("; ");
+                Write("first use: families " + families);
                 foreach (SKFontStyleWeight weight in new SKFontStyleWeight[] { SKFontStyleWeight.Normal, SKFontStyleWeight.Bold }) {
                     foreach (SKFontStyleSlant slant in new SKFontStyleSlant[] { SKFontStyleSlant.Upright, SKFontStyleSlant.Italic }) {
                         using (SKTypeface match = SKTypeface.FromFamilyName("Arial", weight, SKFontStyleWidth.Condensed, slant))
