@@ -545,6 +545,7 @@ jobs:
         # name.
         $started = Get-Date
         $registry = 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts'
+        $filedUnder = @{}
         foreach ($one in $declared.files) {
             $source = $byFile[$one.file]
             $target = Join-Path $fontDir $one.file
@@ -554,6 +555,7 @@ jobs:
             $suffix = if ([IO.Path]::GetExtension($one.file) -eq '.otf') { '(OpenType)' } else { '(TrueType)' }
             New-ItemProperty -Path $registry -Name "$label $suffix" `
                              -Value $one.file -PropertyType String -Force | Out-Null
+            $filedUnder["$label $suffix"] = $one.file
             [Native.Gdi]::AddFontResource($target) | Out-Null
         }
         foreach ($name in @(@('FontCache') + $stopped | Select-Object -Unique)) {
@@ -573,6 +575,17 @@ jobs:
         # narrower width -- so a face is looked for by the family and style names
         # Windows files it under and the version it carries, as the store
         # declares them.
+        #
+        # A face is looked for only if the registry names its file. The store
+        # holds two versions of Arial Narrow, whose faces carry the same names,
+        # so the later file takes each entry from the earlier one: the earlier
+        # file is installed for GDI alone, and DirectWrite, which takes the
+        # system's fonts from the registry, never has it.
+        $registered = @($filedUnder.Values)
+        $shadowed = @($declared.files | Where-Object { $registered -notcontains $_.file })
+        if ($shadowed.Count) {
+            "Filed under the names of later files, so installed for GDI alone: $(($shadowed | ForEach-Object { $_.file }) -join ', ')"
+        }
         $facesSource = @'
         using System;
         using System.Collections.Generic;
@@ -728,7 +741,7 @@ jobs:
                     }
                 }
             })
-            foreach ($one in $declared.files) {
+            foreach ($one in @($declared.files | Where-Object { $registered -contains $_.file })) {
                 foreach ($face in $one.faces) {
                     $found = @($faces | Where-Object {
                         $_.Families -contains $face.family -and $_.Styles -contains $face.style -and
@@ -741,7 +754,7 @@ jobs:
             }
         }
 
-        $wanted = @($declared.files | ForEach-Object { $_.faces }).Count
+        $wanted = @($declared.files | Where-Object { $registered -contains $_.file } | ForEach-Object { $_.faces }).Count
         $looking = Get-Date
         while ($true) {
             # A program started now: a new process, which takes the collection as
@@ -751,7 +764,7 @@ jobs:
             $missing = @(Get-MissingFaces $listed)
             $waited = [int]((Get-Date) - $looking).TotalSeconds
             if (-not $missing.Count) {
-                "DirectWrite has the $wanted faces the store installed, $waited s after they were installed."
+                "DirectWrite has the $wanted faces the store installed that the registry names, $waited s after they were installed."
                 break
             }
             if ($waited -ge 120) {
