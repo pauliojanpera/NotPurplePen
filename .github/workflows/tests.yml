@@ -585,10 +585,10 @@ jobs:
         # Windows files it under and the version it carries, as the store
         # declares them.
         #
-        # A face is looked for only if the registry names its file. The store
-        # holds two versions of Arial Narrow, whose faces carry the same names,
-        # so the later file takes each entry from the earlier one: the earlier
-        # file is installed for GDI alone, and DirectWrite, which takes the
+        # A face is looked for only if the registry names its file. Two files
+        # whose faces carry the same names, as two versions of one font do, are
+        # filed under the same entries, and the later file takes them: the
+        # earlier is installed for GDI alone, and DirectWrite, which takes the
         # system's fonts from the registry, never has it.
         $registered = @($filedUnder.Values)
         $shadowed = @($declared.files | Where-Object { $registered -notcontains $_.file })
