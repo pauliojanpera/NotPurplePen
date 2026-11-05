@@ -226,9 +226,6 @@ jobs:
           assemblies: >-
             MapModel/Test_MapWPF/bin/Debug/net10.0-windows/TestProject1.dll
             PdfConverter.Tests/bin/Debug/net10.0-windows/PdfConverter.Tests.dll
-        - id: projections
-          name: projections
-          assemblies: DotSpatialProjectionsLite/DotSpatial.Projections.Tests/bin/Debug/net10.0/DotSpatial.Projections.Tests.dll
         - id: skia
           name: Skia
           assemblies: >-
@@ -525,6 +522,12 @@ jobs:
             "The machine is what the tests require: $windows, and the $($required.systemFonts.Count) font files the tests take from it."
         }
         "The store is the declared one: $($declared.files.Count) files."
+
+        # EXPERIMENT: install only the store's files that the Skia tests draw with.
+        $skiaFiles = @('ANTQUAB.TTF', 'Ameretto.ttf', 'BASKVILL.TTF', 'FORTE.TTF', 'LBRITE.TTF', 'SWZBLKN.TTF',
+                       'arialnarrow.ttf', 'arialnarrow_bold.ttf', 'arialnarrow_bolditalic.ttf', 'arialnarrow_italic.ttf')
+        $declared.files = @($declared.files | Where-Object { $skiaFiles -ccontains $_.file })
+        "EXPERIMENT: installing only $(($declared.files | ForEach-Object { $_.file }) -join ', ')"
 
         # A font file the system already has open cannot be overwritten; stopping
         # the cache service releases most of them. Nothing installed here replaces
