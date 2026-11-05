@@ -1,10 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" width="215.9mm" height="279.4mm" viewBox="0 0 215.9 279.4" xml:lang="und">
 <style>
-@font-face{font-family:"Roboto";src:url(data:font/ttf;base64,sha256:12bfd842cd09355439117bc5dc7c55442e81690a238fb3f91bb8406dbd5b6876)}
+@font-face{font-family:'Roboto';src:url(data:font/ttf;base64,sha256:12bfd842cd09355439117bc5dc7c55442e81690a238fb3f91bb8406dbd5b6876)}
 text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white-space:pre}
-.a{fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-miterlimit:5}
-.b{fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-linejoin:bevel}
-.c{font-size:5.57px;font-family:"Roboto";fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)}
 </style>
 <metadata>
 <npp:document version="1">
@@ -32,24 +29,24 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <inkscape:page x="0" y="0" width="215.9" height="279.4" inkscape:label="Course 2-1"/>
 </sodipodi:namedview>
 <defs>
-<color-profile name="cmyk"/>
+<color-profile id="cmyk" name="cmyk" xlink:href="data:application/vnd.iccprofile;base64,sha256:a4cb0af0777cef9b31261a9c8ab71ece6b5eac928efbc59a749e1aa667b43baa"/>
 <clipPath id="b">
 <path d="M10000-10000h45000v60000H10000z"/>
 </clipPath>
 <g id="a">
 <g data-m="1">
 <g data-c="2">
-<g transform="translate(56800-8700)rotate(-156.46)" data-s="1">
-<path class="a" data-o="1" d="M0 4041l3500-6062h-7000L0 4041z"/>
+<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-miterlimit:5" transform="translate(56800-8700)rotate(-156.46)" data-s="1">
+<path data-o="1" d="M0 4041l3500-6062h-7000L0 4041z"/>
 </g>
-<g data-s="2">
-<path class="b" data-o="2" d="M23052-9847 8348-6353"/>
+<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-linejoin:bevel" data-s="2">
+<path data-o="2" d="M23052-9847 8348-6353"/>
 </g>
-<g data-s="3">
-<circle class="a" data-o="3" cx="25800" cy="-10500" r="2825"/>
+<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-miterlimit:5" data-s="3">
+<circle data-o="3" cx="25800" cy="-10500" r="2825"/>
 </g>
-<g transform="matrix(1 0 0-1 27436-668)" data-s="4">
-<text class="c" data-o="4" transform="translate(0 5293)scale(1000)">3</text>
+<g style="font-size:5.57px;font-family:'Roboto';fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" transform="matrix(1 0 0-1 27436-668)" data-s="4">
+<text data-o="4" transform="translate(0 5293)scale(1000)">3</text>
 </g>
 </g>
 </g>

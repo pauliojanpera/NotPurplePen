@@ -16,12 +16,28 @@ namespace PurplePen.MapModel
         public abstract void Write(SvgWriter writer);
     }
 
-    // An element that a drawing call writes: a shape, or the use of an image. Drawn within an object, it carries the
-    // object's number (M-6, S-11).
+    // An element that a drawing call writes: a shape, the use of an image, or a text. Drawn within an object, it carries
+    // the object's number (M-6, S-11). It carries its style itself, unless the group that holds it carries it (S-4).
     public abstract class SvgElement : SvgNode
     {
         // The number of the object the element belongs to, or 0 for none.
         public int ObjectNumber;
+
+        // Whether the group that holds the element, or a group around that, carries the element's style, so that the
+        // element writes none (S-4).
+        public bool StyleOnGroup;
+
+        // The element's style, or null for none.
+        public abstract SvgStyle ElementStyle { get; }
+
+        // Write the element's style attribute, unless it has no style or a group carries it (S-4).
+        // writer: the writer of the document.
+        protected void WriteStyle(SvgWriter writer)
+        {
+            SvgStyle style = ElementStyle;
+            if (style != null && !StyleOnGroup)
+                writer.AppendStyle(style.Resolve(writer));
+        }
 
         // Write the number of the element's object, if it belongs to one.
         // writer: the writer of the document.
@@ -32,11 +48,11 @@ namespace PurplePen.MapModel
         }
     }
 
-    // A shape drawn with one style: a path, a circle or an ellipse (F-3). Its element carries its class, the number of
-    // its object, if any, and its geometry, and nothing else (S-4, S-11).
+    // A shape drawn with one style: a path, a circle or an ellipse (F-3). Its element carries its style, unless its group
+    // does, the number of its object, if any, and its geometry, and nothing else (S-4, S-11).
     public abstract class SvgShape : SvgElement
     {
-        // The shape's style, which names its class when it is written (S-4).
+        // The shape's style (S-4).
         protected readonly SvgStyle Style;
 
         // Create a shape.
@@ -46,11 +62,17 @@ namespace PurplePen.MapModel
             Style = style;
         }
 
-        // Write the element: its class, the number of its object, if any, and its geometry.
+        // The shape's style.
+        public override SvgStyle ElementStyle
+        {
+            get { return Style; }
+        }
+
+        // Write the element: its style, unless its group carries it, the number of its object, if any, and its geometry.
         public override void Write(SvgWriter writer)
         {
-            string className = writer.ClassOf(Style.Resolve(writer));
-            writer.Text.Append('<').Append(ElementName).Append(" class=\"").Append(className).Append('"');
+            writer.Text.Append('<').Append(ElementName);
+            WriteStyle(writer);
             WriteObjectNumber(writer);
             writer.Text.Append(' ');
             AppendGeometry(writer.Text);
@@ -164,8 +186,8 @@ namespace PurplePen.MapModel
         // The transform from the image's pixels to the rectangle, in steps.
         private readonly SvgTransform placement;
 
-        // The declarations of the element's style, or null for none.
-        private readonly string style;
+        // The element's style, or null for none.
+        private readonly SvgStyle style;
 
         // The bounds of the rectangle, in steps.
         private readonly SvgBounds bounds;
@@ -179,8 +201,14 @@ namespace PurplePen.MapModel
         {
             this.image = image;
             this.placement = placement;
-            this.style = style;
+            this.style = style == null ? null : new SvgStyle(style);
             this.bounds = bounds;
+        }
+
+        // The element's style, or null for none.
+        public override SvgStyle ElementStyle
+        {
+            get { return style; }
         }
 
         // The bounds of the rectangle.
@@ -189,13 +217,12 @@ namespace PurplePen.MapModel
             return bounds;
         }
 
-        // Write the element: its class, if any, the number of its object, if any, the reference to the image and the
-        // placement, with the digits that the image's corners need (S-2, S-4).
+        // Write the element: its style, if any and unless its group carries it, the number of its object, if any, the
+        // reference to the image and the placement, with the digits that the image's corners need (S-2, S-4).
         public override void Write(SvgWriter writer)
         {
             writer.Text.Append("<use");
-            if (style != null)
-                writer.Text.Append(" class=\"").Append(writer.ClassOf(style)).Append('"');
+            WriteStyle(writer);
             WriteObjectNumber(writer);
             writer.Text.Append(" xlink:href=\"#").Append(writer.IdOfImage(image)).Append('"');
             string transform = placement.Format(Math.Sqrt((double)image.Width * image.Width + (double)image.Height * image.Height), 1);
@@ -207,8 +234,8 @@ namespace PurplePen.MapModel
 
     // A text in one font and one paint, its baseline starting at a point, each character after the first moved by the
     // kerning between it and the one before, as the application's shaping kerns them (T-1 to T-3). Its element carries
-    // its class, the number of its object, if any, its start, unless at the origin, and the kerning, unless there is
-    // none, in steps (S-9, S-11); then the characters, escaped for XML.
+    // its style, unless its group does, the number of its object, if any, its start, unless at the origin, and the
+    // kerning, unless there is none, in steps (S-4, S-9, S-11); then the characters, escaped for XML.
     public sealed class SvgText : SvgElement
     {
         // The steps in a unit of a text's own coordinates. A text is set in millimetres, its size and the positions of
@@ -222,7 +249,7 @@ namespace PurplePen.MapModel
         // The variation selectors that ask for a character's emoji and its text presentation.
         private const char EmojiPresentationSelector = '\uFE0F', TextPresentationSelector = '\uFE0E';
 
-        // The style: the font and the paint, which name the element's class (S-4).
+        // The style: the font and the paint, which the element or its group writes (S-4).
         private readonly SvgStyle style;
 
         // The font face, which knows the fallback face that draws each character the font's own face does not.
@@ -261,6 +288,12 @@ namespace PurplePen.MapModel
 
         // The style: the font and the paint.
         public SvgStyle Style
+        {
+            get { return style; }
+        }
+
+        // The element's style: the font and the paint.
+        public override SvgStyle ElementStyle
         {
             get { return style; }
         }
@@ -307,7 +340,8 @@ namespace PurplePen.MapModel
         // emoji font of its own for an emoji presentation sequence, whatever face the text names (T-8).
         public override void Write(SvgWriter writer)
         {
-            writer.Text.Append("<text class=\"").Append(writer.ClassOf(style.Resolve(writer))).Append('"');
+            writer.Text.Append("<text");
+            WriteStyle(writer);
             WriteObjectNumber(writer);
             double width = bounds.MaxX - bounds.MinX, height = bounds.MaxY - bounds.MinY;
             SvgTransform placement = new SvgTransform(StepsPerTextUnit, 0, 0, StepsPerTextUnit, x, y);
@@ -356,8 +390,11 @@ namespace PurplePen.MapModel
                     if (family != runFamily) {
                         if (runFamily != null)
                             writer.Text.Append("</tspan>");
-                        if (family != null)
-                            writer.Text.Append("<tspan class=\"").Append(writer.ClassOf("font-family:" + SvgFontFace.QuoteFamily(family))).Append("\">");
+                        if (family != null) {
+                            writer.Text.Append("<tspan");
+                            writer.AppendStyle("font-family:" + SvgFontFace.QuoteFamily(family));
+                            writer.Text.Append('>');
+                        }
                         runFamily = family;
                     }
                 }
@@ -507,11 +544,18 @@ namespace PurplePen.MapModel
             return bounds;
         }
 
+        // The element's style: the font and the paint.
+        public override SvgStyle ElementStyle
+        {
+            get { return style; }
+        }
+
         // Write the element: one list each of the characters' positions across and down, and of their turns. Every
         // character is one, a surrogate pair counting as one, so each list places every character.
         public override void Write(SvgWriter writer)
         {
-            writer.Text.Append("<text class=\"").Append(writer.ClassOf(style.Resolve(writer))).Append('"');
+            writer.Text.Append("<text");
+            WriteStyle(writer);
             WriteObjectNumber(writer);
             // The frame takes the characters, which lie as far from its origin as they do from the groups', from
             // millimetres to steps.
@@ -654,7 +698,8 @@ namespace PurplePen.MapModel
     }
 
     // A group that encloses what a push or a structure call opened it for, with the attributes it carries: a transform,
-    // a clip, a style, or the identity of what it holds. Groups are tidied before they are written (S-8).
+    // a clip, a style, or the identity of what it holds. Groups are tidied before they are written (S-8), and then
+    // carry the styles their elements share (S-4).
     public sealed class SvgGroup : SvgNode
     {
         // The transform from the group's frame to its parent's, or null for none.
@@ -663,8 +708,15 @@ namespace PurplePen.MapModel
         // The clip, in the group's own frame, or null for none.
         public SvgClip Clip;
 
-        // The declarations of the group's style, or null for none.
+        // The declarations of the group's own style, such as its blending, or null for none.
         public string Style;
+
+        // The style that the group carries for the elements within it, which all share it, or null for none (S-4).
+        public SvgStyle SharedStyle;
+
+        // The style that every element within the group shares, at any depth, or null when they differ or one has none;
+        // found when the styles are shared.
+        private SvgStyle commonStyle;
 
         // Whether the style blends the group with what lies below it, so that it never merges with another group.
         public bool Blends;
@@ -709,19 +761,27 @@ namespace PurplePen.MapModel
             return inner;
         }
 
-        // Write the group's start tag, its children and its end tag.
+        // Write the group's start tag, its children and its end tag. The style attribute holds the group's own declarations
+        // and then the style it carries for its elements (S-4). The clip's id is named before the id of a pattern the
+        // style paints with, as when each element wrote its own style.
         public override void Write(SvgWriter writer)
         {
+            string clipId = Clip != null ? writer.IdOfClip(Clip) : null;
+            string style = Style;
+            if (SharedStyle != null) {
+                string shared = SharedStyle.Resolve(writer);
+                style = (style == null) ? shared : style + ";" + shared;
+            }
             writer.Text.Append("<g");
-            if (Style != null)
-                writer.Text.Append(" class=\"").Append(writer.ClassOf(Style)).Append('"');
+            if (style != null)
+                writer.AppendStyle(style);
             if (Transform != null) {
                 string transform = Transform.Format(GetBoundsOfChildren().ReachFromOrigin, 1);
                 if (transform.Length > 0)
                     writer.Text.Append(" transform=\"").Append(transform).Append('"');
             }
-            if (Clip != null)
-                writer.Text.Append(" clip-path=\"url(#").Append(writer.IdOfClip(Clip)).Append(")\"");
+            if (clipId != null)
+                writer.Text.Append(" clip-path=\"url(#").Append(clipId).Append(")\"");
             if (Identity != null)
                 writer.Text.Append(' ').Append(Identity);
             writer.Text.Append(">\n");
@@ -784,6 +844,77 @@ namespace PurplePen.MapModel
             }
             Children = SvgLineText.MergeRuns(tidied);
             bounds = null;
+        }
+
+        // Put each style that elements share on the outermost group that holds them, once the groups are tidied (S-4, S-8):
+        // a group carries the style that every element within it, at any depth, has, unless a group around it carries
+        // one already, and its elements then carry none. This group carries none, since it is written without
+        // attributes: it is what a part or a pattern's tile holds, and the elements it holds itself carry their own
+        // styles.
+        public void ShareStyles()
+        {
+            FindCommonStyle();
+            SharedStyle = null;
+            foreach (SvgNode child in Children) {
+                SvgElement element = child as SvgElement;
+                if (element != null) {
+                    element.StyleOnGroup = false;
+                    continue;
+                }
+                SvgGroup group = child as SvgGroup;
+                if (group != null)
+                    group.PlaceStyles(null);
+            }
+        }
+
+        // Find the style that every element within the group shares, for the group and each group within it.
+        // Return it, or null when the elements differ in style, one of them has none or there is no element.
+        private SvgStyle FindCommonStyle()
+        {
+            SvgStyle common = null;
+            bool differ = false;
+            foreach (SvgNode child in Children) {
+                SvgStyle style;
+                SvgGroup group = child as SvgGroup;
+                if (group != null) {
+                    style = group.FindCommonStyle();
+                }
+                else {
+                    SvgElement element = child as SvgElement;
+                    style = (element != null) ? element.ElementStyle : null;
+                }
+                if (style == null)
+                    differ = true;
+                else if (common == null)
+                    common = style;
+                else if (!common.IsSameAs(style))
+                    differ = true;
+            }
+            commonStyle = differ ? null : common;
+            return commonStyle;
+        }
+
+        // Carry the style that the group's elements share, when no group around it carries one; a group around it that
+        // does carries the style of all the elements within it, this group's too. Tell each element the group holds
+        // whether a group carries its style, and do the same within each group it holds.
+        // carried: the style that a group around this one carries, or null for none.
+        private void PlaceStyles(SvgStyle carried)
+        {
+            SharedStyle = null;
+            if (carried == null && commonStyle != null) {
+                SharedStyle = commonStyle;
+                carried = commonStyle;
+            }
+            foreach (SvgNode child in Children) {
+                SvgElement element = child as SvgElement;
+                if (element != null) {
+                    element.StyleOnGroup = element.ElementStyle != null && element.ElementStyle.IsSameAs(carried);
+                    continue;
+                }
+                SvgGroup group = child as SvgGroup;
+                if (group != null)
+                    group.PlaceStyles(carried);
+            }
         }
 
         // Append a tidied node to tidied nodes, merging it into the last of them when both are groups that carry the

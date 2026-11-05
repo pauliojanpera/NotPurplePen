@@ -66,7 +66,7 @@ namespace PurplePen.MapModel
         }
 
         // A font created under a key: the face it draws in, its size, the application's metrics of it, and the
-        // declarations that set it in a text's class (T-1).
+        // declarations that set it in a text's style (T-1).
         private sealed class FontRecord
         {
             // The face, which records the characters drawn in it.

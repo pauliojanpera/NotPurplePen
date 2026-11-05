@@ -5,9 +5,9 @@ compares every file with the baseline here, `<event>/<file>.svg.txt`, so that an
 shows in review (V-2). The renderings of the SVG tests' comparison decide whether a drawing is right; these show what
 changed in the text.
 
-A baseline is the file's text with the data of each embedded font and bitmap replaced by the SHA-256 hash of its base64
-text, `data:font/ttf;base64,sha256:...`, which keeps it small and still changes when the data does. It is not an SVG a
-browser can draw.
+A baseline is the file's text with the data of each embedded font, bitmap and color profile replaced by the SHA-256 hash
+of its base64 text, `data:font/ttf;base64,sha256:...`, which keeps it small and still changes when the data does. It is
+not an SVG a browser can draw.
 
 The tests draw text in a fixed set of fonts and fix the culture, so a baseline is the same on every platform: the SVG
 loop runs the tests on Linux, and the Windows test job runs them too, against the same baselines (V-4).
