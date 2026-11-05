@@ -212,31 +212,60 @@ jobs:
       # Chromium and belong to the loop.
       matrix:
         include:
-        - id: purplepen
-          name: PurplePen
+        - id: purplepen-n220
+          name: PurplePen narrow 2.20
           assemblies: PurplePen_Tests/bin/Debug/net10.0-windows/PurplePen_Tests.dll
-        - id: pdf
-          name: PDF
+          narrow: '2.20'
+        - id: pdf-n220
+          name: PDF narrow 2.20
           assemblies: MapModel/Map_PDF.Tests/bin/Debug/net10.0/Map_PDF.Tests.dll
-        - id: mapmodel
-          name: MapModel
+          narrow: '2.20'
+        - id: mapmodel-n220
+          name: MapModel narrow 2.20
           assemblies: MapModel/Test_MapModel/bin/Debug/net10.0-windows/Test_MapModel.dll
-        - id: wpf
-          name: WPF
+          narrow: '2.20'
+        - id: wpf-n220
+          name: WPF narrow 2.20
           assemblies: >-
             MapModel/Test_MapWPF/bin/Debug/net10.0-windows/TestProject1.dll
             PdfConverter.Tests/bin/Debug/net10.0-windows/PdfConverter.Tests.dll
-        - id: projections
-          name: projections
-          assemblies: DotSpatialProjectionsLite/DotSpatial.Projections.Tests/bin/Debug/net10.0/DotSpatial.Projections.Tests.dll
-        - id: skia
-          name: Skia
+          narrow: '2.20'
+        - id: skia-n220
+          name: Skia narrow 2.20
           assemblies: >-
             MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
             MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
             PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
             Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
             ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
+          narrow: '2.20'
+        - id: purplepen-n240
+          name: PurplePen narrow 2.40
+          assemblies: PurplePen_Tests/bin/Debug/net10.0-windows/PurplePen_Tests.dll
+          narrow: '2.40'
+        - id: pdf-n240
+          name: PDF narrow 2.40
+          assemblies: MapModel/Map_PDF.Tests/bin/Debug/net10.0/Map_PDF.Tests.dll
+          narrow: '2.40'
+        - id: mapmodel-n240
+          name: MapModel narrow 2.40
+          assemblies: MapModel/Test_MapModel/bin/Debug/net10.0-windows/Test_MapModel.dll
+          narrow: '2.40'
+        - id: wpf-n240
+          name: WPF narrow 2.40
+          assemblies: >-
+            MapModel/Test_MapWPF/bin/Debug/net10.0-windows/TestProject1.dll
+            PdfConverter.Tests/bin/Debug/net10.0-windows/PdfConverter.Tests.dll
+          narrow: '2.40'
+        - id: skia-n240
+          name: Skia narrow 2.40
+          assemblies: >-
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
+            MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
+            PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
+            Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
+            ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
+          narrow: '2.40'
 
     steps:
     - name: Checkout source
@@ -304,6 +333,7 @@ jobs:
       shell: pwsh
       env:
         MACHINE_CHECK: ${{ inputs.machine_check || 'report' }}
+        NARROW: ${{ matrix.narrow }}
       run: |
         "image: $env:ImageOS $env:ImageVersion"
         $cv = Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion'
@@ -525,6 +555,13 @@ jobs:
             "The machine is what the tests require: $windows, and the $($required.systemFonts.Count) font files the tests take from it."
         }
         "The store is the declared one: $($declared.files.Count) files."
+
+        # EXPERIMENT: install one version of Arial Narrow alone.
+        $declared.files = @($declared.files | Where-Object {
+            $narrow = @($_.faces | Where-Object { $_.family -eq 'Arial Narrow' })
+            -not $narrow.Count -or $narrow[0].version -eq "Version $env:NARROW"
+        })
+        "EXPERIMENT: Arial Narrow $env:NARROW alone; installing $(($declared.files | ForEach-Object { $_.file }) -join ', ')"
 
         # A font file the system already has open cannot be overwritten; stopping
         # the cache service releases most of them. Nothing installed here replaces
