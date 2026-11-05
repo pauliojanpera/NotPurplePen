@@ -199,15 +199,19 @@ single precision and wrote a 9 inch side as 228.59999 mm, and pages lie at whole
 
 ## Colours for Scribus and Inkscape (S-4, S-8, COL-1, COL-3, F-6)
 
-Written on Nov 4 from `feature/svg-target` at 756543f; the work is on `feature/svg-colours`. @Pauli chose the form
-that day from task 5's findings (`SvgColourReaders/README.md`, option 2 with the device CMYK profile). The change is
-the target's alone, in `Map_Svg`: the export and its settings stay as they are.
+Written on Nov 4 from `feature/svg-target` at 756543f; the work was on `feature/svg-colours`, and is 9fe17bd on
+`feature/svg-target`. @Pauli chose the form that day from task 5's findings (`SvgColourReaders/README.md`, option 2
+with the device CMYK profile), and on Nov 5 the outermost group for a shared style rather than the innermost
+(`feature/svg-style-groups`). The change is the target's alone, in `Map_Svg`: the export and its settings stay as they
+are.
 
 - **Styles.** The target keeps each element's style as now, as declarations and the pattern they paint with. The
   writer no longer names classes; after `TidyChildren` has tidied a part's groups or a pattern's tile (S-8), a pass
-  puts styles on groups: a group that holds elements of its own takes their style when every element within it, at
-  any depth, has that one style, unless an enclosing group carries it already, and those elements then carry none.
-  Every other element writes its style itself. A group's own declarations, anti-aliasing or blending, come first in
+  puts styles on groups: a group takes the style that every element within it, at any depth, has, unless an
+  enclosing group carries one already, and those elements then carry none. A style thus sits on the outermost group
+  whose elements share it: on a symbol's group rather than on each of its objects' groups, and on the group around a
+  description's cells rather than on each cell. 9fe17bd put it instead on each group that holds elements of its own,
+  the innermost. Every other element writes its style itself. A group's own declarations, anti-aliasing or blending, come first in
   its `style` attribute, before its elements' style. A part's group and a pattern's tile are written without
   attributes, so the elements directly within them carry their own styles.
 - **Everything the classes styled.** A clip path under the even-odd rule carries `style="clip-rule:evenodd"`, the use
@@ -232,12 +236,13 @@ of their elements lose their class (printarea2 3.7 %, Madrona Permanent11 11.8 %
 predicted); and a description sheet grows, as each of its cells holds its texts in a group of its own, which then
 carries the whole text style (mapexchange1's all-controls page, 16.6 %).
 
+On the outermost group, a style is written once for a symbol's objects rather than once for each object or description
+cell: by a sketch on the baselines, mapexchange1's all-controls page grows about 6 % rather than 17 %, and printarea2's
+map shrinks about 8 % rather than 4 %, while Inkscape shows the colour on the symbol's group rather than nearer each
+object.
+
 ## Open questions
 
-- Styles sit on the innermost group whose elements all share them, as @Pauli chose. On the outermost such group, a
-  style would be written once for a symbol's objects rather than once for each object or description cell: by a sketch
-  on the baselines, mapexchange1's all-controls page would grow 6 % instead of 17 %, and printarea2's map shrink 8 %
-  instead of 4 %, while Inkscape would show the colour on the symbol's group instead of each object's.
 - Phase 3 writes one page per file. Should the dialog already show L-7's three file choices, with all but one
   disabled, or only the one? (Phase 5 shows all three; see above.)
 - A PDF map is drawn as a bitmap. Is that acceptable for the first release, or should such events be refused?
