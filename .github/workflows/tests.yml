@@ -528,12 +528,20 @@ jobs:
 
         # A font file the system already has open cannot be overwritten; stopping
         # the cache service releases most of them. Nothing installed here replaces
-        # a face the image ships, but the service also caches the absences. What
-        # was running is started again once the fonts are in place.
+        # a face the image ships, but the service also caches the absences.
+        #
+        # The service has to stay down until every file is in: installing a font
+        # starts it again on demand, and it then builds a font set from the files
+        # in place so far. One such set, the image's fonts and the first file
+        # alone, still reached a test process minutes after the install, which
+        # drew Arial Narrow in Arial. So it is disabled for the copy, and given
+        # back its start mode and started again, as it was, once all the files
+        # are in place.
         $stopped = @(foreach ($name in 'FontCache', 'FontCache3.0.0.0') {
             $service = Get-Service $name -ErrorAction SilentlyContinue
             if ($service) {
-                if ($service.Status -eq 'Running') { $name }
+                [pscustomobject]@{ Name = $name; StartType = "$($service.StartType)"; Running = $service.Status -eq 'Running' }
+                Set-Service $name -StartupType Disabled
                 $service | Stop-Service -Force -ErrorAction SilentlyContinue
             }
         })
@@ -558,8 +566,9 @@ jobs:
             $filedUnder["$label $suffix"] = $one.file
             [Native.Gdi]::AddFontResource($target) | Out-Null
         }
-        foreach ($name in @(@('FontCache') + $stopped | Select-Object -Unique)) {
-            Start-Service $name -ErrorAction SilentlyContinue
+        foreach ($one in $stopped) {
+            Set-Service $one.Name -StartupType $one.StartType
+            if ($one.Running -or $one.Name -eq 'FontCache') { Start-Service $one.Name -ErrorAction SilentlyContinue }
         }
         "Installed $($declared.files.Count) fonts in $([int]((Get-Date) - $started).TotalSeconds) s"
 
