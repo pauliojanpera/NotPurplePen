@@ -212,25 +212,45 @@ jobs:
       # Chromium and belong to the loop.
       matrix:
         include:
-        - id: purplepen
-          name: PurplePen
-          assemblies: PurplePen_Tests/bin/Debug/net10.0-windows/PurplePen_Tests.dll
-        - id: pdf
-          name: PDF
-          assemblies: MapModel/Map_PDF.Tests/bin/Debug/net10.0/Map_PDF.Tests.dll
-        - id: mapmodel
-          name: MapModel
-          assemblies: MapModel/Test_MapModel/bin/Debug/net10.0-windows/Test_MapModel.dll
-        - id: wpf
-          name: WPF
+        - id: skia-c1
+          name: Skia control 1
+          warmup: false
           assemblies: >-
-            MapModel/Test_MapWPF/bin/Debug/net10.0-windows/TestProject1.dll
-            PdfConverter.Tests/bin/Debug/net10.0-windows/PdfConverter.Tests.dll
-        - id: projections
-          name: projections
-          assemblies: DotSpatialProjectionsLite/DotSpatial.Projections.Tests/bin/Debug/net10.0/DotSpatial.Projections.Tests.dll
-        - id: skia
-          name: Skia
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
+            MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
+            PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
+            Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
+            ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
+        - id: skia-c2
+          name: Skia control 2
+          warmup: false
+          assemblies: >-
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
+            MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
+            PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
+            Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
+            ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
+        - id: skia-c3
+          name: Skia control 3
+          warmup: false
+          assemblies: >-
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
+            MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
+            PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
+            Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
+            ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
+        - id: skia-w1
+          name: Skia warm-up 1
+          warmup: true
+          assemblies: >-
+            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
+            MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
+            PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
+            Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
+            ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
+        - id: skia-w2
+          name: Skia warm-up 2
+          warmup: true
           assemblies: >-
             MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
             MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
@@ -555,6 +575,22 @@ jobs:
         Start-Service FontCache -ErrorAction SilentlyContinue
         "Installed $($declared.files.Count) fonts in $([int]((Get-Date) - $started).TotalSeconds) s"
 
+    - name: Probe the fonts after the install
+      if: always()
+      working-directory: ${{ github.workspace }}
+      shell: pwsh
+      run: |
+        "now $((Get-Date).ToUniversalTime().ToString('HH:mm:ss.fff'))"
+        Get-Service FontCache, FontCache3.0.0.0 -ErrorAction SilentlyContinue | ForEach-Object { "service $($_.Name): $($_.Status) start=$($_.StartType)" }
+        Get-CimInstance Win32_Service -Filter "Name='FontCache'" -ErrorAction SilentlyContinue | ForEach-Object { "FontCache process $($_.ProcessId) state $($_.State)" }
+        $registry = Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts'
+        $names = @($registry.PSObject.Properties | Where-Object { $_.Name -match 'Narrow|Lucida|Baskerville|Antiqua|Bodoni|Forte|Cooper' } | ForEach-Object { "$($_.Name) = $($_.Value)" })
+        "registry entries of store families ($($names.Count)): $($names -join '; ')"
+        $user = Get-ItemProperty 'HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts' -ErrorAction SilentlyContinue
+        if ($user) { "per-user font entries: $(@($user.PSObject.Properties | Where-Object { $_.Name -notmatch '^PS' } | ForEach-Object { $_.Name }) -join '; ')" }
+        Get-ChildItem "$env:WINDIR\ServiceProfiles\LocalService\AppData\Local\FontCache" -Force -Recurse -ErrorAction SilentlyContinue | ForEach-Object { "cache file $($_.FullName.Substring($env:WINDIR.Length)) $($_.Length) $($_.LastWriteTimeUtc.ToString('HH:mm:ss.fff'))" }
+        Get-ChildItem "$env:WINDIR\System32\FNTCACHE.DAT" -Force -ErrorAction SilentlyContinue | ForEach-Object { "cache file $($_.Name) $($_.Length) $($_.LastWriteTimeUtc.ToString('HH:mm:ss.fff'))" }
+
     # The exported-XML baselines forgive their timestamps only in this zone's shape.
     - name: Set the time zone the baselines were recorded in
       shell: pwsh
@@ -588,6 +624,80 @@ jobs:
       run: |
         & gh run download $env:GITHUB_RUN_ID --name build --dir src
         if ($LASTEXITCODE -ne 0) { throw 'The build could not be fetched.' }
+
+    - name: Probe the fonts before the tests
+      if: always()
+      working-directory: ${{ github.workspace }}
+      shell: pwsh
+      run: |
+        "now $((Get-Date).ToUniversalTime().ToString('HH:mm:ss.fff'))"
+        Get-Service FontCache, FontCache3.0.0.0 -ErrorAction SilentlyContinue | ForEach-Object { "service $($_.Name): $($_.Status) start=$($_.StartType)" }
+        Get-CimInstance Win32_Service -Filter "Name='FontCache'" -ErrorAction SilentlyContinue | ForEach-Object { "FontCache process $($_.ProcessId) state $($_.State)" }
+        $registry = Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts'
+        $names = @($registry.PSObject.Properties | Where-Object { $_.Name -match 'Narrow|Lucida|Baskerville|Antiqua|Bodoni|Forte|Cooper' } | ForEach-Object { "$($_.Name) = $($_.Value)" })
+        "registry entries of store families ($($names.Count)): $($names -join '; ')"
+        $user = Get-ItemProperty 'HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts' -ErrorAction SilentlyContinue
+        if ($user) { "per-user font entries: $(@($user.PSObject.Properties | Where-Object { $_.Name -notmatch '^PS' } | ForEach-Object { $_.Name }) -join '; ')" }
+        Get-ChildItem "$env:WINDIR\ServiceProfiles\LocalService\AppData\Local\FontCache" -Force -Recurse -ErrorAction SilentlyContinue | ForEach-Object { "cache file $($_.FullName.Substring($env:WINDIR.Length)) $($_.Length) $($_.LastWriteTimeUtc.ToString('HH:mm:ss.fff'))" }
+        Get-ChildItem "$env:WINDIR\System32\FNTCACHE.DAT" -Force -ErrorAction SilentlyContinue | ForEach-Object { "cache file $($_.Name) $($_.Length) $($_.LastWriteTimeUtc.ToString('HH:mm:ss.fff'))" }
+
+    # EXPERIMENT: what a new process's DirectWrite knows of the store's families now, and how long it takes the system's
+    # font collection, checked for updates, to know them all.
+    - name: Warm the font collection
+      if: matrix.warmup
+      working-directory: ${{ github.workspace }}
+      shell: pwsh
+      run: |
+        $source = @'
+        using System;
+        using System.Runtime.InteropServices;
+        using System.Text;
+        public static class DWriteProbe {
+            [DllImport("dwrite.dll")]
+            static extern int DWriteCreateFactory(int type, ref Guid iid, [MarshalAs(UnmanagedType.IUnknown)] out object factory);
+            [ComImport, Guid("b859ee5a-d838-4b5b-a2e8-1adc7d93db48"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+            interface IDWriteFactory { [PreserveSig] int GetSystemFontCollection(out IDWriteFontCollection c, [MarshalAs(UnmanagedType.Bool)] bool check); }
+            [ComImport, Guid("a84cee02-3eea-4eee-a827-87c1a02a0fcc"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+            interface IDWriteFontCollection {
+                [PreserveSig] uint GetFontFamilyCount();
+                [PreserveSig] int GetFontFamily(uint i, out IntPtr f);
+                [PreserveSig] int FindFamilyName([MarshalAs(UnmanagedType.LPWStr)] string n, out uint i, [MarshalAs(UnmanagedType.Bool)] out bool e);
+            }
+            public static string Missing(int type, bool check, string[] families) {
+                Guid iid = typeof(IDWriteFactory).GUID;
+                object o;
+                int hr = DWriteCreateFactory(type, ref iid, out o);
+                if (hr < 0) return "factory failed " + hr;
+                IDWriteFontCollection c;
+                hr = ((IDWriteFactory)o).GetSystemFontCollection(out c, check);
+                if (hr < 0) return "collection failed " + hr;
+                StringBuilder missing = new StringBuilder();
+                foreach (string f in families) {
+                    uint i; bool e;
+                    c.FindFamilyName(f, out i, out e);
+                    if (!e) missing.Append(f).Append("; ");
+                }
+                return "families=" + c.GetFontFamilyCount() + " missing: " + missing;
+            }
+        }
+        '@
+        Add-Type -TypeDefinition $source
+        $declared = Get-Content .github/ci/fonts.json -Raw | ConvertFrom-Json
+        $families = @($declared.files | ForEach-Object { $_.faces } | ForEach-Object { $_.family } | Sort-Object -Unique)
+        "store families: $($families -join ', ')"
+        $t = { (Get-Date).ToUniversalTime().ToString('HH:mm:ss.fff') }
+        "$(& $t) shared, as found: $([DWriteProbe]::Missing(0, $false, $families))"
+        "$(& $t) isolated, checked: $([DWriteProbe]::Missing(1, $true, $families))"
+        $started = Get-Date
+        while ($true) {
+            $answer = [DWriteProbe]::Missing(0, $true, $families)
+            "$(& $t) shared, checked: $answer"
+            if ($answer -match 'missing: $') { break }
+            if (((Get-Date) - $started).TotalSeconds -gt 120) { "gave up after two minutes"; break }
+            Start-Sleep -Seconds 2
+        }
+        Set-Content dwrite-probe.cs $source
+        "$(& $t) a new process, shared, as found: $(pwsh -NoProfile -Command "Add-Type -TypeDefinition (Get-Content -Raw dwrite-probe.cs); [DWriteProbe]::Missing(0, `$false, @('$($families -join "','")'))")"
 
     # DotSpatial.Projections checks itself against the real proj.4 library, whose
     # committed x86 and x64 builds both import MSVCR100.dll.
@@ -651,6 +761,7 @@ jobs:
               <TEST_ALT_BASELINE_ROOT>$altRoot</TEST_ALT_BASELINE_ROOT>
               <TEST_ALT_BASELINE_LOG>$altLog</TEST_ALT_BASELINE_LOG>
               <SVG_LOOP_RESULTS>$svgResults</SVG_LOOP_RESULTS>
+              <FONT_PROBE_DIR>$svgResults\font-probe</FONT_PROBE_DIR>
             </EnvironmentVariables>
           </RunConfiguration>
           <InProcDataCollectionRunSettings>
@@ -716,6 +827,27 @@ jobs:
             ""
             "Failed: $($failed -join ', ')"
             exit 1
+        }
+
+    - name: Probe the fonts after the tests
+      if: always()
+      working-directory: ${{ github.workspace }}
+      shell: pwsh
+      run: |
+        "now $((Get-Date).ToUniversalTime().ToString('HH:mm:ss.fff'))"
+        Get-Service FontCache, FontCache3.0.0.0 -ErrorAction SilentlyContinue | ForEach-Object { "service $($_.Name): $($_.Status) start=$($_.StartType)" }
+        Get-CimInstance Win32_Service -Filter "Name='FontCache'" -ErrorAction SilentlyContinue | ForEach-Object { "FontCache process $($_.ProcessId) state $($_.State)" }
+        $registry = Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts'
+        $names = @($registry.PSObject.Properties | Where-Object { $_.Name -match 'Narrow|Lucida|Baskerville|Antiqua|Bodoni|Forte|Cooper' } | ForEach-Object { "$($_.Name) = $($_.Value)" })
+        "registry entries of store families ($($names.Count)): $($names -join '; ')"
+        $user = Get-ItemProperty 'HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts' -ErrorAction SilentlyContinue
+        if ($user) { "per-user font entries: $(@($user.PSObject.Properties | Where-Object { $_.Name -notmatch '^PS' } | ForEach-Object { $_.Name }) -join '; ')" }
+        Get-ChildItem "$env:WINDIR\ServiceProfiles\LocalService\AppData\Local\FontCache" -Force -Recurse -ErrorAction SilentlyContinue | ForEach-Object { "cache file $($_.FullName.Substring($env:WINDIR.Length)) $($_.Length) $($_.LastWriteTimeUtc.ToString('HH:mm:ss.fff'))" }
+        Get-ChildItem "$env:WINDIR\System32\FNTCACHE.DAT" -Force -ErrorAction SilentlyContinue | ForEach-Object { "cache file $($_.Name) $($_.Length) $($_.LastWriteTimeUtc.ToString('HH:mm:ss.fff'))" }
+        foreach ($log in Get-ChildItem src/svg-loop-results/font-probe -Filter *.log -ErrorAction SilentlyContinue) {
+            ""
+            "===== $($log.Name)"
+            Get-Content $log.FullName
         }
 
     - name: Upload rendering differences
