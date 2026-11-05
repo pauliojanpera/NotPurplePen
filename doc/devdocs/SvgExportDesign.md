@@ -237,9 +237,14 @@ predicted); and a description sheet grows, as each of its cells holds its texts 
 carries the whole text style (mapexchange1's all-controls page, 16.6 %).
 
 On the outermost group, a style is written once for a symbol's objects rather than once for each object or description
-cell: by a sketch on the baselines, mapexchange1's all-controls page grows about 6 % rather than 17 %, and printarea2's
-map shrinks about 8 % rather than 4 %, while Inkscape shows the colour on the symbol's group rather than nearer each
-object.
+cell, and SVG loop run 42064035635 measured it against 9fe17bd's run: the 22 files come to 6,863,687 bytes, 1.6 % less
+than on the innermost group and 4.7 % less than with classes, and to 3,153,798 gzip-compressed, as before. Over the
+classes' form, mapexchange1's all-controls page grows 5.9 % rather than 16.9 %, and printarea2's map shrinks 7.7 %
+rather than 3.7 %, as a sketch on the baselines estimated; testproj2's all-controls page grows 9.8 % rather than
+23.3 %, and Madrona Permanent11 shrinks 12.7 % rather than 11.8 %. Small course pages keep most of their growth, more
+than half of it the profile (Overprint test's Course 12, 18.3 %). The SVGs of the comparison come to 102,291,992 bytes,
+against 114,374,247; no measurement moved, and Chromium draws each export as before, pixel for pixel. Inkscape shows a
+colour on the group that carries it, a symbol's or a whole run's, rather than nearer each object.
 
 ## Open questions
 
