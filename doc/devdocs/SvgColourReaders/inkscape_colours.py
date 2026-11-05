@@ -3,6 +3,7 @@
 # run-all.sh does:
 #   dbus-run-session -- xvfb-run -a -s "-screen 0 1400x900x24" python3 -I inkscape_colours.py <out folder> <file.svg> <probe>...
 # A probe is an element's id, or o<n> for the first element whose data-o is n, or o<n>^ for that element's group,
+# o<n>^^ for the group around that, and so on,
 # then ":fill" or ":stroke". Inkscape is
 # started with a preferences file of its own that opens colours on the CMS page, the dialog is opened and each element
 # selected through Inkscape's actions on D-Bus, and the dialog is captured with ImageMagick's import and read with
@@ -62,12 +63,13 @@ def read_text(imagePath, box, whitelist):
 
 
 # A copy of the file beside it in which each o<n> probe's element carries the id probe-o<n>, and each o<n>^ probe's
-# group the id probe-o<n>-group. The export writes an element or a group's start tag a line.
+# group the id probe-o<n>-group, o<n>^^'s probe-o<n>-group-group and so on. The export writes an element or a group's
+# start tag a line.
 def probe_copy(svgPath, probes):
     lines = open(svgPath, encoding="utf-8").read().split("\n")
     for probe in probes:
         element = probe.split(":")[0]
-        match = re.fullmatch(r"o(\d+)(\^?)", element)
+        match = re.fullmatch(r"o(\d+)(\^*)", element)
         if not match:
             continue
         groups = []
@@ -77,7 +79,7 @@ def probe_copy(svgPath, probes):
             elif line == "</g>" and groups:
                 groups.pop()
             elif ' data-o="%s"' % match.group(1) in line:
-                target = groups[-1] if match.group(2) else index
+                target = groups[-len(match.group(2))] if match.group(2) else index
                 lines[target] = re.sub(r"^<(\w+)", '<\\1 id="probe-%s"' % element.replace("^", "-group"), lines[target],
                                       count=1)
                 break
@@ -115,7 +117,7 @@ def main():
         time.sleep(4)
         for probe in probes:
             element, tab = probe.split(":")
-            elementId = "probe-" + element.replace("^", "-group") if re.fullmatch(r"o\d+\^?", element) else element
+            elementId = "probe-" + element.replace("^", "-group") if re.fullmatch(r"o\d+\^*", element) else element
             activate("select-clear")
             activate("select-by-id", elementId)
             time.sleep(2)

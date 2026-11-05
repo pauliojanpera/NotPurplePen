@@ -1,7 +1,8 @@
 # Picks probes for inkscape_colours.py from an export written with style attributes. The reader names an object by
-# the first element whose data-o is its number, and o<n>^ by that element's group, so only first elements count, and
-# no group is probed twice. For each distinct CMYK paint, the first such element or group that carries it is probed;
-# with --unset, also the first element whose style sits on its group, which Inkscape shows as unset.
+# the first element whose data-o is its number, o<n>^ by that element's group, o<n>^^ by the group around that and so
+# on, so only first elements count, and no group is probed twice. For each distinct CMYK paint, the first such element
+# or group that carries it is probed; with --unset, also the first element whose style sits on a group around it, which
+# Inkscape shows as unset.
 #   python3 -I pick_probes.py <export.svg> <count> [--unset]
 import re, sys
 import xml.etree.ElementTree as ET
@@ -17,8 +18,12 @@ for element in root.iter():
 seen, groups, probes, unset = set(), set(), [], None
 for number, element in firsts:
     parent = parents.get(element)
-    for holder, suffix in ((element, ""), (parent, "^")):
-        if holder is None or (suffix and id(holder) in groups):
+    holders, holder = [(element, "")], parent
+    while holder is not None and holder.tag.endswith("}g"):
+        holders.append((holder, "^" * len(holders)))
+        holder = parents.get(holder)
+    for holder, suffix in holders:
+        if suffix and id(holder) in groups:
             continue
         style = holder.get("style", "")
         for prop in ("fill", "stroke"):
@@ -29,8 +34,9 @@ for number, element in firsts:
                     groups.add(id(holder))
                 values = "/".join("%g" % float(v) for v in m.group(1).split(","))
                 probes.append(("o%s%s:%s" % (number, suffix, prop), values))
-    if unset is None and "icc-color" not in element.get("style", "") and parent is not None and "icc-color" in parent.get("style", ""):
-        prop = "fill" if re.search(r"fill:#", parent.get("style")) else "stroke"
+    carrier = next((h for h, suffix in holders[1:] if "icc-color" in h.get("style", "")), None)
+    if unset is None and "icc-color" not in element.get("style", "") and carrier is not None:
+        prop = "fill" if re.search(r"fill:#", carrier.get("style")) else "stroke"
         unset = ("o%s:%s" % (number, prop), "unset")
 if "--unset" in sys.argv and unset:
     probes.insert(0, unset)
