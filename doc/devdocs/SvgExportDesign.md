@@ -405,6 +405,43 @@ Madrona Permanent11 and 2.3 % of printarea2. The SVGs of the comparison come to 
    a pattern. A setting serves such a reader by what it does, and neither its name, its identifiers nor its text in
    the dialog name any reader.
 
+## Symbol reuse (S-5)
+
+Written on Nov 6 from `feature/svg-target` at f8b60f9; the work is on `feature/svg-symbol-reuse`. The change is the
+target's alone, in `Map_Svg`.
+
+- **What repeats.** A glyph draws its parts of one color under one `PushTransform`, which moves to the glyph's point and
+  turns by its angle (`Glyph.DrawCore`): a point symbol's object, and the glyphs that a line draws along itself and an
+  area drawn as separate shapes draws in its pattern. Each such draw is a group of the target carrying the transform
+  and holding the parts' shapes, and the same shapes come again in every object of the symbol, or every glyph of a
+  line, under transforms of their own. After the parts' groups are tidied (S-8), a group that carries a transform and
+  no clip, style or blending, and holds nothing but shapes (paths, circles and ellipses) of one object, holds such a
+  fragment. A group that also carries a symbol's identity, having taken on the transform of its only child, holds one
+  too. A glyph of one circle at its point is drawn without a transform, as a circle in place, and stays as it is.
+- **What is compared (S-5).** The fragment's text as written: each shape without its object number. When the shapes
+  share one style, the text leaves the style out; otherwise each shape keeps its own, and such a fragment that paints
+  with a pattern stays as drawn, since its text would name the pattern before the pattern's id is known.
+- **Defined once.** A text found in two or more groups of the document's parts is defined once in `<defs>`, after the
+  patterns and before the parts that use it: a single shape carries the id itself, as `<path id="c" d="..."/>`, and
+  several are held in `<g id="c">`. A text found once stays where it is drawn, since its definition and reference would
+  be longer than the group. Pattern tiles are not searched: they hold no objects, and are written as they are first
+  used.
+- **Placed by reference.** Each group of a repeated fragment gives way to `<use data-o="..." xlink:href="#c"
+  transform="..."/>`: each object keeps an element of its own, which carries its number, and the transform is written
+  as the group's was, with the digits the fragment's reach needs (S-2, S-8). A group that carries a symbol's identity
+  keeps it and holds the use. The use carries the style its shapes share, as an element carries its style: written on
+  the use unless a group around it carries it (S-4). The shapes inherit it through the use, so one definition serves
+  every style its geometry is drawn in, and a symbol's or a run's shared style stays on its group.
+- **Ids.** A definition's id is named when it is first used, as every id is (F-2, L-5).
+- **Tests.** `SvgDocumentTests` define a glyph drawn by two objects once, with a use for each; leave a glyph drawn once
+  as it is; keep the styles of shapes that differ in style in the definition; keep a symbol's identity on its group;
+  and let a group carry the style its uses share. The structure walk (V-7) takes the shapes of a definition's group as
+  resources, as it takes a definition of one shape. The renderings of the comparison and of the course pages do not
+  move; the export baselines (V-2) move by the references.
+- **Readers.** Scribus turns a `<use>` into a group holding a copy of what it refers to, with the use's style and
+  transform, and Inkscape shows it as a clone; a copy inherits the style of the use and of the groups around it. F-6 is
+  read again with `SvgColourReaders/` on documents the new code writes.
+
 ## Open questions
 
 - Phase 3 writes one page per file. Should the dialog already show L-7's three file choices, with all but one
