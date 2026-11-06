@@ -715,8 +715,10 @@ namespace Map_Svg.Tests
                 Svg_UnsupportedCallException error = Assert.Throws<Svg_UnsupportedCallException>(
                     () => target.CreatePen(new object(), black, 1, LineCapMode.Flat, LineJoinMode.MiterClipped, 4));
                 Assert.AreEqual("CreatePen", error.CallName);
+                StringAssert.StartsWith("D-5, a clipped miter join", error.WhyNeverHonored);
                 error = Assert.Throws<Svg_UnsupportedCallException>(() => target.CreatePen(new object(), black, 0, LineCapMode.Flat, LineJoinMode.Miter, 4));
                 Assert.AreEqual("CreatePen", error.CallName);
+                StringAssert.StartsWith("D-5, a hairline pen", error.WhyNeverHonored);
             }
         }
 
@@ -1526,9 +1528,11 @@ namespace Map_Svg.Tests
                 Svg_UnsupportedCallException error = Assert.Throws<Svg_UnsupportedCallException>(
                     () => target.DrawBitmap(logo, new RectangleF(10, 10, 20, 10), BitmapScaling.MediumQuality));
                 Assert.AreEqual("DrawBitmap", error.CallName);
+                StringAssert.StartsWith("B-6, a bitmap drawn lighter", error.WhyNeverHonored);
                 error = Assert.Throws<Svg_UnsupportedCallException>(
                     () => target.DrawBitmapPart(logo, 0, 0, 10, 10, new RectangleF(10, 10, 20, 10), BitmapScaling.MediumQuality));
                 Assert.AreEqual("DrawBitmapPart", error.CallName);
+                StringAssert.StartsWith("B-6, a bitmap drawn lighter", error.WhyNeverHonored);
                 Assert.AreEqual(0, logo.Writes);
             });
         }

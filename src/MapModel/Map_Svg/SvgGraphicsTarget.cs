@@ -592,7 +592,7 @@ namespace PurplePen.MapModel
         {
             RequireOpenPart(nameof(PushBlending));
             if (blendMode != BlendMode.Darken)
-                throw new Svg_UnsupportedCallException(nameof(PushBlending));
+                throw new Svg_UnsupportedCallException(nameof(PushBlending), "D-8, a blending other than darken");
             Open(Opener.PushBlending, new SvgGroup { Style = "mix-blend-mode:darken", Blends = true });
             return true;
         }
@@ -969,7 +969,7 @@ namespace PurplePen.MapModel
         {
             RequireOpenPart(callName);
             if (intensity < 1)
-                throw new Svg_UnsupportedCallException(callName);
+                throw new Svg_UnsupportedCallException(callName, "B-6, a bitmap drawn lighter, which no element of a document can draw");
         }
 
         // Add the use of a bitmap's image over a rectangle, the bitmap's first pixel at the rectangle's left and top. The
@@ -1099,7 +1099,7 @@ namespace PurplePen.MapModel
                 throw new InvalidOperationException("CreatePen: the key has a pen already.");
             // A width of zero is a hairline to Skia, one device pixel at any scale, which a document has no unit for.
             if (width == 0)
-                throw new Svg_UnsupportedCallException(nameof(CreatePen));
+                throw new Svg_UnsupportedCallException(nameof(CreatePen), "D-5, a hairline pen of no width, which a document has no unit for");
 
             StringBuilder strokeShape = new StringBuilder();
             switch (caps) {
@@ -1112,7 +1112,7 @@ namespace PurplePen.MapModel
                     strokeShape.Append(";stroke-linecap:round");
                     break;
                 default:
-                    throw new Svg_UnsupportedCallException(nameof(CreatePen));
+                    throw new Svg_UnsupportedCallException(nameof(CreatePen), "D-5, a cap other than flat, square or round");
             }
             switch (join) {
                 case LineJoinMode.Miter:
@@ -1130,7 +1130,7 @@ namespace PurplePen.MapModel
                     break;
                 default:
                     // MiterClipped, which the Skia target rejects too (D-5).
-                    throw new Svg_UnsupportedCallException(nameof(CreatePen));
+                    throw new Svg_UnsupportedCallException(nameof(CreatePen), "D-5, a clipped miter join, which the Skia target rejects too");
             }
             pens.Add(key, new PenRecord(paint, isPattern, SvgNumbers.ToSteps(width), strokeShape.ToString()));
         }

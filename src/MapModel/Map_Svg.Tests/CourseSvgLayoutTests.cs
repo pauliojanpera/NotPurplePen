@@ -25,8 +25,8 @@ namespace Map_Svg.Tests
     // nothing of the pages beside it. The culture is fixed, as the baseline tests fix it.
     //
     // A file goes to the loop's results as svg/layout-<export>-<file>.svg, and the image of a page through its view is
-    // compared as layout-<export>-<file>-<page>, its images kept as those of CourseSvgPageTests are: only when it falls
-    // outside the tolerance, or of every page with SVG_LOOP_KEEP_PAGE_IMAGES set to 1, as the gallery needs them.
+    // compared as layout-<export>-<file>-<page>, its images kept as those of CourseSvgPageTests are: with the results only
+    // when it falls outside the tolerance, and of every page in the directory of renderings, when there is one.
     [TestFixture, NonParallelizable, SetCulture("en-US"), SetUICulture("en-US")]
     public class CourseSvgLayoutTests
     {
@@ -127,12 +127,11 @@ namespace Map_Svg.Tests
                     using (SKBitmap rendering = await ChromiumRenderer.RenderAsync(svgPath, pixelSize, null, viewIds[index])) {
                         string difference = ImageComparison.DescribeDifference(caseName, reference, rendering,
                                                                                CourseSvgPageTests.DrawsText(text) ? PixelTolerance.Text : PixelTolerance.Default);
-                        if (difference != null || CourseSvgPageTests.KeepImagesOfEveryPage)
+                        LoopResults.KeepRendering(Path.Combine("course-pages", caseName + ".png"), reference);
+                        if (difference != null) {
                             LoopResults.SaveImage(Path.Combine("course-pages", caseName + ".png"), reference);
-                        if (difference == null && CourseSvgPageTests.KeepImagesOfEveryPage)
-                            LoopResults.SaveImage(Path.Combine("renderings", caseName + ".png"), rendering);
-                        if (difference != null)
                             differences.Add(difference + " The page as the application draws it is course-pages/" + caseName + ".png.");
+                        }
                     }
                 }
             }

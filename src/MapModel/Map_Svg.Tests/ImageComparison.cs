@@ -14,13 +14,15 @@ namespace Map_Svg.Tests
         // Describe how Chromium's image falls outside the tolerance of the image it should match, or return null when no
         // pixel does. The differences are measured into the loop's results as measurements/<name>.tsv; beyond the
         // tolerance, Chromium's image and an image of the pixels outside it go there as renderings/<name>.png and
-        // differences/<name>.png.
+        // differences/<name>.png. Chromium's image of every comparison is kept as renderings/<name>.png in the directory
+        // of renderings, when there is one.
         // name: the name of the case, which names the saved files.
         // expected: the image to match.
         // rendering: Chromium's image.
         // tolerance: how far the images may differ.
         public static string DescribeDifference(string name, SKBitmap expected, SKBitmap rendering, PixelTolerance tolerance)
         {
+            LoopResults.KeepRendering(Path.Combine("renderings", name + ".png"), rendering);
             if (expected.Width != rendering.Width || expected.Height != rendering.Height) {
                 LoopResults.SaveImage(Path.Combine("renderings", name + ".png"), rendering);
                 return string.Format("Chromium's image of {0} is {1}x{2} pixels, the image it should match {3}x{4}.",

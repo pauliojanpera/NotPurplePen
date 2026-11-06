@@ -72,7 +72,7 @@ namespace Map_Svg.Tests
             using (RecordingGraphicsTarget recording = comparisonCase.Record()) {
                 List<string> missingCalls = recording.RecordedCallNames.Where(callName => !Svg_GraphicsTarget.FullyImplements(callName)).ToList();
                 if (missingCalls.Count > 0)
-                    throw Pending(comparisonCase, missingCalls);
+                    throw Pending(comparisonCase, missingCalls, null);
 
                 document = WriteDocument(comparisonCase, recording);
                 drawsText = DrawsText(recording.RecordedCallNames);
@@ -150,7 +150,7 @@ namespace Map_Svg.Tests
                 }
             }
             catch (Svg_UnsupportedCallException unsupportedCall) {
-                throw Pending(comparisonCase, new[] { unsupportedCall.CallName });
+                throw Pending(comparisonCase, new[] { unsupportedCall.CallName }, unsupportedCall.WhyNeverHonored);
             }
         }
 
@@ -163,13 +163,19 @@ namespace Map_Svg.Tests
             return reference;
         }
 
-        // Record in the loop's results that a case is pending until the target implements the given calls, and
-        // create the exception that ends its test as pending.
-        private static IgnoreException Pending(ComparisonCase comparisonCase, IEnumerable<string> callNames)
+        // Record in the loop's results that a case is pending on calls, until the target implements them or for good,
+        // and create the exception that ends its test as pending.
+        // comparisonCase: the case.
+        // callNames: the names of the calls.
+        // whyNeverHonored: why the target will never honor the calls as the case makes them, or null when it does not
+        //                  honor them yet.
+        private static IgnoreException Pending(ComparisonCase comparisonCase, IEnumerable<string> callNames, string whyNeverHonored)
         {
             List<string> calls = callNames.ToList();
-            LoopResults.SavePendingCase(comparisonCase.Name, calls);
-            return new IgnoreException("Pending until the SVG target implements " + string.Join(", ", calls) + ".");
+            LoopResults.SavePendingCase(comparisonCase.Name, calls, whyNeverHonored);
+            return new IgnoreException(whyNeverHonored == null
+                ? "Pending until the SVG target implements " + string.Join(", ", calls) + "."
+                : "Pending for good: the SVG target will never honor " + string.Join(", ", calls) + " as the case makes it: " + whyNeverHonored + ".");
         }
     }
 }
