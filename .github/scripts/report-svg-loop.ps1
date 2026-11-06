@@ -11,7 +11,9 @@
 # measurements changed. changes.md lists each change. And it gives the size of
 # each file the SVG export writes of the reference events, plain and
 # gzip-compressed, which the baseline tests record in export-sizes.tsv, beside
-# the size it had before.
+# the size it had before. Of the pending cases, pending.tsv and the summary set
+# apart the calls the target will never honor, and the cases that wait on
+# nothing else, which will never be compared.
 #
 # Called from svg.yml after the tests, and after a failed build too, when there
 # is no test report and the build's errors are the verdict.
@@ -218,22 +220,40 @@ $passed = @($tests | Where-Object { $_.Outcome -eq 'Passed' })
 $failed = @($tests | Where-Object { $_.Outcome -eq 'Failed' })
 $notRun = @($tests | Where-Object { $_.Outcome -ne 'Passed' -and $_.Outcome -ne 'Failed' })
 
-# The pending cases, each with the calls it still needs, as the tests saved them.
+# The pending cases, each with the calls it still needs, as the tests saved
+# them: a call to a line, followed, after a tab, by why the target will never
+# honor it, when it never will, such as a bitmap drawn lighter (B-6). A case
+# that needs nothing else will never be compared.
 $pendingDirectory = Join-Path $results 'pending'
 $pending = @(if (Test-Path $pendingDirectory) {
     foreach ($file in (Get-ChildItem $pendingDirectory -Filter '*.txt' | Sort-Object Name)) {
-        [pscustomobject]@{ Case = $file.BaseName; Calls = @(Get-Content $file.FullName | Where-Object { $_ }) }
+        $needs = @(Get-Content $file.FullName | Where-Object { $_ } | ForEach-Object {
+            $fields = $_ -split "`t", 2
+            [pscustomobject]@{ Call = $fields[0]; NeverBecause = $(if ($fields.Count -gt 1) { $fields[1] } else { '' }) }
+        })
+        [pscustomobject]@{
+            Case = $file.BaseName
+            Calls = @($needs | ForEach-Object { $_.Call })
+            Never = @($needs | Where-Object { $_.NeverBecause })
+        }
     }
 })
+$neverCompared = @($pending | Where-Object { $_.Never.Count -eq $_.Calls.Count })
 
-# For each call that pending cases need, how many need it, and how many need
-# nothing else: the cases its implementation would bring to comparison.
-$byCall = @($pending | ForEach-Object { $_.Calls } | Group-Object | ForEach-Object {
-    $call = $_.Name
+# For each call that pending cases need, and why the target never honors it,
+# if it never does: how many cases need it, and how many need nothing else,
+# the cases its implementation would bring to comparison.
+$byCall = @($pending | ForEach-Object { $case = $_; $case.Calls | ForEach-Object {
+    $call = $_
+    $never = @($case.Never | Where-Object { $_.Call -eq $call } | Select-Object -First 1)
+    [pscustomobject]@{ Case = $case; Call = $call; NeverBecause = $(if ($never.Count) { $never[0].NeverBecause } else { '' }) }
+} } | Group-Object -Property Call, NeverBecause | ForEach-Object {
+    $first = $_.Group[0]
     [pscustomobject]@{
-        Call = $call
+        Call = $first.Call
+        NeverBecause = $first.NeverBecause
         Cases = $_.Count
-        Alone = @($pending | Where-Object { $_.Calls.Count -eq 1 -and $_.Calls[0] -eq $call }).Count
+        Alone = @($_.Group | Where-Object { $_.Case.Calls.Count -eq 1 }).Count
     }
 } | Sort-Object -Property @{ Expression = 'Cases'; Descending = $true }, @{ Expression = 'Call'; Descending = $false })
 
@@ -259,7 +279,8 @@ if ($previous) {
 
 # The verdict.
 $testExit = $env:TEST_EXIT
-$counts = "$($passed.Count) passed, $($failed.Count) failed, $($pending.Count) pending"
+$counts = "$($passed.Count) passed, $($failed.Count) failed, $($pending.Count) pending" +
+          $(if ($neverCompared.Count) { ", $($neverCompared.Count) of them on calls the target never honors" } else { '' })
 if ($buildFailed) {
     $title = "The build failed with $($buildErrors.Count) errors"
     $conclusion = 'failure'
@@ -342,9 +363,11 @@ if ($byCall.Count) {
     $summary.Add('')
     $summary.Add("## Pending cases by the calls they need ($($pending.Count) cases; pending.tsv lists each)")
     $summary.Add('')
-    $summary.Add('| Call | Cases that need it | Cases that need only it |')
-    $summary.Add('| --- | ---: | ---: |')
-    foreach ($row in $byCall) { $summary.Add("| $($row.Call) | $($row.Cases) | $($row.Alone) |") }
+    $summary.Add("$($neverCompared.Count) of them wait only on calls the target will never honor, and will never be compared.")
+    $summary.Add('')
+    $summary.Add('| Call | Never honored | Cases that need it | Cases that need only it |')
+    $summary.Add('| --- | --- | ---: | ---: |')
+    foreach ($row in $byCall) { $summary.Add("| $($row.Call) | $($row.NeverBecause) | $($row.Cases) | $($row.Alone) |") }
 }
 if ($notRun.Count -ne $pending.Count) {
     $summary.Add('')
@@ -361,7 +384,9 @@ if ($steps.Count) {
 $summaryText = $summary -join "`n"
 
 Set-Content (Join-Path $results 'summary.md') $summaryText -Encoding utf8NoBOM
-Set-Content (Join-Path $results 'pending.tsv') (@("case`tcalls") + @($pending | ForEach-Object { "$($_.Case)`t$($_.Calls -join ', ')" })) -Encoding utf8NoBOM
+Set-Content (Join-Path $results 'pending.tsv') (@("case`tcalls`tnever honored") + @($pending | ForEach-Object {
+    "$($_.Case)`t$($_.Calls -join ', ')`t$((@($_.Never | ForEach-Object { "$($_.Call): $($_.NeverBecause)" })) -join '; ')"
+})) -Encoding utf8NoBOM
 Set-Content (Join-Path $results 'steps.tsv') (@("step`toutcome`tseconds") + @($steps | ForEach-Object { "$($_.Name)`t$($_.Outcome)`t$($_.Seconds)" })) -Encoding utf8NoBOM
 Set-Content (Join-Path $results 'changes.md') $(if ($previous) {
     @("Changes since the results $env:RESULTS_BRANCH held before: $($previous.Subject).", '',
@@ -403,7 +428,9 @@ $output = [ordered]@{
     annotations = @($annotations | Select-Object -First 50)
 }
 if ($pending.Count) {
-    $output.text = Limit-Text ((@($pending | ForEach-Object { "$($_.Case): $($_.Calls -join ', ')" })) -join "`n") 65000
+    $output.text = Limit-Text ((@($pending | ForEach-Object {
+        "$($_.Case): $($_.Calls -join ', ')" + $(if ($_.Never.Count) { " (never honored: $((@($_.Never | ForEach-Object { $_.NeverBecause })) -join '; '))" } else { '' })
+    })) -join "`n") 65000
 }
 $payload = [ordered]@{
     name = 'SVG loop report'
