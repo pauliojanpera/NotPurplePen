@@ -461,8 +461,9 @@ namespace PurplePen
         public bool AntiAliasWhenPrinting { get; set; }
 
         // Whether area patterns are drawn element by element on every target, as printing draws them on a target whose
-        // pattern brushes are bitmaps. Off by default, so that a target whose pattern brushes are vectors draws the
-        // regular patterns in clip mode with pattern brushes.
+        // pattern brushes are bitmaps: each pattern glyph by glyph and each hatching line by line. Off by default, so
+        // that a target whose pattern brushes are vectors draws the regular patterns in clip mode, and the hatchings,
+        // with pattern brushes.
         public bool AreaPatternsElementByElement { get; set; }
 
         // Whether drawing turns anti-aliasing off because it is for printing: Printing is on and AntiAliasWhenPrinting
@@ -796,8 +797,8 @@ namespace PurplePen
 
         // Create the options that every layer of the map and course is drawn with. Area patterns are drawn element by
         // element when AreaPatternsElementByElement says so; otherwise with pattern brushes for a target whose brushes
-        // are vectors, which draw them as well as drawing each element does, and in less; and for any other target with
-        // pattern bitmaps, unless printing or zoomed in far with anti-aliasing.
+        // are vectors, which draw them, hatchings among them, as well as drawing each element does, and in less; and for
+        // any other target with pattern bitmaps, unless printing or zoomed in far with anti-aliasing.
         // grTarget: the target drawn onto.
         // minResolution: the smallest distance worth drawing, in map coordinates.
         private RenderOptions CreateRenderOptions(IGraphicsTarget grTarget, float minResolution)

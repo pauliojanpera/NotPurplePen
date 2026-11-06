@@ -38,7 +38,7 @@ namespace Map_Svg.Tests
             return ComparisonCase.MakeMapAreaCases();
         }
 
-        // Make the cases that check where pattern fills put an area's pattern.
+        // Make the cases that check where pattern fills put an area's pattern and its hatchings.
         private static IEnumerable<ComparisonCase> AreaPatternCases()
         {
             return ComparisonCase.MakeAreaPatternCases();

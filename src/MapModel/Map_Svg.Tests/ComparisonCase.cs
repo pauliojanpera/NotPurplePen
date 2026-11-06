@@ -83,14 +83,17 @@ namespace Map_Svg.Tests
             return cases;
         }
 
-        // Make the cases that check where pattern fills put an area's pattern (S-13): squares of a regular pattern turned
-        // or not, about the map's origin or about an origin of their own, built for the purpose, and the turned areas of
-        // an OpenMapper map, each with its own pattern origin, as its import tests draw them.
+        // Make the cases that check where pattern fills put an area's pattern and its hatchings (S-13): squares of a
+        // regular pattern, and squares of two hatchings, turned or not, about the map's origin or about an origin of
+        // their own, built for the purpose; and the turned areas of an OpenMapper map, patterned and hatched, each with
+        // its own pattern origin, as its import tests draw them.
         public static IEnumerable<ComparisonCase> MakeAreaPatternCases()
         {
             return new ComparisonCase[] {
                 MakeMapCase("patternorigins", PatternedAreaMap.AreaOfEveryPlacement, new Size(800, 800),
                             () => PatternedAreaMap.Create(false, AreaSymDef.PatternFillMode.Clip, PatternedAreaMap.SquaresInEveryPlacement)),
+                MakeMapCase("hatchingorigins", PatternedAreaMap.AreaOfEveryPlacement, new Size(800, 800),
+                            () => PatternedAreaMap.CreateHatched(PatternedAreaMap.SquaresInEveryPlacement)),
                 MakeMapCase("rotarea_omap", RectangleF.FromLTRB(-37, -13, -10, 2), new Size(1000, 556),
                             () => LoadMap(TestUtil.GetTestFile(Path.Combine("openmapper", "rotarea.omap")))),
             };

@@ -4,11 +4,11 @@ using PurplePen.MapModel;
 
 namespace Map_Svg.Tests
 {
-    // Maps built for the tests of area patterns: squares of one area symbol whose pattern is a dot with a line beside
-    // it, in offset rows, turned by 30 degrees and moved off the middle of its tile, so that a pattern laid out from the
-    // wrong point or at the wrong angle shows. Each square turns its pattern by an angle about a point of its own, as
-    // an OpenMapper object stores a pattern origin and a rotation, where an OCAD object turns its pattern about the
-    // map's origin (S-13).
+    // Maps built for the tests of area patterns: squares of one area symbol, either patterned or hatched, its pattern
+    // or its lines turned and moved off the middle of their tile, so that a pattern laid out from the wrong point or at
+    // the wrong angle shows. Each square turns its pattern by an angle about a point of its own, as an OpenMapper
+    // object stores a pattern origin and a rotation, where an OCAD object turns its pattern about the map's origin
+    // (S-13).
     internal static class PatternedAreaMap
     {
         // Where a square lies and how it lays out its pattern.
@@ -51,13 +51,14 @@ namespace Map_Svg.Tests
         // The area that holds the squares of SquaresInEveryPlacement, with a margin around them.
         public static readonly RectangleF AreaOfEveryPlacement = new RectangleF(-20, -20, 40, 40);
 
-        // Create a map of squares of one area symbol filled with the pattern.
+        // Create a map of squares of one area symbol filled with a pattern of a dot with a line beside it, in offset
+        // rows, turned by 30 degrees and moved off the middle of its tile.
         // irregular: whether the pattern is irregular, as OCAD's random structures are.
         // fillMode: how the pattern meets the edge of an area.
         // squares: where the squares lie and how each lays out its pattern.
         public static Map Create(bool irregular, AreaSymDef.PatternFillMode fillMode, params Square[] squares)
         {
-            Map map = new Map(new Skia_TextMetrics(), new Skia_FileLoader(System.AppContext.BaseDirectory));
+            Map map = CreateEmptyMap();
             using (map.Write()) {
                 SymColor color = map.AddColor("Brown", 1, 0, 0.56F, 1, 0.18F, false);
 
@@ -85,17 +86,71 @@ namespace Map_Svg.Tests
                 AreaSymDef symdef = new AreaSymDef("Dotted area", "401.0", null, null);
                 symdef.AddPattern(pattern);
                 map.AddSymdef(symdef);
-
-                foreach (Square square in squares) {
-                    float half = SideOfSquare / 2;
-                    float left = square.Middle.X - half, right = square.Middle.X + half, bottom = square.Middle.Y - half, top = square.Middle.Y + half;
-                    SymPath outline = new SymPath(new PointF[] {
-                        new PointF(left, bottom), new PointF(right, bottom), new PointF(right, top), new PointF(left, top), new PointF(left, bottom)
-                    });
-                    map.AddSymbol(new AreaSymbol(symdef, new SymPathWithHoles(outline, null), square.Angle, square.PatternOrigin));
-                }
+                AddSquares(map, symdef, squares);
             }
             return map;
+        }
+
+        // Create a map of squares of one area symbol hatched twice: with thin green lines turned by 30 degrees, their
+        // offset more than their spacing, which turn with each square; and with wide blue lines turned by 100 degrees,
+        // wider than half their spacing and moved near its edge, so that the tile of a pattern fill holds two of them,
+        // which never turn.
+        // squares: where the squares lie and how each lays out its hatching.
+        public static Map CreateHatched(params Square[] squares)
+        {
+            Map map = CreateEmptyMap();
+            using (map.Write()) {
+                SymColor blue = map.AddColor("Blue", 2, 1, 0.1F, 0, 0, false);
+                SymColor green = map.AddColor("Green", 1, 0.76F, 0, 0.91F, 0, false);
+
+                AreaSymDef symdef = new AreaSymDef("Hatched area", "402.0", null, null);
+                symdef.AddHatching(Hatching(green, 0.15F, 0.6F, 30, 1.0F, AreaSymDef.RotateMode.Always));
+                symdef.AddHatching(Hatching(blue, 0.35F, 0.7F, 100, 0.31F, AreaSymDef.RotateMode.Never));
+                map.AddSymdef(symdef);
+                AddSquares(map, symdef, squares);
+            }
+            return map;
+        }
+
+        // A hatching of an area symbol.
+        // color: the color of its lines.
+        // width: the width of its lines.
+        // spacing: the distance between the middles of its lines.
+        // angle: the angle its lines are turned by, in degrees.
+        // offset: how far its lines are moved across from the point they are laid out from.
+        // rotateMode: whether its lines turn with an area.
+        private static AreaSymDef.HatchInfo Hatching(SymColor color, float width, float spacing, float angle, float offset, AreaSymDef.RotateMode rotateMode)
+        {
+            AreaSymDef.HatchInfo hatching = new AreaSymDef.HatchInfo();
+            hatching.hatchColor = color;
+            hatching.hatchWidth = width;
+            hatching.hatchSpacing = spacing;
+            hatching.hatchAngle = angle;
+            hatching.hatchOffset = offset;
+            hatching.hatchRotateMode = rotateMode;
+            return hatching;
+        }
+
+        // Create a map without colors, symbols or objects, which measures text with Skia.
+        private static Map CreateEmptyMap()
+        {
+            return new Map(new Skia_TextMetrics(), new Skia_FileLoader(System.AppContext.BaseDirectory));
+        }
+
+        // Add squares of an area symbol to a map.
+        // map: the map, open for writing.
+        // symdef: the area symbol.
+        // squares: where the squares lie and how each lays out its pattern.
+        private static void AddSquares(Map map, AreaSymDef symdef, Square[] squares)
+        {
+            foreach (Square square in squares) {
+                float half = SideOfSquare / 2;
+                float left = square.Middle.X - half, right = square.Middle.X + half, bottom = square.Middle.Y - half, top = square.Middle.Y + half;
+                SymPath outline = new SymPath(new PointF[] {
+                    new PointF(left, bottom), new PointF(right, bottom), new PointF(right, top), new PointF(left, top), new PointF(left, bottom)
+                });
+                map.AddSymbol(new AreaSymbol(symdef, new SymPathWithHoles(outline, null), square.Angle, square.PatternOrigin));
+            }
         }
     }
 }

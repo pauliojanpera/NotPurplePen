@@ -93,7 +93,7 @@ namespace PurplePen
         public SvgBitmapHandling BitmapHandling = SvgBitmapHandling.Embedded;   // how the map's bitmaps reach the files (B-4)
         public int JpegQuality = 90;                 // the quality a bitmap whose own format is JPEG is written at (B-3)
         public bool Compress = false;                // whether the files are written gzip-compressed, as .svgz (S-10)
-        public bool DrawAreaPatternsAsSeparateShapes = false;   // whether area patterns are drawn element by element, as PDF export draws them (S-7)
+        public bool DrawAreaPatternsAsSeparateShapes = false;   // whether area patterns are drawn element by element and hatchings line by line, as PDF export draws them (S-7)
 
         public CourseSvgSettings Clone()
         {

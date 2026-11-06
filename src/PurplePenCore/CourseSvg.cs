@@ -51,11 +51,11 @@ namespace PurplePen
             this.appearance = appearance;
 
             // Draw as PDF export draws: the map at full intensity, as for printing, in the chosen color model; but
-            // anti-aliased, with a bitmap map scaled smoothly, and with regular area patterns as pattern brushes, which
-            // the map display draws for the SVG target, whose brushes are vectors, where PDF export draws each element;
-            // unless the settings ask for area patterns as separate shapes, drawn element by element as PDF export
-            // draws them (S-7). Printing alone turns anti-aliasing off, which the PDF target ignores and the SVG target
-            // writes as crisp edges (D-9).
+            // anti-aliased, with a bitmap map scaled smoothly, and with the regular area patterns and the hatchings as
+            // pattern brushes, which the map display draws for the SVG target, whose brushes are vectors, where PDF
+            // export draws each element and each line; unless the settings ask for area patterns as separate shapes,
+            // drawn element by element as PDF export draws them (S-7). Printing alone turns anti-aliasing off, which
+            // the PDF target ignores and the SVG target writes as crisp edges (D-9).
             mapDisplay.MapIntensity = 1.0F;
             mapDisplay.AntiAlias = true;
             mapDisplay.Printing = true;

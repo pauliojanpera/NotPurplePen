@@ -73,8 +73,8 @@ namespace PurplePen.ViewModels
         private bool mergeParts;
 
         /// <summary>
-        /// Whether every area pattern is written element by element, as PDF export draws it,
-        /// rather than as a pattern fill (S-7).
+        /// Whether every area pattern is written element by element and every hatching line by
+        /// line, as PDF export draws them, rather than as pattern fills (S-7).
         /// </summary>
         [ObservableProperty]
         private bool drawAreaPatternsAsSeparateShapes;
