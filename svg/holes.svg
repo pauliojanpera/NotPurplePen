@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" width="1398mm" height="1079mm" viewBox="0 0 1398 1079">
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="holes">
+<npp:color position="6" name="Yellow 50%" cmyk="0,.135,.395,0"/>
+<npp:color position="8" name="White for yellow" cmyk="0,0,0,0"/>
+<npp:color position="13" name="Green 30%" cmyk=".23,0,.275,0"/>
+<npp:color position="32" name="Purple" cmyk="0,1,0,0" overprint="1"/>
+<npp:symbol n="1" id="404.0" name="Rough open land with sc. trees" colors="6 8"/>
+<npp:symbol n="2" id="406.0" name="Forest: slow running" colors="13"/>
+<npp:symbol n="3" id="710.0" name="Dangerous area" colors="32"/>
+</npp:map>
+</npp:document>
+</metadata>
+<sodipodi:namedview>
+<inkscape:page x="0" y="0" width="1398" height="1079"/>
+</sodipodi:namedview>
+<defs>
+<color-profile id="cmyk" name="cmyk" xlink:href="data:application/vnd.iccprofile;base64,AAACBAAAAAACEAAAcHJ0ckNNWUtMYWIgB+oACwAEAAAAAAAAYWNzcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPbWAAEAAAAA0y0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZGVzYwAAALQAAABmY3BydAAAARwAAAAhd3RwdAAAAUAAAAAUQTJCMAAAAVQAAACwZGVzYwAAAAAAAAAMRGV2aWNlIENNWUsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB0ZXh0AAAAAE5vIGNvcHlyaWdodCwgdXNlIGZyZWVseQAAAABYWVogAAAAAAAA9tYAAQAAAADTLW1mdDIAAAAABAMCAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAACAAIAAP//AAD//wAA//8AAP///wCAAX/6AACAAIAA+OZwQN1gAACAAIAAmW/djkN6AACAAIAAinLQ0cXhAACAAIAA5zJNVnEDAACAAIAA3/Awt9D6AACAAIAAS2bETQ/yAACAAIAAAACAAIAAAACAAIAAAAD//wAA//8AAP//"/>
+<clipPath id="e">
+<path d="M-49467-40805H60129v84589H-49467z"/>
+</clipPath>
+<pattern id="b" patternUnits="userSpaceOnUse" x="-525" y="-525" width="1050" height="1050" viewBox="-525 -525 1050 1050" patternTransform="rotate(45)">
+<g style="fill:#fff;fill:#fff icc-color(cmyk,0,0,0,0)" transform="translate(1050 1050)rotate(-45)">
+<circle r="410"/>
+</g>
+<g style="fill:#fff;fill:#fff icc-color(cmyk,0,0,0,0)" transform="translate(1050)rotate(-45)">
+<circle r="410"/>
+</g>
+<g style="fill:#fff;fill:#fff icc-color(cmyk,0,0,0,0)" transform="translate(1050-1050)rotate(-45)">
+<circle r="410"/>
+</g>
+<g style="fill:#fff;fill:#fff icc-color(cmyk,0,0,0,0)" transform="translate(0 1050)rotate(-45)">
+<circle r="410"/>
+</g>
+<g style="fill:#fff;fill:#fff icc-color(cmyk,0,0,0,0)" transform="rotate(-45)">
+<circle r="410"/>
+</g>
+<g style="fill:#fff;fill:#fff icc-color(cmyk,0,0,0,0)" transform="translate(0-1050)rotate(-45)">
+<circle r="410"/>
+</g>
+<g style="fill:#fff;fill:#fff icc-color(cmyk,0,0,0,0)" transform="translate(-1050 1050)rotate(-45)">
+<circle r="410"/>
+</g>
+<g style="fill:#fff;fill:#fff icc-color(cmyk,0,0,0,0)" transform="translate(-1050)rotate(-45)">
+<circle r="410"/>
+</g>
+<g style="fill:#fff;fill:#fff icc-color(cmyk,0,0,0,0)" transform="translate(-1050-1050)rotate(-45)">
+<circle r="410"/>
+</g>
+</pattern>
+<pattern id="c" patternUnits="userSpaceOnUse" x="-640" y="-640" width="1280" height="1280" viewBox="-640 -640 1280 1280" patternTransform="rotate(-45)">
+<path style="fill:none;stroke:#f0f;stroke:#f0f icc-color(cmyk,0,1,0,0);stroke-width:380;stroke-miterlimit:5" d="M-1280 0h2560"/>
+</pattern>
+<pattern id="d" patternUnits="userSpaceOnUse" x="-640" y="-640" width="1280" height="1280" viewBox="-640 -640 1280 1280" patternTransform="rotate(45)">
+<path style="fill:none;stroke:#f0f;stroke:#f0f icc-color(cmyk,0,1,0,0);stroke-width:380;stroke-miterlimit:5" d="M-1280 0h2560"/>
+</pattern>
+<g id="a">
+<g data-m="1">
+<g style="fill:#ffdd9a;fill:#ffdd9a icc-color(cmyk,0,.135,.395,0);fill-rule:evenodd" data-c="6">
+<g data-s="1">
+<path data-o="1" d="M-39440 27040l-6880-12960 20610-10950-8570-16120 17160-9110L3800 17320-38380 39700l-5890-11090 400 770 4430-2340zm8480 2720-6160-6080-220-1030v-270l80-1160 80-250 160-230 200-200 200-200 920-560 720-320 1040-160 970-120 650-80 620-120h360l2360 240 260 80 240 160 630 560 390 360 330 120 310 280 240 200 80 230-80 2530-160 560-400 880-400 800-200 330-120 310-240 490-160 250-200 260-200 280-400 510-760 770-200 240-450 240-250 20-240 80zm18560-10880c-280 230-460 320-800 400-980 210-1480 320-2480 320-1890-20-2850 140-4720-80-330-40-500-60-800-160-320-110-420-270-720-400-220-100-370-50-560-160-610-370-880-630-1280-1200-480-670-710-1050-880-1840-340-1530-170-2510 640-3840 50-100 160-80 240-160 470-560 540-990 1120-1440 750-610 1170-860 2000-1360 320-210 490-340 880-400 440-80 670-10 1120-80 170-30 220-150 400-160 890-100 1340-170 2240-240 250-30 380-20 640 0 1340 90 2030-30 3360 240 330 60 460 220 800 320 370 100 590 30 960 160 400 140 590 250 960 480 190 110 220 250 400 400 270 230 470 290 720 560 60 70-60 150 0 240s160 60 240 160c180 230 200 400 400 640 80 100 210 0 320 80 180 120 240 230 400 400 340 360 450 600 720 1040 100 160 80 280 80 480 0 480 60 740-80 1200-140 420-280 610-560 960-570 680-1000 880-1600 1520-70 70 0 180-80 240-890 610-1570 390-2560 800-650 260-970 440-1520 880zM-20250 2640c-2710-390-4600-2940-4200-5650 390-2700 2930-4590 5640-4190 2710 390 4600 2930 4200 5630-390 2720-2930 4610-5640 4210zM-30880 21840l-560-9760 11440 1360-1600 13920-9440-5600 160 80z"/>
+</g>
+</g>
+<g style="fill:url(#b);fill-rule:evenodd" data-c="8">
+<g data-s="1">
+<path data-o="1" d="M-39440 27040l-6880-12960 20610-10950-8570-16120 17160-9110L3800 17320-38380 39700l-5890-11090 400 770 4430-2340zm8480 2720-6160-6080-220-1030v-270l80-1160 80-250 160-230 200-200 200-200 920-560 720-320 1040-160 970-120 650-80 620-120h360l2360 240 260 80 240 160 630 560 390 360 330 120 310 280 240 200 80 230-80 2530-160 560-400 880-400 800-200 330-120 310-240 490-160 250-200 260-200 280-400 510-760 770-200 240-450 240-250 20-240 80zm18560-10880c-280 230-460 320-800 400-980 210-1480 320-2480 320-1890-20-2850 140-4720-80-330-40-500-60-800-160-320-110-420-270-720-400-220-100-370-50-560-160-610-370-880-630-1280-1200-480-670-710-1050-880-1840-340-1530-170-2510 640-3840 50-100 160-80 240-160 470-560 540-990 1120-1440 750-610 1170-860 2000-1360 320-210 490-340 880-400 440-80 670-10 1120-80 170-30 220-150 400-160 890-100 1340-170 2240-240 250-30 380-20 640 0 1340 90 2030-30 3360 240 330 60 460 220 800 320 370 100 590 30 960 160 400 140 590 250 960 480 190 110 220 250 400 400 270 230 470 290 720 560 60 70-60 150 0 240s160 60 240 160c180 230 200 400 400 640 80 100 210 0 320 80 180 120 240 230 400 400 340 360 450 600 720 1040 100 160 80 280 80 480 0 480 60 740-80 1200-140 420-280 610-560 960-570 680-1000 880-1600 1520-70 70 0 180-80 240-890 610-1570 390-2560 800-650 260-970 440-1520 880zM-20250 2640c-2710-390-4600-2940-4200-5650 390-2700 2930-4590 5640-4190 2710 390 4600 2930 4200 5630-390 2720-2930 4610-5640 4210zM-30880 21840l-560-9760 11440 1360-1600 13920-9440-5600 160 80z"/>
+</g>
+</g>
+<g style="fill:#c4ffb9;fill:#c4ffb9 icc-color(cmyk,.23,0,.275,0);fill-rule:evenodd" data-c="13">
+<g data-s="2">
+<path data-o="2" d="M-1930-18240c-4050-5440-2920-13200 2520-17250 5430-4050 13190-2910 17240 2530 4050 5420 2910 13190-2520 17230-5430 4060-13200 2920-17240-2510zm3120-8080c-40-2120 3010-3900 6780-3960 3760-70 6870 1600 6900 3720 40 2100-3010 3880-6770 3940-3770 70-6880-1600-6910-3700z"/>
+</g>
+</g>
+<g data-c="32">
+<g data-s="3">
+<path style="fill:url(#c);fill-rule:evenodd" data-o="3" d="M21760 26160 10160 4000l18080-7680-9760-13120 3360 23680 22640-5280-1920 24800-30400-10400-2640 15920 23040 560-480-16640-10400 10080 80 240zm1520-9200 2000-5600 12660 4520-2010 5600-12650-4520zm-3130-6570c4690-1080 9410 1880 10490 6560s-1880 9400-6570 10480c-4670 1080-9400-1880-10470-6560-1080-4680 1880-9410 6550-10480z"/>
+<path style="fill:url(#d);fill-rule:evenodd" data-o="3" d="M21760 26160 10160 4000l18080-7680-9760-13120 3360 23680 22640-5280-1920 24800-30400-10400-2640 15920 23040 560-480-16640-10400 10080 80 240zm1520-9200 2000-5600 12660 4520-2010 5600-12650-4520zm-3130-6570c4690-1080 9410 1880 10490 6560s-1880 9400-6570 10480c-4670 1080-9400-1880-10470-6560-1080-4680 1880-9410 6550-10480z"/>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<view id="page" viewBox="0 0 1398 1079"/>
+<g transform="matrix(.0127559 0 0-.0127559 631 558.5)" clip-path="url(#e)">
+<use xlink:href="#a"/>
+</g>
+</svg>

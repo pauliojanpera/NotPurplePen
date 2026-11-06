@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" width="884mm" height="604mm" viewBox="0 0 884 604">
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="offsetpatternrot2_nopatbm">
+<npp:color position="0" name="Yellow" cmyk="0,0,1,0"/>
+<npp:color position="1" name="Black" cmyk="0,0,0,1"/>
+<npp:color position="2" name="Blue" cmyk="1,0,0,0"/>
+<npp:symbol n="1" id="1.1" colors="0 1 2"/>
+<npp:symbol n="2" id="1.2" colors="2"/>
+</npp:map>
+</npp:document>
+</metadata>
+<sodipodi:namedview>
+<inkscape:page x="0" y="0" width="884" height="604"/>
+</sodipodi:namedview>
+<defs>
+<color-profile id="cmyk" name="cmyk" xlink:href="data:application/vnd.iccprofile;base64,AAACBAAAAAACEAAAcHJ0ckNNWUtMYWIgB+oACwAEAAAAAAAAYWNzcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPbWAAEAAAAA0y0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZGVzYwAAALQAAABmY3BydAAAARwAAAAhd3RwdAAAAUAAAAAUQTJCMAAAAVQAAACwZGVzYwAAAAAAAAAMRGV2aWNlIENNWUsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB0ZXh0AAAAAE5vIGNvcHlyaWdodCwgdXNlIGZyZWVseQAAAABYWVogAAAAAAAA9tYAAQAAAADTLW1mdDIAAAAABAMCAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAACAAIAAP//AAD//wAA//8AAP///wCAAX/6AACAAIAA+OZwQN1gAACAAIAAmW/djkN6AACAAIAAinLQ0cXhAACAAIAA5zJNVnEDAACAAIAA3/Awt9D6AACAAIAAS2bETQ/yAACAAIAAAACAAIAAAACAAIAAAAD//wAA//8AAP//"/>
+<clipPath id="d">
+<path d="M-12446-14594h29239V5384h-29239z"/>
+</clipPath>
+<pattern id="b" patternUnits="userSpaceOnUse" x="-1000" y="-1200" width="2000" height="2400" viewBox="-1000 -1200 2000 2400" patternTransform="rotate(10)">
+<g transform="translate(2000)rotate(-10)">
+<path style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(2000-2400)rotate(-10)">
+<path style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="rotate(-10)">
+<path style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" cx="-10" cy="2300" r="50"/>
+</g>
+<g transform="translate(0-2400)rotate(-10)">
+<path style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" d="M0 1020-1890 590-90 380-320 670l330 340-10 10z"/>
+<circle style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" cx="-10" cy="2300" r="50"/>
+</g>
+</pattern>
+<pattern id="c" patternUnits="userSpaceOnUse" x="-1000" y="-1200" width="2000" height="2400" viewBox="-1000 -1200 2000 2400" patternTransform="rotate(10)">
+<g style="fill:#0ff;fill:#0ff icc-color(cmyk,1,0,0,0)" transform="translate(2000)rotate(-10)">
+<circle cy="10" r="50"/>
+</g>
+<g style="fill:#0ff;fill:#0ff icc-color(cmyk,1,0,0,0)" transform="translate(2000-2400)rotate(-10)">
+<circle cy="10" r="50"/>
+</g>
+<g style="fill:#0ff;fill:#0ff icc-color(cmyk,1,0,0,0)" transform="rotate(-10)">
+<circle cy="10" r="50"/>
+</g>
+<g style="fill:#0ff;fill:#0ff icc-color(cmyk,1,0,0,0)" transform="translate(0-2400)rotate(-10)">
+<circle cy="10" r="50"/>
+</g>
+</pattern>
+<g id="a">
+<g data-m="1">
+<g style="fill:#ff0;fill:#ff0 icc-color(cmyk,0,0,1,0);fill-rule:evenodd" data-c="0">
+<g data-s="1">
+<path data-o="1" d="M-9330 8790-12500-9140l20270-3580 3160 17920-20260 3590z"/>
+</g>
+</g>
+<g style="fill:url(#b);fill-rule:evenodd" data-c="1">
+<g data-s="1">
+<path data-o="1" d="M-9330 8790-12500-9140l20270-3580 3160 17920-20260 3590z"/>
+</g>
+</g>
+<g data-c="2">
+<g style="fill:none;stroke:#0ff;stroke:#0ff icc-color(cmyk,1,0,0,0);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" data-s="2">
+<path data-o="2" d="M-1270 930l1960 460 550-2320-1950-470-560 2330z"/>
+</g>
+<g style="fill:url(#c);fill-rule:evenodd" data-s="1">
+<path data-o="1" d="M-9330 8790-12500-9140l20270-3580 3160 17920-20260 3590z"/>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<view id="page" viewBox="0 0 884 604"/>
+<g transform="matrix(.0302341 0 0-.0302341 376.29 162.78)" clip-path="url(#d)">
+<use xlink:href="#a"/>
+</g>
+</svg>

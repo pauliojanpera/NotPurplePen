@@ -1,0 +1,1075 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" width="884mm" height="604mm" viewBox="0 0 884 604">
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="offsetpattern">
+<npp:color position="1" name="Yellow" cmyk="0,.05,.69,.01"/>
+<npp:color position="2" name="Bluw" cmyk=".93,1,0,0"/>
+<npp:color position="3" name="Black" cmyk="0,0,0,1"/>
+<npp:symbol n="1" id="1.1" name="Patten above" colors="1 3"/>
+<npp:symbol n="2" id="1.2" name="Patten above and below" colors="1 2 3"/>
+<npp:symbol n="3" id="1.4" name="Patten above and below" colors="1 3"/>
+<npp:symbol n="4" id="1.5" name="Patten above and below" colors="1 2 3"/>
+<npp:symbol n="5" id="1.6" name="Patten above and below" colors="1 2 3"/>
+<npp:symbol n="6" id="1.7" colors="1 3"/>
+<npp:symbol n="7" id="1.8" colors="1 2 3"/>
+<npp:symbol n="8" id="1.9" colors="1 3"/>
+</npp:map>
+</npp:document>
+</metadata>
+<sodipodi:namedview>
+<inkscape:page x="0" y="0" width="884" height="604"/>
+</sodipodi:namedview>
+<defs>
+<color-profile id="cmyk" name="cmyk" xlink:href="data:application/vnd.iccprofile;base64,AAACBAAAAAACEAAAcHJ0ckNNWUtMYWIgB+oACwAEAAAAAAAAYWNzcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPbWAAEAAAAA0y0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZGVzYwAAALQAAABmY3BydAAAARwAAAAhd3RwdAAAAUAAAAAUQTJCMAAAAVQAAACwZGVzYwAAAAAAAAAMRGV2aWNlIENNWUsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB0ZXh0AAAAAE5vIGNvcHlyaWdodCwgdXNlIGZyZWVseQAAAABYWVogAAAAAAAA9tYAAQAAAADTLW1mdDIAAAAABAMCAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAACAAIAAP//AAD//wAA//8AAP///wCAAX/6AACAAIAA+OZwQN1gAACAAIAAmW/djkN6AACAAIAAinLQ0cXhAACAAIAA5zJNVnEDAACAAIAA3/Awt9D6AACAAIAAS2bETQ/yAACAAIAAAACAAIAAAACAAIAAAAD//wAA//8AAP//"/>
+<clipPath id="n">
+<path d="M-12446-14594h29239V5384h-29239z"/>
+</clipPath>
+<pattern id="b" patternUnits="userSpaceOnUse" x="-1500" y="-1000" width="3000" height="2000" viewBox="-1500 -1000 3000 2000">
+<g style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:250;stroke-linecap:round;stroke-linejoin:round" transform="translate(3000 4000)">
+<path d="M-1690-3140l220-1380 1220 1420 450-1390 480 1240"/>
+</g>
+<g style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:250;stroke-linecap:round;stroke-linejoin:round" transform="translate(3000 2000)">
+<path d="M-1690-3140l220-1380 1220 1420 450-1390 480 1240"/>
+</g>
+<g style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:250;stroke-linecap:round;stroke-linejoin:round" transform="translate(3000)">
+<path d="M-1690-3140l220-1380 1220 1420 450-1390 480 1240"/>
+</g>
+<g style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:250;stroke-linecap:round;stroke-linejoin:round" transform="translate(3000-2000)">
+<path d="M-1690-3140l220-1380 1220 1420 450-1390 480 1240"/>
+</g>
+<g style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:250;stroke-linecap:round;stroke-linejoin:round" transform="translate(3000-4000)">
+<path d="M-1690-3140l220-1380 1220 1420 450-1390 480 1240"/>
+</g>
+<g style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:250;stroke-linecap:round;stroke-linejoin:round" transform="translate(3000-6000)">
+<path d="M-1690-3140l220-1380 1220 1420 450-1390 480 1240"/>
+</g>
+<g style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:250;stroke-linecap:round;stroke-linejoin:round" transform="translate(0 4000)">
+<path d="M-1690-3140l220-1380 1220 1420 450-1390 480 1240"/>
+</g>
+<g style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:250;stroke-linecap:round;stroke-linejoin:round" transform="translate(0 2000)">
+<path d="M-1690-3140l220-1380 1220 1420 450-1390 480 1240"/>
+</g>
+<path style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:250;stroke-linecap:round;stroke-linejoin:round" d="M-1690-3140l220-1380 1220 1420 450-1390 480 1240"/>
+<g style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:250;stroke-linecap:round;stroke-linejoin:round" transform="translate(0-2000)">
+<path d="M-1690-3140l220-1380 1220 1420 450-1390 480 1240"/>
+</g>
+<g style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:250;stroke-linecap:round;stroke-linejoin:round" transform="translate(0-4000)">
+<path d="M-1690-3140l220-1380 1220 1420 450-1390 480 1240"/>
+</g>
+<g style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:250;stroke-linecap:round;stroke-linejoin:round" transform="translate(0-6000)">
+<path d="M-1690-3140l220-1380 1220 1420 450-1390 480 1240"/>
+</g>
+</pattern>
+<pattern id="c" patternUnits="userSpaceOnUse" x="-700" y="-1000" width="1400" height="2000" viewBox="-700 -1000 1400 2000">
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="9550" cy="1500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="8850" cy="500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="9550" cy="-500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="8850" cy="-1500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="9550" cy="-2500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="8850" cy="-3500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="9550" cy="-4500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="8850" cy="-5500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="9550" cy="-6500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="8850" cy="-7500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="9550" cy="-8500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="8150" cy="1500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="7450" cy="500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="8150" cy="-500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="7450" cy="-1500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="8150" cy="-2500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="7450" cy="-3500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="8150" cy="-4500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="7450" cy="-5500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="8150" cy="-6500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="7450" cy="-7500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="8150" cy="-8500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="6750" cy="1500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="6050" cy="500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="6750" cy="-500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="6050" cy="-1500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="6750" cy="-2500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="6050" cy="-3500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="6750" cy="-4500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="6050" cy="-5500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="6750" cy="-6500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="6050" cy="-7500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="6750" cy="-8500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="5350" cy="1500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="4650" cy="500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="5350" cy="-500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="4650" cy="-1500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="5350" cy="-2500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="4650" cy="-3500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="5350" cy="-4500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="4650" cy="-5500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="5350" cy="-6500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="4650" cy="-7500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="5350" cy="-8500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="3950" cy="1500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="3250" cy="500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="3950" cy="-500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="3250" cy="-1500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="3950" cy="-2500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="3250" cy="-3500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="3950" cy="-4500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="3250" cy="-5500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="3950" cy="-6500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="3250" cy="-7500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="3950" cy="-8500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="2550" cy="1500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="1850" cy="500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="2550" cy="-500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="1850" cy="-1500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="2550" cy="-2500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="1850" cy="-3500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="2550" cy="-4500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="1850" cy="-5500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="2550" cy="-6500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="1850" cy="-7500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="2550" cy="-8500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="1150" cy="1500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="450" cy="500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="1150" cy="-500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="450" cy="-1500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="1150" cy="-2500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="450" cy="-3500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="1150" cy="-4500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="450" cy="-5500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="1150" cy="-6500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="450" cy="-7500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="1150" cy="-8500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="-250" cy="1500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="-950" cy="500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="-250" cy="-500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="-950" cy="-1500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="-250" cy="-2500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="-950" cy="-3500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="-250" cy="-4500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="-950" cy="-5500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="-250" cy="-6500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="-950" cy="-7500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="-250" cy="-8500" r="250"/>
+</pattern>
+<pattern id="d" patternUnits="userSpaceOnUse" x="-700" y="-500" width="1400" height="1000" viewBox="-700 -500 1400 1000">
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="8150" cy="500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="8150" cy="-500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="8150" cy="-1500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="8150" cy="-2500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="8150" cy="-3500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="8150" cy="-4500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="8150" cy="-5500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="8150" cy="-6500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="8150" cy="-7500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="6750" cy="500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="6750" cy="-500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="6750" cy="-1500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="6750" cy="-2500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="6750" cy="-3500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="6750" cy="-4500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="6750" cy="-5500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="6750" cy="-6500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="6750" cy="-7500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="5350" cy="500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="5350" cy="-500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="5350" cy="-1500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="5350" cy="-2500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="5350" cy="-3500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="5350" cy="-4500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="5350" cy="-5500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="5350" cy="-6500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="5350" cy="-7500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="3950" cy="500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="3950" cy="-500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="3950" cy="-1500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="3950" cy="-2500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="3950" cy="-3500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="3950" cy="-4500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="3950" cy="-5500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="3950" cy="-6500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="3950" cy="-7500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="2550" cy="500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="2550" cy="-500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="2550" cy="-1500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="2550" cy="-2500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="2550" cy="-3500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="2550" cy="-4500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="2550" cy="-5500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="2550" cy="-6500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="2550" cy="-7500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="1150" cy="500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="1150" cy="-500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="1150" cy="-1500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="1150" cy="-2500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="1150" cy="-3500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="1150" cy="-4500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="1150" cy="-5500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="1150" cy="-6500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="1150" cy="-7500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="-250" cy="500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="-250" cy="-500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="-250" cy="-1500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="-250" cy="-2500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="-250" cy="-3500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="-250" cy="-4500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="-250" cy="-5500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="-250" cy="-6500" r="250"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:100;stroke-miterlimit:5" cx="-250" cy="-7500" r="250"/>
+</pattern>
+<pattern id="e" patternUnits="userSpaceOnUse" x="-1000" y="-1400" width="2000" height="2800" viewBox="-1000 -1400 2000 2800">
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:80;stroke-miterlimit:5" cx="10020" cy="1780" r="300"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:80;stroke-miterlimit:5" cx="9020" cy="380" r="300"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:80;stroke-miterlimit:5" cx="10020" cy="-1020" r="300"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:80;stroke-miterlimit:5" cx="9020" cy="-2420" r="300"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:80;stroke-miterlimit:5" cx="10020" cy="-3820" r="300"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:80;stroke-miterlimit:5" cx="9020" cy="-5220" r="300"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:80;stroke-miterlimit:5" cx="10020" cy="-6620" r="300"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:80;stroke-miterlimit:5" cx="8020" cy="1780" r="300"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:80;stroke-miterlimit:5" cx="7020" cy="380" r="300"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:80;stroke-miterlimit:5" cx="8020" cy="-1020" r="300"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:80;stroke-miterlimit:5" cx="7020" cy="-2420" r="300"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:80;stroke-miterlimit:5" cx="8020" cy="-3820" r="300"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:80;stroke-miterlimit:5" cx="7020" cy="-5220" r="300"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:80;stroke-miterlimit:5" cx="8020" cy="-6620" r="300"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:80;stroke-miterlimit:5" cx="6020" cy="1780" r="300"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:80;stroke-miterlimit:5" cx="5020" cy="380" r="300"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:80;stroke-miterlimit:5" cx="6020" cy="-1020" r="300"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:80;stroke-miterlimit:5" cx="5020" cy="-2420" r="300"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:80;stroke-miterlimit:5" cx="6020" cy="-3820" r="300"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:80;stroke-miterlimit:5" cx="5020" cy="-5220" r="300"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:80;stroke-miterlimit:5" cx="6020" cy="-6620" r="300"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:80;stroke-miterlimit:5" cx="4020" cy="1780" r="300"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:80;stroke-miterlimit:5" cx="3020" cy="380" r="300"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:80;stroke-miterlimit:5" cx="4020" cy="-1020" r="300"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:80;stroke-miterlimit:5" cx="3020" cy="-2420" r="300"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:80;stroke-miterlimit:5" cx="4020" cy="-3820" r="300"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:80;stroke-miterlimit:5" cx="3020" cy="-5220" r="300"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:80;stroke-miterlimit:5" cx="4020" cy="-6620" r="300"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:80;stroke-miterlimit:5" cx="2020" cy="1780" r="300"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:80;stroke-miterlimit:5" cx="1020" cy="380" r="300"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:80;stroke-miterlimit:5" cx="2020" cy="-1020" r="300"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:80;stroke-miterlimit:5" cx="1020" cy="-2420" r="300"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:80;stroke-miterlimit:5" cx="2020" cy="-3820" r="300"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:80;stroke-miterlimit:5" cx="1020" cy="-5220" r="300"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:80;stroke-miterlimit:5" cx="2020" cy="-6620" r="300"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:80;stroke-miterlimit:5" cx="20" cy="1780" r="300"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:80;stroke-miterlimit:5" cx="-980" cy="380" r="300"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:80;stroke-miterlimit:5" cx="20" cy="-1020" r="300"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:80;stroke-miterlimit:5" cx="-980" cy="-2420" r="300"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:80;stroke-miterlimit:5" cx="20" cy="-3820" r="300"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:80;stroke-miterlimit:5" cx="-980" cy="-5220" r="300"/>
+<circle style="fill:none;stroke:#1200ff;stroke:#1200ff icc-color(cmyk,.93,1,0,0);stroke-width:80;stroke-miterlimit:5" cx="20" cy="-6620" r="300"/>
+</pattern>
+<pattern id="f" patternUnits="userSpaceOnUse" x="-1500" y="-1000" width="3000" height="2000" viewBox="-1500 -1000 3000 2000">
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="translate(3000)">
+<circle cx="-1340" cy="4600" r="150"/>
+<circle cx="-650" cy="3560" r="150"/>
+<circle cx="510" cy="4190" r="150"/>
+<circle cx="-370" cy="4280" r="150"/>
+<circle cx="-1480" cy="3700" r="150"/>
+<circle cx="-490" cy="4870" r="150"/>
+<circle cx="530" cy="4880" r="150"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="translate(3000-2000)">
+<circle cx="-1340" cy="4600" r="150"/>
+<circle cx="-650" cy="3560" r="150"/>
+<circle cx="510" cy="4190" r="150"/>
+<circle cx="-370" cy="4280" r="150"/>
+<circle cx="-1480" cy="3700" r="150"/>
+<circle cx="-490" cy="4870" r="150"/>
+<circle cx="530" cy="4880" r="150"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="translate(3000-4000)">
+<circle cx="-1340" cy="4600" r="150"/>
+<circle cx="-650" cy="3560" r="150"/>
+<circle cx="510" cy="4190" r="150"/>
+<circle cx="-370" cy="4280" r="150"/>
+<circle cx="-1480" cy="3700" r="150"/>
+<circle cx="-490" cy="4870" r="150"/>
+<circle cx="530" cy="4880" r="150"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="translate(3000-6000)">
+<circle cx="-1340" cy="4600" r="150"/>
+<circle cx="-650" cy="3560" r="150"/>
+<circle cx="510" cy="4190" r="150"/>
+<circle cx="-370" cy="4280" r="150"/>
+<circle cx="-1480" cy="3700" r="150"/>
+<circle cx="-490" cy="4870" r="150"/>
+<circle cx="530" cy="4880" r="150"/>
+</g>
+<circle style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" cx="-1340" cy="4600" r="150"/>
+<circle style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" cx="-650" cy="3560" r="150"/>
+<circle style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" cx="510" cy="4190" r="150"/>
+<circle style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" cx="-370" cy="4280" r="150"/>
+<circle style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" cx="-1480" cy="3700" r="150"/>
+<circle style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" cx="-490" cy="4870" r="150"/>
+<circle style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" cx="530" cy="4880" r="150"/>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="translate(0-2000)">
+<circle cx="-1340" cy="4600" r="150"/>
+<circle cx="-650" cy="3560" r="150"/>
+<circle cx="510" cy="4190" r="150"/>
+<circle cx="-370" cy="4280" r="150"/>
+<circle cx="-1480" cy="3700" r="150"/>
+<circle cx="-490" cy="4870" r="150"/>
+<circle cx="530" cy="4880" r="150"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="translate(0-4000)">
+<circle cx="-1340" cy="4600" r="150"/>
+<circle cx="-650" cy="3560" r="150"/>
+<circle cx="510" cy="4190" r="150"/>
+<circle cx="-370" cy="4280" r="150"/>
+<circle cx="-1480" cy="3700" r="150"/>
+<circle cx="-490" cy="4870" r="150"/>
+<circle cx="530" cy="4880" r="150"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="translate(0-6000)">
+<circle cx="-1340" cy="4600" r="150"/>
+<circle cx="-650" cy="3560" r="150"/>
+<circle cx="510" cy="4190" r="150"/>
+<circle cx="-370" cy="4280" r="150"/>
+<circle cx="-1480" cy="3700" r="150"/>
+<circle cx="-490" cy="4870" r="150"/>
+<circle cx="530" cy="4880" r="150"/>
+</g>
+</pattern>
+<pattern id="g" patternUnits="userSpaceOnUse" x="-1500" y="-1000" width="3000" height="2000" viewBox="-1500 -1000 3000 2000">
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="translate(3000 4000)">
+<circle cx="-1340" cy="4600" r="150"/>
+<circle cx="-650" cy="3560" r="150"/>
+<circle cx="510" cy="4190" r="150"/>
+<circle cx="-370" cy="4280" r="150"/>
+<circle cx="-1480" cy="3700" r="150"/>
+<circle cx="-490" cy="4870" r="150"/>
+<circle cx="530" cy="4880" r="150"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="translate(3000 2000)">
+<circle cx="-1340" cy="4600" r="150"/>
+<circle cx="-650" cy="3560" r="150"/>
+<circle cx="510" cy="4190" r="150"/>
+<circle cx="-370" cy="4280" r="150"/>
+<circle cx="-1480" cy="3700" r="150"/>
+<circle cx="-490" cy="4870" r="150"/>
+<circle cx="530" cy="4880" r="150"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="translate(3000)">
+<circle cx="-1340" cy="4600" r="150"/>
+<circle cx="-650" cy="3560" r="150"/>
+<circle cx="510" cy="4190" r="150"/>
+<circle cx="-370" cy="4280" r="150"/>
+<circle cx="-1480" cy="3700" r="150"/>
+<circle cx="-490" cy="4870" r="150"/>
+<circle cx="530" cy="4880" r="150"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="translate(3000-2000)">
+<circle cx="-1340" cy="4600" r="150"/>
+<circle cx="-650" cy="3560" r="150"/>
+<circle cx="510" cy="4190" r="150"/>
+<circle cx="-370" cy="4280" r="150"/>
+<circle cx="-1480" cy="3700" r="150"/>
+<circle cx="-490" cy="4870" r="150"/>
+<circle cx="530" cy="4880" r="150"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="translate(3000-4000)">
+<circle cx="-1340" cy="4600" r="150"/>
+<circle cx="-650" cy="3560" r="150"/>
+<circle cx="510" cy="4190" r="150"/>
+<circle cx="-370" cy="4280" r="150"/>
+<circle cx="-1480" cy="3700" r="150"/>
+<circle cx="-490" cy="4870" r="150"/>
+<circle cx="530" cy="4880" r="150"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="translate(3000-6000)">
+<circle cx="-1340" cy="4600" r="150"/>
+<circle cx="-650" cy="3560" r="150"/>
+<circle cx="510" cy="4190" r="150"/>
+<circle cx="-370" cy="4280" r="150"/>
+<circle cx="-1480" cy="3700" r="150"/>
+<circle cx="-490" cy="4870" r="150"/>
+<circle cx="530" cy="4880" r="150"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="translate(0 4000)">
+<circle cx="-1340" cy="4600" r="150"/>
+<circle cx="-650" cy="3560" r="150"/>
+<circle cx="510" cy="4190" r="150"/>
+<circle cx="-370" cy="4280" r="150"/>
+<circle cx="-1480" cy="3700" r="150"/>
+<circle cx="-490" cy="4870" r="150"/>
+<circle cx="530" cy="4880" r="150"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="translate(0 2000)">
+<circle cx="-1340" cy="4600" r="150"/>
+<circle cx="-650" cy="3560" r="150"/>
+<circle cx="510" cy="4190" r="150"/>
+<circle cx="-370" cy="4280" r="150"/>
+<circle cx="-1480" cy="3700" r="150"/>
+<circle cx="-490" cy="4870" r="150"/>
+<circle cx="530" cy="4880" r="150"/>
+</g>
+<circle style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" cx="-1340" cy="4600" r="150"/>
+<circle style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" cx="-650" cy="3560" r="150"/>
+<circle style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" cx="510" cy="4190" r="150"/>
+<circle style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" cx="-370" cy="4280" r="150"/>
+<circle style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" cx="-1480" cy="3700" r="150"/>
+<circle style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" cx="-490" cy="4870" r="150"/>
+<circle style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" cx="530" cy="4880" r="150"/>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="translate(0-2000)">
+<circle cx="-1340" cy="4600" r="150"/>
+<circle cx="-650" cy="3560" r="150"/>
+<circle cx="510" cy="4190" r="150"/>
+<circle cx="-370" cy="4280" r="150"/>
+<circle cx="-1480" cy="3700" r="150"/>
+<circle cx="-490" cy="4870" r="150"/>
+<circle cx="530" cy="4880" r="150"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="translate(0-4000)">
+<circle cx="-1340" cy="4600" r="150"/>
+<circle cx="-650" cy="3560" r="150"/>
+<circle cx="510" cy="4190" r="150"/>
+<circle cx="-370" cy="4280" r="150"/>
+<circle cx="-1480" cy="3700" r="150"/>
+<circle cx="-490" cy="4870" r="150"/>
+<circle cx="530" cy="4880" r="150"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1)" transform="translate(0-6000)">
+<circle cx="-1340" cy="4600" r="150"/>
+<circle cx="-650" cy="3560" r="150"/>
+<circle cx="510" cy="4190" r="150"/>
+<circle cx="-370" cy="4280" r="150"/>
+<circle cx="-1480" cy="3700" r="150"/>
+<circle cx="-490" cy="4870" r="150"/>
+<circle cx="530" cy="4880" r="150"/>
+</g>
+</pattern>
+<pattern id="h" patternUnits="userSpaceOnUse" x="-800" y="-2000" width="1600" height="4000" viewBox="-800 -2000 1600 4000">
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(8800 2000)">
+<path d="M-7740 850l-160 1060 360-20 280-700-410-1040-650 300 590 410-10-10z"/>
+<path d="M-7150 630l330-350 300 540-610-170-20-20z"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(9600)">
+<path d="M-7740 850l-160 1060 360-20 280-700-410-1040-650 300 590 410-10-10z"/>
+<path d="M-7150 630l330-350 300 540-610-170-20-20z"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(8800-2000)">
+<path d="M-7740 850l-160 1060 360-20 280-700-410-1040-650 300 590 410-10-10z"/>
+<path d="M-7150 630l330-350 300 540-610-170-20-20z"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(9600-4000)">
+<path d="M-7740 850l-160 1060 360-20 280-700-410-1040-650 300 590 410-10-10z"/>
+<path d="M-7150 630l330-350 300 540-610-170-20-20z"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(7200 2000)">
+<path d="M-7740 850l-160 1060 360-20 280-700-410-1040-650 300 590 410-10-10z"/>
+<path d="M-7150 630l330-350 300 540-610-170-20-20z"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(8000)">
+<path d="M-7740 850l-160 1060 360-20 280-700-410-1040-650 300 590 410-10-10z"/>
+<path d="M-7150 630l330-350 300 540-610-170-20-20z"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(7200-2000)">
+<path d="M-7740 850l-160 1060 360-20 280-700-410-1040-650 300 590 410-10-10z"/>
+<path d="M-7150 630l330-350 300 540-610-170-20-20z"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(8000-4000)">
+<path d="M-7740 850l-160 1060 360-20 280-700-410-1040-650 300 590 410-10-10z"/>
+<path d="M-7150 630l330-350 300 540-610-170-20-20z"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(5600 2000)">
+<path d="M-7740 850l-160 1060 360-20 280-700-410-1040-650 300 590 410-10-10z"/>
+<path d="M-7150 630l330-350 300 540-610-170-20-20z"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(6400)">
+<path d="M-7740 850l-160 1060 360-20 280-700-410-1040-650 300 590 410-10-10z"/>
+<path d="M-7150 630l330-350 300 540-610-170-20-20z"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(5600-2000)">
+<path d="M-7740 850l-160 1060 360-20 280-700-410-1040-650 300 590 410-10-10z"/>
+<path d="M-7150 630l330-350 300 540-610-170-20-20z"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(6400-4000)">
+<path d="M-7740 850l-160 1060 360-20 280-700-410-1040-650 300 590 410-10-10z"/>
+<path d="M-7150 630l330-350 300 540-610-170-20-20z"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(4000 2000)">
+<path d="M-7740 850l-160 1060 360-20 280-700-410-1040-650 300 590 410-10-10z"/>
+<path d="M-7150 630l330-350 300 540-610-170-20-20z"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(4800)">
+<path d="M-7740 850l-160 1060 360-20 280-700-410-1040-650 300 590 410-10-10z"/>
+<path d="M-7150 630l330-350 300 540-610-170-20-20z"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(4000-2000)">
+<path d="M-7740 850l-160 1060 360-20 280-700-410-1040-650 300 590 410-10-10z"/>
+<path d="M-7150 630l330-350 300 540-610-170-20-20z"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(4800-4000)">
+<path d="M-7740 850l-160 1060 360-20 280-700-410-1040-650 300 590 410-10-10z"/>
+<path d="M-7150 630l330-350 300 540-610-170-20-20z"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(2400 2000)">
+<path d="M-7740 850l-160 1060 360-20 280-700-410-1040-650 300 590 410-10-10z"/>
+<path d="M-7150 630l330-350 300 540-610-170-20-20z"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(3200)">
+<path d="M-7740 850l-160 1060 360-20 280-700-410-1040-650 300 590 410-10-10z"/>
+<path d="M-7150 630l330-350 300 540-610-170-20-20z"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(2400-2000)">
+<path d="M-7740 850l-160 1060 360-20 280-700-410-1040-650 300 590 410-10-10z"/>
+<path d="M-7150 630l330-350 300 540-610-170-20-20z"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(3200-4000)">
+<path d="M-7740 850l-160 1060 360-20 280-700-410-1040-650 300 590 410-10-10z"/>
+<path d="M-7150 630l330-350 300 540-610-170-20-20z"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(800 2000)">
+<path d="M-7740 850l-160 1060 360-20 280-700-410-1040-650 300 590 410-10-10z"/>
+<path d="M-7150 630l330-350 300 540-610-170-20-20z"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(1600)">
+<path d="M-7740 850l-160 1060 360-20 280-700-410-1040-650 300 590 410-10-10z"/>
+<path d="M-7150 630l330-350 300 540-610-170-20-20z"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(800-2000)">
+<path d="M-7740 850l-160 1060 360-20 280-700-410-1040-650 300 590 410-10-10z"/>
+<path d="M-7150 630l330-350 300 540-610-170-20-20z"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(1600-4000)">
+<path d="M-7740 850l-160 1060 360-20 280-700-410-1040-650 300 590 410-10-10z"/>
+<path d="M-7150 630l330-350 300 540-610-170-20-20z"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(-800 2000)">
+<path d="M-7740 850l-160 1060 360-20 280-700-410-1040-650 300 590 410-10-10z"/>
+<path d="M-7150 630l330-350 300 540-610-170-20-20z"/>
+</g>
+<path style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" d="M-7740 850l-160 1060 360-20 280-700-410-1040-650 300 590 410-10-10z"/>
+<path style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" d="M-7150 630l330-350 300 540-610-170-20-20z"/>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(-800-2000)">
+<path d="M-7740 850l-160 1060 360-20 280-700-410-1040-650 300 590 410-10-10z"/>
+<path d="M-7150 630l330-350 300 540-610-170-20-20z"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(0-4000)">
+<path d="M-7740 850l-160 1060 360-20 280-700-410-1040-650 300 590 410-10-10z"/>
+<path d="M-7150 630l330-350 300 540-610-170-20-20z"/>
+</g>
+</pattern>
+<pattern id="i" patternUnits="userSpaceOnUse" x="-700" y="-1000" width="1400" height="2000" viewBox="-700 -1000 1400 2000">
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="8390" cy="9080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="7690" cy="8080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="8390" cy="7080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="7690" cy="6080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="8390" cy="5080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="7690" cy="4080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="8390" cy="3080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="7690" cy="2080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="8390" cy="1080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="7690" cy="80" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="8390" cy="-920" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="6990" cy="9080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="6290" cy="8080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="6990" cy="7080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="6290" cy="6080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="6990" cy="5080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="6290" cy="4080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="6990" cy="3080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="6290" cy="2080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="6990" cy="1080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="6290" cy="80" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="6990" cy="-920" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="5590" cy="9080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="4890" cy="8080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="5590" cy="7080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="4890" cy="6080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="5590" cy="5080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="4890" cy="4080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="5590" cy="3080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="4890" cy="2080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="5590" cy="1080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="4890" cy="80" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="5590" cy="-920" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="4190" cy="9080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="3490" cy="8080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="4190" cy="7080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="3490" cy="6080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="4190" cy="5080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="3490" cy="4080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="4190" cy="3080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="3490" cy="2080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="4190" cy="1080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="3490" cy="80" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="4190" cy="-920" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="2790" cy="9080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="2090" cy="8080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="2790" cy="7080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="2090" cy="6080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="2790" cy="5080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="2090" cy="4080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="2790" cy="3080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="2090" cy="2080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="2790" cy="1080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="2090" cy="80" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="2790" cy="-920" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="1390" cy="9080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="690" cy="8080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="1390" cy="7080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="690" cy="6080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="1390" cy="5080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="690" cy="4080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="1390" cy="3080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="690" cy="2080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="1390" cy="1080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="690" cy="80" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="1390" cy="-920" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="-10" cy="9080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="-710" cy="8080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="-10" cy="7080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="-710" cy="6080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="-10" cy="5080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="-710" cy="4080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="-10" cy="3080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="-710" cy="2080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="-10" cy="1080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="-710" cy="80" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="-10" cy="-920" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="-1410" cy="9080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="-2110" cy="8080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="-1410" cy="7080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="-2110" cy="6080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="-1410" cy="5080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="-2110" cy="4080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="-1410" cy="3080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="-2110" cy="2080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="-1410" cy="1080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="-2110" cy="80" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="-1410" cy="-920" r="250"/>
+</pattern>
+<pattern id="j" patternUnits="userSpaceOnUse" x="-700" y="-500" width="1400" height="1000" viewBox="-700 -500 1400 1000">
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="6990" cy="8080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="6990" cy="7080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="6990" cy="6080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="6990" cy="5080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="6990" cy="4080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="6990" cy="3080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="6990" cy="2080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="6990" cy="1080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="6990" cy="80" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="5590" cy="8080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="5590" cy="7080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="5590" cy="6080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="5590" cy="5080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="5590" cy="4080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="5590" cy="3080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="5590" cy="2080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="5590" cy="1080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="5590" cy="80" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="4190" cy="8080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="4190" cy="7080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="4190" cy="6080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="4190" cy="5080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="4190" cy="4080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="4190" cy="3080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="4190" cy="2080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="4190" cy="1080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="4190" cy="80" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="2790" cy="8080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="2790" cy="7080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="2790" cy="6080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="2790" cy="5080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="2790" cy="4080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="2790" cy="3080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="2790" cy="2080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="2790" cy="1080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="2790" cy="80" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="1390" cy="8080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="1390" cy="7080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="1390" cy="6080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="1390" cy="5080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="1390" cy="4080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="1390" cy="3080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="1390" cy="2080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="1390" cy="1080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="1390" cy="80" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="-10" cy="8080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="-10" cy="7080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="-10" cy="6080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="-10" cy="5080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="-10" cy="4080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="-10" cy="3080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="-10" cy="2080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="-10" cy="1080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="-10" cy="80" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="-1410" cy="8080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="-1410" cy="7080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="-1410" cy="6080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="-1410" cy="5080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="-1410" cy="4080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="-1410" cy="3080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="-1410" cy="2080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="-1410" cy="1080" r="250"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100;stroke-miterlimit:5" cx="-1410" cy="80" r="250"/>
+</pattern>
+<pattern id="k" patternUnits="userSpaceOnUse" x="-600" y="-1500" width="1200" height="3000" viewBox="-600 -1500 1200 3000">
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(9000 4500)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(9600 3000)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(9000 1500)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(9600)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(9000-1500)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(9600-3000)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(9000-4500)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(7800 4500)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(8400 3000)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(7800 1500)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(8400)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(7800-1500)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(8400-3000)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(7800-4500)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(6600 4500)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(7200 3000)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(6600 1500)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(7200)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(6600-1500)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(7200-3000)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(6600-4500)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(5400 4500)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(6000 3000)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(5400 1500)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(6000)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(5400-1500)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(6000-3000)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(5400-4500)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(4200 4500)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(4800 3000)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(4200 1500)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(4800)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(4200-1500)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(4800-3000)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(4200-4500)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(3000 4500)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(3600 3000)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(3000 1500)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(3600)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(3000-1500)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(3600-3000)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(3000-4500)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(1800 4500)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(2400 3000)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(1800 1500)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(2400)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(1800-1500)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(2400-3000)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(1800-4500)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(600 4500)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(1200 3000)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(600 1500)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(1200)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(600-1500)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(1200-3000)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(600-4500)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(-600 4500)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(0 3000)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(-600 1500)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<path style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(-600-1500)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(0-3000)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+<g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-linecap:round;stroke-linejoin:round" transform="translate(-600-4500)">
+<path d="M-7520-3670c170 340 90 1060 430 870 300-180 580-740 760-430 310 550 1300 1020 780 1380-380 250-1190 260-930 630 290 420 310 770 740 1060s1320 270 1080 730c-340 620-170 1800-840 1570-640-230-1320-1180-1600-560-230 480-950 830-560 1200"/>
+</g>
+</pattern>
+<pattern id="l" patternUnits="userSpaceOnUse" x="-1000" y="-1400" width="2000" height="2800" viewBox="-1000 -1400 2000 2800">
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-miterlimit:5" cx="9580" cy="6960" r="200"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-miterlimit:5" cx="8580" cy="5560" r="200"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-miterlimit:5" cx="9580" cy="4160" r="200"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-miterlimit:5" cx="8580" cy="2760" r="200"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-miterlimit:5" cx="9580" cy="1360" r="200"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-miterlimit:5" cx="8580" cy="-40" r="200"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-miterlimit:5" cx="9580" cy="-1440" r="200"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-miterlimit:5" cx="7580" cy="6960" r="200"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-miterlimit:5" cx="6580" cy="5560" r="200"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-miterlimit:5" cx="7580" cy="4160" r="200"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-miterlimit:5" cx="6580" cy="2760" r="200"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-miterlimit:5" cx="7580" cy="1360" r="200"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-miterlimit:5" cx="6580" cy="-40" r="200"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-miterlimit:5" cx="7580" cy="-1440" r="200"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-miterlimit:5" cx="5580" cy="6960" r="200"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-miterlimit:5" cx="4580" cy="5560" r="200"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-miterlimit:5" cx="5580" cy="4160" r="200"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-miterlimit:5" cx="4580" cy="2760" r="200"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-miterlimit:5" cx="5580" cy="1360" r="200"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-miterlimit:5" cx="4580" cy="-40" r="200"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-miterlimit:5" cx="5580" cy="-1440" r="200"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-miterlimit:5" cx="3580" cy="6960" r="200"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-miterlimit:5" cx="2580" cy="5560" r="200"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-miterlimit:5" cx="3580" cy="4160" r="200"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-miterlimit:5" cx="2580" cy="2760" r="200"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-miterlimit:5" cx="3580" cy="1360" r="200"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-miterlimit:5" cx="2580" cy="-40" r="200"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-miterlimit:5" cx="3580" cy="-1440" r="200"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-miterlimit:5" cx="1580" cy="6960" r="200"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-miterlimit:5" cx="580" cy="5560" r="200"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-miterlimit:5" cx="1580" cy="4160" r="200"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-miterlimit:5" cx="580" cy="2760" r="200"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-miterlimit:5" cx="1580" cy="1360" r="200"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-miterlimit:5" cx="580" cy="-40" r="200"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-miterlimit:5" cx="1580" cy="-1440" r="200"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-miterlimit:5" cx="-420" cy="6960" r="200"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-miterlimit:5" cx="-1420" cy="5560" r="200"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-miterlimit:5" cx="-420" cy="4160" r="200"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-miterlimit:5" cx="-1420" cy="2760" r="200"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-miterlimit:5" cx="-420" cy="1360" r="200"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-miterlimit:5" cx="-1420" cy="-40" r="200"/>
+<circle style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:60;stroke-miterlimit:5" cx="-420" cy="-1440" r="200"/>
+</pattern>
+<pattern id="m" patternUnits="userSpaceOnUse" x="-1150" y="-1400" width="2300" height="2800" viewBox="-1150 -1400 2300 2800">
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(4600 5600)">
+<path d="M-1770-3720l250 1380 510-1290-310 160-430-310-20 60z"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(3450 4200)">
+<path d="M-1770-3720l250 1380 510-1290-310 160-430-310-20 60z"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(4600 2800)">
+<path d="M-1770-3720l250 1380 510-1290-310 160-430-310-20 60z"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(3450 1400)">
+<path d="M-1770-3720l250 1380 510-1290-310 160-430-310-20 60z"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(4600)">
+<path d="M-1770-3720l250 1380 510-1290-310 160-430-310-20 60z"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(3450-1400)">
+<path d="M-1770-3720l250 1380 510-1290-310 160-430-310-20 60z"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(2300 5600)">
+<path d="M-1770-3720l250 1380 510-1290-310 160-430-310-20 60z"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(1150 4200)">
+<path d="M-1770-3720l250 1380 510-1290-310 160-430-310-20 60z"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(2300 2800)">
+<path d="M-1770-3720l250 1380 510-1290-310 160-430-310-20 60z"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(1150 1400)">
+<path d="M-1770-3720l250 1380 510-1290-310 160-430-310-20 60z"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(2300)">
+<path d="M-1770-3720l250 1380 510-1290-310 160-430-310-20 60z"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(1150-1400)">
+<path d="M-1770-3720l250 1380 510-1290-310 160-430-310-20 60z"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(0 5600)">
+<path d="M-1770-3720l250 1380 510-1290-310 160-430-310-20 60z"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(-1150 4200)">
+<path d="M-1770-3720l250 1380 510-1290-310 160-430-310-20 60z"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(0 2800)">
+<path d="M-1770-3720l250 1380 510-1290-310 160-430-310-20 60z"/>
+</g>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(-1150 1400)">
+<path d="M-1770-3720l250 1380 510-1290-310 160-430-310-20 60z"/>
+</g>
+<path style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" d="M-1770-3720l250 1380 510-1290-310 160-430-310-20 60z"/>
+<g style="fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd" transform="translate(-1150-1400)">
+<path d="M-1770-3720l250 1380 510-1290-310 160-430-310-20 60z"/>
+</g>
+</pattern>
+<g id="a">
+<g data-m="1">
+<g style="fill:#fcf04c;fill:#fcf04c icc-color(cmyk,0,.05,.69,.01);fill-rule:evenodd" data-c="1">
+<g data-s="1">
+<path data-o="1" d="M-3040 3540c-790-830-1090-1820-670-2220 420-390 1390-50 2180 780 780 820 1070 1810 660 2200-420 400-1390 60-2170-760z"/>
+<path data-o="2" d="M850 1420l840 1310 670-440L940 70l-90 1350z"/>
+<path data-o="3" d="M-9400-3830l650 4580 1350-2670 1830-250 1470-940-3340-630-1730-2290-2810 3400 2270-1030 310-170z"/>
+</g>
+<g data-s="2">
+<path data-o="4" d="M-7650 2160l-2860 1970 3780 1560-170-1450 1910 140-2240-2560-320 420-100-80z"/>
+</g>
+<g data-s="3">
+<path data-o="5" d="M-2660-1140-3750-6220l1640 1490L490-5780-660-3870-280-780l-2170-590-210 210v20z"/>
+</g>
+<g data-s="4">
+<path data-o="6" d="M-6490 1120c-620-540-680-1490-130-2110 540-620 1490-670 2110-130 610 540 680 1490 140 2110-550 620-1500 670-2120 130z"/>
+</g>
+<g data-s="5">
+<path data-o="7" d="M-9350-9220l3100 3970 1490-3990-1510 540-3060-520h-20z"/>
+</g>
+<g data-s="6">
+<path data-o="8" d="M2700-10 730-3180l2200-1970 1240 1680 1810 20-90 5480L3980-760l-130-550L2700-30v20z"/>
+</g>
+<g data-s="7">
+<path data-o="9" d="M-1920-6350l-1390-4010 6850-250L660-8590l300 1930-2840 250-40 60z"/>
+</g>
+<g data-s="8">
+<path data-o="10" d="M4840-5000 2740-8200l2270-2220 1990 2620-1050 1240 820 2290-1870-750-60 20z"/>
+</g>
+</g>
+<g data-c="2">
+<g style="fill:url(#b);fill-rule:evenodd" data-s="2">
+<path data-o="4" d="M-7650 2160l-2860 1970 3780 1560-170-1450 1910 140-2240-2560-320 420-100-80z"/>
+</g>
+<g style="fill:url(#c);fill-rule:evenodd" data-s="4">
+<path data-o="6" d="M-6490 1120c-620-540-680-1490-130-2110 540-620 1490-670 2110-130 610 540 680 1490 140 2110-550 620-1500 670-2120 130z"/>
+</g>
+<g style="fill:url(#d);fill-rule:evenodd" data-s="5">
+<path data-o="7" d="M-9350-9220l3100 3970 1490-3990-1510 540-3060-520h-20z"/>
+</g>
+<g style="fill:url(#e);fill-rule:evenodd" data-s="7">
+<path data-o="9" d="M-1920-6350l-1390-4010 6850-250L660-8590l300 1930-2840 250-40 60z"/>
+</g>
+</g>
+<g data-c="3">
+<g style="fill:url(#f);fill-rule:evenodd" data-s="1">
+<path data-o="1" d="M-3040 3540c-790-830-1090-1820-670-2220 420-390 1390-50 2180 780 780 820 1070 1810 660 2200-420 400-1390 60-2170-760z"/>
+<path data-o="2" d="M850 1420l840 1310 670-440L940 70l-90 1350z"/>
+<path data-o="3" d="M-9400-3830l650 4580 1350-2670 1830-250 1470-940-3340-630-1730-2290-2810 3400 2270-1030 310-170z"/>
+</g>
+<g style="fill:url(#g);fill-rule:evenodd" data-s="2">
+<path data-o="4" d="M-7650 2160l-2860 1970 3780 1560-170-1450 1910 140-2240-2560-320 420-100-80z"/>
+</g>
+<g style="fill:url(#h);fill-rule:evenodd" data-s="3">
+<path data-o="5" d="M-2660-1140-3750-6220l1640 1490L490-5780-660-3870-280-780l-2170-590-210 210v20z"/>
+</g>
+<g style="fill:url(#i);fill-rule:evenodd" data-s="4">
+<path data-o="6" d="M-6490 1120c-620-540-680-1490-130-2110 540-620 1490-670 2110-130 610 540 680 1490 140 2110-550 620-1500 670-2120 130z"/>
+</g>
+<g style="fill:url(#j);fill-rule:evenodd" data-s="5">
+<path data-o="7" d="M-9350-9220l3100 3970 1490-3990-1510 540-3060-520h-20z"/>
+</g>
+<g style="fill:url(#k);fill-rule:evenodd" data-s="6">
+<path data-o="8" d="M2700-10 730-3180l2200-1970 1240 1680 1810 20-90 5480L3980-760l-130-550L2700-30v20z"/>
+</g>
+<g style="fill:url(#l);fill-rule:evenodd" data-s="7">
+<path data-o="9" d="M-1920-6350l-1390-4010 6850-250L660-8590l300 1930-2840 250-40 60z"/>
+</g>
+<g style="fill:url(#m);fill-rule:evenodd" data-s="8">
+<path data-o="10" d="M4840-5000 2740-8200l2270-2220 1990 2620-1050 1240 820 2290-1870-750-60 20z"/>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<view id="page" viewBox="0 0 884 604"/>
+<g transform="matrix(.0302341 0 0-.0302341 376.29 162.78)" clip-path="url(#n)">
+<use xlink:href="#a"/>
+</g>
+</svg>
