@@ -28,7 +28,8 @@ namespace Map_Svg.Tests
     {
         // The reference events, each with the name its baselines go under, its file, the kind of map it is drawn on,
         // the courses exported, or none for every course of the event and its page of all controls, whether its course
-        // is drawn in upper and lower purple, and which pages go in each file; and what it covers.
+        // is drawn in upper and lower purple, which pages go in each file, and whether area patterns are drawn as
+        // separate shapes; and what it covers.
         internal static readonly TestCaseData[] Events = {
             // Courses with map exchanges, and no map.
             Event("mapexchange1", "controller/mapexchange1.ppen", MapType.None, new int[0], false),
@@ -52,6 +53,10 @@ namespace Map_Svg.Tests
             // A course with map exchanges in a file of its own, a page for each of its four parts (L-6, L-7).
             Event("mapexchange1 Course 5 in a file", "controller/mapexchange1.ppen", MapType.None, new int[] { 6 }, false,
                   CoursePdfSettings.PdfFileCreation.FilePerCourse),
+            // The map with area patterns, drawn as separate shapes: each element written as PDF export draws it, as
+            // the export wrote every pattern before it wrote pattern fills (S-7).
+            Event("Madrona Permanent11 with area patterns as separate shapes", "controller/Madrona Permanent11.ppen", MapType.OCAD, new int[] { 1 }, false,
+                  CoursePdfSettings.PdfFileCreation.FilePerCoursePart, true),
         };
 
         // A reference event, as a test case named by the name its baselines go under.
@@ -61,10 +66,13 @@ namespace Map_Svg.Tests
         // courses: the ids of the courses to export, or none for every course of the event and its page of all controls.
         // lowerPurpleLayer: whether to draw the course in upper and lower purple.
         // fileCreation: which pages go in each file.
+        // drawAreaPatternsAsSeparateShapes: whether every area pattern is drawn as separate shapes, element by element,
+        // rather than as a pattern fill.
         private static TestCaseData Event(string name, string eventFile, MapType mapType, int[] courses, bool lowerPurpleLayer,
-                                          CoursePdfSettings.PdfFileCreation fileCreation = CoursePdfSettings.PdfFileCreation.FilePerCoursePart)
+                                          CoursePdfSettings.PdfFileCreation fileCreation = CoursePdfSettings.PdfFileCreation.FilePerCoursePart,
+                                          bool drawAreaPatternsAsSeparateShapes = false)
         {
-            return new TestCaseData(name, eventFile, mapType, courses, lowerPurpleLayer, fileCreation).SetName(name);
+            return new TestCaseData(name, eventFile, mapType, courses, lowerPurpleLayer, fileCreation, drawAreaPatternsAsSeparateShapes).SetName(name);
         }
 
         // The data of an embedded font, bitmap or color profile, and the type it is named with.
@@ -78,13 +86,17 @@ namespace Map_Svg.Tests
         //          first.
         // lowerPurpleLayer: whether to draw the course in upper and lower purple.
         // fileCreation: which pages go in each file.
+        // drawAreaPatternsAsSeparateShapes: whether every area pattern is drawn as separate shapes, element by element,
+        // rather than as a pattern fill.
         [TestCaseSource(nameof(Events))]
         public async Task AnEventIsExportedAsItsBaselinesSay(string eventName, string eventFile, MapType mapType, int[] courses, bool lowerPurpleLayer,
-                                                             CoursePdfSettings.PdfFileCreation fileCreation)
+                                                             CoursePdfSettings.PdfFileCreation fileCreation, bool drawAreaPatternsAsSeparateShapes)
         {
             Id<Course>[] courseIds = courses.Select(id => new Id<Course>(id)).ToArray();
-            string first = await CourseExport.ExportAsync(eventFile, "baseline/" + eventName + "/first", mapType, lowerPurpleLayer, courseIds, fileCreation);
-            string second = await CourseExport.ExportAsync(eventFile, "baseline/" + eventName + "/second", mapType, lowerPurpleLayer, courseIds, fileCreation);
+            string first = await CourseExport.ExportAsync(eventFile, "baseline/" + eventName + "/first", mapType, lowerPurpleLayer, courseIds, fileCreation,
+                                                          drawAreaPatternsAsSeparateShapes);
+            string second = await CourseExport.ExportAsync(eventFile, "baseline/" + eventName + "/second", mapType, lowerPurpleLayer, courseIds, fileCreation,
+                                                           drawAreaPatternsAsSeparateShapes);
 
             string[] files = CourseExport.SvgFilesIn(first);
             Assert.IsNotEmpty(files, "the export writes files");

@@ -19,7 +19,10 @@ namespace Map_Svg.Tests
     // course, the course's lower layer, the map above it and the course's upper layer, each drawn by MapDisplay.Draw
     // over the page's map rectangle, with the map display set up as CourseSvg sets it up; under the page's transform
     // from map coordinates to millimetres of paper and its clip of the map rectangle, on white. Like the rendering
-    // comparison's references, it is drawn anti-aliased, its clips too, as Chromium draws every clip path (V-9).
+    // comparison's references, it is drawn anti-aliased, its clips too, as Chromium draws every clip path (V-9). The Skia
+    // target's pattern brushes are bitmaps, so the map display draws area patterns element by element for it, as for
+    // printing, where the export writes the regular ones as pattern brushes: the comparison checks where the brushes put
+    // the patterns (S-13).
     internal sealed class ExportedPage
     {
         // The smallest distance worth drawing, in millimetres of map, which CourseSvg draws with.
@@ -138,6 +141,7 @@ namespace Map_Svg.Tests
             mapDisplay.AntiAlias = true;
             mapDisplay.Printing = true;
             mapDisplay.AntiAliasWhenPrinting = true;
+            mapDisplay.AreaPatternsElementByElement = settings.DrawAreaPatternsAsSeparateShapes;
             mapDisplay.ColorModel = settings.ColorModel;
             mapDisplay.RecordsCourseObjects = true;
             if (settings.DontPrintBaseMap)

@@ -61,10 +61,13 @@ namespace Map_Svg.Tests
         // courseIds: the courses to export, Id<Course>.None for the page of all controls; none for every course of the
         //            event, in the order the event sorts them, after its page of all controls.
         // fileCreation: which pages go in each file.
+        // drawAreaPatternsAsSeparateShapes: whether every area pattern is drawn as separate shapes, element by element,
+        // rather than as a pattern fill.
         public static async Task<string> ExportAsync(string eventFile, string name, MapType mapType, bool lowerPurpleLayer, Id<Course>[] courseIds,
-                                                     CoursePdfSettings.PdfFileCreation fileCreation = CoursePdfSettings.PdfFileCreation.FilePerCoursePart)
+                                                     CoursePdfSettings.PdfFileCreation fileCreation = CoursePdfSettings.PdfFileCreation.FilePerCoursePart,
+                                                     bool drawAreaPatternsAsSeparateShapes = false)
         {
-            return Export(await LoadAsync(eventFile, mapType, lowerPurpleLayer), name, courseIds, fileCreation).outputDirectory;
+            return Export(await LoadAsync(eventFile, mapType, lowerPurpleLayer), name, courseIds, fileCreation, drawAreaPatternsAsSeparateShapes).outputDirectory;
         }
 
         // Load an event as the application loads it, with its map.
@@ -98,8 +101,11 @@ namespace Map_Svg.Tests
         // courseIds: the courses to export, Id<Course>.None for the page of all controls; none for every course of the
         //            event, in the order the event sorts them, after its page of all controls.
         // fileCreation: which pages go in each file.
+        // drawAreaPatternsAsSeparateShapes: whether every area pattern is drawn as separate shapes, element by element,
+        // rather than as a pattern fill.
         public static CourseSvgSettings Export(LoadedEvent loadedEvent, string name, Id<Course>[] courseIds,
-                                               CoursePdfSettings.PdfFileCreation fileCreation = CoursePdfSettings.PdfFileCreation.FilePerCoursePart)
+                                               CoursePdfSettings.PdfFileCreation fileCreation = CoursePdfSettings.PdfFileCreation.FilePerCoursePart,
+                                               bool drawAreaPatternsAsSeparateShapes = false)
         {
             string directory = Path.Combine(Path.GetTempPath(), "svg-export-tests-" + Environment.ProcessId.ToString(System.Globalization.CultureInfo.InvariantCulture), name);
             if (Directory.Exists(directory))
@@ -112,7 +118,7 @@ namespace Map_Svg.Tests
             CourseSvgSettings settings = new CourseSvgSettings {
                 mapDirectory = false, fileDirectory = false, outputDirectory = directory,
                 CourseIds = courseIds, AllCourses = false, ShowProgressDialog = false, CropLargePrintArea = false,
-                FileCreation = fileCreation,
+                FileCreation = fileCreation, DrawAreaPatternsAsSeparateShapes = drawAreaPatternsAsSeparateShapes,
             };
             Assert.IsTrue(loadedEvent.Controller.CreateCourseSvgs(settings), "exports: " + string.Join(" ", loadedEvent.Messages));
             return settings;

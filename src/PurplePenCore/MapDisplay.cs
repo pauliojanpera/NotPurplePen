@@ -457,8 +457,14 @@ namespace PurplePen
 
         // Whether drawing for printing keeps the anti-aliasing of drawing for the screen: the map anti-aliased as
         // AntiAlias says, and the course always. Off by default, so that printing turns anti-aliasing off. Printing
-        // still draws without pattern bitmaps.
+        // still draws without pattern bitmaps, unless the target's pattern brushes are vectors.
         public bool AntiAliasWhenPrinting { get; set; }
+
+        // Whether area patterns are drawn element by element on every target, as printing draws them on a target whose
+        // pattern brushes are bitmaps: each pattern glyph by glyph and each hatching line by line. Off by default, so
+        // that a target whose pattern brushes are vectors draws the regular patterns in clip mode, and the hatchings,
+        // with pattern brushes.
+        public bool AreaPatternsElementByElement { get; set; }
 
         // Whether drawing turns anti-aliasing off because it is for printing: Printing is on and AntiAliasWhenPrinting
         // is off.
@@ -756,7 +762,7 @@ namespace PurplePen
         // throwOnCancel: called now and then to throw if drawing is to stop, or null.
         public void Draw(IGraphicsTarget grTarget, MapDisplayLayer layer, RectangleF visRect, float minResolution, Action throwOnCancel)
         {
-            DrawLayer(grTarget, layer, visRect, CreateRenderOptions(minResolution), ColorIdBelowWhiteOut(), throwOnCancel);
+            DrawLayer(grTarget, layer, visRect, CreateRenderOptions(grTarget, minResolution), ColorIdBelowWhiteOut(), throwOnCancel);
         }
 
         // Draw the map and course onto a graphics. A helper for the other two draw methods.
@@ -765,7 +771,7 @@ namespace PurplePen
         {
             if (throwOnCancel != null) { throwOnCancel(); }
 
-            RenderOptions renderOptions = CreateRenderOptions(minResolution);
+            RenderOptions renderOptions = CreateRenderOptions(grTarget, minResolution);
             short? colorIdBelowWhiteOut = ColorIdBelowWhiteOut();
 
             // First draw the real map, then the course map on top, and when the course has a lower layer, the rest of the
@@ -789,14 +795,22 @@ namespace PurplePen
             get { return mapType == MapType.OCAD && LowerPurpleMapLayer != null; }
         }
 
-        // Create the options that every layer of the map and course is drawn with.
+        // Create the options that every layer of the map and course is drawn with. Area patterns are drawn element by
+        // element when AreaPatternsElementByElement says so; otherwise with pattern brushes for a target whose brushes
+        // are vectors, which draw them, hatchings among them, as well as drawing each element does, and in less; and for
+        // any other target with pattern bitmaps, unless printing or zoomed in far with anti-aliasing.
+        // grTarget: the target drawn onto.
         // minResolution: the smallest distance worth drawing, in map coordinates.
-        private RenderOptions CreateRenderOptions(float minResolution)
+        private RenderOptions CreateRenderOptions(IGraphicsTarget grTarget, float minResolution)
         {
             RenderOptions renderOptions = new RenderOptions();
             renderOptions.minResolution = minResolution;
 
-            if (Printing)
+            if (AreaPatternsElementByElement)
+                renderOptions.usePatternBitmaps = false;
+            else if (GraphicsUtil.PatternBrushesAreVectors(grTarget))
+                renderOptions.usePatternBitmaps = true;
+            else if (Printing)
                 renderOptions.usePatternBitmaps = false;   // don't use pattern bitmaps when printing, they cause some problems in some printer drivers and we want best quality.
             else if (antialiased && minResolution < 0.007F)  // use pattern bitmaps unless high quality and zoomed in very far
                 renderOptions.usePatternBitmaps = false;

@@ -4,7 +4,8 @@
     Dialog for exporting courses as SVG files (A-1, L-7). Laid out as the Create
     PDF Files dialog is, whose strings it shares where it asks the same:
     CourseSelector on the left, an Appearance group (page handling, include base
-    map, color model, optional merge-parts checkbox), a Files group (which pages
+    map, color model, optional merge-parts checkbox, and whether area patterns
+    and hatchings are drawn as separate shapes), a Files group (which pages
     go in each file, and the filename prefix), a Bitmaps group (how the
     map's bitmaps reach the files, their JPEG quality, and compression), and a
     Folder group (3 radio buttons + folder picker).
@@ -23,8 +24,8 @@
         x:DataType="vm:CreateSvgCoursesDialogViewModel"
         Title="{resx:Localize CreateSvgCourses_Text}"
         Icon="/Assets/transparent.ico"
-        d:DesignWidth="640" d:DesignHeight="580"
-        Width="640" Height="580"
+        d:DesignWidth="640" d:DesignHeight="610"
+        Width="640" Height="610"
         CanResize="True"
         CanMinimize="False"
         CanMaximize="False"
@@ -124,6 +125,14 @@
                                   Content="{resx:Localize CreatePdfCourses_checkBoxMergeParts_Text}"
                                   IsChecked="{Binding MergeParts, Mode=TwoWay}"
                                   IsVisible="{Binding ShowMergeParts}"
+                                  Margin="0,4,0,0"/>
+
+                        <!-- "Draw area patterns as separate shapes": every area pattern written element by
+                             element and every hatching line by line, as PDF export draws
+                             them, rather than as pattern fills. -->
+                        <CheckBox x:Name="checkBoxDrawAreaPatternsAsSeparateShapes"
+                                  Content="{resx:Localize CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text}"
+                                  IsChecked="{Binding DrawAreaPatternsAsSeparateShapes, Mode=TwoWay}"
                                   Margin="0,4,0,0"/>
                     </StackPanel>
                 </HeaderedContentControl>

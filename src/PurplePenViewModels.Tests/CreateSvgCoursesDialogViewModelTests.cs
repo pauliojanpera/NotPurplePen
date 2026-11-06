@@ -1,7 +1,8 @@
 // CreateSvgCoursesDialogViewModelTests.cs
 //
 // Tests that the Create SVG Files dialog offers PDF export's choice of which
-// pages go in each file (L-7).
+// pages go in each file (L-7), and the choice of drawing area patterns as
+// separate shapes (S-7).
 
 using NUnit.Framework;
 using PurplePen;
@@ -10,9 +11,9 @@ using PurplePen.ViewModels;
 namespace PurplePenViewModels.Tests
 {
     /// <summary>
-    /// Tests the file choice of the Create SVG Files dialog's view model: its index numbers the choices as
-    /// <see cref="CoursePdfSettings.PdfFileCreation"/> does, as the Create PDF Files dialog's does, and it goes through
-    /// the settings both ways.
+    /// Tests the choices of the Create SVG Files dialog's view model. The file choice's index numbers the choices as
+    /// <see cref="CoursePdfSettings.PdfFileCreation"/> does, as the Create PDF Files dialog's does; it and the choice of
+    /// drawing area patterns as separate shapes go through the settings both ways.
     /// </summary>
     [TestFixture]
     public class CreateSvgCoursesDialogViewModelTests
@@ -46,6 +47,38 @@ namespace PurplePenViewModels.Tests
             CreateSvgCoursesDialogViewModel chosen = new CreateSvgCoursesDialogViewModel { Settings = new CourseSvgSettings() };
             chosen.FileFormatIndex = index;
             Assert.That(chosen.Settings.FileCreation, Is.EqualTo(fileCreation));
+        }
+
+        /// <summary>
+        /// The dialog starts with the settings' default: area patterns written as pattern fills, not as separate shapes.
+        /// </summary>
+        [Test]
+        public void PatternsStartAsPatternFills()
+        {
+            CreateSvgCoursesDialogViewModel viewModel = new CreateSvgCoursesDialogViewModel { Settings = new CourseSvgSettings() };
+            Assert.That(viewModel.DrawAreaPatternsAsSeparateShapes, Is.False);
+            Assert.That(viewModel.Settings.DrawAreaPatternsAsSeparateShapes, Is.False);
+        }
+
+        /// <summary>
+        /// The choice of drawing area patterns as separate shapes in the settings seeds the dialog's check box, and the
+        /// box's state goes back into the settings.
+        /// </summary>
+        /// <param name="drawAreaPatternsAsSeparateShapes">Whether area patterns are drawn as separate shapes.</param>
+        [TestCase(false)]
+        [TestCase(true)]
+        public void TheChoiceOfDrawingAreaPatternsAsSeparateShapesGoesThroughTheSettings(bool drawAreaPatternsAsSeparateShapes)
+        {
+            CreateSvgCoursesDialogViewModel seeded = new CreateSvgCoursesDialogViewModel {
+                Settings = new CourseSvgSettings { DrawAreaPatternsAsSeparateShapes = drawAreaPatternsAsSeparateShapes },
+            };
+            Assert.That(seeded.DrawAreaPatternsAsSeparateShapes, Is.EqualTo(drawAreaPatternsAsSeparateShapes));
+
+            CreateSvgCoursesDialogViewModel chosen = new CreateSvgCoursesDialogViewModel {
+                Settings = new CourseSvgSettings { DrawAreaPatternsAsSeparateShapes = !drawAreaPatternsAsSeparateShapes },
+            };
+            chosen.DrawAreaPatternsAsSeparateShapes = drawAreaPatternsAsSeparateShapes;
+            Assert.That(chosen.Settings.DrawAreaPatternsAsSeparateShapes, Is.EqualTo(drawAreaPatternsAsSeparateShapes));
         }
     }
 }

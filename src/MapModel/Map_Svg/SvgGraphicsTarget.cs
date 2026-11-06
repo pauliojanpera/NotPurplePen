@@ -617,6 +617,13 @@ namespace PurplePen.MapModel
             get { return true; }
         }
 
+        // Pattern brushes are vectors: a pattern's tile holds what is drawn into it as the document's other drawing does,
+        // so the map draws its regular area patterns with pattern brushes, however fine the tile (S-7).
+        public bool PatternBrushesAreVectors
+        {
+            get { return true; }
+        }
+
         // Create a pattern brush: return the target that draws its tile, whose middle is the origin of the tile's
         // coordinates, and whose FinishBrush makes it a brush of this target that repeats the tile across the user space
         // of what it paints, turned by an angle (D-7). The size of the bitmap, which a raster target draws the tile into,

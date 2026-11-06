@@ -38,6 +38,12 @@ namespace Map_Svg.Tests
             return ComparisonCase.MakeMapAreaCases();
         }
 
+        // Make the cases that check where pattern fills put an area's pattern and its hatchings.
+        private static IEnumerable<ComparisonCase> AreaPatternCases()
+        {
+            return ComparisonCase.MakeAreaPatternCases();
+        }
+
         [TestCaseSource(nameof(DrawingCases))]
         public async Task Drawing(ComparisonCase comparisonCase)
         {
@@ -46,6 +52,12 @@ namespace Map_Svg.Tests
 
         [TestCaseSource(nameof(MapAreaCases))]
         public async Task MapArea(ComparisonCase comparisonCase)
+        {
+            await CompareWithReferenceAsync(comparisonCase);
+        }
+
+        [TestCaseSource(nameof(AreaPatternCases))]
+        public async Task AreaPattern(ComparisonCase comparisonCase)
         {
             await CompareWithReferenceAsync(comparisonCase);
         }
