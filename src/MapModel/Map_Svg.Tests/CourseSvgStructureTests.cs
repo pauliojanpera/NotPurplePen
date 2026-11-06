@@ -15,10 +15,11 @@ namespace Map_Svg.Tests
     // Walks the files the SVG export writes of the baseline tests' reference events (V-7): every drawn element traces
     // through its run and symbol group to its object, symbol, color and map in the tables of the metadata; an object
     // drawn in several colors carries one number in all its runs, numbers are given in the order the objects are first
-    // drawn, and ids are unique and every reference resolves; and every course object traces to its course and its
-    // controls (M-5 to M-7, L-5, CD-1, CD-2). An object of the map's image or layout layer, which the map draws in
-    // colors of the object's own rather than the color table's, sits under its symbol's group outside any run, and its
-    // symbol's record names no colors.
+    // drawn, and ids are unique and every reference resolves; every map names the views of the pages that show it; and
+    // the course and its controls carry their ids and kinds in the event's .ppen file, and every course object traces
+    // to its course and its controls (M-5 to M-7, L-5, CD-1, CD-2). An object of the map's image or layout layer, which
+    // the map draws in colors of the object's own rather than the color table's, sits under its symbol's group outside
+    // any run, and its symbol's record names no colors.
     [TestFixture, NonParallelizable, SetCulture("en-US"), SetUICulture("en-US")]
     public class CourseSvgStructureTests
     {
@@ -44,6 +45,14 @@ namespace Map_Svg.Tests
 
         // A reference to an id in an attribute's value, as url(#id).
         private static readonly Regex UrlReference = new Regex(@"url\(#([^)]+)\)", RegexOptions.CultureInvariant);
+
+        // The kinds of control, as a .ppen file names them (CD-1).
+        private static readonly HashSet<string> ControlKinds = new HashSet<string>(StringComparer.Ordinal) {
+            "normal", "start", "finish", "crossing-point", "map-exchange", "map-issue",
+        };
+
+        // An id of a .ppen file: a whole number above zero.
+        private static readonly Regex PpenId = new Regex("^[1-9][0-9]*$", RegexOptions.CultureInvariant);
 
         // Export courses of an event as the baseline tests do, and walk each file the export writes.
         // eventName: the name the event's baselines go under.
@@ -102,6 +111,19 @@ namespace Map_Svg.Tests
                 else
                     maps.Add(map.Number, map);
             }
+
+            // Each map names the views of the pages that show it, and every page is shown by some map's view (CD-1).
+            HashSet<string> views = new HashSet<string>(root.Elements(Svg + "view").Select(view => (string)view.Attribute("id")), StringComparer.Ordinal);
+            HashSet<string> viewsNamed = new HashSet<string>(StringComparer.Ordinal);
+            foreach (MapRecord map in maps.Values) {
+                foreach (string view in map.Views) {
+                    viewsNamed.Add(view);
+                    if (!views.Contains(view))
+                        problems.Add("map " + map.Number + " names the view " + view + ", which no page has");
+                }
+            }
+            foreach (string view in views.Where(view => !viewsNamed.Contains(view)))
+                problems.Add("the page of view " + view + " shows no map");
 
             // Every drawn element, outside the definitions of clips and the like.
             Dictionary<string, DrawnObject> objects = new Dictionary<string, DrawnObject>(StringComparer.Ordinal);
@@ -182,10 +204,20 @@ namespace Map_Svg.Tests
             // Every course object traces to its course and controls (CD-1, CD-2), and every object of a course's map
             // is described.
             foreach (MapRecord map in maps.Values.Where(record => record.Course != null)) {
+                // A course, unless it is a page of all controls, and each of its controls carry their ids in the event's
+                // .ppen file, and each control its kind as the file names it (CD-1).
+                string courseId = (string)map.Course.Attribute("id");
+                if (courseId != null && !PpenId.IsMatch(courseId))
+                    problems.Add("map " + map.Number + "'s course has the id " + courseId);
                 List<XElement> controls = map.Course.Elements(Npp + "control").ToList();
                 for (int i = 0; i < controls.Count; ++i) {
-                    if ((string)controls[i].Attribute("n") != (i + 1).ToString(CultureInfo.InvariantCulture))
-                        problems.Add("control " + (i + 1).ToString(CultureInfo.InvariantCulture) + " of map " + map.Number + "'s course is numbered " + (string)controls[i].Attribute("n"));
+                    string place = (i + 1).ToString(CultureInfo.InvariantCulture);
+                    if ((string)controls[i].Attribute("n") != place)
+                        problems.Add("control " + place + " of map " + map.Number + "'s course is numbered " + (string)controls[i].Attribute("n"));
+                    if (!PpenId.IsMatch((string)controls[i].Attribute("id") ?? ""))
+                        problems.Add("control " + place + " of map " + map.Number + "'s course has the id " + ((string)controls[i].Attribute("id") ?? "none"));
+                    if (!ControlKinds.Contains((string)controls[i].Attribute("kind") ?? ""))
+                        problems.Add("control " + place + " of map " + map.Number + "'s course is of the kind " + ((string)controls[i].Attribute("kind") ?? "none"));
                 }
                 foreach (KeyValuePair<string, XElement> described in map.Objects) {
                     DrawnObject drawn;
@@ -238,11 +270,13 @@ namespace Map_Svg.Tests
                 drawn.Colors.Add(color);
         }
 
-        // The record of a map in the metadata: its number, the positions of its colors, its symbols with the colors
-        // each is drawn in, its course if it draws one, and the course objects it describes, by number.
+        // The record of a map in the metadata: its number, the views of the pages that show it, the positions of its
+        // colors, its symbols with the colors each is drawn in, its course if it draws one, and the course objects it
+        // describes, by number.
         private sealed class MapRecord
         {
             public readonly string Number;
+            public readonly string[] Views;
             public readonly HashSet<string> Colors = new HashSet<string>(StringComparer.Ordinal);
             public readonly Dictionary<string, HashSet<string>> Symbols = new Dictionary<string, HashSet<string>>(StringComparer.Ordinal);
             public readonly XElement Course;
@@ -253,6 +287,7 @@ namespace Map_Svg.Tests
             public MapRecord(XElement element)
             {
                 Number = (string)element.Attribute("n");
+                Views = ((string)element.Attribute("views") ?? "").Split(' ', StringSplitOptions.RemoveEmptyEntries);
                 foreach (XElement color in element.Elements(Npp + "color"))
                     Colors.Add((string)color.Attribute("position"));
                 foreach (XElement symbol in element.Elements(Npp + "symbol"))

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 using PurplePen.Graphics2D;
 
@@ -11,6 +12,9 @@ namespace PurplePen.MapModel
     {
         // What the part holds; the group is written as the part's definition, with no attribute but its id.
         public readonly SvgGroup Content = new SvgGroup();
+
+        // The maps the part holds, in the order they first begin within it.
+        public readonly List<SvgMapRecord> Maps = new List<SvgMapRecord>();
     }
 
     // A clip: a path in steps, filled under its rule, that a group or a page clips to (D-2).
@@ -649,8 +653,8 @@ namespace PurplePen.MapModel
             text.Append("<style>\n").Append(fontRules).Append("</style>\n");
         }
 
-        // Write the metadata: the version of its format and the record of each map, with where it lies in the real world
-        // and the tables of its colors and symbols (F-3, G-1, G-2, M-7).
+        // Write the metadata: the version of its format and the record of each map, with the views of the pages that
+        // show it, where it lies in the real world and the tables of its colors and symbols (F-3, G-1, G-2, M-7, CD-1).
         // text: the text to append to.
         private void WriteMetadata(StringBuilder text)
         {
@@ -658,6 +662,9 @@ namespace PurplePen.MapModel
             foreach (SvgMapRecord map in Maps) {
                 text.Append("<npp:map n=\"").Append(SvgNumbers.FormatInteger(map.Number)).Append("\" label=\"")
                     .Append(EscapeAttribute(map.Label)).Append('"');
+                string views = string.Join(" ", pages.Where(page => page.Parts.Any(part => part.Maps.Contains(map))).Select(page => page.ViewId));
+                if (views.Length > 0)
+                    text.Append(" views=\"").Append(views).Append('"');
                 if (!map.HasContent) {
                     text.Append("/>\n");
                     continue;
@@ -728,14 +735,16 @@ namespace PurplePen.MapModel
             text.Append("/>\n");
         }
 
-        // Write the record of the course a map draws: its name, part, variation and print scale, and its controls in the
-        // order the course visits them, each with its place, code, kind and position in steps of map, as the drawing
-        // gives coordinates (CD-1).
+        // Write the record of the course a map draws, in the terms of the event's .ppen file: its id, name, part, variation
+        // and print scale, and its controls in the order the course visits them, each with its place, its id, code and
+        // kind, and its position in steps of map, as the drawing gives coordinates (CD-1).
         // text: the text to append to.
         // course: the course.
         private static void WriteCourseRecord(StringBuilder text, CourseRecord course)
         {
             text.Append("<npp:course");
+            if (!string.IsNullOrEmpty(course.Id))
+                text.Append(" id=\"").Append(EscapeAttribute(course.Id)).Append('"');
             if (!string.IsNullOrEmpty(course.Name))
                 text.Append(" name=\"").Append(EscapeAttribute(course.Name)).Append('"');
             if (course.Part > 0)
@@ -743,7 +752,7 @@ namespace PurplePen.MapModel
             if (!string.IsNullOrEmpty(course.Variation))
                 text.Append(" variation=\"").Append(EscapeAttribute(course.Variation)).Append('"');
             if (course.PrintScale > 0)
-                text.Append(" scale=\"").Append(SvgNumbers.FormatShortest(course.PrintScale)).Append('"');
+                text.Append(" print-scale=\"").Append(SvgNumbers.FormatShortest(course.PrintScale)).Append('"');
             if (course.Controls.Count == 0) {
                 text.Append("/>\n");
                 return;
@@ -752,6 +761,8 @@ namespace PurplePen.MapModel
             for (int index = 0; index < course.Controls.Count; ++index) {
                 CourseControlRecord control = course.Controls[index];
                 text.Append("<npp:control n=\"").Append(SvgNumbers.FormatInteger(index + 1)).Append('"');
+                if (!string.IsNullOrEmpty(control.Id))
+                    text.Append(" id=\"").Append(EscapeAttribute(control.Id)).Append('"');
                 if (!string.IsNullOrEmpty(control.Code))
                     text.Append(" code=\"").Append(EscapeAttribute(control.Code)).Append('"');
                 if (!string.IsNullOrEmpty(control.Kind))

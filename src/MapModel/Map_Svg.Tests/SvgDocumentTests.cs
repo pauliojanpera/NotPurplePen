@@ -86,7 +86,7 @@ namespace Map_Svg.Tests
                 lines.Add("</style>");
             }
             lines.AddRange(new string[] {
-                "<metadata>", "<npp:document version=\"1\">", "<npp:map n=\"1\" label=\"map\"/>", "</npp:document>", "</metadata>",
+                "<metadata>", "<npp:document version=\"1\">", "<npp:map n=\"1\" label=\"map\" views=\"page\"/>", "</npp:document>", "</metadata>",
                 InkscapePageOf100By50[0], InkscapePageOf100By50[1], InkscapePageOf100By50[2],
                 "<defs>"
             });
@@ -118,7 +118,7 @@ namespace Map_Svg.Tests
                 lines.Add("</style>");
             }
             lines.AddRange(new string[] {
-                "<metadata>", "<npp:document version=\"1\">", "<npp:map n=\"1\" label=\"map\"/>", "</npp:document>", "</metadata>",
+                "<metadata>", "<npp:document version=\"1\">", "<npp:map n=\"1\" label=\"map\" views=\"page\"/>", "</npp:document>", "</metadata>",
                 InkscapePageOf100By50[0], InkscapePageOf100By50[1], InkscapePageOf100By50[2],
                 "<defs>", "<clipPath id=\"" + clipId + "\">", "<path d=\"M0 0h100000v50000H0z\"/>", "</clipPath>", "<g id=\"a\">"
             });
@@ -157,7 +157,7 @@ namespace Map_Svg.Tests
                 RootOf100By50,
                 "<metadata>",
                 "<npp:document version=\"1\">",
-                "<npp:map n=\"1\" label=\"map\"/>",
+                "<npp:map n=\"1\" label=\"map\" views=\"page\"/>",
                 "</npp:document>",
                 "</metadata>",
                 InkscapePageOf100By50[0],
@@ -480,6 +480,31 @@ namespace Map_Svg.Tests
                 StringAssert.Contains("<view id=\"Course_5-2\" viewBox=\"0 0 215.9 279.4\"/>\n<g ", document);
                 StringAssert.Contains("<view id=\"Course_5-2_2\" viewBox=\"225.9 0 279.4 215.9\"/>\n<g ", document);
                 StringAssert.Contains("<view id=\"_1_2_\" viewBox=\"515.3 0 100 50\"/>\n<g ", document);
+            }
+        }
+
+        [Test]
+        public void EachMapRecordNamesTheViewsOfThePagesThatShowIt()
+        {
+            using (Svg_GraphicsTarget target = new Svg_GraphicsTarget(DefaultColorConverter.Instance, true))
+            using (Matrix mapToPage = new Matrix()) {
+                // A base map in a part of its own, two courses' maps in parts of their own, and a map in no page's part.
+                object[] parts = { new object(), new object(), new object(), new object() };
+                string[] labels = { "base", "Course 1", "Course 2", "unshown" };
+                for (int index = 0; index < parts.Length; ++index) {
+                    target.BeginPart(parts[index]);
+                    target.BeginMap(new object(), labels[index]);
+                    target.EndMap();
+                    target.EndPart();
+                }
+                target.AddPage(new SizeF(100, 50), new RectangleF(0, 0, 100, 50), mapToPage, new object[] { parts[0], parts[1] }, "Course 1");
+                target.AddPage(new SizeF(100, 50), new RectangleF(0, 0, 100, 50), mapToPage, new object[] { parts[0], parts[2] }, "Course 2");
+                target.AddPage(new SizeF(100, 50), new RectangleF(0, 0, 100, 50), mapToPage, new object[] { parts[0], parts[2] }, "Course 2");
+
+                StringAssert.Contains("<npp:map n=\"1\" label=\"base\" views=\"Course_1 Course_2 Course_2_2\"/>\n" +
+                                      "<npp:map n=\"2\" label=\"Course 1\" views=\"Course_1\"/>\n" +
+                                      "<npp:map n=\"3\" label=\"Course 2\" views=\"Course_2 Course_2_2\"/>\n" +
+                                      "<npp:map n=\"4\" label=\"unshown\"/>\n", target.FinishDocument());
             }
         }
 
@@ -837,7 +862,7 @@ namespace Map_Svg.Tests
             });
             string expected = string.Join("\n", new string[] {
                 RootOf100By50,
-                "<metadata>", "<npp:document version=\"1\">", "<npp:map n=\"1\" label=\"map\"/>", "</npp:document>", "</metadata>",
+                "<metadata>", "<npp:document version=\"1\">", "<npp:map n=\"1\" label=\"map\" views=\"page\"/>", "</npp:document>", "</metadata>",
                 InkscapePageOf100By50[0], InkscapePageOf100By50[1], InkscapePageOf100By50[2],
                 "<defs>",
                 CmykProfileLine,
@@ -954,7 +979,7 @@ namespace Map_Svg.Tests
                 target.EndColorRun();
             });
             StringAssert.Contains(string.Join("\n", new string[] {
-                "<npp:map n=\"1\" label=\"map\">",
+                "<npp:map n=\"1\" label=\"map\" views=\"page\">",
                 "<npp:color position=\"3\" name=\"Brown\" cmyk=\"0,.56,1,.18\"/>",
                 "<npp:color position=\"5\" name=\"Black &amp; &quot;key&quot;\" cmyk=\"0,0,0,1\" overprint=\"1\"/>",
                 "<npp:symbol n=\"1\" id=\"101.0\" name=\"Contour\" colors=\"3 5\"/>",
@@ -1166,7 +1191,7 @@ namespace Map_Svg.Tests
         [Test]
         public void AGeoreferencedMapRecordsTheTransformFromStepsToTheRealWorldAndEveryIdentification()
         {
-            StringAssert.Contains("<npp:map n=\"1\" label=\"map\">\n" + Tm35finRecord + "</npp:map>\n",
+            StringAssert.Contains("<npp:map n=\"1\" label=\"map\" views=\"page\">\n" + Tm35finRecord + "</npp:map>\n",
                                   WriteGeoreferencedPage(target => { }, tm35finGeoreference));
         }
 
@@ -1194,15 +1219,15 @@ namespace Map_Svg.Tests
 
             // A transform that takes a step of map to a unit of the real world moves nothing, so it is left out (S-9).
             MapGeoreference stepsAsTheyAre = new MapGeoreference(1000, 0, 0, 1000, 0, 0, 0, null, 0);
-            StringAssert.Contains("<npp:map n=\"1\" label=\"map\">\n<npp:georeference/>\n</npp:map>\n",
+            StringAssert.Contains("<npp:map n=\"1\" label=\"map\" views=\"page\">\n<npp:georeference/>\n</npp:map>\n",
                                   WriteGeoreferencedPage(target => { }, stepsAsTheyAre));
-            StringAssert.Contains("<npp:map n=\"1\" label=\"map\"/>\n", WriteGeoreferencedPage(target => { }));
+            StringAssert.Contains("<npp:map n=\"1\" label=\"map\" views=\"page\"/>\n", WriteGeoreferencedPage(target => { }));
         }
 
         [Test]
         public void AGeoreferenceComesBeforeTheTablesOfItsMap()
         {
-            StringAssert.Contains("<npp:map n=\"1\" label=\"map\">\n" + Tm35finRecord +
+            StringAssert.Contains("<npp:map n=\"1\" label=\"map\" views=\"page\">\n" + Tm35finRecord +
                                   "<npp:color position=\"2\" name=\"Black\" cmyk=\"0,0,0,1\"/>\n" +
                                   "<npp:symbol n=\"1\" id=\"101.0\" name=\"Contour\" colors=\"2\"/>\n</npp:map>\n",
                                   WriteGeoreferencedPage(target => DrawRunOfTwoObjects(target), tm35finGeoreference));
@@ -1211,7 +1236,7 @@ namespace Map_Svg.Tests
         [Test]
         public void AGeoreferenceGoesToTheMapItsKeyNamesAndReplacesAnEarlierOne()
         {
-            StringAssert.Contains("<npp:map n=\"1\" label=\"map\">\n" + Tm35finRecord + "</npp:map>\n",
+            StringAssert.Contains("<npp:map n=\"1\" label=\"map\" views=\"page\">\n" + Tm35finRecord + "</npp:map>\n",
                                   WriteGeoreferencedPage(target => { }, new MapGeoreference(10, 0, 0, 10, 0, 0, 3067, null, 0), tm35finGeoreference));
 
             using (Svg_GraphicsTarget target = new Svg_GraphicsTarget(DefaultColorConverter.Instance, true))
@@ -1225,7 +1250,7 @@ namespace Map_Svg.Tests
                 target.EndMap();
                 target.EndPart();
                 target.AddPage(new SizeF(100, 50), new RectangleF(0, 0, 100, 50), mapToPage, new object[] { part }, null);
-                StringAssert.Contains("<npp:map n=\"1\" label=\"base\">\n" + Tm35finRecord + "</npp:map>\n<npp:map n=\"2\" label=\"course\"/>\n",
+                StringAssert.Contains("<npp:map n=\"1\" label=\"base\" views=\"page\">\n" + Tm35finRecord + "</npp:map>\n<npp:map n=\"2\" label=\"course\" views=\"page\"/>\n",
                                       target.FinishDocument());
             }
         }

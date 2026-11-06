@@ -5,18 +5,18 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 </style>
 <metadata>
 <npp:document version="1">
-<npp:map n="1" label="LincolnNov12.gif"/>
-<npp:map n="2" label="All controls">
+<npp:map n="1" label="LincolnNov12.gif" views="All_controls"/>
+<npp:map n="2" label="All controls" views="All_controls">
 <npp:color position="2" name="Lower purple" cmyk=".35,.85,0,0"/>
 <npp:symbol n="1" id="701" name="Start" colors="2"/>
 <npp:symbol n="2" id="702" name="Control point" colors="2"/>
 <npp:symbol n="3" id="706" name="Finish" colors="2"/>
 <npp:symbol n="4" id="720.0" name="Control code" colors="2"/>
-<npp:course name="All controls" scale="5000">
-<npp:control n="1" kind="start" x="140207" y="57447"/>
-<npp:control n="2" code="31" kind="control" x="127508" y="110638"/>
-<npp:control n="3" code="32" kind="control" x="69602" y="122359"/>
-<npp:control n="4" kind="finish" x="134321" y="35896"/>
+<npp:course name="All controls" print-scale="5000">
+<npp:control n="1" id="1" kind="start" x="140207" y="57447"/>
+<npp:control n="2" id="2" code="31" kind="normal" x="127508" y="110638"/>
+<npp:control n="3" id="3" code="32" kind="normal" x="69602" y="122359"/>
+<npp:control n="4" id="5" kind="finish" x="134321" y="35896"/>
 </npp:course>
 <npp:object n="1" kind="start" controls="1"/>
 <npp:object n="2" kind="control" controls="2"/>

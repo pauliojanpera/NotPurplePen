@@ -5,7 +5,7 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 </style>
 <metadata>
 <npp:document version="1">
-<npp:map n="1" label="overprint.ocd">
+<npp:map n="1" label="overprint.ocd" views="Course_12">
 <npp:color position="6" name="Yellow 50%" cmyk="0,.14,.4,0"/>
 <npp:color position="15" name="Black" cmyk="0,0,0,1" overprint="1"/>
 <npp:color position="17" name="Green" cmyk=".71,0,.91,0" overprint="1"/>
@@ -21,17 +21,17 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <npp:symbol n="7" id="302.1" name="Pond" colors="22"/>
 <npp:symbol n="8" id="302.0" name="Pond" colors="23"/>
 </npp:map>
-<npp:map n="2" label="Course 12">
+<npp:map n="2" label="Course 12" views="Course_12">
 <npp:color position="2" name="Lower purple" cmyk="0,1,0,0" overprint="1"/>
 <npp:symbol n="1" id="701" name="Start" colors="2"/>
 <npp:symbol n="2" id="704" name="Line" colors="2"/>
 <npp:symbol n="3" id="702" name="Control point" colors="2"/>
 <npp:symbol n="4" id="706" name="Finish" colors="2"/>
 <npp:symbol n="5" id="703.0" name="Control number" colors="2"/>
-<npp:course name="Course 12" scale="4000">
-<npp:control n="1" kind="start" x="-6088" y="-1411"/>
-<npp:control n="2" code="31" kind="control" x="-1518" y="3551"/>
-<npp:control n="3" kind="finish" x="4817" y="-2180"/>
+<npp:course id="1" name="Course 12" print-scale="4000">
+<npp:control n="1" id="1" kind="start" x="-6088" y="-1411"/>
+<npp:control n="2" id="2" code="31" kind="normal" x="-1518" y="3551"/>
+<npp:control n="3" id="3" kind="finish" x="4817" y="-2180"/>
 </npp:course>
 <npp:object n="9" kind="start" controls="1"/>
 <npp:object n="10" kind="leg" controls="1 2"/>

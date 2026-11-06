@@ -5,22 +5,22 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 </style>
 <metadata>
 <npp:document version="1">
-<npp:map n="1" label="testproj2.ocd">
+<npp:map n="1" label="testproj2.ocd" views="All_controls">
 <npp:georeference transform="translate(9000 7000)rotate(-15.5)scale(.015)" epsg="27700" proj4="+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +towgs84=446.448,-125.157,542.06,0.15,0.247,0.842,-20.489 +units=m +no_defs" ocad-grid-zone="5000"/>
 <npp:color position="30" name="All color separations" cmyk="1,1,1,1"/>
 <npp:symbol n="1" id="602.0" name="Registration mark" colors="30"/>
 </npp:map>
-<npp:map n="2" label="All controls">
+<npp:map n="2" label="All controls" views="All_controls">
 <npp:color position="2" name="Lower purple" cmyk=".3,1,0,0"/>
 <npp:symbol n="1" id="702" name="Control point" colors="2"/>
 <npp:symbol n="2" id="720.0" name="Control code" colors="2"/>
-<npp:course name="All controls" scale="15000">
-<npp:control n="1" code="31" kind="control" x="-34752" y="6089"/>
-<npp:control n="2" code="32" kind="control" x="-2914" y="26873"/>
-<npp:control n="3" code="33" kind="control" x="11965" y="10563"/>
-<npp:control n="4" code="34" kind="control" x="47246" y="-11433"/>
-<npp:control n="5" code="35" kind="control" x="-17475" y="-29757"/>
-<npp:control n="6" code="36" kind="control" x="12686" y="-18480"/>
+<npp:course name="All controls" print-scale="15000">
+<npp:control n="1" id="1" code="31" kind="normal" x="-34752" y="6089"/>
+<npp:control n="2" id="2" code="32" kind="normal" x="-2914" y="26873"/>
+<npp:control n="3" id="3" code="33" kind="normal" x="11965" y="10563"/>
+<npp:control n="4" id="4" code="34" kind="normal" x="47246" y="-11433"/>
+<npp:control n="5" id="5" code="35" kind="normal" x="-17475" y="-29757"/>
+<npp:control n="6" id="6" code="36" kind="normal" x="12686" y="-18480"/>
 </npp:course>
 <npp:object n="7" kind="control" controls="1"/>
 <npp:object n="8" kind="control" controls="2"/>

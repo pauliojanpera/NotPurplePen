@@ -831,22 +831,26 @@ namespace PurplePen
             }
         }
 
+        // The name a kind of control has in a .ppen file, as the kind attribute of its control element.
+        // kind: the kind of control.
+        public static string KindText(ControlPointKind kind)
+        {
+            switch (kind) {
+                case ControlPointKind.Normal: return "normal";
+                case ControlPointKind.Start: return "start";
+                case ControlPointKind.MapIssue: return "map-issue";
+                case ControlPointKind.Finish: return "finish";
+                case ControlPointKind.CrossingPoint: return "crossing-point";
+                case ControlPointKind.MapExchange: return "map-exchange";
+                default: Debug.Fail("bad kind"); return "none";
+            }
+        }
+
         public override void WriteAttributesAndContent(System.Xml.XmlTextWriter xmloutput)
         {
             // Write attributes
 
-            string kindText;
-            switch (kind) {
-                case ControlPointKind.Normal: kindText = "normal"; break;
-                case ControlPointKind.Start: kindText = "start"; break;
-                case ControlPointKind.MapIssue: kindText = "map-issue"; break;
-                case ControlPointKind.Finish: kindText = "finish"; break;
-                case ControlPointKind.CrossingPoint: kindText = "crossing-point"; break;
-                case ControlPointKind.MapExchange: kindText = "map-exchange"; break;
-                default: Debug.Fail("bad kind"); kindText = "none"; break;
-            }
-
-            xmloutput.WriteAttributeString("kind", kindText);
+            xmloutput.WriteAttributeString("kind", KindText(kind));
 
             if (kind == ControlPointKind.CrossingPoint) {
                 xmloutput.WriteAttributeString("orientation", XmlConvert.ToString(orientation));

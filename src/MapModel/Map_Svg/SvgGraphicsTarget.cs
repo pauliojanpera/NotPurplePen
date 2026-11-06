@@ -255,6 +255,9 @@ namespace PurplePen.MapModel
         // The key of the object begun and not yet ended, or null for none.
         private object openObjectKey;
 
+        // The part begun last, which the maps begun within it are recorded in.
+        private SvgPart openPart;
+
         // The parts and the maps, by their keys.
         private readonly Dictionary<object, SvgPart> partsByKey = new Dictionary<object, SvgPart>(new IdentityComparer<object>());
         private readonly Dictionary<object, SvgMapRecord> mapsByKey = new Dictionary<object, SvgMapRecord>(new IdentityComparer<object>());
@@ -353,6 +356,7 @@ namespace PurplePen.MapModel
             SvgPart part = new SvgPart();
             partsByKey.Add(partKey, part);
             document.Parts.Add(part);
+            openPart = part;
             antiAlias = true;
             openGroups.Push(new OpenGroup(Opener.BeginPart, part.Content, antiAlias, null));
         }
@@ -376,6 +380,8 @@ namespace PurplePen.MapModel
                 mapsByKey.Add(mapKey, map);
                 document.Maps.Add(map);
             }
+            if (!openPart.Maps.Contains(map))
+                openPart.Maps.Add(map);
             Open(Opener.BeginMap, new SvgGroup { Identity = "data-m=\"" + SvgNumbers.FormatInteger(map.Number) + "\"" }, map);
         }
 

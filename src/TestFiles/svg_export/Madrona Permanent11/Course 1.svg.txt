@@ -7,7 +7,7 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 </style>
 <metadata>
 <npp:document version="1">
-<npp:map n="1" label="Madrona.11.ocd">
+<npp:map n="1" label="Madrona.11.ocd" views="Course_1">
 <npp:georeference transform="translate(548160 5292480)rotate(-16.01)scale(.0024)" epsg="32610" proj4="+proj=utm +zone=10 +datum=WGS84 +units=m +no_defs" ocad-grid-zone="2010"/>
 <npp:color position="101" name="Red" cmyk="0,1,1,0"/>
 <npp:color position="128" name="Yellow 50%" cmyk="0,.14,.4,0"/>
@@ -87,21 +87,21 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <npp:symbol n="59" id="901.1" name="Text 18 pt" colors="159"/>
 <npp:symbol n="60" id="902.4" name="Text 8 pt" colors="159"/>
 </npp:map>
-<npp:map n="2" label="Course 1">
+<npp:map n="2" label="Course 1" views="Course_1">
 <npp:color position="2" name="Lower purple" cmyk="0,1,0,0"/>
 <npp:symbol n="1" id="701" name="Start" colors="2"/>
 <npp:symbol n="2" id="704" name="Line" colors="2"/>
 <npp:symbol n="3" id="702" name="Control point" colors="2"/>
 <npp:symbol n="4" id="706" name="Finish" colors="2"/>
 <npp:symbol n="5" id="703.0" name="Control number" colors="2"/>
-<npp:course name="Course 1" scale="2400">
-<npp:control n="1" kind="start" x="5348" y="-35507"/>
-<npp:control n="2" code="16" kind="control" x="-33954" y="-35037"/>
-<npp:control n="3" code="15" kind="control" x="-35303" y="-53796"/>
-<npp:control n="4" code="14" kind="control" x="-77730" y="-57828"/>
-<npp:control n="5" code="12" kind="control" x="-65034" y="-89884"/>
-<npp:control n="6" code="11" kind="control" x="-23569" y="-68610"/>
-<npp:control n="7" kind="finish" x="5348" y="-35170"/>
+<npp:course id="1" name="Course 1" print-scale="2400">
+<npp:control n="1" id="19" kind="start" x="5348" y="-35507"/>
+<npp:control n="2" id="16" code="16" kind="normal" x="-33954" y="-35037"/>
+<npp:control n="3" id="15" code="15" kind="normal" x="-35303" y="-53796"/>
+<npp:control n="4" id="14" code="14" kind="normal" x="-77730" y="-57828"/>
+<npp:control n="5" id="12" code="12" kind="normal" x="-65034" y="-89884"/>
+<npp:control n="6" id="11" code="11" kind="normal" x="-23569" y="-68610"/>
+<npp:control n="7" id="20" kind="finish" x="5348" y="-35170"/>
 </npp:course>
 <npp:object n="697" kind="start" controls="1"/>
 <npp:object n="698" kind="leg" controls="1 2"/>
