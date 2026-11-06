@@ -216,10 +216,10 @@ Two undertakings to return to once the SVG work is done (@Pauli, Nov 6).
     - SVG as the format a standalone flattener reads and writes;
     - a shared test set that any port must pass;
     - a licence that GPL-2.0-or-later programs can take in.
-  - The language and the geometry library are to be weighed:
-    - Clipper2 (C++, C# and Delphi by its author, with ports for Python, JavaScript and others; Boost licence) is the de facto standard and robust, but works on polygons only, so curves come out as segments.
-    - Skia's path operations (C++, C# through SkiaSharp, Python's `skia-pathops`, JavaScript through CanvasKit) keep curves, but are less proven on edges that two areas share.
-    - Either supports one implementation in C# for Purple Pen and one in Python for an Inkscape extension and Scribus users. A single C++ core with bindings is the alternative.
+  - The geometry is Skia's path operations, which keep curves rather than reducing them to polygons. Running in the browser is a priority (@Pauli, Nov 6). The operations are available in C++, in C# through SkiaSharp, in Python as `skia-pathops`, and in the browser through CanvasKit, Skia compiled to WebAssembly. Edges that two areas share exactly, which maps are full of, are the input to test them hardest on.
+  - The language is still to be chosen, between two shapes:
+    - one implementation per platform on the same Skia algorithm: TypeScript on CanvasKit for the browser, beside the TypeScript port (phase 8), C# on SkiaSharp in Purple Pen, and Python on `skia-pathops` for Inkscape and Scribus;
+    - a single C++ core on Skia's path operations, compiled to WebAssembly for the browser and natively for the rest.
 - **Vector printing.** An option, not the default, at least at first: printing stays rasterized unless the option is chosen.
   - It is built without WinForms.
   - On Linux and macOS, a PDF goes to CUPS: either the PDF export's, or the Skia target's drawing recorded into a PDF, which draws what the raster print draws.
