@@ -201,12 +201,8 @@ namespace PurplePen.ViewModels
                 PrintBaseMapIndex = value.DontPrintBaseMap ? 1 : 0;
                 MultiPageIndex = value.CropLargePrintArea ? 0 : 1;
                 MergeParts = value.PrintMapExchangesOnOneMap;
-                // Reverse of the +1 in the getter; clamp to [0, 1] for safety
-                // since OCADCompatible (enum value 0) isn't selectable in the combo.
-                int colorIndex = (int)value.ColorModel - 1;
-                if (colorIndex < 0) colorIndex = 0;
-                if (colorIndex > 1) colorIndex = 1;
-                ColorModelIndex = colorIndex;
+                // The combo lists RGB then CMYK, as the enum orders them.
+                ColorModelIndex = (int)value.ColorModel;
 
                 FileFormatIndex = (int)value.FileCreation;
 
