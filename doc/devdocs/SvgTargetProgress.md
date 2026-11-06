@@ -198,6 +198,23 @@ In order of priority. A task ends with its commits on `feature/svg-target`, its 
    - after text, read each SVG back into page coordinates and compare its geometry with the case's drawing calls, within a step.
 7. **Keep the record.** Bring this file up to date whenever a task ends or changes hands, and keep the gallery current: about every 30 minutes of work.
 
+## Future directions
+
+Two undertakings to return to once the SVG work is done (@Pauli, Nov 6).
+
+- **Flattening blending and opacity.** An option of the export turns every colour drawn with blending or less than full opacity into opaque pieces:
+  - It covers the course's purple and the map's own colours, such as contours, whose opacity is set per colour.
+  - It is a stage in front of the targets, so that PDF, SVG and printing share it.
+  - Each such colour is cut against every colour below it, in the map's stacking order. Each piece is filled with the mixed CMYK, the piece over white included.
+  - The pieces are real geometry, made with boolean path operations; SkiaSharp's keep curves. Old printers' PostScript and PDF interpreters take plain filled shapes without transparency or huge clip paths, and editors handle them best.
+  - Against hairline seams between pieces, a setting grows each cutting shape by a set distance, about 0.02 to 0.05 mm. A piece then overlaps its neighbour along the cut edges, while its outer edge stays at the object's edge.
+  - Map lines are turned into outlines before they cut. Bitmaps under a blended colour cannot be cut as vectors.
+- **Vector printing.** An option, not the default, at least at first: printing stays rasterized unless the option is chosen.
+  - It is built without WinForms.
+  - On Linux and macOS, a PDF goes to CUPS: either the PDF export's, or the Skia target's drawing recorded into a PDF, which draws what the raster print draws.
+  - On Windows, it goes through Direct2D's print support, or as XPS through Windows' print API.
+  - With vectors, the driver or CUPS filter decides the result: CMYK is converted, and blend modes may be rasterized or handled differently. Flattening in front of it leaves drivers no blending to mishandle.
+
 ## Decisions
 
 - **The structured interface.** `IStructuredGraphicsTarget`, in `Graphics2D`, extends `IGraphicsTarget`, and @Pauli approved its calls:
