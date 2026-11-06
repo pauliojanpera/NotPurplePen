@@ -1,8 +1,8 @@
 // CreateSvgCoursesDialogViewModelTests.cs
 //
 // Tests that the Create SVG Files dialog offers PDF export's choice of which
-// pages go in each file (L-7), and the choice of drawing area patterns as
-// separate shapes (S-7).
+// pages go in each file (L-7), the choice of drawing area patterns as
+// separate shapes (S-7), and the choice of compressing the files (S-10).
 
 using NUnit.Framework;
 using PurplePen;
@@ -12,8 +12,8 @@ namespace PurplePenViewModels.Tests
 {
     /// <summary>
     /// Tests the choices of the Create SVG Files dialog's view model. The file choice's index numbers the choices as
-    /// <see cref="CoursePdfSettings.PdfFileCreation"/> does, as the Create PDF Files dialog's does; it and the choice of
-    /// drawing area patterns as separate shapes go through the settings both ways.
+    /// <see cref="CoursePdfSettings.PdfFileCreation"/> does, as the Create PDF Files dialog's does; it, the choice of
+    /// drawing area patterns as separate shapes and the choice of compressing the files go through the settings both ways.
     /// </summary>
     [TestFixture]
     public class CreateSvgCoursesDialogViewModelTests
@@ -79,6 +79,34 @@ namespace PurplePenViewModels.Tests
             };
             chosen.DrawAreaPatternsAsSeparateShapes = drawAreaPatternsAsSeparateShapes;
             Assert.That(chosen.Settings.DrawAreaPatternsAsSeparateShapes, Is.EqualTo(drawAreaPatternsAsSeparateShapes));
+        }
+
+        /// <summary>
+        /// The dialog starts with the settings' default: the files written plain, not compressed.
+        /// </summary>
+        [Test]
+        public void FilesStartUncompressed()
+        {
+            CreateSvgCoursesDialogViewModel viewModel = new CreateSvgCoursesDialogViewModel { Settings = new CourseSvgSettings() };
+            Assert.That(viewModel.Compress, Is.False);
+            Assert.That(viewModel.Settings.Compress, Is.False);
+        }
+
+        /// <summary>
+        /// The choice of compressing the files, as .svgz, in the settings seeds the dialog's check box, and the box's
+        /// state goes back into the settings.
+        /// </summary>
+        /// <param name="compress">Whether the files are compressed.</param>
+        [TestCase(false)]
+        [TestCase(true)]
+        public void TheChoiceOfCompressingTheFilesGoesThroughTheSettings(bool compress)
+        {
+            CreateSvgCoursesDialogViewModel seeded = new CreateSvgCoursesDialogViewModel { Settings = new CourseSvgSettings { Compress = compress } };
+            Assert.That(seeded.Compress, Is.EqualTo(compress));
+
+            CreateSvgCoursesDialogViewModel chosen = new CreateSvgCoursesDialogViewModel { Settings = new CourseSvgSettings { Compress = !compress } };
+            chosen.Compress = compress;
+            Assert.That(chosen.Settings.Compress, Is.EqualTo(compress));
         }
     }
 }

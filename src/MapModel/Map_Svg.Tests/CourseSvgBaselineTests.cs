@@ -141,6 +141,51 @@ namespace Map_Svg.Tests
             Assert.IsEmpty(problems, string.Join("\n", problems));
         }
 
+        // Export mapexchange1's Course 5 into a file of its own, plain and twice compressed, and check that each compressed
+        // file is the plain one's bytes in one gzip member whose header names no file name, no time and no operating
+        // system, the same each time and on every platform: the SHA-256 of its bytes is its baseline's, which the runs on
+        // Windows and on Linux both check (S-10, F-2, V-4).
+        [Test]
+        public async Task ACompressedFileIsThePlainOneInAGzipMemberTheSameOnEveryPlatform()
+        {
+            const string eventName = "mapexchange1 Course 5 compressed";
+            byte[] fixedHeader = { 0x1f, 0x8b, 8, 0, 0, 0, 0, 0, 0, 255 };
+            Id<Course>[] courseIds = { new Id<Course>(6) };
+            string[] folders = new string[3];
+            for (int export = 0; export < folders.Length; ++export) {
+                folders[export] = await CourseExport.ExportAsync("controller/mapexchange1.ppen", "baseline/" + eventName + "/" + export.ToString(CultureInfo.InvariantCulture),
+                                                                 MapType.None, false, courseIds, CoursePdfSettings.PdfFileCreation.FilePerCourse, false, export > 0);
+            }
+
+            string[] plainFiles = CourseExport.SvgFilesIn(folders[0]);
+            string[] compressedFiles = Directory.GetFiles(folders[1], "*.svgz").Select(Path.GetFileName).OrderBy(file => file, StringComparer.Ordinal).ToArray();
+            CollectionAssert.AreEqual(plainFiles.Select(file => file + "z"), compressedFiles, "the plain files' names, as .svgz");
+
+            List<string> problems = new List<string>();
+            foreach (string file in compressedFiles) {
+                byte[] compressed = File.ReadAllBytes(Path.Combine(folders[1], file));
+                if (!compressed.AsSpan(0, fixedHeader.Length).SequenceEqual(fixedHeader))
+                    problems.Add(file + " begins " + Convert.ToHexString(compressed, 0, fixedHeader.Length) + ", not the fixed header");
+                if (!compressed.AsSpan().SequenceEqual(File.ReadAllBytes(Path.Combine(folders[2], file))))
+                    problems.Add(file + " is not the same each time it is exported");
+                using (MemoryStream decompressed = new MemoryStream()) {
+                    using (GZipStream gzip = new GZipStream(new MemoryStream(compressed), CompressionMode.Decompress))
+                        gzip.CopyTo(decompressed);
+                    if (!decompressed.ToArray().AsSpan().SequenceEqual(File.ReadAllBytes(Path.Combine(folders[0], file.Substring(0, file.Length - 1)))))
+                        problems.Add(file + " does not hold the plain file's bytes");
+                }
+
+                string hash = Convert.ToHexString(SHA256.HashData(compressed)).ToLowerInvariant() + "\n";
+                string baselinePath = Path.Combine(CourseExport.ApplicationTestFile("svg_export/" + eventName), file + ".sha256");
+                string resultPath = Path.Combine("svg_export", eventName, file + ".sha256");
+                if (!File.Exists(baselinePath) || File.ReadAllText(baselinePath, Encoding.UTF8) != hash) {
+                    LoopResults.SaveText(resultPath, hash);
+                    problems.Add(file + "'s SHA-256 is " + hash.Trim() + ", not its baseline's; the loop's results hold it as " + resultPath.Replace('\\', '/'));
+                }
+            }
+            Assert.IsEmpty(problems, string.Join("\n", problems));
+        }
+
         // The text a file's baseline holds: the file's text, with the data of each embedded font, bitmap and color
         // profile replaced by the SHA-256 hash of its base64 text.
         // text: the text of the file.
@@ -174,15 +219,11 @@ namespace Map_Svg.Tests
             return line.Length <= 120 ? line : line.Substring(0, 120) + "...";
         }
 
-        // The size of a file's bytes compressed with gzip, as an .svgz file holds them.
+        // The size of a file's bytes compressed with gzip, as the export writes them into an .svgz file.
         // bytes: the file's bytes.
         private static long GzipSize(byte[] bytes)
         {
-            using (MemoryStream compressed = new MemoryStream()) {
-                using (GZipStream gzip = new GZipStream(compressed, CompressionLevel.Optimal, true))
-                    gzip.Write(bytes, 0, bytes.Length);
-                return compressed.Length;
-            }
+            return CourseSvg.Compress(bytes).Length;
         }
 
         // Add lines to export-sizes.tsv in the loop's results, which gets its header when it is made.
