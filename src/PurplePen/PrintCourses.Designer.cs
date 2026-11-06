@@ -242,7 +242,6 @@ namespace PurplePen
             this.comboBoxColorModel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxColorModel.FormattingEnabled = true;
             this.comboBoxColorModel.Items.AddRange(new object[] {
-            resources.GetString("comboBoxColorModel.Items"),
             resources.GetString("comboBoxColorModel.Items1"),
             resources.GetString("comboBoxColorModel.Items2")});
             this.comboBoxColorModel.Name = "comboBoxColorModel";
