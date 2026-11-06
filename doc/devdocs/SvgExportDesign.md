@@ -475,6 +475,26 @@ no reader needs told apart, since a pattern carries no symbol's identity; Inksca
 one pattern. (a) Define equal patterns once a file, as above. (b) Keep a definition for each symbol and colour, as
 S-12 asks, and accept the repeats. Recommended: (a), on a branch of its own after phase 6; not built yet.
 
+## Compressed files (S-10)
+
+Written on Nov 6 from `feature/svg-target` with S-5 (353887b); the work is on `feature/svg-svgz`.
+
+- **What is there.** Since phase 3, `CourseSvgSettings.Compress` (A-2), off by default, and the dialog's check box
+  "Compress the files (.svgz)" in its Appearance group have the export write each file gzip-compressed, named `.svgz`,
+  through `GZipStream` at `CompressionLevel.Optimal`.
+- **What differs between platforms.** A gzip member's header (RFC 1952) holds a modification time and the operating
+  system that wrote it. .NET writes the time as 0 and no file name, but takes the system from the zlib it is built
+  with: 3, Unix, on Linux, and in zlib's own codes 10 on Windows and 7 or 19 on macOS. So the same document came out a
+  byte apart on each platform, against F-2.
+- **The file.** The header names the operating system 255, unknown, wherever the file is written, and nothing else
+  changes: deflate, no flags and so no name, comment or extra field, the time 0, no extra flags at this level, then the
+  document's UTF-8 bytes deflated, their CRC-32 and their length. Any reader of `.svgz` takes it as before.
+- **Tests (V-4).** `CourseSvgBaselineTests` export mapexchange1's Course 5 into a file of its own, plain and twice
+  compressed. Each compressed file is named as the plain one with `.svgz`, begins with the header `1f 8b 08 00 00 00 00
+  00 00 ff`, decompresses to the plain file's bytes, comes out the same both times, and its SHA-256 is its baseline's.
+  The Windows job runs the baseline tests too, so the deflated bytes, which .NET's own zlib-ng makes on every platform,
+  are checked to be the same there as on Linux. The view model's tests take the choice through the settings both ways.
+
 ## Open questions
 
 - Phase 3 writes one page per file. Should the dialog already show L-7's three file choices, with all but one
