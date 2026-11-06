@@ -73,6 +73,13 @@ namespace PurplePen.ViewModels
         private bool mergeParts;
 
         /// <summary>
+        /// Whether every area pattern is written element by element, as PDF export draws it,
+        /// rather than as a pattern fill (S-7).
+        /// </summary>
+        [ObservableProperty]
+        private bool drawAreaPatternsAsSeparateShapes;
+
+        /// <summary>
         /// How the map's bitmaps reach the files: 0 = embedded in each file,
         /// 1 = saved beside each file and linked, 2 = left out (B-4).
         /// </summary>
@@ -151,6 +158,7 @@ namespace PurplePen.ViewModels
                     DontPrintBaseMap = PrintBaseMapIndex == 1,
                     CropLargePrintArea = MultiPageIndex == 0,
                     PrintMapExchangesOnOneMap = MergeParts,
+                    DrawAreaPatternsAsSeparateShapes = DrawAreaPatternsAsSeparateShapes,
                     FileCreation = (CoursePdfSettings.PdfFileCreation)FileFormatIndex,
                     ColorModel = (ColorModel)ColorModelIndex,
                     RenderControlDescriptions = RenderControlDescriptions,
@@ -186,6 +194,7 @@ namespace PurplePen.ViewModels
                 PrintBaseMapIndex = value.DontPrintBaseMap ? 1 : 0;
                 MultiPageIndex = value.CropLargePrintArea ? 0 : 1;
                 MergeParts = value.PrintMapExchangesOnOneMap;
+                DrawAreaPatternsAsSeparateShapes = value.DrawAreaPatternsAsSeparateShapes;
                 FileFormatIndex = (int)value.FileCreation;
                 int colorIndex = (int)value.ColorModel;
                 if (colorIndex < 0) colorIndex = 0;

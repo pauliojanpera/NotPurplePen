@@ -3892,6 +3892,9 @@ Purple Pen cannot install this kind of file for you. Open it yourself to install
   <data name="CreateSvgCourses_checkBoxCompress_Text" xml:space="preserve">
     <value>Compress the files (.svgz)</value>
   </data>
+  <data name="CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text" xml:space="preserve">
+    <value>Draw area patterns as separate shapes</value>
+  </data>
   <data name="PrintPreviewDialog_Text" xml:space="preserve">
     <value>Print Preview</value>
   </data>

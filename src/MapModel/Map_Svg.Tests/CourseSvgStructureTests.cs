@@ -52,12 +52,15 @@ namespace Map_Svg.Tests
         // courses: the ids of the courses to export, or none for every course of the event and its page of all controls.
         // lowerPurpleLayer: whether to draw the course in upper and lower purple.
         // fileCreation: which pages go in each file.
+        // drawAreaPatternsAsSeparateShapes: whether every area pattern is drawn as separate shapes, element by element,
+        // rather than as a pattern fill.
         [TestCaseSource(typeof(CourseSvgBaselineTests), nameof(CourseSvgBaselineTests.Events))]
         public async Task EveryElementTracesToItsMapAndEveryCourseObjectToItsControls(string eventName, string eventFile, MapType mapType, int[] courses, bool lowerPurpleLayer,
-                                                                                    CoursePdfSettings.PdfFileCreation fileCreation)
+                                                                                    CoursePdfSettings.PdfFileCreation fileCreation, bool drawAreaPatternsAsSeparateShapes)
         {
             Id<Course>[] courseIds = courses.Select(id => new Id<Course>(id)).ToArray();
-            string folder = await CourseExport.ExportAsync(eventFile, "structure/" + eventName, mapType, lowerPurpleLayer, courseIds, fileCreation);
+            string folder = await CourseExport.ExportAsync(eventFile, "structure/" + eventName, mapType, lowerPurpleLayer, courseIds, fileCreation,
+                                                           drawAreaPatternsAsSeparateShapes);
 
             List<string> problems = new List<string>();
             foreach (string file in CourseExport.SvgFilesIn(folder))

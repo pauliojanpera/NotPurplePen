@@ -141,6 +141,7 @@ namespace Map_Svg.Tests
             mapDisplay.AntiAlias = true;
             mapDisplay.Printing = true;
             mapDisplay.AntiAliasWhenPrinting = true;
+            mapDisplay.AreaPatternsElementByElement = settings.DrawAreaPatternsAsSeparateShapes;
             mapDisplay.ColorModel = settings.ColorModel;
             mapDisplay.RecordsCourseObjects = true;
             if (settings.DontPrintBaseMap)

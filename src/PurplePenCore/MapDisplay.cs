@@ -460,6 +460,11 @@ namespace PurplePen
         // still draws without pattern bitmaps, unless the target's pattern brushes are vectors.
         public bool AntiAliasWhenPrinting { get; set; }
 
+        // Whether area patterns are drawn element by element on every target, as printing draws them on a target whose
+        // pattern brushes are bitmaps. Off by default, so that a target whose pattern brushes are vectors draws the
+        // regular patterns in clip mode with pattern brushes.
+        public bool AreaPatternsElementByElement { get; set; }
+
         // Whether drawing turns anti-aliasing off because it is for printing: Printing is on and AntiAliasWhenPrinting
         // is off.
         private bool PrintingWithoutAntiAliasing
@@ -789,9 +794,10 @@ namespace PurplePen
             get { return mapType == MapType.OCAD && LowerPurpleMapLayer != null; }
         }
 
-        // Create the options that every layer of the map and course is drawn with. Area patterns are drawn with pattern
-        // brushes for a target whose brushes are vectors, which draw them as well as drawing each element does, and in
-        // less; for any other target with pattern bitmaps, unless printing or zoomed in far with anti-aliasing.
+        // Create the options that every layer of the map and course is drawn with. Area patterns are drawn element by
+        // element when AreaPatternsElementByElement says so; otherwise with pattern brushes for a target whose brushes
+        // are vectors, which draw them as well as drawing each element does, and in less; and for any other target with
+        // pattern bitmaps, unless printing or zoomed in far with anti-aliasing.
         // grTarget: the target drawn onto.
         // minResolution: the smallest distance worth drawing, in map coordinates.
         private RenderOptions CreateRenderOptions(IGraphicsTarget grTarget, float minResolution)
@@ -799,7 +805,9 @@ namespace PurplePen
             RenderOptions renderOptions = new RenderOptions();
             renderOptions.minResolution = minResolution;
 
-            if (GraphicsUtil.PatternBrushesAreVectors(grTarget))
+            if (AreaPatternsElementByElement)
+                renderOptions.usePatternBitmaps = false;
+            else if (GraphicsUtil.PatternBrushesAreVectors(grTarget))
                 renderOptions.usePatternBitmaps = true;
             else if (Printing)
                 renderOptions.usePatternBitmaps = false;   // don't use pattern bitmaps when printing, they cause some problems in some printer drivers and we want best quality.
