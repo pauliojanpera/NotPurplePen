@@ -3,6 +3,7 @@
 Usage: python3 -I make-gallery-step.py <results copy> <reference folder> <gallery folder> <step id> <case,case,...>
 
 <results copy> is a checkout of svg-results/<name>, holding Chromium's image of each case named under renderings/:
+from the run's artifact, which ../SvgDevLoop/fetch-renderings.sh copies in, or, for a run from before it (Nov 7),
 the loop's own for a case outside the tolerance, else one render-cases.mjs made. A case's Skia reference is the
 run's own under references/ when its reference was not recorded yet, else the recorded one in <reference folder>,
 the svg_reference of the commit the loop ran. For each case named, writes into <gallery folder>/<step id>/ the
@@ -12,9 +13,10 @@ binned at the thresholds the loop's measurements count (8, 32, 64). The page's B
 
 Prints the step's figures as JSON for the page's LOG and STANDING: per case its size, measurements, drawing
 elements and the 24-pixel window holding the most difference, where the detail opens; and the pending census,
-each call with the drawings that need it, those that need only it, and the work that adds it, with the number of
-drawings that wait only on step 2's calls, of those that wait only because they draw a bitmap lighter, and of those
-that wait only on a pen no document can express.
+each call with the drawings that need it, those that need only it, the work that adds it and, from pending.tsv's
+third column, why the target will never honor it, if it never will; with the number of drawings that wait only on
+step 2's calls, of those that wait only because they draw a bitmap lighter, of those that wait only on a pen no
+document can express, and of those that wait only on calls the target will never honor, which will never be compared.
 """
 import json
 import os
@@ -89,10 +91,21 @@ def read_measurements(path):
 
 
 def read_census(path):
-    """Read pending.tsv into the calls each pending case still needs."""
+    """Read pending.tsv into the calls each pending case still needs, and why the target will never honor those it
+    never will: a third column, "call: why; call: why", which runs from Nov 7 on write."""
+    census, never = {}, {}
     with open(path, encoding="utf-8") as file:
-        rows = [line.rstrip("\r\n").split("\t") for line in file.readlines()[1:] if line.strip()]
-    return {case: [call.strip() for call in calls.split(",")] for case, calls in rows}
+        for line in file.readlines()[1:]:
+            if not line.strip():
+                continue
+            fields = line.rstrip("\r\n").split("\t")
+            case = fields[0]
+            census[case] = [call.strip() for call in fields[1].split(",")]
+            never[case] = {}
+            for entry in (fields[2].split("; ") if len(fields) > 2 and fields[2] else []):
+                call, _, why = entry.partition(": ")
+                never[case][call.strip()] = why.strip()
+    return census, never
 
 
 def find_reference(results, reference_folder, name):
@@ -127,25 +140,30 @@ def main():
             "svgBytes": len(svg_text.encode("utf-8")),
         })
 
-    census = read_census(os.path.join(results, "pending.tsv"))
+    census, never = read_census(os.path.join(results, "pending.tsv"))
     calls = {}
-    for case_calls in census.values():
+    for case, case_calls in census.items():
         for call in case_calls:
-            calls.setdefault(call, {"call": call, "cases": 0, "alone": 0, "comesIn": WORK_THAT_ADDS_CALL[call]})
+            calls.setdefault(call, {"call": call, "cases": 0, "alone": 0, "comesIn": WORK_THAT_ADDS_CALL[call],
+                                    "neverHonored": ""})
             calls[call]["cases"] += 1
             if len(case_calls) == 1:
                 calls[call]["alone"] += 1
+            if call in never[case]:
+                calls[call]["neverHonored"] = never[case][call]
     waiting_on_step2_only = sum(1 for case_calls in census.values()
                                 if all(WORK_THAT_ADDS_CALL[call] == "step2" for call in case_calls))
     drawn_lighter_only = sum(1 for case_calls in census.values()
                              if all(WORK_THAT_ADDS_CALL[call] == "lighter" for call in case_calls))
     pen_only = sum(1 for case_calls in census.values() if all(WORK_THAT_ADDS_CALL[call] == "pen" for call in case_calls))
+    never_compared = sum(1 for case, case_calls in census.items() if all(call in never[case] for call in case_calls))
     print(json.dumps({
         "cases": cases,
         "waiting": len(census),
         "waitingOnStep2Only": waiting_on_step2_only,
         "drawnLighterOnly": drawn_lighter_only,
         "penOnly": pen_only,
+        "neverCompared": never_compared,
         "calls": sorted(calls.values(), key=lambda row: (-row["cases"], row["call"])),
     }, indent=1))
 

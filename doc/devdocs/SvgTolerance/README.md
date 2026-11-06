@@ -9,10 +9,11 @@ SciPy and Pillow, and are run with `python3 -I`.
 
 A folder holding `references/<case>.png` and `renderings/<case>.png` for each drawn case: a checkout of
 `svg-results/svg-target`, with the recorded references copied in from `src/MapModel/TestFiles/svg_reference`, and
-Chromium's images of the cases that passed rendered with `../SvgGallery/render-cases.mjs`, which matches the
-loop's renderings pixel for pixel. For a case that draws text it matches them only when `FONTCONFIG_FILE` names a
-fontconfig file that offers the sentinel font alone, as `ChromiumRenderer` writes one: a `<dir>` holding a copy of
-`Map_Svg.Tests/fonts/Sentinel.ttf`, and a `<cachedir>`.
+Chromium's image of every case, which `../SvgDevLoop/fetch-renderings.sh` copies in from the loop run's artifact.
+A run from before that artifact (Nov 7) kept only the images of the cases that failed; the others were rendered with
+`../SvgGallery/render-cases.mjs`, which matches the loop's renderings pixel for pixel. For a case that draws text it
+matches them only when `FONTCONFIG_FILE` names a fontconfig file that offers the sentinel font alone, as
+`ChromiumRenderer` writes one: a `<dir>` holding a copy of `Map_Svg.Tests/fonts/Sentinel.ttf`, and a `<cachedir>`.
 
 ## Scripts
 

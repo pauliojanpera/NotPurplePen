@@ -2,9 +2,10 @@
 
 Usage: python3 -I triage.py <test results .trx> [--names]
 
-Prints how many comparison cases passed, were pending, have no recorded reference yet (within the tolerance or not),
-fall outside the tolerance, put a character of a text too far from the shaping, or failed otherwise, and the other
-tests' failures. With --names, every case is named under its heading; without it, only the failures are.
+Prints how many comparison cases passed, were pending until the target implements a call, were pending for good on a
+call it will never honor as made, have no recorded reference yet (within the tolerance or not), fall outside the
+tolerance, put a character of a text too far from the shaping, or failed otherwise, and the other tests' failures.
+With --names, every case is named under its heading; without it, only the failures are.
 """
 import collections
 import re
@@ -34,7 +35,7 @@ def sort(path):
         if outcome == "Passed":
             kinds["passed"].append(case)
         elif outcome == "NotExecuted":
-            kinds["pending"].append((case, first_line[:100]))
+            kinds["pending for good" if first_line.startswith("Pending for good") else "pending"].append((case, first_line[:160]))
         elif "No reference image" in text:
             kinds["new, outside the tolerance" if pixels else "new, within the tolerance"].append(
                 (case, int(pixels.group(1).replace(",", "")) if pixels else 0))
@@ -50,13 +51,13 @@ def sort(path):
 def main():
     kinds = sort(sys.argv[1])
     names = "--names" in sys.argv[2:]
-    order = ["passed", "pending", "new, within the tolerance", "new, outside the tolerance", "outside the tolerance",
-             "text misplaced", "failed otherwise", "other tests passed", "other tests failed"]
+    order = ["passed", "pending", "pending for good", "new, within the tolerance", "new, outside the tolerance",
+             "outside the tolerance", "text misplaced", "failed otherwise", "other tests passed", "other tests failed"]
     for kind in order:
         if kind not in kinds:
             continue
         print("%s: %d" % (kind, len(kinds[kind])))
-        quiet = kind in ("passed", "other tests passed", "new, within the tolerance", "pending") and not names
+        quiet = kind in ("passed", "other tests passed", "new, within the tolerance", "pending", "pending for good") and not names
         if quiet:
             continue
         entries = kinds[kind]
@@ -64,7 +65,7 @@ def main():
             entries = sorted(entries, key=lambda entry: -entry[1])
         for entry in entries:
             print("   ", entry if isinstance(entry, str) else " | ".join(str(part) for part in entry))
-    failures = sum(len(kinds[kind]) for kind in order[3:] if kind != "other tests passed")
+    failures = sum(len(kinds[kind]) for kind in order[4:] if kind != "other tests passed")
     sys.exit(1 if failures else 0)
 
 
