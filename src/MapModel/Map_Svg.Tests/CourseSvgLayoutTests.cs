@@ -186,11 +186,14 @@ namespace Map_Svg.Tests
                 return problems;
             }
 
-            // The parts, each with the maps it holds, outside the maps nested within them, such as templates.
+            // The parts, each with the maps it holds, outside the maps nested within them, such as templates. A group of the
+            // definitions that the parts themselves use holds repeated shapes, and is no part (S-5).
             XElement definitions = root.Element(Svg + "defs");
+            HashSet<string> usedWithinDefinitions = CourseSvgStructureTests.IdsUsedWithinDefinitions(root);
             Dictionary<string, List<string>> mapsOfPart = new Dictionary<string, List<string>>(StringComparer.Ordinal);
             if (definitions != null) {
-                foreach (XElement part in definitions.Elements(Svg + "g").Where(element => element.Attribute("id") != null)) {
+                foreach (XElement part in definitions.Elements(Svg + "g").Where(element => element.Attribute("id") != null &&
+                                                                                           !usedWithinDefinitions.Contains((string)element.Attribute("id")))) {
                     mapsOfPart.Add((string)part.Attribute("id"),
                                    part.Descendants().Where(element => element.Attribute("data-m") != null &&
                                                                        !element.Ancestors().TakeWhile(ancestor => ancestor != part).Any(ancestor => ancestor.Attribute("data-m") != null))

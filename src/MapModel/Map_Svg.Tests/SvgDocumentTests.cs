@@ -301,7 +301,7 @@ namespace Map_Svg.Tests
                     rotation.Translate(20, 30);
                     rotation.Rotate(45);
                     target.PushTransform(rotation);
-                    target.FillRectangle(black, new RectangleF(-1, -1, 2, 2));
+                    target.FillRectangle(black, new RectangleF(-1, -1, 2, 1));
                     target.PopTransform();
                 }
                 using (Matrix shear = new Matrix()) {
@@ -324,7 +324,7 @@ namespace Map_Svg.Tests
                     "<path d=\"M-1000-1000h2000v2000h-2000z\"/>",
                     "</g>",
                     "<g transform=\"translate(20000 30000)rotate(45)\">",
-                    "<path d=\"M-1000-1000h2000v2000h-2000z\"/>",
+                    "<path d=\"M-1000-1000h2000V0h-2000z\"/>",
                     "</g>",
                     "<g transform=\"matrix(1 0 .5 1 0 0)\">",
                     "<circle r=\"1000\"/>",
@@ -1068,6 +1068,121 @@ namespace Map_Svg.Tests
                 "</g>",
                 "<g style=\"fill:#0f0;fill:#0f0 icc-color(cmyk,1,0,1,0)\" data-s=\"3\">",
                 "<circle data-o=\"4\" cx=\"8000\" r=\"1000\"/>",
+                "</g>",
+                "</g>",
+                "</g>",
+            }) + "\n", document);
+        }
+
+        // Draw an object as the map draws a glyph: its shapes under a transform that moves to a point and turns by an angle.
+        // target: the target.
+        // symbolKey: the key of the object's symbol.
+        // x, y: the point, in millimetres.
+        // angle: the angle, in degrees.
+        // drawShapes: draws the glyph's shapes, in the glyph's own frame.
+        private static void DrawGlyph(IStructuredGraphicsTarget target, object symbolKey, float x, float y, float angle, Action drawShapes)
+        {
+            target.BeginObject(new object(), symbolKey, "1.0", "Glyph");
+            using (Matrix placement = new Matrix()) {
+                placement.Translate(x, y);
+                placement.Rotate(angle);
+                target.PushTransform(placement);
+                drawShapes();
+                target.PopTransform();
+            }
+            target.EndObject();
+        }
+
+        [Test]
+        public void ShapesThatSeveralObjectsDrawAlikeAreDefinedOnceAndEachObjectUsesThem()
+        {
+            PointF[] triangle = { Point(0, -1), Point(1, 1), Point(-1, 1) };
+            string document = WriteOnePage(target => {
+                object red = new object(), green = new object(), run = new object(), knoll = new object(), mound = new object();
+                target.CreateSolidBrush(red, CmykColor.FromCmyk(0, 1, 1, 0));
+                target.CreateSolidBrush(green, CmykColor.FromCmyk(1, 0, 1, 0));
+                target.BeginColorRun(run, 1, "Run", CmykColor.FromCmyk(0, 1, 1, 0), false);
+                DrawGlyph(target, knoll, 10, 20, 0, () => target.FillPolygon(red, triangle, AreaFillMode.Winding));
+                DrawGlyph(target, knoll, 30, 20, 90, () => target.FillPolygon(red, triangle, AreaFillMode.Winding));
+                DrawGlyph(target, mound, 50, 20, 180, () => target.FillPolygon(green, triangle, AreaFillMode.Winding));
+                target.EndColorRun();
+            });
+            // The triangle is defined once, without a style, before the part, and each object uses it under its own
+            // transform, in its shortest form: each symbol's group carries the style its uses share, and the group of a
+            // symbol of one object keeps the symbol's identity and holds the use.
+            StringAssert.Contains(string.Join("\n", new string[] {
+                "<path id=\"b\" d=\"M0-1000l1000 2000h-2000z\"/>",
+                "<g id=\"a\">",
+                "<g data-m=\"1\">",
+                "<g data-c=\"1\">",
+                "<g style=\"fill:#f00;fill:#f00 icc-color(cmyk,0,1,1,0)\" data-s=\"1\">",
+                "<use data-o=\"1\" xlink:href=\"#b\" transform=\"translate(10000 20000)\"/>",
+                "<use data-o=\"2\" xlink:href=\"#b\" transform=\"matrix(0 1-1 0 30000 20000)\"/>",
+                "</g>",
+                "<g style=\"fill:#0f0;fill:#0f0 icc-color(cmyk,1,0,1,0)\" data-s=\"2\">",
+                "<use data-o=\"3\" xlink:href=\"#b\" transform=\"matrix(-1 0 0-1 50000 20000)\"/>",
+                "</g>",
+                "</g>",
+                "</g>",
+                "</g>",
+            }) + "\n", document);
+        }
+
+        [Test]
+        public void ShapesOfDifferentStylesKeepTheirStylesInTheirOneDefinition()
+        {
+            string document = WriteOnePage(target => {
+                object red = new object(), black = new object(), run = new object(), tower = new object();
+                target.CreateSolidBrush(red, CmykColor.FromCmyk(0, 1, 1, 0));
+                target.CreatePen(black, CmykColor.FromCmyk(0, 0, 0, 1), 0.1F, LineCapMode.Flat, LineJoinMode.Miter, 4);
+                target.BeginColorRun(run, 1, "Run", CmykColor.FromCmyk(0, 0, 0, 1), false);
+                foreach (float x in new float[] { 10, 20 }) {
+                    DrawGlyph(target, tower, x, 20, 45, () => {
+                        target.FillEllipse(red, Point(0, 0), 1, 1);
+                        target.DrawLine(black, Point(-1, 0), Point(1, 0));
+                    });
+                }
+                target.EndColorRun();
+            });
+            // The definition holds the shapes with their own styles, and the uses carry none.
+            StringAssert.Contains(string.Join("\n", new string[] {
+                "<g id=\"b\">",
+                "<circle style=\"fill:#f00;fill:#f00 icc-color(cmyk,0,1,1,0)\" r=\"1000\"/>",
+                "<path style=\"fill:none;stroke:#000;stroke:#000 icc-color(cmyk,0,0,0,1);stroke-width:100\" d=\"M-1000 0h2000\"/>",
+                "</g>",
+                "<g id=\"a\">",
+                "<g data-m=\"1\">",
+                "<g data-c=\"1\">",
+                "<g data-s=\"1\">",
+                "<use data-o=\"1\" xlink:href=\"#b\" transform=\"translate(10000 20000)rotate(45)\"/>",
+                "<use data-o=\"2\" xlink:href=\"#b\" transform=\"translate(20000 20000)rotate(45)\"/>",
+                "</g>",
+                "</g>",
+                "</g>",
+                "</g>",
+            }) + "\n", document);
+        }
+
+        [Test]
+        public void ShapesThatOneGroupDrawsStayInIt()
+        {
+            string document = WriteOnePage(target => {
+                object red = new object(), run = new object(), knoll = new object(), pit = new object();
+                target.CreateSolidBrush(red, CmykColor.FromCmyk(0, 1, 1, 0));
+                target.BeginColorRun(run, 1, "Run", CmykColor.FromCmyk(0, 1, 1, 0), false);
+                DrawGlyph(target, knoll, 10, 20, 30, () => target.FillPolygon(red, new PointF[] { Point(0, -1), Point(1, 1), Point(-1, 1) }, AreaFillMode.Winding));
+                DrawGlyph(target, pit, 30, 20, 30, () => target.FillPolygon(red, new PointF[] { Point(0, 1), Point(1, -1), Point(-1, -1) }, AreaFillMode.Winding));
+                target.EndColorRun();
+            });
+            Assert.IsFalse(document.Contains("<use data-o"), "a use of repeated shapes");
+            StringAssert.Contains(string.Join("\n", new string[] {
+                "<g style=\"fill:#f00;fill:#f00 icc-color(cmyk,0,1,1,0)\" data-m=\"1\">",
+                "<g data-c=\"1\">",
+                "<g transform=\"translate(10000 20000)rotate(30)\" data-s=\"1\">",
+                "<path data-o=\"1\" d=\"M0-1000l1000 2000h-2000z\"/>",
+                "</g>",
+                "<g transform=\"translate(30000 20000)rotate(30)\" data-s=\"2\">",
+                "<path data-o=\"2\" d=\"M0 1000l1000-2000h-2000z\"/>",
                 "</g>",
                 "</g>",
                 "</g>",

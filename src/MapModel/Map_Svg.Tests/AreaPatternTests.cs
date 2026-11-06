@@ -58,6 +58,14 @@ namespace Map_Svg.Tests
             return document.Split(new[] { text }, StringSplitOptions.None).Length - 1;
         }
 
+        // The number of dots a document draws one by one: each a circle of its own, or a use of the dot's one definition
+        // (S-5).
+        // document: the document.
+        private static int DotsDrawnOneByOne(string document)
+        {
+            return Regex.Matches(document, "<(circle|use)[^>]* data-o=").Count;
+        }
+
         [Test]
         public void ARegularPatternInClipModeIsAPatternFillHoweverFineItsTile()
         {
@@ -87,7 +95,7 @@ namespace Map_Svg.Tests
                     document = WriteMap(map);
 
                 Assert.AreEqual(0, Occurrences(document, "<pattern "), irregular ? "irregular" : "center inside");
-                Assert.Greater(Occurrences(document, "<circle"), 50, irregular ? "irregular" : "center inside");
+                Assert.Greater(DotsDrawnOneByOne(document), 50, irregular ? "irregular" : "center inside");
             }
         }
 
@@ -180,7 +188,7 @@ namespace Map_Svg.Tests
                 hatched = WriteMap(map, true);
 
             Assert.AreEqual(0, Occurrences(patterned, "<pattern "));
-            Assert.Greater(Occurrences(patterned, "<circle"), 50);
+            Assert.Greater(DotsDrawnOneByOne(patterned), 50);
             Assert.AreEqual(0, Occurrences(hatched, "<pattern "));
             // The blue lines are drawn one by one in the hatching's frame, among them the two that the tile of its
             // pattern fill holds, and the others a whole number of spacings from them.

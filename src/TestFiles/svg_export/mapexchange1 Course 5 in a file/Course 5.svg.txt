@@ -154,53 +154,57 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 </sodipodi:namedview>
 <defs>
 <color-profile id="cmyk" name="cmyk" xlink:href="data:application/vnd.iccprofile;base64,sha256:a4cb0af0777cef9b31261a9c8ab71ece6b5eac928efbc59a749e1aa667b43baa"/>
-<clipPath id="m">
+<clipPath id="o">
 <path d="M-52781-132865h215900v279400H-52781z"/>
 </clipPath>
-<clipPath id="n">
+<clipPath id="p">
 <path d="M-37712-132668h215901v279400H-37712z"/>
 </clipPath>
-<clipPath id="o">
+<clipPath id="q">
 <path d="M-60202-118350h215900v279400H-60202z"/>
 </clipPath>
-<clipPath id="p">
+<clipPath id="r">
 <path d="M-75352-143686h215900v279400H-75352z"/>
 </clipPath>
-<pattern id="b" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600" patternTransform="rotate(45)">
+<pattern id="d" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600" patternTransform="rotate(45)">
 <path style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:250;stroke-miterlimit:5" d="M-600 0H600"/>
 </pattern>
-<pattern id="c" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600" patternTransform="rotate(135)">
+<pattern id="e" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600" patternTransform="rotate(135)">
 <path style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:250;stroke-miterlimit:5" d="M-600 0H600"/>
 </pattern>
-<pattern id="e" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600" patternTransform="rotate(45)">
+<pattern id="g" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600" patternTransform="rotate(45)">
 <path style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:250;stroke-miterlimit:5" d="M-600 0H600"/>
 </pattern>
-<pattern id="f" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600" patternTransform="rotate(135)">
+<pattern id="h" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600" patternTransform="rotate(135)">
 <path style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:250;stroke-miterlimit:5" d="M-600 0H600"/>
 </pattern>
-<pattern id="h" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600" patternTransform="rotate(45)">
+<pattern id="j" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600" patternTransform="rotate(45)">
 <path style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:250;stroke-miterlimit:5" d="M-600 0H600"/>
 </pattern>
-<pattern id="i" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600" patternTransform="rotate(135)">
+<pattern id="k" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600" patternTransform="rotate(135)">
 <path style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:250;stroke-miterlimit:5" d="M-600 0H600"/>
 </pattern>
-<pattern id="k" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600" patternTransform="rotate(45)">
+<pattern id="m" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600" patternTransform="rotate(45)">
 <path style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:250;stroke-miterlimit:5" d="M-600 0H600"/>
 </pattern>
-<pattern id="l" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600" patternTransform="rotate(135)">
+<pattern id="n" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600" patternTransform="rotate(135)">
 <path style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:250;stroke-miterlimit:5" d="M-600 0H600"/>
 </pattern>
+<g id="b">
+<path d="M1500 1375c0 207-673 375-1500 375s-1500-168-1500-375 673-375 1500-375 1500 168 1500 375z"/>
+<path d="M1000-1500c0-138-449-250-1000-250s-1000 112-1000 250"/>
+<path d="M1500 1375l-500-2875"/>
+<path d="M-1500 1375l500-2875"/>
+</g>
+<path id="c" d="M0 4041l3500-6062h-7000L0 4041z"/>
 <g id="a">
 <g data-m="1">
 <g data-c="2">
-<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-linecap:round;stroke-linejoin:round" transform="translate(58076 42201)" data-s="1">
-<path data-o="1" d="M1500 1375c0 207-673 375-1500 375s-1500-168-1500-375 673-375 1500-375 1500 168 1500 375z"/>
-<path data-o="1" d="M1000-1500c0-138-449-250-1000-250s-1000 112-1000 250"/>
-<path data-o="1" d="M1500 1375l-500-2875"/>
-<path data-o="1" d="M-1500 1375l500-2875"/>
+<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-linecap:round;stroke-linejoin:round" data-s="1">
+<use data-o="1" xlink:href="#b" transform="translate(58076 42201)"/>
 </g>
-<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-miterlimit:5" transform="translate(56800-8700)rotate(162.985)" data-s="2">
-<path data-o="2" d="M0 4041l3500-6062h-7000L0 4041z"/>
+<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-miterlimit:5" data-s="2">
+<use data-o="2" xlink:href="#c" transform="translate(56800-8700)rotate(162.985)"/>
 </g>
 <g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-linejoin:bevel" data-s="3">
 <path data-o="3" d="M55618-12563l-3591-11736"/>
@@ -256,8 +260,8 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 </g>
 <g data-c="3">
 <g data-s="6">
-<path style="fill:url(#b);fill-rule:evenodd" data-o="30" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
-<path style="fill:url(#c);fill-rule:evenodd" data-o="30" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
+<path style="fill:url(#d);fill-rule:evenodd" data-o="30" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
+<path style="fill:url(#e);fill-rule:evenodd" data-o="30" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
 </g>
 <g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-linejoin:bevel" data-s="7">
 <path data-o="31" d="M119230 5833l-372-1807"/>
@@ -272,17 +276,14 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 </g>
 </g>
 </g>
-<g id="d">
+<g id="f">
 <g data-m="2">
 <g data-c="2">
-<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-linecap:round;stroke-linejoin:round" transform="translate(58076 42201)" data-s="1">
-<path data-o="32" d="M1500 1375c0 207-673 375-1500 375s-1500-168-1500-375 673-375 1500-375 1500 168 1500 375z"/>
-<path data-o="32" d="M1000-1500c0-138-449-250-1000-250s-1000 112-1000 250"/>
-<path data-o="32" d="M1500 1375l-500-2875"/>
-<path data-o="32" d="M-1500 1375l500-2875"/>
+<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-linecap:round;stroke-linejoin:round" data-s="1">
+<use data-o="32" xlink:href="#b" transform="translate(58076 42201)"/>
 </g>
-<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-miterlimit:5" transform="translate(115600-11800)rotate(-151.032)" data-s="2">
-<path data-o="33" d="M0 4041l3500-6062h-7000L0 4041z"/>
+<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-miterlimit:5" data-s="2">
+<use data-o="33" xlink:href="#c" transform="translate(115600-11800)rotate(-151.032)"/>
 </g>
 <g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-linejoin:bevel" data-s="3">
 <path data-o="34" d="M117557-15335l2875-5193"/>
@@ -313,20 +314,17 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 </g>
 <g data-c="3">
 <g data-s="6">
-<path style="fill:url(#e);fill-rule:evenodd" data-o="46" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
-<path style="fill:url(#f);fill-rule:evenodd" data-o="46" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
+<path style="fill:url(#g);fill-rule:evenodd" data-o="46" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
+<path style="fill:url(#h);fill-rule:evenodd" data-o="46" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
 </g>
 </g>
 </g>
 </g>
-<g id="g">
+<g id="i">
 <g data-m="3">
 <g data-c="2">
-<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-linecap:round;stroke-linejoin:round" transform="translate(58076 42201)" data-s="1">
-<path data-o="47" d="M1500 1375c0 207-673 375-1500 375s-1500-168-1500-375 673-375 1500-375 1500 168 1500 375z"/>
-<path data-o="47" d="M1000-1500c0-138-449-250-1000-250s-1000 112-1000 250"/>
-<path data-o="47" d="M1500 1375l-500-2875"/>
-<path data-o="47" d="M-1500 1375l500-2875"/>
+<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-linecap:round;stroke-linejoin:round" data-s="1">
+<use data-o="47" xlink:href="#b" transform="translate(58076 42201)"/>
 </g>
 <g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-miterlimit:5" data-s="2">
 <circle data-o="48" cx="84000" cy="34500" r="2825"/>
@@ -346,20 +344,17 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 </g>
 <g data-c="3">
 <g data-s="5">
-<path style="fill:url(#h);fill-rule:evenodd" data-o="53" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
-<path style="fill:url(#i);fill-rule:evenodd" data-o="53" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
+<path style="fill:url(#j);fill-rule:evenodd" data-o="53" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
+<path style="fill:url(#k);fill-rule:evenodd" data-o="53" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
 </g>
 </g>
 </g>
 </g>
-<g id="j">
+<g id="l">
 <g data-m="4">
 <g data-c="2">
-<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-linecap:round;stroke-linejoin:round" transform="translate(58076 42201)" data-s="1">
-<path data-o="54" d="M1500 1375c0 207-673 375-1500 375s-1500-168-1500-375 673-375 1500-375 1500 168 1500 375z"/>
-<path data-o="54" d="M1000-1500c0-138-449-250-1000-250s-1000 112-1000 250"/>
-<path data-o="54" d="M1500 1375l-500-2875"/>
-<path data-o="54" d="M-1500 1375l500-2875"/>
+<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-linecap:round;stroke-linejoin:round" data-s="1">
+<use data-o="54" xlink:href="#b" transform="translate(58076 42201)"/>
 </g>
 <g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-miterlimit:5" data-s="2">
 <circle data-o="55" cx="53700" cy="8200" r="2825"/>
@@ -394,27 +389,27 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 </g>
 <g data-c="3">
 <g data-s="6">
-<path style="fill:url(#k);fill-rule:evenodd" data-o="68" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
-<path style="fill:url(#l);fill-rule:evenodd" data-o="68" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
+<path style="fill:url(#m);fill-rule:evenodd" data-o="68" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
+<path style="fill:url(#n);fill-rule:evenodd" data-o="68" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
 </g>
 </g>
 </g>
 </g>
 </defs>
 <view id="Course_5-1" viewBox="0 0 215.9 279.4"/>
-<g transform="matrix(.001 0 0-.001 52.781 146.535)" clip-path="url(#m)">
+<g transform="matrix(.001 0 0-.001 52.781 146.535)" clip-path="url(#o)">
 <use xlink:href="#a"/>
 </g>
 <view id="Course_5-2" viewBox="225.9 0 215.9 279.4"/>
-<g transform="matrix(.001 0 0-.001 263.612 146.732)" clip-path="url(#n)">
-<use xlink:href="#d"/>
+<g transform="matrix(.001 0 0-.001 263.612 146.732)" clip-path="url(#p)">
+<use xlink:href="#f"/>
 </g>
 <view id="Course_5-3" viewBox="451.8 0 215.9 279.4"/>
-<g transform="matrix(.001 0 0-.001 512.002 161.05)" clip-path="url(#o)">
-<use xlink:href="#g"/>
+<g transform="matrix(.001 0 0-.001 512.002 161.05)" clip-path="url(#q)">
+<use xlink:href="#i"/>
 </g>
 <view id="Course_5-4" viewBox="677.7 0 215.9 279.4"/>
-<g transform="matrix(.001 0 0-.001 753.052 135.714)" clip-path="url(#p)">
-<use xlink:href="#j"/>
+<g transform="matrix(.001 0 0-.001 753.052 135.714)" clip-path="url(#r)">
+<use xlink:href="#l"/>
 </g>
 </svg>
