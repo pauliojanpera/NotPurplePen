@@ -209,6 +209,17 @@ Two undertakings to return to once the SVG work is done (@Pauli, Nov 6).
   - The pieces are real geometry, made with boolean path operations; SkiaSharp's keep curves. Old printers' PostScript and PDF interpreters take plain filled shapes without transparency or huge clip paths, and editors handle them best.
   - Against hairline seams between pieces, a setting grows each cutting shape by a set distance, about 0.02 to 0.05 mm. A piece then overlaps its neighbour along the cut edges, while its outer edge stays at the object's edge.
   - Map lines are turned into outlines before they cut. Bitmaps under a blended colour cannot be cut as vectors.
+  - It covers solid colours with opacity and the standard blend modes, and nothing else.
+  - It is designed to be carried to Inkscape and Scribus as well:
+    - a short specification of the mixing, worked in CMYK by ISO 32000's transparency rules, and of the cutting;
+    - only the geometry that every library offers: outlines, booleans and growth;
+    - SVG as the format a standalone flattener reads and writes;
+    - a shared test set that any port must pass;
+    - a licence that GPL-2.0-or-later programs can take in.
+  - The language and the geometry library are to be weighed:
+    - Clipper2 (C++, C# and Delphi by its author, with ports for Python, JavaScript and others; Boost licence) is the de facto standard and robust, but works on polygons only, so curves come out as segments.
+    - Skia's path operations (C++, C# through SkiaSharp, Python's `skia-pathops`, JavaScript through CanvasKit) keep curves, but are less proven on edges that two areas share.
+    - Either supports one implementation in C# for Purple Pen and one in Python for an Inkscape extension and Scribus users. A single C++ core with bindings is the alternative.
 - **Vector printing.** An option, not the default, at least at first: printing stays rasterized unless the option is chosen.
   - It is built without WinForms.
   - On Linux and macOS, a PDF goes to CUPS: either the PDF export's, or the Skia target's drawing recorded into a PDF, which draws what the raster print draws.
