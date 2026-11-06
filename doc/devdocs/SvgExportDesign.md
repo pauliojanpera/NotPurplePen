@@ -69,21 +69,43 @@ B-6).
   (`Map.Draw`'s `BeginObject(curSym, ...)`), so the key reaches the target unchanged.
 - **What the target is told.** Two calls join `IStructuredGraphicsTarget`, with plain data only, as `Graphics2D`
   carries no course types (`Graphics2D/CourseRecords.cs`):
-  - `DescribeCourse(object mapKey, CourseRecord course)`, with the course's map: the name, part, variation and print
-    scale, and the controls in order, each with its code, kind and position in map coordinates (CD-1);
+  - `DescribeCourse(object mapKey, CourseRecord course)`, with the course's map: the course's id in the event's .ppen
+    file, its name, part, variation and print scale, and the controls in order, each with its id in the file, its code,
+    its kind as the file names it and its position in map coordinates (CD-1);
   - `DescribeObjects(object mapKey, IReadOnlyDictionary<object, CourseObjectRecord> objects)`: for each object key of
     the course's map, its kind and its controls, by their places in the course's list: one for a control circle,
     start, finish or control number, two for a leg, none for a description or a special object (CD-2).
-- **What the document writes.** Elements keep only their object number (S-11). The course map's `<npp:map>` record
-  gains `<npp:course name="..." part="..." variation="..." scale="...">` with an `<npp:control n="..." code="..."
-  kind="..." x="..." y="..."/>` for each control, its position in steps of map as the drawing writes coordinates, and
-  an `<npp:object n="..." kind="..." controls="..."/>` for each described object that drew an element, keyed by the
-  number its elements carry. The names are a proposal, to settle with @Pauli before the format's version is raised;
-  version 1 only gains elements.
-- **Kinds.** From the `CourseObj` class: `ControlCourseObj` control, `StartCourseObj` start, `FinishCourseObj`
-  finish, `ControlNumberCourseObj` control-number, `LegCourseObj`, `FlaggedLegCourseObj` and `TopologyLegCourseObj`
-  leg, `DescriptionCourseObj` description, and each special its own kind; controls from `courseControlId`, and for a
-  leg from both ends.
+- **What the document writes.** Elements keep only their object number (S-11). The course is written in the terms and
+  ids of the event's .ppen file, as @Pauli chose on Nov 4, in the structure of the course map's record. That
+  `<npp:map>` record gains `<npp:course id="..." name="..." part="..." variation="..." print-scale="...">`: `id` is the
+  course's id in the .ppen file, left out for a page of all controls, which is no course of the file, and
+  `print-scale` is the name the file gives the print scale. The course holds an `<npp:control n="..." id="..."
+  code="..." kind="..." x="..." y="..."/>` for each control in the order the course visits it: its place, its id in the
+  .ppen file, its code, its kind as the file names it, and its position in steps of map, as the drawing writes
+  coordinates. After the course comes an `<npp:object n="..." kind="..." controls="..."/>` for each described object
+  that drew an element, keyed by the number its elements carry and naming its controls by their places; the .ppen file
+  records nothing of what is drawn, so the object has no counterpart there. Nesting the file's own course data would
+  have carried every part and relay fork of a course into each runner's file.
+- **The pages that show a course (CD-1).** Every `<npp:map>` record names in `views` the views of the pages that show
+  it, in the order of the pages, as the target finds them from the parts each page shows and the maps each part
+  holds: a course part's record names the pages of its course, and the base map's every page that shows it. This is a
+  proposal for @Pauli (below).
+- **Kinds.** Of a control, the kind as the .ppen file names it, by `ControlPoint.KindText`, which the file's writing
+  uses too: normal, start, finish, crossing-point, map-exchange or map-issue. Of an object, from the `CourseObj`
+  class: `ControlCourseObj` control, `StartCourseObj` start, `FinishCourseObj` finish, `ControlNumberCourseObj`
+  control-number, `LegCourseObj`, `FlaggedLegCourseObj` and `TopologyLegCourseObj` leg, `DescriptionCourseObj`
+  description, and each special its own kind; controls from `courseControlId`, and for a leg from both ends.
+- **The format's version stays 1.** The course data's names stood under version 1 as a proposal until @Pauli settled
+  them, and no release has written them: the export has reached `dev` and its trial packages alone. From the first
+  release on, a reader of version 1 meets the settled names only.
+
+**Proposal for @Pauli: the pages that show a course.** CD-1 asks the metadata to give, for each part of a course, the
+pages that show it. (a) Each map's record names the views of the pages that show it, as built: one attribute, which a
+reader of the metadata alone can follow to the pages. (b) A record for each page, `<npp:page view="..." maps="..."/>`,
+naming the maps it shows, from which a reader finds a course's pages by looking for its map. (c) No record: a reader
+finds the pages through the document's structure, from each page's `<use>` of the parts to the map groups within
+them, and CD-1 is reworded to say so. Recommended, and built: (a), which answers CD-1 where it asks, in the course
+part's own record.
 
 ## Baseline tests (V-2, V-4, V-5)
 

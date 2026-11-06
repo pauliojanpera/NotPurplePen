@@ -155,7 +155,7 @@ The document describes the courses it draws, so that a reader can use it as an e
 
 | ID | Requirement | Level |
 | --- | --- | --- |
-| CD-1 | The metadata describes each course the document draws: its name, part and variation, its print scale, its controls in order, each with its code, kind and position, and for each part the map it is drawn on and the pages that show it. | Must |
+| CD-1 | The metadata describes each course the document draws in the terms and ids of the event's .ppen file (@Pauli, Nov 4): its id in the file, its name, part and variation, its print scale, its controls in order, each with its id in the file, its code, its kind as the file names it and its position, and for each part the map it is drawn on and the pages that show it. | Must |
 | CD-2 | Each course object in the drawing carries what it draws: its kind and the controls of CD-1 it belongs to, one for a control circle, start, finish or control number, two for a leg. Objects that belong to no control, such as descriptions and special objects, carry their kind only. | Must |
 | CD-3 | `CourseLayout` records which map symbols each course object adds, and the export passes the target a lookup from those objects to their course attributes as plain strings. | Must |
 
