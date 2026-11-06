@@ -407,8 +407,8 @@ Madrona Permanent11 and 2.3 % of printarea2. The SVGs of the comparison come to 
 
 ## Symbol reuse (S-5)
 
-Written on Nov 6 from `feature/svg-target` at f8b60f9; the work is on `feature/svg-symbol-reuse`. The change is the
-target's alone, in `Map_Svg`.
+Written on Nov 6 from `feature/svg-target` at f8b60f9, and built on `feature/svg-symbol-reuse` (353887b). The change
+is the target's alone, in `Map_Svg`.
 
 - **What repeats.** A glyph draws its parts of one color under one `PushTransform`, which moves to the glyph's point and
   turns by its angle (`Glyph.DrawCore`): a point symbol's object, and the glyphs that a line draws along itself and an
@@ -433,14 +433,47 @@ target's alone, in `Map_Svg`.
   the use unless a group around it carries it (S-4). The shapes inherit it through the use, so one definition serves
   every style its geometry is drawn in, and a symbol's or a run's shared style stays on its group.
 - **Ids.** A definition's id is named when it is first used, as every id is (F-2, L-5).
-- **Tests.** `SvgDocumentTests` define a glyph drawn by two objects once, with a use for each; leave a glyph drawn once
-  as it is; keep the styles of shapes that differ in style in the definition; keep a symbol's identity on its group;
-  and let a group carry the style its uses share. The structure walk (V-7) takes the shapes of a definition's group as
-  resources, as it takes a definition of one shape. The renderings of the comparison and of the course pages do not
-  move; the export baselines (V-2) move by the references.
-- **Readers.** Scribus turns a `<use>` into a group holding a copy of what it refers to, with the use's style and
-  transform, and Inkscape shows it as a clone; a copy inherits the style of the use and of the groups around it. F-6 is
-  read again with `SvgColourReaders/` on documents the new code writes.
+- **Tests.** `SvgDocumentTests` define a glyph that three objects of two symbols draw once, the symbols' groups carrying
+  the colours their uses share, and the group of a symbol of one object keeping its identity; keep the styles of shapes
+  that differ in style in their definition; and leave glyphs drawn once as they are. The structure walk (V-7) takes the
+  shapes of a definition's group as resources, as it takes a definition of one shape, and the layout test (V-8) tells
+  the parts, which pages use, from the definitions that the parts use. `AreaPatternTests` count each dot of a pattern
+  drawn element by element, a circle or a use. Seven export baselines (V-2) move by the references, and no rendering of
+  the comparison or of the course pages moves: the 227 measurements of a local run are byte for byte those of loop run
+  42223178438 on f8b60f9.
+
+The 23 files of the baseline tests come to 6,426,906 bytes, against 6,485,149 at f8b60f9, and to 3,207,077
+gzip-compressed, against 3,208,769. mapexchange1's page of all controls falls 12.6 %, Madrona Permanent11's Course 1
+2.7 %, mapexchange1's Course 5 in a file 2.6 %, printarea2's Course 1 2.5 % and testproj2's page of all controls 2.3 %.
+Madrona Permanent11 drawn as separate shapes falls only 0.6 %: its 20,732 dots are circles in place, which a use would
+lengthen. Overprint test lower purple in one file grows by 12 bytes: each of its two course parts draws the start and
+the finish once, and a definition of a small fragment with two uses is a few bytes longer than the two groups. The
+212 SVGs of the comparison come to 29,499,213 bytes, against 30,091,506, and to 11,589,732 gzip-compressed, against
+11,597,812: wholestructure2 and 4 fall 70 %, max2glyph7 and 9 53 %, decreasesymbols 29 %, and five small ones grow by 2
+to 12 bytes. Compression finds the repeats by itself, so S-5 matters for the plain document.
+
+**Inkscape and Scribus (F-6).** Read with `SvgColourReaders/` on the exports of the new code:
+
+- Scribus 1.6.1 turns a `<use>` into a group holding a copy of what it refers to, with the use's style and transform.
+  Of Overprint test lower purple in one file, mapexchange1's Course 5 in a file and its page of all controls, Madrona
+  Permanent11's Course 1 and printarea2's Course 1, which hold 4, 6, 77, 256 and 701 uses, it made 32, 92, 869, 1,745
+  and 8,095 items, each use's copy among them, with the fills and strokes that `expected_paints.py` counts, within Qt's
+  steps of 1/255, and printarea2's 18 elements of its patterns' tiles besides. The copies take the stroke widths of
+  the groups around their uses: every item of Course 5 is stroked 0.992 pt, the 0.35 mm of its groups.
+- Inkscape 1.2.2 shows a use as a clone. It showed the profile `cmyk` and C, M, Y and K, the values written, on a
+  symbol's group that carries its uses' style and on a use that carries its own (0, 0.56, 1 and 0.18 for printarea2's
+  brown), and as unset a use whose group carries its style and a definition's shape, as it shows any element whose
+  style a group carries.
+
+**Proposal for @Pauli: patterns defined once a file.** Each course part draws its course with symbols of its own, so a
+file of several parts defines the patterns and hatchings of its course once a part: mapexchange1's Course 5 in one file
+defines its two hatchings four times, 1,780 bytes more than once. S-5's way of finding repeats serves patterns as
+well: a pattern whose definition, written without its id, equals one written already takes that one's id, and its
+own is never written. A tile that refers to another definition, a clip, a pattern or an image, would name ids in its
+text, and keeps a definition of its own. Equal patterns of different map symbols would share a definition too, which
+no reader needs told apart, since a pattern carries no symbol's identity; Inkscape would show their areas filled with
+one pattern. (a) Define equal patterns once a file, as above. (b) Keep a definition for each symbol and colour, as
+S-12 asks, and accept the repeats. Recommended: (a), on a branch of its own after phase 6; not built yet.
 
 ## Open questions
 
