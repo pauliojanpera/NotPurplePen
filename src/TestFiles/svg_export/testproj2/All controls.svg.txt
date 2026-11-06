@@ -42,42 +42,28 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 </sodipodi:namedview>
 <defs>
 <color-profile id="cmyk" name="cmyk" xlink:href="data:application/vnd.iccprofile;base64,sha256:a4cb0af0777cef9b31261a9c8ab71ece6b5eac928efbc59a749e1aa667b43baa"/>
-<clipPath id="c">
+<clipPath id="d">
 <path d="M-124999-101818h266700v203200h-266700z"/>
 </clipPath>
+<g id="b">
+<path d="M-2000 0h4000"/>
+<path d="M0-2000v4000"/>
+</g>
 <g id="a">
 <g style="fill:none;stroke:#000;stroke:#000 icc-color(cmyk,1,1,1,1);stroke-width:100;stroke-linejoin:bevel" data-m="1">
 <g data-c="30">
 <g data-s="1">
-<g transform="translate(-34760 6080)">
-<path data-o="1" d="M-2000 0h4000"/>
-<path data-o="1" d="M0-2000v4000"/>
-</g>
-<g transform="translate(-2920 26880)">
-<path data-o="2" d="M-2000 0h4000"/>
-<path data-o="2" d="M0-2000v4000"/>
-</g>
-<g transform="translate(11960 10560)">
-<path data-o="3" d="M-2000 0h4000"/>
-<path data-o="3" d="M0-2000v4000"/>
-</g>
-<g transform="translate(47240-11440)">
-<path data-o="4" d="M-2000 0h4000"/>
-<path data-o="4" d="M0-2000v4000"/>
-</g>
-<g transform="translate(-17480-29760)">
-<path data-o="5" d="M-2000 0h4000"/>
-<path data-o="5" d="M0-2000v4000"/>
-</g>
-<g transform="translate(12680-18480)">
-<path data-o="6" d="M-2000 0h4000"/>
-<path data-o="6" d="M0-2000v4000"/>
+<use data-o="1" xlink:href="#b" transform="translate(-34760 6080)"/>
+<use data-o="2" xlink:href="#b" transform="translate(-2920 26880)"/>
+<use data-o="3" xlink:href="#b" transform="translate(11960 10560)"/>
+<use data-o="4" xlink:href="#b" transform="translate(47240-11440)"/>
+<use data-o="5" xlink:href="#b" transform="translate(-17480-29760)"/>
+<use data-o="6" xlink:href="#b" transform="translate(12680-18480)"/>
 </g>
 </g>
 </g>
 </g>
-</g>
-<g id="b">
+<g id="c">
 <g data-m="2">
 <g data-c="2">
 <g style="fill:none;stroke:#b41d8e;stroke:#b41d8e icc-color(cmyk,.3,1,0,0);stroke-width:350;stroke-miterlimit:5" data-s="1">
@@ -113,8 +99,8 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 </g>
 </defs>
 <view id="All_controls" viewBox="0 0 279.4 215.9"/>
-<g transform="matrix(.001 0 0-.001 131.349 107.732)" clip-path="url(#c)">
+<g transform="matrix(.001 0 0-.001 131.349 107.732)" clip-path="url(#d)">
 <use xlink:href="#a"/>
-<use xlink:href="#b"/>
+<use xlink:href="#c"/>
 </g>
 </svg>

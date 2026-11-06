@@ -79,6 +79,23 @@ namespace PurplePen.MapModel
             writer.Text.Append("/>\n");
         }
 
+        // Append the element as the definition of repeated shapes holds it: without an object number, which each
+        // reference carries, and with its style only when asked to (S-5). Its style then paints with no pattern.
+        // text: the text to append to.
+        // id: the id the element carries, or null for none.
+        // withStyle: whether the element carries its style.
+        public void AppendDefinition(StringBuilder text, string id, bool withStyle)
+        {
+            text.Append('<').Append(ElementName);
+            if (id != null)
+                text.Append(" id=\"").Append(id).Append('"');
+            if (withStyle)
+                text.Append(" style=\"").Append(SvgDocument.EscapeAttribute(Style.Declarations)).Append('"');
+            text.Append(' ');
+            AppendGeometry(text);
+            text.Append("/>\n");
+        }
+
         // The name of the element.
         protected abstract string ElementName { get; }
 
@@ -228,6 +245,65 @@ namespace PurplePen.MapModel
             string transform = placement.Format(Math.Sqrt((double)image.Width * image.Width + (double)image.Height * image.Height), 1);
             if (transform.Length > 0)
                 writer.Text.Append(" transform=\"").Append(transform).Append('"');
+            writer.Text.Append("/>\n");
+        }
+    }
+
+    // The use of repeated shapes, which draws them under a transform through their one definition, in place of a group
+    // that held them (S-5). It carries the style the shapes share, if they share one, as an element carries its style,
+    // and the shapes inherit it through the use.
+    public sealed class SvgRepeatedShapesUse : SvgElement
+    {
+        // The shapes.
+        private readonly SvgRepeatedShapes shapes;
+
+        // The transform from the shapes' frame to the use's parent's.
+        private readonly SvgTransform transform;
+
+        // The style the shapes share, which their definition leaves out, or null when each carries its own.
+        private readonly SvgStyle sharedStyle;
+
+        // The bounds of the shapes, in their own frame, whose reach decides the digits of the transform (S-2).
+        private readonly SvgBounds shapesBounds;
+
+        // Create the use of repeated shapes.
+        // shapes: the shapes.
+        // transform: the transform from their frame to the use's parent's.
+        // sharedStyle: the style they share, or null when each carries its own.
+        // shapesBounds: their bounds, in their own frame.
+        public SvgRepeatedShapesUse(SvgRepeatedShapes shapes, SvgTransform transform, SvgStyle sharedStyle, SvgBounds shapesBounds)
+        {
+            this.shapes = shapes;
+            this.transform = transform;
+            this.sharedStyle = sharedStyle;
+            this.shapesBounds = shapesBounds;
+        }
+
+        // The style the shapes share, or null when each carries its own.
+        public override SvgStyle ElementStyle
+        {
+            get { return sharedStyle; }
+        }
+
+        // The bounds of the shapes, in the use's parent's frame.
+        public override SvgBounds GetBounds()
+        {
+            SvgBounds bounds = new SvgBounds();
+            bounds.IncludeTransformed(shapesBounds, transform);
+            return bounds;
+        }
+
+        // Write the element: its style, if any and unless its group carries it, the number of its object, if any, the
+        // reference to the shapes' definition and the transform, written as a group writes its own (S-4, S-8).
+        public override void Write(SvgWriter writer)
+        {
+            writer.Text.Append("<use");
+            WriteStyle(writer);
+            WriteObjectNumber(writer);
+            writer.Text.Append(" xlink:href=\"#").Append(writer.IdOfRepeatedShapes(shapes)).Append('"');
+            string transformText = transform.Format(shapesBounds.ReachFromOrigin, 1);
+            if (transformText.Length > 0)
+                writer.Text.Append(" transform=\"").Append(transformText).Append('"');
             writer.Text.Append("/>\n");
         }
     }

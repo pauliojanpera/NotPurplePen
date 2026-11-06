@@ -90,6 +90,7 @@ namespace Map_Svg.Tests
             foreach (IGrouping<string, string> repeated in ids.GroupBy(id => id, StringComparer.Ordinal).Where(group => group.Count() > 1))
                 problems.Add(string.Format(CultureInfo.InvariantCulture, "the id {0} is given {1} times", repeated.Key, repeated.Count()));
             HashSet<string> knownIds = new HashSet<string>(ids, StringComparer.Ordinal);
+            HashSet<string> usedWithinDefinitions = IdsUsedWithinDefinitions(root);
             foreach (XElement element in root.Descendants()) {
                 string href = (string)element.Attribute(XLink + "href");
                 if (href != null && href.StartsWith("#", StringComparison.Ordinal) && !knownIds.Contains(href.Substring(1)))
@@ -137,9 +138,9 @@ namespace Map_Svg.Tests
 
                 XElement mapGroup = element.Ancestors(Svg + "g").FirstOrDefault(group => group.Attribute("data-m") != null);
                 if (mapGroup == null) {
-                    // Outside any map there are only the resources the maps refer to, each directly in the definitions
-                    // with an id, and the pages' references to the parts of maps.
-                    bool resource = element.Parent != null && element.Parent.Name == Svg + "defs" && element.Attribute("id") != null;
+                    // Outside any map there are only the resources the maps refer to, and the pages' references to the
+                    // parts of maps.
+                    bool resource = IsResource(element, usedWithinDefinitions);
                     bool pageReference = element.Name.LocalName == "use" && !element.Ancestors(Svg + "defs").Any();
                     if (number != null || !(resource || pageReference))
                         problems.Add("a " + element.Name.LocalName + (number == null ? "" : " of object " + number) + " is drawn outside any map");
@@ -243,6 +244,35 @@ namespace Map_Svg.Tests
             }
 
             return problems;
+        }
+
+        // The ids that uses within the definitions refer to: the definitions of the images and of the repeated shapes
+        // that the parts draw (B-5, S-5). The pages' uses of parts lie outside the definitions.
+        // root: the document's root.
+        public static HashSet<string> IdsUsedWithinDefinitions(XElement root)
+        {
+            HashSet<string> ids = new HashSet<string>(StringComparer.Ordinal);
+            foreach (XElement use in root.Descendants(Svg + "use").Where(use => use.Ancestors(Svg + "defs").Any())) {
+                string href = (string)use.Attribute(XLink + "href");
+                if (href != null && href.StartsWith("#", StringComparison.Ordinal))
+                    ids.Add(href.Substring(1));
+            }
+            return ids;
+        }
+
+        // Whether an element is a resource that the maps refer to: directly in the definitions with an id, or a shape of a
+        // definition's group that uses within the definitions refer to, as repeated shapes are held (S-5).
+        // element: the element.
+        // usedWithinDefinitions: the ids that uses within the definitions refer to.
+        private static bool IsResource(XElement element, HashSet<string> usedWithinDefinitions)
+        {
+            XElement parent = element.Parent;
+            if (parent == null)
+                return false;
+            if (parent.Name == Svg + "defs")
+                return element.Attribute("id") != null;
+            return parent.Name == Svg + "g" && parent.Parent != null && parent.Parent.Name == Svg + "defs" &&
+                   usedWithinDefinitions.Contains((string)parent.Attribute("id") ?? "");
         }
 
         // Note an element of an object: the object's map, symbol and color, which must be the same map and symbol for

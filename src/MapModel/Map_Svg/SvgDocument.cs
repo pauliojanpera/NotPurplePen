@@ -505,16 +505,17 @@ namespace PurplePen.MapModel
                    (codePoint >= 0x300 && codePoint <= 0x36F) || (codePoint >= 0x203F && codePoint <= 0x2040);
         }
 
-        // Write the document's text: the style block, the metadata, the definitions of clips, patterns, parts and images,
-        // and then the pages. Each part's groups are tidied and then carry the styles their elements share (S-8, S-4).
-        // Ids are named in the order they are first used (F-2); the images, whose data dwarfs the rest, come last among
-        // the definitions.
+        // Write the document's text: the style block, the metadata, the definitions of clips, patterns, repeated shapes,
+        // parts and images, and then the pages. Each part's groups are tidied, the shapes they repeat are defined once,
+        // and then the groups carry the styles their elements share (S-8, S-5, S-4). Ids are named in the order they are
+        // first used (F-2); the images, whose data dwarfs the rest, come last among the definitions.
         public string Write()
         {
-            foreach (SvgPart part in Parts) {
+            foreach (SvgPart part in Parts)
                 part.Content.TidyChildren();
+            SvgRepeatedShapes.PlaceByReference(Parts.Select(part => part.Content));
+            foreach (SvgPart part in Parts)
                 part.Content.ShareStyles();
-            }
             ResolveFontFaces();
 
             SvgWriter writer = new SvgWriter();
@@ -528,6 +529,10 @@ namespace PurplePen.MapModel
                 writer.Text.Append("</g>\n");
             }
             string partsText = writer.TakeText();
+
+            foreach (SvgRepeatedShapes shapes in writer.RepeatedShapesReferredTo)
+                shapes.WriteDefinition(writer);
+            string repeatedShapesText = writer.TakeText();
 
             foreach (SvgPage page in pages)
                 WritePage(writer, page);
@@ -558,13 +563,14 @@ namespace PurplePen.MapModel
             WriteStyleBlock(text, WriteFontFaces());
             WriteMetadata(text);
             WriteInkscapePages(text);
-            if (Paints.RefersToCmykProfile || clipsText.Length > 0 || patternsText.Length > 0 || partsText.Length > 0 || imagesText.Length > 0) {
+            if (Paints.RefersToCmykProfile || clipsText.Length > 0 || patternsText.Length > 0 || repeatedShapesText.Length > 0 || partsText.Length > 0 ||
+                imagesText.Length > 0) {
                 text.Append("<defs>\n");
                 if (Paints.RefersToCmykProfile) {
                     text.Append("<color-profile id=\"").Append(SvgPaints.CmykProfileName).Append("\" name=\"").Append(SvgPaints.CmykProfileName)
                         .Append("\" xlink:href=\"").Append(SvgPaints.CmykProfileHref).Append("\"/>\n");
                 }
-                text.Append(clipsText).Append(patternsText).Append(partsText).Append(imagesText).Append("</defs>\n");
+                text.Append(clipsText).Append(patternsText).Append(repeatedShapesText).Append(partsText).Append(imagesText).Append("</defs>\n");
             }
             text.Append(pagesText).Append("</svg>\n");
             return text.ToString();
@@ -909,10 +915,11 @@ namespace PurplePen.MapModel
         private readonly SvgNames ids = new SvgNames();
         private readonly Dictionary<object, string> idOfDefinition = new Dictionary<object, string>(new IdentityComparer<object>());
 
-        // The clips, the patterns and the images referred to, each in the order they were first referred to, which the
-        // definitions then hold.
+        // The clips, the patterns, the repeated shapes and the images referred to, each in the order they were first
+        // referred to, which the definitions then hold.
         public readonly List<SvgClip> ClipsReferredTo = new List<SvgClip>();
         public readonly List<SvgPattern> PatternsReferredTo = new List<SvgPattern>();
+        public readonly List<SvgRepeatedShapes> RepeatedShapesReferredTo = new List<SvgRepeatedShapes>();
         public readonly List<SvgImage> ImagesReferredTo = new List<SvgImage>();
 
         // Return the text written so far, and start anew.
@@ -965,6 +972,15 @@ namespace PurplePen.MapModel
             if (!idOfDefinition.ContainsKey(pattern))
                 PatternsReferredTo.Add(pattern);
             return IdOf(pattern);
+        }
+
+        // The id of repeated shapes, which the definitions then hold.
+        // shapes: the repeated shapes.
+        public string IdOfRepeatedShapes(SvgRepeatedShapes shapes)
+        {
+            if (!idOfDefinition.ContainsKey(shapes))
+                RepeatedShapesReferredTo.Add(shapes);
+            return IdOf(shapes);
         }
 
         // The id of an image, which the definitions then hold.

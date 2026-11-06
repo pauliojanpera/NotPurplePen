@@ -386,14 +386,22 @@ namespace PurplePen
         private void WriteDocument(string fileName, string document)
         {
             byte[] bytes = new UTF8Encoding(false).GetBytes(document);
-            using (FileStream file = new FileStream(fileName, FileMode.Create, FileAccess.Write)) {
-                if (settings.Compress) {
-                    using (GZipStream compressed = new GZipStream(file, CompressionLevel.Optimal))
-                        compressed.Write(bytes, 0, bytes.Length);
-                }
-                else {
-                    file.Write(bytes, 0, bytes.Length);
-                }
+            File.WriteAllBytes(fileName, settings.Compress ? Compress(bytes) : bytes);
+        }
+
+        // Bytes as one gzip member that is the same on every platform (S-10, F-2): GZipStream writes no file name and the
+        // time as 0, but names in the header's last byte the operating system it runs on, which is named unknown instead.
+        // bytes: the bytes.
+        public static byte[] Compress(byte[] bytes)
+        {
+            const int operatingSystemOffset = 9;
+            const byte unknownOperatingSystem = 255;
+            using (MemoryStream member = new MemoryStream()) {
+                using (GZipStream compressor = new GZipStream(member, CompressionLevel.Optimal, true))
+                    compressor.Write(bytes, 0, bytes.Length);
+                byte[] compressed = member.ToArray();
+                compressed[operatingSystemOffset] = unknownOperatingSystem;
+                return compressed;
             }
         }
     }

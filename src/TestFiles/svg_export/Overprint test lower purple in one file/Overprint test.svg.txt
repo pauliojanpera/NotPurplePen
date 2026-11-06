@@ -65,12 +65,17 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 </sodipodi:namedview>
 <defs>
 <color-profile id="cmyk" name="cmyk" xlink:href="data:application/vnd.iccprofile;base64,sha256:a4cb0af0777cef9b31261a9c8ab71ece6b5eac928efbc59a749e1aa667b43baa"/>
-<clipPath id="g">
+<clipPath id="i">
 <path d="M-54497-39974H52183v81280H-54497z"/>
 </clipPath>
-<clipPath id="h">
+<clipPath id="j">
 <path d="M-54497-39226H52183v81280H-54497z"/>
 </clipPath>
+<path id="c" d="M0 1616 1400-808h-2800L0 1616z"/>
+<g id="d">
+<circle r="930"/>
+<circle r="1330"/>
+</g>
 <g id="a">
 <g data-m="1">
 <g style="fill:#ffdba3;fill:#ffdba3 icc-color(cmyk,0,.14,.4,0);fill-rule:evenodd" data-c="6">
@@ -88,15 +93,14 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <g id="b">
 <g data-m="2">
 <g data-c="0">
-<g style="fill:none;stroke:#ec008c;stroke:#ec008c icc-color(cmyk,0,1,0,0);stroke-width:140;stroke-miterlimit:5" transform="translate(-6088-1411)" data-s="1">
-<path data-o="3" d="M0 1616 1400-808h-2800L0 1616z"/>
+<g style="fill:none;stroke:#ec008c;stroke:#ec008c icc-color(cmyk,0,1,0,0);stroke-width:140;stroke-miterlimit:5" data-s="1">
+<use data-o="3" xlink:href="#c" transform="translate(-6088-1411)"/>
 </g>
 <g style="fill:none;stroke:#ec008c;stroke:#ec008c icc-color(cmyk,0,1,0,0);stroke-width:140;stroke-miterlimit:5" data-s="2">
 <circle data-o="4" cx="-1518" cy="3551" r="1130"/>
 </g>
-<g style="fill:none;stroke:#ec008c;stroke:#ec008c icc-color(cmyk,0,1,0,0);stroke-width:140;stroke-miterlimit:5" transform="translate(4817-2180)" data-s="3">
-<circle data-o="5" r="930"/>
-<circle data-o="5" r="1330"/>
+<g style="fill:none;stroke:#ec008c;stroke:#ec008c icc-color(cmyk,0,1,0,0);stroke-width:140;stroke-miterlimit:5" data-s="3">
+<use data-o="5" xlink:href="#d" transform="translate(4817-2180)"/>
 </g>
 <g style="font-size:1.672px;font-family:'Roboto Condensed';font-weight:700;fill:#ec008c;fill:#ec008c icc-color(cmyk,0,1,0,0)" transform="matrix(1 0 0-1-599 6102)" data-s="4">
 <text data-o="6" transform="translate(0 1589)scale(1000)" x="0 .846">31</text>
@@ -104,7 +108,7 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 </g>
 </g>
 </g>
-<g id="c">
+<g id="e">
 <g data-m="1">
 <g style="fill:#47b756;fill:#47b756 icc-color(cmyk,.71,0,.91,0);fill-rule:evenodd" data-c="17">
 <g style="mix-blend-mode:darken" data-s="3">
@@ -136,13 +140,13 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 </g>
 </g>
 </g>
-<g id="d">
+<g id="f">
 </g>
-<g id="e">
+<g id="g">
 <g data-m="3">
 <g data-c="0">
-<g style="fill:none;stroke:#ec008c;stroke:#ec008c icc-color(cmyk,0,1,0,0);stroke-width:140;stroke-miterlimit:5" transform="translate(-6088-1411)rotate(-42.64)" data-s="1">
-<path data-o="13" d="M0 1616 1400-808h-2800L0 1616z"/>
+<g style="fill:none;stroke:#ec008c;stroke:#ec008c icc-color(cmyk,0,1,0,0);stroke-width:140;stroke-miterlimit:5" data-s="1">
+<use data-o="13" xlink:href="#c" transform="translate(-6088-1411)rotate(-42.64)"/>
 </g>
 <g style="fill:none;stroke:#ec008c;stroke:#ec008c icc-color(cmyk,0,1,0,0);stroke-width:140;stroke-linejoin:bevel" data-s="2">
 <path data-o="14" d="M-4993-222l2710 2942"/>
@@ -151,9 +155,8 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <g style="fill:none;stroke:#ec008c;stroke:#ec008c icc-color(cmyk,0,1,0,0);stroke-width:140;stroke-miterlimit:5" data-s="3">
 <circle data-o="16" cx="-1518" cy="3551" r="1130"/>
 </g>
-<g style="fill:none;stroke:#ec008c;stroke:#ec008c icc-color(cmyk,0,1,0,0);stroke-width:140;stroke-miterlimit:5" transform="translate(4817-2180)" data-s="4">
-<circle data-o="17" r="930"/>
-<circle data-o="17" r="1330"/>
+<g style="fill:none;stroke:#ec008c;stroke:#ec008c icc-color(cmyk,0,1,0,0);stroke-width:140;stroke-miterlimit:5" data-s="4">
+<use data-o="17" xlink:href="#d" transform="translate(4817-2180)"/>
 </g>
 <g style="font-size:2.228px;font-family:'Roboto';fill:#ec008c;fill:#ec008c icc-color(cmyk,0,1,0,0)" transform="matrix(1 0 0-1-2500 7598)" data-s="5">
 <text data-o="18" transform="translate(0 2117)scale(1000)">1</text>
@@ -161,21 +164,21 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 </g>
 </g>
 </g>
-<g id="f">
+<g id="h">
 </g>
 </defs>
 <view id="All_controls" viewBox="0 0 279.4 215.9"/>
-<g transform="matrix(.0025 0 0-.0025 142.591 109.615)" clip-path="url(#g)">
+<g transform="matrix(.0025 0 0-.0025 142.591 109.615)" clip-path="url(#i)">
 <use xlink:href="#a"/>
 <use xlink:href="#b"/>
-<use xlink:href="#c"/>
-<use xlink:href="#d"/>
+<use xlink:href="#e"/>
+<use xlink:href="#f"/>
 </g>
 <view id="Course_12" viewBox="289.4 0 279.4 215.9"/>
-<g transform="matrix(.0025 0 0-.0025 431.991 111.485)" clip-path="url(#h)">
+<g transform="matrix(.0025 0 0-.0025 431.991 111.485)" clip-path="url(#j)">
 <use xlink:href="#a"/>
+<use xlink:href="#g"/>
 <use xlink:href="#e"/>
-<use xlink:href="#c"/>
-<use xlink:href="#f"/>
+<use xlink:href="#h"/>
 </g>
 </svg>
