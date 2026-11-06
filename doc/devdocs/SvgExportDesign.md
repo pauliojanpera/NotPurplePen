@@ -88,8 +88,9 @@ B-6).
   have carried every part and relay fork of a course into each runner's file.
 - **The pages that show a course (CD-1).** Every `<npp:map>` record names in `views` the views of the pages that show
   it, in the order of the pages, as the target finds them from the parts each page shows and the maps each part
-  holds: a course part's record names the pages of its course, and the base map's every page that shows it. This is a
-  proposal for @Pauli (below).
+  holds: a course part's record names the pages of its course, and the base map's every page that shows it. A reader of
+  the metadata alone follows the attribute to the pages, and CD-1 is answered where it asks, in the course part's own
+  record (@Pauli, Nov 6).
 - **Kinds.** Of a control, the kind as the .ppen file names it, by `ControlPoint.KindText`, which the file's writing
   uses too: normal, start, finish, crossing-point, map-exchange or map-issue. Of an object, from the `CourseObj`
   class: `ControlCourseObj` control, `StartCourseObj` start, `FinishCourseObj` finish, `ControlNumberCourseObj`
@@ -99,13 +100,10 @@ B-6).
   them, and no release has written them: the export has reached `dev` and its trial packages alone. From the first
   release on, a reader of version 1 meets the settled names only.
 
-**Proposal for @Pauli: the pages that show a course.** CD-1 asks the metadata to give, for each part of a course, the
-pages that show it. (a) Each map's record names the views of the pages that show it, as built: one attribute, which a
-reader of the metadata alone can follow to the pages. (b) A record for each page, `<npp:page view="..." maps="..."/>`,
-naming the maps it shows, from which a reader finds a course's pages by looking for its map. (c) No record: a reader
-finds the pages through the document's structure, from each page's `<use>` of the parts to the map groups within
-them, and CD-1 is reworded to say so. Recommended, and built: (a), which answers CD-1 where it asks, in the course
-part's own record.
+**Settled by @Pauli on Nov 6: the pages that show a course.** Each map's record names in `views` the views of the
+pages that show it, as built. A course opens in a browser as `file.svg#<view>`, through the view of its page (L-6):
+Chromium shows `file.svg#Course_12`, opened by itself, as that course's page, and one file holds every course when the
+export's file choice is all pages in one file.
 
 ## Baseline tests (V-2, V-4, V-5)
 
@@ -335,8 +333,7 @@ Nov 6). The export's setting "Draw area patterns as separate shapes" draws them 
   the area's fill, and every area shares the definition. Equal patterns of different symbols stay separate definitions,
   which S-12 does not ask to share. So do a course's: each course part draws its course with symbols of its own, so a
   file of several parts defines the hatchings of a dangerous area once a part, as mapexchange1's Course 5 in one file
-  defines its two four times, 1,780 bytes more than once. S-12 is met, so phase 6 keeps symbol reuse, path merging and
-  compression.
+  defines its two four times, 1,780 bytes more than once. S-12 is met, so phase 6 keeps symbol reuse and compression.
 - **What the document holds.** A `<pattern>` with its tile for each brush, as D-7 writes it; in the part, each area's
   path with `fill:url(#…)`, or its rectangle within the group of its frame. A pattern's tile holds each copy of the
   glyph that the map draws across the tile's edges, and the pattern's own bounds cut them off; a copy that lies wholly

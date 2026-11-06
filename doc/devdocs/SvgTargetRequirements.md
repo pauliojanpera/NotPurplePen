@@ -31,7 +31,7 @@ The first release is the SVG export: the quickest result anyone can use, and sma
 | 3 | The export in the application (A), writing one page per file, course data (CD) and their tests (V-2, V-4, V-5, V-7) | First |
 | 4 | Text (T), with embedded fonts, and bitmaps (B) | First |
 | 5 | Several pages per file, with views and Inkscape pages (L-6, L-7, V-8), and area patterns and hatchings as pattern fills (S-7, S-12, S-13) | Later |
-| 6 | Symbol reuse, path merging and compression (S-5, S-6, S-10) | Later |
+| 6 | Symbol reuse and compression (S-5, S-10) | Later |
 | 7 | Firefox and WebKit (F-5, V-6) | Later |
 | 8 | The TypeScript port (P) | Later, in its own repository |
 
@@ -192,7 +192,7 @@ Bitmaps are embedded by default, written once each, and can instead be linked as
 
 ## Output compactness
 
-Size is the target's main design goal after the map structure: integer coordinates, styles shared by the groups that hold them, symbols written once, and merged paths, before any compression.
+Size is the target's main design goal after the map structure: integer coordinates, styles shared by the groups that hold them, and symbols written once, before any compression.
 
 | ID | Requirement | Level |
 | --- | --- | --- |
@@ -201,7 +201,6 @@ Size is the target's main design goal after the map structure: integer coordinat
 | S-3 | Path data uses the shortest valid encoding: relative or absolute per command, whichever is shorter, implicit command repetition, and no separator before a minus sign. | Must |
 | S-4 | Each style is a `style` attribute, since Scribus applies no rule of a style sheet (F-6). It sits on the outermost group whose elements all share it, within the definitions that pages reference (L-2, L-3) and the tiles of patterns, and otherwise on each element; styles are equal when their declarations are, so two pens of the same color and width are one style. The objects of a symbol, or of a whole run of a color, thus take one style rather than one each, and Inkscape shows the color on the group that carries it (@Pauli, Nov 5). A group's own declarations, such as its blending, come first in the same attribute. Elements carry only their style, when no group around them does, their geometry and their object number. The style sheet keeps only the `@font-face` rules (T-6), which nothing else can hold, and the one rule that all text follows, whose properties Scribus reads nowhere. | Must |
 | S-5 | One color's part of a point symbol, repeated under different translations and rotations, is defined once and placed by reference, one reference per object. Repeats are found by comparing the written fragment as a string. | Must |
-| S-6 | Consecutive draws of one object with the same style, and no transform, clip or blending change between them, merge into one path when the result renders the same within the fidelity tolerance (F-1). Opaque strokes always merge. Opaque fills merge when their bounds are disjoint, or when each is one contour under the nonzero rule, turned to the same orientation. Translucent colors never merge, and draws of different objects never merge (M-6). | Must |
 | S-7 | Regular area patterns in clip mode become pattern fills, as Purple Pen draws them on screen with pattern brushes (@Pauli, Nov 4), and so do hatchings, each a fill of one of its lines: a conscious deviation from PDF export, which draws every pattern element by element and every hatching line by line (@Pauli, Nov 6). The SVG target declares through `IStructuredGraphicsTarget.PatternBrushesAreVectors` that its pattern brushes are vectors; for such a target `MapDisplay` draws area patterns with pattern brushes, for printing too, the map code skips its pixelation check, which at the 0.001 mm step would refuse a brush for any tile wider or taller than 0.08 mm, and it draws each hatching with a brush of one line. Irregular patterns and patterns not in clip mode are drawn element by element, as on screen, since a fill cannot draw them the same. The export's setting "Draw area patterns as separate shapes" (A-2) draws every area pattern element by element and every hatching line by line instead, as PDF export draws them, for readers that cannot fill an area with a pattern (@Pauli, Nov 6). | Must |
 | S-8 | A transform is written as a translation, rotation or scale when it is one, and as a matrix only otherwise. Groups open only to carry an attribute, and adjacent groups combine where their attributes and order allow. The styles that groups' elements share are put on the groups after the groups are tidied (S-4), so that a shared style neither keeps a group open nor keeps adjacent groups apart. | Must |
 | S-9 | Elements are separated by single line breaks, with no indentation, comments, default-valued attributes or editor metadata. A line per element keeps baseline diffs readable for about one byte per element. | Must |
