@@ -5,7 +5,7 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 </style>
 <metadata>
 <npp:document version="1">
-<npp:map n="1" label="Course 1">
+<npp:map n="1" label="Course 1" views="Course_1">
 <npp:color position="2" name="Lower purple" cmyk=".35,.85,0,0"/>
 <npp:color position="3" name="Purple" cmyk=".35,.85,0,0"/>
 <npp:symbol n="1" id="701" name="Start" colors="2"/>
@@ -14,19 +14,19 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <npp:symbol n="4" id="706" name="Finish" colors="2"/>
 <npp:symbol n="5" id="703.0" name="Control number" colors="2"/>
 <npp:symbol n="6" id="710" name="Dangerous area" colors="3"/>
-<npp:course name="Course 1" scale="10000">
-<npp:control n="1" kind="start" x="56800" y="-8700"/>
-<npp:control n="2" code="73" kind="control" x="57400" y="-13800"/>
-<npp:control n="3" code="44" kind="control" x="37600" y="-22800"/>
-<npp:control n="4" code="49" kind="control" x="22000" y="-20800"/>
-<npp:control n="5" code="53" kind="control" x="25800" y="-10500"/>
-<npp:control n="6" code="58" kind="control" x="20300" y="-4000"/>
-<npp:control n="7" code="76" kind="control" x="5600" y="-5700"/>
-<npp:control n="8" code="70" kind="control" x="21300" y="11800"/>
-<npp:control n="9" code="71" kind="control" x="40100" y="17400"/>
-<npp:control n="10" code="55" kind="control" x="51200" y="10500"/>
-<npp:control n="11" code="38" kind="control" x="50300" y="2900"/>
-<npp:control n="12" kind="finish" x="53200" y="-2800"/>
+<npp:course id="1" name="Course 1" print-scale="10000">
+<npp:control n="1" id="1" kind="start" x="56800" y="-8700"/>
+<npp:control n="2" id="73" code="73" kind="normal" x="57400" y="-13800"/>
+<npp:control n="3" id="44" code="44" kind="normal" x="37600" y="-22800"/>
+<npp:control n="4" id="49" code="49" kind="normal" x="22000" y="-20800"/>
+<npp:control n="5" id="53" code="53" kind="normal" x="25800" y="-10500"/>
+<npp:control n="6" id="58" code="58" kind="normal" x="20300" y="-4000"/>
+<npp:control n="7" id="76" code="76" kind="normal" x="5600" y="-5700"/>
+<npp:control n="8" id="70" code="70" kind="normal" x="21300" y="11800"/>
+<npp:control n="9" id="71" code="71" kind="normal" x="40100" y="17400"/>
+<npp:control n="10" id="55" code="55" kind="normal" x="51200" y="10500"/>
+<npp:control n="11" id="38" code="38" kind="normal" x="50300" y="2900"/>
+<npp:control n="12" id="2" kind="finish" x="53200" y="-2800"/>
 </npp:course>
 <npp:object n="1" kind="start" controls="1"/>
 <npp:object n="2" kind="control" controls="2"/>

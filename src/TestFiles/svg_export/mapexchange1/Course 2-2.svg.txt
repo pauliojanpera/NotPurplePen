@@ -5,21 +5,21 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 </style>
 <metadata>
 <npp:document version="1">
-<npp:map n="1" label="Course 2-2">
+<npp:map n="1" label="Course 2-2" views="Course_2-2">
 <npp:color position="2" name="Lower purple" cmyk=".35,.85,0,0"/>
 <npp:color position="3" name="Purple" cmyk=".35,.85,0,0"/>
 <npp:symbol n="1" id="703.0" name="Control number" colors="2"/>
 <npp:symbol n="2" id="710" name="Dangerous area" colors="3"/>
-<npp:course name="Course 2" part="2" scale="10000">
-<npp:control n="1" code="76" kind="control" x="5600" y="-5700"/>
-<npp:control n="2" code="72" kind="control" x="-700" y="10300"/>
-<npp:control n="3" code="70" kind="control" x="21300" y="11800"/>
-<npp:control n="4" kind="crossing" x="31618" y="21696"/>
-<npp:control n="5" code="50" kind="control" x="45200" y="22800"/>
-<npp:control n="6" code="75" kind="control" x="72000" y="27000"/>
-<npp:control n="7" code="55" kind="control" x="51200" y="10500"/>
-<npp:control n="8" code="38" kind="control" x="50300" y="2900"/>
-<npp:control n="9" kind="finish" x="53200" y="-2800"/>
+<npp:course id="2" name="Course 2" part="2" print-scale="10000">
+<npp:control n="1" id="76" code="76" kind="normal" x="5600" y="-5700"/>
+<npp:control n="2" id="72" code="72" kind="normal" x="-700" y="10300"/>
+<npp:control n="3" id="70" code="70" kind="normal" x="21300" y="11800"/>
+<npp:control n="4" id="85" kind="crossing-point" x="31618" y="21696"/>
+<npp:control n="5" id="50" code="50" kind="normal" x="45200" y="22800"/>
+<npp:control n="6" id="75" code="75" kind="normal" x="72000" y="27000"/>
+<npp:control n="7" id="55" code="55" kind="normal" x="51200" y="10500"/>
+<npp:control n="8" id="38" code="38" kind="normal" x="50300" y="2900"/>
+<npp:control n="9" id="2" kind="finish" x="53200" y="-2800"/>
 </npp:course>
 <npp:object n="1" kind="control-number" controls="5"/>
 <npp:object n="2" kind="control-number" controls="6"/>

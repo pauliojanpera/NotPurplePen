@@ -31,11 +31,15 @@ namespace Map_Svg.Tests
             // A page draws in Chromium: its map, and its course in purple. The image has the
             // page's proportions, at 4 pixels to the millimetre.
             string document = File.ReadAllText(Path.Combine(first, files[0]));
-            StringAssert.Contains("<npp:map n=\"1\" label=\"LordHill_ver16_2024Jan_scaled.omap\">", document);
+            StringAssert.IsMatch("<npp:map n=\"1\" label=\"LordHill_ver16_2024Jan_scaled.omap\" views=\"[^\"]+\">", document);
 
-            // The course map's record describes the course, its controls in order, and what each of its objects draws,
-            // by the number its elements carry (CD-1, CD-2).
-            StringAssert.IsMatch("<npp:course name=\"[^\"]+\" scale=\"7500\">\n<npp:control n=\"1\" kind=\"start\" x=\"-?[0-9]+\" y=\"-?[0-9]+\"/>\n<npp:control n=\"2\" code=\"[0-9]+\" kind=\"control\"", document);
+            // The course map's record names the view of the page that shows it, and describes the course in the terms
+            // and ids of the event's .ppen file, its controls in order, and what each of its objects draws, by the
+            // number its elements carry (CD-1, CD-2).
+            StringAssert.IsMatch("<npp:map n=\"2\" label=\"[^\"]+\" views=\"[^\" ]+\">", document);
+            StringAssert.IsMatch("<npp:course id=\"[23]\" name=\"[^\"]+\" print-scale=\"7500\">\n" +
+                                 "<npp:control n=\"1\" id=\"[0-9]+\" kind=\"start\" x=\"-?[0-9]+\" y=\"-?[0-9]+\"/>\n" +
+                                 "<npp:control n=\"2\" id=\"[0-9]+\" code=\"[0-9]+\" kind=\"normal\"", document);
             StringAssert.IsMatch("<npp:object n=\"[0-9]+\" kind=\"leg\" controls=\"1 2\"/>", document);
             StringAssert.IsMatch("<npp:object n=\"[0-9]+\" kind=\"control\" controls=\"2\"/>", document);
             StringAssert.IsMatch("<npp:object n=\"[0-9]+\" kind=\"control-number\" controls=\"2\"/>", document);

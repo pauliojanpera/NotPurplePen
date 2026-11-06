@@ -5,7 +5,7 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 </style>
 <metadata>
 <npp:document version="1">
-<npp:map n="1" label="Course 5-2">
+<npp:map n="1" label="Course 5-2" views="Course_5-2">
 <npp:color position="2" name="Lower purple" cmyk=".35,.85,0,0"/>
 <npp:color position="3" name="Purple" cmyk=".35,.85,0,0"/>
 <npp:symbol n="1" id="713" name="Refreshment point" colors="2"/>
@@ -14,12 +14,12 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <npp:symbol n="4" id="702" name="Control point" colors="2"/>
 <npp:symbol n="5" id="703.0" name="Control number" colors="2"/>
 <npp:symbol n="6" id="710" name="Dangerous area" colors="3"/>
-<npp:course name="Course 5" part="2" scale="10000">
-<npp:control n="1" kind="map-exchange" x="115600" y="-11800"/>
-<npp:control n="2" code="37" kind="control" x="121800" y="-23000"/>
-<npp:control n="3" code="36" kind="control" x="128400" y="6100"/>
-<npp:control n="4" code="39" kind="control" x="129200" y="37700"/>
-<npp:control n="5" code="43" kind="control" x="84000" y="34500"/>
+<npp:course id="6" name="Course 5" part="2" print-scale="10000">
+<npp:control n="1" id="35" kind="map-exchange" x="115600" y="-11800"/>
+<npp:control n="2" id="37" code="37" kind="normal" x="121800" y="-23000"/>
+<npp:control n="3" id="36" code="36" kind="normal" x="128400" y="6100"/>
+<npp:control n="4" id="39" code="39" kind="normal" x="129200" y="37700"/>
+<npp:control n="5" id="43" code="43" kind="normal" x="84000" y="34500"/>
 </npp:course>
 <npp:object n="1" kind="water"/>
 <npp:object n="2" kind="start" controls="1"/>

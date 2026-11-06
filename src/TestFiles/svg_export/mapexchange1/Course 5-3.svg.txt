@@ -5,7 +5,7 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 </style>
 <metadata>
 <npp:document version="1">
-<npp:map n="1" label="Course 5-3">
+<npp:map n="1" label="Course 5-3" views="Course_5-3">
 <npp:color position="2" name="Lower purple" cmyk=".35,.85,0,0"/>
 <npp:color position="3" name="Purple" cmyk=".35,.85,0,0"/>
 <npp:symbol n="1" id="713" name="Refreshment point" colors="2"/>
@@ -13,9 +13,9 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <npp:symbol n="3" id="704" name="Line" colors="2"/>
 <npp:symbol n="4" id="703.0" name="Control number" colors="2"/>
 <npp:symbol n="5" id="710" name="Dangerous area" colors="3"/>
-<npp:course name="Course 5" part="3" scale="10000">
-<npp:control n="1" code="43" kind="control" x="84000" y="34500"/>
-<npp:control n="2" code="54" kind="control" x="53700" y="8200"/>
+<npp:course id="6" name="Course 5" part="3" print-scale="10000">
+<npp:control n="1" id="43" code="43" kind="normal" x="84000" y="34500"/>
+<npp:control n="2" id="54" code="54" kind="normal" x="53700" y="8200"/>
 </npp:course>
 <npp:object n="1" kind="water"/>
 <npp:object n="2" kind="control" controls="1"/>

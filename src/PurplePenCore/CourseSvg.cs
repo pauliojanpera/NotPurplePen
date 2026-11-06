@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -257,6 +258,7 @@ namespace PurplePen
         {
             CourseView courseView = CourseView.CreatePrintingCourseView(eventDB, page.courseDesignator);
             CourseRecord course = new CourseRecord {
+                Id = page.courseDesignator.IsAllControls ? null : page.courseDesignator.CourseId.id.ToString(CultureInfo.InvariantCulture),
                 Name = courseView.CourseName,
                 Part = page.courseDesignator.AllParts ? 0 : page.courseDesignator.Part + 1,
                 Variation = page.courseDesignator.IsVariation ? page.courseDesignator.VariationInfo.CodeString : null,
@@ -266,7 +268,10 @@ namespace PurplePen
             Dictionary<Id<ControlPoint>, int> placeOfControl = new Dictionary<Id<ControlPoint>, int>();
             foreach (CourseView.ControlView controlView in courseView.ControlViews) {
                 ControlPoint control = eventDB.GetControl(controlView.controlId);
-                course.Controls.Add(new CourseControlRecord { Code = control.code, Kind = KindOf(control.kind), Position = control.location });
+                course.Controls.Add(new CourseControlRecord {
+                    Id = controlView.controlId.id.ToString(CultureInfo.InvariantCulture), Code = control.code,
+                    Kind = ControlPoint.KindText(control.kind), Position = control.location,
+                });
                 if (!placeOfControl.ContainsKey(controlView.controlId))
                     placeOfControl.Add(controlView.controlId, course.Controls.Count);
                 if (controlView.courseControlIds != null) {
@@ -310,20 +315,6 @@ namespace PurplePen
             if (line != null && line.courseControlId2.IsNotNone && placeOfCourseControl.TryGetValue(line.courseControlId2, out place))
                 controls.Add(place);
             return new CourseObjectRecord { Kind = KindOf(courseObject), Controls = controls.ToArray() };
-        }
-
-        // The kind of a control, as the document names it.
-        // kind: the kind of the control point.
-        private static string KindOf(ControlPointKind kind)
-        {
-            switch (kind) {
-                case ControlPointKind.Start: return "start";
-                case ControlPointKind.Finish: return "finish";
-                case ControlPointKind.CrossingPoint: return "crossing";
-                case ControlPointKind.MapExchange: return "map-exchange";
-                case ControlPointKind.MapIssue: return "map-issue";
-                default: return "control";
-            }
         }
 
         // The kind of a course object, as the document names it: from its class, such as control-number for a

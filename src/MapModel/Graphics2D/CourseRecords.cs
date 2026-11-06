@@ -4,9 +4,12 @@ using PointF = System.Drawing.PointF;
 namespace PurplePen.Graphics2D
 {
     // A course that a map of a document draws, as an export describes it to a target that keeps the structure of what
-    // it draws (CD-1). Plain data, as the graphics layer knows nothing of courses.
+    // it draws (CD-1), in the terms of the event's .ppen file. Plain data, as the graphics layer knows nothing of courses.
     public sealed class CourseRecord
     {
+        // The course's id in the event's .ppen file, or null for a page of all controls, which no course of the file is.
+        public string Id;
+
         // The course's name.
         public string Name;
 
@@ -23,13 +26,17 @@ namespace PurplePen.Graphics2D
         public readonly List<CourseControlRecord> Controls = new List<CourseControlRecord>();
     }
 
-    // A control of a course, in the order the course visits it (CD-1).
+    // A control of a course, in the order the course visits it (CD-1), in the terms of the event's .ppen file.
     public sealed class CourseControlRecord
     {
+        // The control's id in the event's .ppen file.
+        public string Id;
+
         // The control's code, or null for a control without one, such as a start.
         public string Code;
 
-        // What kind of control it is: start, control, finish, crossing or map-exchange.
+        // What kind of control it is, as the .ppen file names its kinds: normal, start, finish, crossing-point,
+        // map-exchange or map-issue.
         public string Kind;
 
         // Where the control lies, in map coordinates.

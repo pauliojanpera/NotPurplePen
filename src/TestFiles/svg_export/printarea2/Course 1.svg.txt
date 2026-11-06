@@ -7,7 +7,7 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 </style>
 <metadata>
 <npp:document version="1">
-<npp:map n="1" label="ShorelineCC_Dec2018.omap">
+<npp:map n="1" label="ShorelineCC_Dec2018.omap" views="Course_1">
 <npp:georeference transform="translate(546750 5288250)rotate(-15.54)scale(.005)" epsg="32629" proj4="+proj=utm +zone=29 +datum=WGS84 +units=m +no_defs" ocad-grid-zone="2029"/>
 <npp:color position="26" name="Yellow 70%" cmyk="0,.189,.553,0"/>
 <npp:color position="27" name="White over Yellow 70%" cmyk="0,0,0,0" overprint="1"/>
@@ -120,20 +120,20 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <npp:symbol n="80" id="707" name="Uncrossable boundary &lt;span style=&quot;color:magenta&quot;&gt;(forbidden to cross)&lt;/span&gt;" colors="63"/>
 <npp:symbol n="81" id="709" name="Out-of-bounds area &lt;span style=&quot;color:magenta&quot;&gt;(forbidden to cross)&lt;/span&gt;" colors="63"/>
 </npp:map>
-<npp:map n="2" label="Course 1">
+<npp:map n="2" label="Course 1" views="Course_1">
 <npp:color position="2" name="Lower purple" cmyk=".2,1,0,0" overprint="1"/>
 <npp:symbol n="1" id="701" name="Start" colors="2"/>
 <npp:symbol n="2" id="704" name="Line" colors="2"/>
 <npp:symbol n="3" id="702" name="Control point" colors="2"/>
 <npp:symbol n="4" id="706" name="Finish" colors="2"/>
 <npp:symbol n="5" id="703.0" name="Control number" colors="2"/>
-<npp:course name="Course 1" scale="5000">
-<npp:control n="1" kind="start" x="187584" y="164635"/>
-<npp:control n="2" code="31" kind="control" x="241348" y="141324"/>
-<npp:control n="3" code="32" kind="control" x="252251" y="96208"/>
-<npp:control n="4" code="33" kind="control" x="63513" y="143956"/>
-<npp:control n="5" code="34" kind="control" x="117653" y="194336"/>
-<npp:control n="6" kind="finish" x="175553" y="143204"/>
+<npp:course id="1" name="Course 1" print-scale="5000">
+<npp:control n="1" id="1" kind="start" x="187584" y="164635"/>
+<npp:control n="2" id="2" code="31" kind="normal" x="241348" y="141324"/>
+<npp:control n="3" id="3" code="32" kind="normal" x="252251" y="96208"/>
+<npp:control n="4" id="4" code="33" kind="normal" x="63513" y="143956"/>
+<npp:control n="5" id="5" code="34" kind="normal" x="117653" y="194336"/>
+<npp:control n="6" id="6" kind="finish" x="175553" y="143204"/>
 </npp:course>
 <npp:object n="3728" kind="start" controls="1"/>
 <npp:object n="3729" kind="leg" controls="1 2"/>

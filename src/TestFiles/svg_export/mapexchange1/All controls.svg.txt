@@ -6,7 +6,7 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 </style>
 <metadata>
 <npp:document version="1">
-<npp:map n="1" label="All controls">
+<npp:map n="1" label="All controls" views="All_controls">
 <npp:color position="0" name="White" cmyk="0,0,0,0"/>
 <npp:color position="1" name="Black" cmyk="0,0,0,1"/>
 <npp:color position="2" name="Lower purple" cmyk=".35,.85,0,0"/>
@@ -69,53 +69,53 @@ text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white
 <npp:symbol n="56" id="708.0" name="Crossing point" colors="2"/>
 <npp:symbol n="57" id="720.0" name="Control code" colors="2"/>
 <npp:symbol n="58" id="710" name="Dangerous area" colors="3"/>
-<npp:course name="All controls" scale="10000">
-<npp:control n="1" kind="start" x="56800" y="-8700"/>
-<npp:control n="2" kind="start" x="41672" y="41540"/>
-<npp:control n="3" kind="map-exchange" x="115600" y="-11800"/>
-<npp:control n="4" code="31" kind="control" x="-9657" y="-10583"/>
-<npp:control n="5" code="32" kind="control" x="83741" y="-16404"/>
-<npp:control n="6" code="36" kind="control" x="128400" y="6100"/>
-<npp:control n="7" code="37" kind="control" x="121800" y="-23000"/>
-<npp:control n="8" code="38" kind="control" x="50300" y="2900"/>
-<npp:control n="9" code="39" kind="control" x="129200" y="37700"/>
-<npp:control n="10" code="40" kind="control" x="124200" y="29500"/>
-<npp:control n="11" code="41" kind="control" x="28000" y="6200"/>
-<npp:control n="12" code="42" kind="control" x="38400" y="-14000"/>
-<npp:control n="13" code="43" kind="control" x="84000" y="34500"/>
-<npp:control n="14" code="44" kind="control" x="37600" y="-22800"/>
-<npp:control n="15" code="45" kind="control" x="55900" y="25600"/>
-<npp:control n="16" code="46" kind="control" x="-9200" y="8300"/>
-<npp:control n="17" code="47" kind="control" x="2510" y="31320"/>
-<npp:control n="18" code="48" kind="control" x="21500" y="40200"/>
-<npp:control n="19" code="49" kind="control" x="22000" y="-20800"/>
-<npp:control n="20" code="50" kind="control" x="45200" y="22800"/>
-<npp:control n="21" code="51" kind="control" x="16400" y="-11900"/>
-<npp:control n="22" code="52" kind="control" x="43000" y="-11100"/>
-<npp:control n="23" code="53" kind="control" x="25800" y="-10500"/>
-<npp:control n="24" code="54" kind="control" x="53700" y="8200"/>
-<npp:control n="25" code="55" kind="control" x="51200" y="10500"/>
-<npp:control n="26" code="56" kind="control" x="81300" y="24000"/>
-<npp:control n="27" code="57" kind="control" x="90000" y="19300"/>
-<npp:control n="28" code="58" kind="control" x="20300" y="-4000"/>
-<npp:control n="29" code="59" kind="control" x="51200" y="-27000"/>
-<npp:control n="30" code="60" kind="control" x="-12887" y="25331"/>
-<npp:control n="31" code="70" kind="control" x="21300" y="11800"/>
-<npp:control n="32" code="71" kind="control" x="40100" y="17400"/>
-<npp:control n="33" code="72" kind="control" x="-700" y="10300"/>
-<npp:control n="34" code="73" kind="control" x="57400" y="-13800"/>
-<npp:control n="35" code="74" kind="control" x="61200" y="-18800"/>
-<npp:control n="36" code="75" kind="control" x="72000" y="27000"/>
-<npp:control n="37" code="76" kind="control" x="5600" y="-5700"/>
-<npp:control n="38" code="77" kind="control" x="74700" y="19200"/>
-<npp:control n="39" code="78" kind="control" x="93900" y="28100"/>
-<npp:control n="40" code="79" kind="control" x="119800" y="8600"/>
-<npp:control n="41" code="80" kind="control" x="41900" y="6800"/>
-<npp:control n="42" kind="finish" x="53200" y="-2800"/>
-<npp:control n="43" kind="finish" x="-1720" y="-31221"/>
-<npp:control n="44" kind="crossing" x="31618" y="21696"/>
-<npp:control n="45" kind="crossing" x="104643" y="16140"/>
-<npp:control n="46" kind="crossing" x="-23416" y="-3175"/>
+<npp:course name="All controls" print-scale="10000">
+<npp:control n="1" id="1" kind="start" x="56800" y="-8700"/>
+<npp:control n="2" id="82" kind="start" x="41672" y="41540"/>
+<npp:control n="3" id="35" kind="map-exchange" x="115600" y="-11800"/>
+<npp:control n="4" id="83" code="31" kind="normal" x="-9657" y="-10583"/>
+<npp:control n="5" id="88" code="32" kind="normal" x="83741" y="-16404"/>
+<npp:control n="6" id="36" code="36" kind="normal" x="128400" y="6100"/>
+<npp:control n="7" id="37" code="37" kind="normal" x="121800" y="-23000"/>
+<npp:control n="8" id="38" code="38" kind="normal" x="50300" y="2900"/>
+<npp:control n="9" id="39" code="39" kind="normal" x="129200" y="37700"/>
+<npp:control n="10" id="40" code="40" kind="normal" x="124200" y="29500"/>
+<npp:control n="11" id="41" code="41" kind="normal" x="28000" y="6200"/>
+<npp:control n="12" id="42" code="42" kind="normal" x="38400" y="-14000"/>
+<npp:control n="13" id="43" code="43" kind="normal" x="84000" y="34500"/>
+<npp:control n="14" id="44" code="44" kind="normal" x="37600" y="-22800"/>
+<npp:control n="15" id="45" code="45" kind="normal" x="55900" y="25600"/>
+<npp:control n="16" id="46" code="46" kind="normal" x="-9200" y="8300"/>
+<npp:control n="17" id="47" code="47" kind="normal" x="2510" y="31320"/>
+<npp:control n="18" id="48" code="48" kind="normal" x="21500" y="40200"/>
+<npp:control n="19" id="49" code="49" kind="normal" x="22000" y="-20800"/>
+<npp:control n="20" id="50" code="50" kind="normal" x="45200" y="22800"/>
+<npp:control n="21" id="51" code="51" kind="normal" x="16400" y="-11900"/>
+<npp:control n="22" id="52" code="52" kind="normal" x="43000" y="-11100"/>
+<npp:control n="23" id="53" code="53" kind="normal" x="25800" y="-10500"/>
+<npp:control n="24" id="54" code="54" kind="normal" x="53700" y="8200"/>
+<npp:control n="25" id="55" code="55" kind="normal" x="51200" y="10500"/>
+<npp:control n="26" id="56" code="56" kind="normal" x="81300" y="24000"/>
+<npp:control n="27" id="57" code="57" kind="normal" x="90000" y="19300"/>
+<npp:control n="28" id="58" code="58" kind="normal" x="20300" y="-4000"/>
+<npp:control n="29" id="59" code="59" kind="normal" x="51200" y="-27000"/>
+<npp:control n="30" id="81" code="60" kind="normal" x="-12887" y="25331"/>
+<npp:control n="31" id="70" code="70" kind="normal" x="21300" y="11800"/>
+<npp:control n="32" id="71" code="71" kind="normal" x="40100" y="17400"/>
+<npp:control n="33" id="72" code="72" kind="normal" x="-700" y="10300"/>
+<npp:control n="34" id="73" code="73" kind="normal" x="57400" y="-13800"/>
+<npp:control n="35" id="74" code="74" kind="normal" x="61200" y="-18800"/>
+<npp:control n="36" id="75" code="75" kind="normal" x="72000" y="27000"/>
+<npp:control n="37" id="76" code="76" kind="normal" x="5600" y="-5700"/>
+<npp:control n="38" id="77" code="77" kind="normal" x="74700" y="19200"/>
+<npp:control n="39" id="78" code="78" kind="normal" x="93900" y="28100"/>
+<npp:control n="40" id="79" code="79" kind="normal" x="119800" y="8600"/>
+<npp:control n="41" id="80" code="80" kind="normal" x="41900" y="6800"/>
+<npp:control n="42" id="2" kind="finish" x="53200" y="-2800"/>
+<npp:control n="43" id="84" kind="finish" x="-1720" y="-31221"/>
+<npp:control n="44" id="85" kind="crossing-point" x="31618" y="21696"/>
+<npp:control n="45" id="86" kind="crossing-point" x="104643" y="16140"/>
+<npp:control n="46" id="87" kind="crossing-point" x="-23416" y="-3175"/>
 </npp:course>
 <npp:object n="1" kind="description"/>
 <npp:object n="2" kind="description"/>
