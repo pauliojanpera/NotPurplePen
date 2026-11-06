@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" width="279.4mm" height="215.9mm" viewBox="0 0 279.4 215.9" xml:lang="und">
+<style>
+@font-face{font-family:'Roboto';src:url(data:font/ttf;base64,sha256:b602bb8046ca7fc7fccbe57ce58d95bc41fe4116e8c2111b6f04904a275ea24e)}
+text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white-space:pre}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="Course 2-2" views="Course_2-2">
+<npp:color position="2" name="Lower purple" cmyk=".35,.85,0,0"/>
+<npp:color position="3" name="Purple" cmyk=".35,.85,0,0"/>
+<npp:symbol n="1" id="703.0" name="Control number" colors="2"/>
+<npp:symbol n="2" id="710" name="Dangerous area" colors="3"/>
+<npp:course id="2" name="Course 2" part="2" print-scale="10000">
+<npp:control n="1" id="76" code="76" kind="normal" x="5600" y="-5700"/>
+<npp:control n="2" id="72" code="72" kind="normal" x="-700" y="10300"/>
+<npp:control n="3" id="70" code="70" kind="normal" x="21300" y="11800"/>
+<npp:control n="4" id="85" kind="crossing-point" x="31618" y="21696"/>
+<npp:control n="5" id="50" code="50" kind="normal" x="45200" y="22800"/>
+<npp:control n="6" id="75" code="75" kind="normal" x="72000" y="27000"/>
+<npp:control n="7" id="55" code="55" kind="normal" x="51200" y="10500"/>
+<npp:control n="8" id="38" code="38" kind="normal" x="50300" y="2900"/>
+<npp:control n="9" id="2" kind="finish" x="53200" y="-2800"/>
+</npp:course>
+<npp:object n="1" kind="control-number" controls="5"/>
+<npp:object n="2" kind="control-number" controls="6"/>
+<npp:object n="3" kind="dangerous"/>
+</npp:map>
+</npp:document>
+</metadata>
+<sodipodi:namedview>
+<inkscape:page x="0" y="0" width="279.4" height="215.9" inkscape:label="Course 2-2"/>
+</sodipodi:namedview>
+<defs>
+<color-profile id="cmyk" name="cmyk" xlink:href="data:application/vnd.iccprofile;base64,sha256:a4cb0af0777cef9b31261a9c8ab71ece6b5eac928efbc59a749e1aa667b43baa"/>
+<clipPath id="d">
+<path d="M0 30000h90000v50000H0z"/>
+</clipPath>
+<pattern id="b" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600" patternTransform="rotate(45)">
+<path style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:250;stroke-miterlimit:5" d="M-600 0H600"/>
+</pattern>
+<pattern id="c" patternUnits="userSpaceOnUse" x="-300" y="-300" width="600" height="600" viewBox="-300 -300 600 600" patternTransform="rotate(135)">
+<path style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:250;stroke-miterlimit:5" d="M-600 0H600"/>
+</pattern>
+<g id="a">
+<g data-m="1">
+<g style="font-size:5.57px;font-family:'Roboto';fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" data-c="2">
+<g data-s="1">
+<g transform="matrix(1 0 0-1 42744 32918)">
+<text data-o="1" transform="translate(0 5293)scale(1000)">7</text>
+</g>
+<g transform="matrix(1 0 0-1 75900 35134)">
+<text data-o="2" transform="translate(0 5293)scale(1000)">8</text>
+</g>
+</g>
+</g>
+<g data-c="3">
+<g data-s="2">
+<path style="fill:url(#b);fill-rule:evenodd" data-o="3" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
+<path style="fill:url(#c);fill-rule:evenodd" data-o="3" d="M11509 78449-1455 60193l37306-2382-1587 17463-22755 3175z"/>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<view id="Course_2-2" viewBox="0 0 279.4 215.9"/>
+<g transform="matrix(.001 0 0-.001 94.7 162.95)" clip-path="url(#d)">
+<use xlink:href="#a"/>
+</g>
+</svg>
