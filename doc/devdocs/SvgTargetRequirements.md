@@ -147,7 +147,7 @@ When a map has real-world coordinates, the document records them with that map, 
 | --- | --- | --- |
 | G-1 | For each map with real-world coordinates, the metadata records the affine transform from the map's coordinates to real-world coordinates, computed with the `CoordinateMapper` that image export uses for world files. | Must |
 | G-2 | For each map, the metadata records every identification of its coordinate system that the map has: its EPSG code, its Proj4 string and its OCAD grid and zone id. | Must |
-| G-3 | The table of OCAD grid ids in `OcadToProj4Projection` also gives the EPSG code of each grid that has one, so a map georeferenced by an OCAD grid id names its EPSG code too: OCAD grid 6005, ETRS-TM35FIN, is EPSG:3067. | Should |
+| G-3 | The table of OCAD grid ids in `OcadToProj4Projection` also gives the EPSG code of each grid that has one, so a map georeferenced by an OCAD grid id names its EPSG code too: OCAD grid 6005, ETRS-TM35FIN, is EPSG:3067. A grid that follows a code EPSG withdrew as wrong names that code, as data published with a code keeps it (@Pauli, Nov 4): grids 50050, 66044, 66045 and 66098 name 26979, 2244, 2245 and 3454, and their Proj4 strings stay as they are. | Should |
 
 ## Course data
 
