@@ -27,23 +27,38 @@ namespace PurplePen.MapModel.Tests
             Assert.AreEqual(3857, OcadToProj4Projection.EpsgCodeFromOcadProjectionId(64000));
         }
 
-        // A grid that has no EPSG code, a grid whose code describes coordinates other than its Proj4 string does, and
-        // an id that no grid has, name none.
+        // A grid that follows a code EPSG withdrew as wrong names that code, since data published with a code keeps it:
+        // NAD83 / Kentucky North, Indiana East and West in US feet, and South Dakota North in US feet.
+        [Test]
+        public void AGridThatFollowsAWithdrawnCodeNamesThatCode()
+        {
+            Assert.AreEqual(26979, OcadToProj4Projection.EpsgCodeFromOcadProjectionId(50050));
+            Assert.AreEqual(2244, OcadToProj4Projection.EpsgCodeFromOcadProjectionId(66044));
+            Assert.AreEqual(2245, OcadToProj4Projection.EpsgCodeFromOcadProjectionId(66045));
+            Assert.AreEqual(3454, OcadToProj4Projection.EpsgCodeFromOcadProjectionId(66098));
+        }
+
+        // A grid that has no EPSG code, a grid whose code describes coordinates other than its Proj4 string does, a
+        // grid whose code EPSG deprecated without a replacement, and an id that no grid has, name none.
         [Test]
         public void AGridWithoutAConfirmedCodeOrAnUnknownIdNamesNone()
         {
             Assert.AreEqual(0, OcadToProj4Projection.EpsgCodeFromOcadProjectionId(16001));
-            Assert.AreEqual(0, OcadToProj4Projection.EpsgCodeFromOcadProjectionId(50050));
             Assert.AreEqual(0, OcadToProj4Projection.EpsgCodeFromOcadProjectionId(17008));
+            Assert.AreEqual(0, OcadToProj4Projection.EpsgCodeFromOcadProjectionId(63011));
             Assert.AreEqual(0, OcadToProj4Projection.EpsgCodeFromOcadProjectionId(123456));
         }
 
-        // A grid that names its EPSG code still gives the Proj4 string it gave before.
+        // A grid that names its EPSG code still gives the Proj4 string it gave before, a grid that names a withdrawn code
+        // among them.
         [Test]
         public void AGridThatNamesItsEpsgCodeKeepsItsProj4String()
         {
             Assert.AreEqual("+proj=utm +zone=35 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs",
                             OcadToProj4Projection.Proj4StringFromOcadProjectionId(6005));
+            Assert.AreEqual("+proj=lcc +lat_1=37.96666666666667 +lat_2=37.96666666666667 +lat_0=37.5 +lon_0=-84.25 +x_0=500000 +y_0=0 " +
+                            "+ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs",
+                            OcadToProj4Projection.Proj4StringFromOcadProjectionId(50050));
             Assert.IsNull(OcadToProj4Projection.Proj4StringFromOcadProjectionId(123456));
         }
     }
