@@ -1946,6 +1946,7 @@ namespace PurplePen.MapModel
         // Hatching information.
         List<HatchInfo> hatchings = new List<HatchInfo>();
         object[] hatchPens;        // pens for hatching.
+        object[] hatchBrushes;     // brushes of one line of each hatching, for targets whose pattern brushes are vectors.
 
         // Pattern information
         List<PatternInfo> patterns = new List<PatternInfo>();
@@ -2164,17 +2165,23 @@ namespace PurplePen.MapModel
             }
         }
 
-        // Draw the hatching into the interior of the SymPath.
+        // Draw the hatching into the interior of the SymPath: with a pattern brush of one of its lines each hatching
+        // that HatchingIsFilledWithBrush picks, and the others line by line.
         void DrawHatchings(IGraphicsTarget g, SymPathWithHoles path, float angle, PointF rotationCenter, RenderOptions renderOpts, SymColor color)
         {
-            // Precheck if any hatchings have the color before doing the expensive clip operation.
-            bool hasColor = false;
+            // Fill the hatchings of the color that are drawn with brushes, and precheck if any are left to draw line by
+            // line before doing the expensive clip operation.
+            bool hasLines = false;
             for (int i = 0; i < hatchings.Count; ++i) {
-                if (hatchings[i].hatchColor == color)
-                    hasColor = true;
+                if (hatchings[i].hatchColor == color) {
+                    if (HatchingIsFilledWithBrush(hatchings[i], g, renderOpts))
+                        DrawHatchingWithBrush(i, g, path, angle, rotationCenter, renderOpts);
+                    else
+                        hasLines = true;
+                }
             }
 
-            if (!hasColor)
+            if (!hasLines)
                 return;
 
             // Set the clipping region to draw only inside the area.
@@ -2182,13 +2189,86 @@ namespace PurplePen.MapModel
 
             try {
                 for (int i = 0; i < hatchings.Count; ++i) {
-                    if (hatchings[i].hatchColor == color)
+                    if (hatchings[i].hatchColor == color && !HatchingIsFilledWithBrush(hatchings[i], g, renderOpts))
                         DrawOneHatching(g, path, angle, rotationCenter, renderOpts, hatchings[i], hatchPens[i]);
                 }
             }
             finally {
                 g.PopClip();
             }
+        }
+
+        // Whether a hatching is drawn with a pattern brush whose tile holds one of its lines: pattern brushes are asked
+        // for, and the target's pattern brushes are vectors, which draw the lines the brush repeats as drawing each
+        // line does. A hatching whose spacing is not above zero, which draws no line, is drawn line by line, as is
+        // every hatching on any other target.
+        // hatchInfo: the hatching.
+        // g: the target.
+        // renderOpts: the options drawn with.
+        static bool HatchingIsFilledWithBrush(HatchInfo hatchInfo, IGraphicsTarget g, RenderOptions renderOpts)
+        {
+            return renderOpts.usePatternBitmaps && g.SupportsPatternBrushes && GraphicsUtil.PatternBrushesAreVectors(g) &&
+                   hatchInfo.hatchSpacing > 0;
+        }
+
+        // Draw a hatching with the pattern brush of one of its lines, laid out from the rotation center and turned by
+        // the angle, as DrawOneHatching lays the lines out; the brush, turned by the hatching's angle, then puts each
+        // line where DrawOneHatching draws it.
+        // iHatching: the index of the hatching.
+        // g: the target.
+        // path: the area.
+        // angle: the angle the area turns its hatchings by, in degrees.
+        // rotationCenter: the point the area turns its hatchings about.
+        // renderOpts: the options drawn with.
+        void DrawHatchingWithBrush(int iHatching, IGraphicsTarget g, SymPathWithHoles path, float angle, PointF rotationCenter, RenderOptions renderOpts)
+        {
+            if (hatchings[iHatching].hatchRotateMode == RotateMode.Never) {
+                angle = 0;
+                rotationCenter = new PointF();
+            }
+
+            FillInPatternFrame(g, path, CreateHatchBrush(iHatching, g, renderOpts.minResolution), angle, rotationCenter);
+        }
+
+        // Create the pattern brush of a hatching on a target, unless the target has it already, and return its key.
+        // Its tile is a square as wide as the hatching's spacing, turned by the hatching's angle, and holds the line
+        // through the hatching's offset that lies nearest the middle of the tile, with the lines a spacing apart from
+        // it whose width reaches into the tile. Each line runs on past both sides of the tile, so that the tiles join
+        // without a seam.
+        // iHatching: the index of the hatching.
+        // g: the target.
+        // pixelSize: the size of a pixel, in map units, which a target whose pattern brushes are bitmaps sizes the
+        // tile's bitmap by.
+        object CreateHatchBrush(int iHatching, IGraphicsTarget g, float pixelSize)
+        {
+            if (hatchBrushes == null || hatchBrushes.Length != hatchings.Count)
+                hatchBrushes = new object[hatchings.Count];
+            if (hatchBrushes[iHatching] == null)
+                hatchBrushes[iHatching] = new object();
+
+            object brushKey = hatchBrushes[iHatching];
+            if (g.HasBrush(brushKey))
+                return brushKey;
+
+            HatchInfo hatchInfo = hatchings[iHatching];
+            float spacing = hatchInfo.hatchSpacing, halfWidth = hatchInfo.hatchWidth / 2;
+            int bitmapSize = Math.Max(1, (int)Math.Round(spacing / pixelSize));
+            IBrushTarget brushTarget = g.CreatePatternBrush(new SizeF(spacing, spacing), hatchInfo.hatchAngle, bitmapSize, bitmapSize);
+
+            object penKey = hatchPens[iHatching];
+            brushTarget.CreatePen(penKey, hatchInfo.hatchColor.GetBrushKey(brushTarget), hatchInfo.hatchWidth,
+                                  LineCapMode.Flat, LineJoinMode.Miter, GraphicsUtil.MITER_LIMIT);
+
+            double middleLine = hatchInfo.hatchOffset - Math.Round(hatchInfo.hatchOffset / spacing) * spacing;
+            int linesEachWay = (int)Math.Ceiling(halfWidth / spacing + 0.5);
+            for (int line = -linesEachWay; line <= linesEachWay; ++line) {
+                double y = middleLine + line * spacing;
+                if (y - halfWidth < spacing / 2 && y + halfWidth > -spacing / 2)
+                    brushTarget.DrawLine(penKey, new PointF(-spacing, (float)y), new PointF(spacing, (float)y));
+            }
+
+            brushTarget.FinishBrush(brushKey);
+            return brushKey;
         }
 
         void DrawOneHatching(IGraphicsTarget g, SymPathWithHoles path, float angle, PointF rotationCenter, RenderOptions renderOpts, HatchInfo hatchInfo, object hatchPen)
@@ -2228,10 +2308,11 @@ namespace PurplePen.MapModel
                 if (patternInfo.patternGlyph.HasColor(color)) {
                     // Faster to draw the pattern with a texture brush that has a bitmap
                     // of the pattern in it. Better quality to do it all with glyph drawing.
-                    // Choose based on the renderOptions.
-                    if (renderOpts.usePatternBitmaps && g.SupportsPatternBrushes && 
+                    // Choose based on the renderOptions. A brush whose tile is vectors draws
+                    // the pattern as glyph drawing does, so no tile is too pixelated for it.
+                    if (renderOpts.usePatternBitmaps && g.SupportsPatternBrushes &&
                         patternInfo.patternFillMode == PatternFillMode.Clip && !patternInfo.irregular &&
-                        !PatternBrushTooPixelated(patternInfo, renderOpts.minResolution)) 
+                        (GraphicsUtil.PatternBrushesAreVectors(g) || !PatternBrushTooPixelated(patternInfo, renderOpts.minResolution)))
                     {
                         CreatePatternBrushes(i, renderOpts.minResolution, g);
                         DrawPatternWithTexBrush(i, g, path, ignoreRotation ? 0 : angle, ignoreRotation ? new PointF() : rotationCenter, color, renderOpts);
@@ -2251,7 +2332,23 @@ namespace PurplePen.MapModel
             object brush = patternBrushes[new Pair<int, SymColor>(iPattern, color)];
             Debug.Assert(brush != null);
 
-            if (angle != 0.0F) {
+            FillInPatternFrame(g, path, brush, angle, rotationCenter);
+        }
+
+        // Fill an area with a pattern brush laid out from a rotation center and turned by an angle. The brush repeats
+        // its tile from the origin of the coordinates it fills, and DrawPattern and DrawOneHatching lay a pattern's
+        // grid and a hatching's lines out from the rotation center, turned by the angle, whether or not the angle is
+        // zero. So unless the angle is zero and the rotation center is the map's origin, the fill is made in the
+        // pattern's own frame, clipped to the area: an OpenMapper object whose pattern origin is moved needs that even
+        // when its pattern is not turned.
+        // g: the target.
+        // path: the area.
+        // brush: the key of the brush.
+        // angle: the angle, in degrees.
+        // rotationCenter: the rotation center.
+        static void FillInPatternFrame(IGraphicsTarget g, SymPathWithHoles path, object brush, float angle, PointF rotationCenter)
+        {
+            if (angle != 0.0F || rotationCenter.X != 0.0F || rotationCenter.Y != 0.0F) {
                 // Set the clipping region to draw only inside the area.
                 g.PushClip(path.GetPathKey(g));
 
