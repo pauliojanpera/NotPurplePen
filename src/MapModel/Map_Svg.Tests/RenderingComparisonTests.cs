@@ -14,8 +14,10 @@ using TestingUtils;
 namespace Map_Svg.Tests
 {
     // The rendering comparison: draws each case through the SVG target, renders the document in Chromium, and
-    // compares the image with the case's reference image within the pixel tolerance. A case that makes a call the
-    // target does not fully implement, or one it cannot honor, is pending, and names the calls it still needs.
+    // compares the image with the case's reference image within the pixel tolerance; and reads the document back into
+    // page coordinates and compares its geometry with the case's drawing calls, within what the rounding of its numbers
+    // allows (V-10). A case that makes a call the target does not fully implement, or one it cannot honor, is pending, and
+    // names the calls it still needs.
     [TestFixture, Parallelizable(ParallelScope.Children)]
     public class RenderingComparisonTests
     {
@@ -63,12 +65,14 @@ namespace Map_Svg.Tests
         }
 
         // Draw a case through the SVG target, render the document in Chromium and compare the image with the case's
-        // reference image, or end the test as pending. A case with no reference image recorded yet is compared with
-        // one rendered now, which goes to the loop's results for recording, and fails.
+        // reference image, and the document's geometry with the case's calls, or end the test as pending. A case with
+        // no reference image recorded yet is compared with one rendered now, which goes to the loop's results for
+        // recording, and fails.
         private static async Task CompareWithReferenceAsync(ComparisonCase comparisonCase)
         {
             string document;
             bool drawsText;
+            string geometryDifference;
             using (RecordingGraphicsTarget recording = comparisonCase.Record()) {
                 List<string> missingCalls = recording.RecordedCallNames.Where(callName => !Svg_GraphicsTarget.FullyImplements(callName)).ToList();
                 if (missingCalls.Count > 0)
@@ -76,6 +80,7 @@ namespace Map_Svg.Tests
 
                 document = WriteDocument(comparisonCase, recording);
                 drawsText = DrawsText(recording.RecordedCallNames);
+                geometryDifference = SvgGeometryCheck.Describe(comparisonCase, recording, document, textMetrics);
             }
 
             string svgPath = LoopResults.SaveSvg(comparisonCase.Name, document);
@@ -93,6 +98,8 @@ namespace Map_Svg.Tests
                         difference = difference == null ? misplaced : difference + " " + misplaced;
                     }
                 }
+                if (geometryDifference != null)
+                    difference = difference == null ? geometryDifference : difference + " " + geometryDifference;
                 if (!referenceRecorded) {
                     Assert.Fail(string.Format("No reference image of {0} is recorded in svg_reference; the loop's results hold one under references/. Compared with it: {1}",
                                               comparisonCase.Name, difference ?? "Chromium's image matches within the tolerance."));
