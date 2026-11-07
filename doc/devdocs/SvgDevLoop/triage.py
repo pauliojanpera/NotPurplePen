@@ -4,7 +4,8 @@ Usage: python3 -I triage.py <test results .trx> [--names]
 
 Prints how many comparison cases passed, were pending until the target implements a call, were pending for good on a
 call it will never honor as made, have no recorded reference yet (within the tolerance or not), fall outside the
-tolerance, put a character of a text too far from the shaping, or failed otherwise, and the other tests' failures.
+tolerance, put a character of a text too far from the shaping, wrote geometry that differs from their calls (V-10), or
+failed otherwise, and the other tests' failures.
 With --names, every case is named under its heading; without it, only the failures are.
 """
 import collections
@@ -13,7 +14,7 @@ import sys
 import xml.etree.ElementTree as ElementTree
 
 NAMESPACE = "{http://microsoft.com/schemas/VisualStudio/TeamTest/2010}"
-CASE = re.compile(r"(?:MapArea|Drawing)\((.*)\)$")
+CASE = re.compile(r"(?:MapArea|Drawing|AreaPattern)\((.*)\)$")
 
 
 def message_of(result):
@@ -43,6 +44,8 @@ def sort(path):
             kinds["outside the tolerance"].append((case, int(pixels.group(1).replace(",", ""))))
         elif "from where Skia's shaping puts its glyph" in text:
             kinds["text misplaced"].append((case, first_line[:200]))
+        elif "The geometry of " in text:
+            kinds["geometry differs"].append((case, first_line[:200]))
         else:
             kinds["failed otherwise"].append((case, first_line[:200]))
     return kinds
@@ -52,7 +55,8 @@ def main():
     kinds = sort(sys.argv[1])
     names = "--names" in sys.argv[2:]
     order = ["passed", "pending", "pending for good", "new, within the tolerance", "new, outside the tolerance",
-             "outside the tolerance", "text misplaced", "failed otherwise", "other tests passed", "other tests failed"]
+             "outside the tolerance", "text misplaced", "geometry differs", "failed otherwise", "other tests passed",
+             "other tests failed"]
     for kind in order:
         if kind not in kinds:
             continue

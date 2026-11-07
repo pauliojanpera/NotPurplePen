@@ -495,6 +495,62 @@ Written on Nov 6 from `feature/svg-target` with S-5 (353887b); the work is on `f
   The Windows job runs the baseline tests too, so the deflated bytes, which .NET's own zlib-ng makes on every platform,
   are checked to be the same there as on Linux. The view model's tests take the choice through the settings both ways.
 
+## The geometry check (V-10)
+
+Written on Nov 7 from `feature/svg-target` at 4764b57, with the loop's later improvements (b67748d); the work is on
+`feature/svg-loop-improvements`. Chromium's pixels show no error smaller than a pixel, and a case's image holds a few
+pixels to a millimetre, while the document writes its coordinates to a thousandth of one (S-1). The rendering
+comparison therefore also reads each document back into page coordinates and compares its geometry with the case's
+drawing calls. The check is the tests' alone, in `Map_Svg.Tests`.
+
+- **What the calls draw.** `CallGeometryRecorder` is a graphics target into which the case's recording is played back,
+  as it is into the SVG target, and keeps for each call that draws a description in page coordinates: a path by its
+  parts as Skia takes them, a line or curve with no start before it beginning at the origin; a line, polygon or
+  rectangle as such a path; an arc by its ends, its radius, and whether it is the larger arc and turns towards positive
+  angles on the page, a full turn or more as a circle; an ellipse by its center and the ends of its axes; a text by its
+  characters as a document holds them, the start of its baseline below its upper left corner by the face's ascent, and
+  the point an em along it; a bitmap by the corners of its rectangle; a stroke by its width; and a pattern brush's
+  paint by its lattice, with its tile described likewise in steps of the tile, whose middle is its origin (D-7). Each
+  carries the clips around it. A call that draws nothing, a path with no point or a text with no character a document
+  can hold, is left out, as the target leaves it out.
+- **What the document draws.** `SvgGeometryReader` reads the first page of the document as SVG has it: each group's
+  transform, clip and style, the uses of parts, of repeated shapes (S-5) and of images, a line text (T-5) character by
+  character, and the fill, stroke, stroke width, fill rule and font size that a drawing inherits from its groups (S-4),
+  into descriptions of the same form.
+- **Matching.** The target writes an element for each call that draws, in the order of the calls (M-1), so the n-th
+  drawing of the page is compared with the n-th call: their kinds, the rule they fill by, whether they paint with a
+  pattern, the commands of their paths with an arc's flags and their characters must agree, and then each point and
+  length must lie within its allowance of the call's, each clip around them must agree in the same way, and so must
+  the tile of a pattern they paint with. Each clip and each tile is compared once. After the first drawing whose kind
+  or commands differ, those after it are not compared, since one drawing left out or added sets every one after it
+  apart.
+- **Allowances.** The document writes the numbers of a frame in whole units of it, the steps of the calls' own
+  coordinates there, and a text the positions of its characters, in its own millimetres, to a step of the frame it lies
+  in. A point lies within half a unit on each axis of where the call puts it, √½ of a unit; a point rounded twice, a
+  character of a line text or an ellipse moved into place (S-8), within √2; and a point a rounded radius or em from
+  another, half a unit more. Each transform the document writes moves a point within its reach less than a unit of the
+  frame it writes into (S-2), and that unit, on the page, adds to the allowance of every point below it; the page's
+  transform adds a step of the map. A stroke's width may lie half a unit from the call's, and an arc's radius a unit,
+  as SVG enlarges a radius too short for its arc's ends. Each allowance is measured on the page.
+- **Results.** Each case's measurements go to `geometry/<case>.tsv` in the loop's results: the drawings compared, the
+  largest distance of a point or length from the call's, in steps of the map, and the largest share of its allowance
+  any takes. The loop's summary gives the largest of each across the cases, and its changes since the previous run
+  take them in with a drawing's other measurements. A case whose geometry differs fails, with the first differences in
+  its message.
+- **Tests.** `GeometryCheckTests` draws a line, an arc, an ellipse and a curve under a turn, a polygon within a clip, a
+  rectangle filled with a pattern, a text and a bitmap, and requires the document of the drawing to agree with its
+  calls, and the calls to be told apart from it when a point of any of them lies five steps away, the pen is a step
+  wider, the arc turns the other way, the polygon is left out or the text's characters differ.
+
+Over the 190 cases that SVG loop run 42321275386 compares, the check reads 140,067 drawings back. No point or length
+lies further from the call's than 1.362 steps (simpletext, a text's em, whose size is written to a thousandth of a
+millimetre), and none takes more than 0.662 of its allowance (lksamm4 and its kin). No SVG changed. Where a template's frame shrinks the map, its allowances
+shrink with its units: ocad11templatealign takes 0.193 of them and template2 0.262.
+
+The check covers the rendering comparison's cases. Where Chromium puts each character of a text is checked apart,
+against Skia's shaping, and the pages the export writes are compared by their images alone (`CourseSvgPageTests`,
+`CourseSvgLayoutTests`).
+
 ## Open questions
 
 - Phase 3 writes one page per file. Should the dialog already show L-7's three file choices, with all but one

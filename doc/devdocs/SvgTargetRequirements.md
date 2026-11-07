@@ -27,7 +27,7 @@ The first release is the SVG export: the quickest result anyone can use, and sma
 | Phase | Work | Release |
 | --- | --- | --- |
 | 1 | The development loop (DL), before any code of the target | First |
-| 2 | Drawing operations (D), map structure (M), the layout of maps and pages (L-1 to L-5), color (COL), georeferencing (G), compactness S-1 to S-4, S-8, S-9 and S-11, fidelity, determinism and validity (F-1 to F-4, F-6), and the tests that check them (V-1, V-3, V-9) | First |
+| 2 | Drawing operations (D), map structure (M), the layout of maps and pages (L-1 to L-5), color (COL), georeferencing (G), compactness S-1 to S-4, S-8, S-9 and S-11, fidelity, determinism and validity (F-1 to F-4, F-6), and the tests that check them (V-1, V-3, V-9, V-10) | First |
 | 3 | The export in the application (A), writing one page per file, course data (CD) and their tests (V-2, V-4, V-5, V-7) | First |
 | 4 | Text (T), with embedded fonts, and bitmaps (B) | First |
 | 5 | Several pages per file, with views and Inkscape pages (L-6, L-7, V-8), and area patterns and hatchings as pattern fills (S-7, S-12, S-13) | Later |
@@ -251,6 +251,7 @@ Every requirement above is checked in GitHub Actions on the `wip/` branch, excep
 | V-7 | A structure test walks each reference export, traces every element to its map, color, symbol and object in the tables and every course object to its course and controls, and checks that an object drawn in several colors has the same number in all its runs (M-6, M-7, CD-2). | Must |
 | V-8 | A layout test exports a reference event into one file with several pages and checks that each map is defined once, that every page references its map and shows its own print area through its view, and that the document's own view box is the first page's (L-2 to L-7). | Must |
 | V-9 | The reference images are recorded from the same cases with the Skia target, antialiased and with pattern tiles off, into a folder of their own. The existing `skia_render` baselines stay as they are. | Must |
+| V-10 | The rendering comparison also reads each document back into page coordinates, through the transforms, styles, clips and uses it writes, and compares each drawing in it with what the case's calls draw, in the order drawn: their kinds, paints, path commands and characters agree, each point and length lies within what the rounding of the document's numbers allows, half a unit on each axis of the frame it is written in and a unit of each frame that a transform above it writes into (S-1, S-2), and their clips and the tiles of their patterns agree likewise. Chromium's pixels show no error smaller than a pixel, while a step of S-1 is a thousandth of a millimetre. | Must |
 
 ## Development loop
 
