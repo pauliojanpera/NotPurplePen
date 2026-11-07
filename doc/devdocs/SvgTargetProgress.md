@@ -123,6 +123,7 @@ The calls the target fully implements, in the sense of DL-5: `Intensity`, `PushT
 6. F-3 without its list of elements, the entries added to it included (see Decisions), and anything that checks the output against the list goes with it.
 7. Bitmaps drawn lighter through a filter (see Decisions): B-6 rewritten, and the loop's cases template_light and template2_light compared.
 8. S-9 without "editor metadata" (see Decisions).
+9. Each rule's reason beside it (@Pauli, Nov 7): M-8 from the purpose, the SVG as a map in its own right; C-6 from the TypeScript port, whose keys compare by identity; the compactness section's ranking from the purpose's compact SVG; and the fidelity section's Chromium from V-3, which pins it through Playwright, with Firefox and WebKit to follow (F-5).
 
 **At 01:45 Nov 7:** the usage limit stopped the agent, and it was resumed at 01:37, once the limit had reset.
 - S-5 (353887b) passed its loop (run 42284263477: 368 passed, 0 failed, 5 pending) and its full run (Build run 42284377989, Tests run 42284377818 on `wip/linux/svg-symbol-reuse`), and `feature/svg-target` was fast-forwarded to it. Its design is df09237 and 63908ba; its merge into `dev` is to come.
