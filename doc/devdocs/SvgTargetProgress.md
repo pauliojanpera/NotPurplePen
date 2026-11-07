@@ -139,6 +139,16 @@ The calls the target fully implements, in the sense of DL-5: `Intensity`, `PushT
 - Items 4 to 9 have not begun.
 - On @Pauli's word, a new agent at effort max took items 3 to 9 at 02:35. It works in the same worktrees and adds the code of items 5 to 7 on `feature/svg-rule-review`.
 
+**At 09:10 Nov 7:** that agent's 5-hour limit stopped it at 03:04, and the container was restarted after it; it cannot be resumed.
+- Task 6 is built and tested, with its merges waiting for their fast-forwards.
+  - The geometry check is 83e53fa on `feature/svg-loop-improvements`, rooted at `feature/svg-target` (4764b57), and the loop's report of it is 5ffb4bb on `ci/svg-loop-improvements`. The requirement and design are V-10 (037c50f).
+  - SVG loop run 42321275386 on `svg/svg-loop-improvements` (77cafab) passed. The full run on `wip/linux/svg-loop-improvements` (41dab29) passed: Build run 42321355867, Tests run 42321355902.
+  - `wip/linux/loop-report-into-base` (07bd9b0, `base` with 5ffb4bb) passed Build run 42321359974 and Tests run 42321360030. `wip/linux/loop-report-into-basewithfixes` (c0d58c5) passed Build run 42321419032 and Tests run 42321419022.
+  - Left: fast-forward `base` to 07bd9b0, `basewithfixes` to c0d58c5 and `feature/svg-target` to 83e53fa. Then merge the two into `dev` through a full run.
+- Item 11, the site's commits, is built and unrun: abb11b0 on `ci/site-build-commits`, rooted at `base` (56f0b02). It groups each build's files under one `<details>` with the commit's hash and escaped message. @Pauli chose on Nov 7 that builds already on the site take their commit from their release tags (see Decisions).
+- Items 4 to 10 have not begun.
+- On @Pauli's word ("return the agent to work"), a new agent at effort max takes the rest at 09:15, in this order: task 6's merges, item 11, item 4, then items 5 to 10.
+
 **Nov 6, task 4:** @Pauli's choices of Nov 4, done by one agent at effort max from 00:44 Helsinki; its 5-hour limit stopped it at 01:35 and 10:33, and it was resumed at 09:40 and 14:47. Each item was built on a branch of its own rooted at `feature/svg-target` as it then stood, passed its loop and its full run, was fast-forwarded into `feature/svg-target`, and reached `dev` through a merge run in full on `wip/linux/svg-target-into-dev`. `feature/svg-target` is f8b60f9, and `dev` 2931896 since 15:54; `dev`'s Tests run 42229274292 passed, and its Build run 42229274215 published its packages.
 - **Area patterns as pattern fills (S-7, S-12, S-13).**
   - The design (8c98e9c, and 2ea3df1 as built) builds the three and puts them in phase 5. @Pauli settled its two proposals (see Decisions, area patterns), and both were built.
@@ -383,6 +393,7 @@ Two undertakings to return to once the SVG work is done (@Pauli, Nov 6).
 - **Lines of zero width.** On Nov 7 @Pauli chose that the SVG export ignores a line drawn with a pen of zero width, which ISOM 2017 has no place for, instead of stopping with an error. Skia draws such a line as a hairline, one device pixel wide, and PDF export as the printer's thinnest line.
 - **F-3's list of elements.** The list of the only elements the SVG may use came from the first draft of the requirements (22e63d2, Oct 21), not from a test of what readers handle, and the elements added to it since were added because it was a whitelist. On Nov 7 @Pauli had the whole list dropped. F-3 keeps what is not the list: well-formed XML, references through `xlink:href`, identity in `data-` attributes and the tables in the metadata's namespace.
 - **Bitmaps drawn lighter.** On Nov 7 @Pauli chose that the SVG target draws a bitmap at an intensity below 1 through a filter on its image, `feComponentTransfer`, which keeps the original bitmap in the file. Browsers and Inkscape draw it lighter; Scribus may show it at full strength.
+- **The commits of builds already on the site.** On Nov 7 @Pauli chose that the site's builds published before their commits were recorded take them from their release tags, each of which points at the commit it was built from. So every build on the page shows its commit from the first publish on.
 - **Offering the fixes upstream.** On Nov 7 @Pauli put off offering the branches ready for Purple Pen: not now.
 - **Clipped miter joins.** On Nov 7 @Pauli chose that the SVG target draws a pen's `MiterClipped` join as a miter, as PDF export does, so a corner sharper than the miter limit is bevelled instead of clipped. Nothing in the map code or Purple Pen uses the join today.
 - **Editor metadata.** S-9's "no editor metadata" meant an editor's own saved state, such as its window, zoom, guides, current layer and version, which the export has none of; Inkscape's page elements (L-6) are content. On Nov 7 @Pauli had the phrase dropped from S-9.
