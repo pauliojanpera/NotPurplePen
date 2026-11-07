@@ -46,6 +46,7 @@ jobs:
 
     env:
       RESULTS: ${{ github.workspace }}/svg-loop-results
+      RENDERINGS: ${{ github.workspace }}/svg-loop-renderings
       DOTNET_NOLOGO: 'true'
       DOTNET_CLI_TELEMETRY_OPTOUT: 'true'
 
@@ -75,6 +76,7 @@ jobs:
         fi
         echo "name=$name" >> "$GITHUB_OUTPUT"
         echo "artifact=svg-loop-${name//\//-}" >> "$GITHUB_OUTPUT"
+        echo "renderings=svg-loop-renderings-${name//\//-}" >> "$GITHUB_OUTPUT"
         echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
         mkdir -p "$RESULTS"
 
@@ -126,12 +128,15 @@ jobs:
 
     # Every test runs on every run. A case the target cannot draw yet is not a
     # failure: the test is ignored, and the case is listed in the results
-    # with the calls it still needs.
+    # with the calls it still needs. Chromium's image of every comparison, and
+    # every page as the application draws it, go to a folder of their own,
+    # which only the run's artifact keeps.
     - name: Test
       id: test
       shell: bash
       env:
         SVG_LOOP_RESULTS: ${{ env.RESULTS }}
+        SVG_LOOP_RENDERINGS: ${{ env.RENDERINGS }}
         TEST_SILENTRUN: 'True'
       run: |
         set +e
@@ -187,6 +192,21 @@ jobs:
         name: ${{ steps.name.outputs.artifact }}
         path: ${{ env.RESULTS }}
         if-no-files-found: warn
+        retention-days: 7
+
+    # Chromium's image of every comparison and every page, whether it passed
+    # or not, and the application's drawing of every page, for the gallery
+    # and the tolerance's checks, which then need no Chromium of their own.
+    # About 35 MB a run, too much for the results branch; a branch whose tests
+    # keep none uploads nothing.
+    - name: Keep every rendering
+      if: ${{ !cancelled() }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ steps.name.outputs.renderings }}
+        path: ${{ env.RENDERINGS }}
+        if-no-files-found: ignore
+        compression-level: 0
         retention-days: 7
 
     - name: Verdict
