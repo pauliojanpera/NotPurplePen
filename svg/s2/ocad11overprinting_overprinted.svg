@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="663mm" height="384mm" viewBox="0 0 663 384">
+<style>
+.a{fill:#ffdd9a;fill:#ffdd9a icc-color(cmyk,0,.135,.395,0);fill-rule:evenodd}
+.b{fill:#ffba36;fill:#ffba36 icc-color(cmyk,0,.27,.79,0);fill-rule:evenodd}
+.c{fill:#8bff74;fill:#8bff74 icc-color(cmyk,.455,0,.545,0);fill-rule:evenodd}
+.d{fill:#3dff17;fill:#3dff17 icc-color(cmyk,.76,0,.91,0);fill-rule:evenodd}
+.e{mix-blend-mode:darken}
+.f{fill:#21d1ff;fill:#21d1ff icc-color(cmyk,.87,.18,0,0);fill-rule:evenodd}
+.g{fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd}
+.h{fill:#b200ff;fill:#b200ff icc-color(cmyk,.3,1,0,0);fill-rule:evenodd}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="ocad11overprinting_overprinted"/>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="b">
+<path d="M-19371-12273h38234V9872h-38234z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<path class="a" d="M-14960-4770l50-1570 30530 970-60 1570-30520-970z"/>
+<path class="b" d="M-14780-7020v-1540h30370v1540h-30370z"/>
+<path class="c" d="M-15050 6470l-30-2930 30260-310 20 2930-30250 310z"/>
+<path class="d" d="M-14880 1630l-30-2250 30080-410 20 2250-30070 410z"/>
+<g class="e">
+<path class="f" d="M-14960-1670v-1930h30420v1930h-30420z"/>
+</g>
+<g class="e">
+<path class="g" d="M-14590 8020l30-1250 29680 710-40 1250-29670-710z"/>
+</g>
+<g class="e">
+<path class="h" d="M-4340 8720l-100-19610 3560-20 90 19610-3550 20z"/>
+</g>
+</g>
+</g>
+</defs>
+<g transform="matrix(.0173402 0 0-.0173402 335.9 171.19)" clip-path="url(#b)">
+<use xlink:href="#a"/>
+</g>
+</svg>
