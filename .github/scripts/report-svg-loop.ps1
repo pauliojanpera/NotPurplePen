@@ -8,10 +8,15 @@
 #
 # The summary also says what changed since the results the branch held before
 # this run: tests that changed their outcome, and the drawings whose SVG or
-# measurements changed. changes.md lists each change. And it gives the size of
+# measurements changed, of the image or of the geometry read back from the SVG.
+# changes.md lists each change. It gives the margin of the geometry check: how
+# far from its call's a point or length of a drawing lies at most, and what
+# share of its allowance it takes. And it gives the size of
 # each file the SVG export writes of the reference events, plain and
 # gzip-compressed, which the baseline tests record in export-sizes.tsv, beside
-# the size it had before.
+# the size it had before. Of the pending cases, pending.tsv and the summary set
+# apart the calls the target will never honor, and the cases that wait on
+# nothing else, which will never be compared.
 #
 # Called from svg.yml after the tests, and after a failed build too, when there
 # is no test report and the build's errors are the verdict.
@@ -75,23 +80,27 @@ function Read-TestReport([string] $path) {
 }
 
 # The drawings of a results directory: for each case, its measurements by
-# column, and the size and SHA-256 hash of its SVG, either of which may be
+# column, of its image under measurements/ and of its geometry under
+# geometry/, and the size and SHA-256 hash of its SVG, any of which may be
 # missing.
 #
 # Parameters:
 #   directory - the results directory.
 function Read-Drawings([string] $directory) {
     $drawings = New-Object 'System.Collections.Generic.Dictionary[string,object]' ([StringComparer]::Ordinal)
-    $measurementDirectory = Join-Path $directory 'measurements'
-    if (Test-Path $measurementDirectory) {
+    foreach ($kind in 'measurements', 'geometry') {
+        $measurementDirectory = Join-Path $directory $kind
+        if (-not (Test-Path $measurementDirectory)) { continue }
         foreach ($file in (Get-ChildItem $measurementDirectory -Filter '*.tsv')) {
             $lines = @(Get-Content $file.FullName)
             if ($lines.Count -lt 2) { continue }
-            $values = [ordered]@{}
+            if (-not $drawings.ContainsKey($file.BaseName)) {
+                $drawings[$file.BaseName] = [pscustomobject]@{ Measurements = [ordered]@{}; Bytes = $null; Hash = $null }
+            }
+            $values = $drawings[$file.BaseName].Measurements
             $names = $lines[0] -split "`t"
             $fields = $lines[1] -split "`t"
             for ($i = 0; $i -lt [Math]::Min($names.Count, $fields.Count); $i++) { $values[$names[$i]] = $fields[$i] }
-            $drawings[$file.BaseName] = [pscustomobject]@{ Measurements = $values; Bytes = $null; Hash = $null }
         }
     }
     $svgDirectory = Join-Path $directory 'svg'
@@ -120,6 +129,30 @@ function Read-ExportSizes([string] $directory) {
     return @(Get-Content $path | Select-Object -Skip 1 | Where-Object { $_ } | ForEach-Object {
         $fields = $_ -split "`t"
         [pscustomobject]@{ Event = $fields[0]; File = $fields[1]; Bytes = [long]$fields[2]; Gzip = [long]$fields[3] }
+    })
+}
+
+# The geometry check's measurements of a results directory, which the tests
+# write under geometry/: for each case, how many drawings it compared, how far
+# a point or length lies at most from its call's, in steps of the map, and the
+# largest share of its allowance one takes. None when the directory has none.
+#
+# Parameters:
+#   directory - the results directory.
+function Read-Geometry([string] $directory) {
+    $geometryDirectory = Join-Path $directory 'geometry'
+    if (-not (Test-Path $geometryDirectory)) { return @() }
+    return @(foreach ($file in (Get-ChildItem $geometryDirectory -Filter '*.tsv' | Sort-Object Name)) {
+        $lines = @(Get-Content $file.FullName)
+        if ($lines.Count -lt 2) { continue }
+        $fields = $lines[1] -split "`t"
+        $culture = [Globalization.CultureInfo]::InvariantCulture
+        [pscustomobject]@{
+            Case = $file.BaseName
+            Drawings = [long]$fields[0]
+            Deviation = [double]::Parse($fields[1], $culture)
+            Share = [double]::Parse($fields[2], $culture)
+        }
     })
 }
 
@@ -218,22 +251,40 @@ $passed = @($tests | Where-Object { $_.Outcome -eq 'Passed' })
 $failed = @($tests | Where-Object { $_.Outcome -eq 'Failed' })
 $notRun = @($tests | Where-Object { $_.Outcome -ne 'Passed' -and $_.Outcome -ne 'Failed' })
 
-# The pending cases, each with the calls it still needs, as the tests saved them.
+# The pending cases, each with the calls it still needs, as the tests saved
+# them: a call to a line, followed, after a tab, by why the target will never
+# honor it, when it never will, such as a bitmap drawn lighter (B-6). A case
+# that needs nothing else will never be compared.
 $pendingDirectory = Join-Path $results 'pending'
 $pending = @(if (Test-Path $pendingDirectory) {
     foreach ($file in (Get-ChildItem $pendingDirectory -Filter '*.txt' | Sort-Object Name)) {
-        [pscustomobject]@{ Case = $file.BaseName; Calls = @(Get-Content $file.FullName | Where-Object { $_ }) }
+        $needs = @(Get-Content $file.FullName | Where-Object { $_ } | ForEach-Object {
+            $fields = $_ -split "`t", 2
+            [pscustomobject]@{ Call = $fields[0]; NeverBecause = $(if ($fields.Count -gt 1) { $fields[1] } else { '' }) }
+        })
+        [pscustomobject]@{
+            Case = $file.BaseName
+            Calls = @($needs | ForEach-Object { $_.Call })
+            Never = @($needs | Where-Object { $_.NeverBecause })
+        }
     }
 })
+$neverCompared = @($pending | Where-Object { $_.Never.Count -eq $_.Calls.Count })
 
-# For each call that pending cases need, how many need it, and how many need
-# nothing else: the cases its implementation would bring to comparison.
-$byCall = @($pending | ForEach-Object { $_.Calls } | Group-Object | ForEach-Object {
-    $call = $_.Name
+# For each call that pending cases need, and why the target never honors it,
+# if it never does: how many cases need it, and how many need nothing else,
+# the cases its implementation would bring to comparison.
+$byCall = @($pending | ForEach-Object { $case = $_; $case.Calls | ForEach-Object {
+    $call = $_
+    $never = @($case.Never | Where-Object { $_.Call -eq $call } | Select-Object -First 1)
+    [pscustomobject]@{ Case = $case; Call = $call; NeverBecause = $(if ($never.Count) { $never[0].NeverBecause } else { '' }) }
+} } | Group-Object -Property Call, NeverBecause | ForEach-Object {
+    $first = $_.Group[0]
     [pscustomobject]@{
-        Call = $call
+        Call = $first.Call
+        NeverBecause = $first.NeverBecause
         Cases = $_.Count
-        Alone = @($pending | Where-Object { $_.Calls.Count -eq 1 -and $_.Calls[0] -eq $call }).Count
+        Alone = @($_.Group | Where-Object { $_.Case.Calls.Count -eq 1 }).Count
     }
 } | Sort-Object -Property @{ Expression = 'Cases'; Descending = $true }, @{ Expression = 'Call'; Descending = $false })
 
@@ -259,7 +310,8 @@ if ($previous) {
 
 # The verdict.
 $testExit = $env:TEST_EXIT
-$counts = "$($passed.Count) passed, $($failed.Count) failed, $($pending.Count) pending"
+$counts = "$($passed.Count) passed, $($failed.Count) failed, $($pending.Count) pending" +
+          $(if ($neverCompared.Count) { ", $($neverCompared.Count) of them on calls the target never honors" } else { '' })
 if ($buildFailed) {
     $title = "The build failed with $($buildErrors.Count) errors"
     $conclusion = 'failure'
@@ -316,6 +368,17 @@ elseif ($previous) {
         foreach ($row in ($changes | Select-Object -First 30)) { $summary.Add("| $($row.Name) | $($row.Change) |") }
     }
 }
+$geometry = Read-Geometry $results
+if ($geometry.Count) {
+    $farthest = $geometry | Sort-Object -Property Deviation -Descending | Select-Object -First 1
+    $fullest = $geometry | Sort-Object -Property Share -Descending | Select-Object -First 1
+    $summary.Add('')
+    $summary.Add('## Geometry (geometry/)')
+    $summary.Add('')
+    $summary.Add("The geometry check read $(([long]($geometry | Measure-Object -Property Drawings -Sum).Sum).ToString('N0', [Globalization.CultureInfo]::InvariantCulture)) drawings of $($geometry.Count) cases back from their SVGs. " +
+                 "No point or length lies further from where its call puts it than $($farthest.Deviation.ToString('0.###', [Globalization.CultureInfo]::InvariantCulture)) steps ($($farthest.Case)), " +
+                 "and none takes more than $($fullest.Share.ToString('0.###', [Globalization.CultureInfo]::InvariantCulture)) of the allowance its rounding gives it ($($fullest.Case)).")
+}
 $exportSizes = Read-ExportSizes $results
 if ($exportSizes.Count) {
     $sizesBefore = @{}
@@ -342,9 +405,11 @@ if ($byCall.Count) {
     $summary.Add('')
     $summary.Add("## Pending cases by the calls they need ($($pending.Count) cases; pending.tsv lists each)")
     $summary.Add('')
-    $summary.Add('| Call | Cases that need it | Cases that need only it |')
-    $summary.Add('| --- | ---: | ---: |')
-    foreach ($row in $byCall) { $summary.Add("| $($row.Call) | $($row.Cases) | $($row.Alone) |") }
+    $summary.Add("$($neverCompared.Count) of them wait only on calls the target will never honor, and will never be compared.")
+    $summary.Add('')
+    $summary.Add('| Call | Never honored | Cases that need it | Cases that need only it |')
+    $summary.Add('| --- | --- | ---: | ---: |')
+    foreach ($row in $byCall) { $summary.Add("| $($row.Call) | $($row.NeverBecause) | $($row.Cases) | $($row.Alone) |") }
 }
 if ($notRun.Count -ne $pending.Count) {
     $summary.Add('')
@@ -361,7 +426,9 @@ if ($steps.Count) {
 $summaryText = $summary -join "`n"
 
 Set-Content (Join-Path $results 'summary.md') $summaryText -Encoding utf8NoBOM
-Set-Content (Join-Path $results 'pending.tsv') (@("case`tcalls") + @($pending | ForEach-Object { "$($_.Case)`t$($_.Calls -join ', ')" })) -Encoding utf8NoBOM
+Set-Content (Join-Path $results 'pending.tsv') (@("case`tcalls`tnever honored") + @($pending | ForEach-Object {
+    "$($_.Case)`t$($_.Calls -join ', ')`t$((@($_.Never | ForEach-Object { "$($_.Call): $($_.NeverBecause)" })) -join '; ')"
+})) -Encoding utf8NoBOM
 Set-Content (Join-Path $results 'steps.tsv') (@("step`toutcome`tseconds") + @($steps | ForEach-Object { "$($_.Name)`t$($_.Outcome)`t$($_.Seconds)" })) -Encoding utf8NoBOM
 Set-Content (Join-Path $results 'changes.md') $(if ($previous) {
     @("Changes since the results $env:RESULTS_BRANCH held before: $($previous.Subject).", '',
@@ -403,7 +470,9 @@ $output = [ordered]@{
     annotations = @($annotations | Select-Object -First 50)
 }
 if ($pending.Count) {
-    $output.text = Limit-Text ((@($pending | ForEach-Object { "$($_.Case): $($_.Calls -join ', ')" })) -join "`n") 65000
+    $output.text = Limit-Text ((@($pending | ForEach-Object {
+        "$($_.Case): $($_.Calls -join ', ')" + $(if ($_.Never.Count) { " (never honored: $((@($_.Never | ForEach-Object { $_.NeverBecause })) -join '; '))" } else { '' })
+    })) -join "`n") 65000
 }
 $payload = [ordered]@{
     name = 'SVG loop report'
