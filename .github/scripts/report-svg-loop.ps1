@@ -8,7 +8,10 @@
 #
 # The summary also says what changed since the results the branch held before
 # this run: tests that changed their outcome, and the drawings whose SVG or
-# measurements changed. changes.md lists each change. And it gives the size of
+# measurements changed, of the image or of the geometry read back from the SVG.
+# changes.md lists each change. It gives the margin of the geometry check: how
+# far from its call's a point or length of a drawing lies at most, and what
+# share of its allowance it takes. And it gives the size of
 # each file the SVG export writes of the reference events, plain and
 # gzip-compressed, which the baseline tests record in export-sizes.tsv, beside
 # the size it had before. Of the pending cases, pending.tsv and the summary set
@@ -77,23 +80,27 @@ function Read-TestReport([string] $path) {
 }
 
 # The drawings of a results directory: for each case, its measurements by
-# column, and the size and SHA-256 hash of its SVG, either of which may be
+# column, of its image under measurements/ and of its geometry under
+# geometry/, and the size and SHA-256 hash of its SVG, any of which may be
 # missing.
 #
 # Parameters:
 #   directory - the results directory.
 function Read-Drawings([string] $directory) {
     $drawings = New-Object 'System.Collections.Generic.Dictionary[string,object]' ([StringComparer]::Ordinal)
-    $measurementDirectory = Join-Path $directory 'measurements'
-    if (Test-Path $measurementDirectory) {
+    foreach ($kind in 'measurements', 'geometry') {
+        $measurementDirectory = Join-Path $directory $kind
+        if (-not (Test-Path $measurementDirectory)) { continue }
         foreach ($file in (Get-ChildItem $measurementDirectory -Filter '*.tsv')) {
             $lines = @(Get-Content $file.FullName)
             if ($lines.Count -lt 2) { continue }
-            $values = [ordered]@{}
+            if (-not $drawings.ContainsKey($file.BaseName)) {
+                $drawings[$file.BaseName] = [pscustomobject]@{ Measurements = [ordered]@{}; Bytes = $null; Hash = $null }
+            }
+            $values = $drawings[$file.BaseName].Measurements
             $names = $lines[0] -split "`t"
             $fields = $lines[1] -split "`t"
             for ($i = 0; $i -lt [Math]::Min($names.Count, $fields.Count); $i++) { $values[$names[$i]] = $fields[$i] }
-            $drawings[$file.BaseName] = [pscustomobject]@{ Measurements = $values; Bytes = $null; Hash = $null }
         }
     }
     $svgDirectory = Join-Path $directory 'svg'
@@ -122,6 +129,30 @@ function Read-ExportSizes([string] $directory) {
     return @(Get-Content $path | Select-Object -Skip 1 | Where-Object { $_ } | ForEach-Object {
         $fields = $_ -split "`t"
         [pscustomobject]@{ Event = $fields[0]; File = $fields[1]; Bytes = [long]$fields[2]; Gzip = [long]$fields[3] }
+    })
+}
+
+# The geometry check's measurements of a results directory, which the tests
+# write under geometry/: for each case, how many drawings it compared, how far
+# a point or length lies at most from its call's, in steps of the map, and the
+# largest share of its allowance one takes. None when the directory has none.
+#
+# Parameters:
+#   directory - the results directory.
+function Read-Geometry([string] $directory) {
+    $geometryDirectory = Join-Path $directory 'geometry'
+    if (-not (Test-Path $geometryDirectory)) { return @() }
+    return @(foreach ($file in (Get-ChildItem $geometryDirectory -Filter '*.tsv' | Sort-Object Name)) {
+        $lines = @(Get-Content $file.FullName)
+        if ($lines.Count -lt 2) { continue }
+        $fields = $lines[1] -split "`t"
+        $culture = [Globalization.CultureInfo]::InvariantCulture
+        [pscustomobject]@{
+            Case = $file.BaseName
+            Drawings = [long]$fields[0]
+            Deviation = [double]::Parse($fields[1], $culture)
+            Share = [double]::Parse($fields[2], $culture)
+        }
     })
 }
 
@@ -336,6 +367,17 @@ elseif ($previous) {
         $summary.Add('| --- | --- |')
         foreach ($row in ($changes | Select-Object -First 30)) { $summary.Add("| $($row.Name) | $($row.Change) |") }
     }
+}
+$geometry = Read-Geometry $results
+if ($geometry.Count) {
+    $farthest = $geometry | Sort-Object -Property Deviation -Descending | Select-Object -First 1
+    $fullest = $geometry | Sort-Object -Property Share -Descending | Select-Object -First 1
+    $summary.Add('')
+    $summary.Add('## Geometry (geometry/)')
+    $summary.Add('')
+    $summary.Add("The geometry check read $(([long]($geometry | Measure-Object -Property Drawings -Sum).Sum).ToString('N0', [Globalization.CultureInfo]::InvariantCulture)) drawings of $($geometry.Count) cases back from their SVGs. " +
+                 "No point or length lies further from where its call puts it than $($farthest.Deviation.ToString('0.###', [Globalization.CultureInfo]::InvariantCulture)) steps ($($farthest.Case)), " +
+                 "and none takes more than $($fullest.Share.ToString('0.###', [Globalization.CultureInfo]::InvariantCulture)) of the allowance its rounding gives it ($($fullest.Case)).")
 }
 $exportSizes = Read-ExportSizes $results
 if ($exportSizes.Count) {
