@@ -135,6 +135,7 @@ The calls the target fully implements, in the sense of DL-5: `Intensity`, `PushT
   - Keeping every rendering and setting the never-honored calls apart are on `ci/svg-loop-improvements` (0bb6a7c) and `feature/svg-loop-improvements` (b67748d), with the design 4b6e1c6. Loop run 42313692039 passed: 369 passed, 0 failed, 5 pending, all 5 on calls never honored. Neither branch is merged into `base` or `dev`.
   - The geometry check the agent was writing is kept, unbuilt and untested, as f51ae51 on `feature/svg-loop-improvements`.
 - Items 4 to 9 have not begun.
+- On @Pauli's word, a new agent at effort max took items 3 to 9 at 02:35. It works in the same worktrees and adds the code of items 5 to 7 on `feature/svg-rule-review`.
 
 **Nov 6, task 4:** @Pauli's choices of Nov 4, done by one agent at effort max from 00:44 Helsinki; its 5-hour limit stopped it at 01:35 and 10:33, and it was resumed at 09:40 and 14:47. Each item was built on a branch of its own rooted at `feature/svg-target` as it then stood, passed its loop and its full run, was fast-forwarded into `feature/svg-target`, and reached `dev` through a merge run in full on `wip/linux/svg-target-into-dev`. `feature/svg-target` is f8b60f9, and `dev` 2931896 since 15:54; `dev`'s Tests run 42229274292 passed, and its Build run 42229274215 published its packages.
 - **Area patterns as pattern fills (S-7, S-12, S-13).**
