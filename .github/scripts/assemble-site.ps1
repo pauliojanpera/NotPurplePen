@@ -28,7 +28,7 @@ function AssetUrl($tag, $file) {
 # directories are not parsed to work it out, because a package's name
 # is the packaging tool's business and changes with it. Each entry carries
 # the commit its build was made from and the commit's message; an entry
-# published before builds recorded them carries neither.
+# that came without them is given them below, from the run that built it.
 $catalog = @()
 if (Test-Path published/catalog.json) {
     $catalog = @((Get-Content published/catalog.json -Raw | ConvertFrom-Json).entries)
@@ -79,6 +79,67 @@ $trialSlugs = @($surviving | Where-Object { $_.channel -eq 'trial' } |
                 Sort-Object { [version]$_.version } -Descending |
                 ForEach-Object { $_.slug } | Select-Object -Unique | Select-Object -First $kept['trial'])
 $surviving = @($surviving | Where-Object { $_.channel -ne 'trial' -or $_.slug -in $trialSlugs })
+
+# Whether a Build run is one that publishes to an entry's channel: a push to
+# basewithfixes for base, to master or dev for main and beta, and for a trial
+# a push to a wip branch or a pull request from a branch that the version
+# step names as the trial is named.
+function IsPublishedBy($entry, $run) {
+    switch ($entry.channel) {
+        'base'  { return $run.event -eq 'push' -and $run.branch -eq 'basewithfixes' }
+        'trial' {
+            $slug = ((($run.branch -split '/')[-1]) -replace '[^A-Za-z0-9._-]', '-').Trim('-').ToLowerInvariant()
+            return ($run.event -eq 'pull_request' -or ($run.event -eq 'push' -and $run.branch -like 'wip/*')) -and
+                   $slug -eq $entry.slug
+        }
+        default { return $run.event -eq 'push' -and $run.branch -in @('master', 'dev') }
+    }
+}
+
+# Gives each entry without a commit, published before builds recorded their
+# commits or by a branch whose copy of this script dropped them, the commit
+# of the Build run that built it, with its message. The version step adds
+# the run's number to the third component of the version, so the run is the
+# one whose number is that component less $runNumberOffset. It is taken only
+# when it publishes to the entry's channel, and its head is then the commit
+# built: the one pushed, or a pull request's head. A release's tag is no
+# guide, as it points at whatever the default branch held when the release
+# was made. An entry whose run is gone, or was a dispatched ref's, which the
+# run does not name, stays without a commit.
+function AddMissingCommits($entries, [int] $runNumberOffset) {
+    $lacking = @($entries | Where-Object { -not $_.commit })
+    if (-not $lacking) { return }
+    $oldest = ($lacking | ForEach-Object { ([version]$_.version).Build - $runNumberOffset } | Measure-Object -Minimum).Minimum
+
+    # The workflow's runs come newest first, a hundred to a page.
+    $workflow = (($env:GITHUB_WORKFLOW_REF -split '@')[0] -split '/')[-1]
+    $runs = @{}
+    for ($page = 1; $page -le 10; $page++) {
+        $lines = @(& gh api "repos/$repository/actions/workflows/$workflow/runs?per_page=100&page=$page" `
+                        --jq '.workflow_runs[] | {number: .run_number, event, branch: .head_branch, sha: .head_sha} | tojson')
+        if ($LASTEXITCODE -ne 0) { "::warning::The runs of $workflow could not be read, so no build is given its commit."; return }
+        $read = @($lines | ForEach-Object { $_ | ConvertFrom-Json })
+        foreach ($run in $read) { $runs[[int]$run.number] = $run }
+        if (-not $read -or ($read.number | Measure-Object -Minimum).Minimum -le $oldest) { break }
+    }
+
+    $messages = @{}
+    foreach ($entry in $lacking) {
+        $run = $runs[([version]$entry.version).Build - $runNumberOffset]
+        if (-not $run -or -not (IsPublishedBy $entry $run)) { continue }
+        if (-not $messages.ContainsKey($run.sha)) {
+            $message = @(& gh api "repos/$repository/commits/$($run.sha)" --jq .commit.message) -join "`n"
+            $messages[$run.sha] = if ($LASTEXITCODE -eq 0) { $message.TrimEnd() } else { '' }
+        }
+        $entry | Add-Member commit $run.sha -Force
+        $entry | Add-Member message $messages[$run.sha] -Force
+    }
+}
+
+# This run's own packages show what the version step adds to a run's number.
+if ($added) {
+    AddMissingCommits $surviving (([version]$added[0].version).Build - [int]$env:GITHUB_RUN_NUMBER)
+}
 
 New-Item site -ItemType Directory -Force | Out-Null
 

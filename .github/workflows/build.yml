@@ -155,6 +155,17 @@ jobs:
         # GitVersion, used by the PdfSharp subtree, reads tags and history.
         fetch-depth: 0
 
+    # The commit the packages are made from, which the site shows with the
+    # build: the one pushed, the head of a pull request, which GitHub has merged
+    # with its base, or a dispatched ref, named here before base is merged into
+    # it below.
+    - name: Name the commit built
+      id: commit
+      shell: bash
+      run: |
+        commit='${{ github.event.pull_request.head.sha }}'
+        echo "sha=${commit:-$(git rev-parse HEAD)}" >> "$GITHUB_OUTPUT"
+
     # A pull request arrives already merged with its base. A dispatched ref does
     # not, and a branch rooted at upstream carries neither this product's
     # identity nor the fixes its tests need, so it is merged with base here --
@@ -369,14 +380,10 @@ jobs:
         $channel = '${{ steps.version.outputs.channel }}'
         New-Item artifact -ItemType Directory -Force | Out-Null
 
-        # A dispatched ref is checked out on its own history, which need not
-        # hold the commit the run was started at, so that one is fetched when
-        # it is missing. git writes the message in UTF-8, which Windows would
-        # otherwise read in its console's code page.
-        $commit = '${{ github.sha }}'
+        # git writes the message in UTF-8, which Windows would otherwise read
+        # in its console's code page.
+        $commit = '${{ steps.commit.outputs.sha }}'
         [Console]::OutputEncoding = [Text.UTF8Encoding]::new($false)
-        git cat-file -e "$commit^{commit}" 2>$null
-        if ($LASTEXITCODE -ne 0) { git fetch --quiet --no-tags --depth=1 origin $commit }
         $message = ((git log -1 --format=%B $commit) -join "`n").TrimEnd()
         if ($LASTEXITCODE -ne 0) { throw "The message of $commit could not be read." }
 
