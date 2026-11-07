@@ -1,0 +1,1 @@
+DrawBitmap	B-6, a bitmap drawn lighter, which no element of a document can draw

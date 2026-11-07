@@ -1,0 +1,6 @@
+case	calls	never honored
+clouds	CreatePen	CreatePen: D-5, a hairline pen of no width, which a document has no unit for
+clouds11	CreatePen	CreatePen: D-5, a hairline pen of no width, which a document has no unit for
+punchboxbug	CreatePen	CreatePen: D-5, a hairline pen of no width, which a document has no unit for
+template_light	DrawBitmap	DrawBitmap: B-6, a bitmap drawn lighter, which no element of a document can draw
+template2_light	DrawBitmap	DrawBitmap: B-6, a bitmap drawn lighter, which no element of a document can draw
