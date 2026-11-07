@@ -359,13 +359,26 @@ jobs:
       run: ./build-mac-app.sh --skip-sign
 
     # One descriptor per platform saying what came out and where each file
-    # belongs, so the publishing job does not have to read file names.
+    # belongs, so the publishing job does not have to read file names, and
+    # which commit the run built, with its message, which the site shows with
+    # the build.
     - name: Collect the packages
       shell: pwsh
       run: |
         $version = '${{ steps.version.outputs.version }}'
         $channel = '${{ steps.version.outputs.channel }}'
         New-Item artifact -ItemType Directory -Force | Out-Null
+
+        # A dispatched ref is checked out on its own history, which need not
+        # hold the commit the run was started at, so that one is fetched when
+        # it is missing. git writes the message in UTF-8, which Windows would
+        # otherwise read in its console's code page.
+        $commit = '${{ github.sha }}'
+        [Console]::OutputEncoding = [Text.UTF8Encoding]::new($false)
+        git cat-file -e "$commit^{commit}" 2>$null
+        if ($LASTEXITCODE -ne 0) { git fetch --quiet --no-tags --depth=1 origin $commit }
+        $message = ((git log -1 --format=%B $commit) -join "`n").TrimEnd()
+        if ($LASTEXITCODE -ne 0) { throw "The message of $commit could not be read." }
 
         $sources = switch ('${{ matrix.platform }}') {
             'win-x64'    { @{ Directory = 'src/Innosetup/output'; Include = @('*.exe') } }
@@ -411,6 +424,7 @@ jobs:
         [ordered]@{
             platform = '${{ matrix.platform }}'; channel = $channel
             version = $version; slug = $slug; tag = $tag
+            commit = $commit; message = $message
             files = @($entries)
         } | ConvertTo-Json -Depth 5 | Set-Content 'artifact/descriptor.json' -Encoding UTF8
 

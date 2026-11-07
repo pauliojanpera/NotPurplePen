@@ -26,7 +26,9 @@ function AssetUrl($tag, $file) {
 
 # catalog.json is the site's own record of what it holds. Names and
 # directories are not parsed to work it out, because a package's name
-# is the packaging tool's business and changes with it.
+# is the packaging tool's business and changes with it. Each entry carries
+# the commit its build was made from and the commit's message; an entry
+# published before builds recorded them carries neither.
 $catalog = @()
 if (Test-Path published/catalog.json) {
     $catalog = @((Get-Content published/catalog.json -Raw | ConvertFrom-Json).entries)
@@ -46,6 +48,7 @@ foreach ($descriptorFile in (Get-ChildItem packages -Recurse -Filter descriptor.
             channel = $descriptor.channel; slug = $descriptor.slug
             platform = $entry.platform; version = $entry.version
             offered = $entry.offered; sha256 = $entry.sha256
+            commit = $descriptor.commit; message = $descriptor.message
         }
     }
 }
@@ -79,7 +82,7 @@ $surviving = @($surviving | Where-Object { $_.channel -ne 'trial' -or $_.slug -i
 
 New-Item site -ItemType Directory -Force | Out-Null
 
-[ordered]@{ entries = @($surviving | Select-Object tag, url, file, channel, slug, platform, version, offered, sha256) } |
+[ordered]@{ entries = @($surviving | Select-Object tag, url, file, channel, slug, platform, version, offered, sha256, commit, message) } |
     ConvertTo-Json -Depth 5 | Set-Content site/catalog.json -Encoding UTF8
 
 # The manifest is the updater's view: the newest build of each platform
@@ -105,10 +108,31 @@ function Section($title, $note, $rows) {
     "<h2>$title</h2>" + $(if ($note) { "<p>$note</p>" }) +
     $(if ($rows) { "<ul>" + ($rows -join "`n") + "</ul>" } else { "<p>None yet.</p>" })
 }
+# Text escaped for the page.
+function Escape([string] $text) {
+    [System.Net.WebUtility]::HtmlEncode($text)
+}
+# A section's rows, one for each build: the files one run published on the
+# section's channel, newest build first, which are those of one version and,
+# for a trial, of one trial. Each row names the build and lists its files,
+# and then gives the commit it was made from, when the catalog records one,
+# as a <details> whose summary is the commit's hash and whose body its whole
+# message.
 function Rows($entries) {
-    $entries | Sort-Object @{ Expression = { [version]$_.version }; Descending = $true },
-                           @{ Expression = 'platform' }, @{ Expression = 'file' } | ForEach-Object {
-        "<li><a href=""$($_.url)"">$($_.file)</a> &mdash; $($_.platform)</li>"
+    $entries | Group-Object { "$($_.slug)|$($_.version)" } |
+        Sort-Object @{ Expression = { [version]$_.Group[0].version }; Descending = $true },
+                    @{ Expression = { $_.Group[0].slug } } | ForEach-Object {
+        $build = $_.Group[0]
+        $name = if ($build.slug) { "$(Escape $build.slug), $($build.version)" } else { $build.version }
+        $files = $_.Group | Sort-Object platform, file | ForEach-Object {
+            "<li><a href=""$($_.url)"">$($_.file)</a> &mdash; $($_.platform)</li>"
+        }
+        $commit = $_.Group | Where-Object { $_.commit } | Select-Object -First 1
+        $details = if ($commit) {
+            "<details><summary>Commit <code>$(Escape $commit.commit)</code></summary>" +
+            "<pre style=""white-space: pre-wrap"">$(Escape $commit.message)</pre></details>"
+        }
+        "<li>$name<ul>$($files -join "`n")</ul>$details</li>"
     }
 }
 
