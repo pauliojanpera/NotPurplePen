@@ -91,7 +91,8 @@ The SVG loop, `.github/workflows/svg.yml`, and the machine check of the Windows 
 | 4, text and bitmaps | Done: step 1, bitmaps, and step 2, text |
 | The first release | Phases 1 to 4 merged into `dev` (1dca01f, Oct 30) |
 | 5, several pages per file, and area patterns as pattern fills | Done on `feature/svg-target`: files of several pages as PDF export makes them, each page with its view and Inkscape page, the dialog's file choice and the layout test (V-8), with the gallery's entry `p5-pages` (a415dc1, Nov 4), its three proposals settled by @Pauli as built; and area patterns and hatchings as pattern fills (S-7, S-12, S-13), with a gallery entry (4e17b34, Nov 6) |
-| 6 to 8 | Not started |
+| 6, symbol reuse and compression | Done on `feature/svg-target` (4764b57, Nov 7) and in `dev` (c4ff243): S-5 and S-10 |
+| 7 and 8 | Not started |
 
 | Step of phase 2 | Status |
 | --- | --- |
@@ -125,10 +126,15 @@ The calls the target fully implements, in the sense of DL-5: `Intensity`, `PushT
 8. S-9 without "editor metadata" (see Decisions).
 9. Each rule's reason beside it (@Pauli, Nov 7): M-8 from the purpose, the SVG as a map in its own right; C-6 from the TypeScript port, whose keys compare by identity; the compactness section's ranking from the purpose's compact SVG; and the fidelity section's Chromium from V-3, which pins it through Playwright, with Firefox and WebKit to follow (F-5).
 
-**At 01:45 Nov 7:** the usage limit stopped the agent, and it was resumed at 01:37, once the limit had reset.
-- S-5 (353887b) passed its loop (run 42284263477: 368 passed, 0 failed, 5 pending) and its full run (Build run 42284377989, Tests run 42284377818 on `wip/linux/svg-symbol-reuse`), and `feature/svg-target` was fast-forwarded to it. Its design is df09237 and 63908ba; its merge into `dev` is to come.
-- S-10 (4764b57, on top of S-5) passed its loop (run 42285487130: 369 passed, 0 failed, 5 pending) and its full run (Build run 42285507683, Tests run 42285507581, whose PDF job was run again after the Visual C++ 2010 runtime's download came back broken). Its design is 2b13067.
-- Task 6 has begun on `ci/svg-loop-improvements` (0bb6a7c) and `feature/svg-loop-improvements` (b67748d).
+**At 02:30 Nov 7:** the usage limit stopped the agent, and it was resumed at 01:37. It stopped for good when the session's turn was interrupted at about 02:03, and is not to be resumed: a new agent starts only on @Pauli's word.
+- Phase 6 is done.
+  - S-5 (353887b) passed its loop (run 42284263477: 368 passed, 0 failed, 5 pending) and its full run (Build run 42284377989, Tests run 42284377818 on `wip/linux/svg-symbol-reuse`). Its design is df09237 and 63908ba.
+  - S-10 (4764b57, on top of S-5) passed its loop (run 42285487130: 369 passed, 0 failed, 5 pending) and its full run (Build run 42285507683, Tests run 42285507581, whose PDF job was run again after the Visual C++ 2010 runtime's download came back broken). Its design is 2b13067.
+  - `feature/svg-target` is 4764b57. `dev` became c4ff243 once Build run 42313339491 and Tests run 42313339416 had passed on `wip/linux/svg-target-into-dev`, and its Build run 42314507171 published.
+- Task 6 is half done.
+  - Keeping every rendering and setting the never-honored calls apart are on `ci/svg-loop-improvements` (0bb6a7c) and `feature/svg-loop-improvements` (b67748d), with the design 4b6e1c6. Loop run 42313692039 passed: 369 passed, 0 failed, 5 pending, all 5 on calls never honored. Neither branch is merged into `base` or `dev`.
+  - The geometry check the agent was writing is kept, unbuilt and untested, as f51ae51 on `feature/svg-loop-improvements`.
+- Items 4 to 9 have not begun.
 
 **Nov 6, task 4:** @Pauli's choices of Nov 4, done by one agent at effort max from 00:44 Helsinki; its 5-hour limit stopped it at 01:35 and 10:33, and it was resumed at 09:40 and 14:47. Each item was built on a branch of its own rooted at `feature/svg-target` as it then stood, passed its loop and its full run, was fast-forwarded into `feature/svg-target`, and reached `dev` through a merge run in full on `wip/linux/svg-target-into-dev`. `feature/svg-target` is f8b60f9, and `dev` 2931896 since 15:54; `dev`'s Tests run 42229274292 passed, and its Build run 42229274215 published its packages.
 - **Area patterns as pattern fills (S-7, S-12, S-13).**
