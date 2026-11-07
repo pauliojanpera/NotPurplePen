@@ -26,7 +26,9 @@ function AssetUrl($tag, $file) {
 
 # catalog.json is the site's own record of what it holds. Names and
 # directories are not parsed to work it out, because a package's name
-# is the packaging tool's business and changes with it.
+# is the packaging tool's business and changes with it. Each entry carries
+# the commit its build was made from and the commit's message; an entry
+# that came without them is given them below, from the run that built it.
 $catalog = @()
 if (Test-Path published/catalog.json) {
     $catalog = @((Get-Content published/catalog.json -Raw | ConvertFrom-Json).entries)
@@ -46,6 +48,7 @@ foreach ($descriptorFile in (Get-ChildItem packages -Recurse -Filter descriptor.
             channel = $descriptor.channel; slug = $descriptor.slug
             platform = $entry.platform; version = $entry.version
             offered = $entry.offered; sha256 = $entry.sha256
+            commit = $descriptor.commit; message = $descriptor.message
         }
     }
 }
@@ -77,9 +80,70 @@ $trialSlugs = @($surviving | Where-Object { $_.channel -eq 'trial' } |
                 ForEach-Object { $_.slug } | Select-Object -Unique | Select-Object -First $kept['trial'])
 $surviving = @($surviving | Where-Object { $_.channel -ne 'trial' -or $_.slug -in $trialSlugs })
 
+# Whether a Build run is one that publishes to an entry's channel: a push to
+# basewithfixes for base, to master or dev for main and beta, and for a trial
+# a push to a wip branch or a pull request from a branch that the version
+# step names as the trial is named.
+function IsPublishedBy($entry, $run) {
+    switch ($entry.channel) {
+        'base'  { return $run.event -eq 'push' -and $run.branch -eq 'basewithfixes' }
+        'trial' {
+            $slug = ((($run.branch -split '/')[-1]) -replace '[^A-Za-z0-9._-]', '-').Trim('-').ToLowerInvariant()
+            return ($run.event -eq 'pull_request' -or ($run.event -eq 'push' -and $run.branch -like 'wip/*')) -and
+                   $slug -eq $entry.slug
+        }
+        default { return $run.event -eq 'push' -and $run.branch -in @('master', 'dev') }
+    }
+}
+
+# Gives each entry without a commit, published before builds recorded their
+# commits or by a branch whose copy of this script dropped them, the commit
+# of the Build run that built it, with its message. The version step adds
+# the run's number to the third component of the version, so the run is the
+# one whose number is that component less $runNumberOffset. It is taken only
+# when it publishes to the entry's channel, and its head is then the commit
+# built: the one pushed, or a pull request's head. A release's tag is no
+# guide, as it points at whatever the default branch held when the release
+# was made. An entry whose run is gone, or was a dispatched ref's, which the
+# run does not name, stays without a commit.
+function AddMissingCommits($entries, [int] $runNumberOffset) {
+    $lacking = @($entries | Where-Object { -not $_.commit })
+    if (-not $lacking) { return }
+    $oldest = ($lacking | ForEach-Object { ([version]$_.version).Build - $runNumberOffset } | Measure-Object -Minimum).Minimum
+
+    # The workflow's runs come newest first, a hundred to a page.
+    $workflow = (($env:GITHUB_WORKFLOW_REF -split '@')[0] -split '/')[-1]
+    $runs = @{}
+    for ($page = 1; $page -le 10; $page++) {
+        $lines = @(& gh api "repos/$repository/actions/workflows/$workflow/runs?per_page=100&page=$page" `
+                        --jq '.workflow_runs[] | {number: .run_number, event, branch: .head_branch, sha: .head_sha} | tojson')
+        if ($LASTEXITCODE -ne 0) { "::warning::The runs of $workflow could not be read, so no build is given its commit."; return }
+        $read = @($lines | ForEach-Object { $_ | ConvertFrom-Json })
+        foreach ($run in $read) { $runs[[int]$run.number] = $run }
+        if (-not $read -or ($read.number | Measure-Object -Minimum).Minimum -le $oldest) { break }
+    }
+
+    $messages = @{}
+    foreach ($entry in $lacking) {
+        $run = $runs[([version]$entry.version).Build - $runNumberOffset]
+        if (-not $run -or -not (IsPublishedBy $entry $run)) { continue }
+        if (-not $messages.ContainsKey($run.sha)) {
+            $message = @(& gh api "repos/$repository/commits/$($run.sha)" --jq .commit.message) -join "`n"
+            $messages[$run.sha] = if ($LASTEXITCODE -eq 0) { $message.TrimEnd() } else { '' }
+        }
+        $entry | Add-Member commit $run.sha -Force
+        $entry | Add-Member message $messages[$run.sha] -Force
+    }
+}
+
+# This run's own packages show what the version step adds to a run's number.
+if ($added) {
+    AddMissingCommits $surviving (([version]$added[0].version).Build - [int]$env:GITHUB_RUN_NUMBER)
+}
+
 New-Item site -ItemType Directory -Force | Out-Null
 
-[ordered]@{ entries = @($surviving | Select-Object tag, url, file, channel, slug, platform, version, offered, sha256) } |
+[ordered]@{ entries = @($surviving | Select-Object tag, url, file, channel, slug, platform, version, offered, sha256, commit, message) } |
     ConvertTo-Json -Depth 5 | Set-Content site/catalog.json -Encoding UTF8
 
 # The manifest is the updater's view: the newest build of each platform
@@ -105,10 +169,31 @@ function Section($title, $note, $rows) {
     "<h2>$title</h2>" + $(if ($note) { "<p>$note</p>" }) +
     $(if ($rows) { "<ul>" + ($rows -join "`n") + "</ul>" } else { "<p>None yet.</p>" })
 }
+# Text escaped for the page.
+function Escape([string] $text) {
+    [System.Net.WebUtility]::HtmlEncode($text)
+}
+# A section's rows, one for each build: the files one run published on the
+# section's channel, newest build first, which are those of one version and,
+# for a trial, of one trial. Each row names the build and lists its files,
+# and then gives the commit it was made from, when the catalog records one,
+# as a <details> whose summary is the commit's hash and whose body its whole
+# message.
 function Rows($entries) {
-    $entries | Sort-Object @{ Expression = { [version]$_.version }; Descending = $true },
-                           @{ Expression = 'platform' }, @{ Expression = 'file' } | ForEach-Object {
-        "<li><a href=""$($_.url)"">$($_.file)</a> &mdash; $($_.platform)</li>"
+    $entries | Group-Object { "$($_.slug)|$($_.version)" } |
+        Sort-Object @{ Expression = { [version]$_.Group[0].version }; Descending = $true },
+                    @{ Expression = { $_.Group[0].slug } } | ForEach-Object {
+        $build = $_.Group[0]
+        $name = if ($build.slug) { "$(Escape $build.slug), $($build.version)" } else { $build.version }
+        $files = $_.Group | Sort-Object platform, file | ForEach-Object {
+            "<li><a href=""$($_.url)"">$($_.file)</a> &mdash; $($_.platform)</li>"
+        }
+        $commit = $_.Group | Where-Object { $_.commit } | Select-Object -First 1
+        $details = if ($commit) {
+            "<details><summary>Commit <code>$(Escape $commit.commit)</code></summary>" +
+            "<pre style=""white-space: pre-wrap"">$(Escape $commit.message)</pre></details>"
+        }
+        "<li>$name<ul>$($files -join "`n")</ul>$details</li>"
     }
 }
 
