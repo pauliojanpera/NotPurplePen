@@ -19,16 +19,13 @@ namespace Map_Svg.Tests
     // and its measurements under measurements/ in every run. Its images go there only when it falls outside the
     // tolerance, as the comparison keeps a case's: Chromium's image under renderings/ and the image of the pixels
     // outside the tolerance under differences/, and the page as the application draws it under course-pages/, as
-    // nothing else holds it: unlike a case's reference, it is drawn anew in every run and recorded nowhere. With
-    // SVG_LOOP_KEEP_PAGE_IMAGES set to 1, which the loop leaves unset, Chromium's image and the application's go under
-    // renderings/ and course-pages/ for every page, as the gallery needs them, and course-pages/ serves as the
-    // reference folder of its tools.
+    // nothing else holds it: unlike a case's reference, it is drawn anew in every run and recorded nowhere. The
+    // directory of renderings, when there is one, keeps Chromium's image and the application's of every page, under
+    // renderings/ and course-pages/, as the gallery needs them, and its course-pages/ serves as the reference folder of
+    // the gallery's tools.
     [TestFixture, NonParallelizable, SetCulture("en-US"), SetUICulture("en-US")]
     public class CourseSvgPageTests
     {
-        // Whether the images of every page go to the loop's results, not only those of a page outside the tolerance.
-        internal static readonly bool KeepImagesOfEveryPage = System.Environment.GetEnvironmentVariable("SVG_LOOP_KEEP_PAGE_IMAGES") == "1";
-
         // The resolution pages are drawn at, in pixels to the inch. At 100, the smallest text of the reference pages,
         // the 2.3 mm Arial of printarea2's legend, which the tests draw in Liberation Sans, has stems 0.8 pixels wide,
         // and its i and l stand 2 pixels apart. A stem across two columns of pixels shades both alike, Chromium at 153
@@ -92,12 +89,11 @@ namespace Map_Svg.Tests
             using (SKBitmap rendering = await ChromiumRenderer.RenderAsync(svgPath, pixelSize)) {
                 // Beyond the tolerance, the comparison has saved Chromium's image and the difference image.
                 string difference = ImageComparison.DescribeDifference(caseName, reference, rendering, DrawsText(document) ? PixelTolerance.Text : PixelTolerance.Default);
-                if (difference != null || KeepImagesOfEveryPage)
+                LoopResults.KeepRendering(Path.Combine("course-pages", caseName + ".png"), reference);
+                if (difference != null) {
                     LoopResults.SaveImage(Path.Combine("course-pages", caseName + ".png"), reference);
-                if (difference == null && KeepImagesOfEveryPage)
-                    LoopResults.SaveImage(Path.Combine("renderings", caseName + ".png"), rendering);
-                if (difference != null)
                     Assert.Fail(difference + " The page as the application draws it is course-pages/" + caseName + ".png.");
+                }
             }
         }
 
