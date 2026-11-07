@@ -126,6 +126,7 @@ The calls the target fully implements, in the sense of DL-5: `Intensity`, `PushT
 8. S-9 without "editor metadata" (see Decisions).
 9. Each rule's reason beside it (@Pauli, Nov 7): M-8 from the purpose, the SVG as a map in its own right; C-6 from the TypeScript port, whose keys compare by identity; the compactness section's ranking from the purpose's compact SVG; and the fidelity section's Chromium from V-3, which pins it through Playwright, with Firefox and WebKit to follow (F-5).
 10. Clipped miter joins drawn as miters (see Decisions), with D-5 rewritten, on `feature/svg-rule-review`.
+11. The site's page of builds shows the hash and message of each build's commit inside a `<details>` element (@Pauli, Nov 7). The agent takes it right after task 6. `assemble-site.ps1` writes the page from the packages' descriptors and the catalog, and an older copy of it on a publishing branch would strip new fields from the catalog. So the change goes as a `ci/` branch into `base`, `basewithfixes` and `dev`, close together.
 
 **At 02:30 Nov 7:** the usage limit stopped the agent, and it was resumed at 01:37. It stopped for good when the session's turn was interrupted at about 02:03, and is not to be resumed: a new agent starts only on @Pauli's word.
 - Phase 6 is done.
