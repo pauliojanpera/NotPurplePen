@@ -155,6 +155,17 @@ jobs:
         # GitVersion, used by the PdfSharp subtree, reads tags and history.
         fetch-depth: 0
 
+    # The commit the packages are made from, which the site shows with the
+    # build: the one pushed, the head of a pull request, which GitHub has merged
+    # with its base, or a dispatched ref, named here before base is merged into
+    # it below.
+    - name: Name the commit built
+      id: commit
+      shell: bash
+      run: |
+        commit='${{ github.event.pull_request.head.sha }}'
+        echo "sha=${commit:-$(git rev-parse HEAD)}" >> "$GITHUB_OUTPUT"
+
     # A pull request arrives already merged with its base. A dispatched ref does
     # not, and a branch rooted at upstream carries neither this product's
     # identity nor the fixes its tests need, so it is merged with base here --
@@ -359,13 +370,22 @@ jobs:
       run: ./build-mac-app.sh --skip-sign
 
     # One descriptor per platform saying what came out and where each file
-    # belongs, so the publishing job does not have to read file names.
+    # belongs, so the publishing job does not have to read file names, and
+    # which commit the run built, with its message, which the site shows with
+    # the build.
     - name: Collect the packages
       shell: pwsh
       run: |
         $version = '${{ steps.version.outputs.version }}'
         $channel = '${{ steps.version.outputs.channel }}'
         New-Item artifact -ItemType Directory -Force | Out-Null
+
+        # git writes the message in UTF-8, which Windows would otherwise read
+        # in its console's code page.
+        $commit = '${{ steps.commit.outputs.sha }}'
+        [Console]::OutputEncoding = [Text.UTF8Encoding]::new($false)
+        $message = ((git log -1 --format=%B $commit) -join "`n").TrimEnd()
+        if ($LASTEXITCODE -ne 0) { throw "The message of $commit could not be read." }
 
         $sources = switch ('${{ matrix.platform }}') {
             'win-x64'    { @{ Directory = 'src/Innosetup/output'; Include = @('*.exe') } }
@@ -411,6 +431,7 @@ jobs:
         [ordered]@{
             platform = '${{ matrix.platform }}'; channel = $channel
             version = $version; slug = $slug; tag = $tag
+            commit = $commit; message = $message
             files = @($entries)
         } | ConvertTo-Json -Depth 5 | Set-Content 'artifact/descriptor.json' -Encoding UTF8
 
