@@ -46,7 +46,7 @@ The target references only `Graphics2D`, so the porting application can translat
 | C-3 | Text measurement, font data, color conversion, bitmap data, georeferencing and course data reach it only through `ITextMetrics`, `IFontSubsetProvider`, `IColorConverter`, `IGraphicsBitmap` and plain values, passed in by the caller. | Must |
 | C-4 | It uses only C# constructs and .NET library calls that the map model already uses, so the porter needs no new rules for it. | Should |
 | C-5 | Number formatting is culture-independent: the target formats numbers with its own routine. | Must |
-| C-6 | Lookup tables are keyed by strings or by object identity, never by structs with custom equality. | Should |
+| C-6 | Lookup tables are keyed by strings or by object identity, never by structs with custom equality, since the TypeScript port's maps compare keys by identity: there an equal but distinct struct would find nothing, while a string or the object itself finds its entry (P-1). | Should |
 | C-7 | Every class and method has a header comment, and types are explicit instead of `var`, as the repository requires. | Must |
 | C-8 | The feature branch, `feature/svg-target`, is rooted at `upstream/master`, so that it can be offered to Purple Pen as it stands. It is built and tested only in GitHub Actions, through a `wip/` branch rooted at `base` that merges it. | Must |
 | C-9 | The feature branch carries the target, the map code's structure calls, the course data and the Avalonia export together, since a feature must be reachable in the shipped application. | Must |
@@ -90,7 +90,7 @@ A map's layering is its color table. `Map.Draw` draws one color at a time from t
 | M-5 | Every run belongs to a map: the export labels each base map and each course drawing, and `Map` labels each template with its file name. Drawing outside `Map.DrawColor`, such as a bitmap base map or an image template, sits under its map's label outside any run. | Must |
 | M-6 | Within a run, consecutive objects of one symbol share a group, and each object's elements carry its number. Objects are numbered in the order they are first drawn, so an object drawn in several colors has the same number in each of its runs. | Must |
 | M-7 | For every labeled map (M-5), the metadata holds, once, a color table (position, name, CMYK values, overprint flag) and a symbol table (id, name, colors). Runs, symbol groups and objects refer to the tables of their own map, so any element traces back to its object, symbol, color and map. | Must |
-| M-8 | The structure is always written; no setting removes it. | Must |
+| M-8 | The structure is always written; no setting removes it, since the SVG is a map in its own right (Purpose and scope), and without the structure no element traces back to its object, symbol, color and map. | Must |
 
 ## Maps, courses and pages
 
@@ -192,7 +192,7 @@ Bitmaps are embedded by default, written once each, and can instead be linked as
 
 ## Output compactness
 
-Size is the target's main design goal after the map structure: integer coordinates, styles shared by the groups that hold them, and symbols written once, before any compression.
+Size is the target's main design goal after the map structure, since the purpose asks for compact SVG that is a map in its own right: the structure comes first, and size next. Its means are integer coordinates, styles shared by the groups that hold them, and symbols written once, before any compression.
 
 | ID | Requirement | Level |
 | --- | --- | --- |
@@ -211,7 +211,7 @@ Size is the target's main design goal after the map structure: integer coordinat
 
 ## Fidelity and determinism
 
-The SVG must look in Chromium like Purple Pen's own renderings, and come out byte for byte the same on every run. The renderings decide correctness; the second property makes text baselines and the TypeScript comparison possible.
+The SVG must look in Chromium like Purple Pen's own renderings, and come out byte for byte the same on every run. Chromium, since the rendering comparison pins it through the Playwright version (V-3); Firefox and WebKit follow (F-5). The renderings decide correctness; the second property makes text baselines and the TypeScript comparison possible.
 
 | ID | Requirement | Level |
 | --- | --- | --- |
