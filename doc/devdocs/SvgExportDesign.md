@@ -581,6 +581,57 @@ The check covers the rendering comparison's cases. Where Chromium puts each char
 against Skia's shaping, and the pages the export writes are compared by their images alone (`CourseSvgPageTests`,
 `CourseSvgLayoutTests`).
 
+## Firefox and WebKit (F-5, V-6)
+
+Written on Nov 11 from `feature/svg-target` at cc462aa; the work is on `feature/svg-browsers`. The browser check
+renders documents in Firefox and WebKit and compares each image with Chromium's image of the same document. It is the
+tests' alone, in `Map_Svg.Tests` (`BrowserComparisonTests`).
+
+- **The documents.** Every document the rendering comparison writes, at its case's size: the drawing, map-area and
+  area-pattern cases of V-3, clouds and clouds11 among them, whose documents leave out the lines of zero width their
+  references draw (D-5) but are drawn like any other. Then the six exported pages that `CourseSvgPageTests` draws, at
+  150 pixels to the inch, which carry what only the application's export writes: course layers, descriptions, the
+  metadata and its tables. And the four pages of one file, mapexchange1's Course 5 as the baseline tests export it,
+  each shown through its view (L-6). Each document is written anew, as its own test writes it, so that the check needs
+  no other test to have run.
+- **The browsers.** Those the tests' Playwright package pins, as V-3 pins Chromium: with Microsoft.Playwright 1.63.0,
+  Chromium 153.0.8010.12 (the headless shell), Firefox 155.0 and WebKit 26.6, Playwright's builds for Ubuntu 24.04.
+  Its WebKit on Linux is the WPE port, drawing with Skia, not Safari's build.
+- **How they are started.** As Chromium is: a page that shows the SVG as an image of the case's size, at one device
+  pixel to each CSS pixel, and a fontconfig file that offers the sentinel font alone. The file also turns hinting off:
+  Firefox takes its hinting from fontconfig, where Chromium takes it from `--font-render-hinting=none`, and hinted
+  glyphs move by up to a pixel. Chromium draws every case byte for byte the same with it. WebKit takes its hinting from
+  neither, nor from `text-rendering`, nor from MiniBrowser's settings file, which it does not read under Playwright: it
+  hints the faces a document embeds.
+- **The comparison.** Each browser's image is held to Chromium's by F-1's rule, `PixelTolerance.Default`, or
+  `PixelTolerance.Text` for a document that draws text: F-5 asks of two rasterizers drawing one document what F-1 asks
+  of Chromium and Skia drawing one case. The rule was checked on the browsers' images by `SvgTolerance/`'s planted
+  errors, with the text cases held to 80 levels as the tests hold them (see below), and is not loosened for any case.
+- **Set apart.** A document that a browser draws otherwise because of the browser itself, where no form within the
+  requirements draws alike in all three without costing the file data or Chromium's drawing (@Pauli, Nov 11), is set
+  apart for that browser, with its reason, in a table of `BrowserComparisonTests`. It is still rendered and compared:
+  while it differs, its test ends as ignored, with the reason, and the pair goes to `browsers/apart.tsv`; once it
+  matches, its test fails, so that the table holds only what still differs.
+- **Where it runs.** In the SVG loop, on Linux, which installs Firefox and WebKit beside Chromium, with their system
+  libraries. The Windows suite runs only `CourseSvgBaselineTests` of the assembly and installs no browser, so it
+  neither changes nor slows.
+- **The report.** The loop's results get `browsers/<browser>/`: each comparison's measurements as `measurements/` has
+  them, and for a document outside the tolerance or set apart, the browser's image, Chromium's and the difference
+  image; `browsers/apart.tsv` lists the pairs set apart, with their reasons. The summary's section "Firefox and WebKit"
+  gives, for each browser, the documents compared, those that match Chromium's image, those set apart, with their
+  reasons, and those that fail. The artifact of renderings keeps every browser's image under `browsers/<browser>/`.
+
+What the browsers draw otherwise than Chromium, in the 193 cases cc462aa compares, before the changes below:
+
+| Browser | Cases | Why | What became of it |
+| --- | --- | --- | --- |
+| Firefox | 56 with text | Firefox hinted the glyphs, by fontconfig's defaults | Hinting turned off in the fontconfig file, as Chromium's flag turns it off |
+| Firefox | fontfallback | A list of positions counts a character outside the Basic Multilingual Plane as two characters in Firefox, as SVG 2's addressable characters are UTF-16 code units, and as one in Chromium and WebKit, so every character after one sat a place further on | The target ends a list of positions at such a character too, as at a cluster of several characters, and leaves such a character along a line out of a line text (T-5) |
+| Firefox, WebKit | teanwest, teanwest11 | Patterns whose tiles are a pixel or two across: Chromium draws them as an even shade, Firefox as a lighter one, WebKit with a grain; each within F-1 of the reference but for WebKit's | Set apart |
+| WebKit | fontfallback | WebKit draws nothing of a text whose characters are all Runic, in any face, in SVG alone | Set apart |
+| WebKit | Bitmap | WebKit scales a bitmap down to a fraction of its size without smoothing it, whatever `image-rendering` says | Set apart |
+| WebKit | frametext1, frametext3, hiddensymbols, hiddensymbols9, PenistoneHill, and the cases above | WebKit hints the embedded faces, which nothing can turn off | Set apart |
+
 ## Open questions
 
 - Phase 3 writes one page per file. Should the dialog already show L-7's three file choices, with all but one
