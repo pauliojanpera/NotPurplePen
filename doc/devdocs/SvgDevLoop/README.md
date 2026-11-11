@@ -16,6 +16,7 @@ They need bash, Python 3 with Pillow, Node, git and the GitHub CLI signed in to 
 | `fetch-renderings.sh <loop run id> <results copy>` | Copies the images a loop run kept of every comparison, from its artifact `svg-loop-renderings-<name>`, into a checkout of its results: Chromium's under `renderings/`, and each exported page as the application draws it under `course-pages/`. The gallery and the tolerance checks then need no Chromium of their own. |
 | `check-embedded-fonts.py [--ots <ots-sanitize>] [--quiet] <SVGs or folders>` | Lists the fonts the documents embed, with their sizes and glyph counts, and checks each with the OpenType Sanitizer, which browsers run on every web font: a font it rejects draws no text. Exits 1 when it rejects one. |
 | `record-baselines.py [--dry-run] <artifact folder> <fix worktree> <wip worktree>` | Writes the renderings a Tests run left of its failed bitmap comparisons over their baselines: on the fix branch where the baseline is upstream's, on the wip branch where base moved it. |
+| `app-checkout.sh <clone> <commit> <folder>` | Makes a checkout of its own in which AvPurplePen builds: GitVersion, which the PdfSharp subtree builds with, cannot open a clone that `git sparse-checkout` has given `extensions.worktreeConfig`, and so none of its worktrees. It shares the clone's objects and keeps its sparse patterns in its own config. |
 
 Set `ARCHIVE_TRAILERS` to the executor's attribution lines and `push-svg-loop.sh` ends its commits with them, as the
 archive scripts on `windows-fonts`'s `sessions` branch do.
