@@ -495,6 +495,36 @@ Written on Nov 6 from `feature/svg-target` with S-5 (353887b); the work is on `f
   The Windows job runs the baseline tests too, so the deflated bytes, which .NET's own zlib-ng makes on every platform,
   are checked to be the same there as on Linux. The view model's tests take the choice through the settings both ways.
 
+## Bitmaps drawn lighter (B-6)
+
+The target draws a bitmap at an intensity below 1 as it draws any bitmap, through a `<use>` of the image that holds
+its data once (B-5), and the use's style draws it through a filter: `filter:url(#…)`, after its `image-rendering`
+where it is pixelated (B-2). The document defines one filter for each intensity, among the definitions after the
+clips, named when it is first used, as patterns are (F-2):
+
+```xml
+<filter id="b" style="color-interpolation-filters:sRGB">
+<feComponentTransfer>
+<feFuncR type="linear" slope=".4" intercept=".6"/>
+<feFuncG type="linear" slope=".4" intercept=".6"/>
+<feFuncB type="linear" slope=".4" intercept=".6"/>
+</feComponentTransfer>
+</filter>
+```
+
+- **The transfer.** The Skia target lightens a bitmap with a lighting color filter that multiplies each channel by the
+  intensity and adds 1 less it, on the encoded sRGB values; alpha stays. `feComponentTransfer` does the same on
+  unpremultiplied values, once `color-interpolation-filters` is sRGB, since a filter works in linear RGB by default.
+  The slope and intercept are written with the fewest decimals that give the single-precision values back, the
+  intercept computed in single precision, as the map's own values are written (COL-4), so the TypeScript port writes
+  the same bytes (P-6).
+- **Shared by groups.** The filter is part of the use's style, so the uses of images drawn at one intensity share it
+  through their group as any style is shared (S-4). Lightening is the same per-pixel affine map of every color
+  channel with alpha kept, which commutes with drawing one image over another, so a group drawn through the filter
+  looks as its images drawn through it one by one.
+- **Readers.** Chromium and Inkscape draw the image lighter. Scribus may show it at full strength (@Pauli, Nov 7).
+- **The loop.** template_light and template2_light, which draw their templates at 0.4, are compared like any case.
+
 ## The geometry check (V-10)
 
 Written on Nov 7 from `feature/svg-target` at 4764b57, with the loop's later improvements (b67748d); the work is on
