@@ -15,8 +15,8 @@ Prints the step's figures as JSON for the page's LOG and STANDING: per case its 
 elements and the 24-pixel window holding the most difference, where the detail opens; and the pending census,
 each call with the drawings that need it, those that need only it, the work that adds it and, from pending.tsv's
 third column, why the target will never honor it, if it never will; with the number of drawings that wait only on
-step 2's calls, of those that wait only because they draw a bitmap lighter, of those that wait only on a pen no
-document can express, and of those that wait only on calls the target will never honor, which will never be compared.
+step 2's calls, of those that wait only because they draw a bitmap lighter, of those that wait only on lines of zero
+width, and of those that wait only on calls the target will never honor, which will never be compared.
 """
 import json
 import os
@@ -34,10 +34,10 @@ GHOST_INK = 0.16      # how much of the reference's darkness the ghost keeps
 WINDOW = 24           # side of the detail window, in image pixels
 
 # The work that adds each call, by the requirements' plan: drawing in phase 2's step 2, text and bitmaps in
-# phase 4. The target draws bitmaps since phase 4's first step, so a case still pending on a bitmap call draws the
-# bitmap lighter, at an intensity below 1, which no element of a document can (B-6): no work adds it. Since step 2, a
-# case pending on CreatePen draws with a pen that has no form in a document, a hairline of no width or a clipped miter
-# join (D-5), which no work in the plan adds either.
+# phase 4. A call that the target will never honor as a case makes it, which pending.tsv's third column says why,
+# comes with no work: until Nov 11, a bitmap drawn lighter (B-6), and a pen of no width or with a clipped miter join,
+# which CreatePen refused (D-5); since then, a line of zero width, which the SVG leaves out (D-5). Those are counted
+# apart by their requirement: "lighter" for B-6 and "pen" for D-5.
 WORK_THAT_ADDS_CALL = {
     "CreatePen": "pen", "DrawPolyline": "step2", "DrawPath": "step2", "FillPath": "step2",
     "CreatePath": "step2", "PushClip": "step2", "PopClip": "step2", "DrawLine": "step2",
@@ -46,6 +46,15 @@ WORK_THAT_ADDS_CALL = {
     "CreateFont": "phase4", "DrawText": "phase4", "DrawTextOutline": "phase4",
     "DrawBitmap": "lighter", "DrawBitmapPart": "lighter",
 }
+
+
+def work_that_adds(case, call, never):
+    """The work that adds a call a case waits on, or, for a call the target will never honor as the case makes it,
+    "lighter" when B-6 says why, "pen" when D-5 does, and "never" otherwise."""
+    why = never.get(case, {}).get(call)
+    if why is None:
+        return WORK_THAT_ADDS_CALL[call]
+    return "lighter" if why.startswith("B-6") else "pen" if why.startswith("D-5") else "never"
 
 
 def read_rgb(path):
@@ -144,18 +153,19 @@ def main():
     calls = {}
     for case, case_calls in census.items():
         for call in case_calls:
-            calls.setdefault(call, {"call": call, "cases": 0, "alone": 0, "comesIn": WORK_THAT_ADDS_CALL[call],
+            calls.setdefault(call, {"call": call, "cases": 0, "alone": 0, "comesIn": work_that_adds(case, call, never),
                                     "neverHonored": ""})
             calls[call]["cases"] += 1
             if len(case_calls) == 1:
                 calls[call]["alone"] += 1
             if call in never[case]:
                 calls[call]["neverHonored"] = never[case][call]
-    waiting_on_step2_only = sum(1 for case_calls in census.values()
-                                if all(WORK_THAT_ADDS_CALL[call] == "step2" for call in case_calls))
-    drawn_lighter_only = sum(1 for case_calls in census.values()
-                             if all(WORK_THAT_ADDS_CALL[call] == "lighter" for call in case_calls))
-    pen_only = sum(1 for case_calls in census.values() if all(WORK_THAT_ADDS_CALL[call] == "pen" for call in case_calls))
+    def waiting_only_on(work):
+        return sum(1 for case, case_calls in census.items()
+                   if all(work_that_adds(case, call, never) == work for call in case_calls))
+    waiting_on_step2_only = waiting_only_on("step2")
+    drawn_lighter_only = waiting_only_on("lighter")
+    pen_only = waiting_only_on("pen")
     never_compared = sum(1 for case, case_calls in census.items() if all(call in never[case] for call in case_calls))
     print(json.dumps({
         "cases": cases,
