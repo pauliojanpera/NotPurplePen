@@ -82,6 +82,24 @@ namespace PurplePen.MapModel
         }
     }
 
+    // The filter that draws an image lighter, as at an intensity below 1: each color channel, from 0 to 1, becomes the
+    // intensity times itself, plus 1 less the intensity, in sRGB, as the Skia target lightens a bitmap, and its alpha
+    // stays as it is (B-6). The image keeps its own data, which the document holds once however lightly it is drawn.
+    public sealed class SvgLighterFilter
+    {
+        // The slope and the intercept of each color channel's linear transfer, as written.
+        public readonly string Slope, Intercept;
+
+        // Create the filter of an intensity.
+        // slope: the slope of each channel's transfer, the intensity, as written.
+        // intercept: the intercept of each channel's transfer, 1 less the intensity, as written.
+        public SvgLighterFilter(string slope, string intercept)
+        {
+            Slope = slope;
+            Intercept = intercept;
+        }
+    }
+
     // A color of a map's color table, as the metadata records it once a run of it begins (M-3, M-7).
     public sealed class SvgColorRecord
     {
@@ -337,6 +355,10 @@ namespace PurplePen.MapModel
         // The calls whose drawing the document leaves out, each named once, in the order first left out (D-5).
         private readonly List<string> callsLeftOut = new List<string>();
 
+        // The filters that draw images lighter, by the intensity they draw at as written, so that the images drawn at
+        // one intensity share one definition (B-6).
+        private readonly Dictionary<string, SvgLighterFilter> lighterFilters = new Dictionary<string, SvgLighterFilter>(StringComparer.Ordinal);
+
         // Whether the faces that draw the fonts' characters have been asked for and named.
         private bool fontFacesResolved;
 
@@ -424,6 +446,22 @@ namespace PurplePen.MapModel
         {
             if (!callsLeftOut.Contains(callName))
                 callsLeftOut.Add(callName);
+        }
+
+        // The filter that draws an image at an intensity below 1, made when the intensity is first drawn at: each color
+        // channel's linear transfer, whose slope is the intensity and whose intercept is 1 less it, each written with the
+        // fewest decimals that give the single-precision value back (B-6, COL-4).
+        // intensity: the intensity.
+        public SvgLighterFilter LighterFilterOf(float intensity)
+        {
+            string slope = SvgNumbers.FormatShortest(intensity);
+            SvgLighterFilter filter;
+            if (!lighterFilters.TryGetValue(slope, out filter)) {
+                float intercept = 1 - intensity;
+                filter = new SvgLighterFilter(slope, SvgNumbers.FormatShortest(intercept));
+                lighterFilters.Add(slope, filter);
+            }
+            return filter;
         }
 
         // The image of a bitmap's written data, made when the data is first seen: embedded as a data URI, or stored
@@ -576,19 +614,32 @@ namespace PurplePen.MapModel
             }
             string clipsText = writer.TakeText();
 
+            // A filter works in linear RGB unless told otherwise; the Skia target lightens a bitmap in sRGB (B-6).
+            foreach (SvgLighterFilter filter in writer.FiltersReferredTo) {
+                writer.Text.Append("<filter id=\"").Append(writer.IdOfFilter(filter)).Append('"');
+                writer.AppendStyle("color-interpolation-filters:sRGB");
+                writer.Text.Append(">\n<feComponentTransfer>\n");
+                foreach (string channel in new string[] { "R", "G", "B" }) {
+                    writer.Text.Append("<feFunc").Append(channel).Append(" type=\"linear\" slope=\"").Append(filter.Slope)
+                               .Append("\" intercept=\"").Append(filter.Intercept).Append("\"/>\n");
+                }
+                writer.Text.Append("</feComponentTransfer>\n</filter>\n");
+            }
+            string filtersText = writer.TakeText();
+
             StringBuilder text = new StringBuilder();
             WriteRootStartTag(text);
             WriteStyleBlock(text, WriteFontFaces());
             WriteMetadata(text);
             WriteInkscapePages(text);
-            if (Paints.RefersToCmykProfile || clipsText.Length > 0 || patternsText.Length > 0 || repeatedShapesText.Length > 0 || partsText.Length > 0 ||
-                imagesText.Length > 0) {
+            if (Paints.RefersToCmykProfile || clipsText.Length > 0 || filtersText.Length > 0 || patternsText.Length > 0 || repeatedShapesText.Length > 0 ||
+                partsText.Length > 0 || imagesText.Length > 0) {
                 text.Append("<defs>\n");
                 if (Paints.RefersToCmykProfile) {
                     text.Append("<color-profile id=\"").Append(SvgPaints.CmykProfileName).Append("\" name=\"").Append(SvgPaints.CmykProfileName)
                         .Append("\" xlink:href=\"").Append(SvgPaints.CmykProfileHref).Append("\"/>\n");
                 }
-                text.Append(clipsText).Append(patternsText).Append(repeatedShapesText).Append(partsText).Append(imagesText).Append("</defs>\n");
+                text.Append(clipsText).Append(filtersText).Append(patternsText).Append(repeatedShapesText).Append(partsText).Append(imagesText).Append("</defs>\n");
             }
             text.Append(pagesText).Append("</svg>\n");
             return text.ToString();
@@ -933,12 +984,13 @@ namespace PurplePen.MapModel
         private readonly SvgNames ids = new SvgNames();
         private readonly Dictionary<object, string> idOfDefinition = new Dictionary<object, string>(new IdentityComparer<object>());
 
-        // The clips, the patterns, the repeated shapes and the images referred to, each in the order they were first
-        // referred to, which the definitions then hold.
+        // The clips, the patterns, the repeated shapes, the images and the filters referred to, each in the order they
+        // were first referred to, which the definitions then hold.
         public readonly List<SvgClip> ClipsReferredTo = new List<SvgClip>();
         public readonly List<SvgPattern> PatternsReferredTo = new List<SvgPattern>();
         public readonly List<SvgRepeatedShapes> RepeatedShapesReferredTo = new List<SvgRepeatedShapes>();
         public readonly List<SvgImage> ImagesReferredTo = new List<SvgImage>();
+        public readonly List<SvgLighterFilter> FiltersReferredTo = new List<SvgLighterFilter>();
 
         // Return the text written so far, and start anew.
         public string TakeText()
@@ -1008,6 +1060,15 @@ namespace PurplePen.MapModel
             if (!idOfDefinition.ContainsKey(image))
                 ImagesReferredTo.Add(image);
             return IdOf(image);
+        }
+
+        // The id of a filter that lightens images, which the definitions then hold.
+        // filter: the filter.
+        public string IdOfFilter(SvgLighterFilter filter)
+        {
+            if (!idOfDefinition.ContainsKey(filter))
+                FiltersReferredTo.Add(filter);
+            return IdOf(filter);
         }
     }
 }

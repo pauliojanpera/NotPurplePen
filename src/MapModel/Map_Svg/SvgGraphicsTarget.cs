@@ -851,7 +851,7 @@ namespace PurplePen.MapModel
         }
 
         // Draw a bitmap over a rectangle, its first pixel at the rectangle's left and top, as the Skia target draws it
-        // (B-1); pixelated for nearest-neighbor scaling, and smooth otherwise (B-2).
+        // (B-1); pixelated for nearest-neighbor scaling, and smooth otherwise (B-2); lighter below full intensity (B-6).
         public void DrawBitmap(IGraphicsBitmap bm, RectangleF rectangle, BitmapScaling scalingMode)
         {
             AddImage(bm, rectangle, scalingMode, nameof(DrawBitmap));
@@ -860,7 +860,7 @@ namespace PurplePen.MapModel
         // Draw part of a bitmap over a rectangle, as the bitmap cropped to the part (B-1).
         public void DrawBitmapPart(IGraphicsBitmap bm, int x, int y, int width, int height, RectangleF rectangle, BitmapScaling scalingMode)
         {
-            RequireImageDrawing(nameof(DrawBitmapPart));
+            RequireOpenPart(nameof(DrawBitmapPart));
             IGraphicsBitmap part = bm.Crop(x, y, width, height);
             try {
                 AddImage(part, rectangle, scalingMode, nameof(DrawBitmapPart));
@@ -996,27 +996,18 @@ namespace PurplePen.MapModel
             openGroups.Peek().Group.Children.Add(element);
         }
 
-        // Require that a bitmap can be drawn: within an open part, and at full intensity, since the elements a document
-        // holds cannot lighten an image (B-6, D-12).
-        // callName: the name of the call that draws the bitmap.
-        private void RequireImageDrawing(string callName)
-        {
-            RequireOpenPart(callName);
-            if (intensity < 1)
-                throw new Svg_UnsupportedCallException(callName, "B-6, a bitmap drawn lighter, which no element of a document can draw");
-        }
-
         // Add the use of a bitmap's image over a rectangle, the bitmap's first pixel at the rectangle's left and top. The
         // image is written as the options say: in its own format when that is JPEG, at the options' quality, and as PNG
         // otherwise (B-3), embedded or linked, once however often the same data is drawn (B-4, B-5), or left out. A
-        // nearest-neighbor scaling renders pixelated, the others smooth (B-2).
+        // nearest-neighbor scaling renders pixelated, the others smooth (B-2). Below full intensity the use draws the
+        // image through a filter that lightens it as the Skia target does, and the image keeps its own data (B-6).
         // bitmap: the bitmap.
         // rectangle: the rectangle it covers.
         // scalingMode: how it is scaled.
         // callName: the name of the call that draws it.
         private void AddImage(IGraphicsBitmap bitmap, RectangleF rectangle, BitmapScaling scalingMode, string callName)
         {
-            RequireImageDrawing(callName);
+            RequireOpenPart(callName);
             if (bitmapOptions.Handling == SvgBitmapHandling.LeftOut)
                 return;
 
@@ -1035,8 +1026,18 @@ namespace PurplePen.MapModel
             SvgBounds bounds = new SvgBounds();
             bounds.Include(left, top);
             bounds.Include(right, bottom);
-            string style = scalingMode == BitmapScaling.NearestNeighbor ? "image-rendering:optimizeSpeed;image-rendering:pixelated" : null;
-            AddElement(new SvgImageUse(image, placement, style, bounds), callName);
+            AddElement(new SvgImageUse(image, placement, ImageStyle(scalingMode), bounds), callName);
+        }
+
+        // The style of the use of an image, or null for none: pixelated for nearest-neighbor scaling (B-2), and drawn
+        // through the filter that lightens it at the current intensity when that is below 1 (B-6).
+        // scalingMode: how the image is scaled.
+        private SvgStyle ImageStyle(BitmapScaling scalingMode)
+        {
+            string rendering = scalingMode == BitmapScaling.NearestNeighbor ? "image-rendering:optimizeSpeed;image-rendering:pixelated" : null;
+            if (intensity >= 1)
+                return rendering == null ? null : new SvgStyle(rendering);
+            return new SvgStyle((rendering == null ? "" : rendering + ";") + "filter:" + SvgStyle.FilterReference, null, document.LighterFilterOf(intensity));
         }
 
         // Add text within the innermost open group: its baseline starts at the upper left corner lowered by the font's

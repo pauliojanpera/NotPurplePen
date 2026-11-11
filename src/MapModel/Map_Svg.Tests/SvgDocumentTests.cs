@@ -109,7 +109,9 @@ namespace Map_Svg.Tests
         // partLines: the lines within the part's definition.
         // imageLines: the definitions of the images.
         // clipId: the id of the page's clip.
-        private static string OnePageDocumentWithImages(string[] styleLines, string[] partLines, string[] imageLines, string clipId)
+        // filterLines: the definitions of the filters that lighten images, which follow the clip's, or null for none.
+        private static string OnePageDocumentWithImages(string[] styleLines, string[] partLines, string[] imageLines, string clipId,
+                                                        string[] filterLines = null)
         {
             List<string> lines = new List<string> { RootOf100By50 };
             if (styleLines.Length > 0) {
@@ -120,8 +122,11 @@ namespace Map_Svg.Tests
             lines.AddRange(new string[] {
                 "<metadata>", "<npp:document version=\"1\">", "<npp:map n=\"1\" label=\"map\" views=\"page\"/>", "</npp:document>", "</metadata>",
                 InkscapePageOf100By50[0], InkscapePageOf100By50[1], InkscapePageOf100By50[2],
-                "<defs>", "<clipPath id=\"" + clipId + "\">", "<path d=\"M0 0h100000v50000H0z\"/>", "</clipPath>", "<g id=\"a\">"
+                "<defs>", "<clipPath id=\"" + clipId + "\">", "<path d=\"M0 0h100000v50000H0z\"/>", "</clipPath>"
             });
+            if (filterLines != null)
+                lines.AddRange(filterLines);
+            lines.Add("<g id=\"a\">");
             lines.AddRange(partLines);
             lines.Add("</g>");
             lines.AddRange(imageLines);
@@ -1556,21 +1561,38 @@ namespace Map_Svg.Tests
         }
 
         [Test]
-        public void ABitmapDrawnBelowFullIntensityRaisesAnErrorNamingTheCall()
+        public void ABitmapBelowFullIntensityIsDrawnThroughAFilterThatLightensIt()
         {
-            WriteOnePage(target => {
-                TestBitmap logo = new TestBitmap("logo", 40, 20, GraphicsBitmapFormat.PNG);
-                target.Intensity = 0.5F;
-                Svg_UnsupportedCallException error = Assert.Throws<Svg_UnsupportedCallException>(
-                    () => target.DrawBitmap(logo, new RectangleF(10, 10, 20, 10), BitmapScaling.MediumQuality));
-                Assert.AreEqual("DrawBitmap", error.CallName);
-                StringAssert.StartsWith("B-6, a bitmap drawn lighter", error.WhyNeverHonored);
-                error = Assert.Throws<Svg_UnsupportedCallException>(
-                    () => target.DrawBitmapPart(logo, 0, 0, 10, 10, new RectangleF(10, 10, 20, 10), BitmapScaling.MediumQuality));
-                Assert.AreEqual("DrawBitmapPart", error.CallName);
-                StringAssert.StartsWith("B-6, a bitmap drawn lighter", error.WhyNeverHonored);
-                Assert.AreEqual(0, logo.Writes);
+            // At 0.4, each channel becomes 0.4 of itself plus 0.6, in sRGB, as the Skia target lightens a bitmap; the
+            // image is written once, and so is the filter of each intensity.
+            TestBitmap logo = new TestBitmap("logo", 40, 20, GraphicsBitmapFormat.PNG);
+            string document = WriteOnePage(target => {
+                target.Intensity = 0.4F;
+                target.DrawBitmap(logo, new RectangleF(10, 10, 20, 10), BitmapScaling.MediumQuality);
+                target.DrawBitmap(logo, new RectangleF(50, 5, 40, 40), BitmapScaling.NearestNeighbor);
+                target.Intensity = 1;
+                target.DrawBitmap(logo, new RectangleF(10, 30, 20, 10), BitmapScaling.MediumQuality);
             });
+            Assert.AreEqual(OnePageDocumentWithImages(
+                NoStyleBlock,
+                new string[] {
+                    "<g data-m=\"1\">",
+                    "<use style=\"filter:url(#b)\" xlink:href=\"#c\" transform=\"matrix(500 0 0 500 10000 10000)\"/>",
+                    "<use style=\"image-rendering:optimizeSpeed;image-rendering:pixelated;filter:url(#b)\" xlink:href=\"#c\" transform=\"matrix(1000 0 0 2000 50000 5000)\"/>",
+                    "<use xlink:href=\"#c\" transform=\"matrix(500 0 0 500 10000 30000)\"/>",
+                    "</g>",
+                },
+                new string[] { "<image id=\"c\" width=\"40\" height=\"20\" xlink:href=\"" + DataUri("logo", GraphicsBitmapFormat.PNG, 0) + "\"/>" },
+                "d",
+                new string[] {
+                    "<filter id=\"b\" style=\"color-interpolation-filters:sRGB\">",
+                    "<feComponentTransfer>",
+                    "<feFuncR type=\"linear\" slope=\".4\" intercept=\".6\"/>",
+                    "<feFuncG type=\"linear\" slope=\".4\" intercept=\".6\"/>",
+                    "<feFuncB type=\"linear\" slope=\".4\" intercept=\".6\"/>",
+                    "</feComponentTransfer>",
+                    "</filter>",
+                }), document);
         }
 
         [Test]

@@ -212,13 +212,13 @@ namespace PurplePen.MapModel
         // Create the use of an image.
         // image: the image.
         // placement: the transform from its pixels to the rectangle, in steps.
-        // style: the declarations of the element's style, or null for none.
+        // style: the element's style, or null for none.
         // bounds: the bounds of the rectangle.
-        public SvgImageUse(SvgImage image, SvgTransform placement, string style, SvgBounds bounds)
+        public SvgImageUse(SvgImage image, SvgTransform placement, SvgStyle style, SvgBounds bounds)
         {
             this.image = image;
             this.placement = placement;
-            this.style = style == null ? null : new SvgStyle(style);
+            this.style = style;
             this.bounds = bounds;
         }
 
