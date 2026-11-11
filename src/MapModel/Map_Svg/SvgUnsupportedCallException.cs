@@ -3,7 +3,7 @@ using System;
 namespace PurplePen.MapModel
 {
     // Raised by Svg_GraphicsTarget for a call it cannot honor, naming the call, and, for a call it will never honor as
-    // made, such as a bitmap drawn lighter, which no element of a document can draw (B-6), saying why.
+    // made, such as a blending other than darken (D-8), saying why.
     public class Svg_UnsupportedCallException : NotSupportedException
     {
         // The name of the call that the target cannot honor: an IGraphicsTarget member, or one of the target's own.

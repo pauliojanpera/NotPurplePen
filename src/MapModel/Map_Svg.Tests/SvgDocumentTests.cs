@@ -109,7 +109,9 @@ namespace Map_Svg.Tests
         // partLines: the lines within the part's definition.
         // imageLines: the definitions of the images.
         // clipId: the id of the page's clip.
-        private static string OnePageDocumentWithImages(string[] styleLines, string[] partLines, string[] imageLines, string clipId)
+        // filterLines: the definitions of the filters that lighten images, which follow the clip's, or null for none.
+        private static string OnePageDocumentWithImages(string[] styleLines, string[] partLines, string[] imageLines, string clipId,
+                                                        string[] filterLines = null)
         {
             List<string> lines = new List<string> { RootOf100By50 };
             if (styleLines.Length > 0) {
@@ -120,8 +122,11 @@ namespace Map_Svg.Tests
             lines.AddRange(new string[] {
                 "<metadata>", "<npp:document version=\"1\">", "<npp:map n=\"1\" label=\"map\" views=\"page\"/>", "</npp:document>", "</metadata>",
                 InkscapePageOf100By50[0], InkscapePageOf100By50[1], InkscapePageOf100By50[2],
-                "<defs>", "<clipPath id=\"" + clipId + "\">", "<path d=\"M0 0h100000v50000H0z\"/>", "</clipPath>", "<g id=\"a\">"
+                "<defs>", "<clipPath id=\"" + clipId + "\">", "<path d=\"M0 0h100000v50000H0z\"/>", "</clipPath>"
             });
+            if (filterLines != null)
+                lines.AddRange(filterLines);
+            lines.Add("<g id=\"a\">");
             lines.AddRange(partLines);
             lines.Add("</g>");
             lines.AddRange(imageLines);
@@ -708,17 +713,60 @@ namespace Map_Svg.Tests
         }
 
         [Test]
-        public void ClippedJoinsAndHairlinesAreNotHonored()
+        public void AClippedMiterJoinIsDrawnAsAMiter()
+        {
+            // As PDF export draws it: a corner sharper than the limit is bevelled rather than clipped at the limit.
+            foreach (float miterLimit in new float[] { 4, 2.5F, 1 }) {
+                Func<LineJoinMode, string> drawJoin = join => WriteOnePage(target => {
+                    object pen = new object();
+                    target.CreatePen(pen, CmykColor.FromCmyk(0, 0, 0, 1), 1, LineCapMode.Flat, join, miterLimit);
+                    target.DrawPolyline(pen, new PointF[] { Point(0, 0), Point(5, 5), Point(10, 0) });
+                });
+                Assert.AreEqual(drawJoin(LineJoinMode.Miter), drawJoin(LineJoinMode.MiterClipped));
+            }
+            StringAssert.Contains("stroke-miterlimit:2.5", WriteOnePage(target => {
+                object pen = new object();
+                target.CreatePen(pen, CmykColor.FromCmyk(0, 0, 0, 1), 1, LineCapMode.Flat, LineJoinMode.MiterClipped, 2.5F);
+                target.DrawLine(pen, Point(0, 0), Point(5, 5));
+            }));
+        }
+
+        [Test]
+        public void TheStrokesOfAPenOfNoWidthAreLeftOut()
+        {
+            CmykColor black = CmykColor.FromCmyk(0, 0, 0, 1);
+            Action<Svg_GraphicsTarget> drawLine = target => {
+                object pen = new object();
+                target.CreatePen(pen, black, 1, LineCapMode.Flat, LineJoinMode.Miter, 4);
+                target.DrawLine(pen, Point(0, 0), Point(5, 5));
+            };
+            List<string> callsLeftOut = new List<string>();
+            string document = WriteOnePage(target => {
+                object hairline = new object(), brush = new object(), brushHairline = new object();
+                target.CreatePen(hairline, black, 0, LineCapMode.Round, LineJoinMode.Round, 4);
+                target.CreateSolidBrush(brush, black);
+                target.CreatePen(brushHairline, brush, 0, LineCapMode.Flat, LineJoinMode.Bevel, 4);
+                target.DrawLine(hairline, Point(0, 0), Point(5, 5));
+                drawLine(target);
+                target.DrawPolyline(hairline, new PointF[] { Point(0, 0), Point(5, 5), Point(10, 0) });
+                target.DrawRectangle(brushHairline, new RectangleF(1, 1, 2, 2));
+                target.DrawEllipse(hairline, Point(5, 5), 2, 1);
+                target.DrawPath(hairline, new List<GraphicsPathPart> { Part(GraphicsPathPartKind.Start, Point(0, 0)), Part(GraphicsPathPartKind.Lines, Point(10, 0)) });
+                target.DrawLine(hairline, Point(1, 1), Point(2, 2));
+                callsLeftOut.AddRange(target.CallsLeftOut);
+            });
+            Assert.AreEqual(WriteOnePage(drawLine), document);
+            CollectionAssert.AreEqual(new string[] { "DrawLine", "DrawPolyline", "DrawRectangle", "DrawEllipse", "DrawPath" }, callsLeftOut);
+        }
+
+        [Test]
+        public void AStrokeOfNoWidthOutOfTurnRaisesAnError()
         {
             using (Svg_GraphicsTarget target = new Svg_GraphicsTarget(DefaultColorConverter.Instance, true)) {
-                CmykColor black = CmykColor.FromCmyk(0, 0, 0, 1);
-                Svg_UnsupportedCallException error = Assert.Throws<Svg_UnsupportedCallException>(
-                    () => target.CreatePen(new object(), black, 1, LineCapMode.Flat, LineJoinMode.MiterClipped, 4));
-                Assert.AreEqual("CreatePen", error.CallName);
-                StringAssert.StartsWith("D-5, a clipped miter join", error.WhyNeverHonored);
-                error = Assert.Throws<Svg_UnsupportedCallException>(() => target.CreatePen(new object(), black, 0, LineCapMode.Flat, LineJoinMode.Miter, 4));
-                Assert.AreEqual("CreatePen", error.CallName);
-                StringAssert.StartsWith("D-5, a hairline pen", error.WhyNeverHonored);
+                object hairline = new object();
+                target.CreatePen(hairline, CmykColor.FromCmyk(0, 0, 0, 1), 0, LineCapMode.Flat, LineJoinMode.Miter, 4);
+                Assert.Throws<InvalidOperationException>(() => target.DrawLine(hairline, Point(0, 0), Point(5, 5)));
+                CollectionAssert.IsEmpty(target.CallsLeftOut);
             }
         }
 
@@ -1520,21 +1568,38 @@ namespace Map_Svg.Tests
         }
 
         [Test]
-        public void ABitmapDrawnBelowFullIntensityRaisesAnErrorNamingTheCall()
+        public void ABitmapBelowFullIntensityIsDrawnThroughAFilterThatLightensIt()
         {
-            WriteOnePage(target => {
-                TestBitmap logo = new TestBitmap("logo", 40, 20, GraphicsBitmapFormat.PNG);
-                target.Intensity = 0.5F;
-                Svg_UnsupportedCallException error = Assert.Throws<Svg_UnsupportedCallException>(
-                    () => target.DrawBitmap(logo, new RectangleF(10, 10, 20, 10), BitmapScaling.MediumQuality));
-                Assert.AreEqual("DrawBitmap", error.CallName);
-                StringAssert.StartsWith("B-6, a bitmap drawn lighter", error.WhyNeverHonored);
-                error = Assert.Throws<Svg_UnsupportedCallException>(
-                    () => target.DrawBitmapPart(logo, 0, 0, 10, 10, new RectangleF(10, 10, 20, 10), BitmapScaling.MediumQuality));
-                Assert.AreEqual("DrawBitmapPart", error.CallName);
-                StringAssert.StartsWith("B-6, a bitmap drawn lighter", error.WhyNeverHonored);
-                Assert.AreEqual(0, logo.Writes);
+            // At 0.4, each channel becomes 0.4 of itself plus 0.6, in sRGB, as the Skia target lightens a bitmap; the
+            // image is written once, and so is the filter of each intensity.
+            TestBitmap logo = new TestBitmap("logo", 40, 20, GraphicsBitmapFormat.PNG);
+            string document = WriteOnePage(target => {
+                target.Intensity = 0.4F;
+                target.DrawBitmap(logo, new RectangleF(10, 10, 20, 10), BitmapScaling.MediumQuality);
+                target.DrawBitmap(logo, new RectangleF(50, 5, 40, 40), BitmapScaling.NearestNeighbor);
+                target.Intensity = 1;
+                target.DrawBitmap(logo, new RectangleF(10, 30, 20, 10), BitmapScaling.MediumQuality);
             });
+            Assert.AreEqual(OnePageDocumentWithImages(
+                NoStyleBlock,
+                new string[] {
+                    "<g data-m=\"1\">",
+                    "<use style=\"filter:url(#b)\" xlink:href=\"#c\" transform=\"matrix(500 0 0 500 10000 10000)\"/>",
+                    "<use style=\"image-rendering:optimizeSpeed;image-rendering:pixelated;filter:url(#b)\" xlink:href=\"#c\" transform=\"matrix(1000 0 0 2000 50000 5000)\"/>",
+                    "<use xlink:href=\"#c\" transform=\"matrix(500 0 0 500 10000 30000)\"/>",
+                    "</g>",
+                },
+                new string[] { "<image id=\"c\" width=\"40\" height=\"20\" xlink:href=\"" + DataUri("logo", GraphicsBitmapFormat.PNG, 0) + "\"/>" },
+                "d",
+                new string[] {
+                    "<filter id=\"b\" style=\"color-interpolation-filters:sRGB\">",
+                    "<feComponentTransfer>",
+                    "<feFuncR type=\"linear\" slope=\".4\" intercept=\".6\"/>",
+                    "<feFuncG type=\"linear\" slope=\".4\" intercept=\".6\"/>",
+                    "<feFuncB type=\"linear\" slope=\".4\" intercept=\".6\"/>",
+                    "</feComponentTransfer>",
+                    "</filter>",
+                }), document);
         }
 
         [Test]
