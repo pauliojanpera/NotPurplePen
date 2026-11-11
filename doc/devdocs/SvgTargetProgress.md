@@ -112,6 +112,8 @@ The calls the target fully implements, in the sense of DL-5: `Intensity`, `PushT
 
 ## Tasks
 
+**In flight (Nov 11, from 08:30 Helsinki):** on @Pauli's word ("jatka"), one agent at effort max takes items 4 to 10 of the list below, in that order. By Nov 7 09:40 the agent of 09:15 had done task 6's merges and item 11: `base` (412dbea), `basewithfixes` (e3e3f4d) and `dev` (a8e3d0d) hold the loop's report (5ffb4bb) and the site's commits (1a955a8), and `feature/svg-target` is 83e53fa, in `dev`; their Tests and Build runs of 07:32 UTC passed. Nothing of items 4 to 10 reached origin.
+
 **In flight (Nov 6, from 21:15 Helsinki):** one agent at effort max takes these items in the session's order (see Decisions, the order of steps):
 1. The PDF dialog's colour model: done. Upstream's `CreatePdfCoursesDialogViewModel` subtracts 1 when it reads the colour model back, so the dialog reopens CMYK settings as RGB.
    - `fix/pdf-dialog-color-model` (a9c930b), rooted at 98c168b where `base` meets upstream, maps the colour model to the dialogs' choices without an offset. Its full run passed (Build run 42279397664, Tests run 42279397558 on `wip/linux/pdf-dialog-color-model`).
