@@ -1,0 +1,10 @@
+step	outcome	seconds
+Set up job	success	1
+Checkout source	success	28
+Name the results	success	0
+Merge what this is built on	success	2
+Setup .NET	success	10
+Cache NuGet packages	success	11
+Build	success	24
+Cache the Playwright browser	success	4
+Install Chromium	success	16
