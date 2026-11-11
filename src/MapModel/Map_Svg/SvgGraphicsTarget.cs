@@ -705,7 +705,7 @@ namespace PurplePen.MapModel
             return fonts.ContainsKey(fontKey);
         }
 
-        // Draw a line with a pen, as a path (D-4, F-3).
+        // Draw a line with a pen, as a path (D-4).
         public void DrawLine(object penKey, PointF start, PointF finish)
         {
             SvgStyle stroke = GetPen(penKey, nameof(DrawLine));
@@ -766,7 +766,7 @@ namespace PurplePen.MapModel
             AddPath(stroke, RectanglePath(rect), nameof(DrawRectangle));
         }
 
-        // Fill a rectangle with a brush, as a path (D-4, F-3).
+        // Fill a rectangle with a brush, as a path (D-4).
         public void FillRectangle(object brushKey, RectangleF rect)
         {
             SvgStyle fill = GetFill(brushKey, nameof(FillRectangle));

@@ -48,8 +48,8 @@ namespace PurplePen.MapModel
         }
     }
 
-    // A shape drawn with one style: a path, a circle or an ellipse (F-3). Its element carries its style, unless its group
-    // does, the number of its object, if any, and its geometry, and nothing else (S-4, S-11).
+    // A shape drawn with one style: a path, a circle or an ellipse. Its element carries its style, unless its group does,
+    // the number of its object, if any, and its geometry, and nothing else (S-4, S-11).
     public abstract class SvgShape : SvgElement
     {
         // The shape's style (S-4).
@@ -104,7 +104,7 @@ namespace PurplePen.MapModel
         protected abstract void AppendGeometry(StringBuilder text);
     }
 
-    // A path (F-3).
+    // A path.
     public sealed class SvgPath : SvgShape
     {
         // The path's data, in steps.
@@ -139,7 +139,7 @@ namespace PurplePen.MapModel
     }
 
     // An ellipse, written as a circle when its radii are equal. A center coordinate of 0 is the default, which is left
-    // out (F-3, S-9).
+    // out (S-9).
     public sealed class SvgEllipse : SvgShape
     {
         // The center and the radii, in steps.
