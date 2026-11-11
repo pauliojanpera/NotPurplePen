@@ -1,8 +1,13 @@
 // look-at-gallery.mjs <gallery url> <output folder>
 //
 // Looks at the SVG gallery before it is published: a desktop view in light and a phone view in dark, each
-// scrolled through first so that every card loads its images, saved as full-page screenshots. Reports what a
-// glance at them would miss: sideways overflow, details left blank, fonts that did not load, and errors.
+// scrolled through first so that every card loads its images, then saved a screen at a time, as
+// <view>-<number>-<entry>.png, where the entry is the first log entry the screen shows, or "head" or "end" for a
+// screen above or below the log. Reports what a glance at them would miss: sideways overflow, details left blank, fonts that did not load,
+// and errors. The page is tens of thousands of pixels tall, and a screenshot of all of it at once, which Chromium
+// paints beyond the viewport, outlasts Playwright's timeout; a screen at a time it paints only what the viewport
+// shows, and lays the page out as a reader's window does, which matters since a drawing's frame takes its height
+// from the viewport's.
 // Serve the gallery folder first, for instance with `python3 -m http.server`. Playwright is imported from
 // PLAYWRIGHT_MODULE, or else as "playwright".
 const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || "playwright");
@@ -40,7 +45,19 @@ async function look(name, options) {
       fontsDeclared: [...document.fonts].length,
     };
   });
-  await page.screenshot({ path: `${out}/${name}.png`, fullPage: true });
+  const screen = options.viewport.height;
+  let screens = 0;
+  for (let top = 0; top < height; top += screen, ++screens) {
+    await page.evaluate(y => window.scrollTo(0, y), top);
+    await page.waitForTimeout(120);
+    const entry = await page.evaluate(() => {
+      const articles = [...document.querySelectorAll(".entries > article")];
+      const shown = articles.find(article => { const box = article.getBoundingClientRect(); return box.bottom > 0 && box.top < innerHeight; });
+      return shown ? shown.id : articles.length && articles[0].getBoundingClientRect().top >= innerHeight ? "head" : "end";
+    });
+    await page.screenshot({ path: `${out}/${name}-${String(screens).padStart(3, "0")}-${entry}.png` });
+  }
+  report.screens = screens;
   console.log(name, JSON.stringify(report), problems.length ? "\n  " + problems.join("\n  ") : "");
   await context.close();
 }
