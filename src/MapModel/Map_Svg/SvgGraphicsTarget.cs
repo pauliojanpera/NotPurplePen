@@ -170,6 +170,9 @@ namespace PurplePen.MapModel
             // Whether the stroke paints with a pattern.
             public readonly bool IsPattern;
 
+            // Whether the pen has no width, so that the document leaves its strokes out (D-5).
+            public readonly bool HasNoWidth;
+
             // The width of the stroke, in steps.
             private readonly long width;
 
@@ -182,12 +185,14 @@ namespace PurplePen.MapModel
             // Create the record of a pen.
             // paint: the style that paints the stroke.
             // isPattern: whether it paints with a pattern.
+            // hasNoWidth: whether the pen has no width.
             // width: the width of the stroke, in steps.
             // capAndJoin: the declarations of its cap and join.
-            public PenRecord(SvgStyle paint, bool isPattern, long width, string capAndJoin)
+            public PenRecord(SvgStyle paint, bool isPattern, bool hasNoWidth, long width, string capAndJoin)
             {
                 this.paint = paint;
                 IsPattern = isPattern;
+                HasNoWidth = hasNoWidth;
                 this.width = width;
                 this.capAndJoin = capAndJoin;
             }
@@ -325,6 +330,17 @@ namespace PurplePen.MapModel
             intensity = creator.intensity;
             drawsPatternTile = true;
             openGroups.Push(new OpenGroup(Opener.CreatePatternBrush, pattern.Content, antiAlias, null));
+        }
+
+        // Why the document leaves out a stroke with a pen of no width, which ISOM 2017 has no place for, where Skia draws
+        // a hairline one device pixel wide at any scale and PDF export the printer's thinnest line (D-5).
+        public const string WhyStrokesOfNoWidthAreLeftOut = "D-5, a line of zero width, which the SVG leaves out where Skia draws a hairline";
+
+        // The calls whose drawing the document leaves out, each named once, in the order first left out: the strokes of
+        // pens of no width (D-5).
+        public IReadOnlyList<string> CallsLeftOut
+        {
+            get { return document.CallsLeftOut; }
         }
 
         // Whether the target fully implements an IGraphicsTarget call, so that a drawing which makes it can be
@@ -693,6 +709,8 @@ namespace PurplePen.MapModel
         public void DrawLine(object penKey, PointF start, PointF finish)
         {
             SvgStyle stroke = GetPen(penKey, nameof(DrawLine));
+            if (stroke == null)
+                return;
             SvgPathData path = new SvgPathData();
             path.MoveTo(SvgNumbers.ToSteps(start.X), SvgNumbers.ToSteps(start.Y));
             path.LineTo(SvgNumbers.ToSteps(finish.X), SvgNumbers.ToSteps(finish.Y));
@@ -704,6 +722,8 @@ namespace PurplePen.MapModel
         public void DrawArc(object penKey, PointF center, float radius, float startAngle, float sweepAngle)
         {
             SvgStyle stroke = GetPen(penKey, nameof(DrawArc));
+            if (stroke == null)
+                return;
             if (Math.Abs(sweepAngle) >= 360) {
                 AddElement(EllipseShape(stroke, center, radius, radius), nameof(DrawArc));
                 return;
@@ -725,6 +745,8 @@ namespace PurplePen.MapModel
         public void DrawEllipse(object penKey, PointF center, float radiusX, float radiusY)
         {
             SvgStyle stroke = GetPen(penKey, nameof(DrawEllipse));
+            if (stroke == null)
+                return;
             AddElement(EllipseShape(stroke, center, radiusX, radiusY), nameof(DrawEllipse));
         }
 
@@ -739,6 +761,8 @@ namespace PurplePen.MapModel
         public void DrawRectangle(object penKey, RectangleF rect)
         {
             SvgStyle stroke = GetPen(penKey, nameof(DrawRectangle));
+            if (stroke == null)
+                return;
             AddPath(stroke, RectanglePath(rect), nameof(DrawRectangle));
         }
 
@@ -753,6 +777,8 @@ namespace PurplePen.MapModel
         public void DrawPolygon(object penKey, PointF[] pts)
         {
             SvgStyle stroke = GetPen(penKey, nameof(DrawPolygon));
+            if (stroke == null)
+                return;
             AddPath(stroke, PathThrough(pts, true), nameof(DrawPolygon));
         }
 
@@ -760,6 +786,8 @@ namespace PurplePen.MapModel
         public void DrawPolyline(object penKey, PointF[] pts)
         {
             SvgStyle stroke = GetPen(penKey, nameof(DrawPolyline));
+            if (stroke == null)
+                return;
             AddPath(stroke, PathThrough(pts, false), nameof(DrawPolyline));
         }
 
@@ -775,14 +803,17 @@ namespace PurplePen.MapModel
         public void DrawPath(object penKey, object pathKey)
         {
             SvgStyle stroke = GetPen(penKey, nameof(DrawPath));
-            AddPath(stroke, GetPath(pathKey, nameof(DrawPath)).Data, nameof(DrawPath));
+            StoredPath path = GetPath(pathKey, nameof(DrawPath));
+            if (stroke != null)
+                AddPath(stroke, path.Data, nameof(DrawPath));
         }
 
         // Draw a path given by its parts with a pen (D-3).
         public void DrawPath(object penKey, List<GraphicsPathPart> parts)
         {
             SvgStyle stroke = GetPen(penKey, nameof(DrawPath));
-            AddPath(stroke, PathOfParts(parts), nameof(DrawPath));
+            if (stroke != null)
+                AddPath(stroke, PathOfParts(parts), nameof(DrawPath));
         }
 
         // Fill a path created with CreatePath with a brush, under the path's rule (D-3).
@@ -813,7 +844,10 @@ namespace PurplePen.MapModel
         {
             if (textMetrics == null)
                 throw new Svg_UnsupportedCallException(nameof(DrawTextOutline));
-            AddText(GetFont(fontKey, nameof(DrawTextOutline)), GetTextPen(penKey, nameof(DrawTextOutline)), text, upperLeft, nameof(DrawTextOutline));
+            FontRecord font = GetFont(fontKey, nameof(DrawTextOutline));
+            SvgStyle stroke = GetTextPen(penKey, nameof(DrawTextOutline));
+            if (stroke != null)
+                AddText(font, stroke, text, upperLeft, nameof(DrawTextOutline));
         }
 
         // Draw a bitmap over a rectangle, its first pixel at the rectangle's left and top, as the Skia target draws it
@@ -1085,7 +1119,9 @@ namespace PurplePen.MapModel
             brushes.Add(key, brush);
         }
 
-        // Add a pen: its paint, then its width, cap and join, each left out where it is SVG's default (D-5, S-9).
+        // Add a pen: its paint, then its width, cap and join, each left out where it is SVG's default (D-5, S-9). A pen of
+        // no width, which Skia draws as a hairline one device pixel wide at any scale, and which ISOM 2017 has no place
+        // for, strokes nothing (D-5).
         // key: the pen's key.
         // paint: the style that paints the stroke.
         // isPattern: whether it paints with a pattern.
@@ -1097,9 +1133,6 @@ namespace PurplePen.MapModel
         {
             if (pens.ContainsKey(key))
                 throw new InvalidOperationException("CreatePen: the key has a pen already.");
-            // A width of zero is a hairline to Skia, one device pixel at any scale, which a document has no unit for.
-            if (width == 0)
-                throw new Svg_UnsupportedCallException(nameof(CreatePen), "D-5, a hairline pen of no width, which a document has no unit for");
 
             StringBuilder strokeShape = new StringBuilder();
             switch (caps) {
@@ -1132,7 +1165,7 @@ namespace PurplePen.MapModel
                     // MiterClipped, which the Skia target rejects too (D-5).
                     throw new Svg_UnsupportedCallException(nameof(CreatePen), "D-5, a clipped miter join, which the Skia target rejects too");
             }
-            pens.Add(key, new PenRecord(paint, isPattern, SvgNumbers.ToSteps(width), strokeShape.ToString()));
+            pens.Add(key, new PenRecord(paint, isPattern, width == 0, SvgNumbers.ToSteps(width), strokeShape.ToString()));
         }
 
         // The brush under a key.
@@ -1154,24 +1187,43 @@ namespace PurplePen.MapModel
             return GetBrush(brushKey, callName).Paint(document.Paints, "fill");
         }
 
-        // The style of a pen's stroke of a shape.
+        // The style of a pen's stroke of a shape, or null for a pen of no width, whose strokes the document leaves out
+        // (D-5).
         // penKey: the key of the pen.
         // callName: the name of the call that strokes with it.
         private SvgStyle GetPen(object penKey, string callName)
         {
-            return GetPenRecord(penKey, callName).InSteps;
+            PenRecord pen = GetPenRecord(penKey, callName);
+            return LeavesOut(pen, callName) ? null : pen.InSteps;
         }
 
-        // The style of a pen's stroke of a text, whose units are millimetres. A pattern is defined in steps, and would
-        // be drawn a thousand times its size inside a text, so a pattern's stroke is not written yet.
+        // The style of a pen's stroke of a text, whose units are millimetres, or null for a pen of no width, whose
+        // strokes the document leaves out (D-5). A pattern is defined in steps, and would be drawn a thousand times its
+        // size inside a text, so a pattern's stroke is not written yet.
         // penKey: the key of the pen.
         // callName: the name of the call that strokes with it.
         private SvgStyle GetTextPen(object penKey, string callName)
         {
             PenRecord pen = GetPenRecord(penKey, callName);
+            if (LeavesOut(pen, callName))
+                return null;
             if (pen.IsPattern)
                 throw new Svg_UnsupportedCallException(callName);
             return pen.InTextUnits;
+        }
+
+        // Whether the document leaves out a stroke with a pen, as it does every stroke with a pen of no width (D-5); if
+        // so, the call that strokes is recorded as one whose drawing is left out. A stroke out of turn still raises an
+        // error (D-12).
+        // pen: the pen.
+        // callName: the name of the call that strokes with it.
+        private bool LeavesOut(PenRecord pen, string callName)
+        {
+            if (!pen.HasNoWidth)
+                return false;
+            RequireOpenPart(callName);
+            document.LeaveOut(callName);
+            return true;
         }
 
         // The pen under a key.

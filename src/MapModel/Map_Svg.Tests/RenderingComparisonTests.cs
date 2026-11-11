@@ -140,7 +140,9 @@ namespace Map_Svg.Tests
         }
 
         // Write the SVG document of a case's recording: one map in one part, shown on a page the size of the image,
-        // whose millimetres the renderer makes pixels. A call that the target cannot honor ends the test as pending.
+        // whose millimetres the renderer makes pixels. A call that the target cannot honor ends the test as pending, and
+        // so, for good, does a line of zero width, which the document leaves out where the reference draws a hairline
+        // (D-5, DL-6).
         private static string WriteDocument(ComparisonCase comparisonCase, RecordingGraphicsTarget recording)
         {
             try {
@@ -153,7 +155,10 @@ namespace Map_Svg.Tests
                     target.EndMap();
                     target.EndPart();
                     target.AddPage(new SizeF(comparisonCase.PixelSize.Width, comparisonCase.PixelSize.Height), comparisonCase.Area, areaToImage, new object[] { part }, null);
-                    return target.FinishDocument();
+                    string document = target.FinishDocument();
+                    if (target.CallsLeftOut.Count > 0)
+                        throw Pending(comparisonCase, target.CallsLeftOut, Svg_GraphicsTarget.WhyStrokesOfNoWidthAreLeftOut);
+                    return document;
                 }
             }
             catch (Svg_UnsupportedCallException unsupportedCall) {

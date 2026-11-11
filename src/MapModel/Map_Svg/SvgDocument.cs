@@ -334,6 +334,9 @@ namespace PurplePen.MapModel
         // What gives the font data the document embeds for its faces, or null when it embeds none (T-6, T-7).
         private readonly IFontSubsetProvider fontSubsets;
 
+        // The calls whose drawing the document leaves out, each named once, in the order first left out (D-5).
+        private readonly List<string> callsLeftOut = new List<string>();
+
         // Whether the faces that draw the fonts' characters have been asked for and named.
         private bool fontFacesResolved;
 
@@ -406,6 +409,21 @@ namespace PurplePen.MapModel
                 objectNumbers.Add(objectKey, number);
             }
             return number;
+        }
+
+        // The calls whose drawing the document leaves out, each named once, in the order first left out: the strokes of
+        // pens of no width (D-5).
+        public IReadOnlyList<string> CallsLeftOut
+        {
+            get { return callsLeftOut; }
+        }
+
+        // Record that the document leaves out what a call draws.
+        // callName: the name of the call.
+        public void LeaveOut(string callName)
+        {
+            if (!callsLeftOut.Contains(callName))
+                callsLeftOut.Add(callName);
         }
 
         // The image of a bitmap's written data, made when the data is first seen: embedded as a data URI, or stored

@@ -708,7 +708,7 @@ namespace Map_Svg.Tests
         }
 
         [Test]
-        public void ClippedJoinsAndHairlinesAreNotHonored()
+        public void ClippedJoinsAreNotHonored()
         {
             using (Svg_GraphicsTarget target = new Svg_GraphicsTarget(DefaultColorConverter.Instance, true)) {
                 CmykColor black = CmykColor.FromCmyk(0, 0, 0, 1);
@@ -716,9 +716,45 @@ namespace Map_Svg.Tests
                     () => target.CreatePen(new object(), black, 1, LineCapMode.Flat, LineJoinMode.MiterClipped, 4));
                 Assert.AreEqual("CreatePen", error.CallName);
                 StringAssert.StartsWith("D-5, a clipped miter join", error.WhyNeverHonored);
-                error = Assert.Throws<Svg_UnsupportedCallException>(() => target.CreatePen(new object(), black, 0, LineCapMode.Flat, LineJoinMode.Miter, 4));
-                Assert.AreEqual("CreatePen", error.CallName);
-                StringAssert.StartsWith("D-5, a hairline pen", error.WhyNeverHonored);
+            }
+        }
+
+        [Test]
+        public void TheStrokesOfAPenOfNoWidthAreLeftOut()
+        {
+            CmykColor black = CmykColor.FromCmyk(0, 0, 0, 1);
+            Action<Svg_GraphicsTarget> drawLine = target => {
+                object pen = new object();
+                target.CreatePen(pen, black, 1, LineCapMode.Flat, LineJoinMode.Miter, 4);
+                target.DrawLine(pen, Point(0, 0), Point(5, 5));
+            };
+            List<string> callsLeftOut = new List<string>();
+            string document = WriteOnePage(target => {
+                object hairline = new object(), brush = new object(), brushHairline = new object();
+                target.CreatePen(hairline, black, 0, LineCapMode.Round, LineJoinMode.Round, 4);
+                target.CreateSolidBrush(brush, black);
+                target.CreatePen(brushHairline, brush, 0, LineCapMode.Flat, LineJoinMode.Bevel, 4);
+                target.DrawLine(hairline, Point(0, 0), Point(5, 5));
+                drawLine(target);
+                target.DrawPolyline(hairline, new PointF[] { Point(0, 0), Point(5, 5), Point(10, 0) });
+                target.DrawRectangle(brushHairline, new RectangleF(1, 1, 2, 2));
+                target.DrawEllipse(hairline, Point(5, 5), 2, 1);
+                target.DrawPath(hairline, new List<GraphicsPathPart> { Part(GraphicsPathPartKind.Start, Point(0, 0)), Part(GraphicsPathPartKind.Lines, Point(10, 0)) });
+                target.DrawLine(hairline, Point(1, 1), Point(2, 2));
+                callsLeftOut.AddRange(target.CallsLeftOut);
+            });
+            Assert.AreEqual(WriteOnePage(drawLine), document);
+            CollectionAssert.AreEqual(new string[] { "DrawLine", "DrawPolyline", "DrawRectangle", "DrawEllipse", "DrawPath" }, callsLeftOut);
+        }
+
+        [Test]
+        public void AStrokeOfNoWidthOutOfTurnRaisesAnError()
+        {
+            using (Svg_GraphicsTarget target = new Svg_GraphicsTarget(DefaultColorConverter.Instance, true)) {
+                object hairline = new object();
+                target.CreatePen(hairline, CmykColor.FromCmyk(0, 0, 0, 1), 0, LineCapMode.Flat, LineJoinMode.Miter, 4);
+                Assert.Throws<InvalidOperationException>(() => target.DrawLine(hairline, Point(0, 0), Point(5, 5)));
+                CollectionAssert.IsEmpty(target.CallsLeftOut);
             }
         }
 
