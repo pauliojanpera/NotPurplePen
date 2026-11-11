@@ -188,7 +188,7 @@ Bitmaps are embedded by default, written once each, and can instead be linked as
 | B-3 | Images are written through `WriteToStream`, in their original format when it is PNG or JPEG, otherwise as PNG. JPEG quality comes from the export settings. | Must |
 | B-4 | The export setting chooses one of three handlings: embedded as data, linked as files beside the SVG, or left out. Embedding is the default. Embedded data grows by a third in base64, which compression barely recovers. | Must |
 | B-5 | A bitmap, or the same part of one, drawn more than once is written once and referenced. | Must |
-| B-6 | A bitmap drawn at an intensity below 1.0 raises an error naming the call (D-12), since the allowed elements (F-3) cannot lighten an image. The export always draws at full intensity. | Must |
+| B-6 | A bitmap drawn at an intensity below 1.0 raises an error naming the call (D-12). The export always draws at full intensity. | Must |
 
 ## Output compactness
 
@@ -217,7 +217,7 @@ The SVG must look in Chromium like Purple Pen's own renderings, and come out byt
 | --- | --- | --- |
 | F-1 | Rendered by Chromium, the SVG matches, within a pixel tolerance, the reference image of the same drawing or map case: Purple Pen's Skia rendering of it at its best settings, antialiased and with pattern tiles off. | Must |
 | F-2 | The same input gives byte-identical output on every run, machine and platform: no time stamps; ids and object numbers assigned in order of first use; nothing ordered by hash. | Must |
-| F-3 | The output is well-formed XML. It uses only `svg`, `g`, `defs`, `style`, `metadata`, `color-profile`, `view`, `path`, `circle`, `ellipse`, `use`, `clipPath`, `pattern`, `text`, `tspan` and `image`. Styles are `style` attributes (S-4), and the `color-profile` carries an `id`, its `name` and the profile it embeds (COL-3). References go through `xlink:href`, which SVG 1.1 tools need and browsers accept. Identity goes in `data-` attributes, and the tables go in the metadata, in the namespace `https://pauliojanpera.github.io/NotPurplePen/svg` with the prefix `npp`; their root element carries a `version` attribute, so that the format can grow without breaking its readers. Pages are also marked with Inkscape's own page elements, `inkscape:page` inside a `sodipodi:namedview`, in Inkscape's namespaces. | Must |
+| F-3 | The output is well-formed XML. References go through `xlink:href`, which SVG 1.1 tools need and browsers accept. Identity goes in `data-` attributes, and the tables go in the metadata, in the namespace `https://pauliojanpera.github.io/NotPurplePen/svg` with the prefix `npp`; their root element carries a `version` attribute, so that the format can grow without breaking its readers. | Must |
 | F-4 | Each page has the paper size of its page in PDF export's layout, in millimetres, turned for a landscape page, and its map fills the page's print rectangle at the course's print scale, so the page prints as the PDF page does. The root's width and height are those of the first page. | Must |
 | F-5 | Current Firefox and WebKit display the output as Chromium does, darken blending included. | Should |
 | F-6 | Inkscape and Scribus open the output and read each color's CMYK values from it. This is checked by hand, and without a person at the screen by the readers in `SvgColourReaders/`. | Must |

@@ -188,8 +188,8 @@ of the layout, each with the base map's parts and its own course part's (L-3).
   names itself skip the views' ids, so every id stays unique (L-5).
 - After the metadata, a `<sodipodi:namedview>` holds an `<inkscape:page x="..." y="..." width="..." height="..."
   inkscape:label="name"/>` for each page, in order, with the page's name as given. Inkscape reads its pages only as
-  children of that element, of Inkscape's other namespace, which F-3's list of elements names since
-  @Pauli settled it on Nov 4. Inkscape keeps its first page at the root's view box, as the document does.
+  children of that element, of Inkscape's other namespace. Inkscape keeps its first page at the root's view box, as
+  the document does.
 - Nothing joins the metadata: a page's maps are found through its uses (part, `data-m`, `npp:map`), and its course
   through its course map's `npp:course`.
 
