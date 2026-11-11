@@ -28,7 +28,7 @@ def fails(case, variant, share, cap, floor):
     difference = case[variant + "_difference"]
     if difference.size == 0:
         return False
-    allowed = np.maximum(floor, np.minimum(cap, share * case[variant + "_contrast9"]))
+    allowed = np.maximum(floor, np.minimum(cap, share * case[variant + "_contrast9"].max(axis=1, keepdims=True)))
     return bool((difference > allowed).any())
 
 

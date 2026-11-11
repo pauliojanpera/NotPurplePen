@@ -40,7 +40,7 @@ def fails(case, variant, test):
     if int(case[variant + "_inside"]) > 0:
         return True
     signed = case[variant + "_signed"]
-    return signed.size > 0 and bool(test(signed, case[variant + "_contrast9"]).any())
+    return signed.size > 0 and bool(test(signed, case[variant + "_contrast9"].max(axis=1, keepdims=True)).any())
 
 
 def summarize(cases, test):
@@ -54,7 +54,7 @@ def extremes(cases):
     share of the contrast around them."""
     print("case | outside with no edge near | darkest: levels share | lightest: levels share")
     for name, case in cases.items():
-        signed, contrast = case["real_signed"], np.maximum(case["real_contrast9"], 1)
+        signed, contrast = case["real_signed"], np.maximum(case["real_contrast9"].max(axis=1, keepdims=True), 1)
         if signed.size == 0 and int(case["real_inside"]) == 0:
             continue
         darkest = (signed.max(), (signed / contrast).max()) if signed.size else (0, 0)

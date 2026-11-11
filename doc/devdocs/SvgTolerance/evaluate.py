@@ -36,7 +36,9 @@ def current(difference, contrast9, contrast5):
 
 def relative(share, floor, cap, which):
     def rule(difference, contrast9, contrast5):
-        contrast = contrast9 if which == 9 else contrast5
+        # As ImageComparison measures it: the widest range a channel takes around the pixel, held against every
+        # channel's difference.
+        contrast = (contrast9 if which == 9 else contrast5).max(axis=1, keepdims=True)
         threshold = np.maximum(floor, np.minimum(cap, share * contrast))
         return (difference > threshold).any(axis=1)
     return rule

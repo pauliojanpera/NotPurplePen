@@ -16,7 +16,8 @@ def describe(arrays, variant):
     if variant + "_inside" not in arrays.files:
         return "      -       "
     inside = int(arrays[variant + "_inside"])
-    difference, contrast = arrays[variant + "_difference"], np.maximum(arrays[variant + "_contrast9"], 1)
+    difference = arrays[variant + "_difference"]
+    contrast = np.maximum(arrays[variant + "_contrast9"].max(axis=1, keepdims=True), 1)
     if difference.size == 0:
         return "%5d   -     - " % inside
     shares = (difference / contrast).max(axis=1)

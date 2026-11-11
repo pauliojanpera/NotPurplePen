@@ -20,8 +20,9 @@ matches them only when `FONTCONFIG_FILE` names a fontconfig file that offers the
 - `collect.py <data> <out> [worker] [workers]` measures, for each case's rendering and for copies of it with errors
   planted in them (shifted 2 px, features 2 px wider, smallest solid feature removed, ink 6 levels redder), the
   pixels outside the band with no edge within reach, and for each pixel outside the band at an edge its blurred
-  difference, signed and not, and the contrast around it. It writes one `.npz` file a case, and can be run as
-  several workers.
+  difference, signed and not, and the range each channel takes around it. It writes one `.npz` file a case, and can
+  be run as several workers. The scripts that judge a rule take the contrast as `ImageComparison` does: the widest
+  range a channel takes within the blur's reach, in either image, which every channel's difference is held to.
 - `evaluate.py <collected>` compares edge rules on those measurements: every real rendering must pass, and each
   rule's catches of the planted errors are set against the current rule's.
 - `sweep.py <collected>` sweeps rules of share, cap and floor, and lists for each that passes the real renderings
