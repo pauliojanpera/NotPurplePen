@@ -1150,7 +1150,10 @@ namespace PurplePen.MapModel
             }
             switch (join) {
                 case LineJoinMode.Miter:
-                    // Skia bevels every corner under a limit of 1 or less, which SVG would take for an error.
+                case LineJoinMode.MiterClipped:
+                    // A clipped miter is drawn as a miter, as PDF export draws it: a corner sharper than the limit is
+                    // bevelled rather than clipped at the limit (D-5). Skia bevels every corner under a limit of 1 or
+                    // less, which SVG would take for an error.
                     if (miterLimit <= 1)
                         strokeShape.Append(";stroke-linejoin:bevel");
                     else if (miterLimit != 4)
@@ -1163,8 +1166,7 @@ namespace PurplePen.MapModel
                     strokeShape.Append(";stroke-linejoin:round");
                     break;
                 default:
-                    // MiterClipped, which the Skia target rejects too (D-5).
-                    throw new Svg_UnsupportedCallException(nameof(CreatePen), "D-5, a clipped miter join, which the Skia target rejects too");
+                    throw new Svg_UnsupportedCallException(nameof(CreatePen), "D-5, a join other than miter, bevel or round");
             }
             pens.Add(key, new PenRecord(paint, isPattern, width == 0, SvgNumbers.ToSteps(width), strokeShape.ToString()));
         }

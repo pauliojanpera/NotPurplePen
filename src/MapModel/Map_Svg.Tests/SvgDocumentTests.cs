@@ -713,15 +713,22 @@ namespace Map_Svg.Tests
         }
 
         [Test]
-        public void ClippedJoinsAreNotHonored()
+        public void AClippedMiterJoinIsDrawnAsAMiter()
         {
-            using (Svg_GraphicsTarget target = new Svg_GraphicsTarget(DefaultColorConverter.Instance, true)) {
-                CmykColor black = CmykColor.FromCmyk(0, 0, 0, 1);
-                Svg_UnsupportedCallException error = Assert.Throws<Svg_UnsupportedCallException>(
-                    () => target.CreatePen(new object(), black, 1, LineCapMode.Flat, LineJoinMode.MiterClipped, 4));
-                Assert.AreEqual("CreatePen", error.CallName);
-                StringAssert.StartsWith("D-5, a clipped miter join", error.WhyNeverHonored);
+            // As PDF export draws it: a corner sharper than the limit is bevelled rather than clipped at the limit.
+            foreach (float miterLimit in new float[] { 4, 2.5F, 1 }) {
+                Func<LineJoinMode, string> drawJoin = join => WriteOnePage(target => {
+                    object pen = new object();
+                    target.CreatePen(pen, CmykColor.FromCmyk(0, 0, 0, 1), 1, LineCapMode.Flat, join, miterLimit);
+                    target.DrawPolyline(pen, new PointF[] { Point(0, 0), Point(5, 5), Point(10, 0) });
+                });
+                Assert.AreEqual(drawJoin(LineJoinMode.Miter), drawJoin(LineJoinMode.MiterClipped));
             }
+            StringAssert.Contains("stroke-miterlimit:2.5", WriteOnePage(target => {
+                object pen = new object();
+                target.CreatePen(pen, CmykColor.FromCmyk(0, 0, 0, 1), 1, LineCapMode.Flat, LineJoinMode.MiterClipped, 2.5F);
+                target.DrawLine(pen, Point(0, 0), Point(5, 5));
+            }));
         }
 
         [Test]
