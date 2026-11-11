@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Writes maps and their courses as SVG. It references Graphics2D alone, so that it can be translated with the
+       map model without any renderer. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <OutputType>Library</OutputType>
+    <RootNamespace>PurplePen.MapModel</RootNamespace>
+    <Configurations>Debug;Release;StorePkg</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Graphics2D\Graphics2D.csproj" />
+  </ItemGroup>
+</Project>
