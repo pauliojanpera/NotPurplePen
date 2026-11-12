@@ -133,6 +133,9 @@ namespace PurplePen.Graphics2D
         void PushClip(RectangleF rectangle);
         void PushClip(RectangleF[] rectangles);
         void PushClip(List<GraphicsPathPart> parts, AreaFillMode windingMode);
+        // Set a clip to the union of paths created with CreatePath, each filled under its own fill mode, so that what
+        // is drawn within it is drawn once where the paths overlap. PopClip ends it, and nested clips intersect.
+        void PushClipToUnion(object[] pathKeys);
         void PopClip();
 
         // Set aliasing mode

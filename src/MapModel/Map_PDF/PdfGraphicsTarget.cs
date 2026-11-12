@@ -74,6 +74,9 @@ namespace PurplePen.MapModel
         private Dictionary<object, XBrush> brushMap = new Dictionary<object, XBrush>(new IdentityComparer<object>());
         private Dictionary<object, SkiaFont> fontMap = new Dictionary<object, SkiaFont>(new IdentityComparer<object>());
         private Dictionary<object, XGraphicsPath> pathMap = new Dictionary<object, XGraphicsPath>(new IdentityComparer<object>());
+        // The parts and fill mode of each path, from which PushClipToUnion unites paths.
+        private Dictionary<object, KeyValuePair<List<GraphicsPathPart>, AreaFillMode>> pathPartsMap =
+            new Dictionary<object, KeyValuePair<List<GraphicsPathPart>, AreaFillMode>>(new IdentityComparer<object>());
 
         // Create a graphics target that draws into the given XGraphics. Text drawn through this
         // target has its glyphs resolved by PDFsharp from the characters, which loses the shaping
@@ -267,6 +270,102 @@ namespace PurplePen.MapModel
 
             XGraphicsPath path = GetXGraphicsPath(parts, windingMode);
             pathMap.Add(pathKey, path);
+            pathPartsMap.Add(pathKey, new KeyValuePair<List<GraphicsPathPart>, AreaFillMode>(parts, windingMode));
+        }
+
+        // Set a clip to the union of paths created with CreatePath, each under its own fill mode. Skia's path
+        // operations unite the paths, keeping their curves, and the page clips to the one path that results.
+        // pathKeys: the keys of the paths.
+        public void PushClipToUnion(object[] pathKeys)
+        {
+            using (SKPath.OpBuilder builder = new SKPath.OpBuilder())
+            using (SKPath union = new SKPath()) {
+                List<SKPath> paths = new List<SKPath>();
+                try {
+                    foreach (object pathKey in pathKeys) {
+                        KeyValuePair<List<GraphicsPathPart>, AreaFillMode> parts;
+                        if (!pathPartsMap.TryGetValue(pathKey, out parts))
+                            throw new ArgumentException("Given key does not have a path created for it", "pathKeys");
+                        SKPath path = SkiaPathOfParts(parts.Key, parts.Value);
+                        paths.Add(path);
+                        builder.Add(path, SKPathOp.Union);
+                    }
+                    if (!builder.Resolve(union))
+                        throw new InvalidOperationException("The union of the clip's paths could not be formed");
+                }
+                finally {
+                    foreach (SKPath path in paths)
+                        path.Dispose();
+                }
+
+                stateStack.Push(gfx.Save());
+                gfx.IntersectClip(XGraphicsPathOfSkiaPath(union));
+            }
+        }
+
+        // The Skia path of a path's parts, under its fill mode.
+        // parts: the parts.
+        // windingMode: the fill mode.
+        static SKPath SkiaPathOfParts(List<GraphicsPathPart> parts, AreaFillMode windingMode)
+        {
+            SKPath path = new SKPath();
+            path.FillType = (windingMode == AreaFillMode.Alternate) ? SKPathFillType.EvenOdd : SKPathFillType.Winding;
+            foreach (GraphicsPathPart part in parts) {
+                switch (part.Kind) {
+                    case GraphicsPathPartKind.Start:
+                        path.MoveTo(part.Points[0].X, part.Points[0].Y);
+                        break;
+                    case GraphicsPathPartKind.Lines:
+                        foreach (PointF pt in part.Points)
+                            path.LineTo(pt.X, pt.Y);
+                        break;
+                    case GraphicsPathPartKind.Beziers:
+                        for (int i = 0; i < part.Points.Length; i += 3)
+                            path.CubicTo(part.Points[i].X, part.Points[i].Y, part.Points[i + 1].X, part.Points[i + 1].Y, part.Points[i + 2].X, part.Points[i + 2].Y);
+                        break;
+                    case GraphicsPathPartKind.Close:
+                        path.Close();
+                        break;
+                }
+            }
+            return path;
+        }
+
+        // The PDFsharp path of a Skia path, its quadratic curves raised to cubic ones.
+        // skiaPath: the Skia path, which has no conics.
+        static XGraphicsPath XGraphicsPathOfSkiaPath(SKPath skiaPath)
+        {
+            XGraphicsPath path = new XGraphicsPath();
+            path.FillMode = (skiaPath.FillType == SKPathFillType.EvenOdd) ? XFillMode.Alternate : XFillMode.Winding;
+            SKPoint[] points = new SKPoint[4];
+            using (SKPath.RawIterator iterator = skiaPath.CreateRawIterator()) {
+                SKPathVerb verb;
+                while ((verb = iterator.Next(points)) != SKPathVerb.Done) {
+                    switch (verb) {
+                        case SKPathVerb.Move:
+                            path.StartFigure();
+                            break;
+                        case SKPathVerb.Line:
+                            path.AddLine(points[0].X, points[0].Y, points[1].X, points[1].Y);
+                            break;
+                        case SKPathVerb.Quad:
+                            path.AddBezier(points[0].X, points[0].Y,
+                                           points[0].X + 2F / 3F * (points[1].X - points[0].X), points[0].Y + 2F / 3F * (points[1].Y - points[0].Y),
+                                           points[2].X + 2F / 3F * (points[1].X - points[2].X), points[2].Y + 2F / 3F * (points[1].Y - points[2].Y),
+                                           points[2].X, points[2].Y);
+                            break;
+                        case SKPathVerb.Cubic:
+                            path.AddBezier(points[0].X, points[0].Y, points[1].X, points[1].Y, points[2].X, points[2].Y, points[3].X, points[3].Y);
+                            break;
+                        case SKPathVerb.Close:
+                            path.CloseFigure();
+                            break;
+                        default:
+                            throw new InvalidOperationException("A union of the clip's paths has a " + verb);
+                    }
+                }
+            }
+            return path;
         }
 
         XGraphicsPath GetXGraphicsPath(List<GraphicsPathPart> parts, AreaFillMode windingMode)

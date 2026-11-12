@@ -317,6 +317,19 @@ namespace PurplePen.MapModel
             }
         }
 
+        // Set a clip to the union of paths created with CreatePath, each under its own fill mode: a region that unites
+        // the regions of the paths.
+        // pathKeys: the keys of the paths.
+        public void PushClipToUnion(object[] pathKeys)
+        {
+            stateStack.Push(Graphics.Save());
+            using (Region region = new Region(GetGraphicsPath(pathKeys[0]))) {
+                for (int i = 1; i < pathKeys.Length; ++i)
+                    region.Union(GetGraphicsPath(pathKeys[i]));
+                Graphics.IntersectClip(region);
+            }
+        }
+
         public void PushClip(RectangleF rect)
         {
             stateStack.Push(Graphics.Save());

@@ -259,6 +259,18 @@ namespace PurplePen.MapModel
             ++pushLevel;
         }
 
+        // Set a clip to the union of paths created with CreatePath, each under its own fill mode: the geometries
+        // combined by union into one frozen path geometry, as the target's other clips are plain geometries.
+        // pathKeys: the keys of the paths.
+        public void PushClipToUnion(object[] pathKeys)
+        {
+            // EXPERIMENT: the first path alone, to tell whether WPF's text moves with the clip's geometry or with what
+            // the map code draws within it.
+            Geometry union = GetGeometry(pathKeys[0]);
+            DrawingContext.PushClip(union);
+            ++pushLevel;
+        }
+
         public void PushClip(RectangleF rect)
         {
             DrawingContext.PushClip(new RectangleGeometry(new Rect(rect.X, rect.Y, rect.Width, rect.Height)));
