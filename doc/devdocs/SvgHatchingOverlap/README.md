@@ -22,7 +22,7 @@ higher resolution he exported at first. He agreed that his files go into this re
 Task 2's first step found out whether the map code can draw a pattern once for all the areas of a symbol that share
 its frame in a colour's run, for every output, and how the SVG would carry it; its findings, its measurements and the
 choice put to @Pauli are the section "Overlapping patterns, and a colour's layer" of
-[`SvgExportDesign.md`](../SvgExportDesign.md). The prototype is `proto/overlapping-patterns` (00983b4), rooted at
+[`SvgExportDesign.md`](../SvgExportDesign.md). The prototype is `proto/overlapping-patterns` (dbaa918), rooted at
 upstream's 98c168b, and its run of the Windows suite was `experiment/overlapping-patterns-record-all`.
 
 | Script | Does |

@@ -3,7 +3,7 @@
 #
 # Repeats the measurements of the design's "Overlapping patterns, and a colour's layer" (../SvgExportDesign.md) on
 # Linux, into a work folder that must not exist yet:
-#   1. a checkout of the prototype, proto/overlapping-patterns at ad52f18, made by ../SvgDevLoop/app-checkout.sh from
+#   1. a checkout of the prototype, proto/overlapping-patterns at dbaa918, made by ../SvgDevLoop/app-checkout.sh from
 #      the clone, and harness/ built against it;
 #   2. `harness info` on the case's maps and on teanaway, printarea2 and Madrona.11, taken from the clone's origin/base:
 #      the groups of overlapping areas each symbol has; and `harness clips` on the case's maps and printarea2: the union
@@ -30,7 +30,7 @@ dotnet=$DOTNET_ROOT/dotnet
 
 # 1. The prototype and the harness.
 git -C "$clone" fetch -q origin proto/overlapping-patterns
-bash "$here/../SvgDevLoop/app-checkout.sh" "$clone" ad52f18 "$work/prototype"
+bash "$here/../SvgDevLoop/app-checkout.sh" "$clone" dbaa918 "$work/prototype"
 mkdir -p "$work/harness"
 cp "$here/harness/Program.cs" "$here/harness/Harness.csproj" "$work/harness/"
 "$dotnet" build "$work/harness/Harness.csproj" -c Release -o "$work/harness/out" -p:CheckoutRoot="$work/prototype" > "$work/harness/build.log"

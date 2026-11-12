@@ -931,15 +931,15 @@ thicker and darker; @Pauli judged that undesirable in any context (see the hando
 and "A colour is a layer"). This section finds out whether the map code can draw a pattern once for all the areas that
 share its frame in a colour's run, for every output, what a colour's transparency applied to its layer would take, and
 how the SVG would carry it, and ends with the choice put to @Pauli. The prototype is on `proto/overlapping-patterns`
-(00983b4), rooted at upstream's 98c168b; the scripts that repeat every figure below are in
+(dbaa918), rooted at upstream's 98c168b; the scripts that repeat every figure below are in
 [`SvgHatchingOverlap/`](SvgHatchingOverlap/README.md), beside @Pauli's case.
 
 ### What draws the thickening
 
-- **Each area hatches itself.** `Map.DrawColor` draws a colour's run symbol by symbol, in the order of the symbol table,
-  and each symbol's objects in their order, so all the objects of a symbol drawn in a colour follow one another: a run
-  never draws another symbol's object between two of them. `AreaSymDef.Draw` fills the area, then clips to the area and
-  draws each hatching line by line (`DrawOneHatching`), then each pattern, with a pattern brush
+- **Each area hatches itself.** `Map.DrawColor` draws a colour's run symbol by symbol, in the order the map holds its
+  symbols, and each symbol's objects in their order, so all the objects of a symbol drawn in a colour follow one
+  another: a run never draws another symbol's object between two of them. `AreaSymDef.Draw` fills the area, then clips
+  to the area and draws each hatching line by line (`DrawOneHatching`), then each pattern, with a pattern brush
   (`DrawPatternWithTexBrush`) or element by element (`DrawPattern`), then the border. Two areas that overlap therefore
   draw the same lines, or the same elements, twice where they overlap: an unturned area lays its pattern out from the
   map's origin, so the copies coincide.
@@ -970,8 +970,9 @@ by the PDF target to the system, whose rasterizer decides.
 
 ### Drawing a pattern once in the map code
 
-The prototype changes upstream's map code and every target the solution builds, so that the screen, printing, the PNG
-and PDF exports and the SVG draw an overlap once (`proto/overlapping-patterns`).
+The prototype changes upstream's map code and every target the solution builds but the browser canvas, which nothing
+ships, so that the screen, printing, the PNG and PDF exports and the SVG draw an overlap once
+(`proto/overlapping-patterns`).
 
 - **Which areas.** For an area symbol that draws hatchings, or regular patterns clipped to the area, in the colour of
   the run (`AreaLikeSymDef.HasPatternsDrawnOnce`), `Map.DrawColor` first finds the groups among the objects it is about
@@ -1000,7 +1001,7 @@ and PDF exports and the SVG draw an overlap once (`proto/overlapping-patterns`).
 | Skia | the screen, the PNG export, printing on Windows | The union of the regions each path would clip to, in device pixels (`SKRegion`), which is the union of the target's own clips, as they are not smoothed: for each of the 1,187 areas of printarea2 and the areas of the case, the region clips to the very pixels the path does (`harness clips`). With Skia's path operations instead, smoothed as the target draws, the screen draws two to three and a half times slower (below) |
 | PDF (PdfSharp) | PDF export, printing on Linux and macOS | Skia's path operations (`SKPath.OpBuilder`; `Map_PDF` references `Map_SkiaStd` already), keeping curves, written as one clip path, whose outline has no edge where areas only touch: a viewer draws the overlap once, and leaves no seam there |
 | GDI+ | the WinForms application, not shipped | `Region.Union`; its clips are not smoothed |
-| WPF | not shipped | `CombinedGeometry` of the union |
+| WPF | not shipped | The geometries combined by union into one path geometry (`Geometry.Combine`); a `CombinedGeometry` draws alike |
 | Browser canvas (`HtmlGraphicsTarget`) | not shipped | Not done: a canvas clips to one path under one rule. It would need path operations of its own, or a mask |
 | `RecordingGraphicsTarget` | print preview, the tests' recordings | Records the call and plays it back |
 | SVG | the export | A clip path with a child for each path, which SVG unites: the ghosts, below |
@@ -1011,26 +1012,34 @@ and PDF exports and the SVG draw an overlap once (`proto/overlapping-patterns`).
   drew darker blobs where its areas overlap.
 - **The Windows suite.** Every group builds and runs (Tests run 43311151133 of
   `experiment/overlapping-patterns-record-all`: `base` with the prototype at ad52f18 merged in, which differs from
-  00983b4 by a comment, and a commit of its own on which a failed bitmap comparison writes a line and goes on); one test
-  of the PurplePen group failed only because it went on past its comparison and found a file still open.
+  dbaa918 in a comment and in the WPF target's union, below, and a commit of its own on which a failed bitmap comparison
+  writes a line and goes on); one test of the PurplePen group failed only because it went on past its comparison and
+  found a file still open.
 
 ### Which baselines move
 
 The run left the rendering of every comparison that failed; `moved-baselines.py` measures each against `base`'s
-baseline. 84 images move, in every group that draws maps:
+baseline. The same run of `base` alone (Tests run 43315493575 of `experiment/overlapping-patterns-base-record-all`)
+failed no comparison in any group, so every image below is the prototype's. 84 images move, in every group that draws
+maps:
 
 | Group | Images | Pixels more than 32 levels off, per image | The images |
 | --- | --- | --- | --- |
 | Skia | 8 | 1 to 2,080 | LordHill and LordHill OCAD11, clouds and clouds11, lksamm3, marymoor11_lowerlayers, teanwest and teanwest11 |
 | PDF | 11 | 0 to 7,561 | LordHill, PenistoneHill, clouds and clouds11, lksamm3, lksamm9_3, marymoor and marymoor11, missingcolor, teanwest and teanwest11 |
 | GDI+ (MapModel) | 8 | 2 to 2,543 | PenistoneHill, clouds and clouds11, lksamm3, teanwest and teanwest11, OpenMapper's massysprint and its round trip |
-| WPF | 2 | 5,053 and 10,862 | lksamm3 and marymoor_underline, which differ in their text alone (see below) |
+| WPF | 2 | 5,053 and 10,862 | lksamm3 and marymoor_underline, whose text moves too (see below) |
 | PurplePen | 55 | 0 to 714, a median of 15 | 18 course printing pages (areas, arial, lordhill in four blends, noblend, test1 to test3), 26 PDF exports (`pdf_create1` to `pdf_create9`, `pdf_area`, `pdf_create_blend`), 11 bitmap exports (`bitmapcreate`) and 2 RouteGadget exports |
 
 The moved pixels lie where areas of a symbol overlap: in teanwest's PDF rendering a darker blob of a dotted pattern is
 gone, as in clouds' Skia rendering. Most images of the PurplePen group move by a few pixels, where small overlaps fall
-on the page. WPF's two images differ in their text, a pixel to the side and lighter, which areas do not touch; whether
-that is the runner's drawing of text or the change is being checked by a second run of the WPF job.
+on the page. WPF's two images also draw their text otherwise, a pixel to the side, though no area touches it. That is
+the prototype's doing, and not its clip's: the WPF job run again drew the same, `base` alone drew the text as its
+baselines have it, and the WPF target clipping to the union as a `CombinedGeometry`, as a path geometry combined at once
+(`experiment/overlapping-patterns-wpf-record-all`, Tests run 43317169497) or, for the test, to the first area's path
+alone (`experiment/overlapping-patterns-wpf-first-path`, Tests run 43318725301) moved lksamm3's text by the very same
+pixels. So it follows what the map code draws in WPF, such as the elements and lines it now lays over a group's whole
+box, not the clip; why WPF then sets text otherwise is not known. WPF is compiled but not shipped.
 
 Recording them is the fix's work: `SvgDevLoop/record-baselines.py` writes each rendering over its baseline, on the fix
 branch where the baseline is upstream's.
@@ -1044,10 +1053,13 @@ screen draws area patterns with pattern brushes, and printing on Windows, with t
 
 | Drawing | Before | Region union | Path operations |
 | --- | --- | --- | --- |
-| Pattern brushes, 2 pixels a mm (1461 × 743) | 716 ms | 741 ms, +3.5 % | 2,400 ms |
-| Pattern brushes, 4 pixels a mm (2922 × 1486) | 1,549 ms | 1,882 ms, +21 % | 3,461 ms |
-| Element by element, 2 pixels a mm | 1,443 ms | 2,079 ms, +44 % | 3,265 ms |
-| Element by element, 4 pixels a mm | 2,071 ms | 3,182 ms, +54 % | 4,054 ms |
+| Pattern brushes, 2 pixels a mm (1461 × 743) | 716 ms; 670 ms | 741 ms, +3.5 %; 769 ms, +15 % | 2,400 ms; 2,211 ms |
+| Pattern brushes, 4 pixels a mm (2922 × 1486) | 1,549 ms; 1,441 ms | 1,882 ms, +21 %; 1,655 ms, +15 % | 3,461 ms; 3,197 ms |
+| Element by element, 2 pixels a mm | 1,443 ms; 1,329 ms | 2,079 ms, +44 %; 1,771 ms, +33 % | 3,265 ms; 3,099 ms |
+| Element by element, 4 pixels a mm | 2,071 ms; 1,970 ms | 3,182 ms, +54 %; 2,987 ms, +52 % | 4,054 ms; 3,754 ms |
+
+Two runs, the second by `run-all.sh`: the machine is shared, and a drawing's time varies by a tenth from one run to the
+next.
 
 - The groups' bounding boxes cover 1.33 times the area of their members' boxes, as a group joins areas whose boxes only
   touch, and the prototype draws a group's elements and lines over its whole box; drawing each member's share of the
@@ -1161,7 +1173,7 @@ The choice is @Pauli's; nothing beyond the prototype is built before it.
   of a symbol that share its frame, under a union clip that every target forms, on a `fix/` branch rooted where `base`
   meets upstream, with the 84 baselines it moves; the SVG draws the union with ghosts on `feature/svg-target`. The
   screen, the PNG export, printing, PDF export and the SVG all draw an overlap once. The screen draws teanaway 3.5 % to
-  21 % slower, and element-by-element drawing 44 % to 54 % slower until it draws each group's lattice once rather than
+  21 % slower, and element-by-element drawing 33 % to 54 % slower until it draws each group's lattice once rather than
   over the group's box. The browser canvas target, which nothing ships, needs a union of its own; and `IGraphicsTarget`
   gains a member, which every implementation outside the solution, such as upstream's Direct2D and iOS targets, has to
   add.
@@ -1229,7 +1241,7 @@ baselines above to record. Still to do for (a):
   frame;
 - tests of its own: overlapping and touching areas drawn once in each target, and a map without overlaps drawn call for
   call as before;
-- the 84 baselines recorded, and the WPF text checked;
+- the 84 baselines recorded, and WPF's moved text understood, or its two baselines recorded with it;
 - the SVG's side on `feature/svg-target`: the ghosts' call, the target's clip of `<use>`s, the separate-shapes setting,
   and the structure walk, the geometry check and the comparison's references taught to read them.
 
