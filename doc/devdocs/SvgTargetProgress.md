@@ -124,7 +124,7 @@ The calls the target fully implements, in the sense of DL-5: `Intensity`, `PushT
 
 ## Tasks
 
-**In flight:** nothing. As @Pauli asked on Nov 12, the session rests until 13:19 Helsinki, 40 minutes after the agent's last request, and then asks @Pauli what comes next: phases 1 to 7 are done, F-6 by hand is @Pauli's, and phase 8, the porting application, lives in a repository of its own.
+**In flight:** nothing. @Pauli will say what comes next (Nov 12, 13:09): phases 1 to 7 are done, F-6 by hand is @Pauli's, and phase 8, the porting application, lives in a repository of its own.
 
 **Nov 11 and 12, phase 7, Firefox and WebKit (F-5, V-6):** done by one agent at effort max, on @Pauli's word ("jatka"), from Nov 11 at 17:38 Helsinki. The 5-hour limit stopped it at 19:17; it was resumed on Nov 12 at 11:25, paced from 11:50 (see Decisions, "Pacing"), and ended at 12:39. Every run passed, but one SVG loop run that failed outside the code.
 - The design is the section "Firefox and WebKit (F-5, V-6)" of SvgExportDesign.md, with V-6's clause on the documents set apart (d98dfdb). The check, `BrowserComparisonTests`, renders every document the rendering comparison writes, six exported pages, and the four pages of mapexchange1's Course 5 file through their views, in Firefox 155 and WebKit 26.6 as Playwright 1.63 pins them. It holds each image to Chromium's image of the same document by F-1's rule, unchanged: 40 levels, 80 for text. It runs in the SVG loop on Linux alone, whose test step it lengthens from about 5 minutes to about 14; the Windows suite runs only `CourseSvgBaselineTests` of the assembly.
