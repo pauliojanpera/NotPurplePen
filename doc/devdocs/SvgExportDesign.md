@@ -922,6 +922,10 @@ for now, and vectors as the default. The reasons:
 - Its main cost falls on phase 8: the port has no PdfPig, so P-6 for a PDF map needs the reader's calls replayed or
   PdfPig translated.
 
+**Settled by @Pauli on Nov 12: (e)**, with overprinting as the overprint effect says, COL-2's colours, OCAD's layers
+outside any run for now, and vectors by default. @Pauli also ruled that the TypeScript port need not support PDF
+base maps, so the cost to phase 8 falls away.
+
 ## Open questions
 
 - A PDF map is drawn as the bitmap `MapDisplay` makes of it, where PDF export copies the page as vectors. Whether the
