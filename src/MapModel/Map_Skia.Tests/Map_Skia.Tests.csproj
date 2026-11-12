@@ -27,6 +27,7 @@
     <ProjectReference Include="..\Graphics2D\Graphics2D.csproj" />
     <ProjectReference Include="..\MapModel\MapModel.csproj" />
     <ProjectReference Include="..\Map_SkiaStd\Map_SkiaStd.csproj" />
+    <ProjectReference Include="..\RenderingTestCases\RenderingTestCases.csproj" />
     <PackageReference Include="NUnit" />
     <PackageReference Include="NUnit3TestAdapter" />
     <PackageReference Include="SkiaSharp.HarfBuzz" />
@@ -87,6 +88,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="fonts\RobotoCondensed-Regular.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="fonts\NotoSansRunic-Regular.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
