@@ -72,6 +72,9 @@ namespace PdfVectorsProbe
             public IGraphicsTarget Target;
             public bool OverprintDarken;
             public Result Result;
+
+            // The pattern brushes made of the document's target, by their cells (TargetStreamProcessor.PatternBrush).
+            public readonly Dictionary<string, object> PatternBrushes = new Dictionary<string, object>(StringComparer.Ordinal);
         }
 
         [ThreadStatic]
@@ -222,6 +225,18 @@ namespace PdfVectorsProbe
             PdfPoint page = CurrentTransformationMatrix.Transform(new PdfPoint(x, y));
             PdfPoint mapped = toTarget.Transform(page);
             return new PointF((float)mapped.X, (float)mapped.Y);
+        }
+
+        // A named graphics state, as PdfPig sets it, but with PDF's rule that an absent op takes OP's value (ISO 32000-1,
+        // table 58), which PdfPig 0.1.16 quotes and does not apply: its OCAD maps' fills would lose their overprinting.
+        public override void SetNamedGraphicsState(NameToken stateName)
+        {
+            base.SetNamedGraphicsState(stateName);
+            DictionaryToken state = ResourceStore.GetExtendedGraphicsStateDictionary(stateName);
+            if (state != null && state.ContainsKey(NameToken.Op) && !state.ContainsKey(NameToken.OpNs)) {
+                GetCurrentState().NonStrokingOverprint = GetCurrentState().Overprint;
+                Count("overprint:op-from-OP");
+            }
         }
 
         public override void PushState()
@@ -546,20 +561,44 @@ namespace PdfVectorsProbe
                 Count("unsupported:pattern-brushes");
                 return;
             }
-            // Pattern space to the target: the pattern's matrix, the stream's own matrix, then the stream to the target.
-            PigMatrix patternToTarget = tiling.Matrix.Multiply(streamMatrices.Peek()).Multiply(toTarget);
-            Matrix patternToTargetMatrix = new Matrix((float)patternToTarget.A, (float)patternToTarget.B, (float)patternToTarget.C,
-                                                      (float)patternToTarget.D, (float)patternToTarget.E, (float)patternToTarget.F);
-            Matrix targetToPattern = patternToTargetMatrix.Clone();
-            targetToPattern.Invert();
-            List<GraphicsPathPart> inPattern = path.Select(part => {
+            // The brush's space is the pattern's, moved by half a cell, since the target's tile has its middle at the
+            // origin where a PDF cell has its corner: so the fill is drawn under the transform from the brush's space,
+            // through the pattern's matrix, the stream's own matrix and the stream's space, to the target's.
+            float width = (float)Math.Abs(tiling.XStep), height = (float)Math.Abs(tiling.YStep);
+            PigMatrix brushToTarget = PigMatrix.FromValues(1, 0, 0, 1, width / 2, height / 2)
+                .Multiply(tiling.Matrix).Multiply(streamMatrices.Peek()).Multiply(toTarget);
+            Matrix brushToTargetMatrix = new Matrix((float)brushToTarget.A, (float)brushToTarget.B, (float)brushToTarget.C,
+                                                    (float)brushToTarget.D, (float)brushToTarget.E, (float)brushToTarget.F);
+            Matrix targetToBrush = brushToTargetMatrix.Clone();
+            targetToBrush.Invert();
+            List<GraphicsPathPart> inBrush = path.Select(part => {
                 PointF[] points = (PointF[])part.Points.Clone();
                 if (points.Length > 0)
-                    targetToPattern.TransformPoints(points);
+                    targetToBrush.TransformPoints(points);
                 return new GraphicsPathPart(part.Kind, points);
             }).ToList();
 
-            float width = (float)Math.Abs(tiling.XStep), height = (float)Math.Abs(tiling.YStep);
+            object brush = PatternBrush(tiling, width, height);
+            target.PushTransform(brushToTargetMatrix);
+            target.FillPath(brush, inBrush, mode);
+            target.PopTransform();
+            Count("fill:tiling-pattern");
+        }
+
+        // The pattern brush of a tiling pattern's cell, made once for each cell of the same content, steps and box: its
+        // tile is the cell drawn once, its corner moved from the origin to the tile's corner.
+        private object PatternBrush(TilingPatternColor tiling, float width, float height)
+        {
+            string key = Convert.ToBase64String(System.Security.Cryptography.SHA256.HashData(tiling.Data.Span)) + "|" +
+                         width.ToString("R", CultureInfo.InvariantCulture) + "|" + height.ToString("R", CultureInfo.InvariantCulture) + "|" +
+                         tiling.BBox + "|" + (tiling.Resources == null ? "" : tiling.Resources.ToString());
+            object brush;
+            // Brushes are keys of the target that made them, so only the document's own are shared.
+            bool shared = ReferenceEquals(target, context.Target);
+            if (shared && context.PatternBrushes.TryGetValue(key, out brush)) {
+                Count("pattern:reused");
+                return brush;
+            }
             IBrushTarget tile = target.CreatePatternBrush(new SizeF(width, height), 0, 16, 16);
             IReadOnlyList<IGraphicsStateOperation> operations = GetFormOperations(tiling.PatternStream);
             bool resourcesLoaded = false;
@@ -568,25 +607,23 @@ namespace PdfVectorsProbe
                 resourcesLoaded = true;
             }
             try {
-                foreach (PointF offset in new PointF[] { new PointF(0, 0), new PointF(-width, 0), new PointF(0, -height), new PointF(-width, -height) }) {
-                    PigMatrix cellToTile = PigMatrix.FromValues(1, 0, 0, 1, offset.X, offset.Y);
-                    TargetStreamProcessor cell = new TargetStreamProcessor(PageNumber, ResourceStore, PdfScanner, PageContentParser,
-                                                                           FilterProvider, new CropBox(new PdfRectangle(-1e6, -1e6, 1e6, 1e6)),
-                                                                           UserSpaceUnit, new PageRotationDegrees(0), PigMatrix.Identity,
-                                                                           ParsingOptions, context, tile, cellToTile);
-                    cell.ProcessCell(operations);
-                }
+                PigMatrix cellToTile = PigMatrix.FromValues(1, 0, 0, 1, -width / 2, -height / 2);
+                TargetStreamProcessor cell = new TargetStreamProcessor(PageNumber, ResourceStore, PdfScanner, PageContentParser,
+                                                                       FilterProvider, new CropBox(new PdfRectangle(-1e6, -1e6, 1e6, 1e6)),
+                                                                       UserSpaceUnit, new PageRotationDegrees(0), PigMatrix.Identity,
+                                                                       ParsingOptions, context, tile, cellToTile);
+                cell.ProcessCell(operations);
             }
             finally {
                 if (resourcesLoaded)
                     ResourceStore.UnloadResourceDictionary();
             }
-            object brush = new object();
+            brush = new object();
             tile.FinishBrush(brush);
-            target.PushTransform(patternToTargetMatrix);
-            target.FillPath(brush, inPattern, mode);
-            target.PopTransform();
-            Count("fill:tiling-pattern");
+            if (shared)
+                context.PatternBrushes[key] = brush;
+            Count("pattern:made");
+            return brush;
         }
 
         // Form XObjects: the stream's own matrix, to which patterns inside are relative, is the CTM with the form's

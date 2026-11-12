@@ -13,8 +13,8 @@ namespace PdfVectorsProbe
     //   bitmap-svg <pdf> <out.svg>                     the page as the SVG export writes it today: PDFium's bitmap
     //   vector-svg <pdf> <out.svg> [options]           the page as vectors, read by PdfPig into the SVG target's calls
     //       --overprint-darken   draw what overprints with darken blending, as COL-7 shows a map's overprinting
-    //       --glyphs-as-text     (not built) see the design note
     //   pdfium-objects <pdf>                           what PDFium's page-object API reports of the page
+    //   export <ppen> <folder>                         the application's SVG export of an event whose map is a PDF
     internal static class Program
     {
         // Run a command.
@@ -36,6 +36,8 @@ namespace PdfVectorsProbe
                 return VectorSvg(args[1], args[2], Array.IndexOf(args, "--overprint-darken") >= 0);
             case "pdfium-objects":
                 return PdfiumObjects.Report(args[1]);
+            case "export":
+                return ExportCommand.Run(args[1], args[2]);
             default:
                 Console.Error.WriteLine("unknown command " + args[0]);
                 return 2;
