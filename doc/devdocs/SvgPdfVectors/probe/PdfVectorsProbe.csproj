@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- The probe of a PDF base map as vectors in the SVG export: draws a PDF map's page as the application draws it
+       (PdfConverter's PDFium bitmap through MapDisplay), writes it as the SVG export writes it today (that bitmap) and
+       as vectors read by PdfPig into the SVG target's drawing calls, and reports what PDFium's page objects give.
+       AppSrc names the src folder of a checkout of feature/svg-target, whose projects it references unchanged:
+         dotnet build -p:AppSrc=/path/to/checkout/src -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AppSrc Condition="'$(AppSrc)' == ''">../../../../src</AppSrc>
+    <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(AppSrc)/MapModel/Graphics2D/Graphics2D.csproj" />
+    <ProjectReference Include="$(AppSrc)/MapModel/MapModel/MapModel.csproj" />
+    <ProjectReference Include="$(AppSrc)/MapModel/Map_SkiaStd/Map_SkiaStd.csproj" />
+    <ProjectReference Include="$(AppSrc)/MapModel/Map_Svg/Map_Svg.csproj" />
+    <ProjectReference Include="$(AppSrc)/PurplePenCore/PurplePenCore.csproj" />
+    <ProjectReference Include="$(AppSrc)/PdfConverter/PdfConverter.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- The versions the application's own projects use (src/Directory.Packages.props at 267efc8). -->
+    <PackageReference Include="SkiaSharp.NativeAssets.Linux" Version="3.119.4" />
+    <PackageReference Include="HarfBuzzSharp.NativeAssets.Linux" Version="8.3.1.5" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.8" />
+    <PackageReference Include="PDFiumCore" Version="157.0.8100" />
+    <!-- The reader of the vector way: Apache-2.0, managed code alone. -->
+    <PackageReference Include="PdfPig" Version="0.1.16" />
+  </ItemGroup>
+</Project>
