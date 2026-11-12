@@ -399,6 +399,14 @@ namespace CanvasTest2.Drawing
             EndCommand(); // clipPath
         }
 
+        // A canvas clips to one path under one rule, which cannot unite paths that each have a rule of their own, so
+        // the prototype leaves the union to a later step.
+        // pathKeys: the keys of the paths.
+        public void PushClipToUnion(object[] pathKeys)
+        {
+            throw new NotSupportedException("PushClipToUnion");
+        }
+
         public void PushClip(RectangleF rectangle)
         {
             PushClip(new RectangleF[] { rectangle });
