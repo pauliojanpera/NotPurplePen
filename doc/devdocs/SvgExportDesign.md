@@ -692,12 +692,12 @@ choice put to @Pauli. Nothing of it is built. The probes are in [`SvgPdfVectors/
 ### The test maps
 
 The maps of the test events that name a PDF, and the PrimoPDF map of the map tests (`inventory.py`). None has spot
-colours, shadings, soft masks, blend modes other than normal, dashes or annotations; Purple Pen's own exports draw
-their course's purple with darken blending, which these maps of theirs do not have.
+colours, shadings, soft masks, blend modes other than normal, dashes or annotations. Purple Pen's own export draws a
+course's purple with darken blending, but its exports here hold the map alone.
 
 | PDF | Events | Made by | Page | What it holds |
 | --- | --- | --- | --- | --- |
-| `pdfcourse/ST_Pauls_school_bald_hills_4000 Gordon v10.5.pdf` | St Pauls Week 4 | OCAD 10.5 | A4 | 5,544 paths in DeviceCMYK; overprinting (`OP`, `OPM` 1) in 71 of its graphics states; 56 fills with tiling patterns, OCAD's screens, 8 mm cells of 361 dots turned 45°, whose resources repeat one key 38 times; 82 transparency groups, one for each colour of OCAD's table, each named in marked content (`/Layer` with its `/Title`); no fonts |
+| `pdfcourse/ST_Pauls_school_bald_hills_4000 Gordon v10.5.pdf` | St Pauls Week 4 | OCAD 10.5 | A4 | 5,544 paths in DeviceCMYK; overprinting (`OP`, `OPM` 1) in 71 of its graphics states; 56 fills with tiling patterns, OCAD's screens, 8 mm cells of 361 dots turned 45°, 35 of them listed under 3 names that repeat; 82 transparency groups, one for each colour of OCAD's table, each named in marked content (`/Layer` with its `/Title`); no fonts |
 | `bitmapcreate/St. Edward.pdf` | StEd, Bad PDF Test | OCAD 9.0 | 258 × 188 mm | 7,929 paths in DeviceCMYK; overprinting; 62 tiling-pattern fills; 83 layers as above; no fonts |
 | `pdfcourse/UWLetter.pdf` | UWLetter | OpenOrienteering Mapper, through Qt 5.12 | letter | 15,878 paths in DeviceRGB; no fonts |
 | `pdfcourse/tengesdalslia.pdf` | Tengle | a scanner, through macOS Quartz | 384 × 243 mm, a crop box within an A3 media box | one JPEG of 4953 × 3497 pixels, 3.6 MB |
@@ -707,9 +707,8 @@ their course's purple with darken blending, which these maps of theirs do not ha
 | `pdfmaps/Potholes.pdf` | the map tests | PrimoPDF | letter | 12,056 paths in DeviceCMYK; overprinting; 50 strokes of zero width |
 
 OCAD and OpenOrienteering Mapper write a map's text as outlines: only Purple Pen's own PDFs carry fonts. The OCAD 10.5
-map is also malformed: the dictionary of its patterns repeats one key for each of 38 copies of a pattern, which qpdf
-drops and PdfPig and PDFium read, and MuPDF and pdf.js find 56 of its streams cut short. A reader of map PDFs has to be
-lenient.
+map is also malformed: the dictionary of its patterns repeats its keys, which qpdf drops and PdfPig and PDFium read, and
+MuPDF finds 56 of its streams cut short, as pdf.js finds them empty. A reader of map PDFs has to be lenient.
 
 ### Two ways, and where the reading can live (C-2, C-3)
 
@@ -800,21 +799,20 @@ course whose print area is 75 × 46 mm of the letter page as large as the others
 
 TIME_TABLE
 
-The bitmap's conversion is done once a map is loaded and cached; the export then writes the bitmap anew into each
-file: Lincoln Park PDF's 5 files take 12.5 s, Tengle's 3 take 68 s. The vector way reads and draws the page for each
-file, 1 to 6 s, as the export now draws an OCAD map for each.
+The bitmap's conversion happens when the map is loaded, and its result is cached; the export then writes the bitmap anew
+into each file: Lincoln Park PDF's 5 files take 12.5 s, Tengle's 3 take 68 s. The vector way reads and draws the page
+for each file, 1 to 6 s, as the export now draws an OCAD map for each.
 
 **Determinism (F-2, P-6).** Every way wrote the same bytes twice, and the converters the same bytes in another locale,
-time zone and folder. The vector way kept its bytes in another locale and time zone, and its paths with the JIT
-without tiering and without hardware intrinsics (`determinism.sh`); the scan's document did not without hardware
-intrinsics, as ImageSharp's JPEG encoder, which re-encodes
-its image (B-3), wrote other bytes, while everything outside the image's data stayed the same. Whether x64 and ARM64
-encode a JPEG alike is so not settled; the export's baseline events draw a GIF map, and V-4 does not encode a JPEG.
-Passing a JPEG through as its own data would take the encoder out of the bytes. For the TypeScript port (P-6) the
-reader has to be the same, which pdf.js is not: the porter translates PdfPig with the map model, about 89,000 lines,
-or the comparison replays the .NET reader's drawing calls as P-5 replays metrics, which `RecordingGraphicsTarget`
-records already; the port's own reader for its users would then be pdf.js, without CMYK and overprinting. A converter
-can be in the port only as MuPDF.js, under the AGPL.
+time zone and folder. The vector way kept its bytes in another locale and time zone, and its paths with the JIT without
+tiering and without hardware intrinsics (`determinism.sh`); the scan's document did not without hardware intrinsics, as
+ImageSharp's JPEG encoder, which re-encodes its image (B-3), wrote other bytes, while everything outside the image's
+data stayed the same. Whether x64 and ARM64 encode a JPEG alike is therefore not settled: the export's baseline events
+draw a GIF map, and V-4 does not encode a JPEG. Passing a JPEG through as its own data would take the encoder out of the
+bytes. For the TypeScript port (P-6) the reader has to be the same, which pdf.js is not: the porter translates PdfPig
+with the map model, about 89,000 lines, or the comparison replays the .NET reader's drawing calls as P-5 replays
+metrics, which `RecordingGraphicsTarget` records already; the port's own reader for its users would then be pdf.js,
+without CMYK and overprinting. A converter can be in the port only as MuPDF.js, under the AGPL.
 
 **Against the application's drawing (F-1, F-5).** Each SVG rendered at 150 pixels to the inch in Chromium, Firefox
 and WebKit, as the tests render, and held to the application's own drawing of the page by F-1's rule
@@ -857,7 +855,8 @@ The choice is @Pauli's; nothing is built before it.
   RGB alone, no overprinting or blend mode, and tiling patterns as bitmaps, so OCAD's screens would be pixels again.
 - **(e) The application reads the page with PdfPig** into drawing calls, which the target draws as it draws a map,
   and which every target could draw. It keeps a CMYK map's values, its overprinting, clips and patterns, writes far
-  smaller files, and draws the page as the application does. It takes, beside the reader: a requirement of its own in
+  smaller files, and draws the page as the application does but for the conversion of its colours. It takes, beside
+  the reader: a requirement of its own in
   place of the line that leaves it out of scope; a paint for RGB colours in `Graphics2D`; a JPEG passed through as its
   data; loop cases of PDF maps; and the bitmap as the fallback for a page the reader cannot draw or read, as PDF export
   falls back to it for a page PdfSharp cannot import.
