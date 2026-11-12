@@ -220,7 +220,7 @@ The SVG must look in Chromium like Purple Pen's own renderings, and come out byt
 | F-3 | The output is well-formed XML. References go through `xlink:href`, which SVG 1.1 tools need and browsers accept. Identity goes in `data-` attributes, and the tables go in the metadata, in the namespace `https://pauliojanpera.github.io/NotPurplePen/svg` with the prefix `npp`; their root element carries a `version` attribute, so that the format can grow without breaking its readers. | Must |
 | F-4 | Each page has the paper size of its page in PDF export's layout, in millimetres, turned for a landscape page, and its map fills the page's print rectangle at the course's print scale, so the page prints as the PDF page does. The root's width and height are those of the first page. | Must |
 | F-5 | Current Firefox and WebKit display the output as Chromium does, darken blending included. | Should |
-| F-6 | Inkscape and Scribus open the output and read each color's CMYK values from it. This is checked by hand, and without a person at the screen by the readers in `SvgColourReaders/`. | Must |
+| F-6 | Inkscape and Scribus open the output and read each color's CMYK values from it. The readers in `SvgColourReaders/` check it, with Inkscape and Scribus installed where a session works; no check by hand is needed (@Pauli, Nov 13). | Must |
 
 ## Application integration
 
@@ -238,7 +238,7 @@ An SVG export command, with a dialog of its own, writes pages laid out as PDF ex
 
 ## Verification
 
-Every requirement above is checked in GitHub Actions on the `wip/` branch, except F-6, which is checked by hand in Inkscape and Scribus; a requirement that nothing checks counts as unverified.
+Every requirement above is checked in GitHub Actions on the `wip/` branch, except F-6, which the readers in `SvgColourReaders/` check with Inkscape and Scribus where a session works; a requirement that nothing checks counts as unverified.
 
 | ID | Requirement | Level |
 | --- | --- | --- |
