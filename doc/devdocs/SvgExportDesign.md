@@ -1210,7 +1210,7 @@ Within (a) or (b), @Pauli would also settle:
 
 **Settled by @Pauli on Nov 13: (a)**, the separate-shapes setting keeping each area's own pattern, irregular patterns
 in clip mode drawn once too, and groups as built, of areas whose bounding boxes overlap or touch. A colour's
-transparency is under discussion.
+transparency waits among the handover's future directions (@Pauli, Nov 13).
 
 Drafts of the requirements' new wording, for (a) with the recommendations:
 
