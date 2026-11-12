@@ -654,8 +654,243 @@ Firefox matches Chromium in 202 of the 205 documents and WebKit in 193, SVG loop
 page shown through its view matches in both. The check takes the loop's test step from about 5 minutes to about 14, and
 the browsers' install from 16 seconds to about 2 minutes.
 
+## A PDF base map as vectors
+
+Written on Nov 12 from `feature/svg-target` at 267efc8, for the task of the handover's plan (`SvgTargetProgress.md`,
+Tasks, Nov 12). The requirements leave copying a PDF base map as vectors out of scope; this section finds out whether
+the SVG could carry the page's vectors instead of the bitmap it carries now, and at what cost, and ends with the
+choice put to @Pauli. Nothing of it is built. The probes are in [`SvgPdfVectors/`](SvgPdfVectors/README.md), whose
+`run-all.sh` repeats every figure below on Linux.
+
+### How the application handles a PDF map today
+
+- **Loading.** `MapDisplay.SetMapFile(MapType.PDF, …)` has `CoreMapUtil.ValidatePdf` convert the PDF into a bitmap
+  through `PdfMapFile`, which keeps the result as a PNG in `PurplePen` under the temporary folder, named after a SHA-1
+  of the PDF's bytes, for 180 days. The conversion is `Services.PdfConverter`, in AvPurplePen `PdfConverterService`,
+  which calls `PdfConversion.Convert` of the `PdfConverter` project: PDFium, through PDFiumCore 157.0.8100, renders
+  page 0 alone at 600 dots per inch, at the size `FPDF_GetPageSizeByIndex` gives, the crop box's, onto white, with no
+  render flags, so without annotations, into an 8-bit RGB PNG that records 600 dots per inch.
+- **Drawing.** From then on the map is a bitmap map. `MapBounds` is the bitmap's pixels at 600 dots per inch, its
+  origin at the page's lower left corner, and `DrawBitmapMap` draws the whole bitmap under `BitmapTransform`, smoothed
+  (`MediumQuality`) when anti-aliased, and by nearest neighbour when not, or when the bitmap has more than 50 million
+  pixels, as an A2 page has at 600 dots per inch (139 million). `HasLayersAboveCourse` holds only for an OCAD map, so
+  the course is drawn above the whole of a PDF map.
+- **PDF export.** `CoursePdf` does not draw the bitmap. When PdfSharp can import the page (`CanReadPdfPage`), each page
+  of the output starts as the PDF's page 0: copied whole by `BeginCopiedPage` when the course is at the map's scale
+  and its print area is the whole page, and otherwise drawn by `BeginCopiedPartialPage` as a form XObject (`XPdfForm`)
+  under a clip to the print rectangle and a transform from the map rectangle, measured from the crop box's corner at
+  72 points to the inch, onto it. The map display's map is then set to none, and the course is drawn over the copy.
+  The page's content is never interpreted: its colour spaces, spot colours, overprinting, transparency, fonts and
+  images reach the output byte for byte. A page PdfSharp cannot import falls back to the bitmap.
+- **SVG export.** `CourseSvg` draws the map's part through `MapDisplay.Draw(MapBelowCourse)`, which for a PDF map is
+  `DrawBitmapMap`: one `DrawBitmap` of the whole page's bitmap, whatever area the pages show, under the map's label
+  and outside any colour run (M-5). The target writes it once a file (B-5), through the bitmap's `WriteToStream`, as
+  PNG, the bitmap's own format (B-3), which ImageSharp's encoder writes with an alpha channel that the converter's PNG
+  did not have, and embeds it as base64 (B-4). Above 50 million pixels the use is pixelated (B-2), as the application
+  draws it.
+
+### The test maps
+
+The maps of the test events that name a PDF, and the PrimoPDF map of the map tests (`inventory.py`). None has spot
+colours, shadings, soft masks, blend modes other than normal, dashes or annotations; Purple Pen's own exports draw
+their course's purple with darken blending, which these maps of theirs do not have.
+
+| PDF | Events | Made by | Page | What it holds |
+| --- | --- | --- | --- | --- |
+| `pdfcourse/ST_Pauls_school_bald_hills_4000 Gordon v10.5.pdf` | St Pauls Week 4 | OCAD 10.5 | A4 | 5,544 paths in DeviceCMYK; overprinting (`OP`, `OPM` 1) in 71 of its graphics states; 56 fills with tiling patterns, OCAD's screens, 8 mm cells of 361 dots turned 45°, whose resources repeat one key 38 times; 82 transparency groups, one for each colour of OCAD's table, each named in marked content (`/Layer` with its `/Title`); no fonts |
+| `bitmapcreate/St. Edward.pdf` | StEd, Bad PDF Test | OCAD 9.0 | 258 × 188 mm | 7,929 paths in DeviceCMYK; overprinting; 62 tiling-pattern fills; 83 layers as above; no fonts |
+| `pdfcourse/UWLetter.pdf` | UWLetter | OpenOrienteering Mapper, through Qt 5.12 | letter | 15,878 paths in DeviceRGB; no fonts |
+| `pdfcourse/tengesdalslia.pdf` | Tengle | a scanner, through macOS Quartz | 384 × 243 mm, a crop box within an A3 media box | one JPEG of 4953 × 3497 pixels, 3.6 MB |
+| `pdfcourse/Lincoln-CMYK.pdf` | Lincoln Park PDF, in four folders | Purple Pen's PDF export | letter | 75,094 paths in DeviceCMYK; 177 texts in four embedded TrueType subsets of Arial |
+| `pdfcourse/Lincoln-RGB.pdf` | Lincoln Park PDF RGB | Purple Pen's PDF export | letter | the same in DeviceRGB |
+| `pdfcourse/CleElumRidge.pdf` | PDF rescale test | Purple Pen's PDF export | A2 | 194,135 paths in DeviceCMYK; 340 texts in two Arial subsets |
+| `pdfmaps/Potholes.pdf` | the map tests | PrimoPDF | letter | 12,056 paths in DeviceCMYK; overprinting; 50 strokes of zero width |
+
+OCAD and OpenOrienteering Mapper write a map's text as outlines: only Purple Pen's own PDFs carry fonts. The OCAD 10.5
+map is also malformed: the dictionary of its patterns repeats one key for each of 38 copies of a pattern, which qpdf
+drops and PdfPig and PDFium read, and MuPDF and pdf.js find 56 of its streams cut short. A reader of map PDFs has to be
+lenient.
+
+### Two ways, and where the reading can live (C-2, C-3)
+
+- **A converter writes the page as SVG**, and the export takes its document into the map's part. The target then
+  holds content that none of its calls made: a new call of `IStructuredGraphicsTarget`, one that places an SVG
+  fragment under a transform, would have to rename the fragment's ids to keep them unique (L-5), and could neither
+  write its numbers in the target's steps (S-1 to S-3), nor give its colours their CMYK values (COL-1), nor be read
+  back by the geometry check (V-10). C-2 and C-3 allow such a call, as the fragment is a plain string; the converter,
+  a program of its own, runs in the application.
+- **The application reads the page into drawing calls**, and the target draws them as it draws a map: paths filled and
+  stroked with CMYK brushes and pens, clips, pattern brushes and bitmaps, all of them calls that the target fully
+  implements today (DL-5). The target references `Graphics2D` alone (C-2) and takes data only through its interfaces
+  and plain values (C-3), so the reader cannot live in it: it lives in the application, in `PurplePenCore` beside
+  `MapDisplay` or in a project of its own that references `Graphics2D` and the reading library, as the map code lives
+  beside the targets. `MapDisplay` would call it for a PDF map in place of `DrawBitmapMap`, for a target that asks for
+  vectors, as `PatternBrushesAreVectors` asks for pattern fills (S-7); every other target could draw a PDF map so too.
+  What C-3 does not carry today: a colour that is not CMYK (a `CmykColor` holds CMYK alone, and `FromRgb` invents
+  CMYK values that COL-1 would then write), a font program of the PDF's own (`IFontSubsetProvider` gives the faces of
+  a family the application can open), and an image's original JPEG data (`WriteToStream` encodes it anew).
+
+### The candidates
+
+| Candidate | Way | Licence | Purple Pen and the fork could ship it | Windows, Linux, macOS | Browser |
+| --- | --- | --- | --- | --- | --- |
+| Poppler 24.02 with Cairo 1.18, `pdftocairo -svg` | Converter | Poppler GPL-2 or GPL-3, Cairo LGPL-2.1 or MPL-1.1 | Not linked into the BSD application; only as a program beside it, under the GPL's terms for that program, with its source | Built for each by package managers, none of them NuGet | No official build |
+| MuPDF 1.23 (`mutool convert -F svg`), or its device interface | Converter, or reader | AGPL-3.0-or-later, or Artifex's commercial licence | Not linked without the commercial licence; as a program beside it under the AGPL's terms | Yes | MuPDF.js, npm `mupdf` 1.28, AGPL |
+| PDFium's page objects, through PDFiumCore 157.0.8100 | Reader | BSD-3-Clause; the bindings and the binaries' packages Apache-2.0 | Yes: the application ships them already, for PdfConverter | Yes | `bblanchon.PDFium.WebAssembly` on NuGet |
+| PdfPig 0.1.16 | Reader | Apache-2.0 | Yes, with its notice | Yes: managed code alone, .NET Standard 2.0 and .NET 8 | Only within a .NET application compiled to WebAssembly; the TypeScript port would translate it |
+| pdf.js 6.5 (`pdfjs-dist`) | Reader, for the TypeScript port | Apache-2.0 | The .NET application has no use for it | Node | Yes: it is Firefox's PDF viewer |
+
+Each was run on the test maps: the two converters as programs (`converters.sh`), PDFium's page-object API through
+PDFiumCore (`probe pdfium-objects`), PdfPig through a reader written for the probe, which draws into the SVG target
+(`probe vector-svg`, described in the README), and pdf.js through its operator list (`pdfjs-ops.mjs`).
+
+- **The converters** write every colour as sRGB, each converted its own way: MuPDF's DeviceCMYK by PDF's own formula,
+  red 1 − min(1, C + K) and so on (ISO 32000-1, 10.3.5), which turns the green of (70 %, 0, 100 %, 10 %) into (51,
+  230, 0), and Poppler's otherwise again, into (70, 172, 50). Neither writes overprinting. Both write text as the
+  outlines of its glyphs, each glyph defined once and placed by `<use>`, keep a JPEG's data as it is, and draw a
+  tiling pattern as an SVG pattern, Cairo one for each fill. Cairo writes numbers in points with six decimals, and a
+  clip path of its own around each drawing.
+- **PDFium's page objects** give each object's fill and stroke as 8-bit RGBA after PDFium's own conversion, the one
+  the application's bitmap shows; no colour space, spot colour, overprinting, blend mode (it has a setter and no
+  getter) or soft mask; and a tiling pattern only as a bitmap of it (`FPDFPageObj_GetRenderedFillPattern`,
+  experimental). It does give paths, clip paths, glyph outlines, font programs, images with their filters, and marked
+  content, OCAD's layer names among it.
+- **PdfPig** gives the content stream's operators with their graphics state: DeviceCMYK, gray and RGB colours as
+  given, a separation's name and alternate, overprinting and its mode, blend mode, constant opacity and soft mask,
+  the CTM and the clipping operators, glyph outlines of TrueType, Type 1 and CFF fonts, and images, a JPEG's data as it
+  is. It reads; drawing is the reader's. Its 0.1.16 sets non-stroking overprinting only from `op`, where an absent `op`
+  takes `OP`'s value (ISO 32000-1, table 58): the OCAD maps' fills would lose theirs, which the probe's reader
+  corrects. Its reading part is about 89,000 lines of C#.
+- **pdf.js** gives an operator list whose colours are already sRGB, `#rrggbb` strings that its evaluator converted
+  from DeviceCMYK. Its graphics states keep opacity and blend mode, as the canvas names them (`darken`,
+  `source-over`), and drop overprinting. It turns each embedded font into an OpenType font that a browser takes, 11 to
+  71 KB for the Arial subsets of Lincoln-CMYK, and reads tiling patterns as patterns.
+
+### What each keeps of what the SVG has to keep
+
+| What | The bitmap, today | A converter | A reader on PDFium's page objects | A reader on PdfPig, as probed | A reader on pdf.js, for the port |
+| --- | --- | --- | --- | --- | --- |
+| CMYK values in `icc-color()` (COL-1) | No: pixels | No: sRGB alone | No: 8-bit RGB | Yes, for DeviceCMYK, which OCAD's, PrimoPDF's and Purple Pen's own PDFs use | No: sRGB alone |
+| RGB colours, as OpenOrienteering Mapper and Purple Pen's RGB export write them | As pixels | Yes, as sRGB | Yes, in 8 bits | Only as CMYK that `CmykColor.FromRgb` invents, which COL-1 writes and the CMYK model converts back otherwise; kept only by a paint for RGB colours in `Graphics2D` | Yes, as sRGB |
+| Spot colours | No | No | No | The name and alternate are read; the target has nowhere to write the name (none of the test maps has one) | No |
+| Overprinting (COL-7) | No: PDFium's bitmap does not show it | No | No | Yes: read, and drawn with darken blending (D-8) if chosen | No: dropped |
+| Opacity and blend modes | As pixels | As SVG opacity and blending | Opacity alone | A constant opacity as the colour's alpha (COL-5); darken alone among the blend modes (D-8); soft masks and a group's own opacity not drawn (none in the test maps) | Yes |
+| Clipping | As pixels | Yes | Yes | Yes, as clip paths (D-2) | Yes |
+| Tiling patterns | As pixels | Yes | As bitmaps alone | Yes, as pattern brushes (D-7), one for each distinct cell: 6 for St Pauls's 56 fills | Yes |
+| Text (T-6, T-7) | As pixels | Outlines | Outlines, or the font programs | Outlines, as filled paths; the font programs are readable, but embedding them needs a converter to web fonts and a way past C-3 | Fonts converted to OpenType, which a browser takes |
+| Images (B-3) | The page is one image | Kept, a JPEG as its data | Raw data and filters | Kept, but `WriteToStream` encodes a JPEG anew at the export's quality: the scan's 3.6 MB became 4.9 MB of JPEG | Decoded |
+| A place in the map's structure (M-5) | Under the map's label, outside any run | A fragment under the map's label | Under the map's label, outside any run | Under the map's label, outside any run; OCAD's layers, which name the colours of its table, could become colour runs (M-3) | As the port draws it |
+
+### What it costs
+
+**Size.** Each way's map part, the whole page, plain and gzip -9 compressed; the bitmap's is what the export writes
+today:
+
+SIZE_TABLE
+
+For the maps OCAD, OpenOrienteering Mapper and PrimoPDF wrote, the vectors are 5 to 6 times smaller than the bitmap
+plain and 18 to 25 times compressed; for Purple Pen's own dense exports about as large plain and 12 times smaller
+compressed; for the scan 15 times smaller, as the bitmap holds the page at 600 dots per inch where the vectors hold its
+JPEG. The converters write 1.5 to 7 times the vectors' bytes for the vector maps, and Cairo 1.86 GB for the A2 map,
+with a clip path of its own, 184,589 in all, around each drawing. The application's own export writes the bitmap into
+each file, as each file draws the map once: Lincoln Park PDF's 5 files are 9.25 MB each, 46.2 MB in all, that of a
+course whose print area is 75 × 46 mm of the letter page as large as the others, and Tengle's 3 files 95.5 MB each.
+
+**Time.** Seconds to write the map's part, on this machine:
+
+TIME_TABLE
+
+The bitmap's conversion is done once a map is loaded and cached; the export then writes the bitmap anew into each
+file: Lincoln Park PDF's 5 files take 12.5 s, Tengle's 3 take 68 s. The vector way reads and draws the page for each
+file, 1 to 6 s, as the export now draws an OCAD map for each.
+
+**Determinism (F-2, P-6).** Every way wrote the same bytes twice, and the converters the same bytes in another locale,
+time zone and folder. The vector way kept its bytes in another locale and time zone, and its paths with the JIT
+without tiering and without hardware intrinsics (`determinism.sh`); the scan's document did not without hardware
+intrinsics, as ImageSharp's JPEG encoder, which re-encodes
+its image (B-3), wrote other bytes, while everything outside the image's data stayed the same. Whether x64 and ARM64
+encode a JPEG alike is so not settled; the export's baseline events draw a GIF map, and V-4 does not encode a JPEG.
+Passing a JPEG through as its own data would take the encoder out of the bytes. For the TypeScript port (P-6) the
+reader has to be the same, which pdf.js is not: the porter translates PdfPig with the map model, about 89,000 lines,
+or the comparison replays the .NET reader's drawing calls as P-5 replays metrics, which `RecordingGraphicsTarget`
+records already; the port's own reader for its users would then be pdf.js, without CMYK and overprinting. A converter
+can be in the port only as MuPDF.js, under the AGPL.
+
+**Against the application's drawing (F-1, F-5).** Each SVG rendered at 150 pixels to the inch in Chromium, Firefox
+and WebKit, as the tests render, and held to the application's own drawing of the page by F-1's rule
+(`PixelTolerance.Default`): `MapDisplay` drawing PDFium's bitmap with the Skia target. The share of pixels outside the
+tolerance, in Chromium, Firefox and WebKit:
+
+TOLERANCE_TABLE
+
+- **The bitmap** matches in Chromium and Firefox, as it is the application's own drawing. WebKit scales a bitmap down
+  without smoothing, as for every bitmap (see "Firefox and WebKit"), which fails half the scan's photograph. Chromium's
+  headless shell crashes on the A2 map's bitmap of 139 million pixels.
+- **The vectors** differ for two reasons, which the variants tell apart. With each CMYK colour converted as PDFium
+  converts it, `--pdfium-colors`, they lie within the tolerance but for at most 0.16 % of the pixels, along fine
+  hatching that two rasterizers draw, and Lincoln-CMYK matches entirely in all three browsers: the drawing is the
+  same. The rest is the conversion: COL-2 converts CMYK through `SwopColorConverter`, as for an OCAD map and the
+  course, where PDFium converts it its own way, black (0, 0, 0, 100 %) as `#000` against (35, 31, 32), the green of
+  (70 %, 0, 100 %, 10 %) as (72, 168, 66) against (67, 168, 66). An RGB map drawn through `CmykColor.FromRgb` and the
+  CMYK model fails across a fifth to two fifths of the page; in the RGB model, which gives its colours back as they
+  were, as a paint for RGB colours would, UWLetter and Lincoln-RGB match but for 1 and 5 pixels.
+- **Overprinting drawn darker** changes Chromium's and Firefox's images by at most a few hundred pixels, as darkening a
+  dark colour over a lighter one changes little on these maps; WebKit, which draws the thousands of blended groups
+  otherwise, departs up to 0.75 % of the pixels.
+- **The converters** fail across 4 to 40 % of the CMYK maps' pixels, by their colours, and match the RGB maps.
+
+### Proposal
+
+The choice is @Pauli's; nothing is built before it.
+
+- **(a) Keep the bitmap.** The export stays as it is, and copying a PDF map as vectors stays out of scope. The SVG
+  shows the page as the application draws it, as pixels without CMYK, written whole into every file at 600 dots per
+  inch, 9 to 31 MB for the vector maps and 95.5 MB for the scan.
+- **(b) Keep the bitmap, written smaller.** As (a), but each file writes only the part of the bitmap that its pages
+  show (`DrawBitmapPart`), as RGB without the alpha channel ImageSharp adds. No requirement changes; a file of a small
+  print area shrinks with it, and the rest by about a tenth; every other cost of (a) stays.
+- **(c) A converter writes the page as SVG.** Not recommended: both lose the CMYK values (COL-1) and overprinting, put
+  4 to 40 % of a CMYK map's pixels outside F-1 by their colours, run as programs under the GPL or the AGPL beside the
+  BSD application, and bring into the document content that none of the target's rules governs; Cairo wrote 1.86 GB
+  for the A2 map.
+- **(d) The application reads the page with PDFium's page objects**, which it ships already. Not recommended: 8-bit
+  RGB alone, no overprinting or blend mode, and tiling patterns as bitmaps, so OCAD's screens would be pixels again.
+- **(e) The application reads the page with PdfPig** into drawing calls, which the target draws as it draws a map,
+  and which every target could draw. It keeps a CMYK map's values, its overprinting, clips and patterns, writes far
+  smaller files, and draws the page as the application does. It takes, beside the reader: a requirement of its own in
+  place of the line that leaves it out of scope; a paint for RGB colours in `Graphics2D`; a JPEG passed through as its
+  data; loop cases of PDF maps; and the bitmap as the fallback for a page the reader cannot draw or read, as PDF export
+  falls back to it for a page PdfSharp cannot import.
+
+Within (e), @Pauli would also settle:
+
+1. **Overprinting:** drawn darker as the map display's overprint effect says, as an OCAD map's overprinted colours are
+   (`OcadOverprintEffect`); or never, as the application's own drawing of a PDF map shows it.
+2. **The colours' sRGB:** COL-2's, through `SwopColorConverter`, as for an OCAD map and the course; or PDFium's, as the
+   application shows the PDF on screen. The loop then holds the SVG to the reader's calls drawn by the Skia target,
+   as every map case is held, and the comparison with PDFium's bitmap above checks the reader.
+3. **OCAD's layers:** the page under the map's label outside any run (M-5), as a bitmap map is now; or each layer as a
+   colour run (M-3) named as OCAD names the colour, its CMYK taken from what the layer paints.
+4. **The default:** vectors for every PDF map, the bitmap where the reader cannot draw a page; or vectors as a setting
+   named for what it does, "Draw a PDF map as vectors" (A-2), the bitmap the default.
+
+**Recommendation: (e)**, with overprinting as the overprint effect says, COL-2's colours, OCAD's layers outside any run
+for now, and vectors as the default. The reasons:
+
+- It is the only way that keeps what the SVG exists for (Purpose and scope): a map in its own right, whose colours
+  carry their CMYK values for Inkscape and Scribus (COL-1, F-6) and whose overprinting travels with them (COL-7), in
+  files 5 to 25 times smaller than the bitmap's for the maps OCAD, OpenOrienteering Mapper and PrimoPDF make.
+- It draws the page as the application does: with PDFium's colours, within F-1 but for at most 0.16 % of the pixels.
+  Its own colours are COL-2's, the conversion of every OCAD map's colours and of the course drawn over it.
+- Its library fits: PdfPig is Apache-2.0 and managed code alone, which runs wherever the application runs; the target
+  needs no new call, only a paint for RGB colours; and the bitmap remains for what the reader cannot draw.
+- Colour runs from OCAD's layers would serve structure but rest on OCAD's private marked content, and can come later
+  without changing anything else.
+- Its main cost falls on phase 8: the port has no PdfPig, so P-6 for a PDF map needs the reader's calls replayed or
+  PdfPig translated.
+
 ## Open questions
 
 - A PDF map is drawn as the bitmap `MapDisplay` makes of it, where PDF export copies the page as vectors. Whether the
-  SVG can carry the page's vectors instead is a task of its own (`SvgTargetProgress.md`, Tasks, Nov 12), whose design
-  note will be a section of this file.
+  SVG can carry the page's vectors instead, and at what cost, is "A PDF base map as vectors" above, which ends with
+  the choice put to @Pauli.
