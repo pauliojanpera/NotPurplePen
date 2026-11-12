@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="663mm" height="384mm" viewBox="0 0 663 384">
+<style>
+.a{fill:#ffdd9a;fill:#ffdd9a icc-color(cmyk,0,.135,.395,0);fill-rule:evenodd}
+.b{fill:#ffba36;fill:#ffba36 icc-color(cmyk,0,.27,.79,0);fill-rule:evenodd}
+.c{fill:#8bff74;fill:#8bff74 icc-color(cmyk,.455,0,.545,0);fill-rule:evenodd}
+.d{fill:#3dff17;fill:#3dff17 icc-color(cmyk,.76,0,.91,0);fill-rule:evenodd}
+.e{mix-blend-mode:darken}
+.f{fill:#21d1ff;fill:#21d1ff icc-color(cmyk,.87,.18,0,0);fill-rule:evenodd}
+.g{fill:#000;fill:#000 icc-color(cmyk,0,0,0,1);fill-rule:evenodd}
+.h{fill:#b200ff;fill:#b200ff icc-color(cmyk,.3,1,0,0);fill-rule:evenodd}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="ocad11overprinting_overprinted">
+<npp:color position="6" name="Yellow 50%" cmyk="0,.135,.395,0"/>
+<npp:color position="8" name="Yellow" cmyk="0,.27,.79,0"/>
+<npp:color position="15" name="Green 60%" cmyk=".455,0,.545,0"/>
+<npp:color position="16" name="Green" cmyk=".76,0,.91,0"/>
+<npp:color position="22" name="Blue" cmyk=".87,.18,0,0" overprint="1"/>
+<npp:color position="28" name="Black" cmyk="0,0,0,1" overprint="1"/>
+<npp:color position="33" name="Purple transparent" cmyk=".3,1,0,0" overprint="1"/>
+<npp:symbol n="1" id="403.0" name="Rough open land" colors="6"/>
+<npp:symbol n="2" id="401.0" name="Open land" colors="8"/>
+<npp:symbol n="3" id="408.0" name="Forest: difficult to run" colors="15"/>
+<npp:symbol n="4" id="410.0" name="Vegetation: very diffic. to run" colors="16"/>
+<npp:symbol n="5" id="302.0" name="Pond" colors="22"/>
+<npp:symbol n="6" id="202.0" name="Rock pillar/cliff" colors="28"/>
+<npp:symbol n="7" id="709.0" name="Out-of-bounds area" colors="33"/>
+</npp:map>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="b">
+<path d="M-19371-12273h38234V9872h-38234z"/>
+</clipPath>
+<g id="a">
+<g data-m="1">
+<g data-c="6">
+<g data-s="1">
+<path class="a" data-o="1" d="M-14960-4770l50-1570 30530 970-60 1570-30520-970z"/>
+</g>
+</g>
+<g data-c="8">
+<g data-s="2">
+<path class="b" data-o="2" d="M-14780-7020v-1540h30370v1540h-30370z"/>
+</g>
+</g>
+<g data-c="15">
+<g data-s="3">
+<path class="c" data-o="3" d="M-15050 6470l-30-2930 30260-310 20 2930-30250 310z"/>
+</g>
+</g>
+<g data-c="16">
+<g data-s="4">
+<path class="d" data-o="4" d="M-14880 1630l-30-2250 30080-410 20 2250-30070 410z"/>
+</g>
+</g>
+<g data-c="22">
+<g class="e" data-s="5">
+<path class="f" data-o="5" d="M-14960-1670v-1930h30420v1930h-30420z"/>
+</g>
+</g>
+<g data-c="28">
+<g class="e" data-s="6">
+<path class="g" data-o="6" d="M-14590 8020l30-1250 29680 710-40 1250-29670-710z"/>
+</g>
+</g>
+<g data-c="33">
+<g class="e" data-s="7">
+<path class="h" data-o="7" d="M-4340 8720l-100-19610 3560-20 90 19610-3550 20z"/>
+</g>
+</g>
+</g>
+</g>
+</defs>
+<g transform="matrix(.0173402 0 0-.0173402 335.9 171.19)" clip-path="url(#b)">
+<use xlink:href="#a"/>
+</g>
+</svg>
