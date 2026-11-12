@@ -1208,6 +1208,10 @@ Within (a) or (b), @Pauli would also settle:
    (ii) the imports read OCAD's `t` and Mapper's `opacity`, and every target draws such a colour's run as one layer at
    its opacity, which changes how the test maps with transparent colours draw, with a task of its own.
 
+**Settled by @Pauli on Nov 13: (a)**, the separate-shapes setting keeping each area's own pattern, irregular patterns
+in clip mode drawn once too, and groups as built, of areas whose bounding boxes overlap or touch. A colour's
+transparency is under discussion.
+
 Drafts of the requirements' new wording, for (a) with the recommendations:
 
 - **M-1.** Elements are written in the order of the drawing calls. No optimization moves a draw past another, so the
