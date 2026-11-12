@@ -19,7 +19,7 @@ from PIL import Image, ImageChops, ImageDraw
 BROWSERS = ["chromium", "firefox", "webkit"]
 LAYOUTS = ["touching", "overlapping", "strip42", "strip43", "grid"]
 PAINTS = ["fill", "hatch"]
-WAYS = ["union", "ghosts", "each"]
+WAYS = ["union", "ghosts", "hidden", "transparent", "each"]
 
 
 def inside_mask(svg_path, size):
@@ -61,17 +61,30 @@ def measure(reference, image, mask):
     return count, largest, lighter, darker
 
 
+def on_white(path):
+    """An image as drawn on white paper, for a reader that leaves the page transparent."""
+    image = Image.open(path).convert("RGBA")
+    paper = Image.new("RGBA", image.size, "white")
+    paper.alpha_composite(image)
+    return paper.convert("RGB")
+
+
 def main():
     folder = sys.argv[1]
-    print("| Layout | Paint | Way | " + " | ".join(b.capitalize() for b in BROWSERS) + " |")
-    print("| --- | --- | --- | " + " | ".join("---" for _ in BROWSERS) + " |")
-    for layout in LAYOUTS:
-        for paint in PAINTS:
+    # With --readers, the drawings readers-union.sh made of the two layouts it gives Inkscape and Scribus.
+    renderers, documents = BROWSERS, [(layout, paint) for layout in LAYOUTS for paint in PAINTS]
+    if len(sys.argv) > 2 and sys.argv[2] == "--readers":
+        renderers, documents = ["inkscape", "scribus"], [("overlapping", "hatch"), ("touching", "fill")]
+    print("| Layout | Paint | Way | " + " | ".join(r.capitalize() for r in renderers) + " |")
+    print("| --- | --- | --- | " + " | ".join("---" for _ in renderers) + " |")
+    for layout, paint in documents:
             for way in WAYS:
+                if not os.path.exists(os.path.join(folder, renderers[0], "%s-%s-%s.png" % (layout, paint, way))):
+                    continue
                 cells = []
-                for browser in BROWSERS:
-                    merged = Image.open(os.path.join(folder, browser, "%s-%s-merged.png" % (layout, paint)))
-                    image = Image.open(os.path.join(folder, browser, "%s-%s-%s.png" % (layout, paint, way)))
+                for browser in renderers:
+                    merged = on_white(os.path.join(folder, browser, "%s-%s-merged.png" % (layout, paint)))
+                    image = on_white(os.path.join(folder, browser, "%s-%s-%s.png" % (layout, paint, way)))
                     mask = inside_mask(os.path.join(folder, "svg", "%s-%s-merged.svg" % (layout, paint)), merged.size)
                     count, largest, lighter, darker = measure(merged, image, mask)
                     cells.append("0" if count == 0 else "%d (%d lighter, %d darker; up to %d)" % (count, lighter, darker, largest))

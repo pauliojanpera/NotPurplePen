@@ -1,12 +1,18 @@
-"""List the colour strings of OCAD files (version 9 and later) whose transparency parameter is set.
+"""List the colours of OCAD files, version 9 and later, that are not fully opaque.
 
-Usage: python3 -I ocad_colors.py <file.ocd>...
+Usage: python3 -I ocad-colour-opacity.py <file.ocd>...
+
+OCAD keeps each colour as a string of the string index, of record type 9: its name, then parameters, among them `t`,
+the colour's opacity in percent, which OCAD 12 writes as `t100` for an opaque colour and OpenOrienteering Mapper reads
+as the opacity 0.01 * t. Prints each file with its count of colours and of those whose `t` is set below 100, and each
+such colour with its `t` and its overprint flag `o`.
 """
 import struct
 import sys
 
 
 def strings(data):
+    """The record type and text of each string of an OCAD file's string index."""
     version = struct.unpack_from("<h", data, 4)[0]
     block = struct.unpack_from("<i", data, 32)[0]
     seen = set()
@@ -24,6 +30,7 @@ def strings(data):
 
 
 def main():
+    """List the colours below full opacity of each file named."""
     for path in sys.argv[1:]:
         with open(path, "rb") as f:
             data = f.read()

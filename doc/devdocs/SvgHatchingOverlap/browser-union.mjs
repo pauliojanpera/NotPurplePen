@@ -85,9 +85,12 @@ function documentOf(layout, way, paint) {
         defs.push('<clipPath id="c">' + layout.areas.map(area => `<path d="${pathData([area])}"/>`).join("") + "</clipPath>");
         body.push(`<g clip-path="url(#c)">${box}</g>`);
     }
-    else if (way === "ghosts") {
+    else if (way === "ghosts" || way === "hidden" || way === "transparent") {
+        // The ghosts unpainted, as the design has them; hidden, which takes them out of the clip as CSS Masking says
+        // of a clip path's child made invisible by visibility; or painted at no opacity.
+        const ghostStyle = { ghosts: "fill:none", hidden: "visibility:hidden", transparent: "opacity:0" }[way];
         defs.push('<clipPath id="c">' + layout.areas.map((area, i) => `<use xlink:href="#g${i + 1}"/>`).join("") + "</clipPath>");
-        body.push('<g style="fill:none">' + layout.areas.map((area, i) => `<path id="g${i + 1}" data-o="${i + 1}" d="${pathData([area])}"/>`).join("") + "</g>");
+        body.push(`<g style="${ghostStyle}">` + layout.areas.map((area, i) => `<path id="g${i + 1}" data-o="${i + 1}" d="${pathData([area])}"/>`).join("") + "</g>");
         body.push(`<g clip-path="url(#c)">${box}</g>`);
     }
     else {
@@ -106,7 +109,7 @@ fs.mkdirSync(svgFolder, { recursive: true });
 const names = [];
 for (const [layoutName, layout] of Object.entries(layouts())) {
     for (const paint of ["fill", "hatch"]) {
-        for (const way of ["merged", "union", "ghosts", "each"]) {
+        for (const way of ["merged", "union", "ghosts", "hidden", "transparent", "each"]) {
             const name = `${layoutName}-${paint}-${way}`;
             fs.writeFileSync(path.join(svgFolder, name + ".svg"), documentOf(layout, way, paint));
             names.push(name);
