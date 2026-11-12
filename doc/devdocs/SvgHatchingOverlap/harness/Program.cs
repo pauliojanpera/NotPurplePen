@@ -34,6 +34,9 @@ namespace OverlapHarness
                 case "time":
                     Time(LoadMap(args[1]), float.Parse(args[2]), int.Parse(args[3]), args[4] == "1");
                     return 0;
+                case "clips":
+                    Clips(LoadMap(args[1]), float.Parse(args[2]));
+                    return 0;
                 default:
                     Console.Error.WriteLine("unknown command " + args[0]);
                     return 2;
@@ -174,6 +177,65 @@ namespace OverlapHarness
             times.Sort();
             Console.WriteLine(string.Format(CultureInfo.InvariantCulture, "{0}x{1}\tmin {2:F0} ms\tmedian {3:F0} ms\tall {4}", size.Width, size.Height,
                                             times[0], times[times.Count / 2], string.Join(" ", times.Select(t => t.ToString("F0", CultureInfo.InvariantCulture)))));
+        }
+
+        // Check that the prototype's union of one area's region, PushClipToUnion, clips to the pixels that the Skia
+        // target's own clip to the area's path does, as it clips without smoothing: for each area of the map, fill the
+        // map's bounds under each, and count the pixels that differ.
+        // map: the map.
+        // pixelsPerMm: pixels to a millimetre of map.
+        static void Clips(Map map, float pixelsPerMm)
+        {
+            List<AreaSymbol> areas;
+            RectangleF mapArea;
+            using (map.Read()) {
+                areas = map.AllSymbols.OfType<AreaSymbol>().ToList();
+                mapArea = map.Bounds;
+            }
+            Size size = new Size((int)Math.Ceiling(mapArea.Width * pixelsPerMm), (int)Math.Ceiling(mapArea.Height * pixelsPerMm));
+            int areasDiffering = 0;
+            long pixelsDiffering = 0;
+            object brush = new object();
+            foreach (AreaSymbol area in areas) {
+                using (Skia_Bitmap byPath = ClipAndFill(area.Path, mapArea, size, brush, false))
+                using (Skia_Bitmap byUnion = ClipAndFill(area.Path, mapArea, size, brush, true)) {
+                    ReadOnlySpan<byte> a = byPath.Bitmap.GetPixelSpan(), b = byUnion.Bitmap.GetPixelSpan();
+                    int differing = 0;
+                    for (int i = 0; i < a.Length; i += 4) {
+                        if (a[i] != b[i] || a[i + 1] != b[i + 1] || a[i + 2] != b[i + 2])
+                            ++differing;
+                    }
+                    if (differing > 0) {
+                        ++areasDiffering;
+                        pixelsDiffering += differing;
+                    }
+                }
+            }
+            Console.WriteLine(string.Format(CultureInfo.InvariantCulture, "{0} areas at {1} pixels a mm ({2}x{3}): {4} clip otherwise through the union, {5} pixels in all",
+                                            areas.Count, pixelsPerMm, size.Width, size.Height, areasDiffering, pixelsDiffering));
+        }
+
+        // Fill the map's bounds in black under a clip to an area, on white, with the Skia target anti-aliased.
+        // path: the area's path.
+        // mapArea: the map's bounds.
+        // size: the bitmap's size.
+        // brush: the key of the black brush.
+        // union: whether to clip through PushClipToUnion with the one path, rather than PushClip.
+        static Skia_Bitmap ClipAndFill(SymPathWithHoles path, RectangleF mapArea, Size size, object brush, bool union)
+        {
+            using (Skia_BitmapGraphicsTarget target = new Skia_BitmapGraphicsTarget(size.Width, size.Height, false, CmykColor.FromCmyk(0, 0, 0, 0), mapArea, true, null, 1.0F)) {
+                target.PushAntiAliasing(true);
+                target.CreateSolidBrush(brush, CmykColor.FromCmyk(0, 0, 0, 1));
+                object pathKey = path.GetPathKey(target);
+                if (union)
+                    target.PushClipToUnion(new object[] { pathKey });
+                else
+                    target.PushClip(pathKey);
+                target.FillRectangle(brush, mapArea);
+                target.PopClip();
+                target.PopAntiAliasing();
+                return (Skia_Bitmap)target.FinishBitmap();
+            }
         }
 
         // Draw the map's area into a new Skia bitmap target of a size, anti-aliased on white, with the options the

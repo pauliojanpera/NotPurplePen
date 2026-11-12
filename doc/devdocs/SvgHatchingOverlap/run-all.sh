@@ -6,7 +6,8 @@
 #   1. a checkout of the prototype, proto/overlapping-patterns at ad52f18, made by ../SvgDevLoop/app-checkout.sh from
 #      the clone, and harness/ built against it;
 #   2. `harness info` on the case's maps and on teanaway, printarea2 and Madrona.11, taken from the clone's origin/base:
-#      the groups of overlapping areas each symbol has;
+#      the groups of overlapping areas each symbol has; and `harness clips` on the case's maps and printarea2: the union
+#      of one area's region against the Skia target's own clip to it;
 #   3. suo and suo2 drawn by the Skia target before the change and with it (PURPLEPEN_PATTERNS_ONCE=0 and 1) at
 #      100 dpi at the print scale, and suo2 at 100 to 1200 dpi, measured by overlap-ink.py;
 #   4. teanaway drawn whole five times each way and timed, with the union of regions and of path operations
@@ -44,6 +45,10 @@ for map in "$here/case/suo.ocd" "$here/case/suo2.ocd" "$work/maps/teanaway.omap"
     echo "== $(basename "$map")"
     "$harness" info "$map"
 done > "$work/groups.txt"
+for map in "$here/case/suo.ocd" "$here/case/suo2.ocd"; do
+    "$harness" clips "$map" 20
+done > "$work/clips.txt"
+"$harness" clips "$work/maps/printarea2.omap" 3 >> "$work/clips.txt"
 
 # 3. The case drawn before and with the change, and suo2 at several resolutions: the map is 1:15,000 and its page
 # prints at 1:10,000, so a millimetre of map is 1.5 mm of paper.
@@ -81,4 +86,4 @@ python3 -I "$here/compare-union.py" "$work/union" --readers > "$work/readers.md"
 (cd "$clone" && find src \( -iname '*.omap' -o -iname '*.xmap' \) -print0 | xargs -0 grep -o -E '<color [^>]*opacity="[^"]*"' \
     | grep -v -E 'opacity="1(\.0*)?"' || true) > "$work/openmapper-opacity.txt"
 
-echo "results in $work: groups.txt, overlap-ink.md, time-teanaway.txt, union.md, readers.md, ocad-opacity.txt, openmapper-opacity.txt"
+echo "results in $work: groups.txt, clips.txt, overlap-ink.md, time-teanaway.txt, union.md, readers.md, ocad-opacity.txt, openmapper-opacity.txt"
