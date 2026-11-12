@@ -108,6 +108,13 @@ The calls the target fully implements, in the sense of DL-5: `Intensity`, `PushT
      - the merged area is drawn once, and each object's own area is kept over it as an invisible "ghost" that carries the object's number and a reference to the merged area that replaced it (@Pauli, Nov 12). The ghosts can themselves make the merged area's clip, so that each outline is written once, the renderer forms the union, and the binding runs both ways; a browser can also tell which ghost a pointer is over. To check: how Inkscape and Scribus treat invisible elements, how the structure walk (V-7) and the geometry check (V-10) read them, the size they add, and whether a seam stays where two areas only touch;
      - the drawing is left as the map defines it, as Mapper draws it too, if the artifact shows on screen at low resolutions alone and not in print.
 
+     @Pauli asked whether the ghosts' clip could be the one way every patterned area is drawn (Nov 12). The investigation answers that too, against these limits:
+     - a pattern is drawn once for each frame it is laid out in, not for each symbol: objects with their own rotation or pattern origin (S-12) have grids of their own, and where two of them overlap both grids stay, as the map defines them;
+     - patterns not in clip mode, and irregular ones, are drawn element by element, each object choosing the elements within its own outline, which a union would change along the edges between areas;
+     - a pattern drawn once for a symbol moves past the other objects of its colour drawn between the symbol's objects, which M-1 forbids as a rule, so it applies to consecutive objects alone or M-1 gains an exception;
+     - the application draws each object, so the SVG would differ from its references in overlaps, unless the map code draws a pattern once over its areas too, which would mend the PNG export and the screen as well, but changes Purple Pen's own drawing;
+     - whether a browser forms a clip's union exactly, or blends its outlines as it blends separate shapes, which would leave a faint seam where two areas only touch.
+
 **Left open:**
 - Nobody has tried the export's dialog by hand; it is built, and its view model tested.
 - In the SVG tests, the families the test maps name besides Arial, Times New Roman, Cambria, Calibri and Roboto, such as Georgia and Arial Narrow, are drawn in Arial; stand-ins with their metrics, such as Gelasio and Liberation Sans Narrow, could take their place.
