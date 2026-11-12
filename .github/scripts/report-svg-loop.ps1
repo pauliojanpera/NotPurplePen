@@ -16,7 +16,10 @@
 # gzip-compressed, which the baseline tests record in export-sizes.tsv, beside
 # the size it had before. Of the pending cases, pending.tsv and the summary set
 # apart the calls the target will never honor, and the cases that wait on
-# nothing else, which will never be compared.
+# nothing else, which will never be compared. And it gives the browser check
+# (V-6): for Firefox and WebKit, the documents compared with Chromium's image,
+# those that match it, those that fail, and those set apart for the browser,
+# each with why, as the tests saved them under browsers/apart/.
 #
 # Called from svg.yml after the tests, and after a failed build too, when there
 # is no test report and the build's errors are the verdict.
@@ -82,22 +85,27 @@ function Read-TestReport([string] $path) {
 # The drawings of a results directory: for each case, its measurements by
 # column, of its image under measurements/ and of its geometry under
 # geometry/, and the size and SHA-256 hash of its SVG, any of which may be
-# missing.
+# missing; and for each document of the browser check, named
+# <browser>/<document>, the measurements of the browser's image against
+# Chromium's, under browsers/<browser>/measurements/.
 #
 # Parameters:
 #   directory - the results directory.
 function Read-Drawings([string] $directory) {
     $drawings = New-Object 'System.Collections.Generic.Dictionary[string,object]' ([StringComparer]::Ordinal)
-    foreach ($kind in 'measurements', 'geometry') {
-        $measurementDirectory = Join-Path $directory $kind
+    $kinds = @(@('measurements', ''), @('geometry', ''))
+    foreach ($browser in 'firefox', 'webkit') { $kinds += ,@("browsers/$browser/measurements", "$browser/") }
+    foreach ($kind in $kinds) {
+        $measurementDirectory = Join-Path $directory $kind[0]
         if (-not (Test-Path $measurementDirectory)) { continue }
         foreach ($file in (Get-ChildItem $measurementDirectory -Filter '*.tsv')) {
             $lines = @(Get-Content $file.FullName)
             if ($lines.Count -lt 2) { continue }
-            if (-not $drawings.ContainsKey($file.BaseName)) {
-                $drawings[$file.BaseName] = [pscustomobject]@{ Measurements = [ordered]@{}; Bytes = $null; Hash = $null }
+            $drawing = $kind[1] + $file.BaseName
+            if (-not $drawings.ContainsKey($drawing)) {
+                $drawings[$drawing] = [pscustomobject]@{ Measurements = [ordered]@{}; Bytes = $null; Hash = $null }
             }
-            $values = $drawings[$file.BaseName].Measurements
+            $values = $drawings[$drawing].Measurements
             $names = $lines[0] -split "`t"
             $fields = $lines[1] -split "`t"
             for ($i = 0; $i -lt [Math]::Min($names.Count, $fields.Count); $i++) { $values[$names[$i]] = $fields[$i] }
@@ -185,7 +193,9 @@ function Format-Bytes([long] $bytes) {
 # The changes from the previous results to this run's, one row for each test
 # or drawing that changed: its name and what changed, the change of a test's
 # outcome first, then of the drawing's SVG and measurements. A comparison case
-# is named by its drawing, as MapArea(irregular1) is irregular1.
+# is named by its drawing, as MapArea(irregular1) is irregular1, and a test of
+# the browser check by its browser and document, as InFirefox(irregular1) is
+# firefox/irregular1.
 #
 # Parameters:
 #   previous - the previous results, from Read-PreviousResults.
@@ -198,7 +208,12 @@ function Compare-Results($previous, $tests, $drawings) {
         if (-not $rows.Contains($name)) { $rows[$name] = New-Object System.Collections.Generic.List[string] }
         $rows[$name].Add($change)
     }
-    $nameOf = { param([string] $testName) if ($testName -match '^\w+\((.+)\)$') { $Matches[1] } else { $testName } }
+    $nameOf = {
+        param([string] $testName)
+        if ($testName -match '^In(Firefox|WebKit)\((.+)\)$') { "$($Matches[1].ToLowerInvariant())/$($Matches[2])" }
+        elseif ($testName -match '^\w+\((.+)\)$') { $Matches[1] }
+        else { $testName }
+    }
 
     $before = New-Object 'System.Collections.Generic.Dictionary[string,string]' ([StringComparer]::Ordinal)
     foreach ($test in $previous.Tests) { $before[$test.Name] = $test.Outcome }
@@ -288,6 +303,44 @@ $byCall = @($pending | ForEach-Object { $case = $_; $case.Calls | ForEach-Object
     }
 } | Sort-Object -Property @{ Expression = 'Cases'; Descending = $true }, @{ Expression = 'Call'; Descending = $false })
 
+# The browser check (V-6), for each browser whose tests ran: its tests, named
+# In<browser>(<document>), how many of them match Chromium's image, how many
+# fail, and the documents set apart for the browser, each with why, as the
+# tests saved it in browsers/apart/<browser>/<document>.txt, and how many
+# pixels of its image lie outside the tolerance, from its measurements. A test
+# that is neither passed nor failed nor set apart is pending, as its case is.
+$browserChecks = @(foreach ($browser in 'Firefox', 'WebKit') {
+    $browserTests = @($tests | Where-Object { $_.Name -like "In$browser(*" })
+    if (-not $browserTests.Count) { continue }
+    $folder = Join-Path $results "browsers/$($browser.ToLowerInvariant())"
+    $apartDirectory = Join-Path $results "browsers/apart/$($browser.ToLowerInvariant())"
+    $apart = @(if (Test-Path $apartDirectory) {
+        foreach ($file in (Get-ChildItem $apartDirectory -Filter '*.txt' | Sort-Object Name)) {
+            $outside = ''
+            $measurements = Join-Path $folder "measurements/$($file.BaseName).tsv"
+            if (Test-Path $measurements) {
+                $lines = @(Get-Content $measurements)
+                if ($lines.Count -ge 2) {
+                    $column = [array]::IndexOf(@($lines[0] -split "`t"), 'outside tolerance')
+                    if ($column -ge 0) { $outside = @($lines[1] -split "`t")[$column] }
+                }
+            }
+            [pscustomobject]@{ Document = $file.BaseName; Why = ((@(Get-Content $file.FullName) -join ' ').Trim()); Outside = $outside }
+        }
+    })
+    $matched = @($browserTests | Where-Object { $_.Outcome -eq 'Passed' }).Count
+    $failedHere = @($browserTests | Where-Object { $_.Outcome -eq 'Failed' }).Count
+    [pscustomobject]@{
+        Browser = $browser
+        Documents = $browserTests.Count
+        Matched = $matched
+        Failed = $failedHere
+        Apart = $apart
+        Pending = $browserTests.Count - $matched - $failedHere - $apart.Count
+    }
+})
+$setApart = [int](($browserChecks | ForEach-Object { $_.Apart.Count } | Measure-Object -Sum).Sum)
+
 # The build's errors, when there was no build to test.
 $buildFailed = $env:BUILD_OUTCOME -ne 'success'
 $buildErrors = @()
@@ -311,7 +364,8 @@ if ($previous) {
 # The verdict.
 $testExit = $env:TEST_EXIT
 $counts = "$($passed.Count) passed, $($failed.Count) failed, $($pending.Count) pending" +
-          $(if ($neverCompared.Count) { ", $($neverCompared.Count) of them on calls the target never honors" } else { '' })
+          $(if ($neverCompared.Count) { ", $($neverCompared.Count) of them on calls the target never honors" } else { '' }) +
+          $(if ($setApart) { ", $setApart set apart for a browser" } else { '' })
 if ($buildFailed) {
     $title = "The build failed with $($buildErrors.Count) errors"
     $conclusion = 'failure'
@@ -379,6 +433,27 @@ if ($geometry.Count) {
                  "No point or length lies further from where its call puts it than $($farthest.Deviation.ToString('0.###', [Globalization.CultureInfo]::InvariantCulture)) steps ($($farthest.Case)), " +
                  "and none takes more than $($fullest.Share.ToString('0.###', [Globalization.CultureInfo]::InvariantCulture)) of the allowance its rounding gives it ($($fullest.Case)).")
 }
+if ($browserChecks.Count) {
+    $summary.Add('')
+    $summary.Add('## Firefox and WebKit (browsers/)')
+    $summary.Add('')
+    $summary.Add("Each document is rendered in the browser and compared with Chromium's image of it, within the tolerance of the rendering comparison.")
+    $summary.Add('')
+    $summary.Add('| Browser | Documents | Match Chromium | Set apart | Failed | Pending |')
+    $summary.Add('| --- | ---: | ---: | ---: | ---: | ---: |')
+    foreach ($check in $browserChecks) {
+        $summary.Add("| $($check.Browser) | $($check.Documents) | $($check.Matched) | $($check.Apart.Count) | $($check.Failed) | $($check.Pending) |")
+    }
+    $apartRows = @($browserChecks | ForEach-Object { $check = $_; $check.Apart | ForEach-Object { [pscustomobject]@{ Browser = $check.Browser; Row = $_ } } })
+    if ($apartRows.Count) {
+        $summary.Add('')
+        $summary.Add('Set apart, each still compared, and failing once it matches or differs more:')
+        $summary.Add('')
+        $summary.Add('| Browser | Document | Pixels outside the tolerance | Why |')
+        $summary.Add('| --- | --- | ---: | --- |')
+        foreach ($row in $apartRows) { $summary.Add("| $($row.Browser) | $($row.Row.Document) | $($row.Row.Outside) | $($row.Row.Why) |") }
+    }
+}
 $exportSizes = Read-ExportSizes $results
 if ($exportSizes.Count) {
     $sizesBefore = @{}
@@ -411,9 +486,10 @@ if ($byCall.Count) {
     $summary.Add('| --- | --- | ---: | ---: |')
     foreach ($row in $byCall) { $summary.Add("| $($row.Call) | $($row.NeverBecause) | $($row.Cases) | $($row.Alone) |") }
 }
-if ($notRun.Count -ne $pending.Count) {
+if ($notRun.Count -ne $pending.Count + $setApart) {
     $summary.Add('')
-    $summary.Add("$($notRun.Count) tests did not run, $($pending.Count) of them as pending cases.")
+    $summary.Add("$($notRun.Count) tests did not run, $($pending.Count) of them as pending cases" +
+                 $(if ($setApart) { " and $setApart as documents set apart for a browser" } else { '' }) + '.')
 }
 if ($steps.Count) {
     $summary.Add('')
