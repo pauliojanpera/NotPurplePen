@@ -122,6 +122,14 @@ The calls the target fully implements, in the sense of DL-5: `Intensity`, `PushT
 
 **In flight (Nov 11, from 17:45 Helsinki):** on @Pauli's word ("jatka"), one agent at effort max takes phase 7, Firefox and WebKit (F-5, V-6), on `feature/svg-browsers`, rooted at `feature/svg-target` (cc462aa). With the change phase 7 needs in the loop's workflow, if any, a `ci/` change into `base`, `basewithfixes` and `dev` corrects the comment at line 256 of `.github/scripts/report-svg-loop.ps1`, which still gives a bitmap drawn lighter (B-6) as its example of a call never honored.
 
+The 5-hour limit stopped the agent on Nov 11 at 19:17 Helsinki, and it is resumed on Nov 12 from 11:30, on @Pauli's word ("jatka"). Where it stood:
+- the design, in SvgExportDesign.md's "Firefox and WebKit (F-5, V-6)", and V-6's wording (d98dfdb);
+- `feature/svg-browsers` at c37b7e6 (WIP): `BrowserComparisonTests`; the target ends a list of positions at a character outside the Basic Multilingual Plane, which Firefox counts as two, as SVG 2 does, and Chromium and WebKit as one; Firefox and WebKit draw two frames before each screenshot, as WebKit at times took it before it had drawn; the fallback test expects the new form;
+- `ci/svg-loop-browsers` at b6d6be1 (WIP, rooted at `base`, 412dbea): the loop installs Firefox and WebKit with their system libraries, again when a mirror fails to answer, as one did in SVG loop run 43060795668; its job has an hour; and it reports the check;
+- `feature/svg-browsers-docs` at 8ac8ac8 (WIP): the check's tools;
+- SVG loop run 43064709418 on `svg/svg-browsers` (2336b7a, the `ci/` branch merged with the feature): 783 passed, 0 failed, 2 pending (clouds and clouds11), 15 set apart for a browser. Firefox matches Chromium in 202 of 205 documents and WebKit in 193. Firefox's three set apart are a pixel of Bengali in fontfallback and the patterns of teanwest and teanwest11, whose tiles are a pixel or two across; WebKit's twelve are faces it hints, Runic it does not draw, bitmaps it scales down without smoothing, and ocad11templatealign's pattern;
+- it was writing the gallery's entry when it stopped. Still to do: the entry, the full run on a `wip/linux/` branch, the `ci/` change into `base`, `basewithfixes` and `dev`, `feature/svg-target` fast-forwarded, and the merge into `dev`.
+
 **Nov 11, items 4 to 10:** done by one agent at effort max from 08:15 to 09:35 Helsinki, on @Pauli's word ("jatka"). Every loop and full run passed at its first attempt.
 - Item 4, what task 4 left open:
   - the design's proposal on the pages that show a course had already been restated as @Pauli decided (6b548f7, Nov 6);
