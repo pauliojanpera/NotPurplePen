@@ -230,11 +230,11 @@ An SVG export command, with a dialog of its own, writes pages laid out as PDF ex
 | --- | --- | --- |
 | A-1 | A Create SVG Files command sits in the File menu next to the PDF commands and opens its own Avalonia dialog, built to the repository's dialog conventions. | Must |
 | A-2 | A settings class, `CourseSvgSettings`, holds the course, variation, map exchange, base map, control description, crop, color model, directory and prefix fields of PDF export's settings, with CMYK as the default color model, plus bitmap handling, JPEG quality, compression, and whether area patterns are drawn as separate shapes: every area pattern element by element and every hatching line by line, as PDF export draws them, rather than as pattern fills (S-7), which is off by default. | Must |
-| A-3 | Pages are laid out by `CoursePageLayout` as for PDF export, and files are named by `QueryEvent.CreateOutputFileName`; a file holding one page of a course part that needs several carries the page number as a suffix. Code shared with `CoursePdf` is factored out, not copied. | Must |
+| A-3 | Pages are laid out by `CoursePageLayout` as for PDF export, and the files, chosen as L-7 offers, are named by `QueryEvent.CreateOutputFileName`; every page laid out for a file goes in that file, as in PDF export. Code shared with `CoursePdf` is factored out, not copied. | Must |
 | A-4 | `MapDisplay` draws a map's parts and a course part's two layers separately, so that the export can place them as L-2 to L-4 require, at a minimum resolution equal to the 0.001 mm step of S-1, so nothing is simplified below the output's precision. Each page clips to its print rectangle and transforms its map into it, as PDF export does. | Must |
 | A-5 | The target receives the map's own `TextMetricsProvider`, the converter from COL-2 and the georeferencing values of G-1 and G-2, so the application is the only place where the target meets Skia. | Must |
 | A-6 | Files about to be overwritten are listed for confirmation first, and the chosen settings are kept until another map loads, as PDF export does. | Must |
-| A-7 | New interface strings go into `UIText.resx`, which has no SVG strings yet. | Must |
+| A-7 | New interface strings go into `UIText.resx`. | Must |
 
 ## Verification
 

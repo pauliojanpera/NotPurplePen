@@ -1,8 +1,9 @@
 # SVG export in the application: design
 
-Phase 3's first stage (see `SvgTargetProgress.md`, Tasks): where the export lives, how it shares PDF export's code
-(A-3), and how `MapDisplay` draws a map's parts and a course part's layers apart (A-4, L-2 to L-4). Written on Oct 25
-from `feature/svg-target` at b091333.
+How the export and the target's later phases are built: a section for each, written before its work began and brought
+up to date as built. The first sections are phase 3's first stage: where the export lives, how it shares PDF export's
+code (A-3), and how `MapDisplay` draws a map's parts and a course part's layers apart (A-4, L-2 to L-4), written on
+Oct 25 from `feature/svg-target` at b091333.
 
 ## Where the export lives
 
@@ -114,20 +115,25 @@ the comparison does with its references. Each file is also exported a second tim
 results record each file's size, plain and gzip-compressed, which the loop's summary reports (V-5). The renderings of
 the comparison decide whether the drawing is right; the baselines show in review what changed in the text.
 
-The set, from events whose maps load on a case-sensitive file system, smallest maps first:
+The set, from events whose maps load on a case-sensitive file system:
 
-- `controller/mapexchange1.ppen`: courses with map exchanges, and no map, so its files are small;
-- `courseprinting/Overprint test.ppen`: an OCAD map with overprinted colors and the course's purple blended;
+- `controller/mapexchange1.ppen`: courses with map exchanges, and no map, so its files are small; also its Course 5 in
+  a file of its own, plain and compressed (S-10);
+- `courseprinting/Overprint test.ppen`: an OCAD map with overprinted colors and the course's purple blended; also drawn
+  in upper and lower purple, its map in two parts around the course's lower layer (L-2), a file per course and all
+  pages in one file (L-7);
 - `controller/Lincoln Park.ppen`: a bitmap map, which the files embed;
-- `findpurple/OOM_ISOM_Blank.ppen`: an OpenMapper map, its all-controls page;
+- `modes/printarea2.ppen`: a georeferenced OpenMapper map, `ShorelineCC_Dec2018.omap`;
 - `controller/Madrona Permanent11.ppen`: an OCAD map with area patterns, multi-colored point symbols and text along
-  lines;
-- a georeferenced OCAD map among the test maps, to be found.
+  lines; also with its area patterns drawn as separate shapes (S-7);
+- `gpx/testproj2.ppen`: a georeferenced OCAD map, `testproj2.ocd`.
 
 Several events name their maps with another case than the files have, such as `Marymoor.ocd` for `marymoor.ocd`,
 and so load only on Windows; spelling them as the files are spelled belongs on `fix/case-of-test-file-names`.
 
-## Stages after this one
+## Phase 3's stages
+
+All four were built on `feature/svg-export` and have been on `feature/svg-target` since d3561c1 (Oct 29).
 
 1. **The refactor:** `MapDisplay.Draw` by layer and the code shared with `CoursePdf`, on `feature/svg-export` rooted at
    `feature/svg-target`; the PDF and bitmap baseline tests must not move.
@@ -145,8 +151,8 @@ and so load only on Windows; spelling them as the files are spelled belongs on `
 
 ## Phase 5: several pages per file (L-6, L-7, V-8)
 
-Written on Nov 4 from `feature/svg-target` at 3c40d20; the work is on `feature/svg-pages`. It answers the first open
-question below: the dialog shows the three choices, all of them working.
+Written on Nov 4 from `feature/svg-target` at 3c40d20, and built on `feature/svg-pages`. The dialog shows the three
+file choices, all of them working.
 
 ### What goes in a file (L-7)
 
@@ -654,6 +660,6 @@ the browsers' install from 16 seconds to about 2 minutes.
 
 ## Open questions
 
-- Phase 3 writes one page per file. Should the dialog already show L-7's three file choices, with all but one
-  disabled, or only the one? (Phase 5 shows all three; see above.)
-- A PDF map is drawn as a bitmap. Is that acceptable for the first release, or should such events be refused?
+- A PDF map is drawn as the bitmap `MapDisplay` makes of it, where PDF export copies the page as vectors. Whether the
+  SVG can carry the page's vectors instead is a task of its own (`SvgTargetProgress.md`, Tasks, Nov 12), whose design
+  note will be a section of this file.
