@@ -1,6 +1,6 @@
 # Draws SVG files in Chromium and compares each drawing with the first file's, pixel for pixel.
 #   python3 -I render_chromium.py <out folder> <reference.svg> <file.svg>...
-# Needs Python's Playwright and its Chromium, which it starts with the flags ChromiumRenderer passes (text unhinted, in
+# Needs Python's Playwright and its Chromium, which it starts with the flags BrowserRenderer passes (text unhinted, in
 # grayscale and in sRGB), and Pillow. Each file is opened as a document of its own, in a viewport of the root's size
 # at 96 pixels to the inch, and its drawing written to <out folder>/<name>.png. A line a file says how many pixels
 # differ from the reference's drawing and by how many levels at most.

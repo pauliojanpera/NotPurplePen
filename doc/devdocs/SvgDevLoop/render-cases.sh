@@ -4,8 +4,8 @@
 # Renders cases' SVG documents in Chromium as the tests do, for the gallery and the tolerance research, by
 # ../SvgGallery/render-cases.mjs: each <results folder>/svg/<case>.svg into <results folder>/renderings/<case>.png,
 # at the size of the case's reference image, from <results folder>/references/ or else <reference folder>. It drives
-# the headless shell of the worktree's Playwright package, with the flags ChromiumRenderer passes, and on Linux under a
-# fontconfig that offers the sentinel font alone, as ChromiumRenderer does: without it, a text case's rendering here
+# the headless shell of the worktree's Playwright package, with the flags BrowserRenderer passes, and on Linux under a
+# fontconfig that offers the sentinel font alone, as BrowserRenderer does: without it, a text case's rendering here
 # would not match the loop's. Build Map_Svg.Tests in the worktree first.
 set -euo pipefail
 [ $# -eq 4 ] || { echo "usage: render-cases.sh <worktree> <results folder> <reference folder> <case,case,...>" >&2; exit 2; }

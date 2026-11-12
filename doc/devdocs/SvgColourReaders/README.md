@@ -26,7 +26,7 @@ writes each colour in a class rule of its `<style>` sheet, as sRGB and then as t
   through inheritance and `<use>`, for comparison with what `summarise_scribus.py` says Scribus made.
 - `scribus_png.py <dpi> <out folder> <file.svg>...` runs in Scribus's scripter and exports, as a PNG, the page of a
   document of each file's size on which the file is placed, as the gallery's Scribus layers show it.
-- `render_chromium.py` draws each file in Playwright's Chromium, with the flags `ChromiumRenderer` passes, and counts
+- `render_chromium.py` draws each file in Playwright's Chromium, with the flags `BrowserRenderer` passes, and counts
   the pixels that differ from the first file's drawing.
 - `make_variants.py` writes the variants below of one export and their sizes, plain and gzipped; `make_profile.py`
   writes a small CMYK output profile (below); `run-all.sh <work> <export.svg> <probes>` runs everything.
