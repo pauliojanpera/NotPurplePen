@@ -308,6 +308,51 @@ namespace PurplePen.MapModel
             }
         }
 
+        // How PushClipToUnion forms the union, for the prototype's measurements: "pathops" unites the paths with
+        // Skia's path operations and clips to the result anti-aliased as the target draws; anything else unites the
+        // regions each path would clip to, which is exactly the union of the target's own clips, as they are not
+        // anti-aliased.
+        private static readonly string unionClipMethod = Environment.GetEnvironmentVariable("PURPLEPEN_UNION_CLIP") ?? "region";
+
+        // Set a clip to the union of paths created with CreatePath, each under its own fill mode.
+        // pathKeys: the keys of the paths.
+        public void PushClipToUnion(object[] pathKeys)
+        {
+            if (unionClipMethod == "pathops") {
+                using (SKPath.OpBuilder builder = new SKPath.OpBuilder()) {
+                    foreach (object pathKey in pathKeys)
+                        builder.Add(GetSkPath(pathKey), SKPathOp.Union);
+                    using (SKPath union = new SKPath()) {
+                        if (!builder.Resolve(union))
+                            throw new InvalidOperationException("The union of the clip's paths could not be formed");
+                        canvas.Save();
+                        ++pushLevel;
+                        canvas.ClipPath(union, SKClipOperation.Intersect, antiAlias);
+                        ++pushLevel;
+                    }
+                }
+                return;
+            }
+
+            SKMatrix toDevice = canvas.TotalMatrix;
+            using (SKRegion bounds = new SKRegion(canvas.DeviceClipBounds))
+            using (SKRegion union = new SKRegion()) {
+                foreach (object pathKey in pathKeys) {
+                    using (SKPath devicePath = new SKPath(GetSkPath(pathKey)))
+                    using (SKRegion region = new SKRegion()) {
+                        devicePath.Transform(toDevice);
+                        region.SetPath(devicePath, bounds);
+                        union.Op(region, SKRegionOperation.Union);
+                    }
+                }
+
+                canvas.Save();
+                ++pushLevel;
+                canvas.ClipRegion(union);
+                ++pushLevel;
+            }
+        }
+
         public void PushClip(RectangleF rect)
         {
             canvas.Save();

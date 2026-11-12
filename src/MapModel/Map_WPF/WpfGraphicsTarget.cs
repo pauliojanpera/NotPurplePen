@@ -259,6 +259,18 @@ namespace PurplePen.MapModel
             ++pushLevel;
         }
 
+        // Set a clip to the union of paths created with CreatePath, each under its own fill mode: the geometries
+        // combined by union.
+        // pathKeys: the keys of the paths.
+        public void PushClipToUnion(object[] pathKeys)
+        {
+            Geometry union = GetGeometry(pathKeys[0]);
+            for (int i = 1; i < pathKeys.Length; ++i)
+                union = new CombinedGeometry(GeometryCombineMode.Union, union, GetGeometry(pathKeys[i]));
+            DrawingContext.PushClip(union);
+            ++pushLevel;
+        }
+
         public void PushClip(RectangleF rect)
         {
             DrawingContext.PushClip(new RectangleGeometry(new Rect(rect.X, rect.Y, rect.Width, rect.Height)));
