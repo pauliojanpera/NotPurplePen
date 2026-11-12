@@ -2377,6 +2377,13 @@ namespace PurplePen.MapModel
             }
         }
 
+        // Draw the lines of a hatching over an area's bounding box, within the clip to the area its caller has set.
+        // g: the target.
+        // path: the area.
+        // angle, rotationCenter: the frame the hatching is laid out in, unless it never turns.
+        // renderOpts: the options drawn with.
+        // hatchInfo: the hatching.
+        // hatchPen: the key of its pen.
         void DrawOneHatching(IGraphicsTarget g, SymPathWithHoles path, float angle, PointF rotationCenter, RenderOptions renderOpts, HatchInfo hatchInfo, object hatchPen)
         {
             DrawOneHatching(g, path.BoundingBox, angle, rotationCenter, renderOpts, hatchInfo, hatchPen);
