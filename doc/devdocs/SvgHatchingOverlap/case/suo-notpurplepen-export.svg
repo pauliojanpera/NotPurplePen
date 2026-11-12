@@ -1,0 +1,181 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" width="200.406mm" height="286.766mm" viewBox="0 0 200.406 286.766">
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="suo.ocd" views="Kaikki_rastit">
+<npp:georeference transform="translate(305000 7023000)rotate(-14.4)scale(.015)" epsg="3067" proj4="+proj=utm +zone=35 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs" ocad-grid-zone="6005"/>
+<npp:color position="19" name="Sininen 100% - Aluekohde" cmyk=".8,0,0,0"/>
+<npp:symbol n="1" id="308.0" name="Suo (Alue)" colors="19"/>
+</npp:map>
+<npp:map n="2" label="Kaikki rastit" views="Kaikki_rastit">
+<npp:course name="Kaikki rastit" print-scale="10000"/>
+</npp:map>
+</npp:document>
+</metadata>
+<sodipodi:namedview>
+<inkscape:page x="0" y="0" width="200.406" height="286.766" inkscape:label="Kaikki rastit"/>
+</sodipodi:namedview>
+<defs>
+<color-profile id="cmyk" name="cmyk" xlink:href="data:application/vnd.iccprofile;base64,AAACBAAAAAACEAAAcHJ0ckNNWUtMYWIgB+oACwAEAAAAAAAAYWNzcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPbWAAEAAAAA0y0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEZGVzYwAAALQAAABmY3BydAAAARwAAAAhd3RwdAAAAUAAAAAUQTJCMAAAAVQAAACwZGVzYwAAAAAAAAAMRGV2aWNlIENNWUsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB0ZXh0AAAAAE5vIGNvcHlyaWdodCwgdXNlIGZyZWVseQAAAABYWVogAAAAAAAA9tYAAQAAAADTLW1mdDIAAAAABAMCAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAACAAIAAP//AAD//wAA//8AAP///wCAAX/6AACAAIAA+OZwQN1gAACAAIAAmW/djkN6AACAAIAAinLQ0cXhAACAAIAA5zJNVnEDAACAAIAA3/Awt9D6AACAAIAAS2bETQ/yAACAAIAAAACAAIAAAACAAIAAAAD//wAA//8AAP//"/>
+<clipPath id="b">
+<path style="clip-rule:evenodd" d="M211090 206750l-4820 1930-1120 2590v4890h3420l2520-9410z"/>
+</clipPath>
+<clipPath id="c">
+<path style="clip-rule:evenodd" d="M216100 203600l-2220-390-2310 1540-2280 8690 600-2200-730 2940 2500 760 4440-11340z"/>
+</clipPath>
+<clipPath id="d">
+<path style="clip-rule:evenodd" d="M219150 200750l-680-30-2860 1870-1730 560 780 3300-4880 8290-190 300-270 1120h9830v-15410zm-6990 12530 190-180 60 10-10-60 170-10-180 110-300 270 70-140z"/>
+</clipPath>
+<clipPath id="f">
+<path d="M202514 198094h20169v19954h-20169z"/>
+</clipPath>
+<g id="a">
+<g style="fill:none;stroke:#00b9f2;stroke:#00b9f2 icc-color(cmyk,.8,0,0,0);stroke-width:100;stroke-miterlimit:5" data-m="1">
+<g data-c="19">
+<g data-s="1">
+<g clip-path="url(#b)">
+<g transform="rotate(179.90001)">
+<path data-o="1" d="M-210729-216600h5957"/>
+<path data-o="1" d="M-210729-216300h5957"/>
+<path data-o="1" d="M-210729-216000h5957"/>
+<path data-o="1" d="M-210729-215700h5957"/>
+<path data-o="1" d="M-210729-215400h5957"/>
+<path data-o="1" d="M-210729-215100h5957"/>
+<path data-o="1" d="M-210729-214800h5957"/>
+<path data-o="1" d="M-210729-214500h5957"/>
+<path data-o="1" d="M-210729-214200h5957"/>
+<path data-o="1" d="M-210729-213900h5957"/>
+<path data-o="1" d="M-210729-213600h5957"/>
+<path data-o="1" d="M-210729-213300h5957"/>
+<path data-o="1" d="M-210729-213000h5957"/>
+<path data-o="1" d="M-210729-212700h5957"/>
+<path data-o="1" d="M-210729-212400h5957"/>
+<path data-o="1" d="M-210729-212100h5957"/>
+<path data-o="1" d="M-210729-211800h5957"/>
+<path data-o="1" d="M-210729-211500h5957"/>
+<path data-o="1" d="M-210729-211200h5957"/>
+<path data-o="1" d="M-210729-210900h5957"/>
+<path data-o="1" d="M-210729-210600h5957"/>
+<path data-o="1" d="M-210729-210300h5957"/>
+<path data-o="1" d="M-210729-210000h5957"/>
+<path data-o="1" d="M-210729-209700h5957"/>
+<path data-o="1" d="M-210729-209400h5957"/>
+<path data-o="1" d="M-210729-209100h5957"/>
+<path data-o="1" d="M-210729-208800h5957"/>
+<path data-o="1" d="M-210729-208500h5957"/>
+<path data-o="1" d="M-210729-208200h5957"/>
+<path data-o="1" d="M-210729-207900h5957"/>
+<path data-o="1" d="M-210729-207600h5957"/>
+<path data-o="1" d="M-210729-207300h5957"/>
+<path data-o="1" d="M-210729-207000h5957"/>
+</g>
+</g>
+<g clip-path="url(#c)">
+<path data-o="2" d="M209160 203100h6940"/>
+<path data-o="2" d="M209160 203400h6940"/>
+<path data-o="2" d="M209160 203700h6940"/>
+<path data-o="2" d="M209160 204000h6940"/>
+<path data-o="2" d="M209160 204300h6940"/>
+<path data-o="2" d="M209160 204600h6940"/>
+<path data-o="2" d="M209160 204900h6940"/>
+<path data-o="2" d="M209160 205200h6940"/>
+<path data-o="2" d="M209160 205500h6940"/>
+<path data-o="2" d="M209160 205800h6940"/>
+<path data-o="2" d="M209160 206100h6940"/>
+<path data-o="2" d="M209160 206400h6940"/>
+<path data-o="2" d="M209160 206700h6940"/>
+<path data-o="2" d="M209160 207000h6940"/>
+<path data-o="2" d="M209160 207300h6940"/>
+<path data-o="2" d="M209160 207600h6940"/>
+<path data-o="2" d="M209160 207900h6940"/>
+<path data-o="2" d="M209160 208200h6940"/>
+<path data-o="2" d="M209160 208500h6940"/>
+<path data-o="2" d="M209160 208800h6940"/>
+<path data-o="2" d="M209160 209100h6940"/>
+<path data-o="2" d="M209160 209400h6940"/>
+<path data-o="2" d="M209160 209700h6940"/>
+<path data-o="2" d="M209160 210000h6940"/>
+<path data-o="2" d="M209160 210300h6940"/>
+<path data-o="2" d="M209160 210600h6940"/>
+<path data-o="2" d="M209160 210900h6940"/>
+<path data-o="2" d="M209160 211200h6940"/>
+<path data-o="2" d="M209160 211500h6940"/>
+<path data-o="2" d="M209160 211800h6940"/>
+<path data-o="2" d="M209160 212100h6940"/>
+<path data-o="2" d="M209160 212400h6940"/>
+<path data-o="2" d="M209160 212700h6940"/>
+<path data-o="2" d="M209160 213000h6940"/>
+<path data-o="2" d="M209160 213300h6940"/>
+<path data-o="2" d="M209160 213600h6940"/>
+<path data-o="2" d="M209160 213900h6940"/>
+<path data-o="2" d="M209160 214200h6940"/>
+<path data-o="2" d="M209160 214500h6940"/>
+<path data-o="2" d="M209160 214800h6940"/>
+</g>
+<g clip-path="url(#d)">
+<path data-o="3" d="M209320 200700h9830"/>
+<path data-o="3" d="M209320 201000h9830"/>
+<path data-o="3" d="M209320 201300h9830"/>
+<path data-o="3" d="M209320 201600h9830"/>
+<path data-o="3" d="M209320 201900h9830"/>
+<path data-o="3" d="M209320 202200h9830"/>
+<path data-o="3" d="M209320 202500h9830"/>
+<path data-o="3" d="M209320 202800h9830"/>
+<path data-o="3" d="M209320 203100h9830"/>
+<path data-o="3" d="M209320 203400h9830"/>
+<path data-o="3" d="M209320 203700h9830"/>
+<path data-o="3" d="M209320 204000h9830"/>
+<path data-o="3" d="M209320 204300h9830"/>
+<path data-o="3" d="M209320 204600h9830"/>
+<path data-o="3" d="M209320 204900h9830"/>
+<path data-o="3" d="M209320 205200h9830"/>
+<path data-o="3" d="M209320 205500h9830"/>
+<path data-o="3" d="M209320 205800h9830"/>
+<path data-o="3" d="M209320 206100h9830"/>
+<path data-o="3" d="M209320 206400h9830"/>
+<path data-o="3" d="M209320 206700h9830"/>
+<path data-o="3" d="M209320 207000h9830"/>
+<path data-o="3" d="M209320 207300h9830"/>
+<path data-o="3" d="M209320 207600h9830"/>
+<path data-o="3" d="M209320 207900h9830"/>
+<path data-o="3" d="M209320 208200h9830"/>
+<path data-o="3" d="M209320 208500h9830"/>
+<path data-o="3" d="M209320 208800h9830"/>
+<path data-o="3" d="M209320 209100h9830"/>
+<path data-o="3" d="M209320 209400h9830"/>
+<path data-o="3" d="M209320 209700h9830"/>
+<path data-o="3" d="M209320 210000h9830"/>
+<path data-o="3" d="M209320 210300h9830"/>
+<path data-o="3" d="M209320 210600h9830"/>
+<path data-o="3" d="M209320 210900h9830"/>
+<path data-o="3" d="M209320 211200h9830"/>
+<path data-o="3" d="M209320 211500h9830"/>
+<path data-o="3" d="M209320 211800h9830"/>
+<path data-o="3" d="M209320 212100h9830"/>
+<path data-o="3" d="M209320 212400h9830"/>
+<path data-o="3" d="M209320 212700h9830"/>
+<path data-o="3" d="M209320 213000h9830"/>
+<path data-o="3" d="M209320 213300h9830"/>
+<path data-o="3" d="M209320 213600h9830"/>
+<path data-o="3" d="M209320 213900h9830"/>
+<path data-o="3" d="M209320 214200h9830"/>
+<path data-o="3" d="M209320 214500h9830"/>
+<path data-o="3" d="M209320 214800h9830"/>
+<path data-o="3" d="M209320 215100h9830"/>
+<path data-o="3" d="M209320 215400h9830"/>
+<path data-o="3" d="M209320 215700h9830"/>
+<path data-o="3" d="M209320 216000h9830"/>
+<path data-o="3" d="M209320 216300h9830"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+<g id="e">
+</g>
+</defs>
+<view id="Kaikki_rastit" viewBox="0 0 200.406 286.766"/>
+<g transform="matrix(.0015 0 0-.0015-218.695 455.49)" clip-path="url(#f)">
+<use xlink:href="#a"/>
+<use xlink:href="#e"/>
+</g>
+</svg>

@@ -1,0 +1,14 @@
+<course-scribe-event>
+  <event id="1">
+    <title>suo</title>
+    <map kind="OCAD" scale="15000" ignore-missing-fonts="false" absolute-path="/home/pauli/Desktop/suo.ocd">suo.ocd</map>
+    <standards map="2017" description="2018" />
+    <all-controls print-scale="10000" description-kind="symbols-and-text" />
+    <print-area automatic="false" restrict-to-page-size="false" left="202.51448" top="218.0485" right="222.68253" bottom="198.09401" page-width="789" page-height="1129" page-margins="0" page-landscape="false" />
+    <numbering start="73" disallow-invertible="false" />
+    <punch-card rows="3" columns="8" left-to-right="true" top-to-bottom="false" />
+    <course-appearance scale-sizes="RelativeTo15000" scale-sizes-circle-gaps="true" number-font="Roboto" auto-leg-gap-size="3.5" blend-purple="true" blend-style="blend" />
+    <descriptions lang="fi" color="black" />
+    <ocad overprint-colors="true" />
+  </event>
+</course-scribe-event>

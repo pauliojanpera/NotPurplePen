@@ -1,0 +1,18 @@
+# Overlapping hatchings
+
+@Pauli's case of Nov 12, for task 2 of [the handover](../SvgTargetProgress.md): where two areas of one symbol overlap,
+their horizontal hatching looks thicker and darker. @Pauli saw it in Chrome's drawing of NotPurplePen's SVG and PDF
+exports, in a PDF viewer and in OpenOrienteering Mapper's own drawing on screen, with the export's pattern fills and
+with "Draw area patterns as separate shapes" alike, but not in NotPurplePen's PNG export. He agreed that his files go
+into this repository (Nov 12).
+
+`case/` holds:
+
+- `suo.ocd`: the map, with three overlapping marsh areas of symbol 308.0 (Suo), georeferenced in ETRS-TM35FIN
+  (EPSG:3067);
+- `suo.ppen`: its event, whose page of all controls prints at 1:10,000;
+- `suo-notpurplepen-export.svg`: that page as NotPurplePen's SVG export wrote it, with "Draw area patterns as separate
+  shapes";
+- `suo-notpurplepen-export.pdf`: that page as NotPurplePen's PDF export wrote it.
+
+The investigation adds its scripts and findings beside them.
