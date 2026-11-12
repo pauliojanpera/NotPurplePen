@@ -1251,9 +1251,9 @@ baselines above to record. Still to do for (a):
 
 ## Open questions
 
-- A PDF map is drawn as the bitmap `MapDisplay` makes of it, where PDF export copies the page as vectors. Whether the
-  SVG can carry the page's vectors instead, and at what cost, is "A PDF base map as vectors" above, which ends with
-  the choice put to @Pauli.
+- A PDF map is drawn as the bitmap `MapDisplay` makes of it, where PDF export copies the page as vectors. "A PDF base
+  map as vectors" above weighs carrying the page's vectors instead; @Pauli chose its option (e) on Nov 12, and
+  building it waits among the handover's future directions.
 - Whether overlapping areas of a symbol draw their pattern once in the map code, for every output, or in the SVG alone,
   and whether a colour's opacity is read and drawn as its layer's, is "Overlapping patterns, and a colour's layer"
   above, which ends with the choice put to @Pauli.
