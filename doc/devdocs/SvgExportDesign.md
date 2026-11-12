@@ -805,24 +805,26 @@ compressed; for the scan 15 times smaller, as the bitmap holds the page at 600 d
 JPEG. The converters write 1.5 to 7 times the vectors' bytes for the vector maps, and Cairo 1.86 GB for the A2 map,
 with a clip path of its own, 184,589 in all, around each drawing. The application's own export writes the bitmap into
 each file, as each file draws the map once: Lincoln Park PDF's 5 files are 9.25 MB each, 46.2 MB in all, that of a
-course whose print area is 75 × 46 mm of the letter page as large as the others, and Tengle's 3 files 95.5 MB each.
+course whose print area is 75 × 46 mm of the letter page as large as the others; UWLetter's 6 are 16.4 MB each, PDF
+rescale test's 3 are 31.0 MB each, and Tengle's 3 are 95.5 MB each, 287 MB in all.
 
-**Time.** Seconds to write the map's part, on this machine:
+**Time.** Seconds to write the map's part, on this machine of two cores:
 
 | Map | Bitmap, today | Vectors, PdfPig | Cairo | MuPDF |
 | --- | --- | --- | --- | --- |
-| St Pauls, OCAD 10.5 | 2.9 s, and 2.0 s converting when the map is loaded | 1.3 s | 0.4 s | 0.15 s |
-| St. Edward, OCAD 9 | 2.3 s, and 1.6 s converting when the map is loaded | 1.1 s | 0.6 s | 0.21 s |
-| UWLetter, Mapper, RGB | 3.2 s, and 2.7 s converting when the map is loaded | 1.8 s | 0.6 s | 0.19 s |
-| tengesdalslia, a scan | 23.5 s, and 15.7 s converting when the map is loaded | 1.5 s | 2.4 s | 0.05 s |
-| Lincoln-CMYK, Purple Pen | 2.5 s, and 2.1 s converting when the map is loaded | 2.6 s | 2.0 s | 0.39 s |
-| Lincoln-RGB, Purple Pen, RGB | 2.6 s, and 2.1 s converting when the map is loaded | 2.7 s | 1.9 s | 0.38 s |
-| CleElumRidge, Purple Pen, A2 | 12.4 s, and 9.4 s converting when the map is loaded | 6.3 s | 52.3 s | 1.23 s |
-| Potholes, PrimoPDF | 2.8 s, and 2.1 s converting when the map is loaded | 1.1 s | 0.5 s | 0.10 s |
+| St Pauls, OCAD 10.5 | 2.5 s, and 1.7 s converting when the map is loaded | 0.9 s | 0.3 s | 0.15 s |
+| St. Edward, OCAD 9 | 2.1 s, and 1.6 s converting when the map is loaded | 1.0 s | 0.6 s | 0.20 s |
+| UWLetter, Mapper, RGB | 2.9 s, and 2.6 s converting when the map is loaded | 1.5 s | 0.6 s | 0.17 s |
+| tengesdalslia, a scan | 23.0 s, and 14.8 s converting when the map is loaded | 1.5 s | 2.3 s | 0.04 s |
+| Lincoln-CMYK, Purple Pen | 2.5 s, and 2.0 s converting when the map is loaded | 2.6 s | 1.9 s | 0.42 s |
+| Lincoln-RGB, Purple Pen, RGB | 2.6 s, and 2.4 s converting when the map is loaded | 2.6 s | 1.8 s | 0.37 s |
+| CleElumRidge, Purple Pen, A2 | 9.6 s, and 7.2 s converting when the map is loaded | 5.2 s | 51.3 s | 1.18 s |
+| Potholes, PrimoPDF | 2.7 s, and 2.0 s converting when the map is loaded | 1.1 s | 0.4 s | 0.08 s |
 
 The bitmap's conversion happens when the map is loaded, and its result is cached; the export then writes the bitmap anew
-into each file: Lincoln Park PDF's 5 files take 12.5 s, Tengle's 3 take 68 s. The vector way reads and draws the page
-for each file, 1 to 6 s, as the export now draws an OCAD map for each.
+into each file: Lincoln Park PDF's 5 files take 12.7 s, UWLetter's 6 take 19.4 s, PDF rescale test's 3 take 29.2 s
+and Tengle's 3 take 69 s. The vector way reads and draws the page for each file, 1 to 5 s, as the export now draws an
+OCAD map for each.
 
 **Determinism (F-2, P-6).** Every way wrote the same bytes twice, and the converters the same bytes in another locale,
 time zone and folder. The vector way kept its bytes in another locale and time zone, and its paths with the JIT without
@@ -848,15 +850,14 @@ tolerance, in Chromium, Firefox and WebKit:
 | tengesdalslia, a scan | 0 / 0 / 48 | <0.01 / 0 / 0 | <0.01 / 0 / 0 | <0.01 / 0 / 0 | <0.01 / 0 / 0 | 4.5 / 6.2 / 3.5 | <0.01 / 0 / 0 |
 | Lincoln-CMYK, Purple Pen | 0 / 0 / <0.01 | 1.9 / 1.9 / 1.9 | 1.9 / 1.9 / 1.9 | 0 / 0 / 0 | 15 / 15 / 15 | 14 / 14 / 14 | 15 / 15 / 15 |
 | Lincoln-RGB, Purple Pen, RGB | 0 / 0 / <0.01 | 19 / 19 / 19 | 19 / 19 / 19 | 20 / 20 / 20 | <0.01 / <0.01 / 0 | 0 / <0.01 / 0 | <0.01 / <0.01 / <0.01 |
-| CleElumRidge, Purple Pen, A2 | – / 0.07 / 0.13 | 0.37 / 0.38 / 0.38 | 0.37 / 0.38 / 0.38 | 0.09 / 0.09 / 0.09 | 3.9 / 3.9 / 3.9 | – / – / – | 3.9 / 3.9 / 3.9 |
+| CleElumRidge, Purple Pen, A2 | 0.14 / 0.07 / 0.13 | 0.37 / 0.38 / 0.38 | 0.37 / 0.38 / 0.38 | 0.09 / 0.09 / 0.09 | 3.9 / 3.9 / 3.9 | – / – / – | 3.9 / 3.9 / 3.9 |
 | Potholes, PrimoPDF | 0 / 0 / <0.01 | 0.07 / 0.07 / 0.07 | 0.07 / 0.07 / 0.75 | 0.01 / 0.01 / 0.01 | 38 / 38 / 38 | 34 / 34 / 34 | 38 / 38 / 38 |
 
-Percent of the pixels, in Chromium / Firefox / WebKit; a dash where nothing was rendered: Chromium's headless
-shell crashes on the A2 map's bitmap, and Cairo's 1.86 GB document was left out.
+Percent of the pixels, in Chromium / Firefox / WebKit; Cairo's 1.86 GB document was left out.
 
 - **The bitmap** matches in Chromium and Firefox, as it is the application's own drawing. WebKit scales a bitmap down
   without smoothing, as for every bitmap (see "Firefox and WebKit"), which fails half the scan's photograph. Chromium's
-  headless shell crashes on the A2 map's bitmap of 139 million pixels.
+  headless shell crashed on the A2 map's bitmap of 139 million pixels in two of the three runs that rendered it.
 - **The vectors** differ for two reasons, which the variants tell apart. With each CMYK colour converted as PDFium
   converts it, `--pdfium-colors`, they lie within the tolerance but for at most 0.16 % of the pixels, along fine
   hatching that two rasterizers draw, and Lincoln-CMYK matches entirely in all three browsers: the drawing is the
