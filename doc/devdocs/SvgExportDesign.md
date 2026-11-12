@@ -471,15 +471,11 @@ to 12 bytes. Compression finds the repeats by itself, so S-5 matters for the pla
   brown), and as unset a use whose group carries its style and a definition's shape, as it shows any element whose
   style a group carries.
 
-**Proposal for @Pauli: patterns defined once a file.** Each course part draws its course with symbols of its own, so a
-file of several parts defines the patterns and hatchings of its course once a part: mapexchange1's Course 5 in one file
-defines its two hatchings four times, 1,780 bytes more than once. S-5's way of finding repeats serves patterns as
-well: a pattern whose definition, written without its id, equals one written already takes that one's id, and its
-own is never written. A tile that refers to another definition, a clip, a pattern or an image, would name ids in its
-text, and keeps a definition of its own. Equal patterns of different map symbols would share a definition too, which
-no reader needs told apart, since a pattern carries no symbol's identity; Inkscape would show their areas filled with
-one pattern. (a) Define equal patterns once a file, as above. (b) Keep a definition for each symbol and colour, as
-S-12 asks, and accept the repeats. Recommended: (a), on a branch of its own after phase 6; not built yet.
+**Settled by @Pauli on Nov 12: a pattern for each symbol and colour.** Each course part draws its course with symbols
+of its own, so a file of several parts defines the patterns and hatchings of its course once a part: mapexchange1's
+Course 5 in one file defines its two hatchings four times, 1,780 bytes more than once. The proposal was to define equal
+patterns once a file, found as S-5 finds repeated glyphs, so that equal patterns of different symbols would share a
+definition too. @Pauli kept a definition for each symbol and colour, as S-12 asks, and the repeats with it.
 
 ## Compressed files (S-10)
 
