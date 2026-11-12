@@ -90,7 +90,7 @@ The calls the target fully implements, in the sense of DL-5: `Intensity`, `PushT
 
 ## Tasks
 
-**In flight:** task 2 below, overlapping patterns, its steps 1 and 2, as @Pauli chose it to follow task 1: one agent at effort max from 22:23 Nov 12, paced (see Decisions, "Pacing"), with its notes and scripts on `docs/svg-hatching-overlap`, rooted at this branch, which it merges back. It stops with the choice for @Pauli, and is resumed with his choice for step 3. The archiving task runs.
+**In flight:** task 3 below, upstream into the fork, as @Pauli chose it to follow task 2's steps 1 and 2: one agent at effort max from 00:38 Nov 13, paced (see Decisions, "Pacing"), on branches of its own suffixed `-nov13`. It stops for @Pauli where upstream's fix and ours differ. Task 2's choice waits on @Pauli. The archiving task runs.
 
 **Next**, in order. Each task starts on @Pauli's word, with an agent of its own (see "Agents"), and ends with its commits on `feature/svg-target` or this branch, its loop green where it changes the target, and the gallery and this file brought up to date.
 
