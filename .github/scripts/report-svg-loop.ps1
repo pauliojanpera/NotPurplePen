@@ -253,7 +253,7 @@ $notRun = @($tests | Where-Object { $_.Outcome -ne 'Passed' -and $_.Outcome -ne 
 
 # The pending cases, each with the calls it still needs, as the tests saved
 # them: a call to a line, followed, after a tab, by why the target will never
-# honor it, when it never will, such as a bitmap drawn lighter (B-6). A case
+# honor it, when it never will, such as a line of zero width (D-5). A case
 # that needs nothing else will never be compared.
 $pendingDirectory = Join-Path $results 'pending'
 $pending = @(if (Test-Path $pendingDirectory) {
