@@ -105,7 +105,7 @@ for relative in "$@"; do
         bytes=$(stat -c %s "$folder/$way.svg")
         if [ "$bytes" -gt $largest ]; then
             # A converter's document of this size was compressed once already, by converters.sh.
-            gzip_bytes=$(grep -F "\"svg\": \"$folder/converters/" "$out/measurements.jsonl" | grep -F ".$way.svg\"" | python3 -I -c 'import json,sys; print(json.loads(sys.stdin.readline())["gzip_bytes"])')
+            gzip_bytes=$(grep -F "\"svg\": \"$folder/converters/" "$out/measurements.jsonl" | grep -F ".$way.svg\"" | python3 -I -c 'import json,sys; print(json.loads(sys.stdin.read().splitlines()[0])["gzip_bytes"])')
             rm -f "$folder/$way.svg"
         else
             gzip_bytes=$(gzip -9 -c "$folder/$way.svg" | wc -c)

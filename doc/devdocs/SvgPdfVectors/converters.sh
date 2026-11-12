@@ -14,8 +14,8 @@ set -euo pipefail
 out=$1; shift
 mkdir -p "$out"
 out=$(cd "$out" && pwd)
-cairo_version=$(pdftocairo -v 2>&1 | head -1 | awk '{print $3}')
-mupdf_version=$(mutool -v 2>&1 | head -1 | awk '{print $3}')
+cairo_version=$(pdftocairo -v 2>&1 | awk 'NR == 1 {print $3}')
+mupdf_version=$(mutool -v 2>&1 | awk 'NR == 1 {print $3}')
 
 # Run one converter on one PDF into a file.
 # $1: converter, $2: pdf, $3: output svg

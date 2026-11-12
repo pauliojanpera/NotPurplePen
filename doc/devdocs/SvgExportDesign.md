@@ -660,7 +660,8 @@ Written on Nov 12 from `feature/svg-target` at 267efc8, for the task of the hand
 Tasks, Nov 12). The requirements leave copying a PDF base map as vectors out of scope; this section finds out whether
 the SVG could carry the page's vectors instead of the bitmap it carries now, and at what cost, and ends with the
 choice put to @Pauli. Nothing of it is built. The probes are in [`SvgPdfVectors/`](SvgPdfVectors/README.md), whose
-`run-all.sh` repeats every figure below on Linux.
+`run-all.sh` repeats every figure below on Linux; they reference the application's projects unchanged, and drew each
+map whole, as the part of a page that a course is drawn over alike in every way.
 
 ### How the application handles a PDF map today
 
@@ -739,9 +740,11 @@ MuPDF finds 56 of its streams cut short, as pdf.js finds them empty. A reader of
 | PdfPig 0.1.16 | Reader | Apache-2.0 | Yes, with its notice | Yes: managed code alone, .NET Standard 2.0 and .NET 8 | Only within a .NET application compiled to WebAssembly; the TypeScript port would translate it |
 | pdf.js 6.5 (`pdfjs-dist`) | Reader, for the TypeScript port | Apache-2.0 | The .NET application has no use for it | Node | Yes: it is Firefox's PDF viewer |
 
-Each was run on the test maps: the two converters as programs (`converters.sh`), PDFium's page-object API through
-PDFiumCore (`probe pdfium-objects`), PdfPig through a reader written for the probe, which draws into the SVG target
-(`probe vector-svg`, described in the README), and pdf.js through its operator list (`pdfjs-ops.mjs`).
+Purple Pen is under a BSD licence, and the fork offers its changes under the same terms, given up in favour of Peter
+Golde, so what the fork can ship is what Purple Pen can. Each was run on the test maps: the two converters as programs
+(`converters.sh`), PDFium's page-object API through PDFiumCore (`probe pdfium-objects`), PdfPig through a reader written
+for the probe, which draws into the SVG target (`probe vector-svg`, described in the README), and pdf.js through its
+operator list (`pdfjs-ops.mjs`).
 
 - **The converters** write every colour as sRGB, each converted its own way: MuPDF's DeviceCMYK by PDF's own formula,
   red 1 − min(1, C + K) and so on (ISO 32000-1, 10.3.5), which turns the green of (70 %, 0, 100 %, 10 %) into (51,
@@ -773,7 +776,7 @@ PDFiumCore (`probe pdfium-objects`), PdfPig through a reader written for the pro
 | RGB colours, as OpenOrienteering Mapper and Purple Pen's RGB export write them | As pixels | Yes, as sRGB | Yes, in 8 bits | Only as CMYK that `CmykColor.FromRgb` invents, which COL-1 writes and the CMYK model converts back otherwise; kept only by a paint for RGB colours in `Graphics2D` | Yes, as sRGB |
 | Spot colours | No | No | No | The name and alternate are read; the target has nowhere to write the name (none of the test maps has one) | No |
 | Overprinting (COL-7) | No: PDFium's bitmap does not show it | No | No | Yes: read, and drawn with darken blending (D-8) if chosen | No: dropped |
-| Opacity and blend modes | As pixels | As SVG opacity and blending | Opacity alone | A constant opacity as the colour's alpha (COL-5); darken alone among the blend modes (D-8); soft masks and a group's own opacity not drawn (none in the test maps) | Yes |
+| Opacity and blend modes | As pixels | Not measured: none of the test maps has them | Opacity alone | A constant opacity as the colour's alpha (COL-5); darken alone among the blend modes (D-8); soft masks and a group's own opacity not drawn (none in the test maps) | Yes |
 | Clipping | As pixels | Yes | Yes | Yes, as clip paths (D-2) | Yes |
 | Tiling patterns | As pixels | Yes | As bitmaps alone | Yes, as pattern brushes (D-7), one for each distinct cell: 6 for St Pauls's 56 fills | Yes |
 | Text (T-6, T-7) | As pixels | Outlines | Outlines, or the font programs | Outlines, as filled paths; the font programs are readable, but embedding them needs a converter to web fonts and a way past C-3 | Fonts converted to OpenType, which a browser takes |
@@ -785,7 +788,16 @@ PDFiumCore (`probe pdfium-objects`), PdfPig through a reader written for the pro
 **Size.** Each way's map part, the whole page, plain and gzip -9 compressed; the bitmap's is what the export writes
 today:
 
-SIZE_TABLE
+| Map | Bitmap, today | Vectors, PdfPig | Cairo | MuPDF |
+| --- | --- | --- | --- | --- |
+| St Pauls, OCAD 10.5 | 9.09 MB, 6.81 MB | 1.46 MB, 0.27 MB | 6.97 MB, 1.12 MB | 6.91 MB, 1.33 MB |
+| St. Edward, OCAD 9 | 8.66 MB, 6.48 MB | 1.79 MB, 0.35 MB | 11.3 MB, 1.80 MB | 9.20 MB, 1.65 MB |
+| UWLetter, Mapper, RGB | 16.4 MB, 12.3 MB | 3.25 MB, 0.57 MB | 14.8 MB, 1.96 MB | 7.29 MB, 1.78 MB |
+| tengesdalslia, a scan | 95.5 MB, 72.2 MB | 6.49 MB, 4.78 MB | 4.84 MB, 3.62 MB | 4.92 MB, 3.70 MB |
+| Lincoln-CMYK, Purple Pen | 9.24 MB, 6.88 MB | 8.32 MB, 0.59 MB | 56.6 MB, 3.33 MB | 20.5 MB, 2.89 MB |
+| Lincoln-RGB, Purple Pen, RGB | 9.05 MB, 6.74 MB | 8.33 MB, 0.59 MB | 55.9 MB, 3.31 MB | 20.5 MB, 2.89 MB |
+| CleElumRidge, Purple Pen, A2 | 31.0 MB, 22.8 MB | 25.8 MB, 1.93 MB | 1855.6 MB, 342.2 MB | 59.6 MB, 8.03 MB |
+| Potholes, PrimoPDF | 13.1 MB, 9.83 MB | 2.65 MB, 0.53 MB | 13.0 MB, 1.35 MB | 3.85 MB, 0.93 MB |
 
 For the maps OCAD, OpenOrienteering Mapper and PrimoPDF wrote, the vectors are 5 to 6 times smaller than the bitmap
 plain and 18 to 25 times compressed; for Purple Pen's own dense exports about as large plain and 12 times smaller
@@ -797,7 +809,16 @@ course whose print area is 75 × 46 mm of the letter page as large as the others
 
 **Time.** Seconds to write the map's part, on this machine:
 
-TIME_TABLE
+| Map | Bitmap, today | Vectors, PdfPig | Cairo | MuPDF |
+| --- | --- | --- | --- | --- |
+| St Pauls, OCAD 10.5 | 2.9 s, and 2.0 s converting when the map is loaded | 1.3 s | 0.4 s | 0.15 s |
+| St. Edward, OCAD 9 | 2.3 s, and 1.6 s converting when the map is loaded | 1.1 s | 0.6 s | 0.21 s |
+| UWLetter, Mapper, RGB | 3.2 s, and 2.7 s converting when the map is loaded | 1.8 s | 0.6 s | 0.19 s |
+| tengesdalslia, a scan | 23.5 s, and 15.7 s converting when the map is loaded | 1.5 s | 2.4 s | 0.05 s |
+| Lincoln-CMYK, Purple Pen | 2.5 s, and 2.1 s converting when the map is loaded | 2.6 s | 2.0 s | 0.39 s |
+| Lincoln-RGB, Purple Pen, RGB | 2.6 s, and 2.1 s converting when the map is loaded | 2.7 s | 1.9 s | 0.38 s |
+| CleElumRidge, Purple Pen, A2 | 12.4 s, and 9.4 s converting when the map is loaded | 6.3 s | 52.3 s | 1.23 s |
+| Potholes, PrimoPDF | 2.8 s, and 2.1 s converting when the map is loaded | 1.1 s | 0.5 s | 0.10 s |
 
 The bitmap's conversion happens when the map is loaded, and its result is cached; the export then writes the bitmap anew
 into each file: Lincoln Park PDF's 5 files take 12.5 s, Tengle's 3 take 68 s. The vector way reads and draws the page
@@ -819,7 +840,19 @@ and WebKit, as the tests render, and held to the application's own drawing of th
 (`PixelTolerance.Default`): `MapDisplay` drawing PDFium's bitmap with the Skia target. The share of pixels outside the
 tolerance, in Chromium, Firefox and WebKit:
 
-TOLERANCE_TABLE
+| Map | Bitmap, today | Vectors | Vectors, overprinting darker | Vectors, PDFium's colours | Vectors, RGB model | Cairo | MuPDF |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| St Pauls, OCAD 10.5 | 0 / 0 / 0.15 | 0.25 / 0.25 / 0.27 | 0.26 / 0.26 / 0.75 | 0.15 / 0.15 / 0.16 | 40 / 40 / 40 | 34 / 34 / 34 | 40 / 40 / 40 |
+| St. Edward, OCAD 9 | 0 / <0.01 / 0.15 | 0.93 / 0.99 / 0.84 | 0.95 / 0.99 / 1.2 | 0.09 / 0.15 / 0.07 | 22 / 22 / 22 | 15 / 15 / 15 | 22 / 22 / 21 |
+| UWLetter, Mapper, RGB | 0 / 0 / <0.01 | 40 / 40 / 40 | 40 / 40 / 40 | 41 / 41 / 41 | 0 / 0 / 0 | 0 / <0.01 / 0 | 0 / 0 / 0 |
+| tengesdalslia, a scan | 0 / 0 / 48 | <0.01 / 0 / 0 | <0.01 / 0 / 0 | <0.01 / 0 / 0 | <0.01 / 0 / 0 | 4.5 / 6.2 / 3.5 | <0.01 / 0 / 0 |
+| Lincoln-CMYK, Purple Pen | 0 / 0 / <0.01 | 1.9 / 1.9 / 1.9 | 1.9 / 1.9 / 1.9 | 0 / 0 / 0 | 15 / 15 / 15 | 14 / 14 / 14 | 15 / 15 / 15 |
+| Lincoln-RGB, Purple Pen, RGB | 0 / 0 / <0.01 | 19 / 19 / 19 | 19 / 19 / 19 | 20 / 20 / 20 | <0.01 / <0.01 / 0 | 0 / <0.01 / 0 | <0.01 / <0.01 / <0.01 |
+| CleElumRidge, Purple Pen, A2 | – / 0.07 / 0.13 | 0.37 / 0.38 / 0.38 | 0.37 / 0.38 / 0.38 | 0.09 / 0.09 / 0.09 | 3.9 / 3.9 / 3.9 | – / – / – | 3.9 / 3.9 / 3.9 |
+| Potholes, PrimoPDF | 0 / 0 / <0.01 | 0.07 / 0.07 / 0.07 | 0.07 / 0.07 / 0.75 | 0.01 / 0.01 / 0.01 | 38 / 38 / 38 | 34 / 34 / 34 | 38 / 38 / 38 |
+
+Percent of the pixels, in Chromium / Firefox / WebKit; a dash where nothing was rendered: Chromium's headless
+shell crashes on the A2 map's bitmap, and Cairo's 1.86 GB document was left out.
 
 - **The bitmap** matches in Chromium and Firefox, as it is the application's own drawing. WebKit scales a bitmap down
   without smoothing, as for every bitmap (see "Firefox and WebKit"), which fails half the scan's photograph. Chromium's
