@@ -1,5 +1,6 @@
 """Evaluate edge rules on the collected measurements: real renderings must all pass, and each rule's catches of the
-planted errors are compared with the current rule's.
+planted errors are compared with the current rule's. A case that draws text, which collect.py marks, is held to twice
+a rule's cap, as PixelTolerance.Text holds text to 80 levels where PixelTolerance.Default holds the rest to 40.
 
 Usage: python3 -I evaluate.py <collected folder>
 """
@@ -27,19 +28,21 @@ def fails(case, variant, rule):
     difference = case[variant + "_difference"]
     if difference.size == 0:
         return False
-    return bool(rule(difference, case[variant + "_contrast9"], case[variant + "_contrast5"]).any())
+    text = bool(int(case["text"])) if "text" in case else False
+    return bool(rule(difference, case[variant + "_contrast9"], case[variant + "_contrast5"], text).any())
 
 
-def current(difference, contrast9, contrast5):
-    return (difference > 40).any(axis=1)
+def current(difference, contrast9, contrast5, text):
+    # The rule the tests hold: within 40 levels, 80 in a drawing that draws text, and 0.4 of the contrast.
+    return relative(0.4, 0, 40, 9)(difference, contrast9, contrast5, text)
 
 
 def relative(share, floor, cap, which):
-    def rule(difference, contrast9, contrast5):
+    def rule(difference, contrast9, contrast5, text):
         # As ImageComparison measures it: the widest range a channel takes around the pixel, held against every
         # channel's difference.
         contrast = (contrast9 if which == 9 else contrast5).max(axis=1, keepdims=True)
-        threshold = np.maximum(floor, np.minimum(cap, share * contrast))
+        threshold = np.maximum(floor, np.minimum(2 * cap if text else cap, share * contrast))
         return (difference > threshold).any(axis=1)
     return rule
 

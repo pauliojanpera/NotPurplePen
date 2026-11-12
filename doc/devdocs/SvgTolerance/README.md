@@ -24,7 +24,10 @@ matches them only when `FONTCONFIG_FILE` names a fontconfig file that offers the
   be run as several workers. The scripts that judge a rule take the contrast as `ImageComparison` does: the widest
   range a channel takes within the blur's reach, in either image, which every channel's difference is held to.
 - `evaluate.py <collected>` compares edge rules on those measurements: every real rendering must pass, and each
-  rule's catches of the planted errors are set against the current rule's.
+  rule's catches of the planted errors are set against the current rule's, the one `ImageComparison` holds. A case
+  draws text when the data's `text-positions/` holds `<case>.tsv`, as the loop's results hold it for each case that
+  draws text, and `collect.py` marks it so; the rules then hold it to twice their cap, 80 levels where the rest are
+  held to 40, as `PixelTolerance.Text` does. Before Nov 12 the scripts could not tell, and held text to 40.
 - `sweep.py <collected>` sweeps rules of share, cap and floor, and lists for each that passes the real renderings
   what it catches and which removals it passes; `shares.py <collected>` sets each case's planted errors beside its
   real rendering, by their largest share of the contrast at an edge and the levels there.
@@ -58,3 +61,17 @@ feature removed and 62 of the 81 with their ink six levels redder. Every rule of
 15 of those removals, whose blurred differences are no larger than real ones; the other two fail only under a share
 of 0.38 (Text), a hundredth above teanwest's real 0.37, or below 0.34 with a floor of 18 levels or more (combospace),
 no margin at all over lksamm3 and its kin, whose real renderings reach 0.35 of the contrast at 18 levels.
+
+The browser check (V-6) holds Firefox's and WebKit's images to Chromium's by the same rule. Data for it: a folder per
+browser with Chromium's images as `references/`, the browser's as `renderings/`, and `text-positions/` marking the
+documents that draw text, from the images a run of the tests keeps under `browsers/` in its directory of renderings.
+Over the 205 documents of the check at 267efc8, the 195 cases, six pages and four pages through their views, the rule
+fails no real rendering but the documents set apart for the browser, three in Firefox and twelve in WebKit, and fails
+all 205 shifted by two pixels and all 205 with features two pixels wider, 178 (Firefox) and 180 (WebKit) of the 194
+with a solid feature removed, and 165 of the 204 with ink to recolor six levels redder. Over the comparison's own 193
+drawn cases of the same run, Chromium's images against the references, it fails no real rendering now that the text
+cases are held to 80, and catches about as many in proportion: all 193 shifted and wider, 164 of the 182 removals
+(103 of 104 without text, 61 of 78 with it) and 161 of the 192 recolorings (101 of 113 and 60 of 79). A share of the
+contrast between 0.38 and 0.45 catches the same errors in the browsers' images; at 0.36 two real Firefox renderings
+fail (LordHill and LordHill11), and at 0.5 the faint drawings shifted pass. So the browsers are held to F-1's rule as
+it stands.

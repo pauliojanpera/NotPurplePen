@@ -3,6 +3,8 @@ the pixels outside the band with no edge within reach (which fail under every ru
 band with an edge within reach, the blurred difference and the contrast around it, per channel.
 
 Usage: python3 -I collect.py <data folder> <out folder> [worker index] [worker count]
+A case draws text when the data folder's text-positions/ holds <case>.tsv, as the loop's results hold it for each case
+that draws text; its .npz then holds text = 1, else 0, so that a rule can hold it to the text tolerance.
 Writes <out folder>/<case>.npz holding, for each variant (real, shift2, removed, redder, wider), the arrays
 <variant>_inside (count), <variant>_difference (N x 3), <variant>_signed (N x 3), <variant>_contrast9 (N x 3) and
 <variant>_contrast5 (N x 3). The signed difference is the reference's blurred image less the rendering's: above zero
@@ -75,12 +77,15 @@ def main():
     worker, workers = (int(sys.argv[3]), int(sys.argv[4])) if len(sys.argv) > 4 else (0, 1)
     os.makedirs(out, exist_ok=True)
     names = sorted(name[:-4] for name in os.listdir(os.path.join(data, "references")))
+    positions = os.path.join(data, "text-positions")
+    text_cases = {name[:-4] for name in os.listdir(positions) if name.endswith(".tsv") and not name.endswith(".clusters.tsv")} \
+        if os.path.isdir(positions) else set()
     for index, name in enumerate(names):
         if index % workers != worker or os.path.exists(os.path.join(out, name + ".npz")):
             continue
         e = load(os.path.join(data, "references", name + ".png"))
         r = load(os.path.join(data, "renderings", name + ".png"))
-        arrays = {}
+        arrays = {"text": np.array(int(name in text_cases))}
         variants = {"real": r}
         variants.update(plant_errors(e, r))
         for label, image in variants.items():
