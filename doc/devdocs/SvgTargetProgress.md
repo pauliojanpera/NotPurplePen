@@ -90,7 +90,7 @@ The calls the target fully implements, in the sense of DL-5: `Intensity`, `PushT
 
 ## Tasks
 
-**In flight:** nothing; the archiving task runs (since 16:22, Nov 12).
+**In flight:** task 1 below, a PDF base map as vectors, on @Pauli's word ("now continue with the plan as planned"): one agent at effort max from 18:47 Nov 12, paced (see Decisions, "Pacing"), on `docs/svg-pdf-vectors`, rooted at this branch, which it merges back with its design note and probe scripts. The archiving task runs.
 
 **Next**, in order. Each task starts on @Pauli's word, with an agent of its own (see "Agents"), and ends with its commits on `feature/svg-target` or this branch, its loop green where it changes the target, and the gallery and this file brought up to date.
 
