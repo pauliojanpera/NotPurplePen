@@ -926,8 +926,334 @@ for now, and vectors as the default. The reasons:
 outside any run for now, and vectors by default. @Pauli also ruled that the TypeScript port need not support PDF
 base maps, so the cost to phase 8 falls away.
 
+## Overlapping patterns, and a colour's layer
+
+Written on Nov 12 and 13 from `feature/svg-target` at 267efc8 and upstream's 98c168b, for task 2 of the handover's plan
+(`SvgTargetProgress.md`, Tasks), its steps 1 and 2. Where areas of one symbol overlap, their pattern is drawn once for
+each area, and every renderer that smooths edges blends each copy's partial pixels on its own, so the overlap looks
+thicker and darker; @Pauli judged that undesirable in any context (see the handover's Decisions, "Overlapping patterns"
+and "A colour is a layer"). This section finds out whether the map code can draw a pattern once for all the areas that
+share its frame in a colour's run, for every output, what a colour's transparency applied to its layer would take, and
+how the SVG would carry it, and ends with the choice put to @Pauli. The prototype is on `proto/overlapping-patterns`
+(dbaa918), rooted at upstream's 98c168b; the scripts that repeat every figure below are in
+[`SvgHatchingOverlap/`](SvgHatchingOverlap/README.md), beside @Pauli's case.
+
+### What draws the thickening
+
+- **Each area hatches itself.** `Map.DrawColor` draws a colour's run symbol by symbol, in the order the map holds its
+  symbols, and each symbol's objects in their order, so all the objects of a symbol drawn in a colour follow one
+  another: a run never draws another symbol's object between two of them. `AreaSymDef.Draw` fills the area, then clips
+  to the area and draws each hatching line by line (`DrawOneHatching`), then each pattern, with a pattern brush
+  (`DrawPatternWithTexBrush`) or element by element (`DrawPattern`), then the border. Two areas that overlap therefore
+  draw the same lines, or the same elements, twice where they overlap: an unturned area lays its pattern out from the
+  map's origin, so the copies coincide.
+- **The renderers.** A line narrower than a pixel, or the edge of a wider one, covers its pixels partly, and a renderer
+  that smooths edges blends each copy's coverage on its own: a pixel a line covers by 57 % ends up 81 % covered by two.
+  Where every pixel is either covered or not, as when a printer rasterizes without smoothing, the second copy changes
+  nothing.
+- **Measured.** In Chromium, Firefox and WebKit, two overlapping areas hatched under a clip each, as the export draws
+  them, draw 8,868, 8,552 and 8,869 pixels of their overlap darker than the same hatching drawn once, by up to 64 levels
+  (`browser-union.mjs`, below); Inkscape 1.2.2, 6,676. The application's own drawing (Skia, anti-aliased, as the PNG
+  export and the screen draw) of `suo2.ocd`'s overlaps puts more ink into them than one hatching does, by an amount that
+  falls as the resolution rises, since the doubled pixels are the lines' edges (`harness render`, `overlap-ink.py`):
+
+| Resolution at the print scale | 100 dpi | 150 dpi | 200 dpi | 300 dpi | 600 dpi | 720 dpi | 1200 dpi |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Ink in the overlaps, against one hatching | +60 % | +39 % | +27 % | +18 % | +9.4 % | +7.7 % | +5.0 % |
+
+Printing on Windows rasterizes each page with the Skia target, anti-aliased, at up to 720 dots per inch
+(`WindowsPrinter.MaxRasterDpi`), where the overlaps carry 7.7 % more ink; printing on Linux and macOS hands a PDF made
+by the PDF target to the system, whose rasterizer decides.
+- **Area 1 of `suo.ocd`** turns its hatching by 179.9° about the map's origin, so its lines are not the others' and do
+  not double with them: an area laid out in another frame keeps its own grid, as the map defines it.
+- **Where two areas only touch.** The Skia target clips without smoothing (`SKCanvas.ClipPath` without anti-aliasing),
+  and so does GDI+, so each pixel along the edge two areas share lies in one of them, and nothing doubles or fades
+  there. A PDF viewer or a browser smooths each clip's edge, and two clips whose edges coincide leave a pixel along them
+  covered by both partly: a faint lighter seam where lines cross the shared edge, which the export and PDF export have
+  today.
+
+### Drawing a pattern once in the map code
+
+The prototype changes upstream's map code and every target the solution builds but the browser canvas, which nothing
+ships, so that the screen, printing, the PNG and PDF exports and the SVG draw an overlap once
+(`proto/overlapping-patterns`).
+
+- **Which areas.** For an area symbol that draws hatchings, or regular patterns clipped to the area, in the colour of
+  the run (`AreaLikeSymDef.HasPatternsDrawnOnce`), `Map.DrawColor` first finds the groups among the objects it is about
+  to draw (`OverlappingAreas`): objects that lay their patterns out in the same frame, the same angle and rotation
+  center, and whose bounding boxes overlap or touch, joined by a sweep from left to right. An object in no group, which
+  overlaps no other of its symbol and frame, is drawn as before, call for call, so a map without such overlaps draws
+  exactly as before.
+- **How a group draws.** Each object of a group draws its fill, its border, and its irregular patterns and those not in
+  clip mode, as before (`RenderOptions.patternsDrawnOnce` leaves the rest out). After the group's last object,
+  `AreaSymDef.DrawPatternsOnce` clips to the union of the objects' outlines and draws each hatching and regular clipped
+  pattern once, over the union of their bounding boxes: line by line, element by element or with a pattern brush, as
+  each area would have drawn it. Within the colour's run this moves the patterns of a group past the fills and borders
+  of its later objects that are drawn in the run's colour, which changes nothing that shows (M-1).
+- **What stays as it is.** Patterns not in clip mode pick their elements by the area they lie in, so a union would pick
+  otherwise along the edges between areas; and irregular patterns are left as the task's plan leaves them. Irregular
+  patterns in clip mode place each element by its position in the lattice (`HandleIrregularity` seeds by it), so
+  overlapping areas draw the same elements and double alike; they could be drawn once too. Shapes of one colour other
+  than patterns, and the patterns of different symbols, are drawn as before.
+- **A clip to a union.** `IGraphicsTarget` gains `PushClipToUnion(object[] pathKeys)`: clip to the union of paths made
+  with `CreatePath`, each under its own fill rule, so that what is drawn within it is drawn once where they overlap. An
+  area's path fills by the even-odd rule with its holes, so no single path under one rule is the union of several, and
+  the map code has no geometry to unite them itself; each target does it as its own graphics can:
+
+| Target | Output | How the prototype unites the paths |
+| --- | --- | --- |
+| Skia | the screen, the PNG export, printing on Windows | The union of the regions each path would clip to, in device pixels (`SKRegion`), which is the union of the target's own clips, as they are not smoothed: for each of the 1,187 areas of printarea2 and the areas of the case, the region clips to the very pixels the path does (`harness clips`). With Skia's path operations instead, smoothed as the target draws, the screen draws two to three and a half times slower (below) |
+| PDF (PdfSharp) | PDF export, printing on Linux and macOS | Skia's path operations (`SKPath.OpBuilder`; `Map_PDF` references `Map_SkiaStd` already), keeping curves, written as one clip path, whose outline has no edge where areas only touch: a viewer draws the overlap once, and leaves no seam there |
+| GDI+ | the WinForms application, not shipped | `Region.Union`; its clips are not smoothed |
+| WPF | not shipped | The geometries combined by union into one path geometry (`Geometry.Combine`); a `CombinedGeometry` draws alike |
+| Browser canvas (`HtmlGraphicsTarget`) | not shipped | Not done: a canvas clips to one path under one rule. It would need path operations of its own, or a mask |
+| `RecordingGraphicsTarget` | print preview, the tests' recordings | Records the call and plays it back |
+| SVG | the export | A clip path with a child for each path, which SVG unites: the ghosts, below |
+| Direct2D, iOS | not built by the solution | Not done |
+
+- **Drawn so.** `suo.ocd` and `suo2.ocd` drawn by the Skia target lose their darker bands (`harness render`); of
+  `teanaway.omap` at 4 pixels a millimetre, 9,361 pixels change, most of them where the dots of an open-land pattern
+  drew darker blobs where its areas overlap.
+- **The Windows suite.** Every group builds and runs (Tests run 43311151133 of
+  `experiment/overlapping-patterns-record-all`: `base` with the prototype at ad52f18 merged in, which differs from
+  dbaa918 in a comment and in the WPF target's union, below, and a commit of its own on which a failed bitmap comparison
+  writes a line and goes on); one test of the PurplePen group failed only because it went on past its comparison and
+  found a file still open.
+
+### Which baselines move
+
+The run left the rendering of every comparison that failed; `moved-baselines.py` measures each against `base`'s
+baseline. The same run of `base` alone (Tests run 43315493575 of `experiment/overlapping-patterns-base-record-all`)
+failed no comparison in any group, so every image below is the prototype's. 84 images move, in every group that draws
+maps:
+
+| Group | Images | Pixels more than 32 levels off, per image | The images |
+| --- | --- | --- | --- |
+| Skia | 8 | 1 to 2,080 | LordHill and LordHill OCAD11, clouds and clouds11, lksamm3, marymoor11_lowerlayers, teanwest and teanwest11 |
+| PDF | 11 | 0 to 7,561 | LordHill, PenistoneHill, clouds and clouds11, lksamm3, lksamm9_3, marymoor and marymoor11, missingcolor, teanwest and teanwest11 |
+| GDI+ (MapModel) | 8 | 2 to 2,543 | PenistoneHill, clouds and clouds11, lksamm3, teanwest and teanwest11, OpenMapper's massysprint and its round trip |
+| WPF | 2 | 5,053 and 10,862 | lksamm3 and marymoor_underline, whose text moves too (see below) |
+| PurplePen | 55 | 0 to 714, a median of 15 | 18 course printing pages (areas, arial, lordhill in four blends, noblend, test1 to test3), 26 PDF exports (`pdf_create1` to `pdf_create9`, `pdf_area`, `pdf_create_blend`), 11 bitmap exports (`bitmapcreate`) and 2 RouteGadget exports |
+
+The moved pixels lie where areas of a symbol overlap: in teanwest's PDF rendering a darker blob of a dotted pattern is
+gone, as in clouds' Skia rendering. Most images of the PurplePen group move by a few pixels, where small overlaps fall
+on the page. WPF's two images also draw their text otherwise, a pixel to the side, though no area touches it. That is
+the prototype's doing, and not its clip's: the WPF job run again drew the same, `base` alone drew the text as its
+baselines have it, and the WPF target clipping to the union as a `CombinedGeometry`, as a path geometry combined at once
+(`experiment/overlapping-patterns-wpf-record-all`, Tests run 43317169497) or, for the test, to the first area's path
+alone (`experiment/overlapping-patterns-wpf-first-path`, Tests run 43318725301) moved lksamm3's text by the very same
+pixels. So it follows what the map code draws in WPF, such as the elements and lines it now lays over a group's whole
+box, not the clip; why WPF then sets text otherwise is not known. WPF is compiled but not shipped.
+
+Recording them is the fix's work: `SvgDevLoop/record-baselines.py` writes each rendering over its baseline, on the fix
+branch where the baseline is upstream's.
+
+### How fast the screen draws
+
+`teanaway.omap`, the largest test map (18,596 objects over 730 by 371 mm, with 286 groups of 1,353 overlapping areas in
+nine symbols), drawn whole by `Map.Draw` into the Skia target's bitmap, anti-aliased on white, with the options
+`MapDisplay` draws the screen with, on this machine of two cores; the median of five drawings (`harness time`). The
+screen draws area patterns with pattern brushes, and printing on Windows, with the same target, element by element:
+
+| Drawing | Before | Region union | Path operations |
+| --- | --- | --- | --- |
+| Pattern brushes, 2 pixels a mm (1461 × 743) | 716 ms; 670 ms | 741 ms, +3.5 %; 769 ms, +15 % | 2,400 ms; 2,211 ms |
+| Pattern brushes, 4 pixels a mm (2922 × 1486) | 1,549 ms; 1,441 ms | 1,882 ms, +21 %; 1,655 ms, +15 % | 3,461 ms; 3,197 ms |
+| Element by element, 2 pixels a mm | 1,443 ms; 1,329 ms | 2,079 ms, +44 %; 1,771 ms, +33 % | 3,265 ms; 3,099 ms |
+| Element by element, 4 pixels a mm | 2,071 ms; 1,970 ms | 3,182 ms, +54 %; 2,987 ms, +52 % | 4,054 ms; 3,754 ms |
+
+Two runs, the second by `run-all.sh`: the machine is shared, and a drawing's time varies by a tenth from one run to the
+next.
+
+- The groups' bounding boxes cover 1.33 times the area of their members' boxes, as a group joins areas whose boxes only
+  touch, and the prototype draws a group's elements and lines over its whole box; drawing each member's share of the
+  lattice once would bring element-by-element drawing nearer the time before.
+- Skia's path operations unite curves exactly but take two to three and a half times as long as drawing without them;
+  the regions cost little and give the Skia target's own clips exactly.
+
+### A colour's transparency
+
+- **Purple Pen draws every colour of a map opaque.** OCAD's colour string carries a colour's opacity in percent as `t`
+  (OCAD 12 writes `t100` for an opaque colour; `ocad-colour-opacity.py` lists them), and OpenOrienteering Mapper's file
+  an `opacity`; `OcadImport.CreateColors` reads neither ("we don't preserve the spot color information, or the
+  transparency"), `OpenMapperImport` reads its colours' CMYK alone, and `SymColor` makes every colour with
+  `CmykColor.FromCmyk`, whose alpha is 1. Alpha below 1 reaches a target only for the white that dims a bitmap map
+  (`MapDisplay.DrawBitmapMap`, one rectangle), the highlights of the editor, and the bounds it shows; the course's
+  purple blends by darken (D-8), not by alpha. Overlaps within a map's colour cannot darken by transparency today.
+- **The test maps.** Of 700 OCAD and 112 OpenMapper test maps, three colours lie below full opacity: LordHill's Purple
+  (`t80`, in six copies of LordHill.ocd and LordHill OCAD11.ocd, which the Skia, PDF, GDI+ and WPF rendering tests
+  draw), McHugh Creek.omap's Purple 40% (0.5), which `PdfCourseTests` draws through `McHugh 2021.ppen`, and
+  LordHill_ver16_2024Jan_scaled.omap's Red (0.75), which `CreateBitmapTests` draws through `Lord Hill Feb 2024 -
+  Final.ppen`.
+- **OpenOrienteering Mapper** (edd22fc, its `master` of Nov 2, which this step read) takes `t` as the opacity, 0.01 × t,
+  writes it back so, and paints each renderable with the colour's alpha (`MapRenderables::draw`): its objects of one
+  transparent colour darken each other where they overlap, per element, as COL-5 has the SVG do. How OCAD composites a
+  transparent colour could not be checked: OCAD runs on Windows alone, and its documentation was out of reach.
+- **What each target would need** for a colour's opacity applied to its run as a whole, the run drawn opaque within it:
+  a call around the run, such as `PushOpacity(float)` with `PopOpacity()`, beside `PushBlending`. Skia: `SaveLayer` with
+  the alpha, one offscreen layer the size of the clip, with the darken blend on the same layer's paint for an
+  overprinted colour. PDF: the run drawn into a form XObject that is a transparency group, whose `/Group` dictionary
+  names `/Transparency`, painted with the alpha as `ca`; PdfSharp makes form XObjects (`XForm`) and has the group's
+  dictionary (`PdfTransparencyGroupAttributes`), but no public way to attach it or to paint a form at an alpha, so its
+  internals or its content stream would be reached into. GDI+: an offscreen bitmap composited through a colour matrix.
+  WPF: `DrawingContext.PushOpacity`. Browser canvas: an offscreen canvas drawn with `globalAlpha`. SVG: `opacity` on the
+  run's group, an isolated group, as `mix-blend-mode` already makes the run of an overprinted colour (D-8). Reading the
+  opacity in both imports, and writing it in OCAD export, comes first.
+- No prototype of it was made: with every colour opaque, it would change nothing that any test draws until the imports
+  read opacity, and that is the choice below.
+
+### The SVG: ghosts
+
+- **The form.** Each object of a group draws, within its own `BeginObject` and `EndObject`, its outline as a ghost: a
+  path that paints nothing, carries the object's number and an id, and sits in the symbol's group in the object's place.
+  The pattern drawn once follows the group's last object, in the symbol's group, under a clip path whose children are
+  `<use>`s of the ghosts:
+
+```
+<g data-s="7">
+<path id="a3" data-o="12" style="fill:none" d="..."/>
+<path id="a4" data-o="13" style="fill:none" d="..."/>
+<g clip-path="url(#c5)"><path style="fill:url(#p2)" d="..."/></g>
+</g>
+<clipPath id="c5"><use xlink:href="#a3"/><use xlink:href="#a4"/></clipPath>
+```
+
+Each outline is written once, the renderer forms the union, and the binding runs both ways: from each object to its
+outline, and from the pattern to its objects through the clip. A ghost needs a call of `IStructuredGraphicsTarget` of
+its own, such as `DrawOutline(pathKey)`, which a target that keeps no structure never receives, and `PushClipToUnion`
+then refers to the ghosts of the paths it names. A ghost costs its id and a `<use>`, about 30 bytes, and a group its
+clip path and the element of its pattern, about 110 more: `printarea2` has 9 groups of 31 areas and Madrona.11 2 groups
+of 4, about 1.9 KB of printarea2's Course 1 of 953,989 bytes and 340 bytes of Madrona Permanent11's of 338,607. A
+browser tells which ghost a pointer is over only with `pointer-events:visible` on the ghosts, since a ghost paints
+nothing.
+- **The browsers** (`browser-union.mjs`, `compare-union.py`; Playwright 1.63.0's Chromium 153, Firefox 155 and WebKit
+  26.6, started as the tests start them). Each document fills or hatches areas once under a clip of their union, written
+  as one merged path for reference, as a clip path with a child for each area, as one of `<use>`s of the ghosts, or each
+  area under a clip of its own, as the export draws them now. Pixels inside the union, more than 2.5 pixels from its
+  outline, that differ from the merged path's drawing by more than 4 levels:
+
+| Areas | Way | Chromium | Firefox | WebKit |
+| --- | --- | --- | --- | --- |
+| 2 that overlap, hatched | union, or the ghosts' clip | 0 | 0 | 0 |
+| | each under its own clip | 8,868 darker, up to 64 levels | 8,552 darker | 8,869 darker |
+| 2 that touch along a diagonal, filled | union, or the ghosts' clip | 0 | 369 lighter, up to 56 | 419 lighter, up to 52 |
+| | each under its own clip | 324 lighter, up to 55 | 332 lighter | 364 lighter |
+| 42 slices that touch, filled | union, or the ghosts' clip | 0 | 8,208 lighter, up to 64 | 8,209 lighter |
+| 43 slices that touch, filled | union, or the ghosts' clip | 8,408 lighter, up to 63 | 8,409 lighter | 8,406 lighter |
+| | each under its own clip | 8,409 lighter, up to 91 | 8,410 lighter, up to 95 | 8,408 lighter |
+
+Every browser draws an overlap once under a clip of the union. Chromium forms the union exactly, with no seam where
+areas only touch, up to 42 children, and with 43 or more leaves the seams that separate clips leave; Firefox and WebKit
+leave them at any count: they paint the children into a mask, blending their smoothed edges. So no browser draws worse
+than now, and Chromium better where up to 42 areas touch. A group of ghosts draws exactly as the same clip with its
+paths inline, in all three; their invisibility, set on their group as `fill:none`, `visibility:hidden` or `opacity:0`,
+leaves them in the clip, since a `<use>` in the clip path clones a ghost under itself, where nothing of the ghost's
+group reaches it.
+- **Inkscape 1.2.2** draws the union and the ghosts' clip as the merged path, overlaps once, with the seam where areas
+  only touch that separate clips leave too; it lists each ghost as an object with its id and bounds (`--query-all`), and
+  writes the document back with the ghosts, their numbers and the clip's `<use>`s as they were.
+- **Scribus 1.6.1** takes only the first child of a clip path, a path or a `<use>` alike: of two touching areas filled
+  under their union it drew the first alone, 21,945 pixels missing. It makes each ghost an item with no fill and no
+  line. It draws no pattern fill at all (see area patterns), so the pattern fills lose nothing more; but the setting
+  "Draw area patterns as separate shapes", which exists for readers such as Scribus, would lose all but one area's
+  elements of each group if it drew them once under the union.
+- **The structure walk (V-7)** takes a ghost for its object's element: a path in its symbol's group with its number,
+  numbered in the order drawn; the clip path's `<use>`s are definitions, whose references it resolves. The pattern drawn
+  once carries no object number, which the walk reports today; it would accept an element of a symbol's group that
+  carries none when its clip's children are ghosts of that group's objects, or the element could carry their numbers,
+  `data-o="12 13"`, which M-6 would then allow.
+- **The geometry check (V-10)** reads a ghost as an unpainted drawing, which `CallGeometryRecorder` would record from
+  the ghost's call, so that the n-th drawing still meets the n-th call. `SvgGeometryReader.ReadClip` reads a clip path's
+  single `<path>` today; it would read each child, following a `<use>` to its ghost under the use's transform, each
+  under its own rule, and compare them in order with the paths the recorder keeps of `PushClipToUnion`.
+- **The comparison's references** (`AntiAliasedClipsTarget`, Skia with smoothed clips) would unite with path operations,
+  smoothed as Chromium smooths its clips.
+
+### The choice
+
+The choice is @Pauli's; nothing beyond the prototype is built before it.
+
+- **(a) The fix in the map code, for every output.** Upstream's map code draws a pattern once for the overlapping areas
+  of a symbol that share its frame, under a union clip that every target forms, on a `fix/` branch rooted where `base`
+  meets upstream, with the 84 baselines it moves; the SVG draws the union with ghosts on `feature/svg-target`. The
+  screen, the PNG export, printing, PDF export and the SVG all draw an overlap once. The screen draws teanaway 3.5 % to
+  21 % slower, and element-by-element drawing 33 % to 54 % slower until it draws each group's lattice once rather than
+  over the group's box. The browser canvas target, which nothing ships, needs a union of its own; and `IGraphicsTarget`
+  gains a member, which every implementation outside the solution, such as upstream's Direct2D and iOS targets, has to
+  add.
+- **(b) The fix in the SVG alone.** `Map.DrawColor` groups the areas only for a target that asks, as
+  `PatternBrushesAreVectors` asks for pattern fills (S-7), and the SVG target writes the ghosts. Purple Pen's own
+  drawing, its tests and its baselines stay as they are; the PNG export, the screen, printing and PDF export keep the
+  thickening; and the SVG's references, which draw each area, double where the SVG draws once, which F-1 would have to
+  take; that was not measured.
+- **Recommendation: (a).** @Pauli judged the thickening undesirable in any context, and the map code can draw an overlap
+  once in every output the application ships: each target forms the union with what its graphics already have, the Skia
+  target exactly as its own clips, the PDF with path operations it already references. A map without overlaps draws as
+  before, call for call, and the cost on the screen is small. The SVG then draws what its references draw, and PDF
+  export loses the seams where areas only touch.
+
+Within (a) or (b), @Pauli would also settle:
+
+1. **The separate-shapes setting.** Under "Draw area patterns as separate shapes", which serves readers that cannot fill
+   an area with a pattern, Scribus would draw one area of each group: the setting keeps drawing each area's pattern with
+   the area, so that Scribus loses nothing and keeps the thickening (recommended); or it draws once as every other
+   output does.
+2. **Irregular patterns in clip mode**, which place their elements alike in every area: drawn once as the regular ones
+   (recommended, as they double alike), or left with each area, as the plan has them.
+3. **Which areas form a group:** those whose bounding boxes overlap or touch, as built, which also unites areas that
+   only touch, so that PDF and Chromium lose the seam between them; or only areas that overlap, which needs geometry the
+   map code does not have.
+4. **A colour's transparency:** (i) colours stay opaque as Purple Pen reads them, and COL-5 records that a run's group
+   would carry a colour's opacity once one is read (recommended for this task, as there is nothing to fix today); or
+   (ii) the imports read OCAD's `t` and Mapper's `opacity`, and every target draws such a colour's run as one layer at
+   its opacity, which changes how the test maps with transparent colours draw, with a task of its own.
+
+Drafts of the requirements' new wording, for (a) with the recommendations:
+
+- **M-1.** Elements are written in the order of the drawing calls. No optimization moves a draw past another, so the
+  document keeps the map's layering. A colour of the colour table is a layer: what its run draws forms one drawing, laid
+  onto the layers below it as a whole, so the order of the elements within a run changes nothing that shows; the map
+  code draws a pattern once for a symbol's overlapping areas after the last of them (S-12) (@Pauli, Nov 12).
+- **COL-5.** A colour with alpha below 1.0 gets a matching fill or stroke opacity; opaque colours carry no opacity. The
+  colours of a map's colour table are opaque, as Purple Pen reads them; should a colour's opacity be read, its run is
+  drawn opaque and the run's group carries the opacity, so that the colour's elements do not darken one another where
+  they overlap (M-1).
+- **M-6**, a sentence more. Where the map code draws a pattern once for several areas of a symbol (S-12), each area's
+  outline is written once, in its object's place, as a ghost: an element that paints nothing, with the object's number
+  and an id. The pattern is drawn once in the symbol's group, under a clip whose children refer to the ghosts, and
+  carries no number of its own: the clip binds it to its objects.
+- **S-12**, a sentence more. Areas of a symbol whose bounding boxes overlap or touch, and whose patterns share a frame,
+  the same rotation and origin, are filled with each hatching and regular clipped pattern once, after the last of them,
+  under the union of their outlines, which a clip forms from their ghosts (M-6), so that no part of a pattern is drawn
+  twice where they overlap; the setting "Draw area patterns as separate shapes" draws each area's own.
+- **D-2**, a sentence more. `PushClipToUnion` clips to the union of paths: a clip path with a child for each path, under
+  its own rule, which refers to an object's ghost where the path is one.
+
+### How far the prototype is from the fix
+
+It builds, the Windows suite runs on it, and it draws an overlap once in every output the application ships, with the
+baselines above to record. Still to do for (a):
+
+- the browser canvas target's union, and the measurement switches `PURPLEPEN_PATTERNS_ONCE` and `PURPLEPEN_UNION_CLIP`
+  taken out;
+- each group's lattice and lines drawn once rather than over the group's box, for the time of element-by-element
+  drawing;
+- an unturned group filled with a pattern brush is filled under the clip, whose edge the Skia target does not smooth,
+  where each area alone filled its path smoothed: the union filled as a path, or the clip smoothed there, would keep the
+  edge as it was;
+- patterns that never turn grouped across the angles of their areas, which the prototype keeps apart by each area's
+  frame;
+- tests of its own: overlapping and touching areas drawn once in each target, and a map without overlaps drawn call for
+  call as before;
+- the 84 baselines recorded, and WPF's moved text understood, or its two baselines recorded with it;
+- the SVG's side on `feature/svg-target`: the ghosts' call, the target's clip of `<use>`s, the separate-shapes setting,
+  and the structure walk, the geometry check and the comparison's references taught to read them.
+
 ## Open questions
 
 - A PDF map is drawn as the bitmap `MapDisplay` makes of it, where PDF export copies the page as vectors. Whether the
   SVG can carry the page's vectors instead, and at what cost, is "A PDF base map as vectors" above, which ends with
   the choice put to @Pauli.
+- Whether overlapping areas of a symbol draw their pattern once in the map code, for every output, or in the SVG alone,
+  and whether a colour's opacity is read and drawn as its layer's, is "Overlapping patterns, and a colour's layer"
+  above, which ends with the choice put to @Pauli.
