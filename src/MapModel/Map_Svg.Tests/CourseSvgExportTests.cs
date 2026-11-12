@@ -49,7 +49,7 @@ namespace Map_Svg.Tests
             Assert.IsTrue(size.Success, "the page's size");
             Size pixels = new Size((int)Math.Round(4 * double.Parse(size.Groups[1].Value, System.Globalization.CultureInfo.InvariantCulture)),
                                    (int)Math.Round(4 * double.Parse(size.Groups[2].Value, System.Globalization.CultureInfo.InvariantCulture)));
-            using (SKBitmap rendering = await ChromiumRenderer.RenderAsync(svgPath, pixels)) {
+            using (SKBitmap rendering = await BrowserRenderer.RenderAsync(svgPath, pixels)) {
                 LoopResults.SaveImage(Path.Combine("course-export", Path.GetFileNameWithoutExtension(files[0]) + ".png"), rendering);
                 int inked = 0, magenta = 0;
                 for (int y = 0; y < rendering.Height; ++y) {

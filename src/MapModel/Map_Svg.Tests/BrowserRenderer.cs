@@ -9,27 +9,50 @@ using System.Security;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.Playwright;
+using NUnit.Framework;
 using SkiaSharp;
 
 namespace Map_Svg.Tests
 {
-    // Renders SVG files in Chromium, through Playwright: one headless browser for the whole run, started on first
-    // use, and one page for each rendering, at one device pixel to each CSS pixel; and a browser of its own for each
-    // locale a test reads a document in.
-    public static class ChromiumRenderer
+    // The browsers that render SVG files: Chromium, which the rendering comparison renders in (F-1), and Firefox and
+    // WebKit, which the browser check compares with it (F-5, V-6), each the build the Playwright package pins.
+    public enum Browser
+    {
+        Chromium,
+        Firefox,
+        WebKit,
+    }
+
+    // Renders SVG files in the browsers, through Playwright: one headless browser of each kind for the whole run,
+    // started on first use, and one page for each rendering, at one device pixel to each CSS pixel; and a Chromium of
+    // its own for each locale a test reads a document in.
+    public static class BrowserRenderer
     {
         // The Playwright driver that starts the browsers, once started.
         private static readonly Lazy<Task<IPlaywright>> playwright = new Lazy<Task<IPlaywright>>(Playwright.CreateAsync);
 
-        // The browsers, once started, by the locale each runs in: the empty name for the one of no locale of its own.
+        // The fontconfig file that the browsers start with on Linux, once written.
+        private static readonly Lazy<string> sentinelFontConfig = new Lazy<string>(WriteSentinelFontConfig);
+
+        // The browsers, once started, by their kind and the locale each runs in: the empty name for the one of no locale
+        // of its own.
         private static readonly ConcurrentDictionary<string, Lazy<Task<IBrowser>>> browsers =
             new ConcurrentDictionary<string, Lazy<Task<IBrowser>>>(StringComparer.Ordinal);
 
-        // The browser that runs in a locale, started on first use.
+        // The Chromium that runs in a locale, started on first use.
         // locale: the locale, a language tag such as "ro-RO", or null for the browser of no locale of its own.
         private static Task<IBrowser> BrowserIn(string locale)
         {
             return browsers.GetOrAdd(locale ?? "", key => new Lazy<Task<IBrowser>>(() => LaunchBrowserAsync(key))).Value;
+        }
+
+        // A browser of a kind, of no locale of its own, started on first use.
+        // browser: the kind of browser.
+        private static Task<IBrowser> BrowserOf(Browser browser)
+        {
+            if (browser == Browser.Chromium)
+                return BrowserIn(null);
+            return browsers.GetOrAdd(browser.ToString(), key => new Lazy<Task<IBrowser>>(() => LaunchOtherBrowserAsync(browser))).Value;
         }
 
         // Start Chromium. On Linux the browser sees no font of the system's but the sentinel, whose every glyph is a
@@ -38,7 +61,8 @@ namespace Map_Svg.Tests
         // happens to look the same (T-8). Chromium draws no text at all without one system font. Chromium hints glyphs
         // unless told not to, which moves them by up to three pixels off the positions the shaping gives, so the
         // browser draws text unhinted, in grayscale, and in sRGB, wherever the tests run: some installations of the
-        // headless shell start it so, and the one GitHub's runners install does not.
+        // headless shell start it so, and the one GitHub's runners install does not. The fontconfig file turns hinting
+        // off too, for Firefox; Chromium, told by its flag, draws alike with it and without.
         // A browser in a locale is started with --lang, and on Linux, where Chromium takes its locale from its
         // environment instead, with the locale's variables there, which need not name a locale the C library has.
         // locale: the locale, a language tag such as "ro-RO", or the empty string for none of its own.
@@ -53,7 +77,7 @@ namespace Map_Svg.Tests
                 Dictionary<string, string> environment = new Dictionary<string, string>(StringComparer.Ordinal);
                 foreach (DictionaryEntry variable in Environment.GetEnvironmentVariables())
                     environment[(string)variable.Key] = (string)variable.Value;
-                environment["FONTCONFIG_FILE"] = WriteSentinelFontConfig();
+                environment["FONTCONFIG_FILE"] = sentinelFontConfig.Value;
                 if (locale.Length > 0) {
                     string localeName = locale.Replace('-', '_') + ".UTF-8";
                     environment["LANGUAGE"] = locale.Replace('-', '_');
@@ -65,7 +89,27 @@ namespace Map_Svg.Tests
             return await driver.Chromium.LaunchAsync(options);
         }
 
-        // Write a fontconfig file that offers the sentinel font alone, in a folder of this run's, and return its path.
+        // Start Firefox or WebKit as Chromium is started, on Linux with the fontconfig file that offers the sentinel font
+        // alone and turns hinting off. Firefox takes its hinting from fontconfig, and with fontconfig's defaults hints
+        // glyphs as Chromium would without its flag. WebKit takes it from neither: it hints the faces a document embeds
+        // whatever fontconfig, text-rendering or its own settings say.
+        // browser: Firefox or WebKit.
+        private static async Task<IBrowser> LaunchOtherBrowserAsync(Browser browser)
+        {
+            IPlaywright driver = await playwright.Value;
+            BrowserTypeLaunchOptions options = new BrowserTypeLaunchOptions { Headless = true };
+            if (OperatingSystem.IsLinux()) {
+                Dictionary<string, string> environment = new Dictionary<string, string>(StringComparer.Ordinal);
+                foreach (DictionaryEntry variable in Environment.GetEnvironmentVariables())
+                    environment[(string)variable.Key] = (string)variable.Value;
+                environment["FONTCONFIG_FILE"] = sentinelFontConfig.Value;
+                options.Env = environment;
+            }
+            return await (browser == Browser.Firefox ? driver.Firefox : driver.Webkit).LaunchAsync(options);
+        }
+
+        // Write a fontconfig file that offers the sentinel font alone, with hinting off, in a folder of this run's, and
+        // return its path.
         private static string WriteSentinelFontConfig()
         {
             string folder = Path.Combine(Path.GetTempPath(), "svg-tests-fonts-" + Environment.ProcessId.ToString(CultureInfo.InvariantCulture));
@@ -75,7 +119,15 @@ namespace Map_Svg.Tests
             string config = Path.Combine(folder, "fonts.conf");
             File.WriteAllText(config, "<?xml version=\"1.0\"?>\n<!DOCTYPE fontconfig SYSTEM \"fonts.dtd\">\n<fontconfig>\n" +
                                       "  <dir>" + SecurityElement.Escape(fonts) + "</dir>\n" +
-                                      "  <cachedir>" + SecurityElement.Escape(Path.Combine(folder, "cache")) + "</cachedir>\n</fontconfig>\n");
+                                      "  <cachedir>" + SecurityElement.Escape(Path.Combine(folder, "cache")) + "</cachedir>\n" +
+                                      "  <match target=\"pattern\">\n" +
+                                      "    <edit name=\"hinting\" mode=\"assign\"><bool>false</bool></edit>\n" +
+                                      "    <edit name=\"hintstyle\" mode=\"assign\"><const>hintnone</const></edit>\n" +
+                                      "    <edit name=\"autohint\" mode=\"assign\"><bool>false</bool></edit>\n" +
+                                      "    <edit name=\"antialias\" mode=\"assign\"><bool>true</bool></edit>\n" +
+                                      "    <edit name=\"rgba\" mode=\"assign\"><const>none</const></edit>\n" +
+                                      "    <edit name=\"lcdfilter\" mode=\"assign\"><const>lcdnone</const></edit>\n" +
+                                      "  </match>\n</fontconfig>\n");
             return config;
         }
 
@@ -89,18 +141,71 @@ namespace Map_Svg.Tests
         // the document's own view box.
         public static async Task<SKBitmap> RenderAsync(string svgPath, Size pixelSize, string locale = null, string view = null)
         {
-            IBrowser chromium = await BrowserIn(locale);
-            IPage page = await chromium.NewPageAsync(new BrowserNewPageOptions {
+            return SKBitmap.Decode(await RenderPngAsync(await BrowserIn(locale), svgPath, pixelSize, view, 0));
+        }
+
+        // Render an SVG file in a browser as an image of the given size, on white, as RenderAsync renders it in Chromium,
+        // and return the image as PNG data.
+        // browser: the browser.
+        // svgPath: the path of the SVG file.
+        // pixelSize: the size of the image in pixels.
+        // view: the id of a view of the document to show, or null for the document's own view box.
+        public static async Task<byte[]> RenderPngAsync(Browser browser, string svgPath, Size pixelSize, string view = null)
+        {
+            return await RenderPngAsync(await BrowserOf(browser), svgPath, pixelSize, view, browser == Browser.Chromium ? 0 : FramesBeforeScreenshot);
+        }
+
+        // How many frames Firefox and WebKit draw a page in before its screenshot is taken. WebKit draws a pattern of a
+        // few pixels a tile otherwise when the screenshot comes before the page's first frames, and otherwise again from
+        // one rendering to the next; after two frames it draws it alike every time. Chromium draws alike either way, and
+        // is shot as soon as it has loaded the page, as the rendering comparison has always shot it.
+        private const int FramesBeforeScreenshot = 2;
+
+        // How many times a rendering is tried before a browser's failure to take its screenshot fails it: Firefox now
+        // and then answers that it is unable to capture one, while many pages are open at once.
+        private const int ScreenshotAttempts = 3;
+
+        // Render an SVG file in a started browser as an image of the given size, on white, and return it as PNG data. A
+        // rendering whose screenshot the browser could not take is tried again on a page of its own.
+        // browser: the browser.
+        // svgPath: the path of the SVG file.
+        // pixelSize: the size of the image in pixels.
+        // view: the id of a view of the document to show, or null for the document's own view box.
+        // frames: how many frames the browser draws the page in before the screenshot is taken.
+        private static async Task<byte[]> RenderPngAsync(IBrowser browser, string svgPath, Size pixelSize, string view, int frames)
+        {
+            for (int attempt = 1; ; ++attempt) {
+                try {
+                    return await RenderPngOnceAsync(browser, svgPath, pixelSize, view, frames);
+                }
+                catch (PlaywrightException failure) when (attempt < ScreenshotAttempts && failure.Message.Contains("Unable to capture screenshot", StringComparison.Ordinal)) {
+                    TestContext.Progress.WriteLine("Trying " + Path.GetFileName(svgPath) + " again: " + failure.Message.Split('\n')[0]);
+                }
+            }
+        }
+
+        // Render an SVG file in a started browser once, as RenderPngAsync renders it.
+        // browser: the browser.
+        // svgPath: the path of the SVG file.
+        // pixelSize: the size of the image in pixels.
+        // view: the id of a view of the document to show, or null for the document's own view box.
+        // frames: how many frames the browser draws the page in before the screenshot is taken.
+        private static async Task<byte[]> RenderPngOnceAsync(IBrowser browser, string svgPath, Size pixelSize, string view, int frames)
+        {
+            IPage page = await browser.NewPageAsync(new BrowserNewPageOptions {
                 ViewportSize = new ViewportSize { Width = pixelSize.Width, Height = pixelSize.Height },
                 DeviceScaleFactor = 1,
             });
+            string pagePath = WritePageShowing(svgPath, pixelSize, view);
             try {
-                await page.GotoAsync(new Uri(WritePageShowing(svgPath, pixelSize, view)).AbsoluteUri);
-                byte[] png = await page.ScreenshotAsync(new PageScreenshotOptions { Type = ScreenshotType.Png });
-                return SKBitmap.Decode(png);
+                await page.GotoAsync(new Uri(pagePath).AbsoluteUri);
+                for (int frame = 0; frame < frames; ++frame)
+                    await page.EvaluateAsync("() => new Promise(resolve => requestAnimationFrame(() => resolve()))");
+                return await page.ScreenshotAsync(new PageScreenshotOptions { Type = ScreenshotType.Png });
             }
             finally {
                 await page.CloseAsync();
+                File.Delete(pagePath);
             }
         }
 
@@ -166,7 +271,8 @@ namespace Map_Svg.Tests
         }";
 
         // Write an HTML page that shows an SVG file as an image of the given size at its top left corner, as a browser
-        // shows a standalone SVG document, and return the page's path.
+        // shows a standalone SVG document, and return the page's path. Each rendering has a page of its own, as several
+        // browsers may render documents of one name at once.
         // svgPath: the path of the SVG file, whose name names the page.
         // pixelSize: the size of the image in pixels.
         // view: the id of a view of the document to show, which the page's name carries too, or null for the document's
@@ -175,7 +281,8 @@ namespace Map_Svg.Tests
         {
             string directory = Path.Combine(Path.GetTempPath(), "svg-loop-pages");
             Directory.CreateDirectory(directory);
-            string pagePath = Path.Combine(directory, Path.GetFileNameWithoutExtension(svgPath) + (view == null ? "" : "-" + view) + ".html");
+            string pagePath = Path.Combine(directory, Path.GetFileNameWithoutExtension(svgPath) + (view == null ? "" : "-" + view) + "-" +
+                                                      Guid.NewGuid().ToString("N") + ".html");
             string source = new Uri(svgPath).AbsoluteUri + (view == null ? "" : "#" + Uri.EscapeDataString(view));
             File.WriteAllText(pagePath,
                 "<!DOCTYPE html><html><head><style>html,body{margin:0;background:#fff}img{display:block}</style></head><body>" +

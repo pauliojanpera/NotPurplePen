@@ -18,7 +18,10 @@ namespace Map_Svg.Tests
     // page coordinates and compares its geometry with the case's drawing calls, within what the rounding of its numbers
     // allows (V-10). A case that makes a call the target does not fully implement, or one it cannot honor, is pending, and
     // names the calls it still needs.
-    [TestFixture, Parallelizable(ParallelScope.Children)]
+    //
+    // It runs before the browser check, which takes its documents and Chromium's images of them rather than writing
+    // and rendering them again.
+    [TestFixture, Parallelizable(ParallelScope.Children), Order(1)]
     public class RenderingComparisonTests
     {
         // The metrics the Skia target lays text out with, which the SVG target lays it out with too (T-1).
@@ -86,8 +89,10 @@ namespace Map_Svg.Tests
             string svgPath = LoopResults.SaveSvg(comparisonCase.Name, document);
             string referencePath = TestUtil.GetTestFile(Path.Combine("svg_reference", comparisonCase.Name + ".png"));
             bool referenceRecorded = File.Exists(referencePath);
+            byte[] chromium = await BrowserRenderer.RenderPngAsync(Browser.Chromium, svgPath, comparisonCase.PixelSize);
+            BrowserComparisonTests.Offer(comparisonCase.Name, svgPath, comparisonCase.PixelSize, drawsText, chromium);
             using (SKBitmap reference = referenceRecorded ? SKBitmap.Decode(referencePath) : RenderReferenceForRecording(comparisonCase))
-            using (SKBitmap rendering = await ChromiumRenderer.RenderAsync(svgPath, comparisonCase.PixelSize)) {
+            using (SKBitmap rendering = SKBitmap.Decode(chromium)) {
                 string difference = ImageComparison.DescribeDifference(comparisonCase.Name, reference, rendering, drawsText ? PixelTolerance.Text : PixelTolerance.Default);
                 if (drawsText) {
                     TextPositionMeasurement positions = await MeasureTextPositionsAsync(comparisonCase, svgPath);
@@ -112,7 +117,7 @@ namespace Map_Svg.Tests
         // Whether a drawing draws text, which is compared within the tolerance for text, as Chromium shades glyphs
         // otherwise than Skia does, and whose characters' positions are measured too.
         // callNames: the names of the calls the drawing makes.
-        private static bool DrawsText(IEnumerable<string> callNames)
+        internal static bool DrawsText(IEnumerable<string> callNames)
         {
             return callNames.Any(callName => callName == nameof(Svg_GraphicsTarget.DrawText) || callName == nameof(Svg_GraphicsTarget.DrawTextOutline));
         }
@@ -132,7 +137,7 @@ namespace Map_Svg.Tests
         // svgPath: the path of its SVG document.
         private static async Task<TextPositionMeasurement> MeasureTextPositionsAsync(ComparisonCase comparisonCase, string svgPath)
         {
-            List<DrawnText> texts = await ChromiumRenderer.ReadTextPositionsAsync(svgPath, comparisonCase.PixelSize);
+            List<DrawnText> texts = await BrowserRenderer.ReadTextPositionsAsync(svgPath, comparisonCase.PixelSize);
             TextPositionMeasurement measurement = TextPositionMeasurement.Measure(texts, textMetrics);
             LoopResults.SaveText(Path.Combine("text-positions", comparisonCase.Name + ".tsv"), measurement.ToTsv());
             LoopResults.SaveText(Path.Combine("text-positions", comparisonCase.Name + ".clusters.tsv"), measurement.ClustersToTsv());
@@ -146,23 +151,38 @@ namespace Map_Svg.Tests
         private static string WriteDocument(ComparisonCase comparisonCase, RecordingGraphicsTarget recording)
         {
             try {
-                using (Svg_GraphicsTarget target = new Svg_GraphicsTarget(DefaultColorConverter.Instance, true, SvgBitmapOptions.Default, textMetrics, fontSubsets))
-                using (Matrix areaToImage = comparisonCase.CreateAreaToImageTransform()) {
-                    object part = new object();
-                    target.BeginPart(part);
-                    target.BeginMap(comparisonCase, comparisonCase.Name);
-                    recording.Playback(target);
-                    target.EndMap();
-                    target.EndPart();
-                    target.AddPage(new SizeF(comparisonCase.PixelSize.Width, comparisonCase.PixelSize.Height), comparisonCase.Area, areaToImage, new object[] { part }, null);
-                    string document = target.FinishDocument();
-                    if (target.CallsLeftOut.Count > 0)
-                        throw Pending(comparisonCase, target.CallsLeftOut, Svg_GraphicsTarget.WhyStrokesOfNoWidthAreLeftOut);
-                    return document;
-                }
+                string document = WriteDocument(comparisonCase, recording, textMetrics, fontSubsets, out IReadOnlyList<string> callsLeftOut);
+                if (callsLeftOut.Count > 0)
+                    throw Pending(comparisonCase, callsLeftOut, Svg_GraphicsTarget.WhyStrokesOfNoWidthAreLeftOut);
+                return document;
             }
             catch (Svg_UnsupportedCallException unsupportedCall) {
                 throw Pending(comparisonCase, new[] { unsupportedCall.CallName }, unsupportedCall.WhyNeverHonored);
+            }
+        }
+
+        // Write the SVG document of a case's recording, as the comparison writes it, and the calls whose drawing it left
+        // out. A call that the target cannot honor raises its error.
+        // comparisonCase: the case.
+        // recording: its recording.
+        // metrics: the metrics to lay text out with.
+        // subsets: the provider of the embedded faces' subsets.
+        // callsLeftOut: receives the names of the calls whose drawing the document left out.
+        internal static string WriteDocument(ComparisonCase comparisonCase, RecordingGraphicsTarget recording, ITextMetrics metrics,
+                                             IFontSubsetProvider subsets, out IReadOnlyList<string> callsLeftOut)
+        {
+            using (Svg_GraphicsTarget target = new Svg_GraphicsTarget(DefaultColorConverter.Instance, true, SvgBitmapOptions.Default, metrics, subsets))
+            using (Matrix areaToImage = comparisonCase.CreateAreaToImageTransform()) {
+                object part = new object();
+                target.BeginPart(part);
+                target.BeginMap(comparisonCase, comparisonCase.Name);
+                recording.Playback(target);
+                target.EndMap();
+                target.EndPart();
+                target.AddPage(new SizeF(comparisonCase.PixelSize.Width, comparisonCase.PixelSize.Height), comparisonCase.Area, areaToImage, new object[] { part }, null);
+                string document = target.FinishDocument();
+                callsLeftOut = target.CallsLeftOut;
+                return document;
             }
         }
 

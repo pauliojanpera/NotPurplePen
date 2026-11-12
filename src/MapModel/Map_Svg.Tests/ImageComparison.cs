@@ -22,31 +22,76 @@ namespace Map_Svg.Tests
         // tolerance: how far the images may differ.
         public static string DescribeDifference(string name, SKBitmap expected, SKBitmap rendering, PixelTolerance tolerance)
         {
-            LoopResults.KeepRendering(Path.Combine("renderings", name + ".png"), rendering);
+            return DescribeDifferenceIn("", "Chromium's image", "", name, expected, rendering, tolerance, out int pixelsOutside);
+        }
+
+        // Describe how a browser's image of a document falls outside the tolerance of Chromium's image of the same
+        // document (F-5), or return null when no pixel does, as DescribeDifference describes Chromium's image against a
+        // reference: the differences are measured into browsers/<browser>/measurements/<name>.tsv, and beyond the
+        // tolerance the browser's image and the image of the pixels outside it go to browsers/<browser>/renderings/ and
+        // browsers/<browser>/differences/. The browser's image of every comparison is kept as browsers/<browser>/<name>.png
+        // in the directory of renderings, when there is one.
+        // browser: the browser, Firefox or WebKit.
+        // name: the name of the document, which names the saved files.
+        // chromium: Chromium's image of the document.
+        // rendering: the browser's image of it.
+        // tolerance: how far the images may differ.
+        // pixelsOutside: receives how many pixels lie outside the tolerance, or -1 when the images differ in size.
+        public static string DescribeBrowserDifference(Browser browser, string name, SKBitmap chromium, SKBitmap rendering, PixelTolerance tolerance,
+                                                       out int pixelsOutside)
+        {
+            return DescribeDifferenceIn(BrowserFolder(browser), browser + "'s image", " of Chromium's", name, chromium, rendering, tolerance, out pixelsOutside);
+        }
+
+        // The folder of the loop's results that holds what the browser check measured of a browser.
+        // browser: the browser.
+        public static string BrowserFolder(Browser browser)
+        {
+            return Path.Combine("browsers", browser.ToString().ToLowerInvariant());
+        }
+
+        // Describe how an image falls outside the tolerance of the image it should match, or return null when no pixel
+        // does, measuring the differences into a folder of the loop's results, and keeping the images there beyond the
+        // tolerance and in the directory of renderings always.
+        // folder: the folder within the results and the directory of renderings, or the empty string for their roots.
+        // subject: what the image is, in the words of a failure, such as "Chromium's image".
+        // ofExpected: what the tolerance is of, in the words of a failure, such as " of Chromium's", or the empty string.
+        // name: the name of the case, which names the saved files.
+        // expected: the image to match.
+        // rendering: the image.
+        // tolerance: how far the images may differ.
+        // pixelsOutside: receives how many pixels lie outside the tolerance, or -1 when the images differ in size.
+        private static string DescribeDifferenceIn(string folder, string subject, string ofExpected, string name, SKBitmap expected, SKBitmap rendering,
+                                                   PixelTolerance tolerance, out int pixelsOutside)
+        {
+            LoopResults.KeepRendering(folder.Length == 0 ? Path.Combine("renderings", name + ".png") : Path.Combine(folder, name + ".png"), rendering);
+            pixelsOutside = -1;
             if (expected.Width != rendering.Width || expected.Height != rendering.Height) {
-                LoopResults.SaveImage(Path.Combine("renderings", name + ".png"), rendering);
-                return string.Format("Chromium's image of {0} is {1}x{2} pixels, the image it should match {3}x{4}.",
-                                     name, rendering.Width, rendering.Height, expected.Width, expected.Height);
+                LoopResults.SaveImage(Path.Combine(folder, "renderings", name + ".png"), rendering);
+                return string.Format("{5} of {0} is {1}x{2} pixels, the image it should match {3}x{4}.",
+                                     name, rendering.Width, rendering.Height, expected.Width, expected.Height, subject);
             }
 
             int[] excess = MeasureExcess(expected, rendering, tolerance);
-            int pixelsOutside = 0, largestExcess = 0;
+            int largestExcess = 0;
+            pixelsOutside = 0;
             foreach (int pixelExcess in excess) {
                 if (pixelExcess > 0) {
                     ++pixelsOutside;
                     largestExcess = Math.Max(largestExcess, pixelExcess);
                 }
             }
-            LoopResults.SaveText(Path.Combine("measurements", name + ".tsv"),
+            LoopResults.SaveText(Path.Combine(folder, "measurements", name + ".tsv"),
                                  MeasureDifferences(expected, rendering, pixelsOutside, largestExcess));
             if (pixelsOutside == 0)
                 return null;
 
-            LoopResults.SaveImage(Path.Combine("renderings", name + ".png"), rendering);
+            LoopResults.SaveImage(Path.Combine(folder, "renderings", name + ".png"), rendering);
+            string differencePath = Path.Combine(folder, "differences", name + ".png");
             using (SKBitmap difference = ShowPixelsOutside(expected, excess))
-                LoopResults.SaveImage(Path.Combine("differences", name + ".png"), difference);
-            return string.Format("Chromium's image of {0} has {1} pixels outside the tolerance ({2}), by up to {3} levels; see differences/{0}.png.",
-                                 name, pixelsOutside, tolerance, largestExcess);
+                LoopResults.SaveImage(differencePath, difference);
+            return string.Format("{4} of {0} has {1} pixels outside the tolerance{5} ({2}), by up to {3} levels; see {6}.",
+                                 name, pixelsOutside, tolerance, largestExcess, subject, ofExpected, differencePath.Replace('\\', '/'));
         }
 
         // Measure, for each pixel, how many levels a color channel of either image lies beyond the range the tolerance

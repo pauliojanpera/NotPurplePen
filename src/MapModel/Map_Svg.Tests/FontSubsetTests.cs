@@ -223,7 +223,7 @@ namespace Map_Svg.Tests
             string fontFace = fontData == null ? "" : "@font-face{font-family:\"Test\";src:url(data:font/ttf;base64," + Convert.ToBase64String(fontData) + ")}";
             string document = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"160\" height=\"50\"><style>" + fontFace +
                               "text{font-family:\"Test\";font-size:32px;font-kerning:none}</style><text x=\"8\" y=\"38\">" + text + "</text></svg>";
-            return await ChromiumRenderer.RenderAsync(LoopResults.SaveSvg(name, document), new Size(160, 50));
+            return await BrowserRenderer.RenderAsync(LoopResults.SaveSvg(name, document), new Size(160, 50));
         }
 
         // The variable face of the tests, which TestFonts registers as Roboto Variable.

@@ -86,7 +86,7 @@ namespace Map_Svg.Tests
             string svgPath = LoopResults.SaveSvg(caseName, document);
             Size pixelSize = page.PixelSizeAt(PixelsPerInch);
             using (SKBitmap reference = page.RenderReference(loadedEvent, settings, pixelSize))
-            using (SKBitmap rendering = await ChromiumRenderer.RenderAsync(svgPath, pixelSize)) {
+            using (SKBitmap rendering = await BrowserRenderer.RenderAsync(svgPath, pixelSize)) {
                 // Beyond the tolerance, the comparison has saved Chromium's image and the difference image.
                 string difference = ImageComparison.DescribeDifference(caseName, reference, rendering, DrawsText(document) ? PixelTolerance.Text : PixelTolerance.Default);
                 LoopResults.KeepRendering(Path.Combine("course-pages", caseName + ".png"), reference);
