@@ -9,7 +9,7 @@ using SkiaSharp;
 
 namespace Map_Svg.Tests
 {
-    // A text as Chromium draws it, as ChromiumRenderer.ReadTextPositionsAsync reads it: its characters, the face its
+    // A text as Chromium draws it, as BrowserRenderer.ReadTextPositionsAsync reads it: its characters, the face its
     // style names, and where each character starts along the baseline, in the text's own coordinates.
     public class DrawnText
     {

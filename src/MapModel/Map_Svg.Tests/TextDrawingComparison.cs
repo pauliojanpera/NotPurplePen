@@ -46,7 +46,7 @@ namespace Map_Svg.Tests
                     target.AddPage(new SizeF(pixels.Width, pixels.Height), area, areaToImage, new object[] { part }, null);
                     document = target.FinishDocument();
                 }
-                using (SKBitmap rendering = await ChromiumRenderer.RenderAsync(LoopResults.SaveSvg(name, document), pixels, locale))
+                using (SKBitmap rendering = await BrowserRenderer.RenderAsync(LoopResults.SaveSvg(name, document), pixels, locale))
                     return ImageComparison.DescribeDifference(name, reference, rendering, PixelTolerance.Text);
             }
         }

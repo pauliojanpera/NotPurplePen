@@ -410,7 +410,10 @@ namespace PurplePen.MapModel
         // differ from one another. A position given to a character after the first of a cluster would part it from
         // the others, as browsers place each character given a position by itself, so a list of positions ends at
         // the first cluster of several characters, and the clusters after it are placed by the list of a tspan of
-        // their own. Each run of characters that a fallback face draws is a tspan naming that face's family, so that
+        // their own. It ends at a character outside the Basic Multilingual Plane too: SVG 2 counts the characters a
+        // list places in UTF-16 code units, as Firefox does, which take two positions for such a character, and
+        // Chromium and WebKit count it as one, so that every character after it would stand a place apart in one of
+        // them (F-5). Each run of characters that a fallback face draws is a tspan naming that face's family, so that
         // a viewer draws it in the face the application drew it in, and the emoji presentation selector is written as
         // the text presentation selector: the application draws the face's glyph, while a browser would take a color
         // emoji font of its own for an emoji presentation sequence, whatever face the text names (T-8).
@@ -488,14 +491,14 @@ namespace PurplePen.MapModel
         }
 
         // The end of the clusters that one list of positions places, from a first one: up to and with the first cluster
-        // of several characters, or all the rest. A surrogate pair is one character, as it is to a list of positions.
+        // of more than one UTF-16 code unit, a cluster of several characters or a character outside the Basic
+        // Multilingual Plane, or all the rest.
         // first: the first cluster the list places.
         private int EndOfPlacement(int first)
         {
             int end = first;
             while (end < clusters.Count) {
-                string characters = clusters[end++].Characters;
-                if (characters.Length > (char.IsSurrogatePair(characters, 0) ? 2 : 1))
+                if (clusters[end++].Characters.Length > 1)
                     break;
             }
             return end;
@@ -528,7 +531,9 @@ namespace PurplePen.MapModel
     // neighbours, and those of Devanagari, Thai and the other complex scripts reorder and combine with theirs; the
     // fraction slash makes the digits around it a fraction; emoji modifiers combine with the emoji before them, and
     // regional indicators pair into flags. Such characters keep the texts of their own that they were drawn as, and so
-    // does a character that would be the only one of a line text.
+    // does a character that would be the only one of a line text, and a character outside the Basic Multilingual Plane:
+    // SVG 2 counts the characters that lists of positions and turns place in UTF-16 code units, as Firefox does, and
+    // Chromium and WebKit count such a character as one, where it takes two code units (F-5).
     public sealed class SvgLineText : SvgElement
     {
         // How far a transform's linear part may lie from a turn, or a turn and a mirroring, in each of its conditions:
@@ -689,8 +694,8 @@ namespace PurplePen.MapModel
             return merged;
         }
 
-        // Whether a node is a group that does nothing but turn and move one character of a text, or turn, mirror and
-        // move it.
+        // Whether a node is a group that does nothing but turn and move one character of the Basic Multilingual Plane
+        // of a text, or turn, mirror and move it.
         // node: the node.
         private static bool PlacesOneCharacter(SvgNode node)
         {
@@ -698,7 +703,7 @@ namespace PurplePen.MapModel
             if (group == null || group.Transform == null || group.Clip != null || group.Style != null || group.Identity != null || group.Blends)
                 return false;
             SvgText text = group.Children.Count == 1 ? group.Children[0] as SvgText : null;
-            if (text == null || text.SingleCharacter == null || !IsShapedAlone(text.SingleCharacter))
+            if (text == null || text.SingleCharacter == null || text.SingleCharacter.Length > 1 || !IsShapedAlone(text.SingleCharacter))
                 return false;
             SvgTransform transform = group.Transform;
             return Math.Abs(transform.A * transform.A + transform.B * transform.B - 1) < TurnTolerance &&

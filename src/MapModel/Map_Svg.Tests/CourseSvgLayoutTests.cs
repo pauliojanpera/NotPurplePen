@@ -124,7 +124,7 @@ namespace Map_Svg.Tests
                     string caseName = "layout-" + name + "-" + fileStem + "-" + (index + 1).ToString(CultureInfo.InvariantCulture);
                     Size pixelSize = page.PixelSizeAt(CourseSvgPageTests.PixelsPerInch);
                     using (SKBitmap reference = page.RenderReference(loadedEvent, settings, pixelSize))
-                    using (SKBitmap rendering = await ChromiumRenderer.RenderAsync(svgPath, pixelSize, null, viewIds[index])) {
+                    using (SKBitmap rendering = await BrowserRenderer.RenderAsync(svgPath, pixelSize, null, viewIds[index])) {
                         string difference = ImageComparison.DescribeDifference(caseName, reference, rendering,
                                                                                CourseSvgPageTests.DrawsText(text) ? PixelTolerance.Text : PixelTolerance.Default);
                         LoopResults.KeepRendering(Path.Combine("course-pages", caseName + ".png"), reference);

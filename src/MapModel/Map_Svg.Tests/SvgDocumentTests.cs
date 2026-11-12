@@ -1705,6 +1705,18 @@ namespace Map_Svg.Tests
         }
 
         [Test]
+        public void ACharacterOutsideTheBasicMultilingualPlaneEndsAListOfPositionsAsFirefoxCountsItAsTwo()
+        {
+            string document = WriteText(target => {
+                object font = new object(), black = new object();
+                target.CreateFont(font, "Arial", 2.5F, TextEffects.Regular);
+                target.CreateSolidBrush(black, CmykColor.FromCmyk(0, 0, 0, 1));
+                target.DrawText("a\U00020BB7bc", font, black, Point(0, 0));
+            }, null);
+            StringAssert.Contains("<text transform=\"translate(0 2000)scale(1000)\" x=\"0 1.25\">a\U00020BB7<tspan x=\"2.5 3.75\">bc</tspan></text>\n", document);
+        }
+
+        [Test]
         public void TextOverTenMillimetresKeepsItsSizeThoughBrowsersCapTheFontSize()
         {
             string document = WriteText(target => {
@@ -1819,7 +1831,7 @@ namespace Map_Svg.Tests
             }, new TestFontSubsets());
             StringAssert.Contains("@font-face{font-family:'Arial';src:url(" + TestFontSubsets.DataUri("Arial", TextEffects.Regular, "abc") + ")}\n", document);
             StringAssert.Contains("@font-face{font-family:'Fallback';src:url(" + TestFontSubsets.DataUri("Fallback", TextEffects.Regular, "中文\U0001F600") + ")}\n", document);
-            StringAssert.Contains(">ab<tspan style=\"font-family:'Fallback'\">中文\U0001F600</tspan>c</text>\n", document);
+            StringAssert.Contains(">ab<tspan style=\"font-family:'Fallback'\">中文\U0001F600</tspan><tspan x=\"5\">c</tspan></text>\n", document);
             StringAssert.DoesNotContain("unicode-range", document);
         }
 
@@ -1901,6 +1913,31 @@ namespace Map_Svg.Tests
                 StringAssert.IsMatch("<text [^>]* rotate=\"[^\"]*\">" + merged + "</text>\n", document);
             Assert.AreEqual(4, CountOccurrences(document, "rotate="));
             Assert.AreEqual(7, CountOccurrences(document, "<text"));
+        }
+
+        [Test]
+        public void ACharacterOutsideTheBasicMultilingualPlaneKeepsItsTextOfItsOwnBetweenLineTexts()
+        {
+            string[] characters = { "a", "b", "\U00020BB7", "c", "d" };
+            string document = WriteText(target => {
+                object font = new object(), black = new object();
+                target.CreateFont(font, "Arial", 2, TextEffects.Regular);
+                target.CreateSolidBrush(black, CmykColor.FromCmyk(0, 0, 0, 1));
+                for (int index = 0; index < characters.Length; ++index) {
+                    using (Matrix placement = new Matrix()) {
+                        placement.Translate(10 * index, 5);
+                        placement.Rotate(10 * index);
+                        target.PushTransform(placement);
+                        target.DrawText(characters[index], font, black, Point(0, 0));
+                        target.PopTransform();
+                    }
+                }
+            }, null);
+            foreach (string merged in new string[] { "ab", "cd" })
+                StringAssert.IsMatch("<text [^>]* rotate=\"[^\"]*\">" + merged + "</text>\n", document);
+            StringAssert.IsMatch("<text [^>]*>\U00020BB7</text>\n", document);
+            Assert.AreEqual(2, CountOccurrences(document, "rotate="));
+            Assert.AreEqual(3, CountOccurrences(document, "<text"));
         }
 
         [Test]
