@@ -2374,7 +2374,7 @@ namespace PurplePen.MapModel
             try {
                 // Get the correct bounding rect.
                 matrix.Invert();
-                RectangleF bounding = Geometry.BoundsOfTransformedRectangle(path.BoundingBox, matrix);
+                RectangleF bounding = Geometry.BoundsOfTransformedRectangle(boundingBox, matrix);
 
                 SymbolHelpers.DrawHatchLines(g, hatchPen, hatchInfo.hatchSpacing, hatchInfo.hatchOffset, bounding);
             }
@@ -2391,7 +2391,8 @@ namespace PurplePen.MapModel
                 PatternInfo patternInfo = patterns[i];
                 bool ignoreRotation = (patternInfo.patternRotateMode == RotateMode.Never);
 
-                if (patternInfo.patternGlyph.HasColor(color)) {
+                // An area that overlaps others of its symbol leaves a regular clipped pattern to DrawPatternsOnce.
+                if (patternInfo.patternGlyph.HasColor(color) && !(renderOpts.patternsDrawnOnce && PatternIsDrawnOnce(patternInfo))) {
                     // Faster to draw the pattern with a texture brush that has a bitmap
                     // of the pattern in it. Better quality to do it all with glyph drawing.
                     // Choose based on the renderOptions.

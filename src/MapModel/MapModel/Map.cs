@@ -2254,6 +2254,10 @@ namespace PurplePen.MapModel
             Debug.Unindent();
         }
 
+        // Whether overlapping areas of a symbol draw their patterns once; the prototype's measurements turn it off with
+        // PURPLEPEN_PATTERNS_ONCE=0, to draw each area's patterns with the area as before.
+        private static readonly bool patternsOnceForOverlaps = Environment.GetEnvironmentVariable("PURPLEPEN_PATTERNS_ONCE") != "0";
+
         private int SymbolComparison(Symbol s1, Symbol s2)
         {
             return s1.SortOrder.CompareTo(s2.SortOrder);
@@ -2282,7 +2286,7 @@ namespace PurplePen.MapModel
                     AreaLikeSymDef areaSymdef = symdef as AreaLikeSymDef;
                     OverlappingAreas overlappingAreas = null;
                     RenderOptions patternsOnceOpts = null;
-                    if (areaSymdef != null && areaSymdef.HasPatternsDrawnOnce(curColor)) {
+                    if (patternsOnceForOverlaps && areaSymdef != null && areaSymdef.HasPatternsDrawnOnce(curColor)) {
                         overlappingAreas = OverlappingAreas.Find(symbolsForThisDef, rect);
                         patternsOnceOpts = renderOpts.Clone();
                         patternsOnceOpts.patternsDrawnOnce = true;
