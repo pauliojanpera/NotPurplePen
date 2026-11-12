@@ -13,6 +13,8 @@ into this repository (Nov 12).
 - `suo.ppen`: its event, whose page of all controls prints at 1:10,000;
 - `suo-notpurplepen-export.svg`: that page as NotPurplePen's SVG export wrote it, with "Draw area patterns as separate
   shapes";
-- `suo-notpurplepen-export.pdf`: that page as NotPurplePen's PDF export wrote it.
+- `suo-notpurplepen-export.pdf`: that page as NotPurplePen's PDF export wrote it;
+- `suo2.ocd`: a second map, in which overlapping rectangular marsh areas, none of them turned, show the same, so the
+  artifact does not depend on the areas' rotation (@Pauli, Nov 12).
 
 The investigation adds its scripts and findings beside them.
