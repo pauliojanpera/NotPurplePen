@@ -69,3 +69,22 @@ and started again when it expires after 30 minutes:
   minutes, the last 15 at most, each after its UTC time; when there is none, it says when the last step was taken. A subagent's transcript is `~/.claude/projects/<project>/<session>/subagents/agent-<id>.jsonl`.
 
 The state files let a watch started again report only what is new.
+
+## Pacing an agent, and its cache
+
+Claude Code gives the requests of agents a five-minute prompt cache unless `subagentPromptCacheTtl` says otherwise,
+so an agent that waits longer, for a build, a run or a rest, writes its whole context to the cache again. The session
+gives agents a one-hour cache, and paces their work (see CLAUDE.md):
+
+- `agent-cache.py set [settings.json]` sets `"subagentPromptCacheTtl": "1h"` in `~/.claude/settings.json`, or the
+  file named, keeping its other keys. It needs Claude Code v2.1.242 or later.
+- `agent-cache.py report <transcript.jsonl>...` prints, for a session's or an agent's transcript, the tokens its
+  requests wrote to the cache at each lifetime and read from it, and what each of the last requests after a gap of
+  5 to 60 minutes read and wrote. A request that read nothing and wrote its whole context found its cache expired.
+- `pace-agent.py <agent transcript.jsonl> <state.json> [--work 20] [--ratio 2] [--short 180] [--keepalive 50]`
+  counts the agent's work from its transcript: the time up to each of its replies, and commands of up to `--short`
+  seconds. Longer commands, waits and rests count as rest, at `1/--ratio` of their length against the work. It ends
+  when a rest is due (`REST DUE: N minutes`), when the agent has resumed after it (`REST OVER`), or after
+  `--keepalive` minutes (`KEEPALIVE`), printing the work and rest since its last report and the titles of the agent's
+  steps. The session runs it as a background command (`run_in_background`, with a timeout of an hour), acts on what
+  it prints, and starts it again; the state file carries the count over. `--dry-run` counts and reports once.
