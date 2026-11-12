@@ -13,11 +13,11 @@ mkdir -p "$2"
 out=$(cd "$2" && pwd)
 shift 2
 dotnet=${DOTNET:-$(command -v dotnet || echo /root/.dotnet/dotnet)}
-"$dotnet" build "$here/probe/PdfVectorsProbe.csproj" -p:AppSrc="$checkout/src" -o "$out/probe-bin" -v quiet -nologo 2>&1 | grep -E 'error|Build succeeded' | sort -u
+"$dotnet" build "$here/probe/PdfVectorsProbe.csproj" -r linux-x64 -p:AppSrc="$checkout/src" -o "$out/probe-bin" -v quiet -nologo 2>&1 | grep -E 'error|Build succeeded' | sort -u
 for relative in "$@"; do
     pdf="$checkout/src/TestFiles/$relative"
     name=$(basename "$relative" .pdf | tr ' .' '__')
-    run() { env "$@" "$dotnet" "$out/probe-bin/PdfVectorsProbe.dll" vector-svg "$pdf" "$out/$name.$setting.svg" > /dev/null; }
+    run() { env LANG=en_US.UTF-8 "$@" "$dotnet" "$out/probe-bin/PdfVectorsProbe.dll" vector-svg "$pdf" "$out/$name.$setting.svg" > /dev/null; }
     setting=default; run LC_ALL=C TZ=UTC
     for setting in locale tiering intrinsics; do
         case $setting in

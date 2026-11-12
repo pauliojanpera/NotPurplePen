@@ -83,10 +83,12 @@ namespace PdfVectorsProbe
         // Read the first page of the PDF of a map into the SVG target as vectors, and write the document.
         // drawing: the map as the application holds it, which gives the map's bounds and the page.
         // overprintDarken: whether what overprints is drawn with darken blending, as COL-7 shows a map's overprinting.
-        public static Result WriteSvg(ApplicationDrawing drawing, bool overprintDarken)
+        // colorConverter: the converter of the colors to sRGB: SwopColorConverter under the CMYK model (COL-2).
+        // declaresCmykColors: whether the styles carry the CMYK values too, as under the CMYK model (COL-1).
+        public static Result WriteSvg(ApplicationDrawing drawing, bool overprintDarken, IColorConverter colorConverter, bool declaresCmykColors)
         {
             Result result = new Result();
-            using (Svg_GraphicsTarget target = new Svg_GraphicsTarget(SwopColorConverter.Instance, true, SvgBitmapOptions.Default,
+            using (Svg_GraphicsTarget target = new Svg_GraphicsTarget(colorConverter, declaresCmykColors, SvgBitmapOptions.Default,
                                                                       Services.TextMetricsProvider, Services.FontSubsetProvider)) {
                 object part = new object(), map = new object();
                 Stopwatch watch = Stopwatch.StartNew();

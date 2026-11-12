@@ -46,9 +46,10 @@ fs.writeFileSync(fontConfig, `<?xml version="1.0"?>
 const env = { ...process.env, FONTCONFIG_FILE: fontConfig };
 
 const launched = {};
-// Start a browser of a kind once, as BrowserRenderer starts it.
+// Start a browser of a kind once, as BrowserRenderer starts it, and again after it has died, as Chromium's headless
+// shell does on a page whose image it cannot hold.
 async function browserOf(kind) {
-    if (!launched[kind]) {
+    if (!launched[kind] || !launched[kind].isConnected()) {
         const options = { headless: true, env };
         if (kind === "chromium")
             options.args = ["--font-render-hinting=none", "--disable-lcd-text", "--force-color-profile=srgb"];

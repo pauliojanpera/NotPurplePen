@@ -4,6 +4,8 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Text;
+using PurplePen;
+using PurplePen.Graphics2D;
 using SkiaSharp;
 
 namespace PdfVectorsProbe
@@ -13,6 +15,10 @@ namespace PdfVectorsProbe
     //   bitmap-svg <pdf> <out.svg>                     the page as the SVG export writes it today: PDFium's bitmap
     //   vector-svg <pdf> <out.svg> [options]           the page as vectors, read by PdfPig into the SVG target's calls
     //       --overprint-darken   draw what overprints with darken blending, as COL-7 shows a map's overprinting
+    //       --pdfium-colors      convert each color as PDFium draws it, as the application's bitmap shows it, to
+    //                            set the drawing's differences apart from those of the colors' conversion
+    //       --rgb-model          write sRGB alone through DefaultColorConverter, as COL-2's RGB model does, which
+    //                            gives an RGB PDF's colors back as they were: what a paint for RGB colors would write
     //   pdfium-objects <pdf>                           what PDFium's page-object API reports of the page
     //   export <ppen> <folder>                         the application's SVG export of an event whose map is a PDF
     internal static class Program
@@ -21,8 +27,6 @@ namespace PdfVectorsProbe
         // args: the command and its arguments.
         private static int Main(string[] args)
         {
-            CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
-            CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
             if (args.Length < 2) {
                 Console.Error.WriteLine("usage: reference <pdf> <ppi> <out.png> | bitmap-svg <pdf> <out.svg> | vector-svg <pdf> <out.svg> [--overprint-darken] | pdfium-objects <pdf>");
                 return 2;
@@ -33,7 +37,8 @@ namespace PdfVectorsProbe
             case "bitmap-svg":
                 return BitmapSvg(args[1], args[2]);
             case "vector-svg":
-                return VectorSvg(args[1], args[2], Array.IndexOf(args, "--overprint-darken") >= 0);
+                return VectorSvg(args[1], args[2], Array.IndexOf(args, "--overprint-darken") >= 0,
+                                 Array.IndexOf(args, "--pdfium-colors") >= 0, Array.IndexOf(args, "--rgb-model") >= 0);
             case "pdfium-objects":
                 return PdfiumObjects.Report(args[1]);
             case "export":
@@ -86,11 +91,20 @@ namespace PdfVectorsProbe
         // pdf: the PDF file.
         // output: the SVG file to write.
         // overprintDarken: whether what overprints is drawn with darken blending.
-        private static int VectorSvg(string pdf, string output, bool overprintDarken)
+        // pdfiumColors: whether colors are converted as PDFium draws them, sampled in a first pass.
+        // rgbModel: whether the document is written in the RGB color model.
+        private static int VectorSvg(string pdf, string output, bool overprintDarken, bool pdfiumColors, bool rgbModel)
         {
             using (ApplicationDrawing drawing = new ApplicationDrawing(pdf)) {
+                IColorConverter converter = rgbModel ? (IColorConverter)DefaultColorConverter.Instance : SwopColorConverter.Instance;
+                if (pdfiumColors) {
+                    PdfiumColors sampled = new PdfiumColors(converter);
+                    PdfPigReader.WriteSvg(drawing, overprintDarken, sampled, !rgbModel);
+                    sampled.Sample();
+                    converter = sampled;
+                }
                 Stopwatch watch = Stopwatch.StartNew();
-                PdfPigReader.Result result = PdfPigReader.WriteSvg(drawing, overprintDarken);
+                PdfPigReader.Result result = PdfPigReader.WriteSvg(drawing, overprintDarken, converter, !rgbModel);
                 File.WriteAllText(output, result.Svg, new UTF8Encoding(false));
                 watch.Stop();
                 Console.WriteLine("{\"command\":\"vector-svg\",\"pdf\":" + Json(pdf) + ",\"seconds\":" + Seconds(watch) +

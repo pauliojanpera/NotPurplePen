@@ -5,16 +5,23 @@
 # (or on the PDFs given, as paths within the checkout's src/TestFiles):
 #   1. inventory.py: what each page holds that the SVG has to keep;
 #   2. the probe: the application's own drawing of the page at 150 pixels to the inch (the reference), the SVG the
-#      export writes today (PDFium's bitmap), and the SVG of the vector way (PdfPig into the SVG target's calls),
-#      plain and with overprinting drawn darker, each written twice to check that the bytes repeat;
+#      export writes today (PDFium's bitmap), and the SVG of the vector way (PdfPig into the SVG target's calls):
+#      plain, with overprinting drawn darker, with each colour converted as PDFium draws it (so that what is left
+#      outside the tolerance is the drawing's), and in the RGB colour model (what a paint for RGB colours would
+#      write); the bitmap and the plain vector way are written twice, to check that the bytes repeat;
 #   3. converters.sh: pdftocairo -svg and mutool convert -F svg;
-#   4. render.mjs: every SVG in Chromium, Firefox and WebKit, as the tests render;
-#   5. compare.py: every rendering held to the reference by F-1's rule;
-# and writes <out>/summary.tsv with one row for each PDF, way and browser.
+#   4. render.mjs: every SVG in Chromium, Firefox and WebKit, as the tests render, but an SVG of more than 500 MB,
+#      which is measured and then deleted;
+#   5. compare.py: every rendering held to the reference by F-1's rule; a rendering is deleted once measured, and its
+#      difference image kept only when pixels lie outside the tolerance;
+#   6. the application's own SVG export of the test events whose maps are PDFs, whose files are deleted once measured;
+# and writes <out>/summary.tsv with one row for each PDF, way and browser, and <out>/measurements.jsonl with every
+# line the steps printed, from which tables.py makes the design's tables.
 #
 # <checkout> is a checkout of feature/svg-target (267efc8 or later) whose src/ the probe is built against. Needs the
-# .NET 10 SDK, the tests' Playwright browsers (PLAYWRIGHT_BROWSERS_PATH, ../SvgTargetProgress.md says how to install
-# them), poppler-utils, mupdf-tools, Python 3 with NumPy, SciPy, Pillow and pikepdf.
+# .NET 10 SDK, the tests' Playwright browsers (PLAYWRIGHT_BROWSERS_PATH; ../SvgTargetProgress.md says how to install
+# them), poppler-utils, mupdf-tools, an en_US.UTF-8 and a fi_FI.UTF-8 locale, Python 3 with NumPy, SciPy, Pillow and
+# pikepdf. It takes about 40 minutes and about 6 GB of disk at its peak.
 set -euo pipefail
 [ $# -ge 2 ] || { echo "usage: run-all.sh <checkout> <out folder> [<pdf>...]" >&2; exit 2; }
 here=$(cd "$(dirname "$0")" && pwd)
@@ -24,18 +31,21 @@ out=$(cd "$2" && pwd)
 shift 2
 dotnet=${DOTNET:-$(command -v dotnet || echo /root/.dotnet/dotnet)}
 ppi=150
+largest=500000000
 tests=$checkout/src/TestFiles
 if [ $# -eq 0 ]; then
-    # The maps of the test events that name a PDF (pdfcourse, bitmapcreate, courseprinting), and the vector PDFs of
-    # the PDF converter's own tests.
+    # The maps of the test events that name a PDF (pdfcourse, bitmapcreate, courseprinting), and the PrimoPDF map of
+    # the map tests.
     set -- "pdfcourse/ST_Pauls_school_bald_hills_4000 Gordon v10.5.pdf" "bitmapcreate/St. Edward.pdf" \
            "pdfcourse/UWLetter.pdf" "pdfcourse/tengesdalslia.pdf" "pdfcourse/Lincoln-CMYK.pdf" "pdfcourse/Lincoln-RGB.pdf" \
            "pdfcourse/CleElumRidge.pdf" "pdfmaps/Potholes.pdf"
 fi
+ways="bitmap vector vector-darken vector-pdfium vector-rgb cairo mupdf"
 
 echo "== building the probe against $checkout"
-"$dotnet" build "$here/probe/PdfVectorsProbe.csproj" -p:AppSrc="$checkout/src" -o "$out/probe-bin" -v quiet -nologo 2>&1 | grep -E 'error|Warn|Build succeeded' | sort -u
-probe() { "$dotnet" "$out/probe-bin/PdfVectorsProbe.dll" "$@"; }
+"$dotnet" build "$here/probe/PdfVectorsProbe.csproj" -r linux-x64 -p:AppSrc="$checkout/src" -o "$out/probe-bin" -v quiet -nologo 2>&1 \
+    | grep -E 'error|Build succeeded' | sort -u
+probe() { LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 "$dotnet" "$out/probe-bin/PdfVectorsProbe.dll" "$@"; }
 
 : > "$out/measurements.jsonl"
 jobs="$out/jobs.json"
@@ -53,7 +63,9 @@ for relative in "$@"; do
     probe bitmap-svg "$pdf" "$folder/bitmap.svg" | tee -a "$out/measurements.jsonl"
     probe vector-svg "$pdf" "$folder/vector.svg" | tee -a "$out/measurements.jsonl"
     probe vector-svg "$pdf" "$folder/vector-again.svg" > /dev/null
-    probe vector-svg "$pdf" "$folder/vector-darken.svg" --overprint-darken | tee -a "$out/measurements.jsonl"
+    probe vector-svg "$pdf" "$folder/vector-darken.svg" --overprint-darken | sed 's/"command":"vector-svg"/"command":"vector-svg","variant":"darken"/' | tee -a "$out/measurements.jsonl"
+    probe vector-svg "$pdf" "$folder/vector-pdfium.svg" --pdfium-colors | sed 's/"command":"vector-svg"/"command":"vector-svg","variant":"pdfium-colors"/' >> "$out/measurements.jsonl"
+    probe vector-svg "$pdf" "$folder/vector-rgb.svg" --rgb-model | sed 's/"command":"vector-svg"/"command":"vector-svg","variant":"rgb-model"/' >> "$out/measurements.jsonl"
     probe bitmap-svg "$pdf" "$folder/bitmap-again.svg" > /dev/null
     for way in vector bitmap; do
         same=false
@@ -62,11 +74,16 @@ for relative in "$@"; do
         rm -f "$folder/$way-again.svg"
     done
     "$here/converters.sh" "$folder/converters" "$pdf" | tee -a "$out/measurements.jsonl"
-    cp "$folder/converters/"*.cairo.svg "$folder/cairo.svg"
-    cp "$folder/converters/"*.mupdf.svg "$folder/mupdf.svg"
+    mv "$folder/converters/"*.cairo.svg "$folder/cairo.svg"
+    mv "$folder/converters/"*.mupdf.svg "$folder/mupdf.svg"
+    rmdir "$folder/converters"
     size=$(python3 -I -c 'from PIL import Image; import sys; print("%d %d" % Image.open(sys.argv[1]).size)' "$folder/reference.png")
     width=${size% *}; height=${size#* }
-    for way in bitmap vector vector-darken cairo mupdf; do
+    for way in $ways; do
+        if [ "$(stat -c %s "$folder/$way.svg")" -gt $largest ]; then
+            echo "{\"command\":\"not-rendered\",\"pdf\":\"$pdf\",\"way\":\"$way\",\"bytes\":$(stat -c %s "$folder/$way.svg")}" | tee -a "$out/measurements.jsonl"
+            continue
+        fi
         $first_job || echo "," >> "$jobs"
         first_job=false
         echo "{\"svg\":\"$folder/$way.svg\",\"width\":$width,\"height\":$height,\"out\":\"$folder/$way\"}" >> "$jobs"
@@ -84,15 +101,30 @@ printf 'pdf\tway\tbrowser\tbytes\tgzip_bytes\toutside\toutside_share\tmax_differ
 for relative in "$@"; do
     name=$(basename "$relative" .pdf | tr ' .' '__')
     folder="$out/$name"
-    for way in bitmap vector vector-darken cairo mupdf; do
+    for way in $ways; do
         bytes=$(stat -c %s "$folder/$way.svg")
-        gzip_bytes=$(gzip -9 -c "$folder/$way.svg" | wc -c)
+        if [ "$bytes" -gt $largest ]; then
+            # A converter's document of this size was compressed once already, by converters.sh.
+            gzip_bytes=$(grep -F "\"svg\": \"$folder/converters/" "$out/measurements.jsonl" | grep -F ".$way.svg\"" | python3 -I -c 'import json,sys; print(json.loads(sys.stdin.readline())["gzip_bytes"])')
+            rm -f "$folder/$way.svg"
+        else
+            gzip_bytes=$(gzip -9 -c "$folder/$way.svg" | wc -c)
+        fi
         for browser in chromium firefox webkit; do
             result=$(python3 -I "$here/compare.py" --diff "$folder/$way.$browser.diff.png" "$folder/reference.png" "$folder/$way.$browser.png" || true)
             echo "$result" >> "$out/measurements.jsonl"
             python3 -I -c 'import json,sys; d=json.loads(sys.argv[1]); print("\t".join([sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6], str(d.get("outside")), str(d.get("outside_share")), str(d.get("max_difference")), str(d.get("mean_difference"))]))' \
                 "$result" "$name" "$way" "$browser" "$bytes" "$gzip_bytes" >> "$out/summary.tsv"
+            rm -f "$folder/$way.$browser.png"
+            python3 -I -c 'import json,sys; sys.exit(0 if (json.loads(sys.argv[1]).get("outside") or 0) > 0 else 1)' "$result" || rm -f "$folder/$way.$browser.diff.png"
         done
     done
 done
-column -t -s $'\t' "$out/summary.tsv"
+
+echo "== the application's own export"
+for event in "pdfcourse/Lincoln Park PDF.ppen" "pdfcourse/UWLetter.ppen" "pdfcourse/Tengle.ppen" "pdfcourse/PDF rescale test.ppen"; do
+    probe export "$tests/$event" "$out/export" | tee -a "$out/measurements.jsonl" || true
+    rm -rf "$out/export"
+done
+
+python3 -I "$here/tables.py" "$out"
