@@ -94,7 +94,7 @@ The calls the target fully implements, in the sense of DL-5: `Intensity`, `PushT
 
 **Next**, in order. Each task starts on @Pauli's word, with an agent of its own (see "Agents"), and ends with its commits on `feature/svg-target` or this branch, its loop green where it changes the target, and the gallery and this file brought up to date.
 
-1. **A PDF base map as vectors** (@Pauli, Nov 12): researched by one agent from 18:47 to 22:22, with its rests. The design note is the section "A PDF base map as vectors" in `SvgExportDesign.md`, and the probes are in `SvgPdfVectors/`, whose `run-all.sh` repeats every figure in about 36 minutes (13dd320). @Pauli chose its option (e), with its four recommendations (see Decisions, a PDF base map as vectors), which task 3 builds.
+1. **A PDF base map as vectors** (@Pauli, Nov 12): researched by one agent from 18:47 to 22:22, with its rests. The design note is the section "A PDF base map as vectors" in `SvgExportDesign.md`, and the probes are in `SvgPdfVectors/`, whose `run-all.sh` repeats every figure in about 36 minutes (13dd320). @Pauli chose its option (e), with its four recommendations (see Decisions, a PDF base map as vectors); building it is not current, as the research was to tell what is possible (@Pauli, Nov 12), and waits under "Future directions".
 2. **Overlapping hatchings: find out why they thicken, and fix it globally if feasible** (@Pauli, Nov 12; after task 1, as @Pauli chose; see Decisions, overlapping patterns). Where two areas of one symbol overlap, their hatching looks thicker and darker: in Chrome's drawing of the export, as SVG and as PDF, in a PDF viewer, and in OpenOrienteering Mapper's own drawing on screen, with pattern fills and with "Draw area patterns as separate shapes" alike, and at 100 dpi in NotPurplePen's PNG export too, though not at the higher resolution @Pauli exported it at first. @Pauli's case is in `SvgHatchingOverlap/`, where he agreed it be committed: three marsh areas of symbol 308.0 in `suo.ocd`, and in `suo2.ocd` overlapping rectangular marsh areas, none of them turned, which show the same, so the artifact does not depend on the areas' rotation. It goes in three steps (@Pauli, Nov 12):
    1. **Whether the fix is feasible in the map code**, for every output: whether `Map.DrawColor` can draw a pattern once for all the areas that share its frame in a colour's run, and a colour's transparency once for its layer, in each target; how fast the screen then draws a large map; and which baselines move. For the SVG: whether the browsers form the clip's union exactly, and how Inkscape and Scribus read the ghosts and their clip.
    2. **@Pauli's choice**: the fix in the map code for every output, or in the SVG alone, with the findings in a design note in `SvgExportDesign.md` and a recommendation.
@@ -116,7 +116,6 @@ The calls the target fully implements, in the sense of DL-5: `Intensity`, `PushT
      - a colour's transparency belongs to its layer as a whole (see Decisions, a colour is a layer), so that no overlap within it darkens: its opacity goes on the colour's run, the run's group in SVG, a layer in Skia and a transparency group in PDF, rather than on each element as COL-5 has it now. How OCAD and Purple Pen apply it now is to be found out, and COL-5 is to be reworded with the design;
      - shapes of one colour other than patterns are left as they are drawn, though edges of theirs that coincide or touch would double or leave a faint seam in the same way: the IOF's rules keep objects of the same colour apart in the drawing, so a map drawn to them has no such edges (@Pauli, Nov 12).
 
-3. **A PDF base map as vectors: build it** (@Pauli, Nov 12; after task 2). The application reads a PDF base map's page with PdfPig into drawing calls, which the target draws as it draws a map, as the design's "A PDF base map as vectors" sets out and as @Pauli chose (see Decisions): with a paint for RGB colours in `Graphics2D`, a JPEG written through as its own data, loop cases of PDF maps, and the bitmap as the fallback for a page the reader cannot draw. It comes with its requirement, in place of the line that leaves it out of scope, and the port's freedom from PDF maps in P-1, put to @Pauli with the result. It is built on a branch rooted at `feature/svg-target`, with its loop, its full run, a gallery entry, and its merge into `dev`.
 
 **Left open:**
 - With .NET's hardware intrinsics off, ImageSharp encoded a JPEG to other bytes, a risk to F-2 for any JPEG bitmap that V-4 has no case of; whether x64 and ARM64 encode alike is not known. A JPEG map in V-4 would tell, or a JPEG written through as its own data would avoid it (task 1).
@@ -129,7 +128,7 @@ The calls the target fully implements, in the sense of DL-5: `Intensity`, `PushT
 
 ## Future directions
 
-Two undertakings to return to once the SVG work is done (@Pauli, Nov 6).
+Undertakings to return to once the SVG work is done (@Pauli, Nov 6 and 12).
 
 - **Flattening blending and opacity.** An option of the export turns every colour drawn with blending or less than full opacity into opaque pieces:
   - It covers the course's purple and the map's own colours, such as contours, whose opacity is set per colour.
@@ -149,6 +148,7 @@ Two undertakings to return to once the SVG work is done (@Pauli, Nov 6).
   - The language is still to be chosen, between two shapes:
     - one implementation per platform on the same Skia algorithm: TypeScript on CanvasKit for the browser, beside the TypeScript port (phase 8), C# on SkiaSharp in Purple Pen, and Python on `skia-pathops` for Inkscape and Scribus;
     - a single C++ core on Skia's path operations, compiled to WebAssembly for the browser and natively for the rest.
+- **A PDF base map as vectors** (@Pauli, Nov 12; not current yet). The application reads a PDF base map's page with PdfPig into drawing calls, which the target draws as it draws a map, as the design's "A PDF base map as vectors" sets out and as @Pauli chose (see Decisions): with a paint for RGB colours in `Graphics2D`, a JPEG written through as its own data, loop cases of PDF maps, and the bitmap as the fallback for a page the reader cannot draw. It comes with its requirement, in place of the line that leaves it out of scope, and the port's freedom from PDF maps in P-1, put to @Pauli with the result.
 - **Vector printing.** An option, not the default, at least at first: printing stays rasterized unless the option is chosen.
   - It is built without WinForms.
   - On Linux and macOS, a PDF goes to CUPS: either the PDF export's, or the Skia target's drawing recorded into a PDF, which draws what the raster print draws.
