@@ -514,6 +514,9 @@ namespace PurplePen.MapModel
         readonly PointF rotationCenter;
         public PointF RotationCenter { get { return rotationCenter; } }
 
+        // Whether the contours of the area meet, once found: 0 until then, 1 when they do not, 2 when they do.
+        int contoursMeet;
+
         public AreaSymbol(AreaLikeSymDef def, SymPathWithHoles path, float angle, PointF rotationCenter) :
             base(path)
         {
@@ -524,6 +527,19 @@ namespace PurplePen.MapModel
         protected override void HolesChanged()
         {
             boundingBox = def.CalcBounds(Path);
+            contoursMeet = 0;
+        }
+
+        // Whether two of the area's contours, its main path and its holes, meet, or one meets itself (see
+        // SymPathWithHoles.ContoursMeet), found the first time it is asked and kept until the holes change.
+        internal bool ContoursMeet
+        {
+            get
+            {
+                if (contoursMeet == 0)
+                    contoursMeet = Path.ContoursMeet() ? 2 : 1;
+                return contoursMeet == 2;
+            }
         }
 
         public override Symbol CloneDetached(SymDef newSymdef, Matrix transform)
