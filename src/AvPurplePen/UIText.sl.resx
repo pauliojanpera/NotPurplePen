@@ -1401,4 +1401,7 @@
   <data name="CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text" xml:space="preserve">
     <value>Nariši ploskovne vzorce kot ločene oblike</value>
   </data>
+  <data name="CreateSvgCourses_folderBrowserDialog_Description" xml:space="preserve">
+    <value>Izberi mapo za SVG datoteke</value>
+  </data>
 </root>

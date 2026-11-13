@@ -3895,6 +3895,9 @@ Purple Pen cannot install this kind of file for you. Open it yourself to install
   <data name="CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text" xml:space="preserve">
     <value>Draw area patterns as separate shapes</value>
   </data>
+  <data name="CreateSvgCourses_folderBrowserDialog_Description" xml:space="preserve">
+    <value>Select a folder for the SVG files</value>
+  </data>
   <data name="PrintPreviewDialog_Text" xml:space="preserve">
     <value>Print Preview</value>
   </data>

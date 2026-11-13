@@ -3550,4 +3550,7 @@ Võisluste jaoks on soovitav eksportida radade failid OCADi formaati (menüüst 
   <data name="CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text" xml:space="preserve">
     <value>Joonista alade mustrid eraldi kujunditena</value>
   </data>
+  <data name="CreateSvgCourses_folderBrowserDialog_Description" xml:space="preserve">
+    <value>Vali kaust SVG failide jaoks</value>
+  </data>
 </root>

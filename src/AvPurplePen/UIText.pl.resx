@@ -2878,4 +2878,7 @@ Skala mapy określa powiązanie pomiędzy wydrukiem a rzeczywistością.
   <data name="CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text" xml:space="preserve">
     <value>Rysuj wzory obszarów jako osobne kształty</value>
   </data>
+  <data name="CreateSvgCourses_folderBrowserDialog_Description" xml:space="preserve">
+    <value>Wybierz katalog dla plików SVG</value>
+  </data>
 </root>

@@ -2422,4 +2422,7 @@ Til å skrive ut konkuranskekart anbefales at løypene eksporteres til OCAD file
   <data name="CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text" xml:space="preserve">
     <value>Teikn flatemønster som separate figurar</value>
   </data>
+  <data name="CreateSvgCourses_folderBrowserDialog_Description" xml:space="preserve">
+    <value>Vel mappe for SVG-filene</value>
+  </data>
 </root>

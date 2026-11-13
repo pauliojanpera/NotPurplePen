@@ -3254,4 +3254,7 @@ OKを押し、コンピュータ上で地図ファイルのコピーを探して
   <data name="CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text" xml:space="preserve">
     <value>面のパターンを個別の図形で描画する</value>
   </data>
+  <data name="CreateSvgCourses_folderBrowserDialog_Description" xml:space="preserve">
+    <value>SVGファイルを保存するフォルダを選択してください</value>
+  </data>
 </root>

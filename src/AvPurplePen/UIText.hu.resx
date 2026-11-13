@@ -3515,4 +3515,7 @@ A versenytérképek nyomtatásához javasolt a pályákat OCAD formátumba expor
   <data name="CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text" xml:space="preserve">
     <value>Területminták rajzolása különálló alakzatokként</value>
   </data>
+  <data name="CreateSvgCourses_folderBrowserDialog_Description" xml:space="preserve">
+    <value>Válassza ki az SVG fájlok könyvtárát</value>
+  </data>
 </root>

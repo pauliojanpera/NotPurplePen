@@ -3578,4 +3578,7 @@ Afin d'imprimer des cartes de compétition, nous vous suggérons d'exporter les 
   <data name="CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text" xml:space="preserve">
     <value>Dessiner les motifs en formes séparées</value>
   </data>
+  <data name="CreateSvgCourses_folderBrowserDialog_Description" xml:space="preserve">
+    <value>Sélectionner un répertoire pour les fichiers SVG</value>
+  </data>
 </root>

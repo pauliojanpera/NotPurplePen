@@ -3592,4 +3592,7 @@ Para a impressão dos mapas da competição, sugere-se exportar os percursos par
   <data name="CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text" xml:space="preserve">
     <value>Desenhar padrões de área forma a forma</value>
   </data>
+  <data name="CreateSvgCourses_folderBrowserDialog_Description" xml:space="preserve">
+    <value>Selecionar a pasta para os ficheiros SVG</value>
+  </data>
 </root>

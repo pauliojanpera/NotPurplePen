@@ -3555,4 +3555,7 @@ Pro tisk závodních map se doporučuje exportovat tratě do souborů OCAD (vybe
   <data name="CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text" xml:space="preserve">
     <value>Kreslit vzory ploch jako samostatné tvary</value>
   </data>
+  <data name="CreateSvgCourses_folderBrowserDialog_Description" xml:space="preserve">
+    <value>Vyberte adresář pro SVG soubory</value>
+  </data>
 </root>

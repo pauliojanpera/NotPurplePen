@@ -3691,4 +3691,7 @@ Yarışma haritalarını yazdırmak için kursların OCAD dosyalarına aktarılm
   <data name="CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text" xml:space="preserve">
     <value>Alan desenlerini ayrı şekiller olarak çiz</value>
   </data>
+  <data name="CreateSvgCourses_folderBrowserDialog_Description" xml:space="preserve">
+    <value>SVG dosyaları için bir klasör seçin</value>
+  </data>
 </root>

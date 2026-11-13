@@ -3491,4 +3491,7 @@ Para imprimir mapas para una competición, se sugiere que los recorridos sean ex
   <data name="CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text" xml:space="preserve">
     <value>Dibujar las tramas como formas separadas</value>
   </data>
+  <data name="CreateSvgCourses_folderBrowserDialog_Description" xml:space="preserve">
+    <value>Escoja una carpeta para los archivos SVG</value>
+  </data>
 </root>
