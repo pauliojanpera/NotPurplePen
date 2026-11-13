@@ -633,4 +633,7 @@
   <data name="FinishButtonText" xml:space="preserve">
     <value>完成(&amp;F)</value>
   </data>
+  <data name="CannotCreateSvgs" xml:space="preserve">
+    <value>无法创建SVG文件，原因如下：</value>
+  </data>
 </root>
