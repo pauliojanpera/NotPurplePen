@@ -12,7 +12,8 @@ namespace Map_Svg.Tests
     // once for its color and turned with each area about the area's pattern origin by a transform on the area's fill;
     // a hatching as a pattern fill of one of its lines, turned likewise; an irregular pattern, or one in another fill
     // mode, element by element; and, when area patterns are drawn as separate shapes, every pattern element by
-    // element and every hatching line by line.
+    // element and every hatching line by line. Areas of a symbol that overlap draw each outline as a ghost and the
+    // pattern once, within a clip to the union of the ghosts, unless drawn as separate shapes.
     [TestFixture]
     public class AreaPatternTests
     {
@@ -33,6 +34,7 @@ namespace Map_Svg.Tests
                 Assert.IsTrue(GraphicsUtil.PatternBrushesAreVectors(target));
                 RenderOptions options = new RenderOptions();
                 options.usePatternBitmaps = !separateShapes;
+                options.patternsWithEachArea = separateShapes;
                 options.minResolution = MinResolution;
 
                 object part = new object();
@@ -176,6 +178,47 @@ namespace Map_Svg.Tests
                                   "<g style=\"fill:url(#c)\" clip-path=\"url(#f)\">\n<g transform=\"translate(10700-9550)rotate(25)\">\n" +
                                   "<path data-o=\"4\" d=\"M-11456-10743H9807v21262h-21263z\"/>\n</g>\n</g>\n", document);
             Assert.AreEqual(2, Occurrences(document, "<pattern "));
+        }
+
+        // Two squares that overlap, unturned, laid out from the map's origin.
+        private static readonly PatternedAreaMap.Square[] OverlappingSquares = {
+            new PatternedAreaMap.Square(new PointF(-4, -4), 0, new PointF(0, 0)),
+            new PatternedAreaMap.Square(new PointF(4, 4), 0, new PointF(0, 0)),
+        };
+
+        [Test]
+        public void OverlappingAreasDrawTheirOutlinesAsGhostsAndTheirPatternOnceWithinAClipToTheirUnion()
+        {
+            string document;
+            using (Map map = PatternedAreaMap.Create(false, AreaSymDef.PatternFillMode.Clip, OverlappingSquares))
+                document = WriteMap(map);
+
+            // Each square's outline is a ghost of its own object, which paints nothing and has an id; the pattern fills
+            // the rectangle around both, once, without an object's number, within a clip of a use of each ghost, each
+            // under the even-odd rule its outline fills by (M-6, S-12).
+            Match lower = Regex.Match(document, @"<path id=""([a-zA-Z0-9]+)"" style=""fill:none"" data-o=""1"" d=""M-12000-12000[^""]*""/>");
+            Match upper = Regex.Match(document, @"<path id=""([a-zA-Z0-9]+)"" style=""fill:none"" data-o=""2"" d=""M-4000-4000[^""]*""/>");
+            Assert.IsTrue(lower.Success, document);
+            Assert.IsTrue(upper.Success, document);
+            StringAssert.Contains("<use style=\"clip-rule:evenodd\" xlink:href=\"#" + lower.Groups[1].Value + "\"/>\n" +
+                                  "<use style=\"clip-rule:evenodd\" xlink:href=\"#" + upper.Groups[1].Value + "\"/>\n</clipPath>", document);
+            Assert.AreEqual(2, Occurrences(document, "<clipPath"), "the page's clip and the union's");
+            StringAssert.IsMatch(@"<g style=""fill:url\(#[a-zA-Z0-9]+\)"" clip-path=""url\(#[a-zA-Z0-9]+\)"">\n<path d=""M-12000-12000[^""]*z""/>\n</g>", document);
+            Assert.AreEqual(2, Occurrences(document, "data-o="));
+        }
+
+        [Test]
+        public void AsSeparateShapesOverlappingAreasEachDrawTheirOwnPattern()
+        {
+            string document;
+            using (Map map = PatternedAreaMap.Create(false, AreaSymDef.PatternFillMode.Clip, OverlappingSquares))
+                document = WriteMap(map, true);
+
+            // No ghost and no union: each square clips its own dots to its own outline, as a reader that keeps one
+            // child of a clip path draws them, and the page clips to its area (S-7).
+            Assert.AreEqual(0, Occurrences(document, "<use style=\"clip-rule"));
+            Assert.AreEqual(0, Occurrences(document, "<path id="));
+            Assert.AreEqual(3, Occurrences(document, "<clipPath"));
         }
 
         [Test]

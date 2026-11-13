@@ -138,6 +138,52 @@ namespace PurplePen.MapModel
         }
     }
 
+    // The outline of an area drawn in its object's place as an element that paints nothing, a ghost, with the id by
+    // which the clip to the union of its group's outlines refers to it (M-6, S-12). It is never one of the shapes that
+    // the document defines once and repeats (S-5), as each ghost is its own object's.
+    public sealed class SvgGhost : SvgElement
+    {
+        // The style of every ghost, which paints neither fill nor stroke.
+        private static readonly SvgStyle GhostStyle = new SvgStyle("fill:none");
+
+        // The outline's data, in steps.
+        public readonly SvgPathData Data;
+
+        // Whether the outline fills, and so clips, under the even-odd rule rather than the nonzero one.
+        public readonly bool EvenOdd;
+
+        // Create a ghost.
+        // data: the outline's data, in steps.
+        // evenOdd: whether the outline clips under the even-odd rule.
+        public SvgGhost(SvgPathData data, bool evenOdd)
+        {
+            Data = data;
+            EvenOdd = evenOdd;
+        }
+
+        // The ghost's style, which paints nothing.
+        public override SvgStyle ElementStyle
+        {
+            get { return GhostStyle; }
+        }
+
+        // The bounds of the outline's points, control points included.
+        public override SvgBounds GetBounds()
+        {
+            return Data.Bounds;
+        }
+
+        // Write the element: a path with its id, its style unless its group carries it, its object's number and its
+        // data.
+        public override void Write(SvgWriter writer)
+        {
+            writer.Text.Append("<path id=\"").Append(writer.IdOf(this)).Append('"');
+            WriteStyle(writer);
+            WriteObjectNumber(writer);
+            writer.Text.Append(" d=\"").Append(Data.ToString()).Append("\"/>\n");
+        }
+    }
+
     // An ellipse, written as a circle when its radii are equal. A center coordinate of 0 is the default, which is left
     // out (S-9).
     public sealed class SvgEllipse : SvgShape

@@ -514,6 +514,9 @@ namespace PurplePen.MapModel
         readonly PointF rotationCenter;
         public PointF RotationCenter { get { return rotationCenter; } }
 
+        // Whether the contours of the area meet, once found: 0 until then, 1 when they do not, 2 when they do.
+        int contoursMeet;
+
         public AreaSymbol(AreaLikeSymDef def, SymPathWithHoles path, float angle, PointF rotationCenter) :
             base(path)
         {
@@ -524,6 +527,19 @@ namespace PurplePen.MapModel
         protected override void HolesChanged()
         {
             boundingBox = def.CalcBounds(Path);
+            contoursMeet = 0;
+        }
+
+        // Whether two of the area's contours, its main path and its holes, meet, or one meets itself (see
+        // SymPathWithHoles.ContoursMeet), found the first time it is asked and kept until the holes change.
+        internal bool ContoursMeet
+        {
+            get
+            {
+                if (contoursMeet == 0)
+                    contoursMeet = Path.ContoursMeet() ? 2 : 1;
+                return contoursMeet == 2;
+            }
         }
 
         public override Symbol CloneDetached(SymDef newSymdef, Matrix transform)
@@ -2177,6 +2193,86 @@ namespace PurplePen.MapModel
 
             for (double y = firstLine; y <= lastLine; y += spacing) {
                 g.DrawLine(penKey, new PointF(boundingRect.Left, (float)y), new PointF(boundingRect.Right, (float)y));
+            }
+        }
+
+        // Draw the lines of a hatching once over several rectangles, as DrawHatchLines draws them over one: each line
+        // that any of the rectangles reaches, over the stretches of it that cross them, with stretches that overlap or
+        // touch drawn as one line.
+        // g: the target.
+        // penKey: the key of the pen of the lines.
+        // spacing: the distance between lines.
+        // offset: how far the lines are moved from the origin.
+        // boundingRects: the rectangles.
+        internal static void DrawHatchLinesOnce(IGraphicsTarget g, object penKey, float spacing, float offset, RectangleF[] boundingRects)
+        {
+            if (!(spacing > 0))
+                return;
+
+            // Line n lies at n * spacing + offset, and DrawHatchLines draws those from the line nearest each
+            // rectangle's top to the line nearest its bottom.
+            long[] firstLines = new long[boundingRects.Length], lastLines = new long[boundingRects.Length];
+            for (int i = 0; i < boundingRects.Length; ++i) {
+                firstLines[i] = (long)Math.Round((boundingRects[i].Top - offset) / spacing);
+                lastLines[i] = (long)Math.Round((boundingRects[i].Bottom - offset) / spacing);
+            }
+
+            ForEachRowOnce(firstLines, lastLines, (long line, List<int> rectsOnLine) => {
+                float y = (float)(line * (double)spacing + offset);
+
+                rectsOnLine.Sort((a, b) => boundingRects[a].Left.CompareTo(boundingRects[b].Left));
+                float left = 0, right = 0;
+                bool any = false;
+                foreach (int rect in rectsOnLine) {
+                    if (any && boundingRects[rect].Left <= right) {
+                        right = Math.Max(right, boundingRects[rect].Right);
+                        continue;
+                    }
+
+                    if (any)
+                        g.DrawLine(penKey, new PointF(left, y), new PointF(right, y));
+                    left = boundingRects[rect].Left;
+                    right = boundingRects[rect].Right;
+                    any = true;
+                }
+
+                if (any)
+                    g.DrawLine(penKey, new PointF(left, y), new PointF(right, y));
+            });
+        }
+
+        // Call a function once for each row of a lattice that any of several boxes reaches, from the first such row to
+        // the last, with the boxes that reach it; rows that no box reaches are skipped.
+        // firstRows, lastRows: for each box, the first and last row it reaches; a box whose last row comes before its
+        // first reaches none.
+        // drawRow: called with the row and the indices of the boxes that reach it, in no particular order, in a list
+        //          that it may reorder but not otherwise change.
+        internal static void ForEachRowOnce(long[] firstRows, long[] lastRows, Action<long, List<int>> drawRow)
+        {
+            int count = firstRows.Length;
+            int[] order = new int[count];
+            for (int i = 0; i < count; ++i)
+                order[i] = i;
+            Array.Sort(order, (a, b) => firstRows[a].CompareTo(firstRows[b]));
+
+            List<int> boxesInRow = new List<int>();
+            int next = 0;
+            long row = long.MinValue;
+            while (next < count || boxesInRow.Count > 0) {
+                // Skip the rows that no box reaches.
+                if (boxesInRow.Count == 0)
+                    row = Math.Max(row, firstRows[order[next]]);
+
+                while (next < count && firstRows[order[next]] <= row) {
+                    boxesInRow.Add(order[next]);
+                    ++next;
+                }
+                long currentRow = row;
+                boxesInRow.RemoveAll(box => lastRows[box] < currentRow);
+
+                if (boxesInRow.Count > 0)
+                    drawRow(row, boxesInRow);
+                ++row;
             }
         }
 

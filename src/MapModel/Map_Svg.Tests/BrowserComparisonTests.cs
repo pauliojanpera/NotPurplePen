@@ -56,13 +56,14 @@ namespace Map_Svg.Tests
         // The documents set apart, each for a browser, with why the browser draws it otherwise than Chromium, and how
         // many pixels of the browser's image lay outside the tolerance when it was set apart.
         internal static readonly Dictionary<(Browser, string), SetApartDocument> SetApart = new Dictionary<(Browser, string), SetApartDocument> {
-            { (Browser.Firefox, "teanwest"), new SetApartDocument(FirefoxFineTiles, 31026) },
-            { (Browser.Firefox, "teanwest11"), new SetApartDocument(FirefoxFineTiles, 31019) },
+            { (Browser.Firefox, "teanwest"), new SetApartDocument(FirefoxFineTiles, 32165) },
+            { (Browser.Firefox, "teanwest11"), new SetApartDocument(FirefoxFineTiles, 32167) },
             { (Browser.Firefox, "fontfallback"),
               new SetApartDocument("F-5: Firefox draws the lower part of a cluster of Bengali, below the headline, a pixel lower than Chromium", 1) },
             { (Browser.WebKit, "teanwest"), new SetApartDocument(WebKitFineTiles + "; and " + WebKitHints.Substring("F-5: ".Length), 133) },
             { (Browser.WebKit, "teanwest11"), new SetApartDocument(WebKitFineTiles + "; and " + WebKitHints.Substring("F-5: ".Length), 133) },
             { (Browser.WebKit, "ocad11templatealign"), new SetApartDocument(WebKitFineTiles, 95575) },
+            { (Browser.WebKit, "marymoor11_lowerlayers"), new SetApartDocument(WebKitFineTiles, 3) },
             { (Browser.WebKit, "Bitmap"), new SetApartDocument(WebKitScalesDown, 4) },
             { (Browser.WebKit, "page-LincolnPark-Short"), new SetApartDocument(WebKitScalesDown, 6) },
             { (Browser.WebKit, "fontfallback"),
