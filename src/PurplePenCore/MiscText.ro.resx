@@ -388,4 +388,7 @@ După ce apăsați OK, încercați să localizați o copie a fișierului hartă 
   <data name="FinishButtonText" xml:space="preserve">
     <value>&amp;Finalizare</value>
   </data>
+  <data name="CannotCreateSvgs" xml:space="preserve">
+    <value>Nu se pot crea fișierele SVG deoarece:</value>
+  </data>
 </root>

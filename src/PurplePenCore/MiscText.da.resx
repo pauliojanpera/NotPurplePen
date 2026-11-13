@@ -622,4 +622,7 @@ Efter at klikke OK, prøv at finde en kopi af kortfilen på din computer.</value
   <data name="FinishButtonText" xml:space="preserve">
     <value>&amp;Færdig</value>
   </data>
+  <data name="CannotCreateSvgs" xml:space="preserve">
+    <value>Kan ikke oprette SVG-filer af følgende grund:</value>
+  </data>
 </root>

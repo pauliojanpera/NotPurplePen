@@ -634,4 +634,7 @@ A Rendben lenyomása után próbálja megkeresni a térkép fájlt a számítóg
   <data name="GhostscriptNotInstalled" xml:space="preserve">
     <value>A GPL Ghostscript nincs telepítve.</value>
   </data>
+  <data name="CannotCreateSvgs" xml:space="preserve">
+    <value>Az SVG fájlok nem hozhatók létre az alábbi okból:</value>
+  </data>
 </root>
