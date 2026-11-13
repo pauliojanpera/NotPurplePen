@@ -3252,7 +3252,7 @@ OKを押し、コンピュータ上で地図ファイルのコピーを探して
     <value>ファイルを圧縮する (.svgz)</value>
   </data>
   <data name="CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text" xml:space="preserve">
-    <value>面のパターンを個別の図形で描画する</value>
+    <value>面のパターンを個別の図形として描画する</value>
   </data>
   <data name="CreateSvgCourses_folderBrowserDialog_Description" xml:space="preserve">
     <value>SVGファイルを保存するフォルダを選択してください</value>

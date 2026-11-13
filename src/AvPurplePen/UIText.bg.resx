@@ -3687,7 +3687,7 @@
     <value>Компресирай файловете (.svgz)</value>
   </data>
   <data name="CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text" xml:space="preserve">
-    <value>Рисувай шарките на площите поотделно</value>
+    <value>Рисувай шарките на площите като отделни фигури</value>
   </data>
   <data name="CreateSvgCourses_folderBrowserDialog_Description" xml:space="preserve">
     <value>Избери папка за SVG файловете</value>
