@@ -177,8 +177,8 @@
   <data name="CreateSvgCourses_Text" xml:space="preserve">
     <value>Pelên SVG Çêke</value>
   </data>
-  <data name="CreateSvgCourses_bitmapsGroupBox_Text" xml:space="preserve">
-    <value>Wêneyên bitmap</value>
+  <data name="CreateSvgCourses_specialOptionsGroupBox_Text" xml:space="preserve">
+    <value>Vebijêrkên taybet</value>
   </data>
   <data name="CreateSvgCourses_bitmapsLabel_Text" xml:space="preserve">
     <value>Wêne di nexşeyê de:</value>

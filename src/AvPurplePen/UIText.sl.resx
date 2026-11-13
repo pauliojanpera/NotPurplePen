@@ -1377,8 +1377,8 @@
   <data name="CreateSvgCourses_Text" xml:space="preserve">
     <value>Ustvari SVG datoteke</value>
   </data>
-  <data name="CreateSvgCourses_bitmapsGroupBox_Text" xml:space="preserve">
-    <value>Bitne slike</value>
+  <data name="CreateSvgCourses_specialOptionsGroupBox_Text" xml:space="preserve">
+    <value>Posebne nastavitve</value>
   </data>
   <data name="CreateSvgCourses_bitmapsLabel_Text" xml:space="preserve">
     <value>Slike v karti:</value>

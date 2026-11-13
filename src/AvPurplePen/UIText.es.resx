@@ -3467,8 +3467,8 @@ Para imprimir mapas para una competición, se sugiere que los recorridos sean ex
   <data name="CreateSvgCourses_Text" xml:space="preserve">
     <value>Crear archivos SVG</value>
   </data>
-  <data name="CreateSvgCourses_bitmapsGroupBox_Text" xml:space="preserve">
-    <value>Mapas de bits</value>
+  <data name="CreateSvgCourses_specialOptionsGroupBox_Text" xml:space="preserve">
+    <value>Opciones especiales</value>
   </data>
   <data name="CreateSvgCourses_bitmapsLabel_Text" xml:space="preserve">
     <value>Mapas de bits:</value>

@@ -2854,8 +2854,8 @@ Skala mapy określa powiązanie pomiędzy wydrukiem a rzeczywistością.
   <data name="CreateSvgCourses_Text" xml:space="preserve">
     <value>Utwórz pliki SVG</value>
   </data>
-  <data name="CreateSvgCourses_bitmapsGroupBox_Text" xml:space="preserve">
-    <value>Bitmapy</value>
+  <data name="CreateSvgCourses_specialOptionsGroupBox_Text" xml:space="preserve">
+    <value>Ustawienia specjalne</value>
   </data>
   <data name="CreateSvgCourses_bitmapsLabel_Text" xml:space="preserve">
     <value>Bitmapy na mapie:</value>

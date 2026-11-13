@@ -3526,8 +3526,8 @@ Võisluste jaoks on soovitav eksportida radade failid OCADi formaati (menüüst 
   <data name="CreateSvgCourses_Text" xml:space="preserve">
     <value>Salvesta SVG failid</value>
   </data>
-  <data name="CreateSvgCourses_bitmapsGroupBox_Text" xml:space="preserve">
-    <value>Rasterpildid</value>
+  <data name="CreateSvgCourses_specialOptionsGroupBox_Text" xml:space="preserve">
+    <value>Eriseaded</value>
   </data>
   <data name="CreateSvgCourses_bitmapsLabel_Text" xml:space="preserve">
     <value>Pildid kaardil:</value>

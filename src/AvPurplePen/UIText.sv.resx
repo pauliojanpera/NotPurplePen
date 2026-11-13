@@ -3644,8 +3644,8 @@ För att skriva ut tävlingskartor är det rekommenderat att banorna exporteras 
   <data name="CreateSvgCourses_Text" xml:space="preserve">
     <value>Skapa SVG-filer</value>
   </data>
-  <data name="CreateSvgCourses_bitmapsGroupBox_Text" xml:space="preserve">
-    <value>Bitmappar</value>
+  <data name="CreateSvgCourses_specialOptionsGroupBox_Text" xml:space="preserve">
+    <value>Specialinställningar</value>
   </data>
   <data name="CreateSvgCourses_bitmapsLabel_Text" xml:space="preserve">
     <value>Bitmappar i kartan:</value>

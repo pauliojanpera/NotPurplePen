@@ -126,8 +126,8 @@
   <data name="CreateSvgCourses_Text" xml:space="preserve">
     <value>Crea i file SVG</value>
   </data>
-  <data name="CreateSvgCourses_bitmapsGroupBox_Text" xml:space="preserve">
-    <value>Bitmap</value>
+  <data name="CreateSvgCourses_specialOptionsGroupBox_Text" xml:space="preserve">
+    <value>Opsion speciali</value>
   </data>
   <data name="CreateSvgCourses_bitmapsLabel_Text" xml:space="preserve">
     <value>Bitmap de la mapa:</value>

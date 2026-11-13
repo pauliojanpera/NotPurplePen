@@ -3632,8 +3632,8 @@ Zum Drucken der Wettkampfdateien wird empfohlen, sie nach OCAD zu exportieren (Ã
   <data name="CreateSvgCourses_Text" xml:space="preserve">
     <value>SVG-Dateien erstellen</value>
   </data>
-  <data name="CreateSvgCourses_bitmapsGroupBox_Text" xml:space="preserve">
-    <value>Bilder</value>
+  <data name="CreateSvgCourses_specialOptionsGroupBox_Text" xml:space="preserve">
+    <value>Spezielle Einstellungen</value>
   </data>
   <data name="CreateSvgCourses_bitmapsLabel_Text" xml:space="preserve">
     <value>Bilder in der Karte:</value>

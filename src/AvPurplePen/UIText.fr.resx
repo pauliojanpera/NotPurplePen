@@ -3554,8 +3554,8 @@ Afin d'imprimer des cartes de compétition, nous vous suggérons d'exporter les 
   <data name="CreateSvgCourses_Text" xml:space="preserve">
     <value>Créer des fichiers SVG</value>
   </data>
-  <data name="CreateSvgCourses_bitmapsGroupBox_Text" xml:space="preserve">
-    <value>Bitmaps</value>
+  <data name="CreateSvgCourses_specialOptionsGroupBox_Text" xml:space="preserve">
+    <value>Options spéciales</value>
   </data>
   <data name="CreateSvgCourses_bitmapsLabel_Text" xml:space="preserve">
     <value>Bitmaps de la carte :</value>

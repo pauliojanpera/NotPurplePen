@@ -3491,8 +3491,8 @@ A versenytérképek nyomtatásához javasolt a pályákat OCAD formátumba expor
   <data name="CreateSvgCourses_Text" xml:space="preserve">
     <value>SVG fájlok létrehozása</value>
   </data>
-  <data name="CreateSvgCourses_bitmapsGroupBox_Text" xml:space="preserve">
-    <value>Képek</value>
+  <data name="CreateSvgCourses_specialOptionsGroupBox_Text" xml:space="preserve">
+    <value>Speciális beállítások</value>
   </data>
   <data name="CreateSvgCourses_bitmapsLabel_Text" xml:space="preserve">
     <value>Képek a térképen:</value>

@@ -3648,8 +3648,8 @@ Per la stampa delle mappe di gara, si consiglia di esportare i percorsi su file 
   <data name="CreateSvgCourses_Text" xml:space="preserve">
     <value>Crea file SVG</value>
   </data>
-  <data name="CreateSvgCourses_bitmapsGroupBox_Text" xml:space="preserve">
-    <value>Bitmap</value>
+  <data name="CreateSvgCourses_specialOptionsGroupBox_Text" xml:space="preserve">
+    <value>Impostazioni speciali</value>
   </data>
   <data name="CreateSvgCourses_bitmapsLabel_Text" xml:space="preserve">
     <value>Bitmap nella carta:</value>

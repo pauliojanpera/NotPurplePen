@@ -3658,8 +3658,8 @@ For printing competition maps, it is suggested that courses be exported to OCAD 
   <data name="CreateSvgCourses_Text" xml:space="preserve">
     <value>Create SVG Files</value>
   </data>
-  <data name="CreateSvgCourses_bitmapsGroupBox_Text" xml:space="preserve">
-    <value>Bitmaps</value>
+  <data name="CreateSvgCourses_specialOptionsGroupBox_Text" xml:space="preserve">
+    <value>Special options</value>
   </data>
   <data name="CreateSvgCourses_bitmapsLabel_Text" xml:space="preserve">
     <value>Bitmaps in the map:</value>

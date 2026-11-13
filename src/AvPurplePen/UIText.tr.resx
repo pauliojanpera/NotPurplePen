@@ -3667,8 +3667,8 @@ Yarışma haritalarını yazdırmak için kursların OCAD dosyalarına aktarılm
   <data name="CreateSvgCourses_Text" xml:space="preserve">
     <value>SVG Dosyaları Oluştur</value>
   </data>
-  <data name="CreateSvgCourses_bitmapsGroupBox_Text" xml:space="preserve">
-    <value>Bitmapler</value>
+  <data name="CreateSvgCourses_specialOptionsGroupBox_Text" xml:space="preserve">
+    <value>Özel ayarlar</value>
   </data>
   <data name="CreateSvgCourses_bitmapsLabel_Text" xml:space="preserve">
     <value>Haritadaki bitmapler:</value>

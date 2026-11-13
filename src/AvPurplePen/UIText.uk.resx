@@ -3452,8 +3452,8 @@
   <data name="CreateSvgCourses_Text" xml:space="preserve">
     <value>Створити файли SVG</value>
   </data>
-  <data name="CreateSvgCourses_bitmapsGroupBox_Text" xml:space="preserve">
-    <value>Растрові зображення</value>
+  <data name="CreateSvgCourses_specialOptionsGroupBox_Text" xml:space="preserve">
+    <value>Спеціальні параметри</value>
   </data>
   <data name="CreateSvgCourses_bitmapsLabel_Text" xml:space="preserve">
     <value>Зображення на карті:</value>

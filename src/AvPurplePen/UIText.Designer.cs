@@ -3407,7 +3407,16 @@ namespace AvPurplePen {
                 return ResourceManager.GetString("CreateRouteGadget_Text", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Special options.
+        /// </summary>
+        public static string CreateSvgCourses_specialOptionsGroupBox_Text {
+            get {
+                return ResourceManager.GetString("CreateSvgCourses_specialOptionsGroupBox_Text", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Change text....
         /// </summary>

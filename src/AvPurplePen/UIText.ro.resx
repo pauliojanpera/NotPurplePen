@@ -2399,8 +2399,8 @@ Pentru a tipări hărți de concurs, se recomandă exportul traseelor în fișie
   <data name="CreateSvgCourses_Text" xml:space="preserve">
     <value>Creare Fișiere SVG</value>
   </data>
-  <data name="CreateSvgCourses_bitmapsGroupBox_Text" xml:space="preserve">
-    <value>Imagini</value>
+  <data name="CreateSvgCourses_specialOptionsGroupBox_Text" xml:space="preserve">
+    <value>Setări speciale</value>
   </data>
   <data name="CreateSvgCourses_bitmapsLabel_Text" xml:space="preserve">
     <value>Imagini din hartă:</value>

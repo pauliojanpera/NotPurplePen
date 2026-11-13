@@ -3230,8 +3230,8 @@ OKを押し、コンピュータ上で地図ファイルのコピーを探して
   <data name="CreateSvgCourses_Text" xml:space="preserve">
     <value>SVGファイルを作成</value>
   </data>
-  <data name="CreateSvgCourses_bitmapsGroupBox_Text" xml:space="preserve">
-    <value>ビットマップ</value>
+  <data name="CreateSvgCourses_specialOptionsGroupBox_Text" xml:space="preserve">
+    <value>特殊な設定</value>
   </data>
   <data name="CreateSvgCourses_bitmapsLabel_Text" xml:space="preserve">
     <value>地図のビットマップ:</value>

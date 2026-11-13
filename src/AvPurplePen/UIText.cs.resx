@@ -3531,8 +3531,8 @@ Pro tisk závodních map se doporučuje exportovat tratě do souborů OCAD (vybe
   <data name="CreateSvgCourses_Text" xml:space="preserve">
     <value>Vytvořit soubory SVG</value>
   </data>
-  <data name="CreateSvgCourses_bitmapsGroupBox_Text" xml:space="preserve">
-    <value>Bitmapy</value>
+  <data name="CreateSvgCourses_specialOptionsGroupBox_Text" xml:space="preserve">
+    <value>Speciální nastavení</value>
   </data>
   <data name="CreateSvgCourses_bitmapsLabel_Text" xml:space="preserve">
     <value>Bitmapy v mapě:</value>

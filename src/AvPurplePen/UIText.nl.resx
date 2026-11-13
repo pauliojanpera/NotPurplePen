@@ -1767,8 +1767,8 @@ Om wedstrijdkaarten af te drukken, wordt voorgesteld de routes als OCAD bestande
   <data name="CreateSvgCourses_Text" xml:space="preserve">
     <value>Creëer SVG bestanden</value>
   </data>
-  <data name="CreateSvgCourses_bitmapsGroupBox_Text" xml:space="preserve">
-    <value>Bitmaps</value>
+  <data name="CreateSvgCourses_specialOptionsGroupBox_Text" xml:space="preserve">
+    <value>Speciale instellingen</value>
   </data>
   <data name="CreateSvgCourses_bitmapsLabel_Text" xml:space="preserve">
     <value>Bitmaps in de kaart:</value>

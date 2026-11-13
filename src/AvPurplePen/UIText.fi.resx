@@ -3635,8 +3635,8 @@ Kilpailukarttojen tulostamiseksi on suositeltavaa viedä radat OCAD-tiedostoihin
   <data name="CreateSvgCourses_Text" xml:space="preserve">
     <value>Luo SVG-tiedostoja</value>
   </data>
-  <data name="CreateSvgCourses_bitmapsGroupBox_Text" xml:space="preserve">
-    <value>Kuvat</value>
+  <data name="CreateSvgCourses_specialOptionsGroupBox_Text" xml:space="preserve">
+    <value>Erityisasetukset</value>
   </data>
   <data name="CreateSvgCourses_bitmapsLabel_Text" xml:space="preserve">
     <value>Kartan kuvat:</value>

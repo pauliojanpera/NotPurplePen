@@ -3529,8 +3529,8 @@
   <data name="CreateSvgCourses_Text" xml:space="preserve">
     <value>建立SVG檔案</value>
   </data>
-  <data name="CreateSvgCourses_bitmapsGroupBox_Text" xml:space="preserve">
-    <value>點陣圖</value>
+  <data name="CreateSvgCourses_specialOptionsGroupBox_Text" xml:space="preserve">
+    <value>特定選項</value>
   </data>
   <data name="CreateSvgCourses_bitmapsLabel_Text" xml:space="preserve">
     <value>地圖中的點陣圖：</value>

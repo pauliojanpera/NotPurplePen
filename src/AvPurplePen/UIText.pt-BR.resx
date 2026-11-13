@@ -3564,8 +3564,8 @@ Para a impressão dos mapas da competição, sugere-se exportar os percursos par
   <data name="CreateSvgCourses_Text" xml:space="preserve">
     <value>Criar Arquivos SVG</value>
   </data>
-  <data name="CreateSvgCourses_bitmapsGroupBox_Text" xml:space="preserve">
-    <value>Bitmaps</value>
+  <data name="CreateSvgCourses_specialOptionsGroupBox_Text" xml:space="preserve">
+    <value>Configurações especiais</value>
   </data>
   <data name="CreateSvgCourses_bitmapsLabel_Text" xml:space="preserve">
     <value>Bitmaps no mapa:</value>
