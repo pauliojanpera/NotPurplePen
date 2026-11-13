@@ -3665,17 +3665,17 @@
   <data name="CreateSvgCourses_Text" xml:space="preserve">
     <value>Създай SVG файлове</value>
   </data>
-  <data name="CreateSvgCourses_bitmapsGroupBox_Text" xml:space="preserve">
-    <value>Растерни изображения</value>
+  <data name="CreateSvgCourses_specialOptionsGroupBox_Text" xml:space="preserve">
+    <value>Специални настройки</value>
   </data>
   <data name="CreateSvgCourses_bitmapsLabel_Text" xml:space="preserve">
-    <value>Изображения:</value>
+    <value>Растерни изображения в картата:</value>
   </data>
   <data name="CreateSvgCourses_comboBoxBitmaps_Items" xml:space="preserve">
-    <value>Вгради</value>
+    <value>Вгради във всеки файл</value>
   </data>
   <data name="CreateSvgCourses_comboBoxBitmaps_Items1" xml:space="preserve">
-    <value>Запиши отделно</value>
+    <value>Запиши до всеки файл</value>
   </data>
   <data name="CreateSvgCourses_comboBoxBitmaps_Items2" xml:space="preserve">
     <value>Пропусни</value>
@@ -3688,5 +3688,8 @@
   </data>
   <data name="CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text" xml:space="preserve">
     <value>Рисувай шарките на площите поотделно</value>
+  </data>
+  <data name="CreateSvgCourses_folderBrowserDialog_Description" xml:space="preserve">
+    <value>Избери папка за SVG файловете</value>
   </data>
 </root>

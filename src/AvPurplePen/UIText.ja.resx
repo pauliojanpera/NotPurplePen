@@ -3230,17 +3230,17 @@ OKを押し、コンピュータ上で地図ファイルのコピーを探して
   <data name="CreateSvgCourses_Text" xml:space="preserve">
     <value>SVGファイルを作成</value>
   </data>
-  <data name="CreateSvgCourses_bitmapsGroupBox_Text" xml:space="preserve">
-    <value>ビットマップ</value>
+  <data name="CreateSvgCourses_specialOptionsGroupBox_Text" xml:space="preserve">
+    <value>特殊な設定</value>
   </data>
   <data name="CreateSvgCourses_bitmapsLabel_Text" xml:space="preserve">
     <value>地図のビットマップ:</value>
   </data>
   <data name="CreateSvgCourses_comboBoxBitmaps_Items" xml:space="preserve">
-    <value>埋め込む</value>
+    <value>各ファイルに埋め込む</value>
   </data>
   <data name="CreateSvgCourses_comboBoxBitmaps_Items1" xml:space="preserve">
-    <value>別に保存する</value>
+    <value>各ファイルの横に保存する</value>
   </data>
   <data name="CreateSvgCourses_comboBoxBitmaps_Items2" xml:space="preserve">
     <value>含めない</value>
@@ -3253,5 +3253,8 @@ OKを押し、コンピュータ上で地図ファイルのコピーを探して
   </data>
   <data name="CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text" xml:space="preserve">
     <value>面のパターンを個別の図形で描画する</value>
+  </data>
+  <data name="CreateSvgCourses_folderBrowserDialog_Description" xml:space="preserve">
+    <value>SVGファイルを保存するフォルダを選択してください</value>
   </data>
 </root>

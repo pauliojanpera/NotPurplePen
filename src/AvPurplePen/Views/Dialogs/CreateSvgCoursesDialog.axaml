@@ -4,11 +4,12 @@
     Dialog for exporting courses as SVG files (A-1, L-7). Laid out as the Create
     PDF Files dialog is, whose strings it shares where it asks the same:
     CourseSelector on the left, an Appearance group (page handling, include base
-    map, color model, optional merge-parts checkbox, and whether area patterns
-    and hatchings are drawn as separate shapes), a Files group (which pages
-    go in each file, and the filename prefix), a Bitmaps group (how the
-    map's bitmaps reach the files, their JPEG quality, and compression), and a
-    Folder group (3 radio buttons + folder picker).
+    map, color model, optional merge-parts checkbox) as the PDF dialog has it,
+    a Files group (which pages go in each file, and the filename prefix), a
+    Special options group with the settings PDF export lacks (how the map's
+    bitmaps reach the files, their JPEG quality, compression, and whether area
+    patterns and hatchings are drawn as separate shapes), and a Folder group
+    (3 radio buttons + folder picker).
 -->
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -24,8 +25,8 @@
         x:DataType="vm:CreateSvgCoursesDialogViewModel"
         Title="{resx:Localize CreateSvgCourses_Text}"
         Icon="/Assets/transparent.ico"
-        d:DesignWidth="640" d:DesignHeight="610"
-        Width="640" Height="610"
+        d:DesignWidth="640" d:DesignHeight="642"
+        Width="640" Height="642"
         CanResize="True"
         CanMinimize="False"
         CanMaximize="False"
@@ -126,14 +127,6 @@
                                   IsChecked="{Binding MergeParts, Mode=TwoWay}"
                                   IsVisible="{Binding ShowMergeParts}"
                                   Margin="0,4,0,0"/>
-
-                        <!-- "Draw area patterns as separate shapes": every area pattern written element by
-                             element and every hatching line by line, as PDF export draws
-                             them, rather than as pattern fills. -->
-                        <CheckBox x:Name="checkBoxDrawAreaPatternsAsSeparateShapes"
-                                  Content="{resx:Localize CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text}"
-                                  IsChecked="{Binding DrawAreaPatternsAsSeparateShapes, Mode=TwoWay}"
-                                  Margin="0,4,0,0"/>
                     </StackPanel>
                 </HeaderedContentControl>
 
@@ -169,19 +162,20 @@
                     </Grid>
                 </HeaderedContentControl>
 
-                <!-- Bitmaps group: how the map's bitmaps reach the files (B-3, B-4),
-                     and whether the files are compressed. -->
+                <!-- Special options group: the settings PDF export lacks. How the map's
+                     bitmaps reach the files (B-3, B-4), whether the files are compressed
+                     (S-10), and whether area patterns are drawn as separate shapes (S-7).
+                     The bitmaps label stands above its combo, which takes the group's whole
+                     width, as the print area's label and combo do in the Appearance group. -->
                 <HeaderedContentControl DockPanel.Dock="Top"
-                                        Header="{resx:Localize CreateSvgCourses_bitmapsGroupBox_Text}"
+                                        Header="{resx:Localize CreateSvgCourses_specialOptionsGroupBox_Text}"
                                         Padding="8"
                                         Margin="0,0,0,8">
-                    <Grid ColumnDefinitions="Auto,8,*"
-                          RowDefinitions="Auto,4,Auto,4,Auto">
-                        <TextBlock Grid.Row="0" Grid.Column="0"
-                                   Text="{resx:Localize CreateSvgCourses_bitmapsLabel_Text}"
-                                   VerticalAlignment="Center"/>
+                    <StackPanel Spacing="4">
+                        <!-- "Bitmaps in the map:" -->
+                        <TextBlock Text="{resx:Localize CreateSvgCourses_bitmapsLabel_Text}"
+                                   TextWrapping="Wrap"/>
                         <ComboBox x:Name="comboBoxBitmaps"
-                                  Grid.Row="0" Grid.Column="2"
                                   HorizontalAlignment="Stretch"
                                   SelectedIndex="{Binding BitmapHandlingIndex, Mode=TwoWay}">
                             <ComboBoxItem Content="{resx:Localize CreateSvgCourses_comboBoxBitmaps_Items}"/>
@@ -189,20 +183,32 @@
                             <ComboBoxItem Content="{resx:Localize CreateSvgCourses_comboBoxBitmaps_Items2}"/>
                         </ComboBox>
 
-                        <TextBlock Grid.Row="2" Grid.Column="0"
-                                   Text="{resx:Localize CreateSvgCourses_jpegQualityLabel_Text}"
-                                   VerticalAlignment="Center"/>
-                        <NumericUpDown x:Name="jpegQualityUpDown"
-                                       Grid.Row="2" Grid.Column="2"
-                                       Minimum="1" Maximum="100" Increment="5"
-                                       FormatString="0"
-                                       Value="{Binding JpegQuality, Mode=TwoWay}"/>
+                        <!-- "JPEG quality:" -->
+                        <Grid ColumnDefinitions="Auto,8,*"
+                              Margin="0,4,0,0">
+                            <TextBlock Grid.Column="0"
+                                       Text="{resx:Localize CreateSvgCourses_jpegQualityLabel_Text}"
+                                       VerticalAlignment="Center"/>
+                            <NumericUpDown x:Name="jpegQualityUpDown"
+                                           Grid.Column="2"
+                                           Minimum="1" Maximum="100" Increment="5"
+                                           FormatString="0"
+                                           Value="{Binding JpegQuality, Mode=TwoWay}"/>
+                        </Grid>
 
                         <CheckBox x:Name="checkBoxCompress"
-                                  Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"
                                   Content="{resx:Localize CreateSvgCourses_checkBoxCompress_Text}"
-                                  IsChecked="{Binding Compress, Mode=TwoWay}"/>
-                    </Grid>
+                                  IsChecked="{Binding Compress, Mode=TwoWay}"
+                                  Margin="0,4,0,0"/>
+
+                        <!-- "Draw area patterns as separate shapes": every area pattern written element by
+                             element and every hatching line by line, as PDF export draws
+                             them, rather than as pattern fills. -->
+                        <CheckBox x:Name="checkBoxDrawAreaPatternsAsSeparateShapes"
+                                  Content="{resx:Localize CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text}"
+                                  IsChecked="{Binding DrawAreaPatternsAsSeparateShapes, Mode=TwoWay}"
+                                  Margin="0,4,0,0"/>
+                    </StackPanel>
                 </HeaderedContentControl>
 
                 <!-- Folder group (last child — fills the remaining vertical

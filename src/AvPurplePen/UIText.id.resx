@@ -159,34 +159,4 @@
   <data name="AllControlsProperties_descriptionAppearanceLabel_Text" xml:space="preserve">
     <value>Keterangan penampilan:</value>
   </data>
-  <data name="MainFrame_createSvgFilesMenu_Text" xml:space="preserve">
-    <value>Buat Berkas S_VG...</value>
-  </data>
-  <data name="CreateSvgCourses_Text" xml:space="preserve">
-    <value>Buat Berkas SVG</value>
-  </data>
-  <data name="CreateSvgCourses_bitmapsGroupBox_Text" xml:space="preserve">
-    <value>Bitmap</value>
-  </data>
-  <data name="CreateSvgCourses_bitmapsLabel_Text" xml:space="preserve">
-    <value>Bitmap di peta:</value>
-  </data>
-  <data name="CreateSvgCourses_comboBoxBitmaps_Items" xml:space="preserve">
-    <value>Sematkan di berkas</value>
-  </data>
-  <data name="CreateSvgCourses_comboBoxBitmaps_Items1" xml:space="preserve">
-    <value>Simpan terpisah</value>
-  </data>
-  <data name="CreateSvgCourses_comboBoxBitmaps_Items2" xml:space="preserve">
-    <value>Jangan sertakan</value>
-  </data>
-  <data name="CreateSvgCourses_jpegQualityLabel_Text" xml:space="preserve">
-    <value>Kualitas JPEG:</value>
-  </data>
-  <data name="CreateSvgCourses_checkBoxCompress_Text" xml:space="preserve">
-    <value>Kompres berkas (.svgz)</value>
-  </data>
-  <data name="CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text" xml:space="preserve">
-    <value>Gambar pola area sebagai bentuk terpisah</value>
-  </data>
 </root>

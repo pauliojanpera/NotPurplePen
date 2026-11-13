@@ -58,7 +58,7 @@ namespace AvPurplePen.Views
             IStorageProvider storage = StorageProvider;
 
             FolderPickerOpenOptions options = new FolderPickerOpenOptions {
-                Title = UIText.CreatePdfCourses_folderBrowserDialog_Description,
+                Title = UIText.CreateSvgCourses_folderBrowserDialog_Description,
                 AllowMultiple = false,
             };
 

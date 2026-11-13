@@ -3615,8 +3615,8 @@
   <data name="CreateSvgCourses_Text" xml:space="preserve">
     <value>创建SVG文件</value>
   </data>
-  <data name="CreateSvgCourses_bitmapsGroupBox_Text" xml:space="preserve">
-    <value>位图</value>
+  <data name="CreateSvgCourses_specialOptionsGroupBox_Text" xml:space="preserve">
+    <value>特殊选项</value>
   </data>
   <data name="CreateSvgCourses_bitmapsLabel_Text" xml:space="preserve">
     <value>地图中的位图：</value>
@@ -3638,5 +3638,8 @@
   </data>
   <data name="CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text" xml:space="preserve">
     <value>将区域图案绘制为单独的形状</value>
+  </data>
+  <data name="CreateSvgCourses_folderBrowserDialog_Description" xml:space="preserve">
+    <value>选择一个SVG文件的文件夹</value>
   </data>
 </root>

@@ -3491,17 +3491,17 @@ A versenytérképek nyomtatásához javasolt a pályákat OCAD formátumba expor
   <data name="CreateSvgCourses_Text" xml:space="preserve">
     <value>SVG fájlok létrehozása</value>
   </data>
-  <data name="CreateSvgCourses_bitmapsGroupBox_Text" xml:space="preserve">
-    <value>Képek</value>
+  <data name="CreateSvgCourses_specialOptionsGroupBox_Text" xml:space="preserve">
+    <value>Speciális beállítások</value>
   </data>
   <data name="CreateSvgCourses_bitmapsLabel_Text" xml:space="preserve">
     <value>Képek a térképen:</value>
   </data>
   <data name="CreateSvgCourses_comboBoxBitmaps_Items" xml:space="preserve">
-    <value>Beágyazni a fájlba</value>
+    <value>Beágyazni minden fájlba</value>
   </data>
   <data name="CreateSvgCourses_comboBoxBitmaps_Items1" xml:space="preserve">
-    <value>A fájl mellé menteni</value>
+    <value>Minden fájl mellé menteni</value>
   </data>
   <data name="CreateSvgCourses_comboBoxBitmaps_Items2" xml:space="preserve">
     <value>Kihagyni</value>
@@ -3514,5 +3514,8 @@ A versenytérképek nyomtatásához javasolt a pályákat OCAD formátumba expor
   </data>
   <data name="CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text" xml:space="preserve">
     <value>Területminták rajzolása különálló alakzatokként</value>
+  </data>
+  <data name="CreateSvgCourses_folderBrowserDialog_Description" xml:space="preserve">
+    <value>Válassza ki az SVG fájlok könyvtárát</value>
   </data>
 </root>

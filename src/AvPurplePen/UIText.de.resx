@@ -3632,17 +3632,17 @@ Zum Drucken der Wettkampfdateien wird empfohlen, sie nach OCAD zu exportieren (√
   <data name="CreateSvgCourses_Text" xml:space="preserve">
     <value>SVG-Dateien erstellen</value>
   </data>
-  <data name="CreateSvgCourses_bitmapsGroupBox_Text" xml:space="preserve">
-    <value>Bilder</value>
+  <data name="CreateSvgCourses_specialOptionsGroupBox_Text" xml:space="preserve">
+    <value>Spezielle Einstellungen</value>
   </data>
   <data name="CreateSvgCourses_bitmapsLabel_Text" xml:space="preserve">
     <value>Bilder in der Karte:</value>
   </data>
   <data name="CreateSvgCourses_comboBoxBitmaps_Items" xml:space="preserve">
-    <value>Einbetten</value>
+    <value>In jede Datei einbetten</value>
   </data>
   <data name="CreateSvgCourses_comboBoxBitmaps_Items1" xml:space="preserve">
-    <value>Separat speichern</value>
+    <value>Neben jeder Datei speichern</value>
   </data>
   <data name="CreateSvgCourses_comboBoxBitmaps_Items2" xml:space="preserve">
     <value>Weglassen</value>
@@ -3655,5 +3655,8 @@ Zum Drucken der Wettkampfdateien wird empfohlen, sie nach OCAD zu exportieren (√
   </data>
   <data name="CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text" xml:space="preserve">
     <value>Fl√§chenmuster als Einzelformen zeichnen</value>
+  </data>
+  <data name="CreateSvgCourses_folderBrowserDialog_Description" xml:space="preserve">
+    <value>W√§hlen Sie einen Ordner f√ºr die SVG-Dateien aus</value>
   </data>
 </root>

@@ -2398,8 +2398,8 @@ Til å skrive ut konkuranskekart anbefales at løypene eksporteres til OCAD file
   <data name="CreateSvgCourses_Text" xml:space="preserve">
     <value>Lag SVG-filer</value>
   </data>
-  <data name="CreateSvgCourses_bitmapsGroupBox_Text" xml:space="preserve">
-    <value>Bilde</value>
+  <data name="CreateSvgCourses_specialOptionsGroupBox_Text" xml:space="preserve">
+    <value>Spesielle innstillingar</value>
   </data>
   <data name="CreateSvgCourses_bitmapsLabel_Text" xml:space="preserve">
     <value>Bilde i kartet:</value>
@@ -2421,5 +2421,8 @@ Til å skrive ut konkuranskekart anbefales at løypene eksporteres til OCAD file
   </data>
   <data name="CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text" xml:space="preserve">
     <value>Teikn flatemønster som separate figurar</value>
+  </data>
+  <data name="CreateSvgCourses_folderBrowserDialog_Description" xml:space="preserve">
+    <value>Vel mappe for SVG-filene</value>
   </data>
 </root>
