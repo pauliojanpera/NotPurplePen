@@ -633,7 +633,7 @@ All other labels already used their file's word for bitmap (de, fi, hu, nb-NO, n
 
 ## The dialog made 662 pixels tall
 
-The same agent's report on @Pauli's choice (b), the dialog 20 pixels taller with the area-patterns check box's full wording in bg, es, fr, ja and pt (Nov 13, 13:22 to 14:2x).
+The same agent's report on @Pauli's choice (b), the dialog 20 pixels taller with the area-patterns check box's full wording in bg, es, fr, ja and pt (Nov 13, 13:22 to 14:18).
 
 @Pauli's choice (b) is done: the SVG dialog is 662 px tall, bg, es, fr, ja and pt have the full area-patterns wording, and it is merged into `dev` and published. Both full runs passed. Two cut-offs that were already there, and that the PDF dialog has too, are for @Pauli to decide.
 

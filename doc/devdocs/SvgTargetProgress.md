@@ -90,7 +90,7 @@ The calls the target fully implements, in the sense of DL-5: `Intensity`, `PushT
 
 ## Tasks
 
-**In flight:** nothing; the SVG dialog made 662 pixels tall reached `dev` at 14:2x Nov 13, with one choice for @Pauli under "Waiting on @Pauli". Task 2's step 3 or task 6 follows on @Pauli's word. The archiving task runs.
+**In flight:** nothing; the SVG dialog made 662 pixels tall reached `dev` at 14:18 Nov 13, with one choice for @Pauli under "Waiting on @Pauli". Task 2's step 3 or task 6 follows on @Pauli's word. The archiving task runs.
 
 **Next**, in order. Each task starts on @Pauli's word, with an agent of its own (see "Agents"), and ends with its commits on `feature/svg-target` or this branch, its loop green where it changes the target, and the gallery and this file brought up to date.
 
