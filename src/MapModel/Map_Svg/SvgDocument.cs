@@ -20,19 +20,29 @@ namespace PurplePen.MapModel
     // A clip: a path in steps, filled under its rule, that a group or a page clips to (D-2).
     public sealed class SvgClip
     {
-        // The data of the path.
+        // The data of the path, or null for a clip to the union of ghosts.
         public readonly string PathData;
 
         // Whether the path is filled under the even-odd rule rather than the nonzero one.
         public readonly bool EvenOdd;
 
-        // Create a clip.
+        // The ghosts whose union the clip is, each under its own rule, or null for a clip to a path (D-2, S-12).
+        public readonly IReadOnlyList<SvgGhost> Ghosts;
+
+        // Create a clip to a path.
         // pathData: the data of the path.
         // evenOdd: whether the path is filled under the even-odd rule.
         public SvgClip(string pathData, bool evenOdd)
         {
             PathData = pathData;
             EvenOdd = evenOdd;
+        }
+
+        // Create a clip to the union of ghosts, written as a clip path whose children are uses of them.
+        // ghosts: the ghosts.
+        public SvgClip(IReadOnlyList<SvgGhost> ghosts)
+        {
+            Ghosts = ghosts;
         }
     }
 
@@ -606,11 +616,25 @@ namespace PurplePen.MapModel
             }
             string imagesText = writer.TakeText();
 
+            // A clip to the union of ghosts uses each ghost under its own rule, which the use carries, as the copy of the
+            // ghost it makes takes its properties from the use rather than from the ghost's groups.
             foreach (SvgClip clip in writer.ClipsReferredTo) {
-                writer.Text.Append("<clipPath id=\"").Append(writer.IdOfClip(clip)).Append("\">\n<path");
-                if (clip.EvenOdd)
-                    writer.AppendStyle("clip-rule:evenodd");
-                writer.Text.Append(" d=\"").Append(clip.PathData).Append("\"/>\n</clipPath>\n");
+                writer.Text.Append("<clipPath id=\"").Append(writer.IdOfClip(clip)).Append("\">\n");
+                if (clip.Ghosts != null) {
+                    foreach (SvgGhost ghost in clip.Ghosts) {
+                        writer.Text.Append("<use");
+                        if (ghost.EvenOdd)
+                            writer.AppendStyle("clip-rule:evenodd");
+                        writer.Text.Append(" xlink:href=\"#").Append(writer.IdOf(ghost)).Append("\"/>\n");
+                    }
+                }
+                else {
+                    writer.Text.Append("<path");
+                    if (clip.EvenOdd)
+                        writer.AppendStyle("clip-rule:evenodd");
+                    writer.Text.Append(" d=\"").Append(clip.PathData).Append("\"/>\n");
+                }
+                writer.Text.Append("</clipPath>\n");
             }
             string clipsText = writer.TakeText();
 

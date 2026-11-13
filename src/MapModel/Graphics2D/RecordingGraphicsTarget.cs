@@ -180,6 +180,14 @@ namespace PurplePen.Graphics2D
             recordedCallNames.Add(callName);
         }
 
+        // The recording's own key of a path created with CreatePath, which a playback target gets in place of the
+        // caller's, for a subclass that records structure calls that name paths.
+        // pathKey: the caller's key of the path.
+        protected object RecordedPathOf(object pathKey)
+        {
+            return GetPath(pathKey);
+        }
+
         // Add a command that makes an IStructuredGraphicsTarget call, for a subclass that records them: played back
         // onto a target that keeps the structure of what it draws, the command makes its call, and onto any other
         // target it does nothing. Structure calls are not drawing calls, so RecordedCallNames does not list them.
