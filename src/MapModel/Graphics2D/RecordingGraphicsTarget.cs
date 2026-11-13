@@ -234,17 +234,6 @@ namespace PurplePen.Graphics2D
             Record(s => s.Target.PushClip(partsCopy, mode));
         }
 
-        // Record pushing a clip to the union of paths created with CreatePath.
-        // pathKeys: keys of the paths.
-        public void PushClipToUnion(object[] pathKeys)
-        {
-            CheckRecording();
-            object[] paths = new object[pathKeys.Length];
-            for (int i = 0; i < pathKeys.Length; ++i)
-                paths[i] = GetPath(pathKeys[i]);
-            Record(s => s.Target.PushClipToUnion(paths));
-        }
-
         // Record popping a clip.
         public void PopClip()
         {

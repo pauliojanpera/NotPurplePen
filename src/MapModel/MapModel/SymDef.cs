@@ -1767,23 +1767,29 @@ namespace PurplePen.MapModel
 
         internal abstract void Draw(IGraphicsTarget g, SymPathWithHoles path, SymColor color, float angle, PointF rotationCenter, RenderOptions renderOpts);
 
-        // Whether the symbol draws, in a color, hatchings or regular patterns clipped to the area, which Map.DrawColor
-        // draws once for a group of overlapping areas rather than with each area.
+        // Whether the symbol draws, in a color, hatchings or patterns clipped to the area, which Map.DrawColor draws
+        // once for a group of areas that overlap or touch rather than with each area.
         // color: the color.
         internal virtual bool HasPatternsDrawnOnce(SymColor color)
         {
             return false;
         }
 
-        // Draw, in a color, the hatchings and regular clipped patterns of a group of overlapping areas once, under the
-        // union of the areas' outlines, laid out in the frame the areas share.
-        // g: the target.
-        // paths: the areas' paths.
-        // bounds: the union of the paths' bounding boxes.
+        // Whether any of the patterns that HasPatternsDrawnOnce finds in a color turns with its area, laid out by the
+        // area's angle and rotation center, so that only areas that share both share the pattern's frame.
         // color: the color.
-        // angle, rotationCenter: the frame the areas lay their patterns out in.
+        internal virtual bool PatternsDrawnOnceTurnWithAreas(SymColor color)
+        {
+            return true;
+        }
+
+        // Draw, in a color, the hatchings and clipped patterns of a group of areas once, within the union of the
+        // areas' outlines, laid out in the frame the areas share.
+        // g: the target.
+        // group: the areas.
+        // color: the color.
         // renderOpts: the options drawn with.
-        internal virtual void DrawPatternsOnce(IGraphicsTarget g, SymPathWithHoles[] paths, RectangleF bounds, SymColor color, float angle, PointF rotationCenter, RenderOptions renderOpts)
+        internal virtual void DrawPatternsOnce(IGraphicsTarget g, OverlappingAreas.Group group, SymColor color, RenderOptions renderOpts)
         {
         }
 
@@ -1901,7 +1907,7 @@ namespace PurplePen.MapModel
             }
         }
 
-        // Whether an area component draws, in a color, patterns that a group of overlapping areas draws once.
+        // Whether an area component draws, in a color, patterns that a group of areas draws once.
         // color: the color.
         internal override bool HasPatternsDrawnOnce(SymColor color)
         {
@@ -1913,14 +1919,26 @@ namespace PurplePen.MapModel
             return false;
         }
 
-        // Draw the patterns of each area component once for a group of overlapping areas.
-        // g, paths, bounds, color, angle, rotationCenter, renderOpts: as AreaLikeSymDef.DrawPatternsOnce takes them.
-        internal override void DrawPatternsOnce(IGraphicsTarget g, SymPathWithHoles[] paths, RectangleF bounds, SymColor color, float angle, PointF rotationCenter, RenderOptions renderOpts)
+        // Whether an area component draws, in a color, patterns drawn once that turn with their areas.
+        // color: the color.
+        internal override bool PatternsDrawnOnceTurnWithAreas(SymColor color)
+        {
+            foreach (SymDef component in components) {
+                AreaLikeSymDef areaComponent = component as AreaLikeSymDef;
+                if (areaComponent != null && areaComponent.HasPatternsDrawnOnce(color) && areaComponent.PatternsDrawnOnceTurnWithAreas(color))
+                    return true;
+            }
+            return false;
+        }
+
+        // Draw the patterns of each area component once for a group of areas.
+        // g, group, color, renderOpts: as AreaLikeSymDef.DrawPatternsOnce takes them.
+        internal override void DrawPatternsOnce(IGraphicsTarget g, OverlappingAreas.Group group, SymColor color, RenderOptions renderOpts)
         {
             foreach (SymDef component in components) {
                 AreaLikeSymDef areaComponent = component as AreaLikeSymDef;
                 if (areaComponent != null)
-                    areaComponent.DrawPatternsOnce(g, paths, bounds, color, angle, rotationCenter, renderOpts);
+                    areaComponent.DrawPatternsOnce(g, group, color, renderOpts);
             }
         }
 
@@ -2217,8 +2235,8 @@ namespace PurplePen.MapModel
                 path.Fill(g, color.GetBrushKey(g));
             }
 
-            // An area that overlaps others of its symbol leaves its hatchings, and its regular patterns clipped to it,
-            // to DrawPatternsOnce.
+            // An area grouped with others of its symbol leaves its hatchings, and its patterns clipped to it, to
+            // DrawPatternsOnce.
             if (HasHatching && !renderOpts.patternsDrawnOnce) {
                 DrawHatchings(g, path, angle, rotationCenter, renderOpts, color);
             }
@@ -2268,7 +2286,7 @@ namespace PurplePen.MapModel
             }
         }
 
-        // Whether the symbol draws, in a color, hatchings or regular patterns clipped to the area.
+        // Whether the symbol draws, in a color, hatchings or patterns clipped to the area.
         // color: the color.
         internal override bool HasPatternsDrawnOnce(SymColor color)
         {
@@ -2283,83 +2301,189 @@ namespace PurplePen.MapModel
             return false;
         }
 
-        // Whether a pattern is drawn once for a group of overlapping areas: it repeats its glyph regularly and clips it
-        // to the area, so that its elements are the same whichever area draws them. An irregular pattern, and one that
-        // picks the elements that lie within its area, are drawn with each area.
+        // Whether any hatching or pattern that a group draws once in a color turns with its area: all but those that
+        // never turn, which are laid out from the map's origin whatever the area's angle.
+        // color: the color.
+        internal override bool PatternsDrawnOnceTurnWithAreas(SymColor color)
+        {
+            foreach (HatchInfo hatchInfo in hatchings) {
+                if (hatchInfo.hatchColor == color && hatchInfo.hatchRotateMode != RotateMode.Never)
+                    return true;
+            }
+            foreach (PatternInfo patternInfo in patterns) {
+                if (PatternIsDrawnOnce(patternInfo) && patternInfo.patternGlyph.HasColor(color) && patternInfo.patternRotateMode != RotateMode.Never)
+                    return true;
+            }
+            return false;
+        }
+
+        // Whether a pattern is drawn once for a group of areas: it clips its glyphs to the area, so that the glyphs it
+        // draws within the area are the same whichever area draws them. That holds for an irregular pattern too, which
+        // moves each glyph by an amount that depends only on where the glyph lies. A pattern that picks the glyphs that
+        // lie within its area is drawn with each area.
         // patternInfo: the pattern.
         static bool PatternIsDrawnOnce(PatternInfo patternInfo)
         {
-            return patternInfo.patternFillMode == PatternFillMode.Clip && !patternInfo.irregular;
+            return patternInfo.patternFillMode == PatternFillMode.Clip;
         }
 
-        // Draw, in a color, the hatchings and regular clipped patterns of a group of overlapping areas once, under the
-        // union of the areas' outlines, as DrawHatchings and DrawPatterns draw them for one area.
-        // g, paths, bounds, color, angle, rotationCenter, renderOpts: as AreaLikeSymDef.DrawPatternsOnce takes them.
-        internal override void DrawPatternsOnce(IGraphicsTarget g, SymPathWithHoles[] paths, RectangleF bounds, SymColor color, float angle, PointF rotationCenter, RenderOptions renderOpts)
+        // Draw, in a color, the hatchings and clipped patterns of a group of areas once, within the union of the areas'
+        // outlines, as DrawHatchings and DrawPatterns draw them for one area: every line and glyph that any of the areas
+        // would draw is drawn once. A pattern drawn with a brush fills the union's path, as one area's fills the area's
+        // path, which keeps the edge as smooth as the target makes what it fills; a turned one fills a rectangle
+        // within a clip to the union, as one area's does within a clip to the area.
+        // g, group, color, renderOpts: as AreaLikeSymDef.DrawPatternsOnce takes them.
+        internal override void DrawPatternsOnce(IGraphicsTarget g, OverlappingAreas.Group group, SymColor color, RenderOptions renderOpts)
         {
             if (!HasPatternsDrawnOnce(color))
                 return;
 
             CreatePensAndBrushes(g);
-            object[] pathKeys = new object[paths.Length];
-            for (int i = 0; i < paths.Length; ++i)
-                pathKeys[i] = paths[i].GetPathKey(g);
+            object unionPath = group.GetUnionPathKey(g);
 
-            g.PushClipToUnion(pathKeys);
-            try {
-                for (int i = 0; i < hatchings.Count; ++i) {
-                    if (hatchings[i].hatchColor == color)
-                        DrawOneHatching(g, bounds, angle, rotationCenter, renderOpts, hatchings[i], hatchPens[i]);
+            bool hasHatching = false;
+            foreach (HatchInfo hatchInfo in hatchings) {
+                if (hatchInfo.hatchColor == color)
+                    hasHatching = true;
+            }
+
+            if (hasHatching) {
+                g.PushClip(unionPath);
+
+                try {
+                    // CreatePensAndBrushes has already created these pens on this target.
+                    object[] pens = GetHatchPens();
+                    for (int i = 0; i < hatchings.Count; ++i) {
+                        if (hatchings[i].hatchColor == color)
+                            DrawOneHatchingOnce(g, group, hatchings[i], pens[i]);
+                    }
                 }
-
-                for (int i = 0; i < patterns.Count; ++i) {
-                    PatternInfo patternInfo = patterns[i];
-                    if (!PatternIsDrawnOnce(patternInfo) || !patternInfo.patternGlyph.HasColor(color))
-                        continue;
-
-                    bool ignoreRotation = (patternInfo.patternRotateMode == RotateMode.Never);
-                    float patternAngle = ignoreRotation ? 0 : angle;
-                    PointF patternCenter = ignoreRotation ? new PointF() : rotationCenter;
-                    if (renderOpts.usePatternBitmaps && g.SupportsPatternBrushes && !PatternBrushTooPixelated(patternInfo, renderOpts.minResolution)) {
-                        CreatePatternBrushes(i, renderOpts.minResolution, g);
-                        object brush = patternBrushes[new Pair<int, SymColor>(i, color)];
-                        if (patternAngle != 0.0F) {
-                            Matrix matrix = new Matrix();
-                            matrix.Translate(patternCenter.X, patternCenter.Y);
-                            matrix.Rotate(patternAngle);
-                            g.PushTransform(matrix);
-                            try {
-                                matrix.Invert();
-                                g.FillRectangle(brush, Geometry.BoundsOfTransformedRectangle(bounds, matrix));
-                            }
-                            finally {
-                                g.PopTransform();
-                            }
-                        }
-                        else {
-                            g.FillRectangle(brush, bounds);
-                        }
-                    }
-                    else {
-                        DrawPatternInBounds(patternInfo, g, bounds, patternAngle, patternCenter, color, renderOpts);
-                    }
+                finally {
+                    g.PopClip();
                 }
             }
-            finally {
-                g.PopClip();
+
+            for (int i = 0; i < patterns.Count; ++i) {
+                PatternInfo patternInfo = patterns[i];
+                if (!PatternIsDrawnOnce(patternInfo) || !patternInfo.patternGlyph.HasColor(color))
+                    continue;
+
+                bool ignoreRotation = (patternInfo.patternRotateMode == RotateMode.Never);
+                float angle = ignoreRotation ? 0 : group.Angle;
+                PointF rotationCenter = ignoreRotation ? new PointF() : group.RotationCenter;
+
+                // The same choice as DrawPatterns makes for a clipped pattern.
+                if (renderOpts.usePatternBitmaps && g.SupportsPatternBrushes && !patternInfo.irregular &&
+                    !PatternBrushTooPixelated(patternInfo, renderOpts.minResolution))
+                {
+                    CreatePatternBrushes(i, renderOpts.minResolution, g);
+                    DrawPatternOnceWithTexBrush(i, g, group, unionPath, angle, rotationCenter, color);
+                }
+                else {
+                    g.PushClip(unionPath);
+
+                    try {
+                        DrawPatternOnce(patternInfo, g, group, angle, rotationCenter, color, renderOpts);
+                    }
+                    finally {
+                        g.PopClip();
+                    }
+                }
             }
         }
 
-        // Draw the elements of a clipped pattern over a rectangle, in the frame of the pattern, as DrawPattern draws
-        // them within the clip its caller has set.
+        // Draw the lines of a hatching once for a group of areas, within the clip to their union that its caller has
+        // set: each line over the stretches of it that cross the areas' bounding boxes, as DrawOneHatching draws a line
+        // over one area's box, with stretches that overlap or touch drawn as one.
+        // g: the target.
+        // group: the areas.
+        // hatchInfo: the hatching.
+        // hatchPen: the key of its pen.
+        void DrawOneHatchingOnce(IGraphicsTarget g, OverlappingAreas.Group group, HatchInfo hatchInfo, object hatchPen)
+        {
+            float angle = group.Angle;
+            PointF rotationCenter = group.RotationCenter;
+            if (hatchInfo.hatchRotateMode == RotateMode.Never) {
+                angle = 0;
+                rotationCenter = new PointF();
+            }
+
+            // use a transform to rotate and then draw hatching.
+            Matrix matrix = new Matrix();
+            matrix.Translate(rotationCenter.X, rotationCenter.Y);
+            matrix.Rotate(angle);
+            matrix.Rotate(hatchInfo.hatchAngle);
+            g.PushTransform(matrix);
+
+            try {
+                // Get each area's bounding rect in the hatching's frame.
+                matrix.Invert();
+                RectangleF[] boxes = new RectangleF[group.PathBounds.Count];
+                for (int i = 0; i < boxes.Length; ++i)
+                    boxes[i] = Geometry.BoundsOfTransformedRectangle(group.PathBounds[i], matrix);
+
+                SymbolHelpers.DrawHatchLinesOnce(g, hatchPen, hatchInfo.hatchSpacing, hatchInfo.hatchOffset, boxes);
+            }
+            finally {
+                // restore the transform
+                g.PopTransform();
+            }
+        }
+
+        // Fill the union of a group's areas with a pattern's brush once, as DrawPatternWithTexBrush fills one area: the
+        // union's path when the pattern is not turned, and otherwise a rectangle turned with the pattern within a clip to
+        // the union.
+        // iPattern: the index of the pattern, whose brush CreatePatternBrushes has created on this target.
+        // g: the target.
+        // group: the areas.
+        // unionPath: the key of the path of the union of the areas.
+        // angle, rotationCenter: the frame the pattern is laid out in.
+        // color: the color drawn.
+        void DrawPatternOnceWithTexBrush(int iPattern, IGraphicsTarget g, OverlappingAreas.Group group, object unionPath, float angle, PointF rotationCenter, SymColor color)
+        {
+            Debug.Assert(color != null);
+
+            object brush = GetPatternBrushKey(iPattern, color);
+
+            if (angle != 0.0F) {
+                // Set the clipping region to draw only inside the areas.
+                g.PushClip(unionPath);
+
+                // use a transform to rotate.
+                Matrix matrix = new Matrix();
+                matrix.Translate(rotationCenter.X, rotationCenter.Y);
+                matrix.Rotate(angle);
+                g.PushTransform(matrix);
+
+                try {
+                    // Get the correct bounding rect.
+                    matrix.Invert();
+                    RectangleF bounding = Geometry.BoundsOfTransformedRectangle(group.Bounds, matrix);
+
+                    g.FillRectangle(brush, bounding);
+                }
+                finally {
+                    // restore the clip region and the transform
+                    g.PopTransform();
+                    g.PopClip();
+                }
+            }
+            else {
+                g.FillPath(brush, unionPath);
+            }
+        }
+
+        // Draw the glyphs of a clipped pattern once for a group of areas, within the clip to their union that its
+        // caller has set: each glyph that DrawPatternRows would draw over any of the areas' bounding boxes, once.
         // patternInfo: the pattern.
         // g: the target.
-        // bounds: the rectangle, in map coordinates.
+        // group: the areas.
         // angle, rotationCenter: the frame the pattern is laid out in.
         // color: the color drawn.
         // renderOpts: the options drawn with.
-        void DrawPatternInBounds(PatternInfo patternInfo, IGraphicsTarget g, RectangleF bounds, float angle, PointF rotationCenter, SymColor color, RenderOptions renderOpts)
+        void DrawPatternOnce(PatternInfo patternInfo, IGraphicsTarget g, OverlappingAreas.Group group, float angle, PointF rotationCenter, SymColor color, RenderOptions renderOpts)
         {
+            // use a transform to rotate
             Matrix matrix = new Matrix();
             matrix.Translate(rotationCenter.X, rotationCenter.Y);
             matrix.Rotate(angle);
@@ -2369,34 +2493,74 @@ namespace PurplePen.MapModel
 
             try {
                 matrix.Invert();
-                RectangleF bounding = Geometry.BoundsOfTransformedRectangle(bounds, matrix);
-                DrawPatternRows(patternInfo, null, g, bounding, color, renderOpts);
+
+                // The rows and columns of the glyphs over each area's bounding rect, as DrawPatternRows finds them: the
+                // glyph of row n and column k lies at (k * width, n * height), and in a row offset by half a glyph,
+                // which every odd row is when the pattern offsets alternate rows, column k lies at (k - 0.5) * width,
+                // and the row has one more column.
+                RectangleF patternGlyphBounds = Geometry.BoundsOfRotatedRectangle(patternInfo.patternGlyph.BoundingBox, new PointF(0, 0), -patternInfo.patternAngle);
+                RectangleF patternBounds = new RectangleF(-patternInfo.patternWidth / 2, -patternInfo.patternHeight / 2, patternInfo.patternWidth, patternInfo.patternHeight);
+
+                int count = group.PathBounds.Count;
+                long[] firstRows = new long[count], lastRows = new long[count], firstColumns = new long[count], lastColumns = new long[count];
+                for (int i = 0; i < count; ++i) {
+                    RectangleF boundingRect = Geometry.BoundsOfTransformedRectangle(group.PathBounds[i], matrix);
+                    firstRows[i] = (long)Math.Round((boundingRect.Top - patternGlyphBounds.Bottom + patternBounds.Bottom) / patternInfo.patternHeight);
+                    lastRows[i] = (long)Math.Round((boundingRect.Bottom - patternGlyphBounds.Top + patternBounds.Top) / patternInfo.patternHeight);
+                    firstColumns[i] = (long)Math.Round((boundingRect.Left - patternGlyphBounds.Right + patternBounds.Right) / patternInfo.patternWidth);
+                    lastColumns[i] = (long)Math.Round((boundingRect.Right - patternGlyphBounds.Left + patternBounds.Left) / patternInfo.patternWidth);
+                }
+
+                SymbolHelpers.ForEachRowOnce(firstRows, lastRows, (long row, List<int> boxesInRow) => {
+                    bool offsetThisLine = patternInfo.offsetRows && (row & 1) != 0;
+                    double y = row * (double)patternInfo.patternHeight;
+
+                    // The columns of the boxes that reach the row, joined where they overlap or adjoin.
+                    boxesInRow.Sort((a, b) => firstColumns[a].CompareTo(firstColumns[b]));
+                    long first = 0, last = -1;
+                    bool any = false;
+                    foreach (int box in boxesInRow) {
+                        long boxLast = offsetThisLine ? lastColumns[box] + 1 : lastColumns[box];
+                        if (any && firstColumns[box] <= last + 1) {
+                            last = Math.Max(last, boxLast);
+                            continue;
+                        }
+
+                        if (any)
+                            DrawPatternColumns(patternInfo, g, first, last, offsetThisLine, y, color, renderOpts);
+                        first = firstColumns[box];
+                        last = boxLast;
+                        any = true;
+                    }
+
+                    if (any)
+                        DrawPatternColumns(patternInfo, g, first, last, offsetThisLine, y, color, renderOpts);
+                });
             }
             finally {
+                // restore the transform
                 g.PopTransform();
             }
         }
 
-        // Draw the lines of a hatching over an area's bounding box, within the clip to the area its caller has set.
-        // g: the target.
-        // path: the area.
-        // angle, rotationCenter: the frame the hatching is laid out in, unless it never turns.
+        // Draw the glyphs of a stretch of columns of one row of a clipped pattern, as DrawPatternRows draws them.
+        // patternInfo: the pattern.
+        // g: the target, transformed into the pattern's frame.
+        // firstColumn, lastColumn: the columns of the stretch.
+        // offsetThisLine: whether the row is offset by half a glyph.
+        // y: where the row lies in the pattern's frame.
+        // color: the color drawn.
         // renderOpts: the options drawn with.
-        // hatchInfo: the hatching.
-        // hatchPen: the key of its pen.
-        void DrawOneHatching(IGraphicsTarget g, SymPathWithHoles path, float angle, PointF rotationCenter, RenderOptions renderOpts, HatchInfo hatchInfo, object hatchPen)
+        void DrawPatternColumns(PatternInfo patternInfo, IGraphicsTarget g, long firstColumn, long lastColumn, bool offsetThisLine, double y, SymColor color, RenderOptions renderOpts)
         {
-            DrawOneHatching(g, path.BoundingBox, angle, rotationCenter, renderOpts, hatchInfo, hatchPen);
+            for (long column = firstColumn; column <= lastColumn; ++column) {
+                double x = (offsetThisLine ? column - 0.5 : column) * patternInfo.patternWidth;
+                PointF location = HandleIrregularity(patternInfo, x, y);
+                patternInfo.patternGlyph.Draw(g, location, -patternInfo.patternAngle, null, null, color, null, renderOpts);
+            }
         }
 
-        // Draw the lines of a hatching over a rectangle, within the clip its caller has set.
-        // g: the target.
-        // boundingBox: the rectangle, in map coordinates.
-        // angle, rotationCenter: the frame the hatching is laid out in, unless it never turns.
-        // renderOpts: the options drawn with.
-        // hatchInfo: the hatching.
-        // hatchPen: the key of its pen.
-        void DrawOneHatching(IGraphicsTarget g, RectangleF boundingBox, float angle, PointF rotationCenter, RenderOptions renderOpts, HatchInfo hatchInfo, object hatchPen)
+        void DrawOneHatching(IGraphicsTarget g, SymPathWithHoles path, float angle, PointF rotationCenter, RenderOptions renderOpts, HatchInfo hatchInfo, object hatchPen)
         {
             if (hatchInfo.hatchRotateMode == RotateMode.Never) {
                 angle = 0;
@@ -2413,7 +2577,7 @@ namespace PurplePen.MapModel
             try {
                 // Get the correct bounding rect.
                 matrix.Invert();
-                RectangleF bounding = Geometry.BoundsOfTransformedRectangle(boundingBox, matrix);
+                RectangleF bounding = Geometry.BoundsOfTransformedRectangle(path.BoundingBox, matrix);
 
                 SymbolHelpers.DrawHatchLines(g, hatchPen, hatchInfo.hatchSpacing, hatchInfo.hatchOffset, bounding);
             }
@@ -2430,7 +2594,7 @@ namespace PurplePen.MapModel
                 PatternInfo patternInfo = patterns[i];
                 bool ignoreRotation = (patternInfo.patternRotateMode == RotateMode.Never);
 
-                // An area that overlaps others of its symbol leaves a regular clipped pattern to DrawPatternsOnce.
+                // An area grouped with others of its symbol leaves a clipped pattern to DrawPatternsOnce.
                 if (patternInfo.patternGlyph.HasColor(color) && !(renderOpts.patternsDrawnOnce && PatternIsDrawnOnce(patternInfo))) {
                     // Faster to draw the pattern with a texture brush that has a bitmap
                     // of the pattern in it. Better quality to do it all with glyph drawing.
