@@ -2248,10 +2248,6 @@ namespace PurplePen.MapModel
             Debug.Unindent();
         }
 
-        // Whether overlapping areas of a symbol draw their patterns once; the prototype's measurements turn it off with
-        // PURPLEPEN_PATTERNS_ONCE=0, to draw each area's patterns with the area as before.
-        private static readonly bool patternsOnceForOverlaps = Environment.GetEnvironmentVariable("PURPLEPEN_PATTERNS_ONCE") != "0";
-
         private int SymbolComparison(Symbol s1, Symbol s2)
         {
             return s1.SortOrder.CompareTo(s2.SortOrder);
@@ -2275,13 +2271,14 @@ namespace PurplePen.MapModel
                         symbolsForThisDef.Sort(SymbolComparison);
                     }
 
-                    // Areas of the symbol that overlap others in the same frame have their patterns drawn once for
-                    // all of them, after the last of them, under the union of their outlines.
+                    // Areas of the symbol whose bounding boxes overlap or touch others that lay their patterns out in
+                    // the same frame have their hatchings and clipped patterns drawn once for all of them, after the
+                    // last of them, within the union of their outlines.
                     AreaLikeSymDef areaSymdef = symdef as AreaLikeSymDef;
                     OverlappingAreas overlappingAreas = null;
                     RenderOptions patternsOnceOpts = null;
-                    if (patternsOnceForOverlaps && areaSymdef != null && areaSymdef.HasPatternsDrawnOnce(curColor)) {
-                        overlappingAreas = OverlappingAreas.Find(symbolsForThisDef, rect);
+                    if (areaSymdef != null && areaSymdef.HasPatternsDrawnOnce(curColor)) {
+                        overlappingAreas = OverlappingAreas.Find(symbolsForThisDef, rect, areaSymdef.PatternsDrawnOnceTurnWithAreas(curColor));
                         patternsOnceOpts = renderOpts.Clone();
                         patternsOnceOpts.patternsDrawnOnce = true;
                     }
@@ -2308,7 +2305,7 @@ namespace PurplePen.MapModel
                                 else {
                                     curSym.Draw(g, curColor, patternsOnceOpts);
                                     if (overlapGroup.Last == curSym)
-                                        areaSymdef.DrawPatternsOnce(g, overlapGroup.Paths, overlapGroup.Bounds, curColor, overlapGroup.Angle, overlapGroup.RotationCenter, renderOpts);
+                                        areaSymdef.DrawPatternsOnce(g, overlapGroup, curColor, renderOpts);
                                 }
                                 ++symbolsDrawn;
                                 anySymbolsDrawn = true;
@@ -2805,9 +2802,9 @@ namespace PurplePen.MapModel
         // debug options.
         public bool showSymbolBounds;      // Show the bounds of symbols.
 
-        // Set by Map.DrawColor for an area that overlaps others of its symbol in the same frame: its hatchings and its
-        // regular patterns clipped to it are drawn once for all of them, under the union of their outlines, rather
-        // than with the area.
+        // Set by Map.DrawColor for an area grouped with others of its symbol whose bounding boxes overlap or touch in
+        // the same frame: its hatchings and its patterns clipped to it are drawn once for all of them, within the union
+        // of their outlines, rather than with the area.
         internal bool patternsDrawnOnce;
 
         public RenderOptions Clone()

@@ -2483,6 +2483,10 @@ namespace PurplePen.MapModel
         // renderOpts: the options drawn with.
         void DrawPatternOnce(PatternInfo patternInfo, IGraphicsTarget g, OverlappingAreas.Group group, float angle, PointF rotationCenter, SymColor color, RenderOptions renderOpts)
         {
+            // A pattern without a size has no rows or columns; DrawPatternRows draws nothing of it either.
+            if (!(patternInfo.patternWidth > 0) || !(patternInfo.patternHeight > 0))
+                return;
+
             // use a transform to rotate
             Matrix matrix = new Matrix();
             matrix.Translate(rotationCenter.X, rotationCenter.Y);
