@@ -15,6 +15,9 @@ namespace Map_Svg.Tests
         // The format the bitmap was read from.
         private readonly GraphicsBitmapFormat originalFormat;
 
+        // The data the bitmap was read from, or null for none.
+        private readonly byte[] originalData;
+
         // How many times the bitmap's data has been written.
         public int Writes;
 
@@ -22,12 +25,14 @@ namespace Map_Svg.Tests
         // name: its name, which its written data carries.
         // width, height: its size in pixels.
         // originalFormat: the format it was read from.
-        public TestBitmap(string name, int width, int height, GraphicsBitmapFormat originalFormat)
+        // originalData: the data it was read from, or null for none.
+        public TestBitmap(string name, int width, int height, GraphicsBitmapFormat originalFormat, byte[] originalData = null)
         {
             this.name = name;
             PixelWidth = width;
             PixelHeight = height;
             this.originalFormat = originalFormat;
+            this.originalData = originalData;
             HorizontalResolution = VerticalResolution = 96;
         }
 
@@ -54,13 +59,19 @@ namespace Map_Svg.Tests
             return originalFormat;
         }
 
+        // The data the bitmap was read from, or null for none.
+        public byte[] GetOriginalData()
+        {
+            return originalData;
+        }
+
         // The bitmap has no pixels to read.
         public System.Drawing.Color GetPixel(int x, int y)
         {
             throw new NotSupportedException("A test bitmap has no pixels.");
         }
 
-        // The part of the bitmap, as a bitmap whose name says which part it is.
+        // The part of the bitmap, as a bitmap whose name says which part it is, read from no data of its own.
         public IGraphicsBitmap Crop(int x, int y, int width, int height)
         {
             return new TestBitmap(name + "[" + x + "," + y + "," + width + "," + height + "]", width, height, originalFormat);
