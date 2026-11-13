@@ -90,7 +90,7 @@ The calls the target fully implements, in the sense of DL-5: `Intensity`, `PushT
 
 ## Tasks
 
-**In flight:** task 3 below, upstream into the fork, as @Pauli chose it to follow task 2's steps 1 and 2: one agent at effort max from 00:38 Nov 13, paced (see Decisions, "Pacing"), on branches of its own suffixed `-nov13`. It stops for @Pauli where upstream's fix and ours differ. Task 2's choice waits on @Pauli. The archiving task runs.
+**In flight:** task 3 below, upstream into the fork, as @Pauli chose it to follow task 2's steps 1 and 2: one agent at effort max from 00:38 Nov 13, paced (see Decisions, "Pacing"), on branches of its own suffixed `-nov13`. @Pauli moved its rest that was to end at 01:39 to 04:30, with a ping every 50 minutes to keep its cache. At 04:36 it stopped for three choices where upstream's fix and ours differ, under "Waiting on @Pauli"; nothing shared has moved, and its clone `/home/claude/sync-nov13` (5bf82d8e) is kept for resuming. The archiving task runs.
 
 **Next**, in order. Each task starts on @Pauli's word, with an agent of its own (see "Agents"), and ends with its commits on `feature/svg-target` or this branch, its loop green where it changes the target, and the gallery and this file brought up to date.
 
@@ -288,7 +288,13 @@ Undertakings to return to once the SVG work is done (@Pauli, Nov 6 and 12).
 
 ## Waiting on @Pauli
 
-Nothing.
+Task 3's three choices, where upstream's fix and ours share their core but differ in a detail, from the sync agent at 04:36 Nov 13; each goes to @Pauli as an interview when he is present. Its provisional merges passed: `base` as f7fb52de on `wip/linux/upstream-into-base-nov13`, resolved as it recommends for A and B (Build 43324164469, Tests 43324164233), and `feature/svg-target` as 5bf82d8e on `feature/svg-target-upstream-nov13`, whose SVG loop 43324856942 on `svg/svg-target-nov13` gave 783 passed, 0 failed and 2 pending, with all 215 SVG documents byte for byte those of Nov 12's run.
+
+- **A. Saving images:** upstream's d48f445 against `fix/image-reencode`, in `base`. Both write the bytes an image special was loaded from unchanged into the event file and the OCAD export. Ours also checks two things. A1: for the OCAD export it re-encodes a JPEG that is CMYK, progressive, or carries an orientation tag Purple Pen does not apply when drawing; without it a phone photo may stand rotated in OCAD, and a reader without CMYK or progressive support may fail. It costs about 160 lines (`JpegDataProber`) and their tests, and no test tells the two apart. A2: it writes the event file's bytes through only in a format the loader recognised, otherwise PNG; without it, an event file holding, say, a TGA image, which the Avalonia app reads since e54ef96, no longer loads in WinForms Purple Pen. (a) upstream's code alone; (b) both checks kept, as in f7fb52de. Recommended: (b).
+- **B. The PDF loading status in tests:** upstream's 1ed9e92 against `fix/headless-pdf-loading`, in `base`. Both register it transient. (a) upstream's: the Windows tests show WinForms' "Reading PDF" dialog for every conversion, and a conversion that fails waits for Cancel, which would hang the run, though no current test makes one fail; (b) ours, as in f7fb52de: the tests stay headless, waiting up to 3 minutes, and upstream's dialog changes go untested, as the dialog was before. Recommended: (b).
+- **C. Metric culture:** upstream's bc4debb against `fix/invariant-culture-metric` (98a85ad), in `basewithfixes` and `dev`. Both stop the invariant culture's crash and count that culture as metric. Upstream asks Windows' "Country or region" setting, which on Linux and macOS comes from the culture; ours asks the current culture's region, as Purple Pen always did. On Windows they differ where format and location disagree: an English (United States) format in Finland gives A4 with upstream's, Letter with ours. (a) upstream's `Util.cs`: our `UtilTests.IsCurrentCultureMetric` goes, as it would fail on a test machine in a non-metric country, and our fix becomes redundant; (b) ours, with upstream's `MetricOverrideForTesting`, which its tests set. Recommended: (a).
+
+Once chosen: with (b) for A and B, `base` fast-forwards to f7fb52de, and otherwise the merge is amended and run again; then `basewithfixes` with C, the full run on `wip/linux/svg-target-nov13` with ce9f4e3's two baselines, and `dev`.
 
 ## Ready to offer to Purple Pen
 
