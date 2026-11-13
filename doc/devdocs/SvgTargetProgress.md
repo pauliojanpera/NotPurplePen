@@ -128,6 +128,8 @@ The calls the target fully implements, in the sense of DL-5: `Intensity`, `PushT
 - In the SVG tests, the families the test maps name besides Arial, Times New Roman, Cambria, Calibri and Roboto, such as Georgia and Arial Narrow, are drawn in Arial; stand-ins with their metrics, such as Gelasio and Liberation Sans Narrow, could take their place.
 - printarea2's map names UTM zone 29 though it lies in zone 10, so its export says EPSG 32629: the test map's own data.
 - The twelve branches that cannot be deleted from here (see "Where the work lives").
+- Upstream's pull requests after task 3: #71 to close, and #56, #57 and #58 to rebase onto d48f445, on @Pauli's word (see "Ready to offer to Purple Pen").
+- `fix/skia-font-tables` and `fix/pdf-font-without-os2` fix bugs still live in upstream and `dev`; whether the Avalonia application fails to open a map that names a font that is not installed is to be checked first.
 - Under upstream's bc4debb, the WinForms margin workaround in `PrintDescriptions.cs` and `PrintPunches.cs` follows the home location, while Windows' margins dialog follows the regional format, so margins may read 2.54 times off where the two disagree: read from the code, not tried, in the WinForms application, which the fork does not ship. It could be reported upstream.
 
 ## Future directions
@@ -296,7 +298,7 @@ Nothing.
 
 ## Ready to offer to Purple Pen
 
-The `fix/` branches, each made on upstream's history with only its own commits, for @Pauli's review before any is offered as a pull request. Before one is offered, it is rebased onto the newest `upstream/master` and checked again. None has been offered: on Nov 7 @Pauli put offering them off.
+The `fix/` branches, each made on upstream's history with only its own commits, for @Pauli's review before any is offered as a pull request. Before one is offered, it is rebased onto the newest `upstream/master` and checked again. The eighteen merged into `base` are offered as pull requests #54 to #71 of petergolde/PurplePen, each still open on Nov 13 as far as git shows, since the session cannot read pull requests through GitHub's API there; each sits on upstream's 2d58e982 (Oct 3), and on Nov 13 a trial merge onto upstream's d48f445 left fourteen clean and #56, #57, #58 and #71 in conflict. On Nov 7 @Pauli put offering the others off. A pull request is updated by rebasing its branch and pushing it with force, which waits for @Pauli's word.
 
 | Branch | What it changes | In this fork |
 | --- | --- | --- |
@@ -305,37 +307,37 @@ The `fix/` branches, each made on upstream's history with only its own commits, 
 | `fix/skia-subpixel-glyph-positions` | Draw glyphs at their shaped subpixel positions in the Skia target | Ready: its full run passed on `wip/linux/skia-subpixel-glyph-positions` (Tests run 40084278496) with every baseline it moves recorded; a test stops at its first image that differs, so a run of `experiment/subpixel-record-all`, whose comparisons went on past a difference, found the last 31 at once. Merged into `feature/svg-text` |
 | `fix/skia-null-system-typeface` | Take a missing system typeface as no match instead of dereferencing it | Ready: its full run passed on `wip/linux/skia-null-system-typeface` (Tests run 40089461485); merged into `feature/svg-text` |
 | `fix/skia-font-data-race` | Read a face's font data whole under a lock, from any number of threads | Ready: its full run passed on `wip/linux/skia-font-data-race` (Tests run 40071740434); merged into `feature/svg-text` |
-| `fix/invariant-culture-metric` | Tell whether a culture without a region is metric, so an event without paper of its own loads under the invariant culture | Ready: its full run passed on `wip/linux/invariant-culture-metric` (Tests run 40807127546); merged into `dev` |
+| `fix/invariant-culture-metric` | Tell whether a culture without a region is metric, so an event without paper of its own loads under the invariant culture | Superseded by upstream's bc4debb and gone from `basewithfixes` and `dev` (Nov 13); never offered: to retire |
 | `fix/forget-settings-on-new-map` | Forget the exports' and the print settings when another map loads, in both applications | Ready: its full run passed on `wip/linux/forget-settings-on-new-map` (Tests run 41133887589); merged into `dev` through `wip/linux/forget-settings-into-dev` (Tests run 41133975402), as one check with d3561c1 |
 | `feature/skia-fixed-font-set` | Let the private fonts be the only fonts there are, for families and for fallback (off by default) | Ready: its full run passed on `wip/linux/skia-fixed-font-set` (Tests run 40780464139, its tests green on Windows); merged into `feature/svg-target` |
 | `fix/backslashes-in-test-file-paths` | Find test files named with backslashes on any platform | Merged into `feature/svg-target` |
 | `fix/case-of-test-file-names` | Spell four test file names as the files are spelled | Merged into `feature/svg-target` |
 | `fix/culture-independent-descriptor-parsing` | Read rendering descriptors with periods as decimal points | Merged into `feature/svg-target` |
 | `fix/bitmap-print-scale` | Size an exported bitmap by the scale the course prints at | Merged into `dev` |
-| `fix/compatibility-event-map` | Give the 1.01 compatibility event its map | Merged into `base` |
-| `fix/font-fallback-coverage` | Ask the font fallback what it promises, not what one machine drew | Merged into `base` |
-| `fix/headless-pdf-loading` | Give each PDF conversion its own loading status | Merged into `base` |
-| `fix/image-reencode` | Check the exported bitmaps as the files they are | Merged into `base` |
-| `fix/lossless-export-comparison` | Compare what the image export draws, not what a JPEG made of it | Merged into `base` |
-| `fix/package-verify-pipefail` | Verify packages without piping into grep -q | Merged into `base` |
-| `fix/parallel-export-temp-names` | Give each relay export test its own scratch file | Merged into `base` |
-| `fix/parallel-temp-file-names` | Give each rendering test its own scratch files | Merged into `base` |
-| `fix/pdf-cache-race` | Publish a converted PDF under its cache name only once it is whole | Merged into `base` |
-| `fix/pdf-failure-message` | Say why creating files failed | Merged into `base` |
-| `fix/pdfconverter-build` | Restore PdfConverter before building it, and build it for the tests | Merged into `base` |
-| `fix/print-area-output-directory` | Create the output directory the print-area export writes into | Merged into `base` |
-| `fix/proj4-load-diagnostics` | Say why proj.dll could not be loaded | Merged into `base` |
-| `fix/record-missing-baseline` | Let a comparison without a baseline leave its rendering behind | Merged into `base` |
-| `fix/save-failed-comparison` | Leave something to look at when a bitmap comparison fails | Merged into `base` |
-| `fix/skia-decode-file-handle` | Decode a rendered PNG from memory, not from its path | Merged into `base` |
-| `fix/ui-tests-not-parallel` | Keep the tests that drive a window out of the parallel pool | Merged into `base` |
-| `fix/test-start-log` | Name each test as it starts | In `base` and `dev` as an equivalent commit |
-| `fix/image-reencode-png-baselines` | Write a JPEG through only when any reader can take it | Not merged |
-| `fix/jpeg-compare-tolerance` | Tolerate the encoder in the OCAD export's bitmaps too | Not merged |
-| `fix/pdf-font-without-os2` | Describe a font that has no OS/2 table | Not merged |
-| `fix/pdf-temp-file-lock` | Give a locked render file time to be released | Not merged |
-| `fix/skia-font-tables` | Read optional font tables without throwing | Not merged |
-| `fix/xml-timestamp-timezone` | Accept any time zone in the exported-XML baseline comparison | Not merged |
+| `fix/compatibility-event-map` | Give the 1.01 compatibility event its map | Merged into `base`; offered as #54, which merges cleanly onto d48f445 |
+| `fix/font-fallback-coverage` | Ask the font fallback what it promises, not what one machine drew | Merged into `base`; offered as #68, which merges cleanly onto d48f445 |
+| `fix/headless-pdf-loading` | Give each PDF conversion its own loading status | Merged into `base`; offered as #56, whose second commit, a6b3f32d, is upstream's own since 1ed9e92, and whose `GlobalTestSetup.cs` conflicts with d48f445: to shrink to its first commit on upstream's tip |
+| `fix/image-reencode` | Check the exported bitmaps as the files they are | Superseded by upstream's d48f445 and gone from `base` (Nov 13; see Decisions, upstream's fixes against ours); offered as #71, to close |
+| `fix/lossless-export-comparison` | Compare what the image export draws, not what a JPEG made of it | Merged into `base`; offered as #67, which merges cleanly onto d48f445 |
+| `fix/package-verify-pipefail` | Verify packages without piping into grep -q | Merged into `base`; offered as #69, which merges cleanly onto d48f445 |
+| `fix/parallel-export-temp-names` | Give each relay export test its own scratch file | Merged into `base`; offered as #64, which merges cleanly onto d48f445 |
+| `fix/parallel-temp-file-names` | Give each rendering test its own scratch files | Merged into `base`; offered as #62, which merges cleanly onto d48f445 |
+| `fix/pdf-cache-race` | Publish a converted PDF under its cache name only once it is whole | Merged into `base`; offered as #57, which conflicts with d48f445 in `PdfMapFile.cs`: to rebase, after checking whether upstream's 1ed9e92 covers it |
+| `fix/pdf-failure-message` | Say why creating files failed | Merged into `base`; offered as #66, which merges cleanly onto d48f445 |
+| `fix/pdfconverter-build` | Restore PdfConverter before building it, and build it for the tests | Merged into `base`; offered as #58, which conflicts with d48f445 in `AvPurplePen.csproj`: to rebase |
+| `fix/print-area-output-directory` | Create the output directory the print-area export writes into | Merged into `base`; offered as #63, which merges cleanly onto d48f445 |
+| `fix/proj4-load-diagnostics` | Say why proj.dll could not be loaded | Merged into `base`; offered as #59, which merges cleanly onto d48f445 |
+| `fix/record-missing-baseline` | Let a comparison without a baseline leave its rendering behind | Merged into `base`; offered as #65, which merges cleanly onto d48f445 |
+| `fix/save-failed-comparison` | Leave something to look at when a bitmap comparison fails | Merged into `base`; offered as #60, which merges cleanly onto d48f445 |
+| `fix/skia-decode-file-handle` | Decode a rendered PNG from memory, not from its path | Merged into `base`; offered as #61, which merges cleanly onto d48f445 |
+| `fix/ui-tests-not-parallel` | Keep the tests that drive a window out of the parallel pool | Merged into `base`; offered as #55, which merges cleanly onto d48f445 |
+| `fix/test-start-log` | Name each test as it starts | In `base` and `dev` as an equivalent commit; offered as #70, which merges cleanly onto d48f445 |
+| `fix/image-reencode-png-baselines` | Write a JPEG through only when any reader can take it | Not merged; obsolete: an earlier form of `fix/image-reencode`, three of its four commits the same |
+| `fix/jpeg-compare-tolerance` | Tolerate the encoder in the OCAD export's bitmaps too | Not merged; obsolete: `fix/lossless-export-comparison` made the JPEG export tests' comparisons lossless, and upstream's d48f445 writes the OCAD export's images through unchanged |
+| `fix/pdf-font-without-os2` | Describe a font that has no OS/2 table | Not merged, as the fork's runs lack such fonts; the bug is live in upstream and `dev`: PDF export throws on a TrueType font without an OS/2 table, such as Corel's Switzerland, which the Marymoor test maps name. A candidate |
+| `fix/pdf-temp-file-lock` | Give a locked render file time to be released | Not merged; probably obsolete: the sharing violation it waited out has not come back in the full runs since the tests got scratch files of their own |
+| `fix/skia-font-tables` | Read optional font tables without throwing | Not merged, as the fork's runs install the fonts; the bug is live in upstream and `dev`: SkiaSharp's `GetTableData` throws for a table a font lacks, where `FontFallback` and `FontVerticalMetrics` expect null, and on Oct 13 a map naming a font that is not installed failed to load (marymoor.ocd without Tekton). A candidate, to check in the Avalonia application first |
+| `fix/xml-timestamp-timezone` | Accept any time zone in the exported-XML baseline comparison | Not merged, as the fork's runs set Pacific time (`tests.yml`); test-only: the exported-XML comparison matches a timestamp only as Pacific time writes it, and fails in any other time zone. A candidate |
 
 Some change only what the fork's tests or packaging need, and the review weighs each for Purple Pen's use.
 
