@@ -19,8 +19,14 @@ These apply to the sessions that carry the work and the agents they start (@Paul
   gives agents a five-minute cache, and every wait longer than that, for a build, a run or a rest, makes an agent
   write its whole context to the cache again. `agent-cache.py report <transcript>` shows from a transcript which
   lifetime the cache writes got.
-- **Pacing.** So that the 5-hour quota lasts until it resets, after each 20 minutes of an agent's work the agent and
-  the session rest 40 minutes.
+- **Pacing, dropped on Nov 13.** @Pauli dropped the pacing below: 20 minutes of an agent's work took half the 5-hour
+  quota, so rests spread the work without making the quota last. Agents work without rests, and the session wakes
+  when an agent reports. The scripts and this description stay, for use if pacing is ever wanted again (@Pauli,
+  Nov 13). What uses the quota is mostly the context an agent re-reads on each call, so an agent puts commands
+  together into fewer calls and reads only the parts of files it needs.
+
+  As it was practised: so that the 5-hour quota lasts until it resets, after each 20 minutes of an agent's work the
+  agent and the session rest 40 minutes.
   - `pace-agent.py` counts the work from the agent's transcript, cumulatively: the time up to each of its replies, and
     commands of up to 3 minutes. Longer commands, waits for runs and rests count as rest, at half their length
     against the work.
