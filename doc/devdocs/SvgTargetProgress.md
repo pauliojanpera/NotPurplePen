@@ -20,7 +20,7 @@ Where the work on the SVG target stands against the phases of [its requirements]
 | `svg-gallery` | The gallery served at <https://pauliojanpera.github.io/NotPurplePen/svg/>: its page, fonts and each entry's drawings, as one commit that each update replaces; every publish of the site copies it into `svg/` |
 | `evidence/`, `experiment/`, `diag/` and `archive/` branches | The evidence and probes of investigations that are over, throwaway runs, and `archive/svg-export-wip`, phase 3's first `WIP:` history; nothing depends on them |
 
-Three finished branches could not be deleted, as the remote hangs up on a push that deletes them and the proxy refuses the API's deletion: `feature/svg-browsers-docs` (29be263, which 57f0c3d supersedes), `feature/svg-target-upstream-wip` and `feature/dev-merge-wip`. Delete them from a machine where deleting works.
+Branches cannot be deleted from these sessions: the git gateway answers a push that deletes one with HTTP 403 (again on Nov 13), and the proxy refuses the API's deletion. These finished ones, on which nothing depends, wait to be deleted from a machine where deleting works: `feature/svg-browsers-docs` (29be263, which 57f0c3d supersedes), `feature/svg-target-upstream-wip` and `feature/dev-merge-wip`; and task 3's working branches, whose deletion @Pauli approved on Nov 13: `feature/upstream-into-base-nov13-wip`, `feature/svg-target-upstream-nov13`, `feature/into-dev-nov13-wip`, `svg/svg-target-nov13`, `svg-results/svg-target-nov13`, `wip/linux/upstream-into-base-nov13`, `wip/linux/base-into-basewithfixes-nov13`, `wip/linux/svg-target-nov13` and `wip/linux/into-dev-nov13`.
 
 ## How to pick the work up
 
@@ -127,8 +127,7 @@ The calls the target fully implements, in the sense of DL-5: `Intensity`, `PushT
 - Nobody has tried the export's dialog by hand; it is built, and its view model tested.
 - In the SVG tests, the families the test maps name besides Arial, Times New Roman, Cambria, Calibri and Roboto, such as Georgia and Arial Narrow, are drawn in Arial; stand-ins with their metrics, such as Gelasio and Liberation Sans Narrow, could take their place.
 - printarea2's map names UTM zone 29 though it lies in zone 10, so its export says EPSG 32629: the test map's own data.
-- The three branches that could not be deleted (see "Where the work lives").
-- Task 3's working branches, which nothing depends on: `feature/upstream-into-base-nov13-wip`, `feature/svg-target-upstream-nov13`, `feature/into-dev-nov13-wip`, `svg/svg-target-nov13`, `svg-results/svg-target-nov13` and the four `wip/linux/*-nov13`.
+- The twelve branches that cannot be deleted from here (see "Where the work lives").
 - Under upstream's bc4debb, the WinForms margin workaround in `PrintDescriptions.cs` and `PrintPunches.cs` follows the home location, while Windows' margins dialog follows the regional format, so margins may read 2.54 times off where the two disagree: read from the code, not tried, in the WinForms application, which the fork does not ship. It could be reported upstream.
 
 ## Future directions
