@@ -135,4 +135,34 @@
   <data name="StatusBarText_DefaultStatus" xml:space="preserve">
     <value>Botó esquerre del ratolí: seleccionar objectes; Botó dret del ratolí: moure el mapa; Roda del ratolí: acostar/allunyar</value>
   </data>
+  <data name="MainFrame_createSvgFilesMenu_Text" xml:space="preserve">
+    <value>Crea fitxers S_VG...</value>
+  </data>
+  <data name="CreateSvgCourses_Text" xml:space="preserve">
+    <value>Crea fitxers SVG</value>
+  </data>
+  <data name="CreateSvgCourses_bitmapsGroupBox_Text" xml:space="preserve">
+    <value>Mapes de bits</value>
+  </data>
+  <data name="CreateSvgCourses_bitmapsLabel_Text" xml:space="preserve">
+    <value>Mapes de bits del mapa:</value>
+  </data>
+  <data name="CreateSvgCourses_comboBoxBitmaps_Items" xml:space="preserve">
+    <value>Incrusta</value>
+  </data>
+  <data name="CreateSvgCourses_comboBoxBitmaps_Items1" xml:space="preserve">
+    <value>Desa a part</value>
+  </data>
+  <data name="CreateSvgCourses_comboBoxBitmaps_Items2" xml:space="preserve">
+    <value>Omet</value>
+  </data>
+  <data name="CreateSvgCourses_jpegQualityLabel_Text" xml:space="preserve">
+    <value>Qualitat JPEG:</value>
+  </data>
+  <data name="CreateSvgCourses_checkBoxCompress_Text" xml:space="preserve">
+    <value>Comprimeix els fitxers (.svgz)</value>
+  </data>
+  <data name="CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text" xml:space="preserve">
+    <value>Dibuixa els patrons d'àrea com a formes separades</value>
+  </data>
 </root>

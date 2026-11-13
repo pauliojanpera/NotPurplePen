@@ -646,4 +646,7 @@ Abrir e salvar novamente o mapa na versão mais recente do OpenOrienteering Mapp
   <data name="FinishButtonText" xml:space="preserve">
     <value>&amp;Finalizar</value>
   </data>
+  <data name="CannotCreateSvgs" xml:space="preserve">
+    <value>Não é possível criar arquivos SVG pelo seguinte motivo:</value>
+  </data>
 </root>

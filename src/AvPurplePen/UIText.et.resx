@@ -3520,4 +3520,34 @@ Võisluste jaoks on soovitav eksportida radade failid OCADi formaati (menüüst 
   <data name="NewEventWizard_finishButton_Text" xml:space="preserve">
     <value>_Finiš</value>
   </data>
+  <data name="MainFrame_createSvgFilesMenu_Text" xml:space="preserve">
+    <value>Salvesta S_VG failid...</value>
+  </data>
+  <data name="CreateSvgCourses_Text" xml:space="preserve">
+    <value>Salvesta SVG failid</value>
+  </data>
+  <data name="CreateSvgCourses_bitmapsGroupBox_Text" xml:space="preserve">
+    <value>Rasterpildid</value>
+  </data>
+  <data name="CreateSvgCourses_bitmapsLabel_Text" xml:space="preserve">
+    <value>Pildid kaardil:</value>
+  </data>
+  <data name="CreateSvgCourses_comboBoxBitmaps_Items" xml:space="preserve">
+    <value>Manusta igasse faili</value>
+  </data>
+  <data name="CreateSvgCourses_comboBoxBitmaps_Items1" xml:space="preserve">
+    <value>Salvesta faili kõrvale</value>
+  </data>
+  <data name="CreateSvgCourses_comboBoxBitmaps_Items2" xml:space="preserve">
+    <value>Jäta välja</value>
+  </data>
+  <data name="CreateSvgCourses_jpegQualityLabel_Text" xml:space="preserve">
+    <value>JPEG kvaliteet:</value>
+  </data>
+  <data name="CreateSvgCourses_checkBoxCompress_Text" xml:space="preserve">
+    <value>Tihenda failid (.svgz)</value>
+  </data>
+  <data name="CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text" xml:space="preserve">
+    <value>Joonista alade mustrid eraldi kujunditena</value>
+  </data>
 </root>
