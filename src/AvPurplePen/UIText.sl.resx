@@ -1381,13 +1381,13 @@
     <value>Posebne nastavitve</value>
   </data>
   <data name="CreateSvgCourses_bitmapsLabel_Text" xml:space="preserve">
-    <value>Slike v karti:</value>
+    <value>Bitne slike v karti:</value>
   </data>
   <data name="CreateSvgCourses_comboBoxBitmaps_Items" xml:space="preserve">
-    <value>Vdelaj v datoteko</value>
+    <value>Vdelaj v vsako datoteko</value>
   </data>
   <data name="CreateSvgCourses_comboBoxBitmaps_Items1" xml:space="preserve">
-    <value>Shrani poleg datoteke</value>
+    <value>Shrani poleg vsake datoteke</value>
   </data>
   <data name="CreateSvgCourses_comboBoxBitmaps_Items2" xml:space="preserve">
     <value>Izpusti</value>

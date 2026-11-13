@@ -2643,10 +2643,10 @@ Skalaen af kortet indikerer forholdet mellem papirkortet og virkeligheden.
     <value>Bitmaps i kortet:</value>
   </data>
   <data name="CreateSvgCourses_comboBoxBitmaps_Items" xml:space="preserve">
-    <value>Indlejr i filen</value>
+    <value>Indlejr i hver fil</value>
   </data>
   <data name="CreateSvgCourses_comboBoxBitmaps_Items1" xml:space="preserve">
-    <value>Gem ved siden af filen</value>
+    <value>Gem ved siden af hver fil</value>
   </data>
   <data name="CreateSvgCourses_comboBoxBitmaps_Items2" xml:space="preserve">
     <value>Udelad</value>

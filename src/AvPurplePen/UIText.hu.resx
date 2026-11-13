@@ -3498,10 +3498,10 @@ A versenytérképek nyomtatásához javasolt a pályákat OCAD formátumba expor
     <value>Képek a térképen:</value>
   </data>
   <data name="CreateSvgCourses_comboBoxBitmaps_Items" xml:space="preserve">
-    <value>Beágyazni a fájlba</value>
+    <value>Beágyazni minden fájlba</value>
   </data>
   <data name="CreateSvgCourses_comboBoxBitmaps_Items1" xml:space="preserve">
-    <value>A fájl mellé menteni</value>
+    <value>Minden fájl mellé menteni</value>
   </data>
   <data name="CreateSvgCourses_comboBoxBitmaps_Items2" xml:space="preserve">
     <value>Kihagyni</value>
