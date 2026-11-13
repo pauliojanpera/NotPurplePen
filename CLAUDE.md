@@ -16,6 +16,9 @@ These apply to the sessions that carry the work and the agents they start (@Paul
   - `pace-agent.py` counts the work from the agent's transcript, cumulatively: the time up to each of its replies, and
     commands of up to 3 minutes. Longer commands, waits for runs and rests count as rest, at half their length
     against the work.
+  - A rest never exceeds 59 minutes, so that the agent's prompt cache, which lasts an hour, outlives it (@Pauli,
+    Nov 13). `pace-agent.py` caps the rest it asks for; the work a capped rest leaves unpaid brings the next rest
+    sooner. A rest sent late is still at most 59 minutes.
   - The session runs `pace-agent.py` as a background command and starts it again each time it ends. When it prints
     `REST DUE: N minutes`, the session sends the agent "Rest N minutes" and reports the agent's progress to @Pauli.
   - Each agent's brief says what to do then: push the work in progress, start one background command that ends after

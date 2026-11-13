@@ -81,9 +81,11 @@ gives agents a one-hour cache, and paces their work (see CLAUDE.md):
 - `agent-cache.py report <transcript.jsonl>...` prints, for a session's or an agent's transcript, the tokens its
   requests wrote to the cache at each lifetime and read from it, and what each of the last requests after a gap of
   5 to 60 minutes read and wrote. A request that read nothing and wrote its whole context found its cache expired.
-- `pace-agent.py <agent transcript.jsonl> <state.json> [--work 20] [--ratio 2] [--short 180] [--keepalive 50]`
+- `pace-agent.py <agent transcript.jsonl> <state.json> [--work 20] [--ratio 2] [--max-rest 59] [--short 180] [--keepalive 50]`
   counts the agent's work from its transcript: the time up to each of its replies, and commands of up to `--short`
-  seconds. Longer commands, waits and rests count as rest, at `1/--ratio` of their length against the work. It ends
+  seconds. Longer commands, waits and rests count as rest, at `1/--ratio` of their length against the work. A rest is
+  never longer than `--max-rest` minutes, so that the agent's prompt cache, which lasts an hour, outlives it (@Pauli,
+  Nov 13); the work a capped rest leaves unpaid brings the next rest sooner. It ends
   when a rest is due (`REST DUE: N minutes`), when the agent has resumed after it (`REST OVER`), or after
   `--keepalive` minutes (`KEEPALIVE`), printing the work and rest since its last report and the titles of the agent's
   steps. The session runs it as a background command (`run_in_background`, with a timeout of an hour), acts on what

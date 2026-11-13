@@ -2,7 +2,7 @@
 """Pace an agent by its transcript, and end when the session has something to do.
 
 Usage: pace-agent.py <agent transcript.jsonl> <state.json> [--work MIN] [--ratio R]
-                     [--short SEC] [--keepalive MIN] [--poll SEC] [--dry-run]
+                     [--max-rest MIN] [--short SEC] [--keepalive MIN] [--poll SEC] [--dry-run]
 
 The agent's work is counted cumulatively from its transcript:
 - the interval up to each of its replies (an assistant record) is work;
@@ -12,8 +12,11 @@ The agent's work is counted cumulatively from its transcript:
 A balance B gains the work and loses the rest divided by --ratio, never below 0.
 
 The script ends, printing why, when:
-- in the work phase, B reaches --work minutes: a rest of B * ratio is due
-  ("REST DUE: N minutes"), and the state moves to the rest phase;
+- in the work phase, B reaches --work minutes: a rest of B * ratio is due, but
+  never more than --max-rest minutes, so that the agent's prompt cache, which
+  lasts an hour, outlives it ("REST DUE: N minutes"), and the state moves to the
+  rest phase; work that a capped rest leaves unpaid stays in B and brings the
+  next rest sooner;
 - in the rest phase, the transcript shows that the agent resumed after a rest of
   at least 3/4 of the one asked for ("REST OVER"): the state moves back to work;
 - in either phase, --keepalive minutes have passed since it started
@@ -123,6 +126,7 @@ def main():
     p.add_argument("state")
     p.add_argument("--work", type=float, default=20.0, help="minutes of work before a rest")
     p.add_argument("--ratio", type=float, default=2.0, help="minutes of rest per minute of work")
+    p.add_argument("--max-rest", type=float, default=59.0, help="the longest rest, in minutes, within the agent's hour of cache")
     p.add_argument("--short", type=float, default=180.0, help="seconds a command may take and count as work")
     p.add_argument("--keepalive", type=float, default=50.0, help="minutes after which to end anyway")
     p.add_argument("--poll", type=float, default=30.0, help="seconds between reads of the transcript")
@@ -138,7 +142,7 @@ def main():
             report(state, "DRY RUN, phase %s" % state["phase"])
             return
         if state["phase"] == "work" and state["balance"] >= a.work * 60:
-            rest = state["balance"] * a.ratio
+            rest = min(state["balance"] * a.ratio, a.max_rest * 60)
             state["phase"] = "rest"
             state["asked_at"] = now.isoformat()
             state["asked_seconds"] = rest
