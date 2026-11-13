@@ -120,7 +120,7 @@ The calls the target fully implements, in the sense of DL-5: `Intensity`, `PushT
 4. **The SVG export's strings in every language** (@Pauli, Nov 12; after task 3). The strings of the SVG export's dialog and command (A-7), in `UIText.resx` in English alone, translated into every language of AvPurplePen's `UIText.<language>.resx`, each in the terms its own translations use, above all the PDF dialog's, so that the SVG dialog reads as its neighbour does; on a branch rooted at `feature/svg-target`, with its full run and its merge into `dev`. The translations are the fork's own: Purple Pen's translators may want to review them before they are offered upstream.
 
 **Left open:**
-- WPF moves the text of lksamm3 and marymoor_underline under task 2's prototype whatever form its union clip takes; why is not known.
+- WPF moves the text of lksamm3 and marymoor_underline under task 2's prototype whatever form its union clip takes; why is not known. Only tests draw with WPF (`Test_MapWPF` and `D2D_Tests`; neither application does), so @Pauli does not mind much if the shift is WPF's alone, and expects it if it comes from the defect being fixed (Nov 13): its baselines move with the fix's.
 - `IGraphicsTarget` gains `PushClipToUnion` with task 2's fix, which upstream's Direct2D and iOS targets would need too if it is offered.
 - With .NET's hardware intrinsics off, ImageSharp encoded a JPEG to other bytes, a risk to F-2 for any JPEG bitmap that V-4 has no case of; whether x64 and ARM64 encode alike is not known. A JPEG map in V-4 would tell, or a JPEG written through as its own data would avoid it (task 1).
 - PdfPig 0.1.16 does not let a missing `op` take `OP`'s value, against the PDF specification; task 1's probe corrects it, and it could be reported upstream.
