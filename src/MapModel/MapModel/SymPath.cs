@@ -2002,16 +2002,157 @@ namespace PurplePen.MapModel
         }
 
         // Add the area to a list of path parts that, filled by the nonzero rule, fills the union of the areas added
-        // to it: the main path winding positively and the holes the other way. An area filled by itself fills by the
-        // even-odd rule, which fills the same where its holes lie within its main path and do not overlap.
+        // to it. Each contour, the main path or a hole, winds positively when an even number of the area's other
+        // contours enclose it, and the other way when an odd number do, so that the nonzero rule fills just what the
+        // even-odd rule fills of the area by itself, and never cancels what another area adds: as a hole within the
+        // main path winds the other way, and a hole outside it, or within another hole, winds positively. That holds
+        // only when no two contours meet, which ContoursMeet tells.
         // partList: the list of parts to add to.
         internal void AddToUnionPathPartList(List<GraphicsPathPart> partList)
         {
-            mainPath.AddClosedContourToPathPartList(partList, true);
-            if (holes != null) {
-                foreach (SymPath hole in holes)
-                    hole.AddClosedContourToPathPartList(partList, false);
+            SymPath[] contours = Contours();
+            for (int i = 0; i < contours.Length; ++i) {
+                PointF[] corners = contours[i].FlattenedPoints;
+                if (corners.Length == 0)
+                    continue;
+
+                int enclosing = 0;
+                for (int j = 0; j < contours.Length; ++j) {
+                    if (j != i && contours[j].IsInside(corners[0]))
+                        ++enclosing;
+                }
+
+                contours[i].AddClosedContourToPathPartList(partList, enclosing % 2 == 0);
             }
+        }
+
+        // Whether two of the area's contours, the main path and the holes, flattened, have a point in common, or one
+        // has a point in common with itself other than where each of its segments meets the next. Where a hole
+        // crosses the main path, the part of the hole outside the main path is filled by the even-odd rule, by which
+        // the area fills by itself, while winding the other way from an area that covers it there, which cancels it
+        // under the nonzero rule; contours that cross themselves or each other cannot each wind one way so that the
+        // nonzero rule fills the area as the even-odd rule does. Contours that only touch are counted as meeting too.
+        internal bool ContoursMeet()
+        {
+            SymPath[] contours = Contours();
+            PointF[][] corners = new PointF[contours.Length][];
+            int segmentCount = 0;
+            for (int i = 0; i < contours.Length; ++i) {
+                corners[i] = DistinctCorners(contours[i].FlattenedPoints);
+                segmentCount += corners[i].Length;
+            }
+
+            // Each segment runs from a corner of a contour to the next, the last back to the first. Sweep across the
+            // segments from left to right, comparing each with those still open whose height it shares.
+            int[] contourOfSegment = new int[segmentCount], cornerOfSegment = new int[segmentCount];
+            float[] lefts = new float[segmentCount], rights = new float[segmentCount], bottoms = new float[segmentCount], tops = new float[segmentCount];
+            int segment = 0;
+            for (int i = 0; i < contours.Length; ++i) {
+                for (int corner = 0; corner < corners[i].Length; ++corner) {
+                    PointF start = corners[i][corner], end = corners[i][(corner + 1) % corners[i].Length];
+                    contourOfSegment[segment] = i;
+                    cornerOfSegment[segment] = corner;
+                    lefts[segment] = Math.Min(start.X, end.X);
+                    rights[segment] = Math.Max(start.X, end.X);
+                    bottoms[segment] = Math.Min(start.Y, end.Y);
+                    tops[segment] = Math.Max(start.Y, end.Y);
+                    ++segment;
+                }
+            }
+
+            int[] order = new int[segmentCount];
+            for (int i = 0; i < segmentCount; ++i)
+                order[i] = i;
+            Array.Sort((float[]) lefts.Clone(), order);
+
+            List<int> open = new List<int>();
+            foreach (int current in order) {
+                int stillOpen = 0;
+                for (int i = 0; i < open.Count; ++i) {
+                    if (rights[open[i]] >= lefts[current])
+                        open[stillOpen++] = open[i];
+                }
+                open.RemoveRange(stillOpen, open.Count - stillOpen);
+
+                int contour = contourOfSegment[current], corner = cornerOfSegment[current];
+                foreach (int other in open) {
+                    if (bottoms[other] > tops[current] || bottoms[current] > tops[other])
+                        continue;
+
+                    int otherContour = contourOfSegment[other], otherCorner = cornerOfSegment[other];
+                    int cornerCount = corners[contour].Length;
+                    if (otherContour == contour && (otherCorner == (corner + 1) % cornerCount || corner == (otherCorner + 1) % cornerCount))
+                        continue;
+
+                    if (SegmentsMeet(corners[contour][corner], corners[contour][(corner + 1) % cornerCount],
+                                     corners[otherContour][otherCorner], corners[otherContour][(otherCorner + 1) % corners[otherContour].Length]))
+                        return true;
+                }
+
+                open.Add(current);
+            }
+
+            return false;
+        }
+
+        // The area's contours: the main path, then the holes.
+        SymPath[] Contours()
+        {
+            SymPath[] contours = new SymPath[1 + ((holes == null) ? 0 : holes.Length)];
+            contours[0] = mainPath;
+            if (holes != null)
+                Array.Copy(holes, 0, contours, 1, holes.Length);
+            return contours;
+        }
+
+        // The corners of a flattened contour, without a corner that repeats the one before it, and without a last
+        // corner that repeats the first, so that each corner begins a segment of some length to the next.
+        // points: the points of the flattened contour.
+        static PointF[] DistinctCorners(PointF[] points)
+        {
+            List<PointF> corners = new List<PointF>(points.Length);
+            foreach (PointF point in points) {
+                if (corners.Count == 0 || corners[corners.Count - 1] != point)
+                    corners.Add(point);
+            }
+            while (corners.Count > 1 && corners[corners.Count - 1] == corners[0])
+                corners.RemoveAt(corners.Count - 1);
+
+            return corners.ToArray();
+        }
+
+        // Whether two segments have a point in common: whether they cross, or an end of one lies on the other.
+        // start1, end1: the ends of the first segment.
+        // start2, end2: the ends of the second segment.
+        static bool SegmentsMeet(PointF start1, PointF end1, PointF start2, PointF end2)
+        {
+            double turnToStart2 = Turn(start1, end1, start2), turnToEnd2 = Turn(start1, end1, end2);
+            double turnToStart1 = Turn(start2, end2, start1), turnToEnd1 = Turn(start2, end2, end1);
+            if (((turnToStart2 > 0 && turnToEnd2 < 0) || (turnToStart2 < 0 && turnToEnd2 > 0)) &&
+                ((turnToStart1 > 0 && turnToEnd1 < 0) || (turnToStart1 < 0 && turnToEnd1 > 0)))
+                return true;
+
+            return (turnToStart2 == 0 && WithinBox(start1, end1, start2)) || (turnToEnd2 == 0 && WithinBox(start1, end1, end2)) ||
+                   (turnToStart1 == 0 && WithinBox(start2, end2, start1)) || (turnToEnd1 == 0 && WithinBox(start2, end2, end1));
+        }
+
+        // Twice the signed area of the triangle of a segment and a point: positive when the point lies to one side of
+        // the line through the segment, negative when it lies to the other, and zero when it lies on the line.
+        // start, end: the ends of the segment.
+        // point: the point.
+        static double Turn(PointF start, PointF end, PointF point)
+        {
+            return ((double) end.X - start.X) * ((double) point.Y - start.Y) - ((double) end.Y - start.Y) * ((double) point.X - start.X);
+        }
+
+        // Whether a point lies within the box whose opposite corners are a segment's ends, which, for a point on the
+        // line through the segment, is whether it lies on the segment.
+        // start, end: the ends of the segment.
+        // point: the point.
+        static bool WithinBox(PointF start, PointF end, PointF point)
+        {
+            return Math.Min(start.X, end.X) <= point.X && point.X <= Math.Max(start.X, end.X) &&
+                   Math.Min(start.Y, end.Y) <= point.Y && point.Y <= Math.Max(start.Y, end.Y);
         }
 
         public SymPathWithHoles Transform(Matrix mat) {

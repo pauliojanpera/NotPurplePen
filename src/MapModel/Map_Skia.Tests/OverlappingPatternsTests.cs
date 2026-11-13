@@ -306,16 +306,51 @@ namespace Map_Skia.Tests
         }
 
         [Test]
+        public void AreaWithHoleOutsideItsOutlineIsDrawnOnce()
+        {
+            // The left area's hole lies outside its outline, where the even-odd rule fills it, and the right area
+            // covers the hole.
+            PointF[] outline = { new PointF(2, 2), new PointF(8, 2), new PointF(8, 14), new PointF(2, 14), new PointF(2, 2) };
+            PointF[] hole = { new PointF(10, 6), new PointF(12, 6), new PointF(12, 10), new PointF(10, 10), new PointF(10, 6) };
+            TestArea leftWithHole = new TestArea(new SymPathWithHoles(new SymPath(outline), new SymPath[] { new SymPath(hole) }), 0);
+
+            CheckDrawnAsUnion(Hatching(30, AreaSymDef.RotateMode.Always), false, Rectangle(0, 2, 2, 14, 14), 100, leftWithHole, Rectangle(0, 6, 2, 14, 14, true));
+        }
+
+        [Test]
         public void AreasThatMeetNoOtherAreDrawnAsBefore()
         {
-            TestArea first = Rectangle(0, 1, 1, 5, 5), second = Rectangle(0, 9, 9, 13, 13);
+            CheckDrawnEachByItself(Rectangle(0, 1, 1, 5, 5), Rectangle(0, 9, 9, 13, 13));
+        }
 
+        [Test]
+        public void AreasWhoseContoursCrossDrawTheirOwnPatterns()
+        {
+            // An area whose hole crosses its outline, and an area that covers the part of the hole outside the
+            // outline, which the even-odd rule fills.
+            PointF[] outline = { new PointF(2, 2), new PointF(10, 2), new PointF(10, 10), new PointF(2, 10), new PointF(2, 2) };
+            PointF[] hole = { new PointF(8, 4), new PointF(12, 4), new PointF(12, 8), new PointF(8, 8), new PointF(8, 4) };
+            TestArea crossedByItsHole = new TestArea(new SymPathWithHoles(new SymPath(outline), new SymPath[] { new SymPath(hole) }), 0);
+            CheckDrawnEachByItself(crossedByItsHole, Rectangle(0, 10, 2, 14, 10));
+
+            // An area whose outline crosses itself, and an area that covers a part of it.
+            CheckDrawnEachByItself(Polygon(0, 2, 2, 10, 10, 10, 2, 2, 10), Rectangle(0, 8, 2, 14, 10));
+        }
+
+        // Check that areas of one symbol draw call for call as each draws by itself, with no path of a union: with a
+        // hatching and with dots, drawn glyph by glyph and with brushes.
+        // areas: the areas.
+        static void CheckDrawnEachByItself(params TestArea[] areas)
+        {
             foreach (bool usePatternBitmaps in new bool[] { false, true }) {
                 foreach (Action<AreaSymDef, SymColor> addPatterns in new Action<AreaSymDef, SymColor>[] { Hatching(30, AreaSymDef.RotateMode.Always), Dots(false) }) {
-                    string both = LogDrawing(CreateMap(addPatterns, null, first, second), usePatternBitmaps);
-                    string each = LogDrawing(CreateMap(addPatterns, null, first), usePatternBitmaps) + LogDrawing(CreateMap(addPatterns, null, second), usePatternBitmaps);
-                    Assert.That(both, Is.EqualTo(each));
-                    Assert.That(both, Does.Not.Contain("Winding"));
+                    string all = LogDrawing(CreateMap(addPatterns, null, areas), usePatternBitmaps);
+                    StringBuilder each = new StringBuilder();
+                    foreach (TestArea area in areas)
+                        each.Append(LogDrawing(CreateMap(addPatterns, null, area), usePatternBitmaps));
+
+                    Assert.That(all, Is.EqualTo(each.ToString()));
+                    Assert.That(all, Does.Not.Contain("Winding"));
                 }
             }
         }

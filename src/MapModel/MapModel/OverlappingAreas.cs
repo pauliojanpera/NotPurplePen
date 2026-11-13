@@ -44,7 +44,8 @@ namespace PurplePen.MapModel
     // once, after the last of its areas, within the union of the areas' outlines: where areas overlap, a pattern drawn
     // for each area lays the same lines and elements on each other, which a renderer that smooths edges blends into a
     // thicker, darker pattern. Each area is still drawn from its own outline, and only the pattern is drawn once. An
-    // area that meets no other of its frame is in no group, and is drawn as before.
+    // area that meets no other of its frame is in no group, and is drawn as before, as is an area whose main path and
+    // holes cross or touch each other or themselves.
     internal sealed class OverlappingAreas
     {
         // A group of two or more areas, connected by bounding boxes that overlap or touch.
@@ -184,17 +185,75 @@ namespace PurplePen.MapModel
             return result;
         }
 
-        // Group the areas of one frame whose bounding boxes overlap or touch, by a sweep across them from left to
-        // right, joining each area to those still open whose boxes it meets.
+        // Group the areas of one frame whose bounding boxes overlap or touch. An area whose contours meet each other or
+        // themselves is left out, and draws its own patterns as an area in no group does: the path of a group's union
+        // fills an area as the even-odd rule fills it by itself only when no two of its contours meet (see
+        // SymPathWithHoles.AddToUnionPathPartList), and the other areas are grouped again without it. Only the areas
+        // that meet another are looked at for that.
         // areas: the areas, in the order they are drawn.
         private void GroupAreas(List<AreaSymbol> areas)
         {
-            int count = areas.Count;
-            RectangleF[] boxes = new RectangleF[count];
+            RectangleF[] boxes = BoundingBoxes(areas);
+            int[] roots = Connect(boxes);
+            int[] members = CountMembers(roots);
+
+            List<AreaSymbol> areasThatMeetOthers = new List<AreaSymbol>();
+            bool anyLeftOut = false;
+            for (int i = 0; i < areas.Count; ++i) {
+                if (members[roots[i]] < 2)
+                    continue;
+
+                if (areas[i].ContoursMeet)
+                    anyLeftOut = true;
+                else
+                    areasThatMeetOthers.Add(areas[i]);
+            }
+
+            if (anyLeftOut) {
+                areas = areasThatMeetOthers;
+                boxes = BoundingBoxes(areas);
+                roots = Connect(boxes);
+                members = CountMembers(roots);
+            }
+
+            Dictionary<int, Group> groupOfRoot = new Dictionary<int, Group>();
+            for (int i = 0; i < areas.Count; ++i) {
+                int root = roots[i];
+                if (members[root] < 2)
+                    continue;
+
+                Group group;
+                if (groupOfRoot.TryGetValue(root, out group)) {
+                    group.Add(areas[i], boxes[i]);
+                }
+                else {
+                    group = new Group(areas[i], boxes[i]);
+                    groupOfRoot.Add(root, group);
+                }
+                groupOfSymbol.Add(areas[i], group);
+            }
+        }
+
+        // The bounding boxes of areas' paths.
+        // areas: the areas.
+        private static RectangleF[] BoundingBoxes(List<AreaSymbol> areas)
+        {
+            RectangleF[] boxes = new RectangleF[areas.Count];
+            for (int i = 0; i < areas.Count; ++i)
+                boxes[i] = areas[i].Path.BoundingBox;
+            return boxes;
+        }
+
+        // Connect the boxes that overlap or touch, by a sweep across them from left to right, joining each box to
+        // those still open that it meets, and return the root of each box's set: boxes connected through others share
+        // a root, the index of one of them.
+        // boxes: the boxes.
+        private static int[] Connect(RectangleF[] boxes)
+        {
+            int count = boxes.Length;
             int[] parent = new int[count];
             int[] order = new int[count];
             for (int i = 0; i < count; ++i) {
-                boxes[i] = areas[i].Path.BoundingBox;
                 parent[i] = i;
                 order[i] = i;
             }
@@ -211,26 +270,20 @@ namespace PurplePen.MapModel
                 open.Add(index);
             }
 
-            int[] members = new int[count];
+            int[] roots = new int[count];
             for (int i = 0; i < count; ++i)
-                members[Find(parent, i)]++;
+                roots[i] = Find(parent, i);
+            return roots;
+        }
 
-            Dictionary<int, Group> groupOfRoot = new Dictionary<int, Group>();
-            for (int i = 0; i < count; ++i) {
-                int root = Find(parent, i);
-                if (members[root] < 2)
-                    continue;
-
-                Group group;
-                if (groupOfRoot.TryGetValue(root, out group)) {
-                    group.Add(areas[i], boxes[i]);
-                }
-                else {
-                    group = new Group(areas[i], boxes[i]);
-                    groupOfRoot.Add(root, group);
-                }
-                groupOfSymbol.Add(areas[i], group);
-            }
+        // Count the members of each set: the count of the elements whose root is an element, at its index.
+        // roots: the root of each element's set.
+        private static int[] CountMembers(int[] roots)
+        {
+            int[] members = new int[roots.Length];
+            foreach (int root in roots)
+                members[root]++;
+            return members;
         }
 
         // Find the root of an element's set, halving the path to it.
