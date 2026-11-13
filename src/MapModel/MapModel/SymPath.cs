@@ -412,6 +412,43 @@ namespace PurplePen.MapModel
                 partList.Add(new GraphicsPathPart(GraphicsPathPartKind.Close, null));
         }
 
+        // Add the path to a list of path parts as a closed contour that winds the given way: positively, as the
+        // points of a contour whose signed area is positive run, or the other way. A path is reversed when it winds
+        // the other way, so that a path filled by the nonzero rule can hold the outlines of several areas, their
+        // main paths winding one way and their holes the other, and fill their union.
+        // partList: the list of parts to add to.
+        // windPositively: whether the contour is to wind positively.
+        internal void AddClosedContourToPathPartList(List<GraphicsPathPart> partList, bool windPositively)
+        {
+            if ((SignedArea() >= 0) == windPositively) {
+                AddToPathPartList(partList, this, points, true);
+            }
+            else {
+                PointF[] reversedPoints = (PointF[]) points.Clone();
+                Array.Reverse(reversedPoints);
+                PointKind[] reversedKinds = (PointKind[]) kinds.Clone();
+                Array.Reverse(reversedKinds);
+
+                SymPath reversed = new SymPath(reversedPoints, reversedKinds);
+                AddToPathPartList(partList, reversed, reversed.points, true);
+            }
+        }
+
+        // The area the path encloses when closed, with its sign: positive when the points of the flattened path run
+        // the way that makes the shoelace formula's sum positive, and negative when they run the other way.
+        double SignedArea()
+        {
+            PointF[] flattened = FlattenedPoints;
+            double sum = 0;
+
+            for (int i = 0; i < flattened.Length; ++i) {
+                PointF from = flattened[i], to = flattened[(i + 1) % flattened.Length];
+                sum += ((double) from.X * (double) to.Y) - ((double) to.X * (double) from.Y);
+            }
+
+            return sum / 2.0;
+        }
+
         object GetPathKeyCore(IGraphicsTarget g, object pathKey, PointF[] points, SymPath[] holes, PointF[][] holePoints)
         {
             if (g.HasPath(pathKey))
@@ -1962,6 +1999,19 @@ namespace PurplePen.MapModel
         public object GetPathKey(IGraphicsTarget g)
         {
             return MainPath.GetPathKeyWithHoles(g, this, Holes);
+        }
+
+        // Add the area to a list of path parts that, filled by the nonzero rule, fills the union of the areas added
+        // to it: the main path winding positively and the holes the other way. An area filled by itself fills by the
+        // even-odd rule, which fills the same where its holes lie within its main path and do not overlap.
+        // partList: the list of parts to add to.
+        internal void AddToUnionPathPartList(List<GraphicsPathPart> partList)
+        {
+            mainPath.AddClosedContourToPathPartList(partList, true);
+            if (holes != null) {
+                foreach (SymPath hole in holes)
+                    hole.AddClosedContourToPathPartList(partList, false);
+            }
         }
 
         public SymPathWithHoles Transform(Matrix mat) {
