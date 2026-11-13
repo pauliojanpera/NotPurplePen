@@ -652,4 +652,7 @@ Paina OK ja yritä etsiä karttatiedoston kopio tietokoneeltasi.</value>
   <data name="DefaultPublishPath" xml:space="preserve">
     <value>../Tulostus/Järjestelmä</value>
   </data>
+  <data name="CannotCreateSvgs" xml:space="preserve">
+    <value>SVG-tiedostoja ei voi luoda seuraavasta syystä:</value>
+  </data>
 </root>

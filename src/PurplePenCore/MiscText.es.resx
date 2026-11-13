@@ -625,4 +625,7 @@ Presione Aceptar, e intente encontrar una copia del mapa en su ordenador.</value
   <data name="FinishButtonText" xml:space="preserve">
     <value>&amp;Meta</value>
   </data>
+  <data name="CannotCreateSvgs" xml:space="preserve">
+    <value>No se pueden crear archivos SVG por el siguiente motivo:</value>
+  </data>
 </root>
