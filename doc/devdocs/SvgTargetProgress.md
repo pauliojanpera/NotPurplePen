@@ -90,7 +90,7 @@ The calls the target fully implements, in the sense of DL-5: `Intensity`, `PushT
 
 ## Tasks
 
-**In flight:** nothing; task 4 ended at 12:04 Nov 13, with four choices for @Pauli under "Waiting on @Pauli", and task 2's step 3 starts on @Pauli's word. The archiving task runs.
+**In flight:** task 4's follow-up, @Pauli's four choices (see Decisions, task 4's choices), carried out by task 4's agent from 12:30 Nov 13, paced, on a branch rooted at `feature/svg-target` (1da0e9e2), ending with the merge into `dev`. Task 2's step 3 or task 6 follows on @Pauli's word. The archiving task runs.
 
 **Next**, in order. Each task starts on @Pauli's word, with an agent of its own (see "Agents"), and ends with its commits on `feature/svg-target` or this branch, its loop green where it changes the target, and the gallery and this file brought up to date.
 
@@ -269,6 +269,7 @@ Undertakings to return to once the SVG work is done (@Pauli, Nov 6 and 12).
 - **F-6 without a check by hand.** On Nov 13 @Pauli ruled that F-6 needs no check by hand, now that Inkscape and Scribus run where a session works: the readers in `SvgColourReaders/` open the exports in both and read each colour's CMYK values, as they did after the colours changed on Nov 5.
 - **Upstream's fixes against ours.** Where task 3 found upstream's fixes sharing their core with ours but differing in a detail, @Pauli chose on Nov 13. Saving images: upstream's d48f445 alone, as it showed no plain flaw; our re-encoding of a CMYK, progressive or turned JPEG for the OCAD export (`JpegDataProber`) with its tests, the event file's condition that writes an image's bytes through only in a format the loader recognised, and the test helper `CompareExportedBitmap` leave `base`. The PDF loading status in tests: all of upstream's 1ed9e92, with our test-only `HeadlessPdfLoadingStatus` and its registration on top, so the tests stay windowless; `fix/headless-pdf-loading` shrinks to them. The metric check: upstream's bc4debb, which reads Windows' "Country or region" setting rather than the regional format, the two differing only on Windows where format and location disagree; our 98a85ad and its `UtilTests.IsCurrentCultureMetric` go.
 - **Chromium and a huge bitmap.** Chromium's headless shell crashed taking the screenshot of the A2 map's SVG whose PDF base map is a bitmap of 139 million pixels, in two of task 1's three runs, on a machine of 7 GB, though it drew the map's vectors and Firefox and WebKit drew the bitmap; the cause was not looked into, the failure's irregularity suggesting memory. On Nov 13 @Pauli ruled it won't be fixed.
+- **Task 4's choices.** On Nov 13 @Pauli chose, of the four the translations' agent left: Kurmanji's and Venetian's drafts ship as the agent wrote them; the SVG strings come out of the five files that translate almost nothing (ca, he, id, ru, zh-HK), by reverting 60e28d5a; the bitmaps combo gets a row of its own, about 228 pixels wide, as the multi-page combo has, and the translations their full wording back where it then fits; and the SVG dialog's folder picker gets a title of its own, "Select a folder for the SVG files", translated as each language's PDF picker title.
 - **Merge messages.** On Nov 13 @Pauli found "Merge branch 'feature/svg-target' into dev" not informative enough as an entry of the releases page, which shows a build's commit message: it should list what went in. Merges into the shared branches had kept git's default message until Nov 12. CLAUDE.md on this branch now asks that a merge into a shared branch name the work it brings and list the commits it brings, as `git merge --log` writes them.
 - **Images and determinism (F-2).** On Nov 13 @Pauli ruled that lossless image data is held to its pixels, not its bytes: a PNG compressed to other bytes but decoding to the same pixels, as the zlib Skia bundles may compress on a CPU without the CRC32C instruction, meets F-2, and P-6 with it. For lossy compressions, JPEG among them, byte for byte stays the measure.
 - **JPEG data.** On Nov 13 @Pauli chose how the export is to write JPEG data alike on every machine: an image's original data where it is at hand, such as an image special's `imageData`; otherwise Skia's encoder rather than ImageSharp's, whose bytes changed with .NET's hardware intrinsics off; and the image's resolution patched into the JFIF header (task 5).
@@ -297,12 +298,7 @@ Undertakings to return to once the SVG work is done (@Pauli, Nov 6 and 12).
 
 ## Waiting on @Pauli
 
-Task 4's four choices, from its agent's report ([`SvgTranslations.md`](SvgTranslations.md)), each to go to @Pauli as an interview:
-
-1. **Kurmanji (ku) and Venetian (vec)**, whose translations the agent could not vouch for and held back as drafts: (a) ship the drafts, (b) wait for a speaker's review, (c) leave them in English. Recommended: (b), or (c) if no reviewer turns up; vec ships on Linux and macOS.
-2. **The five files that translate almost nothing** (ca, he, id, ru, zh-HK), translated in a commit of their own, 60e28d5a, though none of them ships: keep them, or revert the commit. Recommended: keep.
-3. **The bitmaps combo**, whose text has 90 to 150 pixels beside its labels, so that even the English "Save beside each file" is cut and many translations say "the file" or "separately" instead of "each file": give it a row of its own, about 228 pixels, as the multi-page combo has, or leave the layout.
-4. **The folder picker's title**: the SVG dialog's reads "Select a folder for the PDF files" (`CreatePdfCourses_folderBrowserDialog_Description`): give it an SVG key of its own, translated, or leave it.
+Nothing.
 
 ## Ready to offer to Purple Pen
 
