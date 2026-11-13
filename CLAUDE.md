@@ -1,6 +1,14 @@
 @AGENTS.md
 @AGENTS.NotPurplePen.md
 
+## Merge messages
+
+A merge into a shared branch (`base`, `basewithfixes`, `dev`, `master` or `feature/svg-target`) says what went in,
+since the releases page shows a build's commit message as its entry (@Pauli, Nov 13). Its subject names the work it
+brings, as "Merge feature/svg-target, with the SVG export's strings translated, into dev", and never git's default
+"Merge branch …". Its body lists the commits the merge brings, one line each, as `git merge --log=100` writes them
+(or `git log --no-merges --format='%s (%h)' <target>..<branch>`), and then says how any conflict was resolved.
+
 ## Running the work: the agents' cache and pacing
 
 These apply to the sessions that carry the work and the agents they start (@Pauli, Nov 12). The scripts are in
