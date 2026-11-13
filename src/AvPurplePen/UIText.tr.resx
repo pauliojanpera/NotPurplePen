@@ -3661,4 +3661,34 @@ Yarışma haritalarını yazdırmak için kursların OCAD dosyalarına aktarılm
   <data name="NewEventWizard_finishButton_Text" xml:space="preserve">
     <value>_Bitiş</value>
   </data>
+  <data name="MainFrame_createSvgFilesMenu_Text" xml:space="preserve">
+    <value>S_VG Dosyaları Oluştur...</value>
+  </data>
+  <data name="CreateSvgCourses_Text" xml:space="preserve">
+    <value>SVG Dosyaları Oluştur</value>
+  </data>
+  <data name="CreateSvgCourses_bitmapsGroupBox_Text" xml:space="preserve">
+    <value>Bitmapler</value>
+  </data>
+  <data name="CreateSvgCourses_bitmapsLabel_Text" xml:space="preserve">
+    <value>Haritadaki bitmapler:</value>
+  </data>
+  <data name="CreateSvgCourses_comboBoxBitmaps_Items" xml:space="preserve">
+    <value>Dosyaya göm</value>
+  </data>
+  <data name="CreateSvgCourses_comboBoxBitmaps_Items1" xml:space="preserve">
+    <value>Ayrı kaydet</value>
+  </data>
+  <data name="CreateSvgCourses_comboBoxBitmaps_Items2" xml:space="preserve">
+    <value>Dahil etme</value>
+  </data>
+  <data name="CreateSvgCourses_jpegQualityLabel_Text" xml:space="preserve">
+    <value>JPEG kalitesi:</value>
+  </data>
+  <data name="CreateSvgCourses_checkBoxCompress_Text" xml:space="preserve">
+    <value>Dosyaları sıkıştır (.svgz)</value>
+  </data>
+  <data name="CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text" xml:space="preserve">
+    <value>Alan desenlerini ayrı şekiller olarak çiz</value>
+  </data>
 </root>

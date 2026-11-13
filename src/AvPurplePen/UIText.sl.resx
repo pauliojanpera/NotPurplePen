@@ -1371,4 +1371,34 @@
   <data name="MainFrame_mapExchangeToolStripMenu_Text" xml:space="preserve">
     <value>Dodaj menjavo karte</value>
   </data>
+  <data name="MainFrame_createSvgFilesMenu_Text" xml:space="preserve">
+    <value>Ustvari S_VG datoteke...</value>
+  </data>
+  <data name="CreateSvgCourses_Text" xml:space="preserve">
+    <value>Ustvari SVG datoteke</value>
+  </data>
+  <data name="CreateSvgCourses_bitmapsGroupBox_Text" xml:space="preserve">
+    <value>Bitne slike</value>
+  </data>
+  <data name="CreateSvgCourses_bitmapsLabel_Text" xml:space="preserve">
+    <value>Slike v karti:</value>
+  </data>
+  <data name="CreateSvgCourses_comboBoxBitmaps_Items" xml:space="preserve">
+    <value>Vdelaj v datoteko</value>
+  </data>
+  <data name="CreateSvgCourses_comboBoxBitmaps_Items1" xml:space="preserve">
+    <value>Shrani poleg datoteke</value>
+  </data>
+  <data name="CreateSvgCourses_comboBoxBitmaps_Items2" xml:space="preserve">
+    <value>Izpusti</value>
+  </data>
+  <data name="CreateSvgCourses_jpegQualityLabel_Text" xml:space="preserve">
+    <value>Kvaliteta JPEG:</value>
+  </data>
+  <data name="CreateSvgCourses_checkBoxCompress_Text" xml:space="preserve">
+    <value>Stisni datoteke (.svgz)</value>
+  </data>
+  <data name="CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text" xml:space="preserve">
+    <value>Nariši ploskovne vzorce kot ločene oblike</value>
+  </data>
 </root>
