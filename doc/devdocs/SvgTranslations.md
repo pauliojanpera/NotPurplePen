@@ -490,3 +490,143 @@ Conventions used: ca uses the imperative, as Catalan software does. he uses the 
 
 - **ku:** I'm unsure of most words, especially "nimûne" for pattern, "deveran" for areas, "Nexe nav" for "leave out" and "biguvêşe" for compress.
 - **vec:** the spelling (with or without ł) and the Italianisms "Incorpora" and "Comprimi" are uncertain.
+
+## @Pauli's choices and the Special options group
+
+The same agent's report on carrying out @Pauli's four choices and the "Special options" group (Nov 13, 12:13 to 13:18).
+
+@Pauli's four choices and the Special options layout are done, and `dev` is published with them. Every full run passed. One item is for @Pauli: in five languages the area-patterns check box keeps its shorter wording, because the full wording would wrap and push "Other folder" partly out of its group.
+
+### Branch, commits and runs
+**`feature/svg-dialog-choices`**, rooted at `feature/svg-target` 1da0e9e2:
+- eff86b8a reverts 60e28d5a: ca, he, id, ru and zh-HK lose the SVG strings.
+- bceede1f adds the Kurmanji and Venetian drafts, as reported.
+- 528362cc builds the Special options group.
+  - The new key `CreateSvgCourses_specialOptionsGroupBox_Text` ("Special options") is in `UIText.resx` and `UIText.Designer.cs`.
+  - `CreateSvgCourses_bitmapsGroupBox_Text` is gone from `UIText.resx` and all 27 satellites. Its entry in each file was replaced in place by the new heading.
+  - The area-patterns check box left Appearance, so Appearance now matches the PDF dialog.
+  - The bitmaps label stands above its combo, whose text now has 240 px, so even the English "Save beside each file" fits.
+  - The window grew from 610 to 642 px, exactly what the new row adds. "Other folder" stays inside its group in every language, checked on the rendered dialog.
+- 97af1438 gives the bitmaps label and combo items their full wording (lists below).
+- 929a5bb3 gives the folder picker its own key, `CreateSvgCourses_folderBrowserDialog_Description` ("Select a folder for the SVG files"). It is in `UIText.resx`, has a Designer property, is used in the code-behind, and is translated in all 27 satellites.
+
+**Runs and merges:**
+- **`wip/linux/svg-dialog-choices`** 2ee4f202 is `base` 68228505 with the branch merged in, plus ce9f4e3's two baselines. Tests 43410815324 and Build 43410815370 passed, and trial 4.0.266.220 downloads.
+- **`feature/svg-target`**: fast-forwarded 1da0e9e2 → 929a5bb3.
+- **`wip/linux/svg-target-into-dev`** da5a5883 is `dev` 8042a0da with the branch merged in, without conflict. The message follows the new rule: a subject naming the work, the five commits one per line, then the conflict note. Tests 43412467419 and Build 43412467460 passed.
+- **`dev`**: fast-forwarded to da5a5883. Build 43413967327 published `channel-beta` 4.0.268.220 for Linux, macOS and Windows, and the .exe downloads. Its Tests run skipped its jobs because the commit was already tested.
+- Renders of the new dialog in every language were sent to @Pauli in the session.
+
+### Restored combo items (Embed in each file / Save beside each file)
+| | was | now |
+|---|---|---|
+| bg | Вгради / Запиши отделно | Вгради във всеки файл / Запиши до всеки файл |
+| cs | Vložit do souboru / Uložit vedle souboru | Vložit do každého souboru / Uložit vedle každého souboru |
+| da | Indlejr i filen / Gem ved siden af filen | Indlejr i hver fil / Gem ved siden af hver fil |
+| de | Einbetten / Separat speichern | In jede Datei einbetten / Neben jeder Datei speichern |
+| es | Incrustar en el archivo / Guardar junto al archivo | Incrustar en cada archivo / Guardar junto a cada archivo |
+| et | (Manusta igasse faili, already full) / Salvesta faili kõrvale | Salvesta iga faili kõrvale |
+| fi | Upota tiedostoon / Tallenna erikseen | Upota jokaiseen tiedostoon / Tallenna jokaisen tiedoston viereen |
+| fr | Intégrer au fichier / Enregistrer à part | Intégrer dans chaque fichier / Enregistrer à côté de chaque fichier |
+| hu | Beágyazni a fájlba / A fájl mellé menteni | Beágyazni minden fájlba / Minden fájl mellé menteni |
+| it | Incorpora nel file / Salva accanto al file | Incorpora in ogni file / Salva accanto a ogni file |
+| ja | 埋め込む / 別に保存する | 各ファイルに埋め込む / 各ファイルの横に保存する |
+| nb-NO | Bygg inn i filen / Lagre ved siden av filen | Bygg inn i hver fil / Lagre ved siden av hver fil |
+| nl | Insluiten / Apart opslaan | In elk bestand insluiten / Naast elk bestand opslaan |
+| pl | Osadź w pliku / Zapisz obok pliku | Osadź w każdym pliku / Zapisz obok każdego pliku |
+| pt | Incorporar / Gravar à parte | Incorporar em cada ficheiro / Gravar ao lado de cada ficheiro |
+| pt-BR | Incorporar / Salvar à parte | Incorporar em cada arquivo / Salvar ao lado de cada arquivo |
+| ro | Încorporare în fișier / Salvare lângă fișier | Încorporare în fiecare fișier / Salvare lângă fiecare fișier |
+| sl | Vdelaj v datoteko / Shrani poleg datoteke | Vdelaj v vsako datoteko / Shrani poleg vsake datoteke |
+| sv | Bädda in i filen / Spara bredvid filen | Bädda in i varje fil / Spara bredvid varje fil |
+| tr | Dosyaya göm / Ayrı kaydet | Her dosyaya göm / Her dosyanın yanına kaydet |
+| uk | Вбудувати / Зберегти поруч | Вбудувати в кожен файл / Зберегти поруч із кожним файлом |
+| ku | Têxe nav pelî / Cuda tomar bike | Têxe nav her pelî / Li kêleka her pelî tomar bike |
+| vec | Incorpora / Salva a parte | Incorpora in ogni file / Salva darente a ogni file |
+
+en-GB, nn-NO, zh-CN and zh-TW were already full. The longest item is uk's at 215 px of the 240 available.
+
+### Revised labels ("Bitmaps in the map:")
+The heading no longer says bitmaps, and the label now has the group's whole width, so these labels now name the bitmaps themselves:
+- **bg:** Изображения: → **Растерни изображения в картата:**
+- **es:** Mapas de bits: → **Mapas de bits del mapa:**
+- **et:** Pildid kaardil: → **Rasterpildid kaardil:**
+- **sl:** Slike v karti: → **Bitne slike v karti:**
+- **uk:** Зображення на карті: → **Растрові зображення на карті:**
+- **ku:** Wêne di nexşeyê de: → **Wêneyên bitmap di nexşeyê de:**
+
+All other labels already used their file's word for bitmap (de, fi, hu, nb-NO, nn-NO and ro use the word their files use for image), so they stay. All fit on one line; the longest is bg's at 210 of 284 px.
+
+### The new heading "Special options"
+| | Translation | Mirrors |
+|---|---|---|
+| bg | Специални настройки | AllControlsProperties_Text "Настройки на всички КТ", ChangeText_insertSpecialButton_Text "Вмъкни специален текст" |
+| cs | Speciální nastavení | AutoNumbering_newControlsOnlyRadioButton_Text "Použít toto nastavení…", ChangeText_insertSpecialButton_Text "Vložit speciální text" |
+| da | Særlige indstillinger | AutoNumbering_newControlsOnlyRadioButton_Text "…disse indstillinger…", ChangeText_insertSpecialButton_Text "Indsæt særlig tekst" |
+| de | Spezielle Einstellungen | AllControlsProperties_Text "Einstellungen für alle Posten", ChangeText_insertSpecialButton_Text "Speziellen Text einfügen" |
+| en-GB | Special options | as English |
+| es | Opciones especiales | AutoNumbering_newControlsOnlyRadioButton_Text "Aplicar opciones…", ChangeText_insertSpecialButton_Text "Insertar texto especial" |
+| et | Eriseaded | MiscText_CoursePropertiesTitle "Raja seaded", MainFrame_specialItemToolStripMenu_Text "Lisa erisümbol" |
+| fi | Erityisasetukset | CourseAppearanceDialog_groupBoxOcadMap_Text "Lisäasetukset", ChangeText_insertSpecialButton_Text "Lisää erityisteksti" |
+| fr | Options spéciales | CourseAppearanceDialog_groupBoxOcadMap_Text "Options avancées", MainFrame_specialItemToolStripMenu_Text "Ajouter un Symbole Spécial" |
+| hu | Speciális beállítások | AllControlsProperties_Text "…beállításai", ChangeText_insertSpecialButton_Text "Speciális szöveg beszúrása" |
+| it | Impostazioni speciali | AutoNumbering_newControlsOnlyRadioButton_Text "Applica queste impostazioni…", ChangeText_insertSpecialButton_Text "Inserisci Testo Speciale" |
+| ja | 特殊な設定 | AutoNumbering_Text "番号付けの設定", ChangeText_insertSpecialButton_Text "特殊なテキストを入力" |
+| nb-NO | Spesielle innstillinger | AllControlsProperties_Text "Innstillinger alle poster", MainFrame_specialItemToolStripMenu_Text "Legg til spesielt symbol" |
+| nn-NO | Spesielle innstillingar | AutoNumbering_newControlsOnlyRadioButton_Text "…desse innstillingane…", MainFrame_specialItemToolStripMenu_Text "Legg til spesielt symbol" |
+| nl | Speciale instellingen | AutoNumbering_newControlsOnlyRadioButton_Text "Pas deze instellingen…", ChangeText_insertSpecialButton_Text "Voer speciale tekst in" |
+| pl | Ustawienia specjalne | AllControlsProperties_Text "Ustawienia Wszystkich Punktów", MainFrame_specialItemToolStripMenu_Text "Dodaj obiekt specjalny" |
+| pt | Configurações especiais | PrinterMargins_Text "Configuração de página", ChangeText_insertSpecialButton_Text "Inserir Texto Especial" |
+| pt-BR | Configurações especiais | AutoNumbering_newControlsOnlyRadioButton_Text "…essas configurações…", ChangeText_insertSpecialButton_Text "Inserir Texto Especial" |
+| ro | Setări speciale | AutoNumbering_newControlsOnlyRadioButton_Text "Aplică aceste setări…", ChangeText_insertSpecialButton_Text "Adaugă Text Special" |
+| sl | Posebne nastavitve | AutoNumbering_newControlsOnlyRadioButton_Text "Uporabi te nastavitve…" (the file has no word for "special") |
+| sv | Specialinställningar | AllControlsProperties_Text "Inställningar Alla Kontroller", MainFrame_specialItemToolStripMenu_Text "Lägg till specialsymbol" |
+| tr | Özel ayarlar | AutoNumbering_newControlsOnlyRadioButton_Text "Bu ayarları…", MainFrame_specialItemToolStripMenu_Text "Özel Nesne Ekle" |
+| uk | Спеціальні параметри | PrinterMargins_Text "Параметри сторінки", ChangeText_insertSpecialButton_Text "Додати спеціальний текст" |
+| zh-CN | 特殊选项 | CourseAppearanceDialog_groupBoxOcadMap_Text "高级选项", ChangeText_insertSpecialButton_Text "插入特殊文本" |
+| zh-TW | 特定選項 | CourseAppearanceDialog_groupBoxOcadMap_Text "進階選項", MainFrame_specialItemToolStripMenu_Text "增加特定項目" |
+| ku | Vebijêrkên taybet | nothing in the file (new draft) |
+| vec | Opsion speciali | nothing in the file (new draft) |
+
+### The folder picker's title "Select a folder for the SVG files"
+| | Translation | Mirrors (`CreatePdfCourses_folderBrowserDialog_Description` unless noted) |
+|---|---|---|
+| bg | Избери папка за SVG файловете | "Избери папка за PDF файловете" |
+| cs | Vyberte adresář pro SVG soubory | "Vyberte adresář pro PDF soubory" |
+| da | Vælg mappe til SVG-filerne | no PDF picker; CreateOcadFiles_folderBrowserDialog_Description "Vælg mappe til OCADfilerne" |
+| de | Wählen Sie einen Ordner für die SVG-Dateien aus | "…für die PDF-Dateien aus" |
+| en-GB | Select a folder for the SVG files | "Select a folder for the PDF files" |
+| es | Escoja una carpeta para los archivos SVG | "…para los archivos PDF" |
+| et | Vali kaust SVG failide jaoks | "Vali kaust PDF failide jaoks" |
+| fi | Valitse kansio SVG-tiedostoille | "Valitse kansio PDF-tiedostoille" |
+| fr | Sélectionner un répertoire pour les fichiers SVG | "…pour les fichiers PDF" |
+| hu | Válassza ki az SVG fájlok könyvtárát | "Válassza ki a PDF fájlok könyvtárát" |
+| it | Selezionare una cartella per i file SVG | "…per i files PDF", with "file" as the OCAD picker spells it |
+| ja | SVGファイルを保存するフォルダを選択してください | "PDFファイルを保存するフォルダを選択してください" |
+| nb-NO | Velg en mappe for SVG-filene | "Velg en mappe for PDF filene" |
+| nn-NO | Vel mappe for SVG-filene | no PDF picker; NewEventDirectory_folderBrowserDialog_Description "Vel mappe for arrangmentsfil" |
+| nl | Kies een folder voor de SVG bestanden | "…voor de PDF bestanden" |
+| pl | Wybierz katalog dla plików SVG | "Wybierz Katalog dla plików PDF", with "katalog" in lower case |
+| pt | Selecionar a pasta para os ficheiros SVG | "…os ficheiros PDF" |
+| pt-BR | Selecionar uma pasta para os arquivos SVG | "…os arquivos PDF" |
+| ro | Selectați un director pentru fișierele SVG | no PDF picker; CreateOcadFiles_folderBrowserDialog_Description "…pentru fișierul OCAD" |
+| sl | Izberi mapo za SVG datoteke | no PDF picker; CreateOcadFiles_folderBrowserDialog_Description "Izberi mapo za OCAD datoteke" |
+| sv | Välj en mapp för SVG-filerna | "…för PDF-filerna" |
+| tr | SVG dosyaları için bir klasör seçin | "PDF dosyaları için bir klasör seçin" |
+| uk | Виберіть папку для файлів SVG | "…для PDF файлів", noun first as the OCAD picker and the SVG title |
+| zh-CN | 选择一个SVG文件的文件夹 | "选择一个PDF文件的文件夹" |
+| zh-TW | 選擇SVG檔案的資料夾 | "選擇PDF檔案的資料夾" |
+| ku | Peldankekê ji bo pelên SVG hilbijêre | nothing in the file (new draft) |
+| vec | Selesiona na cartela par i file SVG | nothing in the file (new draft) |
+
+### For @Pauli
+1. **Five check boxes keep their one-line wording.** "Draw area patterns as separate shapes" stays shortened in bg, es, fr, ja and pt. At 642 px those five dialogs have 6 to 9 px to spare, and a second line costs 20, so the full wording would push "Other folder" partly out of its group.
+   - Option (a): keep them as they are.
+   - Option (b): make the dialog 20 px taller (662) and restore the full wording:
+     - bg: Рисувай шарките на площите като отделни фигури
+     - es: Dibujar los patrones de área como formas separadas
+     - fr: Dessiner les motifs surfaciques en formes séparées
+     - ja: 面のパターンを個別の図形として描画する
+     - pt: Desenhar padrões de área como formas separadas
+   - I recommend (b): those wordings name the area symbols the option is about.
+2. **Kurmanji and Venetian go beyond the shipped drafts.** I applied the "each file" restoration to their combo items like every other language, and their heading and picker titles are new drafts. The same doubts as before apply to all of them.
