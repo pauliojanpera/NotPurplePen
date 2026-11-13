@@ -3407,7 +3407,25 @@ namespace AvPurplePen {
                 return ResourceManager.GetString("CreateRouteGadget_Text", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Select a folder for the SVG files.
+        /// </summary>
+        public static string CreateSvgCourses_folderBrowserDialog_Description {
+            get {
+                return ResourceManager.GetString("CreateSvgCourses_folderBrowserDialog_Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Special options.
+        /// </summary>
+        public static string CreateSvgCourses_specialOptionsGroupBox_Text {
+            get {
+                return ResourceManager.GetString("CreateSvgCourses_specialOptionsGroupBox_Text", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Change text....
         /// </summary>

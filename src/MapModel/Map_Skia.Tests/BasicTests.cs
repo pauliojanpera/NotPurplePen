@@ -141,6 +141,21 @@ namespace Map_Skia.Tests
             ShapedTypeface.ClearCache();
         }
 
+        // Verifies that GetFontData() gives every caller the whole font data when several threads
+        // read one cached face at once, as exports and tests running in parallel do.
+        [Test]
+        public void ShapedTypeface_GetFontData_IsWholeWhenReadFromSeveralThreads()
+        {
+            using (ShapedTypeface face = ShapedTypeface.Get("Arial", SkiaSharp.SKFontStyleWeight.Normal, SkiaSharp.SKFontStyleWidth.Normal, SkiaSharp.SKFontStyleSlant.Upright))
+            {
+                byte[] expected = face.GetFontData();
+                byte[][] read = new byte[64][];
+                System.Threading.Tasks.Parallel.For(0, read.Length, index => { read[index] = face.GetFontData(); });
+                foreach (byte[] data in read)
+                    CollectionAssert.AreEqual(expected, data);
+            }
+        }
+
         // Verifies that ClearCache() removes entries with refCount 0 but not entries still in use.
         [Test]
         public void ShapedTypeface_ClearCache_RemovesUnusedOnly()

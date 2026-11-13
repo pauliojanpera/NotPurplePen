@@ -3617,4 +3617,37 @@ Til å skrive ut konkuranskekart anbefales at løypene eksporteres til OCAD file
   <data name="NewEventWizard_finishButton_Text" xml:space="preserve">
     <value>_Fullfør</value>
   </data>
+  <data name="MainFrame_createSvgFilesMenu_Text" xml:space="preserve">
+    <value>Lag S_VG-filer...</value>
+  </data>
+  <data name="CreateSvgCourses_Text" xml:space="preserve">
+    <value>Lag SVG-filer</value>
+  </data>
+  <data name="CreateSvgCourses_specialOptionsGroupBox_Text" xml:space="preserve">
+    <value>Spesielle innstillinger</value>
+  </data>
+  <data name="CreateSvgCourses_bitmapsLabel_Text" xml:space="preserve">
+    <value>Bilder i kartet:</value>
+  </data>
+  <data name="CreateSvgCourses_comboBoxBitmaps_Items" xml:space="preserve">
+    <value>Bygg inn i hver fil</value>
+  </data>
+  <data name="CreateSvgCourses_comboBoxBitmaps_Items1" xml:space="preserve">
+    <value>Lagre ved siden av hver fil</value>
+  </data>
+  <data name="CreateSvgCourses_comboBoxBitmaps_Items2" xml:space="preserve">
+    <value>Utelat</value>
+  </data>
+  <data name="CreateSvgCourses_jpegQualityLabel_Text" xml:space="preserve">
+    <value>JPEG-kvalitet:</value>
+  </data>
+  <data name="CreateSvgCourses_checkBoxCompress_Text" xml:space="preserve">
+    <value>Komprimer filene (.svgz)</value>
+  </data>
+  <data name="CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text" xml:space="preserve">
+    <value>Tegn flatemønstre som separate figurer</value>
+  </data>
+  <data name="CreateSvgCourses_folderBrowserDialog_Description" xml:space="preserve">
+    <value>Velg en mappe for SVG-filene</value>
+  </data>
 </root>

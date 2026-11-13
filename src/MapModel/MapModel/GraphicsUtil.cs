@@ -46,5 +46,13 @@ namespace PurplePen.MapModel
             }
         }
 
+        // Whether a target's pattern brushes are vectors, which a tile of any size draws without loss: a target that keeps
+        // the structure of what it draws, and says so, as the SVG target does.
+        // g: the target.
+        public static bool PatternBrushesAreVectors(IGraphicsTarget g)
+        {
+            IStructuredGraphicsTarget structuredTarget = g as IStructuredGraphicsTarget;
+            return structuredTarget != null && structuredTarget.PatternBrushesAreVectors;
+        }
     }
 }
