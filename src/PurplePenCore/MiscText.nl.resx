@@ -225,4 +225,7 @@
   <data name="OpenImageDialog_Filter" xml:space="preserve">
     <value>Afbeelding|*.jpg;*.jpeg;*.gif;*.png;*.bmp;*.tif;*.tiff</value>
   </data>
+  <data name="CannotCreateSvgs" xml:space="preserve">
+    <value>Kan geen SVG bestanden aanmaken vanwege:</value>
+  </data>
 </root>
