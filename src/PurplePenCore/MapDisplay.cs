@@ -136,6 +136,7 @@ namespace PurplePen
                     }
 
                     pdfMapFile = null;
+                    mapType = MapType.None;     // the map data is gone, so don't claim to have a map.
 
                     if (courseMap != null) {
                         courseMap.Dispose();
@@ -243,13 +244,15 @@ namespace PurplePen
                 switch (mapType) {
                 case MapType.Bitmap:
                 case MapType.PDF:
+                    if (bitmap == null)
+                        return new RectangleF();
                     int pixelWidth = bitmap.PixelWidth;
                     int pixelHeight = bitmap.PixelHeight;
                     if (pixelWidth == 0 || pixelHeight == 0) {
                         return new RectangleF();
                     }
                     else {
-                        return Geometry.TransformRectangle(BitmapTransform(), new RectangleF(0, 0, pixelWidth, pixelHeight));
+                        return Geometry.TransformRectangle(BitmapTransform(bitmap), new RectangleF(0, 0, pixelWidth, pixelHeight));
                     }
 
                     case MapType.OCAD:
@@ -484,7 +487,8 @@ namespace PurplePen
         }
 
         // Computer the transform from coordinates of the bitmap to world coordinates
-        Matrix BitmapTransform()
+        // bitmap: the bitmap map being drawn.
+        Matrix BitmapTransform(IGraphicsBitmap bitmap)
         {
             // (worldcoord in mm) / 25.4F * dpi = pixels
             float scaleFactor = bitmapDpi / 25.4F;
@@ -496,58 +500,86 @@ namespace PurplePen
             return matrix;
         }
 
-        // Set the map file used to draw. 
+        // True while SetMapFile is loading a map file. Loading a PDF map pumps the UI thread (to show the
+        // "Reading PDF" dialog), so idle-time UI code can run in the middle of a load; it should check this
+        // and wait for the load to finish rather than act on the map display.
+        public bool IsLoadingMap { get; private set; }
+
+        // Set the map file used to draw.
+        // The new map is loaded into locals and only stored into the fields once loading has fully succeeded,
+        // so the fields are always mutually consistent (a Bitmap/PDF map type always has a bitmap, an OCAD map
+        // type always has a map), both while the load is in progress and if it throws.
+        // newMapType: the kind of map file.
+        // newFilename: the map file to load, or null if newMapType is None.
         public void SetMapFile(MapType newMapType, string newFilename)
         {
-            this.mapType = newMapType;
+            // Show no map while loading. The file name is set immediately, because Controller.MapDisplay
+            // starts a reload whenever the file name doesn't match the event; setting it now prevents a
+            // nested reload if UI code runs while the load is pumping messages.
+            // Old maps/bitmaps are not disposed, because a background draw may still be using them.
+            this.mapType = MapType.None;
             this.filename = newFilename;
-            this.bitmap = null;
             this.map = null;
+            this.bitmap = null;
+            this.pdfMapFile = null;
+            this.mapVersion = new MapFileFormat(MapFileFormatKind.None, 0);
+            UpdateDimmedBitmap();
 
-            if (newMapType == MapType.None) {
-                map = null;
-                mapVersion = new MapFileFormat(MapFileFormatKind.None, 0);
-                bitmap = null;
-                pdfMapFile = null;
-            }
-            else if (newMapType == MapType.OCAD) {
-                map = new Map(MapUtil.TextMetricsProvider, Services.FileLoaderProvider.GetFileLoaderForDirectory(Path.GetDirectoryName(newFilename)));
-                mapVersion = InputOutput.ReadFile(newFilename, map);
-                bitmap = null;
-                pdfMapFile = null;
-            }
-            else if (newMapType == MapType.Bitmap) {
-                map = null;
-                mapVersion = new MapFileFormat(MapFileFormatKind.None, 0);
+            MapType loadedMapType = newMapType;
+            Map loadedMap = null;
+            MapFileFormat loadedMapVersion = new MapFileFormat(MapFileFormatKind.None, 0);
+            IGraphicsBitmap loadedBitmap = null;
+            float loadedBitmapDpi = bitmapDpi;
+            PdfMapFile loadedPdfMapFile = null;
 
-                using (Stream stream = new FileStream(newFilename, FileMode.Open, FileAccess.Read)) {
-                    bitmap = Services.BitmapLoader.ReadBitmapFromStream(stream);
+            IsLoadingMap = true;
+            try {
+                if (newMapType == MapType.None) {
+                    // Nothing to load.
                 }
-
-                bitmapDpi = (float) bitmap.HorizontalResolution;
-                pdfMapFile = null;
-            }
-            else if (newMapType == MapType.PDF) {
-                string errorText;
-                map = null;
-                mapVersion = new MapFileFormat(MapFileFormatKind.None, 0);
-                Size bitmapSize;
-
-                pdfMapFile = CoreMapUtil.ValidatePdf(newFilename, out bitmapDpi, out bitmapSize, out errorText);
-
-                if (pdfMapFile == null) {
-                    this.mapType = MapType.None;
-                    bitmap = null;
+                else if (newMapType == MapType.OCAD) {
+                    loadedMap = new Map(MapUtil.TextMetricsProvider, Services.FileLoaderProvider.GetFileLoaderForDirectory(Path.GetDirectoryName(newFilename)));
+                    loadedMapVersion = InputOutput.ReadFile(newFilename, loadedMap);
                 }
-                else {
-                    using (Stream stream = new FileStream(pdfMapFile.PngFileName, FileMode.Open, FileAccess.Read)) {
-                        bitmap = Services.BitmapLoader.ReadBitmapFromStream(stream);
+                else if (newMapType == MapType.Bitmap) {
+                    using (Stream stream = new FileStream(newFilename, FileMode.Open, FileAccess.Read)) {
+                        loadedBitmap = Services.BitmapLoader.ReadBitmapFromStream(stream);
+                    }
+
+                    loadedBitmapDpi = (float) loadedBitmap.HorizontalResolution;
+                }
+                else if (newMapType == MapType.PDF) {
+                    string errorText;
+                    Size bitmapSize;
+
+                    loadedPdfMapFile = CoreMapUtil.ValidatePdf(newFilename, out loadedBitmapDpi, out bitmapSize, out errorText);
+
+                    if (loadedPdfMapFile == null) {
+                        loadedMapType = MapType.None;
+                    }
+                    else {
+                        using (Stream stream = new FileStream(loadedPdfMapFile.PngFileName, FileMode.Open, FileAccess.Read)) {
+                            loadedBitmap = Services.BitmapLoader.ReadBitmapFromStream(stream);
+                        }
                     }
                 }
+                else {
+                    Debug.Fail("bad maptype");
+                    loadedMapType = MapType.None;
+                }
             }
-            else {
-                Debug.Fail("bad maptype");
+            finally {
+                IsLoadingMap = false;
             }
+
+            // Loading succeeded; publish the new map. Set the bitmap and map before the map type, so a
+            // background draw that snapshots the fields never sees a map type without its data.
+            this.bitmapDpi = loadedBitmapDpi;
+            this.bitmap = loadedBitmap;
+            this.map = loadedMap;
+            this.pdfMapFile = loadedPdfMapFile;
+            this.mapVersion = loadedMapVersion;
+            this.mapType = loadedMapType;
 
             UpdateDimmedBitmap();
             RaiseChanged();        // redraw everything.
@@ -589,7 +621,7 @@ namespace PurplePen
             dimmedBitmap = null;
 
             // Only dim bitmap if size isn't too large. Otherwise takes too much memory.
-            if ((mapType == MapType.Bitmap || mapType == MapType.PDF) && mapIntensity < 0.99F && (bitmap.PixelWidth * bitmap.PixelHeight) < 36000000) {
+            if ((mapType == MapType.Bitmap || mapType == MapType.PDF) && bitmap != null && mapIntensity < 0.99F && (bitmap.PixelWidth * bitmap.PixelHeight) < 36000000) {
                 // ColorConverter doesn't actually matter since we are just drawing a bitmap.
                 using (IBitmapGraphicsTarget grTarget = Services.BitmapGraphicsTargetProvider.CreateBitmapGraphicsTarget(bitmap.PixelWidth, bitmap.PixelHeight, CmykColor.FromCmyk(0, 0, 0, 0), DefaultColorConverter.Instance)) {
                     grTarget.Intensity = mapIntensity;
@@ -604,7 +636,9 @@ namespace PurplePen
 
 
         // Draw the ocad map part.
-        void DrawOcadMap(IGraphicsTarget grTarget, RectangleF visRect, RenderOptions renderOptions, Action throwOnCancel)
+        // map: the OCAD map to draw. Passed in (rather than read from the field) so that the map
+        //      we lock is guaranteed to be the map we draw, even if SetMapFile runs on another thread.
+        void DrawOcadMap(Map map, IGraphicsTarget grTarget, RectangleF visRect, RenderOptions renderOptions, Action throwOnCancel)
         {
             using (map.Write()) {
                 map.Draw(grTarget, visRect, renderOptions, throwOnCancel);
@@ -612,10 +646,11 @@ namespace PurplePen
         }
 
         // Draw the bitmap map part.
-        void DrawBitmapMap(IGraphicsTarget grTarget, RectangleF visRect, float minResolution)
+        // bitmap, dimmedBitmap: the bitmap map and its dimmed version (may be null), snapshotted by the caller.
+        void DrawBitmapMap(IGraphicsBitmap bitmap, IGraphicsBitmap dimmedBitmap, IGraphicsTarget grTarget, RectangleF visRect, float minResolution)
         {
             // Setup transform.
-            grTarget.PushTransform(BitmapTransform());
+            grTarget.PushTransform(BitmapTransform(bitmap));
 
             // Setup drawing map and intensity.
             BitmapScaling scalingMode = antialiased ? BitmapScaling.MediumQuality : BitmapScaling.NearestNeighbor;
@@ -721,13 +756,24 @@ namespace PurplePen
         {
             if (throwOnCancel != null) { throwOnCancel(); }
 
+            // Snapshot the fields that SetMapFile/SetCourse/LowerPurpleMapLayer can change on the UI thread while
+            // we are drawing on a background thread. Each Map must be locked and drawn through the same reference;
+            // re-reading the field after taking the lock can draw a different Map whose lock this thread does
+            // not hold (MapUsageException). Old maps/bitmaps are not disposed when replaced, so the snapshot stays usable.
+            MapType mapType = this.mapType;
+            Map map = this.map;
+            Map courseMap = this.courseMap;
+            IGraphicsBitmap bitmap = this.bitmap;
+            IGraphicsBitmap dimmedBitmap = this.dimmedBitmap;
+            int? lowerPurpleMapLayer = this.lowerPurpleMapLayer;
+
             RenderOptions renderOptions = new RenderOptions();
             renderOptions.minResolution = minResolution;
             short? colorIdBelowWhiteOut = null;
 
             // Get the color ID of the color just below the white-out color, which is where we divide between lower purple
             // and upper purple.
-            if (LowerPurpleMapLayer != null && courseMap != null) {
+            if (lowerPurpleMapLayer != null && courseMap != null) {
                 colorIdBelowWhiteOut = ColorIdBelow(courseMap, CourseLayout.WHITEOUT_COLOR_OCADID);
             }
 
@@ -747,26 +793,32 @@ namespace PurplePen
 
             switch (mapType) {
             case MapType.OCAD:
-                saveIntensity = grTarget.Intensity;
-                grTarget.Intensity = mapIntensity;
-                grTarget.PushAntiAliasing(Printing ? false : antialiased);       // don't anti-alias on printer
+                // map can be null briefly while SetMapFile is switching maps.
+                if (map != null) {
+                    saveIntensity = grTarget.Intensity;
+                    grTarget.Intensity = mapIntensity;
+                    grTarget.PushAntiAliasing(Printing ? false : antialiased);       // don't anti-alias on printer
 
-                if (LowerPurpleMapLayer != null) {
-                    // Only draw the part below lower purple.
-                    renderOptions.colorBeginDrawExclusive = null;
-                    renderOptions.colorEndDrawInclusive = LowerPurpleMapLayer;
+                    if (lowerPurpleMapLayer != null) {
+                        // Only draw the part below lower purple.
+                        renderOptions.colorBeginDrawExclusive = null;
+                        renderOptions.colorEndDrawInclusive = lowerPurpleMapLayer;
+                    }
+
+                    DrawOcadMap(map, grTarget, visRect, renderOptions, throwOnCancel);
+                    grTarget.PopAntiAliasing();
+                    grTarget.Intensity = saveIntensity;
                 }
-
-                DrawOcadMap(grTarget, visRect, renderOptions, throwOnCancel);
-                grTarget.PopAntiAliasing();
-                grTarget.Intensity = saveIntensity;
                 break;
 
             case MapType.Bitmap:
             case MapType.PDF:
-                grTarget.PushAntiAliasing(Printing ? false : antialiased);       // don't anti-alias on printer
-                DrawBitmapMap(grTarget, visRect, minResolution);
-                grTarget.PopAntiAliasing();
+                // bitmap can be null briefly while SetMapFile is switching maps.
+                if (bitmap != null) {
+                    grTarget.PushAntiAliasing(Printing ? false : antialiased);       // don't anti-alias on printer
+                    DrawBitmapMap(bitmap, dimmedBitmap, grTarget, visRect, minResolution);
+                    grTarget.PopAntiAliasing();
+                }
                 break;
 
             case MapType.None:
@@ -774,28 +826,26 @@ namespace PurplePen
             }
 
             // Now draw the courseMap on top.
-            if (LowerPurpleMapLayer != null) {
+            if (lowerPurpleMapLayer != null) {
                 // Only draw the part below the white-out layer, which is all of the lower purple.
                 renderOptions.colorBeginDrawExclusive = null;
                 renderOptions.colorEndDrawInclusive = colorIdBelowWhiteOut;
             }
 
-            DrawCourseMap(grTarget, visRect, renderOptions);
+            DrawCourseMap(courseMap, grTarget, visRect, renderOptions);
 
-            if (mapType == MapType.OCAD && LowerPurpleMapLayer != null) {
+            if (mapType == MapType.OCAD && map != null && lowerPurpleMapLayer != null) {
                 // Draw the part of the map above the lower purple.
                 saveIntensity = grTarget.Intensity;
                 grTarget.Intensity = mapIntensity;
 
                 grTarget.PushAntiAliasing(Printing ? false : antialiased);       // don't anti-alias on printer
 
-                if (LowerPurpleMapLayer != null) {
-                    // Only draw the part below lower purple.
-                    renderOptions.colorBeginDrawExclusive = LowerPurpleMapLayer;
-                    renderOptions.colorEndDrawInclusive = null;
-                }
+                // Only draw the part above lower purple.
+                renderOptions.colorBeginDrawExclusive = lowerPurpleMapLayer;
+                renderOptions.colorEndDrawInclusive = null;
 
-                DrawOcadMap(grTarget, visRect, renderOptions, throwOnCancel);
+                DrawOcadMap(map, grTarget, visRect, renderOptions, throwOnCancel);
                 grTarget.PopAntiAliasing();
                 grTarget.Intensity = saveIntensity;
 
@@ -803,14 +853,16 @@ namespace PurplePen
                 if (throwOnCancel != null) { throwOnCancel(); }
                 renderOptions.colorBeginDrawExclusive = colorIdBelowWhiteOut;
                 renderOptions.colorEndDrawInclusive = null;
-                DrawCourseMap(grTarget, visRect, renderOptions);
+                DrawCourseMap(courseMap, grTarget, visRect, renderOptions);
             }
 
             if (throwOnCancel != null) { throwOnCancel(); }
             DrawPrintAreaOutline(grTarget, visRect);
         }
 
-        private void DrawCourseMap(IGraphicsTarget grTargetCourses, RectangleF visRect, RenderOptions renderOptions)
+        // Draw the course map (or part of it, per renderOptions).
+        // courseMap: the course map to draw (may be null), snapshotted by the caller so the map we lock is the map we draw.
+        private void DrawCourseMap(Map courseMap, IGraphicsTarget grTargetCourses, RectangleF visRect, RenderOptions renderOptions)
         {
             if (Printing)
                 grTargetCourses.PushAntiAliasing(false);
@@ -835,6 +887,8 @@ namespace PurplePen
         // Draw a gray outline to show the print area.
         private void DrawPrintAreaOutline(IGraphicsTarget grTargetCourses, RectangleF visRect)
         {
+            RectangleF? printArea = this.printArea; // Snapshot in case it changes on another thread while we are drawing.
+
             grTargetCourses.PushAntiAliasing(false);
 
             if (printArea.HasValue && !printArea.Value.Contains(visRect)) {
