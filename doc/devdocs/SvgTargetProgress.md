@@ -90,7 +90,7 @@ The calls the target fully implements, in the sense of DL-5: `Intensity`, `PushT
 
 ## Tasks
 
-**In flight:** nothing; task 3 ended at 09:30 Nov 13, and task 4 starts on @Pauli's word. The archiving task runs.
+**In flight:** task 4 below, the SVG export's strings in every language, which @Pauli started on Nov 13 with the condition that each and every translation weigh its context: one agent at effort max from 09:36 Nov 13, paced (see Decisions, "Pacing"), on a branch rooted at `feature/svg-target`, reporting a review table of every translation with the context that decided it and the existing key it mirrors. The archiving task runs.
 
 **Next**, in order. Each task starts on @Pauli's word, with an agent of its own (see "Agents"), and ends with its commits on `feature/svg-target` or this branch, its loop green where it changes the target, and the gallery and this file brought up to date.
 
