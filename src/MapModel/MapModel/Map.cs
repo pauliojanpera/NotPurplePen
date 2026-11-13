@@ -2328,7 +2328,7 @@ namespace PurplePen.MapModel
                                     // A target that keeps the structure of what it draws gets the area's outline in the
                                     // object's place, which the clip of the patterns drawn once refers to (M-6).
                                     if (structuredTarget != null)
-                                        structuredTarget.DrawOutline(((AreaSymbol)curSym).Path.GetPathKey(g));
+                                        structuredTarget.DrawOutline(overlapGroup.PathOf(curSym).GetPathKey(g));
                                     curSym.Draw(g, curColor, patternsOnceOpts);
                                 }
                                 if (structuredTarget != null)

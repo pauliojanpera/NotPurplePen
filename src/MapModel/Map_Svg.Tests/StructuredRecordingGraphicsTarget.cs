@@ -84,6 +84,23 @@ namespace Map_Svg.Tests
             RecordStructure(target => target.EndObject());
         }
 
+        // Record drawing an area's outline as a ghost, by the recording's key of its path.
+        public void DrawOutline(object pathKey)
+        {
+            object path = RecordedPathOf(pathKey);
+            RecordStructure(target => target.DrawOutline(path));
+        }
+
+        // Record describing a path as the union of the outlines of areas, by the recording's keys of the paths.
+        public void DescribeUnion(object unionPathKey, object[] pathKeys)
+        {
+            object union = RecordedPathOf(unionPathKey);
+            object[] paths = new object[pathKeys.Length];
+            for (int index = 0; index < pathKeys.Length; ++index)
+                paths[index] = RecordedPathOf(pathKeys[index]);
+            RecordStructure(target => target.DescribeUnion(union, paths));
+        }
+
         // Record adding a page; the transform and the list of parts are copied.
         public void AddPage(SizeF paperSize, RectangleF mapArea, Matrix mapToPage, object[] partKeys, string name)
         {

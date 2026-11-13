@@ -463,8 +463,23 @@ namespace Map_Svg.Tests
             if (!reference.Success)
                 return null;
             XElement clipPath = Referred(group, "#" + reference.Groups[1].Value);
-            XElement path = clipPath.Elements(Svg + "path").Single();
             DrawnGeometry clip = new DrawnGeometry(Describe(clipPath, null) + ", which " + Describe(group, null) + " clips to");
+
+            // A clip to the union of ghosts: a use of each ghost, under the rule the use carries, and the ghost's data in
+            // the frame of the group that clips to it, which is the ghost's own (S-12).
+            List<XElement> uses = clipPath.Elements(Svg + "use").ToList();
+            if (uses.Count > 0) {
+                clip.Signature.Append("clip union");
+                foreach (XElement use in uses) {
+                    XElement ghost = Referred(use, (string)use.Attribute(XLink + "href"));
+                    string useStyle = (string)use.Attribute("style") ?? "";
+                    clip.Signature.Append(useStyle.Contains("clip-rule:evenodd", StringComparison.Ordinal) ? "; even-odd" : "; nonzero");
+                    ReadPathData((string)ghost.Attribute("d") ?? "", WithinTransform(use, frame), new PathGeometryBuilder(clip));
+                }
+                return clip;
+            }
+
+            XElement path = clipPath.Elements(Svg + "path").Single();
             string style = (string)path.Attribute("style") ?? "";
             clip.Signature.Append(style.Contains("clip-rule:evenodd", StringComparison.Ordinal) ? "clip even-odd" : "clip nonzero");
             ReadPathData((string)path.Attribute("d") ?? "", frame, new PathGeometryBuilder(clip));
