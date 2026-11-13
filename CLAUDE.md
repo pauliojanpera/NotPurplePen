@@ -31,5 +31,7 @@ These apply to the sessions that carry the work and the agents they start (@Paul
     `REST DUE: N minutes`, the session sends the agent "Rest N minutes" and reports the agent's progress to @Pauli.
   - Each agent's brief says what to do then: push the work in progress, start one background command that ends after
     N minutes, make no other call until it has ended, and go on where it was. An agent does not rest on its own.
+  - For the length of each rest the session stops the archiving task, and starts it again when `pace-agent.py` says
+    the rest is over (@Pauli, Nov 13).
   - While the work is paced, the session runs no other watch of the agent. It wakes when a rest begins or ends, and
     otherwise every 50 minutes, within the hour its own prompt cache lasts.
