@@ -630,3 +630,37 @@ All other labels already used their file's word for bitmap (de, fi, hu, nb-NO, n
      - pt: Desenhar padrões de área como formas separadas
    - I recommend (b): those wordings name the area symbols the option is about.
 2. **Kurmanji and Venetian go beyond the shipped drafts.** I applied the "each file" restoration to their combo items like every other language, and their heading and picker titles are new drafts. The same doubts as before apply to all of them.
+
+## The dialog made 662 pixels tall
+
+The same agent's report on @Pauli's choice (b), the dialog 20 pixels taller with the area-patterns check box's full wording in bg, es, fr, ja and pt (Nov 13, 13:22 to 14:2x).
+
+@Pauli's choice (b) is done: the SVG dialog is 662 px tall, bg, es, fr, ja and pt have the full area-patterns wording, and it is merged into `dev` and published. Both full runs passed. Two cut-offs that were already there, and that the PDF dialog has too, are for @Pauli to decide.
+
+**Branch, commit and runs**
+- **`feature/svg-dialog-taller`**, from 929a5bb3, has one commit, 7b0f39fb. It raises the window from 642 to 662 px and sets `CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text` in the five files to the wordings I listed.
+- **`wip/linux/svg-dialog-taller`** (6b71672e) is `base` 68228505 with the branch merged in and ce9f4e3's two baselines. Tests 43418618099 and Build 43418618135 passed, and the trial 4.0.269.220 .deb downloads.
+- **`feature/svg-target`**: fast-forwarded 929a5bb3 → 7b0f39fb.
+- **`wip/linux/svg-target-into-dev`** (d3f5d314) is `dev` da5a5883 with `feature/svg-target` merged in, without conflict. Its message is "Merge feature/svg-target, with the SVG dialog made taller for the full area-patterns wording, into dev", with the one commit listed. Tests 43420422472 and Build 43420422720 passed.
+- **`dev`**: fast-forwarded to d3f5d314. Build 43422337880 published `channel-beta` 4.0.271.220 for Linux, macOS and Windows, and the .exe downloads.
+
+**The check on the rendered dialog** (all 33 UI languages)
+- In the five languages the check box now takes two lines inside Special options.
+- "Other folder" stays inside its group everywhere, with at least 6 px to spare.
+- None of the SVG export's strings is cut off.
+- In ja the second line holds only the last character, る. Japanese allows that break, but it looks a little lonely.
+
+**For @Pauli: two older cut-offs, in this dialog and the PDF dialog alike**
+1. **The Files combo:** "One per course" is cut off in bg (it needs 163 px and has 114), es (143 of 118) and pl (124 of 116). The string and the layout come from the PDF dialog. I had left this out of my earlier checks because it is shared with that dialog; I should have reported it.
+2. **"Other folder" chosen:** the path box and the "Select folder..." button run past the bottom of the Folder group in 22 of the 33 languages.
+   - bg, es, fr and pt by 54 px, ja by 52: the button is hidden entirely.
+   - hu, ro, tr and uk by 34 px; the rest by 10 to 14 px.
+   - English now fits. The window can be enlarged by hand.
+
+The choices are:
+- (a) leave both as the PDF dialog has them.
+- (b) fix both dialogs on a branch of their own. That means a more compact Files row and Folder group, because making the window taller alone would take 716 px, more than a 768-px-high screen holds.
+
+I recommend (b), because in five languages the folder button can't be reached without resizing the window.
+
+The clone and the agent's scratch folders are removed; renders of all 33 languages, and of the "Other folder" state, were sent to @Pauli in the session.
