@@ -1,0 +1,123 @@
+name: JPEG bytes
+
+# A throwaway experiment of the SVG work's task 5: whether Skia's JPEG encoder, as the Skia bitmaps' WriteToStream
+# calls it for the SVG export, writes the same bytes on x64 and on ARM64, where SkiaSharp's libjpeg-turbo runs its C
+# code and its NEON code. Each job decodes the same images as the application does and encodes them at several
+# qualities, a part of each too, and keeps the SHA-256 of every result; the last job compares them. ImageSharp's
+# encoder, which BitmapIO used before, is encoded too for contrast, and is not held to agree.
+on:
+  push:
+    branches: [ 'experiment/svg-jpeg-bytes' ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  encode:
+    name: Encode (${{ matrix.name }})
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+        - { name: linux-x64, runner: ubuntu-24.04 }
+        - { name: linux-x64-without-intrinsics, runner: ubuntu-24.04, intrinsics: '0' }
+        - { name: linux-arm64, runner: ubuntu-24.04-arm }
+        - { name: linux-arm64-without-neon, runner: ubuntu-24.04-arm, jsimd: 'none' }
+        - { name: windows-x64, runner: windows-2022 }
+        - { name: windows-arm64, runner: windows-11-arm }
+        - { name: macos-arm64, runner: macos-14 }
+
+    steps:
+    - name: Checkout source
+      uses: actions/checkout@v4
+      with:
+        filter: blob:none
+        sparse-checkout-cone-mode: false
+        sparse-checkout: |
+          /src/*
+          !/src/*/
+          /src/DotSpatialProjectionsLite/
+          /src/MapModel/Graphics2D/
+          /src/MapModel/MapModel/
+          /src/MapModel/Map_SkiaStd/
+          /src/MapModel/Map_Svg.Tests/jpeg/
+          /src/MapModel/TestFiles/bitmaps/
+          /src/TestFiles/controller/SampleEvent.jpg
+          /src/Experiments/JpegBytes/
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+
+    - name: Build
+      shell: bash
+      run: dotnet build src/Experiments/JpegBytes/JpegBytes.csproj -c Release
+
+    - name: Encode
+      shell: bash
+      env:
+        INTRINSICS: ${{ matrix.intrinsics }}
+        JSIMD: ${{ matrix.jsimd }}
+      run: |
+        if [ -n "$INTRINSICS" ]; then export DOTNET_EnableHWIntrinsic=$INTRINSICS; fi
+        if [ "$JSIMD" = none ]; then export JSIMD_FORCENONE=1; fi
+        mkdir -p out
+        dotnet run --project src/Experiments/JpegBytes/JpegBytes.csproj -c Release --no-build -- \
+            src/MapModel/Map_Svg.Tests/jpeg/*.jpg src/TestFiles/controller/SampleEvent.jpg \
+            src/MapModel/TestFiles/bitmaps/Waterfall.jpg src/MapModel/TestFiles/bitmaps/Waterfall.png > "out/${{ matrix.name }}.tsv"
+        cat "out/${{ matrix.name }}.tsv"
+
+    - name: Keep the hashes
+      uses: actions/upload-artifact@v4
+      with:
+        name: jpeg-bytes-${{ matrix.name }}
+        path: out/${{ matrix.name }}.tsv
+
+  compare:
+    name: Compare
+    needs: encode
+    if: always()
+    runs-on: ubuntu-24.04
+    steps:
+    - name: Fetch the hashes
+      uses: actions/download-artifact@v4
+      with:
+        pattern: jpeg-bytes-*
+        merge-multiple: true
+        path: hashes
+
+    - name: Compare the hashes
+      shell: python
+      run: |
+        import collections, glob, os, sys
+        machines = {}
+        for path in sorted(glob.glob("hashes/*.tsv")):
+            name = os.path.basename(path)[:-4]
+            lines = open(path, encoding="utf-8").read().splitlines()
+            machines[name] = {"about": lines[0].lstrip("# ")}
+            for line in lines[1:]:
+                image, step, length, digest = line.split("\t")
+                machines[name][(image, step)] = (int(length), digest)
+        keys = sorted({key for results in machines.values() for key in results if key != "about"})
+        summary = ["## JPEG bytes on each machine", ""]
+        summary += ["| Machine | Runs on |", "| --- | --- |"]
+        summary += ["| {} | {} |".format(name, results["about"]) for name, results in machines.items()]
+        summary += ["", "| Image | Step | " + " | ".join(machines) + " |", "| --- | --- |" + " --- |" * len(machines)]
+        skia_differs = []
+        for key in keys:
+            digests = [machines[name].get(key, (0, "missing"))[1] for name in machines]
+            first = collections.Counter(digests).most_common(1)[0][0]
+            cells = ["same" if digest == first else "**" + digest[:12] + "**" for digest in digests]
+            summary.append("| {} | {} | {} |".format(key[0], key[1], " | ".join(cells)))
+            if len(set(digests)) > 1 and not key[1].startswith("imagesharp"):
+                skia_differs.append(key)
+        summary += ["", "Pixels decoded and JPEG encoded by Skia: " + ("all the same on every machine" if not skia_differs else
+                    str(len(skia_differs)) + " differ: " + ", ".join(image + " " + step for image, step in skia_differs))]
+        with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as out:
+            out.write("\n".join(summary) + "\n")
+        print("\n".join(summary))
+        sys.exit(1 if skia_differs or len(machines) < 7 else 0)
