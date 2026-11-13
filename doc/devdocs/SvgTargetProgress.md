@@ -90,7 +90,7 @@ The calls the target fully implements, in the sense of DL-5: `Intensity`, `PushT
 
 ## Tasks
 
-**In flight:** task 2's step 3, the fix of overlapping hatchings as @Pauli chose it, which @Pauli started on Nov 13 ("continue as the list goes"): task 2's agent, resumed as a clear continuation at 15:58 Nov 13, at effort max and paced, carrying its prototype onto upstream's d48f445, with the map-code fix on a `fix/` branch rooted there and the SVG's side on a branch rooted at `feature/svg-target` (7b0f39fb). Tasks 5, 6 and 7 follow. The archiving task runs.
+**In flight:** task 2's step 3, the fix of overlapping hatchings as @Pauli chose it, which @Pauli started on Nov 13 ("continue as the list goes"): task 2's agent, resumed as a clear continuation at 15:58 Nov 13, at effort max and paced, carrying its prototype onto upstream's d48f445, with the map-code fix on a `fix/` branch rooted there and the SVG's side on a branch rooted at `feature/svg-target` (7b0f39fb). By 18:37: `fix/overlapping-patterns` at 2a40f48b, with the fix, its tests and the baselines it moves, run in full on `wip/linux/overlapping-patterns` (b349ed76), and the SVG's side on `feature/svg-overlapping-patterns` at c694bbaf, its own tests next. The 5-hour limit stopped the agent at 18:37, and it resumed at 21:03, its worktrees under `/home/claude/wt/` having come through a restart. Tasks 5, 6 and 7 follow. The archiving task runs.
 
 **Next**, in order. Each task starts on @Pauli's word, with an agent of its own (see "Agents"), and ends with its commits on `feature/svg-target` or this branch, its loop green where it changes the target, and the gallery and this file brought up to date.
 
