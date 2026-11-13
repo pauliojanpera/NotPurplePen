@@ -90,7 +90,7 @@ The calls the target fully implements, in the sense of DL-5: `Intensity`, `PushT
 
 ## Tasks
 
-**In flight:** nothing; task 2's step 3 ended at 22:20 Nov 13, and @Pauli settled its open points at 23:57. At 23:48 @Pauli asked for the end-of-quota procedure, so task 5 waits for his word. The archiving task runs.
+**In flight:** task 5, on @Pauli's word at 01:07 Nov 14, with agent a0aa24c77780ef5a5 since 01:12, on `feature/svg-jpeg-data` from `feature/svg-target` at d1ceee4c; B-3's new wording comes to @Pauli with its result. `dev`'s Build 43500872876, whose macOS job got no runner, runs again to publish 6e16e2f4's packages. The archiving task runs.
 
 **Next**, in order. Each task starts on @Pauli's word, with an agent of its own (see "Agents"), and ends with its commits on `feature/svg-target` or this branch, its loop green where it changes the target, and the gallery and this file brought up to date.
 
@@ -355,4 +355,4 @@ Some change only what the fork's tests or packaging need, and the review weighs 
 
 ## The executor
 
-A session in Anthropic's cloud carries the work: since Nov 11, the session whose transcript on `sessions` is `2026-10-28-claude-b8980431-17f9-5561-9409-971fa71f7472`, which took the work back from this file and the branches. It archives the machine's transcripts every 10 minutes from a clone of the `sessions` branch at `/home/claude/session-archive`. No other session has scheduled check-ins left, so none wakes again to work beside it.
+A session in Anthropic's cloud carries the work: since Nov 14, the session whose transcript on `sessions` is `2026-10-22-claude-046e7cdd-12d2-555a-877c-af697a5b8dae`, which took the work up from this file and the branches on @Pauli's word. It archives the machine's transcripts every 10 minutes from a clone of the `sessions` branch at `/home/claude/windows-fonts`. No session has a scheduled task, so none wakes to work beside it.
