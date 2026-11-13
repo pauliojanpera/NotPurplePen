@@ -216,7 +216,7 @@ The SVG must look in Chromium like Purple Pen's own renderings, and come out byt
 | ID | Requirement | Level |
 | --- | --- | --- |
 | F-1 | Rendered by Chromium, the SVG matches, within a pixel tolerance, the reference image of the same drawing or map case: Purple Pen's Skia rendering of it at its best settings, antialiased and with pattern tiles off. | Must |
-| F-2 | The same input gives byte-identical output on every run, machine and platform: no time stamps; ids and object numbers assigned in order of first use; nothing ordered by hash. | Must |
+| F-2 | The same input gives byte-identical output on every run, machine and platform, but for lossless image data, such as PNG, which needs only to decode to the same pixels; lossy data, such as JPEG, stays byte for byte (@Pauli, Nov 13). No time stamps; ids and object numbers assigned in order of first use; nothing ordered by hash. | Must |
 | F-3 | The output is well-formed XML. References go through `xlink:href`, which SVG 1.1 tools need and browsers accept. Identity goes in `data-` attributes, and the tables go in the metadata, in the namespace `https://pauliojanpera.github.io/NotPurplePen/svg` with the prefix `npp`; their root element carries a `version` attribute, so that the format can grow without breaking its readers. | Must |
 | F-4 | Each page has the paper size of its page in PDF export's layout, in millimetres, turned for a landscape page, and its map fills the page's print rectangle at the course's print scale, so the page prints as the PDF page does. The root's width and height are those of the first page. | Must |
 | F-5 | Current Firefox and WebKit display the output as Chromium does, darken blending included. | Should |
@@ -282,4 +282,4 @@ The porting application translates `Graphics2D`, `MapModel` and `Map_Svg` from a
 | P-3 | Values that pass through projection math are compared within a tolerance, since proj4js and DotSpatial compute them independently. | Must |
 | P-4 | `SwopColorConverter` lives in `PurplePenCore` and reads the embedded resource `swopsamples.dat`. The port needs it, with that data file, for its sRGB values to match. | Must |
 | P-5 | The comparison harness records every text metrics query and font subset of the .NET export and replays them to the TypeScript run, keeping measurement differences apart from translation errors. | Must |
-| P-6 | With metrics replayed, the TypeScript export of a reference map equals the .NET export byte for byte (F-2). The only allowed difference is one unit in a value whose last-bit rounding differs between the runtimes. | Must |
+| P-6 | With metrics replayed, the TypeScript export of a reference map equals the .NET export byte for byte (F-2), its lossless image data pixel for pixel. The only allowed difference is one unit in a value whose last-bit rounding differs between the runtimes. | Must |
