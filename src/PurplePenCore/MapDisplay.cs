@@ -870,9 +870,10 @@ namespace PurplePen
         }
 
         // Create the options that every layer of the map and course is drawn with. Area patterns are drawn element by
-        // element when AreaPatternsElementByElement says so; otherwise with pattern brushes for a target whose brushes
-        // are vectors, which draw them, hatchings among them, as well as drawing each element does, and in less; and for
-        // any other target with pattern bitmaps, unless printing or zoomed in far with anti-aliasing.
+        // element, each area drawing its own, when AreaPatternsElementByElement says so; otherwise with pattern brushes
+        // for a target whose brushes are vectors, which draw them, hatchings among them, as well as drawing each element
+        // does, and in less; and for any other target with pattern bitmaps, unless printing or zoomed in far with
+        // anti-aliasing.
         // grTarget: the target drawn onto.
         // minResolution: the smallest distance worth drawing, in map coordinates.
         private RenderOptions CreateRenderOptions(IGraphicsTarget grTarget, float minResolution)
@@ -890,6 +891,10 @@ namespace PurplePen
                 renderOptions.usePatternBitmaps = false;
             else
                 renderOptions.usePatternBitmaps = true;
+
+            // Drawn as separate shapes, each area draws its own patterns, as a reader that cannot fill an area with a
+            // pattern is then given a clip of one outline for each (S-7).
+            renderOptions.patternsWithEachArea = AreaPatternsElementByElement;
 
             renderOptions.showSymbolBounds = showBounds;
             renderOptions.renderTemplates = RenderTemplateOption.MapAndTemplates;

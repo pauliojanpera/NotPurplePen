@@ -273,6 +273,11 @@ namespace PurplePen.MapModel
         private readonly Dictionary<object, StoredPath> paths = new Dictionary<object, StoredPath>(new IdentityComparer<object>());
         private readonly Dictionary<object, FontRecord> fonts = new Dictionary<object, FontRecord>(new IdentityComparer<object>());
 
+        // The ghost last drawn of each path, by the path's key, and the clip to the union of ghosts that each path
+        // described as a union stands for, by the union's key (M-6, S-12).
+        private readonly Dictionary<object, SvgGhost> ghosts = new Dictionary<object, SvgGhost>(new IdentityComparer<object>());
+        private readonly Dictionary<object, SvgClip> unionClips = new Dictionary<object, SvgClip>(new IdentityComparer<object>());
+
         // The metrics the application lays text out with, or null when the target draws no text (T-1).
         private readonly ITextMetrics textMetrics;
 
@@ -469,6 +474,37 @@ namespace PurplePen.MapModel
             openObjectKey = null;
         }
 
+        // Draw an area's outline in the object open as a ghost: a path that paints nothing, carries the object's number
+        // and an id, and is what the clip to the union of the outlines of its group refers to (M-6, S-12).
+        public void DrawOutline(object pathKey)
+        {
+            RequireDocumentTarget(nameof(DrawOutline));
+            if (openObjectKey == null)
+                throw new InvalidOperationException("DrawOutline: no object is open.");
+            StoredPath path = GetPath(pathKey, nameof(DrawOutline));
+            SvgGhost ghost = new SvgGhost(path.Data, path.EvenOdd);
+            AddElement(ghost, nameof(DrawOutline));
+            ghosts[pathKey] = ghost;
+        }
+
+        // Describe a path as the union of the outlines of areas, whose ghosts are drawn: a clip to it is a clip path whose
+        // children are uses of the ghosts, and a fill of it fills a rectangle around it within that clip, so that the
+        // outlines are written once and the clip binds what is drawn within it to their objects (D-2, M-6, S-12). A path
+        // whose outlines lack a ghost stays a path.
+        public void DescribeUnion(object unionPathKey, object[] pathKeys)
+        {
+            RequireDocumentTarget(nameof(DescribeUnion));
+            GetPath(unionPathKey, nameof(DescribeUnion));
+            List<SvgGhost> unionGhosts = new List<SvgGhost>();
+            foreach (object pathKey in pathKeys) {
+                SvgGhost ghost;
+                if (!ghosts.TryGetValue(pathKey, out ghost))
+                    return;
+                unionGhosts.Add(ghost);
+            }
+            unionClips[unionPathKey] = new SvgClip(unionGhosts);
+        }
+
         // Add a page that shows parts within an area of the map, transformed onto its paper, named so that its view and
         // its Inkscape page carry the name (L-3, L-6, F-4).
         public void AddPage(SizeF paperSize, RectangleF mapArea, Matrix mapToPage, object[] partKeys, string name)
@@ -550,11 +586,19 @@ namespace PurplePen.MapModel
             Close(Opener.PushTransform, nameof(PopTransform));
         }
 
-        // Clip to a path created with CreatePath, under its rule; nested clips intersect (D-2).
+        // Clip to a path created with CreatePath, under its rule, or to the union of the ghosts that DescribeUnion says it
+        // is; nested clips intersect (D-2).
         public void PushClip(object pathKey)
         {
             StoredPath path = GetPath(pathKey, nameof(PushClip));
-            OpenClip(path.Data, path.EvenOdd, nameof(PushClip));
+            SvgClip unionClip;
+            if (unionClips.TryGetValue(pathKey, out unionClip)) {
+                RequireOpenPart(nameof(PushClip));
+                Open(Opener.PushClip, new SvgGroup { Clip = unionClip });
+            }
+            else {
+                OpenClip(path.Data, path.EvenOdd, nameof(PushClip));
+            }
         }
 
         // Clip to a rectangle (D-2).
@@ -816,12 +860,33 @@ namespace PurplePen.MapModel
                 AddPath(stroke, PathOfParts(parts), nameof(DrawPath));
         }
 
-        // Fill a path created with CreatePath with a brush, under the path's rule (D-3).
+        // Fill a path created with CreatePath with a brush, under the path's rule, or the union of the ghosts that
+        // DescribeUnion says it is (D-3, S-12).
         public void FillPath(object brushKey, object pathKey)
         {
             SvgStyle fill = GetFill(brushKey, nameof(FillPath));
             StoredPath path = GetPath(pathKey, nameof(FillPath));
-            AddPath(FillUnderRule(fill, path.EvenOdd), path.Data, nameof(FillPath));
+            SvgClip unionClip;
+            if (unionClips.TryGetValue(pathKey, out unionClip)) {
+                // The union of ghosts: the rectangle around the path's points, filled within the clip to the union.
+                RequireOpenPart(nameof(FillPath));
+                Open(Opener.PushClip, new SvgGroup { Clip = unionClip });
+                SvgBounds bounds = path.Data.Bounds;
+                SvgPathData rectangle = new SvgPathData();
+                if (!bounds.IsEmpty) {
+                    long left = (long)bounds.MinX, top = (long)bounds.MinY, right = (long)bounds.MaxX, bottom = (long)bounds.MaxY;
+                    rectangle.MoveTo(left, top);
+                    rectangle.LineTo(right, top);
+                    rectangle.LineTo(right, bottom);
+                    rectangle.LineTo(left, bottom);
+                    rectangle.Close();
+                }
+                AddPath(fill, rectangle, nameof(FillPath));
+                Close(Opener.PushClip, nameof(FillPath));
+            }
+            else {
+                AddPath(FillUnderRule(fill, path.EvenOdd), path.Data, nameof(FillPath));
+            }
         }
 
         // Fill a path given by its parts with a brush, under the rule of its fill mode (D-3).

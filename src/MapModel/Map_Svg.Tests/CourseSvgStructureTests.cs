@@ -183,8 +183,11 @@ namespace Map_Svg.Tests
                 else if (!symbolColors.Contains(color))
                     problems.Add("symbol " + symbol + " of map " + mapNumber + " is drawn in color " + color + ", which its record does not list");
 
+                // A pattern drawn once for a group of areas carries no number of its own: the clip it is drawn within,
+                // whose children are uses of ghosts of the symbol's objects, binds it to them (M-6, S-12).
                 if (number == null) {
-                    problems.Add("a " + element.Name.LocalName + " of symbol " + symbol + " of map " + mapNumber + " carries no object number");
+                    if (!WithinClipToGhostsOf(element, symbolGroup))
+                        problems.Add("a " + element.Name.LocalName + " of symbol " + symbol + " of map " + mapNumber + " carries no object number");
                     continue;
                 }
                 NoteObject(objects, numbersInOrder, problems, number, mapNumber, symbol, color);
@@ -273,6 +276,34 @@ namespace Map_Svg.Tests
                 return element.Attribute("id") != null;
             return parent.Name == Svg + "g" && parent.Parent != null && parent.Parent.Name == Svg + "defs" &&
                    usedWithinDefinitions.Contains((string)parent.Attribute("id") ?? "");
+        }
+
+        // Whether an element is drawn within a clip to the union of ghosts of a symbol's objects: a group around it, within
+        // the symbol's group, clips to a clip path whose children are each a use of a ghost, an element of the symbol's
+        // group that carries an object's number (M-6, S-12).
+        // element: the element.
+        // symbolGroup: the group of the element's symbol.
+        private static bool WithinClipToGhostsOf(XElement element, XElement symbolGroup)
+        {
+            XDocument document = element.Document;
+            foreach (XElement group in element.Ancestors(Svg + "g").TakeWhile(ancestor => ancestor != symbolGroup)) {
+                Match reference = UrlReference.Match((string)group.Attribute("clip-path") ?? "");
+                if (!reference.Success)
+                    continue;
+                XElement clipPath = document.Descendants(Svg + "clipPath").FirstOrDefault(clip => (string)clip.Attribute("id") == reference.Groups[1].Value);
+                if (clipPath == null || !clipPath.Elements().Any())
+                    return false;
+                foreach (XElement child in clipPath.Elements()) {
+                    string href = (string)child.Attribute(XLink + "href") ?? "";
+                    XElement ghost = child.Name == Svg + "use" && href.StartsWith("#", StringComparison.Ordinal)
+                        ? symbolGroup.Descendants().FirstOrDefault(candidate => (string)candidate.Attribute("id") == href.Substring(1))
+                        : null;
+                    if (ghost == null || ghost.Attribute("data-o") == null)
+                        return false;
+                }
+                return true;
+            }
+            return false;
         }
 
         // Note an element of an object: the object's map, symbol and color, which must be the same map and symbol for

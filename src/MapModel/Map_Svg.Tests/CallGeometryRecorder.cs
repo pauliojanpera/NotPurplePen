@@ -15,7 +15,11 @@ namespace Map_Svg.Tests
     // ascent, and the point an em along it; a bitmap by the corners of its rectangle. A call that draws nothing, a path
     // with no point or a text with no character a document can hold, is left out. The target of a pattern brush
     // describes its tile likewise, in steps of the tile, whose middle is its origin, as the SVG target draws it (D-7).
-    public sealed class CallGeometryRecorder : IBrushTarget
+    // It hears the structure calls that bear on geometry: an area's outline drawn as a ghost is an unpainted drawing, and
+    // a clip to, or a fill of, a path described as the union of areas' outlines is a clip to the union of the outlines,
+    // each under its own rule, and a fill of the rectangle around the path's points within that clip, as the SVG target
+    // writes them (M-6, S-12).
+    public sealed class CallGeometryRecorder : IBrushTarget, IStructuredGraphicsTarget
     {
         // The steps in a millimetre, which a pattern's tile is described in.
         private const double StepsPerMillimetre = 1000;
@@ -117,6 +121,9 @@ namespace Map_Svg.Tests
 
         // The paths, brushes, pens and fonts, by their keys.
         private readonly Dictionary<object, StoredPath> paths = new Dictionary<object, StoredPath>(ReferenceEqualityComparer.Instance);
+
+        // The outlines that each path described as a union unites, by the union's key, in the order drawn.
+        private readonly Dictionary<object, object[]> unions = new Dictionary<object, object[]>(ReferenceEqualityComparer.Instance);
         private readonly Dictionary<object, Paint> brushes = new Dictionary<object, Paint>(ReferenceEqualityComparer.Instance);
         private readonly Dictionary<object, PenRecord> pens = new Dictionary<object, PenRecord>(ReferenceEqualityComparer.Instance);
         private readonly Dictionary<object, FontRecord> fonts = new Dictionary<object, FontRecord>(ReferenceEqualityComparer.Instance);
@@ -187,13 +194,35 @@ namespace Map_Svg.Tests
             current = transforms.Pop();
         }
 
-        // Clip to a path created with CreatePath, under its rule.
+        // Clip to a path created with CreatePath, under its rule, or to the union of the outlines it was described as.
         public void PushClip(object pathKey)
         {
+            object[] outlines;
+            if (unions.TryGetValue(pathKey, out outlines)) {
+                OpenClip(UnionClip(outlines));
+                return;
+            }
+
             StoredPath path = paths[pathKey];
             DrawnGeometry clip = BeginClip(path.EvenOdd);
             AddParts(new PathGeometryBuilder(clip), path.Parts);
             OpenClip(clip);
+        }
+
+        // The clip to the union of outlines, as the SVG target writes it: a clip path of a use of each outline's ghost,
+        // each under its own rule, in the order drawn.
+        // outlines: the keys of the outlines' paths.
+        private DrawnGeometry UnionClip(object[] outlines)
+        {
+            ++callsMade;
+            DrawnGeometry clip = new DrawnGeometry("PushClip, call " + callsMade.ToString(CultureInfo.InvariantCulture) + ", to a union");
+            clip.Signature.Append("clip union");
+            foreach (object outline in outlines) {
+                StoredPath path = paths[outline];
+                clip.Signature.Append(path.EvenOdd ? "; even-odd" : "; nonzero");
+                AddParts(new PathGeometryBuilder(clip), path.Parts);
+            }
+            return clip;
         }
 
         // Clip to a rectangle.
@@ -425,11 +454,124 @@ namespace Map_Svg.Tests
             AddPath(BeginStroke(nameof(DrawPath), penKey), parts, pens[penKey].Paint);
         }
 
-        // A filled path created with CreatePath, under its rule.
+        // A filled path created with CreatePath, under its rule; or, for a path described as the union of outlines, the
+        // rectangle around the path's points, control points included, filled within the clip to their union.
         public void FillPath(object brushKey, object pathKey)
         {
             StoredPath path = paths[pathKey];
+            object[] outlines;
+            if (unions.TryGetValue(pathKey, out outlines)) {
+                RectangleF bounds = BoundsOf(path.Parts);
+                OpenClip(UnionClip(outlines));
+                DrawnGeometry drawing = BeginFill(nameof(FillPath), false);
+                AddRectangle(new PathGeometryBuilder(drawing), bounds, current);
+                Finish(drawing, brushes[brushKey]);
+                PopClip();
+                return;
+            }
+
             AddPath(BeginFill(nameof(FillPath), path.EvenOdd), path.Parts, brushes[brushKey]);
+        }
+
+        // The rectangle around the points of a path's parts, control points included.
+        // parts: the parts.
+        private static RectangleF BoundsOf(List<GraphicsPathPart> parts)
+        {
+            float left = float.MaxValue, top = float.MaxValue, right = float.MinValue, bottom = float.MinValue;
+            foreach (GraphicsPathPart part in parts) {
+                if (part.Points == null)
+                    continue;
+                foreach (PointF point in part.Points) {
+                    left = Math.Min(left, point.X);
+                    top = Math.Min(top, point.Y);
+                    right = Math.Max(right, point.X);
+                    bottom = Math.Max(bottom, point.Y);
+                }
+            }
+            return left > right ? RectangleF.Empty : RectangleF.FromLTRB(left, top, right, bottom);
+        }
+
+        // Beginning a part, which draws nothing, changes nothing that the check compares.
+        public void BeginPart(object partKey)
+        {
+        }
+
+        // Ending a part changes nothing that the check compares.
+        public void EndPart()
+        {
+        }
+
+        // Beginning a map changes nothing that the check compares.
+        public void BeginMap(object mapKey, string label)
+        {
+        }
+
+        // Ending a map changes nothing that the check compares.
+        public void EndMap()
+        {
+        }
+
+        // Beginning a color run changes nothing that the check compares.
+        public void BeginColorRun(object colorKey, int position, string name, CmykColor color, bool overprint)
+        {
+        }
+
+        // Ending a color run changes nothing that the check compares.
+        public void EndColorRun()
+        {
+        }
+
+        // Beginning an object changes nothing that the check compares.
+        public void BeginObject(object objectKey, object symbolKey, string symbolId, string symbolName)
+        {
+        }
+
+        // Ending an object changes nothing that the check compares.
+        public void EndObject()
+        {
+        }
+
+        // An area's outline, drawn as a ghost: an unpainted drawing of its path.
+        public void DrawOutline(object pathKey)
+        {
+            StoredPath path = paths[pathKey];
+            DrawnGeometry drawing = Begin(nameof(DrawOutline), "unpainted");
+            PathGeometryBuilder builder = new PathGeometryBuilder(drawing);
+            AddParts(builder, path.Parts);
+            if (builder.HasBegun)
+                Drawings.Add(drawing);
+        }
+
+        // Note that a path is the union of the outlines of areas, which a clip to it and a fill of it then stand for.
+        public void DescribeUnion(object unionPathKey, object[] pathKeys)
+        {
+            unions[unionPathKey] = (object[])pathKeys.Clone();
+        }
+
+        // Adding a page, which the pages' own clips are compared through, changes nothing that the check compares.
+        public void AddPage(SizeF paperSize, RectangleF mapArea, Matrix mapToPage, object[] partKeys, string name)
+        {
+        }
+
+        // Where a map lies in the real world changes nothing that the check compares.
+        public void SetGeoreference(object mapKey, MapGeoreference georeference)
+        {
+        }
+
+        // The course a map draws changes nothing that the check compares.
+        public void DescribeCourse(object mapKey, CourseRecord course)
+        {
+        }
+
+        // The course's objects change nothing that the check compares.
+        public void DescribeObjects(object mapKey, IReadOnlyDictionary<object, CourseObjectRecord> objects)
+        {
+        }
+
+        // Pattern brushes are vectors, as the SVG target's are, though the map code draws nothing into the recorder.
+        public bool PatternBrushesAreVectors
+        {
+            get { return true; }
         }
 
         // A filled path given by its parts, under the rule of its fill mode.

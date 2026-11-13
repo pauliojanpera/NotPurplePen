@@ -2294,7 +2294,7 @@ namespace PurplePen.MapModel
                     AreaLikeSymDef areaSymdef = symdef as AreaLikeSymDef;
                     OverlappingAreas overlappingAreas = null;
                     RenderOptions patternsOnceOpts = null;
-                    if (areaSymdef != null && areaSymdef.HasPatternsDrawnOnce(curColor)) {
+                    if (areaSymdef != null && areaSymdef.HasPatternsDrawnOnce(curColor) && !renderOpts.patternsWithEachArea) {
                         overlappingAreas = OverlappingAreas.Find(symbolsForThisDef, rect, areaSymdef.PatternsDrawnOnceTurnWithAreas(curColor));
                         patternsOnceOpts = renderOpts.Clone();
                         patternsOnceOpts.patternsDrawnOnce = true;
@@ -2325,6 +2325,10 @@ namespace PurplePen.MapModel
                                     curSym.Draw(g, curColor, renderOpts);
                                 }
                                 else {
+                                    // A target that keeps the structure of what it draws gets the area's outline in the
+                                    // object's place, which the clip of the patterns drawn once refers to (M-6).
+                                    if (structuredTarget != null)
+                                        structuredTarget.DrawOutline(overlapGroup.PathOf(curSym).GetPathKey(g));
                                     curSym.Draw(g, curColor, patternsOnceOpts);
                                 }
                                 if (structuredTarget != null)
@@ -2837,6 +2841,10 @@ namespace PurplePen.MapModel
 
         // debug options.
         public bool showSymbolBounds;      // Show the bounds of symbols.
+
+        // if true, every area draws its own hatchings and patterns, even where areas of its symbol overlap, as they
+        // are drawn for a reader that cannot fill an area with a pattern (S-7).
+        public bool patternsWithEachArea;
 
         // Set by Map.DrawColor for an area grouped with others of its symbol whose bounding boxes overlap or touch in
         // the same frame: its hatchings and its patterns clipped to it are drawn once for all of them, within the union

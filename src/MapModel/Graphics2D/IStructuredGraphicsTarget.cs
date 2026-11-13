@@ -50,6 +50,18 @@ namespace PurplePen.Graphics2D
         // End the object begun last, whose drawing has closed every group it opened.
         void EndObject();
 
+        // Draw the outline of an area of the object open, in the object's place, as an element that paints nothing: a
+        // ghost, to which the clip to the union of its group's outlines refers (M-6). The map code gives one for each
+        // area whose hatchings and clipped patterns it draws once for a group of areas of its symbol (S-12).
+        // pathKey: the key of the area's path, created with CreatePath.
+        void DrawOutline(object pathKey);
+
+        // Describe a path created with CreatePath as the union of the outlines of areas, each drawn with DrawOutline
+        // before it: a clip to the path is then a clip to their union, and a fill of it fills their union (D-2, S-12).
+        // unionPathKey: the key of the union's path.
+        // pathKeys: the keys of the areas' paths, in the order drawn.
+        void DescribeUnion(object unionPathKey, object[] pathKeys);
+
         // Add a page that shows parts within an area of the map, transformed onto its paper. Pages are added after the
         // parts they show, outside any part.
         // paperSize: the size of the paper in millimetres.
