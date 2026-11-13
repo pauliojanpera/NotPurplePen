@@ -16,6 +16,8 @@ higher resolution he exported at first. He agreed that his files go into this re
 - `suo-notpurplepen-export.pdf`: that page as NotPurplePen's PDF export wrote it;
 - `suo2.ocd`: a second map, in which overlapping rectangular marsh areas, none of them turned, show the same, so the
   artifact does not depend on the areas' rotation (@Pauli, Nov 12).
+- `screenshots/`: @Pauli's screenshots of Nov 12 of the thickened hatching where the areas overlap, and his PNG
+  export at 100 dpi, `png-export-100dpi.png`.
 
 ## The investigation
 

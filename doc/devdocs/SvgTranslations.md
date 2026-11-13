@@ -663,4 +663,4 @@ The choices are:
 
 I recommend (b), because in five languages the folder button can't be reached without resizing the window.
 
-The clone and the agent's scratch folders are removed; renders of all 33 languages, and of the "Other folder" state, were sent to @Pauli in the session.
+The clone and the agent's scratch folders are removed; renders of all 33 languages, and of the "Other folder" state, are in [`SvgTranslations/`](SvgTranslations/): `en-dialog.png`, `sheet0.png` to `sheet4.png` and `other-folder.png`.
