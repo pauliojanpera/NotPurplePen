@@ -205,23 +205,26 @@ namespace PurplePen
             return 0;  // can't get here.
         }
 
-        // Determine if the current culture uses metric. This is based on the CultureInfo.CurrentCulture, 
-        // NOT the RegionInfo.CurrentRegion, for compatibility for what we always did (and I think it's the 
-        // right thing).
-        // A neutral culture, such as "en", names no region, so its specific culture's is taken. The invariant
-        // culture, which a machine whose locale is C or POSIX runs in, names none at all; RegionInfo.CurrentRegion
-        // gives it the invariant region, which is metric.
+        // Determine if the user's region uses metric (and hence A4 rather than Letter paper by default).
+        // This uses RegionInfo.CurrentRegion. On Windows that is the "Country or region" (home location)
+        // setting, which is a better guide to the paper actually in use than the regional format (e.g., someone
+        // in Europe who chose "English (United States)" format just to get English). On Linux and macOS it is
+        // derived from CultureInfo.CurrentCulture. Unlike constructing a RegionInfo from the culture name, it
+        // does not throw for the invariant culture (e.g., LANG=C on Linux) or neutral cultures.
+        // Note that CurrentRegion is cached; call CultureInfo.CurrentCulture.ClearCachedData() to refresh it.
         public static bool IsCurrentCultureMetric()
         {
-            CultureInfo culture = Thread.CurrentThread.CurrentCulture;
-            if (culture.IsNeutralCulture)
-                culture = CultureInfo.CreateSpecificCulture(culture.Name);
-            if (string.IsNullOrEmpty(culture.Name))
-                return true;
+            if (MetricOverrideForTesting.HasValue)
+                return MetricOverrideForTesting.Value;
 
-            RegionInfo regionInfo = new RegionInfo(culture.Name);
-            return regionInfo.IsMetric;
+            return RegionInfo.CurrentRegion.IsMetric;
         }
+
+        // Tests set this to force IsCurrentCultureMetric to return a fixed value, because on Windows
+        // RegionInfo.CurrentRegion follows the machine's home location and can't be changed via the thread culture.
+        // Null (the default) means use the real region. Thread-static so tests running in parallel don't interfere.
+        [ThreadStatic]
+        internal static bool? MetricOverrideForTesting;
 
         // Get text describing a distance. The input is in hundreths of an inch.
         public static string GetDistanceText(int distance, bool addUnits = true)
