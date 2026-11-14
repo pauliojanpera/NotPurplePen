@@ -299,6 +299,47 @@ namespace Map_Skia.Tests
             );
         }
 
+        // Draw a purple circle, and two purple lines that cross each other and the circle, blended with a blend mode
+        // over bars of color.
+        // grTarget: the target to draw on.
+        // blendMode: the blend mode.
+        // centerX: the horizontal center of the drawing.
+        static void DrawBlendedPurple(IGraphicsTarget grTarget, BlendMode blendMode, float centerX)
+        {
+            object penPurple = new object();
+            grTarget.CreatePen(penPurple, CmykColor.FromCmyk(0.1F, 0.9F, 0, 0.1F), 24, LineCapMode.Round, LineJoinMode.Round, 5);
+
+            Assert.IsTrue(grTarget.PushBlending(blendMode));
+            grTarget.DrawEllipse(penPurple, new PointF(centerX, 300), 120, 120);
+            grTarget.DrawLine(penPurple, new PointF(centerX - 150, 120), new PointF(centerX + 150, 480));
+            grTarget.DrawLine(penPurple, new PointF(centerX - 150, 480), new PointF(centerX + 150, 120));
+            grTarget.PopBlending();
+        }
+
+        // Blend by darken on the left and by multiply on the right. Each shape is blended as it is drawn: where the purple
+        // overlaps itself, darken leaves it as it is, and multiply builds it up.
+        [Test]
+        public void BlendModes()
+        {
+            RenderingUtil.RenderingTest(600, RectangleF.FromLTRB(0, 0, 800, 600), false, TestUtil.GetTestFile("skia_render\\blendmodes.png"),
+                grTarget => {
+                    grTarget.PushAntiAliasing(true);
+
+                    Color[] barColors = { Color.Blue, Color.Green, Color.Yellow, Color.Black };
+                    for (int bar = 0; bar < barColors.Length; ++bar) {
+                        object penBar = new object();
+                        grTarget.CreatePen(penBar, CmykColor.FromColor(barColors[bar]), 40, LineCapMode.Flat, LineJoinMode.Miter, 5);
+                        grTarget.DrawLine(penBar, new PointF(20, 150 + bar * 100), new PointF(780, 150 + bar * 100));
+                    }
+
+                    DrawBlendedPurple(grTarget, BlendMode.Darken, 200);
+                    DrawBlendedPurple(grTarget, BlendMode.Multiply, 600);
+
+                    grTarget.PopAntiAliasing();
+                }
+            );
+        }
+
         [Test]
         public void PatternBrush()
         {

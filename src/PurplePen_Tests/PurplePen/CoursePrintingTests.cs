@@ -148,6 +148,7 @@ namespace PurplePen.Tests
             if (controller.MapType == MapType.Bitmap)
                 mapDisplay.Dpi = controller.MapDpi;
             mapDisplay.OcadOverprintEffect = appearance.useOcadOverprint;
+            mapDisplay.OverprintBlendMode = appearance.overprintBlendMode;
             if (appearance.purpleColorBlend == PurpleColorBlend.UpperLowerPurple) {
                 mapDisplay.LowerPurpleMapLayer = appearance.mapLayerForLowerPurple;
             }
@@ -393,6 +394,25 @@ namespace PurplePen.Tests
             appearance.useOcadOverprint = true;
 
             CoursePrintingTest("courseprinting\\overprint", coursePrintSettings, appearance, 200);
+        }
+
+        // Print with the overprinted colors of the map, and the blended purple, multiplied with the colors below them.
+        [TestMethod]
+        public async Task PrintOverprintMultiply()
+        {
+            await controller.LoadInitialFile(TestUtil.GetTestFile("courseprinting\\Overprint test.ppen"), true);
+            CoursePrintSettings coursePrintSettings = new CoursePrintSettings();
+            coursePrintSettings.CropLargePrintArea = true;
+            coursePrintSettings.PrintingColorModel = ColorModel.CMYK;
+
+            coursePrintSettings.CourseIds = new Id<Course>[] { CourseId(1) };
+
+            CourseAppearance appearance = new CourseAppearance();
+            appearance.purpleColorBlend = PurpleColorBlend.Blend;
+            appearance.useOcadOverprint = true;
+            appearance.overprintBlendMode = Graphics2D.BlendMode.Multiply;
+
+            CoursePrintingTest("courseprinting\\overprintmultiply", coursePrintSettings, appearance, 200);
         }
 
         [TestMethod]

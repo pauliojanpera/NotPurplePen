@@ -772,6 +772,42 @@ namespace PurplePen.Tests
                 new string[1] { TestUtil.GetTestFile("controller\\pdf_create_overprint\\Overprint test_expected.png") });
         }
 
+        // The PDF export blends the colors of the map marked overprint, and the blended purple, by multiply: the graphics
+        // states of the PDF blend by multiply, and none by darken.
+        [TestMethod]
+        public async Task PdfCreationOverprintMultiply()
+        {
+            CoursePdfSettings settings = new CoursePdfSettings();
+            settings.mapDirectory = settings.fileDirectory = false;
+            settings.outputDirectory = TestUtil.GetTestFile("controller\\pdf_create_overprint_multiply");
+            settings.CourseIds = new Id<Course>[] { CourseId(1) };
+            settings.ColorModel = ColorModel.CMYK;
+            settings.CropLargePrintArea = false;
+            settings.FileCreation = CoursePdfSettings.PdfFileCreation.SingleFile;
+            settings.PrintMapExchangesOnOneMap = false;
+            Directory.CreateDirectory(settings.outputDirectory);
+
+            CourseAppearance appearance = new CourseAppearance();
+            appearance.purpleColorBlend = PurpleColorBlend.Blend;
+            appearance.useOcadOverprint = true;
+            appearance.overprintBlendMode = Graphics2D.BlendMode.Multiply;
+
+            string pdfFile = Path.Combine(settings.outputDirectory, "Overprint test.pdf");
+            File.Delete(pdfFile);
+
+            Assert.IsTrue(await controller.LoadInitialFile(TestUtil.GetTestFile("courseprinting\\Overprint test.ppen"), true));
+            controller.SetCourseAppearance(appearance);
+            controller.MapDisplay.OverprintBlendMode = controller.OverprintBlendMode;
+            Assert.IsTrue(controller.CreateCoursePdfs(settings));
+
+            // The names of the blend modes are written as they are, as /BM /Multiply, in the dictionaries of the
+            // graphics states.
+            string pdfText = Encoding.Latin1.GetString(File.ReadAllBytes(pdfFile));
+            File.Delete(pdfFile);
+            StringAssert.Contains(pdfText, "/Multiply");
+            Assert.IsFalse(pdfText.Contains("/Darken"));
+        }
+
         [TestMethod]
         public async Task PdfPrintAreasAndPageSizes()
         {

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SkiaSharp;
 using TestingUtils;
 
 namespace PurplePen.Tests
@@ -345,6 +346,65 @@ namespace PurplePen.Tests
             await CreateBitmapFiles(TestUtil.GetTestFile("courseprinting\\Lord Hill Feb 2024 - Final.ppen"), settings, appearance,
                 new string[] { TestUtil.GetTestFile("bitmapcreate\\blend\\layersprint\\Course 5.png"), },
                 new string[] { TestUtil.GetTestFile("bitmapcreate\\blend\\layersprint\\Course 5_baseline.png") });
+        }
+
+        // Export the course of the overprint test as an image, with the colors of its map marked overprint and its purple
+        // blended by a blend mode, and return the image.
+        // blendMode: the blend mode.
+        async Task<SKBitmap> CreateOverprintBitmap(Graphics2D.BlendMode blendMode)
+        {
+            BitmapCreationSettings settings = new BitmapCreationSettings();
+            settings.mapDirectory = settings.fileDirectory = false;
+            settings.outputDirectory = TestUtil.GetTestFile("bitmapcreate\\overprint_" + blendMode.ToString().ToLowerInvariant());
+            settings.CourseIds = new Id<Course>[] { CourseId(1) };
+            settings.Dpi = 150;
+            settings.ExportedBitmapKind = BitmapCreationSettings.BitmapKind.Png;
+
+            Directory.CreateDirectory(settings.outputDirectory);
+            string bitmapFile = Path.Combine(settings.outputDirectory, "Course 12.png");
+            File.Delete(bitmapFile);
+
+            CourseAppearance appearance = new CourseAppearance();
+            appearance.purpleColorBlend = PurpleColorBlend.Blend;
+            appearance.useOcadOverprint = true;
+            appearance.overprintBlendMode = blendMode;
+
+            Assert.IsTrue(await controller.LoadInitialFile(TestUtil.GetTestFile("courseprinting\\Overprint test.ppen"), true));
+            controller.SetCourseAppearance(appearance);
+            controller.MapDisplay.OverprintBlendMode = controller.OverprintBlendMode;
+            Assert.IsTrue(controller.CreateBitmapFiles(settings));
+
+            SKBitmap bitmap = SKBitmap.Decode(bitmapFile);
+            File.Delete(bitmapFile);
+            return bitmap;
+        }
+
+        // The image export blends the colors marked overprint, and the purple, by the chosen blend mode. Multiply is never
+        // lighter than darken, so the course exported by multiply has no pixel lighter than by darken, and is darker
+        // where the overprinted colors cross other colors or themselves.
+        [TestMethod]
+        public async Task BitmapCreationOverprintMultiply()
+        {
+            using (SKBitmap darkened = await CreateOverprintBitmap(Graphics2D.BlendMode.Darken))
+            using (SKBitmap multiplied = await CreateOverprintBitmap(Graphics2D.BlendMode.Multiply)) {
+                Assert.AreEqual(darkened.Width, multiplied.Width);
+                Assert.AreEqual(darkened.Height, multiplied.Height);
+
+                int darkerPixels = 0;
+                for (int y = 0; y < darkened.Height; ++y) {
+                    for (int x = 0; x < darkened.Width; ++x) {
+                        SKColor darkenedColor = darkened.GetPixel(x, y), multipliedColor = multiplied.GetPixel(x, y);
+                        // Rounding can leave one level of difference either way.
+                        Assert.IsTrue(multipliedColor.Red <= darkenedColor.Red + 1 && multipliedColor.Green <= darkenedColor.Green + 1 &&
+                                      multipliedColor.Blue <= darkenedColor.Blue + 1,
+                                      string.Format("Pixel ({0}, {1}) is lighter by multiply ({2}) than by darken ({3}).", x, y, multipliedColor, darkenedColor));
+                        if (multipliedColor.Red + multipliedColor.Green + multipliedColor.Blue + 30 < darkenedColor.Red + darkenedColor.Green + darkenedColor.Blue)
+                            ++darkerPixels;
+                    }
+                }
+
+                Assert.IsTrue(darkerPixels > 1000, string.Format("Only {0} pixels are darker by multiply than by darken.", darkerPixels));
+            }
         }
 
 
