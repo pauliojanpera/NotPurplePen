@@ -121,14 +121,14 @@ The target fully implements these calls (DL-5): `Intensity`, `PushTransform`, `P
 - #58 and #71: closed by @Pauli (Nov 14). `fix/pdfconverter-build` is not rebased: upstream's cbc6d7ff makes PdfConverter a library that the projects reference, so nothing of the fix stays.
 - Next: make `wip/linux/headless-pdf-loading` and `wip/linux/pdf-cache-race` (`origin/base` merged with 5b5a0592 and with a764dde9), push them, and wait with `SvgDevLoop/wait-run.sh`. When the Tests pass: `git push --force-with-lease=fix/headless-pdf-loading:a6b3f32d origin 5b5a0592:refs/heads/fix/headless-pdf-loading`, and the same for `fix/pdf-cache-race` (0fad718b to a764dde9).
 
-**Next, in this order: tasks 9, 6, 7, 10, 11.** @Pauli gave the word for them on Nov 14. Each task gets its own agent (see "Agents"). A task ends with its commits on their branches, its loop green if it changes the target, and the gallery and this file up to date.
+**Next, in this order: tasks 7, 9, 11, 6, 10.** @Pauli gave the word for them and set this order on Nov 14. Each task gets its own agent (see "Agents"). A task ends with its commits on their branches, its loop green if it changes the target, and the gallery and this file up to date.
 
 6. **The commits of a merge on the releases page** (@Pauli, Nov 13 and 14; see Decisions, "Merge messages").
    - The releases page shows the commit message of a build as its entry (`build.yml`, "Collect the packages"). The message of a merge tells little of what went in.
    - When the commit that a build publishes is a merge, add to its entry the commits that the merge brought, one line each: `git log --no-merges --format='%s (%h)' <commit>^1..<commit>`. Show up to 30 lines, then the count of the others. This applies to all merges, upstream's syncs too, whatever their message.
    - Entries published before the change stay as they are.
    - Make it on a `ci/` branch rooted at `base`. Merge it into `base`, `basewithfixes` and `dev` through full runs.
-7. **Multiply as an alternative to darken** (@Pauli, Nov 13 and 14; after tasks 5 and 6; see Decisions, "Blend modes beyond darken" and "Multiply's default").
+7. **Multiply as an alternative to darken** (@Pauli, Nov 13 and 14; see Decisions, "Blend modes beyond darken" and "Multiply's default").
    - Multiply is an alternative to darken for the colours marked overprint, the course's purple too.
    - A setting chooses between the two. It is beside the overprint checkbox in Course Appearance. The event file saves it, as it saves the checkbox. A new event, and a file saved without the setting, use darken. Translate its strings as task 4 did.
    - `BlendMode` gets `Multiply`. The Skia target (`SKBlendMode.Multiply`) and the PDF target (`XBlendMode.Multiply`) set it on each shape, as they set darken. The SVG target writes `mix-blend-mode:multiply` on each shape, as the application draws it. Then the comparison with the application holds where the course's purple crosses itself. If it does not, allow for the difference.
@@ -149,7 +149,7 @@ The target fully implements these calls (DL-5): `Intensity`, `PushTransform`, `P
    - zh-CN's `CreateMapFiles` changes the `&` of the access key into 和.
    - Make it on a `fix/` branch, rooted where `base` meets upstream, so that it can be offered upstream. Upstream ships the WinForms application, so also correct its satellites where they have the same faults. Run it in full on `wip/linux/<name>`, rooted at `base`. Merge it into `basewithfixes` and `dev` through full runs before you start the second branch (@Pauli, Nov 14). Add it to "Ready to offer to Purple Pen".
    - On a second `fix/` branch, rooted the same way: complete the translations of ja, pl, da, ro, nn-NO, nl, sl and ru in AvPurplePen's `UIText` and PurplePenCore's `MiscText` (@Pauli, Nov 14). On `dev`, these lack these numbers of the 1,281 `UIText` keys: ja 241, pl 359, da 436, ro 516, nn-NO 516, nl 719, sl 848, ru 1,199. Translate only keys that need translation. Use the terms of each language's own translations, and the room that the dialogs give, as task 4 did. Write a review table for each language, as `SvgTranslations.md` has. Run it in full, merge it into `basewithfixes` and `dev` through full runs, and add it to "Ready to offer to Purple Pen".
-   - When Russian is complete, add the SVG strings to `ru` on `feature/svg-target`, as task 4 did for the other languages.
+   - When Russian is complete, add the strings of the SVG export and of task 7 to `ru` on `feature/svg-target`, as task 4 did for the other languages.
 10. **A bitmap copy that draws on its original** (@Pauli, Nov 14). This is in upstream's code (found in task 5).
     - `Skia_Bitmap.GetGraphicsTarget(copyBits: true)` makes a copy of the bitmap. But the graphics target that it returns wraps `bitmap`, not `newBitmap`. So the target draws on the original, and the copy is not disposed of.
     - Make the target draw on the copy. Add a test that draws on a copy and checks that the original does not change.
