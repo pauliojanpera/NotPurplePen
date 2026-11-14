@@ -171,4 +171,13 @@
   <data name="SelectionDescriptionText_SpecialName_Text" xml:space="preserve">
     <value>Nivîs</value>
   </data>
+  <data name="CourseAppearanceDialog_labelBlendMode_Text" xml:space="preserve">
+    <value>Awayê tevlihevkirinê:</value>
+  </data>
+  <data name="CourseAppearanceDialog_comboBoxBlendMode_Items" xml:space="preserve">
+    <value>Tarî bike</value>
+  </data>
+  <data name="CourseAppearanceDialog_comboBoxBlendMode_Items1" xml:space="preserve">
+    <value>Pir bike</value>
+  </data>
 </root>
