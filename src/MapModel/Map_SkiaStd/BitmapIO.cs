@@ -69,6 +69,12 @@ namespace PurplePen.MapModel
         public double VerticalResolution { get; set; }
 
         /// <summary>
+        /// The data the bitmap was decoded from, when that is JPEG data, which no encoder makes again from the pixels;
+        /// null for a bitmap of another format, or one not decoded from data.
+        /// </summary>
+        public byte[] OriginalData { get; set; }
+
+        /// <summary>
         /// Creates a new BitmapWithResolution.
         /// </summary>
         /// <param name="bitmap">The bitmap pixel data.</param>
@@ -126,6 +132,7 @@ namespace PurplePen.MapModel
         /// <summary>
         /// Reads a bitmap from a stream. Uses ImageSharp to extract format and DPI metadata,
         /// and SkiaSharp to decode pixel data into SKImageInfo.PlatformColorType with premultiplied alpha.
+        /// JPEG data that SkiaSharp decodes whole is kept with the bitmap as its original data.
         /// </summary>
         /// <param name="stream">The stream to read from (need not be seekable).</param>
         /// <returns>A BitmapWithResolution containing the decoded bitmap and its metadata.</returns>
@@ -179,7 +186,11 @@ namespace PurplePen.MapModel
                             throw new InvalidOperationException($"Failed to decode bitmap: {result}");
                         }
 
-                        return new BitmapWithResolution(bitmap, format, horizontalDpi, verticalDpi);
+                        // JPEG data is kept, as encoding the pixels anew would change them, unless it was cut short:
+                        // the bitmap then holds pixels its data does not.
+                        return new BitmapWithResolution(bitmap, format, horizontalDpi, verticalDpi) {
+                            OriginalData = (format == GraphicsBitmapFormat.JPEG && result == SKCodecResult.Success) ? data : null
+                        };
                     }
                 }
             }
