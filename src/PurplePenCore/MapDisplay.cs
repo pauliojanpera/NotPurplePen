@@ -89,6 +89,7 @@ namespace PurplePen
         ColorModel colorModel = ColorModel.CMYK; // color model to use (cannot be OCADCompatible)
         bool antialiased = false;        // anti-alias (high quality) the map display?
         bool ocadOverprintEffect = false; // overprint effect for colors in the OCAD map (not the purple of the course on top).
+        BlendMode overprintBlendMode = BlendMode.Darken; // how overprinted colors blend: those of the OCAD map, and the purple of the course on top.
         bool showBounds = false;       // show symbols bounds (for testing)
 
         int? lowerPurpleMapLayer;      // If non-null, place the lower purple of the map just above this OCAD ID color.
@@ -431,6 +432,23 @@ namespace PurplePen
             {
                 if (ocadOverprintEffect != value) {
                     ocadOverprintEffect = value;
+                    RaiseChanged();
+                }
+            }
+        }
+
+        // How overprinted colors blend with the colors below them: the colors of the OCAD map, when OcadOverprintEffect
+        // is on, and the purple of the course on top, when it blends. Darken by default.
+        public BlendMode OverprintBlendMode
+        {
+            get
+            {
+                return overprintBlendMode;
+            }
+            set
+            {
+                if (overprintBlendMode != value) {
+                    overprintBlendMode = value;
                     RaiseChanged();
                 }
             }
@@ -787,6 +805,7 @@ namespace PurplePen
             renderOptions.showSymbolBounds = showBounds;
             renderOptions.renderTemplates = RenderTemplateOption.MapAndTemplates;
             renderOptions.blendOverprintedColors = ocadOverprintEffect;
+            renderOptions.overprintBlendMode = overprintBlendMode;
 
             // First draw the real map.
             float saveIntensity;

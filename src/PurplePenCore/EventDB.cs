@@ -2688,6 +2688,7 @@ namespace PurplePen
         public bool descriptionsPurple = false;         // If true, descriptions in purple instead of black.
 
         public bool useOcadOverprint = false;       // If true, use overprint effect when rendering OCAD map.
+        public BlendMode overprintBlendMode = BlendMode.Darken;   // How the colors marked overprint, and the purple when blended, blend with the colors below them.
 
         public string mapStandard = "2000";         // Which ISOM standard to use.
         public ItemScaling itemScaling = ItemScaling.None;      // If not None, how objects scale up with map on different print scales (ISOM 2017 style). Otherwise stay the same (ISOM 2000 style).
@@ -2778,6 +2779,8 @@ namespace PurplePen
             if (descriptionsPurple != other.descriptionsPurple)
                 return false;
             if (useOcadOverprint != other.useOcadOverprint)
+                return false;
+            if (overprintBlendMode != other.overprintBlendMode)
                 return false;
             if (mapStandard != other.mapStandard)
                 return false;
@@ -3158,6 +3161,9 @@ namespace PurplePen
                 xmloutput.WriteAttributeString("lower-purple-layer", XmlConvert.ToString(courseAppearance.mapLayerForLowerPurple));
             }
 
+            if (courseAppearance.overprintBlendMode == BlendMode.Multiply)
+                xmloutput.WriteAttributeString("overprint-blend-mode", "multiply");
+
             xmloutput.WriteEndElement();
 
             xmloutput.WriteStartElement("descriptions");
@@ -3295,6 +3301,8 @@ namespace PurplePen
                             }
                         }
 
+                        // Overprinted colors blend by darken, as before the blend mode was saved, unless the file says multiply.
+                        courseAppearance.overprintBlendMode = (xmlinput.GetAttributeString("overprint-blend-mode", "darken") == "multiply") ? BlendMode.Multiply : BlendMode.Darken;
                         
                         courseAppearance.purpleC = xmlinput.GetAttributeFloat("purple-cyan", -1F);
                         courseAppearance.purpleM = xmlinput.GetAttributeFloat("purple-magenta", -1F);

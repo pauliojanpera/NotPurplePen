@@ -1852,6 +1852,24 @@ namespace AvPurplePen {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Darken.
+        /// </summary>
+        public static string CourseAppearanceDialog_comboBoxBlendMode_Items {
+            get {
+                return ResourceManager.GetString("CourseAppearanceDialog_comboBoxBlendMode_Items", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Multiply.
+        /// </summary>
+        public static string CourseAppearanceDialog_comboBoxBlendMode_Items1 {
+            get {
+                return ResourceManager.GetString("CourseAppearanceDialog_comboBoxBlendMode_Items1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to None.
         /// </summary>
         public static string CourseAppearanceDialog_comboBoxBlendPurple_Items {
@@ -2118,6 +2136,15 @@ namespace AvPurplePen {
         public static string CourseAppearanceDialog_labelAutoGapSize_Text {
             get {
                 return ResourceManager.GetString("CourseAppearanceDialog_labelAutoGapSize_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Blend mode:.
+        /// </summary>
+        public static string CourseAppearanceDialog_labelBlendMode_Text {
+            get {
+                return ResourceManager.GetString("CourseAppearanceDialog_labelBlendMode_Text", resourceCulture);
             }
         }
         

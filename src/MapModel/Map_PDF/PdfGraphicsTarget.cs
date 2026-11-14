@@ -386,6 +386,10 @@ namespace PurplePen.MapModel
                 newBlendMode = XBlendMode.Darken;
                 supported = true;
             }
+            else if (blendMode == BlendMode.Multiply) {
+                newBlendMode = XBlendMode.Multiply;
+                supported = true;
+            }
 
             blendModeStack.Push(gfx.BlendMode);
             gfx.BlendMode = newBlendMode;
