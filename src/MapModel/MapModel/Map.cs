@@ -2281,7 +2281,7 @@ namespace PurplePen.MapModel
                             {
                                 if (renderOpts.blendOverprintedColors && curColor.OverPrint && !anySymbolsDrawn) {
                                     // We need to blend this color.
-                                    g.PushBlending(BlendMode.Darken);
+                                    g.PushBlending(renderOpts.overprintBlendMode);
                                     mustPopBlending = true;
                                 }
                                 
@@ -2772,8 +2772,9 @@ namespace PurplePen.MapModel
         public float minResolution;  // minimum size of a feature to render (typically the pixel size)
         public bool usePatternBitmaps; // if true, always use bitmap glyphs to render area patterns, if false, use direct drawing and clipping
         public RenderTemplateOption renderTemplates; // how templates (either OCAD or bitmap) will be displayed. Recursively applies to OCAD templates.
-        public bool blendOverprintedColors; // if true, then use BlendMode.Darken to blend colors that have Overprint flag set to true.
+        public bool blendOverprintedColors; // if true, then use overprintBlendMode to blend colors that have Overprint flag set to true.
                                             // if false, then Overprint flag is ignored.
+        public BlendMode overprintBlendMode; // how blendOverprintedColors blends: BlendMode.Darken (the default) or BlendMode.Multiply.
 
         // These options allow drawing just some colors (layers) of the maps.
         public int? colorBeginDrawExclusive; // If null, start drawing at the bottom, otherwise draw beginning after this color.

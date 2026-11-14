@@ -151,6 +151,26 @@ namespace PurplePen.MapModel.Tests
                 });
         }
 
+        // GDI+ blends by darken alone: it reports multiply as not supported, on a bitmap and on any other graphics, and
+        // draws without blending until the PopBlending that matches it.
+        [Test]
+        public void MultiplyNotSupported()
+        {
+            using (GDIPlus_BitmapGraphicsTarget grTarget = new GDIPlus_BitmapGraphicsTarget(100, 100, true, CmykColor.FromCmyk(0, 0, 0, 0), new RectangleF(0, 0, 100, 100), true)) {
+                Assert.IsFalse(grTarget.PushBlending(BlendMode.Multiply));
+                grTarget.PopBlending();
+                Assert.IsTrue(grTarget.PushBlending(BlendMode.Darken));
+                grTarget.PopBlending();
+            }
+
+            using (Bitmap bitmap = new Bitmap(100, 100))
+            using (Graphics graphics = Graphics.FromImage(bitmap))
+            using (GDIPlus_GraphicsTarget grTarget = new GDIPlus_GraphicsTarget(graphics)) {
+                Assert.IsFalse(grTarget.PushBlending(BlendMode.Multiply));
+                grTarget.PopBlending();
+            }
+        }
+
 #if true
         [Test]
         public void PatternBrush() {
