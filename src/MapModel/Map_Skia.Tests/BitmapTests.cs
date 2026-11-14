@@ -994,6 +994,99 @@ namespace Map_Skia.Tests
             Assert.IsNull(new Skia_FileLoader(null).LoadBitmap(missing, false));
         }
 
+        [Test]
+        public void ADecodedJpegKeepsTheDataItWasDecodedFromAndOtherBitmapsKeepNone()
+        {
+            // Read through the bitmap loader or the file loader alike, a JPEG keeps its data; a PNG keeps none, nor does
+            // a bitmap made empty.
+            string jpegPath = TestUtil.GetTestFile("bitmaps\\Waterfall.jpg");
+            byte[] jpegData = File.ReadAllBytes(jpegPath);
+            using (IGraphicsBitmap loaded = new SkiaBitmapGraphicsLoader().ReadBitmapFromStream(new MemoryStream(jpegData)))
+                CollectionAssert.AreEqual(jpegData, loaded.GetOriginalData());
+            using (IGraphicsBitmap loaded = new Skia_FileLoader(null).LoadBitmap(jpegPath, true))
+                CollectionAssert.AreEqual(jpegData, loaded.GetOriginalData());
+            using (IGraphicsBitmap loaded = new Skia_FileLoader(null).LoadBitmap(TestUtil.GetTestFile("bitmaps\\Waterfall.png"), true))
+                Assert.IsNull(loaded.GetOriginalData());
+            using (IGraphicsBitmap empty = new SkiaBitmapGraphicsLoader().CreateEmptyBitmap(10, 10, null))
+                Assert.IsNull(empty.GetOriginalData());
+        }
+
+        [Test]
+        public void AJpegCutShortKeepsNoData()
+        {
+            // Skia decodes what there is of it, so the bitmap holds pixels that the data does not.
+            byte[] jpegData = File.ReadAllBytes(TestUtil.GetTestFile("bitmaps\\Waterfall.jpg"));
+            byte[] cutShort = new byte[jpegData.Length / 2];
+            Array.Copy(jpegData, cutShort, cutShort.Length);
+            using (IGraphicsBitmap loaded = new SkiaBitmapGraphicsLoader().ReadBitmapFromStream(new MemoryStream(cutShort))) {
+                Assert.AreEqual(GraphicsBitmapFormat.JPEG, loaded.GetOriginalFormat());
+                Assert.IsNull(loaded.GetOriginalData());
+            }
+        }
+
+        [Test]
+        public void ABitmapKeepsNoDataOnceAGraphicsTargetMayDrawOnIt()
+        {
+            byte[] jpegData = File.ReadAllBytes(TestUtil.GetTestFile("bitmaps\\Waterfall.jpg"));
+            using (IGraphicsBitmap loaded = new SkiaBitmapGraphicsLoader().ReadBitmapFromStream(new MemoryStream(jpegData))) {
+                Assert.IsNotNull(loaded.GetOriginalData());
+                using (IBitmapGraphicsTarget target = loaded.GetGraphicsTarget(false)) {
+                }
+                Assert.IsNull(loaded.GetOriginalData());
+            }
+        }
+
+        [Test]
+        public void AJpegIsWrittenWithItsResolutionAsWholeDotsPerInchInItsJfifHeader()
+        {
+            // The units, dots per inch, and the horizontal and vertical density. 149.5 rounds up to 150; 0.4 rounds to no
+            // whole dot per inch, which leaves the header saying only that the pixels are square.
+            CollectionAssert.AreEqual(new byte[] { 1, 0, 150, 0, 200 }, JfifDensity(WriteJpeg(149.5, 200, 90)));
+            CollectionAssert.AreEqual(new byte[] { 0, 0, 1, 0, 1 }, JfifDensity(WriteJpeg(0.4, 200, 90)));
+        }
+
+        [Test]
+        public void AJpegIsWrittenWithItsColourSubsampledUpToQuality90AndAtFullResolutionAbove()
+        {
+            // The sampling factors of the first channel, luminance, horizontal and vertical, against those of the colour,
+            // one and one.
+            Assert.AreEqual(0x22, FirstChannelSamplingFactors(WriteJpeg(96, 96, 90)));
+            Assert.AreEqual(0x11, FirstChannelSamplingFactors(WriteJpeg(96, 96, 91)));
+        }
+
+        // Write a test bitmap as JPEG at a resolution and a quality.
+        // horizontalDpi, verticalDpi: the resolution.
+        // quality: the quality.
+        private byte[] WriteJpeg(double horizontalDpi, double verticalDpi, int quality)
+        {
+            using (SKBitmap bitmap = CreateTestBitmap(100, 80))
+            using (MemoryStream stream = new MemoryStream()) {
+                BitmapIO.WriteBitmapToStream(new BitmapWithResolution(bitmap, GraphicsBitmapFormat.JPEG, horizontalDpi, verticalDpi), stream, quality);
+                return stream.ToArray();
+            }
+        }
+
+        // The units and the density of the JFIF header that JPEG data begins with.
+        // jpeg: the data.
+        private static byte[] JfifDensity(byte[] jpeg)
+        {
+            CollectionAssert.AreEqual(new byte[] { 0xFF, 0xD8, 0xFF, 0xE0, 0, 16, (byte)'J', (byte)'F', (byte)'I', (byte)'F', 0 }, jpeg.AsSpan(0, 11).ToArray(),
+                                      "the data begins with a JFIF header");
+            return jpeg.AsSpan(13, 5).ToArray();
+        }
+
+        // The sampling factors of the first channel of the baseline frame of JPEG data.
+        // jpeg: the data.
+        private static int FirstChannelSamplingFactors(byte[] jpeg)
+        {
+            for (int index = 0; index + 1 < jpeg.Length; ++index) {
+                if (jpeg[index] == 0xFF && jpeg[index + 1] == 0xC0)
+                    return jpeg[index + 11];
+            }
+            Assert.Fail("the data has no baseline frame");
+            return 0;
+        }
+
         /// <summary>
         /// A stream wrapper that does not support seeking, for testing non-seekable stream handling.
         /// </summary>
