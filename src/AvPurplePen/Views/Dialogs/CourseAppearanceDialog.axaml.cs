@@ -5,9 +5,9 @@
 // (DrawSample): this code only renders that drawing to an offscreen bitmap
 // whose coordinate system is millimetres over a 10 mm tall region, then blits
 // it onto the view. A bitmap target is used (rather than drawing straight to
-// the view canvas) so the Darken blend used by the "Blend" purple option
-// works, and so the sample can be supersampled for crisper edges. The preview
-// is repainted whenever any ViewModel property changes.
+// the view canvas) so the blend used by the "Blend" purple option, darken or
+// multiply, works, and so the sample can be supersampled for crisper edges.
+// The preview is repainted whenever any ViewModel property changes.
 //
 // The DataContext (CourseAppearanceDialogViewModel) is set by the caller
 // before showing the dialog.
