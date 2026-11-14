@@ -108,7 +108,10 @@ namespace TestingUtils
                     baselineFile = specificBaselineFile;
 
                 if (!File.Exists(baselineFile)) {
-                    different = true;
+                    // EXPERIMENT: record the rendering of a missing baseline and go on, so that one run records them all.
+                    if (TestUtil.SilentRun)
+                        SaveComparison(bmNew, null, baselineFile);
+                    different = !TestUtil.SilentRun;
                 }
                 else {
                     using (SKBitmap bmBaseline = SKBitmap.Decode(baselineFile)) {
