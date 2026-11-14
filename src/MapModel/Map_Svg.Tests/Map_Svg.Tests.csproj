@@ -26,6 +26,11 @@
     <PackageReference Include="SkiaSharp.NativeAssets.Linux" />
   </ItemGroup>
 
+  <!-- The JPEG variants that JpegDataTests draws, which make-jpeg-variants.py beside them writes. -->
+  <ItemGroup>
+    <None Include="jpeg\*.jpg" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
   <!-- The fonts the tests draw text in, registered by TestFonts. -->
   <ItemGroup>
     <None Include="fonts\**" CopyToOutputDirectory="PreserveNewest" />

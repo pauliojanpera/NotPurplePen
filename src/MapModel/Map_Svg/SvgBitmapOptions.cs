@@ -16,14 +16,15 @@ namespace PurplePen.MapModel
         LeftOut
     }
 
-    // How the SVG target writes the bitmaps drawn into it, as the export sets it (B-3, B-4). A bitmap is written in
-    // its own format when that is JPEG, at the quality given here, and as PNG otherwise.
+    // How the SVG target writes the bitmaps drawn into it, as the export sets it (B-3, B-4). A bitmap is written as the
+    // JPEG data it was decoded from where the browsers draw that as the application draws the bitmap, and is encoded
+    // otherwise: in its own format when that is JPEG, at the quality given here, and as PNG otherwise.
     public sealed class SvgBitmapOptions
     {
         // How bitmaps reach the document.
         public readonly SvgBitmapHandling Handling;
 
-        // The quality, from 0 to 100, at which a bitmap whose own format is JPEG is written.
+        // The quality, from 0 to 100, at which a bitmap whose own format is JPEG is encoded.
         public readonly int JpegQuality;
 
         // For linked bitmaps: stores the written data of a bitmap, in the format given, beside the document, and returns

@@ -919,16 +919,22 @@ namespace PurplePen.MapModel
         // (B-1); pixelated for nearest-neighbor scaling, and smooth otherwise (B-2); lighter below full intensity (B-6).
         public void DrawBitmap(IGraphicsBitmap bm, RectangleF rectangle, BitmapScaling scalingMode)
         {
-            AddImage(bm, rectangle, scalingMode, nameof(DrawBitmap));
+            AddImage(bm, bm.GetOriginalFormat(), rectangle, scalingMode, nameof(DrawBitmap));
         }
 
-        // Draw part of a bitmap over a rectangle, as the bitmap cropped to the part (B-1).
+        // Draw part of a bitmap over a rectangle, as the bitmap cropped to the part, in the bitmap's own format (B-1, B-3);
+        // a part that is the whole bitmap is drawn as the bitmap.
         public void DrawBitmapPart(IGraphicsBitmap bm, int x, int y, int width, int height, RectangleF rectangle, BitmapScaling scalingMode)
         {
             RequireOpenPart(nameof(DrawBitmapPart));
+            if (x == 0 && y == 0 && width == bm.PixelWidth && height == bm.PixelHeight) {
+                AddImage(bm, bm.GetOriginalFormat(), rectangle, scalingMode, nameof(DrawBitmapPart));
+                return;
+            }
+
             IGraphicsBitmap part = bm.Crop(x, y, width, height);
             try {
-                AddImage(part, rectangle, scalingMode, nameof(DrawBitmapPart));
+                AddImage(part, bm.GetOriginalFormat(), rectangle, scalingMode, nameof(DrawBitmapPart));
             }
             finally {
                 if (!ReferenceEquals(part, bm))
@@ -1062,27 +1068,27 @@ namespace PurplePen.MapModel
         }
 
         // Add the use of a bitmap's image over a rectangle, the bitmap's first pixel at the rectangle's left and top. The
-        // image is written as the options say: in its own format when that is JPEG, at the options' quality, and as PNG
-        // otherwise (B-3), embedded or linked, once however often the same data is drawn (B-4, B-5), or left out. A
-        // nearest-neighbor scaling renders pixelated, the others smooth (B-2). Below full intensity the use draws the
-        // image through a filter that lightens it as the Skia target does, and the image keeps its own data (B-6).
-        // bitmap: the bitmap.
+        // image is written as the options say (B-3): as the data the bitmap was decoded from, where that is JPEG data
+        // that the browsers draw as the application draws the bitmap; else as the bitmap encoded in its own format when
+        // that is JPEG, at the options' quality, and as PNG otherwise; embedded or linked, once however often the same
+        // data is drawn (B-4, B-5), or left out. A nearest-neighbor scaling renders pixelated, the others smooth (B-2).
+        // Below full intensity the use draws the image through a filter that lightens it as the Skia target does, and
+        // the image keeps its own data (B-6).
+        // bitmap: the bitmap: one drawn whole, or the part of one that is drawn.
+        // ownFormat: the format of the bitmap drawn whole or in part, which a part does not know.
         // rectangle: the rectangle it covers.
         // scalingMode: how it is scaled.
         // callName: the name of the call that draws it.
-        private void AddImage(IGraphicsBitmap bitmap, RectangleF rectangle, BitmapScaling scalingMode, string callName)
+        private void AddImage(IGraphicsBitmap bitmap, GraphicsBitmapFormat ownFormat, RectangleF rectangle, BitmapScaling scalingMode, string callName)
         {
             RequireOpenPart(callName);
             if (bitmapOptions.Handling == SvgBitmapHandling.LeftOut)
                 return;
 
-            GraphicsBitmapFormat format = bitmap.GetOriginalFormat() == GraphicsBitmapFormat.JPEG ? GraphicsBitmapFormat.JPEG : GraphicsBitmapFormat.PNG;
-            byte[] data;
-            using (MemoryStream stream = new MemoryStream()) {
-                if (!bitmap.WriteToStream(format, stream, bitmapOptions.JpegQuality))
-                    throw new InvalidOperationException(callName + ": the bitmap cannot be written as " + format + ".");
-                data = stream.ToArray();
-            }
+            GraphicsBitmapFormat format = ownFormat == GraphicsBitmapFormat.JPEG ? GraphicsBitmapFormat.JPEG : GraphicsBitmapFormat.PNG;
+            byte[] data = format == GraphicsBitmapFormat.JPEG ? bitmap.GetOriginalData() : null;
+            if (data == null || !SvgJpegData.IsDrawnAsDecoded(data, bitmap.PixelWidth, bitmap.PixelHeight))
+                data = EncodeBitmap(bitmap, format, callName);
             SvgImage image = document.ImageOf(data, format, bitmap.PixelWidth, bitmap.PixelHeight, bitmapOptions);
 
             long left = SvgNumbers.ToSteps(rectangle.Left), top = SvgNumbers.ToSteps(rectangle.Top);
@@ -1092,6 +1098,19 @@ namespace PurplePen.MapModel
             bounds.Include(left, top);
             bounds.Include(right, bottom);
             AddElement(new SvgImageUse(image, placement, ImageStyle(scalingMode), bounds), callName);
+        }
+
+        // Encode a bitmap in a format, JPEG at the options' quality, through the bitmap's own encoder.
+        // bitmap: the bitmap.
+        // format: the format, JPEG or PNG.
+        // callName: the name of the call that draws it.
+        private byte[] EncodeBitmap(IGraphicsBitmap bitmap, GraphicsBitmapFormat format, string callName)
+        {
+            using (MemoryStream stream = new MemoryStream()) {
+                if (!bitmap.WriteToStream(format, stream, bitmapOptions.JpegQuality))
+                    throw new InvalidOperationException(callName + ": the bitmap cannot be written as " + format + ".");
+                return stream.ToArray();
+            }
         }
 
         // The style of the use of an image, or null for none: pixelated for nearest-neighbor scaling (B-2), and drawn
