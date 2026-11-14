@@ -954,7 +954,10 @@ writes every JPEG the application encodes.
   a Skia bitmap comes from this encoder too, as @Pauli ruled: the image export's JPEG files, the OCAD export's images
   that have no data of their own and its bitmap map, and the event file's images that have none. Skia's files came out
   smaller than ImageSharp's at the qualities 90 and 100, at 100 a half to three fifths of their size. ImageSharp still
-  writes PNG, GIF, TIFF, BMP and WebP.
+  writes PNG, GIF, TIFF, BMP and WebP. The image export's JPEGs, at quality 80, moved three baselines of
+  `CreateBitmapTests` past their tolerance of 30 levels, each only within the last row of 16-pixel blocks, which the
+  image fills in part; 1088d129 records them, the JPEG one as the rendering encoded at quality 100, as before. The files
+  the export wrote on Windows carry their 200 and 300 dots per inch, and decoded to the same pixels in two runs.
 - **What the browsers draw.** A probe drew JPEG variants of one photograph of 800 × 600 pixels, and the images of the
   test events, as an SVG's `<image>` in Playwright 1.63's Chromium, Firefox and WebKit, and compared each with the
   application's decoding through `BitmapIO`, within F-1's tolerance:
@@ -974,7 +977,9 @@ writes every JPEG the application encodes.
   tables, comments and application segments; data cut short keeps no data in the bitmap at all. Arithmetic, lossless and
   hierarchical coding and samples of 12 bits, which the probe could not make, are encoded rather than trusted. The
   orientation and the profile could instead be taken out of the data, which would keep its pixels without coding them
-  again; the export encodes, as the task asked.
+  again; the export encodes, as the task asked. Safari's own build, which decodes images through ImageIO rather than
+  libjpeg-turbo, was not among the browsers, as in "Firefox and WebKit": whether it draws CMYK data as the others do is
+  not known.
 - **The comparison of x64 and ARM64.** SkiaSharp 3.119.4's libjpeg-turbo 2.1.5.1 runs its C code on x64, where all 27 of
   its `jsimd_can_*` functions answer no, and its NEON code on ARM64. A throwaway workflow on `experiment/svg-jpeg-bytes`
   (run 43531515982) decoded 12 images as the application decodes them, the nine variants of `Map_Svg.Tests/jpeg/`,
@@ -1013,7 +1018,9 @@ writes every JPEG the application encodes.
   Linux x64 does. SVG loop 43563468407, of `svg/svg-jpeg-data` at 9b80d6d6, gave 868 passed, 0 failed, 2 pending and 16
   set apart: these 84 tests more than loop 43496141803, and the rest as before. In it the page differed from the
   application's in 82,332 of its 2,103,750 pixels, by up to 125 levels, and Firefox's and WebKit's drawings from
-  Chromium's in 3,824 and 89,737, by up to 45 and 44, none of them outside the tolerance.
+  Chromium's in 3,824 and 89,737, by up to 45 and 44, none of them outside the tolerance. The full run of the branch
+  merged into `basewithfixes`, Tests run 43565924717 on `wip/linux/svg-jpeg-data`, passed with the Windows job's
+  baseline of the event: x64 there encoded the cards to Linux's bytes.
 
 ## The geometry check (V-10)
 
