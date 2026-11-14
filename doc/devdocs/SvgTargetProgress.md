@@ -90,7 +90,22 @@ The calls the target fully implements, in the sense of DL-5: `Intensity`, `PushT
 
 ## Tasks
 
-**In flight:** task 5, on @Pauli's word at 01:07 Nov 14, with agent a0aa24c77780ef5a5 since 01:12, on `feature/svg-jpeg-data` from `feature/svg-target` at d1ceee4c; B-3's new wording comes to @Pauli with its result. The archiving task runs.
+**In flight:** task 5, stopped at 02:18 Nov 14 for the end of the quota. Agent a0aa24c77780ef5a5 worked on it from 01:12 and waits to be resumed with a message once the quota resets; an executor without it starts a new agent from this note.
+- **On `feature/svg-jpeg-data` at 4aad493e**, two `WIP:` commits on d1ceee4c hold the whole change with its tests:
+  - A JPEG bitmap drawn whole is written as the data it was decoded from, unless browsers would draw that data otherwise: turned or mirrored by Exif, or carrying a colour profile.
+  - Every other JPEG, a part of one among them, is encoded by Skia with the image's resolution in its JFIF header.
+  - PNG is written as before.
+- **The loop's case** is the event `src/TestFiles/svg_jpeg/JPEG data.ppen`, with its baselines; the local run passed.
+- **Skia's JPEG bytes on x64 and ARM64.** Run 43531515982 on `experiment/svg-jpeg-bytes` (7b1ad1ba) found all 84 hashes of decoded pixels and of Skia's JPEG data the same on Linux x64, with and without .NET's hardware intrinsics; Linux ARM64, with and without libjpeg-turbo's NEON code; Windows x64 and ARM64; and macOS ARM64. ImageSharp's encoder, which the export used before, wrote 11 of the 12 images differently on x64 than on ARM64.
+- **Left, in order:**
+  1. Rewrite the WIP into four finished commits.
+  2. Run the SVG loop on `svg/svg-jpeg-data`.
+  3. Move the design draft, `WIP-jpeg-design-section.md` at the feature branch's root, into `SvgExportDesign.md`.
+  4. The full run on `wip/linux/svg-jpeg-data`, rooted at `basewithfixes`, and then the merges into `feature/svg-target` and `dev`.
+  5. B-3's new wording, to @Pauli.
+- **Next command:** `cd /home/claude/wt/svg-jpeg-data && git log --oneline -3`, then the rewrite.
+
+The archiving task and the watch stop after the session's last archive.
 
 **Next**, in order. Each task starts on @Pauli's word, with an agent of its own (see "Agents"), and ends with its commits on `feature/svg-target` or this branch, its loop green where it changes the target, and the gallery and this file brought up to date.
 
