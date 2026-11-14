@@ -40,6 +40,9 @@ namespace Map_Svg.Tests
             Event("Overprint test lower purple", "courseprinting/Overprint test.ppen", MapType.OCAD, new int[0], true),
             // A bitmap map, which the files embed.
             Event("Lincoln Park", "controller/Lincoln Park.ppen", MapType.Bitmap, new int[0], false),
+            // A JPEG map and JPEG images, each embedded as its data where the browsers draw that as the application draws
+            // the image, and encoded anew by Skia otherwise, alike on every platform (B-3, F-2).
+            Event("JPEG data", "svg_jpeg/JPEG data.ppen", MapType.Bitmap, new int[0], false),
             // An OpenMapper map.
             Event("printarea2", "modes/printarea2.ppen", MapType.OCAD, new int[] { 1 }, false),
             // An OCAD map with area patterns, multi-colored point symbols and text along lines; one course, as each page

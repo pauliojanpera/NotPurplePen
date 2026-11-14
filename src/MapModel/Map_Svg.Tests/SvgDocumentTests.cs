@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Text.RegularExpressions;
 using NUnit.Framework;
 using PurplePen.Graphics2D;
 using PurplePen.MapModel;
@@ -1509,6 +1510,56 @@ namespace Map_Svg.Tests
                                   "<image id=\"d\" width=\"30\" height=\"30\" xlink:href=\"" + DataUri("drawn", GraphicsBitmapFormat.PNG, 0) + "\"/>\n",
                                   document);
             StringAssert.Contains("data:image/jpeg;base64," + Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes("photo as JPEG at 75")), document);
+        }
+
+        [Test]
+        public void AJpegBitmapIsWrittenAsTheDataItWasDecodedFromWhereTheBrowsersDrawThatDataAsTheApplicationDraws()
+        {
+            // Drawn whole, or as a part that is all of it, the bitmap is written once, as its data, and never encoded.
+            byte[] data = TestJpegData.Plain(30, 20);
+            TestBitmap photo = new TestBitmap("photo", 30, 20, GraphicsBitmapFormat.JPEG, data);
+            string document = WriteOnePage(target => {
+                target.DrawBitmap(photo, new RectangleF(0, 0, 30, 20), BitmapScaling.HighQuality);
+                target.DrawBitmapPart(photo, 0, 0, 30, 20, new RectangleF(40, 0, 30, 20), BitmapScaling.HighQuality);
+            });
+            Assert.AreEqual(0, photo.Writes, "the bitmap is not encoded");
+            StringAssert.Contains("<image id=\"b\" width=\"30\" height=\"20\" xlink:href=\"data:image/jpeg;base64," + Convert.ToBase64String(data) + "\"/>\n", document);
+            Assert.AreEqual(1, Regex.Matches(document, "<image ").Count, "one image");
+            Assert.AreEqual(2, Regex.Matches(document, "<use xlink:href=\"#b\"").Count, "two uses of it");
+
+            // Linked, the data is stored as it is.
+            List<byte[]> stored = new List<byte[]>();
+            SvgBitmapOptions linked = new SvgBitmapOptions(SvgBitmapHandling.Linked, 90, (bytes, format) => {
+                stored.Add(bytes);
+                return "photo." + format;
+            });
+            StringAssert.Contains("<image id=\"b\" width=\"30\" height=\"20\" xlink:href=\"photo.JPEG\"/>",
+                                  WriteOnePage(target => target.DrawBitmap(photo, new RectangleF(0, 0, 30, 20), BitmapScaling.HighQuality), true, linked));
+            Assert.AreEqual(1, stored.Count);
+            CollectionAssert.AreEqual(data, stored[0]);
+        }
+
+        [Test]
+        public void AJpegBitmapIsEncodedWhereTheBrowsersWouldDrawItsDataOtherwiseAndAPartOfOneAsJpeg()
+        {
+            // Data that a browser turns, data of another size than the bitmap's, and a part of a bitmap, which has no data
+            // of its own, are encoded as JPEG at the options' quality; the data of a bitmap of another format than JPEG is
+            // never written, and the bitmap is encoded as PNG.
+            byte[] turnedData = TestJpegData.Data(TestJpegData.ExifOrientation(6), TestJpegData.Frame(TestJpegData.BaselineFrame, 8, 30, 20, 3));
+            byte[] pngData = { 0x89, (byte)'P', (byte)'N', (byte)'G', 13, 10, 26, 10 };
+            string document = WriteOnePage(target => {
+                target.DrawBitmap(new TestBitmap("turned", 30, 20, GraphicsBitmapFormat.JPEG, turnedData), new RectangleF(0, 0, 30, 20), BitmapScaling.HighQuality);
+                target.DrawBitmap(new TestBitmap("resized", 30, 20, GraphicsBitmapFormat.JPEG, TestJpegData.Plain(60, 40)), new RectangleF(30, 0, 30, 20),
+                                  BitmapScaling.HighQuality);
+                target.DrawBitmapPart(new TestBitmap("photo", 30, 20, GraphicsBitmapFormat.JPEG, TestJpegData.Plain(30, 20)), 5, 5, 10, 10,
+                                      new RectangleF(60, 0, 10, 10), BitmapScaling.HighQuality);
+                target.DrawBitmap(new TestBitmap("logo", 30, 20, GraphicsBitmapFormat.PNG, pngData), new RectangleF(70, 0, 30, 20), BitmapScaling.HighQuality);
+            }, true, new SvgBitmapOptions(SvgBitmapHandling.Embedded, 75, null));
+            StringAssert.Contains("<image id=\"b\" width=\"30\" height=\"20\" xlink:href=\"" + DataUri("turned", GraphicsBitmapFormat.JPEG, 75) + "\"/>\n" +
+                                  "<image id=\"c\" width=\"30\" height=\"20\" xlink:href=\"" + DataUri("resized", GraphicsBitmapFormat.JPEG, 75) + "\"/>\n" +
+                                  "<image id=\"d\" width=\"10\" height=\"10\" xlink:href=\"" + DataUri("photo[5,5,10,10]", GraphicsBitmapFormat.JPEG, 75) + "\"/>\n" +
+                                  "<image id=\"e\" width=\"30\" height=\"20\" xlink:href=\"" + DataUri("logo", GraphicsBitmapFormat.PNG, 0) + "\"/>\n",
+                                  document);
         }
 
         [Test]
