@@ -744,6 +744,15 @@
   <data name="CourseAppearanceDialog_groupBoxPurple_Text" xml:space="preserve">
     <value>Vijolična barva</value>
   </data>
+  <data name="CourseAppearanceDialog_labelBlendMode_Text" xml:space="preserve">
+    <value>Način mešanja:</value>
+  </data>
+  <data name="CourseAppearanceDialog_comboBoxBlendMode_Items" xml:space="preserve">
+    <value>Potemni</value>
+  </data>
+  <data name="CourseAppearanceDialog_comboBoxBlendMode_Items1" xml:space="preserve">
+    <value>Pomnoži</value>
+  </data>
   <data name="CourseLoad_Load_HeaderText" xml:space="preserve">
     <value>število tekmovalcev na kontrolni točk</value>
   </data>
