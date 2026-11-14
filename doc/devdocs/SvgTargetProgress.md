@@ -116,7 +116,7 @@ The target fully implements these calls (DL-5): `Intensity`, `PushTransform`, `P
 
 ## Tasks
 
-**Task 7 waits for a new agent.** Its agent af38e9f343d12fc6e stopped at 13:27 Nov 14, when the session's turn was interrupted. It had removed task 5's worktrees, and it pushed nothing. A new agent starts from task 7's text on @Pauli's word. Its branches are `feature/multiply-blending` and `feature/svg-multiply`.
+**In flight: task 7.** Agent aac72716e2f1e6eb5, since 13:35 Nov 14. Its branches are `feature/multiply-blending` and `feature/svg-multiply`. An executor without this agent starts a new agent from task 7's text.
 
 **Next, in this order: tasks 7, 9, 11, 6, 10.** @Pauli gave the word for them and set this order on Nov 14. Each task gets its own agent (see "Agents"). A task ends with its commits on their branches, its loop green if it changes the target, and the gallery and this file up to date.
 
