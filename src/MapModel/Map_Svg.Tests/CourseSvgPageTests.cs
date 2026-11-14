@@ -45,6 +45,9 @@ namespace Map_Svg.Tests
             Page("MadronaPermanent11-Course1", "controller/Madrona Permanent11.ppen", MapType.OCAD, new int[] { 1 }, false, "Course 1.svg"),
             // A bitmap map.
             Page("LincolnPark-Short", "controller/Lincoln Park.ppen", MapType.Bitmap, new int[] { 1 }, false, "Short.svg"),
+            // A JPEG map and JPEG images, each written as its data where the browsers draw that as the application draws
+            // the image, and encoded anew where they would draw it turned or in the colours of its profile (B-3).
+            Page("JpegData-Photos", "svg_jpeg/JPEG data.ppen", MapType.Bitmap, new int[] { 1 }, false, "Photos.svg"),
             // The map in two parts, with the course's lower layer between them.
             Page("OverprintTestLowerPurple-Course12", "courseprinting/Overprint test.ppen", MapType.OCAD, new int[] { 1 }, true, "Course 12.svg"),
             // A part of a course with map exchanges, with no map.
