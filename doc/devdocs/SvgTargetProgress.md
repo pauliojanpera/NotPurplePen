@@ -118,10 +118,11 @@ The target fully implements these calls (DL-5): `Intensity`, `PushTransform`, `P
 - SVG loop 43563468407 on `svg/svg-jpeg-data`: 868 passed, 0 failed, 2 pending, 16 set apart.
 - x64 against ARM64: run 43531515982 on `experiment/svg-jpeg-bytes` (7b1ad1ba). All 84 hashes of decoded pixels and of Skia's JPEG data are the same on seven machines.
 - On this branch: the design section "JPEG data (B-3, F-2, P-6)" (00d43888), and B-3 as @Pauli approved it (85b3c291).
-- Full run on `wip/linux/svg-jpeg-data` (70285eca): Build 43564494074 passed. Tests 43564494022 failed. The agent examines the failure.
-- Then: bring the branch into `feature/svg-target`, and merge `feature/svg-target` into `dev` through `wip/linux/svg-target-into-dev`. The task ends when the Build of `dev` has published the packages.
+- Skia's encoder moved the JPEG baselines of the image export. They are recorded in 1088d129.
+- Full run on `wip/linux/svg-jpeg-data` (100366a3): Build 43565924703 and Tests 43565924717 passed.
+- `feature/svg-target` is at 1088d129. `dev` is at 2edef4d4, through `wip/linux/svg-target-into-dev` (Build 43566895811, Tests 43566895838). The task ends when the Build of `dev` (43567789260) has published the packages.
 
-**Next, in this order: tasks 8, 6, 7.** @Pauli gave the word for them on Nov 14. Each task gets its own agent (see "Agents"). A task ends with its commits on their branches, its loop green if it changes the target, and the gallery and this file up to date.
+**Next, in this order: tasks 8, 9, 6, 7.** @Pauli gave the word for them on Nov 14. Each task gets its own agent (see "Agents"). A task ends with its commits on their branches, its loop green if it changes the target, and the gallery and this file up to date.
 
 6. **The commits of a merge on the releases page** (@Pauli, Nov 13 and 14; see Decisions, "Merge messages").
    - The releases page shows the commit message of a build as its entry (`build.yml`, "Collect the packages"). The message of a merge tells little of what went in.
@@ -144,18 +145,19 @@ The target fully implements these calls (DL-5): `Intensity`, `PushTransform`, `P
    - Run each rebased branch in full on `wip/linux/<name>`, rooted at `base`. Then push it with `--force-with-lease`. The push updates the pull request.
    - If the proxy refuses the API calls to upstream's repository, give @Pauli the links. He closes the pull requests.
    - Update "Ready to offer to Purple Pen".
+9. **Upstream's untranslated and wrong strings** (@Pauli, Nov 14). These are upstream's faults. Upstream (d48f445) has them too.
+   - "Include:" and its items "Course and map" and "Course only" are English in all languages, in the PDF, SVG and image export dialogs. The keys `CreatePdfCourses_labelPrintBaseMap_Text`, `CreatePdfCourses_comboBoxPrintBaseMap_Items`, `CreatePdfCourses_comboBoxPrintBaseMap_Items1` and the same three `CreateImageFiles_*` keys are only in the English `UIText.resx`. No satellite has them, and no WinForms satellite has them either. Translate them into each language of `UIText.<language>.resx`, in the terms of the language's own translations, and in the room that the dialogs give, as task 4 did.
+   - The Japanese `MiscText` messages `CannotCreatePdfs` and `CannotCreateOcadFiles` have a `{0}` that `HandleExceptions` formats with no arguments. A failed export then throws `FormatException` and does not tell why.
+   - `CreatePdfCourses_Text` reads "Print Courses" in de, en-GB, et, fi, fr, nb-NO, nn-NO and ro.
+   - zh-CN's `CreateMapFiles` changes the `&` of the access key into 和.
+   - Make it on a `fix/` branch, rooted where `base` meets upstream, so that it can be offered upstream. Upstream ships the WinForms application, so also correct its satellites where they have the same faults. Run it in full on `wip/linux/<name>`, rooted at `base`. Merge it into `basewithfixes` and `dev` through full runs. Add it to "Ready to offer to Purple Pen".
 
 **Left open:**
 - Since the fix of overlapping hatchings, WPF draws the text of lksamm3 and marymoor_underline shifted (its 2 moved baselines). The cause is not known. Only tests draw with WPF (`Test_MapWPF`, `D2D_Tests`). @Pauli accepts it (Nov 13).
 - PdfPig 0.1.16 does not give a missing `op` the value of `OP`, against the PDF specification. Task 1's probe corrects it. It could be reported to PdfPig.
 - In the SVG tests, the families that the test maps name are drawn in Arial, except Arial, Times New Roman, Cambria, Calibri and Roboto: for example Georgia and Arial Narrow. Fonts with the same metrics, for example Gelasio and Liberation Sans Narrow, could replace them.
 - Where a leg meets a control circle, the course drawing overlaps them a little. To move the end points of the leg a little would repair it sufficiently (@Pauli, Nov 13).
-- Upstream's translations (found in task 4, not changed):
-  - The Japanese `MiscText` messages `CannotCreatePdfs` and `CannotCreateOcadFiles` have a `{0}` that `HandleExceptions` formats with no arguments. A failed export then throws `FormatException` and does not tell why. This needs a `fix/` branch.
-  - "Include:" and its items are English in all languages, in the PDF dialog and in the SVG dialog. The satellites have them under the `CreateImageFiles_*` keys.
-  - `CreatePdfCourses_Text` reads "Print Courses" in de, en-GB, et, fi, fr, nb-NO, nn-NO and ro.
-  - zh-CN's `CreateMapFiles` changes the `&` of the access key into 和.
-  - The "Select folder..." button is cut by 13 pixels in the SVG dialog and by 23 pixels in the PDF dialog, in English too.
+- The "Select folder..." button is cut by 13 pixels in the SVG dialog and by 23 pixels in the PDF dialog, in English too (found in task 4).
 - Under upstream's bc4debb, the WinForms margin workaround in `PrintDescriptions.cs` and `PrintPunches.cs` follows the home location, but Windows' margins dialog follows the regional format. So the margins can be wrong by a factor of 2.54 where the two do not agree. This comes from reading the code. Nobody tried it. It is in the WinForms application, which the fork does not ship. It could be reported upstream.
 
 ## Future directions
@@ -197,6 +199,7 @@ These are @Pauli's rulings and the practice. The design decisions of the target 
 - **The order of steps** (Nov 6). The session sets the order of steps. It does not ask @Pauli.
 - **Offering to Purple Pen** (Oct 23 and 24). Keep separable work in mind as separate pull requests, but first find out if each piece is useful. A change that is useful to Purple Pen by itself goes on its own branch, rooted at `upstream/master`. Each bug in upstream's code that the SVG target needs fixed gets its `fix/` branch before the work continues. "Ready to offer to Purple Pen" lists them all. The EPSG codes of OCAD's grids stay on `feature/svg-target`, because only the SVG export reads them.
 - **Offering the fixes upstream** (Nov 7 and 14). Do not offer more fixes now. Update the four stale pull requests now (task 8).
+- **Upstream's string faults** (Nov 14). Translate "Include:" and its items, and correct the string faults that task 4 found, on a `fix/` branch that can be offered upstream (task 9).
 - **Session transcripts** (Oct 24). Keep the full transcripts of the sessions on GitHub, in the private `windows-fonts`, on their own branch. Archive them unfiltered, as the executors record them: no token or secret gets into a transcript. Archive all transcripts of the machine, because a compaction moves a session to a new transcript. The interval is 10 minutes. It costs no bytes, because git stores each archive as a delta of the one before.
 - **The agents' cache, and pacing** (Nov 12 and 13). The prompt cache of agents lasts 1 hour (`subagentPromptCacheTtl`, set by `agent-cache.py`). With the default of 5 minutes, an agent wrote its whole context again after each longer wait: 530,000 to 620,000 tokens. Pacing (rests between the agents' work) stopped on Nov 13: 20 minutes of the hatching agent's work used half of the 5-hour quota. The scripts and the practice stay in `SvgDevLoop/` and CLAUDE.md.
 - **Where the SVG work runs in full** (Nov 13). On `basewithfixes`, for the SVG work and all other work that has `fix/` branches. On `base`, the baselines that its fixes move together fail.
