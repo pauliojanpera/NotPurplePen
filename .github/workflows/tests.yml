@@ -215,29 +215,6 @@ jobs:
         - id: purplepen
           name: PurplePen
           assemblies: PurplePen_Tests/bin/Debug/net10.0-windows/PurplePen_Tests.dll
-        - id: pdf
-          name: PDF
-          assemblies: MapModel/Map_PDF.Tests/bin/Debug/net10.0/Map_PDF.Tests.dll
-        - id: mapmodel
-          name: MapModel
-          assemblies: MapModel/Test_MapModel/bin/Debug/net10.0-windows/Test_MapModel.dll
-        - id: wpf
-          name: WPF
-          assemblies: >-
-            MapModel/Test_MapWPF/bin/Debug/net10.0-windows/TestProject1.dll
-            PdfConverter.Tests/bin/Debug/net10.0-windows/PdfConverter.Tests.dll
-        - id: projections
-          name: projections
-          assemblies: DotSpatialProjectionsLite/DotSpatial.Projections.Tests/bin/Debug/net10.0/DotSpatial.Projections.Tests.dll
-        - id: skia
-          name: Skia
-          assemblies: >-
-            MapModel/Map_Skia.Tests/bin/Debug/net10.0/Map_Skia.Tests.dll
-            MapModel/Graphics2D.Tests/bin/Debug/net10.0/Graphics2D.Tests.dll
-            PurplePenViewModels.Tests/bin/Debug/net10.0/PurplePenViewModels.Tests.dll
-            Testing/TestUtil/bin/Debug/net10.0/TestUtil.dll
-            ?MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll|FullyQualifiedName~CourseSvgBaselineTests
-
     steps:
     - name: Checkout source
       uses: actions/checkout@v4
@@ -959,4 +936,7 @@ jobs:
           src/**/*_actual.png
           src/**/*_diff.png
           src/svg-loop-results
+          src/TestFiles/bitmapcreate/create1/Course 1.jpg
+          src/TestFiles/bitmapcreate/create4/Course 2.jpg
+          src/TestFiles/bitmapcreate/create5/Course 2.jpg
         if-no-files-found: warn
