@@ -115,7 +115,12 @@ The target fully implements these calls (DL-5): `Intensity`, `PushTransform`, `P
 
 ## Tasks
 
-**In flight: task 8.** Agent a2aad927f64cdd7c3, since 08:55 Nov 14. It starts from the `fix/` branches on origin: `fix/image-reencode` (f836a4b5, #71), `fix/headless-pdf-loading` (a6b3f32d, #56), `fix/pdf-cache-race` (0fad718b, #57) and `fix/pdfconverter-build` (c69209e4, #58). An executor without this agent starts a new agent from task 8's text.
+**In flight: task 8.** Agent a2aad927f64cdd7c3, since 08:55 Nov 14. It stopped at 09:05 for the end of the quota. No run started, and no `fix/` branch is pushed. Resume the agent with a message when the quota resets. An executor without this agent starts a new agent from this note.
+- #56: rebased onto d48f445 as one commit, on `feature/task8-56-wip` (5b5a0592). The author is kept. The conflict in `GlobalTestSetup.cs` is resolved as `base` resolved it. The content equals that of `base`.
+- #57: upstream's 1ed9e92 does not cover it: it does not touch `PdfMapFile` or the cache, and upstream still converts directly into the shared cache name. Rebased on `feature/task8-57-wip` (a764dde9). `PdfMapFile.cs` is resolved as `base` resolved it, with only the move into the cache.
+- #58: obsolete. Upstream's cbc6d7ff makes PdfConverter a library that the projects reference, so nothing of `fix/pdfconverter-build` stays. Not rebased. See "Waiting on @Pauli".
+- #71: not closed. `gh pr close` got HTTP 403: these sessions have no API access to petergolde/PurplePen. See "Waiting on @Pauli".
+- Next: make `wip/linux/headless-pdf-loading` and `wip/linux/pdf-cache-race` (`origin/base` merged with 5b5a0592 and with a764dde9), push them, and wait with `SvgDevLoop/wait-run.sh`. When the Tests pass: `git push --force-with-lease=fix/headless-pdf-loading:a6b3f32d origin 5b5a0592:refs/heads/fix/headless-pdf-loading`, and the same for `fix/pdf-cache-race` (0fad718b to a764dde9).
 
 **Next, in this order: tasks 9, 6, 7.** @Pauli gave the word for them on Nov 14. Each task gets its own agent (see "Agents"). A task ends with its commits on their branches, its loop green if it changes the target, and the gallery and this file up to date.
 
@@ -278,6 +283,8 @@ These are @Pauli's rulings and the practice. The design decisions of the target 
 
 ## Waiting on @Pauli
 
+- **Close #71 on petergolde/PurplePen** (Nov 14): <https://github.com/petergolde/PurplePen/pull/71>. Upstream's d48f445 covers it. These sessions cannot close it.
+- **Close #58?** (Nov 14). Upstream's cbc6d7ff makes PdfConverter a library that the projects reference, so nothing of `fix/pdfconverter-build` stays. Recommended: close it with "Closing: upstream's cbc6d7ff, which makes PdfConverter a library, covers this." (<https://github.com/petergolde/PurplePen/pull/58>).
 - **JPEG data with a rotation flag or a colour profile** (Nov 14). The application ignores both: `BitmapIO` decodes into a bitmap without a colour space and does not read the Exif orientation, and the GDI+ loader (`Image.FromStream`) does the same. No code or history gives a reason. Browsers obey both, so the SVG export encodes such JPEGs again with Skia (task 5). @Pauli asked why the application does not support them. The choices:
   - Keep the encoding, as built.
   - Remove the rotation flag and the profile from the original data, and write the rest unchanged.
