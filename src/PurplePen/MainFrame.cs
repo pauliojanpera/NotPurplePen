@@ -387,6 +387,10 @@ namespace PurplePen
                 mapDisplay.OcadOverprintEffect = controller.OcadOverprintEffect;
             }
 
+            if (mapDisplay.OverprintBlendMode != controller.OverprintBlendMode) {
+                mapDisplay.OverprintBlendMode = controller.OverprintBlendMode;
+            }
+
             if (mapDisplay.LowerPurpleMapLayer != controller.LowerPurpleMapLayer) {
                mapDisplay.LowerPurpleMapLayer = controller.LowerPurpleMapLayer;
             }
