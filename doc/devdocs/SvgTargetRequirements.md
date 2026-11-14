@@ -185,7 +185,7 @@ Bitmaps are embedded by default, written once each, and can instead be linked as
 | --- | --- | --- |
 | B-1 | `DrawBitmap` places an image over the given rectangle. `DrawBitmapPart` places the cropped part. | Must |
 | B-2 | `NearestNeighbor` scaling renders pixelated; the other modes render smooth. | Must |
-| B-3 | Images are written through `WriteToStream`, in their original format when it is PNG or JPEG, otherwise as PNG. JPEG quality comes from the export settings. | Must |
+| B-3 | An image drawn whole is written as its original JPEG data, byte for byte, where browsers draw that data as the application does. Any other image whose format is JPEG, a part of one among them, is encoded by Skia's encoder at the export settings' quality, with the image's resolution in its JFIF header; that encoder writes the same bytes on every machine. Every other image is written as PNG (@Pauli, Nov 14). | Must |
 | B-4 | The export setting chooses one of three handlings: embedded as data, linked as files beside the SVG, or left out. Embedding is the default. Embedded data grows by a third in base64, which compression barely recovers. | Must |
 | B-5 | A bitmap, or the same part of one, drawn more than once is written once and referenced. | Must |
 | B-6 | A bitmap drawn at an intensity below 1.0 is drawn through a filter on its image, `feComponentTransfer`, which lightens each color channel as the Skia target does, in sRGB: the intensity times the channel, plus 1 less the intensity. The image keeps its original data, written once however it is drawn (B-5). Browsers and Inkscape draw it lighter; Scribus may show it at full strength (@Pauli, Nov 7). The export always draws at full intensity. | Must |
