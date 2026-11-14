@@ -1,9 +1,397 @@
 # SVG export in the application: design
 
-How the export and the target's later phases are built: a section for each, written before its work began and brought
-up to date as built. The first sections are phase 3's first stage: where the export lives, how it shares PDF export's
-code (A-3), and how `MapDisplay` draws a map's parts and a course part's layers apart (A-4, L-2 to L-4), written on
-Oct 25 from `feature/svg-target` at b091333.
+How the target and the export are built: a section for each, written before its work began and brought up to date as
+built. The first section, "The SVG target's core design", tells how the target writes a document. The sections after it
+are phase 3's first stage: where the export lives, how it shares PDF export's code (A-3), and how `MapDisplay` draws a
+map's parts and a course part's layers apart (A-4, L-2 to L-4), written on Oct 25 from `feature/svg-target` at b091333.
+
+## The SVG target's core design
+
+The SVG target is `SvgGraphicsTarget` in `Map_Svg`. Phases 1, 2 and 4 built it. This section tells how it writes a
+document. The sections after it tell about later work.
+
+### The structured interface
+
+- `IStructuredGraphicsTarget` is in `Graphics2D`. It extends `IGraphicsTarget`. @Pauli approved its calls.
+- `BeginPart(partKey)` and `EndPart()` go around a part of a drawing. The document defines each part one time.
+- `BeginMap(mapKey, label)` and `EndMap()` go around a map that has a label. A template is a map inside a map.
+- `AddPage(paperSize, mapArea, mapToPage, partKeys, name)` adds a page. Call it outside parts. The page's name is the
+  last parameter (@Pauli, Nov 4).
+- `BeginColorRun(colorKey, position, name, color, overprint)` and `EndColorRun()` go around the objects that are drawn
+  in one colour.
+- `BeginObject(objectKey, symbolKey, symbolId, symbolName)` and `EndObject()` go around one map object.
+- `SetGeoreference(mapKey, georeference)` sets the georeference of a map. A later call for the same map replaces it.
+- `DescribeCourse` and `DescribeObjects` give the course data (CD-1, CD-2).
+- `PatternBrushesAreVectors` tells the map code that the target's pattern brushes are vectors (S-7).
+- `IdentityComparer` is in `Graphics2D`. All graphics targets, the SVG target too, use it to key their resources by
+  identity (C-4, C-6).
+
+### The document
+
+- Each part is a group with an id in `<defs>`.
+- A page is a group. It has the page's transform and a clip to the page's map area. It has one `<use>` for each part
+  that it shows.
+- The second and later pages are to the right of the first page, with 10 mm between pages. The root element has the size
+  of the first page, in millimetres.
+- The root element of the metadata is `npp:document version="1"`. It holds one `npp:map` for each map, with the map's
+  number and label. The groups of a map have `data-m`.
+
+### Numbers
+
+- A coordinate is a whole number of steps of 0.001 mm. It is rounded half up, as `floor(x + 0.5)`. All runtimes
+  calculate this the same (P-6).
+- A transform has the digits that the extent of its content needs. Its translation is within half a step. Its linear
+  part is within 0.45 of a step: angle 0.2, scale 0.2, shear 0.05.
+
+### The text of the document
+
+- Each path command has its shortest form.
+- Arc flags keep their separators, because SVG 1.1 readers need them. Transform functions have no separator between
+  them.
+- Ids are given in the order of first use. The shortest names come first.
+- Before the document is written, its groups are tidied:
+  - An empty group is removed. A group that has no attributes is dissolved.
+  - A group with one child is folded into its parent, where the order of transform and clip permits it.
+  - A group that has only a translation and one ellipse is replaced by the ellipse, moved into position. The centre is
+    rounded to whole steps. @Pauli approved this. It makes irregular1's document 220,661 bytes instead of 298,736 bytes.
+  - Adjacent groups with equal attributes are merged. Groups that blend are not merged.
+
+### Colours
+
+- `icc-color()` names the profile `cmyk`. The document declares it as `<color-profile id="cmyk" name="cmyk"
+  xlink:href="data:application/vnd.iccprofile;base64,..."/>`. The profile is a device-CMYK profile of 516 bytes (see
+  "Colours for Scribus and Inkscape").
+- The sRGB value comes from the colour converter that the caller gives. The comparison gives `DefaultColorConverter`,
+  which converts as the Skia references do.
+
+### Anti-aliasing
+
+- Browsers anti-alias by default. So a group has `shape-rendering` only where the mode changes.
+- The export draws with `MapDisplay.AntiAliasWhenPrinting` (25d137c). With it, printing keeps the anti-aliasing of the
+  screen and draws no pattern bitmaps. Without it, printing calls `PushAntiAliasing(false)`, the target obeys the call
+  (D-9), and the pages are jagged in browsers and viewers.
+
+### Errors
+
+- A call that the target does not implement yet throws `Svg_UnsupportedCallException`. The comparison case becomes
+  pending.
+- A call that the target will never honour as made gives the reason. The reason starts with the requirement that
+  applies. The case stays pending (DL-6).
+- A call out of order throws an `InvalidOperationException` that names the call.
+
+### Pens
+
+- A pen is a style: `fill:none`, its paint, its width in steps, and then its cap and join if they are not SVG's
+  defaults. SVG's defaults are butt cap, miter join and miter limit 4 (D-5, S-9).
+- Skia bevels all corners when the miter limit is 1 or less. SVG takes such a limit as an error. So the target writes
+  such a pen with a bevel join.
+- A pen of zero width is Skia's hairline: one device pixel wide at all scales. A document cannot show this width. So the
+  target leaves out each line that is drawn with such a pen, and names the calls that it left out (D-5, D-12).
+- The target writes `MiterClipped` as a miter, as PDF export draws it (D-5).
+- A pen made from a brush strokes with the brush's paint (D-6).
+
+### Shapes
+
+- Lines, polylines, polygons, rectangles and paths are written as paths (`SvgPath`). Ellipses are written as circles or
+  ellipses (`SvgEllipse`).
+- The angles of an arc are in degrees, from the x axis towards the y axis, as in Skia. An arc is written as an arc
+  command. An arc of one full turn or more is written as a circle, because Skia draws it as a closed oval (D-4).
+- The parts of a path become its commands. A line or curve without a start point starts at the origin, as in Skia. An
+  empty path draws nothing (D-3).
+
+### Clips
+
+- A clip is a group with `clip-path`.
+- The document defines one clip path for all equal clips, the page's clip too. A clip path applies in the user space of
+  the element that refers to it.
+- A union of rectangles is one subpath for each rectangle. Each subpath turns clockwise. The fill rule is nonzero (D-2).
+
+### The map's structure
+
+- For a target that implements `IStructuredGraphicsTarget`, `Map.DrawColor` opens a run for a colour of the colour table
+  before the colour's first object, and closes the run after the last object. It puts each object between `BeginObject`
+  and `EndObject`, with the object's symbol.
+- The image layer and the layout layer are not colours of the table. They open no run. Their objects are in their map,
+  outside all runs.
+- `Map.DrawTemplates` gives each template its file name as its label (M-3 to M-5).
+- A run is a group with `data-c`: the position of the colour in the colour table of its map.
+- Consecutive objects of one symbol share a group with `data-s`: the number of the symbol in the symbol table of its
+  map. The numbers start at 1, in the order in which the map's symbols first start an object. A call that closes or
+  starts something around the group closes the group after its last object.
+- Each element has `data-o`: the number of its object. The numbers start at 1 for the document, in the order in which
+  the objects are first drawn. An object that is drawn in several runs has one number (M-6, S-11).
+- Each `npp:map` holds, in table order, one `npp:color` for each colour that its runs drew: `position`, `name`, `cmyk`
+  with the digits of `icc-color()`, and `overprint="1"` if the colour overprints. After them, it holds one `npp:symbol`
+  for each symbol that its objects drew: `n`, `id`, `name`, and `colors`, the positions of the colours in which its
+  objects were drawn (M-7).
+- The structure adds approximately 21 % to the SVG of the 101 drawn cases. Most of this is object numbers.
+
+### Georeferencing
+
+- `MapGeoreference` is a plain value in `Graphics2D`. It holds the affine transform from map millimetres to real-world
+  coordinates, and the map's EPSG code, Proj4 string, and OCAD grid and zone id (G-1, G-2).
+- The record of a map in the metadata starts with `npp:georeference`, before the tables. So a map with a georeference
+  and no tables has a record.
+- `transform` converts steps of map to real-world coordinates. It is written as all transforms are (S-8). It is left out
+  if it moves nothing (S-9). It keeps the digits that hold a point within one step of map over the 8 m that the map's
+  coordinates reach (S-2).
+- `epsg`, `proj4` and `ocad-grid-zone` follow, if the map has them.
+- `CoordinateMapper.GetMapGeoreference` calculates the georeference. The transform puts the map's origin and unit
+  vectors where `GetRealWorld` puts them. World files are written with `GetRealWorld`. It returns null for a map without
+  real-world coordinates. OCAD's grid 1000 means that a map has no coordinate system, so it identifies no system.
+- `RealWorldCoords.CoordinateSystemEpsg` gives the EPSG code in all the ways that a map names its system: a code that
+  the map was given, or the code of its OCAD grid. `Epsg` holds only a given code. `OpenMapperExport` writes that code.
+
+### The EPSG codes of OCAD's grids (G-3)
+
+- A row of the table `OcadToProj4Projection` has an EPSG code if two conditions are true: PROJ's definition of the code
+  has the same unit as the row's Proj4 string, and the two put all points of the code's area of use within 1 mm of each
+  other. A deprecated code is replaced by the code that EPSG names as its replacement, if that code passes. 624 of the
+  642 rows have a code from this check.
+- Four more grids follow EPSG definitions that EPSG withdrew as wrong. These put points 29 m to 170 km from EPSG's
+  corrected systems. The four grids name the withdrawn codes (@Pauli, Nov 4). So 628 rows name a code.
+- `SvgGeoreference/README.md` lists the other rows and the reasons. `check_with_pyproj.py` in the same folder does the
+  check again.
+
+### Glyph positions in the Skia target
+
+- Upstream's Skia target shapes text with HarfBuzz to fractional positions. But it draws with `SKFont.Subpixel` off.
+  This rounds the origin of each glyph to a whole device pixel. In rotated text, the glyphs move by up to half a pixel
+  along and across the line.
+- @Pauli asked that the SVG does not copy upstream's typesetting bugs (Oct 24). The SVG keeps the shaped positions.
+  `fix/skia-subpixel-glyph-positions` turns on subpixel positioning in the Skia target, with the baselines that it
+  moves. So the text references show the glyphs where the shaping puts them.
+- With the fix, fewer pixels are outside the tolerance: frametext2 490 to 37, kern_text_outline 379 to 85, RobotoTest 81
+  to 21, differentnewlinetypes 73 to 48. PenistoneHill increased from 60 to 85. The cause is not known.
+
+### Character positions
+
+- The target writes the start of each cluster as `x`.
+- Chromium places a character that has its own position by itself, so it places a mark apart from its letter. So a list
+  of positions stops at the first cluster of several characters. The clusters after it get their own `tspan`. A list
+  also stops at a character outside the Basic Multilingual Plane, because Firefox counts it as two characters (see
+  "Firefox and WebKit").
+- Absolute positions make the document independent of the rounding of each viewer. In the 78 text cases, each character
+  is within 0.063 pixels of the shaping. This is the rounding to 0.001 mm and of the single-precision widths that the
+  target receives. The check fails a case above 0.1 pixels.
+
+### Chromium's hinting
+
+- `BrowserRenderer` and `SvgGallery/render-cases.mjs` start Chromium with `--font-render-hinting=none`,
+  `--disable-lcd-text` and `--force-color-profile=srgb`. Without these flags, Chromium on GitHub's runners hints the
+  glyphs and moves them by up to three pixels.
+- With the flags, the loop and a local run agree on each case whose fonts are the tests' own fonts.
+
+### Fonts in the repository
+
+- The case fontfallback draws characters that its fonts do not have. The platform's font fallback
+  (`FontFallbackResolver`, which does not use registered fonts) found faces for them among the machine's fonts. So the
+  reference changed with the machine.
+- @Pauli chose fonts in the repository, for determinism (Oct 24). The tests have fifteen Noto faces in
+  `Map_Svg.Tests/fonts/fallback`, under the SIL Open Font License. They contain only the 275 characters that the test
+  maps draw and that no registered face has: approximately 190 KB. `make-fallback-fonts.py` in the same folder gets them
+  at pinned commits and makes them again.
+- The document of fontfallback decreased from 57 MB to 803 KB.
+- Without machine fonts, `SKTypeface.FromFamilyName` returns null for a family that the tests do not register.
+  `fix/skia-null-system-typeface` takes null as no match. The family then falls back to Arial.
+
+### Embedded fonts and the viewer's system
+
+- @Pauli required this (Oct 24): a document whose fonts are embedded never uses a font of the viewer's system. The
+  reader must get what the map's maker intended.
+- Each embedded face has its own family: the font's own face under the map's family (T-6), and each fallback face under
+  its own name. A name gets a number when a family, weight and style repeat. Each run of text that a fallback face draws
+  is a `tspan` that names that face.
+- A browser draws an emoji presentation sequence from its own colour emoji font, whatever face the text names. So the
+  target writes the emoji presentation selector U+FE0F as the text presentation selector U+FE0E. The application draws
+  that.
+- The tests' Chromium sees no system font except a sentinel font. Each glyph of the sentinel is a filled box
+  (`Map_Svg.Tests/fonts/Sentinel.ttf`). So a glyph that a viewer would take from the system fails as a box.
+- `ShapedTypeface.GetFontData` read a shared stream without a lock. Faces that two threads read at the same time came
+  back as zeros: an empty font, in SVG and in PDF. `fix/skia-font-data-race` reads under a lock.
+- A character that no font of the machine has is drawn as the face's own box, in the application and in the document.
+  The subset has a copy of the box under that character, except in faces with CFF outlines (see "The subsetter").
+
+### Line text (T-5)
+
+- The map draws line text one character at a time. Each character is under a `PushTransform` that turns and moves it. So
+  each character became a group with a text of one character: 279 texts in linetext_mid.
+- `SvgGroup.TidyChildren` merges each run of two or more such groups into one text under `scale(1000)`. The groups must
+  have one face, paint, object and mirroring, and a transform that only turns, mirrors and moves. The text has an `x`, a
+  `y` and a `rotate` value for each character. It is mirrored if the groups were mirrored.
+- A browser shapes the characters of one text together, wherever each character is placed. The application shaped each
+  character alone. So only characters that shaping sets the same in the two ways are merged
+  (`SvgLineText.IsShapedAlone`): the letters, punctuation, symbols and spaces of the scripts that never join, reorder or
+  compose characters.
+- These characters keep their own texts: marks, format characters, the joining and complex scripts, the fraction slash
+  and the division slash (fonts make fractions around them), tone letters (fonts join them), and characters outside the
+  Basic Multilingual Plane.
+- linetext_mid decreased from 279 texts to 21, and from 590,679 bytes to 559,251 bytes. Chromium shades the edges of the
+  merged characters a little differently, within the tolerance: in linetext_6, the pixels beyond 64 levels increased
+  from 580 to 793.
+- The check of where Chromium puts each character does not include the merged texts, because each of their characters
+  has its own position.
+
+### The subsetter (T-7)
+
+- @Pauli chose HarfBuzz's own subsetter (Oct 24). The native HarfBuzz library that HarfBuzzSharp ships for shaping
+  contains it on all platforms. A browser application can use it too: harfbuzzjs ships it as `harfbuzz-subset.wasm`,
+  beside `harfbuzz.wasm`, and the WebAssembly build of HarfBuzzSharp has it.
+- `HarfBuzzSubsetter` in `Map_SkiaStd` calls it. `SkiaFontSubsetProvider` uses it, unless it gets a different subsetter.
+- A subset keeps these:
+  - The glyphs of the characters, and all glyphs that the face's substitutions reach from them under the features that
+    the application shapes with. It does not keep liga, clig, dlig, hlig, calt and kern, which the documents turn off.
+  - The characters that HarfBuzz looks up when it draws a character that the face does not have: those of its
+    decomposition, U+0020 for a space, U+2010 for U+2011, and the jamo of a Hangul syllable. Also the decompositions
+    that the shapers of the complex scripts look up for characters that the face has.
+  - No hinting, because the application does not draw with it, and no gasp table.
+  - The licence and its URL (name IDs 13 and 14), with the names 0 to 6 that the subsetter keeps.
+- Under each character that a face does not have and draws as .notdef, `MissingCharacterBox` maps a copy of .notdef. So
+  a browser draws the face's box, not a glyph from the viewer's fonts. Faces with CFF outlines, and variable faces that
+  the subsetter cannot make static, do not get the copy.
+- The subsetter writes no subtable for the Windows symbol encoding. A symbol font maps its characters only there, so its
+  subset had no character map, and browsers replaced it with the viewer's fonts. HarfBuzz prefers that subtable to all
+  others. For a character up to U+00FF that the font does not have, it looks up the character plus U+F000. So
+  `SymbolFont` first gives such a font a Unicode character map that maps each character to the glyph that HarfBuzz maps
+  it to.
+- A font that HarfBuzz maps through the Arabic tables of an OS/2 table of version 0 is embedded whole.
+- `FontSubsetTests` makes a symbol font from Liberation Sans. It checks that Chromium draws text from the subset pixel
+  for pixel as from the whole font. It also checks that HarfBuzz shapes 15 texts (Indic, Khmer, Myanmar, Thai and CJK
+  among them) from the subset into the same glyphs, positions and outlines as from the whole face.
+- The 147 faces in the comparison's documents decreased from 52 MB to 582 KB. The OpenType Sanitizer, which browsers run
+  on all web fonts, accepts each of them (`SvgDevLoop/check-embedded-fonts.py`).
+- The Skia target draws a face that is loaded from a file, and on Linux each variable face, at the default location,
+  whatever weight the text asks for. A browser sets the axes of a variable subset from the text's style. So the
+  subsetter pins all axes: at the location of the named instance whose PostScript name the typeface has, or else at the
+  default location. It finds the instance by the instance's own name in the fvar table, or by the name that Adobe's
+  technical note 5902 makes for it (`VariableFont`).
+- The tests register a variable Roboto that has only ASCII as Roboto Variable (`fonts/variable`, made by
+  `make-variable-font.py`). `FontSubsetTests` checks that its subset is static, that the subset shapes as the face does,
+  and that Chromium draws its regular and bold text as the Skia target does.
+- Open: a face that forbids subsetting is embedded whole and keeps its axes. A face that the subsetter cannot make
+  static also keeps its axes. It is not checked on Windows whether DirectWrite names its typefaces after named
+  instances. If it does, the application draws an instance's outlines at positions that HarfBuzz shapes from the
+  advances of the default location. The document writes the position of each cluster, so it draws them the same.
+
+### The language of the text (T-11)
+
+- The shaping of the application does not depend on the machine's locale. The shaping of a browser does.
+- The native HarfBuzz that HarfBuzzSharp ships is built without the C library's `setlocale`. So `GuessSegmentProperties`
+  gives a buffer the language `c` (no language), whatever the locale. Under a Romanian `LC_CTYPE`, which the X11 backend
+  of Avalonia sets from the environment, the application shapes Caladea's ş with its cedilla.
+- Chromium shapes text that names no language in the language of its own locale, with the forms that a font has for that
+  language (`locl`). In a Romanian locale, it draws Caladea's ş with a comma below. In a Chinese locale, it draws the
+  ideographs of Noto Sans CJK JP in simplified Chinese forms. On Linux, it takes the locale from `LANGUAGE`, `LC_ALL`,
+  `LC_MESSAGES` or `LANG`. Each of these is sufficient alone. It does not take the locale from `--lang` or from a page's
+  emulated locale. An empty language names no language.
+- So the root of a document that draws text has `xml:lang="und"` (undetermined). This keeps a font's default forms in
+  Chromium: inline, through `<img>`, and as a document by itself. `xml:lang` is in SVG 1.1 and SVG 2. An HTML parser
+  maps it for an inline SVG too.
+- `TextLanguageTests` draws Caladea's ş in a Chromium that starts in a Romanian locale. Without the attribute, 376
+  pixels are outside the tolerance.
+- Purple Pen needs no fix: its shaping is the same in all locales.
+
+### Pattern brushes (D-6, D-7)
+
+- `CreatePatternBrush` returns a target that draws the tile as the SVG target draws. It has its own keys and its
+  creator's intensity. It refuses structure calls. `FinishBrush` makes the tile a brush of its creator. A pen made from
+  the brush strokes with the pattern.
+- The document defines the pattern in the user space of what it paints, as the Skia target repeats its tile. `x`, `y`
+  and a `viewBox` put the middle of the tile on the origin, in the tile's own coordinates. `patternTransform` turns the
+  pattern by the brush's angle.
+- The bitmap size is a hint for raster targets. The SVG target does not use it.
+- A style refers to its pattern as `url(#)` until the document is written. Then the pattern gets its id, in the order of
+  first use. Only patterns that a style paints with are written.
+- Each pattern of an area symbol is defined one time for each colour that it draws in. Each hatching is defined one time
+  (S-12; see "Area patterns as pattern fills"). Equal patterns of different symbols stay separate definitions. The
+  course's patterns in each course part do too, because each course part has its own symbols (@Pauli, Nov 12).
+
+### Bitmaps
+
+- How the target writes the data of a bitmap: see "JPEG data (B-3, F-2, P-6)".
+- The document defines each distinct data one time, as an `<image>` with an id, after the parts. So the drawing comes
+  before the long data (B-5).
+- Each draw is a `<use>` of the image, with the number of its object. Its transform takes the image's pixels to the
+  rectangle, with the digits that the image's diagonal needs. A part is the bitmap cropped (B-1).
+- A use with nearest-neighbour scaling has `image-rendering:optimizeSpeed;image-rendering:pixelated` in its style. The
+  other modes keep Chromium's smoothing (B-2). Through `<use>`, Chromium samples pixelated images as Skia does:
+  BitmapPart matches its reference exactly.
+- `SvgBitmapOptions` embeds the data as a base64 data URI (the default), or links it through `storeLinkedBitmap` (which
+  stores the data and gives the href), or leaves bitmaps out (B-4).
+- A bitmap drawn at an intensity below 1 is drawn through an `feComponentTransfer` filter in sRGB. The document defines
+  one filter for each intensity (B-6; see "Bitmaps drawn lighter").
+- A smoothed upright bitmap differs from Skia's along a few rows and columns of pixels: by up to 10 levels in Bitmap,
+  and 22 in testlogo's logo. A template that its map turns differs everywhere, by up to 87 levels in single pixels. All
+  are within the tolerance.
+- The target writes the bitmap again for each draw. The document keeps the first of equal data. To write each bitmap one
+  time would save time where one bitmap is drawn many times. This is not done.
+
+### Blending
+
+- Darken is the only blend mode. It is a group with `mix-blend-mode:darken`. This group never merges with its
+  neighbours. The map opens it around the run of one overprinted colour, so the group blends the run as a whole (D-8).
+  Any other mode is a call that the target never honours.
+
+### The comparison
+
+- Each case is one map in one part on one page. The page's millimetres are the image's pixels. Chromium shows the SVG
+  through an HTML page that gives it the size of the image.
+- The census records each case with `StructuredRecordingGraphicsTarget`. This is a `RecordingGraphicsTarget` that also
+  records the structure calls of the map code (through `RecordStructure`) and plays them back onto a target that keeps
+  structure (DL-4). The census does not count the structure calls, because they are not drawing calls.
+- The Skia target renders each reference image from the case's own drawing, anti-aliased on white (V-9). Its clips are
+  anti-aliased too, because Chromium draws all clip paths so, whatever their `shape-rendering`.
+- A missing reference goes to `references/` in the results. Commit it from there into
+  `src/MapModel/TestFiles/svg_reference`.
+- The exported pages are compared at 150 pixels to the inch (`CourseSvgPageTests`). At 100 pixels to the inch, the
+  legend text of printarea2 (2.3 mm) made bands of one shade, four pixels wide. Chromium and Skia shade these bands 30
+  levels apart, and the tolerance takes such a band for the inside of a shape.
+
+### The pixel tolerance (F-1)
+
+- `PixelTolerance` holds the rule, so that a case can have its own tolerance, as V-3 expects for fine lines with equal
+  spacing. The check of Chromium's rendering on whole pixels keeps an exact tolerance. Outside the image, both images
+  count as white paper. This keeps shapes that the image's edge cuts fair.
+- A pixel of Chromium's image passes if each colour channel is within the range that the channel has in the reference
+  within one pixel, plus or minus 4 levels, and if the same is true the other way round.
+- Inside a shape, this asks for a match within 4 levels. Along an edge, it lets each shade between the colours that meet
+  there pass.
+- Where the edges of two shapes meet in one pixel, each rasterizer mixes their colours with the colour below in its own
+  way. The result can be outside the range of all neighbours. Such a pixel, with an edge within reach, passes if the two
+  images, each blurred by a Gaussian of one pixel with white paper outside them, differ there by at most 40 levels in
+  each channel and by at most 0.4 of the contrast around the pixel. The contrast is the widest range that a channel has
+  in either image within 4 pixels, the reach of the blur.
+- The rule was chosen over 106 drawn cases. In them, pixels differ by up to 191 levels along edges. In 57 of the cases,
+  pixels where edges meet are up to 102 levels outside the range. There, the blurred images differ by at most 34.6
+  levels, and by at most 0.36 of the contrast.
+- With errors put into Chromium's images, the rule fails: all 106 cases shifted by two pixels, the faintest too; all 106
+  cases with features two pixels wider; 96 of the 97 cases with a solid feature when their smallest feature is removed;
+  and 93 of the 105 cases with ink to change when their ink is six levels redder. The other 12 cases have their ink in
+  strokes and dots that are too thin to have an inside. The bitmap cases fail with all the errors.
+- A drawing that draws text uses `PixelTolerance.Text`: the same rule with 80 edge levels instead of 40 (T-10). Chromium
+  shades the edges of glyphs, and of frames around them, differently from Skia. In the 81 text cases (with the
+  references' glyphs at their shaped subpixel positions, and no system font except the sentinel), no pixel away from an
+  edge is outside the range. At edges, the blurred images differ by up to 75 levels (frametext3): darker at plain
+  glyphs, and also lighter at framed glyphs. They differ by at most 0.37 of the contrast.
+- With the errors put in, the text rule fails all 81 cases shifted, all 81 wider, 63 of the 80 with a feature removed,
+  and 62 of the 81 redder. Each rule of this form that passes the 81 cases passes 15 of those removals, because their
+  blurred differences are not larger than real differences. A rule that allows darker more than lighter fails nine real
+  renderings. `SvgTolerance/README.md` has the figures.
+
+### The fixed font set
+
+- @Pauli chose fixed fonts for the tests, and no preference in the application (Oct 29): in typical use, users do not
+  care.
+- `SkiaFontManager.RegisteredFontsOnly` makes the private fonts the only fonts:
+  - A family that the set does not have is drawn in the default family, or else in the first font of the set.
+  - For a character that a face does not have, it searches the files of the set in the order of registration. A file
+    that declares the tables of a complex script comes first. From the family that it finds, it takes the face nearest
+    to the requested style.
+  - It never looks up a system font.
+- A face is identified by the content of its file, not by its name, because Windows releases ship different versions of
+  Arial.
+- The SVG tests turn it on from a module initializer, before any face is resolved. So their documents are the same on
+  Windows and Linux.
 
 ## Where the export lives
 
