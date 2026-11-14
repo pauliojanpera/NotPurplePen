@@ -154,7 +154,6 @@ The target fully implements these calls (DL-5): `Intensity`, `PushTransform`, `P
 - PdfPig 0.1.16 does not give a missing `op` the value of `OP`, against the PDF specification. Task 1's probe corrects it. It could be reported to PdfPig.
 - In the SVG tests, the families that the test maps name are drawn in Arial, except Arial, Times New Roman, Cambria, Calibri and Roboto: for example Georgia and Arial Narrow. Fonts with the same metrics, for example Gelasio and Liberation Sans Narrow, could replace them.
 - Where a leg meets a control circle, the course drawing overlaps them a little. To move the end points of the leg a little would repair it sufficiently (@Pauli, Nov 13).
-- `Skia_Bitmap.GetGraphicsTarget(copyBits: true)` makes a copy but draws on the original bitmap, and does not dispose of the copy: it wraps `bitmap`, not `newBitmap` (found in task 5). This is in upstream's code.
 - The gallery's standing figures show 784 passed. The loop has 868 since task 5.
 - The "Select folder..." button is cut by 13 pixels in the SVG dialog and by 23 pixels in the PDF dialog, in English too (found in task 4).
 - Under upstream's bc4debb, the WinForms margin workaround in `PrintDescriptions.cs` and `PrintPunches.cs` follows the home location, but Windows' margins dialog follows the regional format. So the margins can be wrong by a factor of 2.54 where the two do not agree. This comes from reading the code. Nobody tried it. It is in the WinForms application, which the fork does not ship. It could be reported upstream.
@@ -279,6 +278,11 @@ These are @Pauli's rulings and the practice. The design decisions of the target 
 
 ## Waiting on @Pauli
 
+- **JPEG data with a rotation flag or a colour profile** (Nov 14). The application ignores both: `BitmapIO` decodes into a bitmap without a colour space and does not read the Exif orientation, and the GDI+ loader (`Image.FromStream`) does the same. No code or history gives a reason. Browsers obey both, so the SVG export encodes such JPEGs again with Skia (task 5). @Pauli asked why the application does not support them. The choices:
+  - Keep the encoding, as built.
+  - Remove the rotation flag and the profile from the original data, and write the rest unchanged.
+  - Support both in the application: when an image loads, turn it by its orientation and convert it to sRGB through its profile. Then the application draws such JPEGs as browsers do, and the export writes their original data. This changes how the application draws such images on the screen, in print and in all exports. It is a `fix/` branch in upstream's code, with the baselines that it moves. Recommended: it corrects the drawing in all outputs and removes the special case.
+- **A bitmap copy that draws on its original** (Nov 14). `Skia_Bitmap.GetGraphicsTarget(copyBits: true)` makes a copy, but draws on the original bitmap and does not dispose of the copy: it wraps `bitmap`, not `newBitmap` (found in task 5). This is in upstream's code. Recommended: fix it on a `fix/` branch, with a test.
 - **Delete the finished branches** (Nov 14). Nothing depends on them. This machine cannot delete branches. Run this on your machine:
 
   ```
