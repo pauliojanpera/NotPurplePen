@@ -108,6 +108,7 @@ Other work that is done. Each is in `feature/svg-target` and `dev`, if not state
   - Skia's JPEG bytes are the same on seven machines, x64 and ARM64 (run 43531515982 on `experiment/svg-jpeg-bytes`). ImageSharp's encoder wrote 11 of 12 images differently on x64 and ARM64.
   - SVG loop 43563468407: 868 passed, 0 failed, 2 pending, 16 set apart. The loop's case is the event `src/TestFiles/svg_jpeg/JPEG data.ppen`.
   - Full run: Tests 43565924717 on `wip/linux/svg-jpeg-data`. In `feature/svg-target` (1088d129) and `dev` (2edef4d4; Tests 43566895838; Build 43567789260 published the packages).
+- **Task 8, the stale pull requests** (Nov 14). #56 (`fix/headless-pdf-loading`, 5b5a0592) and #57 (`fix/pdf-cache-race`, a764dde9) are rebased onto upstream's d48f445 and pushed. The push updates the pull requests. Full runs: Tests 43588220675 and 43588220801. Each `wip/linux/` merge gives the tree of `base`, because `base` holds both fixes in the same form. @Pauli closed #58 and #71.
 
 The last SVG loop of the work in `feature/svg-target` (run 43563468407, Nov 14): 868 passed, 0 failed, 2 pending, 16 documents set apart for a browser. The two pending cases, clouds and clouds11, draw lines of zero width. The target leaves such lines out (D-5), so these cases stay pending.
 
@@ -115,11 +116,7 @@ The target fully implements these calls (DL-5): `Intensity`, `PushTransform`, `P
 
 ## Tasks
 
-**In flight: task 8.** Agent a2aad927f64cdd7c3, since 08:55 Nov 14. It stopped from 09:05 to 13:02 for the end of the quota. An executor without this agent starts a new agent from this note.
-- #56: rebased onto d48f445 as one commit, on `feature/task8-56-wip` (5b5a0592). The author is kept. The conflict in `GlobalTestSetup.cs` is resolved as `base` resolved it. The content equals that of `base`.
-- #57: upstream's 1ed9e92 does not cover it: it does not touch `PdfMapFile` or the cache, and upstream still converts directly into the shared cache name. Rebased on `feature/task8-57-wip` (a764dde9). `PdfMapFile.cs` is resolved as `base` resolved it, with only the move into the cache.
-- #58 and #71: closed by @Pauli (Nov 14). `fix/pdfconverter-build` is not rebased: upstream's cbc6d7ff makes PdfConverter a library that the projects reference, so nothing of the fix stays.
-- Next: make `wip/linux/headless-pdf-loading` and `wip/linux/pdf-cache-race` (`origin/base` merged with 5b5a0592 and with a764dde9), push them, and wait with `SvgDevLoop/wait-run.sh`. When the Tests pass: `git push --force-with-lease=fix/headless-pdf-loading:a6b3f32d origin 5b5a0592:refs/heads/fix/headless-pdf-loading`, and the same for `fix/pdf-cache-race` (0fad718b to a764dde9).
+**In flight: task 7.** Agent af38e9f343d12fc6e, since 13:24 Nov 14. Its branches are `feature/multiply-blending` and `feature/svg-multiply`. An executor without this agent starts a new agent from task 7's text.
 
 **Next, in this order: tasks 7, 9, 11, 6, 10.** @Pauli gave the word for them and set this order on Nov 14. Each task gets its own agent (see "Agents"). A task ends with its commits on their branches, its loop green if it changes the target, and the gallery and this file up to date.
 
@@ -130,18 +127,11 @@ The target fully implements these calls (DL-5): `Intensity`, `PushTransform`, `P
    - Make it on a `ci/` branch rooted at `base`. Merge it into `base`, `basewithfixes` and `dev` through full runs.
 7. **Multiply as an alternative to darken** (@Pauli, Nov 13 and 14; see Decisions, "Blend modes beyond darken" and "Multiply's default").
    - Multiply is an alternative to darken for the colours marked overprint, the course's purple too.
-   - A setting chooses between the two. It is beside the overprint checkbox in Course Appearance. The event file saves it, as it saves the checkbox. A new event, and a file saved without the setting, use darken. Translate its strings as task 4 did.
+   - A setting chooses between the two. It is beside the overprint checkbox in the Course Appearance dialog of the Avalonia application (@Pauli, Nov 14). The event file saves it, as it saves the checkbox. A new event, and a file saved without the setting, use darken. Translate its strings as task 4 did.
    - `BlendMode` gets `Multiply`. The Skia target (`SKBlendMode.Multiply`) and the PDF target (`XBlendMode.Multiply`) set it on each shape, as they set darken. The SVG target writes `mix-blend-mode:multiply` on each shape, as the application draws it. Then the comparison with the application holds where the course's purple crosses itself. If it does not, allow for the difference.
    - WPF and GDI+ report it as not supported. They need no blend modes (@Pauli).
    - Add tests and baselines for multiply. None of upstream's baselines may move.
-   - Root the branch as AGENTS.NotPurplePen.md says for work that could be offered upstream. Merge it into `feature/svg-target` and `dev` through full runs.
-8. **Update the stale pull requests on petergolde/PurplePen** (@Pauli, Nov 14). Upstream's d48f445 makes four of them stale.
-   - #71 (`fix/image-reencode`) and #58 (`fix/pdfconverter-build`): closed by @Pauli (Nov 14). Upstream's d48f445 and cbc6d7ff cover them.
-   - Rebase #56 (`fix/headless-pdf-loading`) and #57 (`fix/pdf-cache-race`) onto the newest `upstream/master`.
-     - #56: keep only its first commit. Its second commit, a6b3f32d, is in upstream since 1ed9e92.
-     - #57: it conflicts with d48f445 in `PdfMapFile.cs`. Upstream's 1ed9e92 does not cover it.
-   - Run each rebased branch in full on `wip/linux/<name>`, rooted at `base`. Then push it with `--force-with-lease`. The push updates the pull request.
-   - Update "Ready to offer to Purple Pen".
+   - Two branches. `feature/multiply-blending` holds the change of the application, rooted as AGENTS.NotPurplePen.md says for work that could be offered upstream. It carries nothing else, so that it can be offered upstream as its own pull request (@Pauli, Nov 14). `feature/svg-multiply` holds the part of the SVG target, rooted at `feature/svg-target`. Merge them into `feature/svg-target` and `dev` through full runs. Add `feature/multiply-blending` to "Ready to offer to Purple Pen". Do not offer it now.
 9. **Upstream's untranslated and wrong strings** (@Pauli, Nov 14). These are upstream's faults. Upstream (d48f445) has them too.
    - "Include:" and its items "Course and map" and "Course only" are English in all languages, in the PDF, SVG and image export dialogs. The keys `CreatePdfCourses_labelPrintBaseMap_Text`, `CreatePdfCourses_comboBoxPrintBaseMap_Items`, `CreatePdfCourses_comboBoxPrintBaseMap_Items1` and the same three `CreateImageFiles_*` keys are only in the English `UIText.resx`. No satellite has them, and no WinForms satellite has them either. Translate them into each language of `UIText.<language>.resx`, in the terms of the language's own translations, and in the room that the dialogs give, as task 4 did.
    - The Japanese `MiscText` messages `CannotCreatePdfs` and `CannotCreateOcadFiles` have a `{0}` that `HandleExceptions` formats with no arguments. A failed export then throws `FormatException` and does not tell why.
@@ -280,6 +270,7 @@ These are @Pauli's rulings and the practice. The design decisions of the target 
   - The metric check: upstream's bc4debb, which reads Windows' "Country or region" setting, not the regional format. The two are different only on Windows where format and location do not agree. Our 98a85ad and its `UtilTests.IsCurrentCultureMetric` are removed.
 - **The pull requests #58 and #71** (Nov 14). @Pauli closed them. Upstream's cbc6d7ff and d48f445 cover them.
 - **The bitmap copy bug** (Nov 14). Fix it on a `fix/` branch, with a test (task 10).
+- **Multiply as its own pull request** (Nov 14). The change of the application in task 7 is a branch that can be offered upstream by itself. It adds the setting to the Avalonia dialog only. The WinForms dialog gets the setting when the branch is offered.
 
 ### The SVG dialog
 
@@ -296,10 +287,11 @@ These are @Pauli's rulings and the practice. The design decisions of the target 
 
 ## Waiting on @Pauli
 
+- **The descriptions of #56 and #57** (Nov 14). The rebase dropped #56's second commit, which upstream has since 1ed9e92, and the part of #57 that handles `ProcessExited`, which upstream's own conversion now does. The descriptions can still tell of them. These sessions cannot read or edit them: <https://github.com/petergolde/PurplePen/pull/56>, <https://github.com/petergolde/PurplePen/pull/57>.
 - **Delete the finished branches** (Nov 14). Nothing depends on them. This machine cannot delete branches. Run this on your machine:
 
   ```
-  git push origin --delete feature/svg-overlapping-patterns proto/overlapping-patterns experiment/svg-patterns-once-record-all experiment/svg-patterns-once-record-all-2 experiment/overlapping-patterns-record-all-2 experiment/basewithfixes-overlapping-record-all experiment/dev-overlapping-record-all experiment/svg-jpeg-baselines
+  git push origin --delete feature/svg-overlapping-patterns proto/overlapping-patterns experiment/svg-patterns-once-record-all experiment/svg-patterns-once-record-all-2 experiment/overlapping-patterns-record-all-2 experiment/basewithfixes-overlapping-record-all experiment/dev-overlapping-record-all experiment/svg-jpeg-baselines feature/task8-56-wip feature/task8-57-wip
   ```
 
 ## Ready to offer to Purple Pen
@@ -323,8 +315,8 @@ Eighteen branches that are merged into `base` are offered as the pull requests #
 | `fix/bitmap-print-scale` | Size an exported bitmap by the scale at which the course prints | In `dev`. |
 | `fix/compatibility-event-map` | Give the 1.01 compatibility event its map | In `base`. #54, clean on d48f445. |
 | `fix/ui-tests-not-parallel` | Keep the tests that drive a window out of the parallel pool | In `base`. #55, clean on d48f445. |
-| `fix/headless-pdf-loading` | Give each PDF conversion its own loading status | In `base`. #56. Conflicts with d48f445 in `GlobalTestSetup.cs` (task 8). |
-| `fix/pdf-cache-race` | Publish a converted PDF under its cache name only when it is complete | In `base`. #57. Conflicts with d48f445 in `PdfMapFile.cs` (task 8). |
+| `fix/headless-pdf-loading` | Give each PDF conversion its own loading status | In `base`. #56: rebased onto d48f445 (5b5a0592). Full run passed (`wip/linux/headless-pdf-loading`, Tests 43588220675). |
+| `fix/pdf-cache-race` | Publish a converted PDF under its cache name only when it is complete | In `base`. #57: rebased onto d48f445 (a764dde9). Full run passed (`wip/linux/pdf-cache-race`, Tests 43588220801). |
 | `fix/pdfconverter-build` | Restore PdfConverter before it is built, and build it for the tests | In `base`. #58: closed by @Pauli (Nov 14). Upstream's cbc6d7ff makes PdfConverter a library that the projects reference, so nothing of this fix stays to offer. |
 | `fix/proj4-load-diagnostics` | Tell why proj.dll could not be loaded | In `base`. #59, clean on d48f445. |
 | `fix/save-failed-comparison` | Leave something to look at when a bitmap comparison fails | In `base`. #60, clean on d48f445. |
