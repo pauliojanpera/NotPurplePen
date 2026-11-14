@@ -103,26 +103,21 @@ Other work that is done. Each is in `feature/svg-target` and `dev`, if not state
 - **Task 3, upstream into the fork** (Nov 13). `upstream/master` up to d48f445 is merged into `base` (68228505), `basewithfixes`, `feature/svg-target` and `dev`, each through its full run. No baseline was recorded. `fix/image-reencode` and `fix/invariant-culture-metric` gave way to upstream's d48f445 and bc4debb. `fix/headless-pdf-loading` keeps only `HeadlessPdfLoadingStatus` and its registration, on top of 1ed9e92 (see Decisions, "Upstream's fixes against ours").
 - **Task 4, the strings of the SVG export in all languages** (Nov 13). The strings of the SVG dialog and command (A-7), and the error heading `CannotCreateSvgs`, in the terms of each language's own translations, mostly those of its PDF dialog. The strings are not in ca, he, id, ru and zh-HK, which translate almost nothing (@Pauli). The agent's report, with a review table for each language: [`SvgTranslations.md`](SvgTranslations.md). Then @Pauli's choices (see Decisions, "Task 4's choices"). In `dev` (d3f5d314; Build 43422337880 published the packages).
 
-The last SVG loop of the work in `feature/svg-target` (run 43496141803, Nov 13): 784 passed, 0 failed, 2 pending, 16 documents set apart for a browser. The two pending cases, clouds and clouds11, draw lines of zero width. The target leaves such lines out (D-5), so these cases stay pending.
+- **Task 5, JPEG data that every machine writes alike** (Nov 14). Design: "JPEG data (B-3, F-2, P-6)". B-3 has the wording that @Pauli approved (85b3c291).
+  - `feature/svg-jpeg-data` (79a17dd3, 03474258, 837da88c, 3b5c7b7e, 1088d129). A Skia bitmap keeps the JPEG data that it was decoded from (`IGraphicsBitmap.GetOriginalData`). The SVG target writes that data if the bitmap is drawn whole and browsers draw the data as the application does. All other JPEGs are encoded by Skia's encoder, with the resolution in the JFIF header. This encoder writes all JPEGs that the application encodes. It moved three JPEG baselines of the image export (1088d129).
+  - Skia's JPEG bytes are the same on seven machines, x64 and ARM64 (run 43531515982 on `experiment/svg-jpeg-bytes`). ImageSharp's encoder wrote 11 of 12 images differently on x64 and ARM64.
+  - SVG loop 43563468407: 868 passed, 0 failed, 2 pending, 16 set apart. The loop's case is the event `src/TestFiles/svg_jpeg/JPEG data.ppen`.
+  - Full run: Tests 43565924717 on `wip/linux/svg-jpeg-data`. In `feature/svg-target` (1088d129) and `dev` (2edef4d4; Tests 43566895838; Build 43567789260 published the packages).
+
+The last SVG loop of the work in `feature/svg-target` (run 43563468407, Nov 14): 868 passed, 0 failed, 2 pending, 16 documents set apart for a browser. The two pending cases, clouds and clouds11, draw lines of zero width. The target leaves such lines out (D-5), so these cases stay pending.
 
 The target fully implements these calls (DL-5): `Intensity`, `PushTransform`, `PopTransform`, `PushClip`, `PopClip`, `PushAntiAliasing`, `PopAntiAliasing`, `PushBlending`, `PopBlending`, `CreatePath`, `CreateSolidBrush`, `SupportsPatternBrushes`, `CreatePatternBrush`, `CreatePen`, `CreateFont`, `HasPath`, `HasBrush`, `HasPen`, `HasFont`, `DrawLine`, `DrawArc`, `DrawEllipse`, `FillEllipse`, `DrawRectangle`, `FillRectangle`, `DrawPolygon`, `DrawPolyline`, `FillPolygon`, `DrawPath`, `FillPath`, `DrawText`, `DrawTextOutline`, `DrawBitmap`, `DrawBitmapPart`.
 
 ## Tasks
 
-**In flight: task 5.** Agent a0aa24c77780ef5a5, since 01:12 Nov 14. It stopped at 02:18 for the end of the quota, and continued at 07:49. An executor without this agent starts a new agent from this note.
-- `feature/svg-jpeg-data` (3b5c7b7e): four commits on d1ceee4c (79a17dd3, 03474258, 837da88c, 3b5c7b7e).
-  - A Skia bitmap keeps the JPEG data that it was decoded from.
-  - A JPEG bitmap that is drawn whole is written as that data, if browsers draw the data as the application does. They do not if the data has a colour profile, or an Exif orientation that is not upright.
-  - All other JPEG bitmaps, parts too, are encoded by Skia's encoder, with the image's resolution in the JFIF header. This encoder now writes all JPEGs that the application encodes (@Pauli, Nov 14).
-  - The loop's case is the event `src/TestFiles/svg_jpeg/JPEG data.ppen`.
-- SVG loop 43563468407 on `svg/svg-jpeg-data`: 868 passed, 0 failed, 2 pending, 16 set apart.
-- x64 against ARM64: run 43531515982 on `experiment/svg-jpeg-bytes` (7b1ad1ba). All 84 hashes of decoded pixels and of Skia's JPEG data are the same on seven machines.
-- On this branch: the design section "JPEG data (B-3, F-2, P-6)" (00d43888), and B-3 as @Pauli approved it (85b3c291).
-- Skia's encoder moved the JPEG baselines of the image export. They are recorded in 1088d129.
-- Full run on `wip/linux/svg-jpeg-data` (100366a3): Build 43565924703 and Tests 43565924717 passed.
-- `feature/svg-target` is at 1088d129. `dev` is at 2edef4d4, through `wip/linux/svg-target-into-dev` (Build 43566895811, Tests 43566895838). The task ends when the Build of `dev` (43567789260) has published the packages.
+**In flight: task 8.** Agent a2aad927f64cdd7c3, since 08:55 Nov 14. It starts from the `fix/` branches on origin: `fix/image-reencode` (f836a4b5, #71), `fix/headless-pdf-loading` (a6b3f32d, #56), `fix/pdf-cache-race` (0fad718b, #57) and `fix/pdfconverter-build` (c69209e4, #58). An executor without this agent starts a new agent from task 8's text.
 
-**Next, in this order: tasks 8, 9, 6, 7.** @Pauli gave the word for them on Nov 14. Each task gets its own agent (see "Agents"). A task ends with its commits on their branches, its loop green if it changes the target, and the gallery and this file up to date.
+**Next, in this order: tasks 9, 6, 7.** @Pauli gave the word for them on Nov 14. Each task gets its own agent (see "Agents"). A task ends with its commits on their branches, its loop green if it changes the target, and the gallery and this file up to date.
 
 6. **The commits of a merge on the releases page** (@Pauli, Nov 13 and 14; see Decisions, "Merge messages").
    - The releases page shows the commit message of a build as its entry (`build.yml`, "Collect the packages"). The message of a merge tells little of what went in.
@@ -159,6 +154,8 @@ The target fully implements these calls (DL-5): `Intensity`, `PushTransform`, `P
 - PdfPig 0.1.16 does not give a missing `op` the value of `OP`, against the PDF specification. Task 1's probe corrects it. It could be reported to PdfPig.
 - In the SVG tests, the families that the test maps name are drawn in Arial, except Arial, Times New Roman, Cambria, Calibri and Roboto: for example Georgia and Arial Narrow. Fonts with the same metrics, for example Gelasio and Liberation Sans Narrow, could replace them.
 - Where a leg meets a control circle, the course drawing overlaps them a little. To move the end points of the leg a little would repair it sufficiently (@Pauli, Nov 13).
+- `Skia_Bitmap.GetGraphicsTarget(copyBits: true)` makes a copy but draws on the original bitmap, and does not dispose of the copy: it wraps `bitmap`, not `newBitmap` (found in task 5). This is in upstream's code.
+- The gallery's standing figures show 784 passed. The loop has 868 since task 5.
 - The "Select folder..." button is cut by 13 pixels in the SVG dialog and by 23 pixels in the PDF dialog, in English too (found in task 4).
 - Under upstream's bc4debb, the WinForms margin workaround in `PrintDescriptions.cs` and `PrintPunches.cs` follows the home location, but Windows' margins dialog follows the regional format. So the margins can be wrong by a factor of 2.54 where the two do not agree. This comes from reading the code. Nobody tried it. It is in the WinForms application, which the fork does not ship. It could be reported upstream.
 
@@ -285,7 +282,7 @@ These are @Pauli's rulings and the practice. The design decisions of the target 
 - **Delete the finished branches** (Nov 14). Nothing depends on them. This machine cannot delete branches. Run this on your machine:
 
   ```
-  git push origin --delete feature/svg-overlapping-patterns proto/overlapping-patterns experiment/svg-patterns-once-record-all experiment/svg-patterns-once-record-all-2 experiment/overlapping-patterns-record-all-2 experiment/basewithfixes-overlapping-record-all experiment/dev-overlapping-record-all
+  git push origin --delete feature/svg-overlapping-patterns proto/overlapping-patterns experiment/svg-patterns-once-record-all experiment/svg-patterns-once-record-all-2 experiment/overlapping-patterns-record-all-2 experiment/basewithfixes-overlapping-record-all experiment/dev-overlapping-record-all experiment/svg-jpeg-baselines
   ```
 
 ## Ready to offer to Purple Pen
