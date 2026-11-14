@@ -64,6 +64,9 @@ namespace PurplePen.ViewModels
         // Same idea for the Create PDF Files dialog.
         private CoursePdfSettings? coursePdfSettings;
 
+        // And for the Create SVG Files dialog, forgotten when another map loads (see UpdateMapFile).
+        private CourseSvgSettings? courseSvgSettings;
+
         // The map the window showed when it last updated: its type, its file, and for a bitmap its resolution.
         private MapType mapTypeShown = MapType.None;
         private string? mapFileNameShown;
@@ -369,6 +372,7 @@ namespace PurplePen.ViewModels
                 exportKmlSettingsPrevious = null;
                 routeGadgetCreationSettingsPrevious = null;
                 coursePdfSettings = null;
+                courseSvgSettings = null;
                 descPrintSettings = null;
                 punchPrintSettings = null;
                 coursePrintSettings = null;
