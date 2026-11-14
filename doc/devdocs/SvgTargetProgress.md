@@ -115,14 +115,13 @@ The target fully implements these calls (DL-5): `Intensity`, `PushTransform`, `P
 
 ## Tasks
 
-**In flight: task 8.** Agent a2aad927f64cdd7c3, since 08:55 Nov 14. It stopped at 09:05 for the end of the quota. No run started, and no `fix/` branch is pushed. Resume the agent with a message when the quota resets. An executor without this agent starts a new agent from this note.
+**In flight: task 8.** Agent a2aad927f64cdd7c3, since 08:55 Nov 14. It stopped from 09:05 to 13:02 for the end of the quota. An executor without this agent starts a new agent from this note.
 - #56: rebased onto d48f445 as one commit, on `feature/task8-56-wip` (5b5a0592). The author is kept. The conflict in `GlobalTestSetup.cs` is resolved as `base` resolved it. The content equals that of `base`.
 - #57: upstream's 1ed9e92 does not cover it: it does not touch `PdfMapFile` or the cache, and upstream still converts directly into the shared cache name. Rebased on `feature/task8-57-wip` (a764dde9). `PdfMapFile.cs` is resolved as `base` resolved it, with only the move into the cache.
-- #58: obsolete. Upstream's cbc6d7ff makes PdfConverter a library that the projects reference, so nothing of `fix/pdfconverter-build` stays. Not rebased. See "Waiting on @Pauli".
-- #71: not closed. `gh pr close` got HTTP 403: these sessions have no API access to petergolde/PurplePen. See "Waiting on @Pauli".
+- #58 and #71: closed by @Pauli (Nov 14). `fix/pdfconverter-build` is not rebased: upstream's cbc6d7ff makes PdfConverter a library that the projects reference, so nothing of the fix stays.
 - Next: make `wip/linux/headless-pdf-loading` and `wip/linux/pdf-cache-race` (`origin/base` merged with 5b5a0592 and with a764dde9), push them, and wait with `SvgDevLoop/wait-run.sh`. When the Tests pass: `git push --force-with-lease=fix/headless-pdf-loading:a6b3f32d origin 5b5a0592:refs/heads/fix/headless-pdf-loading`, and the same for `fix/pdf-cache-race` (0fad718b to a764dde9).
 
-**Next, in this order: tasks 9, 6, 7.** @Pauli gave the word for them on Nov 14. Each task gets its own agent (see "Agents"). A task ends with its commits on their branches, its loop green if it changes the target, and the gallery and this file up to date.
+**Next, in this order: tasks 9, 6, 7, 10, 11.** @Pauli gave the word for them on Nov 14. Each task gets its own agent (see "Agents"). A task ends with its commits on their branches, its loop green if it changes the target, and the gallery and this file up to date.
 
 6. **The commits of a merge on the releases page** (@Pauli, Nov 13 and 14; see Decisions, "Merge messages").
    - The releases page shows the commit message of a build as its entry (`build.yml`, "Collect the packages"). The message of a merge tells little of what went in.
@@ -137,22 +136,33 @@ The target fully implements these calls (DL-5): `Intensity`, `PushTransform`, `P
    - Add tests and baselines for multiply. None of upstream's baselines may move.
    - Root the branch as AGENTS.NotPurplePen.md says for work that could be offered upstream. Merge it into `feature/svg-target` and `dev` through full runs.
 8. **Update the stale pull requests on petergolde/PurplePen** (@Pauli, Nov 14). Upstream's d48f445 makes four of them stale.
-   - Close #71 (`fix/image-reencode`). Upstream's d48f445 replaces it.
-   - Rebase #56 (`fix/headless-pdf-loading`), #57 (`fix/pdf-cache-race`) and #58 (`fix/pdfconverter-build`) onto the newest `upstream/master`.
+   - #71 (`fix/image-reencode`) and #58 (`fix/pdfconverter-build`): closed by @Pauli (Nov 14). Upstream's d48f445 and cbc6d7ff cover them.
+   - Rebase #56 (`fix/headless-pdf-loading`) and #57 (`fix/pdf-cache-race`) onto the newest `upstream/master`.
      - #56: keep only its first commit. Its second commit, a6b3f32d, is in upstream since 1ed9e92.
-     - #57: it conflicts with d48f445 in `PdfMapFile.cs`. First find out if upstream's 1ed9e92 covers it. If it does, ask @Pauli whether to close it.
-     - #58: it conflicts with d48f445 in `AvPurplePen.csproj`.
+     - #57: it conflicts with d48f445 in `PdfMapFile.cs`. Upstream's 1ed9e92 does not cover it.
    - Run each rebased branch in full on `wip/linux/<name>`, rooted at `base`. Then push it with `--force-with-lease`. The push updates the pull request.
-   - If the proxy refuses the API calls to upstream's repository, give @Pauli the links. He closes the pull requests.
    - Update "Ready to offer to Purple Pen".
 9. **Upstream's untranslated and wrong strings** (@Pauli, Nov 14). These are upstream's faults. Upstream (d48f445) has them too.
    - "Include:" and its items "Course and map" and "Course only" are English in all languages, in the PDF, SVG and image export dialogs. The keys `CreatePdfCourses_labelPrintBaseMap_Text`, `CreatePdfCourses_comboBoxPrintBaseMap_Items`, `CreatePdfCourses_comboBoxPrintBaseMap_Items1` and the same three `CreateImageFiles_*` keys are only in the English `UIText.resx`. No satellite has them, and no WinForms satellite has them either. Translate them into each language of `UIText.<language>.resx`, in the terms of the language's own translations, and in the room that the dialogs give, as task 4 did.
    - The Japanese `MiscText` messages `CannotCreatePdfs` and `CannotCreateOcadFiles` have a `{0}` that `HandleExceptions` formats with no arguments. A failed export then throws `FormatException` and does not tell why.
    - `CreatePdfCourses_Text` reads "Print Courses" in de, en-GB, et, fi, fr, nb-NO, nn-NO and ro.
    - zh-CN's `CreateMapFiles` changes the `&` of the access key into 和.
-   - Make it on a `fix/` branch, rooted where `base` meets upstream, so that it can be offered upstream. Upstream ships the WinForms application, so also correct its satellites where they have the same faults. Run it in full on `wip/linux/<name>`, rooted at `base`. Merge it into `basewithfixes` and `dev` through full runs. Add it to "Ready to offer to Purple Pen".
+   - Make it on a `fix/` branch, rooted where `base` meets upstream, so that it can be offered upstream. Upstream ships the WinForms application, so also correct its satellites where they have the same faults. Run it in full on `wip/linux/<name>`, rooted at `base`. Merge it into `basewithfixes` and `dev` through full runs before you start the second branch (@Pauli, Nov 14). Add it to "Ready to offer to Purple Pen".
    - On a second `fix/` branch, rooted the same way: complete the translations of ja, pl, da, ro, nn-NO, nl, sl and ru in AvPurplePen's `UIText` and PurplePenCore's `MiscText` (@Pauli, Nov 14). On `dev`, these lack these numbers of the 1,281 `UIText` keys: ja 241, pl 359, da 436, ro 516, nn-NO 516, nl 719, sl 848, ru 1,199. Translate only keys that need translation. Use the terms of each language's own translations, and the room that the dialogs give, as task 4 did. Write a review table for each language, as `SvgTranslations.md` has. Run it in full, merge it into `basewithfixes` and `dev` through full runs, and add it to "Ready to offer to Purple Pen".
    - When Russian is complete, add the SVG strings to `ru` on `feature/svg-target`, as task 4 did for the other languages.
+10. **A bitmap copy that draws on its original** (@Pauli, Nov 14). This is in upstream's code (found in task 5).
+    - `Skia_Bitmap.GetGraphicsTarget(copyBits: true)` makes a copy of the bitmap. But the graphics target that it returns wraps `bitmap`, not `newBitmap`. So the target draws on the original, and the copy is not disposed of.
+    - Make the target draw on the copy. Add a test that draws on a copy and checks that the original does not change.
+    - Make it on a `fix/` branch, rooted where `base` meets upstream. Run it in full on `wip/linux/<name>`, rooted at `base`. Merge it into `basewithfixes` and `dev` through full runs. Add it to "Ready to offer to Purple Pen". Do not offer it now.
+11. **JPEG colour profiles and rotation flags** (@Pauli, Nov 14; see Decisions, "JPEG colour profiles and rotation flags").
+    - When the application loads a JPEG, it converts the pixels through the JPEG's colour profile into sRGB: in `BitmapIO` for Skia, and in the GDI+ loader. This applies to all events.
+    - An event option makes the application turn a JPEG by its Exif orientation when it loads the JPEG. The option is a checkbox. A new event has it on. An event file saved without it has it off, so existing events draw as before. The event file saves it. Translate its strings as task 4 did, into Russian too (task 9).
+    - The option applies to the event's images: the bitmap base map and the image specials. Find out if the templates and images in a map file must follow it, and where the checkbox fits best. Give both to the session as proposals for @Pauli.
+    - The SVG export writes the original JPEG data of these images. Where the application does not turn an image that has a rotation flag, the export makes readers draw the image unturned. There are two ways: `image-orientation: none` on the `<image>`, which keeps the data byte for byte, or the flag cleared in the copy of the data that the export writes. Choose by what Chromium, Firefox, WebKit, Inkscape and Scribus draw for each variant of `Map_Svg.Tests/jpeg/`.
+    - A document that a browser draws differently, because the browser does not apply a colour profile as the application does, is set apart with its reason (V-6).
+    - Give the session B-3's new wording for @Pauli's approval.
+    - Add tests. Record the baselines that the change moves in the same branch.
+    - The colour profile is a `fix/` branch, and the rotation option is a `feature/` branch. Root both as AGENTS.NotPurplePen.md says for work that could be offered upstream. Root the SVG side at `feature/svg-target`. Merge all three into `feature/svg-target` and `dev` through full runs, and the `fix/` branch into `basewithfixes` too. Add the two branches to "Ready to offer to Purple Pen". Do not offer them now.
 
 **Left open:**
 - Since the fix of overlapping hatchings, WPF draws the text of lksamm3 and marymoor_underline shifted (its 2 moved baselines). The cause is not known. Only tests draw with WPF (`Test_MapWPF`, `D2D_Tests`). @Pauli accepts it (Nov 13).
@@ -244,6 +254,7 @@ These are @Pauli's rulings and the practice. The design decisions of the target 
 - **Multiply's default** (Nov 14). A new event uses darken. Multiply is chosen beside the overprint checkbox in Course Appearance. The event file saves the choice, as it saves the checkbox (task 7).
 - **Images and determinism (F-2)** (Nov 13). Lossless image data is held to its pixels, not its bytes. A PNG that is compressed to other bytes but decodes to the same pixels meets F-2 and P-6. Skia's bundled zlib can compress differently on a CPU without the CRC32C instruction. Lossy data, JPEG too, is held byte for byte.
 - **JPEG data** (Nov 13 and 14). The export writes the original JPEG data of an image where it has the data. Otherwise Skia's encoder encodes the image, with the image's resolution in the JFIF header. B-3 states the rule (wording approved on Nov 14). The design tells when browsers draw the data as the application does. Skia's encoder writes all JPEGs that the application encodes, those of the image export and of the OCAD export too. Baselines that this moves go into the same branch.
+- **JPEG colour profiles and rotation flags** (Nov 14). The application converts a JPEG through its colour profile into sRGB, in all outputs. An event option makes the application turn a JPEG by its Exif orientation. A new event has the option on. An event file saved without it has it off, so existing events draw as before. The export writes the original JPEG data (task 11).
 - **Chromium and a huge bitmap** (Nov 13). Not fixed. Chromium's headless shell crashed at the screenshot of the A2 map's SVG whose PDF base map is a bitmap of 139 million pixels, in two of task 1's three runs, on a machine with 7 GB. It drew the map's vectors. Firefox and WebKit drew the bitmap. The cause was not examined. It is probably memory.
 
 ### Tests and CI
@@ -267,6 +278,8 @@ These are @Pauli's rulings and the practice. The design decisions of the target 
   - Images saved as loaded: only upstream's d48f445. These left `base`: our re-encoding of a CMYK, progressive or turned JPEG for the OCAD export (`JpegDataProber`) with its tests; the event file's condition that writes the bytes of an image only in a format that the loader recognized; and the test helper `CompareExportedBitmap`.
   - The loading status of PDFs in tests: all of upstream's 1ed9e92, with our test-only `HeadlessPdfLoadingStatus` and its registration on top, so the tests stay without windows. `fix/headless-pdf-loading` contains only these.
   - The metric check: upstream's bc4debb, which reads Windows' "Country or region" setting, not the regional format. The two are different only on Windows where format and location do not agree. Our 98a85ad and its `UtilTests.IsCurrentCultureMetric` are removed.
+- **The pull requests #58 and #71** (Nov 14). @Pauli closed them. Upstream's cbc6d7ff and d48f445 cover them.
+- **The bitmap copy bug** (Nov 14). Fix it on a `fix/` branch, with a test (task 10).
 
 ### The SVG dialog
 
@@ -283,13 +296,6 @@ These are @Pauli's rulings and the practice. The design decisions of the target 
 
 ## Waiting on @Pauli
 
-- **Close #71 on petergolde/PurplePen** (Nov 14): <https://github.com/petergolde/PurplePen/pull/71>. Upstream's d48f445 covers it. These sessions cannot close it.
-- **Close #58?** (Nov 14). Upstream's cbc6d7ff makes PdfConverter a library that the projects reference, so nothing of `fix/pdfconverter-build` stays. Recommended: close it with "Closing: upstream's cbc6d7ff, which makes PdfConverter a library, covers this." (<https://github.com/petergolde/PurplePen/pull/58>).
-- **JPEG data with a rotation flag or a colour profile** (Nov 14). The application ignores both: `BitmapIO` decodes into a bitmap without a colour space and does not read the Exif orientation, and the GDI+ loader (`Image.FromStream`) does the same. No code or history gives a reason. Browsers obey both, so the SVG export encodes such JPEGs again with Skia (task 5). @Pauli asked why the application does not support them. The choices:
-  - Keep the encoding, as built.
-  - Remove the rotation flag and the profile from the original data, and write the rest unchanged.
-  - Support both in the application: when an image loads, turn it by its orientation and convert it to sRGB through its profile. Then the application draws such JPEGs as browsers do, and the export writes their original data. This changes how the application draws such images on the screen, in print and in all exports. It is a `fix/` branch in upstream's code, with the baselines that it moves. Recommended: it corrects the drawing in all outputs and removes the special case.
-- **A bitmap copy that draws on its original** (Nov 14). `Skia_Bitmap.GetGraphicsTarget(copyBits: true)` makes a copy, but draws on the original bitmap and does not dispose of the copy: it wraps `bitmap`, not `newBitmap` (found in task 5). This is in upstream's code. Recommended: fix it on a `fix/` branch, with a test.
 - **Delete the finished branches** (Nov 14). Nothing depends on them. This machine cannot delete branches. Run this on your machine:
 
   ```
@@ -300,7 +306,7 @@ These are @Pauli's rulings and the practice. The design decisions of the target 
 
 These are the `fix/` branches. Each is made on upstream's history and has only its own commits. @Pauli reviews them before any becomes a pull request. Before a branch is offered, rebase it onto the newest `upstream/master` and check it again. Some change only what the fork's tests or packaging need. The review finds out if each is useful to Purple Pen.
 
-Eighteen branches that are merged into `base` are offered as the pull requests #54 to #71 of petergolde/PurplePen. Each is on upstream's 2d58e982 (Oct 3). The session cannot read pull requests through GitHub's API. On Nov 13, a trial merge onto upstream's d48f445 was clean for fourteen of them. #56, #57, #58 and #71 had conflicts (task 8). Do not offer the others now (@Pauli, Nov 7). To update a pull request, rebase its branch and push it with force. This needs @Pauli's word.
+Eighteen branches that are merged into `base` are offered as the pull requests #54 to #71 of petergolde/PurplePen. Each is on upstream's 2d58e982 (Oct 3). @Pauli closed #58 and #71 on Nov 14. The session cannot read pull requests through GitHub's API. On Nov 13, a trial merge onto upstream's d48f445 was clean for fourteen of them. #56, #57, #58 and #71 had conflicts (task 8). Do not offer the others now (@Pauli, Nov 7). To update a pull request, rebase its branch and push it with force. This needs @Pauli's word.
 
 | Branch | What it changes | In this fork |
 | --- | --- | --- |
@@ -319,7 +325,7 @@ Eighteen branches that are merged into `base` are offered as the pull requests #
 | `fix/ui-tests-not-parallel` | Keep the tests that drive a window out of the parallel pool | In `base`. #55, clean on d48f445. |
 | `fix/headless-pdf-loading` | Give each PDF conversion its own loading status | In `base`. #56. Conflicts with d48f445 in `GlobalTestSetup.cs` (task 8). |
 | `fix/pdf-cache-race` | Publish a converted PDF under its cache name only when it is complete | In `base`. #57. Conflicts with d48f445 in `PdfMapFile.cs` (task 8). |
-| `fix/pdfconverter-build` | Restore PdfConverter before it is built, and build it for the tests | In `base`. #58. Conflicts with d48f445 in `AvPurplePen.csproj` (task 8). |
+| `fix/pdfconverter-build` | Restore PdfConverter before it is built, and build it for the tests | In `base`. #58: closed by @Pauli (Nov 14). Upstream's cbc6d7ff makes PdfConverter a library that the projects reference, so nothing of this fix stays to offer. |
 | `fix/proj4-load-diagnostics` | Tell why proj.dll could not be loaded | In `base`. #59, clean on d48f445. |
 | `fix/save-failed-comparison` | Leave something to look at when a bitmap comparison fails | In `base`. #60, clean on d48f445. |
 | `fix/skia-decode-file-handle` | Decode a rendered PNG from memory, not from its path | In `base`. #61, clean on d48f445. |
@@ -332,7 +338,7 @@ Eighteen branches that are merged into `base` are offered as the pull requests #
 | `fix/font-fallback-coverage` | Ask the font fallback what it promises, not what one machine drew | In `base`. #68, clean on d48f445. |
 | `fix/package-verify-pipefail` | Verify packages without a pipe into grep -q | In `base`. #69, clean on d48f445. |
 | `fix/test-start-log` | Name each test when it starts | In `base` and `dev` as an equivalent commit. #70, clean on d48f445. |
-| `fix/image-reencode` | Check the exported bitmaps as the files that they are | Replaced by upstream's d48f445. Removed from `base` (Nov 13; see Decisions, "Upstream's fixes against ours"). #71: close it (task 8). |
+| `fix/image-reencode` | Check the exported bitmaps as the files that they are | Replaced by upstream's d48f445. Removed from `base` (Nov 13; see Decisions, "Upstream's fixes against ours"). #71: closed by @Pauli (Nov 14). |
 | `fix/invariant-culture-metric` | Tell whether a culture without a region is metric, so that an event without its own paper loads under the invariant culture | Replaced by upstream's bc4debb. Removed from `basewithfixes` and `dev` (Nov 13). Never offered. Retire it. |
 | `fix/image-reencode-png-baselines` | Write a JPEG through only when all readers can take it | Not merged. Obsolete: an earlier form of `fix/image-reencode`. |
 | `fix/jpeg-compare-tolerance` | Tolerate the encoder in the bitmaps of the OCAD export too | Not merged. Obsolete: `fix/lossless-export-comparison` made the comparisons of the JPEG export tests lossless, and upstream's d48f445 writes the images of the OCAD export unchanged. |
