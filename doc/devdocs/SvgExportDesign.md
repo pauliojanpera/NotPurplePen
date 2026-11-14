@@ -527,6 +527,106 @@ clips, named when it is first used, as patterns are (F-2):
 - **Readers.** Chromium and Inkscape draw the image lighter. Scribus may show it at full strength (@Pauli, Nov 7).
 - **The loop.** template_light and template2_light, which draw their templates at 0.4, are compared like any case.
 
+## JPEG data (B-3, F-2, P-6)
+
+Written on Nov 14 from `feature/svg-target` at d1ceee4c, for task 5 of the handover, after @Pauli's choice of Nov 13
+(the handover's "JPEG data"); the work is on `feature/svg-jpeg-data`. F-2 holds lossy image data byte for byte, and the
+target wrote every bitmap through its `WriteToStream`, which for the Skia bitmaps encoded a JPEG anew with ImageSharp's
+encoder, whose bytes task 1 found to change with .NET's hardware intrinsics off. The export now writes an image's
+original JPEG data where it has that data and draws the image whole, and encodes the rest with Skia's encoder, whose
+bytes came out the same on every machine compared. On Nov 14 @Pauli approved B-3's wording of this rule, which leaves to
+this section the conditions under which browsers draw the data as the application does, and ruled that Skia's encoder
+writes every JPEG the application encodes.
+
+- **What the target writes (B-3).**
+  - A bitmap drawn whole whose original data is JPEG that the browsers draw as the application draws the bitmap: that
+    data, byte for byte. A `DrawBitmapPart` of all of a bitmap draws it whole.
+  - Any other bitmap whose own format is JPEG, and any part of one: its pixels encoded as JPEG through `WriteToStream`,
+    at the export settings' quality, now by Skia's encoder. A part used to lose its format with the crop, and was
+    written as PNG.
+  - Every other bitmap: PNG, as before, which F-2 holds to its pixels.
+- **How the data reaches the target.** `IGraphicsBitmap` gains `GetOriginalData()` beside `GetOriginalFormat()`: the
+  data the bitmap was decoded from, or null. A default interface method gives null, so GDI+, WPF and the other backends
+  are untouched. `BitmapIO.ReadBitmapFromStream`, which both Skia loaders read through, the application's
+  `SkiaBitmapGraphicsLoader` and the maps' `Skia_FileLoader`, keeps the data of a JPEG that Skia decoded whole, and
+  `Skia_Bitmap` holds it until a graphics target is made of the bitmap, as that may draw on its pixels. So every JPEG
+  the application draws carries its data, without any code of the application's knowing: an image special, decoded from
+  its `imageData` (upstream's d48f445), a bitmap base map, a map's template and a map's image object; the target still
+  references `Graphics2D` alone (C-2). The data and the pixels come from one decode, so they cannot disagree, which
+  reading the special's `imageData` or the map's file anew would not promise; a template or a base map has no
+  `imageData` anyway. The data is a small share of the pixels beside it: 0.87 MB beside 30 MB for the map of the loop's
+  case below. Only JPEG data is kept: the other formats are written from their pixels, and a PNG's own chunks, its gamma
+  or its profile, could make a browser draw it otherwise.
+- **Why Skia encodes in `WriteToStream`.** The target cannot call Skia (C-2), and `WriteToStream` is where the
+  application encodes a bitmap, so `BitmapIO` writes JPEG with SkiaSharp's encoder: from the pixels with straight alpha,
+  as ImageSharp took them; with the colour subsampled 2:1 both ways up to quality 90 and at full resolution above, as
+  ImageSharp's encoder chose; with Huffman tables optimized for the image, as Skia always writes them; and with the
+  bitmap's resolution in the JFIF header, where Skia's encoder writes only that the pixels are square: as whole dots per
+  inch, rounded half up, or left as it is when it rounds to none. Every other JPEG the Avalonia application writes from
+  a Skia bitmap comes from this encoder too, as @Pauli ruled: the image export's JPEG files, the OCAD export's images
+  that have no data of their own and its bitmap map, and the event file's images that have none. Skia's files came out
+  smaller than ImageSharp's at the qualities 90 and 100, at 100 a half to three fifths of their size. ImageSharp still
+  writes PNG, GIF, TIFF, BMP and WebP.
+- **What the browsers draw.** A probe drew JPEG variants of one photograph of 800 × 600 pixels, and the images of the
+  test events, as an SVG's `<image>` in Playwright 1.63's Chromium, Firefox and WebKit, and compared each with the
+  application's decoding through `BitmapIO`, within F-1's tolerance:
+
+| Data | Chromium | Firefox | WebKit |
+| --- | --- | --- | --- |
+| Baseline, subsampled 4:2:0, 4:2:2 or not at all; progressive; with optimized tables; grey; RGB, as an Adobe segment says; with Exif data that leaves it upright; with a resolution; with an sRGB profile; the events' images, with Adobe segments and restart markers | the same pixels | the same | the same |
+| CMYK, inverted, with and without an Adobe segment, and YCCK | within a level, in 72 to 78 % of the pixels | as Chromium | as Chromium |
+| Exif orientation 2, 3, 6 or 8 | mirrored or turned: 195,392 to 388,083 of the 480,000 pixels outside the tolerance | likewise | likewise |
+| An RGB profile of Adobe RGB's primaries | converted to sRGB: 13,649 pixels outside, by up to 66 levels | the same as the application's | converted: 13,605 outside |
+| CMYK with a profile, ISO Coated v2 | converted: 258,690 outside | the same as the application's | the same as the application's |
+
+  The application draws the pixels the data codes and nothing else: `SKCodec.GetPixels` into a bitmap without a colour
+  space applies neither a profile nor an orientation. So `SvgJpegData.IsDrawnAsDecoded` passes data through only when
+  its headers, read up to its scan, show a Huffman-coded frame (SOF0, SOF1 or SOF2) of 8 bits, of one, three or four
+  channels and of the bitmap's size, no colour profile, no Exif orientation but upright, and nothing before the scan but
+  tables, comments and application segments; data cut short keeps no data in the bitmap at all. Arithmetic, lossless and
+  hierarchical coding and samples of 12 bits, which the probe could not make, are encoded rather than trusted. The
+  orientation and the profile could instead be taken out of the data, which would keep its pixels without coding them
+  again; the export encodes, as the task asked.
+- **The comparison of x64 and ARM64.** SkiaSharp 3.119.4's libjpeg-turbo 2.1.5.1 runs its C code on x64, where all 27 of
+  its `jsimd_can_*` functions answer no, and its NEON code on ARM64. A throwaway workflow on `experiment/svg-jpeg-bytes`
+  (run 43531515982) decoded 12 images as the application decodes them, the nine variants of `Map_Svg.Tests/jpeg/`,
+  `SampleEvent.jpg` (upstream's JPEG of a sample map, 2375 × 3179 pixels), `Waterfall.jpg` and `Waterfall.png`, and
+  encoded each through `WriteToStream` at the qualities 50, 75, 90, 91 and 100, and a part of it of 101 × 67 pixels at
+  90, on GitHub's runners: Linux x64, Linux x64 with .NET's hardware intrinsics off, Linux ARM64, Linux ARM64 with
+  libjpeg-turbo's NEON code off (`JSIMD_FORCENONE`), Windows x64, Windows ARM64 and macOS ARM64. All 84 hashes of the
+  decoded pixels and of Skia's JPEG data were the same on all seven, and on this machine. ImageSharp's encoder, run
+  beside it, wrote 11 of the 12 images one way on x64 with its intrinsics and another on every ARM64 machine and on x64
+  without them; only the grey image came out the same everywhere. Pillow 12.3, whose libjpeg-turbo is 3.1.4.1, decodes
+  the 11 JPEGs to the same pixels as Skia and, told to optimize its tables and to subsample as above, encodes them to
+  Skia's bytes but for the resolution in the header: Skia's JPEG data is libjpeg-turbo's integer arithmetic at its
+  standard settings, which neither its SIMD code nor two major versions changed.
+- **What it means for P-6.** Where the port passes data through, it writes the same bytes, as its loader keeps the data
+  alike and `SvgJpegData` is a reading of bytes that translates as it is. Where it encodes, its bytes equal the .NET
+  export's if it decodes the original and encodes the pixels with libjpeg-turbo at these settings, such as libjpeg-turbo
+  built for WebAssembly, as Pillow's libjpeg-turbo 3.1 matched Skia's 2.1. A browser's own encoder, behind
+  `canvas.toBlob`, is held to no such settings, and Safari's is not libjpeg-turbo at all; MozJPEG, which JPEG packages
+  on npm often carry, changes the defaults on purpose, with progressive scans and trellis quantization. Failing that,
+  the comparison can replay the .NET export's encoded images as it replays metrics and subsets (P-5). Either way P-6 can
+  hold for JPEG data byte for byte. The scan's document of "A PDF base map as vectors", whose image ImageSharp encoded
+  to other bytes with the intrinsics off, would now carry the image's own data or Skia's bytes, neither of which depends
+  on them.
+- **The tests and the loop.** `JpegDataTests` loads each variant as the application does, checks which are written as
+  their data and which encoded, checks that Chromium, Firefox and WebKit draw each variant's document within F-1's
+  tolerance of the application's drawing, and that a JPEG template drawn whole is written as its file's data;
+  `SvgJpegDataTests` reads every kind of header; `BitmapTests` in `Map_Skia.Tests` checks the data kept and dropped, the
+  JFIF resolution and the subsampling. The event `svg_jpeg/JPEG data.ppen` draws `SampleEvent.jpg` as its map at 150
+  dots per inch, so that its page at the loop's 150 pixels to the inch shows the map's pixels one to one, with four
+  image specials: Mr. Sneeze, a JPEG of upstream's tests, and the CMYK card, written as their data; and the turned card
+  and the profiled card, encoded, into one image, as their pixels are the same (B-5). Its page `JpegData-Photos` draws
+  in Chromium, Firefox and WebKit within F-1's tolerance of the application's page: outside the specials only the
+  course's purple differs, and the specials, which the application draws with its high-quality scaling, differ along
+  their edges as every smoothed bitmap does, by up to 51 levels in the card's checkerboard. Its baseline export holds
+  the hash of each image's data, so the Windows job, which runs the baselines too, checks that x64 there encodes as
+  Linux x64 does. SVG loop 43563468407, of `svg/svg-jpeg-data` at 9b80d6d6, gave 868 passed, 0 failed, 2 pending and 16
+  set apart: these 84 tests more than loop 43496141803, and the rest as before. In it the page differed from the
+  application's in 82,332 of its 2,103,750 pixels, by up to 125 levels, and Firefox's and WebKit's drawings from
+  Chromium's in 3,824 and 89,737, by up to 45 and 44, none of them outside the tolerance.
+
 ## The geometry check (V-10)
 
 Written on Nov 7 from `feature/svg-target` at 4764b57, with the loop's later improvements (b67748d); the work is on
@@ -832,10 +932,11 @@ tiering and without hardware intrinsics (`determinism.sh`); the scan's document 
 ImageSharp's JPEG encoder, which re-encodes its image (B-3), wrote other bytes, while everything outside the image's
 data stayed the same. Whether x64 and ARM64 encode a JPEG alike is therefore not settled: the export's baseline events
 draw a GIF map, and V-4 does not encode a JPEG. Passing a JPEG through as its own data would take the encoder out of the
-bytes. For the TypeScript port (P-6) the reader has to be the same, which pdf.js is not: the porter translates PdfPig
-with the map model, about 89,000 lines, or the comparison replays the .NET reader's drawing calls as P-5 replays
-metrics, which `RecordingGraphicsTarget` records already; the port's own reader for its users would then be pdf.js,
-without CMYK and overprinting. A converter can be in the port only as MuPDF.js, under the AGPL.
+bytes. Task 5 settled the one and did the other on Nov 14 (see "JPEG data (B-3, F-2, P-6)"). For the TypeScript port
+(P-6) the reader has to be the same, which pdf.js is not: the porter translates PdfPig with the map model, about 89,000
+lines, or the comparison replays the .NET reader's drawing calls as P-5 replays metrics, which `RecordingGraphicsTarget`
+records already; the port's own reader for its users would then be pdf.js, without CMYK and overprinting. A converter
+can be in the port only as MuPDF.js, under the AGPL.
 
 **Against the application's drawing (F-1, F-5).** Each SVG rendered at 150 pixels to the inch in Chromium, Firefox
 and WebKit, as the tests render, and held to the application's own drawing of the page by F-1's rule
