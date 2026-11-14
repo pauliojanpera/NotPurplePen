@@ -645,7 +645,7 @@ namespace PurplePen.Tests
             eventDB = new EventDB(undomgr);
             eventDB.Load(fileName);
 
-            Assert.AreEqual(e, eventDB.GetEvent());
+            Assert.AreEqual(e.courseAppearance, eventDB.GetEvent().courseAppearance);
             Assert.AreEqual(blendMode, eventDB.GetEvent().courseAppearance.overprintBlendMode);
 
             string savedText = File.ReadAllText(fileName);

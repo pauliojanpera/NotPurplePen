@@ -348,10 +348,10 @@ namespace PurplePen.Tests
                 new string[] { TestUtil.GetTestFile("bitmapcreate\\blend\\layersprint\\Course 5_baseline.png") });
         }
 
-        // Export the course of the overprint test as an image, with the colors of its map marked overprint and its purple
-        // blended by a blend mode, and return the image.
+        // Export the course of the overprint test, which must be loaded, as an image, with the colors of its map marked
+        // overprint and its purple blended by a blend mode, and return the image.
         // blendMode: the blend mode.
-        async Task<SKBitmap> CreateOverprintBitmap(Graphics2D.BlendMode blendMode)
+        SKBitmap CreateOverprintBitmap(Graphics2D.BlendMode blendMode)
         {
             BitmapCreationSettings settings = new BitmapCreationSettings();
             settings.mapDirectory = settings.fileDirectory = false;
@@ -369,7 +369,6 @@ namespace PurplePen.Tests
             appearance.useOcadOverprint = true;
             appearance.overprintBlendMode = blendMode;
 
-            Assert.IsTrue(await controller.LoadInitialFile(TestUtil.GetTestFile("courseprinting\\Overprint test.ppen"), true));
             controller.SetCourseAppearance(appearance);
             controller.MapDisplay.OverprintBlendMode = controller.OverprintBlendMode;
             Assert.IsTrue(controller.CreateBitmapFiles(settings));
@@ -385,8 +384,10 @@ namespace PurplePen.Tests
         [TestMethod]
         public async Task BitmapCreationOverprintMultiply()
         {
-            using (SKBitmap darkened = await CreateOverprintBitmap(Graphics2D.BlendMode.Darken))
-            using (SKBitmap multiplied = await CreateOverprintBitmap(Graphics2D.BlendMode.Multiply)) {
+            Assert.IsTrue(await controller.LoadInitialFile(TestUtil.GetTestFile("courseprinting\\Overprint test.ppen"), true));
+
+            using (SKBitmap darkened = CreateOverprintBitmap(Graphics2D.BlendMode.Darken))
+            using (SKBitmap multiplied = CreateOverprintBitmap(Graphics2D.BlendMode.Multiply)) {
                 Assert.AreEqual(darkened.Width, multiplied.Width);
                 Assert.AreEqual(darkened.Height, multiplied.Height);
 
