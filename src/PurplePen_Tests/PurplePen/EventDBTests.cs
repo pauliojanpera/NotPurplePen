@@ -621,6 +621,52 @@ namespace PurplePen.Tests
             Assert.AreEqual(e, eventDB.GetEvent());
         }
 
+        // Save an event whose overprinted colors blend by a blend mode, load it again, and return the saved file's text.
+        // blendMode: the blend mode to save.
+        string RoundTripOverprintBlendMode(BlendMode blendMode)
+        {
+            UndoMgr undomgr = new UndoMgr(5);
+            EventDB eventDB = new EventDB(undomgr);
+            string fileName = TestUtil.GetTestFile("eventdb\\testoutput_blendmode_temp.xml");
+
+            Event e = new Event();
+            e.title = "Overprint";
+            e.courseAppearance.useOcadOverprint = true;
+            e.courseAppearance.purpleColorBlend = PurpleColorBlend.Blend;
+            e.courseAppearance.overprintBlendMode = blendMode;
+
+            undomgr.BeginCommand(198, "change event");
+            eventDB.ChangeEvent(e);
+            undomgr.EndCommand(198);
+
+            eventDB.Save(fileName);
+
+            undomgr.Clear();
+            eventDB = new EventDB(undomgr);
+            eventDB.Load(fileName);
+
+            Assert.AreEqual(e, eventDB.GetEvent());
+            Assert.AreEqual(blendMode, eventDB.GetEvent().courseAppearance.overprintBlendMode);
+
+            string savedText = File.ReadAllText(fileName);
+            File.Delete(fileName);
+            return savedText;
+        }
+
+        // Multiply is saved and loaded again. Darken, the blend mode of a new event, is not saved, so that the file is
+        // as it was before the blend mode could be chosen, and a file without it loads as darken.
+        [TestMethod]
+        public void RoundTripOverprintBlendMode()
+        {
+            Assert.AreEqual(BlendMode.Darken, new CourseAppearance().overprintBlendMode);
+
+            string multiplyText = RoundTripOverprintBlendMode(BlendMode.Multiply);
+            StringAssert.Contains(multiplyText, "overprint-blend-mode=\"multiply\"");
+
+            string darkenText = RoundTripOverprintBlendMode(BlendMode.Darken);
+            Assert.IsFalse(darkenText.Contains("overprint-blend-mode"));
+        }
+
         [TestMethod]
         public void RoundTripSpecials()
         {

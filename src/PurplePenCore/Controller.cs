@@ -291,6 +291,7 @@ namespace PurplePen
             }
 
             mapDisplay.OcadOverprintEffect = (eventDB != null && eventDB.GetEvent().courseAppearance.useOcadOverprint);
+            mapDisplay.OverprintBlendMode = (eventDB != null) ? eventDB.GetEvent().courseAppearance.overprintBlendMode : BlendMode.Darken;
 
             checkForMissingFonts = true;          // Warn about missing fonts once for this map.
             checkForUnrenderableObjects = true;   // warn about non-renderable objects.
@@ -3542,6 +3543,11 @@ namespace PurplePen
 
         public bool OcadOverprintEffect {
             get { return GetCourseAppearance().useOcadOverprint; }
+        }
+
+        // How overprinted colors blend: those of the OCAD map, and the purple when it blends.
+        public BlendMode OverprintBlendMode {
+            get { return GetCourseAppearance().overprintBlendMode; }
         }
 
         // Map layer of lower purple if using upper/lower purple blending method.

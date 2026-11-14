@@ -308,6 +308,29 @@ namespace PurplePen.Tests
             }
         }
 
+        // The overprint effect by multiply: the colors marked overprint multiply with the colors below them, and
+        // build up where their own objects overlap.
+        [TestMethod]
+        public void OverprintMultiplyOcadMap()
+        {
+            SetupBitmap();
+            MapDisplay mapDisplay = new MapDisplay();
+
+
+            mapDisplay.SetMapFile(MapType.OCAD, TestUtil.GetTestFile(@"mapdisplay\overprint.ocd"));
+            mapDisplay.AntiAlias = false;
+            mapDisplay.MapIntensity = 1F;
+            mapDisplay.OcadOverprintEffect = true;
+            mapDisplay.OverprintBlendMode = BlendMode.Multiply;
+
+            RectangleF drawRect = RectangleF.FromLTRB(50F, 170F, 100F, 220F);
+            DrawToBitmap(mapDisplay, drawRect);
+
+            using (Bitmap bm = GetBitmap()) {
+                BitmapTestUtil.CompareBitmapBaseline(bm, TestUtil.GetTestFile(@"mapdisplay\OverprintMultiplyOcadMap.png"));
+            }
+        }
+
 
         [TestMethod]
         public void NoOverprintOcadMap()
