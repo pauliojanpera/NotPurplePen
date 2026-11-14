@@ -1,0 +1,1 @@
+F-5: Firefox draws the lower part of a cluster of Bengali, below the headline, a pixel lower than Chromium

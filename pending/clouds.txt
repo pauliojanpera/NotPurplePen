@@ -1,0 +1,1 @@
+DrawPolyline	D-5, a line of zero width, which the SVG leaves out where Skia draws a hairline

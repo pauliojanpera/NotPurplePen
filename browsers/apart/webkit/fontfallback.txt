@@ -1,0 +1,1 @@
+F-5: WebKit draws nothing of a text whose characters are all Runic, in any face and in SVG alone; and WebKit hints the glyphs of the faces the document embeds, as its Linux build does whatever fontconfig, text-rendering or its own settings say, while Chromium draws them unhinted
