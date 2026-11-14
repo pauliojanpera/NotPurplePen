@@ -90,7 +90,7 @@ The calls the target fully implements, in the sense of DL-5: `Intensity`, `PushT
 
 ## Tasks
 
-**In flight:** task 5, stopped at 02:18 Nov 14 for the end of the quota. Agent a0aa24c77780ef5a5 worked on it from 01:12 and waits to be resumed with a message once the quota resets; an executor without it starts a new agent from this note.
+**In flight:** task 5, with agent a0aa24c77780ef5a5 from 01:12 Nov 14. It stopped at 02:18 for the end of the quota, and was resumed at 07:49 once the quota reset. An executor without this agent starts a new one from this note.
 - **On `feature/svg-jpeg-data` at 4aad493e**, two `WIP:` commits on d1ceee4c hold the whole change with its tests:
   - A JPEG bitmap drawn whole is written as the data it was decoded from, unless browsers would draw that data otherwise: turned or mirrored by Exif, or carrying a colour profile.
   - Every other JPEG, a part of one among them, is encoded by Skia with the image's resolution in its JFIF header.
@@ -105,7 +105,7 @@ The calls the target fully implements, in the sense of DL-5: `Intensity`, `PushT
   5. B-3's new wording, to @Pauli.
 - **Next command:** `cd /home/claude/wt/svg-jpeg-data && git log --oneline -3`, then the rewrite.
 
-The archiving task and the watch stop after the session's last archive.
+The archiving task runs.
 
 **Next**, in order. Each task starts on @Pauli's word, with an agent of its own (see "Agents"), and ends with its commits on `feature/svg-target` or this branch, its loop green where it changes the target, and the gallery and this file brought up to date.
 
