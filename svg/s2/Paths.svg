@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" width="500mm" height="688mm" viewBox="0 0 500 688">
+<style>
+.a{fill:none;stroke:#f00;stroke:#f00 icc-color(cmyk,0,1,1,0);stroke-width:7000;stroke-miterlimit:5}
+.b{fill:none;stroke:#008000;stroke:#008000 icc-color(cmyk,.5019608,0,.5019608,.4980392);stroke-width:3000;stroke-linecap:round;stroke-linejoin:round}
+.c{fill:#cd5c5c;fill:#cd5c5c icc-color(cmyk,0,.4431373,.4431373,.19607842);fill-rule:evenodd}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="Paths"/>
+</npp:document>
+</metadata>
+<defs>
+<color-profile name="cmyk"/>
+<clipPath id="b">
+<path d="M0 0h800000v1100000H0z"/>
+</clipPath>
+<g id="a">
+<g transform="translate(425000 250000)" data-m="1">
+<path class="a" d="M-70000-70000-10000 50000h30000L70000-90000z"/>
+<path class="b" d="M-70000-70000C-10000 50000 20000 50000 70000-90000M0 0-50000 50000H50000z"/>
+<g transform="translate(0 350000)">
+<path class="c" d="M-70000-70000C-10000 50000 20000 50000 70000-90000z"/>
+</g>
+</g>
+</g>
+</defs>
+<g transform="translate(0 .25)scale(.000625)" clip-path="url(#b)">
+<use xlink:href="#a"/>
+</g>
+</svg>

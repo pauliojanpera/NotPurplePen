@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NotPurplePen downloads</title>
+</head>
+<body>
+    <h1>NotPurplePen</h1>
+    <p>A fork of <a href="https://purple-pen.org">Purple Pen</a>, built for Windows, Linux and macOS.
+       Updated 2026-11-14 11:08:39 UTC.</p>
+    <h2>Releases</h2><p>Offered to installed copies as updates.</p><p>None yet.</p>
+    <h2>Prereleases</h2><p>Offered only to copies that are themselves prereleases.</p><ul><li>4.0.282.220<ul><li><a href="https://github.com/pauliojanpera/NotPurplePen/releases/download/channel-beta/notpurplepen-4.0.282.220-beta-linux-appimage-x64.appimage">notpurplepen-4.0.282.220-beta-linux-appimage-x64.appimage</a> &mdash; linux-appimage-x64</li>
+<li><a href="https://github.com/pauliojanpera/NotPurplePen/releases/download/channel-beta/notpurplepen-4.0.282.220-beta-linux-x64.deb">notpurplepen-4.0.282.220-beta-linux-x64.deb</a> &mdash; linux-x64</li>
+<li><a href="https://github.com/pauliojanpera/NotPurplePen/releases/download/channel-beta/notpurplepen-4.0.282.220-beta-linux-x64.rpm">notpurplepen-4.0.282.220-beta-linux-x64.rpm</a> &mdash; linux-x64</li>
+<li><a href="https://github.com/pauliojanpera/NotPurplePen/releases/download/channel-beta/notpurplepen-4.0.282.220-beta-osx-arm64.dmg">notpurplepen-4.0.282.220-beta-osx-arm64.dmg</a> &mdash; osx-arm64</li>
+<li><a href="https://github.com/pauliojanpera/NotPurplePen/releases/download/channel-beta/notpurplepen-4.0.282.220-beta-win-x64.exe">notpurplepen-4.0.282.220-beta-win-x64.exe</a> &mdash; win-x64</li></ul><details><summary>Commit <code>2edef4d4d6e2ba91a87b2b6b1edc5ce32d0adfa5</code></summary><pre style="white-space: pre-wrap">Merge feature/svg-target, with JPEG data written as it is or encoded alike on every machine, into dev
+
+* feature/svg-target:
+  Record the image export&#39;s JPEG baselines that Skia&#39;s encoder moves (1088d129)
+  Export an event on a JPEG map with JPEG image specials, and record its baselines (3b5c7b7e)
+  Write a bitmap&#39;s JPEG data as it is where the browsers draw it as the application does (837da88c)
+  Write JPEG with Skia&#39;s encoder, with the bitmap&#39;s resolution in its JFIF header (03474258)
+  Keep the JPEG data a Skia bitmap was decoded from (79a17dd3)
+
+One conflict, resolved as follows: create1&#39;s JPEG baseline is
+feature/svg-target&#39;s, which 1088d129 recorded from Tests run
+43564494022 of the branch merged into basewithfixes, whose drawing of
+the exported bitmaps dev shares: both held the same baseline before.
+
+Co-Authored-By: Claude Opus 5.5 &lt;noreply@anthropic.com&gt;
+Claude-Session: https://claude.ai/code/session_01TAoSZPSZiEaYUANuxCqthN</pre></details></li>
+<li>4.0.278.220<ul><li><a href="https://github.com/pauliojanpera/NotPurplePen/releases/download/channel-beta/notpurplepen-4.0.278.220-beta-linux-appimage-x64.appimage">notpurplepen-4.0.278.220-beta-linux-appimage-x64.appimage</a> &mdash; linux-appimage-x64</li>
+<li><a href="https://github.com/pauliojanpera/NotPurplePen/releases/download/channel-beta/notpurplepen-4.0.278.220-beta-linux-x64.deb">notpurplepen-4.0.278.220-beta-linux-x64.deb</a> &mdash; linux-x64</li>
+<li><a href="https://github.com/pauliojanpera/NotPurplePen/releases/download/channel-beta/notpurplepen-4.0.278.220-beta-linux-x64.rpm">notpurplepen-4.0.278.220-beta-linux-x64.rpm</a> &mdash; linux-x64</li>
+<li><a href="https://github.com/pauliojanpera/NotPurplePen/releases/download/channel-beta/notpurplepen-4.0.278.220-beta-osx-arm64.dmg">notpurplepen-4.0.278.220-beta-osx-arm64.dmg</a> &mdash; osx-arm64</li>
+<li><a href="https://github.com/pauliojanpera/NotPurplePen/releases/download/channel-beta/notpurplepen-4.0.278.220-beta-win-x64.exe">notpurplepen-4.0.278.220-beta-win-x64.exe</a> &mdash; win-x64</li></ul><details><summary>Commit <code>6e16e2f41e891971801b40ac4e0e1ce16f1964d8</code></summary><pre style="white-space: pre-wrap">Merge feature/svg-target, with overlapping areas&#39; patterns drawn once within a clip to their ghosts, into dev
+
+* feature/svg-target:
+  Record the baselines that drawing a pattern once moves together with feature/svg-target&#39;s (6ae45334)
+  Record the references, the export baseline and the browsers&#39; counts that drawing a pattern once moves (f993716a)
+  Write overlapping areas&#39; outlines as ghosts, and clip the pattern drawn once for them to the ghosts (a6bb633a)
+
+Conflicts, resolved as follows: the 9 baselines of exported bitmaps
+that feature/svg-target recorded as base and it draw them together keep
+dev&#39;s, which basewithfixes&#39; merge has just recorded as dev draws them,
+with the course printed at its scale: tests run 43496342996 drew dev
+with the drawing of patterns once, going on past each failed
+comparison, and drew each of those 8 that moved as basewithfixes&#39;
+record-all run did, and BM_Course 2 within its tolerance of dev&#39;s.
+
+Co-Authored-By: Claude Opus 5.5 &lt;noreply@anthropic.com&gt;
+Claude-Session: https://claude.ai/code/session_01498TwS7chaYvUnHBwQ8aos</pre></details></li>
+<li>4.0.271.220<ul><li><a href="https://github.com/pauliojanpera/NotPurplePen/releases/download/channel-beta/notpurplepen-4.0.271.220-beta-linux-appimage-x64.appimage">notpurplepen-4.0.271.220-beta-linux-appimage-x64.appimage</a> &mdash; linux-appimage-x64</li>
+<li><a href="https://github.com/pauliojanpera/NotPurplePen/releases/download/channel-beta/notpurplepen-4.0.271.220-beta-linux-x64.deb">notpurplepen-4.0.271.220-beta-linux-x64.deb</a> &mdash; linux-x64</li>
+<li><a href="https://github.com/pauliojanpera/NotPurplePen/releases/download/channel-beta/notpurplepen-4.0.271.220-beta-linux-x64.rpm">notpurplepen-4.0.271.220-beta-linux-x64.rpm</a> &mdash; linux-x64</li>
+<li><a href="https://github.com/pauliojanpera/NotPurplePen/releases/download/channel-beta/notpurplepen-4.0.271.220-beta-osx-arm64.dmg">notpurplepen-4.0.271.220-beta-osx-arm64.dmg</a> &mdash; osx-arm64</li>
+<li><a href="https://github.com/pauliojanpera/NotPurplePen/releases/download/channel-beta/notpurplepen-4.0.271.220-beta-win-x64.exe">notpurplepen-4.0.271.220-beta-win-x64.exe</a> &mdash; win-x64</li></ul><details><summary>Commit <code>d3f5d3149818016771554a7281424eac3950a332</code></summary><pre style="white-space: pre-wrap">Merge feature/svg-target, with the SVG dialog made taller for the full area-patterns wording, into dev
+
+Make the SVG dialog 662 pixels tall for the full area-patterns wording (7b0f39fb)
+
+It merges without conflict.
+
+Co-Authored-By: Claude Opus 5.5 &lt;noreply@anthropic.com&gt;
+Claude-Session: https://claude.ai/code/session_01498TwS7chaYvUnHBwQ8aos</pre></details></li></ul>
+    <h2>Upstream with this fork&rsquo;s build and bug fixes</h2><p>Purple Pen as this fork last took it from upstream, with the bug fixes this fork offers it, built and named so it can be installed beside it. Never offered as an update.</p><ul><li>4.0.277.220<ul><li><a href="https://github.com/pauliojanpera/NotPurplePen/releases/download/channel-base/notpurplepen-4.0.277.220-base-linux-appimage-x64.appimage">notpurplepen-4.0.277.220-base-linux-appimage-x64.appimage</a> &mdash; linux-appimage-x64</li>
+<li><a href="https://github.com/pauliojanpera/NotPurplePen/releases/download/channel-base/notpurplepen-4.0.277.220-base-linux-x64.deb">notpurplepen-4.0.277.220-base-linux-x64.deb</a> &mdash; linux-x64</li>
+<li><a href="https://github.com/pauliojanpera/NotPurplePen/releases/download/channel-base/notpurplepen-4.0.277.220-base-linux-x64.rpm">notpurplepen-4.0.277.220-base-linux-x64.rpm</a> &mdash; linux-x64</li>
+<li><a href="https://github.com/pauliojanpera/NotPurplePen/releases/download/channel-base/notpurplepen-4.0.277.220-base-osx-arm64.dmg">notpurplepen-4.0.277.220-base-osx-arm64.dmg</a> &mdash; osx-arm64</li>
+<li><a href="https://github.com/pauliojanpera/NotPurplePen/releases/download/channel-base/notpurplepen-4.0.277.220-base-win-x64.exe">notpurplepen-4.0.277.220-base-win-x64.exe</a> &mdash; win-x64</li></ul><details><summary>Commit <code>ef5cd9cd202e218f914a2102263d4fd2018d3330</code></summary><pre style="white-space: pre-wrap">Merge fix/overlapping-patterns, which draws a pattern once for overlapping areas of a symbol, into basewithfixes
+
+* fix/overlapping-patterns:
+  Record the baselines again, now that areas whose contours cross draw their own patterns (7d2699b0)
+  Leave out of a group an area whose contours cross, and wind the others&#39; contours by how deep they lie (4228e324)
+  Record the baselines that drawing a pattern once moves (2a40f48b)
+  Test that areas of a symbol that overlap or touch draw their patterns once (6957756f)
+  Draw a pattern once for the areas of a symbol that overlap or touch (c544ed87)
+
+Conflicts, resolved as follows: 35 baselines that both the fix and
+basewithfixes&#39; subpixel glyph positions recorded. Tests run 43496234515
+drew the two together and compared each drawing with basewithfixes&#39;
+baseline, going on past each failed comparison: 34 of them lie outside
+the tolerance and are recorded from that run, and BM_Course 2 lies
+within it and keeps basewithfixes&#39;. BM_All Controls, which neither
+side&#39;s change moves beyond its tolerance alone, lies outside it with
+both, and is recorded from that run as well.
+
+Co-Authored-By: Claude Opus 5.5 &lt;noreply@anthropic.com&gt;
+Claude-Session: https://claude.ai/code/session_01498TwS7chaYvUnHBwQ8aos</pre></details></li>
+<li>4.0.260.220<ul><li><a href="https://github.com/pauliojanpera/NotPurplePen/releases/download/channel-base/notpurplepen-4.0.260.220-base-linux-appimage-x64.appimage">notpurplepen-4.0.260.220-base-linux-appimage-x64.appimage</a> &mdash; linux-appimage-x64</li>
+<li><a href="https://github.com/pauliojanpera/NotPurplePen/releases/download/channel-base/notpurplepen-4.0.260.220-base-linux-x64.deb">notpurplepen-4.0.260.220-base-linux-x64.deb</a> &mdash; linux-x64</li>
+<li><a href="https://github.com/pauliojanpera/NotPurplePen/releases/download/channel-base/notpurplepen-4.0.260.220-base-linux-x64.rpm">notpurplepen-4.0.260.220-base-linux-x64.rpm</a> &mdash; linux-x64</li>
+<li><a href="https://github.com/pauliojanpera/NotPurplePen/releases/download/channel-base/notpurplepen-4.0.260.220-base-osx-arm64.dmg">notpurplepen-4.0.260.220-base-osx-arm64.dmg</a> &mdash; osx-arm64</li>
+<li><a href="https://github.com/pauliojanpera/NotPurplePen/releases/download/channel-base/notpurplepen-4.0.260.220-base-win-x64.exe">notpurplepen-4.0.260.220-base-win-x64.exe</a> &mdash; win-x64</li></ul><details><summary>Commit <code>0ad457403f98f7e63dfbb9753a2daff376bca1a1</code></summary><pre style="white-space: pre-wrap">Merge base, with upstream&#39;s master up to d48f445, into basewithfixes
+
+base now holds upstream&#39;s 14 commits since 98c168b. Util.cs conflicted:
+bc4debb answers IsCurrentCultureMetric from RegionInfo.CurrentRegion,
+which on Windows is the user&#39;s home location (&quot;Country or region&quot;),
+and so no longer throws for the invariant culture or a neutral one,
+which fix/invariant-culture-metric (98a85ad) had fixed by asking the
+region of the current culture, as Purple Pen did before. Upstream&#39;s
+Util.cs is taken, with the MetricOverrideForTesting that its
+EventDBTests and MapUtilTests set. 98a85ad&#39;s
+UtilTests.IsCurrentCultureMetric, which expects each culture&#39;s own
+answer, goes with it, as the answer no longer follows the culture on
+Windows.
+
+Co-Authored-By: Claude Opus 5.5 &lt;noreply@anthropic.com&gt;
+Claude-Session: https://claude.ai/code/session_01498TwS7chaYvUnHBwQ8aos</pre></details></li>
+<li>4.0.252.220<ul><li><a href="https://github.com/pauliojanpera/NotPurplePen/releases/download/channel-base/notpurplepen-4.0.252.220-base-linux-appimage-x64.appimage">notpurplepen-4.0.252.220-base-linux-appimage-x64.appimage</a> &mdash; linux-appimage-x64</li>
+<li><a href="https://github.com/pauliojanpera/NotPurplePen/releases/download/channel-base/notpurplepen-4.0.252.220-base-linux-x64.deb">notpurplepen-4.0.252.220-base-linux-x64.deb</a> &mdash; linux-x64</li>
+<li><a href="https://github.com/pauliojanpera/NotPurplePen/releases/download/channel-base/notpurplepen-4.0.252.220-base-linux-x64.rpm">notpurplepen-4.0.252.220-base-linux-x64.rpm</a> &mdash; linux-x64</li>
+<li><a href="https://github.com/pauliojanpera/NotPurplePen/releases/download/channel-base/notpurplepen-4.0.252.220-base-osx-arm64.dmg">notpurplepen-4.0.252.220-base-osx-arm64.dmg</a> &mdash; osx-arm64</li>
+<li><a href="https://github.com/pauliojanpera/NotPurplePen/releases/download/channel-base/notpurplepen-4.0.252.220-base-win-x64.exe">notpurplepen-4.0.252.220-base-win-x64.exe</a> &mdash; win-x64</li></ul><details><summary>Commit <code>bfcb75a6282184340b3a7aedcd813af58bd317f2</code></summary><pre style="white-space: pre-wrap">Merge branch &#39;ci/svg-loop-browsers&#39; into basewithfixes
+
+Co-Authored-By: Claude Opus 5.5 &lt;noreply@anthropic.com&gt;
+Claude-Session: https://claude.ai/code/session_01498TwS7chaYvUnHBwQ8aos</pre></details></li></ul>
+    <h2>Trial builds</h2><p>A branch as it stands, packaged so it can be installed and tried. Never offered as an update.</p><ul><li>pdf-cache-race, 4.0.284.220<ul><li><a href="https://github.com/pauliojanpera/NotPurplePen/releases/download/trial-pdf-cache-race/notpurplepen-4.0.284.220-trial-pdf-cache-race-linux-appimage-x64.appimage">notpurplepen-4.0.284.220-trial-pdf-cache-race-linux-appimage-x64.appimage</a> &mdash; linux-appimage-x64</li>
+<li><a href="https://github.com/pauliojanpera/NotPurplePen/releases/download/trial-pdf-cache-race/notpurplepen-4.0.284.220-trial-pdf-cache-race-linux-x64.deb">notpurplepen-4.0.284.220-trial-pdf-cache-race-linux-x64.deb</a> &mdash; linux-x64</li>
+<li><a href="https://github.com/pauliojanpera/NotPurplePen/releases/download/trial-pdf-cache-race/notpurplepen-4.0.284.220-trial-pdf-cache-race-linux-x64.rpm">notpurplepen-4.0.284.220-trial-pdf-cache-race-linux-x64.rpm</a> &mdash; linux-x64</li></ul><details><summary>Commit <code>8a86acacb95c5b13dff9e58cb03b66021fbf60b2</code></summary><pre style="white-space: pre-wrap">Merge fix/pdf-cache-race, rebased onto upstream&#39;s d48f445, into base for its full run
+
+The rebased pull request #57 of petergolde/PurplePen, before it is
+pushed:
+
+Publish a converted PDF under its cache name only once it is whole (a764dde9)
+
+base has had the same change since 86434f02, so the merge brings no
+new content: its tree is the tree of base.
+
+Co-Authored-By: Claude Opus 5.5 &lt;noreply@anthropic.com&gt;
+Claude-Session: https://claude.ai/code/session_01TAoSZPSZiEaYUANuxCqthN</pre></details></li>
+<li>headless-pdf-loading, 4.0.283.220<ul><li><a href="https://github.com/pauliojanpera/NotPurplePen/releases/download/trial-headless-pdf-loading/notpurplepen-4.0.283.220-trial-headless-pdf-loading-linux-appimage-x64.appimage">notpurplepen-4.0.283.220-trial-headless-pdf-loading-linux-appimage-x64.appimage</a> &mdash; linux-appimage-x64</li>
+<li><a href="https://github.com/pauliojanpera/NotPurplePen/releases/download/trial-headless-pdf-loading/notpurplepen-4.0.283.220-trial-headless-pdf-loading-linux-x64.deb">notpurplepen-4.0.283.220-trial-headless-pdf-loading-linux-x64.deb</a> &mdash; linux-x64</li>
+<li><a href="https://github.com/pauliojanpera/NotPurplePen/releases/download/trial-headless-pdf-loading/notpurplepen-4.0.283.220-trial-headless-pdf-loading-linux-x64.rpm">notpurplepen-4.0.283.220-trial-headless-pdf-loading-linux-x64.rpm</a> &mdash; linux-x64</li></ul><details><summary>Commit <code>a89d84bf902e12074206212f8934cd1b1b73a2ac</code></summary><pre style="white-space: pre-wrap">Merge fix/headless-pdf-loading, rebased onto upstream&#39;s d48f445, into base for its full run
+
+The rebased pull request #56 of petergolde/PurplePen, before it is
+pushed:
+
+Let a PDF map load with nobody at the keyboard (5b5a0592)
+
+base has had the same change since 68228505, so the merge brings no
+new content: its tree is the tree of base.
+
+Co-Authored-By: Claude Opus 5.5 &lt;noreply@anthropic.com&gt;
+Claude-Session: https://claude.ai/code/session_01TAoSZPSZiEaYUANuxCqthN</pre></details></li>
+<li>svg-target-into-dev, 4.0.281.220<ul><li><a href="https://github.com/pauliojanpera/NotPurplePen/releases/download/trial-svg-target-into-dev/notpurplepen-4.0.281.220-trial-svg-target-into-dev-linux-appimage-x64.appimage">notpurplepen-4.0.281.220-trial-svg-target-into-dev-linux-appimage-x64.appimage</a> &mdash; linux-appimage-x64</li>
+<li><a href="https://github.com/pauliojanpera/NotPurplePen/releases/download/trial-svg-target-into-dev/notpurplepen-4.0.281.220-trial-svg-target-into-dev-linux-x64.deb">notpurplepen-4.0.281.220-trial-svg-target-into-dev-linux-x64.deb</a> &mdash; linux-x64</li>
+<li><a href="https://github.com/pauliojanpera/NotPurplePen/releases/download/trial-svg-target-into-dev/notpurplepen-4.0.281.220-trial-svg-target-into-dev-linux-x64.rpm">notpurplepen-4.0.281.220-trial-svg-target-into-dev-linux-x64.rpm</a> &mdash; linux-x64</li></ul><details><summary>Commit <code>2edef4d4d6e2ba91a87b2b6b1edc5ce32d0adfa5</code></summary><pre style="white-space: pre-wrap">Merge feature/svg-target, with JPEG data written as it is or encoded alike on every machine, into dev
+
+* feature/svg-target:
+  Record the image export&#39;s JPEG baselines that Skia&#39;s encoder moves (1088d129)
+  Export an event on a JPEG map with JPEG image specials, and record its baselines (3b5c7b7e)
+  Write a bitmap&#39;s JPEG data as it is where the browsers draw it as the application does (837da88c)
+  Write JPEG with Skia&#39;s encoder, with the bitmap&#39;s resolution in its JFIF header (03474258)
+  Keep the JPEG data a Skia bitmap was decoded from (79a17dd3)
+
+One conflict, resolved as follows: create1&#39;s JPEG baseline is
+feature/svg-target&#39;s, which 1088d129 recorded from Tests run
+43564494022 of the branch merged into basewithfixes, whose drawing of
+the exported bitmaps dev shares: both held the same baseline before.
+
+Co-Authored-By: Claude Opus 5.5 &lt;noreply@anthropic.com&gt;
+Claude-Session: https://claude.ai/code/session_01TAoSZPSZiEaYUANuxCqthN</pre></details></li>
+<li>svg-jpeg-data, 4.0.280.220<ul><li><a href="https://github.com/pauliojanpera/NotPurplePen/releases/download/trial-svg-jpeg-data/notpurplepen-4.0.280.220-trial-svg-jpeg-data-linux-appimage-x64.appimage">notpurplepen-4.0.280.220-trial-svg-jpeg-data-linux-appimage-x64.appimage</a> &mdash; linux-appimage-x64</li>
+<li><a href="https://github.com/pauliojanpera/NotPurplePen/releases/download/trial-svg-jpeg-data/notpurplepen-4.0.280.220-trial-svg-jpeg-data-linux-x64.deb">notpurplepen-4.0.280.220-trial-svg-jpeg-data-linux-x64.deb</a> &mdash; linux-x64</li>
+<li><a href="https://github.com/pauliojanpera/NotPurplePen/releases/download/trial-svg-jpeg-data/notpurplepen-4.0.280.220-trial-svg-jpeg-data-linux-x64.rpm">notpurplepen-4.0.280.220-trial-svg-jpeg-data-linux-x64.rpm</a> &mdash; linux-x64</li></ul><details><summary>Commit <code>100366a304675a1fd6dba0c13c6d9771f06a0701</code></summary><pre style="white-space: pre-wrap">Merge feature/svg-jpeg-data into basewithfixes for its full run
+
+The conflicts are feature/svg-target&#39;s with basewithfixes, resolved as dev
+has them at 6e16e2f4: MainWindowViewModel.cs keeps one set of the fields
+that hold the map shown and forgets the SVG dialog&#39;s settings with the
+other dialogs&#39;, and the nine bitmapcreate baselines are basewithfixes&#39;s,
+recorded with the subpixel glyph positions and the overlapping areas&#39;
+patterns drawn once. create1&#39;s JPEG baseline is the branch&#39;s, which
+recorded it from the run of this merge before it.
+
+Co-Authored-By: Claude Opus 5.5 &lt;noreply@anthropic.com&gt;
+Claude-Session: https://claude.ai/code/session_01TAoSZPSZiEaYUANuxCqthN</pre></details></li></ul>
+    <h2>Notes</h2>
+    <ul>
+        <li>The downloads are served from this repository's releases, not from this site.</li>
+        <li>The .deb and .rpm packages are installed and removed by the system package manager and
+            are not offered as updates from inside the application.</li>
+        <li>The macOS disk image is not signed, so the first launch needs the usual confirmation.</li>
+    </ul>
+</body>
+</html>
