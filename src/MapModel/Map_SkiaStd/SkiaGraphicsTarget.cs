@@ -364,14 +364,18 @@ namespace PurplePen.MapModel
             if (requestedBlendMode == BlendMode.Darken) {
                 newBlendMode = SKBlendMode.Darken;
             }
+            else if (requestedBlendMode == BlendMode.Multiply) {
+                newBlendMode = SKBlendMode.Multiply;
+            }
             else {
                 // Not supported.
                 return false;
             }
 
-            // This way of handling things only works for Darken because it's idempotent, so drawing
-            // multiple times with Darken is the same as drawing once.  If we supported other blend modes like
-            // multiply, we would either have to composite to an another bitmap. This is directly supported
+            // Each shape is blended as it is drawn. Darken is idempotent, so drawing multiple times with Darken
+            // is the same as drawing once, and shapes of one color that overlap blend as if drawn together.
+            // Multiply is not: where shapes of one color overlap, the color builds up, as overlapping inks do.
+            // Blending them as a whole would need compositing to another bitmap. This is directly supported
             // by doing SaveLayer in SkiaSharp, but that's a more expensive call.
 
             blendModeStack.Push(blendMode);

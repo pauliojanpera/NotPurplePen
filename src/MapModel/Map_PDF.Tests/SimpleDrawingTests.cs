@@ -413,6 +413,48 @@ namespace Map_PDF.Tests
             );
         }
 
+        // Blends by multiply (in CMYK). Each shape is blended as it is drawn, so the purple builds up where the circle
+        // and the two lines that cross it overlap.
+        [Test]
+        public void Blending4()
+        {
+            CreatePdf("blending4", true,
+                grTarget => {
+                    const int penWidth = 20;
+                    CmykColor blue = CmykColor.FromColor(Color.Blue);
+                    CmykColor green = CmykColor.FromColor(Color.Green);
+                    CmykColor yellow = CmykColor.FromColor(Color.Yellow);
+                    CmykColor black = CmykColor.FromColor(Color.Black);
+                    CmykColor purple = CmykColor.FromCmyk(0.1F, 0.9F, 0, 0.1F);
+
+                    Matrix transform = new Matrix();
+                    transform.Translate(425, 550);
+                    transform.Scale(3, -3);
+                    grTarget.PushTransform(transform);
+
+                    object penBlue = new object(), penGreen = new object(), penYellow = new object(), penBlack = new object(), penPurple = new object();
+                    grTarget.CreatePen(penBlue, blue, penWidth, LineCapMode.Round, LineJoinMode.Miter, 5);
+                    grTarget.CreatePen(penGreen, green, penWidth, LineCapMode.Round, LineJoinMode.Miter, 5);
+                    grTarget.CreatePen(penYellow, yellow, penWidth, LineCapMode.Round, LineJoinMode.Miter, 5);
+                    grTarget.CreatePen(penBlack, black, penWidth, LineCapMode.Round, LineJoinMode.Miter, 5);
+                    grTarget.CreatePen(penPurple, purple, penWidth, LineCapMode.Round, LineJoinMode.Miter, 5);
+
+                    grTarget.DrawLine(penBlue, new PointF(-80, 60), new PointF(80, 60));
+                    grTarget.DrawLine(penGreen, new PointF(-80, 30), new PointF(80, 30));
+                    grTarget.DrawLine(penYellow, new PointF(-80, 0), new PointF(80, 0));
+                    grTarget.DrawLine(penBlack, new PointF(-80, -30), new PointF(80, -30));
+
+                    Assert.IsTrue(grTarget.PushBlending(BlendMode.Multiply));
+                    grTarget.DrawEllipse(penPurple, new PointF(0, 0), 70, 70);
+                    grTarget.DrawLine(penPurple, new PointF(-90, -90), new PointF(90, 90));
+                    grTarget.DrawLine(penPurple, new PointF(-90, 90), new PointF(90, -90));
+                    grTarget.PopBlending();
+
+                    grTarget.PopTransform();
+                }
+            );
+        }
+
         [Test]
         public void CopiedPageRGB()
         {

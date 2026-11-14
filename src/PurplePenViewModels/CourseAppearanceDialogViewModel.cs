@@ -42,10 +42,11 @@ namespace PurplePen.ViewModels
         private string mapStandard = "2000";
 
         // True if the underlying map is an OCAD/OpenMapper map. Controls whether the
-        // "Layer" blend option and the Advanced (overprint) group are available.
+        // "Layer" blend option and the overprint check box are available.
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(ShowLayerOption))]
         [NotifyPropertyChangedFor(nameof(AdvancedEnabled))]
+        [NotifyPropertyChangedFor(nameof(BlendModeEnabled))]
         private bool usesOcadMap;
 
         // The underlying map layers available for the "lower purple" option, each
@@ -94,6 +95,7 @@ namespace PurplePen.ViewModels
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(IsLayerBlend))]
         [NotifyPropertyChangedFor(nameof(LayerOptionOpacity))]
+        [NotifyPropertyChangedFor(nameof(BlendModeEnabled))]
         private int blendPurpleIndex = 1;
 
         [ObservableProperty]
@@ -120,7 +122,13 @@ namespace PurplePen.ViewModels
         // === Advanced group ===
 
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(BlendModeEnabled))]
         private bool useOverprint;
+
+        // 0 = Darken, 1 = Multiply: how the colors marked overprint, and the purple when it
+        // blends, blend with the colors below them.
+        [ObservableProperty]
+        private int blendModeIndex;
 
         /// <summary>The names of the underlying map layers, shown in the "Above map layer" combo.</summary>
         public ObservableCollection<string> MapLayerNames { get; } = new ObservableCollection<string>();
@@ -139,9 +147,18 @@ namespace PurplePen.ViewModels
         /// <summary>Opacity for the "Above map layer" row; hidden (but space preserved) unless Layer blend is selected.</summary>
         public double LayerOptionOpacity => IsLayerBlend ? 1.0 : 0.0;
 
-        /// <summary>The "Layer" blend option and Advanced group are only meaningful for OCAD maps.</summary>
+        /// <summary>The "Layer" blend option and the overprint check box are only meaningful for OCAD maps.</summary>
         public bool ShowLayerOption => UsesOcadMap;
         public bool AdvancedEnabled => UsesOcadMap;
+
+        /// <summary>
+        /// The blend mode has an effect, and can be chosen, when the purple blends with the map,
+        /// or when the colors of an OCAD map marked overprint use the overprint effect.
+        /// </summary>
+        public bool BlendModeEnabled => BlendPurpleIndex == 1 || (AdvancedEnabled && UseOverprint);
+
+        /// <summary>The blend mode the blend mode combo box selects.</summary>
+        private BlendMode SelectedBlendMode => (BlendModeIndex == 1) ? BlendMode.Multiply : BlendMode.Darken;
 
         /// <summary>
         /// Parameterless constructor for the Avalonia designer. Seeds the dialog
@@ -236,6 +253,7 @@ namespace PurplePen.ViewModels
 
                 result.descriptionsPurple = (DescriptionColorIndex == 1);
                 result.useOcadOverprint = UseOverprint;
+                result.overprintBlendMode = SelectedBlendMode;
 
                 return result;
             }
@@ -297,6 +315,7 @@ namespace PurplePen.ViewModels
 
                 DescriptionColorIndex = value.descriptionsPurple ? 1 : 0;
                 UseOverprint = value.useOcadOverprint;
+                BlendModeIndex = (value.overprintBlendMode == BlendMode.Multiply) ? 1 : 0;
             }
         }
 
@@ -468,7 +487,7 @@ namespace PurplePen.ViewModels
             }
 
             if (BlendPurpleIndex == 1)
-                grTarget.PushBlending(BlendMode.Darken);
+                grTarget.PushBlending(SelectedBlendMode);
 
             // Draw control circle.
             grTarget.DrawEllipse(pen, centerCircle, circleDrawRadius, circleDrawRadius);

@@ -4,8 +4,9 @@
     "Customize Appearance" dialog for editing how courses are drawn: item sizes
     (control circle, line width, center dot, number height/style, outline,
     automatic leg gap, item scaling), the purple color (blend mode, map layer,
-    CMYK / use map purple), control description color, and advanced (overprint)
-    options. A live preview sample is drawn in the code-behind via the
+    CMYK / use map purple), control description color, and advanced options
+    (the overprint effect, and the blend mode of overprinted colors and of the
+    blended purple). A live preview sample is drawn in the code-behind via the
     ViewModel's DrawSample method.
 
     Layout: Item Sizes group on the left; Purple Color, Control Descriptions and
@@ -339,15 +340,35 @@
                     </Grid>
                 </HeaderedContentControl>
 
-                <!-- Advanced (overprint), enabled only for OCAD maps -->
+                <!-- Advanced: the overprint effect, enabled only for OCAD maps, and the blend mode,
+                     enabled where colors blend: with the overprint effect, or with the purple blended -->
                 <HeaderedContentControl DockPanel.Dock="Top"
                                         Header="{resx:Localize CourseAppearanceDialog_groupBoxOcadMap_Text}"
                                         Padding="10,12,10,8"
-                                        IsEnabled="{Binding AdvancedEnabled}"
                                         VerticalAlignment="Top">
-                    <CheckBox x:Name="checkBoxOverprint"
-                              Content="{resx:Localize CourseAppearanceDialog_checkBoxOverprint_Text}"
-                              IsChecked="{Binding UseOverprint, Mode=TwoWay}"/>
+                    <StackPanel Spacing="6">
+                        <CheckBox x:Name="checkBoxOverprint"
+                                  Content="{resx:Localize CourseAppearanceDialog_checkBoxOverprint_Text}"
+                                  IsChecked="{Binding UseOverprint, Mode=TwoWay}"
+                                  IsEnabled="{Binding AdvancedEnabled}"/>
+
+                        <!-- Blend mode of the colors marked overprint and of the blended purple -->
+                        <Grid ColumnDefinitions="*,Auto">
+                            <TextBlock x:Name="labelBlendMode"
+                                       Grid.Column="0"
+                                       Text="{resx:Localize CourseAppearanceDialog_labelBlendMode_Text}"
+                                       VerticalAlignment="Center"
+                                       TextWrapping="Wrap"/>
+                            <ComboBox x:Name="comboBoxBlendMode"
+                                      Grid.Column="1"
+                                      Margin="8,0,0,0"
+                                      IsEnabled="{Binding BlendModeEnabled}"
+                                      SelectedIndex="{Binding BlendModeIndex, Mode=TwoWay}">
+                                <ComboBoxItem Content="{resx:Localize CourseAppearanceDialog_comboBoxBlendMode_Items}"/>
+                                <ComboBoxItem Content="{resx:Localize CourseAppearanceDialog_comboBoxBlendMode_Items1}"/>
+                            </ComboBox>
+                        </Grid>
+                    </StackPanel>
                 </HeaderedContentControl>
             </DockPanel>
         </Grid>

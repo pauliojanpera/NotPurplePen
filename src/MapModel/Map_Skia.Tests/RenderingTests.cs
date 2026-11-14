@@ -1,5 +1,6 @@
 ﻿using Map_SkiaStd;
 using NUnit.Framework;
+using PurplePen.Graphics2D;
 using PurplePen.MapModel;
 using SkiaSharp;
 using System;
@@ -62,10 +63,13 @@ namespace Map_Skia.Tests
             Assert.IsTrue(ok, string.Format("Rendering test {0} did not compare correctly.", filename), ok);
         }
 
-        void CheckTestOverprinting(string filename, bool testLightenedColor, bool roundtripToOcad, int minOcadVersion, int maxOcadVersion)
+        // Check a test file drawn with the overprint effect, blending the colors that overprint by a blend mode.
+        void CheckTestOverprinting(string filename, bool testLightenedColor, bool roundtripToOcad, int minOcadVersion, int maxOcadVersion, BlendMode blendMode = BlendMode.Darken)
         {
             string fullname = TestUtil.GetTestFile("skia_render\\" + filename);
-            bool ok = RenderingUtil.VerifyTestFile(fullname, new RenderOptions(), false, true, testLightenedColor, roundtripToOcad, false, minOcadVersion, maxOcadVersion, MAX_PIXEL_DIFF, alsoTestRecording: true);
+            RenderOptions renderOptions = new RenderOptions();
+            renderOptions.overprintBlendMode = blendMode;
+            bool ok = RenderingUtil.VerifyTestFile(fullname, renderOptions, false, true, testLightenedColor, roundtripToOcad, false, minOcadVersion, maxOcadVersion, MAX_PIXEL_DIFF, alsoTestRecording: true);
             Assert.IsTrue(ok, string.Format("Rendering test {0} did not compare correctly.", filename), ok);
         }
 
@@ -808,6 +812,13 @@ namespace Map_Skia.Tests
         public void Overprinting()
         {
             CheckTestOverprinting("ocad11overprinting.txt", true, true, 6, 12);
+        }
+
+        // The overprint effect by multiply: the colors that overprint multiply with the colors below them.
+        [Test]
+        public void OverprintingMultiply()
+        {
+            CheckTestOverprinting("ocad11multiply.txt", true, true, 6, 12, BlendMode.Multiply);
         }
 
         [Test]
