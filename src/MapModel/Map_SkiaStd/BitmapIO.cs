@@ -125,7 +125,8 @@ namespace PurplePen.MapModel
 
     /// <summary>
     /// Provides bitmap read/write using ImageSharp for features that SkiaSharp lacks:
-    /// reading/writing bitmap resolution (DPI) metadata and writing GIF files.
+    /// reading/writing bitmap resolution (DPI) metadata and writing GIF files. JPEG is
+    /// written with SkiaSharp's encoder, and its resolution set in the header it writes.
     /// </summary>
     public static class BitmapIO
     {
@@ -277,7 +278,8 @@ namespace PurplePen.MapModel
         /// <summary>
         /// Shared implementation for writing pixel data from an SKPixmap to a stream.
         /// Converts pixels to Bgra8888 with straight (unpremultiplied) alpha for ImageSharp,
-        /// then encodes with the specified format and resolution metadata.
+        /// then encodes with the specified format and resolution metadata. JPEG is written
+        /// by WriteJpegToStream instead.
         /// </summary>
         /// <param name="sourcePixmap">The source pixel data.</param>
         /// <param name="format">The target file format.</param>
@@ -288,6 +290,11 @@ namespace PurplePen.MapModel
         private static void WritePixelsToStream(SKPixmap sourcePixmap, GraphicsBitmapFormat format,
             double horizontalDpi, double verticalDpi, Stream stream, int quality)
         {
+            if (format == GraphicsBitmapFormat.JPEG) {
+                WriteJpegToStream(sourcePixmap, horizontalDpi, verticalDpi, stream, quality);
+                return;
+            }
+
             int width = sourcePixmap.Width;
             int height = sourcePixmap.Height;
 
@@ -314,6 +321,76 @@ namespace PurplePen.MapModel
                 IImageEncoder encoder = CreateEncoder(format, quality);
                 image.Save(stream, encoder);
             }
+        }
+
+        /// <summary>
+        /// Writes pixel data to a stream as JPEG, encoded by SkiaSharp's libjpeg-turbo, whose integer arithmetic gives
+        /// the same bytes on every machine, where ImageSharp's encoder gave other bytes with .NET's hardware intrinsics
+        /// off. The pixels are encoded with straight alpha, which JPEG drops, and above a quality of 90 with their colour
+        /// at full resolution, as ImageSharp's encoder kept it. The resolution goes into the JFIF header.
+        /// </summary>
+        /// <param name="sourcePixmap">The source pixel data.</param>
+        /// <param name="horizontalDpi">Horizontal resolution in DPI.</param>
+        /// <param name="verticalDpi">Vertical resolution in DPI.</param>
+        /// <param name="stream">The stream to write to.</param>
+        /// <param name="quality">Encoding quality (0-100).</param>
+        private static void WriteJpegToStream(SKPixmap sourcePixmap, double horizontalDpi, double verticalDpi, Stream stream, int quality)
+        {
+            SKImageInfo straightInfo = new SKImageInfo(sourcePixmap.Width, sourcePixmap.Height, SKColorType.Bgra8888, SKAlphaType.Unpremul);
+            SKJpegEncoderDownsample downsample = quality > 90 ? SKJpegEncoderDownsample.Downsample444 : SKJpegEncoderDownsample.Downsample420;
+            using (SKBitmap straight = new SKBitmap(straightInfo)) {
+                if (!sourcePixmap.ReadPixels(straight.Info, straight.GetPixels(), straight.RowBytes))
+                    throw new InvalidOperationException("Failed to convert pixel data for encoding.");
+
+                byte[] jpeg;
+                using (SKPixmap pixels = straight.PeekPixels())
+                using (SKData encoded = pixels.Encode(new SKJpegEncoderOptions(quality, downsample, SKJpegEncoderAlphaOption.Ignore))) {
+                    if (encoded == null)
+                        throw new InvalidOperationException("Failed to encode JPEG.");
+                    jpeg = encoded.ToArray();
+                }
+                SetJfifResolution(jpeg, horizontalDpi, verticalDpi);
+                stream.Write(jpeg, 0, jpeg.Length);
+            }
+        }
+
+        /// <summary>
+        /// Sets a resolution in the JFIF header that SkiaSharp's encoder begins JPEG data with, and in which it says only
+        /// that the pixels are square: as whole dots per inch, each rounded half up. The header stays as it is when either
+        /// resolution rounds to no whole dot per inch, or to more than the header holds.
+        /// </summary>
+        /// <param name="jpeg">The JPEG data.</param>
+        /// <param name="horizontalDpi">Horizontal resolution in DPI.</param>
+        /// <param name="verticalDpi">Vertical resolution in DPI.</param>
+        private static void SetJfifResolution(byte[] jpeg, double horizontalDpi, double verticalDpi)
+        {
+            // The start of the image, then the JFIF segment: its marker, its length and its identifier "JFIF\0", the
+            // version, the units of the density, and the horizontal and vertical density, of two bytes each, high byte
+            // first.
+            const int UnitsOffset = 13, DensityOffset = 14, DotsPerInch = 1;
+            byte[] jfifStart = { 0xFF, 0xD8, 0xFF, 0xE0, 0, 16, (byte)'J', (byte)'F', (byte)'I', (byte)'F', 0 };
+            if (jpeg.Length < DensityOffset + 4 || !jpeg.AsSpan(0, jfifStart.Length).SequenceEqual(jfifStart))
+                return;
+
+            int horizontal = RoundToWholeDotsPerInch(horizontalDpi), vertical = RoundToWholeDotsPerInch(verticalDpi);
+            if (horizontal == 0 || vertical == 0)
+                return;
+            jpeg[UnitsOffset] = DotsPerInch;
+            jpeg[DensityOffset] = (byte)(horizontal >> 8);
+            jpeg[DensityOffset + 1] = (byte)horizontal;
+            jpeg[DensityOffset + 2] = (byte)(vertical >> 8);
+            jpeg[DensityOffset + 3] = (byte)vertical;
+        }
+
+        /// <summary>
+        /// Rounds a resolution half up to whole dots per inch, as a JFIF header holds it.
+        /// </summary>
+        /// <param name="dpi">The resolution in DPI.</param>
+        /// <returns>The resolution in whole dots per inch, or 0 when that is not from 1 to 65535.</returns>
+        private static int RoundToWholeDotsPerInch(double dpi)
+        {
+            double rounded = Math.Floor(dpi + 0.5);
+            return rounded >= 1 && rounded <= ushort.MaxValue ? (int)rounded : 0;
         }
 
         /// <summary>
@@ -359,8 +436,6 @@ namespace PurplePen.MapModel
             switch (format) {
             case GraphicsBitmapFormat.PNG:
                 return new PngEncoder();
-            case GraphicsBitmapFormat.JPEG:
-                return new JpegEncoder { Quality = quality };
             case GraphicsBitmapFormat.GIF:
                 // Use an Octree quantizer with no dithering. Our bitmaps typically have few
                 // distinct colors (map/line art), so a ≤256-entry palette reproduces them
