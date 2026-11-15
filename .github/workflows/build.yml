@@ -1,0 +1,692 @@
+name: Build NotPurplePen
+
+# Packaging for Windows, Linux and macOS. The test suite lives in tests.yml;
+# the two must not overlap, or every push builds everything twice.
+#
+# Where a build goes follows from the branch it came from:
+#
+#   master, dev  published on the channel its own VersionNumber.cs declares. A
+#                release branch carries a stable revision and lands on "main";
+#                an integration branch carries a prerelease one and lands on
+#                "beta", which only prerelease installs ever ask for.
+#   basewithfixes
+#                published on a channel of its own, "base". This is upstream
+#                plus what it takes to build and test it here and the bug fixes
+#                this fork offers it, with none of the fork's features, and it
+#                is offered to nobody as an update.
+#   base         not packaged. It is upstream plus what it takes to build and
+#                test it here, and what it builds is offered as basewithfixes.
+#   a pull request, or a dispatched ref
+#                published under trial/. A branch rooted at upstream carries no
+#                workflow of its own, so pushing to it cannot run one; a pull
+#                request can, because its workflow is read from the merge of the
+#                base branch and the branch.
+#   wip/**       published under trial/ too, so a branch can be tried without
+#                opening a pull request. A wip branch carries the workflows
+#                itself, which is what lets a push to it run them at all.
+#                wip/<platforms>/<name> is packaged only for the platforms it
+#                names -- win, linux or mac, joined with + -- and wip/<name>
+#                for all three. Either goes to the trial <name>, which keeps
+#                the newest build of each platform.
+#
+# No channel but main and beta is ever offered as an update: the application
+# asks for those two, or for main alone, and nothing else matches.
+
+# A push to a wip branch always asks for a trial, even one that brings no
+# commit the repository lacks: pushing a commit that is already up under
+# another wip/<platforms>/ name is how a trial is packaged for other platforms
+# without testing it again. A paths filter decides from the files a push
+# changed, which GitHub does not define for a branch created at a commit it
+# already has, so the trigger takes none, and the plan job asks master, dev and
+# basewithfixes what they changed instead.
+on:
+  push:
+    branches: [ master, dev, basewithfixes, 'wip/**' ]
+  pull_request:
+    branches: [ base, dev, master ]
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Branch or commit to build against base and the current upstream'
+        required: false
+        default: ''
+
+env:
+  GithubPagesUrl: "https://pauliojanpera.github.io/NotPurplePen/"
+
+jobs:
+  # What is packaged, and on which runner. A trial is packaged for the
+  # platforms its wip branch names, and everything else for all three. A push
+  # to master, dev or basewithfixes that changed nothing under src/ or .github/
+  # since the commit it moved the branch from has nothing to package.
+  plan:
+    name: Plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    outputs:
+      package: ${{ steps.plan.outputs.package }}
+      matrix: ${{ steps.plan.outputs.matrix }}
+
+    steps:
+    # Trees and no file contents: the comparison below reads names only.
+    - name: Checkout source
+      if: github.event_name == 'push' && !startsWith(github.ref_name, 'wip/')
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 1
+        filter: blob:none
+        sparse-checkout: .github
+
+    - name: Decide what to package
+      id: plan
+      shell: bash
+      env:
+        EVENT: ${{ github.event_name }}
+        BRANCH: ${{ github.ref_name }}
+        INPUT_REF: ${{ github.event.inputs.ref }}
+        HEAD_REF: ${{ github.head_ref }}
+        BEFORE: ${{ github.event.before }}
+      run: |
+        set -euo pipefail
+
+        # Every platform and the runner it is packaged on, then the names a
+        # wip branch gives them by.
+        declare -A runner=([win-x64]=windows-2022 [linux-x64]=ubuntu-latest [osx-arm64]=macos-latest)
+        declare -A named=([win]=win-x64 [linux]=linux-x64 [mac]=osx-arm64)
+
+        # The branch a trial is named after, worked out as the version step
+        # works it out; empty for master, dev and basewithfixes.
+        ref=$INPUT_REF
+        if [ -z "$ref" ] && [ "$EVENT" = pull_request ]; then ref=$HEAD_REF; fi
+        if [ -z "$ref" ] && [[ $BRANCH == wip/* ]]; then ref=$BRANCH; fi
+
+        # A commit that cannot be had -- the branch was just created, or the
+        # push replaced history that is no longer served -- leaves nothing to
+        # compare with, and then everything is packaged. So does a comparison
+        # that fails, whose empty output says nothing about what changed.
+        package=true
+        if [ -z "$ref" ] && [ "$EVENT" = push ] &&
+           git fetch --quiet --no-tags --depth=1 --filter=blob:none origin "$BEFORE" 2>/dev/null &&
+           changed=$(git diff --name-only --no-renames "$BEFORE" "$GITHUB_SHA" -- src .github) &&
+           [ -z "$changed" ]; then
+            echo "Nothing under src/ or .github/ changed since $BEFORE; nothing to package."
+            package=false
+        fi
+
+        platforms=(win-x64 linux-x64 osx-arm64)
+        if [[ $ref =~ ^wip/([^/]+)/. ]]; then
+            selector=${BASH_REMATCH[1]}
+            names=$(IFS='|'; echo "${!named[*]}")
+            pattern="^($names)(\\+($names))*\$"
+            if ! [[ $selector =~ $pattern ]]; then
+                echo "::error::$ref names '$selector' for its platforms. Give win, linux or mac, joined with + as in wip/linux+mac/<name>, or none, as in wip/<name>, for all three."
+                exit 1
+            fi
+            platforms=()
+            IFS=+ read -ra asked <<< "$selector"
+            for one in "${asked[@]}"; do platforms+=("${named[$one]}"); done
+        fi
+
+        matrix=$(for platform in "${platforms[@]}"; do
+                     jq -cn --arg platform "$platform" --arg os "${runner[$platform]}" '{platform: $platform, os: $os}'
+                 done | jq -cs 'unique_by(.platform) | {include: .}')
+        if [ "$package" = true ]; then echo "packaging for $(jq -r '[.include[].platform] | join(" ")' <<< "$matrix")"; fi
+        echo "package=$package" >> "$GITHUB_OUTPUT"
+        echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
+
+  package:
+    name: Package (${{ matrix.platform }})
+    needs: plan
+    if: needs.plan.outputs.package == 'true'
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+
+    strategy:
+      # One platform's failure says nothing about another's.
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
+
+    steps:
+    - name: Checkout source
+      uses: actions/checkout@v4
+      with:
+        ref: ${{ github.event.inputs.ref || github.ref }}
+        # GitVersion, used by the PdfSharp subtree, reads tags and history.
+        fetch-depth: 0
+
+    # The commit the packages are made from, which the site shows with the
+    # build: the one pushed, the head of a pull request, which GitHub has merged
+    # with its base, or a dispatched ref, named here before base is merged into
+    # it below.
+    - name: Name the commit built
+      id: commit
+      shell: bash
+      run: |
+        commit='${{ github.event.pull_request.head.sha }}'
+        echo "sha=${commit:-$(git rev-parse HEAD)}" >> "$GITHUB_OUTPUT"
+
+    # A pull request arrives already merged with its base. A dispatched ref does
+    # not, and a branch rooted at upstream carries neither this product's
+    # identity nor the fixes its tests need, so it is merged with base here --
+    # otherwise the package it produced would be Purple Pen's and would install
+    # over it.
+    - name: Merge what this is built on
+      if: github.event.inputs.ref != ''
+      shell: bash
+      run: |
+        git fetch --no-tags origin base
+        git -c user.name=ci -c user.email=ci@localhost merge --no-edit FETCH_HEAD
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+
+    # On a Mac, AvPurplePen targets net10.0-macos, which comes from the .NET
+    # macOS workload, and each release of the workload builds only with the
+    # Xcode whose major and minor version it was made against. The newest
+    # release wants an Xcode the runner does not have yet, so the workload is
+    # pinned to the newest release whose Xcode it has: 26.5.10318 wants 26.6.
+    # The pin names the manifest's own feature band, 10.0.100, under which
+    # every release of it is published, so it holds whatever 10.0 SDK
+    # setup-dotnet brings. The runner keeps several Xcodes side by side, and
+    # selects one; the one the workload asks for is selected if it is another.
+    - name: Install the macOS workload, and choose the Xcode it builds with
+      if: matrix.platform == 'osx-arm64'
+      shell: bash
+      env:
+        MACOS_WORKLOAD: 26.5.10318
+      run: |
+        set -euo pipefail
+        dotnet workload config --update-mode manifests
+        printf '{ "microsoft.net.sdk.macos": "%s/10.0.100" }\n' "$MACOS_WORKLOAD" > "$RUNNER_TEMP/macos-workload.json"
+        dotnet workload install macos --from-rollback-file "$RUNNER_TEMP/macos-workload.json"
+
+        required=$(dotnet msbuild src/AvPurplePen/AvPurplePen.csproj -nologo \
+                       -p:Configuration=Release -p:RuntimeIdentifier=osx-arm64 \
+                       -getProperty:_RecommendedXcodeVersion)
+        if [ -z "$required" ]; then
+            echo "::error::The macOS workload did not say which Xcode it needs."
+            exit 1
+        fi
+        majorminor() { local v; v=$(cut -d. -f1-2 <<< "$1"); [[ $v == *.* ]] || v=$v.0; echo "$v"; }
+        wanted=$(majorminor "$required")
+
+        version_of() { /usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$1/Contents/Info.plist" 2>/dev/null; }
+
+        # The runner's own choice first: the image prepares the Xcode it
+        # selects. Another one is selected as the image's notes say, by its
+        # real path, since some of the versioned names are links, and is let
+        # finish its first launch before anything asks it for a tool.
+        selected=$(cd "$(xcode-select -p)/../.." && pwd -P)
+        if [ "$(majorminor "$(version_of "$selected")")" = "$wanted" ]; then
+            echo "The macOS workload builds with Xcode $required; the selected $selected is $(version_of "$selected")"
+            exit 0
+        fi
+
+        chosen=""
+        found=()
+        while IFS= read -r app; do
+            version=$(version_of "$app") || continue
+            found+=("$(basename "$app") $version")
+            if [ "$(majorminor "$version")" = "$wanted" ]; then chosen=$(cd "$app" && pwd -P); fi
+        done < <(ls -d /Applications/Xcode*.app | sort -V)
+
+        if [ -z "$chosen" ]; then
+            echo "::error::The macOS workload builds with Xcode $required, and the runner has none of $wanted: ${found[*]}"
+            exit 1
+        fi
+        echo "The macOS workload builds with Xcode $required; selecting $chosen in place of $selected"
+        sudo xcode-select --switch "$chosen"
+        sudo xcodebuild -runFirstLaunch
+
+    # VersionNumber.cs is the single source of truth, and it is declared twice,
+    # once for PurplePen and once for PurplePen.MapModel. The application
+    # reports the first and the assemblies take their version from the second,
+    # which is what the installers read back out and what the updater compares
+    # against, so both have to say the same thing.
+    #
+    # The run number goes in the build component. The last component is not a
+    # counter: it says what kind of build the source declares itself to be,
+    # below VersionNumber.Stable (500) being a prerelease, and the application
+    # reads it the same way to decide which channels it will accept updates
+    # from. Adding to it would walk a beta into calling itself a release.
+    - name: Set version number
+      id: version
+      shell: pwsh
+      run: |
+        $declarations = @(Get-ChildItem src -Recurse -Filter VersionNumber.cs |
+            Where-Object { (Get-Content $_.FullName -Raw) -match 'Current = "[\d.]+"' })
+        if (-not $declarations) { throw 'No VersionNumber.cs declares a version.' }
+
+        $declared = @($declarations | ForEach-Object {
+            ([regex]::Match((Get-Content $_.FullName -Raw), 'Current = "([\d.]+)"')).Groups[1].Value
+        } | Sort-Object -Unique)
+        if ($declared.Count -ne 1) { throw "The version is declared as $($declared -join ' and ')." }
+
+        $parts = [int[]]($declared[0].Split('.'))
+        if ($parts.Length -ne 4) { throw "Expected four version components, got $($parts.Length)" }
+        $parts[2] += ${{ github.run_number }}
+        $version = $parts -join '.'
+        foreach ($file in $declarations) {
+            (Get-Content $file.FullName -Raw) -replace 'Current = "[\d.]+"', ('Current = "' + $version + '"') |
+                Set-Content -Path $file.FullName -NoNewline
+        }
+
+        $ref = '${{ github.event.inputs.ref }}'
+        if (-not $ref -and '${{ github.event_name }}' -eq 'pull_request') { $ref = '${{ github.head_ref }}' }
+        $branch = '${{ github.ref_name }}'
+        if (-not $ref -and $branch.StartsWith('wip/')) { $ref = $branch }
+        if ($ref) {
+            $channel = 'trial'
+            # Named after the last part of the branch name alone, so that the
+            # wip/ branch a build is run from and the feature/ branch the work
+            # is on publish as one trial, where the newer replaces the older.
+            $slug = ((($ref -split '/')[-1]) -replace '[^A-Za-z0-9._-]', '-').Trim('-').ToLowerInvariant()
+        }
+        elseif ($branch -eq 'basewithfixes') { $channel = 'base'; $slug = '' }
+        elseif ($branch -in @('master', 'dev')) {
+            $channel = if ($parts[3] -lt 500) { 'beta' } else { 'main' }
+            $slug = ''
+        }
+        else { $channel = 'local'; $slug = '' }
+
+        # The build says which section it came from, so that an installed copy
+        # knows whether it is on its way anywhere and can say what it is.
+        $channelFile = 'src/PurplePenCore/VersionNumber.cs'
+        $before = Get-Content $channelFile -Raw
+        $after = $before -replace 'Channel = "[^"]*"', ('Channel = "' + $channel + '"')
+        if ($after -eq $before) { throw "Channel not found in $channelFile" }
+        Set-Content -Path $channelFile -Value $after -NoNewline
+
+        "version=$version" >> $env:GITHUB_OUTPUT
+        "channel=$channel" >> $env:GITHUB_OUTPUT
+        "slug=$slug"       >> $env:GITHUB_OUTPUT
+        Write-Host "Building $version for channel $channel$(if ($slug) { " ($slug)" })"
+
+    # The updater reads a manifest from a hardcoded upstream URL. Point it at
+    # this fork's copy instead.
+    - name: Point the updater at this fork
+      shell: pwsh
+      run: |
+        $updateManager = "src/AvPurplePen/UpdateManager.cs"
+        $content = Get-Content -Path $updateManager -Raw
+        $manifestUrl = "$env:GithubPagesUrl" + "manifest.json"
+        $replaced = $content -replace 'manifestUrl = "[^"]+"', "manifestUrl = ""$manifestUrl"""
+        if ($replaced -eq $content) { throw "manifestUrl not found in $updateManager" }
+        Set-Content -Path $updateManager -Value $replaced
+
+    - name: Build the Windows installer
+      if: matrix.platform == 'win-x64'
+      working-directory: src/Innosetup
+      shell: cmd
+      run: create-setup.bat
+
+    # rpmbuild is the only prerequisite the image lacks; the rest -- rsync,
+    # dpkg-deb, curl, gpg -- are in the base system, and appimagetool is
+    # fetched and hash-checked by the script itself.
+    - name: Install the Linux packaging tools
+      if: matrix.platform == 'linux-x64'
+      run: sudo apt-get install -y --no-install-recommends rpm desktop-file-utils
+
+    # The identity comes from the environment rather than from config.sh, which
+    # is upstream's file: every setting in it can be given this way. SETUP_REPO
+    # is off because the packages would otherwise configure Purple Pen's own apt
+    # and dnf repositories on the machine they are installed on.
+    - name: Build the Linux packages
+      if: matrix.platform == 'linux-x64'
+      working-directory: src/Installer/LinuxInstaller
+      env:
+        PACKAGE_NAME: notpurplepen
+        DISPLAY_NAME: NotPurplePen
+        PACKAGE_VENDOR: NotPurplePen
+        PACKAGE_MAINTAINER: NotPurplePen <pauliojanpera@users.noreply.github.com>
+        PACKAGE_URL: https://pauliojanpera.github.io/NotPurplePen/
+        PACKAGE_DESCRIPTION: >-
+          NotPurplePen is a course setting program for orienteering races. It
+          allows you to design courses on top of an orienteering map, manage
+          control points, produce course descriptions using IOF control
+          description symbols, and export the results for printing and race
+          management.
+        # A reverse-DNS identifier, which AppStream will not accept with a
+        # hyphen in it -- the upstream one has one and does not validate where
+        # appstreamcli is installed to notice.
+        APPSTREAM_ID: io.github.pauliojanpera.NotPurplePen
+        SETUP_REPO: 'false'
+      run: ./build-linux-packages.sh
+
+    # Unsigned: notarized distribution needs a Developer ID certificate, which
+    # this build has no access to. The result installs after the usual warning.
+    # The bundle's identifier and names are no longer config.sh's to give: the
+    # SDK takes them from AvPurplePen.csproj and AvPurplePen/Info.plist, which
+    # carry this product's. Only the disk image's volume name is still read
+    # from the environment.
+    - name: Build the macOS disk image
+      if: matrix.platform == 'osx-arm64'
+      working-directory: src/Installer/MacInstaller
+      env:
+        DMG_VOLUME_NAME: NotPurplePen
+      run: ./build-mac-app.sh --skip-sign
+
+    # One descriptor per platform saying what came out and where each file
+    # belongs, so the publishing job does not have to read file names, and
+    # which commit the run built, with its message, which the site shows with
+    # the build.
+    - name: Collect the packages
+      shell: pwsh
+      run: |
+        $version = '${{ steps.version.outputs.version }}'
+        $channel = '${{ steps.version.outputs.channel }}'
+        New-Item artifact -ItemType Directory -Force | Out-Null
+
+        # git writes the message in UTF-8, which Windows would otherwise read
+        # in its console's code page.
+        $commit = '${{ steps.commit.outputs.sha }}'
+        [Console]::OutputEncoding = [Text.UTF8Encoding]::new($false)
+        $message = ((git log -1 --format=%B $commit) -join "`n").TrimEnd()
+        if ($LASTEXITCODE -ne 0) { throw "The message of $commit could not be read." }
+
+        $sources = switch ('${{ matrix.platform }}') {
+            'win-x64'    { @{ Directory = 'src/Innosetup/output'; Include = @('*.exe') } }
+            'linux-x64'  { @{ Directory = 'src/Installer/LinuxInstaller/output'; Include = @('*.deb', '*.rpm', '*.AppImage') } }
+            'osx-arm64'  { @{ Directory = 'src/Installer/MacInstaller/output'; Include = @('*.dmg') } }
+        }
+        $slug = '${{ steps.version.outputs.slug }}'
+
+        # Which release these packages go to. A channel's downloads sit in one
+        # release and age out of it together; a trial gets its own, which goes
+        # when the trial does. The tag is a handle for that store of assets,
+        # and nothing is ever built from it.
+        $tag = if ($channel -eq 'trial') { "trial-$slug" } else { "channel-$channel" }
+
+        $produced = @(Get-ChildItem $sources.Directory -Include $sources.Include -Recurse -ErrorAction SilentlyContinue)
+        if (-not $produced) { throw "Nothing was produced in $($sources.Directory)." }
+
+        # Only one file per platform can be offered as an update. A .deb or an
+        # .rpm is updated by the package manager that installed it, and this
+        # site is not one, so they are published to download and left out of
+        # the manifest.
+        $entries = foreach ($file in $produced) {
+            $extension = $file.Extension.ToLowerInvariant()
+            $platform = switch ($extension) {
+                '.appimage' { 'linux-appimage-x64' }
+                default     { '${{ matrix.platform }}' }
+            }
+            $offered = $extension -in @('.exe', '.dmg', '.appimage')
+
+            # A trial says which branch it was built from, so that packages
+            # from several of them can sit in one download folder and be told
+            # apart.
+            $label = if ($slug) { "$channel-$slug" } else { $channel }
+            $name = "notpurplepen-$version-$label-$platform$extension"
+            Copy-Item $file.FullName (Join-Path 'artifact' $name)
+            [ordered]@{
+                file = $name; platform = $platform; channel = $channel
+                version = $version; offered = $offered
+                sha256 = (Get-FileHash $file.FullName -Algorithm SHA256).Hash.ToLower()
+            }
+        }
+
+        [ordered]@{
+            platform = '${{ matrix.platform }}'; channel = $channel
+            version = $version; slug = $slug; tag = $tag
+            commit = $commit; message = $message
+            files = @($entries)
+        } | ConvertTo-Json -Depth 5 | Set-Content 'artifact/descriptor.json' -Encoding UTF8
+
+        Get-ChildItem artifact | ForEach-Object { "  $($_.Name)  $([int]($_.Length / 1MB)) MiB" }
+
+    - name: Upload the packages
+      uses: actions/upload-artifact@v4
+      with:
+        name: package-${{ matrix.platform }}
+        path: artifact/*
+
+  publish:
+    name: Publish
+    needs: package
+    if: >-
+      github.event.inputs.ref != '' ||
+      github.event_name == 'pull_request' ||
+      startsWith(github.ref_name, 'wip/') ||
+      github.ref_name == 'master' || github.ref_name == 'dev' || github.ref_name == 'basewithfixes'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+    - name: Fetch the packages
+      uses: actions/download-artifact@v4
+      with:
+        pattern: package-*
+        path: packages
+
+    - name: Take the publishing script
+      uses: actions/checkout@v4
+      with:
+        path: repo
+        sparse-checkout: .github/scripts
+
+    # A release goes out only behind a green suite, and so does basewithfixes.
+    # A trial does not wait, whether a wip branch was pushed, a pull request
+    # opened or a ref dispatched: the question it answers is whether the branch
+    # still builds, and its packages need nothing the suite produces.
+    #
+    # The runs are looked up by commit rather than by branch, so a commit that
+    # reached two branches is answered by either of them: the tree is the same
+    # and so is the verdict. Of its runs, the one whose latest attempt started
+    # last speaks for the commit. A run that only waited for another ends as
+    # that one ended, and a run that was cancelled settles nothing, so a re-run
+    # of the run that did the testing, which starts later, is what counts. A
+    # failure is not taken as final at once: the runs are watched until the
+    # deadline, and a run started again in that time can still let the
+    # publishing through.
+    - name: Wait for the tests
+      if: github.event_name == 'push' && !startsWith(github.ref_name, 'wip/')
+      shell: pwsh
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        $deadline = (Get-Date).AddMinutes(40)
+        while ($true) {
+            $lines = @(& gh api "repos/$env:GITHUB_REPOSITORY/actions/runs?head_sha=$env:GITHUB_SHA" `
+                                --jq '.workflow_runs[] | select(.path == ".github/workflows/tests.yml") | "\(.id) \(.run_attempt) \(.run_started_at) \(.status) \(.conclusion)"')
+            $runs = @($lines | Where-Object { $_ } | ForEach-Object {
+                $field = $_ -split ' '
+                [pscustomobject]@{
+                    Id = [long]$field[0]; Attempt = [int]$field[1]; Started = $field[2]
+                    Status = $field[3]; Conclusion = $field[4]
+                }
+            })
+            if ($runs.Count -eq 0) { throw 'No test run for this commit; nothing to publish behind.' }
+
+            $standing = @($runs | Where-Object { $_.Conclusion -ne 'cancelled' } | Sort-Object Started, Id)
+            $newest = if ($standing.Count) { $standing[-1] } else { $null }
+            if ($newest -and $newest.Status -eq 'completed' -and $newest.Conclusion -eq 'success') {
+                "run $($newest.Id), attempt $($newest.Attempt), passed"
+                break
+            }
+
+            if (-not $newest) { $now = 'every run so far was cancelled' }
+            elseif ($newest.Status -ne 'completed') { $now = "run $($newest.Id), attempt $($newest.Attempt), is $($newest.Status)" }
+            else { $now = "run $($newest.Id), attempt $($newest.Attempt), finished as $($newest.Conclusion)" }
+            if ((Get-Date) -gt $deadline) { throw "No test run of this commit passed in forty minutes: $now." }
+            if ($newest -and $newest.Status -eq 'completed') { "$now; watching for a run started again" }
+            else { "waiting: $now" }
+            Start-Sleep -Seconds 30
+        }
+
+    # The packages are release assets, and the site only names them. Uploading
+    # comes before the site is published, so that no manifest ever names an
+    # asset that is not there yet; what falls out of the catalog is taken away
+    # after the push, which is the same rule read the other way round.
+    # This job checks the source out under repo/, so the working directory is
+    # not a repository and gh has nothing to read a remote from. GH_REPO says
+    # which one it is working on; gh api needs no such thing, being given the
+    # path whole.
+    - name: Upload the packages to their release
+      shell: pwsh
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_REPO: ${{ github.repository }}
+      run: |
+        # What a release says about itself, for whoever arrives at it rather
+        # than at the site, which says the same in its own sections.
+        $about = @{
+            'main'  = @{ title = 'NotPurplePen'
+                         notes = 'Offered to installed copies as updates.' }
+            'beta'  = @{ title = 'NotPurplePen prereleases'
+                         notes = 'Offered only to copies that are themselves prereleases.' }
+            'base'  = @{ title = 'Upstream with this fork''s build and bug fixes'
+                         notes = 'Purple Pen as this fork last took it from upstream, with the bug fixes this fork offers it, built and named so it can be installed beside it. Never offered as an update.' }
+            'trial' = @{ title = 'Trial build'
+                         notes = 'A branch as it stands, packaged so it can be installed and tried. Never offered as an update.' }
+        }
+
+        function Exists($tag) {
+            & gh release view $tag --json tagName *> $null
+            return $LASTEXITCODE -eq 0
+        }
+
+        foreach ($descriptorFile in (Get-ChildItem packages -Recurse -Filter descriptor.json)) {
+            $descriptor = Get-Content $descriptorFile.FullName -Raw | ConvertFrom-Json
+            $tag = $descriptor.tag
+
+            # Two runs arriving together both find no release and both try to
+            # make one. The one that loses looks again rather than failing,
+            # because what it wanted now exists.
+            $says = $about[$descriptor.channel]
+            $title = if ($descriptor.slug) { "$($says.title): $($descriptor.slug)" } else { $says.title }
+            if (-not (Exists $tag)) {
+                $flags = @()
+                if ($descriptor.channel -ne 'main') { $flags += '--prerelease' }
+                $said = & gh release create $tag --title $title --notes $says.notes @flags 2>&1
+                if (-not (Exists $tag)) { throw "Could not create the release ${tag}: $said" }
+            }
+            else {
+                # A release keeps what it was made saying, so one made before
+                # its channel was described anew is told what it says now.
+                $release = & gh release view $tag --json name,body | ConvertFrom-Json
+                if ($release.name -ne $title -or $release.body -ne $says.notes) {
+                    & gh release edit $tag --title $title --notes $says.notes | Out-Null
+                    if ($LASTEXITCODE -ne 0) { throw "Could not describe the release $tag anew." }
+                    "  $tag now says: $title"
+                }
+            }
+
+            $files = @($descriptor.files | ForEach-Object { Join-Path $descriptorFile.DirectoryName $_.file })
+            & gh release upload $tag @files --clobber
+            if ($LASTEXITCODE -ne 0) { throw "Could not upload to the release $tag." }
+            foreach ($file in $files) { "  $tag <- $(Split-Path $file -Leaf)" }
+        }
+
+    # The site is assembled whole, carrying forward what is still wanted, and
+    # pushed as an orphan commit so that the branch keeps no history. Two runs
+    # publishing at once would each assemble from the same starting point and
+    # the later push would drop the earlier run's packages, which a plain force
+    # push cannot even notice. --force-with-lease turns that into a rejected
+    # push instead, and the loop assembles again on top of whatever landed.
+    - name: Publish the site
+      shell: bash
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        set -euo pipefail
+        remote="https://x-access-token:$GH_TOKEN@github.com/$GITHUB_REPOSITORY.git"
+
+        for attempt in 1 2 3 4 5; do
+            before=$(git ls-remote "$remote" gh-pages | cut -f1)
+
+            rm -rf published site gallery
+            if [ -n "$before" ]; then
+                # Only catalog.json is read from what is published, so the
+                # clone takes the top-level files and leaves the rest of the
+                # branch on the server.
+                git clone --quiet --depth 1 --branch gh-pages --filter=blob:none --sparse "$remote" published
+                if [ ! -f published/catalog.json ]; then
+                    echo "::error::gh-pages holds no catalog.json. Publishing over it would drop every download it lists."
+                    exit 1
+                fi
+            else
+                mkdir published
+            fi
+
+            pwsh repo/.github/scripts/assemble-site.ps1
+            touch site/.nojekyll
+
+            # The SVG target's gallery is kept on the branch svg-gallery and
+            # served under svg/, so every publish copies that branch in whole.
+            gallery_commit=$(git ls-remote "$remote" svg-gallery | cut -f1)
+            if [ -n "$gallery_commit" ]; then
+                git clone --quiet --depth 1 --branch svg-gallery "$remote" gallery
+                mkdir site/svg
+                git -C gallery archive HEAD | tar -x -C site/svg
+            fi
+
+            git -C site init --quiet --initial-branch gh-pages
+            git -C site config user.name ci
+            git -C site config user.email ci@localhost
+            git -C site add -A
+            git -C site commit --quiet -m "Publish from $GITHUB_SHA"
+
+            lease=""
+            if [ -n "$before" ]; then lease="--force-with-lease=gh-pages:$before"; fi
+            if git -C site push --quiet $lease "$remote" gh-pages; then
+                echo "published on attempt $attempt"
+                exit 0
+            fi
+
+            echo "another run published first; assembling again"
+            sleep $((5 + RANDOM % 15))
+        done
+
+        echo "::error::Every attempt to publish lost the race to another run."
+        exit 1
+
+    # The catalog that is now published says what the site offers; assets it no
+    # longer names are taken away, and a release left holding none goes with
+    # its tag.
+    #
+    # The catalog is read back from gh-pages rather than from this run's copy,
+    # because another run may have published after this one: its packages are
+    # in the branch and not here, and reading the branch is what keeps them
+    # from being taken away as strangers.
+    - name: Take away what fell out of the catalog
+      shell: pwsh
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_REPO: ${{ github.repository }}
+      run: |
+        $published = & gh api "repos/$env:GITHUB_REPOSITORY/contents/catalog.json?ref=gh-pages" `
+                              -H 'Accept: application/vnd.github.raw'
+        if ($LASTEXITCODE -ne 0) { throw 'The published catalog could not be read.' }
+
+        $entries = @(($published | ConvertFrom-Json).entries)
+        if (-not $entries) {
+            'The published catalog names nothing, so nothing is taken away.'
+            exit 0
+        }
+
+        $wanted = @{}
+        foreach ($entry in $entries) { $wanted["$($entry.tag)/$($entry.file)"] = $true }
+
+        $tags = @(& gh release list --limit 200 --json tagName --jq '.[].tagName' |
+                  Where-Object { $_ -like 'channel-*' -or $_ -like 'trial-*' })
+        foreach ($tag in $tags) {
+            $assets = @(& gh release view $tag --json assets --jq '.assets[].name')
+            $stale = @($assets | Where-Object { -not $wanted.ContainsKey("$tag/$_") })
+
+            foreach ($name in $stale) {
+                "  $tag -> $name"
+                & gh release delete-asset $tag $name --yes
+                if ($LASTEXITCODE -ne 0) { throw "Could not take $name out of the release $tag." }
+            }
+
+            # A release holding nothing is left alone: another run may have
+            # just made it and not reached its upload yet.
+            if ($assets.Count -gt 0 -and $stale.Count -eq $assets.Count) {
+                "  $tag -> the release itself"
+                & gh release delete $tag --yes --cleanup-tag
+                if ($LASTEXITCODE -ne 0) { throw "Could not take away the release $tag." }
+            }
+        }

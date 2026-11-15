@@ -30,9 +30,9 @@
 # The versions come from PurplePenCore/VersionNumber.cs, as before.
 
 # Name of the .app bundle and the executable inside it. Must match
-# AvPurplePen's <AssemblyName>, which is "PurplePen" -- the SDK names both
+# AvPurplePen's <AssemblyName>, which is "NotPurplePen" -- the SDK names both
 # after it.
-: "${APP_NAME:=PurplePen}"
+: "${APP_NAME:=NotPurplePen}"
 
 # Which icon family in AvPurplePen/Assets/AppIcon to build the .icns from.
 #

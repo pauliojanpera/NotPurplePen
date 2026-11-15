@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    shared-mime-info definition for Purple Pen course files, installed as
+    shared-mime-info definition for NotPurplePen course files, installed as
     /usr/share/mime/packages/@PACKAGE_NAME@.xml.
 
     The at-sign-delimited tokens below are filled in by
     build-linux-packages.sh, which fails the build if any are left over.
 
-    A .ppen file is Purple Pen's own XML format. Both a glob and a root-XML
+    A .ppen file is Purple Pen's own XML format, which this program also
+    writes. Both a glob and a root-XML
     match are declared: the glob is what makes a file named *.ppen resolve
     instantly, while the root-XML rule lets the type still be recognised when
     the extension is missing or wrong. The glob is given a weight above the

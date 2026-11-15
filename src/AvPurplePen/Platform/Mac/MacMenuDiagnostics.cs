@@ -183,7 +183,7 @@ namespace AvPurplePen.Platform.Mac
         private static void OpenLog()
         {
             try {
-                string directory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Library", "Logs", "PurplePen");
+                string directory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Library", "Logs", "NotPurplePen");
                 Directory.CreateDirectory(directory);
                 string path = Path.Combine(directory, "menu-diagnostics.log");
 

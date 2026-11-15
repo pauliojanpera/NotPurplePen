@@ -308,6 +308,17 @@ namespace TestingUtils
             }
         }
 
+        // Returns the TEST_COLLECT_DIFFERENCES environment variable parsed as a Boolean, defaulting to
+        // false when the variable is not defined; an invalid Boolean value causes bool.Parse to throw.
+        // A run that collects differences writes the image of every comparison that differs, where a run
+        // otherwise stops at the first image of a test that differs. Its verdict says nothing: use it to
+        // list what a change moves, and a run that does not collect to judge the change.
+        public static bool CollectDifferences {
+            get {
+                return bool.Parse(EnvVar("TEST_COLLECT_DIFFERENCES") ?? "False");
+            }
+        }
+
         // Returns true when the absolute difference between every RGBA channel in color1 and color2
         // is no greater than maxPixelDifference; otherwise returns false.
         public static bool SimilarColors(Color color1, Color color2, int maxPixelDifference)

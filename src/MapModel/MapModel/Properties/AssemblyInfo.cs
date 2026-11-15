@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Golde Software")]
-[assembly: AssemblyProduct("Purple Pen")]
+[assembly: AssemblyProduct("NotPurplePen")]
 [assembly: AssemblyCopyright("Copyright ©  2007-2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

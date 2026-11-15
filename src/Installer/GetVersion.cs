@@ -50,8 +50,8 @@ public static class GetVersion
     private const int RC = 300;
     private const int Stable = 500;
 
-    // The product name that PROGRAM_TITLE is built from.
-    private const string ProgramName = "Purple Pen";
+    // The product name that SETUP_BASENAME and PROGRAM_TITLE are built from.
+    private const string ProgramName = "NotPurplePen";
 
     // Entry point. args[0] is "batch" or "bash", args[1] is the path to a
     // compiled DLL. Returns 0 on success, 1 on any error (with the reason
@@ -98,7 +98,8 @@ public static class GetVersion
 
         string versionString = string.Format(CultureInfo.InvariantCulture, "{0}.{1}.{2}.{3}", major, minor, build, revision);
         bool prerelease = (revision < Stable);
-        string setupBasename = string.Format(CultureInfo.InvariantCulture, "purplepen-{0}{1}{2}{3}",
+        string setupBasename = string.Format(CultureInfo.InvariantCulture, "{0}-{1}{2}{3}{4}",
+                                             ProgramName.Replace(" ", "").ToLowerInvariant(),
                                              major, minor, build, SetupSuffix(stage));
         string programTitle = string.Format(CultureInfo.InvariantCulture, "{0} {1}.{2}.{3}{4}",
                                             ProgramName, major, minor, build, TitleSuffix(stage));

@@ -319,7 +319,10 @@ namespace PurplePen.ViewModels
         {
             if (controller == null) { return; }
             string appName = MiscText.AppTitle;
-            if (Util.IsPrerelease(VersionNumber.Current)) {
+            if (VersionNumber.Channel == "base" || VersionNumber.Channel == "trial") {
+                appName += " (" + VersionNumber.Channel + ")";
+            }
+            else if (Util.IsPrerelease(VersionNumber.Current)) {
                 appName += " " + Util.PrereleaseModifier(VersionNumber.Current, stripNumber: true);
             }
             WindowTitle = string.Format("{0} - {1}", Path.GetFileNameWithoutExtension(controller.FileName), appName);
@@ -374,6 +377,10 @@ namespace PurplePen.ViewModels
             // Why is this logic in MainFrame/MainWindow instead of in the Controller?
             if (controller.MapDisplay.OcadOverprintEffect != controller.OcadOverprintEffect) {
                 controller.MapDisplay.OcadOverprintEffect = controller.OcadOverprintEffect;
+            }
+
+            if (controller.MapDisplay.OverprintBlendMode != controller.OverprintBlendMode) {
+                controller.MapDisplay.OverprintBlendMode = controller.OverprintBlendMode;
             }
 
             if (controller.MapDisplay.LowerPurpleMapLayer != controller.LowerPurpleMapLayer) {
