@@ -218,7 +218,7 @@ These are @Pauli's rulings and the practice. The decisions of the SVG export's o
 - **Delete the finished branches** (Nov 14). Nothing depends on them. This machine cannot delete branches. Run this on your machine:
 
   ```
-  git push origin --delete feature/svg-overlapping-patterns proto/overlapping-patterns experiment/svg-patterns-once-record-all experiment/svg-patterns-once-record-all-2 experiment/overlapping-patterns-record-all-2 experiment/basewithfixes-overlapping-record-all experiment/dev-overlapping-record-all experiment/svg-jpeg-baselines feature/task8-56-wip feature/task8-57-wip
+  git push origin --delete docs/svg-target-requirements feature/svg-overlapping-patterns proto/overlapping-patterns experiment/svg-patterns-once-record-all experiment/svg-patterns-once-record-all-2 experiment/overlapping-patterns-record-all-2 experiment/basewithfixes-overlapping-record-all experiment/dev-overlapping-record-all experiment/svg-jpeg-baselines feature/task8-56-wip feature/task8-57-wip
   ```
 
 ## Ready to offer to Purple Pen
