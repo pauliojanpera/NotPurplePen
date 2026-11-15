@@ -2212,21 +2212,38 @@ namespace PurplePen.MapModel
                         throwOnCancel();
                 }
 
-                // Draw each color separately, to get correct layering.
-                foreach (SymColor curColor in colors) {
-                    if (currentlyDrawing) {
-                        DrawColor(g, curColor, rect, renderOpts, throwOnCancel);
-                        if (throwOnCancel != null)
-                            throwOnCancel();
-                    }
+                // Draw each color separately, to get correct layering. Colors that follow each other and hold one
+                // ink blend as a whole, so the blending of an overprinted ink encloses the drawing of all its colors:
+                // it opens with the first symbol drawn in the ink and closes after the ink's last color.
+                bool inkBlendingOpen = false;
+                try {
+                    for (int colorIndex = 0; colorIndex < colors.Count; ++colorIndex) {
+                        SymColor curColor = colors[colorIndex];
 
-                    // Update the currentlyDrawing flag.
-                    if (!currentlyDrawing && renderOpts.colorBeginDrawExclusive == curColor.OcadId) {
-                        currentlyDrawing = true;
+                        if (currentlyDrawing) {
+                            DrawColor(g, curColor, rect, renderOpts, throwOnCancel, ref inkBlendingOpen);
+                            if (throwOnCancel != null)
+                                throwOnCancel();
+                        }
+
+                        // Update the currentlyDrawing flag.
+                        if (!currentlyDrawing && renderOpts.colorBeginDrawExclusive == curColor.OcadId) {
+                            currentlyDrawing = true;
+                        }
+                        if (currentlyDrawing && renderOpts.colorEndDrawInclusive == curColor.OcadId) {
+                            currentlyDrawing = false;
+                        }
+
+                        if (inkBlendingOpen &&
+                            (colorIndex + 1 == colors.Count || !IsSameInk(curColor, colors[colorIndex + 1]))) {
+                            g.PopBlending();
+                            inkBlendingOpen = false;
+                        }
                     }
-                    if (currentlyDrawing && renderOpts.colorEndDrawInclusive == curColor.OcadId) {
-                        currentlyDrawing = false;
-                    }
+                }
+                finally {
+                    if (inkBlendingOpen)
+                        g.PopBlending();
                 }
 
                 if (currentlyDrawing && !layoutHidden) {
@@ -2253,12 +2270,38 @@ namespace PurplePen.MapModel
             return s1.SortOrder.CompareTo(s2.SortOrder);
         }
 
-        // Draw a particular color layer. If curColor is ImageColor or LayoutColor, draw the image layer or Layout layer 
+        // Whether two colors of the color table hold one ink: the same color values, the alpha included, and the same
+        // overprint flag. The color table is an order of drawing and not a list of inks, so one ink can hold more than
+        // one place in it: the course's purple is an upper and a lower color of equal values. A special layer, which
+        // has no color values of its own, holds no ink.
+        private static bool IsSameInk(SymColor first, SymColor second)
+        {
+            if (first.IsSpecialLayer || second.IsSpecialLayer)
+                return false;
+            if (first.OverPrint != second.OverPrint)
+                return false;
+            return first.CmykColor.Equals(second.CmykColor);
+        }
+
+        // Draw a particular color layer that stands alone, with the blending of its own ink around it.
         private void DrawColor(IGraphicsTarget g, SymColor curColor, RectangleF rect, RenderOptions renderOpts, Action throwOnCancel)
         {
+            bool blendingOpen = false;
+            try {
+                DrawColor(g, curColor, rect, renderOpts, throwOnCancel, ref blendingOpen);
+            }
+            finally {
+                if (blendingOpen)
+                    g.PopBlending();
+            }
+        }
+
+        // Draw a particular color layer. If curColor is ImageColor or LayoutColor, draw the image layer or Layout layer 
+        // blendingOpen: whether the blending of the ink that curColor belongs to is open already, and set when this
+        // call opens it. The caller closes it after the last color of the ink, so that the ink blends as a whole.
+        private void DrawColor(IGraphicsTarget g, SymColor curColor, RectangleF rect, RenderOptions renderOpts, Action throwOnCancel, ref bool blendingOpen)
+        {
             int symbolsDrawn = 0;
-            bool anySymbolsDrawn = false;
-            bool mustPopBlending = false;
 
             //TraceLine("Drawing color {0}", curColor.Name ?? "special layer");
 
@@ -2279,16 +2322,15 @@ namespace PurplePen.MapModel
                             if (bounds.IntersectsWith(rect) &&
                                 curSym.MayIntersectRect(rect)) 
                             {
-                                if (renderOpts.blendOverprintedColors && curColor.OverPrint && !anySymbolsDrawn) {
-                                    // We need to blend this color.
-                                    g.PushBlending(renderOpts.overprintBlendMode);
-                                    mustPopBlending = true;
+                                if (renderOpts.blendOverprintedColors && curColor.OverPrint && !blendingOpen) {
+                                    // We need to blend the ink that this color belongs to. A target that does not
+                                    // blend by the mode says so, and then there is nothing to close either.
+                                    blendingOpen = g.PushBlending(renderOpts.overprintBlendMode);
                                 }
                                 
                                 //TraceLine("Drawing symbol with definition '{0}' and bounds ({1},{2})-({3},{4})", symdef.Name, bounds.Left, bounds.Top, bounds.Right, bounds.Bottom);
                                 curSym.Draw(g, curColor, renderOpts);
                                 ++symbolsDrawn;
-                                anySymbolsDrawn = true;
 
                                 //TraceLine("Done drawing symbol");
 
@@ -2304,9 +2346,6 @@ namespace PurplePen.MapModel
                     }
                 }
             }
-
-            if (mustPopBlending)
-                g.PopBlending();
 
             //TraceLine("Drawing color {0}: drew {1} symbols.", curColor.Name ?? "special layer", symbolsDrawn);
         }
