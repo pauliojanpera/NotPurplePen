@@ -18,6 +18,10 @@ on:
         type: choice
         options: [ report, stop ]
         default: report
+      collect_differences:
+        description: 'List what a change moves: write the image of every comparison that differs, and do not fail. The verdict of such a run says nothing.'
+        type: boolean
+        default: false
 
 jobs:
   # The same commit can reach more than one branch -- a wip branch, and then the
@@ -828,6 +832,7 @@ jobs:
       shell: pwsh
       env:
         TEST_SILENTRUN: 'True'
+        TEST_COLLECT_DIFFERENCES: ${{ inputs.collect_differences && 'True' || 'False' }}
         ASSEMBLIES: ${{ matrix.assemblies }}
       run: |
         # The baselines as they stood at 81379316 travel with the build, so a
