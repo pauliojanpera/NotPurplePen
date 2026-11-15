@@ -123,7 +123,7 @@ The target fully implements these calls (DL-5): `Intensity`, `PushTransform`, `P
 
 On Nov 15 at 09:05 a new agent continued task 7, as @Pauli asked. It makes the test hold on `base`, does the SVG part on `feature/svg-multiply`, and merges into `feature/svg-target` and `dev` through full runs on `basewithfixes`.
 
-**Next, in this order: tasks 7, 9, 11, 6, 10.** @Pauli gave the word for them and set this order on Nov 14. Each task gets its own agent (see "Agents"). A task ends with its commits on their branches, its loop green if it changes the target, and the gallery and this file up to date.
+**Next, in this order: tasks 7, 9, 11, 6, 10.** @Pauli gave the word for them and set this order on Nov 14. On Nov 15 he asked that the work stop for now when task 7 is done: task 9 waits for his word. Each task gets its own agent (see "Agents"). A task ends with its commits on their branches, its loop green if it changes the target, and the gallery and this file up to date.
 
 6. **The commits of a merge on the releases page** (@Pauli, Nov 13 and 14; see Decisions, "Merge messages").
    - The releases page shows the commit message of a build as its entry (`build.yml`, "Collect the packages"). The message of a merge tells little of what went in.
