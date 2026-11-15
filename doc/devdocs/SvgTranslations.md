@@ -1,6 +1,6 @@
 # The SVG export's strings in every language
 
-Task 4 of [the handover](SvgTargetProgress.md), Nov 13: the report of the agent that translated the SVG export's
+Task 4 of [the handover](NotPurplePenProgress.md), Nov 13: the report of the agent that translated the SVG export's
 strings, as it gave it, kept so that a review of the translations, by @Pauli or by Purple Pen's translators before
 they are offered upstream, can see what decided each one. @Pauli's condition was that each and every translation
 weigh its context. What @Pauli decided of the choices below is under "Decisions" in the handover.
