@@ -841,6 +841,15 @@
   <data name="CourseAppearanceDialog_checkBoxOverprint_Text" xml:space="preserve">
     <value>Użyj efektu nadrukowania dla kolorów oznaczonych jako "nadrukowane"</value>
   </data>
+  <data name="CourseAppearanceDialog_labelBlendMode_Text" xml:space="preserve">
+    <value>Tryb mieszania:</value>
+  </data>
+  <data name="CourseAppearanceDialog_comboBoxBlendMode_Items" xml:space="preserve">
+    <value>Ciemniej</value>
+  </data>
+  <data name="CourseAppearanceDialog_comboBoxBlendMode_Items1" xml:space="preserve">
+    <value>Pomnóż</value>
+  </data>
   <data name="CourseAppearanceDialog_Text" xml:space="preserve">
     <value>Dostosuj wygląd</value>
   </data>

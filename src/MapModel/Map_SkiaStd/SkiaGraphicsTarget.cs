@@ -64,10 +64,9 @@ namespace PurplePen.MapModel
         private Dictionary<object, SkiaFont> fontMap = new Dictionary<object, SkiaFont>(new IdentityComparer<object>());
         private Dictionary<object, SKPath> pathMap = new Dictionary<object, SKPath>(new IdentityComparer<object>());
         private Stack<bool> antiAliasStack = new Stack<bool>();
-        private Stack<SKBlendMode> blendModeStack = new Stack<SKBlendMode>();
+        private Stack<SKPaint> blendingLayerPaints = new Stack<SKPaint>();   // the paint of each blending layer open.
 
         private bool antiAlias;
-        private SKBlendMode blendMode = SKBlendMode.SrcOver;  // default blend mode.
 
         // Create a graphics target that draws on a canvas.
         // canvas: the canvas to draw on.
@@ -348,10 +347,9 @@ namespace PurplePen.MapModel
             antiAlias = antiAliasStack.Pop();
         }
 
-        SKPaint UpdateAntialiasAndBlending(SKPaint paint)
+        SKPaint UpdateAntialiasing(SKPaint paint)
         {
             paint.IsAntialias = antiAlias;
-            paint.BlendMode = blendMode;
             return paint;
         }
 
@@ -364,25 +362,32 @@ namespace PurplePen.MapModel
             if (requestedBlendMode == BlendMode.Darken) {
                 newBlendMode = SKBlendMode.Darken;
             }
+            else if (requestedBlendMode == BlendMode.Multiply) {
+                newBlendMode = SKBlendMode.Multiply;
+            }
             else {
                 // Not supported.
                 return false;
             }
 
-            // This way of handling things only works for Darken because it's idempotent, so drawing
-            // multiple times with Darken is the same as drawing once.  If we supported other blend modes like
-            // multiply, we would either have to composite to an another bitmap. This is directly supported
-            // by doing SaveLayer in SkiaSharp, but that's a more expensive call.
-
-            blendModeStack.Push(blendMode);
-            blendMode = newBlendMode;
+            // What is drawn until the matching PopBlending goes into a layer of its own, where it is composed with
+            // the ordinary blending, and the layer is then blended as a whole with what lies below it. So the marks
+            // of one ink that overlap lay their ink one time, as the plate of a print does, whatever the mode.
+            SKPaint layerPaint = new SKPaint();
+            layerPaint.BlendMode = newBlendMode;
+            blendingLayerPaints.Push(layerPaint);
+            canvas.SaveLayer(layerPaint);
+            ++pushLevel;
 
             return true;  // true = supported
         }
 
         public virtual void PopBlending()
         {
-            blendMode = blendModeStack.Pop();
+            Debug.Assert(pushLevel > 0);
+            --pushLevel;
+            canvas.Restore();
+            blendingLayerPaints.Pop().Dispose();
         }
 
 
@@ -504,7 +509,6 @@ namespace PurplePen.MapModel
                 paint.Color = brushPaint.Color;
                 paint.Shader = brushPaint.Shader;
                 paint.IsAntialias = antiAlias;
-                paint.BlendMode = blendMode;
 
                 // paint.UnderlineText = font.Underline;  // TODO: Underline not yet supported.
                 font.EnhancedTypeface.DrawText(canvas, text, new SKPoint(upperLeft.X, upperLeft.Y), font.EmHeight, paint);
@@ -519,7 +523,6 @@ namespace PurplePen.MapModel
             
             using (SKPaint paint = new SKPaint()) {
                 paint.IsAntialias = antiAlias;
-                paint.BlendMode = blendMode;
                 paint.IsStroke = true;
                 paint.Color = penPaint.Color;
                 paint.Shader = penPaint.Shader;
@@ -550,7 +553,6 @@ namespace PurplePen.MapModel
                     case BitmapScaling.HighQuality: samplingOptions = new SKSamplingOptions(new SKCubicResampler(1 / 3.0f, 1 / 3.0f)); break;
                 }
                 paint.IsAntialias = true;
-                paint.BlendMode = blendMode;
 
                 if (intensity < 1.0F) {
                     paint.ColorFilter = SKColorFilter.CreateLighting((SKColor) new SKColorF(intensity, intensity, intensity), (SKColor) new SKColorF(1.0F - intensity, 1.0F - intensity, 1.0F - intensity));
@@ -600,7 +602,7 @@ namespace PurplePen.MapModel
             SKPaint paint;
             if (brushMap.TryGetValue(brushKey, out paint)) {
                 Debug.Assert(!paint.IsStroke);
-                return UpdateAntialiasAndBlending(paint);
+                return UpdateAntialiasing(paint);
             }
             else {
                 Debug.Fail("Given key does not have a brush created for it");
@@ -613,7 +615,7 @@ namespace PurplePen.MapModel
             SKPaint paint;
             if (penMap.TryGetValue(penKey, out paint)) {
                 Debug.Assert(paint.IsStroke);
-                return UpdateAntialiasAndBlending(paint);
+                return UpdateAntialiasing(paint);
             }
             else {
                 Debug.Fail("Given key does not have a pen created for it");
@@ -651,6 +653,10 @@ namespace PurplePen.MapModel
                     canvas.Dispose();
                 canvas = null;
             }
+
+            foreach (SKPaint paint in blendingLayerPaints)
+                paint.Dispose();
+            blendingLayerPaints.Clear();
 
             foreach (SKPaint paint in penMap.Values)
                 paint.Dispose();
@@ -963,7 +969,6 @@ namespace PurplePen.MapModel
         Stack<SKBitmap> bitmapStack = new Stack<SKBitmap>();
         Stack<SKSurface> surfaceStack = new Stack<SKSurface>();
         Stack<SKCanvas> canvasStack = new Stack<SKCanvas>();
-        Stack<BlendMode> blendStack = new Stack<BlendMode>();
 
         public Skia_BitmapGraphicsTarget(int pixelWidth, int pixelHeight, bool alpha, CmykColor initialColor, RectangleF rectangle, bool inverted, IColorConverter colorConverter = null, float intensity = 1.0F)
             : this(GetBitmap(pixelWidth, pixelHeight, alpha), initialColor, rectangle, inverted, colorConverter, intensity)

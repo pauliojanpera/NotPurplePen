@@ -739,6 +739,15 @@
   <data name="CourseAppearanceDialog_groupBox1_Text" xml:space="preserve">
     <value>Descrierea Posturilor</value>
   </data>
+  <data name="CourseAppearanceDialog_labelBlendMode_Text" xml:space="preserve">
+    <value>Mod de amestecare:</value>
+  </data>
+  <data name="CourseAppearanceDialog_comboBoxBlendMode_Items" xml:space="preserve">
+    <value>Întunecare</value>
+  </data>
+  <data name="CourseAppearanceDialog_comboBoxBlendMode_Items1" xml:space="preserve">
+    <value>Multiplicare</value>
+  </data>
   <data name="SelectionDescriptionText_SpecialName_Descriptions" xml:space="preserve">
     <value>Descrierea Posturilor</value>
   </data>
