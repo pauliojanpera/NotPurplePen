@@ -2385,6 +2385,7 @@ namespace PurplePen.MapModel
                                 if (overlapGroup != null && overlapGroup.Last == curSym)
                                     areaSymdef.DrawPatternsOnce(g, overlapGroup, curColor, renderOpts);
                                 ++symbolsDrawn;
+                                anySymbolsDrawn = true;
 
                                 //TraceLine("Done drawing symbol");
 
