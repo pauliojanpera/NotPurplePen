@@ -82,7 +82,7 @@ check run "SVG loop report" and the branch `svg-results/<name>`; the work is
 finished, as all other work is, only after a full run on a `wip/` branch. Its
 requirements, and its progress, which says where the work stands and how to
 pick it up, are `doc/devdocs/SvgTargetRequirements.md` and
-`doc/devdocs/SvgTargetProgress.md` on the branch `docs/svg-target-requirements`.
+`doc/devdocs/SvgTargetProgress.md` on the branch `docs/process-coordination`.
 
 ## A feature has to be reachable in the application that ships
 
