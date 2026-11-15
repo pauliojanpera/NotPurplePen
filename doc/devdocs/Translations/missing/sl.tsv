@@ -1,0 +1,1246 @@
+resource	key	english	in_repo	forks_own
+UIText	IncrementButton	Increment		
+UIText	DecrementButton	Decrement		
+UIText	CounterLabel	Counter: {0}		
+UIText	YesButton	Yes		
+UIText	NoButton	No		
+UIText	SwitchLanguageButton	Switch Language...		
+UIText	SwitchLanguageDialog_Title	Switch Language		
+UIText	SwitchLanguageDialog_Prompt	Select a language:		
+UIText	AboutForm_copyrightLabel_Text	Copyright © by Peter Golde		
+UIText	AddCourse_labelKindCombo_Items5	Score (30)		
+UIText	AddCourse_lengthLabel_Text	Length:		
+UIText	SelectionDescriptionText_Length	Length:		
+UIText	AddCourse_kmSuffix_Text	km		
+UIText	AddCourse_hideFromReportsCheckBox_Text	Do not include in reports		
+UIText	AddForkDialog_labelWhichType_Text	What type of variation would you like to add?		
+UIText	AddForkDialog_radioButtonFork_Text	Fork		
+UIText	AddForkDialog_radioButtonLoop_Text	Loop		
+UIText	AddForkDialog_labelNumberBranches_Text	Number of branches:		
+UIText	AddForkDialog_labelNumberLoops_Text	Number of loops:		
+UIText	AddForkDialog_labelSummary_Text	The loop control will be visited 4 times. There are 24 different ways through the loops.		
+UIText	AddForkDialog_Text	Add Variation		
+UIText	CommandNameText_AddVariation	Add Variation		
+UIText	MainFrame_addVariationToolStripButton_Text	Add Variation		
+UIText	NewEventMapFile_openFileDialog_Filter	All map files|*.ocd;*.omap;*.xmap;*.pdf;*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif|OCAD files (*.ocd)|*.ocd|Open Orienteering Mapper Files|*.omap;*.xmap|PDF files (*.pdf)|*.pdf|Image files|*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif		
+UIText	ChangeText_coursePartMenuItem_Text	Course Part		
+UIText	ChangeText_variationMenuItem_Text	Course Variation		
+UIText	ChangeText_relayTeamMenuItem_Text	Relay Team		
+UIText	ChangeText_relayLegMenuItem_Text	Relay Leg		
+UIText	ChangeText_mapFileNameMenuItem_Text	Map File Name		
+UIText	ChangeText_buttonChangeColor_Text	Change Color...		
+UIText	ChangeText_label2_Text	Color:		
+UIText	CourseAppearanceDialog_label9_Text	Color:		
+UIText	LinePropertiesDialog_label1_Text	Color:		
+UIText	ChangeText_checkBoxItalic_Text	Italic		
+UIText	ChangeText_label1_Text	Font:		
+UIText	ChangeText_label3_Text	Size:		
+UIText	PrinterMargins_labelPaper_Text	Size:		
+UIText	ChangeText_checkBoxAutoFontSize_Text	Automatic		
+UIText	MiscText_AutomaticLength	Automatic		
+UIText	ChangeText_groupBox2_Text	Sample		
+UIText	LinePropertiesDialog_groupBox1_Text	Sample		
+UIText	ColorChooserDialog_checkBoxOverprint_Text	Overprint		yes
+UIText	ColorChooserDialog_Text	Choose Color		
+UIText	CommandNameText_DeleteMapExchangeAtControl	Delete Map Exchange		
+UIText	CommandNameText_ChangePartProperties	Change Course Part Properties		
+UIText	CommandNameText_ChangeLineAppearance	Change Line Appearance		
+UIText	MiscText_ChangeLineAppearanceTitle	Change Line Appearance		
+UIText	CommandNameText_DuplicateCourse	Duplicate Course		
+UIText	MiscText_DuplicateCourseTitle	Duplicate Course		
+UIText	CommandNameText_CreateMapFiles	Create {0} _Files		
+UIText	CommandNameText_DeleteFork	Delete Fork/Loop		
+UIText	CommandNameText_RelayTeamVariations	Relay Team Variations		
+UIText	TeamVariationsForm_Text	Relay Team Variations		
+UIText	CommandNameText_AddMapIssue	Add Map Issue Point		
+UIText	CommandNameText_ChangeDescriptionStandard	Set Control Description Standard		
+UIText	CommandNameText_ChangeMapStandard	Set Map Standard		
+UIText	CommandNameText_Stretch	Stretch		
+UIText	CommandNameText_SetLiveloxImportableEventId	Publish to Livelox		
+UIText	CommandNameText_MoveAllControls	Move All Controls		
+UIText	MoveAllControls_Text	Move All Controls		
+UIText	MoveControlChoiceDialog_Text	Moving Shared Control		
+UIText	MoveControlChoiceDialog_labelExplanation_Text	Control "{0}" is present in the following other courses. If you move it, those courses will be changed also.		
+UIText	MoveControlChoiceDialog_moveButton_TitleText	Move Control In All Courses		
+UIText	MoveControlChoiceDialog_moveButton_DetailText	This course and the above listed courses will all change.		
+UIText	MoveControlChoiceDialog_duplicateButton_TitleText	Create New Control In This Course		
+UIText	MoveControlChoiceDialog_duplicateButton_DetailText	Other courses will not change, and control "{0}" will be replaced with a new control at the new location in this course.		
+UIText	MoveControlChoiceDialog_cancelButton_TitleText	Do Nothing		
+UIText	MoveControlChoiceDialog_cancelButton_DetailText	Do not move this control.		
+UIText	MapIssueChoiceDialog_Text	Select Map Issue Point		
+UIText	MapIssueChoiceDialog_labelExplanation_Text	The point at which is the map is issued should be marked on the map. Where is the map given to competitors?		
+UIText	MapIssueChoiceDialog_startButton_TitleText	Map Issue at Beginning		
+UIText	MapIssueChoiceDialog_startButton_DetailText	The map is given out at the beginning of the marked route to the start. Navigation begins at the start triangle.		
+UIText	MapIssueChoiceDialog_middleButton_TitleText	Map Issue along Marked Route		
+UIText	MapIssueChoiceDialog_middleButton_DetailText	The map is given out partially along the marked route to the start. Navigation begins at the start triangle.		
+UIText	MapIssueChoiceDialog_startTriangleButton_TitleText	Map Issue at the Start Triangle		
+UIText	MapIssueChoiceDialog_startTriangleButton_DetailText	The map is issued at the start triangle (where navigation begins).		
+UIText	SelectLocationsForMove_Text	Move All Controls		
+UIText	CommandNameText_AddMapFlip	Add Map Flip		
+UIText	CourseAppearanceDialog_comboBoxScaleItemSizes_Items	Do not scale		
+UIText	CourseAppearanceDialog_comboBoxScaleItemSizes_Items1	Relative to map scale		
+UIText	CourseAppearanceDialog_comboBoxScaleItemSizes_Items2	Relative to 1:15000		
+UIText	CourseAppearanceDialog_label11_Text	Scale item sizes:		
+UIText	CourseAppearanceDialog_labelAutoGapSize_Text	Automatic leg gap size:		
+UIText	CourseAppearanceDialog_labelOutlineWidth_Text	White outline around numbers:		
+UIText	CourseAppearanceDialog_comboBoxControlNumberStyle_Items2	Roboto		
+UIText	CourseAppearanceDialog_comboBoxControlNumberStyle_Items3	Roboto Bold		
+UIText	CourseAppearanceDialog_labelChooseLayer_Text	Above map layer:		
+UIText	CourseAppearanceDialog_comboBoxBlendPurple_Items1	Blend		
+UIText	CourseAppearanceDialog_comboBoxBlendPurple_Items2	Layer		
+UIText	CourseAppearanceDialog_labelBlendPurple_Text	Blend purple with underlying map colors:		
+UIText	CourseAppearanceDialog_comboBoxDescriptionColor_Items	Black		
+UIText	MiscText_Black	Black		
+UIText	CourseAppearanceDialog_comboBoxDescriptionColor_Items1	Purple		
+UIText	MiscText_Purple	Purple		
+UIText	CourseAppearanceDialog_groupBox1_Text	Control Descriptions		
+UIText	SelectionDescriptionText_SpecialName_Descriptions	Control Descriptions		
+UIText	CourseAppearanceDialog_checkBoxOverprint_Text	Use overprint effect for colors marked "overprint"		
+UIText	CourseAppearanceDialog_groupBoxOcadMap_Text	Advanced		
+UIText	CourseAppearanceDialog_Text	Customize Appearance		
+UIText	CoursePartBanner_variationsLabel_Text	Course Variation: 		
+UIText	CoursePartBanner_buttonProperties_Text	Properties...		
+UIText	CoursePartBanner_coursePartLabel_Text	Course Part: 		
+UIText	CoursePartProperties_checkBoxDisplayFinish_Text	Display finish circle on this course part		
+UIText	CoursePartProperties_label1_Text	These settings control the appearance of this part of a multi-part course.		
+UIText	CoursePartProperties_Text	Course Part Properties		
+UIText	CourseSelector_buttonChooseVariations_Text	Choose Variations...		
+UIText	CreateGpx_namePrefixLabel_Text	Name prefix:		
+UIText	CreatePdfCourses_fileNamePrefixLabel_Text	Name prefix:		
+UIText	CreateGpx_waypointGroupBox_Text	Waypoints		
+UIText	CreateGpx_headerLabel_Text	A GPX File contains GPS coordinates for controls, and can be loaded onto a GPS or smartphone to verify the correct location of controls.		
+UIText	CreateGpx_Text	Create GPX File		
+UIText	MainFrame_saveGpxFileDialog_Title	Create GPX File		
+UIText	CreateImageFiles_fileFormatCombo_Items	PNG		
+UIText	CreateImageFiles_fileFormatCombo_Items1	JPEG		
+UIText	CreateImageFiles_fileFormatCombo_Items2	GIF		
+UIText	CreateImageFiles_label1_Text	World file:		
+UIText	CreateImageFiles_dpiLabel_Text	Dpi:		
+UIText	CreateImageFiles_comboBoxWorldFile_Items	No		
+UIText	ReportText_EventAudit_No	No		
+UIText	CreateImageFiles_comboBoxWorldFile_Items1	Yes		
+UIText	ReportText_EventAudit_Yes	Yes		
+UIText	CreateImageFiles_labelColorModel_Text	Color model:		
+UIText	CreateImageFiles_labelAutoRotate_Text	Auto rotate:		yes
+UIText	CreateImageFiles_labelImageQuality_Text	Image quality:		yes
+UIText	CreateImageFiles_comboBoxColorModel_Items	RGB		
+UIText	CreatePdfCourses_comboBoxColorModel_Items	RGB		
+UIText	PrintCourses_comboBoxColorModel_Items1	RGB		
+UIText	CreateImageFiles_comboBoxColorModel_Items1	CMYK		
+UIText	CreatePdfCourses_comboBoxColorModel_Items1	CMYK		
+UIText	PrintCourses_comboBoxColorModel_Items2	CMYK		
+UIText	CreateImageFiles_comboBoxPrintBaseMap_Items	Course and map		
+UIText	CreatePdfCourses_comboBoxPrintBaseMap_Items	Course and map		
+UIText	CreateImageFiles_comboBoxPrintBaseMap_Items1	Course only		
+UIText	CreatePdfCourses_comboBoxPrintBaseMap_Items1	Course only		
+UIText	CreateImageFiles_labelPrintBaseMap_Text	Include:		
+UIText	CreatePdfCourses_labelPrintBaseMap_Text	Include:		
+UIText	CreateImageFiles_Text	Create Image Files		
+UIText	CreateKmlFiles_filesLabel_Text	Files:		
+UIText	CreatePdfCourses_filesLabel_Text	Files:		
+UIText	CreateKmlFiles_filesCombo_Items	One for all courses		
+UIText	CreatePdfCourses_comboBoxFileFormat_Items	One for all courses		
+UIText	CreateKmlFiles_filesCombo_Items1	One per course		
+UIText	CreatePdfCourses_comboBoxFileFormat_Items1	One per course		
+UIText	CreateKmlFiles_Text	Create KML File		
+UIText	CreatePdfCourses_checkBoxMergeParts_Text	Print Map Exchanges on Same Map 		
+UIText	PrintCourses_checkBoxMergeParts_Text	Print Map Exchanges on Same Map 		
+UIText	CreatePdfCourses_labelColorModel_Text	Color Model:		
+UIText	PrintCourses_labelColorModel_Text	Color Model:		
+UIText	CreatePdfCourses_comboBoxMultiPage_Items	Crop to a single page		
+UIText	PrintCourses_comboBoxMultiPage_Items	Crop to a single page		
+UIText	CreatePdfCourses_comboBoxMultiPage_Items1	Print on multiple pages		
+UIText	PrintCourses_comboBoxMultiPage_Items1	Print on multiple pages		
+UIText	CreatePdfCourses_labelAppearanceInfo_Text	If the print area is too large to fit on one page:		
+UIText	PrintCourses_labelAppearanceInfo_Text	If the print area is too large to fit on one page:		
+UIText	CreatePdfCourses_comboBoxFileFormat_Items2	One per course part/variation		
+UIText	CreatePdfCourses_outputGroupBox_Text	Files		
+UIText	CreatePdfCourses_folderBrowserDialog_Description	Select a folder for the PDF files		
+UIText	CreatePdfCourses_Text	Create PDF Files		
+UIText	CreateRouteGadget_labelIofXml_Text	IOF XML Version:		
+UIText	CreateRouteGadget_groupBox1_Text	IOF XML		
+UIText	CustomSymbolText_checkBoxDefaultLanguage_Text	Make this the default language for new events		
+UIText	DownloadProgressDialog_Text	Downloading		
+UIText	EnterSymbolText_caseColumn_HeaderText	Case		
+UIText	EnterSymbolText_labelCaseChooser_Text	Case of modified symbol:		
+UIText	EnterSymbolText_checkBoxCases_Text	Show case forms		
+UIText	EnterSymbolText_defaultCaseText	(unchanged)		
+UIText	InitialScreen_label1_Text	NotPurplePen is free software and may be copied and shared. Development of NotPurplePen is supported only by your donations.		
+UIText	LegAssignmentsDialog_BranchColumn_HeaderText	Branch		
+UIText	LegAssignmentsDialog_LegsColumn_HeaderText	Legs		
+UIText	LegAssignmentsDialog_labelDescription_Text	To assign a specific leg to a specific branch, type the leg number(s) below. Legs not assigned to a branch will be distributed among remaining branches randomly.		
+UIText	LegAssignmentsDialog_linkLabel_Text	More information...		
+UIText	LegAssignmentsDialog_Text	Leg Assignments		
+UIText	LinePropertiesDialog_buttonChangeColor_Text	 Change Color...		
+UIText	LinePropertiesDialog_label2_Text	Style:		
+UIText	LinePropertiesDialog_comboBoxStyle_Items	Single		
+UIText	LinePropertiesDialog_comboBoxStyle_Items1	Double		
+UIText	LinePropertiesDialog_comboBoxStyle_Items2	Dashed		
+UIText	LinePropertiesDialog_labelWidth_Text	Width:		
+UIText	PrinterMargins_label2_Text	Width:		
+UIText	LinePropertiesDialog_labelGapSize_Text	Gap Size:		
+UIText	LinePropertiesDialog_labelDashSize_Text	Dash Size:		
+UIText	LinePropertiesDialog_labelCornerRadius_Text	Corner Radius:		
+UIText	MainFrame_radioButtonDescriptions_Text	Descriptions		
+UIText	MainFrame_radioButtonTopology_Text	Ordering		
+UIText	MainFrame_mapViewerTopology_Text	mapViewerTopology		
+UIText	MainFrame_createImageFilesMenu_Text	Create Ima_ge Files...		
+UIText	MainFrame_createDescriptionPdfMenu_Text	_Descriptions...		
+UIText	MainFrame_createPunchcardPdfMenu_Text	Pu_nch Cards...		
+UIText	MainFrame_createCoursePdfMenu_Text	_Courses...		
+UIText	MainFrame_createPDFsMenu_Text	Create P_DFs		
+UIText	MainFrame_createRouteGadgetFilesMenu_Text	Create RouteGadget Files...		
+UIText	MainFrame_createRouteReviewFilesToolStripMenuItem_Text	Create Route Review Files		
+UIText	MainFrame_createGPXFileMenu_Text	Create G_PX File...		
+UIText	MainFrame_createKMLFileMenu_Text	Create _KML File...		
+UIText	MainFrame_printPunchCardsMenu_Text	Print Pu_nch Cards...		
+UIText	MainFrame_showPrintAreaMenu_Text	Show P_rint Area		
+UIText	MainFrame_otherCoursesMenu_Text	Other Courses...		
+UIText	MainFrame_clearOtherCoursesMenu_Text	Clear Other Courses		
+UIText	MainFrame_addStartMenu_Text	_Start		
+UIText	MainFrame_addControlMenu_Text	_Control		
+UIText	MainFrame_addFinishMenu_Text	_Finish		
+UIText	MiscText_FinishButtonText	_Finish		
+UIText	MainFrame_addDescriptionsMenu_Text	_Descriptions		
+UIText	MainFrame_addMapFlipMenuItem_Text	Map _Flip at Control Point		
+UIText	MainFrame_addMapExchangeMenu_Text	Map Flip/E_xchange		
+UIText	MainFrame_addVariationMenu_Text	_Variation...		
+UIText	MainFrame_addTextLineMenu_Text	Text _Line...		
+UIText	MainFrame_splitMenu_Text	S_plit		yes
+UIText	MainFrame_addMapIssueMenu_Text	Timed Start		
+UIText	MainFrame_mapIssuePointToolStripMenuItem_Text	Timed Start		
+UIText	MiscText_MapIssue_Long	Timed Start		
+UIText	MiscText_MapIssue_Medium	Timed Start		
+UIText	MainFrame_addConstructionMenu_Text	Temporary Construction		
+UIText	MainFrame_constructionToolStripMenuItem_Text	Temporary Construction		
+UIText	MainFrame_whiteOutMenu_Text	White Out Area		
+UIText	MainFrame_whiteOutToolStripMenuItem_Text	White Out Area		
+UIText	SelectionDescriptionText_SpecialName_WhiteOut	White Out Area		
+UIText	MainFrame_addImageMenu_Text	Image		
+UIText	MainFrame_imageToolStripMenuItem_Text	Image		
+UIText	SelectionDescriptionText_SpecialName_Image	Image		
+UIText	MainFrame_addLineMenu_Text	Line		
+UIText	MainFrame_lineToolStripMenuItem_Text	Line		
+UIText	SelectionDescriptionText_SpecialName_Line	Line		
+UIText	MainFrame_addRectangleMenu_Text	Rectangle		
+UIText	MainFrame_rectangleToolStripMenuItem_Text	Rectangle		
+UIText	SelectionDescriptionText_SpecialName_Rectangle	Rectangle		
+UIText	MainFrame_addEllipseMenu_Text	Ellipse		
+UIText	MainFrame_ellipseToolStripMenuItem_Text	Ellipse		
+UIText	MainFrame_addMenu_Text	_Add		
+UIText	MainFrame_moveAllControlsMenu_Text	Mo_ve All Controls...		
+UIText	MainFrame_descriptionStd2004Menu_Text	2004 Description Standard		
+UIText	MainFrame_descriptionStd2018Menu_Text	2018/2024 Description Standard		
+UIText	MainFrame_mapStd2000Menu_Text	ISOM2000 Map Standard		
+UIText	MainFrame_mapStd2017Menu_Text	ISOM2017 Map Standard		
+UIText	MainFrame_mapStdSpr2019Menu_Text	ISSprOM 2019 Map Standard		
+UIText	MainFrame_iOFStandardsToolStripMenuItem_Text	IOF _Standards		
+UIText	MainFrame_customizeCourseAppearanceMenu_Text	Customize _Appearance...		
+UIText	MainFrame_duplicateCourseMenu_Text	D_uplicate Course...		
+UIText	MainFrame_courseOrderMenu_Text	Course _Order...		
+UIText	MainFrame_courseVariationReportMenu_Text	Relay Team _Variations...		
+UIText	MainFrame_deleteForkMenu_Text	Delete For_k/Loop		
+UIText	MainFrame_removeGapMenu_Text	Remove Ga_p		
+UIText	MainFrame_changeLineAppearanceMenu_Text	Change Line _Appearance...		
+UIText	MainFrame_stretchMenu_Text	_Stretch		
+UIText	MainFrame_donateWebSiteMenu_Text	Make a _Donation		
+UIText	MainFrame_aboutMenu_Text	_About NotPurplePen		
+UIText	MainFrame_symbolBrowserMenu_Text	Symbol Browser		
+UIText	MainFrame_descriptionBrowserMenu_Text	Description Browser		
+UIText	MainFrame_controlTesterMenu_Text	Control Tester		
+UIText	MainFrame_mapTesterMenu_Text	Map Tester		
+UIText	MainFrame_courseSelectorTesterMenu_Text	Course Selector Tester		
+UIText	MainFrame_dotGridTesterToolStripMenuItem_Text	Dot Grid Tester		
+UIText	MainFrame_dumpOCADFileMenu_Text	Dump OCAD File		
+UIText	MainFrame_reportTesterToolStripMenuItem_Text	Report Tester		
+UIText	MainFrame_fontMetricsToolStripMenuItem_Text	Font Metrics		
+UIText	MainFrame_missingTranslationsMenuItem_Text	Missing Description Translations		
+UIText	MainFrame_crashToolStripMenuItem_Text	Crash		
+UIText	MainFrame_debugMenu_Text	Debug		
+UIText	MainFrame_addDescriptionLanguageMenu_Text	Add Description Language...		
+UIText	MainFrame_addTranslatedTextsMenu_Text	Add Translated Texts...		
+UIText	MainFrame_mergeSymbolsMenu_Text	Merge Symbols.xml...		
+UIText	MainFrame_translateMenu_Text	_Translate Description Text		
+UIText	MainFrame_helpMenu_Text	_Help		
+UIText	MainFrame_openToolStripButton_Text	Open		
+UIText	MainFrame_openToolStripButton_ToolTipText	Open (Ctrl+O)		
+UIText	MainFrame_saveToolStripButton_Text	Save		
+UIText	MiscText_CrashSave	Save		
+UIText	MainFrame_saveToolStripButton_ToolTipText	Save (Ctrl+S)		
+UIText	MainFrame_undoToolStripButton_Text	Undo		
+UIText	MiscText_Undo	Undo		
+UIText	MainFrame_undoToolStripButton_ToolTipText	Undo (Ctrl+Z)		
+UIText	MainFrame_redoToolStripButton_Text	Redo		
+UIText	MiscText_Redo	Redo		
+UIText	MainFrame_redoToolStripButton_ToolTipText	Redo (Ctrl+Y)		
+UIText	MainFrame_deleteToolStripButton_Text	Delete (Del)		
+UIText	MainFrame_addControlToolStripButton_ToolTipText	Add Control (Ctrl+A)		
+UIText	MainFrame_descriptionsToolStripMenuItem_Text	Add Descriptions		
+UIText	MainFrame_mapFlipMenuItem_Text	Map Flip at Control Point		
+UIText	MainFrame_mapExchangeControlToolStripMenuItem_Text	Map Exchange at Control Point		
+UIText	MainFrame_mapExchangeSeparateToolStripMenuItem_Text	Flagged Route to Map Exchange		
+UIText	MainFrame_specialItemToolStripMenu_Text	Add Special Item		
+UIText	MainFrame_addBendToolStripButton_ToolTipText	Add Bend (Ctrl+B)		
+UIText	MainFrame_addGapToolStripButton_Text	toolStripButton1		
+UIText	MainFrame_addGapToolStripButton_ToolTipText	Add Gap (Ctrl+G)		
+UIText	MainFrame_zoomAmountLabel_Text	Zoom: 100%		
+UIText	MainFrame_locationDisplay_Text	X:-999.99 Y:-999.99		
+UIText	MainFrame_saveXmlFileDialog_Filter	IOF XML version 2.0.3|*.xml|IOF XML version 3.0|*.xml		
+UIText	MainFrame_saveXmlFileDialog_Title	Create XML Interchange File		
+UIText	MainFrame_openImageDialog_Filter	Image file|*.jpg;*.jpeg;*.gif;*.png;*.bmp;*.tif;*.tiff		
+UIText	MainFrame_saveGpxFileDialog_Filter	GPX file|*.gpx		
+UIText	MainFrame_Text	NotPurplePen		
+UIText	MiscText_AppTitle	NotPurplePen		
+UIText	MiscText_CtrlZ	Ctrl+Z		
+UIText	MiscText_CtrlY	Ctrl+Y		
+UIText	MiscText_Esc	Esc		
+UIText	MiscText_NoSymbol	No symbol		
+UIText	MiscText_AllControls	All controls		
+UIText	MiscText_CannotLoadFile	Cannot load '{0}' for the following reason:		
+UIText	MiscText_CannotSaveFile	Cannot save '{0}' for the following reason:		
+UIText	MiscText_CannotLoadMapFile	Cannot load map file '{0}' for the following reason:		
+UIText	MiscText_CannotReadImageFile	Cannot read image file '{0}'.		
+UIText	MiscText_CannotPrint	Cannot print '{0}' for the following reason:		
+UIText	MiscText_CannotCreateFile	Cannot create '{0}' for the following reason:		
+UIText	MiscText_CannotCreateDirectory	Cannot create folder '{0}' for the following reason:		
+UIText	MiscText_CannotReadMap	Cannot read map for the following reason: '{0}' Using Optimize/Repair and re-saving in OCAD may fix problems.		
+UIText	MiscText_CannotCreateOcadFiles	Cannot create OCAD files for the following reason:		
+UIText	MiscText_SaveChanges	Do you want to save the changes you made to '{0}'?		
+UIText	MiscText_FileAlreadyExists	File '{0}' already exists in the specified folder. Click the "Back" button and choose a new folder or a new event title.		
+UIText	MiscText_CodeInUse	The control code '{0}' is already used by another control.		
+UIText	MiscText_BadScore	The points for a control must be an integer 1-999.		
+UIText	MiscText_BadClimb	The climb for a course must be a number 0-9999, or blank.		
+UIText	MiscText_BadLoad	The load for a course must be an integer 0-999999, or blank.		
+UIText	MiscText_CancelOperationWithShortcut	Ca_ncel Operation		
+UIText	MiscText_CancelOperation	Cancel Operation		
+UIText	MiscText_EnterScore	Enter new score		
+UIText	MiscText_EnterCode	Enter new code		
+UIText	MiscText_EnterDimensions	Enter feature size\nUse / for height on a slope\nUse | for two features		
+UIText	MiscText_EnterEventTitle	Enter new event title\nUse | to separate lines\n(affects all courses)		
+UIText	MiscText_EnterSecondaryTitle	Enter new secondary title\nUse | to separate lines		
+UIText	MiscText_EnterCourseName	Enter new course name		
+UIText	MiscText_EnterClimb	Enter new climb in meters		
+UIText	MiscText_EnterSymbolText	Enter new symbol meaning\n(affects all courses)		
+UIText	MiscText_EnterTextLine	Enter new text\nUse | to separate lines		
+UIText	MiscText_DeleteMultipleControlsFromControlsCollection	Controls {0} are no longer used by any course. Do you want to delete these controls from the control collection?		
+UIText	MiscText_DeleteControlFromControlsCollection	Control {0} is no longer used by any course. Do you want to delete this control from the control collection?		
+UIText	MiscText_DeleteControlFromAllControls	Control {0} is currently used by the following courses: {1}. Do you want to delete this control anyway?		
+UIText	MiscText_CodeBadLength	A control code must be one, two, or three letters or digits.		
+UIText	MiscText_CodeContainsSpace	A control code must not contain a space.		
+UIText	MiscText_CodeBeginsWithZero	A control code should not begin with zero.		
+UIText	MiscText_CodeCouldBeUpsideDown	A control code should not look like another number when upside-down.		
+UIText	MiscText_DuplicateCode	The code "{0}" is used more than once.		
+UIText	MiscText_BadScale	The print scale must be a number between 100 and 100,000.		
+UIText	MiscText_CoursePropertiesTitle	Course Properties		
+UIText	MiscText_Landscape	Landscape		
+UIText	PrintDescriptions_orientation_Text	Landscape		
+UIText	PrinterMargins_radioButtonLandscape_Text	Landscape		
+UIText	PrintPunches_orientation_Text	Landscape		
+UIText	MiscText_Portrait	Portrait		
+UIText	PrinterMargins_radioButtonPortrait_Text	Portrait		
+UIText	MiscText_PageTooSmall	The page size is too small for any descriptions to be printed.		
+UIText	MiscText_VersionLabel	Version {0}		
+UIText	MiscText_NewerVersionAvailable	Version {0} of NotPurplePen is now available for download. (You are currently running version {1}.)\n\nWould you like to download and install the latest version?		
+UIText	MiscText_HelpFileNotFound	Help file '{0}' could not be opened.		
+UIText	MiscText_Zoom	Zoom		
+UIText	MiscText_MissingMapFile	The map file "{0}" could not be found.\n\nMost likely, the map file has been moved or deleted, or the NotPurplePen file has been moved (possibly to a different computer). The map file must be present every time the NotPurplePen event file is loaded. If you send a NotPurplePen event file to another person, be sure that person has a copy of the map file also.\n\nAfter pressing OK, try to find a copy of the map file on your computer.		
+UIText	MiscText_NoUnusedControls	All controls are used in a course.		
+UIText	MiscText_NextButtonText	_Next >		
+UIText	NewEventWizard_nextButton_Text	_Next >		
+UIText	MiscText_Control_Code	Control {0}		
+UIText	MiscText_Finish	Finish		
+UIText	MiscText_Finish_Short	F		
+UIText	MiscText_MandCrossing_Long	Mandatory crossing point		
+UIText	MiscText_MandCrossing_Medium	Crossing		
+UIText	MiscText_MandCrossing_Short	C		
+UIText	MiscText_Margins_All	All: {0}		
+UIText	MiscText_Margins_LRTB	Left: {0}, Right: {1}, Top: {2}, Bottom: {3}		
+UIText	MiscText_Start	Start		
+UIText	MiscText_Start_Short	S		
+UIText	MiscText_Version_Alpha	Alpha {0}		
+UIText	MiscText_Version_Beta	Beta {0}		
+UIText	MiscText_Version_RC	RC {0}		
+UIText	MiscText_Plural	plural		
+UIText	MiscText_Singular	singular		
+UIText	MiscText_RequireStar	The customized text requires a "*" to indicate where the object being modified is placed.		
+UIText	MiscText_AppSubtitle	course setting for orienteering		
+UIText	MiscText_AddTextSpecialExplanation	Enter the text you wish to place on the map. After pressing OK, drag the mouse to place the text in the desired location.		
+UIText	MiscText_AddTextSpecialTitle	Add Text		
+UIText	MiscText_ChangeTextSpecialExplanation	Enter the new text.		
+UIText	MiscText_MapFileChanged	Another program has changed the map file "{0}". NotPurplePen will now reload the map.		
+UIText	MiscText_ChangeDescriptionLanguage	The current event has textual control descriptions in {0}. Would you like to change the language of control descriptions to {1}?		
+UIText	MiscText_OpenLastEvent	Open "{0}"		
+UIText	MiscText_ClosePPBeforeLoadingOCAD	NotPurplePen must be closed before loading the created OCAD files.		
+UIText	MiscText_NoCoursesSelected	No courses were selected to print.		
+UIText	MiscText_TranslatedHelpWebSite	*** If there exists a web site in the translated language that contains documentation for NotPurplePen, enter the URL (including http) as the translation of this item. Otherwise leave it alone.		
+UIText	MiscText_MapExchange_Long	Map exchange		
+UIText	MiscText_MapExchange_Medium	Exchange		
+UIText	MiscText_MapExchange_Short	MX		
+UIText	MiscText_PartN	Part {0}		
+UIText	MiscText_AllParts	All Parts		
+UIText	MiscText_PartXOfY	Part {0} (of {1})		
+UIText	MiscText_CrashEmail	Contact Email		
+UIText	MiscText_CrashIntro	An error has occurred. In order to help us fix the problem, please enter your email address and additional information, and send us an error report.		
+UIText	MiscText_CrashMessage	Please tell us what you were doing in the program, to help fix the problem		
+UIText	MiscText_CrashSend	Send Report		
+UIText	MiscText_PdfConversionFailed	Pdfium PDF converter failed to read PDF file successfully		
+UIText	MiscText_PdfResultNotReadable	Could not read result of PDF conversion from file '{0}'		
+UIText	MiscText_CannotCreatePdfs	Cannot create PDFs for the following reason:		
+UIText	MiscText_UserDefined	User Defined		
+UIText	MiscText_PdfMapSize	Map size from PDF		
+UIText	MiscText_CancelledByUser	Cancelled by user		
+UIText	MiscText_CreatingFile	Creating {0}...		
+UIText	MiscText_PrintingPage	Printing page {0} (of {1})		
+UIText	MiscText_MapFileDeleted	The map file "{0}" has been deleted. Please try to restore the map file, then press "Ok".		
+UIText	MiscText_BadDotNetFramework	The  .NET framework on your computer does not appear to be correctly installed. Please visit http://microsoft.com/net and install the latest version of the .NET framework for your Windows operating system.		
+UIText	MiscText_ChooseOtherColor	Choose Color...		
+UIText	MiscText_CustomColor	Custom Color		
+UIText	MiscText_DarkBlue	Dark Blue		
+UIText	MiscText_Green	Green		
+UIText	MiscText_LightBlue	Light Blue		
+UIText	MiscText_Red	Red		
+UIText	MiscText_Yellow	Yellow		
+UIText	MiscText_AddLineExplanation	Set the appearance of the line. After pressing OK, drag the mouse to draw the line segments in the desired location.		
+UIText	MiscText_AddLineTitle	Add Line		
+UIText	MiscText_AddRectangleExplanation	Set the appearance of the rectangle. After pressing OK, drag the mouse to place the rectangle in the desired location.		
+UIText	MiscText_AddRectangleTitle	Add Rectangle		
+UIText	MiscText_ChangeLineAppearanceExplanation	Change the appearance of the line or rectangle.		
+UIText	MiscText_GpxMustBeOcadMap	The map file must be an OCAD file to use GPX files.		
+UIText	MiscText_GpxMustHaveCoordSystem	The OCAD file must have a coordinate system defined to use GPX files.		
+UIText	MiscText_GpxMustHaveRealWorldCoord	The OCAD file must have real world coordinates defined to use GPX files.		
+UIText	MiscText_GpxReprojectFailure	Could not reproject points; either the coordinate system or the real world coordinates in the OCAD map are wrong.		
+UIText	MiscText_GpxUnsupportedCoordSystem	The OCAD file uses a coordinate system that is not supported by NotPurplePen.		
+UIText	MiscText_BadLength	The length for a course must be a number 0.1 - 99.9, or blank to calculate length automatically.		
+UIText	MiscText_EnterLength	Enter length in km, or leave blank to calculate automatically		
+UIText	MiscText_PausePrinting	Finished printing "{0}". Press OK to begin printing "{1}".		
+UIText	MiscText_OCAD	OCAD		
+UIText	MiscText_OpenOrienteeringMapper	OOM		
+UIText	MiscText_AllVariations	All Variations		
+UIText	MiscText_ForkSummary	Suitable for use in relays with {0} participants per team.		
+UIText	MiscText_LoopSummary	The central control in the loop will be visited {0} times. There are {1} possible paths through the loops.		
+UIText	MiscText_CantRearrangeSplitControl	A control that starts a fork or loop cannot be dragged to a new place in the course.		
+UIText	MiscText_TooManyVariations	Too many total variations in this course. The number of distinct variations is limited to {0}.		
+UIText	MiscText_CannotAddVariation	Cannot add variation.		
+UIText	MiscText_VariationAlreadyExists	A variation already exists at this control.		
+UIText	MiscText_VariationMustSelectControl	A control or leg must be selected to add a variation.		
+UIText	MiscText_VariationNotFinish	A variation cannot be added to a finish control.		
+UIText	MiscText_VariationNotInAllControls	A variation cannot be added to the All Controls view.		
+UIText	MiscText_VariationNotInScoreCourse	A variation cannot be added to a score course.		
+UIText	MiscText_VariationNotLastControl	A variation cannot be added to the last control. Add a finish control first.		
+UIText	MiscText_BadLegNumber	'{0}' is not a valid leg number for branch '{1}'		
+UIText	MiscText_LegNotAssigned	Leg {0} should be assigned to one of branches {1}		
+UIText	MiscText_LegUsedTwice	Leg {0} is assigned to both branch '{1}' and branch '{2}'		
+UIText	MiscText_CannotReadMapOOM	Cannot read map for the following reason: '{0}' Opening and re-saving the map in the latest version of OpenOrienteering Mapper may fix problems.		
+UIText	MiscText_MapIssue_Short	TS		
+UIText	MiscText_BaseMapHasVisibleTemplatesThatMayNotAppear	The underlying OCAD map has visible template files. In OCAD 8 and below, these templates may not appear due to limitations in OCAD.		
+UIText	MiscText_ImagesMayAppearBadlyLayeredInOcad10Below	Due to limitations of the OCAD file format (in OCAD 10 and below), image objects will appear underneath courses and white out areas in the exported OCAD files. Please check the OCAD files to make sure your images appear as desired.		
+UIText	MiscText_CannotCreateImageFiles	Cannot create image files for the following reason:		
+UIText	MiscText_CreatePdf	Create PDF		
+UIText	MiscText_PdfFilter	PDF File|*.pdf		
+UIText	MiscText_LegAssignedOuterBranch	Leg {0} never reaches branch '{1}': it was assigned to go a different way in a containing fork.		
+UIText	MiscText_AddEllipseExplanation	Set the appearance of the ellipse. After pressing OK, drag the mouse to place the ellipse in the desired location.		
+UIText	MiscText_AddEllipseTitle	Add Ellipse		
+UIText	MiscText_UninstallNonStoreVersion	An older version of NotPurplePen is still installed. To prevent confusion caused by having two versions of NotPurplePen installed, it is strongly recommended that the older version be removed. Remove it now?		
+UIText	MiscText_AskInstallRobotoFonts	In order for OCAD or OpenOrienteering Mapper to correctly display the control descriptions, the "Roboto" and "Roboto Condensed" fonts must be installed on your system. Would you like to install those fonts now (strongly recommended)?		
+UIText	MiscText_RobotoFontsInstallFailed	Installing Roboto Fonts failed.		
+UIText	MiscText_LowerPurple	Lower Purple		
+UIText	MissingFonts_checkBoxDontWarnAgain_Text	Don't warn about missing fonts for this event again		
+UIText	MissingFonts_labelWarning_Text	Map file "{0}" uses fonts that are not installed on your computer. Text using these fonts will be drawn and printed with a default font, which may cause text to appear differently than the map designer intended. \n\nTo fix this problem, find and install the fonts listed below with the Windows control panel, then start NotPurplePen again.\n		
+UIText	MissingFonts_Text	Missing Fonts		
+UIText	MoveAllControls_labelDescription_Text	Which way would you like to move all controls on the map?		
+UIText	MoveAllControls_radioButtonMove_Text	Move Only		
+UIText	MoveAllControls_radioButtonMoveAndScale_Text	Move and Scale		
+UIText	MoveAllControls_radioButtonMoveAndRotate_Text	Move and Rotate		
+UIText	MoveAllControls_radioButtonMoveRotateScale_Text	Move, Scale, and Rotate		
+UIText	NewEventBitmapScale_bitmapScaleLabel_Text	When using an image file as a map, you must specify the resolution of the image and the map scale. \n\nThe resolution of the image indicates how may pixels or dots are in the image for each inch on the paper map; usually termed dots per inch or "dpi".\n\nThe scale of the map indicates the relationship between the paper map and the real world.\n		
+UIText	NewEventBitmapScale_resolutionLabel_Text	Image resolution:		
+UIText	NewEventBitmapScale_mapScaleLabel_Text	Map scale:		
+UIText	NewEventPrintScale_mapScaleLabel_Text	Map scale:		
+UIText	NewEventBitmapScale_labelTitle_Text	Bitmap Resolution		
+UIText	NewEventBitmapScale_pdfScaleLabel_Text	When using an PDF file as a map, you must specify the map scale. \n\nThe scale of the map indicates the relationship between the paper map and the real world.\n		
+UIText	NewEventDirectory_newEventDirectoryLabel_Text	What folder (directory) do you want to save your course event file in?		
+UIText	NewEventDirectory_useMapDirectory_Text	In the same folder as the map file.		
+UIText	NewEventDirectory_useOtherFolder_Text	In another folder I choose.		
+UIText	NewEventDirectory_chooseFolder_Text	Choose Folder...		
+UIText	NewEventDirectory_folderBrowserDialog_Description	Select the folder for your event file		
+UIText	NewEventDirectory_directoryDisplay_Text	Selected Folder		
+UIText	NewEventDirectory_labelTitle_Text	Event File Location		
+UIText	NewEventFinal_newEventFinalLabel_Text	Click "Finish" to create your new event. Your event file will be saved as:		
+UIText	NewEventFinal_afterEventCreatedLabel_Text	After your event is created, select "New Course..." from the Course menu to create one or more courses.		
+UIText	NewEventFinal_labelTitle_Text	Create Event		
+UIText	NewEventMapFile_newEventMapFileLabel_Text	In order to design your courses, you must select the map file you will be using. Typically this is an OCAD or OpenOrienteering Mapper file (although PDFs and image files like JPEGs can be used instead). Click the "Choose..." button to select a map file.		
+UIText	NewEventMapFile_mapFileDisplay_Text	Selected Map File		
+UIText	NewEventMapFile_infoMessage_Text	The map file was successfully loaded. If you send your NotPurplePen file to someone else, they must have the map file also.		
+UIText	NewEventNumbering_newEventNumberingLabel_Text	Newly created controls are automatically numbered. Please choose the starting control number to use.		
+UIText	NewEventNumbering_changeLaterLabel_Text	(This setting can be changed later using Event/Automatic Numbering)		
+UIText	NewEventNumbering_labelTitle_Text	Control Numbering		
+UIText	NewEventPrintScale_newEventPrintScaleLabel_Text	What scale will you be using to print your courses? In most cases, you will want to use the existing scale of the map.\n\n		
+UIText	NewEventPrintScale_defaultPrintScaleLabel_Text	Default _printing scale:		
+UIText	NewEventPrintScale_changeLaterLabel_Text	(You can change the printing scale later for any course by choosing Course/Properties.)		
+UIText	NewEventStandards_changeLaterLabel_Text	(These settings can be changed later using Event/IOF Standards)		
+UIText	NewEventStandards_labelTitle_Text	IOF Standards		
+UIText	NewEventStandards_radioButtonMapSpr2019_Text	ISSprOM 2019		
+UIText	NewEventStandards_radioButtonMap2017_Text	ISOM 2017		
+UIText	NewEventStandards_radioButtonMap2000_Text	ISOM 2000 / ISSOM 2007		
+UIText	NewEventStandards_groupBoxMapStandard_Text	IOF Map Standard		
+UIText	NewEventStandards_radioButtonDescriptions2018_Text	Descriptions 2018 or 2024		
+UIText	NewEventStandards_radioButtonDescriptions2004_Text	Descriptions 2004		
+UIText	NewEventStandards_groupBoxDescriptionStandard_Text	IOF Description Standard		
+UIText	NewEventStandards_labelStandardsIntro_Text	Which versions of IOF standards would you like NotPurplePen to follow?		
+UIText	NewEventTitle_newEventTitleLabel_Text	The event title will be displayed on the first line of every control description sheet. It is also used as the file name for storing your event on disk.\n\nTo fit on the description sheet, it should be less than 25 characters in length. Examples of good event titles are "US Champs Day 1" or "Riverview Park, 4/12/06".		
+UIText	NewEventTitle_eventTitleLabel_Text	Event Title:		
+UIText	NewEventWizard_backButton_Text	< _Back		
+UIText	NonPrintableObjects_labelWarning_Text	Map file "{0}" contains objects or symbols that are not fully supported by NotPurplePen, and may not print correctly. The objects that may not print correctly are listed below.\n\nFor printing competition maps, it is suggested that courses be exported to OCAD files (use File/Create OCAD Files...) and to print the maps from OCAD.\n		
+UIText	NonPrintableObjects_okButton_Text	Continue		
+UIText	NonPrintableObjects_Text	Map File Cannot Be Printed Accurately		
+UIText	OperationInProgress_Text	Operation In Progress		
+UIText	OverwritingOcadFilesDialog_confirmReplaceLabel_Text	The following files already exist. If you continue, they will be replaced.		
+UIText	OverwritingOcadFilesDialog_buttonOK_Text	Replace		
+UIText	OverwritingOcadFilesDialog_Text	Confirm Replace Files		
+UIText	PdfConversionInProgress_labelReadingPDF_Text	PDFium PDF converter is reading your PDF...		
+UIText	PdfConversionInProgress_labelFailure_Text	PDF reading has failed. The errors are shown below.		
+UIText	PdfConversionInProgress_Text	Reading PDF		
+UIText	PrintCourses_okButton_Text	Print		
+UIText	PrintDescriptions_printButton_Text	Print		
+UIText	PrintPunches_printButton_Text	Print		
+UIText	PrintCourses_printerChange_Text	Change Printer...		
+UIText	PrintDescriptions_printerChange_Text	Change Printer...		
+UIText	PrintPunches_printerChange_Text	Change Printer...		
+UIText	PrintCourses_printerName_Text	Printer Name		
+UIText	PrintDescriptions_printerName_Text	Printer Name		
+UIText	PrintPunches_printerName_Text	Printer Name		
+UIText	PrintCourses_printerLabel_Text	Printer:		
+UIText	PrintDescriptions_printerLabel_Text	Printer:		
+UIText	PrintPunches_printerLabel_Text	Printer:		
+UIText	PrintCourses_previewButton_Text	Preview...		
+UIText	PrintCourses_copiesLabel_Text	Copies of each course:		
+UIText	PrintCourses_checkBoxPausePrinting_Text	Pause printing after each course or part		
+UIText	PrintCourses_copiesGroupBox_Text	Copies		
+UIText	PrintDescriptions_copiesGroupBox_Text	Copies		
+UIText	PrintPunches_copiesGroupBox_Text	Copies		
+UIText	PrintCourses_comboBoxColorModel_Items	OCAD Compatible		
+UIText	PrintCourses_Text	Print Courses		
+UIText	PrintDescriptions_marginChange_Text	Change Margins...		
+UIText	PrintPunches_marginChange_Text	Change Margins...		
+UIText	PrintDescriptions_paperSize_Text	Tabloid (11"x17")		
+UIText	PrintPunches_paperSize_Text	Tabloid (11"x17")		
+UIText	PrintDescriptions_paperSizeLabel_Text	Paper Size:		
+UIText	PrintPunches_paperSizeLabel_Text	Paper Size:		
+UIText	PrintDescriptions_margins_Text	Top: 0.55", Bottom: 0.55", Left: 0.55", Right: 0.55"		
+UIText	PrintPunches_margins_Text	Top: 0.55", Bottom: 0.55", Left: 0.55", Right: 0.55"		
+UIText	PrintDescriptions_marginsLabel_Text	Margins:		
+UIText	PrintPunches_marginsLabel_Text	Margins:		
+UIText	PrintDescriptions_orientationLabel_Text	Orientation:		
+UIText	PrintPunches_orientationLabel_Text	Orientation:		
+UIText	PrintDescriptions_descriptionKindCombo_Items	Course default		
+UIText	PrintDescriptions_descriptionKindCombo_Items3	Symbols & Text		
+UIText	PrintDescriptions_descriptionTypeLabel_Text	Description type:		
+UIText	PrintDescriptions_lineSizeLabel_Text	Line size:		
+UIText	PrintDescriptions_descriptionsLabel_Text	descriptions per course		
+UIText	PrintDescriptions_copiesCombo_Items	one copy of each course		
+UIText	PrintDescriptions_copiesCombo_Items1	one page of each course		
+UIText	PrintDescriptions_copiesCombo_Items2	multiple pages of each course		
+UIText	PrintDescriptions_whatToPrintLabel_Text	Print:		
+UIText	PrintDescriptions_Text	Print Descriptions		
+UIText	PrinterMargins_label3_Text	Height:		
+UIText	PrinterMargins_groupBoxPaperSize_Text	Paper Size ({0})		
+UIText	PrinterMargins_groupBox1_Text	Orientation		
+UIText	PrinterMargins_label1_Text	Left:		
+UIText	PrinterMargins_label4_Text	Top:		
+UIText	PrinterMargins_label5_Text	Right:		
+UIText	PrinterMargins_label6_Text	Bottom:		
+UIText	PrinterMargins_groupBoxMargins_Text	Margins ({0})		
+UIText	PrinterMargins_Text	Page Setup		
+UIText	PrintPunches_punchCardLayoutButton_Text	Punch Card Layout...		
+UIText	PunchPatternDialog_formatButton_Text	Punch Card Layout...		
+UIText	PrintPunches_punchBoxSizeLabel_Text	Punch box size:		
+UIText	PrintPunches_descriptionsLabel_Text	Copies:		
+UIText	PrintPunches_Text	Print Punch Cards		
+UIText	PunchcardLayoutDialog_boxOrderGroupBox_Text	Box Order		
+UIText	PunchcardLayoutDialog_sizeGroupBox_Text	Size		
+UIText	PunchcardLayoutDialog_columnsLabel_Text	Columns:		
+UIText	PunchcardLayoutDialog_rowsLabel_Text	Rows:		
+UIText	PunchcardLayoutDialog_Text	Punch Card Layout		
+UIText	PunchPatternDialog_punchPatternsLabel_Text	Click on a control code in the left-side list, and design the punch pattern in the right side. Red codes indicate controls that have no punch pattern defined.		
+UIText	PunchPatternDialog_Text	Punch Patterns		
+UIText	ReportForm_printButton_Text	Print...		
+UIText	TeamVariationsForm_buttonPrint_Text	Print...		
+UIText	ReportForm_previewButton_Text	Print Preview...		
+UIText	TeamVariationsForm_buttonPrintPreview_Text	Print Preview...		
+UIText	ReportForm_okButton_Text	Close		
+UIText	TeamVariationsForm_buttonClose_Text	Close		
+UIText	ReportText_ColumnHeader_Climb	Climb		
+UIText	ReportText_ColumnHeader_Code	Code		
+UIText	ReportText_ColumnHeader_Column	Column		
+UIText	ReportText_ColumnHeader_Control	Control		
+UIText	ReportText_ColumnHeader_ControlCodes	Control codes		
+UIText	ReportText_ColumnHeader_Controls	Controls		
+UIText	ReportText_ColumnHeader_Course	Course		
+UIText	ReportText_ColumnHeader_Distance	Distance		
+UIText	ReportText_ColumnHeader_Item	Item		
+UIText	ReportText_ColumnHeader_Leg	Leg		
+UIText	ReportText_ColumnHeader_Length	Length		
+UIText	ReportText_ColumnHeader_Load	Load		
+UIText	ReportText_ColumnHeader_Location	Location		
+UIText	ReportText_ColumnHeader_NumberOfCourses	# Courses		
+UIText	ReportText_ColumnHeader_Reason	Reason		
+UIText	ReportText_ColumnHeader_SameSymbol	Same symbol?		
+UIText	ReportText_ColumnHeader_Visits	Visits		
+UIText	ReportText_CourseSummary_Title	Course Summary for {0}		
+UIText	ReportText_CrossRef_Title	Control cross-reference for {0}		
+UIText	ReportText_EventAudit_BothDirectionsLegs	Legs Run in Both Directions		
+UIText	ReportText_EventAudit_CloseTogetherControls	Close Together Controls		
+UIText	ReportText_EventAudit_CloseTogetherExplanation	The following table shows all control pairs that are within {0} meters of each other. The same symbol column shows whether the two controls have the same primary symbol (column D).		
+UIText	ReportText_EventAudit_MissingBoxes	Missing Description Boxes		
+UIText	ReportText_EventAudit_MissingClimb	Regular courses should indicate the amount of climb		
+UIText	ReportText_EventAudit_MissingD	All controls must have a main feature in column D		
+UIText	ReportText_EventAudit_MissingEBetween	When "between" is in column G, two features must be shown in columns D and E		
+UIText	ReportText_EventAudit_MissingEJunction	When "junction" or "crossing" is in column F, two features must be shown in columns D and E		
+UIText	ReportText_EventAudit_MissingFinish	Regular courses should have a finish circle		
+UIText	ReportText_EventAudit_MissingItems	Missing Items in Courses		
+UIText	ReportText_EventAudit_MissingLoad	Course should have expected competitor load		
+UIText	ReportText_EventAudit_MissingPunch	No punch pattern defined		
+UIText	ReportText_EventAudit_MissingPunchPatterns	Missing Punch Patterns		
+UIText	ReportText_EventAudit_MissingScore	Score course should have score set for all controls or no controls		
+UIText	ReportText_EventAudit_MissingScores	Missing Scores		
+UIText	ReportText_EventAudit_MissingStart	Regular courses should have a start triangle		
+UIText	ReportText_EventAudit_MissingStartScore	Score courses should have a start triangle		
+UIText	ReportText_EventAudit_NoProblems	No problems found.		
+UIText	ReportText_EventAudit_RepeatControl	Course "{0}" contains control "{1}" twice in a row.		
+UIText	ReportText_EventAudit_RepeatedControls	Repeated Controls		
+UIText	ReportText_EventAudit_ScoreDuplicateControl	Score course "{0}" contains control "{1}" twice. 		
+UIText	ReportText_EventAudit_Title	Event Audit for {0}		
+UIText	ReportText_EventAudit_UnusedControls	Unused Controls		
+UIText	UnusedControls_Text	Unused Controls		
+UIText	ReportText_EventAudit_UnusedControlsExplanation	The following controls are present in the All Controls collection but are not used in any course. To remove them, use the "Remove Unused Controls" command on the "Event" menu. These controls will not be considered further in this report.		
+UIText	ReportText_LegLength_Average	Average		
+UIText	ReportText_LegLength_CourseInfo	{0} ({1} controls, {2}, {3} m climb)		
+UIText	ReportText_LegLength_CourseInfoNoClimb	{0} ({1} controls, {2})		
+UIText	ReportText_LegLength_Title	Leg Length Report for {0}		
+UIText	ReportText_Load_ButterflyExists	Some controls are visited multiple times on the same course. The second load number counts each visit to a control separately.		
+UIText	ReportText_Load_ControlLoadSection	Control load		
+UIText	ReportText_Load_LegLoadSection	Leg load		
+UIText	ReportText_Load_MissingLoads	Some or all courses do not have competitor loads set for them. The loads listed below may be incorrect or missing for this reason. To set competitor loads, select "Competitor Load" from the "Course" menu.		
+UIText	ReportText_Load_OnlyLegsMoreThanOnce	(only legs used by more than one course appear in the following table)		
+UIText	ReportText_Load_Title	Competitor Load Summary for {0}		
+UIText	ReportText_Load_VariationsExist	One or more courses has variations. Load numbers will be computed assuming that competitors are evenly distributed between forks.		
+UIText	ReportText_Load_Visit	({0} visits)		
+UIText	ReportText_Load_Warning	WARNING:		
+UIText	ReportText_Note	NOTE: 		
+UIText	ReportText_RelayVariation_BranchWarning	Warning: due to the number of legs specified, the fork at control {0} will not be used evenly. {1} leg(s) will use branch(es) {2}, while {3} leg(s) will use branch(es) {4}. 		
+UIText	ReportText_RelayVariation_LegHeader	Leg {0}		
+UIText	ReportText_RelayVariation_NoTeams	No relay teams have been defined yet. Selected the desired number of teams and legs and press the "Assign Variations" button.		
+UIText	ReportText_RelayVariation_TeamNumber	Team {0}		
+UIText	ReportText_RelayVariation_Title	Relay Assignments for {0}		
+UIText	SelectionDescriptionText_AwayFromControl	away from control		
+UIText	SelectionDescriptionText_CompetitorLoad	Competitor load:		
+UIText	SelectionDescriptionText_ControlsInUse	Controls in use:		
+UIText	SelectionDescriptionText_ControlsNotInUse	Controls not in use:		
+UIText	SelectionDescriptionText_Control_Plural	controls		
+UIText	SelectionDescriptionText_Control_Singular	control		
+UIText	SelectionDescriptionText_CourseList_AllCourses	All courses		
+UIText	SelectionDescriptionText_CourseName	Course "{0}"		
+UIText	SelectionDescriptionText_CustomizedSymbolDesc	Customized symbol description		
+UIText	SelectionDescriptionText_EntireLeg	entire leg		
+UIText	SelectionDescriptionText_FinishFunnel	finish funnel		
+UIText	SelectionDescriptionText_Finish_Plural	finishes		
+UIText	SelectionDescriptionText_Finish_Singular	finish		
+UIText	SelectionDescriptionText_Flagging	Flagging:		
+UIText	SelectionDescriptionText_IntoControl	into control		
+UIText	SelectionDescriptionText_IntoFinishFunnel	into finish funnel		
+UIText	SelectionDescriptionText_LineHeight	Line height:		
+UIText	SelectionDescriptionText_Location	Location:		
+UIText	SelectionDescriptionText_MandCrossing_Plural	mandatory crossing points		
+UIText	SelectionDescriptionText_MandCrossing_Singular	mandatory crossing point		
+UIText	SelectionDescriptionText_None	none		
+UIText	SelectionDescriptionText_SpecialName_Forbidden	Forbidden Route		
+UIText	SelectionDescriptionText_SpecialName_OOB	Out-of-bounds Area		
+UIText	SelectionDescriptionText_Start_Plural	starts		
+UIText	SelectionDescriptionText_Start_Singular	start		
+UIText	SelectionDescriptionText_TextDescription	Text description:		
+UIText	SelectionDescriptionText_TextLine	Text line		
+UIText	SelectionDescriptionText_TextLine_AboveAllCourses	Appears above {0}, in all courses that contain {0}		
+UIText	SelectionDescriptionText_TextLine_AboveThisCourse	Appears above {0}, in this course only		
+UIText	SelectionDescriptionText_TextLine_BelowAllCourses	Appears below {0}, in all courses that contain {0}		
+UIText	SelectionDescriptionText_TextLine_BelowThisCourse	Appears below {0}, in this course only		
+UIText	SelectionDescriptionText_TotalControls	Total controls:		
+UIText	SelectionDescriptionText_TotalScore	Total score:		
+UIText	SelectionDescriptionText_UsedInCourses	Used in courses:		
+UIText	SelectionDescriptionText_FileName	Name:		
+UIText	SelectionDescriptionText_MapExchange_Plural	map exchanges		
+UIText	SelectionDescriptionText_MapExchange_Singular	map exchange		
+UIText	SelectionDescriptionText_MapExchangeAtControl	Map exchange at {0}		
+UIText	SelectionDescriptionText_Load	Load:		
+UIText	SelectionDescriptionText_UsedIn	Used in:		
+UIText	SelectionDescriptionText_CourseNameAndPart	Course "{0}", Part {1}		
+UIText	SelectionDescriptionText_CalculatedLength	Calculated Length:		
+UIText	SelectionDescriptionText_MapIssue_Plural	map issue points		
+UIText	SelectionDescriptionText_MapIssue_Singular	map issue point		
+UIText	SelectionDescriptionText_MapFlipAtControl	Map flip at {0}		
+UIText	SelectLocationsForMove_labelArrowFirstControl_Text	è		
+UIText	SelectLocationsForMove_labelArrowFirstNewLocation_Text	è		
+UIText	SelectLocationsForMove_labelArrowSecondControl_Text	è		
+UIText	SelectLocationsForMove_labelArrowSecondNewLocation_Text	è		
+UIText	SelectLocationsForMove_labelArrowConfirmLocations_Text	è		
+UIText	SelectLocationsForMove_labelFirstControl_Text	Select first control or registration mark to move		
+UIText	SelectLocationsForMove_labelSecondNewLocation_Text	Choose new location for second control/mark		
+UIText	SelectLocationsForMove_labelConfirmLocations_Text	Confirm new locations		
+UIText	SelectLocationsForMove_labelRotation_Text	Rotation:		
+UIText	SelectLocationsForMove_labelYOffset_Text	Y Offset:		
+UIText	SelectLocationsForMove_labelXOffset_Text	X Offset:		
+UIText	SelectLocationsForMove_labelSecondControl_Text	Select second control or registration mark to move		
+UIText	SelectLocationsForMove_labelFirstNewLocation_Text	Choose new location for first control/mark		
+UIText	SelectLocationsForMove_buttonBack_Text	Back		
+UIText	SelectLocationsForMove_buttonConfirm_Text	Confirm		
+UIText	SelectVariations_comboBoxVariations_Items	Each Variation Separately		
+UIText	SelectVariations_comboBoxVariations_Items1	Each Relay Leg Separately		
+UIText	SelectVariations_comboBoxVariations_Items2	All Variations Combined		
+UIText	SelectVariations_label1_Text	Variations:		
+UIText	SelectVariations_labelAllVariations_Text	Display all the forks together on a single map.		
+UIText	SelectVariations_labelSeparateVariations_Text	One map for each possible variation through the course.		
+UIText	SelectVariations_labelByLeg_Text	One map for each leg on the relay teams that you choose.		
+UIText	SelectVariations_labelByLegNotAvailable_Text	You must first define relay teams by selecting Relay Team Variations... from the Course menu.		
+UIText	SelectVariations_checkBoxSelectIndividualVariations_Text	Select Individual Variations		
+UIText	SelectVariations_labelNumberOfTeams_Text	This course has {0} relay teams assigned. Use Relay Team Variations... from the Course menu to change the number of teams.		
+UIText	SelectVariations_label3_Text	to		
+UIText	SelectVariations_label2_Text	Select which teams to print/export:		
+UIText	SelectVariations_Text	Choose Variations		
+UIText	SetPrintAreaDialog_okButton_Text	Done		
+UIText	SetPrintAreaDialog_setPrintAreaLabel_Text	Set the desired printing area by dragging with the mouse.		
+UIText	SetPrintAreaDialog_groupBoxPaperSize_Text	Paper Size		
+UIText	SetPrintAreaDialog_checkBoxAutomatic_Text	Set Print Area Automatically		
+UIText	SetPrintAreaDialog_checkBoxFixSizeToPaper_Text	Fix Print Area Size to Paper Size		
+UIText	SetUILanguage_introLabel_Text	Select the language that you would like to use for the user interface of NotPurplePen (menus, windows, etc.)		
+UIText	SetUILanguage_Text	Program Language		
+UIText	StatusBarText_DefaultStatus	Left mouse button: select object;   Right mouse button: move map;   Scroll wheel: zoom in/out		
+UIText	StatusBarText_DefaultRectangle	Left mouse button: move/size rectangle;   Right mouse button: move map;   Scroll wheel: zoom in/out		
+UIText	StatusBarText_DragObject	Hold down left mouse button and drag to move selected object		
+UIText	StatusBarText_DragCorner	Hold down left mouse button and drag corner point to move it		
+UIText	StatusBarText_DraggingObject	Move object to desired location and release mouse button		
+UIText	StatusBarText_DraggingCorner	Move corner point to desired location and release mouse button		
+UIText	StatusBarText_AddingControl	Click left mouse button to place new control		
+UIText	StatusBarText_AddingExistingControl	Click left mouse button to add existing control "{0}" to course		
+UIText	StatusBarText_AddingStart	Click left mouse button to place new start		
+UIText	StatusBarText_AddingExistingStart	Click left mouse button to add existing start to course		
+UIText	StatusBarText_AddingFinish	Click left mouse button to place new finish		
+UIText	StatusBarText_AddingExistingFinish	Click left mouse button to add existing finish to course		
+UIText	StatusBarText_AddingCrossingPoint	Click left mouse button to place new mandatory crossing point		
+UIText	StatusBarText_AddingExistingCrossingPoint	Click left mouse button to add existing mandatory crossing point to course		
+UIText	StatusBarText_AddingObject	Click left mouse button to place new object		
+UIText	StatusBarText_AddingBend	Click left mouse button at the location of the bend		
+UIText	StatusBarText_AddingCorner	Click left mouse button to add a new corner		
+UIText	StatusBarText_DeletingBend	Click left mouse button on a bend to remove it		
+UIText	StatusBarText_DeletingCorner	Click left mouse button on a corner to remove it		
+UIText	StatusBarText_AddingControlGap	Click left mouse button on the control circle to add a small gap; hold down left mouse button and drag to create a large gap		
+UIText	StatusBarText_RemovingControlGap	Click left mouse button on a gap in the control circle to remove it		
+UIText	StatusBarText_AddingLegGap	Click left mouse button to create small gap; hold down left mouse button and drag to create a large gap in the leg		
+UIText	StatusBarText_RemovingLegGap	Click left mouse button on a gap in the leg to remove it		
+UIText	StatusBarText_SizeRectangle	Hold down left mouse button and drag to size the selected object		
+UIText	StatusBarText_SizingRectangle	Move edge(s) to desired location and release mouse button		
+UIText	StatusBarText_AddingDescription	Hold down left mouse button and drag to create control descriptions		
+UIText	StatusBarText_RotatingObject	Click left mouse button when the crossing point is rotated to the correct angle		
+UIText	StatusBarText_AddingLineArea	Hold down left mouse button and drag to add a line segment; click the left mouse button to finish adding object		
+UIText	StatusBarText_AddingText	Hold down left mouse button and drag to create text		
+UIText	StatusBarText_AddingExistingMapExchange	Click left mouse button to add existing map exchange to course		
+UIText	StatusBarText_AddingMapExchange	Click left mouse button to place new map exchange		
+UIText	StatusBarText_AddingMapExchangeToControl	Click left mouse button to add map exchange at control "{0}" 		
+UIText	StatusBarText_AddingRectangle	Hold down left mouse button and drag to create object		
+UIText	StatusBarText_DraggingTopologyObject	Drag control number to reorder it in the course (hold shift to duplicate)		
+UIText	StatusBarText_AddingExistingMapIssue	Click left mouse button to add existing map issue point to course		
+UIText	StatusBarText_AddingMapIssue	Click left mouse button to place new map issue point		
+UIText	StatusBarText_StretchingObject	Hold down left mouse button and drag to stretch the stretch the crossing point		
+UIText	StatusBarText_ControlForMoveAllControls	Click the left mouse button on a control or registration mark to move to a new location		
+UIText	StatusBarText_NewLocationForMoveAllControls	Click the left mouse button on the new location for the control or registration mark		
+UIText	TeamVariationsForm_buttonExport_Text	Export...		
+UIText	TeamVariationsForm_label2_Text	Number of legs:		
+UIText	TeamVariationsForm_buttonCalculate_Text	Assign Variations		
+UIText	TeamVariationsForm_label1_Text	Number of teams:		
+UIText	TeamVariationsForm_fixedLegsLink_Text	Assign fixed legs to branches...		
+UIText	TeamVariationsForm_label3_Text	Team numbers start at: 		
+UIText	TeamVariationsForm_checkBoxHideVariationsFromMap_Text	Hide variation codes on map		
+UIText	TeamVariationsForm_saveFileDialog_Filter	IOF XML 3.0|*.xml|Spreadsheet (CSV)|*.csv		
+UIText	UnusedControls_okButton_Text	Delete		
+UIText	UnusedControls_unusedControlsLabel_Text	The following controls are in the All Controls collection, but not used in any course. Click Delete to remove all checked controls.		
+UIText	ViewAdditionalCourses_labelInstructions_Text	Choose additional courses to view with course "{0}".		
+UIText	ViewAdditionalCourses_Text	View Additional Courses		
+UIText	NewEventPaperSize_labelTitle_Text	Paper Size		
+UIText	NewEventPaperSize_newEventPaperSizeLabel_Text	Enter the size and orientation of the paper that you will use to print your map.		
+UIText	NewEventPaperSize_changeLaterLabel_Text	You can change this later with File/Set Print Area.		
+UIText	PageSetup_Text	Page Setup		
+UIText	PaperSizeControl_labelPaper_Text	Size:		
+UIText	PaperSizeControl_labelWidth_Text	Width:		
+UIText	PaperSizeControl_labelHeight_Text	Height:		
+UIText	PaperSizeControl_labelMargin_Text	Margin (all sides):		
+UIText	PaperSizeControl_groupBoxMargins_Text	Margins		
+UIText	PaperSizeControl_labelTop_Text	Top:		
+UIText	PaperSizeControl_labelBottom_Text	Bottom:		
+UIText	PaperSizeControl_labelLeft_Text	Left:		
+UIText	PaperSizeControl_labelRight_Text	Right:		
+UIText	PaperSizeControl_checkBoxPortrait_Text	Portrait		
+UIText	PaperSizeControl_checkBoxLandscape_Text	Landscape		
+UIText	CrashDialog_Text	NotPurplePen has crashed		
+UIText	CrashDialog_introLabel_Text	An error has occurred. In order to help us fix the problem, please give us any additional information about what caused the error, and send us an error report.		
+UIText	CrashDialog_sendReportCheckBox_Text	Send error report		
+UIText	CrashDialog_viewDetailsButton_Text	View Error Details...		
+UIText	CrashDialog_descriptionLabel_Text	Please tell us what you did immediately before this error occurred:		
+UIText	CrashDialog_descriptionTextBox_Watermark	Give as much detail as possible as to what you were doing and what might have triggered the error.		
+UIText	CrashDialog_explanationLabel_Text	In many cases, you can continue working without problem. You can also restart NotPurplePen. If you restart, NotPurplePen will attempt to save and restore your current work in progress.		
+UIText	CrashDialog_fatalExplanationLabel_Text	NotPurplePen cannot continue running and must be restarted. If you restart, NotPurplePen will attempt to save and restore your current work in progress.		
+UIText	CrashDialog_recoveryLabel_Text	Your unsaved changes have been saved, and will be restored if you restart.		
+UIText	CrashDialog_continueButton_Text	Continue Working		
+UIText	CrashDialog_restartButton_Text	Restart		
+UIText	CrashDialog_sendingLabel_Text	Sending error report...		
+UIText	ErrorDetailsDialog_Text	Error Details		
+UIText	ErrorDetailsDialog_closeButton_Text	Close		
+UIText	ErrorDetailsDialog_copyButton_Text	Copy to Clipboard		
+UIText	UpdateAvailable_Text	Update Available		
+UIText	UpdateAvailable_remindLaterButton_Text	Remind Me Later		
+UIText	UpdateAvailable_downloadButton_Text	Download and Install		
+UIText	UpdateAvailable_newVersionAvailable_Text	Version {0} of NotPurplePen is now available. (You are currently running version {1}.)		
+UIText	UpdateAvailable_downloadFailed_Text	The update could not be downloaded.\n\n{0}		
+UIText	UpdateAvailable_downloadedManually_Text	The update has been downloaded to:\n\n{0}\n\nNotPurplePen cannot install this kind of file for you. Open it yourself to install the update.		
+UIText	NewEventWizard_finishButton_Text	_Finish		
+UIText	HelpButton_ToolTip	Help		
+UIText	MainFrame_publishCoursesMenu_Text	Publish courses...		yes
+UIText	PublishCoursesDialog_Text	Publish courses		yes
+UIText	PublishCoursesDialog_advancedSettingsButton_Text	Advanced...		yes
+UIText	PublishCoursesDialog_coursesGroupBox_Text	Courses		yes
+UIText	PublishCoursesDialog_fileDirectory_Text	Relative to the folder of the Purple Pen file		yes
+UIText	PublishCoursesDialog_imageFilesGroupBox_Text	Image files		yes
+UIText	PublishCoursesDialog_labelAutoRotate_Text	Auto rotate:		yes
+UIText	PublishCoursesDialog_labelImageQuality_Text	Image quality:		yes
+UIText	PublishCoursesDialog_mapDirectory_Text	Relative to the folder of the map file		yes
+UIText	PublishCoursesDialog_publishTargetFolderGroupBox_Text	Publish target folder		yes
+UIText	PublishCoursesDialog_selectDataExchangeFolderButton_Text	Select folder...		yes
+UIText	MainFrame_publishCoursesToolStripButton_ToolTipText	Publish courses		yes
+UIText	PrintPreviewDialog_Text	Print Preview		
+UIText	PrintPreviewDialog_firstPageButton_ToolTip	First page		
+UIText	PrintPreviewDialog_previousPageButton_ToolTip	Previous page		
+UIText	PrintPreviewDialog_pageNumberLabel_Text	Page {0} of {1}		
+UIText	PrintPreviewDialog_nextPageButton_ToolTip	Next page		
+UIText	PrintPreviewDialog_lastPageButton_ToolTip	Last page		
+UIText	PrintPreviewDialog_fitPageButton_Text	Fit Page		
+UIText	PrintPreviewDialog_noPagesLabel_Text	There are no pages to show.		
+UIText	CloseButton	Close		
+UIText	LinuxPrinting_NoDefaultViewer	The PDF file could not be opened, because no default application for viewing PDF files is set up.		
+UIText	LinuxPrinting_PortalUnavailable	Purple Pen cannot print directly on this system, because the desktop printing service (the Print interface of the XDG desktop portal) is not available.\n\nWould you like to open the document as a PDF file in your default PDF viewer, so that you can print it from there?\n\nIMPORTANT: When printing from the PDF viewer, turn off any page scaling (such as "Fit to page" or "Shrink to printable area"), so that the document prints at the correct size.		
+UIText	LinuxPrinting_ViewerFailed	The PDF file could not be opened in the default PDF viewer: {0}		
+UIText	LinuxPrinting_XdgUtilsMissing	The PDF file could not be opened, because xdg-utils (which opens files in their default applications) is not installed.		
+MiscText	CtrlZ	Ctrl+Z		
+MiscText	CtrlY	Ctrl+Y		
+MiscText	Esc	Esc		
+MiscText	AppTitle	NotPurplePen		
+MiscText	NoSymbol	No symbol		
+MiscText	AllControls	All controls		
+MiscText	CannotLoadFile	Cannot load '{0}' for the following reason:		
+MiscText	CannotSaveFile	Cannot save '{0}' for the following reason:		
+MiscText	CannotLoadMapFile	Cannot load map file '{0}' for the following reason:		
+MiscText	CannotCreateFile	Cannot create '{0}' for the following reason:		
+MiscText	CannotCreateDirectory	Cannot create folder '{0}' for the following reason:		
+MiscText	CannotCreateOcadFiles	Cannot create OCAD files for the following reason:		
+MiscText	SaveChanges	Do you want to save the changes you made to '{0}'?		
+MiscText	FileAlreadyExists	File '{0}' already exists in the specified folder. Click the "Back" button and choose a new folder or a new event title.		
+MiscText	CodeInUse	The control code '{0}' is already used by another control.		
+MiscText	BadScore	The points for a control must be an integer 1-999.		
+MiscText	BadClimb	The climb for a course must be a number 0-9999, or blank.		
+MiscText	CourseNameRequired	A course name is required.		
+MiscText	BadLoad	The load for a course must be an integer 0-999999, or blank.		
+MiscText	UndoWithShortcut	_Undo	src/PurplePen/MiscText.sl.resx	
+MiscText	Undo	Undo		
+MiscText	RedoWithShortcut	_Redo	src/PurplePen/MiscText.sl.resx	
+MiscText	Redo	Redo		
+MiscText	ClearSelectionWithShortcut	&Clear Selection	src/PurplePen/MiscText.sl.resx	
+MiscText	CancelOperationWithShortcut	Ca&ncel Operation		
+MiscText	CancelOperation	Cancel Operation		
+MiscText	EnterScore	Enter new score		
+MiscText	EnterCode	Enter new code		
+MiscText	EnterDimensions	Enter feature size\nUse / for height on a slope\nUse | for two features		
+MiscText	EnterEventTitle	Enter new event title\nUse | to separate lines\n(affects all courses)		
+MiscText	EnterSecondaryTitle	Enter new secondary title\nUse | to separate lines		
+MiscText	EnterCourseName	Enter new course name		
+MiscText	EnterClimb	Enter new climb in meters		
+MiscText	EnterSymbolText	Enter new symbol meaning\n(affects all courses)		
+MiscText	EnterTextLine	Enter new text\nUse | to separate lines		
+MiscText	DeleteMultipleControlsFromControlsCollection	Controls {0} are no longer used by any course. Do you want to delete these controls from the control collection?		
+MiscText	DeleteControlFromControlsCollection	Control {0} is no longer used by any course. Do you want to delete this control from the control collection?		
+MiscText	DeleteControlFromAllControls	Control {0} is currently used by the following courses: {1}. Do you want to delete this control anyway?		
+MiscText	DuplicateCode	The code "{0}" is used more than once.		
+MiscText	BadScale	The print scale must be a number between 100 and 100,000.		
+MiscText	CoursePropertiesTitle	Course Properties		
+MiscText	Landscape	Landscape		
+MiscText	Portrait	Portrait		
+MiscText	PageTooSmall	The page size is too small for any descriptions to be printed.		
+MiscText	VersionLabel	Version {0}		
+MiscText	NewerVersionAvailable	Version {0} of NotPurplePen is now available for download. (You are currently running version {1}.)\n\nWould you like to download and install the latest version?		
+MiscText	HelpFileNotFound	Help file '{0}' could not be opened.		
+MiscText	Zoom	Zoom		
+MiscText	MissingMapFile	The map file "{0}" could not be found.\n\nMost likely, the map file has been moved or deleted, or the NotPurplePen file has been moved (possibly to a different computer). The map file must be present every time the NotPurplePen event file is loaded. If you send a NotPurplePen event file to another person, be sure that person has a copy of the map file also.\n\nAfter pressing OK, try to find a copy of the map file on your computer.		
+MiscText	NoUnusedControls	All controls are used in a course.		
+MiscText	NextButtonText	&Next >		
+MiscText	Finish	Finish		
+MiscText	Finish_Short	F		
+MiscText	MandCrossing_Long	Mandatory crossing point		
+MiscText	MandCrossing_Medium	Crossing		
+MiscText	MandCrossing_Short	C		
+MiscText	Margins_All	All: {0}		
+MiscText	Margins_LRTB	Left: {0}, Right: {1}, Top: {2}, Bottom: {3}		
+MiscText	Start	Start		
+MiscText	Start_Short	S		
+MiscText	Plural	plural		
+MiscText	Singular	singular		
+MiscText	RequireStar	The customized text requires a "*" to indicate where the object being modified is placed.		
+MiscText	AppSubtitle	course setting for orienteering		
+MiscText	AddTextSpecialExplanation	Enter the text you wish to place on the map. After pressing OK, drag the mouse to place the text in the desired location.		
+MiscText	AddTextSpecialTitle	Add Text		
+MiscText	ChangeTextSpecialExplanation	Enter the new text.		
+MiscText	ChangeTextTitle	Change Text	src/PurplePen/MiscText.sl.resx	
+MiscText	MapFileChanged	Another program has changed the map file "{0}". NotPurplePen will now reload the map.		
+MiscText	ChangeDescriptionLanguage	The current event has textual control descriptions in {0}. Would you like to change the language of control descriptions to {1}?		
+MiscText	OpenLastEvent	Open "{0}"		
+MiscText	ClosePPBeforeLoadingOCAD	NotPurplePen must be closed before loading the created OCAD files.		
+MiscText	NoCoursesSelected	No courses were selected to print.		
+MiscText	TranslatedHelpWebSite	*** If there exists a web site in the translated language that contains documentation for NotPurplePen, enter the URL (including http) as the translation of this item. Otherwise leave it alone.		
+MiscText	MapExchange_Long	Map exchange		
+MiscText	MapExchange_Medium	Exchange		
+MiscText	MapExchange_Short	MX		
+MiscText	PartN	Part {0}		
+MiscText	AllParts	All Parts		
+MiscText	PartXOfY	Part {0} (of {1})		
+MiscText	CrashCancel	Cancel	src/PurplePen/MiscText.sl.resx	
+MiscText	CrashEmail	Contact Email		
+MiscText	CrashIntro	An error has occurred. In order to help us fix the problem, please enter your email address and additional information, and send us an error report.		
+MiscText	CrashMessage	Please tell us what you were doing in the program, to help fix the problem		
+MiscText	CrashSave	Save		
+MiscText	CrashSend	Send Report		
+MiscText	UserDefined	User Defined		
+MiscText	PdfMapSize	Map size from PDF		
+MiscText	CancelledByUser	Cancelled by user		
+MiscText	CreatingFile	Creating {0}...		
+MiscText	PrintingPage	Printing page {0} (of {1})		
+MiscText	MapFileDeleted	The map file "{0}" has been deleted. Please try to restore the map file, then press "Ok".		
+MiscText	BadDotNetFramework	The  .NET framework on your computer does not appear to be correctly installed. Please visit http://microsoft.com/net and install the latest version of the .NET framework for your Windows operating system.		
+MiscText	Black	Black		
+MiscText	ChooseOtherColor	Choose Color...		
+MiscText	CustomColor	Custom Color		
+MiscText	DarkBlue	Dark Blue		
+MiscText	Green	Green		
+MiscText	LightBlue	Light Blue		
+MiscText	Purple	Purple		
+MiscText	Red	Red		
+MiscText	Yellow	Yellow		
+MiscText	AddLineExplanation	Set the appearance of the line. After pressing OK, drag the mouse to draw the line segments in the desired location.		
+MiscText	AddLineTitle	Add Line		
+MiscText	AddRectangleExplanation	Set the appearance of the rectangle. After pressing OK, drag the mouse to place the rectangle in the desired location.		
+MiscText	AddRectangleTitle	Add Rectangle		
+MiscText	ChangeLineAppearanceExplanation	Change the appearance of the line or rectangle.		
+MiscText	ChangeLineAppearanceTitle	Change Line Appearance		
+MiscText	GpxMustHaveCoordSystem	The OCAD file must have a coordinate system defined to use GPX files.		
+MiscText	GpxMustHaveRealWorldCoord	The OCAD file must have real world coordinates defined to use GPX files.		
+MiscText	GpxUnsupportedCoordSystem	The OCAD file uses a coordinate system that is not supported by NotPurplePen.		
+MiscText	AutomaticLength	Automatic		
+MiscText	BadLength	The length for a course must be a number 0.1 - 99.9, or blank to calculate length automatically.		
+MiscText	DuplicateCourseTitle	Duplicate Course		
+MiscText	EnterLength	Enter length in km, or leave blank to calculate automatically		
+MiscText	PausePrinting	Finished printing "{0}". Press OK to begin printing "{1}".		
+MiscText	OCAD	OCAD		
+MiscText	OpenOrienteeringMapper	OOM		
+MiscText	AllVariations	All Variations		
+MiscText	ForkSummary	Suitable for use in relays with {0} participants per team.		
+MiscText	LoopSummary	The central control in the loop will be visited {0} times. There are {1} possible paths through the loops.		
+MiscText	CantRearrangeSplitControl	A control that starts a fork or loop cannot be dragged to a new place in the course.		
+MiscText	TooManyVariations	Too many total variations in this course. The number of distinct variations is limited to {0}.		
+MiscText	CannotAddVariation	Cannot add variation.		
+MiscText	VariationAlreadyExists	A variation already exists at this control.		
+MiscText	VariationMustSelectControl	A control or leg must be selected to add a variation.		
+MiscText	VariationNotFinish	A variation cannot be added to a finish control.		
+MiscText	VariationNotInAllControls	A variation cannot be added to the All Controls view.		
+MiscText	VariationNotInScoreCourse	A variation cannot be added to a score course.		
+MiscText	VariationNotLastControl	A variation cannot be added to the last control. Add a finish control first.		
+MiscText	MapIssue_Long	Timed Start		
+MiscText	MapIssue_Medium	Timed Start		
+MiscText	MapIssue_Short	TS		
+MiscText	BaseMapHasVisibleTemplatesThatMayNotAppear	The underlying OCAD map has visible template files. In OCAD 8 and below, these templates may not appear due to limitations in OCAD.		
+MiscText	ImagesMayAppearBadlyLayeredInOcad10Below	Due to limitations of the OCAD file format (in OCAD 10 and below), image objects will appear underneath courses and white out areas in the exported OCAD files. Please check the OCAD files to make sure your images appear as desired.		
+MiscText	CannotCreateImageFiles	Cannot create image files for the following reason:		
+MiscText	CreatePdf	Create PDF		
+MiscText	PdfFilter	PDF File|*.pdf		
+MiscText	AddEllipseExplanation	Set the appearance of the ellipse. After pressing OK, drag the mouse to place the ellipse in the desired location.		
+MiscText	AddEllipseTitle	Add Ellipse		
+MiscText	UninstallNonStoreVersion	An older version of NotPurplePen is still installed. To prevent confusion caused by having two versions of NotPurplePen installed, it is strongly recommended that the older version be removed. Remove it now?		
+MiscText	AskInstallRobotoFonts	In order for OCAD or OpenOrienteering Mapper to correctly display the control descriptions, the "Roboto" and "Roboto Condensed" fonts must be installed on your system. Would you like to install those fonts now (strongly recommended)?		
+MiscText	RobotoFontsInstallFailed	Installing Roboto Fonts failed.		
+MiscText	LowerPurple	Lower Purple		
+MiscText	GpxMustBeOcadMap	The map file must be an OCAD file to use GPX files.		
+MiscText	BadLegNumber	'{0}' is not a valid leg number for branch '{1}'		
+MiscText	CannotCreatePdfs	Cannot create PDFs for the following reason:		
+MiscText	CannotCreateSvgs	Cannot create SVG files for the following reason:		yes
+MiscText	CannotPrint	Cannot print '{0}' for the following reason:		
+MiscText	CannotSendPrintJob	The print job could not be sent to the printer.		
+MiscText	CannotReadImageFile	Cannot read image file '{0}'.		
+MiscText	CannotReadMap	Cannot read map for the following reason: '{0}' Using Optimize/Repair and re-saving in OCAD may fix problems.		
+MiscText	CannotReadMapOOM	Cannot read map for the following reason: '{0}' Opening and re-saving the map in the latest version of OpenOrienteering Mapper may fix problems.		
+MiscText	CodeBadLength	A control code must be one, two, or three letters or digits.		
+MiscText	CodeBeginsWithZero	A control code should not begin with zero.		
+MiscText	CodeContainsSpace	A control code must not contain a space.		
+MiscText	CodeCouldBeUpsideDown	A control code should not look like another number when upside-down.		
+MiscText	Control_Code	Control {0}		
+MiscText	GpxReprojectFailure	Could not reproject points; either the coordinate system or the real world coordinates in the OCAD map are wrong.		
+MiscText	LegAssignedOuterBranch	Leg {0} never reaches branch '{1}': it was assigned to go a different way in a containing fork.		
+MiscText	LegNotAssigned	Leg {0} should be assigned to one of branches {1}		
+MiscText	LegUsedTwice	Leg {0} is assigned to both branch '{1}' and branch '{2}'		
+MiscText	PdfConversionFailed	Pdfium PDF converter failed to read PDF file successfully		
+MiscText	PdfResultNotReadable	Could not read result of PDF conversion from file '{0}'		
+MiscText	Version_Alpha	Alpha {0}		
+MiscText	Version_Beta	Beta {0}		
+MiscText	Version_RC	RC {0}		
+MiscText	SixtyfourBit	64-bit		
+MiscText	ThirtytwoBit	32-bit		
+MiscText	StandaloneSetup	Standalone Setup		
+MiscText	WindowsStore	Windows Store		
+MiscText	OpenFileDialog_PurplePenFilter	NotPurplePen files|*.ppen|All files|*.*		
+MiscText	ChangeMapFile_FileFilter	All map files|*.ocd;*.omap;*.xmap;*.pdf;*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif|OCAD files (*.ocd)|*.ocd|Open Orienteering Mapper Files|*.omap;*.xmap|PDF files (*.pdf)|*.pdf|Image files|*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif		
+MiscText	GpxFilter	GPX file|*.gpx		
+MiscText	RelayVariationExportFilter	IOF XML 3.0|*.xml|Spreadsheet (CSV)|*.csv		
+MiscText	SaveFileDialog_PurplePenFilter	NotPurplePen file|*.ppen		
+MiscText	SaveXmlFileDialog_Filter	IOF XML version 3.0|*.xml|IOF XML version 2.0.3|*.xml		
+MiscText	SaveXmlFileDialog_Title	Create XML Interchange File		
+MiscText	OpenImageDialog_Filter	Image file|*.jpg;*.jpeg;*.gif;*.png;*.bmp;*.tif;*.tiff		
+MiscText	FinishButtonText	&Finish		
+MiscText	Version_Patch	Patch		
+MiscText	PublishFailed	Failed to publish: {0}		yes
+MiscText	PublishSucceeded	Published successfully.		yes
+MiscText	DefaultPublishPath	../Print/System		yes
+CommandNameText	ChangeSymbol	Change Symbol	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	ChangeCode	Change Control Code	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	ChangeControl	Change Control	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	ChangeScore	Change Control Points	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	ChangeTitle	Change Title	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	ChangeClimb	Change Climb	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	ChangeCourseName	Change Course Name	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	ChangeTextLine	Change Text Line	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	ChangeScale	Update Map Scale	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	MoveControl	Move Control	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	MoveControlNumber	Move Control Number	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	MoveObject	Move Object	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	DeleteControl	Delete Control	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	DeleteObject	Delete Object	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	DeleteTextLine	Delete Text Line	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	AddControl	Add Control	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	AddStart	Add Start	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	AddFinish	Add Finish	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	AddCrossingPoint	Add Mandatory Crossing Point	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	AddObject	Add Object	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	DeleteCourse	Delete Course	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	NewCourse	New Course	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	ChangeCourseProperties	Change Course Properties	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	ChangeAllControlsProperties	Change All Controls Properties	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	NewEvent	Create New Event	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	SetLegFlagging	Change Leg Flagging	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	ChangeCodes	Change Codes	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	ChangeDisplayedCourses	Change Displayed Courses	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	MoveBend	Move Leg Bend	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	AddBend	Add Bend	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	AddCorner	Add Corner	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	DeleteBend	Remove Bend	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	DeleteCorner	Remove Corner	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	AddGap	Add Gap	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	RemoveGap	Remove Gap	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	MoveGap	Move Gap	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	Rotate	Rotate	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	AutoNumbering	Automatic Numbering	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	ChangePunchPatterns	Change Punch Patterns	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	ChangePunchcardFormat	Change Punch Card Layout	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	SetPrintArea	Set Print Area	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	SetCourseLoad	Change Competitor Load	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	SetCustomSymbolText	Customize Description Text	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	ChangeCourseOrder	Change Course Order	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	ChangeMapFile	Change Map File	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	IgnoreMissingFonts	Ignore Missing Fonts	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	AddTextLine	Add Text Line	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	AddDescriptionFragment	Cut Description		yes
+CommandNameText	RemoveDescriptionFragment	Join Description		yes
+CommandNameText	RemoveUnusedControls	Remove Unused Controls	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	SetDescriptionLanguage	Change Description Language	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	ChangeText	Change Text	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	ChangeCourseAppearance	Customize Course Appearance	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	AddMapExchange	Add Map Exchange	src/PurplePen/CommandNameText.sl.resx	
+CommandNameText	DeleteMapExchangeAtControl	Delete Map Exchange		
+CommandNameText	ChangePartProperties	Change Course Part Properties		
+CommandNameText	ChangeLineAppearance	Change Line Appearance		
+CommandNameText	DuplicateCourse	Duplicate Course		
+CommandNameText	CreateMapFiles	Create {0} &Files		
+CommandNameText	AddVariation	Add Variation		
+CommandNameText	DeleteFork	Delete Fork/Loop		
+CommandNameText	RelayTeamVariations	Relay Team Variations		
+CommandNameText	AddMapIssue	Add Map Issue Point		
+CommandNameText	ChangeDescriptionStandard	Set Control Description Standard		
+CommandNameText	ChangeMapStandard	Set Map Standard		
+CommandNameText	Stretch	Stretch		
+CommandNameText	SetLiveloxImportableEventId	Publish to Livelox		
+CommandNameText	MoveAllControls	Move All Controls		
+CommandNameText	AddMapFlip	Add Map Flip		
+StatusBarText	DefaultStatus	Left mouse button: select object;   Right mouse button: move map;   Scroll wheel: zoom in/out		
+StatusBarText	DefaultRectangle	Left mouse button: move/size rectangle;   Right mouse button: move map;   Scroll wheel: zoom in/out		
+StatusBarText	DragObject	Hold down left mouse button and drag to move selected object		
+StatusBarText	DragCorner	Hold down left mouse button and drag corner point to move it		
+StatusBarText	DraggingObject	Move object to desired location and release mouse button		
+StatusBarText	DraggingCorner	Move corner point to desired location and release mouse button		
+StatusBarText	AddingControl	Click left mouse button to place new control		
+StatusBarText	AddingExistingControl	Click left mouse button to add existing control "{0}" to course		
+StatusBarText	AddingStart	Click left mouse button to place new start		
+StatusBarText	AddingExistingStart	Click left mouse button to add existing start to course		
+StatusBarText	AddingFinish	Click left mouse button to place new finish		
+StatusBarText	AddingExistingFinish	Click left mouse button to add existing finish to course		
+StatusBarText	AddingCrossingPoint	Click left mouse button to place new mandatory crossing point		
+StatusBarText	AddingExistingCrossingPoint	Click left mouse button to add existing mandatory crossing point to course		
+StatusBarText	AddingObject	Click left mouse button to place new object		
+StatusBarText	AddingBend	Click left mouse button at the location of the bend		
+StatusBarText	AddingCorner	Click left mouse button to add a new corner		
+StatusBarText	DeletingBend	Click left mouse button on a bend to remove it		
+StatusBarText	DeletingCorner	Click left mouse button on a corner to remove it		
+StatusBarText	AddingControlGap	Click left mouse button on the control circle to add a small gap; hold down left mouse button and drag to create a large gap		
+StatusBarText	RemovingControlGap	Click left mouse button on a gap in the control circle to remove it		
+StatusBarText	AddingLegGap	Click left mouse button to create small gap; hold down left mouse button and drag to create a large gap in the leg		
+StatusBarText	RemovingLegGap	Click left mouse button on a gap in the leg to remove it		
+StatusBarText	SizeRectangle	Hold down left mouse button and drag to size the selected object		
+StatusBarText	SizingRectangle	Move edge(s) to desired location and release mouse button		
+StatusBarText	AddingDescription	Hold down left mouse button and drag to create control descriptions		
+StatusBarText	RotatingObject	Click left mouse button when the crossing point is rotated to the correct angle		
+StatusBarText	AddingLineArea	Hold down left mouse button and drag to add a line segment; click the left mouse button to finish adding object		
+StatusBarText	AddingText	Hold down left mouse button and drag to create text		
+StatusBarText	AddingExistingMapExchange	Click left mouse button to add existing map exchange to course		
+StatusBarText	AddingMapExchange	Click left mouse button to place new map exchange		
+StatusBarText	AddingMapExchangeToControl	Click left mouse button to add map exchange at control "{0}" 		
+StatusBarText	AddingRectangle	Hold down left mouse button and drag to create object		
+StatusBarText	DraggingTopologyObject	Drag control number to reorder it in the course (hold shift to duplicate)		
+StatusBarText	AddingExistingMapIssue	Click left mouse button to add existing map issue point to course		
+StatusBarText	AddingMapIssue	Click left mouse button to place new map issue point		
+StatusBarText	StretchingObject	Hold down left mouse button and drag to stretch the stretch the crossing point		
+StatusBarText	ControlForMoveAllControls	Click the left mouse button on a control or registration mark to move to a new location		
+StatusBarText	NewLocationForMoveAllControls	Click the left mouse button on the new location for the control or registration mark		
+SelectionDescriptionText	AwayFromControl	away from control		
+SelectionDescriptionText	Climb	Climb:	src/PurplePen/SelectionDescriptionText.sl.resx	
+SelectionDescriptionText	CompetitorLoad	Competitor load:		
+SelectionDescriptionText	ControlsInUse	Controls in use:		
+SelectionDescriptionText	ControlsNotInUse	Controls not in use:		
+SelectionDescriptionText	Control_Plural	controls		
+SelectionDescriptionText	Control_Singular	control		
+SelectionDescriptionText	CourseList_AllCourses	All courses		
+SelectionDescriptionText	CourseList_None	None	src/PurplePen/SelectionDescriptionText.sl.resx	
+SelectionDescriptionText	CourseName	Course "{0}"		
+SelectionDescriptionText	CustomizedSymbolDesc	Customized symbol description		
+SelectionDescriptionText	EntireLeg	entire leg		
+SelectionDescriptionText	FinishFunnel	finish funnel		
+SelectionDescriptionText	Finish_Plural	finishes		
+SelectionDescriptionText	Finish_Singular	finish		
+SelectionDescriptionText	Flagging	Flagging:		
+SelectionDescriptionText	IntoControl	into control		
+SelectionDescriptionText	IntoFinishFunnel	into finish funnel		
+SelectionDescriptionText	Length	Length:		
+SelectionDescriptionText	LineHeight	Line height:		
+SelectionDescriptionText	Location	Location:		
+SelectionDescriptionText	MandCrossing_Plural	mandatory crossing points		
+SelectionDescriptionText	MandCrossing_Singular	mandatory crossing point		
+SelectionDescriptionText	None	none		
+SelectionDescriptionText	SpecialName_Boundary	Uncrossable Boundary	src/PurplePen/SelectionDescriptionText.sl.resx	
+SelectionDescriptionText	SpecialName_CourseName	Course Name	src/PurplePen/SelectionDescriptionText.sl.resx	
+SelectionDescriptionText	SpecialName_Dangerous	Dangerous Area	src/PurplePen/SelectionDescriptionText.sl.resx	
+SelectionDescriptionText	SpecialName_Descriptions	Control Descriptions		
+SelectionDescriptionText	SpecialName_FirstAid	First Aid Location	src/PurplePen/SelectionDescriptionText.sl.resx	
+SelectionDescriptionText	SpecialName_Image	Image		
+SelectionDescriptionText	SpecialName_Forbidden	Forbidden Route		
+SelectionDescriptionText	SpecialName_OOB	Out-of-bounds Area		
+SelectionDescriptionText	SpecialName_OptCrossing	Optional Crossing Point	src/PurplePen/SelectionDescriptionText.sl.resx	
+SelectionDescriptionText	SpecialName_RegMark	Registration Mark	src/PurplePen/SelectionDescriptionText.sl.resx	
+SelectionDescriptionText	SpecialName_Text	Text	src/PurplePen/SelectionDescriptionText.sl.resx	
+SelectionDescriptionText	SpecialName_Water	Water Location	src/PurplePen/SelectionDescriptionText.sl.resx	
+SelectionDescriptionText	Start_Plural	starts		
+SelectionDescriptionText	Start_Singular	start		
+SelectionDescriptionText	TextDescription	Text description:		
+SelectionDescriptionText	TextLine	Text line		
+SelectionDescriptionText	TextLine_AboveAllCourses	Appears above {0}, in all courses that contain {0}		
+SelectionDescriptionText	TextLine_AboveThisCourse	Appears above {0}, in this course only		
+SelectionDescriptionText	TextLine_BelowAllCourses	Appears below {0}, in all courses that contain {0}		
+SelectionDescriptionText	TextLine_BelowThisCourse	Appears below {0}, in this course only		
+SelectionDescriptionText	TotalControls	Total controls:		
+SelectionDescriptionText	TotalScore	Total score:		
+SelectionDescriptionText	UsedInCourses	Used in courses:		
+SelectionDescriptionText	FileName	Name:		
+SelectionDescriptionText	SpecialName_WhiteOut	White Out Area		
+SelectionDescriptionText	MapExchange_Plural	map exchanges		
+SelectionDescriptionText	MapExchange_Singular	map exchange		
+SelectionDescriptionText	MapExchangeAtControl	Map exchange at {0}		
+SelectionDescriptionText	Load	Load:		
+SelectionDescriptionText	UsedIn	Used in:		
+SelectionDescriptionText	CourseNameAndPart	Course "{0}", Part {1}		
+SelectionDescriptionText	SpecialName_Line	Line		
+SelectionDescriptionText	SpecialName_Rectangle	Rectangle		
+SelectionDescriptionText	CalculatedLength	Calculated Length:		
+SelectionDescriptionText	MapIssue_Plural	map issue points		
+SelectionDescriptionText	MapIssue_Singular	map issue point		
+SelectionDescriptionText	MapFlipAtControl	Map flip at {0}		
+ReportText	ColumnHeader_Climb	Climb		
+ReportText	ColumnHeader_Code	Code		
+ReportText	ColumnHeader_Column	Column		
+ReportText	ColumnHeader_Control	Control		
+ReportText	ColumnHeader_ControlCodes	Control codes		
+ReportText	ColumnHeader_Controls	Controls		
+ReportText	ColumnHeader_Course	Course		
+ReportText	ColumnHeader_Courses	Courses	src/PurplePen/ReportText.sl.resx	
+ReportText	ColumnHeader_Distance	Distance		
+ReportText	ColumnHeader_Item	Item		
+ReportText	ColumnHeader_Leg	Leg		
+ReportText	ColumnHeader_Length	Length		
+ReportText	ColumnHeader_Load	Load		
+ReportText	ColumnHeader_Location	Location		
+ReportText	ColumnHeader_NumberOfCourses	# Courses		
+ReportText	ColumnHeader_Reason	Reason		
+ReportText	ColumnHeader_SameSymbol	Same symbol?		
+ReportText	ColumnHeader_Visits	Visits		
+ReportText	CourseSummary_Title	Course Summary for {0}		
+ReportText	CrossRef_Title	Control cross-reference for {0}		
+ReportText	EventAudit_BothDirectionsLegs	Legs Run in Both Directions		
+ReportText	EventAudit_CloseTogetherControls	Close Together Controls		
+ReportText	EventAudit_CloseTogetherExplanation	The following table shows all control pairs that are within {0} meters of each other. The same symbol column shows whether the two controls have the same primary symbol (column D).		
+ReportText	EventAudit_MissingBoxes	Missing Description Boxes		
+ReportText	EventAudit_MissingClimb	Regular courses should indicate the amount of climb		
+ReportText	EventAudit_MissingD	All controls must have a main feature in column D		
+ReportText	EventAudit_MissingEBetween	When "between" is in column G, two features must be shown in columns D and E		
+ReportText	EventAudit_MissingEJunction	When "junction" or "crossing" is in column F, two features must be shown in columns D and E		
+ReportText	EventAudit_MissingFinish	Regular courses should have a finish circle		
+ReportText	EventAudit_MissingItems	Missing Items in Courses		
+ReportText	EventAudit_MissingLoad	Course should have expected competitor load		
+ReportText	EventAudit_MissingPunch	No punch pattern defined		
+ReportText	EventAudit_MissingPunchPatterns	Missing Punch Patterns		
+ReportText	EventAudit_MissingScore	Score course should have score set for all controls or no controls		
+ReportText	EventAudit_MissingScores	Missing Scores		
+ReportText	EventAudit_MissingStart	Regular courses should have a start triangle		
+ReportText	EventAudit_MissingStartScore	Score courses should have a start triangle		
+ReportText	EventAudit_No	No		
+ReportText	EventAudit_NoProblems	No problems found.		
+ReportText	EventAudit_RepeatControl	Course "{0}" contains control "{1}" twice in a row.		
+ReportText	EventAudit_RepeatedControls	Repeated Controls		
+ReportText	EventAudit_ScoreDuplicateControl	Score course "{0}" contains control "{1}" twice. 		
+ReportText	EventAudit_Title	Event Audit for {0}		
+ReportText	EventAudit_UnusedControls	Unused Controls		
+ReportText	EventAudit_UnusedControlsExplanation	The following controls are present in the All Controls collection but are not used in any course. To remove them, use the "Remove Unused Controls" command on the "Event" menu. These controls will not be considered further in this report.		
+ReportText	EventAudit_Yes	Yes		
+ReportText	LegLength_Average	Average		
+ReportText	LegLength_CourseInfo	{0} ({1} controls, {2}, {3} m climb)		
+ReportText	LegLength_CourseInfoNoClimb	{0} ({1} controls, {2})		
+ReportText	LegLength_Title	Leg Length Report for {0}		
+ReportText	Load_ButterflyExists	Some controls are visited multiple times on the same course. The second load number counts each visit to a control separately.		
+ReportText	Load_ControlLoadSection	Control load		
+ReportText	Load_LegLoadSection	Leg load		
+ReportText	Load_MissingLoads	Some or all courses do not have competitor loads set for them. The loads listed below may be incorrect or missing for this reason. To set competitor loads, select "Competitor Load" from the "Course" menu.		
+ReportText	Load_OnlyLegsMoreThanOnce	(only legs used by more than one course appear in the following table)		
+ReportText	Load_Title	Competitor Load Summary for {0}		
+ReportText	Load_VariationsExist	One or more courses has variations. Load numbers will be computed assuming that competitors are evenly distributed between forks.		
+ReportText	Load_Visit	({0} visits)		
+ReportText	Load_Warning	WARNING:		
+ReportText	Note	NOTE: 		
+ReportText	RelayVariation_BranchWarning	Warning: due to the number of legs specified, the fork at control {0} will not be used evenly. {1} leg(s) will use branch(es) {2}, while {3} leg(s) will use branch(es) {4}. 		
+ReportText	RelayVariation_LegHeader	Leg {0}		
+ReportText	RelayVariation_NoTeams	No relay teams have been defined yet. Selected the desired number of teams and legs and press the "Assign Variations" button.		
+ReportText	RelayVariation_TeamNumber	Team {0}		
+ReportText	RelayVariation_Title	Relay Assignments for {0}		

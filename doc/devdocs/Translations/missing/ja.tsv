@@ -1,0 +1,291 @@
+resource	key	english	in_repo	forks_own
+UIText	IncrementButton	Increment		
+UIText	DecrementButton	Decrement		
+UIText	CounterLabel	Counter: {0}		
+UIText	YesButton	Yes		
+UIText	NoButton	No		
+UIText	SwitchLanguageButton	Switch Language...		
+UIText	SwitchLanguageDialog_Title	Switch Language		
+UIText	SwitchLanguageDialog_Prompt	Select a language:		
+UIText	AddCourse_labelKindCombo_Items5	Score (30)		
+UIText	AddCourse_hideFromReportsCheckBox_Text	Do not include in reports		
+UIText	ChangeText_mapFileNameMenuItem_Text	Map File Name		
+UIText	ColorChooserDialog_checkBoxOverprint_Text	Overprint		yes
+UIText	CommandNameText_AddMapIssue	Add Map Issue Point		
+UIText	CommandNameText_ChangeDescriptionStandard	Set Control Description Standard		
+UIText	CommandNameText_ChangeMapStandard	Set Map Standard		
+UIText	CommandNameText_Stretch	Stretch		
+UIText	CommandNameText_SetLiveloxImportableEventId	Publish to Livelox		
+UIText	CommandNameText_MoveAllControls	Move All Controls		
+UIText	MoveAllControls_Text	Move All Controls		
+UIText	MoveControlChoiceDialog_Text	Moving Shared Control		
+UIText	MoveControlChoiceDialog_labelExplanation_Text	Control "{0}" is present in the following other courses. If you move it, those courses will be changed also.		
+UIText	MoveControlChoiceDialog_moveButton_TitleText	Move Control In All Courses		
+UIText	MoveControlChoiceDialog_moveButton_DetailText	This course and the above listed courses will all change.		
+UIText	MoveControlChoiceDialog_duplicateButton_TitleText	Create New Control In This Course		
+UIText	MoveControlChoiceDialog_duplicateButton_DetailText	Other courses will not change, and control "{0}" will be replaced with a new control at the new location in this course.		
+UIText	MoveControlChoiceDialog_cancelButton_TitleText	Do Nothing		
+UIText	MoveControlChoiceDialog_cancelButton_DetailText	Do not move this control.		
+UIText	MapIssueChoiceDialog_Text	Select Map Issue Point		
+UIText	MapIssueChoiceDialog_labelExplanation_Text	The point at which is the map is issued should be marked on the map. Where is the map given to competitors?		
+UIText	MapIssueChoiceDialog_startButton_TitleText	Map Issue at Beginning		
+UIText	MapIssueChoiceDialog_startButton_DetailText	The map is given out at the beginning of the marked route to the start. Navigation begins at the start triangle.		
+UIText	MapIssueChoiceDialog_middleButton_TitleText	Map Issue along Marked Route		
+UIText	MapIssueChoiceDialog_middleButton_DetailText	The map is given out partially along the marked route to the start. Navigation begins at the start triangle.		
+UIText	MapIssueChoiceDialog_startTriangleButton_TitleText	Map Issue at the Start Triangle		
+UIText	MapIssueChoiceDialog_startTriangleButton_DetailText	The map is issued at the start triangle (where navigation begins).		
+UIText	SelectLocationsForMove_Text	Move All Controls		
+UIText	CommandNameText_AddMapFlip	Add Map Flip		
+UIText	CourseAppearanceDialog_comboBoxScaleItemSizes_Items	Do not scale		
+UIText	CourseAppearanceDialog_comboBoxScaleItemSizes_Items1	Relative to map scale		
+UIText	CourseAppearanceDialog_comboBoxScaleItemSizes_Items2	Relative to 1:15000		
+UIText	CourseAppearanceDialog_label11_Text	Scale item sizes:		
+UIText	CourseAppearanceDialog_comboBoxControlNumberStyle_Items2	Roboto		
+UIText	CourseAppearanceDialog_comboBoxControlNumberStyle_Items3	Roboto Bold		
+UIText	CourseAppearanceDialog_labelChooseLayer_Text	Above map layer:		
+UIText	CourseAppearanceDialog_comboBoxBlendPurple_Items1	Blend		
+UIText	CourseAppearanceDialog_comboBoxBlendPurple_Items2	Layer		
+UIText	CourseAppearanceDialog_labelBlendPurple_Text	Blend purple with underlying map colors:		
+UIText	CourseAppearanceDialog_groupBoxOcadMap_Text	Advanced		
+UIText	CreateImageFiles_fileFormatCombo_Items	PNG		
+UIText	CreateImageFiles_fileFormatCombo_Items1	JPEG		
+UIText	CreateImageFiles_fileFormatCombo_Items2	GIF		
+UIText	CreateImageFiles_label1_Text	World file:		
+UIText	CreateImageFiles_dpiLabel_Text	Dpi:		
+UIText	CreateImageFiles_labelColorModel_Text	Color model:		
+UIText	CreateImageFiles_labelAutoRotate_Text	Auto rotate:		yes
+UIText	CreateImageFiles_labelImageQuality_Text	Image quality:		yes
+UIText	CreateImageFiles_comboBoxPrintBaseMap_Items	Course and map		
+UIText	CreatePdfCourses_comboBoxPrintBaseMap_Items	Course and map		
+UIText	CreateImageFiles_comboBoxPrintBaseMap_Items1	Course only		
+UIText	CreatePdfCourses_comboBoxPrintBaseMap_Items1	Course only		
+UIText	CreateImageFiles_labelPrintBaseMap_Text	Include:		
+UIText	CreatePdfCourses_labelPrintBaseMap_Text	Include:		
+UIText	CreateImageFiles_Text	Create Image Files		
+UIText	CreateKmlFiles_Text	Create KML File		
+UIText	CreateRouteGadget_labelIofXml_Text	IOF XML Version:		
+UIText	CreateRouteGadget_groupBox1_Text	IOF XML		
+UIText	EnterSymbolText_defaultCaseText	(unchanged)		
+UIText	LegAssignmentsDialog_labelDescription_Text	To assign a specific leg to a specific branch, type the leg number(s) below. Legs not assigned to a branch will be distributed among remaining branches randomly.		
+UIText	LegAssignmentsDialog_Text	Leg Assignments		
+UIText	MainFrame_createImageFilesMenu_Text	Create Ima_ge Files...		
+UIText	MainFrame_createDescriptionPdfMenu_Text	_Descriptions...		
+UIText	MainFrame_createPunchcardPdfMenu_Text	Pu_nch Cards...		
+UIText	MainFrame_createCoursePdfMenu_Text	_Courses...		
+UIText	MainFrame_createPDFsMenu_Text	Create P_DFs		
+UIText	MainFrame_createRouteGadgetFilesMenu_Text	Create RouteGadget Files...		
+UIText	MainFrame_createRouteReviewFilesToolStripMenuItem_Text	Create Route Review Files		
+UIText	MainFrame_createKMLFileMenu_Text	Create _KML File...		
+UIText	MainFrame_otherCoursesMenu_Text	Other Courses...		
+UIText	MainFrame_clearOtherCoursesMenu_Text	Clear Other Courses		
+UIText	MainFrame_addMapFlipMenuItem_Text	Map _Flip at Control Point		
+UIText	MainFrame_splitMenu_Text	S_plit		yes
+UIText	MainFrame_addMapIssueMenu_Text	Timed Start		
+UIText	MainFrame_mapIssuePointToolStripMenuItem_Text	Timed Start		
+UIText	MiscText_MapIssue_Long	Timed Start		
+UIText	MiscText_MapIssue_Medium	Timed Start		
+UIText	MainFrame_addConstructionMenu_Text	Temporary Construction		
+UIText	MainFrame_constructionToolStripMenuItem_Text	Temporary Construction		
+UIText	MainFrame_addEllipseMenu_Text	Ellipse		
+UIText	MainFrame_ellipseToolStripMenuItem_Text	Ellipse		
+UIText	MainFrame_moveAllControlsMenu_Text	Mo_ve All Controls...		
+UIText	MainFrame_descriptionStd2004Menu_Text	2004 Description Standard		
+UIText	MainFrame_descriptionStd2018Menu_Text	2018/2024 Description Standard		
+UIText	MainFrame_mapStd2000Menu_Text	ISOM2000 Map Standard		
+UIText	MainFrame_mapStd2017Menu_Text	ISOM2017 Map Standard		
+UIText	MainFrame_mapStdSpr2019Menu_Text	ISSprOM 2019 Map Standard		
+UIText	MainFrame_iOFStandardsToolStripMenuItem_Text	IOF _Standards		
+UIText	MainFrame_removeGapMenu_Text	Remove Ga_p		
+UIText	MainFrame_stretchMenu_Text	_Stretch		
+UIText	MainFrame_missingTranslationsMenuItem_Text	Missing Description Translations		
+UIText	MainFrame_mapFlipMenuItem_Text	Map Flip at Control Point		
+UIText	MiscText_CannotReadMap	Cannot read map for the following reason: '{0}' Using Optimize/Repair and re-saving in OCAD may fix problems.		
+UIText	MiscText_BadLegNumber	'{0}' is not a valid leg number for branch '{1}'		
+UIText	MiscText_LegNotAssigned	Leg {0} should be assigned to one of branches {1}		
+UIText	MiscText_LegUsedTwice	Leg {0} is assigned to both branch '{1}' and branch '{2}'		
+UIText	MiscText_CannotReadMapOOM	Cannot read map for the following reason: '{0}' Opening and re-saving the map in the latest version of OpenOrienteering Mapper may fix problems.		
+UIText	MiscText_MapIssue_Short	TS		
+UIText	MiscText_BaseMapHasVisibleTemplatesThatMayNotAppear	The underlying OCAD map has visible template files. In OCAD 8 and below, these templates may not appear due to limitations in OCAD.		
+UIText	MiscText_ImagesMayAppearBadlyLayeredInOcad10Below	Due to limitations of the OCAD file format (in OCAD 10 and below), image objects will appear underneath courses and white out areas in the exported OCAD files. Please check the OCAD files to make sure your images appear as desired.		
+UIText	MiscText_CannotCreateImageFiles	Cannot create image files for the following reason:		
+UIText	MiscText_CreatePdf	Create PDF		
+UIText	MiscText_PdfFilter	PDF File|*.pdf		
+UIText	MiscText_LegAssignedOuterBranch	Leg {0} never reaches branch '{1}': it was assigned to go a different way in a containing fork.		
+UIText	MiscText_AddEllipseExplanation	Set the appearance of the ellipse. After pressing OK, drag the mouse to place the ellipse in the desired location.		
+UIText	MiscText_AddEllipseTitle	Add Ellipse		
+UIText	MiscText_UninstallNonStoreVersion	An older version of NotPurplePen is still installed. To prevent confusion caused by having two versions of NotPurplePen installed, it is strongly recommended that the older version be removed. Remove it now?		
+UIText	MiscText_AskInstallRobotoFonts	In order for OCAD or OpenOrienteering Mapper to correctly display the control descriptions, the "Roboto" and "Roboto Condensed" fonts must be installed on your system. Would you like to install those fonts now (strongly recommended)?		
+UIText	MiscText_RobotoFontsInstallFailed	Installing Roboto Fonts failed.		
+UIText	MiscText_LowerPurple	Lower Purple		
+UIText	MoveAllControls_labelDescription_Text	Which way would you like to move all controls on the map?		
+UIText	MoveAllControls_radioButtonMove_Text	Move Only		
+UIText	MoveAllControls_radioButtonMoveAndScale_Text	Move and Scale		
+UIText	MoveAllControls_radioButtonMoveAndRotate_Text	Move and Rotate		
+UIText	MoveAllControls_radioButtonMoveRotateScale_Text	Move, Scale, and Rotate		
+UIText	NewEventMapFile_newEventMapFileLabel_Text	In order to design your courses, you must select the map file you will be using. Typically this is an OCAD or OpenOrienteering Mapper file (although PDFs and image files like JPEGs can be used instead). Click the "Choose..." button to select a map file.		
+UIText	NewEventStandards_changeLaterLabel_Text	(These settings can be changed later using Event/IOF Standards)		
+UIText	NewEventStandards_labelTitle_Text	IOF Standards		
+UIText	NewEventStandards_radioButtonMapSpr2019_Text	ISSprOM 2019		
+UIText	NewEventStandards_radioButtonMap2017_Text	ISOM 2017		
+UIText	NewEventStandards_radioButtonMap2000_Text	ISOM 2000 / ISSOM 2007		
+UIText	NewEventStandards_groupBoxMapStandard_Text	IOF Map Standard		
+UIText	NewEventStandards_radioButtonDescriptions2018_Text	Descriptions 2018 or 2024		
+UIText	NewEventStandards_radioButtonDescriptions2004_Text	Descriptions 2004		
+UIText	NewEventStandards_groupBoxDescriptionStandard_Text	IOF Description Standard		
+UIText	NewEventStandards_labelStandardsIntro_Text	Which versions of IOF standards would you like NotPurplePen to follow?		
+UIText	ReportText_ColumnHeader_Visits	Visits		
+UIText	ReportText_EventAudit_BothDirectionsLegs	Legs Run in Both Directions		
+UIText	ReportText_EventAudit_RepeatControl	Course "{0}" contains control "{1}" twice in a row.		
+UIText	ReportText_EventAudit_RepeatedControls	Repeated Controls		
+UIText	ReportText_EventAudit_ScoreDuplicateControl	Score course "{0}" contains control "{1}" twice. 		
+UIText	ReportText_Load_ButterflyExists	Some controls are visited multiple times on the same course. The second load number counts each visit to a control separately.		
+UIText	ReportText_Load_VariationsExist	One or more courses has variations. Load numbers will be computed assuming that competitors are evenly distributed between forks.		
+UIText	ReportText_Load_Visit	({0} visits)		
+UIText	ReportText_Note	NOTE: 		
+UIText	SelectionDescriptionText_MapIssue_Plural	map issue points		
+UIText	SelectionDescriptionText_MapIssue_Singular	map issue point		
+UIText	SelectionDescriptionText_MapFlipAtControl	Map flip at {0}		
+UIText	SelectLocationsForMove_labelArrowFirstControl_Text	è		
+UIText	SelectLocationsForMove_labelArrowFirstNewLocation_Text	è		
+UIText	SelectLocationsForMove_labelArrowSecondControl_Text	è		
+UIText	SelectLocationsForMove_labelArrowSecondNewLocation_Text	è		
+UIText	SelectLocationsForMove_labelArrowConfirmLocations_Text	è		
+UIText	SelectLocationsForMove_labelFirstControl_Text	Select first control or registration mark to move		
+UIText	SelectLocationsForMove_labelSecondNewLocation_Text	Choose new location for second control/mark		
+UIText	SelectLocationsForMove_labelConfirmLocations_Text	Confirm new locations		
+UIText	SelectLocationsForMove_labelRotation_Text	Rotation:		
+UIText	SelectLocationsForMove_labelYOffset_Text	Y Offset:		
+UIText	SelectLocationsForMove_labelXOffset_Text	X Offset:		
+UIText	SelectLocationsForMove_labelSecondControl_Text	Select second control or registration mark to move		
+UIText	SelectLocationsForMove_labelFirstNewLocation_Text	Choose new location for first control/mark		
+UIText	SelectLocationsForMove_buttonBack_Text	Back		
+UIText	SelectLocationsForMove_buttonConfirm_Text	Confirm		
+UIText	StatusBarText_AddingExistingMapIssue	Click left mouse button to add existing map issue point to course		
+UIText	StatusBarText_AddingMapIssue	Click left mouse button to place new map issue point		
+UIText	StatusBarText_StretchingObject	Hold down left mouse button and drag to stretch the stretch the crossing point		
+UIText	StatusBarText_ControlForMoveAllControls	Click the left mouse button on a control or registration mark to move to a new location		
+UIText	StatusBarText_NewLocationForMoveAllControls	Click the left mouse button on the new location for the control or registration mark		
+UIText	TeamVariationsForm_fixedLegsLink_Text	Assign fixed legs to branches...		
+UIText	TeamVariationsForm_label3_Text	Team numbers start at: 		
+UIText	TeamVariationsForm_checkBoxHideVariationsFromMap_Text	Hide variation codes on map		
+UIText	ViewAdditionalCourses_labelInstructions_Text	Choose additional courses to view with course "{0}".		
+UIText	ViewAdditionalCourses_Text	View Additional Courses		
+UIText	NewEventPaperSize_labelTitle_Text	Paper Size		
+UIText	NewEventPaperSize_newEventPaperSizeLabel_Text	Enter the size and orientation of the paper that you will use to print your map.		
+UIText	NewEventPaperSize_changeLaterLabel_Text	You can change this later with File/Set Print Area.		
+UIText	PageSetup_Text	Page Setup		
+UIText	PaperSizeControl_labelPaper_Text	Size:		
+UIText	PaperSizeControl_labelWidth_Text	Width:		
+UIText	PaperSizeControl_labelHeight_Text	Height:		
+UIText	PaperSizeControl_labelMargin_Text	Margin (all sides):		
+UIText	PaperSizeControl_groupBoxMargins_Text	Margins		
+UIText	PaperSizeControl_labelTop_Text	Top:		
+UIText	PaperSizeControl_labelBottom_Text	Bottom:		
+UIText	PaperSizeControl_labelLeft_Text	Left:		
+UIText	PaperSizeControl_labelRight_Text	Right:		
+UIText	PaperSizeControl_checkBoxPortrait_Text	Portrait		
+UIText	PaperSizeControl_checkBoxLandscape_Text	Landscape		
+UIText	CrashDialog_Text	NotPurplePen has crashed		
+UIText	CrashDialog_introLabel_Text	An error has occurred. In order to help us fix the problem, please give us any additional information about what caused the error, and send us an error report.		
+UIText	CrashDialog_sendReportCheckBox_Text	Send error report		
+UIText	CrashDialog_viewDetailsButton_Text	View Error Details...		
+UIText	CrashDialog_descriptionLabel_Text	Please tell us what you did immediately before this error occurred:		
+UIText	CrashDialog_descriptionTextBox_Watermark	Give as much detail as possible as to what you were doing and what might have triggered the error.		
+UIText	CrashDialog_explanationLabel_Text	In many cases, you can continue working without problem. You can also restart NotPurplePen. If you restart, NotPurplePen will attempt to save and restore your current work in progress.		
+UIText	CrashDialog_fatalExplanationLabel_Text	NotPurplePen cannot continue running and must be restarted. If you restart, NotPurplePen will attempt to save and restore your current work in progress.		
+UIText	CrashDialog_recoveryLabel_Text	Your unsaved changes have been saved, and will be restored if you restart.		
+UIText	CrashDialog_continueButton_Text	Continue Working		
+UIText	CrashDialog_restartButton_Text	Restart		
+UIText	CrashDialog_sendingLabel_Text	Sending error report...		
+UIText	ErrorDetailsDialog_Text	Error Details		
+UIText	ErrorDetailsDialog_closeButton_Text	Close		
+UIText	ErrorDetailsDialog_copyButton_Text	Copy to Clipboard		
+UIText	UpdateAvailable_Text	Update Available		
+UIText	UpdateAvailable_remindLaterButton_Text	Remind Me Later		
+UIText	UpdateAvailable_downloadButton_Text	Download and Install		
+UIText	UpdateAvailable_newVersionAvailable_Text	Version {0} of NotPurplePen is now available. (You are currently running version {1}.)		
+UIText	UpdateAvailable_downloadFailed_Text	The update could not be downloaded.\n\n{0}		
+UIText	UpdateAvailable_downloadedManually_Text	The update has been downloaded to:\n\n{0}\n\nNotPurplePen cannot install this kind of file for you. Open it yourself to install the update.		
+UIText	HelpButton_ToolTip	Help		
+UIText	MainFrame_publishCoursesMenu_Text	Publish courses...		yes
+UIText	PublishCoursesDialog_Text	Publish courses		yes
+UIText	PublishCoursesDialog_advancedSettingsButton_Text	Advanced...		yes
+UIText	PublishCoursesDialog_coursesGroupBox_Text	Courses		yes
+UIText	PublishCoursesDialog_fileDirectory_Text	Relative to the folder of the Purple Pen file		yes
+UIText	PublishCoursesDialog_imageFilesGroupBox_Text	Image files		yes
+UIText	PublishCoursesDialog_labelAutoRotate_Text	Auto rotate:		yes
+UIText	PublishCoursesDialog_labelImageQuality_Text	Image quality:		yes
+UIText	PublishCoursesDialog_mapDirectory_Text	Relative to the folder of the map file		yes
+UIText	PublishCoursesDialog_publishTargetFolderGroupBox_Text	Publish target folder		yes
+UIText	PublishCoursesDialog_selectDataExchangeFolderButton_Text	Select folder...		yes
+UIText	MainFrame_publishCoursesToolStripButton_ToolTipText	Publish courses		yes
+UIText	PrintPreviewDialog_Text	Print Preview		
+UIText	PrintPreviewDialog_firstPageButton_ToolTip	First page		
+UIText	PrintPreviewDialog_previousPageButton_ToolTip	Previous page		
+UIText	PrintPreviewDialog_pageNumberLabel_Text	Page {0} of {1}		
+UIText	PrintPreviewDialog_nextPageButton_ToolTip	Next page		
+UIText	PrintPreviewDialog_lastPageButton_ToolTip	Last page		
+UIText	PrintPreviewDialog_fitPageButton_Text	Fit Page		
+UIText	PrintPreviewDialog_noPagesLabel_Text	There are no pages to show.		
+UIText	CloseButton	Close		
+UIText	LinuxPrinting_NoDefaultViewer	The PDF file could not be opened, because no default application for viewing PDF files is set up.		
+UIText	LinuxPrinting_PortalUnavailable	Purple Pen cannot print directly on this system, because the desktop printing service (the Print interface of the XDG desktop portal) is not available.\n\nWould you like to open the document as a PDF file in your default PDF viewer, so that you can print it from there?\n\nIMPORTANT: When printing from the PDF viewer, turn off any page scaling (such as "Fit to page" or "Shrink to printable area"), so that the document prints at the correct size.		
+UIText	LinuxPrinting_ViewerFailed	The PDF file could not be opened in the default PDF viewer: {0}		
+UIText	LinuxPrinting_XdgUtilsMissing	The PDF file could not be opened, because xdg-utils (which opens files in their default applications) is not installed.		
+MiscText	CourseNameRequired	A course name is required.		
+MiscText	MapIssue_Long	Timed Start		
+MiscText	MapIssue_Medium	Timed Start		
+MiscText	MapIssue_Short	TS		
+MiscText	BaseMapHasVisibleTemplatesThatMayNotAppear	The underlying OCAD map has visible template files. In OCAD 8 and below, these templates may not appear due to limitations in OCAD.		
+MiscText	ImagesMayAppearBadlyLayeredInOcad10Below	Due to limitations of the OCAD file format (in OCAD 10 and below), image objects will appear underneath courses and white out areas in the exported OCAD files. Please check the OCAD files to make sure your images appear as desired.		
+MiscText	CannotCreateImageFiles	Cannot create image files for the following reason:		
+MiscText	CreatePdf	Create PDF		
+MiscText	PdfFilter	PDF File|*.pdf		
+MiscText	AddEllipseExplanation	Set the appearance of the ellipse. After pressing OK, drag the mouse to place the ellipse in the desired location.		
+MiscText	AddEllipseTitle	Add Ellipse		
+MiscText	UninstallNonStoreVersion	An older version of NotPurplePen is still installed. To prevent confusion caused by having two versions of NotPurplePen installed, it is strongly recommended that the older version be removed. Remove it now?		
+MiscText	AskInstallRobotoFonts	In order for OCAD or OpenOrienteering Mapper to correctly display the control descriptions, the "Roboto" and "Roboto Condensed" fonts must be installed on your system. Would you like to install those fonts now (strongly recommended)?		
+MiscText	RobotoFontsInstallFailed	Installing Roboto Fonts failed.		
+MiscText	LowerPurple	Lower Purple		
+MiscText	BadLegNumber	'{0}' is not a valid leg number for branch '{1}'		
+MiscText	CannotSendPrintJob	The print job could not be sent to the printer.		
+MiscText	CannotReadMap	Cannot read map for the following reason: '{0}' Using Optimize/Repair and re-saving in OCAD may fix problems.		
+MiscText	CannotReadMapOOM	Cannot read map for the following reason: '{0}' Opening and re-saving the map in the latest version of OpenOrienteering Mapper may fix problems.		
+MiscText	LegAssignedOuterBranch	Leg {0} never reaches branch '{1}': it was assigned to go a different way in a containing fork.		
+MiscText	LegNotAssigned	Leg {0} should be assigned to one of branches {1}		
+MiscText	LegUsedTwice	Leg {0} is assigned to both branch '{1}' and branch '{2}'		
+MiscText	SixtyfourBit	64-bit		
+MiscText	ThirtytwoBit	32-bit		
+MiscText	StandaloneSetup	Standalone Setup		
+MiscText	WindowsStore	Windows Store		
+MiscText	RelayVariationExportFilter	IOF XML 3.0|*.xml|Spreadsheet (CSV)|*.csv		
+MiscText	Version_Patch	Patch		
+MiscText	PublishFailed	Failed to publish: {0}		yes
+MiscText	PublishSucceeded	Published successfully.		yes
+MiscText	DefaultPublishPath	../Print/System		yes
+CommandNameText	AddDescriptionFragment	Cut Description		yes
+CommandNameText	RemoveDescriptionFragment	Join Description		yes
+CommandNameText	AddMapIssue	Add Map Issue Point		
+CommandNameText	ChangeDescriptionStandard	Set Control Description Standard		
+CommandNameText	ChangeMapStandard	Set Map Standard		
+CommandNameText	Stretch	Stretch		
+CommandNameText	SetLiveloxImportableEventId	Publish to Livelox		
+CommandNameText	MoveAllControls	Move All Controls		
+CommandNameText	AddMapFlip	Add Map Flip		
+StatusBarText	AddingExistingMapIssue	Click left mouse button to add existing map issue point to course		
+StatusBarText	AddingMapIssue	Click left mouse button to place new map issue point		
+StatusBarText	StretchingObject	Hold down left mouse button and drag to stretch the stretch the crossing point		
+StatusBarText	ControlForMoveAllControls	Click the left mouse button on a control or registration mark to move to a new location		
+StatusBarText	NewLocationForMoveAllControls	Click the left mouse button on the new location for the control or registration mark		
+SelectionDescriptionText	MapIssue_Plural	map issue points		
+SelectionDescriptionText	MapIssue_Singular	map issue point		
+SelectionDescriptionText	MapFlipAtControl	Map flip at {0}		
+ReportText	ColumnHeader_Visits	Visits		
+ReportText	EventAudit_BothDirectionsLegs	Legs Run in Both Directions		
+ReportText	EventAudit_RepeatControl	Course "{0}" contains control "{1}" twice in a row.		
+ReportText	EventAudit_RepeatedControls	Repeated Controls		
+ReportText	EventAudit_ScoreDuplicateControl	Score course "{0}" contains control "{1}" twice. 		
+ReportText	Load_ButterflyExists	Some controls are visited multiple times on the same course. The second load number counts each visit to a control separately.		
+ReportText	Load_VariationsExist	One or more courses has variations. Load numbers will be computed assuming that competitors are evenly distributed between forks.		
+ReportText	Load_Visit	({0} visits)		
+ReportText	Note	NOTE: 		

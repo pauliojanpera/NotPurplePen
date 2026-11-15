@@ -1,0 +1,119 @@
+resource	key	english	in_repo	forks_own
+UIText	IncrementButton	Increment		
+UIText	DecrementButton	Decrement		
+UIText	CounterLabel	Counter: {0}		
+UIText	YesButton	Yes		
+UIText	NoButton	No		
+UIText	SwitchLanguageButton	Switch Language...		
+UIText	SwitchLanguageDialog_Title	Switch Language		
+UIText	SwitchLanguageDialog_Prompt	Select a language:		
+UIText	ColorChooserDialog_checkBoxOverprint_Text	Overprint		yes
+UIText	MoveControlChoiceDialog_Text	Moving Shared Control		
+UIText	MoveControlChoiceDialog_labelExplanation_Text	Control "{0}" is present in the following other courses. If you move it, those courses will be changed also.		
+UIText	MoveControlChoiceDialog_moveButton_TitleText	Move Control In All Courses		
+UIText	MoveControlChoiceDialog_moveButton_DetailText	This course and the above listed courses will all change.		
+UIText	MoveControlChoiceDialog_duplicateButton_TitleText	Create New Control In This Course		
+UIText	MoveControlChoiceDialog_duplicateButton_DetailText	Other courses will not change, and control "{0}" will be replaced with a new control at the new location in this course.		
+UIText	MoveControlChoiceDialog_cancelButton_TitleText	Do Nothing		
+UIText	MoveControlChoiceDialog_cancelButton_DetailText	Do not move this control.		
+UIText	MapIssueChoiceDialog_Text	Select Map Issue Point		
+UIText	MapIssueChoiceDialog_labelExplanation_Text	The point at which is the map is issued should be marked on the map. Where is the map given to competitors?		
+UIText	MapIssueChoiceDialog_startButton_TitleText	Map Issue at Beginning		
+UIText	MapIssueChoiceDialog_startButton_DetailText	The map is given out at the beginning of the marked route to the start. Navigation begins at the start triangle.		
+UIText	MapIssueChoiceDialog_middleButton_TitleText	Map Issue along Marked Route		
+UIText	MapIssueChoiceDialog_middleButton_DetailText	The map is given out partially along the marked route to the start. Navigation begins at the start triangle.		
+UIText	MapIssueChoiceDialog_startTriangleButton_TitleText	Map Issue at the Start Triangle		
+UIText	MapIssueChoiceDialog_startTriangleButton_DetailText	The map is issued at the start triangle (where navigation begins).		
+UIText	CourseAppearanceDialog_labelChooseLayer_Text	Above map layer:		
+UIText	CourseAppearanceDialog_comboBoxBlendPurple_Items1	Blend		
+UIText	CourseAppearanceDialog_comboBoxBlendPurple_Items2	Layer		
+UIText	CourseAppearanceDialog_labelBlendPurple_Text	Blend purple with underlying map colors:		
+UIText	CreateImageFiles_labelAutoRotate_Text	Auto rotate:		yes
+UIText	CreateImageFiles_labelImageQuality_Text	Image quality:		yes
+UIText	CreateImageFiles_comboBoxPrintBaseMap_Items	Course and map		
+UIText	CreatePdfCourses_comboBoxPrintBaseMap_Items	Course and map		
+UIText	CreateImageFiles_comboBoxPrintBaseMap_Items1	Course only		
+UIText	CreatePdfCourses_comboBoxPrintBaseMap_Items1	Course only		
+UIText	CreateImageFiles_labelPrintBaseMap_Text	Include:		
+UIText	CreatePdfCourses_labelPrintBaseMap_Text	Include:		
+UIText	EnterSymbolText_defaultCaseText	(unchanged)		
+UIText	MainFrame_splitMenu_Text	S_plit		yes
+UIText	MainFrame_addConstructionMenu_Text	Temporary Construction		
+UIText	MainFrame_constructionToolStripMenuItem_Text	Temporary Construction		
+UIText	MiscText_LowerPurple	Lower Purple		
+UIText	NewEventPaperSize_labelTitle_Text	Paper Size		
+UIText	NewEventPaperSize_newEventPaperSizeLabel_Text	Enter the size and orientation of the paper that you will use to print your map.		
+UIText	NewEventPaperSize_changeLaterLabel_Text	You can change this later with File/Set Print Area.		
+UIText	PageSetup_Text	Page Setup		
+UIText	PaperSizeControl_labelPaper_Text	Size:		
+UIText	PaperSizeControl_labelWidth_Text	Width:		
+UIText	PaperSizeControl_labelHeight_Text	Height:		
+UIText	PaperSizeControl_labelMargin_Text	Margin (all sides):		
+UIText	PaperSizeControl_groupBoxMargins_Text	Margins		
+UIText	PaperSizeControl_labelTop_Text	Top:		
+UIText	PaperSizeControl_labelBottom_Text	Bottom:		
+UIText	PaperSizeControl_labelLeft_Text	Left:		
+UIText	PaperSizeControl_labelRight_Text	Right:		
+UIText	PaperSizeControl_checkBoxPortrait_Text	Portrait		
+UIText	PaperSizeControl_checkBoxLandscape_Text	Landscape		
+UIText	CrashDialog_Text	NotPurplePen has crashed		
+UIText	CrashDialog_introLabel_Text	An error has occurred. In order to help us fix the problem, please give us any additional information about what caused the error, and send us an error report.		
+UIText	CrashDialog_sendReportCheckBox_Text	Send error report		
+UIText	CrashDialog_viewDetailsButton_Text	View Error Details...		
+UIText	CrashDialog_descriptionLabel_Text	Please tell us what you did immediately before this error occurred:		
+UIText	CrashDialog_descriptionTextBox_Watermark	Give as much detail as possible as to what you were doing and what might have triggered the error.		
+UIText	CrashDialog_explanationLabel_Text	In many cases, you can continue working without problem. You can also restart NotPurplePen. If you restart, NotPurplePen will attempt to save and restore your current work in progress.		
+UIText	CrashDialog_fatalExplanationLabel_Text	NotPurplePen cannot continue running and must be restarted. If you restart, NotPurplePen will attempt to save and restore your current work in progress.		
+UIText	CrashDialog_recoveryLabel_Text	Your unsaved changes have been saved, and will be restored if you restart.		
+UIText	CrashDialog_continueButton_Text	Continue Working		
+UIText	CrashDialog_restartButton_Text	Restart		
+UIText	CrashDialog_sendingLabel_Text	Sending error report...		
+UIText	ErrorDetailsDialog_Text	Error Details		
+UIText	ErrorDetailsDialog_closeButton_Text	Close		
+UIText	ErrorDetailsDialog_copyButton_Text	Copy to Clipboard		
+UIText	UpdateAvailable_Text	Update Available		
+UIText	UpdateAvailable_remindLaterButton_Text	Remind Me Later		
+UIText	UpdateAvailable_downloadButton_Text	Download and Install		
+UIText	UpdateAvailable_newVersionAvailable_Text	Version {0} of NotPurplePen is now available. (You are currently running version {1}.)		
+UIText	UpdateAvailable_downloadFailed_Text	The update could not be downloaded.\n\n{0}		
+UIText	UpdateAvailable_downloadedManually_Text	The update has been downloaded to:\n\n{0}\n\nNotPurplePen cannot install this kind of file for you. Open it yourself to install the update.		
+UIText	HelpButton_ToolTip	Help		
+UIText	MainFrame_publishCoursesMenu_Text	Publish courses...		yes
+UIText	PublishCoursesDialog_Text	Publish courses		yes
+UIText	PublishCoursesDialog_advancedSettingsButton_Text	Advanced...		yes
+UIText	PublishCoursesDialog_coursesGroupBox_Text	Courses		yes
+UIText	PublishCoursesDialog_fileDirectory_Text	Relative to the folder of the Purple Pen file		yes
+UIText	PublishCoursesDialog_imageFilesGroupBox_Text	Image files		yes
+UIText	PublishCoursesDialog_labelAutoRotate_Text	Auto rotate:		yes
+UIText	PublishCoursesDialog_labelImageQuality_Text	Image quality:		yes
+UIText	PublishCoursesDialog_mapDirectory_Text	Relative to the folder of the map file		yes
+UIText	PublishCoursesDialog_publishTargetFolderGroupBox_Text	Publish target folder		yes
+UIText	PublishCoursesDialog_selectDataExchangeFolderButton_Text	Select folder...		yes
+UIText	MainFrame_publishCoursesToolStripButton_ToolTipText	Publish courses		yes
+UIText	PrintPreviewDialog_Text	Print Preview		
+UIText	PrintPreviewDialog_firstPageButton_ToolTip	First page		
+UIText	PrintPreviewDialog_previousPageButton_ToolTip	Previous page		
+UIText	PrintPreviewDialog_pageNumberLabel_Text	Page {0} of {1}		
+UIText	PrintPreviewDialog_nextPageButton_ToolTip	Next page		
+UIText	PrintPreviewDialog_lastPageButton_ToolTip	Last page		
+UIText	PrintPreviewDialog_fitPageButton_Text	Fit Page		
+UIText	PrintPreviewDialog_noPagesLabel_Text	There are no pages to show.		
+UIText	CloseButton	Close		
+UIText	LinuxPrinting_NoDefaultViewer	The PDF file could not be opened, because no default application for viewing PDF files is set up.		
+UIText	LinuxPrinting_PortalUnavailable	Purple Pen cannot print directly on this system, because the desktop printing service (the Print interface of the XDG desktop portal) is not available.\n\nWould you like to open the document as a PDF file in your default PDF viewer, so that you can print it from there?\n\nIMPORTANT: When printing from the PDF viewer, turn off any page scaling (such as "Fit to page" or "Shrink to printable area"), so that the document prints at the correct size.		
+UIText	LinuxPrinting_ViewerFailed	The PDF file could not be opened in the default PDF viewer: {0}		
+UIText	LinuxPrinting_XdgUtilsMissing	The PDF file could not be opened, because xdg-utils (which opens files in their default applications) is not installed.		
+MiscText	CourseNameRequired	A course name is required.		
+MiscText	LowerPurple	Lower Purple		
+MiscText	CannotSendPrintJob	The print job could not be sent to the printer.		
+MiscText	SixtyfourBit	64-bit		
+MiscText	ThirtytwoBit	32-bit		
+MiscText	StandaloneSetup	Standalone Setup		
+MiscText	WindowsStore	Windows Store		
+MiscText	RelayVariationExportFilter	IOF XML 3.0|*.xml|Spreadsheet (CSV)|*.csv		
+MiscText	Version_Patch	Patch		
+MiscText	PublishFailed	Failed to publish: {0}		yes
+MiscText	PublishSucceeded	Published successfully.		yes
+MiscText	DefaultPublishPath	../Print/System		yes
+CommandNameText	AddDescriptionFragment	Cut Description		yes
+CommandNameText	RemoveDescriptionFragment	Join Description		yes
