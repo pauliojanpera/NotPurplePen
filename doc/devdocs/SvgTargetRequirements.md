@@ -108,7 +108,7 @@ A document holds maps, courses and pages. Each map is written once; each page pa
 
 ## Drawing operations
 
-Every `IGraphicsTarget` call has an SVG equivalent, and the target reports pattern brushes and darken blending as supported. Where behavior is open, it follows `Skia_GraphicsTarget`.
+Every `IGraphicsTarget` call has an SVG equivalent, and the target reports pattern brushes and blending by darken and multiply as supported. Where behavior is open, it follows `Skia_GraphicsTarget`.
 
 | ID | Requirement | Level |
 | --- | --- | --- |
@@ -119,7 +119,7 @@ Every `IGraphicsTarget` call has an SVG equivalent, and the target reports patte
 | D-5 | Pens carry width, cap and join: `Flat` to butt, `Square` to square, `Round` to round; `Miter` with the pen's miter limit, `Bevel`, `Round`. `MiterClipped` is drawn as `Miter` with the pen's miter limit, as PDF export draws it, so a corner sharper than the limit is bevelled rather than clipped at the limit; the Skia target rejects the join, and nothing in the map code or Purple Pen uses it (@Pauli, Nov 7). A pen of zero width draws nothing: the SVG leaves out every line drawn with it, which ISOM 2017 has no place for, where Skia draws a hairline one device pixel wide and PDF export the printer's thinnest line (@Pauli, Nov 7). | Must |
 | D-6 | A pen made from a brush key strokes with that brush, including a pattern brush. | Must |
 | D-7 | `SupportsPatternBrushes` returns true. `CreatePatternBrush` returns a target that draws one tile; `FinishBrush` turns it into a pattern of the given tile size and angle. The bitmap width and height hints are ignored. | Must |
-| D-8 | `PushBlending(Darken)` returns true and blends the enclosed drawing with darken; `PopBlending` ends it. The map uses this for overprinted colors. | Must |
+| D-8 | `PushBlending(Darken)` and `PushBlending(Multiply)` return true. What is drawn until the matching `PopBlending` is composed as a whole and then blended one time with what lies below it by the given mode, so that overlapping marks of one ink do not build up; `PopBlending` ends it. The map opens it around the drawing of one ink: the consecutive colors that have the same CMYK values and the same overprint flag, so the blending encloses their color runs (M-3). | Must |
 | D-9 | `PushAntiAliasing(false)` renders the enclosed drawing with crisp edges. | Should |
 | D-10 | Paths, brushes, pens and fonts are stored by key identity; the `Has` methods report them, and points are copied, never held. | Must |
 | D-11 | An intensity below 1.0 scales the CMYK components before conversion, as the Skia target does; setting it discards existing brushes and pens. | Must |
@@ -137,7 +137,7 @@ Colors keep the map's CMYK values. No browser supports CMYK colors in CSS ([MDN]
 | COL-4 | CMYK values are written with the fewest digits that reproduce the values the map stores; OCAD's binary formats store half-percent steps. | Must |
 | COL-5 | A color with alpha below 1.0 gets a matching fill or stroke opacity; opaque colors carry no opacity. | Must |
 | COL-6 | sRGB values use the shortest hex notation, three digits when exact. | Should |
-| COL-7 | On screen, overprinting is shown through darken blending (D-8); the overprint flag itself travels in the color table (M-7). | Must |
+| COL-7 | On screen, overprinting is shown through the blending the event chooses, darken or multiply (D-8); the overprint flag itself travels in the color table (M-7). | Must |
 
 ## Georeferencing
 
@@ -219,7 +219,7 @@ The SVG must look in Chromium like Purple Pen's own renderings, and come out byt
 | F-2 | The same input gives byte-identical output on every run, machine and platform, but for lossless image data, such as PNG, which needs only to decode to the same pixels; lossy data, such as JPEG, stays byte for byte (@Pauli, Nov 13). No time stamps; ids and object numbers assigned in order of first use; nothing ordered by hash. | Must |
 | F-3 | The output is well-formed XML. References go through `xlink:href`, which SVG 1.1 tools need and browsers accept. Identity goes in `data-` attributes, and the tables go in the metadata, in the namespace `https://pauliojanpera.github.io/NotPurplePen/svg` with the prefix `npp`; their root element carries a `version` attribute, so that the format can grow without breaking its readers. | Must |
 | F-4 | Each page has the paper size of its page in PDF export's layout, in millimetres, turned for a landscape page, and its map fills the page's print rectangle at the course's print scale, so the page prints as the PDF page does. The root's width and height are those of the first page. | Must |
-| F-5 | Current Firefox and WebKit display the output as Chromium does, darken blending included. | Should |
+| F-5 | Current Firefox and WebKit display the output as Chromium does, blending by darken and multiply included. | Should |
 | F-6 | Inkscape and Scribus open the output and read each color's CMYK values from it. The readers in `SvgColourReaders/` check it, with Inkscape and Scribus installed where a session works; no check by hand is needed (@Pauli, Nov 13). | Must |
 
 ## Application integration
@@ -264,7 +264,7 @@ Work on the SVG target, and no other work in the fork, is developed through a qu
 | DL-3 | Every test of the SVG target runs on every run; each is written together with the code it tests, so all of them can pass. The rendering comparison (V-3) compares the cases that the target can already draw. No setting names the current phase: the implementation's progress selects the cases. | Must |
 | DL-4 | A census records each case of the rendering comparison once with `RecordingGraphicsTarget`, the recorder that the Skia rendering tests already play back. The recorder renders nothing, lists the calls the case makes, and answers questions such as whether pattern brushes are supported as the SVG target does; a case that the target can draw (DL-5) is drawn by playing its recording back into the target. The cases' drawing comes from map files, so only drawing them shows what they need. | Must |
 | DL-5 | The SVG target declares the calls it fully implements; a call joins the list only when its whole requirement is met, `DrawText` with its embedded fonts. A case is compared only when every call it makes is on the list, and is otherwise reported as pending, with the calls it still needs. | Must |
-| DL-6 | A case that reaches a call the target cannot honor is reported as pending, not failed, through the error of D-12. When the target will never honor the call as made, such as a blending other than darken (D-8), the error says why, beginning with the requirement that says so, and the case is pending for good. A case that draws a line of zero width, which the SVG leaves out where its reference draws a hairline (D-5), is pending for good too, with that as the reason, and names the calls whose drawing the target left out. | Must |
+| DL-6 | A case that reaches a call the target cannot honor is reported as pending, not failed, through the error of D-12. When the target will never honor the call as made, such as a blending other than darken or multiply (D-8), the error says why, beginning with the requirement that says so, and the case is pending for good. A case that draws a line of zero width, which the SVG leaves out where its reference draws a hairline (D-5), is pending for good too, with that as the reason, and names the calls whose drawing the target left out. | Must |
 | DL-7 | Each run replaces `svg-results/<name>` with one commit holding the test report, each failure's message, the difference image of each failed rendering comparison, the pending cases with the calls they need and why the target will never honor those it never will, the written SVGs and the time each step took. Pushes made with the workflow's own token start no new runs, and the separate prefix keeps results branches out of the trigger. | Must |
 | DL-8 | The run's check output carries the counts of passed, failed and pending cases, of these the cases pending for good, the pending cases counted by missing call, with the calls the target will never honor apart, and the first failures, and each failure is an annotation, so the verdict reads through the GitHub API without fetching anything. | Must |
 | DL-9 | The same files also go to a run artifact for downloading by hand, which includes the SVGs for the check in Inkscape and Scribus (F-6). Chromium's image of every rendering comparison and every exported page, and each page as the application draws it, go to a second artifact, so that the gallery and the tolerance checks need no Chromium of their own. | Must |
