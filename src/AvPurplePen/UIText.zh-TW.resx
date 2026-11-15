@@ -954,6 +954,15 @@
   <data name="CourseAppearanceDialog_checkBoxOverprint_Text" xml:space="preserve">
     <value>對標記為“套印”的顏色使用套印效果</value>
   </data>
+  <data name="CourseAppearanceDialog_labelBlendMode_Text" xml:space="preserve">
+    <value>混合模式：</value>
+  </data>
+  <data name="CourseAppearanceDialog_comboBoxBlendMode_Items" xml:space="preserve">
+    <value>變暗</value>
+  </data>
+  <data name="CourseAppearanceDialog_comboBoxBlendMode_Items1" xml:space="preserve">
+    <value>色彩增值</value>
+  </data>
   <data name="CourseAppearanceDialog_groupBoxOcadMap_Text" xml:space="preserve">
     <value>進階選項</value>
   </data>

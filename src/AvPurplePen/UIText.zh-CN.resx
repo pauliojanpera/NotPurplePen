@@ -970,6 +970,15 @@
   <data name="CourseAppearanceDialog_checkBoxOverprint_Text" xml:space="preserve">
     <value>使用叠印效果的颜色标明“复印”</value>
   </data>
+  <data name="CourseAppearanceDialog_labelBlendMode_Text" xml:space="preserve">
+    <value>混合模式：</value>
+  </data>
+  <data name="CourseAppearanceDialog_comboBoxBlendMode_Items" xml:space="preserve">
+    <value>变暗</value>
+  </data>
+  <data name="CourseAppearanceDialog_comboBoxBlendMode_Items1" xml:space="preserve">
+    <value>正片叠底</value>
+  </data>
   <data name="CourseAppearanceDialog_groupBoxOcadMap_Text" xml:space="preserve">
     <value>高级选项</value>
   </data>

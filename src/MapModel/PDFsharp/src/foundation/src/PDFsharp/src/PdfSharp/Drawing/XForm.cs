@@ -420,6 +420,26 @@ namespace PdfSharp.Drawing
         string IContentStream.GetImageName(XImage image) 
             => GetImageName(image);
 
+        /// <summary>
+        /// Makes this form a transparency group, so that what it draws is composited as a whole onto its backdrop
+        /// with the blend mode that is in force where the form is drawn.
+        /// </summary>
+        /// <param name="isolated">Whether what the group draws is composed against a fully transparent backdrop of
+        /// its own, instead of the backdrop that the group is drawn onto.</param>
+        /// <param name="knockout">Whether each element of the group is composited against the initial backdrop of
+        /// the group, instead of the elements drawn before it.</param>
+        public void MakeTransparencyGroup(bool isolated, bool knockout)
+        {
+            PdfDictionary group = new PdfDictionary();
+            group.Elements.SetName("/S", "/Transparency");
+            group.Elements.SetName("/CS", ColorMode == PdfColorMode.Cmyk ? "/DeviceCMYK" : "/DeviceRGB");
+            if (isolated)
+                group.Elements.SetBoolean("/I", true);
+            if (knockout)
+                group.Elements.SetBoolean("/K", true);
+            PdfForm.Elements[PdfFormXObject.Keys.Group] = group;
+        }
+
         internal PdfFormXObject PdfForm
         {
             get

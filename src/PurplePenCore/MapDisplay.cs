@@ -899,6 +899,7 @@ namespace PurplePen
             renderOptions.showSymbolBounds = showBounds;
             renderOptions.renderTemplates = RenderTemplateOption.MapAndTemplates;
             renderOptions.blendOverprintedColors = ocadOverprintEffect;
+            renderOptions.overprintBlendMode = overprintBlendMode;
             return renderOptions;
         }
 

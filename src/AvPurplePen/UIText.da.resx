@@ -943,6 +943,15 @@
   <data name="CourseAppearanceDialog_checkBoxOverprint_Text" xml:space="preserve">
     <value>Brug overtryk effekt for farver markeret "overprint"</value>
   </data>
+  <data name="CourseAppearanceDialog_labelBlendMode_Text" xml:space="preserve">
+    <value>Blandingstilstand:</value>
+  </data>
+  <data name="CourseAppearanceDialog_comboBoxBlendMode_Items" xml:space="preserve">
+    <value>Mørkere</value>
+  </data>
+  <data name="CourseAppearanceDialog_comboBoxBlendMode_Items1" xml:space="preserve">
+    <value>Multiplicer</value>
+  </data>
   <data name="CourseAppearanceDialog_Text" xml:space="preserve">
     <value>Tilpas udseende</value>
   </data>

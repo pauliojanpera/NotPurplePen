@@ -376,26 +376,69 @@ namespace PurplePen.MapModel
             // not supported
         }
 
-        Stack<XBlendMode> blendModeStack = new Stack<XBlendMode>();
-        // Set blending mode.
+        // A blending that is open: the graphics that drew before it, the transparency group that collects what the
+        // ink draws, and the mode that composites the group onto what lies below it.
+        private struct BlendingLayer
+        {
+            public XGraphics Graphics;
+            public XForm Group;
+            public XBlendMode Mode;
+        }
+
+        private Stack<BlendingLayer> blendingLayers = new Stack<BlendingLayer>();
+
+        // Begin to blend the ink that is drawn until the matching PopBlending, and return whether this target blends
+        // by the given mode.
         public virtual bool PushBlending(BlendMode blendMode)
         {
-            bool supported = false;
-            XBlendMode newBlendMode = XBlendMode.Normal;
-            if (blendMode == BlendMode.Darken) {
+            XBlendMode newBlendMode;
+            if (blendMode == BlendMode.Darken)
                 newBlendMode = XBlendMode.Darken;
-                supported = true;
-            }
+            else if (blendMode == BlendMode.Multiply)
+                newBlendMode = XBlendMode.Multiply;
+            else
+                return false;   // not supported
 
-            blendModeStack.Push(gfx.BlendMode);
-            gfx.BlendMode = newBlendMode;
+            // The ink blends as a whole, so what it draws goes into a transparency group of its own, where it is
+            // composed with the ordinary blending, and the group is then blended by the mode with what lies below it.
+            // The marks of one ink that overlap thus lay their ink one time, as the plate of a print does. The group
+            // draws in the same space as the page, so that the transform in force holds within it as well.
+            PdfPage page = gfx.PdfPage;
+            if (page == null)
+                return false;   // the group of another blending holds no page to make a group of its own in
+            XForm group = new XForm(page.Owner, gfx.PageSize);
+            group.MakeTransparencyGroup(isolated: true, knockout: false);
+            XGraphics groupGfx = XGraphics.FromForm(group);
+            groupGfx.MultiplyTransform(gfx.Transform);
 
-            return supported;
+            BlendingLayer layer = new BlendingLayer();
+            layer.Graphics = gfx;
+            layer.Group = group;
+            layer.Mode = newBlendMode;
+            blendingLayers.Push(layer);
+            gfx = groupGfx;
+
+            return true;
         }
-        
+
+        // End the blending of the last PushBlending, and composite the ink's group onto what lies below it.
         public virtual void PopBlending()
         {
-            gfx.BlendMode = blendModeStack.Pop();
+            BlendingLayer layer = blendingLayers.Pop();
+            gfx.Dispose();          // closes the content stream of the group
+            gfx = layer.Graphics;
+
+            // The group holds the page's own space, so the transform in force is undone while the group is drawn, and
+            // the group is drawn over the whole page: the clip in force removes what falls outside it.
+            XGraphicsState state = gfx.Save();
+            XMatrix undoTransform = gfx.Transform;
+            undoTransform.Invert();
+            gfx.MultiplyTransform(undoTransform);
+            XBlendMode outerBlendMode = gfx.BlendMode;
+            gfx.BlendMode = layer.Mode;
+            gfx.DrawImage(layer.Group, 0, 0, gfx.PageSize.Width, gfx.PageSize.Height);
+            gfx.BlendMode = outerBlendMode;
+            gfx.Restore(state);
         }
 
         // Draw an line with a pen.
