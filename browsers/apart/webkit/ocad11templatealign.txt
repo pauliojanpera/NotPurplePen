@@ -1,0 +1,1 @@
+F-5: WebKit shades a pattern whose tile is a few pixels across darker than Chromium and with a grain, from the one tile the document gives, and otherwise as the pattern's phase falls on the pixels

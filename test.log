@@ -1,0 +1,23 @@
+Test run for /home/runner/work/NotPurplePen/NotPurplePen/src/MapModel/Map_Svg.Tests/bin/Debug/net10.0/Map_Svg.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+  Skipped MapArea(clouds) [177 ms]
+  Skipped MapArea(clouds11) [180 ms]
+  Skipped InFirefox(teanwest) [11 s]
+  Skipped InFirefox(teanwest11) [10 s]
+  Skipped InFirefox(fontfallback) [5 s]
+  Skipped InWebKit(Bitmap) [6 s]
+  Skipped InWebKit(teanwest) [16 s]
+  Skipped InWebKit(teanwest11) [14 s]
+  Skipped InWebKit(hiddensymbols) [2 s]
+  Skipped InWebKit(hiddensymbols9) [2 s]
+  Skipped InWebKit(frametext3) [11 s]
+  Skipped InWebKit(frametext1) [16 s]
+  Skipped InWebKit(ocad11templatealign) [2 s]
+  Skipped InWebKit(PenistoneHill) [13 s]
+  Skipped InWebKit(marymoor11_lowerlayers) [3 s]
+  Skipped InWebKit(fontfallback) [13 s]
+  Skipped InWebKit(page-printarea2-Course1) [14 s]
+  Skipped InWebKit(page-LincolnPark-Short) [5 s]
+Results File: /home/runner/work/NotPurplePen/NotPurplePen/svg-loop-results/test-report.trx
+
+Passed!  - Failed:     0, Passed:   874, Skipped:    18, Total:   892, Duration: 14 m 44 s - Map_Svg.Tests.dll (net10.0)
