@@ -28,6 +28,7 @@
     <PackageVersion Include="NUnit" Version="3.14.0" />
     <PackageVersion Include="NUnit3TestAdapter" Version="6.2.0" />
     <PackageVersion Include="SkiaSharp" Version="3.119.4" />
+    <PackageVersion Include="SkiaSharp.NativeAssets.Linux" Version="3.119.4" />
     <PackageVersion Include="SkiaSharp.HarfBuzz" Version="3.119.4" />
     <!--
     Pin the Linux HarfBuzz native assets to match the managed HarfBuzzSharp that SkiaSharp.HarfBuzz pulls in (8.3.1.5).

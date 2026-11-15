@@ -166,7 +166,7 @@ namespace TestingUtils
                 difference.Dispose();
 
             // Clean up and fail the test if desired.
-            if (fail)
+            if (fail && !TestUtil.CollectDifferences)
                 Assert.Fail(string.Format("Bitmap compare against baseline file '{0}' failed", Path.GetFileName(baselineFile)));
         }
 
