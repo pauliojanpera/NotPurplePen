@@ -195,6 +195,11 @@ Work for after the SVG work is done (@Pauli, Nov 6 and 12).
   - It applies to the course's purple and to the map's own colours, for example contours, whose opacity is set for each colour.
   - It is a stage in front of the targets, so that PDF, SVG and printing share it.
   - It is task 12, together with the separations that compute it (@Pauli, Nov 15).
+- **Compensation for a printer's misregistration** (@Pauli, Nov 15). A setting moves each process colour by a small distance, to cancel the offset with which a printer lays its channels down.
+  - The output writes each object as its separations, since one DeviceCMYK value holds no channels to move apart, and raster content is resampled channel by channel. So this rests on the separations of task 12.
+  - The user finds the distances from test prints: the application prints a sheet of sample patches, each patch with another combination of shifts, and the user chooses the patch that registers best (@Pauli, Nov 15).
+  - A desktop printer's misregistration is not constant, since it moves with the paper feed, so the setting is a calibration of one printer and one paper. The spread against hairline gaps that the flattening describes above needs no measurement and helps whatever the printer does.
+  - Black that overprints instead of knocking out hides a misregistration around black lines, and is a flag rather than geometry.
   - Each such colour is cut against each colour below it, in the stacking order of the map. Each piece is filled with the mixed CMYK, the piece over white too.
   - The pieces are real geometry, made with boolean path operations. SkiaSharp's operations keep curves. The PostScript and PDF interpreters of old printers accept plain filled shapes without transparency or very large clip paths. Editors work best with them.
   - Against hairline gaps between pieces, a setting makes each cutting shape larger by a set distance, approximately 0.02 to 0.05 mm. A piece then overlaps its neighbour along the cut edges. Its outer edge stays at the edge of the object.
