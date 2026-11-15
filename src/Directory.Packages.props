@@ -23,11 +23,13 @@
     <PackageVersion Include="MSTest.TestAdapter" Version="4.2.3" />
     <PackageVersion Include="MSTest.TestFramework" Version="4.2.3" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.6.0" />
+    <PackageVersion Include="Microsoft.TestPlatform.ObjectModel" Version="18.6.0" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageVersion Include="NUnit" Version="3.14.0" />
     <PackageVersion Include="NUnit3TestAdapter" Version="6.2.0" />
     <PackageVersion Include="Microsoft.Playwright" Version="1.63.0" />
     <PackageVersion Include="SkiaSharp" Version="3.119.4" />
+    <PackageVersion Include="SkiaSharp.NativeAssets.Linux" Version="3.119.4" />
     <PackageVersion Include="SkiaSharp.HarfBuzz" Version="3.119.4" />
     <PackageVersion Include="SkiaSharp.NativeAssets.Linux" Version="3.119.4" />
     <!--

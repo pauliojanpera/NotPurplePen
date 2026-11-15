@@ -120,7 +120,7 @@ namespace AvPurplePen
         // Create a custom cursor from a PNG file and a hotspot.
         static Cursor CreateCustomCursor(string cursorName, PixelPoint hotspot)
         {
-            Uri uri = new Uri($"avares://PurplePen/Assets/Cursors/{cursorName}.png");
+            Uri uri = new Uri($"avares://NotPurplePen/Assets/Cursors/{cursorName}.png");
             using Stream stream = AssetLoader.Open(uri);
             Bitmap cursorBitmap = new Bitmap(stream);
             return new Cursor(cursorBitmap, hotspot);

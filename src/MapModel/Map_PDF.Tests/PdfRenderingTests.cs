@@ -104,7 +104,7 @@ namespace Map_PDF.Tests
                         map.Draw(grTarget, mapArea, renderOpts, null);
                 });
 
-            return SKBitmap.Decode(pngFileName);
+            return SKBitmap.Decode(File.ReadAllBytes(pngFileName));
         }
 
         // Verifies a test file. Returns true on success, false on failure. In the failure case, 
@@ -138,9 +138,9 @@ namespace Map_PDF.Tests
             mapFileName = Path.Combine(directoryName, mapFileName);
             pngFileName = Path.Combine(directoryName, pngFileName);
             tempPdfFileName = Path.Combine(directoryName,
-                                         Path.GetFileNameWithoutExtension(pngFileName) + "_temp.pdf");
+                                         Path.GetFileNameWithoutExtension(filename) + "_temp.pdf");
             ocadFileName = Path.Combine(directoryName,
-                                         Path.GetFileNameWithoutExtension(pngFileName) + "_temp.ocd");
+                                         Path.GetFileNameWithoutExtension(filename) + "_temp.ocd");
 
             File.Delete(ocadFileName);
 

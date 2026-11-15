@@ -155,9 +155,9 @@ namespace Map_Skia.Tests
             mapFileName = Path.Combine(directoryName, mapFileName);
             pngFileName = Path.Combine(directoryName, pngFileName);
             geodeFileName = Path.Combine(directoryName,
-                                         Path.GetFileNameWithoutExtension(mapFileName) + "_temp.geode");
+                                         Path.GetFileNameWithoutExtension(filename) + "_temp.geode");
             ocadFileName = Path.Combine(directoryName,
-                                         Path.GetFileNameWithoutExtension(mapFileName) + "_temp.ocd");
+                                         Path.GetFileNameWithoutExtension(filename) + "_temp.ocd");
 
             File.Delete(geodeFileName);
             File.Delete(ocadFileName);

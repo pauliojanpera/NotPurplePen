@@ -45,7 +45,7 @@ namespace AvPurplePen
         /// and install scripts go into. CoreUpdater sweeps files older than ten days out of it
         /// whenever it checks for updates.
         /// </summary>
-        private static readonly string[] downloadDirectoryParts = { "PurplePen", "Updates" };
+        private static readonly string[] downloadDirectoryParts = { "NotPurplePen", "Updates" };
 
         /// <summary>
         /// Set once the check has been started. The user asked for one check per run: a second one
@@ -63,7 +63,7 @@ namespace AvPurplePen
         /// </summary>
         public static void CheckForUpdatesAtStartup()
         {
-            if (checkStarted)
+            if (checkStarted || !TakesUpdates())
                 return;
             checkStarted = true;
 
@@ -368,6 +368,17 @@ namespace AvPurplePen
                 return new string[] { "beta", "main" };
             else
                 return new string[] { "main" };
+        }
+
+        /// <summary>
+        /// Whether this build takes updates at all. One published on a channel nothing is offered
+        /// on -- upstream built under this name, a branch built to try, or a build made outside the
+        /// publishing pipeline -- is not on its way anywhere.
+        /// </summary>
+        /// <returns>True if the manifest is worth fetching.</returns>
+        private static bool TakesUpdates()
+        {
+            return VersionNumber.Channel == "main" || VersionNumber.Channel == "beta";
         }
 
         /// <summary>

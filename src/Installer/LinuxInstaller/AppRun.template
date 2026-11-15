@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# AppRun -- the entry point of the Purple Pen AppImage.
+# AppRun -- the entry point of the NotPurplePen AppImage.
 #
 # The at-sign-delimited tokens below are filled in by build-linux-packages.sh,
 # which fails the build if any are left over.

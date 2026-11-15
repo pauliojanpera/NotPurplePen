@@ -251,12 +251,14 @@ namespace PurplePen.Tests
         // Create some courses, write them, and check against a dump.
         void CreateOcadFiles(OcadCreationSettings settings, string[] expectedOcadFiles, params RectangleF[] expectedPrintRectangles)
         {
+            Directory.CreateDirectory(settings.outputDirectory);
+
             for (int i = 0; i < expectedOcadFiles.Length; ++i) {
                 File.Delete(expectedOcadFiles[i]);
             }
 
             bool success = controller.CreateOcadFiles(settings);
-            Assert.IsTrue(success);
+            Assert.IsTrue(success, ui.output.ToString());
 
             for (int i = 0; i < expectedOcadFiles.Length; ++i) {
                 Map newMap = new Map(new Skia_TextMetrics(), null);

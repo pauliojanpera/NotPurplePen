@@ -44,7 +44,7 @@ namespace AvPurplePen
             // ThemeDictionaries resolve our variant.
             //SemiTheme semiTheme = (SemiTheme)Styles[0];
             //semiTheme.Resources!.ThemeDictionaries[PurplePenTheme] =
-            //    new ResourceInclude(new Uri("avares://PurplePen/")) { Source = new Uri("/Themes/PurplePenScheme.axaml", UriKind.Relative) };
+            //    new ResourceInclude(new Uri("avares://NotPurplePen/")) { Source = new Uri("/Themes/PurplePenScheme.axaml", UriKind.Relative) };
 
             //RequestedThemeVariant = PurplePenTheme;
 
@@ -322,7 +322,7 @@ namespace AvPurplePen
         private static void ReportFailedInitialLoad(string fileName, Exception exception)
         {
             try {
-                Console.Error.WriteLine("Purple Pen could not open \"{0}\":", fileName);
+                Console.Error.WriteLine("NotPurplePen could not open \"{0}\":", fileName);
                 Console.Error.WriteLine(exception.ToString());
             }
             catch (Exception) {

@@ -1,5 +1,5 @@
 [Desktop Entry]
-# Desktop entry for Purple Pen, installed as
+# Desktop entry for NotPurplePen, installed as
 # /usr/share/applications/@PACKAGE_NAME@.desktop.
 #
 # The at-sign-delimited tokens below are filled in by build-linux-packages.sh,
@@ -11,7 +11,7 @@ Name=@DISPLAY_NAME@
 GenericName=Orienteering Course Setter
 Comment=@PACKAGE_SUMMARY@
 
-# %f, not %F: Purple Pen edits one event at a time, so the desktop environment
+# %f, not %F: NotPurplePen edits one event at a time, so the desktop environment
 # should launch a separate instance per file rather than passing a list.
 Exec=@PACKAGE_NAME@ %f
 

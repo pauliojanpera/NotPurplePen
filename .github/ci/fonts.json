@@ -1,0 +1,163 @@
+{
+  "description": "The fonts the PurplePen rendering tests need that a Windows installation does not carry. Everything else the tests ask for comes from the machine itself, recorded in ci/environment.json. Assemble these from a licensed source and check them against this: a face of another version renders differently and the baselines will not match.",
+  "mustNotBeInstalled": [
+    "Spyroclassic",
+    "GeosansLight"
+  ],
+  "files": [
+    {
+      "file": "ANTQUAB.TTF",
+      "sha256": "134A9F8ECF618660305D7D34B6905375C1D5D7838EA15CDB2789BA94317F4117",
+      "faces": [
+        {
+          "family": "Book Antiqua",
+          "style": "Bold",
+          "version": "Version 2.35"
+        }
+      ]
+    },
+    {
+      "file": "ARIALN.TTF",
+      "sha256": "CAD552553CF2A75AFCA01955751AAA115E2A64FD6C6EEA42E1FBD236630B7E0A",
+      "faces": [
+        {
+          "family": "Arial Narrow",
+          "style": "Regular",
+          "version": "Version 2.40"
+        }
+      ]
+    },
+    {
+      "file": "ARIALNB.TTF",
+      "sha256": "6C4A4B643461DEF5411E0217B74A625DCF2FB681252EF5DA1DB0AF4EAE80AA7E",
+      "faces": [
+        {
+          "family": "Arial Narrow",
+          "style": "Bold",
+          "version": "Version 2.40"
+        }
+      ]
+    },
+    {
+      "file": "ARIALNBI.TTF",
+      "sha256": "161B859EFD20C69DDEBB23012A49F4F2030D56A0C1B9BCFD4DF753217CE3E358",
+      "faces": [
+        {
+          "family": "Arial Narrow",
+          "style": "Bold Italic",
+          "version": "Version 2.40"
+        }
+      ]
+    },
+    {
+      "file": "ARIALNI.TTF",
+      "sha256": "FAF73AA7CE40B77AD19C09507A2263FE3F3CE9FA5642E8A1CD54FB3C9F52D599",
+      "faces": [
+        {
+          "family": "Arial Narrow",
+          "style": "Italic",
+          "version": "Version 2.40"
+        }
+      ]
+    },
+    {
+      "file": "Ameretto.ttf",
+      "sha256": "475197EAD2C934D834D360E6ED01CA097EC2EC05F2C6C99EDD3E66DB050F6705",
+      "faces": [
+        {
+          "family": "Ameretto",
+          "style": "Italic",
+          "version": "Altsys Fontographer 4.1 12/20/94"
+        }
+      ]
+    },
+    {
+      "file": "BASKVILL.TTF",
+      "sha256": "529C972A6D5C1992C76E908255F655F98989B74B146058C90555AF6D925A1715",
+      "faces": [
+        {
+          "family": "Baskerville Old Face",
+          "style": "Regular",
+          "version": "Version 1.51"
+        }
+      ]
+    },
+    {
+      "file": "BOD_BI.TTF",
+      "sha256": "9729E2AE73B15871DB606A18A48B8674CE2BAE35D76A511D3510C4A9DB2385EF",
+      "faces": [
+        {
+          "family": "Bodoni MT",
+          "style": "Bold Italic",
+          "version": "Version 2.10"
+        }
+      ]
+    },
+    {
+      "file": "COOPBL.TTF",
+      "sha256": "0518E37FD63C8B97D63A6CE678EACA254F0677AB94D420E99860772ECF348636",
+      "faces": [
+        {
+          "family": "Cooper Black",
+          "style": "Regular",
+          "version": "Version 1.51"
+        }
+      ]
+    },
+    {
+      "file": "FORTE.TTF",
+      "sha256": "7407F0814D04A4CC45127933DF1D6FFAB5C90E5E888D33A7279CD82C36426B30",
+      "faces": [
+        {
+          "family": "Forte",
+          "style": "Regular",
+          "version": "Version 1.60"
+        }
+      ]
+    },
+    {
+      "file": "FRABK.TTF",
+      "sha256": "9AD3D0E5EF31C4A9A98CB0E169E4E625286AA34C712ADD3E001C0100138730D4",
+      "faces": [
+        {
+          "family": "Franklin Gothic Book",
+          "style": "Regular",
+          "version": "Version 2.01"
+        }
+      ]
+    },
+    {
+      "file": "GOUDYSTO.TTF",
+      "sha256": "AB475061E2479350A315BF3F72D65AE9ACC37BEBEF4CF8DF979F8F6CED659216",
+      "faces": [
+        {
+          "family": "Goudy Stout",
+          "style": "Regular",
+          "version": "Version 1.80"
+        }
+      ]
+    },
+    {
+      "file": "LBRITE.TTF",
+      "sha256": "736EB3BDC990636D283384CF6428B03A6632AE16E81DC72CD28AECD0CDADB017",
+      "faces": [
+        {
+          "family": "Lucida Bright",
+          "style": "Regular",
+          "version": "Version 1.67"
+        }
+      ]
+    },
+    {
+      "file": "SWZBLKN.TTF",
+      "sha256": "C91E378A98812FEE37A779852161B0D810D32F82B63031241DBDB3411884BFAF",
+      "faces": [
+        {
+          "family": "SwitzerlandBlack",
+          "style": "Regular",
+          "version": "001.003"
+        }
+      ]
+    }
+  ]
+}

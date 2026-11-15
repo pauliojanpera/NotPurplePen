@@ -28,7 +28,7 @@ namespace AvPurplePen.Platform.Linux
     public class LinuxDocumentPrinting : IDocumentPrinting
     {
         // The directory, under the temporary directory, holding copies of PDFs opened in the PDF viewer.
-        private const string ViewerDirectoryName = "PurplePen-Print";
+        private const string ViewerDirectoryName = "NotPurplePen-Print";
 
         // Copies of PDFs opened in the PDF viewer are deleted the next time a PDF is opened, once they are this old.
         private static readonly TimeSpan ViewerFileLifetime = TimeSpan.FromDays(1);

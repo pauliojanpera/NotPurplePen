@@ -50,7 +50,7 @@ namespace AvPurplePen
         /// </summary>
         public static string RecoveryRootDirectory =>
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                         "PurplePen", "Recovery");
+                         "NotPurplePen", "Recovery");
 
         /// <summary>
         /// Rolls back an undo command that was left half-executed by the exception.

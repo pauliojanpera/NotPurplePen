@@ -121,7 +121,7 @@
     <value>Copyright © Peter Golde</value>
   </data>
   <data name="AboutForm_freeLabel_Text" xml:space="preserve">
-    <value>Purple Pen является открытым ПО и может свободно распространяться</value>
+    <value>NotPurplePen является открытым ПО и может свободно распространяться</value>
   </data>
   <data name="AboutForm_disclaimerLabel_Text" xml:space="preserve">
     <value>ЭТО ПРОГРАММНОЕ ОБЕСПЕЧЕНИЕ ПРЕДОСТАВЛЯЕТСЯ ВЛАДЕЛЬЦАМИ АВТОРСКИХ ПРАВ И ДРУГИМИ УЧАСТНИКАМИ "КАК ЕСТЬ", И ЛЮБЫЕ ЯВНЫЕ ИЛИ ПОДРАЗУМЕВАЕМЫЕ ГАРАНТИИ, ВКЛЮЧАЯ, ПОМИМО ПРОЧЕГО, ПОДРАЗУМЕВАЕМЫЕ ГАРАНТИИ ТОВАРНОГО СОСТОЯНИЯ И ПРИГОДНОСТИ ДЛЯ ДОСТИЖЕНИЯ ЛЮБОЙ КОНКРЕТНОЙ ЦЕЛИ, ОТРИЦАЮТСЯ.</value>
@@ -148,7 +148,7 @@
     <value>Открыть полную лицензию</value>
   </data>
   <data name="AboutForm_Text" xml:space="preserve">
-    <value>О Purple Pen</value>
+    <value>О NotPurplePen</value>
   </data>
   <data name="AddCourse_firstControlLabel_Text" xml:space="preserve">
     <value>Первое контрольное число</value>
