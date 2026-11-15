@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Runs test files of PurplePen_Tests, which targets Windows, on Linux. It carries the suite's assembly
+       name, so that the internals the test files reach stay visible, and compiles the files where they are,
+       with no copy of them. Shims.cs stands in for what only the Windows application has. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>PurplePen_Tests</AssemblyName>
+    <RootNamespace>PurplePen.Tests</RootNamespace>
+    <DefineConstants>TRACE;TEST</DefineConstants>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <Nullable>disable</Nullable>
+    <IsPackable>false</IsPackable>
+    <NoWarn>$(NoWarn);CS0168;CS0219;CS0414;CS1998</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Setup.cs" />
+    <Compile Include="Shims.cs" />
+    <Compile Include="../../PurplePen_Tests/PurplePen/TestFixtureBase.cs" Link="suite/TestFixtureBase.cs" />
+    <Compile Include="../../PurplePen_Tests/PurplePen/TestUI.cs" Link="suite/TestUI.cs" />
+    <Compile Include="../../PurplePen_Tests/CreateBitmapTests.cs" Link="suite/CreateBitmapTests.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../../PurplePenCore/PurplePenCore.csproj" />
+    <ProjectReference Include="../../MapModel/Graphics2D/Graphics2D.csproj" />
+    <ProjectReference Include="../../MapModel/MapModel/MapModel.csproj" />
+    <ProjectReference Include="../../MapModel/Map_SkiaStd/Map_SkiaStd.csproj" />
+    <ProjectReference Include="../../MapModel/Map_PDF/Map_PDF.csproj" />
+    <ProjectReference Include="../TestUtil/TestUtil.csproj" />
+    <ProjectReference Include="../TestUtil.Skia/TestUtil.Skia.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="MSTest.TestAdapter" />
+    <PackageReference Include="MSTest.TestFramework" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+    <PackageReference Include="SkiaSharp.HarfBuzz" />
+    <PackageReference Include="SkiaSharp.NativeAssets.Linux" />
+    <PackageReference Include="HarfBuzzSharp.NativeAssets.Linux" />
+  </ItemGroup>
+
+</Project>

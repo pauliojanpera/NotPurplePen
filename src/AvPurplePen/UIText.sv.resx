@@ -979,6 +979,15 @@
   <data name="CourseAppearanceDialog_checkBoxOverprint_Text" xml:space="preserve">
     <value>Använd övertryckseffekt för färger markerade med 'övertryck'</value>
   </data>
+  <data name="CourseAppearanceDialog_labelBlendMode_Text" xml:space="preserve">
+    <value>Blandningsläge:</value>
+  </data>
+  <data name="CourseAppearanceDialog_comboBoxBlendMode_Items" xml:space="preserve">
+    <value>Mörkare</value>
+  </data>
+  <data name="CourseAppearanceDialog_comboBoxBlendMode_Items1" xml:space="preserve">
+    <value>Multiplicera</value>
+  </data>
   <data name="CourseAppearanceDialog_groupBoxOcadMap_Text" xml:space="preserve">
     <value>Avancerat</value>
   </data>

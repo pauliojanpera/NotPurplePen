@@ -13,7 +13,9 @@ namespace PurplePen.Graphics2D
     public enum TextAlignment { Left, Center, Right }
     public enum VerticalTextAlignment { Top, Center, Bottom }
 
-    public enum BlendMode { Darken }
+    // How a shape drawn with blending mixes with what lies below it: Darken takes the darker of the two colors, and
+    // Multiply their product, as ink printed over ink.
+    public enum BlendMode { Darken, Multiply }
 
     [Flags]
     public enum TextEffects { Regular = 0, Bold = 0x1, Italic = 0x2, Underline = 0x4, Strikeout = 0x8}

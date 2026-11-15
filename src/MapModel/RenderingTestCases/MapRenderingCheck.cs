@@ -1,3 +1,4 @@
+using PurplePen.Graphics2D;
 using System.IO;
 using PurplePen.MapModel;
 using TestingUtils;
@@ -18,6 +19,9 @@ namespace RenderingTestCases
         public readonly bool BlendOverprintedColors;
 
         // Whether edges are anti-aliased.
+        // The mode that the colors marked overprint blend by, where the check blends them.
+        public readonly BlendMode OverprintBlendMode;
+
         public readonly bool AntiAlias;
 
         // The colors drawn: those after ColorBeginDrawExclusive, up to and including ColorEndDrawInclusive, where
@@ -38,11 +42,13 @@ namespace RenderingTestCases
         // Create a check from its settings.
         private MapRenderingCheck(string descriptorFileName, bool usePatternBitmaps, bool blendOverprintedColors, bool antiAlias,
                                   int? colorBeginDrawExclusive, int? colorEndDrawInclusive, bool alsoTestRecording,
-                                  bool testLightenedColor, bool roundtripToOcadFile, int minOcadVersion, int maxOcadVersion)
+                                  bool testLightenedColor, bool roundtripToOcadFile, int minOcadVersion, int maxOcadVersion,
+                                  BlendMode overprintBlendMode = BlendMode.Darken)
         {
             DescriptorFileName = descriptorFileName;
             UsePatternBitmaps = usePatternBitmaps;
             BlendOverprintedColors = blendOverprintedColors;
+            OverprintBlendMode = overprintBlendMode;
             AntiAlias = antiAlias;
             ColorBeginDrawExclusive = colorBeginDrawExclusive;
             ColorEndDrawInclusive = colorEndDrawInclusive;
@@ -78,10 +84,12 @@ namespace RenderingTestCases
             return new MapRenderingCheck(descriptorFileName, false, false, false, null, null, true, testLightenedColor, roundtripToOcadFile, minOcadVersion, maxOcadVersion);
         }
 
-        // A check that draws area patterns element by element and blends colors that overprint.
-        public static MapRenderingCheck CheckOverprinted(string descriptorFileName, bool testLightenedColor, bool roundtripToOcadFile, int minOcadVersion, int maxOcadVersion)
+        // A check that draws area patterns element by element and blends colors that overprint, by the given mode.
+        public static MapRenderingCheck CheckOverprinted(string descriptorFileName, bool testLightenedColor, bool roundtripToOcadFile, int minOcadVersion, int maxOcadVersion,
+                                                         BlendMode overprintBlendMode = BlendMode.Darken)
         {
-            return new MapRenderingCheck(descriptorFileName, false, true, false, null, null, true, testLightenedColor, roundtripToOcadFile, minOcadVersion, maxOcadVersion);
+            return new MapRenderingCheck(descriptorFileName, false, true, false, null, null, true, testLightenedColor, roundtripToOcadFile, minOcadVersion, maxOcadVersion,
+                                         overprintBlendMode);
         }
 
         // A check that draws area patterns element by element, and only the colors after colorBeginDrawExclusive up
@@ -103,6 +111,7 @@ namespace RenderingTestCases
         public RenderOptions CreateRenderOptions()
         {
             RenderOptions renderOptions = new RenderOptions();
+            renderOptions.overprintBlendMode = OverprintBlendMode;
             renderOptions.colorBeginDrawExclusive = ColorBeginDrawExclusive;
             renderOptions.colorEndDrawInclusive = ColorEndDrawInclusive;
             return renderOptions;

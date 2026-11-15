@@ -958,6 +958,15 @@
   <data name="CourseAppearanceDialog_checkBoxOverprint_Text" xml:space="preserve">
     <value>Použít overprint u barev, kde je uveden</value>
   </data>
+  <data name="CourseAppearanceDialog_labelBlendMode_Text" xml:space="preserve">
+    <value>Režim míchání:</value>
+  </data>
+  <data name="CourseAppearanceDialog_comboBoxBlendMode_Items" xml:space="preserve">
+    <value>Ztmavit</value>
+  </data>
+  <data name="CourseAppearanceDialog_comboBoxBlendMode_Items1" xml:space="preserve">
+    <value>Násobit</value>
+  </data>
   <data name="CourseAppearanceDialog_groupBoxOcadMap_Text" xml:space="preserve">
     <value>Pokročilé</value>
   </data>
