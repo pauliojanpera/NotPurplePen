@@ -10,7 +10,7 @@ Update this file when a step ends, when a task changes hands, and when @Pauli ma
 
 | Branch | Contents |
 | --- | --- |
-| `docs/svg-target-requirements` | The requirements, the design, this file, CLAUDE.md (the practice of the sessions that do the work), and the tools: `SvgDevLoop/`, `SvgGallery/`, `SvgTolerance/`, `SvgGeoreference/`, `SvgColourReaders/`, `SvgPdfVectors/`, `SvgHatchingOverlap/` and `SvgTranslations/`. |
+| `docs/process-coordination` | The requirements, the design, this file, CLAUDE.md (the practice of the sessions that do the work), and the tools: `SvgDevLoop/`, `SvgGallery/`, `SvgTolerance/`, `SvgGeoreference/`, `SvgColourReaders/`, `SvgPdfVectors/`, `SvgHatchingOverlap/` and `SvgTranslations/`. |
 | `wip/linux/<name>` | Full runs (DL-10). For a fix alone: `base` with the fix merged in. For a feature, for the SVG work, and for all other work that has `fix/` branches: `basewithfixes` with the work merged in (@Pauli, Nov 13 and 14). `wip/linux/svg-target-into-dev` is the merge of `feature/svg-target` into `dev`. Make it again on top of `dev` for each merge. Run it in full before you fast-forward `dev` to it. |
 | `base`, `basewithfixes`, `dev` | `base`: upstream, with what is necessary to build and test it here. `basewithfixes`: `base` with the `fix/` branches that change the application. It publishes the channel "base" ("Upstream with this fork's build and bug fixes"). `dev`: `basewithfixes` with the fork's features. The SVG loop (`.github/workflows/svg.yml`) and the machine check of the Windows tests are on `base`. |
 | `ci/<name>` | Changes to the workflows. Each is rooted at `base` and merged into `base`, `basewithfixes` and `dev` through full runs. |
