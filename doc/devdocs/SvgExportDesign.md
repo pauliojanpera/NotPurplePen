@@ -1155,6 +1155,103 @@ Firefox matches Chromium in 202 of the 205 documents and WebKit in 193, SVG loop
 page shown through its view matches in both. The check takes the loop's test step from about 5 minutes to about 14, and
 the browsers' install from 16 seconds to about 2 minutes.
 
+What those fine tiles are, what every engine makes of them and what it would take to draw them alike is the section below.
+
+## A fine pattern tile in the browsers (S-7, F-1, F-5)
+
+Written on Nov 16 from the document an SVG loop run wrote of teanwest and the reference image of the same case, with
+the checkout at de6bc68c, from @Pauli's question of Nov 15: why Skia's drawing of teanwest's yellow screen is grainy,
+with white pixels in it, where all three browsers draw an even yellow. Every measurement below is repeated by
+[`SvgPatternSampling/run-all.sh`](SvgPatternSampling/README.md), which also says how a rendering is judged.
+
+- **The screen.** teanwest fills with two screens: "White for yellow", white dots over its yellow, 249 fills covering
+  202,914 pixels of the image's 1,853,908, and the yellow screen itself, yellow dots on the paper, 154 fills covering
+  52,187. Each is a dot of 200 map units in a lattice of 450 turned 45 degrees, which covers 62 % of the area. At the
+  size the rendering comparison draws the map, the document's unit is 0.004442991 pixels, so the lattice is 2.000
+  pixels across and the dot 1.78.
+- **What a pixel should hold.** The same document rendered ten times larger, where every engine resolves the dots,
+  each pixel of the rendering the mean of its hundred. Chromium, Firefox and WebKit agree on it within four levels.
+
+In each screen's patch, over the pixels that hold the screen and nothing else, the paper raises the blue channel and
+the ink lowers it:
+
+| Screen | Image | Blue | Off the truth | Grain | Pure white | Full ink |
+| --- | --- | --- | --- | --- | --- | --- |
+| White dots over yellow, 1075 pixels | resolved | 164.6 | — | 64.9 | 15.9 % | 0.5 % |
+| | Skia | 161.1 | −3.4 | 66.6 | 16.7 % | 0.7 % |
+| | Chromium | 190.0 | **+25.4** | **20.5** | 8.2 % | 0.0 % |
+| | Firefox | 181.8 | **+17.3** | 23.1 | 8.3 % | 0.0 % |
+| | WebKit | 190.3 | **+25.7** | 20.5 | 8.2 % | 0.0 % |
+| Yellow dots on paper, 727 pixels | resolved | 104.9 | — | 65.4 | 3.0 % | 8.8 % |
+| | Skia | 107.7 | +2.7 | 66.8 | 4.1 % | 9.5 % |
+| | Chromium | 76.1 | **−28.8** | **29.6** | 2.5 % | 0.0 % |
+| | Firefox | 85.1 | **−19.8** | 28.1 | 2.5 % | 0.0 % |
+| | WebKit | 76.1 | **−28.8** | 29.6 | 2.5 % | 0.0 % |
+
+The two screens are off in opposite directions, each away from the colour of its own dots: a browser draws whatever
+the tile's dot is painted with over too much of the area, so the white screen comes out pale and the yellow one
+saturated. Of the pixels of a screen no browser keeps one of full ink, and of the paper-white ones it keeps about
+half: those are where the drawing is white in any case, 95 of the 95 or 96 a browser has in the white screen's patch,
+where Skia's 196 include dots it resolved. Over every pixel the screens are drawn on, 202,914 and 52,187 of the
+image's 1,853,908, the means are Skia 132.0 against 149.0 to 156.1 in the white screen and Skia 102.4 against 81.2 to
+87.3 in the yellow one, with 5.3 % and 1.2 % of Skia's pixels paper white against 0.2 % at most in any browser.
+
+- **It is not antialiasing.** With the tile's dot drawn `shape-rendering="crispEdges"`, every engine fills the area
+  white: in a tile of 2 pixels the dot's radius is 0.889 pixels and the four pixel centres lie 0.707 from the middle,
+  so a tile sampled at its pixel centres is painted whole. A bitmap of the dot at ten times the tile's size, drawn
+  with `image-rendering:pixelated`, goes the same way. (Both are the whole-pixel lattice's doing: at a lattice of
+  2.169 pixels the phases vary, and the same two forms give Chromium +15.2 and +2.7 levels and Firefox −13.3 and
+  +2.7, while WebKit still fills white.) And the same dots written as elements of their own come out right: against a
+  resolved 154.7 with a spread of 61.8 and 8.0 % white, Chromium gives 149.4, 63.5 and 7.9 %, Firefox 147.1, 65.5 and
+  9.1 %, WebKit 149.4, 63.5 and 7.9 %. The engines rasterize these sub-pixel dots well; it is the tile that loses
+  them.
+- **What the tile does.** A `<pattern>` is rasterized once at the device resolution, here into 2 by 2 pixels, and that
+  bitmap is repeated. The dot's shape is quantized into those four pixels: it gains about a tenth of its area, the
+  paper covering 66.5 % of a screen where the resolved drawing gives 60.9 %, the grain is gone, a spread of 1.4
+  against the resolved 61.6, and no pixel keeps the paper. A tile of ten by ten dots does not move a number, because
+  the lattice is a whole number of pixels and every dot in it falls on the same sub-pixel phase; where the lattice is
+  no whole number the larger tile moves each engine, and not the same way: Chromium −4.7, Firefox +7.1 and WebKit
+  +10.7 at a lattice of 2.169, against −2.3, −5.0 and +36.5 with one dot in the tile.
+- **Skia's grain is aliasing, and unbiased.** The map code renders a brush tile into a bitmap of at least ten pixels a
+  side (`MIN_PATTERN_SIZE`, `SymDef.cs`), and `Skia_BrushTarget.FinishBrush` wraps it in an `SKShader` that repeats it
+  through a Mitchell cubic resampler without mip-maps (`SkiaGraphicsTarget.cs`). Minified five to one, each pixel of
+  the drawing takes what amounts to one sample of the tile: it lands in a dot or between dots, and since the phases
+  are spread evenly the mean comes out within four levels of the truth in both screens. The reference is right by
+  unbiased sampling; the browsers are even and biased.
+- **F-1 and the browser check are blind to it.** Chromium's image of teanwest differs from the reference in 606,696
+  pixels, 168,289 of them by more than 32 levels and the largest by 235, and not one lies outside F-1's rule: where
+  Skia's neighbouring pixels take every value from the paper to the full ink, any even tone between them lies within
+  the range they give. Blurred by a pixel, which is how F-1 judges a pixel at an edge, Chromium still lies 21.8 levels
+  from the reference across the white screen's patch and 40 at the most, Firefox 15.6, WebKit 22.0. The browser check
+  cannot see it either, since it holds Firefox and WebKit to Chromium, which is as even and as biased as they are.
+- **The error is the scale's, not the map's.** The lattice is 2.000 pixels only at the size the rendering comparison
+  draws teanwest; an export at any other resolution lands on a lattice that is no whole number of pixels, and there
+  the engines part:
+
+| Lattice | Chromium | Firefox | WebKit | The engines apart |
+| --- | --- | --- | --- | --- |
+| 2.000 pixels | +14.4, spread 1.4 | +7.3, spread 1.4 | +18.8, spread 0.0 | 11.5 levels |
+| 2.169 pixels | −2.3, spread 46.1 | −5.0, spread 47.2 | **+36.5**, spread 12.3 | 41.4 levels |
+
+  At a lattice that is no whole number of pixels the phases vary, so Chromium and Firefox recover most of the grain
+  and nearly all of the tone, while WebKit stays even and goes further off than before. The documents set apart for
+  their fine tiles (F-5) are therefore set apart at one scale, not at their worst.
+- **Coordinates move the error; they do not remove it.** A tile ten times larger in the document's units, scaled back
+  by its `patternTransform`, moves WebKit alone: it rasterizes the tile before that transform and minifies the
+  texture, which aliases far more coarsely than the drawing asks, a spread of 112.8 and 48.4 % white against the
+  resolved 61.6 and 7.7 %. Chromium and Firefox take the tile's size from the whole chain and do not move at all. No
+  form within the requirements makes all three engines sample a fine screen pixel by pixel; only drawing its dots as
+  elements does.
+- **What drawing them as elements would cost.** teanwest's two screens cover 255,101 pixels, a dot to every four, so
+  about 64,000 dots. A `<circle cx cy r>` of one is 40 bytes and a `<use>` of a defined dot 45, so about 2.6 MB on top
+  of the document's 4.0, three fifths more. Hatchings are cheap either way, since one line crosses a whole area. The
+  export's "Draw area patterns as separate shapes" (A-2) already writes every pattern so.
+
+What this leaves open: whether S-7's pattern fills should give way to elements below some width of tile, and what that
+width is; whether the browser check should hold a document whose tiles are a pixel or two to the resolved drawing
+rather than to Chromium's image; and a sweep of the lattice from about 1.5 to 4 pixels, since 2.169 is one sample and
+nothing yet says whether any range holds all three engines.
+
 ## A PDF base map as vectors
 
 Written on Nov 12 from `feature/svg-target` at 267efc8, for the task of the handover's plan (`SvgTargetProgress.md`,
@@ -1673,3 +1770,7 @@ The requirements M-1, D-2, M-6, S-7 and S-12 have the wording that @Pauli approv
 - Whether overlapping areas of a symbol draw their pattern once in the map code, for every output, or in the SVG alone,
   and whether a colour's opacity is read and drawn as its layer's, is "Overlapping patterns, and a colour's layer"
   above, which ends with the choice put to @Pauli.
+- Whether a screen whose tile is a pixel or two across is written as a pattern fill at all (S-7), and whether the
+  browser check should hold such a document to the resolved drawing rather than to Chromium's image, which is as
+  even and as biased as Firefox's and WebKit's, is "A fine pattern tile in the browsers" above, which ends with
+  what it leaves open.
