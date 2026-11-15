@@ -116,7 +116,12 @@ The target fully implements these calls (DL-5): `Intensity`, `PushTransform`, `P
 
 ## Tasks
 
-**In flight: task 7.** Agent aac72716e2f1e6eb5, since 13:35 Nov 14. It stopped for the 5-hour limit and continued at 17:42. Its branches are `feature/multiply-blending` and `feature/svg-multiply`. An executor without this agent starts a new agent from task 7's text.
+**In flight: task 7.** Agent aac72716e2f1e6eb5 worked on it from 13:35 Nov 14. At 18:11 Nov 14 the weekly limit stopped it. Then:
+- `feature/multiply-blending` (4d75b6e4) holds the application part, finished. Its full run on `basewithfixes` passed (Tests 43613782400 on `wip/linux/multiply-blending`).
+- On plain `base`, BitmapCreationOverprintMultiply failed (Tests 43613793958 on `experiment/multiply-blending-on-base`): only 352 pixels are darker by multiply than by darken, and the test expects more than 1000.
+- The SVG part had only started. Its merge e7ac1dac was never pushed, so it is lost.
+
+On Nov 15 at 09:05 a new agent continued task 7, as @Pauli asked. It makes the test hold on `base`, does the SVG part on `feature/svg-multiply`, and merges into `feature/svg-target` and `dev` through full runs on `basewithfixes`.
 
 **Next, in this order: tasks 7, 9, 11, 6, 10.** @Pauli gave the word for them and set this order on Nov 14. Each task gets its own agent (see "Agents"). A task ends with its commits on their branches, its loop green if it changes the target, and the gallery and this file up to date.
 
