@@ -592,4 +592,7 @@ OKを押し、コンピュータ上で地図ファイルのコピーを探して
   <data name="GhostscriptNotInstalled" xml:space="preserve">
     <value>GPL Ghostscript がインストールされていません</value>
   </data>
+  <data name="CannotCreateSvgs" xml:space="preserve">
+    <value>SVGファイルを作成できません。以下の理由:</value>
+  </data>
 </root>

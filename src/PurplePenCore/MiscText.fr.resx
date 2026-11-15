@@ -628,4 +628,7 @@ Après avoir cliqué sur OK, essayez de trouver une copie du fichier de la carte
   <data name="GhostscriptNotInstalled" xml:space="preserve">
     <value>GPL Ghostscript n'est pas installé</value>
   </data>
+  <data name="CannotCreateSvgs" xml:space="preserve">
+    <value>Impossible de créer des fichiers SVG pour la raison suivante :</value>
+  </data>
 </root>

@@ -831,22 +831,26 @@ namespace PurplePen
             }
         }
 
+        // The name a kind of control has in a .ppen file, as the kind attribute of its control element.
+        // kind: the kind of control.
+        public static string KindText(ControlPointKind kind)
+        {
+            switch (kind) {
+                case ControlPointKind.Normal: return "normal";
+                case ControlPointKind.Start: return "start";
+                case ControlPointKind.MapIssue: return "map-issue";
+                case ControlPointKind.Finish: return "finish";
+                case ControlPointKind.CrossingPoint: return "crossing-point";
+                case ControlPointKind.MapExchange: return "map-exchange";
+                default: Debug.Fail("bad kind"); return "none";
+            }
+        }
+
         public override void WriteAttributesAndContent(System.Xml.XmlTextWriter xmloutput)
         {
             // Write attributes
 
-            string kindText;
-            switch (kind) {
-                case ControlPointKind.Normal: kindText = "normal"; break;
-                case ControlPointKind.Start: kindText = "start"; break;
-                case ControlPointKind.MapIssue: kindText = "map-issue"; break;
-                case ControlPointKind.Finish: kindText = "finish"; break;
-                case ControlPointKind.CrossingPoint: kindText = "crossing-point"; break;
-                case ControlPointKind.MapExchange: kindText = "map-exchange"; break;
-                default: Debug.Fail("bad kind"); kindText = "none"; break;
-            }
-
-            xmloutput.WriteAttributeString("kind", kindText);
+            xmloutput.WriteAttributeString("kind", KindText(kind));
 
             if (kind == ControlPointKind.CrossingPoint) {
                 xmloutput.WriteAttributeString("orientation", XmlConvert.ToString(orientation));
@@ -2688,6 +2692,7 @@ namespace PurplePen
         public bool descriptionsPurple = false;         // If true, descriptions in purple instead of black.
 
         public bool useOcadOverprint = false;       // If true, use overprint effect when rendering OCAD map.
+        public BlendMode overprintBlendMode = BlendMode.Darken;   // How the colors marked overprint, and the purple when blended, blend with the colors below them.
 
         public string mapStandard = "2000";         // Which ISOM standard to use.
         public ItemScaling itemScaling = ItemScaling.None;      // If not None, how objects scale up with map on different print scales (ISOM 2017 style). Otherwise stay the same (ISOM 2000 style).
@@ -2778,6 +2783,8 @@ namespace PurplePen
             if (descriptionsPurple != other.descriptionsPurple)
                 return false;
             if (useOcadOverprint != other.useOcadOverprint)
+                return false;
+            if (overprintBlendMode != other.overprintBlendMode)
                 return false;
             if (mapStandard != other.mapStandard)
                 return false;
@@ -3158,6 +3165,9 @@ namespace PurplePen
                 xmloutput.WriteAttributeString("lower-purple-layer", XmlConvert.ToString(courseAppearance.mapLayerForLowerPurple));
             }
 
+            if (courseAppearance.overprintBlendMode == BlendMode.Multiply)
+                xmloutput.WriteAttributeString("overprint-blend-mode", "multiply");
+
             xmloutput.WriteEndElement();
 
             xmloutput.WriteStartElement("descriptions");
@@ -3295,6 +3305,8 @@ namespace PurplePen
                             }
                         }
 
+                        // Overprinted colors blend by darken, as before the blend mode was saved, unless the file says multiply.
+                        courseAppearance.overprintBlendMode = (xmlinput.GetAttributeString("overprint-blend-mode", "darken") == "multiply") ? BlendMode.Multiply : BlendMode.Darken;
                         
                         courseAppearance.purpleC = xmlinput.GetAttributeFloat("purple-cyan", -1F);
                         courseAppearance.purpleM = xmlinput.GetAttributeFloat("purple-magenta", -1F);

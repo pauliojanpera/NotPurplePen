@@ -51,9 +51,10 @@ namespace PurplePen.MapModel
         // A group of two or more areas, connected by bounding boxes that overlap or touch.
         internal sealed class Group
         {
-            // The areas' paths and their bounding boxes, in the order the areas are drawn.
+            // The areas' paths and their bounding boxes, in the order the areas are drawn, and the path of each area.
             private readonly List<SymPathWithHoles> paths = new List<SymPathWithHoles>();
             private readonly List<RectangleF> pathBounds = new List<RectangleF>();
+            private readonly Dictionary<Symbol, SymPathWithHoles> pathOfArea = new Dictionary<Symbol, SymPathWithHoles>();
 
             // The key of the path of the union of the areas, once it is created on the target drawn onto.
             private object unionPathKey;
@@ -91,15 +92,28 @@ namespace PurplePen.MapModel
             // pathBox: the bounding box of the area's path.
             public void Add(AreaSymbol area, RectangleF pathBox)
             {
-                paths.Add(area.Path);
+                SymPathWithHoles path = area.Path;
+                paths.Add(path);
                 pathBounds.Add(pathBox);
+                pathOfArea.Add(area, path);
                 Bounds = RectangleF.Union(Bounds, pathBox);
                 Last = area;
             }
 
+            // The path of an area of the group, the one the union of the outlines is made of: an area makes a new path
+            // object each time it is asked for its path, and a target that keeps the structure of what it draws knows
+            // the outlines of a union by their paths' keys (S-12).
+            // area: the area.
+            public SymPathWithHoles PathOf(Symbol area)
+            {
+                return pathOfArea[area];
+            }
+
             // Get the key of the path of the union of the areas' outlines on a target, creating the path the first
             // time. The path holds each area's main path winding one way and its holes the other, and fills by the
-            // nonzero rule, so that every target fills and clips to the union however its areas overlap or touch.
+            // nonzero rule, so that every target fills and clips to the union however its areas overlap or touch. A
+            // target that keeps the structure of what it draws is told which areas' paths the union unites, whose
+            // outlines it has been given in their objects' places (S-12).
             // g: the target drawn onto, the only one a group is drawn onto.
             public object GetUnionPathKey(IGraphicsTarget g)
             {
@@ -110,6 +124,14 @@ namespace PurplePen.MapModel
 
                     unionPathKey = new object();
                     g.CreatePath(unionPathKey, parts, AreaFillMode.Winding);
+
+                    IStructuredGraphicsTarget structuredTarget = g as IStructuredGraphicsTarget;
+                    if (structuredTarget != null) {
+                        object[] pathKeys = new object[paths.Count];
+                        for (int i = 0; i < paths.Count; ++i)
+                            pathKeys[i] = paths[i].GetPathKey(g);
+                        structuredTarget.DescribeUnion(unionPathKey, pathKeys);
+                    }
                 }
 
                 return unionPathKey;

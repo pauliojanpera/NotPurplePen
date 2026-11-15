@@ -147,6 +147,15 @@ namespace PurplePen
         // Render a course onto a map.
         public Map RenderToMap(MapRenderOptions mapRenderOptions)
         {
+            return RenderToMap(mapRenderOptions, null);
+        }
+
+        // Render a course onto a map, recording which course object added each of the map's symbols, so that an export
+        // can say what each object it draws of the course is (CD-3).
+        // mapRenderOptions: how to render the course.
+        // courseObjectOfSymbol: receives, for each symbol of the map, the course object that added it; or null.
+        public Map RenderToMap(MapRenderOptions mapRenderOptions, Dictionary<PurplePen.MapModel.Symbol, CourseObj> courseObjectOfSymbol)
+        {
             // Create the map to render into.
             Map map = new Map(Services.TextMetricsProvider, null);
             if (Count == 0)
@@ -229,11 +238,29 @@ namespace PurplePen
                     if (courseObject.CustomColor != null && courseObject.CustomColor.Kind == SpecialColor.ColorKind.Custom)
                         color = customColors[courseObject.CustomColor];
 
+                    int symbolsBefore = courseObjectOfSymbol == null ? 0 : map.AllSymbols.Count;
                     courseObject.AddToMap(map, color, lower_color, mapRenderOptions, dict);
+                    if (courseObjectOfSymbol != null)
+                        RecordSymbolsAdded(map, symbolsBefore, courseObject, courseObjectOfSymbol);
                 }
             }
 
             return map;
+        }
+
+        // Record a course object as the one that added each symbol of a map from a position in its list of symbols on,
+        // where the map appends the symbols added to it.
+        // map: the map.
+        // symbolsBefore: how many symbols the map had before the course object added its own.
+        // courseObject: the course object.
+        // courseObjectOfSymbol: receives the course object of each symbol it added.
+        private static void RecordSymbolsAdded(Map map, int symbolsBefore, CourseObj courseObject, Dictionary<PurplePen.MapModel.Symbol, CourseObj> courseObjectOfSymbol)
+        {
+            int index = 0;
+            foreach (PurplePen.MapModel.Symbol symbol in map.AllSymbols) {
+                if (index++ >= symbolsBefore)
+                    courseObjectOfSymbol[symbol] = courseObject;
+            }
         }
 
         // Find a course object from a point, and a "pixelsize" that says how big one pixel is.

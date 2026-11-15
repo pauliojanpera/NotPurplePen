@@ -13,7 +13,9 @@ namespace PurplePen.Graphics2D
     public enum TextAlignment { Left, Center, Right }
     public enum VerticalTextAlignment { Top, Center, Bottom }
 
-    public enum BlendMode { Darken }
+    // How a shape drawn with blending mixes with what lies below it: Darken takes the darker of the two colors, and
+    // Multiply their product, as ink printed over ink.
+    public enum BlendMode { Darken, Multiply }
 
     [Flags]
     public enum TextEffects { Regular = 0, Bold = 0x1, Italic = 0x2, Underline = 0x4, Strikeout = 0x8}
@@ -98,6 +100,16 @@ namespace PurplePen.Graphics2D
         // Otherwise, return None. Return Other if format not in the enum, or Unknown
         // if it was read from file but no way to know the format.
         GraphicsBitmapFormat GetOriginalFormat();
+
+        // Get the data this bitmap was decoded from, in the format GetOriginalFormat gives, for a writer to write as it
+        // is: encoding the pixels anew changes the data of a lossy format such as JPEG, and need not give the same bytes
+        // on every machine. Returns null when the bitmap keeps no such data: when it was not decoded from data, when its
+        // pixels have been drawn on since, or when its backend keeps none, as by default. The caller must not change the
+        // data.
+        byte[] GetOriginalData()
+        {
+            return null;
+        }
 
         // Get a single pixel. This is probably not that fast, so don't use repeatedly
         // too much in performance critical code.

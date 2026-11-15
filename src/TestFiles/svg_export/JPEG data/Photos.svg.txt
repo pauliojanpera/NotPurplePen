@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:npp="https://pauliojanpera.github.io/NotPurplePen/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" width="215.9mm" height="279.4mm" viewBox="0 0 215.9 279.4" xml:lang="und">
+<style>
+@font-face{font-family:'Roboto';src:url(data:font/ttf;base64,sha256:e0ba0d73172276c56804204e07719f938780cb162978daf3546c655bbe2ade92)}
+text{font-kerning:none;font-variant-ligatures:none;font-variant-emoji:text;white-space:pre}
+</style>
+<metadata>
+<npp:document version="1">
+<npp:map n="1" label="SampleEvent.jpg" views="Photos"/>
+<npp:map n="2" label="Photos" views="Photos">
+<npp:color position="2" name="Lower purple" cmyk=".35,.85,0,0"/>
+<npp:symbol n="1" id="701" name="Start" colors="2"/>
+<npp:symbol n="2" id="704" name="Line" colors="2"/>
+<npp:symbol n="3" id="702" name="Control point" colors="2"/>
+<npp:symbol n="4" id="706" name="Finish" colors="2"/>
+<npp:symbol n="5" id="703.0" name="Control number" colors="2"/>
+<npp:symbol n="6" id="-4" name="Layout object"/>
+<npp:course id="1" name="Photos" print-scale="15000">
+<npp:control n="1" id="1" kind="start" x="213360" y="394377"/>
+<npp:control n="2" id="2" code="31" kind="normal" x="262467" y="348657"/>
+<npp:control n="3" id="3" code="32" kind="normal" x="242147" y="267377"/>
+<npp:control n="4" id="4" code="33" kind="normal" x="193040" y="219964"/>
+<npp:control n="5" id="5" kind="finish" x="223520" y="174244"/>
+</npp:course>
+<npp:object n="1" kind="start" controls="1"/>
+<npp:object n="2" kind="leg" controls="1 2"/>
+<npp:object n="3" kind="leg" controls="2 3"/>
+<npp:object n="4" kind="leg" controls="3 4"/>
+<npp:object n="5" kind="leg" controls="4 5"/>
+<npp:object n="6" kind="control" controls="2"/>
+<npp:object n="7" kind="control" controls="3"/>
+<npp:object n="8" kind="control" controls="4"/>
+<npp:object n="9" kind="finish" controls="5"/>
+<npp:object n="10" kind="control-number" controls="2"/>
+<npp:object n="11" kind="control-number" controls="3"/>
+<npp:object n="12" kind="control-number" controls="4"/>
+<npp:object n="13" kind="image"/>
+<npp:object n="14" kind="image"/>
+<npp:object n="15" kind="image"/>
+<npp:object n="16" kind="image"/>
+</npp:map>
+</npp:document>
+</metadata>
+<sodipodi:namedview>
+<inkscape:page x="0" y="0" width="215.9" height="279.4" inkscape:label="Photos"/>
+</sodipodi:namedview>
+<defs>
+<color-profile id="cmyk" name="cmyk" xlink:href="data:application/vnd.iccprofile;base64,sha256:a4cb0af0777cef9b31261a9c8ab71ece6b5eac928efbc59a749e1aa667b43baa"/>
+<clipPath id="g">
+<path d="M84667 140377h215900v279400H84667z"/>
+</clipPath>
+<g id="a">
+<g transform="matrix(.1693333 0 0-.1693333 0 538311)" data-m="1">
+<use xlink:href="#b" transform="scale(1000)"/>
+</g>
+</g>
+<g id="c">
+<g data-m="2">
+<g data-c="2">
+<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-miterlimit:5" transform="translate(213360 394377)rotate(-132.955)" data-s="1">
+<path data-o="1" d="M0 4041l3500-6062h-7000L0 4041z"/>
+</g>
+<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-linejoin:bevel" data-s="2">
+<path data-o="2" d="M216317 391624l44082-41042"/>
+<path data-o="3" d="M261782 345917l-18950-75799"/>
+<path data-o="4" d="M240114 265415l-45042-43489"/>
+<path data-o="5" d="M194607 217613l27069-40602"/>
+</g>
+<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-miterlimit:5" data-s="3">
+<circle data-o="6" cx="262467" cy="348657" r="2825"/>
+<circle data-o="7" cx="242147" cy="267377" r="2825"/>
+<circle data-o="8" cx="193040" cy="219964" r="2825"/>
+</g>
+<g style="fill:none;stroke:#ab499c;stroke:#ab499c icc-color(cmyk,.35,.85,0,0);stroke-width:350;stroke-miterlimit:5" transform="translate(223520 174244)" data-s="4">
+<circle data-o="9" r="2325"/>
+<circle data-o="9" r="3325"/>
+</g>
+<g style="font-size:5.57px;font-family:'Roboto';fill:#ab499c;fill:#ab499c icc-color(cmyk,.35,.85,0,0)" data-s="5">
+<g transform="matrix(1 0 0-1 267287 354167)">
+<text data-o="10" transform="translate(0 5293)scale(1000)">1</text>
+</g>
+<g transform="matrix(1 0 0-1 246308 266327)">
+<text data-o="11" transform="translate(0 5293)scale(1000)">2</text>
+</g>
+<g transform="matrix(1 0 0-1 185087 225018)">
+<text data-o="12" transform="translate(0 5293)scale(1000)">3</text>
+</g>
+</g>
+</g>
+<g data-s="6">
+<g transform="matrix(1 0 0-1 0 741341)">
+<use data-o="13" xlink:href="#d" transform="matrix(169.3322 0 0 169.3326 91440 331724)"/>
+</g>
+<g transform="matrix(1 0 0-1 0 616035)">
+<use data-o="14" xlink:href="#e" transform="matrix(169.331 0 0 169.333 91440 297857)"/>
+</g>
+<g transform="matrix(1 0 0-1 0 555075)">
+<use data-o="15" xlink:href="#e" transform="matrix(169.331 0 0 169.333 91440 267377)"/>
+</g>
+<g transform="matrix(1 0 0-1 0 494115)">
+<use data-o="16" xlink:href="#f" transform="matrix(169.331 0 0 169.333 91440 236897)"/>
+</g>
+</g>
+</g>
+</g>
+<image id="b" width="2375" height="3179" xlink:href="data:image/jpeg;base64,sha256:8811ee06fa2f55441c8b8123e85edfcd1a8695d076fef9ec6d240262ab2b5890"/>
+<image id="d" width="298" height="460" xlink:href="data:image/jpeg;base64,sha256:ecbd3fc15c0621a532394134e7eaf8964664d67aaa624529fa6ef695d16ce806"/>
+<image id="e" width="160" height="120" xlink:href="data:image/jpeg;base64,sha256:8a9b3222b8ec076df54303c668728878081df533342c669f699f516df8729420"/>
+<image id="f" width="160" height="120" xlink:href="data:image/jpeg;base64,sha256:3d857264415a978a6ebe31f9216fc97ff1ff5d93b6c639ded9072277944f5f8d"/>
+</defs>
+<view id="Photos" viewBox="0 0 215.9 279.4"/>
+<g transform="matrix(.001 0 0-.001-84.667 419.777)" clip-path="url(#g)">
+<use xlink:href="#a"/>
+<use xlink:href="#c"/>
+</g>
+</svg>

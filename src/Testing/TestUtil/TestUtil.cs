@@ -86,10 +86,11 @@ namespace TestingUtils
 
 
         // Returns the absolute path obtained by combining the TestFiles directory with basename;
-        // the returned file is not required to exist.
+        // the returned file is not required to exist. A backslash in basename separates directories
+        // on every platform, as it does on Windows.
         public static string GetTestFile(string basename)
         {
-            return Path.GetFullPath(Path.Combine(GetTestFileDirectory(), basename));
+            return Path.GetFullPath(Path.Combine(GetTestFileDirectory(), basename.Replace('\\', Path.DirectorySeparatorChar)));
         }
 
         // Returns the absolute path obtained by combining the Tools directory with toolName;

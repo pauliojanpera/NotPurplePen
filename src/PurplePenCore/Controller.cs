@@ -291,6 +291,7 @@ namespace PurplePen
             }
 
             mapDisplay.OcadOverprintEffect = (eventDB != null && eventDB.GetEvent().courseAppearance.useOcadOverprint);
+            mapDisplay.OverprintBlendMode = (eventDB != null) ? eventDB.GetEvent().courseAppearance.overprintBlendMode : BlendMode.Darken;
 
             checkForMissingFonts = true;          // Warn about missing fonts once for this map.
             checkForUnrenderableObjects = true;   // warn about non-renderable objects.
@@ -1505,6 +1506,45 @@ namespace PurplePen
 
             CoursePdf coursePdf = new CoursePdf(eventDB, symbolDB, this, mapDisplay.CloneToFullIntensity(), coursePdfSettings, GetCourseAppearance());
             return coursePdf.OverwrittenFiles();
+        }
+
+        // Create SVG files of courses, one page to a file. Returns false if an error occurred, which it reports.
+        public bool CreateCourseSvgs(CourseSvgSettings courseSvgSettings)
+        {
+            SetOutputDirectory(courseSvgSettings);
+
+            bool success = HandleExceptions(
+                delegate {
+                    MapDisplay clonedMapDisplay = mapDisplay.CloneToFullIntensity();
+
+                    CourseAppearance courseAppearance = GetCourseAppearance();
+                    CourseSvg courseSvg = new CourseSvg(eventDB, symbolDB, this, clonedMapDisplay, courseSvgSettings, courseAppearance);
+                    courseSvg.CreateSvgs();
+                },
+                MiscText.CannotCreateSvgs);
+
+            return success;
+        }
+
+        // Get the list of files that creating SVG files would overwrite.
+        public List<string> OverwritingSvgFiles(CourseSvgSettings courseSvgSettings)
+        {
+            SetOutputDirectory(courseSvgSettings);
+
+            CourseSvg courseSvg = new CourseSvg(eventDB, symbolDB, this, mapDisplay.CloneToFullIntensity(), courseSvgSettings, GetCourseAppearance());
+            return courseSvg.OverwrittenFiles();
+        }
+
+        // Set the outputDirectory field of CourseSvgSettings.
+        private void SetOutputDirectory(CourseSvgSettings courseSvgSettings)
+        {
+            // Process the fileDirectory and mapDirectory fields.
+            if (courseSvgSettings.fileDirectory) {
+                courseSvgSettings.outputDirectory = Path.GetDirectoryName(FileName);
+            }
+            else if (courseSvgSettings.mapDirectory) {
+                courseSvgSettings.outputDirectory = Path.GetDirectoryName(MapFileName);
+            }
         }
 
         // Set the outputDirectory field of OcadCreationSettings.
@@ -3542,6 +3582,11 @@ namespace PurplePen
 
         public bool OcadOverprintEffect {
             get { return GetCourseAppearance().useOcadOverprint; }
+        }
+
+        // How overprinted colors blend: those of the OCAD map, and the purple when it blends.
+        public BlendMode OverprintBlendMode {
+            get { return GetCourseAppearance().overprintBlendMode; }
         }
 
         // Map layer of lower purple if using upper/lower purple blending method.

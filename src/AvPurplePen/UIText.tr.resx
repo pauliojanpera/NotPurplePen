@@ -993,6 +993,15 @@ ANCAK BUNLARLA SINIRLI OLMAKSIZIN, YAZILIMIN BELİRLİ BİR AMACA UYGUN SATILAB�
   <data name="CourseAppearanceDialog_checkBoxOverprint_Text" xml:space="preserve">
     <value>"Üst baskı" olarak işaretlenmiş renkler için üst baskı efektini kullanın</value>
   </data>
+  <data name="CourseAppearanceDialog_labelBlendMode_Text" xml:space="preserve">
+    <value>Harmanlama modu:</value>
+  </data>
+  <data name="CourseAppearanceDialog_comboBoxBlendMode_Items" xml:space="preserve">
+    <value>Koyulaştır</value>
+  </data>
+  <data name="CourseAppearanceDialog_comboBoxBlendMode_Items1" xml:space="preserve">
+    <value>Çarp</value>
+  </data>
   <data name="CourseAppearanceDialog_groupBoxOcadMap_Text" xml:space="preserve">
     <value>Gelişmiş</value>
   </data>
@@ -3660,5 +3669,38 @@ Yarışma haritalarını yazdırmak için kursların OCAD dosyalarına aktarılm
   </data>
   <data name="NewEventWizard_finishButton_Text" xml:space="preserve">
     <value>_Bitiş</value>
+  </data>
+  <data name="MainFrame_createSvgFilesMenu_Text" xml:space="preserve">
+    <value>S_VG Dosyaları Oluştur...</value>
+  </data>
+  <data name="CreateSvgCourses_Text" xml:space="preserve">
+    <value>SVG Dosyaları Oluştur</value>
+  </data>
+  <data name="CreateSvgCourses_specialOptionsGroupBox_Text" xml:space="preserve">
+    <value>Özel ayarlar</value>
+  </data>
+  <data name="CreateSvgCourses_bitmapsLabel_Text" xml:space="preserve">
+    <value>Haritadaki bitmapler:</value>
+  </data>
+  <data name="CreateSvgCourses_comboBoxBitmaps_Items" xml:space="preserve">
+    <value>Her dosyaya göm</value>
+  </data>
+  <data name="CreateSvgCourses_comboBoxBitmaps_Items1" xml:space="preserve">
+    <value>Her dosyanın yanına kaydet</value>
+  </data>
+  <data name="CreateSvgCourses_comboBoxBitmaps_Items2" xml:space="preserve">
+    <value>Dahil etme</value>
+  </data>
+  <data name="CreateSvgCourses_jpegQualityLabel_Text" xml:space="preserve">
+    <value>JPEG kalitesi:</value>
+  </data>
+  <data name="CreateSvgCourses_checkBoxCompress_Text" xml:space="preserve">
+    <value>Dosyaları sıkıştır (.svgz)</value>
+  </data>
+  <data name="CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text" xml:space="preserve">
+    <value>Alan desenlerini ayrı şekiller olarak çiz</value>
+  </data>
+  <data name="CreateSvgCourses_folderBrowserDialog_Description" xml:space="preserve">
+    <value>SVG dosyaları için bir klasör seçin</value>
   </data>
 </root>

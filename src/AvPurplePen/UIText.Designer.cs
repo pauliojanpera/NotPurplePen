@@ -1852,6 +1852,24 @@ namespace AvPurplePen {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Darken.
+        /// </summary>
+        public static string CourseAppearanceDialog_comboBoxBlendMode_Items {
+            get {
+                return ResourceManager.GetString("CourseAppearanceDialog_comboBoxBlendMode_Items", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Multiply.
+        /// </summary>
+        public static string CourseAppearanceDialog_comboBoxBlendMode_Items1 {
+            get {
+                return ResourceManager.GetString("CourseAppearanceDialog_comboBoxBlendMode_Items1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to None.
         /// </summary>
         public static string CourseAppearanceDialog_comboBoxBlendPurple_Items {
@@ -2118,6 +2136,15 @@ namespace AvPurplePen {
         public static string CourseAppearanceDialog_labelAutoGapSize_Text {
             get {
                 return ResourceManager.GetString("CourseAppearanceDialog_labelAutoGapSize_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Blend mode:.
+        /// </summary>
+        public static string CourseAppearanceDialog_labelBlendMode_Text {
+            get {
+                return ResourceManager.GetString("CourseAppearanceDialog_labelBlendMode_Text", resourceCulture);
             }
         }
         
@@ -3407,7 +3434,25 @@ namespace AvPurplePen {
                 return ResourceManager.GetString("CreateRouteGadget_Text", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Select a folder for the SVG files.
+        /// </summary>
+        public static string CreateSvgCourses_folderBrowserDialog_Description {
+            get {
+                return ResourceManager.GetString("CreateSvgCourses_folderBrowserDialog_Description", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Special options.
+        /// </summary>
+        public static string CreateSvgCourses_specialOptionsGroupBox_Text {
+            get {
+                return ResourceManager.GetString("CreateSvgCourses_specialOptionsGroupBox_Text", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Change text....
         /// </summary>
