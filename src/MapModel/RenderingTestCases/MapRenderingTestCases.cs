@@ -1,3 +1,4 @@
+using PurplePen.Graphics2D;
 using static RenderingTestCases.MapRenderingCheck;
 
 namespace RenderingTestCases
@@ -211,6 +212,7 @@ namespace RenderingTestCases
             Test("NorthArrowEnds", Check("MagNorthArrowBug.txt", false, false, 11, 12)),
             Test("DifferentNewlineTypes", Check("differentnewlinetypes.txt", false, false, 7, 7)),
             Test("Overprinting", CheckOverprinted("ocad11overprinting.txt", true, true, 6, 12)),
+            Test("OverprintingMultiply", CheckOverprinted("ocad11multiply.txt", true, true, 6, 12, BlendMode.Multiply)),
             Test("KernTextOutline", Check("kern_text_outline.txt", false, true, 7, 12)),
             Test("MultiSymOnDash", Check("multisymonedash.txt", false, true, 12, 12)),
             Test("DashMin", Check("dashmin.txt", false, true, 8, 12)),

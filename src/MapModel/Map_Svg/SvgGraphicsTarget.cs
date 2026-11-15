@@ -646,15 +646,27 @@ namespace PurplePen.MapModel
             Close(Opener.PushAntiAliasing, nameof(PopAntiAliasing));
         }
 
-        // Blend what is drawn until the matching PopBlending with what lies below it, by darken, and return true (D-8).
-        // The map opens the blending around the run of one overprinted color, so a group blends that run as a whole.
+        // Blend what is drawn until the matching PopBlending with what lies below it, by the given mode, and return
+        // true (D-8). The map opens the blending around the drawing of one overprinted ink, so a group blends the
+        // whole of that ink, however many color runs it holds.
         public bool PushBlending(BlendMode blendMode)
         {
             RequireOpenPart(nameof(PushBlending));
-            if (blendMode != BlendMode.Darken)
-                throw new Svg_UnsupportedCallException(nameof(PushBlending), "D-8, a blending other than darken");
-            Open(Opener.PushBlending, new SvgGroup { Style = "mix-blend-mode:darken", Blends = true });
+            string mode = BlendModeName(blendMode);
+            if (mode == null)
+                throw new Svg_UnsupportedCallException(nameof(PushBlending), "D-8, a blending other than darken or multiply");
+            Open(Opener.PushBlending, new SvgGroup { Style = "mix-blend-mode:" + mode, Blends = true });
             return true;
+        }
+
+        // The name that CSS gives a blend mode, or null for a mode that the target does not write.
+        private static string BlendModeName(BlendMode blendMode)
+        {
+            switch (blendMode) {
+                case BlendMode.Darken: return "darken";
+                case BlendMode.Multiply: return "multiply";
+                default: return null;
+            }
         }
 
         // End the blending of the last PushBlending.
