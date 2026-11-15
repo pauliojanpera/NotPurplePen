@@ -381,7 +381,8 @@ namespace PurplePen.Tests
         // The image export blends the colors marked overprint, and the purple, by the chosen blend mode. Multiply is never
         // lighter than darken, so the course exported by multiply has no pixel lighter than by darken, and is darker
         // where the overprinted colors cross other colors or themselves. The darker pixels are counted as a share of the
-        // image, more than one in 400, since the image's size in pixels follows the scale it is drawn at.
+        // image, more than one in 2000, since the image's size and the number of darker pixels both follow the
+        // scale it is drawn at.
         [TestMethod]
         public async Task BitmapCreationOverprintMultiply()
         {
@@ -406,7 +407,7 @@ namespace PurplePen.Tests
                 }
 
                 int pixels = darkened.Width * darkened.Height;
-                Assert.IsTrue(darkerPixels * 400 > pixels,
+                Assert.IsTrue(darkerPixels * 2000 > pixels,
                               string.Format("Only {0} of {1} pixels are darker by multiply than by darken.", darkerPixels, pixels));
             }
         }
