@@ -140,7 +140,7 @@ namespace TestingUtils
                 bmNew.Dispose();
             }
 
-            if (fail)
+            if (fail && !TestUtil.CollectDifferences)
                 Assert.Fail($"Bitmap compare against baseline file '{Path.GetFileName(baselineFile)}' failed");
         }
 
