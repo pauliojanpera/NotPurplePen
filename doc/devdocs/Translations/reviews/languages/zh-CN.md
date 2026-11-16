@@ -28,6 +28,20 @@ Made by claude-opus-5-5, effort max.
 | `MainFrame_addFinishMenu_Text` | _Finish | 终点(_F)<br>(corrects: 完成(_F)) | the item adds the finish circle of the course; 完成 is "complete"; the finish is 终点, as the language's 起点 (the term Finish (of a course)) |  |
 | `MainFrame_addMapFlipMenuItem_Text` | Map _Flip at Control Point | 在检查点将地图翻面(_F)<br>(corrects: 在这个检查点进行地图切换（_F）) | 地图切换 (switching maps) is the map exchange; the flip is 翻面 (the term Add Map Flip, 添加地图翻面) |  |
 | `MainFrame_addTextLineMenu_Text` | Text _Line... | 文本行(_L)...<br>(corrects: 添加文本和线) | 添加文本和线 is "add text and line"; the item adds a line of text (the term Text line) |  |
+| `MainFrame_addConstructionMenu_Text` | Temporary Construction | 临时建筑 | item of the Add menu of the main window, without an access key as the English: the special item of the ISSprOM, a temporary construction or closed area; the term Temporary Construction |  |
+| `MainFrame_constructionToolStripMenuItem_Text` | Temporary Construction | 临时建筑 | item of the drop-down Special Item of the toolbar, without an access key as the English; the same text as the item of the Add menu: the special item of the ISSprOM, a temporary construction or closed area; the term Temporary Construction |  |
+| `MainFrame_addDangerousMenu_Text` | Dangerous Area | 危险区域<br>(corrects: 危险路段) | 路段 is a section of a road; the item is an area (the term Dangerous Area), as zh-TW 危險區域 |  |
+| `MainFrame_dangerousToolStripMenuItem_Text` | Dangerous Area | 危险区域<br>(corrects: 危险路段) | 路段 is a section of a road; the item is an area (the term Dangerous Area), as zh-TW 危險區域 |  |
+| `MainFrame_addForbiddenMenu_Text` | Forbidden Route Marking | 禁止路线标记<br>(corrects: 禁止的路标) | 路标 is a signpost; the item marks a forbidden route (the term Forbidden Route Marking) |  |
+| `MainFrame_forbiddenRouteMarkingToolStripMenuItem_Text` | Forbidden Route Marking | 禁止路线标记<br>(corrects: 禁止的路标) | 路标 is a signpost; the item marks a forbidden route (the term Forbidden Route Marking) |  |
+| `MainFrame_addRegMarkMenu_Text` | Registration Mark | 套印标记<br>(corrects: 注册标记) | 注册 is a registration, as of a user; the mark that aligns a print is 套印标记 (the term Registration Mark), as zh-TW |  |
+| `MainFrame_registrationMarkToolStripMenuItem_Text` | Registration Mark | 套印标记<br>(corrects: 注册标记) | 注册 is a registration, as of a user; the mark that aligns a print is 套印标记 (the term Registration Mark), as zh-TW |  |
+| `MainFrame_whiteOutMenu_Text` | White Out Area | 白色区域<br>(corrects: 白色外部区域) | 外部 means outer; the item is a white area (the term White Out Area) |  |
+| `MainFrame_whiteOutToolStripMenuItem_Text` | White Out Area | 白色区域<br>(corrects: 白色外部区域) | 外部 means outer; the item is a white area (the term White Out Area) |  |
+| `MainFrame_addLineMenu_Text` | Line | 线条<br>(corrects: 直线) | 直线 is a straight line, and the item draws a line of several segments (the term Line (drawn)), as the language's "添加线条" |  |
+| `MainFrame_lineToolStripMenuItem_Text` | Line | 线条<br>(corrects: 直线) | 直线 is a straight line, and the item draws a line of several segments (the term Line (drawn)), as the language's "添加线条" |  |
+| `MainFrame_addMenu_Text` | _Add | 添加(_A)<br>(corrects: 添加 (_A)...) | the ellipsis marks an item that opens a dialog, and a menu of the menu bar opens none; the access key is written as in the language's other menus ("文件(_F)", "帮助(_H)") |  |
+| `MainFrame_punchPatternsMenu_Text` | _Punch Patterns... | 机械打卡器针脚排列(_P)...<br>(corrects: _机械打卡器针脚排列...) | the access key stood on the Chinese character 机, which no key can type; the language writes it after the text, "(_P)", as its other items |  |
 | `PrintDescriptions_layoutGroup_Text` | Appearance | 外观<br>(corrects: 界面) | 界面 is the user interface; the appearance is 外观, as zh-TW 外觀 (the term Appearance) |  |
 | `PrintDescriptions_marginChange_Text` | Change Margins... | 更改页边距…<br>(corrects: 变化率…) | 变化率 is a rate of change; the button changes the page margins (the term Change Margins) |  |
 | `PrintDescriptions_marginsLabel_Text` | Margins: | 页边距：<br>(corrects: 利润率：) | 利润率 is a profit margin; the margins of the page are 页边距 (the term Margins) |  |

@@ -103,46 +103,12 @@ UIText	MiscText_FinishButtonText	_Finish
 UIText	MiscText_MapIssue_Long	Timed Start		
 UIText	MiscText_MapIssue_Medium	Timed Start		
 UIText	SelectionDescriptionText_SpecialName_OptCrossing	Optional Crossing Point		
-UIText	MainFrame_addDangerousMenu_Text	Dangerous Area		
-UIText	MainFrame_dangerousToolStripMenuItem_Text	Dangerous Area		
 UIText	SelectionDescriptionText_SpecialName_Dangerous	Dangerous Area		
-UIText	MainFrame_addConstructionMenu_Text	Temporary Construction		
-UIText	MainFrame_constructionToolStripMenuItem_Text	Temporary Construction		
-UIText	MainFrame_addWaterMenu_Text	Water Location		
-UIText	MainFrame_waterLocationToolStripMenuItem_Text	Water Location		
 UIText	SelectionDescriptionText_SpecialName_Water	Water Location		
-UIText	MainFrame_addFirstAidMenu_Text	First Aid Location		
-UIText	MainFrame_firstAidLocationToolStripMenuItem_Text	First Aid Location		
 UIText	SelectionDescriptionText_SpecialName_FirstAid	First Aid Location		
-UIText	MainFrame_addForbiddenMenu_Text	Forbidden Route Marking		
-UIText	MainFrame_forbiddenRouteMarkingToolStripMenuItem_Text	Forbidden Route Marking		
-UIText	MainFrame_addBoundaryMenu_Text	Uncrossable Boundary		
-UIText	MainFrame_boundaryToolStripMenuItem_Text	Uncrossable Boundary		
 UIText	SelectionDescriptionText_SpecialName_Boundary	Uncrossable Boundary		
-UIText	MainFrame_addRegMarkMenu_Text	Registration Mark		
-UIText	MainFrame_registrationMarkToolStripMenuItem_Text	Registration Mark		
 UIText	SelectionDescriptionText_SpecialName_RegMark	Registration Mark		
-UIText	MainFrame_whiteOutMenu_Text	White Out Area		
-UIText	MainFrame_whiteOutToolStripMenuItem_Text	White Out Area		
 UIText	SelectionDescriptionText_SpecialName_WhiteOut	White Out Area		
-UIText	MainFrame_addEllipseMenu_Text	Ellipse		
-UIText	MainFrame_ellipseToolStripMenuItem_Text	Ellipse		
-UIText	MainFrame_addMenu_Text	_Add		
-UIText	MainFrame_changeMapFileMenu_Text	_Map File...		
-UIText	MainFrame_changeCodesMenu_Text	Change Control _Codes...		
-UIText	MainFrame_autoNumberingMenu_Text	Automatic _Numbering...		
-UIText	MainFrame_removeUnusedControlsMenu_Text	Remove _Unused Controls...		
-UIText	MainFrame_moveAllControlsMenu_Text	Mo_ve All Controls...		
-UIText	MainFrame_punchPatternsMenu_Text	_Punch Patterns...		
-UIText	MainFrame_descriptionStd2004Menu_Text	2004 Description Standard		
-UIText	MainFrame_descriptionStd2018Menu_Text	2018/2024 Description Standard		
-UIText	MainFrame_mapStd2000Menu_Text	ISOM2000 Map Standard		
-UIText	MainFrame_mapStd2017Menu_Text	ISOM2017 Map Standard		
-UIText	MainFrame_mapStdSpr2019Menu_Text	ISSprOM 2019 Map Standard		
-UIText	MainFrame_iOFStandardsToolStripMenuItem_Text	IOF _Standards		
-UIText	MainFrame_customizeDescriptionsMenu_Text	Customize _Description Text...		
-UIText	MainFrame_customizeCourseAppearanceMenu_Text	Customize _Appearance...		
-UIText	MainFrame_eventMenu_Text	Eve_nt		
 UIText	MainFrame_addCourseMenu_Text	_Add Course...		
 UIText	MainFrame_deleteCourseMenu_Text	_Delete Course		
 UIText	MainFrame_duplicateCourseMenu_Text	D_uplicate Course...		

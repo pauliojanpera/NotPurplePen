@@ -30,12 +30,6 @@ UIText	CourseAppearanceDialog_labelBlendPurple_Text	Blend purple with underlying
 UIText	CourseAppearanceDialog_groupBoxOcadMap_Text	Advanced		
 UIText	CreateKmlFiles_Text	Create KML File		
 UIText	CreatePdfCourses_folderBrowserDialog_Description	Select a folder for the PDF files		
-UIText	MainFrame_addConstructionMenu_Text	Temporary Construction		
-UIText	MainFrame_constructionToolStripMenuItem_Text	Temporary Construction		
-UIText	MainFrame_addEllipseMenu_Text	Ellipse		
-UIText	MainFrame_ellipseToolStripMenuItem_Text	Ellipse		
-UIText	MainFrame_moveAllControlsMenu_Text	Mo_ve All Controls...		
-UIText	MainFrame_mapStdSpr2019Menu_Text	ISSprOM 2019 Map Standard		
 UIText	MainFrame_stretchMenu_Text	_Stretch		
 UIText	MainFrame_missingTranslationsMenuItem_Text	Missing Description Translations		
 UIText	MainFrame_mapFlipMenuItem_Text	Map Flip at Control Point		

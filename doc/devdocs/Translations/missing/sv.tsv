@@ -19,8 +19,6 @@ UIText	CourseAppearanceDialog_labelChooseLayer_Text	Above map layer:
 UIText	CourseAppearanceDialog_comboBoxBlendPurple_Items1	Blend		
 UIText	CourseAppearanceDialog_comboBoxBlendPurple_Items2	Layer		
 UIText	CourseAppearanceDialog_labelBlendPurple_Text	Blend purple with underlying map colors:		
-UIText	MainFrame_addConstructionMenu_Text	Temporary Construction		
-UIText	MainFrame_constructionToolStripMenuItem_Text	Temporary Construction		
 UIText	MiscText_LowerPurple	Lower Purple		
 UIText	NewEventPaperSize_labelTitle_Text	Paper Size		
 UIText	NewEventPaperSize_newEventPaperSizeLabel_Text	Enter the size and orientation of the paper that you will use to print your map.		

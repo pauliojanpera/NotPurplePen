@@ -18,9 +18,6 @@ UIText	MapIssueChoiceDialog_startTriangleButton_TitleText	Map Issue at the Start
 UIText	MapIssueChoiceDialog_startTriangleButton_DetailText	The map is issued at the start triangle (where navigation begins).		
 UIText	CreateRouteGadget_labelIofXml_Text	IOF XML Version:		
 UIText	LegAssignmentsDialog_labelDescription_Text	To assign a specific leg to a specific branch, type the leg number(s) below. Legs not assigned to a branch will be distributed among remaining branches randomly.		
-UIText	MainFrame_descriptionStd2004Menu_Text	2004 Description Standard		
-UIText	MainFrame_descriptionStd2018Menu_Text	2018/2024 Description Standard		
-UIText	MainFrame_mapStdSpr2019Menu_Text	ISSprOM 2019 Map Standard		
 UIText	MainFrame_stretchMenu_Text	_Stretch		
 UIText	MiscText_BadLegNumber	'{0}' is not a valid leg number for branch '{1}'		
 UIText	MiscText_LegNotAssigned	Leg {0} should be assigned to one of branches {1}		

@@ -37,6 +37,10 @@ Made by claude-opus-5-5, effort max.
 | `MainFrame_addTextLineMenu_Text` | Text _Line... | Metin _Satırı...<br>(corrects: Metin _Çizgi...) | "Çizgi" is a drawn line; the item adds a line of text (the term Text line) |  |
 | `MainFrame_addMapIssueMenu_Text` | Timed Start | Zamanlı Start<br>(corrects: Zamanlayıcı Başlatma) | "Zamanlayıcı Başlatma" means starting a timer (the term Timed Start) |  |
 | `MainFrame_mapIssuePointToolStripMenuItem_Text` | Timed Start | Zamanlı Start<br>(corrects: Zamanlayıcı Başlatma) | "Zamanlayıcı Başlatma" means starting a timer (the term Timed Start) |  |
+| `MainFrame_whiteOutMenu_Text` | White Out Area | Beyaz Alan<br>(corrects: Beyaz Dış Alan) | "Dış" means outer; the item is a white area (the term White Out Area) |  |
+| `MainFrame_whiteOutToolStripMenuItem_Text` | White Out Area | Beyaz Alan<br>(corrects: Beyaz Dış Alan) | "Dış" means outer; the item is a white area (the term White Out Area) |  |
+| `MainFrame_descriptionStd2004Menu_Text` | 2004 Description Standard | 2004 Açıklama Standardı<br>(corrects: 2004 Tanım Satandardı) | the typo "Satandardı", and "tanım" is a definition; the language's descriptions are "açıklamalar" (the term 2004 Description Standard) |  |
+| `MainFrame_descriptionStd2018Menu_Text` | 2018/2024 Description Standard | 2018/2024 Açıklama Standardı<br>(corrects: 2018/2024 Tanım Satandardı) | the typo "Satandardı", and "tanım" is a definition; the language's descriptions are "açıklamalar" (the term 2018/2024 Description Standard) |  |
 | `MissingFonts_Text` | Missing Fonts | Eksik Fontlar<br>(corrects: Eksik Fontları Yoksay) | "Eksik Fontları Yoksay" is Ignore Missing Fonts; the dialog only shows them (the term Missing Fonts) |  |
 | `PrintDescriptions_orientation_Text` | Landscape | Yatay<br>(corrects: Düzenlemek) | "Düzenlemek" is to arrange; the page orientation is "yatay" (the term Landscape) |  |
 | `PrintDescriptions_paperSize_Text` | Tabloid (11"x17") | Tabloid (11"x17")<br>(corrects: Tablet (11"x17")) | "Tablet" is a tablet; the paper size is Tabloid (the term Tabloid (11"x17")) |  |

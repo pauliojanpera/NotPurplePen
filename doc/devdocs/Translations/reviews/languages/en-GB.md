@@ -9,6 +9,8 @@ Made by claude-opus-5-5, effort max.
 | Key | English | Translation | Context that decided it | Mirrors |
 | --- | --- | --- | --- | --- |
 | `EnterSymbolText_defaultCaseText` | (unchanged) | (not needed) | en-GB writes it as the English does |  |
+| `MainFrame_addFirstAidMenu_Text` | First Aid Location | First Aid Post<br>(corrects: First Aid Posy) | the typo "Posy"; the language names the special items by the IOF ("Refreshment Point"), and the IOF name is "First aid post"; terms.csv is corrected with the group |  |
+| `MainFrame_firstAidLocationToolStripMenuItem_Text` | First Aid Location | First Aid Post<br>(corrects: First Aid Posy) | the typo "Posy"; the language names the special items by the IOF ("Refreshment Point"), and the IOF name is "First aid post"; terms.csv is corrected with the group |  |
 | `IncrementButton` | Increment | (not needed) | en-GB writes it as the English does |  |
 | `DecrementButton` | Decrement | (not needed) | en-GB writes it as the English does |  |
 | `CounterLabel` | Counter: {0} | (not needed) | en-GB writes it as the English does |  |
