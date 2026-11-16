@@ -55,7 +55,7 @@ The numbers are of Nov 16.
 2. **The faults.** Task 9's first branch (handover): "Include:" and its items, the faults that task 4 found, and the
    errors that `check.py` reports. Done on Nov 16 (1de84f81); the review is [reviews/phase-2.md](reviews/phase-2.md).
 Before phase 3, a session settles the terms of the translated languages in `terms.csv`, as [Terms.md](Terms.md) tells
-(@Pauli, Nov 16).
+(@Pauli, Nov 16). Done on Nov 16 (da1c124, 2db834c).
 
 3. **The key groups** (@Pauli, Nov 16). The translation goes key group by key group, each for all 26 translated
    languages at once, so that each key is translated with all its translations in view. A group is a dialog of
@@ -119,6 +119,12 @@ The session of [Terms.md](Terms.md) settles the file before the languages are tr
 of a term, one translation in each cell of a translated language, and each decision recorded in
 `terms-decisions.tsv` with the language model that made it. From then on `terms.csv` is kept by hand, and `terms.py`
 writes a fresh extraction only to another file, to find new terms.
+
+The session settled the file on Nov 16 (da1c124, 2db834c): 505 lines, with one translation in each cell of the 26
+translated languages. It split 8 terms by sense into 17 lines. It took out 34 lines that are not terms of the
+application: tooltips with a shortcut, items of the hidden Debug menu, filters of file dialogs, messages and
+fragments. A packet shows each term of a key with its sense, for example `Leg (between two controls)` and
+`Leg (of a relay)`.
 
 ## Who made a translation
 
