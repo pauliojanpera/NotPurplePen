@@ -597,7 +597,7 @@ jobs:
         for attempt in 1 2 3 4 5; do
             before=$(git ls-remote "$remote" gh-pages | cut -f1)
 
-            rm -rf published site gallery
+            rm -rf published site gallery translation-log
             if [ -n "$before" ]; then
                 # Only catalog.json is read from what is published, so the
                 # clone takes the top-level files and leaves the rest of the
@@ -621,6 +621,16 @@ jobs:
                 git clone --quiet --depth 1 --branch svg-gallery "$remote" gallery
                 mkdir site/svg
                 git -C gallery archive HEAD | tar -x -C site/svg
+            fi
+
+            # The translation work's logbook is kept on the branch
+            # translation-log and served under translations/ in the same way
+            # (doc/devdocs/Translations/publish-logbook.sh).
+            log_commit=$(git ls-remote "$remote" translation-log | cut -f1)
+            if [ -n "$log_commit" ]; then
+                git clone --quiet --depth 1 --branch translation-log "$remote" translation-log
+                mkdir site/translations
+                git -C translation-log archive HEAD | tar -x -C site/translations
             fi
 
             git -C site init --quiet --initial-branch gh-pages
