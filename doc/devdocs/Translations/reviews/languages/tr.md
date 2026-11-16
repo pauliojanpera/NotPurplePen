@@ -16,6 +16,8 @@ Made by claude-opus-5-5, effort max.
 | `AddCourse_courseKindCombo_Items1` | Score Course | Puanlı Parkur<br>(corrects: Parkur Puanı) | "Parkur Puanı" is the score of a course (the term Score Course) |  |
 | `AllControlsProperties_descriptionAppearanceLabel_Text` | Description appearance: | Açıklama görünümü:<br>(corrects: Görüntü açıklaması:) | "Görüntü açıklaması" means the description of an image; the term Description appearance |  |
 | `AllControlsProperties_Text` | All Controls Properties | Tüm Kontrol Noktalarının Özellikleri<br>(corrects: Tüm Kontrol Noktaların  Özellikleri) | the genitive of "kontrol noktaları" is "noktalarının"; a double space (terms.csv now gives it) |  |
+| `ChangeText_variationMenuItem_Text` | Course Variation | Parkur Varyasyonu<br>(corrects: Parkur Varyansonu) | the typo "Varyansonu" (the term Course Variation) |  |
+| `ChangeText_checkBoxAutoFontSize_Text` | Automatic | Otomatik<br>(corrects: Otomarik) | the typo "Otomarik" (the term Automatic) |  |
 | `MissingFonts_Text` | Missing Fonts | Eksik Fontlar<br>(corrects: Eksik Fontları Yoksay) | "Eksik Fontları Yoksay" is Ignore Missing Fonts; the dialog only shows them (the term Missing Fonts) |  |
 | `PrintDescriptions_orientation_Text` | Landscape | Yatay<br>(corrects: Düzenlemek) | "Düzenlemek" is to arrange; the page orientation is "yatay" (the term Landscape) |  |
 | `PrintDescriptions_paperSize_Text` | Tabloid (11"x17") | Tabloid (11"x17")<br>(corrects: Tablet (11"x17")) | "Tablet" is a tablet; the paper size is Tabloid (the term Tabloid (11"x17")) |  |

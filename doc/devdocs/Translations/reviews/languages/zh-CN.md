@@ -13,6 +13,7 @@ Made by claude-opus-5-5, effort max.
 | `AddCourse_scoreColumnLabel_Text` | Show points in: | 分值显示在：<br>(corrects: 显示点：) | 点 is a point of geometry; the score is 分值 (the term Show points in); "shown in", as zh-TW 積分值顯示在 | zh-TW |
 | `AddCourse_groupBox1_Text` | Appearance | 外观<br>(corrects: 界面) | 界面 is the user interface; the appearance is 外观, as zh-TW 外觀 (the term Appearance) |  |
 | `AllControlsProperties_appearanceGroupBox_Text` | Appearance | 外观<br>(corrects: 界面) | 界面 is the user interface; the appearance is 外观, as zh-TW 外觀 (the term Appearance) |  |
+| `ChangeText_groupBox1_Text` | Appearance | 外观<br>(corrects: 界面) | 界面 is the user interface; the appearance is 外观, as zh-TW 外觀 (the term Appearance) |  |
 | `PrintDescriptions_layoutGroup_Text` | Appearance | 外观<br>(corrects: 界面) | 界面 is the user interface; the appearance is 外观, as zh-TW 外觀 (the term Appearance) |  |
 | `PrintDescriptions_marginChange_Text` | Change Margins... | 更改页边距…<br>(corrects: 变化率…) | 变化率 is a rate of change; the button changes the page margins (the term Change Margins) |  |
 | `PrintDescriptions_marginsLabel_Text` | Margins: | 页边距：<br>(corrects: 利润率：) | 利润率 is a profit margin; the margins of the page are 页边距 (the term Margins) |  |

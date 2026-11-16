@@ -9,10 +9,6 @@ UIText	AddForkDialog_Text	Add Variation
 UIText	CommandNameText_AddVariation	Add Variation		
 UIText	MainFrame_addVariationToolStripButton_Text	Add Variation		
 UIText	NewEventMapFile_openFileDialog_Filter	All map files|*.ocd;*.omap;*.xmap;*.pdf;*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif|OCAD files (*.ocd)|*.ocd|Open Orienteering Mapper Files|*.omap;*.xmap|PDF files (*.pdf)|*.pdf|Image files|*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif		
-UIText	ChangeText_variationMenuItem_Text	Course Variation		
-UIText	ChangeText_relayTeamMenuItem_Text	Relay Team		
-UIText	ChangeText_relayLegMenuItem_Text	Relay Leg		
-UIText	ChangeText_mapFileNameMenuItem_Text	Map File Name		
 UIText	CommandNameText_CreateMapFiles	Create {0} _Files		
 UIText	CommandNameText_DeleteFork	Delete Fork/Loop		
 UIText	CommandNameText_RelayTeamVariations	Relay Team Variations		

@@ -1,8 +1,5 @@
 resource	key	english	in_repo	forks_own
-UIText	ChangeText_mapFileNameMenuItem_Text	Map File Name		
-UIText	ChangeText_label3_Text	Size:		
 UIText	PrinterMargins_labelPaper_Text	Size:		
-UIText	ChangeText_checkBoxAutoFontSize_Text	Automatic		
 UIText	MiscText_AutomaticLength	Automatic		
 UIText	CommandNameText_SetLegFlagging	Change Leg Flagging		
 UIText	CommandNameText_AddMapIssue	Add Map Issue Point		

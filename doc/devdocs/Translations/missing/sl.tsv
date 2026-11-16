@@ -10,22 +10,10 @@ UIText	AddForkDialog_Text	Add Variation
 UIText	CommandNameText_AddVariation	Add Variation		
 UIText	MainFrame_addVariationToolStripButton_Text	Add Variation		
 UIText	NewEventMapFile_openFileDialog_Filter	All map files|*.ocd;*.omap;*.xmap;*.pdf;*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif|OCAD files (*.ocd)|*.ocd|Open Orienteering Mapper Files|*.omap;*.xmap|PDF files (*.pdf)|*.pdf|Image files|*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif		
-UIText	ChangeText_coursePartMenuItem_Text	Course Part		
-UIText	ChangeText_variationMenuItem_Text	Course Variation		
-UIText	ChangeText_relayTeamMenuItem_Text	Relay Team		
-UIText	ChangeText_relayLegMenuItem_Text	Relay Leg		
-UIText	ChangeText_mapFileNameMenuItem_Text	Map File Name		
-UIText	ChangeText_buttonChangeColor_Text	Change Color...		
-UIText	ChangeText_label2_Text	Color:		
 UIText	CourseAppearanceDialog_label9_Text	Color:		
 UIText	LinePropertiesDialog_label1_Text	Color:		
-UIText	ChangeText_checkBoxItalic_Text	Italic		
-UIText	ChangeText_label1_Text	Font:		
-UIText	ChangeText_label3_Text	Size:		
 UIText	PrinterMargins_labelPaper_Text	Size:		
-UIText	ChangeText_checkBoxAutoFontSize_Text	Automatic		
 UIText	MiscText_AutomaticLength	Automatic		
-UIText	ChangeText_groupBox2_Text	Sample		
 UIText	LinePropertiesDialog_groupBox1_Text	Sample		
 UIText	ColorChooserDialog_Text	Choose Color		
 UIText	CommandNameText_DeleteMapExchangeAtControl	Delete Map Exchange		

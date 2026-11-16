@@ -40,33 +40,14 @@ UIText	NewEventMapFile_labelTitle_Text	Map File
 UIText	ChangeSpecialCourses_changeDisplayedCoursesLabel_Text	Choose the courses that this object will be displayed on:		
 UIText	ChangeSpecialCourses_Text	Change Displayed Courses		
 UIText	CommandNameText_ChangeDisplayedCourses	Change Displayed Courses		
-UIText	ChangeText_eventTitleMenuItem_Text	Event Title		
 UIText	NewEventTitle_labelTitle_Text	Event Title		
-UIText	ChangeText_courseNameMenuItem_Text	Course Name		
 UIText	CourseLoad_CourseName_HeaderText	Course Name		
 UIText	SelectionDescriptionText_SpecialName_CourseName	Course Name		
-UIText	ChangeText_coursePartMenuItem_Text	Course Part		
-UIText	ChangeText_variationMenuItem_Text	Course Variation		
-UIText	ChangeText_courseLengthMenuItem_Text	Course Length		
-UIText	ChangeText_courseClimbMenuItem_Text	Course Climb		
-UIText	ChangeText_classListMenuItem_Text	Class List		
-UIText	ChangeText_printScaleMenuItem_Text	Print Scale		
 UIText	NewEventPrintScale_labelTitle_Text	Print Scale		
-UIText	ChangeText_relayTeamMenuItem_Text	Relay Team		
-UIText	ChangeText_relayLegMenuItem_Text	Relay Leg		
-UIText	ChangeText_fileNameMenuItem_Text	File Name		
 UIText	CreateRouteGadget_nameGroupBox_Text	File Name		
-UIText	ChangeText_mapFileNameMenuItem_Text	Map File Name		
-UIText	ChangeText_buttonChangeColor_Text	Change Color...		
-UIText	ChangeText_label2_Text	Color:		
 UIText	CourseAppearanceDialog_label9_Text	Color:		
 UIText	LinePropertiesDialog_label1_Text	Color:		
-UIText	ChangeText_checkBoxItalic_Text	Italic		
-UIText	ChangeText_checkBoxBold_Text	Bold		
-UIText	ChangeText_label1_Text	Font:		
-UIText	ChangeText_label3_Text	Size:		
 UIText	PrinterMargins_labelPaper_Text	Size:		
-UIText	ChangeText_labelFontSizeMm_Text	mm		
 UIText	CourseAppearanceDialog_label12_Text	mm		
 UIText	CourseAppearanceDialog_label10_Text	mm		
 UIText	CourseAppearanceDialog_label8_Text	mm		
@@ -78,11 +59,8 @@ UIText	LinePropertiesDialog_labelGapSizeMm_Text	mm
 UIText	LinePropertiesDialog_labelDashSizeMm_Text	mm		
 UIText	LinePropertiesDialog_labelRadiusMm_Text	mm		
 UIText	PrintPunches_mmSuffixLabel_Text	mm		
-UIText	ChangeText_checkBoxAutoFontSize_Text	Automatic		
 UIText	MiscText_AutomaticLength	Automatic		
-UIText	ChangeText_groupBox2_Text	Sample		
 UIText	LinePropertiesDialog_groupBox1_Text	Sample		
-UIText	ChangeText_insertSpecialButton_Text	Insert Special Text		
 UIText	ColorChooserDialog_label5_Text	Black:		
 UIText	CourseAppearanceDialog_label5_Text	Black:		
 UIText	ColorChooserDialog_label6_Text	Yellow:		

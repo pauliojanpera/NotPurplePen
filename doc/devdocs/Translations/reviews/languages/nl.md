@@ -11,6 +11,9 @@ Made by claude-opus-5-5, effort max.
 | `AboutForm_licenseButton_Text` | View Full License | Bekijk de volledige licentie<br>(corrects: Bekijke de volledige licentie) | the typo "Bekijke"; the term View Full License |  |
 | `AddCourse_labelKindCombo_Items5` | Score (30) | (not needed) | last item of the combo box Control circle labels of a score course; the term Score (30) is the English, as the language's "Volgorde en score" |  |
 | `AddCourse_hideFromReportsCheckBox_Text` | Do not include in reports | Niet opnemen in rapporten | check box under the length in the New Course dialog: the course is left out of the reports; the term Reports |  |
+| `ChangeText_mapFileNameMenuItem_Text` | Map File Name | Kaartbestandsnaam | item of the menu of the button Insert Special Text in the Text Properties dialog: inserts the macro of the name of the map file; the term Map File Name |  |
+| `ChangeText_label3_Text` | Size: | Grootte: | label of the font size in mm; the term Size, with the colon of a label |  |
+| `ChangeText_checkBoxAutoFontSize_Text` | Automatic | Automatisch | check box after the font size: the size is set automatically, and the size box is disabled; the term Automatic |  |
 | `InitialScreen_openLastRadioButton_Text` | Open last viewed event | Open laatst bekeken evenement | third choice of the window that opens at start (InitialScreenWindow, 335 px wide, one line); the terms Open and Event | InitialScreen_createNewRadioButton_Text |
 | `InitialScreen_openSampleRadioButton_Text` | Open a sample event | Open een voorbeeldevenement | fourth choice of the start window; the terms Open, Sample and Event |  |
 | `InitialScreen_openExistingRadioButton_Text` | Open an existing event... | Open een bestaand evenement... | second choice of the start window; the terms Open and Event, with the ellipsis of a choice that opens a file dialog |  |

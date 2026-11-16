@@ -13,6 +13,7 @@ Made by claude-opus-5-5, effort max.
 | `AddCourse_labelKindCombo_Items5` | Score (30) | Pontérték (30) | last item of the combo box Control circle labels of a score course: the points alone; the term Score (30) |  |
 | `AddCourse_hideFromReportsCheckBox_Text` | Do not include in reports | Ne szerepeljen a jelentésekben | check box under the length in the New Course dialog: the course is left out of the reports; the term Reports |  |
 | `AddCourse_secondaryTitleGroup_Text` | Class list / Secondary title | Kategórialista / Másodlagos cím<br>(corrects: Osztály lista / Másodlagos cím) | Hungarian orienteering calls a class "kategória"; "osztály" is a school class (the term Class List) |  |
+| `ChangeText_classListMenuItem_Text` | Class List | Kategórialista<br>(corrects: Osztálylista) | Hungarian orienteering calls a class "kategória"; "osztály" is a school class (the term Class List) |  |
 | `InitialScreen_Text` | Welcome to Purple Pen | Üdvözöljük a Purple Pen-ben<br>(corrects: Üdözöljük a Purple Pen-ben) | the typo "Üdözöljük" |  |
 | `LicenseForm_Text` | Purple Pen License | Purple Pen licenc<br>(corrects: Purple Pen licensz) | the Hungarian spelling is "licenc", as the term Purple Pen License |  |
 | `LicenseForm_bsdLicenseLinkLabel_Text` | Purple Pen is provided under a "BSD" style license. | A Purple Pen "BSD" stílusú licenc alatt közzétéve.<br>(corrects: A Purple Pen  "BSD" stílusú licensz alatt közzétéve.) | the Hungarian spelling is "licenc", and a double space; nothing else changes |  |
