@@ -1264,6 +1264,14 @@
     <value>Welkom bij Purple Pen</value>
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
+  <data name="LicenseForm_bsdLicenseLinkLabel_Text" xml:space="preserve">
+    <value>Purple Pen wordt aangeboden onder een "BSD"-achtige licentie.</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="LicenseForm_Text" xml:space="preserve">
+    <value>Licentie van Purple Pen</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="LinePropertiesDialog_buttonChangeColor_Text" xml:space="preserve">
     <value> Wijzig kleur...</value>
   </data>

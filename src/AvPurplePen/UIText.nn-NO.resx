@@ -1134,7 +1134,8 @@
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="LicenseForm_bsdLicenseLinkLabel_Text" xml:space="preserve">
-    <value>Purpel Pen er utgitt under "BSD" liknande lisens.</value>
+    <value>Purple Pen er utgitt under ein "BSD"-liknande lisens.</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="LicenseForm_Text" xml:space="preserve">
     <value>Lisens for Purple Pen</value>

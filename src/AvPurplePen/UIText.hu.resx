@@ -1519,10 +1519,12 @@
     <value>Ág hozzárendelések</value>
   </data>
   <data name="LicenseForm_bsdLicenseLinkLabel_Text" xml:space="preserve">
-    <value>A Purple Pen  "BSD" stílusú licensz alatt közzétéve.</value>
+    <value>A Purple Pen "BSD" stílusú licenc alatt közzétéve.</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="LicenseForm_Text" xml:space="preserve">
-    <value>Purple Pen licensz</value>
+    <value>Purple Pen licenc</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="LinePropertiesDialog_buttonChangeColor_Text" xml:space="preserve">
     <value> Szín módosítás...</value>

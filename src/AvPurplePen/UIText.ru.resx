@@ -439,6 +439,14 @@
     <value>Добро пожаловать в Purple Pen</value>
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
+  <data name="LicenseForm_bsdLicenseLinkLabel_Text" xml:space="preserve">
+    <value>Purple Pen распространяется по лицензии типа «BSD».</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="LicenseForm_Text" xml:space="preserve">
+    <value>Лицензия Purple Pen</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="CloseButton" xml:space="preserve">
     <value>Закрыть</value>
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
