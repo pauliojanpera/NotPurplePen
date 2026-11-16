@@ -1,0 +1,2 @@
+resource	key	english	note	translator	effort	date
+UIText	AddCourse_labelKindCombo_Items5	Score (30)	last item of the combo box Control circle labels of a score course; the term Score (30) is the English, as the language's "Volgorde en score"	claude-opus-5-5	max	2026-11-16
