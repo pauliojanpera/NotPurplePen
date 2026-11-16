@@ -286,7 +286,8 @@
     <value>复制路线</value>
   </data>
   <data name="CreateMapFiles" xml:space="preserve">
-    <value>创建{0}和文件</value>
+    <value>创建 {0} 文件(&amp;F)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddVariation" xml:space="preserve">
     <value>添加分支</value>

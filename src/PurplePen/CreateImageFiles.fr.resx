@@ -186,6 +186,18 @@
   <data name="comboBoxColorModel.Items1" xml:space="preserve">
     <value>CMJN</value>
   </data>
+  <data name="comboBoxPrintBaseMap.Items" xml:space="preserve">
+    <value>Circuit et carte</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="comboBoxPrintBaseMap.Items1" xml:space="preserve">
+    <value>Circuit seul</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="labelPrintBaseMap.Text" xml:space="preserve">
+    <value>Contenu :</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="outputGroupBox.Text" xml:space="preserve">
     <value>Sortie</value>
   </data>

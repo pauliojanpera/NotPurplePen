@@ -883,6 +883,30 @@
   <data name="ReportText_EventAudit_Yes" xml:space="preserve">
     <value>Da</value>
   </data>
+  <data name="CreateImageFiles_comboBoxPrintBaseMap_Items" xml:space="preserve">
+    <value>Traseu și hartă</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreatePdfCourses_comboBoxPrintBaseMap_Items" xml:space="preserve">
+    <value>Traseu și hartă</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreateImageFiles_comboBoxPrintBaseMap_Items1" xml:space="preserve">
+    <value>Doar traseul</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreatePdfCourses_comboBoxPrintBaseMap_Items1" xml:space="preserve">
+    <value>Doar traseul</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreateImageFiles_labelPrintBaseMap_Text" xml:space="preserve">
+    <value>Conținut:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreatePdfCourses_labelPrintBaseMap_Text" xml:space="preserve">
+    <value>Conținut:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="CreateImageFiles_outputGroupBox_Text" xml:space="preserve">
     <value>Rezultat</value>
   </data>
@@ -998,7 +1022,8 @@
     <value>Dacă zona de imprimat este prea mare pentru a încăpea într-o pagină:</value>
   </data>
   <data name="CreatePdfCourses_Text" xml:space="preserve">
-    <value>Tipărire Trasee</value>
+    <value>Creare fișiere PDF</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="CreateRouteGadget_label1_Text" xml:space="preserve">
     <value>Introduceți numele (fără .xml sau .gif) pentru ambele fișiere RouteGadget:</value>

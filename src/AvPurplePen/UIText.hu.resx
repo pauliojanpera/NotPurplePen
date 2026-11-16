@@ -1189,6 +1189,30 @@
   <data name="PrintCourses_comboBoxColorModel_Items2" xml:space="preserve">
     <value>CMYK</value>
   </data>
+  <data name="CreateImageFiles_comboBoxPrintBaseMap_Items" xml:space="preserve">
+    <value>Pálya és térkép</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreatePdfCourses_comboBoxPrintBaseMap_Items" xml:space="preserve">
+    <value>Pálya és térkép</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreateImageFiles_comboBoxPrintBaseMap_Items1" xml:space="preserve">
+    <value>Csak a pálya</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreatePdfCourses_comboBoxPrintBaseMap_Items1" xml:space="preserve">
+    <value>Csak a pálya</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreateImageFiles_labelPrintBaseMap_Text" xml:space="preserve">
+    <value>Tartalom:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreatePdfCourses_labelPrintBaseMap_Text" xml:space="preserve">
+    <value>Tartalom:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="CreateImageFiles_outputGroupBox_Text" xml:space="preserve">
     <value>Kimenet</value>
   </data>
@@ -2439,7 +2463,8 @@ A Rendben lenyomása után próbálja megkeresni a térkép fájlt a számítóg
     <value>{0} elkészítése...</value>
   </data>
   <data name="MiscText_PrintingPage" xml:space="preserve">
-    <value>Nyomtatás (0} / {1}. oldal</value>
+    <value>Nyomtatás {0} / {1}. oldal</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MiscText_MapFileDeleted" xml:space="preserve">
     <value>A térkép fájl "{0}" törölve lett. Kérem próbálja meg visszaállítani és utána nyomjon "Rendben"-t!</value>

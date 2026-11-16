@@ -1219,6 +1219,30 @@
   <data name="PrintCourses_comboBoxColorModel_Items2" xml:space="preserve">
     <value>CMYK</value>
   </data>
+  <data name="CreateImageFiles_comboBoxPrintBaseMap_Items" xml:space="preserve">
+    <value>Rata ja kartta</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreatePdfCourses_comboBoxPrintBaseMap_Items" xml:space="preserve">
+    <value>Rata ja kartta</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreateImageFiles_comboBoxPrintBaseMap_Items1" xml:space="preserve">
+    <value>Vain rata</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreatePdfCourses_comboBoxPrintBaseMap_Items1" xml:space="preserve">
+    <value>Vain rata</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreateImageFiles_labelPrintBaseMap_Text" xml:space="preserve">
+    <value>Sisältö:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreatePdfCourses_labelPrintBaseMap_Text" xml:space="preserve">
+    <value>Sisältö:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="CreateImageFiles_outputGroupBox_Text" xml:space="preserve">
     <value>Tuotos</value>
   </data>
@@ -1379,7 +1403,8 @@
     <value>Valitse kansio PDF-tiedostoille</value>
   </data>
   <data name="CreatePdfCourses_Text" xml:space="preserve">
-    <value>Tulosta radat</value>
+    <value>Luo PDF-tiedostoja</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="CreateRouteGadget_label1_Text" xml:space="preserve">
     <value>Syötä nimi (ilman .xml tai .gif -päätteitä) molemmille Reittihärveli-tiedostoille:</value>

@@ -135,6 +135,18 @@
   <data name="comboBoxColorModel.Items1" xml:space="preserve">
     <value>CMYK</value>
   </data>
+  <data name="labelPrintBaseMap.Text" xml:space="preserve">
+    <value>Inhalt:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="comboBoxPrintBaseMap.Items" xml:space="preserve">
+    <value>Bahn und Karte</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="comboBoxPrintBaseMap.Items1" xml:space="preserve">
+    <value>Nur Bahn</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="comboBoxMultiPage.Items" xml:space="preserve">
     <value>Auf eine Seite zuschneiden</value>
   </data>
@@ -184,7 +196,8 @@
     <value>Wählen Sie einen Ordner für die PDF-Dateien aus</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Bahnen drucken</value>
+    <value>PDF-Dateien erstellen</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>Ränder:</value>

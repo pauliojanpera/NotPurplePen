@@ -186,6 +186,18 @@
   <data name="comboBoxColorModel.Items1" xml:space="preserve">
     <value>绿红黄黑标准颜色</value>
   </data>
+  <data name="comboBoxPrintBaseMap.Items" xml:space="preserve">
+    <value>线路和地图</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="comboBoxPrintBaseMap.Items1" xml:space="preserve">
+    <value>仅线路</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="labelPrintBaseMap.Text" xml:space="preserve">
+    <value>内容：</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="outputGroupBox.Text" xml:space="preserve">
     <value>输出</value>
   </data>

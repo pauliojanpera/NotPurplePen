@@ -238,13 +238,15 @@
     <value>テキスト行</value>
   </data>
   <data name="TextLine_AboveAllCourses" xml:space="preserve">
-    <value>{0} の上に表示、(0} を含む全てのコース</value>
+    <value>{0} の上に表示、{0} を含む全てのコース</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="TextLine_AboveThisCourse" xml:space="preserve">
     <value>{0} の上に表示、現在のコースのみ</value>
   </data>
   <data name="TextLine_BelowAllCourses" xml:space="preserve">
-    <value>{0} の下に表示、(0} を含む全てのコース</value>
+    <value>{0} の下に表示、{0} を含む全てのコース</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="TextLine_BelowThisCourse" xml:space="preserve">
     <value>{0} の下に表示、現在のコースのみ</value>
