@@ -261,6 +261,10 @@
   <data name="AddCourse_labelKindCombo_Items4" xml:space="preserve">
     <value>コードとスコア(145(30))</value>
   </data>
+  <data name="AddCourse_labelKindCombo_Items5" xml:space="preserve">
+    <value>得点 (30)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="AddCourse_scoreColumnLabel_Text" xml:space="preserve">
     <value>得点の表示</value>
   </data>
@@ -335,6 +339,10 @@
   </data>
   <data name="AddCourse_kmSuffix_Text" xml:space="preserve">
     <value>km</value>
+  </data>
+  <data name="AddCourse_hideFromReportsCheckBox_Text" xml:space="preserve">
+    <value>レポートに含めない</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_Text" xml:space="preserve">
     <value>新規コース</value>

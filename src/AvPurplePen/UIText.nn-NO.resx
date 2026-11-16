@@ -256,6 +256,18 @@
   <data name="AddCourse_labelKindCombo_Items2" xml:space="preserve">
     <value>Sekvens og kode (3-145)</value>
   </data>
+  <data name="AddCourse_labelKindCombo_Items3" xml:space="preserve">
+    <value>Sekvens og poeng (3(30))</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="AddCourse_labelKindCombo_Items4" xml:space="preserve">
+    <value>Kode og poeng (145(30))</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="AddCourse_labelKindCombo_Items5" xml:space="preserve">
+    <value>Poeng (30)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="AddCourse_scoreColumnLabel_Text" xml:space="preserve">
     <value>Vis poeng i:</value>
   </data>
@@ -327,6 +339,10 @@
   </data>
   <data name="AddCourse_metersSuffix_Text" xml:space="preserve">
     <value>meter</value>
+  </data>
+  <data name="AddCourse_hideFromReportsCheckBox_Text" xml:space="preserve">
+    <value>Ikkje ta med i rapportar</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_Text" xml:space="preserve">
     <value>Ny løype</value>
@@ -1456,7 +1472,8 @@
     <value>Statistikk for post-og strekkutnyttelse</value>
   </data>
   <data name="MainFrame_reportMenu_Text" xml:space="preserve">
-    <value>_Rapporter</value>
+    <value>_Rapportar</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_helpContentsMenu_Text" xml:space="preserve">
     <value>_Hjelp</value>

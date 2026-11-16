@@ -217,7 +217,8 @@
     <value>Piktografiki</value>
   </data>
   <data name="AddCourse_descKindCombo_Items1" xml:space="preserve">
-    <value>Opis</value>
+    <value>Tekst</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AllControlsProperties_descKindCombo_Items1" xml:space="preserve">
     <value>Opis</value>
@@ -241,7 +242,8 @@
     <value>Opis</value>
   </data>
   <data name="AddCourse_descKindCombo_Items2" xml:space="preserve">
-    <value>Piktografiki i opis</value>
+    <value>Piktografiki i tekst</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AllControlsProperties_descKindCombo_Items2" xml:space="preserve">
     <value>Piktografiki i opis</value>
@@ -253,7 +255,8 @@
     <value>Liczba porządkowa (3)</value>
   </data>
   <data name="AddCourse_labelKindCombo_Items1" xml:space="preserve">
-    <value>Kod punktu (145)</value>
+    <value>Kod PK (145)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_labelKindCombo_Items2" xml:space="preserve">
     <value>Liczba porządkowa i kod (3-145)</value>
@@ -263,6 +266,10 @@
   </data>
   <data name="AddCourse_labelKindCombo_Items4" xml:space="preserve">
     <value>Kod PK oraz punktacja (145(30))</value>
+  </data>
+  <data name="AddCourse_labelKindCombo_Items5" xml:space="preserve">
+    <value>Punkty (30)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_scoreColumnLabel_Text" xml:space="preserve">
     <value>Pokaż punkty w:</value>
@@ -339,8 +346,13 @@
   <data name="AddCourse_kmSuffix_Text" xml:space="preserve">
     <value>km</value>
   </data>
+  <data name="AddCourse_hideFromReportsCheckBox_Text" xml:space="preserve">
+    <value>Nie uwzględniaj w raportach</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="AddCourse_Text" xml:space="preserve">
-    <value>Nowy Kurs</value>
+    <value>Nowa trasa</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="CommandNameText_NewCourse" xml:space="preserve">
     <value>Nowy Kurs</value>

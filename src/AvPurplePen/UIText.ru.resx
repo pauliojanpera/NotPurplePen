@@ -183,7 +183,8 @@
     <value>О Purple Pen</value>
   </data>
   <data name="AddCourse_firstControlLabel_Text" xml:space="preserve">
-    <value>Первое контрольное число</value>
+    <value>Номер первого КП:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_descriptionAppearanceLabel_Text" xml:space="preserve">
     <value>Оформление и содержание легенд</value>
@@ -192,7 +193,8 @@
     <value>Оформление и содержание легенд</value>
   </data>
   <data name="AddCourse_mapScaleLabel_Text" xml:space="preserve">
-    <value>Маштаб карты для печати</value>
+    <value>Масштаб печати карты:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AllControlsProperties_printingScaleLabel_Text" xml:space="preserve">
     <value>Маштаб карты для печати</value>
@@ -254,8 +256,21 @@
   <data name="AddCourse_labelKindCombo_Items2" xml:space="preserve">
     <value>Порядковый номер и код КП</value>
   </data>
+  <data name="AddCourse_labelKindCombo_Items3" xml:space="preserve">
+    <value>Порядковый номер и очки (3(30))</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="AddCourse_labelKindCombo_Items4" xml:space="preserve">
+    <value>Код и очки (145(30))</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="AddCourse_labelKindCombo_Items5" xml:space="preserve">
-    <value>оценка</value>
+    <value>Очки (30)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="AddCourse_scoreColumnLabel_Text" xml:space="preserve">
+    <value>Показывать очки в:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_scoreColumnCombo_Items" xml:space="preserve">
     <value>Столбец A</value>
@@ -293,6 +308,14 @@
   <data name="PrintPunches_layoutGroup_Text" xml:space="preserve">
     <value>Оформление</value>
   </data>
+  <data name="AddCourse_secondaryTitleDescription_Text" xml:space="preserve">
+    <value>Следующий (необязательный) текст будет показан во второй строке легенды КП:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="AddCourse_secondaryTitleGroup_Text" xml:space="preserve">
+    <value>Список групп / Подзаголовок</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="AddCourse_lengthLabel_Text" xml:space="preserve">
     <value>Длина:</value>
   </data>
@@ -322,6 +345,10 @@
   </data>
   <data name="AddCourse_kmSuffix_Text" xml:space="preserve">
     <value>км</value>
+  </data>
+  <data name="AddCourse_hideFromReportsCheckBox_Text" xml:space="preserve">
+    <value>Не включать в отчёты</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_Text" xml:space="preserve">
     <value>Новая дистанция</value>

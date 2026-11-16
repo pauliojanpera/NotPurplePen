@@ -238,7 +238,8 @@
     <value>Testo</value>
   </data>
   <data name="AddCourse_descKindCombo_Items2" xml:space="preserve">
-    <value>Simboli e testo.</value>
+    <value>Simboli e testo</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AllControlsProperties_descKindCombo_Items2" xml:space="preserve">
     <value>Simboli e testo.</value>
@@ -250,7 +251,8 @@
     <value>Numero di sequenza (3)</value>
   </data>
   <data name="AddCourse_labelKindCombo_Items1" xml:space="preserve">
-    <value>Codice di controllo (145)</value>
+    <value>Codice punto (145)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_labelKindCombo_Items2" xml:space="preserve">
     <value>Sequenza e codice (3-145)</value>
@@ -262,10 +264,12 @@
     <value>Codice e punteggio (145(30))</value>
   </data>
   <data name="AddCourse_labelKindCombo_Items5" xml:space="preserve">
-    <value>Punti (30)</value>
+    <value>Punteggio (30)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_scoreColumnLabel_Text" xml:space="preserve">
-    <value>Mostra punti in</value>
+    <value>Mostra punteggio in:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_scoreColumnCombo_Items" xml:space="preserve">
     <value>Colonna A</value>
@@ -331,7 +335,8 @@
     <value>Percorso normale</value>
   </data>
   <data name="AddCourse_courseKindCombo_Items1" xml:space="preserve">
-    <value>percorso a sequenza libera</value>
+    <value>Percorso a sequenza libera</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_metersSuffix_Text" xml:space="preserve">
     <value>metri</value>

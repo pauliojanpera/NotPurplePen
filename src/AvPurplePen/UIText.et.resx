@@ -250,7 +250,8 @@
     <value>Järjekorra number (3)</value>
   </data>
   <data name="AddCourse_labelKindCombo_Items1" xml:space="preserve">
-    <value>Tunnusnumber (154)</value>
+    <value>Tunnusnumber (145)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_labelKindCombo_Items2" xml:space="preserve">
     <value>Järjekorra ja tunnusnumber (3-145)</value>
@@ -259,7 +260,8 @@
     <value>Järjekord ja väärtus (3(30))</value>
   </data>
   <data name="AddCourse_labelKindCombo_Items4" xml:space="preserve">
-    <value>Tunnus ja väärtus 145(30))</value>
+    <value>Tunnus ja väärtus (145(30))</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_labelKindCombo_Items5" xml:space="preserve">
     <value>Skoor (30)</value>
@@ -338,6 +340,10 @@
   </data>
   <data name="AddCourse_kmSuffix_Text" xml:space="preserve">
     <value>km</value>
+  </data>
+  <data name="AddCourse_hideFromReportsCheckBox_Text" xml:space="preserve">
+    <value>Ära lisa aruannetesse</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_Text" xml:space="preserve">
     <value>Uus rada</value>

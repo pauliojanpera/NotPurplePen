@@ -184,7 +184,8 @@
     <value>Om Purple Pen</value>
   </data>
   <data name="AddCourse_firstControlLabel_Text" xml:space="preserve">
-    <value>Første kontrolnummer:</value>
+    <value>Første postnummer:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_descriptionAppearanceLabel_Text" xml:space="preserve">
     <value>Beskrivelsesudseende:</value>
@@ -193,7 +194,8 @@
     <value>Beskrivelsesudseende:</value>
   </data>
   <data name="AddCourse_mapScaleLabel_Text" xml:space="preserve">
-    <value>Kort udskrivnings scala:</value>
+    <value>Kortets udskriftsskala:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AllControlsProperties_printingScaleLabel_Text" xml:space="preserve">
     <value>Kort udskrivnings scala:</value>
@@ -237,14 +239,21 @@
   <data name="SelectionDescriptionText_SpecialName_Text" xml:space="preserve">
     <value>Tekst</value>
   </data>
+  <data name="AddCourse_descKindCombo_Items2" xml:space="preserve">
+    <value>Symboler og tekst</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="AddCourse_labelKindLabel_Text" xml:space="preserve">
-    <value>Kontrolcirkelmærkater:</value>
+    <value>Postcirkeletiketter:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_labelKindCombo_Items" xml:space="preserve">
-    <value>Sekvens nummer (3)</value>
+    <value>Sekvensnummer (3)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_labelKindCombo_Items1" xml:space="preserve">
-    <value>Kontrolkode (145)</value>
+    <value>Postkode (145)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_labelKindCombo_Items2" xml:space="preserve">
     <value>Sekvens og kode (3-145)</value>
@@ -254,6 +263,10 @@
   </data>
   <data name="AddCourse_labelKindCombo_Items4" xml:space="preserve">
     <value>Kode og score (145(30))</value>
+  </data>
+  <data name="AddCourse_labelKindCombo_Items5" xml:space="preserve">
+    <value>Point (30)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_scoreColumnLabel_Text" xml:space="preserve">
     <value>Vis point i:</value>
@@ -295,10 +308,12 @@
     <value>Udseende</value>
   </data>
   <data name="AddCourse_secondaryTitleDescription_Text" xml:space="preserve">
-    <value>Den følgende (valgfrie) tekst vil fremtræde på den anden linje af kontrolbeskrivelses siden:</value>
+    <value>Den følgende (valgfrie) tekst vil fremtræde på den anden linje af postbeskrivelsessiden:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_secondaryTitleGroup_Text" xml:space="preserve">
-    <value>Klasse liste / Sekundær titel</value>
+    <value>Klasseliste / Sekundær titel</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_lengthLabel_Text" xml:space="preserve">
     <value>Længde:</value>
@@ -307,22 +322,27 @@
     <value>Længde:</value>
   </data>
   <data name="AddCourse_climbLabel_Text" xml:space="preserve">
-    <value>Klatre:</value>
+    <value>Stigning:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="SelectionDescriptionText_Climb" xml:space="preserve">
     <value>Klatre:</value>
   </data>
   <data name="AddCourse_courseTypeLabel_Text" xml:space="preserve">
-    <value>Kursustype:</value>
+    <value>Banetype:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_courseNameLabel_Text" xml:space="preserve">
-    <value>Kursusnavn:</value>
+    <value>Banenavn:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_courseKindCombo_Items" xml:space="preserve">
-    <value>Normal kursus</value>
+    <value>Normal bane</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_courseKindCombo_Items1" xml:space="preserve">
-    <value>Score kursus</value>
+    <value>Pointbane</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_metersSuffix_Text" xml:space="preserve">
     <value>meter</value>
@@ -330,8 +350,13 @@
   <data name="AddCourse_kmSuffix_Text" xml:space="preserve">
     <value>km</value>
   </data>
+  <data name="AddCourse_hideFromReportsCheckBox_Text" xml:space="preserve">
+    <value>Medtag ikke i rapporter</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="AddCourse_Text" xml:space="preserve">
-    <value>Nyt kursus</value>
+    <value>Ny bane</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="CommandNameText_NewCourse" xml:space="preserve">
     <value>Nyt kursus</value>

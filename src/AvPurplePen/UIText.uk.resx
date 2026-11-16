@@ -265,7 +265,8 @@
     <value>Очки (30)</value>
   </data>
   <data name="AddCourse_scoreColumnLabel_Text" xml:space="preserve">
-    <value>Відображати точки у:</value>
+    <value>Відображати очки у:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_scoreColumnCombo_Items" xml:space="preserve">
     <value>Стовпець A</value>
@@ -307,7 +308,8 @@
     <value>Цей текст (опціонально) буде показано у другому рядку таблиці легенд:</value>
   </data>
   <data name="AddCourse_secondaryTitleGroup_Text" xml:space="preserve">
-    <value>Клас / Додаткова назва</value>
+    <value>Список груп / Додаткова назва</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_lengthLabel_Text" xml:space="preserve">
     <value>Довжина:</value>
@@ -338,6 +340,10 @@
   </data>
   <data name="AddCourse_kmSuffix_Text" xml:space="preserve">
     <value>км</value>
+  </data>
+  <data name="AddCourse_hideFromReportsCheckBox_Text" xml:space="preserve">
+    <value>Не включати у звіти</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_Text" xml:space="preserve">
     <value>Нова дистанція</value>

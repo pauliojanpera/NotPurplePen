@@ -339,6 +339,10 @@
   <data name="AddCourse_kmSuffix_Text" xml:space="preserve">
     <value>km</value>
   </data>
+  <data name="AddCourse_hideFromReportsCheckBox_Text" xml:space="preserve">
+    <value>Älä sisällytä raportteihin</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="AddCourse_Text" xml:space="preserve">
     <value>Uusi rata</value>
   </data>

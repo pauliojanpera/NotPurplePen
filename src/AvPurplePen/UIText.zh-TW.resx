@@ -338,6 +338,10 @@
   <data name="AddCourse_kmSuffix_Text" xml:space="preserve">
     <value>公里</value>
   </data>
+  <data name="AddCourse_hideFromReportsCheckBox_Text" xml:space="preserve">
+    <value>不包含在報告中</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="AddCourse_Text" xml:space="preserve">
     <value>新增賽程</value>
   </data>

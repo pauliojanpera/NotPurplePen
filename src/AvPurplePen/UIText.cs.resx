@@ -187,7 +187,8 @@
     <value>Číslo první kontroly:</value>
   </data>
   <data name="AddCourse_descriptionAppearanceLabel_Text" xml:space="preserve">
-    <value>Popis zobrazení:</value>
+    <value>Zobrazení popisu:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AllControlsProperties_descriptionAppearanceLabel_Text" xml:space="preserve">
     <value>Popis zobrazení:</value>
@@ -338,6 +339,10 @@
   </data>
   <data name="AddCourse_kmSuffix_Text" xml:space="preserve">
     <value>km</value>
+  </data>
+  <data name="AddCourse_hideFromReportsCheckBox_Text" xml:space="preserve">
+    <value>Nezahrnovat do výkazů</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_Text" xml:space="preserve">
     <value>Nová trať</value>

@@ -184,10 +184,12 @@
     <value>Om Purple Pen</value>
   </data>
   <data name="AddCourse_firstControlLabel_Text" xml:space="preserve">
-    <value>Första kodsiffra:</value>
+    <value>Första kontrollnummer:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_descriptionAppearanceLabel_Text" xml:space="preserve">
-    <value>Definitionens utseende:</value>
+    <value>Kontrollbeskrivningens utseende:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AllControlsProperties_descriptionAppearanceLabel_Text" xml:space="preserve">
     <value>Definitionens utseende:</value>

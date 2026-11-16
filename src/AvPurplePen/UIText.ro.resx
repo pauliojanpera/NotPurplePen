@@ -257,6 +257,18 @@
   <data name="AddCourse_labelKindCombo_Items2" xml:space="preserve">
     <value>Număr și cod</value>
   </data>
+  <data name="AddCourse_labelKindCombo_Items3" xml:space="preserve">
+    <value>Număr și punctaj (3(30))</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="AddCourse_labelKindCombo_Items4" xml:space="preserve">
+    <value>Cod și punctaj (145(30))</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="AddCourse_labelKindCombo_Items5" xml:space="preserve">
+    <value>Punctaj (30)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="AddCourse_scoreColumnLabel_Text" xml:space="preserve">
     <value>Afișează punctele în:</value>
   </data>
@@ -328,6 +340,10 @@
   </data>
   <data name="AddCourse_metersSuffix_Text" xml:space="preserve">
     <value>metri</value>
+  </data>
+  <data name="AddCourse_hideFromReportsCheckBox_Text" xml:space="preserve">
+    <value>Nu include în rapoarte</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_Text" xml:space="preserve">
     <value>Traseu nou</value>

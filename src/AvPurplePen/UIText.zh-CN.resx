@@ -266,7 +266,8 @@
     <value>积分 (30)</value>
   </data>
   <data name="AddCourse_scoreColumnLabel_Text" xml:space="preserve">
-    <value>显示点：</value>
+    <value>分值显示在：</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_scoreColumnCombo_Items" xml:space="preserve">
     <value>A列</value>
@@ -281,7 +282,8 @@
     <value>（不显示）</value>
   </data>
   <data name="AddCourse_groupBox1_Text" xml:space="preserve">
-    <value>界面</value>
+    <value>外观</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AllControlsProperties_appearanceGroupBox_Text" xml:space="preserve">
     <value>界面</value>
@@ -339,6 +341,10 @@
   </data>
   <data name="AddCourse_kmSuffix_Text" xml:space="preserve">
     <value>千米</value>
+  </data>
+  <data name="AddCourse_hideFromReportsCheckBox_Text" xml:space="preserve">
+    <value>不包含在报表中</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_Text" xml:space="preserve">
     <value>新线路</value>

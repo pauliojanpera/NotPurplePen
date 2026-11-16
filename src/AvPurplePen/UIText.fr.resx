@@ -254,6 +254,10 @@
   <data name="AddCourse_labelKindCombo_Items4" xml:space="preserve">
     <value>Code et points (145(30))</value>
   </data>
+  <data name="AddCourse_labelKindCombo_Items5" xml:space="preserve">
+    <value>Points (30)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="AddCourse_scoreColumnLabel_Text" xml:space="preserve">
     <value>Indiquer les points dans :</value>
   </data>
@@ -321,13 +325,18 @@
     <value>Circuit normal</value>
   </data>
   <data name="AddCourse_courseKindCombo_Items1" xml:space="preserve">
-    <value>Course au score</value>
+    <value>Circuit au score</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_metersSuffix_Text" xml:space="preserve">
     <value>mètres</value>
   </data>
   <data name="AddCourse_kmSuffix_Text" xml:space="preserve">
     <value>km</value>
+  </data>
+  <data name="AddCourse_hideFromReportsCheckBox_Text" xml:space="preserve">
+    <value>Ne pas inclure dans les rapports</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_Text" xml:space="preserve">
     <value>Nouveau circuit</value>

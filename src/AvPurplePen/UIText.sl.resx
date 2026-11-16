@@ -187,7 +187,8 @@
     <value>Prva kontrolna točka</value>
   </data>
   <data name="AddCourse_descriptionAppearanceLabel_Text" xml:space="preserve">
-    <value>predogled opisa</value>
+    <value>Videz opisa:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AllControlsProperties_descriptionAppearanceLabel_Text" xml:space="preserve">
     <value>predogled opisa</value>
@@ -261,6 +262,10 @@
   <data name="AddCourse_labelKindCombo_Items4" xml:space="preserve">
     <value>kodna številka in število točk</value>
   </data>
+  <data name="AddCourse_labelKindCombo_Items5" xml:space="preserve">
+    <value>Točke (30)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="AddCourse_scoreColumnLabel_Text" xml:space="preserve">
     <value>Pokaži točke v:</value>
   </data>
@@ -306,6 +311,10 @@
   <data name="AddCourse_secondaryTitleGroup_Text" xml:space="preserve">
     <value>Spisek kategorij/ dodatni naslov</value>
   </data>
+  <data name="AddCourse_lengthLabel_Text" xml:space="preserve">
+    <value>Dolžina:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="AddCourse_climbLabel_Text" xml:space="preserve">
     <value>Vzpon:</value>
   </data>
@@ -326,6 +335,10 @@
   </data>
   <data name="AddCourse_metersSuffix_Text" xml:space="preserve">
     <value>metrov</value>
+  </data>
+  <data name="AddCourse_hideFromReportsCheckBox_Text" xml:space="preserve">
+    <value>Ne vključi v poročila</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_Text" xml:space="preserve">
     <value>Nova proga</value>

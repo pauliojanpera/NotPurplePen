@@ -188,7 +188,8 @@
     <value>Birinci Kontrol Numarası:</value>
   </data>
   <data name="AddCourse_descriptionAppearanceLabel_Text" xml:space="preserve">
-    <value>Görüntü açıklaması:</value>
+    <value>Açıklama görünümü:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AllControlsProperties_descriptionAppearanceLabel_Text" xml:space="preserve">
     <value>Görüntü açıklaması:</value>
@@ -257,16 +258,19 @@
     <value>Sıra No ve Kontrol Kodu (3-145)</value>
   </data>
   <data name="AddCourse_labelKindCombo_Items3" xml:space="preserve">
-    <value>Sıra No ve Nokta(3(30))</value>
+    <value>Sıra No ve Puan (3(30))</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_labelKindCombo_Items4" xml:space="preserve">
-    <value>Kod ve Nokta</value>
+    <value>Kod ve Puan (145(30))</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_labelKindCombo_Items5" xml:space="preserve">
     <value>Skor (30)</value>
   </data>
   <data name="AddCourse_scoreColumnLabel_Text" xml:space="preserve">
-    <value>Noktaları Göster:</value>
+    <value>Puanları göster:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_scoreColumnCombo_Items" xml:space="preserve">
     <value>Sütun A</value>
@@ -332,7 +336,8 @@
     <value>Normal Parkur</value>
   </data>
   <data name="AddCourse_courseKindCombo_Items1" xml:space="preserve">
-    <value>Parkur Puanı</value>
+    <value>Puanlı Parkur</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_metersSuffix_Text" xml:space="preserve">
     <value>metre</value>

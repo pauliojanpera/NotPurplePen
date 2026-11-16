@@ -263,6 +263,10 @@
   <data name="AddCourse_labelKindCombo_Items4" xml:space="preserve">
     <value>Kód és érték (145(30))</value>
   </data>
+  <data name="AddCourse_labelKindCombo_Items5" xml:space="preserve">
+    <value>Pontérték (30)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="AddCourse_scoreColumnLabel_Text" xml:space="preserve">
     <value>Pontok megjelenítése:</value>
   </data>
@@ -306,7 +310,8 @@
     <value>A következő (esetleges) szöveg meg fog jelenni az ellenőrzőpont leírásánál a második sorban:</value>
   </data>
   <data name="AddCourse_secondaryTitleGroup_Text" xml:space="preserve">
-    <value>Osztály lista / Másodlagos cím</value>
+    <value>Kategórialista / Másodlagos cím</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_lengthLabel_Text" xml:space="preserve">
     <value>Hossz:</value>
@@ -337,6 +342,10 @@
   </data>
   <data name="AddCourse_kmSuffix_Text" xml:space="preserve">
     <value>km</value>
+  </data>
+  <data name="AddCourse_hideFromReportsCheckBox_Text" xml:space="preserve">
+    <value>Ne szerepeljen a jelentésekben</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_Text" xml:space="preserve">
     <value>Új pálya</value>

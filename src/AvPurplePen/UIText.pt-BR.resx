@@ -331,13 +331,18 @@
     <value>Percurso Normal</value>
   </data>
   <data name="AddCourse_courseKindCombo_Items1" xml:space="preserve">
-    <value>Percurso de pontuação (fazenda)</value>
+    <value>Percurso de pontuação</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_metersSuffix_Text" xml:space="preserve">
     <value>metros</value>
   </data>
   <data name="AddCourse_kmSuffix_Text" xml:space="preserve">
     <value>km</value>
+  </data>
+  <data name="AddCourse_hideFromReportsCheckBox_Text" xml:space="preserve">
+    <value>Não incluir nos relatórios</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_Text" xml:space="preserve">
     <value>Novo Percurso</value>
