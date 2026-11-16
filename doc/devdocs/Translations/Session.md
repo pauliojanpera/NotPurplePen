@@ -4,6 +4,10 @@ Nov 16, 2026. This is the brief of a session that starts with no context and tra
 (@Pauli, Nov 16: one session translates and checks one language). Do the steps in order. The scripts and the facts
 behind them are in [README.md](README.md).
 
+The brief also serves an agent that a session starts for one language, one agent at a time (@Pauli, Nov 16). Nothing
+watches the agent while it works, and it reports nothing but its last message (step 6.5). The session then starts
+the next agent, which finds its language from the files.
+
 @Pauli starts the session with a prompt such as:
 
 > Translate the next language of NotPurplePen. Follow `doc/devdocs/Translations/Session.md` on the branch
@@ -134,6 +138,7 @@ So that a session that stops loses little, do this after about each 200 keys, an
 
 3. Commit and push the documents as in step 5.4, with the message "Finish the <Language> translations".
 4. Archive this session's transcript, as the README of the branch `sessions` of `pauliojanpera/windows-fonts` tells
-   (`archive-session.sh`). Attach that repository with push access for it.
+   (`archive-session.sh`). Attach that repository with push access for it. An agent skips this step: the session that
+   started it archives the transcripts of the machine.
 5. Tell @Pauli, in a few lines: the language; how many keys were translated, marked not needed, corrected and left
    empty; and the doubts that he should see.

@@ -69,7 +69,8 @@ upstream/master`), so that they can be offered upstream.
   `wip/linux/translation-faults`, rooted at `base`, merges it into `basewithfixes` and `dev` through full runs, and
   then makes `fix/complete-translations` at the root and pushes it.
 - In phases 3 to 5, one session translates and checks one language, as [Session.md](Session.md) tells (@Pauli,
-  Nov 16). The languages follow each other with no build and no test run between them: a push of
+  Nov 16). A session may instead start one agent for each language, one at a time, with Session.md as the brief and
+  nothing that watches it. The languages follow each other with no build and no test run between them: a push of
   `fix/complete-translations` starts none, and a session does not wait for one (@Pauli, Nov 16). Each session makes
   Status.md again, from `fix/complete-translations`.
 - After the last language, `fix/complete-translations` runs in full on `wip/linux/complete-translations`, rooted at
