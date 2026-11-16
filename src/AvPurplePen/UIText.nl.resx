@@ -897,6 +897,15 @@
   <data name="CourseAppearanceDialog_checkBoxOverprint_Text" xml:space="preserve">
     <value>Gebruik overdruk effect for kleuren die zijn gemarkeerd als "overdruk"</value>
   </data>
+  <data name="CourseAppearanceDialog_labelBlendMode_Text" xml:space="preserve">
+    <value>Mengmodus:</value>
+  </data>
+  <data name="CourseAppearanceDialog_comboBoxBlendMode_Items" xml:space="preserve">
+    <value>Donkerder</value>
+  </data>
+  <data name="CourseAppearanceDialog_comboBoxBlendMode_Items1" xml:space="preserve">
+    <value>Vermenigvuldigen</value>
+  </data>
   <data name="CourseAppearanceDialog_Text" xml:space="preserve">
     <value>Weergave aangepassen</value>
   </data>

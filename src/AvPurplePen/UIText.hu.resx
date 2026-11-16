@@ -949,6 +949,15 @@
   <data name="CourseAppearanceDialog_checkBoxOverprint_Text" xml:space="preserve">
     <value>Felülnyomás használata a megjelölt színekhez</value>
   </data>
+  <data name="CourseAppearanceDialog_labelBlendMode_Text" xml:space="preserve">
+    <value>Keverési mód:</value>
+  </data>
+  <data name="CourseAppearanceDialog_comboBoxBlendMode_Items" xml:space="preserve">
+    <value>Sötétítés</value>
+  </data>
+  <data name="CourseAppearanceDialog_comboBoxBlendMode_Items1" xml:space="preserve">
+    <value>Szorzás</value>
+  </data>
   <data name="CourseAppearanceDialog_Text" xml:space="preserve">
     <value>Pályakép testreszabása</value>
   </data>

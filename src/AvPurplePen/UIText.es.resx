@@ -949,6 +949,15 @@
   <data name="CourseAppearanceDialog_checkBoxOverprint_Text" xml:space="preserve">
     <value>Utilizar efecto de sobreimpresión en los colores marcados con «sobreimprimir»</value>
   </data>
+  <data name="CourseAppearanceDialog_labelBlendMode_Text" xml:space="preserve">
+    <value>Modo de mezcla:</value>
+  </data>
+  <data name="CourseAppearanceDialog_comboBoxBlendMode_Items" xml:space="preserve">
+    <value>Oscurecer</value>
+  </data>
+  <data name="CourseAppearanceDialog_comboBoxBlendMode_Items1" xml:space="preserve">
+    <value>Multiplicar</value>
+  </data>
   <data name="CourseAppearanceDialog_Text" xml:space="preserve">
     <value>Personalizar la  apariencia</value>
   </data>

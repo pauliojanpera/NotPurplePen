@@ -380,6 +380,10 @@ namespace PurplePen.ViewModels
                 controller.MapDisplay.OcadOverprintEffect = controller.OcadOverprintEffect;
             }
 
+            if (controller.MapDisplay.OverprintBlendMode != controller.OverprintBlendMode) {
+                controller.MapDisplay.OverprintBlendMode = controller.OverprintBlendMode;
+            }
+
             if (controller.MapDisplay.LowerPurpleMapLayer != controller.LowerPurpleMapLayer) {
                 controller.MapDisplay.LowerPurpleMapLayer = controller.LowerPurpleMapLayer;
             }

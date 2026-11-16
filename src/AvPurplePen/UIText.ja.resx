@@ -925,6 +925,15 @@
   <data name="CourseAppearanceDialog_checkBoxOverprint_Text" xml:space="preserve">
     <value>「オーバープリント」にマークされた色を重ね合わせする</value>
   </data>
+  <data name="CourseAppearanceDialog_labelBlendMode_Text" xml:space="preserve">
+    <value>ブレンドモード:</value>
+  </data>
+  <data name="CourseAppearanceDialog_comboBoxBlendMode_Items" xml:space="preserve">
+    <value>比較（暗）</value>
+  </data>
+  <data name="CourseAppearanceDialog_comboBoxBlendMode_Items1" xml:space="preserve">
+    <value>乗算</value>
+  </data>
   <data name="CourseAppearanceDialog_Text" xml:space="preserve">
     <value>外観をカスタマイズ</value>
   </data>
