@@ -1775,6 +1775,10 @@
   <data name="MainFrame_addDescriptionsMenu_Text" xml:space="preserve">
     <value>_Descripciones</value>
   </data>
+  <data name="MainFrame_addMapFlipMenuItem_Text" xml:space="preserve">
+    <value>_Volteo de mapa en punto de control</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_mapExchangeControlMenuItem_Text" xml:space="preserve">
     <value>Intercambio de mapas en _punto de control</value>
   </data>

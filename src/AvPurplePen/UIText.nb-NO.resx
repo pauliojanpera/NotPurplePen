@@ -1796,7 +1796,8 @@
     <value>_post</value>
   </data>
   <data name="MainFrame_addFinishMenu_Text" xml:space="preserve">
-    <value>_Fullfør</value>
+    <value>_Mål</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MiscText_FinishButtonText" xml:space="preserve">
     <value>_Fullfør</value>
@@ -1820,7 +1821,8 @@
     <value>_Variant</value>
   </data>
   <data name="MainFrame_addTextLineMenu_Text" xml:space="preserve">
-    <value>Tekst _Linje...</value>
+    <value>Tekst_linje...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_addMapIssueMenu_Text" xml:space="preserve">
     <value>Tidsstart</value>
@@ -1835,10 +1837,12 @@
     <value>Tidsstart</value>
   </data>
   <data name="MainFrame_addMandatoryCrossingMenu_Text" xml:space="preserve">
-    <value>Obligatorisk kryssningspunkt</value>
+    <value>Obligatorisk krysningspunkt</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_mandatoryCrossingPointToolStripMenuItem_Text" xml:space="preserve">
-    <value>Obligatorisk kryssningspunkt</value>
+    <value>Obligatorisk krysningspunkt</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_addOptCrossingMenu_Text" xml:space="preserve">
     <value>Frivillig krysningspunkt</value>

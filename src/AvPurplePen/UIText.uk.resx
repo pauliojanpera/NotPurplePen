@@ -1722,7 +1722,8 @@
     <value>_Низьке</value>
   </data>
   <data name="MainFrame_mediumIntensityMenu_Text" xml:space="preserve">
-    <value>_Середнія</value>
+    <value>_Середня</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_highIntensityMenu_Text" xml:space="preserve">
     <value>_Висока</value>
@@ -1743,10 +1744,12 @@
     <value>_Якість карти</value>
   </data>
   <data name="MainFrame_showPrintAreaMenu_Text" xml:space="preserve">
-    <value>По_казувати область дуку</value>
+    <value>По_казувати область друку</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_showPopupsMenu_Text" xml:space="preserve">
-    <value>Пока_зувати вспливаючу інформацію</value>
+    <value>Пока_зувати спливаючу інформацію</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_allControlsMenu_Text" xml:space="preserve">
     <value>_Всі КП</value>
@@ -1774,6 +1777,10 @@
   </data>
   <data name="MainFrame_addDescriptionsMenu_Text" xml:space="preserve">
     <value>_Легенди</value>
+  </data>
+  <data name="MainFrame_addMapFlipMenuItem_Text" xml:space="preserve">
+    <value>_Перевертання карти на КП</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_mapExchangeControlMenuItem_Text" xml:space="preserve">
     <value>Пункт зміни карти на _КП</value>
@@ -1803,10 +1810,12 @@
     <value>Виносний старт</value>
   </data>
   <data name="MainFrame_addMandatoryCrossingMenu_Text" xml:space="preserve">
-    <value>Обов'язковий пункт перетиину</value>
+    <value>Обов'язковий пункт перетину</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_mandatoryCrossingPointToolStripMenuItem_Text" xml:space="preserve">
-    <value>Обов'язковий пункт перетиину</value>
+    <value>Обов'язковий пункт перетину</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_addOptCrossingMenu_Text" xml:space="preserve">
     <value>Необов'язковий пункт перетину</value>

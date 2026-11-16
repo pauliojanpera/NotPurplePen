@@ -1788,6 +1788,10 @@
   <data name="MainFrame_addDescriptionsMenu_Text" xml:space="preserve">
     <value>P_opisy</value>
   </data>
+  <data name="MainFrame_addMapFlipMenuItem_Text" xml:space="preserve">
+    <value>_Otočení mapy na kontrole</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_mapExchangeControlMenuItem_Text" xml:space="preserve">
     <value>Výměna mapy na _kontrole</value>
   </data>
@@ -1801,7 +1805,8 @@
     <value>V_arianty</value>
   </data>
   <data name="MainFrame_addTextLineMenu_Text" xml:space="preserve">
-    <value>Texty a čáry</value>
+    <value>Řádka _textu...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_addMapIssueMenu_Text" xml:space="preserve">
     <value>Intervalový start</value>

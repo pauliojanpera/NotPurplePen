@@ -1764,7 +1764,8 @@
     <value>不透明</value>
   </data>
   <data name="MainFrame_mapIntensityMenu_Text" xml:space="preserve">
-    <value>地图与强度</value>
+    <value>地图强度(_I)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_normalQualityMenu_Text" xml:space="preserve">
     <value>低</value>
@@ -1779,7 +1780,8 @@
     <value>显示打印区域</value>
   </data>
   <data name="MainFrame_showPopupsMenu_Text" xml:space="preserve">
-    <value>显示和弹出信息</value>
+    <value>显示弹出信息(_P)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_allControlsMenu_Text" xml:space="preserve">
     <value>所有的检查点</value>
@@ -1800,7 +1802,8 @@
     <value>检查点</value>
   </data>
   <data name="MainFrame_addFinishMenu_Text" xml:space="preserve">
-    <value>完成(_F)</value>
+    <value>终点(_F)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MiscText_FinishButtonText" xml:space="preserve">
     <value>完成(_F)</value>
@@ -1809,7 +1812,8 @@
     <value>说明</value>
   </data>
   <data name="MainFrame_addMapFlipMenuItem_Text" xml:space="preserve">
-    <value>在这个检查点进行地图切换（_F）</value>
+    <value>在检查点将地图翻面(_F)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_mapExchangeControlMenuItem_Text" xml:space="preserve">
     <value>在检查点换图</value>
@@ -1824,7 +1828,8 @@
     <value>分支</value>
   </data>
   <data name="MainFrame_addTextLineMenu_Text" xml:space="preserve">
-    <value>添加文本和线</value>
+    <value>文本行(_L)...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_addMapIssueMenu_Text" xml:space="preserve">
     <value>计时起始位置</value>

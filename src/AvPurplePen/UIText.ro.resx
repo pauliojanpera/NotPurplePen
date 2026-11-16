@@ -1419,38 +1419,105 @@
   <data name="MainFrame_mapQualityMenu_Text" xml:space="preserve">
     <value>_Calitate hartă</value>
   </data>
+  <data name="MainFrame_showPrintAreaMenu_Text" xml:space="preserve">
+    <value>_Afișează zona de tipărire</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_showPopupsMenu_Text" xml:space="preserve">
+    <value>Afișează informații _pop-up</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_allControlsMenu_Text" xml:space="preserve">
     <value>_Toate Posturile</value>
+  </data>
+  <data name="MainFrame_otherCoursesMenu_Text" xml:space="preserve">
+    <value>Alte trasee...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_clearOtherCoursesMenu_Text" xml:space="preserve">
+    <value>Ștergere alte trasee</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_viewMenu_Text" xml:space="preserve">
     <value>_Vizualizare</value>
   </data>
+  <data name="MainFrame_addStartMenu_Text" xml:space="preserve">
+    <value>_Start</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addControlMenu_Text" xml:space="preserve">
+    <value>_Post de control</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_addFinishMenu_Text" xml:space="preserve">
-    <value>_Finalizare</value>
+    <value>S_osire</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MiscText_FinishButtonText" xml:space="preserve">
     <value>_Finalizare</value>
   </data>
+  <data name="MainFrame_addDescriptionsMenu_Text" xml:space="preserve">
+    <value>_Descrieri</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addMapFlipMenuItem_Text" xml:space="preserve">
+    <value>Întoarcere _hartă la postul de control</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_mapExchangeControlMenuItem_Text" xml:space="preserve">
+    <value>Schimb de hartă la postul de _control</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_mapExchangeSeparateMenuItem_Text" xml:space="preserve">
+    <value>Rută _semnalizată până la schimbul de hartă</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addMapExchangeMenu_Text" xml:space="preserve">
+    <value>Întoarcere/schimb de _hartă</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addVariationMenu_Text" xml:space="preserve">
+    <value>_Variantă...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addTextLineMenu_Text" xml:space="preserve">
+    <value>_Linie de text...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addMapIssueMenu_Text" xml:space="preserve">
+    <value>Start cronometrat</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_mapIssuePointToolStripMenuItem_Text" xml:space="preserve">
+    <value>Start cronometrat</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_addMandatoryCrossingMenu_Text" xml:space="preserve">
-    <value>Punct Trecere Obligatoriu</value>
+    <value>Punct de trecere obligatoriu</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_mandatoryCrossingPointToolStripMenuItem_Text" xml:space="preserve">
-    <value>Punct Trecere Obligatoriu</value>
+    <value>Punct de trecere obligatoriu</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_addOptCrossingMenu_Text" xml:space="preserve">
-    <value>Punct Trecere Opțional</value>
+    <value>Punct de trecere opțional</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_optionalCrossingPointToolStripMenuItem_Text" xml:space="preserve">
-    <value>Punct Trecere Opțional</value>
+    <value>Punct de trecere opțional</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="SelectionDescriptionText_SpecialName_OptCrossing" xml:space="preserve">
     <value>Punct Trecere Opțional</value>
   </data>
   <data name="MainFrame_addOutOfBoundsMenu_Text" xml:space="preserve">
-    <value>Zonă Înafara Limitelor</value>
+    <value>Zonă în afara limitelor</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_outOfBoundsToolStripMenuItem_Text" xml:space="preserve">
-    <value>Zonă Înafara Limitelor</value>
+    <value>Zonă în afara limitelor</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_addDangerousMenu_Text" xml:space="preserve">
     <value>Zonă Periculoasă</value>

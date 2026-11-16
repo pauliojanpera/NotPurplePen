@@ -1782,22 +1782,26 @@
     <value>_Tous Postes</value>
   </data>
   <data name="MainFrame_otherCoursesMenu_Text" xml:space="preserve">
-    <value>Autres courses...</value>
+    <value>Autres circuits...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_clearOtherCoursesMenu_Text" xml:space="preserve">
-    <value>Effacer les autres courses</value>
+    <value>Effacer les autres circuits</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_viewMenu_Text" xml:space="preserve">
     <value>_Affichage</value>
   </data>
   <data name="MainFrame_addStartMenu_Text" xml:space="preserve">
-    <value>_Démarrer</value>
+    <value>_Départ</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_addControlMenu_Text" xml:space="preserve">
     <value>_Poste</value>
   </data>
   <data name="MainFrame_addFinishMenu_Text" xml:space="preserve">
-    <value>_Terminer</value>
+    <value>_Arrivée</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MiscText_FinishButtonText" xml:space="preserve">
     <value>_Terminer</value>
@@ -1821,7 +1825,8 @@
     <value>_Variation...</value>
   </data>
   <data name="MainFrame_addTextLineMenu_Text" xml:space="preserve">
-    <value>Texte _Ligne...</value>
+    <value>_Ligne de texte...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_addMapIssueMenu_Text" xml:space="preserve">
     <value>Départ chronométré</value>

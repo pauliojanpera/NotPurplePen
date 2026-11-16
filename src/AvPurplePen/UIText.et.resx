@@ -1792,8 +1792,13 @@
   <data name="MainFrame_addDescriptionsMenu_Text" xml:space="preserve">
     <value>_Legendid</value>
   </data>
+  <data name="MainFrame_addMapFlipMenuItem_Text" xml:space="preserve">
+    <value>Kaardi _pööramine kontrollpunktis</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_mapExchangeControlMenuItem_Text" xml:space="preserve">
-    <value>Kaardivahetus on _kontrollpunktis</value>
+    <value>Kaardivahetus _kontrollpunktis</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_mapExchangeSeparateMenuItem_Text" xml:space="preserve">
     <value>_Märgitud rada kaardivahetusse</value>
@@ -1820,10 +1825,12 @@
     <value>Stardijoon</value>
   </data>
   <data name="MainFrame_addMandatoryCrossingMenu_Text" xml:space="preserve">
-    <value>Kohustuslik läbipääsu punk</value>
+    <value>Kohustuslik läbipääsu punkt</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_mandatoryCrossingPointToolStripMenuItem_Text" xml:space="preserve">
-    <value>Kohustuslik läbipääsu punk</value>
+    <value>Kohustuslik läbipääsu punkt</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_addOptCrossingMenu_Text" xml:space="preserve">
     <value>Läbipääsu punkt</value>

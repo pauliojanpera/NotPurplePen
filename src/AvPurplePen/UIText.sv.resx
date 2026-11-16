@@ -1801,7 +1801,8 @@
     <value>_Kontroll</value>
   </data>
   <data name="MainFrame_addFinishMenu_Text" xml:space="preserve">
-    <value>Slut_för</value>
+    <value>_Mål</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MiscText_FinishButtonText" xml:space="preserve">
     <value>Slut_för</value>

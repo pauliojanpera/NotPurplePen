@@ -1787,6 +1787,10 @@
   <data name="MainFrame_addDescriptionsMenu_Text" xml:space="preserve">
     <value>檢查點說明</value>
   </data>
+  <data name="MainFrame_addMapFlipMenuItem_Text" xml:space="preserve">
+    <value>在檢查點翻轉地圖(_F)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_mapExchangeControlMenuItem_Text" xml:space="preserve">
     <value>在檢查點換地圖</value>
   </data>

@@ -1794,7 +1794,8 @@
     <value>_Tutti I Punti</value>
   </data>
   <data name="MainFrame_otherCoursesMenu_Text" xml:space="preserve">
-    <value>Altri Perocrsi...</value>
+    <value>Altri Percorsi...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_clearOtherCoursesMenu_Text" xml:space="preserve">
     <value>Pulisci altri Percorsi</value>
@@ -1818,7 +1819,8 @@
     <value>_Descrizioni</value>
   </data>
   <data name="MainFrame_addMapFlipMenuItem_Text" xml:space="preserve">
-    <value>_Rotazione/Cambio Mappa</value>
+    <value>_Rotazione mappa al punto di controllo</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_mapExchangeControlMenuItem_Text" xml:space="preserve">
     <value>_Cambio Mappa Al Punto Di Controllo</value>
@@ -1833,7 +1835,8 @@
     <value>_Variante...</value>
   </data>
   <data name="MainFrame_addTextLineMenu_Text" xml:space="preserve">
-    <value>Testo _Linea...</value>
+    <value>_Riga di testo...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_addMapIssueMenu_Text" xml:space="preserve">
     <value>Partenza a Tempo</value>

@@ -1786,7 +1786,8 @@
     <value>_Tam</value>
   </data>
   <data name="MainFrame_mapIntensityMenu_Text" xml:space="preserve">
-    <value>Harita _Yoğunluk</value>
+    <value>Harita _Yoğunluğu</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_normalQualityMenu_Text" xml:space="preserve">
     <value>Düşük</value>
@@ -1795,7 +1796,8 @@
     <value>Yüksek</value>
   </data>
   <data name="MainFrame_mapQualityMenu_Text" xml:space="preserve">
-    <value>Harita _Kalite</value>
+    <value>Harita _Kalitesi</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_showPrintAreaMenu_Text" xml:space="preserve">
     <value>Baskı _Alanını Göster</value>
@@ -1804,7 +1806,8 @@
     <value>_Açılır Bilgiyi Göster</value>
   </data>
   <data name="MainFrame_allControlsMenu_Text" xml:space="preserve">
-    <value>%Tüm Hedefler</value>
+    <value>_Tüm Hedefler</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_otherCoursesMenu_Text" xml:space="preserve">
     <value>Diğer Parkurlar...</value>
@@ -1816,7 +1819,8 @@
     <value>_Görünüm</value>
   </data>
   <data name="MainFrame_addStartMenu_Text" xml:space="preserve">
-    <value>_Başlama</value>
+    <value>Baş_langıç</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_addControlMenu_Text" xml:space="preserve">
     <value>_Kontrol</value>
@@ -1831,7 +1835,8 @@
     <value>_Açıklamalar</value>
   </data>
   <data name="MainFrame_addMapFlipMenuItem_Text" xml:space="preserve">
-    <value>Harita _Kontrol Noktasında Çevir</value>
+    <value>Kontrol Noktasında Harita _Çevirme</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_mapExchangeControlMenuItem_Text" xml:space="preserve">
     <value>_Kontrol Noktasında Harita Değişimi</value>
@@ -1846,13 +1851,16 @@
     <value>_Varyasyon...</value>
   </data>
   <data name="MainFrame_addTextLineMenu_Text" xml:space="preserve">
-    <value>Metin _Çizgi...</value>
+    <value>Metin _Satırı...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_addMapIssueMenu_Text" xml:space="preserve">
-    <value>Zamanlayıcı Başlatma</value>
+    <value>Zamanlı Start</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_mapIssuePointToolStripMenuItem_Text" xml:space="preserve">
-    <value>Zamanlayıcı Başlatma</value>
+    <value>Zamanlı Start</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MiscText_MapIssue_Long" xml:space="preserve">
     <value>Zamanlayıcı Başlatma</value>

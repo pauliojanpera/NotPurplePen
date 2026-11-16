@@ -1779,13 +1779,18 @@
     <value>Új _ellenőrzőpont</value>
   </data>
   <data name="MainFrame_addFinishMenu_Text" xml:space="preserve">
-    <value>Be_fejezés</value>
+    <value>Új _cél</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MiscText_FinishButtonText" xml:space="preserve">
     <value>Be_fejezés</value>
   </data>
   <data name="MainFrame_addDescriptionsMenu_Text" xml:space="preserve">
     <value>Új _pontleírás</value>
+  </data>
+  <data name="MainFrame_addMapFlipMenuItem_Text" xml:space="preserve">
+    <value>Térkép_fordítás az ellenőrzőpontnál</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_mapExchangeControlMenuItem_Text" xml:space="preserve">
     <value>_Térképcsere az ellenőrzőpontnál</value>

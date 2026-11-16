@@ -1376,31 +1376,89 @@
     <value>_Polno</value>
   </data>
   <data name="MainFrame_mapIntensityMenu_Text" xml:space="preserve">
-    <value>Karta _Intenzivnost</value>
+    <value>_Intenzivnost karte</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_normalQualityMenu_Text" xml:space="preserve">
     <value>Nizka</value>
   </data>
   <data name="MainFrame_highQualityMenu_Text" xml:space="preserve">
-    <value>Visoko</value>
+    <value>Visoka</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_mapQualityMenu_Text" xml:space="preserve">
-    <value>Karta _Kvaliteta</value>
+    <value>K_akovost karte</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_showPrintAreaMenu_Text" xml:space="preserve">
+    <value>Prikaži območje _tiskanja</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_showPopupsMenu_Text" xml:space="preserve">
-    <value>Prikaži _Pojavna Informacija</value>
+    <value>Prikaži po_javne informacije</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_allControlsMenu_Text" xml:space="preserve">
     <value>_Vse kontrolne točke</value>
   </data>
+  <data name="MainFrame_otherCoursesMenu_Text" xml:space="preserve">
+    <value>Druge proge...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_clearOtherCoursesMenu_Text" xml:space="preserve">
+    <value>Počisti druge proge</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_viewMenu_Text" xml:space="preserve">
     <value>_Pogled</value>
   </data>
+  <data name="MainFrame_addStartMenu_Text" xml:space="preserve">
+    <value>_Start</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addControlMenu_Text" xml:space="preserve">
+    <value>_Kontrolna točka</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addFinishMenu_Text" xml:space="preserve">
+    <value>_Cilj</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addDescriptionsMenu_Text" xml:space="preserve">
+    <value>_Opisi</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addMapFlipMenuItem_Text" xml:space="preserve">
+    <value>_Obrat karte na kontrolni točki</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_mapExchangeControlMenuItem_Text" xml:space="preserve">
-    <value>Menjava karte na _kontrolna točka</value>
+    <value>Menjava karte na _kontrolni točki</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_mapExchangeSeparateMenuItem_Text" xml:space="preserve">
-    <value>_označena pote do menjave karte</value>
+    <value>Označena _pot do menjave karte</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addMapExchangeMenu_Text" xml:space="preserve">
+    <value>Obrat/_menjava karte</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addVariationMenu_Text" xml:space="preserve">
+    <value>_Varianta...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addTextLineMenu_Text" xml:space="preserve">
+    <value>_Besedilna vrstica...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addMapIssueMenu_Text" xml:space="preserve">
+    <value>Merjeni start</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_mapIssuePointToolStripMenuItem_Text" xml:space="preserve">
+    <value>Merjeni start</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_addMandatoryCrossingMenu_Text" xml:space="preserve">
     <value>obvezen prehod</value>

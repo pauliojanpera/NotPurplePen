@@ -1675,6 +1675,14 @@
   <data name="MainFrame_allControlsMenu_Text" xml:space="preserve">
     <value>全コントロール(_A)</value>
   </data>
+  <data name="MainFrame_otherCoursesMenu_Text" xml:space="preserve">
+    <value>その他のコース...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_clearOtherCoursesMenu_Text" xml:space="preserve">
+    <value>他のコースをクリア</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_viewMenu_Text" xml:space="preserve">
     <value>表示(_V)</value>
   </data>
@@ -1693,6 +1701,10 @@
   <data name="MainFrame_addDescriptionsMenu_Text" xml:space="preserve">
     <value>ディスクリプション(_D)</value>
   </data>
+  <data name="MainFrame_addMapFlipMenuItem_Text" xml:space="preserve">
+    <value>コントロールでの地図の裏返し(_L)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_mapExchangeControlMenuItem_Text" xml:space="preserve">
     <value>コントロールの場所で地図交換</value>
   </data>
@@ -1707,6 +1719,14 @@
   </data>
   <data name="MainFrame_addTextLineMenu_Text" xml:space="preserve">
     <value>テキストライン(_L)</value>
+  </data>
+  <data name="MainFrame_addMapIssueMenu_Text" xml:space="preserve">
+    <value>計時スタート</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_mapIssuePointToolStripMenuItem_Text" xml:space="preserve">
+    <value>計時スタート</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_addMandatoryCrossingMenu_Text" xml:space="preserve">
     <value>必須の横断地点</value>

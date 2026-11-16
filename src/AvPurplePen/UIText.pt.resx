@@ -1761,7 +1761,8 @@
     <value>Mostrar janela de Informação (_Popup)</value>
   </data>
   <data name="MainFrame_allControlsMenu_Text" xml:space="preserve">
-    <value>Matriz de Pontos de Controlo (_All)</value>
+    <value>Ma_triz de Pontos de Controlo</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_otherCoursesMenu_Text" xml:space="preserve">
     <value>Outros Percursos</value>
@@ -1786,6 +1787,10 @@
   </data>
   <data name="MainFrame_addDescriptionsMenu_Text" xml:space="preserve">
     <value>(_D) Sinalética</value>
+  </data>
+  <data name="MainFrame_addMapFlipMenuItem_Text" xml:space="preserve">
+    <value>_Viragem de mapa no Ponto de Controlo</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_mapExchangeControlMenuItem_Text" xml:space="preserve">
     <value>Troca de mapa no Ponto de _Controlo</value>

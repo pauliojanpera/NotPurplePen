@@ -1423,23 +1423,86 @@
   <data name="MainFrame_mapQualityMenu_Text" xml:space="preserve">
     <value>_Kartkvalitet</value>
   </data>
+  <data name="MainFrame_showPrintAreaMenu_Text" xml:space="preserve">
+    <value>Vis _utskriftsområde</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_showPopupsMenu_Text" xml:space="preserve">
+    <value>Vis _sprettoppinformasjon</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_allControlsMenu_Text" xml:space="preserve">
     <value>_Alle poster</value>
+  </data>
+  <data name="MainFrame_otherCoursesMenu_Text" xml:space="preserve">
+    <value>Andre løyper...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_clearOtherCoursesMenu_Text" xml:space="preserve">
+    <value>Tøm andre løyper</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_viewMenu_Text" xml:space="preserve">
     <value>_Vis</value>
   </data>
+  <data name="MainFrame_addStartMenu_Text" xml:space="preserve">
+    <value>_Start</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addControlMenu_Text" xml:space="preserve">
+    <value>_Post</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_addFinishMenu_Text" xml:space="preserve">
-    <value>_Fullfør</value>
+    <value>_Mål</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MiscText_FinishButtonText" xml:space="preserve">
     <value>_Fullfør</value>
   </data>
+  <data name="MainFrame_addDescriptionsMenu_Text" xml:space="preserve">
+    <value>Post_beskrivelser</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addMapFlipMenuItem_Text" xml:space="preserve">
+    <value>Kart_snu ved post</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_mapExchangeControlMenuItem_Text" xml:space="preserve">
+    <value>Kartbyte ved _post</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_mapExchangeSeparateMenuItem_Text" xml:space="preserve">
+    <value>Merka _rute til kartbyte</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addMapExchangeMenu_Text" xml:space="preserve">
+    <value>_Kartsnu/kartbyte</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addVariationMenu_Text" xml:space="preserve">
+    <value>_Variasjon...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addTextLineMenu_Text" xml:space="preserve">
+    <value>Tekst_linje...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addMapIssueMenu_Text" xml:space="preserve">
+    <value>Tidsstart</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_mapIssuePointToolStripMenuItem_Text" xml:space="preserve">
+    <value>Tidsstart</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_addMandatoryCrossingMenu_Text" xml:space="preserve">
-    <value>Obligatorisk kryssningspunkt</value>
+    <value>Obligatorisk krysningspunkt</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_mandatoryCrossingPointToolStripMenuItem_Text" xml:space="preserve">
-    <value>Obligatorisk kryssningspunkt</value>
+    <value>Obligatorisk krysningspunkt</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_addOptCrossingMenu_Text" xml:space="preserve">
     <value>Frivillig krysningspunkt</value>
