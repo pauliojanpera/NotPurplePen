@@ -725,7 +725,7 @@ Control load	da	Belastning af poster		filled: the usual word of the language; no
 Control load	it	Passaggi per punto	Controllo Passaggi	corrected: "Controllo Passaggi" reads as a check of passages; the load is the competitors that pass each control	claude-opus-5-5	max	2026-11-16
 Control load	nl	Drukte per post		filled: the language's "Drukte" (Competitor Load)	claude-opus-5-5	max	2026-11-16
 Control load	nn-NO	Belastning på post	Kontrollpost	corrected: "Kontrollpost" names no load; nb-NO "Belastning post"	claude-opus-5-5	max	2026-11-16
-Control load	ru	Загрузка КП		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Control load	ru	Нагрузка на КП		filled: the usual word of the language; no text of the language has the term yet; the load of a control, as uk "Навантаження КП"	claude-opus-5-5	max	2026-11-16
 Control load	sl	Obremenitev kontrolnih točk		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Control load	tr	Kontrol Noktası Yükü	Kontrol Ekle	corrected: "Kontrol Ekle" means Add Control	claude-opus-5-5	max	2026-11-16
 Control number height	da	Postnummerhøjde	Kontrolnummer højde	corrected: Danish orienteering calls a control "post"	claude-opus-5-5	max	2026-11-16
@@ -812,7 +812,7 @@ Course Length	ru	Длина дистанции		filled: the usual word of the la
 Course Load	da	Antal løbere på banerne	Kursuslæs	corrected: "Kursuslæs" is a course of study and a cartload; as Competitor Load "Antal løbere"	claude-opus-5-5	max	2026-11-16
 Course Load	et	Raja koormus	Raja laadimine	corrected: "laadimine" is loading as of data; the load is "koormus" (KPde koormus)	claude-opus-5-5	max	2026-11-16
 Course Load	nl	Drukte per route		filled: the language's "Drukte" (Competitor Load)	claude-opus-5-5	max	2026-11-16
-Course Load	ru	Загрузка дистанций		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Course Load	ru	Нагрузка на дистанции		filled: the usual word of the language; no text of the language has the term yet; as uk "Навантаження дистанції"	claude-opus-5-5	max	2026-11-16
 Course Load	tr	Parkur Yükü	Parkur Yükle	corrected: "Yükle" is the verb load	claude-opus-5-5	max	2026-11-16
 Course Name	da	Banenavn	Kursusnavn	corrected: Danish orienteering calls a course "bane"	claude-opus-5-5	max	2026-11-16
 Course Name	hu	A pálya neve	A pálya neve / Pálya neve	chosen: the variant that the language uses most	claude-opus-5-5	max	2026-11-16
@@ -1273,3 +1273,886 @@ Each Variation Separately	ru	Каждый вариант отдельно		fille
 Each Variation Separately	sl	Vsaka varianta posebej		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Edit	nl	Bewerken		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Edit	ru	Правка		filled: the usual word of the language; no text of the language has the term yet; the usual Russian Edit menu	claude-opus-5-5	max	2026-11-16
+Ellipse	da	Ellipse		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Ellipse	es	Elipse		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Ellipse	hu	Ellipszis		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Ellipse	ja	楕円		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Ellipse	nl	Ellips		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Ellipse	nn-NO	Ellipse		filled: the usual word of the language; no text of the language has the term yet; as nb-NO	claude-opus-5-5	max	2026-11-16
+Ellipse	pl	Elipsa		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Ellipse	ro	Elipsă		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Ellipse	ru	Эллипс		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Ellipse	sl	Elipsa		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Enter new code	it	Inserisci nuovo codice	Aggiungi nuovo codice	corrected: "Aggiungi" is add; the prompt asks to enter a code	claude-opus-5-5	max	2026-11-16
+Enter new code	nl	Voer nieuwe code in		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Enter new code	ru	Введите новый код		filled: the usual word of the language; no text of the language has the term yet; as uk	claude-opus-5-5	max	2026-11-16
+Enter new code	sl	Vnesi novo kodno številko		filled: the usual word of the language; no text of the language has the term yet; the language's "kodna številka"	claude-opus-5-5	max	2026-11-16
+Enter new code	zh-CN	输入新编号	输入新密码	corrected: 密码 is a password; the language's control code is 编号 ("检查点编号")	claude-opus-5-5	max	2026-11-16
+Enter new score	it	Inserisci nuovo punteggio	Aggiungi nuovo punteggio	corrected: "Aggiungi" is add; the prompt asks to enter a score	claude-opus-5-5	max	2026-11-16
+Enter new score	nl	Voer nieuwe score in		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Enter new score	ru	Введите новое количество очков		filled: the usual word of the language; no text of the language has the term yet; as uk	claude-opus-5-5	max	2026-11-16
+Enter new score	sl	Vnesi nove točke		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Enter new score	zh-CN	输入新的分值	进入新的评分	corrected: 进入 is to go into; the prompt asks to enter (输入) a score	claude-opus-5-5	max	2026-11-16
+Entire Course	da	Hele banen	Hele Kursus	corrected: Danish orienteering calls a course "bane"	claude-opus-5-5	max	2026-11-16
+Entire Course	nl	Hele route		filled: the usual word of the language; no text of the language has the term yet; the language's "route"	claude-opus-5-5	max	2026-11-16
+Entire Course	ru	Вся дистанция		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+entire leg	da	hele strækket		filled: Danish orienteering calls a leg "stræk"; "ben" is a leg of the body	claude-opus-5-5	max	2026-11-16
+entire leg	it	intera tratta	Intera Frazione	corrected: "frazione" is a leg of a relay; the flagged leg runs between two controls, "tratta" as the language's "Intera Tratta Segnalata"	claude-opus-5-5	max	2026-11-16
+entire leg	ru	весь перегон		filled: the usual word of the language; no text of the language has the term yet; перегон is the leg between two controls	claude-opus-5-5	max	2026-11-16
+entire leg	tr	tüm ayak	tüm bacak	corrected: "bacak" is a leg of the body; the language's leg is "ayak" (Leg)	claude-opus-5-5	max	2026-11-16
+entire leg	zh-CN	整个路段	整个课程	corrected: 课程 is a course of study; a leg is 路段	claude-opus-5-5	max	2026-11-16
+Entire Leg Flagged	da	Hele strækket afmærket	Hele Ben Udflagning	corrected: "ben" is a leg of the body, "udflagning" no Danish word; the language says "stræk" and "afmærket"	claude-opus-5-5	max	2026-11-16
+Entire Leg Flagged	et	Kogu etapp märgistatud	Lisa etapi märgistus	corrected: "Lisa etapi märgistus" is the command Add leg marking; the item names a state	claude-opus-5-5	max	2026-11-16
+Entire Leg Flagged	nl	Hele been gelint		filled: the usual word of the language; no text of the language has the term yet; the language's "been" (Leg)	claude-opus-5-5	max	2026-11-16
+Entire Leg Flagged	ru	Весь перегон размечен		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Entire Map	nl	Hele kaart		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Entire Map	ru	Вся карта		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Error Details	bg	Подробности за грешката		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Error Details	cs	Podrobnosti o chybě		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Error Details	da	Fejldetaljer		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Error Details	de	Fehlerdetails		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Error Details	en-GB	Error Details		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Error Details	es	Detalles del error		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Error Details	et	Vea üksikasjad		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Error Details	fi	Virheen tiedot		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Error Details	fr	Détails de l'erreur		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Error Details	hu	Hiba részletei		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Error Details	it	Dettagli errore		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Error Details	ja	エラーの詳細		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Error Details	nb-NO	Feildetaljer		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Error Details	nl	Foutdetails		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Error Details	nn-NO	Feildetaljar		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Error Details	pl	Szczegóły błędu		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Error Details	pt	Detalhes do erro		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Error Details	pt-BR	Detalhes do erro		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Error Details	ro	Detalii eroare		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Error Details	ru	Подробности ошибки		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Error Details	sl	Podrobnosti napake		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Error Details	sv	Felinformation		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Error Details	tr	Hata Ayrıntıları		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Error Details	uk	Подробиці помилки		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Error Details	zh-CN	错误详细信息		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Error Details	zh-TW	錯誤詳細資料		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Esc	ru	Esc		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+Esc	sl	Esc		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+Event	da	Løb	Hændelse	corrected: "hændelse" is an incident; an orienteering event is a "løb"	claude-opus-5-5	max	2026-11-16
+Event	nl	Evenement		filled from the language's own texts that hold the term:; "Naam van evenement", "Creëer evenement"	claude-opus-5-5	max	2026-11-16
+Event	ru	Соревнование		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Event	uk	Змагання	Подія	corrected: "подія" is an occurrence; the language's event is "змагання" ("Створити змагання")	claude-opus-5-5	max	2026-11-16
+Event Audit	da	Gennemgang af løbet	Hændelse Resumé	corrected: "Hændelse Resumé" is an incident summary	claude-opus-5-5	max	2026-11-16
+Event Audit	nl	Controle van evenement		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Event Audit	ru	Проверка соревнования		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Event Audit	sl	Pregled prireditve	Prireditev Pregled	corrected: the English put word for word	claude-opus-5-5	max	2026-11-16
+Event Audit	tr	Etkinlik Denetimi	Etkinlik Denetim	corrected: the compound needs its suffix	claude-opus-5-5	max	2026-11-16
+Event File Location	da	Placering af løbsfilen	Hændelsesfil lokation	corrected: "hændelse" is an incident, and "lokation" is no Danish word for a place	claude-opus-5-5	max	2026-11-16
+Event File Location	nl	Locatie van evenementbestand		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Event File Location	nn-NO	Plassering av arrangementsfil		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Event File Location	ro	Locația fișierului evenimentului		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Event File Location	ru	Расположение файла соревнования		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Event File Location	sl	Lokacija datoteke prireditve		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Event Title	bg	Заглавие на състезанието	Заглавие на състезанието / Наименование на състезанието	chosen: the variant that the language uses most	claude-opus-5-5	max	2026-11-16
+Event Title	da	Løbets titel	Hændelsestitel	corrected: "hændelse" is an incident; an orienteering event is a "løb"	claude-opus-5-5	max	2026-11-16
+Event Title	et	Võistluse pealkiri	Võistluse pealkiri / Võistluse nimetus	chosen: the variant that the language uses most	claude-opus-5-5	max	2026-11-16
+Event Title	nb-NO	Arrangementsnavn	Arrangementsnavn / Arrangements navn	chosen: the variant that the language uses most	claude-opus-5-5	max	2026-11-16
+Event Title	nn-NO	Arrangementsnamn	Namn på arrangement / Arrangementsnamn	chosen: the variant that the language uses most; in the language's texts (6 against 4)	claude-opus-5-5	max	2026-11-16
+Event Title	pl	Tytuł zawodów	Nazwa Wydarzenia / Tytuł zawodów	chosen: used as often as the other; "zawody" is the language's event (Event)	claude-opus-5-5	max	2026-11-16
+Event Title	pt	Título do Evento	Nome do Evento / Título do Evento	chosen: the variant that the language uses most; in the language's texts (5 against 4)	claude-opus-5-5	max	2026-11-16
+Event Title	ru	Название соревнования		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Event Title	sv	Tävlingsnamn	Tävlingsnamn / Tävlingens namn	chosen: the variant that the language uses most	claude-opus-5-5	max	2026-11-16
+Event Title	uk	Назва змагань	Назва заходу / Назва змагань	chosen: the language's event is "змагання" (Event)	claude-opus-5-5	max	2026-11-16
+Event Title	zh-CN	赛事标题	赛事名称 / 赛事标题	chosen: the variant that the language uses most; in the language's texts (7 against 5)	claude-opus-5-5	max	2026-11-16
+Exchange	da	Udveksling	Udveksl	corrected: "Udveksl" is cut off	claude-opus-5-5	max	2026-11-16
+Exchange	nn-NO	Byte		filled: the usual word of the language; no text of the language has the term yet; nynorsk of nb-NO "Bytte"	claude-opus-5-5	max	2026-11-16
+Exchange	ro	Schimb		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Exchange	ru	Смена		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Existing Controls	da	Eksisterende poster	Eksisterende kontroller	corrected: Danish orienteering calls controls "poster"	claude-opus-5-5	max	2026-11-16
+Existing Controls	ru	Существующие КП		filled: the usual word of the language; no text of the language has the term yet; as uk	claude-opus-5-5	max	2026-11-16
+Existing Controls	tr	Mevcut Kontroller	Mevcut Kontoller	corrected: the typo "Kontoller"	claude-opus-5-5	max	2026-11-16
+Exit	nl	Afsluiten		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Exit	nn-NO	Avslutt	Exit	corrected: "Exit" is the English	claude-opus-5-5	max	2026-11-16
+Exit	pt	Sair	Saír	corrected: "Saír" has a wrong accent	claude-opus-5-5	max	2026-11-16
+Exit	ru	Выход		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Exit	tr	Çıkış	Exit	corrected: "Exit" is the English	claude-opus-5-5	max	2026-11-16
+Export	da	Eksportér		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Export	nl	Exporteren		filled from the language's own texts that hold the term:; "Kies teams om af te drukken of te exporteren"	claude-opus-5-5	max	2026-11-16
+Export	nn-NO	Eksporter		filled: the usual word of the language; no text of the language has the term yet; as nb-NO	claude-opus-5-5	max	2026-11-16
+Export	pl	Eksportuj		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Export	ro	Exportare		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Export	ru	Экспорт		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Export	sl	Izvozi		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+F	nl	F		filled: the same as the English, as the language's "finish"	claude-opus-5-5	max	2026-11-16
+F	ru	Ф		filled: the initial of "финиш", as bg "Ф"	claude-opus-5-5	max	2026-11-16
+F	sl	C		filled: the initial of "cilj", as cs "C"	claude-opus-5-5	max	2026-11-16
+File	nl	Bestand		filled from the language's own texts that hold the term:; "Kaartbestand", "Bestandsnaam"	claude-opus-5-5	max	2026-11-16
+File	pt-BR	Arquivo	Ficheiro/Arquivo	corrected: the cell held two words; "Ficheiro" is European Portuguese	claude-opus-5-5	max	2026-11-16
+File	ru	Файл		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+File format	nl	Bestandsformaat		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+File format	pl	Format pliku	Firnat pliku	corrected: the typo "Firnat"	claude-opus-5-5	max	2026-11-16
+File format	ru	Формат файла		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+File format	uk	Формат файлу	Формат файла	corrected: the genitive of "файл" is "файлу"	claude-opus-5-5	max	2026-11-16
+File Name	ru	Имя файла		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+File Name	uk	Назва файлу	Назва файла	corrected: the genitive of "файл" is "файлу"	claude-opus-5-5	max	2026-11-16
+File name prefix	da	Filnavnspræfiks	Filnavn præfiks	corrected: the compound is written as one word	claude-opus-5-5	max	2026-11-16
+File name prefix	nl	Voorvoegsel bestandsnaam		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+File name prefix	ru	Префикс имени файла		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+File name prefix	sl	Predpona imena datoteke	Pripona imena datoteke	corrected: "pripona" is a suffix	claude-opus-5-5	max	2026-11-16
+File name prefix	uk	Префікс назви файлу	Префікс назви файла	corrected: the genitive of "файл" is "файлу"	claude-opus-5-5	max	2026-11-16
+Files	fi	Tiedostoja	Tiedostoja / Tiedostot	chosen: the variant that the language uses most	claude-opus-5-5	max	2026-11-16
+Files	nn-NO	Filer		filled from the language's own texts that hold the term:; "Lag PDF-filer"	claude-opus-5-5	max	2026-11-16
+Files	ro	Fișiere		filled from the language's own texts that hold the term:; "Creare fișiere PDF"	claude-opus-5-5	max	2026-11-16
+Files	ru	Файлы		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Files	sl	Datoteke		filled from the language's own texts that hold the term:; "Ustvari OCAD Datoteke"	claude-opus-5-5	max	2026-11-16
+Finish (of a course)	en	Finish (of a course)	Finish	split by sense: the finish of a course (Add Finish, the finish item); the last button of a wizard is the line "Finish (the last button of a wizard)"	claude-opus-5-5	max	2026-11-16
+Finish (of a course)	bg	Финал	Финал	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Finish (of a course)	cs	Cíl	Cíl / finish	chosen: the variant that the language uses most; of the course's finish	claude-opus-5-5	max	2026-11-16
+Finish (of a course)	da	Mål	Færdig / Afslut	filled: the Danish finish of a course is "mål" ("Tilføj mål"); "Færdig" and "Afslut" are the wizard's button	claude-opus-5-5	max	2026-11-16
+Finish (of a course)	de	Ziel	Ziel	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Finish (of a course)	en-GB	Finish	Finish	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Finish (of a course)	es	Meta	Meta	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Finish (of a course)	et	Finiš	Finiš	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Finish (of a course)	fi	Maali	Maali	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Finish (of a course)	fr	Arrivée	Terminer / Arrivée	chosen: the course's finish; "Terminer" is the wizard's button	claude-opus-5-5	max	2026-11-16
+Finish (of a course)	hu	Cél	Befejezés / Cél	chosen: the course's finish; "Befejezés" is the wizard's button	claude-opus-5-5	max	2026-11-16
+Finish (of a course)	it	Arrivo	Arrivo	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Finish (of a course)	ja	フィニッシュ	フィニッシュ	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Finish (of a course)	nb-NO	Mål	Fullfør / Mål	chosen: the course's finish; "Fullfør" is the wizard's button	claude-opus-5-5	max	2026-11-16
+Finish (of a course)	nl	finish	finish	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Finish (of a course)	nn-NO	Mål	Fullfør / mål	chosen: the course's finish; "Fullfør" is the wizard's button	claude-opus-5-5	max	2026-11-16
+Finish (of a course)	pl	Meta	Zakończ / Meta	chosen: the course's finish; "Zakończ" is the wizard's button	claude-opus-5-5	max	2026-11-16
+Finish (of a course)	pt	Chegada	Meta / Chegada	chosen: the course's finish in the language's texts (22 against 4)	claude-opus-5-5	max	2026-11-16
+Finish (of a course)	pt-BR	Chegada	Finalizar / Chegada	chosen: the course's finish; "Finalizar" is the wizard's button	claude-opus-5-5	max	2026-11-16
+Finish (of a course)	ro	Sosire	Finalizare / Sosire	chosen: the course's finish; "Finalizare" is the wizard's button	claude-opus-5-5	max	2026-11-16
+Finish (of a course)	ru	Финиш		filled: the usual word of the language; no text of the language has the term yet; as uk "Фініш"	claude-opus-5-5	max	2026-11-16
+Finish (of a course)	sl	Cilj		filled from the language's own texts that hold the term:; "Dodaj cilj"	claude-opus-5-5	max	2026-11-16
+Finish (of a course)	sv	Mål	Slutför / Mål	chosen: the course's finish; "Slutför" is the wizard's button	claude-opus-5-5	max	2026-11-16
+Finish (of a course)	tr	Bitiş	Bitiş	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Finish (of a course)	uk	Фініш	Фініш	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Finish (of a course)	zh-CN	终点	完成 / 结束	filled: the course's finish is 终点 ("添加终点"); 完成 and 结束 are the wizard's button	claude-opus-5-5	max	2026-11-16
+Finish (of a course)	zh-TW	終點	終點	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Finish (the last button of a wizard)	en	Finish (the last button of a wizard)	Finish	split by sense: the button that completes the New Event wizard (MiscText.FinishButtonText, NewEventWizard_finishButton_Text); many languages give it the course's finish, which is wrong there	claude-opus-5-5	max	2026-11-16
+Finish (the last button of a wizard)	bg	Готово	Финал	filled: the button completes the wizard; "Финал" is the course's finish	claude-opus-5-5	max	2026-11-16
+Finish (the last button of a wizard)	cs	Dokončit	Cíl / finish	filled: the button completes the wizard; "Cíl" is the course's finish	claude-opus-5-5	max	2026-11-16
+Finish (the last button of a wizard)	da	Færdig	Færdig / Afslut	filled from the language's own texts that hold the term:; the wizard's button "_Færdig"	claude-opus-5-5	max	2026-11-16
+Finish (the last button of a wizard)	de	Fertig stellen	Ziel	filled: the button completes the wizard; "Ziel" is the course's finish	claude-opus-5-5	max	2026-11-16
+Finish (the last button of a wizard)	en-GB	Finish	Finish	the English	claude-opus-5-5	max	2026-11-16
+Finish (the last button of a wizard)	es	Finalizar	Meta	filled: the button completes the wizard; "Meta" is the course's finish	claude-opus-5-5	max	2026-11-16
+Finish (the last button of a wizard)	et	Lõpeta	Finiš	filled: the button completes the wizard; "Finiš" is the course's finish	claude-opus-5-5	max	2026-11-16
+Finish (the last button of a wizard)	fi	Valmis	Maali	filled: the button completes the wizard; "Maali" is the course's finish	claude-opus-5-5	max	2026-11-16
+Finish (the last button of a wizard)	fr	Terminer	Terminer / Arrivée	filled from the language's own texts that hold the term:; the wizard's button "_Terminer"	claude-opus-5-5	max	2026-11-16
+Finish (the last button of a wizard)	hu	Befejezés	Befejezés / Cél	filled from the language's own texts that hold the term:; the wizard's button "Be_fejezés"	claude-opus-5-5	max	2026-11-16
+Finish (the last button of a wizard)	it	Fine	Arrivo	filled: the button completes the wizard; "Arrivo" is the course's finish	claude-opus-5-5	max	2026-11-16
+Finish (the last button of a wizard)	ja	完了	フィニッシュ	filled: the button completes the wizard; フィニッシュ is the course's finish	claude-opus-5-5	max	2026-11-16
+Finish (the last button of a wizard)	nb-NO	Fullfør	Fullfør / Mål	filled from the language's own texts that hold the term:; the wizard's button "_Fullfør"	claude-opus-5-5	max	2026-11-16
+Finish (the last button of a wizard)	nl	Voltooien	finish	filled: the usual word of the language; no text of the language has the term yet; the usual last button of a Dutch wizard	claude-opus-5-5	max	2026-11-16
+Finish (the last button of a wizard)	nn-NO	Fullfør	Fullfør / mål	filled from the language's own texts that hold the term:; the wizard's button "_Fullfør"	claude-opus-5-5	max	2026-11-16
+Finish (the last button of a wizard)	pl	Zakończ	Zakończ / Meta	filled from the language's own texts that hold the term:; the wizard's button "_Zakończ"	claude-opus-5-5	max	2026-11-16
+Finish (the last button of a wizard)	pt	Concluir	Meta / Chegada	filled: the button completes the wizard; "Meta" is the course's finish	claude-opus-5-5	max	2026-11-16
+Finish (the last button of a wizard)	pt-BR	Finalizar	Finalizar / Chegada	filled from the language's own texts that hold the term:; the wizard's button "_Finalizar"	claude-opus-5-5	max	2026-11-16
+Finish (the last button of a wizard)	ro	Finalizare	Finalizare / Sosire	filled from the language's own texts that hold the term:; the wizard's button "_Finalizare"	claude-opus-5-5	max	2026-11-16
+Finish (the last button of a wizard)	ru	Готово		filled: the usual word of the language; no text of the language has the term yet; the usual last button of a Russian wizard	claude-opus-5-5	max	2026-11-16
+Finish (the last button of a wizard)	sl	Dokončaj		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Finish (the last button of a wizard)	sv	Slutför	Slutför / Mål	filled from the language's own texts that hold the term:; the wizard's button "Slut_för"	claude-opus-5-5	max	2026-11-16
+Finish (the last button of a wizard)	tr	Bitir	Bitiş	filled: the button completes the wizard; "Bitiş" is the course's finish	claude-opus-5-5	max	2026-11-16
+Finish (the last button of a wizard)	uk	Готово	Фініш	filled: the button completes the wizard; "Фініш" is the course's finish	claude-opus-5-5	max	2026-11-16
+Finish (the last button of a wizard)	zh-CN	完成	完成 / 结束	filled from the language's own texts that hold the term:; the wizard's button "完成(_F)"	claude-opus-5-5	max	2026-11-16
+Finish (the last button of a wizard)	zh-TW	完成	終點	filled: the button completes the wizard; 終點 is the course's finish	claude-opus-5-5	max	2026-11-16
+finish funnel	da	målsluse		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+finish funnel	et	finišikoridor	finiši tähistus	corrected: "finiši tähistus" is a finish marking; the IOF text of symbols.xml is "Suundu finišikoridori"	claude-opus-5-5	max	2026-11-16
+finish funnel	fi	kokoava viitoitus	ei viitoitusta maaliin	corrected: "ei viitoitusta maaliin" means no taping to the finish; the IOF text of symbols.xml is "kokoava viitoitus"	claude-opus-5-5	max	2026-11-16
+finish funnel	it	corridoio finale	Tunnel Finish	corrected: "Tunnel Finish" mixes English; the IOF text of symbols.xml is "corridoio finale fettucciato"	claude-opus-5-5	max	2026-11-16
+finish funnel	ru	финишный коридор		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+finish funnel	sl	ciljni koridor		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+finish funnel	uk	фінішний коридор	фініштий коридор	corrected: the typo "фініштий"	claude-opus-5-5	max	2026-11-16
+finish funnel	zh-CN	终点通道	完成漏斗	corrected: 完成 is to complete; the finish is 终点, as zh-TW 終點通道	claude-opus-5-5	max	2026-11-16
+finishes	cs	cíle	finishuje	corrected: "finishuje" is a verb; the plural of the course's finish "cíl"	claude-opus-5-5	max	2026-11-16
+finishes	da	mål		filled: the usual word of the language; no text of the language has the term yet; the plural of "mål" is the same	claude-opus-5-5	max	2026-11-16
+finishes	nl	finishes	finisht	corrected: "finisht" is a verb; the plural of the language's "finish"	claude-opus-5-5	max	2026-11-16
+finishes	pl	mety		filled: the usual word of the language; no text of the language has the term yet; the plural of "meta"	claude-opus-5-5	max	2026-11-16
+finishes	ru	финиши		filled: the usual word of the language; no text of the language has the term yet; as uk	claude-opus-5-5	max	2026-11-16
+finishes	sl	cilji		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+finishes	tr	bitişler	bitiriş	corrected: "bitiriş" is the act of finishing; the plural of the language's "Bitiş"	claude-opus-5-5	max	2026-11-16
+finishes	zh-CN	终点	完成	corrected: 完成 is to complete; the finish is 终点	claude-opus-5-5	max	2026-11-16
+First Aid Location	da	Førstehjælpssted	Førstehjælps lokation	corrected: "lokation" is no Danish word for a place, and the compound was split	claude-opus-5-5	max	2026-11-16
+First Aid Location	en-GB	First Aid Location	First Aid Posy	corrected: the typo "Posy"	claude-opus-5-5	max	2026-11-16
+First Aid Location	et	Esmaabi koht	Esmaaabi koht	corrected: the typo "Esmaaabi"	claude-opus-5-5	max	2026-11-16
+First Aid Location	nl	EHBO-post		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+First Aid Location	ru	Медпункт		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+First control number	da	Første postnummer	Første kontrolnummer	corrected: Danish orienteering calls a control "post"	claude-opus-5-5	max	2026-11-16
+First control number	ru	Номер первого КП	Первое контрольное число	corrected: "контрольное число" is a check figure; the label asks for the number of the first control	claude-opus-5-5	max	2026-11-16
+First control number	sv	Första kontrollnummer	Första kodsiffra	corrected: "kodsiffra" is the code; the label asks for the number of the first control	claude-opus-5-5	max	2026-11-16
+First page	bg	Първа страница		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+First page	cs	První stránka		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+First page	da	Første side		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+First page	de	Erste Seite		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+First page	en-GB	First page		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+First page	es	Primera página		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+First page	et	Esimene lehekülg		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+First page	fi	Ensimmäinen sivu		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+First page	fr	Première page		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+First page	hu	Első oldal		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+First page	it	Prima pagina		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+First page	ja	最初のページ		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+First page	nb-NO	Første side		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+First page	nl	Eerste pagina		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+First page	nn-NO	Første side		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+First page	pl	Pierwsza strona		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+First page	pt	Primeira página		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+First page	pt-BR	Primeira página		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+First page	ro	Prima pagină		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+First page	ru	Первая страница		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+First page	sl	Prva stran		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+First page	sv	Första sidan		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+First page	tr	İlk sayfa		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+First page	uk	Перша сторінка		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+First page	zh-CN	第一页		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+First page	zh-TW	第一頁		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Fit Page	bg	Цяла страница		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Fit Page	cs	Přizpůsobit stránce		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Fit Page	da	Tilpas til side		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Fit Page	de	Seite einpassen		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Fit Page	en-GB	Fit Page		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Fit Page	es	Ajustar a la página		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Fit Page	et	Mahuta lehele		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Fit Page	fi	Sovita sivulle		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Fit Page	fr	Ajuster à la page		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Fit Page	hu	Oldalhoz igazítás		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Fit Page	it	Adatta alla pagina		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Fit Page	ja	ページに合わせる		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Fit Page	nb-NO	Tilpass siden		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Fit Page	nl	Pagina passend maken		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Fit Page	nn-NO	Tilpass sida		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Fit Page	pl	Dopasuj do strony		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Fit Page	pt	Ajustar à página		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Fit Page	pt-BR	Ajustar à página		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Fit Page	ro	Potrivire pagină		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Fit Page	ru	По размеру страницы		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Fit Page	sl	Prilagodi strani		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Fit Page	sv	Anpassa till sidan		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Fit Page	tr	Sayfaya Sığdır		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Fit Page	uk	За розміром сторінки		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Fit Page	zh-CN	适合页面		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Fit Page	zh-TW	符合頁面		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Flagging	da	Afmærkning		filled: Danish orienteering says "afmærket" of a taped route; "udflagning" in the language's texts is no Danish word	claude-opus-5-5	max	2026-11-16
+Flagging	nb-NO	Merking	Flagging	corrected: "flagging" is the flying of flags in Norwegian; a taped route is "merket" ("Hele strekket merket")	claude-opus-5-5	max	2026-11-16
+Flagging	nl	Lintmarkering		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Flagging	nn-NO	Merking	Flagging	corrected: "flagging" is the flying of flags in Norwegian; a taped route is "merka" ("Heile strekket merka")	claude-opus-5-5	max	2026-11-16
+Flagging	ru	Разметка		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Flagging	sl	Označitev		filled from the language's own texts that hold the term:; "Celotna etapa označena"	claude-opus-5-5	max	2026-11-16
+Flagging	zh-CN	标记	flagging	corrected: "flagging" is the English; the language's "整个路段标记"	claude-opus-5-5	max	2026-11-16
+Folder	ru	Папка		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Folder	tr	Klasör	Dosya	corrected: "Dosya" is a file	claude-opus-5-5	max	2026-11-16
+Font	nn-NO	Skrift		filled: the usual word of the language; no text of the language has the term yet; as nb-NO	claude-opus-5-5	max	2026-11-16
+Font	ro	Font		filled from the language's own texts that hold the term:; "Metrici de Font", "fonturi"	claude-opus-5-5	max	2026-11-16
+Font	ru	Шрифт		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Font	sl	Pisava		filled from the language's own texts that hold the term:; "Spreglej manjkajoče pisave"	claude-opus-5-5	max	2026-11-16
+Font Metrics	all			removed: an item of the hidden Debug menu, for the developer; not a term of the application	claude-opus-5-5	max	2026-11-16
+Forbidden Route	da	Forbudt rute		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Forbidden Route	fr	Itinéraire interdit	Route interdite	corrected: a "route" is a road; the forbidden route of the ISOM is an "itinéraire interdit"	claude-opus-5-5	max	2026-11-16
+Forbidden Route	nl	Verboden route		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Forbidden Route	pl	Niedozwolony przebieg	Nidozwolony przebieg	corrected: the typo "Nidozwolony"	claude-opus-5-5	max	2026-11-16
+Forbidden Route	ru	Запрещённый маршрут		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Forbidden Route	sl	Prepovedana pot		filled from the language's own texts that hold the term:; "Oznaka prepovedane poti"	claude-opus-5-5	max	2026-11-16
+Forbidden Route Marking	da	Markering af forbudt rute	Forbudt område markering	corrected: "Forbudt område" is a forbidden area	claude-opus-5-5	max	2026-11-16
+Forbidden Route Marking	fr	Itinéraire interdit	Route interdite	corrected: a "route" is a road; the forbidden route of the ISOM is an "itinéraire interdit"	claude-opus-5-5	max	2026-11-16
+Forbidden Route Marking	nl	Markering verboden route		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Forbidden Route Marking	pt-BR	Marcação de Rota Proibida	Balizamento de Área Proibida	corrected: "Área Proibida" is a forbidden area	claude-opus-5-5	max	2026-11-16
+Forbidden Route Marking	ro	Marcare rută interzisă	Marcare Interzisă	corrected: "Marcare Interzisă" means a forbidden marking	claude-opus-5-5	max	2026-11-16
+Forbidden Route Marking	ru	Обозначение запрещённого маршрута		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Forbidden Route Marking	zh-CN	禁止路线标记	禁止的路标	corrected: 路标 is a signpost	claude-opus-5-5	max	2026-11-16
+Fork	da	Gafling	Fork	corrected: "Fork" is the English	claude-opus-5-5	max	2026-11-16
+Fork	it	Biforcazione	Variazione	corrected: "Variazione" is the variation (Variation); the fork is a "biforcazione"	claude-opus-5-5	max	2026-11-16
+Fork	nn-NO	Gafling		filled: the usual word of the language; no text of the language has the term yet; as nb-NO	claude-opus-5-5	max	2026-11-16
+Fork	pl	Rozwidlenie		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Fork	ro	Bifurcație		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Fork	ru	Развилка	Эстафета	corrected: "Эстафета" is a relay	claude-opus-5-5	max	2026-11-16
+Fork	sl	Razcep		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Full	nl	Volledig		filled from the language's own texts that hold the term:; "Bekijke de volledige licentie"	claude-opus-5-5	max	2026-11-16
+Full	ru	Полная		filled: the usual word of the language; no text of the language has the term yet; full intensity; "яркость" is feminine	claude-opus-5-5	max	2026-11-16
+Gap Size	nb-NO	Mellomromsstørrelse	Mellomrom størrelse	corrected: a Norwegian compound is written as one word	claude-opus-5-5	max	2026-11-16
+Gap Size	nn-NO	Opningsstorleik		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Gap Size	ro	Dimensiune spațiu		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Gap Size	ru	Размер разрыва		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Gap Size	sl	Velikost razmaka		filled: the usual word of the language; no text of the language has the term yet; the language's "razmak" (Add Gap)	claude-opus-5-5	max	2026-11-16
+Gender	bg	Род	Пол	corrected: the column of the grammatical gender of a description text; "пол" is the sex of a person	claude-opus-5-5	max	2026-11-16
+Gender	cs	Rod	Pohlaví	corrected: the grammatical gender; "pohlaví" is the sex of a person	claude-opus-5-5	max	2026-11-16
+Gender	pl	Rodzaj	Płeć	corrected: the grammatical gender; "płeć" is the sex of a person	claude-opus-5-5	max	2026-11-16
+Gender	ru	Род		filled: the usual word of the language; no text of the language has the term yet; the grammatical gender	claude-opus-5-5	max	2026-11-16
+Gender	sv	Genus	Kön	corrected: the grammatical gender; "kön" is the sex of a person	claude-opus-5-5	max	2026-11-16
+Gender	tr	Cins	Cinsiyet	corrected: the grammatical gender; "cinsiyet" is the sex of a person	claude-opus-5-5	max	2026-11-16
+Gender	uk	Рід	Стать	corrected: the grammatical gender; "стать" is the sex of a person	claude-opus-5-5	max	2026-11-16
+Gender	zh-CN	性	性别	corrected: the grammatical gender, as ja 名詞の性; 性别 is the sex of a person	claude-opus-5-5	max	2026-11-16
+Gender	zh-TW	性	性別	corrected: the grammatical gender, as ja 名詞の性; 性別 is the sex of a person	claude-opus-5-5	max	2026-11-16
+GIF	hu	GIF	OCAD 8	corrected: "OCAD 8" is another item of the list	claude-opus-5-5	max	2026-11-16
+GIF	ja	GIF		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+GIF	nl	GIF		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+GIF	nn-NO	GIF		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+GIF	pl	GIF		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+GIF	ro	GIF		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+GIF	ru	GIF		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+GIF	sl	GIF		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+GPX file|*.gpx	all			removed: the filter of a file dialog, not a term	claude-opus-5-5	max	2026-11-16
+Green	nl	Groen		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Green	nn-NO	Grøn		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Green	ro	Verde		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Green	ru	Зелёный		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Green	sl	Zelena		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Green	zh-CN	绿色	植物	corrected: 植物 is a plant	claude-opus-5-5	max	2026-11-16
+Height	da	Højde		filled from the language's own texts that hold the term:; "højde"	claude-opus-5-5	max	2026-11-16
+Height	nl	Hoogte		filled from the language's own texts that hold the term:; "Post nummer hoogte"	claude-opus-5-5	max	2026-11-16
+Height	nn-NO	Høgd		filled from the language's own texts that hold the term:; "Linjehøgde"	claude-opus-5-5	max	2026-11-16
+Height	ro	Înălțime		filled from the language's own texts that hold the term:; "Înălțime linie"	claude-opus-5-5	max	2026-11-16
+Height	ru	Высота		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Height	sl	Višina		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Help	ru	Справка		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Help	sl	Pomoč		filled from the language's own texts that hold the term:; "Purple Pen Pomoč"	claude-opus-5-5	max	2026-11-16
+High	ru	Высокая		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+High	sl	Visoka	Visoka / Visoko	chosen: the two are used equally; the feminine of "intenzivnost" and "kakovost"	claude-opus-5-5	max	2026-11-16
+Ignore Missing Fonts	ru	Игнорировать отсутствующие шрифты		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Image	et	Pilt	Pildi failid	corrected: "Pildi failid" are image files	claude-opus-5-5	max	2026-11-16
+Image	nn-NO	Bilde		filled from the language's own texts that hold the term:; "Bildeoppløsning"	claude-opus-5-5	max	2026-11-16
+Image	ro	Imagine		filled from the language's own texts that hold the term:; "Rezoluția imaginii"	claude-opus-5-5	max	2026-11-16
+Image	ru	Изображение		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Image	sl	Slika		filled from the language's own texts that hold the term:; "slikovno datoteko"	claude-opus-5-5	max	2026-11-16
+Image file|*.jpg;*.jpeg;*.gif;*.png;*.bmp;*.tif;*.tiff	all			removed: the filter of a file dialog, not a term	claude-opus-5-5	max	2026-11-16
+Image resolution	cs	Rozlišení obrázku	Rozlišení obázku	corrected: the typo "obázku"	claude-opus-5-5	max	2026-11-16
+Image resolution	nb-NO	Bildeoppløsning	Bilde oppløsning	corrected: a Norwegian compound is written as one word	claude-opus-5-5	max	2026-11-16
+Image resolution	nl	Afbeeldingsresolutie		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Image resolution	ru	Разрешение изображения		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Image resolution	sl	Ločljivost slike		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Include	en-GB	Include		filled: the usual word of the language; no text of the language has the term yet; the English	claude-opus-5-5	max	2026-11-16
+Increment	bg	Увеличаване		filled: the usual word of the language; no text of the language has the term yet; the button that increases a number	claude-opus-5-5	max	2026-11-16
+Increment	cs	Zvýšit		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Increment	da	Forøg		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Increment	de	Erhöhen		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Increment	en-GB	Increment		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Increment	es	Aumentar		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Increment	et	Suurenda		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Increment	fi	Kasvata		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Increment	hu	Növelés		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Increment	it	Aumenta		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Increment	ja	増やす		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Increment	nb-NO	Øk		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Increment	nl	Verhogen		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Increment	nn-NO	Auk		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Increment	pl	Zwiększ		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Increment	pt	Aumentar		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Increment	pt-BR	Aumentar		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Increment	ro	Creștere		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Increment	ru	Увеличить		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Increment	sl	Povečaj		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Increment	sv	Öka		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Increment	tr	Artır		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Increment	uk	Збільшити		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Increment	zh-CN	增加		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Increment	zh-TW	增加		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Insert Special Text	ru	Вставить специальный текст		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Insert Special Text	sl	Vstavi posebno besedilo	Vnesi dodaten tekst	corrected: "Vnesi dodaten tekst" means enter additional text	claude-opus-5-5	max	2026-11-16
+into control	da	ind til posten		filled: the usual word of the language; no text of the language has the term yet; Danish orienteering calls a control "post"	claude-opus-5-5	max	2026-11-16
+into control	it	verso il punto	Nel controllo	corrected: "Nel controllo" means in the check	claude-opus-5-5	max	2026-11-16
+into control	nl	naar de post		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+into control	ru	к КП		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+into control	sl	do kontrolne točke		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+into control	tr	kontrol noktasına	kontrol altında	corrected: "kontrol altında" means under control	claude-opus-5-5	max	2026-11-16
+into finish funnel	da	ind i målslusen		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+into finish funnel	et	finišikoridori	finiši tähistusse	corrected: "tähistus" is a marking; the IOF text of symbols.xml is "Suundu finišikoridori"	claude-opus-5-5	max	2026-11-16
+into finish funnel	it	nel corridoio finale	Nel tunnel arrivo	corrected: "tunnel" is English; the IOF text of symbols.xml is "corridoio finale"	claude-opus-5-5	max	2026-11-16
+into finish funnel	nl	in de finishtrechter		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+into finish funnel	ru	в финишный коридор		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+into finish funnel	sl	v ciljni koridor		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+into finish funnel	zh-CN	进入终点通道	为完成漏斗	corrected: 为完成漏斗 means for the completion funnel; zh-TW 進入終點通道	claude-opus-5-5	max	2026-11-16
+IOF Description Standard	da	IOF-postbeskrivelsesstandard		filled: the usual word of the language; no text of the language has the term yet; Danish orienteering says "postbeskrivelser"	claude-opus-5-5	max	2026-11-16
+IOF Description Standard	hu	IOF pontleírás szabvány	IOF pontmegnevezések	corrected: "pontmegnevezések" are names of points; the descriptions are "pontleírások"	claude-opus-5-5	max	2026-11-16
+IOF Description Standard	ja	IOFディスクリプション規格		filled: the usual word of the language; no text of the language has the term yet; as 2004年版ディスクリプション規格	claude-opus-5-5	max	2026-11-16
+IOF Description Standard	nl	IOF-norm voor postomschrijvingen		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+IOF Description Standard	nn-NO	IOF postbeskrivelsesstandard		filled: the usual word of the language; no text of the language has the term yet; as nb-NO	claude-opus-5-5	max	2026-11-16
+IOF Description Standard	pl	Standard opisów IOF		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+IOF Description Standard	ro	Standard IOF pentru descrieri		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+IOF Description Standard	ru	Стандарт легенд КП IOF		filled: the usual word of the language; no text of the language has the term yet; as uk "Стандарт легенд IOF"	claude-opus-5-5	max	2026-11-16
+IOF Description Standard	sl	Standard opisov IOF		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+IOF Map Standard	da	IOF-kortnorm		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+IOF Map Standard	ja	IOF地図規程		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+IOF Map Standard	nl	IOF-kaartnorm		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+IOF Map Standard	nn-NO	IOF kartstandard		filled: the usual word of the language; no text of the language has the term yet; as nb-NO	claude-opus-5-5	max	2026-11-16
+IOF Map Standard	pl	Standard map IOF		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+IOF Map Standard	ro	Standard IOF pentru hărți		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+IOF Map Standard	ru	Картографический стандарт IOF		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+IOF Map Standard	sl	Kartografski standard IOF		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+IOF Standards	cs	IOF Standardy	IOF Standards / IOF Standardy	chosen: the variant that the language uses most; in the language's texts	claude-opus-5-5	max	2026-11-16
+IOF Standards	da	IOF-standarder	IOF Standards	corrected: "Standards" is the English	claude-opus-5-5	max	2026-11-16
+IOF Standards	de	IOF Normen	IOF Standards / IOF Normen	chosen: the variant that the language uses most; in the language's texts	claude-opus-5-5	max	2026-11-16
+IOF Standards	et	IOF Standardid	IOFi Standardid / IOF Standardid	chosen: the variant that the language uses most; in the language's texts	claude-opus-5-5	max	2026-11-16
+IOF Standards	hu	IOF Szabványok	IOF Szabvány / IOF Szabványok	chosen: the plural of the term; the count of "IOF Szabvány" includes "IOF Szabványok"	claude-opus-5-5	max	2026-11-16
+IOF Standards	it	Standard IOF	IOF Standards	corrected: "IOF Standards" is the English	claude-opus-5-5	max	2026-11-16
+IOF Standards	ja	IOF規格		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+IOF Standards	nb-NO	IOF-standarder	IOF standarder / IOF-standarder	chosen: the two are used equally; the other lacks the hyphen	claude-opus-5-5	max	2026-11-16
+IOF Standards	nl	IOF-normen		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+IOF Standards	nn-NO	IOF-standardar		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+IOF Standards	pl	Standardy IOF		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+IOF Standards	pt	Padrões IOF	IOF Standards / Padrões IOF	chosen: the other is the English	claude-opus-5-5	max	2026-11-16
+IOF Standards	ro	Standarde IOF		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+IOF Standards	ru	Стандарты IOF		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+IOF Standards	sl	Standardi IOF		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+IOF Standards	sv	IOF-normer	IOF-_normer / IOF-normer	chosen: the variant that the language uses most	claude-opus-5-5	max	2026-11-16
+IOF Standards	tr	IOF Standartları	IOF Standartları / IOF Standardı	chosen: the variant that the language uses most	claude-opus-5-5	max	2026-11-16
+IOF Standards	zh-TW	IOF 規範	IOF 規範 / IOF標準	chosen: the variant that the language uses most	claude-opus-5-5	max	2026-11-16
+IOF XML	ja	IOF XML		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+IOF XML	nl	IOF XML		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+IOF XML	nn-NO	IOF XML		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+IOF XML	pl	IOF XML		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+IOF XML	ro	IOF XML		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+IOF XML	ru	IOF XML		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+IOF XML	sl	IOF XML		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+IOF XML Version	fr	Version XML IOF		filled from the language's own texts that hold the term:; "XML IOF version 3.0"	claude-opus-5-5	max	2026-11-16
+IOF XML Version	ja	IOF XML バージョン		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+IOF XML Version	nl	IOF XML-versie		filled from the language's own texts that hold the term:; "IOF XML versie 3.0"	claude-opus-5-5	max	2026-11-16
+IOF XML Version	nn-NO	IOF XML-versjon		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+IOF XML Version	pl	Wersja IOF XML		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+IOF XML Version	ro	Versiune IOF XML		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+IOF XML Version	ru	Версия IOF XML		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+IOF XML Version	sl	Različica IOF XML		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+IOF XML Version	uk	Версія IOF XML	IOF XML версії	corrected: "версії" is the genitive	claude-opus-5-5	max	2026-11-16
+ISOM 2017	da	ISOM 2017		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+ISOM 2017	ja	ISOM 2017		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+ISOM 2017	nl	ISOM 2017		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+ISOM 2017	nn-NO	ISOM 2017		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+ISOM 2017	pl	ISOM 2017		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+ISOM 2017	pt-BR	ISOM 2017	ISSprOM 2019	corrected: "ISSprOM 2019" is the next option, the sprint standard	claude-opus-5-5	max	2026-11-16
+ISOM 2017	ro	ISOM 2017		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+ISOM 2017	ru	ISOM 2017		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+ISOM 2017	sl	ISOM 2017		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+ISOM2000 Map Standard	ja	ISOM2000 地図規程		filled: the usual word of the language; no text of the language has the term yet; as IOF地図規程	claude-opus-5-5	max	2026-11-16
+ISOM2000 Map Standard	nl	ISOM2000-kaartnorm		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+ISOM2000 Map Standard	nn-NO	ISOM2000 kartstandard		filled: the usual word of the language; no text of the language has the term yet; as nb-NO	claude-opus-5-5	max	2026-11-16
+ISOM2000 Map Standard	pl	Standard map ISOM2000		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+ISOM2000 Map Standard	ro	Standard de hartă ISOM2000		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+ISOM2000 Map Standard	ru	Картографический стандарт ISOM2000		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+ISOM2000 Map Standard	sl	Kartografski standard ISOM2000		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+ISOM2017 Map Standard	ja	ISOM2017 地図規程		filled: the usual word of the language; no text of the language has the term yet; as IOF地図規程	claude-opus-5-5	max	2026-11-16
+ISOM2017 Map Standard	nl	ISOM2017-kaartnorm		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+ISOM2017 Map Standard	nn-NO	ISOM2017 kartstandard		filled: the usual word of the language; no text of the language has the term yet; as nb-NO	claude-opus-5-5	max	2026-11-16
+ISOM2017 Map Standard	pl	Standard map ISOM2017		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+ISOM2017 Map Standard	ro	Standard de hartă ISOM2017		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+ISOM2017 Map Standard	ru	Картографический стандарт ISOM2017		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+ISOM2017 Map Standard	sl	Kartografski standard ISOM2017		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+ISSprOM 2019	da	ISSprOM 2019		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+ISSprOM 2019	es	ISSprOM 2019		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+ISSprOM 2019	hu	ISSprOM 2019		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+ISSprOM 2019	ja	ISSprOM 2019		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+ISSprOM 2019	nl	ISSprOM 2019		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+ISSprOM 2019	nn-NO	ISSprOM 2019		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+ISSprOM 2019	pl	ISSprOM 2019		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+ISSprOM 2019	ro	ISSprOM 2019		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+ISSprOM 2019	ru	ISSprOM 2019		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+ISSprOM 2019	sl	ISSprOM 2019		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+Italic	nn-NO	Kursiv		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Italic	ro	Cursiv		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Italic	ru	Курсив		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Italic	sl	Ležeče		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Item	cs	Položka	Položka / Objekt	chosen: the variant that the language uses most	claude-opus-5-5	max	2026-11-16
+Item	da	Element	Vare	corrected: "vare" is merchandise	claude-opus-5-5	max	2026-11-16
+Item	de	Element	Element / Objekte	chosen: the variant that the language uses most	claude-opus-5-5	max	2026-11-16
+Item	es	Elemento	Elemento / Elementos	chosen: the variant that the language uses most	claude-opus-5-5	max	2026-11-16
+Item	et	Objekt	Objekt / Sümbol	chosen: the variant that the language uses most	claude-opus-5-5	max	2026-11-16
+Item	nb-NO	Element	Element / Objekt	chosen: the variant that the language uses most	claude-opus-5-5	max	2026-11-16
+Item	nn-NO	Element	Element / Objekt	chosen: the variant that the language uses most	claude-opus-5-5	max	2026-11-16
+Item	pl	Element	Element / Obiekt	chosen: the variant that the language uses most	claude-opus-5-5	max	2026-11-16
+Item	ru	Элемент		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Item	uk	Елемент	Елемент / Об'єкт	chosen: the variant that the language uses most	claude-opus-5-5	max	2026-11-16
+Item Sizes	da	Elementstørrelser	Varestørrelser	corrected: "vare" is merchandise	claude-opus-5-5	max	2026-11-16
+Item Sizes	ru	Размеры элементов		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+JPEG	hu	JPEG	OCAD 7	corrected: "OCAD 7" is another item of the list	claude-opus-5-5	max	2026-11-16
+JPEG	ja	JPEG		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+JPEG	nl	JPEG		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+JPEG	nn-NO	JPEG		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+JPEG	pl	JPEG		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+JPEG	ro	JPEG		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+JPEG	ru	JPEG		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+JPEG	sl	JPEG		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+km	nn-NO	km		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+km	ro	km		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+km	sl	km		the same as the English: a name, a unit or a code that the language does not translate	claude-opus-5-5	max	2026-11-16
+Landscape	da	Liggende	Landskab	corrected: "Landskab" is scenery; the page orientation is "liggende"	claude-opus-5-5	max	2026-11-16
+Landscape	et	Rõhtpaigutus	Maastik	corrected: "Maastik" is terrain; the page orientation is "rõhtpaigutus"	claude-opus-5-5	max	2026-11-16
+Landscape	ru	Альбомная		filled: the usual word of the language; no text of the language has the term yet; the page orientation	claude-opus-5-5	max	2026-11-16
+Landscape	sl	Ležeče		filled: the usual word of the language; no text of the language has the term yet; the page orientation	claude-opus-5-5	max	2026-11-16
+Landscape	tr	Yatay	Düzenlemek	corrected: "Düzenlemek" is to arrange; the page orientation is "yatay"	claude-opus-5-5	max	2026-11-16
+Last page	bg	Последна страница		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Last page	cs	Poslední stránka		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Last page	da	Sidste side		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Last page	de	Letzte Seite		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Last page	en-GB	Last page		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Last page	es	Última página		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Last page	et	Viimane lehekülg		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Last page	fi	Viimeinen sivu		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Last page	fr	Dernière page		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Last page	hu	Utolsó oldal		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Last page	it	Ultima pagina		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Last page	ja	最後のページ		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Last page	nb-NO	Siste side		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Last page	nl	Laatste pagina		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Last page	nn-NO	Siste side		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Last page	pl	Ostatnia strona		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Last page	pt	Última página		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Last page	pt-BR	Última página		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Last page	ro	Ultima pagină		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Last page	ru	Последняя страница		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Last page	sl	Zadnja stran		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Last page	sv	Sista sidan		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Last page	tr	Son sayfa		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Last page	uk	Остання сторінка		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Last page	zh-CN	最后一页		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Last page	zh-TW	最後一頁		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Layer	cs	Vrstva		filled: the usual word of the language; no text of the language has the term yet; the option that draws the purple on a layer of the map	claude-opus-5-5	max	2026-11-16
+Layer	da	Lag		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Layer	de	Ebene		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Layer	es	Capa		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Layer	et	Kiht		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Layer	fi	Taso		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Layer	fr	Couche de couleur	Couche dec couleur	corrected: the typo "dec"	claude-opus-5-5	max	2026-11-16
+Layer	hu	Réteg		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Layer	ja	レイヤー		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Layer	nb-NO	Lag		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Layer	nl	Laag		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Layer	nn-NO	Lag		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Layer	pl	Warstwa		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Layer	pt	Camada		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Layer	pt-BR	Camada		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Layer	ro	Strat		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Layer	ru	Слой		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Layer	sl	Plast		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Layer	sv	Lager		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Layer	uk	Шар		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Layer	zh-CN	图层		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Layer	zh-TW	圖層		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Left	da	Venstre		filled from the language's own texts that hold the term:; "Venste {0}", with its typo	claude-opus-5-5	max	2026-11-16
+Left	nl	Links		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Left	nn-NO	Venstre		filled from the language's own texts that hold the term:; "venstre museknapp"	claude-opus-5-5	max	2026-11-16
+Left	ro	Stânga		filled from the language's own texts that hold the term:; "butonul stâng"	claude-opus-5-5	max	2026-11-16
+Left	ru	Слева		filled: the usual word of the language; no text of the language has the term yet; the margin	claude-opus-5-5	max	2026-11-16
+Left	sl	Levo		filled: the usual word of the language; no text of the language has the term yet; the margin	claude-opus-5-5	max	2026-11-16
+Leg (between two controls)	en	Leg (between two controls)	Leg	split by sense: the part of a course from one control to the next (Leg load, Leg Lengths, leg flagging); the leg of a relay is the line "Leg (of a relay)"	claude-opus-5-5	max	2026-11-16
+Leg (between two controls)	bg	Отсечка	Отсечка	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Leg (between two controls)	cs	Postup	Postup	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Leg (between two controls)	da	Stræk		filled: Danish orienteering calls a leg "stræk"; "ben" in the language's texts is a leg of the body	claude-opus-5-5	max	2026-11-16
+Leg (between two controls)	de	Teilstrecke	Teilstrecke	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Leg (between two controls)	en-GB	Leg	Leg	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Leg (between two controls)	es	Tramo	Tramo	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Leg (between two controls)	et	Etapp	Etapp	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Leg (between two controls)	fi	Rastiväli	Rastiväli	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Leg (between two controls)	fr	Interposte	Interposte	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Leg (between two controls)	hu	Átmenet	Átmenet	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Leg (between two controls)	it	Tratta	Frazione	corrected: "Frazione" is a leg of a relay; the leg between two controls is "tratta" ("Intera Tratta Segnalata")	claude-opus-5-5	max	2026-11-16
+Leg (between two controls)	ja	レッグ	レッグ	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Leg (between two controls)	nb-NO	Strekk	Strekk	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Leg (between two controls)	nl	Been	Been	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Leg (between two controls)	nn-NO	Strekk	Strekk	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Leg (between two controls)	pl	Przebieg	Przebieg	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Leg (between two controls)	pt	Pernada	Pernada	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Leg (between two controls)	pt-BR	Pernada	Pernada	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Leg (between two controls)	ro	Secțiune	Secțiune	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Leg (between two controls)	ru	Перегон		filled: перегон is the leg between two controls in Russian orienteering	claude-opus-5-5	max	2026-11-16
+Leg (between two controls)	sl	Etapa		filled from the language's own texts that hold the term:; "Dolžine etap"	claude-opus-5-5	max	2026-11-16
+Leg (between two controls)	sv	Sträcka	Sträcka	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Leg (between two controls)	tr	Ayak	Ayak	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Leg (between two controls)	uk	Перегін	Перегон	corrected: the Ukrainian nominative is "перегін" ("перегону" in the language's texts); "перегон" is Russian	claude-opus-5-5	max	2026-11-16
+Leg (between two controls)	zh-CN	路段	课程	corrected: 课程 is a course of study; a leg is 路段, as the language's "Legs"	claude-opus-5-5	max	2026-11-16
+Leg (between two controls)	zh-TW	賽段	賽段	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Leg (of a relay)	en	Leg (of a relay)	Leg	split by sense: the part of a relay that one runner of a team runs (Leg Assignments, Number of legs, Relay Leg)	claude-opus-5-5	max	2026-11-16
+Leg (of a relay)	bg	Етап	Отсечка	filled: the leg of a relay is the "етап" of the relay, as ru and uk	claude-opus-5-5	max	2026-11-16
+Leg (of a relay)	cs	Úsek	Postup	filled: the language's relay leg ("Přiřazení úseků", "Úseky")	claude-opus-5-5	max	2026-11-16
+Leg (of a relay)	da	Tur		filled: Danish relays count their legs as "ture"	claude-opus-5-5	max	2026-11-16
+Leg (of a relay)	de	Etappe	Teilstrecke	filled: the language's relay leg ("Etappenzuweisung", "Etappen")	claude-opus-5-5	max	2026-11-16
+Leg (of a relay)	en-GB	Leg	Leg	the English	claude-opus-5-5	max	2026-11-16
+Leg (of a relay)	es	Posta	Tramo	filled: Spanish relays count their legs as "postas"; "tramo" is the leg between two controls	claude-opus-5-5	max	2026-11-16
+Leg (of a relay)	et	Vahetus	Etapp	filled: the language's relay leg ("Vahetuste omistamine", "Vahetus")	claude-opus-5-5	max	2026-11-16
+Leg (of a relay)	fi	Osuus	Rastiväli	filled: the language's relay leg ("Osuusmäärittelyt", "Osuudet")	claude-opus-5-5	max	2026-11-16
+Leg (of a relay)	fr	Relais	Interposte	filled: French relays count their legs as "relais"; "interposte" is the leg between two controls	claude-opus-5-5	max	2026-11-16
+Leg (of a relay)	hu	Szakasz	Átmenet	filled: a section of the relay; "Ág" in the language's texts is a branch	claude-opus-5-5	max	2026-11-16
+Leg (of a relay)	it	Frazione	Frazione	filled: the language's relay leg ("Assegnamento frazione", "Frazioni")	claude-opus-5-5	max	2026-11-16
+Leg (of a relay)	ja	レッグ	レッグ	filled: the language says レッグ for both legs	claude-opus-5-5	max	2026-11-16
+Leg (of a relay)	nb-NO	Etappe	Strekk	filled: the language's relay leg ("Etapper")	claude-opus-5-5	max	2026-11-16
+Leg (of a relay)	nl	Etappe	Been	filled: Dutch relays count their legs as "etappes"	claude-opus-5-5	max	2026-11-16
+Leg (of a relay)	nn-NO	Etappe	Strekk	filled: as nb-NO	claude-opus-5-5	max	2026-11-16
+Leg (of a relay)	pl	Zmiana	Przebieg	filled: Polish relays count their legs as "zmiany"; "przebieg" is the leg between two controls	claude-opus-5-5	max	2026-11-16
+Leg (of a relay)	pt	Etapa	Pernada	filled: a stage of the relay; "pernada" is the leg between two controls	claude-opus-5-5	max	2026-11-16
+Leg (of a relay)	pt-BR	Etapa	Pernada	filled: a stage of the relay; "pernada" is the leg between two controls	claude-opus-5-5	max	2026-11-16
+Leg (of a relay)	ro	Etapă	Secțiune	filled: a stage of the relay; "secțiune" is the leg between two controls	claude-opus-5-5	max	2026-11-16
+Leg (of a relay)	ru	Этап		filled: the leg of a relay in Russian orienteering	claude-opus-5-5	max	2026-11-16
+Leg (of a relay)	sl	Etapa		filled: the language says "etapa" for both legs	claude-opus-5-5	max	2026-11-16
+Leg (of a relay)	sv	Sträcka	Sträcka	filled: Swedish says "sträcka" for both legs	claude-opus-5-5	max	2026-11-16
+Leg (of a relay)	tr	Ayak	Ayak	filled: Turkish relays count their legs as "ayak"	claude-opus-5-5	max	2026-11-16
+Leg (of a relay)	uk	Етап	Перегон	filled: the language's relay leg ("Призначення етапів", "Етапи")	claude-opus-5-5	max	2026-11-16
+Leg (of a relay)	zh-CN	棒次	课程	filled: a relay leg is 棒 (第一棒); 路段 is the leg between two controls	claude-opus-5-5	max	2026-11-16
+Leg (of a relay)	zh-TW	棒次	賽段	filled: a relay leg is 棒 (第一棒); 賽段 is the leg between two controls	claude-opus-5-5	max	2026-11-16
+Leg Assignments	bg	Разпределение на етапите	Разпределение на отсечките	corrected: the dialog assigns relay legs; "отсечка" is the leg between two controls	claude-opus-5-5	max	2026-11-16
+Leg Assignments	da	Tildeling af ture	Ben tildelinger	corrected: the dialog assigns relay legs, "ture" in Danish; "ben" is a leg of the body	claude-opus-5-5	max	2026-11-16
+Leg Assignments	es	Asignación de postas	Asignaciones de tramos	corrected: the dialog assigns relay legs, "postas"; "tramo" is the leg between two controls	claude-opus-5-5	max	2026-11-16
+Leg Assignments	fr	Affectation des relais	Affectations des interpostes	corrected: the dialog assigns relay legs, "relais"; "interposte" is the leg between two controls	claude-opus-5-5	max	2026-11-16
+Leg Assignments	hu	Szakaszok hozzárendelése	Ág hozzárendelések	corrected: "Ág" is a branch; the dialog assigns relay legs	claude-opus-5-5	max	2026-11-16
+Leg Assignments	ja	レッグの割り当て		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Leg Assignments	nb-NO	Tildeling av etapper	Strekk tilordning	corrected: the dialog assigns relay legs, "etapper"; "strekk" is the leg between two controls	claude-opus-5-5	max	2026-11-16
+Leg Assignments	nl	Toewijzing van etappes		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Leg Assignments	nn-NO	Tildeling av etappar		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Leg Assignments	pl	Przydział zmian		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Leg Assignments	pt	Atribuição de etapas	Atributos de pernada	corrected: "Atributos" are attributes, and "pernada" is the leg between two controls	claude-opus-5-5	max	2026-11-16
+Leg Assignments	pt-BR	Atribuição de Etapas	Atribuições de Pernadas	corrected: the dialog assigns relay legs; "pernada" is the leg between two controls	claude-opus-5-5	max	2026-11-16
+Leg Assignments	ro	Atribuire etape		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Leg Assignments	ru	Распределение этапов		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Leg Assignments	sl	Dodelitev etap		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Leg Assignments	tr	Ayak Atamaları	Bacak Atamaları	corrected: "bacak" is a leg of the body; the language's leg is "ayak"	claude-opus-5-5	max	2026-11-16
+Leg Assignments	zh-CN	棒次分配	路段分配	corrected: the dialog assigns relay legs, 棒次; 路段 is the leg between two controls	claude-opus-5-5	max	2026-11-16
+Leg Assignments	zh-TW	棒次分配	賽段分配	corrected: the dialog assigns relay legs, 棒次; 賽段 is the leg between two controls	claude-opus-5-5	max	2026-11-16
+Leg Flagging	da	Afmærkning af stræk	Ben Udflagning	corrected: "ben" is a leg of the body, "udflagning" no Danish word	claude-opus-5-5	max	2026-11-16
+Leg Flagging	it	Tratta segnalata	Zona Cambio Frazionisti	corrected: "Zona Cambio Frazionisti" is the changeover zone of a relay	claude-opus-5-5	max	2026-11-16
+Leg Flagging	nl	Gelint been		filled: the usual word of the language; no text of the language has the term yet; the language's "been" (Leg)	claude-opus-5-5	max	2026-11-16
+Leg Flagging	ru	Разметка перегона		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Leg Flagging	zh-CN	路段标记		filled from the language's own texts that hold the term:; "整个路段标记"	claude-opus-5-5	max	2026-11-16
+Leg Lengths	da	Stræklængder	Ben længder	corrected: "ben" is a leg of the body; Danish orienteering says "stræk"	claude-opus-5-5	max	2026-11-16
+Leg Lengths	de	Teilstreckenlängen	Bahnlängen	corrected: "Bahnlängen" are the lengths of courses	claude-opus-5-5	max	2026-11-16
+Leg Lengths	it	Lunghezza tratte	Lunghezza Frazioni	corrected: "frazione" is a leg of a relay; the report gives the legs between controls	claude-opus-5-5	max	2026-11-16
+Leg Lengths	nl	Beenlengtes		filled: the usual word of the language; no text of the language has the term yet; the language's "been" (Leg)	claude-opus-5-5	max	2026-11-16
+Leg Lengths	ru	Длины перегонов		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Leg Lengths	uk	Довжини перегонів	Довжити перегонів	corrected: the typo "Довжити"	claude-opus-5-5	max	2026-11-16
+Leg Lengths	zh-CN	路段长度	课程的长度	corrected: 课程 is a course of study	claude-opus-5-5	max	2026-11-16
+Leg load	da	Belastning af stræk		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Leg load	de	Teilstreckenauslastung	Etappenauslastung	corrected: "Etappe" is the language's relay leg; the leg between two controls is "Teilstrecke"	claude-opus-5-5	max	2026-11-16
+Leg load	it	Passaggi per tratta	Utilizzo Frazioni	corrected: "Utilizzo Frazioni" is the use of relay legs; the load counts the competitors on each leg	claude-opus-5-5	max	2026-11-16
+Leg load	nl	Drukte per been		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Leg load	ru	Нагрузка на перегоны		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Leg load	sl	Obremenitev etap		filled from the language's own texts that hold the term:; "obremenitev etap"	claude-opus-5-5	max	2026-11-16
+Leg load	tr	Ayak Yükü	Ayak ekle	corrected: "Ayak ekle" means Add Leg	claude-opus-5-5	max	2026-11-16
+Leg load	zh-CN	路段通过量	腿部负荷	corrected: 腿部 is the leg of a body; as the language's "检查点通过量"	claude-opus-5-5	max	2026-11-16
+Legs (between two controls)	en	Legs (between two controls)	Legs	split by sense: the parts of a course from control to control	claude-opus-5-5	max	2026-11-16
+Legs (between two controls)	bg	Отсечки	Отсечки	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Legs (between two controls)	cs	Postupy	Úseky	filled: the plural of "postup" (Leg)	claude-opus-5-5	max	2026-11-16
+Legs (between two controls)	da	Stræk	Ben	filled: Danish orienteering says "stræk"	claude-opus-5-5	max	2026-11-16
+Legs (between two controls)	de	Teilstrecken	Etappen	filled: the plural of "Teilstrecke" (Leg)	claude-opus-5-5	max	2026-11-16
+Legs (between two controls)	en-GB	Legs	Legs	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Legs (between two controls)	es	Tramos	Tramos	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Legs (between two controls)	et	Etapid	Vahetus	filled: the plural of "etapp" (Leg)	claude-opus-5-5	max	2026-11-16
+Legs (between two controls)	fi	Rastivälit	Osuudet	filled: the plural of "rastiväli" (Leg)	claude-opus-5-5	max	2026-11-16
+Legs (between two controls)	fr	Interpostes	Interpostes	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Legs (between two controls)	hu	Átmenetek	Ágak	filled: the plural of "átmenet" (Leg)	claude-opus-5-5	max	2026-11-16
+Legs (between two controls)	it	Tratte	Frazioni	filled: the plural of "tratta" (Leg)	claude-opus-5-5	max	2026-11-16
+Legs (between two controls)	ja	レッグ	レッグ	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Legs (between two controls)	nb-NO	Strekk	Etapper	filled: the plural of "strekk" (Leg)	claude-opus-5-5	max	2026-11-16
+Legs (between two controls)	nl	Benen		filled from the language's own texts that hold the term:; "Aantal benen"	claude-opus-5-5	max	2026-11-16
+Legs (between two controls)	nn-NO	Strekk		filled from the language's own texts that hold the term:; "Berre strekk som…"	claude-opus-5-5	max	2026-11-16
+Legs (between two controls)	pl	Przebiegi		filled from the language's own texts that hold the term:; "jedynie przebiegi użyte…"	claude-opus-5-5	max	2026-11-16
+Legs (between two controls)	pt	Pernadas	Pernadas	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Legs (between two controls)	pt-BR	Pernadas	Pernadas	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Legs (between two controls)	ro	Secțiuni		filled from the language's own texts that hold the term:; "doar secțiunile folosite…"	claude-opus-5-5	max	2026-11-16
+Legs (between two controls)	ru	Перегоны		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Legs (between two controls)	sl	Etape		filled: the plural of "etapa"	claude-opus-5-5	max	2026-11-16
+Legs (between two controls)	sv	Sträckor	Sträcka	filled: the plural of "sträcka"	claude-opus-5-5	max	2026-11-16
+Legs (between two controls)	tr	Ayaklar	Bacaklar	filled: the plural of "ayak"; "bacak" is a leg of the body	claude-opus-5-5	max	2026-11-16
+Legs (between two controls)	uk	Перегони	Етапи	filled: the plural of "перегін"	claude-opus-5-5	max	2026-11-16
+Legs (between two controls)	zh-CN	路段	路段	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Legs (between two controls)	zh-TW	賽段	賽段	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Legs (of a relay)	en	Legs (of a relay)	Legs	split by sense: the legs of a relay (the column of Leg Assignments, Number of legs)	claude-opus-5-5	max	2026-11-16
+Legs (of a relay)	bg	Етапи	Отсечки	corrected: the column lists relay legs; "отсечки" are legs between controls	claude-opus-5-5	max	2026-11-16
+Legs (of a relay)	cs	Úseky	Úseky	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Legs (of a relay)	da	Ture	Ben	corrected: the column lists relay legs; "ben" is a leg of the body	claude-opus-5-5	max	2026-11-16
+Legs (of a relay)	de	Etappen	Etappen	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Legs (of a relay)	en-GB	Legs	Legs	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Legs (of a relay)	es	Postas	Tramos	corrected: the column lists relay legs; "tramos" are legs between controls	claude-opus-5-5	max	2026-11-16
+Legs (of a relay)	et	Vahetused	Vahetus	corrected: the plural of the language's relay leg "vahetus"	claude-opus-5-5	max	2026-11-16
+Legs (of a relay)	fi	Osuudet	Osuudet	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Legs (of a relay)	fr	Relais	Interpostes	corrected: the column lists relay legs; "interpostes" are legs between controls	claude-opus-5-5	max	2026-11-16
+Legs (of a relay)	hu	Szakaszok	Ágak	corrected: "Ágak" are branches; the column lists relay legs	claude-opus-5-5	max	2026-11-16
+Legs (of a relay)	it	Frazioni	Frazioni	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Legs (of a relay)	ja	レッグ	レッグ	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Legs (of a relay)	nb-NO	Etapper	Etapper	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Legs (of a relay)	nl	Etappes		filled: the plural of "etappe"	claude-opus-5-5	max	2026-11-16
+Legs (of a relay)	nn-NO	Etappar		filled: the plural of "etappe"	claude-opus-5-5	max	2026-11-16
+Legs (of a relay)	pl	Zmiany		filled: the plural of "zmiana"	claude-opus-5-5	max	2026-11-16
+Legs (of a relay)	pt	Etapas	Pernadas	corrected: the column lists relay legs; "pernadas" are legs between controls	claude-opus-5-5	max	2026-11-16
+Legs (of a relay)	pt-BR	Etapas	Pernadas	corrected: the column lists relay legs; "pernadas" are legs between controls	claude-opus-5-5	max	2026-11-16
+Legs (of a relay)	ro	Etape		filled: the plural of "etapă"	claude-opus-5-5	max	2026-11-16
+Legs (of a relay)	ru	Этапы		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Legs (of a relay)	sl	Etape		filled: the plural of "etapa"	claude-opus-5-5	max	2026-11-16
+Legs (of a relay)	sv	Sträckor	Sträcka	corrected: the plural; "Sträcka" is the singular	claude-opus-5-5	max	2026-11-16
+Legs (of a relay)	tr	Ayaklar	Bacaklar	corrected: "bacak" is a leg of the body; the language's leg is "ayak"	claude-opus-5-5	max	2026-11-16
+Legs (of a relay)	uk	Етапи	Етапи	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Legs (of a relay)	zh-CN	棒次	路段	corrected: the column lists relay legs, 棒次; 路段 is the leg between two controls	claude-opus-5-5	max	2026-11-16
+Legs (of a relay)	zh-TW	棒次	賽段	corrected: the column lists relay legs, 棒次; 賽段 is the leg between two controls	claude-opus-5-5	max	2026-11-16
+Length	sl	Dolžina		filled from the language's own texts that hold the term:; "Dolžina proge"	claude-opus-5-5	max	2026-11-16
+Length	tr	Uzunluk	Uzunluk / Boy	chosen: the variant that the language uses most	claude-opus-5-5	max	2026-11-16
+Length	zh-TW	長度	賽程長度 / 長度	chosen: the variant that the language uses most; in the language's texts (17 against 7)	claude-opus-5-5	max	2026-11-16
+Light Blue	hu	Világoskék	Világos kék	corrected: the compound is written as one word	claude-opus-5-5	max	2026-11-16
+Light Blue	nb-NO	Lyseblå	Lys blå	corrected: a Norwegian compound is written as one word	claude-opus-5-5	max	2026-11-16
+Light Blue	nl	Lichtblauw		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Light Blue	nn-NO	Lyseblå		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Light Blue	ro	Albastru deschis		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Light Blue	ru	Светло-синий		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Light Blue	sl	Svetlo modra		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Light Blue	tr	Açık mavi	Lacivert	corrected: "Lacivert" is navy blue, the language's Dark Blue	claude-opus-5-5	max	2026-11-16
+Line (drawn)	en	Line (drawn)	Line	split by sense: a drawn line: the special item Line (Add Line), the width of a line; a line of text is the line "Line (of text)"	claude-opus-5-5	max	2026-11-16
+Line (drawn)	bg	Линия	Линия	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Line (drawn)	cs	Čára	Čára	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Line (drawn)	da	Linje	Linje	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Line (drawn)	de	Linie	Linie	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Line (drawn)	en-GB	Line	Line	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Line (drawn)	es	Línea	Línea	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Line (drawn)	et	Joon	Joon	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Line (drawn)	fi	Viiva	Viiva	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Line (drawn)	fr	Ligne	Ligne	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Line (drawn)	hu	Vonal	Vonal	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Line (drawn)	it	Linea	Linea	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Line (drawn)	ja	線	線	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Line (drawn)	nb-NO	Linje	Linje	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Line (drawn)	nl	Lijn	Lijn	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Line (drawn)	nn-NO	Linje		filled: as nb-NO	claude-opus-5-5	max	2026-11-16
+Line (drawn)	pl	Linia	Linia	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Line (drawn)	pt	Linha	Linha	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Line (drawn)	pt-BR	Linha	Linha	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Line (drawn)	ro	Linie		filled from the language's own texts that hold the term:; "Dimensiunea liniei"	claude-opus-5-5	max	2026-11-16
+Line (drawn)	ru	Линия		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Line (drawn)	sl	Črta		filled from the language's own texts that hold the term:; "Debelina črte"	claude-opus-5-5	max	2026-11-16
+Line (drawn)	sv	Linje	Linje	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Line (drawn)	tr	Çizgi	Çizgi	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Line (drawn)	uk	Лінія	Лінія	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Line (drawn)	zh-CN	线条	直线	corrected: 直线 is a straight line; the item is drawn in several segments, as the language's "添加线条"	claude-opus-5-5	max	2026-11-16
+Line (drawn)	zh-TW	線段	列	corrected: 列 is a row of text; the language's "新增線段" (Add Line)	claude-opus-5-5	max	2026-11-16
+Line (of text)	en	Line (of text)	Line	split by sense: a line of text or a row of the description sheet: Text line, Line height, Line size	claude-opus-5-5	max	2026-11-16
+Line (of text)	bg	Ред	Линия	filled: a line of text ("текстов ред")	claude-opus-5-5	max	2026-11-16
+Line (of text)	cs	Řádka	Čára	filled: the language's "řádka textu"	claude-opus-5-5	max	2026-11-16
+Line (of text)	da	Linje	Linje	filled: the language's "tekstlinje"	claude-opus-5-5	max	2026-11-16
+Line (of text)	de	Zeile	Linie	filled: the language's "Textzeile"	claude-opus-5-5	max	2026-11-16
+Line (of text)	en-GB	Line	Line	the English	claude-opus-5-5	max	2026-11-16
+Line (of text)	es	Línea	Línea	filled: the language's "línea de texto"	claude-opus-5-5	max	2026-11-16
+Line (of text)	et	Rida	Joon	filled: the language's "teksti rida"	claude-opus-5-5	max	2026-11-16
+Line (of text)	fi	Rivi	Viiva	filled: the language's "tekstirivi"	claude-opus-5-5	max	2026-11-16
+Line (of text)	fr	Ligne	Ligne	filled: the language's "ligne de texte"	claude-opus-5-5	max	2026-11-16
+Line (of text)	hu	Sor	Vonal	filled: the language's "szövegsor"	claude-opus-5-5	max	2026-11-16
+Line (of text)	it	Riga	Linea	filled: a line of text is "riga"	claude-opus-5-5	max	2026-11-16
+Line (of text)	ja	行	線	filled: the language's テキスト行	claude-opus-5-5	max	2026-11-16
+Line (of text)	nb-NO	Linje	Linje	filled: the language's "tekstlinje"	claude-opus-5-5	max	2026-11-16
+Line (of text)	nl	Regel	Lijn	filled: the language's "tekstregel"	claude-opus-5-5	max	2026-11-16
+Line (of text)	nn-NO	Linje		filled: the language's "tekstlinje"	claude-opus-5-5	max	2026-11-16
+Line (of text)	pl	Wiersz	Linia	filled: a line of text is "wiersz"	claude-opus-5-5	max	2026-11-16
+Line (of text)	pt	Linha	Linha	filled: the language's "linha de texto"	claude-opus-5-5	max	2026-11-16
+Line (of text)	pt-BR	Linha	Linha	filled: the language's "linha de texto"	claude-opus-5-5	max	2026-11-16
+Line (of text)	ro	Linie		filled: the language's "linie de text"	claude-opus-5-5	max	2026-11-16
+Line (of text)	ru	Строка		filled: a line of text	claude-opus-5-5	max	2026-11-16
+Line (of text)	sl	Vrstica		filled: the language's "besedilna vrstica"	claude-opus-5-5	max	2026-11-16
+Line (of text)	sv	Rad	Linje	filled: the language's "textrad"	claude-opus-5-5	max	2026-11-16
+Line (of text)	tr	Satır	Çizgi	filled: the language's "Metin Satırı"	claude-opus-5-5	max	2026-11-16
+Line (of text)	uk	Рядок	Лінія	filled: a line of text in Ukrainian	claude-opus-5-5	max	2026-11-16
+Line (of text)	zh-CN	行	直线	filled: the language's 文本行	claude-opus-5-5	max	2026-11-16
+Line (of text)	zh-TW	列	列	filled: the language's 文字列	claude-opus-5-5	max	2026-11-16
+Line height	bg	Височина на реда	Височина на линията	corrected: the height of a row of the description sheet; "линия" is a drawn line	claude-opus-5-5	max	2026-11-16
+Line height	cs	Výška řádku	Šířka linie	corrected: "Šířka linie" is the width of a line	claude-opus-5-5	max	2026-11-16
+Line height	da	Linjehøjde		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Line height	et	Rea kõrgus	Joone pikkus	corrected: "Joone pikkus" is the length of a drawn line	claude-opus-5-5	max	2026-11-16
+Line height	fi	Rivin korkeus	Viivan korkeus	corrected: "viiva" is a drawn line; the height of a row of the description sheet is "rivin korkeus"	claude-opus-5-5	max	2026-11-16
+Line height	pl	Wysokość wiersza	Wysokość linii	corrected: "linia" is a drawn line; the height of a row of the description sheet	claude-opus-5-5	max	2026-11-16
+Line height	ru	Высота строки		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Line height	sl	Višina vrstice		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Line height	uk	Висота рядка		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Line size	da	Linjestørrelse		filled: the usual word of the language; no text of the language has the term yet; the size of a row of the printed description sheet	claude-opus-5-5	max	2026-11-16
+Line size	de	Zeilengröße	Linienstärke	corrected: "Linienstärke" is the thickness of a drawn line; the size is that of a row of the description sheet	claude-opus-5-5	max	2026-11-16
+Line size	nb-NO	Linjehøyde	Linje tykkelse	corrected: "tykkelse" is the thickness of a drawn line; the size is that of a row of the description sheet	claude-opus-5-5	max	2026-11-16
+Line size	nl	Regelgrootte		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Line size	nn-NO	Linjehøgd	Linjetjukkelse	corrected: "tjukkelse" is the thickness of a drawn line; the size is that of a row of the description sheet	claude-opus-5-5	max	2026-11-16
+Line size	ru	Размер строки		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Line size	sl	Velikost vrstice		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Line size	sv	Radstorlek	Linjetjocklek	corrected: "Linjetjocklek" is the thickness of a drawn line; the size is that of a row of the description sheet	claude-opus-5-5	max	2026-11-16
+Line size	tr	Satır boyutu	Çizgi Boyutu	corrected: "Çizgi" is a drawn line; the size is that of a row of the description sheet	claude-opus-5-5	max	2026-11-16
+Line size	zh-CN	行尺寸	线径	corrected: 线径 is the diameter of a wire; the size is that of a row of the description sheet	claude-opus-5-5	max	2026-11-16
+Line size	zh-TW	列的大小	線條尺寸	corrected: 線條 is a drawn line; the size is that of a row of the description sheet	claude-opus-5-5	max	2026-11-16
+Line width	ru	Толщина линии		filled: the usual word of the language; no text of the language has the term yet; as uk "Товщина лінії"	claude-opus-5-5	max	2026-11-16
+Load (the number of competitors)	en	Load (the number of competitors)	Load	split by sense: the expected number of competitors on a course, a control or a leg (Competitor Load, Leg load); loading a file is the line "Load (a file)"	claude-opus-5-5	max	2026-11-16
+Load (the number of competitors)	bg	Натовареност	Натоварване / Натовареност	chosen: the variant that the language uses most; in the language's texts (17 against 7)	claude-opus-5-5	max	2026-11-16
+Load (the number of competitors)	cs	Vytížení	Načíst / Vytížení	chosen: the number of competitors; "Načíst" is the loading of a file	claude-opus-5-5	max	2026-11-16
+Load (the number of competitors)	da	Belastning		filled: "læs" in the language's texts is a cartload	claude-opus-5-5	max	2026-11-16
+Load (the number of competitors)	de	Auslastung	Auslastung	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Load (the number of competitors)	en-GB	Load	Load	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Load (the number of competitors)	es	Densidad	Densidad / Carga	chosen: the variant that the language uses most	claude-opus-5-5	max	2026-11-16
+Load (the number of competitors)	et	Koormus	Lae / Loe	corrected: "Lae" and "Loe" load and read a file; the language's "KPde koormus"	claude-opus-5-5	max	2026-11-16
+Load (the number of competitors)	fi	Kuormitus	Kuormitus	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Load (the number of competitors)	fr	Charge	Charge	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Load (the number of competitors)	hu	Terhelés	Terhelés	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Load (the number of competitors)	it	Carico	Carica	corrected: "Carica" is the verb load or a charge; the load is "carico"	claude-opus-5-5	max	2026-11-16
+Load (the number of competitors)	ja	走行人数	走行人数	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Load (the number of competitors)	nb-NO	Belastning	Les inn / Last inn	corrected: "Les inn" and "Last inn" read and load a file; the language's "Strekkbelastning"	claude-opus-5-5	max	2026-11-16
+Load (the number of competitors)	nl	Drukte	Drukte	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Load (the number of competitors)	nn-NO	Belastning	Opna	corrected: "Opna" is to open; the language's "Strekkbelastning"	claude-opus-5-5	max	2026-11-16
+Load (the number of competitors)	pl	Obłożenie	Obłożenie	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Load (the number of competitors)	pt	Carga	Carga	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Load (the number of competitors)	pt-BR	Carga	Carga	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Load (the number of competitors)	ro	Încărcare	Încărcare	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Load (the number of competitors)	ru	Нагрузка		filled: the usual word of the language; no text of the language has the term yet; the load of a control, as uk "Навантаження"	claude-opus-5-5	max	2026-11-16
+Load (the number of competitors)	sl	Obremenitev		filled from the language's own texts that hold the term:; "Obremenitev proge"	claude-opus-5-5	max	2026-11-16
+Load (the number of competitors)	sv	Belastning	Belastning	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Load (the number of competitors)	tr	Yük	Yükle	corrected: "Yükle" is the verb load; the noun is "yük" ("Yarışmacı Yükü")	claude-opus-5-5	max	2026-11-16
+Load (the number of competitors)	uk	Навантаження	Навантаження	split by sense; the existing translation belongs to this sense	claude-opus-5-5	max	2026-11-16
+Load (the number of competitors)	zh-CN	负荷	加载 / 负荷	chosen: the number of competitors; 加载 is the loading of a file	claude-opus-5-5	max	2026-11-16
+Load (the number of competitors)	zh-TW	負荷量	載入	corrected: 載入 is the loading of a file; the language's "選手負荷量"	claude-opus-5-5	max	2026-11-16
+Load (a file)	en	Load (a file)	Load	split by sense: loading a file, as in "Cannot load map file '{0}'"	claude-opus-5-5	max	2026-11-16
+Load (a file)	bg	Зареждане	Натоварване / Натовареност	filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Load (a file)	cs	Načíst	Načíst / Vytížení	filled: the language's variant for loading	claude-opus-5-5	max	2026-11-16
+Load (a file)	da	Indlæs		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Load (a file)	de	Laden	Auslastung	filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Load (a file)	en-GB	Load	Load	the English	claude-opus-5-5	max	2026-11-16
+Load (a file)	es	Cargar	Densidad / Carga	filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Load (a file)	et	Laadi	Lae / Loe	filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Load (a file)	fi	Lataa	Kuormitus	filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Load (a file)	fr	Charger	Charge	filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Load (a file)	hu	Betöltés	Terhelés	filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Load (a file)	it	Carica	Carica	filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Load (a file)	ja	読み込み	走行人数	filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Load (a file)	nb-NO	Last inn	Les inn / Last inn	filled: the language's variant for loading	claude-opus-5-5	max	2026-11-16
+Load (a file)	nl	Laden	Drukte	filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Load (a file)	nn-NO	Last inn	Opna	filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Load (a file)	pl	Wczytaj	Obłożenie	filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Load (a file)	pt	Carregar	Carga	filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Load (a file)	pt-BR	Carregar	Carga	filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Load (a file)	ro	Încărcare	Încărcare	filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Load (a file)	ru	Загрузить		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Load (a file)	sl	Naloži		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Load (a file)	sv	Läs in	Belastning	filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Load (a file)	tr	Yükle	Yükle	filled: the language's variant for loading	claude-opus-5-5	max	2026-11-16
+Load (a file)	uk	Завантажити	Навантаження	filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Load (a file)	zh-CN	加载	加载 / 负荷	filled: the language's variant for loading	claude-opus-5-5	max	2026-11-16
+Load (a file)	zh-TW	載入	載入	filled: the language's variant for loading	claude-opus-5-5	max	2026-11-16
+Location	da	Placering		filled: the usual word of the language; no text of the language has the term yet; "lokation" in the language's texts is no Danish word	claude-opus-5-5	max	2026-11-16
+Location	de	Position	Speicherort / Position	chosen: a place on the map; "Speicherort" is where a file is saved	claude-opus-5-5	max	2026-11-16
+Location	es	Ubicación	Ubicación / Localización	chosen: the two are used equally	claude-opus-5-5	max	2026-11-16
+Location	fr	Emplacement	Emplacement(s) / Emplacement	chosen: the variant that the language uses most; in the language's texts	claude-opus-5-5	max	2026-11-16
+Location	ro	Locație	Locație / Locația	chosen: the two are used equally; the indefinite form of the term	claude-opus-5-5	max	2026-11-16
+Location	ru	Местоположение		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Location	sl	Lokacija		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Location	sv	Plats	Plats / Placering	chosen: the variant that the language uses most	claude-opus-5-5	max	2026-11-16
+Loop	nn-NO	Sommarfugl		filled: the usual word of the language; no text of the language has the term yet; nynorsk of nb-NO "Sommerfugl"	claude-opus-5-5	max	2026-11-16
+Loop	pl	Pętla		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Loop	ro	Buclă		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Loop	sl	Zanka		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Low	de	Gering	Gering / Niedrig	chosen: the variant that the language uses most	claude-opus-5-5	max	2026-11-16
+Low	fr	Faible	Faible / Basse	chosen: the variant that the language uses most	claude-opus-5-5	max	2026-11-16
+Low	ru	Низкая		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Low	uk	Низьке	Низьке / Низька	chosen: the variant that the language uses most	claude-opus-5-5	max	2026-11-16
+Lower Purple	bg	Долен пурпурен	Спусни пурпурния слой	corrected: "Спусни пурпурния слой" is a command; the item names the purple drawn below the map's layers	claude-opus-5-5	max	2026-11-16
+Lower Purple	cs	Dolní purpurová		filled: the usual word of the language; no text of the language has the term yet; the purple drawn below some layers of the map	claude-opus-5-5	max	2026-11-16
+Lower Purple	da	Nedre lilla		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Lower Purple	de	Unteres Purpur		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Lower Purple	es	Morado inferior		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Lower Purple	et	Alumine lilla		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Lower Purple	fi	Alempi violetti		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Lower Purple	hu	Alsó lila		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Lower Purple	it	Viola inferiore		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Lower Purple	ja	下層の紫		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Lower Purple	nb-NO	Nedre lilla		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Lower Purple	nl	Onderste paars		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Lower Purple	nn-NO	Nedre lilla		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Lower Purple	pl	Dolny purpurowy		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Lower Purple	pt	Púrpura inferior		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Lower Purple	pt-BR	Púrpura inferior		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Lower Purple	ro	Violet inferior		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Lower Purple	ru	Нижний пурпурный		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Lower Purple	sl	Spodnja vijolična		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Lower Purple	sv	Nedre lila		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Lower Purple	tr	Alt mor	Açık mor	corrected: "Açık mor" is light purple	claude-opus-5-5	max	2026-11-16
+Lower Purple	uk	Нижній пурпуровий		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Lower Purple	zh-CN	下层紫色		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Lower Purple	zh-TW	下層紫紅色		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
