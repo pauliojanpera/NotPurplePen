@@ -13,6 +13,13 @@ Made by claude-opus-5-5, effort max.
 | `AddCourse_scoreColumnLabel_Text` | Show points in: | 分值显示在：<br>(corrects: 显示点：) | 点 is a point of geometry; the score is 分值 (the term Show points in); "shown in", as zh-TW 積分值顯示在 | zh-TW |
 | `AddCourse_groupBox1_Text` | Appearance | 外观<br>(corrects: 界面) | 界面 is the user interface; the appearance is 外观, as zh-TW 外觀 (the term Appearance) |  |
 | `AllControlsProperties_appearanceGroupBox_Text` | Appearance | 外观<br>(corrects: 界面) | 界面 is the user interface; the appearance is 外观, as zh-TW 外觀 (the term Appearance) |  |
+| `PrintDescriptions_layoutGroup_Text` | Appearance | 外观<br>(corrects: 界面) | 界面 is the user interface; the appearance is 外观, as zh-TW 外觀 (the term Appearance) |  |
+| `PrintDescriptions_marginChange_Text` | Change Margins... | 更改页边距…<br>(corrects: 变化率…) | 变化率 is a rate of change; the button changes the page margins (the term Change Margins) |  |
+| `PrintDescriptions_marginsLabel_Text` | Margins: | 页边距：<br>(corrects: 利润率：) | 利润率 is a profit margin; the margins of the page are 页边距 (the term Margins) |  |
+| `PrintDescriptions_lineSizeLabel_Text` | Line size: | 行尺寸：<br>(corrects: 线径：) | 线径 is the diameter of a wire; the box sets the size of a row of the description sheet, in mm (the term Line size) |  |
+| `PrintDescriptions_orientationLabel_Text` | Orientation: | 方向：<br>(corrects: 定位：) | 定位 is positioning; the orientation of the paper is 方向, as zh-TW (the term Orientation) |  |
+| `PrintDescriptions_copiesCombo_Items2` | multiple pages of each course | 每条线路多页<br>(corrects: 每条课程多页) | 课程 is a course of study; the language's course is 线路, as in the other two items (the term Course) |  |
+| `PrintDescriptions_margins_Text` | Top: 0.55", Bottom: 0.55", Left: 0.55", Right: 0.55" | 上：0.55"，下：0.55"，左：0.55"，右：0.55"<br>(corrects: 上：“：0.55 0.55，自底向上”，“左，右：0.55 0.55。”) | the text was garbled: 自底向上 is "bottom-up", and the values stood apart from their sides; a placeholder that the dialog replaces at runtime, now with the sides as MiscText.Margins_LRTB writes them |  |
 | `IncrementButton` | Increment | 增加 | sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment |  |
 | `DecrementButton` | Decrement | 减少 | sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement |  |
 | `CounterLabel` | Counter: {0} | 计数器：{0} | sample key of the localization (LocalizeExtension.cs), shown in no view; the full-width colon of the language's labels |  |

@@ -9,6 +9,8 @@ Made by claude-opus-5-5, effort max.
 | Key | English | Translation | Context that decided it | Mirrors |
 | --- | --- | --- | --- | --- |
 | `AddCourse_hideFromReportsCheckBox_Text` | Do not include in reports | 不包含在報告中 | check box under the length in the New Course dialog: the course is left out of the reports; the term Reports |  |
+| `PrintDescriptions_lineSizeLabel_Text` | Line size: | 列的大小:<br>(corrects: 線條尺寸:) | 線條 is a drawn line; the box sets the size of a row of the description sheet, in mm (the term Line size) |  |
+| `PrintDescriptions_marginChange_Text` | Change Margins... | 變更邊距...<br>(corrects: 變更邊距) | the button opens the Page Setup dialog, and the ellipsis that says so was missing |  |
 | `IncrementButton` | Increment | 增加 | sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment |  |
 | `DecrementButton` | Decrement | 減少 | sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement |  |
 | `CounterLabel` | Counter: {0} | 計數器：{0} | sample key of the localization (LocalizeExtension.cs), shown in no view; the full-width colon of most of the language's labels |  |

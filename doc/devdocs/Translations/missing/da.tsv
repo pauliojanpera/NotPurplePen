@@ -90,47 +90,26 @@ UIText	PdfConversionInProgress_labelReadingPDF_Text	PDFium PDF converter is read
 UIText	PdfConversionInProgress_labelFailure_Text	PDF reading has failed. The errors are shown below.		
 UIText	PdfConversionInProgress_Text	Reading PDF		
 UIText	PrintCourses_okButton_Text	Print		
-UIText	PrintDescriptions_printButton_Text	Print		
 UIText	PrintPunches_printButton_Text	Print		
 UIText	PrintCourses_printerChange_Text	Change Printer...		
-UIText	PrintDescriptions_printerChange_Text	Change Printer...		
 UIText	PrintPunches_printerChange_Text	Change Printer...		
 UIText	PrintCourses_printerName_Text	Printer Name		
-UIText	PrintDescriptions_printerName_Text	Printer Name		
 UIText	PrintPunches_printerName_Text	Printer Name		
 UIText	PrintCourses_printerLabel_Text	Printer:		
-UIText	PrintDescriptions_printerLabel_Text	Printer:		
 UIText	PrintPunches_printerLabel_Text	Printer:		
 UIText	PrintCourses_previewButton_Text	Preview...		
 UIText	PrintCourses_copiesLabel_Text	Copies of each course:		
 UIText	PrintCourses_checkBoxPausePrinting_Text	Pause printing after each course or part		
 UIText	PrintCourses_copiesGroupBox_Text	Copies		
-UIText	PrintDescriptions_copiesGroupBox_Text	Copies		
 UIText	PrintPunches_copiesGroupBox_Text	Copies		
 UIText	PrintCourses_comboBoxColorModel_Items	OCAD Compatible		
 UIText	PrintCourses_Text	Print Courses		
-UIText	PrintDescriptions_marginChange_Text	Change Margins...		
 UIText	PrintPunches_marginChange_Text	Change Margins...		
-UIText	PrintDescriptions_paperSize_Text	Tabloid (11"x17")		
 UIText	PrintPunches_paperSize_Text	Tabloid (11"x17")		
-UIText	PrintDescriptions_paperSizeLabel_Text	Paper Size:		
 UIText	PrintPunches_paperSizeLabel_Text	Paper Size:		
-UIText	PrintDescriptions_margins_Text	Top: 0.55", Bottom: 0.55", Left: 0.55", Right: 0.55"		
 UIText	PrintPunches_margins_Text	Top: 0.55", Bottom: 0.55", Left: 0.55", Right: 0.55"		
-UIText	PrintDescriptions_marginsLabel_Text	Margins:		
 UIText	PrintPunches_marginsLabel_Text	Margins:		
-UIText	PrintDescriptions_orientationLabel_Text	Orientation:		
 UIText	PrintPunches_orientationLabel_Text	Orientation:		
-UIText	PrintDescriptions_descriptionKindCombo_Items	Course default		
-UIText	PrintDescriptions_descriptionKindCombo_Items3	Symbols & Text		
-UIText	PrintDescriptions_descriptionTypeLabel_Text	Description type:		
-UIText	PrintDescriptions_lineSizeLabel_Text	Line size:		
-UIText	PrintDescriptions_descriptionsLabel_Text	descriptions per course		
-UIText	PrintDescriptions_copiesCombo_Items	one copy of each course		
-UIText	PrintDescriptions_copiesCombo_Items1	one page of each course		
-UIText	PrintDescriptions_copiesCombo_Items2	multiple pages of each course		
-UIText	PrintDescriptions_whatToPrintLabel_Text	Print:		
-UIText	PrintDescriptions_Text	Print Descriptions		
 UIText	PrinterMargins_label3_Text	Height:		
 UIText	PrinterMargins_groupBoxPaperSize_Text	Paper Size ({0})		
 UIText	PrinterMargins_groupBox1_Text	Orientation		

@@ -17,6 +17,9 @@ Made by claude-opus-5-5, effort max.
 | `AllControlsProperties_descriptionAppearanceLabel_Text` | Description appearance: | Açıklama görünümü:<br>(corrects: Görüntü açıklaması:) | "Görüntü açıklaması" means the description of an image; the term Description appearance |  |
 | `AllControlsProperties_Text` | All Controls Properties | Tüm Kontrol Noktalarının Özellikleri<br>(corrects: Tüm Kontrol Noktaların  Özellikleri) | the genitive of "kontrol noktaları" is "noktalarının"; a double space (terms.csv now gives it) |  |
 | `MissingFonts_Text` | Missing Fonts | Eksik Fontlar<br>(corrects: Eksik Fontları Yoksay) | "Eksik Fontları Yoksay" is Ignore Missing Fonts; the dialog only shows them (the term Missing Fonts) |  |
+| `PrintDescriptions_orientation_Text` | Landscape | Yatay<br>(corrects: Düzenlemek) | "Düzenlemek" is to arrange; the page orientation is "yatay" (the term Landscape) |  |
+| `PrintDescriptions_paperSize_Text` | Tabloid (11"x17") | Tabloid (11"x17")<br>(corrects: Tablet (11"x17")) | "Tablet" is a tablet; the paper size is Tabloid (the term Tabloid (11"x17")) |  |
+| `PrintDescriptions_lineSizeLabel_Text` | Line size: | Satır boyutu:<br>(corrects: Çizgi Boyutu:) | "Çizgi" is a drawn line; the box sets the size of a row of the description sheet, in mm (the term Line size) |  |
 | `IncrementButton` | Increment | Artır | sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment |  |
 | `DecrementButton` | Decrement | Azalt | sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement |  |
 | `CounterLabel` | Counter: {0} | Sayaç: {0} | sample key of the localization (LocalizeExtension.cs), shown in no view; a label that shows the value of a counter, as fr "Compteur : {0}" |  |

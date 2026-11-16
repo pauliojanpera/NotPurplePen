@@ -10,6 +10,8 @@ Made by claude-opus-5-5, effort max.
 | --- | --- | --- | --- | --- |
 | `AddCourse_hideFromReportsCheckBox_Text` | Do not include in reports | Não incluir nos relatórios | check box under the length in the New Course dialog: the course is left out of the reports; the term Reports |  |
 | `InitialScreen_Text` | Welcome to Purple Pen | Bem-vindo ao Purple Pen<br>(corrects: Benvindo ao Purple Pen) | "Benvindo" is a misspelling of "Bem-vindo", as pt-BR |  |
+| `PrintDescriptions_descriptionTypeLabel_Text` | Description type: | Tipo de sinalética:<br>(corrects: Tipo de descrição:) | the language's descriptions are "sinalética", as its title "Imprimir Sinalética" (the term Description type) |  |
+| `PrintDescriptions_printerGroup_Text` | Output | Saída<br>(corrects: Saída:) | the colon does not belong in the header of a group, as pt-BR "Saída" (the term Output) |  |
 | `IncrementButton` | Increment | Aumentar | sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment |  |
 | `DecrementButton` | Decrement | Diminuir | sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement |  |
 | `CounterLabel` | Counter: {0} | Contador: {0} | sample key of the localization (LocalizeExtension.cs), shown in no view; a label that shows the value of a counter, as fr "Compteur : {0}" |  |
