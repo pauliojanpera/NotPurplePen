@@ -156,7 +156,8 @@ its filled TSV.
 `logbook.py` makes the page from a checkout of `fix/complete-translations` and these documents, and
 `publish-logbook.sh` publishes it: it pushes the branch `translation-log`, and puts the page under `translations/` on
 `gh-pages`. `build.yml` copies `translation-log` into the site at each publish, as it copies `svg-gallery`. A session
-makes the page again after each key group ([Session.md](Session.md), step 5). [logbook.json](logbook.json) holds what
+makes the page again after each key group ([Session.md](Session.md), step 5). Its pushes start only GitHub's own
+deployment of the site, which no session waits for. [logbook.json](logbook.json) holds what
 the script cannot find for itself: the steps of the plan and their dates, and the log entries of the steps that are
 not key groups. A session that finishes a step gives it its date there.
 

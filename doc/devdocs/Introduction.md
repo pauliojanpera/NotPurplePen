@@ -59,6 +59,9 @@ the WinForms project with its TranslateTool. [Translations/README.md](Translatio
 
   A branch rooted at upstream holds no workflow, so a push of it runs nothing. It runs in full from a `wip/` branch
   that merges it into `base` or `basewithfixes`. A change is finished when its package can be downloaded.
+  The translation of the key groups is the exception: a session that translates neither starts nor waits for a build
+  or a test run, and `fix/complete-translations` runs in full once, after the last group
+  ([Translations/Session.md](Translations/Session.md)).
 - **The documents.** `AGENTS.md` is upstream's guide to the code. `AGENTS.NotPurplePen.md` holds the fork's rules of
   building, testing and delivering, and wins where the two disagree. Both are in the code branches and load into a
   session that works in a checkout. On `docs/process-coordination`, `doc/devdocs` holds the handover

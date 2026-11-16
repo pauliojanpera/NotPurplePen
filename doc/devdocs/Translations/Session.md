@@ -14,8 +14,13 @@ scripts and the facts behind them are in [README.md](README.md). The terms are s
 The model id and the effort setting go into the metadata of each translation. @Pauli chose `claude-opus-5-5` at
 effort max on Nov 16, to start with. If the prompt gives others, use those of the prompt.
 
-Nothing in this work waits for a build or a test run: a push of `fix/complete-translations` starts none, and the full
-run comes after all groups.
+**No build or test run belongs to this work, so do not look for one and do not wait for one** (@Pauli, Nov 16: in
+this work they are trivial). No push of this work starts a build or a test run. `fix/complete-translations` holds no
+workflows. A push of `docs/process-coordination` starts none. The pushes of `publish-logbook.sh` to `translation-log`
+and `gh-pages` start only GitHub's own deployment of the site ("pages build and deployment"), which needs nothing
+from you. Do not build or test the application either: `check.py` is the check of the translations. The full run of
+`fix/complete-translations` comes after the last group, and another session starts it. After each push, go on at
+once to the next step.
 
 ## 1. Get the files
 
@@ -142,7 +147,8 @@ In the TSV, write a line break as `\n` and a tab as `\t`. `python3 docs/doc/devd
    ```
 
    The page shows the group with the text that you wrote above its review (step 5.1), so write that text for a
-   reader who does not know the work. If the publish fails, go on, and say so when you stop (step 6).
+   reader who does not know the work. The script ends when both pushes are done. Do not wait for the site's
+   deployment, and do not open the page to check it. If the publish fails, go on, and say so when you stop (step 6).
 5. Take the next group (step 2), until the groups that this session did lacked about 400 translations in all. Then
    stop.
 
@@ -152,7 +158,8 @@ In the TSV, write a line break as `\n` and a tab as `\t`. `python3 docs/doc/devd
    `pauliojanpera/windows-fonts` tells (`archive-session.sh`). An agent skips this: the session that started it
    archives the transcripts of the machine.
 2. Tell @Pauli, or the session that started you, in a few lines: the groups done; how many lines were translated,
-   marked not needed, corrected and left empty; whether the Translation Logbook shows the last group (step 5.4); and
+   marked not needed, corrected and left empty; whether `publish-logbook.sh` published the page after the last group
+   (step 5.4); and
    the doubts that he should see. Say "all groups are done" if `grouppacket.py` said so. When all groups are done,
    give the step of phase 3 its date in `logbook.json` ("plan", "phase3", "done"), make the logbook again, and
    publish it.
