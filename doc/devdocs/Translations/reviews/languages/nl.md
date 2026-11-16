@@ -15,6 +15,8 @@ Made by claude-opus-5-5, effort max.
 | `InitialScreen_label1_Text` | Purple Pen is free software and may be copied and shared. Development of Purple Pen is supported only by your donations. | Purple Pen is gratis software en mag worden gekopieerd en gedeeld. De ontwikkeling van Purple Pen wordt uitsluitend gesteund door uw donaties. | the note above the donation link of the start window; its first sentence as the language's About dialog (AboutForm_freeLabel_Text) | AboutForm_freeLabel_Text |
 | `InitialScreen_donationLink_Text` | Make a donation | Doneren | the link under the note of the start window, which opens the donation page; the term Make a donation |  |
 | `InitialScreen_Text` | Welcome to Purple Pen | Welkom bij Purple Pen | title of the start window |  |
+| `LicenseForm_bsdLicenseLinkLabel_Text` | Purple Pen is provided under a "BSD" style license. | Purple Pen wordt aangeboden onder een "BSD"-achtige licentie. | the line above the licence text of the License dialog, which the About dialog opens | de da |
+| `LicenseForm_Text` | Purple Pen License | Licentie van Purple Pen | title of the License dialog, which the About dialog's button View Full License opens | AboutForm_licenseButton_Text |
 | `IncrementButton` | Increment | Verhogen | sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment |  |
 | `DecrementButton` | Decrement | Verlagen | sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement |  |
 | `CounterLabel` | Counter: {0} | Teller: {0} | sample key of the localization (LocalizeExtension.cs), shown in no view; a label that shows the value of a counter, as fr "Compteur : {0}" |  |

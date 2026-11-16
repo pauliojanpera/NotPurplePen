@@ -11,6 +11,8 @@ Made by claude-opus-5-5, effort max.
 | `AboutForm_creditsButton_Text` | Credits | Közreműködők<br>(corrects: Névjegy) | "Névjegy" is the About of a program; the button shows the credits, the term Credits | nb-NO da nn-NO uk ru |
 | `AboutForm_licenseButton_Text` | View Full License | A teljes licenc<br>(corrects: A teljes licensz) | the Hungarian spelling is "licenc"; the term "A teljes licenc megtekintése" would leave no room for the Credits button beside it (about 167 px of text against 102 of the English), so the button keeps its form without the verb |  |
 | `InitialScreen_Text` | Welcome to Purple Pen | Üdvözöljük a Purple Pen-ben<br>(corrects: Üdözöljük a Purple Pen-ben) | the typo "Üdözöljük" |  |
+| `LicenseForm_Text` | Purple Pen License | Purple Pen licenc<br>(corrects: Purple Pen licensz) | the Hungarian spelling is "licenc", as the term Purple Pen License |  |
+| `LicenseForm_bsdLicenseLinkLabel_Text` | Purple Pen is provided under a "BSD" style license. | A Purple Pen "BSD" stílusú licenc alatt közzétéve.<br>(corrects: A Purple Pen  "BSD" stílusú licensz alatt közzétéve.) | the Hungarian spelling is "licenc", and a double space; nothing else changes |  |
 | `IncrementButton` | Increment | Növelés | sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment |  |
 | `DecrementButton` | Decrement | Csökkentés | sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement |  |
 | `CounterLabel` | Counter: {0} | Számláló: {0} | sample key of the localization (LocalizeExtension.cs), shown in no view; a label that shows the value of a counter, as fr "Compteur : {0}" |  |

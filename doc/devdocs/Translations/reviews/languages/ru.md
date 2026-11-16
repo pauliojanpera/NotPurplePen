@@ -15,6 +15,8 @@ Made by claude-opus-5-5, effort max.
 | `InitialScreen_label1_Text` | Purple Pen is free software and may be copied and shared. Development of Purple Pen is supported only by your donations. | Purple Pen — бесплатная программа, её можно копировать и распространять. Разработка Purple Pen поддерживается только вашими пожертвованиями. | the note above the donation link of the start window; "пожертвование" as the term Make a donation | uk |
 | `InitialScreen_donationLink_Text` | Make a donation | Сделать пожертвование | the link under the note of the start window, which opens the donation page; the term Make a donation |  |
 | `InitialScreen_Text` | Welcome to Purple Pen | Добро пожаловать в Purple Pen | title of the start window |  |
+| `LicenseForm_bsdLicenseLinkLabel_Text` | Purple Pen is provided under a "BSD" style license. | Purple Pen распространяется по лицензии типа «BSD». | the line above the licence text of the License dialog; the quotation marks of Russian | uk bg |
+| `LicenseForm_Text` | Purple Pen License | Лицензия Purple Pen | title of the License dialog, which the About dialog's button View Full License opens | uk |
 | `IncrementButton` | Increment | Увеличить | sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment |  |
 | `DecrementButton` | Decrement | Уменьшить | sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement |  |
 | `CounterLabel` | Counter: {0} | Счетчик: {0} | sample key of the localization (LocalizeExtension.cs), shown in no view; a label that shows the value of a counter, as fr "Compteur : {0}" |  |

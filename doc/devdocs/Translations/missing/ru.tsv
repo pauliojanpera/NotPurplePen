@@ -382,8 +382,6 @@ UIText	LegAssignmentsDialog_LegsColumn_HeaderText	Legs
 UIText	LegAssignmentsDialog_labelDescription_Text	To assign a specific leg to a specific branch, type the leg number(s) below. Legs not assigned to a branch will be distributed among remaining branches randomly.		
 UIText	LegAssignmentsDialog_linkLabel_Text	More information...		
 UIText	LegAssignmentsDialog_Text	Leg Assignments		
-UIText	LicenseForm_bsdLicenseLinkLabel_Text	Purple Pen is provided under a "BSD" style license.		
-UIText	LicenseForm_Text	Purple Pen License		
 UIText	LinePropertiesDialog_buttonChangeColor_Text	 Change Color...		
 UIText	LinePropertiesDialog_label2_Text	Style:		
 UIText	LinePropertiesDialog_comboBoxStyle_Items	Single		
