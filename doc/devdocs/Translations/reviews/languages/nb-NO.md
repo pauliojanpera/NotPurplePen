@@ -8,6 +8,9 @@ Made by claude-opus-5-5, effort max.
 
 | Key | English | Translation | Context that decided it | Mirrors |
 | --- | --- | --- | --- | --- |
+| `InitialScreen_openSampleRadioButton_Text` | Open a sample event | Åpne eksempelarrangement<br>(corrects: Åpne eksempel arrangement) | the compound is one word in Norwegian ("eksempel arrangement") |  |
+| `InitialScreen_openExistingRadioButton_Text` | Open an existing event... | Åpne et eksisterende arrangement...<br>(corrects: Åpne et eksisterende arrangenment) | the typo "arrangenment"; the ellipsis of the English, as the choice opens a file dialog |  |
+| `InitialScreen_label1_Text` | Purple Pen is free software and may be copied and shared. Development of Purple Pen is supported only by your donations. | Purple Pen er fri programvare og kan kopieres og deles. Utvikling er kun støttet av frivillige donasjoner.<br>(corrects: Purple Pen er fri programvare og kan kopieres og deles. Utvilking er kun støttet av frivillige donasjoner.) | the typo "Utvilking"; nothing else changes |  |
 | `IncrementButton` | Increment | Øk | sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment |  |
 | `DecrementButton` | Decrement | Reduser | sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement |  |
 | `CounterLabel` | Counter: {0} | Teller: {0} | sample key of the localization (LocalizeExtension.cs), shown in no view; a label that shows the value of a counter, as fr "Compteur : {0}" |  |

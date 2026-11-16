@@ -9,6 +9,12 @@ Made by claude-opus-5-5, effort max.
 | Key | English | Translation | Context that decided it | Mirrors |
 | --- | --- | --- | --- | --- |
 | `AboutForm_licenseButton_Text` | View Full License | Bekijk de volledige licentie<br>(corrects: Bekijke de volledige licentie) | the typo "Bekijke"; the term View Full License |  |
+| `InitialScreen_openLastRadioButton_Text` | Open last viewed event | Open laatst bekeken evenement | third choice of the window that opens at start (InitialScreenWindow, 335 px wide, one line); the terms Open and Event | InitialScreen_createNewRadioButton_Text |
+| `InitialScreen_openSampleRadioButton_Text` | Open a sample event | Open een voorbeeldevenement | fourth choice of the start window; the terms Open, Sample and Event |  |
+| `InitialScreen_openExistingRadioButton_Text` | Open an existing event... | Open een bestaand evenement... | second choice of the start window; the terms Open and Event, with the ellipsis of a choice that opens a file dialog |  |
+| `InitialScreen_label1_Text` | Purple Pen is free software and may be copied and shared. Development of Purple Pen is supported only by your donations. | Purple Pen is gratis software en mag worden gekopieerd en gedeeld. De ontwikkeling van Purple Pen wordt uitsluitend gesteund door uw donaties. | the note above the donation link of the start window; its first sentence as the language's About dialog (AboutForm_freeLabel_Text) | AboutForm_freeLabel_Text |
+| `InitialScreen_donationLink_Text` | Make a donation | Doneren | the link under the note of the start window, which opens the donation page; the term Make a donation |  |
+| `InitialScreen_Text` | Welcome to Purple Pen | Welkom bij Purple Pen | title of the start window |  |
 | `IncrementButton` | Increment | Verhogen | sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment |  |
 | `DecrementButton` | Decrement | Verlagen | sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement |  |
 | `CounterLabel` | Counter: {0} | Teller: {0} | sample key of the localization (LocalizeExtension.cs), shown in no view; a label that shows the value of a counter, as fr "Compteur : {0}" |  |

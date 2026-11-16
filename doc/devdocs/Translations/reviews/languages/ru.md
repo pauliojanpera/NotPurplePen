@@ -8,6 +8,13 @@ Made by claude-opus-5-5, effort max.
 
 | Key | English | Translation | Context that decided it | Mirrors |
 | --- | --- | --- | --- | --- |
+| `InitialScreen_openLastRadioButton_Text` | Open last viewed event | Открыть последнее соревнование | third choice of the start window, one line of about 275 px; "последнее просмотренное соревнование" would not fit, and uk also says the last event; the terms Open and Event | uk |
+| `InitialScreen_openSampleRadioButton_Text` | Open a sample event | Открыть образец соревнования | fourth choice of the start window; the terms Open, Sample and Event | uk |
+| `InitialScreen_createNewRadioButton_Text` | Create a new event... | Создать новое соревнование... | first choice of the start window; the term Create Event, with the ellipsis of a choice that opens the wizard |  |
+| `InitialScreen_openExistingRadioButton_Text` | Open an existing event... | Открыть существующее соревнование... | second choice of the start window; the terms Open and Event; about 267 px of the 275 that the line gives | uk |
+| `InitialScreen_label1_Text` | Purple Pen is free software and may be copied and shared. Development of Purple Pen is supported only by your donations. | Purple Pen — бесплатная программа, её можно копировать и распространять. Разработка Purple Pen поддерживается только вашими пожертвованиями. | the note above the donation link of the start window; "пожертвование" as the term Make a donation | uk |
+| `InitialScreen_donationLink_Text` | Make a donation | Сделать пожертвование | the link under the note of the start window, which opens the donation page; the term Make a donation |  |
+| `InitialScreen_Text` | Welcome to Purple Pen | Добро пожаловать в Purple Pen | title of the start window |  |
 | `IncrementButton` | Increment | Увеличить | sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment |  |
 | `DecrementButton` | Decrement | Уменьшить | sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement |  |
 | `CounterLabel` | Counter: {0} | Счетчик: {0} | sample key of the localization (LocalizeExtension.cs), shown in no view; a label that shows the value of a counter, as fr "Compteur : {0}" |  |

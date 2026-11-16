@@ -8,6 +8,7 @@ Made by claude-opus-5-5, effort max.
 
 | Key | English | Translation | Context that decided it | Mirrors |
 | --- | --- | --- | --- | --- |
+| `InitialScreen_openSampleRadioButton_Text` | Open a sample event | Ava näidisvõistlus<br>(corrects: Ava näidis võistlus) | the compound is one word in Estonian ("näidis võistlus") |  |
 | `IncrementButton` | Increment | Suurenda | sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment |  |
 | `DecrementButton` | Decrement | Vähenda | sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement |  |
 | `CounterLabel` | Counter: {0} | Loendur: {0} | sample key of the localization (LocalizeExtension.cs), shown in no view; a label that shows the value of a counter, as fr "Compteur : {0}" |  |

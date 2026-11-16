@@ -8,6 +8,7 @@ Made by claude-opus-5-5, effort max.
 
 | Key | English | Translation | Context that decided it | Mirrors |
 | --- | --- | --- | --- | --- |
+| `InitialScreen_Text` | Welcome to Purple Pen | Bem-vindo ao Purple Pen<br>(corrects: Benvindo ao Purple Pen) | "Benvindo" is a misspelling of "Bem-vindo", as pt-BR |  |
 | `IncrementButton` | Increment | Aumentar | sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment |  |
 | `DecrementButton` | Decrement | Diminuir | sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement |  |
 | `CounterLabel` | Counter: {0} | Contador: {0} | sample key of the localization (LocalizeExtension.cs), shown in no view; a label that shows the value of a counter, as fr "Compteur : {0}" |  |

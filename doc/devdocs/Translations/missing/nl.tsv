@@ -103,12 +103,6 @@ UIText	EnterSymbolText_labelCaseChooser_Text	Case of modified symbol:
 UIText	EnterSymbolText_checkBoxCases_Text	Show case forms		
 UIText	EnterSymbolText_Text	Customized Symbol Text		
 UIText	EnterSymbolText_defaultCaseText	(unchanged)		
-UIText	InitialScreen_openLastRadioButton_Text	Open last viewed event		
-UIText	InitialScreen_openSampleRadioButton_Text	Open a sample event		
-UIText	InitialScreen_openExistingRadioButton_Text	Open an existing event...		
-UIText	InitialScreen_label1_Text	Purple Pen is free software and may be copied and shared. Development of Purple Pen is supported only by your donations.		
-UIText	InitialScreen_donationLink_Text	Make a donation		
-UIText	InitialScreen_Text	Welcome to Purple Pen		
 UIText	LegAssignmentsDialog_BranchColumn_HeaderText	Branch		
 UIText	LegAssignmentsDialog_LegsColumn_HeaderText	Legs		
 UIText	LegAssignmentsDialog_labelDescription_Text	To assign a specific leg to a specific branch, type the leg number(s) below. Legs not assigned to a branch will be distributed among remaining branches randomly.		
