@@ -142,6 +142,14 @@
     <value>Vaihda kieli...</value>
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
+  <data name="SwitchLanguageDialog_Title" xml:space="preserve">
+    <value>Vaihda kieli</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="SwitchLanguageDialog_Prompt" xml:space="preserve">
+    <value>Valitse kieli:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="AboutForm_copyrightLabel_Text" xml:space="preserve">
     <value>Copyright © Peter Golde</value>
   </data>

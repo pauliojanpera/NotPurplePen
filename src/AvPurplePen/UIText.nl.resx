@@ -141,6 +141,14 @@
     <value>Taal wijzigen...</value>
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
+  <data name="SwitchLanguageDialog_Title" xml:space="preserve">
+    <value>Taal wijzigen</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="SwitchLanguageDialog_Prompt" xml:space="preserve">
+    <value>Kies een taal:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="AboutForm_copyrightLabel_Text" xml:space="preserve">
     <value>Copyright © by Peter Golde</value>
   </data>

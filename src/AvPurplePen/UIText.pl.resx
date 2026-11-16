@@ -142,6 +142,14 @@
     <value>Zmień język...</value>
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
+  <data name="SwitchLanguageDialog_Title" xml:space="preserve">
+    <value>Zmień język</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="SwitchLanguageDialog_Prompt" xml:space="preserve">
+    <value>Wybierz język:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="AboutForm_freeLabel_Text" xml:space="preserve">
     <value>Purple Pen jest darmową aplikacją i jako taka może być kopiowany i udostępniany.</value>
   </data>

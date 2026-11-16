@@ -141,6 +141,14 @@
     <value>切換語言...</value>
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
+  <data name="SwitchLanguageDialog_Title" xml:space="preserve">
+    <value>切換語言</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="SwitchLanguageDialog_Prompt" xml:space="preserve">
+    <value>選擇語言：</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="AboutForm_copyrightLabel_Text" xml:space="preserve">
     <value>版權為  Peter Golde 所有</value>
   </data>

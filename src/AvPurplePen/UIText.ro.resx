@@ -142,6 +142,14 @@
     <value>Schimbare limbă...</value>
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
+  <data name="SwitchLanguageDialog_Title" xml:space="preserve">
+    <value>Schimbare limbă</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="SwitchLanguageDialog_Prompt" xml:space="preserve">
+    <value>Selectați o limbă:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="AboutForm_freeLabel_Text" xml:space="preserve">
     <value>Purple Pen este software gratuit și poate fi copiat și distribuit.</value>
   </data>
