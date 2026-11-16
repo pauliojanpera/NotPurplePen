@@ -141,28 +141,4 @@
   <data name="AddCourse_scoreColumnCombo_Items2" xml:space="preserve">
     <value>טור H</value>
   </data>
-  <data name="CreateImageFiles_comboBoxPrintBaseMap_Items" xml:space="preserve">
-    <value>מסלול ומפה</value>
-    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
-  </data>
-  <data name="CreatePdfCourses_comboBoxPrintBaseMap_Items" xml:space="preserve">
-    <value>מסלול ומפה</value>
-    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
-  </data>
-  <data name="CreateImageFiles_comboBoxPrintBaseMap_Items1" xml:space="preserve">
-    <value>מסלול בלבד</value>
-    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
-  </data>
-  <data name="CreatePdfCourses_comboBoxPrintBaseMap_Items1" xml:space="preserve">
-    <value>מסלול בלבד</value>
-    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
-  </data>
-  <data name="CreateImageFiles_labelPrintBaseMap_Text" xml:space="preserve">
-    <value>תוכן:</value>
-    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
-  </data>
-  <data name="CreatePdfCourses_labelPrintBaseMap_Text" xml:space="preserve">
-    <value>תוכן:</value>
-    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
-  </data>
 </root>
