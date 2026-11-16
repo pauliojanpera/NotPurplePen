@@ -123,6 +123,18 @@
   <data name="coursesGroupBox.Text" xml:space="preserve">
     <value>Trasee</value>
   </data>
+  <data name="labelPrintBaseMap.Text" xml:space="preserve">
+    <value>Conținut:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="comboBoxPrintBaseMap.Items" xml:space="preserve">
+    <value>Traseu și hartă</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="comboBoxPrintBaseMap.Items1" xml:space="preserve">
+    <value>Doar traseul</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="comboBoxMultiPage.Items" xml:space="preserve">
     <value>Decupare într-o singură pagină</value>
   </data>
@@ -151,7 +163,8 @@
     <value>Director</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Tipărire Trasee</value>
+    <value>Creare fișiere PDF</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>Margini:</value>

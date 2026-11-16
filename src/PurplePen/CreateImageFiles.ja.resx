@@ -147,6 +147,18 @@
   <data name="comboBoxColorModel.Items1" xml:space="preserve">
     <value>CMYK</value>
   </data>
+  <data name="comboBoxPrintBaseMap.Items" xml:space="preserve">
+    <value>コースと地図</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="comboBoxPrintBaseMap.Items1" xml:space="preserve">
+    <value>コースのみ</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="labelPrintBaseMap.Text" xml:space="preserve">
+    <value>内容:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="outputGroupBox.Text" xml:space="preserve">
     <value>出力</value>
   </data>

@@ -130,7 +130,8 @@
     <value>Üst: 0,55", Alt: 0,55", Sol: 0,55", Sağ: 0,55"</value>
   </data>
   <data name="marginsLabel.Text" xml:space="preserve">
-    <value>Kenar Boşluğu ({0})</value>
+    <value>Kenar Boşluğu:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="orientation.Text" xml:space="preserve">
     <value>Düzenlemek</value>
