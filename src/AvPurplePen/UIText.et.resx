@@ -1856,6 +1856,14 @@
   <data name="SelectionDescriptionText_SpecialName_Dangerous" xml:space="preserve">
     <value>Ohtlik ala</value>
   </data>
+  <data name="MainFrame_addConstructionMenu_Text" xml:space="preserve">
+    <value>Ajutine rajatis</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_constructionToolStripMenuItem_Text" xml:space="preserve">
+    <value>Ajutine rajatis</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_addWaterMenu_Text" xml:space="preserve">
     <value>Joogi koht</value>
   </data>
@@ -1866,10 +1874,12 @@
     <value>Joogi koht</value>
   </data>
   <data name="MainFrame_addFirstAidMenu_Text" xml:space="preserve">
-    <value>Esmaaabi koht</value>
+    <value>Esmaabi koht</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_firstAidLocationToolStripMenuItem_Text" xml:space="preserve">
-    <value>Esmaaabi koht</value>
+    <value>Esmaabi koht</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="SelectionDescriptionText_SpecialName_FirstAid" xml:space="preserve">
     <value>Esmaaabi koht</value>
@@ -1908,10 +1918,12 @@
     <value>Valge taust</value>
   </data>
   <data name="MainFrame_addImageMenu_Text" xml:space="preserve">
-    <value>Pildi failid</value>
+    <value>Pilt</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_imageToolStripMenuItem_Text" xml:space="preserve">
-    <value>Pildi failid</value>
+    <value>Pilt</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="SelectionDescriptionText_SpecialName_Image" xml:space="preserve">
     <value>Pildi failid</value>
@@ -1954,6 +1966,10 @@
   </data>
   <data name="MainFrame_removeUnusedControlsMenu_Text" xml:space="preserve">
     <value>Eemalda _kasutamata KPd...</value>
+  </data>
+  <data name="MainFrame_moveAllControlsMenu_Text" xml:space="preserve">
+    <value>_Liiguta kõiki KPsid...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_punchPatternsMenu_Text" xml:space="preserve">
     <value>_Kompostri jäljendid...</value>

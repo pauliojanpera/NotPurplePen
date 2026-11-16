@@ -1826,10 +1826,12 @@
     <value>Refreshment Point</value>
   </data>
   <data name="MainFrame_addFirstAidMenu_Text" xml:space="preserve">
-    <value>First Aid Posy</value>
+    <value>First Aid Post</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_firstAidLocationToolStripMenuItem_Text" xml:space="preserve">
-    <value>First Aid Posy</value>
+    <value>First Aid Post</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="SelectionDescriptionText_SpecialName_FirstAid" xml:space="preserve">
     <value>First Aid Posy</value>

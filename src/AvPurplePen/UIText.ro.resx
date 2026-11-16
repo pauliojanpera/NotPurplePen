@@ -1528,6 +1528,14 @@
   <data name="SelectionDescriptionText_SpecialName_Dangerous" xml:space="preserve">
     <value>Zonă Periculoasă</value>
   </data>
+  <data name="MainFrame_addConstructionMenu_Text" xml:space="preserve">
+    <value>Construcție temporară</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_constructionToolStripMenuItem_Text" xml:space="preserve">
+    <value>Construcție temporară</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_addWaterMenu_Text" xml:space="preserve">
     <value>Locație apă</value>
   </data>
@@ -1547,25 +1555,31 @@
     <value>Locație punct Prim Ajutor</value>
   </data>
   <data name="MainFrame_addForbiddenMenu_Text" xml:space="preserve">
-    <value>Marcare Interzisă</value>
+    <value>Marcare rută interzisă</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_forbiddenRouteMarkingToolStripMenuItem_Text" xml:space="preserve">
-    <value>Marcare Interzisă</value>
+    <value>Marcare rută interzisă</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_addBoundaryMenu_Text" xml:space="preserve">
-    <value>Zonă Inaccesibilă</value>
+    <value>Limită de netrecut</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_boundaryToolStripMenuItem_Text" xml:space="preserve">
-    <value>Zonă Inaccesibilă</value>
+    <value>Limită de netrecut</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="SelectionDescriptionText_SpecialName_Boundary" xml:space="preserve">
     <value>Zonă Inaccesibilă</value>
   </data>
   <data name="MainFrame_addRegMarkMenu_Text" xml:space="preserve">
-    <value>Macaj de Înregistrare</value>
+    <value>Marcaj de înregistrare</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_registrationMarkToolStripMenuItem_Text" xml:space="preserve">
-    <value>Macaj de Înregistrare</value>
+    <value>Marcaj de înregistrare</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="SelectionDescriptionText_SpecialName_RegMark" xml:space="preserve">
     <value>Macaj de Înregistrare</value>
@@ -1579,6 +1593,42 @@
   <data name="SelectionDescriptionText_SpecialName_WhiteOut" xml:space="preserve">
     <value>Spațiu Alb</value>
   </data>
+  <data name="MainFrame_addImageMenu_Text" xml:space="preserve">
+    <value>Imagine</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_imageToolStripMenuItem_Text" xml:space="preserve">
+    <value>Imagine</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addLineMenu_Text" xml:space="preserve">
+    <value>Linie</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_lineToolStripMenuItem_Text" xml:space="preserve">
+    <value>Linie</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addRectangleMenu_Text" xml:space="preserve">
+    <value>Dreptunghi</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_rectangleToolStripMenuItem_Text" xml:space="preserve">
+    <value>Dreptunghi</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addEllipseMenu_Text" xml:space="preserve">
+    <value>Elipsă</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_ellipseToolStripMenuItem_Text" xml:space="preserve">
+    <value>Elipsă</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addMenu_Text" xml:space="preserve">
+    <value>A_dăugare</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_changeMapFileMenu_Text" xml:space="preserve">
     <value>Fișier _Hartă...</value>
   </data>
@@ -1591,11 +1641,43 @@
   <data name="MainFrame_removeUnusedControlsMenu_Text" xml:space="preserve">
     <value>Șterge Posturile _Nefolosite...</value>
   </data>
+  <data name="MainFrame_moveAllControlsMenu_Text" xml:space="preserve">
+    <value>_Mută toate posturile...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_punchPatternsMenu_Text" xml:space="preserve">
     <value>Modele de Compostare...</value>
   </data>
+  <data name="MainFrame_descriptionStd2004Menu_Text" xml:space="preserve">
+    <value>Standard de descriere 2004</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_descriptionStd2018Menu_Text" xml:space="preserve">
+    <value>Standard de descriere 2018/2024</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_mapStd2000Menu_Text" xml:space="preserve">
+    <value>Standard de hartă ISOM2000</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_mapStd2017Menu_Text" xml:space="preserve">
+    <value>Standard de hartă ISOM2017</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_mapStdSpr2019Menu_Text" xml:space="preserve">
+    <value>Standard de hartă ISSprOM 2019</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_iOFStandardsToolStripMenuItem_Text" xml:space="preserve">
+    <value>_Standarde IOF</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_customizeDescriptionsMenu_Text" xml:space="preserve">
     <value>Personalizare Text _Descriere...</value>
+  </data>
+  <data name="MainFrame_customizeCourseAppearanceMenu_Text" xml:space="preserve">
+    <value>Personalizare _aspect...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_eventMenu_Text" xml:space="preserve">
     <value>Eve_niment</value>

@@ -1850,6 +1850,14 @@
   <data name="SelectionDescriptionText_SpecialName_Dangerous" xml:space="preserve">
     <value>Nebezpečná oblast</value>
   </data>
+  <data name="MainFrame_addConstructionMenu_Text" xml:space="preserve">
+    <value>Dočasná stavba</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_constructionToolStripMenuItem_Text" xml:space="preserve">
+    <value>Dočasná stavba</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_addWaterMenu_Text" xml:space="preserve">
     <value>Občerstvení</value>
   </data>
@@ -1949,6 +1957,10 @@
   <data name="MainFrame_removeUnusedControlsMenu_Text" xml:space="preserve">
     <value>Odstranit nepo_užité kontroly...</value>
   </data>
+  <data name="MainFrame_moveAllControlsMenu_Text" xml:space="preserve">
+    <value>_Přesunout všechny kontroly...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_punchPatternsMenu_Text" xml:space="preserve">
     <value>Vzo_ry ražení</value>
   </data>
@@ -1968,7 +1980,8 @@
     <value>ISSprOM 2019 Mapový klíč</value>
   </data>
   <data name="MainFrame_iOFStandardsToolStripMenuItem_Text" xml:space="preserve">
-    <value>IOF _Standards</value>
+    <value>IOF _Standardy</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_customizeDescriptionsMenu_Text" xml:space="preserve">
     <value>_Upravit textové popisy</value>

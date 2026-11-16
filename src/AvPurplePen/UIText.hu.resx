@@ -1849,11 +1849,21 @@
   <data name="SelectionDescriptionText_SpecialName_Dangerous" xml:space="preserve">
     <value>Veszélyes hely</value>
   </data>
+  <data name="MainFrame_addConstructionMenu_Text" xml:space="preserve">
+    <value>Ideiglenes építmény</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_constructionToolStripMenuItem_Text" xml:space="preserve">
+    <value>Ideiglenes építmény</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_addWaterMenu_Text" xml:space="preserve">
-    <value>Vizes hely</value>
+    <value>Frissítő pont</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_waterLocationToolStripMenuItem_Text" xml:space="preserve">
-    <value>Vizes hely</value>
+    <value>Frissítő pont</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="SelectionDescriptionText_SpecialName_Water" xml:space="preserve">
     <value>Vizes hely</value>
@@ -1927,6 +1937,14 @@
   <data name="SelectionDescriptionText_SpecialName_Rectangle" xml:space="preserve">
     <value>Téglalap</value>
   </data>
+  <data name="MainFrame_addEllipseMenu_Text" xml:space="preserve">
+    <value>Ellipszis</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_ellipseToolStripMenuItem_Text" xml:space="preserve">
+    <value>Ellipszis</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_addMenu_Text" xml:space="preserve">
     <value>Ú_j</value>
   </data>
@@ -1940,7 +1958,12 @@
     <value>A_utomatikus számozás</value>
   </data>
   <data name="MainFrame_removeUnusedControlsMenu_Text" xml:space="preserve">
-    <value>_Nem használt ellenőrzöpontok törlése</value>
+    <value>_Nem használt ellenőrzőpontok törlése...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_moveAllControlsMenu_Text" xml:space="preserve">
+    <value>Összes ellenőrzőpont _mozgatása...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_punchPatternsMenu_Text" xml:space="preserve">
     <value>_Szúrásminták...</value>
@@ -1949,13 +1972,18 @@
     <value>2004-es leírás szabvány</value>
   </data>
   <data name="MainFrame_descriptionStd2018Menu_Text" xml:space="preserve">
-    <value>2018-as/2024-as lerírás szabvány</value>
+    <value>2018-as/2024-es leírás szabvány</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_mapStd2000Menu_Text" xml:space="preserve">
     <value>ISOM2000 térkép jelkulcs</value>
   </data>
   <data name="MainFrame_mapStd2017Menu_Text" xml:space="preserve">
     <value>ISOM2017 térkép jelkulcs</value>
+  </data>
+  <data name="MainFrame_mapStdSpr2019Menu_Text" xml:space="preserve">
+    <value>ISSprOM 2019 térkép jelkulcs</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_iOFStandardsToolStripMenuItem_Text" xml:space="preserve">
     <value>IOF _Szabvány</value>

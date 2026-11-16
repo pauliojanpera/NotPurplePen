@@ -935,6 +935,166 @@
     <value>Запрещённый район</value>
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
+  <data name="MainFrame_addDangerousMenu_Text" xml:space="preserve">
+    <value>Опасная зона</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_dangerousToolStripMenuItem_Text" xml:space="preserve">
+    <value>Опасная зона</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addConstructionMenu_Text" xml:space="preserve">
+    <value>Временное сооружение</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_constructionToolStripMenuItem_Text" xml:space="preserve">
+    <value>Временное сооружение</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addWaterMenu_Text" xml:space="preserve">
+    <value>Пункт питания</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_waterLocationToolStripMenuItem_Text" xml:space="preserve">
+    <value>Пункт питания</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addFirstAidMenu_Text" xml:space="preserve">
+    <value>Медпункт</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_firstAidLocationToolStripMenuItem_Text" xml:space="preserve">
+    <value>Медпункт</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addForbiddenMenu_Text" xml:space="preserve">
+    <value>Обозначение запрещённого маршрута</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_forbiddenRouteMarkingToolStripMenuItem_Text" xml:space="preserve">
+    <value>Обозначение запрещённого маршрута</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addBoundaryMenu_Text" xml:space="preserve">
+    <value>Непреодолимая граница</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_boundaryToolStripMenuItem_Text" xml:space="preserve">
+    <value>Непреодолимая граница</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addRegMarkMenu_Text" xml:space="preserve">
+    <value>Метка совмещения</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_registrationMarkToolStripMenuItem_Text" xml:space="preserve">
+    <value>Метка совмещения</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_whiteOutMenu_Text" xml:space="preserve">
+    <value>Белая область</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_whiteOutToolStripMenuItem_Text" xml:space="preserve">
+    <value>Белая область</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addImageMenu_Text" xml:space="preserve">
+    <value>Изображение</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_imageToolStripMenuItem_Text" xml:space="preserve">
+    <value>Изображение</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addLineMenu_Text" xml:space="preserve">
+    <value>Линия</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_lineToolStripMenuItem_Text" xml:space="preserve">
+    <value>Линия</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addRectangleMenu_Text" xml:space="preserve">
+    <value>Прямоугольник</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_rectangleToolStripMenuItem_Text" xml:space="preserve">
+    <value>Прямоугольник</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addEllipseMenu_Text" xml:space="preserve">
+    <value>Эллипс</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_ellipseToolStripMenuItem_Text" xml:space="preserve">
+    <value>Эллипс</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addMenu_Text" xml:space="preserve">
+    <value>_Добавить</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_changeMapFileMenu_Text" xml:space="preserve">
+    <value>_Файл карты...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_changeCodesMenu_Text" xml:space="preserve">
+    <value>Изменить _коды КП...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_autoNumberingMenu_Text" xml:space="preserve">
+    <value>Автоматическая _нумерация...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_removeUnusedControlsMenu_Text" xml:space="preserve">
+    <value>_Удалить неиспользуемые КП...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_moveAllControlsMenu_Text" xml:space="preserve">
+    <value>_Переместить все КП...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_punchPatternsMenu_Text" xml:space="preserve">
+    <value>_Рисунки компостеров...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_descriptionStd2004Menu_Text" xml:space="preserve">
+    <value>Стандарт легенд КП 2004</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_descriptionStd2018Menu_Text" xml:space="preserve">
+    <value>Стандарт легенд КП 2018/2024</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_mapStd2000Menu_Text" xml:space="preserve">
+    <value>Картографический стандарт ISOM2000</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_mapStd2017Menu_Text" xml:space="preserve">
+    <value>Картографический стандарт ISOM2017</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_mapStdSpr2019Menu_Text" xml:space="preserve">
+    <value>Картографический стандарт ISSprOM 2019</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_iOFStandardsToolStripMenuItem_Text" xml:space="preserve">
+    <value>_Стандарты IOF</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_customizeDescriptionsMenu_Text" xml:space="preserve">
+    <value>Настроить текст _легенд...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_customizeCourseAppearanceMenu_Text" xml:space="preserve">
+    <value>Настроить _оформление...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_eventMenu_Text" xml:space="preserve">
+    <value>Со_ревнование</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="PrintDescriptions_orientation_Text" xml:space="preserve">
     <value>Альбомная</value>
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>

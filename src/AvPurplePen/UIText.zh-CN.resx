@@ -1865,13 +1865,23 @@
     <value>禁区</value>
   </data>
   <data name="MainFrame_addDangerousMenu_Text" xml:space="preserve">
-    <value>危险路段</value>
+    <value>危险区域</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_dangerousToolStripMenuItem_Text" xml:space="preserve">
-    <value>危险路段</value>
+    <value>危险区域</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="SelectionDescriptionText_SpecialName_Dangerous" xml:space="preserve">
     <value>危险路段</value>
+  </data>
+  <data name="MainFrame_addConstructionMenu_Text" xml:space="preserve">
+    <value>临时建筑</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_constructionToolStripMenuItem_Text" xml:space="preserve">
+    <value>临时建筑</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_addWaterMenu_Text" xml:space="preserve">
     <value>水站</value>
@@ -1892,10 +1902,12 @@
     <value>急救的位置</value>
   </data>
   <data name="MainFrame_addForbiddenMenu_Text" xml:space="preserve">
-    <value>禁止的路标</value>
+    <value>禁止路线标记</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_forbiddenRouteMarkingToolStripMenuItem_Text" xml:space="preserve">
-    <value>禁止的路标</value>
+    <value>禁止路线标记</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_addBoundaryMenu_Text" xml:space="preserve">
     <value>不可通过边界</value>
@@ -1907,19 +1919,23 @@
     <value>不可通过边界</value>
   </data>
   <data name="MainFrame_addRegMarkMenu_Text" xml:space="preserve">
-    <value>注册标记</value>
+    <value>套印标记</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_registrationMarkToolStripMenuItem_Text" xml:space="preserve">
-    <value>注册标记</value>
+    <value>套印标记</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="SelectionDescriptionText_SpecialName_RegMark" xml:space="preserve">
     <value>注册标记</value>
   </data>
   <data name="MainFrame_whiteOutMenu_Text" xml:space="preserve">
-    <value>白色外部区域</value>
+    <value>白色区域</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_whiteOutToolStripMenuItem_Text" xml:space="preserve">
-    <value>白色外部区域</value>
+    <value>白色区域</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="SelectionDescriptionText_SpecialName_WhiteOut" xml:space="preserve">
     <value>白色外部区域</value>
@@ -1934,10 +1950,12 @@
     <value>图像</value>
   </data>
   <data name="MainFrame_addLineMenu_Text" xml:space="preserve">
-    <value>直线</value>
+    <value>线条</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_lineToolStripMenuItem_Text" xml:space="preserve">
-    <value>直线</value>
+    <value>线条</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="SelectionDescriptionText_SpecialName_Line" xml:space="preserve">
     <value>直线</value>
@@ -1958,7 +1976,8 @@
     <value>椭圆</value>
   </data>
   <data name="MainFrame_addMenu_Text" xml:space="preserve">
-    <value>添加 (_A)...</value>
+    <value>添加(_A)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_changeMapFileMenu_Text" xml:space="preserve">
     <value>地图文件</value>
@@ -1976,7 +1995,8 @@
     <value>移动所有检查点（_v）</value>
   </data>
   <data name="MainFrame_punchPatternsMenu_Text" xml:space="preserve">
-    <value>_机械打卡器针脚排列...</value>
+    <value>机械打卡器针脚排列(_P)...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_descriptionStd2004Menu_Text" xml:space="preserve">
     <value>2004 检查点说明规范</value>

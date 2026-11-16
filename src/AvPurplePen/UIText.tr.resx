@@ -1947,10 +1947,12 @@
     <value>Kayıt İşareti</value>
   </data>
   <data name="MainFrame_whiteOutMenu_Text" xml:space="preserve">
-    <value>Beyaz Dış Alan</value>
+    <value>Beyaz Alan</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_whiteOutToolStripMenuItem_Text" xml:space="preserve">
-    <value>Beyaz Dış Alan</value>
+    <value>Beyaz Alan</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="SelectionDescriptionText_SpecialName_WhiteOut" xml:space="preserve">
     <value>Beyaz Dış Alan</value>
@@ -2010,10 +2012,12 @@
     <value>Zımba Desenleri...</value>
   </data>
   <data name="MainFrame_descriptionStd2004Menu_Text" xml:space="preserve">
-    <value>2004 Tanım Satandardı</value>
+    <value>2004 Açıklama Standardı</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_descriptionStd2018Menu_Text" xml:space="preserve">
-    <value>2018/2024 Tanım Satandardı</value>
+    <value>2018/2024 Açıklama Standardı</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_mapStd2000Menu_Text" xml:space="preserve">
     <value>ISOM2000 Harita Standardı</value>

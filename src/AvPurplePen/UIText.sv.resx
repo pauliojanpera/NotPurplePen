@@ -1870,6 +1870,14 @@
   <data name="SelectionDescriptionText_SpecialName_Dangerous" xml:space="preserve">
     <value>Farligt område</value>
   </data>
+  <data name="MainFrame_addConstructionMenu_Text" xml:space="preserve">
+    <value>Tillfällig konstruktion</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_constructionToolStripMenuItem_Text" xml:space="preserve">
+    <value>Tillfällig konstruktion</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_addWaterMenu_Text" xml:space="preserve">
     <value>Vätskekontroll</value>
   </data>

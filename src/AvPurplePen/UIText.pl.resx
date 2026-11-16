@@ -1706,6 +1706,14 @@
   <data name="SelectionDescriptionText_SpecialName_Dangerous" xml:space="preserve">
     <value>Teren niebezpieczny</value>
   </data>
+  <data name="MainFrame_addConstructionMenu_Text" xml:space="preserve">
+    <value>Tymczasowa konstrukcja</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_constructionToolStripMenuItem_Text" xml:space="preserve">
+    <value>Tymczasowa konstrukcja</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_addWaterMenu_Text" xml:space="preserve">
     <value>Lokalizacja punktu odżywczego</value>
   </data>
@@ -1784,6 +1792,18 @@
   <data name="SelectionDescriptionText_SpecialName_Rectangle" xml:space="preserve">
     <value>Prostokąt</value>
   </data>
+  <data name="MainFrame_addEllipseMenu_Text" xml:space="preserve">
+    <value>Elipsa</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_ellipseToolStripMenuItem_Text" xml:space="preserve">
+    <value>Elipsa</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addMenu_Text" xml:space="preserve">
+    <value>_Dodaj</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_changeMapFileMenu_Text" xml:space="preserve">
     <value>Plik _mapy</value>
   </data>
@@ -1796,8 +1816,36 @@
   <data name="MainFrame_removeUnusedControlsMenu_Text" xml:space="preserve">
     <value>Usuń nie_używane PK</value>
   </data>
+  <data name="MainFrame_moveAllControlsMenu_Text" xml:space="preserve">
+    <value>Prze_suń wszystkie PK...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_punchPatternsMenu_Text" xml:space="preserve">
     <value>Wzorce _perforowania...</value>
+  </data>
+  <data name="MainFrame_descriptionStd2004Menu_Text" xml:space="preserve">
+    <value>Standard opisów 2004</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_descriptionStd2018Menu_Text" xml:space="preserve">
+    <value>Standard opisów 2018/2024</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_mapStd2000Menu_Text" xml:space="preserve">
+    <value>Standard map ISOM2000</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_mapStd2017Menu_Text" xml:space="preserve">
+    <value>Standard map ISOM2017</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_mapStdSpr2019Menu_Text" xml:space="preserve">
+    <value>Standard map ISSprOM 2019</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_iOFStandardsToolStripMenuItem_Text" xml:space="preserve">
+    <value>Standardy _IOF</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_customizeDescriptionsMenu_Text" xml:space="preserve">
     <value>Dostosuj tekst _opisu...</value>

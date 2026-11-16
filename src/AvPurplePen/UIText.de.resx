@@ -1866,6 +1866,14 @@
   <data name="SelectionDescriptionText_SpecialName_Dangerous" xml:space="preserve">
     <value>Gefährliches Gebiet</value>
   </data>
+  <data name="MainFrame_addConstructionMenu_Text" xml:space="preserve">
+    <value>Temporäre Konstruktion</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_constructionToolStripMenuItem_Text" xml:space="preserve">
+    <value>Temporäre Konstruktion</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_addWaterMenu_Text" xml:space="preserve">
     <value>Getränkeposten</value>
   </data>
@@ -1966,7 +1974,8 @@
     <value>Nicht genutzte Posten _entfernen...</value>
   </data>
   <data name="MainFrame_moveAllControlsMenu_Text" xml:space="preserve">
-    <value>Alle Bedienelemente verschieben...</value>
+    <value>Alle Posten _verschieben...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_punchPatternsMenu_Text" xml:space="preserve">
     <value>Kontrollkarten_design</value>

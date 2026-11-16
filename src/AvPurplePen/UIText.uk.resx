@@ -1841,6 +1841,14 @@
   <data name="SelectionDescriptionText_SpecialName_Dangerous" xml:space="preserve">
     <value>Небезпечна територія</value>
   </data>
+  <data name="MainFrame_addConstructionMenu_Text" xml:space="preserve">
+    <value>Тимчасова споруда</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_constructionToolStripMenuItem_Text" xml:space="preserve">
+    <value>Тимчасова споруда</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_addWaterMenu_Text" xml:space="preserve">
     <value>Пункт підживлення</value>
   </data>
@@ -1940,8 +1948,13 @@
   <data name="MainFrame_removeUnusedControlsMenu_Text" xml:space="preserve">
     <value>Видалити _незадіяні КП...</value>
   </data>
+  <data name="MainFrame_moveAllControlsMenu_Text" xml:space="preserve">
+    <value>_Перемістити всі КП...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_punchPatternsMenu_Text" xml:space="preserve">
-    <value>_Форма компостерів...</value>
+    <value>Фор_ми компостерів...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_descriptionStd2004Menu_Text" xml:space="preserve">
     <value>2004 стандарт легенд КП</value>
@@ -1968,7 +1981,8 @@
     <value>Налаштувати зовнішній вигляд...</value>
   </data>
   <data name="MainFrame_eventMenu_Text" xml:space="preserve">
-    <value>Подія</value>
+    <value>_Змагання</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_addCourseMenu_Text" xml:space="preserve">
     <value>Додати дистанцію...</value>

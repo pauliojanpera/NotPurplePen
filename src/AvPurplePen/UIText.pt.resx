@@ -1849,6 +1849,14 @@
   <data name="SelectionDescriptionText_SpecialName_Dangerous" xml:space="preserve">
     <value>Área Perigosa</value>
   </data>
+  <data name="MainFrame_addConstructionMenu_Text" xml:space="preserve">
+    <value>Construção Temporária</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_constructionToolStripMenuItem_Text" xml:space="preserve">
+    <value>Construção Temporária</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_addWaterMenu_Text" xml:space="preserve">
     <value>Localização do Abastecimento</value>
   </data>
@@ -1948,6 +1956,10 @@
   <data name="MainFrame_removeUnusedControlsMenu_Text" xml:space="preserve">
     <value>Remover Controlos não _Utilizados...</value>
   </data>
+  <data name="MainFrame_moveAllControlsMenu_Text" xml:space="preserve">
+    <value>Mo_ver Todos os Pontos de Controlo...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_punchPatternsMenu_Text" xml:space="preserve">
     <value>Padrão de _Picotagem</value>
   </data>
@@ -1967,7 +1979,8 @@
     <value>Padrão de Mapa ISSprOM 2019</value>
   </data>
   <data name="MainFrame_iOFStandardsToolStripMenuItem_Text" xml:space="preserve">
-    <value>IOF _Standards</value>
+    <value>Padrõe_s IOF</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_customizeDescriptionsMenu_Text" xml:space="preserve">
     <value>Customizar o texto _da sinalética...</value>

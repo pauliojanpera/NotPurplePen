@@ -1868,6 +1868,14 @@
   <data name="SelectionDescriptionText_SpecialName_Dangerous" xml:space="preserve">
     <value>Farlig område</value>
   </data>
+  <data name="MainFrame_addConstructionMenu_Text" xml:space="preserve">
+    <value>Midlertidig konstruksjon</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_constructionToolStripMenuItem_Text" xml:space="preserve">
+    <value>Midlertidig konstruksjon</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_addWaterMenu_Text" xml:space="preserve">
     <value>Væskestasjon</value>
   </data>
@@ -1968,7 +1976,8 @@
     <value>Slett _ubrukte poster</value>
   </data>
   <data name="MainFrame_moveAllControlsMenu_Text" xml:space="preserve">
-    <value>Flytt alle Poster</value>
+    <value>_Flytt alle poster...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_punchPatternsMenu_Text" xml:space="preserve">
     <value>_Stemplingsmønster</value>
@@ -1995,7 +2004,8 @@
     <value>Tilpass _beskrivelsestekst</value>
   </data>
   <data name="MainFrame_customizeCourseAppearanceMenu_Text" xml:space="preserve">
-    <value>Tilpass _Utseende</value>
+    <value>Tilpass u_tseende...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_eventMenu_Text" xml:space="preserve">
     <value>_Arrangement</value>

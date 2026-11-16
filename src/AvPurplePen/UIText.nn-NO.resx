@@ -1528,6 +1528,14 @@
   <data name="SelectionDescriptionText_SpecialName_Dangerous" xml:space="preserve">
     <value>Farleg område</value>
   </data>
+  <data name="MainFrame_addConstructionMenu_Text" xml:space="preserve">
+    <value>Mellombels konstruksjon</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_constructionToolStripMenuItem_Text" xml:space="preserve">
+    <value>Mellombels konstruksjon</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_addWaterMenu_Text" xml:space="preserve">
     <value>Drikkestasjon</value>
   </data>
@@ -1579,6 +1587,42 @@
   <data name="SelectionDescriptionText_SpecialName_WhiteOut" xml:space="preserve">
     <value>Lage kvitt område</value>
   </data>
+  <data name="MainFrame_addImageMenu_Text" xml:space="preserve">
+    <value>Bilde</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_imageToolStripMenuItem_Text" xml:space="preserve">
+    <value>Bilde</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addLineMenu_Text" xml:space="preserve">
+    <value>Linje</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_lineToolStripMenuItem_Text" xml:space="preserve">
+    <value>Linje</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addRectangleMenu_Text" xml:space="preserve">
+    <value>Rektangel</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_rectangleToolStripMenuItem_Text" xml:space="preserve">
+    <value>Rektangel</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addEllipseMenu_Text" xml:space="preserve">
+    <value>Ellipse</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_ellipseToolStripMenuItem_Text" xml:space="preserve">
+    <value>Ellipse</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addMenu_Text" xml:space="preserve">
+    <value>Legg _til</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_changeMapFileMenu_Text" xml:space="preserve">
     <value>_Kartfil...</value>
   </data>
@@ -1591,11 +1635,43 @@
   <data name="MainFrame_removeUnusedControlsMenu_Text" xml:space="preserve">
     <value>Slett _ubrukte poster</value>
   </data>
+  <data name="MainFrame_moveAllControlsMenu_Text" xml:space="preserve">
+    <value>_Flytt alle poster...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_punchPatternsMenu_Text" xml:space="preserve">
     <value>_Stemplingsmønster</value>
   </data>
+  <data name="MainFrame_descriptionStd2004Menu_Text" xml:space="preserve">
+    <value>2004 beskrivelsesstandard</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_descriptionStd2018Menu_Text" xml:space="preserve">
+    <value>2018/2024 beskrivelsesstandard</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_mapStd2000Menu_Text" xml:space="preserve">
+    <value>ISOM2000 kartstandard</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_mapStd2017Menu_Text" xml:space="preserve">
+    <value>ISOM2017 kartstandard</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_mapStdSpr2019Menu_Text" xml:space="preserve">
+    <value>ISSprOM 2019 kartstandard</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_iOFStandardsToolStripMenuItem_Text" xml:space="preserve">
+    <value>_IOF-standardar</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_customizeDescriptionsMenu_Text" xml:space="preserve">
     <value>Tilpass _beskrivelsestekst</value>
+  </data>
+  <data name="MainFrame_customizeCourseAppearanceMenu_Text" xml:space="preserve">
+    <value>Tilpass u_tsjånad...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_eventMenu_Text" xml:space="preserve">
     <value>_Arrangement</value>

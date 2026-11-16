@@ -1836,6 +1836,14 @@
   <data name="SelectionDescriptionText_SpecialName_Dangerous" xml:space="preserve">
     <value>Área peligrosa</value>
   </data>
+  <data name="MainFrame_addConstructionMenu_Text" xml:space="preserve">
+    <value>Construcción temporal</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_constructionToolStripMenuItem_Text" xml:space="preserve">
+    <value>Construcción temporal</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_addWaterMenu_Text" xml:space="preserve">
     <value>Punto de avituallamiento</value>
   </data>
@@ -1914,6 +1922,14 @@
   <data name="SelectionDescriptionText_SpecialName_Rectangle" xml:space="preserve">
     <value>Rectángulo</value>
   </data>
+  <data name="MainFrame_addEllipseMenu_Text" xml:space="preserve">
+    <value>Elipse</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_ellipseToolStripMenuItem_Text" xml:space="preserve">
+    <value>Elipse</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_addMenu_Text" xml:space="preserve">
     <value>_Añadir</value>
   </data>
@@ -1929,6 +1945,10 @@
   <data name="MainFrame_removeUnusedControlsMenu_Text" xml:space="preserve">
     <value>_Eliminar controles no usados...</value>
   </data>
+  <data name="MainFrame_moveAllControlsMenu_Text" xml:space="preserve">
+    <value>Mo_ver todos los controles...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_punchPatternsMenu_Text" xml:space="preserve">
     <value>_Patrones de perforación...</value>
   </data>
@@ -1943,6 +1963,10 @@
   </data>
   <data name="MainFrame_mapStd2017Menu_Text" xml:space="preserve">
     <value>Estándar de mapa ISOM2017</value>
+  </data>
+  <data name="MainFrame_mapStdSpr2019Menu_Text" xml:space="preserve">
+    <value>Estándar de mapa ISSprOM 2019</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_iOFStandardsToolStripMenuItem_Text" xml:space="preserve">
     <value>_Estándares IOF</value>

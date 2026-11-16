@@ -1853,6 +1853,14 @@
   <data name="SelectionDescriptionText_SpecialName_Dangerous" xml:space="preserve">
     <value>Área Perigosa</value>
   </data>
+  <data name="MainFrame_addConstructionMenu_Text" xml:space="preserve">
+    <value>Construção Temporária</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_constructionToolStripMenuItem_Text" xml:space="preserve">
+    <value>Construção Temporária</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_addWaterMenu_Text" xml:space="preserve">
     <value>Posto d'água</value>
   </data>
@@ -1872,10 +1880,12 @@
     <value>Posto de Primeiros Socorros</value>
   </data>
   <data name="MainFrame_addForbiddenMenu_Text" xml:space="preserve">
-    <value>Balizamento de Área Proibida</value>
+    <value>Marcação de Rota Proibida</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_forbiddenRouteMarkingToolStripMenuItem_Text" xml:space="preserve">
-    <value>Balizamento de Área Proibida</value>
+    <value>Marcação de Rota Proibida</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_addBoundaryMenu_Text" xml:space="preserve">
     <value>Limite Intransponível</value>
@@ -1952,11 +1962,16 @@
   <data name="MainFrame_removeUnusedControlsMenu_Text" xml:space="preserve">
     <value>Remover Controles não _Utilizados...</value>
   </data>
+  <data name="MainFrame_moveAllControlsMenu_Text" xml:space="preserve">
+    <value>Mo_ver Todos os Controles...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_punchPatternsMenu_Text" xml:space="preserve">
     <value>Padrões de _Picote...</value>
   </data>
   <data name="MainFrame_descriptionStd2004Menu_Text" xml:space="preserve">
-    <value>Padrão de Descrição 2014</value>
+    <value>Padrão de Descrição 2004</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_descriptionStd2018Menu_Text" xml:space="preserve">
     <value>Padrão de Descrição 2018/2024</value>

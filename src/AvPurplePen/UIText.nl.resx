@@ -1646,6 +1646,70 @@
     <value>Verboden gebied</value>
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
+  <data name="MainFrame_addDangerousMenu_Text" xml:space="preserve">
+    <value>Gevaarlijk gebied</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_dangerousToolStripMenuItem_Text" xml:space="preserve">
+    <value>Gevaarlijk gebied</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addConstructionMenu_Text" xml:space="preserve">
+    <value>Tijdelijke constructie</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_constructionToolStripMenuItem_Text" xml:space="preserve">
+    <value>Tijdelijke constructie</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addWaterMenu_Text" xml:space="preserve">
+    <value>Drankpost</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_waterLocationToolStripMenuItem_Text" xml:space="preserve">
+    <value>Drankpost</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addFirstAidMenu_Text" xml:space="preserve">
+    <value>EHBO-post</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_firstAidLocationToolStripMenuItem_Text" xml:space="preserve">
+    <value>EHBO-post</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addForbiddenMenu_Text" xml:space="preserve">
+    <value>Markering verboden route</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_forbiddenRouteMarkingToolStripMenuItem_Text" xml:space="preserve">
+    <value>Markering verboden route</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addBoundaryMenu_Text" xml:space="preserve">
+    <value>Onpasseerbare grens</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_boundaryToolStripMenuItem_Text" xml:space="preserve">
+    <value>Onpasseerbare grens</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addRegMarkMenu_Text" xml:space="preserve">
+    <value>Paskruis</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_registrationMarkToolStripMenuItem_Text" xml:space="preserve">
+    <value>Paskruis</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_whiteOutMenu_Text" xml:space="preserve">
+    <value>Wit gebied</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_whiteOutToolStripMenuItem_Text" xml:space="preserve">
+    <value>Wit gebied</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_addImageMenu_Text" xml:space="preserve">
     <value>Afbeelding</value>
   </data>
@@ -1672,6 +1736,78 @@
   </data>
   <data name="SelectionDescriptionText_SpecialName_Rectangle" xml:space="preserve">
     <value>Rechthoek</value>
+  </data>
+  <data name="MainFrame_addEllipseMenu_Text" xml:space="preserve">
+    <value>Ellips</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_ellipseToolStripMenuItem_Text" xml:space="preserve">
+    <value>Ellips</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addMenu_Text" xml:space="preserve">
+    <value>_Toevoegen</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_changeMapFileMenu_Text" xml:space="preserve">
+    <value>_Kaartbestand...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_changeCodesMenu_Text" xml:space="preserve">
+    <value>Wijzig _codes posten...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_autoNumberingMenu_Text" xml:space="preserve">
+    <value>Automatische _nummering...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_removeUnusedControlsMenu_Text" xml:space="preserve">
+    <value>Verwijder _ongebruikte posten...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_moveAllControlsMenu_Text" xml:space="preserve">
+    <value>Alle posten _verplaatsen...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_punchPatternsMenu_Text" xml:space="preserve">
+    <value>_Prikpatronen...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_descriptionStd2004Menu_Text" xml:space="preserve">
+    <value>Postomschrijvingsnorm 2004</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_descriptionStd2018Menu_Text" xml:space="preserve">
+    <value>Postomschrijvingsnorm 2018/2024</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_mapStd2000Menu_Text" xml:space="preserve">
+    <value>ISOM2000-kaartnorm</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_mapStd2017Menu_Text" xml:space="preserve">
+    <value>ISOM2017-kaartnorm</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_mapStdSpr2019Menu_Text" xml:space="preserve">
+    <value>ISSprOM 2019-kaartnorm</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_iOFStandardsToolStripMenuItem_Text" xml:space="preserve">
+    <value>_IOF-normen</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_customizeDescriptionsMenu_Text" xml:space="preserve">
+    <value>Wijzig _tekstomschrijving...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_customizeCourseAppearanceMenu_Text" xml:space="preserve">
+    <value>_Weergave aanpassen...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_eventMenu_Text" xml:space="preserve">
+    <value>_Evenement</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_deleteForkMenu_Text" xml:space="preserve">
     <value>Verwijder a_fsplitsing/lus</value>

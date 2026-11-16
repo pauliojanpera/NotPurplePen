@@ -1895,10 +1895,12 @@
     <value>Secours</value>
   </data>
   <data name="MainFrame_addForbiddenMenu_Text" xml:space="preserve">
-    <value>Route interdite</value>
+    <value>Itinéraire interdit</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_forbiddenRouteMarkingToolStripMenuItem_Text" xml:space="preserve">
-    <value>Route interdite</value>
+    <value>Itinéraire interdit</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_addBoundaryMenu_Text" xml:space="preserve">
     <value>Limite infranchissable</value>
@@ -1981,11 +1983,23 @@
   <data name="MainFrame_punchPatternsMenu_Text" xml:space="preserve">
     <value>_Poinçons...</value>
   </data>
+  <data name="MainFrame_descriptionStd2004Menu_Text" xml:space="preserve">
+    <value>Norme de définitions 2004</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_descriptionStd2018Menu_Text" xml:space="preserve">
+    <value>Norme de définitions 2018/2024</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_mapStd2000Menu_Text" xml:space="preserve">
     <value>Norme ISOM2000</value>
   </data>
   <data name="MainFrame_mapStd2017Menu_Text" xml:space="preserve">
     <value>Norme ISOM2017</value>
+  </data>
+  <data name="MainFrame_mapStdSpr2019Menu_Text" xml:space="preserve">
+    <value>Norme ISSprOM 2019</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_iOFStandardsToolStripMenuItem_Text" xml:space="preserve">
     <value>_Normes IOF</value>
