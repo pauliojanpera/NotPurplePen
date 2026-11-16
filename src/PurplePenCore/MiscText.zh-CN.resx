@@ -298,7 +298,8 @@
     <value>所有：{0}</value>
   </data>
   <data name="Margins_LRTB" xml:space="preserve">
-    <value>左：{0}：{1}右上：{2}，{三}：底</value>
+    <value>左：{0}，右：{1}，上：{2}，下：{3}</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="Start" xml:space="preserve">
     <value>开始</value>
@@ -364,7 +365,8 @@
     <value>所有的零件</value>
   </data>
   <data name="PartXOfY" xml:space="preserve">
-    <value>（除了{0} {一}）</value>
+    <value>第 {0} 部分（共 {1} 部分）</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="CrashCancel" xml:space="preserve">
     <value>取消</value>

@@ -151,7 +151,8 @@
     <value>フォルダ '{0}' を作成できません。以下の理由:</value>
   </data>
   <data name="CannotCreateOcadFiles" xml:space="preserve">
-    <value>OCAD ファイル '{0}' を作成できません。以下の理由:</value>
+    <value>OCAD ファイルを作成できません。以下の理由:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>'{0}' への変更を保存しますか?</value>
@@ -521,7 +522,8 @@ OKを押し、コンピュータ上で地図ファイルのコピーを探して
     <value>GPXファイルを使用するためには、地図ファイルがOCADファイルである必要があります。</value>
   </data>
   <data name="CannotCreatePdfs" xml:space="preserve">
-    <value>PDF '{0}' を作成できません。以下の理由:</value>
+    <value>PDF を作成できません。以下の理由:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="CannotPrint" xml:space="preserve">
     <value>'{0}' を印刷できません。以下の理由:</value>

@@ -1117,6 +1117,30 @@
   <data name="PrintCourses_comboBoxColorModel_Items2" xml:space="preserve">
     <value>CMYK</value>
   </data>
+  <data name="CreateImageFiles_comboBoxPrintBaseMap_Items" xml:space="preserve">
+    <value>コースと地図</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreatePdfCourses_comboBoxPrintBaseMap_Items" xml:space="preserve">
+    <value>コースと地図</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreateImageFiles_comboBoxPrintBaseMap_Items1" xml:space="preserve">
+    <value>コースのみ</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreatePdfCourses_comboBoxPrintBaseMap_Items1" xml:space="preserve">
+    <value>コースのみ</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreateImageFiles_labelPrintBaseMap_Text" xml:space="preserve">
+    <value>内容:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreatePdfCourses_labelPrintBaseMap_Text" xml:space="preserve">
+    <value>内容:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="CreateImageFiles_outputGroupBox_Text" xml:space="preserve">
     <value>出力</value>
   </data>
@@ -2015,7 +2039,8 @@
     <value>フォルダ '{0}' を作成できません。以下の理由:</value>
   </data>
   <data name="MiscText_CannotCreateOcadFiles" xml:space="preserve">
-    <value>OCAD ファイル '{0}' を作成できません。以下の理由:</value>
+    <value>OCAD ファイルを作成できません。以下の理由:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MiscText_SaveChanges" xml:space="preserve">
     <value>'{0}' への変更を保存しますか?</value>
@@ -2271,7 +2296,8 @@ OKを押し、コンピュータ上で地図ファイルのコピーを探して
     <value>ファイル '{0}' からのPDF変換の結果が読み込めませんでした</value>
   </data>
   <data name="MiscText_CannotCreatePdfs" xml:space="preserve">
-    <value>PDF '{0}' を作成できません。以下の理由:</value>
+    <value>PDF を作成できません。以下の理由:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MiscText_UserDefined" xml:space="preserve">
     <value>ユーザ定義</value>
@@ -2994,13 +3020,15 @@ OKを押し、コンピュータ上で地図ファイルのコピーを探して
     <value>テキスト行</value>
   </data>
   <data name="SelectionDescriptionText_TextLine_AboveAllCourses" xml:space="preserve">
-    <value>{0} の上に表示、(0} を含む全てのコース</value>
+    <value>{0} の上に表示、{0} を含む全てのコース</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="SelectionDescriptionText_TextLine_AboveThisCourse" xml:space="preserve">
     <value>{0} の上に表示、現在のコースのみ</value>
   </data>
   <data name="SelectionDescriptionText_TextLine_BelowAllCourses" xml:space="preserve">
-    <value>{0} の下に表示、(0} を含む全てのコース</value>
+    <value>{0} の下に表示、{0} を含む全てのコース</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="SelectionDescriptionText_TextLine_BelowThisCourse" xml:space="preserve">
     <value>{0} の下に表示、現在のコースのみ</value>

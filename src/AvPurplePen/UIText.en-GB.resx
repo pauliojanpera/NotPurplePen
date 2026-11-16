@@ -1381,7 +1381,8 @@
     <value>Select a folder for the PDF files</value>
   </data>
   <data name="CreatePdfCourses_Text" xml:space="preserve">
-    <value>Print Courses</value>
+    <value>Create PDF Files</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="CreateRouteGadget_label1_Text" xml:space="preserve">
     <value>Enter the name (without .xml or .gif) for both of the RouteGadget files:</value>

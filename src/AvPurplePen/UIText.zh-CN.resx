@@ -851,7 +851,8 @@
     <value>复制路线</value>
   </data>
   <data name="CommandNameText_CreateMapFiles" xml:space="preserve">
-    <value>创建{0}和文件</value>
+    <value>创建 {0} 文件(_F)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="CommandNameText_DeleteFork" xml:space="preserve">
     <value>删除分支/循环</value>
@@ -1203,6 +1204,30 @@
   </data>
   <data name="PrintCourses_comboBoxColorModel_Items2" xml:space="preserve">
     <value>绿红黄黑标准颜色</value>
+  </data>
+  <data name="CreateImageFiles_comboBoxPrintBaseMap_Items" xml:space="preserve">
+    <value>线路和地图</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreatePdfCourses_comboBoxPrintBaseMap_Items" xml:space="preserve">
+    <value>线路和地图</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreateImageFiles_comboBoxPrintBaseMap_Items1" xml:space="preserve">
+    <value>仅线路</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreatePdfCourses_comboBoxPrintBaseMap_Items1" xml:space="preserve">
+    <value>仅线路</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreateImageFiles_labelPrintBaseMap_Text" xml:space="preserve">
+    <value>内容：</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreatePdfCourses_labelPrintBaseMap_Text" xml:space="preserve">
+    <value>内容：</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="CreateImageFiles_outputGroupBox_Text" xml:space="preserve">
     <value>输出</value>
@@ -2372,7 +2397,8 @@
     <value>所有：{0}</value>
   </data>
   <data name="MiscText_Margins_LRTB" xml:space="preserve">
-    <value>左：{0}：{1}右上：{2}，{三}：底</value>
+    <value>左：{0}，右：{1}，上：{2}，下：{3}</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MiscText_Start" xml:space="preserve">
     <value>开始</value>
@@ -2444,7 +2470,8 @@
     <value>所有的零件</value>
   </data>
   <data name="MiscText_PartXOfY" xml:space="preserve">
-    <value>（除了{0} {一}）</value>
+    <value>第 {0} 部分（共 {1} 部分）</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MiscText_CrashEmail" xml:space="preserve">
     <value>联系人电子邮件</value>
@@ -3163,7 +3190,8 @@
     <value>{0}（{1}检查点，{2}，{3}米 爬高量）</value>
   </data>
   <data name="ReportText_LegLength_CourseInfoNoClimb" xml:space="preserve">
-    <value>{0}（{一} Controls，{二}）</value>
+    <value>{0}（{1}检查点，{2}）</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="ReportText_LegLength_Title" xml:space="preserve">
     <value>{0}为课程的报告</value>

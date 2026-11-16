@@ -148,7 +148,8 @@
     <value>Percurso "{0}"</value>
   </data>
   <data name="CustomizedSymbolDesc" xml:space="preserve">
-    <value>Percurso "{0}"</value>
+    <value>Descrição do símbolo personalizada</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EntireLeg" xml:space="preserve">
     <value>pernada inteira</value>
