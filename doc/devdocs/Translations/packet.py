@@ -2,9 +2,11 @@
 """Makes the work packet of one language: what its translator reads, and the TSV that the
 translator fills.
 
-usage: packet.py <checkout> <language> <out folder> [--others N] [--resource NAME ...] [--forks-own | --upstream-only] [--upstream REV] [--translator MODEL --effort LEVEL]
+usage: packet.py <checkout> <language> <out folder> [--tsv PATH] [--others N] [--resource NAME ...] [--forks-own | --upstream-only] [--upstream REV] [--translator MODEL --effort LEVEL]
 
-Writes <out folder>/<language>.md and <out folder>/<language>.tsv. The TSV has a line for each key
+Writes <out folder>/<language>.md and <out folder>/<language>.tsv. With --tsv, the TSV goes to PATH
+instead; if PATH exists, its lines stay as they are, and the packet adds a line for each key that
+PATH does not have, so that a translator who stopped can go on from its filled file. The TSV has a line for each key
 that the language lacks, with the columns resource, key, english, translation, old, note, mirrors,
 translator and effort. The translator fills translation, writes in note the context that decided it,
 and keeps in mirrors the existing keys whose translation it follows. To correct an existing
@@ -87,6 +89,7 @@ def main():
     parser.add_argument('--translator', default='', help='the model id of the language model that translates')
     parser.add_argument('--effort', default='', help="the language model's effort setting")
     parser.add_argument('--upstream', default='origin/base')
+    parser.add_argument('--tsv', help='the TSV to write or to add the new keys to (default: <out folder>/<language>.tsv)')
     which = parser.add_mutually_exclusive_group()
     which.add_argument('--forks-own', action='store_true')
     which.add_argument('--upstream-only', action='store_true')
@@ -218,9 +221,17 @@ def main():
     head += ['', '## Keys', '']
     with open(os.path.join(args.out, f'{lang}.md'), 'w', encoding='utf-8', newline='\n') as f:
         f.write('\n'.join(head) + '\n' + '\n'.join(sections))
-    R.write_tsv(os.path.join(args.out, f'{lang}.tsv'),
-                ['resource', 'key', 'english', 'translation', 'old', 'note', 'mirrors', 'translator', 'effort'], rows)
-    print(f'{lang}: {len(rows)} keys, {len(terms)} terms')
+    header = ['resource', 'key', 'english', 'translation', 'old', 'note', 'mirrors', 'translator', 'effort']
+    tsv_path = args.tsv or os.path.join(args.out, f'{lang}.tsv')
+    kept = []
+    if args.tsv and os.path.exists(tsv_path):
+        kept = [[r.get(h, '') for h in header] for r in R.read_tsv(tsv_path)]
+        have = {(r[0], r[1]) for r in kept}
+        added = [r for r in rows if (r[0], r[1]) not in have]
+    else:
+        added = rows
+    R.write_tsv(tsv_path, header, kept + added)
+    print(f'{lang}: {len(rows)} keys in the packet, {len(added)} added to {tsv_path}, {len(terms)} terms')
 
 
 if __name__ == '__main__':

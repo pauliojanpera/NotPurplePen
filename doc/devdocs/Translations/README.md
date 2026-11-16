@@ -6,7 +6,8 @@ translations in phases, with scripts where they make the work faster. For each k
 other translations of the key, and each translation that a language model makes names the model and its effort
 setting.
 
-The table is [Status.md](Status.md). Make it again after each phase.
+The table is [Status.md](Status.md). A session that translates one language follows [Session.md](Session.md). A
+session that starts with no context reads [../Introduction.md](../Introduction.md) first.
 
 ## What the tools found
 
@@ -46,8 +47,7 @@ On Nov 16, from `dev` at 4c6ca29d.
 
 ## The phases
 
-Each phase ends with a full run on `wip/linux/<name>`, the merges into `basewithfixes` and `dev` through full runs,
-and Status.md made again. The numbers are of Nov 16.
+The numbers are of Nov 16.
 
 1. **The translations in the repository.** Move the satellites of PurplePenCore's resources of the ten languages
    from `src/PurplePen` into `src/PurplePenCore` (`git mv`), and take their lines out of the `EmbeddedResource
@@ -61,34 +61,35 @@ and Status.md made again. The numbers are of Nov 16.
 6. **The fork's own keys** (the column "Fork's own" of Status.md): 758, on the branches that add the keys, as task
    4 did for the SVG export.
 
-Phases 1 and 2 go on task 9's first `fix/` branch, and phases 3 to 5 on its second. Both are rooted where `base`
-meets upstream, so that they can be offered upstream.
+Phases 1 and 2 go on task 9's first `fix/` branch, `fix/translation-faults`, and phases 3 to 5 on its second,
+`fix/complete-translations`. Both are rooted where `base` meets upstream (`git merge-base origin/base
+upstream/master`), so that they can be offered upstream.
+
+- Phases 1 and 2 are not translation. A session does them, runs `fix/translation-faults` in full on
+  `wip/linux/translation-faults`, rooted at `base`, merges it into `basewithfixes` and `dev` through full runs, and
+  then makes `fix/complete-translations` at the root and pushes it.
+- In phases 3 to 5, one session translates and checks one language, as [Session.md](Session.md) tells (@Pauli,
+  Nov 16). The languages follow each other with no build and no test run between them: a push of
+  `fix/complete-translations` starts none, and a session does not wait for one (@Pauli, Nov 16). Each session makes
+  Status.md again, from `fix/complete-translations`.
+- After the last language, `fix/complete-translations` runs in full on `wip/linux/complete-translations`, rooted at
+  `base`, and goes into `basewithfixes` and `dev` through full runs.
 
 ## The work of one language
 
-1. Make the packet from a checkout of the branch where the translations go:
-   `packet.py <checkout> <language> <work folder> --translator <model id> --effort <effort setting>`, with the model
-   and effort setting of the language model that will translate. On a branch of upstream's history, the packet has
-   only upstream's keys. On a branch of the fork, `--upstream-only` or `--forks-own` takes one of the two.
-2. The translator reads `<language>.md` and fills `<language>.tsv`: the translation, the context that decided it
-   (`note`), and the existing keys whose translation it follows (`mirrors`). For each key, the packet gives every
-   translation of the key in the other languages, the related languages first, and the other keys of the same
-   control, so that the exact meaning of the English is clear (@Pauli, Nov 14 and 16). `lookup.py <checkout> <key>`
-   gives every translation of any other key. The translator uses the terms of the language's own translations, and
-   keeps to the room that the dialogs give, as task 4 did. For a key that needs no translation in the language, it
-   writes `=`.
-   If the translator is completely sure that an existing translation is wrong, it corrects it (@Pauli, Nov 16): a
-   line for the key with the existing translation, exactly as the satellite has it, in `old`, the correction in
-   `translation`, and in `note` why the existing one is wrong. A correction in another language goes into a TSV of
-   that language, which `apply.py` writes for that language.
-3. `apply.py <checkout> <language> <language>.tsv` writes the translations into the satellites, each with the comment
-   that names the language model (below), and records the keys marked `=` in `not-needed/<language>.tsv` beside the
-   scripts.
-4. `check.py <checkout> --language <language> --since <commit before the language> --warnings`: no error, and each
-   warning examined.
-5. `review.py <language>.tsv > reviews/<language>.md`: the review table. Keep the filled TSV beside it.
-6. Commit the satellites of the language in one commit on the branch, and `not-needed/` and `reviews/` on
-   `docs/process-coordination`.
+[Session.md](Session.md) gives the steps of the session that does one language: the packet (`packet.py`), the
+translation into the filled TSV, `apply.py`, `check.py`, the push after about each 200 keys, and at the end the
+review table (`review.py`) in `reviews/<language>.md` and Status.md made again. The filled TSV of each language is
+kept in `filled/<language>.tsv`, and its keys judged not needed in `not-needed/<language>.tsv`.
+
+The rules of the translation are @Pauli's (handover, task 9, Nov 14 and 16):
+
+- Find the exact meaning of the English from every translation of the key in the other languages, the related
+  languages first, and from the other keys of the same control. `lookup.py` shows every translation of any key.
+- Use the terms of the language's own translations, and keep to the room that the dialogs give, as task 4 did.
+- Translate only keys that need translation. Mark a key that needs none `=`.
+- Correct an existing translation only when completely sure that it is wrong, and say why.
+- Write a review table for each language.
 
 ## Who made a translation
 
