@@ -397,9 +397,6 @@ UIText	MiscText_UninstallNonStoreVersion	An older version of Purple Pen is still
 UIText	MiscText_AskInstallRobotoFonts	In order for OCAD or OpenOrienteering Mapper to correctly display the control descriptions, the "Roboto" and "Roboto Condensed" fonts must be installed on your system. Would you like to install those fonts now (strongly recommended)?		
 UIText	MiscText_RobotoFontsInstallFailed	Installing Roboto Fonts failed.		
 UIText	MiscText_LowerPurple	Lower Purple		
-UIText	MissingFonts_checkBoxDontWarnAgain_Text	Don't warn about missing fonts for this event again		
-UIText	MissingFonts_labelWarning_Text	Map file "{0}" uses fonts that are not installed on your computer. Text using these fonts will be drawn and printed with a default font, which may cause text to appear differently than the map designer intended. \n\nTo fix this problem, find and install the fonts listed below with the Windows control panel, then start Purple Pen again.\n		
-UIText	MissingFonts_Text	Missing Fonts		
 UIText	MoveAllControls_labelDescription_Text	Which way would you like to move all controls on the map?		
 UIText	MoveAllControls_radioButtonMove_Text	Move Only		
 UIText	MoveAllControls_radioButtonMoveAndScale_Text	Move and Scale		

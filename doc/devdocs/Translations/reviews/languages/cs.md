@@ -8,6 +8,7 @@ Made by claude-opus-5-5, effort max.
 
 | Key | English | Translation | Context that decided it | Mirrors |
 | --- | --- | --- | --- | --- |
+| `MissingFonts_checkBoxDontWarnAgain_Text` | Don't warn about missing fonts for this event again | Znovu neupozorňovat na chybějící fonty pro tento závod<br>(corrects: Znovu NEupozorňovat na chybějící fonty pro tento event) | "event" is English; the language's event is "závod" (the term Event); "NEupozorňovat" in capitals |  |
 | `IncrementButton` | Increment | Zvýšit | sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment |  |
 | `DecrementButton` | Decrement | Snížit | sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement |  |
 | `CounterLabel` | Counter: {0} | Počítadlo: {0} | sample key of the localization (LocalizeExtension.cs), shown in no view; a label that shows the value of a counter, as fr "Compteur : {0}" |  |
