@@ -8,6 +8,7 @@ Made by claude-opus-5-5, effort max.
 
 | Key | English | Translation | Context that decided it | Mirrors |
 | --- | --- | --- | --- | --- |
+| `AddCourse_hideFromReportsCheckBox_Text` | Do not include in reports | 不包含在報告中 | check box under the length in the New Course dialog: the course is left out of the reports; the term Reports |  |
 | `IncrementButton` | Increment | 增加 | sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment |  |
 | `DecrementButton` | Decrement | 減少 | sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement |  |
 | `CounterLabel` | Counter: {0} | 計數器：{0} | sample key of the localization (LocalizeExtension.cs), shown in no view; the full-width colon of most of the language's labels |  |

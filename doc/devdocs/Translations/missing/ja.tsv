@@ -1,6 +1,4 @@
 resource	key	english	in_repo	forks_own
-UIText	AddCourse_labelKindCombo_Items5	Score (30)		
-UIText	AddCourse_hideFromReportsCheckBox_Text	Do not include in reports		
 UIText	ChangeText_mapFileNameMenuItem_Text	Map File Name		
 UIText	CommandNameText_AddMapIssue	Add Map Issue Point		
 UIText	CommandNameText_ChangeDescriptionStandard	Set Control Description Standard		

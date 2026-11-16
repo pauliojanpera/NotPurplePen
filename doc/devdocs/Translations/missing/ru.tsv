@@ -1,10 +1,4 @@
 resource	key	english	in_repo	forks_own
-UIText	AddCourse_labelKindCombo_Items3	Sequence and score (3(30))		
-UIText	AddCourse_labelKindCombo_Items4	Code and score (145(30))		
-UIText	AddCourse_scoreColumnLabel_Text	Show points in:		
-UIText	AddCourse_secondaryTitleDescription_Text	The following (optional) text will appear on the second line of the control description sheet:		
-UIText	AddCourse_secondaryTitleGroup_Text	Class list / Secondary title		
-UIText	AddCourse_hideFromReportsCheckBox_Text	Do not include in reports		
 UIText	AddTextLine_textLineLabel_Text	Enter text to place on separate line of control descriptions:		
 UIText	AddTextLine_coursesLabel_Text	Courses:		
 UIText	AddTextLine_positionLabel_Text	Position:		

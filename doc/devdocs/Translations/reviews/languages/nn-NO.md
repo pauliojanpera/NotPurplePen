@@ -9,6 +9,12 @@ Made by claude-opus-5-5, effort max.
 | Key | English | Translation | Context that decided it | Mirrors |
 | --- | --- | --- | --- | --- |
 | `AboutForm_copyrightLabel_Text` | Copyright © by Peter Golde | Opphavsrett © Peter Golde | one line of the About dialog, under the version; "opphavsrett" is Nynorsk as Bokmål, as nb-NO | nb-NO |
+| `AddCourse_labelKindCombo_Items3` | Sequence and score (3(30)) | Sekvens og poeng (3(30)) | item of the combo box Control circle labels of a score course: the sequence number and the points, with the example of the English, as the other items | AddCourse_labelKindCombo_Items2 |
+| `AddCourse_labelKindCombo_Items4` | Code and score (145(30)) | Kode og poeng (145(30)) | item of the combo box Control circle labels of a score course: the control code and the points, with the example of the English | AddCourse_labelKindCombo_Items2 |
+| `AddCourse_labelKindCombo_Items5` | Score (30) | Poeng (30) | last item of the combo box Control circle labels of a score course: the points alone; the term Score (30) |  |
+| `AddCourse_kmSuffix_Text` | km | (not needed) | the unit beside the length box; the language writes the symbol km as the English does |  |
+| `AddCourse_hideFromReportsCheckBox_Text` | Do not include in reports | Ikkje ta med i rapportar | check box under the length in the New Course dialog; "rapportar" is the Nynorsk plural (terms.csv gave the Bokmål "Rapporter") |  |
+| `MainFrame_reportMenu_Text` | _Reports | _Rapportar<br>(corrects: _Rapporter) | "rapporter" is the Bokmål plural; the Nynorsk plural of "rapport" is "rapportar", as the check box Do not include in reports (AddCourse) | AddCourse_hideFromReportsCheckBox_Text |
 | `InitialScreen_label1_Text` | Purple Pen is free software and may be copied and shared. Development of Purple Pen is supported only by your donations. | Purple Pen er fri programvare og kan kopierast og delast. Utviklinga av Purple Pen blir berre støtta av bidraga dykkar. | the note above the donation link of the start window; Nynorsk forms (kopierast, delast, utviklinga, berre), "bidrag" as the term Make a donation |  |
 | `InitialScreen_donationLink_Text` | Make a donation | Gje eit bidrag | the link under the note of the start window, which opens the donation page; the term Make a donation |  |
 | `InitialScreen_openLastRadioButton_Text` | Open last viewed event | Opne sist opna arrangement<br>(corrects: Åpne sist opna arrangement) | "Åpne" is Bokmål; the Nynorsk verb is "opne" (the term Open), as the text's own "opna" |  |

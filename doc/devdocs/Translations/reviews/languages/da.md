@@ -8,6 +8,22 @@ Made by claude-opus-5-5, effort max.
 
 | Key | English | Translation | Context that decided it | Mirrors |
 | --- | --- | --- | --- | --- |
+| `AddCourse_descKindCombo_Items2` | Symbols and text | Symboler og tekst | third item of the combo box Description appearance, beside "Symbols" and "Text"; the term Symbols and text | AddCourse_descKindCombo_Items AddCourse_descKindCombo_Items1 |
+| `AddCourse_labelKindCombo_Items5` | Score (30) | Point (30) | last item of the combo box Control circle labels of a score course: the points alone; the term Score (30) |  |
+| `AddCourse_hideFromReportsCheckBox_Text` | Do not include in reports | Medtag ikke i rapporter | check box under the length in the New Course dialog: the course is left out of the reports; the term Reports |  |
+| `AddCourse_firstControlLabel_Text` | First control number: | Første postnummer:<br>(corrects: Første kontrolnummer:) | Danish orienteering calls a control "post" ("kontrol" is a check); the term First control number |  |
+| `AddCourse_mapScaleLabel_Text` | Map printing scale: | Kortets udskriftsskala:<br>(corrects: Kort udskrivnings scala:) | the compounds were split and "scala" has a typo; the term Map printing scale |  |
+| `AddCourse_labelKindLabel_Text` | Control circle labels: | Postcirkeletiketter:<br>(corrects: Kontrolcirkelmærkater:) | Danish orienteering calls a control "post"; "mærkat" is a sticker (the term Control circle labels) |  |
+| `AddCourse_labelKindCombo_Items` | Sequence number (3) | Sekvensnummer (3)<br>(corrects: Sekvens nummer (3)) | the compound is one word in Danish ("Sekvens nummer") |  |
+| `AddCourse_labelKindCombo_Items1` | Control code (145) | Postkode (145)<br>(corrects: Kontrolkode (145)) | Danish orienteering calls a control "post" (the term Control code (145)) |  |
+| `AddCourse_secondaryTitleDescription_Text` | The following (optional) text will appear on the second line of the control description sheet: | Den følgende (valgfrie) tekst vil fremtræde på den anden linje af postbeskrivelsessiden:<br>(corrects: Den følgende (valgfrie) tekst vil fremtræde på den anden linje af kontrolbeskrivelses siden:) | Danish orienteering calls a control "post"; the compound "postbeskrivelsessiden" is one word |  |
+| `AddCourse_secondaryTitleGroup_Text` | Class list / Secondary title | Klasseliste / Sekundær titel<br>(corrects: Klasse liste / Sekundær titel) | the compound is one word in Danish (the term Class List) |  |
+| `AddCourse_climbLabel_Text` | Climb: | Stigning:<br>(corrects: Klatre:) | "Klatre" is the verb to climb; the climb of a course is "stigning" (the term Climb) |  |
+| `AddCourse_courseTypeLabel_Text` | Course type: | Banetype:<br>(corrects: Kursustype:) | Danish orienteering calls a course "bane" ("kursus" is a course of study; the term Course type) |  |
+| `AddCourse_courseNameLabel_Text` | Course name: | Banenavn:<br>(corrects: Kursusnavn:) | Danish orienteering calls a course "bane" (the term Course Name) |  |
+| `AddCourse_courseKindCombo_Items` | Normal Course | Normal bane<br>(corrects: Normal kursus) | Danish orienteering calls a course "bane" (the term Normal Course) |  |
+| `AddCourse_courseKindCombo_Items1` | Score Course | Pointbane<br>(corrects: Score kursus) | Danish orienteering calls a course "bane" (the term Score Course) |  |
+| `AddCourse_Text` | New Course | Ny bane<br>(corrects: Nyt kursus) | Danish orienteering calls a course "bane" (the term New Course) |  |
 | `InitialScreen_openLastRadioButton_Text` | Open last viewed event | Åbn sidst sete løb<br>(corrects: Åben sidst sete hændelse:) | "hændelse" is an incident, an orienteering event is a "løb" (the term Event); "Åben" is the adjective, the verb is "Åbn" (the term Open); the colon of a label does not belong to a choice |  |
 | `InitialScreen_openSampleRadioButton_Text` | Open a sample event | Åbn et eksempelløb<br>(corrects: Åben en eksempel hændelse) | "hændelse" is an incident, an orienteering event is a "løb" (the term Event); "Åben" is the adjective, the verb is "Åbn"; the compound is one word |  |
 | `InitialScreen_createNewRadioButton_Text` | Create a new event... | Opret et nyt løb...<br>(corrects: Opret en ny hændelse...) | "hændelse" is an incident, an orienteering event is a "løb" (the terms Event and New Event) |  |

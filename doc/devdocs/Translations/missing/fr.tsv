@@ -1,6 +1,4 @@
 resource	key	english	in_repo	forks_own
-UIText	AddCourse_labelKindCombo_Items5	Score (30)		
-UIText	AddCourse_hideFromReportsCheckBox_Text	Do not include in reports		
 UIText	CommandNameText_ChangeDescriptionStandard	Set Control Description Standard		
 UIText	MoveControlChoiceDialog_Text	Moving Shared Control		
 UIText	MoveControlChoiceDialog_labelExplanation_Text	Control "{0}" is present in the following other courses. If you move it, those courses will be changed also.		

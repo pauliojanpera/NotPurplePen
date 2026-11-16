@@ -8,6 +8,8 @@ Made by claude-opus-5-5, effort max.
 
 | Key | English | Translation | Context that decided it | Mirrors |
 | --- | --- | --- | --- | --- |
+| `AddCourse_firstControlLabel_Text` | First control number: | Första kontrollnummer:<br>(corrects: Första kodsiffra:) | "kodsiffra" is the code; the label asks for the number of the first control (the term First control number) |  |
+| `AddCourse_descriptionAppearanceLabel_Text` | Description appearance: | Kontrollbeskrivningens utseende:<br>(corrects: Definitionens utseende:) | "definition" is the language's rarer word; its descriptions are "kontrollbeskrivningar" (the term Description appearance) |  |
 | `IncrementButton` | Increment | Öka | sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment |  |
 | `DecrementButton` | Decrement | Minska | sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement |  |
 | `CounterLabel` | Counter: {0} | Räknare: {0} | sample key of the localization (LocalizeExtension.cs), shown in no view; a label that shows the value of a counter, as fr "Compteur : {0}" |  |

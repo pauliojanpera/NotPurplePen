@@ -8,6 +8,8 @@ Made by claude-opus-5-5, effort max.
 
 | Key | English | Translation | Context that decided it | Mirrors |
 | --- | --- | --- | --- | --- |
+| `AddCourse_labelKindCombo_Items5` | Score (30) | 得点 (30) | last item of the combo box Control circle labels of a score course: the points alone; the term Score (30) |  |
+| `AddCourse_hideFromReportsCheckBox_Text` | Do not include in reports | レポートに含めない | check box under the length in the New Course dialog: the course is left out of the reports; the term Reports |  |
 | `IncrementButton` | Increment | 増やす | sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment |  |
 | `DecrementButton` | Decrement | 減らす | sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement |  |
 | `CounterLabel` | Counter: {0} | カウンター: {0} | sample key of the localization (LocalizeExtension.cs), shown in no view; a label that shows the value of a counter, as fr "Compteur : {0}" |  |

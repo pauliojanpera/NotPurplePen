@@ -8,6 +8,7 @@ Made by claude-opus-5-5, effort max.
 
 | Key | English | Translation | Context that decided it | Mirrors |
 | --- | --- | --- | --- | --- |
+| `AddCourse_hideFromReportsCheckBox_Text` | Do not include in reports | Ikke ta med i rapporter | check box under the length in the New Course dialog: the course is left out of the reports; the term Reports |  |
 | `InitialScreen_openSampleRadioButton_Text` | Open a sample event | Åpne eksempelarrangement<br>(corrects: Åpne eksempel arrangement) | the compound is one word in Norwegian ("eksempel arrangement") |  |
 | `InitialScreen_openExistingRadioButton_Text` | Open an existing event... | Åpne et eksisterende arrangement...<br>(corrects: Åpne et eksisterende arrangenment) | the typo "arrangenment"; the ellipsis of the English, as the choice opens a file dialog |  |
 | `InitialScreen_label1_Text` | Purple Pen is free software and may be copied and shared. Development of Purple Pen is supported only by your donations. | Purple Pen er fri programvare og kan kopieres og deles. Utvikling er kun støttet av frivillige donasjoner.<br>(corrects: Purple Pen er fri programvare og kan kopieres og deles. Utvilking er kun støttet av frivillige donasjoner.) | the typo "Utvilking"; nothing else changes |  |

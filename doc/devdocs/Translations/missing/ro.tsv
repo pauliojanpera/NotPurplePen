@@ -1,9 +1,4 @@
 resource	key	english	in_repo	forks_own
-UIText	AddCourse_labelKindCombo_Items3	Sequence and score (3(30))		
-UIText	AddCourse_labelKindCombo_Items4	Code and score (145(30))		
-UIText	AddCourse_labelKindCombo_Items5	Score (30)		
-UIText	AddCourse_kmSuffix_Text	km		
-UIText	AddCourse_hideFromReportsCheckBox_Text	Do not include in reports		
 UIText	AddForkDialog_labelWhichType_Text	What type of variation would you like to add?		
 UIText	AddForkDialog_radioButtonFork_Text	Fork		
 UIText	AddForkDialog_radioButtonLoop_Text	Loop		

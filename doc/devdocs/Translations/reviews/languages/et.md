@@ -8,6 +8,9 @@ Made by claude-opus-5-5, effort max.
 
 | Key | English | Translation | Context that decided it | Mirrors |
 | --- | --- | --- | --- | --- |
+| `AddCourse_hideFromReportsCheckBox_Text` | Do not include in reports | Ära lisa aruannetesse | check box under the length in the New Course dialog: the course is left out of the reports; the term Reports |  |
+| `AddCourse_labelKindCombo_Items1` | Control code (145) | Tunnusnumber (145)<br>(corrects: Tunnusnumber (154)) | the example is the code 145, as the language's "Järjekorra ja tunnusnumber (3-145)"; "154" is a typo |  |
+| `AddCourse_labelKindCombo_Items4` | Code and score (145(30)) | Tunnus ja väärtus (145(30))<br>(corrects: Tunnus ja väärtus 145(30))) | the opening parenthesis of the example was missing |  |
 | `InitialScreen_openSampleRadioButton_Text` | Open a sample event | Ava näidisvõistlus<br>(corrects: Ava näidis võistlus) | the compound is one word in Estonian ("näidis võistlus") |  |
 | `IncrementButton` | Increment | Suurenda | sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment |  |
 | `DecrementButton` | Decrement | Vähenda | sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement |  |

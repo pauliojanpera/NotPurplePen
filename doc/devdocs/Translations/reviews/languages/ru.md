@@ -8,6 +8,15 @@ Made by claude-opus-5-5, effort max.
 
 | Key | English | Translation | Context that decided it | Mirrors |
 | --- | --- | --- | --- | --- |
+| `AddCourse_labelKindCombo_Items3` | Sequence and score (3(30)) | Порядковый номер и очки (3(30)) | item of the combo box Control circle labels of a score course: the sequence number and the points, with the example of the English, as the other items | AddCourse_labelKindCombo_Items2 |
+| `AddCourse_labelKindCombo_Items4` | Code and score (145(30)) | Код и очки (145(30)) | item of the combo box Control circle labels of a score course: the control code and the points, with the example of the English | AddCourse_labelKindCombo_Items2 |
+| `AddCourse_scoreColumnLabel_Text` | Show points in: | Показывать очки в: | label of the combo box that chooses the column of the points (Column A, B, H) of a score course; the term Show points in | uk |
+| `AddCourse_secondaryTitleDescription_Text` | The following (optional) text will appear on the second line of the control description sheet: | Следующий (необязательный) текст будет показан во второй строке легенды КП: | the text above the box of the second line of the description sheet; the description sheet is the "легенда КП" (the term Descriptions) | uk |
+| `AddCourse_secondaryTitleGroup_Text` | Class list / Secondary title | Список групп / Подзаголовок | header of the group box of the second line of the description sheet; the term Class List | uk |
+| `AddCourse_hideFromReportsCheckBox_Text` | Do not include in reports | Не включать в отчёты | check box under the length in the New Course dialog: the course is left out of the reports; the term Reports |  |
+| `AddCourse_firstControlLabel_Text` | First control number: | Номер первого КП:<br>(corrects: Первое контрольное число) | "контрольное число" is a check figure; the label asks for the number of the first control (the term First control number), with the colon of a label |  |
+| `AddCourse_mapScaleLabel_Text` | Map printing scale: | Масштаб печати карты:<br>(corrects: Маштаб карты для печати) | the typo "Маштаб"; the term Map printing scale, with the colon of a label |  |
+| `AddCourse_labelKindCombo_Items5` | Score (30) | Очки (30)<br>(corrects: оценка) | "оценка" is a grade; the points of a control are "очки" (the term Score (30)) |  |
 | `InitialScreen_openLastRadioButton_Text` | Open last viewed event | Открыть последнее соревнование | third choice of the start window, one line of about 275 px; "последнее просмотренное соревнование" would not fit, and uk also says the last event; the terms Open and Event | uk |
 | `InitialScreen_openSampleRadioButton_Text` | Open a sample event | Открыть образец соревнования | fourth choice of the start window; the terms Open, Sample and Event | uk |
 | `InitialScreen_createNewRadioButton_Text` | Create a new event... | Создать новое соревнование... | first choice of the start window; the term Create Event, with the ellipsis of a choice that opens the wizard |  |
