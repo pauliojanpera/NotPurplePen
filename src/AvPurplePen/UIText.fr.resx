@@ -126,6 +126,14 @@
   <data name="CounterLabel" xml:space="preserve">
     <value>Compteur : {0}</value>
   </data>
+  <data name="YesButton" xml:space="preserve">
+    <value>Oui</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="NoButton" xml:space="preserve">
+    <value>Non</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="SwitchLanguageButton" xml:space="preserve">
     <value>Changer de langue...</value>
   </data>
@@ -3572,5 +3580,9 @@ Afin d'imprimer des cartes de compétition, nous vous suggérons d'exporter les 
   </data>
   <data name="NewEventWizard_finishButton_Text" xml:space="preserve">
     <value>_Terminer</value>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>Fermer</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
 </root>

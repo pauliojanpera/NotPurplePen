@@ -118,8 +118,29 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="IncrementButton" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="IncrementButton" xml:space="preserve">
+    <value>Zvýšit</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="DecrementButton" xml:space="preserve">
+    <value>Snížit</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CounterLabel" xml:space="preserve">
+    <value>Počítadlo: {0}</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="YesButton" xml:space="preserve">
+    <value>Ano</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="NoButton" xml:space="preserve">
+    <value>Ne</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="SwitchLanguageButton" xml:space="preserve">
+    <value>Změnit jazyk...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AboutForm_copyrightLabel_Text" xml:space="preserve">
     <value>Copyright © Peter Golde</value>
@@ -3548,5 +3569,9 @@ Pro tisk závodních map se doporučuje exportovat tratě do souborů OCAD (vybe
   </data>
   <data name="NewEventWizard_finishButton_Text" xml:space="preserve">
     <value>_Cíl</value>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>Zavřít</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
 </root>

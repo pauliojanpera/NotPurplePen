@@ -253,7 +253,8 @@
     <value>I seguenti punti sono presenti nella lista "Tutti i punti" ma non vengono utilizzati in nessun percorso. Per rimuoverli, utilizzare il comando "Rimuovi controlli inutilizzati" nel menu "Evento". Tali controlli non verranno considerati nella presente relazione.</value>
   </data>
   <data name="EventAudit_Yes" xml:space="preserve">
-    <value>Si</value>
+    <value>Sì</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="LegLength_Average" xml:space="preserve">
     <value>Media</value>

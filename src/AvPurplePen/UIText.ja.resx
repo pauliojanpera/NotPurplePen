@@ -118,8 +118,29 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="IncrementButton" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="IncrementButton" xml:space="preserve">
+    <value>増やす</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="DecrementButton" xml:space="preserve">
+    <value>減らす</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CounterLabel" xml:space="preserve">
+    <value>カウンター: {0}</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="YesButton" xml:space="preserve">
+    <value>はい</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="NoButton" xml:space="preserve">
+    <value>いいえ</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="SwitchLanguageButton" xml:space="preserve">
+    <value>言語を切り替え...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AboutForm_copyrightLabel_Text" xml:space="preserve">
     <value>Copyright © by Peter Golde</value>
@@ -3251,5 +3272,9 @@ OKを押し、コンピュータ上で地図ファイルのコピーを探して
   </data>
   <data name="NewEventWizard_finishButton_Text" xml:space="preserve">
     <value>フィニッシュ(_F)</value>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>閉じる</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
 </root>

@@ -118,8 +118,29 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="IncrementButton" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="IncrementButton" xml:space="preserve">
+    <value>Suurenda</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="DecrementButton" xml:space="preserve">
+    <value>Vähenda</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CounterLabel" xml:space="preserve">
+    <value>Loendur: {0}</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="YesButton" xml:space="preserve">
+    <value>Jah</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="NoButton" xml:space="preserve">
+    <value>Ei</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="SwitchLanguageButton" xml:space="preserve">
+    <value>Vaheta keelt...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AboutForm_copyrightLabel_Text" xml:space="preserve">
     <value>© Autoriõigused kuuluvad Peter Goldile</value>
@@ -3544,5 +3565,9 @@ Võisluste jaoks on soovitav eksportida radade failid OCADi formaati (menüüst 
   </data>
   <data name="NewEventWizard_finishButton_Text" xml:space="preserve">
     <value>_Finiš</value>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>Sulge</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
 </root>

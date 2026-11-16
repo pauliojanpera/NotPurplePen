@@ -117,6 +117,30 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="IncrementButton" xml:space="preserve">
+    <value>Увеличить</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="DecrementButton" xml:space="preserve">
+    <value>Уменьшить</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CounterLabel" xml:space="preserve">
+    <value>Счетчик: {0}</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="YesButton" xml:space="preserve">
+    <value>Да</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="NoButton" xml:space="preserve">
+    <value>Нет</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="SwitchLanguageButton" xml:space="preserve">
+    <value>Сменить язык...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="AboutForm_copyrightLabel_Text" xml:space="preserve">
     <value>Copyright © Peter Golde</value>
   </data>
@@ -351,6 +375,10 @@
   <data name="MainFrame_addVariationToolStripButton_Text" xml:space="preserve">
     <value>Добавить рассеивание</value>
   </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Отмена</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="CreateImageFiles_comboBoxPrintBaseMap_Items" xml:space="preserve">
     <value>Дистанция и карта</value>
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
@@ -373,6 +401,10 @@
   </data>
   <data name="CreatePdfCourses_labelPrintBaseMap_Text" xml:space="preserve">
     <value>Содержимое:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>Закрыть</value>
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
 </root>

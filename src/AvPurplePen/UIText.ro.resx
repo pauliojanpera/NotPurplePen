@@ -118,8 +118,29 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="IncrementButton" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="IncrementButton" xml:space="preserve">
+    <value>Creștere</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="DecrementButton" xml:space="preserve">
+    <value>Descreștere</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CounterLabel" xml:space="preserve">
+    <value>Contor: {0}</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="YesButton" xml:space="preserve">
+    <value>Da</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="NoButton" xml:space="preserve">
+    <value>Nu</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="SwitchLanguageButton" xml:space="preserve">
+    <value>Schimbare limbă...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AboutForm_freeLabel_Text" xml:space="preserve">
     <value>Purple Pen este software gratuit și poate fi copiat și distribuit.</value>
@@ -2417,5 +2438,9 @@ Pentru a tipări hărți de concurs, se recomandă exportul traseelor în fișie
   </data>
   <data name="NewEventWizard_finishButton_Text" xml:space="preserve">
     <value>_Finalizare</value>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>Închide</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
 </root>
