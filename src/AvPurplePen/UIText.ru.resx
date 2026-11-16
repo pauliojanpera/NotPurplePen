@@ -419,8 +419,96 @@
     <value>Свойства «Все КП»</value>
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
+  <data name="ChangeText_eventTitleMenuItem_Text" xml:space="preserve">
+    <value>Название соревнования</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_courseNameMenuItem_Text" xml:space="preserve">
+    <value>Название дистанции</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_coursePartMenuItem_Text" xml:space="preserve">
+    <value>Часть дистанции</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_variationMenuItem_Text" xml:space="preserve">
+    <value>Вариант дистанции</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_courseLengthMenuItem_Text" xml:space="preserve">
+    <value>Длина дистанции</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_courseClimbMenuItem_Text" xml:space="preserve">
+    <value>Набор высоты дистанции</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_classListMenuItem_Text" xml:space="preserve">
+    <value>Список групп</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_printScaleMenuItem_Text" xml:space="preserve">
+    <value>Масштаб печати</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_relayTeamMenuItem_Text" xml:space="preserve">
+    <value>Эстафетная команда</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_relayLegMenuItem_Text" xml:space="preserve">
+    <value>Этап эстафеты</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_fileNameMenuItem_Text" xml:space="preserve">
+    <value>Имя файла</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_mapFileNameMenuItem_Text" xml:space="preserve">
+    <value>Имя файла карты</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_buttonChangeColor_Text" xml:space="preserve">
+    <value>Изменить цвет...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_label2_Text" xml:space="preserve">
+    <value>Цвет:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_checkBoxItalic_Text" xml:space="preserve">
+    <value>Курсив</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_checkBoxBold_Text" xml:space="preserve">
+    <value>Полужирный</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_label1_Text" xml:space="preserve">
+    <value>Шрифт:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_label3_Text" xml:space="preserve">
+    <value>Размер:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_labelFontSizeMm_Text" xml:space="preserve">
+    <value>мм</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="PrintDescriptions_mmSuffixLabel_Text" xml:space="preserve">
     <value>мм</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_checkBoxAutoFontSize_Text" xml:space="preserve">
+    <value>Автоматически</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_groupBox2_Text" xml:space="preserve">
+    <value>Образец</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_insertSpecialButton_Text" xml:space="preserve">
+    <value>Вставить специальный текст</value>
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="PrintDescriptions_coursesGroupBox_Text" xml:space="preserve">

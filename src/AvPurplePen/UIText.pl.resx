@@ -225,7 +225,8 @@
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="ChangeText_groupBox3_Text" xml:space="preserve">
-    <value>Opis</value>
+    <value>Tekst</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_textColumn_HeaderText" xml:space="preserve">
     <value>Opis</value>
@@ -509,6 +510,10 @@
   <data name="ChangeText_coursePartMenuItem_Text" xml:space="preserve">
     <value>Część trasy</value>
   </data>
+  <data name="ChangeText_variationMenuItem_Text" xml:space="preserve">
+    <value>Wariant trasy</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="ChangeText_courseLengthMenuItem_Text" xml:space="preserve">
     <value>Długość Trasy</value>
   </data>
@@ -524,11 +529,23 @@
   <data name="NewEventPrintScale_labelTitle_Text" xml:space="preserve">
     <value>Skala</value>
   </data>
+  <data name="ChangeText_relayTeamMenuItem_Text" xml:space="preserve">
+    <value>Drużyna sztafetowa</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_relayLegMenuItem_Text" xml:space="preserve">
+    <value>Zmiana sztafety</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="ChangeText_fileNameMenuItem_Text" xml:space="preserve">
     <value>Nazwa pliku</value>
   </data>
   <data name="CreateRouteGadget_nameGroupBox_Text" xml:space="preserve">
     <value>Nazwa pliku</value>
+  </data>
+  <data name="ChangeText_mapFileNameMenuItem_Text" xml:space="preserve">
+    <value>Nazwa pliku mapy</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="ChangeText_buttonChangeColor_Text" xml:space="preserve">
     <value>Zmień kolor...</value>

@@ -493,6 +493,14 @@
   <data name="SelectionDescriptionText_SpecialName_CourseName" xml:space="preserve">
     <value>Ime proge</value>
   </data>
+  <data name="ChangeText_coursePartMenuItem_Text" xml:space="preserve">
+    <value>Del proge</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_variationMenuItem_Text" xml:space="preserve">
+    <value>Varianta proge</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="ChangeText_courseLengthMenuItem_Text" xml:space="preserve">
     <value>Dolžina proge</value>
   </data>
@@ -508,14 +516,46 @@
   <data name="NewEventPrintScale_labelTitle_Text" xml:space="preserve">
     <value>Merilo tiska</value>
   </data>
+  <data name="ChangeText_relayTeamMenuItem_Text" xml:space="preserve">
+    <value>Štafetna ekipa</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_relayLegMenuItem_Text" xml:space="preserve">
+    <value>Etapa štafete</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="ChangeText_fileNameMenuItem_Text" xml:space="preserve">
     <value>Ime datoteke</value>
   </data>
   <data name="CreateRouteGadget_nameGroupBox_Text" xml:space="preserve">
     <value>Ime datoteke</value>
   </data>
+  <data name="ChangeText_mapFileNameMenuItem_Text" xml:space="preserve">
+    <value>Ime datoteke s karto</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_buttonChangeColor_Text" xml:space="preserve">
+    <value>Spremeni barvo...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_label2_Text" xml:space="preserve">
+    <value>Barva:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_checkBoxItalic_Text" xml:space="preserve">
+    <value>Ležeče</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="ChangeText_checkBoxBold_Text" xml:space="preserve">
     <value>Krepko</value>
+  </data>
+  <data name="ChangeText_label1_Text" xml:space="preserve">
+    <value>Pisava:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_label3_Text" xml:space="preserve">
+    <value>Velikost:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="ChangeText_labelFontSizeMm_Text" xml:space="preserve">
     <value>mm</value>
@@ -556,8 +596,17 @@
   <data name="PrintPunches_mmSuffixLabel_Text" xml:space="preserve">
     <value>mm</value>
   </data>
+  <data name="ChangeText_checkBoxAutoFontSize_Text" xml:space="preserve">
+    <value>Samodejno</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_groupBox2_Text" xml:space="preserve">
+    <value>Vzorec</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="ChangeText_insertSpecialButton_Text" xml:space="preserve">
-    <value>Vnesi dodaten tekst</value>
+    <value>Vstavi posebno besedilo</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="ColorChooserDialog_label5_Text" xml:space="preserve">
     <value>Črna:</value>

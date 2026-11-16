@@ -561,7 +561,8 @@
     <value>Parkur Bölümü</value>
   </data>
   <data name="ChangeText_variationMenuItem_Text" xml:space="preserve">
-    <value>Parkur Varyansonu</value>
+    <value>Parkur Varyasyonu</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="ChangeText_courseLengthMenuItem_Text" xml:space="preserve">
     <value>Parkur Uzunluğu</value>
@@ -660,7 +661,8 @@
     <value>mm</value>
   </data>
   <data name="ChangeText_checkBoxAutoFontSize_Text" xml:space="preserve">
-    <value>Otomarik</value>
+    <value>Otomatik</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MiscText_AutomaticLength" xml:space="preserve">
     <value>Otomarik</value>

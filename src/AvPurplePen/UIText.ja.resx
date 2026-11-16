@@ -584,6 +584,10 @@
   <data name="CreateRouteGadget_nameGroupBox_Text" xml:space="preserve">
     <value>ファイル名</value>
   </data>
+  <data name="ChangeText_mapFileNameMenuItem_Text" xml:space="preserve">
+    <value>地図ファイル名</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="ChangeText_buttonChangeColor_Text" xml:space="preserve">
     <value>色を変更...</value>
   </data>

@@ -580,6 +580,10 @@
   <data name="CreateRouteGadget_nameGroupBox_Text" xml:space="preserve">
     <value>Bestandsnaam</value>
   </data>
+  <data name="ChangeText_mapFileNameMenuItem_Text" xml:space="preserve">
+    <value>Kaartbestandsnaam</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="ChangeText_buttonChangeColor_Text" xml:space="preserve">
     <value>Kleur wijzigen...</value>
   </data>
@@ -600,6 +604,10 @@
   </data>
   <data name="ChangeText_label1_Text" xml:space="preserve">
     <value>Lettertype :</value>
+  </data>
+  <data name="ChangeText_label3_Text" xml:space="preserve">
+    <value>Grootte:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="ChangeText_labelFontSizeMm_Text" xml:space="preserve">
     <value>mm</value>
@@ -639,6 +647,10 @@
   </data>
   <data name="PrintPunches_mmSuffixLabel_Text" xml:space="preserve">
     <value>mm</value>
+  </data>
+  <data name="ChangeText_checkBoxAutoFontSize_Text" xml:space="preserve">
+    <value>Automatisch</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="ChangeText_groupBox2_Text" xml:space="preserve">
     <value>Voorbeeld</value>

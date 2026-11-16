@@ -496,6 +496,14 @@
   <data name="SelectionDescriptionText_SpecialName_CourseName" xml:space="preserve">
     <value>Løypenavn</value>
   </data>
+  <data name="ChangeText_coursePartMenuItem_Text" xml:space="preserve">
+    <value>Løypedel</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_variationMenuItem_Text" xml:space="preserve">
+    <value>Løypevariasjon</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="ChangeText_courseLengthMenuItem_Text" xml:space="preserve">
     <value>Løypelengde</value>
   </data>
@@ -505,14 +513,50 @@
   <data name="ChangeText_classListMenuItem_Text" xml:space="preserve">
     <value>Klasseliste</value>
   </data>
+  <data name="ChangeText_printScaleMenuItem_Text" xml:space="preserve">
+    <value>Utskriftsskala</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_relayTeamMenuItem_Text" xml:space="preserve">
+    <value>Stafettlag</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_relayLegMenuItem_Text" xml:space="preserve">
+    <value>Stafettetappe</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="ChangeText_fileNameMenuItem_Text" xml:space="preserve">
     <value>Filnamn</value>
   </data>
   <data name="CreateRouteGadget_nameGroupBox_Text" xml:space="preserve">
     <value>Filnamn</value>
   </data>
+  <data name="ChangeText_mapFileNameMenuItem_Text" xml:space="preserve">
+    <value>Kartfilnamn</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_buttonChangeColor_Text" xml:space="preserve">
+    <value>Endre farge...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_label2_Text" xml:space="preserve">
+    <value>Farge:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_checkBoxItalic_Text" xml:space="preserve">
+    <value>Kursiv</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="ChangeText_checkBoxBold_Text" xml:space="preserve">
     <value>Feit</value>
+  </data>
+  <data name="ChangeText_label1_Text" xml:space="preserve">
+    <value>Skrift:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_label3_Text" xml:space="preserve">
+    <value>Storleik:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="ChangeText_labelFontSizeMm_Text" xml:space="preserve">
     <value>mm</value>
@@ -552,6 +596,14 @@
   </data>
   <data name="PrintPunches_mmSuffixLabel_Text" xml:space="preserve">
     <value>mm</value>
+  </data>
+  <data name="ChangeText_checkBoxAutoFontSize_Text" xml:space="preserve">
+    <value>Automatisk</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_groupBox2_Text" xml:space="preserve">
+    <value>Eksempel</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="ChangeText_insertSpecialButton_Text" xml:space="preserve">
     <value>Sett inn spesialtekst</value>

@@ -567,7 +567,8 @@
     <value>Pálya emelkedés</value>
   </data>
   <data name="ChangeText_classListMenuItem_Text" xml:space="preserve">
-    <value>Osztálylista</value>
+    <value>Kategórialista</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="ChangeText_printScaleMenuItem_Text" xml:space="preserve">
     <value>Nyomtatási lépték</value>

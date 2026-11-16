@@ -555,13 +555,15 @@
     <value>Skift viste kurser</value>
   </data>
   <data name="ChangeText_eventTitleMenuItem_Text" xml:space="preserve">
-    <value>Hændelsestitel</value>
+    <value>Løbets titel</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="NewEventTitle_labelTitle_Text" xml:space="preserve">
     <value>Hændelsestitel</value>
   </data>
   <data name="ChangeText_courseNameMenuItem_Text" xml:space="preserve">
-    <value>Kursusnavn</value>
+    <value>Banenavn</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="CourseLoad_CourseName_HeaderText" xml:space="preserve">
     <value>Kursusnavn</value>
@@ -570,31 +572,38 @@
     <value>Kursusnavn</value>
   </data>
   <data name="ChangeText_coursePartMenuItem_Text" xml:space="preserve">
-    <value>Kursusdel</value>
+    <value>Banedel</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="ChangeText_variationMenuItem_Text" xml:space="preserve">
-    <value>Kursus variation</value>
+    <value>Banevariation</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="ChangeText_courseLengthMenuItem_Text" xml:space="preserve">
-    <value>Kursuslængde</value>
+    <value>Banelængde</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="ChangeText_courseClimbMenuItem_Text" xml:space="preserve">
-    <value>Kursusstigning</value>
+    <value>Banens stigning</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="ChangeText_classListMenuItem_Text" xml:space="preserve">
     <value>Klasseliste</value>
   </data>
   <data name="ChangeText_printScaleMenuItem_Text" xml:space="preserve">
-    <value>Udskrift skala</value>
+    <value>Udskriftsskala</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="NewEventPrintScale_labelTitle_Text" xml:space="preserve">
     <value>Udskrift skala</value>
   </data>
   <data name="ChangeText_relayTeamMenuItem_Text" xml:space="preserve">
-    <value>Relay Team</value>
+    <value>Stafethold</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="ChangeText_relayLegMenuItem_Text" xml:space="preserve">
-    <value>Relay ben</value>
+    <value>Stafettur</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="ChangeText_fileNameMenuItem_Text" xml:space="preserve">
     <value>Filnavn</value>
@@ -603,7 +612,8 @@
     <value>Filnavn</value>
   </data>
   <data name="ChangeText_mapFileNameMenuItem_Text" xml:space="preserve">
-    <value>Kortdilnavn</value>
+    <value>Kortfilnavn</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="ChangeText_buttonChangeColor_Text" xml:space="preserve">
     <value>Ændr farve...</value>
@@ -627,7 +637,8 @@
     <value>Skrifttype:</value>
   </data>
   <data name="ChangeText_label3_Text" xml:space="preserve">
-    <value>størrelse:</value>
+    <value>Størrelse:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="PrinterMargins_labelPaper_Text" xml:space="preserve">
     <value>størrelse:</value>

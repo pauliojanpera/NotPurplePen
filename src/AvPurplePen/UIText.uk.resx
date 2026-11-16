@@ -562,10 +562,12 @@
     <value>Набір висоти на дистанції</value>
   </data>
   <data name="ChangeText_classListMenuItem_Text" xml:space="preserve">
-    <value>Список класів</value>
+    <value>Список груп</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="ChangeText_printScaleMenuItem_Text" xml:space="preserve">
-    <value>Маштаб для друку</value>
+    <value>Масштаб для друку</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="NewEventPrintScale_labelTitle_Text" xml:space="preserve">
     <value>Маштаб для друку</value>
@@ -577,13 +579,15 @@
     <value>Етап естафети</value>
   </data>
   <data name="ChangeText_fileNameMenuItem_Text" xml:space="preserve">
-    <value>Назва файла</value>
+    <value>Назва файлу</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="CreateRouteGadget_nameGroupBox_Text" xml:space="preserve">
     <value>Назва файла</value>
   </data>
   <data name="ChangeText_mapFileNameMenuItem_Text" xml:space="preserve">
-    <value>Назва файла карти</value>
+    <value>Назва файлу карти</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="ChangeText_buttonChangeColor_Text" xml:space="preserve">
     <value>Змінити колір...</value>

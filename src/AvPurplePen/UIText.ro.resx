@@ -495,6 +495,14 @@
   <data name="SelectionDescriptionText_SpecialName_CourseName" xml:space="preserve">
     <value>Numele Traseului</value>
   </data>
+  <data name="ChangeText_coursePartMenuItem_Text" xml:space="preserve">
+    <value>Parte de traseu</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_variationMenuItem_Text" xml:space="preserve">
+    <value>Variantă de traseu</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="ChangeText_courseLengthMenuItem_Text" xml:space="preserve">
     <value>Lungimea Traseului</value>
   </data>
@@ -504,14 +512,50 @@
   <data name="ChangeText_classListMenuItem_Text" xml:space="preserve">
     <value>Categoria</value>
   </data>
+  <data name="ChangeText_printScaleMenuItem_Text" xml:space="preserve">
+    <value>Scara de tipărire</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_relayTeamMenuItem_Text" xml:space="preserve">
+    <value>Echipă de ștafetă</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_relayLegMenuItem_Text" xml:space="preserve">
+    <value>Etapă de ștafetă</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="ChangeText_fileNameMenuItem_Text" xml:space="preserve">
     <value>Nume fișier</value>
   </data>
   <data name="CreateRouteGadget_nameGroupBox_Text" xml:space="preserve">
     <value>Nume fișier</value>
   </data>
+  <data name="ChangeText_mapFileNameMenuItem_Text" xml:space="preserve">
+    <value>Nume fișier hartă</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_buttonChangeColor_Text" xml:space="preserve">
+    <value>Schimbă culoarea...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_label2_Text" xml:space="preserve">
+    <value>Culoare:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_checkBoxItalic_Text" xml:space="preserve">
+    <value>Cursiv</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="ChangeText_checkBoxBold_Text" xml:space="preserve">
     <value>Îngroșat</value>
+  </data>
+  <data name="ChangeText_label1_Text" xml:space="preserve">
+    <value>Font:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_label3_Text" xml:space="preserve">
+    <value>Dimensiune:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="ChangeText_labelFontSizeMm_Text" xml:space="preserve">
     <value>mm</value>
@@ -551,6 +595,14 @@
   </data>
   <data name="PrintPunches_mmSuffixLabel_Text" xml:space="preserve">
     <value>mm</value>
+  </data>
+  <data name="ChangeText_checkBoxAutoFontSize_Text" xml:space="preserve">
+    <value>Automat</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="ChangeText_groupBox2_Text" xml:space="preserve">
+    <value>Exemplu</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="ChangeText_insertSpecialButton_Text" xml:space="preserve">
     <value>Adaugă Text Special</value>

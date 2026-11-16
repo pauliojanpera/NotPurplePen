@@ -290,7 +290,8 @@
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="ChangeText_groupBox1_Text" xml:space="preserve">
-    <value>界面</value>
+    <value>外观</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="CreatePdfCourses_groupBoxAppearance_Text" xml:space="preserve">
     <value>界面</value>
