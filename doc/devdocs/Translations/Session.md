@@ -27,15 +27,20 @@ effort max on Nov 16, to start with. If the prompt gives others, use those of th
    git -C docs checkout
    ```
 
-3. Clone the code at the branch of the translations, and fetch `base` for the check. Give each command up to ten
-   minutes.
+3. Clone the code at the branch of the translations, fetch `base` for the check, and fetch the branch of phases 1
+   and 2. Give each command up to ten minutes.
 
    ```
-   git clone --depth 1 -b fix/complete-translations https://github.com/pauliojanpera/NotPurplePen code
+   git clone --depth 200 -b fix/complete-translations https://github.com/pauliojanpera/NotPurplePen code
    git -C code fetch --depth 1 origin base:refs/remotes/origin/base
+   git -C code fetch --depth 200 origin fix/translation-faults:refs/remotes/origin/fix/translation-faults
+   git -C code merge-base --is-ancestor origin/fix/translation-faults HEAD
+   git -C code rev-parse --short origin/fix/translation-faults
    ```
 
-   If `fix/complete-translations` is not on GitHub, phases 1 and 2 are not done. Stop, and tell @Pauli.
+   Phases 1 and 2 are done if `fix/translation-faults` is on GitHub, the fourth command succeeds, and the last one
+   gives a commit other than d48f445, the root. Otherwise the languages must not start: stop, and tell @Pauli
+   (README.md, "The phases").
 
 ## 2. Find your language
 

@@ -63,11 +63,15 @@ The numbers are of Nov 16.
 
 Phases 1 and 2 go on task 9's first `fix/` branch, `fix/translation-faults`, and phases 3 to 5 on its second,
 `fix/complete-translations`. Both are rooted where `base` meets upstream (`git merge-base origin/base
-upstream/master`), so that they can be offered upstream.
+upstream/master`; d48f445 on Nov 16), so that they can be offered upstream. `fix/complete-translations` is on GitHub
+at that root since Nov 16.
 
-- Phases 1 and 2 are not translation. A session does them, runs `fix/translation-faults` in full on
-  `wip/linux/translation-faults`, rooted at `base`, merges it into `basewithfixes` and `dev` through full runs, and
-  then makes `fix/complete-translations` at the root and pushes it.
+- Phases 1 and 2 are not translation. A session does them on `fix/translation-faults`, runs it in full on
+  `wip/linux/translation-faults`, rooted at `base`, and merges it into `basewithfixes` and `dev` through full runs.
+  Then it merges `fix/translation-faults` into `fix/complete-translations` and pushes it: a fast-forward while
+  `fix/complete-translations` has no commits of its own. The languages start only after that, because they would
+  otherwise translate again the keys that phases 1 and 2 bring, and the two branches would collide in the same
+  satellites. `fix/complete-translations` is then offered upstream after `fix/translation-faults`.
 - In phases 3 to 5, one session translates and checks one language, as [Session.md](Session.md) tells (@Pauli,
   Nov 16). A session may instead start one agent for each language, one at a time, with Session.md as the brief and
   nothing that watches it. The languages follow each other with no build and no test run between them: a push of
