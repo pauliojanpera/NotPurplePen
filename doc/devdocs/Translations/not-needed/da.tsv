@@ -1,0 +1,3 @@
+resource	key	english	note	translator	effort	date
+UIText	PrintDescriptions_paperSize_Text	Tabloid (11"x17")	the WinForms dialog's placeholder, which both dialogs replace at runtime; the language writes it as the English does, with the term Tabloid (11"x17")	claude-opus-5-5	max	2026-11-16
+UIText	PrintDescriptions_printerLabel_Text	Printer:	label of the printer's name; the language writes it as the English does: "printer" is the Danish word (the term Printer)	claude-opus-5-5	max	2026-11-16

@@ -4157,3 +4157,8 @@ Missing Fonts	nn-NO	Manglande fontar	Manglande fonter	corrected: "fonter" is the
 Reports	nn-NO	Rapportar	Rapporter	corrected: "rapporter" is bokmål; the Nynorsk plural of "rapport" is "rapportar" (key group AddCourse)	claude-opus-5-5	max	2026-11-16
 All Controls Properties	tr	Tüm Kontrol Noktalarının Özellikleri	Tüm Kontrol Noktaların Özellikleri	corrected: the genitive of "kontrol noktaları" is "noktalarının" (key group AllControlsProperties)	claude-opus-5-5	max	2026-11-16
 All Controls Properties	nn-NO	Innstillingar for alle poster	Innstillinger alle poster	corrected: "innstillinger" is bokmål; Nynorsk "innstillingar" (key group AllControlsProperties)	claude-opus-5-5	max	2026-11-16
+Course default	nl	Standaard van de route	Standaard van route	corrected: the article that the language needs (PrintDescriptions, the only text that holds the term)	claude-opus-5-5	max	2026-11-16
+Orientation	ro	Orientare	Direcție	corrected: "Direcție" is a direction of travel; the orientation of the paper is "orientare"	claude-opus-5-5	max	2026-11-16
+Output	sv	Utdata	Skrivare	corrected: "Skrivare" is the printer; the groups of the output also hold the paper, the margins or the files, as nb-NO and nn-NO "Utdata"	claude-opus-5-5	max	2026-11-16
+Course default	et	Vaikimisi rada	Vaikimis rada	corrected: "vaikimis" is a form of "vaikimine", keeping silent; "by default" is "vaikimisi"	claude-opus-5-5	max	2026-11-16
+Course default	nb-NO	Løypestandard	Løype standard	corrected: the compound is one word, as nn-NO	claude-opus-5-5	max	2026-11-16
