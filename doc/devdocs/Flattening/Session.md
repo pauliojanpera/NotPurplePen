@@ -64,9 +64,21 @@ Model.md by hand. Give it to the agent in the brief. The agent does not change i
 
 ## 3. Start the agent
 
-```
-python3 <clone>/doc/devdocs/SvgDevLoop/agent-cache.py set
-```
+**The lifetime of the agent's prompt cache.** The practice of CLAUDE.md for the agents' cache does not bind this
+work (@Pauli, Nov 16): the session chooses the lifetime by the step.
+
+- An agent whose cache is older than its lifetime writes its whole context to the cache again. So a step in which
+  one command can run longer than five minutes gets the one-hour cache:
+
+  ```
+  python3 <clone>/doc/devdocs/SvgDevLoop/agent-cache.py set
+  ```
+
+- A step whose builds and test runs each end within five minutes can use the five-minute cache. It is the default
+  when `~/.claude/settings.json` holds no `subagentPromptCacheTtl`.
+- Decide from a measurement. `agent-cache.py report <transcript>` shows from the transcript of an agent how often
+  its cache expired, and phase 0 measures the time of a build and of a test run on this machine. The transcript of
+  an agent is `~/.claude/projects/<project>/<session>/subagents/agent-<id>.jsonl`.
 
 Start one agent of the type `flatten-step` with the brief as its prompt. If the agent type is not known, the session
 started before the file was there: @Pauli loads it with `/agents`, or starts the session again.
@@ -74,6 +86,11 @@ started before the file was there: @Pauli loads it with `/agents`, or starts the
 The session goes on when the agent ends. It runs no watch. An agent in the session's background stops when the
 session's turn is interrupted, and cannot be resumed. Then look at what it committed (step 1), and start a new agent
 for what is left.
+
+**The session's own cache** lasts one hour. A session that waits longer for an agent writes its whole context again
+when it goes on. While an agent works, keep a background command that ends after 50 minutes, and start it again
+when it ends. When the context of the session is large, let a new session drive: this file, the briefs and the
+reviews hold what it needs.
 
 ## 4. Examine what the agent did
 
@@ -141,3 +158,43 @@ use. Otherwise a new agent gets a brief that names what is left.
 `fix/colour-transparency` is merged into `feature/flattening`, so that the real maps give the opacity half of the
 work its input (README.md, "The transparency of a colour"). A session that reaches case 11 with that branch unmerged
 stops and says so.
+
+## What the session knows for the next briefs
+
+These are not decisions. They are what the session of Nov 16 found when it examined the plan, for the briefs of
+phases 1 to 3. The numbers of phase 0 can change them.
+
+- **The stage has four parts.**
+  1. A target that keeps the marks of a drawing as paths in the coordinates of the page, with the colour, the
+     opacity and the blending of each run.
+  2. The model of Model.md as one function without state: from the colours that cover a point, the lowest first,
+     and the blend mode, to one CMYK value.
+  3. The cut: the areas in which the same colours cover each point, made with the path operations.
+  4. The calls that draw the pieces on the target behind the stage.
+
+  The raster reference and the vector stage both call part 2. So GATE-2 examines only the geometry, and GATE-M and
+  GATE-1 examine part 2.
+- **The cut can go from the lowest run up.** It keeps a list of pieces, each with the colours that cover it. A new
+  run cuts each piece that it meets in two. Pieces with one result unite. A knockout colour with opacity 1 is then
+  one piece, and it cuts all that is below it.
+- **Tiles** are the way out if phase 0 shows that the operations are slow or fail at the size of a map.
+- **GATE-3** needs a target of its own that fails on `PushBlending` and on a colour with an alpha below 1.
+  `RecordingGraphicsTarget` keeps closures, not data.
+- **GATE-6** can count, sample by sample and without antialiasing, how many pieces cover a sample. Then it does not
+  use the operations that it examines.
+- **GATE-4** needs constructs that tell case 1 from case 2, which make the same calls: a stage that changes nothing
+  must leave case 2 pending, not failed. The harness finds the constructs of a case from the calls that the case
+  makes.
+- **The harness writes, for each case and mode,** one JSON file with the numbers of each gate, and the images that
+  the page shows: the drawing before the stage and after it, their difference, the pieces in false colours, and the
+  four channels. `flat.py` and `logbook.py` read only these files.
+- **`logbook.py` and `publish-logbook.sh`** share their code with `../Translations/`: the drawing of the plan as a
+  course, the page, and the publishing of a folder to a branch and to a folder of `gh-pages`. `build.yml` can copy a
+  list of branches into the site, not one more block for each page.
+- **The new projects** `Map_Flatten` and `Map_Flatten.Tests` must join `PPen.slnx` and the test workflow before the
+  first full run.
+- **Case 11** needs the colour levels with overprint ink, which task 14 adds. Until then the case can set the flag
+  in its test.
+- **FL-9** does not say which shape grows. If the shape that cuts grows, the lower piece gets smaller and a gap
+  opens. Ask @Pauli before phase 4.
+- **Three points of Model.md** wait for @Pauli's word (its last section). None changes cases 1 to 5.
