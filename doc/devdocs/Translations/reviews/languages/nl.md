@@ -16,3 +16,5 @@ Made by claude-opus-5-5, effort max.
 | `SwitchLanguageButton` | Switch Language... | Taal wijzigen... | button that opens the dialog Switch Language, shown in no view yet; the term Switch Language, with the ellipsis of a button that opens a dialog |  |
 | `CancelButton` | Cancel | Annuleren | button of the message box and of many dialogs; the term Cancel; the language has no Cancel button yet |  |
 | `CloseButton` | Close | Sluit | button that closes the print preview (PrintPreviewDialog); the term Close | UIText.ReportForm_okButton_Text UIText.TeamVariationsForm_buttonClose_Text |
+| `SwitchLanguageDialog_Title` | Switch Language | Taal wijzigen | title of the dialog that the menu Program Language opens; the term Switch Language, as the button SwitchLanguageButton | UIText.SwitchLanguageButton |
+| `SwitchLanguageDialog_Prompt` | Select a language: | Kies een taal: | label above the list of languages of the dialog Switch Language; the term Select a language, with the colon of a label |  |

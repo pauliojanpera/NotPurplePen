@@ -15,3 +15,5 @@ Made by claude-opus-5-5, effort max.
 | `NoButton` | No | Nie | button of the message box (MessageBoxDialog), beside Yes and Cancel; the term No | UIText.CreateImageFiles_comboBoxWorldFile_Items UIText.ReportText_EventAudit_No |
 | `SwitchLanguageButton` | Switch Language... | Zmień język... | button that opens the dialog Switch Language, shown in no view yet; the term Switch Language, with the ellipsis of a button that opens a dialog |  |
 | `CloseButton` | Close | Zamknij | button that closes the print preview (PrintPreviewDialog); the term Close | UIText.ReportForm_okButton_Text UIText.TeamVariationsForm_buttonClose_Text |
+| `SwitchLanguageDialog_Title` | Switch Language | Zmień język | title of the dialog that the menu Program Language opens; the term Switch Language, as the button SwitchLanguageButton | UIText.SwitchLanguageButton |
+| `SwitchLanguageDialog_Prompt` | Select a language: | Wybierz język: | label above the list of languages of the dialog Switch Language; the term Select a language, with the colon of a label |  |

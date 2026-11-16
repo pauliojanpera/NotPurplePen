@@ -1,6 +1,4 @@
 resource	key	english	in_repo	forks_own
-UIText	SwitchLanguageDialog_Title	Switch Language		
-UIText	SwitchLanguageDialog_Prompt	Select a language:		
 UIText	MoveControlChoiceDialog_Text	Moving Shared Control		
 UIText	MoveControlChoiceDialog_labelExplanation_Text	Control "{0}" is present in the following other courses. If you move it, those courses will be changed also.		
 UIText	MoveControlChoiceDialog_moveButton_TitleText	Move Control In All Courses		

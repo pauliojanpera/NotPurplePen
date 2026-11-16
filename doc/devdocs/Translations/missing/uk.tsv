@@ -1,6 +1,4 @@
 resource	key	english	in_repo	forks_own
-UIText	SwitchLanguageDialog_Title	Switch Language		
-UIText	SwitchLanguageDialog_Prompt	Select a language:		
 UIText	AddCourse_hideFromReportsCheckBox_Text	Do not include in reports		
 UIText	ChangeAllCodes_changeControlCodesLabel_Text	To change the code for one or more controls,click in the "New Code" column and enter the new code. 		
 UIText	CommandNameText_SetCourseLoad	Change Competitor Load		

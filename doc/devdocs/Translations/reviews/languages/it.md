@@ -18,3 +18,5 @@ Made by claude-opus-5-5, effort max.
 | `ReportText.EventAudit_Yes` | Yes | Sì<br>(corrects: Si) | "Si" is the pronoun; "sì" (yes) takes its accent; beside "No" in the event audit | YesButton |
 | `ReportText_EventAudit_Yes` | Yes | Sì<br>(corrects: Si) | the copy of ReportText.EventAudit_Yes; "Si" is the pronoun; "sì" (yes) takes its accent | YesButton |
 | `CreateImageFiles_comboBoxWorldFile_Items1` | Yes | Sì<br>(corrects: Si) | item "Yes" of the world file choice, beside "No"; "Si" is the pronoun; "sì" (yes) takes its accent | YesButton |
+| `SwitchLanguageDialog_Title` | Switch Language | Cambia lingua | title of the dialog that the menu Program Language opens; the term Switch Language, as the button SwitchLanguageButton | UIText.SwitchLanguageButton |
+| `SwitchLanguageDialog_Prompt` | Select a language: | Seleziona una lingua: | label above the list of languages of the dialog Switch Language; the term Select a language, with the colon of a label |  |

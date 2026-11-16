@@ -15,3 +15,5 @@ Made by claude-opus-5-5, effort max.
 | `NoButton` | No | (not needed) | en-GB writes it as the English does | UIText.CreateImageFiles_comboBoxWorldFile_Items UIText.ReportText_EventAudit_No |
 | `SwitchLanguageButton` | Switch Language... | (not needed) | en-GB writes it as the English does |  |
 | `CloseButton` | Close | (not needed) | en-GB writes it as the English does | UIText.ReportForm_okButton_Text UIText.TeamVariationsForm_buttonClose_Text |
+| `SwitchLanguageDialog_Title` | Switch Language | (not needed) | en-GB writes it as the English does |  |
+| `SwitchLanguageDialog_Prompt` | Select a language: | (not needed) | en-GB writes it as the English does |  |

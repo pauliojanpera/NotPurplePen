@@ -15,3 +15,5 @@ Made by claude-opus-5-5, effort max.
 | `NoButton` | No | Ne | button of the message box (MessageBoxDialog), beside Yes and Cancel; the term No |  |
 | `SwitchLanguageButton` | Switch Language... | Zamenjaj jezik... | button that opens the dialog Switch Language, shown in no view yet; the term Switch Language, with the ellipsis of a button that opens a dialog |  |
 | `CloseButton` | Close | Zapri | button that closes the print preview (PrintPreviewDialog); the term Close |  |
+| `SwitchLanguageDialog_Title` | Switch Language | Zamenjaj jezik | title of the dialog that the menu Program Language opens; the term Switch Language, as the button SwitchLanguageButton | UIText.SwitchLanguageButton |
+| `SwitchLanguageDialog_Prompt` | Select a language: | Izberite jezik: | label above the list of languages of the dialog Switch Language; the term Select a language, with the colon of a label |  |

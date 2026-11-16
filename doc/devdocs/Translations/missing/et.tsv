@@ -1,6 +1,4 @@
 resource	key	english	in_repo	forks_own
-UIText	SwitchLanguageDialog_Title	Switch Language		
-UIText	SwitchLanguageDialog_Prompt	Select a language:		
 UIText	AddCourse_hideFromReportsCheckBox_Text	Do not include in reports		
 UIText	CommandNameText_MoveAllControls	Move All Controls		
 UIText	MoveAllControls_Text	Move All Controls		

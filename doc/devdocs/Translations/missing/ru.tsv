@@ -1,6 +1,4 @@
 resource	key	english	in_repo	forks_own
-UIText	SwitchLanguageDialog_Title	Switch Language		
-UIText	SwitchLanguageDialog_Prompt	Select a language:		
 UIText	AddCourse_labelKindCombo_Items3	Sequence and score (3(30))		
 UIText	AddCourse_labelKindCombo_Items4	Code and score (145(30))		
 UIText	AddCourse_scoreColumnLabel_Text	Show points in:		
