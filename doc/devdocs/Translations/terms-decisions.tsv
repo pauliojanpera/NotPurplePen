@@ -158,6 +158,7 @@ Add Bend	zh-CN	添加弯曲	添加弯曲 / 添加拐角	chosen: the variant that
 Add Bend	zh-TW	增加轉彎處	增加轉彎處 / 新增轉彎處	chosen: the variant that the language uses most	claude-opus-5-5	max	2026-11-16
 Add Bend (Ctrl+B)	all			removed: the tooltip of Add Bend with its shortcut; the term is the line "Add Bend", and the brackets would read as a sense	claude-opus-5-5	max	2026-11-16
 Add Control	da	Tilføj post	Tilføj kontrol	corrected: Danish orienteering calls a control "post" ("kontrol" is a check)	claude-opus-5-5	max	2026-11-16
+Add Control	pl	Dodaj PK	Dodaj Punkt	corrected: the language's control is "PK" (Control); "punkty" are also the score points	claude-opus-5-5	max	2026-11-16
 Add Control	ru	Добавить КП		filled: КП is the control in Russian orienteering, as uk; the language's "Код КП"	claude-opus-5-5	max	2026-11-16
 Add Control	tr	Kontrol Ekle	Hedef Ekle	corrected: "hedef" is a target; the language's control is "kontrol" (Control)	claude-opus-5-5	max	2026-11-16
 Add Control (Ctrl+A)	all			removed: the tooltip of Add Control with its shortcut; the term is the line "Add Control"	claude-opus-5-5	max	2026-11-16
@@ -331,6 +332,7 @@ All controls (every control)	zh-TW	所有檢查點	所有檢查點	as the view	c
 All Controls Properties	da	Egenskaber for Alle poster	Alle kontrollers egenskaber	corrected: Danish orienteering calls controls "poster"; the view is "Alle poster"	claude-opus-5-5	max	2026-11-16
 All Controls Properties	et	Kõigi KPde seaded	Kõik punktid seaded	corrected: "Kõik punktid seaded" is not grammatical, and "punkt" is a point; the language's "KPde koormus"	claude-opus-5-5	max	2026-11-16
 All Controls Properties	it	Proprietà di Tutti i punti	Proprietà della tutti i punti	corrected: "della tutti" is not grammatical	claude-opus-5-5	max	2026-11-16
+All Controls Properties	pl	Ustawienia wszystkich PK	Ustawienia Wszystkich Punktów	corrected: the language's control is "PK" (Control), as its view "Wszystkie PK"	claude-opus-5-5	max	2026-11-16
 All Controls Properties	ru	Свойства «Все КП»		filled: the view "Все КП"	claude-opus-5-5	max	2026-11-16
 All Controls Properties	sl	Lastnosti vseh KT	Lastnosti Vse KT	corrected: "Vse" is the nominative; the properties are those "of all controls"	claude-opus-5-5	max	2026-11-16
 All courses	da	Alle baner	Alle kurser	corrected: Danish orienteering calls courses "baner"	claude-opus-5-5	max	2026-11-16
@@ -386,6 +388,7 @@ Average	ru	Среднее		filled: the usual word of the language; no text of th
 Average	sl	Povprečje		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 away from control	da	væk fra posten		filled: Danish orienteering calls a control "post"; nb-NO "borte fra post"	claude-opus-5-5	max	2026-11-16
 away from control	hu	az ellenőrzőponttól	közeli ellenőrzőpontok	corrected: "közeli ellenőrzőpontok" means nearby controls; the flagging goes from the control	claude-opus-5-5	max	2026-11-16
+away from control	it	Lontano dal punto	Lontano dal controllo	corrected: the language's control is "punto" (Control), as its "verso il punto"	claude-opus-5-5	max	2026-11-16
 away from control	nl	weg van de post		filled: the language's "post"	claude-opus-5-5	max	2026-11-16
 away from control	ru	от КП		filled: the flagging runs from the control	claude-opus-5-5	max	2026-11-16
 away from control	sl	stran od kontrolne točke		filled: the language's "kontrolna točka"	claude-opus-5-5	max	2026-11-16
@@ -516,8 +519,11 @@ Change Competitor Load	ro	Schimbare Încărcare Participanți	Schimare Încărca
 Change Competitor Load	ru	Изменить число участников		filled: the usual word of the language; no text of the language has the term yet; the load is the expected number of competitors	claude-opus-5-5	max	2026-11-16
 Change Competitor Load	uk	Змінити кількість учасників		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Change Control	da	Ændr post	Ændr kontrol	corrected: Danish orienteering calls a control "post"	claude-opus-5-5	max	2026-11-16
+Change Control	pl	Zmień PK	Zmień Punkt	corrected: the language's control is "PK" (Control); "punkty" are also the score points	claude-opus-5-5	max	2026-11-16
 Change Control	ru	Изменить КП		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Change Control Code	da	Ændr postkode	Ændr kontrolkode	corrected: Danish orienteering calls a control "post"	claude-opus-5-5	max	2026-11-16
+Change Control Code	it	Cambia codice del punto	Cambia Codice Del Controllo	corrected: the language's control is "punto" (Control)	claude-opus-5-5	max	2026-11-16
+Change Control Code	pl	Zmień kod PK	Zmień Kod Punktu	corrected: the language's control is "PK" (Control); "punkty" are also the score points	claude-opus-5-5	max	2026-11-16
 Change Control Code	pt-BR	Alterar Código de Controle	Escolher Código de Controle	corrected: "Escolher" means choose	claude-opus-5-5	max	2026-11-16
 Change Control Code	ru	Изменить код КП		filled: the language's "Код КП"	claude-opus-5-5	max	2026-11-16
 Change Control Code	tr	Kontrol Kodunu Değiştir	Kontrol Kod'u Değiştir	corrected: an apostrophe only goes after a proper name	claude-opus-5-5	max	2026-11-16
@@ -537,6 +543,7 @@ Change Control Codes	zh-CN	更改检查点序号	更改检查点序号 / 变更�
 Change Control Points	bg	Промени точките на КТ	Промени КТ	corrected: "Промени КТ" is Change Control; the command changes the points that a control scores (CommandNameText.ChangeScore)	claude-opus-5-5	max	2026-11-16
 Change Control Points	da	Ændr postpoint	Ændr kontrolpoint	corrected: Danish orienteering calls a control "post"	claude-opus-5-5	max	2026-11-16
 Change Control Points	et	Muuda KP punkte	Muuda KP asukohti	corrected: "asukohti" are locations; the command changes the points that a control scores	claude-opus-5-5	max	2026-11-16
+Change Control Points	it	Cambia punteggio del punto	Cambia Punti Di Controllo	corrected: the command changes the score of a control; the language's score is "punteggio" ("Totale punteggio"), and its control "punto"	claude-opus-5-5	max	2026-11-16
 Change Control Points	ru	Изменить очки КП		filled: the usual word of the language; no text of the language has the term yet; the points that a control scores, as uk "Змінити вартість КП"	claude-opus-5-5	max	2026-11-16
 Change Control Points	sl	Spremeni točke KT	Spremeni kontrolne točke	corrected: "kontrolne točke" are the controls themselves; the command changes their points	claude-opus-5-5	max	2026-11-16
 Change Control Points	tr	Kontrol Puanını Değiştir	Kontrol Noktası Değiştir	corrected: "Kontrol Noktası Değiştir" means Change Control	claude-opus-5-5	max	2026-11-16
@@ -548,6 +555,7 @@ Change Course Order	da	Ændr banernes rækkefølge	Ændr kursusorden	corrected: 
 Change Course Order	ru	Изменить порядок дистанций		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Change Course Properties	da	Ændr baneegenskaber	Ændr kursusegenskaber	corrected: Danish orienteering calls a course "bane"	claude-opus-5-5	max	2026-11-16
 Change Course Properties	ru	Изменить свойства дистанции		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Change Description Language	it	Modifica la lingua della descrizione punti	Modifica la lingua della descrizione punto	corrected: the plural, as the language's "descrizione punti" (Control Descriptions)	claude-opus-5-5	max	2026-11-16
 Change Description Language	ru	Изменить язык легенд		filled: the usual word of the language; no text of the language has the term yet; легенды КП are the control descriptions	claude-opus-5-5	max	2026-11-16
 Change Displayed Courses	cs	Změnit zobrazení tratí	Změnit zobrazení tratí / Změnit zobrazené tratě	chosen: the variant that the language uses most	claude-opus-5-5	max	2026-11-16
 Change Displayed Courses	da	Ændr viste baner	Skift viste kurser / Ændr Viste kurser	corrected: Danish orienteering calls a course "bane"	claude-opus-5-5	max	2026-11-16
@@ -677,6 +685,7 @@ Close	da	Luk		filled: the usual word of the language; no text of the language ha
 Close	ru	Закрыть		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Close	sl	Zapri		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Close Together Controls	da	Poster tæt på hinanden		filled: Danish orienteering calls controls "poster"	claude-opus-5-5	max	2026-11-16
+Close Together Controls	it	Punti ravvicinati	Controlli ravvicinati	corrected: the language's control is "punto" (Control)	claude-opus-5-5	max	2026-11-16
 Close Together Controls	nl	Posten dicht bij elkaar		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Close Together Controls	pl	Punkty kontrolne blisko siebie		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Close Together Controls	ru	Близко расположенные КП		filled: the usual word of the language; no text of the language has the term yet; as uk "Близькі КП"	claude-opus-5-5	max	2026-11-16
@@ -805,25 +814,32 @@ Control	bg	Контролна точка	Контролна точка / КТ	ch
 Control	da	Post	Kontrol	corrected: Danish orienteering calls a control "post" ("kontrol" is a check)	claude-opus-5-5	max	2026-11-16
 Control	et	KP	KP / Kontrollpunkt	chosen: the variant that the language uses most	claude-opus-5-5	max	2026-11-16
 Control	hu	Ellenőrzőpont	Ellenőrzőpont / Új ellenőrzőpont	chosen: the variant that the language uses most; "Új ellenőrzőpont" is the Add menu's New Control	claude-opus-5-5	max	2026-11-16
+Control	it	Punto	Controllo	corrected: Italian orienteering calls a control "punto" (di controllo), as the language's commands ("Aggiungi punto") and its "descrizione punti"; "controllo" is a check	claude-opus-5-5	max	2026-11-16
 Control	nn-NO	Post	Post / kontroll	chosen: the variant that the language uses most	claude-opus-5-5	max	2026-11-16
 Control	pt	Ponto de Controlo	Ponto de Controlo / Controlo	chosen: the variant that the language uses most; "Controlo" is counted inside it	claude-opus-5-5	max	2026-11-16
 Control	ru	КП		filled from the language's own texts that hold the term:; "Код КП"; КП is the control in Russian orienteering	claude-opus-5-5	max	2026-11-16
 Control	sl	Kontrolna točka		filled from the language's own texts that hold the term:; "Dodaj kontrolno točko"	claude-opus-5-5	max	2026-11-16
 Control circle diameter	da	Postcirkeldiameter	Kontrllér cirkel diameter	corrected: Danish orienteering calls a control "post", and the typo "Kontrllér"	claude-opus-5-5	max	2026-11-16
 Control circle diameter	it	Diametro del cerchio del punto	Diametro del cerchi del punto	corrected: "del cerchi" is not grammatical	claude-opus-5-5	max	2026-11-16
+Control circle diameter	pl	Średnica okręgu PK	Średnica okręgu punktu	corrected: the language's control is "PK" (Control); "punkty" are also the score points	claude-opus-5-5	max	2026-11-16
 Control circle diameter	ru	Диаметр кружка КП		filled: the usual word of the language; no text of the language has the term yet; as uk	claude-opus-5-5	max	2026-11-16
 Control circle diameter	uk	Діаметр кружка КП	Діаметер кружка КП	corrected: the typo "Діаметер"	claude-opus-5-5	max	2026-11-16
 Control circle labels	da	Postcirkeletiketter	Kontrolcirkelmærkater	corrected: Danish orienteering calls a control "post"; "mærkat" is a sticker	claude-opus-5-5	max	2026-11-16
 Control code (145)	da	Postkode (145)	Kontrolkode (145)	corrected: Danish orienteering calls a control "post"	claude-opus-5-5	max	2026-11-16
+Control code (145)	it	Codice punto (145)	Codice di controllo (145)	corrected: the language's control is "punto" (Control); "codice di controllo" is a check code	claude-opus-5-5	max	2026-11-16
+Control code (145)	pl	Kod PK (145)	Kod punktu (145)	corrected: the language's control is "PK" (Control); "punkty" are also the score points	claude-opus-5-5	max	2026-11-16
 Control codes	da	Postkoder		filled: Danish orienteering calls a control "post"	claude-opus-5-5	max	2026-11-16
+Control codes	it	Codici dei punti	Codici controlli	corrected: the language's control is "punto" (Control)	claude-opus-5-5	max	2026-11-16
 Control codes	ru	Коды КП		filled: the usual word of the language; no text of the language has the term yet; as uk	claude-opus-5-5	max	2026-11-16
 Control codes	sl	Kodne številke		filled from the language's own texts that hold the term:; "Spremeni kodne številke"	claude-opus-5-5	max	2026-11-16
 Control Cross-reference	da	Postkrydsreference	Kontrol Krydsreference	corrected: Danish orienteering calls a control "post"	claude-opus-5-5	max	2026-11-16
 Control Cross-reference	fr	Références croisées des postes	Contrôle Croisé	corrected: "Contrôle Croisé" is a cross-check	claude-opus-5-5	max	2026-11-16
+Control Cross-reference	it	Riferimenti incrociati dei punti	Incroci Controlli	corrected: the report lists the courses of each control; "Incroci Controlli" are crossings of checks	claude-opus-5-5	max	2026-11-16
 Control Cross-reference	nl	Kruisverwijzing posten		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Control Cross-reference	ru	Перекрёстная таблица КП		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Control Cross-reference	sl	Navzkrižne reference kontrolnih točk	Kontrolna točka Navzkrižna referenca	corrected: the English put word for word, not grammatical	claude-opus-5-5	max	2026-11-16
 Control Descriptions	da	Postbeskrivelser	Kontrolbeskrivelser	corrected: Danish orienteering says "postbeskrivelser"	claude-opus-5-5	max	2026-11-16
+Control Descriptions	it	Descrizione punti	Descrizione punto	corrected: the plural, as the language's "descrizione punti"	claude-opus-5-5	max	2026-11-16
 Control Descriptions	nb-NO	Postbeskrivelser	Postveskrivelser	corrected: the typo "Postveskrivelser"	claude-opus-5-5	max	2026-11-16
 Control Descriptions	ru	Легенды КП		filled: the usual word of the language; no text of the language has the term yet; as uk	claude-opus-5-5	max	2026-11-16
 Control Descriptions	sl	Opisi kontrolnih točk		filled from the language's own texts that hold the term:; "besedilne opise kontrolnih točk"	claude-opus-5-5	max	2026-11-16
@@ -835,14 +851,16 @@ Control load	ru	Нагрузка на КП		filled: the usual word of the langua
 Control load	sl	Obremenitev kontrolnih točk		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Control load	tr	Kontrol Noktası Yükü	Kontrol Ekle	corrected: "Kontrol Ekle" means Add Control	claude-opus-5-5	max	2026-11-16
 Control number height	da	Postnummerhøjde	Kontrolnummer højde	corrected: Danish orienteering calls a control "post"	claude-opus-5-5	max	2026-11-16
-Control number height	pl	Wysokość numeracji punktów	Wysokość numeracji punków	corrected: the typo "punków"	claude-opus-5-5	max	2026-11-16
+Control number height	pl	Wysokość numeracji PK	Wysokość numeracji punków	corrected: the typo "punków"; the language's control is "PK" (Control), and "punkty" are also the score points	claude-opus-5-5	max	2026-11-16
 Control number height	ru	Высота номера КП		filled: the usual word of the language; no text of the language has the term yet; as uk	claude-opus-5-5	max	2026-11-16
 Control number style	da	Postnummerstil	Kontrolnummer stil	corrected: Danish orienteering calls a control "post"	claude-opus-5-5	max	2026-11-16
 Control number style	it	Stile numero del punto	Stile nuro del punto	corrected: the typo "nuro"	claude-opus-5-5	max	2026-11-16
 Control number style	nb-NO	Postnummerstil	Postbeskrivelsens utseende	corrected: "Postbeskrivelsens utseende" is the look of the control description	claude-opus-5-5	max	2026-11-16
 Control number style	nn-NO	Postnummerstil	Postbeskrivelsens utsjånad	corrected: "Postbeskrivelsens utsjånad" is the look of the control description	claude-opus-5-5	max	2026-11-16
+Control number style	pl	Styl numeracji PK	Styl numeracji punktu	corrected: the language's control is "PK" (Control); "punkty" are also the score points	claude-opus-5-5	max	2026-11-16
 Control number style	ru	Стиль номера КП		filled: the usual word of the language; no text of the language has the term yet; as uk	claude-opus-5-5	max	2026-11-16
 Control Numbering	da	Nummerering af poster		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Control Numbering	it	Numerazione dei punti	Numerazione Controlli	corrected: the language's control is "punto" (Control)	claude-opus-5-5	max	2026-11-16
 Control Numbering	nl	Postnummering		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Control Numbering	nn-NO	Postnummerering		filled: the usual word of the language; no text of the language has the term yet; as nb-NO	claude-opus-5-5	max	2026-11-16
 Control Numbering	ro	Numerotare posturi		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
@@ -852,9 +870,11 @@ Control Tester	all			removed: an item of the hidden Debug menu, for the develope
 Controls	da	Poster		filled: Danish orienteering calls controls "poster"	claude-opus-5-5	max	2026-11-16
 Controls	fi	Rastit	Rastit / rastia	chosen: the variant that the language uses most	claude-opus-5-5	max	2026-11-16
 Controls	hu	Ellenőrzőpontok	Ellenőrzőpontok / ellenőrzőpont	chosen: the variant that the language uses most; the plural of the term	claude-opus-5-5	max	2026-11-16
+Controls	it	Punti	Controlli	corrected: Italian orienteering calls a control "punto" (Control)	claude-opus-5-5	max	2026-11-16
 Controls	ru	КП		filled: the usual word of the language; no text of the language has the term yet; КП does not change in the plural	claude-opus-5-5	max	2026-11-16
 Controls	sl	Kontrolne točke		filled from the language's own texts that hold the term:; "Vse kontrolne točke"	claude-opus-5-5	max	2026-11-16
 Controls in use	da	Poster i brug		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Controls in use	it	Punti usati	Controlli usati	corrected: the language's control is "punto" (Control)	claude-opus-5-5	max	2026-11-16
 Controls in use	nl	Posten in gebruik		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Controls in use	ru	Используемые КП		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Controls in use	sl	Uporabljene kontrolne točke		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
@@ -1228,6 +1248,7 @@ Delete	ru	Удалить		filled: the usual word of the language; no text of the
 Delete (Del)	all			removed: the toolbar text of Delete with its key; the term is the line "Delete", and the brackets would read as a sense	claude-opus-5-5	max	2026-11-16
 Delete Control	da	Slet post	Slet kontrol	corrected: Danish orienteering calls a control "post"	claude-opus-5-5	max	2026-11-16
 Delete Control	hu	Ellenőrzőpont törlése	Ellenőrőzpont törlése	corrected: the typo "Ellenőrőzpont"	claude-opus-5-5	max	2026-11-16
+Delete Control	pl	Usuń PK	Usuń Punkt	corrected: the language's control is "PK" (Control); "punkty" are also the score points	claude-opus-5-5	max	2026-11-16
 Delete Control	ru	Удалить КП		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Delete Control	tr	Kontrol Sil	Hedef Sil	corrected: "hedef" is a target; the language's control is "kontrol" (Control)	claude-opus-5-5	max	2026-11-16
 Delete Course	da	Slet bane	Slet kursus	corrected: Danish orienteering calls a course "bane"	claude-opus-5-5	max	2026-11-16
@@ -1265,6 +1286,7 @@ Description appearance	tr	Açıklama görünümü	Görüntü açıklaması	corre
 Description Browser	all			removed: an item of the hidden Debug menu, for the developer; not a term of the application	claude-opus-5-5	max	2026-11-16
 Description type	da	Beskrivelsestype		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Description type	nl	Type postomschrijving		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Description type	pt	Tipo de sinalética	Tipo de descrição	corrected: the language's descriptions are "sinalética" (Descriptions)	claude-opus-5-5	max	2026-11-16
 Description type	ru	Тип легенд		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Description type	sl	Vrsta opisa		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Descriptions	cs	Popisy	Popisy / Popisy kontrol	chosen: the variant that the language uses most	claude-opus-5-5	max	2026-11-16
@@ -1500,6 +1522,7 @@ Exchange	ro	Schimb		filled: the usual word of the language; no text of the langu
 Exchange	ru	Смена		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Exchange	sl	Menjava		filled from the language's own texts that hold the term:; "Dodaj menjavo karte"	claude-opus-5-5	max	2026-11-16
 Existing Controls	da	Eksisterende poster	Eksisterende kontroller	corrected: Danish orienteering calls controls "poster"	claude-opus-5-5	max	2026-11-16
+Existing Controls	pl	Istniejące PK	Istniejące Punkty	corrected: the language's control is "PK" (Control); "punkty" are also the score points	claude-opus-5-5	max	2026-11-16
 Existing Controls	ru	Существующие КП		filled: the usual word of the language; no text of the language has the term yet; as uk	claude-opus-5-5	max	2026-11-16
 Existing Controls	tr	Mevcut Kontroller	Mevcut Kontoller	corrected: the typo "Kontoller"	claude-opus-5-5	max	2026-11-16
 Exit	nl	Afsluiten		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
@@ -1806,6 +1829,7 @@ IOF Description Standard	ja	IOFディスクリプション規格		filled: the us
 IOF Description Standard	nl	IOF-norm voor postomschrijvingen		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 IOF Description Standard	nn-NO	IOF postbeskrivelsesstandard		filled: the usual word of the language; no text of the language has the term yet; as nb-NO	claude-opus-5-5	max	2026-11-16
 IOF Description Standard	pl	Standard opisów IOF		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+IOF Description Standard	pt	Padrão de sinalética IOF	Padrão de Descrição IOF	corrected: the language's descriptions are "sinalética" (Descriptions)	claude-opus-5-5	max	2026-11-16
 IOF Description Standard	ro	Standard IOF pentru descrieri		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 IOF Description Standard	ru	Стандарт легенд КП IOF		filled: the usual word of the language; no text of the language has the term yet; as uk "Стандарт легенд IOF"	claude-opus-5-5	max	2026-11-16
 IOF Description Standard	sl	Standard opisov IOF		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
@@ -2457,6 +2481,7 @@ Merge Symbols.xml	all			removed: an item of the hidden Debug menu, for the devel
 Missing Description Boxes	da	Manglende beskrivelsesfelter		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Missing Description Boxes	nl	Ontbrekende vakjes in postomschrijving		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Missing Description Boxes	nn-NO	Manglande postbeskrivelsesruter	Manglende postbeskrivelsesruter	corrected: "manglende" is bokmål; the language's "manglande"	claude-opus-5-5	max	2026-11-16
+Missing Description Boxes	pt	Caixas de sinalética ausentes	Caixas de descrição ausentes	corrected: the language's descriptions are "sinalética" (Descriptions)	claude-opus-5-5	max	2026-11-16
 Missing Description Boxes	ru	Пропущенные клетки легенд		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Missing Description Boxes	sl	Manjkajoča polja opisa		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Missing Description Translations	cs	Chybějící překlady popisů		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
@@ -2546,9 +2571,11 @@ Move and Scale	sl	Premakni in spremeni merilo		filled: the usual word of the lan
 Move and Scale	uk	Перемістити й масштабувати		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Move and Scale	zh-TW	移動並縮放		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Move Control	da	Flyt post	Flyt kontrol	corrected: Danish orienteering calls a control "post"	claude-opus-5-5	max	2026-11-16
+Move Control	pl	Przesuń PK	Przesuń Punkt	corrected: the language's control is "PK" (Control); "punkty" are also the score points	claude-opus-5-5	max	2026-11-16
 Move Control	ru	Переместить КП		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Move Control	tr	Kontrolü Taşı	Hedef'i Taşı	corrected: "hedef" is a target, the language's control is "kontrol" (Control); and an apostrophe only goes after a proper name	claude-opus-5-5	max	2026-11-16
 Move Control Number	da	Flyt postnummer	Flyt kontrolnummer	corrected: Danish orienteering calls a control "post"	claude-opus-5-5	max	2026-11-16
+Move Control Number	pl	Przesuń numer PK	Przesuń Numer Punktu	corrected: the language's control is "PK" (Control); "punkty" are also the score points	claude-opus-5-5	max	2026-11-16
 Move Control Number	ru	Переместить номер КП		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Move Control Number	tr	Kontrol Numarasını Taşı	Hedef Numarasını Taşı	corrected: "hedef" is a target; the language's control is "kontrol" (Control)	claude-opus-5-5	max	2026-11-16
 Move down	ru	Переместить вниз		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
@@ -3234,7 +3261,7 @@ Remove Unused Controls	es	Suprimir controles no utilizados	Suprimir controles no
 Remove Unused Controls	et	Eemalda kasutamata KPd	Eemalda kasutama KPd / Eemalda kasutamata KPd	chosen: the other has the typo "kasutama"	claude-opus-5-5	max	2026-11-16
 Remove Unused Controls	hu	A nem használt ellenőrzőpontok törlése	A nem használt ellenőrzőpontok törlése / Nem használt ellenőrzöpontok törlése	chosen: the variant that the language uses most	claude-opus-5-5	max	2026-11-16
 Remove Unused Controls	it	rimuovi punti non utilizzati in un percorso	rimuovi punti non utilizzati in un percorso / Rimuovi Controlli Inutilizzati	chosen: the variant that the language uses most; the language's control is "punto"	claude-opus-5-5	max	2026-11-16
-Remove Unused Controls	pl	Usuń Nieużywane Punkty	Usuń Nieużywane Punkty / Usuń nieużywane PK	chosen: the variant that the language uses most	claude-opus-5-5	max	2026-11-16
+Remove Unused Controls	pl	Usuń nieużywane PK	Usuń Nieużywane Punkty / Usuń nieużywane PK	chosen: the language's control is "PK" (Control); "punkty" are also the score points	claude-opus-5-5	max	2026-11-16
 Remove Unused Controls	pt	Remover pontos de controlo não usados	Remover pontos de controlo não usados / Remover Controlos não Utilizados	chosen: the variant that the language uses most	claude-opus-5-5	max	2026-11-16
 Remove Unused Controls	pt-BR	Remover Controles sem Uso	Remover Controles sem Uso / Remover Controles não Utilizados	chosen: the variant that the language uses most	claude-opus-5-5	max	2026-11-16
 Remove Unused Controls	ro	Eliminare Posturi Nefolosite	Eliminare Posturi Nefolosite / Șterge Posturile Nefolosite	chosen: the variant that the language uses most	claude-opus-5-5	max	2026-11-16
@@ -3243,6 +3270,7 @@ Remove Unused Controls	sl	Izbriši neuporabljene kontrolne točke	Izbriši neupo
 Remove Unused Controls	uk	Видалити невикористані КП	Видалити невикористані КП / Видалити незадіяні КП	chosen: the variant that the language uses most	claude-opus-5-5	max	2026-11-16
 Remove Unused Controls	zh-TW	移除未使用的檢查點	移除未使用的檢查點 / 移除未採用的檢查點	chosen: the variant that the language uses most	claude-opus-5-5	max	2026-11-16
 Repeated Controls	da	Gentagne poster		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Repeated Controls	it	Punti ripetuti	Controlli Ripetuti	corrected: the language's control is "punto" (Control)	claude-opus-5-5	max	2026-11-16
 Repeated Controls	ja	繰り返しのコントロール		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Repeated Controls	nl	Herhaalde posten		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Repeated Controls	nn-NO	Gjentekne poster		filled: the usual word of the language; no text of the language has the term yet; with the language's plural "poster" ("Eksisterande poster")	claude-opus-5-5	max	2026-11-16
@@ -3445,6 +3473,7 @@ Score (30)	da	Point (30)		filled: the usual word of the language; no text of the
 Score (30)	es	Puntuación (30)		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Score (30)	fr	Points (30)		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Score (30)	hu	Pontérték (30)		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Score (30)	it	Punteggio (30)	Punti (30)	corrected: the language's score is "punteggio" ("Totale punteggio"); "punti" are the controls	claude-opus-5-5	max	2026-11-16
 Score (30)	ja	得点 (30)		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Score (30)	nl	Score (30)		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Score (30)	nn-NO	Poeng (30)		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
@@ -3453,6 +3482,8 @@ Score (30)	ro	Punctaj (30)		filled: the usual word of the language; no text of t
 Score (30)	ru	Очки (30)	оценка	corrected: "оценка" is a grade; the points of a control are "очки"	claude-opus-5-5	max	2026-11-16
 Score (30)	sl	Točke (30)		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Score Course	da	Pointbane	Score kursus	corrected: Danish orienteering calls a course "bane"	claude-opus-5-5	max	2026-11-16
+Score Course	fr	Circuit au score	Course au score	corrected: the kind of course, beside "Circuit normal"; a "course" is the race (Event)	claude-opus-5-5	max	2026-11-16
+Score Course	it	Percorso a sequenza libera	percorso a sequenza libera	corrected: the capital, as the other item "Percorso normale"	claude-opus-5-5	max	2026-11-16
 Score Course	pt-BR	Percurso de pontuação	Percurso de pontuação (fazenda)	corrected: "(fazenda)" is a farm and does not belong to the term	claude-opus-5-5	max	2026-11-16
 Score Course	tr	Puanlı Parkur	Parkur Puanı	corrected: "Parkur Puanı" is the score of a course	claude-opus-5-5	max	2026-11-16
 Select a language	bg	Изберете език		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
@@ -3632,6 +3663,7 @@ Show plural forms	ru	Показать формы множественного ч
 Show plural forms	sl	Prikaži množinske oblike	Prikaži množinske obrazce	corrected: "obrazec" is a form to fill in; a grammatical form is "oblika"	claude-opus-5-5	max	2026-11-16
 Show plural forms	uk	Показати форми множини		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Show plural forms	zh-CN	显示复数形式	表示复数形式	corrected: 表示 is to express	claude-opus-5-5	max	2026-11-16
+Show points in	it	Mostra punteggio in	Mostra punti in	corrected: the language's score is "punteggio" ("Totale punteggio"); "punti" are the controls	claude-opus-5-5	max	2026-11-16
 Show points in	ru	Показывать очки в		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Show points in	tr	Puanları göster	Noktaları Göster	corrected: "Noktalar" are geometric points; the score points are "puan"	claude-opus-5-5	max	2026-11-16
 Show points in	uk	Відображати очки у	Відображати точки у	corrected: "точки" are geometric points; the score points are "очки" ("Змінити вартість КП", "очок")	claude-opus-5-5	max	2026-11-16
@@ -3863,6 +3895,7 @@ Top	ro	Sus		filled from the language's own texts that hold the term:; "Sus: {2}"
 Top	ru	Сверху		filled: the usual word of the language; no text of the language has the term yet; the margin	claude-opus-5-5	max	2026-11-16
 Top	sl	Zgoraj		filled: the usual word of the language; no text of the language has the term yet; the margin	claude-opus-5-5	max	2026-11-16
 Total controls	da	Poster i alt		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Total controls	it	Totale punti	Totale controlli	corrected: the language's control is "punto" (Control); the score is "punteggio"	claude-opus-5-5	max	2026-11-16
 Total controls	ru	Всего КП		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Total controls	sl	Skupaj kontrolnih točk		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Total score	da	Point i alt		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
@@ -3891,6 +3924,7 @@ Undo	uk	Відмінити	Вернути / Відмінити	chosen: the varia
 Undo (Ctrl+Z)	all			removed: the tooltip of Undo with its shortcut; the term is the line "Undo", and the brackets would read as a sense	claude-opus-5-5	max	2026-11-16
 Unused Controls	da	Ubrugte poster		filled: the usual word of the language; no text of the language has the term yet; Danish orienteering calls controls "poster"	claude-opus-5-5	max	2026-11-16
 Unused Controls	et	Kasutamata KPd	Kasutatud KPd	corrected: "Kasutatud" means used	claude-opus-5-5	max	2026-11-16
+Unused Controls	it	Punti non usati	Controlli non usati	corrected: the language's control is "punto" (Control)	claude-opus-5-5	max	2026-11-16
 Unused Controls	ru	Неиспользуемые КП		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Unused Controls	sl	Neuporabljene kontrolne točke		filled from the language's own texts that hold the term:; "Izbriši neuporabljene kontrolne točke"	claude-opus-5-5	max	2026-11-16
 Unused Controls	tr	Kullanılmayan Kontroller	Kullanılmayan Hedefler	corrected: "hedef" is a target; the language's control is "kontrol" (Controls)	claude-opus-5-5	max	2026-11-16
