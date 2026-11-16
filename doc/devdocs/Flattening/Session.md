@@ -23,6 +23,10 @@ A deleted branch.
 **These need no word.** To write a brief and start an agent. To accept or refuse a step. To commit and push
 `docs/process-coordination` and `feature/flattening`, neither of which starts a workflow. To publish the page.
 
+**After phase 0, a next step needs a consultation** (@Pauli, Nov 17: "do not get into further steps without
+consultation"). The session tells @Pauli which step it means to start, and why, and it starts no agent before he
+answers. The session of Nov 17 takes this to hold until he says otherwise.
+
 ## 1. Find where the work stands
 
 1. Read README.md, Model.md and `Status.md`, when it exists.
