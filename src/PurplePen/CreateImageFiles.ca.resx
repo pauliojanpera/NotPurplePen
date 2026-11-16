@@ -117,16 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="comboBoxPrintBaseMap.Items" xml:space="preserve">
-    <value>Recorregut i mapa</value>
-    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
-  </data>
-  <data name="comboBoxPrintBaseMap.Items1" xml:space="preserve">
-    <value>Només el recorregut</value>
-    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
-  </data>
-  <data name="labelPrintBaseMap.Text" xml:space="preserve">
-    <value>Contingut:</value>
-    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
-  </data>
 </root>
