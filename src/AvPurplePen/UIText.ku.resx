@@ -171,4 +171,28 @@
   <data name="SelectionDescriptionText_SpecialName_Text" xml:space="preserve">
     <value>Nivîs</value>
   </data>
+  <data name="CreateImageFiles_comboBoxPrintBaseMap_Items" xml:space="preserve">
+    <value>Rê û nexşe</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreatePdfCourses_comboBoxPrintBaseMap_Items" xml:space="preserve">
+    <value>Rê û nexşe</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreateImageFiles_comboBoxPrintBaseMap_Items1" xml:space="preserve">
+    <value>Tenê rê</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreatePdfCourses_comboBoxPrintBaseMap_Items1" xml:space="preserve">
+    <value>Tenê rê</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreateImageFiles_labelPrintBaseMap_Text" xml:space="preserve">
+    <value>Naverok:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreatePdfCourses_labelPrintBaseMap_Text" xml:space="preserve">
+    <value>Naverok:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
 </root>

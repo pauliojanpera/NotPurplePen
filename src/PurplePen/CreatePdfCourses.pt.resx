@@ -135,6 +135,18 @@
   <data name="comboBoxColorModel.Items1" xml:space="preserve">
     <value>CMYK</value>
   </data>
+  <data name="labelPrintBaseMap.Text" xml:space="preserve">
+    <value>Conteúdo:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="comboBoxPrintBaseMap.Items" xml:space="preserve">
+    <value>Percurso e mapa</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="comboBoxPrintBaseMap.Items1" xml:space="preserve">
+    <value>Apenas o percurso</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="comboBoxMultiPage.Items" xml:space="preserve">
     <value>Recortar para uma página</value>
   </data>

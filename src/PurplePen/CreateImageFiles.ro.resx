@@ -141,6 +141,18 @@
   <data name="comboBoxWorldFile.Items1" xml:space="preserve">
     <value>Da</value>
   </data>
+  <data name="comboBoxPrintBaseMap.Items" xml:space="preserve">
+    <value>Traseu și hartă</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="comboBoxPrintBaseMap.Items1" xml:space="preserve">
+    <value>Doar traseul</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="labelPrintBaseMap.Text" xml:space="preserve">
+    <value>Conținut:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="outputGroupBox.Text" xml:space="preserve">
     <value>Rezultat</value>
   </data>

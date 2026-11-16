@@ -1204,6 +1204,30 @@
   <data name="PrintCourses_comboBoxColorModel_Items2" xml:space="preserve">
     <value>CMYK</value>
   </data>
+  <data name="CreateImageFiles_comboBoxPrintBaseMap_Items" xml:space="preserve">
+    <value>Løype og kart</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreatePdfCourses_comboBoxPrintBaseMap_Items" xml:space="preserve">
+    <value>Løype og kart</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreateImageFiles_comboBoxPrintBaseMap_Items1" xml:space="preserve">
+    <value>Bare løype</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreatePdfCourses_comboBoxPrintBaseMap_Items1" xml:space="preserve">
+    <value>Bare løype</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreateImageFiles_labelPrintBaseMap_Text" xml:space="preserve">
+    <value>Innhold:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreatePdfCourses_labelPrintBaseMap_Text" xml:space="preserve">
+    <value>Innhold:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="CreateImageFiles_outputGroupBox_Text" xml:space="preserve">
     <value>Utdata</value>
   </data>
@@ -1364,7 +1388,8 @@
     <value>Velg en mappe for PDF filene</value>
   </data>
   <data name="CreatePdfCourses_Text" xml:space="preserve">
-    <value>Skriv ut løyper</value>
+    <value>Lag PDF-filer</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="CreateRouteGadget_label1_Text" xml:space="preserve">
     <value>Skriv inn navnet (uten .xml og .gif) til begge RouteGadget filene:</value>
@@ -3171,7 +3196,8 @@ Til å skrive ut konkuranskekart anbefales at løypene eksporteres til OCAD file
     <value>{0} ({1} poster, {2}, {3} m stigning)</value>
   </data>
   <data name="ReportText_LegLength_CourseInfoNoClimb" xml:space="preserve">
-    <value>0} ({1} poster, {2})</value>
+    <value>{0} ({1} poster, {2})</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="ReportText_LegLength_Title" xml:space="preserve">
     <value>Strekklengde rapport for {0}</value>

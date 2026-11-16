@@ -954,6 +954,30 @@
   <data name="PrintCourses_comboBoxColorModel_Items2" xml:space="preserve">
     <value>CMYK</value>
   </data>
+  <data name="CreateImageFiles_comboBoxPrintBaseMap_Items" xml:space="preserve">
+    <value>Route en kaart</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreatePdfCourses_comboBoxPrintBaseMap_Items" xml:space="preserve">
+    <value>Route en kaart</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreateImageFiles_comboBoxPrintBaseMap_Items1" xml:space="preserve">
+    <value>Alleen route</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreatePdfCourses_comboBoxPrintBaseMap_Items1" xml:space="preserve">
+    <value>Alleen route</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreateImageFiles_labelPrintBaseMap_Text" xml:space="preserve">
+    <value>Inhoud:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="CreatePdfCourses_labelPrintBaseMap_Text" xml:space="preserve">
+    <value>Inhoud:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="CreateImageFiles_outputGroupBox_Text" xml:space="preserve">
     <value>Uitvoer</value>
   </data>

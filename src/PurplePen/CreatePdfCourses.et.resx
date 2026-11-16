@@ -135,6 +135,18 @@
   <data name="comboBoxColorModel.Items1" xml:space="preserve">
     <value>CMYK</value>
   </data>
+  <data name="labelPrintBaseMap.Text" xml:space="preserve">
+    <value>Sisu:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="comboBoxPrintBaseMap.Items" xml:space="preserve">
+    <value>Rada ja kaart</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="comboBoxPrintBaseMap.Items1" xml:space="preserve">
+    <value>Ainult rada</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="comboBoxMultiPage.Items" xml:space="preserve">
     <value>Mahuta ühele lehele</value>
   </data>
@@ -184,7 +196,8 @@
     <value>Vali kaust PDF failide jaoks</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Trüki rajad</value>
+    <value>Salvesta PDF-failid</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>Äärised:</value>
