@@ -1,10 +1,4 @@
 resource	key	english	in_repo	forks_own
-UIText	IncrementButton	Increment		
-UIText	DecrementButton	Decrement		
-UIText	CounterLabel	Counter: {0}		
-UIText	YesButton	Yes		
-UIText	NoButton	No		
-UIText	SwitchLanguageButton	Switch Language...		
 UIText	SwitchLanguageDialog_Title	Switch Language		
 UIText	SwitchLanguageDialog_Prompt	Select a language:		
 UIText	AddCourse_labelKindCombo_Items5	Score (30)		
@@ -205,7 +199,6 @@ UIText	PrintPreviewDialog_nextPageButton_ToolTip	Next page
 UIText	PrintPreviewDialog_lastPageButton_ToolTip	Last page		
 UIText	PrintPreviewDialog_fitPageButton_Text	Fit Page		
 UIText	PrintPreviewDialog_noPagesLabel_Text	There are no pages to show.		
-UIText	CloseButton	Close		
 UIText	LinuxPrinting_NoDefaultViewer	The PDF file could not be opened, because no default application for viewing PDF files is set up.		
 UIText	LinuxPrinting_PortalUnavailable	Purple Pen cannot print directly on this system, because the desktop printing service (the Print interface of the XDG desktop portal) is not available.\n\nWould you like to open the document as a PDF file in your default PDF viewer, so that you can print it from there?\n\nIMPORTANT: When printing from the PDF viewer, turn off any page scaling (such as "Fit to page" or "Shrink to printable area"), so that the document prints at the correct size.		
 UIText	LinuxPrinting_ViewerFailed	The PDF file could not be opened in the default PDF viewer: {0}		
