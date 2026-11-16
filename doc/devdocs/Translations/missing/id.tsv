@@ -358,6 +358,12 @@ UIText	PrintCourses_comboBoxColorModel_Items1	RGB
 UIText	CreateImageFiles_comboBoxColorModel_Items1	CMYK		
 UIText	CreatePdfCourses_comboBoxColorModel_Items1	CMYK		
 UIText	PrintCourses_comboBoxColorModel_Items2	CMYK		
+UIText	CreateImageFiles_comboBoxPrintBaseMap_Items	Course and map		
+UIText	CreatePdfCourses_comboBoxPrintBaseMap_Items	Course and map		
+UIText	CreateImageFiles_comboBoxPrintBaseMap_Items1	Course only		
+UIText	CreatePdfCourses_comboBoxPrintBaseMap_Items1	Course only		
+UIText	CreateImageFiles_labelPrintBaseMap_Text	Include:		
+UIText	CreatePdfCourses_labelPrintBaseMap_Text	Include:		
 UIText	CreateImageFiles_outputGroupBox_Text	Output		
 UIText	CreateKmlFiles_outputGroupBox_Text	Output		
 UIText	CreateOcadFiles_outputGroupBox_Text	Output		

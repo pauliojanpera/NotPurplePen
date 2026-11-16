@@ -65,6 +65,10 @@ RELATED = {
 
 LANGUAGE_PATTERN = re.compile(r'^[a-z]{2,3}(-[A-Za-z0-9]+)*$')
 
+# The languages that translate almost nothing (0 to 1 percent of the keys on Nov 16) and are not to be
+# translated (@Pauli, Nov 16). ru, also almost untranslated, is translated: @Pauli chose it.
+NOT_TRANSLATED = ['ca', 'he', 'id', 'ku', 'vec', 'zh-HK']
+
 # The keys that a language's translator judged to need no translation in the language, as
 # not-needed/<language>.tsv beside these scripts (columns resource, key, english, note, translator,
 # effort, date). A key counts

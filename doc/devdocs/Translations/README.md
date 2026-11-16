@@ -54,10 +54,13 @@ The numbers are of Nov 16.
    Remove` list of `PurplePen.csproj`. 868 translations. Nothing is translated. Done on Nov 16 (d21aa138).
 2. **The faults.** Task 9's first branch (handover): "Include:" and its items, the faults that task 4 found, and the
    errors that `check.py` reports. Done on Nov 16 (1de84f81); the review is [reviews/phase-2.md](reviews/phase-2.md).
-3. **The languages that lack fewer than 300 after phase 1:** bg, cs, de, en-GB, es, et, fi, fr, hu, it, ja, nb-NO,
-   pt, pt-BR, sv, tr, uk, zh-CN and zh-TW. 2,516 keys of upstream.
-4. **The languages that lack 300 to 1,000:** da, nl, nn-NO, pl and ro. 3,230 keys of upstream.
-5. **The languages that lack more than 1,000:** ca, he, id, ku, ru, sl, vec and zh-HK. 12,450 keys of upstream.
+3. **The languages that lack fewer than 300 after phase 2:** bg, cs, de, en-GB, es, et, fi, fr, hu, it, ja, nb-NO, pt, pt-BR, sv, tr, uk, zh-CN, zh-TW. 2,402 keys.
+4. **The languages that lack 300 to 1,000:** da, nl, nn-NO, pl, ro. 3,200 keys.
+5. **The languages that lack more than 1,000:** ru, sl. 2,702 keys.
+
+ca, he, id, ku, vec and zh-HK, which translate almost nothing, are not translated (@Pauli, Nov 16). ru, also almost
+untranslated, is translated: @Pauli chose it. The translations of the Include choice that phase 2 had added to the
+six came out again (aadd27db).
 6. **The fork's own keys** (the column "Fork's own" of Status.md): 758, on the branches that add the keys, as task
    4 did for the SVG export.
 

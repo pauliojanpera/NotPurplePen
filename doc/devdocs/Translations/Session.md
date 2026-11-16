@@ -49,7 +49,9 @@ languages of phases 3, 4 and 5 (README.md, "The phases"), in that order:
 
 bg, cs, de, en-GB, es, et, fi, fr, hu, it, ja, nb-NO, pt, pt-BR, sv, tr, uk, zh-CN, zh-TW,
 da, nl, nn-NO, pl, ro,
-ca, he, id, ku, ru, sl, vec, zh-HK.
+ru, sl.
+
+ca, he, id, ku, vec and zh-HK are not translated (@Pauli, Nov 16).
 
 If every language has its review, stop, and tell @Pauli that the languages are done.
 

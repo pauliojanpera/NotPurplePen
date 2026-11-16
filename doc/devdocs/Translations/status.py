@@ -86,6 +86,8 @@ def main():
         R.write_tsv(os.path.join(args.out, 'missing', f'{lang}.tsv'),
                     ['resource', 'key', 'english', 'in_repo', 'forks_own'], tsv_rows)
         rows.append((lang, per_resource, total, judged, by_model, in_repo, own))
+        if lang in R.NOT_TRANSLATED:
+            continue
         for i, v in enumerate(per_resource + [total, judged, by_model, in_repo, own]):
             totals[i] += v
 
@@ -113,11 +115,12 @@ def main():
     lines.append('|' + '|'.join([' --- '] * 2 + [' ---: '] * (len(header) - 2)) + '|')
     for lang, per_resource, total, judged, by_model, in_repo, own in rows:
         done = 100.0 * (all_counted - total) / all_counted
-        cells = [f'{NAMES.get(lang, lang)} (`{lang}`)', f'{done:.0f} %'] + [str(v) for v in per_resource] + [f'**{total}**', str(judged), str(by_model), str(in_repo)]
+        name = f'{NAMES.get(lang, lang)} (`{lang}`)' + (' — not translated' if lang in R.NOT_TRANSLATED else '')
+        cells = [name, f'{done:.0f} %'] + [str(v) for v in per_resource] + [f'**{total}**', str(judged), str(by_model), str(in_repo)]
         if have_upstream:
             cells.append(str(own))
         lines.append('| ' + ' | '.join(cells) + ' |')
-    cells = ['All', ''] + [str(v) for v in totals[:len(R.RESOURCES)]] + [f'**{totals[-5]}**', str(totals[-4]), str(totals[-3]), str(totals[-2])]
+    cells = ['All that are translated', ''] + [str(v) for v in totals[:len(R.RESOURCES)]] + [f'**{totals[-5]}**', str(totals[-4]), str(totals[-3]), str(totals[-2])]
     if have_upstream:
         cells.append(str(totals[-1]))
     lines.append('| ' + ' | '.join(cells) + ' |')
@@ -125,6 +128,8 @@ def main():
     lines.append('Keys counted in the English files: ' + ', '.join(f'{res} {len(counted[res])}' for res, _ in R.RESOURCES)
                  + f'; {all_counted} in all.')
     lines.append('')
+    lines.append(f'- **Not translated**: {", ".join(R.NOT_TRANSLATED)} translate almost nothing and are not to be '
+                 "translated (@Pauli, Nov 16). Their rows show what they lack; the row \"All that are translated\" leaves them out.")
     lines.append(f'- **Done** is the share of the {all_counted} keys that the language translates or does not need.')
     lines.append("- **Not needed** counts the keys that the language's translator judged to need no translation, "
                  'in `not-needed/<language>.tsv`. They are not in **Missing**.')

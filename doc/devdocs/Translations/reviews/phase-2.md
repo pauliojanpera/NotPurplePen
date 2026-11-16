@@ -1,9 +1,9 @@
 # Phase 2: the Include choice and the faults
 
-Nov 16, 2026. Task 9's first branch, `fix/translation-faults` (1de84f81), from phases 1 and 2 of [README.md](../README.md). claude-opus-5-5 at effort max made every translation and correction below, in UIText and PurplePenCore's resources, and the same in the WinForms forms' satellites (CreatePdfCourses, CreateImageFiles, PrintDescriptions, PrintPunches). Each entry says so in its comment.
+Nov 16, 2026. Task 9's first branch, `fix/translation-faults` (1de84f81, and aadd27db), from phases 1 and 2 of [README.md](../README.md). claude-opus-5-5 at effort max made every translation and correction below, in UIText and PurplePenCore's resources, and the same in the WinForms forms' satellites (CreatePdfCourses, CreateImageFiles, PrintDescriptions, PrintPunches). Each entry says so in its comment.
 
-- **The Include choice** (`CreatePdfCourses_` and `CreateImageFiles_labelPrintBaseMap_Text`, `comboBoxPrintBaseMap_Items`, `_Items1`): 31 languages. en-GB needs none (`not-needed/en-GB.tsv`). The label is "content" in most languages, which reads naturally before the items "course and map" and "course only".
-- **Doubts.** ku, vec, zh-HK and id had no earlier translation of "course": their words are guesses (ku "rê", vec after Italian, zh-HK after zh-TW, id "lintasan"). A speaker should look at them.
+- **The Include choice** (`CreatePdfCourses_` and `CreateImageFiles_labelPrintBaseMap_Text`, `comboBoxPrintBaseMap_Items`, `_Items1`): the 25 translated languages other than en-GB. en-GB needs none (`not-needed/en-GB.tsv`). The label is "content" in most languages, which reads naturally before the items "course and map" and "course only".
+- **Taken out again.** 1de84f81 also translated the Include choice into ca, he, id, ku, vec and zh-HK. These languages translate almost nothing and are not translated (@Pauli, Nov 16), so aadd27db took the translations out.
 - **Corrections**: the errors that `check.py` found, the Japanese `{0}` of task 9, pt `CustomizedSymbolDesc`, zh-CN `CreateMapFiles`, and the PDF dialog's title "Print Courses" in eight languages. Each line gives the text that it replaced and why.
 
 #### bg
@@ -18,19 +18,6 @@ Made by claude-opus-5-5, effort max.
 | `CreateImageFiles_labelPrintBaseMap_Text` | Include: | Съдържание: | label beside the combo box of what the file holds; "content" reads naturally before the items | MainFrame_courseMenu_Text ChangeMapFile_Text |
 | `CreateImageFiles_comboBoxPrintBaseMap_Items` | Course and map | Маршрут и карта | the file holds the course over the base map | MainFrame_courseMenu_Text ChangeMapFile_Text |
 | `CreateImageFiles_comboBoxPrintBaseMap_Items1` | Course only | Само маршрут | the file holds the course without the base map | MainFrame_courseMenu_Text ChangeMapFile_Text |
-
-#### ca
-
-Made by claude-opus-5-5, effort max.
-
-| Key | English | Translation | Context that decided it | Mirrors |
-| --- | --- | --- | --- | --- |
-| `CreatePdfCourses_labelPrintBaseMap_Text` | Include: | Contingut: | label beside the combo box of what the file holds; "content" reads naturally before the items | MainFrame_courseMenu_Text ChangeMapFile_Text |
-| `CreatePdfCourses_comboBoxPrintBaseMap_Items` | Course and map | Recorregut i mapa | the file holds the course over the base map | MainFrame_courseMenu_Text ChangeMapFile_Text |
-| `CreatePdfCourses_comboBoxPrintBaseMap_Items1` | Course only | Només el recorregut | the file holds the course without the base map | MainFrame_courseMenu_Text ChangeMapFile_Text |
-| `CreateImageFiles_labelPrintBaseMap_Text` | Include: | Contingut: | label beside the combo box of what the file holds; "content" reads naturally before the items | MainFrame_courseMenu_Text ChangeMapFile_Text |
-| `CreateImageFiles_comboBoxPrintBaseMap_Items` | Course and map | Recorregut i mapa | the file holds the course over the base map | MainFrame_courseMenu_Text ChangeMapFile_Text |
-| `CreateImageFiles_comboBoxPrintBaseMap_Items1` | Course only | Només el recorregut | the file holds the course without the base map | MainFrame_courseMenu_Text ChangeMapFile_Text |
 
 #### cs
 
@@ -141,19 +128,6 @@ Made by claude-opus-5-5, effort max.
 | `CreateImageFiles_comboBoxPrintBaseMap_Items1` | Course only | Circuit seul | the file holds the course without the base map | MainFrame_courseMenu_Text ChangeMapFile_Text |
 | `CreatePdfCourses_Text` | Create PDF Files | Créer des fichiers PDF<br>(corrects: Imprimer les circuits) | "Imprimer les circuits" names another dialog (Print Courses); mirrors CreateImageFiles_Text | CreateImageFiles_Text |
 
-#### he
-
-Made by claude-opus-5-5, effort max.
-
-| Key | English | Translation | Context that decided it | Mirrors |
-| --- | --- | --- | --- | --- |
-| `CreatePdfCourses_labelPrintBaseMap_Text` | Include: | תוכן: | label beside the combo box of what the file holds; "content" reads naturally before the items | MainFrame_courseMenu_Text ChangeMapFile_Text |
-| `CreatePdfCourses_comboBoxPrintBaseMap_Items` | Course and map | מסלול ומפה | the file holds the course over the base map | MainFrame_courseMenu_Text ChangeMapFile_Text |
-| `CreatePdfCourses_comboBoxPrintBaseMap_Items1` | Course only | מסלול בלבד | the file holds the course without the base map | MainFrame_courseMenu_Text ChangeMapFile_Text |
-| `CreateImageFiles_labelPrintBaseMap_Text` | Include: | תוכן: | label beside the combo box of what the file holds; "content" reads naturally before the items | MainFrame_courseMenu_Text ChangeMapFile_Text |
-| `CreateImageFiles_comboBoxPrintBaseMap_Items` | Course and map | מסלול ומפה | the file holds the course over the base map | MainFrame_courseMenu_Text ChangeMapFile_Text |
-| `CreateImageFiles_comboBoxPrintBaseMap_Items1` | Course only | מסלול בלבד | the file holds the course without the base map | MainFrame_courseMenu_Text ChangeMapFile_Text |
-
 #### hu
 
 Made by claude-opus-5-5, effort max.
@@ -168,19 +142,6 @@ Made by claude-opus-5-5, effort max.
 | `CreateImageFiles_comboBoxPrintBaseMap_Items1` | Course only | Csak a pálya | the file holds the course without the base map | MainFrame_courseMenu_Text ChangeMapFile_Text |
 | `MiscText.PrintingPage` | Printing page {0} (of {1}) | Nyomtatás {0} / {1}. oldal<br>(corrects: Nyomtatás (0} / {1}. oldal) | "(0}" is "{0}" mistyped; string.Format throws on it |  |
 | `MiscText_PrintingPage` | Printing page {0} (of {1}) | Nyomtatás {0} / {1}. oldal<br>(corrects: Nyomtatás (0} / {1}. oldal) | "(0}" is "{0}" mistyped; string.Format throws on it |  |
-
-#### id
-
-Made by claude-opus-5-5, effort max.
-
-| Key | English | Translation | Context that decided it | Mirrors |
-| --- | --- | --- | --- | --- |
-| `CreatePdfCourses_labelPrintBaseMap_Text` | Include: | Isi: | label beside the combo box of what the file holds; "content" reads naturally before the items; doubt: Indonesian has no earlier translation of "course"; "lintasan" (track) is a guess | MainFrame_courseMenu_Text ChangeMapFile_Text |
-| `CreatePdfCourses_comboBoxPrintBaseMap_Items` | Course and map | Lintasan dan peta | the file holds the course over the base map; doubt: Indonesian has no earlier translation of "course"; "lintasan" (track) is a guess | MainFrame_courseMenu_Text ChangeMapFile_Text |
-| `CreatePdfCourses_comboBoxPrintBaseMap_Items1` | Course only | Lintasan saja | the file holds the course without the base map; doubt: Indonesian has no earlier translation of "course"; "lintasan" (track) is a guess | MainFrame_courseMenu_Text ChangeMapFile_Text |
-| `CreateImageFiles_labelPrintBaseMap_Text` | Include: | Isi: | label beside the combo box of what the file holds; "content" reads naturally before the items; doubt: Indonesian has no earlier translation of "course"; "lintasan" (track) is a guess | MainFrame_courseMenu_Text ChangeMapFile_Text |
-| `CreateImageFiles_comboBoxPrintBaseMap_Items` | Course and map | Lintasan dan peta | the file holds the course over the base map; doubt: Indonesian has no earlier translation of "course"; "lintasan" (track) is a guess | MainFrame_courseMenu_Text ChangeMapFile_Text |
-| `CreateImageFiles_comboBoxPrintBaseMap_Items1` | Course only | Lintasan saja | the file holds the course without the base map; doubt: Indonesian has no earlier translation of "course"; "lintasan" (track) is a guess | MainFrame_courseMenu_Text ChangeMapFile_Text |
 
 #### it
 
@@ -215,19 +176,6 @@ Made by claude-opus-5-5, effort max.
 | `SelectionDescriptionText_TextLine_AboveAllCourses` | Appears above {0}, in all courses that contain {0} | {0} の上に表示、{0} を含む全てのコース<br>(corrects: {0} の上に表示、(0} を含む全てのコース) | "(0}" is "{0}" mistyped; string.Format throws on it |  |
 | `SelectionDescriptionText.TextLine_BelowAllCourses` | Appears below {0}, in all courses that contain {0} | {0} の下に表示、{0} を含む全てのコース<br>(corrects: {0} の下に表示、(0} を含む全てのコース) | "(0}" is "{0}" mistyped; string.Format throws on it |  |
 | `SelectionDescriptionText_TextLine_BelowAllCourses` | Appears below {0}, in all courses that contain {0} | {0} の下に表示、{0} を含む全てのコース<br>(corrects: {0} の下に表示、(0} を含む全てのコース) | "(0}" is "{0}" mistyped; string.Format throws on it |  |
-
-#### ku
-
-Made by claude-opus-5-5, effort max.
-
-| Key | English | Translation | Context that decided it | Mirrors |
-| --- | --- | --- | --- | --- |
-| `CreatePdfCourses_labelPrintBaseMap_Text` | Include: | Naverok: | label beside the combo box of what the file holds; "content" reads naturally before the items; doubt: Kurmanji has no earlier translation of "course"; "rê" (way) is a guess | MainFrame_courseMenu_Text ChangeMapFile_Text |
-| `CreatePdfCourses_comboBoxPrintBaseMap_Items` | Course and map | Rê û nexşe | the file holds the course over the base map; doubt: Kurmanji has no earlier translation of "course"; "rê" (way) is a guess | MainFrame_courseMenu_Text ChangeMapFile_Text |
-| `CreatePdfCourses_comboBoxPrintBaseMap_Items1` | Course only | Tenê rê | the file holds the course without the base map; doubt: Kurmanji has no earlier translation of "course"; "rê" (way) is a guess | MainFrame_courseMenu_Text ChangeMapFile_Text |
-| `CreateImageFiles_labelPrintBaseMap_Text` | Include: | Naverok: | label beside the combo box of what the file holds; "content" reads naturally before the items; doubt: Kurmanji has no earlier translation of "course"; "rê" (way) is a guess | MainFrame_courseMenu_Text ChangeMapFile_Text |
-| `CreateImageFiles_comboBoxPrintBaseMap_Items` | Course and map | Rê û nexşe | the file holds the course over the base map; doubt: Kurmanji has no earlier translation of "course"; "rê" (way) is a guess | MainFrame_courseMenu_Text ChangeMapFile_Text |
-| `CreateImageFiles_comboBoxPrintBaseMap_Items1` | Course only | Tenê rê | the file holds the course without the base map; doubt: Kurmanji has no earlier translation of "course"; "rê" (way) is a guess | MainFrame_courseMenu_Text ChangeMapFile_Text |
 
 #### nb-NO
 
@@ -394,19 +342,6 @@ Made by claude-opus-5-5, effort max.
 | `CreateImageFiles_comboBoxPrintBaseMap_Items` | Course and map | Дистанція і карта | the file holds the course over the base map | MainFrame_courseMenu_Text ChangeMapFile_Text |
 | `CreateImageFiles_comboBoxPrintBaseMap_Items1` | Course only | Лише дистанція | the file holds the course without the base map | MainFrame_courseMenu_Text ChangeMapFile_Text |
 
-#### vec
-
-Made by claude-opus-5-5, effort max.
-
-| Key | English | Translation | Context that decided it | Mirrors |
-| --- | --- | --- | --- | --- |
-| `CreatePdfCourses_labelPrintBaseMap_Text` | Include: | Contenuo: | label beside the combo box of what the file holds; "content" reads naturally before the items; doubt: Venetian has no earlier translations; the words follow Italian | MainFrame_courseMenu_Text ChangeMapFile_Text |
-| `CreatePdfCourses_comboBoxPrintBaseMap_Items` | Course and map | Percorso e mapa | the file holds the course over the base map; doubt: Venetian has no earlier translations; the words follow Italian | MainFrame_courseMenu_Text ChangeMapFile_Text |
-| `CreatePdfCourses_comboBoxPrintBaseMap_Items1` | Course only | Solo el percorso | the file holds the course without the base map; doubt: Venetian has no earlier translations; the words follow Italian | MainFrame_courseMenu_Text ChangeMapFile_Text |
-| `CreateImageFiles_labelPrintBaseMap_Text` | Include: | Contenuo: | label beside the combo box of what the file holds; "content" reads naturally before the items; doubt: Venetian has no earlier translations; the words follow Italian | MainFrame_courseMenu_Text ChangeMapFile_Text |
-| `CreateImageFiles_comboBoxPrintBaseMap_Items` | Course and map | Percorso e mapa | the file holds the course over the base map; doubt: Venetian has no earlier translations; the words follow Italian | MainFrame_courseMenu_Text ChangeMapFile_Text |
-| `CreateImageFiles_comboBoxPrintBaseMap_Items1` | Course only | Solo el percorso | the file holds the course without the base map; doubt: Venetian has no earlier translations; the words follow Italian | MainFrame_courseMenu_Text ChangeMapFile_Text |
-
 #### zh-CN
 
 Made by claude-opus-5-5, effort max.
@@ -427,19 +362,6 @@ Made by claude-opus-5-5, effort max.
 | `MiscText_PartXOfY` | Part {0} (of {1}) | 第 {0} 部分（共 {1} 部分）<br>(corrects: （除了{0} {一}）) | "（除了{0} {一}）" means "except {0} {one}"; "{一}" is not a placeholder |  |
 | `CommandNameText.CreateMapFiles` | Create {0} &Files | 创建 {0} 文件(&F)<br>(corrects: 创建{0}和文件) | 和 ("and") stands for the access-key mark "&" (task 9); mirrors zh-TW |  |
 | `CommandNameText_CreateMapFiles` | Create {0} _Files | 创建 {0} 文件(_F)<br>(corrects: 创建{0}和文件) | 和 ("and") stands for the access-key mark "&" (task 9); mirrors zh-TW |  |
-
-#### zh-HK
-
-Made by claude-opus-5-5, effort max.
-
-| Key | English | Translation | Context that decided it | Mirrors |
-| --- | --- | --- | --- | --- |
-| `CreatePdfCourses_labelPrintBaseMap_Text` | Include: | 內容： | label beside the combo box of what the file holds; "content" reads naturally before the items; doubt: zh-HK has no earlier translations; the terms follow zh-TW | MainFrame_courseMenu_Text ChangeMapFile_Text |
-| `CreatePdfCourses_comboBoxPrintBaseMap_Items` | Course and map | 賽程及地圖 | the file holds the course over the base map; doubt: zh-HK has no earlier translations; the terms follow zh-TW | MainFrame_courseMenu_Text ChangeMapFile_Text |
-| `CreatePdfCourses_comboBoxPrintBaseMap_Items1` | Course only | 只有賽程 | the file holds the course without the base map; doubt: zh-HK has no earlier translations; the terms follow zh-TW | MainFrame_courseMenu_Text ChangeMapFile_Text |
-| `CreateImageFiles_labelPrintBaseMap_Text` | Include: | 內容： | label beside the combo box of what the file holds; "content" reads naturally before the items; doubt: zh-HK has no earlier translations; the terms follow zh-TW | MainFrame_courseMenu_Text ChangeMapFile_Text |
-| `CreateImageFiles_comboBoxPrintBaseMap_Items` | Course and map | 賽程及地圖 | the file holds the course over the base map; doubt: zh-HK has no earlier translations; the terms follow zh-TW | MainFrame_courseMenu_Text ChangeMapFile_Text |
-| `CreateImageFiles_comboBoxPrintBaseMap_Items1` | Course only | 只有賽程 | the file holds the course without the base map; doubt: zh-HK has no earlier translations; the terms follow zh-TW | MainFrame_courseMenu_Text ChangeMapFile_Text |
 
 #### zh-TW
 
