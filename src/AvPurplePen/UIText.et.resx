@@ -2014,7 +2014,8 @@
     <value>O_madused...</value>
   </data>
   <data name="MainFrame_courseOrderMenu_Text" xml:space="preserve">
-    <value>Radade _järjekod...</value>
+    <value>Radade _järjekord...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_courseLoadMenu_Text" xml:space="preserve">
     <value>Osalejate _arv...</value>
@@ -2056,7 +2057,8 @@
     <value>Tähistuseta</value>
   </data>
   <data name="MainFrame_entireFlaggingMenu_Text" xml:space="preserve">
-    <value>Lisa etapi märgistus</value>
+    <value>Kogu etapp tähistatud</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_beginFlaggingMenu_Text" xml:space="preserve">
     <value>Etapi algus on tähistatud</value>
@@ -2068,7 +2070,8 @@
     <value>_Tähistatud etapp</value>
   </data>
   <data name="MainFrame_changeDisplayedCoursesMenu_Text" xml:space="preserve">
-    <value>Muuda valitud radade...</value>
+    <value>Muuda _valitud radu...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_itemMenu_Text" xml:space="preserve">
     <value>Sümbol</value>
@@ -2098,7 +2101,8 @@
     <value>Purple Pen Abi (Tõlgitud)</value>
   </data>
   <data name="MainFrame_mainWebSiteToolMenu_Text" xml:space="preserve">
-    <value>Purpe Pen _Kodulehekülg</value>
+    <value>Purple Pen _kodulehekülg</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_supportWebSiteMenu_Text" xml:space="preserve">
     <value>_Tugi ja vigadest teadaandmine</value>

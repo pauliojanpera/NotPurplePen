@@ -1682,29 +1682,59 @@
   <data name="MainFrame_deleteCourseMenu_Text" xml:space="preserve">
     <value>_Slett løype</value>
   </data>
+  <data name="MainFrame_duplicateCourseMenu_Text" xml:space="preserve">
+    <value>_Kopier løype...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_propertiesMenu_Text" xml:space="preserve">
     <value>_Eigenskapar …</value>
+  </data>
+  <data name="MainFrame_courseOrderMenu_Text" xml:space="preserve">
+    <value>_Rekkefølgje på løyper...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_courseLoadMenu_Text" xml:space="preserve">
     <value>Antall deltakarar</value>
   </data>
+  <data name="MainFrame_courseVariationReportMenu_Text" xml:space="preserve">
+    <value>Stafett_variantar...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_courseMenu_Text" xml:space="preserve">
     <value>_Løype</value>
   </data>
+  <data name="MainFrame_deleteForkMenu_Text" xml:space="preserve">
+    <value>Slett _gafling/sommarfugl</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_addBendMenu_Text" xml:space="preserve">
-    <value>Legg til _bend</value>
+    <value>Legg til _knekkpunkt</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_removeBendMenu_Text" xml:space="preserve">
-    <value>Slett bend</value>
+    <value>Slett k_nekkpunkt</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_addGapMenu_Text" xml:space="preserve">
     <value>Klipp linje</value>
   </data>
+  <data name="MainFrame_removeGapMenu_Text" xml:space="preserve">
+    <value>Slett å_pning</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_changeTextMenu_Text" xml:space="preserve">
     <value>Endre _tekst</value>
   </data>
+  <data name="MainFrame_changeLineAppearanceMenu_Text" xml:space="preserve">
+    <value>Endre _utsjånad på linje...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_rotateMenu_Text" xml:space="preserve">
     <value>R_otere</value>
+  </data>
+  <data name="MainFrame_stretchMenu_Text" xml:space="preserve">
+    <value>St_rekk ut</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_noFlaggingMenu_Text" xml:space="preserve">
     <value>Ingen merking</value>
@@ -1719,7 +1749,8 @@
     <value>Slutten av strekket merka</value>
   </data>
   <data name="MainFrame_legFlaggingMenu_Text" xml:space="preserve">
-    <value>_Merket strekk</value>
+    <value>_Merka strekk</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_changeDisplayedCoursesMenu_Text" xml:space="preserve">
     <value>Endre viste løyper</value>
@@ -1740,7 +1771,8 @@
     <value>Poster _kryssreferanser</value>
   </data>
   <data name="MainFrame_controlAndLegLoadMenu_Text" xml:space="preserve">
-    <value>Statistikk for post-og strekkutnyttelse</value>
+    <value>Statistikk for post- og strekkutnytting</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_reportMenu_Text" xml:space="preserve">
     <value>_Rapportar</value>
@@ -1753,10 +1785,15 @@
     <value>Purple Pen Hjelp (norsk)</value>
   </data>
   <data name="MainFrame_mainWebSiteToolMenu_Text" xml:space="preserve">
-    <value>Purple Pen _hjemmeside</value>
+    <value>Purple Pen h_eimeside</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_supportWebSiteMenu_Text" xml:space="preserve">
     <value>_Support/feilrapportering</value>
+  </data>
+  <data name="MainFrame_donateWebSiteMenu_Text" xml:space="preserve">
+    <value>_Gje eit bidrag</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_aboutMenu_Text" xml:space="preserve">
     <value>_Om Purple Pen</value>

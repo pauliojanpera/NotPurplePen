@@ -2049,10 +2049,12 @@
     <value>Toda a Pernada Balizada</value>
   </data>
   <data name="MainFrame_beginFlaggingMenu_Text" xml:space="preserve">
-    <value>Início de Percurso Balizado</value>
+    <value>Início da Pernada Balizada</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_endFlaggingMenu_Text" xml:space="preserve">
-    <value>Fim de Percurso Balizado</value>
+    <value>Fim da Pernada Balizada</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_legFlaggingMenu_Text" xml:space="preserve">
     <value>Pernada Balizada</value>
@@ -2076,7 +2078,8 @@
     <value>Referência _Cruzada de Controlos</value>
   </data>
   <data name="MainFrame_controlAndLegLoadMenu_Text" xml:space="preserve">
-    <value>Carregar Controlos e Pernadas (_D)</value>
+    <value>Carga de Controlos e Pernadas (_D)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_reportMenu_Text" xml:space="preserve">
     <value>_Relatórios</value>
@@ -2091,7 +2094,8 @@
     <value>Página _Web Purple Pen</value>
   </data>
   <data name="MainFrame_supportWebSiteMenu_Text" xml:space="preserve">
-    <value>_Suporte/Report de Bugs</value>
+    <value>_Suporte/Relatório de erros</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_donateWebSiteMenu_Text" xml:space="preserve">
     <value>Fazer _Donativo</value>

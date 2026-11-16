@@ -2056,10 +2056,12 @@
     <value>Parkur _Sırası...</value>
   </data>
   <data name="MainFrame_courseLoadMenu_Text" xml:space="preserve">
-    <value>Rakip _Yükle...</value>
+    <value>Yarışmacı _Yükü...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_courseVariationReportMenu_Text" xml:space="preserve">
-    <value>Röle Takımı _Varyasyonlar...</value>
+    <value>Bayrak Takımı _Varyasyonları...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_courseMenu_Text" xml:space="preserve">
     <value>_Parkur</value>
@@ -2068,22 +2070,26 @@
     <value>Ayrım/Döngü Sil</value>
   </data>
   <data name="MainFrame_addBendMenu_Text" xml:space="preserve">
-    <value>Ekle_Kıvrım</value>
+    <value>_Bükme Ekle</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_removeBendMenu_Text" xml:space="preserve">
     <value>Bükme Sil</value>
   </data>
   <data name="MainFrame_addGapMenu_Text" xml:space="preserve">
-    <value>Ekle_Açıklık</value>
+    <value>B_oşluk Ekle</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_removeGapMenu_Text" xml:space="preserve">
     <value>Boşluğu kaldır</value>
   </data>
   <data name="MainFrame_changeTextMenu_Text" xml:space="preserve">
-    <value>Değiştir _Metin...</value>
+    <value>_Metni Değiştir...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_changeLineAppearanceMenu_Text" xml:space="preserve">
-    <value>Satır _Görünümünü Değiştir...</value>
+    <value>Çizgi _Görünümünü Değiştir...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_rotateMenu_Text" xml:space="preserve">
     <value>Döndür</value>
@@ -2095,16 +2101,20 @@
     <value>İşaretleme Yok</value>
   </data>
   <data name="MainFrame_entireFlaggingMenu_Text" xml:space="preserve">
-    <value>Tüm Bacak İşaretlendi</value>
+    <value>Tüm Ayak İşaretlendi</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_beginFlaggingMenu_Text" xml:space="preserve">
-    <value>Bacak Bayraklı Başlangıcı</value>
+    <value>Ayak Başlangıcı İşaretlendi</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_endFlaggingMenu_Text" xml:space="preserve">
-    <value>Bacak Sonu İşaretlendi</value>
+    <value>Ayak Sonu İşaretlendi</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_legFlaggingMenu_Text" xml:space="preserve">
-    <value>_Bacak İşaretleme</value>
+    <value>_Ayak İşaretleme</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_changeDisplayedCoursesMenu_Text" xml:space="preserve">
     <value>Görüntülenen Parkurları Değiştir...</value>
@@ -2113,22 +2123,28 @@
     <value>_Nesne</value>
   </data>
   <data name="MainFrame_courseSummaryMenu_Text" xml:space="preserve">
-    <value>Parkur _Özet</value>
+    <value>Parkur _Özeti</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_eventAuditMenu_Text" xml:space="preserve">
-    <value>Etkinlik _Denetim</value>
+    <value>Etkinlik _Denetimi</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_legLengthsMenu_Text" xml:space="preserve">
-    <value>_Bacak Uzunlukları</value>
+    <value>_Ayak Uzunlukları</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_controlCrossrefMenu_Text" xml:space="preserve">
-    <value>Kontrol _Çapraz referans</value>
+    <value>Kontrol _Çapraz Referansı</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_controlAndLegLoadMenu_Text" xml:space="preserve">
-    <value>Kontrol ve Bacak Yükleme</value>
+    <value>Kontrol ve Ayak _Yükü</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_reportMenu_Text" xml:space="preserve">
-    <value>_Rapor</value>
+    <value>_Raporlar</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_helpContentsMenu_Text" xml:space="preserve">
     <value>Purple Pen _Yardım</value>

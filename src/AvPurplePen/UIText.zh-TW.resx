@@ -2076,7 +2076,8 @@
     <value>檢查點對照</value>
   </data>
   <data name="MainFrame_controlAndLegLoadMenu_Text" xml:space="preserve">
-    <value>檢查點與賽段載入</value>
+    <value>檢查點與賽段負荷量</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_reportMenu_Text" xml:space="preserve">
     <value>報告</value>

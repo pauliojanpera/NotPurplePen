@@ -2023,13 +2023,15 @@
     <value>_Egenskaper …</value>
   </data>
   <data name="MainFrame_courseOrderMenu_Text" xml:space="preserve">
-    <value>Løype _Rekkefølge...</value>
+    <value>Løype_rekkefølge...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_courseLoadMenu_Text" xml:space="preserve">
     <value>Antall deltakere</value>
   </data>
   <data name="MainFrame_courseVariationReportMenu_Text" xml:space="preserve">
-    <value>Stafett lag _Varianter...</value>
+    <value>Stafett_varianter...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_courseMenu_Text" xml:space="preserve">
     <value>_Løype</value>
@@ -2038,10 +2040,12 @@
     <value>Slett gafling/sommerfugl</value>
   </data>
   <data name="MainFrame_addBendMenu_Text" xml:space="preserve">
-    <value>Legg til _bend</value>
+    <value>Legg til _knekkpunkt</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_removeBendMenu_Text" xml:space="preserve">
-    <value>Slett bend</value>
+    <value>Slett k_nekkpunkt</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_addGapMenu_Text" xml:space="preserve">
     <value>Klipp linje</value>
@@ -2095,7 +2099,8 @@
     <value>Poster _kryssreferanser</value>
   </data>
   <data name="MainFrame_controlAndLegLoadMenu_Text" xml:space="preserve">
-    <value>Statistikk for post-og strekkutnyttelse</value>
+    <value>Statistikk for post- og strekkutnyttelse</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_reportMenu_Text" xml:space="preserve">
     <value>_Rapporter</value>

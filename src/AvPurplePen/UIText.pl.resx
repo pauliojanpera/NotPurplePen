@@ -1874,8 +1874,16 @@
   <data name="MainFrame_courseLoadMenu_Text" xml:space="preserve">
     <value>_Obciążenie zawodnikami...</value>
   </data>
+  <data name="MainFrame_courseVariationReportMenu_Text" xml:space="preserve">
+    <value>Warianty drużyn _sztafetowych...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_courseMenu_Text" xml:space="preserve">
     <value>_Trasa</value>
+  </data>
+  <data name="MainFrame_deleteForkMenu_Text" xml:space="preserve">
+    <value>Usuń _rozwidlenie/pętlę</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_addBendMenu_Text" xml:space="preserve">
     <value>_Dodaj punkt zgięcia</value>
@@ -1886,6 +1894,10 @@
   <data name="MainFrame_addGapMenu_Text" xml:space="preserve">
     <value>_Dodaj przerwę</value>
   </data>
+  <data name="MainFrame_removeGapMenu_Text" xml:space="preserve">
+    <value>Usuń _przerwę</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_changeTextMenu_Text" xml:space="preserve">
     <value>Zmień _tekst...</value>
   </data>
@@ -1894,6 +1906,10 @@
   </data>
   <data name="MainFrame_rotateMenu_Text" xml:space="preserve">
     <value>_Obróć</value>
+  </data>
+  <data name="MainFrame_stretchMenu_Text" xml:space="preserve">
+    <value>Ro_zciągnij</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_noFlaggingMenu_Text" xml:space="preserve">
     <value>Brak otaśmowania</value>
@@ -1947,7 +1963,8 @@
     <value>_Wsparcie/Zgłaszanie błędów</value>
   </data>
   <data name="MainFrame_donateWebSiteMenu_Text" xml:space="preserve">
-    <value>Złóź darowiznę</value>
+    <value>_Złóż darowiznę</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_aboutMenu_Text" xml:space="preserve">
     <value>_O Purple Pen</value>

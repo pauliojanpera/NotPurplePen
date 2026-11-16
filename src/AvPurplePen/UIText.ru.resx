@@ -1095,6 +1095,166 @@
     <value>Со_ревнование</value>
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
+  <data name="MainFrame_addCourseMenu_Text" xml:space="preserve">
+    <value>_Добавить дистанцию...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_deleteCourseMenu_Text" xml:space="preserve">
+    <value>_Удалить дистанцию</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_duplicateCourseMenu_Text" xml:space="preserve">
+    <value>Ду_блировать дистанцию...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_propertiesMenu_Text" xml:space="preserve">
+    <value>_Свойства...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_courseOrderMenu_Text" xml:space="preserve">
+    <value>_Порядок дистанций...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_courseLoadMenu_Text" xml:space="preserve">
+    <value>_Число участников...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_courseVariationReportMenu_Text" xml:space="preserve">
+    <value>_Варианты рассеивания эстафетных команд...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_courseMenu_Text" xml:space="preserve">
+    <value>Д_истанция</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_deleteForkMenu_Text" xml:space="preserve">
+    <value>Удалить развил_ку/петлю</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addBendMenu_Text" xml:space="preserve">
+    <value>Добавить _излом</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_removeBendMenu_Text" xml:space="preserve">
+    <value>Удалить из_лом</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_addGapMenu_Text" xml:space="preserve">
+    <value>Добавить _разрыв</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_removeGapMenu_Text" xml:space="preserve">
+    <value>Удалить ра_зрыв</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_changeTextMenu_Text" xml:space="preserve">
+    <value>Изменить _текст...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_changeLineAppearanceMenu_Text" xml:space="preserve">
+    <value>Изменить _вид линии...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_rotateMenu_Text" xml:space="preserve">
+    <value>П_овернуть</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_stretchMenu_Text" xml:space="preserve">
+    <value>Р_астянуть</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_noFlaggingMenu_Text" xml:space="preserve">
+    <value>Без разметки</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_entireFlaggingMenu_Text" xml:space="preserve">
+    <value>Весь перегон размечен</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_beginFlaggingMenu_Text" xml:space="preserve">
+    <value>Начало перегона размечено</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_endFlaggingMenu_Text" xml:space="preserve">
+    <value>Конец перегона размечен</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_legFlaggingMenu_Text" xml:space="preserve">
+    <value>Разметка _перегона</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_changeDisplayedCoursesMenu_Text" xml:space="preserve">
+    <value>Изменить показываемые _дистанции...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_itemMenu_Text" xml:space="preserve">
+    <value>_Элемент</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_courseSummaryMenu_Text" xml:space="preserve">
+    <value>_Сводка по дистанциям</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_eventAuditMenu_Text" xml:space="preserve">
+    <value>_Проверка соревнования</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_legLengthsMenu_Text" xml:space="preserve">
+    <value>_Длины перегонов</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_controlCrossrefMenu_Text" xml:space="preserve">
+    <value>Перекрёстная _таблица КП</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_controlAndLegLoadMenu_Text" xml:space="preserve">
+    <value>_Нагрузка на КП и перегоны</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_reportMenu_Text" xml:space="preserve">
+    <value>_Отчёты</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_helpContentsMenu_Text" xml:space="preserve">
+    <value>_Справка Purple Pen</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_helpTranslatedMenu_Text" xml:space="preserve">
+    <value>Справка Purple Pen (на русском)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_mainWebSiteToolMenu_Text" xml:space="preserve">
+    <value>_Веб-сайт Purple Pen</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_supportWebSiteMenu_Text" xml:space="preserve">
+    <value>_Поддержка/Сообщить об ошибке</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_donateWebSiteMenu_Text" xml:space="preserve">
+    <value>С_делать пожертвование</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_aboutMenu_Text" xml:space="preserve">
+    <value>_О Purple Pen</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_symbolBrowserMenu_Text" xml:space="preserve">
+    <value>Обозреватель символов</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_descriptionBrowserMenu_Text" xml:space="preserve">
+    <value>Обозреватель легенд</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_controlTesterMenu_Text" xml:space="preserve">
+    <value>Тестер КП</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_mapTesterMenu_Text" xml:space="preserve">
+    <value>Тестер карты</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="PrintDescriptions_orientation_Text" xml:space="preserve">
     <value>Альбомная</value>
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>

@@ -2107,22 +2107,27 @@
     <value>Tuki/_Virheraportointi</value>
   </data>
   <data name="MainFrame_donateWebSiteMenu_Text" xml:space="preserve">
-    <value>Make a _Donation</value>
+    <value>_Lahjoita</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_aboutMenu_Text" xml:space="preserve">
     <value>_Tietoja ohjelmasta</value>
   </data>
   <data name="MainFrame_symbolBrowserMenu_Text" xml:space="preserve">
-    <value>Symbol Browser</value>
+    <value>Symboliselain</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_descriptionBrowserMenu_Text" xml:space="preserve">
-    <value>Description Browser</value>
+    <value>Rastinmääriteselain</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_controlTesterMenu_Text" xml:space="preserve">
-    <value>Control Tester</value>
+    <value>Rastitesteri</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_mapTesterMenu_Text" xml:space="preserve">
-    <value>Map Tester</value>
+    <value>Karttatesteri</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_courseSelectorTesterMenu_Text" xml:space="preserve">
     <value>Course Selector Tester</value>

@@ -2016,6 +2016,10 @@
   <data name="MainFrame_addGapMenu_Text" xml:space="preserve">
     <value>Hacer un _recorte</value>
   </data>
+  <data name="MainFrame_removeGapMenu_Text" xml:space="preserve">
+    <value>Su_primir recorte</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_changeTextMenu_Text" xml:space="preserve">
     <value>Cambiar _texto</value>
   </data>
@@ -2024,6 +2028,10 @@
   </data>
   <data name="MainFrame_rotateMenu_Text" xml:space="preserve">
     <value>R_otar</value>
+  </data>
+  <data name="MainFrame_stretchMenu_Text" xml:space="preserve">
+    <value>E_stirar</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_noFlaggingMenu_Text" xml:space="preserve">
     <value>Sin balizado</value>
@@ -2041,7 +2049,8 @@
     <value>_Tramo balizado</value>
   </data>
   <data name="MainFrame_changeDisplayedCoursesMenu_Text" xml:space="preserve">
-    <value>_Cambiar rutas en que aparece...</value>
+    <value>_Cambiar recorridos en que aparece...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_itemMenu_Text" xml:space="preserve">
     <value>_Elementos</value>

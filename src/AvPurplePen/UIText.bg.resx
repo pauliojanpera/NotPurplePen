@@ -2076,7 +2076,8 @@
     <value>Цялата отсечка е маркирана</value>
   </data>
   <data name="MainFrame_beginFlaggingMenu_Text" xml:space="preserve">
-    <value>Началото на отсечката е маркиран</value>
+    <value>Началото на отсечката е маркирано</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_endFlaggingMenu_Text" xml:space="preserve">
     <value>Краят на отсечката е маркиран</value>

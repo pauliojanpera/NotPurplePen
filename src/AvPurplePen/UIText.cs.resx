@@ -2020,7 +2020,8 @@
     <value>Smazat větvení</value>
   </data>
   <data name="MainFrame_addBendMenu_Text" xml:space="preserve">
-    <value>Přida _ohyb</value>
+    <value>Přidat ohy_b</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_removeBendMenu_Text" xml:space="preserve">
     <value>Odebrat o_hyb</value>
@@ -2041,22 +2042,28 @@
     <value>_Otočit</value>
   </data>
   <data name="MainFrame_stretchMenu_Text" xml:space="preserve">
-    <value>_Stretch</value>
+    <value>_Roztáhnout</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_noFlaggingMenu_Text" xml:space="preserve">
-    <value>Bez zančení</value>
+    <value>Bez značení</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_entireFlaggingMenu_Text" xml:space="preserve">
-    <value>Celý úsek je značený</value>
+    <value>Celý postup je značený</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_beginFlaggingMenu_Text" xml:space="preserve">
-    <value>Začátek úseku je značený</value>
+    <value>Začátek postupu je značený</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_endFlaggingMenu_Text" xml:space="preserve">
-    <value>Konec úseku je značený</value>
+    <value>Konec postupu je značený</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_legFlaggingMenu_Text" xml:space="preserve">
-    <value>_Značení úseku</value>
+    <value>Značení _postupu</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_changeDisplayedCoursesMenu_Text" xml:space="preserve">
     <value>Z_měnit zobrazené tratě</value>
@@ -2071,13 +2078,15 @@
     <value>_Revize závodu</value>
   </data>
   <data name="MainFrame_legLengthsMenu_Text" xml:space="preserve">
-    <value>Dé_lky úseků</value>
+    <value>Dé_lky postupů</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_controlCrossrefMenu_Text" xml:space="preserve">
     <value>Užití kontrol</value>
   </data>
   <data name="MainFrame_controlAndLegLoadMenu_Text" xml:space="preserve">
-    <value>užití kontrol a úseků</value>
+    <value>_Vytížení kontrol a postupů</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_reportMenu_Text" xml:space="preserve">
     <value>_Výkazy</value>

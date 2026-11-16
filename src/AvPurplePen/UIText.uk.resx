@@ -2039,7 +2039,8 @@
     <value>Не промарковано</value>
   </data>
   <data name="MainFrame_entireFlaggingMenu_Text" xml:space="preserve">
-    <value>Весь перегон маркований</value>
+    <value>Весь перегін маркований</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_beginFlaggingMenu_Text" xml:space="preserve">
     <value>Початок перегону маркований</value>
@@ -2063,7 +2064,8 @@
     <value>Аудит змагань</value>
   </data>
   <data name="MainFrame_legLengthsMenu_Text" xml:space="preserve">
-    <value>_Довжити перегонів</value>
+    <value>_Довжини перегонів</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_controlCrossrefMenu_Text" xml:space="preserve">
     <value>Перехре_сність КП</value>
@@ -2097,6 +2099,14 @@
   </data>
   <data name="MainFrame_descriptionBrowserMenu_Text" xml:space="preserve">
     <value>Переглядач піктограм</value>
+  </data>
+  <data name="MainFrame_controlTesterMenu_Text" xml:space="preserve">
+    <value>Тестер КП</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_mapTesterMenu_Text" xml:space="preserve">
+    <value>Тестер карти</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_crashToolStripMenuItem_Text" xml:space="preserve">
     <value>Аварійне завершення роботи</value>

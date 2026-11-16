@@ -2010,7 +2010,8 @@
     <value>Tu_lajdonságok…</value>
   </data>
   <data name="MainFrame_courseOrderMenu_Text" xml:space="preserve">
-    <value>Pálya sorrend...</value>
+    <value>Pálya_sorrend...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_courseLoadMenu_Text" xml:space="preserve">
     <value>_Versenyzőszám...</value>
@@ -2040,10 +2041,15 @@
     <value>Szöveg módosítása...</value>
   </data>
   <data name="MainFrame_changeLineAppearanceMenu_Text" xml:space="preserve">
-    <value>_Sor kinézete...</value>
+    <value>_Vonal kinézetének módosítása...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_rotateMenu_Text" xml:space="preserve">
     <value>_Forgatás</value>
+  </data>
+  <data name="MainFrame_stretchMenu_Text" xml:space="preserve">
+    <value>_Nyújtás</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_noFlaggingMenu_Text" xml:space="preserve">
     <value>Nincs szalagozás</value>

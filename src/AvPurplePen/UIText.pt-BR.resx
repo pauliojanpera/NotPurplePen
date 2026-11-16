@@ -2010,7 +2010,8 @@
     <value>_Propriedades...</value>
   </data>
   <data name="MainFrame_courseOrderMenu_Text" xml:space="preserve">
-    <value>Percurso e _Ordem...</value>
+    <value>_Ordem do Percurso...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_courseLoadMenu_Text" xml:space="preserve">
     <value>(_L) Densidade de Competidores...</value>
@@ -2073,7 +2074,8 @@
     <value>Re_sumo do Percurso</value>
   </data>
   <data name="MainFrame_eventAuditMenu_Text" xml:space="preserve">
-    <value>_Auditoria do Percurso</value>
+    <value>_Auditoria do Evento</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_legLengthsMenu_Text" xml:space="preserve">
     <value>_Distâncias das Pernadas</value>
@@ -2082,7 +2084,8 @@
     <value>Referência _Cruzada de Controles</value>
   </data>
   <data name="MainFrame_controlAndLegLoadMenu_Text" xml:space="preserve">
-    <value>Carre_gar Pernada e Controle</value>
+    <value>Car_ga de Controles e Pernadas</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_reportMenu_Text" xml:space="preserve">
     <value>_Relatórios</value>
@@ -2103,7 +2106,8 @@
     <value>Fazer uma _Doação</value>
   </data>
   <data name="MainFrame_aboutMenu_Text" xml:space="preserve">
-    <value>_Sobre o  Purple Pen</value>
+    <value>S_obre o Purple Pen</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_symbolBrowserMenu_Text" xml:space="preserve">
     <value>Navegador de Símbolos</value>

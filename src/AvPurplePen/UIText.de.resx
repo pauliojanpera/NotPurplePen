@@ -2050,7 +2050,8 @@
     <value>Text _ändern</value>
   </data>
   <data name="MainFrame_changeLineAppearanceMenu_Text" xml:space="preserve">
-    <value>Linie _Aussehen ändern</value>
+    <value>Linienaus_sehen ändern...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_rotateMenu_Text" xml:space="preserve">
     <value>_Drehen</value>
@@ -2074,7 +2075,8 @@
     <value>Teilstrecke _ausflaggen</value>
   </data>
   <data name="MainFrame_changeDisplayedCoursesMenu_Text" xml:space="preserve">
-    <value>Anze_ige besonderer Objekte...</value>
+    <value>Angezeigte Bahnen _wechseln...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_itemMenu_Text" xml:space="preserve">
     <value>_Objekte</value>
@@ -2086,7 +2088,8 @@
     <value>Bahnüber_prüfung</value>
   </data>
   <data name="MainFrame_legLengthsMenu_Text" xml:space="preserve">
-    <value>Bahn_längen</value>
+    <value>Teilstrecken_längen</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_controlCrossrefMenu_Text" xml:space="preserve">
     <value>Bahn-Posten _Querverweise</value>

@@ -1809,6 +1809,38 @@
     <value>_Evenement</value>
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
+  <data name="MainFrame_addCourseMenu_Text" xml:space="preserve">
+    <value>Route _toevoegen...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_deleteCourseMenu_Text" xml:space="preserve">
+    <value>Route _verwijderen</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_duplicateCourseMenu_Text" xml:space="preserve">
+    <value>Route _dupliceren...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_propertiesMenu_Text" xml:space="preserve">
+    <value>_Eigenschappen...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_courseOrderMenu_Text" xml:space="preserve">
+    <value>V_olgorde route...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_courseLoadMenu_Text" xml:space="preserve">
+    <value>Drukte _per route...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_courseVariationReportMenu_Text" xml:space="preserve">
+    <value>V_arianten van estafetteteams...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_courseMenu_Text" xml:space="preserve">
+    <value>_Route</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_deleteForkMenu_Text" xml:space="preserve">
     <value>Verwijder a_fsplitsing/lus</value>
   </data>
@@ -1828,10 +1860,107 @@
     <value>Wijzig _tekst...</value>
   </data>
   <data name="MainFrame_changeLineAppearanceMenu_Text" xml:space="preserve">
-    <value>Wijzig lijn _weergave...</value>
+    <value>Wijzig _weergave van lijn...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_rotateMenu_Text" xml:space="preserve">
     <value>_Draai</value>
+  </data>
+  <data name="MainFrame_stretchMenu_Text" xml:space="preserve">
+    <value>_Uitrekken</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_noFlaggingMenu_Text" xml:space="preserve">
+    <value>Geen lint</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_entireFlaggingMenu_Text" xml:space="preserve">
+    <value>Hele been gelint</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_beginFlaggingMenu_Text" xml:space="preserve">
+    <value>Begin van been gelint</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_endFlaggingMenu_Text" xml:space="preserve">
+    <value>Einde van been gelint</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_legFlaggingMenu_Text" xml:space="preserve">
+    <value>Ge_lint been</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_changeDisplayedCoursesMenu_Text" xml:space="preserve">
+    <value>_Kies getoonde routes...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_itemMenu_Text" xml:space="preserve">
+    <value>_Voorwerp</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_courseSummaryMenu_Text" xml:space="preserve">
+    <value>_Routeoverzicht</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_eventAuditMenu_Text" xml:space="preserve">
+    <value>Controle van _evenement</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_legLengthsMenu_Text" xml:space="preserve">
+    <value>_Beenlengtes</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_controlCrossrefMenu_Text" xml:space="preserve">
+    <value>_Kruisverwijzing posten</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_controlAndLegLoadMenu_Text" xml:space="preserve">
+    <value>_Drukte per post en been</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_reportMenu_Text" xml:space="preserve">
+    <value>Ra_pporten</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_helpContentsMenu_Text" xml:space="preserve">
+    <value>Purple Pen _Help</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_helpTranslatedMenu_Text" xml:space="preserve">
+    <value>Purple Pen Help (Nederlands)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_mainWebSiteToolMenu_Text" xml:space="preserve">
+    <value>_Website van Purple Pen</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_supportWebSiteMenu_Text" xml:space="preserve">
+    <value>Ondersteuning/_Fouten melden</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_donateWebSiteMenu_Text" xml:space="preserve">
+    <value>_Doneren</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_aboutMenu_Text" xml:space="preserve">
+    <value>_Over Purple Pen</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_symbolBrowserMenu_Text" xml:space="preserve">
+    <value>Symboolbrowser</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_descriptionBrowserMenu_Text" xml:space="preserve">
+    <value>Omschrijvingenbrowser</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_controlTesterMenu_Text" xml:space="preserve">
+    <value>Posttester</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_mapTesterMenu_Text" xml:space="preserve">
+    <value>Kaarttester</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_helpMenu_Text" xml:space="preserve">
     <value>_Help</value>

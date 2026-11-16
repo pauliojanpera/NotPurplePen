@@ -1683,19 +1683,36 @@
     <value>Eve_niment</value>
   </data>
   <data name="MainFrame_addCourseMenu_Text" xml:space="preserve">
-    <value>_Adaugare Traseu...</value>
+    <value>_Adăugare traseu...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_deleteCourseMenu_Text" xml:space="preserve">
     <value>_Ștergere Traseu</value>
   </data>
+  <data name="MainFrame_duplicateCourseMenu_Text" xml:space="preserve">
+    <value>_Duplicare traseu...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_propertiesMenu_Text" xml:space="preserve">
     <value>_Proprietăți...</value>
+  </data>
+  <data name="MainFrame_courseOrderMenu_Text" xml:space="preserve">
+    <value>_Ordinea traseelor...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_courseLoadMenu_Text" xml:space="preserve">
     <value>_Încărcare Participanți...</value>
   </data>
+  <data name="MainFrame_courseVariationReportMenu_Text" xml:space="preserve">
+    <value>_Variante pentru echipele de ștafetă...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_courseMenu_Text" xml:space="preserve">
     <value>_Traseu</value>
+  </data>
+  <data name="MainFrame_deleteForkMenu_Text" xml:space="preserve">
+    <value>Ștergere _bifurcație/buclă</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_addBendMenu_Text" xml:space="preserve">
     <value>Adăugare _Curbă</value>
@@ -1706,11 +1723,23 @@
   <data name="MainFrame_addGapMenu_Text" xml:space="preserve">
     <value>Adăugare Spațiu _Gol</value>
   </data>
+  <data name="MainFrame_removeGapMenu_Text" xml:space="preserve">
+    <value>Ștergere s_pațiu gol</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_changeTextMenu_Text" xml:space="preserve">
     <value>Schimbare _Text...</value>
   </data>
+  <data name="MainFrame_changeLineAppearanceMenu_Text" xml:space="preserve">
+    <value>Schimbare _aspect linie...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_rotateMenu_Text" xml:space="preserve">
     <value>_Rotire</value>
+  </data>
+  <data name="MainFrame_stretchMenu_Text" xml:space="preserve">
+    <value>Î_ntindere</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_noFlaggingMenu_Text" xml:space="preserve">
     <value>Fără Semnalizare</value>
@@ -1746,7 +1775,8 @@
     <value>Referințe Încrucișate Posturi</value>
   </data>
   <data name="MainFrame_controlAndLegLoadMenu_Text" xml:space="preserve">
-    <value>_Încărcare Post de control si Secțiune</value>
+    <value>_Încărcare Post de control și Secțiune</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_reportMenu_Text" xml:space="preserve">
     <value>_Rapoarte</value>
@@ -1755,7 +1785,8 @@
     <value>_Asistență Purple Pen</value>
   </data>
   <data name="MainFrame_helpTranslatedMenu_Text" xml:space="preserve">
-    <value>Asistență Purple Pen (Tradus)</value>
+    <value>Asistență Purple Pen (Tradusă)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_mainWebSiteToolMenu_Text" xml:space="preserve">
     <value>Site-ul web Purple Pen</value>
@@ -1763,14 +1794,20 @@
   <data name="MainFrame_supportWebSiteMenu_Text" xml:space="preserve">
     <value>Asistență/_Raportare erori</value>
   </data>
+  <data name="MainFrame_donateWebSiteMenu_Text" xml:space="preserve">
+    <value>_Fă o donație</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_aboutMenu_Text" xml:space="preserve">
     <value>_Despre Purple Pen</value>
   </data>
   <data name="MainFrame_symbolBrowserMenu_Text" xml:space="preserve">
-    <value>Fruzărire Simboluri</value>
+    <value>Răsfoire Simboluri</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_descriptionBrowserMenu_Text" xml:space="preserve">
-    <value>Fruzărire Descrieri</value>
+    <value>Răsfoire Descrieri</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_controlTesterMenu_Text" xml:space="preserve">
     <value>Verificator Post</value>

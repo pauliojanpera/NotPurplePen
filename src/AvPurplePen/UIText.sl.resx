@@ -1649,29 +1649,61 @@
   <data name="MainFrame_deleteCourseMenu_Text" xml:space="preserve">
     <value>_Izbriši progo</value>
   </data>
+  <data name="MainFrame_duplicateCourseMenu_Text" xml:space="preserve">
+    <value>_Podvoji progo...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_propertiesMenu_Text" xml:space="preserve">
     <value>_Lastnosti...</value>
   </data>
+  <data name="MainFrame_courseOrderMenu_Text" xml:space="preserve">
+    <value>_Vrstni red prog...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_courseLoadMenu_Text" xml:space="preserve">
-    <value>Tekmovalec _Obremenitev...</value>
+    <value>Število _tekmovalcev...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_courseVariationReportMenu_Text" xml:space="preserve">
+    <value>V_ariante štafetnih ekip...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_courseMenu_Text" xml:space="preserve">
     <value>_Proga</value>
+  </data>
+  <data name="MainFrame_deleteForkMenu_Text" xml:space="preserve">
+    <value>Izbriši razcep/zan_ko</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_addBendMenu_Text" xml:space="preserve">
     <value>Dodaj _zavoj</value>
   </data>
   <data name="MainFrame_removeBendMenu_Text" xml:space="preserve">
-    <value>Izbriši Z_avoj</value>
+    <value>Izbriši za_voj</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_addGapMenu_Text" xml:space="preserve">
-    <value>Dodaj _Razmak</value>
+    <value>Dodaj _razmak</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_removeGapMenu_Text" xml:space="preserve">
+    <value>Izbriši raz_mak</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_changeTextMenu_Text" xml:space="preserve">
-    <value>Izbriši _Besedilo...</value>
+    <value>Spremeni _besedilo...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_changeLineAppearanceMenu_Text" xml:space="preserve">
+    <value>Spremeni videz _črte...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_rotateMenu_Text" xml:space="preserve">
     <value>Z_avrti</value>
+  </data>
+  <data name="MainFrame_stretchMenu_Text" xml:space="preserve">
+    <value>Raz_tegni</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_noFlaggingMenu_Text" xml:space="preserve">
     <value>Ni oznak</value>
@@ -1689,25 +1721,30 @@
     <value>_Označena etapa</value>
   </data>
   <data name="MainFrame_changeDisplayedCoursesMenu_Text" xml:space="preserve">
-    <value>Spremeni označ_eno progo...</value>
+    <value>Spremeni prikazane _proge...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_itemMenu_Text" xml:space="preserve">
     <value>_Objekt</value>
   </data>
   <data name="MainFrame_courseSummaryMenu_Text" xml:space="preserve">
-    <value>Proga _Povzetek</value>
+    <value>_Povzetek prog</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_eventAuditMenu_Text" xml:space="preserve">
-    <value>Prireditev _Pregled</value>
+    <value>P_regled prireditve</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_legLengthsMenu_Text" xml:space="preserve">
     <value>_Dolžine etap</value>
   </data>
   <data name="MainFrame_controlCrossrefMenu_Text" xml:space="preserve">
-    <value>Kontrolna točka _Navzkrižna referenca</value>
+    <value>_Navzkrižne reference kontrolnih točk</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_controlAndLegLoadMenu_Text" xml:space="preserve">
-    <value>Kontrolna točka in obremenitev et_ap</value>
+    <value>_Obremenitev kontrolnih točk in etap</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_reportMenu_Text" xml:space="preserve">
     <value>_Poročila</value>
@@ -1723,6 +1760,30 @@
   </data>
   <data name="MainFrame_supportWebSiteMenu_Text" xml:space="preserve">
     <value>_Podpora/sporočanje napak</value>
+  </data>
+  <data name="MainFrame_donateWebSiteMenu_Text" xml:space="preserve">
+    <value>_Doniraj</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_aboutMenu_Text" xml:space="preserve">
+    <value>_Vizitka</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_symbolBrowserMenu_Text" xml:space="preserve">
+    <value>Brskalnik simbolov</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_descriptionBrowserMenu_Text" xml:space="preserve">
+    <value>Brskalnik opisov</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_controlTesterMenu_Text" xml:space="preserve">
+    <value>Preizkus kontrolnih točk</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_mapTesterMenu_Text" xml:space="preserve">
+    <value>Preizkus karte</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_mapExchangeToolStripMenu_Text" xml:space="preserve">
     <value>Dodaj menjavo karte</value>

@@ -2063,46 +2063,58 @@
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_addCourseMenu_Text" xml:space="preserve">
-    <value>_Tilføj kursus...</value>
+    <value>_Tilføj bane...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_deleteCourseMenu_Text" xml:space="preserve">
-    <value>_Slet kursus</value>
+    <value>_Slet bane</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_duplicateCourseMenu_Text" xml:space="preserve">
-    <value>Du_pliker kursus...</value>
+    <value>Du_pliker bane...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_propertiesMenu_Text" xml:space="preserve">
     <value>_Egenskaber...</value>
   </data>
   <data name="MainFrame_courseOrderMenu_Text" xml:space="preserve">
-    <value>Kursus _Rækkefølge...</value>
+    <value>Banernes _rækkefølge...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_courseLoadMenu_Text" xml:space="preserve">
-    <value>Konkurrent _Læs</value>
+    <value>Antal _løbere...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_courseVariationReportMenu_Text" xml:space="preserve">
-    <value>Relay Team _Variationer...</value>
+    <value>Stafethold_variationer...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_courseMenu_Text" xml:space="preserve">
-    <value>_Kursus</value>
+    <value>_Bane</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_deleteForkMenu_Text" xml:space="preserve">
-    <value>Slet For_k/Løkke</value>
+    <value>Slet _gafling/løkke</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_addBendMenu_Text" xml:space="preserve">
-    <value>Tilføj _Buk</value>
+    <value>Tilføj _knæk</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_removeBendMenu_Text" xml:space="preserve">
-    <value>Fjern B_uk</value>
+    <value>Fjern k_næk</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_addGapMenu_Text" xml:space="preserve">
     <value>Tilføj _hul</value>
   </data>
   <data name="MainFrame_removeGapMenu_Text" xml:space="preserve">
-    <value>Fjern H_ul</value>
+    <value>_Fjern hul</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_changeTextMenu_Text" xml:space="preserve">
-    <value>Ændr _Tekst...</value>
+    <value>Ændr _tekst...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_changeLineAppearanceMenu_Text" xml:space="preserve">
     <value>Ændr _udseende...</value>
@@ -2110,41 +2122,57 @@
   <data name="MainFrame_rotateMenu_Text" xml:space="preserve">
     <value>R_oter</value>
   </data>
+  <data name="MainFrame_stretchMenu_Text" xml:space="preserve">
+    <value>St_ræk ud</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_noFlaggingMenu_Text" xml:space="preserve">
-    <value>Ingen Udflagning</value>
+    <value>Ingen afmærkning</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_entireFlaggingMenu_Text" xml:space="preserve">
-    <value>Hele Ben Udflagning</value>
+    <value>Hele strækket afmærket</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_beginFlaggingMenu_Text" xml:space="preserve">
-    <value>Begyndelse af ben Udflagning</value>
+    <value>Begyndelsen af strækket afmærket</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_endFlaggingMenu_Text" xml:space="preserve">
-    <value>Slut på ben Udflagning</value>
+    <value>Slutningen af strækket afmærket</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_legFlaggingMenu_Text" xml:space="preserve">
-    <value>_Ben Udflagning</value>
+    <value>_Afmærkning af stræk</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_changeDisplayedCoursesMenu_Text" xml:space="preserve">
-    <value>Ændr Vi_ste kurser...</value>
+    <value>Ændr viste _baner...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_itemMenu_Text" xml:space="preserve">
-    <value>_Vare</value>
+    <value>_Element</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_courseSummaryMenu_Text" xml:space="preserve">
-    <value>Kursus _Resumé</value>
+    <value>Bane_oversigt</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_eventAuditMenu_Text" xml:space="preserve">
-    <value>Hændelse _Resumé</value>
+    <value>_Gennemgang af løbet</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_legLengthsMenu_Text" xml:space="preserve">
-    <value>_Ben længder</value>
+    <value>_Stræklængder</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_controlCrossrefMenu_Text" xml:space="preserve">
-    <value>Kontrol _Krydsreference</value>
+    <value>Post_krydsreference</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_controlAndLegLoadMenu_Text" xml:space="preserve">
-    <value>Kontrol og læ_s</value>
+    <value>Post- og stræk_belastning</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_reportMenu_Text" xml:space="preserve">
     <value>_Rapporter</value>
@@ -2159,22 +2187,27 @@
     <value>Purple Pen _Webside</value>
   </data>
   <data name="MainFrame_supportWebSiteMenu_Text" xml:space="preserve">
-    <value>_Support/Bug Rapportering</value>
+    <value>_Support/fejlrapportering</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_donateWebSiteMenu_Text" xml:space="preserve">
-    <value>Giv en _Donation</value>
+    <value>Giv et _bidrag</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_aboutMenu_Text" xml:space="preserve">
     <value>_Om Purple Pen</value>
   </data>
   <data name="MainFrame_symbolBrowserMenu_Text" xml:space="preserve">
-    <value>Symbol Browser</value>
+    <value>Symbolbrowser</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_descriptionBrowserMenu_Text" xml:space="preserve">
-    <value>Beskrivelses Browser</value>
+    <value>Beskrivelsesbrowser</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_controlTesterMenu_Text" xml:space="preserve">
-    <value>Kontroltester</value>
+    <value>Posttester</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_mapTesterMenu_Text" xml:space="preserve">
     <value>Korttester</value>

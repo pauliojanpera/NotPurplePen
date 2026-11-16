@@ -1943,6 +1943,10 @@
   <data name="MainFrame_addGapMenu_Text" xml:space="preserve">
     <value>切れ目を追加(_G)</value>
   </data>
+  <data name="MainFrame_removeGapMenu_Text" xml:space="preserve">
+    <value>切れ目を除去(_P)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_changeTextMenu_Text" xml:space="preserve">
     <value>テキストを変更(_T)...</value>
   </data>
@@ -1951,6 +1955,10 @@
   </data>
   <data name="MainFrame_rotateMenu_Text" xml:space="preserve">
     <value>回転(_R)</value>
+  </data>
+  <data name="MainFrame_stretchMenu_Text" xml:space="preserve">
+    <value>伸縮(_S)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_noFlaggingMenu_Text" xml:space="preserve">
     <value>テープ誘導なし</value>

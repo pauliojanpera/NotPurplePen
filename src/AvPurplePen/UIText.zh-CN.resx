@@ -2041,7 +2041,8 @@
     <value>线路顺序</value>
   </data>
   <data name="MainFrame_courseLoadMenu_Text" xml:space="preserve">
-    <value>竞争对手和负载…</value>
+    <value>参赛者通过量…</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_courseVariationReportMenu_Text" xml:space="preserve">
     <value>接力队分支…</value>
@@ -2050,7 +2051,8 @@
     <value>线路</value>
   </data>
   <data name="MainFrame_deleteForkMenu_Text" xml:space="preserve">
-    <value>删除 分支/循环</value>
+    <value>删除分支/循环</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_addBendMenu_Text" xml:space="preserve">
     <value>添加拐角</value>
@@ -2088,6 +2090,10 @@
   <data name="MainFrame_endFlaggingMenu_Text" xml:space="preserve">
     <value>路段末尾标记</value>
   </data>
+  <data name="MainFrame_legFlaggingMenu_Text" xml:space="preserve">
+    <value>路段标记</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_changeDisplayedCoursesMenu_Text" xml:space="preserve">
     <value>更改显示的线路...</value>
   </data>
@@ -2101,7 +2107,8 @@
     <value>赛事信息统计</value>
   </data>
   <data name="MainFrame_legLengthsMenu_Text" xml:space="preserve">
-    <value>课程的长度</value>
+    <value>路段长度</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_controlCrossrefMenu_Text" xml:space="preserve">
     <value>检查点对照表</value>

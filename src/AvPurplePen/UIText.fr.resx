@@ -2020,7 +2020,8 @@
     <value>_Supprimer un Circuit</value>
   </data>
   <data name="MainFrame_duplicateCourseMenu_Text" xml:space="preserve">
-    <value>D_upliquerCircuit...</value>
+    <value>D_upliquer le circuit...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_propertiesMenu_Text" xml:space="preserve">
     <value>_Propriétés...</value>
@@ -2061,8 +2062,13 @@
   <data name="MainFrame_rotateMenu_Text" xml:space="preserve">
     <value>_Rotation</value>
   </data>
+  <data name="MainFrame_stretchMenu_Text" xml:space="preserve">
+    <value>_Étirer</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_noFlaggingMenu_Text" xml:space="preserve">
-    <value>Sans Jalon</value>
+    <value>Sans jalonnage</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_entireFlaggingMenu_Text" xml:space="preserve">
     <value>Interposte jalonné</value>
@@ -2092,10 +2098,12 @@
     <value>_Longueurs interpostes</value>
   </data>
   <data name="MainFrame_controlCrossrefMenu_Text" xml:space="preserve">
-    <value>Contrôle C_roisé</value>
+    <value>Références c_roisées des postes</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_controlAndLegLoadMenu_Text" xml:space="preserve">
-    <value>_Charger les postes et interpostes</value>
+    <value>_Charge des postes et interpostes</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_reportMenu_Text" xml:space="preserve">
     <value>_Rapports</value>

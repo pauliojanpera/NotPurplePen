@@ -2028,7 +2028,8 @@
     <value>_Rimuovi Percorso</value>
   </data>
   <data name="MainFrame_duplicateCourseMenu_Text" xml:space="preserve">
-    <value>_Duplicata Percorso...</value>
+    <value>_Duplica Percorso...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_propertiesMenu_Text" xml:space="preserve">
     <value>_Proprietà...</value>
@@ -2085,7 +2086,8 @@
     <value>Fine Tratta Segnalata</value>
   </data>
   <data name="MainFrame_legFlaggingMenu_Text" xml:space="preserve">
-    <value>_Zona Cambio Frazionisti</value>
+    <value>Tratta _Segnalata</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_changeDisplayedCoursesMenu_Text" xml:space="preserve">
     <value>Cambia _Percorsi Visualizzati...</value>
@@ -2094,19 +2096,23 @@
     <value>_Oggetto</value>
   </data>
   <data name="MainFrame_courseSummaryMenu_Text" xml:space="preserve">
-    <value>Percorso _Sommario</value>
+    <value>_Sommario Percorsi</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_eventAuditMenu_Text" xml:space="preserve">
     <value>_Controllo Evento</value>
   </data>
   <data name="MainFrame_legLengthsMenu_Text" xml:space="preserve">
-    <value>_Lunghezza Frazioni</value>
+    <value>_Lunghezza Tratte</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_controlCrossrefMenu_Text" xml:space="preserve">
-    <value>Incroci Controlli</value>
+    <value>_Riferimenti Incrociati dei Punti</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_controlAndLegLoadMenu_Text" xml:space="preserve">
-    <value>Carico Controlli e Frazioni</value>
+    <value>_Passaggi per Punto e Tratta</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_reportMenu_Text" xml:space="preserve">
     <value>_Resoconti</value>
@@ -2115,10 +2121,12 @@
     <value>_Aiuto Purple Pen</value>
   </data>
   <data name="MainFrame_helpTranslatedMenu_Text" xml:space="preserve">
-    <value>Purple Pen Help (Translated)</value>
+    <value>Aiuto Purple Pen (Tradotto)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_mainWebSiteToolMenu_Text" xml:space="preserve">
-    <value>_Aiuto Purple Pen (Tradotto)</value>
+    <value>Sito _web di Purple Pen</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_supportWebSiteMenu_Text" xml:space="preserve">
     <value>_Supporto/Segnalazione Problemi</value>
