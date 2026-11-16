@@ -1,155 +1,143 @@
-# A session that does the next case of the flattening
+# The session that drives the flattening
 
-Nov 16, 2026. This is the brief of a session, or of an agent that a session starts, that begins with no context and
-does the next case of the flattening ladder. Do the steps in order. The requirements, the gates and the ladder are
-in [README.md](README.md). A session that needs the context of the fork reads [../Introduction.md](../Introduction.md).
+Nov 16, 2026. These are the steps of the session that drives the flattening work. The session starts one agent for
+one step, examines what the agent did, records it, and starts the next agent. A session that starts with no context
+can continue the work from this file. The requirements, the gates, the ladder and the phases are in
+[README.md](README.md), and the rules of the calculation in [Model.md](Model.md). A session that needs the context
+of the fork reads [../Introduction.md](../Introduction.md).
 
-@Pauli, or the session that starts the agent, gives a prompt such as:
+The folders `<clone>`, `<work>/flat`, `<work>/flat-int` and `<work>/flat-results` are in README.md, "The branches
+and the folders". This machine keeps them between sessions.
 
-> Do the next cases of the NotPurplePen flattening. Follow `doc/devdocs/Flattening/Session.md` on the branch
-> `docs/process-coordination`. You are `claude-fable-5-2`, at effort `max`.
+**The model.** The agents are `claude-fable-5-2` at effort `high` (@Pauli, Nov 16). The agent type `flatten-step`
+(`.claude/agents/flatten-step.md` on this branch) sets both, and holds the rules that each agent follows. Do not use
+`plan-step` for this work: it runs at effort `max`.
 
-The model id and the effort setting go into each review. If the prompt gives others, use those of the prompt.
+**One agent works at a time** (@Pauli, Nov 16). The session does not start a second agent, a review agent, or a
+watch of the agent.
 
-**One agent works at a time, and one case at a time. Do not start an agent of your own**, and do not start one to
-review your own work: the gates review it. @Pauli set this.
+**These need @Pauli's word.** A wider tolerance. A case set apart (GATE-7). A change of [Model.md](Model.md) that
+changes what a case must draw. A push to `wip/`, `base`, `basewithfixes`, `dev` or any shared branch. A force push.
+A deleted branch.
 
-**You own the flattening code.** `src/MapModel/Map_Flatten` and the tests of this work are yours to design: name
-things well, find the common form of things that repeat, and correct a stupidity where you meet one. **You do not
-own the rest of the repository.** A change to the map code, to the targets or to the application is as small as the
-case needs, because these branches are offered to Purple Pen, and a diff that carries a restructure is not offered.
-Where you see a fault outside the case, say so when you stop; do not fix it on the way past.
+**These need no word.** To write a brief and start an agent. To accept or refuse a step. To commit and push
+`docs/process-coordination` and `feature/flattening`, neither of which starts a workflow. To publish the page.
 
-**These steps need no approval, and no question to @Pauli.** Build. Run the tests. Write and change the files of
-this work. Commit. Push `feature/flattening` and `docs/process-coordination`, neither of which starts a workflow.
-Retry a command that failed for an ordinary reason, such as a timeout or a busy file. Work through an ordinary
-obstacle with the access you have, instead of stopping.
+## 1. Find where the work stands
 
-**These need @Pauli's word.** A wider tolerance. A case set apart (GATE-7). A push to `wip/`, `base`,
-`basewithfixes`, `dev` or any shared branch. A force push. A deleted branch.
-
-**The inner loop is on this machine.** The build and the tests run here, and take seconds for one case. Do not push
-a branch to start a run, and do not wait for one. The Windows suite runs on `wip/linux/flattening` at the end of a
-phase, and the session that ends the phase starts it.
-
-## 1. Get the files
-
-The machine keeps its clones and worktrees between sessions. Use the worktree that is there; make it only if it is
-not.
-
-```
-git -C <clone> worktree add <work>/flat feature/flattening
-```
-
-If `feature/flattening` does not exist, this is the first session. Make it:
-
-```
-git -C <clone> branch feature/flattening feature/multiply-blending
-```
-
-It is rooted at `feature/multiply-blending`, which carries the ink of task 7, and never at anything else
-(README.md, "Why it sits on the ink of task 7").
-
-Before phase 5, `fix/colour-transparency` is merged into it, so that the real maps give the opacity half of the work
-its input (README.md, "The transparency of a colour"). A session that reaches case 11 with that branch unmerged
-stops and says so.
-
-Read [README.md](README.md). Read the review of the last case that has one, in `reviews/`.
-
-## 2. Take the next case
-
-```
-python3 doc/devdocs/Flattening/next-case.py <work>/flat
-```
-
-It names the next case of the ladder that has no review, and prints its brief: what the case adds, which
-requirements it first meets, which constructs the stage must declare for it, and where its fixture goes. If it says
-"all cases are done", stop, and say so (step 6).
-
-In phase 1 there is no script yet. Then the case is phase 1 itself: write the harness, the gates and the scripts
-that README.md names, and nothing of the flattening.
-
-## 3. Do the case
-
-1. **Write the case first.** Add its fixture and its test before the code that makes it pass. A declarative case is
-   a drawing, as `SimpleDrawingTests` holds its cases. The test runs the case twice, with the stage and without it,
-   and applies the gates.
-2. **Declare nothing you have not built.** The stage declares the constructs it flattens (FL-10). A construct joins
-   the list only when the whole requirement behind it is met. Until then the case is pending with that construct
-   named, which is not a failure (GATE-4).
-3. **Write the code.** Follow the repository's style: a header comment on each class and method, explicit types
-   instead of `var`, and names that say what they are.
-4. Check that nothing else moved. The tests of `Map_Skia.Tests`, `Map_PDF.Tests` and `Map_Svg.Tests` must pass as
-   they did, because the stage is off unless it is asked for.
-
-## 4. The gates
-
-```
-bash doc/devdocs/Flattening/run-flatten-tests.sh --case <id> <work>/flat <results>
-```
-
-The case passes when the stage declares every construct it uses, and:
-
-| Gate | What it says |
-| --- | --- |
-| GATE-1 | The flattened drawing rasterizes to the unflattened drawing, within the tolerance |
-| GATE-2 | The vector stage equals the raster reference, within the tolerance |
-| GATE-3 | The flattened calls hold no `PushBlending` and no alpha below 1 |
-| GATE-5 | The same input flattens to the same geometry twice |
-| GATE-6 | The pieces do not overlap each other, and none has zero area |
-
-`compare-images.py` gives the number behind GATE-1 and GATE-2: the pixels outside the tolerance, the greatest level
-difference, and a difference image. Read the difference image when a gate fails. It says where the error is.
-
-**Do not widen a tolerance. Do not set a case apart.** GATE-7 is @Pauli's to grant. A case you cannot make pass is
-left pending with its reason, and you stop and say so (step 6).
-
-When the case passes, run the whole ladder once:
-
-```
-bash doc/devdocs/Flattening/run-flatten-tests.sh <work>/flat <results>
-```
-
-Nothing that passed before may be pending or failed now.
-
-## 5. Record the case, and take the next
-
-1. Commit the code on `feature/flattening`. The message tells what the change does, and what in the code made it
-   necessary. No trailer, and no paragraph on why the feature is wanted.
+1. Read README.md, Model.md and `Status.md`, when it exists.
+2. Read the last review in `reviews/`, and the last brief in `briefs/`. A brief that has no review is a step that did
+   not end, or that the session did not examine.
+3. Look at the code: `git -C <work>/flat log --oneline -15` and `git -C <work>/flat status --short`. Changes that
+   are not committed are the work of an agent that stopped.
+4. Before the first step: make the branch and the worktree, if they are not there.
 
    ```
-   git -C <work>/flat add src
-   git -C <work>/flat commit -m "<what the change does>" -m "<what in the code required it>"
+   git -C <clone> fetch origin
+   git -C <clone> branch feature/flattening origin/feature/multiply-blending
+   git -C <clone> worktree add <work>/flat feature/flattening
+   ```
+
+   `feature/flattening` is rooted at the tip of `feature/multiply-blending` on GitHub, which carries the ink of task
+   7, and never at anything else (README.md, "Why it sits on the ink of task 7").
+
+## 2. Write the brief
+
+One step is one case of the ladder, or one piece of a phase that one agent can do with its context in good order:
+about one or two hours of work. Cut a larger step.
+
+Write the brief to `briefs/<step>.md`, in Simplified Technical English, and commit it before the agent starts. The
+agent starts with no context, so the brief holds all that it needs:
+
+- **The step:** one sentence that says what is delivered.
+- **The premise:** what the step rests on. The agent stops if it finds the premise false.
+- **Read first:** the files, with full paths. Model.md, the design notes of the stage, and the file of the case.
+- **Where things are:** the files and lines of the code that the step touches, so that the agent does not look for
+  them again. Take them from the last reviews.
+- **What to deliver,** and what the agent may change for it.
+- **The gates:** the commands, and what each must show.
+- **Stop when:** the conditions on which the agent stops without a result.
+- **The report:** what the last message of the agent holds.
+
+For a case, write the file of the case first (README.md, "The file of a case"), with probe values calculated from
+Model.md by hand. Give it to the agent in the brief. The agent does not change it.
+
+## 3. Start the agent
+
+```
+python3 <clone>/doc/devdocs/SvgDevLoop/agent-cache.py set
+```
+
+Start one agent of the type `flatten-step` with the brief as its prompt. If the agent type is not known, the session
+started before the file was there: @Pauli loads it with `/agents`, or starts the session again.
+
+The session goes on when the agent ends. It runs no watch. An agent in the session's background stops when the
+session's turn is interrupted, and cannot be resumed. Then look at what it committed (step 1), and start a new agent
+for what is left.
+
+## 4. Examine what the agent did
+
+Do not take the agent's report as the result. Measure.
+
+1. Make sure that the agent did not change what is the session's: the harness, the tolerances and the cases.
+
+   ```
+   git -C <work>/flat diff --stat <commit before the step> HEAD -- src/MapModel/Map_Flatten.Tests/Harness src/TestFiles/flattening
+   ```
+
+   Phase 1 writes the harness, so this check applies from phase 2 on. A change there that the brief did not ask for
+   refuses the step.
+2. Run the ladder on the agent's commit.
+
+   ```
+   python3 <clone>/doc/devdocs/Flattening/flat.py run <work>/flat <work>/flat-results
+   ```
+
+   Nothing that passed before may be pending or failed now. The case of the step passes, or is pending with the
+   reason that the agent gave.
+3. Read the diff of the step. Outside `src/MapModel/Map_Flatten` and its tests, a change is as small as the step
+   needs, because the branch is offered to Purple Pen.
+4. Merge the commit into `<work>/flat-int` and run the tests that the work must not move (README.md, "Where the work
+   runs"). The tests that passed there before the work still pass.
+
+A step that fails one of these goes back to the same agent with what failed, when the agent's context is still of
+use. Otherwise a new agent gets a brief that names what is left.
+
+## 5. Record the step
+
+1. Write `reviews/<step>.md`. **The review marks the step done.** It holds:
+   - the step, and what it adds;
+   - the constructs the stage now declares, and the ones it does not;
+   - the numbers that the session measured: the probes, the samples that differ, the count of pieces;
+   - the commits;
+   - the model id and the effort setting of the agent;
+   - what the agent's report said that the next step must know, and the doubts.
+2. Make the table and the page again, and publish the page.
+
+   ```
+   python3 <clone>/doc/devdocs/Flattening/flat.py status <work>/flat-results <clone>/doc/devdocs/Flattening
+   python3 <clone>/doc/devdocs/Flattening/logbook.py <work>/flat-results <work>/flat-results/page
+   ```
+
+3. Commit the documents and push the two branches.
+
+   ```
+   git -C <clone> add doc/devdocs/Flattening
+   git -C <clone> commit -m "Record the flattening step <step>"
+   git -C <clone> push origin docs/process-coordination
    git -C <work>/flat push origin feature/flattening
    ```
 
-2. Write the case's review in `doc/devdocs/Flattening/reviews/<id>.md`. **The review is what marks the case done.**
-   It holds:
-   - the case, and what it adds;
-   - the constructs the stage now declares, and the ones it still does not;
-   - the numbers of GATE-1 and GATE-2: the pixels outside the tolerance, and the greatest level difference;
-   - the commits;
-   - the model id and the effort setting;
-   - your doubts, in plain words, for the session that comes next.
-3. Make the table again, and commit the documents.
+4. Tell @Pauli in a few lines: the step, its numbers, and the doubts that he must see. Then go to step 2.
 
-   ```
-   python3 doc/devdocs/Flattening/status.py <work>/flat doc/devdocs/Flattening
-   git -C <docs> add doc/devdocs/Flattening
-   git -C <docs> commit -m "Record the flattening case <id>"
-   git -C <docs> push origin docs/process-coordination
-   ```
+## 6. At the end of a phase
 
-4. Take the next case (step 2). Stop after the last case of the phase, or when about four hours of work are done.
+1. Bring the handover up to date ([../NotPurplePenProgress.md](../NotPurplePenProgress.md), task 12).
+2. Ask @Pauli for the full run on `wip/linux/flattening`: `basewithfixes` with the feature merged in. It is the first
+   run of the work on Windows, and the first on a machine other than this one (GATE-5).
 
-## 6. Stop
+## Before phase 5
 
-Tell @Pauli, or the session that started you, in a few lines:
-
-- the cases done, and the cases left pending with their reason;
-- the constructs the stage declares now;
-- the numbers of the last run: passed, pending, failed;
-- a gate you could not meet, and what you found out about it;
-- the doubts he should see.
-
-Say "all cases are done" if `next-case.py` said so.
+`fix/colour-transparency` is merged into `feature/flattening`, so that the real maps give the opacity half of the
+work its input (README.md, "The transparency of a colour"). A session that reaches case 11 with that branch unmerged
+stops and says so.

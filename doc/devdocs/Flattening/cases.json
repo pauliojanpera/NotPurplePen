@@ -1,9 +1,15 @@
 {
-  "comment": "The ladder of the flattening work. One case for each construct, in the order they are built. A case is done when reviews/<id>.md exists. README.md tells what each column means.",
+  "comment": "The ladder of the flattening work. One case for each construct, in the order they are built. A case is done when reviews/<id>.md exists. README.md tells what each field means. The file of a declarative case, with its drawing and its probe values, is src/TestFiles/flattening/<id>.json on feature/flattening.",
   "tolerance": {
-    "comment": "The pixel tolerance of GATE-1 and GATE-2. A case may name its own under 'tolerance'.",
-    "maxLevelDifference": 2,
-    "maxPixelsOutside": 0
+    "comment": "The tolerance of GATE-1 and GATE-2. The gates draw each process channel alone, without antialiasing. The session sets these numbers from the measurement of phase 1, and only @Pauli widens them. null: not set yet.",
+    "samplesPerMillimetre": null,
+    "maxLevelDifference": null,
+    "maxSamplesOutside": null,
+    "maxConnectedSamplesOutside": null
+  },
+  "probeTolerance": {
+    "comment": "The tolerance of GATE-M on each CMYK value of a probe. OCAD's binary formats store steps of 0.005.",
+    "maxDifference": 0.002
   },
   "ladder": [
     {
@@ -11,189 +17,120 @@
       "number": 1,
       "name": "Two opaque marks of one colour overlap",
       "adds": "Nothing. The stage must give back what it was given.",
-      "requirements": [
-        "FL-1",
-        "GATE-1",
-        "GATE-3"
-      ],
-      "constructs": [
-        "fill"
-      ],
-      "fixture": "declarative",
-      "phase": 2
+      "requirements": ["FL-1", "GATE-1", "GATE-3"],
+      "modes": ["none"],
+      "today": "same",
+      "fixture": "declarative"
     },
     {
       "id": "two-colours",
       "number": 2,
       "name": "An opaque colour over another",
       "adds": "The cut: the upper colour knocks the lower one out.",
-      "requirements": [
-        "FL-4",
-        "FL-6"
-      ],
-      "constructs": [
-        "fill"
-      ],
-      "fixture": "declarative",
-      "phase": 2
+      "requirements": ["FL-4", "FL-6"],
+      "modes": ["none"],
+      "today": "same",
+      "fixture": "declarative"
     },
     {
       "id": "one-ink-overlap",
       "number": 3,
       "name": "Two marks of one overprint ink overlap",
       "adds": "One coverage and not two. A mark raises the ink's coverage; it never adds to it.",
-      "requirements": [
-        "FL-3"
-      ],
-      "constructs": [
-        "fill",
-        "overprint"
-      ],
-      "fixture": "declarative",
-      "phase": 2
+      "requirements": ["FL-3"],
+      "modes": ["darken", "multiply"],
+      "today": "same",
+      "fixture": "declarative"
     },
     {
       "id": "two-inks-cross",
       "number": 4,
       "name": "Two overprint inks cross",
-      "adds": "The product of the inks' transmittances.",
-      "requirements": [
-        "FL-5"
-      ],
-      "constructs": [
-        "fill",
-        "overprint"
-      ],
-      "fixture": "declarative",
-      "phase": 2
+      "adds": "The inks compose by the blend mode: by multiply the product of their transmittances, by darken the darkest.",
+      "requirements": ["FL-5"],
+      "modes": ["darken", "multiply"],
+      "today": "same",
+      "fixture": "declarative"
     },
     {
       "id": "split-ink",
       "number": 5,
       "name": "An overprint ink whose colours are not consecutive, an opaque colour between them",
       "adds": "The knockout of a mask that is not the top one. This is the case that task 7's layer cannot hold, and the case that task 14 waits for.",
-      "requirements": [
-        "FL-2",
-        "FL-4",
-        "FL-5"
-      ],
-      "constructs": [
-        "fill",
-        "overprint"
-      ],
-      "fixture": "declarative",
-      "phase": 2
+      "requirements": ["FL-2", "FL-4", "FL-5"],
+      "modes": ["darken", "multiply"],
+      "today": "By multiply it differs where the two colours of the ink overlap with nothing between them (Model.md, D1). By darken it is the same.",
+      "fixture": "declarative"
     },
     {
       "id": "alpha-colour",
       "number": 6,
       "name": "A colour with an alpha below 1",
-      "adds": "The opacity half of the work. LIM-3: no colour of an export has an alpha below 1 until fix/colour-transparency is merged, so the case sets the alpha in code.",
-      "requirements": [
-        "FL-5",
-        "LIM-3"
-      ],
-      "constructs": [
-        "fill",
-        "alpha"
-      ],
-      "fixture": "declarative",
-      "phase": 3
+      "adds": "The opacity half of the work. LIM-3: no colour of an export has an alpha below 1 until fix/colour-transparency is merged, so the case sets the alpha in its file.",
+      "requirements": ["FL-3", "FL-5", "LIM-3"],
+      "modes": ["darken", "multiply"],
+      "today": "It differs where marks of one colour overlap (Model.md, D2).",
+      "fixture": "declarative"
     },
     {
       "id": "stroked-lines",
       "number": 7,
       "name": "Lines of a blended colour, and lines below one",
       "adds": "A stroked line becomes its outline before it cuts or is cut.",
-      "requirements": [
-        "FL-8"
-      ],
-      "constructs": [
-        "fill",
-        "stroke",
-        "overprint"
-      ],
-      "fixture": "declarative",
-      "phase": 3
+      "requirements": ["FL-8"],
+      "modes": ["darken", "multiply"],
+      "today": "same",
+      "fixture": "declarative"
     },
     {
       "id": "patterns",
       "number": 8,
       "name": "Hatchings and area patterns",
       "adds": "The geometry of a pattern drawn one time for a group of areas, as task 2 draws it.",
-      "requirements": [
-        "FL-7",
-        "FL-8"
-      ],
-      "constructs": [
-        "fill",
-        "stroke",
-        "patternBrush",
-        "clip"
-      ],
-      "fixture": "declarative",
-      "phase": 3
+      "requirements": ["FL-7", "FL-8"],
+      "modes": ["darken", "multiply"],
+      "today": "same",
+      "fixture": "declarative"
     },
     {
       "id": "text",
       "number": 9,
       "name": "Text of a blended colour, and text below one",
       "adds": "Glyph outlines as cutting geometry.",
-      "requirements": [
-        "FL-7",
-        "FL-8"
-      ],
-      "constructs": [
-        "text"
-      ],
-      "fixture": "declarative",
-      "phase": 3
+      "requirements": ["FL-7", "FL-8"],
+      "modes": ["darken", "multiply"],
+      "today": "same",
+      "fixture": "declarative"
     },
     {
       "id": "bitmap",
       "number": 10,
       "name": "A bitmap below a blended colour",
       "adds": "The limit that the stage reports instead of flattening.",
-      "requirements": [
-        "LIM-1",
-        "FL-10",
-        "GATE-7"
-      ],
-      "constructs": [
-        "bitmap"
-      ],
-      "fixture": "declarative",
-      "phase": 4
+      "requirements": ["LIM-1", "FL-10", "GATE-7"],
+      "modes": ["darken", "multiply"],
+      "today": "Set apart (GATE-7): the stage leaves the drawing as it is.",
+      "fixture": "declarative"
     },
     {
       "id": "course-purple",
       "number": 11,
-      "name": "The course's purple over a map, in both modes and both places",
-      "adds": "The case a user sees: darken and multiply, over the map and on the map's own colour levels.",
-      "requirements": [
-        "FL-1",
-        "FL-2",
-        "FL-5"
-      ],
-      "constructs": [
-        "*"
-      ],
-      "fixture": "event",
-      "phase": 5
+      "name": "The course's purple over a map, by darken and by multiply, and on the map's own colour levels",
+      "adds": "The case a user sees. The colour levels with overprint ink do not exist before task 14.",
+      "requirements": ["FL-1", "FL-2", "FL-5"],
+      "modes": ["darken", "multiply"],
+      "today": "To be found.",
+      "fixture": "event"
     },
     {
       "id": "test-maps",
       "number": 12,
       "name": "The maps of the rendering tests",
       "adds": "All of it together, on real maps. Needs fix/colour-transparency for the three colours that carry a transparency: LordHill's Purple (t80), LordHill_ver16's Red (0.75) and McHugh Creek's Purple 40% (0.5).",
-      "requirements": [
-        "*"
-      ],
-      "constructs": [
-        "*"
-      ],
-      "fixture": "maps",
-      "phase": 5
+      "requirements": ["*"],
+      "modes": ["darken", "multiply"],
+      "today": "To be found.",
+      "fixture": "maps"
     }
   ]
 }
