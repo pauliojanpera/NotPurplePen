@@ -4,6 +4,7 @@ languages, and the reading and writing of .resx files and of the scripts' TSV fi
 Each script takes the path of a checkout of NotPurplePen. Nothing here changes a file except
 `write_text`, which `apply.py` calls."""
 
+import collections
 import os
 import re
 import subprocess
@@ -238,6 +239,83 @@ def control_of(key):
     if not stem or stem.isdigit():
         return None
     return parts[0], stem
+
+
+# --- Key groups --------------------------------------------------------------------------------
+# The translation goes key group by key group, each for all translated languages at once (@Pauli,
+# Nov 16). A group is a dialog of UIText (the part of its keys before the first "_"; the keys without
+# "_", such as OKButton, form the group "Shared"), or a resource of
+# PurplePenCore with the copies of its keys that UIText has under the resource's name ("MiscText_X" is
+# the copy of MiscText's X): a copy follows its key, so that both get the same translation. A group of
+# more than GROUP_SIZE keys is cut into parts of GROUP_SIZE in the order of the English files, named
+# "<group>.1", "<group>.2" and on; a key and its copy count as one.
+
+TWIN_RESOURCES = ('MiscText', 'CommandNameText', 'StatusBarText', 'SelectionDescriptionText', 'ReportText')
+GROUP_SIZE = 40
+REVIEWS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'reviews')
+
+
+def key_groups(checkout):
+    """The key groups, in order: the dialogs of UIText in the order of the English file, then the
+    resources of PurplePenCore. Returns a list of (name, [(resource, key), ...]). Keys whose English
+    holds no letter are left out."""
+    english = {res: english_texts(checkout, res) for res, _ in RESOURCES}
+    ui = english['UIText']
+    units = collections.OrderedDict()
+    for key, entry in ui.items():
+        prefix = key.split('_')[0] if '_' in key else 'Shared'
+        if prefix in TWIN_RESOURCES or not has_letter(entry.value):
+            continue
+        units.setdefault(prefix, []).append([('UIText', key)])
+    for res in TWIN_RESOURCES:
+        copies = {k[len(res) + 1:]: k for k in ui if k.startswith(res + '_') and has_letter(ui[k].value)}
+        items = []
+        for key, entry in english[res].items():
+            if not has_letter(entry.value):
+                continue
+            unit = [(res, key)]
+            copy = copies.pop(key, None)
+            if copy is not None:
+                unit.append(('UIText', copy))
+            items.append(unit)
+        items += [[('UIText', k)] for k in copies.values()]
+        units[res] = items
+    groups = []
+    for name, items in units.items():
+        parts = [items[i:i + GROUP_SIZE] for i in range(0, len(items), GROUP_SIZE)] or [[]]
+        for i, part in enumerate(parts):
+            label = name if len(parts) == 1 else f'{name}.{i + 1}'
+            groups.append((label, [k for unit in part for k in unit]))
+    return groups
+
+
+def group_done(name):
+    """True if the group has its review, which a session writes when it finishes the group."""
+    return os.path.exists(os.path.join(REVIEWS_DIR, 'groups', f'{name}.md'))
+
+
+def translated_languages(checkout):
+    """The languages that are translated: all that have a satellite, except NOT_TRANSLATED."""
+    return [l for l in languages(checkout) if l not in NOT_TRANSLATED]
+
+
+def read_terms(path=None):
+    """The rows of terms.csv as (English term without its sense in brackets, the English column, a
+    dict from language to its value)."""
+    import csv
+    path = path or os.path.join(os.path.dirname(os.path.abspath(__file__)), 'terms.csv')
+    if not os.path.exists(path):
+        return []
+    with open(path, encoding='utf-8') as f:
+        rows = list(csv.reader(f))
+    header = rows[0]
+    result = []
+    for row in rows[1:]:
+        if not row or not row[0].strip():
+            continue
+        term = re.sub(r'\s*\([^)]*\)\s*$', '', row[0]).strip().lower()
+        result.append((term, row[0], {header[i]: row[i] for i in range(1, min(len(header), len(row)))}))
+    return result
 
 
 def related_order(language, all_languages, completeness):

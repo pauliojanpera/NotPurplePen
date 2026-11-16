@@ -1,25 +1,25 @@
-# A session that translates one language
+# A session that translates key groups
 
-Nov 16, 2026. This is the brief of a session that starts with no context and translates one language of NotPurplePen
-(@Pauli, Nov 16: one session translates and checks one language). Do the steps in order. The scripts and the facts
-behind them are in [README.md](README.md).
+Nov 16, 2026. This is the brief of a session, or of an agent that a session starts, that begins with no context and
+translates the next key groups of NotPurplePen, each for all translated languages at once (@Pauli, Nov 16: the work
+goes key by key, so that each key is translated with all its translations in view). Do the steps in order. The
+scripts and the facts behind them are in [README.md](README.md). The terms are settled before this work
+([Terms.md](Terms.md)).
 
-The brief also serves an agent that a session starts for one language, one agent at a time (@Pauli, Nov 16). Nothing
-watches the agent while it works, and it reports nothing but its last message (step 6.5). The session then starts
-the next agent, which finds its language from the files.
+@Pauli, or the session that starts the agent, gives a prompt such as:
 
-@Pauli starts the session with a prompt such as:
-
-> Translate the next language of NotPurplePen. Follow `doc/devdocs/Translations/Session.md` on the branch
+> Translate the next key groups of NotPurplePen. Follow `doc/devdocs/Translations/Session.md` on the branch
 > `docs/process-coordination` of `pauliojanpera/NotPurplePen`. You are `claude-opus-5-5`, at effort `max`.
 
 The model id and the effort setting go into the metadata of each translation. @Pauli chose `claude-opus-5-5` at
 effort max on Nov 16, to start with. If the prompt gives others, use those of the prompt.
 
-## 1. Get the context and the files
+Nothing in this work waits for a build or a test run: a push of `fix/complete-translations` starts none, and the full
+run comes after all groups.
 
-1. Attach `pauliojanpera/NotPurplePen` with push access.
-2. Clone the documents, then read [`doc/devdocs/Introduction.md`](../Introduction.md) and [README.md](README.md):
+## 1. Get the files
+
+1. Clone the documents, then read [`doc/devdocs/Introduction.md`](../Introduction.md) and [README.md](README.md):
 
    ```
    git clone --depth 1 --no-checkout -b docs/process-coordination https://github.com/pauliojanpera/NotPurplePen docs
@@ -27,7 +27,7 @@ effort max on Nov 16, to start with. If the prompt gives others, use those of th
    git -C docs checkout
    ```
 
-3. Clone the code at the branch of the translations, fetch `base` for the check, and fetch the branch of phases 1
+2. Clone the code at the branch of the translations, fetch `base` for the check, and fetch the branch of phases 1
    and 2. Give each command up to ten minutes.
 
    ```
@@ -35,121 +35,111 @@ effort max on Nov 16, to start with. If the prompt gives others, use those of th
    git -C code fetch --depth 1 origin base:refs/remotes/origin/base
    git -C code fetch --depth 200 origin fix/translation-faults:refs/remotes/origin/fix/translation-faults
    git -C code merge-base --is-ancestor origin/fix/translation-faults HEAD
-   git -C code rev-parse --short origin/fix/translation-faults
    ```
 
-   Phases 1 and 2 are done if `fix/translation-faults` is on GitHub, the fourth command succeeds, and the last one
-   gives a commit other than d48f445, the root. Otherwise the languages must not start: stop, and tell @Pauli
-   (README.md, "The phases").
+   If the last command fails, phases 1 and 2 are not in the branch: stop, and tell @Pauli.
 
-## 2. Find your language
-
-Your language is the first language of this list that has no file `docs/doc/devdocs/Translations/reviews/<language>.md`. The list is the
-languages of phases 3, 4 and 5 (README.md, "The phases"), in that order:
-
-bg, cs, de, en-GB, es, et, fi, fr, hu, it, ja, nb-NO, pt, pt-BR, sv, tr, uk, zh-CN, zh-TW,
-da, nl, nn-NO, pl, ro,
-ru, sl.
-
-ca, he, id, ku, vec and zh-HK are not translated (@Pauli, Nov 16).
-
-If every language has its review, stop, and tell @Pauli that the languages are done.
-
-If `docs/doc/devdocs/Translations/filled/<language>.tsv` exists, an earlier session stopped in this language. Go on from its file: the next
-step keeps its lines.
-
-## 3. Make the packet
+## 2. Take the next group
 
 ```
-python3 docs/doc/devdocs/Translations/packet.py code <language> work --tsv docs/doc/devdocs/Translations/filled/<language>.tsv --translator <model id> --effort <effort setting>
+python3 docs/doc/devdocs/Translations/grouppacket.py code work
 ```
 
-`work/<language>.md` is what you read. `docs/doc/devdocs/Translations/filled/<language>.tsv` is the file that you fill. It has a line for each key
+Without `--group`, the script takes the first group, in their order, that has no review and lacks a translation, and
+prints its name. If it prints "all groups are done", stop, and say so (step 6). Then make the packet into the filled
+file of the group:
+
+```
+python3 docs/doc/devdocs/Translations/grouppacket.py code work --group <group> --tsv docs/doc/devdocs/Translations/filled/groups/<group>.tsv --translator <model id> --effort <effort setting>
+```
+
+If `filled/groups/<group>.tsv` exists, an earlier session stopped in this group. The command keeps its lines and adds
+the ones that it lacks.
+
+`work/<group>.md` is what you read. `filled/groups/<group>.tsv` is what you fill: a line for each language and key
 that the language lacks.
 
-## 4. Translate
+## 3. Translate
 
-Read `work/<language>.md` in parts (the Read tool's offset and limit), one dialog after another. For each key, fill
-its line of `docs/doc/devdocs/Translations/filled/<language>.tsv`.
+For each key of the packet, first find the exact meaning of the English: read the key's translations in all
+languages, the other keys of the same control, and the copy or original of the key. Then fill the key's lines, one
+for each language that lacks it:
 
-Aim at natural language (@Pauli, Nov 16). A translation reads as text written in the language, not as the English
-put into the language's words.
-
-- **translation**: the translation. Before you write it, find the exact meaning of the English. Read the other keys
-  of the same control, the same text in the language, and the key in every other language, the related languages
-  first. `python3 docs/doc/devdocs/Translations/lookup.py code <key>` shows every translation of any key.
-- Use the terms of [terms.csv](terms.csv) (`grep -i` a word of the English in it) and of the language's own
-  translations ("Terms", and "Same text"). Keep the access-key mark (`_` or `&`)
-  where the English has one, on a letter that no other item of the same menu uses. Keep every placeholder `{0}`,
-  `{1}` of the English, and add none.
-- Keep to the room that the dialogs give. Where a text must fit a control, keep it about as long as the English and
-  as the language's other texts of the same dialog. Task 4 measured the room by rendering the dialogs
+- **translation**: the translation. Aim at natural language (@Pauli, Nov 16): it reads as text written in the
+  language, not as the English put into the language's words.
+- Use the terms that the packet gives under "Terms" ([terms.csv](terms.csv); `grep -i` it for others), and the
+  language's own translations under "Same text". Keep the access-key mark (`_` or `&`) where the English has one, on a
+  letter that no other item of the same menu uses. Keep every placeholder `{0}`, `{1}` of the English, and add none.
+- A key of PurplePenCore and its copy in UIText get the same translation.
+- Keep to the room that the dialogs give. Where a text must fit a control, keep it about as long as the English and as
+  the language's other texts of the same dialog. Task 4 measured the room by rendering the dialogs
   ([SvgTranslations.md](../SvgTranslations.md), "Which strings, and how room was checked").
-- **note**: the context that decided the translation, in a few words.
-- **mirrors**: the existing keys whose translation you follow.
-- A key that needs no translation in the language: write `=` as the translation, and why in note.
-- A key whose meaning stays unclear: leave its translation empty, and write why in note. It stays missing.
-- **A correction.** If you are completely sure that an existing translation of the language is wrong, add a line for
-  its key: the English, the existing translation exactly as the satellite has it in `old` (`lookup.py` gives it), the
-  correction in `translation`, and why the existing one is wrong in note. A correction in another language goes into
-  `docs/doc/devdocs/Translations/filled/<that language>.tsv`, and `apply.py` writes it for that language.
+- **note**: the context that decided the translation, in a few words. **mirrors**: the existing keys whose
+  translation you follow.
+- A key that needs no translation in a language: write `=` as the translation, and why in note.
+- A key whose meaning stays unclear in a language: leave its translation empty, and write why in note.
+- **A correction.** If you are completely sure that an existing translation is wrong, add a line for its language
+  and key: the English, the existing translation exactly as the satellite has it in `old` (`lookup.py` gives it), the
+  correction in `translation`, and why the existing one is wrong in note. A translation that uses a term against
+  terms.csv is such a correction where you are completely sure.
 
-In the TSV, write a line break as `\n` and a tab as `\t`.
+In the TSV, write a line break as `\n` and a tab as `\t`. `python3 docs/doc/devdocs/Translations/lookup.py code
+<key>` shows every translation of any key.
 
-## 5. Write, check and push, after about each 200 keys and at the end
+## 4. Write, check and push, after about each 200 lines and at the end of each group
 
-So that a session that stops loses little, do this after about each 200 keys, and at the end.
-
-1. Write the translations into the satellites:
+1. Write the translations into the satellites of every language of the TSV:
 
    ```
-   python3 docs/doc/devdocs/Translations/apply.py code <language> docs/doc/devdocs/Translations/filled/<language>.tsv
+   python3 docs/doc/devdocs/Translations/apply.py code - docs/doc/devdocs/Translations/filled/groups/<group>.tsv
    ```
 
    To change a translation that this session wrote already, change its line, and run the command with `--replace`.
 2. Check them. There must be no error. Examine each warning, and correct the line where the warning is right.
 
    ```
-   python3 docs/doc/devdocs/Translations/check.py code --language <language> --since origin/base --warnings
+   python3 docs/doc/devdocs/Translations/check.py code --since origin/base --warnings
    ```
 
-3. Commit and push the satellites. Do not wait for a build or a test run: a push of this branch starts none, and
-   the full run comes after all languages (README.md, "The phases").
+3. Commit and push the satellites:
 
    ```
    git -C code add src
-   git -C code commit -m "Translate the <Language> strings that the satellites lacked" -m "<how many keys of which resources; the model id and the effort setting>"
+   git -C code commit -m "Translate the key group <group>" -m "<how many translations into how many languages; the model id and the effort setting>"
    git -C code -c push.negotiate=true push origin fix/complete-translations
    ```
 
-4. Commit and push the filled file and the not-needed file:
+4. Commit and push the filled file and the not-needed files:
 
    ```
    git -C docs add doc/devdocs/Translations
-   git -C docs commit -m "Record the <Language> translations so far"
+   git -C docs commit -m "Record the translations of the key group <group> so far"
    git -C docs -c push.negotiate=true push origin docs/process-coordination
    ```
 
    If a push is refused because the branch moved, pull with `--rebase` and push again.
 
-## 6. Finish the language
+## 5. Finish the group, and take the next
 
-1. Make the review table, and write above it: how many keys the session translated, marked not needed, corrected and
-   left empty; the keys left empty, and why; and your doubts.
-
-   ```
-   python3 docs/doc/devdocs/Translations/review.py docs/doc/devdocs/Translations/filled/<language>.tsv > docs/doc/devdocs/Translations/reviews/<language>.md
-   ```
-
-2. Make the table again, from the branch of the translations:
+1. Write the group's review, which marks the group as done, and make the reviews of the languages again:
 
    ```
-   python3 docs/doc/devdocs/Translations/status.py code docs/doc/devdocs/Translations
+   python3 docs/doc/devdocs/Translations/review.py docs/doc/devdocs/Translations/filled/groups/<group>.tsv > docs/doc/devdocs/Translations/reviews/groups/<group>.md
+   python3 docs/doc/devdocs/Translations/review.py docs/doc/devdocs/Translations/filled/groups/*.tsv --out-dir docs/doc/devdocs/Translations/reviews/languages
    ```
 
-3. Commit and push the documents as in step 5.4, with the message "Finish the <Language> translations".
-4. Archive this session's transcript, as the README of the branch `sessions` of `pauliojanpera/windows-fonts` tells
-   (`archive-session.sh`). Attach that repository with push access for it. An agent skips this step: the session that
-   started it archives the transcripts of the machine.
-5. Tell @Pauli, in a few lines: the language; how many keys were translated, marked not needed, corrected and left
-   empty; and the doubts that he should see.
+   Write above the group's review how many lines were translated, marked not needed, corrected and left empty, the
+   keys left empty and why, and your doubts.
+2. Make the table again: `python3 docs/doc/devdocs/Translations/status.py code docs/doc/devdocs/Translations`.
+3. Commit and push the documents as in step 4.4, with the message "Finish the key group <group>".
+4. Take the next group (step 2), until the groups that this session did lacked about 400 translations in all. Then
+   stop.
+
+## 6. Stop
+
+1. A session that @Pauli started archives its transcript, as the README of the branch `sessions` of
+   `pauliojanpera/windows-fonts` tells (`archive-session.sh`). An agent skips this: the session that started it
+   archives the transcripts of the machine.
+2. Tell @Pauli, or the session that started you, in a few lines: the groups done; how many lines were translated,
+   marked not needed, corrected and left empty; and the doubts that he should see. Say "all groups are done" if
+   `grouppacket.py` said so.

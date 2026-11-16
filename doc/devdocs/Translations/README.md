@@ -57,17 +57,16 @@ The numbers are of Nov 16.
 Before phase 3, a session settles the terms of the translated languages in `terms.csv`, as [Terms.md](Terms.md) tells
 (@Pauli, Nov 16).
 
-3. **The languages that lack fewer than 300 after phase 2:** bg, cs, de, en-GB, es, et, fi, fr, hu, it, ja, nb-NO, pt, pt-BR, sv, tr, uk, zh-CN, zh-TW. 2,402 keys.
-4. **The languages that lack 300 to 1,000:** da, nl, nn-NO, pl, ro. 3,200 keys.
-5. **The languages that lack more than 1,000:** ru, sl. 2,702 keys.
+3. **The key groups** (@Pauli, Nov 16). The translation goes key group by key group, each for all 26 translated
+   languages at once, so that each key is translated with all its translations in view. A group is a dialog of
+   UIText, or a resource of PurplePenCore with its copies in UIText, cut into parts of at most 40 keys
+   (`resxlib.key_groups`): 90 groups, 8,304 translations on Nov 16. A session does the next groups until about 400
+   translations, as [Session.md](Session.md) tells. `grouppacket.py <checkout> --list` lists the groups.
 
-ca, he, id, ku, vec and zh-HK, which translate almost nothing, are not translated (@Pauli, Nov 16). ru, also almost
-untranslated, is translated: @Pauli chose it. The translations of the Include choice that phase 2 had added to the
-six came out again (aadd27db).
-6. **The fork's own keys** (the column "Fork's own" of Status.md): 758, on the branches that add the keys, as task
+4. **The fork's own keys** (the column "Fork's own" of Status.md): 758, on the branches that add the keys, as task
    4 did for the SVG export.
 
-Phases 1 and 2 go on task 9's first `fix/` branch, `fix/translation-faults`, and phases 3 to 5 on its second,
+Phases 1 and 2 go on task 9's first `fix/` branch, `fix/translation-faults`, and phase 3 on its second,
 `fix/complete-translations`. Both are rooted where `base` meets upstream (`git merge-base origin/base
 upstream/master`; d48f445 on Nov 16), so that they can be offered upstream. `fix/complete-translations` is on GitHub
 at that root since Nov 16.
@@ -78,20 +77,21 @@ at that root since Nov 16.
   `fix/complete-translations` has no commits of its own. The languages start only after that, because they would
   otherwise translate again the keys that phases 1 and 2 bring, and the two branches would collide in the same
   satellites. `fix/complete-translations` is then offered upstream after `fix/translation-faults`.
-- In phases 3 to 5, one session translates and checks one language, as [Session.md](Session.md) tells (@Pauli,
-  Nov 16). A session may instead start one agent for each language, one at a time, with Session.md as the brief and
-  nothing that watches it. The languages follow each other with no build and no test run between them: a push of
-  `fix/complete-translations` starts none, and a session does not wait for one (@Pauli, Nov 16). Each session makes
-  Status.md again, from `fix/complete-translations`.
-- After the last language, `fix/complete-translations` runs in full on `wip/linux/complete-translations`, rooted at
+- In phase 3, a session translates and checks the next key groups, as [Session.md](Session.md) tells (@Pauli, Nov 16).
+  A session may instead start agents, one at a time, with Session.md as the brief and nothing that watches them. The
+  groups follow each other with no build and no test run between them: a push of `fix/complete-translations` starts
+  none, and a session does not wait for one (@Pauli, Nov 16). Each session makes Status.md again, from
+  `fix/complete-translations`.
+- After the last group, `fix/complete-translations` runs in full on `wip/linux/complete-translations`, rooted at
   `base`, and goes into `basewithfixes` and `dev` through full runs.
 
-## The work of one language
+## The work of a session
 
-[Session.md](Session.md) gives the steps of the session that does one language: the packet (`packet.py`), the
-translation into the filled TSV, `apply.py`, `check.py`, the push after about each 200 keys, and at the end the
-review table (`review.py`) in `reviews/<language>.md` and Status.md made again. The filled TSV of each language is
-kept in `filled/<language>.tsv`, and its keys judged not needed in `not-needed/<language>.tsv`.
+[Session.md](Session.md) gives the steps of the session that does the next key groups: the packet of a group
+(`grouppacket.py`), the translation into the filled TSV of the group, `apply.py`, `check.py`, the push after about
+each 200 lines, and at the end of a group its review in `reviews/groups/<group>.md`, which marks it as done, the
+reviews of the languages in `reviews/languages/<language>.md`, and Status.md made again. The filled TSV of each group
+is kept in `filled/groups/<group>.tsv`, and the keys judged not needed in `not-needed/<language>.tsv`.
 
 The rules of the translation are @Pauli's (handover, task 9, Nov 14 and 16):
 
@@ -101,7 +101,7 @@ The rules of the translation are @Pauli's (handover, task 9, Nov 14 and 16):
 - Use the terms of the language's own translations, and keep to the room that the dialogs give, as task 4 did.
 - Translate only keys that need translation. Mark a key that needs none `=`.
 - Correct an existing translation only when completely sure that it is wrong, and say why.
-- Write a review table for each language.
+- Write a review table for each language (`reviews/languages/`, made from the filled groups).
 
 ## The terms
 
@@ -147,11 +147,12 @@ details.
 | Script | Does |
 | --- | --- |
 | `status.py <checkout> <out folder>` | Writes `Status.md`, the table, and `missing/<language>.tsv`, the keys that each language lacks, with the English, the satellite in `src/PurplePen` that holds a translation, and whether the key is the fork's own. |
-| `packet.py <checkout> <language> <out folder>` | Writes the packet of one language: `<language>.md` to read, with the language's terms and, for each key, the English, the other keys of the same control, the same text in the language, and the key in every other language that translates it, the related languages first; and `<language>.tsv` to fill. |
+| `packet.py <checkout> <language> <out folder>` | From before the key groups: the packet of one language. Writes the packet of one language: `<language>.md` to read, with the language's terms and, for each key, the English, the other keys of the same control, the same text in the language, and the key in every other language that translates it, the related languages first; and `<language>.tsv` to fill. |
+| `grouppacket.py <checkout> <out folder>` | Writes the packet of the next key group, or of `--group`, for all translated languages: `<group>.md` to read, with each key's English, its translations, the languages that lack it, its terms from terms.csv and the same text in each language; and the TSV to fill, a line for each language and key. `--list` lists the groups. |
 | `lookup.py <checkout> <key>...` | Shows every translation of keys, with the language model that made each, for the translator and the reviewer. `--regex` takes patterns of key names. |
-| `apply.py <checkout> <language> <tsv>...` | Writes the filled lines into the satellites, in the order of the English file, with the comment that names the language model, and checks each satellite after it. Leaves out a line whose English is not the English of now, and a key translated already, unless the line corrects it (`old`) or `--replace` is given. |
+| `apply.py <checkout> <language> <tsv>...` | Writes the filled lines into the satellites, in the order of the English file, with the comment that names the language model, and checks each satellite after it. Leaves out a line whose English is not the English of now, and a key translated already, unless the line corrects it (`old`) or `--replace` is given. With `-` as the language, each line goes to the language of its column `language`. |
 | `check.py <checkout>` | Reports errors (no parse, a repeated name, an empty value, a placeholder or brace that `string.Format` throws on) and, with `--warnings`, what to examine (a lost placeholder, an access-key mark, the spaces or the colon or ellipsis at the ends, a text that may not fit). |
-| `review.py <tsv>...` | Writes the review table of filled TSV files. |
+| `review.py <tsv>...` | Writes the review table of filled TSV files; with `--out-dir`, one file for each language. |
 | `terms.py <checkout> <out csv>` | Writes `terms.csv`, the terms and their translations in every language, one term on each line. |
 | `resxlib.py` | What the scripts share: the resources, the related languages, and the reading and writing of `.resx`, PO and TSV files. |
 
@@ -159,4 +160,5 @@ details.
 
 UTF-8, a header line, one line for each key, the fields separated by tabs. Within a field, a line break is `\n`, a
 tab `\t` and a backslash `\\`. A packet's TSV has the columns `resource`, `key`, `english`, `translation`, `old`,
-`note`, `mirrors`, `translator` and `effort`. `old` is empty except in a correction.
+`note`, `mirrors`, `translator` and `effort`. `old` is empty except in a correction. A key group's TSV has the column
+`language` before them.

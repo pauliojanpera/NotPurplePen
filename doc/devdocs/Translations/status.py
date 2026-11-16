@@ -124,6 +124,11 @@ def main():
     if have_upstream:
         cells.append(str(totals[-1]))
     lines.append('| ' + ' | '.join(cells) + ' |')
+    groups = R.key_groups(checkout)
+    done = sum(1 for name, _ in groups if R.group_done(name))
+    lines.append('')
+    lines.append(f'Key groups done: {done} of {len(groups)} (a group is done when it has its review in '
+                 '[`reviews/groups/`](reviews/groups/); `grouppacket.py <checkout> --list` lists them).')
     lines.append('')
     lines.append('Keys counted in the English files: ' + ', '.join(f'{res} {len(counted[res])}' for res, _ in R.RESOURCES)
                  + f'; {all_counted} in all.')

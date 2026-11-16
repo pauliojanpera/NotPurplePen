@@ -40,6 +40,8 @@ A translation is missing where the satellite of a language has no value for a ke
 | Chinese (Traditional) (`zh-TW`) | 92 % | 119 | 12 | 2 | 2 | 1 | 0 | **136** | 0 | 6 | 0 | 0 |
 | All that are translated |  | 6398 | 993 | 165 | 222 | 229 | 297 | **8304** | 6 | 182 | 0 | 0 |
 
+Key groups done: 0 of 90 (a group is done when it has its review in [`reviews/groups/`](reviews/groups/); `grouppacket.py <checkout> --list` lists them).
+
 Keys counted in the English files: UIText 1219, MiscText 180, CommandNameText 67, StatusBarText 39, SelectionDescriptionText 61, ReportText 65; 1631 in all.
 
 - **Not translated**: ca, he, id, ku, vec, zh-HK translate almost nothing and are not to be translated (@Pauli, Nov 16). Their rows show what they lack; the row "All that are translated" leaves them out.
