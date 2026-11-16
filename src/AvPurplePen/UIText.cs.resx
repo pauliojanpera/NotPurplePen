@@ -191,7 +191,8 @@
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AllControlsProperties_descriptionAppearanceLabel_Text" xml:space="preserve">
-    <value>Popis zobrazení:</value>
+    <value>Zobrazení popisu:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_mapScaleLabel_Text" xml:space="preserve">
     <value>Měřítko tisknuté mapy:</value>

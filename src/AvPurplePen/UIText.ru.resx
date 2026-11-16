@@ -197,7 +197,8 @@
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AllControlsProperties_printingScaleLabel_Text" xml:space="preserve">
-    <value>Маштаб карты для печати</value>
+    <value>Масштаб печати карты:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_oneToPrefixLabel_Text" xml:space="preserve">
     <value>1 : </value>
@@ -409,6 +410,14 @@
   </data>
   <data name="MainFrame_addVariationToolStripButton_Text" xml:space="preserve">
     <value>Добавить рассеивание</value>
+  </data>
+  <data name="AllControlsProperties_allControlsPropertiesLabel_Text" xml:space="preserve">
+    <value>Эти настройки определяют, как печатаются карта и легенды для «Все КП».</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="AllControlsProperties_Text" xml:space="preserve">
+    <value>Свойства «Все КП»</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="CancelButton" xml:space="preserve">
     <value>Отмена</value>

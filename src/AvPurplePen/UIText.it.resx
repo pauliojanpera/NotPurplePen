@@ -242,7 +242,8 @@
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AllControlsProperties_descKindCombo_Items2" xml:space="preserve">
-    <value>Simboli e testo.</value>
+    <value>Simboli e testo</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_labelKindLabel_Text" xml:space="preserve">
     <value>Etichetta del centro del punto</value>
@@ -438,7 +439,8 @@
     <value>Queste impostazioni controllano come sono stampate la mappa e le descrizioni per Tutti i Punti.</value>
   </data>
   <data name="AllControlsProperties_Text" xml:space="preserve">
-    <value>Proprietà della tutti i punti</value>
+    <value>Proprietà di Tutti i punti</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AutoNumbering_disallowInvertibleCheckBox_Text" xml:space="preserve">
     <value>Disabilita i codici che possono essere letti al contrario (per esempio, "68"/"89")</value>

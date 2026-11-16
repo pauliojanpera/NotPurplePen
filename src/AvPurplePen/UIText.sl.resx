@@ -191,7 +191,8 @@
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AllControlsProperties_descriptionAppearanceLabel_Text" xml:space="preserve">
-    <value>predogled opisa</value>
+    <value>Videz opisa:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_mapScaleLabel_Text" xml:space="preserve">
     <value>Merilo karte</value>
@@ -374,10 +375,12 @@
     <value>Dodaj besedilno vrstico</value>
   </data>
   <data name="AllControlsProperties_allControlsPropertiesLabel_Text" xml:space="preserve">
-    <value>Te nastavitve določajo kako bo natisnjena kart z vsemi KT.</value>
+    <value>Te nastavitve določajo, kako bosta natisnjena karta in opis za vse KT.</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AllControlsProperties_Text" xml:space="preserve">
-    <value>Lastnosti Vse KT</value>
+    <value>Lastnosti vseh KT</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AutoNumbering_disallowInvertibleCheckBox_Text" xml:space="preserve">
     <value>Onemogoči kodne številke, ki se lahko berejo narobe; npr: "68"/"89"</value>

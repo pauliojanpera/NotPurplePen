@@ -192,7 +192,8 @@
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AllControlsProperties_descriptionAppearanceLabel_Text" xml:space="preserve">
-    <value>Görüntü açıklaması:</value>
+    <value>Açıklama görünümü:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_mapScaleLabel_Text" xml:space="preserve">
     <value>Harita Baskı Ölçeği:</value>
@@ -439,7 +440,8 @@
     <value>Bu ayarlar, haritanın ve tüm kontrol noktalarının açıklamalarının nasıl  yazılacağını kontrol eder.</value>
   </data>
   <data name="AllControlsProperties_Text" xml:space="preserve">
-    <value>Tüm Kontrol Noktaların  Özellikleri</value>
+    <value>Tüm Kontrol Noktalarının Özellikleri</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AutoNumbering_disallowInvertibleCheckBox_Text" xml:space="preserve">
     <value>Ters okunan kodlara izin verme (Örnek, "69"/"89")</value>

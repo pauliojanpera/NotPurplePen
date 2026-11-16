@@ -433,10 +433,12 @@
     <value>Lisa teksti rida</value>
   </data>
   <data name="AllControlsProperties_allControlsPropertiesLabel_Text" xml:space="preserve">
-    <value>Allolevad seaded määravad kuidas trükitakse kaardile legendid kõikide kontrollpunktide korral.</value>
+    <value>Need seaded määravad, kuidas trükitakse kõigi KPde kaart ja legendid.</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AllControlsProperties_Text" xml:space="preserve">
-    <value>Kõik punktid seaded</value>
+    <value>Kõigi KPde seaded</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AutoNumbering_disallowInvertibleCheckBox_Text" xml:space="preserve">
     <value>Keela koodnumbrid, mida ei ole soovitav kasutada (näiteks "68/89")</value>

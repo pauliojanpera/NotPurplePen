@@ -378,10 +378,12 @@
     <value>Legg til tekstlinje</value>
   </data>
   <data name="AllControlsProperties_allControlsPropertiesLabel_Text" xml:space="preserve">
-    <value>Desse innstillingene avgjør korleis kartet og postbeskrivelsen for alle poster skrives ut.</value>
+    <value>Desse innstillingane avgjer korleis kartet og postbeskrivelsen for alle poster blir skrivne ut.</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AllControlsProperties_Text" xml:space="preserve">
-    <value>Innstillinger alle poster</value>
+    <value>Innstillingar for alle poster</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AutoNumbering_disallowInvertibleCheckBox_Text" xml:space="preserve">
     <value>Tillat ikkje postkoder som kan leses opp-ned (f.eks. "68" og "89")</value>

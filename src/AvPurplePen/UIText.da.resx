@@ -198,7 +198,8 @@
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AllControlsProperties_printingScaleLabel_Text" xml:space="preserve">
-    <value>Kort udskrivnings scala:</value>
+    <value>Kortets udskriftsskala:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_oneToPrefixLabel_Text" xml:space="preserve">
     <value>1: </value>
@@ -240,6 +241,10 @@
     <value>Tekst</value>
   </data>
   <data name="AddCourse_descKindCombo_Items2" xml:space="preserve">
+    <value>Symboler og tekst</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="AllControlsProperties_descKindCombo_Items2" xml:space="preserve">
     <value>Symboler og tekst</value>
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
@@ -443,10 +448,12 @@
     <value>Tilføj tekstlinje</value>
   </data>
   <data name="AllControlsProperties_allControlsPropertiesLabel_Text" xml:space="preserve">
-    <value>Disse indstillinger kontrollerer hvordan kortet og beskrivelserne for alle kontroller er udskrevet.</value>
+    <value>Disse indstillinger bestemmer, hvordan kortet og beskrivelserne for Alle poster udskrives.</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AllControlsProperties_Text" xml:space="preserve">
-    <value>Alle kontrollers egenskaber</value>
+    <value>Egenskaber for Alle poster</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AutoNumbering_disallowInvertibleCheckBox_Text" xml:space="preserve">
     <value>Forbyd kode der kan læses op-ned (f.eks. "68"/"89")</value>

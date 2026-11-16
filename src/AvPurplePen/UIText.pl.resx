@@ -221,7 +221,8 @@
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AllControlsProperties_descKindCombo_Items1" xml:space="preserve">
-    <value>Opis</value>
+    <value>Tekst</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="ChangeText_groupBox3_Text" xml:space="preserve">
     <value>Opis</value>
@@ -246,7 +247,8 @@
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AllControlsProperties_descKindCombo_Items2" xml:space="preserve">
-    <value>Piktografiki i opis</value>
+    <value>Piktografiki i tekst</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddCourse_labelKindLabel_Text" xml:space="preserve">
     <value>Etykiety punktów kontrolnych:</value>
@@ -385,10 +387,12 @@
     <value>Dodaj Tekst</value>
   </data>
   <data name="AllControlsProperties_allControlsPropertiesLabel_Text" xml:space="preserve">
-    <value>Te ustawienia mają wpływ na to w jaki sposób mapa oraz opisy Wszystkich Punktów są drukowane.</value>
+    <value>Te ustawienia mają wpływ na to, w jaki sposób drukowane są mapa oraz opisy dla Wszystkich PK.</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AllControlsProperties_Text" xml:space="preserve">
-    <value>Ustawienia Wszystkich Punktów</value>
+    <value>Ustawienia wszystkich PK</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AutoNumbering_disallowInvertibleCheckBox_Text" xml:space="preserve">
     <value>Nie dopuszczaj kodów, które mogłyby być odczytana do góry nogami (np., "68"/"89")</value>
