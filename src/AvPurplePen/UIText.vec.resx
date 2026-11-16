@@ -120,13 +120,4 @@
   <data name="AboutForm_copyrightLabel_Text" xml:space="preserve">
     <value>Copyright © di Peter Golde</value>
   </data>
-  <data name="CourseAppearanceDialog_labelBlendMode_Text" xml:space="preserve">
-    <value>Modo de fusion:</value>
-  </data>
-  <data name="CourseAppearanceDialog_comboBoxBlendMode_Items" xml:space="preserve">
-    <value>Scurisi</value>
-  </data>
-  <data name="CourseAppearanceDialog_comboBoxBlendMode_Items1" xml:space="preserve">
-    <value>Moltiplica</value>
-  </data>
 </root>
