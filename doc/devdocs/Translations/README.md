@@ -87,6 +87,7 @@ The rules of the translation are @Pauli's (handover, task 9, Nov 14 and 16):
 
 - Find the exact meaning of the English from every translation of the key in the other languages, the related
   languages first, and from the other keys of the same control. `lookup.py` shows every translation of any key.
+- Aim at natural language (Nov 16).
 - Use the terms of the language's own translations, and keep to the room that the dialogs give, as task 4 did.
 - Translate only keys that need translation. Mark a key that needs none `=`.
 - Correct an existing translation only when completely sure that it is wrong, and say why.

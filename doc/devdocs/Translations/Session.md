@@ -11,10 +11,10 @@ the next agent, which finds its language from the files.
 @Pauli starts the session with a prompt such as:
 
 > Translate the next language of NotPurplePen. Follow `doc/devdocs/Translations/Session.md` on the branch
-> `docs/process-coordination` of `pauliojanpera/NotPurplePen`. You are `<model id>`, at effort `<effort setting>`.
+> `docs/process-coordination` of `pauliojanpera/NotPurplePen`. You are `claude-opus-5-5`, at effort `max`.
 
-The model id and the effort setting go into the metadata of each translation. If the prompt does not give them, give
-your own model id, and ask @Pauli for the effort setting before you write a translation.
+The model id and the effort setting go into the metadata of each translation. @Pauli chose `claude-opus-5-5` at
+effort max on Nov 16, to start with. If the prompt gives others, use those of the prompt.
 
 ## 1. Get the context and the files
 
@@ -63,7 +63,10 @@ that the language lacks.
 ## 4. Translate
 
 Read `work/<language>.md` in parts (the Read tool's offset and limit), one dialog after another. For each key, fill
-its line of `docs/doc/devdocs/Translations/filled/<language>.tsv`:
+its line of `docs/doc/devdocs/Translations/filled/<language>.tsv`.
+
+Aim at natural language (@Pauli, Nov 16). A translation reads as text written in the language, not as the English
+put into the language's words.
 
 - **translation**: the translation. Before you write it, find the exact meaning of the English. Read the other keys
   of the same control, the same text in the language, and the key in every other language, the related languages
