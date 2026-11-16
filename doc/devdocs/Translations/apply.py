@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Writes the translations of filled TSV files into a language's satellites.
 
-usage: apply.py <checkout> <language> <tsv>... [--replace] [--dry-run] [--not-needed FOLDER]
+usage: apply.py <checkout> <language> <tsv>... [--translator MODEL --effort LEVEL] [--replace] [--dry-run] [--not-needed FOLDER]
 
 A TSV has the columns resource, key, english and translation (packet.py makes it; status.py's and
 other columns are ignored). A line whose translation is "=" records the key as not needed in the
@@ -12,11 +12,18 @@ English is left out. A key that the satellite translates already is left out unl
 given. A null or empty entry of the key is replaced. A new entry goes into the place that the key has
 in the English file. A satellite that does not exist is made from the English file's header.
 
+A line whose translator column, or else --translator, names a language model gets the comment
+"translator=<model id>; effort=<effort setting>; date=<today>" in its entry (resxlib), with the effort
+of its effort column or of --effort. A line without a translator is written without a comment, as a
+person's translation. The not-needed file records the same of each key marked "=".
+
 After writing, each satellite is read again and checked: it must parse, have each name once, and give
-each written key its translation. --dry-run writes nothing and reports what it would write."""
+each written key its translation and comment. --dry-run writes nothing and reports what it would
+write."""
 
 import argparse
 import collections
+import datetime
 import os
 import sys
 
@@ -37,7 +44,15 @@ def main():
     parser.add_argument('--replace', action='store_true')
     parser.add_argument('--dry-run', action='store_true')
     parser.add_argument('--not-needed', default=None)
+    parser.add_argument('--translator', default='', help='the model id of the language model that translated')
+    parser.add_argument('--effort', default='', help="the language model's effort setting")
     args = parser.parse_args()
+    today = datetime.date.today().isoformat()
+
+    def made_by(row):
+        translator = (row.get('translator') or args.translator).strip()
+        effort = (row.get('effort') or args.effort).strip()
+        return translator, (effort if translator else '')
     checkout, lang = args.checkout, args.language
     if not R.LANGUAGE_PATTERN.match(lang):
         sys.exit(f'{lang}: not a language code')
@@ -63,8 +78,11 @@ def main():
                 print(f'{row["resource"]}.{row["key"]}: not in the English file with this English; not recorded as not needed')
                 counts['English changed'] += 1
                 continue
+            translator, effort = made_by(row)
             not_needed[(row['resource'], row['key'])] = {'resource': row['resource'], 'key': row['key'],
-                                                         'english': row['english'], 'note': row.get('note', '')}
+                                                         'english': row['english'], 'note': row.get('note', ''),
+                                                         'translator': translator, 'effort': effort,
+                                                         'date': today if translator else ''}
             counts['not needed'] += 1
         if not args.dry_run:
             R.write_not_needed(lang, not_needed, args.not_needed)
@@ -93,6 +111,7 @@ def main():
             continue
 
         values = {}
+        comments = {}
         for key, row in rows.items():
             entry = english.get(key)
             if entry is None or entry.kind != 'string':
@@ -108,17 +127,22 @@ def main():
                 counts['translated already'] += 1
                 continue
             values[key] = row['translation']
+            translator, effort = made_by(row)
+            if translator:
+                comments[key] = R.translator_comment(translator, effort, today)
+                counts['by a model'] += 1
         if not values:
             continue
         counts['written'] += len(values)
         if args.dry_run:
             print(f'{sat_path}: would write {len(values)}' + (' (new file)' if new_file else ''))
             continue
-        text = R.set_entries(text, english_order, values)
+        text = R.set_entries(text, english_order, values, comments)
         after = R.parse_entries(text.encode('utf-8'))
         names = entry_names(text)
         problems = [n for n, c in collections.Counter(names).items() if c > 1]
-        problems += [k for k, v in values.items() if after.get(k) is None or after[k].value != v]
+        problems += [k for k, v in values.items() if after.get(k) is None or after[k].value != v
+                     or (after[k].comment or None) != comments.get(k)]
         if problems:
             print(f'{sat_path}: check failed for {problems[:5]}; nothing written')
             failed = True

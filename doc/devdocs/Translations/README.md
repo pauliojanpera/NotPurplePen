@@ -2,7 +2,9 @@
 
 The tools that find and fill the translations that the languages of NotPurplePen lack. @Pauli, Nov 16: find out
 which translations each translated language lacks, and add them; first a table made mechanically, then the
-translations in phases, with scripts where they make the work faster.
+translations in phases, with scripts where they make the work faster. For each key, the translator can see the
+other translations of the key, and each translation that a language model makes names the model and its effort
+setting.
 
 The table is [Status.md](Status.md). Make it again after each phase.
 
@@ -65,19 +67,42 @@ meets upstream, so that they can be offered upstream.
 ## The work of one language
 
 1. Make the packet from a checkout of the branch where the translations go:
-   `packet.py <checkout> <language> <work folder>`. On a branch of upstream's history, the packet has only upstream's
-   keys. On a branch of the fork, `--upstream-only` or `--forks-own` takes one of the two.
+   `packet.py <checkout> <language> <work folder> --translator <model id> --effort <effort setting>`, with the model
+   and effort setting of the language model that will translate. On a branch of upstream's history, the packet has
+   only upstream's keys. On a branch of the fork, `--upstream-only` or `--forks-own` takes one of the two.
 2. The translator reads `<language>.md` and fills `<language>.tsv`: the translation, the context that decided it
-   (`note`), and the existing keys whose translation it follows (`mirrors`). It uses the terms of the language's own
-   translations, and keeps to the room that the dialogs give, as task 4 did. For a key that needs no translation in
-   the language, it writes `=`.
-3. `apply.py <checkout> <language> <language>.tsv` writes the translations into the satellites, and records the
-   keys marked `=` in `not-needed/<language>.tsv` beside the scripts.
+   (`note`), and the existing keys whose translation it follows (`mirrors`). For each key, the packet gives every
+   translation of the key in the other languages, the related languages first, and the other keys of the same
+   control, so that the exact meaning of the English is clear (@Pauli, Nov 14 and 16). `lookup.py <checkout> <key>`
+   gives every translation of any other key. The translator uses the terms of the language's own translations, and
+   keeps to the room that the dialogs give, as task 4 did. For a key that needs no translation in the language, it
+   writes `=`.
+3. `apply.py <checkout> <language> <language>.tsv` writes the translations into the satellites, each with the comment
+   that names the language model (below), and records the keys marked `=` in `not-needed/<language>.tsv` beside the
+   scripts.
 4. `check.py <checkout> --language <language> --since <commit before the language> --warnings`: no error, and each
    warning examined.
 5. `review.py <language>.tsv > reviews/<language>.md`: the review table. Keep the filled TSV beside it.
 6. Commit the satellites of the language in one commit on the branch, and `not-needed/` and `reviews/` on
    `docs/process-coordination`.
+
+## Who made a translation
+
+A translation that a language model made carries in the `<comment>` of its entry in the satellite:
+
+```
+translator=<model id>; effort=<effort setting>; date=<YYYY-MM-DD>
+```
+
+for example `translator=claude-opus-5-5; effort=max; date=2026-11-16` (@Pauli, Nov 16). The resource manager does not
+read comments, so they change nothing that the application shows. The comment goes upstream with the translation,
+where it tells a reviewer which translations a model made. A person who changes such a translation changes or
+removes the comment.
+
+`apply.py` writes the comment from the `translator` and `effort` columns of the TSV, or from its `--translator` and
+`--effort`. A line without a translator is written without a comment, as a person's translation. The not-needed file
+records the same columns. Status.md counts the translations of each language that a model made ("By a model"),
+`lookup.py` marks them, and `review.py` gives the model of each review table.
 
 ## The scripts
 
@@ -87,8 +112,9 @@ details.
 | Script | Does |
 | --- | --- |
 | `status.py <checkout> <out folder>` | Writes `Status.md`, the table, and `missing/<language>.tsv`, the keys that each language lacks, with the English, the satellite in `src/PurplePen` that holds a translation, and whether the key is the fork's own. |
-| `packet.py <checkout> <language> <out folder>` | Writes the packet of one language: `<language>.md` to read, with the language's terms and, for each key, the English, the same text in the language, and the key in the related languages; and `<language>.tsv` to fill. |
-| `apply.py <checkout> <language> <tsv>...` | Writes the filled lines into the satellites, in the order of the English file, and checks each satellite after it. Leaves out a line whose English is not the English of now, and a key translated already, unless `--replace`. |
+| `packet.py <checkout> <language> <out folder>` | Writes the packet of one language: `<language>.md` to read, with the language's terms and, for each key, the English, the other keys of the same control, the same text in the language, and the key in every other language that translates it, the related languages first; and `<language>.tsv` to fill. |
+| `lookup.py <checkout> <key>...` | Shows every translation of keys, with the language model that made each, for the translator and the reviewer. `--regex` takes patterns of key names. |
+| `apply.py <checkout> <language> <tsv>...` | Writes the filled lines into the satellites, in the order of the English file, with the comment that names the language model, and checks each satellite after it. Leaves out a line whose English is not the English of now, and a key translated already, unless `--replace`. |
 | `check.py <checkout>` | Reports errors (no parse, a repeated name, an empty value, a placeholder or brace that `string.Format` throws on) and, with `--warnings`, what to examine (a lost placeholder, an access-key mark, the spaces or the colon or ellipsis at the ends, a text that may not fit). |
 | `review.py <tsv>...` | Writes the review table of filled TSV files. |
 | `resxlib.py` | What the scripts share: the resources, the related languages, and the reading and writing of `.resx`, PO and TSV files. |
@@ -96,5 +122,5 @@ details.
 ## The TSV files
 
 UTF-8, a header line, one line for each key, the fields separated by tabs. Within a field, a line break is `\n`, a
-tab `\t` and a backslash `\\`. A packet's TSV has the columns `resource`, `key`, `english`, `translation`, `note`
-and `mirrors`.
+tab `\t` and a backslash `\\`. A packet's TSV has the columns `resource`, `key`, `english`, `translation`, `note`,
+`mirrors`, `translator` and `effort`.

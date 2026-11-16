@@ -66,7 +66,8 @@ RELATED = {
 LANGUAGE_PATTERN = re.compile(r'^[a-z]{2,3}(-[A-Za-z0-9]+)*$')
 
 # The keys that a language's translator judged to need no translation in the language, as
-# not-needed/<language>.tsv beside these scripts (columns resource, key, english, note). A key counts
+# not-needed/<language>.tsv beside these scripts (columns resource, key, english, note, translator,
+# effort, date). A key counts
 # as not needed only while its English is the english of the line. Such a key gets no entry in the
 # satellite, so it follows the English file when the English changes.
 NOT_NEEDED_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'not-needed')
@@ -193,8 +194,10 @@ def write_not_needed(language, rows, directory=None):
     os.makedirs(directory, exist_ok=True)
     order = {res: i for i, (res, _) in enumerate(RESOURCES)}
     items = sorted(rows.values(), key=lambda r: (order.get(r['resource'], 99), r['key']))
-    write_tsv(os.path.join(directory, f'{language}.tsv'), ['resource', 'key', 'english', 'note'],
-              [[r['resource'], r['key'], r['english'], r.get('note', '')] for r in items])
+    write_tsv(os.path.join(directory, f'{language}.tsv'),
+              ['resource', 'key', 'english', 'note', 'translator', 'effort', 'date'],
+              [[r['resource'], r['key'], r['english'], r.get('note', ''), r.get('translator', ''),
+                r.get('effort', ''), r.get('date', '')] for r in items])
 
 
 def missing_keys(english, satellite, resource=None, not_needed=None):
@@ -214,6 +217,23 @@ def missing_keys(english, satellite, resource=None, not_needed=None):
         if own is None or not own.has_text():
             result.append(name)
     return result
+
+
+CONTROL_WORDS = re.compile(r'radiobutton|checkbox|combobox|groupbox|numericupdown|listbox|textbox|toolstripbutton|'
+                           r'toolstrip|button|label|menu|panel', re.I)
+
+
+def control_of(key):
+    """For a UIText key Dialog_control_Property, (dialog, stem): the name of the control without the
+    words of control types, in lower case, so that a label and the combo box it names have the same
+    stem (labelBlendPurple, comboBoxBlendPurple). None for another key, or a stem of digits only."""
+    parts = key.split('_')
+    if len(parts) < 3:
+        return None
+    stem = CONTROL_WORDS.sub('', '_'.join(parts[1:-1])).lower()
+    if not stem or stem.isdigit():
+        return None
+    return parts[0], stem
 
 
 def related_order(language, all_languages, completeness):
@@ -345,8 +365,38 @@ def xml_text(text):
     return text.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
 
 
-def entry_block(name, value):
-    return f'\r\n  <data name="{xml_text(name)}" xml:space="preserve">\r\n    <value>{xml_text(value)}</value>\r\n  </data>'
+def entry_block(name, value, comment=None):
+    block = f'\r\n  <data name="{xml_text(name)}" xml:space="preserve">\r\n    <value>{xml_text(value)}</value>'
+    if comment:
+        block += f'\r\n    <comment>{xml_text(comment)}</comment>'
+    return block + '\r\n  </data>'
+
+
+# --- Who made a translation -------------------------------------------------------------------
+# A translation that a language model made carries in the <comment> of its entry
+#   translator=<model id>; effort=<effort setting>; date=<YYYY-MM-DD>
+# The resource manager does not read comments, so they change nothing that the application shows.
+# A person who changes such a translation changes or removes the comment.
+
+TRANSLATOR_PATTERN = re.compile(r'(?:^|;\s*)translator=([^;]+)')
+
+
+def translator_comment(translator, effort, date):
+    """The comment of a translation that a language model made."""
+    parts = [f'translator={translator.strip()}']
+    if effort:
+        parts.append(f'effort={effort.strip()}')
+    if date:
+        parts.append(f'date={date}')
+    return '; '.join(parts)
+
+
+def made_by(entry):
+    """The translator that the comment of an entry names, or None."""
+    if entry is None or not entry.comment:
+        return None
+    m = TRANSLATOR_PATTERN.search(entry.comment)
+    return m.group(1).strip() if m else None
 
 
 def read_text(path):
@@ -370,13 +420,14 @@ def body_start(text):
     return text.rindex('</resheader>') + len('</resheader>') if '</resheader>' in text else text.index('</xsd:schema>')
 
 
-def set_entries(text, english_order, values):
-    """Returns the .resx text with each name of values given its value. A null or empty entry of the
-    name is replaced; otherwise the entry goes after the nearest name before it in english_order that
-    the text has. Names that the text translates already must not be in values."""
+def set_entries(text, english_order, values, comments=None):
+    """Returns the .resx text with each name of values given its value, and the comment that
+    comments gives for the name, if any. An entry of the name is replaced; otherwise the entry goes
+    after the nearest name before it in english_order that the text has."""
+    comments = comments or {}
     position = {name: i for i, name in enumerate(english_order)}
     for name in sorted(values, key=lambda n: position.get(n, len(position))):
-        block = entry_block(name, values[name])
+        block = entry_block(name, values[name], comments.get(name))
         start = body_start(text)
         present = {m.group('name'): m for m in ENTRY_PATTERN.finditer(text, start)}
         if name in present:

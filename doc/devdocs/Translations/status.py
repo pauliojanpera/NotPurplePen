@@ -54,12 +54,13 @@ def main():
 
     os.makedirs(os.path.join(args.out, 'missing'), exist_ok=True)
     rows = []
-    totals = [0] * (len(R.RESOURCES) + 4)
+    totals = [0] * (len(R.RESOURCES) + 5)
     for lang in langs:
         not_needed = R.read_not_needed(lang, args.not_needed)
         per_resource = []
         in_repo = 0
         own = 0
+        by_model = 0
         tsv_rows = []
         for res, base in R.RESOURCES:
             satellite = R.read_resource(checkout, base, lang)
@@ -68,6 +69,8 @@ def main():
                 stranded = R.read_resource(checkout, base, lang, directory=R.STRANDED_DIR)
             missing = R.missing_keys(english[res], satellite, res, not_needed)
             per_resource.append(len(missing))
+            by_model += sum(1 for k in counted[res] if satellite and k in satellite
+                            and satellite[k].has_text() and R.made_by(satellite[k]))
             for key in missing:
                 found = ''
                 if stranded is not None and key in stranded and stranded[key].has_text():
@@ -82,8 +85,8 @@ def main():
                      if res in english and key in english[res] and english[res][key].value == row['english'])
         R.write_tsv(os.path.join(args.out, 'missing', f'{lang}.tsv'),
                     ['resource', 'key', 'english', 'in_repo', 'forks_own'], tsv_rows)
-        rows.append((lang, per_resource, total, judged, in_repo, own))
-        for i, v in enumerate(per_resource + [total, judged, in_repo, own]):
+        rows.append((lang, per_resource, total, judged, by_model, in_repo, own))
+        for i, v in enumerate(per_resource + [total, judged, by_model, in_repo, own]):
             totals[i] += v
 
     all_counted = sum(len(v) for v in counted.values())
@@ -103,18 +106,18 @@ def main():
                  "key that the language's translator judged to need no translation ([`not-needed/`](not-needed/)). "
                  'The keys of each language are in [`missing/<language>.tsv`](missing/).')
     lines.append('')
-    header = ['Language', 'Done'] + [short.get(res, res) for res, _ in R.RESOURCES] + ['Missing', 'Not needed', 'In the repo']
+    header = ['Language', 'Done'] + [short.get(res, res) for res, _ in R.RESOURCES] + ['Missing', 'Not needed', 'By a model', 'In the repo']
     if have_upstream:
         header.append("Fork's own")
     lines.append('| ' + ' | '.join(header) + ' |')
     lines.append('|' + '|'.join([' --- '] * 2 + [' ---: '] * (len(header) - 2)) + '|')
-    for lang, per_resource, total, judged, in_repo, own in rows:
+    for lang, per_resource, total, judged, by_model, in_repo, own in rows:
         done = 100.0 * (all_counted - total) / all_counted
-        cells = [f'{NAMES.get(lang, lang)} (`{lang}`)', f'{done:.0f} %'] + [str(v) for v in per_resource] + [f'**{total}**', str(judged), str(in_repo)]
+        cells = [f'{NAMES.get(lang, lang)} (`{lang}`)', f'{done:.0f} %'] + [str(v) for v in per_resource] + [f'**{total}**', str(judged), str(by_model), str(in_repo)]
         if have_upstream:
             cells.append(str(own))
         lines.append('| ' + ' | '.join(cells) + ' |')
-    cells = ['All', ''] + [str(v) for v in totals[:len(R.RESOURCES)]] + [f'**{totals[-4]}**', str(totals[-3]), str(totals[-2])]
+    cells = ['All', ''] + [str(v) for v in totals[:len(R.RESOURCES)]] + [f'**{totals[-5]}**', str(totals[-4]), str(totals[-3]), str(totals[-2])]
     if have_upstream:
         cells.append(str(totals[-1]))
     lines.append('| ' + ' | '.join(cells) + ' |')
@@ -125,6 +128,8 @@ def main():
     lines.append(f'- **Done** is the share of the {all_counted} keys that the language translates or does not need.')
     lines.append("- **Not needed** counts the keys that the language's translator judged to need no translation, "
                  'in `not-needed/<language>.tsv`. They are not in **Missing**.')
+    lines.append('- **By a model** counts the translations whose entry names in its comment the language model that '
+                 'made it: `translator=<model id>; effort=<effort setting>; date=<date>` (README.md).')
     lines.append(f'- **In the repo** counts the missing translations that a satellite in `{R.STRANDED_DIR}` holds. '
                  "Upstream's TranslateTool writes the satellites of PurplePenCore's resources there. PurplePen.csproj "
                  'removes them from its build, and PurplePenCore has no copy, so the application does not show them.')
@@ -134,7 +139,7 @@ def main():
     lines.append('')
     with open(os.path.join(args.out, 'Status.md'), 'w', encoding='utf-8', newline='\n') as f:
         f.write('\n'.join(lines))
-    print(f'{len(langs)} languages, {totals[-4]} missing, {totals[-3]} not needed, {totals[-2]} in the repo'
+    print(f'{len(langs)} languages, {totals[-5]} missing, {totals[-4]} not needed, {totals[-3]} by a model, {totals[-2]} in the repo'
           + (f", {totals[-1]} fork's own" if have_upstream else ''))
 
 

@@ -2,24 +2,30 @@
 """Makes the work packet of one language: what its translator reads, and the TSV that the
 translator fills.
 
-usage: packet.py <checkout> <language> <out folder> [--others N] [--resource NAME ...] [--forks-own | --upstream-only] [--upstream REV]
+usage: packet.py <checkout> <language> <out folder> [--others N] [--resource NAME ...] [--forks-own | --upstream-only] [--upstream REV] [--translator MODEL --effort LEVEL]
 
 Writes <out folder>/<language>.md and <out folder>/<language>.tsv. The TSV has a line for each key
-that the language lacks, with the columns resource, key, english, translation, note and mirrors.
-The translator fills translation, writes in note the context that decided it, and keeps in mirrors
-the existing keys whose translation it follows. apply.py writes the filled lines into the
-satellites, and review.py makes the review table of them.
+that the language lacks, with the columns resource, key, english, translation, note, mirrors,
+translator and effort. The translator fills translation, writes in note the context that decided it,
+and keeps in mirrors the existing keys whose translation it follows. translator and effort name the
+language model and its effort setting that make the translations: --translator and --effort fill
+them in. apply.py writes the filled lines into the satellites, and review.py makes the review table
+of them.
 
 For each key, the Markdown gives:
 - the English, and the comment of the English file if it has one;
+- the same control: the other keys of the dialog whose control has the same name without the words
+  of control types (a label and the combo box it names, and the combo box's items), with their
+  translation in the language;
 - the same text in the language: the translations that the language has of other keys whose English
   is the same text, without access-key marks, a trailing colon or ellipsis, and case. They come from
   the language's satellites, from the satellites that upstream's TranslateTool left in src/PurplePen,
   from the satellites of the WinForms forms, and from upstream's PO files in loc/po/purplepen, which
   keep the English of strings that the .resx files have since changed or dropped. mirrors starts
   with these keys;
-- the key in other languages: the related languages first (resxlib.RELATED), then the others by how
-  much they translate, up to --others languages (default 5) in all.
+- the key in other languages: every language that translates it, the related languages first
+  (resxlib.RELATED), then the others by how much they translate. --others N shows only the first N.
+  lookup.py shows the same for any key while the translator works.
 
 Before the keys, "Terms" lists the language's existing translations of English texts of up to three
 words, for the terms of its own translations.
@@ -74,8 +80,10 @@ def main():
     parser.add_argument('checkout')
     parser.add_argument('language')
     parser.add_argument('out')
-    parser.add_argument('--others', type=int, default=5)
+    parser.add_argument('--others', type=int, default=0, help='show only the first N other languages (0: all)')
     parser.add_argument('--resource', action='append')
+    parser.add_argument('--translator', default='', help='the model id of the language model that translates')
+    parser.add_argument('--effort', default='', help="the language model's effort setting")
     parser.add_argument('--upstream', default='origin/base')
     which = parser.add_mutually_exclusive_group()
     which.add_argument('--forks-own', action='store_true')
@@ -126,6 +134,12 @@ def main():
     for refs, eng, translation in R.read_po(checkout, lang):
         add_same(f'{R.PO_DIR}/{R.PO_NAMES.get(lang, lang)}.po ' + (refs[0].replace(' ', '') if refs else ''), eng, translation)
 
+    controls = {}
+    for key in english['UIText']:
+        control = R.control_of(key)
+        if control is not None:
+            controls.setdefault(control, []).append(key)
+
     rows = []
     sections = []
     not_needed = R.read_not_needed(lang)
@@ -146,6 +160,17 @@ def main():
                 body.append(f'- English: {md_text(entry.value)}')
                 if entry.comment:
                     body.append(f'- Comment: {md_text(entry.comment)}')
+                control = R.control_of(key) if res == 'UIText' else None
+                if control is not None:
+                    siblings = []
+                    for other_key in controls.get(control, []):
+                        if other_key == key:
+                            continue
+                        own = sat.get(other_key)
+                        shown = f'"{md_text(own.value)}"' if own is not None and own.has_text() else '(missing)'
+                        siblings.append(f'`{other_key}` "{md_text(english[res][other_key].value)}" → {shown}')
+                    if siblings:
+                        body.append('- Same control: ' + '; '.join(siblings))
                 matches = [m for m in same.get(R.normalize(entry.value), []) if m[0] != f'{res}.{key}']
                 if matches:
                     body.append('- Same text in this language: ' + '; '.join(
@@ -155,12 +180,12 @@ def main():
                     o = satellites[(other, res)].get(key)
                     if o is not None and o.has_text():
                         others.append(f'{other} "{md_text(o.value)}"')
-                    if len(others) >= args.others:
+                    if args.others and len(others) >= args.others:
                         break
                 body.append('- Other languages: ' + ('; '.join(others) if others else 'none'))
                 body.append('')
                 mirrors = ' '.join(label.split(' ')[-1] if ' ' in label else label for label, _, _ in matches[:3])
-                rows.append([res, key, entry.value, '', '', mirrors])
+                rows.append([res, key, entry.value, '', '', mirrors, args.translator, args.effort])
             sections.append('\n'.join(body))
 
     terms = {}
@@ -177,7 +202,8 @@ def main():
             'the translation and say why in note: apply.py then records the key as not needed, and writes nothing '
             'into the satellite. Leave the translation empty for a key that is not done. In the TSV, write a line '
             'break as \\n and a tab as \\t.', '',
-            f'The other languages are read in this order: {", ".join(order[:args.others + 3])}, ...', '',
+            f'The other languages are read in this order: {", ".join(order)}. To see every translation of any '
+            'key, for example of a key in "Same control" or "mirrors", run `lookup.py <checkout> <key>`.', '',
             '## Terms', '',
             f'The existing translations of English texts of up to three words in {lang}.', '',
             f'| English | {lang} | Key |', '| --- | --- | --- |']
@@ -188,7 +214,7 @@ def main():
     with open(os.path.join(args.out, f'{lang}.md'), 'w', encoding='utf-8', newline='\n') as f:
         f.write('\n'.join(head) + '\n' + '\n'.join(sections))
     R.write_tsv(os.path.join(args.out, f'{lang}.tsv'),
-                ['resource', 'key', 'english', 'translation', 'note', 'mirrors'], rows)
+                ['resource', 'key', 'english', 'translation', 'note', 'mirrors', 'translator', 'effort'], rows)
     print(f'{lang}: {len(rows)} keys, {len(terms)} terms')
 
 
