@@ -1,0 +1,15 @@
+resource	key	english	translation	old	note	mirrors	translator	effort
+UIText	CreatePdfCourses_labelPrintBaseMap_Text	Include:	内容：		label beside the combo box of what the file holds; "content" reads naturally before the items	MainFrame_courseMenu_Text ChangeMapFile_Text	claude-opus-5-5	max
+UIText	CreatePdfCourses_comboBoxPrintBaseMap_Items	Course and map	线路和地图		the file holds the course over the base map	MainFrame_courseMenu_Text ChangeMapFile_Text	claude-opus-5-5	max
+UIText	CreatePdfCourses_comboBoxPrintBaseMap_Items1	Course only	仅线路		the file holds the course without the base map	MainFrame_courseMenu_Text ChangeMapFile_Text	claude-opus-5-5	max
+UIText	CreateImageFiles_labelPrintBaseMap_Text	Include:	内容：		label beside the combo box of what the file holds; "content" reads naturally before the items	MainFrame_courseMenu_Text ChangeMapFile_Text	claude-opus-5-5	max
+UIText	CreateImageFiles_comboBoxPrintBaseMap_Items	Course and map	线路和地图		the file holds the course over the base map	MainFrame_courseMenu_Text ChangeMapFile_Text	claude-opus-5-5	max
+UIText	CreateImageFiles_comboBoxPrintBaseMap_Items1	Course only	仅线路		the file holds the course without the base map	MainFrame_courseMenu_Text ChangeMapFile_Text	claude-opus-5-5	max
+ReportText	LegLength_CourseInfoNoClimb	{0} ({1} controls, {2})	{0}（{1}检查点，{2}）	{0}（{一} Controls，{二}）	"{一}" and "{二}" are not placeholders; string.Format throws on them; mirrors LegLength_CourseInfo		claude-opus-5-5	max
+UIText	ReportText_LegLength_CourseInfoNoClimb	{0} ({1} controls, {2})	{0}（{1}检查点，{2}）	{0}（{一} Controls，{二}）	"{一}" and "{二}" are not placeholders; string.Format throws on them; mirrors LegLength_CourseInfo		claude-opus-5-5	max
+MiscText	Margins_LRTB	Left: {0}, Right: {1}, Top: {2}, Bottom: {3}	左：{0}，右：{1}，上：{2}，下：{3}	左：{0}：{1}右上：{2}，{三}：底	"{三}" is not a placeholder, and the sides are out of order; mirrors zh-TW		claude-opus-5-5	max
+UIText	MiscText_Margins_LRTB	Left: {0}, Right: {1}, Top: {2}, Bottom: {3}	左：{0}，右：{1}，上：{2}，下：{3}	左：{0}：{1}右上：{2}，{三}：底	"{三}" is not a placeholder, and the sides are out of order; mirrors zh-TW		claude-opus-5-5	max
+MiscText	PartXOfY	Part {0} (of {1})	第 {0} 部分（共 {1} 部分）	（除了{0} {一}）	"（除了{0} {一}）" means "except {0} {one}"; "{一}" is not a placeholder		claude-opus-5-5	max
+UIText	MiscText_PartXOfY	Part {0} (of {1})	第 {0} 部分（共 {1} 部分）	（除了{0} {一}）	"（除了{0} {一}）" means "except {0} {one}"; "{一}" is not a placeholder		claude-opus-5-5	max
+CommandNameText	CreateMapFiles	Create {0} &Files	创建 {0} 文件(&F)	创建{0}和文件	和 ("and") stands for the access-key mark "&" (task 9); mirrors zh-TW		claude-opus-5-5	max
+UIText	CommandNameText_CreateMapFiles	Create {0} _Files	创建 {0} 文件(_F)	创建{0}和文件	和 ("and") stands for the access-key mark "&" (task 9); mirrors zh-TW		claude-opus-5-5	max

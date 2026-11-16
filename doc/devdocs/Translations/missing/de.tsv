@@ -7,7 +7,6 @@ UIText	NoButton	No
 UIText	SwitchLanguageButton	Switch Language...		
 UIText	SwitchLanguageDialog_Title	Switch Language		
 UIText	SwitchLanguageDialog_Prompt	Select a language:		
-UIText	ColorChooserDialog_checkBoxOverprint_Text	Overprint		yes
 UIText	MoveControlChoiceDialog_Text	Moving Shared Control		
 UIText	MoveControlChoiceDialog_labelExplanation_Text	Control "{0}" is present in the following other courses. If you move it, those courses will be changed also.		
 UIText	MoveControlChoiceDialog_moveButton_TitleText	Move Control In All Courses		
@@ -28,16 +27,7 @@ UIText	CourseAppearanceDialog_labelChooseLayer_Text	Above map layer:
 UIText	CourseAppearanceDialog_comboBoxBlendPurple_Items1	Blend		
 UIText	CourseAppearanceDialog_comboBoxBlendPurple_Items2	Layer		
 UIText	CourseAppearanceDialog_labelBlendPurple_Text	Blend purple with underlying map colors:		
-UIText	CreateImageFiles_labelAutoRotate_Text	Auto rotate:		yes
-UIText	CreateImageFiles_labelImageQuality_Text	Image quality:		yes
-UIText	CreateImageFiles_comboBoxPrintBaseMap_Items	Course and map		
-UIText	CreatePdfCourses_comboBoxPrintBaseMap_Items	Course and map		
-UIText	CreateImageFiles_comboBoxPrintBaseMap_Items1	Course only		
-UIText	CreatePdfCourses_comboBoxPrintBaseMap_Items1	Course only		
-UIText	CreateImageFiles_labelPrintBaseMap_Text	Include:		
-UIText	CreatePdfCourses_labelPrintBaseMap_Text	Include:		
 UIText	EnterSymbolText_defaultCaseText	(unchanged)		
-UIText	MainFrame_splitMenu_Text	S_plit		yes
 UIText	MainFrame_addConstructionMenu_Text	Temporary Construction		
 UIText	MainFrame_constructionToolStripMenuItem_Text	Temporary Construction		
 UIText	MiscText_LowerPurple	Lower Purple		
@@ -60,14 +50,14 @@ UIText	PaperSizeControl_labelLeft_Text	Left:
 UIText	PaperSizeControl_labelRight_Text	Right:		
 UIText	PaperSizeControl_checkBoxPortrait_Text	Portrait		
 UIText	PaperSizeControl_checkBoxLandscape_Text	Landscape		
-UIText	CrashDialog_Text	NotPurplePen has crashed		
+UIText	CrashDialog_Text	Purple Pen has crashed		
 UIText	CrashDialog_introLabel_Text	An error has occurred. In order to help us fix the problem, please give us any additional information about what caused the error, and send us an error report.		
 UIText	CrashDialog_sendReportCheckBox_Text	Send error report		
 UIText	CrashDialog_viewDetailsButton_Text	View Error Details...		
 UIText	CrashDialog_descriptionLabel_Text	Please tell us what you did immediately before this error occurred:		
 UIText	CrashDialog_descriptionTextBox_Watermark	Give as much detail as possible as to what you were doing and what might have triggered the error.		
-UIText	CrashDialog_explanationLabel_Text	In many cases, you can continue working without problem. You can also restart NotPurplePen. If you restart, NotPurplePen will attempt to save and restore your current work in progress.		
-UIText	CrashDialog_fatalExplanationLabel_Text	NotPurplePen cannot continue running and must be restarted. If you restart, NotPurplePen will attempt to save and restore your current work in progress.		
+UIText	CrashDialog_explanationLabel_Text	In many cases, you can continue working without problem. You can also restart Purple Pen. If you restart, Purple Pen will attempt to save and restore your current work in progress.		
+UIText	CrashDialog_fatalExplanationLabel_Text	Purple Pen cannot continue running and must be restarted. If you restart, Purple Pen will attempt to save and restore your current work in progress.		
 UIText	CrashDialog_recoveryLabel_Text	Your unsaved changes have been saved, and will be restored if you restart.		
 UIText	CrashDialog_continueButton_Text	Continue Working		
 UIText	CrashDialog_restartButton_Text	Restart		
@@ -78,22 +68,10 @@ UIText	ErrorDetailsDialog_copyButton_Text	Copy to Clipboard
 UIText	UpdateAvailable_Text	Update Available		
 UIText	UpdateAvailable_remindLaterButton_Text	Remind Me Later		
 UIText	UpdateAvailable_downloadButton_Text	Download and Install		
-UIText	UpdateAvailable_newVersionAvailable_Text	Version {0} of NotPurplePen is now available. (You are currently running version {1}.)		
+UIText	UpdateAvailable_newVersionAvailable_Text	Version {0} of Purple Pen is now available. (You are currently running version {1}.)		
 UIText	UpdateAvailable_downloadFailed_Text	The update could not be downloaded.\n\n{0}		
-UIText	UpdateAvailable_downloadedManually_Text	The update has been downloaded to:\n\n{0}\n\nNotPurplePen cannot install this kind of file for you. Open it yourself to install the update.		
+UIText	UpdateAvailable_downloadedManually_Text	The update has been downloaded to:\n\n{0}\n\nPurple Pen cannot install this kind of file for you. Open it yourself to install the update.		
 UIText	HelpButton_ToolTip	Help		
-UIText	MainFrame_publishCoursesMenu_Text	Publish courses...		yes
-UIText	PublishCoursesDialog_Text	Publish courses		yes
-UIText	PublishCoursesDialog_advancedSettingsButton_Text	Advanced...		yes
-UIText	PublishCoursesDialog_coursesGroupBox_Text	Courses		yes
-UIText	PublishCoursesDialog_fileDirectory_Text	Relative to the folder of the Purple Pen file		yes
-UIText	PublishCoursesDialog_imageFilesGroupBox_Text	Image files		yes
-UIText	PublishCoursesDialog_labelAutoRotate_Text	Auto rotate:		yes
-UIText	PublishCoursesDialog_labelImageQuality_Text	Image quality:		yes
-UIText	PublishCoursesDialog_mapDirectory_Text	Relative to the folder of the map file		yes
-UIText	PublishCoursesDialog_publishTargetFolderGroupBox_Text	Publish target folder		yes
-UIText	PublishCoursesDialog_selectDataExchangeFolderButton_Text	Select folder...		yes
-UIText	MainFrame_publishCoursesToolStripButton_ToolTipText	Publish courses		yes
 UIText	PrintPreviewDialog_Text	Print Preview		
 UIText	PrintPreviewDialog_firstPageButton_ToolTip	First page		
 UIText	PrintPreviewDialog_previousPageButton_ToolTip	Previous page		
@@ -116,10 +94,5 @@ MiscText	StandaloneSetup	Standalone Setup
 MiscText	WindowsStore	Windows Store		
 MiscText	RelayVariationExportFilter	IOF XML 3.0|*.xml|Spreadsheet (CSV)|*.csv		
 MiscText	Version_Patch	Patch		
-MiscText	PublishFailed	Failed to publish: {0}		yes
-MiscText	PublishSucceeded	Published successfully.		yes
-MiscText	DefaultPublishPath	../Print/System		yes
-CommandNameText	AddDescriptionFragment	Cut Description		yes
-CommandNameText	RemoveDescriptionFragment	Join Description		yes
 StatusBarText	ControlForMoveAllControls	Click the left mouse button on a control or registration mark to move to a new location		
 StatusBarText	NewLocationForMoveAllControls	Click the left mouse button on the new location for the control or registration mark		

@@ -1,0 +1,15 @@
+resource	key	english	translation	old	note	mirrors	translator	effort
+UIText	CreatePdfCourses_labelPrintBaseMap_Text	Include:	内容:		label beside the combo box of what the file holds; "content" reads naturally before the items	MainFrame_courseMenu_Text ChangeMapFile_Text	claude-opus-5-5	max
+UIText	CreatePdfCourses_comboBoxPrintBaseMap_Items	Course and map	コースと地図		the file holds the course over the base map	MainFrame_courseMenu_Text ChangeMapFile_Text	claude-opus-5-5	max
+UIText	CreatePdfCourses_comboBoxPrintBaseMap_Items1	Course only	コースのみ		the file holds the course without the base map	MainFrame_courseMenu_Text ChangeMapFile_Text	claude-opus-5-5	max
+UIText	CreateImageFiles_labelPrintBaseMap_Text	Include:	内容:		label beside the combo box of what the file holds; "content" reads naturally before the items	MainFrame_courseMenu_Text ChangeMapFile_Text	claude-opus-5-5	max
+UIText	CreateImageFiles_comboBoxPrintBaseMap_Items	Course and map	コースと地図		the file holds the course over the base map	MainFrame_courseMenu_Text ChangeMapFile_Text	claude-opus-5-5	max
+UIText	CreateImageFiles_comboBoxPrintBaseMap_Items1	Course only	コースのみ		the file holds the course without the base map	MainFrame_courseMenu_Text ChangeMapFile_Text	claude-opus-5-5	max
+MiscText	CannotCreatePdfs	Cannot create PDFs for the following reason:	PDF を作成できません。以下の理由:	PDF '{0}' を作成できません。以下の理由:	HandleExceptions formats it with no arguments, so "{0}" throws (task 9)		claude-opus-5-5	max
+UIText	MiscText_CannotCreatePdfs	Cannot create PDFs for the following reason:	PDF を作成できません。以下の理由:	PDF '{0}' を作成できません。以下の理由:	HandleExceptions formats it with no arguments, so "{0}" throws (task 9)		claude-opus-5-5	max
+MiscText	CannotCreateOcadFiles	Cannot create OCAD files for the following reason:	OCAD ファイルを作成できません。以下の理由:	OCAD ファイル '{0}' を作成できません。以下の理由:	HandleExceptions formats it with no arguments, so "{0}" throws (task 9)		claude-opus-5-5	max
+UIText	MiscText_CannotCreateOcadFiles	Cannot create OCAD files for the following reason:	OCAD ファイルを作成できません。以下の理由:	OCAD ファイル '{0}' を作成できません。以下の理由:	HandleExceptions formats it with no arguments, so "{0}" throws (task 9)		claude-opus-5-5	max
+SelectionDescriptionText	TextLine_AboveAllCourses	Appears above {0}, in all courses that contain {0}	{0} の上に表示、{0} を含む全てのコース	{0} の上に表示、(0} を含む全てのコース	"(0}" is "{0}" mistyped; string.Format throws on it		claude-opus-5-5	max
+UIText	SelectionDescriptionText_TextLine_AboveAllCourses	Appears above {0}, in all courses that contain {0}	{0} の上に表示、{0} を含む全てのコース	{0} の上に表示、(0} を含む全てのコース	"(0}" is "{0}" mistyped; string.Format throws on it		claude-opus-5-5	max
+SelectionDescriptionText	TextLine_BelowAllCourses	Appears below {0}, in all courses that contain {0}	{0} の下に表示、{0} を含む全てのコース	{0} の下に表示、(0} を含む全てのコース	"(0}" is "{0}" mistyped; string.Format throws on it		claude-opus-5-5	max
+UIText	SelectionDescriptionText_TextLine_BelowAllCourses	Appears below {0}, in all courses that contain {0}	{0} の下に表示、{0} を含む全てのコース	{0} の下に表示、(0} を含む全てのコース	"(0}" is "{0}" mistyped; string.Format throws on it		claude-opus-5-5	max

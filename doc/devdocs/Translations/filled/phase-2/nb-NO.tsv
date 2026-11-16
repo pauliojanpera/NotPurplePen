@@ -1,0 +1,10 @@
+resource	key	english	translation	old	note	mirrors	translator	effort
+UIText	CreatePdfCourses_labelPrintBaseMap_Text	Include:	Innhold:		label beside the combo box of what the file holds; "content" reads naturally before the items	MainFrame_courseMenu_Text ChangeMapFile_Text	claude-opus-5-5	max
+UIText	CreatePdfCourses_comboBoxPrintBaseMap_Items	Course and map	Løype og kart		the file holds the course over the base map	MainFrame_courseMenu_Text ChangeMapFile_Text	claude-opus-5-5	max
+UIText	CreatePdfCourses_comboBoxPrintBaseMap_Items1	Course only	Bare løype		the file holds the course without the base map	MainFrame_courseMenu_Text ChangeMapFile_Text	claude-opus-5-5	max
+UIText	CreateImageFiles_labelPrintBaseMap_Text	Include:	Innhold:		label beside the combo box of what the file holds; "content" reads naturally before the items	MainFrame_courseMenu_Text ChangeMapFile_Text	claude-opus-5-5	max
+UIText	CreateImageFiles_comboBoxPrintBaseMap_Items	Course and map	Løype og kart		the file holds the course over the base map	MainFrame_courseMenu_Text ChangeMapFile_Text	claude-opus-5-5	max
+UIText	CreateImageFiles_comboBoxPrintBaseMap_Items1	Course only	Bare løype		the file holds the course without the base map	MainFrame_courseMenu_Text ChangeMapFile_Text	claude-opus-5-5	max
+ReportText	LegLength_CourseInfoNoClimb	{0} ({1} controls, {2})	{0} ({1} poster, {2})	0} ({1} poster, {2})	the "{" of "{0}" is missing; string.Format throws on it		claude-opus-5-5	max
+UIText	ReportText_LegLength_CourseInfoNoClimb	{0} ({1} controls, {2})	{0} ({1} poster, {2})	0} ({1} poster, {2})	the "{" of "{0}" is missing; string.Format throws on it		claude-opus-5-5	max
+UIText	CreatePdfCourses_Text	Create PDF Files	Lag PDF-filer	Skriv ut løyper	"Skriv ut løyper" names another dialog (Print Courses); mirrors CreateImageFiles_Text	CreateImageFiles_Text	claude-opus-5-5	max

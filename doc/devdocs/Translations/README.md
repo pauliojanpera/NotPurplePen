@@ -51,9 +51,9 @@ The numbers are of Nov 16.
 
 1. **The translations in the repository.** Move the satellites of PurplePenCore's resources of the ten languages
    from `src/PurplePen` into `src/PurplePenCore` (`git mv`), and take their lines out of the `EmbeddedResource
-   Remove` list of `PurplePen.csproj`. 868 translations. Nothing is translated.
+   Remove` list of `PurplePen.csproj`. 868 translations. Nothing is translated. Done on Nov 16 (d21aa138).
 2. **The faults.** Task 9's first branch (handover): "Include:" and its items, the faults that task 4 found, and the
-   errors that `check.py` reports.
+   errors that `check.py` reports. Done on Nov 16 (1de84f81); the review is [reviews/phase-2.md](reviews/phase-2.md).
 3. **The languages that lack fewer than 300 after phase 1:** bg, cs, de, en-GB, es, et, fi, fr, hu, it, ja, nb-NO,
    pt, pt-BR, sv, tr, uk, zh-CN and zh-TW. 2,516 keys of upstream.
 4. **The languages that lack 300 to 1,000:** da, nl, nn-NO, pl and ro. 3,230 keys of upstream.

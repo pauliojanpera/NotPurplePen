@@ -1,0 +1,8 @@
+resource	key	english	translation	old	note	mirrors	translator	effort
+UIText	CreatePdfCourses_labelPrintBaseMap_Text	Include:	Contenu :		label beside the combo box of what the file holds; "content" reads naturally before the items	MainFrame_courseMenu_Text ChangeMapFile_Text	claude-opus-5-5	max
+UIText	CreatePdfCourses_comboBoxPrintBaseMap_Items	Course and map	Circuit et carte		the file holds the course over the base map	MainFrame_courseMenu_Text ChangeMapFile_Text	claude-opus-5-5	max
+UIText	CreatePdfCourses_comboBoxPrintBaseMap_Items1	Course only	Circuit seul		the file holds the course without the base map	MainFrame_courseMenu_Text ChangeMapFile_Text	claude-opus-5-5	max
+UIText	CreateImageFiles_labelPrintBaseMap_Text	Include:	Contenu :		label beside the combo box of what the file holds; "content" reads naturally before the items	MainFrame_courseMenu_Text ChangeMapFile_Text	claude-opus-5-5	max
+UIText	CreateImageFiles_comboBoxPrintBaseMap_Items	Course and map	Circuit et carte		the file holds the course over the base map	MainFrame_courseMenu_Text ChangeMapFile_Text	claude-opus-5-5	max
+UIText	CreateImageFiles_comboBoxPrintBaseMap_Items1	Course only	Circuit seul		the file holds the course without the base map	MainFrame_courseMenu_Text ChangeMapFile_Text	claude-opus-5-5	max
+UIText	CreatePdfCourses_Text	Create PDF Files	Créer des fichiers PDF	Imprimer les circuits	"Imprimer les circuits" names another dialog (Print Courses); mirrors CreateImageFiles_Text	CreateImageFiles_Text	claude-opus-5-5	max

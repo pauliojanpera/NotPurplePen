@@ -108,7 +108,6 @@ UIText	ColorChooserDialog_label3_Text	Magenta:
 UIText	CourseAppearanceDialog_label3_Text	Magenta:		
 UIText	ColorChooserDialog_label1_Text	Cyan:		
 UIText	CourseAppearanceDialog_label1_Text	Cyan:		
-UIText	ColorChooserDialog_checkBoxOverprint_Text	Overprint		yes
 UIText	ColorChooserDialog_groupBoxPreview_Text	Preview		
 UIText	CourseAppearanceDialog_groupBoxPreview_Text	Preview		
 UIText	ColorChooserDialog_Text	Choose Color		
@@ -235,9 +234,6 @@ UIText	MiscText_Purple	Purple
 UIText	CourseAppearanceDialog_groupBox1_Text	Control Descriptions		
 UIText	SelectionDescriptionText_SpecialName_Descriptions	Control Descriptions		
 UIText	CourseAppearanceDialog_checkBoxOverprint_Text	Use overprint effect for colors marked "overprint"		
-UIText	CourseAppearanceDialog_labelBlendMode_Text	Blend mode:		yes
-UIText	CourseAppearanceDialog_comboBoxBlendMode_Items	Darken		yes
-UIText	CourseAppearanceDialog_comboBoxBlendMode_Items1	Multiply		yes
 UIText	CourseAppearanceDialog_groupBoxOcadMap_Text	Advanced		
 UIText	CourseAppearanceDialog_Text	Customize Appearance		
 UIText	CourseLoad_Load_HeaderText	Competitor Load		
@@ -303,20 +299,12 @@ UIText	ReportText_EventAudit_No	No
 UIText	CreateImageFiles_comboBoxWorldFile_Items1	Yes		
 UIText	ReportText_EventAudit_Yes	Yes		
 UIText	CreateImageFiles_labelColorModel_Text	Color model:		
-UIText	CreateImageFiles_labelAutoRotate_Text	Auto rotate:		yes
-UIText	CreateImageFiles_labelImageQuality_Text	Image quality:		yes
 UIText	CreateImageFiles_comboBoxColorModel_Items	RGB		
 UIText	CreatePdfCourses_comboBoxColorModel_Items	RGB		
 UIText	PrintCourses_comboBoxColorModel_Items1	RGB		
 UIText	CreateImageFiles_comboBoxColorModel_Items1	CMYK		
 UIText	CreatePdfCourses_comboBoxColorModel_Items1	CMYK		
 UIText	PrintCourses_comboBoxColorModel_Items2	CMYK		
-UIText	CreateImageFiles_comboBoxPrintBaseMap_Items	Course and map		
-UIText	CreatePdfCourses_comboBoxPrintBaseMap_Items	Course and map		
-UIText	CreateImageFiles_comboBoxPrintBaseMap_Items1	Course only		
-UIText	CreatePdfCourses_comboBoxPrintBaseMap_Items1	Course only		
-UIText	CreateImageFiles_labelPrintBaseMap_Text	Include:		
-UIText	CreatePdfCourses_labelPrintBaseMap_Text	Include:		
 UIText	CreateImageFiles_outputGroupBox_Text	Output		
 UIText	CreateKmlFiles_outputGroupBox_Text	Output		
 UIText	CreateOcadFiles_outputGroupBox_Text	Output		
@@ -328,11 +316,11 @@ UIText	CreateKmlFiles_selectOtherDirectoryButton_Text	Select folder...
 UIText	CreateOcadFiles_selectOtherDirectoryButton_Text	Select folder...		
 UIText	CreatePdfCourses_selectOtherDirectoryButton_Text	Select folder...		
 UIText	CreateRouteGadget_selectOtherDirectoryButton_Text	Select folder...		
-UIText	CreateImageFiles_coursesDirectory_Text	Same folder as NotPurplePen file		
-UIText	CreateKmlFiles_coursesDirectory_Text	Same folder as NotPurplePen file		
-UIText	CreateOcadFiles_coursesDirectory_Text	Same folder as NotPurplePen file		
-UIText	CreatePdfCourses_coursesDirectory_Text	Same folder as NotPurplePen file		
-UIText	CreateRouteGadget_coursesDirectory_Text	Same folder as NotPurplePen file		
+UIText	CreateImageFiles_coursesDirectory_Text	Same folder as Purple Pen file		
+UIText	CreateKmlFiles_coursesDirectory_Text	Same folder as Purple Pen file		
+UIText	CreateOcadFiles_coursesDirectory_Text	Same folder as Purple Pen file		
+UIText	CreatePdfCourses_coursesDirectory_Text	Same folder as Purple Pen file		
+UIText	CreateRouteGadget_coursesDirectory_Text	Same folder as Purple Pen file		
 UIText	CreateImageFiles_mapDirectory_Text	Same folder as map file		
 UIText	CreateKmlFiles_mapDirectory_Text	Same folder as map file		
 UIText	CreateOcadFiles_mapDirectory_Text	Same folder as map file		
@@ -402,16 +390,16 @@ UIText	InitialScreen_openLastRadioButton_Text	Open last viewed event
 UIText	InitialScreen_openSampleRadioButton_Text	Open a sample event		
 UIText	InitialScreen_createNewRadioButton_Text	Create a new event...		
 UIText	InitialScreen_openExistingRadioButton_Text	Open an existing event...		
-UIText	InitialScreen_label1_Text	NotPurplePen is free software and may be copied and shared. Development of NotPurplePen is supported only by your donations.		
+UIText	InitialScreen_label1_Text	Purple Pen is free software and may be copied and shared. Development of Purple Pen is supported only by your donations.		
 UIText	InitialScreen_donationLink_Text	Make a donation		
-UIText	InitialScreen_Text	Welcome to NotPurplePen		
+UIText	InitialScreen_Text	Welcome to Purple Pen		
 UIText	LegAssignmentsDialog_BranchColumn_HeaderText	Branch		
 UIText	LegAssignmentsDialog_LegsColumn_HeaderText	Legs		
 UIText	LegAssignmentsDialog_labelDescription_Text	To assign a specific leg to a specific branch, type the leg number(s) below. Legs not assigned to a branch will be distributed among remaining branches randomly.		
 UIText	LegAssignmentsDialog_linkLabel_Text	More information...		
 UIText	LegAssignmentsDialog_Text	Leg Assignments		
-UIText	LicenseForm_bsdLicenseLinkLabel_Text	NotPurplePen is provided under a "BSD" style license.		
-UIText	LicenseForm_Text	NotPurplePen License		
+UIText	LicenseForm_bsdLicenseLinkLabel_Text	Purple Pen is provided under a "BSD" style license.		
+UIText	LicenseForm_Text	Purple Pen License		
 UIText	LinePropertiesDialog_buttonChangeColor_Text	 Change Color...		
 UIText	LinePropertiesDialog_label2_Text	Style:		
 UIText	LinePropertiesDialog_comboBoxStyle_Items	Single		
@@ -426,8 +414,8 @@ UIText	MainFrame_tabPage1_Text	All Controls
 UIText	MainFrame_radioButtonDescriptions_Text	Descriptions		
 UIText	MainFrame_radioButtonTopology_Text	Ordering		
 UIText	MainFrame_mapViewerTopology_Text	mapViewerTopology		
-UIText	MainFrame_openFileDialog_Filter	NotPurplePen files|*.ppen|All files|*.*		
-UIText	MainFrame_saveFileDialog_Filter	NotPurplePen file|*.ppen		
+UIText	MainFrame_openFileDialog_Filter	Purple Pen files|*.ppen|All files|*.*		
+UIText	MainFrame_saveFileDialog_Filter	Purple Pen file|*.ppen		
 UIText	MainFrame_newEventMenu_Text	_New Event...		
 UIText	MainFrame_openMenu_Text	_Open...		
 UIText	MainFrame_saveMenu_Text	_Save		
@@ -491,7 +479,6 @@ UIText	MainFrame_mapExchangeSeparateMenuItem_Text	Flagged _Route to Map Exchange
 UIText	MainFrame_addMapExchangeMenu_Text	Map Flip/E_xchange		
 UIText	MainFrame_addVariationMenu_Text	_Variation...		
 UIText	MainFrame_addTextLineMenu_Text	Text _Line...		
-UIText	MainFrame_splitMenu_Text	S_plit		yes
 UIText	MainFrame_addMapIssueMenu_Text	Timed Start		
 UIText	MainFrame_mapIssuePointToolStripMenuItem_Text	Timed Start		
 UIText	MiscText_MapIssue_Long	Timed Start		
@@ -582,12 +569,12 @@ UIText	MainFrame_legLengthsMenu_Text	_Leg Lengths
 UIText	MainFrame_controlCrossrefMenu_Text	Control _Cross-reference		
 UIText	MainFrame_controlAndLegLoadMenu_Text	Control and Leg Loa_d		
 UIText	MainFrame_reportMenu_Text	_Reports		
-UIText	MainFrame_helpContentsMenu_Text	NotPurplePen _Help		
-UIText	MainFrame_helpTranslatedMenu_Text	NotPurplePen Help (Translated)		
-UIText	MainFrame_mainWebSiteToolMenu_Text	NotPurplePen _Web Site		
+UIText	MainFrame_helpContentsMenu_Text	Purple Pen _Help		
+UIText	MainFrame_helpTranslatedMenu_Text	Purple Pen Help (Translated)		
+UIText	MainFrame_mainWebSiteToolMenu_Text	Purple Pen _Web Site		
 UIText	MainFrame_supportWebSiteMenu_Text	_Support/Bug Reporting		
 UIText	MainFrame_donateWebSiteMenu_Text	Make a _Donation		
-UIText	MainFrame_aboutMenu_Text	_About NotPurplePen		
+UIText	MainFrame_aboutMenu_Text	_About Purple Pen		
 UIText	MainFrame_symbolBrowserMenu_Text	Symbol Browser		
 UIText	MainFrame_descriptionBrowserMenu_Text	Description Browser		
 UIText	MainFrame_controlTesterMenu_Text	Control Tester		
@@ -633,8 +620,8 @@ UIText	MainFrame_saveXmlFileDialog_Filter	IOF XML version 2.0.3|*.xml|IOF XML ve
 UIText	MainFrame_saveXmlFileDialog_Title	Create XML Interchange File		
 UIText	MainFrame_openImageDialog_Filter	Image file|*.jpg;*.jpeg;*.gif;*.png;*.bmp;*.tif;*.tiff		
 UIText	MainFrame_saveGpxFileDialog_Filter	GPX file|*.gpx		
-UIText	MainFrame_Text	NotPurplePen		
-UIText	MiscText_AppTitle	NotPurplePen		
+UIText	MainFrame_Text	Purple Pen		
+UIText	MiscText_AppTitle	Purple Pen		
 UIText	MiscText_CtrlZ	Ctrl+Z		
 UIText	MiscText_CtrlY	Ctrl+Y		
 UIText	MiscText_Esc	Esc		
@@ -684,10 +671,10 @@ UIText	MiscText_Portrait	Portrait
 UIText	PrinterMargins_radioButtonPortrait_Text	Portrait		
 UIText	MiscText_PageTooSmall	The page size is too small for any descriptions to be printed.		
 UIText	MiscText_VersionLabel	Version {0}		
-UIText	MiscText_NewerVersionAvailable	Version {0} of NotPurplePen is now available for download. (You are currently running version {1}.)\n\nWould you like to download and install the latest version?		
+UIText	MiscText_NewerVersionAvailable	Version {0} of Purple Pen is now available for download. (You are currently running version {1}.)\n\nWould you like to download and install the latest version?		
 UIText	MiscText_HelpFileNotFound	Help file '{0}' could not be opened.		
 UIText	MiscText_Zoom	Zoom		
-UIText	MiscText_MissingMapFile	The map file "{0}" could not be found.\n\nMost likely, the map file has been moved or deleted, or the NotPurplePen file has been moved (possibly to a different computer). The map file must be present every time the NotPurplePen event file is loaded. If you send a NotPurplePen event file to another person, be sure that person has a copy of the map file also.\n\nAfter pressing OK, try to find a copy of the map file on your computer.		
+UIText	MiscText_MissingMapFile	The map file "{0}" could not be found.\n\nMost likely, the map file has been moved or deleted, or the Purple Pen file has been moved (possibly to a different computer). The map file must be present every time the Purple Pen event file is loaded. If you send a Purple Pen event file to another person, be sure that person has a copy of the map file also.\n\nAfter pressing OK, try to find a copy of the map file on your computer.		
 UIText	MiscText_NoUnusedControls	All controls are used in a course.		
 UIText	MiscText_NextButtonText	_Next >		
 UIText	NewEventWizard_nextButton_Text	_Next >		
@@ -711,12 +698,12 @@ UIText	MiscText_AppSubtitle	course setting for orienteering
 UIText	MiscText_AddTextSpecialExplanation	Enter the text you wish to place on the map. After pressing OK, drag the mouse to place the text in the desired location.		
 UIText	MiscText_AddTextSpecialTitle	Add Text		
 UIText	MiscText_ChangeTextSpecialExplanation	Enter the new text.		
-UIText	MiscText_MapFileChanged	Another program has changed the map file "{0}". NotPurplePen will now reload the map.		
+UIText	MiscText_MapFileChanged	Another program has changed the map file "{0}". Purple Pen will now reload the map.		
 UIText	MiscText_ChangeDescriptionLanguage	The current event has textual control descriptions in {0}. Would you like to change the language of control descriptions to {1}?		
 UIText	MiscText_OpenLastEvent	Open "{0}"		
-UIText	MiscText_ClosePPBeforeLoadingOCAD	NotPurplePen must be closed before loading the created OCAD files.		
+UIText	MiscText_ClosePPBeforeLoadingOCAD	Purple Pen must be closed before loading the created OCAD files.		
 UIText	MiscText_NoCoursesSelected	No courses were selected to print.		
-UIText	MiscText_TranslatedHelpWebSite	*** If there exists a web site in the translated language that contains documentation for NotPurplePen, enter the URL (including http) as the translation of this item. Otherwise leave it alone.		
+UIText	MiscText_TranslatedHelpWebSite	*** If there exists a web site in the translated language that contains documentation for Purple Pen, enter the URL (including http) as the translation of this item. Otherwise leave it alone.		
 UIText	MiscText_MapExchange_Long	Map exchange		
 UIText	MiscText_MapExchange_Medium	Exchange		
 UIText	MiscText_MapExchange_Short	MX		
@@ -753,7 +740,7 @@ UIText	MiscText_GpxMustBeOcadMap	The map file must be an OCAD file to use GPX fi
 UIText	MiscText_GpxMustHaveCoordSystem	The OCAD file must have a coordinate system defined to use GPX files.		
 UIText	MiscText_GpxMustHaveRealWorldCoord	The OCAD file must have real world coordinates defined to use GPX files.		
 UIText	MiscText_GpxReprojectFailure	Could not reproject points; either the coordinate system or the real world coordinates in the OCAD map are wrong.		
-UIText	MiscText_GpxUnsupportedCoordSystem	The OCAD file uses a coordinate system that is not supported by NotPurplePen.		
+UIText	MiscText_GpxUnsupportedCoordSystem	The OCAD file uses a coordinate system that is not supported by Purple Pen.		
 UIText	MiscText_BadLength	The length for a course must be a number 0.1 - 99.9, or blank to calculate length automatically.		
 UIText	MiscText_EnterLength	Enter length in km, or leave blank to calculate automatically		
 UIText	MiscText_PausePrinting	Finished printing "{0}". Press OK to begin printing "{1}".		
@@ -784,12 +771,12 @@ UIText	MiscText_PdfFilter	PDF File|*.pdf
 UIText	MiscText_LegAssignedOuterBranch	Leg {0} never reaches branch '{1}': it was assigned to go a different way in a containing fork.		
 UIText	MiscText_AddEllipseExplanation	Set the appearance of the ellipse. After pressing OK, drag the mouse to place the ellipse in the desired location.		
 UIText	MiscText_AddEllipseTitle	Add Ellipse		
-UIText	MiscText_UninstallNonStoreVersion	An older version of NotPurplePen is still installed. To prevent confusion caused by having two versions of NotPurplePen installed, it is strongly recommended that the older version be removed. Remove it now?		
+UIText	MiscText_UninstallNonStoreVersion	An older version of Purple Pen is still installed. To prevent confusion caused by having two versions of Purple Pen installed, it is strongly recommended that the older version be removed. Remove it now?		
 UIText	MiscText_AskInstallRobotoFonts	In order for OCAD or OpenOrienteering Mapper to correctly display the control descriptions, the "Roboto" and "Roboto Condensed" fonts must be installed on your system. Would you like to install those fonts now (strongly recommended)?		
 UIText	MiscText_RobotoFontsInstallFailed	Installing Roboto Fonts failed.		
 UIText	MiscText_LowerPurple	Lower Purple		
 UIText	MissingFonts_checkBoxDontWarnAgain_Text	Don't warn about missing fonts for this event again		
-UIText	MissingFonts_labelWarning_Text	Map file "{0}" uses fonts that are not installed on your computer. Text using these fonts will be drawn and printed with a default font, which may cause text to appear differently than the map designer intended. \n\nTo fix this problem, find and install the fonts listed below with the Windows control panel, then start NotPurplePen again.\n		
+UIText	MissingFonts_labelWarning_Text	Map file "{0}" uses fonts that are not installed on your computer. Text using these fonts will be drawn and printed with a default font, which may cause text to appear differently than the map designer intended. \n\nTo fix this problem, find and install the fonts listed below with the Windows control panel, then start Purple Pen again.\n		
 UIText	MissingFonts_Text	Missing Fonts		
 UIText	MoveAllControls_labelDescription_Text	Which way would you like to move all controls on the map?		
 UIText	MoveAllControls_radioButtonMove_Text	Move Only		
@@ -814,7 +801,7 @@ UIText	NewEventFinal_afterEventCreatedLabel_Text	After your event is created, se
 UIText	NewEventFinal_labelTitle_Text	Create Event		
 UIText	NewEventMapFile_newEventMapFileLabel_Text	In order to design your courses, you must select the map file you will be using. Typically this is an OCAD or OpenOrienteering Mapper file (although PDFs and image files like JPEGs can be used instead). Click the "Choose..." button to select a map file.		
 UIText	NewEventMapFile_mapFileDisplay_Text	Selected Map File		
-UIText	NewEventMapFile_infoMessage_Text	The map file was successfully loaded. If you send your NotPurplePen file to someone else, they must have the map file also.		
+UIText	NewEventMapFile_infoMessage_Text	The map file was successfully loaded. If you send your Purple Pen file to someone else, they must have the map file also.		
 UIText	NewEventNumbering_newEventNumberingLabel_Text	Newly created controls are automatically numbered. Please choose the starting control number to use.		
 UIText	NewEventNumbering_changeLaterLabel_Text	(This setting can be changed later using Event/Automatic Numbering)		
 UIText	NewEventNumbering_labelTitle_Text	Control Numbering		
@@ -830,11 +817,11 @@ UIText	NewEventStandards_groupBoxMapStandard_Text	IOF Map Standard
 UIText	NewEventStandards_radioButtonDescriptions2018_Text	Descriptions 2018 or 2024		
 UIText	NewEventStandards_radioButtonDescriptions2004_Text	Descriptions 2004		
 UIText	NewEventStandards_groupBoxDescriptionStandard_Text	IOF Description Standard		
-UIText	NewEventStandards_labelStandardsIntro_Text	Which versions of IOF standards would you like NotPurplePen to follow?		
+UIText	NewEventStandards_labelStandardsIntro_Text	Which versions of IOF standards would you like Purple Pen to follow?		
 UIText	NewEventTitle_newEventTitleLabel_Text	The event title will be displayed on the first line of every control description sheet. It is also used as the file name for storing your event on disk.\n\nTo fit on the description sheet, it should be less than 25 characters in length. Examples of good event titles are "US Champs Day 1" or "Riverview Park, 4/12/06".		
 UIText	NewEventTitle_eventTitleLabel_Text	Event Title:		
 UIText	NewEventWizard_backButton_Text	< _Back		
-UIText	NonPrintableObjects_labelWarning_Text	Map file "{0}" contains objects or symbols that are not fully supported by NotPurplePen, and may not print correctly. The objects that may not print correctly are listed below.\n\nFor printing competition maps, it is suggested that courses be exported to OCAD files (use File/Create OCAD Files...) and to print the maps from OCAD.\n		
+UIText	NonPrintableObjects_labelWarning_Text	Map file "{0}" contains objects or symbols that are not fully supported by Purple Pen, and may not print correctly. The objects that may not print correctly are listed below.\n\nFor printing competition maps, it is suggested that courses be exported to OCAD files (use File/Create OCAD Files...) and to print the maps from OCAD.\n		
 UIText	NonPrintableObjects_okButton_Text	Continue		
 UIText	NonPrintableObjects_Text	Map File Cannot Be Printed Accurately		
 UIText	OperationInProgress_Text	Operation In Progress		
@@ -1054,7 +1041,7 @@ UIText	SetPrintAreaDialog_setPrintAreaLabel_Text	Set the desired printing area b
 UIText	SetPrintAreaDialog_groupBoxPaperSize_Text	Paper Size		
 UIText	SetPrintAreaDialog_checkBoxAutomatic_Text	Set Print Area Automatically		
 UIText	SetPrintAreaDialog_checkBoxFixSizeToPaper_Text	Fix Print Area Size to Paper Size		
-UIText	SetUILanguage_introLabel_Text	Select the language that you would like to use for the user interface of NotPurplePen (menus, windows, etc.)		
+UIText	SetUILanguage_introLabel_Text	Select the language that you would like to use for the user interface of Purple Pen (menus, windows, etc.)		
 UIText	SetUILanguage_Text	Program Language		
 UIText	StatusBarText_DefaultStatus	Left mouse button: select object;   Right mouse button: move map;   Scroll wheel: zoom in/out		
 UIText	StatusBarText_DefaultRectangle	Left mouse button: move/size rectangle;   Right mouse button: move map;   Scroll wheel: zoom in/out		
@@ -1122,14 +1109,14 @@ UIText	PaperSizeControl_labelLeft_Text	Left:
 UIText	PaperSizeControl_labelRight_Text	Right:		
 UIText	PaperSizeControl_checkBoxPortrait_Text	Portrait		
 UIText	PaperSizeControl_checkBoxLandscape_Text	Landscape		
-UIText	CrashDialog_Text	NotPurplePen has crashed		
+UIText	CrashDialog_Text	Purple Pen has crashed		
 UIText	CrashDialog_introLabel_Text	An error has occurred. In order to help us fix the problem, please give us any additional information about what caused the error, and send us an error report.		
 UIText	CrashDialog_sendReportCheckBox_Text	Send error report		
 UIText	CrashDialog_viewDetailsButton_Text	View Error Details...		
 UIText	CrashDialog_descriptionLabel_Text	Please tell us what you did immediately before this error occurred:		
 UIText	CrashDialog_descriptionTextBox_Watermark	Give as much detail as possible as to what you were doing and what might have triggered the error.		
-UIText	CrashDialog_explanationLabel_Text	In many cases, you can continue working without problem. You can also restart NotPurplePen. If you restart, NotPurplePen will attempt to save and restore your current work in progress.		
-UIText	CrashDialog_fatalExplanationLabel_Text	NotPurplePen cannot continue running and must be restarted. If you restart, NotPurplePen will attempt to save and restore your current work in progress.		
+UIText	CrashDialog_explanationLabel_Text	In many cases, you can continue working without problem. You can also restart Purple Pen. If you restart, Purple Pen will attempt to save and restore your current work in progress.		
+UIText	CrashDialog_fatalExplanationLabel_Text	Purple Pen cannot continue running and must be restarted. If you restart, Purple Pen will attempt to save and restore your current work in progress.		
 UIText	CrashDialog_recoveryLabel_Text	Your unsaved changes have been saved, and will be restored if you restart.		
 UIText	CrashDialog_continueButton_Text	Continue Working		
 UIText	CrashDialog_restartButton_Text	Restart		
@@ -1140,34 +1127,11 @@ UIText	ErrorDetailsDialog_copyButton_Text	Copy to Clipboard
 UIText	UpdateAvailable_Text	Update Available		
 UIText	UpdateAvailable_remindLaterButton_Text	Remind Me Later		
 UIText	UpdateAvailable_downloadButton_Text	Download and Install		
-UIText	UpdateAvailable_newVersionAvailable_Text	Version {0} of NotPurplePen is now available. (You are currently running version {1}.)		
+UIText	UpdateAvailable_newVersionAvailable_Text	Version {0} of Purple Pen is now available. (You are currently running version {1}.)		
 UIText	UpdateAvailable_downloadFailed_Text	The update could not be downloaded.\n\n{0}		
-UIText	UpdateAvailable_downloadedManually_Text	The update has been downloaded to:\n\n{0}\n\nNotPurplePen cannot install this kind of file for you. Open it yourself to install the update.		
+UIText	UpdateAvailable_downloadedManually_Text	The update has been downloaded to:\n\n{0}\n\nPurple Pen cannot install this kind of file for you. Open it yourself to install the update.		
 UIText	NewEventWizard_finishButton_Text	_Finish		
 UIText	HelpButton_ToolTip	Help		
-UIText	MainFrame_publishCoursesMenu_Text	Publish courses...		yes
-UIText	PublishCoursesDialog_Text	Publish courses		yes
-UIText	PublishCoursesDialog_advancedSettingsButton_Text	Advanced...		yes
-UIText	PublishCoursesDialog_coursesGroupBox_Text	Courses		yes
-UIText	PublishCoursesDialog_fileDirectory_Text	Relative to the folder of the Purple Pen file		yes
-UIText	PublishCoursesDialog_imageFilesGroupBox_Text	Image files		yes
-UIText	PublishCoursesDialog_labelAutoRotate_Text	Auto rotate:		yes
-UIText	PublishCoursesDialog_labelImageQuality_Text	Image quality:		yes
-UIText	PublishCoursesDialog_mapDirectory_Text	Relative to the folder of the map file		yes
-UIText	PublishCoursesDialog_publishTargetFolderGroupBox_Text	Publish target folder		yes
-UIText	PublishCoursesDialog_selectDataExchangeFolderButton_Text	Select folder...		yes
-UIText	MainFrame_publishCoursesToolStripButton_ToolTipText	Publish courses		yes
-UIText	MainFrame_createSvgFilesMenu_Text	Create S_VG Files...		yes
-UIText	CreateSvgCourses_Text	Create SVG Files		yes
-UIText	CreateSvgCourses_specialOptionsGroupBox_Text	Special options		yes
-UIText	CreateSvgCourses_bitmapsLabel_Text	Bitmaps in the map:		yes
-UIText	CreateSvgCourses_comboBoxBitmaps_Items	Embed in each file		yes
-UIText	CreateSvgCourses_comboBoxBitmaps_Items1	Save beside each file		yes
-UIText	CreateSvgCourses_comboBoxBitmaps_Items2	Leave out		yes
-UIText	CreateSvgCourses_jpegQualityLabel_Text	JPEG quality:		yes
-UIText	CreateSvgCourses_checkBoxCompress_Text	Compress the files (.svgz)		yes
-UIText	CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text	Draw area patterns as separate shapes		yes
-UIText	CreateSvgCourses_folderBrowserDialog_Description	Select a folder for the SVG files		yes
 UIText	PrintPreviewDialog_Text	Print Preview		
 UIText	PrintPreviewDialog_firstPageButton_ToolTip	First page		
 UIText	PrintPreviewDialog_previousPageButton_ToolTip	Previous page		
@@ -1184,7 +1148,7 @@ UIText	LinuxPrinting_XdgUtilsMissing	The PDF file could not be opened, because x
 MiscText	CtrlZ	Ctrl+Z		
 MiscText	CtrlY	Ctrl+Y		
 MiscText	Esc	Esc		
-MiscText	AppTitle	NotPurplePen		
+MiscText	AppTitle	Purple Pen		
 MiscText	NoSymbol	No symbol		
 MiscText	AllControls	All controls		
 MiscText	CannotLoadFile	Cannot load '{0}' for the following reason:		
@@ -1226,10 +1190,10 @@ MiscText	Landscape	Landscape
 MiscText	Portrait	Portrait		
 MiscText	PageTooSmall	The page size is too small for any descriptions to be printed.		
 MiscText	VersionLabel	Version {0}		
-MiscText	NewerVersionAvailable	Version {0} of NotPurplePen is now available for download. (You are currently running version {1}.)\n\nWould you like to download and install the latest version?		
+MiscText	NewerVersionAvailable	Version {0} of Purple Pen is now available for download. (You are currently running version {1}.)\n\nWould you like to download and install the latest version?		
 MiscText	HelpFileNotFound	Help file '{0}' could not be opened.		
 MiscText	Zoom	Zoom		
-MiscText	MissingMapFile	The map file "{0}" could not be found.\n\nMost likely, the map file has been moved or deleted, or the NotPurplePen file has been moved (possibly to a different computer). The map file must be present every time the NotPurplePen event file is loaded. If you send a NotPurplePen event file to another person, be sure that person has a copy of the map file also.\n\nAfter pressing OK, try to find a copy of the map file on your computer.		
+MiscText	MissingMapFile	The map file "{0}" could not be found.\n\nMost likely, the map file has been moved or deleted, or the Purple Pen file has been moved (possibly to a different computer). The map file must be present every time the Purple Pen event file is loaded. If you send a Purple Pen event file to another person, be sure that person has a copy of the map file also.\n\nAfter pressing OK, try to find a copy of the map file on your computer.		
 MiscText	NoUnusedControls	All controls are used in a course.		
 MiscText	NextButtonText	&Next >		
 MiscText	Finish	Finish		
@@ -1249,12 +1213,12 @@ MiscText	AddTextSpecialExplanation	Enter the text you wish to place on the map. 
 MiscText	AddTextSpecialTitle	Add Text		
 MiscText	ChangeTextSpecialExplanation	Enter the new text.		
 MiscText	ChangeTextTitle	Change Text		
-MiscText	MapFileChanged	Another program has changed the map file "{0}". NotPurplePen will now reload the map.		
+MiscText	MapFileChanged	Another program has changed the map file "{0}". Purple Pen will now reload the map.		
 MiscText	ChangeDescriptionLanguage	The current event has textual control descriptions in {0}. Would you like to change the language of control descriptions to {1}?		
 MiscText	OpenLastEvent	Open "{0}"		
-MiscText	ClosePPBeforeLoadingOCAD	NotPurplePen must be closed before loading the created OCAD files.		
+MiscText	ClosePPBeforeLoadingOCAD	Purple Pen must be closed before loading the created OCAD files.		
 MiscText	NoCoursesSelected	No courses were selected to print.		
-MiscText	TranslatedHelpWebSite	*** If there exists a web site in the translated language that contains documentation for NotPurplePen, enter the URL (including http) as the translation of this item. Otherwise leave it alone.		
+MiscText	TranslatedHelpWebSite	*** If there exists a web site in the translated language that contains documentation for Purple Pen, enter the URL (including http) as the translation of this item. Otherwise leave it alone.		
 MiscText	MapExchange_Long	Map exchange		
 MiscText	MapExchange_Medium	Exchange		
 MiscText	MapExchange_Short	MX		
@@ -1291,7 +1255,7 @@ MiscText	ChangeLineAppearanceExplanation	Change the appearance of the line or re
 MiscText	ChangeLineAppearanceTitle	Change Line Appearance		
 MiscText	GpxMustHaveCoordSystem	The OCAD file must have a coordinate system defined to use GPX files.		
 MiscText	GpxMustHaveRealWorldCoord	The OCAD file must have real world coordinates defined to use GPX files.		
-MiscText	GpxUnsupportedCoordSystem	The OCAD file uses a coordinate system that is not supported by NotPurplePen.		
+MiscText	GpxUnsupportedCoordSystem	The OCAD file uses a coordinate system that is not supported by Purple Pen.		
 MiscText	AutomaticLength	Automatic		
 MiscText	BadLength	The length for a course must be a number 0.1 - 99.9, or blank to calculate length automatically.		
 MiscText	DuplicateCourseTitle	Duplicate Course		
@@ -1321,14 +1285,13 @@ MiscText	CreatePdf	Create PDF
 MiscText	PdfFilter	PDF File|*.pdf		
 MiscText	AddEllipseExplanation	Set the appearance of the ellipse. After pressing OK, drag the mouse to place the ellipse in the desired location.		
 MiscText	AddEllipseTitle	Add Ellipse		
-MiscText	UninstallNonStoreVersion	An older version of NotPurplePen is still installed. To prevent confusion caused by having two versions of NotPurplePen installed, it is strongly recommended that the older version be removed. Remove it now?		
+MiscText	UninstallNonStoreVersion	An older version of Purple Pen is still installed. To prevent confusion caused by having two versions of Purple Pen installed, it is strongly recommended that the older version be removed. Remove it now?		
 MiscText	AskInstallRobotoFonts	In order for OCAD or OpenOrienteering Mapper to correctly display the control descriptions, the "Roboto" and "Roboto Condensed" fonts must be installed on your system. Would you like to install those fonts now (strongly recommended)?		
 MiscText	RobotoFontsInstallFailed	Installing Roboto Fonts failed.		
 MiscText	LowerPurple	Lower Purple		
 MiscText	GpxMustBeOcadMap	The map file must be an OCAD file to use GPX files.		
 MiscText	BadLegNumber	'{0}' is not a valid leg number for branch '{1}'		
 MiscText	CannotCreatePdfs	Cannot create PDFs for the following reason:		
-MiscText	CannotCreateSvgs	Cannot create SVG files for the following reason:		yes
 MiscText	CannotPrint	Cannot print '{0}' for the following reason:		
 MiscText	CannotSendPrintJob	The print job could not be sent to the printer.		
 MiscText	CannotReadImageFile	Cannot read image file '{0}'.		
@@ -1352,19 +1315,16 @@ MiscText	SixtyfourBit	64-bit
 MiscText	ThirtytwoBit	32-bit		
 MiscText	StandaloneSetup	Standalone Setup		
 MiscText	WindowsStore	Windows Store		
-MiscText	OpenFileDialog_PurplePenFilter	NotPurplePen files|*.ppen|All files|*.*		
+MiscText	OpenFileDialog_PurplePenFilter	Purple Pen files|*.ppen|All files|*.*		
 MiscText	ChangeMapFile_FileFilter	All map files|*.ocd;*.omap;*.xmap;*.pdf;*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif|OCAD files (*.ocd)|*.ocd|Open Orienteering Mapper Files|*.omap;*.xmap|PDF files (*.pdf)|*.pdf|Image files|*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif		
 MiscText	GpxFilter	GPX file|*.gpx		
 MiscText	RelayVariationExportFilter	IOF XML 3.0|*.xml|Spreadsheet (CSV)|*.csv		
-MiscText	SaveFileDialog_PurplePenFilter	NotPurplePen file|*.ppen		
+MiscText	SaveFileDialog_PurplePenFilter	Purple Pen file|*.ppen		
 MiscText	SaveXmlFileDialog_Filter	IOF XML version 3.0|*.xml|IOF XML version 2.0.3|*.xml		
 MiscText	SaveXmlFileDialog_Title	Create XML Interchange File		
 MiscText	OpenImageDialog_Filter	Image file|*.jpg;*.jpeg;*.gif;*.png;*.bmp;*.tif;*.tiff		
 MiscText	FinishButtonText	&Finish		
 MiscText	Version_Patch	Patch		
-MiscText	PublishFailed	Failed to publish: {0}		yes
-MiscText	PublishSucceeded	Published successfully.		yes
-MiscText	DefaultPublishPath	../Print/System		yes
 CommandNameText	ChangeSymbol	Change Symbol		
 CommandNameText	ChangeCode	Change Control Code		
 CommandNameText	ChangeControl	Change Control		
@@ -1386,7 +1346,6 @@ CommandNameText	AddFinish	Add Finish
 CommandNameText	AddCrossingPoint	Add Mandatory Crossing Point		
 CommandNameText	AddObject	Add Object		
 CommandNameText	DeleteCourse	Delete Course		
-CommandNameText	NewCourse	New Course	src/PurplePen/CommandNameText.ru.resx	
 CommandNameText	ChangeCourseProperties	Change Course Properties		
 CommandNameText	ChangeAllControlsProperties	Change All Controls Properties		
 CommandNameText	NewEvent	Create New Event		
@@ -1412,8 +1371,6 @@ CommandNameText	ChangeCourseOrder	Change Course Order
 CommandNameText	ChangeMapFile	Change Map File		
 CommandNameText	IgnoreMissingFonts	Ignore Missing Fonts		
 CommandNameText	AddTextLine	Add Text Line		
-CommandNameText	AddDescriptionFragment	Cut Description		yes
-CommandNameText	RemoveDescriptionFragment	Join Description		yes
 CommandNameText	RemoveUnusedControls	Remove Unused Controls		
 CommandNameText	SetDescriptionLanguage	Change Description Language		
 CommandNameText	ChangeText	Change Text		
@@ -1424,7 +1381,6 @@ CommandNameText	ChangePartProperties	Change Course Part Properties
 CommandNameText	ChangeLineAppearance	Change Line Appearance		
 CommandNameText	DuplicateCourse	Duplicate Course		
 CommandNameText	CreateMapFiles	Create {0} &Files		
-CommandNameText	AddVariation	Add Variation	src/PurplePen/CommandNameText.ru.resx	
 CommandNameText	DeleteFork	Delete Fork/Loop		
 CommandNameText	RelayTeamVariations	Relay Team Variations		
 CommandNameText	AddMapIssue	Add Map Issue Point		
@@ -1474,7 +1430,6 @@ StatusBarText	StretchingObject	Hold down left mouse button and drag to stretch t
 StatusBarText	ControlForMoveAllControls	Click the left mouse button on a control or registration mark to move to a new location		
 StatusBarText	NewLocationForMoveAllControls	Click the left mouse button on the new location for the control or registration mark		
 SelectionDescriptionText	AwayFromControl	away from control		
-SelectionDescriptionText	Climb	Climb:	src/PurplePen/SelectionDescriptionText.ru.resx	
 SelectionDescriptionText	CompetitorLoad	Competitor load:		
 SelectionDescriptionText	ControlsInUse	Controls in use:		
 SelectionDescriptionText	ControlsNotInUse	Controls not in use:		
@@ -1491,7 +1446,6 @@ SelectionDescriptionText	Finish_Singular	finish
 SelectionDescriptionText	Flagging	Flagging:		
 SelectionDescriptionText	IntoControl	into control		
 SelectionDescriptionText	IntoFinishFunnel	into finish funnel		
-SelectionDescriptionText	Length	Length:	src/PurplePen/SelectionDescriptionText.ru.resx	
 SelectionDescriptionText	LineHeight	Line height:		
 SelectionDescriptionText	Location	Location:		
 SelectionDescriptionText	MandCrossing_Plural	mandatory crossing points		
@@ -1507,7 +1461,6 @@ SelectionDescriptionText	SpecialName_Forbidden	Forbidden Route
 SelectionDescriptionText	SpecialName_OOB	Out-of-bounds Area		
 SelectionDescriptionText	SpecialName_OptCrossing	Optional Crossing Point		
 SelectionDescriptionText	SpecialName_RegMark	Registration Mark		
-SelectionDescriptionText	SpecialName_Text	Text	src/PurplePen/SelectionDescriptionText.ru.resx	
 SelectionDescriptionText	SpecialName_Water	Water Location		
 SelectionDescriptionText	Start_Plural	starts		
 SelectionDescriptionText	Start_Singular	start		
