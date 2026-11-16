@@ -157,7 +157,8 @@
     <value>紫笔是免费软件，可以复制和共享。</value>
   </data>
   <data name="AboutForm_disclaimerLabel_Text" xml:space="preserve">
-    <value>该软件由版权持有人和贡献者提供，包括但不限于，商业性和其他用途默认放弃，提供任何明示或暗示的保证。</value>
+    <value>本软件由版权持有人和贡献者“按原样”提供，不作任何明示或暗示的保证，包括但不限于对适销性和特定用途适用性的暗示保证。</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AboutForm_okButton_Text" xml:space="preserve">
     <value>确定</value>

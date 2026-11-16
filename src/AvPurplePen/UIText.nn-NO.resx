@@ -150,6 +150,10 @@
     <value>Vel eit språk:</value>
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
+  <data name="AboutForm_copyrightLabel_Text" xml:space="preserve">
+    <value>Opphavsrett © Peter Golde</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="AboutForm_freeLabel_Text" xml:space="preserve">
     <value>Purple Pen programvare kan kopieres og deles fritt</value>
   </data>

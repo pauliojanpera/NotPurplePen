@@ -156,7 +156,8 @@
     <value>Purple Pen è software libero e può essere copiato e condiviso</value>
   </data>
   <data name="AboutForm_disclaimerLabel_Text" xml:space="preserve">
-    <value>QUESTO SOFTWARE È FORNITO DAI DETENTORI DEL COPYRIGHT E DAI CONTRIBUTORI "COSÌ COM'È" E OGNI GARANZIA ESPRESSA O SOTTINTESA, INCLUDENDO, MA NON LIMITATA A, LE GARANZIE SOTTINTESE DI COMMERCIABILITÀ E DI BENESSERE PER UNO SCOPO PARTICOLARE SONO DICHIARATE.</value>
+    <value>QUESTO SOFTWARE È FORNITO DAI DETENTORI DEL COPYRIGHT E DAI CONTRIBUTORI "COSÌ COM'È" E OGNI GARANZIA ESPRESSA O IMPLICITA, INCLUSE, MA NON SOLO, LE GARANZIE IMPLICITE DI COMMERCIABILITÀ E DI IDONEITÀ PER UNO SCOPO PARTICOLARE, È ESCLUSA.</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AboutForm_okButton_Text" xml:space="preserve">
     <value>OK</value>

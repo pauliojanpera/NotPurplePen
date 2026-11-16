@@ -175,10 +175,12 @@
     <value>Rendben</value>
   </data>
   <data name="AboutForm_creditsButton_Text" xml:space="preserve">
-    <value>Névjegy</value>
+    <value>Közreműködők</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AboutForm_licenseButton_Text" xml:space="preserve">
-    <value>A teljes licensz</value>
+    <value>A teljes licenc</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AboutForm_Text" xml:space="preserve">
     <value>A Purple Pen programról</value>

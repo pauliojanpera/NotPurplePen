@@ -150,11 +150,16 @@
     <value>Selectați o limbă:</value>
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
+  <data name="AboutForm_copyrightLabel_Text" xml:space="preserve">
+    <value>Copyright © Peter Golde</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="AboutForm_freeLabel_Text" xml:space="preserve">
     <value>Purple Pen este software gratuit și poate fi copiat și distribuit.</value>
   </data>
   <data name="AboutForm_disclaimerLabel_Text" xml:space="preserve">
-    <value>ACEST PROGRAM ESTE OFERIT DE CĂTRE DEȚINĂTORUL DREPTURILOR DE AUTOR ȘI CONTRIBUTORI "AȘA CUM ESTE" ȘI SUNT EXCLUSE ORICE GARAȚII IMPLICITE SAU EXPLICITE, SAU GARAȚII IMPLICITE DE COMERCIALIZARE SAU PENTRU UN ANUMIT SCOP, DAR FARĂ A SE LIMITA LA ACESTEA.</value>
+    <value>ACEST PROGRAM ESTE OFERIT DE CĂTRE DEȚINĂTORUL DREPTURILOR DE AUTOR ȘI CONTRIBUTORI "AȘA CUM ESTE" ȘI SUNT EXCLUSE ORICE GARANȚII IMPLICITE SAU EXPLICITE, SAU GARANȚII IMPLICITE DE COMERCIALIZARE SAU PENTRU UN ANUMIT SCOP, DAR FĂRĂ A SE LIMITA LA ACESTEA.</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AboutForm_okButton_Text" xml:space="preserve">
     <value>OK</value>

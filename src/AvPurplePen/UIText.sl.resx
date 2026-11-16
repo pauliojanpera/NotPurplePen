@@ -149,6 +149,10 @@
     <value>Izberite jezik:</value>
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
+  <data name="AboutForm_copyrightLabel_Text" xml:space="preserve">
+    <value>Copyright © Peter Golde</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="AboutForm_freeLabel_Text" xml:space="preserve">
     <value>Purple Pen je brezplačen program, ki se lahko kopira in posreduje.</value>
   </data>

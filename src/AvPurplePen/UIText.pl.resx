@@ -150,8 +150,17 @@
     <value>Wybierz język:</value>
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
+  <data name="AboutForm_copyrightLabel_Text" xml:space="preserve">
+    <value>Copyright © Peter Golde</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="AboutForm_freeLabel_Text" xml:space="preserve">
-    <value>Purple Pen jest darmową aplikacją i jako taka może być kopiowany i udostępniany.</value>
+    <value>Purple Pen jest darmową aplikacją i jako taka może być kopiowana i udostępniana.</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="AboutForm_disclaimerLabel_Text" xml:space="preserve">
+    <value>TO OPROGRAMOWANIE JEST DOSTARCZANE PRZEZ POSIADACZY PRAW AUTORSKICH I WSPÓŁTWÓRCÓW „TAKIM, JAKIE JEST”. WSZELKIE GWARANCJE WYRAŹNE LUB DOROZUMIANE, W TYM, ALE NIE WYŁĄCZNIE, DOROZUMIANE GWARANCJE PRZYDATNOŚCI HANDLOWEJ I PRZYDATNOŚCI DO OKREŚLONEGO CELU, SĄ WYŁĄCZONE.</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AboutForm_okButton_Text" xml:space="preserve">
     <value>OK</value>
