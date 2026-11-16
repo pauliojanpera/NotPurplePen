@@ -1,5 +1,4 @@
 resource	key	english	in_repo	forks_own
-UIText	AboutForm_copyrightLabel_Text	Copyright © by Peter Golde		
 UIText	AddCourse_labelKindCombo_Items3	Sequence and score (3(30))		
 UIText	AddCourse_labelKindCombo_Items4	Code and score (145(30))		
 UIText	AddCourse_labelKindCombo_Items5	Score (30)		

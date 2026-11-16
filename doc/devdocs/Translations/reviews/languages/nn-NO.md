@@ -8,6 +8,7 @@ Made by claude-opus-5-5, effort max.
 
 | Key | English | Translation | Context that decided it | Mirrors |
 | --- | --- | --- | --- | --- |
+| `AboutForm_copyrightLabel_Text` | Copyright © by Peter Golde | Opphavsrett © Peter Golde | one line of the About dialog, under the version; "opphavsrett" is Nynorsk as Bokmål, as nb-NO | nb-NO |
 | `IncrementButton` | Increment | Auk | sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment |  |
 | `DecrementButton` | Decrement | Reduser | sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement |  |
 | `CounterLabel` | Counter: {0} | Teljar: {0} | sample key of the localization (LocalizeExtension.cs), shown in no view; a label that shows the value of a counter, as fr "Compteur : {0}" |  |

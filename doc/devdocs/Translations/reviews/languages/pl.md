@@ -8,6 +8,9 @@ Made by claude-opus-5-5, effort max.
 
 | Key | English | Translation | Context that decided it | Mirrors |
 | --- | --- | --- | --- | --- |
+| `AboutForm_copyrightLabel_Text` | Copyright © by Peter Golde | Copyright © Peter Golde | one line of the About dialog, under the version; kept short, as the languages that keep "Copyright ©" | cs es fi hu it |
+| `AboutForm_disclaimerLabel_Text` | THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. | TO OPROGRAMOWANIE JEST DOSTARCZANE PRZEZ POSIADACZY PRAW AUTORSKICH I WSPÓŁTWÓRCÓW „TAKIM, JAKIE JEST”. WSZELKIE GWARANCJE WYRAŹNE LUB DOROZUMIANE, W TYM, ALE NIE WYŁĄCZNIE, DOROZUMIANE GWARANCJE PRZYDATNOŚCI HANDLOWEJ I PRZYDATNOŚCI DO OKREŚLONEGO CELU, SĄ WYŁĄCZONE. | the disclaimer of the BSD licence in the About dialog, in the wording of Polish translations of the licence, in capitals as the English | cs ru |
+| `AboutForm_freeLabel_Text` | Purple Pen is free software and may be copied and shared. | Purple Pen jest darmową aplikacją i jako taka może być kopiowana i udostępniana.<br>(corrects: Purple Pen jest darmową aplikacją i jako taka może być kopiowany i udostępniany.) | "jako taka" is the application, so the participles are feminine; the translation had "kopiowany i udostępniany" |  |
 | `IncrementButton` | Increment | Zwiększ | sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment |  |
 | `DecrementButton` | Decrement | Zmniejsz | sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement |  |
 | `CounterLabel` | Counter: {0} | Licznik: {0} | sample key of the localization (LocalizeExtension.cs), shown in no view; a label that shows the value of a counter, as fr "Compteur : {0}" |  |

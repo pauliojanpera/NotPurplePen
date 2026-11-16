@@ -1,6 +1,4 @@
 resource	key	english	in_repo	forks_own
-UIText	AboutForm_copyrightLabel_Text	Copyright © by Peter Golde		
-UIText	AboutForm_disclaimerLabel_Text	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.		
 UIText	AddCourse_labelKindCombo_Items5	Score (30)		
 UIText	AddCourse_hideFromReportsCheckBox_Text	Do not include in reports		
 UIText	AddForkDialog_labelWhichType_Text	What type of variation would you like to add?		
