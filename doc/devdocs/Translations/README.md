@@ -54,6 +54,9 @@ The numbers are of Nov 16.
    Remove` list of `PurplePen.csproj`. 868 translations. Nothing is translated. Done on Nov 16 (d21aa138).
 2. **The faults.** Task 9's first branch (handover): "Include:" and its items, the faults that task 4 found, and the
    errors that `check.py` reports. Done on Nov 16 (1de84f81); the review is [reviews/phase-2.md](reviews/phase-2.md).
+Before phase 3, a session settles the terms of the translated languages in `terms.csv`, as [Terms.md](Terms.md) tells
+(@Pauli, Nov 16).
+
 3. **The languages that lack fewer than 300 after phase 2:** bg, cs, de, en-GB, es, et, fi, fr, hu, it, ja, nb-NO, pt, pt-BR, sv, tr, uk, zh-CN, zh-TW. 2,402 keys.
 4. **The languages that lack 300 to 1,000:** da, nl, nn-NO, pl, ro. 3,200 keys.
 5. **The languages that lack more than 1,000:** ru, sl. 2,702 keys.
@@ -109,8 +112,13 @@ translations: a term is an English text of at most three words, without its acce
 cell holds the language's translations of the term, the most frequent first, separated by " / ". Several
 translations in one cell show where the language translates a term in more than one way, or where the English term
 has more than one sense ("Start" as the start of a course, and as the verb). An empty cell is a term that the
-language does not translate yet. On Nov 16, from 1de84f81: 530 terms, 11,193 cells filled, 568 of them with several
-translations, and 5,767 empty, most of them in ca, he, id, ku, ru, sl, vec and zh-HK.
+language does not translate yet. On Nov 16, from aadd27db: 530 terms; in the 26 translated languages, 2,624 cells
+empty and 568 with several translations.
+
+The session of [Terms.md](Terms.md) settles the file before the languages are translated: one line for each sense
+of a term, one translation in each cell of a translated language, and each decision recorded in
+`terms-decisions.tsv` with the language model that made it. From then on `terms.csv` is kept by hand, and `terms.py`
+writes a fresh extraction only to another file, to find new terms.
 
 ## Who made a translation
 

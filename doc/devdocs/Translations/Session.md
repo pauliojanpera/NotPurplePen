@@ -78,7 +78,8 @@ put into the language's words.
 - **translation**: the translation. Before you write it, find the exact meaning of the English. Read the other keys
   of the same control, the same text in the language, and the key in every other language, the related languages
   first. `python3 docs/doc/devdocs/Translations/lookup.py code <key>` shows every translation of any key.
-- Use the terms of the language's own translations ("Terms", and "Same text"). Keep the access-key mark (`_` or `&`)
+- Use the terms of [terms.csv](terms.csv) (`grep -i` a word of the English in it) and of the language's own
+  translations ("Terms", and "Same text"). Keep the access-key mark (`_` or `&`)
   where the English has one, on a letter that no other item of the same menu uses. Keep every placeholder `{0}`,
   `{1}` of the English, and add none.
 - Keep to the room that the dialogs give. Where a text must fit a control, keep it about as long as the English and
