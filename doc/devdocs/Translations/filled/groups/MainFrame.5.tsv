@@ -1,0 +1,154 @@
+language	resource	key	english	translation	old	note	mirrors	translator	effort
+nl	UIText	MainFrame_courseSelectorTesterMenu_Text	Course Selector Tester					claude-opus-5-5	max
+ru	UIText	MainFrame_courseSelectorTesterMenu_Text	Course Selector Tester					claude-opus-5-5	max
+sl	UIText	MainFrame_courseSelectorTesterMenu_Text	Course Selector Tester					claude-opus-5-5	max
+uk	UIText	MainFrame_courseSelectorTesterMenu_Text	Course Selector Tester					claude-opus-5-5	max
+nl	UIText	MainFrame_dotGridTesterToolStripMenuItem_Text	Dot Grid Tester					claude-opus-5-5	max
+ru	UIText	MainFrame_dotGridTesterToolStripMenuItem_Text	Dot Grid Tester					claude-opus-5-5	max
+sl	UIText	MainFrame_dotGridTesterToolStripMenuItem_Text	Dot Grid Tester					claude-opus-5-5	max
+uk	UIText	MainFrame_dotGridTesterToolStripMenuItem_Text	Dot Grid Tester					claude-opus-5-5	max
+nl	UIText	MainFrame_dumpOCADFileMenu_Text	Dump OCAD File					claude-opus-5-5	max
+ru	UIText	MainFrame_dumpOCADFileMenu_Text	Dump OCAD File					claude-opus-5-5	max
+sl	UIText	MainFrame_dumpOCADFileMenu_Text	Dump OCAD File					claude-opus-5-5	max
+uk	UIText	MainFrame_dumpOCADFileMenu_Text	Dump OCAD File					claude-opus-5-5	max
+nl	UIText	MainFrame_reportTesterToolStripMenuItem_Text	Report Tester					claude-opus-5-5	max
+ru	UIText	MainFrame_reportTesterToolStripMenuItem_Text	Report Tester					claude-opus-5-5	max
+sl	UIText	MainFrame_reportTesterToolStripMenuItem_Text	Report Tester					claude-opus-5-5	max
+uk	UIText	MainFrame_reportTesterToolStripMenuItem_Text	Report Tester					claude-opus-5-5	max
+nl	UIText	MainFrame_fontMetricsToolStripMenuItem_Text	Font Metrics					claude-opus-5-5	max
+ru	UIText	MainFrame_fontMetricsToolStripMenuItem_Text	Font Metrics					claude-opus-5-5	max
+sl	UIText	MainFrame_fontMetricsToolStripMenuItem_Text	Font Metrics					claude-opus-5-5	max
+uk	UIText	MainFrame_fontMetricsToolStripMenuItem_Text	Font Metrics					claude-opus-5-5	max
+cs	UIText	MainFrame_missingTranslationsMenuItem_Text	Missing Description Translations					claude-opus-5-5	max
+da	UIText	MainFrame_missingTranslationsMenuItem_Text	Missing Description Translations					claude-opus-5-5	max
+es	UIText	MainFrame_missingTranslationsMenuItem_Text	Missing Description Translations					claude-opus-5-5	max
+et	UIText	MainFrame_missingTranslationsMenuItem_Text	Missing Description Translations					claude-opus-5-5	max
+hu	UIText	MainFrame_missingTranslationsMenuItem_Text	Missing Description Translations					claude-opus-5-5	max
+ja	UIText	MainFrame_missingTranslationsMenuItem_Text	Missing Description Translations					claude-opus-5-5	max
+nl	UIText	MainFrame_missingTranslationsMenuItem_Text	Missing Description Translations					claude-opus-5-5	max
+nn-NO	UIText	MainFrame_missingTranslationsMenuItem_Text	Missing Description Translations					claude-opus-5-5	max
+pl	UIText	MainFrame_missingTranslationsMenuItem_Text	Missing Description Translations					claude-opus-5-5	max
+pt	UIText	MainFrame_missingTranslationsMenuItem_Text	Missing Description Translations					claude-opus-5-5	max
+pt-BR	UIText	MainFrame_missingTranslationsMenuItem_Text	Missing Description Translations					claude-opus-5-5	max
+ro	UIText	MainFrame_missingTranslationsMenuItem_Text	Missing Description Translations					claude-opus-5-5	max
+ru	UIText	MainFrame_missingTranslationsMenuItem_Text	Missing Description Translations					claude-opus-5-5	max
+sl	UIText	MainFrame_missingTranslationsMenuItem_Text	Missing Description Translations					claude-opus-5-5	max
+uk	UIText	MainFrame_missingTranslationsMenuItem_Text	Missing Description Translations					claude-opus-5-5	max
+zh-TW	UIText	MainFrame_missingTranslationsMenuItem_Text	Missing Description Translations					claude-opus-5-5	max
+nl	UIText	MainFrame_crashToolStripMenuItem_Text	Crash					claude-opus-5-5	max
+nn-NO	UIText	MainFrame_crashToolStripMenuItem_Text	Crash					claude-opus-5-5	max
+ro	UIText	MainFrame_crashToolStripMenuItem_Text	Crash					claude-opus-5-5	max
+ru	UIText	MainFrame_crashToolStripMenuItem_Text	Crash					claude-opus-5-5	max
+sl	UIText	MainFrame_crashToolStripMenuItem_Text	Crash					claude-opus-5-5	max
+nl	UIText	MainFrame_debugMenu_Text	Debug					claude-opus-5-5	max
+ru	UIText	MainFrame_debugMenu_Text	Debug					claude-opus-5-5	max
+sl	UIText	MainFrame_debugMenu_Text	Debug					claude-opus-5-5	max
+nl	UIText	MainFrame_addDescriptionLanguageMenu_Text	Add Description Language...					claude-opus-5-5	max
+ru	UIText	MainFrame_addDescriptionLanguageMenu_Text	Add Description Language...					claude-opus-5-5	max
+sl	UIText	MainFrame_addDescriptionLanguageMenu_Text	Add Description Language...					claude-opus-5-5	max
+nl	UIText	MainFrame_addTranslatedTextsMenu_Text	Add Translated Texts...					claude-opus-5-5	max
+ru	UIText	MainFrame_addTranslatedTextsMenu_Text	Add Translated Texts...					claude-opus-5-5	max
+sl	UIText	MainFrame_addTranslatedTextsMenu_Text	Add Translated Texts...					claude-opus-5-5	max
+nl	UIText	MainFrame_mergeSymbolsMenu_Text	Merge Symbols.xml...					claude-opus-5-5	max
+ru	UIText	MainFrame_mergeSymbolsMenu_Text	Merge Symbols.xml...					claude-opus-5-5	max
+sl	UIText	MainFrame_mergeSymbolsMenu_Text	Merge Symbols.xml...					claude-opus-5-5	max
+nl	UIText	MainFrame_translateMenu_Text	_Translate Description Text					claude-opus-5-5	max
+ru	UIText	MainFrame_translateMenu_Text	_Translate Description Text					claude-opus-5-5	max
+sl	UIText	MainFrame_translateMenu_Text	_Translate Description Text					claude-opus-5-5	max
+ru	UIText	MainFrame_helpMenu_Text	_Help					claude-opus-5-5	max
+sl	UIText	MainFrame_helpMenu_Text	_Help					claude-opus-5-5	max
+nl	UIText	MainFrame_openToolStripButton_Text	Open				UIText.MainFrame_openMenu_Text openMenu.Text	claude-opus-5-5	max
+ru	UIText	MainFrame_openToolStripButton_Text	Open				UIText.MainFrame_openMenu_Text	claude-opus-5-5	max
+sl	UIText	MainFrame_openToolStripButton_Text	Open				UIText.MainFrame_openMenu_Text openMenu.Text	claude-opus-5-5	max
+ru	UIText	MainFrame_openToolStripButton_ToolTipText	Open (Ctrl+O)					claude-opus-5-5	max
+sl	UIText	MainFrame_openToolStripButton_ToolTipText	Open (Ctrl+O)					claude-opus-5-5	max
+ru	UIText	MainFrame_saveToolStripButton_Text	Save				UIText.MainFrame_saveMenu_Text	claude-opus-5-5	max
+sl	UIText	MainFrame_saveToolStripButton_Text	Save				UIText.MainFrame_saveMenu_Text saveMenu.Text	claude-opus-5-5	max
+ru	UIText	MainFrame_saveToolStripButton_ToolTipText	Save (Ctrl+S)					claude-opus-5-5	max
+sl	UIText	MainFrame_saveToolStripButton_ToolTipText	Save (Ctrl+S)					claude-opus-5-5	max
+nl	UIText	MainFrame_undoToolStripButton_Text	Undo				UIText.MainFrame_undoMenu_Text	claude-opus-5-5	max
+ru	UIText	MainFrame_undoToolStripButton_Text	Undo				UIText.MainFrame_undoMenu_Text	claude-opus-5-5	max
+sl	UIText	MainFrame_undoToolStripButton_Text	Undo				UIText.MainFrame_undoMenu_Text UIText.MiscText_UndoWithShortcut	claude-opus-5-5	max
+nl	UIText	MainFrame_undoToolStripButton_ToolTipText	Undo (Ctrl+Z)					claude-opus-5-5	max
+ru	UIText	MainFrame_undoToolStripButton_ToolTipText	Undo (Ctrl+Z)					claude-opus-5-5	max
+sl	UIText	MainFrame_undoToolStripButton_ToolTipText	Undo (Ctrl+Z)					claude-opus-5-5	max
+nl	UIText	MainFrame_redoToolStripButton_Text	Redo				UIText.MainFrame_redoMenu_Text	claude-opus-5-5	max
+ru	UIText	MainFrame_redoToolStripButton_Text	Redo				UIText.MainFrame_redoMenu_Text	claude-opus-5-5	max
+sl	UIText	MainFrame_redoToolStripButton_Text	Redo				UIText.MainFrame_redoMenu_Text UIText.MiscText_RedoWithShortcut	claude-opus-5-5	max
+nl	UIText	MainFrame_redoToolStripButton_ToolTipText	Redo (Ctrl+Y)					claude-opus-5-5	max
+ru	UIText	MainFrame_redoToolStripButton_ToolTipText	Redo (Ctrl+Y)					claude-opus-5-5	max
+sl	UIText	MainFrame_redoToolStripButton_ToolTipText	Redo (Ctrl+Y)					claude-opus-5-5	max
+nl	UIText	MainFrame_deleteToolStripButton_Text	Delete (Del)					claude-opus-5-5	max
+ru	UIText	MainFrame_deleteToolStripButton_Text	Delete (Del)					claude-opus-5-5	max
+sl	UIText	MainFrame_deleteToolStripButton_Text	Delete (Del)					claude-opus-5-5	max
+nl	UIText	MainFrame_addControlToolStripButton_ToolTipText	Add Control (Ctrl+A)					claude-opus-5-5	max
+ru	UIText	MainFrame_addControlToolStripButton_ToolTipText	Add Control (Ctrl+A)					claude-opus-5-5	max
+sl	UIText	MainFrame_addControlToolStripButton_ToolTipText	Add Control (Ctrl+A)					claude-opus-5-5	max
+nl	UIText	MainFrame_descriptionsToolStripMenuItem_Text	Add Descriptions					claude-opus-5-5	max
+ru	UIText	MainFrame_descriptionsToolStripMenuItem_Text	Add Descriptions					claude-opus-5-5	max
+sl	UIText	MainFrame_descriptionsToolStripMenuItem_Text	Add Descriptions					claude-opus-5-5	max
+cs	UIText	MainFrame_mapFlipMenuItem_Text	Map Flip at Control Point				UIText.MainFrame_addMapFlipMenuItem_Text	claude-opus-5-5	max
+da	UIText	MainFrame_mapFlipMenuItem_Text	Map Flip at Control Point				UIText.MainFrame_addMapFlipMenuItem_Text	claude-opus-5-5	max
+es	UIText	MainFrame_mapFlipMenuItem_Text	Map Flip at Control Point				UIText.MainFrame_addMapFlipMenuItem_Text	claude-opus-5-5	max
+et	UIText	MainFrame_mapFlipMenuItem_Text	Map Flip at Control Point				UIText.MainFrame_addMapFlipMenuItem_Text	claude-opus-5-5	max
+hu	UIText	MainFrame_mapFlipMenuItem_Text	Map Flip at Control Point				UIText.MainFrame_addMapFlipMenuItem_Text	claude-opus-5-5	max
+ja	UIText	MainFrame_mapFlipMenuItem_Text	Map Flip at Control Point				UIText.MainFrame_addMapFlipMenuItem_Text	claude-opus-5-5	max
+nl	UIText	MainFrame_mapFlipMenuItem_Text	Map Flip at Control Point				UIText.MainFrame_addMapFlipMenuItem_Text	claude-opus-5-5	max
+nn-NO	UIText	MainFrame_mapFlipMenuItem_Text	Map Flip at Control Point				UIText.MainFrame_addMapFlipMenuItem_Text	claude-opus-5-5	max
+pl	UIText	MainFrame_mapFlipMenuItem_Text	Map Flip at Control Point				UIText.MainFrame_addMapFlipMenuItem_Text	claude-opus-5-5	max
+pt	UIText	MainFrame_mapFlipMenuItem_Text	Map Flip at Control Point				UIText.MainFrame_addMapFlipMenuItem_Text	claude-opus-5-5	max
+pt-BR	UIText	MainFrame_mapFlipMenuItem_Text	Map Flip at Control Point				UIText.MainFrame_addMapFlipMenuItem_Text	claude-opus-5-5	max
+ro	UIText	MainFrame_mapFlipMenuItem_Text	Map Flip at Control Point				UIText.MainFrame_addMapFlipMenuItem_Text	claude-opus-5-5	max
+ru	UIText	MainFrame_mapFlipMenuItem_Text	Map Flip at Control Point				UIText.MainFrame_addMapFlipMenuItem_Text	claude-opus-5-5	max
+sl	UIText	MainFrame_mapFlipMenuItem_Text	Map Flip at Control Point				UIText.MainFrame_addMapFlipMenuItem_Text	claude-opus-5-5	max
+uk	UIText	MainFrame_mapFlipMenuItem_Text	Map Flip at Control Point				UIText.MainFrame_addMapFlipMenuItem_Text	claude-opus-5-5	max
+zh-TW	UIText	MainFrame_mapFlipMenuItem_Text	Map Flip at Control Point				UIText.MainFrame_addMapFlipMenuItem_Text	claude-opus-5-5	max
+nl	UIText	MainFrame_mapExchangeControlToolStripMenuItem_Text	Map Exchange at Control Point				UIText.MainFrame_mapExchangeControlMenuItem_Text	claude-opus-5-5	max
+nn-NO	UIText	MainFrame_mapExchangeControlToolStripMenuItem_Text	Map Exchange at Control Point				UIText.MainFrame_mapExchangeControlMenuItem_Text	claude-opus-5-5	max
+ro	UIText	MainFrame_mapExchangeControlToolStripMenuItem_Text	Map Exchange at Control Point				UIText.MainFrame_mapExchangeControlMenuItem_Text	claude-opus-5-5	max
+ru	UIText	MainFrame_mapExchangeControlToolStripMenuItem_Text	Map Exchange at Control Point				UIText.MainFrame_mapExchangeControlMenuItem_Text	claude-opus-5-5	max
+sl	UIText	MainFrame_mapExchangeControlToolStripMenuItem_Text	Map Exchange at Control Point				UIText.MainFrame_mapExchangeControlMenuItem_Text mapExchangeControlMenuItem.Text	claude-opus-5-5	max
+nl	UIText	MainFrame_mapExchangeSeparateToolStripMenuItem_Text	Flagged Route to Map Exchange				UIText.MainFrame_mapExchangeSeparateMenuItem_Text	claude-opus-5-5	max
+nn-NO	UIText	MainFrame_mapExchangeSeparateToolStripMenuItem_Text	Flagged Route to Map Exchange				UIText.MainFrame_mapExchangeSeparateMenuItem_Text	claude-opus-5-5	max
+ro	UIText	MainFrame_mapExchangeSeparateToolStripMenuItem_Text	Flagged Route to Map Exchange				UIText.MainFrame_mapExchangeSeparateMenuItem_Text	claude-opus-5-5	max
+ru	UIText	MainFrame_mapExchangeSeparateToolStripMenuItem_Text	Flagged Route to Map Exchange				UIText.MainFrame_mapExchangeSeparateMenuItem_Text	claude-opus-5-5	max
+sl	UIText	MainFrame_mapExchangeSeparateToolStripMenuItem_Text	Flagged Route to Map Exchange				UIText.MainFrame_mapExchangeSeparateMenuItem_Text mapExchangeSeparateMenuItem.Text	claude-opus-5-5	max
+nn-NO	UIText	MainFrame_mapExchangeToolStripMenu_Text	Add Map Flip/Exchange					claude-opus-5-5	max
+ro	UIText	MainFrame_mapExchangeToolStripMenu_Text	Add Map Flip/Exchange					claude-opus-5-5	max
+ru	UIText	MainFrame_mapExchangeToolStripMenu_Text	Add Map Flip/Exchange					claude-opus-5-5	max
+nl	UIText	MainFrame_specialItemToolStripMenu_Text	Add Special Item					claude-opus-5-5	max
+ru	UIText	MainFrame_specialItemToolStripMenu_Text	Add Special Item					claude-opus-5-5	max
+sl	UIText	MainFrame_specialItemToolStripMenu_Text	Add Special Item					claude-opus-5-5	max
+nl	UIText	MainFrame_addBendToolStripButton_ToolTipText	Add Bend (Ctrl+B)					claude-opus-5-5	max
+ru	UIText	MainFrame_addBendToolStripButton_ToolTipText	Add Bend (Ctrl+B)					claude-opus-5-5	max
+sl	UIText	MainFrame_addBendToolStripButton_ToolTipText	Add Bend (Ctrl+B)					claude-opus-5-5	max
+nl	UIText	MainFrame_addGapToolStripButton_Text	toolStripButton1					claude-opus-5-5	max
+pl	UIText	MainFrame_addGapToolStripButton_Text	toolStripButton1					claude-opus-5-5	max
+ru	UIText	MainFrame_addGapToolStripButton_Text	toolStripButton1					claude-opus-5-5	max
+sl	UIText	MainFrame_addGapToolStripButton_Text	toolStripButton1					claude-opus-5-5	max
+uk	UIText	MainFrame_addGapToolStripButton_Text	toolStripButton1					claude-opus-5-5	max
+nl	UIText	MainFrame_addGapToolStripButton_ToolTipText	Add Gap (Ctrl+G)					claude-opus-5-5	max
+ru	UIText	MainFrame_addGapToolStripButton_ToolTipText	Add Gap (Ctrl+G)					claude-opus-5-5	max
+sl	UIText	MainFrame_addGapToolStripButton_ToolTipText	Add Gap (Ctrl+G)					claude-opus-5-5	max
+nl	UIText	MainFrame_zoomAmountLabel_Text	Zoom: 100%					claude-opus-5-5	max
+ru	UIText	MainFrame_zoomAmountLabel_Text	Zoom: 100%					claude-opus-5-5	max
+sl	UIText	MainFrame_zoomAmountLabel_Text	Zoom: 100%					claude-opus-5-5	max
+ru	UIText	MainFrame_locationDisplay_Text	X:-999.99 Y:-999.99					claude-opus-5-5	max
+sl	UIText	MainFrame_locationDisplay_Text	X:-999.99 Y:-999.99					claude-opus-5-5	max
+nn-NO	UIText	MainFrame_saveXmlFileDialog_Filter	IOF XML version 2.0.3|*.xml|IOF XML version 3.0|*.xml					claude-opus-5-5	max
+pl	UIText	MainFrame_saveXmlFileDialog_Filter	IOF XML version 2.0.3|*.xml|IOF XML version 3.0|*.xml					claude-opus-5-5	max
+ro	UIText	MainFrame_saveXmlFileDialog_Filter	IOF XML version 2.0.3|*.xml|IOF XML version 3.0|*.xml					claude-opus-5-5	max
+ru	UIText	MainFrame_saveXmlFileDialog_Filter	IOF XML version 2.0.3|*.xml|IOF XML version 3.0|*.xml					claude-opus-5-5	max
+sl	UIText	MainFrame_saveXmlFileDialog_Filter	IOF XML version 2.0.3|*.xml|IOF XML version 3.0|*.xml					claude-opus-5-5	max
+ru	UIText	MainFrame_saveXmlFileDialog_Title	Create XML Interchange File					claude-opus-5-5	max
+sl	UIText	MainFrame_saveXmlFileDialog_Title	Create XML Interchange File					claude-opus-5-5	max
+nn-NO	UIText	MainFrame_openImageDialog_Filter	Image file|*.jpg;*.jpeg;*.gif;*.png;*.bmp;*.tif;*.tiff					claude-opus-5-5	max
+ro	UIText	MainFrame_openImageDialog_Filter	Image file|*.jpg;*.jpeg;*.gif;*.png;*.bmp;*.tif;*.tiff					claude-opus-5-5	max
+ru	UIText	MainFrame_openImageDialog_Filter	Image file|*.jpg;*.jpeg;*.gif;*.png;*.bmp;*.tif;*.tiff					claude-opus-5-5	max
+sl	UIText	MainFrame_openImageDialog_Filter	Image file|*.jpg;*.jpeg;*.gif;*.png;*.bmp;*.tif;*.tiff					claude-opus-5-5	max
+nn-NO	UIText	MainFrame_saveGpxFileDialog_Filter	GPX file|*.gpx					claude-opus-5-5	max
+ro	UIText	MainFrame_saveGpxFileDialog_Filter	GPX file|*.gpx					claude-opus-5-5	max
+ru	UIText	MainFrame_saveGpxFileDialog_Filter	GPX file|*.gpx					claude-opus-5-5	max
+sl	UIText	MainFrame_saveGpxFileDialog_Filter	GPX file|*.gpx					claude-opus-5-5	max
+ru	UIText	MainFrame_Text	Purple Pen					claude-opus-5-5	max
+sl	UIText	MainFrame_Text	Purple Pen					claude-opus-5-5	max
