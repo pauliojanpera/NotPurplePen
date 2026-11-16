@@ -2736,7 +2736,8 @@ Bu sorunu gidermek için Windows denetim masası ile aşağıda listelenen yazı
 </value>
   </data>
   <data name="MissingFonts_Text" xml:space="preserve">
-    <value>Eksik Fontları Yoksay</value>
+    <value>Eksik Fontlar</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MoveAllControls_labelDescription_Text" xml:space="preserve">
     <value>Haritadaki tüm kontrolleri hangi yöne taşımak istersiniz?</value>

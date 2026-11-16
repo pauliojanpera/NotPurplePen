@@ -2694,10 +2694,11 @@ Trykk OK og forsøk å finne kartfilen på din datamaskin.</value>
     <value>Ikke varsle om manglende fonter igjen</value>
   </data>
   <data name="MissingFonts_labelWarning_Text" xml:space="preserve">
-    <value>Kartfilen "{0}"benytter en fontfil som ikke er installert på datamskinen. Tekst med denne fonten vil vises med standard font,dette kan medføre at tekst ikke ser ut som ønsket. 
+    <value>Kartfilen "{0}" benytter en fontfil som ikke er installert på datamaskinen. Tekst med denne fonten vil vises med standardfont, dette kan medføre at tekst ikke ser ut som ønsket. 
 
 For å rette på problemet må fonten installeres eller en annen font velges. Etter installasjon av fonter må Purple Pen startes på nytt for å kunne bruke nye fonter.
 </value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MissingFonts_Text" xml:space="preserve">
     <value>Manglende fonter</value>

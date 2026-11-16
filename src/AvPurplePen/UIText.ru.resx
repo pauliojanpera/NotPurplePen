@@ -447,6 +447,21 @@
     <value>Лицензия Purple Pen</value>
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
+  <data name="MissingFonts_checkBoxDontWarnAgain_Text" xml:space="preserve">
+    <value>Не предупреждать об отсутствии шрифтов в этом соревновании</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MissingFonts_labelWarning_Text" xml:space="preserve">
+    <value>Файл карты «{0}» использует шрифты, которые не установлены на этом компьютере. Текст, набранный этими шрифтами, будет отображаться и печататься шрифтом по умолчанию, поэтому он может выглядеть не так, как задумал автор карты. 
+
+Чтобы устранить проблему, найдите и установите перечисленные ниже шрифты через панель управления Windows, а затем перезапустите Purple Pen.
+</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MissingFonts_Text" xml:space="preserve">
+    <value>Отсутствующие шрифты</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="CloseButton" xml:space="preserve">
     <value>Закрыть</value>
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>

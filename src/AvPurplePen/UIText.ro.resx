@@ -1836,10 +1836,11 @@ După ce apăsați OK, încercați să localizați o copie a fișierului hartă 
     <value>Nu mai avertiza lipsa fonturilor pentru acest eveniment.</value>
   </data>
   <data name="MissingFonts_labelWarning_Text" xml:space="preserve">
-    <value>Fișierul hartă "{0}" utilizează fonturi care nu sunt instalate pe acest calculator. Textele care folosesc aceste fonturi vof fi afișate si tipărite cu fontul implicit, care poate genera un aspect diferit față de designul original. 
+    <value>Fișierul hartă "{0}" utilizează fonturi care nu sunt instalate pe acest calculator. Textele care folosesc aceste fonturi vor fi afișate și tipărite cu fontul implicit, care poate genera un aspect diferit față de designul original. 
 
-Pentru a remedia acceastă problemă, căutați și instalați fonturile listate dedesubt în Windows Control Panel, apoi restartați Purple Pen.
+Pentru a remedia această problemă, căutați și instalați fonturile listate dedesubt în Windows Control Panel, apoi restartați Purple Pen.
 </value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MissingFonts_Text" xml:space="preserve">
     <value>Fonturi Lipsă</value>

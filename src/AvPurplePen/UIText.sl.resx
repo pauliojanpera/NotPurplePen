@@ -1435,6 +1435,21 @@
   <data name="MainFrame_mapExchangeToolStripMenu_Text" xml:space="preserve">
     <value>Dodaj menjavo karte</value>
   </data>
+  <data name="MissingFonts_checkBoxDontWarnAgain_Text" xml:space="preserve">
+    <value>Ne opozarjaj več na manjkajoče pisave za to prireditev</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MissingFonts_labelWarning_Text" xml:space="preserve">
+    <value>Datoteka s karto "{0}" uporablja pisave, ki niso nameščene v vašem računalniku. Besedilo v teh pisavah bo prikazano in natisnjeno s privzeto pisavo, zato je lahko videti drugače, kot je nameraval avtor karte. 
+
+Težavo odpravite tako, da poiščete spodaj navedene pisave in jih namestite z nadzorno ploščo sistema Windows, nato pa znova zaženete Purple Pen.
+</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MissingFonts_Text" xml:space="preserve">
+    <value>Manjkajoče pisave</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="CloseButton" xml:space="preserve">
     <value>Zapri</value>
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>

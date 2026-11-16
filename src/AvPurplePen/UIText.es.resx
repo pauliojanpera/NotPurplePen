@@ -2604,7 +2604,8 @@ Presione Aceptar, e intente encontrar una copia del mapa en su ordenador.</value
     <value>El tramo {0} no alcanza la rama «{1}»: en una bifurcación que lo contiene se le ha asignado ir por otra ruta.</value>
   </data>
   <data name="MissingFonts_checkBoxDontWarnAgain_Text" xml:space="preserve">
-    <value>No repetir más el aviso de que faltan fuente para este evento.</value>
+    <value>No repetir más el aviso de que faltan fuentes para este evento.</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MissingFonts_labelWarning_Text" xml:space="preserve">
     <value>El archivo del mapa «{0}» usa fuentes no instaladas en su ordenador. El texto que use esas fuentes será formateado e imprimido con la fuente por defecto, lo que puede provocar que el texto aparezca de forma distinta a lo deseado. 

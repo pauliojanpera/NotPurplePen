@@ -2242,6 +2242,13 @@ Użyj | aby rozdzielić linie
   <data name="MissingFonts_checkBoxDontWarnAgain_Text" xml:space="preserve">
     <value>Nie ostrzegaj ponownie o brakujących czcionkach dla tych zawodów</value>
   </data>
+  <data name="MissingFonts_labelWarning_Text" xml:space="preserve">
+    <value>Plik mapy "{0}" używa czcionek, które nie są zainstalowane na tym komputerze. Tekst w tych czcionkach zostanie narysowany i wydrukowany czcionką domyślną, przez co może wyglądać inaczej, niż zamierzył autor mapy. 
+
+Aby rozwiązać ten problem, znajdź i zainstaluj wymienione poniżej czcionki za pomocą Panelu sterowania systemu Windows, a następnie ponownie uruchom program Purple Pen.
+</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MissingFonts_Text" xml:space="preserve">
     <value>Brakujące czcionki</value>
   </data>

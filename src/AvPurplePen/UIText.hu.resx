@@ -2636,10 +2636,11 @@ A Rendben lenyomása után próbálja megkeresni a térkép fájlt a számítóg
     <value>Ne figyelmeztessen újra ebben az eseményben ha hiányzik betűtípus</value>
   </data>
   <data name="MissingFonts_labelWarning_Text" xml:space="preserve">
-    <value>A térkép fájl "{0}" olyan betűtípusokat használ, amik nincsenek telepítve a számítógépén. A szövegek amik ezeket használják az alapértelmezett betútípussal jelennek meg és kerülnek nyomtatásre, ami jelentősen eltérhet attól amit a térkép tervezője megadott. 
+    <value>A térkép fájl "{0}" olyan betűtípusokat használ, amik nincsenek telepítve a számítógépén. A szövegek amik ezeket használják az alapértelmezett betűtípussal jelennek meg és kerülnek nyomtatásra, ami jelentősen eltérhet attól amit a térkép tervezője megadott. 
 
 A probléma megoldására szerezze be és telepítse a Windows vezérlőpultban az alábbi betűtípusokat, majd indítsa újra a Purple Pen programot.
 </value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MissingFonts_Text" xml:space="preserve">
     <value>Hiányzó betűtípusok</value>

@@ -2702,10 +2702,11 @@ Paina OK ja yritä etsiä karttatiedoston kopio tietokoneeltasi.</value>
     <value>Älä jatkossa varoita puuttuvista fonteista tässä tapahtumassa.</value>
   </data>
   <data name="MissingFonts_labelWarning_Text" xml:space="preserve">
-    <value>Karttatiedostossa "{0}" on käytössä fontteja, joita ei ole asennettu tietokoneellesi. Tekstit, joissa näitä fontteja on käytössä, piirretään ja tulostetaan oletusfontilla, mikä saattaa aiheuttaa, että teksti näkyy kartalla ei tavalla kuin kartan tekijä on tarkoittanut. 
+    <value>Karttatiedostossa "{0}" on käytössä fontteja, joita ei ole asennettu tietokoneellesi. Tekstit, joissa näitä fontteja on käytössä, piirretään ja tulostetaan oletusfontilla, mikä saattaa aiheuttaa, että teksti näkyy kartalla eri tavalla kuin kartan tekijä on tarkoittanut. 
 
 Korjataksesi ongelman, etsi ja asenna alla listatut fontit ja käynnistä Purple Pen sen jälkeen uudelleen.
 </value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MissingFonts_Text" xml:space="preserve">
     <value>Puuttuvat fontit</value>

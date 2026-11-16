@@ -2673,8 +2673,10 @@ Après avoir cliqué sur OK, essayez de trouver une copie du fichier de la carte
   </data>
   <data name="MissingFonts_labelWarning_Text" xml:space="preserve">
     <value>La carte "{0}" utilise des polices qui ne sont pas installées sur votre ordinateur. Le texte qui utilise ces polices sera affiché et imprimé avec une police par défaut, ce qui pourra le faire apparaitre différemment de ce qu'avait prévu le créateur de la carte. 
-Pour résoudre ce problème, recherchez les polices listées ci-dessous et installez les avec le tableau de bord Windows, puis redémarrer Purple Pen.
+
+Pour résoudre ce problème, recherchez les polices listées ci-dessous et installez-les avec le tableau de bord Windows, puis redémarrez Purple Pen.
 </value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MissingFonts_Text" xml:space="preserve">
     <value>Polices manquantes</value>

@@ -2613,11 +2613,15 @@ Efter at klikke OK, prøv at finde en kopi af kortfilen på din computer.</value
     <value>Ben {0} når aldrig gren '{1}': det var tildelt at gå en anderledes vej i en Indeholdende fork.</value>
   </data>
   <data name="MissingFonts_checkBoxDontWarnAgain_Text" xml:space="preserve">
-    <value>Advar ikke om manglende fonte for denne hændelse igen</value>
+    <value>Advar ikke om manglende fonte for dette løb igen</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MissingFonts_labelWarning_Text" xml:space="preserve">
-    <value>Kortfil "{0}" bruger fonte der ikke er installeret på din computer. Tekst der bruger disse fonte vil blive tegnet og udskrevet med en standard font, hvilket kan få teksten til at fremtræde forskelligt fra kortdesignerens intentioner.
+    <value>Kortfil "{0}" bruger fonte der ikke er installeret på din computer. Tekst der bruger disse fonte vil blive tegnet og udskrevet med en standard font, hvilket kan få teksten til at fremtræde forskelligt fra kortdesignerens intentioner. 
+
+For at løse problemet skal du finde og installere de fonte, der er nævnt nedenfor, via Kontrolpanel i Windows og derefter starte Purple Pen igen.
 </value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MissingFonts_Text" xml:space="preserve">
     <value>Manglende fonte</value>

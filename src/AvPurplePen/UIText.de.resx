@@ -2706,13 +2706,15 @@ Suchen Sie, nach Klicken auf "OK", nach der Kartendatei auf Ihrem Computer.</val
     <value>Die Installation von Roboto Fonts ist fehlgeschlagen.</value>
   </data>
   <data name="MissingFonts_checkBoxDontWarnAgain_Text" xml:space="preserve">
-    <value>Für dieses Ereignis nie mehr wegen fehlender Fonts warnen</value>
+    <value>Für diesen Wettkampf nie mehr wegen fehlender Fonts warnen</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MissingFonts_labelWarning_Text" xml:space="preserve">
-    <value>Die Kartendatei "{0}" benutzt Schriftarten (Fonts), die auf diesem Computer nicht installiert sind. Texte, die diese Fonts verwenden, werden mit dem Standardfont gezeichnet und gedruckt, was den Text unter Umständen anders aussehen lässt, als der Bahnleger beabsichtigt hatte. 
+    <value>Die Kartendatei "{0}" benutzt Schriftarten (Fonts), die auf diesem Computer nicht installiert sind. Texte, die diese Fonts verwenden, werden mit dem Standardfont gezeichnet und gedruckt, was den Text unter Umständen anders aussehen lässt, als der Kartenzeichner beabsichtigt hatte. 
 
 Um das Problem zu lösen, suchen und installieren Sie die unten gelisteten Fonts über die Windows Systemsteuerung. Starten Sie dann Purple Pen neu.
 </value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MissingFonts_Text" xml:space="preserve">
     <value>Fehlende Schriftarten</value>

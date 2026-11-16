@@ -1835,16 +1835,19 @@ Trykk OK og forsøk å finne kartfila på datamaskina di.</value>
     <value>http://www.ok-moss.no/owiki/doku.php?id=veiledning:purplepen</value>
   </data>
   <data name="MissingFonts_checkBoxDontWarnAgain_Text" xml:space="preserve">
-    <value>Ikkje varsle om manglende fonter igjen</value>
+    <value>Ikkje varsle om manglande fontar igjen</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MissingFonts_labelWarning_Text" xml:space="preserve">
-    <value>Kartfilen "{0}"benytter ei fontfil som ikkje er installert på datamskinen. Tekst med denne fonten vil vises med standard font, dette kan medføre at tekst ikke ser ut som ønsket. 
+    <value>Kartfila "{0}" brukar fontar som ikkje er installerte på datamaskina di. Tekst med desse fontane blir teikna og skriven ut med ein standardfont, og då kan teksten sjå annleis ut enn kartteiknaren meinte. 
 
-For å rette på problemet må fonten installeres eller en annen font velges. Etter installasjon av fonter må Purple Pen startes på nytt for å kunne bruke nye fonter.
+For å rette problemet må du finne og installere fontane som er lista opp nedanfor, med kontrollpanelet i Windows, og så starte Purple Pen på nytt.
 </value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MissingFonts_Text" xml:space="preserve">
-    <value>Manglande fonter</value>
+    <value>Manglande fontar</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="NewEventBitmapScale_bitmapScaleLabel_Text" xml:space="preserve">
     <value>Når du benyttet en bildefil som kartgrundlag må du legge inn oppløsninga på filen og kartskalaen.
