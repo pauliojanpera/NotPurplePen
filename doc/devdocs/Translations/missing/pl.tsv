@@ -63,10 +63,6 @@ UIText	CreateKmlFiles_Text	Create KML File
 UIText	CreatePdfCourses_comboBoxFileFormat_Items2	One per course part/variation		
 UIText	CreateRouteGadget_labelIofXml_Text	IOF XML Version:		
 UIText	CreateRouteGadget_groupBox1_Text	IOF XML		
-UIText	EnterSymbolText_caseColumn_HeaderText	Case		
-UIText	EnterSymbolText_labelCaseChooser_Text	Case of modified symbol:		
-UIText	EnterSymbolText_checkBoxCases_Text	Show case forms		
-UIText	EnterSymbolText_defaultCaseText	(unchanged)		
 UIText	LegAssignmentsDialog_BranchColumn_HeaderText	Branch		
 UIText	LegAssignmentsDialog_LegsColumn_HeaderText	Legs		
 UIText	LegAssignmentsDialog_labelDescription_Text	To assign a specific leg to a specific branch, type the leg number(s) below. Legs not assigned to a branch will be distributed among remaining branches randomly.		

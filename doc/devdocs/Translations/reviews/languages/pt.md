@@ -9,6 +9,9 @@ Made by claude-opus-5-5, effort max.
 | Key | English | Translation | Context that decided it | Mirrors |
 | --- | --- | --- | --- | --- |
 | `AddCourse_hideFromReportsCheckBox_Text` | Do not include in reports | Não incluir nos relatórios | check box under the length in the New Course dialog: the course is left out of the reports; the term Reports |  |
+| `EnterSymbolText_defaultCaseText` | (unchanged) | (inalterado) | first item of the combo box "Case of modified symbol": the symbol leaves the case of the symbol that it modifies as it is; the term (unchanged) |  |
+| `EnterSymbolText_checkBoxCases_Text` | Show case forms | Mostrar formas de caso<br>(corrects: Mostrar a caixa de formulário) | "caixa de formulário" is a form box (the term Show case forms) |  |
+| `EnterSymbolText_labelCaseChooser_Text` | Case of modified symbol: | Caso do símbolo modificado:<br>(corrects: No caso de modificar o símbolo) | the label names the grammatical case of the symbol that this symbol modifies; "No caso de modificar o símbolo" means "in case the symbol is modified" (the term Case), as pt-BR "Caso de símbolo modificado:" |  |
 | `InitialScreen_Text` | Welcome to Purple Pen | Bem-vindo ao Purple Pen<br>(corrects: Benvindo ao Purple Pen) | "Benvindo" is a misspelling of "Bem-vindo", as pt-BR |  |
 | `PrintDescriptions_descriptionTypeLabel_Text` | Description type: | Tipo de sinalética:<br>(corrects: Tipo de descrição:) | the language's descriptions are "sinalética", as its title "Imprimir Sinalética" (the term Description type) |  |
 | `PrintDescriptions_printerGroup_Text` | Output | Saída<br>(corrects: Saída:) | the colon does not belong in the header of a group, as pt-BR "Saída" (the term Output) |  |

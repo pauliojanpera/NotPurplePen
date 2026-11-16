@@ -15,7 +15,6 @@ UIText	MapIssueChoiceDialog_middleButton_TitleText	Map Issue along Marked Route
 UIText	MapIssueChoiceDialog_middleButton_DetailText	The map is given out partially along the marked route to the start. Navigation begins at the start triangle.		
 UIText	MapIssueChoiceDialog_startTriangleButton_TitleText	Map Issue at the Start Triangle		
 UIText	MapIssueChoiceDialog_startTriangleButton_DetailText	The map is issued at the start triangle (where navigation begins).		
-UIText	EnterSymbolText_defaultCaseText	(unchanged)		
 UIText	NewEventPaperSize_labelTitle_Text	Paper Size		
 UIText	NewEventPaperSize_newEventPaperSizeLabel_Text	Enter the size and orientation of the paper that you will use to print your map.		
 UIText	NewEventPaperSize_changeLaterLabel_Text	You can change this later with File/Set Print Area.		

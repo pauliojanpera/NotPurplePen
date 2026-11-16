@@ -9,6 +9,11 @@ Made by claude-opus-5-5, effort max.
 | Key | English | Translation | Context that decided it | Mirrors |
 | --- | --- | --- | --- | --- |
 | `AddCourse_hideFromReportsCheckBox_Text` | Do not include in reports | 不包含在報告中 | check box under the length in the New Course dialog: the course is left out of the reports; the term Reports |  |
+| `EnterSymbolText_defaultCaseText` | (unchanged) | (不變) | first item of the combo box "Case of modified symbol": the symbol leaves the case of the symbol that it modifies as it is; the term (unchanged) |  |
+| `EnterSymbolText_numberColumn_HeaderText` | Number | 數<br>(corrects: 編碼) | the column shows singular or plural, the grammatical number; 編碼 is a code; the grammatical number is 數, as ja 数 (the term Number (grammatical: singular or plural)) |  |
+| `EnterSymbolText_caseColumn_HeaderText` | Case | 格<br>(corrects: 案例) | the grammatical case of the description text; 案例 is a case study; the grammatical case is 格, as ja (the term Case) |  |
+| `EnterSymbolText_checkBoxCases_Text` | Show case forms | 顯示格形式<br>(corrects: 顯示情況表格) | 情況表格 is a table of situations; the grammatical case is 格 (the term Show case forms) |  |
+| `EnterSymbolText_labelCaseChooser_Text` | Case of modified symbol: | 被修飾符號的格：<br>(corrects: 修改符號的情況：) | the label names the grammatical case of the symbol that this symbol modifies; 修改符號的情況 is the situation of a changed symbol; the grammatical case is 格 (the term Case) |  |
 | `PrintDescriptions_lineSizeLabel_Text` | Line size: | 列的大小:<br>(corrects: 線條尺寸:) | 線條 is a drawn line; the box sets the size of a row of the description sheet, in mm (the term Line size) |  |
 | `PrintDescriptions_marginChange_Text` | Change Margins... | 變更邊距...<br>(corrects: 變更邊距) | the button opens the Page Setup dialog, and the ellipsis that says so was missing |  |
 | `IncrementButton` | Increment | 增加 | sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment |  |

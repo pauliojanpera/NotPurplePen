@@ -8,6 +8,7 @@ Made by claude-opus-5-5, effort max.
 
 | Key | English | Translation | Context that decided it | Mirrors |
 | --- | --- | --- | --- | --- |
+| `EnterSymbolText_defaultCaseText` | (unchanged) | (not needed) | en-GB writes it as the English does |  |
 | `IncrementButton` | Increment | (not needed) | en-GB writes it as the English does |  |
 | `DecrementButton` | Decrement | (not needed) | en-GB writes it as the English does |  |
 | `CounterLabel` | Counter: {0} | (not needed) | en-GB writes it as the English does |  |

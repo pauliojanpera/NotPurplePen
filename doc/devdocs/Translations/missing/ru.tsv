@@ -332,17 +332,6 @@ UIText	CustomSymbolText_checkBoxShowKey_Text	Show meaning below symbolic descrip
 UIText	CustomSymbolText_labelCustomizeText_Text	Click on a description symbol to customize the text that is used in textual control descriptions.		
 UIText	CustomSymbolText_checkBoxDefaultLanguage_Text	Make this the default language for new events		
 UIText	DownloadProgressDialog_Text	Downloading		
-UIText	EnterSymbolText_numberColumn_HeaderText	Number		
-UIText	EnterSymbolText_genderColumn_HeaderText	Gender		
-UIText	EnterSymbolText_caseColumn_HeaderText	Case		
-UIText	EnterSymbolText_checkBoxPlural_Text	Show plural forms		
-UIText	EnterSymbolText_checkBoxGender_Text	Show gender forms		
-UIText	EnterSymbolText_labelDescription_Text	Enter the customized text for the symbol in the "Text" column.		
-UIText	EnterSymbolText_labelGenderChooser_Text	Gender:		
-UIText	EnterSymbolText_labelCaseChooser_Text	Case of modified symbol:		
-UIText	EnterSymbolText_checkBoxCases_Text	Show case forms		
-UIText	EnterSymbolText_Text	Customized Symbol Text		
-UIText	EnterSymbolText_defaultCaseText	(unchanged)		
 UIText	LegAssignmentsDialog_BranchColumn_HeaderText	Branch		
 UIText	LegAssignmentsDialog_LegsColumn_HeaderText	Legs		
 UIText	LegAssignmentsDialog_labelDescription_Text	To assign a specific leg to a specific branch, type the leg number(s) below. Legs not assigned to a branch will be distributed among remaining branches randomly.		

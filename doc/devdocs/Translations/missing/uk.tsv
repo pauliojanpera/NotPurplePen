@@ -32,13 +32,6 @@ UIText	CourseAppearanceDialog_labelBlendPurple_Text	Blend purple with underlying
 UIText	CourseLoad_Load_HeaderText	Competitor Load		
 UIText	CustomSymbolText_labelCustomizedText_Text	Customized text:		
 UIText	CustomSymbolText_checkBoxShowKey_Text	Show meaning below symbolic descriptions		
-UIText	EnterSymbolText_caseColumn_HeaderText	Case		
-UIText	EnterSymbolText_checkBoxPlural_Text	Show plural forms		
-UIText	EnterSymbolText_checkBoxGender_Text	Show gender forms		
-UIText	EnterSymbolText_labelCaseChooser_Text	Case of modified symbol:		
-UIText	EnterSymbolText_checkBoxCases_Text	Show case forms		
-UIText	EnterSymbolText_Text	Customized Symbol Text		
-UIText	EnterSymbolText_defaultCaseText	(unchanged)		
 UIText	MainFrame_mapViewerTopology_Text	mapViewerTopology		
 UIText	MainFrame_addMapFlipMenuItem_Text	Map _Flip at Control Point		
 UIText	MainFrame_addConstructionMenu_Text	Temporary Construction		

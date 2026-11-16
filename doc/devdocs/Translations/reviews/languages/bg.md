@@ -8,6 +8,14 @@ Made by claude-opus-5-5, effort max.
 
 | Key | English | Translation | Context that decided it | Mirrors |
 | --- | --- | --- | --- | --- |
+| `EnterSymbolText_defaultCaseText` | (unchanged) | (без промяна) | first item of the combo box "Case of modified symbol": the symbol leaves the case of the symbol that it modifies as it is; the term (unchanged) |  |
+| `EnterSymbolText_numberColumn_HeaderText` | Number | Число<br>(corrects: Номер) | the column shows singular or plural, the grammatical number; "номер" is a number in a sequence (the term Number (grammatical: singular or plural)) |  |
+| `EnterSymbolText_genderColumn_HeaderText` | Gender | Род<br>(corrects: Пол) | the grammatical gender of the description text; "пол" is the sex of a person (the term Gender) |  |
+| `EnterSymbolText_labelGenderChooser_Text` | Gender: | Род:<br>(corrects: Пол:) | the grammatical gender of the description text; "пол" is the sex of a person (the term Gender) |  |
+| `EnterSymbolText_caseColumn_HeaderText` | Case | Падеж<br>(corrects: Главни/малки букви) | the grammatical case of the description text; "Главни/малки букви" is upper and lower case of letters (the term Case) |  |
+| `EnterSymbolText_checkBoxGender_Text` | Show gender forms | Показвай формите по род<br>(corrects: Показвай формите по пол) | "пол" is the sex of a person; the grammatical gender is "род" (the term Show gender forms) |  |
+| `EnterSymbolText_checkBoxCases_Text` | Show case forms | Показвай падежните форми<br>(corrects: Показвай формите по регистър) | "регистър" is the case of letters; the grammatical case is "падеж" (the term Show case forms) |  |
+| `EnterSymbolText_labelCaseChooser_Text` | Case of modified symbol: | Падеж на променения символ:<br>(corrects: Регистър на променения символ:) | the label names the grammatical case of the symbol that this symbol modifies; "регистър" is the case of letters (the term Case) |  |
 | `IncrementButton` | Increment | Увеличаване | sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment |  |
 | `DecrementButton` | Decrement | Намаляване | sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement |  |
 | `CounterLabel` | Counter: {0} | Брояч: {0} | sample key of the localization (LocalizeExtension.cs), shown in no view; a label that shows the value of a counter, as fr "Compteur : {0}" |  |

@@ -17,7 +17,6 @@ UIText	MapIssueChoiceDialog_startTriangleButton_TitleText	Map Issue at the Start
 UIText	MapIssueChoiceDialog_startTriangleButton_DetailText	The map is issued at the start triangle (where navigation begins).		
 UIText	CourseAppearanceDialog_labelChooseLayer_Text	Above map layer:		
 UIText	CourseAppearanceDialog_labelBlendPurple_Text	Blend purple with underlying map colors:		
-UIText	EnterSymbolText_defaultCaseText	(unchanged)		
 UIText	MiscText_LowerPurple	Lower Purple		
 UIText	NewEventPaperSize_labelTitle_Text	Paper Size		
 UIText	NewEventPaperSize_newEventPaperSizeLabel_Text	Enter the size and orientation of the paper that you will use to print your map.		

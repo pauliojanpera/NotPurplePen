@@ -11,6 +11,8 @@ Made by claude-opus-5-5, effort max.
 | `AddCourse_labelKindCombo_Items5` | Score (30) | 得点 (30) | last item of the combo box Control circle labels of a score course: the points alone; the term Score (30) |  |
 | `AddCourse_hideFromReportsCheckBox_Text` | Do not include in reports | レポートに含めない | check box under the length in the New Course dialog: the course is left out of the reports; the term Reports |  |
 | `ChangeText_mapFileNameMenuItem_Text` | Map File Name | 地図ファイル名 | item of the menu of the button Insert Special Text in the Text Properties dialog: inserts the macro of the name of the map file; the term Map File Name |  |
+| `EnterSymbolText_defaultCaseText` | (unchanged) | (変更なし) | first item of the combo box "Case of modified symbol": the symbol leaves the case of the symbol that it modifies as it is; the term (unchanged) |  |
+| `EnterSymbolText_numberColumn_HeaderText` | Number | 数<br>(corrects: 番号) | the column shows singular or plural, the grammatical number; 番号 is a number in a sequence (the term Number (grammatical: singular or plural)) |  |
 | `PrintDescriptions_orientationLabel_Text` | Orientation: | 印刷の向き:<br>(corrects: 印刷の向き) | the colon of a label was missing, as the language's other labels of the dialog ("用紙サイズ:", "余白:") |  |
 | `IncrementButton` | Increment | 増やす | sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment |  |
 | `DecrementButton` | Decrement | 減らす | sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement |  |

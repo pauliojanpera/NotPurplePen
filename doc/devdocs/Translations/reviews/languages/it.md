@@ -16,6 +16,7 @@ Made by claude-opus-5-5, effort max.
 | `AddCourse_courseKindCombo_Items1` | Score Course | Percorso a sequenza libera<br>(corrects: percorso a sequenza libera) | the capital, as the other item "Percorso normale" (the term Score Course) |  |
 | `AllControlsProperties_descKindCombo_Items2` | Symbols and text | Simboli e testo<br>(corrects: Simboli e testo.) | the full stop does not belong to an item of a combo box |  |
 | `AllControlsProperties_Text` | All Controls Properties | Proprietà di Tutti i punti<br>(corrects: Proprietà della tutti i punti) | "della tutti" is not grammatical (the term All Controls Properties) |  |
+| `EnterSymbolText_defaultCaseText` | (unchanged) | (invariato) | first item of the combo box "Case of modified symbol": the symbol leaves the case of the symbol that it modifies as it is; the term (unchanged) |  |
 | `PrintDescriptions_copiesCombo_Items1` | one page of each course | una pagina per ogni percorso<br>(corrects: una pagina pe ogni percorso) | the typo "pe" for "per", as the other two items |  |
 | `IncrementButton` | Increment | Aumenta | sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment |  |
 | `DecrementButton` | Decrement | Diminuisci | sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement |  |

@@ -91,11 +91,6 @@ UIText	CreateImageFiles_dpiLabel_Text	Dpi:
 UIText	CreateImageFiles_labelColorModel_Text	Color model:		
 UIText	CreateRouteGadget_labelIofXml_Text	IOF XML Version:		
 UIText	CreateRouteGadget_groupBox1_Text	IOF XML		
-UIText	EnterSymbolText_labelDescription_Text	Enter the customized text for the symbol in the "Text" column.		
-UIText	EnterSymbolText_labelCaseChooser_Text	Case of modified symbol:		
-UIText	EnterSymbolText_checkBoxCases_Text	Show case forms		
-UIText	EnterSymbolText_Text	Customized Symbol Text		
-UIText	EnterSymbolText_defaultCaseText	(unchanged)		
 UIText	LegAssignmentsDialog_BranchColumn_HeaderText	Branch		
 UIText	LegAssignmentsDialog_LegsColumn_HeaderText	Legs		
 UIText	LegAssignmentsDialog_labelDescription_Text	To assign a specific leg to a specific branch, type the leg number(s) below. Legs not assigned to a branch will be distributed among remaining branches randomly.		

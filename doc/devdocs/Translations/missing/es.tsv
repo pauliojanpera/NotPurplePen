@@ -30,10 +30,6 @@ UIText	CourseAppearanceDialog_labelBlendPurple_Text	Blend purple with underlying
 UIText	CourseAppearanceDialog_groupBoxOcadMap_Text	Advanced		
 UIText	CreateImageFiles_label1_Text	World file:		
 UIText	CreateKmlFiles_Text	Create KML File		
-UIText	EnterSymbolText_caseColumn_HeaderText	Case		
-UIText	EnterSymbolText_labelCaseChooser_Text	Case of modified symbol:		
-UIText	EnterSymbolText_checkBoxCases_Text	Show case forms		
-UIText	EnterSymbolText_defaultCaseText	(unchanged)		
 UIText	MainFrame_createRouteGadgetFilesMenu_Text	Create RouteGadget Files...		
 UIText	MainFrame_createRouteReviewFilesToolStripMenuItem_Text	Create Route Review Files		
 UIText	MainFrame_createKMLFileMenu_Text	Create _KML File...		
