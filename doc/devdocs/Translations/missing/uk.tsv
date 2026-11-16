@@ -32,8 +32,6 @@ UIText	CourseAppearanceDialog_labelBlendPurple_Text	Blend purple with underlying
 UIText	CourseLoad_Load_HeaderText	Competitor Load		
 UIText	CustomSymbolText_labelCustomizedText_Text	Customized text:		
 UIText	CustomSymbolText_checkBoxShowKey_Text	Show meaning below symbolic descriptions		
-UIText	MainFrame_controlTesterMenu_Text	Control Tester		
-UIText	MainFrame_mapTesterMenu_Text	Map Tester		
 UIText	MainFrame_courseSelectorTesterMenu_Text	Course Selector Tester		
 UIText	MainFrame_dotGridTesterToolStripMenuItem_Text	Dot Grid Tester		
 UIText	MainFrame_dumpOCADFileMenu_Text	Dump OCAD File		

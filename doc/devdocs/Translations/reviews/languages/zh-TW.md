@@ -23,6 +23,7 @@ Made by claude-opus-5-5, effort max.
 | `MainFrame_moveAllControlsMenu_Text` | Mo_ve All Controls... | 移動所有檢查點... | item of the Event menu of the main window, which moves all controls together, as after a change of the map; the term Move All Controls; without an access key, as the other items of the language's Event menu |  |
 | `MainFrame_addLineMenu_Text` | Line | 線段<br>(corrects: 列) | 列 is a row of text; the item draws a line (the term Line (drawn)), as the language's "新增線段" |  |
 | `MainFrame_lineToolStripMenuItem_Text` | Line | 線段<br>(corrects: 列) | 列 is a row of text; the item draws a line (the term Line (drawn)), as the language's "新增線段" |  |
+| `MainFrame_controlAndLegLoadMenu_Text` | Control and Leg Loa_d | 檢查點與賽段負荷量<br>(corrects: 檢查點與賽段載入) | 載入 is the loading of a file; the load of competitors is 負荷量, as the language's "選手負荷量" (the term Load) |  |
 | `PrintDescriptions_lineSizeLabel_Text` | Line size: | 列的大小:<br>(corrects: 線條尺寸:) | 線條 is a drawn line; the box sets the size of a row of the description sheet, in mm (the term Line size) |  |
 | `PrintDescriptions_marginChange_Text` | Change Margins... | 變更邊距...<br>(corrects: 變更邊距) | the button opens the Page Setup dialog, and the ellipsis that says so was missing |  |
 | `IncrementButton` | Increment | 增加 | sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment |  |

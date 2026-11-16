@@ -30,7 +30,6 @@ UIText	CourseAppearanceDialog_labelBlendPurple_Text	Blend purple with underlying
 UIText	CourseAppearanceDialog_groupBoxOcadMap_Text	Advanced		
 UIText	CreateKmlFiles_Text	Create KML File		
 UIText	CreatePdfCourses_folderBrowserDialog_Description	Select a folder for the PDF files		
-UIText	MainFrame_stretchMenu_Text	_Stretch		
 UIText	MainFrame_missingTranslationsMenuItem_Text	Missing Description Translations		
 UIText	MainFrame_mapFlipMenuItem_Text	Map Flip at Control Point		
 UIText	MiscText_AppSubtitle	course setting for orienteering		

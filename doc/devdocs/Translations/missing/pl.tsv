@@ -69,10 +69,6 @@ UIText	LegAssignmentsDialog_linkLabel_Text	More information...
 UIText	LegAssignmentsDialog_Text	Leg Assignments		
 UIText	MiscText_MapIssue_Long	Timed Start		
 UIText	MiscText_MapIssue_Medium	Timed Start		
-UIText	MainFrame_courseVariationReportMenu_Text	Relay Team _Variations...		
-UIText	MainFrame_deleteForkMenu_Text	Delete For_k/Loop		
-UIText	MainFrame_removeGapMenu_Text	Remove Ga_p		
-UIText	MainFrame_stretchMenu_Text	_Stretch		
 UIText	MainFrame_missingTranslationsMenuItem_Text	Missing Description Translations		
 UIText	MainFrame_mapFlipMenuItem_Text	Map Flip at Control Point		
 UIText	MainFrame_addGapToolStripButton_Text	toolStripButton1		

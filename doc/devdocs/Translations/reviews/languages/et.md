@@ -31,6 +31,10 @@ Made by claude-opus-5-5, effort max.
 | `MainFrame_firstAidLocationToolStripMenuItem_Text` | First Aid Location | Esmaabi koht<br>(corrects: Esmaaabi koht) | the typo "Esmaaabi" (the term First Aid Location) |  |
 | `MainFrame_addImageMenu_Text` | Image | Pilt<br>(corrects: Pildi failid) | "Pildi failid" are image files; the item places one image (the term Image) |  |
 | `MainFrame_imageToolStripMenuItem_Text` | Image | Pilt<br>(corrects: Pildi failid) | "Pildi failid" are image files; the item places one image (the term Image) |  |
+| `MainFrame_courseOrderMenu_Text` | Course _Order... | Radade _järjekord...<br>(corrects: Radade _järjekod...) | the typo "järjekod" (the term Course Order) |  |
+| `MainFrame_entireFlaggingMenu_Text` | Entire Leg Flagged | Kogu etapp tähistatud<br>(corrects: Lisa etapi märgistus) | "Lisa etapi märgistus" is the command Add leg marking; the item names a state, with the language's "tähistatud" (the term Entire Leg Flagged) |  |
+| `MainFrame_changeDisplayedCoursesMenu_Text` | Change Displa_yed Courses... | Muuda _valitud radu...<br>(corrects: Muuda valitud radade...) | "radade" is a genitive with no noun after it (the term Change Displayed Courses); the access key "v" is a letter that no other item of the Item menu uses |  |
+| `MainFrame_mainWebSiteToolMenu_Text` | Purple Pen _Web Site | Purple Pen _kodulehekülg<br>(corrects: Purpe Pen _Kodulehekülg) | the typo "Purpe", and "kodulehekülg" takes no capital |  |
 | `PrintDescriptions_orientation_Text` | Landscape | Rõhtpaigutus<br>(corrects: Maastik) | "Maastik" is terrain; the page orientation is "rõhtpaigutus" (the term Landscape) |  |
 | `PrintDescriptions_Text` | Print Descriptions | Trüki legendid<br>(corrects: Trüki legendid:) | the colon does not belong in the title of a window (the term Print Descriptions) |  |
 | `PrintDescriptions_marginChange_Text` | Change Margins... | Muuda ääriseid...<br>(corrects: Muuda ääriseid) | the button opens the Page Setup dialog, and the ellipsis that says so was missing |  |

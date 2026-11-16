@@ -134,14 +134,6 @@ UIText	MiscText_MapIssue_Medium	Timed Start
 UIText	SelectionDescriptionText_SpecialName_Image	Image		
 UIText	SelectionDescriptionText_SpecialName_Line	Line		
 UIText	SelectionDescriptionText_SpecialName_Rectangle	Rectangle		
-UIText	MainFrame_duplicateCourseMenu_Text	D_uplicate Course...		
-UIText	MainFrame_courseOrderMenu_Text	Course _Order...		
-UIText	MainFrame_courseVariationReportMenu_Text	Relay Team _Variations...		
-UIText	MainFrame_deleteForkMenu_Text	Delete For_k/Loop		
-UIText	MainFrame_removeGapMenu_Text	Remove Ga_p		
-UIText	MainFrame_changeLineAppearanceMenu_Text	Change Line _Appearance...		
-UIText	MainFrame_stretchMenu_Text	_Stretch		
-UIText	MainFrame_donateWebSiteMenu_Text	Make a _Donation		
 UIText	MainFrame_missingTranslationsMenuItem_Text	Missing Description Translations		
 UIText	MainFrame_crashToolStripMenuItem_Text	Crash		
 UIText	MainFrame_mapFlipMenuItem_Text	Map Flip at Control Point		

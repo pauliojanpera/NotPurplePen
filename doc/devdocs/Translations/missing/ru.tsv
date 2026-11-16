@@ -359,46 +359,6 @@ UIText	SelectionDescriptionText_SpecialName_WhiteOut	White Out Area
 UIText	SelectionDescriptionText_SpecialName_Image	Image		
 UIText	SelectionDescriptionText_SpecialName_Line	Line		
 UIText	SelectionDescriptionText_SpecialName_Rectangle	Rectangle		
-UIText	MainFrame_addCourseMenu_Text	_Add Course...		
-UIText	MainFrame_deleteCourseMenu_Text	_Delete Course		
-UIText	MainFrame_duplicateCourseMenu_Text	D_uplicate Course...		
-UIText	MainFrame_propertiesMenu_Text	_Properties...		
-UIText	MainFrame_courseOrderMenu_Text	Course _Order...		
-UIText	MainFrame_courseLoadMenu_Text	Competitor _Load...		
-UIText	MainFrame_courseVariationReportMenu_Text	Relay Team _Variations...		
-UIText	MainFrame_courseMenu_Text	_Course		
-UIText	MainFrame_deleteForkMenu_Text	Delete For_k/Loop		
-UIText	MainFrame_addBendMenu_Text	Add _Bend		
-UIText	MainFrame_removeBendMenu_Text	Remove B_end		
-UIText	MainFrame_addGapMenu_Text	Add _Gap		
-UIText	MainFrame_removeGapMenu_Text	Remove Ga_p		
-UIText	MainFrame_changeTextMenu_Text	Change _Text...		
-UIText	MainFrame_changeLineAppearanceMenu_Text	Change Line _Appearance...		
-UIText	MainFrame_rotateMenu_Text	R_otate		
-UIText	MainFrame_stretchMenu_Text	_Stretch		
-UIText	MainFrame_noFlaggingMenu_Text	No Flagging		
-UIText	MainFrame_entireFlaggingMenu_Text	Entire Leg Flagged		
-UIText	MainFrame_beginFlaggingMenu_Text	Beginning of Leg Flagged		
-UIText	MainFrame_endFlaggingMenu_Text	End of Leg Flagged		
-UIText	MainFrame_legFlaggingMenu_Text	_Leg Flagging		
-UIText	MainFrame_changeDisplayedCoursesMenu_Text	Change Displa_yed Courses...		
-UIText	MainFrame_itemMenu_Text	_Item		
-UIText	MainFrame_courseSummaryMenu_Text	Course _Summary		
-UIText	MainFrame_eventAuditMenu_Text	Event _Audit		
-UIText	MainFrame_legLengthsMenu_Text	_Leg Lengths		
-UIText	MainFrame_controlCrossrefMenu_Text	Control _Cross-reference		
-UIText	MainFrame_controlAndLegLoadMenu_Text	Control and Leg Loa_d		
-UIText	MainFrame_reportMenu_Text	_Reports		
-UIText	MainFrame_helpContentsMenu_Text	Purple Pen _Help		
-UIText	MainFrame_helpTranslatedMenu_Text	Purple Pen Help (Translated)		
-UIText	MainFrame_mainWebSiteToolMenu_Text	Purple Pen _Web Site		
-UIText	MainFrame_supportWebSiteMenu_Text	_Support/Bug Reporting		
-UIText	MainFrame_donateWebSiteMenu_Text	Make a _Donation		
-UIText	MainFrame_aboutMenu_Text	_About Purple Pen		
-UIText	MainFrame_symbolBrowserMenu_Text	Symbol Browser		
-UIText	MainFrame_descriptionBrowserMenu_Text	Description Browser		
-UIText	MainFrame_controlTesterMenu_Text	Control Tester		
-UIText	MainFrame_mapTesterMenu_Text	Map Tester		
 UIText	MainFrame_courseSelectorTesterMenu_Text	Course Selector Tester		
 UIText	MainFrame_dotGridTesterToolStripMenuItem_Text	Dot Grid Tester		
 UIText	MainFrame_dumpOCADFileMenu_Text	Dump OCAD File		

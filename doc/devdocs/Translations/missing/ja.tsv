@@ -49,8 +49,6 @@ UIText	LegAssignmentsDialog_labelDescription_Text	To assign a specific leg to a 
 UIText	LegAssignmentsDialog_Text	Leg Assignments		
 UIText	MiscText_MapIssue_Long	Timed Start		
 UIText	MiscText_MapIssue_Medium	Timed Start		
-UIText	MainFrame_removeGapMenu_Text	Remove Ga_p		
-UIText	MainFrame_stretchMenu_Text	_Stretch		
 UIText	MainFrame_missingTranslationsMenuItem_Text	Missing Description Translations		
 UIText	MainFrame_mapFlipMenuItem_Text	Map Flip at Control Point		
 UIText	MiscText_CannotReadMap	Cannot read map for the following reason: '{0}' Using Optimize/Repair and re-saving in OCAD may fix problems.		

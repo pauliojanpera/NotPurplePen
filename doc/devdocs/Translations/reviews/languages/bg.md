@@ -19,6 +19,7 @@ Made by claude-opus-5-5, effort max.
 | `MainFrame_openFileDialog_Filter` | Purple Pen files\|*.ppen\|All files\|*.* | Файлове на Purple Pen\|*.ppen\|Всички файлове\|*.*<br>(corrects: Файлове на Purple Pen\|.ppen\|Всички файлове\|.*) | the patterns ".ppen" and ".*" lacked their "*", so the dialog listed no event file; the names stay |  |
 | `MainFrame_createPDFsMenu_Text` | Create P_DFs | Създай P_DF файлове<br>(corrects: Create P_DFs) | "Create PDFs" was English (the term Create PDFs) |  |
 | `MainFrame_undoMenu_Text` | _Undo | _Отмени<br>(corrects: _Undo) | "Undo" was English (the term Undo) |  |
+| `MainFrame_beginFlaggingMenu_Text` | Beginning of Leg Flagged | Началото на отсечката е маркирано<br>(corrects: Началото на отсечката е маркиран) | "началото" is neuter, and the participle agrees with it |  |
 | `IncrementButton` | Increment | Увеличаване | sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment |  |
 | `DecrementButton` | Decrement | Намаляване | sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement |  |
 | `CounterLabel` | Counter: {0} | Брояч: {0} | sample key of the localization (LocalizeExtension.cs), shown in no view; a label that shows the value of a counter, as fr "Compteur : {0}" |  |

@@ -42,6 +42,10 @@ Made by claude-opus-5-5, effort max.
 | `MainFrame_lineToolStripMenuItem_Text` | Line | 线条<br>(corrects: 直线) | 直线 is a straight line, and the item draws a line of several segments (the term Line (drawn)), as the language's "添加线条" |  |
 | `MainFrame_addMenu_Text` | _Add | 添加(_A)<br>(corrects: 添加 (_A)...) | the ellipsis marks an item that opens a dialog, and a menu of the menu bar opens none; the access key is written as in the language's other menus ("文件(_F)", "帮助(_H)") |  |
 | `MainFrame_punchPatternsMenu_Text` | _Punch Patterns... | 机械打卡器针脚排列(_P)...<br>(corrects: _机械打卡器针脚排列...) | the access key stood on the Chinese character 机, which no key can type; the language writes it after the text, "(_P)", as its other items |  |
+| `MainFrame_legFlaggingMenu_Text` | _Leg Flagging | 路段标记 | item of the Item menu of the main window, a submenu of how much of the selected leg is taped; the term Leg Flagging; without an access key, as no item of the language's Item menu has one | loc/po/purplepen/zh_CN.po |
+| `MainFrame_courseLoadMenu_Text` | Competitor _Load... | 参赛者通过量…<br>(corrects: 竞争对手和负载…) | 竞争对手 is a rival; the language's command says 参赛者通过量 (the term Competitor Load) |  |
+| `MainFrame_deleteForkMenu_Text` | Delete For_k/Loop | 删除分支/循环<br>(corrects: 删除 分支/循环) | a space stood between the words (the term Delete Fork/Loop) |  |
+| `MainFrame_legLengthsMenu_Text` | _Leg Lengths | 路段长度<br>(corrects: 课程的长度) | 课程 is a course of study; a leg is 路段 (the term Leg Lengths) |  |
 | `PrintDescriptions_layoutGroup_Text` | Appearance | 外观<br>(corrects: 界面) | 界面 is the user interface; the appearance is 外观, as zh-TW 外觀 (the term Appearance) |  |
 | `PrintDescriptions_marginChange_Text` | Change Margins... | 更改页边距…<br>(corrects: 变化率…) | 变化率 is a rate of change; the button changes the page margins (the term Change Margins) |  |
 | `PrintDescriptions_marginsLabel_Text` | Margins: | 页边距：<br>(corrects: 利润率：) | 利润率 is a profit margin; the margins of the page are 页边距 (the term Margins) |  |

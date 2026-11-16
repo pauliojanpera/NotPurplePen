@@ -21,7 +21,6 @@ UIText	CourseAppearanceDialog_labelChooseLayer_Text	Above map layer:
 UIText	CourseAppearanceDialog_comboBoxBlendPurple_Items1	Blend		
 UIText	CourseAppearanceDialog_comboBoxBlendPurple_Items2	Layer		
 UIText	CourseAppearanceDialog_labelBlendPurple_Text	Blend purple with underlying map colors:		
-UIText	MainFrame_legFlaggingMenu_Text	_Leg Flagging		
 UIText	MiscText_UninstallNonStoreVersion	An older version of Purple Pen is still installed. To prevent confusion caused by having two versions of Purple Pen installed, it is strongly recommended that the older version be removed. Remove it now?		
 UIText	MiscText_AskInstallRobotoFonts	In order for OCAD or OpenOrienteering Mapper to correctly display the control descriptions, the "Roboto" and "Roboto Condensed" fonts must be installed on your system. Would you like to install those fonts now (strongly recommended)?		
 UIText	MiscText_RobotoFontsInstallFailed	Installing Roboto Fonts failed.		
