@@ -14,6 +14,9 @@ Made by claude-opus-5-5, effort max.
 | `EnterSymbolText_caseColumn_HeaderText` | Case | 格<br>(corrects: 案例) | the grammatical case of the description text; 案例 is a case study; the grammatical case is 格, as ja (the term Case) |  |
 | `EnterSymbolText_checkBoxCases_Text` | Show case forms | 顯示格形式<br>(corrects: 顯示情況表格) | 情況表格 is a table of situations; the grammatical case is 格 (the term Show case forms) |  |
 | `EnterSymbolText_labelCaseChooser_Text` | Case of modified symbol: | 被修飾符號的格：<br>(corrects: 修改符號的情況：) | the label names the grammatical case of the symbol that this symbol modifies; 修改符號的情況 is the situation of a changed symbol; the grammatical case is 格 (the term Case) |  |
+| `MainFrame_radioButtonTopology_Text` | Ordering | 排序<br>(corrects: 排序中) | 排序中 means "sorting in progress" (the term Ordering) |  |
+| `MainFrame_openFileDialog_Filter` | Purple Pen files\|*.ppen\|All files\|*.* | Purple Pen 檔案\|*.ppen\|所有檔案\|*.*<br>(corrects: Purple Pen 檔案\|*.ppen\|All files\|*.*) | "All files" was English (the terms Files and All) |  |
+| `MainFrame_createOcadFilesMenu_Text` | Create OCAD _Files... | 建立OCAD檔案(_F)...<br>(corrects: 建立OCAD _檔案(_F)...) | the item had two access-key marks, "_檔" and "(_F)"; the second stays, as the language's other items |  |
 | `PrintDescriptions_lineSizeLabel_Text` | Line size: | 列的大小:<br>(corrects: 線條尺寸:) | 線條 is a drawn line; the box sets the size of a row of the description sheet, in mm (the term Line size) |  |
 | `PrintDescriptions_marginChange_Text` | Change Margins... | 變更邊距...<br>(corrects: 變更邊距) | the button opens the Page Setup dialog, and the ellipsis that says so was missing |  |
 | `IncrementButton` | Increment | 增加 | sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment |  |

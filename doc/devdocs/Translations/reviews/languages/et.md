@@ -18,6 +18,8 @@ Made by claude-opus-5-5, effort max.
 | `EnterSymbolText_caseColumn_HeaderText` | Case | Kääne<br>(corrects: Valik) | the grammatical case of the description text; "Valik" is a choice (the term Case) |  |
 | `EnterSymbolText_labelCaseChooser_Text` | Case of modified symbol: | Muudetud sümboli kääne:<br>(corrects: Muudetud sümbolid:) | the label names the grammatical case of the symbol that this symbol modifies; "Muudetud sümbolid" (modified symbols) lacked the case (the term Case) |  |
 | `InitialScreen_openSampleRadioButton_Text` | Open a sample event | Ava näidisvõistlus<br>(corrects: Ava näidis võistlus) | the compound is one word in Estonian ("näidis võistlus") |  |
+| `MainFrame_createImageFilesMenu_Text` | Create Ima_ge Files... | Salvesta pil_difailid...<br>(corrects: Salvesta pil_difaild ...) | the typo "pildifaild", and a space before the ellipsis (the term Create Image Files) |  |
+| `MainFrame_programLanguageMenu_Text` | Program _Language... | Programmi _keel...<br>(corrects: Programm _Keel) | "Programm" takes the genitive, "programmi keel", and the item opens a dialog (the term Program Language) |  |
 | `PrintDescriptions_orientation_Text` | Landscape | Rõhtpaigutus<br>(corrects: Maastik) | "Maastik" is terrain; the page orientation is "rõhtpaigutus" (the term Landscape) |  |
 | `PrintDescriptions_Text` | Print Descriptions | Trüki legendid<br>(corrects: Trüki legendid:) | the colon does not belong in the title of a window (the term Print Descriptions) |  |
 | `PrintDescriptions_marginChange_Text` | Change Margins... | Muuda ääriseid...<br>(corrects: Muuda ääriseid) | the button opens the Page Setup dialog, and the ellipsis that says so was missing |  |

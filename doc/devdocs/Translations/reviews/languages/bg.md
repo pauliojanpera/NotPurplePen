@@ -16,6 +16,9 @@ Made by claude-opus-5-5, effort max.
 | `EnterSymbolText_checkBoxGender_Text` | Show gender forms | Показвай формите по род<br>(corrects: Показвай формите по пол) | "пол" is the sex of a person; the grammatical gender is "род" (the term Show gender forms) |  |
 | `EnterSymbolText_checkBoxCases_Text` | Show case forms | Показвай падежните форми<br>(corrects: Показвай формите по регистър) | "регистър" is the case of letters; the grammatical case is "падеж" (the term Show case forms) |  |
 | `EnterSymbolText_labelCaseChooser_Text` | Case of modified symbol: | Падеж на променения символ:<br>(corrects: Регистър на променения символ:) | the label names the grammatical case of the symbol that this symbol modifies; "регистър" is the case of letters (the term Case) |  |
+| `MainFrame_openFileDialog_Filter` | Purple Pen files\|*.ppen\|All files\|*.* | Файлове на Purple Pen\|*.ppen\|Всички файлове\|*.*<br>(corrects: Файлове на Purple Pen\|.ppen\|Всички файлове\|.*) | the patterns ".ppen" and ".*" lacked their "*", so the dialog listed no event file; the names stay |  |
+| `MainFrame_createPDFsMenu_Text` | Create P_DFs | Създай P_DF файлове<br>(corrects: Create P_DFs) | "Create PDFs" was English (the term Create PDFs) |  |
+| `MainFrame_undoMenu_Text` | _Undo | _Отмени<br>(corrects: _Undo) | "Undo" was English (the term Undo) |  |
 | `IncrementButton` | Increment | Увеличаване | sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment |  |
 | `DecrementButton` | Decrement | Намаляване | sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement |  |
 | `CounterLabel` | Counter: {0} | Брояч: {0} | sample key of the localization (LocalizeExtension.cs), shown in no view; a label that shows the value of a counter, as fr "Compteur : {0}" |  |

@@ -88,11 +88,8 @@ UIText	CommandNameText_DeleteControl	Delete Control
 UIText	CommandNameText_DeleteObject	Delete Object		
 UIText	CommandNameText_DeleteTextLine	Delete Text Line		
 UIText	CommandNameText_AddControl	Add Control		
-UIText	MainFrame_addControlToolStripButton_Text	Add Control		
 UIText	CommandNameText_AddStart	Add Start		
-UIText	MainFrame_addStartToolStripButton_Text	Add Start		
 UIText	CommandNameText_AddFinish	Add Finish		
-UIText	MainFrame_addFinishToolStripButton_Text	Add Finish		
 UIText	CommandNameText_AddCrossingPoint	Add Mandatory Crossing Point		
 UIText	CommandNameText_AddObject	Add Object		
 UIText	CommandNameText_DeleteCourse	Delete Course		
@@ -221,7 +218,6 @@ UIText	CreatePdfCourses_fileNamePrefixLabel_Text	Name prefix:
 UIText	CreateGpx_waypointGroupBox_Text	Waypoints		
 UIText	CreateGpx_headerLabel_Text	A GPX File contains GPS coordinates for controls, and can be loaded onto a GPS or smartphone to verify the correct location of controls.		
 UIText	CreateGpx_Text	Create GPX File		
-UIText	MainFrame_saveGpxFileDialog_Title	Create GPX File		
 UIText	CreateImageFiles_createButton_Text	Create		
 UIText	CreateKmlFiles_createButton_Text	Create		
 UIText	CreateOcadFiles_createButton_Text	Create		
@@ -347,40 +343,7 @@ UIText	PrinterMargins_label2_Text	Width:
 UIText	LinePropertiesDialog_labelGapSize_Text	Gap Size:		
 UIText	LinePropertiesDialog_labelDashSize_Text	Dash Size:		
 UIText	LinePropertiesDialog_labelCornerRadius_Text	Corner Radius:		
-UIText	MainFrame_tabPage1_Text	All Controls		
-UIText	MainFrame_radioButtonDescriptions_Text	Descriptions		
-UIText	MainFrame_radioButtonTopology_Text	Ordering		
-UIText	MainFrame_mapViewerTopology_Text	mapViewerTopology		
-UIText	MainFrame_openFileDialog_Filter	Purple Pen files|*.ppen|All files|*.*		
-UIText	MainFrame_saveFileDialog_Filter	Purple Pen file|*.ppen		
-UIText	MainFrame_newEventMenu_Text	_New Event...		
-UIText	MainFrame_openMenu_Text	_Open...		
-UIText	MainFrame_saveMenu_Text	_Save		
-UIText	MainFrame_saveAsMenu_Text	Save _As...		
-UIText	MainFrame_createOcadFilesMenu_Text	Create OCAD _Files...		
-UIText	MainFrame_createImageFilesMenu_Text	Create Ima_ge Files...		
-UIText	MainFrame_createDescriptionPdfMenu_Text	_Descriptions...		
-UIText	MainFrame_createPunchcardPdfMenu_Text	Pu_nch Cards...		
-UIText	MainFrame_createCoursePdfMenu_Text	_Courses...		
-UIText	MainFrame_createPDFsMenu_Text	Create P_DFs		
-UIText	MainFrame_createRouteGadgetFilesMenu_Text	Create RouteGadget Files...		
-UIText	MainFrame_createRouteReviewFilesToolStripMenuItem_Text	Create Route Review Files		
-UIText	MainFrame_createXmlMenu_Text	Create Data _Interchange File (IOF XML)...		
-UIText	MainFrame_createGPXFileMenu_Text	Create G_PX File...		
-UIText	MainFrame_createKMLFileMenu_Text	Create _KML File...		
-UIText	MainFrame_printDescriptionsMenu_Text	_Print Descriptions...		
-UIText	MainFrame_printPunchCardsMenu_Text	Print Pu_nch Cards...		
-UIText	MainFrame_printCoursesMenu_Text	Print _Courses...		
-UIText	MainFrame_printAreaThisPartMenu_Text	This _Part Only		
-UIText	MainFrame_printAreaThisCourseMenu_Text	_This Course		
-UIText	MainFrame_printAreaAllCoursesMenu_Text	_All Courses		
-UIText	MainFrame_setPrintAreaMenu_Text	Set Print A_rea		
-UIText	MainFrame_programLanguageMenu_Text	Program _Language...		
-UIText	MainFrame_exitMenu_Text	E_xit		
-UIText	MainFrame_fileMenu_Text	_File		
-UIText	MainFrame_cancelMenu_Text	_Clear Selection		
 UIText	MiscText_ClearSelectionWithShortcut	_Clear Selection		
-UIText	MainFrame_undoMenu_Text	_Undo		
 UIText	MiscText_UndoWithShortcut	_Undo		
 UIText	MainFrame_redoMenu_Text	_Redo		
 UIText	MiscText_RedoWithShortcut	_Redo		

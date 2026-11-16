@@ -8,7 +8,6 @@ UIText	AddForkDialog_labelNumberLoops_Text	Number of loops:
 UIText	AddForkDialog_labelSummary_Text	The loop control will be visited 4 times. There are 24 different ways through the loops.		
 UIText	AddForkDialog_Text	Add Variation		
 UIText	CommandNameText_AddVariation	Add Variation		
-UIText	MainFrame_addVariationToolStripButton_Text	Add Variation		
 UIText	NewEventMapFile_openFileDialog_Filter	All map files|*.ocd;*.omap;*.xmap;*.pdf;*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif|OCAD files (*.ocd)|*.ocd|Open Orienteering Mapper Files|*.omap;*.xmap|PDF files (*.pdf)|*.pdf|Image files|*.jpeg;*.jpg;*.tiff;*.tif;*.bmp;*.png;*.gif		
 UIText	CourseAppearanceDialog_label9_Text	Color:		
 UIText	LinePropertiesDialog_label1_Text	Color:		
@@ -84,7 +83,6 @@ UIText	CreatePdfCourses_fileNamePrefixLabel_Text	Name prefix:
 UIText	CreateGpx_waypointGroupBox_Text	Waypoints		
 UIText	CreateGpx_headerLabel_Text	A GPX File contains GPS coordinates for controls, and can be loaded onto a GPS or smartphone to verify the correct location of controls.		
 UIText	CreateGpx_Text	Create GPX File		
-UIText	MainFrame_saveGpxFileDialog_Title	Create GPX File		
 UIText	CreateImageFiles_fileFormatCombo_Items	PNG		
 UIText	CreateImageFiles_fileFormatCombo_Items1	JPEG		
 UIText	CreateImageFiles_fileFormatCombo_Items2	GIF		
@@ -142,19 +140,6 @@ UIText	PrinterMargins_label2_Text	Width:
 UIText	LinePropertiesDialog_labelGapSize_Text	Gap Size:		
 UIText	LinePropertiesDialog_labelDashSize_Text	Dash Size:		
 UIText	LinePropertiesDialog_labelCornerRadius_Text	Corner Radius:		
-UIText	MainFrame_radioButtonDescriptions_Text	Descriptions		
-UIText	MainFrame_radioButtonTopology_Text	Ordering		
-UIText	MainFrame_mapViewerTopology_Text	mapViewerTopology		
-UIText	MainFrame_createImageFilesMenu_Text	Create Ima_ge Files...		
-UIText	MainFrame_createDescriptionPdfMenu_Text	_Descriptions...		
-UIText	MainFrame_createPunchcardPdfMenu_Text	Pu_nch Cards...		
-UIText	MainFrame_createCoursePdfMenu_Text	_Courses...		
-UIText	MainFrame_createPDFsMenu_Text	Create P_DFs		
-UIText	MainFrame_createRouteGadgetFilesMenu_Text	Create RouteGadget Files...		
-UIText	MainFrame_createRouteReviewFilesToolStripMenuItem_Text	Create Route Review Files		
-UIText	MainFrame_createGPXFileMenu_Text	Create G_PX File...		
-UIText	MainFrame_createKMLFileMenu_Text	Create _KML File...		
-UIText	MainFrame_printPunchCardsMenu_Text	Print Pu_nch Cards...		
 UIText	MainFrame_showPrintAreaMenu_Text	Show P_rint Area		
 UIText	MainFrame_otherCoursesMenu_Text	Other Courses...		
 UIText	MainFrame_clearOtherCoursesMenu_Text	Clear Other Courses		

@@ -17,6 +17,10 @@ Made by claude-opus-5-5, effort max.
 | `AllControlsProperties_descKindCombo_Items2` | Symbols and text | Simboli e testo<br>(corrects: Simboli e testo.) | the full stop does not belong to an item of a combo box |  |
 | `AllControlsProperties_Text` | All Controls Properties | Proprietà di Tutti i punti<br>(corrects: Proprietà della tutti i punti) | "della tutti" is not grammatical (the term All Controls Properties) |  |
 | `EnterSymbolText_defaultCaseText` | (unchanged) | (invariato) | first item of the combo box "Case of modified symbol": the symbol leaves the case of the symbol that it modifies as it is; the term (unchanged) |  |
+| `MainFrame_addFinishToolStripButton_Text` | Add Finish | Aggiungi arrivo<br>(corrects: Aggiungi finish) | "finish" is English; the language's finish is "arrivo" (the term Add Finish) |  |
+| `MainFrame_printCoursesMenu_Text` | Print _Courses... | Stampa perc_orsi...<br>(corrects: Stampa_Percorsi) | the space between the words was missing ("StampaPercorsi"), and the ellipsis of an item that opens a dialog (the term Print Courses); the access key "o" is a letter that no other item of the File menu uses |  |
+| `MainFrame_printAreaThisPartMenu_Text` | This _Part Only | Solo questa _parte<br>(corrects: Solo questa %parte) | the access key was written "%", which shows; the mark is "_" (the term This Part Only) |  |
+| `MainFrame_setPrintAreaMenu_Text` | Set Print A_rea | Imposta a_rea di stampa<br>(corrects: Imposta Stampa _Area) | "Stampa Area" keeps the order of the English; the area of printing is "area di stampa" (the term Set Print Area), with the access key of the English |  |
 | `PrintDescriptions_copiesCombo_Items1` | one page of each course | una pagina per ogni percorso<br>(corrects: una pagina pe ogni percorso) | the typo "pe" for "per", as the other two items |  |
 | `IncrementButton` | Increment | Aumenta | sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment |  |
 | `DecrementButton` | Decrement | Diminuisci | sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement |  |

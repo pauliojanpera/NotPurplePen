@@ -32,7 +32,6 @@ UIText	CourseAppearanceDialog_labelBlendPurple_Text	Blend purple with underlying
 UIText	CourseLoad_Load_HeaderText	Competitor Load		
 UIText	CustomSymbolText_labelCustomizedText_Text	Customized text:		
 UIText	CustomSymbolText_checkBoxShowKey_Text	Show meaning below symbolic descriptions		
-UIText	MainFrame_mapViewerTopology_Text	mapViewerTopology		
 UIText	MainFrame_addMapFlipMenuItem_Text	Map _Flip at Control Point		
 UIText	MainFrame_addConstructionMenu_Text	Temporary Construction		
 UIText	MainFrame_constructionToolStripMenuItem_Text	Temporary Construction		
