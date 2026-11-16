@@ -1,7 +1,14 @@
 resource	key	english	note	translator	effort	date
+UIText	CloseButton	Close	en-GB writes it as the English does	claude-opus-5-5	max	2026-11-16
+UIText	CounterLabel	Counter: {0}	en-GB writes it as the English does	claude-opus-5-5	max	2026-11-16
 UIText	CreateImageFiles_comboBoxPrintBaseMap_Items	Course and map	en-GB writes it as the English does	claude-opus-5-5	max	2026-11-16
 UIText	CreateImageFiles_comboBoxPrintBaseMap_Items1	Course only	en-GB writes it as the English does	claude-opus-5-5	max	2026-11-16
 UIText	CreateImageFiles_labelPrintBaseMap_Text	Include:	en-GB writes it as the English does	claude-opus-5-5	max	2026-11-16
 UIText	CreatePdfCourses_comboBoxPrintBaseMap_Items	Course and map	en-GB writes it as the English does	claude-opus-5-5	max	2026-11-16
 UIText	CreatePdfCourses_comboBoxPrintBaseMap_Items1	Course only	en-GB writes it as the English does	claude-opus-5-5	max	2026-11-16
 UIText	CreatePdfCourses_labelPrintBaseMap_Text	Include:	en-GB writes it as the English does	claude-opus-5-5	max	2026-11-16
+UIText	DecrementButton	Decrement	en-GB writes it as the English does	claude-opus-5-5	max	2026-11-16
+UIText	IncrementButton	Increment	en-GB writes it as the English does	claude-opus-5-5	max	2026-11-16
+UIText	NoButton	No	en-GB writes it as the English does	claude-opus-5-5	max	2026-11-16
+UIText	SwitchLanguageButton	Switch Language...	en-GB writes it as the English does	claude-opus-5-5	max	2026-11-16
+UIText	YesButton	Yes	en-GB writes it as the English does	claude-opus-5-5	max	2026-11-16

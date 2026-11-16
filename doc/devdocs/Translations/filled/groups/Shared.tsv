@@ -1,0 +1,184 @@
+language	resource	key	english	translation	old	note	mirrors	translator	effort
+bg	UIText	IncrementButton	Increment	Увеличаване		sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment		claude-opus-5-5	max
+cs	UIText	IncrementButton	Increment	Zvýšit		sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment		claude-opus-5-5	max
+da	UIText	IncrementButton	Increment	Forøg		sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment		claude-opus-5-5	max
+de	UIText	IncrementButton	Increment	Erhöhen		sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment		claude-opus-5-5	max
+en-GB	UIText	IncrementButton	Increment	=		en-GB writes it as the English does		claude-opus-5-5	max
+es	UIText	IncrementButton	Increment	Aumentar		sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment		claude-opus-5-5	max
+et	UIText	IncrementButton	Increment	Suurenda		sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment		claude-opus-5-5	max
+fi	UIText	IncrementButton	Increment	Kasvata		sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment		claude-opus-5-5	max
+hu	UIText	IncrementButton	Increment	Növelés		sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment		claude-opus-5-5	max
+it	UIText	IncrementButton	Increment	Aumenta		sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment		claude-opus-5-5	max
+ja	UIText	IncrementButton	Increment	増やす		sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment		claude-opus-5-5	max
+nb-NO	UIText	IncrementButton	Increment	Øk		sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment		claude-opus-5-5	max
+nl	UIText	IncrementButton	Increment	Verhogen		sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment		claude-opus-5-5	max
+nn-NO	UIText	IncrementButton	Increment	Auk		sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment		claude-opus-5-5	max
+pl	UIText	IncrementButton	Increment	Zwiększ		sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment		claude-opus-5-5	max
+pt	UIText	IncrementButton	Increment	Aumentar		sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment		claude-opus-5-5	max
+pt-BR	UIText	IncrementButton	Increment	Aumentar		sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment		claude-opus-5-5	max
+ro	UIText	IncrementButton	Increment	Creștere		sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment		claude-opus-5-5	max
+ru	UIText	IncrementButton	Increment	Увеличить		sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment		claude-opus-5-5	max
+sl	UIText	IncrementButton	Increment	Povečaj		sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment		claude-opus-5-5	max
+sv	UIText	IncrementButton	Increment	Öka		sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment		claude-opus-5-5	max
+tr	UIText	IncrementButton	Increment	Artır		sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment		claude-opus-5-5	max
+uk	UIText	IncrementButton	Increment	Збільшити		sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment		claude-opus-5-5	max
+zh-CN	UIText	IncrementButton	Increment	增加		sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment		claude-opus-5-5	max
+zh-TW	UIText	IncrementButton	Increment	增加		sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment		claude-opus-5-5	max
+bg	UIText	DecrementButton	Decrement	Намаляване		sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement		claude-opus-5-5	max
+cs	UIText	DecrementButton	Decrement	Snížit		sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement		claude-opus-5-5	max
+da	UIText	DecrementButton	Decrement	Formindsk		sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement		claude-opus-5-5	max
+de	UIText	DecrementButton	Decrement	Verringern		sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement		claude-opus-5-5	max
+en-GB	UIText	DecrementButton	Decrement	=		en-GB writes it as the English does		claude-opus-5-5	max
+es	UIText	DecrementButton	Decrement	Disminuir		sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement		claude-opus-5-5	max
+et	UIText	DecrementButton	Decrement	Vähenda		sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement		claude-opus-5-5	max
+fi	UIText	DecrementButton	Decrement	Vähennä		sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement		claude-opus-5-5	max
+hu	UIText	DecrementButton	Decrement	Csökkentés		sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement		claude-opus-5-5	max
+it	UIText	DecrementButton	Decrement	Diminuisci		sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement		claude-opus-5-5	max
+ja	UIText	DecrementButton	Decrement	減らす		sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement		claude-opus-5-5	max
+nb-NO	UIText	DecrementButton	Decrement	Reduser		sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement		claude-opus-5-5	max
+nl	UIText	DecrementButton	Decrement	Verlagen		sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement		claude-opus-5-5	max
+nn-NO	UIText	DecrementButton	Decrement	Reduser		sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement		claude-opus-5-5	max
+pl	UIText	DecrementButton	Decrement	Zmniejsz		sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement		claude-opus-5-5	max
+pt	UIText	DecrementButton	Decrement	Diminuir		sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement		claude-opus-5-5	max
+pt-BR	UIText	DecrementButton	Decrement	Diminuir		sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement		claude-opus-5-5	max
+ro	UIText	DecrementButton	Decrement	Descreștere		sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement		claude-opus-5-5	max
+ru	UIText	DecrementButton	Decrement	Уменьшить		sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement		claude-opus-5-5	max
+sl	UIText	DecrementButton	Decrement	Zmanjšaj		sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement		claude-opus-5-5	max
+sv	UIText	DecrementButton	Decrement	Minska		sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement		claude-opus-5-5	max
+tr	UIText	DecrementButton	Decrement	Azalt		sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement		claude-opus-5-5	max
+uk	UIText	DecrementButton	Decrement	Зменшити		sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement		claude-opus-5-5	max
+zh-CN	UIText	DecrementButton	Decrement	减少		sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement		claude-opus-5-5	max
+zh-TW	UIText	DecrementButton	Decrement	減少		sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement		claude-opus-5-5	max
+bg	UIText	CounterLabel	Counter: {0}	Брояч: {0}		sample key of the localization (LocalizeExtension.cs), shown in no view; a label that shows the value of a counter, as fr "Compteur : {0}"		claude-opus-5-5	max
+cs	UIText	CounterLabel	Counter: {0}	Počítadlo: {0}		sample key of the localization (LocalizeExtension.cs), shown in no view; a label that shows the value of a counter, as fr "Compteur : {0}"		claude-opus-5-5	max
+da	UIText	CounterLabel	Counter: {0}	Tæller: {0}		sample key of the localization (LocalizeExtension.cs), shown in no view; a label that shows the value of a counter, as fr "Compteur : {0}"		claude-opus-5-5	max
+de	UIText	CounterLabel	Counter: {0}	Zähler: {0}		sample key of the localization (LocalizeExtension.cs), shown in no view; a label that shows the value of a counter, as fr "Compteur : {0}"		claude-opus-5-5	max
+en-GB	UIText	CounterLabel	Counter: {0}	=		en-GB writes it as the English does		claude-opus-5-5	max
+es	UIText	CounterLabel	Counter: {0}	Contador: {0}		sample key of the localization (LocalizeExtension.cs), shown in no view; a label that shows the value of a counter, as fr "Compteur : {0}"		claude-opus-5-5	max
+et	UIText	CounterLabel	Counter: {0}	Loendur: {0}		sample key of the localization (LocalizeExtension.cs), shown in no view; a label that shows the value of a counter, as fr "Compteur : {0}"		claude-opus-5-5	max
+fi	UIText	CounterLabel	Counter: {0}	Laskuri: {0}		sample key of the localization (LocalizeExtension.cs), shown in no view; a label that shows the value of a counter, as fr "Compteur : {0}"		claude-opus-5-5	max
+hu	UIText	CounterLabel	Counter: {0}	Számláló: {0}		sample key of the localization (LocalizeExtension.cs), shown in no view; a label that shows the value of a counter, as fr "Compteur : {0}"		claude-opus-5-5	max
+it	UIText	CounterLabel	Counter: {0}	Contatore: {0}		sample key of the localization (LocalizeExtension.cs), shown in no view; a label that shows the value of a counter, as fr "Compteur : {0}"		claude-opus-5-5	max
+ja	UIText	CounterLabel	Counter: {0}	カウンター: {0}		sample key of the localization (LocalizeExtension.cs), shown in no view; a label that shows the value of a counter, as fr "Compteur : {0}"		claude-opus-5-5	max
+nb-NO	UIText	CounterLabel	Counter: {0}	Teller: {0}		sample key of the localization (LocalizeExtension.cs), shown in no view; a label that shows the value of a counter, as fr "Compteur : {0}"		claude-opus-5-5	max
+nl	UIText	CounterLabel	Counter: {0}	Teller: {0}		sample key of the localization (LocalizeExtension.cs), shown in no view; a label that shows the value of a counter, as fr "Compteur : {0}"		claude-opus-5-5	max
+nn-NO	UIText	CounterLabel	Counter: {0}	Teljar: {0}		sample key of the localization (LocalizeExtension.cs), shown in no view; a label that shows the value of a counter, as fr "Compteur : {0}"		claude-opus-5-5	max
+pl	UIText	CounterLabel	Counter: {0}	Licznik: {0}		sample key of the localization (LocalizeExtension.cs), shown in no view; a label that shows the value of a counter, as fr "Compteur : {0}"		claude-opus-5-5	max
+pt	UIText	CounterLabel	Counter: {0}	Contador: {0}		sample key of the localization (LocalizeExtension.cs), shown in no view; a label that shows the value of a counter, as fr "Compteur : {0}"		claude-opus-5-5	max
+pt-BR	UIText	CounterLabel	Counter: {0}	Contador: {0}		sample key of the localization (LocalizeExtension.cs), shown in no view; a label that shows the value of a counter, as fr "Compteur : {0}"		claude-opus-5-5	max
+ro	UIText	CounterLabel	Counter: {0}	Contor: {0}		sample key of the localization (LocalizeExtension.cs), shown in no view; a label that shows the value of a counter, as fr "Compteur : {0}"		claude-opus-5-5	max
+ru	UIText	CounterLabel	Counter: {0}	Счетчик: {0}		sample key of the localization (LocalizeExtension.cs), shown in no view; a label that shows the value of a counter, as fr "Compteur : {0}"		claude-opus-5-5	max
+sl	UIText	CounterLabel	Counter: {0}	Števec: {0}		sample key of the localization (LocalizeExtension.cs), shown in no view; a label that shows the value of a counter, as fr "Compteur : {0}"		claude-opus-5-5	max
+sv	UIText	CounterLabel	Counter: {0}	Räknare: {0}		sample key of the localization (LocalizeExtension.cs), shown in no view; a label that shows the value of a counter, as fr "Compteur : {0}"		claude-opus-5-5	max
+tr	UIText	CounterLabel	Counter: {0}	Sayaç: {0}		sample key of the localization (LocalizeExtension.cs), shown in no view; a label that shows the value of a counter, as fr "Compteur : {0}"		claude-opus-5-5	max
+uk	UIText	CounterLabel	Counter: {0}	Лічильник: {0}		sample key of the localization (LocalizeExtension.cs), shown in no view; a label that shows the value of a counter, as fr "Compteur : {0}"		claude-opus-5-5	max
+zh-CN	UIText	CounterLabel	Counter: {0}	计数器：{0}		sample key of the localization (LocalizeExtension.cs), shown in no view; the full-width colon of the language's labels		claude-opus-5-5	max
+zh-TW	UIText	CounterLabel	Counter: {0}	計數器：{0}		sample key of the localization (LocalizeExtension.cs), shown in no view; the full-width colon of most of the language's labels		claude-opus-5-5	max
+bg	UIText	YesButton	Yes	Да		button of the message box (MessageBoxDialog), beside No and Cancel; the term Yes	UIText.CreateImageFiles_comboBoxWorldFile_Items1 UIText.ReportText_EventAudit_Yes	claude-opus-5-5	max
+cs	UIText	YesButton	Yes	Ano		button of the message box (MessageBoxDialog), beside No and Cancel; the term Yes	UIText.CreateImageFiles_comboBoxWorldFile_Items1 UIText.ReportText_EventAudit_Yes	claude-opus-5-5	max
+da	UIText	YesButton	Yes	Ja		button of the message box (MessageBoxDialog), beside No and Cancel; the term Yes	UIText.CreateImageFiles_comboBoxWorldFile_Items1 UIText.ReportText_EventAudit_Yes	claude-opus-5-5	max
+de	UIText	YesButton	Yes	Ja		button of the message box (MessageBoxDialog), beside No and Cancel; the term Yes	UIText.CreateImageFiles_comboBoxWorldFile_Items1 UIText.ReportText_EventAudit_Yes	claude-opus-5-5	max
+en-GB	UIText	YesButton	Yes	=		en-GB writes it as the English does	UIText.CreateImageFiles_comboBoxWorldFile_Items1 UIText.ReportText_EventAudit_Yes	claude-opus-5-5	max
+es	UIText	YesButton	Yes	Sí		button of the message box (MessageBoxDialog), beside No and Cancel; the term Yes	UIText.CreateImageFiles_comboBoxWorldFile_Items1 UIText.ReportText_EventAudit_Yes	claude-opus-5-5	max
+et	UIText	YesButton	Yes	Jah		button of the message box (MessageBoxDialog), beside No and Cancel; the term Yes	UIText.CreateImageFiles_comboBoxWorldFile_Items1 UIText.ReportText_EventAudit_Yes	claude-opus-5-5	max
+fi	UIText	YesButton	Yes	Kyllä		button of the message box (MessageBoxDialog), beside No and Cancel; the term Yes	UIText.CreateImageFiles_comboBoxWorldFile_Items1 UIText.ReportText_EventAudit_Yes	claude-opus-5-5	max
+fr	UIText	YesButton	Yes	Oui		button of the message box (MessageBoxDialog), beside No and Cancel; the term Yes	UIText.CreateImageFiles_comboBoxWorldFile_Items1 UIText.ReportText_EventAudit_Yes	claude-opus-5-5	max
+hu	UIText	YesButton	Yes	Igen		button of the message box (MessageBoxDialog), beside No and Cancel; the term Yes	UIText.CreateImageFiles_comboBoxWorldFile_Items1 UIText.ReportText_EventAudit_Yes	claude-opus-5-5	max
+it	UIText	YesButton	Yes	Sì		button of the message box (MessageBoxDialog); "sì" (yes) takes its accent; the term and two texts of the language write "Si", which is corrected	UIText.CreateImageFiles_comboBoxWorldFile_Items1 UIText.ReportText_EventAudit_Yes	claude-opus-5-5	max
+ja	UIText	YesButton	Yes	はい		button of the message box (MessageBoxDialog), beside No and Cancel; the term Yes	UIText.CreateImageFiles_comboBoxWorldFile_Items1 UIText.ReportText_EventAudit_Yes	claude-opus-5-5	max
+nb-NO	UIText	YesButton	Yes	Ja		button of the message box (MessageBoxDialog), beside No and Cancel; the term Yes	UIText.CreateImageFiles_comboBoxWorldFile_Items1 UIText.ReportText_EventAudit_Yes	claude-opus-5-5	max
+nl	UIText	YesButton	Yes	Ja		button of the message box (MessageBoxDialog), beside No and Cancel; the term Yes	UIText.CreateImageFiles_comboBoxWorldFile_Items1 UIText.ReportText_EventAudit_Yes	claude-opus-5-5	max
+nn-NO	UIText	YesButton	Yes	Ja		button of the message box (MessageBoxDialog), beside No and Cancel; the term Yes	UIText.CreateImageFiles_comboBoxWorldFile_Items1 UIText.ReportText_EventAudit_Yes	claude-opus-5-5	max
+pl	UIText	YesButton	Yes	Tak		button of the message box (MessageBoxDialog), beside No and Cancel; the term Yes	UIText.CreateImageFiles_comboBoxWorldFile_Items1 UIText.ReportText_EventAudit_Yes	claude-opus-5-5	max
+pt	UIText	YesButton	Yes	Sim		button of the message box (MessageBoxDialog), beside No and Cancel; the term Yes	UIText.CreateImageFiles_comboBoxWorldFile_Items1 UIText.ReportText_EventAudit_Yes	claude-opus-5-5	max
+pt-BR	UIText	YesButton	Yes	Sim		button of the message box (MessageBoxDialog), beside No and Cancel; the term Yes	UIText.CreateImageFiles_comboBoxWorldFile_Items1 UIText.ReportText_EventAudit_Yes	claude-opus-5-5	max
+ro	UIText	YesButton	Yes	Da		button of the message box (MessageBoxDialog), beside No and Cancel; the term Yes	UIText.CreateImageFiles_comboBoxWorldFile_Items1 UIText.ReportText_EventAudit_Yes	claude-opus-5-5	max
+ru	UIText	YesButton	Yes	Да		button of the message box (MessageBoxDialog), beside No and Cancel; the term Yes		claude-opus-5-5	max
+sl	UIText	YesButton	Yes	Da		button of the message box (MessageBoxDialog), beside No and Cancel; the term Yes		claude-opus-5-5	max
+sv	UIText	YesButton	Yes	Ja		button of the message box (MessageBoxDialog), beside No and Cancel; the term Yes	UIText.CreateImageFiles_comboBoxWorldFile_Items1 UIText.ReportText_EventAudit_Yes	claude-opus-5-5	max
+tr	UIText	YesButton	Yes	Evet		button of the message box (MessageBoxDialog), beside No and Cancel; the term Yes	UIText.CreateImageFiles_comboBoxWorldFile_Items1 UIText.ReportText_EventAudit_Yes	claude-opus-5-5	max
+uk	UIText	YesButton	Yes	Так		button of the message box (MessageBoxDialog), beside No and Cancel; the term Yes	UIText.CreateImageFiles_comboBoxWorldFile_Items1 UIText.ReportText_EventAudit_Yes	claude-opus-5-5	max
+zh-CN	UIText	YesButton	Yes	是		button of the message box (MessageBoxDialog), beside No and Cancel; the term Yes	UIText.CreateImageFiles_comboBoxWorldFile_Items1 UIText.ReportText_EventAudit_Yes	claude-opus-5-5	max
+zh-TW	UIText	YesButton	Yes	是		button of the message box (MessageBoxDialog), beside No and Cancel; the term Yes	UIText.CreateImageFiles_comboBoxWorldFile_Items1 UIText.ReportText_EventAudit_Yes	claude-opus-5-5	max
+bg	UIText	NoButton	No	Не		button of the message box (MessageBoxDialog), beside Yes and Cancel; the term No	UIText.CreateImageFiles_comboBoxWorldFile_Items UIText.ReportText_EventAudit_No	claude-opus-5-5	max
+cs	UIText	NoButton	No	Ne		button of the message box (MessageBoxDialog), beside Yes and Cancel; the term No	UIText.CreateImageFiles_comboBoxWorldFile_Items UIText.ReportText_EventAudit_No	claude-opus-5-5	max
+da	UIText	NoButton	No	Nej		button of the message box (MessageBoxDialog), beside Yes and Cancel; the term No	UIText.CreateImageFiles_comboBoxWorldFile_Items UIText.ReportText_EventAudit_No	claude-opus-5-5	max
+de	UIText	NoButton	No	Nein		button of the message box (MessageBoxDialog), beside Yes and Cancel; the term No	UIText.CreateImageFiles_comboBoxWorldFile_Items UIText.ReportText_EventAudit_No	claude-opus-5-5	max
+en-GB	UIText	NoButton	No	=		en-GB writes it as the English does	UIText.CreateImageFiles_comboBoxWorldFile_Items UIText.ReportText_EventAudit_No	claude-opus-5-5	max
+es	UIText	NoButton	No	No		button of the message box (MessageBoxDialog), beside Yes and Cancel; the term No	UIText.CreateImageFiles_comboBoxWorldFile_Items UIText.ReportText_EventAudit_No	claude-opus-5-5	max
+et	UIText	NoButton	No	Ei		button of the message box (MessageBoxDialog), beside Yes and Cancel; the term No	UIText.CreateImageFiles_comboBoxWorldFile_Items UIText.ReportText_EventAudit_No	claude-opus-5-5	max
+fi	UIText	NoButton	No	Ei		button of the message box (MessageBoxDialog), beside Yes and Cancel; the term No	UIText.CreateImageFiles_comboBoxWorldFile_Items UIText.ReportText_EventAudit_No	claude-opus-5-5	max
+fr	UIText	NoButton	No	Non		button of the message box (MessageBoxDialog), beside Yes and Cancel; the term No	UIText.CreateImageFiles_comboBoxWorldFile_Items UIText.ReportText_EventAudit_No	claude-opus-5-5	max
+hu	UIText	NoButton	No	Nem		button of the message box (MessageBoxDialog), beside Yes and Cancel; the term No	UIText.CreateImageFiles_comboBoxWorldFile_Items UIText.ReportText_EventAudit_No	claude-opus-5-5	max
+it	UIText	NoButton	No	No		button of the message box (MessageBoxDialog), beside Yes and Cancel; the term No	UIText.CreateImageFiles_comboBoxWorldFile_Items UIText.ReportText_EventAudit_No	claude-opus-5-5	max
+ja	UIText	NoButton	No	いいえ		button of the message box (MessageBoxDialog), beside Yes and Cancel; the term No	UIText.CreateImageFiles_comboBoxWorldFile_Items UIText.ReportText_EventAudit_No	claude-opus-5-5	max
+nb-NO	UIText	NoButton	No	Nei		button of the message box (MessageBoxDialog), beside Yes and Cancel; the term No	UIText.CreateImageFiles_comboBoxWorldFile_Items UIText.ReportText_EventAudit_No	claude-opus-5-5	max
+nl	UIText	NoButton	No	Nee		button of the message box (MessageBoxDialog), beside Yes and Cancel; the term No	UIText.CreateImageFiles_comboBoxWorldFile_Items UIText.ReportText_EventAudit_No	claude-opus-5-5	max
+nn-NO	UIText	NoButton	No	Nei		button of the message box (MessageBoxDialog), beside Yes and Cancel; the term No	UIText.CreateImageFiles_comboBoxWorldFile_Items UIText.ReportText_EventAudit_No	claude-opus-5-5	max
+pl	UIText	NoButton	No	Nie		button of the message box (MessageBoxDialog), beside Yes and Cancel; the term No	UIText.CreateImageFiles_comboBoxWorldFile_Items UIText.ReportText_EventAudit_No	claude-opus-5-5	max
+pt	UIText	NoButton	No	Não		button of the message box (MessageBoxDialog), beside Yes and Cancel; the term No	UIText.CreateImageFiles_comboBoxWorldFile_Items UIText.ReportText_EventAudit_No	claude-opus-5-5	max
+pt-BR	UIText	NoButton	No	Não		button of the message box (MessageBoxDialog), beside Yes and Cancel; the term No	UIText.CreateImageFiles_comboBoxWorldFile_Items UIText.ReportText_EventAudit_No	claude-opus-5-5	max
+ro	UIText	NoButton	No	Nu		button of the message box (MessageBoxDialog), beside Yes and Cancel; the term No	UIText.CreateImageFiles_comboBoxWorldFile_Items UIText.ReportText_EventAudit_No	claude-opus-5-5	max
+ru	UIText	NoButton	No	Нет		button of the message box (MessageBoxDialog), beside Yes and Cancel; the term No		claude-opus-5-5	max
+sl	UIText	NoButton	No	Ne		button of the message box (MessageBoxDialog), beside Yes and Cancel; the term No		claude-opus-5-5	max
+sv	UIText	NoButton	No	Nej		button of the message box (MessageBoxDialog), beside Yes and Cancel; the term No	UIText.CreateImageFiles_comboBoxWorldFile_Items UIText.ReportText_EventAudit_No	claude-opus-5-5	max
+tr	UIText	NoButton	No	Hayır		button of the message box (MessageBoxDialog), beside Yes and Cancel; the term No	UIText.CreateImageFiles_comboBoxWorldFile_Items UIText.ReportText_EventAudit_No	claude-opus-5-5	max
+uk	UIText	NoButton	No	Ні		button of the message box (MessageBoxDialog), beside Yes and Cancel; the term No	UIText.CreateImageFiles_comboBoxWorldFile_Items UIText.ReportText_EventAudit_No	claude-opus-5-5	max
+zh-CN	UIText	NoButton	No	否		button of the message box (MessageBoxDialog), beside Yes and Cancel; the term No	UIText.CreateImageFiles_comboBoxWorldFile_Items UIText.ReportText_EventAudit_No	claude-opus-5-5	max
+zh-TW	UIText	NoButton	No	否		button of the message box (MessageBoxDialog), beside Yes and Cancel; the term No	UIText.CreateImageFiles_comboBoxWorldFile_Items UIText.ReportText_EventAudit_No	claude-opus-5-5	max
+bg	UIText	SwitchLanguageButton	Switch Language...	Смяна на езика...		button that opens the dialog Switch Language, shown in no view yet; the term Switch Language, with the ellipsis of a button that opens a dialog		claude-opus-5-5	max
+cs	UIText	SwitchLanguageButton	Switch Language...	Změnit jazyk...		button that opens the dialog Switch Language, shown in no view yet; the term Switch Language, with the ellipsis of a button that opens a dialog		claude-opus-5-5	max
+da	UIText	SwitchLanguageButton	Switch Language...	Skift sprog...		button that opens the dialog Switch Language, shown in no view yet; the term Switch Language, with the ellipsis of a button that opens a dialog		claude-opus-5-5	max
+de	UIText	SwitchLanguageButton	Switch Language...	Sprache wechseln...		button that opens the dialog Switch Language, shown in no view yet; the term Switch Language, with the ellipsis of a button that opens a dialog		claude-opus-5-5	max
+en-GB	UIText	SwitchLanguageButton	Switch Language...	=		en-GB writes it as the English does		claude-opus-5-5	max
+es	UIText	SwitchLanguageButton	Switch Language...	Cambiar idioma...		button that opens the dialog Switch Language, shown in no view yet; the term Switch Language, with the ellipsis of a button that opens a dialog		claude-opus-5-5	max
+et	UIText	SwitchLanguageButton	Switch Language...	Vaheta keelt...		button that opens the dialog Switch Language, shown in no view yet; the term Switch Language, with the ellipsis of a button that opens a dialog		claude-opus-5-5	max
+fi	UIText	SwitchLanguageButton	Switch Language...	Vaihda kieli...		button that opens the dialog Switch Language, shown in no view yet; the term Switch Language, with the ellipsis of a button that opens a dialog		claude-opus-5-5	max
+hu	UIText	SwitchLanguageButton	Switch Language...	Nyelv váltása...		button that opens the dialog Switch Language, shown in no view yet; the term Switch Language, with the ellipsis of a button that opens a dialog		claude-opus-5-5	max
+it	UIText	SwitchLanguageButton	Switch Language...	Cambia lingua...		button that opens the dialog Switch Language, shown in no view yet; the term Switch Language, with the ellipsis of a button that opens a dialog		claude-opus-5-5	max
+ja	UIText	SwitchLanguageButton	Switch Language...	言語を切り替え...		button that opens the dialog Switch Language, shown in no view yet; the term Switch Language, with the ellipsis of a button that opens a dialog		claude-opus-5-5	max
+nb-NO	UIText	SwitchLanguageButton	Switch Language...	Bytt språk...		button that opens the dialog Switch Language, shown in no view yet; the term Switch Language, with the ellipsis of a button that opens a dialog		claude-opus-5-5	max
+nl	UIText	SwitchLanguageButton	Switch Language...	Taal wijzigen...		button that opens the dialog Switch Language, shown in no view yet; the term Switch Language, with the ellipsis of a button that opens a dialog		claude-opus-5-5	max
+nn-NO	UIText	SwitchLanguageButton	Switch Language...	Byt språk...		button that opens the dialog Switch Language, shown in no view yet; the term Switch Language, with the ellipsis of a button that opens a dialog		claude-opus-5-5	max
+pl	UIText	SwitchLanguageButton	Switch Language...	Zmień język...		button that opens the dialog Switch Language, shown in no view yet; the term Switch Language, with the ellipsis of a button that opens a dialog		claude-opus-5-5	max
+pt	UIText	SwitchLanguageButton	Switch Language...	Mudar de idioma...		button that opens the dialog Switch Language, shown in no view yet; the term Switch Language, with the ellipsis of a button that opens a dialog		claude-opus-5-5	max
+pt-BR	UIText	SwitchLanguageButton	Switch Language...	Mudar idioma...		button that opens the dialog Switch Language, shown in no view yet; the term Switch Language, with the ellipsis of a button that opens a dialog		claude-opus-5-5	max
+ro	UIText	SwitchLanguageButton	Switch Language...	Schimbare limbă...		button that opens the dialog Switch Language, shown in no view yet; the term Switch Language, with the ellipsis of a button that opens a dialog		claude-opus-5-5	max
+ru	UIText	SwitchLanguageButton	Switch Language...	Сменить язык...		button that opens the dialog Switch Language, shown in no view yet; the term Switch Language, with the ellipsis of a button that opens a dialog		claude-opus-5-5	max
+sl	UIText	SwitchLanguageButton	Switch Language...	Zamenjaj jezik...		button that opens the dialog Switch Language, shown in no view yet; the term Switch Language, with the ellipsis of a button that opens a dialog		claude-opus-5-5	max
+sv	UIText	SwitchLanguageButton	Switch Language...	Byt språk...		button that opens the dialog Switch Language, shown in no view yet; the term Switch Language, with the ellipsis of a button that opens a dialog		claude-opus-5-5	max
+tr	UIText	SwitchLanguageButton	Switch Language...	Dili Değiştir...		button that opens the dialog Switch Language, shown in no view yet; the term Switch Language, with the ellipsis of a button that opens a dialog		claude-opus-5-5	max
+uk	UIText	SwitchLanguageButton	Switch Language...	Змінити мову...		button that opens the dialog Switch Language, shown in no view yet; the term Switch Language, with the ellipsis of a button that opens a dialog		claude-opus-5-5	max
+zh-CN	UIText	SwitchLanguageButton	Switch Language...	切换语言…		button that opens the dialog Switch Language, shown in no view yet; the term Switch Language, with the single-character ellipsis that most of the language's texts use		claude-opus-5-5	max
+zh-TW	UIText	SwitchLanguageButton	Switch Language...	切換語言...		button that opens the dialog Switch Language, shown in no view yet; the term Switch Language, with the ellipsis of a button that opens a dialog		claude-opus-5-5	max
+nl	UIText	CancelButton	Cancel	Annuleren		button of the message box and of many dialogs; the term Cancel; the language has no Cancel button yet		claude-opus-5-5	max
+ru	UIText	CancelButton	Cancel	Отмена		button of the message box and of many dialogs; the term Cancel, the usual Cancel button of Russian dialogs		claude-opus-5-5	max
+bg	UIText	CloseButton	Close	Затвори		button that closes the print preview (PrintPreviewDialog); the term Close	UIText.ReportForm_okButton_Text UIText.TeamVariationsForm_buttonClose_Text	claude-opus-5-5	max
+cs	UIText	CloseButton	Close	Zavřít		button that closes the print preview (PrintPreviewDialog); the term Close	UIText.ReportForm_okButton_Text UIText.TeamVariationsForm_buttonClose_Text	claude-opus-5-5	max
+da	UIText	CloseButton	Close	Luk		button that closes the print preview (PrintPreviewDialog); the term Close		claude-opus-5-5	max
+de	UIText	CloseButton	Close	Schließen		button that closes the print preview (PrintPreviewDialog); the term Close	UIText.ReportForm_okButton_Text UIText.TeamVariationsForm_buttonClose_Text	claude-opus-5-5	max
+en-GB	UIText	CloseButton	Close	=		en-GB writes it as the English does	UIText.ReportForm_okButton_Text UIText.TeamVariationsForm_buttonClose_Text	claude-opus-5-5	max
+es	UIText	CloseButton	Close	Cerrar		button that closes the print preview (PrintPreviewDialog); the term Close	UIText.ReportForm_okButton_Text UIText.TeamVariationsForm_buttonClose_Text	claude-opus-5-5	max
+et	UIText	CloseButton	Close	Sulge		button that closes the print preview (PrintPreviewDialog); the term Close	UIText.ReportForm_okButton_Text UIText.TeamVariationsForm_buttonClose_Text	claude-opus-5-5	max
+fi	UIText	CloseButton	Close	Sulje		button that closes the print preview (PrintPreviewDialog); the term Close	UIText.ReportForm_okButton_Text UIText.TeamVariationsForm_buttonClose_Text	claude-opus-5-5	max
+fr	UIText	CloseButton	Close	Fermer		button that closes the print preview (PrintPreviewDialog); the term Close	UIText.ReportForm_okButton_Text UIText.TeamVariationsForm_buttonClose_Text	claude-opus-5-5	max
+hu	UIText	CloseButton	Close	Bezárás		button that closes the print preview (PrintPreviewDialog); the term Close	UIText.ReportForm_okButton_Text UIText.TeamVariationsForm_buttonClose_Text	claude-opus-5-5	max
+it	UIText	CloseButton	Close	Chiudi		button that closes the print preview (PrintPreviewDialog); the term Close	UIText.ReportForm_okButton_Text UIText.TeamVariationsForm_buttonClose_Text	claude-opus-5-5	max
+ja	UIText	CloseButton	Close	閉じる		button that closes the print preview (PrintPreviewDialog); the term Close	UIText.ReportForm_okButton_Text UIText.TeamVariationsForm_buttonClose_Text	claude-opus-5-5	max
+nb-NO	UIText	CloseButton	Close	Lukk		button that closes the print preview (PrintPreviewDialog); the term Close	UIText.ReportForm_okButton_Text UIText.TeamVariationsForm_buttonClose_Text	claude-opus-5-5	max
+nl	UIText	CloseButton	Close	Sluit		button that closes the print preview (PrintPreviewDialog); the term Close	UIText.ReportForm_okButton_Text UIText.TeamVariationsForm_buttonClose_Text	claude-opus-5-5	max
+nn-NO	UIText	CloseButton	Close	Lat att		button that closes the print preview (PrintPreviewDialog); the term Close	UIText.ReportForm_okButton_Text UIText.TeamVariationsForm_buttonClose_Text	claude-opus-5-5	max
+pl	UIText	CloseButton	Close	Zamknij		button that closes the print preview (PrintPreviewDialog); the term Close	UIText.ReportForm_okButton_Text UIText.TeamVariationsForm_buttonClose_Text	claude-opus-5-5	max
+pt	UIText	CloseButton	Close	Fechar		button that closes the print preview (PrintPreviewDialog); the term Close	UIText.ReportForm_okButton_Text UIText.TeamVariationsForm_buttonClose_Text	claude-opus-5-5	max
+pt-BR	UIText	CloseButton	Close	Fechar		button that closes the print preview (PrintPreviewDialog); the term Close	UIText.ReportForm_okButton_Text UIText.TeamVariationsForm_buttonClose_Text	claude-opus-5-5	max
+ro	UIText	CloseButton	Close	Închide		button that closes the print preview (PrintPreviewDialog); the term Close	UIText.ReportForm_okButton_Text UIText.TeamVariationsForm_buttonClose_Text	claude-opus-5-5	max
+ru	UIText	CloseButton	Close	Закрыть		button that closes the print preview (PrintPreviewDialog); the term Close		claude-opus-5-5	max
+sl	UIText	CloseButton	Close	Zapri		button that closes the print preview (PrintPreviewDialog); the term Close		claude-opus-5-5	max
+sv	UIText	CloseButton	Close	Stäng		button that closes the print preview (PrintPreviewDialog); the term Close	UIText.ReportForm_okButton_Text UIText.TeamVariationsForm_buttonClose_Text	claude-opus-5-5	max
+tr	UIText	CloseButton	Close	Kapat		button that closes the print preview (PrintPreviewDialog); the term Close	UIText.ReportForm_okButton_Text UIText.TeamVariationsForm_buttonClose_Text	claude-opus-5-5	max
+uk	UIText	CloseButton	Close	Закрити		button that closes the print preview (PrintPreviewDialog); the term Close	UIText.ReportForm_okButton_Text UIText.TeamVariationsForm_buttonClose_Text	claude-opus-5-5	max
+zh-CN	UIText	CloseButton	Close	关闭		button that closes the print preview (PrintPreviewDialog); the term Close	UIText.ReportForm_okButton_Text UIText.TeamVariationsForm_buttonClose_Text	claude-opus-5-5	max
+zh-TW	UIText	CloseButton	Close	關閉		button that closes the print preview (PrintPreviewDialog); the term Close	UIText.ReportForm_okButton_Text UIText.TeamVariationsForm_buttonClose_Text	claude-opus-5-5	max
+it	ReportText	EventAudit_Yes	Yes	Sì	Si	"Si" is the pronoun; "sì" (yes) takes its accent; beside "No" in the event audit	YesButton	claude-opus-5-5	max
+it	UIText	ReportText_EventAudit_Yes	Yes	Sì	Si	the copy of ReportText.EventAudit_Yes; "Si" is the pronoun; "sì" (yes) takes its accent	YesButton	claude-opus-5-5	max
+it	UIText	CreateImageFiles_comboBoxWorldFile_Items1	Yes	Sì	Si	item "Yes" of the world file choice, beside "No"; "Si" is the pronoun; "sì" (yes) takes its accent	YesButton	claude-opus-5-5	max
