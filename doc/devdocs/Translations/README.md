@@ -145,6 +145,21 @@ gets the comment too, and the review table shows the translation that it replace
 records the same columns. Status.md counts the translations of each language that a model made ("By a model"),
 `lookup.py` marks them, and `review.py` gives the model of each review table.
 
+## The Translation Logbook
+
+<https://pauliojanpera.github.io/NotPurplePen/translations/> is the page of the translation work, as the SVG Logbook
+(`svg/`) is the page of the SVG target (@Pauli, Nov 16). It shows the plan drawn as a course, where the work stands
+(the key groups done, and for each translated language the translations that it lacks and those that a model made),
+and the log, newest first: each key group with the text that its session wrote above the review, and the figures of
+its filled TSV.
+
+`logbook.py` makes the page from a checkout of `fix/complete-translations` and these documents, and
+`publish-logbook.sh` publishes it: it pushes the branch `translation-log`, and puts the page under `translations/` on
+`gh-pages`. `build.yml` copies `translation-log` into the site at each publish, as it copies `svg-gallery`. A session
+makes the page again after each key group ([Session.md](Session.md), step 5). [logbook.json](logbook.json) holds what
+the script cannot find for itself: the steps of the plan and their dates, and the log entries of the steps that are
+not key groups. A session that finishes a step gives it its date there.
+
 ## The scripts
 
 All take the path of a checkout of NotPurplePen. They need Python 3 and git, and nothing else. `--help` gives the
@@ -160,6 +175,8 @@ details.
 | `check.py <checkout>` | Reports errors (no parse, a repeated name, an empty value, a placeholder or brace that `string.Format` throws on) and, with `--warnings`, what to examine (a lost placeholder, an access-key mark, the spaces or the colon or ellipsis at the ends, a text that may not fit). |
 | `review.py <tsv>...` | Writes the review table of filled TSV files; with `--out-dir`, one file for each language. |
 | `terms.py <checkout> <out csv>` | Writes `terms.csv`, the terms and their translations in every language, one term on each line. |
+| `logbook.py <checkout> <out folder>` | Writes the Translation Logbook, `<out folder>/index.html`: the plan from `logbook.json`, the standing from the satellites, and the log of the key groups that have their review. |
+| `publish-logbook.sh <page folder> <message> [remote]` | Publishes the page that `logbook.py` wrote: the branch `translation-log`, with the fonts of the SVG Logbook, and `translations/` on `gh-pages`. |
 | `resxlib.py` | What the scripts share: the resources, the related languages, and the reading and writing of `.resx`, PO and TSV files. |
 
 ## The TSV files

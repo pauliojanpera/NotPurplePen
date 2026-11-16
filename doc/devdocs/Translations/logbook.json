@@ -1,0 +1,27 @@
+{
+  "about": "The steps of the Translation Logbook that logbook.py cannot find for itself. A step of the plan is done when it has a date in done. The phase-3 step is measured from the key groups. An entry of log is shown in the log beside the key groups, newest first.",
+  "start_missing": 8304,
+  "plan": [
+    {"id": "phase1", "name": "Phase 1: the translations in the repository", "short": "Into PurplePenCore",
+     "done": "2026-11-16", "commits": ["d21aa138"]},
+    {"id": "phase2", "name": "Phase 2: the faults", "short": "The faults",
+     "done": "2026-11-16", "commits": ["1de84f81", "aadd27db"]},
+    {"id": "terms", "name": "The terms", "short": "The terms",
+     "done": "2026-11-16", "commits": ["da1c124", "2db834c", "14e4dd4"]},
+    {"id": "phase3", "name": "Phase 3: the key groups", "short": "The key groups", "done": "", "groups": true},
+    {"id": "run", "name": "The full run, and into basewithfixes and dev", "short": "Full run, into dev", "done": ""},
+    {"id": "phase4", "name": "Phase 4: the fork's own keys", "short": "The fork's own keys", "done": ""},
+    {"id": "upstream", "name": "Offered to Purple Pen", "short": "Offered upstream", "done": ""}
+  ],
+  "log": [
+    {"date": "2026-11-16", "title": "The terms are settled",
+     "text": "[terms.csv](terms.csv) gives each term of the application and its translation in each of the 26 translated languages: 505 lines, one translation in each cell. 8 terms with more than one sense have a line for each sense, for example \"Leg (between two controls)\" and \"Leg (of a relay)\". 34 lines that are not terms of the application came out. [terms-decisions.tsv](terms-decisions.tsv) gives each of the 4,152 decisions and its reason: 2,505 cells filled, 593 chosen from several, 868 corrected. The translator of each key group sees the key's terms in its packet.",
+     "by": "claude-opus-5-5, effort max", "commits": ["da1c124", "2db834c", "14e4dd4"]},
+    {"date": "2026-11-16", "title": "Phase 2: the faults",
+     "text": "The Include choice of the PDF and image export, which was English in all languages, is translated into the translated languages. The 22 errors that check.py found are corrected: placeholders that the English does not have, and braces outside a placeholder, which make string.Format throw. The review is [reviews/phase-2.md](reviews/phase-2.md).",
+     "by": "claude-opus-5-5, effort max", "commits": ["1de84f81", "aadd27db"]},
+    {"date": "2026-11-16", "title": "Phase 1: the translations in the repository",
+     "text": "The satellites of PurplePenCore's resources that upstream's TranslateTool left in src/PurplePen moved into src/PurplePenCore: 868 translations that the application did not show, in en-GB, it, sl, ru, ca and ku.",
+     "commits": ["d21aa138"]}
+  ]
+}

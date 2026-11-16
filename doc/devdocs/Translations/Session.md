@@ -132,7 +132,18 @@ In the TSV, write a line break as `\n` and a tab as `\t`. `python3 docs/doc/devd
    keys left empty and why, and your doubts.
 2. Make the table again: `python3 docs/doc/devdocs/Translations/status.py code docs/doc/devdocs/Translations`.
 3. Commit and push the documents as in step 4.4, with the message "Finish the key group <group>".
-4. Take the next group (step 2), until the groups that this session did lacked about 400 translations in all. Then
+4. Make the Translation Logbook again and publish it, so that @Pauli sees the group on
+   <https://pauliojanpera.github.io/NotPurplePen/translations/> (@Pauli, Nov 16). Do this after each group: the page
+   is how @Pauli follows the work.
+
+   ```
+   python3 docs/doc/devdocs/Translations/logbook.py code work/logbook
+   bash docs/doc/devdocs/Translations/publish-logbook.sh work/logbook "Publish the Translation Logbook after the key group <group>"
+   ```
+
+   The page shows the group with the text that you wrote above its review (step 5.1), so write that text for a
+   reader who does not know the work. If the publish fails, go on, and say so when you stop (step 6).
+5. Take the next group (step 2), until the groups that this session did lacked about 400 translations in all. Then
    stop.
 
 ## 6. Stop
@@ -141,5 +152,7 @@ In the TSV, write a line break as `\n` and a tab as `\t`. `python3 docs/doc/devd
    `pauliojanpera/windows-fonts` tells (`archive-session.sh`). An agent skips this: the session that started it
    archives the transcripts of the machine.
 2. Tell @Pauli, or the session that started you, in a few lines: the groups done; how many lines were translated,
-   marked not needed, corrected and left empty; and the doubts that he should see. Say "all groups are done" if
-   `grouppacket.py` said so.
+   marked not needed, corrected and left empty; whether the Translation Logbook shows the last group (step 5.4); and
+   the doubts that he should see. Say "all groups are done" if `grouppacket.py` said so. When all groups are done,
+   give the step of phase 3 its date in `logbook.json` ("plan", "phase3", "done"), make the logbook again, and
+   publish it.
