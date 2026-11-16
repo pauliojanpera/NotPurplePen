@@ -1465,13 +1465,15 @@
     <value>下載中</value>
   </data>
   <data name="EnterSymbolText_numberColumn_HeaderText" xml:space="preserve">
-    <value>編碼</value>
+    <value>數</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_genderColumn_HeaderText" xml:space="preserve">
     <value>性別</value>
   </data>
   <data name="EnterSymbolText_caseColumn_HeaderText" xml:space="preserve">
-    <value>案例</value>
+    <value>格</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_checkBoxPlural_Text" xml:space="preserve">
     <value>顯示複數格式</value>
@@ -1486,13 +1488,19 @@
     <value>性別：</value>
   </data>
   <data name="EnterSymbolText_labelCaseChooser_Text" xml:space="preserve">
-    <value>修改符號的情況：</value>
+    <value>被修飾符號的格：</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_checkBoxCases_Text" xml:space="preserve">
-    <value>顯示情況表格</value>
+    <value>顯示格形式</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_Text" xml:space="preserve">
     <value>自行定義符號文字</value>
+  </data>
+  <data name="EnterSymbolText_defaultCaseText" xml:space="preserve">
+    <value>(不變)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="InitialScreen_openLastRadioButton_Text" xml:space="preserve">
     <value>開啟最近檢視的賽事</value>

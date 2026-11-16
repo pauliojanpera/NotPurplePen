@@ -1244,13 +1244,15 @@
     <value>Aan het downloaden</value>
   </data>
   <data name="EnterSymbolText_numberColumn_HeaderText" xml:space="preserve">
-    <value>Aantal</value>
+    <value>Getal</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_genderColumn_HeaderText" xml:space="preserve">
     <value>Geslacht</value>
   </data>
   <data name="EnterSymbolText_caseColumn_HeaderText" xml:space="preserve">
-    <value>Hoofd/kleine letters</value>
+    <value>Naamval</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_checkBoxPlural_Text" xml:space="preserve">
     <value>Toon meervoudsvormen</value>
@@ -1258,8 +1260,28 @@
   <data name="EnterSymbolText_checkBoxGender_Text" xml:space="preserve">
     <value>Toon geslachts-vervoegingen</value>
   </data>
+  <data name="EnterSymbolText_labelDescription_Text" xml:space="preserve">
+    <value>Voer in de kolom "Tekst" de aangepaste tekst voor het symbool in.</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="EnterSymbolText_labelGenderChooser_Text" xml:space="preserve">
     <value>Geslacht:</value>
+  </data>
+  <data name="EnterSymbolText_labelCaseChooser_Text" xml:space="preserve">
+    <value>Naamval van het gewijzigde symbool:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="EnterSymbolText_checkBoxCases_Text" xml:space="preserve">
+    <value>Toon naamvalsvormen</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="EnterSymbolText_Text" xml:space="preserve">
+    <value>Aangepaste symbooltekst</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="EnterSymbolText_defaultCaseText" xml:space="preserve">
+    <value>(ongewijzigd)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="InitialScreen_openLastRadioButton_Text" xml:space="preserve">
     <value>Open laatst bekeken evenement</value>

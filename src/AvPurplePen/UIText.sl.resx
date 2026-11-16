@@ -1122,16 +1122,23 @@
     <value>Klikni na simbol za prilagoditev besedilnega opisa kontrolne točke</value>
   </data>
   <data name="EnterSymbolText_numberColumn_HeaderText" xml:space="preserve">
-    <value>Številka</value>
+    <value>Število</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_genderColumn_HeaderText" xml:space="preserve">
     <value>Spol</value>
   </data>
+  <data name="EnterSymbolText_caseColumn_HeaderText" xml:space="preserve">
+    <value>Sklon</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="EnterSymbolText_checkBoxPlural_Text" xml:space="preserve">
-    <value>Prikaži množinske obrazce</value>
+    <value>Prikaži množinske oblike</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_checkBoxGender_Text" xml:space="preserve">
-    <value>Prikaži obrazce za spol</value>
+    <value>Prikaži oblike za spol</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_labelDescription_Text" xml:space="preserve">
     <value>Vnesi prilagojeno besedilo za simbol v stolpec besedilo</value>
@@ -1139,8 +1146,21 @@
   <data name="EnterSymbolText_labelGenderChooser_Text" xml:space="preserve">
     <value>Spol:</value>
   </data>
+  <data name="EnterSymbolText_labelCaseChooser_Text" xml:space="preserve">
+    <value>Sklon spremenjenega simbola:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="EnterSymbolText_checkBoxCases_Text" xml:space="preserve">
+    <value>Prikaži sklonske oblike</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="EnterSymbolText_Text" xml:space="preserve">
-    <value>Prilagojeno opis simbola</value>
+    <value>Prilagojen opis simbola</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="EnterSymbolText_defaultCaseText" xml:space="preserve">
+    <value>(nespremenjeno)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="InitialScreen_openLastRadioButton_Text" xml:space="preserve">
     <value>Odpri zadnjo prireditev</value>

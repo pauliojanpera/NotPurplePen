@@ -1381,7 +1381,8 @@
     <value>ダウンロード中</value>
   </data>
   <data name="EnterSymbolText_numberColumn_HeaderText" xml:space="preserve">
-    <value>番号</value>
+    <value>数</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_genderColumn_HeaderText" xml:space="preserve">
     <value>名詞の性</value>
@@ -1409,6 +1410,10 @@
   </data>
   <data name="EnterSymbolText_Text" xml:space="preserve">
     <value>カスタマイズされた記号テキスト</value>
+  </data>
+  <data name="EnterSymbolText_defaultCaseText" xml:space="preserve">
+    <value>(変更なし)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="InitialScreen_openLastRadioButton_Text" xml:space="preserve">
     <value>前回使用したイベントを開く</value>

@@ -1484,7 +1484,8 @@
     <value>Herunterladen</value>
   </data>
   <data name="EnterSymbolText_numberColumn_HeaderText" xml:space="preserve">
-    <value>Nummer</value>
+    <value>Numerus</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_genderColumn_HeaderText" xml:space="preserve">
     <value>Geschlecht</value>
@@ -1505,13 +1506,19 @@
     <value>Geschlecht:</value>
   </data>
   <data name="EnterSymbolText_labelCaseChooser_Text" xml:space="preserve">
-    <value>Fall des geänderten Symols:</value>
+    <value>Fall des geänderten Symbols:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_checkBoxCases_Text" xml:space="preserve">
     <value>Fälle anzeigen</value>
   </data>
   <data name="EnterSymbolText_Text" xml:space="preserve">
-    <value>Benutzerdefinierter Symboltext:</value>
+    <value>Benutzerdefinierter Symboltext</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="EnterSymbolText_defaultCaseText" xml:space="preserve">
+    <value>(unverändert)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="InitialScreen_openLastRadioButton_Text" xml:space="preserve">
     <value>Letzten Wettkampf öffnen</value>

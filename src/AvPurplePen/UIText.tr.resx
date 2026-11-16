@@ -1534,6 +1534,10 @@
   <data name="EnterSymbolText_Text" xml:space="preserve">
     <value>Özelleştirilmiş Sembol Metni</value>
   </data>
+  <data name="EnterSymbolText_defaultCaseText" xml:space="preserve">
+    <value>(değişiklik yok)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="InitialScreen_openLastRadioButton_Text" xml:space="preserve">
     <value>Son görüntülenen etkinliği aç</value>
   </data>

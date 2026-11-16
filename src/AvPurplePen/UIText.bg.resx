@@ -1495,34 +1495,45 @@
     <value>Изтегляне</value>
   </data>
   <data name="EnterSymbolText_numberColumn_HeaderText" xml:space="preserve">
-    <value>Номер</value>
+    <value>Число</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_genderColumn_HeaderText" xml:space="preserve">
-    <value>Пол</value>
+    <value>Род</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_caseColumn_HeaderText" xml:space="preserve">
-    <value>Главни/малки букви</value>
+    <value>Падеж</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_checkBoxPlural_Text" xml:space="preserve">
     <value>Показвай множествени форми</value>
   </data>
   <data name="EnterSymbolText_checkBoxGender_Text" xml:space="preserve">
-    <value>Показвай формите по пол</value>
+    <value>Показвай формите по род</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_labelDescription_Text" xml:space="preserve">
     <value>Въведи персонализирания текст за символа в колоната „Текст“.</value>
   </data>
   <data name="EnterSymbolText_labelGenderChooser_Text" xml:space="preserve">
-    <value>Пол:</value>
+    <value>Род:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_labelCaseChooser_Text" xml:space="preserve">
-    <value>Регистър на променения символ:</value>
+    <value>Падеж на променения символ:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_checkBoxCases_Text" xml:space="preserve">
-    <value>Показвай формите по регистър</value>
+    <value>Показвай падежните форми</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_Text" xml:space="preserve">
     <value>Персонализиран текст на символа</value>
+  </data>
+  <data name="EnterSymbolText_defaultCaseText" xml:space="preserve">
+    <value>(без промяна)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="InitialScreen_openLastRadioButton_Text" xml:space="preserve">
     <value>Отвори последно преглежданото състезание</value>

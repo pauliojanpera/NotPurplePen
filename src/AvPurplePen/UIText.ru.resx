@@ -551,6 +551,50 @@
     <value>Вывод</value>
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
+  <data name="EnterSymbolText_numberColumn_HeaderText" xml:space="preserve">
+    <value>Число</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="EnterSymbolText_genderColumn_HeaderText" xml:space="preserve">
+    <value>Род</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="EnterSymbolText_caseColumn_HeaderText" xml:space="preserve">
+    <value>Падеж</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="EnterSymbolText_checkBoxPlural_Text" xml:space="preserve">
+    <value>Формы мн. числа</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="EnterSymbolText_checkBoxGender_Text" xml:space="preserve">
+    <value>Формы рода</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="EnterSymbolText_labelDescription_Text" xml:space="preserve">
+    <value>Введите изменённый текст символа в столбце «Текст».</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="EnterSymbolText_labelGenderChooser_Text" xml:space="preserve">
+    <value>Род:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="EnterSymbolText_labelCaseChooser_Text" xml:space="preserve">
+    <value>Падеж изменяемого символа:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="EnterSymbolText_checkBoxCases_Text" xml:space="preserve">
+    <value>Падежные формы</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="EnterSymbolText_Text" xml:space="preserve">
+    <value>Изменённый текст символа</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="EnterSymbolText_defaultCaseText" xml:space="preserve">
+    <value>(без изменений)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="InitialScreen_openLastRadioButton_Text" xml:space="preserve">
     <value>Открыть последнее соревнование</value>
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>

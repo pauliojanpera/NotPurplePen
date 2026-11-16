@@ -1471,13 +1471,15 @@
     <value>Allalaadimine</value>
   </data>
   <data name="EnterSymbolText_numberColumn_HeaderText" xml:space="preserve">
-    <value>Number</value>
+    <value>Arv</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_genderColumn_HeaderText" xml:space="preserve">
     <value>Sugu</value>
   </data>
   <data name="EnterSymbolText_caseColumn_HeaderText" xml:space="preserve">
-    <value>Valik</value>
+    <value>Kääne</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_checkBoxPlural_Text" xml:space="preserve">
     <value>Näita mitmuse forme</value>
@@ -1492,13 +1494,18 @@
     <value>Sugu:</value>
   </data>
   <data name="EnterSymbolText_labelCaseChooser_Text" xml:space="preserve">
-    <value>Muudetud sümbolid:</value>
+    <value>Muudetud sümboli kääne:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_checkBoxCases_Text" xml:space="preserve">
     <value>Näita vorme</value>
   </data>
   <data name="EnterSymbolText_Text" xml:space="preserve">
     <value>Kohendatud sümboli tekst</value>
+  </data>
+  <data name="EnterSymbolText_defaultCaseText" xml:space="preserve">
+    <value>(muutmata)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="InitialScreen_openLastRadioButton_Text" xml:space="preserve">
     <value>Ava viimati vaadatud võistlus</value>

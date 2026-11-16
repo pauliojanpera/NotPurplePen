@@ -1487,13 +1487,16 @@
     <value>Laddar ner</value>
   </data>
   <data name="EnterSymbolText_numberColumn_HeaderText" xml:space="preserve">
-    <value>Antal</value>
+    <value>Numerus</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_genderColumn_HeaderText" xml:space="preserve">
-    <value>Kön</value>
+    <value>Genus</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_caseColumn_HeaderText" xml:space="preserve">
-    <value>Case</value>
+    <value>Kasus</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_checkBoxPlural_Text" xml:space="preserve">
     <value>Visa pluralformer</value>
@@ -1505,16 +1508,23 @@
     <value>Ange den anpassade texten för symbolen under kolumnen 'Text'</value>
   </data>
   <data name="EnterSymbolText_labelGenderChooser_Text" xml:space="preserve">
-    <value>Kön:</value>
+    <value>Genus:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_labelCaseChooser_Text" xml:space="preserve">
-    <value>Case på modifierad symbol:</value>
+    <value>Kasus för modifierad symbol:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_checkBoxCases_Text" xml:space="preserve">
-    <value>Visa case-formulär</value>
+    <value>Visa kasusformer</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_Text" xml:space="preserve">
     <value>Anpassad symboltext</value>
+  </data>
+  <data name="EnterSymbolText_defaultCaseText" xml:space="preserve">
+    <value>(oförändrad)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="InitialScreen_openLastRadioButton_Text" xml:space="preserve">
     <value>Öppna senaste tävling</value>

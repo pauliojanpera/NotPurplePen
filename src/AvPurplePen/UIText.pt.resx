@@ -1488,13 +1488,19 @@
     <value>Género:</value>
   </data>
   <data name="EnterSymbolText_labelCaseChooser_Text" xml:space="preserve">
-    <value>No caso de modificar o símbolo</value>
+    <value>Caso do símbolo modificado:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_checkBoxCases_Text" xml:space="preserve">
-    <value>Mostrar a caixa de formulário</value>
+    <value>Mostrar formas de caso</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_Text" xml:space="preserve">
     <value>Texto Personalizado do Símbolo</value>
+  </data>
+  <data name="EnterSymbolText_defaultCaseText" xml:space="preserve">
+    <value>(inalterado)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="InitialScreen_openLastRadioButton_Text" xml:space="preserve">
     <value>Abrir o último evento visualizado</value>

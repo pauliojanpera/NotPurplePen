@@ -1492,7 +1492,8 @@
     <value>Genre</value>
   </data>
   <data name="EnterSymbolText_caseColumn_HeaderText" xml:space="preserve">
-    <value>Case</value>
+    <value>Cas</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_checkBoxPlural_Text" xml:space="preserve">
     <value>Afficher les formes plurielles</value>
@@ -1507,13 +1508,19 @@
     <value>Genre :</value>
   </data>
   <data name="EnterSymbolText_labelCaseChooser_Text" xml:space="preserve">
-    <value>Case du symbole modifié :</value>
+    <value>Cas du symbole modifié :</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_checkBoxCases_Text" xml:space="preserve">
-    <value>Afficher les formes de case</value>
+    <value>Afficher les formes de cas</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_Text" xml:space="preserve">
     <value>Texte personnalisé pour le symbole</value>
+  </data>
+  <data name="EnterSymbolText_defaultCaseText" xml:space="preserve">
+    <value>(inchangé)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="InitialScreen_openLastRadioButton_Text" xml:space="preserve">
     <value>Ouvrir la dernière course visualisée</value>

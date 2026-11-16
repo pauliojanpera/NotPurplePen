@@ -1527,6 +1527,10 @@
   <data name="EnterSymbolText_Text" xml:space="preserve">
     <value>Testo Simbolo Personalizzato</value>
   </data>
+  <data name="EnterSymbolText_defaultCaseText" xml:space="preserve">
+    <value>(invariato)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="InitialScreen_openLastRadioButton_Text" xml:space="preserve">
     <value>Apri l'ultimo evento visualizzato</value>
   </data>

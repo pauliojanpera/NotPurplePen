@@ -1451,16 +1451,48 @@
     <value>Завантаження</value>
   </data>
   <data name="EnterSymbolText_numberColumn_HeaderText" xml:space="preserve">
-    <value>Номер</value>
+    <value>Число</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_genderColumn_HeaderText" xml:space="preserve">
-    <value>Стать</value>
+    <value>Рід</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="EnterSymbolText_caseColumn_HeaderText" xml:space="preserve">
+    <value>Відмінок</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="EnterSymbolText_checkBoxPlural_Text" xml:space="preserve">
+    <value>Форми множини</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="EnterSymbolText_checkBoxGender_Text" xml:space="preserve">
+    <value>Форми роду</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_labelDescription_Text" xml:space="preserve">
-    <value>Введіть виправлений текст для умовного знаку у колонку "Текст".</value>
+    <value>Введіть змінений текст для умовного знаку у колонку "Текст".</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_labelGenderChooser_Text" xml:space="preserve">
-    <value>Стать:</value>
+    <value>Рід:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="EnterSymbolText_labelCaseChooser_Text" xml:space="preserve">
+    <value>Відмінок змінюваного символу:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="EnterSymbolText_checkBoxCases_Text" xml:space="preserve">
+    <value>Відмінкові форми</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="EnterSymbolText_Text" xml:space="preserve">
+    <value>Змінений текст символу</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="EnterSymbolText_defaultCaseText" xml:space="preserve">
+    <value>(без змін)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="InitialScreen_openLastRadioButton_Text" xml:space="preserve">
     <value>Відкрити останній захід</value>

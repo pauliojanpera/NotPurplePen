@@ -1479,13 +1479,15 @@
     <value>Laster ned</value>
   </data>
   <data name="EnterSymbolText_numberColumn_HeaderText" xml:space="preserve">
-    <value>Nummer</value>
+    <value>Tall</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_genderColumn_HeaderText" xml:space="preserve">
     <value>Kjønn</value>
   </data>
   <data name="EnterSymbolText_caseColumn_HeaderText" xml:space="preserve">
-    <value>Små/store bokstavar</value>
+    <value>Kasus</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_checkBoxPlural_Text" xml:space="preserve">
     <value>Vis flertallsformer</value>
@@ -1494,19 +1496,26 @@
     <value>Vis kjønnendelser</value>
   </data>
   <data name="EnterSymbolText_labelDescription_Text" xml:space="preserve">
-    <value>Skriv inn tilpasset tekst for symbol i "Teskt" kolonnen.</value>
+    <value>Skriv inn tilpasset tekst for symbol i "Tekst" kolonnen.</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_labelGenderChooser_Text" xml:space="preserve">
     <value>Kjønn:</value>
   </data>
   <data name="EnterSymbolText_labelCaseChooser_Text" xml:space="preserve">
-    <value>Utgave av endret symbol:</value>
+    <value>Kasus for endret symbol:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_checkBoxCases_Text" xml:space="preserve">
-    <value>Vis utgaver</value>
+    <value>Vis kasusformer</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_Text" xml:space="preserve">
     <value>Tilpasset symboltekst</value>
+  </data>
+  <data name="EnterSymbolText_defaultCaseText" xml:space="preserve">
+    <value>(uendret)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="InitialScreen_openLastRadioButton_Text" xml:space="preserve">
     <value>Åpne sist åpnede arrangement</value>

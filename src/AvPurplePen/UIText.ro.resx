@@ -1160,6 +1160,10 @@
   <data name="EnterSymbolText_genderColumn_HeaderText" xml:space="preserve">
     <value>Gen</value>
   </data>
+  <data name="EnterSymbolText_caseColumn_HeaderText" xml:space="preserve">
+    <value>Caz</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="EnterSymbolText_checkBoxPlural_Text" xml:space="preserve">
     <value>Afișează formele la plural</value>
   </data>
@@ -1167,13 +1171,26 @@
     <value>Afișează formele de gen</value>
   </data>
   <data name="EnterSymbolText_labelDescription_Text" xml:space="preserve">
-    <value>Afișează textul personalizat pentru simbol în coloana "Text"</value>
+    <value>Introduceți textul personalizat pentru simbol în coloana "Text".</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_labelGenderChooser_Text" xml:space="preserve">
     <value>Gen:</value>
   </data>
+  <data name="EnterSymbolText_labelCaseChooser_Text" xml:space="preserve">
+    <value>Cazul simbolului modificat:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="EnterSymbolText_checkBoxCases_Text" xml:space="preserve">
+    <value>Afișează formele de caz</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="EnterSymbolText_Text" xml:space="preserve">
     <value>Text simbol personalizat</value>
+  </data>
+  <data name="EnterSymbolText_defaultCaseText" xml:space="preserve">
+    <value>(neschimbat)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="InitialScreen_openLastRadioButton_Text" xml:space="preserve">
     <value>Deschide ultimul eveniment vizualizat</value>

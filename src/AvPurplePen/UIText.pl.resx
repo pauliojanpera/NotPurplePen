@@ -229,7 +229,8 @@
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_textColumn_HeaderText" xml:space="preserve">
-    <value>Opis</value>
+    <value>Tekst</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_addTextMenu_Text" xml:space="preserve">
     <value>Opis</value>
@@ -1316,10 +1317,16 @@
     <value>Pobieranie danych</value>
   </data>
   <data name="EnterSymbolText_numberColumn_HeaderText" xml:space="preserve">
-    <value>Numer</value>
+    <value>Liczba</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_genderColumn_HeaderText" xml:space="preserve">
-    <value>Płeć</value>
+    <value>Rodzaj</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="EnterSymbolText_caseColumn_HeaderText" xml:space="preserve">
+    <value>Przypadek</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_checkBoxPlural_Text" xml:space="preserve">
     <value>Pokaż formy liczby mnogiej</value>
@@ -1331,10 +1338,23 @@
     <value>Wpisz dostosowany tekst dla symbolu w kolumnie "Tekst".</value>
   </data>
   <data name="EnterSymbolText_labelGenderChooser_Text" xml:space="preserve">
-    <value>Płeć:</value>
+    <value>Rodzaj:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="EnterSymbolText_labelCaseChooser_Text" xml:space="preserve">
+    <value>Przypadek modyfikowanego symbolu:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="EnterSymbolText_checkBoxCases_Text" xml:space="preserve">
+    <value>Pokaż formy przypadków</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="EnterSymbolText_Text" xml:space="preserve">
     <value>Zmieniony Tekst Symbolu</value>
+  </data>
+  <data name="EnterSymbolText_defaultCaseText" xml:space="preserve">
+    <value>(bez zmian)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="InitialScreen_openLastRadioButton_Text" xml:space="preserve">
     <value>Otwórz ostatnio oglądane zawody</value>
