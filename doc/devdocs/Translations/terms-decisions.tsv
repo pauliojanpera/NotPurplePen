@@ -4153,3 +4153,4 @@ Zoom: 100%	all			removed: a sample of the zoom display, not a term	claude-opus-5
 è	all			removed: a character that a symbol font draws as an arrow, not a word	claude-opus-5-5	max	2026-11-16
 Yes	it	Sì	Si	corrected: "si" is the pronoun; "sì" (yes) takes its accent (key group Shared)	claude-opus-5-5	max	2026-11-16
 View Full License	hu	A teljes licenc	A teljes licenc megtekintése	corrected again: the term "A teljes licenc megtekintése" leaves no room for the Credits button beside it in the About dialog; "A teljes licenc" keeps the spelling "licenc" and the room (key group AboutForm)	claude-opus-5-5	max	2026-11-16
+Missing Fonts	nn-NO	Manglande fontar	Manglande fonter	corrected: "fonter" is the Bokmål plural; the Nynorsk plural of "font" is "fontar" (key group MissingFonts)	claude-opus-5-5	max	2026-11-16
