@@ -1111,7 +1111,8 @@
     <value>Deschide ultimul eveniment vizualizat</value>
   </data>
   <data name="InitialScreen_openSampleRadioButton_Text" xml:space="preserve">
-    <value>Deshide un eveniment de exemplu</value>
+    <value>Deschide un eveniment de exemplu</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="InitialScreen_createNewRadioButton_Text" xml:space="preserve">
     <value>Creare eveniment nou...</value>
@@ -1119,8 +1120,17 @@
   <data name="InitialScreen_openExistingRadioButton_Text" xml:space="preserve">
     <value>Deschidere eveniment existent...</value>
   </data>
+  <data name="InitialScreen_label1_Text" xml:space="preserve">
+    <value>Purple Pen este software gratuit și poate fi copiat și distribuit. Dezvoltarea Purple Pen este susținută numai prin donațiile dumneavoastră.</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="InitialScreen_donationLink_Text" xml:space="preserve">
+    <value>Fă o donație</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="InitialScreen_Text" xml:space="preserve">
-    <value>Bunvenit în Purple Pen</value>
+    <value>Bun venit în Purple Pen</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="LicenseForm_bsdLicenseLinkLabel_Text" xml:space="preserve">
     <value>Purple Pen este oferit sub tipul de licență "BSD"</value>

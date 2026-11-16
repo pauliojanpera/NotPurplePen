@@ -1508,16 +1508,19 @@
     <value>Åpne sist åpnede arrangement</value>
   </data>
   <data name="InitialScreen_openSampleRadioButton_Text" xml:space="preserve">
-    <value>Åpne eksempel arrangement</value>
+    <value>Åpne eksempelarrangement</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="InitialScreen_createNewRadioButton_Text" xml:space="preserve">
     <value>Lag et nytt arrangement...</value>
   </data>
   <data name="InitialScreen_openExistingRadioButton_Text" xml:space="preserve">
-    <value>Åpne et eksisterende arrangenment</value>
+    <value>Åpne et eksisterende arrangement...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="InitialScreen_label1_Text" xml:space="preserve">
-    <value>Purple Pen er fri programvare og kan kopieres og deles. Utvilking er kun støttet av frivillige donasjoner.</value>
+    <value>Purple Pen er fri programvare og kan kopieres og deles. Utvikling er kun støttet av frivillige donasjoner.</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="InitialScreen_donationLink_Text" xml:space="preserve">
     <value>Gi et bidrag</value>

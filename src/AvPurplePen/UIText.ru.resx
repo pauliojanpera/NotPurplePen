@@ -411,6 +411,34 @@
     <value>Содержимое:</value>
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
+  <data name="InitialScreen_openLastRadioButton_Text" xml:space="preserve">
+    <value>Открыть последнее соревнование</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="InitialScreen_openSampleRadioButton_Text" xml:space="preserve">
+    <value>Открыть образец соревнования</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="InitialScreen_createNewRadioButton_Text" xml:space="preserve">
+    <value>Создать новое соревнование...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="InitialScreen_openExistingRadioButton_Text" xml:space="preserve">
+    <value>Открыть существующее соревнование...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="InitialScreen_label1_Text" xml:space="preserve">
+    <value>Purple Pen — бесплатная программа, её можно копировать и распространять. Разработка Purple Pen поддерживается только вашими пожертвованиями.</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="InitialScreen_donationLink_Text" xml:space="preserve">
+    <value>Сделать пожертвование</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="InitialScreen_Text" xml:space="preserve">
+    <value>Добро пожаловать в Purple Pen</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="CloseButton" xml:space="preserve">
     <value>Закрыть</value>
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>

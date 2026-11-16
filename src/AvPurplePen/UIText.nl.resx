@@ -1237,8 +1237,32 @@
   <data name="EnterSymbolText_labelGenderChooser_Text" xml:space="preserve">
     <value>Geslacht:</value>
   </data>
+  <data name="InitialScreen_openLastRadioButton_Text" xml:space="preserve">
+    <value>Open laatst bekeken evenement</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="InitialScreen_openSampleRadioButton_Text" xml:space="preserve">
+    <value>Open een voorbeeldevenement</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="InitialScreen_createNewRadioButton_Text" xml:space="preserve">
     <value>Creëer nieuw evenement...</value>
+  </data>
+  <data name="InitialScreen_openExistingRadioButton_Text" xml:space="preserve">
+    <value>Open een bestaand evenement...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="InitialScreen_label1_Text" xml:space="preserve">
+    <value>Purple Pen is gratis software en mag worden gekopieerd en gedeeld. De ontwikkeling van Purple Pen wordt uitsluitend gesteund door uw donaties.</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="InitialScreen_donationLink_Text" xml:space="preserve">
+    <value>Doneren</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="InitialScreen_Text" xml:space="preserve">
+    <value>Welkom bij Purple Pen</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="LinePropertiesDialog_buttonChangeColor_Text" xml:space="preserve">
     <value> Wijzig kleur...</value>

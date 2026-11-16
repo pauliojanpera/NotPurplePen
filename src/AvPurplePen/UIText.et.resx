@@ -1496,7 +1496,8 @@
     <value>Ava viimati vaadatud võistlus</value>
   </data>
   <data name="InitialScreen_openSampleRadioButton_Text" xml:space="preserve">
-    <value>Ava näidis võistlus</value>
+    <value>Ava näidisvõistlus</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="InitialScreen_createNewRadioButton_Text" xml:space="preserve">
     <value>Lisa uus võistlus ...</value>

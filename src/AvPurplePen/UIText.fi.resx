@@ -1523,10 +1523,12 @@
     <value>Avaa olemassa oleva tapahtuma...</value>
   </data>
   <data name="InitialScreen_label1_Text" xml:space="preserve">
-    <value>Purple Pen is free software and may be copied and shared. Development of Purple Pen is supported only by your donations.</value>
+    <value>Purple Pen on vapaa ohjelma, jota saa kopioida ja jakaa. Purple Penin kehitys on ainoastaan lahjoitustenne varassa.</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="InitialScreen_donationLink_Text" xml:space="preserve">
-    <value>Make a donation</value>
+    <value>Lahjoita</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="InitialScreen_Text" xml:space="preserve">
     <value>Purple Pen</value>

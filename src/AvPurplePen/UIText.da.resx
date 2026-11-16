@@ -1468,16 +1468,20 @@
     <value>Tilpasset symboltekst:</value>
   </data>
   <data name="InitialScreen_openLastRadioButton_Text" xml:space="preserve">
-    <value>Åben sidst sete hændelse:</value>
+    <value>Åbn sidst sete løb</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="InitialScreen_openSampleRadioButton_Text" xml:space="preserve">
-    <value>Åben en eksempel hændelse</value>
+    <value>Åbn et eksempelløb</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="InitialScreen_createNewRadioButton_Text" xml:space="preserve">
-    <value>Opret en ny hændelse...</value>
+    <value>Opret et nyt løb...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="InitialScreen_openExistingRadioButton_Text" xml:space="preserve">
-    <value>Åben en eksisterende hændelse...</value>
+    <value>Åbn et eksisterende løb...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="InitialScreen_label1_Text" xml:space="preserve">
     <value>Purple Pen er fri software og må kopieres og deles. Udvikling af Purple Pen er udelukkende understøttet af dine donationer.</value>

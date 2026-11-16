@@ -1107,19 +1107,31 @@
     <value>Tilpasset symboltekst</value>
   </data>
   <data name="InitialScreen_openLastRadioButton_Text" xml:space="preserve">
-    <value>Åpne sist opna arrangement</value>
+    <value>Opne sist opna arrangement</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="InitialScreen_openSampleRadioButton_Text" xml:space="preserve">
-    <value>Åpne eksempelarrangementet</value>
+    <value>Opne eksempelarrangementet</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="InitialScreen_createNewRadioButton_Text" xml:space="preserve">
     <value>Lag eit nytt arrangement...</value>
   </data>
   <data name="InitialScreen_openExistingRadioButton_Text" xml:space="preserve">
-    <value>Opne eit eksisterende arrangenment</value>
+    <value>Opne eit eksisterande arrangement...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="InitialScreen_label1_Text" xml:space="preserve">
+    <value>Purple Pen er fri programvare og kan kopierast og delast. Utviklinga av Purple Pen blir berre støtta av bidraga dykkar.</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="InitialScreen_donationLink_Text" xml:space="preserve">
+    <value>Gje eit bidrag</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="InitialScreen_Text" xml:space="preserve">
-    <value>Velkommen til Purple Pen</value>
+    <value>Velkomen til Purple Pen</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="LicenseForm_bsdLicenseLinkLabel_Text" xml:space="preserve">
     <value>Purpel Pen er utgitt under "BSD" liknande lisens.</value>

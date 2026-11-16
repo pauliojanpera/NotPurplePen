@@ -1510,7 +1510,8 @@
     <value>Faça um donativo</value>
   </data>
   <data name="InitialScreen_Text" xml:space="preserve">
-    <value>Benvindo ao Purple Pen</value>
+    <value>Bem-vindo ao Purple Pen</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="LegAssignmentsDialog_BranchColumn_HeaderText" xml:space="preserve">
     <value>Variante</value>

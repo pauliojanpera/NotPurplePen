@@ -1500,7 +1500,8 @@
     <value>Adományozás</value>
   </data>
   <data name="InitialScreen_Text" xml:space="preserve">
-    <value>Üdözöljük a Purple Pen-ben</value>
+    <value>Üdvözöljük a Purple Pen-ben</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="LegAssignmentsDialog_BranchColumn_HeaderText" xml:space="preserve">
     <value>Elágazás</value>
