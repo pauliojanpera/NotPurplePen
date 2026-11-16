@@ -1282,7 +1282,8 @@
     <value>Skrivare</value>
   </data>
   <data name="PrintDescriptions_printerGroup_Text" xml:space="preserve">
-    <value>Skrivare</value>
+    <value>Utdata</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="PrintPunches_printerGroup_Text" xml:space="preserve">
     <value>Skrivare</value>
@@ -3008,7 +3009,8 @@ För att skriva ut tävlingskartor är det rekommenderat att banorna exporteras 
     <value>Typ av beskrivning:</value>
   </data>
   <data name="PrintDescriptions_lineSizeLabel_Text" xml:space="preserve">
-    <value>Linjetjocklek:</value>
+    <value>Radstorlek:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="PrintDescriptions_descriptionsLabel_Text" xml:space="preserve">
     <value>kontrollbeskrivningar per bana</value>

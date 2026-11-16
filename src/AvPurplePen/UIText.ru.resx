@@ -419,7 +419,19 @@
     <value>Свойства «Все КП»</value>
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
+  <data name="PrintDescriptions_mmSuffixLabel_Text" xml:space="preserve">
+    <value>мм</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_coursesGroupBox_Text" xml:space="preserve">
+    <value>Дистанции</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="CancelButton" xml:space="preserve">
+    <value>Отмена</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_cancelButton_Text" xml:space="preserve">
     <value>Отмена</value>
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
@@ -445,6 +457,10 @@
   </data>
   <data name="CreatePdfCourses_labelPrintBaseMap_Text" xml:space="preserve">
     <value>Содержимое:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_printerGroup_Text" xml:space="preserve">
+    <value>Вывод</value>
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="InitialScreen_openLastRadioButton_Text" xml:space="preserve">
@@ -483,6 +499,10 @@
     <value>Лицензия Purple Pen</value>
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
+  <data name="PrintDescriptions_orientation_Text" xml:space="preserve">
+    <value>Альбомная</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MissingFonts_checkBoxDontWarnAgain_Text" xml:space="preserve">
     <value>Не предупреждать об отсутствии шрифтов в этом соревновании</value>
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
@@ -496,6 +516,90 @@
   </data>
   <data name="MissingFonts_Text" xml:space="preserve">
     <value>Отсутствующие шрифты</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_printButton_Text" xml:space="preserve">
+    <value>Печать</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_printerChange_Text" xml:space="preserve">
+    <value>Изменить принтер...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_printerName_Text" xml:space="preserve">
+    <value>Имя принтера</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_printerLabel_Text" xml:space="preserve">
+    <value>Принтер:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_copiesGroupBox_Text" xml:space="preserve">
+    <value>Копии</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_marginChange_Text" xml:space="preserve">
+    <value>Изменить поля...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_paperSize_Text" xml:space="preserve">
+    <value>Таблоид (11"x17")</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_paperSizeLabel_Text" xml:space="preserve">
+    <value>Размер бумаги:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_margins_Text" xml:space="preserve">
+    <value>Сверху: 0.55", Снизу: 0.55", Слева: 0.55", Справа: 0.55"</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_marginsLabel_Text" xml:space="preserve">
+    <value>Поля:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_orientationLabel_Text" xml:space="preserve">
+    <value>Ориентация:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_descriptionKindCombo_Items" xml:space="preserve">
+    <value>По умолчанию для дистанции</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_descriptionKindCombo_Items3" xml:space="preserve">
+    <value>Символы и текст</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_descriptionTypeLabel_Text" xml:space="preserve">
+    <value>Тип легенд:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_lineSizeLabel_Text" xml:space="preserve">
+    <value>Размер строки:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_descriptionsLabel_Text" xml:space="preserve">
+    <value>легенд на дистанцию</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_copiesCombo_Items" xml:space="preserve">
+    <value>одна копия каждой дистанции</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_copiesCombo_Items1" xml:space="preserve">
+    <value>одна страница на дистанцию</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_copiesCombo_Items2" xml:space="preserve">
+    <value>несколько страниц на дистанцию</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_whatToPrintLabel_Text" xml:space="preserve">
+    <value>Печать:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_Text" xml:space="preserve">
+    <value>Печать легенд</value>
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="CloseButton" xml:space="preserve">

@@ -237,7 +237,8 @@
     <value>Opis</value>
   </data>
   <data name="PrintDescriptions_descriptionKindCombo_Items2" xml:space="preserve">
-    <value>Opis</value>
+    <value>Tekst</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="SelectionDescriptionText_SpecialName_Text" xml:space="preserve">
     <value>Opis</value>

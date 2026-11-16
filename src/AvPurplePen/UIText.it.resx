@@ -3034,7 +3034,8 @@ Per la stampa delle mappe di gara, si consiglia di esportare i percorsi su file 
     <value>una copia per ogni percorso</value>
   </data>
   <data name="PrintDescriptions_copiesCombo_Items1" xml:space="preserve">
-    <value>una pagina pe ogni percorso</value>
+    <value>una pagina per ogni percorso</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="PrintDescriptions_copiesCombo_Items2" xml:space="preserve">
     <value>più pagine per ogni percorso</value>

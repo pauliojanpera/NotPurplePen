@@ -2697,7 +2697,8 @@ OKを押し、コンピュータ上で地図ファイルのコピーを探して
     <value>余白:</value>
   </data>
   <data name="PrintDescriptions_orientationLabel_Text" xml:space="preserve">
-    <value>印刷の向き</value>
+    <value>印刷の向き:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="PrintPunches_orientationLabel_Text" xml:space="preserve">
     <value>印刷の向き</value>

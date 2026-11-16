@@ -2045,7 +2045,8 @@ Pentru a tipări hărți de concurs, se recomandă exportul traseelor în fișie
     <value>Margini:</value>
   </data>
   <data name="PrintDescriptions_orientationLabel_Text" xml:space="preserve">
-    <value>Direcție</value>
+    <value>Orientare:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="PrintPunches_orientationLabel_Text" xml:space="preserve">
     <value>Direcție</value>

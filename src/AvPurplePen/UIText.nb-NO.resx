@@ -2985,7 +2985,8 @@ Til å skrive ut konkuranskekart anbefales at løypene eksporteres til OCAD file
     <value>Retning:</value>
   </data>
   <data name="PrintDescriptions_descriptionKindCombo_Items" xml:space="preserve">
-    <value>Løype standard</value>
+    <value>Løypestandard</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="PrintDescriptions_descriptionKindCombo_Items3" xml:space="preserve">
     <value>Symboler og tekst</value>
@@ -2994,7 +2995,8 @@ Til å skrive ut konkuranskekart anbefales at løypene eksporteres til OCAD file
     <value>Postbeskrivelsestype:</value>
   </data>
   <data name="PrintDescriptions_lineSizeLabel_Text" xml:space="preserve">
-    <value>Linje tykkelse:</value>
+    <value>Linjehøyde:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="PrintDescriptions_descriptionsLabel_Text" xml:space="preserve">
     <value>beskrivelser per løype</value>

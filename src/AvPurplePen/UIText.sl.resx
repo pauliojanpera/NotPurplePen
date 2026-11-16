@@ -1451,6 +1451,10 @@
   <data name="MainFrame_mapExchangeToolStripMenu_Text" xml:space="preserve">
     <value>Dodaj menjavo karte</value>
   </data>
+  <data name="PrintDescriptions_orientation_Text" xml:space="preserve">
+    <value>Ležeče</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MissingFonts_checkBoxDontWarnAgain_Text" xml:space="preserve">
     <value>Ne opozarjaj več na manjkajoče pisave za to prireditev</value>
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
@@ -1464,6 +1468,86 @@ Težavo odpravite tako, da poiščete spodaj navedene pisave in jih namestite z 
   </data>
   <data name="MissingFonts_Text" xml:space="preserve">
     <value>Manjkajoče pisave</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_printButton_Text" xml:space="preserve">
+    <value>Tiskaj</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_printerChange_Text" xml:space="preserve">
+    <value>Spremeni tiskalnik...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_printerName_Text" xml:space="preserve">
+    <value>Ime tiskalnika</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_printerLabel_Text" xml:space="preserve">
+    <value>Tiskalnik:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_copiesGroupBox_Text" xml:space="preserve">
+    <value>Kopije</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_marginChange_Text" xml:space="preserve">
+    <value>Spremeni robove...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_paperSizeLabel_Text" xml:space="preserve">
+    <value>Velikost papirja:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_margins_Text" xml:space="preserve">
+    <value>Zgoraj: 0.55", Spodaj: 0.55", Levo: 0.55", Desno: 0.55"</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_marginsLabel_Text" xml:space="preserve">
+    <value>Robovi:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_orientationLabel_Text" xml:space="preserve">
+    <value>Usmerjenost:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_descriptionKindCombo_Items" xml:space="preserve">
+    <value>Privzeto za progo</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_descriptionKindCombo_Items3" xml:space="preserve">
+    <value>Simboli in besedilo</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_descriptionTypeLabel_Text" xml:space="preserve">
+    <value>Vrsta opisa:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_lineSizeLabel_Text" xml:space="preserve">
+    <value>Velikost vrstice:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_descriptionsLabel_Text" xml:space="preserve">
+    <value>opisov na progo</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_copiesCombo_Items" xml:space="preserve">
+    <value>ena kopija vsake proge</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_copiesCombo_Items1" xml:space="preserve">
+    <value>ena stran vsake proge</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_copiesCombo_Items2" xml:space="preserve">
+    <value>več strani vsake proge</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_whatToPrintLabel_Text" xml:space="preserve">
+    <value>Tiskaj:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_Text" xml:space="preserve">
+    <value>Tiskaj opise kontrolnih točk</value>
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="CloseButton" xml:space="preserve">

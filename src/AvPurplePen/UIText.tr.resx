@@ -2395,7 +2395,8 @@ Kullan | satırları ayırmak</value>
     <value>Düzenlemek</value>
   </data>
   <data name="PrintDescriptions_orientation_Text" xml:space="preserve">
-    <value>Düzenlemek</value>
+    <value>Yatay</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="PrinterMargins_radioButtonLandscape_Text" xml:space="preserve">
     <value>Düzenlemek</value>
@@ -2996,7 +2997,8 @@ Yarışma haritalarını yazdırmak için kursların OCAD dosyalarına aktarılm
     <value>Kenar Boşluğunu Değiştir...</value>
   </data>
   <data name="PrintDescriptions_paperSize_Text" xml:space="preserve">
-    <value>Tablet (11"x17")</value>
+    <value>Tabloid (11"x17")</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="PrintPunches_paperSize_Text" xml:space="preserve">
     <value>Tablet (11"x17")</value>
@@ -3037,7 +3039,8 @@ Yarışma haritalarını yazdırmak için kursların OCAD dosyalarına aktarılm
     <value>Açıklama türü:</value>
   </data>
   <data name="PrintDescriptions_lineSizeLabel_Text" xml:space="preserve">
-    <value>Çizgi Boyutu:</value>
+    <value>Satır boyutu:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="PrintDescriptions_descriptionsLabel_Text" xml:space="preserve">
     <value>parkur başına açıklamalar</value>

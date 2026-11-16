@@ -2956,7 +2956,8 @@ Pro tisk závodních map se doporučuje exportovat tratě do souborů OCAD (vybe
     <value>Velikost řádky:</value>
   </data>
   <data name="PrintDescriptions_descriptionsLabel_Text" xml:space="preserve">
-    <value>Popisky podle trati</value>
+    <value>popisů na trať</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="PrintDescriptions_copiesCombo_Items" xml:space="preserve">
     <value>jedna kopie od každé tratě</value>

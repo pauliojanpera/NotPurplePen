@@ -2978,7 +2978,8 @@ Afin d'imprimer des cartes de compétition, nous vous suggérons d'exporter les 
     <value>définitions par circuit</value>
   </data>
   <data name="PrintDescriptions_copiesCombo_Items" xml:space="preserve">
-    <value>une copie de chaque cicuit</value>
+    <value>une copie de chaque circuit</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="PrintDescriptions_copiesCombo_Items1" xml:space="preserve">
     <value>une page de chaque circuit</value>

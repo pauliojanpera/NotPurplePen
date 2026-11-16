@@ -940,6 +940,10 @@
   <data name="CourseLoad_Load_HeaderText" xml:space="preserve">
     <value>Drukte</value>
   </data>
+  <data name="PrintDescriptions_coursesGroupBox_Text" xml:space="preserve">
+    <value>Routes</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="CreateGpx_Text" xml:space="preserve">
     <value>Creëer GPX bestand</value>
   </data>
@@ -962,6 +966,10 @@
     <value>Creëren</value>
   </data>
   <data name="CancelButton" xml:space="preserve">
+    <value>Annuleren</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_cancelButton_Text" xml:space="preserve">
     <value>Annuleren</value>
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
@@ -1654,14 +1662,72 @@ Om wedstrijdkaarten af te drukken, wordt voorgesteld de routes als OCAD bestande
   <data name="PrintCourses_checkBoxPausePrinting_Text" xml:space="preserve">
     <value>Onderbreek afdrukken na elke route of deel daar van</value>
   </data>
+  <data name="PrintDescriptions_copiesGroupBox_Text" xml:space="preserve">
+    <value>Kopieën</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="PrintCourses_Text" xml:space="preserve">
     <value>Routes afdrukkken</value>
   </data>
+  <data name="PrintDescriptions_marginChange_Text" xml:space="preserve">
+    <value>Marges wijzigen...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_paperSizeLabel_Text" xml:space="preserve">
+    <value>Papierformaat:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_margins_Text" xml:space="preserve">
+    <value>Boven: 0.55", Onder: 0.55", Links: 0.55", Rechts: 0.55"</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_marginsLabel_Text" xml:space="preserve">
+    <value>Marges:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_orientationLabel_Text" xml:space="preserve">
+    <value>Afdrukstand:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_descriptionKindCombo_Items" xml:space="preserve">
+    <value>Standaard van de route</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_descriptionKindCombo_Items3" xml:space="preserve">
+    <value>Symbolen en tekst</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_descriptionTypeLabel_Text" xml:space="preserve">
+    <value>Type postomschrijving:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_lineSizeLabel_Text" xml:space="preserve">
+    <value>Regelgrootte:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_descriptionsLabel_Text" xml:space="preserve">
+    <value>postomschrijvingen per route</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_copiesCombo_Items" xml:space="preserve">
+    <value>één kopie van elke route</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_copiesCombo_Items1" xml:space="preserve">
+    <value>één pagina van elke route</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_copiesCombo_Items2" xml:space="preserve">
+    <value>meerdere pagina's van elke route</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="PrintDescriptions_whatToPrintLabel_Text" xml:space="preserve">
-    <value>Afdrukkken:</value>
+    <value>Afdrukken:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="PrintDescriptions_Text" xml:space="preserve">
-    <value>Routebeschrijvignen afdrukken</value>
+    <value>Postomschrijvingen afdrukken</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="PrintPunches_Text" xml:space="preserve">
     <value>Prikkaarten afdrukken</value>

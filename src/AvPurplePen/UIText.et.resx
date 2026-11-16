@@ -2346,7 +2346,8 @@ Kasuta | ridade eraldamiseks</value>
     <value>Maastik</value>
   </data>
   <data name="PrintDescriptions_orientation_Text" xml:space="preserve">
-    <value>Maastik</value>
+    <value>Rõhtpaigutus</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="PrinterMargins_radioButtonLandscape_Text" xml:space="preserve">
     <value>Maastik</value>
@@ -2906,7 +2907,8 @@ Võisluste jaoks on soovitav eksportida radade failid OCADi formaati (menüüst 
     <value>Trüki rajad</value>
   </data>
   <data name="PrintDescriptions_marginChange_Text" xml:space="preserve">
-    <value>Muuda ääriseid</value>
+    <value>Muuda ääriseid...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="PrintPunches_marginChange_Text" xml:space="preserve">
     <value>Muuda ääriseid</value>
@@ -2942,7 +2944,8 @@ Võisluste jaoks on soovitav eksportida radade failid OCADi formaati (menüüst 
     <value>Suund:</value>
   </data>
   <data name="PrintDescriptions_descriptionKindCombo_Items" xml:space="preserve">
-    <value>Vaikimis rada</value>
+    <value>Vaikimisi rada</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="PrintDescriptions_descriptionKindCombo_Items3" xml:space="preserve">
     <value>Sümbolid ja tekst</value>
@@ -2969,7 +2972,8 @@ Võisluste jaoks on soovitav eksportida radade failid OCADi formaati (menüüst 
     <value>Trüki:</value>
   </data>
   <data name="PrintDescriptions_Text" xml:space="preserve">
-    <value>Trüki legendid:</value>
+    <value>Trüki legendid</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="PrinterMargins_label3_Text" xml:space="preserve">
     <value>Kõrgus:</value>

@@ -2906,7 +2906,8 @@
     <value>列印賽程</value>
   </data>
   <data name="PrintDescriptions_marginChange_Text" xml:space="preserve">
-    <value>變更邊距</value>
+    <value>變更邊距...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="PrintPunches_marginChange_Text" xml:space="preserve">
     <value>變更邊距</value>
@@ -2951,7 +2952,8 @@
     <value>說明類型:</value>
   </data>
   <data name="PrintDescriptions_lineSizeLabel_Text" xml:space="preserve">
-    <value>線條尺寸:</value>
+    <value>列的大小:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="PrintDescriptions_descriptionsLabel_Text" xml:space="preserve">
     <value>每一個賽程的說明</value>

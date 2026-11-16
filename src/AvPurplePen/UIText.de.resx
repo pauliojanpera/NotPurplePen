@@ -2981,7 +2981,8 @@ Zum Drucken der Wettkampfdateien wird empfohlen, sie nach OCAD zu exportieren (�
     <value>Papiergröße:</value>
   </data>
   <data name="PrintDescriptions_margins_Text" xml:space="preserve">
-    <value>Oben 0.55", Unten: 0.55", Link: 0.55", Rechts: 0.55"</value>
+    <value>Oben: 0.55", Unten: 0.55", Links: 0.55", Rechts: 0.55"</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="PrintPunches_margins_Text" xml:space="preserve">
     <value>Oben 0.55", Unten: 0.55", Link: 0.55", Rechts: 0.55"</value>
@@ -3008,7 +3009,8 @@ Zum Drucken der Wettkampfdateien wird empfohlen, sie nach OCAD zu exportieren (�
     <value>Postenbeschreibungstyp:</value>
   </data>
   <data name="PrintDescriptions_lineSizeLabel_Text" xml:space="preserve">
-    <value>Linienstärke:</value>
+    <value>Zeilengröße:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="PrintDescriptions_descriptionsLabel_Text" xml:space="preserve">
     <value>Postenbeschreibungen pro Bahn</value>

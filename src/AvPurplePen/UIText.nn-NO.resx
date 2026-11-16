@@ -1979,7 +1979,8 @@ Til å skrive ut konkuranskekart anbefales at løypene eksporteres til OCAD file
     <value>Endre skriver...</value>
   </data>
   <data name="PrintDescriptions_printerChange_Text" xml:space="preserve">
-    <value>Endre skriver...</value>
+    <value>Endre skrivar...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="PrintPunches_printerChange_Text" xml:space="preserve">
     <value>Endre skriver...</value>
@@ -2066,7 +2067,8 @@ Til å skrive ut konkuranskekart anbefales at løypene eksporteres til OCAD file
     <value>Postbeskrivelsestype:</value>
   </data>
   <data name="PrintDescriptions_lineSizeLabel_Text" xml:space="preserve">
-    <value>Linjetjukkelse:</value>
+    <value>Linjehøgd:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="PrintDescriptions_descriptionsLabel_Text" xml:space="preserve">
     <value>beskrivelser per løype</value>

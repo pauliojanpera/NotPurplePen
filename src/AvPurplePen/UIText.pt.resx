@@ -1262,7 +1262,8 @@
     <value>Saída:</value>
   </data>
   <data name="PrintDescriptions_printerGroup_Text" xml:space="preserve">
-    <value>Saída:</value>
+    <value>Saída</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="PrintPunches_printerGroup_Text" xml:space="preserve">
     <value>Saída:</value>
@@ -2985,7 +2986,8 @@ Para a impressão dos mapas da competição, sugere-se exportar os percursos par
     <value>Símbolos e Texto</value>
   </data>
   <data name="PrintDescriptions_descriptionTypeLabel_Text" xml:space="preserve">
-    <value>Tipo de descrição:</value>
+    <value>Tipo de sinalética:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="PrintDescriptions_lineSizeLabel_Text" xml:space="preserve">
     <value>Tamanho de linha:</value>

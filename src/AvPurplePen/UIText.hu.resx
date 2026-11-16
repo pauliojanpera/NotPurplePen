@@ -2928,7 +2928,8 @@ A versenytérképek nyomtatásához javasolt a pályákat OCAD formátumba expor
     <value>Sorméret:</value>
   </data>
   <data name="PrintDescriptions_descriptionsLabel_Text" xml:space="preserve">
-    <value>pontleírások pályánként</value>
+    <value>pontleírás pályánként</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="PrintDescriptions_copiesCombo_Items" xml:space="preserve">
     <value>egy minden pályáról</value>

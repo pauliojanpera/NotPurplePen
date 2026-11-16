@@ -3010,13 +3010,16 @@ Kilpailukarttojen tulostamiseksi on suositeltavaa viedä radat OCAD-tiedostoihin
     <value>rastinmääritteitä rataa kohden (vähintään)</value>
   </data>
   <data name="PrintDescriptions_copiesCombo_Items" xml:space="preserve">
-    <value>yksi kopio jokaista rataa</value>
+    <value>yksi kopio jokaisesta radasta</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="PrintDescriptions_copiesCombo_Items1" xml:space="preserve">
-    <value>yksi sivu jokaista rataa</value>
+    <value>yksi sivu jokaisesta radasta</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="PrintDescriptions_copiesCombo_Items2" xml:space="preserve">
-    <value>useita sivuja jokaista rataa</value>
+    <value>useita sivuja jokaisesta radasta</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="PrintDescriptions_whatToPrintLabel_Text" xml:space="preserve">
     <value>Tulosta:</value>

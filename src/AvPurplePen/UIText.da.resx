@@ -1059,7 +1059,8 @@
     <value>Kurser</value>
   </data>
   <data name="PrintDescriptions_coursesGroupBox_Text" xml:space="preserve">
-    <value>Kurser</value>
+    <value>Baner</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="PrintPunches_coursesGroupBox_Text" xml:space="preserve">
     <value>Kurser</value>
@@ -2330,7 +2331,8 @@ Brug | for at skille linjer</value>
     <value>Landskab</value>
   </data>
   <data name="PrintDescriptions_orientation_Text" xml:space="preserve">
-    <value>Landskab</value>
+    <value>Liggende</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="PrinterMargins_radioButtonLandscape_Text" xml:space="preserve">
     <value>Landskab</value>
@@ -2719,6 +2721,82 @@ Skalaen af kortet indikerer forholdet mellem papirkortet og virkeligheden.
   </data>
   <data name="NewEventFinal_afterEventCreatedLabel_Text" xml:space="preserve">
     <value>Efter din hændelse er oprettet vælg "Nyt kursus..." fra kursusmenuen for at oprette et eller flere kurser.</value>
+  </data>
+  <data name="PrintDescriptions_printButton_Text" xml:space="preserve">
+    <value>Udskriv</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_printerChange_Text" xml:space="preserve">
+    <value>Skift printer...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_printerName_Text" xml:space="preserve">
+    <value>Printernavn</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_copiesGroupBox_Text" xml:space="preserve">
+    <value>Kopier</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_marginChange_Text" xml:space="preserve">
+    <value>Ændr margener...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_paperSizeLabel_Text" xml:space="preserve">
+    <value>Papirstørrelse:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_margins_Text" xml:space="preserve">
+    <value>Top: 0.55", Bund: 0.55", Venstre: 0.55", Højre: 0.55"</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_marginsLabel_Text" xml:space="preserve">
+    <value>Margener:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_orientationLabel_Text" xml:space="preserve">
+    <value>Retning:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_descriptionKindCombo_Items" xml:space="preserve">
+    <value>Banens standard</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_descriptionKindCombo_Items3" xml:space="preserve">
+    <value>Symboler og tekst</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_descriptionTypeLabel_Text" xml:space="preserve">
+    <value>Beskrivelsestype:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_lineSizeLabel_Text" xml:space="preserve">
+    <value>Linjestørrelse:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_descriptionsLabel_Text" xml:space="preserve">
+    <value>beskrivelser pr. bane</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_copiesCombo_Items" xml:space="preserve">
+    <value>én kopi af hver bane</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_copiesCombo_Items1" xml:space="preserve">
+    <value>én side af hver bane</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_copiesCombo_Items2" xml:space="preserve">
+    <value>flere sider af hver bane</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_whatToPrintLabel_Text" xml:space="preserve">
+    <value>Udskriv:</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="PrintDescriptions_Text" xml:space="preserve">
+    <value>Udskriv beskrivelser</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="NewEventWizard_finishButton_Text" xml:space="preserve">
     <value>_Færdig</value>
