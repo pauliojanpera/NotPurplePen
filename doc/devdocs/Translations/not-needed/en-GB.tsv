@@ -11,4 +11,6 @@ UIText	DecrementButton	Decrement	en-GB writes it as the English does	claude-opus
 UIText	IncrementButton	Increment	en-GB writes it as the English does	claude-opus-5-5	max	2026-11-16
 UIText	NoButton	No	en-GB writes it as the English does	claude-opus-5-5	max	2026-11-16
 UIText	SwitchLanguageButton	Switch Language...	en-GB writes it as the English does	claude-opus-5-5	max	2026-11-16
+UIText	SwitchLanguageDialog_Prompt	Select a language:	en-GB writes it as the English does	claude-opus-5-5	max	2026-11-16
+UIText	SwitchLanguageDialog_Title	Switch Language	en-GB writes it as the English does	claude-opus-5-5	max	2026-11-16
 UIText	YesButton	Yes	en-GB writes it as the English does	claude-opus-5-5	max	2026-11-16
