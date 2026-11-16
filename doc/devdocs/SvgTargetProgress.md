@@ -109,7 +109,7 @@ The target fully implements these calls (DL-5): `Intensity`, `PushTransform`, `P
 ### The SVG dialog
 
 - **Task 4's choices** (Nov 13).
-  - Kurmanji's and Venetian's drafts ship as the agent wrote them.
+  - Kurmanji's and Venetian's drafts ship as the agent wrote them. Replaced on Nov 16: ku and vec are not translated (NotPurplePenProgress.md, "Partial translations").
   - The SVG strings come out of the five files that translate almost nothing (ca, he, id, ru, zh-HK), by reverting 60e28d5a.
   - The bitmaps combo has its own row, approximately 228 pixels wide, as the multi-page combo has. The translations have their full wording where it fits.
   - The folder picker of the SVG dialog has its own title, "Select a folder for the SVG files", translated as the title of each language's PDF picker.
