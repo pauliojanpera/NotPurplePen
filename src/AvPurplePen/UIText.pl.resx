@@ -233,10 +233,12 @@
     <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_addTextMenu_Text" xml:space="preserve">
-    <value>Opis</value>
+    <value>Tekst</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_textToolStripMenuItem_Text" xml:space="preserve">
-    <value>Opis</value>
+    <value>Tekst</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="PrintDescriptions_descriptionKindCombo_Items2" xml:space="preserve">
     <value>Tekst</value>
@@ -361,6 +363,10 @@
   </data>
   <data name="CommandNameText_NewCourse" xml:space="preserve">
     <value>Nowy Kurs</value>
+  </data>
+  <data name="MainFrame_addVariationToolStripButton_Text" xml:space="preserve">
+    <value>Dodaj wariant</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="AddTextLine_textLineLabel_Text" xml:space="preserve">
     <value>Wstaw tekst, która znajdzie się w dodatkowej linii opisów punków:</value>
@@ -711,7 +717,8 @@
     <value>Dodaj Punkt</value>
   </data>
   <data name="MainFrame_addControlToolStripButton_Text" xml:space="preserve">
-    <value>Dodaj Punkt</value>
+    <value>Dodaj PK</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="CommandNameText_AddStart" xml:space="preserve">
     <value>Dodaj Start</value>
@@ -1416,6 +1423,14 @@
   <data name="MainFrame_tabPage1_Text" xml:space="preserve">
     <value>Wszystkie PK</value>
   </data>
+  <data name="MainFrame_radioButtonDescriptions_Text" xml:space="preserve">
+    <value>Opisy</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_radioButtonTopology_Text" xml:space="preserve">
+    <value>Kolejność</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_openFileDialog_Filter" xml:space="preserve">
     <value>Pliki Purple Pen|*.ppen|Wszystkie|*.*</value>
   </data>
@@ -1437,8 +1452,44 @@
   <data name="MainFrame_createOcadFilesMenu_Text" xml:space="preserve">
     <value>Utwórz _pliki OCAD</value>
   </data>
+  <data name="MainFrame_createImageFilesMenu_Text" xml:space="preserve">
+    <value>Utwórz pliki o_brazów...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_createDescriptionPdfMenu_Text" xml:space="preserve">
+    <value>_Opisy...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_createPunchcardPdfMenu_Text" xml:space="preserve">
+    <value>_Karty do perforacji...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_createCoursePdfMenu_Text" xml:space="preserve">
+    <value>_Trasy...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_createPDFsMenu_Text" xml:space="preserve">
+    <value>Utwórz pliki PD_F</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_createRouteGadgetFilesMenu_Text" xml:space="preserve">
+    <value>Utwórz pliki RouteGadget...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_createRouteReviewFilesToolStripMenuItem_Text" xml:space="preserve">
+    <value>Utwórz pliki do analizy biegu</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_createXmlMenu_Text" xml:space="preserve">
     <value>Utwórz plik I_OF XML</value>
+  </data>
+  <data name="MainFrame_createGPXFileMenu_Text" xml:space="preserve">
+    <value>Utwórz plik GP_X...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_createKMLFileMenu_Text" xml:space="preserve">
+    <value>Utwórz plik _KML...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_printDescriptionsMenu_Text" xml:space="preserve">
     <value>_Drukuj opisy PK...</value>

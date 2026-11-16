@@ -351,6 +351,10 @@
   <data name="CommandNameText_NewCourse" xml:space="preserve">
     <value>Traseu nou</value>
   </data>
+  <data name="MainFrame_addVariationToolStripButton_Text" xml:space="preserve">
+    <value>Adăugare variantă</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="AddTextLine_textLineLabel_Text" xml:space="preserve">
     <value>Introduceți textul plasat pe linie separată a descrierii punctelor de control:</value>
   </data>
@@ -883,6 +887,10 @@
   <data name="ReportText_ColumnHeader_Courses" xml:space="preserve">
     <value>Trasee</value>
   </data>
+  <data name="MainFrame_saveGpxFileDialog_Title" xml:space="preserve">
+    <value>Creare fișier GPX</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="CreateImageFiles_createButton_Text" xml:space="preserve">
     <value>Creare</value>
   </data>
@@ -1226,6 +1234,14 @@
   <data name="MainFrame_tabPage1_Text" xml:space="preserve">
     <value>Toate Posturile</value>
   </data>
+  <data name="MainFrame_radioButtonDescriptions_Text" xml:space="preserve">
+    <value>Descrieri</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_radioButtonTopology_Text" xml:space="preserve">
+    <value>Ordine</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_openFileDialog_Filter" xml:space="preserve">
     <value>Fișiere Purple Pen|*.ppen|Toate fișierele|*.*</value>
   </data>
@@ -1233,7 +1249,8 @@
     <value>Fișier Purple Pen|*.ppen</value>
   </data>
   <data name="MainFrame_newEventMenu_Text" xml:space="preserve">
-    <value>Evniment _Nou...</value>
+    <value>Eveniment _Nou...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_openMenu_Text" xml:space="preserve">
     <value>_Deschidere...</value>
@@ -1247,6 +1264,46 @@
   <data name="MainFrame_createOcadFilesMenu_Text" xml:space="preserve">
     <value>Creare Fișiere _OCAD...</value>
   </data>
+  <data name="MainFrame_createImageFilesMenu_Text" xml:space="preserve">
+    <value>Creare fișiere ima_gine...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_createDescriptionPdfMenu_Text" xml:space="preserve">
+    <value>_Descrieri...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_createPunchcardPdfMenu_Text" xml:space="preserve">
+    <value>_Fișe de compostare...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_createCoursePdfMenu_Text" xml:space="preserve">
+    <value>_Trasee...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_createPDFsMenu_Text" xml:space="preserve">
+    <value>Creare fișiere PD_F</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_createRouteGadgetFilesMenu_Text" xml:space="preserve">
+    <value>Creare fișiere RouteGadget...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_createRouteReviewFilesToolStripMenuItem_Text" xml:space="preserve">
+    <value>Creare fișiere pentru analiza rutelor</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_createXmlMenu_Text" xml:space="preserve">
+    <value>Creare fișier de schimb de date (IOF _XML)...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_createGPXFileMenu_Text" xml:space="preserve">
+    <value>Creare fișier G_PX...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_createKMLFileMenu_Text" xml:space="preserve">
+    <value>Creare fișier _KML...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_printDescriptionsMenu_Text" xml:space="preserve">
     <value>_Tipărire Descriere...</value>
   </data>
@@ -1255,6 +1312,10 @@
   </data>
   <data name="MainFrame_printCoursesMenu_Text" xml:space="preserve">
     <value>Tipărire _Trasee...</value>
+  </data>
+  <data name="MainFrame_printAreaThisPartMenu_Text" xml:space="preserve">
+    <value>Doar această _parte</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_printAreaThisCourseMenu_Text" xml:space="preserve">
     <value>_Acest Traseu</value>

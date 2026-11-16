@@ -1625,11 +1625,19 @@
   <data name="MainFrame_createRouteGadgetFilesMenu_Text" xml:space="preserve">
     <value>RouteGadget fájlok létrehozása...</value>
   </data>
+  <data name="MainFrame_createRouteReviewFilesToolStripMenuItem_Text" xml:space="preserve">
+    <value>Útvonalelemzési fájlok létrehozása</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_createXmlMenu_Text" xml:space="preserve">
     <value>Adatcsere fájl létrehozása (IOF XML)...</value>
   </data>
   <data name="MainFrame_createGPXFileMenu_Text" xml:space="preserve">
     <value>_GPX fájl készítése...</value>
+  </data>
+  <data name="MainFrame_createKMLFileMenu_Text" xml:space="preserve">
+    <value>KML fájl létre_hozása...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_printDescriptionsMenu_Text" xml:space="preserve">
     <value>_Leírások nyomtatása...</value>
@@ -1653,7 +1661,8 @@
     <value>Nyomtatandó _terület</value>
   </data>
   <data name="MainFrame_programLanguageMenu_Text" xml:space="preserve">
-    <value>A program nyel_ve:</value>
+    <value>A program nyel_ve...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_exitMenu_Text" xml:space="preserve">
     <value>_Kilépés</value>

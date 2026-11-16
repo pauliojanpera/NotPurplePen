@@ -1582,7 +1582,8 @@
     <value>Файли Purple Pen|*.ppen</value>
   </data>
   <data name="MainFrame_newEventMenu_Text" xml:space="preserve">
-    <value>_Нова подія...</value>
+    <value>_Нові змагання...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_openMenu_Text" xml:space="preserve">
     <value>_Відкрити...</value>
@@ -1624,7 +1625,8 @@
     <value>Створити файл G_PX...</value>
   </data>
   <data name="MainFrame_createKMLFileMenu_Text" xml:space="preserve">
-    <value>Сворити файл _KML...</value>
+    <value>Створити файл _KML...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_printDescriptionsMenu_Text" xml:space="preserve">
     <value>_Друкувати легенди...</value>

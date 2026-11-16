@@ -1645,7 +1645,8 @@
     <value>创建PDF文件</value>
   </data>
   <data name="MainFrame_createRouteGadgetFilesMenu_Text" xml:space="preserve">
-    <value>创建路径和文件的小工具…</value>
+    <value>创建RouteGadget文件…</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_createRouteReviewFilesToolStripMenuItem_Text" xml:space="preserve">
     <value>创建轨迹回放文件</value>
@@ -1669,7 +1670,8 @@
     <value>打印线路...</value>
   </data>
   <data name="MainFrame_printAreaThisPartMenu_Text" xml:space="preserve">
-    <value>这部分只</value>
+    <value>仅此部分(_P)</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_printAreaThisCourseMenu_Text" xml:space="preserve">
     <value>这条线路</value>

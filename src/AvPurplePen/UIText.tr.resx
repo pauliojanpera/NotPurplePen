@@ -758,7 +758,8 @@
     <value>Hedef  Ekle</value>
   </data>
   <data name="MainFrame_addControlToolStripButton_Text" xml:space="preserve">
-    <value>Hedef  Ekle</value>
+    <value>Hedef Ekle</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="CommandNameText_AddStart" xml:space="preserve">
     <value>Başlangıç Ekle</value>
@@ -1112,7 +1113,8 @@
     <value>GPX dosysı oluştur</value>
   </data>
   <data name="MainFrame_saveGpxFileDialog_Title" xml:space="preserve">
-    <value>GPX dosysı oluştur</value>
+    <value>GPX Dosyası Oluştur</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="CreateImageFiles_createButton_Text" xml:space="preserve">
     <value>Oluştur</value>
@@ -1617,7 +1619,8 @@
     <value>Açıklamalar</value>
   </data>
   <data name="MainFrame_radioButtonTopology_Text" xml:space="preserve">
-    <value>Sipariş</value>
+    <value>Sıralama</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_mapViewerTopology_Text" xml:space="preserve">
     <value>mapViewerTopoloji</value>
@@ -1641,22 +1644,26 @@
     <value>Farklı kaydet...</value>
   </data>
   <data name="MainFrame_createOcadFilesMenu_Text" xml:space="preserve">
-    <value>OCAD ve Dosyalar Oluştur ...</value>
+    <value>OCAD _Dosyası Oluştur...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_createImageFilesMenu_Text" xml:space="preserve">
-    <value>Ima_ge Dosyası Oluştur...</value>
+    <value>_Görüntü Dosyası Oluştur...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_createDescriptionPdfMenu_Text" xml:space="preserve">
     <value>_Açıklamalar...</value>
   </data>
   <data name="MainFrame_createPunchcardPdfMenu_Text" xml:space="preserve">
-    <value>Delme Kartları Yazdır...</value>
+    <value>_Delme Kartları...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_createCoursePdfMenu_Text" xml:space="preserve">
     <value>_Parkurlar...</value>
   </data>
   <data name="MainFrame_createPDFsMenu_Text" xml:space="preserve">
-    <value>P_DF ler oluştur</value>
+    <value>PD_F'ler oluştur</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_createRouteGadgetFilesMenu_Text" xml:space="preserve">
     <value>RouteGadget Dosyaları Oluşturun...</value>
@@ -1665,7 +1672,8 @@
     <value>Rota İnceleme Dosyaları Oluşturun</value>
   </data>
   <data name="MainFrame_createXmlMenu_Text" xml:space="preserve">
-    <value>Veri ve Değişim Dosyası Oluştur (IOF XML)...</value>
+    <value>_Veri Değişim Dosyası Oluştur (IOF XML)...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_createGPXFileMenu_Text" xml:space="preserve">
     <value>G_PX Dosyası Oluştur...</value>
@@ -1680,7 +1688,8 @@
     <value>Delme Kartları Yazdır...</value>
   </data>
   <data name="MainFrame_printCoursesMenu_Text" xml:space="preserve">
-    <value>Yazdır _Parkurları...</value>
+    <value>Pa_rkurları Yazdır...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_printAreaThisPartMenu_Text" xml:space="preserve">
     <value>_Yalnızca bu bölümü</value>
@@ -1698,7 +1707,8 @@
     <value>Program _Dili...</value>
   </data>
   <data name="MainFrame_exitMenu_Text" xml:space="preserve">
-    <value>E_xit</value>
+    <value>_Çıkış</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_fileMenu_Text" xml:space="preserve">
     <value>_Dosya</value>

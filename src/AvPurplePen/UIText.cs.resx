@@ -1609,7 +1609,8 @@
     <value>Vytvořit _soubory OCAD...</value>
   </data>
   <data name="MainFrame_createImageFilesMenu_Text" xml:space="preserve">
-    <value>Vytvořit  _JPEG mapy...</value>
+    <value>Vytvořit ob_rázky...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_createDescriptionPdfMenu_Text" xml:space="preserve">
     <value>_Popisy kontrol...</value>
@@ -1630,7 +1631,8 @@
     <value>Vytvořit soubory na Analýzu Trati</value>
   </data>
   <data name="MainFrame_createXmlMenu_Text" xml:space="preserve">
-    <value>Vytvořit soubory Data _Interchange File (IOF XML)...</value>
+    <value>Vytvořit soubor pro výměnu dat (_IOF XML)...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_createGPXFileMenu_Text" xml:space="preserve">
     <value>Vytvořit GP_X...</value>
@@ -1648,7 +1650,8 @@
     <value>Tisknout _tratě...</value>
   </data>
   <data name="MainFrame_printAreaThisPartMenu_Text" xml:space="preserve">
-    <value>_Pouze tutu část</value>
+    <value>_Pouze tuto část</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_printAreaThisCourseMenu_Text" xml:space="preserve">
     <value>_Tato trať</value>

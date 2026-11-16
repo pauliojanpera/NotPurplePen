@@ -767,7 +767,8 @@
     <value>Aggiungi finish</value>
   </data>
   <data name="MainFrame_addFinishToolStripButton_Text" xml:space="preserve">
-    <value>Aggiungi finish</value>
+    <value>Aggiungi arrivo</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="CommandNameText_AddCrossingPoint" xml:space="preserve">
     <value>Aggiungi punto di passaggio obbligato</value>
@@ -1673,10 +1674,12 @@
     <value>Stampa cartellino punzonature...</value>
   </data>
   <data name="MainFrame_printCoursesMenu_Text" xml:space="preserve">
-    <value>Stampa_Percorsi</value>
+    <value>Stampa perc_orsi...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_printAreaThisPartMenu_Text" xml:space="preserve">
-    <value>Solo questa %parte</value>
+    <value>Solo questa _parte</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_printAreaThisCourseMenu_Text" xml:space="preserve">
     <value>_Questo Percorso</value>
@@ -1685,7 +1688,8 @@
     <value>_Tutti i Percorsi</value>
   </data>
   <data name="MainFrame_setPrintAreaMenu_Text" xml:space="preserve">
-    <value>Imposta Stampa _Area</value>
+    <value>Imposta a_rea di stampa</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_programLanguageMenu_Text" xml:space="preserve">
     <value>_Lingua Programma...</value>

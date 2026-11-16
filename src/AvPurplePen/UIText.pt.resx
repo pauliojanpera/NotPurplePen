@@ -1630,7 +1630,8 @@
     <value>Exportar para ficheiros Route Review</value>
   </data>
   <data name="MainFrame_createXmlMenu_Text" xml:space="preserve">
-    <value>Criar Data _Interchange File (IOF XML)...</value>
+    <value>Criar Ficheiro de _Intercâmbio de Dados (IOF XML)...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_createGPXFileMenu_Text" xml:space="preserve">
     <value>Criar Ficheiros G_PX...</value>
@@ -1663,7 +1664,8 @@
     <value>Idioma do Programa</value>
   </data>
   <data name="MainFrame_exitMenu_Text" xml:space="preserve">
-    <value>_Saír</value>
+    <value>_Sair</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_fileMenu_Text" xml:space="preserve">
     <value>_Ficheiro</value>

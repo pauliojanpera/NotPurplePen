@@ -1650,7 +1650,8 @@
     <value>Skapa RouteGadget-filer...</value>
   </data>
   <data name="MainFrame_createRouteReviewFilesToolStripMenuItem_Text" xml:space="preserve">
-    <value>Skapa bangranskningsfiler</value>
+    <value>Skapa filer för vägvalsanalys</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_createXmlMenu_Text" xml:space="preserve">
     <value>Skapa data_utbytesfil (IOF XML)...</value>

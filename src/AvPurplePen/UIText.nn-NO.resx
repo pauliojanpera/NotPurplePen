@@ -350,6 +350,10 @@
   <data name="CommandNameText_NewCourse" xml:space="preserve">
     <value>Ny løype</value>
   </data>
+  <data name="MainFrame_addVariationToolStripButton_Text" xml:space="preserve">
+    <value>Legg til variasjon</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="AddTextLine_textLineLabel_Text" xml:space="preserve">
     <value>Fyll inn tekst til eigen linje i postbeskrivelsene:</value>
   </data>
@@ -884,6 +888,10 @@
   <data name="ReportText_ColumnHeader_Courses" xml:space="preserve">
     <value>Løyper</value>
   </data>
+  <data name="MainFrame_saveGpxFileDialog_Title" xml:space="preserve">
+    <value>Lag GPX-fil</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="CreateImageFiles_createButton_Text" xml:space="preserve">
     <value>Opprett</value>
   </data>
@@ -1230,6 +1238,14 @@
   <data name="MainFrame_tabPage1_Text" xml:space="preserve">
     <value>Alle poster</value>
   </data>
+  <data name="MainFrame_radioButtonDescriptions_Text" xml:space="preserve">
+    <value>Postbeskrivelser</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_radioButtonTopology_Text" xml:space="preserve">
+    <value>Rekkjefølgje</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_openFileDialog_Filter" xml:space="preserve">
     <value>Purple Pen filer|*.ppen|Alle filer|*.*</value>
   </data>
@@ -1251,6 +1267,46 @@
   <data name="MainFrame_createOcadFilesMenu_Text" xml:space="preserve">
     <value>Lage OCAD _Filer...</value>
   </data>
+  <data name="MainFrame_createImageFilesMenu_Text" xml:space="preserve">
+    <value>Lag _bildefiler...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_createDescriptionPdfMenu_Text" xml:space="preserve">
+    <value>_Postbeskrivelser...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_createPunchcardPdfMenu_Text" xml:space="preserve">
+    <value>_Klippekort...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_createCoursePdfMenu_Text" xml:space="preserve">
+    <value>_Løyper...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_createPDFsMenu_Text" xml:space="preserve">
+    <value>Lag P_DF-filer</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_createRouteGadgetFilesMenu_Text" xml:space="preserve">
+    <value>Lag RouteGadget-filer...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_createRouteReviewFilesToolStripMenuItem_Text" xml:space="preserve">
+    <value>Lag filer for vegvalsanalyse</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_createXmlMenu_Text" xml:space="preserve">
+    <value>Lag data_utvekslingsfil (IOF XML)...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_createGPXFileMenu_Text" xml:space="preserve">
+    <value>Lag G_PX-fil...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_createKMLFileMenu_Text" xml:space="preserve">
+    <value>Lag _KML-fil...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_printDescriptionsMenu_Text" xml:space="preserve">
     <value>_Skriv ut postbeskrivelser</value>
   </data>
@@ -1259,6 +1315,10 @@
   </data>
   <data name="MainFrame_printCoursesMenu_Text" xml:space="preserve">
     <value>Skriv ut løyper...</value>
+  </data>
+  <data name="MainFrame_printAreaThisPartMenu_Text" xml:space="preserve">
+    <value>_Berre denne delen</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_printAreaThisCourseMenu_Text" xml:space="preserve">
     <value>_Denne løypa</value>
@@ -1273,7 +1333,8 @@
     <value>Programspråk</value>
   </data>
   <data name="MainFrame_exitMenu_Text" xml:space="preserve">
-    <value>E_xit</value>
+    <value>_Avslutt</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_fileMenu_Text" xml:space="preserve">
     <value>_Fil</value>

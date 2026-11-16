@@ -1632,7 +1632,8 @@
     <value>Rastin_määritteet...</value>
   </data>
   <data name="MainFrame_createPunchcardPdfMenu_Text" xml:space="preserve">
-    <value>_Leimauskuviot...</value>
+    <value>_Leimauskortit...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_createCoursePdfMenu_Text" xml:space="preserve">
     <value>_Radat...</value>
@@ -1659,7 +1660,8 @@
     <value>Tulosta rastin_määritteet...</value>
   </data>
   <data name="MainFrame_printPunchCardsMenu_Text" xml:space="preserve">
-    <value>Tulosta _leimauskuviot...</value>
+    <value>Tulosta _leimauskortit...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_printCoursesMenu_Text" xml:space="preserve">
     <value>Tulosta _ratoja...</value>

@@ -1620,7 +1620,8 @@
     <value>Топология на картния изглед</value>
   </data>
   <data name="MainFrame_openFileDialog_Filter" xml:space="preserve">
-    <value>Файлове на Purple Pen|.ppen|Всички файлове|.*</value>
+    <value>Файлове на Purple Pen|*.ppen|Всички файлове|*.*</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_saveFileDialog_Filter" xml:space="preserve">
     <value>Файл на Purple Pen|*.ppen</value>
@@ -1653,7 +1654,8 @@
     <value>_Маршрути...</value>
   </data>
   <data name="MainFrame_createPDFsMenu_Text" xml:space="preserve">
-    <value>Create P_DFs</value>
+    <value>Създай P_DF файлове</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_createRouteGadgetFilesMenu_Text" xml:space="preserve">
     <value>Създай RouteGadget файлове...</value>
@@ -1707,7 +1709,8 @@
     <value>_Изчисти избора</value>
   </data>
   <data name="MainFrame_undoMenu_Text" xml:space="preserve">
-    <value>_Undo</value>
+    <value>_Отмени</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MiscText_UndoWithShortcut" xml:space="preserve">
     <value>_Undo</value>

@@ -1614,7 +1614,8 @@
     <value>Tee OCADi _failid...</value>
   </data>
   <data name="MainFrame_createImageFilesMenu_Text" xml:space="preserve">
-    <value>Salvesta pil_difaild ...</value>
+    <value>Salvesta pil_difailid...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_createDescriptionPdfMenu_Text" xml:space="preserve">
     <value>_Legendid...</value>
@@ -1665,7 +1666,8 @@
     <value>Määra trüki_ala</value>
   </data>
   <data name="MainFrame_programLanguageMenu_Text" xml:space="preserve">
-    <value>Programm _Keel</value>
+    <value>Programmi _keel...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_exitMenu_Text" xml:space="preserve">
     <value>V_älju</value>

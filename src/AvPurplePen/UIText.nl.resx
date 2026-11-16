@@ -1360,6 +1360,18 @@
   <data name="MainFrame_mapViewerTopology_Text" xml:space="preserve">
     <value>mapViewerTopology</value>
   </data>
+  <data name="MainFrame_openFileDialog_Filter" xml:space="preserve">
+    <value>Purple Pen-bestanden|*.ppen|Alle bestanden|*.*</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_saveFileDialog_Filter" xml:space="preserve">
+    <value>Purple Pen-bestand|*.ppen</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_newEventMenu_Text" xml:space="preserve">
+    <value>_Nieuw evenement...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_openMenu_Text" xml:space="preserve">
     <value>_Open...</value>
   </data>
@@ -1372,26 +1384,89 @@
   <data name="MainFrame_createOcadFilesMenu_Text" xml:space="preserve">
     <value>Creëer OCAD _bestanden...</value>
   </data>
+  <data name="MainFrame_createImageFilesMenu_Text" xml:space="preserve">
+    <value>Creëer afbeeld_ingsbestanden...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_createDescriptionPdfMenu_Text" xml:space="preserve">
+    <value>_Postomschrijvingen...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_createPunchcardPdfMenu_Text" xml:space="preserve">
+    <value>Pri_kkaarten...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_createCoursePdfMenu_Text" xml:space="preserve">
-    <value>Creëer PDF's...</value>
+    <value>_Routes...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_createPDFsMenu_Text" xml:space="preserve">
+    <value>Creëer P_DF's</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_createRouteGadgetFilesMenu_Text" xml:space="preserve">
     <value>Creëer Route_Gadget bestanden...</value>
   </data>
+  <data name="MainFrame_createRouteReviewFilesToolStripMenuItem_Text" xml:space="preserve">
+    <value>Creëer bestanden voor routeanalyse</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_createXmlMenu_Text" xml:space="preserve">
-    <value>Creëer Data _Uitwisselings bestand (IOF XML)...</value>
+    <value>Creëer data-_uitwisselingsbestand (IOF XML)...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_createGPXFileMenu_Text" xml:space="preserve">
     <value>Creëer G_PX bestand...</value>
   </data>
+  <data name="MainFrame_createKMLFileMenu_Text" xml:space="preserve">
+    <value>Creëer K_ML-bestand...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_printDescriptionsMenu_Text" xml:space="preserve">
-    <value>_Postomschrijvingen afrdukken...</value>
+    <value>_Postomschrijvingen afdrukken...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_printPunchCardsMenu_Text" xml:space="preserve">
+    <value>Pri_kkaarten afdrukken...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_printCoursesMenu_Text" xml:space="preserve">
     <value>_Routes afdrukken...</value>
   </data>
+  <data name="MainFrame_printAreaThisPartMenu_Text" xml:space="preserve">
+    <value>Alleen dit _deel</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_printAreaThisCourseMenu_Text" xml:space="preserve">
+    <value>Deze _route</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_printAreaAllCoursesMenu_Text" xml:space="preserve">
+    <value>_Alle routes</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_setPrintAreaMenu_Text" xml:space="preserve">
     <value>Afdruk_gebied instellen</value>
+  </data>
+  <data name="MainFrame_programLanguageMenu_Text" xml:space="preserve">
+    <value>Programma_taal...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_exitMenu_Text" xml:space="preserve">
+    <value>A_fsluiten</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_fileMenu_Text" xml:space="preserve">
+    <value>_Bestand</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_cancelMenu_Text" xml:space="preserve">
+    <value>_Selectie opheffen</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_undoMenu_Text" xml:space="preserve">
+    <value>_Ongedaan maken</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_zoom50Menu_Text" xml:space="preserve">
     <value>50%</value>

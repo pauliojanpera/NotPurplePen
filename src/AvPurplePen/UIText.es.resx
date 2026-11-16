@@ -1609,11 +1609,23 @@
   <data name="MainFrame_createPDFsMenu_Text" xml:space="preserve">
     <value>Crear _PDF...</value>
   </data>
+  <data name="MainFrame_createRouteGadgetFilesMenu_Text" xml:space="preserve">
+    <value>Crear archivos de RouteGadget...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_createRouteReviewFilesToolStripMenuItem_Text" xml:space="preserve">
+    <value>Crear archivos para el análisis de rutas</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_createXmlMenu_Text" xml:space="preserve">
     <value>Crear archivos de _intercambio de datos (IOF XML)...</value>
   </data>
   <data name="MainFrame_createGPXFileMenu_Text" xml:space="preserve">
     <value>Crear un archivo GP_X...</value>
+  </data>
+  <data name="MainFrame_createKMLFileMenu_Text" xml:space="preserve">
+    <value>Crear archivo _KML...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_printDescriptionsMenu_Text" xml:space="preserve">
     <value>_Imprimir descripciones…</value>
@@ -1637,7 +1649,8 @@
     <value>_Definir área de impresión</value>
   </data>
   <data name="MainFrame_programLanguageMenu_Text" xml:space="preserve">
-    <value>_Lenguaje del programa...</value>
+    <value>Idio_ma del programa...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_exitMenu_Text" xml:space="preserve">
     <value>_Salir</value>

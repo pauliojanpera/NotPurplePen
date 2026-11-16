@@ -1582,16 +1582,19 @@
     <value>Sinalética</value>
   </data>
   <data name="MainFrame_radioButtonTopology_Text" xml:space="preserve">
-    <value>Ordenando</value>
+    <value>Ordenação</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_mapViewerTopology_Text" xml:space="preserve">
     <value>Topologia do MapViewer</value>
   </data>
   <data name="MainFrame_openFileDialog_Filter" xml:space="preserve">
-    <value>Arquivos Purple Pen |*.ppen|All files|*.*</value>
+    <value>Arquivos Purple Pen|*.ppen|Todos os arquivos|*.*</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_saveFileDialog_Filter" xml:space="preserve">
-    <value>Arquivo Purple Pen |*.ppen</value>
+    <value>Arquivo Purple Pen|*.ppen</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_newEventMenu_Text" xml:space="preserve">
     <value>_Novo Evento...</value>
@@ -1606,7 +1609,8 @@
     <value>Salvar _Como...</value>
   </data>
   <data name="MainFrame_createOcadFilesMenu_Text" xml:space="preserve">
-    <value>Criar _Ficheiros OCAD...</value>
+    <value>Criar Arquivos _OCAD...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_createImageFilesMenu_Text" xml:space="preserve">
     <value>Criar Arquivos de Ima_gem...</value>
@@ -1666,7 +1670,8 @@
     <value>Sai_r</value>
   </data>
   <data name="MainFrame_fileMenu_Text" xml:space="preserve">
-    <value>_Ficheiro/Arquivo</value>
+    <value>Ar_quivo</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_cancelMenu_Text" xml:space="preserve">
     <value>_Limpar Seleção</value>

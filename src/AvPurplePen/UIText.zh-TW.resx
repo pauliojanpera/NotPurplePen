@@ -1581,13 +1581,15 @@
     <value>說明</value>
   </data>
   <data name="MainFrame_radioButtonTopology_Text" xml:space="preserve">
-    <value>排序中</value>
+    <value>排序</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_mapViewerTopology_Text" xml:space="preserve">
     <value>地圖檢視者拓樸</value>
   </data>
   <data name="MainFrame_openFileDialog_Filter" xml:space="preserve">
-    <value>Purple Pen 檔案|*.ppen|All files|*.*</value>
+    <value>Purple Pen 檔案|*.ppen|所有檔案|*.*</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_saveFileDialog_Filter" xml:space="preserve">
     <value>Purple Pen 檔案|*.ppen</value>
@@ -1605,7 +1607,8 @@
     <value>另存新檔(_A)...</value>
   </data>
   <data name="MainFrame_createOcadFilesMenu_Text" xml:space="preserve">
-    <value>建立OCAD _檔案(_F)...</value>
+    <value>建立OCAD檔案(_F)...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_createImageFilesMenu_Text" xml:space="preserve">
     <value>建立圖片檔案...</value>

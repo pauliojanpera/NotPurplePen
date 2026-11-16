@@ -347,6 +347,10 @@
   <data name="CommandNameText_NewCourse" xml:space="preserve">
     <value>Nova proga</value>
   </data>
+  <data name="MainFrame_addVariationToolStripButton_Text" xml:space="preserve">
+    <value>Dodaj varianto</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="AddTextLine_textLineLabel_Text" xml:space="preserve">
     <value>Vnesi besedilo za dodatno vrstico opisa kontrolnih točk</value>
   </data>
@@ -884,6 +888,10 @@
   <data name="ReportText_ColumnHeader_Courses" xml:space="preserve">
     <value>Proge</value>
   </data>
+  <data name="MainFrame_saveGpxFileDialog_Title" xml:space="preserve">
+    <value>Ustvari datoteko GPX</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="CreateImageFiles_createButton_Text" xml:space="preserve">
     <value>Ustvari</value>
   </data>
@@ -1193,6 +1201,14 @@
   <data name="MainFrame_tabPage1_Text" xml:space="preserve">
     <value>Vse kontrolne točke</value>
   </data>
+  <data name="MainFrame_radioButtonDescriptions_Text" xml:space="preserve">
+    <value>Opisi</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_radioButtonTopology_Text" xml:space="preserve">
+    <value>Vrstni red</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_openFileDialog_Filter" xml:space="preserve">
     <value>Purple Pen datoteke|*.ppen|Vse datoteke|*.*</value>
   </data>
@@ -1214,17 +1230,59 @@
   <data name="MainFrame_createOcadFilesMenu_Text" xml:space="preserve">
     <value>Ustvari OCAD _Datoteke...</value>
   </data>
+  <data name="MainFrame_createImageFilesMenu_Text" xml:space="preserve">
+    <value>Ustvari s_likovne datoteke...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_createDescriptionPdfMenu_Text" xml:space="preserve">
+    <value>_Opisi...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_createPunchcardPdfMenu_Text" xml:space="preserve">
+    <value>_Kontrolni kartoni...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_createCoursePdfMenu_Text" xml:space="preserve">
+    <value>_Proge...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_createPDFsMenu_Text" xml:space="preserve">
+    <value>Ustvari PD_F-je</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_createRouteGadgetFilesMenu_Text" xml:space="preserve">
+    <value>Ustvari datoteke RouteGadget...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_createRouteReviewFilesToolStripMenuItem_Text" xml:space="preserve">
+    <value>Ustvari datoteke za analizo poti</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_createXmlMenu_Text" xml:space="preserve">
     <value>Ustvari podatkovno _Datoteko za izmenjavo (IOF XML)...</value>
   </data>
+  <data name="MainFrame_createGPXFileMenu_Text" xml:space="preserve">
+    <value>Ustvari datoteko GP_X...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_createKMLFileMenu_Text" xml:space="preserve">
+    <value>Ustvari datoteko K_ML...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
   <data name="MainFrame_printDescriptionsMenu_Text" xml:space="preserve">
-    <value>_Tiskaj Opise kontrolnih točk...</value>
+    <value>_Tiskaj opise kontrolnih točk...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
+  </data>
+  <data name="MainFrame_printPunchCardsMenu_Text" xml:space="preserve">
+    <value>Tiskaj kontrolne k_artone...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_printCoursesMenu_Text" xml:space="preserve">
     <value>Tiskaj _Proge...</value>
   </data>
   <data name="MainFrame_printAreaThisPartMenu_Text" xml:space="preserve">
-    <value>Izbran _Samo delno</value>
+    <value>_Samo ta del</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_printAreaThisCourseMenu_Text" xml:space="preserve">
     <value>_Izbrana Proga</value>
@@ -1236,7 +1294,8 @@
     <value>Določi območje tiskanja</value>
   </data>
   <data name="MainFrame_programLanguageMenu_Text" xml:space="preserve">
-    <value>Program _Jezik...</value>
+    <value>_Jezik programa...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_exitMenu_Text" xml:space="preserve">
     <value>I_zhod</value>

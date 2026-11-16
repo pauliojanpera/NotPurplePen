@@ -1631,10 +1631,12 @@
     <value>_Descriptions...</value>
   </data>
   <data name="MainFrame_createPunchcardPdfMenu_Text" xml:space="preserve">
-    <value>Poinçons...</value>
+    <value>Cartons de co_ntrôle...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_createCoursePdfMenu_Text" xml:space="preserve">
-    <value>_Courses...</value>
+    <value>_Circuits...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_createPDFsMenu_Text" xml:space="preserve">
     <value>Créer des P_DF</value>
@@ -1646,13 +1648,15 @@
     <value>Créer des fichiers pour l'analyse de course</value>
   </data>
   <data name="MainFrame_createXmlMenu_Text" xml:space="preserve">
-    <value>Créer Fichier _Interchange XML...</value>
+    <value>Créer un fichier d'échange de données (IOF _XML)...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_createGPXFileMenu_Text" xml:space="preserve">
     <value>Créer Fichier G_PX...</value>
   </data>
   <data name="MainFrame_createKMLFileMenu_Text" xml:space="preserve">
-    <value>Créer _KML File...</value>
+    <value>Créer un fichier _KML...</value>
+    <comment>translator=claude-opus-5-5; effort=max; date=2026-11-16</comment>
   </data>
   <data name="MainFrame_printDescriptionsMenu_Text" xml:space="preserve">
     <value>_Imprimer les Définitions...</value>
