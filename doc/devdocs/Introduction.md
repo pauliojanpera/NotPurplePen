@@ -66,7 +66,8 @@ the WinForms project with its TranslateTool. [Translations/README.md](Translatio
   building, testing and delivering, and wins where the two disagree. Both are in the code branches and load into a
   session that works in a checkout. On `docs/process-coordination`, `doc/devdocs` holds the handover
   (`NotPurplePenProgress.md`), the documents of the SVG target (`SvgTargetProgress.md`, `SvgTargetRequirements.md`,
-  `SvgExportDesign.md`), the translation work (`Translations/`), and the tools of each piece of work.
+  `SvgExportDesign.md`), the translation work (`Translations/`), the flattening work (`Flattening/`), and the tools of
+  each piece of work.
 - **The transcripts** of the sessions are archived in the private repository `pauliojanpera/windows-fonts`, on the
   branch `sessions`. Its README tells how.
 
