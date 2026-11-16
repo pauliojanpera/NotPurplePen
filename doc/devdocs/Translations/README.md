@@ -97,6 +97,18 @@ The rules of the translation are @Pauli's (handover, task 9, Nov 14 and 16):
 - Correct an existing translation only when completely sure that it is wrong, and say why.
 - Write a review table for each language.
 
+## The terms
+
+[terms.csv](terms.csv) holds the terms of the application and their translations in every language: one line for
+each term, the English first, then a column for each language in the order of the language codes, so that `grep`
+finds a term and all its translations on one line (@Pauli, Nov 16). `terms.py` makes it from the existing
+translations: a term is an English text of at most three words, without its access-key mark, colon or ellipsis. A
+cell holds the language's translations of the term, the most frequent first, separated by " / ". Several
+translations in one cell show where the language translates a term in more than one way, or where the English term
+has more than one sense ("Start" as the start of a course, and as the verb). An empty cell is a term that the
+language does not translate yet. On Nov 16, from 1de84f81: 530 terms, 11,193 cells filled, 568 of them with several
+translations, and 5,767 empty, most of them in ca, he, id, ku, ru, sl, vec and zh-HK.
+
 ## Who made a translation
 
 A translation that a language model made carries in the `<comment>` of its entry in the satellite:
@@ -129,6 +141,7 @@ details.
 | `apply.py <checkout> <language> <tsv>...` | Writes the filled lines into the satellites, in the order of the English file, with the comment that names the language model, and checks each satellite after it. Leaves out a line whose English is not the English of now, and a key translated already, unless the line corrects it (`old`) or `--replace` is given. |
 | `check.py <checkout>` | Reports errors (no parse, a repeated name, an empty value, a placeholder or brace that `string.Format` throws on) and, with `--warnings`, what to examine (a lost placeholder, an access-key mark, the spaces or the colon or ellipsis at the ends, a text that may not fit). |
 | `review.py <tsv>...` | Writes the review table of filled TSV files. |
+| `terms.py <checkout> <out csv>` | Writes `terms.csv`, the terms and their translations in every language, one term on each line. |
 | `resxlib.py` | What the scripts share: the resources, the related languages, and the reading and writing of `.resx`, PO and TSV files. |
 
 ## The TSV files
