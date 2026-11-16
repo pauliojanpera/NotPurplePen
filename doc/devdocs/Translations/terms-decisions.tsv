@@ -37,7 +37,7 @@ en	language	value	was	note	translator	effort	date
 2004 Description Standard	ro	Standard de descriere 2004		filled: the language's "Descriere" (Add Descriptions: "Adăugare Descriere")	claude-opus-5-5	max	2026-11-16
 2004 Description Standard	ru	Стандарт легенд КП 2004		filled: Russian orienteering calls control descriptions "легенды КП"; uk "2004 стандарт легенд КП"	claude-opus-5-5	max	2026-11-16
 2004 Description Standard	sl	Standard opisov 2004		filled: the language's "opisi kontrolnih točk"	claude-opus-5-5	max	2026-11-16
-2004 Description Standard	tr	2004 Tanım Standardı	2004 Tanım Satandardı	corrected: the typo "Satandardı"	claude-opus-5-5	max	2026-11-16
+2004 Description Standard	tr	2004 Açıklama Standardı	2004 Tanım Satandardı	corrected: the typo "Satandardı", and "tanım" is a definition; the language's descriptions are "açıklamalar" (Descriptions)	claude-opus-5-5	max	2026-11-16
 2018/2024 Description Standard	fr	Norme de définitions 2018/2024		filled: as "Norme de définitions 2004"	claude-opus-5-5	max	2026-11-16
 2018/2024 Description Standard	hu	2018-as/2024-es leírás szabvány	2018-as/2024-as lerírás szabvány	corrected: the typo "lerírás", and the suffix of 2024 is "-es" (as "2004-es")	claude-opus-5-5	max	2026-11-16
 2018/2024 Description Standard	ja	2018/2024年版ディスクリプション規格		filled: as 2004年版ディスクリプション規格	claude-opus-5-5	max	2026-11-16
@@ -47,7 +47,7 @@ en	language	value	was	note	translator	effort	date
 2018/2024 Description Standard	ro	Standard de descriere 2018/2024		filled: as "Standard de descriere 2004"	claude-opus-5-5	max	2026-11-16
 2018/2024 Description Standard	ru	Стандарт легенд КП 2018/2024		filled: as "Стандарт легенд КП 2004"	claude-opus-5-5	max	2026-11-16
 2018/2024 Description Standard	sl	Standard opisov 2018/2024		filled: as "Standard opisov 2004"	claude-opus-5-5	max	2026-11-16
-2018/2024 Description Standard	tr	2018/2024 Tanım Standardı	2018/2024 Tanım Satandardı	corrected: the typo "Satandardı"	claude-opus-5-5	max	2026-11-16
+2018/2024 Description Standard	tr	2018/2024 Açıklama Standardı	2018/2024 Tanım Satandardı	corrected: the typo "Satandardı", and "tanım" is a definition; the language's descriptions are "açıklamalar" (Descriptions)	claude-opus-5-5	max	2026-11-16
 32-bit	bg	32-битова		filled: the usual word of the language; no text of the language has the term yet; the bitness of the program in the About dialog, "64-bit (Standalone Setup)"	claude-opus-5-5	max	2026-11-16
 32-bit	cs	32bitová		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 32-bit	da	32-bit		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
@@ -159,6 +159,7 @@ Add Bend	zh-TW	增加轉彎處	增加轉彎處 / 新增轉彎處	chosen: the var
 Add Bend (Ctrl+B)	all			removed: the tooltip of Add Bend with its shortcut; the term is the line "Add Bend", and the brackets would read as a sense	claude-opus-5-5	max	2026-11-16
 Add Control	da	Tilføj post	Tilføj kontrol	corrected: Danish orienteering calls a control "post" ("kontrol" is a check)	claude-opus-5-5	max	2026-11-16
 Add Control	ru	Добавить КП		filled: КП is the control in Russian orienteering, as uk; the language's "Код КП"	claude-opus-5-5	max	2026-11-16
+Add Control	tr	Kontrol Ekle	Hedef Ekle	corrected: "hedef" is a target; the language's control is "kontrol" (Control)	claude-opus-5-5	max	2026-11-16
 Add Control (Ctrl+A)	all			removed: the tooltip of Add Control with its shortcut; the term is the line "Add Control"	claude-opus-5-5	max	2026-11-16
 Add Corner	ru	Добавить угол		filled: the usual word of the language; no text of the language has the term yet; as uk "Додати кут"	claude-opus-5-5	max	2026-11-16
 Add Course	da	Tilføj bane	Tilføj kursus	corrected: Danish orienteering calls a course "bane" ("kursus" is a course of study)	claude-opus-5-5	max	2026-11-16
@@ -167,6 +168,7 @@ Add Course	ru	Добавить дистанцию		filled: дистанция is
 Add Description Language	nl	Taal voor postomschrijvingen toevoegen		filled: the language's "Postomschrijvingen"	claude-opus-5-5	max	2026-11-16
 Add Description Language	ru	Добавить язык легенд		filled: легенды (КП) are the control descriptions in Russian orienteering; uk "Додати мову легенди"	claude-opus-5-5	max	2026-11-16
 Add Description Language	sl	Dodaj jezik opisov		filled: the language's "opisi kontrolnih točk"	claude-opus-5-5	max	2026-11-16
+Add Description Language	tr	Açıklama Dili Ekle	Tanım Dili Ekle	corrected: "tanım" is a definition; the language's descriptions are "açıklamalar" (Descriptions)	claude-opus-5-5	max	2026-11-16
 Add Descriptions	nl	Postomschrijvingen toevoegen		filled: the language's "Postomschrijvingen"	claude-opus-5-5	max	2026-11-16
 Add Descriptions	ru	Добавить легенды		filled: as uk "Додати легенди"	claude-opus-5-5	max	2026-11-16
 Add Descriptions	sl	Dodaj opise		filled: the language's "opisi"	claude-opus-5-5	max	2026-11-16
@@ -327,8 +329,10 @@ All controls (every control)	uk	Усі КП	Всі КП	as the view	claude-opus-
 All controls (every control)	zh-CN	所有检查点	所有的检查点 / 所有检查点	as the view	claude-opus-5-5	max	2026-11-16
 All controls (every control)	zh-TW	所有檢查點	所有檢查點	as the view	claude-opus-5-5	max	2026-11-16
 All Controls Properties	da	Egenskaber for Alle poster	Alle kontrollers egenskaber	corrected: Danish orienteering calls controls "poster"; the view is "Alle poster"	claude-opus-5-5	max	2026-11-16
+All Controls Properties	et	Kõigi KPde seaded	Kõik punktid seaded	corrected: "Kõik punktid seaded" is not grammatical, and "punkt" is a point; the language's "KPde koormus"	claude-opus-5-5	max	2026-11-16
 All Controls Properties	it	Proprietà di Tutti i punti	Proprietà della tutti i punti	corrected: "della tutti" is not grammatical	claude-opus-5-5	max	2026-11-16
 All Controls Properties	ru	Свойства «Все КП»		filled: the view "Все КП"	claude-opus-5-5	max	2026-11-16
+All Controls Properties	sl	Lastnosti vseh KT	Lastnosti Vse KT	corrected: "Vse" is the nominative; the properties are those "of all controls"	claude-opus-5-5	max	2026-11-16
 All courses	da	Alle baner	Alle kurser	corrected: Danish orienteering calls courses "baner"	claude-opus-5-5	max	2026-11-16
 All courses	fi	Kaikki radat	Kaikki radat / Kaikille radoille	chosen: the variant that the language uses most	claude-opus-5-5	max	2026-11-16
 All courses	ja	すべてのコース	すべてのコース / 全てのコース	chosen: the variant that the language uses most	claude-opus-5-5	max	2026-11-16
@@ -996,6 +1000,7 @@ Create	zh-CN	创建	创造	corrected: 创造 is to create as an invention; the l
 Create Event	da	Opret løb		filled: the usual word of the language; no text of the language has the term yet; an orienteering event is a "løb" in Danish	claude-opus-5-5	max	2026-11-16
 Create Event	de	Wettkampf anlegen	Wettkampf Anlegen	corrected: the verb has no capital	claude-opus-5-5	max	2026-11-16
 Create Event	nn-NO	Opprett arrangement		filled: the usual word of the language; no text of the language has the term yet; as nb-NO "Opprett nytt arrangement"	claude-opus-5-5	max	2026-11-16
+Create Event	pl	Utwórz zawody	Stwórz zawody	corrected: the language's verb is "utwórz" (Create)	claude-opus-5-5	max	2026-11-16
 Create Event	ro	Creare eveniment		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Create Event	ru	Создать соревнование		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Create Event	sl	Ustvari prireditev		filled from the language's own texts that hold the term:; "Ustvari novo prireditev"	claude-opus-5-5	max	2026-11-16
@@ -1047,7 +1052,9 @@ Create KML File	uk	Створити файл KML	Створити файл KML /
 Create KML File	zh-CN	创建KML文件	创建软件包文件 / 创建KML文件	chosen: 软件包文件 is a package file	claude-opus-5-5	max	2026-11-16
 Create KML File	zh-TW	建立KML檔案	建立OCAD檔案 / 建立KML檔案	chosen: the other is Create OCAD Files	claude-opus-5-5	max	2026-11-16
 Create New Event	da	Opret nyt løb	Opret ny hændelse	corrected: "hændelse" is an incident; an orienteering event is a "løb"	claude-opus-5-5	max	2026-11-16
+Create New Event	pl	Utwórz nowe zawody	Stwórz Wydarzenie	corrected: "wydarzenie" is a happening; the language's event is "zawody" (Event, New Event)	claude-opus-5-5	max	2026-11-16
 Create New Event	ru	Создать новое соревнование		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Create New Event	uk	Створити нові змагання	Створити новий захід	corrected: "захід" is an event of any kind; the language's event is "змагання" (Event, New Event)	claude-opus-5-5	max	2026-11-16
 Create OCAD Files	da	Opret OCAD-filer	Opret OCADfiler / Opret OCAD Filer	corrected: both variants lack the hyphen of a compound with an abbreviation	claude-opus-5-5	max	2026-11-16
 Create OCAD Files	nb-NO	Lag OCAD-filer	Lag OCAD filer / Lage OCAD Filer	corrected: both variants lack the hyphen of a compound with an abbreviation	claude-opus-5-5	max	2026-11-16
 Create OCAD Files	nn-NO	Lag OCAD-filer	Lag OCAD filer / Lage OCAD Filer	corrected: both variants lack the hyphen of a compound with an abbreviation	claude-opus-5-5	max	2026-11-16
@@ -1222,6 +1229,7 @@ Delete (Del)	all			removed: the toolbar text of Delete with its key; the term is
 Delete Control	da	Slet post	Slet kontrol	corrected: Danish orienteering calls a control "post"	claude-opus-5-5	max	2026-11-16
 Delete Control	hu	Ellenőrzőpont törlése	Ellenőrőzpont törlése	corrected: the typo "Ellenőrőzpont"	claude-opus-5-5	max	2026-11-16
 Delete Control	ru	Удалить КП		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Delete Control	tr	Kontrol Sil	Hedef Sil	corrected: "hedef" is a target; the language's control is "kontrol" (Control)	claude-opus-5-5	max	2026-11-16
 Delete Course	da	Slet bane	Slet kursus	corrected: Danish orienteering calls a course "bane"	claude-opus-5-5	max	2026-11-16
 Delete Course	es	Eliminar recorrido	Eliminar recorrido / Borrar recorrido	chosen: the variant that the language uses most	claude-opus-5-5	max	2026-11-16
 Delete Course	fr	Supprimer le circuit	Supprimer le circuit / Supprimer un Circuit	chosen: the variant that the language uses most	claude-opus-5-5	max	2026-11-16
@@ -1252,12 +1260,9 @@ Delete Text Line	ru	Удалить строку текста		filled: the usual 
 Delete Text Line	uk	Видалити рядок тексту	Видалити строку тексту	corrected: "строка" is Russian; a line of text is "рядок"	claude-opus-5-5	max	2026-11-16
 Description appearance	cs	Zobrazení popisu	Popis zobrazení	corrected: "Popis zobrazení" means the description of a display	claude-opus-5-5	max	2026-11-16
 Description appearance	sl	Videz opisa	predogled opisa	corrected: "predogled" is a preview	claude-opus-5-5	max	2026-11-16
+Description appearance	sv	Kontrollbeskrivningens utseende	Definitionens utseende	corrected: "definition" is the language's rarer word; its descriptions are "kontrollbeskrivningar" (Descriptions)	claude-opus-5-5	max	2026-11-16
 Description appearance	tr	Açıklama görünümü	Görüntü açıklaması	corrected: "Görüntü açıklaması" means the description of an image	claude-opus-5-5	max	2026-11-16
-Description Browser	da	Beskrivelsesbrowser	Beskrivelses Browser	corrected: the compound is written as one word	claude-opus-5-5	max	2026-11-16
-Description Browser	nl	Bladeren door postomschrijvingen		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
-Description Browser	ro	Răsfoire Descrieri	Fruzărire Descrieri	corrected: the typo "Fruzărire"	claude-opus-5-5	max	2026-11-16
-Description Browser	ru	Обозреватель легенд		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
-Description Browser	sl	Brskalnik opisov		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Description Browser	all			removed: an item of the hidden Debug menu, for the developer; not a term of the application	claude-opus-5-5	max	2026-11-16
 Description type	da	Beskrivelsestype		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Description type	nl	Type postomschrijving		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Description type	ru	Тип легенд		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
@@ -1267,6 +1272,7 @@ Descriptions	de	Postenbeschreibungen	Beschreibungen / Postenbeschreibungen	chose
 Descriptions	fi	Rastinmääritteet	Rastinmääritteet / Määritteet	chosen: the language's texts use it most; the count of "Määritteet" includes "Rastinmääritteet"	claude-opus-5-5	max	2026-11-16
 Descriptions	hu	Pontleírások	Leírások / Pontleírások / Új pontleírás	chosen: the language's term; the count of "Leírások" includes "Pontleírások", and "Új pontleírás" is the Add menu's item	claude-opus-5-5	max	2026-11-16
 Descriptions	nb-NO	Postbeskrivelser	Beskrivelser / Postbeskrivelser	chosen: the language's texts use it most; the count of "Beskrivelser" includes "Postbeskrivelser"	claude-opus-5-5	max	2026-11-16
+Descriptions	nl	Postomschrijvingen	Beschrijvingen	corrected: the language's descriptions are "postomschrijvingen" (Control Descriptions); "beschrijving" is its rarer word	claude-opus-5-5	max	2026-11-16
 Descriptions	nn-NO	Postbeskrivelser		filled from the language's own texts that hold the term:; "Skriv ut postbeskrivelser"	claude-opus-5-5	max	2026-11-16
 Descriptions	pl	Opisy		filled from the language's own texts that hold the term:; "Dodaj opisy", "Drukuj opisy"	claude-opus-5-5	max	2026-11-16
 Descriptions	pt	Sinalética	Sinalética / Descrições	chosen: the variant that the language uses most	claude-opus-5-5	max	2026-11-16
@@ -1285,6 +1291,7 @@ Descriptions 2004	pl	Opisy 2004		filled: the usual word of the language; no text
 Descriptions 2004	ro	Descrieri 2004		filled: the usual word of the language; no text of the language has the term yet; the language's "Descrieri"	claude-opus-5-5	max	2026-11-16
 Descriptions 2004	ru	Легенды 2004		filled: the usual word of the language; no text of the language has the term yet; as uk "Легенди 2004"	claude-opus-5-5	max	2026-11-16
 Descriptions 2004	sl	Opisi 2004		filled: the usual word of the language; no text of the language has the term yet; the language's "opisi"	claude-opus-5-5	max	2026-11-16
+Descriptions 2004	tr	Açıklamalar 2004	2004 Tanımlamalar	corrected: "tanımlamalar" are definitions; the language's descriptions are "açıklamalar" (Descriptions)	claude-opus-5-5	max	2026-11-16
 descriptions per course	all			removed: a fragment: the words after the number box of the print dialog ("[2] descriptions per course")	claude-opus-5-5	max	2026-11-16
 Distance	da	Afstand		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Distance	ru	Расстояние		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
@@ -2540,9 +2547,10 @@ Move and Scale	uk	Перемістити й масштабувати		filled: th
 Move and Scale	zh-TW	移動並縮放		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Move Control	da	Flyt post	Flyt kontrol	corrected: Danish orienteering calls a control "post"	claude-opus-5-5	max	2026-11-16
 Move Control	ru	Переместить КП		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
-Move Control	tr	Hedefi Taşı	Hedef'i Taşı	corrected: an apostrophe only goes after a proper name	claude-opus-5-5	max	2026-11-16
+Move Control	tr	Kontrolü Taşı	Hedef'i Taşı	corrected: "hedef" is a target, the language's control is "kontrol" (Control); and an apostrophe only goes after a proper name	claude-opus-5-5	max	2026-11-16
 Move Control Number	da	Flyt postnummer	Flyt kontrolnummer	corrected: Danish orienteering calls a control "post"	claude-opus-5-5	max	2026-11-16
 Move Control Number	ru	Переместить номер КП		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Move Control Number	tr	Kontrol Numarasını Taşı	Hedef Numarasını Taşı	corrected: "hedef" is a target; the language's control is "kontrol" (Control)	claude-opus-5-5	max	2026-11-16
 Move down	ru	Переместить вниз		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Move Gap	ru	Переместить разрыв		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Move Gap	tr	Boşluğu Taşı	Boşluğu Taşi	corrected: the typo "Taşi"	claude-opus-5-5	max	2026-11-16
@@ -3243,6 +3251,7 @@ Repeated Controls	pt	Pontos de Controlo Repetidos	Ponto de Controlo Repetidos	co
 Repeated Controls	ro	Posturi repetate		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Repeated Controls	ru	Повторяющиеся КП		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Repeated Controls	sl	Ponovljene kontrolne točke		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
+Repeated Controls	tr	Tekrarlanan Kontroller	Tekrarlanan Hedefler	corrected: "hedef" is a target; the language's control is "kontrol" (Controls)	claude-opus-5-5	max	2026-11-16
 Replace	da	Erstat		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Replace	nl	Vervangen		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Replace	ru	Заменить		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
@@ -3884,6 +3893,7 @@ Unused Controls	da	Ubrugte poster		filled: the usual word of the language; no te
 Unused Controls	et	Kasutamata KPd	Kasutatud KPd	corrected: "Kasutatud" means used	claude-opus-5-5	max	2026-11-16
 Unused Controls	ru	Неиспользуемые КП		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Unused Controls	sl	Neuporabljene kontrolne točke		filled from the language's own texts that hold the term:; "Izbriši neuporabljene kontrolne točke"	claude-opus-5-5	max	2026-11-16
+Unused Controls	tr	Kullanılmayan Kontroller	Kullanılmayan Hedefler	corrected: "hedef" is a target; the language's control is "kontrol" (Controls)	claude-opus-5-5	max	2026-11-16
 Update Available	bg	Налична е актуализация		filled: the usual word of the language; no text of the language has the term yet; the title of the update dialog	claude-opus-5-5	max	2026-11-16
 Update Available	cs	Je k dispozici aktualizace		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
 Update Available	da	Opdatering tilgængelig		filled: the usual word of the language; no text of the language has the term yet	claude-opus-5-5	max	2026-11-16
