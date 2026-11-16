@@ -5,9 +5,11 @@ translator fills.
 usage: packet.py <checkout> <language> <out folder> [--others N] [--resource NAME ...] [--forks-own | --upstream-only] [--upstream REV] [--translator MODEL --effort LEVEL]
 
 Writes <out folder>/<language>.md and <out folder>/<language>.tsv. The TSV has a line for each key
-that the language lacks, with the columns resource, key, english, translation, note, mirrors,
+that the language lacks, with the columns resource, key, english, translation, old, note, mirrors,
 translator and effort. The translator fills translation, writes in note the context that decided it,
-and keeps in mirrors the existing keys whose translation it follows. translator and effort name the
+and keeps in mirrors the existing keys whose translation it follows. To correct an existing
+translation that it is completely sure is wrong, the translator adds a line for the key with the
+existing translation in old (@Pauli, Nov 16). translator and effort name the
 language model and its effort setting that make the translations: --translator and --effort fill
 them in. apply.py writes the filled lines into the satellites, and review.py makes the review table
 of them.
@@ -185,7 +187,7 @@ def main():
                 body.append('- Other languages: ' + ('; '.join(others) if others else 'none'))
                 body.append('')
                 mirrors = ' '.join(label.split(' ')[-1] if ' ' in label else label for label, _, _ in matches[:3])
-                rows.append([res, key, entry.value, '', '', mirrors, args.translator, args.effort])
+                rows.append([res, key, entry.value, '', '', '', mirrors, args.translator, args.effort])
             sections.append('\n'.join(body))
 
     terms = {}
@@ -200,7 +202,10 @@ def main():
             'for each key, with the translation, the context that decided it (note), and the existing keys whose '
             'translation it follows (mirrors). For a key that needs no translation in this language, write `=` as '
             'the translation and say why in note: apply.py then records the key as not needed, and writes nothing '
-            'into the satellite. Leave the translation empty for a key that is not done. In the TSV, write a line '
+            'into the satellite. Leave the translation empty for a key that is not done. If you are completely sure '
+            'that an existing translation of this language is wrong, correct it: add a line for its key with the '
+            'English, the existing translation in `old` exactly as the satellite has it (`lookup.py` gives it), the '
+            'correction in `translation`, and in `note` why the existing one is wrong. In the TSV, write a line '
             'break as \\n and a tab as \\t.', '',
             f'The other languages are read in this order: {", ".join(order)}. To see every translation of any '
             'key, for example of a key in "Same control" or "mirrors", run `lookup.py <checkout> <key>`.', '',
@@ -214,7 +219,7 @@ def main():
     with open(os.path.join(args.out, f'{lang}.md'), 'w', encoding='utf-8', newline='\n') as f:
         f.write('\n'.join(head) + '\n' + '\n'.join(sections))
     R.write_tsv(os.path.join(args.out, f'{lang}.tsv'),
-                ['resource', 'key', 'english', 'translation', 'note', 'mirrors', 'translator', 'effort'], rows)
+                ['resource', 'key', 'english', 'translation', 'old', 'note', 'mirrors', 'translator', 'effort'], rows)
     print(f'{lang}: {len(rows)} keys, {len(terms)} terms')
 
 

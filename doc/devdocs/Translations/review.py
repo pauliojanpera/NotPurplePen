@@ -5,7 +5,8 @@ key, the English, the translation, the context that decided it, and the existing
 usage: review.py <tsv>... > review.md
 
 The language of each TSV is its file name without ".tsv". Lines without a translation are left out.
-A key judged to need no translation ("=") is shown as such. The language model and effort setting of
+A key judged to need no translation ("=") is shown as such, and a correction with the translation that
+it replaces. The language model and effort setting of
 the translator and effort columns are given under the heading where all lines share them, and in a
 column "Made by" where they differ."""
 
@@ -49,6 +50,8 @@ def main():
         for r in rows:
             key = r['key'] if r['resource'] == 'UIText' else f'{r["resource"]}.{r["key"]}'
             translation = '(not needed)' if r['translation'] == '=' else cell(r['translation'])
+            if r.get('old', ''):
+                translation += f'<br>(corrects: {cell(r["old"])})'
             line = f'| `{key}` | {cell(r["english"])} | {translation} | {cell(r.get("note", ""))} | {cell(r.get("mirrors", ""))} |'
             if len(makers) > 1:
                 line += f' {made(r)} |'

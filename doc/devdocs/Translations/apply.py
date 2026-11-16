@@ -8,8 +8,9 @@ other columns are ignored). A line whose translation is "=" records the key as n
 language's not-needed file (default: not-needed beside the scripts), with its english and note, and
 writes nothing into the satellite. A line is written if its translation is not empty, the key is in the
 resource's English file, and its english is the English file's text now: a line made from an older
-English is left out. A key that the satellite translates already is left out unless --replace is
-given. A null or empty entry of the key is replaced. A new entry goes into the place that the key has
+English is left out. A key that the satellite translates already is left out, unless the line gives
+in its old column the satellite's translation exactly (a correction), or --replace is given. A line
+whose old is not the satellite's translation now is left out. A null or empty entry of the key is replaced. A new entry goes into the place that the key has
 in the English file. A satellite that does not exist is made from the English file's header.
 
 A line whose translator column, or else --translator, names a language model gets the comment
@@ -123,9 +124,19 @@ def main():
                 counts['English changed'] += 1
                 continue
             own = before.get(key)
-            if own is not None and own.has_text() and not args.replace:
-                counts['translated already'] += 1
-                continue
+            old = row.get('old', '')
+            if own is not None and own.has_text():
+                if old != '':
+                    if own.value != old:
+                        print(f'{res}.{key}: the translation is now "{own.value}", not "{old}"; left out')
+                        counts['old changed'] += 1
+                        continue
+                    counts['corrected'] += 1
+                elif not args.replace:
+                    counts['translated already'] += 1
+                    continue
+            elif old != '':
+                print(f'{res}.{key}: the satellite has no translation to correct; written as a new one')
             values[key] = row['translation']
             translator, effort = made_by(row)
             if translator:

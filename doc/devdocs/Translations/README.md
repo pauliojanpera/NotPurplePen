@@ -77,6 +77,10 @@ meets upstream, so that they can be offered upstream.
    gives every translation of any other key. The translator uses the terms of the language's own translations, and
    keeps to the room that the dialogs give, as task 4 did. For a key that needs no translation in the language, it
    writes `=`.
+   If the translator is completely sure that an existing translation is wrong, it corrects it (@Pauli, Nov 16): a
+   line for the key with the existing translation, exactly as the satellite has it, in `old`, the correction in
+   `translation`, and in `note` why the existing one is wrong. A correction in another language goes into a TSV of
+   that language, which `apply.py` writes for that language.
 3. `apply.py <checkout> <language> <language>.tsv` writes the translations into the satellites, each with the comment
    that names the language model (below), and records the keys marked `=` in `not-needed/<language>.tsv` beside the
    scripts.
@@ -100,7 +104,8 @@ where it tells a reviewer which translations a model made. A person who changes 
 removes the comment.
 
 `apply.py` writes the comment from the `translator` and `effort` columns of the TSV, or from its `--translator` and
-`--effort`. A line without a translator is written without a comment, as a person's translation. The not-needed file
+`--effort`. A line without a translator is written without a comment, as a person's translation. A correction
+gets the comment too, and the review table shows the translation that it replaces. The not-needed file
 records the same columns. Status.md counts the translations of each language that a model made ("By a model"),
 `lookup.py` marks them, and `review.py` gives the model of each review table.
 
@@ -114,7 +119,7 @@ details.
 | `status.py <checkout> <out folder>` | Writes `Status.md`, the table, and `missing/<language>.tsv`, the keys that each language lacks, with the English, the satellite in `src/PurplePen` that holds a translation, and whether the key is the fork's own. |
 | `packet.py <checkout> <language> <out folder>` | Writes the packet of one language: `<language>.md` to read, with the language's terms and, for each key, the English, the other keys of the same control, the same text in the language, and the key in every other language that translates it, the related languages first; and `<language>.tsv` to fill. |
 | `lookup.py <checkout> <key>...` | Shows every translation of keys, with the language model that made each, for the translator and the reviewer. `--regex` takes patterns of key names. |
-| `apply.py <checkout> <language> <tsv>...` | Writes the filled lines into the satellites, in the order of the English file, with the comment that names the language model, and checks each satellite after it. Leaves out a line whose English is not the English of now, and a key translated already, unless `--replace`. |
+| `apply.py <checkout> <language> <tsv>...` | Writes the filled lines into the satellites, in the order of the English file, with the comment that names the language model, and checks each satellite after it. Leaves out a line whose English is not the English of now, and a key translated already, unless the line corrects it (`old`) or `--replace` is given. |
 | `check.py <checkout>` | Reports errors (no parse, a repeated name, an empty value, a placeholder or brace that `string.Format` throws on) and, with `--warnings`, what to examine (a lost placeholder, an access-key mark, the spaces or the colon or ellipsis at the ends, a text that may not fit). |
 | `review.py <tsv>...` | Writes the review table of filled TSV files. |
 | `resxlib.py` | What the scripts share: the resources, the related languages, and the reading and writing of `.resx`, PO and TSV files. |
@@ -122,5 +127,5 @@ details.
 ## The TSV files
 
 UTF-8, a header line, one line for each key, the fields separated by tabs. Within a field, a line break is `\n`, a
-tab `\t` and a backslash `\\`. A packet's TSV has the columns `resource`, `key`, `english`, `translation`, `note`,
-`mirrors`, `translator` and `effort`.
+tab `\t` and a backslash `\\`. A packet's TSV has the columns `resource`, `key`, `english`, `translation`, `old`,
+`note`, `mirrors`, `translator` and `effort`. `old` is empty except in a correction.
