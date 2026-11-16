@@ -4183,3 +4183,8 @@ Registration Mark	sl	Oznaka registra	oznaka registra	corrected with the key grou
 ISOM2000 Map Standard	da	ISOM2000 kortstandard	ISOM2000 kort Standard	corrected with the key group MainFrame.3: the compound was split, with a capital; as the nb-NO "kartstandard"	claude-opus-5-5	max	2026-11-16
 ISOM2017 Map Standard	da	ISOM2017 kortstandard	ISOM2017 Kort Standard	corrected with the key group MainFrame.3: the compound was split, with a capital; as the nb-NO "kartstandard"	claude-opus-5-5	max	2026-11-16
 Move All Controls	nb-NO	Flytt alle poster	Flytt Alle Poster	corrected with the key group MainFrame.3: "alle" and "poster" take no capitals in Norwegian	claude-opus-5-5	max	2026-11-16
+Relay Team Variations	nl	Varianten van estafetteteams	Estafette team varianten	corrected with the key group MainFrame.4: "Estafette team varianten" splits the compound; "estafetteteam" is one word	claude-opus-5-5	max	2026-11-16
+Relay Team	nl	Estafetteteam	Estafette team	corrected with the key group MainFrame.4: "estafetteteam" is one word	claude-opus-5-5	max	2026-11-16
+Change Line Appearance	tr	Çizgi Görünümünü Değiştir	Satır Görünümünü Değiştir	corrected with the key group MainFrame.4: "satır" is a line of text; a drawn line is "çizgi" (Line (drawn))	claude-opus-5-5	max	2026-11-16
+Control Cross-reference	tr	Kontrol Çapraz Referansı	Kontrol Çapraz referans	corrected with the key group MainFrame.4: the compound needs its suffix, as "Parkur Özeti"	claude-opus-5-5	max	2026-11-16
+Delete Fork/Loop	da	Slet gafling/løkke	Slet fork/løkke	corrected with the key group MainFrame.4: "fork" is the English; the term Fork is "Gafling"	claude-opus-5-5	max	2026-11-16
