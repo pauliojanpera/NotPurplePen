@@ -1,3 +1,4 @@
 resource	key	english	note	translator	effort	date
 UIText	AddCourse_kmSuffix_Text	km	the unit beside the length box; the language writes the symbol km as the English does	claude-opus-5-5	max	2026-11-16
+UIText	MainFrame_mapViewerTopology_Text	mapViewerTopology	the Text of the WinForms control mapViewerTopology, which shows nowhere (the Avalonia view uses only its name); the languages that translate it keep the name or translate the name of the control	claude-opus-5-5	max	2026-11-16
 UIText	PrintDescriptions_paperSize_Text	Tabloid (11"x17")	the WinForms dialog's placeholder, which both dialogs replace at runtime; the language writes it as the English does, with the term Tabloid (11"x17")	claude-opus-5-5	max	2026-11-16

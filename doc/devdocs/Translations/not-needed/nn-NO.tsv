@@ -1,2 +1,3 @@
 resource	key	english	note	translator	effort	date
 UIText	AddCourse_kmSuffix_Text	km	the unit beside the length box; the language writes the symbol km as the English does	claude-opus-5-5	max	2026-11-16
+UIText	MainFrame_mapViewerTopology_Text	mapViewerTopology	the Text of the WinForms control mapViewerTopology, which shows nowhere (the Avalonia view uses only its name); the languages that translate it keep the name or translate the name of the control	claude-opus-5-5	max	2026-11-16
