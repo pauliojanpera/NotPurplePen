@@ -17,6 +17,7 @@ Made by claude-opus-5-5, effort max.
 | `MainFrame_radioButtonTopology_Text` | Ordering | 排序<br>(corrects: 排序中) | 排序中 means "sorting in progress" (the term Ordering) |  |
 | `MainFrame_openFileDialog_Filter` | Purple Pen files\|*.ppen\|All files\|*.* | Purple Pen 檔案\|*.ppen\|所有檔案\|*.*<br>(corrects: Purple Pen 檔案\|*.ppen\|All files\|*.*) | "All files" was English (the terms Files and All) |  |
 | `MainFrame_createOcadFilesMenu_Text` | Create OCAD _Files... | 建立OCAD檔案(_F)...<br>(corrects: 建立OCAD _檔案(_F)...) | the item had two access-key marks, "_檔" and "(_F)"; the second stays, as the language's other items |  |
+| `MainFrame_addMapFlipMenuItem_Text` | Map _Flip at Control Point | 在檢查點翻轉地圖(_F) | item of the submenu Map Flip/Exchange of the Add menu: the competitors turn over their double-sided map at a control; the term Add Map Flip, and the form of the language's Map Exchange at Control Point; its access key is a letter that no other item of its menu uses |  |
 | `PrintDescriptions_lineSizeLabel_Text` | Line size: | 列的大小:<br>(corrects: 線條尺寸:) | 線條 is a drawn line; the box sets the size of a row of the description sheet, in mm (the term Line size) |  |
 | `PrintDescriptions_marginChange_Text` | Change Margins... | 變更邊距...<br>(corrects: 變更邊距) | the button opens the Page Setup dialog, and the ellipsis that says so was missing |  |
 | `IncrementButton` | Increment | 增加 | sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment |  |

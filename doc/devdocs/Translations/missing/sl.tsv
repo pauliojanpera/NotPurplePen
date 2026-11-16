@@ -140,20 +140,7 @@ UIText	PrinterMargins_label2_Text	Width:
 UIText	LinePropertiesDialog_labelGapSize_Text	Gap Size:		
 UIText	LinePropertiesDialog_labelDashSize_Text	Dash Size:		
 UIText	LinePropertiesDialog_labelCornerRadius_Text	Corner Radius:		
-UIText	MainFrame_showPrintAreaMenu_Text	Show P_rint Area		
-UIText	MainFrame_otherCoursesMenu_Text	Other Courses...		
-UIText	MainFrame_clearOtherCoursesMenu_Text	Clear Other Courses		
-UIText	MainFrame_addStartMenu_Text	_Start		
-UIText	MainFrame_addControlMenu_Text	_Control		
-UIText	MainFrame_addFinishMenu_Text	_Finish		
 UIText	MiscText_FinishButtonText	_Finish		
-UIText	MainFrame_addDescriptionsMenu_Text	_Descriptions		
-UIText	MainFrame_addMapFlipMenuItem_Text	Map _Flip at Control Point		
-UIText	MainFrame_addMapExchangeMenu_Text	Map Flip/E_xchange		
-UIText	MainFrame_addVariationMenu_Text	_Variation...		
-UIText	MainFrame_addTextLineMenu_Text	Text _Line...		
-UIText	MainFrame_addMapIssueMenu_Text	Timed Start		
-UIText	MainFrame_mapIssuePointToolStripMenuItem_Text	Timed Start		
 UIText	MiscText_MapIssue_Long	Timed Start		
 UIText	MiscText_MapIssue_Medium	Timed Start		
 UIText	MainFrame_addConstructionMenu_Text	Temporary Construction		

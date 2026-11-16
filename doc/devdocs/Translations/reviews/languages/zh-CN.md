@@ -23,6 +23,11 @@ Made by claude-opus-5-5, effort max.
 | `EnterSymbolText_labelDescription_Text` | Enter the customized text for the symbol in the "Text" column. | 在“文本”栏中输入该符号的自定义文本。<br>(corrects: 输入自定义文本的符号在“文字”栏。) | the sentence was garbled ("input the symbol of the customized text is in the column"), and it named the column 文字, which the language calls 文本 (the terms Customized text and Text) |  |
 | `MainFrame_createRouteGadgetFilesMenu_Text` | Create RouteGadget Files... | 创建RouteGadget文件…<br>(corrects: 创建路径和文件的小工具…) | 路径和文件的小工具 ("a gadget of routes and files") translated the name RouteGadget (the term Create RouteGadget Files) |  |
 | `MainFrame_printAreaThisPartMenu_Text` | This _Part Only | 仅此部分(_P)<br>(corrects: 这部分只) | 这部分只 puts "only" at the end (the term This Part Only), with the access key of the English |  |
+| `MainFrame_mapIntensityMenu_Text` | Map _Intensity | 地图强度(_I)<br>(corrects: 地图与强度) | 与 made it "map and intensity" (the term Map Intensity), with the access key of the English |  |
+| `MainFrame_showPopupsMenu_Text` | Show _Popup Information | 显示弹出信息(_P)<br>(corrects: 显示和弹出信息) | 和 made it "show and pop up information" (the term Show Popup Information), with the access key of the English |  |
+| `MainFrame_addFinishMenu_Text` | _Finish | 终点(_F)<br>(corrects: 完成(_F)) | the item adds the finish circle of the course; 完成 is "complete"; the finish is 终点, as the language's 起点 (the term Finish (of a course)) |  |
+| `MainFrame_addMapFlipMenuItem_Text` | Map _Flip at Control Point | 在检查点将地图翻面(_F)<br>(corrects: 在这个检查点进行地图切换（_F）) | 地图切换 (switching maps) is the map exchange; the flip is 翻面 (the term Add Map Flip, 添加地图翻面) |  |
+| `MainFrame_addTextLineMenu_Text` | Text _Line... | 文本行(_L)...<br>(corrects: 添加文本和线) | 添加文本和线 is "add text and line"; the item adds a line of text (the term Text line) |  |
 | `PrintDescriptions_layoutGroup_Text` | Appearance | 外观<br>(corrects: 界面) | 界面 is the user interface; the appearance is 外观, as zh-TW 外觀 (the term Appearance) |  |
 | `PrintDescriptions_marginChange_Text` | Change Margins... | 更改页边距…<br>(corrects: 变化率…) | 变化率 is a rate of change; the button changes the page margins (the term Change Margins) |  |
 | `PrintDescriptions_marginsLabel_Text` | Margins: | 页边距：<br>(corrects: 利润率：) | 利润率 is a profit margin; the margins of the page are 页边距 (the term Margins) |  |

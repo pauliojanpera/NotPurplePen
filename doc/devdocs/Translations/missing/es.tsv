@@ -30,7 +30,6 @@ UIText	CourseAppearanceDialog_labelBlendPurple_Text	Blend purple with underlying
 UIText	CourseAppearanceDialog_groupBoxOcadMap_Text	Advanced		
 UIText	CreateImageFiles_label1_Text	World file:		
 UIText	CreateKmlFiles_Text	Create KML File		
-UIText	MainFrame_addMapFlipMenuItem_Text	Map _Flip at Control Point		
 UIText	MainFrame_addConstructionMenu_Text	Temporary Construction		
 UIText	MainFrame_constructionToolStripMenuItem_Text	Temporary Construction		
 UIText	MainFrame_addEllipseMenu_Text	Ellipse		

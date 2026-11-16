@@ -47,11 +47,6 @@ UIText	CreateRouteGadget_labelIofXml_Text	IOF XML Version:
 UIText	CreateRouteGadget_groupBox1_Text	IOF XML		
 UIText	LegAssignmentsDialog_labelDescription_Text	To assign a specific leg to a specific branch, type the leg number(s) below. Legs not assigned to a branch will be distributed among remaining branches randomly.		
 UIText	LegAssignmentsDialog_Text	Leg Assignments		
-UIText	MainFrame_otherCoursesMenu_Text	Other Courses...		
-UIText	MainFrame_clearOtherCoursesMenu_Text	Clear Other Courses		
-UIText	MainFrame_addMapFlipMenuItem_Text	Map _Flip at Control Point		
-UIText	MainFrame_addMapIssueMenu_Text	Timed Start		
-UIText	MainFrame_mapIssuePointToolStripMenuItem_Text	Timed Start		
 UIText	MiscText_MapIssue_Long	Timed Start		
 UIText	MiscText_MapIssue_Medium	Timed Start		
 UIText	MainFrame_addConstructionMenu_Text	Temporary Construction		

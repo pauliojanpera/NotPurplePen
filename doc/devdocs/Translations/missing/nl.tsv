@@ -98,48 +98,11 @@ UIText	LegAssignmentsDialog_linkLabel_Text	More information...
 UIText	LegAssignmentsDialog_Text	Leg Assignments		
 UIText	MiscText_ClearSelectionWithShortcut	_Clear Selection		
 UIText	MiscText_UndoWithShortcut	_Undo		
-UIText	MainFrame_redoMenu_Text	_Redo		
 UIText	MiscText_RedoWithShortcut	_Redo		
-UIText	MainFrame_deleteMenu_Text	_Delete		
-UIText	MainFrame_deleteItemMenu_Text	_Delete		
-UIText	MainFrame_editMenu_Text	_Edit		
-UIText	MainFrame_entireCourseMenu_Text	Entire _Course		
-UIText	MainFrame_entireMapMenu_Text	Entire _Map		
-UIText	MainFrame_veryLowIntensityMenu_Text	_Very Low		
-UIText	MainFrame_lowIntensityMenu_Text	_Low		
-UIText	MainFrame_mediumIntensityMenu_Text	_Medium		
-UIText	MainFrame_highIntensityMenu_Text	_High		
-UIText	MainFrame_fullIntensityMenu_Text	_Full		
-UIText	MainFrame_mapIntensityMenu_Text	Map _Intensity		
-UIText	MainFrame_mapQualityMenu_Text	Map _Quality		
-UIText	MainFrame_showPrintAreaMenu_Text	Show P_rint Area		
-UIText	MainFrame_showPopupsMenu_Text	Show _Popup Information		
-UIText	MainFrame_allControlsMenu_Text	_All Controls		
-UIText	MainFrame_otherCoursesMenu_Text	Other Courses...		
-UIText	MainFrame_clearOtherCoursesMenu_Text	Clear Other Courses		
-UIText	MainFrame_viewMenu_Text	_View		
-UIText	MainFrame_addStartMenu_Text	_Start		
-UIText	MainFrame_addControlMenu_Text	_Control		
-UIText	MainFrame_addFinishMenu_Text	_Finish		
 UIText	MiscText_FinishButtonText	_Finish		
-UIText	MainFrame_addDescriptionsMenu_Text	_Descriptions		
-UIText	MainFrame_addMapFlipMenuItem_Text	Map _Flip at Control Point		
-UIText	MainFrame_mapExchangeControlMenuItem_Text	Map Exchange at _Control Point		
-UIText	MainFrame_mapExchangeSeparateMenuItem_Text	Flagged _Route to Map Exchange		
-UIText	MainFrame_addMapExchangeMenu_Text	Map Flip/E_xchange		
-UIText	MainFrame_addVariationMenu_Text	_Variation...		
-UIText	MainFrame_addTextLineMenu_Text	Text _Line...		
-UIText	MainFrame_addMapIssueMenu_Text	Timed Start		
-UIText	MainFrame_mapIssuePointToolStripMenuItem_Text	Timed Start		
 UIText	MiscText_MapIssue_Long	Timed Start		
 UIText	MiscText_MapIssue_Medium	Timed Start		
-UIText	MainFrame_addMandatoryCrossingMenu_Text	Mandatory Crossing Point		
-UIText	MainFrame_mandatoryCrossingPointToolStripMenuItem_Text	Mandatory Crossing Point		
-UIText	MainFrame_addOptCrossingMenu_Text	Optional Crossing Point		
-UIText	MainFrame_optionalCrossingPointToolStripMenuItem_Text	Optional Crossing Point		
 UIText	SelectionDescriptionText_SpecialName_OptCrossing	Optional Crossing Point		
-UIText	MainFrame_addOutOfBoundsMenu_Text	Out Of Bounds Area		
-UIText	MainFrame_outOfBoundsToolStripMenuItem_Text	Out Of Bounds Area		
 UIText	MainFrame_addDangerousMenu_Text	Dangerous Area		
 UIText	MainFrame_dangerousToolStripMenuItem_Text	Dangerous Area		
 UIText	SelectionDescriptionText_SpecialName_Dangerous	Dangerous Area		
