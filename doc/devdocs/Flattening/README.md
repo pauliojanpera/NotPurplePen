@@ -350,4 +350,8 @@ The agent type `plan-step` runs at effort `max`, so this work does not use it.
 
 ## Status
 
-Phase 0 has not started. The ladder has no reviews.
+Phase 0 is measured (Nov 17): [Measurements.md](Measurements.md), with the review
+[reviews/phase-0.md](reviews/phase-0.md). Skia's path operations keep curves and repeat their results. They do not
+give a division of a map into pieces that do not overlap: on a whole map they take too long, and in tiles of 5 to
+25 mm, 0.4 % to 13.7 % of the operations give no result or a wrong result. So the structure of the cut is open
+([Session.md](Session.md), "What phase 0 changed"). The ladder has no reviews.

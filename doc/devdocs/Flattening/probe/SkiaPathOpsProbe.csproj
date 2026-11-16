@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- The probe of phase 0 of the flattening work: it measures the boolean path operations of Skia on the geometry
+       of real maps and on edges that two areas share. AppSrc names the src folder of a checkout of
+       feature/flattening. The probe uses the projects of that checkout and does not change them:
+         dotnet build -c Release -p:AppSrc=/path/to/checkout/src -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <AppSrc Condition="'$(AppSrc)' == ''">../../../../src</AppSrc>
+    <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
+    <ServerGarbageCollection>false</ServerGarbageCollection>
+    <ConcurrentGarbageCollection>false</ConcurrentGarbageCollection>
+    <TieredPGO>false</TieredPGO>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(AppSrc)/MapModel/Graphics2D/Graphics2D.csproj" />
+    <ProjectReference Include="$(AppSrc)/MapModel/MapModel/MapModel.csproj" />
+    <ProjectReference Include="$(AppSrc)/MapModel/Map_SkiaStd/Map_SkiaStd.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- The versions that the projects of the checkout use (src/Directory.Packages.props at e6116a7b). -->
+    <PackageReference Include="SkiaSharp" Version="3.119.4" />
+    <PackageReference Include="SkiaSharp.NativeAssets.Linux" Version="3.119.4" />
+    <PackageReference Include="HarfBuzzSharp.NativeAssets.Linux" Version="8.3.1.5" />
+  </ItemGroup>
+</Project>

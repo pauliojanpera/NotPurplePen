@@ -25,7 +25,10 @@ blend function and after it, which gives the same result.
   glyph. A mark covers a set of points.
 - A **drawing** is its marks in the order in which they are drawn, the lowest first.
 - A **run** is the marks of one colour that follow each other with no mark of another colour between them. A map draws
-  each colour of its table as one run.
+  the colours of its table one after the other, the lowest first, so the marks of one colour of the table are in one
+  run. Colours of the table that follow each other with the same values, the same opacity and the same overprint flag
+  are one run together, and a colour of the table that draws nothing has no run: `LordHill.ocd` has 43 colours and
+  20 runs ([Measurements.md](Measurements.md), question 1).
 - A **knockout colour** is a colour that is not overprinted.
 - An **ink** is all the overprinted colours that have the same CMYK values, wherever they are in the order (FL-2).
   The opacity is not a part of the ink: it is the coverage that a mark asks for.

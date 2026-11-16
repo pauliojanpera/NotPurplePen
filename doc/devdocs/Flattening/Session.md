@@ -159,29 +159,63 @@ use. Otherwise a new agent gets a brief that names what is left.
 work its input (README.md, "The transparency of a colour"). A session that reaches case 11 with that branch unmerged
 stops and says so.
 
+## What phase 0 changed
+
+Phase 0 measured the path operations (Nov 17): [Measurements.md](Measurements.md), and the review
+[reviews/phase-0.md](reviews/phase-0.md). These are its results for the briefs. **The structure of the cut is open.**
+The second point is not measured, and it needs @Pauli's word on GATE-6.
+
+- **A division of the page into pieces that do not overlap cannot be built on these operations as it stands.** It
+  needs the `Difference` of each run and the union of all runs above it. On a whole map that takes too long: 860 s
+  for the smallest map, where 9 of 40 operations give no result. In tiles of 5 to 25 mm, 0.4 % to 13.7 % of the
+  operations give no result or a wrong result, and most of these report no failure. The session of Nov 16 planned
+  this division: a knockout colour was one piece that cuts all that is below it.
+- **A structure that is not measured.** An opaque colour stays whole, in its drawing order, and covers what is below
+  it with no cut. Only a run with blending, or with an opacity below 1, is cut: its marks are intersected with what
+  lies below them, and each part is drawn above, with the mixed colour. The handover describes the flattening so:
+  "Each such colour is cut against each colour below it". This needs `Intersect` only. Its pieces overlap, so GATE-6
+  cannot stay as README.md gives it. A separation (SEP-1) is then the same pieces, each drawn with the coverage of
+  the ink, and not one mask of the ink as geometry.
+- **Each result of a path operation needs a check** that uses samples and no path operation. A right result differs
+  from its operands in single samples along its outline. A wrong result differs in areas: one sample or more
+  differs together with its eight neighbours. What the stage does when the check fails is not known.
+- **Tiles make the time practical.** `LordHill.ocd` in tiles of 10 mm takes 16 s with the machine alone, and
+  `teanaway.omap` 315 s on a loaded machine. They do not cure the failures.
+- **Unite the marks of a run by pairs.** One after the other, and `SKPath.OpBuilder`, pass 10 s at 687 marks. Check
+  the union too: the union of the contours of `LordHill.ocd` is wrong with no failure.
+- **FL-8 needs a rule for the resolution scale of `SKPaint.GetFillPath`.** At the default, the outline of a line of
+  0.35 mm is wrong by 0.158 mm. At 40 for each millimetre it is wrong by 0.0044 mm, and at 400 by 0.0006 mm.
+- **A pattern reaches the stage as elements inside a clip** (case 8). One `Op(Intersect)` for each element is 351 s
+  of the 357 s in which the probe took the largest map as marks, and three of four elements end outside the clip.
+- **Text** is 231 to 315 calls a map (case 9). The probe did not keep it.
+- **The test maps hold case 5:** the overprinted black of `LordHill.ocd` is runs 14 and 16, with a knockout run
+  between them, and that of `McHugh Creek.omap` is runs 8, 10, 12 and 16. `teanaway.omap` has 34 overprinted
+  colours of 35, so no colour of it knocks out.
+- **The results repeat** on this machine, bit for bit, in each process. Another machine is not measured (GATE-5).
+- **The loop is short:** the first build of `Map_Skia.Tests` takes 34.5 s, a build with nothing changed 6.3 s, and
+  one test 3.7 s. So a step whose commands are builds and test runs can use the five-minute cache. The agent of
+  phase 0 had the one-hour cache, and it waited four times for more than five minutes, each time for a run of the
+  probe.
+
 ## What the session knows for the next briefs
 
 These are not decisions. They are what the session of Nov 16 found when it examined the plan, for the briefs of
-phases 1 to 3. The numbers of phase 0 can change them.
+phases 1 to 3. Phase 0 changed what they said of the cut and of tiles: see "What phase 0 changed".
 
 - **The stage has four parts.**
   1. A target that keeps the marks of a drawing as paths in the coordinates of the page, with the colour, the
      opacity and the blending of each run.
   2. The model of Model.md as one function without state: from the colours that cover a point, the lowest first,
      and the blend mode, to one CMYK value.
-  3. The cut: the areas in which the same colours cover each point, made with the path operations.
+  3. The cut: the pieces, made with the path operations. Its structure is open.
   4. The calls that draw the pieces on the target behind the stage.
 
   The raster reference and the vector stage both call part 2. So GATE-2 examines only the geometry, and GATE-M and
   GATE-1 examine part 2.
-- **The cut can go from the lowest run up.** It keeps a list of pieces, each with the colours that cover it. A new
-  run cuts each piece that it meets in two. Pieces with one result unite. A knockout colour with opacity 1 is then
-  one piece, and it cuts all that is below it.
-- **Tiles** are the way out if phase 0 shows that the operations are slow or fail at the size of a map.
 - **GATE-3** needs a target of its own that fails on `PushBlending` and on a colour with an alpha below 1.
   `RecordingGraphicsTarget` keeps closures, not data.
 - **GATE-6** can count, sample by sample and without antialiasing, how many pieces cover a sample. Then it does not
-  use the operations that it examines.
+  use the operations that it examines. If the pieces of the stage overlap, GATE-6 changes first.
 - **GATE-4** needs constructs that tell case 1 from case 2, which make the same calls: a stage that changes nothing
   must leave case 2 pending, not failed. The harness finds the constructs of a case from the calls that the case
   makes.
