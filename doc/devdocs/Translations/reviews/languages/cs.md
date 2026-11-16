@@ -10,6 +10,7 @@ Made by claude-opus-5-5, effort max.
 | --- | --- | --- | --- | --- |
 | `AddCourse_hideFromReportsCheckBox_Text` | Do not include in reports | Nezahrnovat do výkazů | check box under the length in the New Course dialog: the course is left out of the reports; the term Reports |  |
 | `AddCourse_descriptionAppearanceLabel_Text` | Description appearance: | Zobrazení popisu:<br>(corrects: Popis zobrazení:) | "Popis zobrazení" means the description of a display; the term Description appearance |  |
+| `AllControlsProperties_descriptionAppearanceLabel_Text` | Description appearance: | Zobrazení popisu:<br>(corrects: Popis zobrazení:) | "Popis zobrazení" means the description of a display; the term Description appearance, as in AddCourse |  |
 | `MissingFonts_checkBoxDontWarnAgain_Text` | Don't warn about missing fonts for this event again | Znovu neupozorňovat na chybějící fonty pro tento závod<br>(corrects: Znovu NEupozorňovat na chybějící fonty pro tento event) | "event" is English; the language's event is "závod" (the term Event); "NEupozorňovat" in capitals |  |
 | `IncrementButton` | Increment | Zvýšit | sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment |  |
 | `DecrementButton` | Decrement | Snížit | sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement |  |

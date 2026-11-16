@@ -12,6 +12,7 @@ Made by claude-opus-5-5, effort max.
 | `AddCourse_hideFromReportsCheckBox_Text` | Do not include in reports | 不包含在报表中 | check box under the length in the New Course dialog: the course is left out of the reports; the term Reports |  |
 | `AddCourse_scoreColumnLabel_Text` | Show points in: | 分值显示在：<br>(corrects: 显示点：) | 点 is a point of geometry; the score is 分值 (the term Show points in); "shown in", as zh-TW 積分值顯示在 | zh-TW |
 | `AddCourse_groupBox1_Text` | Appearance | 外观<br>(corrects: 界面) | 界面 is the user interface; the appearance is 外观, as zh-TW 外觀 (the term Appearance) |  |
+| `AllControlsProperties_appearanceGroupBox_Text` | Appearance | 外观<br>(corrects: 界面) | 界面 is the user interface; the appearance is 外观, as zh-TW 外觀 (the term Appearance) |  |
 | `IncrementButton` | Increment | 增加 | sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment |  |
 | `DecrementButton` | Decrement | 减少 | sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement |  |
 | `CounterLabel` | Counter: {0} | 计数器：{0} | sample key of the localization (LocalizeExtension.cs), shown in no view; the full-width colon of the language's labels |  |

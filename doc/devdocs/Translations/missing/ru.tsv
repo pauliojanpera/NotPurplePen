@@ -8,8 +8,6 @@ UIText	AddTextLine_comboBoxCourses_Items	This course only
 UIText	AddTextLine_comboBoxCourses_Items1	All courses with {0}		
 UIText	AddTextLine_Text	Add Text Line		
 UIText	CommandNameText_AddTextLine	Add Text Line		
-UIText	AllControlsProperties_allControlsPropertiesLabel_Text	These settings control how the map and descriptions for All Controls are printed.		
-UIText	AllControlsProperties_Text	All Controls Properties		
 UIText	AutoNumbering_disallowInvertibleCheckBox_Text	Disallow codes that could be read upside-down (e.g., "68"/"89")		
 UIText	NewEventNumbering_disallowInvertibleCheckBox_Text	Disallow codes that could be read upside-down (e.g., "68"/"89")		
 UIText	AutoNumbering_renumberExistingRadioButton_Text	Renumber existing controls also		

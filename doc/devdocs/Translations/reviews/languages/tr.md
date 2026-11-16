@@ -14,6 +14,8 @@ Made by claude-opus-5-5, effort max.
 | `AddCourse_labelKindCombo_Items4` | Code and score (145(30)) | Kod ve Puan (145(30))<br>(corrects: Kod ve Nokta) | "Nokta" is a geometric point; the score points are "puan"; the example of the English, as the other items |  |
 | `AddCourse_scoreColumnLabel_Text` | Show points in: | Puanları göster:<br>(corrects: Noktaları Göster:) | "Noktalar" are geometric points; the score points are "puan" (the term Show points in) |  |
 | `AddCourse_courseKindCombo_Items1` | Score Course | Puanlı Parkur<br>(corrects: Parkur Puanı) | "Parkur Puanı" is the score of a course (the term Score Course) |  |
+| `AllControlsProperties_descriptionAppearanceLabel_Text` | Description appearance: | Açıklama görünümü:<br>(corrects: Görüntü açıklaması:) | "Görüntü açıklaması" means the description of an image; the term Description appearance |  |
+| `AllControlsProperties_Text` | All Controls Properties | Tüm Kontrol Noktalarının Özellikleri<br>(corrects: Tüm Kontrol Noktaların  Özellikleri) | the genitive of "kontrol noktaları" is "noktalarının"; a double space (terms.csv now gives it) |  |
 | `MissingFonts_Text` | Missing Fonts | Eksik Fontlar<br>(corrects: Eksik Fontları Yoksay) | "Eksik Fontları Yoksay" is Ignore Missing Fonts; the dialog only shows them (the term Missing Fonts) |  |
 | `IncrementButton` | Increment | Artır | sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment |  |
 | `DecrementButton` | Decrement | Azalt | sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement |  |

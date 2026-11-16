@@ -14,6 +14,8 @@ Made by claude-opus-5-5, effort max.
 | `AddCourse_labelKindCombo_Items5` | Score (30) | Punteggio (30)<br>(corrects: Punti (30)) | the language's score is "punteggio" ("Totale punteggio"); "punti" are the controls (the term Score (30)) |  |
 | `AddCourse_scoreColumnLabel_Text` | Show points in: | Mostra punteggio in:<br>(corrects: Mostra punti in) | the language's score is "punteggio"; "punti" are the controls (the term Show points in), with the colon of a label |  |
 | `AddCourse_courseKindCombo_Items1` | Score Course | Percorso a sequenza libera<br>(corrects: percorso a sequenza libera) | the capital, as the other item "Percorso normale" (the term Score Course) |  |
+| `AllControlsProperties_descKindCombo_Items2` | Symbols and text | Simboli e testo<br>(corrects: Simboli e testo.) | the full stop does not belong to an item of a combo box |  |
+| `AllControlsProperties_Text` | All Controls Properties | Proprietà di Tutti i punti<br>(corrects: Proprietà della tutti i punti) | "della tutti" is not grammatical (the term All Controls Properties) |  |
 | `IncrementButton` | Increment | Aumenta | sample key of the localization (LocalizeExtension.cs), shown in no view; the button raises a counter; the term Increment |  |
 | `DecrementButton` | Decrement | Diminuisci | sample key of the localization (LocalizeExtension.cs), shown in no view; the button lowers a counter; the term Decrement |  |
 | `CounterLabel` | Counter: {0} | Contatore: {0} | sample key of the localization (LocalizeExtension.cs), shown in no view; a label that shows the value of a counter, as fr "Compteur : {0}" |  |

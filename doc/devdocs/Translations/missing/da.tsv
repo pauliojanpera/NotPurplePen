@@ -1,5 +1,4 @@
 resource	key	english	in_repo	forks_own
-UIText	AllControlsProperties_descKindCombo_Items2	Symbols and text		
 UIText	CommandNameText_Stretch	Stretch		
 UIText	CommandNameText_SetLiveloxImportableEventId	Publish to Livelox		
 UIText	CommandNameText_MoveAllControls	Move All Controls		
