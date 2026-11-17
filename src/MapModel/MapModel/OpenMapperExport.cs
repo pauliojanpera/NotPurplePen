@@ -191,22 +191,8 @@ namespace PurplePen.MapModel
         {
             SymColor[] colors = map.AllColors.ToArray();
 
-            // count colors.
-            int count = 0;
-            for (int i = colors.Length - 1; i >= 0; --i) {
-                SymColor color = colors[i];
-
-                if (i == colors.Length - 1 && color.CmykColor.Cyan == 1.0F && color.CmykColor.Magenta == 1.0F && color.CmykColor.Yellow == 1.0F && color.CmykColor.Black == 1.0F) {
-                    // OpenMapper uses -900 as special Registration Black, not written to the file.
-                }
-                else {
-                    ++count;
-                }
-            }
-
-           xmlWriter.WriteStartElement("colors");
-            xmlWriter.WriteAttributeString("count", XmlConvert.ToString(count));
-
+            // The colors to write, the top one first.
+            List<SymColor> writtenColors = new List<SymColor>();
             for (int i = colors.Length - 1; i >= 0; --i) {
                 SymColor color = colors[i];
 
@@ -215,24 +201,76 @@ namespace PurplePen.MapModel
                     mapSymColorToId[color] = OpenMapperColor.RegistrationBlackId;
                 }
                 else {
-                    int id = (colors.Length - 1) - i;
-                    mapSymColorToId[color] = id;
-
-                    OpenMapperColor omColor = new OpenMapperColor();
-                    omColor.priority = id;
-                    omColor.name = color.Name;
-                    omColor.c = color.CmykColor.Cyan;
-                    omColor.m = color.CmykColor.Magenta;
-                    omColor.y = color.CmykColor.Yellow;
-                    omColor.k = color.CmykColor.Black;
-                    omColor.opacity = color.CmykColor.Alpha;
-                    omColor.knockout = !color.OverPrint;  // Knockout is the opposite of overprint.
-
-                    omColor.WriteToXml(xmlWriter);
+                    writtenColors.Add(color);
                 }
             }
 
+            // The id of a color is its place in the file, from the top one down: Mapper finds the color of an id there.
+            // Mapper has a spot ink as a color that is the spot color as such. A spot ink that no color is gets such a
+            // color below the others.
+            Dictionary<Ink, int> mapInkToId = new Dictionary<Ink, int>();
+            for (int id = 0; id < writtenColors.Count; ++id) {
+                mapSymColorToId[writtenColors[id]] = id;
+
+                Ink spotInk = writtenColors[id].SpotInk;
+                if (spotInk != null && !mapInkToId.ContainsKey(spotInk))
+                    mapInkToId.Add(spotInk, id);
+            }
+            List<Ink> inksWithoutColor = map.AllInks.Where(ink => !ink.IsProcessInk && !mapInkToId.ContainsKey(ink)).ToList();
+            int inkColorId = writtenColors.Count;
+            foreach (Ink ink in inksWithoutColor)
+                mapInkToId.Add(ink, inkColorId++);
+
+            xmlWriter.WriteStartElement("colors");
+            xmlWriter.WriteAttributeString("count", XmlConvert.ToString(writtenColors.Count + inksWithoutColor.Count));
+
+            foreach (SymColor color in writtenColors) {
+                OpenMapperColor omColor = new OpenMapperColor();
+                omColor.priority = mapSymColorToId[color];
+                omColor.name = color.Name;
+                omColor.c = color.CmykColor.Cyan;
+                omColor.m = color.CmykColor.Magenta;
+                omColor.y = color.CmykColor.Yellow;
+                omColor.k = color.CmykColor.Black;
+                omColor.opacity = color.CmykColor.Alpha;
+                omColor.knockout = !color.OverPrint;  // Knockout is the opposite of overprint.
+
+                if (color.SpotInk != null && mapInkToId[color.SpotInk] == omColor.priority) {
+                    SetSpotColor(omColor, color.SpotInk);
+                }
+                else if (color.HasSpotDefinition) {
+                    foreach (InkComponent component in color.InkComponents)
+                        omColor.components.Add(new OpenMapperSpotColorComponent(component.Factor, mapInkToId[component.Ink]));
+                }
+
+                omColor.WriteToXml(xmlWriter);
+            }
+
+            foreach (Ink ink in inksWithoutColor) {
+                OpenMapperColor omColor = new OpenMapperColor();
+                omColor.priority = mapInkToId[ink];
+                omColor.name = ink.Name;
+                omColor.c = ink.Appearance.Cyan;
+                omColor.m = ink.Appearance.Magenta;
+                omColor.y = ink.Appearance.Yellow;
+                omColor.k = ink.Appearance.Black;
+                omColor.opacity = 1.0F;
+                SetSpotColor(omColor, ink);
+
+                omColor.WriteToXml(xmlWriter);
+            }
+
             xmlWriter.WriteEndElement();  // </colors>
+        }
+
+        // Make a Mapper color the given spot ink as such.
+        private static void SetSpotColor(OpenMapperColor omColor, Ink ink)
+        {
+            omColor.spotColorName = ink.Name;
+            if (ink.Screen.HasValue) {
+                omColor.screenFrequency = ink.Screen.Value.Frequency;
+                omColor.screenAngle = ink.Screen.Value.Angle;
+            }
         }
 
         private void WriteSymbolsElement()

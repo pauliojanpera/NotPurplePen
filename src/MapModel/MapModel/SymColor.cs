@@ -34,6 +34,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Drawing;
 
@@ -57,6 +58,8 @@ namespace PurplePen.MapModel
         private string name;
         private Map map;
 		private short ocadId;
+        private Ink spotInk;                                        // The spot ink that this entry is as such, or null.
+        private ReadOnlyCollection<InkComponent> spotComposition;   // The spot inks that this entry is made of, or null.
 
         public string Name { get { return name; } set {this.name = value; }}
         public Map ContainingMap { get { return map; }}
@@ -64,6 +67,16 @@ namespace PurplePen.MapModel
         public SymColor(SymLayer layer)
         {
             this.layer = layer;
+        }
+
+        // Make a color of the normal layer, with no spot definition.
+        public SymColor(string name, short ocadId, float cyan, float magenta, float yellow, float black, bool overprint)
+            : this(SymLayer.Normal)
+        {
+            this.name = name;
+            this.ocadId = ocadId;
+            this.cmykColor = CmykColor.FromCmyk(cyan, magenta, yellow, black);
+            this.overprint = overprint;
         }
 
         public SymLayer Layer
@@ -117,6 +130,8 @@ namespace PurplePen.MapModel
             this.overprint = other.overprint;
 			this.name = other.name;
 			this.ocadId = other.ocadId;
+            this.spotInk = other.spotInk;
+            this.spotComposition = other.spotComposition;
             return this;
 		}
 
@@ -189,6 +204,73 @@ namespace PurplePen.MapModel
                 Debug.Assert(map == null, "Cannot change overprint after being attached to a map");
                 overprint = value;
             }
+        }
+
+        // The inks of this palette entry, each with its factor. An entry without a spot definition is made of the four
+        // process inks, with its CMYK values as their factors. An entry that is a spot ink as such is that ink at full
+        // tone. An ink that is not in the list is not a component of the entry, which is not the same as a component
+        // with the factor 0. A special layer has no inks.
+        public IReadOnlyList<InkComponent> InkComponents
+        {
+            get
+            {
+                if (spotInk != null)
+                    return Array.AsReadOnly(new InkComponent[] { new InkComponent(spotInk, 1) });
+                else if (spotComposition != null)
+                    return spotComposition;
+                else if (IsSpecialLayer)
+                    return Array.AsReadOnly(new InkComponent[0]);
+                else
+                    return Array.AsReadOnly(new InkComponent[] {
+                        new InkComponent(Ink.Cyan, cmykColor.Cyan), new InkComponent(Ink.Magenta, cmykColor.Magenta),
+                        new InkComponent(Ink.Yellow, cmykColor.Yellow), new InkComponent(Ink.Black, cmykColor.Black) });
+            }
+        }
+
+        // Does this palette entry have a spot definition: is it a spot ink as such, or made of spot inks? An entry
+        // without one is made of the process inks.
+        public bool HasSpotDefinition
+        {
+            get { return spotInk != null || spotComposition != null; }
+        }
+
+        // The spot ink that this palette entry is as such, at full tone, or null if it is not one.
+        public Ink SpotInk
+        {
+            get { return spotInk; }
+        }
+
+        // Makes this palette entry the given spot ink as such, at full tone. Null leaves it without a spot definition.
+        public void SetSpotInk(Ink ink)
+        {
+            Debug.Assert(map == null, "Cannot change inks after being attached to a map");
+            Debug.Assert(!IsSpecialLayer);
+            if (ink != null && ink.IsProcessInk)
+                throw new ArgumentException("A spot definition is made of spot inks.", "ink");
+
+            spotInk = ink;
+            spotComposition = null;
+        }
+
+        // Makes this palette entry a composition of the given spot ink components. An ink that is in the list more than
+        // once keeps its first factor. Null or an empty list leaves the entry without a spot definition.
+        public void SetSpotComposition(IEnumerable<InkComponent> components)
+        {
+            Debug.Assert(map == null, "Cannot change inks after being attached to a map");
+            Debug.Assert(!IsSpecialLayer);
+
+            List<InkComponent> distinctComponents = new List<InkComponent>();
+            if (components != null) {
+                foreach (InkComponent component in components) {
+                    if (component.Ink == null || component.Ink.IsProcessInk)
+                        throw new ArgumentException("A spot definition is made of spot inks.", "components");
+                    if (!distinctComponents.Exists(existing => existing.Ink == component.Ink))
+                        distinctComponents.Add(component);
+                }
+            }
+
+            spotInk = null;
+            spotComposition = (distinctComponents.Count > 0) ? distinctComponents.AsReadOnly() : null;
         }
 
         public override string ToString()
