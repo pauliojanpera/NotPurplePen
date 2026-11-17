@@ -7,7 +7,9 @@
 #
 # The first call makes the worktree from origin/basewithfixes. A later call merges the feature branch in again, and
 # commits the project again if this folder holds a newer one. Set UPDATE_BASE=1 to merge the newest
-# origin/basewithfixes in too. Each merge stops on a conflict, for the conflict to be resolved by hand.
+# origin/basewithfixes in too. Each merge stops on a conflict, for the conflict to be resolved by hand. Set
+# REBUILD=1 to make the branch again from origin/basewithfixes, after the feature branch's history changed (an
+# amended or rebased commit): the branch holds nothing that the script does not make again.
 set -euo pipefail
 [ $# -eq 3 ] || { echo "usage: int-worktree.sh <clone> <feature branch> <integration worktree>" >&2; exit 2; }
 clone=$1 feature=$2 worktree=$3
@@ -18,10 +20,14 @@ branch=local/$name-int
 git -C "$clone" fetch -q origin basewithfixes
 if [ ! -e "$worktree" ]; then
     git -C "$clone" worktree add -q -b "$branch" "$worktree" origin/basewithfixes
+fi
+[ "$(git -C "$worktree" symbolic-ref --short HEAD)" = "$branch" ] || { echo "$worktree is not on $branch" >&2; exit 1; }
+if [ "${REBUILD:-0}" = 1 ]; then
+    git -C "$worktree" merge --abort 2>/dev/null || true
+    git -C "$worktree" reset -q --hard origin/basewithfixes
 elif [ "${UPDATE_BASE:-0}" = 1 ]; then
     git -C "$worktree" merge -q --no-edit origin/basewithfixes
 fi
-[ "$(git -C "$worktree" symbolic-ref --short HEAD)" = "$branch" ] || { echo "$worktree is not on $branch" >&2; exit 1; }
 
 git -C "$worktree" merge -q --no-edit "$feature"
 
