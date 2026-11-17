@@ -259,40 +259,82 @@ namespace PurplePen.MapModel {
                 symheader.YellowAng = 0;
                 symheader.YellowFreq = 1500;
 
-                OcadColorSep emptyColorSep = new OcadColorSep();
-                for (i = 0; i < symheader.aColorSep.Length; ++i)
-                    symheader.aColorSep[i] = emptyColorSep;
             }
 
-            ICollection<SymColor> colors = map.AllColors;
+            // The separations are the spot inks. New arrays keep the structure that the map holds as it is.
+            List<Ink> separationInks = SpotInks().Take(OcadSymbolHeader.MaxSeparations).ToList();
+            symheader.nColorSep = (short) separationInks.Count;
+            symheader.aColorSep = new OcadColorSep[symheader.aColorSep.Length];
+            for (i = 0; i < symheader.aColorSep.Length; ++i) {
+                OcadColorSep colorSep = new OcadColorSep();
+                if (i < separationInks.Count) {
+                    Ink ink = separationInks[i];
+                    colorSep.SepName = ink.Name;
+                    colorSep.Color = OcadCmykFromCmykColor(ink.Appearance);
+                    if (ink.Screen.HasValue) {
+                        // Tenths of lines per inch, and tenths of degrees.
+                        colorSep.RasterFreq = (short) Math.Round(ink.Screen.Value.Frequency * 10.0F);
+                        colorSep.RasterAngle = (short) Math.Round(ink.Screen.Value.Angle * 10.0F);
+                    }
+                }
+                symheader.aColorSep[i] = colorSep;
+            }
 
+            // The colors, the top one first. The share of a color in a separation is in half percents; 255 is no share.
+            List<SymColor> colors = ColorsToWrite();
             symheader.nColors = (short) colors.Count;
-            i = colors.Count - 1;
-            foreach (SymColor color in colors) {
+            symheader.aColorInfo = new OcadColorInfo[symheader.aColorInfo.Length];
+            for (i = 0; i < symheader.aColorInfo.Length; ++i) {
                 OcadColorInfo colorInfo = new OcadColorInfo();
-                colorInfo.ColorNum = color.OcadId;
-                colorInfo.ColorName = color.Name;
-                float cyan, magenta, yellow, black;
-                color.GetCMYK(out cyan, out magenta, out yellow, out black);
-                colorInfo.Color.cyan = (byte) Math.Round(200.0F * cyan);
-                colorInfo.Color.magenta = (byte) Math.Round(200.0F * magenta);
-                colorInfo.Color.yellow = (byte) Math.Round(200.0F * yellow);
-                colorInfo.Color.black = (byte) Math.Round(200.0F * black);
-                colorInfo.Overprint = color.OverPrint ? (short)-1 : (short)0;
+                if (i < colors.Count) {
+                    SymColor color = colors[colors.Count - 1 - i];
+                    colorInfo.ColorNum = color.OcadId;
+                    colorInfo.ColorName = color.Name;
+                    colorInfo.Color = OcadCmykFromCmykColor(color.CmykColor);
+                    colorInfo.Overprint = color.OverPrint ? (short)-1 : (short)0;
 
-                for (int j = 0; j < colorInfo.SepPercentage.Length; ++j)
-                    colorInfo.SepPercentage[j] = 255;
-                symheader.aColorInfo[i--] = colorInfo;
-            }
-
-            // Fill in the rest of the array with empty colors.
-            OcadColorInfo emptyColor = new OcadColorInfo();
-            i = colors.Count;
-            while (i < symheader.aColorInfo.Length) {
-                symheader.aColorInfo[i++] = emptyColor;
+                    for (int j = 0; j < colorInfo.SepPercentage.Length; ++j)
+                        colorInfo.SepPercentage[j] = 255;
+                    foreach (InkComponent component in color.InkComponents) {
+                        int separation = separationInks.IndexOf(component.Ink);
+                        if (separation >= 0)
+                            colorInfo.SepPercentage[separation] = (byte) Math.Round(200.0F * component.Factor);
+                    }
+                }
+                symheader.aColorInfo[i] = colorInfo;
             }
 
             symheader.Write(writer);
+        }
+
+        // The spot inks of the map, in the order of their separations.
+        List<Ink> SpotInks()
+        {
+            return map.AllInks.Where(ink => !ink.IsProcessInk).ToList();
+        }
+
+        // The colors that the export writes, from the bottom one up. A spot ink as such that is below all other colors
+        // and that no symbol uses is a separation only: Mapper keeps a separation of an OCAD file so.
+        List<SymColor> ColorsToWrite()
+        {
+            List<SymColor> colors = new List<SymColor>(map.AllColors);
+            int separationsOnly = 0;
+            while (separationsOnly < colors.Count && colors[separationsOnly].SpotInk != null && !map.IsColorUsed(colors[separationsOnly]))
+                ++separationsOnly;
+
+            colors.RemoveRange(0, separationsOnly);
+            return colors;
+        }
+
+        // The CMYK value of an OCAD 6 to 8 color, whose channels are in half percents.
+        static OcadCmyk OcadCmykFromCmykColor(CmykColor color)
+        {
+            OcadCmyk ocadCmyk = new OcadCmyk();
+            ocadCmyk.cyan = (byte) Math.Round(200.0F * color.Cyan);
+            ocadCmyk.magenta = (byte) Math.Round(200.0F * color.Magenta);
+            ocadCmyk.yellow = (byte) Math.Round(200.0F * color.Yellow);
+            ocadCmyk.black = (byte) Math.Round(200.0F * color.Black);
+            return ocadCmyk;
         }
 
         // Write all symdefs, return the file pos of first symbol block.
@@ -1737,10 +1779,45 @@ namespace PurplePen.MapModel {
         }
 
 
-        // Create the parameter strings for all the colors.
+        // Create the parameter strings for the spot color separations, which are the spot inks. The frequency of a
+        // screen is in tenths of lines per inch, and its angle in degrees. A frequency of 0 defines no screen.
+        List<OcadParamString> CreateSpotColorStringParameters()
+        {
+            List<Ink> separationInks = SpotInks();
+            List<OcadParamString> paramStrings = new List<OcadParamString>(separationInks.Count);
+
+            for (int i = 0; i < separationInks.Count; ++i) {
+                Ink ink = separationInks[i];
+                InkScreen screen = ink.Screen ?? new InkScreen(0, 0);
+
+                OcadParamString paramString = new OcadParamString();
+                paramString.StType = (int) OcadStringParam.SpotColor;
+                paramString.ObjIndex = 0;
+                paramString.firstField = ink.Name;
+                paramString.codes = new char[] { 'v', 'n', 'c', 'm', 'y', 'k', 'f', 'a' };
+                paramString.values = new string[] {
+                    "1",
+                    i.ToString(CultureInfo.InvariantCulture),
+                    (ink.Appearance.Cyan * 100F).ToString(CultureInfo.InvariantCulture),
+                    (ink.Appearance.Magenta * 100F).ToString(CultureInfo.InvariantCulture),
+                    (ink.Appearance.Yellow * 100F).ToString(CultureInfo.InvariantCulture),
+                    (ink.Appearance.Black * 100F).ToString(CultureInfo.InvariantCulture),
+                    (screen.Frequency * 10F).ToString(CultureInfo.InvariantCulture),
+                    screen.Angle.ToString(CultureInfo.InvariantCulture)
+                };
+
+                paramStrings.Add(paramString);
+            }
+
+            return paramStrings;
+        }
+
+        // Create the parameter strings for all the colors. Each share of a color in a separation is a pair of the name
+        // of the separation (s) and the percentage (p).
         List<OcadParamString> CreateColorStringParameters()
         {
-            List<SymColor> colors = new List<SymColor>(map.AllColors);
+            List<SymColor> colors = ColorsToWrite();
+            List<Ink> separationInks = SpotInks();
             List<OcadParamString> paramStrings = new List<OcadParamString>(colors.Count);
 
             int colorCount = colors.Count;
@@ -1748,28 +1825,33 @@ namespace PurplePen.MapModel {
                 // Process colors in reverse order.
                 SymColor color = colors[i];
 
-                OcadParamString paramString = new OcadParamString();
                 float cyan, magenta, yellow, black;
-
                 color.GetCMYK(out cyan, out magenta, out yellow, out black);
 
+                List<char> codes = new List<char> { 'n', 'c', 'm', 'y', 'k', 'o' };
+                List<string> values = new List<string> {
+                    color.OcadId.ToString(),
+                    (cyan * 100F).ToString(CultureInfo.InvariantCulture),
+                    (magenta * 100F).ToString(CultureInfo.InvariantCulture),
+                    (yellow * 100F).ToString(CultureInfo.InvariantCulture),
+                    (black * 100F).ToString(CultureInfo.InvariantCulture),
+                    color.OverPrint ? "1" : "0"
+                };
+                foreach (InkComponent component in color.InkComponents) {
+                    if (separationInks.Contains(component.Ink)) {
+                        codes.Add('s');
+                        values.Add(component.Ink.Name);
+                        codes.Add('p');
+                        values.Add((component.Factor * 100F).ToString(CultureInfo.InvariantCulture));
+                    }
+                }
+
+                OcadParamString paramString = new OcadParamString();
                 paramString.StType = (int) OcadStringParam.Color;
                 paramString.ObjIndex = 0;
                 paramString.firstField = color.Name;
-                paramString.codes = new char[6];
-                paramString.values = new string[6];
-                paramString.codes[0] = 'n';
-                paramString.values[0] = color.OcadId.ToString();
-                paramString.codes[1] = 'c';
-                paramString.values[1] = (cyan * 100F) .ToString(CultureInfo.InvariantCulture);
-                paramString.codes[2] = 'm';
-                paramString.values[2] = (magenta * 100F).ToString(CultureInfo.InvariantCulture);
-                paramString.codes[3] = 'y';
-                paramString.values[3] = (yellow * 100F).ToString(CultureInfo.InvariantCulture);
-                paramString.codes[4] = 'k';
-                paramString.values[4] = (black * 100F).ToString(CultureInfo.InvariantCulture);
-                paramString.codes[5] = 'o';
-                paramString.values[5] = color.OverPrint ? "1" : "0";
+                paramString.codes = codes.ToArray();
+                paramString.values = values.ToArray();
 
                 paramStrings.Add(paramString);
             }
@@ -1906,6 +1988,7 @@ namespace PurplePen.MapModel {
 
             if (version >= 9) {
                 // Add all the string parameters needed to the list of string parameters.
+                paramStrings.AddRange(CreateSpotColorStringParameters());
                 paramStrings.AddRange(CreateColorStringParameters());
                 paramStrings.Add(CreateScaleParameter());
                 paramStrings.Add(CreatePrintParameter());
