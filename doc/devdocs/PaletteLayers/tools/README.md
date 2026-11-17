@@ -9,7 +9,7 @@ Python 3 with Pillow, git, the GitHub CLI signed in to the repository, and the .
 - `map-inks.py` prints the inks of an OCAD or Mapper file and the ink components of each of its colors, in one form
   for all formats.
 - `ocad-string-encodings.py` tells whether the parameter strings of OCAD files encode their non-ASCII characters as
-  UTF-8 or as an 8-bit code page.
+  UTF-8 or as an 8-bit code page, and whether OCAD, Mapper or Purple Pen wrote each file.
 - `compare-images.py` counts the pixels in which two renderings differ and can mark them in red on a copy.
 - `crlf.py` gives files CRLF line endings again after a tool wrote them with LF.
 - `int-worktree.sh` makes or updates the local integration worktree of a branch: `basewithfixes` with the branch and
