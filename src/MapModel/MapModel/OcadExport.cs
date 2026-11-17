@@ -258,7 +258,6 @@ namespace PurplePen.MapModel {
                 symheader.MagentaFreq = 1500;
                 symheader.YellowAng = 0;
                 symheader.YellowFreq = 1500;
-
             }
 
             // The separations are the spot inks. New arrays keep the structure that the map holds as it is.

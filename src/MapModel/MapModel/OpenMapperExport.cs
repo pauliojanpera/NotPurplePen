@@ -221,7 +221,7 @@ namespace PurplePen.MapModel
             foreach (Ink ink in inksWithoutColor)
                 mapInkToId.Add(ink, inkColorId++);
 
-           xmlWriter.WriteStartElement("colors");
+            xmlWriter.WriteStartElement("colors");
             xmlWriter.WriteAttributeString("count", XmlConvert.ToString(writtenColors.Count + inksWithoutColor.Count));
 
             foreach (SymColor color in writtenColors) {
