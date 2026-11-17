@@ -23,6 +23,8 @@ Python 3 with Pillow, git, the GitHub CLI signed in to the repository, and the .
 
 ## A ticket's loop
 
+`../README.md` tells the workflow of the tickets and the branches. These are its steps with the scripts.
+
 1. The feature branch is rooted where `base` meets upstream (`git merge-base origin/base upstream/master`). Work in
    its worktree. Commit often and push the feature branch: its push runs nothing.
 2. `int-worktree.sh` after each commit that the local tests need, then `run-map-tests.sh` with a filter for the

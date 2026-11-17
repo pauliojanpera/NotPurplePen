@@ -3,11 +3,10 @@
 Nov 18, 2026. This document tracks the branches and the decisions of the palette-layer work. The branches are not in
 `basewithfixes` or `dev`, so `../NotPurplePenProgress.md` does not track them (@Pauli, Nov 18).
 
+- [README.md](README.md) tells how the work is organized: its tickets, branches, pull request descriptions and
+  tracking.
 - [Specification.md](Specification.md) is the reference of the architecture, and the epic
   [000](tickets/000-palette-layers.md) gives the goal and the scope of the work.
-- Each branch goes through a ticket in [tickets/](tickets/) and a pull request description in [prs/](prs/), as
-  upstream pull requests would (@Pauli, Nov 18). The templates are in the same folders.
-- [tools/](tools/) has the scripts of the work, and its README tells a ticket's loop.
 
 ## Branches
 
