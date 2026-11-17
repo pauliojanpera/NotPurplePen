@@ -15,3 +15,6 @@
 
 (_valinnainen_) **Ehdotettu korjaus / hypoteesi**  
 <!-- Jos sinulla on idea ratkaisusta, lisää se tähän -->
+
+(_valinnainen_) **Erotetut korjaukset**  
+<!-- Tästä tiketistä erotetut korjaukset: tiketti, haara ja se, onko haara yhdistetty tämän tiketin haaraan -->
