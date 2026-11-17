@@ -200,6 +200,7 @@ namespace PurplePen.MapModel
                 this.filename = filename;
                 OcadFileHeader header = ReadFileHeader();
                 version = header.Version;
+                reader.UseOcadEncoding(version);
 
                 if (version < 6 || (version > 12 && version < 2018) || version > 2018) 
                     throw new OcadFileFormatException("File is in OCAD {0} format. Only OCAD formats 6, 7, 8, 9, 10, 11, 12, and 2018 are supported.", version);
@@ -2492,8 +2493,13 @@ namespace PurplePen.MapModel
             return ret;
         }
 
-        // I think the BinaryReader method takes numberOfChars instead. Doesn't really 
-        // matter for our purpose since we use a single-byte encoding.
+        // Decode the strings that follow as an OCAD file of the given version encodes them.
+        public void UseOcadEncoding(int version)
+        {
+            encoding = Util.GetOcadEncoding(version);
+        }
+
+        // Read the given number of bytes, and decode them into characters.
         public char[] ReadChars(int numberOfBytes)
         {
             char[] result = encoding.GetChars(bytes, pos, numberOfBytes);
