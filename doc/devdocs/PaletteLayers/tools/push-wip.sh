@@ -18,7 +18,8 @@ feature=$2
 name=${3:-${feature##*/}}
 wip=wip/linux/$name
 remote=${REMOTE:-origin}
-repository=$(git remote get-url "$remote" | sed -E 's#^.*github\.com[:/]##; s#\.git$##')
+# The owner and the name of the repository: the last two parts of the remote's URL, whatever host or alias it names.
+repository=$(git remote get-url "$remote" | sed -E 's#\.git$##; s#^.*[:/]([^/:]+/[^/:]+)$#\1#')
 
 git fetch -q "$remote" basewithfixes "$feature"
 tree=$(git merge-tree --write-tree "$remote/basewithfixes" "$remote/$feature") \
