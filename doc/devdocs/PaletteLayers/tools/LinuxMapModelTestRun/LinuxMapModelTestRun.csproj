@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Runs test files of Test_MapModel, which targets Windows, on Linux, as src/Testing/LinuxTestRun does for
+       PurplePen_Tests. It carries the suite's assembly name, so that the internals the test files reach stay
+       visible, and compiles the files where they are, with no copy of them. It lives in src/MapModel/, so that
+       TestUtil.GetTestFile finds src/MapModel/TestFiles. Shims.cs stands in for what only Windows has. The
+       rendering comparisons of the files do not run here: GDI+ draws them on Windows. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>Test_MapModel</AssemblyName>
+    <RootNamespace>PurplePen.MapModel.Tests</RootNamespace>
+    <DefineConstants>TRACE;DEBUG;TEST</DefineConstants>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <Nullable>disable</Nullable>
+    <IsPackable>false</IsPackable>
+    <NoWarn>$(NoWarn);CS0168;CS0219;CS0414;CS0618;CS1998</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Shims.cs" />
+    <Compile Include="../Test_MapModel/OcadImportTests.cs" Link="suite/OcadImportTests.cs" />
+    <Compile Include="../Test_MapModel/OpenMapperImportTests.cs" Link="suite/OpenMapperImportTests.cs" />
+    <Compile Include="../Test_MapModel/RoundtripOcadTests.cs" Link="suite/RoundtripOcadTests.cs" />
+    <Compile Include="../Test_MapModel/InkTests.cs" Link="suite/InkTests.cs" Condition="Exists('../Test_MapModel/InkTests.cs')" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../Graphics2D/Graphics2D.csproj" />
+    <ProjectReference Include="../MapModel/MapModel.csproj" />
+    <ProjectReference Include="../Map_SkiaStd/Map_SkiaStd.csproj" />
+    <ProjectReference Include="../../Testing/TestUtil/TestUtil.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="NUnit" />
+    <PackageReference Include="NUnit3TestAdapter" />
+    <PackageReference Include="SkiaSharp.NativeAssets.Linux" />
+    <PackageReference Include="HarfBuzzSharp.NativeAssets.Linux" />
+  </ItemGroup>
+
+</Project>
