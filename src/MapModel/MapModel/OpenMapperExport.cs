@@ -207,6 +207,8 @@ namespace PurplePen.MapModel
            xmlWriter.WriteStartElement("colors");
             xmlWriter.WriteAttributeString("count", XmlConvert.ToString(count));
 
+            // The id of a color is its place in the file, from the top one down: Mapper finds the color of an id there.
+            int id = 0;
             for (int i = colors.Length - 1; i >= 0; --i) {
                 SymColor color = colors[i];
 
@@ -215,7 +217,6 @@ namespace PurplePen.MapModel
                     mapSymColorToId[color] = OpenMapperColor.RegistrationBlackId;
                 }
                 else {
-                    int id = (colors.Length - 1) - i;
                     mapSymColorToId[color] = id;
 
                     OpenMapperColor omColor = new OpenMapperColor();
@@ -229,6 +230,7 @@ namespace PurplePen.MapModel
                     omColor.knockout = !color.OverPrint;  // Knockout is the opposite of overprint.
 
                     omColor.WriteToXml(xmlWriter);
+                    ++id;
                 }
             }
 
