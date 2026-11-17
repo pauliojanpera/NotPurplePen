@@ -214,6 +214,7 @@ These are @Pauli's rulings and the practice. The decisions of the SVG export's o
   - This corrects "Blend modes beyond darken" (Nov 13), which held that objects of one colour that overlap need no care because the IOF's rules forbid them. Those rules say nothing of the marks within one symbol, and such marks do overlap.
   - An alpha below one is still composited and not clamped, so the overlapping marks of a transparent ink keep more coverage than a plate of print would have. To clamp it needs a maximum on alpha, which no standard blend mode expresses. Task 12 ends it.
 - **JPEG colour profiles and rotation flags** (Nov 14). The application converts a JPEG through its colour profile into sRGB, in all outputs. An event option makes the application turn a JPEG by its Exif orientation. A new event has the option on. An event file saved without it has it off, so existing events draw as before. The export writes the original JPEG data (task 11).
+- **The screens of the process inks** (Nov 18). Nobody prints from OCAD 6 to 8 files now. So the process inks of the palette-layer model are the same for all maps and have no halftone screen. OCAD 6 to 8 give screens to the process inks in their symbol header, and the screens stay in it through an OCAD 6 to 8 round trip (`PaletteLayers/tickets/001-inks.md`).
 
 ### Tests and CI
 
