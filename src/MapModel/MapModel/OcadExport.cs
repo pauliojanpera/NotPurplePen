@@ -49,6 +49,7 @@ namespace PurplePen.MapModel {
         Map map;
         int version;
         BinaryWriter writer;
+        Encoding stringEncoding;   // the encoding of the strings of the version written.
         string filename;
         bool useOcadSaved;
         Dictionary<SymDef, short> mapSymdefToSingleColor = new Dictionary<SymDef, short>();  // for OCAD 9, maps symdefs to a single color they use, if any. (-1 if not).
@@ -110,7 +111,8 @@ namespace PurplePen.MapModel {
 
                 OcadFileHeader fileHeader = new OcadFileHeader();
 
-                writer = new BinaryWriter(stream, Util.GetDefaultOcadEncoding());
+                stringEncoding = Util.GetOcadEncoding(version);
+                writer = new BinaryWriter(stream, stringEncoding);
 
                 fileHeader.OCADMark = 3245;
 
@@ -1936,10 +1938,9 @@ namespace PurplePen.MapModel {
             index = 0; count = 0;
             foreach (OcadParamString paramString in paramStrings) {
                 currBlock.Table[index].Pos = (int) writer.Seek(0, SeekOrigin.Current);
-                currBlock.Table[index].Len = (paramString.CharacterCount() + 2) & ~1;  // add 1 for terminating nul, pad to even boundary.
                 currBlock.Table[index].ObjIndex = paramString.ObjIndex;
                 currBlock.Table[index].StType = paramString.StType;
-                paramString.Write(writer, currBlock.Table[index].Len);
+                currBlock.Table[index].Len = paramString.Write(writer, stringEncoding);
 
                 ++index; ++count;
                 if (index == 256 || count == total) {
