@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
-# push-wip.sh [--collect] [--blank-baseline <test description>]... <clone> <feature branch> [<wip name>]
+# push-wip.sh [--base <branch>] [--collect] [--blank-baseline <test description>]... <clone> <branch> [<wip name>]
 #
-# Rebuilds wip/linux/<name> as one merge commit of origin/basewithfixes and the feature branch, as the handover
-# says for a feature's full run, and pushes it with a lease on what the remote holds. The push starts the Tests and
-# Build workflows. The name defaults to the feature branch's last part, so feature/inks runs as wip/linux/inks.
+# Rebuilds wip/linux/<name> as one merge commit of the base branch and the branch, and pushes it with a lease on
+# what the remote holds. The push starts the Tests and Build workflows. As the handover says, a feature runs on
+# basewithfixes, the default, and a fix alone runs on base: --base base. The name defaults to the branch's last
+# part, so feature/inks runs as wip/linux/inks.
 #
 # With --collect, the script also starts the Tests workflow by hand on the branch with the input
 # collect_differences, so that one run writes the image of every comparison that the change moves, into the
@@ -18,15 +19,17 @@
 # Prints the commit pushed and the ids of the runs, for wait-run.sh and fetch-artifact.sh in ../../SvgDevLoop/.
 set -euo pipefail
 collect=0
+base=basewithfixes
 descriptions=()
 while [ $# -gt 0 ]; do
     case "$1" in
+        --base) base=$2; shift 2 ;;
         --collect) collect=1; shift ;;
         --blank-baseline) descriptions+=("$2"); shift 2 ;;
         *) break ;;
     esac
 done
-[ $# -ge 2 ] || { echo "usage: push-wip.sh [--collect] [--blank-baseline <test description>]... <clone> <feature branch> [<wip name>]" >&2; exit 2; }
+[ $# -ge 2 ] || { echo "usage: push-wip.sh [--base <branch>] [--collect] [--blank-baseline <test description>]... <clone> <branch> [<wip name>]" >&2; exit 2; }
 cd "$1"
 feature=$2
 name=${3:-${feature##*/}}
@@ -35,11 +38,11 @@ remote=${REMOTE:-origin}
 # The owner and the name of the repository: the last two parts of the remote's URL, whatever host or alias it names.
 repository=$(git remote get-url "$remote" | sed -E 's#\.git$##; s#^.*[:/]([^/:]+/[^/:]+)$#\1#')
 
-git fetch -q "$remote" basewithfixes "$feature"
-tree=$(git merge-tree --write-tree "$remote/basewithfixes" "$remote/$feature") \
-    || { echo "basewithfixes and $feature do not merge cleanly" >&2; exit 1; }
-commit=$(git commit-tree "$tree" -p "$remote/basewithfixes" -p "$remote/$feature" \
-         -m "Merge $feature into basewithfixes, for a full run")
+git fetch -q "$remote" "$base" "$feature"
+tree=$(git merge-tree --write-tree "$remote/$base" "$remote/$feature") \
+    || { echo "$base and $feature do not merge cleanly" >&2; exit 1; }
+commit=$(git commit-tree "$tree" -p "$remote/$base" -p "$remote/$feature" \
+         -m "Merge $feature into $base, for a full run")
 
 if [ ${#descriptions[@]} -gt 0 ]; then
     index=$(mktemp)
