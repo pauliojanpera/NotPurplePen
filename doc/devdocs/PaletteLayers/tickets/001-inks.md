@@ -6,18 +6,18 @@ Karttamalliin tulee eksplisiittinen muste, ja jokainen palettimerkintä (`SymCol
 
 **Hyväksymiskriteerit**
 
-- [ ] Muste on oma entiteettinsä. Sillä on nimi, ulkoasun CMYK-arvo sekä rasteritiheys ja -kulma silloin, kun ne on määritelty. Prosessimusteet C, M, Y ja K ovat aina olemassa.
-- [ ] Palettimerkintä sisältää mustekomponentit, joista jokaisella on muste ja kerroin väliltä 0–1. Puuttuva komponentti ja kerroin 0 ovat eri asioita.
-- [ ] Palettimerkintä, jolla ei ole spottimäärittelyä, koostuu prosessimusteista C, M, Y ja K, ja kertoimina ovat sen CMYK-arvot.
-- [ ] Spottimuste voi olla palettimerkintä sellaisenaan, täydellä sävyllä.
-- [ ] Palettimerkinnän CMYK-arvo säilyy, ja koodi, joka lukee värin CMYK-arvon, saa saman arvon kuin ennen.
-- [ ] OCAD 9 ja uudemmat: tuonti lukee spottiseparaatiot (merkkijonotyyppi 10, `si_SpotColor`) musteiksi ja värimerkkijonon `s`- ja `p`-parit komponenteiksi.
-- [ ] OCAD 6–8: tuonti lukee symboliotsakkeen `aColorSep`-taulukon musteiksi ja `TColorInfo.SepPercentage`-arvot komponenteiksi. Arvo 255 tarkoittaa, ettei komponenttia ole, ja arvot 0–200 ovat kaksinkertaisia prosentteja.
-- [ ] Mapper: tuonti lukee `namedcolor`-elementin spottimusteeksi (nimi, `screen_frequency` ja `screen_angle`) ja `component`-elementit komponenteiksi (`factor` ja `spotcolor`, joka on viitatun spottivärin prioriteetti).
-- [ ] Mapper-tuonti merkitsee värin päällepainetuksi vain, jos värillä on spottimäärittely ja sen knockout on pois päältä. Muut Mapper-värit ovat knockout-värejä, kuten OOM ne piirtää.
-- [ ] OCAD- ja Mapper-vienti kirjoittavat musteet ja komponentit. Kun tiedosto tuodaan, viedään ja tuodaan uudelleen, musteet ja komponentit säilyvät samoina muodon rajoissa.
-- [ ] Piirto muuttuu vain niillä Mapper-väreillä, joilla ei ole spottimäärittelyä: päällepainatusvaikutus ei enää sekoita niitä. Näiden karttojen baselinet siirtyvät tässä tiketissä, eikä mikään muu piirron baseline siirry.
-- [ ] Testit kattavat OCAD- ja Mapper-testikarttojen tuonnin, tuonnin ja viennin kierroksen sekä tapauksen, jossa sama muste on kahdessa palettimerkinnässä, jotka eivät ole peräkkäisiä. Testikartoissa ei ole tekstiä aina, kun se on mahdollista.
+- [x] Muste on oma entiteettinsä. Sillä on nimi, ulkoasun CMYK-arvo sekä rasteritiheys ja -kulma silloin, kun ne on määritelty. Prosessimusteet C, M, Y ja K ovat aina olemassa.
+- [x] Palettimerkintä sisältää mustekomponentit, joista jokaisella on muste ja kerroin väliltä 0–1. Puuttuva komponentti ja kerroin 0 ovat eri asioita.
+- [x] Palettimerkintä, jolla ei ole spottimäärittelyä, koostuu prosessimusteista C, M, Y ja K, ja kertoimina ovat sen CMYK-arvot.
+- [x] Spottimuste voi olla palettimerkintä sellaisenaan, täydellä sävyllä.
+- [x] Palettimerkinnän CMYK-arvo säilyy, ja koodi, joka lukee värin CMYK-arvon, saa saman arvon kuin ennen.
+- [x] OCAD 9 ja uudemmat: tuonti lukee spottiseparaatiot (merkkijonotyyppi 10, `si_SpotColor`) musteiksi ja värimerkkijonon `s`- ja `p`-parit komponenteiksi.
+- [x] OCAD 6–8: tuonti lukee symboliotsakkeen `aColorSep`-taulukon musteiksi ja `TColorInfo.SepPercentage`-arvot komponenteiksi. Arvo 255 tarkoittaa, ettei komponenttia ole, ja arvot 0–200 ovat kaksinkertaisia prosentteja.
+- [x] Mapper: tuonti lukee `namedcolor`-elementin spottimusteeksi (nimi, `screen_frequency` ja `screen_angle`) ja `component`-elementit komponenteiksi (`factor` ja `spotcolor`, joka on viitatun spottivärin prioriteetti).
+- [x] Mapper-tuonti merkitsee värin päällepainetuksi vain, jos värillä on spottimäärittely ja sen knockout on pois päältä. Muut Mapper-värit ovat knockout-värejä, kuten OOM ne piirtää.
+- [x] OCAD- ja Mapper-vienti kirjoittavat musteet ja komponentit. Kun tiedosto tuodaan, viedään ja tuodaan uudelleen, musteet ja komponentit säilyvät samoina muodon rajoissa.
+- [x] Piirto muuttuu vain niillä Mapper-väreillä, joilla ei ole spottimäärittelyä: päällepainatusvaikutus ei enää sekoita niitä. Näiden karttojen baselinet siirtyvät tässä tiketissä, eikä mikään muu piirron baseline siirry.
+- [x] Testit kattavat OCAD- ja Mapper-testikarttojen tuonnin, tuonnin ja viennin kierroksen sekä tapauksen, jossa sama muste on kahdessa palettimerkinnässä, jotka eivät ole peräkkäisiä. Testikartoissa ei ole tekstiä aina, kun se on mahdollista.
 
 **Lisätiedot**
 
