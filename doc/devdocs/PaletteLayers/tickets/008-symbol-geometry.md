@@ -12,11 +12,13 @@ Symbolit tuottavat leikkausobjektinsa omilla geometriametodeillaan, ja vaihe 1 k
 - Työ jaetaan neljään osaan symbolilajeittain: perusrakenne ja pistesymbolit (tämä tiketti), viivat ([011](011-line-geometry.md)), alueet, yhdistelmät ja grafiikkaobjektit ([012](012-area-geometry.md)) sekä tekstit ja suorakulmiot ([013](013-text-geometry.md)) (@Pauli, 18.11.).
 - Piirto ei käytä symboleita, vaan symboleita käyttää vain vaihe 1. Ilmentymät kuuluvat karttaan piirrosta riippumatta (@Pauli, 18.11., epic [000](000-palette-layers.md)).
 - Kun muutos ei voi muuttaa piirtoa, esimerkiksi koska se ei koske koodia, jota piirto ajaa, täysi ajo tehdään komennolla `tools/push-wip.sh` ilman `--collect`-valintaa, sillä kuvat pysyvät silloin ennallaan (@Pauli, 18.11.).
+- Pistesymbolin glyyfin muodot jaetaan sijoitusten kesken: kukin glyyfin osa on yksi muoto, ja kukin symboli asettaa sen omalla sijoituksellaan (@Pauli, 18.11.).
 - Katkoviivan päätökset ovat viivojen tiketissä [011](011-line-geometry.md).
 
 **Hyväksymiskriteerit (luonnos: ehdotuksia, ei sitovia)**
 - [ ] Ehdotus: geometriametodien rajapinta: symbolilaji, jolla on geometriametodi, tuottaa symbolin leikkausobjektit palettimerkinnöittäin ilman `IGraphicsTarget`-kutsuja ja ilman piirtoasetuksia (`RenderOptions`).
 - [ ] Ehdotus: pistesymbolilla (`PointSymDef` ja sen glyyfi) on geometriametodi. Se tuottaa glyyfin viivat, alueet, ympyrät ja täytetyt ympyrät, aukkojen tekemät kaaret sekä origossa olevan yhden ympyrän glyyfin symbolin paikassa ilman muunnosta.
+- [ ] Ehdotus: glyyfin muodot ovat jaettuja: saman symbolimäärittelyn pistesymbolit viittaavat samoihin muotoihin omilla sijoituksillaan, ja rakennetesti tarkistaa sen. Poikkeuksia on kaksi: origossa oleva yhden ympyrän glyyfi on symbolin paikassa ilman muunnosta, ja ympyrän kaaret, jotka symbolin omat aukot (`PointSymbol.Gaps`) tekevät, ovat symbolin omia muotoja.
 - [ ] Ehdotus: vaihe 1 tekee ilmentymät geometriametodeilla niille symbolilajeille, joilla geometriametodi on, ja kerääjällä muille.
 - [ ] Ehdotus: kerääjä jää testien oraakkeliksi. Testit vertaavat testikartoilla geometriametodien ilmentymiä kerääjän ilmentymiin rakenteena: samat palettimerkinnät ja samat leikkausobjektit samassa järjestyksessä (laji, muoto, viiva, täyttösääntö ja sijoituksen vaiheet), tai tiketti kertoo sallitun eron ja sen syyn. Myöhemmät osat käyttävät samaa vertailua.
 - [ ] Ehdotus: `LayerInstanceTests` ja `LayerInstanceCoverageTests` menevät läpi.
@@ -31,12 +33,12 @@ Symbolit tuottavat leikkausobjektinsa omilla geometriametodeillaan, ja vaihe 1 k
   - Symbolien piirtokoodia kutsuvat vain `Map.DrawColor` ja vaihe 1 kerääjän kautta. Korostukset käyttävät osin samaa koodia (`LineSymDef.DrawHighlight` kutsuu `DrawCore`a).
   - Vaiheen 1 piirtokoodi lukee piirtoasetuksista vain resoluution, jota katkoviivat käyttävät, ja asetuksen `omitHatchingsAndPatterns` (tiketti 007). Vaihe 1 valitsee symbolit väri kerrallaan (`SelectVisibleSymbolsOfColor`), joten sama symboli piirretään kerran jokaista väriään kohden.
   - Kerääjä on `internal`, ja MapModelin `InternalsVisibleTo` nimeää vain Test_MapModelin. Map_Skia.Tests näkee vain julkiset jäsenet.
+  - Pistesymboli piirtää glyyfinsä ilman lisämuunnosta, glyyfin omissa koordinaateissa sijoituksen sisällä. Kerääjän kopiot saman symbolimäärittelyn glyyfin osista ovat siksi arvoltaan samat, paitsi ympyrän kaaret, jotka riippuvat kunkin symbolin aukoista. Jaettu muoto vastaa speksin luvun 04 uudelleenkäytettäviä määrittelyjä, ja rakenteellinen vertailu vertaa muotoja arvoina.
 - **Avoimia kysymyksiä:**
   1. Oraakkelin vertailu. Ehdotus: rakenne ensin (kriteerit), ja peitto siellä, missä esitys muuttuu.
   2. Geometriametodin muoto. Ehdotus: symbolikohtainen metodi tuottaa kaikki symbolin palettimerkinnät yhdellä läpikäynnillä, ja leikkausobjektit ovat kunkin palettimerkinnän sisällä samassa järjestyksessä kuin nyt.
   3. Leikkausobjektin alkuperä. Ilmentymien päivitys kartan muuttuessa kuuluu vaiheen 2 tikettiin (päätös 18.11.). Symbolikohtainen geometriametodi tekee alkuperän kirjaamisesta helppoa.
-  4. Glyyfin muodon uudelleenkäyttö. Jaettu muoto, jonka sijoitukset asettavat, vastaa speksin luvun 04 uudelleenkäytettäviä määrittelyjä, ja se sopii glyyfeille ilman lisämuunnosta. Pistesymboli ei käytä lisämuunnosta. Rakenteellinen vertailu vertaa silloin muotoja arvoina, koska kerääjä tekee jokaiselle sijoitukselle uuden muodon.
-  5. Kerääjän paikka. Ehdotus: kerääjä jää MapModeliin testien oraakkeliksi, ja `omitHatchingsAndPatterns` jää sen mukana, koska kerääjä ei tunne kuvioita. Map_Skia.Tests näkee kerääjän, kun `InternalsVisibleTo` nimeää myös sen.
+  4. Kerääjän paikka. Ehdotus: kerääjä jää MapModeliin testien oraakkeliksi, ja `omitHatchingsAndPatterns` jää sen mukana, koska kerääjä ei tunne kuvioita. Map_Skia.Tests näkee kerääjän, kun `InternalsVisibleTo` nimeää myös sen.
 - **Rajaus (luonnos):** viivat, alueet ja tekstit ovat tiketit [011](011-line-geometry.md), [012](012-area-geometry.md) ja [013](013-text-geometry.md). Viivoitukset ja kuviot ovat tiketti [009](009-pattern-instances.md), ja vaihe 2 on tiketti [010](010-palette-composition.md).
 - **Haara (ehdotus):** `feature/symbol-geometry` juurtuu kokoavaan haaraan `feature/palette-layers`. Täysi ajo tehdään basen päällä. Vanha piirtokoodi pysyy ennallaan (päätös 18.11.), joten täysi ajo tehdään ilman `--collect`-valintaa, kun muutos ei koske muuta koodia, jota piirto ajaa.
 

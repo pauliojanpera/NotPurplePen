@@ -172,6 +172,8 @@ the rendering.
   standard dashed line, and the exotic cases, such as the distance metric of OCAD, are split into parts, for a dashed
   line into single dashes. For the pattern fills, the exotic cases are the stochastic fills and the special choices
   at the edges.
+- **The shared shapes of the glyphs** (Nov 18). The point symbols share the shapes of their glyph: each part of the
+  glyph is one shape, which each symbol places with its own placement (ticket 008).
 - **The conflicts with dev** (Nov 18). The palette-layer branches may conflict with `dev`. A comparison of their
   implementation with the one in `dev` is a later investigation.
 - **The fixes of upstream that a ticket separates** (Nov 18). When the work of a ticket fixes a fault of upstream, the
