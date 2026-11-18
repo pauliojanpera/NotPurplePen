@@ -2430,7 +2430,7 @@ namespace PurplePen.MapModel
                 using (LayerInstanceCollector collector = new LayerInstanceCollector(color, textMetricsProvider)) {
                     foreach (Symbol symbol in SymbolsDrawn(color, rect))
                         symbol.Draw(collector, color, renderOpts);
-                    instances.AddRange(collector.Instances);
+                    instances.AddRange(collector.MakeInstances());
                 }
             }
 

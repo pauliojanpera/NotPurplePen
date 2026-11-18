@@ -42,17 +42,14 @@ namespace PurplePen.MapModel
             this.textMetrics = textMetrics;
         }
 
-        // The instances that the drawing calls made: the instance of the palette entry with full coverage, if the
-        // symbols drew a shape.
-        public IReadOnlyList<LayerInstance> Instances
+        // Make the instances of the drawing calls: the instance of the palette entry with full coverage, if the symbols
+        // drew a shape.
+        public IReadOnlyList<LayerInstance> MakeInstances()
         {
-            get
-            {
-                if (clippingObjects.Count == 0)
-                    return Array.Empty<LayerInstance>();
-                else
-                    return new LayerInstance[] { new LayerInstance(paletteEntry, GeometryPrototype.FullCoverage, new Matrix(), clippingObjects) };
-            }
+            if (clippingObjects.Count == 0)
+                return Array.Empty<LayerInstance>();
+            else
+                return new LayerInstance[] { new LayerInstance(paletteEntry, GeometryPrototype.FullCoverage, new Matrix(), clippingObjects) };
         }
 
         // The intensity changes the colors only. A change of it destroys the brushes and the pens, as on every target.
