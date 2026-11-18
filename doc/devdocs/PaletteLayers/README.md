@@ -11,6 +11,7 @@ branches, its pull request descriptions and its tracking. The practice is @Pauli
 | [prs/](prs/) | A pull request description of each branch, with the number of its ticket. The template: `template.md`. |
 | [Progress.md](Progress.md) | The state of each branch, its full runs and the branches it is merged into, and the decisions of the work. |
 | [tools/](tools/) | The scripts of the work. Its README tells each script in one sentence, and the loop of a ticket. |
+| [oracles/](oracles/) | The oracles of the appearance: each with its source, the values measured from it, and where the work uses it. |
 | [figures/](figures/) | The figures of the specification. |
 
 ## The architecture comes first
