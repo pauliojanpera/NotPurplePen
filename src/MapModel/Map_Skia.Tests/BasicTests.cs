@@ -204,6 +204,14 @@ namespace Map_Skia.Tests
             ShapedTypeface.ClearCache();
         }
 
+        // Register the private fonts of the rendering tests again after each test: the font matching tests clear the
+        // private fonts, and the rendering tests register theirs once.
+        [TearDown]
+        public void RegisterFontsOfTheRenderingTests()
+        {
+            RenderingTests.AddFontFiles();
+        }
+
         // Verifies that an exact weight/slant match returns the correct font.
         [Test]
         public void FontMatch_ExactMatch()
