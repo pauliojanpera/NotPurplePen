@@ -58,6 +58,9 @@ base. No branch is offered upstream yet.
   read its code, and does not take its way, a layer around the drawing of the symbols, as the model of pass 2. The
   union of a palette entry can stay implicit in the rendering, but its instances cannot be left out (preface and
   section 05 of [Specification.md](Specification.md), @Pauli, Nov 18).
+- **Screenshots of the OCAD viewer.** @Pauli provides screenshots of the viewer of OCAD 2020 when the work needs to
+  know how OCAD draws a file (@Pauli, Nov 18). The session gives him the file and tells what to report, as
+  [oracles/ocad-thick-circles.md](oracles/ocad-thick-circles.md) shows.
 - **Where the work runs.** This is @Pauli's machine; no Windows machine exists here. A build or a test counts only
   when it ran in GitHub Actions, on a `wip/` branch. The .NET SDK is `~/.dotnet/dotnet`, outside `PATH`.
 - **The checkouts.** The clone `~/Documents/Projects/NotPurplePen` stays on `docs/process-coordination`: do not change
