@@ -310,7 +310,7 @@ namespace PurplePen.MapModel
     // The affine placement of a shape in the coordinates of the map. The drawing places a shape with a sequence of
     // transformations. A placement keeps them, the outermost first, and their composition, which is the affine
     // placement. A drawing of the shapes can apply the steps as the symbols applied them, with the same rounding. The
-    // shapes that one placing by a symbol places share their placement, as the parts of a glyph do.
+    // shapes that a symbol places with one transformation share their placement, as the parts of a glyph do.
     public sealed class Placement
     {
         // The placement of the shapes that no transformation places.

@@ -2453,8 +2453,8 @@ namespace PurplePen.MapModel
         }
 
         // The layer instances that the collector makes of the drawing calls of all the symbols, one palette entry at a
-        // time, as pass 1 made them before the geometry methods of the symbols. They are the oracle of the geometry
-        // methods: CreateLayerInstances makes the same instances.
+        // time. They are the oracle of the geometry methods of the symbols: CreateLayerInstances makes the same
+        // instances.
         internal IReadOnlyList<LayerInstance> CollectLayerInstances()
         {
             CheckReadable();
