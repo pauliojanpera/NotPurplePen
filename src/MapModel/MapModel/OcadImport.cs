@@ -35,6 +35,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Diagnostics;
 using System.Globalization;
@@ -61,6 +62,9 @@ namespace PurplePen.MapModel
 
         // Map the symbol colors to SymColor instances.
         Dictionary<int, SymColor> mapOcadIdToSymColor = new Dictionary<int, SymColor>();
+
+        // Map the names of the spot color separations to inks (OCAD 9 and later). The first separation of a name has it.
+        Dictionary<string, Ink> mapNameToInk = new Dictionary<string, Ink>();
 
         // Keys = symbol def ids.
         // Values = symdef instances.
@@ -196,6 +200,7 @@ namespace PurplePen.MapModel
                 this.filename = filename;
                 OcadFileHeader header = ReadFileHeader();
                 version = header.Version;
+                reader.UseOcadEncoding(version);
 
                 if (version < 6 || (version > 12 && version < 2018) || version > 2018) 
                     throw new OcadFileFormatException("File is in OCAD {0} format. Only OCAD formats 6, 7, 8, 9, 10, 11, 12, and 2018 are supported.", version);
@@ -238,10 +243,14 @@ namespace PurplePen.MapModel
 
                     CreateColors(symheader);
 
-                    // Save away the symbol header and setup structure for round-trip purposes.
+                    // Save away the symbol header and setup structure for round-trip purposes. The map has the colors and
+                    // the separations.
                     for (int i = 0; i < symheader.aColorInfo.Length; ++i)
                         symheader.aColorInfo[i] = null;
                     symheader.nColors = 0;
+                    for (int i = 0; i < symheader.aColorSep.Length; ++i)
+                        symheader.aColorSep[i] = null;
+                    symheader.nColorSep = 0;
 
                     map.OcadSymbolHeaderStructure = symheader;
                     map.OcadSetupStructure = setup;
@@ -286,7 +295,8 @@ namespace PurplePen.MapModel
                             map.PrintArea = RectangleF.FromLTRB(l, t, r, b);
                         }
 
-                        // Create the colors in the map, populating the "colors" array.
+                        // Create the inks and the colors in the map, populating the "colors" array.
+                        CreateInks(listStringParameters[(int) OcadStringParam.SpotColor]);
                         if (listStringParameters[(int) OcadStringParam.Color] != null)
                             CreateColors(listStringParameters[(int) OcadStringParam.Color]);
 
@@ -555,24 +565,74 @@ namespace PurplePen.MapModel
             return builder.ToString();
         }
 
-        // Create the SymColor objects in the map, and also cache them in the colors array.
-        // Note that we don't preserve the spot color information.
+        // Create the inks and the SymColor objects in the map (OCAD 6 to 8), and also cache the colors in the colors array.
+        // The separations are the spot inks. The share of a color in a separation is in half percents, from 0 to 200;
+        // 255 is no share.
         void CreateColors(OcadSymbolHeader symheader) {
+            Ink[] separationInks = new Ink[Math.Max(0, Math.Min((int) symheader.nColorSep, OcadSymbolHeader.MaxSeparations))];
+            for (int i = 0; i < separationInks.Length; ++i) {
+                OcadColorSep colorSep = symheader.aColorSep[i];
+                separationInks[i] = new Ink(colorSep.SepName, CmykColorFromOcadCmyk(colorSep.Color),
+                                            InkScreenFromTenths(colorSep.RasterFreq, colorSep.RasterAngle / 10.0F));
+                map.AddSpotInk(separationInks[i]);
+            }
+
             for (int i = symheader.nColors - 1; i >= 0 ; --i) {
                 OcadColorInfo ocadColorInfo = symheader.aColorInfo[i];
-                SymColor color;
-                color = map.AddColor(ocadColorInfo.ColorName, ocadColorInfo.ColorNum,
-                    (float)(ocadColorInfo.Color.cyan)/200.0F,
-                    (float)(ocadColorInfo.Color.magenta)/200.0F,
-                    (float)(ocadColorInfo.Color.yellow)/200.0F,
-                    (float)(ocadColorInfo.Color.black)/200.0F,
-                    ocadColorInfo.Overprint != 0);
+                CmykColor cmyk = CmykColorFromOcadCmyk(ocadColorInfo.Color);
+                SymColor color = new SymColor(ocadColorInfo.ColorName, ocadColorInfo.ColorNum, cmyk.Cyan, cmyk.Magenta, cmyk.Yellow, cmyk.Black,
+                                              ocadColorInfo.Overprint != 0);
+
+                List<InkComponent> components = new List<InkComponent>();
+                for (int j = 0; j < separationInks.Length; ++j) {
+                    byte share = ocadColorInfo.SepPercentage[j];
+                    if (share <= 200)
+                        components.Add(new InkComponent(separationInks[j], share / 200.0F));
+                }
+                color.SetSpotComposition(components);
+
+                map.AddColor(color);
                 mapOcadIdToSymColor[ocadColorInfo.ColorNum] = color;
             }
         }
 
-        // Create the SymColor objects in the map, and also cache them in the colors array.
-        // Note that we don't preserve the spot color information, or the transparency.
+        // The CMYK value of an OCAD 6 to 8 color, whose channels are in half percents.
+        static CmykColor CmykColorFromOcadCmyk(OcadCmyk ocadCmyk)
+        {
+            return CmykColor.FromCmyk(ocadCmyk.cyan / 200.0F, ocadCmyk.magenta / 200.0F, ocadCmyk.yellow / 200.0F, ocadCmyk.black / 200.0F);
+        }
+
+        // The halftone screen of a separation, whose frequency OCAD gives in tenths of lines per inch. A frequency of 0
+        // or less defines no screen.
+        static InkScreen? InkScreenFromTenths(float frequencyInTenths, float angle)
+        {
+            if (frequencyInTenths > 0)
+                return new InkScreen(frequencyInTenths / 10.0F, angle);
+            else
+                return null;
+        }
+
+        // Create the spot inks of the map (OCAD 9 and later), in the order of the numbers of the separations. The angle of
+        // a separation is in degrees.
+        void CreateInks(List<OcadParamString> paramStrings)
+        {
+            if (paramStrings == null)
+                return;
+
+            foreach (OcadParamString paramString in paramStrings.OrderBy(separation => GetParamInt(separation, 'n', 0))) {
+                string name = GetParamString(paramString, '\0');
+                CmykColor appearance = CmykColor.FromCmyk(GetParamFloat(paramString, 'c', 0.0F) / 100.0F, GetParamFloat(paramString, 'm', 0.0F) / 100.0F,
+                                                          GetParamFloat(paramString, 'y', 0.0F) / 100.0F, GetParamFloat(paramString, 'k', 0.0F) / 100.0F);
+                Ink ink = new Ink(name, appearance, InkScreenFromTenths(GetParamFloat(paramString, 'f', 0.0F), GetParamFloat(paramString, 'a', 0.0F)));
+
+                map.AddSpotInk(ink);
+                if (!mapNameToInk.ContainsKey(name))
+                    mapNameToInk.Add(name, ink);
+            }
+        }
+
+        // Create the SymColor objects in the map (OCAD 9 and later), and also cache them in the colors array. The
+        // transparency (t) is the opacity in percent, and the blend mode (b) is its name.
         void CreateColors(List<OcadParamString> paramStrings)
         {
             if (paramStrings == null)
@@ -589,10 +649,36 @@ namespace PurplePen.MapModel
                 float black = GetParamFloat(paramString, 'k', 0.0F) / 100.0F;
                 bool overprint = GetParamInt(paramString, 'o', 0) != 0;
 
-                SymColor color;
-                color = map.AddColor(colorName, (short) colorNum, cyan, magenta, yellow, black, overprint);
+                SymColor color = new SymColor(colorName, (short) colorNum, cyan, magenta, yellow, black, overprint);
+                color.Opacity = SymColor.BoundOpacity(GetParamFloat(paramString, 't', 100.0F) / 100.0F);
+                color.BlendMode = OcadBlendMode.FromName(GetParamString(paramString, 'b'));
+                color.SetSpotComposition(ReadSpotComposition(paramString));
+                map.AddColor(color);
                 mapOcadIdToSymColor[colorNum] = color;
             }
+        }
+
+        // Read the ink components of a color string (OCAD 9 and later): each pair of a separation name (s) and the
+        // percentage of the color in that separation (p). A pair whose separation is not an ink of the map is left out.
+        List<InkComponent> ReadSpotComposition(OcadParamString paramString)
+        {
+            List<InkComponent> components = new List<InkComponent>();
+            Ink ink = null;
+
+            for (int i = 0; i < paramString.codes.Length; ++i) {
+                if (paramString.codes[i] == 's') {
+                    if (!mapNameToInk.TryGetValue(paramString.values[i] ?? "", out ink))
+                        ink = null;
+                }
+                else if (paramString.codes[i] == 'p' && ink != null) {
+                    float percentage;
+                    if (float.TryParse(paramString.values[i], NumberStyles.Float, CultureInfo.InvariantCulture, out percentage))
+                        components.Add(new InkComponent(ink, InkComponent.BoundFactor(percentage / 100.0F)));
+                    ink = null;
+                }
+            }
+
+            return components;
         }
 
         // Get a color, return null if not there.
@@ -2409,8 +2495,13 @@ namespace PurplePen.MapModel
             return ret;
         }
 
-        // I think the BinaryReader method takes numberOfChars instead. Doesn't really 
-        // matter for our purpose since we use a single-byte encoding.
+        // Decode the strings that follow as an OCAD file of the given version encodes them.
+        public void UseOcadEncoding(int version)
+        {
+            encoding = Util.GetOcadEncoding(version);
+        }
+
+        // Read the given number of bytes, and decode them into characters.
         public char[] ReadChars(int numberOfBytes)
         {
             char[] result = encoding.GetChars(bytes, pos, numberOfBytes);

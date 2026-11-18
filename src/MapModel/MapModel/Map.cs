@@ -863,6 +863,7 @@ namespace PurplePen.MapModel
     public class Map: IDisposable
     {
         internal List<SymColor> colors = new List<SymColor>();
+        List<Ink> inks = new List<Ink>(Ink.ProcessInks);   // the process inks, then the spot inks in the order of their separations.
         List<SymDef> symdefs = new List<SymDef>();
         List<Symbol> symbols = new List<Symbol>();
         Dictionary<SymDef, bool> hiddenSymbols = new Dictionary<SymDef, bool>();
@@ -1172,11 +1173,12 @@ namespace PurplePen.MapModel
                 newMap.realWorldCoords = realWorldCoords.Clone();
 
                 if (options.CloneColors) {
-                    for (int i = 0; i < colors.Count; ++i) {
-                        float c, m, y, k;
-                        colors[i].GetCMYK(out c, out m, out y, out k);
-                        newMap.AddColor(colors[i].Name, colors[i].OcadId, c, m, y, k, colors[i].OverPrint);
+                    foreach (Ink ink in inks) {
+                        if (!ink.IsProcessInk)
+                            newMap.AddSpotInk(ink);
                     }
+                    foreach (SymColor color in colors)
+                        newMap.AddColor(new SymColor(color.Layer).CopyFrom(color));
                 }
             }
 
@@ -1205,6 +1207,8 @@ namespace PurplePen.MapModel
         {
             CheckWritable();
             colors.Clear();
+            inks.Clear();
+            inks.AddRange(Ink.ProcessInks);
             symdefs.Clear();
             symbols.Clear();
             SetDirty();
@@ -1309,6 +1313,14 @@ namespace PurplePen.MapModel
             get {
                 CheckReadable();
                 return colors;
+            }
+        }
+
+        // Return all the inks: the four process inks, then the spot inks, in the order of their separations.
+        public IReadOnlyList<Ink> AllInks {
+            get {
+                CheckReadable();
+                return inks.AsReadOnly();
             }
         }
 
@@ -1694,9 +1706,6 @@ namespace PurplePen.MapModel
 
 
 
-        // CONSIDER: why doesn't AddColor just take a SymColor? This seems inconsistent with the way the
-        // other methods work.
-
         // The ColorMatrix transforms the colors before rendering. This is useful, for example, to draw
         // in a lighted fashion or similar.
         public ColorMatrix ColorMatrix {
@@ -1743,13 +1752,21 @@ namespace PurplePen.MapModel
 
         public SymColor AddColorAtIndex(int index, string name, short ocadId, float cyan, float magenta, float yellow, float black, bool overprint)
         {
-            CheckWritable();
+            return AddColorAtIndex(index, new SymColor(name, ocadId, cyan, magenta, yellow, black, overprint));
+        }
 
-            SymColor color = new SymColor(SymLayer.Normal);
-            color.Name = name;
-            color.OcadId = ocadId;
-            color.SetCMYK(cyan, magenta, yellow, black);
-            color.OverPrint = overprint;
+        // Add a color that is in no map yet, at the given index. The inks of its spot definition must be inks of this map.
+        public SymColor AddColorAtIndex(int index, SymColor color)
+        {
+            CheckWritable();
+            Debug.Assert(!color.IsSpecialLayer);
+
+            if (color.HasSpotDefinition) {
+                foreach (InkComponent component in color.InkComponents) {
+                    if (!inks.Contains(component.Ink))
+                        throw new MapUsageException(string.Format("Color '{0}' uses ink '{1}', which is not an ink of the map.", color.Name, component.Ink.Name));
+                }
+            }
 
             if (undoMgr != null)
                 undoMgr.RecordAction(new ChangeColorTableAction(this, index, null, color));
@@ -1763,6 +1780,54 @@ namespace PurplePen.MapModel
         public SymColor AddColor(string name, short ocadId, float cyan, float magenta, float yellow, float black, bool overprint)
         {
             return AddColorAtIndex(colors.Count, name, ocadId, cyan, magenta, yellow, black, overprint);
+        }
+
+        // Add a color that is in no map yet, as the top color.
+        public SymColor AddColor(SymColor color)
+        {
+            return AddColorAtIndex(colors.Count, color);
+        }
+
+        // Add a spot ink as the last separation of the map.
+        public void AddSpotInk(Ink ink)
+        {
+            InsertSpotInk(inks.Count, ink);
+        }
+
+        // Remove a spot ink. You cannot remove an ink that a color uses.
+        public void RemoveSpotInk(Ink ink)
+        {
+            CheckWritable();
+
+            int index = inks.IndexOf(ink);
+            if (index < 0 || ink.IsProcessInk)
+                throw new MapUsageException("Only a spot ink of the map can be removed.");
+            foreach (SymColor color in colors) {
+                if (color.HasSpotDefinition && color.InkComponents.Any(component => component.Ink == ink))
+                    throw new MapUsageException(string.Format("Ink '{0}' can't be removed; color '{1}' uses it.", ink.Name, color.Name));
+            }
+
+            if (undoMgr != null)
+                undoMgr.RecordAction(new ChangeInkTableAction(this, index, ink, null));
+
+            inks.RemoveAt(index);
+        }
+
+        // Insert a spot ink at the given index of AllInks, which is after the process inks.
+        void InsertSpotInk(int index, Ink ink)
+        {
+            CheckWritable();
+
+            if (ink == null)
+                throw new ArgumentNullException("ink");
+            if (ink.IsProcessInk || inks.Contains(ink))
+                throw new MapUsageException(string.Format("Ink '{0}' can't be added; it is a process ink or an ink of the map already.", ink.Name));
+            Debug.Assert(index >= Ink.ProcessInks.Count && index <= inks.Count);
+
+            if (undoMgr != null)
+                undoMgr.RecordAction(new ChangeInkTableAction(this, index, null, ink));
+
+            inks.Insert(index, ink);
         }
 
         public SymColor AddColorBottom(string name, short ocadId, float cyan, float magenta, float yellow, float black, bool overprint)
@@ -1995,6 +2060,14 @@ namespace PurplePen.MapModel
             }
 
             return list.ToArray();
+        }
+
+        // Does a symdef or a special symbol use a color?
+        public bool IsColorUsed(SymColor color)
+        {
+            CheckReadable();
+            return symdefs.Any(symdef => symdef.HasColor(color)) ||
+                   symbols.Any(sym => sym is IGraphicsSymbol && ((IGraphicsSymbol) sym).HasColor(color));
         }
 
         // Set if a symdef is visible.
@@ -2355,6 +2428,58 @@ namespace PurplePen.MapModel
             }
         }
 
+        // Pass 1 of the drawing: make the layer instances (LayerInstances.cs) of the symbols that the drawing of a
+        // rectangle draws, in the order of the palette, the bottom entry first. All the shapes of a palette entry are the
+        // clipping objects of its one instance with full coverage (G = 1), except the hatchings and the patterns of
+        // areas: they are repetitive geometry, and the instances do not hold them. The templates, the image layer and the
+        // layout layer are no palette entries, and have no instances. A palette entry that the symbols draw no shape of
+        // has no instance. The drawing does not use the instances.
+        // rect: the rectangle that the drawing draws, in the coordinates of the map.
+        // minResolution: the size of the smallest feature that the drawing draws, typically the size of a pixel. The
+        //     drawing draws a dashed line solid when its gaps are smaller.
+        public IReadOnlyList<LayerInstance> CreateLayerInstances(RectangleF rect, float minResolution)
+        {
+            CheckReadable();
+
+            RenderOptions renderOpts = new RenderOptions();
+            renderOpts.minResolution = minResolution;
+            renderOpts.omitHatchingsAndPatterns = true;
+
+            List<LayerInstance> instances = new List<LayerInstance>();
+            foreach (SymColor color in colors) {
+                using (LayerInstanceCollector collector = new LayerInstanceCollector(color, textMetricsProvider)) {
+                    foreach (Symbol symbol in SymbolsDrawn(color, rect))
+                        symbol.Draw(collector, color, renderOpts);
+                    instances.AddRange(collector.MakeInstances());
+                }
+            }
+
+            return instances.AsReadOnly();
+        }
+
+        // The symbols that DrawColor draws in a color and a rectangle, in its order: the visible symbols of the visible
+        // symbol definitions that have the color, which may intersect the rectangle.
+        // color: the color.
+        // rect: the rectangle, in the coordinates of the map.
+        private IEnumerable<Symbol> SymbolsDrawn(SymColor color, RectangleF rect)
+        {
+            foreach (SymDef symdef in symdefs) {
+                if (IsSymdefVisible(symdef) && symdef.HasColor(color)) {
+                    List<Symbol> symbolsOfDef = symdef.symbols;
+                    if (symdef.SortSymbolsForDrawing) {
+                        symbolsOfDef = new List<Symbol>(symbolsOfDef);
+                        symbolsOfDef.Sort(SymbolComparison);
+                    }
+
+                    foreach (Symbol symbol in symbolsOfDef) {
+                        // The bounding box excludes a symbol faster than MayIntersectRect does.
+                        if (symbol.IsVisible && symbol.BoundingBox.IntersectsWith(rect) && symbol.MayIntersectRect(rect))
+                            yield return symbol;
+                    }
+                }
+            }
+        }
+
         // Final all symbols entirely withing a given rectangle. Does not include holes.
         public Symbol[] SymbolsWithinRect(RectangleF rect)
         {
@@ -2703,7 +2828,7 @@ namespace PurplePen.MapModel
 #endif
                 if (from == null) {
                     // Inserting at index.
-                    map.AddColorAtIndex(index, to.Name, to.OcadId, to.CmykColor.Cyan, to.CmykColor.Magenta, to.CmykColor.Yellow, to.CmykColor.Black, to.OverPrint);
+                    map.AddColorAtIndex(index, new SymColor(to.Layer).CopyFrom(to));
                 }
                 else if (to == null) {
                     // Deleting at index
@@ -2713,6 +2838,26 @@ namespace PurplePen.MapModel
                     // Changing color
                     map.ChangeColorAtIndex(index, to.Name, to.OcadId, to.CmykColor.Cyan, to.CmykColor.Magenta, to.CmykColor.Yellow, to.CmykColor.Black, to.OverPrint);
                 }
+            }
+        }
+
+        class ChangeInkTableAction : ChangeMapAction<Ink>
+        {
+            int index;
+
+            public ChangeInkTableAction(Map map, int index, Ink from, Ink to)
+                : base(map, from, to)
+            {
+                Debug.Assert(from == null || to == null);
+                this.index = index;
+            }
+
+            protected override void Modify(Ink from, Ink to)
+            {
+                if (from == null)
+                    map.InsertSpotInk(index, to);
+                else
+                    map.RemoveSpotInk(from);
             }
         }
 
@@ -2791,6 +2936,7 @@ namespace PurplePen.MapModel
     {
         public float minResolution;  // minimum size of a feature to render (typically the pixel size)
         public bool usePatternBitmaps; // if true, always use bitmap glyphs to render area patterns, if false, use direct drawing and clipping
+        internal bool omitHatchingsAndPatterns; // if true, do not draw the hatchings and the patterns of areas. Map.CreateLayerInstances collects the full coverage of the colors without them, since they are repetitive geometry.
         public RenderTemplateOption renderTemplates; // how templates (either OCAD or bitmap) will be displayed. Recursively applies to OCAD templates.
         public bool blendOverprintedColors; // if true, then use BlendMode.Darken to blend colors that have Overprint flag set to true.
                                             // if false, then Overprint flag is ignored.
