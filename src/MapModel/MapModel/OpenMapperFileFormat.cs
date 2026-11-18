@@ -43,16 +43,40 @@ using System.Xml;
 
 namespace PurplePen.MapModel
 {
+    // A spot color component of a Mapper color: the factor of the spot color, from 0 to 1, and the priority of the
+    // color that is the spot color.
+    struct OpenMapperSpotColorComponent
+    {
+        public float factor;
+        public int spotColor;
+
+        public OpenMapperSpotColorComponent(float factor, int spotColor)
+        {
+            this.factor = factor;
+            this.spotColor = spotColor;
+        }
+    }
+
     class OpenMapperColor
     {
         public int priority;      // ordering, also used as the color id.
         public float c, m, y, k;
         public float opacity;
         public string name;
-        public bool knockout;
+        public bool knockout;     // Mapper's knockout flag, which only a color with a spot definition has.
+        public string spotColorName;     // The name of the spot color that this color is as such (namedcolor), or null.
+        public float screenFrequency;    // The halftone screen of that spot color: lines per inch, 0 or less if none,
+        public float screenAngle;        // and degrees.
+        public List<OpenMapperSpotColorComponent> components = new List<OpenMapperSpotColorComponent>();  // The spot colors that this color is made of.
 
         // Number that is used for registration black (all colors).
         public const int RegistrationBlackId = -900;
+
+        // Is this color a spot color as such? A color made of spot colors is not, as in Mapper.
+        public bool IsSpotColor
+        {
+            get { return spotColorName != null && components.Count == 0; }
+        }
 
         public static OpenMapperColor ReadFromXml(XmlInput xmlInput)
         {
@@ -78,7 +102,7 @@ namespace PurplePen.MapModel
                         break;
                     case "spotcolors":
                         color.knockout = xmlInput.GetAttributeBool("knockout", false);
-                        xmlInput.Skip();
+                        color.ReadSpotColors(xmlInput);
                         break;
                 }
 
@@ -86,6 +110,26 @@ namespace PurplePen.MapModel
             }
 
             return color;
+        }
+
+        // Read the content of a spotcolors element: the name and the screen of a spot color, or the spot color
+        // components of a composition.
+        void ReadSpotColors(XmlInput xmlInput)
+        {
+            bool first = true;
+            while (xmlInput.FindSubElement(first, "namedcolor", "component")) {
+                if (xmlInput.Name == "namedcolor") {
+                    screenFrequency = xmlInput.GetAttributeFloat("screen_frequency", 0.0F);
+                    screenAngle = xmlInput.GetAttributeFloat("screen_angle", 0.0F);
+                    spotColorName = xmlInput.GetContentString();
+                }
+                else {
+                    components.Add(new OpenMapperSpotColorComponent(xmlInput.GetAttributeFloat("factor", 0.0F), xmlInput.GetAttributeInt("spotcolor", -1)));
+                    xmlInput.Skip();
+                }
+
+                first = false;
+            }
         }
 
         public void WriteToXml(XmlWriter xmlWriter)
@@ -99,9 +143,29 @@ namespace PurplePen.MapModel
             xmlWriter.WriteAttributeString("k", XmlConvert.ToString(k));
             xmlWriter.WriteAttributeString("opacity", XmlConvert.ToString(opacity));
 
-            if (knockout) {
+            if (spotColorName != null || components.Count > 0) {
                 xmlWriter.WriteStartElement("spotcolors");
-                xmlWriter.WriteAttributeString("knockout", XmlConvert.ToString(knockout));
+                if (knockout)
+                    xmlWriter.WriteAttributeString("knockout", XmlConvert.ToString(knockout));
+
+                if (components.Count > 0) {
+                    foreach (OpenMapperSpotColorComponent component in components) {
+                        xmlWriter.WriteStartElement("component");
+                        xmlWriter.WriteAttributeString("factor", XmlConvert.ToString(component.factor));
+                        xmlWriter.WriteAttributeString("spotcolor", XmlConvert.ToString(component.spotColor));
+                        xmlWriter.WriteEndElement();
+                    }
+                }
+                else {
+                    xmlWriter.WriteStartElement("namedcolor");
+                    if (screenFrequency > 0) {
+                        xmlWriter.WriteAttributeString("screen_angle", XmlConvert.ToString(screenAngle));
+                        xmlWriter.WriteAttributeString("screen_frequency", XmlConvert.ToString(screenFrequency));
+                    }
+                    xmlWriter.WriteString(spotColorName);
+                    xmlWriter.WriteEndElement();
+                }
+
                 xmlWriter.WriteFullEndElement();
             }
 
