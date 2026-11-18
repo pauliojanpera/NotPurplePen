@@ -28,6 +28,8 @@ Lisäksi 64-osainen murtoviiva sopii vain, jos OCAD pyöristää jokaisen osan p
 
 Toisen näytteen symboli G2 (vähintään 3 väliä ja toissijainen väli) ei saanut OCADissa vähimmäisvälejä, koska OCAD lukee `MinSym`in 2 kuten 0. Se on oma vikansa, tiketti [019](019-ocad-minimum-gaps.md).
 
+Korjaus on haarassa `fix/ocad-dash-count` (844cb7f8 ja b99067b5). `SymPath.GetCornerAndDashPointLengthsForCounting` antaa kunkin kulma- ja katkopisteiden välisen osan pituuden OCADin laskentatapaan, ja `ComputeDashDistances` laskee siitä välien määrän OCADin säännöillä. Katkojen sovitetut pituudet tulevat edelleen tasoitetun polun pituudesta. `OcadDashCountTests` laskee näytteiden 28 solun katkot ja glyyfit OCAD-viewerin piirtoa vasten. Ilman korjausta 21 tapausta epäonnistuu, ja 7 vertailutapausta menee läpi. Korjaus siirtää 107 kuvabaselinea keräävästä ajosta 44414319636, ja kaksi basen omaa route gadget -baselinea on kansiossa `prs/017-ocad-dash-count-base/` basen yhdistämistä varten. Täysi ajo basen päällä meni läpi (Tests 44417098812, Build 44417098893). Haaraa ei ole yhdistetty haaraan `feature/palette-layers`, koska vanha piirtokoodi pysyy siellä ennallaan tikettien 008–013 ajan.
+
 Vika löytyi tiketin [011](011-line-geometry.md) valmistelussa, kun katkoviivoja verrattiin OCADiin.
 
 (_valinnainen_) **Erotetut alatehtävät**  
