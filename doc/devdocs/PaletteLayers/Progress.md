@@ -15,7 +15,7 @@ when @Pauli makes a decision. It tells the state, not the events: the commits an
 The parts 001 to 005 are done and merged into `feature/palette-layers`, and its full run passed. Pass 1 makes the
 instances with full coverage (G = 1) of each palette entry ([005](tickets/005-layer-instances.md)). The fix
 [006](tickets/006-matrix-equals-offsets.md), which the tests of 005 found, is done on a branch of its own, and no part
-needs it. The next part, the patterns of pass 1, has no ticket yet (see "Next").
+needs it. The next part makes pass 1 apart from the drawing, and has no ticket yet (see "Next").
 
 ## Branches
 
@@ -78,7 +78,15 @@ The parts come in the order of the two passes of the specification (section 02),
 structure and not only the appearance. Each part builds on the parts before it, so its branch is rooted at
 `feature/palette-layers`.
 
-1. **Pass 1, the patterns** (section 03). It has no ticket yet. The hatchings and the area patterns become prototypes
+1. **Pass 1 apart from the drawing.** It has no ticket yet. Pass 1 makes the instances of the map from the map alone:
+   `Map.CreateLayerInstances` takes no rectangle and no resolution of a drawing, and a dashed line is dashed whatever
+   the size of a pixel. The collector stays the source of the instances.
+2. **Pass 1 from the geometry methods of the symbols.** It has no ticket yet. The symbols make their clipping objects
+   with geometry methods of their own, in place of the collector, and the instances of the collector are the oracle.
+   The ticket decides whether a dashed line is one shape, its path and the lengths of its dashes, and how it holds
+   the dashes of OCAD: lengths fitted to each line, the distance metric of OCAD, and the dashes of a double line that
+   are moved aside after they are measured.
+3. **Pass 1, the patterns** (section 03). It has no ticket yet. The hatchings and the area patterns become prototypes
    with their lattice and element transformations, and the elements that a fill mode selects become clipping objects.
    The pass 1 of [ticket 005](tickets/005-layer-instances.md) leaves them out with the internal option
    `RenderOptions.omitHatchingsAndPatterns`. A regular clipped pattern that the options draw with a pattern brush
@@ -86,7 +94,7 @@ structure and not only the appearance. Each part builds on the parts before it, 
    and a pattern that keeps whole glyphs draws them without a clip, as a point symbol draws its glyph. Their lattices
    and element transformations are in the definition of the area (`HatchInfo` and `PatternInfo` of `AreaSymDef`) and
    in the angle of the area object, and the drawing calls do not show them.
-2. **Pass 2, the composition by palette entry** (section 05). It reads the instances only, groups them by palette
+4. **Pass 2, the composition by palette entry** (section 05). It reads the instances only, groups them by palette
    entry, and applies C, α and B once to each group, in the order of the palette. α and B are in the model
    (`SymColor.Opacity` and `SymColor.BlendMode`, [ticket 004](tickets/004-opacity-and-blend-mode.md)), and the
    drawing does not use them yet. For an OCAD map, B = Darken is the larger share of each ink, and not the RGB minimum
@@ -94,11 +102,11 @@ structure and not only the appearance. Each part builds on the parts before it, 
    where the shapes of one color overlap ([oracles/mapper-opacity.md](oracles/mapper-opacity.md)). A clipping object
    keeps the steps of the transformations that placed it (`Placement`), so pass 2 can apply them as the drawing of the
    symbols did, with the same rounding.
-3. **The rendering modes** (sections 06 and 07): the normal view, the overprinting that the inks simulate, and the
+5. **The rendering modes** (sections 06 and 07): the normal view, the overprinting that the inks simulate, and the
    separations, as color configurations of pass 2. All modes use the same instances. The section "Rajaus" of
    [ticket 001](tickets/001-inks.md) describes Mapper's overprinting simulation, which is the oracle of the simulated
    overprinting of Mapper maps. OCAD applies B only in its PDF export, and not in its own view (the same oracle).
-4. **One palette stack for all maps**: the course and the map composite in one stack.
+6. **One palette stack for all maps**: the course and the map composite in one stack.
 
 A ticket of a part of the architecture has structural acceptance criteria, and not only criteria of the appearance.
 For example: pass 2 does not call the drawing code of the symbols; the drawing target gets only composited groups; a
@@ -123,7 +131,8 @@ the rendering.
   "Erotetut alatehtävät".
 - **Pass 2 replaces the direct drawing of the palette entries** (Nov 18). When pass 2 is done, the palette entries of
   a map are drawn from the instances only. The normal view is a rendering mode of pass 2. The drawing code of the
-  symbols stays the source of pass 1, through the collector. The notes of the epic
+  symbols is the source of pass 1, through the collector, until the geometry methods of the symbols replace the
+  collector. The notes of the epic
   ([000](tickets/000-palette-layers.md)) tell what the ticket of pass 2 resolves: the compositing of a group, the
   drawing of the templates and the image and layout layers beside the palette stack, and a new base for the
   comparison of the coverage. Only the highlights stay open, and they do not hold back pass 2.
@@ -131,6 +140,14 @@ the rendering.
   and the coming SVG implementation. GDI+ and WPF are legacy, and Direct2D and iOS are not in use: of the drawing
   targets, the application that ships refers to Skia (`Map_SkiaStd`) and PDF (`Map_PDF`) only. Its printing draws the
   pages with Skia on Windows and as PDF on Linux and macOS.
+- **The drawing does not use the symbols** (Nov 18). Pass 2 reads the instances only, so the drawing does not select
+  the symbols and does not call their code. Only pass 1 uses the symbols.
+- **The instances belong to the map** (Nov 18). Pass 1 depends on the map alone, and not on a rectangle or a
+  resolution of a drawing. To keep to a rectangle is pass 2's work. How the instances follow the changes of the map
+  is for the ticket of pass 2.
+- **Pass 1 before the patterns** (Nov 18). Two tickets come before the ticket of the patterns: one makes pass 1
+  apart from the drawing, and one replaces the collector with geometry methods of the symbols, with the instances of
+  the collector as its oracle.
 - **The base of the full runs** (Nov 18). The palette-layer branches, the features and the fixes alike, run in full on
   `base`, which holds upstream and the workflows and test tools of the fork. The fixes of `basewithfixes` stay out of
   the runs: pass 2 would conflict with `fix/overlapping-patterns` in `Map.DrawColor`, and the fixes move baselines that
