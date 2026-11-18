@@ -24,33 +24,8 @@ namespace Map_Skia.Tests
             System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(RenderingTests).TypeHandle);
         }
 
-        // The maps of the Skia rendering tests: the maps of the comparison of the coverage, and maps with many point
-        // symbols, with gaps in circles, and with point symbols of zero size.
-        [TestCase("isomlines.ocd")]
-        [TestCase("isompoints.ocd")]
-        [TestCase("isompoints_9.ocd")]
-        [TestCase("dashline.ocd")]
-        [TestCase("fences.ocd")]
-        [TestCase("doublelines9.ocd")]
-        [TestCase("pointyends9.ocd")]
-        [TestCase("glyphs9.ocd")]
-        [TestCase("cornerglyphs9.ocd")]
-        [TestCase("decreasesymbols.ocd")]
-        [TestCase("cutcircles.ocd")]
-        [TestCase("cutcircles9.ocd")]
-        [TestCase("zeroglyph6.ocd")]
-        [TestCase("zeroglyph9.ocd")]
-        [TestCase("simpletext.ocd")]
-        [TestCase("framingline.ocd")]
-        [TestCase("underlinetext.ocd")]
-        [TestCase("textpoint10.ocd")]
-        [TestCase("linetext_9.ocd")]
-        [TestCase("rectanglesymbols.ocd")]
-        [TestCase("graphicobjects9.ocd")]
-        [TestCase("LordHill.ocd")]
-        [TestCase("marymoor.ocd")]
-        [TestCase("Lake Sammamish.ocd")]
-        [TestCase("Hakola malli.omap")]
+        // Each map of the Skia rendering tests.
+        [TestCaseSource(nameof(FindMapFilesOfTheRenderingTests))]
         public void PassOneMakesTheInstancesOfTheCollector(string mapFileName)
         {
             Map map = ReadMap(mapFileName);
@@ -215,6 +190,15 @@ namespace Map_Skia.Tests
             // arc around 0 degrees, and two lines with Bezier curves, one ring and one arc of the last glyph. Black: a
             // dot of a ring whose line is wider than its diameter, a ring of radius 0, and two closed lines.
             CollectionAssert.AreEqual(new int[] { 4, 8, 4 }, instances.Select(instance => instance.ClippingObjects.Count));
+        }
+
+        // The names of the map files of the Skia rendering tests: each OCAD and Mapper file in skia_render.
+        static IEnumerable<string> FindMapFilesOfTheRenderingTests()
+        {
+            return Directory.GetFiles(TestUtil.GetTestFile("skia_render"))
+                            .Where(file => file.EndsWith(".ocd", StringComparison.OrdinalIgnoreCase) || file.EndsWith(".omap", StringComparison.OrdinalIgnoreCase))
+                            .Select(Path.GetFileName)
+                            .OrderBy(name => name, StringComparer.Ordinal);
         }
 
         // An empty map that measures text with Skia.
