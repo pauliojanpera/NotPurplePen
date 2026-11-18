@@ -1,6 +1,7 @@
 using System;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using PurplePen.Graphics2D;
 using PurplePen.MapModel;
 using TestingUtils;
@@ -21,17 +22,16 @@ namespace Map_Skia.Tests
             return map;
         }
 
-        // Count the runs of covered pixels that the drawing of a map has along a straight line, drawn without antialiasing
-        // at 0.02 mm to the pixel: the dashes of a dashed line, or the glyphs of a line of glyphs.
+        // Count the runs of covered pixels that the drawing of a map has along a line through points, drawn without
+        // antialiasing at 0.02 mm to the pixel: the dashes of a dashed line, or the glyphs of a line of glyphs.
         // map: the map.
-        // start: one end of the line, in mm on the paper.
-        // end: the other end of the line.
-        public static int CountRunsAlong(Map map, PointF start, PointF end)
+        // points: the points of the line, in mm on the paper.
+        public static int CountRunsAlong(Map map, params PointF[] points)
         {
             const float pixelSize = 0.02F, step = 0.01F;
-            RectangleF area = RectangleF.FromLTRB(Math.Min(start.X, end.X) - 1, Math.Min(start.Y, end.Y) - 1, Math.Max(start.X, end.X) + 1, Math.Max(start.Y, end.Y) + 1);
+            float left = points.Min(p => p.X) - 1, bottom = points.Min(p => p.Y) - 1, right = points.Max(p => p.X) + 1, top = points.Max(p => p.Y) + 1;
+            RectangleF area = RectangleF.FromLTRB(left, bottom, right, top);
             int width = (int)Math.Ceiling(area.Width / pixelSize), height = (int)Math.Ceiling(area.Height / pixelSize);
-            float length = (float)Math.Sqrt((end.X - start.X) * (end.X - start.X) + (end.Y - start.Y) * (end.Y - start.Y));
 
             using (map.Read())
             using (Skia_BitmapGraphicsTarget target = new Skia_BitmapGraphicsTarget(width, height, true, CmykColor.FromCmyka(0, 0, 0, 0, 0), area, true)) {
@@ -41,13 +41,17 @@ namespace Map_Skia.Tests
                 using (Skia_Bitmap bitmap = (Skia_Bitmap)target.FinishBitmap()) {
                     int runs = 0;
                     bool wasCovered = false;
-                    for (float distance = 0; distance <= length; distance += step) {
-                        float x = start.X + (end.X - start.X) * distance / length;
-                        float y = start.Y + (end.Y - start.Y) * distance / length;
-                        bool isCovered = bitmap.Bitmap.GetPixel((int)((x - area.Left) / pixelSize), (int)((area.Bottom - y) / pixelSize)).Alpha != 0;
-                        if (isCovered && !wasCovered)
-                            ++runs;
-                        wasCovered = isCovered;
+                    for (int i = 0; i < points.Length - 1; ++i) {
+                        PointF start = points[i], end = points[i + 1];
+                        float length = (float)Math.Sqrt((end.X - start.X) * (end.X - start.X) + (end.Y - start.Y) * (end.Y - start.Y));
+                        for (float distance = 0; distance < length; distance += step) {
+                            float x = start.X + (end.X - start.X) * distance / length;
+                            float y = start.Y + (end.Y - start.Y) * distance / length;
+                            bool isCovered = bitmap.Bitmap.GetPixel((int)((x - area.Left) / pixelSize), (int)((area.Bottom - y) / pixelSize)).Alpha != 0;
+                            if (isCovered && !wasCovered)
+                                ++runs;
+                            wasCovered = isCovered;
+                        }
                     }
                     return runs;
                 }
