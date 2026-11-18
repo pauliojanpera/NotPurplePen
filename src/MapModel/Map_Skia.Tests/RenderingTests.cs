@@ -20,6 +20,12 @@ namespace Map_Skia.Tests
 
         static RenderingTests()
         {
+            AddFontFiles();
+        }
+
+        // Register the Roboto font files of the tests as private fonts. A font that is registered already stays as it is.
+        internal static void AddFontFiles()
+        {
             Uri uri = new Uri(typeof(RenderingTests).Assembly.Location);
             string executablePath = Path.GetDirectoryName(uri.LocalPath);
             string fontPath = Path.Combine(executablePath, "fonts");
