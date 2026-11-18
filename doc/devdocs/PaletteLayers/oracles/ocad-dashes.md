@@ -277,4 +277,41 @@ dashes of the borders tell whether OCAD puts the dash of a border beside the das
 Purple Pen does (`OffsetPointsRight`), or fits the dashes to the length of each border. The solid borders tell how
 OCAD makes the edges of a border at the vertices, along tight curves and where the inner border of a half circle of
 radius 1 has no room. [Purple Pen's drawing](ocad-dashes/purple-pen-dashes-4-ocad12-euclidean-600dpi.png) is at 600
-dpi. An export of 1200 dpi measures the edges more exactly.
+dpi.
+
+@Pauli exported the file on Nov 19 at [600 dpi](ocad-dashes/ocad-viewer-dashes-4-ocad12-euclidean-600dpi.png) and at
+[1200 dpi](ocad-dashes/ocad-viewer-dashes-4-ocad12-euclidean-1200dpi.png).
+
+### The values
+
+- **Corner and dash points.** In all the 25 cells of the rows K A, K B, V A and K more, OCAD draws the same number of
+  dashes as Purple Pen, and the ends of the dashes are at most 0.055 mm apart: about one pixel of 600 dpi.
+- **The dashes of the borders.** Counted on each border, an offset of the path with miter joins, the borders have
+  the dashes of the middle of the line, in OCAD as in Purple Pen, and not dashes fitted to the length of each border:
+
+  | Cell | Middle | Left border: length, fitted, OCAD, Purple Pen | Right border: length, fitted, OCAD, Purple Pen |
+  | --- | --- | --- | --- |
+  | DB16-4, half circle of radius 5 | 15.71 mm, 6 dashes | 18.46 mm, 8, 6, 6 | 12.97 mm, 5, 6, 6 |
+  | DB16-7, closed circle of radius 5 | 31.42 mm, 13 dashes | 25.92 mm, 11, 13, 13 | 36.92 mm, 15, 13, 13 |
+  | DB16-2, plain vertices | 27.00 mm, 11 dashes | 24.71 mm, 10, 10, 10 | 29.30 mm, 12, 10, 10 |
+  | DB6-6 and DB16-6, the S curve | 26.20 mm, 11 dashes | 26.20 mm, 11, 10, 11 | 26.20 mm, 11, 10, 11 |
+
+  On the S curve, OCAD gives the borders the 10 dashes of its count of the middle (ticket
+  [017](../tickets/017-ocad-dash-count.md)). The ends of the dashes of the borders are at most 0.13 mm apart, except
+  on the left border of DB6-2 and DB16-2, where one end is 0.76 and 1.74 mm apart. There a dash of the middle starts
+  exactly at a plain vertex: Purple Pen starts it just before the vertex, so its dash on the outer border takes the
+  corner of the miter, and OCAD starts it at the vertex. Where a dash of the middle goes over an outer vertex, as on
+  the right border at the first vertex, OCAD's dash on the border takes the corner of the miter as Purple Pen's does.
+- **Solid borders.** On the same grid of 600 dpi, OCAD's and Purple Pen's borders differ only in single pixels at
+  their edges: at the turns of 60° and 120°, at the corner points, and along the half circles. The inner border of
+  the half circle of radius 1 of S16 has no room, and both draw a small spot there.
+
+### What the fourth sample tells
+
+- OCAD fits the dashes of each part between corner and dash points, and joins the end dashes of the parts into one
+  dash at the point, as Purple Pen does (`ComputeDashDistances`).
+- OCAD puts the dash of a border beside the dash of the middle, as Purple Pen does: the offset of the dash of the
+  middle, with miter joins (`OffsetPointsRight`).
+- OCAD draws a solid border as the offset of the path with miter joins, as Purple Pen does.
+- So the composition that ticket [011](../tickets/011-line-geometry.md) considers (question 4) can follow the
+  drawing of Purple Pen and of OCAD alike, except at a dash that starts exactly at a vertex.

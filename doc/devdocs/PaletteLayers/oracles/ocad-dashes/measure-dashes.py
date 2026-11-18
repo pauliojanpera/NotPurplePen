@@ -157,7 +157,7 @@ def main():
         sym = data["symbols"][cell["symbol"]]
         if sym.get("double", "").startswith("solid"):
             continue
-        if "border" in sym:
+        if isinstance(sym.get("border"), dict):
             border = dict(sym["border"], double="borders dashed")
             report(cell, dict(sym, note="main line"), metric, grids, 0.0)
             report(cell, border, metric, grids, 0.375)
