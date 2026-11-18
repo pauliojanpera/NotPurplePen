@@ -7,18 +7,24 @@ namespace PurplePen.MapModel
     using PurplePen.Graphics2D;
 
     // The collector of pass 1 of the drawing: the adapter between the drawing code of the symbols and the layer
-    // instances (LayerInstances.cs). The symbols draw the shapes of one palette entry on it as on any drawing target,
-    // and it turns each drawing call into a clipping object of the entry's instance with full coverage (G = 1), at the
-    // placement that the transformations of the call give. It draws nothing, and the colors of the brushes and the
-    // pens do not matter to it.
+    // instances (LayerInstances.cs), for the symbols whose kind has no geometry method (Symbol.TryAddClippingObjects).
+    // The symbols draw the shapes of one palette entry on it as on any drawing target, and it turns each drawing call
+    // into a clipping object of the entry's instance with full coverage (G = 1), at the placement that the
+    // transformations of the call give. It draws nothing, and the colors of the brushes and the pens do not matter to
+    // it. The instances that it makes of all the symbols (Map.CollectLayerInstances) are the oracle of the geometry
+    // methods.
     // The full coverage of a palette entry is not clipped, has no pattern brushes and draws no bitmaps: in the drawing
     // of the symbols, only the hatchings and the patterns of areas clip or use a pattern brush, and only the image
     // layer and the layout layer draw bitmaps. Pass 1 leaves all of them out, so the collector does not take them.
     internal sealed class LayerInstanceCollector : IGraphicsTarget
     {
+        private readonly LayerInstanceBuilder instances;
         private readonly SymColor paletteEntry;
         private readonly ITextMetrics textMetrics;
-        private readonly List<ClippingObject> clippingObjects = new List<ClippingObject>();
+
+        // The options of the drawing code of the symbols: the resolution 0, so that a dashed line keeps its dashes
+        // whatever their lengths, and no hatchings and patterns of areas, which are repetitive geometry.
+        private readonly RenderOptions renderOptions = new RenderOptions() { minResolution = 0, omitHatchingsAndPatterns = true };
 
         // The placement of the shapes that the next drawing calls draw, and the placements that the transformations
         // pushed before it hold.
@@ -34,22 +40,21 @@ namespace PurplePen.MapModel
         private float intensity = 1;
 
         // Make a collector of the shapes of a palette entry.
+        // instances: the layer instances, which get the clipping objects of the palette entry.
         // paletteEntry: the palette entry whose shapes the symbols draw.
         // textMetrics: the metrics of the fonts, which measure the bounds of the text runs.
-        public LayerInstanceCollector(SymColor paletteEntry, ITextMetrics textMetrics)
+        public LayerInstanceCollector(LayerInstanceBuilder instances, SymColor paletteEntry, ITextMetrics textMetrics)
         {
+            this.instances = instances;
             this.paletteEntry = paletteEntry;
             this.textMetrics = textMetrics;
         }
 
-        // Make the instances of the drawing calls: the instance of the palette entry with full coverage, if the symbols
-        // drew a shape.
-        public IReadOnlyList<LayerInstance> MakeInstances()
+        // Collect the shapes of the palette entry that a symbol draws.
+        // symbol: the symbol.
+        public void Collect(Symbol symbol)
         {
-            if (clippingObjects.Count == 0)
-                return Array.Empty<LayerInstance>();
-            else
-                return new LayerInstance[] { new LayerInstance(paletteEntry, GeometryPrototype.FullCoverage, new Matrix(), clippingObjects) };
+            symbol.Draw(this, paletteEntry, renderOptions);
         }
 
         // The intensity changes the colors only. A change of it destroys the brushes and the pens, as on every target.
@@ -285,13 +290,13 @@ namespace PurplePen.MapModel
         private void AddFilled(object brushKey, Shape shape, AreaFillMode fillRule)
         {
             CheckBrush(brushKey);
-            clippingObjects.Add(new FilledShape(shape, fillRule, placement));
+            instances.Add(paletteEntry, new FilledShape(shape, fillRule, placement));
         }
 
         // Add a shape that a pen strokes, at the current placement.
         private void AddStroked(object penKey, Shape shape)
         {
-            clippingObjects.Add(new StrokedShape(shape, GetPen(penKey), placement));
+            instances.Add(paletteEntry, new StrokedShape(shape, GetPen(penKey), placement));
         }
 
         // Add a pen with its stroke.

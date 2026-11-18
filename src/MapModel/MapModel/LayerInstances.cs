@@ -152,6 +152,11 @@ namespace PurplePen.MapModel
 
         // The bounds of the area that the clipping object covers, in the coordinates of the shape.
         private protected abstract RectangleF CoveredBounds { get; }
+
+        // The clipping object of the same shape, covered in the same way, at another placement. The placements of a
+        // glyph share the shapes of its parts in this way.
+        // placement: the placement.
+        internal abstract ClippingObject WithPlacement(Placement placement);
     }
 
     // A clipping object that a filled shape makes.
@@ -182,6 +187,11 @@ namespace PurplePen.MapModel
         private protected override RectangleF CoveredBounds
         {
             get { return Shape.Bounds; }
+        }
+
+        internal override ClippingObject WithPlacement(Placement placement)
+        {
+            return new FilledShape(Shape, fillRule, placement);
         }
 
         public override string ToString()
@@ -222,6 +232,11 @@ namespace PurplePen.MapModel
                 shapeBounds.Inflate(stroke.Reach, stroke.Reach);
                 return shapeBounds;
             }
+        }
+
+        internal override ClippingObject WithPlacement(Placement placement)
+        {
+            return new StrokedShape(Shape, stroke, placement);
         }
 
         public override string ToString()
@@ -294,8 +309,8 @@ namespace PurplePen.MapModel
 
     // The affine placement of a shape in the coordinates of the map. The drawing places a shape with a sequence of
     // transformations. A placement keeps them, the outermost first, and their composition, which is the affine
-    // placement. A drawing of the shapes can apply the steps as the symbols applied them, with the same rounding. In
-    // the instances of a palette entry, the shapes that the same transformations place share their placement.
+    // placement. A drawing of the shapes can apply the steps as the symbols applied them, with the same rounding. The
+    // shapes that a symbol places with one transformation share their placement, as the parts of a glyph do.
     public sealed class Placement
     {
         // The placement of the shapes that no transformation places.

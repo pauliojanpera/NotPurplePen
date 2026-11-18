@@ -2416,26 +2416,58 @@ namespace PurplePen.MapModel
         // drawing does not use the instances.
         // The instances belong to the map, and not to a drawing of it: they depend on the colors, the symbol
         // definitions, the symbols, the visibility and the text metrics of the map alone. They hold each visible symbol
-        // wherever it lies, and the drawing code of the symbols gets the resolution 0, so that a dashed line keeps its
-        // dashes whatever their lengths.
+        // wherever it lies, and a dashed line keeps its dashes whatever their lengths.
+        // Pass 1 goes through the symbols once, in the order that DrawColor draws them. A symbol whose kind has a
+        // geometry method adds its clipping objects to all its palette entries with it (Symbol.TryAddClippingObjects),
+        // and the collector collects each palette entry that the other symbols draw (LayerInstanceCollector). So the
+        // clipping objects of a palette entry are in the order that DrawColor draws them.
         public IReadOnlyList<LayerInstance> CreateLayerInstances()
         {
             CheckReadable();
 
-            RenderOptions renderOpts = new RenderOptions();
-            renderOpts.minResolution = 0;
-            renderOpts.omitHatchingsAndPatterns = true;
+            LayerInstanceBuilder instances = new LayerInstanceBuilder(colors);
+            Dictionary<SymColor, LayerInstanceCollector> collectors = colors.ToDictionary(color => color, color => new LayerInstanceCollector(instances, color, textMetricsProvider));
+            try {
+                foreach (SymDef symdef in symdefs) {
+                    if (!IsSymdefVisible(symdef))
+                        continue;
 
-            List<LayerInstance> instances = new List<LayerInstance>();
+                    List<SymColor> colorsOfSymdef = colors.FindAll(symdef.HasColor);
+                    if (colorsOfSymdef.Count == 0)
+                        continue;
+
+                    foreach (Symbol symbol in SelectVisibleSymbols(symdef)) {
+                        if (!symbol.TryAddClippingObjects(instances)) {
+                            foreach (SymColor color in colorsOfSymdef)
+                                collectors[color].Collect(symbol);
+                        }
+                    }
+                }
+            }
+            finally {
+                foreach (LayerInstanceCollector collector in collectors.Values)
+                    collector.Dispose();
+            }
+
+            return instances.MakeInstances();
+        }
+
+        // The layer instances that the collector makes of the drawing calls of all the symbols, one palette entry at a
+        // time. They are the oracle of the geometry methods of the symbols: CreateLayerInstances makes the same
+        // instances.
+        internal IReadOnlyList<LayerInstance> CollectLayerInstances()
+        {
+            CheckReadable();
+
+            LayerInstanceBuilder instances = new LayerInstanceBuilder(colors);
             foreach (SymColor color in colors) {
-                using (LayerInstanceCollector collector = new LayerInstanceCollector(color, textMetricsProvider)) {
+                using (LayerInstanceCollector collector = new LayerInstanceCollector(instances, color, textMetricsProvider)) {
                     foreach (Symbol symbol in SelectVisibleSymbolsOfColor(color))
-                        symbol.Draw(collector, color, renderOpts);
-                    instances.AddRange(collector.MakeInstances());
+                        collector.Collect(symbol);
                 }
             }
 
-            return instances.AsReadOnly();
+            return instances.MakeInstances();
         }
 
         // Select the visible symbols of the visible symbol definitions that have a color, wherever the symbols lie, in
@@ -2445,17 +2477,25 @@ namespace PurplePen.MapModel
         {
             foreach (SymDef symdef in symdefs) {
                 if (IsSymdefVisible(symdef) && symdef.HasColor(color)) {
-                    List<Symbol> symbolsOfDef = symdef.symbols;
-                    if (symdef.SortSymbolsForDrawing) {
-                        symbolsOfDef = new List<Symbol>(symbolsOfDef);
-                        symbolsOfDef.Sort(SymbolComparison);
-                    }
-
-                    foreach (Symbol symbol in symbolsOfDef) {
-                        if (symbol.IsVisible)
-                            yield return symbol;
-                    }
+                    foreach (Symbol symbol in SelectVisibleSymbols(symdef))
+                        yield return symbol;
                 }
+            }
+        }
+
+        // Select the visible symbols of a symbol definition, wherever they lie, in the order that DrawColor draws them.
+        // symdef: the symbol definition.
+        private IEnumerable<Symbol> SelectVisibleSymbols(SymDef symdef)
+        {
+            List<Symbol> symbolsOfDef = symdef.symbols;
+            if (symdef.SortSymbolsForDrawing) {
+                symbolsOfDef = new List<Symbol>(symbolsOfDef);
+                symbolsOfDef.Sort(SymbolComparison);
+            }
+
+            foreach (Symbol symbol in symbolsOfDef) {
+                if (symbol.IsVisible)
+                    yield return symbol;
             }
         }
 
@@ -2915,7 +2955,7 @@ namespace PurplePen.MapModel
     {
         public float minResolution;  // minimum size of a feature to render (typically the pixel size)
         public bool usePatternBitmaps; // if true, always use bitmap glyphs to render area patterns, if false, use direct drawing and clipping
-        internal bool omitHatchingsAndPatterns; // if true, do not draw the hatchings and the patterns of areas. Map.CreateLayerInstances collects the full coverage of the colors without them, since they are repetitive geometry.
+        internal bool omitHatchingsAndPatterns; // if true, do not draw the hatchings and the patterns of areas. The collector of pass 1 (LayerInstanceCollector) collects the full coverage of the colors without them, since they are repetitive geometry.
         public RenderTemplateOption renderTemplates; // how templates (either OCAD or bitmap) will be displayed. Recursively applies to OCAD templates.
         public bool blendOverprintedColors; // if true, then use BlendMode.Darken to blend colors that have Overprint flag set to true.
                                             // if false, then Overprint flag is ignored.

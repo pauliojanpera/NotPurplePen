@@ -15,6 +15,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCulture("")]
 
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("Test_MapModel")]
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("Map_Skia.Tests")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
