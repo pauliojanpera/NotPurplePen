@@ -4,8 +4,8 @@ Nov 18, 2026. OCAD is the authority on how its own maps render (the preface of
 [Specification.md](../Specification.md)). This oracle tells how OCAD applies the blend mode Darken, B of section 01.
 Its source is the OCAD wiki page [Blend Mode](https://www.ocad.com/wiki/ocad/en/index.php?title=Blend_Mode): its text,
 the table of its Blend mode dialog (`BlendModeTable.png`), OCAD's own view (`BlendModeOcad.png`), and the exported PDF
-in Adobe Reader (`BlendModePdf.png`). @Pauli gave them on Nov 18. The images are not in the repository; this file
-records their values.
+in Adobe Reader (`BlendModePdf.png`). @Pauli gave them on Nov 18. The images are in [ocad-darken/](ocad-darken/),
+under the names that the wiki gives them.
 
 ## The example
 
@@ -20,11 +20,18 @@ Six colors, the top one first. Each has the opacity 100, and none overprints.
 | 113 | Green | 76 | 0 | 91 | 0 | Normal |
 | 121 | Yellow | 0 | 27 | 79 | 0 | Normal |
 
+![The Blend mode dialog of OCAD with the six colors](ocad-darken/BlendModeTable.png)
+
 The drawing has white paper at the top and a band of Blue below it. Below the band, Green is at the left and Yellow
 at the right, and a road of Brown crosses both. A ring of Purple lies over the paper, Blue, Green, the road and
 Yellow. A ring of Green over Brown lies over Yellow and the road.
 
 ## What the images show
+
+![OCAD's own view of the example](ocad-darken/BlendModeOcad.png)
+![The PDF of the example in Adobe Reader](ocad-darken/BlendModePdf.png)
+
+First OCAD's own view, and then the PDF in Adobe Reader.
 
 - OCAD's own view does not apply the blend mode: each ring covers what is below it. The dialog says so too: "The
   blend mode settings affect only the pdf export!"
