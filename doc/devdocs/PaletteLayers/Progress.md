@@ -85,8 +85,11 @@ the rendering.
 
 ## Waiting on @Pauli
 
-- **The scope of the epic** (Nov 18). [Ticket 000](tickets/000-palette-layers.md) is a draft: what is included, and
-  what is not (the SVG encoding, the flattening, and the merge into `dev`).
+- **The scope of the epic** (Nov 18). [Ticket 000](tickets/000-palette-layers.md) is a draft. @Pauli confirmed that
+  the flattening is outside it, and that the SVG encoding waits until pass 2 is done.
+- **The SVG encoding**, when pass 2 is done (Nov 18). Its place: an encoding read from the instances, or the SVG
+  target of NotPurplePen fitted to them in the integration. And whether the work can use the documented findings of
+  `feature/svg-target` without its code. The notes of the epic give the reasons.
 - **The ticket of the next part** (Nov 18). Who writes it: @Pauli, or the session as a draft for his approval.
 - **Offering upstream.** No branch is offered upstream yet.
 

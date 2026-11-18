@@ -13,9 +13,15 @@ Upstreamin karttamalli toteuttaa [speksin](../Specification.md) palettikerrosark
 * Korjaukset upstreamin koodiin, joita osat tarvitsevat
 
 ❌ Ei sisälly
-* SVG-koodaus, luku 04: upstreamissa ei ole SVG-kohdetta, ja NotPurplePenin SVG-kohde kuuluu integraatioon
+* SVG-koodaus, luku 04, ennen kuin vaiheet 1 ja 2 ovat valmiit: sen paikka ja feature/svg-targetin kokemuksen käyttö päätetään silloin (ks. Muistiinpanot)
 * Läpinäkyvyyden litistys vektoreiksi, luku 08: se on oma optimointitehtävänsä
 * Integraatio NotPurplePenin dev-haaraan: se tehdään @Paulin luvalla, kun osat ovat valmiit
+
+### Muistiinpanot
+* **Arkkitehtuuri ennen ulkoasua (18.11.).** Feature/multiply-blending saavuttaa ulkoasunsa sekoittamalla musteen kerroksena symbolien piirron ympärillä. Tämä epic toteuttaa speksin erottelemat vaiheet: vaihe 1 tuottaa ilmentymät tietorakenteena, ja vaihe 2 koostaa ne. Siksi multiply-blending on vain ulkoasun oraakkeli, eikä työ lue sen koodia. Speksin luvun 05 implisiittinen unioni koskee piirtoa eikä rakennetta: ilmentymät eivät saa jäädä pois. Osat tehdään vaiheiden järjestyksessä: palettimerkinnän tiedot ensin pelkkänä mallina, sitten vaihe 1, vaihe 2 ja piirtotilat.
+* **Mallin muutokset ensin (18.11.).** Inks-vaiheessa pelkän mallin muutokset tarkistuivat kierrostesteillä ilman baselineja, kun taas piirron muutokset tarvitsivat CI:n baselinet. Formaattien tulkinta tarkistetaan kirjoittajien omista tiedostoista: Hakolan OCAD-kartat olivat Mapperin kirjoittamia, ja OCADin omat tiedostot erosivat niistä. Matkalla löytyvät upstreamin viat erotetaan omiksi fix-tiketeikseen.
+* **SVG-koodaus (18.11.).** Luvun 04 mukaan SVG-primitiivit ovat saman loogisen mallin koodaustapoja eivätkä osa arkkitehtuuria. Arkkitehtuuri rakennetaan ja todennetaan ilman SVG:tä, ja vaiheiden 1 ja 2 tiketit saavat lukua 04 vastaavat rakenteelliset kriteerit: prototyyppi jaetaan muunnoksin kopioimatta, ja palettimerkinnällä on yksi ryhmä. Feature/svg-targetin kokemus koskee enimmäkseen rakenteen ulkopuolisia asioita: tekstiä, fontteja, kuvia, georeferointia ja selainten eroja. Osan siitä, kuten kuvioiden haamut, ilmentymät korvaavat, ja haamujen seuraaminen olisi samanlainen luisu kuin multiply-blendingin seuraaminen. SVG-koodauksen paikka päätetään, kun vaihe 2 on valmis: koodataanko suoraan ilmentymistä vai sovitetaanko NotPurplePenin `Map_Svg` integraatiossa, ja saako työ käyttää svg-targetin dokumentoituja havaintoja ilman sen koodia.
+* **Litistys (18.11.)** ei kuulu epiciin. Se on oma optimointitehtävänsä (luku 08).
 
 ### Erotetut alatehtävät
 * [001](001-inks.md) Musteet palettimerkintöjen perustana: haara `feature/inks`, yhdistetty haaraan `feature/palette-layers`.
