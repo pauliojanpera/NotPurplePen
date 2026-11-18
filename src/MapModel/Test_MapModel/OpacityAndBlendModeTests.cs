@@ -21,6 +21,7 @@ namespace PurplePen.MapModel.Tests
         const string Ocad11Map = "rendering\\LordHill OCAD11.ocd";
         const string Ocad12Map = "rendering\\wholestructure.ocd";
         const string Ocad2018Map = "ocadimport\\ssl_issprom2019.ocd";
+        const string MapperMap = "openmapper\\LordHill.omap";      // LordHill.ocd, as Mapper opened and saved it.
 
         // The base name of the files that the tests write of the map that MakeMap makes.
         const string MadeMap = "ocadimport\\opacity and blend mode";
@@ -282,16 +283,32 @@ namespace PurplePen.MapModel.Tests
             }
         }
 
-        [TestCase(Ocad9Map, 9)]
-        [TestCase(Ocad11Map, 11)]
-        [TestCase(Ocad12Map, 12)]
-        [TestCase(Ocad2018Map, 2018)]
-        public void RoundTripKeepsOpacityAndBlendModeOfOcadMap(string fileName, int version)
+        [TestCase(Ocad9Map, MapFileFormatKind.OCAD, 9)]
+        [TestCase(Ocad11Map, MapFileFormatKind.OCAD, 11)]
+        [TestCase(Ocad12Map, MapFileFormatKind.OCAD, 12)]
+        [TestCase(Ocad2018Map, MapFileFormatKind.OCAD, 2018)]
+        [TestCase(MapperMap, MapFileFormatKind.OpenMapper, 9)]
+        public void RoundTripKeepsOpacityAndBlendModeOfTestMap(string fileName, MapFileFormatKind kind, int version)
         {
             Map map = LoadMap(fileName);
-            Map newMap = WriteAndRead(map, fileName, Format(MapFileFormatKind.OCAD, version));
+            Map newMap = WriteAndRead(map, fileName, Format(kind, version));
 
             CollectionAssert.AreEqual(ColorsTopFirst(map).Select(DescribeCompositing), ColorsTopFirst(newMap).Select(DescribeCompositing));
+        }
+
+        [Test]
+        public void MapperReadsTransparencyAsOcadImportDoes()
+        {
+            // Each color of LordHill.ocd has in LordHill.omap, which Mapper saved of it, the opacity that the OCAD import
+            // reads, and no blend mode. Mapper makes "All color separations" its registration black, which is not a color
+            // of its file. It adds the separations as spot colors below the other colors, with their names, so the color
+            // of a name is the top one.
+            List<SymColor> mapperColors = ColorsTopFirst(LoadMap(MapperMap));
+            List<SymColor> ocadColors = ColorsTopFirst(LoadMap(Ocad9Map)).Where(color => color.Name != "All color separations").ToList();
+
+            CollectionAssert.AreEqual(ocadColors.Select(DescribeCompositing),
+                                      ocadColors.Select(color => DescribeCompositing(mapperColors.First(mapperColor => mapperColor.Name == color.Name))));
+            Assert.AreEqual(0.8F, mapperColors.First(color => color.Name == "Purple").Opacity);
         }
     }
 }
