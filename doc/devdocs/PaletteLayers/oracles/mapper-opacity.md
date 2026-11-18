@@ -10,7 +10,8 @@ a color to each shape, and not once to the palette entry, as section 05 and figu
 @Pauli took on Nov 18. It shows the map LordHill with its own palette, as in
 `src/MapModel/TestFiles/openmapper/LordHill.omap`, which is `rendering/LordHill.ocd` as Mapper opened and saved it. The
 color "Purple" has the opacity 0.8, from the transparency `t80` of the OCAD file. To test it, @Pauli placed on the map
-an object of the symbol "Refreshment point" (611.0), a drinking cup in Purple. The files in the repository have the
+two objects of the symbol "Refreshment point" (611.0), a drinking cup in Purple, and saved the map as
+[mapper-opacity/LordHill-cup.omap](mapper-opacity/LordHill-cup.omap). The test map `openmapper/LordHill.omap` has the
 symbol, but no object of it. The cup is made of shapes that overlap: the rim, the sides and the base.
 
 ![A drinking cup of the color Purple in Mapper, darker where its shapes overlap](mapper-opacity/lordhill-cup.png)
@@ -39,6 +40,6 @@ Mapper shows Purple, C30 M100 Y0 K0, as the RGB 179, 0, 255.
 
 ## Where the work uses it
 
-- **Pass 2, the composition by palette entry.** A criterion for its ticket: a test places an object of the symbol
-  "Refreshment point" (611.0) on `LordHill.omap` and on `LordHill.ocd`. The overlap of the shapes of the cup has the
-  color of one shape, because the composition applies α = 0.8 once to the group of Purple.
+- **Pass 2, the composition by palette entry.** A criterion for its ticket: in `LordHill-cup.omap`, which the ticket
+  takes into its test files, the overlap of the shapes of a cup has the color of one shape, because the composition
+  applies α = 0.8 once to the group of Purple.
