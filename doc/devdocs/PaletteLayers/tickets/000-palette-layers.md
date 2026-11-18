@@ -42,9 +42,10 @@ Upstreamin karttamalli toteuttaa [speksin](../Specification.md) palettikerrosark
 * [005](005-layer-instances.md) Vaihe 1: yhtenäisen geometrian ilmentymät (G = 1): haara `feature/layer-instances`, yhdistetty haaraan `feature/palette-layers`.
 * [006](006-matrix-equals-offsets.md) Matriisin yhtäsuuruus vertaa siirtymiä float-lukuina, löytyi tiketin 005 testeistä: haara `fix/matrix-equals-offsets`, ei yhdistetty, koska mikään osa ei tarvitse sitä.
 * [007](007-map-instances.md) Vaihe 1 tekee kartan ilmentymät piirrosta riippumatta: haara `feature/map-instances`, yhdistetty haaraan `feature/palette-layers`.
-* [008](008-symbol-geometry.md) Vaihe 1: geometriametodien perusrakenne ja pistesymbolit, ensimmäinen neljästä osasta: haara `feature/symbol-geometry`, ei vielä tehty.
+* [008](008-symbol-geometry.md) Vaihe 1: geometriametodien perusrakenne ja pistesymbolit, ensimmäinen neljästä osasta: haara `feature/symbol-geometry`, yhdistetty haaraan `feature/palette-layers`.
 * [009](009-pattern-instances.md) LUONNOS: viivoitukset ja aluekuviot toistuvana geometriana.
 * [010](010-palette-composition.md) LUONNOS: vaihe 2, koostaminen palettimerkinnöittäin.
 * [011](011-line-geometry.md) LUONNOS: viivojen geometriametodit, erotettu tiketistä 008.
 * [012](012-area-geometry.md) LUONNOS: alueiden, yhdistelmien ja grafiikkaobjektien geometriametodit, erotettu tiketistä 008.
 * [013](013-text-geometry.md) LUONNOS: tekstien ja suorakulmioiden geometriametodit, erotettu tiketistä 008.
+* [014](014-basic-tests-private-fonts.md) BasicTestsin fonttitestit poistavat renderöintitestien yksityiset fontit, löytyi tiketin 008 täydestä ajosta: haara `fix/basic-tests-private-fonts`, ei yhdistetty, koska mikään osa ei tarvitse sitä.
