@@ -6,7 +6,7 @@
 Viivoitukset ja aluekuviot ovat ilmentymissä toistuvan geometrian prototyyppejä, joilla on hilan ja elementtien muunnokset (speksin luku 03). Leikatun täytön leikkausobjektit ovat alueet, ja täyttötilan valitsemat kokonaiset elementit ovat omia leikkausobjektejaan.
 
 **Päätökset (sitovia)**
-- Ennen tätä tikettiä vaihe 1 irrotetaan piirrosta (tiketti [007](007-map-instances.md)), ja kerääjä korvataan symbolien omilla geometriametodeilla (tiketti [008](008-symbol-geometry.md)) (@Pauli, 18.11.).
+- Ennen tätä tikettiä vaihe 1 irrotetaan piirrosta (tiketti [007](007-map-instances.md)), ja kerääjä korvataan symbolien omilla geometriametodeilla (tiketit [008](008-symbol-geometry.md), [011](011-line-geometry.md), [012](012-area-geometry.md) ja [013](013-text-geometry.md)) (@Pauli, 18.11.).
 - Piirto ei käytä symboleita, ja ilmentymät kuuluvat karttaan piirrosta riippumatta (@Pauli, 18.11.).
 - OCAD ja Mapper ovat omien karttojensa piirron auktoriteetit, ja Mapper-karttojen ulkoasun oraakkeli on Mapper (@Pauli, 17.11.). feature/multiply-blending on vain ulkoasun oraakkeli, eikä työ lue sen koodia (@Pauli, 18.11.).
 - Kun muutos ei voi muuttaa piirtoa, esimerkiksi koska se ei koske koodia, jota piirto ajaa, täysi ajo tehdään komennolla `tools/push-wip.sh` ilman `--collect`-valintaa, sillä kuvat pysyvät silloin ennallaan (@Pauli, 18.11.).

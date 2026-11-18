@@ -16,9 +16,10 @@ The parts 001 to 005 and 007 are done and merged into `feature/palette-layers`, 
 the instances with full coverage (G = 1) of each palette entry ([005](tickets/005-layer-instances.md)) from the map
 alone: it takes no rectangle and no resolution of a drawing, and it holds each visible symbol wherever it lies
 ([007](tickets/007-map-instances.md)). The fix [006](tickets/006-matrix-equals-offsets.md), which the tests of 005
-found, is done on a branch of its own, and no part needs it. The next part makes the instances with geometry methods
-of the symbols, in place of the collector: its ticket [008](tickets/008-symbol-geometry.md) is a draft, as are 009 and
-010 (see "Next").
+found, is done on a branch of its own, and no part needs it. The next parts make the instances with geometry methods
+of the symbols, in place of the collector, in four tickets: [008](tickets/008-symbol-geometry.md),
+[011](tickets/011-line-geometry.md), [012](tickets/012-area-geometry.md) and [013](tickets/013-text-geometry.md).
+They are drafts, as are 009 and 010 (see "Next").
 
 ## Branches
 
@@ -83,11 +84,14 @@ The parts come in the order of the two passes of the specification (section 02),
 structure and not only the appearance. Each part builds on the parts before it, so its branch is rooted at
 `feature/palette-layers`.
 
-1. **Pass 1 from the geometry methods of the symbols**: [ticket 008](tickets/008-symbol-geometry.md), a draft. The symbols make their clipping objects
-   with geometry methods of their own, in place of the collector, and the instances of the collector are the oracle.
-   The ticket decides whether a dashed line is one shape, its path and the lengths of its dashes, and how it holds
-   the dashes of OCAD: lengths fitted to each line, the distance metric of OCAD, and the dashes of a double line that
-   are moved aside after they are measured.
+1. **Pass 1 from the geometry methods of the symbols**, in four tickets, all drafts: the foundation and the point
+   symbols ([008](tickets/008-symbol-geometry.md)), the lines ([011](tickets/011-line-geometry.md)), the areas, the
+   combinations and the graphics objects ([012](tickets/012-area-geometry.md)), and the texts and the rectangles
+   ([013](tickets/013-text-geometry.md)). The symbols make their clipping objects with geometry methods of their own,
+   in place of the collector, and the instances of the collector are the oracle. The old drawing code stays as it is,
+   so the drawing does not change. Ticket 011 sets the limits of the basic model of a dashed line: lengths fitted to
+   each line, the distance metric of OCAD, and the dashes of a double line that are moved aside after they are
+   measured.
 2. **Pass 1, the patterns** (section 03): [ticket 009](tickets/009-pattern-instances.md), a draft. The hatchings and the area patterns become prototypes
    with their lattice and element transformations, and the elements that a fill mode selects become clipping objects.
    The pass 1 of [ticket 005](tickets/005-layer-instances.md) leaves them out with the internal option
@@ -157,7 +161,17 @@ the rendering.
   `fix/ocad11-utf8-strings` is. `tools/push-wip.sh` and `tools/int-worktree.sh` use `base` by default.
 - **A full run without a collecting run** (Nov 18). When a change cannot change the drawing, for example because it
   does not touch the code that the drawing runs, its full run is `tools/push-wip.sh` without `--collect`, since the
-  images stay as they are. The drafts 008 to 010 tell when this applies to each of them.
+  images stay as they are. The drafts 008 to 013 tell when this applies to each of them.
+- **The geometry methods in four parts** (Nov 18). The replacement of the collector is four tickets, by the kinds of
+  symbols: the foundation and the point symbols (008), the lines (011), the areas, the combinations and the graphics
+  objects (012), and the texts and the rectangles (013).
+- **The old drawing code during the geometry methods** (Nov 18). The old drawing code stays as it is during the
+  four tickets, so that the collector collects its calls and stays an independent oracle. The geometry methods are
+  written beside it, and the logic that composes a symbol may be in two places.
+- **The dashed lines** (Nov 18). A dashed line follows the principle of the pattern fills: the basic model is a
+  standard dashed line, and the exotic cases, such as the distance metric of OCAD, are split into parts, for a dashed
+  line into single dashes. For the pattern fills, the exotic cases are the stochastic fills and the special choices
+  at the edges.
 - **The conflicts with dev** (Nov 18). The palette-layer branches may conflict with `dev`. A comparison of their
   implementation with the one in `dev` is a later investigation.
 - **The fixes of upstream that a ticket separates** (Nov 18). When the work of a ticket fixes a fault of upstream, the

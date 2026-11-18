@@ -1,54 +1,46 @@
-# LUONNOS – Vaihe 1: symbolien omat geometriametodit kerääjän tilalle
+# LUONNOS – Vaihe 1: geometriametodien perusrakenne ja pistesymbolit
 
 > **LUONNOS (18.11.), ei sitova.** Tämä tiketti on luonnos. Sen kuvaus, ehdotetut kriteerit, havainnot ja kysymykset ovat lähtökohtia, eivät vaatimuksia eivätkä sääntöjä. Sitovia ovat vain kohdan "Päätökset" @Paulin päätökset päiväyksineen. Tiketin viimeistelevä sessio tarkistaa jokaisen kohdan koodia ja speksiä vasten, päättää kriteerit @Paulin kanssa ja poistaa tämän merkinnän ja otsikon sanan LUONNOS.
 
 **Kuvaus (luonnos)**
-Symbolit tuottavat leikkausobjektinsa omilla geometriametodeillaan, ja vaihe 1 käyttää niitä kerääjän tilalla. Kerääjän ilmentymät ovat oraakkeli.
+Symbolit tuottavat leikkausobjektinsa omilla geometriametodeillaan, ja vaihe 1 käyttää niitä kerääjän tilalla. Kerääjän ilmentymät ovat oraakkeli. Työ on neljä osaa. Tämä ensimmäinen osa tekee geometriametodien perusrakenteen ja pistesymbolien geometriametodit. Osat [011](011-line-geometry.md), [012](012-area-geometry.md) ja [013](013-text-geometry.md) tekevät viivojen, alueiden ja tekstien geometriametodit.
 
 **Päätökset (sitovia)**
 - Kerääjä korvataan symbolien omilla geometriametodeilla ennen kuviotikettiä, ja tämä tiketti tehdään tiketin [007](007-map-instances.md) jälkeen (@Pauli, 18.11.).
 - Kerääjän ilmentymät ovat geometriametodien oraakkeli (@Pauli, 18.11.).
-- Vanha piirtokoodi pysyy tämän tiketin ajan muuttumattomana, jotta kerääjä kerää sen kutsut ja pysyy geometriametodien riippumattomana oraakkelina. Geometriametodit kirjoitetaan sen rinnalle, ja symbolien kokoava logiikka saa olla kahdessa paikassa (@Pauli, 18.11.).
-- Katkoviivan esityksen oikea ratkaisu etsitään tässä tiketissä (@Pauli, 18.11.).
-- Katkoviiva noudattaa samaa periaatetta kuin kuviotäytöt: perusmalli esitetään standardivälineellä, katkoviivana, ja eksoottisemmat tapaukset, kuten OCADin metriikka, pilkotaan osiin, katkoviivassa yksittäisiksi katkoiksi. Kuviotäytöissä vastaavia tapauksia ovat stokastinen täyttö ja erikoiset reunavalinnat (@Pauli, 18.11.).
+- Vanha piirtokoodi pysyy tämän työn ajan muuttumattomana, jotta kerääjä kerää sen kutsut ja pysyy geometriametodien riippumattomana oraakkelina. Geometriametodit kirjoitetaan sen rinnalle, ja symbolien kokoava logiikka saa olla kahdessa paikassa (@Pauli, 18.11.).
+- Työ jaetaan neljään osaan symbolilajeittain: perusrakenne ja pistesymbolit (tämä tiketti), viivat ([011](011-line-geometry.md)), alueet, yhdistelmät ja grafiikkaobjektit ([012](012-area-geometry.md)) sekä tekstit ja suorakulmiot ([013](013-text-geometry.md)) (@Pauli, 18.11.).
 - Piirto ei käytä symboleita, vaan symboleita käyttää vain vaihe 1. Ilmentymät kuuluvat karttaan piirrosta riippumatta (@Pauli, 18.11., epic [000](000-palette-layers.md)).
 - Kun muutos ei voi muuttaa piirtoa, esimerkiksi koska se ei koske koodia, jota piirto ajaa, täysi ajo tehdään komennolla `tools/push-wip.sh` ilman `--collect`-valintaa, sillä kuvat pysyvät silloin ennallaan (@Pauli, 18.11.).
+- Katkoviivan päätökset ovat viivojen tiketissä [011](011-line-geometry.md).
 
 **Hyväksymiskriteerit (luonnos: ehdotuksia, ei sitovia)**
-- [ ] Ehdotus: jokaisella symbolilajilla, joka tuottaa yhtenäistä geometriaa, on geometriametodi, joka tuottaa symbolin leikkausobjektit palettimerkinnöittäin ilman `IGraphicsTarget`-kutsuja ja ilman piirtoasetuksia (`RenderOptions`).
-- [ ] Ehdotus: vaihe 1 tuottaa ilmentymät geometriametodeilla, eikä se käytä kerääjää. Kerääjä jää testien oraakkeliksi.
-- [ ] Ehdotus: testikartoilla geometriametodien ilmentymät ovat samat kuin kerääjän ilmentymät: samat palettimerkinnät ja samat leikkausobjektit samassa järjestyksessä (laji, muoto, viiva, täyttösääntö ja sijoituksen vaiheet). Katkoviivan perusmalli verrataan katkoiksi laajennettuna, tai tiketti kertoo sallitun eron ja sen syyn.
-- [ ] Ehdotus: katkoviivan perusmalli on yksi viivattu muoto, jolla on katkojen ja välien pituudet, ja osiin pilkottu katkoviiva on yksittäisiä katkoja.
-- [ ] Ehdotus: `LayerInstanceTests` ja `LayerInstanceCoverageTests` menevät läpi, kun vaihe 1 käyttää geometriametodeja, ja rakennetestit tarkistavat ilman piirtoa katkoviivan perusmallin ja pilkotun katkoviivan.
+- [ ] Ehdotus: geometriametodien rajapinta: symbolilaji, jolla on geometriametodi, tuottaa symbolin leikkausobjektit palettimerkinnöittäin ilman `IGraphicsTarget`-kutsuja ja ilman piirtoasetuksia (`RenderOptions`).
+- [ ] Ehdotus: pistesymbolilla (`PointSymDef` ja sen glyyfi) on geometriametodi. Se tuottaa glyyfin viivat, alueet, ympyrät ja täytetyt ympyrät, aukkojen tekemät kaaret sekä origossa olevan yhden ympyrän glyyfin symbolin paikassa ilman muunnosta.
+- [ ] Ehdotus: vaihe 1 tekee ilmentymät geometriametodeilla niille symbolilajeille, joilla geometriametodi on, ja kerääjällä muille.
+- [ ] Ehdotus: kerääjä jää testien oraakkeliksi. Testit vertaavat testikartoilla geometriametodien ilmentymiä kerääjän ilmentymiin rakenteena: samat palettimerkinnät ja samat leikkausobjektit samassa järjestyksessä (laji, muoto, viiva, täyttösääntö ja sijoituksen vaiheet), tai tiketti kertoo sallitun eron ja sen syyn. Myöhemmät osat käyttävät samaa vertailua.
+- [ ] Ehdotus: `LayerInstanceTests` ja `LayerInstanceCoverageTests` menevät läpi.
 - [ ] Ehdotus: piirto ei muutu, eikä yksikään kuva- tai tekstibaseline siirry.
 
 **Lisätiedot (luonnos)**
-- **Havaintoja nykyisestä koodista** (tiketti 005; SymDef.cs, Symbol.cs ja Glyph.cs, noin 7 500 riviä):
+- **Havaintoja nykyisestä koodista** (tiketit 005 ja 007; SymDef.cs, Symbol.cs ja Glyph.cs, noin 7 500 riviä, sekä SymPath.cs, noin 2 100 riviä):
   - `PointSymDef` piirtää glyyfinsä (`Glyph`), jonka osat ovat viivoja, alueita, ympyröitä ja täytettyjä ympyröitä. Yhden ympyrän glyyfi origossa piirretään suoraan symbolin paikkaan. Aukot (`gaps`) tekevät ympyrästä kaaria.
-  - `LineSymDef.DrawCore` piirtää pääviivan, katkoviivat (`ComputeDashDistances` ja `SymPath.DrawDashedCore`), terävät päät, toisen viivan, kaksoisviivan täytön ja reunat (`DrawDashedWithOffset`) sekä glyyfit viivan varrella (`GlyphLocation`: päät, kulmat, katkopisteet, välien ja katkojen keskikohdat, välimatkat ja pienenevät glyyfit).
-  - `AreaSymDef` täyttää alueen ja piirtää reunan reunasymbolillaan. Viivoitukset ja kuviot ovat tiketti [009](009-pattern-instances.md). `AreaComboSymDef` ja `LineComboSymDef` kokoavat osiaan.
-  - `TextSymDef.Draw` piirtää tekstin sanoittain tai merkeittäin. Kehysviiva piirtää tekstin ja sen ääriviivat usealla kynällä, varjo siirretyn tekstin, ja lisäksi on alleviivaukset, keskipiste ja kehyssuorakulmio. `DrawTextOnPath` sijoittaa merkit polun varrelle.
-  - `RectangleSymDef` piirtää ääriviivan, ruudukon viivat ja ruudukon tekstit. Grafiikkasymbolit (`GraphicsAreaSymbol` ja `GraphicsLineSymbol`) piirtävät oman värinsä. Kuva- ja asettelukerroksen symbolit eivät kuulu ilmentymiin.
-  - Kerääjän leikkausobjektit ovat muotoja (polku, ellipsi, kaari, tekstiajo), täytettyinä tai viivattuina, ja niiden sijoitus pitää muunnosten ketjun (`LayerInstances.cs`).
-  - SymPath.cs (noin 2 100 riviä) sisältää katkojen, sivuun siirron ja tasoituksen geometrian (`DrawDashedCore`, `OffsetRight` ja `GetFlattenedPoints`).
-  - Glyyfin paikka ja kierto ovat muunnospinossa (`PushTransform`). Lisämuunnos (`extraTransform`), esimerkiksi venytys kulmissa ja pienenevät glyyfit, muuntaa valmiiksi pisteet ja paikat mutta ei viivanleveyksiä.
+  - Glyyfin paikka ja kierto ovat muunnospinossa (`PushTransform`). Lisämuunnos (`extraTransform`), esimerkiksi viivan glyyfin venytys kulmissa ja pienenevät glyyfit, muuntaa valmiiksi pisteet ja paikat mutta ei viivanleveyksiä.
+  - Kerääjän leikkausobjektit ovat muotoja (polku, ellipsi, kaari, tekstiajo), täytettyinä tai viivattuina, ja niiden sijoitus pitää muunnosten ketjun (`LayerInstances.cs`). Kerääjä tekee jokaisesta piirtokutsusta uuden muodon.
   - Täsmällinen peiton vertailu vaatii samat sijoituksen vaiheet samassa järjestyksessä, koska Skia kokoaa sisäkkäiset muunnokset omalla pyöristyksellään (tiketti 005).
-  - `IGraphicsTarget`issa ei ole katkoviivoja: katkot laskee aina MapModel (`SymPath.DrawDashedCore`). Viiva jaetaan osiin OCADin kulmapisteistä (y & 1) ja katkopisteistä (y & 8). Katkot sovitetaan kuhunkin osaan erikseen, ja vierekkäisten osien päätykatkot yhdistyvät. Kaksoisviivan reunojen katkot mitataan keskiviivalta ja siirretään sivuun yksitellen (`OffsetPointsRight`). Metriikka on OCADin oma (`BizzarroDistance`: suurempi koordinaattiero ja puolet pienemmästä), ellei kartta käytä euklidista metriikkaa (`UseEuclideanMetric`: Mapper-kartat sekä OCAD 11:n ja uudemmat kartat, joiden ViewPar-parametrin `p` on 0).
   - Symbolien piirtokoodia kutsuvat vain `Map.DrawColor` ja vaihe 1 kerääjän kautta. Korostukset käyttävät osin samaa koodia (`LineSymDef.DrawHighlight` kutsuu `DrawCore`a).
   - Vaiheen 1 piirtokoodi lukee piirtoasetuksista vain resoluution, jota katkoviivat käyttävät, ja asetuksen `omitHatchingsAndPatterns` (tiketti 007). Vaihe 1 valitsee symbolit väri kerrallaan (`SelectVisibleSymbolsOfColor`), joten sama symboli piirretään kerran jokaista väriään kohden.
   - Kerääjä on `internal`, ja MapModelin `InternalsVisibleTo` nimeää vain Test_MapModelin. Map_Skia.Tests näkee vain julkiset jäsenet.
-- **Katkojen sijoittelu käytössä (@Pauli, 18.11.):** Purple Pen on sijoittanut esimerkiksi ajouraviivojen katkot havaittavasti huonommin kuin OCAD ja Mapper. Se on ilmeisesti yhdistänyt viivan päättäviä osia niin, että jäljelle on jäänyt pitkä katkoton pätkä. Mapperin päätösegmenttien malli poikkeaa ilmeisesti OCADin mallista. Koodissa on erikseen OCADin ja Mapperin katkojen sovitus (`SpacingMethod.OCAD` ja `OpenMapperDashes`).
 - **Avoimia kysymyksiä:**
-  1. Katkoviivan perusmallin rajat. Ehdotus: perusmalli on katkoviiva, jota ei siirretä sivuun ja joka mitataan euklidisella metriikalla, eli pääviiva ja kaksoisviivan täyttö. Sen katkojen ja välien pituudet ovat ne, jotka `ComputeDashDistances` antaa. Osiin pilkotaan OCADin metriikalla mitatut viivat ja kaksoisviivan reunat. Standardiväline mittaa käyrän pituutta, mutta Purple Pen mittaa tasoitetun polun pituutta, joten käyrällä katkot voivat siirtyä hieman. Vaihe 2 ratkaisee, piirretäänkö perusmalli piirtokohteen katkoviivana vai laajennetaanko se katkoiksi.
-  2. Oraakkelin vertailu. Ehdotus: rakenne ensin (kriteerit), ja peitto siellä, missä esitys muuttuu.
+  1. Oraakkelin vertailu. Ehdotus: rakenne ensin (kriteerit), ja peitto siellä, missä esitys muuttuu.
+  2. Geometriametodin muoto. Ehdotus: symbolikohtainen metodi tuottaa kaikki symbolin palettimerkinnät yhdellä läpikäynnillä, ja leikkausobjektit ovat kunkin palettimerkinnän sisällä samassa järjestyksessä kuin nyt.
   3. Leikkausobjektin alkuperä. Ilmentymien päivitys kartan muuttuessa kuuluu vaiheen 2 tikettiin (päätös 18.11.). Symbolikohtainen geometriametodi tekee alkuperän kirjaamisesta helppoa.
-  4. Glyyfin muodon uudelleenkäyttö. Kerääjässä jokainen sijoitus tekee uuden muodon. Jaettu muoto sopii glyyfeille ilman lisämuunnosta. Lisämuunnettu glyyfi tarvitsee oman muotonsa, koska lisämuunnos ei muunna viivanleveyksiä eikä ole siksi viivatun muodon affiininen sijoitus.
-  5. Tekstin rakenne. Riittävätkö tekstiajot (sana tai grafeemi), vai tarvitaanko tekstisymbolin rakennetta enemmän?
-  6. Kerääjän paikka. Ehdotus: kerääjä jää MapModeliin testien oraakkeliksi, ja `omitHatchingsAndPatterns` jää sen mukana, koska kerääjä ei tunne kuvioita. Map_Skia.Tests näkee kerääjän, kun `InternalsVisibleTo` nimeää myös sen.
-  7. Jako osiin. Ehdotus: perusrakenne ja pistesymbolit, viivat, alueet ja yhdistelmät, tekstit sekä suorakulmiot ja grafiikkaobjektit. Vaiheessa 1 kerääjä tekee niiden symbolilajien ilmentymät, joiden geometriametodit puuttuvat vielä.
-  8. Katkojen sijoittelu. Jos @Paulin havainto vahvistuu OCADia ja Mapperia vasten ja vika korjataan, korjaus on oma bug-tikettinsä ja fix-haaransa. Kun geometriametodit käyttävät `ComputeDashDistances`ia muuttamattomana, korjaus muuttaa piirron ja ilmentymät yhdessä paikassa.
-- **Rajaus (luonnos):** viivoitukset ja kuviot ovat tiketti [009](009-pattern-instances.md), ja vaihe 2 on tiketti [010](010-palette-composition.md).
+  4. Glyyfin muodon uudelleenkäyttö. Jaettu muoto, jonka sijoitukset asettavat, vastaa speksin luvun 04 uudelleenkäytettäviä määrittelyjä, ja se sopii glyyfeille ilman lisämuunnosta. Pistesymboli ei käytä lisämuunnosta. Rakenteellinen vertailu vertaa silloin muotoja arvoina, koska kerääjä tekee jokaiselle sijoitukselle uuden muodon.
+  5. Kerääjän paikka. Ehdotus: kerääjä jää MapModeliin testien oraakkeliksi, ja `omitHatchingsAndPatterns` jää sen mukana, koska kerääjä ei tunne kuvioita. Map_Skia.Tests näkee kerääjän, kun `InternalsVisibleTo` nimeää myös sen.
+- **Rajaus (luonnos):** viivat, alueet ja tekstit ovat tiketit [011](011-line-geometry.md), [012](012-area-geometry.md) ja [013](013-text-geometry.md). Viivoitukset ja kuviot ovat tiketti [009](009-pattern-instances.md), ja vaihe 2 on tiketti [010](010-palette-composition.md).
 - **Haara (ehdotus):** `feature/symbol-geometry` juurtuu kokoavaan haaraan `feature/palette-layers`. Täysi ajo tehdään basen päällä. Vanha piirtokoodi pysyy ennallaan (päätös 18.11.), joten täysi ajo tehdään ilman `--collect`-valintaa, kun muutos ei koske muuta koodia, jota piirto ajaa.
 
 **Erotetut alatehtävät**
-<!-- Tästä tiketistä erotetut korjaukset ja ominaisuudet: tiketti, haara ja se, onko haara yhdistetty tämän tiketin haaraan -->
+- [011](011-line-geometry.md) Viivojen geometriametodit, erotettu tästä tiketistä (@Pauli, 18.11.): haara `feature/line-geometry` (ehdotus), ei vielä tehty. Se juurtuu kokoavaan haaraan tämän tiketin jälkeen, eikä sitä yhdistetä tämän tiketin haaraan.
+- [012](012-area-geometry.md) Alueiden, yhdistelmien ja grafiikkaobjektien geometriametodit, erotettu tästä tiketistä (@Pauli, 18.11.): haara `feature/area-geometry` (ehdotus), ei vielä tehty. Se juurtuu kokoavaan haaraan tiketin 011 jälkeen, eikä sitä yhdistetä tämän tiketin haaraan.
+- [013](013-text-geometry.md) Tekstien ja suorakulmioiden geometriametodit, erotettu tästä tiketistä (@Pauli, 18.11.): haara `feature/text-geometry` (ehdotus), ei vielä tehty. Se juurtuu kokoavaan haaraan tiketin 012 jälkeen, eikä sitä yhdistetä tämän tiketin haaraan.
