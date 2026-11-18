@@ -8,7 +8,9 @@
 #
 # With --collect, the script also starts the Tests workflow by hand on the branch with the input
 # collect_differences, so that one run writes the image of every comparison that the change moves, into the
-# artifacts rendering-differences-<group>. The verdict of that run says nothing; the run of the push does.
+# artifacts rendering-differences-<group>. The verdict of that run says nothing; the run of the push does. So the
+# script starts the collecting run only after the runs of the push have started: a Tests run of a push waits for an
+# earlier Tests run of the same commit and takes its result, and a collecting run does not fail on a moved image.
 #
 # --blank-baseline names the description of a Skia rendering test (src/MapModel/TestFiles/skia_render/<name>.txt,
 # as a path in the repository) whose baseline does not exist yet. The Skia comparison leaves its rendering only
@@ -74,19 +76,31 @@ git push -q --force-with-lease="refs/heads/$wip:$before" "$remote" "$commit:refs
     | grep -v "moved\|new location\|^remote: *$\|pull request\|pull/new" || true
 echo "pushed $commit to $wip"
 
+# Wait up to two minutes until the commit has the given number of runs, and keep them in runs.
+runs=
+wait_for_runs() {
+    for attempt in $(seq 1 24); do
+        runs=$(gh run list --repo "$repository" --branch "$wip" --limit 10 --json databaseId,headSha,event,workflowName \
+               --jq ".[] | select(.headSha == \"$commit\") | \"\(.workflowName) \(.event) \(.databaseId)\"" 2>/dev/null || true)
+        [ "$(printf '%s\n' "$runs" | grep -c .)" -ge "$1" ] && return 0
+        sleep 5
+    done
+    return 1
+}
+
 if [ $collect = 1 ]; then
+    if ! wait_for_runs 2; then
+        printf '%s\n' "$runs"
+        echo "the runs of the push have not started; start the collecting run after them:" \
+             "gh workflow run tests.yml --repo $repository --ref $wip -f collect_differences=true" >&2
+        exit 1
+    fi
     gh workflow run tests.yml --repo "$repository" --ref "$wip" -f collect_differences=true
 fi
 
-for attempt in $(seq 1 24); do
-    runs=$(gh run list --repo "$repository" --branch "$wip" --limit 10 --json databaseId,headSha,event,workflowName \
-           --jq ".[] | select(.headSha == \"$commit\") | \"\(.workflowName) \(.event) \(.databaseId)\"" 2>/dev/null || true)
-    expected=$((2 + collect))
-    if [ "$(printf '%s\n' "$runs" | grep -c .)" -ge $expected ]; then
-        printf '%s\n' "$runs"
-        exit 0
-    fi
-    sleep 5
-done
-printf '%s\n' "${runs:-}"
+if wait_for_runs $((2 + collect)); then
+    printf '%s\n' "$runs"
+    exit 0
+fi
+printf '%s\n' "$runs"
 echo "not all runs of $wip for $commit have started yet; look with gh run list --branch $wip" >&2

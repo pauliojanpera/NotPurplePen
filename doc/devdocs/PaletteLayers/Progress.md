@@ -56,10 +56,11 @@ is offered upstream yet.
   comparison opens VisualDiff and waits. A local rendering tells which images a change moves. The fonts of this machine
   are not the workflow's, and a Skia comparison allows no difference, so each baseline comes from a run in GitHub
   Actions (`tools/push-wip.sh --collect`, or `--blank-baseline` for a new Skia test).
-- **A collecting run on the commit that must pass.** `tools/push-wip.sh --collect` starts the collecting Tests run by
-  hand. That run can start before the Tests run of the push, which then waits for it and takes its result. A collecting
-  run does not fail on a moved image, so its pass counts only when it wrote no image: no artifact
-  `rendering-differences-<group>` holds a `*_actual.png`.
+- **A collecting run and the run of the push.** A Tests run of a push waits for an earlier Tests run of the same commit
+  and takes its result, and a collecting run does not fail on a moved image. So `tools/push-wip.sh --collect` starts
+  the collecting run only after the runs of the push have started, and the Tests run of the push tests the commit
+  itself. A collecting run alone passes only when it wrote no image: no artifact `rendering-differences-<group>`
+  holds a `*_actual.png`.
 - **Text baselines.** The `CreateOcadFiles` tests of `ControllerTests` compare an `OcadDump` of each course file that
   they write with an expected dump in `src/TestFiles/controller/ocad_create*`. A collecting run does not collect them,
   and `src/Testing/LinuxTestRun` does not run them. A change of the OCAD export that moves them is found by a full run.
