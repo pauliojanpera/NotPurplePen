@@ -6,10 +6,10 @@
 Tekstisymbolit (`TextSymDef`), tekstit viivan varrella (`LineTextSymbol`) ja suorakulmiosymbolit (`RectangleSymDef`) tuottavat leikkausobjektinsa geometriametodeilla. Tämän osan jälkeen jokaisella symbolilajilla, joka tuottaa yhtenäistä geometriaa, on geometriametodi, eikä vaihe 1 käytä kerääjää. Tämä on geometriametodien neljäs osa, ja se on erotettu tiketistä [008](008-symbol-geometry.md) (@Pauli, 18.11.).
 
 **Päätökset (sitovia)**
-- Tiketin [008](008-symbol-geometry.md) päätökset tehtiin koko työlle ennen sen jakoa neljään osaan (@Pauli, 18.11.), ja ne koskevat tätäkin osaa: kerääjän ilmentymät ovat oraakkeli, vanha piirtokoodi pysyy muuttumattomana, ja ajot tehdään ilman `--collect`-valintaa, kun muutos ei voi muuttaa piirtoa.
+- Koko työlle ennen sen jakoa neljään osaan tehdyt päätökset (tiketti [008](008-symbol-geometry.md), @Pauli, 18.11.) koskevat tätäkin osaa: kerääjän ilmentymät ovat oraakkeli, vanha piirtokoodi pysyy muuttumattomana, ja ajot tehdään ilman `--collect`-valintaa, kun muutos ei voi muuttaa piirtoa.
 
 **Hyväksymiskriteerit (luonnos: ehdotuksia, ei sitovia)**
-- [ ] Ehdotus: tekstisymbolin geometriametodi tuottaa tekstiajot, kehysviivan, varjon, alleviivaukset, keskipisteen ja kehyssuorakulmion ilman `IGraphicsTarget`-kutsuja ja ilman piirtoasetuksia.
+- [ ] Ehdotus: tekstisymbolin geometriametodi tuottaa tiketin 008 rajapinnalla tekstiajot, kehysviivan, varjon, alleviivaukset, keskipisteen ja kehyssuorakulmion ilman `IGraphicsTarget`-kutsuja ja ilman piirtoasetuksia.
 - [ ] Ehdotus: viivan varren tekstin geometriametodi tuottaa jokaisen grafeemin tekstiajona omalla sijoituksellaan.
 - [ ] Ehdotus: suorakulmiosymbolin geometriametodi tuottaa ääriviivan, ruudukon viivat ja ruudukon tekstit.
 - [ ] Ehdotus: vaihe 1 tekee kaikki ilmentymät geometriametodeilla, eikä se käytä kerääjää. Kerääjä jää testien oraakkeliksi.
@@ -26,7 +26,7 @@ Tekstisymbolit (`TextSymDef`), tekstit viivan varrella (`LineTextSymbol`) ja suo
   - `RectangleSymDef` piirtää ääriviivan, ruudukon viivat ja ruudukon tekstit.
 - **Avoimia kysymyksiä:**
   1. Tekstin rakenne. Riittävätkö tekstiajot (sana tai grafeemi), vai tarvitaanko tekstisymbolin rakennetta enemmän?
-- **Rajaus (luonnos):** tiketin 008 ehdotuksessa kerääjä ja asetus `omitHatchingsAndPatterns` jäävät testien oraakkeliksi. Vaihe 2 on tiketti [010](010-palette-composition.md).
+- **Rajaus (luonnos):** kerääjä jää testien oraakkeliksi (tiketin 008 kriteeri), ja asetus `omitHatchingsAndPatterns` jää sen mukana (tiketin 008 ratkaisuehdotus). Vaihe 2 on tiketti [010](010-palette-composition.md).
 - **Haara (ehdotus):** `feature/text-geometry` juurtuu kokoavaan haaraan `feature/palette-layers` tiketin 012 jälkeen. Täysi ajo tehdään basen päällä, ja ilman `--collect`-valintaa, kun muutos ei koske muuta koodia, jota piirto ajaa.
 
 **Erotetut alatehtävät**

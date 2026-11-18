@@ -6,10 +6,10 @@
 Aluesymbolit (`AreaSymDef` ja `AreaComboSymDef`) sekä grafiikkaobjektit (`GraphicsAreaSymbol` ja `GraphicsLineSymbol`) tuottavat leikkausobjektinsa geometriametodeilla, ja vaihe 1 käyttää niitä kerääjän tilalla. Viivoitukset ja aluekuviot ovat toistuvaa geometriaa, eivätkä ne kuulu tähän. Tämä on geometriametodien kolmas osa, ja se on erotettu tiketistä [008](008-symbol-geometry.md) (@Pauli, 18.11.).
 
 **Päätökset (sitovia)**
-- Tiketin [008](008-symbol-geometry.md) päätökset tehtiin koko työlle ennen sen jakoa neljään osaan (@Pauli, 18.11.), ja ne koskevat tätäkin osaa: kerääjän ilmentymät ovat oraakkeli, vanha piirtokoodi pysyy muuttumattomana, ja ajot tehdään ilman `--collect`-valintaa, kun muutos ei voi muuttaa piirtoa.
+- Koko työlle ennen sen jakoa neljään osaan tehdyt päätökset (tiketti [008](008-symbol-geometry.md), @Pauli, 18.11.) koskevat tätäkin osaa: kerääjän ilmentymät ovat oraakkeli, vanha piirtokoodi pysyy muuttumattomana, ja ajot tehdään ilman `--collect`-valintaa, kun muutos ei voi muuttaa piirtoa.
 
 **Hyväksymiskriteerit (luonnos: ehdotuksia, ei sitovia)**
-- [ ] Ehdotus: aluesymbolin geometriametodi tuottaa alueen täytön, joka on polku reikineen ja täyttösääntöineen, ja reunan, jonka sen reunasymboli tuottaa viivojen geometriametodilla (tiketti [011](011-line-geometry.md)). `AreaComboSymDef` kokoaa osiensa geometrian.
+- [ ] Ehdotus: aluesymbolin geometriametodi tuottaa tiketin 008 rajapinnalla alueen täytön, joka on polku reikineen ja täyttösääntöineen, ja reunan, jonka sen reunasymboli tuottaa viivojen geometriametodilla (tiketti [011](011-line-geometry.md)). `AreaComboSymDef` kokoaa osiensa geometrian.
 - [ ] Ehdotus: grafiikkaobjektien geometriametodit tuottavat oman värinsä täytön (`GraphicsAreaSymbol`) ja viivan (`GraphicsLineSymbol`).
 - [ ] Ehdotus: geometriametodit tuottavat ne leikkausobjektit ilman `IGraphicsTarget`-kutsuja ja ilman piirtoasetuksia, eivätkä ne tuota viivoituksia eivätkä aluekuvioita.
 - [ ] Ehdotus: testikartoilla alueiden ja grafiikkaobjektien geometriametodien ilmentymät ovat rakenteena samat kuin kerääjän ilmentymät (tiketin 008 vertailu).

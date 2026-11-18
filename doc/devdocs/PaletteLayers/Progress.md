@@ -19,7 +19,7 @@ alone: it takes no rectangle and no resolution of a drawing, and it holds each v
 found, is done on a branch of its own, and no part needs it. The next parts make the instances with geometry methods
 of the symbols, in place of the collector, in four tickets: [008](tickets/008-symbol-geometry.md),
 [011](tickets/011-line-geometry.md), [012](tickets/012-area-geometry.md) and [013](tickets/013-text-geometry.md).
-They are drafts, as are 009 and 010 (see "Next").
+Ticket 008 is ready, and it has no branch yet. The tickets 009 to 013 are drafts (see "Next").
 
 ## Branches
 
@@ -84,14 +84,14 @@ The parts come in the order of the two passes of the specification (section 02),
 structure and not only the appearance. Each part builds on the parts before it, so its branch is rooted at
 `feature/palette-layers`.
 
-1. **Pass 1 from the geometry methods of the symbols**, in four tickets, all drafts: the foundation and the point
-   symbols ([008](tickets/008-symbol-geometry.md)), the lines ([011](tickets/011-line-geometry.md)), the areas, the
-   combinations and the graphics objects ([012](tickets/012-area-geometry.md)), and the texts and the rectangles
-   ([013](tickets/013-text-geometry.md)). The symbols make their clipping objects with geometry methods of their own,
-   in place of the collector, and the instances of the collector are the oracle. The old drawing code stays as it is,
-   so the drawing does not change. Ticket 011 sets the limits of the basic model of a dashed line: lengths fitted to
-   each line, the distance metric of OCAD, and the dashes of a double line that are moved aside after they are
-   measured.
+1. **Pass 1 from the geometry methods of the symbols**, in four tickets: the foundation and the point symbols
+   ([008](tickets/008-symbol-geometry.md), ready, branch `feature/symbol-geometry`), the lines
+   ([011](tickets/011-line-geometry.md)), the areas, the combinations and the graphics objects
+   ([012](tickets/012-area-geometry.md)), and the texts and the rectangles ([013](tickets/013-text-geometry.md)). The
+   tickets 011 to 013 are drafts. The symbols make their clipping objects with geometry methods of their own, in place
+   of the collector, and the instances of the collector are the oracle. The old drawing code stays as it is, so the
+   drawing does not change. Ticket 011 sets the limits of the basic model of a dashed line: lengths fitted to each
+   line, the distance metric of OCAD, and the dashes of a double line that are moved aside after they are measured.
 2. **Pass 1, the patterns** (section 03): [ticket 009](tickets/009-pattern-instances.md), a draft. The hatchings and the area patterns become prototypes
    with their lattice and element transformations, and the elements that a fill mode selects become clipping objects.
    The pass 1 of [ticket 005](tickets/005-layer-instances.md) leaves them out with the internal option
