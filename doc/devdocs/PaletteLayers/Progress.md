@@ -12,11 +12,13 @@ when @Pauli makes a decision. It tells the state, not the events: the commits an
 
 ## Where the work is
 
-The parts 001 to 005 are done and merged into `feature/palette-layers`, and its full run passed. Pass 1 makes the
-instances with full coverage (G = 1) of each palette entry ([005](tickets/005-layer-instances.md)). The fix
-[006](tickets/006-matrix-equals-offsets.md), which the tests of 005 found, is done on a branch of its own, and no part
-needs it. The next part makes pass 1 apart from the drawing: its ticket [007](tickets/007-map-instances.md) is ready, and it
-has no branch yet. The tickets 008 to 010 are drafts (see "Next").
+The parts 001 to 005 and 007 are done and merged into `feature/palette-layers`, and its full run passed. Pass 1 makes
+the instances with full coverage (G = 1) of each palette entry ([005](tickets/005-layer-instances.md)) from the map
+alone: it takes no rectangle and no resolution of a drawing, and it holds each visible symbol wherever it lies
+([007](tickets/007-map-instances.md)). The fix [006](tickets/006-matrix-equals-offsets.md), which the tests of 005
+found, is done on a branch of its own, and no part needs it. The next part makes the instances with geometry methods
+of the symbols, in place of the collector: its ticket [008](tickets/008-symbol-geometry.md) is a draft, as are 009 and
+010 (see "Next").
 
 ## Branches
 
@@ -27,7 +29,8 @@ base. No branch is offered upstream yet.
 
 | Branch | Ticket and description | State |
 | --- | --- | --- |
-| `feature/palette-layers` | [000](tickets/000-palette-layers.md) | The branch of the epic. It merges `feature/inks` (a0f0ed6f), `fix/ocad11-utf8-strings` (e51e395d), `feature/opacity-and-blend-mode` (10dd7511, e1101c42) and `feature/layer-instances` (c98d380e). Full run passed at c98d380e on `base` (`wip/linux/palette-layers`: Tests 44272885934, Build 44272885961), and no image differs from the baselines of the branch (collecting run 44272905954 wrote no image). The run on `basewithfixes` passed before (Tests 44259000556, Build 44259000493). Its merge into `dev` conflicts in `Map_Skia.Tests/RenderingTests.cs`, and the changes of `feature/layer-instances` conflict with `dev` in `Map.cs` and `SymDef.cs`. |
+| `feature/palette-layers` | [000](tickets/000-palette-layers.md) | The branch of the epic. It merges `feature/inks` (a0f0ed6f), `fix/ocad11-utf8-strings` (e51e395d), `feature/opacity-and-blend-mode` (10dd7511, e1101c42), `feature/layer-instances` (c98d380e) and `feature/map-instances` (dd6f9ee9). Full run passed at dd6f9ee9 on `base` (`wip/linux/palette-layers`: Tests 44290204574, Build 44290204333), without a collecting run (@Pauli, Nov 18): its tree on `base` is the tree of `wip/linux/map-instances`, whose collecting run 44286210380 wrote no image. The run on `basewithfixes` passed before (Tests 44259000556, Build 44259000493). Its merge into `dev` conflicts in `Map_Skia.Tests/RenderingTests.cs`, and the changes of `feature/layer-instances` conflict with `dev` in `Map.cs` and `SymDef.cs`. |
+| `feature/map-instances` | [007](tickets/007-map-instances.md), [description](prs/007-map-instances.md) | All criteria met. Full run passed at 1a7b8051 (`wip/linux/map-instances`, on `base`: Tests 44286190788, Build 44286191481). No image or text baseline moves (collecting run 44286210380 wrote no image). In `feature/palette-layers` (dd6f9ee9). |
 | `feature/layer-instances` | [005](tickets/005-layer-instances.md), [description](prs/005-layer-instances.md) | All criteria met. Full run passed at fb451340 (`wip/linux/layer-instances`, on `basewithfixes`: Tests 44257645995, Build 44257646116). No image or text baseline moves (collecting run 44256257076, of 2e770ad4, wrote no image). In `feature/palette-layers` (c98d380e). |
 | `fix/matrix-equals-offsets` | [006](tickets/006-matrix-equals-offsets.md), [description](prs/006-matrix-equals-offsets.md) | Full run passed at 5e827f47 (`wip/linux/matrix-equals-offsets`, on `base`: Tests 44256623574, Build 44256623572). Its test `MatrixTests.EqualsItsCopy` fails without the fix. Separated from 005, whose tests compare matrices element by element. No part needs it, and it is in no other branch. The work of 005 does not fix the fault, so the rule of the separated fixes does not cover the branch, and it is kept as it is (@Pauli, Nov 18). |
 | `feature/opacity-and-blend-mode` | [004](tickets/004-opacity-and-blend-mode.md), [description](prs/004-opacity-and-blend-mode.md) | All criteria met. Full run passed at 7882bca8 (`wip/linux/opacity-and-blend-mode`, on `basewithfixes`: Tests 44222985536, Build 44222985519). No image baseline moves (collecting run 44223000991). The 30 text dumps of the OCAD 9 and 11 course files of `ControllerTests` get `t100` in each color (@Pauli, Nov 18). Its Mapper test map `openmapper/LordHill.omap` is `LordHill.ocd` as Mapper saved it (@Pauli, Nov 18). In `feature/palette-layers` (e1101c42). |
@@ -53,10 +56,11 @@ base. No branch is offered upstream yet.
   when it ran in GitHub Actions, on a `wip/` branch. The .NET SDK is `~/.dotnet/dotnet`, outside `PATH`.
 - **The checkouts.** The clone `~/Documents/Projects/NotPurplePen` stays on `docs/process-coordination`: do not change
   its branch. Each branch has a worktree in `~/Documents/Projects/npp-worktrees/`: `palette-layers`, `inks`,
-  `fix-mapper-colors`, `fix-ocad-utf8`, `opacity-and-blend-mode`, `layer-instances` and `fix-matrix-equals`. The worktrees whose names end in `-int` hold the
-  local integration branches `local/<name>-int`, which are never pushed. `tools/int-worktree.sh` makes them again from
-  GitHub, on `base`. `palette-layers-int` is on `base`, and the others stay on `basewithfixes` until
-  `REBUILD=1 tools/int-worktree.sh` makes them again.
+  `fix-mapper-colors`, `fix-ocad-utf8`, `opacity-and-blend-mode`, `layer-instances`, `fix-matrix-equals` and
+  `map-instances`. The worktrees whose names end in `-int` hold the local integration branches `local/<name>-int`,
+  which are never pushed. `tools/int-worktree.sh` makes them again from GitHub, on `base`. `palette-layers-int` and
+  `map-instances-int` are on `base`, and the others stay on `basewithfixes` until `REBUILD=1 tools/int-worktree.sh`
+  makes them again.
 - **Local tests.** `Test_MapModel` targets Windows; `tools/run-map-tests.sh` runs its files on Linux, and skips the
   renderings, which GDI+ draws. `Map_Skia.Tests` runs on Linux as it is: set `TEST_SILENTRUN=True`, or a failed
   comparison opens VisualDiff and waits. A local rendering tells which images a change moves. The fonts of this machine
@@ -79,15 +83,12 @@ The parts come in the order of the two passes of the specification (section 02),
 structure and not only the appearance. Each part builds on the parts before it, so its branch is rooted at
 `feature/palette-layers`.
 
-1. **Pass 1 apart from the drawing**: [ticket 007](tickets/007-map-instances.md), branch `feature/map-instances`. Pass 1 makes the instances of the map from the map alone:
-   `Map.CreateLayerInstances` takes no rectangle and no resolution of a drawing, and a dashed line is dashed whatever
-   the size of a pixel. The collector stays the source of the instances.
-2. **Pass 1 from the geometry methods of the symbols**: [ticket 008](tickets/008-symbol-geometry.md), a draft. The symbols make their clipping objects
+1. **Pass 1 from the geometry methods of the symbols**: [ticket 008](tickets/008-symbol-geometry.md), a draft. The symbols make their clipping objects
    with geometry methods of their own, in place of the collector, and the instances of the collector are the oracle.
    The ticket decides whether a dashed line is one shape, its path and the lengths of its dashes, and how it holds
    the dashes of OCAD: lengths fitted to each line, the distance metric of OCAD, and the dashes of a double line that
    are moved aside after they are measured.
-3. **Pass 1, the patterns** (section 03): [ticket 009](tickets/009-pattern-instances.md), a draft. The hatchings and the area patterns become prototypes
+2. **Pass 1, the patterns** (section 03): [ticket 009](tickets/009-pattern-instances.md), a draft. The hatchings and the area patterns become prototypes
    with their lattice and element transformations, and the elements that a fill mode selects become clipping objects.
    The pass 1 of [ticket 005](tickets/005-layer-instances.md) leaves them out with the internal option
    `RenderOptions.omitHatchingsAndPatterns`. A regular clipped pattern that the options draw with a pattern brush
@@ -95,7 +96,7 @@ structure and not only the appearance. Each part builds on the parts before it, 
    and a pattern that keeps whole glyphs draws them without a clip, as a point symbol draws its glyph. Their lattices
    and element transformations are in the definition of the area (`HatchInfo` and `PatternInfo` of `AreaSymDef`) and
    in the angle of the area object, and the drawing calls do not show them.
-4. **Pass 2, the composition by palette entry** (section 05): [ticket 010](tickets/010-palette-composition.md), a draft. It reads the instances only, groups them by palette
+3. **Pass 2, the composition by palette entry** (section 05): [ticket 010](tickets/010-palette-composition.md), a draft. It reads the instances only, groups them by palette
    entry, and applies C, α and B once to each group, in the order of the palette. α and B are in the model
    (`SymColor.Opacity` and `SymColor.BlendMode`, [ticket 004](tickets/004-opacity-and-blend-mode.md)), and the
    drawing does not use them yet. For an OCAD map, B = Darken is the larger share of each ink, and not the RGB minimum
@@ -103,11 +104,11 @@ structure and not only the appearance. Each part builds on the parts before it, 
    where the shapes of one color overlap ([oracles/mapper-opacity.md](oracles/mapper-opacity.md)). A clipping object
    keeps the steps of the transformations that placed it (`Placement`), so pass 2 can apply them as the drawing of the
    symbols did, with the same rounding.
-5. **The rendering modes** (sections 06 and 07): the normal view, the overprinting that the inks simulate, and the
+4. **The rendering modes** (sections 06 and 07): the normal view, the overprinting that the inks simulate, and the
    separations, as color configurations of pass 2. All modes use the same instances. The section "Rajaus" of
    [ticket 001](tickets/001-inks.md) describes Mapper's overprinting simulation, which is the oracle of the simulated
    overprinting of Mapper maps. OCAD applies B only in its PDF export, and not in its own view (the same oracle).
-6. **One palette stack for all maps**: the course and the map composite in one stack.
+5. **One palette stack for all maps**: the course and the map composite in one stack.
 
 A ticket of a part of the architecture has structural acceptance criteria, and not only criteria of the appearance.
 For example: pass 2 does not call the drawing code of the symbols; the drawing target gets only composited groups; a
@@ -154,6 +155,9 @@ the rendering.
   the runs: pass 2 would conflict with `fix/overlapping-patterns` in `Map.DrawColor`, and the fixes move baselines that
   the work does not touch. A fix that a part needs is merged into `feature/palette-layers`, as
   `fix/ocad11-utf8-strings` is. `tools/push-wip.sh` and `tools/int-worktree.sh` use `base` by default.
+- **A full run without a collecting run** (Nov 18). When a change cannot change the drawing, for example because it
+  does not touch the code that the drawing runs, its full run is `tools/push-wip.sh` without `--collect`, since the
+  images stay as they are. The drafts 008 to 010 tell when this applies to each of them.
 - **The conflicts with dev** (Nov 18). The palette-layer branches may conflict with `dev`. A comparison of their
   implementation with the one in `dev` is a later investigation.
 - **The fixes of upstream that a ticket separates** (Nov 18). When the work of a ticket fixes a fault of upstream, the

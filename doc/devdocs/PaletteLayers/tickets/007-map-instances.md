@@ -3,15 +3,20 @@
 Vaihe 1 tekee ilmentymät pelkästä kartasta. `Map.CreateLayerInstances` ei saa piirron suorakulmiota eikä resoluutiota, ja ilmentymissä ovat kartan kaikki näkyvät symbolit sijainnistaan riippumatta. Kerääjä on edelleen ilmentymien lähde, ja piirto ei muutu.
 
 **Hyväksymiskriteerit**
-- [ ] `Map.CreateLayerInstances` ei saa parametreina piirron suorakulmiota eikä resoluutiota. Sen tulos riippuu vain kartasta: sen väreistä, symbolimäärittelyistä, symboleista, näkyvyydestä ja tekstin mitoista (`TextMetricsProvider`).
-- [ ] Ilmentymissä ovat kartan kaikki näkyvät symbolit: näkyvät symbolimäärittelyt, joilla on palettimerkinnän väri, ja niiden näkyvät symbolit sijainnistaan riippumatta. Symbolien valinta ei käytä symbolien rajoja (`BoundingBox`) eikä `MayIntersectRect`-metodia.
-- [ ] Katkoviivan katkot ovat ilmentymissä katkoja kaikilla katkojen ja välien pituuksilla. Vaihe 1 antaa symbolien piirtokoodille resoluution 0, joten piirtokoodi ei piirrä katkoviivaa yhtenäisenä.
-- [ ] Peiton vertailu (`LayerInstanceCoverageTests`) piirtää oraakkelin, nykyisen piirron yksi väri kerrallaan, resoluutiolla 0, ja vertaa sitä koko kartan ilmentymiin. Vertailu on täsmällinen samoilla kartoilla kuin tiketissä [005](005-layer-instances.md).
-- [ ] Rakennetestit (`LayerInstanceTests`) tarkistavat, että ilmentymissä on symboli kaukana muista symboleista ja että katkoviiva, jonka välit ovat lyhyempiä kuin tavallinen pikselikoko, koostuu katkoista.
-- [ ] Piirto ei muutu, eikä yksikään kuva- tai tekstibaseline siirry.
+- [x] `Map.CreateLayerInstances` ei saa parametreina piirron suorakulmiota eikä resoluutiota. Sen tulos riippuu vain kartasta: sen väreistä, symbolimäärittelyistä, symboleista, näkyvyydestä ja tekstin mitoista (`TextMetricsProvider`).
+- [x] Ilmentymissä ovat kartan kaikki näkyvät symbolit: näkyvät symbolimäärittelyt, joilla on palettimerkinnän väri, ja niiden näkyvät symbolit sijainnistaan riippumatta. Symbolien valinta ei käytä symbolien rajoja (`BoundingBox`) eikä `MayIntersectRect`-metodia.
+- [x] Katkoviivan katkot ovat ilmentymissä katkoja kaikilla katkojen ja välien pituuksilla. Vaihe 1 antaa symbolien piirtokoodille resoluution 0, joten piirtokoodi ei piirrä katkoviivaa yhtenäisenä.
+- [x] Peiton vertailu (`LayerInstanceCoverageTests`) piirtää oraakkelin, nykyisen piirron yksi väri kerrallaan, resoluutiolla 0, ja vertaa sitä koko kartan ilmentymiin. Vertailu on täsmällinen samoilla kartoilla kuin tiketissä [005](005-layer-instances.md).
+- [x] Rakennetestit (`LayerInstanceTests`) tarkistavat, että ilmentymissä on symboli kaukana muista symboleista ja että katkoviiva, jonka välit ovat lyhyempiä kuin tavallinen pikselikoko, koostuu katkoista.
+- [x] Piirto ei muutu, eikä yksikään kuva- tai tekstibaseline siirry.
 
 **Lisätiedot**
 - **Päätökset (@Pauli, 18.11.):** piirto ei käytä symboleita, ja ilmentymät kuuluvat karttaan piirrosta riippumatta (epic [000](000-palette-layers.md), muistiinpanot). Suorakulmioon rajaaminen kuuluu vaiheeseen 2. Ilmentymien säilytys kartassa ja niiden päivitys kartan muuttuessa kuuluvat vaiheen 2 tikettiin. Tämä tiketti tehdään ennen geometriametodien tikettiä, ja sen ilmentymät ovat geometriametodien oraakkeli.
+- **Toteutus:**
+  - `Map.CreateLayerInstances()` ei saa parametreja. Se valitsee symbolit metodilla `SelectVisibleSymbolsOfColor`: näkyvät symbolimäärittelyt, joilla on väri, ja niiden näkyvät symbolit siinä järjestyksessä, jossa `DrawColor` piirtää ne. Valinta ei käytä symbolien rajoja eikä `MayIntersectRect`-metodia.
+  - Vaihe 1 antaa symbolien piirtokoodille piirtoasetukset, joissa `minResolution` on 0 ja `omitHatchingsAndPatterns` on päällä. Silloin `LineSymDef.DrawDashedWithOffset` piirtää katkot kaikilla välien pituuksilla.
+  - `LayerInstanceCoverageTests` piirtää oraakkelin resoluutiolla 0 ja vertaa sitä koko kartan ilmentymiin. Vertailu on täsmällinen tiketin 005 kaikilla 20 kartalla. Yhdessäkään niistä ei ole katkoviivaa, jonka kaikki välit ovat kartan pikseliä lyhyempiä, ja jokaisen kartan piirto on pikselikoolla ja resoluutiolla 0 pikselilleen sama. Katkojen säilymisen tarkistaa siksi rakennetesti.
+  - `LayerInstanceTests.InstancesHoldTheVisibleSymbolsWhereverTheyLie` tarkistaa, että ilmentymissä on symboli 6,4 metrin päässä muista symboleista kartan paperilla. `DashedLineIsItsDashesAlsoWhenItsGapsAreShorterThanAPixel` tarkistaa, että 10 mm:n viiva, jonka välit ovat 0,01 mm, on kymmenen katkoa, joiden välissä on väli. 1200 dpi:n tulosteen pikseli on 0,021 mm.
 - **Nykytila:**
   - `Map.CreateLayerInstances(rect, minResolution)` (Map.cs) valitsee symbolit metodilla `SymbolsDrawn`. Se ottaa näkyvät symbolimäärittelyt (`IsSymdefVisible`), joilla on väri (`HasColor`), ja niiden näkyvät symbolit, joiden rajat leikkaavat suorakulmion ja jotka voivat osua siihen (`MayIntersectRect`). Kuva- ja asettelukerroksen määrittelyt se lajittelee (`SortSymbolsForDrawing`).
   - Vaihe 1 antaa symbolien piirtokoodille piirtoasetukset, joissa on `minResolution` ja sisäinen `omitHatchingsAndPatterns`. Symbolien piirtokoodi käyttää `minResolution`ia vain katkoviivoissa (`LineSymDef.DrawDashedWithOffset`): se piirtää viivan yhtenäisenä, kun välit ja toissijaiset välit ovat sitä lyhyempiä. Kuviot käyttävät sitä myös, mutta vaihe 1 jättää ne pois.
