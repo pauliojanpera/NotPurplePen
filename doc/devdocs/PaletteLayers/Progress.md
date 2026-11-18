@@ -81,7 +81,8 @@ structure and not only the appearance. Each part builds on the parts before it, 
    entry, and applies C, α and B once to each group, in the order of the palette. α and B are in the model
    (`SymColor.Opacity` and `SymColor.BlendMode`, [ticket 004](tickets/004-opacity-and-blend-mode.md)), and the
    drawing does not use them yet. For an OCAD map, B = Darken is the larger share of each ink, and not the RGB minimum
-   ([oracles/ocad-darken.md](oracles/ocad-darken.md)).
+   ([oracles/ocad-darken.md](oracles/ocad-darken.md)). Mapper applies α to each shape, so it is not the oracle of α
+   where the shapes of one color overlap ([oracles/mapper-opacity.md](oracles/mapper-opacity.md)).
 3. **The rendering modes** (sections 06 and 07): the normal view, the overprinting that the inks simulate, and the
    separations, as color configurations of pass 2. All modes use the same instances. The section "Rajaus" of
    [ticket 001](tickets/001-inks.md) describes Mapper's overprinting simulation, which is the oracle of the simulated
