@@ -232,7 +232,7 @@ namespace PurplePen.MapModel
                 omColor.m = color.CmykColor.Magenta;
                 omColor.y = color.CmykColor.Yellow;
                 omColor.k = color.CmykColor.Black;
-                omColor.opacity = color.CmykColor.Alpha;
+                omColor.opacity = color.Opacity;
                 omColor.knockout = !color.OverPrint;  // Knockout is the opposite of overprint.
 
                 if (color.SpotInk != null && mapInkToId[color.SpotInk] == omColor.priority) {

@@ -49,6 +49,13 @@ namespace PurplePen.MapModel
         Layout, Normal, Image
     }
 
+    // How a palette entry composites over the entries below it: the blend modes that OCAD knows. OpenOrienteering
+    // Mapper has no blend modes.
+    public enum ColorBlendMode
+    {
+        Normal, Darken, Multiply
+    }
+
     public class SymColor
     {
         // For OCAD and PDF purposes, we save the CMYK instead of the RGB.
@@ -60,6 +67,8 @@ namespace PurplePen.MapModel
 		private short ocadId;
         private Ink spotInk;                                        // The spot ink that this entry is as such, or null.
         private ReadOnlyCollection<InkComponent> spotComposition;   // The spot inks that this entry is made of, or null.
+        private float opacity = 1;
+        private ColorBlendMode blendMode = ColorBlendMode.Normal;
 
         public string Name { get { return name; } set {this.name = value; }}
         public Map ContainingMap { get { return map; }}
@@ -132,6 +141,8 @@ namespace PurplePen.MapModel
 			this.ocadId = other.ocadId;
             this.spotInk = other.spotInk;
             this.spotComposition = other.spotComposition;
+            this.opacity = other.opacity;
+            this.blendMode = other.blendMode;
             return this;
 		}
 
@@ -203,6 +214,46 @@ namespace PurplePen.MapModel
             {
                 Debug.Assert(map == null, "Cannot change overprint after being attached to a map");
                 overprint = value;
+            }
+        }
+
+        // The opacity of this palette entry, from 0 (transparent) to 1 (opaque). It applies once to all that the entry
+        // covers, and not to each shape of it. It is apart from the CMYK value and its alpha, and from the overprint
+        // flag. The drawing does not apply it yet.
+        public float Opacity
+        {
+            get { return opacity; }
+            set
+            {
+                Debug.Assert(map == null, "Cannot change opacity after being attached to a map");
+                Debug.Assert(!IsSpecialLayer);
+                if (!(value >= 0 && value <= 1))
+                    throw new ArgumentOutOfRangeException("value", value, "The opacity of a color is from 0 to 1.");
+                opacity = value;
+            }
+        }
+
+        // Bound an opacity that a file gives to the range from 0 to 1. A value that is not a number is 1, as a missing
+        // value is.
+        public static float BoundOpacity(float opacity)
+        {
+            if (float.IsNaN(opacity))
+                return 1;
+            else
+                return Math.Min(Math.Max(opacity, 0), 1);
+        }
+
+        // How this palette entry composites over the entries below it. It is apart from the overprint flag, and from the
+        // blend mode with which the overprint effect of the drawing blends the overprinted colors. The drawing does not
+        // apply it yet.
+        public ColorBlendMode BlendMode
+        {
+            get { return blendMode; }
+            set
+            {
+                Debug.Assert(map == null, "Cannot change the blend mode after being attached to a map");
+                Debug.Assert(!IsSpecialLayer);
+                blendMode = value;
             }
         }
 
