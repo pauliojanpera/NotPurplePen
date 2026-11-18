@@ -52,7 +52,7 @@ namespace Map_Skia.Tests
         public void ClippingObjectsCoverWhatTheDrawingCovers(string testFileName)
         {
             int comparedColors, allColors;
-            CompareCoverage(testFileName, out comparedColors, out allColors);
+            CompareCoverage(TestMap.Read(testFileName), out comparedColors, out allColors);
             Assert.AreEqual(allColors, comparedColors, "The test map has hatchings, area patterns or image objects.");
         }
 
@@ -64,17 +64,47 @@ namespace Map_Skia.Tests
         public void ClippingObjectsCoverWhatTheDrawingCoversOutsideRepetitiveGeometry(string testFileName)
         {
             int comparedColors, allColors;
-            CompareCoverage(testFileName, out comparedColors, out allColors);
+            CompareCoverage(TestMap.Read(testFileName), out comparedColors, out allColors);
             Assert.Less(comparedColors, allColors, "The test map has no hatchings, area patterns or image objects.");
         }
 
+        // Maps of dashed lines, drawn with pixels that are larger than the gaps of the dashes. A drawing at the size of
+        // these pixels draws the lines solid, and the drawing at the resolution 0 and the instances keep the dashes.
+        // pixelSize: the size of a pixel, in the coordinates of the map.
+        [TestCase("dashline.txt", 0.3F)]       // gaps of 0.25 mm
+        [TestCase("isomlines.txt", 0.4F)]      // gaps and secondary gaps of 0.38 mm
+        [TestCase("doublelines9.txt", 0.8F)]   // gaps of 0.75 mm in the dashes of double lines
+        public void ClippingObjectsCoverTheDashesOfGapsShorterThanAPixel(string testFileName, float pixelSize)
+        {
+            TestMap testMap = TestMap.Read(testFileName).WithPixelSize(pixelSize);
+            int pixelsThatTheResolutionChanges = CountPixelsThatTheResolutionChanges(testMap);
+            TestContext.WriteLine("{0} x {1} pixels of {2} mm, {3} of which the resolution 0 changes", testMap.Size.Width, testMap.Size.Height, testMap.PixelSize, pixelsThatTheResolutionChanges);
+            Assert.Greater(pixelsThatTheResolutionChanges, 0, "The drawing at the size of a pixel draws each dashed line of the map as the drawing at the resolution 0 does.");
+
+            int comparedColors, allColors;
+            CompareCoverage(testMap, out comparedColors, out allColors);
+            Assert.AreEqual(allColors, comparedColors, "The test map has hatchings, area patterns or image objects.");
+        }
+
+        // Count the pixels in which the drawing of a test map at the size of its pixel differs from the drawing at the
+        // resolution 0: the pixels of the gaps that the drawing at the size of the pixel leaves out.
+        // testMap: the test map.
+        static int CountPixelsThatTheResolutionChanges(TestMap testMap)
+        {
+            Map map = testMap.Map;
+            using (map.Read()) {
+                bool[] atPixelSize = testMap.DrawCoverage(target => map.Draw(target, testMap.Area, CreateMapOptions(testMap.PixelSize), null));
+                bool[] atResolution0 = testMap.DrawCoverage(target => map.Draw(target, testMap.Area, CreateMapOptions(0), null));
+                return Enumerable.Range(0, atResolution0.Length).Count(i => atPixelSize[i] != atResolution0[i]);
+            }
+        }
+
         // Compare the coverage of the clipping objects of each palette entry of a test map with the drawing of its color.
-        // testFileName: the description of the test map in skia_render.
+        // testMap: the test map.
         // comparedColors: the number of colors that the comparison compares.
         // allColors: the number of colors of the map.
-        static void CompareCoverage(string testFileName, out int comparedColors, out int allColors)
+        static void CompareCoverage(TestMap testMap, out int comparedColors, out int allColors)
         {
-            TestMap testMap = TestMap.Read(testFileName);
             Map map = testMap.Map;
             List<string> differences = new List<string>();
             bool hasAnyCoverage = false;
@@ -158,12 +188,20 @@ namespace Map_Skia.Tests
         // index: the index of the color.
         static RenderOptions CreateOneColorOptions(List<SymColor> colors, int index)
         {
-            RenderOptions renderOpts = new RenderOptions();
-            renderOpts.minResolution = 0;
-            renderOpts.renderTemplates = RenderTemplateOption.MapOnly;
-            renderOpts.blendOverprintedColors = false;
+            RenderOptions renderOpts = CreateMapOptions(0);
             renderOpts.colorBeginDrawExclusive = (index == 0) ? (int?)null : colors[index - 1].OcadId;
             renderOpts.colorEndDrawInclusive = colors[index].OcadId;
+            return renderOpts;
+        }
+
+        // The options that draw the colors of a map without the templates and without the effect of overprinting.
+        // minResolution: the size of the smallest feature that the drawing draws.
+        static RenderOptions CreateMapOptions(float minResolution)
+        {
+            RenderOptions renderOpts = new RenderOptions();
+            renderOpts.minResolution = minResolution;
+            renderOpts.renderTemplates = RenderTemplateOption.MapOnly;
+            renderOpts.blendOverprintedColors = false;
             return renderOpts;
         }
 
@@ -258,6 +296,22 @@ namespace Map_Skia.Tests
                 Map = map;
                 Area = area;
                 Size = size;
+            }
+
+            // The size of a pixel of the rendering, in the coordinates of the map. The rendering scales the width of the
+            // area to the width of the bitmap, and the height by the same factor.
+            public float PixelSize
+            {
+                get { return Area.Width / Size.Width; }
+            }
+
+            // The same map and area, rendered with pixels of about a given size: the bitmap has the number of whole
+            // pixels nearest to the width and the height of the area in that size.
+            // pixelSize: the size of a pixel, in the coordinates of the map.
+            public TestMap WithPixelSize(float pixelSize)
+            {
+                Size size = new Size((int)Math.Round(Area.Width / pixelSize), (int)Math.Round(Area.Height / pixelSize));
+                return new TestMap(string.Format(CultureInfo.InvariantCulture, "{0}_pixel{1}", Name, pixelSize), Map, Area, size);
             }
 
             // Read a test map from its description in skia_render: the map file, the baseline, which is not used, the
