@@ -8,7 +8,7 @@ Viivasymbolit (`LineSymDef` ja `LineComboSymDef`) tuottavat leikkausobjektinsa g
 **Päätökset (sitovia)**
 - Koko työlle ennen sen jakoa neljään osaan tehdyt päätökset (tiketti [008](008-symbol-geometry.md), @Pauli, 18.11.) koskevat tätäkin osaa: kerääjän ilmentymät ovat oraakkeli, vanha piirtokoodi pysyy muuttumattomana, ja ajot tehdään ilman `--collect`-valintaa, kun muutos ei voi muuttaa piirtoa.
 - Katkoviivan esityksen oikea ratkaisu etsitään tässä tiketissä (@Pauli, 18.11.).
-- Katkoviiva noudattaa samaa periaatetta kuin kuviotäytöt: perusmalli esitetään standardivälineellä, katkoviivana, ja eksoottisemmat tapaukset, kuten OCADin metriikka, pilkotaan osiin, katkoviivassa yksittäisiksi katkoiksi. Kuviotäytöissä vastaavia tapauksia ovat stokastinen täyttö ja erikoiset reunavalinnat (@Pauli, 18.11.).
+- Katkoviiva noudattaa samaa periaatetta kuin kuviotäytöt [speksin](../Specification.md) luvussa 03: perusmalli esitetään standardivälineellä, katkoviivana, ja eksoottisemmat tapaukset, kuten OCADin metriikka, pilkotaan osiin, katkoviivassa yksittäisiksi katkoiksi (@Pauli, 18.11.). Luvun 03 mukaan leikattu kuviotäyttö pysyy toistuvana geometriana, ja kokonaisia elementtejä valitsevat täyttötilat ja epäsäännölliset täytöt tulevat yksittäisiksi leikkausobjekteiksi.
 
 **Hyväksymiskriteerit (luonnos: ehdotuksia, ei sitovia)**
 - [ ] Ehdotus: viivasymbolin geometriametodi tuottaa tiketin 008 rajapinnalla pääviivan, katkoviivat, terävät päät, toisen viivan, kaksoisviivan täytön ja reunat sekä glyyfit viivan varrella ilman `IGraphicsTarget`-kutsuja ja ilman piirtoasetuksia. `LineComboSymDef` kokoaa osiensa geometrian.
