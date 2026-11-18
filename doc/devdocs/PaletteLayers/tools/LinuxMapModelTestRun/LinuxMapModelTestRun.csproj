@@ -22,6 +22,8 @@
     <Compile Include="../Test_MapModel/OpenMapperImportTests.cs" Link="suite/OpenMapperImportTests.cs" />
     <Compile Include="../Test_MapModel/RoundtripOcadTests.cs" Link="suite/RoundtripOcadTests.cs" />
     <Compile Include="../Test_MapModel/InkTests.cs" Link="suite/InkTests.cs" Condition="Exists('../Test_MapModel/InkTests.cs')" />
+    <Compile Include="../Test_MapModel/MapFileTestUtil.cs" Link="suite/MapFileTestUtil.cs" Condition="Exists('../Test_MapModel/MapFileTestUtil.cs')" />
+    <Compile Include="../Test_MapModel/OpacityAndBlendModeTests.cs" Link="suite/OpacityAndBlendModeTests.cs" Condition="Exists('../Test_MapModel/OpacityAndBlendModeTests.cs')" />
   </ItemGroup>
 
   <ItemGroup>
