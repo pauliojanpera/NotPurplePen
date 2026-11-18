@@ -128,5 +128,68 @@ Purple Pen drew the files at 600 dpi: [Euclidean](ocad-dashes/purple-pen-dashes-
 [OCAD metric](ocad-dashes/purple-pen-dashes-2-ocad12-ocad-metric-600dpi.png). It draws the OCAD 9 and 10 files as the
 OCAD 12 file with the OCAD metric, as it reads no `p` from them.
 
-The exports of the OCAD viewer are to come, one for each file, as for the first sample. Their names are
-`ocad-viewer-<the name of the file>-600dpi.png`.
+@Pauli exported the five files on Nov 18, as for the first sample:
+[Euclidean](ocad-dashes/ocad-viewer-dashes-2-ocad12-euclidean-600dpi.png),
+[OCAD metric](ocad-dashes/ocad-viewer-dashes-2-ocad12-ocad-metric-600dpi.png),
+[OCAD 10](ocad-dashes/ocad-viewer-dashes-2-ocad10-600dpi.png),
+[OCAD 10 with `p1`](ocad-dashes/ocad-viewer-dashes-2-ocad10-ocad-metric-600dpi.png) and
+[OCAD 9 with `p1`](ocad-dashes/ocad-viewer-dashes-2-ocad9-ocad-metric-600dpi.png).
+
+### The values
+
+The export of the OCAD 10 file without `p` is the same, pixel by pixel, as the export of the Euclidean OCAD 12 file.
+The exports of the OCAD 9 and 10 files with `p1` are the same as the export of the OCAD 12 file with `p1`.
+
+The counts of dashes that are not the same in the export of OCAD and the drawing of Purple Pen. In all the other cells,
+the counts are the same. "Both" is both metrics.
+
+| Cells | File | OCAD | Purple Pen |
+| --- | --- | --- | --- |
+| A1-1: A, (L − 2.0) / 2.5 = 8.5 | both | 10 | 9 |
+| A1-7: A, 9.5 | both | 10 | 11 |
+| A2-8: H0, 1 mm | both | 1, no gap | 0: the rule gives one gap and end dashes of 0 |
+| B1-4: B, 1.5 mm; B1-16: A, 2.5 mm; B2-15: G1, 2.5 mm | both | 1, no gap | 2, 2 and 4 |
+| B2-1 to B2-5: C, 1.0 to 2.5 mm; B2-12: C3, 1.5 mm | both | 1, no gap | 2 |
+| B2-20 to B2-22: G2, 4, 6 and 8 mm | both | 2, 4 and 4: 1, 2 and 2 gaps | 4, 6 and 6: 3 gaps |
+| B2-23: E, 1 mm | both | 1, from 0.49 to 1.00 mm | 0: the rule gives 2 gaps and dashes of 0 |
+| DS-3, DS-4 and DS-9, Darch-3, Darch-4 and Darch-9: the S curve and the arch | Euclidean | one dash less | |
+| D4F-1: the S curve as a line of 64 straight parts, 9.5009 | Euclidean | 10 | 11 |
+| Darch-4 and Darch-9: the arch | OCAD metric | one dash less | |
+
+Where the counts are the same, the dashes are at the same places: on the straight lines and the lines with corner and
+dash points, the ends of the dashes are at most 0.05 mm apart. On the S curve and the arch, they are up to 0.17 mm
+apart, and on the gentle curve 0.05 mm.
+
+The solid double lines join at the right angle and at the angle of 45° as in Purple Pen, in each of the three line
+styles. At the start point of the closed rectangle, OCAD leaves the outer corner open, about 0.25 mm, as two flat ends
+meet there. Purple Pen fills it.
+
+### What the second sample tells
+
+- **The metric.** The viewer reads `p` from OCAD 9 and 10 files too: with `p1` it uses the OCAD metric, and without `p`
+  the Euclidean metric. Purple Pen reads `p` only from OCAD 11+, and uses the OCAD metric for OCAD 6 to 10 files.
+- **The length of a Bezier curve.** OCAD counts the gaps from a length in which each Bezier curve is four chords
+  between the points of the parameters 0, ¼, ½, ¾ and 1, measured with the metric of the map. This length fits all
+  the 28 Bezier curves of the two samples with each metric, and no other number of chords from 2 to 16 fits all of
+  them with both metrics. The true length of the curve fits 21 of them with the Euclidean metric and 26 with the OCAD
+  metric. Purple Pen measures the curve flattened into fine parts (`SymPath.GetFlattenedPoints`). OCAD puts the
+  dashes along the full curve (the first sample).
+- **A half.** With end dashes as long as the dashes, OCAD gives a line the whole number of dashes nearest to
+  (L + gap + 2 × dash − 2 × end dash) / (dash + gap), and at exactly a half the even number: 9.5 and 10.5 both give 10
+  dashes. Purple Pen rounds the number of gaps to the even number at a half (`Math.Round`), so it gives one dash less
+  at 9.5 and one more at 10.5.
+- **The length of a part.** The line of 64 straight parts fits only when OCAD rounds the length of each part to
+  0.01 mm: its exact length gives 9.5009, and its rounded parts give 9.5 exactly. The rounded parts fit all the other
+  cells too. No other cell decides this.
+- **A short line.** When the line is not longer than its end dashes and a gap, OCAD gives it a gap only when it is
+  longer than half of each end dash and a gap. Purple Pen gives it a gap from that length on
+  (`pathLength >= firstDashLength / 2 + lastDashLength / 2 + gapLength`).
+- **A double line.** OCAD gives the dashes of a double line no minimum gap. Purple Pen gives them at least one
+  (`OcadImport`: `doubleDashes.minGaps = 1`).
+- **End dashes of 0.** OCAD draws a line of 1 mm with end dashes of 0, which the rule gives one gap, as a solid line.
+  Purple Pen draws nothing, as all of the line is the gap.
+- **Not yet known.** With a secondary gap, OCAD did not give the lines of G2 the minimum of 3 gaps: they have the
+  counts of the rule without a minimum. Without a secondary gap, OCAD gives the minimum as Purple Pen does (E, also
+  with corner points). A line of E of 1 mm, which the minimum of 2 gaps leaves without dashes, gets one dash from
+  0.49 mm to its end. The places of the dashes on strongly curved Bezier curves are up to 0.17 mm from those of
+  Purple Pen. These need more samples before a fix.

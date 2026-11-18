@@ -109,8 +109,7 @@ structure and not only the appearance. Each part builds on the parts before it, 
    drawing code stays as it is, so the drawing does not change. Ticket 011 sets the limits of the basic model of a
    dashed line: lengths fitted to each line, the distance metric of OCAD, and the dashes of a double line that are
    moved aside after they are measured. Before that, the dashed lines are checked against OCAD:
-   [oracles/ocad-dashes.md](oracles/ocad-dashes.md) records the first sample, and the second sample waits for the
-   exports of @Pauli.
+   [oracles/ocad-dashes.md](oracles/ocad-dashes.md) records two samples and the rules of OCAD that they show.
 2. **Pass 1, the patterns** (section 03): [ticket 009](tickets/009-pattern-instances.md), a draft. The hatchings and the area patterns become prototypes
    with their lattice and element transformations, and the elements that a fill mode selects become clipping objects.
    The pass 1 of [ticket 005](tickets/005-layer-instances.md) leaves them out with the internal option
