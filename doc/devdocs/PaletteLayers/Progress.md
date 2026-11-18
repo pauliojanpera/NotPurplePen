@@ -120,6 +120,8 @@ the rendering.
 - **Tickets and pull request descriptions** (Nov 18). Every branch goes through a ticket and a pull request
   description, also when no pull request is made. A ticket names the fixes and features separated from it under
   "Erotetut alatehtävät".
+- **The conflicts with dev** (Nov 18). The palette-layer branches may conflict with `dev`. A comparison of their
+  implementation with the one in `dev` is a later investigation.
 - **The fixes of upstream that a ticket separates** (Nov 18). When the work of a ticket fixes a fault of upstream, the
   fix gets a ticket of its own, from `tickets/bug-template.md`, and a `fix/` branch, and the first ticket names it
   under "Erotetut alatehtävät".
