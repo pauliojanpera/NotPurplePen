@@ -2197,6 +2197,9 @@ namespace PurplePen.MapModel
         // Draw the hatching into the interior of the SymPath.
         void DrawHatchings(IGraphicsTarget g, SymPathWithHoles path, float angle, PointF rotationCenter, RenderOptions renderOpts, SymColor color)
         {
+            if (renderOpts.omitHatchingsAndPatterns)
+                return;
+
             // Precheck if any hatchings have the color before doing the expensive clip operation.
             bool hasColor = false;
             for (int i = 0; i < hatchings.Count; ++i) {
@@ -2253,6 +2256,9 @@ namespace PurplePen.MapModel
         // Draw all patterns
         void DrawPatterns(IGraphicsTarget g, SymPathWithHoles path, SymColor color, float angle, PointF rotationCenter, RenderOptions renderOpts)
         {
+            if (renderOpts.omitHatchingsAndPatterns)
+                return;
+
             for (int i = 0; i < patterns.Count; ++i) {
                 PatternInfo patternInfo = patterns[i];
                 bool ignoreRotation = (patternInfo.patternRotateMode == RotateMode.Never);
