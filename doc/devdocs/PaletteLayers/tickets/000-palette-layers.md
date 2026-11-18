@@ -28,4 +28,5 @@ Upstreamin karttamalli toteuttaa [speksin](../Specification.md) palettikerrosark
 * [002](002-mapper-export-color-numbers.md) Mapper-viennin värinumerot, erotettu tiketistä 001: haara `fix/mapper-export-color-numbers`, yhdistetty haaraan `feature/palette-layers` haaran `feature/inks` mukana.
 * [003](003-ocad11-utf8-strings.md) OCAD 11:n ja uudempien merkkijonojen UTF-8-koodaus, löytyi tiketin 001 testikartasta: haara `fix/ocad11-utf8-strings`, yhdistetty haaraan `feature/palette-layers`.
 * [004](004-opacity-and-blend-mode.md) Palettimerkinnän peittävyys ja sekoitustila: haara `feature/opacity-and-blend-mode`, yhdistetty haaraan `feature/palette-layers`.
-* [005](005-layer-instances.md) Vaihe 1: yhtenäisen geometrian ilmentymät (G = 1): haara `feature/layer-instances`, ei vielä tehty.
+* [005](005-layer-instances.md) Vaihe 1: yhtenäisen geometrian ilmentymät (G = 1): haara `feature/layer-instances`, yhdistetty haaraan `feature/palette-layers`.
+* [006](006-matrix-equals-offsets.md) Matriisin yhtäsuuruus vertaa siirtymiä float-lukuina, löytyi tiketin 005 testeistä: haara `fix/matrix-equals-offsets`, ei yhdistetty, koska mikään osa ei tarvitse sitä.
