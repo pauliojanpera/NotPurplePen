@@ -39,7 +39,10 @@ Python 3 with Pillow, git, the GitHub CLI signed in to the repository, and the .
    push's Tests run passes (@Pauli, Nov 18).
 4. `record-baselines.py --dry-run --base origin/base <folder> <feature worktree> <wip worktree>` tells which
    images the change moves. Record on the feature branch only the baselines that the change itself moves. An image
-   that it writes to the wip side is a baseline that `base` moved too: it needs a decision of its own.
+   that it writes to the wip side is a baseline that `base` moved too: it needs a decision of its own. When `base`
+   added or changed the baseline for a test of its own, and the change moves it, the image belongs to the merge of the
+   branch into `base`: keep it in `../prs/<ticket>-base/`, at its path in the repository below that folder, and
+   give `push-wip.sh` the option `--base-baselines` with that folder at each push.
    A new Skia rendering test has no baseline to move: push with `--blank-baseline` for its description, and copy
    `<baseline>_actual.png` from the artifact `rendering-differences-skia` of the push's Tests run to the baseline.
    Skia's comparisons allow no difference, so a rendering made on this machine is no baseline.

@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# push-wip.sh [--base <branch>] [--collect] [--blank-baseline <test description>]... <clone> <branch> [<wip name>]
+# push-wip.sh [--base <branch>] [--collect] [--blank-baseline <test description>]... [--base-baselines <folder>]
+#             <clone> <branch> [<wip name>]
 #
 # Rebuilds wip/linux/<name> as one merge commit of the base branch and the branch, and pushes it with a lease on
 # what the remote holds. The push starts the Tests and Build workflows. As ../README.md says, the branches of the
@@ -18,20 +19,27 @@
 # that the description gives. The test fails, and the artifact rendering-differences-skia holds the rendering as
 # <baseline>_actual.png, for record-baselines.py. Push again without the option for the run that counts.
 #
+# --base-baselines names a folder of baselines of base's own tests that the branch moves, at their paths in the
+# repository below the folder. A fix rooted at upstream cannot hold them, as base added or changed them itself, so one
+# more commit, on the wip branch alone, writes them in. They belong to the merge of the branch into base, which takes
+# them from the same folder. Give the option to each push of the branch.
+#
 # Prints the commit pushed and the ids of the runs, for wait-run.sh and fetch-artifact.sh in ../../SvgDevLoop/.
 set -euo pipefail
 collect=0
 base=base
 descriptions=()
+base_baselines=
 while [ $# -gt 0 ]; do
     case "$1" in
         --base) base=$2; shift 2 ;;
         --collect) collect=1; shift ;;
         --blank-baseline) descriptions+=("$2"); shift 2 ;;
+        --base-baselines) base_baselines=$(cd "$2" && pwd); shift 2 ;;
         *) break ;;
     esac
 done
-[ $# -ge 2 ] || { echo "usage: push-wip.sh [--base <branch>] [--collect] [--blank-baseline <test description>]... <clone> <branch> [<wip name>]" >&2; exit 2; }
+[ $# -ge 2 ] || { echo "usage: push-wip.sh [--base <branch>] [--collect] [--blank-baseline <test description>]... [--base-baselines <folder>] <clone> <branch> [<wip name>]" >&2; exit 2; }
 cd "$1"
 feature=$2
 name=${3:-${feature##*/}}
@@ -69,6 +77,23 @@ sys.stdout.buffer.write(data.getvalue())
     rm -f "$index"
     commit=$(git commit-tree "$blank_tree" -p "$commit" -m "Give the new Skia rendering tests blank baselines, on this run only" \
              -m "The Skia comparison leaves its rendering only where a baseline exists.")
+fi
+
+if [ -n "$base_baselines" ]; then
+    index=$(mktemp)
+    rm -f "$index"
+    GIT_INDEX_FILE=$index git read-tree "$commit"
+    while IFS= read -r -d '' file; do
+        path=${file#"$base_baselines"/}
+        git cat-file -e "$commit:$path" 2>/dev/null || { echo "$path is not in $base and $feature" >&2; rm -f "$index"; exit 1; }
+        blob=$(git hash-object -w "$file")
+        GIT_INDEX_FILE=$index git update-index --cacheinfo "100644,$blob,$path"
+        echo "base baseline $path"
+    done < <(find "$base_baselines" -type f -print0 | sort -z)
+    base_tree=$(GIT_INDEX_FILE=$index git write-tree)
+    rm -f "$index"
+    commit=$(git commit-tree "$base_tree" -p "$commit" -m "Record the baselines of base's own tests that $feature moves, on this run only" \
+             -m "A branch rooted at upstream cannot hold them; the merge into $base takes them.")
 fi
 
 before=$(git ls-remote "$remote" "refs/heads/$wip" | cut -f1)

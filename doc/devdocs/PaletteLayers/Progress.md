@@ -25,8 +25,8 @@ combinations and the graphics objects ([012](tickets/012-area-geometry.md)), and
 ([013](tickets/013-text-geometry.md)). The tickets 009 to 013 are drafts (see "Next"). Before ticket 011, the
 dashed lines were checked against the OCAD viewer ([oracles/ocad-dashes.md](oracles/ocad-dashes.md)). Its faults are
 the tickets [016](tickets/016-ocad-metric-parameter.md), whose fix of the metric of OCAD 6 to 10 files is on a branch
-of its own, and [017](tickets/017-ocad-dash-count.md) and [018](tickets/018-double-line-dash-gaps.md), which wait for
-a third sample.
+of its own, [017](tickets/017-ocad-dash-count.md), [018](tickets/018-double-line-dash-gaps.md) and
+[019](tickets/019-ocad-minimum-gaps.md). Three samples showed the rules of OCAD that their fixes follow.
 
 ## Branches
 
@@ -114,7 +114,7 @@ structure and not only the appearance. Each part builds on the parts before it, 
    drawing code stays as it is, so the drawing does not change. Ticket 011 sets the limits of the basic model of a
    dashed line: lengths fitted to each line, the distance metric of OCAD, and the dashes of a double line that are
    moved aside after they are measured. Before that, the dashed lines are checked against OCAD:
-   [oracles/ocad-dashes.md](oracles/ocad-dashes.md) records two samples and the rules of OCAD that they show.
+   [oracles/ocad-dashes.md](oracles/ocad-dashes.md) records three samples and the rules of OCAD that they show.
 2. **Pass 1, the patterns** (section 03): [ticket 009](tickets/009-pattern-instances.md), a draft. The hatchings and the area patterns become prototypes
    with their lattice and element transformations, and the elements that a fill mode selects become clipping objects.
    The pass 1 of [ticket 005](tickets/005-layer-instances.md) leaves them out with the internal option
@@ -150,9 +150,6 @@ the rendering.
 - **The SVG encoding**, when pass 2 is done (Nov 18). Its place: an encoding read from the instances, or the SVG
   target of NotPurplePen fitted to them in the integration. And whether the work can use the documented findings or
   the code of `feature/svg-target`. The notes of the epic give the reasons.
-- **The export of the third dash sample** (Nov 18). [oracles/ocad-dashes.md](oracles/ocad-dashes.md) describes it;
-  the file is on @Pauli's drive in `ocad-dashes-3`. The fixes [017](tickets/017-ocad-dash-count.md) and
-  [018](tickets/018-double-line-dash-gaps.md) wait for it.
 - **Offering upstream.** No branch is offered upstream yet.
 
 ## Decisions

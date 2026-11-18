@@ -216,3 +216,39 @@ The script measures the main line of DM at its middle and the borders 0.375 mm t
 runs. In [Purple Pen's drawing](ocad-dashes/purple-pen-dashes-3-ocad12-euclidean-600dpi.png), each count is the count
 of the rule, except GScurve-2: its curve gives 9.5015 by a fine measure, and Purple Pen's flattened curve is less
 than a half, so it gets 9 glyphs.
+
+@Pauli exported the file on Nov 18, at [600 dpi](ocad-dashes/ocad-viewer-dashes-3-ocad12-euclidean-600dpi.png), as the
+other samples, and at [1200 dpi](ocad-dashes/ocad-viewer-dashes-3-ocad12-euclidean-1200dpi.png).
+
+### The values
+
+The counts that are not the same in the export of OCAD at 600 dpi and the drawing of Purple Pen. In all the other
+cells, the counts are the same. The minimum is Purple Pen's, as it reads `MinSym`.
+
+| Cells | OCAD | Purple Pen |
+| --- | --- | --- |
+| M0-2 and MS0-2: 1.5 mm, no minimum | 1 | 2: the limit of a short line |
+| M2-1 and MS2-1: 1.0 mm, a minimum of 2 | 1, from 0.48 to 0.98 mm | 0: the minimum leaves dashes of 0 |
+| M3 and M4, 1.0 to 6.0 mm: a minimum of 3 and 4 (`MinSym` 2 and 3) | 2, 2, 2, 2, 2, 3 and 3: the counts with a minimum of 1 | 0, 0, 4, 4, 4, 4 and 4, and 0, 0, 0, 5, 5, 5 and 5 |
+| MS3 and MS4, as M3 and M4 with a secondary gap | 2, 2, 2, 2, 2, 4 and 4: as MS1 | 0, 0, 4, 4, 4, 4 and 6, and 0, 0, 0, 5, 5, 5 and 8 |
+| MS2-5: 3.0 mm, a minimum of 2 and a secondary gap | 3: the middle dash of 1.0 mm has no secondary gap | 4 |
+| DM0 and DM3, the main line | the counts of OCAD in M0 and M3 | the counts of Purple Pen in M0 and M3 |
+| DM, the borders, 1.0 to 2.0 mm, beside a main line with no minimum or a minimum of 3 | 1, no gap | 2 |
+| GSstraight-3 and GSstraight-6: 9 and 11 mm | 5 and 5 glyphs | 4 and 6 |
+| GSshort-6: 3 mm | 1 glyph, at the middle | 2 |
+| GSshort-7 to GSshort-10: a minimum of 3 glyphs (`MinSym` 2), 1.0 to 4.0 mm | 1, 1, 1 and 2 | 3 |
+| GScurve-3 and GScurve-4: the S curve, half of its true length 9.6 and 9.7 | 9 glyphs | 10 |
+
+### What the third sample tells
+
+- **The minimum number of gaps.** OCAD reads `MinSym` −1 as no minimum, 0 as a minimum of 1 gap and 1 as a minimum of
+  2 gaps, as Purple Pen does. But it reads `MinSym` 2 and 3 as a minimum of 1 gap, as 0, for the dashes with and
+  without a secondary gap and for spaced glyphs. Purple Pen reads them as minimums of 3 and 4 gaps or glyphs.
+- **A secondary gap.** OCAD puts no secondary gap in a dash that is exactly half of the length of a dash. Purple Pen
+  puts one in a dash that is half of it or longer (`actualDashLength >= dashLength / 2`).
+- **Spaced glyphs** follow the rules of the dashes: at exactly a half, the number of glyphs plus one is even (9 and
+  11 mm both give 5 glyphs, and 3 mm gives 1), and a Bezier curve is measured as four chords.
+- **A double line beside a dashed main line.** The minimum of the main line does not reach the dashes of the borders:
+  OCAD gives them no minimum, as without a main line.
+- **Not yet known.** A line that a minimum of 2 gaps leaves without dashes (M2-1, and E of the second sample) gets one
+  dash of 0.5 mm, from the end of the first gap to the end of the line.

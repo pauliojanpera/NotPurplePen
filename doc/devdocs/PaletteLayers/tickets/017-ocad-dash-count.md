@@ -1,29 +1,32 @@
 # OCAD-viivan katkojen määrä poikkeaa OCADin piirrosta
 
 **Konteksti**  
-OCAD laskee viivan katkojen määrän toisin kuin `LineSymDef.ComputeDashDistances` neljässä tilanteessa ([oracles/ocad-dashes.md](../oracles/ocad-dashes.md)):
+OCAD laskee viivan katkojen ja välein sijoitettujen glyyfien määrän toisin kuin `LineSymDef.ComputeDashDistances` viidessä tilanteessa ([oracles/ocad-dashes.md](../oracles/ocad-dashes.md)):
 - **Bezier-käyrä.** OCAD laskee välien määrän pituudesta, jossa jokainen Bezier-käyrä on neljä jännettä parametrin arvojen 0, ¼, ½, ¾ ja 1 pisteiden välillä, kartan metriikalla mitattuna. Purple Pen mittaa hienoksi tasoitetun käyrän (`SymPath.GetFlattenedPoints`). Katkot OCAD sijoittaa koko käyrälle. Tämä pituus sopii näytteiden kaikkiin 28 Bezier-käyrään kummallakin metriikalla, eikä mikään muu jänteiden määrä väliltä 2–16 sovi kaikkiin kummallakin.
 - **Puolikas.** Kun päätykatkot ovat katkon mittaisia, OCAD antaa viivalle katkoja lähimmän kokonaisluvun verran lausekkeesta (L + väli + 2 × katko − 2 × päätykatko) / (katko + väli), ja tasan puolikkaassa parillisen määrän. Purple Pen pyöristää välien määrän puolikkaassa parilliseksi (`Math.Round`).
 - **Lyhyt viiva.** Kun viiva ei ole päätykatkojaan ja väliä pidempi, OCAD antaa sille välin vasta, kun se on pidempi kuin päätykatkojen puolikkaat ja väli. Purple Pen antaa välin jo samanpituiselle viivalle (`pathLength >= firstDashLength / 2 + lastDashLength / 2 + gapLength`).
 - **Päätykatkot 0.** Kun sääntö antaa viivalle yhden välin ja päätykatkot ovat 0, OCAD piirtää viivan ehjänä, mutta Purple Pen ei piirrä mitään, koska koko viiva on väliä.
+- **Toissijainen väli.** OCAD ei lisää toissijaista väliä katkoon, joka on tasan puolet katkon pituudesta. Purple Pen lisää sen katkoon, joka on vähintään puolet (`actualDashLength >= dashLength / 2`).
+
+Välein sijoitetut glyyfit noudattavat samoja sääntöjä kuin katkot: tasan puolikkaassa glyyfien määrä plus yksi on parillinen, ja Bezier-käyrä mitataan neljänä jänteenä (kolmas näyte).
 
 Lisäksi 64-osainen murtoviiva sopii vain, jos OCAD pyöristää jokaisen osan pituuden 0,01 mm:iin. Sen tarkka pituus antaa 9,5009, ja pyöristetyt osat tasan 9,5.
 
 **Toistamisohjeet**  
-1. Piirrä oraakkelin toisen näytteen tiedostot `dashes-2-ocad12-euclidean.ocd` ja `dashes-2-ocad12-ocad-metric.ocd` 600 dpi:llä.
-2. Mittaa katkot `measure-dashes.py`:llä ja vertaa niitä OCAD-viewerin vientiin.
+1. Piirrä oraakkelin toisen näytteen tiedostot `dashes-2-ocad12-euclidean.ocd` ja `dashes-2-ocad12-ocad-metric.ocd` sekä kolmannen näytteen tiedosto `dashes-3-ocad12-euclidean.ocd` 600 dpi:llä.
+2. Mittaa katkot ja glyyfit `measure-dashes.py`:llä ja vertaa niitä OCAD-viewerin vientiin.
 
 **Odotettu vs. Todellinen käytös**  
-`odotettu:` solujen katkojen määrät ovat kuten OCAD-viewerin viennissä: A1-1 ja A1-7 10, A2-8 1, B1-4, B1-16 ja B2-15 1, euklidisessa tiedostossa DS-3, DS-4, Darch-3 ja Darch-4 10, DS-9 ja Darch-9 11 ja D4F-1 10, ja OCADin metriikan tiedostossa Darch-4 11 ja Darch-9 12.  
-`todellinen:` Purple Pen piirtää A1-1:een 9 katkoa, A1-7:ään 11, A2-8:aan ei mitään, B1-4:ään ja B1-16:een 2 ja B2-15:een 4, ja muihin soluihin yhden katkon enemmän kuin OCAD.
+`odotettu:` solujen katkojen määrät ovat kuten OCAD-viewerin viennissä: A1-1 ja A1-7 10, A2-8 1, B1-4, B1-16 ja B2-15 1, euklidisessa tiedostossa DS-3, DS-4, Darch-3 ja Darch-4 10, DS-9 ja Darch-9 11 ja D4F-1 10, ja OCADin metriikan tiedostossa Darch-4 11 ja Darch-9 12. Kolmannen näytteen solussa MS2-5 on 3 katkoa, ja soluissa GSstraight-3 ja GSstraight-6 5 glyyfiä, GSshort-6:ssa 1 sekä GScurve-3:ssa ja GScurve-4:ssä 9.  
+`todellinen:` Purple Pen piirtää A1-1:een 9 katkoa, A1-7:ään 11, A2-8:aan ei mitään, B1-4:ään ja B1-16:een 2, B2-15:een 4 ja MS2-5:een 4, ja muihin toisen näytteen soluihin yhden katkon enemmän kuin OCAD. Glyyfejä se piirtää GSstraight-3:een 4, GSstraight-6:een 6, GSshort-6:een 2 sekä GScurve-3:een ja GScurve-4:ään 10.
 
 **Versio / commit / järjestelmätiedot**  
 `Purple Pen upstream d48f4456 / base, basewithfixes / kaikki alustat`
 
 (_valinnainen_) **Ehdotettu korjaus / hypoteesi**  
-`ComputeDashDistances` saa välien määrän laskuun OCADin pituuden, jossa jokainen Bezier-käyrä mitataan neljänä jänteenä ja jokaisen osan pituus pyöristetään 0,01 mm:iin. Katkojen sovitettuihin pituuksiin se käyttää edelleen tasoitetun polun pituutta. Katkojen määrä pyöristetään puolikkaassa parilliseksi, lyhyt viiva saa välin vasta rajan ylittäessään, ja yhden välin viiva, jonka päätykatkot ovat 0, piirretään ehjänä. Korjaus koskee OCADin katkojen sovitusta (`SpacingMethod.OCAD`), ei Mapperin.
+`ComputeDashDistances` saa välien määrän laskuun OCADin pituuden, jossa jokainen Bezier-käyrä mitataan neljänä jänteenä ja jokaisen osan pituus pyöristetään 0,01 mm:iin. Katkojen sovitettuihin pituuksiin se käyttää edelleen tasoitetun polun pituutta. Katkojen määrä pyöristetään puolikkaassa parilliseksi, lyhyt viiva saa välin vasta rajan ylittäessään, yhden välin viiva, jonka päätykatkot ovat 0, piirretään ehjänä, ja toissijainen väli tulee vain katkoon, joka on yli puolet katkon pituudesta. Korjaus koskee OCADin katkojen sovitusta (`SpacingMethod.OCAD`) sekä katkoille että glyyfeille, ei Mapperin.
 
-Korjaus odottaa kolmatta näytettä kahdesta syystä. Ensinnäkin viivan glyyfit (`GlyphLocation`) käyttävät samaa laskua, eikä näytteissä ollut glyyfejä. Toiseksi vähimmäisvälit (`MinSym`) vaikuttavat samaan laskuun: OCAD ei antanut toisen näytteen symbolille G2 (vähintään 3 väliä ja toissijainen väli) vähimmäisvälejä, eikä näytteissä ollut symbolia, jonka `MinSym` on 0.
+Toisen näytteen symboli G2 (vähintään 3 väliä ja toissijainen väli) ei saanut OCADissa vähimmäisvälejä, koska OCAD lukee `MinSym`in 2 kuten 0. Se on oma vikansa, tiketti [019](019-ocad-minimum-gaps.md).
 
 Vika löytyi tiketin [011](011-line-geometry.md) valmistelussa, kun katkoviivoja verrattiin OCADiin.
 

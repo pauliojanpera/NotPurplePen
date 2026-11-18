@@ -40,5 +40,6 @@ Viivasymbolit (`LineSymDef` ja `LineComboSymDef`) tuottavat leikkausobjektinsa g
 **Erotetut alatehtävät**
 <!-- Tästä tiketistä erotetut korjaukset ja ominaisuudet: tiketti, haara ja se, onko haara yhdistetty tämän tiketin haaraan -->
 - [016](016-ocad-metric-parameter.md) OCAD 6–10 -tiedoston viivat mitataan aina OCADin metriikalla. Vika löytyi, kun tämän tiketin valmistelussa katkoviivoja verrattiin OCADiin: haara `fix/ocad-metric-parameter`, jota ei ole yhdistetty tämän tiketin haaraan, koska vanha piirtokoodi pysyy ennallaan tikettien 008–013 ajan.
-- [017](017-ocad-dash-count.md) OCAD-viivan katkojen määrä poikkeaa OCADin piirrosta. Löytyi samasta vertailusta: haara `fix/ocad-dash-count` (ehdotus), ei vielä tehty, koska korjaus odottaa kolmatta näytettä.
-- [018](018-double-line-dash-gaps.md) OCAD-kaksoisviivan katkoissa on aina vähintään yksi väli. Löytyi samasta vertailusta: haara `fix/double-line-dash-gaps` (ehdotus), ei vielä tehty, koska korjaus odottaa kolmatta näytettä.
+- [017](017-ocad-dash-count.md) OCAD-viivan katkojen määrä poikkeaa OCADin piirrosta. Löytyi samasta vertailusta: haara `fix/ocad-dash-count` (ehdotus), ei vielä tehty.
+- [018](018-double-line-dash-gaps.md) OCAD-kaksoisviivan katkoissa on aina vähintään yksi väli. Löytyi samasta vertailusta: haara `fix/double-line-dash-gaps` (ehdotus), ei vielä tehty.
+- [019](019-ocad-minimum-gaps.md) OCAD-viivan vähimmäisvälit 2 ja 3 luetaan kolmeksi ja neljäksi. Löytyi samasta vertailusta: haara `fix/ocad-minimum-gaps` (ehdotus), ei vielä tehty.

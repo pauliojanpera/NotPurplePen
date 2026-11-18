@@ -15,7 +15,7 @@
 `Purple Pen upstream d48f4456 / base, basewithfixes / kaikki alustat`
 
 (_valinnainen_) **Ehdotettu korjaus / hypoteesi**  
-`OcadImport` ei anna kaksoisviivan katkoille vähimmäisväliä (`minGaps = 0`). Näytteiden kaksoisviivojen pääviiva ei ollut katkottu, joten Purple Pen kirjoitti niiden vähimmäisväleiksi `MinSym = 0`. Kolmas näyte tarkistaa, käyttääkö OCAD katkotun pääviivan vähimmäisvälejä kaksoisviivan katkoihin.
+`OcadImport` ei anna kaksoisviivan katkoille vähimmäisväliä (`minGaps = 0`). Kolmas näyte osoitti, ettei OCAD käytä katkotun pääviivan vähimmäisvälejä kaksoisviivan reunojen katkoihin: reunat jäivät ilman väliä sekä pääviivan vähimmäismäärällä 0 että 3 (rivi DM).
 
 Vika löytyi tiketin [011](011-line-geometry.md) valmistelussa, kun katkoviivoja verrattiin OCADiin.
 
