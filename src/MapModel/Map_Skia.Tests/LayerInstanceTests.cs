@@ -118,6 +118,41 @@ namespace Map_Skia.Tests
         }
 
         [Test]
+        public void DashedLineIsItsDashesAlsoWhenItsGapsAreShorterThanAPixel()
+        {
+            Map map = CreateMap();
+            using (map.Write()) {
+                SymColor black = map.AddColor("Black", 1, 0, 0, 0, 1, false);
+                LineSymDef footpath = new LineSymDef("Footpath", "1", black, 0.18F, LineJoinMode.Miter, LineCapMode.Flat);
+                // The gaps of 0.01 mm are shorter than a pixel of a print at 1200 dpi, 0.021 mm. A drawing at that
+                // resolution draws the line solid.
+                footpath.SetDashInfo(new LineSymDef.DashInfo() { dashLength = 1, firstDashLength = 1, lastDashLength = 1, gapLength = 0.01F });
+                map.AddSymdef(footpath);
+                map.AddSymbol(new LineSymbol(footpath, CreateLinePath(new PointF(0, 0), new PointF(10, 0))));
+            }
+
+            IReadOnlyList<ClippingObject> dashes = CreateInstances(map).Single().ClippingObjects;
+
+            // The line of 10 mm has 9 gaps of 0.01 mm, and 10 dashes of the same length in the rest of the line.
+            Assert.AreEqual(10, dashes.Count);
+            float dashLength = (10 - 9 * 0.01F) / 10;
+            float previousEnd = 0;
+            for (int i = 0; i < dashes.Count; ++i) {
+                StrokedShape dash = (StrokedShape)dashes[i];
+                Assert.AreEqual(0.18F, dash.Stroke.Width, Tolerance);
+                PathShape path = (PathShape)dash.Shape;
+                PointF start = path.Parts[0].Points[0];
+                PointF end = path.Parts[path.Parts.Count - 1].Points.Last();
+                Assert.AreEqual((i == 0) ? 0 : 0.01F, start.X - previousEnd, Tolerance, "gap before dash {0}", i);
+                Assert.AreEqual(dashLength, end.X - start.X, Tolerance, "length of dash {0}", i);
+                Assert.AreEqual(0, start.Y);
+                Assert.AreEqual(0, end.Y);
+                previousEnd = end.X;
+            }
+            Assert.AreEqual(10, previousEnd, Tolerance);
+        }
+
+        [Test]
         public void GlyphOfAPointSymbolIsPlacedWithTheSymbol()
         {
             Map map = CreateMap();
@@ -292,7 +327,7 @@ namespace Map_Skia.Tests
         }
 
         [Test]
-        public void InstancesHoldTheSymbolsThatTheDrawingDraws()
+        public void InstancesHoldTheVisibleSymbolsWhereverTheyLie()
         {
             Map map = CreateMap();
             SymColor brown, blue, red;
@@ -303,8 +338,8 @@ namespace Map_Skia.Tests
 
                 LineSymDef contour = AddLineSymdef(map, "Contour", brown, 0.14F);
                 map.AddSymbol(new LineSymbol(contour, CreateLinePath(new PointF(0, 0), new PointF(10, 0))));
-                // A symbol outside the rectangle that the drawing draws.
-                map.AddSymbol(new LineSymbol(contour, CreateLinePath(new PointF(100, 100), new PointF(110, 100))));
+                // A symbol far from the others: 6.4 m away on the paper of the map.
+                map.AddSymbol(new LineSymbol(contour, CreateLinePath(new PointF(5000, -4000), new PointF(5010, -4000))));
                 LineSymDef hiddenStream = AddLineSymdef(map, "Stream", blue, 0.18F);
                 map.AddSymbol(new LineSymbol(hiddenStream, CreateLinePath(new PointF(0, 2), new PointF(10, 2))));
                 map.SetSymdefVisible(hiddenStream, false);
@@ -318,12 +353,12 @@ namespace Map_Skia.Tests
                 map.AddSymbol(new ImageAreaSymbol(map.GetLayoutSymDef(), new SymPathWithHoles(CreateSquarePath(5, 5, 2), null), CmykColor.FromCmyk(0, 0, 0, 0.5F), true, 0));
             }
 
-            IReadOnlyList<LayerInstance> instances;
-            using (map.Read())
-                instances = map.CreateLayerInstances(new RectangleF(-50, -50, 100, 100), 0.01F);
+            IReadOnlyList<LayerInstance> instances = CreateInstances(map);
 
             CollectionAssert.AreEqual(new SymColor[] { brown, red }, instances.Select(instance => instance.PaletteEntry));
-            Assert.AreEqual(1, instances[0].ClippingObjects.Count);
+            Assert.AreEqual(2, instances[0].ClippingObjects.Count);
+            RectangleF farContour = instances[0].ClippingObjects[1].Bounds;
+            Assert.IsTrue(farContour.Contains(new PointF(5000, -4000)) && farContour.Contains(new PointF(5010, -4000)), "bounds of the far contour {0}", farContour);
             Assert.IsInstanceOf<FilledShape>(instances[1].ClippingObjects[0]);
             Assert.IsInstanceOf<StrokedShape>(instances[1].ClippingObjects[1]);
             Assert.AreEqual(2, instances[1].ClippingObjects.Count);
@@ -337,11 +372,11 @@ namespace Map_Skia.Tests
             return new Map(new Skia_TextMetrics(), null);
         }
 
-        // The instances of all the symbols of a map.
+        // The instances of a map.
         static IReadOnlyList<LayerInstance> CreateInstances(Map map)
         {
             using (map.Read())
-                return map.CreateLayerInstances(new RectangleF(-1000, -1000, 2000, 2000), 0.01F);
+                return map.CreateLayerInstances();
         }
 
         // Add a solid line symbol with mitered joins and flat caps to a map.

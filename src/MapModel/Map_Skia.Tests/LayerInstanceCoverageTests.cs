@@ -16,6 +16,9 @@ namespace Map_Skia.Tests
     // map, the clipping objects of the entry's instance cover the pixels that the drawing of the entry's color covers.
     // Both drawings are made in the same run, without antialiasing, on a transparent bitmap whose alpha is the
     // coverage. So a white color counts as the others do, and the comparison needs no baseline.
+    // The instances are those of the whole map, and the bitmap of the area of the test map limits their drawing. The
+    // drawing of the color, which is the oracle, draws the area at the resolution 0, as pass 1 draws the symbols, so
+    // that both keep the dashes of a dashed line whatever the size of a pixel.
     // The instances leave out the hatchings and the area patterns, so the comparison leaves out each color that a
     // visible symbol with hatchings or area patterns has. The drawing of the bottom color draws the image layer too, so
     // the comparison leaves out the bottom color of a map with image objects. The maps without hatchings, area patterns
@@ -83,7 +86,7 @@ namespace Map_Skia.Tests
                 Assert.AreEqual(colors.Count, colors.Select(color => color.OcadId).Distinct().Count(), "The drawing of one color needs unique color numbers.");
 
                 HashSet<SymColor> colorsLeftOut = FindColorsLeftOut(map, colors);
-                IReadOnlyList<LayerInstance> instances = map.CreateLayerInstances(testMap.Area, testMap.MinResolution);
+                IReadOnlyList<LayerInstance> instances = map.CreateLayerInstances();
                 for (int index = 0; index < colors.Count; ++index) {
                     SymColor color = colors[index];
                     LayerInstance instance = instances.SingleOrDefault(candidate => candidate.PaletteEntry == color);
@@ -92,7 +95,7 @@ namespace Map_Skia.Tests
                     if (colorsLeftOut.Contains(color))
                         continue;
 
-                    bool[] drawing = testMap.DrawCoverage(target => map.Draw(target, testMap.Area, CreateOneColorOptions(colors, index, testMap.MinResolution), null));
+                    bool[] drawing = testMap.DrawCoverage(target => map.Draw(target, testMap.Area, CreateOneColorOptions(colors, index), null));
                     bool[] clippingObjects = testMap.DrawCoverage(target => {
                         if (instance != null)
                             DrawClippingObjects(target, instance);
@@ -149,14 +152,14 @@ namespace Map_Skia.Tests
         }
 
         // The options that draw one color of a map, as the current drawing does: from the color below it, which is not
-        // drawn, to the color itself. The drawing of the bottom color starts at the bottom, with the image layer.
+        // drawn, to the color itself, at the resolution 0 of pass 1. The drawing of the bottom color starts at the
+        // bottom, with the image layer.
         // colors: the colors of the map, the bottom one first.
         // index: the index of the color.
-        // minResolution: the size of a pixel.
-        static RenderOptions CreateOneColorOptions(List<SymColor> colors, int index, float minResolution)
+        static RenderOptions CreateOneColorOptions(List<SymColor> colors, int index)
         {
             RenderOptions renderOpts = new RenderOptions();
-            renderOpts.minResolution = minResolution;
+            renderOpts.minResolution = 0;
             renderOpts.renderTemplates = RenderTemplateOption.MapOnly;
             renderOpts.blendOverprintedColors = false;
             renderOpts.colorBeginDrawExclusive = (index == 0) ? (int?)null : colors[index - 1].OcadId;
@@ -255,12 +258,6 @@ namespace Map_Skia.Tests
                 Map = map;
                 Area = area;
                 Size = size;
-            }
-
-            // The size of a pixel of the rendering, in the coordinates of the map.
-            public float MinResolution
-            {
-                get { return Area.Width / Size.Width; }
             }
 
             // Read a test map from its description in skia_render: the map file, the baseline, which is not used, the
