@@ -339,6 +339,34 @@ namespace PurplePen.MapModel
             }
         }
 
+        // The clipping object that the drawing of the path with a pen makes (Draw): the stroked polyline through its
+        // points, or the polygon if the path is closed, or the stroked figure of its lines and Bezier curves.
+        // stroke: the line of the pen.
+        // placement: the placement of the path.
+        internal StrokedShape MakeStrokedShape(Stroke stroke, Placement placement)
+        {
+            PathShape shape;
+            if (!anyBeziers)
+                shape = PathShape.FromPoints(points, isClosedCurve);
+            else
+                shape = new PathShape(GetPathPartListCore(null, points, null, null));   // It does not use the drawing target.
+            return new StrokedShape(shape, stroke, placement);
+        }
+
+        // The clipping object that the fill of the path with holes makes (FillWithHoles): the polygon through its points,
+        // or the closed figures of the path and its holes, filled with the alternate rule.
+        // holes: the holes, or null.
+        // placement: the placement of the path.
+        internal FilledShape MakeFilledShape(SymPath[] holes, Placement placement)
+        {
+            PathShape shape;
+            if (!anyBeziers && holes == null)
+                shape = PathShape.FromPoints(points, true);
+            else
+                shape = new PathShape(GetPathPartListCore(null, points, holes, (holes == null) ? null : Array.ConvertAll(holes, hole => hole.points)));
+            return new FilledShape(shape, AreaFillMode.Alternate, placement);
+        }
+
         public object GetPathKey(IGraphicsTarget g)
         {
             return GetPathKeyCore(g, this, points, null, null);
@@ -1953,6 +1981,13 @@ namespace PurplePen.MapModel
 
         public void Fill(IGraphicsTarget g, object brushKey) {
             MainPath.FillWithHoles(g, brushKey, Holes);
+        }
+
+        // The clipping object that the fill of the path and its holes makes (Fill).
+        // placement: the placement of the path.
+        internal FilledShape MakeFilledShape(Placement placement)
+        {
+            return MainPath.MakeFilledShape(Holes, placement);
         }
 
         public void FillTransformed(IGraphicsTarget g, object brushKey, Matrix matrix) {
