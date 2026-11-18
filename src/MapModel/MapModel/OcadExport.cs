@@ -1138,10 +1138,14 @@ namespace PurplePen.MapModel {
             case GlyphPartKind.Circle:
                 elt.stType = 3;
                 elt.stLineWidth = (short) ToOcadDimensions(part.lineWidth);
+                // A ring keeps its diameter from the outer edges of its line, and a circle whose line is at least as
+                // wide as its diameter keeps the diameter from the middle of the line, which OCAD draws filled
+                // (OcadImport). OCAD 9+ writes the diameter from the middle, and OCAD 6-8 from the outer edges.
+                bool isFilled = part.circleDiam <= part.lineWidth;
                 if (version > 8)
-                    elt.stDiameter = (short) ToOcadDimensions(part.circleDiam - part.lineWidth);
+                    elt.stDiameter = (short) ToOcadDimensions(isFilled ? part.circleDiam : part.circleDiam - part.lineWidth);
                 else
-                    elt.stDiameter = (short) ToOcadDimensions(part.circleDiam);
+                    elt.stDiameter = (short) ToOcadDimensions(isFilled ? part.circleDiam + part.lineWidth : part.circleDiam);
                 elt.stCoords = new OcadCoord[1] { OcadCoordFromPoint(part.point) };
                 break;
 

@@ -121,7 +121,7 @@ namespace PurplePen.MapModel
                         break;
 
                     case GlyphPartKind.Circle:
-                        if (lineWidth > 0 && circleDiam > lineWidth) {
+                        if (lineWidth > 0 && circleDiam > 0) {
                             if (filter != null && !filter(CircleBorderPoints(), point)) {
                                 // Filter has decided not to draw this.
                                 break;
@@ -143,8 +143,8 @@ namespace PurplePen.MapModel
 
                             circleRadius = (TransformDiameter(circleDiam, extraTransform) - lineWidth) / 2;
 
-                            if (circleRadius < 0) {
-                                // only happens with transform -- go to filled circle.
+                            if (circleRadius <= 0) {
+                                // A line as wide as the diameter or wider fills the circle, as OCAD draws it.
                                 circleRadius = TransformDiameter(circleDiam, extraTransform) / 2;
                                 g.FillEllipse(highlightBrush != null ? highlightBrush : color.GetBrushKey(g), centerPoint, circleRadius, circleRadius);
                             }
@@ -261,7 +261,7 @@ namespace PurplePen.MapModel
                             return areaPath.BoundingBox;
 
                         case GlyphPartKind.Circle:
-                            if (lineWidth > 0 && circleDiam > lineWidth) {
+                            if (lineWidth > 0 && circleDiam > 0) {
                                 float circleRadius = circleDiam / 2;
                                 return new RectangleF(point.X - circleRadius, point.Y - circleRadius, circleDiam, circleDiam);
                             }
@@ -471,7 +471,7 @@ namespace PurplePen.MapModel
                                                     parts[0].lineWidth, LineStyle.Mitered);
 
                     float circleRadius = (parts[0].circleDiam - parts[0].lineWidth) / 2;
-                    if (circleRadius < 0) {
+                    if (circleRadius <= 0) {
                         circleRadius = parts[0].circleDiam / 2;
                         g.FillEllipse(brush, pt, circleRadius, circleRadius);
                     }
