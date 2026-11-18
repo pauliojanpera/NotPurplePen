@@ -49,4 +49,4 @@ Upstreamin karttamalli toteuttaa [speksin](../Specification.md) palettikerrosark
 * [012](012-area-geometry.md) LUONNOS: alueiden, yhdistelmien ja grafiikkaobjektien geometriametodit, erotettu tiketistä 008.
 * [013](013-text-geometry.md) LUONNOS: tekstien ja suorakulmioiden geometriametodit, erotettu tiketistä 008.
 * [014](014-basic-tests-private-fonts.md) BasicTestsin fonttitestit poistavat renderöintitestien yksityiset fontit, löytyi tiketin 008 täydestä ajosta: haara `fix/basic-tests-private-fonts`, ei yhdistetty, koska mikään osa ei tarvitse sitä.
-* [015](015-thick-glyph-circles.md) Glyyfin ympyrä, jonka viiva on vähintään halkaisijan levyinen, jää piirtämättä, löytyi tiketin 008 työstä: haara `fix/thick-glyph-circles`, ei yhdistetty, koska vanha piirtokoodi pysyy ennallaan tikettien 008–013 ajan.
+* [015](015-thick-glyph-circles.md) OCAD-ympyrä, jonka viiva on vähintään halkaisijan levyinen, ei piirry kuten OCADissa, löytyi tiketin 008 työstä: haara `fix/thick-glyph-circles`, ei yhdistetty, koska vanha piirtokoodi pysyy ennallaan tikettien 008–013 ajan.
