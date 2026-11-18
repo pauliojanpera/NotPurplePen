@@ -18,9 +18,11 @@ namespace Map_Skia.Tests
     [TestFixture, Parallelizable(ParallelScope.Children)]
     public class SymbolGeometryTests
     {
-        static SymbolGeometryTests()
+        // Let RenderingTests add the Roboto fonts, which the text symbols use, before the tests of the fixture, so that
+        // both passes of a comparison measure the texts in the same fonts.
+        [OneTimeSetUp]
+        public void AddFontsOfTheRenderingTests()
         {
-            // RenderingTests adds the Roboto fonts, which the text symbols use.
             System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(RenderingTests).TypeHandle);
         }
 
