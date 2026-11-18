@@ -173,6 +173,31 @@ namespace PurplePen.MapModel
         CountSingleParam = LastSingleParam - FirstSingleParam
     }
 
+    // The names of the blend modes of colors in field b of a color string, which OCAD writes from version 12 on.
+    static class OcadBlendMode
+    {
+        static readonly Dictionary<ColorBlendMode, string> names = new Dictionary<ColorBlendMode, string>() {
+            { ColorBlendMode.Normal, "Normal" }, { ColorBlendMode.Darken, "Darken" }, { ColorBlendMode.Multiply, "Multiply" }
+        };
+
+        // The name of a blend mode.
+        public static string ToName(ColorBlendMode blendMode)
+        {
+            return names[blendMode];
+        }
+
+        // The blend mode of a name. A name that is missing or unknown is Normal.
+        public static ColorBlendMode FromName(string name)
+        {
+            foreach (KeyValuePair<ColorBlendMode, string> blendModeAndName in names) {
+                if (blendModeAndName.Value == name)
+                    return blendModeAndName.Key;
+            }
+
+            return ColorBlendMode.Normal;
+        }
+    }
+
 
     class OcadFileHeader {
         public short OCADMark;

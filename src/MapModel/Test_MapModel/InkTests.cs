@@ -8,6 +8,7 @@ using System.Xml;
 using NUnit.Framework;
 using PurplePen.Graphics2D;
 using TestingUtils;
+using static PurplePen.MapModel.Tests.MapFileTestUtil;
 
 namespace PurplePen.MapModel.Tests
 {
@@ -24,51 +25,10 @@ namespace PurplePen.MapModel.Tests
             "Process Musta", "PMS299_Sininen", "PMS471_Ruskea", "PMS361_Vihrea", "PMS136_Keltainen", "Violetti", "PMS428_Harmaa", "Oranssi"
         };
 
-        Map LoadMap(string fileName)
-        {
-            string path = TestUtil.GetTestFile(fileName);
-            Map map = new Map(new GDIPlus_TextMetrics(), new GDIPlus_FileLoader(Path.GetDirectoryName(path)));
-            InputOutput.ReadFile(path, map);
-            return map;
-        }
-
-        // Write a map in a format, and read the file again into a new map. The file is the test file's, with a suffix
-        // that names the format and ends in _temp.
-        Map WriteAndRead(Map map, string fileName, MapFileFormat format)
-        {
-            string extension = (format.kind == MapFileFormatKind.OCAD) ? ".ocd" : ".omap";
-            string path = Path.ChangeExtension(TestUtil.GetTestFile(fileName), null) + string.Format(" {0}{1}_temp{2}", format.kind, format.version, extension);
-            InputOutput.WriteFile(path, map, format);
-
-            Map newMap = new Map(new GDIPlus_TextMetrics(), new GDIPlus_FileLoader(Path.GetDirectoryName(path)));
-            InputOutput.ReadFile(path, newMap);
-            return newMap;
-        }
-
-        static MapFileFormat Format(MapFileFormatKind kind, int version)
-        {
-            if (kind == MapFileFormatKind.OpenMapper)
-                return new MapFileFormat(MapFileFormatKind.OpenMapper, OpenMapperSubKind.OMap, version);
-            else
-                return new MapFileFormat(kind, version);
-        }
-
-        // The colors of a map, the top one first.
-        static List<SymColor> ColorsTopFirst(Map map)
-        {
-            using (map.Read())
-                return map.AllColors.Reverse().ToList();
-        }
-
         static List<Ink> SpotInks(Map map)
         {
             using (map.Read())
                 return map.AllInks.Where(ink => !ink.IsProcessInk).ToList();
-        }
-
-        static SymColor ColorNamed(Map map, string name)
-        {
-            return ColorsTopFirst(map).Single(color => color.Name == name);
         }
 
         static string Number(float value)
@@ -379,14 +339,6 @@ namespace PurplePen.MapModel.Tests
             Map newMap = WriteAndRead(map, fileName, Format(kind, version));
 
             CollectionAssert.AreEqual(DescribeInks(map), DescribeInks(newMap));
-        }
-
-        // A map with the colors and the inks of a map, and no symbols. The OCAD export does not write all kinds of
-        // symbols that the Mapper import makes.
-        static Map ColorsOnly(Map map)
-        {
-            using (map.Read())
-                return map.Clone(new Map.CloneOptions() { CloneColors = true });
         }
 
         [Test]

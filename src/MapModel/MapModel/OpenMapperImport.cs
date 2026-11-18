@@ -1381,8 +1381,9 @@ namespace PurplePen.MapModel
 
             // Add colors to the map.
             foreach (OpenMapperColor color in colors) {
-                // Use priority also as the OCAD id.
+                // Use priority also as the OCAD id. Mapper has no blend modes.
                 SymColor symColor = new SymColor(color.name, (short)color.priority, color.c, color.m, color.y, color.k, false);
+                symColor.Opacity = SymColor.BoundOpacity(color.opacity);
 
                 // A component whose spot color is not a spot color as such is left out, as OOM leaves it out.
                 Ink spotInk;
