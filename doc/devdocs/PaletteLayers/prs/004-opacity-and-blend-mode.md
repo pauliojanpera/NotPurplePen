@@ -34,6 +34,8 @@ opacity.
 * The drawing does not use the opacity or the blend mode yet. To composite the colors by palette entry is a separate
   ticket.
 * No test map is a Mapper map that Mapper saved with an opacity below 1. The tests make such a color and write it.
+  Mapper's user interface does not set the opacity of a color, but Mapper keeps the opacity of a color that it reads
+  from an OCAD file.
 
 ## Changes to be logged
 Ei käyttäjälle näkyviä muutoksia.

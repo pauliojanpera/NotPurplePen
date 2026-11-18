@@ -24,7 +24,7 @@ Palettimerkinnällä on speksin luvun 01 mukaiset peittävyys α ja sekoitustila
   - `src/MapModel/TestFiles/rendering/LordHill.ocd` (OCAD 9) ja `rendering/LordHill OCAD11.ocd` (OCAD 11): väri "Purple" on `t80`.
   - `rendering/wholestructure.ocd` (OCAD 12): `bDarken` ja `bNormal`.
   - `ocadimport/ssl_issprom2019.ocd` (OCAD 2018, haarasta `fix/ocad11-utf8-strings`): `bDarken` ja `bNormal`.
-  - Mapper: repossa ei ole Mapperin tallentamaa karttaa, jonka jonkin värin `opacity` on alle 1. Testi tekee sellaisen värin itse ja kierrättää sen. Mapperin tallentama kartta lisätään, jos @Pauli toimittaa sellaisen.
+  - Mapper: repossa ei ole Mapperin tallentamaa karttaa, jonka jonkin värin `opacity` on alle 1. Testi tekee sellaisen värin itse ja kierrättää sen. Mapperin käyttöliittymä ei aseta peittävyyttä: värilistan Opacity-sarake on piilotettu ([color_list_widget.cpp](https://github.com/OpenOrienteering/mapper/blob/master/src/gui/widgets/color_list_widget.cpp)), ja OOM merkitsee `MapColor::setOpacity`n vanhentuneeksi. Mapper kuitenkin säilyttää avaamansa OCAD-värin `t`-kentän ja kirjoittaa sen `.omap`-tiedoston `opacity`-määreeseen. Mapperin tallentama kartta syntyy siis, kun Mapper avaa esimerkiksi LordHill.ocd:n (Purple `t80`) ja tallentaa sen `.omap`-muodossa.
 - **Haara:** `feature/opacity-and-blend-mode` juurtuu kokoavaan haaraan `feature/palette-layers`, koska se rakentuu tiketin 001 malliin ja käyttää tiketin 003 testikarttaa.
 
 **Erotetut alatehtävät**
