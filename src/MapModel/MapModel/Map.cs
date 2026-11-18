@@ -2408,27 +2408,28 @@ namespace PurplePen.MapModel
             }
         }
 
-        // Pass 1 of the drawing: make the layer instances (LayerInstances.cs) of the symbols that the drawing of a
-        // rectangle draws, in the order of the palette, the bottom entry first. All the shapes of a palette entry are the
-        // clipping objects of its one instance with full coverage (G = 1), except the hatchings and the patterns of
-        // areas: they are repetitive geometry, and the instances do not hold them. The templates, the image layer and the
-        // layout layer are no palette entries, and have no instances. A palette entry that the symbols draw no shape of
-        // has no instance. The drawing does not use the instances.
-        // rect: the rectangle that the drawing draws, in the coordinates of the map.
-        // minResolution: the size of the smallest feature that the drawing draws, typically the size of a pixel. The
-        //     drawing draws a dashed line solid when its gaps are smaller.
-        public IReadOnlyList<LayerInstance> CreateLayerInstances(RectangleF rect, float minResolution)
+        // Pass 1 of the drawing: make the layer instances (LayerInstances.cs) of the visible symbols of the map, in the
+        // order of the palette, the bottom entry first. All the shapes of a palette entry are the clipping objects of its
+        // one instance with full coverage (G = 1), except the hatchings and the patterns of areas: they are repetitive
+        // geometry, and the instances do not hold them. The templates, the image layer and the layout layer are no
+        // palette entries, and have no instances. A palette entry that the symbols draw no shape of has no instance. The
+        // drawing does not use the instances.
+        // The instances belong to the map, and not to a drawing of it: they depend on the colors, the symbol
+        // definitions, the symbols, the visibility and the text metrics of the map alone. They hold each visible symbol
+        // wherever it lies, and the drawing code of the symbols gets the resolution 0, so that a dashed line keeps its
+        // dashes whatever their lengths.
+        public IReadOnlyList<LayerInstance> CreateLayerInstances()
         {
             CheckReadable();
 
             RenderOptions renderOpts = new RenderOptions();
-            renderOpts.minResolution = minResolution;
+            renderOpts.minResolution = 0;
             renderOpts.omitHatchingsAndPatterns = true;
 
             List<LayerInstance> instances = new List<LayerInstance>();
             foreach (SymColor color in colors) {
                 using (LayerInstanceCollector collector = new LayerInstanceCollector(color, textMetricsProvider)) {
-                    foreach (Symbol symbol in SymbolsDrawn(color, rect))
+                    foreach (Symbol symbol in SelectVisibleSymbolsOfColor(color))
                         symbol.Draw(collector, color, renderOpts);
                     instances.AddRange(collector.MakeInstances());
                 }
@@ -2437,11 +2438,10 @@ namespace PurplePen.MapModel
             return instances.AsReadOnly();
         }
 
-        // The symbols that DrawColor draws in a color and a rectangle, in its order: the visible symbols of the visible
-        // symbol definitions that have the color, which may intersect the rectangle.
+        // Select the visible symbols of the visible symbol definitions that have a color, wherever the symbols lie, in
+        // the order that DrawColor draws them.
         // color: the color.
-        // rect: the rectangle, in the coordinates of the map.
-        private IEnumerable<Symbol> SymbolsDrawn(SymColor color, RectangleF rect)
+        private IEnumerable<Symbol> SelectVisibleSymbolsOfColor(SymColor color)
         {
             foreach (SymDef symdef in symdefs) {
                 if (IsSymdefVisible(symdef) && symdef.HasColor(color)) {
@@ -2452,8 +2452,7 @@ namespace PurplePen.MapModel
                     }
 
                     foreach (Symbol symbol in symbolsOfDef) {
-                        // The bounding box excludes a symbol faster than MayIntersectRect does.
-                        if (symbol.IsVisible && symbol.BoundingBox.IntersectsWith(rect) && symbol.MayIntersectRect(rect))
+                        if (symbol.IsVisible)
                             yield return symbol;
                     }
                 }
