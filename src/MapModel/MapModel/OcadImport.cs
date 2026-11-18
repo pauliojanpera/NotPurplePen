@@ -719,8 +719,17 @@ namespace PurplePen.MapModel
                         case 3: // circle
                             float width = ToWorldDimensions(elt.stLineWidth);
                             float diameter = ToWorldDimensions(elt.stDiameter);
-                            if (version >= 9 && diameter > width)
-                                diameter += width;              // diameter is from middle of line in OCAD 9+, from outer edges in OCAD 6-8.
+                            // The diameter is from the middle of the line in OCAD 9+, and from its outer edges in OCAD 6-8.
+                            // OCAD draws a circle whose line is at least as wide as its diameter from the middle as a
+                            // filled circle of that diameter, and nothing when that diameter is 0 or less. Purple Pen
+                            // keeps the diameter of a ring from the outer edges, and that of a filled circle from the middle.
+                            if (version >= 9) {
+                                if (diameter > width)
+                                    diameter += width;
+                            }
+                            else if (diameter - width <= width) {
+                                diameter = Math.Max(diameter - width, 0);
+                            }
                             glyph.AddCircle(color, PointFromOcadCoord(elt.stCoords[0]), width, diameter);
                             break;
                         case 4:
