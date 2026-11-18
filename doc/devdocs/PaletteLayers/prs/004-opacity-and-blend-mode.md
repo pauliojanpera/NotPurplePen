@@ -17,11 +17,14 @@ opacity.
   as OCAD writes them.
 * OCAD 6 to 8 have neither. The import gives the defaults, and the export writes nothing of them.
 * Mapper: the import reads the `opacity` attribute of a color, and a missing one is 1. The export writes the opacity.
-  Mapper has no blend mode.
+  Mapper has no blend mode. Its user interface does not set the opacity of a color, but it keeps the opacity of a
+  color that it reads from an OCAD file.
 * `OpacityAndBlendModeTests` reads the transparency of `LordHill` (OCAD 9 and 11), the blend modes of
   `wholestructure` (OCAD 12) and of the ISSprOM 2019 symbol set (OCAD 2018), and the defaults of OCAD 6 to 8 maps. It
   checks the color strings that the OCAD export writes, the `opacity` attribute of the Mapper export, and a round trip
   through each format. No test draws.
+* `openmapper/LordHill.omap` is `LordHill.ocd` as Mapper opened and saved it. Each color has the same opacity in both
+  maps; "Purple" has 0.8.
 * `MapFileTestUtil` holds the helpers of `InkTests` that read and write maps, for both test classes.
 * The expected dumps of the OCAD 9 and 11 course files of the `CreateOcadFiles` tests in `ControllerTests` (30 files in
   `controller/ocad_create2`, `8`, `9` and `10`) have the transparency `t100` in each color. Nothing else in them
@@ -33,9 +36,6 @@ opacity.
 ## Missing functionality
 * The drawing does not use the opacity or the blend mode yet. To composite the colors by palette entry is a separate
   ticket.
-* No test map is a Mapper map that Mapper saved with an opacity below 1. The tests make such a color and write it.
-  Mapper's user interface does not set the opacity of a color, but Mapper keeps the opacity of a color that it reads
-  from an OCAD file.
 
 ## Changes to be logged
 Ei käyttäjälle näkyviä muutoksia.
