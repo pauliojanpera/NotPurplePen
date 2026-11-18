@@ -252,3 +252,29 @@ cells, the counts are the same. The minimum is Purple Pen's, as it reads `MinSym
   OCAD gives them no minimum, as without a main line.
 - **Not yet known.** A line that a minimum of 2 gaps leaves without dashes (M2-1, and E of the second sample) gets one
   dash of 0.5 mm, from the end of the first gap to the end of the line.
+
+## The fourth sample
+
+@Pauli proposed on Nov 19 to draw the dashed lines with corner points, and the line symbols whose borders lie beside
+the path, as a shape composed of a few lines, and to find how OCAD composes them by exact measures (ticket
+[011](../tickets/011-line-geometry.md), question 4). The fourth sample measures that. Purple Pen wrote it on Nov 19 as
+[dashes-4-ocad12-euclidean.ocd](ocad-dashes/dashes-4-ocad12-euclidean.ocd), from
+[dashes-4-cells.json](ocad-dashes/dashes-4-cells.json): 55 cells in 9 rows, from the top. A and B are the symbols of
+the second sample. The double lines have borders of 0.15 mm and no fill, at 0.6 or 1.6 mm apart, and their dashes are
+2.0 mm with gaps of 0.5 mm.
+
+| Rows | Symbols | Cells |
+| --- | --- | --- |
+| K A, K B | A, B | a part of 6.3 mm, a corner point, and a part of 8.7 mm that turns 0°, 30°, 60°, 90°, 120° and 150° |
+| V A | A | as K A, with a plain vertex in place of the corner point |
+| K more | A | three corner points and three plain vertices on the same line; a corner point 1 mm from the start and 1 mm before the end of a line that turns 60°; a dash point on a straight line and on a line that turns 60°; a closed rectangle of 12 × 6 mm with corner points |
+| DB6, DB16 | dashed borders, 0.6 and 1.6 mm apart | 25 mm straight; a line with plain vertices that turns 60°, −90° and 120°; the same line with corner points; half circles of radius 5 and 1; the S curve; a closed circle of radius 5 |
+| S6, S16 | solid borders, 0.6 and 1.6 mm apart | as DB6 and DB16 |
+| DF | a fill of 0.6 mm and borders, all dashed | the line with corner points; the half circle of radius 5 |
+
+The dashes of the corner rows tell how OCAD fits the parts of a line and joins their end dashes at a corner. The
+dashes of the borders tell whether OCAD puts the dash of a border beside the dash of the middle of the line, as
+Purple Pen does (`OffsetPointsRight`), or fits the dashes to the length of each border. The solid borders tell how
+OCAD makes the edges of a border at the vertices, along tight curves and where the inner border of a half circle of
+radius 1 has no room. [Purple Pen's drawing](ocad-dashes/purple-pen-dashes-4-ocad12-euclidean-600dpi.png) is at 600
+dpi. An export of 1200 dpi measures the edges more exactly.
