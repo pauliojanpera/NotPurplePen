@@ -17,6 +17,11 @@ does not use the instances, and it does not change.
   it with the instances of the whole map. The bitmap of the area of the test map limits the drawing of the instances.
   The comparison is exact on the 20 maps of the earlier comparison. None of these maps has a dashed line whose gaps
   are all shorter than its pixel, so the resolution 0 does not change their drawing.
+* `LayerInstanceCoverageTests.ClippingObjectsCoverTheDashesOfGapsShorterThanAPixel` renders dashline, isomlines and
+  doublelines9 with pixels of 0.3, 0.4 and 0.8 mm, larger than their gaps: main gaps, secondary gaps and the gaps of
+  double lines. Each case first checks that the drawing at the size of the pixel differs from the drawing at the
+  resolution 0, and then compares the coverage of all colors. The three cases fail when pass 1 gets a resolution of
+  1 mm.
 * `LayerInstanceTests.InstancesHoldTheVisibleSymbolsWhereverTheyLie` checks that the instances hold a symbol 6.4 m
   away from the others on the paper of the map. `DashedLineIsItsDashesAlsoWhenItsGapsAreShorterThanAPixel` checks
   that a line of 10 mm with gaps of 0.01 mm is 10 dashes, with a gap between each two of them. A pixel of a print at

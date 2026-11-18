@@ -32,8 +32,11 @@ Python 3 with Pillow, git, the GitHub CLI signed in to the repository, and the .
    joins `LinuxMapModelTestRun/LinuxMapModelTestRun.csproj` when a ticket needs it. A test that asks GDI+ for a
    rendering is skipped there; `Map_Skia.Tests` runs on Linux as it is.
    After a rewrite of the feature branch's history (an amend or a rebase), `REBUILD=1 int-worktree.sh`.
-3. `push-wip.sh --collect` when the change is complete. Wait for the collecting run with `wait-run.sh`, then fetch
-   each group's images: `fetch-artifact.sh <run id> rendering-differences-<group> <folder>`.
+3. `push-wip.sh --collect` when the change is complete and can change the drawing. Wait for the collecting run with
+   `wait-run.sh`, then fetch each group's images: `fetch-artifact.sh <run id> rendering-differences-<group> <folder>`.
+   A change that cannot change the drawing, for example because it does not touch the code that the drawing runs,
+   keeps the images as they are. Its full run is `push-wip.sh` without `--collect`, and the ticket is done when that
+   push's Tests run passes (@Pauli, Nov 18).
 4. `record-baselines.py --dry-run --base origin/base <folder> <feature worktree> <wip worktree>` tells which
    images the change moves. Record on the feature branch only the baselines that the change itself moves. An image
    that it writes to the wip side is a baseline that `base` moved too: it needs a decision of its own.
