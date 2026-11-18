@@ -39,6 +39,10 @@ is offered upstream yet.
   correct later: one question at a time, with choices and a recommendation. Otherwise the session goes on. No push
   goes to `base`, `basewithfixes`, `dev` or `master`; a merge into them needs @Pauli's word. A session does not wait
   for a run whose result no next step needs.
+- **The architecture comes first.** feature/multiply-blending is an oracle of the appearance only. The work does not
+  read its code, and does not take its way, a layer around the drawing of the symbols, as the model of pass 2. The
+  union of a palette entry can stay implicit in the rendering, but its instances cannot be left out (preface and
+  section 05 of [Specification.md](Specification.md), @Pauli, Nov 18).
 - **Where the work runs.** This is @Pauli's machine; no Windows machine exists here. A build or a test counts only
   when it ran in GitHub Actions, on a `wip/` branch. The .NET SDK is `~/.dotnet/dotnet`, outside `PATH`.
 - **The checkouts.** The clone `~/Documents/Projects/NotPurplePen` stays on `docs/process-coordination`: do not change
@@ -55,15 +59,29 @@ is offered upstream yet.
 
 ## Next
 
-1. **The compositing by inks**, chapters 05 and 06 of the specification. The drawing composites each ink as a
-   separation of its own, as Mapper's overprinting simulation does (`renderable.cpp`): in the order of the palette,
-   a color puts its factor into the separation of each of its inks, a knockout erases, and a later color replaces an
-   earlier one. Then each separation is tinted with the CMYK value of its ink and multiplied into the image. The
-   section "Rajaus" of [ticket 001](tickets/001-inks.md) describes it. It builds on 001, so its branch is rooted at
-   `feature/palette-layers`. Task 12 of `../NotPurplePenProgress.md` computes separations too, for the flattening:
-   [../Flattening/Model.md](../Flattening/Model.md) gives its rules, and the two must not contradict each other.
-2. Then the other parts of the epic's scope, in its order: the opacity and the blend mode of a palette entry, the
-   instantiation that symbols drive, and the representations of color.
+The parts come in the order of the two passes of the specification (section 02), so that each part builds the
+structure and not only the appearance. Each part builds on the parts before it, so its branch is rooted at
+`feature/palette-layers`.
+
+1. **The opacity and the blend mode of a palette entry**, α and B (sections 01 and 05). Only the model, as in 001:
+   the imports read the transparency of an OCAD color (`t`), the blend mode of an OCAD 2018 color (`b`, such as
+   `Normal` and `Darken`) and the `opacity` of a Mapper color, and the exports write them. The drawing does not change.
+2. **Pass 1, the instantiation** (sections 02 and 03). The symbols and the objects make the instances as a data
+   structure: a palette entry, a geometry prototype with its transformations, and the clipping objects. First the
+   instances with G = 1 (fills, lines, glyphs and texts), then the patterns as prototypes with their lattice and
+   element transformations.
+3. **Pass 2, the composition by palette entry** (section 05). It reads the instances only, groups them by palette
+   entry, and applies C, α and B once to each group, in the order of the palette.
+4. **The rendering modes** (sections 06 and 07): the normal view, the overprinting that the inks simulate, and the
+   separations, as color configurations of pass 2. All modes use the same instances. The section "Rajaus" of
+   [ticket 001](tickets/001-inks.md) describes Mapper's overprinting simulation, which is the oracle of the simulated
+   overprinting of Mapper maps.
+5. **One palette stack for all maps**: the course and the map composite in one stack.
+
+A ticket of a part of the architecture has structural acceptance criteria, and not only criteria of the appearance.
+For example: pass 2 does not call the drawing code of the symbols; the drawing target gets only composited groups; a
+rendering mode does not change the instances; tests check the instances, their count and their groups, apart from
+the rendering.
 
 ## Waiting on @Pauli
 

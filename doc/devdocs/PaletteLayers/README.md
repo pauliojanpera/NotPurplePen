@@ -13,6 +13,14 @@ branches, its pull request descriptions and its tracking. The practice is @Pauli
 | [tools/](tools/) | The scripts of the work. Its README tells each script in one sentence, and the loop of a ticket. |
 | [figures/](figures/) | The figures of the specification. |
 
+## The architecture comes first
+
+The goal of the work is the structure that the specification separates: pass 1 makes the instances, and pass 2
+composites them. feature/multiply-blending is an oracle of the appearance only. The work does not read its code, and
+does not take its way, a layer around the drawing of the symbols, as the model of pass 2. The union of a palette
+entry can stay implicit in the rendering, but its instances cannot be left out (preface and section 05 of the
+specification, @Pauli, Nov 18).
+
 ## Tickets
 
 - The epic gives the goal of the work and its scope, by the chapters of the specification. It names its parts under
@@ -22,6 +30,8 @@ branches, its pull request descriptions and its tracking. The practice is @Pauli
 - Work that is separated from a ticket, such as a fault found on the way, gets a ticket of its own, which tells where
   it came from. The first ticket names it under "Erotetut alatehtävät", with its branch, and whether that branch is
   merged into the first ticket's branch.
+- A ticket of a part of the architecture has structural acceptance criteria, and not only criteria of the
+  appearance ([Progress.md](Progress.md), "Next").
 - The tickets are written in Finnish.
 
 ## Branches
