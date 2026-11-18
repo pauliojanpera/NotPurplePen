@@ -12,8 +12,8 @@ when @Pauli makes a decision. It tells the state, not the events: the commits an
 
 ## Where the work is
 
-The parts 001 to 003 are done and merged into `feature/palette-layers`, and its full run passed. The next part has no
-ticket yet (see "Next" and "Waiting on @Pauli").
+The parts 001 to 003 are done and merged into `feature/palette-layers`, and its full run passed. The next part has its
+ticket, [004](tickets/004-opacity-and-blend-mode.md), and no branch yet (see "Next").
 
 ## Branches
 
@@ -63,7 +63,8 @@ The parts come in the order of the two passes of the specification (section 02),
 structure and not only the appearance. Each part builds on the parts before it, so its branch is rooted at
 `feature/palette-layers`.
 
-1. **The opacity and the blend mode of a palette entry**, α and B (sections 01 and 05). Only the model, as in 001:
+1. **The opacity and the blend mode of a palette entry**, α and B (sections 01 and 05):
+   [ticket 004](tickets/004-opacity-and-blend-mode.md), branch `feature/opacity-and-blend-mode`. Only the model, as in 001:
    the imports read the transparency of an OCAD color (`t`), the blend mode of an OCAD 2018 color (`b`, such as
    `Normal` and `Darken`) and the `opacity` of a Mapper color, and the exports write them. The drawing does not change.
 2. **Pass 1, the instantiation** (sections 02 and 03). The symbols and the objects make the instances as a data
@@ -90,7 +91,6 @@ the rendering.
 - **The SVG encoding**, when pass 2 is done (Nov 18). Its place: an encoding read from the instances, or the SVG
   target of NotPurplePen fitted to them in the integration. And whether the work can use the documented findings or
   the code of `feature/svg-target`. The notes of the epic give the reasons.
-- **The ticket of the next part** (Nov 18). Who writes it: @Pauli, or the session as a draft for his approval.
 - **Offering upstream.** No branch is offered upstream yet.
 
 ## Decisions
