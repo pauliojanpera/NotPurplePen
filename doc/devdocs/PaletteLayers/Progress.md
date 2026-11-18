@@ -22,7 +22,11 @@ methods. The fixes [006](tickets/006-matrix-equals-offsets.md) and [014](tickets
 which the tests of 005 and the full run of 008 found, are done on branches of their own, and no part needs them. The
 next parts make the geometry methods of the lines ([011](tickets/011-line-geometry.md)), of the areas, the
 combinations and the graphics objects ([012](tickets/012-area-geometry.md)), and of the texts and the rectangles
-([013](tickets/013-text-geometry.md)). The tickets 009 to 013 are drafts (see "Next").
+([013](tickets/013-text-geometry.md)). The tickets 009 to 013 are drafts (see "Next"). Before ticket 011, the
+dashed lines were checked against the OCAD viewer ([oracles/ocad-dashes.md](oracles/ocad-dashes.md)). Its faults are
+the tickets [016](tickets/016-ocad-metric-parameter.md), whose fix of the metric of OCAD 6 to 10 files is on a branch
+of its own, and [017](tickets/017-ocad-dash-count.md) and [018](tickets/018-double-line-dash-gaps.md), which wait for
+a third sample.
 
 ## Branches
 
@@ -37,6 +41,7 @@ base. No branch is offered upstream yet.
 | `feature/symbol-geometry` | [008](tickets/008-symbol-geometry.md), [description](prs/008-symbol-geometry.md) | All criteria met. Full run passed at 22069b9d (`wip/linux/symbol-geometry`, on `base`: Tests 44323843784, Build 44323843797), without a collecting run: the drawing code of the symbols does not change, and no image or text baseline moves. The run at 82cbbe57 failed in `RenderingTests.Roboto`, which drew Arial in place of Roboto (Tests 44318693192): the font tests of `BasicTests` clear the private fonts, and NUnit called the source of the test cases of `SymbolGeometryTests` while it made the tests, so the static constructor of `RenderingTests` added the fonts before `BasicTests` ran ([014](tickets/014-basic-tests-private-fonts.md)). 22069b9d adds the fonts when the fixture starts. In `feature/palette-layers` (3a459fdc). |
 | `feature/map-instances` | [007](tickets/007-map-instances.md), [description](prs/007-map-instances.md) | All criteria met. Full run passed at bb2ead55 (`wip/linux/map-instances`, on `base`: Tests 44295161752, Build 44295161522). No image or text baseline moves (collecting run 44286210380, of 1a7b8051, wrote no image; bb2ead55 adds a test only). In `feature/palette-layers` (dd6f9ee9, eaa9e446). |
 | `feature/layer-instances` | [005](tickets/005-layer-instances.md), [description](prs/005-layer-instances.md) | All criteria met. Full run passed at fb451340 (`wip/linux/layer-instances`, on `basewithfixes`: Tests 44257645995, Build 44257646116). No image or text baseline moves (collecting run 44256257076, of 2e770ad4, wrote no image). In `feature/palette-layers` (c98d380e). |
+| `fix/ocad-metric-parameter` | [016](tickets/016-ocad-metric-parameter.md) | Runs at e82174cf (`wip/linux/ocad-metric-parameter`, on `base`: Tests 44363891885, Build 44363892035, collecting run 44363913238). Its test `OcadMetricTests` fails without the fix in 7 of its 15 cases. The expected dumps of the OCAD 9 course files get `p1`. Rooted where `base` meets upstream (d48f4456), as the other fixes. It is in no other branch, since the old drawing code stays as it is in `feature/palette-layers` during the tickets 008 to 013. |
 | `fix/thick-glyph-circles` | [015](tickets/015-thick-glyph-circles.md), [description](prs/015-thick-glyph-circles.md) | Full run passed at 3376cb04 (`wip/linux/thick-glyph-circles`, on `base`: Tests 44346994914, Build 44346994936). The first attempt of that Tests run stopped in its build, where Chocolatey could not fetch `htmlhelp.exe` (HTTP 503). The collecting run 44344592098 wrote four images, which the branch records: `skia_render/multisymonedash.png`, `rendering/multisymonedash.png`, `skia_render/LordHill.png` and `skia_render/LordHill OCAD11.png`. Its test `GlyphCircleTests` fails without the fix: three glyphs without the change of the drawing, and five circles of an OCAD 8 file without the change of the import. The oracle is [oracles/ocad-thick-circles.md](oracles/ocad-thick-circles.md). Separated from 008. It is in no other branch, since the old drawing code stays as it is in `feature/palette-layers` during the tickets 008 to 013. |
 | `fix/basic-tests-private-fonts` | [014](tickets/014-basic-tests-private-fonts.md), [description](prs/014-basic-tests-private-fonts.md) | Full run passed at 5638588f (`wip/linux/basic-tests-private-fonts`, on `base`: Tests 44325347234, Build 44325347956). In a run of dbe7de2a, `base` with the fix and `feature/symbol-geometry` at c38217a6, `RenderingTests.Roboto` passed (Tests 44325323415, group Skia), which failed without the fix (Tests 44318693192). Its branch `experiment/basic-tests-private-fonts` is deleted (@Pauli, Nov 18). The group projections of that run could not fetch the build (HTTP 503, egress over the account limit) and ran no test. Separated from 008, whose full run found the fault. No part needs it, and it is in no other branch. |
 | `fix/matrix-equals-offsets` | [006](tickets/006-matrix-equals-offsets.md), [description](prs/006-matrix-equals-offsets.md) | Full run passed at 5e827f47 (`wip/linux/matrix-equals-offsets`, on `base`: Tests 44256623574, Build 44256623572). Its test `MatrixTests.EqualsItsCopy` fails without the fix. Separated from 005, whose tests compare matrices element by element. No part needs it, and it is in no other branch. The work of 005 does not fix the fault, so the rule of the separated fixes does not cover the branch, and it is kept as it is (@Pauli, Nov 18). |
@@ -68,11 +73,11 @@ base. No branch is offered upstream yet.
 - **The checkouts.** The clone `~/Documents/Projects/NotPurplePen` stays on `docs/process-coordination`: do not change
   its branch. Each branch has a worktree in `~/Documents/Projects/npp-worktrees/`: `palette-layers`, `inks`,
   `fix-mapper-colors`, `fix-ocad-utf8`, `opacity-and-blend-mode`, `layer-instances`, `fix-matrix-equals`,
-  `map-instances`, `symbol-geometry`, `fix-private-fonts` and `fix-thick-circles`. The worktrees whose names end in
-  `-int` hold the local integration branches `local/<name>-int`, which are never pushed. `tools/int-worktree.sh`
-  makes them again from GitHub, on `base`. `palette-layers-int`, `map-instances-int`, `symbol-geometry-int` and
-  `fix-thick-circles-int` are on `base`, and the others stay on `basewithfixes` until `REBUILD=1
-  tools/int-worktree.sh` makes them again.
+  `map-instances`, `symbol-geometry`, `fix-private-fonts`, `fix-thick-circles` and `fix-ocad-metric`. The worktrees
+  whose names end in `-int` hold the local integration branches `local/<name>-int`, which are never pushed.
+  `tools/int-worktree.sh` makes them again from GitHub, on `base`. `palette-layers-int`, `map-instances-int`,
+  `symbol-geometry-int`, `fix-thick-circles-int` and `fix-ocad-metric-int` are on `base`, and the others stay on
+  `basewithfixes` until `REBUILD=1 tools/int-worktree.sh` makes them again.
 - **Local tests.** `Test_MapModel` targets Windows; `tools/run-map-tests.sh` runs its files on Linux, and skips the
   renderings, which GDI+ draws. `Map_Skia.Tests` runs on Linux as it is: set `TEST_SILENTRUN=True`, or a failed
   comparison opens VisualDiff and waits. A local rendering tells which images a change moves. The fonts of this machine
@@ -145,6 +150,9 @@ the rendering.
 - **The SVG encoding**, when pass 2 is done (Nov 18). Its place: an encoding read from the instances, or the SVG
   target of NotPurplePen fitted to them in the integration. And whether the work can use the documented findings or
   the code of `feature/svg-target`. The notes of the epic give the reasons.
+- **The export of the third dash sample** (Nov 18). [oracles/ocad-dashes.md](oracles/ocad-dashes.md) describes it;
+  the file is on @Pauli's drive in `ocad-dashes-3`. The fixes [017](tickets/017-ocad-dash-count.md) and
+  [018](tickets/018-double-line-dash-gaps.md) wait for it.
 - **Offering upstream.** No branch is offered upstream yet.
 
 ## Decisions

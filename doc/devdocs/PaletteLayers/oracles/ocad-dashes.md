@@ -193,3 +193,26 @@ meet there. Purple Pen fills it.
   with corner points). A line of E of 1 mm, which the minimum of 2 gaps leaves without dashes, gets one dash from
   0.49 mm to its end. The places of the dashes on strongly curved Bezier curves are up to 0.17 mm from those of
   Purple Pen. These need more samples before a fix.
+
+## The third sample
+
+The third sample examines what the fixes of tickets [017](../tickets/017-ocad-dash-count.md) and
+[018](../tickets/018-double-line-dash-gaps.md) need: the minimum number of gaps (`MinSym`, which Purple Pen reads as
+`MinSym + 1` gaps and writes as the minimum less one), the dashes of a double line beside a dashed main line, and the
+glyphs spaced along a line, which Purple Pen counts with the same rule as the dashes. Purple Pen wrote it on Nov 18
+as [dashes-3-ocad12-euclidean.ocd](ocad-dashes/dashes-3-ocad12-euclidean.ocd), from
+[dashes-3-cells.json](ocad-dashes/dashes-3-cells.json): 117 cells in 14 rows, from the top.
+
+| Rows | Symbols | Cells |
+| --- | --- | --- |
+| M0 to M4 | dashes 2.0 mm, end dashes 1.0, gaps 0.5, and a minimum of 0 to 4 gaps (`MinSym` −1 to 3) | 1.0, 1.5, 2.0, 2.6, 3.0, 4.0, 6.0 and 10.0 mm |
+| MS0 to MS4 | as M0 to M4, with a secondary gap of 0.3 | as above |
+| DM | DM0 and DM3: a main line of 0.1 mm dashed as M0 and M3, beside dashed borders of 0.15 mm without a fill (dashes 2.0, gaps 0.5) | 1.0, 1.5, 2.0, 3.0, 4.0 and 6.0 mm of each |
+| GS straight | GS1: filled circles of 0.3 mm every 2.0 mm, the first and the last 1.0 mm from the ends, at least 1, without a main line | 8.0, 8.98, 9.0, 9.02, 10.0, 11.0 and 12.0 mm: L / 2 is a half at 9 and 11 mm |
+| GS short | GS1, and GS3 with at least 3 | 0.8 to 3.0 mm; 1.0 to 6.0 mm |
+| GS curve | GS1 | the S curve of the first sample in 7 sizes for which half of the length of the curve is 9.3 to 10.1 |
+
+The script measures the main line of DM at its middle and the borders 0.375 mm to the left, and counts the glyphs as
+runs. In [Purple Pen's drawing](ocad-dashes/purple-pen-dashes-3-ocad12-euclidean-600dpi.png), each count is the count
+of the rule, except GScurve-2: its curve gives 9.5015 by a fine measure, and Purple Pen's flattened curve is less
+than a half, so it gets 9 glyphs.

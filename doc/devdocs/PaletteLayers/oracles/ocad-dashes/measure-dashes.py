@@ -4,7 +4,8 @@ compare them with Purple Pen's rule for the counts of dashes.
 Usage: measure-dashes.py CELLS.json DRAWING.png euclidean|ocad [OTHER-DRAWING.png]
 
 The registration marks give the scale and the position of the drawing. A dash is a run of pixels darker than 128 along
-the path of the cell (the middle of the line, or the left border of a double line whose fill is not dashed). The rule
+the path of the cell (the middle of the line, or the left border of a double line whose fill is not dashed), and
+a glyph of a symbol of glyphs is such a run too. The rule
 is the one of LineSymDef.ComputeDashDistances, with the metric given; "strict short" gives a short line a gap only when
 it is longer than half the end dashes and a gap."""
 import json
@@ -71,6 +72,9 @@ def model_runs(cell, sym, metric, strict_short=False, double_min_gaps=PP_DOUBLE_
         else:
             n = int(round((L + dash - f - l) / (dash + gap)))
         n = max(n, mg)
+        if sym.get("glyphs"):
+            total += n
+            continue
         if n == 0:
             runs = 1
         else:
@@ -153,14 +157,25 @@ def main():
         sym = data["symbols"][cell["symbol"]]
         if sym.get("double", "").startswith("solid"):
             continue
-        offset = 0.375 if sym.get("double") == "borders dashed" else 0.0
-        counts = [len(measured_runs(g, cell, offset)) for g in grids]
-        model, lengths = model_runs(cell, sym, metric)
-        strict, _ = model_runs(cell, sym, metric, strict_short=True)
-        no_minimum, _ = model_runs(cell, sym, metric, double_min_gaps=0)
-        mark = "" if all(c == model for c in counts) else "  <-- differs from the rule"
-        print("%-9s %-3s %-30s L %7.3f | dashes %-5s | rule %2d, strict short %2d, double lines without a minimum %2d%s" % (
-            cell["id"], cell["symbol"], cell["note"], sum(lengths), "/".join(str(c) for c in counts), model, strict, no_minimum, mark))
+        if "border" in sym:
+            border = dict(sym["border"], double="borders dashed")
+            report(cell, dict(sym, note="main line"), metric, grids, 0.0)
+            report(cell, border, metric, grids, 0.375)
+            continue
+        report(cell, sym, metric, grids, 0.375 if sym.get("double") == "borders dashed" else 0.0)
+
+
+def report(cell, sym, metric, grids, offset):
+    """Print the counts of a cell in each drawing and by the rules: dashes, or glyphs for a symbol of glyphs."""
+    counts = [len(measured_runs(g, cell, offset)) for g in grids]
+    model, lengths = model_runs(cell, sym, metric)
+    strict, _ = model_runs(cell, sym, metric, strict_short=True)
+    no_minimum, _ = model_runs(cell, sym, metric, double_min_gaps=0)
+    mark = "" if all(c == model for c in counts) else "  <-- differs from the rule"
+    what = "glyphs" if sym.get("glyphs") else "border" if offset else "dashes"
+    print("%-9s %-3s %-30s L %7.3f | %-6s %-5s | rule %2d, strict short %2d, double lines without a minimum %2d%s" % (
+        cell["id"], cell["symbol"], cell["note"], sum(lengths), what, "/".join(str(c) for c in counts), model, strict,
+        no_minimum, mark))
 
 
 if __name__ == "__main__":
