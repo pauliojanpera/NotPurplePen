@@ -130,3 +130,6 @@ loc/po/tar/
 
 # Pagefind search index for the web help; rebuilt by doc/userdocs/WebHelp/build-search.cmd.
 /doc/userdocs/WebHelp/pagefind/
+
+# Python caches of the modules that the scripts under doc/ import.
+__pycache__/
