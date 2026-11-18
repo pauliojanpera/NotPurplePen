@@ -162,5 +162,22 @@ namespace Graphics2D.Tests
             Assert.AreEqual(-10.85018F, m3.Elements[5], 0.0001F);
         }
 
+        [Test]
+        public void EqualsItsCopy()
+        {
+            // A rotation about a point gives offsets that a float does not hold.
+            Matrix matrix = new Matrix();
+            matrix.RotateAt(55, new PointF(4, 1));
+            Matrix copy = matrix.Clone();
+
+            Assert.IsTrue(matrix.Equals(copy));
+            Assert.AreEqual(matrix, copy);
+            Assert.AreEqual(matrix.GetHashCode(), copy.GetHashCode());
+
+            Matrix moved = matrix.Clone();
+            moved.Translate(0.5F, 0, MatrixOrder.Append);
+            Assert.IsFalse(matrix.Equals(moved));
+        }
+
     }
 }
