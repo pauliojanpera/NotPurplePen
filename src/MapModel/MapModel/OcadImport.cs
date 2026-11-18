@@ -839,7 +839,7 @@ namespace PurplePen.MapModel
 
                     doubleLines.doubleDashes.dashLength = doubleLines.doubleDashes.firstDashLength = doubleLines.doubleDashes.lastDashLength = ToWorldDimensions(ocadSym.DblLength);
                     doubleLines.doubleDashes.gapLength = ToWorldDimensions(ocadSym.DblGap);
-                    doubleLines.doubleDashes.minGaps = 1;
+                    doubleLines.doubleDashes.minGaps = 0;
                     doubleLines.doubleDashes.secondaryEndGaps = 0;
                     doubleLines.doubleDashes.secondaryEndLength = 0;
                     doubleLines.doubleDashes.secondaryMiddleGaps = 0;
