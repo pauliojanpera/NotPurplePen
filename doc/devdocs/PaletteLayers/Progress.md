@@ -12,8 +12,8 @@ when @Pauli makes a decision. It tells the state, not the events: the commits an
 
 ## Where the work is
 
-The parts 001 to 003 are done and merged into `feature/palette-layers`, and its full run passed. The next part has its
-ticket, [004](tickets/004-opacity-and-blend-mode.md), and no branch yet (see "Next").
+The parts 001 to 004 are done and merged into `feature/palette-layers`, and its full run passed. The next part, pass
+1, has no ticket yet (see "Next").
 
 ## Branches
 
@@ -24,7 +24,8 @@ is offered upstream yet.
 
 | Branch | Ticket and description | State |
 | --- | --- | --- |
-| `feature/palette-layers` | [000](tickets/000-palette-layers.md) | The branch of the epic. It merges `feature/inks` (a0f0ed6f) and `fix/ocad11-utf8-strings` (e51e395d). Full run passed at e51e395d (`wip/linux/palette-layers`: Tests 44201706361, Build 44201706385). |
+| `feature/palette-layers` | [000](tickets/000-palette-layers.md) | The branch of the epic. It merges `feature/inks` (a0f0ed6f), `fix/ocad11-utf8-strings` (e51e395d) and `feature/opacity-and-blend-mode` (10dd7511). Full run passed at 10dd7511 (`wip/linux/palette-layers`: Tests 44216239990, Build 44216239799). |
+| `feature/opacity-and-blend-mode` | [004](tickets/004-opacity-and-blend-mode.md), [description](prs/004-opacity-and-blend-mode.md) | All criteria met. Full run passed at 0086e0b7 (`wip/linux/opacity-and-blend-mode`: Tests 44214655650, a collecting run that wrote no image, whose result the Tests run of the push, 44214656987, took; Build 44214656837). No image baseline moves. The 30 text dumps of the OCAD 9 and 11 course files of `ControllerTests` get `t100` in each color (@Pauli, Nov 18). In `feature/palette-layers` (10dd7511). |
 | `feature/inks` | [001](tickets/001-inks.md), [description](prs/001-inks.md) | All criteria met. Full run passed at a75c49aa (`wip/linux/inks`: Tests 44171873489, Build 44171873441). No existing baseline moves (collecting run 44155029726); the new Skia test `MapperOverprinting` has the baseline `skia_render/hakolaoverprinting.png`, from Tests run 44158232814. It merges `fix/mapper-export-color-numbers`. In `feature/palette-layers` (a0f0ed6f). |
 | `fix/mapper-export-color-numbers` | [002](tickets/002-mapper-export-color-numbers.md), [description](prs/002-mapper-export-color-numbers.md) | Full run passed (`wip/linux/mapper-export-color-numbers`, on `base`: Tests 44171502072, Build 44171502166). Its test `ExportNumbersColorsByPlace` fails without the fix. In `feature/inks` (a75c49aa), which had the same fix as 91994366. |
 | `fix/ocad11-utf8-strings` | [003](tickets/003-ocad11-utf8-strings.md), [description](prs/003-ocad11-utf8-strings.md) | Full run passed (`wip/linux/ocad11-utf8-strings`, on `base`: Tests 44196794627, Build 44196794547). No baseline moves (collecting run 44176064791, of an earlier form of the fix). Its test file is the ISSprOM 2019 symbol set of the Finnish Orienteering Federation, which the federation gives out with no statement about redistribution (@Pauli, Nov 18: little harm in it). In `feature/palette-layers` (e51e395d). |
@@ -47,13 +48,21 @@ is offered upstream yet.
   when it ran in GitHub Actions, on a `wip/` branch. The .NET SDK is `~/.dotnet/dotnet`, outside `PATH`.
 - **The checkouts.** The clone `~/Documents/Projects/NotPurplePen` stays on `docs/process-coordination`: do not change
   its branch. Each branch has a worktree in `~/Documents/Projects/npp-worktrees/`: `palette-layers`, `inks`,
-  `fix-mapper-colors` and `fix-ocad-utf8`. The worktrees whose names end in `-int` hold the local integration
-  branches `local/<name>-int`, which are never pushed. `tools/int-worktree.sh` makes them again from GitHub.
+  `fix-mapper-colors`, `fix-ocad-utf8` and `opacity-and-blend-mode`. The worktrees whose names end in `-int` hold the
+  local integration branches `local/<name>-int`, which are never pushed. `tools/int-worktree.sh` makes them again from
+  GitHub.
 - **Local tests.** `Test_MapModel` targets Windows; `tools/run-map-tests.sh` runs its files on Linux, and skips the
   renderings, which GDI+ draws. `Map_Skia.Tests` runs on Linux as it is: set `TEST_SILENTRUN=True`, or a failed
   comparison opens VisualDiff and waits. A local rendering tells which images a change moves. The fonts of this machine
   are not the workflow's, and a Skia comparison allows no difference, so each baseline comes from a run in GitHub
   Actions (`tools/push-wip.sh --collect`, or `--blank-baseline` for a new Skia test).
+- **A collecting run on the commit that must pass.** `tools/push-wip.sh --collect` starts the collecting Tests run by
+  hand. That run can start before the Tests run of the push, which then waits for it and takes its result. A collecting
+  run does not fail on a moved image, so its pass counts only when it wrote no image: no artifact
+  `rendering-differences-<group>` holds a `*_actual.png`.
+- **Text baselines.** The `CreateOcadFiles` tests of `ControllerTests` compare an `OcadDump` of each course file that
+  they write with an expected dump in `src/TestFiles/controller/ocad_create*`. A collecting run does not collect them,
+  and `src/Testing/LinuxTestRun` does not run them. A change of the OCAD export that moves them is found by a full run.
 - **Line endings.** The sources have CRLF line endings, and git does not change them. Check a changed file with
   `git ls-files --eol`; `tools/crlf.py` gives a file CRLF again.
 
@@ -63,21 +72,19 @@ The parts come in the order of the two passes of the specification (section 02),
 structure and not only the appearance. Each part builds on the parts before it, so its branch is rooted at
 `feature/palette-layers`.
 
-1. **The opacity and the blend mode of a palette entry**, α and B (sections 01 and 05):
-   [ticket 004](tickets/004-opacity-and-blend-mode.md), branch `feature/opacity-and-blend-mode`. Only the model, as in 001:
-   the imports read the transparency of an OCAD color (`t`), the blend mode of an OCAD 2018 color (`b`, such as
-   `Normal` and `Darken`) and the `opacity` of a Mapper color, and the exports write them. The drawing does not change.
-2. **Pass 1, the instantiation** (sections 02 and 03). The symbols and the objects make the instances as a data
-   structure: a palette entry, a geometry prototype with its transformations, and the clipping objects. First the
-   instances with G = 1 (fills, lines, glyphs and texts), then the patterns as prototypes with their lattice and
-   element transformations.
-3. **Pass 2, the composition by palette entry** (section 05). It reads the instances only, groups them by palette
-   entry, and applies C, α and B once to each group, in the order of the palette.
-4. **The rendering modes** (sections 06 and 07): the normal view, the overprinting that the inks simulate, and the
+1. **Pass 1, the instantiation** (sections 02 and 03). It has no ticket yet. The symbols and the objects make the
+   instances as a data structure: a palette entry, a geometry prototype with its transformations, and the clipping
+   objects. First the instances with G = 1 (fills, lines, glyphs and texts), then the patterns as prototypes with
+   their lattice and element transformations.
+2. **Pass 2, the composition by palette entry** (section 05). It reads the instances only, groups them by palette
+   entry, and applies C, α and B once to each group, in the order of the palette. α and B are in the model
+   (`SymColor.Opacity` and `SymColor.BlendMode`, [ticket 004](tickets/004-opacity-and-blend-mode.md)), and the
+   drawing does not use them yet.
+3. **The rendering modes** (sections 06 and 07): the normal view, the overprinting that the inks simulate, and the
    separations, as color configurations of pass 2. All modes use the same instances. The section "Rajaus" of
    [ticket 001](tickets/001-inks.md) describes Mapper's overprinting simulation, which is the oracle of the simulated
    overprinting of Mapper maps.
-5. **One palette stack for all maps**: the course and the map composite in one stack.
+4. **One palette stack for all maps**: the course and the map composite in one stack.
 
 A ticket of a part of the architecture has structural acceptance criteria, and not only criteria of the appearance.
 For example: pass 2 does not call the drawing code of the symbols; the drawing target gets only composited groups; a
@@ -109,3 +116,7 @@ the rendering.
 - **No fallback for files that Purple Pen wrote** (Nov 18). Purple Pen does not read its course files back as maps.
   So `fix/ocad11-utf8-strings` reads an OCAD 11 or later file in UTF-8 only, also where an earlier Purple Pen wrote
   the file in the 8-bit code page.
+- **The text dumps of the OCAD course files** (Nov 18). The OCAD export writes the transparency (`t`) in each color of
+  OCAD 9 and later, as OCAD does. So the 30 expected text dumps of the OCAD 9 and 11 course files of `ControllerTests`
+  get `t100` in each color. The criterion of ticket 004 that no baseline moves meant the image baselines, and the
+  change of the dumps is a justified correction.
