@@ -1469,6 +1469,51 @@ namespace PurplePen.MapModel
             return GetCornerAndDashPointDistances(BizzarroDistance, out pointkinds);
         }
 
+        // Get the lengths from which OCAD counts the dashes of the parts of the path between corner and dash points, the
+        // parts of GetCornerAndDashPointDistances. OCAD measures each straight segment, and each Bezier curve as four chords
+        // between its points at the parameters 0, 1/4, 1/2, 3/4 and 1, with a metric, and rounds each to 0.01 mm.
+        internal float[] GetCornerAndDashPointLengthsForCounting(DistanceMetric metric)
+        {
+            List<float> lengths = new List<float>();
+            double accumulate = 0.0;
+            int i = 0;
+            while (i < points.Length - 1) {
+                if (kinds[i + 1] == PointKind.BezierControl) {
+                    Bezier bezier = new Bezier(points[i], points[i + 1], points[i + 2], points[i + 3]);
+                    PointF chordStart = points[i];
+                    for (int quarter = 1; quarter <= 4; ++quarter) {
+                        PointF chordEnd = points[i + 3];
+                        if (quarter < 4) {
+                            Bezier before, after;
+                            bezier.SplitAtCoefficient(quarter / 4F, out before, out after);
+                            chordEnd = before.end2;
+                        }
+                        accumulate += RoundToHundredth(metric(chordStart, chordEnd));
+                        chordStart = chordEnd;
+                    }
+                    i += 3;
+                }
+                else {
+                    accumulate += RoundToHundredth(metric(points[i], points[i + 1]));
+                    i += 1;
+                }
+
+                if (i < points.Length - 1 && (kinds[i] == PointKind.Corner || kinds[i] == PointKind.Dash)) {
+                    lengths.Add((float) accumulate);
+                    accumulate = 0.0;
+                }
+            }
+
+            lengths.Add((float) accumulate);
+            return lengths.ToArray();
+        }
+
+        // Round a length in mm to 0.01 mm, the unit of the coordinates of OCAD.
+        static double RoundToHundredth(double length)
+        {
+            return Math.Round(length * 100) / 100;
+        }
+
         internal float[] GetCornerAndDashPointDistances(DistanceMetric metric, out PointKind[] pointkinds) 
         {
             // First, count the number of corner points, plus 1. Ignore first and last point.
