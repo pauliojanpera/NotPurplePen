@@ -315,8 +315,8 @@ namespace System.Drawing.Drawing2D
                 _m12 == value._m12 &&
                 _m21 == value._m21 &&
                 _m22 == value._m22 &&
-                _offsetX == value.OffsetX &&
-                _offsetY == value.OffsetY);
+                _offsetX == value._offsetX &&
+                _offsetY == value._offsetY);
         }
 
         public override bool Equals(object o)
