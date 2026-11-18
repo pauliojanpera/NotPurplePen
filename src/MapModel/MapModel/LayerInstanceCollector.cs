@@ -80,27 +80,27 @@ namespace PurplePen.MapModel
 
         public void PushClip(object pathKey)
         {
-            throw ClipNotSupported();
+            throw CreateClipNotSupportedException();
         }
 
         public void PushClip(RectangleF rectangle)
         {
-            throw ClipNotSupported();
+            throw CreateClipNotSupportedException();
         }
 
         public void PushClip(RectangleF[] rectangles)
         {
-            throw ClipNotSupported();
+            throw CreateClipNotSupportedException();
         }
 
         public void PushClip(List<GraphicsPathPart> parts, AreaFillMode windingMode)
         {
-            throw ClipNotSupported();
+            throw CreateClipNotSupportedException();
         }
 
         public void PopClip()
         {
-            throw ClipNotSupported();
+            throw CreateClipNotSupportedException();
         }
 
         // The antialiasing is a concern of the rendering, and not of the geometry.
@@ -207,12 +207,12 @@ namespace PurplePen.MapModel
 
         public void DrawRectangle(object penKey, RectangleF rect)
         {
-            AddStroked(penKey, PathShape.FromPoints(CornersOf(rect), true));
+            AddStroked(penKey, PathShape.FromPoints(GetCorners(rect), true));
         }
 
         public void FillRectangle(object brushKey, RectangleF rect)
         {
-            AddFilled(brushKey, PathShape.FromPoints(CornersOf(rect), true), AreaFillMode.Winding);
+            AddFilled(brushKey, PathShape.FromPoints(GetCorners(rect), true), AreaFillMode.Winding);
         }
 
         public void DrawPolygon(object penKey, PointF[] pts)
@@ -256,7 +256,7 @@ namespace PurplePen.MapModel
         {
             CreatedFont font = GetFont(fontKey);
             if (!string.IsNullOrEmpty(text))
-                AddFilled(brushKey, font.TextRun(text, upperLeft, textMetrics), AreaFillMode.Winding);
+                AddFilled(brushKey, font.MakeTextRun(text, upperLeft, textMetrics), AreaFillMode.Winding);
             else
                 CheckBrush(brushKey);
         }
@@ -265,19 +265,19 @@ namespace PurplePen.MapModel
         {
             CreatedFont font = GetFont(fontKey);
             if (!string.IsNullOrEmpty(text))
-                AddStroked(penKey, font.TextRun(text, upperLeft, textMetrics));
+                AddStroked(penKey, font.MakeTextRun(text, upperLeft, textMetrics));
             else
                 GetPen(penKey);
         }
 
         public void DrawBitmap(IGraphicsBitmap bm, RectangleF rectangle, BitmapScaling scalingMode)
         {
-            throw BitmapNotSupported();
+            throw CreateBitmapNotSupportedException();
         }
 
         public void DrawBitmapPart(IGraphicsBitmap bm, int x, int y, int width, int height, RectangleF rectangle, BitmapScaling scalingMode)
         {
-            throw BitmapNotSupported();
+            throw CreateBitmapNotSupportedException();
         }
 
         public void Dispose()
@@ -341,19 +341,19 @@ namespace PurplePen.MapModel
         }
 
         // The corners of a rectangle, clockwise from the upper left corner, as a target makes the path of a rectangle.
-        private static PointF[] CornersOf(RectangleF rect)
+        private static PointF[] GetCorners(RectangleF rect)
         {
             return new PointF[] {
                 new PointF(rect.Left, rect.Top), new PointF(rect.Right, rect.Top),
                 new PointF(rect.Right, rect.Bottom), new PointF(rect.Left, rect.Bottom) };
         }
 
-        private static NotSupportedException ClipNotSupported()
+        private static NotSupportedException CreateClipNotSupportedException()
         {
             return new NotSupportedException("The full coverage of a palette entry is not clipped: only the hatchings and the patterns of areas clip, which are repetitive geometry.");
         }
 
-        private static NotSupportedException BitmapNotSupported()
+        private static NotSupportedException CreateBitmapNotSupportedException()
         {
             return new NotSupportedException("A palette entry has no bitmaps: the image layer and the layout layer draw them.");
         }
@@ -389,7 +389,7 @@ namespace PurplePen.MapModel
             // text: the text.
             // upperLeft: the upper left corner of the text.
             // textMetrics: the metrics of the fonts.
-            public TextShape TextRun(string text, PointF upperLeft, ITextMetrics textMetrics)
+            public TextShape MakeTextRun(string text, PointF upperLeft, ITextMetrics textMetrics)
             {
                 return new TextShape(text, familyName, emHeight, effects, upperLeft, textMetrics);
             }

@@ -74,7 +74,7 @@ namespace Map_Skia.Tests
             TestMap testMap = TestMap.Read(testFileName);
             Map map = testMap.Map;
             List<string> differences = new List<string>();
-            bool anyCoverage = false;
+            bool hasAnyCoverage = false;
             comparedColors = 0;
 
             using (map.Read()) {
@@ -82,7 +82,7 @@ namespace Map_Skia.Tests
                 allColors = colors.Count;
                 Assert.AreEqual(colors.Count, colors.Select(color => color.OcadId).Distinct().Count(), "The drawing of one color needs unique color numbers.");
 
-                HashSet<SymColor> colorsLeftOut = ColorsLeftOut(map, colors);
+                HashSet<SymColor> colorsLeftOut = FindColorsLeftOut(map, colors);
                 IReadOnlyList<LayerInstance> instances = map.CreateLayerInstances(testMap.Area, testMap.MinResolution);
                 for (int index = 0; index < colors.Count; ++index) {
                     SymColor color = colors[index];
@@ -92,15 +92,15 @@ namespace Map_Skia.Tests
                     if (colorsLeftOut.Contains(color))
                         continue;
 
-                    bool[] drawing = testMap.Coverage(target => map.Draw(target, testMap.Area, OneColorOptions(colors, index, testMap.MinResolution), null));
-                    bool[] clippingObjects = testMap.Coverage(target => {
+                    bool[] drawing = testMap.DrawCoverage(target => map.Draw(target, testMap.Area, CreateOneColorOptions(colors, index, testMap.MinResolution), null));
+                    bool[] clippingObjects = testMap.DrawCoverage(target => {
                         if (instance != null)
                             DrawClippingObjects(target, instance);
                     });
 
                     ++comparedColors;
                     TestContext.WriteLine("{0} (id {1}): {2} pixels, {3} clipping objects", color.Name, color.OcadId, drawing.Count(covered => covered), (instance == null) ? 0 : instance.ClippingObjects.Count);
-                    anyCoverage |= drawing.Contains(true);
+                    hasAnyCoverage |= drawing.Contains(true);
                     int differing = Enumerable.Range(0, drawing.Length).Count(i => drawing[i] != clippingObjects[i]);
                     if (differing > 0) {
                         string image = testMap.WriteDifference(color, drawing, clippingObjects);
@@ -109,7 +109,7 @@ namespace Map_Skia.Tests
                 }
             }
 
-            Assert.IsTrue(anyCoverage, "The colors that the comparison compares draw nothing.");
+            Assert.IsTrue(hasAnyCoverage, "The colors that the comparison compares draw nothing.");
             Assert.IsEmpty(differences, "The coverage of the clipping objects differs from the drawing:\n" + string.Join("\n", differences));
         }
 
@@ -117,7 +117,7 @@ namespace Map_Skia.Tests
         // and the bottom color, if the map has visible image objects.
         // map: the map.
         // colors: the colors of the map, the bottom one first.
-        static HashSet<SymColor> ColorsLeftOut(Map map, List<SymColor> colors)
+        static HashSet<SymColor> FindColorsLeftOut(Map map, List<SymColor> colors)
         {
             HashSet<SymColor> colorsLeftOut = new HashSet<SymColor>();
             foreach (Symbol symbol in map.AllSymbols) {
@@ -153,7 +153,7 @@ namespace Map_Skia.Tests
         // colors: the colors of the map, the bottom one first.
         // index: the index of the color.
         // minResolution: the size of a pixel.
-        static RenderOptions OneColorOptions(List<SymColor> colors, int index, float minResolution)
+        static RenderOptions CreateOneColorOptions(List<SymColor> colors, int index, float minResolution)
         {
             RenderOptions renderOpts = new RenderOptions();
             renderOpts.minResolution = minResolution;
@@ -209,7 +209,7 @@ namespace Map_Skia.Tests
             else if (shape is EllipseShape ellipse)
                 g.FillEllipse(brush, ellipse.Center, ellipse.RadiusX, ellipse.RadiusY);
             else if (shape is TextShape text)
-                g.DrawText(text.Text, FontOf(g, text, fonts), brush, text.UpperLeft);
+                g.DrawText(text.Text, GetFont(g, text, fonts), brush, text.UpperLeft);
             else
                 Assert.Fail("A filled {0}", shape);
         }
@@ -224,13 +224,13 @@ namespace Map_Skia.Tests
             else if (shape is ArcShape arc)
                 g.DrawArc(pen, arc.Center, arc.Radius, arc.StartAngle, arc.SweepAngle);
             else if (shape is TextShape text)
-                g.DrawTextOutline(text.Text, FontOf(g, text, fonts), pen, text.UpperLeft);
+                g.DrawTextOutline(text.Text, GetFont(g, text, fonts), pen, text.UpperLeft);
             else
                 Assert.Fail("A stroked {0}", shape);
         }
 
         // The key of the font of a text run, which is created once for each family, size and effects.
-        static object FontOf(IGraphicsTarget g, TextShape text, Dictionary<(string, float, TextEffects), object> fonts)
+        static object GetFont(IGraphicsTarget g, TextShape text, Dictionary<(string, float, TextEffects), object> fonts)
         {
             object font;
             if (!fonts.TryGetValue((text.FontFamily, text.EmHeight, text.Effects), out font)) {
@@ -283,7 +283,7 @@ namespace Map_Skia.Tests
             // The coverage of a drawing of the area: whether it covers each pixel, row by row. The drawing is made on a
             // transparent bitmap, without antialiasing.
             // draw: the drawing.
-            public bool[] Coverage(Action<IGraphicsTarget> draw)
+            public bool[] DrawCoverage(Action<IGraphicsTarget> draw)
             {
                 using (Skia_BitmapGraphicsTarget target = new Skia_BitmapGraphicsTarget(Size.Width, Size.Height, true, CmykColor.FromCmyka(0, 0, 0, 0, 0), Area, true)) {
                     target.PushAntiAliasing(false);

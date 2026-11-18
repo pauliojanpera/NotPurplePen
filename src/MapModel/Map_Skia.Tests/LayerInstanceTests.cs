@@ -25,7 +25,7 @@ namespace Map_Skia.Tests
         [Test]
         public void EachPaletteEntryWithShapesHasOneInstanceOfFullCoverage()
         {
-            Map map = NewMap();
+            Map map = CreateMap();
             SymColor brown, unused, blue, black;
             using (map.Write()) {
                 brown = map.AddColor("Brown", 1, 0, 0.56F, 1, 0.18F, false);
@@ -35,10 +35,10 @@ namespace Map_Skia.Tests
                 LineSymDef contour = AddLineSymdef(map, "Contour", brown, 0.14F);
                 LineSymDef stream = AddLineSymdef(map, "Stream", blue, 0.18F);
                 LineSymDef track = AddLineSymdef(map, "Track", black, 0.25F);
-                map.AddSymbol(new LineSymbol(contour, LinePath(new PointF(0, 0), new PointF(10, 0))));
-                map.AddSymbol(new LineSymbol(contour, LinePath(new PointF(0, 5), new PointF(10, 5))));
-                map.AddSymbol(new LineSymbol(stream, LinePath(new PointF(0, 2), new PointF(10, 3))));
-                map.AddSymbol(new LineSymbol(track, LinePath(new PointF(2, 0), new PointF(2, 10))));
+                map.AddSymbol(new LineSymbol(contour, CreateLinePath(new PointF(0, 0), new PointF(10, 0))));
+                map.AddSymbol(new LineSymbol(contour, CreateLinePath(new PointF(0, 5), new PointF(10, 5))));
+                map.AddSymbol(new LineSymbol(stream, CreateLinePath(new PointF(0, 2), new PointF(10, 3))));
+                map.AddSymbol(new LineSymbol(track, CreateLinePath(new PointF(2, 0), new PointF(2, 10))));
             }
 
             IReadOnlyList<LayerInstance> instances = CreateInstances(map);
@@ -55,15 +55,15 @@ namespace Map_Skia.Tests
         [Test]
         public void LineIsAStrokedPathWithTheLineOfItsSymbol()
         {
-            Map map = NewMap();
+            Map map = CreateMap();
             using (map.Write()) {
                 SymColor black = map.AddColor("Black", 1, 0, 0, 0, 1, false);
                 LineSymDef track = new LineSymDef("Track", "1", black, 0.4F, LineJoinMode.Miter, LineCapMode.Flat);
                 map.AddSymdef(track);
-                map.AddSymbol(new LineSymbol(track, LinePath(new PointF(0, 0), new PointF(10, 0), new PointF(10, 5))));
+                map.AddSymbol(new LineSymbol(track, CreateLinePath(new PointF(0, 0), new PointF(10, 0), new PointF(10, 5))));
             }
 
-            StrokedShape line = (StrokedShape)SingleClippingObject(CreateInstances(map).Single());
+            StrokedShape line = (StrokedShape)GetSingleClippingObject(CreateInstances(map).Single());
 
             PathShape path = (PathShape)line.Shape;
             CollectionAssert.AreEqual(new GraphicsPathPartKind[] { GraphicsPathPartKind.Start, GraphicsPathPartKind.Lines }, path.Parts.Select(part => part.Kind));
@@ -80,7 +80,7 @@ namespace Map_Skia.Tests
         [Test]
         public void EachPartOfALineIsInItsColor()
         {
-            Map map = NewMap();
+            Map map = CreateMap();
             SymColor yellow, brown, blue, black;
             using (map.Write()) {
                 yellow = map.AddColor("Yellow", 1, 0, 0.27F, 0.79F, 0, false);
@@ -99,16 +99,16 @@ namespace Map_Skia.Tests
                 doubleLines.doubleRightWidth = 0.1F;
                 road.SetDoubleLines(doubleLines);
                 map.AddSymdef(road);
-                map.AddSymbol(new LineSymbol(road, LinePath(new PointF(0, 0), new PointF(10, 0))));
+                map.AddSymbol(new LineSymbol(road, CreateLinePath(new PointF(0, 0), new PointF(10, 0))));
             }
 
             IReadOnlyList<LayerInstance> instances = CreateInstances(map);
 
             CollectionAssert.AreEqual(new SymColor[] { yellow, brown, blue, black }, instances.Select(instance => instance.PaletteEntry));
-            CollectionAssert.AreEqual(new float[] { 1.0F }, StrokeWidths(instances[0]));
-            CollectionAssert.AreEqual(new float[] { 0.5F }, StrokeWidths(instances[1]));
-            CollectionAssert.AreEqual(new float[] { 0.1F, 0.1F }, StrokeWidths(instances[2]));
-            CollectionAssert.AreEqual(new float[] { 0.35F }, StrokeWidths(instances[3]));
+            CollectionAssert.AreEqual(new float[] { 1.0F }, GetStrokeWidths(instances[0]));
+            CollectionAssert.AreEqual(new float[] { 0.5F }, GetStrokeWidths(instances[1]));
+            CollectionAssert.AreEqual(new float[] { 0.1F, 0.1F }, GetStrokeWidths(instances[2]));
+            CollectionAssert.AreEqual(new float[] { 0.35F }, GetStrokeWidths(instances[3]));
 
             // The left and the right line lie half the fill and half their width away from the path.
             float[] borderOffsets = instances[2].ClippingObjects.Select(border => Math.Abs((border.Bounds.Top + border.Bounds.Bottom) / 2)).ToArray();
@@ -120,14 +120,14 @@ namespace Map_Skia.Tests
         [Test]
         public void GlyphOfAPointSymbolIsPlacedWithTheSymbol()
         {
-            Map map = NewMap();
+            Map map = CreateMap();
             SymColor brown, black;
             using (map.Write()) {
                 brown = map.AddColor("Brown", 1, 0, 0.56F, 1, 0.18F, false);
                 black = map.AddColor("Black", 2, 0, 0, 0, 1, false);
 
                 Glyph glyph = new Glyph();
-                glyph.AddLine(brown, LinePath(new PointF(-1, 0), new PointF(1, 0)), 0.2F, LineJoinMode.Round, LineCapMode.Round);
+                glyph.AddLine(brown, CreateLinePath(new PointF(-1, 0), new PointF(1, 0)), 0.2F, LineJoinMode.Round, LineCapMode.Round);
                 glyph.AddFilledCircle(black, new PointF(0, 0.5F), 0.4F);
                 glyph.ConstructionComplete();
                 PointSymDef knoll = new PointSymDef("Knoll", "1", glyph, true);
@@ -136,8 +136,8 @@ namespace Map_Skia.Tests
             }
 
             IReadOnlyList<LayerInstance> instances = CreateInstances(map);
-            StrokedShape line = (StrokedShape)SingleClippingObject(instances[0]);
-            FilledShape dot = (FilledShape)SingleClippingObject(instances[1]);
+            StrokedShape line = (StrokedShape)GetSingleClippingObject(instances[0]);
+            FilledShape dot = (FilledShape)GetSingleClippingObject(instances[1]);
 
             // One transformation places both parts: it moves the glyph to the location and turns it by 90 degrees.
             AssertEqualPlacements(line.Placement, dot.Placement);
@@ -160,7 +160,7 @@ namespace Map_Skia.Tests
         [Test]
         public void CirclesOfAPointSymbolAreEllipsesAndArcs()
         {
-            Map map = NewMap();
+            Map map = CreateMap();
             using (map.Write()) {
                 SymColor black = map.AddColor("Black", 1, 0, 0, 0, 1, false);
 
@@ -200,7 +200,7 @@ namespace Map_Skia.Tests
         [Test]
         public void AreaHasItsFillAndBorderButNotItsHatchingsAndPatterns()
         {
-            Map map = NewMap();
+            Map map = CreateMap();
             SymColor green, blue, brown, black;
             using (map.Write()) {
                 green = map.AddColor("Green", 1, 0.76F, 0, 0.91F, 0, false);
@@ -217,7 +217,7 @@ namespace Map_Skia.Tests
                 element.ConstructionComplete();
                 forest.AddPattern(new AreaSymDef.PatternInfo() { patternGlyph = element, patternWidth = 1, patternHeight = 1 });
                 map.AddSymdef(forest);
-                map.AddSymbol(new AreaSymbol(forest, new SymPathWithHoles(SquarePath(0, 0, 10), null), 0, new PointF()));
+                map.AddSymbol(new AreaSymbol(forest, new SymPathWithHoles(CreateSquarePath(0, 0, 10), null), 0, new PointF()));
             }
 
             IReadOnlyList<LayerInstance> instances = CreateInstances(map);
@@ -225,12 +225,12 @@ namespace Map_Skia.Tests
             // The hatchings and the pattern are repetitive geometry. Their colors have no other shapes.
             CollectionAssert.AreEqual(new SymColor[] { green, black }, instances.Select(instance => instance.PaletteEntry));
 
-            FilledShape fill = (FilledShape)SingleClippingObject(instances[0]);
+            FilledShape fill = (FilledShape)GetSingleClippingObject(instances[0]);
             Assert.IsInstanceOf<PathShape>(fill.Shape);
             Assert.AreEqual(AreaFillMode.Alternate, fill.FillRule);
             AssertBounds(RectangleF.FromLTRB(0, 0, 10, 10), fill.Bounds);
 
-            StrokedShape outline = (StrokedShape)SingleClippingObject(instances[1]);
+            StrokedShape outline = (StrokedShape)GetSingleClippingObject(instances[1]);
             Assert.AreEqual(0.2F, outline.Stroke.Width, Tolerance);
             Assert.IsTrue(outline.Bounds.Contains(fill.Bounds));
         }
@@ -238,7 +238,7 @@ namespace Map_Skia.Tests
         [Test]
         public void TextHasItsRunsUnderlineAndFraming()
         {
-            Map map = NewMap();
+            Map map = CreateMap();
             SymColor yellow, blue, black;
             TextSymbol label, lineLabel;
             using (map.Write()) {
@@ -257,7 +257,7 @@ namespace Map_Skia.Tests
                 TextSymDef lineLabelSymdef = new TextSymDef("Line label", "2", TextSymDef.PreferredSymbolKind.LineText, null);
                 lineLabelSymdef.SetFont("Roboto", 4, TextEffects.Regular, black, 4, 0, 0, 0, null, 0, 1, TextSymDefHorizAlignment.Left, TextSymDefVertAlignment.TopAscent);
                 map.AddSymdef(lineLabelSymdef);
-                map.AddSymbol(new LineTextSymbol(lineLabelSymdef, LinePath(new PointF(0, -20), new PointF(20, -10)), "AB", TextSymDefHorizAlignment.Default, TextSymDefVertAlignment.Default));
+                map.AddSymbol(new LineTextSymbol(lineLabelSymdef, CreateLinePath(new PointF(0, -20), new PointF(20, -10)), "AB", TextSymDefHorizAlignment.Default, TextSymDefVertAlignment.Default));
             }
 
             IReadOnlyList<LayerInstance> instances = CreateInstances(map);
@@ -281,10 +281,10 @@ namespace Map_Skia.Tests
             }
 
             // The underline and the framing rectangle of the label are placed with its text.
-            StrokedShape underline = (StrokedShape)SingleClippingObject(instances[1]);
+            StrokedShape underline = (StrokedShape)GetSingleClippingObject(instances[1]);
             Assert.AreEqual(0.2F, underline.Stroke.Width, Tolerance);
             AssertEqualPlacements(runs[0].Placement, underline.Placement);
-            FilledShape framing = (FilledShape)SingleClippingObject(instances[0]);
+            FilledShape framing = (FilledShape)GetSingleClippingObject(instances[0]);
             Assert.IsInstanceOf<PathShape>(framing.Shape);
             AssertEqualPlacements(runs[0].Placement, framing.Placement);
             Assert.IsTrue(framing.Bounds.Contains(runs[0].Bounds));
@@ -294,7 +294,7 @@ namespace Map_Skia.Tests
         [Test]
         public void InstancesHoldTheSymbolsThatTheDrawingDraws()
         {
-            Map map = NewMap();
+            Map map = CreateMap();
             SymColor brown, blue, red;
             using (map.Write()) {
                 brown = map.AddColor("Brown", 1, 0, 0.56F, 1, 0.18F, false);
@@ -302,20 +302,20 @@ namespace Map_Skia.Tests
                 red = map.AddColor("Red", 3, 0, 1, 1, 0, false);
 
                 LineSymDef contour = AddLineSymdef(map, "Contour", brown, 0.14F);
-                map.AddSymbol(new LineSymbol(contour, LinePath(new PointF(0, 0), new PointF(10, 0))));
+                map.AddSymbol(new LineSymbol(contour, CreateLinePath(new PointF(0, 0), new PointF(10, 0))));
                 // A symbol outside the rectangle that the drawing draws.
-                map.AddSymbol(new LineSymbol(contour, LinePath(new PointF(100, 100), new PointF(110, 100))));
+                map.AddSymbol(new LineSymbol(contour, CreateLinePath(new PointF(100, 100), new PointF(110, 100))));
                 LineSymDef hiddenStream = AddLineSymdef(map, "Stream", blue, 0.18F);
-                map.AddSymbol(new LineSymbol(hiddenStream, LinePath(new PointF(0, 2), new PointF(10, 2))));
+                map.AddSymbol(new LineSymbol(hiddenStream, CreateLinePath(new PointF(0, 2), new PointF(10, 2))));
                 map.SetSymdefVisible(hiddenStream, false);
 
                 // Graphics objects have their colors, and image and layout objects are no palette entries.
                 GraphicsSymDef graphics = new GraphicsSymDef();
                 map.AddSymdef(graphics);
-                map.AddSymbol(new GraphicsAreaSymbol(graphics, new SymPathWithHoles(SquarePath(0, 0, 2), null), red));
-                map.AddSymbol(new GraphicsLineSymbol(graphics, LinePath(new PointF(0, 4), new PointF(4, 4)), red, 0.3F, LineJoinMode.Round, LineCapMode.Round));
-                map.AddSymbol(new ImageAreaSymbol(map.GetImageSymDef(), new SymPathWithHoles(SquarePath(3, 3, 2), null), CmykColor.FromCmyk(0, 0, 0, 0.5F), true, 0));
-                map.AddSymbol(new ImageAreaSymbol(map.GetLayoutSymDef(), new SymPathWithHoles(SquarePath(5, 5, 2), null), CmykColor.FromCmyk(0, 0, 0, 0.5F), true, 0));
+                map.AddSymbol(new GraphicsAreaSymbol(graphics, new SymPathWithHoles(CreateSquarePath(0, 0, 2), null), red));
+                map.AddSymbol(new GraphicsLineSymbol(graphics, CreateLinePath(new PointF(0, 4), new PointF(4, 4)), red, 0.3F, LineJoinMode.Round, LineCapMode.Round));
+                map.AddSymbol(new ImageAreaSymbol(map.GetImageSymDef(), new SymPathWithHoles(CreateSquarePath(3, 3, 2), null), CmykColor.FromCmyk(0, 0, 0, 0.5F), true, 0));
+                map.AddSymbol(new ImageAreaSymbol(map.GetLayoutSymDef(), new SymPathWithHoles(CreateSquarePath(5, 5, 2), null), CmykColor.FromCmyk(0, 0, 0, 0.5F), true, 0));
             }
 
             IReadOnlyList<LayerInstance> instances;
@@ -332,7 +332,7 @@ namespace Map_Skia.Tests
         }
 
         // An empty map that measures text with Skia.
-        static Map NewMap()
+        static Map CreateMap()
         {
             return new Map(new Skia_TextMetrics(), null);
         }
@@ -353,13 +353,13 @@ namespace Map_Skia.Tests
         }
 
         // A path of lines through points.
-        static SymPath LinePath(params PointF[] points)
+        static SymPath CreateLinePath(params PointF[] points)
         {
             return new SymPath(points);
         }
 
         // The closed path of a square.
-        static SymPath SquarePath(float left, float bottom, float size)
+        static SymPath CreateSquarePath(float left, float bottom, float size)
         {
             return new SymPath(new PointF[] {
                 new PointF(left, bottom), new PointF(left + size, bottom), new PointF(left + size, bottom + size),
@@ -367,14 +367,14 @@ namespace Map_Skia.Tests
         }
 
         // The one clipping object of an instance.
-        static ClippingObject SingleClippingObject(LayerInstance instance)
+        static ClippingObject GetSingleClippingObject(LayerInstance instance)
         {
             Assert.AreEqual(1, instance.ClippingObjects.Count, "The clipping objects of {0}", instance);
             return instance.ClippingObjects[0];
         }
 
         // The widths of the strokes of the clipping objects of an instance, which are all stroked paths.
-        static float[] StrokeWidths(LayerInstance instance)
+        static float[] GetStrokeWidths(LayerInstance instance)
         {
             return instance.ClippingObjects.Select(clippingObject => {
                 StrokedShape stroked = (StrokedShape)clippingObject;

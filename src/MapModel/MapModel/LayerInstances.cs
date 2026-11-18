@@ -362,7 +362,7 @@ namespace PurplePen.MapModel
 
         // The bounds of points.
         // points: the points.
-        private protected static RectangleF BoundsOfPoints(IEnumerable<PointF> points)
+        private protected static RectangleF GetBoundsOfPoints(IEnumerable<PointF> points)
         {
             float left = float.MaxValue, top = float.MaxValue, right = float.MinValue, bottom = float.MinValue;
             foreach (PointF point in points) {
@@ -399,8 +399,8 @@ namespace PurplePen.MapModel
 
         // Make the path of one figure of lines, through points from the first to the last, as a polyline or a polygon.
         // points: the points. At least one.
-        // closed: whether the figure is closed, as a polygon.
-        public static PathShape FromPoints(PointF[] points, bool closed)
+        // isClosed: whether the figure is closed, as a polygon.
+        public static PathShape FromPoints(PointF[] points, bool isClosed)
         {
             if (points == null)
                 throw new ArgumentNullException(nameof(points));
@@ -414,7 +414,7 @@ namespace PurplePen.MapModel
                 Array.Copy(points, 1, linePoints, 0, linePoints.Length);
                 parts.Add(new GraphicsPathPart(GraphicsPathPartKind.Lines, linePoints));
             }
-            if (closed)
+            if (isClosed)
                 parts.Add(new GraphicsPathPart(GraphicsPathPartKind.Close, null));
 
             return new PathShape(parts);
@@ -429,11 +429,11 @@ namespace PurplePen.MapModel
         // The bounds of the points of the path, its Bezier control points too.
         public override RectangleF Bounds
         {
-            get { return BoundsOfPoints(AllPoints()); }
+            get { return GetBoundsOfPoints(EnumerateAllPoints()); }
         }
 
         // All points of the parts.
-        private IEnumerable<PointF> AllPoints()
+        private IEnumerable<PointF> EnumerateAllPoints()
         {
             foreach (GraphicsPathPart part in parts) {
                 if (part.Points != null) {
@@ -539,16 +539,16 @@ namespace PurplePen.MapModel
             {
                 double from = Math.Min(startAngle, startAngle + sweepAngle);
                 double to = Math.Max(startAngle, startAngle + sweepAngle);
-                List<PointF> points = new List<PointF>() { PointAt(from), PointAt(to) };
+                List<PointF> points = new List<PointF>() { GetPointAt(from), GetPointAt(to) };
                 for (double angle = Math.Ceiling(from / 90) * 90; angle < to && angle < from + 360; angle += 90)
-                    points.Add(PointAt(angle));
-                return BoundsOfPoints(points);
+                    points.Add(GetPointAt(angle));
+                return GetBoundsOfPoints(points);
             }
         }
 
         // The point of the circle at an angle.
         // angle: the angle, in degrees.
-        private PointF PointAt(double angle)
+        private PointF GetPointAt(double angle)
         {
             double radians = angle * Math.PI / 180;
             return new PointF((float)(center.X + radius * Math.Cos(radians)), (float)(center.Y + radius * Math.Sin(radians)));
