@@ -254,6 +254,17 @@ namespace PurplePen.MapModel
             glyph.Draw(g, pt, angle, null, gaps, color, null, renderOpts);
         }
 
+        // Add the clipping objects of a point symbol of this definition to the layer instances of pass 1: the parts of
+        // the glyph, each in its color, at the location and the angle of the symbol.
+        // instances: the layer instances.
+        // location: the location of the symbol.
+        // angle: the angle of the symbol, in degrees.
+        // gaps: the gaps in the circles of the symbol, or null.
+        internal void AddClippingObjects(LayerInstanceBuilder instances, PointF location, float angle, float[] gaps)
+        {
+            glyph.AddClippingObjects(instances, location, angle, gaps);
+        }
+
         internal void DrawHighlight(IGraphicsTarget g, PointF location, float rotation, float[] gaps, HighlightOptions options)
         {
             if (options.style == HighlightStyle.HighFidelity && glyph.Radius < 4 * options.logicalPixelSize) {
