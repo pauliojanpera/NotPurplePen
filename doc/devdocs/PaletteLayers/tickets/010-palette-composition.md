@@ -12,6 +12,7 @@ Vaihe 2 piirtää kartan palettimerkinnät ilmentymistä: se ryhmittelee ilmenty
 - OCAD ja Mapper ovat omien karttojensa piirron auktoriteetit (@Pauli, 17.11.).
 - Ryhmän koostamista tarvitsevat Skia, PDF, tulostus ja tuleva SVG-toteutus. GDI+ ja WPF ovat legacya, eivätkä Direct2D ja iOS ole käytössä (@Pauli, 18.11.).
 - Täydet ajot tehdään basen päällä, ja palettikerroshaarat saavat olla ristiriidassa devin kanssa (@Pauli, 18.11.).
+- Kun muutos ei voi muuttaa piirtoa, esimerkiksi koska se ei koske koodia, jota piirto ajaa, täysi ajo tehdään komennolla `tools/push-wip.sh` ilman `--collect`-valintaa, sillä kuvat pysyvät silloin ennallaan (@Pauli, 18.11.).
 
 **Hyväksymiskriteerit (luonnos: ehdotuksia, ei sitovia)**
 Rakenteelliset ehdotukset tulevat Progress.md:n kohdan "Next" esimerkeistä.
@@ -43,7 +44,7 @@ Rakenteelliset ehdotukset tulevat Progress.md:n kohdan "Next" esimerkeistä.
   7. Mitä B = Darken tarkoittaa normaalissa näkymässä: RGB-kanavittain vai musteittain? Kuuluuko jälkimmäinen piirtotiloihin?
   8. Jaetaanko työ esimerkiksi kolmeen tikettiin: ryhmän koostaminen piirtokohteisiin, `Map.Draw` ilmentymistä sekä ilmentymien säilytys ja päivitys?
 - **Rajaus (luonnos):** piirtotilat (päällepainatuksen simulointi ja separaatiot, luvut 06 ja 07) ja yksi palettipino kartalle ja radoille ovat omat tikettinsä. SVG-koodauksen paikka päätetään, kun vaihe 2 on valmis (epic).
-- **Haara (ehdotus):** `feature/palette-composition` juurtuu kokoavaan haaraan `feature/palette-layers`. Täysi ajo tehdään basen päällä.
+- **Haara (ehdotus):** `feature/palette-composition` juurtuu kokoavaan haaraan `feature/palette-layers`. Täysi ajo tehdään basen päällä. Vaihe 2 muuttaa piirtoa, joten sen ajo kokoaa siirtyneet kuvat `--collect`-valinnalla. Jos työ jaetaan osiin (kysymys 8), osa, joka ei vielä piirrä ilmentymistä eikä muuta nykyisiä piirtokutsuja, pitää piirron ennallaan.
 
 **Erotetut alatehtävät**
 <!-- Tästä tiketistä erotetut korjaukset ja ominaisuudet: tiketti, haara ja se, onko haara yhdistetty tämän tiketin haaraan -->

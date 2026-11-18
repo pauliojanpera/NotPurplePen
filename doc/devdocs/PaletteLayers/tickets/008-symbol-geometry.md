@@ -10,6 +10,7 @@ Symbolit tuottavat leikkausobjektinsa omilla geometriametodeillaan, ja vaihe 1 k
 - Kerääjän ilmentymät ovat geometriametodien oraakkeli (@Pauli, 18.11.).
 - Katkoviivan esityksen oikea ratkaisu etsitään tässä tiketissä (@Pauli, 18.11.).
 - Piirto ei käytä symboleita, vaan symboleita käyttää vain vaihe 1. Ilmentymät kuuluvat karttaan piirrosta riippumatta (@Pauli, 18.11., epic [000](000-palette-layers.md)).
+- Kun muutos ei voi muuttaa piirtoa, esimerkiksi koska se ei koske koodia, jota piirto ajaa, täysi ajo tehdään komennolla `tools/push-wip.sh` ilman `--collect`-valintaa, sillä kuvat pysyvät silloin ennallaan (@Pauli, 18.11.).
 
 **Hyväksymiskriteerit (luonnos: ehdotuksia, ei sitovia)**
 - [ ] Ehdotus: jokaisella symbolilajilla, joka tuottaa yhtenäistä geometriaa, on geometriametodi, joka tuottaa symbolin leikkausobjektit palettimerkinnöittäin ilman `IGraphicsTarget`-kutsuja.
@@ -36,7 +37,7 @@ Symbolit tuottavat leikkausobjektinsa omilla geometriametodeillaan, ja vaihe 1 k
   7. Kerääjän ja sisäisen asetuksen `RenderOptions.omitHatchingsAndPatterns` kohtalo. Poistuvatko ne tässä tiketissä vai kuviotiketissä?
   8. Jako osiin, esimerkiksi symbolilajeittain (pisteet, viivat, alueet ja tekstit).
 - **Rajaus (luonnos):** viivoitukset ja kuviot ovat tiketti [009](009-pattern-instances.md), ja vaihe 2 on tiketti [010](010-palette-composition.md).
-- **Haara (ehdotus):** `feature/symbol-geometry` juurtuu kokoavaan haaraan `feature/palette-layers`. Täysi ajo tehdään basen päällä.
+- **Haara (ehdotus):** `feature/symbol-geometry` juurtuu kokoavaan haaraan `feature/palette-layers`. Täysi ajo tehdään basen päällä. Piirto pysyy ennallaan, jos vanha piirtokoodi jää rinnalle muuttumattomana (kysymys 2).
 
 **Erotetut alatehtävät**
 <!-- Tästä tiketistä erotetut korjaukset ja ominaisuudet: tiketti, haara ja se, onko haara yhdistetty tämän tiketin haaraan -->

@@ -9,6 +9,7 @@ Viivoitukset ja aluekuviot ovat ilmentymissä toistuvan geometrian prototyyppej�
 - Ennen tätä tikettiä vaihe 1 irrotetaan piirrosta (tiketti [007](007-map-instances.md)), ja kerääjä korvataan symbolien omilla geometriametodeilla (tiketti [008](008-symbol-geometry.md)) (@Pauli, 18.11.).
 - Piirto ei käytä symboleita, ja ilmentymät kuuluvat karttaan piirrosta riippumatta (@Pauli, 18.11.).
 - OCAD ja Mapper ovat omien karttojensa piirron auktoriteetit, ja Mapper-karttojen ulkoasun oraakkeli on Mapper (@Pauli, 17.11.). feature/multiply-blending on vain ulkoasun oraakkeli, eikä työ lue sen koodia (@Pauli, 18.11.).
+- Kun muutos ei voi muuttaa piirtoa, esimerkiksi koska se ei koske koodia, jota piirto ajaa, täysi ajo tehdään komennolla `tools/push-wip.sh` ilman `--collect`-valintaa, sillä kuvat pysyvät silloin ennallaan (@Pauli, 18.11.).
 
 **Hyväksymiskriteerit (luonnos: ehdotuksia, ei sitovia)**
 - [ ] Ehdotus: geometriaprototyypillä on toistuvan geometrian tapaukset: viivoitus (viivan leveys, väli ja siirtymä) ja kuvio (elementin glyyfi, hilan leveys ja korkeus sekä rivien siirto).
@@ -34,7 +35,7 @@ Viivoitukset ja aluekuviot ovat ilmentymissä toistuvan geometrian prototyyppej�
   4. Mitä tila `ManualOnly` merkitsee mallissa?
   5. Riittääkö täsmällinen vertailu glyyfi kerrallaan tehtyyn piirtoon, vai tarvitaanko sallittu ero esimerkiksi epäsäännöllisille kuvioille?
 - **Rajaus (luonnos):** vaihe 2, joka piirtää prototyypit, on tiketti [010](010-palette-composition.md). SVG-koodaus odottaa vaiheen 2 valmistumista (epic).
-- **Haara (ehdotus):** `feature/pattern-instances` juurtuu kokoavaan haaraan `feature/palette-layers`. Täysi ajo tehdään basen päällä.
+- **Haara (ehdotus):** `feature/pattern-instances` juurtuu kokoavaan haaraan `feature/palette-layers`. Täysi ajo tehdään basen päällä. Piirto pysyy ennallaan, jos tiketti ei muuta viivoitusten ja kuvioiden piirtokoodia (esimerkiksi `DrawHatchings`, `DrawOneHatching`, `DrawPatterns`, `DrawPattern` ja `DrawPatternRows`). Asetuksen `omitHatchingsAndPatterns` poisto pitää piirron ennallaan, koska asetus on piirrossa aina pois päältä.
 
 **Erotetut alatehtävät**
 <!-- Tästä tiketistä erotetut korjaukset ja ominaisuudet: tiketti, haara ja se, onko haara yhdistetty tämän tiketin haaraan -->
