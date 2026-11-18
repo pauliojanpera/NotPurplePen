@@ -21,16 +21,16 @@ needs it. The next part, the patterns of pass 1, has no ticket yet (see "Next").
 
 `feature/palette-layers` collects the parts that are done. It is rooted where `base` meets upstream (d48f4456), as
 is each part that builds on no other part; a part that builds on earlier parts is rooted at `feature/palette-layers`.
-Each branch runs in full on `wip/linux/<name>`: a feature on `basewithfixes`, and a fix alone on `base`. No branch
-is offered upstream yet.
+Each branch runs in full on `wip/linux/<name>`, on `base` (see "Decisions"). A run before that decision names its
+base. No branch is offered upstream yet.
 
 | Branch | Ticket and description | State |
 | --- | --- | --- |
-| `feature/palette-layers` | [000](tickets/000-palette-layers.md) | The branch of the epic. It merges `feature/inks` (a0f0ed6f), `fix/ocad11-utf8-strings` (e51e395d), `feature/opacity-and-blend-mode` (10dd7511, e1101c42) and `feature/layer-instances` (c98d380e). Full run passed at c98d380e (`wip/linux/palette-layers`: Tests 44259000556, Build 44259000493). Its merge into `dev` conflicts in `Map_Skia.Tests/RenderingTests.cs`, and the changes of `feature/layer-instances` conflict with `dev` in `Map.cs` and `SymDef.cs`. |
-| `feature/layer-instances` | [005](tickets/005-layer-instances.md), [description](prs/005-layer-instances.md) | All criteria met. Full run passed at fb451340 (`wip/linux/layer-instances`: Tests 44257645995, Build 44257646116). No image or text baseline moves (collecting run 44256257076, of 2e770ad4, wrote no image). In `feature/palette-layers` (c98d380e). |
+| `feature/palette-layers` | [000](tickets/000-palette-layers.md) | The branch of the epic. It merges `feature/inks` (a0f0ed6f), `fix/ocad11-utf8-strings` (e51e395d), `feature/opacity-and-blend-mode` (10dd7511, e1101c42) and `feature/layer-instances` (c98d380e). Full run passed at c98d380e on `base` (`wip/linux/palette-layers`: Tests 44272885934, Build 44272885961), and no image differs from the baselines of the branch (collecting run 44272905954 wrote no image). The run on `basewithfixes` passed before (Tests 44259000556, Build 44259000493). Its merge into `dev` conflicts in `Map_Skia.Tests/RenderingTests.cs`, and the changes of `feature/layer-instances` conflict with `dev` in `Map.cs` and `SymDef.cs`. |
+| `feature/layer-instances` | [005](tickets/005-layer-instances.md), [description](prs/005-layer-instances.md) | All criteria met. Full run passed at fb451340 (`wip/linux/layer-instances`, on `basewithfixes`: Tests 44257645995, Build 44257646116). No image or text baseline moves (collecting run 44256257076, of 2e770ad4, wrote no image). In `feature/palette-layers` (c98d380e). |
 | `fix/matrix-equals-offsets` | [006](tickets/006-matrix-equals-offsets.md), [description](prs/006-matrix-equals-offsets.md) | Full run passed at 5e827f47 (`wip/linux/matrix-equals-offsets`, on `base`: Tests 44256623574, Build 44256623572). Its test `MatrixTests.EqualsItsCopy` fails without the fix. Separated from 005, whose tests compare matrices element by element. No part needs it, and it is in no other branch. The work of 005 does not fix the fault, so the rule of the separated fixes does not cover the branch, and it is kept as it is (@Pauli, Nov 18). |
-| `feature/opacity-and-blend-mode` | [004](tickets/004-opacity-and-blend-mode.md), [description](prs/004-opacity-and-blend-mode.md) | All criteria met. Full run passed at 7882bca8 (`wip/linux/opacity-and-blend-mode`: Tests 44222985536, Build 44222985519). No image baseline moves (collecting run 44223000991). The 30 text dumps of the OCAD 9 and 11 course files of `ControllerTests` get `t100` in each color (@Pauli, Nov 18). Its Mapper test map `openmapper/LordHill.omap` is `LordHill.ocd` as Mapper saved it (@Pauli, Nov 18). In `feature/palette-layers` (e1101c42). |
-| `feature/inks` | [001](tickets/001-inks.md), [description](prs/001-inks.md) | All criteria met. Full run passed at a75c49aa (`wip/linux/inks`: Tests 44171873489, Build 44171873441). No existing baseline moves (collecting run 44155029726); the new Skia test `MapperOverprinting` has the baseline `skia_render/hakolaoverprinting.png`, from Tests run 44158232814. It merges `fix/mapper-export-color-numbers`. In `feature/palette-layers` (a0f0ed6f). |
+| `feature/opacity-and-blend-mode` | [004](tickets/004-opacity-and-blend-mode.md), [description](prs/004-opacity-and-blend-mode.md) | All criteria met. Full run passed at 7882bca8 (`wip/linux/opacity-and-blend-mode`, on `basewithfixes`: Tests 44222985536, Build 44222985519). No image baseline moves (collecting run 44223000991). The 30 text dumps of the OCAD 9 and 11 course files of `ControllerTests` get `t100` in each color (@Pauli, Nov 18). Its Mapper test map `openmapper/LordHill.omap` is `LordHill.ocd` as Mapper saved it (@Pauli, Nov 18). In `feature/palette-layers` (e1101c42). |
+| `feature/inks` | [001](tickets/001-inks.md), [description](prs/001-inks.md) | All criteria met. Full run passed at a75c49aa (`wip/linux/inks`, on `basewithfixes`: Tests 44171873489, Build 44171873441). No existing baseline moves (collecting run 44155029726); the new Skia test `MapperOverprinting` has the baseline `skia_render/hakolaoverprinting.png`, from Tests run 44158232814. It merges `fix/mapper-export-color-numbers`. In `feature/palette-layers` (a0f0ed6f). |
 | `fix/mapper-export-color-numbers` | [002](tickets/002-mapper-export-color-numbers.md), [description](prs/002-mapper-export-color-numbers.md) | Full run passed (`wip/linux/mapper-export-color-numbers`, on `base`: Tests 44171502072, Build 44171502166). Its test `ExportNumbersColorsByPlace` fails without the fix. In `feature/inks` (a75c49aa), which had the same fix as 91994366. |
 | `fix/ocad11-utf8-strings` | [003](tickets/003-ocad11-utf8-strings.md), [description](prs/003-ocad11-utf8-strings.md) | Full run passed (`wip/linux/ocad11-utf8-strings`, on `base`: Tests 44196794627, Build 44196794547). No baseline moves (collecting run 44176064791, of an earlier form of the fix). Its test file is the ISSprOM 2019 symbol set of the Finnish Orienteering Federation, which the federation gives out with no statement about redistribution (@Pauli, Nov 18: little harm in it). In `feature/palette-layers` (e51e395d). |
 
@@ -54,7 +54,8 @@ is offered upstream yet.
   its branch. Each branch has a worktree in `~/Documents/Projects/npp-worktrees/`: `palette-layers`, `inks`,
   `fix-mapper-colors`, `fix-ocad-utf8`, `opacity-and-blend-mode`, `layer-instances` and `fix-matrix-equals`. The worktrees whose names end in `-int` hold the
   local integration branches `local/<name>-int`, which are never pushed. `tools/int-worktree.sh` makes them again from
-  GitHub.
+  GitHub, on `base`. `palette-layers-int` is on `base`, and the others stay on `basewithfixes` until
+  `REBUILD=1 tools/int-worktree.sh` makes them again.
 - **Local tests.** `Test_MapModel` targets Windows; `tools/run-map-tests.sh` runs its files on Linux, and skips the
   renderings, which GDI+ draws. `Map_Skia.Tests` runs on Linux as it is: set `TEST_SILENTRUN=True`, or a failed
   comparison opens VisualDiff and waits. A local rendering tells which images a change moves. The fonts of this machine
@@ -130,6 +131,11 @@ the rendering.
   and the coming SVG implementation. GDI+ and WPF are legacy, and Direct2D and iOS are not in use: of the drawing
   targets, the application that ships refers to Skia (`Map_SkiaStd`) and PDF (`Map_PDF`) only. Its printing draws the
   pages with Skia on Windows and as PDF on Linux and macOS.
+- **The base of the full runs** (Nov 18). The palette-layer branches, the features and the fixes alike, run in full on
+  `base`, which holds upstream and the workflows and test tools of the fork. The fixes of `basewithfixes` stay out of
+  the runs: pass 2 would conflict with `fix/overlapping-patterns` in `Map.DrawColor`, and the fixes move baselines that
+  the work does not touch. A fix that a part needs is merged into `feature/palette-layers`, as
+  `fix/ocad11-utf8-strings` is. `tools/push-wip.sh` and `tools/int-worktree.sh` use `base` by default.
 - **The conflicts with dev** (Nov 18). The palette-layer branches may conflict with `dev`. A comparison of their
   implementation with the one in `dev` is a later investigation.
 - **The fixes of upstream that a ticket separates** (Nov 18). When the work of a ticket fixes a fault of upstream, the

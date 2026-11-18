@@ -12,12 +12,12 @@ Python 3 with Pillow, git, the GitHub CLI signed in to the repository, and the .
   UTF-8 or as an 8-bit code page, and whether OCAD, Mapper or Purple Pen wrote each file.
 - `compare-images.py` counts the pixels in which two renderings differ and can mark them in red on a copy.
 - `crlf.py` gives files CRLF line endings again after a tool wrote them with LF.
-- `int-worktree.sh` makes or updates the local integration worktree of a branch: `basewithfixes` with the branch and
-  `LinuxMapModelTestRun` merged in.
+- `int-worktree.sh` makes or updates the local integration worktree of a branch: `base` with the branch and
+  `LinuxMapModelTestRun` merged in. `--base` names another base branch.
 - `run-map-tests.sh` builds `LinuxMapModelTestRun` in an integration worktree and runs the tests that a filter
   selects.
-- `push-wip.sh` rebuilds and pushes the `wip/linux/` branch of a branch for a full run on `basewithfixes` or `base`,
-  and can collect the moved images or give a new Skia test a blank baseline.
+- `push-wip.sh` rebuilds and pushes the `wip/linux/` branch of a branch for a full run on `base`, or on another base
+  branch that `--base` names, and can collect the moved images or give a new Skia test a blank baseline.
 - `LinuxMapModelTestRun/` is a project that runs test files of `Test_MapModel` on Linux, as `src/Testing/LinuxTestRun`
   runs those of `PurplePen_Tests`.
 
@@ -34,9 +34,9 @@ Python 3 with Pillow, git, the GitHub CLI signed in to the repository, and the .
    After a rewrite of the feature branch's history (an amend or a rebase), `REBUILD=1 int-worktree.sh`.
 3. `push-wip.sh --collect` when the change is complete. Wait for the collecting run with `wait-run.sh`, then fetch
    each group's images: `fetch-artifact.sh <run id> rendering-differences-<group> <folder>`.
-4. `record-baselines.py --dry-run --base origin/basewithfixes <folder> <feature worktree> <wip worktree>` tells which
+4. `record-baselines.py --dry-run --base origin/base <folder> <feature worktree> <wip worktree>` tells which
    images the change moves. Record on the feature branch only the baselines that the change itself moves. An image
-   that it writes to the wip side is a baseline that `basewithfixes` moved too: it needs a decision of its own.
+   that it writes to the wip side is a baseline that `base` moved too: it needs a decision of its own.
    A new Skia rendering test has no baseline to move: push with `--blank-baseline` for its description, and copy
    `<baseline>_actual.png` from the artifact `rendering-differences-skia` of the push's Tests run to the baseline.
    Skia's comparisons allow no difference, so a rendering made on this machine is no baseline.

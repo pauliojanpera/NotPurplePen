@@ -42,8 +42,9 @@ specification, @Pauli, Nov 18).
 - A branch is rooted where `base` meets upstream (`git merge-base origin/base upstream/master`, d48f4456), so that it
   can be offered upstream as it stands. A part that builds on earlier parts is rooted at `feature/palette-layers`. A
   branch takes nothing from the other branches of the fork.
-- A branch runs in full on `wip/linux/<name>`: a feature on `basewithfixes`, and a fix alone on `base`
-  (`tools/push-wip.sh`). It records on itself only the baselines that it moves.
+- A branch runs in full on `wip/linux/<name>`, on `base` (`tools/push-wip.sh`, @Pauli, Nov 18). `base` holds upstream,
+  the workflows and the test tools of the fork, and not the fixes of `basewithfixes`. A fix that a part needs is merged
+  into `feature/palette-layers`. A branch records on itself only the baselines that it moves.
 - A branch is done when its ticket's criteria are met and its full run passed.
 
 ## Pull request descriptions
@@ -58,7 +59,7 @@ specification, @Pauli, Nov 18).
 - `feature/palette-layers` collects the parts that are done, as `feature/svg-target` collects the SVG work.
 - A merge into it names the work that it brings in its subject, and lists the commits in its body, as a merge into a
   shared branch does. It tells how a conflict was resolved.
-- `feature/palette-layers` runs in full on `wip/linux/palette-layers`, on `basewithfixes`.
+- `feature/palette-layers` runs in full on `wip/linux/palette-layers`, on `base`.
 
 ## Tracking
 

@@ -2,9 +2,9 @@
 # push-wip.sh [--base <branch>] [--collect] [--blank-baseline <test description>]... <clone> <branch> [<wip name>]
 #
 # Rebuilds wip/linux/<name> as one merge commit of the base branch and the branch, and pushes it with a lease on
-# what the remote holds. The push starts the Tests and Build workflows. As the handover says, a feature runs on
-# basewithfixes, the default, and a fix alone runs on base: --base base. The name defaults to the branch's last
-# part, so feature/inks runs as wip/linux/inks.
+# what the remote holds. The push starts the Tests and Build workflows. As ../README.md says, the branches of the
+# palette-layer work run on base, the default; --base names another base branch. The name defaults to the branch's
+# last part, so feature/inks runs as wip/linux/inks.
 #
 # With --collect, the script also starts the Tests workflow by hand on the branch with the input
 # collect_differences, so that one run writes the image of every comparison that the change moves, into the
@@ -21,7 +21,7 @@
 # Prints the commit pushed and the ids of the runs, for wait-run.sh and fetch-artifact.sh in ../../SvgDevLoop/.
 set -euo pipefail
 collect=0
-base=basewithfixes
+base=base
 descriptions=()
 while [ $# -gt 0 ]; do
     case "$1" in
