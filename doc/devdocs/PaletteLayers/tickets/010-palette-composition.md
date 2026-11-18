@@ -43,6 +43,7 @@ Rakenteelliset ehdotukset tulevat Progress.md:n kohdan "Next" esimerkeistä.
   6. Millainen ryhmän koostaminen tulee rajapintaan (`IGraphicsTarget`), ja miten Skia (kerros), PDF (läpinäkyvyysryhmä) ja tulostus toteuttavat sen?
   7. Mitä B = Darken tarkoittaa normaalissa näkymässä: RGB-kanavittain vai musteittain? Kuuluuko jälkimmäinen piirtotiloihin?
   8. Jaetaanko työ esimerkiksi kolmeen tikettiin: ryhmän koostaminen piirtokohteisiin, `Map.Draw` ilmentymistä sekä ilmentymien säilytys ja päivitys?
+  9. Miten vaihe 2 piirtää katkoviivan perusmallin, yhden viivatun muodon jaksollisine katkokuvioineen (tiketti [011](011-line-geometry.md))? Vaihtoehtoja ovat piirtokohteen katkoviiva, jolloin `IGraphicsTarget` tarvitsee katkoviivan, ja katkoiksi laajentaminen samalla koodilla kuin vanhassa piirrossa (`SymPath.DrawDashedCore`). Standardiväline mittaa käyrän pituutta ja Purple Pen tasoitetun polun pituutta, joten piirtokohteen katkoviiva voi siirtää käyrän katkoja hieman.
 - **Rajaus (luonnos):** piirtotilat (päällepainatuksen simulointi ja separaatiot, luvut 06 ja 07) ja yksi palettipino kartalle ja radoille ovat omat tikettinsä. SVG-koodauksen paikka päätetään, kun vaihe 2 on valmis (epic).
 - **Haara (ehdotus):** `feature/palette-composition` juurtuu kokoavaan haaraan `feature/palette-layers`. Täysi ajo tehdään basen päällä. Vaihe 2 muuttaa piirtoa, joten sen ajo kokoaa siirtyneet kuvat `--collect`-valinnalla. Jos työ jaetaan osiin (kysymys 8), osa, joka ei vielä piirrä ilmentymistä eikä muuta nykyisiä piirtokutsuja, pitää piirron ennallaan.
 
