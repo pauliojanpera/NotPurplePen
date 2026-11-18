@@ -67,10 +67,11 @@ base. No branch is offered upstream yet.
 - **The checkouts.** The clone `~/Documents/Projects/NotPurplePen` stays on `docs/process-coordination`: do not change
   its branch. Each branch has a worktree in `~/Documents/Projects/npp-worktrees/`: `palette-layers`, `inks`,
   `fix-mapper-colors`, `fix-ocad-utf8`, `opacity-and-blend-mode`, `layer-instances`, `fix-matrix-equals`,
-  `map-instances`, `symbol-geometry` and `fix-private-fonts`. The worktrees whose names end in `-int` hold the local
-  integration branches `local/<name>-int`, which are never pushed. `tools/int-worktree.sh` makes them again from
-  GitHub, on `base`. `palette-layers-int`, `map-instances-int` and `symbol-geometry-int` are on `base`, and the others
-  stay on `basewithfixes` until `REBUILD=1 tools/int-worktree.sh` makes them again.
+  `map-instances`, `symbol-geometry`, `fix-private-fonts` and `fix-thick-circles`. The worktrees whose names end in
+  `-int` hold the local integration branches `local/<name>-int`, which are never pushed. `tools/int-worktree.sh`
+  makes them again from GitHub, on `base`. `palette-layers-int`, `map-instances-int`, `symbol-geometry-int` and
+  `fix-thick-circles-int` are on `base`, and the others stay on `basewithfixes` until `REBUILD=1
+  tools/int-worktree.sh` makes them again.
 - **Local tests.** `Test_MapModel` targets Windows; `tools/run-map-tests.sh` runs its files on Linux, and skips the
   renderings, which GDI+ draws. `Map_Skia.Tests` runs on Linux as it is: set `TEST_SILENTRUN=True`, or a failed
   comparison opens VisualDiff and waits. A local rendering tells which images a change moves. The fonts of this machine
