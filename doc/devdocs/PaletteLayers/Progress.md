@@ -12,8 +12,9 @@ when @Pauli makes a decision. It tells the state, not the events: the commits an
 
 ## Where the work is
 
-The parts 001 to 004 are done and merged into `feature/palette-layers`, and its full run passed. The next part, pass
-1, has no ticket yet (see "Next").
+The parts 001 to 004 are done and merged into `feature/palette-layers`, and its full run passed. The next part, the
+instances of pass 1 with full coverage (G = 1), has its ticket [005](tickets/005-layer-instances.md) and no branch yet
+(see "Next").
 
 ## Branches
 
@@ -73,21 +74,24 @@ The parts come in the order of the two passes of the specification (section 02),
 structure and not only the appearance. Each part builds on the parts before it, so its branch is rooted at
 `feature/palette-layers`.
 
-1. **Pass 1, the instantiation** (sections 02 and 03). It has no ticket yet. The symbols and the objects make the
-   instances as a data structure: a palette entry, a geometry prototype with its transformations, and the clipping
-   objects. First the instances with G = 1 (fills, lines, glyphs and texts), then the patterns as prototypes with
-   their lattice and element transformations.
-2. **Pass 2, the composition by palette entry** (section 05). It reads the instances only, groups them by palette
+1. **Pass 1, the instances with full coverage, G = 1** (sections 01 and 02): [ticket 005](tickets/005-layer-instances.md),
+   branch `feature/layer-instances`. The symbols and the objects make the instances as a data structure: a palette
+   entry, a geometry prototype with its transformation, and the clipping objects. A collector, an `IGraphicsTarget`
+   that does not draw, makes the clipping objects from the drawing calls of the symbols. Each palette entry has one
+   G = 1 instance with its fills, lines, glyphs and texts. The drawing does not change.
+2. **Pass 1, the patterns** (section 03). It has no ticket yet. The hatchings and the area patterns become prototypes
+   with their lattice and element transformations, and the elements that a fill mode selects become clipping objects.
+3. **Pass 2, the composition by palette entry** (section 05). It reads the instances only, groups them by palette
    entry, and applies C, α and B once to each group, in the order of the palette. α and B are in the model
    (`SymColor.Opacity` and `SymColor.BlendMode`, [ticket 004](tickets/004-opacity-and-blend-mode.md)), and the
    drawing does not use them yet. For an OCAD map, B = Darken is the larger share of each ink, and not the RGB minimum
    ([oracles/ocad-darken.md](oracles/ocad-darken.md)). Mapper applies α to each shape, so it is not the oracle of α
    where the shapes of one color overlap ([oracles/mapper-opacity.md](oracles/mapper-opacity.md)).
-3. **The rendering modes** (sections 06 and 07): the normal view, the overprinting that the inks simulate, and the
+4. **The rendering modes** (sections 06 and 07): the normal view, the overprinting that the inks simulate, and the
    separations, as color configurations of pass 2. All modes use the same instances. The section "Rajaus" of
    [ticket 001](tickets/001-inks.md) describes Mapper's overprinting simulation, which is the oracle of the simulated
    overprinting of Mapper maps. OCAD applies B only in its PDF export, and not in its own view (the same oracle).
-4. **One palette stack for all maps**: the course and the map composite in one stack.
+5. **One palette stack for all maps**: the course and the map composite in one stack.
 
 A ticket of a part of the architecture has structural acceptance criteria, and not only criteria of the appearance.
 For example: pass 2 does not call the drawing code of the symbols; the drawing target gets only composited groups; a
@@ -123,3 +127,9 @@ the rendering.
   OCAD 9 and later, as OCAD does. So the 30 expected text dumps of the OCAD 9 and 11 course files of `ControllerTests`
   get `t100` in each color. The criterion of ticket 004 that no baseline moves meant the image baselines, and the
   change of the dumps is a justified correction.
+- **The source of the clipping objects of pass 1** (Nov 18). Pass 1 makes its clipping objects with a collector: an
+  `IGraphicsTarget` that does not draw, and that turns the drawing calls of the symbols into clipping objects. Only
+  the collector knows `IGraphicsTarget`. The clipping objects are values, and not keys of a drawing target or recorded
+  calls. So a later change to geometry methods of the symbols stays a bounded refactoring, which touches only the
+  geometry code of the symbols and the collector. If the collector becomes needlessly complex, the work makes the
+  clipping objects with geometry methods of the symbols at once.
