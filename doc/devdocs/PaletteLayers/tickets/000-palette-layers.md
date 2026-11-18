@@ -40,3 +40,7 @@ Upstreamin karttamalli toteuttaa [speksin](../Specification.md) palettikerrosark
 * [004](004-opacity-and-blend-mode.md) Palettimerkinnän peittävyys ja sekoitustila: haara `feature/opacity-and-blend-mode`, yhdistetty haaraan `feature/palette-layers`.
 * [005](005-layer-instances.md) Vaihe 1: yhtenäisen geometrian ilmentymät (G = 1): haara `feature/layer-instances`, yhdistetty haaraan `feature/palette-layers`.
 * [006](006-matrix-equals-offsets.md) Matriisin yhtäsuuruus vertaa siirtymiä float-lukuina, löytyi tiketin 005 testeistä: haara `fix/matrix-equals-offsets`, ei yhdistetty, koska mikään osa ei tarvitse sitä.
+* [007](007-map-instances.md) Vaihe 1 tekee kartan ilmentymät piirrosta riippumatta: haara `feature/map-instances`, ei vielä tehty.
+* [008](008-symbol-geometry.md) LUONNOS: symbolien omat geometriametodit kerääjän tilalle.
+* [009](009-pattern-instances.md) LUONNOS: viivoitukset ja aluekuviot toistuvana geometriana.
+* [010](010-palette-composition.md) LUONNOS: vaihe 2, koostaminen palettimerkinnöittäin.

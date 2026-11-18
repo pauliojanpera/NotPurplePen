@@ -15,7 +15,8 @@ when @Pauli makes a decision. It tells the state, not the events: the commits an
 The parts 001 to 005 are done and merged into `feature/palette-layers`, and its full run passed. Pass 1 makes the
 instances with full coverage (G = 1) of each palette entry ([005](tickets/005-layer-instances.md)). The fix
 [006](tickets/006-matrix-equals-offsets.md), which the tests of 005 found, is done on a branch of its own, and no part
-needs it. The next part makes pass 1 apart from the drawing, and has no ticket yet (see "Next").
+needs it. The next part makes pass 1 apart from the drawing: its ticket [007](tickets/007-map-instances.md) is ready, and it
+has no branch yet. The tickets 008 to 010 are drafts (see "Next").
 
 ## Branches
 
@@ -78,15 +79,15 @@ The parts come in the order of the two passes of the specification (section 02),
 structure and not only the appearance. Each part builds on the parts before it, so its branch is rooted at
 `feature/palette-layers`.
 
-1. **Pass 1 apart from the drawing.** It has no ticket yet. Pass 1 makes the instances of the map from the map alone:
+1. **Pass 1 apart from the drawing**: [ticket 007](tickets/007-map-instances.md), branch `feature/map-instances`. Pass 1 makes the instances of the map from the map alone:
    `Map.CreateLayerInstances` takes no rectangle and no resolution of a drawing, and a dashed line is dashed whatever
    the size of a pixel. The collector stays the source of the instances.
-2. **Pass 1 from the geometry methods of the symbols.** It has no ticket yet. The symbols make their clipping objects
+2. **Pass 1 from the geometry methods of the symbols**: [ticket 008](tickets/008-symbol-geometry.md), a draft. The symbols make their clipping objects
    with geometry methods of their own, in place of the collector, and the instances of the collector are the oracle.
    The ticket decides whether a dashed line is one shape, its path and the lengths of its dashes, and how it holds
    the dashes of OCAD: lengths fitted to each line, the distance metric of OCAD, and the dashes of a double line that
    are moved aside after they are measured.
-3. **Pass 1, the patterns** (section 03). It has no ticket yet. The hatchings and the area patterns become prototypes
+3. **Pass 1, the patterns** (section 03): [ticket 009](tickets/009-pattern-instances.md), a draft. The hatchings and the area patterns become prototypes
    with their lattice and element transformations, and the elements that a fill mode selects become clipping objects.
    The pass 1 of [ticket 005](tickets/005-layer-instances.md) leaves them out with the internal option
    `RenderOptions.omitHatchingsAndPatterns`. A regular clipped pattern that the options draw with a pattern brush
@@ -94,7 +95,7 @@ structure and not only the appearance. Each part builds on the parts before it, 
    and a pattern that keeps whole glyphs draws them without a clip, as a point symbol draws its glyph. Their lattices
    and element transformations are in the definition of the area (`HatchInfo` and `PatternInfo` of `AreaSymDef`) and
    in the angle of the area object, and the drawing calls do not show them.
-4. **Pass 2, the composition by palette entry** (section 05). It reads the instances only, groups them by palette
+4. **Pass 2, the composition by palette entry** (section 05): [ticket 010](tickets/010-palette-composition.md), a draft. It reads the instances only, groups them by palette
    entry, and applies C, α and B once to each group, in the order of the palette. α and B are in the model
    (`SymColor.Opacity` and `SymColor.BlendMode`, [ticket 004](tickets/004-opacity-and-blend-mode.md)), and the
    drawing does not use them yet. For an OCAD map, B = Darken is the larger share of each ink, and not the RGB minimum
