@@ -126,6 +126,10 @@ the rendering.
   ([000](tickets/000-palette-layers.md)) tell what the ticket of pass 2 resolves: the compositing of a group, the
   drawing of the templates and the image and layout layers beside the palette stack, and a new base for the
   comparison of the coverage. Only the highlights stay open, and they do not hold back pass 2.
+- **The drawing targets of the work** (Nov 18). The drawing targets that matter to this work are Skia, PDF, printing
+  and the coming SVG implementation. GDI+ and WPF are legacy, and Direct2D and iOS are not in use: of the drawing
+  targets, the application that ships refers to Skia (`Map_SkiaStd`) and PDF (`Map_PDF`) only. Its printing draws the
+  pages with Skia on Windows and as PDF on Linux and macOS.
 - **The conflicts with dev** (Nov 18). The palette-layer branches may conflict with `dev`. A comparison of their
   implementation with the one in `dev` is a later investigation.
 - **The fixes of upstream that a ticket separates** (Nov 18). When the work of a ticket fixes a fault of upstream, the
