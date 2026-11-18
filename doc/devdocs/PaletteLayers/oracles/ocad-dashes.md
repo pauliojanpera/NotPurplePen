@@ -315,3 +315,23 @@ dpi.
 - OCAD draws a solid border as the offset of the path with miter joins, as Purple Pen does.
 - So the composition that ticket [011](../tickets/011-line-geometry.md) considers (question 4) can follow the
   drawing of Purple Pen and of OCAD alike, except at a dash that starts exactly at a vertex.
+
+## The fifth sample
+
+In the fourth sample, a dash of the middle of DB16-2 starts 0.004 mm before a plain vertex, by exact arithmetic and by
+Purple Pen's. Purple Pen's dash takes the vertex, so on the outer border it takes the corner of the miter. OCAD's
+dash on the outer border starts after the corner, as if the dash started at the vertex. The fifth sample finds how
+far from a vertex OCAD takes a boundary of a dash as at the vertex. Purple Pen wrote it on Nov 19 as
+[dashes-5-ocad12-euclidean.ocd](ocad-dashes/dashes-5-ocad12-euclidean.ocd), from
+[dashes-5-cells.json](ocad-dashes/dashes-5-cells.json): 38 cells in 4 rows. Each cell is a line of three straight
+parts with coordinates on the grid of 0.01 mm: 8 mm along x, a part at about 60°, and a part of about 9.6 mm that
+turns about 90° to the right. The second vertex is placed so that a dash starts, or ends, at a given distance from it,
+by the exact fit of the dashes: 0.020, 0.012, 0.008, 0.006, 0.004 and 0.002 mm before it, and up to 0.006 mm after it.
+
+| Rows | Symbol | Boundary near the vertex |
+| --- | --- | --- |
+| DB16 start, DB16 end | DB16 of the fourth sample: dashed borders of 0.15 mm, 1.6 mm apart | a start of a dash; an end of a dash |
+| W start, W end | W: a dashed line of 1.0 mm with miter joins and flat ends, dashes and end dashes of 2.0 mm, gaps of 0.5 mm | as above |
+
+On the outer border of DB16, and on the outer side of the wide line W, the corner of the miter tells whether the dash
+takes the vertex. [Purple Pen's drawing](ocad-dashes/purple-pen-dashes-5-ocad12-euclidean-600dpi.png) is at 600 dpi.

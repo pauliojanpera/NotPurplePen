@@ -155,6 +155,9 @@ the rendering.
 - **The SVG encoding**, when pass 2 is done (Nov 18). Its place: an encoding read from the instances, or the SVG
   target of NotPurplePen fitted to them in the integration. And whether the work can use the documented findings or
   the code of `feature/svg-target`. The notes of the epic give the reasons.
+- **The export of the fifth dash sample** (Nov 19). [oracles/ocad-dashes.md](oracles/ocad-dashes.md) describes it;
+  the file is on @Pauli's drive in `ocad-dashes-5`. The fix of ticket [020](tickets/020-dash-boundary-at-vertex.md)
+  waits for it.
 - **Offering upstream.** No branch is offered upstream yet.
 
 ## Decisions
