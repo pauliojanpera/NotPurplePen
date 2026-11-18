@@ -59,9 +59,10 @@ base. No branch is offered upstream yet.
   read its code, and does not take its way, a layer around the drawing of the symbols, as the model of pass 2. The
   union of a palette entry can stay implicit in the rendering, but its instances cannot be left out (preface and
   section 05 of [Specification.md](Specification.md), @Pauli, Nov 18).
-- **Screenshots of the OCAD viewer.** @Pauli provides screenshots of the viewer of OCAD 2020 when the work needs to
-  know how OCAD draws a file (@Pauli, Nov 18). The session gives him the file and tells what to report, as
-  [oracles/ocad-thick-circles.md](oracles/ocad-thick-circles.md) shows.
+- **Screenshots and exports of the OCAD viewer.** @Pauli provides screenshots of the viewer of OCAD 2020, and its
+  drawings exported as PNG images of 600 dpi, when the work needs to know how OCAD draws a file (@Pauli, Nov 18). The
+  session gives him the file and tells what to report, as [oracles/ocad-thick-circles.md](oracles/ocad-thick-circles.md)
+  and [oracles/ocad-dashes.md](oracles/ocad-dashes.md) show.
 - **Where the work runs.** This is @Pauli's machine; no Windows machine exists here. A build or a test counts only
   when it ran in GitHub Actions, on a `wip/` branch. The .NET SDK is `~/.dotnet/dotnet`, outside `PATH`.
 - **The checkouts.** The clone `~/Documents/Projects/NotPurplePen` stays on `docs/process-coordination`: do not change
@@ -107,7 +108,9 @@ structure and not only the appearance. Each part builds on the parts before it, 
    (`LayerInstanceComparison`) on each map of `skia_render`, and the later parts use the same comparison. The old
    drawing code stays as it is, so the drawing does not change. Ticket 011 sets the limits of the basic model of a
    dashed line: lengths fitted to each line, the distance metric of OCAD, and the dashes of a double line that are
-   moved aside after they are measured.
+   moved aside after they are measured. Before that, the dashed lines are checked against OCAD:
+   [oracles/ocad-dashes.md](oracles/ocad-dashes.md) records the first sample, and the second sample waits for the
+   exports of @Pauli.
 2. **Pass 1, the patterns** (section 03): [ticket 009](tickets/009-pattern-instances.md), a draft. The hatchings and the area patterns become prototypes
    with their lattice and element transformations, and the elements that a fill mode selects become clipping objects.
    The pass 1 of [ticket 005](tickets/005-layer-instances.md) leaves them out with the internal option
