@@ -120,6 +120,9 @@ the rendering.
 - **Tickets and pull request descriptions** (Nov 18). Every branch goes through a ticket and a pull request
   description, also when no pull request is made. A ticket names the fixes and features separated from it under
   "Erotetut alatehtävät".
+- **The fixes of upstream that a ticket separates** (Nov 18). When the work of a ticket fixes a fault of upstream, the
+  fix gets a ticket of its own, from `tickets/bug-template.md`, and a `fix/` branch, and the first ticket names it
+  under "Erotetut alatehtävät".
 - **The epic and its branch** (Nov 18). Ticket 000 is the epic of the work, from `tickets/epic-template.md`.
   `feature/palette-layers` collects the parts that are done, as `feature/svg-target` collects the SVG work. A merge
   into it names the work that it brings and lists the commits, as a merge into a shared branch does.

@@ -28,9 +28,10 @@ specification, @Pauli, Nov 18).
   "Erotetut alatehtävät".
 - Each part of the work is a ticket: a feature from `feature-template.md`, and a fault from `bug-template.md`.
 - A ticket tells the current state, not the events. When a criterion is met, mark it in the ticket.
-- Work that is separated from a ticket, such as a fault found on the way, gets a ticket of its own, which tells where
-  it came from. The first ticket names it under "Erotetut alatehtävät", with its branch, and whether that branch is
-  merged into the first ticket's branch.
+- Work that is separated from a ticket gets a ticket of its own, which tells where it came from. When the work of a
+  ticket fixes a fault of upstream, the fix gets a ticket from `bug-template.md` and a `fix/` branch (@Pauli,
+  Nov 18). The first ticket names the separated work under "Erotetut alatehtävät", with its branch, and whether that
+  branch is merged into the first ticket's branch.
 - A ticket of a part of the architecture has structural acceptance criteria, and not only criteria of the
   appearance ([Progress.md](Progress.md), "Next").
 - The tickets are written in Finnish.
