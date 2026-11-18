@@ -76,9 +76,10 @@ structure and not only the appearance. Each part builds on the parts before it, 
 
 1. **Pass 1, the instances with full coverage, G = 1** (sections 01 and 02): [ticket 005](tickets/005-layer-instances.md),
    branch `feature/layer-instances`. The symbols and the objects make the instances as a data structure: a palette
-   entry, a geometry prototype with its transformation, and the clipping objects. A collector, an `IGraphicsTarget`
-   that does not draw, makes the clipping objects from the drawing calls of the symbols. Each palette entry has one
-   G = 1 instance with its fills, lines, glyphs and texts. The drawing does not change.
+   entry, a geometry prototype with its transformation, and the clipping objects. A collector, the adapter between
+   the drawing code of the symbols and the instances, implements `IGraphicsTarget` and turns the drawing calls of the
+   symbols into clipping objects. Each palette entry has one G = 1 instance with its fills, lines, glyphs and texts.
+   The drawing does not change.
 2. **Pass 1, the patterns** (section 03). It has no ticket yet. The hatchings and the area patterns become prototypes
    with their lattice and element transformations, and the elements that a fill mode selects become clipping objects.
 3. **Pass 2, the composition by palette entry** (section 05). It reads the instances only, groups them by palette
@@ -127,9 +128,11 @@ the rendering.
   OCAD 9 and later, as OCAD does. So the 30 expected text dumps of the OCAD 9 and 11 course files of `ControllerTests`
   get `t100` in each color. The criterion of ticket 004 that no baseline moves meant the image baselines, and the
   change of the dumps is a justified correction.
-- **The source of the clipping objects of pass 1** (Nov 18). Pass 1 makes its clipping objects with a collector: an
-  `IGraphicsTarget` that does not draw, and that turns the drawing calls of the symbols into clipping objects. Only
-  the collector knows `IGraphicsTarget`. The clipping objects are values, and not keys of a drawing target or recorded
-  calls. So a later change to geometry methods of the symbols stays a bounded refactoring, which touches only the
-  geometry code of the symbols and the collector. If the collector becomes needlessly complex, the work makes the
-  clipping objects with geometry methods of the symbols at once.
+- **The source of the clipping objects of pass 1** (Nov 18). The data structure of the instances is the interface
+  between pass 1 and pass 2: pass 1 makes it, and pass 2 and the tests of the instances read it. Its clipping objects
+  are geometry: a filled shape with its fill rule, a stroked shape with the width, caps, joins and miter limit of its
+  line, or a text run, each with an affine placement. The collector is the adapter of pass 1 between the drawing code
+  of the symbols and this data structure: it implements `IGraphicsTarget` and turns the drawing calls of the symbols
+  into instances. Geometry methods of the symbols can later make the same instances directly, in place of the
+  adapter. If the collector becomes needlessly complex, the work makes the instances with geometry methods of the
+  symbols at once.
