@@ -123,7 +123,9 @@ the rendering.
 - **Pass 2 replaces the direct drawing of the palette entries** (Nov 18). When pass 2 is done, the palette entries of
   a map are drawn from the instances only. The normal view is a rendering mode of pass 2. The drawing code of the
   symbols stays the source of pass 1, through the collector. The notes of the epic
-  ([000](tickets/000-palette-layers.md)) tell the points of pass 2 that are open.
+  ([000](tickets/000-palette-layers.md)) tell what the ticket of pass 2 resolves: the compositing of a group on each
+  drawing target, the drawing of the templates and the image and layout layers beside the palette stack, and a new
+  base for the comparison of the coverage. Only the highlights stay open, and they do not hold back pass 2.
 - **The conflicts with dev** (Nov 18). The palette-layer branches may conflict with `dev`. A comparison of their
   implementation with the one in `dev` is a later investigation.
 - **The fixes of upstream that a ticket separates** (Nov 18). When the work of a ticket fixes a fault of upstream, the
