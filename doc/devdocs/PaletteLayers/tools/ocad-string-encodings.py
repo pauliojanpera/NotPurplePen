@@ -8,11 +8,14 @@ parameter string type whose strings hold a byte of 0x80 or more, whether the str
 strings all decode as UTF-8 is UTF-8. Folders are searched for .ocd files. With --summary, prints only the count of
 files of each version, writer and encoding.
 
-The writer comes from the strings that the file holds:
-- OCAD writes string types that neither Mapper nor Purple Pen writes, and from 2018 on a blend mode (b) in colors.
+The writer comes from the strings that the file holds, and the program that saved the file last is the writer:
+- OCAD writes string types that neither Mapper nor Purple Pen writes, and from version 12 on a blend mode (b) in
+  colors.
 - Mapper writes only types 8, 9, 10, 11, 1030, 1039 and 1061, a spot color as name, n, v, and a transparency (t) in
   each color.
-- Purple Pen writes only types 8, 9, 10, 11, 21, 22, 27, 28, 1026, 1030 and 1039, and no transparency in a color.
+- Purple Pen writes only types 8, 9, 10, 11, 21, 22, 27, 28, 1026, 1030 and 1039, and its print parameters (1026)
+  begin with the codes a and r. With the opacity of palette entries (feature/opacity-and-blend-mode), it writes a
+  transparency (t) in each color, and from version 12 on a blend mode (b), as OCAD does. Before, it wrote neither.
 """
 import collections
 import os
@@ -21,6 +24,7 @@ import sys
 
 MAPPER_TYPES = {8, 9, 10, 11, 1030, 1039, 1061}
 PURPLE_PEN_TYPES = {8, 9, 10, 11, 21, 22, 27, 28, 1026, 1030, 1039}
+PRINT_PARAMETERS = 1026
 
 
 def ocad_files(paths):
@@ -57,12 +61,15 @@ def guess_writer(strings):
     types = set(string_type for string_type, _ in strings)
     color_codes = [codes(raw) for string_type, raw in strings if string_type == 9]
     spot_codes = [codes(raw) for string_type, raw in strings if string_type == 10]
-    if types - (MAPPER_TYPES | PURPLE_PEN_TYPES) or any(b"b" in found for found in color_codes):
+    print_codes = [codes(raw) for string_type, raw in strings if string_type == PRINT_PARAMETERS]
+    if types - (MAPPER_TYPES | PURPLE_PEN_TYPES):
+        return "OCAD"
+    if any(found[:2] == [b"a", b"r"] for found in print_codes):
+        return "Purple Pen"
+    if any(b"b" in found for found in color_codes):
         return "OCAD"
     if any(b"n" in found and b"v" in found and found.index(b"n") < found.index(b"v") for found in spot_codes):
         return "Mapper"
-    if color_codes and all(b"t" not in found for found in color_codes) and types <= PURPLE_PEN_TYPES:
-        return "Purple Pen"
     if color_codes and all(b"t" in found for found in color_codes) and types <= MAPPER_TYPES:
         return "Mapper"
     return "unknown writer"
