@@ -95,7 +95,8 @@ structure and not only the appearance. Each part builds on the parts before it, 
 2. **Pass 1, the patterns** (section 03): [ticket 009](tickets/009-pattern-instances.md), a draft. The hatchings and the area patterns become prototypes
    with their lattice and element transformations, and the elements that a fill mode selects become clipping objects.
    The pass 1 of [ticket 005](tickets/005-layer-instances.md) leaves them out with the internal option
-   `RenderOptions.omitHatchingsAndPatterns`. A regular clipped pattern that the options draw with a pattern brush
+   `RenderOptions.omitHatchingsAndPatterns`. Ticket 009 removes the option and ends the use of the collector as the
+   oracle of the tests, and the coverage comparison then compares the colors with hatchings and patterns too. A regular clipped pattern that the options draw with a pattern brush
    gives its lattice in `CreatePatternBrush`. The other patterns place each glyph with a transformation of its own,
    and a pattern that keeps whole glyphs draws them without a clip, as a point symbol draws its glyph. Their lattices
    and element transformations are in the definition of the area (`HatchInfo` and `PatternInfo` of `AreaSymDef`) and
@@ -175,6 +176,9 @@ the rendering.
   the nonperiodic fills become single clipping objects.
 - **The shared shapes of the glyphs** (Nov 18). The point symbols share the shapes of their glyph: each part of the
   glyph is one shape, which each symbol places with its own placement (ticket 008).
+- **The collector as the oracle until ticket 009** (Nov 18). The collector is the oracle of the tests during the
+  tickets 008 to 013. Ticket 009 removes the internal option `omitHatchingsAndPatterns` and ends the use of the
+  collector as the oracle, and the coverage comparison then compares the colors with hatchings and patterns too.
 - **The conflicts with dev** (Nov 18). The palette-layer branches may conflict with `dev`. A comparison of their
   implementation with the one in `dev` is a later investigation.
 - **The fixes of upstream that a ticket separates** (Nov 18). When the work of a ticket fixes a fault of upstream, the

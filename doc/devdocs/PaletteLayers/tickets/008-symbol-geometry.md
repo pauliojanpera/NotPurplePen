@@ -7,7 +7,7 @@ Pistesymbolit tuottavat leikkausobjektinsa omalla geometriametodillaan, ja vaihe
 - [ ] Pistesymbolilla (`PointSymDef` ja sen glyyfi) on geometriametodi. Se tuottaa glyyfin viivat, alueet, ympyrät ja täytetyt ympyrät, aukkojen tekemät kaaret sekä origossa olevan yhden ympyrän glyyfin symbolin paikassa ilman muunnosta.
 - [ ] Glyyfin muodot ovat jaettuja: saman symbolimäärittelyn pistesymbolit viittaavat samoihin muotoihin omilla sijoituksillaan, ja rakennetesti tarkistaa sen. Poikkeuksia on kaksi: origossa oleva yhden ympyrän glyyfi on symbolin paikassa ilman muunnosta, ja ympyrän kaaret, jotka symbolin omat aukot (`PointSymbol.Gaps`) tekevät, ovat symbolin omia muotoja.
 - [ ] Vaihe 1 tekee ilmentymät geometriametodeilla niille symbolilajeille, joilla geometriametodi on, ja kerääjällä muille.
-- [ ] Kerääjä jää testien oraakkeliksi. Testit vertaavat testikartoilla geometriametodien ilmentymiä kerääjän ilmentymiin rakenteena: samat palettimerkinnät ja samat leikkausobjektit samassa järjestyksessä (laji, muoto, viiva, täyttösääntö ja sijoituksen vaiheet), tai tiketti kertoo sallitun eron ja sen syyn. Myöhemmät osat käyttävät samaa vertailua.
+- [ ] Kerääjä on testien oraakkeli tikettien 008–013 ajan. Testit vertaavat testikartoilla geometriametodien ilmentymiä kerääjän ilmentymiin rakenteena: samat palettimerkinnät ja samat leikkausobjektit samassa järjestyksessä (laji, muoto, viiva, täyttösääntö ja sijoituksen vaiheet), tai tiketti kertoo sallitun eron ja sen syyn. Myöhemmät osat käyttävät samaa vertailua.
 - [ ] `LayerInstanceTests` ja `LayerInstanceCoverageTests` menevät läpi.
 - [ ] Piirto ei muutu, eikä yksikään kuva- tai tekstibaseline siirry.
 
@@ -20,6 +20,7 @@ Pistesymbolit tuottavat leikkausobjektinsa omalla geometriametodillaan, ja vaihe
   - Pistesymbolin glyyfin muodot jaetaan sijoitusten kesken: kukin glyyfin osa on yksi muoto, ja kukin symboli asettaa sen omalla sijoituksellaan.
   - Piirto ei käytä symboleita, vaan symboleita käyttää vain vaihe 1. Ilmentymät kuuluvat karttaan piirrosta riippumatta (epic [000](000-palette-layers.md)).
   - Kun muutos ei voi muuttaa piirtoa, esimerkiksi koska se ei koske koodia, jota piirto ajaa, täysi ajo tehdään komennolla `tools/push-wip.sh` ilman `--collect`-valintaa, sillä kuvat pysyvät silloin ennallaan.
+  - Kerääjä on testien oraakkeli tikettien 008–013 ajan. Tiketti [009](009-pattern-instances.md) poistaa sisäisen asetuksen `omitHatchingsAndPatterns` ja lopettaa kerääjän oraakkelikäytön, ja peiton vertailu kattaa silloin myös värit, joilla on viivoituksia tai kuvioita.
   - Katkoviivan päätökset ovat viivojen tiketissä [011](011-line-geometry.md).
 - **Speksi:** [Specification.md](../Specification.md), luvut 02 ja 04. Luvun 02 vaihe 1 käsittelee symbolit ja kartan objektit ja tuottaa ilmentymät ja niiden leikkausobjektit. Luvun 04 mukaan muunnettu kuvion ilmentymä tarvitsee vain viittauksen ja muunnoksen eikä prototyypin kopiota. Jaetut glyyfin muodot noudattavat samaa periaatetta.
 - **Nykytila** (tiketit 005 ja 007; SymDef.cs, Symbol.cs ja Glyph.cs, noin 7 500 riviä, sekä SymPath.cs, noin 2 100 riviä):
@@ -33,7 +34,7 @@ Pistesymbolit tuottavat leikkausobjektinsa omalla geometriametodillaan, ja vaihe
   - Kerääjä on `internal`, ja MapModelin `InternalsVisibleTo` nimeää vain Test_MapModelin. Map_Skia.Tests näkee vain julkiset jäsenet.
 - **Ratkaisuehdotukset:**
   - Symbolikohtainen geometriametodi tuottaa kaikki symbolin palettimerkinnät yhdellä läpikäynnillä, ja leikkausobjektit ovat kunkin palettimerkinnän sisällä samassa järjestyksessä kuin nyt.
-  - Kerääjä jää MapModeliin testien oraakkeliksi, ja `omitHatchingsAndPatterns` jää sen mukana, koska kerääjä ei tunne kuvioita. Map_Skia.Tests näkee kerääjän, kun `InternalsVisibleTo` nimeää myös sen.
+  - Kerääjä jää MapModeliin testien oraakkeliksi tikettien 008–013 ajaksi, ja `omitHatchingsAndPatterns` jää sen mukana, koska kerääjä ei tunne kuvioita. Map_Skia.Tests näkee kerääjän, kun `InternalsVisibleTo` nimeää myös sen.
   - Rakenteellinen vertailu vertaa muotoja arvoina, koska kerääjä tekee jokaiselle sijoitukselle uuden muodon. Peittoa verrataan siellä, missä esitys muuttuu tarkoituksella.
   - Ilmentymien päivitys kartan muuttuessa kuuluu vaiheen 2 tikettiin (päätös 18.11.). Symbolikohtainen geometriametodi tekee leikkausobjektin alkuperän kirjaamisesta helppoa.
 - **Rajaus:** viivat, alueet ja tekstit ovat tiketit [011](011-line-geometry.md), [012](012-area-geometry.md) ja [013](013-text-geometry.md). Viivoitukset ja kuviot ovat tiketti [009](009-pattern-instances.md), ja vaihe 2 on tiketti [010](010-palette-composition.md).

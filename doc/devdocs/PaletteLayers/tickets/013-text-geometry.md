@@ -12,7 +12,7 @@ Tekstisymbolit (`TextSymDef`), tekstit viivan varrella (`LineTextSymbol`) ja suo
 - [ ] Ehdotus: tekstisymbolin geometriametodi tuottaa tiketin 008 rajapinnalla tekstiajot, kehysviivan, varjon, alleviivaukset, keskipisteen ja kehyssuorakulmion ilman `IGraphicsTarget`-kutsuja ja ilman piirtoasetuksia.
 - [ ] Ehdotus: viivan varren tekstin geometriametodi tuottaa jokaisen grafeemin tekstiajona omalla sijoituksellaan.
 - [ ] Ehdotus: suorakulmiosymbolin geometriametodi tuottaa ääriviivan, ruudukon viivat ja ruudukon tekstit.
-- [ ] Ehdotus: vaihe 1 tekee kaikki ilmentymät geometriametodeilla, eikä se käytä kerääjää. Kerääjä jää testien oraakkeliksi.
+- [ ] Ehdotus: vaihe 1 tekee kaikki ilmentymät geometriametodeilla, eikä se käytä kerääjää. Kerääjä jää testien oraakkeliksi tikettiin 009 asti.
 - [ ] Ehdotus: testikartoilla tekstien ja suorakulmioiden geometriametodien ilmentymät ovat rakenteena samat kuin kerääjän ilmentymät (tiketin 008 vertailu).
 - [ ] Ehdotus: `LayerInstanceTests` ja `LayerInstanceCoverageTests` menevät läpi.
 - [ ] Ehdotus: piirto ei muutu, eikä yksikään kuva- tai tekstibaseline siirry.
@@ -26,7 +26,7 @@ Tekstisymbolit (`TextSymDef`), tekstit viivan varrella (`LineTextSymbol`) ja suo
   - `RectangleSymDef` piirtää ääriviivan, ruudukon viivat ja ruudukon tekstit.
 - **Avoimia kysymyksiä:**
   1. Tekstin rakenne. Riittävätkö tekstiajot (sana tai grafeemi), vai tarvitaanko tekstisymbolin rakennetta enemmän?
-- **Rajaus (luonnos):** kerääjä jää testien oraakkeliksi (tiketin 008 kriteeri), ja asetus `omitHatchingsAndPatterns` jää sen mukana (tiketin 008 ratkaisuehdotus). Vaihe 2 on tiketti [010](010-palette-composition.md).
+- **Rajaus (luonnos):** kerääjä on testien oraakkeli tikettien 008–013 ajan, ja asetus `omitHatchingsAndPatterns` jää sen mukana. Tiketti [009](009-pattern-instances.md) poistaa molemmat (@Pauli, 18.11.). Vaihe 2 on tiketti [010](010-palette-composition.md).
 - **Haara (ehdotus):** `feature/text-geometry` juurtuu kokoavaan haaraan `feature/palette-layers` tiketin 012 jälkeen. Täysi ajo tehdään basen päällä, ja ilman `--collect`-valintaa, kun muutos ei koske muuta koodia, jota piirto ajaa.
 
 **Erotetut alatehtävät**

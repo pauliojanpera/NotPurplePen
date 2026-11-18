@@ -8,6 +8,7 @@ Viivoitukset ja aluekuviot ovat ilmentymissä toistuvan geometrian prototyyppej�
 **Päätökset (sitovia)**
 - Ennen tätä tikettiä vaihe 1 irrotetaan piirrosta (tiketti [007](007-map-instances.md)), ja kerääjä korvataan symbolien omilla geometriametodeilla (tiketit [008](008-symbol-geometry.md), [011](011-line-geometry.md), [012](012-area-geometry.md) ja [013](013-text-geometry.md)) (@Pauli, 18.11.).
 - Piirto ei käytä symboleita, ja ilmentymät kuuluvat karttaan piirrosta riippumatta (@Pauli, 18.11.).
+- Kerääjä on testien oraakkeli tikettien 008–013 ajan. Tämä tiketti poistaa sisäisen asetuksen `omitHatchingsAndPatterns` ja lopettaa kerääjän oraakkelikäytön, ja peiton vertailu kattaa silloin myös värit, joilla on viivoituksia tai kuvioita (@Pauli, 18.11.).
 - OCAD ja Mapper ovat omien karttojensa piirron auktoriteetit, ja Mapper-karttojen ulkoasun oraakkeli on Mapper (@Pauli, 17.11.). feature/multiply-blending on vain ulkoasun oraakkeli, eikä työ lue sen koodia (@Pauli, 18.11.).
 - Kun muutos ei voi muuttaa piirtoa, esimerkiksi koska se ei koske koodia, jota piirto ajaa, täysi ajo tehdään komennolla `tools/push-wip.sh` ilman `--collect`-valintaa, sillä kuvat pysyvät silloin ennallaan (@Pauli, 18.11.).
 
@@ -16,7 +17,7 @@ Viivoitukset ja aluekuviot ovat ilmentymissä toistuvan geometrian prototyyppej�
 - [ ] Ehdotus: ilmentymällä on hilan muunnos L ja elementtien muunnos E siten, että elementin piste e hilavektorissa v on kohdassa L(v) + E(e) (luku 03).
 - [ ] Ehdotus: leikatun täytön leikkausobjektit ovat alueiden ääriviivat, ja samanlaiset kokoonpanot jakavat ilmentymän.
 - [ ] Ehdotus: täyttötilojen `CompletelyInside`, `CenterInside` ja `PartiallyInside` valitsemat elementit ovat leikkausobjekteja, ja samoin epäsäännöllisten kuvioiden elementit.
-- [ ] Ehdotus: sisäinen asetus `RenderOptions.omitHatchingsAndPatterns` poistuu, jos tiketti 008 ei ole jo poistanut sitä.
+- [ ] Ehdotus: sisäinen asetus `RenderOptions.omitHatchingsAndPatterns` ja kerääjän oraakkelikäyttö poistuvat, ja `LayerInstanceCoverageTests` vertaa myös värit, joilla on viivoituksia tai kuvioita.
 - [ ] Ehdotus: testikartoilla viivoitusten ja kuvioiden ilmentymien peitto on sama kuin nykyisen piirron peitto glyyfi kerrallaan (`usePatternBitmaps` pois päältä), tai tiketti kertoo sallitun eron ja sen syyn.
 - [ ] Ehdotus: piirto ei muutu, eikä yksikään kuva- tai tekstibaseline siirry.
 
