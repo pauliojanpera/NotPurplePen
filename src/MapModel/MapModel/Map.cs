@@ -2408,6 +2408,58 @@ namespace PurplePen.MapModel
             }
         }
 
+        // Pass 1 of the drawing: make the layer instances (LayerInstances.cs) of the symbols that the drawing of a
+        // rectangle draws, in the order of the palette, the bottom entry first. All the shapes of a palette entry are the
+        // clipping objects of its one instance with full coverage (G = 1), except the hatchings and the patterns of
+        // areas: they are repetitive geometry, and the instances do not hold them. The templates, the image layer and the
+        // layout layer are no palette entries, and have no instances. A palette entry that the symbols draw no shape of
+        // has no instance. The drawing does not use the instances.
+        // rect: the rectangle that the drawing draws, in the coordinates of the map.
+        // minResolution: the size of the smallest feature that the drawing draws, typically the size of a pixel. The
+        //     drawing draws a dashed line solid when its gaps are smaller.
+        public IReadOnlyList<LayerInstance> CreateLayerInstances(RectangleF rect, float minResolution)
+        {
+            CheckReadable();
+
+            RenderOptions renderOpts = new RenderOptions();
+            renderOpts.minResolution = minResolution;
+            renderOpts.omitHatchingsAndPatterns = true;
+
+            List<LayerInstance> instances = new List<LayerInstance>();
+            foreach (SymColor color in colors) {
+                using (LayerInstanceCollector collector = new LayerInstanceCollector(color, textMetricsProvider)) {
+                    foreach (Symbol symbol in SymbolsDrawn(color, rect))
+                        symbol.Draw(collector, color, renderOpts);
+                    instances.AddRange(collector.Instances);
+                }
+            }
+
+            return instances.AsReadOnly();
+        }
+
+        // The symbols that DrawColor draws in a color and a rectangle, in its order: the visible symbols of the visible
+        // symbol definitions that have the color, which may intersect the rectangle.
+        // color: the color.
+        // rect: the rectangle, in the coordinates of the map.
+        private IEnumerable<Symbol> SymbolsDrawn(SymColor color, RectangleF rect)
+        {
+            foreach (SymDef symdef in symdefs) {
+                if (IsSymdefVisible(symdef) && symdef.HasColor(color)) {
+                    List<Symbol> symbolsOfDef = symdef.symbols;
+                    if (symdef.SortSymbolsForDrawing) {
+                        symbolsOfDef = new List<Symbol>(symbolsOfDef);
+                        symbolsOfDef.Sort(SymbolComparison);
+                    }
+
+                    foreach (Symbol symbol in symbolsOfDef) {
+                        // The bounding box excludes a symbol faster than MayIntersectRect does.
+                        if (symbol.IsVisible && symbol.BoundingBox.IntersectsWith(rect) && symbol.MayIntersectRect(rect))
+                            yield return symbol;
+                    }
+                }
+            }
+        }
+
         // Final all symbols entirely withing a given rectangle. Does not include holes.
         public Symbol[] SymbolsWithinRect(RectangleF rect)
         {
@@ -2864,6 +2916,7 @@ namespace PurplePen.MapModel
     {
         public float minResolution;  // minimum size of a feature to render (typically the pixel size)
         public bool usePatternBitmaps; // if true, always use bitmap glyphs to render area patterns, if false, use direct drawing and clipping
+        internal bool omitHatchingsAndPatterns; // if true, do not draw the hatchings and the patterns of areas. Map.CreateLayerInstances collects the full coverage of the colors without them, since they are repetitive geometry.
         public RenderTemplateOption renderTemplates; // how templates (either OCAD or bitmap) will be displayed. Recursively applies to OCAD templates.
         public bool blendOverprintedColors; // if true, then use BlendMode.Darken to blend colors that have Overprint flag set to true.
                                             // if false, then Overprint flag is ignored.
