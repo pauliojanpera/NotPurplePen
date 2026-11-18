@@ -4,7 +4,6 @@ using System.IO;
 using NUnit.Framework;
 using PurplePen.Graphics2D;
 using PurplePen.MapModel;
-using TestingUtils;
 
 namespace Map_Skia.Tests
 {
@@ -25,7 +24,7 @@ namespace Map_Skia.Tests
         [TestCase("nonrenderable6.ocd", true, TestName = "{m}(OCAD 6)")]
         public void MetricOfFileIsTheOneThatOcadUses(string fileName, bool isEuclidean)
         {
-            Map map = ReadTestFile(fileName);
+            Map map = OcadSampleDrawing.ReadTestFile(fileName);
             using (map.Read())
                 Assert.AreEqual(isEuclidean, map.UseEuclideanMetric);
         }
@@ -39,8 +38,8 @@ namespace Map_Skia.Tests
         [TestCase("dashes-ocad9-ocad-metric.ocd", 6, TestName = "{m}(OCAD 9 with p1)")]
         public void LineHasTheDashesThatOcadDraws(string fileName, int dashes)
         {
-            Map map = ReadTestFile(fileName);
-            Assert.AreEqual(dashes, CountDashesAlong(map, new PointF(92.0F, -112.22F), new PointF(101.0F, -103.22F)));
+            Map map = OcadSampleDrawing.ReadTestFile(fileName);
+            Assert.AreEqual(dashes, OcadSampleDrawing.CountRunsAlong(map, new PointF(92.0F, -112.22F), new PointF(101.0F, -103.22F)));
         }
 
         // A file that Purple Pen writes keeps the metric of the map in each version that has view parameters.
@@ -72,49 +71,6 @@ namespace Map_Skia.Tests
             }
             finally {
                 File.Delete(path);
-            }
-        }
-
-        // Read a file of TestFiles/ocadimport into a new map.
-        // fileName: the name of the file.
-        static Map ReadTestFile(string fileName)
-        {
-            string path = TestUtil.GetTestFile(Path.Combine("ocadimport", fileName));
-            Map map = new Map(new Skia_TextMetrics(), new Skia_FileLoader(Path.GetDirectoryName(path)));
-            InputOutput.ReadFile(path, map);
-            return map;
-        }
-
-        // Count the dashes that the drawing of a map has along a straight line: the runs of covered pixels at the middle
-        // of the line, drawn without antialiasing at 0.02 mm to the pixel.
-        // map: the map.
-        // start: one end of the line, in mm on the paper.
-        // end: the other end of the line.
-        static int CountDashesAlong(Map map, PointF start, PointF end)
-        {
-            const float pixelSize = 0.02F, step = 0.01F;
-            RectangleF area = RectangleF.FromLTRB(Math.Min(start.X, end.X) - 1, Math.Min(start.Y, end.Y) - 1, Math.Max(start.X, end.X) + 1, Math.Max(start.Y, end.Y) + 1);
-            int width = (int)Math.Ceiling(area.Width / pixelSize), height = (int)Math.Ceiling(area.Height / pixelSize);
-            float length = (float)Math.Sqrt((end.X - start.X) * (end.X - start.X) + (end.Y - start.Y) * (end.Y - start.Y));
-
-            using (map.Read())
-            using (Skia_BitmapGraphicsTarget target = new Skia_BitmapGraphicsTarget(width, height, true, CmykColor.FromCmyka(0, 0, 0, 0, 0), area, true)) {
-                target.PushAntiAliasing(false);
-                map.Draw(target, area, new RenderOptions() { minResolution = pixelSize, renderTemplates = RenderTemplateOption.MapOnly }, null);
-                target.PopAntiAliasing();
-                using (Skia_Bitmap bitmap = (Skia_Bitmap)target.FinishBitmap()) {
-                    int dashes = 0;
-                    bool wasCovered = false;
-                    for (float distance = 0; distance <= length; distance += step) {
-                        float x = start.X + (end.X - start.X) * distance / length;
-                        float y = start.Y + (end.Y - start.Y) * distance / length;
-                        bool isCovered = bitmap.Bitmap.GetPixel((int)((x - area.Left) / pixelSize), (int)((area.Bottom - y) / pixelSize)).Alpha != 0;
-                        if (isCovered && !wasCovered)
-                            ++dashes;
-                        wasCovered = isCovered;
-                    }
-                    return dashes;
-                }
             }
         }
     }
