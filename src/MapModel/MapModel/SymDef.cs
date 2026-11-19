@@ -916,7 +916,7 @@ namespace PurplePen.MapModel
         // path: the path of the line.
         internal bool TryAddClippingObjects(LayerInstanceBuilder instances, SymPath path)
         {
-            if (isDashed || glyphs != null || (isDoubleLine && (doubleLines.doubleFillDashed || doubleLines.doubleLeftDashed || doubleLines.doubleRightDashed)))
+            if (glyphs != null)
                 return false;
             if (path.IsZeroLength)
                 return true;
@@ -928,8 +928,12 @@ namespace PurplePen.MapModel
                 // CreatePens makes the main pen with round caps when the start of the line has a pointy end.
                 LineCapMode mainCaps = (shortenInfo.shortenBeginning > 0 && shortenInfo.pointyEnds) ? LineCapMode.Round : lineCap;
                 Stroke mainStroke = new Stroke(thickness, mainCaps, lineJoin, GraphicsUtil.MITER_LIMIT);
-                foreach (SymPath p in pathsWithShortening)
-                    instances.Add(lineColor, p.MakeStrokedShape(mainStroke, Placement.Identity));
+                foreach (SymPath p in pathsWithShortening) {
+                    if (isDashed)
+                        AddDashedLine(instances, lineColor, p, dashInfo, mainStroke, 0, 1, 0, GetVertexPieceLimit(dashInfo, thickness));
+                    else
+                        instances.Add(lineColor, p.MakeStrokedShape(mainStroke, Placement.Identity));
+                }
 
                 if (shortenInfo.pointyEnds && (shortenInfo.shortenBeginning > 0.0F || shortenInfo.shortenEnd > 0.0F)) {
                     foreach (PointF[] tip in GetPointyEnds(path, shortenInfo.shortenBeginning, shortenInfo.shortenEnd, thickness))
@@ -946,26 +950,144 @@ namespace PurplePen.MapModel
             if (isDoubleLine) {
                 if (doubleLines.doubleFillColor != null) {
                     Stroke fillStroke = GraphicsUtil.MakeSolidStroke(doubleLines.doubleThick, LineStyle.Mitered);
-                    foreach (SymPath p in pathsWithoutShortening)
-                        instances.Add(doubleLines.doubleFillColor, p.MakeStrokedShape(fillStroke, Placement.Identity));
+                    foreach (SymPath p in pathsWithoutShortening) {
+                        if (doubleLines.doubleFillDashed)
+                            AddDashedLine(instances, doubleLines.doubleFillColor, p, doubleLines.doubleDashes, fillStroke, 0, 1, GetDoubleLineVertexPieceLimit(doubleLines.doubleDashes), GetVertexPieceLimit(doubleLines.doubleDashes, doubleLines.doubleThick));
+                        else
+                            instances.Add(doubleLines.doubleFillColor, p.MakeStrokedShape(fillStroke, Placement.Identity));
+                    }
                 }
 
-                if (doubleLines.doubleLeftColor != null && doubleLines.doubleLeftWidth > 0.0F) {
-                    Stroke leftStroke = GraphicsUtil.MakeSolidStroke(doubleLines.doubleLeftWidth, LineStyle.FlatRounded);
-                    float offsetRight = -(doubleLines.doubleThick + doubleLines.doubleLeftWidth) / 2F;
-                    foreach (SymPath subpath in path.GetSubpaths(SymPath.DOUBLE_LEFT_STARTSTOPFLAG))
-                        instances.Add(doubleLines.doubleLeftColor, subpath.OffsetRight(offsetRight, GraphicsUtil.MITER_LIMIT).MakeStrokedShape(leftStroke, Placement.Identity));
-                }
+                if (doubleLines.doubleLeftColor != null && doubleLines.doubleLeftWidth > 0.0F)
+                    AddBorder(instances, path, SymPath.DOUBLE_LEFT_STARTSTOPFLAG, doubleLines.doubleLeftColor, doubleLines.doubleLeftWidth, doubleLines.doubleLeftDashed, -(doubleLines.doubleThick + doubleLines.doubleLeftWidth) / 2F);
 
-                if (doubleLines.doubleRightColor != null && doubleLines.doubleRightWidth > 0.0F) {
-                    Stroke rightStroke = GraphicsUtil.MakeSolidStroke(doubleLines.doubleRightWidth, LineStyle.FlatRounded);
-                    float offsetRight = (doubleLines.doubleThick + doubleLines.doubleRightWidth) / 2F;
-                    foreach (SymPath subpath in path.GetSubpaths(SymPath.DOUBLE_RIGHT_STARTSTOPFLAG))
-                        instances.Add(doubleLines.doubleRightColor, subpath.OffsetRight(offsetRight, GraphicsUtil.MITER_LIMIT).MakeStrokedShape(rightStroke, Placement.Identity));
-                }
+                if (doubleLines.doubleRightColor != null && doubleLines.doubleRightWidth > 0.0F)
+                    AddBorder(instances, path, SymPath.DOUBLE_RIGHT_STARTSTOPFLAG, doubleLines.doubleRightColor, doubleLines.doubleRightWidth, doubleLines.doubleRightDashed, (doubleLines.doubleThick + doubleLines.doubleRightWidth) / 2F);
             }
 
             return true;
+        }
+
+        // Add the clipping objects of a border of a double line, as DrawCore draws it: the offset of each subpath that the
+        // flag of the border leaves, solid or dashed.
+        // instances: the layer instances.
+        // path: the path of the line.
+        // flag: the start/stop flag of the border.
+        // color, width, isDashed: the color, the width and the dashes of the border.
+        // offsetRight: the distance of the border to the right of the path.
+        private void AddBorder(LayerInstanceBuilder instances, SymPath path, byte flag, SymColor color, float width, bool isDashed, float offsetRight)
+        {
+            Stroke stroke = GraphicsUtil.MakeSolidStroke(width, LineStyle.FlatRounded);
+            foreach (SymPath subpath in path.GetSubpaths(flag)) {
+                if (isDashed)
+                    AddDashedLine(instances, color, subpath, doubleLines.doubleDashes, stroke, offsetRight, GraphicsUtil.MITER_LIMIT, GetDoubleLineVertexPieceLimit(doubleLines.doubleDashes), GetVertexPieceLimit(doubleLines.doubleDashes, width));
+                else
+                    instances.Add(color, subpath.OffsetRight(offsetRight, GraphicsUtil.MITER_LIMIT).MakeStrokedShape(stroke, Placement.Identity));
+            }
+        }
+
+        // Add the clipping objects of a dashed line along a path to the instance of its color, as DrawDashedWithOffset
+        // draws it with no limit of resolution, as a composed dashed line: each run of dashes that repeats a pattern
+        // along the path is one dashed stroke, and the other dashes are single dashes, in the order of the path. A run
+        // has no dash that a rule of the vertices changed. A run may cross the vertices of the path when the map measures
+        // its lines with the euclidean metric and the line is on the path; otherwise each run is within one segment,
+        // where its pattern is a constant part of the length that the metric measures. A line without dashes is solid.
+        // instances: the layer instances.
+        // color: the color of the line.
+        // path: the path.
+        // dashes: the dashes of the line.
+        // stroke: the solid stroke of the line.
+        // offsetRight, miterLimit: the offset of the line from the path, and its miter limit.
+        // pathVertexLimit, drawnVertexLimit: the limits of the rules of the vertices next to the ends of a dash.
+        private void AddDashedLine(LayerInstanceBuilder instances, SymColor color, SymPath path, DashInfo dashes, Stroke stroke, float offsetRight, float miterLimit, float pathVertexLimit, float drawnVertexLimit)
+        {
+            SymPath.DistanceMetric metric = map.MapDistanceMetric;
+            float[] distances = ComputeDashDistances(path, LocationKind.DashAndGapLengths, dashes.spacingMethod, dashes.dashLength, dashes.firstDashLength, dashes.lastDashLength, dashes.gapLength, dashes.halfEndDashLengthWhenClosed, dashes.minGaps, 0, dashes.secondaryEndGaps, dashes.secondaryEndLength, dashes.secondaryMiddleGaps, dashes.secondaryMiddleLength, 1.0F, false, null, metric);
+            if (distances.Length == 0) {
+                SymPath solid = (offsetRight != 0) ? path.OffsetRight(offsetRight, miterLimit) : path;
+                instances.Add(color, solid.MakeStrokedShape(stroke, Placement.Identity));
+                return;
+            }
+
+            List<SymPath.DashOnPath> onPath = path.GetDashes(distances, metric, offsetRight, miterLimit, pathVertexLimit, drawnVertexLimit);
+            bool mayRunCrossVertices = map.UseEuclideanMetric && offsetRight == 0;
+            PointF[] flatPoints = path.FlattenedPoints;
+
+            int first = 0;
+            while (first < onPath.Count) {
+                int period;
+                int last = FindRunOfDashes(onPath, distances, first, mayRunCrossVertices, out period);
+                if (last == first) {
+                    instances.Add(color, new StrokedShape(PathShape.FromPoints(onPath[first].Points, false), stroke, Placement.Identity));
+                    ++first;
+                    continue;
+                }
+
+                SymPath.DashOnPath start = onPath[first], end = onPath[last];
+                List<PointF> points = new List<PointF>();
+                points.Add(start.Points[0]);
+                if (mayRunCrossVertices) {
+                    for (int k = start.FirstPoint; k < end.EndPoint; ++k)
+                        points.Add(flatPoints[k]);
+                }
+                points.Add(end.Points[end.Points.Length - 1]);
+
+                // Within one segment, the metric measures a constant part of the euclidean length.
+                double scale = 1;
+                if (!mayRunCrossVertices && !map.UseEuclideanMetric) {
+                    PointF a = flatPoints[start.StartSegment], b = flatPoints[start.StartSegment + 1];
+                    scale = SymPath.EuclidDistance(a, b) / metric(a, b);
+                }
+                float[] pattern = new float[2 * period];
+                for (int k = 0; k < period; ++k) {
+                    pattern[2 * k] = (float)(distances[onPath[first + k].DashIndex] * scale);
+                    pattern[2 * k + 1] = (float)(distances[onPath[first + k].DashIndex + 1] * scale);
+                }
+
+                Stroke dashed = new Stroke(stroke.Width, stroke.Caps, stroke.Join, stroke.MiterLimit, pattern, 0);
+                instances.Add(color, new StrokedShape(PathShape.FromPoints(points.ToArray(), false), dashed, Placement.Identity));
+                first = last + 1;
+            }
+        }
+
+        // The last dash of the run of dashes from a first dash, or the first dash itself when no run starts there. A run
+        // repeats a period of one dash and its gap, or of two dashes and their gaps for the secondary gaps, at least twice;
+        // its dashes are consecutive, no rule of the vertices changed them, and, unless the run may cross vertices, all
+        // its dashes are within the segment of the first.
+        // dashes: the dashes of the line.
+        // distances: the lengths of the dashes and the gaps in turn, a dash first.
+        // first: the index of the first dash.
+        // mayRunCrossVertices: whether a run may cross the vertices of the path.
+        // period: the number of dashes of the period of the run.
+        private static int FindRunOfDashes(List<SymPath.DashOnPath> dashes, float[] distances, int first, bool mayRunCrossVertices, out int period)
+        {
+            for (period = 1; period <= 2; ++period) {
+                int last = first;
+                while (last + 1 < dashes.Count && FitsRun(dashes, distances, first, last + 1, period, mayRunCrossVertices))
+                    ++last;
+                if (last - first + 1 >= 2 * period)
+                    return last;
+            }
+
+            period = 1;
+            return first;
+        }
+
+        // Can a dash end a run of a period from a first dash?
+        private static bool FitsRun(List<SymPath.DashOnPath> dashes, float[] distances, int first, int next, int period, bool mayRunCrossVertices)
+        {
+            SymPath.DashOnPath dash = dashes[next], previous = dashes[next - 1], firstDash = dashes[first];
+            if (dash.IsVertexLeftOut || firstDash.IsVertexLeftOut || previous.IsVertexLeftOut)
+                return false;
+            if (dash.DashIndex != previous.DashIndex + 2 || dash.DashIndex + 1 > distances.Length)
+                return false;
+            if (!mayRunCrossVertices && (dash.StartSegment != firstDash.StartSegment || dash.EndSegment != firstDash.StartSegment || firstDash.EndSegment != firstDash.StartSegment))
+                return false;
+
+            // The dash and the gap before it repeat those of the period.
+            SymPath.DashOnPath same = dashes[first + (next - first) % period];
+            SymPath.DashOnPath sameBefore = dashes[first + (next - 1 - first) % period];
+            return distances[dash.DashIndex] == distances[same.DashIndex] && distances[previous.DashIndex + 1] == distances[sameBefore.DashIndex + 1];
         }
 
         // The polygons of the pointy ends of a line, as DrawPointyEnds fills them: five points each, the tip first, at the

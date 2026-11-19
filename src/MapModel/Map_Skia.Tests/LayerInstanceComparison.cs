@@ -14,8 +14,15 @@ namespace Map_Skia.Tests
     // the same order, and each instance has the same clipping objects in the same order: the same kind, shape, line or
     // fill rule, and steps of the placement. The collector makes a shape of each drawing call, so the comparison compares
     // the shapes as values, each number exactly. It compares a matrix by its elements, as Matrix.Elements gives them.
+    // A dashed stroke of the instances to check, a run of a composed dashed line, is first expanded to its dashes
+    // (StrokedShape.ExpandDashes). The run measures its dashes from its own start, and not from the start of the line as
+    // the drawing does, so the ends of its dashes are compared to within DashTolerance, and points nearer each other
+    // than that count as one.
     static class LayerInstanceComparison
     {
+        // The distance in mm within which the ends of the expanded dashes of a run agree with the drawing.
+        public const float DashTolerance = 0.0001F;
+
         // Find the differences between the structures of two lists of instances.
         // expected: the instances of the oracle.
         // actual: the instances to check.
@@ -34,11 +41,30 @@ namespace Map_Skia.Tests
                     continue;
                 }
 
-                IReadOnlyList<ClippingObject> expectedObjects = expectedInstance.ClippingObjects, actualObjects = actualInstance.ClippingObjects;
+                IReadOnlyList<ClippingObject> expectedObjects = expectedInstance.ClippingObjects;
+                List<ClippingObject> actualObjects = new List<ClippingObject>();
+                List<bool> isExpandedDash = new List<bool>();
+                foreach (ClippingObject clippingObject in actualInstance.ClippingObjects) {
+                    StrokedShape stroked = clippingObject as StrokedShape;
+                    if (stroked != null && stroked.Stroke.DashPattern != null) {
+                        foreach (StrokedShape dash in stroked.ExpandDashes()) {
+                            actualObjects.Add(dash);
+                            isExpandedDash.Add(true);
+                        }
+                    }
+                    else {
+                        actualObjects.Add(clippingObject);
+                        isExpandedDash.Add(false);
+                    }
+                }
+
                 for (int j = 0; j < Math.Max(expectedObjects.Count, actualObjects.Count); ++j) {
                     string expectedObject = (j < expectedObjects.Count) ? Describe(expectedObjects[j]) : "none";
                     string actualObject = (j < actualObjects.Count) ? Describe(actualObjects[j]) : "none";
-                    if (actualObject != expectedObject)
+                    bool isSame = (j < expectedObjects.Count && j < actualObjects.Count && isExpandedDash[j])
+                        ? AreSameDashes((StrokedShape)actualObjects[j], expectedObjects[j] as StrokedShape)
+                        : actualObject == expectedObject;
+                    if (!isSame)
                         differences.Add(string.Format("{0} (id {1}), clipping object {2}: {3}, expected {4}", expectedInstance.PaletteEntry.Name, expectedInstance.PaletteEntry.OcadId, j, actualObject, expectedObject));
                 }
             }
@@ -57,8 +83,46 @@ namespace Map_Skia.Tests
 
             StrokedShape stroked = (StrokedShape)clippingObject;
             Stroke stroke = stroked.Stroke;
-            return string.Format("stroked {0}, width {1}, {2} caps, {3} joins, miter limit {4}, at [{5}]",
-                                 Describe(stroked.Shape), Describe(stroke.Width), stroke.Caps, stroke.Join, Describe(stroke.MiterLimit), placement);
+            string dashes = (stroke.DashPattern == null) ? "" : string.Format(", dashes {0} from {1}", string.Join(" ", stroke.DashPattern.Select(Describe)), Describe(stroke.DashPhase));
+            return string.Format("stroked {0}, width {1}, {2} caps, {3} joins, miter limit {4}{5}, at [{6}]",
+                                 Describe(stroked.Shape), Describe(stroke.Width), stroke.Caps, stroke.Join, Describe(stroke.MiterLimit), dashes, placement);
+        }
+
+        // Is an expanded dash of a run the same as a dash that the drawing draws: the same line and placement, and a
+        // polyline whose points agree to within DashTolerance, points nearer each other than that counting as one?
+        // dash: the expanded dash.
+        // drawn: the clipping object of the drawing, or null.
+        static bool AreSameDashes(StrokedShape dash, StrokedShape drawn)
+        {
+            if (drawn == null)
+                return false;
+            string line = Describe(dash).Substring(Describe(dash).IndexOf(", width ", StringComparison.Ordinal));
+            string drawnLine = Describe(drawn).Substring(Describe(drawn).IndexOf(", width ", StringComparison.Ordinal));
+            if (line != drawnLine)
+                return false;
+
+            List<PointF> points = DistinctPoints((PathShape)dash.Shape), drawnPoints = DistinctPoints(drawn.Shape as PathShape);
+            if (drawnPoints == null || points.Count != drawnPoints.Count)
+                return false;
+            for (int i = 0; i < points.Count; ++i) {
+                if (Math.Abs(points[i].X - drawnPoints[i].X) > DashTolerance || Math.Abs(points[i].Y - drawnPoints[i].Y) > DashTolerance)
+                    return false;
+            }
+            return true;
+        }
+
+        // The points of an open polyline, without a point nearer to the one before it than DashTolerance, or null for a
+        // shape that is no open polyline.
+        static List<PointF> DistinctPoints(PathShape path)
+        {
+            if (path == null || path.Parts.Count != 2 || path.Parts[0].Kind != GraphicsPathPartKind.Start || path.Parts[1].Kind != GraphicsPathPartKind.Lines)
+                return null;
+            List<PointF> points = new List<PointF>();
+            foreach (PointF point in path.Parts[0].Points.Concat(path.Parts[1].Points)) {
+                if (points.Count == 0 || Math.Abs(point.X - points[points.Count - 1].X) > DashTolerance || Math.Abs(point.Y - points[points.Count - 1].Y) > DashTolerance)
+                    points.Add(point);
+            }
+            return points;
         }
 
         // The description of a shape: its kind and the values that make it.

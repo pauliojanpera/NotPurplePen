@@ -239,31 +239,142 @@ namespace PurplePen.MapModel
             return new StrokedShape(Shape, stroke, placement);
         }
 
+        // The dashes of a dashed stroke as single dashes: each a stroked polyline of the solid line, from its start
+        // through the points of the shape to its end, at the placement of the shape. The dashes follow the pattern along
+        // the shape, measured in the coordinates of the shape, from the phase. A solid stroke, or a shape that is not one
+        // open figure of lines, gives itself.
+        public IReadOnlyList<StrokedShape> ExpandDashes()
+        {
+            PathShape path = Shape as PathShape;
+            if (stroke.DashPattern == null || path == null || path.Parts.Count != 2 ||
+                path.Parts[0].Kind != GraphicsPathPartKind.Start || path.Parts[1].Kind != GraphicsPathPartKind.Lines)
+            {
+                return new StrokedShape[] { this };
+            }
+
+            List<PointF> points = new List<PointF>(path.Parts[0].Points);
+            points.AddRange(path.Parts[1].Points);
+            IReadOnlyList<float> pattern = stroke.DashPattern;
+            Stroke solid = stroke.WithoutDashes();
+
+            // Find the dash or the gap of the pattern at the start of the shape, and how much of it is left.
+            double period = 0;
+            foreach (float length in pattern)
+                period += length;
+            double phase = (period > 0) ? stroke.DashPhase % period : 0;
+            if (phase < 0)
+                phase += period;
+            int index = 0;
+            while (phase > 0 && phase >= pattern[index]) {
+                phase -= pattern[index];
+                index = (index + 1) % pattern.Count;
+            }
+            double left = pattern[index] - phase;
+            bool inDash = (index % 2 == 0);
+
+            List<StrokedShape> dashes = new List<StrokedShape>();
+            List<PointF> dash = new List<PointF>();
+            if (inDash)
+                dash.Add(points[0]);
+            for (int i = 1; i < points.Count; ++i) {
+                PointF from = points[i - 1], to = points[i];
+                double segment = Math.Sqrt((double)(to.X - from.X) * (to.X - from.X) + (double)(to.Y - from.Y) * (to.Y - from.Y));
+                double done = 0;
+                while (left < segment - done) {
+                    done += left;
+                    double fraction = done / segment;
+                    PointF boundary = new PointF((float)(from.X + (to.X - from.X) * fraction), (float)(from.Y + (to.Y - from.Y) * fraction));
+                    if (inDash) {
+                        dash.Add(boundary);
+                        dashes.Add(new StrokedShape(PathShape.FromPoints(dash.ToArray(), false), solid, Placement));
+                        dash.Clear();
+                    }
+                    else {
+                        dash.Add(boundary);
+                    }
+                    inDash = !inDash;
+                    index = (index + 1) % pattern.Count;
+                    left = pattern[index];
+                }
+                left -= segment - done;
+                if (inDash)
+                    dash.Add(to);
+            }
+            if (inDash && dash.Count > 1) {
+                dashes.Add(new StrokedShape(PathShape.FromPoints(dash.ToArray(), false), solid, Placement));
+            }
+            else if (!inDash && Math.Abs(left) < 1e-6 && pattern[(index + 1) % pattern.Count] == 0) {
+                // A gap ends at the end of the shape, where a dash of length 0 follows it.
+                PointF end = points[points.Count - 1];
+                dashes.Add(new StrokedShape(PathShape.FromPoints(new PointF[] { end, end }, false), solid, Placement));
+            }
+
+            return dashes;
+        }
+
         public override string ToString()
         {
             return string.Format("Stroked {0}, {1}", Shape, stroke);
         }
     }
 
-    // The line that strokes a shape: its width, caps, joins and miter limit, in the coordinates of the shape.
+    // The line that strokes a shape: its width, caps, joins and miter limit, in the coordinates of the shape, and, for a
+    // dashed line, its dash pattern and phase. The pattern is the lengths of the dashes and the gaps in turn, a dash
+    // first, repeated along the shape; the phase is how far into the pattern the shape starts, as SVG's
+    // stroke-dasharray and stroke-dashoffset and the dash pattern of PDF give them. Each dash has the caps of the line.
     public sealed class Stroke
     {
         private readonly float width;
         private readonly LineCapMode caps;
         private readonly LineJoinMode join;
         private readonly float miterLimit;
+        private readonly float[] dashPattern;
+        private readonly float dashPhase;
 
-        // Make a stroke.
+        // Make a stroke of a solid line.
         // width: the width of the line.
         // caps: the caps at the ends of the line.
         // join: the joins at the corners of the line.
         // miterLimit: the longest miter join, as a multiple of half the width.
         public Stroke(float width, LineCapMode caps, LineJoinMode join, float miterLimit)
+            : this(width, caps, join, miterLimit, null, 0)
         {
+        }
+
+        // Make a stroke of a dashed line.
+        // width, caps, join, miterLimit: as for a solid line.
+        // dashPattern: the lengths of the dashes and the gaps in turn, a dash first, an even number of them, or null for
+        //   a solid line. It is copied.
+        // dashPhase: how far into the pattern the shape starts.
+        public Stroke(float width, LineCapMode caps, LineJoinMode join, float miterLimit, float[] dashPattern, float dashPhase)
+        {
+            if (dashPattern != null && (dashPattern.Length == 0 || dashPattern.Length % 2 != 0))
+                throw new ArgumentException("A dash pattern has a gap after each dash.", nameof(dashPattern));
+
             this.width = width;
             this.caps = caps;
             this.join = join;
             this.miterLimit = miterLimit;
+            this.dashPattern = (dashPattern == null) ? null : (float[])dashPattern.Clone();
+            this.dashPhase = dashPhase;
+        }
+
+        // The lengths of the dashes and the gaps in turn, a dash first, or null for a solid line.
+        public IReadOnlyList<float> DashPattern
+        {
+            get { return dashPattern; }
+        }
+
+        // How far into the dash pattern the shape starts.
+        public float DashPhase
+        {
+            get { return dashPhase; }
+        }
+
+        // The stroke of the same line without dashes.
+        public Stroke WithoutDashes()
+        {
+            return (dashPattern == null) ? this : new Stroke(width, caps, join, miterLimit);
         }
 
         public float Width
@@ -303,7 +414,8 @@ namespace PurplePen.MapModel
 
         public override string ToString()
         {
-            return string.Format("width {0}, {1} caps, {2} joins, miter limit {3}", width, caps, join, miterLimit);
+            string line = string.Format("width {0}, {1} caps, {2} joins, miter limit {3}", width, caps, join, miterLimit);
+            return (dashPattern == null) ? line : string.Format("{0}, dashes {1} from {2}", line, string.Join(" ", dashPattern), dashPhase);
         }
     }
 

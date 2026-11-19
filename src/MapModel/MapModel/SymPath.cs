@@ -468,9 +468,111 @@ namespace PurplePen.MapModel
             return partList;
         }
 
+        // A dash of a dashed line along the path, as DrawDashedCore draws it.
+        internal sealed class DashOnPath
+        {
+            public PointF[] Points;         // The points of the dash as it is drawn: after the rules of the vertices next to its ends, and after the offset.
+            public int DashIndex;           // The index of the length of the dash in the array of the lengths of the dashes and the gaps.
+            public int StartSegment;        // The segment of the flattened path that holds the start of the dash.
+            public int EndSegment;          // The segment of the flattened path that holds the end of the dash.
+            public int FirstPoint;          // The first point of the flattened path that the dash crosses.
+            public int EndPoint;            // The point of the flattened path after the last one that the dash crosses.
+            public bool IsVertexLeftOut;    // Whether a rule of the vertices left a vertex out of the dash.
+        }
 
-        // Draw a dashed lines. The dashLengths array contains the dash/gap lengths for the whole line. If we reach 
-        // the end of this array, we wrap around. The variable offsetToStart indicates how far into the array to 
+        // The dashes of a dashed line along the path, as DrawDashedCore draws them: from the start of the path, with the
+        // lengths of the dashes and the gaps in turn, a dash first, measured with a metric. This is the geometry of the
+        // drawing of a dashed line, for the geometry method of lines (LineSymDef.TryAddClippingObjects), apart from it.
+        // dashLengths: the lengths of the dashes and the gaps in turn, a dash first.
+        // metric: the metric that measures the lengths.
+        // offsetRight: the distance of the line to the right of the path, or 0.
+        // miterLimit: the miter limit of the offset.
+        // pathVertexLimit, drawnVertexLimit: the limits of the rules of the vertices next to the ends of a dash, as
+        //   DrawDashedOffset takes them.
+        internal List<DashOnPath> GetDashes(float[] dashLengths, DistanceMetric metric, float offsetRight, float miterLimit, float pathVertexLimit, float drawnVertexLimit)
+        {
+            List<DashOnPath> dashes = new List<DashOnPath>();
+            GetFlattenedPoints();
+            if (flatpoints.Length == 0)
+                return dashes;
+
+            double nextLength = dashLengths[0];     // The distance from prevPoint to the next end of a dash or a gap.
+            int curDash = 0;                        // The index of the dash or the gap that the walk is in.
+            bool inDrawnPart = true;
+            PointF prevPoint = flatpoints[0];
+            PointF lastDashEnd = prevPoint;         // The last end of a dash or a gap.
+            int lastDashEndIndex = 1;               // The index of the flattened point after it.
+            int lastDashEndSegment = 0;             // The segment that holds it.
+            int i = 1;
+
+            while (i < flatpoints.Length) {
+                PointF nextPoint = flatpoints[i];
+                double distX = nextPoint.X - prevPoint.X;
+                double distY = nextPoint.Y - prevPoint.Y;
+                double dist = metric(nextPoint, prevPoint);
+
+                if (nextLength < dist) {
+                    double fraction = nextLength / dist;
+                    PointF pt = new PointF((float)(prevPoint.X + distX * fraction), (float)(prevPoint.Y + distY * fraction));
+
+                    if (inDrawnPart)
+                        dashes.Add(MakeDashOnPath(lastDashEnd, lastDashEndIndex, i, pt, curDash, lastDashEndSegment, i - 1, offsetRight, miterLimit, pathVertexLimit, drawnVertexLimit));
+
+                    lastDashEnd = pt;
+                    lastDashEndIndex = i;
+                    lastDashEndSegment = i - 1;
+                    inDrawnPart = !inDrawnPart;
+
+                    ++curDash;
+                    if (curDash >= dashLengths.Length)
+                        curDash = 0;
+                    nextLength += dashLengths[curDash];
+                }
+                else {
+                    prevPoint = nextPoint;
+                    nextLength -= dist;
+                    ++i;
+                }
+            }
+
+            if (inDrawnPart) {
+                int last = flatpoints.Length - 1;
+                dashes.Add(MakeDashOnPath(lastDashEnd, lastDashEndIndex, last, flatpoints[last], curDash, lastDashEndSegment, Math.Max(0, last - 1), offsetRight, miterLimit, pathVertexLimit, drawnVertexLimit));
+            }
+
+            return dashes;
+        }
+
+        // One dash of GetDashes: from start, through the flattened points from firstIndex up to endIndex (not included),
+        // to end, with the rules of the vertices next to its ends and the offset, as DrawDash makes it.
+        private DashOnPath MakeDashOnPath(PointF start, int firstIndex, int endIndex, PointF end, int dashIndex, int startSegment, int endSegment, float offsetRight, float miterLimit, float pathVertexLimit, float drawnVertexLimit)
+        {
+            int count = 2 + Math.Max(0, endIndex - firstIndex);
+            PointF[] pts = new PointF[count];
+            bool[] isVertex = new bool[count];
+            pts[0] = start;
+            pts[count - 1] = end;
+            for (int k = 1; k < count - 1; ++k) {
+                pts[k] = flatpoints[firstIndex + k - 1];
+                isVertex[k] = flatkinds[firstIndex + k - 1] != PointKind.Interpolated;
+            }
+
+            PointF[] kept = LeaveOutVerticesNextToEnds(pts, ref isVertex, pathVertexLimit);
+            if (offsetRight != 0)
+                kept = OffsetPointsRight(kept, offsetRight, miterLimit);
+            int countAfterPathRule = kept.Length;
+            kept = LeaveOutVerticesNextToEnds(kept, ref isVertex, drawnVertexLimit);
+
+            return new DashOnPath() {
+                Points = kept, DashIndex = dashIndex, StartSegment = startSegment, EndSegment = endSegment,
+                FirstPoint = firstIndex, EndPoint = Math.Max(firstIndex, endIndex),
+                IsVertexLeftOut = kept.Length < count || countAfterPathRule < count
+            };
+        }
+
+
+        // Draw a dashed lines. The dashLengths array contains the dash/gap lengths for the whole line. If we reach
+        // the end of this array, we wrap around. The variable offsetToStart indicates how far into the array to
         // start.
         internal void DrawDashed(IGraphicsTarget g, object penKey, float[] dashLengths, float offsetToStart, DistanceMetric metric)
         {
