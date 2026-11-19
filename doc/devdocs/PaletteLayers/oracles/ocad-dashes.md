@@ -452,3 +452,29 @@ they agree. So OCAD draws its bitmaps by a rule of its own, which depends on the
   geometry.
 - The sample does not tell how the limit depends on the angle of the turn, on the width of the borders of a double
   line, or on a main line beside the borders.
+
+## The seventh sample
+
+The PDF export of the sixth sample showed OCAD's limit for the piece of a dash beyond a vertex at turns of 90° only.
+The seventh sample finds how the limit depends on the angle of the turn, on the width of a single line, and on the
+borders and the main line of a double line. It also finds whether OCAD leaves out a vertex inside a dash or in a solid
+line. Purple Pen wrote it on Nov 19 as [dashes-7-ocad12-euclidean.ocd](ocad-dashes/dashes-7-ocad12-euclidean.ocd),
+from [dashes-7-cells.json](ocad-dashes/dashes-7-cells.json): 614 cells in 41 rows. Each vertex cell is a line of three
+straight parts with coordinates on the grid of 0.01 mm: 3 mm along x, a part at 60°, and a part that turns right by
+the angle of its row. A dash starts the given piece before the second vertex, or ends the given piece after it, by
+exact arithmetic. All the dashes are 2.0 mm, with end dashes of 2.0 mm and gaps of 0.5 mm, and all the lines have
+miter joins and flat ends.
+
+| Symbols | Lines | Turns | Pieces |
+| --- | --- | --- | --- |
+| L100, L030 | single lines of 1.0 and 0.3 mm | 30°, 60°, 90°, 120°, 150° | 0.05 to 1.00 mm, 0.02 to 0.80 mm |
+| L006, L010, L020, L050 | single lines of 0.06, 0.10, 0.20 and 0.50 mm | 90° | near half the width and near 0.05 mm |
+| DB10, DB15, DB30 | double lines without a main line: borders of 0.10, 0.15 and 0.30 mm, 0.6 mm apart | 90°, and 30° and 150° for DB15 | 0.02 to 0.30 mm |
+| DBM | a double line with borders of 0.15 mm, 0.6 mm apart, and a dashed main line of 0.5 mm | 90° | 0.02 to 0.30 mm |
+
+For each symbol and turn, there are two rows of cells: in one, a dash starts before the vertex, and in the other, a
+dash ends after it. The last row has the scope cells: a part of 0.10 or 0.30 mm between two turns of 45° in the middle
+of a dash of L100 and in S100, a solid line of 1.0 mm; a dash of L100 that starts 0.05 mm before a vertex, followed by
+two parts of 0.10 mm; and a line of S100 whose first part is 0.10 mm and whose last part is 0.30 mm.
+[Purple Pen's drawing](ocad-dashes/purple-pen-dashes-7-ocad12-euclidean-150dpi.png) at 150 dpi shows the cells. The
+oracle of this sample is OCAD's PDF export.

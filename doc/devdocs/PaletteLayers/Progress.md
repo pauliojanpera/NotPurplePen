@@ -167,7 +167,8 @@ the rendering.
   0.05 mm on a double line without a main line ([oracles/ocad-dashes.md](oracles/ocad-dashes.md)). The bitmap
   exports follow a rule of their own, which depends on the resolution. All the turns of the sixth sample are 90°. The
   seventh sample finds how the limit depends on the angle of the turn, on the width of the borders and on a main line,
-  and the fix of ticket [020](tickets/020-dash-boundary-at-vertex.md) waits for its PDF export.
+  and the fix of ticket [020](tickets/020-dash-boundary-at-vertex.md) waits for its PDF export. The file is on
+  @Pauli's drive in `ocad-dashes-7`.
 - **Offering upstream.** No branch is offered upstream yet.
 
 ## Decisions
