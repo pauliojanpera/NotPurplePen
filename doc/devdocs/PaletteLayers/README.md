@@ -59,10 +59,10 @@ specification, @Pauli, Nov 18).
 - `feature/palette-layers` collects the parts that are done, as `feature/svg-target` collects the SVG work.
 - A merge into it names the work that it brings in its subject, and lists the commits in its body, as a merge into a
   shared branch does. It tells how a conflict was resolved.
-- The merge messages of `feature/palette-layers`, the merges into `base` that `tools/push-wip.sh` makes for the runs of
-  `wip/linux/palette-layers`, list the branches merged into `feature/palette-layers` that the push builds for the
-  first time. The commit that the push starts the runs on holds the list (@Pauli, Nov 19). The script writes the
-  list into the merge and into each commit that it adds on it.
+- The trial build of `feature/palette-layers` on the site of NotPurplePen tells what it holds: the message of the commit
+  that a push of `wip/linux/palette-layers` builds lists the ten work branches merged into `feature/palette-layers`
+  last (@Pauli, Nov 19). `tools/push-wip.sh` writes the list into each commit that it makes, and the site shows the
+  message under the commit of the build.
 - `feature/palette-layers` runs in full on `wip/linux/palette-layers`, on `base`.
 
 ## Tracking

@@ -18,7 +18,7 @@ Python 3 with Pillow, git, the GitHub CLI signed in to the repository, and the .
   selects.
 - `push-wip.sh` rebuilds and pushes the `wip/linux/` branch of a branch for a full run on `base`, or on another base
   branch that `--base` names, and can collect the moved images or give a new Skia test a blank baseline. Its commits
-  list the branches merged into the branch since the last passing run of the wip branch, which the build shows.
+  list the ten branches merged into the branch last, which the site shows with a trial build.
 - `LinuxMapModelTestRun/` is a project that runs test files of `Test_MapModel` on Linux, as `src/Testing/LinuxTestRun`
   runs those of `PurplePen_Tests`.
 
