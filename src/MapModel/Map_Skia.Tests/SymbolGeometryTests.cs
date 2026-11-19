@@ -452,6 +452,85 @@ namespace Map_Skia.Tests
             return line;
         }
 
+        // The branches of the drawing of areas and graphics objects, each of which their geometry methods follow: an area
+        // with a fill alone, with a border alone and with both, along a path with holes, along which the border goes
+        // too, and along a path with a Bezier curve; a dashed border, and hatchings and a pattern, which pass 1 leaves
+        // out; a combined area of a dashed line, an area and a line; and a graphics area and a graphics line.
+        [Test]
+        public void GeometryMethodOfAreasFollowsEachBranchOfTheirDrawing()
+        {
+            Map map = CreateMap();
+            List<Symbol> symbols = new List<Symbol>();
+            SymColor green, blue, brown, black;
+            using (map.Write()) {
+                green = map.AddColor("Green", 1, 0.76F, 0, 0.91F, 0, false);
+                blue = map.AddColor("Blue", 2, 1, 0, 0, 0, false);
+                brown = map.AddColor("Brown", 3, 0, 0.56F, 1, 0.18F, false);
+                black = map.AddColor("Black", 4, 0, 0, 0, 1, false);
+
+                LineSymDef border = AddLineSymDef(map, new LineSymDef("Border", "1", black, 0.2F, LineJoinMode.Miter, LineCapMode.Flat));
+                LineSymDef dashedBorder = new LineSymDef("Dashed border", "2", brown, 0.15F, LineJoinMode.Miter, LineCapMode.Flat);
+                dashedBorder.SetDashInfo(new LineSymDef.DashInfo() { dashLength = 1, firstDashLength = 1, lastDashLength = 1, gapLength = 0.3F });
+                AddLineSymDef(map, dashedBorder);
+                AreaSymDef fill = AddAreaSymDef(map, new AreaSymDef("Fill", "3", green, null));
+                AreaSymDef outline = AddAreaSymDef(map, new AreaSymDef("Outline", "4", null, border));
+                AreaSymDef filledAndOutlined = AddAreaSymDef(map, new AreaSymDef("Fill and outline", "5", green, border));
+                AreaSymDef hatched = new AreaSymDef("Hatched", "6", blue, dashedBorder);
+                hatched.AddHatching(new AreaSymDef.HatchInfo() { hatchColor = black, hatchWidth = 0.1F, hatchSpacing = 0.5F, hatchAngle = 45 });
+                hatched.AddPattern(new AreaSymDef.PatternInfo() { patternGlyph = CreateGlyph(glyph => glyph.AddFilledCircle(brown, new PointF(0, 0), 0.3F)), patternWidth = 1, patternHeight = 1 });
+                AddAreaSymDef(map, hatched);
+                AreaComboSymDef combined = new AreaComboSymDef("Combined", "7", new SymDef[] { dashedBorder, fill, border });
+                map.AddSymdef(combined);
+                GraphicsSymDef graphics = new GraphicsSymDef();
+                map.AddSymdef(graphics);
+
+                SymPathWithHoles withHoles = new SymPathWithHoles(CreateSquarePath(6, 0, 4), new SymPath[] { CreateSquarePath(7, 1, 1), CreateSquarePath(8.5F, 2, 1) });
+                SymPathWithHoles curved = new SymPathWithHoles(new SymPath(
+                    new PointF[] { new PointF(0, 10), new PointF(1, 12), new PointF(3, 12), new PointF(4, 10), new PointF(4, 8), new PointF(0, 8), new PointF(0, 10) },
+                    new PointKind[] { PointKind.Normal, PointKind.BezierControl, PointKind.BezierControl, PointKind.Normal, PointKind.Normal, PointKind.Normal, PointKind.Normal }), null);
+                symbols.Add(AddArea(map, fill, new SymPathWithHoles(CreateSquarePath(0, 0, 4), null)));
+                symbols.Add(AddArea(map, outline, new SymPathWithHoles(CreateSquarePath(0, 5, 4), null)));
+                symbols.Add(AddArea(map, filledAndOutlined, withHoles));
+                symbols.Add(AddArea(map, hatched, curved));
+                symbols.Add(AddArea(map, combined, new SymPathWithHoles(CreateSquarePath(12, 0, 4), null)));
+                symbols.Add(new GraphicsAreaSymbol(graphics, withHoles, brown));
+                symbols.Add(new GraphicsLineSymbol(graphics, new SymPath(new PointF[] { new PointF(0, 15), new PointF(5, 16) }), blue, 0.3F, LineJoinMode.Round, LineCapMode.Round));
+                map.AddSymbol(symbols[symbols.Count - 2]);
+                map.AddSymbol(symbols[symbols.Count - 1]);
+            }
+
+            using (map.Read()) {
+                foreach (Symbol symbol in symbols)
+                    Assert.IsTrue(symbol.TryAddClippingObjects(new LayerInstanceBuilder(map.AllColors)), "{0}", symbol.Definition.Name);
+            }
+            IReadOnlyList<LayerInstance> instances = CreateInstances(map);
+
+            AssertSameStructure(CollectInstances(map), instances);
+            // Green: the fills of the areas of a fill, and of the combined area. Blue: the fill of the hatched area, but
+            // not its hatching, and the graphics line. Brown: the dashes of the border of the hatched area and of the
+            // combined area, and the graphics area, but not the pattern. Black: the border of the outlined area, the
+            // border of the area with holes along its path and its two holes, and the line of the combined area.
+            CollectionAssert.AreEqual(new SymColor[] { green, blue, brown, black }, instances.Select(instance => instance.PaletteEntry));
+            CollectionAssert.AreEqual(new int[] { 3, 2, 5 }, new int[] { 0, 1, 3 }.Select(index => instances[index].ClippingObjects.Count));
+            Assert.Greater(instances[2].ClippingObjects.Count, 3);
+            Assert.IsInstanceOf<FilledShape>(instances[2].ClippingObjects.Last());
+        }
+
+        // Add an area symbol definition to a map, and return it.
+        static AreaSymDef AddAreaSymDef(Map map, AreaSymDef symdef)
+        {
+            map.AddSymdef(symdef);
+            return symdef;
+        }
+
+        // Add an area of a definition along a path with holes to a map, and return it.
+        static AreaSymbol AddArea(Map map, AreaLikeSymDef symdef, SymPathWithHoles path)
+        {
+            AreaSymbol area = new AreaSymbol(symdef, path, 0, new PointF());
+            map.AddSymbol(area);
+            return area;
+        }
+
         // The names of the map files of the Skia rendering tests: each OCAD and Mapper file in skia_render.
         static IEnumerable<string> FindMapFilesOfTheRenderingTests()
         {

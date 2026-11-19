@@ -607,6 +607,14 @@ namespace PurplePen.MapModel
             def.Draw(g, Path, color, angle, rotationCenter, renderOpts);
         }
 
+        // Add the clipping objects of the area to the layer instances of pass 1 with the geometry method of its
+        // definition (AreaLikeSymDef.AddClippingObjects).
+        internal override bool TryAddClippingObjects(LayerInstanceBuilder instances)
+        {
+            def.AddClippingObjects(instances, Path);
+            return true;
+        }
+
         // Highlight the symbol.
         public override void DrawHighlight(IGraphicsTarget g, HighlightOptions options)
         {
@@ -922,6 +930,15 @@ namespace PurplePen.MapModel
             }
         }
 
+        // Add the clipping object of the area to the layer instances of pass 1, as Draw fills it: the path with its
+        // holes, in the fill color.
+        internal override bool TryAddClippingObjects(LayerInstanceBuilder instances)
+        {
+            if (fillColor != null)
+                instances.Add(fillColor, Path.MakeFilledShape(Placement.Identity));
+            return true;
+        }
+
 
         // Highlight the symbol.
         public override void DrawHighlight(IGraphicsTarget g, HighlightOptions options)
@@ -1098,6 +1115,15 @@ namespace PurplePen.MapModel
 
                 path.Draw(g, this);
             }
+        }
+
+        // Add the clipping object of the line to the layer instances of pass 1, as Draw draws it: the path with the pen
+        // of the line, in the color of the line.
+        internal override bool TryAddClippingObjects(LayerInstanceBuilder instances)
+        {
+            if (lineColor != null)
+                instances.Add(lineColor, path.MakeStrokedShape(new Stroke(thickness, lineCap, lineJoin, GraphicsUtil.MITER_LIMIT), Placement.Identity));
+            return true;
         }
 
         // Highlight the symbol.

@@ -2190,7 +2190,26 @@ namespace PurplePen.MapModel
 
         internal abstract RectangleF HighlightBounds(SymPathWithHoles path, RectangleF boundingBox, HighlightOptions options);
 
+        // The geometry method of an area of this definition: add its clipping objects to the layer instances of pass 1,
+        // each to the instance of its color, in the order that Draw draws the shapes of a color. The hatchings and the
+        // patterns are repetitive geometry, which pass 1 leaves out.
+        // instances: the layer instances.
+        // path: the path of the area, with its holes.
+        internal abstract void AddClippingObjects(LayerInstanceBuilder instances, SymPathWithHoles path);
 
+        // Add the clipping objects of a line along the path of an area and along each of its holes, as an area draws its
+        // border.
+        // instances: the layer instances.
+        // lineSymDef: the definition of the line.
+        // path: the path of the area, with its holes.
+        private protected static void AddClippingObjectsOfBorder(LayerInstanceBuilder instances, LineLikeSymDef lineSymDef, SymPathWithHoles path)
+        {
+            lineSymDef.AddClippingObjects(instances, path.MainPath);
+            if (path.Holes != null) {
+                foreach (SymPath hole in path.Holes)
+                    lineSymDef.AddClippingObjects(instances, hole);
+            }
+        }
     }
 
     public class AreaComboSymDef: AreaLikeSymDef
@@ -2297,6 +2316,20 @@ namespace PurplePen.MapModel
                 else {
                     ((AreaLikeSymDef)component).Draw(g, path, color, angle, rotationCenter, renderOpts);
                 }
+            }
+        }
+
+        // The geometry method of an area: the clipping objects of each component, in the order of the components, as
+        // Draw draws them. A line component goes along the path and along each of its holes.
+        // instances: the layer instances.
+        // path: the path of the area, with its holes.
+        internal override void AddClippingObjects(LayerInstanceBuilder instances, SymPathWithHoles path)
+        {
+            foreach (SymDef component in components) {
+                if (component is LineLikeSymDef lineSymDef)
+                    AddClippingObjectsOfBorder(instances, lineSymDef, path);
+                else
+                    ((AreaLikeSymDef)component).AddClippingObjects(instances, path);
             }
         }
 
@@ -2611,6 +2644,20 @@ namespace PurplePen.MapModel
                     foreach (SymPath hole in path.Holes)
                         borderSymdef.Draw(g, hole, color, renderOpts);
             }
+        }
+
+        // The geometry method of an area: the fill of the path with its holes, and the border along the path and along
+        // each of its holes, as Draw draws them. The hatchings and the patterns are repetitive geometry, which pass 1
+        // leaves out (RenderOptions.omitHatchingsAndPatterns).
+        // instances: the layer instances.
+        // path: the path of the area, with its holes.
+        internal override void AddClippingObjects(LayerInstanceBuilder instances, SymPathWithHoles path)
+        {
+            if (fillColor != null)
+                instances.Add(fillColor, path.MakeFilledShape(Placement.Identity));
+
+            if (borderSymdef != null)
+                AddClippingObjectsOfBorder(instances, borderSymdef, path);
         }
 
         // Draw the hatching into the interior of the SymPath.
