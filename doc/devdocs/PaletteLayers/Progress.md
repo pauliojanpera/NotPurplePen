@@ -31,7 +31,8 @@ and on the borders of double lines as Purple Pen does, except where a dash start
 ([020](tickets/020-dash-boundary-at-vertex.md)). The fixes 015 to 019 are merged into `feature/palette-layers`
 (@Pauli, Nov 19), and its full run passed with them. The PDF export of the sixth sample showed that OCAD leaves the
 vertex out of a dash whose piece beyond the vertex is short: on a single line shorter than half its width, at a turn
-of 90°. A seventh sample finds how the limit depends on the angle of the turn and on the borders of a double line.
+of 90°. The seventh sample gave the rule: shorter than 0.4 times the width of a single line at any angle, and on a
+double line about 0.05 mm for the dash of the middle and 0.4 times the width of each border for its own dash.
 
 ## Branches
 
@@ -162,13 +163,13 @@ the rendering.
 - **The SVG encoding**, when pass 2 is done (Nov 18). Its place: an encoding read from the instances, or the SVG
   target of NotPurplePen fitted to them in the integration. And whether the work can use the documented findings or
   the code of `feature/svg-target`. The notes of the epic give the reasons.
-- **The PDF export of the seventh dash sample** (Nov 19). In the PDF export of the sixth sample, OCAD leaves the
-  vertex out of a dash whose piece beyond the vertex is shorter than half the width of a single line, or than about
-  0.05 mm on a double line without a main line ([oracles/ocad-dashes.md](oracles/ocad-dashes.md)). The bitmap
-  exports follow a rule of their own, which depends on the resolution. All the turns of the sixth sample are 90°. The
-  seventh sample finds how the limit depends on the angle of the turn, on the width of the borders and on a main line,
-  and the fix of ticket [020](tickets/020-dash-boundary-at-vertex.md) waits for its PDF export. The file is on
-  @Pauli's drive in `ocad-dashes-7`.
+- **The rule of fix 020** (Nov 19). The PDF exports of the sixth and the seventh dash sample give OCAD's rule
+  ([oracles/ocad-dashes.md](oracles/ocad-dashes.md)): OCAD leaves the vertex next to the start or the end of a dash out
+  of the dash when the piece between them is shorter than 0.4 times the width of a single line, at any angle. On a
+  double line, the dash of the middle leaves it out up to about 0.05 mm, and each border then applies the rule of a
+  single line to its own dash with the width of the border. The rule does not repeat and does not touch a solid line.
+  OCAD's rounding to its grid of 0.01 mm decides near a limit. The fix of ticket
+  [020](tickets/020-dash-boundary-at-vertex.md) waits for @Pauli's choice of the rule.
 - **Offering upstream.** No branch is offered upstream yet.
 
 ## Decisions

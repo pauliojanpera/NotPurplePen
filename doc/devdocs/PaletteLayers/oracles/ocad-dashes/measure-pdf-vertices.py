@@ -108,6 +108,11 @@ def line_groups(sym):
     return groups
 
 
+def path_length(path):
+    """The length of a path in mm: a dash is longer than 1 mm even where it turns back."""
+    return sum(math.dist(path["mm"][i], path["mm"][i + 1]) for i in range(len(path["mm"]) - 1))
+
+
 def on_grid(point):
     """The point of OCAD's grid of 0.01 mm nearest to a point of the PDF, which gives a third of a unit."""
     return (round(point[0] * 100) / 100, round(point[1] * 100) / 100)
@@ -126,8 +131,8 @@ def measure_vertices(cells, paths):
         groups = line_groups(sym)
         found = {name: [] for name in groups}
         for p in symbol_paths(paths, cell["symbol"]):
-            near, far = (p["mm"][0], p["mm"][-1]) if starts else (p["mm"][-1], p["mm"][0])
-            if math.dist(near, v2) <= reach and math.dist(near, far) > 1.0:
+            near = p["mm"][0] if starts else p["mm"][-1]
+            if math.dist(near, v2) <= reach and path_length(p) > 1.0:
                 name = min(groups, key=lambda g: abs(groups[g] - p["width"] * PT))
                 found[name].append(p)
         for name in groups:

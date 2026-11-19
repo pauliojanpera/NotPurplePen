@@ -478,3 +478,61 @@ of a dash of L100 and in S100, a solid line of 1.0 mm; a dash of L100 that start
 two parts of 0.10 mm; and a line of S100 whose first part is 0.10 mm and whose last part is 0.30 mm.
 [Purple Pen's drawing](ocad-dashes/purple-pen-dashes-7-ocad12-euclidean-150dpi.png) at 150 dpi shows the cells. The
 oracle of this sample is OCAD's PDF export.
+
+@Pauli exported the file on Nov 19 to [PDF](ocad-dashes/ocad-viewer-dashes-7-ocad12-euclidean.pdf), and at 1200 dpi,
+which this file does not use. `measure-pdf-vertices.py dashes-7-cells.json ocad-viewer-dashes-7-ocad12-euclidean.pdf`
+gives the values.
+
+### The values
+
+On the single lines, the limit is 0.4 times the width of the line, at all the angles. The pieces are OCAD's, in units
+of 0.01 mm:
+
+| Symbol | Width | Vertex left out: longest piece | Vertex kept: shortest piece | 0.4 × width |
+| --- | --- | --- | --- | --- |
+| L006 | 0.06 mm | 2.24 | 2.83 | 2.4 |
+| L010 | 0.10 mm | 3.61 | 4.47 | 4 |
+| L020 | 0.20 mm | 7.21 | 8.60 | 8 |
+| L030, turns of 30° to 150° | 0.30 mm | 11.66 | 12.00 | 12 |
+| L050, and the main line of DBM | 0.50 mm | 19.72 | 20.59 | 20 |
+| L100, turns of 30° to 150° | 1.00 mm | 39.82 | 40.00 | 40 |
+
+OCAD keeps the vertex of a piece of exactly 40.00 and 12.00 units, so it leaves the vertex out when the piece is
+shorter than the limit.
+
+The scope cells show that the rule concerns only the vertex next to the start or the end of a dash:
+
+- A part of 0.10 mm or 0.30 mm in the middle of a dash of L100 keeps both its vertices.
+- Where a dash of L100 starts 0.05 mm before a vertex and two parts of 0.10 mm follow, OCAD leaves out only the first
+  vertex. The second vertex stays, though the new first part is 0.14 mm, shorter than the limit. So the rule does not
+  repeat.
+- A solid line keeps all its vertices, also a first part of 0.10 mm and a last part of 0.30 mm.
+
+On a double line, two rules act:
+
+- The dash of the middle leaves out the vertex next to its end when the piece is up to about 0.045 mm, and keeps it
+  from about 0.058 mm: on DB15, DB30 and the borders of DBM between 5.00 and 5.83 units, on DB10 between 4.47 and
+  5.00 units, at 90° and 150°. This limit is the same for the borders of 0.15 and 0.30 mm, so it does not come from
+  their width.
+- Each border then leaves out the vertex next to the end of its own dash when its own piece, from its end to the corner
+  of the miter, is shorter than about 0.4 times the width of the border. The piece of the inner border is
+  |piece − h tan(turn/2)|, where h is the distance of the border from the path. So the inner border of DB15 leaves out
+  its corner where a dash starts 0.305 mm before a vertex of 90° (its own piece is 0.066 mm), and at a turn of 30° up
+  to a dash that starts 0.153 mm before the vertex. The outer border keeps its corner there. In the cells, the pieces
+  of the inner borders agree with 0.4 times the width within a unit: 3.95 left out and 8.90 kept on DB10, 5.71 and
+  6.59 left out and 10.17 kept on DB15, 12.69 kept on DB30.
+
+OCAD puts the boundaries of the dashes on its grid: in most cells at the exact boundary rounded down, in the others
+one unit beside it. The borders of a double line are the offsets of these rounded points, so where the piece is a
+few units long, its direction on the grid turns the borders a little.
+
+### What the seventh sample tells
+
+- On a single line, OCAD leaves out the vertex next to the start or the end of a dash when the piece between them is
+  shorter than 0.4 times the width of the line, whatever the angle of the turn. The dash then goes straight from its
+  boundary to the next point.
+- The rule does not repeat, and it does not touch the vertices inside a dash or the vertices of a solid line.
+- On a double line, the dash of the middle leaves out the vertex next to its end for a piece shorter than about
+  0.05 mm, and each border then applies the rule of a single line to its own dash, with the width of the border.
+- The limits are on OCAD's grid of 0.01 mm, so near a limit OCAD's rounding decides, and a rule on exact pieces
+  agrees with OCAD up to a unit.

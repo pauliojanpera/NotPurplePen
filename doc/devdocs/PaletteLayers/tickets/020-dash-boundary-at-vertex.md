@@ -6,7 +6,7 @@
 **Toistamisohjeet**  
 1. Piirrä oraakkelin neljännen näytteen tiedosto `dashes-4-ocad12-euclidean.ocd`.
 2. Mittaa solun DB16-2 vasemman reunan katkot reunan polkua pitkin ja vertaa niitä OCAD-viewerin vientiin.
-3. Rajan mittaa kuudes näyte: `measure-pdf-vertices.py dashes-6-cells.json ocad-viewer-dashes-6-ocad12-euclidean.pdf` kertoo kunkin solun PDF-viennistä, säilyykö taitepiste katkossa ja kuinka pitkä pätkä taitepisteen yli on OCADin yksikköinä.
+3. Säännön mittaavat kuudes ja seitsemäs näyte: esimerkiksi `measure-pdf-vertices.py dashes-7-cells.json ocad-viewer-dashes-7-ocad12-euclidean.pdf` kertoo kunkin solun PDF-viennistä, säilyykö taitepiste katkossa ja kuinka pitkä pätkä taitepisteen yli on OCADin yksikköinä.
 
 **Odotettu vs. Todellinen käytös**  
 `odotettu:` keskiviivan katko alkaa 0,004 mm ennen toista taitepistettä, ja OCADin tavoin ulkoreunan katko alkaa viisteen kulman jälkeen, reunan polulla kohdasta 15,74 mm, ja on 2,0 mm pitkä.  
@@ -18,9 +18,9 @@
 (_valinnainen_) **Ehdotettu korjaus / hypoteesi**  
 Kun katkon pätkä taitepisteen yli on lyhyempi kuin OCADin raja, katkoon ei oteta taitepistettä: katko kulkee rajastaan suoraan seuraavaan pisteeseen, kuten OCADin PDF-viennissä. Katkon raja ei siirry.
 
-Kuudennen näytteen PDF-viennissä raja on yksinkertaisella viivalla puolet viivan leveydestä. 1,0 mm:n viivalla taitepiste jää pois 30,36 yksikön (0,01 mm) pätkästä ja säilyy 50,01 yksikön pätkässä, ja 0,3 mm:n viivalla se jää pois 10,77 yksikön pätkästä ja säilyy 15,52 yksikön pätkässä. Kaksoisviivalla, jolla ei ole pääviivaa, raja on 4,47–5,39 yksikköä kummallakin reunojen etäisyydellä. OCAD pyöristää katkojen pisteet 0,01 mm:n ruudukkoon. Näytteen kaikki taitteet ovat 90°, ja siinä kulmassa puolet leveydestä on myös viisteen ulottuma osan suuntaan. Seitsemäs näyte selvittää siksi, riippuuko raja taitteen kulmasta, kaksoisviivan reunojen leveydestä tai pääviivasta.
+Seitsemännen näytteen PDF-vienti antoi säännön. Yksinkertaisella viivalla raja on 0,4 × viivan leveys taitteen kulmasta riippumatta: leveyksillä 0,06–1,0 mm ja kulmilla 30–150° OCAD jättää taitepisteen pois, kun pätkä on lyhyempi kuin 0,4 × leveys, ja pitää sen, kun pätkä on tasan raja (1,0 mm:n viivalla 40,00 yksikköä). Sääntö koskee vain katkon alkua ja loppua lähinnä olevaa taitepistettä. Se ei toistu, eikä se koske katkon sisäisiä taitepisteitä eikä ehjää viivaa. Kaksoisviivalla keskiviivan katko jättää taitepisteen pois noin 0,05 mm:iin asti (4,5–5,8 yksikköä), ja kumpikin reuna soveltaa sen jälkeen omaan katkoonsa yksinkertaisen viivan sääntöä reunan leveydellä. Sisäreunan oma pätkä viisteen kulmaan on |pätkä − h·tan(kulma/2)|, missä h on reunan etäisyys polusta. OCAD pyöristää katkojen pisteet 0,01 mm:n ruudukkoon, joten rajan kohdalla tarkkoihin pätkiin perustuva sääntö ja OCAD voivat erota yksikön verran.
 
-Bittikarttaviennit noudattavat yksinkertaisilla viivoilla omaa, tarkkuudesta riippuvaa sääntöään: 1200 dpi:llä 1,0 mm:n viiva saa kulman jo 0,20 mm:n pätkästä. PDF-vienti on OCADin geometria. @Pauli päätti, että OCADin raja selvitetään PDF-viennistä ja sääntö valitaan sen jälkeen (19.11.). Myös tiketin [011](011-line-geometry.md) koostettu katkoviiva noudattaa samaa sääntöä.
+Bittikarttaviennit noudattavat yksinkertaisilla viivoilla omaa, tarkkuudesta riippuvaa sääntöään. PDF-vienti on OCADin geometria. @Pauli päätti, että OCADin raja selvitetään PDF-viennistä ja sääntö valitaan sen jälkeen (19.11.). Myös tiketin [011](011-line-geometry.md) koostettu katkoviiva noudattaa samaa sääntöä.
 
 Vika löytyi tiketin [011](011-line-geometry.md) valmistelussa, kun kaksoisviivan reunoja verrattiin OCADiin.
 
