@@ -163,13 +163,6 @@ the rendering.
 - **The SVG encoding**, when pass 2 is done (Nov 18). Its place: an encoding read from the instances, or the SVG
   target of NotPurplePen fitted to them in the integration. And whether the work can use the documented findings or
   the code of `feature/svg-target`. The notes of the epic give the reasons.
-- **The rule of fix 020** (Nov 19). The PDF exports of the sixth and the seventh dash sample give OCAD's rule
-  ([oracles/ocad-dashes.md](oracles/ocad-dashes.md)): OCAD leaves the vertex next to the start or the end of a dash out
-  of the dash when the piece between them is shorter than 0.4 times the width of a single line, at any angle. On a
-  double line, the dash of the middle leaves it out up to about 0.05 mm, and each border then applies the rule of a
-  single line to its own dash with the width of the border. The rule does not repeat and does not touch a solid line.
-  OCAD's rounding to its grid of 0.01 mm decides near a limit. The fix of ticket
-  [020](tickets/020-dash-boundary-at-vertex.md) waits for @Pauli's choice of the rule.
 - **Offering upstream.** No branch is offered upstream yet.
 
 ## Decisions
@@ -219,6 +212,11 @@ the rendering.
 - **The limit of fix 020** (Nov 19). OCAD's limit for the piece of a dash beyond a vertex is found first from a PDF
   export of the sixth dash sample, whose dashes have coordinates and no pixels. The rule of the fix is chosen after
   that ([020](tickets/020-dash-boundary-at-vertex.md)).
+- **The rule of fix 020** (Nov 19). Purple Pen follows OCAD's rule as its PDF exports show it: the vertex next to the
+  start or the end of a dash is left out of the dash when the piece between them is shorter than 0.4 times the width of
+  a single line; on a double line, the dash of the middle leaves it out for a piece shorter than 0.05 mm, and each
+  border then applies the rule of a single line to its own dash with the width of the border
+  ([020](tickets/020-dash-boundary-at-vertex.md), [oracles/ocad-dashes.md](oracles/ocad-dashes.md)).
 - **The dashed lines** (Nov 18). A dashed line follows the principle that section 03 of
   [Specification.md](Specification.md) gives for the pattern fills: the basic model is a standard dashed line, and the
   exotic cases, such as the distance metric of OCAD, are split into parts, for a dashed line into single dashes. In
