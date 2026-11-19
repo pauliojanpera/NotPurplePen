@@ -406,13 +406,49 @@ make these limits narrower.
 At 600 dpi, OCAD draws the piece of the cell W start 0.10 with vertical sides, though its part has a direction of 70°.
 This agrees with a piece drawn from coordinates rounded to pixels.
 
+### The PDF export
+
+@Pauli exported the file to [PDF](ocad-dashes/ocad-viewer-dashes-6-ocad12-euclidean.pdf) on Nov 19. The PDF has each
+dash as a stroked path, on a layer for each symbol, with the coordinates of its points to 0.01 pt (0.0035 mm). The
+single lines have miter joins and flat ends. Each border of a double line is a path of its own: the offset of the
+dash of the middle, with the corner of the miter as a point, stroked with bevel joins and flat ends.
+[measure-pdf-vertices.py](ocad-dashes/measure-pdf-vertices.py) reads the paths. Below, a unit is 0.01 mm, the unit of
+OCAD's coordinates.
+
+- OCAD puts each point of a dash, on the path and on the borders, on its grid of units: no point is more than
+  0.0023 mm from the grid, which is the rounding of the PDF. So a boundary of a dash is up to 0.7 units from its exact
+  place.
+- Where the piece of a dash beyond the vertex is short, the vertex is not a point of the dash: the dash goes straight
+  from its boundary to the next point. OCAD does not move the boundary to the vertex. Where the piece is longer, the
+  vertex is a point of the dash, with the corner of the miter.
+- The two borders of a double line keep or leave out the vertex together.
+
+| Symbol | Vertex left out: longest piece | Vertex kept: shortest piece |
+| --- | --- | --- |
+| W, line of 1.0 mm | 30.36 units | 50.01 units |
+| W3, line of 0.3 mm | 10.77 units | 15.52 units |
+| DB6, DB16, borders of 0.15 mm, main line of width 0 | 4.47 units | 5.39 units |
+
+The piece is the distance between the vertex and OCAD's point of the boundary, which is on the grid. For a double
+line, the boundary is the midpoint of the ends of the two borders.
+
+On the single lines, half the width of the line is in the limits: 50 and 15 units. On the double lines, the limit is
+between 4.47 and 5.39 units, for both distances of the borders. All the turns of the sample are 90°, where half the
+width is also the extension of the miter along the part, (w/2) tan(turn/2). So the sample does not tell whether the
+limit depends on the angle of the turn.
+
+The bitmap exports do not agree with the PDF on the single lines. At 1200 dpi, OCAD draws the corner of W from a piece
+of 0.20 mm and of W3 from 0.08 mm, where the PDF leaves the vertex out up to 0.30 and 0.11 mm. On the double lines
+they agree. So OCAD draws its bitmaps by a rule of its own, which depends on the resolution.
+
 ### What the sixth sample tells
 
-- OCAD leaves out a short piece of a dash beyond a vertex: the dash starts or ends at the vertex.
-- For the line of 0.3 mm and the borders of 0.15 mm, the limit is about 0.055 to 0.06 mm. It is the same at a start
-  and at an end, at both resolutions, and for both distances of the borders from the path.
-- For the line of 1.0 mm, the limit depends on the resolution of the export: about 0.09 to 0.10 mm at 600 dpi, and
-  0.16 to 0.21 mm at 1200 dpi. So OCAD's limit is not only geometry: it also depends on how OCAD draws a wide line in
-  pixels.
-- A rule that does not depend on the resolution can follow OCAD for thin lines at both resolutions. For a wide line, it
-  can follow only one of the exports.
+- OCAD leaves the vertex out of a dash whose piece beyond the vertex is short: the dash goes straight from its
+  boundary to the next point.
+- In the PDF, the limit on a single line is half its width, at a turn of 90°. On a double line without a main line,
+  it is about 5 units (between 4.47 and 5.39).
+- OCAD puts the points of the dashes on its grid of 0.01 mm.
+- OCAD's bitmaps follow a different rule on the single lines, which depends on the resolution. The PDF gives OCAD's
+  geometry.
+- The sample does not tell how the limit depends on the angle of the turn, on the width of the borders of a double
+  line, or on a main line beside the borders.

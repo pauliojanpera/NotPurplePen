@@ -29,9 +29,9 @@ showed the rules of OCAD that the fixes [016](tickets/016-ocad-metric-parameter.
 [019](tickets/019-ocad-minimum-gaps.md) follow. A fourth sample showed that OCAD composes the dashes at corner points
 and on the borders of double lines as Purple Pen does, except where a dash starts or ends very near a vertex
 ([020](tickets/020-dash-boundary-at-vertex.md)). The fixes 015 to 019 are merged into `feature/palette-layers`
-(@Pauli, Nov 19), and its full run passed with them. The sixth sample showed that OCAD leaves out a short piece of a
-dash beyond a vertex, up to about 0.06 mm on thin lines. On a wide line the limit depends on the resolution of the
-export, so @Pauli decided to find OCAD's own limit from a PDF export of the sample first.
+(@Pauli, Nov 19), and its full run passed with them. The PDF export of the sixth sample showed that OCAD leaves the
+vertex out of a dash whose piece beyond the vertex is short: on a single line shorter than half its width, at a turn
+of 90°. A seventh sample finds how the limit depends on the angle of the turn and on the borders of a double line.
 
 ## Branches
 
@@ -162,13 +162,12 @@ the rendering.
 - **The SVG encoding**, when pass 2 is done (Nov 18). Its place: an encoding read from the instances, or the SVG
   target of NotPurplePen fitted to them in the integration. And whether the work can use the documented findings or
   the code of `feature/svg-target`. The notes of the epic give the reasons.
-- **The PDF export of the sixth dash sample** (Nov 19). OCAD leaves out the piece of a dash beyond a vertex up to about
-  0.055 to 0.06 mm on a line of 0.3 mm and on borders of 0.15 mm, at 600 and 1200 dpi alike. On a line of 1.0 mm, its
-  limit is about 0.09 mm at 600 dpi and 0.16 to 0.21 mm at 1200 dpi ([oracles/ocad-dashes.md](oracles/ocad-dashes.md),
-  the sixth sample). A rule that does not depend on the resolution follows one export only on a wide line. @Pauli
-  decided to find OCAD's own limit first from a PDF export of the sixth sample, whose dashes have coordinates and no
-  pixels, and to choose the rule after that. The fix of ticket [020](tickets/020-dash-boundary-at-vertex.md) waits for
-  the export.
+- **The PDF export of the seventh dash sample** (Nov 19). In the PDF export of the sixth sample, OCAD leaves the
+  vertex out of a dash whose piece beyond the vertex is shorter than half the width of a single line, or than about
+  0.05 mm on a double line without a main line ([oracles/ocad-dashes.md](oracles/ocad-dashes.md)). The bitmap
+  exports follow a rule of their own, which depends on the resolution. All the turns of the sixth sample are 90°. The
+  seventh sample finds how the limit depends on the angle of the turn, on the width of the borders and on a main line,
+  and the fix of ticket [020](tickets/020-dash-boundary-at-vertex.md) waits for its PDF export.
 - **Offering upstream.** No branch is offered upstream yet.
 
 ## Decisions
