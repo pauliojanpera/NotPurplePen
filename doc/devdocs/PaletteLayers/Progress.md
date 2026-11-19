@@ -283,6 +283,26 @@ the rendering.
   does current OCAD, also in a map with the euclidean metric: the PDF export of a sample shows it
   ([oracles/ocad-line-text.md](oracles/ocad-line-text.md)). Mapper maps have no text along lines in Purple Pen.
   Ticket [022](tickets/022-line-text-metric.md) is closed without a fix.
+- **The OCAD metric on curves** (Nov 19). In a map with the OCAD metric, the drawing places the dashes, and the glyphs
+  at lengths along the line, on a Bezier curve by the quarters of the curve. The count of the dashes, their lengths
+  and the ends of the quarters follow the OCAD metric, as before. In a quarter, the points are in proportion to the
+  euclidean length of the flattened arc. The straight segments do not change. So the drawing changes on the curves of
+  the maps with `p1`, and their baselines move. This changes the decision on the curves with the OCAD metric (question
+  8 of ticket 011), and the part of the best effort that keeps the present handling of the OCAD metric. The change is
+  not made yet.
+  - The observation: the OCAD metric is a known approximation of the euclidean length without a square root ("alpha
+    max plus beta min", with 1 and 1/2). It is a norm whose unit circle is an octagon. Along a direction, it measures
+    a euclidean length of 1 as 1.000 to 1.118. On a straight segment, an even euclidean step gives its points exactly.
+    On a curve, no euclidean measure gives them, and no transformation of the path does.
+  - The reasons: the channels measure the euclidean length, and with the decision each straight segment and each
+    quarter has an even euclidean step, so each run and each repetition can be euclidean. The OCAD metric is probably
+    an approximation for speed, with an error of up to 11.8 %, and the decision moves the points in a quarter by at
+    most 0.0058 times the radius on a curve that turns 90°. Purple Pen's present placement is up to 0.25 mm from OCAD,
+    and 0.79 mm on a loop. The OCAD metric is best effort.
+  - In the questions 6 and 7 of ticket 011, a vertex was a point of the flattened path, so the dashes and the glyphs on
+    a curve with the OCAD metric were single. @Pauli took a vertex to be a corner point that the user puts on the
+    curve.
+  - [OcadLines.md](../OcadLines.md) specifies OCAD's lines and gives the details of this decision.
 - **The framing line of texts** (Nov 19). The framing of a text run is one line in the instances, a stroke of the full
   width with the joins of the symbol, as in OCAD's PDF export. OCAD's own drawing leaves the same holes as Skia and
   Cairo with one pen, so the holes that the intermediate pens of Purple Pen fill are no faults against OCAD (question

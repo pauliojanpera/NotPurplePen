@@ -26,6 +26,7 @@ Korjaus on haarassa `fix/ocad-dashes-on-curves` (df4e9975 ja 0c6ec007). `SymPath
 
 **Päätökset**  
 - Neljännesmalli tehdään korjauksena euklidiselle metriikalle, ja OCADin metriikan kaarteet pysyvät ennallaan (@Pauli, 19.11.).
+- Myöhempi päätös: myös OCADin metriikan kartoissa katkot ja glyyfit sijoitetaan Bezier-käyrälle neljänneksittäin. Neljännesten päät noudattavat OCADin metriikkaa, ja neljänneksen sisällä pisteet ovat euklidisen kaaren suhteessa (@Pauli, 19.11., tiketti [011](011-line-geometry.md), [OcadLines.md](../../OcadLines.md)).
 - Haara juurtuu korjauksen 017 haaraan `fix/ocad-dash-count` (b99067b5), koska korjaus käyttää sen neljän jänteen mittaa. Upstreamille korjaus tarjotaan korjauksen 017 jälkeen (@Pauli, 19.11.).
 
 **Haara**  

@@ -664,6 +664,10 @@ the eighth sample.
 @Pauli's decision (Nov 19): fix [021](../tickets/021-ocad-dashes-on-curves.md) places the dashes on Bezier curves by
 the quarters, with the euclidean metric. The curves with the OCAD metric stay as they are.
 
+@Pauli's later decision (Nov 19): with the OCAD metric, the dashes on a Bezier curve are placed by its quarters too.
+The ends of the quarters follow the OCAD metric, and in a quarter the points are in proportion to the euclidean length
+of the arc ([OcadLines.md](../../OcadLines.md), ticket [011](../tickets/011-line-geometry.md)).
+
 ### The glyphs on curves
 
 The PDF export of the third sample has glyphs spaced along seven S curves (the cells GScurve, symbol GS1: a glyph
