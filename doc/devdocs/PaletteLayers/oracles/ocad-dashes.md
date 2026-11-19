@@ -575,8 +575,42 @@ gaps of 0.5 mm.
 | straight | L010, a line of 0.1 mm | Bezier curves that are straight, 20 mm along x, with their control points at fractions of the length (1/3 and 2/3, 0 and 1, 0.5 and 0.5, 0.1 and 0.3, 0.7 and 0.9, 0.25 and 0.25, 0 and 0.5, 0.5 and 1), so that the parameter runs at an uneven speed along them |
 | arcs | L010 | quarter circles of radius 3, 5, 10 and 20 mm, each one Bezier curve; half circles of radius 5 and 10 mm, each two curves; the S curve of the first sample |
 | DF 90 start, DF 90 end | DF, a double line with a dashed fill of 0.6 mm and dashed borders of 0.15 mm | a turn of 90°, where a dash starts 0.02 to 0.30 mm before the vertex or ends that much after it |
-| join start, join end | L100, a line of 1.0 mm | a straight part, then a quarter circle that leaves the join at 90° to it; a dash starts 0.1, 0.2, 0.3 or 0.5 mm before the join or ends that much after it |
+| join start, join end | L100, a line of 1.0 mm | a straight part, then a quarter circle that continues it at the join without a turn; a dash starts 0.1, 0.2, 0.3 or 0.5 mm before the join or ends that much after it |
 
 On a straight Bezier curve, the ends of OCAD's dashes along x show directly how OCAD turns a length into a parameter
 of the curve: by the true arc, the dashes are even whatever the control points. The files are on @Pauli's drive in
 `ocad-dashes-8`. The oracle of this sample is OCAD's PDF export of both files.
+
+### The PDF exports of the eighth sample
+
+@Pauli exported both files as PDF on Nov 19:
+[ocad-viewer-dashes-8-ocad12-euclidean.pdf](ocad-dashes/ocad-viewer-dashes-8-ocad12-euclidean.pdf) and
+[ocad-viewer-dashes-8-ocad12-ocad-metric.pdf](ocad-dashes/ocad-viewer-dashes-8-ocad12-ocad-metric.pdf). OCAD writes
+a dash on a curve as Bezier pieces, and splits it where the curve has the parameters 1/4, 1/2 and 3/4.
+[measure-pdf-curves.py](ocad-dashes/measure-pdf-curves.py) compares the dashes of the euclidean file with two models
+(see the script):
+
+| Cells | Even along the true length | Each quarter measured by its chord |
+| --- | --- | --- |
+| straight Bezier curves, 8 cells | at most 0.016 mm | at most 0.016 mm |
+| quarter circles, radius 3 to 20 mm | at most 0.017 mm | at most 0.020 mm |
+| the S curve | 0.130 mm | 0.041 mm |
+
+- **The length of a curve.** On a straight curve, OCAD follows the true length whatever the control points, so it does
+  not turn a length into a parameter in proportion. On circles its dashes are even along the true arc. On the S curve,
+  which bends strongly, they are not: its second and ninth dashes are about 0.08 mm longer than the mean, and its gaps
+  near the ends are up to 0.54 mm long. A measure in which each quarter of the curve is as long as its chord fits
+  within 0.041 mm, but not exactly, so the rule of OCAD is not found. With the OCAD metric, no tested model fits the
+  quarter circles of radius 10 and 20 mm and the S curve: the errors are 0.06 to 0.14 mm.
+- **The dashed fill of a double line.** The fill of 0.6 mm leaves the vertex out where its piece is at most 0.20 mm,
+  and keeps it from 0.25 mm. The limit of fix 020, 0.4 times the width of the fill or 0.24 mm, fits.
+- **The borders of a double line.** Below 0.05 mm both borders leave the vertex out, by the rule of the middle. From
+  0.06 mm they keep it, except the inner border where the dash starts 0.30 mm before the vertex: its piece is about
+  0.07 mm, against the limit of 0.4 times 0.15 mm, 0.06 mm. That is within the grid of 0.01 mm.
+- **The join of a straight part and a curve** is a vertex for the rule: the line of 1.0 mm leaves it out where the
+  piece is 0.1 to 0.3 mm, and keeps it at 0.5 mm. Where a dash leaves out the join at its start, OCAD writes the dash
+  as one Bezier piece from its start on the straight part along the curve.
+
+@Pauli's decision on the curves (Nov 19): the even dashes along the true length, which Purple Pen draws, are
+acceptable, but the rule of OCAD is still to be found, and the decision is then made again. The ninth sample is for
+that.
