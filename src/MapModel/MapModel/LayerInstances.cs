@@ -241,8 +241,10 @@ namespace PurplePen.MapModel
 
         // The dashes of a dashed stroke as single dashes: each a stroked polyline of the solid line, from its start
         // through the points of the shape to its end, at the placement of the shape. The dashes follow the pattern along
-        // the shape, measured in the coordinates of the shape, from the phase. A solid stroke, or a shape that is not one
-        // open figure of lines, gives itself.
+        // the shape, measured in the coordinates of the shape, from the phase. Where the pattern and the shape end
+        // together, within RoundingOfLengths, the last dash ends at the end of the shape: the pattern does not start a
+        // dash there, except one of length 0. A solid stroke, or a shape that is not one open figure of lines, gives
+        // itself.
         public IReadOnlyList<StrokedShape> ExpandDashes()
         {
             PathShape path = Shape as PathShape;
@@ -278,7 +280,7 @@ namespace PurplePen.MapModel
                 dash.Add(points[0]);
             for (int i = 1; i < points.Count; ++i) {
                 PointF from = points[i - 1], to = points[i];
-                double segment = Math.Sqrt((double)(to.X - from.X) * (to.X - from.X) + (double)(to.Y - from.Y) * (to.Y - from.Y));
+                double segment = MeasureSegment(from, to);
                 double done = 0;
                 while (left < segment - done) {
                     done += left;
@@ -300,16 +302,37 @@ namespace PurplePen.MapModel
                 if (inDash)
                     dash.Add(to);
             }
-            if (inDash && dash.Count > 1) {
+            if (inDash && dash.Count > 1 && (pattern[index] == 0 || MeasurePolyline(dash) >= RoundingOfLengths)) {
                 dashes.Add(new StrokedShape(PathShape.FromPoints(dash.ToArray(), false), solid, Placement));
             }
-            else if (!inDash && Math.Abs(left) < 1e-6 && pattern[(index + 1) % pattern.Count] == 0) {
+            else if (!inDash && Math.Abs(left) < RoundingOfLengths && pattern[(index + 1) % pattern.Count] == 0) {
                 // A gap ends at the end of the shape, where a dash of length 0 follows it.
                 PointF end = points[points.Count - 1];
                 dashes.Add(new StrokedShape(PathShape.FromPoints(new PointF[] { end, end }, false), solid, Placement));
             }
 
             return dashes;
+        }
+
+        // The difference, in mm, within which the lengths of a pattern and of a shape that it dashes are equal: the
+        // rounding of lengths that are measured in floats.
+        private const double RoundingOfLengths = 0.00001;
+
+        // The length of a polyline.
+        // points: the points of the polyline.
+        private static double MeasurePolyline(List<PointF> points)
+        {
+            double length = 0;
+            for (int i = 1; i < points.Count; ++i)
+                length += MeasureSegment(points[i - 1], points[i]);
+            return length;
+        }
+
+        // The length of a line segment.
+        // from, to: the ends of the segment.
+        private static double MeasureSegment(PointF from, PointF to)
+        {
+            return Math.Sqrt((double)(to.X - from.X) * (to.X - from.X) + (double)(to.Y - from.Y) * (to.Y - from.Y));
         }
 
         public override string ToString()
