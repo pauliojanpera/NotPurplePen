@@ -559,3 +559,24 @@ few units long, its direction on the grid turns the borders a little.
   0.05 mm, and each border then applies the rule of a single line to its own dash, with the width of the border.
 - The limits are on OCAD's grid of 0.01 mm, so near a limit OCAD's rounding decides, and a rule on exact pieces
   agrees with OCAD up to a unit.
+
+## The eighth sample
+
+Two questions stay open after the seventh sample: how OCAD finds the point of a Bezier curve at a length along it
+(see the PDF exports of the first five samples), and the limit of the rule of the vertex for the dashed fill of a
+double line and at a vertex where a straight part meets a curve. Purple Pen wrote the eighth sample on Nov 19 as
+[dashes-8-ocad12-euclidean.ocd](ocad-dashes/dashes-8-ocad12-euclidean.ocd) and, with the OCAD metric,
+[dashes-8-ocad12-ocad-metric.ocd](ocad-dashes/dashes-8-ocad12-ocad-metric.ocd), from
+[dashes-8-cells.json](ocad-dashes/dashes-8-cells.json): 43 cells. The dashes are 2.0 mm, with end dashes of 2.0 mm and
+gaps of 0.5 mm.
+
+| Rows | Symbol | Cells |
+| --- | --- | --- |
+| straight | L010, a line of 0.1 mm | Bezier curves that are straight, 20 mm along x, with their control points at fractions of the length (1/3 and 2/3, 0 and 1, 0.5 and 0.5, 0.1 and 0.3, 0.7 and 0.9, 0.25 and 0.25, 0 and 0.5, 0.5 and 1), so that the parameter runs at an uneven speed along them |
+| arcs | L010 | quarter circles of radius 3, 5, 10 and 20 mm, each one Bezier curve; half circles of radius 5 and 10 mm, each two curves; the S curve of the first sample |
+| DF 90 start, DF 90 end | DF, a double line with a dashed fill of 0.6 mm and dashed borders of 0.15 mm | a turn of 90°, where a dash starts 0.02 to 0.30 mm before the vertex or ends that much after it |
+| join start, join end | L100, a line of 1.0 mm | a straight part, then a quarter circle that leaves the join at 90° to it; a dash starts 0.1, 0.2, 0.3 or 0.5 mm before the join or ends that much after it |
+
+On a straight Bezier curve, the ends of OCAD's dashes along x show directly how OCAD turns a length into a parameter
+of the curve: by the true arc, the dashes are even whatever the control points. The files are on @Pauli's drive in
+`ocad-dashes-8`. The oracle of this sample is OCAD's PDF export of both files.

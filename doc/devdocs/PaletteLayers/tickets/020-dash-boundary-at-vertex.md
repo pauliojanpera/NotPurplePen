@@ -22,6 +22,8 @@ Seitsemännen näytteen PDF-vienti antoi säännön. Yksinkertaisella viivalla r
 
 Bittikarttaviennit noudattavat yksinkertaisilla viivoilla omaa, tarkkuudesta riippuvaa sääntöään. PDF-vienti on OCADin geometria. @Pauli päätti, että OCADin raja selvitetään PDF-viennistä ja sääntö valitaan sen jälkeen, ja valitsi sitten OCADin säännön kaikkine osineen: 0,4 × leveys yksinkertaiselle viivalle, 0,05 mm kaksoisviivan keskiviivalle ja 0,4 × reunan leveys kummallekin reunalle (19.11.). Myös tiketin [011](011-line-geometry.md) koostettu katkoviiva noudattaa samaa sääntöä.
 
+Korjaus on haarassa `fix/dash-boundary-at-vertex` (4b0b22a7). `SymPath.DrawDash` piirtää yhden katkon ja jättää siitä pois päätä lähimmän taitepisteen kahdella rajalla: polun katkolle ennen reunan siirtoa ja piirrettävälle katkolle. `LineSymDef` antaa rajat OCADin välistykselle: pääviivalle 0,4 × leveys, kaksoisviivan täytölle ja reunoille 0,05 mm ja sitten 0,4 × täytön tai reunan leveys. Mapperin välistykset pitävät kaikki taitepisteet. Käyrän tasoituspisteitä sääntö ei koske. `OcadDashVertexTests` vertaa seitsemännen näytteen 74 solua OCADin PDF-vientiin, ja ilman korjausta 38 niistä epäonnistuu. Katkotun täytön sääntöä ei ole tarkistettu OCADista. Kahdeksas näyte tarkistaa sen.
+
 Vika löytyi tiketin [011](011-line-geometry.md) valmistelussa, kun kaksoisviivan reunoja verrattiin OCADiin.
 
 (_valinnainen_) **Erotetut alatehtävät**  

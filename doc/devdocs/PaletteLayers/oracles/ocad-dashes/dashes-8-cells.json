@@ -1,0 +1,1358 @@
+{
+ "symbols": {
+  "L010": {
+   "linewidth": 0.1,
+   "dash": 2.0,
+   "end": 2.0,
+   "gap": 0.5
+  },
+  "L100": {
+   "linewidth": 1.0,
+   "dash": 2.0,
+   "end": 2.0,
+   "gap": 0.5
+  },
+  "DF": {
+   "double": "all dashed",
+   "width": 0.6,
+   "border": 0.15,
+   "dash": 2.0,
+   "end": 2.0,
+   "gap": 0.5
+  }
+ },
+ "marks": [
+  [
+   -5,
+   -3.0
+  ],
+  [
+   165,
+   -3.0
+  ],
+  [
+   -5,
+   -152
+  ],
+  [
+   165,
+   -152
+  ]
+ ],
+ "cells": [
+  {
+   "id": "straight-1",
+   "row": "straight",
+   "symbol": "L010",
+   "note": "a straight Bezier curve, control points at 0.333 and 0.667",
+   "points": [
+    [
+     4.0,
+     -8.0,
+     "N"
+    ],
+    [
+     10.67,
+     -8.0,
+     "B"
+    ],
+    [
+     17.33,
+     -8.0,
+     "B"
+    ],
+    [
+     24.0,
+     -8.0,
+     "N"
+    ]
+   ]
+  },
+  {
+   "id": "straight-2",
+   "row": "straight",
+   "symbol": "L010",
+   "note": "a straight Bezier curve, control points at 0.000 and 1.000",
+   "points": [
+    [
+     30.0,
+     -8.0,
+     "N"
+    ],
+    [
+     30.0,
+     -8.0,
+     "B"
+    ],
+    [
+     50.0,
+     -8.0,
+     "B"
+    ],
+    [
+     50.0,
+     -8.0,
+     "N"
+    ]
+   ]
+  },
+  {
+   "id": "straight-3",
+   "row": "straight",
+   "symbol": "L010",
+   "note": "a straight Bezier curve, control points at 0.500 and 0.500",
+   "points": [
+    [
+     56.0,
+     -8.0,
+     "N"
+    ],
+    [
+     66.0,
+     -8.0,
+     "B"
+    ],
+    [
+     66.0,
+     -8.0,
+     "B"
+    ],
+    [
+     76.0,
+     -8.0,
+     "N"
+    ]
+   ]
+  },
+  {
+   "id": "straight-4",
+   "row": "straight",
+   "symbol": "L010",
+   "note": "a straight Bezier curve, control points at 0.100 and 0.300",
+   "points": [
+    [
+     82.0,
+     -8.0,
+     "N"
+    ],
+    [
+     84.0,
+     -8.0,
+     "B"
+    ],
+    [
+     88.0,
+     -8.0,
+     "B"
+    ],
+    [
+     102.0,
+     -8.0,
+     "N"
+    ]
+   ]
+  },
+  {
+   "id": "straight-5",
+   "row": "straight",
+   "symbol": "L010",
+   "note": "a straight Bezier curve, control points at 0.700 and 0.900",
+   "points": [
+    [
+     4.0,
+     -16.0,
+     "N"
+    ],
+    [
+     18.0,
+     -16.0,
+     "B"
+    ],
+    [
+     22.0,
+     -16.0,
+     "B"
+    ],
+    [
+     24.0,
+     -16.0,
+     "N"
+    ]
+   ]
+  },
+  {
+   "id": "straight-6",
+   "row": "straight",
+   "symbol": "L010",
+   "note": "a straight Bezier curve, control points at 0.250 and 0.250",
+   "points": [
+    [
+     30.0,
+     -16.0,
+     "N"
+    ],
+    [
+     35.0,
+     -16.0,
+     "B"
+    ],
+    [
+     35.0,
+     -16.0,
+     "B"
+    ],
+    [
+     50.0,
+     -16.0,
+     "N"
+    ]
+   ]
+  },
+  {
+   "id": "straight-7",
+   "row": "straight",
+   "symbol": "L010",
+   "note": "a straight Bezier curve, control points at 0.000 and 0.500",
+   "points": [
+    [
+     56.0,
+     -16.0,
+     "N"
+    ],
+    [
+     56.0,
+     -16.0,
+     "B"
+    ],
+    [
+     66.0,
+     -16.0,
+     "B"
+    ],
+    [
+     76.0,
+     -16.0,
+     "N"
+    ]
+   ]
+  },
+  {
+   "id": "straight-8",
+   "row": "straight",
+   "symbol": "L010",
+   "note": "a straight Bezier curve, control points at 0.500 and 1.000",
+   "points": [
+    [
+     82.0,
+     -16.0,
+     "N"
+    ],
+    [
+     92.0,
+     -16.0,
+     "B"
+    ],
+    [
+     102.0,
+     -16.0,
+     "B"
+    ],
+    [
+     102.0,
+     -16.0,
+     "N"
+    ]
+   ]
+  },
+  {
+   "id": "quarter-3",
+   "row": "arcs",
+   "symbol": "L010",
+   "note": "a quarter circle of radius 3 mm",
+   "points": [
+    [
+     4.0,
+     -52.0,
+     "N"
+    ],
+    [
+     4.0,
+     -50.34,
+     "B"
+    ],
+    [
+     5.34,
+     -49.0,
+     "B"
+    ],
+    [
+     7.0,
+     -49.0,
+     "N"
+    ]
+   ]
+  },
+  {
+   "id": "quarter-5",
+   "row": "arcs",
+   "symbol": "L010",
+   "note": "a quarter circle of radius 5 mm",
+   "points": [
+    [
+     34.0,
+     -52.0,
+     "N"
+    ],
+    [
+     34.0,
+     -49.24,
+     "B"
+    ],
+    [
+     36.24,
+     -47.0,
+     "B"
+    ],
+    [
+     39.0,
+     -47.0,
+     "N"
+    ]
+   ]
+  },
+  {
+   "id": "quarter-10",
+   "row": "arcs",
+   "symbol": "L010",
+   "note": "a quarter circle of radius 10 mm",
+   "points": [
+    [
+     64.0,
+     -52.0,
+     "N"
+    ],
+    [
+     64.0,
+     -46.48,
+     "B"
+    ],
+    [
+     68.48,
+     -42.0,
+     "B"
+    ],
+    [
+     74.0,
+     -42.0,
+     "N"
+    ]
+   ]
+  },
+  {
+   "id": "quarter-20",
+   "row": "arcs",
+   "symbol": "L010",
+   "note": "a quarter circle of radius 20 mm",
+   "points": [
+    [
+     94.0,
+     -52.0,
+     "N"
+    ],
+    [
+     94.0,
+     -40.95,
+     "B"
+    ],
+    [
+     102.95,
+     -32.0,
+     "B"
+    ],
+    [
+     114.0,
+     -32.0,
+     "N"
+    ]
+   ]
+  },
+  {
+   "id": "half-5",
+   "row": "arcs",
+   "symbol": "L010",
+   "note": "a half circle of radius 5 mm, two Bezier curves",
+   "points": [
+    [
+     4.0,
+     -74.0,
+     "N"
+    ],
+    [
+     4.0,
+     -71.24,
+     "B"
+    ],
+    [
+     6.24,
+     -69.0,
+     "B"
+    ],
+    [
+     9.0,
+     -69.0,
+     "N"
+    ],
+    [
+     11.76,
+     -69.0,
+     "B"
+    ],
+    [
+     14.0,
+     -71.24,
+     "B"
+    ],
+    [
+     14.0,
+     -74.0,
+     "N"
+    ]
+   ]
+  },
+  {
+   "id": "half-10",
+   "row": "arcs",
+   "symbol": "L010",
+   "note": "a half circle of radius 10 mm, two Bezier curves",
+   "points": [
+    [
+     34.0,
+     -74.0,
+     "N"
+    ],
+    [
+     34.0,
+     -68.48,
+     "B"
+    ],
+    [
+     38.48,
+     -64.0,
+     "B"
+    ],
+    [
+     44.0,
+     -64.0,
+     "N"
+    ],
+    [
+     49.52,
+     -64.0,
+     "B"
+    ],
+    [
+     54.0,
+     -68.48,
+     "B"
+    ],
+    [
+     54.0,
+     -74.0,
+     "N"
+    ]
+   ]
+  },
+  {
+   "id": "S-curve",
+   "row": "arcs",
+   "symbol": "L010",
+   "note": "the S curve of the first sample",
+   "points": [
+    [
+     70.0,
+     -66.0,
+     "N"
+    ],
+    [
+     78.0,
+     -58.0,
+     "B"
+    ],
+    [
+     86.0,
+     -74.0,
+     "B"
+    ],
+    [
+     94.0,
+     -66.0,
+     "N"
+    ]
+   ]
+  },
+  {
+   "id": "DF-90-start-1",
+   "row": "DF 90 start",
+   "symbol": "DF",
+   "note": "dash start 0.0200 mm before the vertex",
+   "points": [
+    [
+     4.0,
+     -99.0,
+     "N"
+    ],
+    [
+     7.0,
+     -99.0,
+     "N"
+    ],
+    [
+     10.21,
+     -93.44,
+     "N"
+    ],
+    [
+     13.83,
+     -95.53,
+     "N"
+    ]
+   ],
+   "turn": 90,
+   "delta": 0.02002577396561378
+  },
+  {
+   "id": "DF-90-start-2",
+   "row": "DF 90 start",
+   "symbol": "DF",
+   "note": "dash start 0.0400 mm before the vertex",
+   "points": [
+    [
+     20.0,
+     -99.0,
+     "N"
+    ],
+    [
+     23.0,
+     -99.0,
+     "N"
+    ],
+    [
+     26.2,
+     -93.46,
+     "N"
+    ],
+    [
+     31.81,
+     -96.7,
+     "N"
+    ]
+   ],
+   "turn": 90,
+   "delta": 0.03996175318169648
+  },
+  {
+   "id": "DF-90-start-3",
+   "row": "DF 90 start",
+   "symbol": "DF",
+   "note": "dash start 0.0600 mm before the vertex",
+   "points": [
+    [
+     36.0,
+     -99.0,
+     "N"
+    ],
+    [
+     39.0,
+     -99.0,
+     "N"
+    ],
+    [
+     42.23,
+     -93.41,
+     "N"
+    ],
+    [
+     47.85,
+     -96.65,
+     "N"
+    ]
+   ],
+   "turn": 90,
+   "delta": 0.05999871526656442
+  },
+  {
+   "id": "DF-90-start-4",
+   "row": "DF 90 start",
+   "symbol": "DF",
+   "note": "dash start 0.0800 mm before the vertex",
+   "points": [
+    [
+     52.0,
+     -99.0,
+     "N"
+    ],
+    [
+     55.0,
+     -99.0,
+     "N"
+    ],
+    [
+     58.21,
+     -93.45,
+     "N"
+    ],
+    [
+     61.75,
+     -95.49,
+     "N"
+    ]
+   ],
+   "turn": 90,
+   "delta": 0.07999345264400404
+  },
+  {
+   "id": "DF-90-start-5",
+   "row": "DF 90 start",
+   "symbol": "DF",
+   "note": "dash start 0.1000 mm before the vertex",
+   "points": [
+    [
+     68.0,
+     -99.0,
+     "N"
+    ],
+    [
+     71.0,
+     -99.0,
+     "N"
+    ],
+    [
+     73.08,
+     -95.41,
+     "N"
+    ],
+    [
+     76.63,
+     -97.46,
+     "N"
+    ]
+   ],
+   "turn": 90,
+   "delta": 0.09998029391665053
+  },
+  {
+   "id": "DF-90-start-6",
+   "row": "DF 90 start",
+   "symbol": "DF",
+   "note": "dash start 0.1201 mm before the vertex",
+   "points": [
+    [
+     84.0,
+     -99.0,
+     "N"
+    ],
+    [
+     87.0,
+     -99.0,
+     "N"
+    ],
+    [
+     90.2,
+     -93.46,
+     "N"
+    ],
+    [
+     93.68,
+     -95.47,
+     "N"
+    ]
+   ],
+   "turn": 90,
+   "delta": 0.12008130970577113
+  },
+  {
+   "id": "DF-90-start-7",
+   "row": "DF 90 start",
+   "symbol": "DF",
+   "note": "dash start 0.1501 mm before the vertex",
+   "points": [
+    [
+     100.0,
+     -99.0,
+     "N"
+    ],
+    [
+     103.0,
+     -99.0,
+     "N"
+    ],
+    [
+     105.2,
+     -95.18,
+     "N"
+    ],
+    [
+     108.83,
+     -97.27,
+     "N"
+    ]
+   ],
+   "turn": 90,
+   "delta": 0.15008271316735655
+  },
+  {
+   "id": "DF-90-start-8",
+   "row": "DF 90 start",
+   "symbol": "DF",
+   "note": "dash start 0.1999 mm before the vertex",
+   "points": [
+    [
+     116.0,
+     -99.0,
+     "N"
+    ],
+    [
+     119.0,
+     -99.0,
+     "N"
+    ],
+    [
+     121.64,
+     -94.42,
+     "N"
+    ],
+    [
+     125.7,
+     -96.77,
+     "N"
+    ]
+   ],
+   "turn": 90,
+   "delta": 0.1999194695261206
+  },
+  {
+   "id": "DF-90-start-9",
+   "row": "DF 90 start",
+   "symbol": "DF",
+   "note": "dash start 0.2500 mm before the vertex",
+   "points": [
+    [
+     132.0,
+     -99.0,
+     "N"
+    ],
+    [
+     135.0,
+     -99.0,
+     "N"
+    ],
+    [
+     137.7,
+     -94.31,
+     "N"
+    ],
+    [
+     141.76,
+     -96.66,
+     "N"
+    ]
+   ],
+   "turn": 90,
+   "delta": 0.25002574593727367
+  },
+  {
+   "id": "DF-90-start-10",
+   "row": "DF 90 start",
+   "symbol": "DF",
+   "note": "dash start 0.2999 mm before the vertex",
+   "points": [
+    [
+     148.0,
+     -99.0,
+     "N"
+    ],
+    [
+     151.0,
+     -99.0,
+     "N"
+    ],
+    [
+     153.38,
+     -94.89,
+     "N"
+    ],
+    [
+     156.99,
+     -96.97,
+     "N"
+    ]
+   ],
+   "turn": 90,
+   "delta": 0.29993535869269916
+  },
+  {
+   "id": "DF-90-end-1",
+   "row": "DF 90 end",
+   "symbol": "DF",
+   "note": "dash end 0.0199 mm after the vertex",
+   "points": [
+    [
+     4.0,
+     -112.0,
+     "N"
+    ],
+    [
+     7.0,
+     -112.0,
+     "N"
+    ],
+    [
+     9.09,
+     -108.39,
+     "N"
+    ],
+    [
+     13.55,
+     -110.96,
+     "N"
+    ]
+   ],
+   "turn": 90,
+   "delta": -0.019943187122089867
+  },
+  {
+   "id": "DF-90-end-2",
+   "row": "DF 90 end",
+   "symbol": "DF",
+   "note": "dash end 0.0401 mm after the vertex",
+   "points": [
+    [
+     20.0,
+     -112.0,
+     "N"
+    ],
+    [
+     23.0,
+     -112.0,
+     "N"
+    ],
+    [
+     25.26,
+     -108.08,
+     "N"
+    ],
+    [
+     29.95,
+     -110.79,
+     "N"
+    ]
+   ],
+   "turn": 90,
+   "delta": -0.04006751693433408
+  },
+  {
+   "id": "DF-90-end-3",
+   "row": "DF 90 end",
+   "symbol": "DF",
+   "note": "dash end 0.0599 mm after the vertex",
+   "points": [
+    [
+     36.0,
+     -112.0,
+     "N"
+    ],
+    [
+     39.0,
+     -112.0,
+     "N"
+    ],
+    [
+     41.2,
+     -108.18,
+     "N"
+    ],
+    [
+     45.85,
+     -110.87,
+     "N"
+    ]
+   ],
+   "turn": 90,
+   "delta": -0.059924224421519234
+  },
+  {
+   "id": "DF-90-end-4",
+   "row": "DF 90 end",
+   "symbol": "DF",
+   "note": "dash end 0.0800 mm after the vertex",
+   "points": [
+    [
+     52.0,
+     -112.0,
+     "N"
+    ],
+    [
+     55.0,
+     -112.0,
+     "N"
+    ],
+    [
+     57.03,
+     -108.49,
+     "N"
+    ],
+    [
+     61.51,
+     -111.07,
+     "N"
+    ]
+   ],
+   "turn": 90,
+   "delta": -0.0799780205105396
+  },
+  {
+   "id": "DF-90-end-5",
+   "row": "DF 90 end",
+   "symbol": "DF",
+   "note": "dash end 0.1001 mm after the vertex",
+   "points": [
+    [
+     68.0,
+     -112.0,
+     "N"
+    ],
+    [
+     71.0,
+     -112.0,
+     "N"
+    ],
+    [
+     73.2,
+     -108.18,
+     "N"
+    ],
+    [
+     77.91,
+     -110.9,
+     "N"
+    ]
+   ],
+   "turn": 90,
+   "delta": -0.10009997213402588
+  },
+  {
+   "id": "DF-90-end-6",
+   "row": "DF 90 end",
+   "symbol": "DF",
+   "note": "dash end 0.1200 mm after the vertex",
+   "points": [
+    [
+     84.0,
+     -112.0,
+     "N"
+    ],
+    [
+     87.0,
+     -112.0,
+     "N"
+    ],
+    [
+     89.14,
+     -108.28,
+     "N"
+    ],
+    [
+     93.81,
+     -110.98,
+     "N"
+    ]
+   ],
+   "turn": 90,
+   "delta": -0.11995587922723949
+  },
+  {
+   "id": "DF-90-end-7",
+   "row": "DF 90 end",
+   "symbol": "DF",
+   "note": "dash end 0.1499 mm after the vertex",
+   "points": [
+    [
+     100.0,
+     -112.0,
+     "N"
+    ],
+    [
+     103.0,
+     -112.0,
+     "N"
+    ],
+    [
+     105.15,
+     -108.28,
+     "N"
+    ],
+    [
+     109.87,
+     -111.0,
+     "N"
+    ]
+   ],
+   "turn": 90,
+   "delta": -0.14993903628635774
+  },
+  {
+   "id": "DF-90-end-8",
+   "row": "DF 90 end",
+   "symbol": "DF",
+   "note": "dash end 0.2000 mm after the vertex",
+   "points": [
+    [
+     116.0,
+     -112.0,
+     "N"
+    ],
+    [
+     119.0,
+     -112.0,
+     "N"
+    ],
+    [
+     121.09,
+     -108.39,
+     "N"
+    ],
+    [
+     125.81,
+     -111.11,
+     "N"
+    ]
+   ],
+   "turn": 90,
+   "delta": -0.2000431365491675
+  },
+  {
+   "id": "DF-90-end-9",
+   "row": "DF 90 end",
+   "symbol": "DF",
+   "note": "dash end 0.2502 mm after the vertex",
+   "points": [
+    [
+     132.0,
+     -112.0,
+     "N"
+    ],
+    [
+     135.0,
+     -112.0,
+     "N"
+    ],
+    [
+     138.05,
+     -106.73,
+     "N"
+    ],
+    [
+     142.53,
+     -109.31,
+     "N"
+    ]
+   ],
+   "turn": 90,
+   "delta": -0.2502121948942122
+  },
+  {
+   "id": "DF-90-end-10",
+   "row": "DF 90 end",
+   "symbol": "DF",
+   "note": "dash end 0.3001 mm after the vertex",
+   "points": [
+    [
+     148.0,
+     -112.0,
+     "N"
+    ],
+    [
+     151.0,
+     -112.0,
+     "N"
+    ],
+    [
+     153.14,
+     -108.28,
+     "N"
+    ],
+    [
+     158.07,
+     -111.13,
+     "N"
+    ]
+   ],
+   "turn": 90,
+   "delta": -0.3000557782588098
+  },
+  {
+   "id": "join-start-1",
+   "row": "join start",
+   "symbol": "L100",
+   "note": "a dash starts 0.0992 mm before a join of a straight part and a curve",
+   "points": [
+    [
+     4.0,
+     -126.0,
+     "N"
+    ],
+    [
+     12.0,
+     -126.0,
+     "N"
+    ],
+    [
+     16.42,
+     -126.0,
+     "B"
+    ],
+    [
+     20.0,
+     -129.58,
+     "B"
+    ],
+    [
+     20.0,
+     -134.0,
+     "N"
+    ]
+   ]
+  },
+  {
+   "id": "join-start-2",
+   "row": "join start",
+   "symbol": "L100",
+   "note": "a dash starts 0.1992 mm before a join of a straight part and a curve",
+   "points": [
+    [
+     24.0,
+     -126.0,
+     "N"
+    ],
+    [
+     32.16,
+     -126.0,
+     "N"
+    ],
+    [
+     36.58,
+     -126.0,
+     "B"
+    ],
+    [
+     40.16,
+     -129.58,
+     "B"
+    ],
+    [
+     40.16,
+     -134.0,
+     "N"
+    ]
+   ]
+  },
+  {
+   "id": "join-start-3",
+   "row": "join start",
+   "symbol": "L100",
+   "note": "a dash starts 0.2997 mm before a join of a straight part and a curve",
+   "points": [
+    [
+     44.0,
+     -126.0,
+     "N"
+    ],
+    [
+     46.66,
+     -126.0,
+     "N"
+    ],
+    [
+     49.7,
+     -126.0,
+     "B"
+    ],
+    [
+     52.16,
+     -128.46,
+     "B"
+    ],
+    [
+     52.16,
+     -131.5,
+     "N"
+    ]
+   ]
+  },
+  {
+   "id": "join-start-4",
+   "row": "join start",
+   "symbol": "L100",
+   "note": "a dash starts 0.4997 mm before a join of a straight part and a curve",
+   "points": [
+    [
+     64.0,
+     -126.0,
+     "N"
+    ],
+    [
+     66.91,
+     -126.0,
+     "N"
+    ],
+    [
+     69.95,
+     -126.0,
+     "B"
+    ],
+    [
+     72.41,
+     -128.46,
+     "B"
+    ],
+    [
+     72.41,
+     -131.5,
+     "N"
+    ]
+   ]
+  },
+  {
+   "id": "join-end-1",
+   "row": "join end",
+   "symbol": "L100",
+   "note": "a dash ends 0.1008 mm after a join of a straight part and a curve",
+   "points": [
+    [
+     4.0,
+     -140.0,
+     "N"
+    ],
+    [
+     13.51,
+     -140.0,
+     "N"
+    ],
+    [
+     17.1,
+     -140.0,
+     "B"
+    ],
+    [
+     20.01,
+     -142.91,
+     "B"
+    ],
+    [
+     20.01,
+     -146.5,
+     "N"
+    ]
+   ]
+  },
+  {
+   "id": "join-end-2",
+   "row": "join end",
+   "symbol": "L100",
+   "note": "a dash ends 0.2008 mm after a join of a straight part and a curve",
+   "points": [
+    [
+     24.0,
+     -140.0,
+     "N"
+    ],
+    [
+     33.31,
+     -140.0,
+     "N"
+    ],
+    [
+     36.9,
+     -140.0,
+     "B"
+    ],
+    [
+     39.81,
+     -142.91,
+     "B"
+    ],
+    [
+     39.81,
+     -146.5,
+     "N"
+    ]
+   ]
+  },
+  {
+   "id": "join-end-3",
+   "row": "join end",
+   "symbol": "L100",
+   "note": "a dash ends 0.3003 mm after a join of a straight part and a curve",
+   "points": [
+    [
+     44.0,
+     -140.0,
+     "N"
+    ],
+    [
+     55.79,
+     -140.0,
+     "N"
+    ],
+    [
+     58.55,
+     -140.0,
+     "B"
+    ],
+    [
+     60.79,
+     -142.24,
+     "B"
+    ],
+    [
+     60.79,
+     -145.0,
+     "N"
+    ]
+   ]
+  },
+  {
+   "id": "join-end-4",
+   "row": "join end",
+   "symbol": "L100",
+   "note": "a dash ends 0.5008 mm after a join of a straight part and a curve",
+   "points": [
+    [
+     64.0,
+     -140.0,
+     "N"
+    ],
+    [
+     72.71,
+     -140.0,
+     "N"
+    ],
+    [
+     76.3,
+     -140.0,
+     "B"
+    ],
+    [
+     79.21,
+     -142.91,
+     "B"
+    ],
+    [
+     79.21,
+     -146.5,
+     "N"
+    ]
+   ]
+  }
+ ]
+}
