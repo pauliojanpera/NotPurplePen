@@ -195,6 +195,106 @@ namespace Map_Skia.Tests
             CollectionAssert.AreEqual(new int[] { 4, 8, 7 }, instances.Select(instance => instance.ClippingObjects.Count));
         }
 
+        // The branches of the drawing of solid lines, each of which the geometry method of lines follows: a polyline, a
+        // closed line, a line with a Bezier curve and a line of zero length; pointy ends, also of a line that the
+        // shortening takes whole; a second line; and the fill and the borders of a double line, also of a line whose
+        // left border stops along it.
+        [Test]
+        public void GeometryMethodOfSolidLinesFollowsEachBranchOfTheirDrawing()
+        {
+            Map map = CreateMap();
+            List<LineSymbol> lines = new List<LineSymbol>();
+            using (map.Write()) {
+                SymColor green = map.AddColor("Green", 1, 0.76F, 0, 0.91F, 0, false);
+                SymColor brown = map.AddColor("Brown", 2, 0, 0.56F, 1, 0.18F, false);
+                SymColor black = map.AddColor("Black", 3, 0, 0, 0, 1, false);
+
+                LineSymDef main = AddLineSymDef(map, new LineSymDef("Main", "1", black, 0.35F, LineJoinMode.Miter, LineCapMode.Flat));
+                lines.Add(AddLine(map, main, new SymPath(new PointF[] { new PointF(0, 0), new PointF(4, 1), new PointF(6, -1) })));
+                lines.Add(AddLine(map, main, CreateSquarePath(8, 0, 2)));
+                lines.Add(AddLine(map, main, new SymPath(new PointF[] { new PointF(12, 0), new PointF(13, 2), new PointF(15, 2), new PointF(16, 0) },
+                                                         new PointKind[] { PointKind.Normal, PointKind.BezierControl, PointKind.BezierControl, PointKind.Normal })));
+                lines.Add(AddLine(map, main, new SymPath(new PointF[] { new PointF(18, 0), new PointF(18, 0) })));
+
+                LineSymDef pointy = new LineSymDef("Pointy", "2", black, 0.5F, LineJoinMode.Round, LineCapMode.Round);
+                pointy.SetShortening(new LineSymDef.ShortenInfo() { shortenBeginning = 1.0F, shortenEnd = 0.5F, pointyEnds = true });
+                AddLineSymDef(map, pointy);
+                lines.Add(AddLine(map, pointy, new SymPath(new PointF[] { new PointF(0, 5), new PointF(3, 6), new PointF(6, 5) })));
+                lines.Add(AddLine(map, pointy, new SymPath(new PointF[] { new PointF(8, 5), new PointF(9, 5) })));
+
+                LineSymDef second = new LineSymDef("Second", "3", brown, 0.6F, LineJoinMode.Bevel, LineCapMode.Round);
+                second.SetSecondLine(black, 0.2F, LineJoinMode.Bevel, LineCapMode.Square);
+                AddLineSymDef(map, second);
+                lines.Add(AddLine(map, second, new SymPath(new PointF[] { new PointF(0, 10), new PointF(3, 12), new PointF(6, 10) })));
+
+                LineSymDef doubled = new LineSymDef("Double", "4", null, 0, LineJoinMode.Miter, LineCapMode.Flat);
+                doubled.SetDoubleLines(new LineSymDef.DoubleLineInfo() {
+                    doubleThick = 0.8F, doubleFillColor = green, doubleLeftColor = black, doubleLeftWidth = 0.1F, doubleRightColor = black, doubleRightWidth = 0.15F });
+                AddLineSymDef(map, doubled);
+                lines.Add(AddLine(map, doubled, new SymPath(new PointF[] { new PointF(0, 15), new PointF(3, 18), new PointF(6, 15) })));
+                lines.Add(AddLine(map, doubled, new SymPath(new PointF[] { new PointF(8, 15), new PointF(10, 16), new PointF(12, 16), new PointF(14, 15) },
+                                                            new PointKind[] { PointKind.Normal, PointKind.Normal, PointKind.Normal, PointKind.Normal },
+                                                            new byte[] { 0, SymPath.DOUBLE_LEFT_STARTSTOPFLAG, 0 })));
+            }
+
+            using (map.Read()) {
+                foreach (LineSymbol line in lines)
+                    Assert.IsTrue(line.TryAddClippingObjects(new LayerInstanceBuilder(map.AllColors)), "{0}", line.Definition.Name);
+            }
+            IReadOnlyList<LayerInstance> instances = CreateInstances(map);
+
+            AssertSameStructure(CollectInstances(map), instances);
+            // Green: the fills of the two double lines. Brown: the main line of the line with a second line. Black: the
+            // polyline, the closed line and the Bezier curve, but not the line of zero length; the shortened line and the
+            // two pointy ends of the long line, and the two pointy ends alone of the short one; the second line; and the
+            // borders of the double lines, the left border of the last one in two parts.
+            CollectionAssert.AreEqual(new int[] { 2, 1, 14 }, instances.Select(instance => instance.ClippingObjects.Count));
+        }
+
+        // A line whose definition has dashes or glyphs is left to the collector: the geometry method of lines adds
+        // nothing for it.
+        [Test]
+        public void LinesWithDashesOrGlyphsAreLeftToTheCollector()
+        {
+            Map map = CreateMap();
+            List<LineSymbol> lines = new List<LineSymbol>();
+            using (map.Write()) {
+                SymColor black = map.AddColor("Black", 1, 0, 0, 0, 1, false);
+
+                LineSymDef dashed = new LineSymDef("Dashed", "1", black, 0.35F, LineJoinMode.Miter, LineCapMode.Flat);
+                dashed.SetDashInfo(new LineSymDef.DashInfo() { dashLength = 2, firstDashLength = 2, lastDashLength = 2, gapLength = 0.5F });
+                AddLineSymDef(map, dashed);
+                lines.Add(AddLine(map, dashed, new SymPath(new PointF[] { new PointF(0, 0), new PointF(10, 0) })));
+
+                LineSymDef glyphs = new LineSymDef("Glyphs", "2", black, 0.35F, LineJoinMode.Miter, LineCapMode.Flat);
+                glyphs.SetGlyphs(new LineSymDef.GlyphInfo[] {
+                    new LineSymDef.GlyphInfo() { glyph = CreateGlyph(glyph => glyph.AddFilledCircle(black, new PointF(0, 0), 0.5F)), location = LineSymDef.GlyphLocation.Start, number = 1 } });
+                AddLineSymDef(map, glyphs);
+                lines.Add(AddLine(map, glyphs, new SymPath(new PointF[] { new PointF(0, 5), new PointF(10, 5) })));
+            }
+
+            using (map.Read()) {
+                foreach (LineSymbol line in lines)
+                    Assert.IsFalse(line.TryAddClippingObjects(new LayerInstanceBuilder(map.AllColors)), "{0}", line.Definition.Name);
+            }
+            AssertSameStructure(CollectInstances(map), CreateInstances(map));
+        }
+
+        // Add a line symbol definition to a map, and return it.
+        static LineSymDef AddLineSymDef(Map map, LineSymDef symdef)
+        {
+            map.AddSymdef(symdef);
+            return symdef;
+        }
+
+        // Add a line of a definition along a path to a map, and return it.
+        static LineSymbol AddLine(Map map, LineSymDef symdef, SymPath path)
+        {
+            LineSymbol line = new LineSymbol(symdef, path);
+            map.AddSymbol(line);
+            return line;
+        }
+
         // The names of the map files of the Skia rendering tests: each OCAD and Mapper file in skia_render.
         static IEnumerable<string> FindMapFilesOfTheRenderingTests()
         {
