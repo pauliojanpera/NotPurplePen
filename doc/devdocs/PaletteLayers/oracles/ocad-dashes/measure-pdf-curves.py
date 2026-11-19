@@ -1,8 +1,9 @@
-"""Read OCAD's PDF export of the eighth dash sample, and compare the dashes on its Bezier curves with two models.
+"""Read OCAD's PDF export of the eighth or the ninth dash sample, and compare the dashes on its Bezier curves with two
+models.
 
 Usage: measure-pdf-curves.py CELLS.json EXPORT.pdf
 
-For each cell of one Bezier curve (the rows "straight" and "arcs"), the script finds the parameter of each end of
+For each cell of one Bezier curve, the script finds the parameter of each end of
 each dash of OCAD, and prints the distance along the curve from each end to the end that a model gives:
 
 - "even": the dashes are even along the true length of the curve, with the count of dashes of OCAD.
@@ -101,7 +102,7 @@ def main():
     paths, misfit = mpv.read_paths(sys.argv[2], cells["marks"])
     print("The registration marks fit to %.4f mm." % misfit)
     for cell in cells["cells"]:
-        if cell["row"] not in ("straight", "arcs") or len(cell["points"]) != 4:
+        if [p[2] for p in cell["points"]] != ["N", "B", "B", "N"]:
             continue
         ps = [tuple(p[:2]) for p in cell["points"]]
         gap = cells["symbols"][cell["symbol"]]["gap"]

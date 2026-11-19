@@ -40,7 +40,17 @@ files (for example Chrome, Evince and Inkscape), and a file does not know its vi
 
 ## OCAD
 
-Whether the holes are faults at all depends on how OCAD draws the framing line. On Nov 19 `frametext1.ocd` went to
-@Pauli's drive, in `ocad-framing`, for a PDF export and a PNG export at 1200 dpi from OCAD. The PDF tells whether OCAD
-writes the framing as one line, as several lines or as a filled outline, and the PNG tells whether OCAD's own drawing
-has the holes.
+Whether the holes are faults at all depends on how OCAD draws the framing line. @Pauli exported `frametext1.ocd` from
+OCAD on Nov 19, as a PDF ([ocad-viewer-frametext1.pdf](ocad-framing/ocad-viewer-frametext1.pdf)) and as a PNG at
+1200 dpi.
+
+- **The PDF.** OCAD fills each glyph in the color of the framing (`f*`) and strokes its outline with one pen of the
+  full width, for example 5.67 pt (2.0 mm) with round joins and caps. It writes no intermediate pens.
+- **The PNG.** OCAD's own drawing leaves white holes inside the framing, where the wide line folds inside a letter, as
+  Skia and Cairo do with one pen: for example in "style", "This", "Centered" and "again".
+  [ocad-framing/ocad-framing-holes.png](ocad-framing/ocad-framing-holes.png) shows six places of the PNG, magnified
+  three times, each hole in a blue frame.
+
+So the intermediate pens of Purple Pen fill holes that OCAD's own drawing has. @Pauli's decision (Nov 19): the
+framing line of a text run is one line in the instances, as in OCAD: one stroke of the full width with the joins of
+the symbol (question 2 of ticket [013](../tickets/013-text-geometry.md)).

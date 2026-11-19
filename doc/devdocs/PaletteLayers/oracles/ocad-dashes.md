@@ -632,6 +632,34 @@ each curve.
 | S | S curves 30 mm long whose control points are 5, 10 and 15 mm off the chord, and the S curve of the first sample |
 | turned | the arc of 90 degrees and the middle S curve turned by 30 degrees, for the OCAD metric, and a curve with a loop |
 
-The files are on @Pauli's drive in `ocad-dashes-9`, for their PDF export.
 [purple-pen-dashes-9-ocad12-euclidean-150dpi.png](ocad-dashes/purple-pen-dashes-9-ocad12-euclidean-150dpi.png) is
 Purple Pen's drawing of the euclidean file.
+
+### The PDF exports of the ninth sample
+
+@Pauli exported both files as PDF on Nov 19:
+[ocad-viewer-dashes-9-ocad12-euclidean.pdf](ocad-dashes/ocad-viewer-dashes-9-ocad12-euclidean.pdf) and
+[ocad-viewer-dashes-9-ocad12-ocad-metric.pdf](ocad-dashes/ocad-viewer-dashes-9-ocad12-ocad-metric.pdf).
+[measure-pdf-curves.py](ocad-dashes/measure-pdf-curves.py) compares the dashes of each curve with the two models of
+the eighth sample.
+
+- **The measure of a curve.** From the mean lengths of the dashes and the gaps of each curve, OCAD's measure of the
+  whole curve is the length of its four chords, between the points of the parameters 0, 1/4, 1/2, 3/4 and 1, within
+  the rounding of the grid (0.2 mm), and not its true length. Only the loop differs, by 0.4 mm. The count of the
+  dashes came from the same length in the second sample.
+- **The placement in a quarter.** Each quarter of the curve has its chord as its length in the measure, and within the
+  quarter OCAD places the dashes almost in proportion to the true arc. This model fits within 0.05 mm on most curves
+  of the euclidean file, and within 0.1 to 0.2 mm on the high S curve and the loop; the root mean square is 0.02 mm.
+  Even dashes along the true length are up to 0.13 mm off on the hooks and the corner, 0.21 mm on the curve that
+  starts at speed 0, 0.28 mm on the high S curve and 0.84 mm on the loop.
+- **What is left.** In each quarter OCAD's ends are a little before the model in the first half and a little after
+  it in the second half, and equal at the ends and the middle of the quarter. The difference grows as the square of
+  the turn of the quarter: 0.0025 of the quarter at 37.5 degrees, 0.0035 at 45 degrees. No tested rule gives it: in
+  proportion to the parameter, to the distance from the start of the quarter, to the projection on its chord, or to
+  two chords of its halves.
+- **The OCAD metric.** No tested model fits the curves of the file with the OCAD metric: the quarters with chords and
+  lengths in the OCAD metric are 0.05 to 0.19 mm off, and even dashes along the length in the OCAD metric up to
+  0.25 mm, and 0.79 mm on the loop.
+
+@Pauli's decision (Nov 19): fix [021](../tickets/021-ocad-dashes-on-curves.md) places the dashes on Bezier curves by
+the quarters, with the euclidean metric. The curves with the OCAD metric stay as they are.

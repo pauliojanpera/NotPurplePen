@@ -178,13 +178,6 @@ the rendering.
 - **The SVG encoding**, when pass 2 is done (Nov 18). Its place: an encoding read from the instances, or the SVG
   target of NotPurplePen fitted to them in the integration. And whether the work can use the documented findings or
   the code of `feature/svg-target`. The notes of the epic give the reasons.
-- **The OCAD export of the framing line** (Nov 19). `frametext1.ocd`, a map of the tests with 10 texts with a framing
-  line, is on @Pauli's drive in `ocad-framing`, for a PDF export and a PNG export at 1200 dpi. They tell whether
-  OCAD's own drawing of a framing line has the holes that Skia and Cairo leave in one wide line, before the decision on
-  the pens of the framing line ([oracles/ocad-framing.md](oracles/ocad-framing.md), question 2 of ticket 013).
-- **The ninth dash sample** (Nov 19). The eighth sample did not find how OCAD places the dashes on a curve that bends
-  strongly ([oracles/ocad-dashes.md](oracles/ocad-dashes.md)). The ninth sample is for that, and then @Pauli decides
-  again on the curves (question 8 of ticket 011).
 - **Offering upstream.** No branch is offered upstream yet.
 
 ## Decisions
@@ -267,9 +260,16 @@ the rendering.
   segment: the middle dashes of each segment are a run whose pattern is scaled to euclidean by the direction of the
   segment, and the dashes over a vertex are single. A straight segment is a basic case, which the dash pattern of the
   channels solves (question 7 of ticket 011).
-- **The dashes on curves** (Nov 19). The even dashes along the true length of a curve, with OCAD's count, which Purple
-  Pen draws, are acceptable. For the principle, OCAD's rule is still to be found, and the decision is made again then
-  (question 8 of ticket 011).
+- **The dashes on curves** (Nov 19, after the ninth sample). With the euclidean metric, the dashes on a Bezier curve
+  are placed by its quarters, as OCAD places them: each quarter has its chord as its length in the measure, and within
+  the quarter the dashes are in proportion to the true arc. It is fix [021](tickets/021-ocad-dashes-on-curves.md). The
+  runs on a curve are by quarter, and the pattern of a run is scaled by the arc and the chord of its quarter. The
+  curves with the OCAD metric stay as they are (question 8 of ticket 011,
+  [oracles/ocad-dashes.md](oracles/ocad-dashes.md)).
+- **The framing line of texts** (Nov 19). The framing of a text run is one line in the instances, a stroke of the full
+  width with the joins of the symbol, as in OCAD's PDF export. OCAD's own drawing leaves the same holes as Skia and
+  Cairo with one pen, so the holes that the intermediate pens of Purple Pen fill are no faults against OCAD (question
+  2 of ticket 013, [oracles/ocad-framing.md](oracles/ocad-framing.md)).
 - **The text runs** (Nov 19). Each word, or each grapheme where the character spacing is more than 0, is a text run
   at its own position, as the drawing and the collector make them. The channels take positioned runs as they are
   (question 1 of ticket 013).
