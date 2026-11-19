@@ -189,9 +189,10 @@ namespace Map_Skia.Tests
 
             AssertSameStructure(CollectInstances(map), instances);
             // Green: two dots and two areas with a hole. Brown: two whole rings, an arc that three gap angles leave, an
-            // arc around 0 degrees, and two lines with Bezier curves, one ring and one arc of the last glyph. Black: a
-            // dot of a ring whose line is wider than its diameter, a ring of radius 0, and two closed lines.
-            CollectionAssert.AreEqual(new int[] { 4, 8, 4 }, instances.Select(instance => instance.ClippingObjects.Count));
+            // arc around 0 degrees, and two lines with Bezier curves, one ring and one arc of the last glyph. Black: dots
+            // of the circles whose line is at least as wide as their diameter, two of the first glyph, one of the second
+            // and one of each of the two last glyphs, and two closed lines.
+            CollectionAssert.AreEqual(new int[] { 4, 8, 7 }, instances.Select(instance => instance.ClippingObjects.Count));
         }
 
         // The names of the map files of the Skia rendering tests: each OCAD and Mapper file in skia_render.
