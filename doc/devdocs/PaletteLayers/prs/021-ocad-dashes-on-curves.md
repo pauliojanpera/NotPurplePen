@@ -37,6 +37,10 @@ were.
 [021-ocad-dashes-on-curves](../tickets/021-ocad-dashes-on-curves.md)
 
 ## Missing functionality
+* With the OCAD metric, the dashes and the glyphs on curves stay as they were. OCAD places them by the same model, with
+  the chords of the quarters in the OCAD metric and the positions in proportion to the euclidean arc: within 0.059 mm
+  on the long and the real paths of the tenth dash sample. The ticket extends this fix to the OCAD metric (@Pauli,
+  Nov 19), and the extension is not made yet.
 * Within each quarter, OCAD's dash ends are a little before the model in the first half of the quarter, and a little
   after it in the second half. No tested rule gives that difference ([oracles/ocad-dashes.md](../oracles/ocad-dashes.md)).
 * The branch is rooted at `fix/ocad-dash-count` ([017](../tickets/017-ocad-dash-count.md)), as it uses its measure of

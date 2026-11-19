@@ -337,7 +337,7 @@ Each fix is on a branch of its own, and it is merged into `feature/palette-layer
 | `MinSym` 2 and 3 | Fix [019](PaletteLayers/tickets/019-ocad-minimum-gaps.md) |
 | The vertex next to the end of a dash | Fix [020](PaletteLayers/tickets/020-dash-boundary-at-vertex.md) |
 | The quarters of a Bezier curve with the euclidean metric, for the dashes and the spaced glyphs | Fix [021](PaletteLayers/tickets/021-ocad-dashes-on-curves.md) |
-| The quarters of a Bezier curve with the OCAD metric, with their chords in the OCAD metric | Decided on Nov 19, not done (see below) |
+| The quarters of a Bezier curve with the OCAD metric, with their chords in the OCAD metric | An extension of fix [021](PaletteLayers/tickets/021-ocad-dashes-on-curves.md), decided on Nov 19, not done (see below) |
 | The circle elements of glyphs | Fix [015](PaletteLayers/tickets/015-thick-glyph-circles.md) |
 | The text along lines with the OCAD metric | As OCAD already ([022](PaletteLayers/tickets/022-line-text-metric.md), closed) |
 | The dash on a line that a minimum of 2 gaps leaves without dashes | Not done |
@@ -349,7 +349,7 @@ Each fix is on a branch of its own, and it is merged into `feature/palette-layer
 line, on a Bezier curve by the model of fix 021: each quarter of the curve has the length of its chord in the OCAD
 metric, and in a quarter the points are in proportion to the euclidean length of the arc. The straight segments do not
 change. So the drawing changes on the curves of the maps with `p1`, and their baselines move (@Pauli, Nov 19). The
-change is not made yet.
+change is an extension of fix 021 (@Pauli, Nov 19), and it is not made yet.
 
 **The reasons:**
 
