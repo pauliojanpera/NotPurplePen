@@ -322,6 +322,14 @@ the rendering.
   quarters. Fix [021](tickets/021-ocad-dashes-on-curves.md) places them by quarters, as it places the dashes, so the
   quarters have different steps. This changes the decision on the glyphs along the lines (Nov 19) for the OCAD spacing
   (ticket 011).
+- **The placements give positions** (Nov 20). Each clipping object has a shape that is drawn, a fill or a stroke, and
+  a placement. A placement gives one or more positions, and each position is a point and an angle. A single placement
+  keeps one point and an angle. A repetition keeps its path, its first position, its step and its count, and it
+  calculates the angles of the positions from the direction of the path with the method of the drawing. Each reader
+  asks a placement for its positions, and only an encoding that gives a repetition to an abstraction of its channel
+  reads the path and the step. A placement keeps its sequence of steps, and the position is the innermost step. So the
+  repetition of the glyphs is a placement, and its parts are usual filled and stroked shapes (ticket 011). In
+  `feature/line-geometry`, the repetition is still a kind of clipping object (`RepeatedShapes`).
 - **The framing line of texts** (Nov 19). The framing of a text run is one line in the instances, a stroke of the full
   width with the joins of the symbol, as in OCAD's PDF export. OCAD's own drawing leaves the same holes as Skia and
   Cairo with one pen, so the holes that the intermediate pens of Purple Pen fill are no faults against OCAD (question

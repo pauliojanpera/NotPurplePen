@@ -65,6 +65,9 @@ oracle of the tests. The drawing does not change.
   (`RepeatedShapes.IsEuclidean`). The decisions of Nov 19 place them by the quarters of the curves, with the chords in
   the OCAD metric, as an extension of fix [021](../tickets/021-ocad-dashes-on-curves.md) that is not made yet. After it,
   each run and each repetition is euclidean, by segment and by quarter, and the repetition needs no metric.
+* The repetition of the glyphs is a kind of clipping object (`RepeatedShapes`). By the decision of Nov 20, a placement
+  gives one or more positions, each a point and an angle, and the repetition is a placement whose parts are usual
+  filled and stroked shapes. This change is not made yet.
 * Two consecutive quarters of a curve make one run only when the lengths of their dashes are the same floats, as
   `FindRunOfDashes` compares the lengths exactly. No test checks this.
 * The areas, the combinations, the graphics objects, the texts and the rectangles have no geometry methods yet
