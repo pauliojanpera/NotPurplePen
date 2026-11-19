@@ -908,6 +908,109 @@ namespace PurplePen.MapModel
             }
         }
 
+        // The geometry method of a line: add the clipping objects of a line of this definition to the layer instances of
+        // pass 1, each to the instance of its color, in the order that DrawCore draws the parts of a color: the main line,
+        // its pointy ends, the second line, and the fill and the borders of a double line. A line whose definition has
+        // dashes or glyphs is left to the collector, and the method returns false and adds nothing.
+        // instances: the layer instances.
+        // path: the path of the line.
+        internal bool TryAddClippingObjects(LayerInstanceBuilder instances, SymPath path)
+        {
+            if (isDashed || glyphs != null || (isDoubleLine && (doubleLines.doubleFillDashed || doubleLines.doubleLeftDashed || doubleLines.doubleRightDashed)))
+                return false;
+            if (path.IsZeroLength)
+                return true;
+
+            SymPath[] pathsWithShortening, pathsWithoutShortening;
+            GetPathParts(path, out pathsWithShortening, out pathsWithoutShortening);
+
+            if (lineColor != null && thickness > 0.0F) {
+                // CreatePens makes the main pen with round caps when the start of the line has a pointy end.
+                LineCapMode mainCaps = (shortenInfo.shortenBeginning > 0 && shortenInfo.pointyEnds) ? LineCapMode.Round : lineCap;
+                Stroke mainStroke = new Stroke(thickness, mainCaps, lineJoin, GraphicsUtil.MITER_LIMIT);
+                foreach (SymPath p in pathsWithShortening)
+                    instances.Add(lineColor, p.MakeStrokedShape(mainStroke, Placement.Identity));
+
+                if (shortenInfo.pointyEnds && (shortenInfo.shortenBeginning > 0.0F || shortenInfo.shortenEnd > 0.0F)) {
+                    foreach (PointF[] tip in GetPointyEnds(path, shortenInfo.shortenBeginning, shortenInfo.shortenEnd, thickness))
+                        instances.Add(lineColor, new FilledShape(PathShape.FromPoints(tip, true), AreaFillMode.Winding, Placement.Identity));
+                }
+            }
+
+            if (secondLineColor != null && secondThickness > 0.0F) {
+                Stroke secondStroke = new Stroke(secondThickness, secondLineCap, secondLineJoin, GraphicsUtil.MITER_LIMIT);
+                foreach (SymPath p in pathsWithoutShortening)
+                    instances.Add(secondLineColor, p.MakeStrokedShape(secondStroke, Placement.Identity));
+            }
+
+            if (isDoubleLine) {
+                if (doubleLines.doubleFillColor != null) {
+                    Stroke fillStroke = GraphicsUtil.MakeSolidStroke(doubleLines.doubleThick, LineStyle.Mitered);
+                    foreach (SymPath p in pathsWithoutShortening)
+                        instances.Add(doubleLines.doubleFillColor, p.MakeStrokedShape(fillStroke, Placement.Identity));
+                }
+
+                if (doubleLines.doubleLeftColor != null && doubleLines.doubleLeftWidth > 0.0F) {
+                    Stroke leftStroke = GraphicsUtil.MakeSolidStroke(doubleLines.doubleLeftWidth, LineStyle.FlatRounded);
+                    float offsetRight = -(doubleLines.doubleThick + doubleLines.doubleLeftWidth) / 2F;
+                    foreach (SymPath subpath in path.GetSubpaths(SymPath.DOUBLE_LEFT_STARTSTOPFLAG))
+                        instances.Add(doubleLines.doubleLeftColor, subpath.OffsetRight(offsetRight, GraphicsUtil.MITER_LIMIT).MakeStrokedShape(leftStroke, Placement.Identity));
+                }
+
+                if (doubleLines.doubleRightColor != null && doubleLines.doubleRightWidth > 0.0F) {
+                    Stroke rightStroke = GraphicsUtil.MakeSolidStroke(doubleLines.doubleRightWidth, LineStyle.FlatRounded);
+                    float offsetRight = (doubleLines.doubleThick + doubleLines.doubleRightWidth) / 2F;
+                    foreach (SymPath subpath in path.GetSubpaths(SymPath.DOUBLE_RIGHT_STARTSTOPFLAG))
+                        instances.Add(doubleLines.doubleRightColor, subpath.OffsetRight(offsetRight, GraphicsUtil.MITER_LIMIT).MakeStrokedShape(rightStroke, Placement.Identity));
+                }
+            }
+
+            return true;
+        }
+
+        // The polygons of the pointy ends of a line, as DrawPointyEnds fills them: five points each, the tip first, at the
+        // start of the line when pointyLengthStart is more than 0 and then at its end when pointyLengthEnd is.
+        // longPath: the path of the line, without the shortening.
+        // pointyLengthStart, pointyLengthEnd: the lengths of the pointy ends.
+        // lineWidth: the width of the line.
+        private List<PointF[]> GetPointyEnds(SymPath longPath, float pointyLengthStart, float pointyLengthEnd, float lineWidth)
+        {
+            float length = map.UseEuclideanMetric ? longPath.Length : longPath.BizzarroLength;
+            float[] distances, angles;
+            if (length >= pointyLengthStart + pointyLengthEnd) {
+                distances = new float[6] { 0, pointyLengthStart / 2, pointyLengthStart / 2, length - pointyLengthEnd - pointyLengthStart, pointyLengthEnd / 2, pointyLengthEnd / 2 };
+            }
+            else {
+                float scaleFactor = length / (pointyLengthStart + pointyLengthEnd);
+                distances = new float[6] { 0, (pointyLengthStart / 2) * scaleFactor, (pointyLengthStart / 2) * scaleFactor, 0, (pointyLengthEnd / 2) * scaleFactor, (pointyLengthEnd / 2) * scaleFactor };
+            }
+            PointF[] pointsAlongPath = longPath.FindPointsAlongLine(distances, out angles, map.MapDistanceMetric);
+            float midpointWidth = lineWidth * 0.666F;
+
+            List<PointF[]> tips = new List<PointF[]>(2);
+            if (pointyLengthStart > 0) {
+                PointF[] tip = new PointF[5];
+                tip[0] = pointsAlongPath[0];
+                tip[1] = Geometry.MoveDistance(pointsAlongPath[1], midpointWidth / 2, angles[1] - 90.0F);
+                tip[4] = Geometry.MoveDistance(pointsAlongPath[1], midpointWidth / 2, angles[1] + 90.0F);
+                tip[2] = Geometry.MoveDistance(pointsAlongPath[2], lineWidth / 2, angles[2] - 90.0F);
+                tip[3] = Geometry.MoveDistance(pointsAlongPath[2], lineWidth / 2, angles[2] + 90.0F);
+                tips.Add(tip);
+            }
+
+            if (pointyLengthEnd > 0) {
+                PointF[] tip = new PointF[5];
+                tip[0] = pointsAlongPath[5];
+                tip[1] = Geometry.MoveDistance(pointsAlongPath[4], midpointWidth / 2, angles[4] - 90.0F);
+                tip[4] = Geometry.MoveDistance(pointsAlongPath[4], midpointWidth / 2, angles[4] + 90.0F);
+                tip[2] = Geometry.MoveDistance(pointsAlongPath[3], lineWidth / 2, angles[3] - 90.0F);
+                tip[3] = Geometry.MoveDistance(pointsAlongPath[3], lineWidth / 2, angles[3] + 90.0F);
+                tips.Add(tip);
+            }
+
+            return tips;
+        }
+
         // Apply the shortening and the start/stop flags to get an array of the paths to draw. This might be an empty array.
         private void GetPathParts(SymPath path, out SymPath[] withShortening, out SymPath[] withoutShortening) {
             withoutShortening = path.GetSubpaths(SymPath.MAIN_STARTSTOPFLAG);
