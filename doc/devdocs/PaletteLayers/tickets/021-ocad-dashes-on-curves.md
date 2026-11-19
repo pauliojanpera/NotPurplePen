@@ -23,6 +23,7 @@ Euklidisella metriikalla ja OCADin katkojen sovituksella (`SpacingMethod.OCAD`) 
 
 **Päätökset**  
 - Neljännesmalli tehdään korjauksena euklidiselle metriikalle, ja OCADin metriikan kaarteet pysyvät ennallaan (@Pauli, 19.11.).
+- Haara juurtuu korjauksen 017 haaraan `fix/ocad-dash-count` (b99067b5), koska korjaus käyttää sen neljän jänteen mittaa. Upstreamille korjaus tarjotaan korjauksen 017 jälkeen (@Pauli, 19.11.).
 
-**Haara (ehdotus)**  
-`fix/ocad-dashes-on-curves` juurtuu kohtaan, jossa `base` kohtaa upstreamin (d48f4456), kuten korjaukset 015–020.
+**Haara**  
+`fix/ocad-dashes-on-curves` juurtuu haaraan `fix/ocad-dash-count` (b99067b5), joka juurtuu kohtaan, jossa `base` kohtaa upstreamin (d48f4456).

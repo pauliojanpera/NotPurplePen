@@ -8,8 +8,10 @@ instances that the collector makes of all the symbols stay the oracle of the tes
   same helpers. Each word, or each grapheme where the character spacing is more than 0, is a text run at its own
   position, with its shadow or its line framing. The underlines of each line, the center point and the framing
   rectangle follow in the order of `Draw`, at the placement that `Draw` pushes.
-* The line framing of a text run has the stroke of each pen of the drawing, as the collector has them. Question 2 of
-  ticket 013 decides whether the instances hold one line instead.
+* The line framing of a text run is one line, as OCAD draws it (question 2 of the ticket): in the color of the
+  framing, the run filled, and its outline stroked with the line of the full width, two times the width of the
+  framing, with the joins of the framing. The drawing first strokes the outline with narrower pens, whose lines are
+  inside that line.
 * `TextSymDef.AddClippingObjectsOfTextOnPath` adds each grapheme of a text along a line, at the placement of the
   grapheme, as `DrawTextOnPath` draws it.
 * `RectangleSymDef.AddClippingObjects` adds the outline, the grid lines and the grid texts of a rectangle.
@@ -21,8 +23,11 @@ instances that the collector makes of all the symbols stay the oracle of the tes
 * `PathShape.FromRectangle` gives the corners of a rectangle in the order of the collector, which now uses it too.
 * The old drawing code does not change. The branch adds methods, and the lines that it removes are the geometry code
   of tickets 008 and 011.
+* `LayerInstanceComparison` keeps only the last of consecutive strokes of the same text run at the same placement in
+  the collector's instances, as they have the narrower pens of the line framing. Of the maps of `skia_render`, only
+  `frametext1` has these pens.
 * `SymbolGeometryTests` compares the instances of pass 1 with those of the collector on each OCAD and Mapper map of
-  `skia_render`, now for all the symbols.
+  `skia_render`, now for all the symbols. Its new test checks the line of a framed text run.
 
 ## Issue ticket number
 [013-text-geometry](../tickets/013-text-geometry.md)
