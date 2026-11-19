@@ -200,6 +200,10 @@ the rendering.
 - **The old drawing code during the geometry methods** (Nov 18). The old drawing code stays as it is during the
   four tickets, so that the collector collects its calls and stays an independent oracle. The geometry methods are
   written beside it, and the logic that composes a symbol may be in two places.
+- **The fixes before ticket 011** (Nov 19). The fix branches 015 to 020 are merged into `feature/palette-layers`
+  before the work on ticket 011 starts, so that the old drawing and the collector follow OCAD's rules and the
+  comparison stays exact. This changes the decision above for these fixes. The collector stays an independent
+  oracle, as the geometry methods are new code.
 - **The dashed lines** (Nov 18). A dashed line follows the principle that section 03 of
   [Specification.md](Specification.md) gives for the pattern fills: the basic model is a standard dashed line, and the
   exotic cases, such as the distance metric of OCAD, are split into parts, for a dashed line into single dashes. In
