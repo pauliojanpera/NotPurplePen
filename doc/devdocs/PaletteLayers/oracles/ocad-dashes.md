@@ -691,3 +691,40 @@ place. On Nov 19, Purple Pen drew the cells with fix 021 and without it, and kep
 
 So OCAD places the spaced glyphs on a curve in the same measure as the dashes. `OcadDashesOnCurvesTests` of fix 021
 compares the dashes of the ninth sample and these glyphs with OCAD's export.
+
+## The tenth sample
+
+Each cell of the eighth and the ninth sample had one Bezier curve. The tenth sample checks the rule of the curves,
+with the euclidean metric and with the OCAD metric, on long paths of several Bezier curves, with straight segments,
+corner points and dash points, and on real paths. It also measures the spaced glyphs on curves with the OCAD metric,
+and finds how the viewer measures OCAD 6, 7 and 8 files, which have no view parameters. Purple Pen wrote it on Nov 19
+from [dashes-10-cells.json](ocad-dashes/dashes-10-cells.json): 30 cells in 10 rows. Each row has one path, once with
+each symbol:
+
+| Symbol | Line |
+| --- | --- |
+| D050 | a dashed line of 0.05 mm: dashes and end dashes of 0.5 mm, gaps of 0.25 mm |
+| L030 | a dashed line of 0.3 mm: dashes and end dashes of 2.0 mm, gaps of 0.5 mm |
+| G020 | filled circles of 0.2 mm every 1.0 mm, the first and the last 0.5 mm from the ends, without a main line |
+
+| Row | Path |
+| --- | --- |
+| wave | four Bezier curves of a wave, 48 mm along x, with smooth joins |
+| spiral | four arcs of 90 degrees, of radii 12, 9, 6.75 and 5 mm, with smooth joins |
+| kinked | three arcs of 60 degrees, of radius 10 mm, joined with turns of 45 and −60 degrees |
+| mixed | a straight segment of 8 mm, an arc of 90 degrees, a straight segment of 6 mm, an arc of −120 degrees, and a straight segment of 5 mm |
+| wave-points | the wave, with a corner point at 24 mm and a dash point at 36 mm |
+| closed | a closed path of four Bezier curves |
+| line-30 | a straight line of 40 mm at 30 degrees, whose count of dashes depends on the metric |
+| small-footpath, footpath, vehicle-track | real paths of `Lake Sammamish OCAD12.ocd` in the test files: a small footpath of 58.38 mm with 30 curves, a footpath of 117.19 mm with 22 curves, and a vehicle track of 93.49 mm with 23 curves and a corner point near its end |
+
+The files:
+
+| File | Version | `p` in ViewPar |
+| --- | --- | --- |
+| [dashes-10-ocad12-euclidean.ocd](ocad-dashes/dashes-10-ocad12-euclidean.ocd) | OCAD 12 | 0 |
+| [dashes-10-ocad12-ocad-metric.ocd](ocad-dashes/dashes-10-ocad12-ocad-metric.ocd) | OCAD 12 | 1 |
+| [dashes-10-ocad8.ocd](ocad-dashes/dashes-10-ocad8.ocd), [dashes-10-ocad7.ocd](ocad-dashes/dashes-10-ocad7.ocd), [dashes-10-ocad6.ocd](ocad-dashes/dashes-10-ocad6.ocd) | OCAD 8, 7 and 6 | none: these versions have no view parameters |
+
+[purple-pen-dashes-10-ocad12-euclidean-150dpi.png](ocad-dashes/purple-pen-dashes-10-ocad12-euclidean-150dpi.png) is
+Purple Pen's drawing of the euclidean file. The files are on @Pauli's drive in `ocad-dashes-10`, for their PDF export.
