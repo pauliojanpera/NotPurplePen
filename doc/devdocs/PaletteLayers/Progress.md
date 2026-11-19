@@ -330,6 +330,10 @@ the rendering.
   reads the path and the step. A placement keeps its sequence of steps, and the position is the innermost step. So the
   repetition of the glyphs is a placement, and its parts are usual filled and stroked shapes (ticket 011). In
   `feature/line-geometry`, the repetition is still a kind of clipping object (`RepeatedShapes`).
+- **The ideal forms** (Nov 20). The map model keeps the ideal forms. On a curve, the dashes, the runs of dashes and
+  the paths of the repetitions are Bezier pieces of the line, as a solid line is. An encoding adapts to its channel:
+  where the implementation of the channel does not agree with the model, the encoding itself makes, for example, a
+  polyline (ticket 011). In `feature/line-geometry`, they are still polylines of the flattened path.
 - **The framing line of texts** (Nov 19). The framing of a text run is one line in the instances, a stroke of the full
   width with the joins of the symbol, as in OCAD's PDF export. OCAD's own drawing leaves the same holes as Skia and
   Cairo with one pen, so the holes that the intermediate pens of Purple Pen fill are no faults against OCAD (question
