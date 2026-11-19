@@ -1,0 +1,4 @@
+Hakola malli.omap
+hakolaoverprinting.png
+-59,151,1,111
+900,600
