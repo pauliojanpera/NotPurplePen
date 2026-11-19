@@ -22,8 +22,13 @@ Aluesymbolit (`AreaSymDef` ja `AreaComboSymDef`) sekä grafiikkaobjektit (`Graph
   - `AreaComboSymDef` kokoaa osiaan.
   - `GraphicsAreaSymbol` täyttää polkunsa täyttövärillään, ja `GraphicsLineSymbol` piirtää polkunsa omalla kynällään (väri, leveys, päät ja liitokset).
   - Kerääjän täytetty muoto pitää täyttösäännön (`FilledShape`).
+- **Toteutus (kesken, haara `feature/area-geometry`, @Paulin tarkistettavana):**
+  - `AreaLikeSymDef.AddClippingObjects` on alueen määrityksen geometriametodi, ja `AreaSymbol.TryAddClippingObjects` kutsuu sitä. `AreaSymDef` tuottaa polun täytön reikineen (`SymPathWithHoles.MakeFilledShape`) ja reunan polulla ja jokaisella reiällä viivojen geometriametodilla (`LineLikeSymDef.AddClippingObjects`, tiketti 011), kuten `Draw` piirtää ne. Se jättää viivoitukset ja kuviot pois, kuten vaihe 1 jättää ne pois (`omitHatchingsAndPatterns`). `AreaComboSymDef` kokoaa osiensa leikkausobjektit osien järjestyksessä, ja viivaosa kulkee polulla ja jokaisella reiällä.
+  - `GraphicsAreaSymbol` tuottaa polkunsa täytön täyttövärillään, ja `GraphicsLineSymbol` polkunsa viivan oman kynänsä viivalla.
+  - Vanha piirtokoodi ei muutu: haara lisää vain uusia metodeja.
+  - Vertailu ei salli muita eroja kuin tiketin 011 sallimat. `SymbolGeometryTests` vertaa vaiheen 1 ilmentymiä kerääjän ilmentymiin jokaisella `skia_render`-kansion kartalla, ja sen oma testi kattaa alueiden ja grafiikkaobjektien piirron haarat. Paikallisesti `SymbolGeometryTests` ja `LayerInstance`-testit menevät läpi (204 testiä).
 - **Rajaus (luonnos):** viivoitukset ja aluekuviot prototyyppeinä ovat tiketti [009](009-pattern-instances.md). Kuva- ja asettelukerroksen symbolit eivät kuulu ilmentymiin.
-- **Haara (ehdotus):** `feature/area-geometry` juurtuu kokoavaan haaraan `feature/palette-layers` tiketin 011 jälkeen. Täysi ajo tehdään basen päällä, ja ilman `--collect`-valintaa, kun muutos ei koske muuta koodia, jota piirto ajaa.
+- **Haara (ehdotus):** `feature/area-geometry` juurtuu kokoavaan haaraan `feature/palette-layers` tiketin 011 jälkeen. Koska tiketti 011 ei ole vielä kokoavassa haarassa, haara juurtuu nyt haaraan `feature/line-geometry` (159335a0), jonka viivojen geometriametodia reunat käyttävät. Täysi ajo tehdään basen päällä, ja ilman `--collect`-valintaa, kun muutos ei koske muuta koodia, jota piirto ajaa.
 
 **Erotetut alatehtävät**
 <!-- Tästä tiketistä erotetut korjaukset ja ominaisuudet: tiketti, haara ja se, onko haara yhdistetty tämän tiketin haaraan -->
