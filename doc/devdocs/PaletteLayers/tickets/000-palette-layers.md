@@ -54,4 +54,4 @@ Upstreamin karttamalli toteuttaa [speksin](../Specification.md) palettikerrosark
 * [017](017-ocad-dash-count.md) OCAD-viivan katkojen määrä poikkeaa OCADin piirrosta, löytyi tiketin 011 valmistelusta: haara `fix/ocad-dash-count`, yhdistetty samoin.
 * [018](018-double-line-dash-gaps.md) OCAD-kaksoisviivan katkoissa on aina vähintään yksi väli, löytyi tiketin 011 valmistelusta: haara `fix/double-line-dash-gaps`, yhdistetty samoin.
 * [019](019-ocad-minimum-gaps.md) OCAD-viivan vähimmäisvälit 2 ja 3 luetaan kolmeksi ja neljäksi, löytyi tiketin 011 valmistelusta: haara `fix/ocad-minimum-gaps`, yhdistetty samoin.
-* [020](020-dash-boundary-at-vertex.md) Taitepisteen lähellä alkava katko saa taitepisteen ja viisteen kulman, löytyi tiketin 011 valmistelusta: haara `fix/dash-boundary-at-vertex`, työn alla.
+* [020](020-dash-boundary-at-vertex.md) Taitepisteen lähellä alkava katko saa taitepisteen ja viisteen kulman, löytyi tiketin 011 valmistelusta: haara `fix/dash-boundary-at-vertex`, yhdistetty samoin.
