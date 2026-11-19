@@ -1,5 +1,6 @@
-"""Read OCAD's PDF export of a dash sample whose cells turn at a vertex near a boundary of a dash (the sixth sample),
-and tell for each cell whether OCAD keeps the vertex in the dash and how long the piece beyond the vertex is.
+"""Read OCAD's PDF export of a dash sample whose cells turn at a vertex near a boundary of a dash (the sixth and the
+seventh sample), and tell for each cell whether OCAD keeps the vertex in the dash and how long the piece beyond the
+vertex is.
 
 Usage: measure-pdf-vertices.py CELLS.json EXPORT.pdf
 
@@ -8,8 +9,13 @@ the symbol ("501.000 W ..."). The registration marks give the position of the pa
 on its grid of 0.01 mm, so the script gives the points in those units.
 
 For a single line, the dash is one path. For a double line, the dash is a path on each border, offset from the dash of
-the middle, and the boundary of the dash of the middle is the midpoint of the ends of the two borders. The piece is
-the distance from the vertex to the boundary, which is on the grid and so not exactly on the part."""
+the middle, and the boundary of the dash of the middle is the midpoint of the ends of the two borders. A dashed main
+line of a double line has paths of its own, of its own width, and the script tells it apart. The piece is the
+distance from the vertex to the boundary, which is on the grid and so not exactly on the part.
+
+The script prints each cell, then the limits of each row: the longest piece whose vertex OCAD leaves out and the
+shortest whose vertex it keeps. A cell without a boundary near a vertex (a scope cell of the seventh sample) gets the
+paths of its symbol near its points, with each point that is a point of the cell named by its index."""
 import json
 import math
 import re
@@ -87,39 +93,95 @@ def read_paths(pdf_path, marks_mm):
     return paths, misfit
 
 
+def symbol_paths(paths, symbol):
+    """The paths on the layer of a symbol."""
+    return [p for p in paths if p["layer"] and p["layer"].split()[1:2] == [symbol]]
+
+
+def line_groups(sym):
+    """The lines of a symbol that have dashes of their own, by name, with their widths in mm."""
+    if "double" not in sym:
+        return {"line": sym["linewidth"]}
+    groups = {"borders": sym["border"]}
+    if sym.get("linewidth"):
+        groups["main"] = sym["linewidth"]
+    return groups
+
+
+def on_grid(point):
+    """The point of OCAD's grid of 0.01 mm nearest to a point of the PDF, which gives a third of a unit."""
+    return (round(point[0] * 100) / 100, round(point[1] * 100) / 100)
+
+
 def measure_vertices(cells, paths):
-    """For each cell: (cell, kept, piece in units, piece by exact arithmetic in units), or (cell, None, ...)."""
+    """For each line of each vertex cell: (cell, line, kept, piece in units, piece by exact arithmetic in units).
+    kept and piece are None when no dash of the line is near the vertex."""
     for cell in cells["cells"]:
+        if "delta" not in cell:
+            continue
         sym = cells["symbols"][cell["symbol"]]
         v2 = tuple(cell["points"][2][:2])
         starts = "start" in cell["id"]
         reach = abs(cell["delta"]) + (sym["width"] / 2 + sym["border"] + 0.3 if "double" in sym else 0.3)
-        found = []
-        for p in paths:
-            if not p["layer"] or p["layer"].split()[1:2] != [cell["symbol"]]:
-                continue
+        groups = line_groups(sym)
+        found = {name: [] for name in groups}
+        for p in symbol_paths(paths, cell["symbol"]):
             near, far = (p["mm"][0], p["mm"][-1]) if starts else (p["mm"][-1], p["mm"][0])
-            if math.hypot(near[0] - v2[0], near[1] - v2[1]) <= reach and math.dist(near, far) > 1.0:
-                found.append(p)
-        if not found:
-            yield cell, None, None, abs(cell["delta"]) * 100
+            if math.dist(near, v2) <= reach and math.dist(near, far) > 1.0:
+                name = min(groups, key=lambda g: abs(groups[g] - p["width"] * PT))
+                found[name].append(p)
+        for name in groups:
+            if not found[name]:
+                yield cell, name, None, None, abs(cell["delta"]) * 100
+                continue
+            ends = [on_grid(p["mm"][0] if starts else p["mm"][-1]) for p in found[name]]
+            end = (sum(e[0] for e in ends) / len(ends), sum(e[1] for e in ends) / len(ends))
+            kept = all(len(p["mm"]) >= 3 for p in found[name])
+            yield cell, name, kept, math.dist(end, v2) * 100, abs(cell["delta"]) * 100
+
+
+def scope_paths(cells, paths):
+    """For each cell without a boundary near a vertex: (cell, the points of each path of its symbol near the cell, in
+    units from the first point of the cell, with the index of each point that is a point of the cell)."""
+    for cell in cells["cells"]:
+        if "delta" in cell:
             continue
-        # The PDF gives the points to 0.01 pt, a third of a unit, so the nearest point of the grid is OCAD's point.
-        ends = [[round(c * 100) / 100 for c in (p["mm"][0] if starts else p["mm"][-1])] for p in found]
-        end = (sum(e[0] for e in ends) / len(ends), sum(e[1] for e in ends) / len(ends))
-        kept = all(len(p["mm"]) >= 3 for p in found)
-        yield cell, kept, math.dist(end, v2) * 100, abs(cell["delta"]) * 100
+        points = [on_grid(p[:2]) for p in cell["points"]]
+        found = []
+        for p in symbol_paths(paths, cell["symbol"]):
+            grid = [on_grid(q) for q in p["mm"]]
+            if min(math.dist(q, c) for q in grid for c in points) < 0.6:
+                found.append(["V%d" % points.index(q) if q in points else
+                              "(%d, %d)" % (round((q[0] - points[0][0]) * 100), round((q[1] - points[0][1]) * 100))
+                              for q in grid])
+        yield cell, found
 
 
 def main():
     cells = json.load(open(sys.argv[1]))
     paths, misfit = read_paths(sys.argv[2], cells["marks"])
     print("The registration marks fit to %.4f mm." % misfit)
-    print("%-13s %-6s %8s %8s %8s" % ("cell", "kind", "vertex", "piece", "exact"))
-    for cell, kept, piece, exact in measure_vertices(cells, paths):
-        print("%-13s %-6s %8s %8s %8.2f" % (cell["id"], "start" if "start" in cell["id"] else "end",
-                                           "-" if kept is None else ("kept" if kept else "left out"),
+    print("%-17s %-8s %8s %8s %8s" % ("cell", "line", "vertex", "piece", "exact"))
+    limits = {}
+    for cell, name, kept, piece, exact in measure_vertices(cells, paths):
+        print("%-17s %-8s %8s %8s %8.2f" % (cell["id"], name, "-" if kept is None else ("kept" if kept else "left out"),
                                            "-" if piece is None else "%.2f" % piece, exact))
+        if kept is not None:
+            row = limits.setdefault((cell["row"], name), [None, None])
+            if kept:
+                row[1] = piece if row[1] is None else min(row[1], piece)
+            else:
+                row[0] = piece if row[0] is None else max(row[0], piece)
+    print()
+    print("%-22s %-8s %22s %22s" % ("row", "line", "left out: longest", "kept: shortest"))
+    for (row, name), (left_out, kept) in limits.items():
+        print("%-22s %-8s %22s %22s" % (row, name, "-" if left_out is None else "%.2f" % left_out,
+                                         "-" if kept is None else "%.2f" % kept))
+    for cell, found in scope_paths(cells, paths):
+        print()
+        print("%s (%s): %s" % (cell["id"], cell["symbol"], cell["note"]))
+        for points in found:
+            print("   " + " ".join(points))
 
 
 if __name__ == "__main__":
