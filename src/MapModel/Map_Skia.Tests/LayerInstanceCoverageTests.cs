@@ -206,7 +206,8 @@ namespace Map_Skia.Tests
         }
 
         // Draw the clipping objects of an instance with an opaque brush: each shape filled or stroked, at its placement,
-        // within the steps of the placement. It is the test's own drawing of the instances, and not pass 2.
+        // within the steps of the placement, and a repetition as its placed shapes. It is the test's own drawing of the
+        // instances, and not pass 2.
         // g: the target.
         // instance: the instance.
         static void DrawClippingObjects(IGraphicsTarget g, LayerInstance instance)
@@ -216,7 +217,7 @@ namespace Map_Skia.Tests
             Dictionary<Stroke, object> pens = new Dictionary<Stroke, object>();
             Dictionary<(string, float, TextEffects), object> fonts = new Dictionary<(string, float, TextEffects), object>();
 
-            foreach (ClippingObject clippingObject in instance.ClippingObjects) {
+            foreach (ClippingObject clippingObject in instance.ClippingObjects.SelectMany(c => (c is RepeatedShapes repeated) ? repeated.Expand() : new ClippingObject[] { c })) {
                 IReadOnlyList<Matrix> steps = clippingObject.Placement.Steps;
                 foreach (Matrix step in steps)
                     g.PushTransform(step);

@@ -341,6 +341,151 @@ namespace PurplePen.MapModel
         }
     }
 
+    // A clipping object that repeats shapes along a path, as the evenly spaced glyphs of a part of a line repeat in one
+    // palette entry. Its elements are the clipping objects of the parts of the glyph in that palette entry, in the
+    // coordinates of the glyph, and all the placements share them. Its shape is its path, a polyline of the segments of
+    // the line on which the placements are. The placements are at the distances first, first + step, first + 2 step and
+    // so on along the path, as the metric of the map measures them. Each placement moves the origin of the glyph there
+    // and, unless the glyph is one circle at its origin, turns the glyph to the direction of the path there, as a line
+    // places its glyphs. An encoding gives the repetition to an abstraction of its channel, such as the 1D path effect
+    // of Skia, or expands it to its placements (Expand).
+    public sealed class RepeatedShapes : ClippingObject
+    {
+        private readonly ReadOnlyCollection<ClippingObject> elements;
+        private readonly float first;
+        private readonly float step;
+        private readonly int count;
+        private readonly bool isEuclidean;
+        private readonly bool isTurnedToPath;
+        private RectangleF? coveredBounds;
+
+        // Make a repetition of shapes along a path.
+        // path: the path, a polyline of the segments on which the placements are.
+        // elements: the clipping objects that each placement places, in the coordinates of the glyph.
+        // first: the distance of the first placement from the start of the path.
+        // step: the distance from one placement to the next along the path.
+        // count: the number of placements, at least two.
+        // isEuclidean: whether the distances along the path are euclidean, and not of the OCAD metric.
+        // isTurnedToPath: whether each placement turns the elements to the direction of the path there.
+        // placement: the placement of the path in the coordinates of the map.
+        public RepeatedShapes(PathShape path, IEnumerable<ClippingObject> elements, float first, float step, int count, bool isEuclidean, bool isTurnedToPath, Placement placement)
+            : base(path, placement)
+        {
+            if (elements == null)
+                throw new ArgumentNullException(nameof(elements));
+            if (count < 2)
+                throw new ArgumentOutOfRangeException(nameof(count), "A repetition has at least two placements.");
+
+            this.elements = new List<ClippingObject>(elements).AsReadOnly();
+            this.first = first;
+            this.step = step;
+            this.count = count;
+            this.isEuclidean = isEuclidean;
+            this.isTurnedToPath = isTurnedToPath;
+        }
+
+        // The clipping objects that each placement places, in the coordinates of the glyph.
+        public IReadOnlyList<ClippingObject> Elements
+        {
+            get { return elements; }
+        }
+
+        // The distance of the first placement from the start of the path.
+        public float First
+        {
+            get { return first; }
+        }
+
+        // The distance from one placement to the next along the path.
+        public float Step
+        {
+            get { return step; }
+        }
+
+        // The number of placements.
+        public int Count
+        {
+            get { return count; }
+        }
+
+        // Whether the distances along the path are euclidean, as a channel measures its path, and not of the OCAD metric.
+        public bool IsEuclidean
+        {
+            get { return isEuclidean; }
+        }
+
+        // Whether each placement turns the elements to the direction of the path there, as the rotation of the 1D path
+        // effect of Skia and the automatic orientation of an SVG marker do. A line does not turn a glyph of one circle at
+        // its origin, as its drawing draws that glyph at each location without a transformation.
+        public bool IsTurnedToPath
+        {
+            get { return isTurnedToPath; }
+        }
+
+        // The clipping objects of the placements: the elements at each placement, in the order of the placements and of
+        // the elements, each at the placement of the repetition within the step that places the glyph.
+        public IReadOnlyList<ClippingObject> Expand()
+        {
+            return Expand(Placement);
+        }
+
+        // The clipping objects of the placements, within a placement of the path.
+        // outer: the placement of the path.
+        private List<ClippingObject> Expand(Placement outer)
+        {
+            PathShape path = (PathShape)Shape;
+            List<PointF> points = new List<PointF>();
+            foreach (GraphicsPathPart part in path.Parts)
+                points.AddRange(part.Points);
+
+            float[] distances = new float[count];
+            distances[0] = first;
+            for (int i = 1; i < count; ++i)
+                distances[i] = step;
+            float[] angles;
+            PointF[] locations = new SymPath(points.ToArray()).FindPointsAlongLine(distances, out angles, isEuclidean ? (SymPath.DistanceMetric)SymPath.EuclidDistance : SymPath.BizzarroDistance);
+
+            List<ClippingObject> placed = new List<ClippingObject>(count * elements.Count);
+            for (int i = 0; i < count; ++i) {
+                Matrix glyphStep = new Matrix();
+                glyphStep.Translate(locations[i].X, locations[i].Y);
+                if (isTurnedToPath)
+                    glyphStep.RotateAt(angles[i], new PointF(0, 0));
+                Placement glyphPlacement = outer.Within(glyphStep);
+                foreach (ClippingObject element in elements)
+                    placed.Add(element.WithPlacement(glyphPlacement));
+            }
+            return placed;
+        }
+
+        private protected override RectangleF CoveredBounds
+        {
+            get
+            {
+                if (!coveredBounds.HasValue) {
+                    RectangleF bounds = RectangleF.Empty;
+                    bool isFirst = true;
+                    foreach (ClippingObject placed in Expand(Placement.Identity)) {
+                        bounds = isFirst ? placed.Bounds : RectangleF.Union(bounds, placed.Bounds);
+                        isFirst = false;
+                    }
+                    coveredBounds = bounds;
+                }
+                return coveredBounds.Value;
+            }
+        }
+
+        internal override ClippingObject WithPlacement(Placement placement)
+        {
+            return new RepeatedShapes((PathShape)Shape, elements, first, step, count, isEuclidean, isTurnedToPath, placement);
+        }
+
+        public override string ToString()
+        {
+            return string.Format("Repeated {0} shapes {1} times by {2} from {3} along {4}{5}", elements.Count, count, step, first, Shape, isTurnedToPath ? ", turned to the path" : "");
+        }
+    }
+
     // The line that strokes a shape: its width, caps, joins and miter limit, in the coordinates of the shape, and, for a
     // dashed line, its dash pattern and phase. The pattern is the lengths of the dashes and the gaps in turn, a dash
     // first, repeated along the shape; the phase is how far into the pattern the shape starts, as SVG's

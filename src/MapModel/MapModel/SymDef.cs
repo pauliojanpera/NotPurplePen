@@ -1115,24 +1115,97 @@ namespace PurplePen.MapModel
             for (int n = 0; n < glyphInfo.number; ++n) {
                 distances[0] = firstDistance - ((glyphInfo.number - 1 - n * 2) * (glyphInfo.spacing / 2.0F));
 
+                SymPath walkedPath;
                 if (glyphInfo.location != GlyphLocation.Start && glyphInfo.location != GlyphLocation.End) {
                     if (longPath.FirstPoint != path.FirstPoint && shortenInfo.shortenBeginning > 0) {
                         // This is a shortened path, convert distances back into the long path.
                         distances[0] += shortenInfo.shortenBeginning;
-                        points = longPath.FindPointsAlongLine(distances, out perpAngles, map.MapDistanceMetric);
+                        walkedPath = longPath;
                     }
                     else {
-                        points = path.FindPointsAlongLine(distances, out perpAngles, map.MapDistanceMetric);
+                        walkedPath = path;
                     }
                 }
                 else {
-                    points = longPath.FindPointsAlongLine(distances, out perpAngles, map.MapDistanceMetric);
+                    walkedPath = longPath;
                 }
+                points = walkedPath.FindPointsAlongLine(distances, out perpAngles, map.MapDistanceMetric);
 
-                for (int i = 0; i < points.Length; ++i) {
-                    glyphInfo.glyph.AddClippingObjects(instances, points[i], perpAngles[i], null, null);
+                AddGlyphsAtPoints(instances, glyphInfo.glyph, walkedPath, distances, points, perpAngles);
+            }
+        }
+
+        // Add the clipping objects of glyphs at their points along a path. Each run of at least three glyphs at even
+        // steps is a repetition of the shared shapes of the glyph, and the other glyphs are single placements: at the
+        // ends of the parts between corner and dash points, the steps to the glyphs of the end dashes and to the next
+        // part differ.
+        // instances: the layer instances.
+        // glyph: the glyph.
+        // walkedPath: the path along which FindPointsAlongLine found the points.
+        // distances: the distance of each glyph from the one before it, and of the first glyph from the start of the path.
+        // points, angles: the points and the angles of the glyphs, as FindPointsAlongLine gives them.
+        private void AddGlyphsAtPoints(LayerInstanceBuilder instances, Glyph glyph, SymPath walkedPath, float[] distances, PointF[] points, float[] angles)
+        {
+            int first = 0;
+            while (first < points.Length) {
+                int last = first;
+                while (last + 1 < points.Length && distances[last + 1] == distances[first + 1])
+                    ++last;
+
+                if (last - first + 1 >= 3) {
+                    float firstOnSegments;
+                    PathShape runPath = PathShape.FromPoints(GetSegmentsOfGlyphs(walkedPath, distances, first, last, out firstOnSegments), false);
+                    glyph.AddRepetition(instances, runPath, firstOnSegments, distances[first + 1], last - first + 1, map.UseEuclideanMetric);
+                    first = last + 1;
+                }
+                else {
+                    glyph.AddClippingObjects(instances, points[first], angles[first], null, null);
+                    ++first;
                 }
             }
+        }
+
+        // The segments of the flattened path on which a run of glyphs is, from the segment of one glyph to the segment of
+        // a later one, as FindPointsAlongLine finds the segment of each distance: a glyph at a vertex is on the segment
+        // that starts there, and a glyph beyond the end on the last segment. So each glyph turns with its segment.
+        // walkedPath: the path.
+        // distances: the distance of each glyph from the one before it, and of the first glyph from the start of the path.
+        // first, last: the indices of the two glyphs.
+        // firstOnSegments: the distance of the first glyph from the start of the segments.
+        private PointF[] GetSegmentsOfGlyphs(SymPath walkedPath, float[] distances, int first, int last, out float firstOnSegments)
+        {
+            double start = 0;
+            for (int i = 0; i <= first; ++i)
+                start += distances[i];
+            double end = start;
+            for (int i = first + 1; i <= last; ++i)
+                end += distances[i];
+
+            PointF[] flattened = walkedPath.FlattenedPoints;
+            SymPath.DistanceMetric metric = map.MapDistanceMetric;
+            int firstVertex = flattened.Length - 2, lastVertex = flattened.Length - 1;
+            double along = 0, alongAtFirstVertex = 0;
+            bool isFirstFound = false;
+            for (int i = 1; i < flattened.Length; ++i) {
+                double next = along + metric(flattened[i - 1], flattened[i]);
+                if (!isFirstFound && start < next) {
+                    firstVertex = i - 1;
+                    alongAtFirstVertex = along;
+                    isFirstFound = true;
+                }
+                if (end < next) {
+                    lastVertex = i;
+                    break;
+                }
+                along = next;
+            }
+            if (!isFirstFound)
+                alongAtFirstVertex = along - metric(flattened[firstVertex], flattened[lastVertex]);
+
+            firstOnSegments = (float)(start - alongAtFirstVertex);
+            PointF[] segments = new PointF[lastVertex - firstVertex + 1];
+            Array.Copy(flattened, firstVertex, segments, 0, segments.Length);
+            return segments;
         }
 
         // Add the clipping objects of a dashed line along a path to the instance of its color, as DrawDashedWithOffset
