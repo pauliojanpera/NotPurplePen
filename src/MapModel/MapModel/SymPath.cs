@@ -67,6 +67,7 @@ namespace PurplePen.MapModel
         volatile float pathLength = -1;  // -1 means not computed yet.
         volatile float bizzarroLength = -1;  // -1 means not computed yet.
         volatile float maxMiter = 0;  // 0 means not computed yet.
+        volatile OcadCurveMeasure ocadCurveMeasure;  // null means not computed yet, or no Bezier curve (GetOcadCurveMeasure).
 
         const float FLATTENAMOUNT = 0.01F;
 
@@ -339,6 +340,40 @@ namespace PurplePen.MapModel
             }
         }
 
+        // The clipping object that the drawing of the path with a pen makes (Draw, or DrawTransformed with a
+        // transformation): the stroked polyline through its points, or the polygon if the path is closed, or the stroked
+        // figure of its lines and Bezier curves.
+        // stroke: the line of the pen.
+        // placement: the placement of the path.
+        // transform: the transformation of the points of the path, or null.
+        internal StrokedShape MakeStrokedShape(Stroke stroke, Placement placement, Matrix transform = null)
+        {
+            PointF[] shapePoints = (transform == null) ? points : Geometry.TransformPoints(points, transform);
+            PathShape shape;
+            if (!anyBeziers)
+                shape = PathShape.FromPoints(shapePoints, isClosedCurve);
+            else
+                shape = new PathShape(GetPathPartListCore(null, shapePoints, null, null));   // It does not use the drawing target.
+            return new StrokedShape(shape, stroke, placement);
+        }
+
+        // The clipping object that the fill of the path with holes makes (FillWithHoles, or FillTransformedWithHoles
+        // with a transformation): the polygon through its points, or the closed figures of the path and its holes,
+        // filled with the alternate rule.
+        // holes: the holes, or null.
+        // placement: the placement of the path.
+        // transform: the transformation of the points of the path and the holes, or null.
+        internal FilledShape MakeFilledShape(SymPath[] holes, Placement placement, Matrix transform = null)
+        {
+            PointF[] shapePoints = (transform == null) ? points : Geometry.TransformPoints(points, transform);
+            PathShape shape;
+            if (!anyBeziers && holes == null)
+                shape = PathShape.FromPoints(shapePoints, true);
+            else
+                shape = new PathShape(GetPathPartListCore(null, shapePoints, holes, (holes == null) ? null : Array.ConvertAll(holes, hole => (transform == null) ? hole.points : Geometry.TransformPoints(hole.points, transform))));
+            return new FilledShape(shape, AreaFillMode.Alternate, placement);
+        }
+
         public object GetPathKey(IGraphicsTarget g)
         {
             return GetPathKeyCore(g, this, points, null, null);
@@ -440,42 +475,148 @@ namespace PurplePen.MapModel
             return partList;
         }
 
+        // A dash of a dashed line along the path, as DrawDashedCore draws it.
+        internal sealed class DashOnPath
+        {
+            public PointF[] Points;         // The points of the dash as it is drawn: after the rules of the vertices next to its ends, and after the offset.
+            public int DashIndex;           // The index of the length of the dash in the array of the lengths of the dashes and the gaps.
+            public int StartSegment;        // The segment of the flattened path that holds the start of the dash.
+            public int EndSegment;          // The segment of the flattened path that holds the end of the dash.
+            public int FirstPoint;          // The first point of the flattened path that the dash crosses.
+            public int EndPoint;            // The point of the flattened path after the last one that the dash crosses.
+            public bool IsVertexLeftOut;    // Whether a rule of the vertices left a vertex out of the dash.
+        }
+
+        // The dashes of a dashed line along the path, as DrawDashedCore draws them: from the start of the path, with the
+        // lengths of the dashes and the gaps in turn, a dash first, measured with a metric. This is the geometry of the
+        // drawing of a dashed line, for the geometry method of lines (LineSymDef.AddClippingObjects), apart from it.
+        // dashLengths: the lengths of the dashes and the gaps in turn, a dash first.
+        // metric: the metric that measures the lengths.
+        // offsetRight: the distance of the line to the right of the path, or 0.
+        // miterLimit: the miter limit of the offset.
+        // pathVertexLimit, drawnVertexLimit: the limits of the rules of the vertices next to the ends of a dash, as
+        //   DrawDashedOffset takes them.
+        internal List<DashOnPath> GetDashes(float[] dashLengths, DistanceMetric metric, float offsetRight, float miterLimit, float pathVertexLimit, float drawnVertexLimit)
+        {
+            List<DashOnPath> dashes = new List<DashOnPath>();
+            GetFlattenedPoints();
+            if (flatpoints.Length == 0)
+                return dashes;
+
+            double nextLength = dashLengths[0];     // The distance from prevPoint to the next end of a dash or a gap.
+            int curDash = 0;                        // The index of the dash or the gap that the walk is in.
+            bool inDrawnPart = true;
+            PointF prevPoint = flatpoints[0];
+            PointF lastDashEnd = prevPoint;         // The last end of a dash or a gap.
+            int lastDashEndIndex = 1;               // The index of the flattened point after it.
+            int lastDashEndSegment = 0;             // The segment that holds it.
+            int i = 1;
+
+            while (i < flatpoints.Length) {
+                PointF nextPoint = flatpoints[i];
+                double distX = nextPoint.X - prevPoint.X;
+                double distY = nextPoint.Y - prevPoint.Y;
+                double dist = metric(nextPoint, prevPoint);
+
+                if (nextLength < dist) {
+                    double fraction = nextLength / dist;
+                    PointF pt = new PointF((float)(prevPoint.X + distX * fraction), (float)(prevPoint.Y + distY * fraction));
+
+                    if (inDrawnPart)
+                        dashes.Add(MakeDashOnPath(lastDashEnd, lastDashEndIndex, i, pt, curDash, lastDashEndSegment, i - 1, offsetRight, miterLimit, pathVertexLimit, drawnVertexLimit));
+
+                    lastDashEnd = pt;
+                    lastDashEndIndex = i;
+                    lastDashEndSegment = i - 1;
+                    inDrawnPart = !inDrawnPart;
+
+                    ++curDash;
+                    if (curDash >= dashLengths.Length)
+                        curDash = 0;
+                    nextLength += dashLengths[curDash];
+                }
+                else {
+                    prevPoint = nextPoint;
+                    nextLength -= dist;
+                    ++i;
+                }
+            }
+
+            if (inDrawnPart) {
+                int last = flatpoints.Length - 1;
+                dashes.Add(MakeDashOnPath(lastDashEnd, lastDashEndIndex, last, flatpoints[last], curDash, lastDashEndSegment, Math.Max(0, last - 1), offsetRight, miterLimit, pathVertexLimit, drawnVertexLimit));
+            }
+
+            return dashes;
+        }
+
+        // One dash of GetDashes: from start, through the flattened points from firstIndex up to endIndex (not included),
+        // to end, with the rules of the vertices next to its ends and the offset, as DrawDash makes it.
+        private DashOnPath MakeDashOnPath(PointF start, int firstIndex, int endIndex, PointF end, int dashIndex, int startSegment, int endSegment, float offsetRight, float miterLimit, float pathVertexLimit, float drawnVertexLimit)
+        {
+            int count = 2 + Math.Max(0, endIndex - firstIndex);
+            PointF[] pts = new PointF[count];
+            bool[] isVertex = new bool[count];
+            pts[0] = start;
+            pts[count - 1] = end;
+            for (int k = 1; k < count - 1; ++k) {
+                pts[k] = flatpoints[firstIndex + k - 1];
+                isVertex[k] = flatkinds[firstIndex + k - 1] != PointKind.Interpolated;
+            }
+
+            PointF[] kept = LeaveOutVerticesNextToEnds(pts, ref isVertex, pathVertexLimit);
+            if (offsetRight != 0)
+                kept = OffsetPointsRight(kept, offsetRight, miterLimit);
+            int countAfterPathRule = kept.Length;
+            kept = LeaveOutVerticesNextToEnds(kept, ref isVertex, drawnVertexLimit);
+
+            return new DashOnPath() {
+                Points = kept, DashIndex = dashIndex, StartSegment = startSegment, EndSegment = endSegment,
+                FirstPoint = firstIndex, EndPoint = Math.Max(firstIndex, endIndex),
+                IsVertexLeftOut = kept.Length < count || countAfterPathRule < count
+            };
+        }
+
 
         // Draw a dashed lines. The dashLengths array contains the dash/gap lengths for the whole line. If we reach 
         // the end of this array, we wrap around. The variable offsetToStart indicates how far into the array to 
         // start.
         internal void DrawDashed(IGraphicsTarget g, object penKey, float[] dashLengths, float offsetToStart, DistanceMetric metric)
         {
-            DrawDashedCore(g, penKey, dashLengths, offsetToStart, metric, 0, 1);
+            DrawDashedCore(g, penKey, dashLengths, offsetToStart, metric, 0, 1, 0, 0);
         }
 
         public void DrawDashed(IGraphicsTarget g, object penKey, float[] dashLengths, float offsetToStart)
         {
-            DrawDashedCore(g, penKey, dashLengths, offsetToStart, EuclidDistance, 0, 1);
+            DrawDashedCore(g, penKey, dashLengths, offsetToStart, EuclidDistance, 0, 1, 0, 0);
         }
 
         public void DrawDashedBizzarro(IGraphicsTarget g, object penKey, float[] dashLengths, float offsetToStart)
         {
-            DrawDashedCore(g, penKey, dashLengths, offsetToStart, BizzarroDistance, 0, 1);
+            DrawDashedCore(g, penKey, dashLengths, offsetToStart, BizzarroDistance, 0, 1, 0, 0);
         }
 
-        internal void DrawDashedOffset(IGraphicsTarget g, object penKey, float[] dashLengths, float offsetToStart, float offsetRight, float miterLimit, DistanceMetric metric)
+        // Draw a dashed line offset to the right. A dash leaves out the vertex next to its start, and the vertex next to its
+        // end, when the piece of the dash between the vertex and the end is shorter than a limit, in mm: pathVertexLimit
+        // for the dash on the path, before the offset, and drawnVertexLimit for the dash that is drawn, after the offset.
+        // A limit of 0 keeps all the vertices.
+        internal void DrawDashedOffset(IGraphicsTarget g, object penKey, float[] dashLengths, float offsetToStart, float offsetRight, float miterLimit, DistanceMetric metric, float pathVertexLimit, float drawnVertexLimit)
         {
-            DrawDashedCore(g, penKey, dashLengths, offsetToStart, metric, offsetRight, miterLimit);
+            DrawDashedCore(g, penKey, dashLengths, offsetToStart, metric, offsetRight, miterLimit, pathVertexLimit, drawnVertexLimit);
         }
 
 
         public void DrawDashedOffset(IGraphicsTarget g, object penKey, float[] dashLengths, float offsetToStart, float offsetRight, float miterLimit)
         {
-            DrawDashedCore(g, penKey, dashLengths, offsetToStart, EuclidDistance, offsetRight, miterLimit);
+            DrawDashedCore(g, penKey, dashLengths, offsetToStart, EuclidDistance, offsetRight, miterLimit, 0, 0);
         }
 
         public void DrawDashedOffsetBizzarro(IGraphicsTarget g, object penKey, float[] dashLengths, float offsetToStart, float offsetRight, float miterLimit)
         {
-            DrawDashedCore(g, penKey, dashLengths, offsetToStart, BizzarroDistance, offsetRight, miterLimit);
+            DrawDashedCore(g, penKey, dashLengths, offsetToStart, BizzarroDistance, offsetRight, miterLimit, 0, 0);
         }
 
-        private void DrawDashedCore(IGraphicsTarget g, object penKey, float[] dashLengths, float offsetToStart, DistanceMetric metric, float offsetRight, float miterLimit)
+        private void DrawDashedCore(IGraphicsTarget g, object penKey, float[] dashLengths, float offsetToStart, DistanceMetric metric, float offsetRight, float miterLimit, float pathVertexLimit, float drawnVertexLimit)
         {
             double nextLength = dashLengths[0];  // distance to next dash beginning/end
             int curDash = 0;			// current index into dashLengths array.
@@ -523,14 +664,7 @@ namespace PurplePen.MapModel
                     if (inDrawnPart) {
                         // Draw the dash. The start point is lastDashEnd, the end point is pt and
                         // the intermediate points are indexed lastDashEndIndex ... i - 1
-                        PointF[] pts = new PointF[2 + (i - lastDashEndIndex)];
-                        pts[0] = lastDashEnd;
-                        pts[pts.Length - 1] = pt;
-                        if (i > lastDashEndIndex) 
-                            Array.Copy(flatpoints, lastDashEndIndex, pts, 1, i - lastDashEndIndex);
-                        if (offsetRight != 0)
-                            pts = OffsetPointsRight(pts, offsetRight, miterLimit);
-                        g.DrawPolyline(penKey, pts);
+                        DrawDash(g, penKey, lastDashEnd, lastDashEndIndex, i, pt, offsetRight, miterLimit, pathVertexLimit, drawnVertexLimit);
                     }
 
                     // update lastDashEnd with the current point
@@ -554,16 +688,62 @@ namespace PurplePen.MapModel
             }
 
             if (inDrawnPart) {
-                // Draw the last dash. 
-                i = flatpoints.Length;
-                PointF[] pts = new PointF[1 + (flatpoints.Length - lastDashEndIndex)];
-                pts[0] = lastDashEnd;
-                if (flatpoints.Length > lastDashEndIndex) 
-                    Array.Copy(flatpoints, lastDashEndIndex, pts, 1, flatpoints.Length - lastDashEndIndex);
-                if (offsetRight != 0)
-                    pts = OffsetPointsRight(pts, offsetRight, miterLimit);
-                g.DrawPolyline(penKey, pts);
+                // Draw the last dash, which ends at the last point.
+                DrawDash(g, penKey, lastDashEnd, lastDashEndIndex, flatpoints.Length - 1, flatpoints[flatpoints.Length - 1], offsetRight, miterLimit, pathVertexLimit, drawnVertexLimit);
             }
+        }
+
+        // Draw one dash of a dashed line: from start, through the flattened points from firstIndex up to endIndex
+        // (not included), to end, offset to the right. OCAD leaves out of a dash the vertex next to its start, and the
+        // vertex next to its end, when the piece of the dash between the vertex and the end is shorter than a limit, in mm:
+        // pathVertexLimit before the offset, and drawnVertexLimit after it.
+        private void DrawDash(IGraphicsTarget g, object penKey, PointF start, int firstIndex, int endIndex, PointF end, float offsetRight, float miterLimit, float pathVertexLimit, float drawnVertexLimit)
+        {
+            int count = 2 + Math.Max(0, endIndex - firstIndex);
+            PointF[] pts = new PointF[count];
+            bool[] isVertex = new bool[count];
+            pts[0] = start;
+            pts[count - 1] = end;
+            for (int k = 1; k < count - 1; ++k) {
+                pts[k] = flatpoints[firstIndex + k - 1];
+                isVertex[k] = flatkinds[firstIndex + k - 1] != PointKind.Interpolated;
+            }
+
+            pts = LeaveOutVerticesNextToEnds(pts, ref isVertex, pathVertexLimit);
+            if (offsetRight != 0)
+                pts = OffsetPointsRight(pts, offsetRight, miterLimit);
+            pts = LeaveOutVerticesNextToEnds(pts, ref isVertex, drawnVertexLimit);
+            g.DrawPolyline(penKey, pts);
+        }
+
+        // Leave out of a dash the vertex next to its start, and the vertex next to its end, when the piece of the dash
+        // between the vertex and the end is shorter than the limit, as OCAD does. The ends of the dash stay, and so do the
+        // points that the flattening of a curve made. The rule does not repeat: once a vertex is left out, the next vertex
+        // stays, however near the end it is.
+        // points: the points of the dash, from its start to its end.
+        // isVertex: for each point, whether it is a vertex of the path; it is updated to the points that stay.
+        // limit: the length in mm below which a piece leaves out its vertex, or 0 to keep all the vertices.
+        private static PointF[] LeaveOutVerticesNextToEnds(PointF[] points, ref bool[] isVertex, float limit)
+        {
+            if (limit <= 0 || points.Length < 3)
+                return points;
+
+            int first = 1, last = points.Length - 2;
+            bool isFirstLeftOut = isVertex[first] && EuclidDistance(points[0], points[first]) < limit;
+            bool isLastLeftOut = isVertex[last] && EuclidDistance(points[last], points[last + 1]) < limit;
+            if (!isFirstLeftOut && !isLastLeftOut)
+                return points;
+
+            List<PointF> keptPoints = new List<PointF>(points.Length);
+            List<bool> keptIsVertex = new List<bool>(points.Length);
+            for (int k = 0; k < points.Length; ++k) {
+                if ((k == first && isFirstLeftOut) || (k == last && isLastLeftOut))
+                    continue;
+                keptPoints.Add(points[k]);
+                keptIsVertex.Add(isVertex[k]);
+            }
+            isVertex = keptIsVertex.ToArray();
+            return keptPoints.ToArray();
         }
 
         // Fill in the flatpoints and flatkinds fields with the flattened path. A 
@@ -1469,6 +1649,195 @@ namespace PurplePen.MapModel
             return GetCornerAndDashPointDistances(BizzarroDistance, out pointkinds);
         }
 
+        // Get the lengths from which OCAD counts the dashes of the parts of the path between corner and dash points, the
+        // parts of GetCornerAndDashPointDistances. OCAD measures each straight segment, and each Bezier curve as four chords
+        // between its points at the parameters 0, 1/4, 1/2, 3/4 and 1, with a metric, and rounds each to 0.01 mm.
+        internal float[] GetCornerAndDashPointLengthsForCounting(DistanceMetric metric)
+        {
+            List<float> lengths = new List<float>();
+            double accumulate = 0.0;
+            int i = 0;
+            while (i < points.Length - 1) {
+                if (kinds[i + 1] == PointKind.BezierControl) {
+                    PointF[] quarterEnds = GetQuarterEnds(new Bezier(points[i], points[i + 1], points[i + 2], points[i + 3]));
+                    for (int quarter = 0; quarter < 4; ++quarter)
+                        accumulate += RoundToHundredth(metric(quarterEnds[quarter], quarterEnds[quarter + 1]));
+                    i += 3;
+                }
+                else {
+                    accumulate += RoundToHundredth(metric(points[i], points[i + 1]));
+                    i += 1;
+                }
+
+                if (i < points.Length - 1 && (kinds[i] == PointKind.Corner || kinds[i] == PointKind.Dash)) {
+                    lengths.Add((float) accumulate);
+                    accumulate = 0.0;
+                }
+            }
+
+            lengths.Add((float) accumulate);
+            return lengths.ToArray();
+        }
+
+        // Round a length in mm to 0.01 mm, the unit of the coordinates of OCAD.
+        static double RoundToHundredth(double length)
+        {
+            return Math.Round(length * 100) / 100;
+        }
+
+        // The points of a Bezier curve at the parameters 0, 1/4, 1/2, 3/4 and 1, which end its quarters.
+        static PointF[] GetQuarterEnds(Bezier bezier)
+        {
+            PointF[] quarterEnds = new PointF[5];
+            quarterEnds[0] = bezier.end1;
+            for (int quarter = 1; quarter < 4; ++quarter) {
+                Bezier before, after;
+                bezier.SplitAtCoefficient(quarter / 4F, out before, out after);
+                quarterEnds[quarter] = before.end2;
+            }
+            quarterEnds[4] = bezier.end2;
+            return quarterEnds;
+        }
+
+        // Get the measure in which OCAD places the dashes along the path with the euclidean metric, and in which the OCAD
+        // spacing places the glyphs too, or null if the path has no Bezier curve, as the measure of a path without one is
+        // its length. In the measure, a straight segment has its length, and each quarter of a Bezier curve has its chord,
+        // between the points of the curve at the parameters 0, 1/4, 1/2, 3/4 and 1 (GetQuarterEnds). Within a quarter, a
+        // length of the measure is at the same part of the length of the flattened quarter.
+        internal OcadCurveMeasure GetOcadCurveMeasure()
+        {
+            if (!anyBeziers)
+                return null;
+            if (ocadCurveMeasure == null)
+                ocadCurveMeasure = MakeOcadCurveMeasure();
+            return ocadCurveMeasure;
+        }
+
+        // Make the measure of GetOcadCurveMeasure, for a path with Bezier curves.
+        OcadCurveMeasure MakeOcadCurveMeasure()
+        {
+            List<double> measures = new List<double>() { 0 }, lengths = new List<double>() { 0 };
+            List<float> partMeasures = new List<float>();
+            List<PointF> flattened = new List<PointF>();
+            int[] quarterIndexes = new int[3];
+            double measure = 0, length = 0, partMeasure = 0;
+            int i = 0;
+            while (i < points.Length - 1) {
+                if (kinds[i + 1] == PointKind.BezierControl) {
+                    // The curve flattened as GetFlattenedPoints flattens it, with the length along it to each of its points.
+                    Bezier bezier = new Bezier(points[i], points[i + 1], points[i + 2], points[i + 3]);
+                    PointF[] quarterEnds = GetQuarterEnds(bezier);
+                    flattened.Clear();
+                    bezier.Flatten(FLATTENAMOUNT, flattened, quarterIndexes);
+                    double[] lengthsAlong = new double[flattened.Count];
+                    for (int k = 1; k < flattened.Count; ++k)
+                        lengthsAlong[k] = lengthsAlong[k - 1] + EuclidDistance(flattened[k - 1], flattened[k]);
+
+                    if (measures[measures.Count - 1] != measure) {
+                        measures.Add(measure);
+                        lengths.Add(length);
+                    }
+                    for (int quarter = 1; quarter <= 4; ++quarter) {
+                        double chord = EuclidDistance(quarterEnds[quarter - 1], quarterEnds[quarter]);
+                        measure += chord;
+                        partMeasure += chord;
+                        measures.Add(measure);
+                        lengths.Add(length + LengthAlongFlattenedCurve(flattened, lengthsAlong, quarterIndexes, quarterEnds, quarter));
+                    }
+                    length += lengthsAlong[flattened.Count - 1];
+                    i += 3;
+                }
+                else {
+                    double segment = EuclidDistance(points[i], points[i + 1]);
+                    measure += segment;
+                    partMeasure += segment;
+                    length += segment;
+                    i += 1;
+                }
+
+                if (i < points.Length - 1 && (kinds[i] == PointKind.Corner || kinds[i] == PointKind.Dash)) {
+                    partMeasures.Add((float) partMeasure);
+                    partMeasure = 0.0;
+                }
+            }
+
+            partMeasures.Add((float) partMeasure);
+            if (measures[measures.Count - 1] != measure) {
+                measures.Add(measure);
+                lengths.Add(length);
+            }
+            return new OcadCurveMeasure(measures.ToArray(), lengths.ToArray(), partMeasures.ToArray());
+        }
+
+        // The length along a flattened Bezier curve to the end of one of its quarters: to the point of the flattened curve
+        // at the end of the quarter, or, where the curve is flat enough to have no point there, to the nearest point of the
+        // segment that passes it. That segment starts at the point at the end of an earlier quarter, or at the start.
+        // flattened: the points of the flattened curve.
+        // lengthsAlong: the length along the flattened curve to each of its points.
+        // quarterIndexes: the indexes of the points at the ends of the first three quarters, or -1 (Bezier.Flatten).
+        // quarterEnds: the points of the curve at the ends of the quarters (GetQuarterEnds).
+        // quarter: the quarter, from 1 to 4.
+        static double LengthAlongFlattenedCurve(List<PointF> flattened, double[] lengthsAlong, int[] quarterIndexes, PointF[] quarterEnds, int quarter)
+        {
+            if (quarter == 4)
+                return lengthsAlong[flattened.Count - 1];
+            if (quarterIndexes[quarter - 1] >= 0)
+                return lengthsAlong[quarterIndexes[quarter - 1]];
+
+            int start = (quarter == 3 && quarterIndexes[1] >= 0) ? quarterIndexes[1] : 0;
+            return lengthsAlong[start] + EuclidDistance(flattened[start], Geometry.ClosestPointOnLineSegment(flattened[start], flattened[start + 1], quarterEnds[quarter]));
+        }
+
+        // The measure in which OCAD places the dashes along a path with Bezier curves, with the euclidean metric, and in
+        // which the OCAD spacing places the glyphs too (GetOcadCurveMeasure). It maps a length of the measure from the start
+        // of the path to a length along the flattened path, which the drawing walks, linearly between the ends of the
+        // quarters of the curves.
+        internal sealed class OcadCurveMeasure
+        {
+            private readonly double[] measures;     // the ends of the path and of the quarters, in the measure
+            private readonly double[] lengths;      // the same points, as lengths along the flattened path
+
+            // The measure of each part of the path between corner and dash points, as GetCornerAndDashPointDistances gives
+            // the length of each part.
+            public readonly float[] PartMeasures;
+
+            public OcadCurveMeasure(double[] measures, double[] lengths, float[] partMeasures)
+            {
+                this.measures = measures;
+                this.lengths = lengths;
+                PartMeasures = partMeasures;
+            }
+
+            // Convert distances of the measure, each from the location before it, as LineSymDef.ComputeDashDistances gives
+            // them, to distances along the flattened path, as DrawDashed and FindPointsAlongLine walk them.
+            public float[] ToDistancesAlongPath(float[] distances)
+            {
+                float[] converted = new float[distances.Length];
+                double measure = 0, previousLength = 0;
+                for (int i = 0; i < distances.Length; ++i) {
+                    measure += distances[i];
+                    double length = ToLengthAlongPath(measure);
+                    converted[i] = (float) (length - previousLength);
+                    previousLength = length;
+                }
+                return converted;
+            }
+
+            // The length along the flattened path at a length of the measure from its start.
+            private double ToLengthAlongPath(double measure)
+            {
+                int piece = Array.BinarySearch(measures, measure);
+                if (piece < 0)
+                    piece = ~piece - 1;
+                piece = Math.Max(0, Math.Min(piece, measures.Length - 2));
+
+                double width = measures[piece + 1] - measures[piece];
+                if (width <= 0)
+                    return lengths[piece];
+                return lengths[piece] + (measure - measures[piece]) * (lengths[piece + 1] - lengths[piece]) / width;
+            }
+        }
+
         internal float[] GetCornerAndDashPointDistances(DistanceMetric metric, out PointKind[] pointkinds) 
         {
             // First, count the number of corner points, plus 1. Ignore first and last point.
@@ -1953,6 +2322,15 @@ namespace PurplePen.MapModel
 
         public void Fill(IGraphicsTarget g, object brushKey) {
             MainPath.FillWithHoles(g, brushKey, Holes);
+        }
+
+        // The clipping object that the fill of the path and its holes makes (Fill, or FillTransformed with a
+        // transformation).
+        // placement: the placement of the path.
+        // transform: the transformation of the points, or null.
+        internal FilledShape MakeFilledShape(Placement placement, Matrix transform = null)
+        {
+            return MainPath.MakeFilledShape(Holes, placement, transform);
         }
 
         public void FillTransformed(IGraphicsTarget g, object brushKey, Matrix matrix) {

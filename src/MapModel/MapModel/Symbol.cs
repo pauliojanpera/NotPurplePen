@@ -96,6 +96,12 @@ namespace PurplePen.MapModel
         // Draw this color, if used, of this symbol.
         public abstract void Draw(IGraphicsTarget g, SymColor color, RenderOptions renderOpts);
 
+        // The geometry method of the symbol: add its clipping objects to the layer instances of pass 1 of the drawing,
+        // each to the instance of its palette entry, in the order that Draw draws the shapes of a palette entry,
+        // without a drawing target and without render options.
+        // instances: the layer instances.
+        internal abstract void AddClippingObjects(LayerInstanceBuilder instances);
+
         // Highlight this symbols.
         public abstract void DrawHighlight(IGraphicsTarget g, HighlightOptions options);
 
@@ -328,6 +334,12 @@ namespace PurplePen.MapModel
             def.Draw(g, location, rotation, gaps, color, renderOpts);
         }
 
+        // Add the clipping objects of the symbol to the layer instances of pass 1: the parts of its glyph.
+        internal override void AddClippingObjects(LayerInstanceBuilder instances)
+        {
+            def.AddClippingObjects(instances, location, rotation, gaps);
+        }
+
         // Highlight the symbol.
         public override void DrawHighlight(IGraphicsTarget g, HighlightOptions options)
         {
@@ -363,6 +375,13 @@ namespace PurplePen.MapModel
         public override LineLikeSymbol CloneDetached(SymPath newPath)
         {
             return new LineSymbol(def, newPath);
+        }
+
+        // Add the clipping objects of the line to the layer instances of pass 1 with the geometry method of its
+        // definition (LineLikeSymDef.AddClippingObjects).
+        internal override void AddClippingObjects(LayerInstanceBuilder instances)
+        {
+            def.AddClippingObjects(instances, path);
         }
 
         // Determine accurately if this point is within distance of a this symbol.
@@ -478,6 +497,13 @@ namespace PurplePen.MapModel
             def.DrawTextOnPath(g, path, text, color, horizAlignment, vertAlignment, renderOpts);
         }
 
+        // Add the clipping objects of the text to the layer instances of pass 1 with the geometry method of its
+        // definition (TextSymDef.AddClippingObjectsOfTextOnPath).
+        internal override void AddClippingObjects(LayerInstanceBuilder instances)
+        {
+            def.AddClippingObjectsOfTextOnPath(instances, path, text, horizAlignment, vertAlignment);
+        }
+
         // Highlight the symbol.
         public override void DrawHighlight(IGraphicsTarget g, HighlightOptions options)
         {
@@ -580,6 +606,13 @@ namespace PurplePen.MapModel
         public override void Draw(IGraphicsTarget g, SymColor color, RenderOptions renderOpts)
         {
             def.Draw(g, Path, color, angle, rotationCenter, renderOpts);
+        }
+
+        // Add the clipping objects of the area to the layer instances of pass 1 with the geometry method of its
+        // definition (AreaLikeSymDef.AddClippingObjects).
+        internal override void AddClippingObjects(LayerInstanceBuilder instances)
+        {
+            def.AddClippingObjects(instances, Path);
         }
 
         // Highlight the symbol.
@@ -750,6 +783,13 @@ namespace PurplePen.MapModel
             def.Draw(g, wrappedText, wrappedLineWidths, location, rotation, width, color, horizAlignment, vertAlignment, renderOpts);
         }
 
+        // Add the clipping objects of the text to the layer instances of pass 1 with the geometry method of its
+        // definition (TextSymDef.AddClippingObjects).
+        internal override void AddClippingObjects(LayerInstanceBuilder instances)
+        {
+            def.AddClippingObjects(instances, wrappedText, wrappedLineWidths, location, rotation, width, horizAlignment, vertAlignment);
+        }
+
         // Highlight the symbol.
         public override void DrawHighlight(IGraphicsTarget g, HighlightOptions options)
         {
@@ -897,6 +937,14 @@ namespace PurplePen.MapModel
             }
         }
 
+        // Add the clipping object of the area to the layer instances of pass 1, as Draw fills it: the path with its
+        // holes, in the fill color.
+        internal override void AddClippingObjects(LayerInstanceBuilder instances)
+        {
+            if (fillColor != null)
+                instances.Add(fillColor, Path.MakeFilledShape(Placement.Identity));
+        }
+
 
         // Highlight the symbol.
         public override void DrawHighlight(IGraphicsTarget g, HighlightOptions options)
@@ -990,6 +1038,12 @@ namespace PurplePen.MapModel
             }
         }
 
+        // The geometry method of the symbol, which adds nothing: the symbol draws in the image or the layout layer,
+        // which is no palette entry, and has no instance.
+        internal override void AddClippingObjects(LayerInstanceBuilder instances)
+        {
+        }
+
 
         // Highlight the symbol.
         public override void DrawHighlight(IGraphicsTarget g, HighlightOptions options)
@@ -1073,6 +1127,14 @@ namespace PurplePen.MapModel
 
                 path.Draw(g, this);
             }
+        }
+
+        // Add the clipping object of the line to the layer instances of pass 1, as Draw draws it: the path with the pen
+        // of the line, in the color of the line.
+        internal override void AddClippingObjects(LayerInstanceBuilder instances)
+        {
+            if (lineColor != null)
+                instances.Add(lineColor, path.MakeStrokedShape(new Stroke(thickness, lineCap, lineJoin, GraphicsUtil.MITER_LIMIT), Placement.Identity));
         }
 
         // Highlight the symbol.
@@ -1174,6 +1236,12 @@ namespace PurplePen.MapModel
 
                 path.Draw(g, this);
             }
+        }
+
+        // The geometry method of the symbol, which adds nothing: the symbol draws in the image or the layout layer,
+        // which is no palette entry, and has no instance.
+        internal override void AddClippingObjects(LayerInstanceBuilder instances)
+        {
         }
 
         // Highlight the symbol.
@@ -1412,6 +1480,12 @@ namespace PurplePen.MapModel
                     g.PopTransform();
                 }
             }
+        }
+
+        // The geometry method of the symbol, which adds nothing: the symbol draws in the image or the layout layer,
+        // which is no palette entry, and has no instance.
+        internal override void AddClippingObjects(LayerInstanceBuilder instances)
+        {
         }
 
         public TextSymDef.InsertionPointLocation FindInsertionPoint(TextCoord textCoord)
@@ -1788,6 +1862,12 @@ namespace PurplePen.MapModel
             }
         }
 
+        // The geometry method of the symbol, which adds nothing: the symbol draws in the image or the layout layer,
+        // which is no palette entry, and has no instance.
+        internal override void AddClippingObjects(LayerInstanceBuilder instances)
+        {
+        }
+
 
         // Highlight the symbol.
         public override void DrawHighlight(IGraphicsTarget g, HighlightOptions options)
@@ -1896,6 +1976,13 @@ namespace PurplePen.MapModel
             def.Draw(g, location, size, rotation, color, renderOpts);
         }
 
+        // Add the clipping objects of the rectangle to the layer instances of pass 1 with the geometry method of its
+        // definition (RectangleSymDef.AddClippingObjects).
+        internal override void AddClippingObjects(LayerInstanceBuilder instances)
+        {
+            def.AddClippingObjects(instances, location, size, rotation);
+        }
+
         // Highlight the symbol.
         public override void DrawHighlight(IGraphicsTarget g, HighlightOptions options)
         {
@@ -1983,6 +2070,11 @@ namespace PurplePen.MapModel
 
         // Draw this color, if used, of this symbol.
         public override void Draw(IGraphicsTarget g, SymColor color, RenderOptions renderOpts)
+        {
+        }
+
+        // The geometry method of the symbol, which adds nothing, as the symbol draws nothing.
+        internal override void AddClippingObjects(LayerInstanceBuilder instances)
         {
         }
 
