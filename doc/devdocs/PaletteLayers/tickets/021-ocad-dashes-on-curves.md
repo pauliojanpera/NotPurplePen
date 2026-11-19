@@ -36,6 +36,7 @@ OCADin metriikan laajennus on tekemättä. Ehdotus: `SymPath.GetOcadCurveMeasure
 - Myöhempi päätös: myös OCADin metriikan kartoissa katkot ja glyyfit sijoitetaan Bezier-käyrälle tämän korjauksen mallilla: neljänneksen pituus mitassa on sen jänne OCADin metriikalla, ja neljänneksen sisällä pisteet ovat euklidisen kaaren suhteessa. Malli osuu OCADin metriikan PDF-vienteihin yhtä hyvin kuin euklidisiin (@Pauli, 19.11., tiketti [011](011-line-geometry.md), [OcadLines.md](../../OcadLines.md)).
 - OCADin metriikan laajennus tehdään tähän korjaukseen ja haaraan, ei uuteen tikettiin (@Pauli, 19.11.).
 - Haara juurtuu korjauksen 017 haaraan `fix/ocad-dash-count` (b99067b5), koska korjaus käyttää sen neljän jänteen mittaa. Upstreamille korjaus tarjotaan korjauksen 017 jälkeen (@Pauli, 19.11.).
+- OCADin välistyksen glyyfien toisto on Bezier-käyrällä neljänneksittäin, kuten tämä korjaus sijoittaa glyyfit (@Pauli, 20.11., tiketti [011](011-line-geometry.md)).
 
 **Haara**  
 `fix/ocad-dashes-on-curves` juurtuu haaraan `fix/ocad-dash-count` (b99067b5), joka juurtuu kohtaan, jossa `base` kohtaa upstreamin (d48f4456).

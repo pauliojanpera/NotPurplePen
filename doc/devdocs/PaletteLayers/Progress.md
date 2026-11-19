@@ -38,9 +38,9 @@ Ticket 011 is in progress on `feature/line-geometry`. The lines make their clipp
 and the collector collects no line. A dashed line is a composed dashed line, and the evenly spaced glyphs of each part
 of a line are one repetition of the shared shapes. @Pauli decided the questions 5 to 8 of the ticket on Nov 19, and
 the eighth dash sample confirmed the rule of question 9. The tickets 011 to 013 were made while they were drafts,
-without decided criteria. On Nov 19, @Pauli reviews the points of their implementation that the drafts left open. The
-first point led to the decision on the OCAD metric on curves, an extension of fix 021 that is not made yet. The
-criteria are not decided. Ticket 012 is in
+without decided criteria. From Nov 19, @Pauli reviews the points of their implementation that the drafts left open.
+The first point led to the decision on the OCAD metric on curves, an extension of fix 021 that is not made yet. On a
+curve, the glyphs of the OCAD spacing repeat by quarters (@Pauli, Nov 20). The criteria are not decided. Ticket 012 is in
 progress on `feature/area-geometry`, which is rooted at `feature/line-geometry`: the areas, the combined areas and the
 graphics objects make their clipping objects with geometry methods. Ticket 013 is in progress on
 `feature/text-geometry`, which is rooted at `feature/area-geometry`: the texts, the texts along lines and the
@@ -144,8 +144,9 @@ structure and not only the appearance. Each part builds on the parts before it, 
    drawing code stays as it is, so the drawing does not change. Ticket 011 makes a dashed line a composed dashed
    line: one periodic dashed line for each part between corner and dash points, and lines of their own for the
    merged dashes at those points and for the end dashes. A line that cannot be composed so becomes single dashes.
-   The glyphs along a line repeat with shared shapes, on straight and curved parts alike (@Pauli, Nov 19). Before
-   that, the dashed lines were checked against OCAD: [oracles/ocad-dashes.md](oracles/ocad-dashes.md) records the
+   The glyphs along a line repeat with shared shapes, on straight and curved parts alike (@Pauli, Nov 19). On a
+   Bezier curve, the glyphs of the OCAD spacing repeat by quarters (@Pauli, Nov 20). Before that, the dashed lines
+   were checked against OCAD: [oracles/ocad-dashes.md](oracles/ocad-dashes.md) records the
    samples and the rules of OCAD that they show. The fixes 015 to 020 are merged into `feature/palette-layers`
    before the work on the ticket starts.
 2. **Pass 1, the patterns** (section 03): [ticket 009](tickets/009-pattern-instances.md), a draft. The hatchings and the area patterns become prototypes
@@ -317,6 +318,10 @@ the rendering.
     a curve with the OCAD metric were single. @Pauli took a vertex to be a corner point that the user puts on the
     curve.
   - [OcadLines.md](../OcadLines.md) specifies OCAD's lines and gives the details of this decision.
+- **The repetition of the glyphs on curves** (Nov 20). On a Bezier curve, the glyphs of the OCAD spacing repeat by
+  quarters. Fix [021](tickets/021-ocad-dashes-on-curves.md) places them by quarters, as it places the dashes, so the
+  quarters have different steps. This changes the decision on the glyphs along the lines (Nov 19) for the OCAD spacing
+  (ticket 011).
 - **The framing line of texts** (Nov 19). The framing of a text run is one line in the instances, a stroke of the full
   width with the joins of the symbol, as in OCAD's PDF export. OCAD's own drawing leaves the same holes as Skia and
   Cairo with one pen, so the holes that the intermediate pens of Purple Pen fill are no faults against OCAD (question
