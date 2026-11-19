@@ -178,8 +178,6 @@ the rendering.
 - **The SVG encoding**, when pass 2 is done (Nov 18). Its place: an encoding read from the instances, or the SVG
   target of NotPurplePen fitted to them in the integration. And whether the work can use the documented findings or
   the code of `feature/svg-target`. The notes of the epic give the reasons.
-- **The PDF export of the sample of the text along lines** (Nov 19). For fix
-  [022](tickets/022-line-text-metric.md).
 - **Offering upstream.** No branch is offered upstream yet.
 
 ## Decisions
@@ -271,9 +269,10 @@ the rendering.
 - **The OCAD metric is best effort** (Nov 19). Current OCAD measures the lines with the euclidean metric unless a
   map has the view parameter `p1`, and Mapper maps always do. The euclidean metric is the reference. No more samples
   and no more fixes go to the details of the OCAD metric, and its present handling stays.
-- **The text along lines** (Nov 19). Purple Pen measures the text along a line always with the OCAD metric. Fix
-  [022](tickets/022-line-text-metric.md) makes it use the metric of the map, checked against OCAD's PDF export of a
-  sample.
+- **The text along lines** (Nov 19). Purple Pen measures the text along a line always with the OCAD metric, and so
+  does current OCAD, also in a map with the euclidean metric: the PDF export of a sample shows it
+  ([oracles/ocad-line-text.md](oracles/ocad-line-text.md)). Mapper maps have no text along lines in Purple Pen.
+  Ticket [022](tickets/022-line-text-metric.md) is closed without a fix.
 - **The framing line of texts** (Nov 19). The framing of a text run is one line in the instances, a stroke of the full
   width with the joins of the symbol, as in OCAD's PDF export. OCAD's own drawing leaves the same holes as Skia and
   Cairo with one pen, so the holes that the intermediate pens of Purple Pen fill are no faults against OCAD (question

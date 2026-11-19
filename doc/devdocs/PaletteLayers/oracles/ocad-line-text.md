@@ -22,5 +22,26 @@ metric, from the cells in [linetext-1-cells.json](ocad-line-text/linetext-1-cell
 With the OCAD metric, a line at 45 degrees is about 6 % longer than with the euclidean metric, so the text along it is
 denser, and a centered or right aligned text starts at another place.
 [purple-pen-linetext-1-ocad12-euclidean-150dpi.png](ocad-line-text/purple-pen-linetext-1-ocad12-euclidean-150dpi.png)
-is Purple Pen's drawing of the file before the fix. The file is on @Pauli's drive in `ocad-linetext-1`, for its PDF
-export.
+is Purple Pen's drawing of the file.
+
+### OCAD's PDF export
+
+@Pauli exported the file as PDF on Nov 19
+([ocad-viewer-linetext-1-ocad12-euclidean.pdf](ocad-line-text/ocad-viewer-linetext-1-ocad12-euclidean.pdf)). OCAD
+writes each glyph as a filled outline. The middle of each outline along the direction of the path gives the place of
+the glyph along the path, and the steps between the glyphs on each slanted path, against those on the line along x,
+are the factors of the OCAD metric:
+
+| Path | Steps against the line along x | The OCAD metric | The euclidean metric |
+| --- | --- | --- | --- |
+| at 30 degrees | 0.896 | 0.896 | 1.000 |
+| at 45 degrees | 0.943 | 0.943 | 1.000 |
+| the zigzag, 33.7 degrees | 0.901 | 0.902 | 1.000 |
+
+The centered, the right aligned and the justified text agree with the same measure. So current OCAD measures the text
+along a line with the OCAD metric also in a map with the euclidean metric, as Purple Pen does, and as the comment of
+`GetLineTextGraphemePlacement` says. Ticket [022](../tickets/022-line-text-metric.md) is closed without a fix
+(@Pauli, Nov 19).
+
+Mapper maps have no text along lines in Purple Pen: the import of Mapper files (`OpenMapperImport`) makes point and box
+texts only.

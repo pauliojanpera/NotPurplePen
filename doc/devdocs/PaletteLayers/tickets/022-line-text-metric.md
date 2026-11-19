@@ -1,5 +1,7 @@
 # Viivan varren teksti mitataan aina OCADin metriikalla
 
+> **Suljettu 19.11.: ei vikaa.** OCADin PDF-vienti näytteestä osoitti, että nykyinen OCAD mittaa viivan varren tekstin OCADin metriikalla myös euklidisessa kartassa, kuten Purple Pen ([oracles/ocad-line-text.md](../oracles/ocad-line-text.md)). Mapper-kartoissa ei ole viivan varren tekstejä: Mapper-tiedostojen tuonti tekee vain piste- ja laatikkotekstejä. Korjausta ei tehdä (@Pauli, 19.11.).
+
 **Konteksti**  
 `TextSymDef.GetLineTextGraphemePlacement` sijoittaa viivan varren tekstin (`LineTextSymbol`) grafeemit polulle mittaamalla polkua aina OCADin metriikalla (`BizzarroLength` ja `PointAtLengthBizzarro`), kartan metriikasta riippumatta. Koodin kommentin mukaan näin toimi OCAD silloin, kun koodi kirjoitettiin. Nykyinen OCAD mittaa viivat euklidisesti, ellei kartassa ole näkymäparametria `p1` (korjaus [016](016-ocad-metric-parameter.md)), ja Mapper-kartat mitataan aina euklidisesti. Katkot, glyyfit ja viivojen lyhennykset käyttävät jo kartan metriikkaa (`Map.MapDistanceMetric`).
 
