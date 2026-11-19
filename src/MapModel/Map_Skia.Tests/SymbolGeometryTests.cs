@@ -10,11 +10,11 @@ using TestingUtils;
 
 namespace Map_Skia.Tests
 {
-    // The geometry methods of the symbols (Symbol.TryAddClippingObjects), with which pass 1 (Map.CreateLayerInstances)
-    // makes the clipping objects of the kinds of symbols that have one, and the collector those of the other kinds. The
-    // instances that the collector makes of all the symbols (Map.CollectLayerInstances) are the oracle: pass 1 makes
-    // instances of the same structure (LayerInstanceComparison). The other tests check what the oracle does not show:
-    // the point symbols of a definition share the shapes of its glyph.
+    // The geometry methods of the symbols (Symbol.AddClippingObjects), with which pass 1 (Map.CreateLayerInstances)
+    // makes the clipping objects of all the symbols. The instances that the collector makes of all the symbols
+    // (Map.CollectLayerInstances) are the oracle: pass 1 makes instances of the same structure
+    // (LayerInstanceComparison). The other tests check what the oracle does not show: the point symbols of a definition
+    // share the shapes of its glyph.
     [TestFixture, Parallelizable(ParallelScope.Children)]
     public class SymbolGeometryTests
     {
@@ -203,44 +203,39 @@ namespace Map_Skia.Tests
         public void GeometryMethodOfSolidLinesFollowsEachBranchOfTheirDrawing()
         {
             Map map = CreateMap();
-            List<LineSymbol> lines = new List<LineSymbol>();
             using (map.Write()) {
                 SymColor green = map.AddColor("Green", 1, 0.76F, 0, 0.91F, 0, false);
                 SymColor brown = map.AddColor("Brown", 2, 0, 0.56F, 1, 0.18F, false);
                 SymColor black = map.AddColor("Black", 3, 0, 0, 0, 1, false);
 
                 LineSymDef main = AddLineSymDef(map, new LineSymDef("Main", "1", black, 0.35F, LineJoinMode.Miter, LineCapMode.Flat));
-                lines.Add(AddLine(map, main, new SymPath(new PointF[] { new PointF(0, 0), new PointF(4, 1), new PointF(6, -1) })));
-                lines.Add(AddLine(map, main, CreateSquarePath(8, 0, 2)));
-                lines.Add(AddLine(map, main, new SymPath(new PointF[] { new PointF(12, 0), new PointF(13, 2), new PointF(15, 2), new PointF(16, 0) },
-                                                         new PointKind[] { PointKind.Normal, PointKind.BezierControl, PointKind.BezierControl, PointKind.Normal })));
-                lines.Add(AddLine(map, main, new SymPath(new PointF[] { new PointF(18, 0), new PointF(18, 0) })));
+                AddLine(map, main, new SymPath(new PointF[] { new PointF(0, 0), new PointF(4, 1), new PointF(6, -1) }));
+                AddLine(map, main, CreateSquarePath(8, 0, 2));
+                AddLine(map, main, new SymPath(new PointF[] { new PointF(12, 0), new PointF(13, 2), new PointF(15, 2), new PointF(16, 0) },
+                                               new PointKind[] { PointKind.Normal, PointKind.BezierControl, PointKind.BezierControl, PointKind.Normal }));
+                AddLine(map, main, new SymPath(new PointF[] { new PointF(18, 0), new PointF(18, 0) }));
 
                 LineSymDef pointy = new LineSymDef("Pointy", "2", black, 0.5F, LineJoinMode.Round, LineCapMode.Round);
                 pointy.SetShortening(new LineSymDef.ShortenInfo() { shortenBeginning = 1.0F, shortenEnd = 0.5F, pointyEnds = true });
                 AddLineSymDef(map, pointy);
-                lines.Add(AddLine(map, pointy, new SymPath(new PointF[] { new PointF(0, 5), new PointF(3, 6), new PointF(6, 5) })));
-                lines.Add(AddLine(map, pointy, new SymPath(new PointF[] { new PointF(8, 5), new PointF(9, 5) })));
+                AddLine(map, pointy, new SymPath(new PointF[] { new PointF(0, 5), new PointF(3, 6), new PointF(6, 5) }));
+                AddLine(map, pointy, new SymPath(new PointF[] { new PointF(8, 5), new PointF(9, 5) }));
 
                 LineSymDef second = new LineSymDef("Second", "3", brown, 0.6F, LineJoinMode.Bevel, LineCapMode.Round);
                 second.SetSecondLine(black, 0.2F, LineJoinMode.Bevel, LineCapMode.Square);
                 AddLineSymDef(map, second);
-                lines.Add(AddLine(map, second, new SymPath(new PointF[] { new PointF(0, 10), new PointF(3, 12), new PointF(6, 10) })));
+                AddLine(map, second, new SymPath(new PointF[] { new PointF(0, 10), new PointF(3, 12), new PointF(6, 10) }));
 
                 LineSymDef doubled = new LineSymDef("Double", "4", null, 0, LineJoinMode.Miter, LineCapMode.Flat);
                 doubled.SetDoubleLines(new LineSymDef.DoubleLineInfo() {
                     doubleThick = 0.8F, doubleFillColor = green, doubleLeftColor = black, doubleLeftWidth = 0.1F, doubleRightColor = black, doubleRightWidth = 0.15F });
                 AddLineSymDef(map, doubled);
-                lines.Add(AddLine(map, doubled, new SymPath(new PointF[] { new PointF(0, 15), new PointF(3, 18), new PointF(6, 15) })));
-                lines.Add(AddLine(map, doubled, new SymPath(new PointF[] { new PointF(8, 15), new PointF(10, 16), new PointF(12, 16), new PointF(14, 15) },
-                                                            new PointKind[] { PointKind.Normal, PointKind.Normal, PointKind.Normal, PointKind.Normal },
-                                                            new byte[] { 0, SymPath.DOUBLE_LEFT_STARTSTOPFLAG, 0 })));
+                AddLine(map, doubled, new SymPath(new PointF[] { new PointF(0, 15), new PointF(3, 18), new PointF(6, 15) }));
+                AddLine(map, doubled, new SymPath(new PointF[] { new PointF(8, 15), new PointF(10, 16), new PointF(12, 16), new PointF(14, 15) },
+                                                  new PointKind[] { PointKind.Normal, PointKind.Normal, PointKind.Normal, PointKind.Normal },
+                                                  new byte[] { 0, SymPath.DOUBLE_LEFT_STARTSTOPFLAG, 0 }));
             }
 
-            using (map.Read()) {
-                foreach (LineSymbol line in lines)
-                    Assert.IsTrue(line.TryAddClippingObjects(new LayerInstanceBuilder(map.AllColors)), "{0}", line.Definition.Name);
-            }
             IReadOnlyList<LayerInstance> instances = CreateInstances(map);
 
             AssertSameStructure(CollectInstances(map), instances);
@@ -293,7 +288,6 @@ namespace Map_Skia.Tests
         {
             Map map = CreateMap();
             LineSymDef.GlyphLocation[] locations = (LineSymDef.GlyphLocation[])Enum.GetValues(typeof(LineSymDef.GlyphLocation));
-            List<LineSymbol> lines = new List<LineSymbol>();
             using (map.Write()) {
                 SymColor black = map.AddColor("Black", 1, 0, 0, 0, 1, false);
                 foreach (LineSymDef.GlyphLocation location in locations) {
@@ -312,14 +306,10 @@ namespace Map_Skia.Tests
                         glyph = CreateTick(color), location = location, distance = 2, firstDistance = 1, lastDistance = 1, minimum = 1,
                         number = isSpaced ? 2 : 1, spacing = 0.3F, offset = 0.5F, decreaseLimit = 0.4F, decreaseBothEnds = true } });
                     AddLineSymDef(map, symdef);
-                    lines.Add(AddLine(map, symdef, CreatePathWithCornersAndDashPoints(5 * index)));
+                    AddLine(map, symdef, CreatePathWithCornersAndDashPoints(5 * index));
                 }
             }
 
-            using (map.Read()) {
-                foreach (LineSymbol line in lines)
-                    Assert.IsTrue(line.TryAddClippingObjects(new LayerInstanceBuilder(map.AllColors)), "{0}", line.Definition.Name);
-            }
             IReadOnlyList<LayerInstance> instances = CreateInstances(map);
 
             AssertSameStructure(CollectInstances(map), instances);
@@ -460,7 +450,6 @@ namespace Map_Skia.Tests
         public void GeometryMethodOfAreasFollowsEachBranchOfTheirDrawing()
         {
             Map map = CreateMap();
-            List<Symbol> symbols = new List<Symbol>();
             SymColor green, blue, brown, black;
             using (map.Write()) {
                 green = map.AddColor("Green", 1, 0.76F, 0, 0.91F, 0, false);
@@ -488,21 +477,15 @@ namespace Map_Skia.Tests
                 SymPathWithHoles curved = new SymPathWithHoles(new SymPath(
                     new PointF[] { new PointF(0, 10), new PointF(1, 12), new PointF(3, 12), new PointF(4, 10), new PointF(4, 8), new PointF(0, 8), new PointF(0, 10) },
                     new PointKind[] { PointKind.Normal, PointKind.BezierControl, PointKind.BezierControl, PointKind.Normal, PointKind.Normal, PointKind.Normal, PointKind.Normal }), null);
-                symbols.Add(AddArea(map, fill, new SymPathWithHoles(CreateSquarePath(0, 0, 4), null)));
-                symbols.Add(AddArea(map, outline, new SymPathWithHoles(CreateSquarePath(0, 5, 4), null)));
-                symbols.Add(AddArea(map, filledAndOutlined, withHoles));
-                symbols.Add(AddArea(map, hatched, curved));
-                symbols.Add(AddArea(map, combined, new SymPathWithHoles(CreateSquarePath(12, 0, 4), null)));
-                symbols.Add(new GraphicsAreaSymbol(graphics, withHoles, brown));
-                symbols.Add(new GraphicsLineSymbol(graphics, new SymPath(new PointF[] { new PointF(0, 15), new PointF(5, 16) }), blue, 0.3F, LineJoinMode.Round, LineCapMode.Round));
-                map.AddSymbol(symbols[symbols.Count - 2]);
-                map.AddSymbol(symbols[symbols.Count - 1]);
+                AddArea(map, fill, new SymPathWithHoles(CreateSquarePath(0, 0, 4), null));
+                AddArea(map, outline, new SymPathWithHoles(CreateSquarePath(0, 5, 4), null));
+                AddArea(map, filledAndOutlined, withHoles);
+                AddArea(map, hatched, curved);
+                AddArea(map, combined, new SymPathWithHoles(CreateSquarePath(12, 0, 4), null));
+                map.AddSymbol(new GraphicsAreaSymbol(graphics, withHoles, brown));
+                map.AddSymbol(new GraphicsLineSymbol(graphics, new SymPath(new PointF[] { new PointF(0, 15), new PointF(5, 16) }), blue, 0.3F, LineJoinMode.Round, LineCapMode.Round));
             }
 
-            using (map.Read()) {
-                foreach (Symbol symbol in symbols)
-                    Assert.IsTrue(symbol.TryAddClippingObjects(new LayerInstanceBuilder(map.AllColors)), "{0}", symbol.Definition.Name);
-            }
             IReadOnlyList<LayerInstance> instances = CreateInstances(map);
 
             AssertSameStructure(CollectInstances(map), instances);

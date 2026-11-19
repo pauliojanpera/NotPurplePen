@@ -6,7 +6,8 @@ namespace PurplePen.MapModel
     using PurplePen.Graphics2D;
 
     // The layer instances that pass 1 of the drawing makes (Map.CreateLayerInstances), while the geometry methods of
-    // the symbols (Symbol.TryAddClippingObjects) and the collector (LayerInstanceCollector) add their clipping objects.
+    // the symbols (Symbol.AddClippingObjects) add their clipping objects, and that the collector (LayerInstanceCollector)
+    // makes as the oracle of the geometry methods (Map.CollectLayerInstances).
     // Each clipping object goes to the instance of its palette entry, so a symbol makes all its palette entries in one
     // pass. Each palette entry that gets a clipping object has one instance with full coverage (G = 1), whose clipping
     // objects are in the order that they were added.

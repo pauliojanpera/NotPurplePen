@@ -2417,36 +2417,19 @@ namespace PurplePen.MapModel
         // The instances belong to the map, and not to a drawing of it: they depend on the colors, the symbol
         // definitions, the symbols, the visibility and the text metrics of the map alone. They hold each visible symbol
         // wherever it lies, and a dashed line keeps its dashes whatever their lengths.
-        // Pass 1 goes through the symbols once, in the order that DrawColor draws them. A symbol whose kind has a
-        // geometry method adds its clipping objects to all its palette entries with it (Symbol.TryAddClippingObjects),
-        // and the collector collects each palette entry that the other symbols draw (LayerInstanceCollector). So the
-        // clipping objects of a palette entry are in the order that DrawColor draws them.
+        // Pass 1 goes through the symbols once, in the order that DrawColor draws them, and the geometry method of each
+        // symbol adds its clipping objects to all its palette entries (Symbol.AddClippingObjects). So the clipping
+        // objects of a palette entry are in the order that DrawColor draws them.
         public IReadOnlyList<LayerInstance> CreateLayerInstances()
         {
             CheckReadable();
 
             LayerInstanceBuilder instances = new LayerInstanceBuilder(colors);
-            Dictionary<SymColor, LayerInstanceCollector> collectors = colors.ToDictionary(color => color, color => new LayerInstanceCollector(instances, color, textMetricsProvider));
-            try {
-                foreach (SymDef symdef in symdefs) {
-                    if (!IsSymdefVisible(symdef))
-                        continue;
-
-                    List<SymColor> colorsOfSymdef = colors.FindAll(symdef.HasColor);
-                    if (colorsOfSymdef.Count == 0)
-                        continue;
-
-                    foreach (Symbol symbol in SelectVisibleSymbols(symdef)) {
-                        if (!symbol.TryAddClippingObjects(instances)) {
-                            foreach (SymColor color in colorsOfSymdef)
-                                collectors[color].Collect(symbol);
-                        }
-                    }
+            foreach (SymDef symdef in symdefs) {
+                if (IsSymdefVisible(symdef) && colors.Exists(symdef.HasColor)) {
+                    foreach (Symbol symbol in SelectVisibleSymbols(symdef))
+                        symbol.AddClippingObjects(instances);
                 }
-            }
-            finally {
-                foreach (LayerInstanceCollector collector in collectors.Values)
-                    collector.Dispose();
             }
 
             return instances.MakeInstances();

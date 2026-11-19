@@ -6,8 +6,8 @@ namespace PurplePen.MapModel
 {
     using PurplePen.Graphics2D;
 
-    // The collector of pass 1 of the drawing: the adapter between the drawing code of the symbols and the layer
-    // instances (LayerInstances.cs), for the symbols whose kind has no geometry method (Symbol.TryAddClippingObjects).
+    // The collector: the adapter between the drawing code of the symbols and the layer instances (LayerInstances.cs),
+    // which pass 1 of the drawing makes with the geometry methods of the symbols (Symbol.AddClippingObjects).
     // The symbols draw the shapes of one palette entry on it as on any drawing target, and it turns each drawing call
     // into a clipping object of the entry's instance with full coverage (G = 1), at the placement that the
     // transformations of the call give. It draws nothing, and the colors of the brushes and the pens do not matter to
