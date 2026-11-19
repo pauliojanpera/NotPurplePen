@@ -21,6 +21,10 @@ spacing draws.
   30° to 150°, the dashed main line of a double line, and the borders of double lines with borders of 0.10, 0.15 and
   0.30 mm at turns of 30°, 90° and 150°. Without the change, 38 of its cases fail. `OcadSampleDrawing` reads the
   sample file, as in the fixes of tickets 017 to 019.
+* The change moves 124 image baselines (collecting run 44441352883): 18 of Skia, 18 of the GDI+ renderings of
+  `Test_MapModel`, 18 of PDF, 3 of WPF and 67 of `PurplePen_Tests`, among them course printings and course
+  symbols, whose dashes start or end near a vertex. It also moves three route gadget baselines that `base` added
+  (`exportautodpi1` to `3`); `prs/020-dash-boundary-at-vertex-base/` keeps them for the merge into `base`.
 
 ## Issue ticket number
 [020-dash-boundary-at-vertex](../tickets/020-dash-boundary-at-vertex.md)
