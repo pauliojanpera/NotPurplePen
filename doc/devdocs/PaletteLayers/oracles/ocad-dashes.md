@@ -335,3 +335,31 @@ by the exact fit of the dashes: 0.020, 0.012, 0.008, 0.006, 0.004 and 0.002 mm b
 
 On the outer border of DB16, and on the outer side of the wide line W, the corner of the miter tells whether the dash
 takes the vertex. [Purple Pen's drawing](ocad-dashes/purple-pen-dashes-5-ocad12-euclidean-600dpi.png) is at 600 dpi.
+
+@Pauli exported the file on Nov 19 at [600 dpi](ocad-dashes/ocad-viewer-dashes-5-ocad12-euclidean-600dpi.png).
+
+### The values and what they tell
+
+In none of the 38 cells does OCAD's dash take the corner of the miter: not on the outer border of DB16, and not on the
+outer side of W, also where the dash starts 0.020 mm before the vertex or ends 0.004 mm after it. Purple Pen's dash
+takes the corner in each cell where it starts before the vertex or ends after it. In the fourth sample, OCAD's dash of
+the right border of DB16-2, which goes 0.5 mm over a vertex, takes the corner. So OCAD takes a boundary that is at
+least 0.02 mm from a vertex as at the vertex, and the limit is between 0.02 and 0.5 mm.
+
+## The sixth sample
+
+The sixth sample finds the limit. Purple Pen wrote it on Nov 19 as
+[dashes-6-ocad12-euclidean.ocd](ocad-dashes/dashes-6-ocad12-euclidean.ocd), from
+[dashes-6-cells.json](ocad-dashes/dashes-6-cells.json): 56 cells in 8 rows, made as the cells of the fifth sample, with
+third parts of 8.7 to 10.2 mm. A dash starts 0.03, 0.05, 0.08, 0.10, 0.15, 0.20, 0.30 and 0.50 mm before the second
+vertex, or ends 0.03, 0.05, 0.08, 0.10, 0.30 and 0.50 mm after it.
+
+| Rows | Symbol |
+| --- | --- |
+| W start, W end | a dashed line of 1.0 mm with miter joins and flat ends, dashes and end dashes of 2.0 mm, gaps of 0.5 mm |
+| W3 start, W3 end | as W, 0.3 mm wide |
+| DB6 start, DB6 end | dashed borders of 0.15 mm, 0.6 mm apart, without a fill |
+| DB16 start, DB16 end | as DB6, 1.6 mm apart |
+
+Two widths of each kind tell whether the limit depends on the width of the line or on the distance of a border from
+the middle. [Purple Pen's drawing](ocad-dashes/purple-pen-dashes-6-ocad12-euclidean-600dpi.png) is at 600 dpi.

@@ -15,7 +15,7 @@
 `Purple Pen upstream d48f4456 / base, basewithfixes / kaikki alustat`
 
 (_valinnainen_) **Ehdotettu korjaus / hypoteesi**  
-Katkon raja, joka on OCADin toleranssin sisällä taitepisteestä, on taitepisteessä. Taitepisteestä alkava katko alkaa seuraavalta osalta, ja taitepisteeseen päättyvä katko päättyy siihen. Toleranssi selvitetään viidennellä näytteellä, jossa katkon alku tai loppu on 0–0,02 mm:n päässä taitepisteestä. OCADin koordinaattien yksikkö on 0,01 mm. Myös tiketin [011](011-line-geometry.md) koostettu katkoviiva noudattaa samaa sääntöä.
+Katkon raja, joka on OCADin toleranssin sisällä taitepisteestä, on taitepisteessä. Taitepisteestä alkava katko alkaa seuraavalta osalta, ja taitepisteeseen päättyvä katko päättyy siihen. Viidennessä näytteessä OCAD ei ottanut viisteen kulmaa yhteenkään katkoon, jonka alku oli enintään 0,02 mm ennen taitepistettä tai loppu enintään 0,004 mm sen jälkeen, ja neljännessä näytteessä se otti kulman katkoon, joka ylitti taitepisteen 0,5 mm:llä. Raja on siis 0,02 ja 0,5 mm:n välillä, ja kuudes näyte selvittää sen kahdella viivanleveydellä ja kahdella reunan etäisyydellä. Myös tiketin [011](011-line-geometry.md) koostettu katkoviiva noudattaa samaa sääntöä.
 
 Vika löytyi tiketin [011](011-line-geometry.md) valmistelussa, kun kaksoisviivan reunoja verrattiin OCADiin.
 
