@@ -180,29 +180,32 @@ namespace PurplePen.MapModel
             }
 
             // The clipping object of the part in the coordinates of the glyph, at the identity placement, as Draw draws
-            // the part without gaps and without an extra transformation, or null if the part covers nothing.
-            public ClippingObject MakeClippingObject()
+            // the part without gaps, or null if the part covers nothing. An extra transformation moves the points of
+            // the part and scales the diameters of its circles, but not the widths of its lines, as in Draw.
+            // extraTransform: the extra transformation, or null.
+            public ClippingObject MakeClippingObject(Matrix extraTransform = null)
             {
                 switch (kind) {
                     case GlyphPartKind.Line:
                         if (lineWidth > 0 && !path.IsZeroLength)
-                            return path.MakeStrokedShape(new Stroke(lineWidth, lineCap, lineJoin, GraphicsUtil.MITER_LIMIT), Placement.Identity);
+                            return path.MakeStrokedShape(new Stroke(lineWidth, lineCap, lineJoin, GraphicsUtil.MITER_LIMIT), Placement.Identity, extraTransform);
                         break;
 
                     case GlyphPartKind.Area:
-                        return areaPath.MakeFilledShape(Placement.Identity);
+                        return areaPath.MakeFilledShape(Placement.Identity, extraTransform);
 
                     case GlyphPartKind.Circle:
                         if (lineWidth > 0 && circleDiam > 0) {
-                            if (circleDiam - lineWidth <= 0)
-                                return MakeFilledCircle(point);
-                            return MakeCircle(point, (circleDiam - lineWidth) / 2);
+                            float diameter = TransformDiameter(circleDiam, extraTransform);
+                            if (diameter - lineWidth <= 0)
+                                return MakeFilledCircle(TransformPoint(point, extraTransform), diameter / 2);
+                            return MakeCircle(TransformPoint(point, extraTransform), (diameter - lineWidth) / 2);
                         }
                         break;
 
                     case GlyphPartKind.FilledCircle:
                         if (circleDiam > 0)
-                            return MakeFilledCircle(point);
+                            return MakeFilledCircle(TransformPoint(point, extraTransform), TransformDiameter(circleDiam, extraTransform) / 2);
                         break;
                 }
 
@@ -221,13 +224,13 @@ namespace PurplePen.MapModel
                     if (lineWidth > 0 && circleDiam > 0) {
                         float circleRadius = (circleDiam - lineWidth) / 2;
                         if (circleRadius <= 0)
-                            return MakeFilledCircle(location);
+                            return MakeFilledCircle(location, circleDiam / 2);
                         else
                             return MakeCircle(location, circleRadius);
                     }
                 }
                 else if (circleDiam > 0) {
-                    return MakeFilledCircle(location);
+                    return MakeFilledCircle(location, circleDiam / 2);
                 }
 
                 return null;
@@ -258,12 +261,12 @@ namespace PurplePen.MapModel
                 return new StrokedShape(new EllipseShape(center, radius, radius), GraphicsUtil.MakeSolidStroke(lineWidth, LineStyle.Mitered), Placement.Identity);
             }
 
-            // The filled circle of the diameter of this part, at the identity placement.
+            // A filled circle of this part, at the identity placement.
             // center: the center of the circle.
-            private FilledShape MakeFilledCircle(PointF center)
+            // radius: the radius of the circle.
+            private FilledShape MakeFilledCircle(PointF center, float radius)
             {
-                float circleRadius = circleDiam / 2;
-                return new FilledShape(new EllipseShape(center, circleRadius, circleRadius), AreaFillMode.Winding, Placement.Identity);
+                return new FilledShape(new EllipseShape(center, radius, radius), AreaFillMode.Winding, Placement.Identity);
             }
 
             // Get 8 points on the border of the circle, used for filtering.
@@ -585,15 +588,20 @@ namespace PurplePen.MapModel
         // the shapes of its parts, with two exceptions. A glyph of one circle at its origin, without gaps, is at the
         // location without a transformation, as Draw draws it. The arcs that gaps leave of a circle are shapes of the
         // placement.
+        // A glyph with an extra transformation, as a line stretches it at a corner or decreases it, has shapes of its
+        // own, as the transformation changes its points but not the widths of its lines. An extra transformation that
+        // is the identity keeps the shared shapes. Draw then draws a glyph of one circle at its origin with its parts
+        // placed, as it draws the other glyphs.
         // instances: the layer instances.
         // location: the location of the origin of the glyph.
         // angle: the angle, in degrees.
         // gaps: the gaps in the circles, as start and end angles in degrees, or null.
-        internal void AddClippingObjects(LayerInstanceBuilder instances, PointF location, float angle, float[] gaps)
+        // extraTransform: the extra transformation of the glyph, or null.
+        internal void AddClippingObjects(LayerInstanceBuilder instances, PointF location, float angle, float[] gaps, Matrix extraTransform = null)
         {
             CheckConstructed();
 
-            if (simple && gaps == null) {
+            if (simple && gaps == null && extraTransform == null) {
                 ClippingObject circle = parts[0].MakeClippingObjectOfSimpleGlyph(location);
                 if (circle != null)
                     instances.Add(parts[0].color, circle);
@@ -605,7 +613,7 @@ namespace PurplePen.MapModel
             step.RotateAt(angle, new PointF(0, 0));
             Placement placement = Placement.Identity.Within(step);
 
-            ClippingObject[] partClippingObjects = GetSharedClippingObjects();
+            ClippingObject[] partClippingObjects = (extraTransform == null || extraTransform.IsIdentity) ? GetSharedClippingObjects() : Array.ConvertAll(parts, part => part.MakeClippingObject(extraTransform));
             for (int i = 0; i < parts.Length; ++i) {
                 ClippingObject partClippingObject = partClippingObjects[i];
                 if (partClippingObject == null)

@@ -339,31 +339,37 @@ namespace PurplePen.MapModel
             }
         }
 
-        // The clipping object that the drawing of the path with a pen makes (Draw): the stroked polyline through its
-        // points, or the polygon if the path is closed, or the stroked figure of its lines and Bezier curves.
+        // The clipping object that the drawing of the path with a pen makes (Draw, or DrawTransformed with a
+        // transformation): the stroked polyline through its points, or the polygon if the path is closed, or the stroked
+        // figure of its lines and Bezier curves.
         // stroke: the line of the pen.
         // placement: the placement of the path.
-        internal StrokedShape MakeStrokedShape(Stroke stroke, Placement placement)
+        // transform: the transformation of the points of the path, or null.
+        internal StrokedShape MakeStrokedShape(Stroke stroke, Placement placement, Matrix transform = null)
         {
+            PointF[] shapePoints = (transform == null) ? points : Geometry.TransformPoints(points, transform);
             PathShape shape;
             if (!anyBeziers)
-                shape = PathShape.FromPoints(points, isClosedCurve);
+                shape = PathShape.FromPoints(shapePoints, isClosedCurve);
             else
-                shape = new PathShape(GetPathPartListCore(null, points, null, null));   // It does not use the drawing target.
+                shape = new PathShape(GetPathPartListCore(null, shapePoints, null, null));   // It does not use the drawing target.
             return new StrokedShape(shape, stroke, placement);
         }
 
-        // The clipping object that the fill of the path with holes makes (FillWithHoles): the polygon through its points,
-        // or the closed figures of the path and its holes, filled with the alternate rule.
+        // The clipping object that the fill of the path with holes makes (FillWithHoles, or FillTransformedWithHoles
+        // with a transformation): the polygon through its points, or the closed figures of the path and its holes,
+        // filled with the alternate rule.
         // holes: the holes, or null.
         // placement: the placement of the path.
-        internal FilledShape MakeFilledShape(SymPath[] holes, Placement placement)
+        // transform: the transformation of the points of the path and the holes, or null.
+        internal FilledShape MakeFilledShape(SymPath[] holes, Placement placement, Matrix transform = null)
         {
+            PointF[] shapePoints = (transform == null) ? points : Geometry.TransformPoints(points, transform);
             PathShape shape;
             if (!anyBeziers && holes == null)
-                shape = PathShape.FromPoints(points, true);
+                shape = PathShape.FromPoints(shapePoints, true);
             else
-                shape = new PathShape(GetPathPartListCore(null, points, holes, (holes == null) ? null : Array.ConvertAll(holes, hole => hole.points)));
+                shape = new PathShape(GetPathPartListCore(null, shapePoints, holes, (holes == null) ? null : Array.ConvertAll(holes, hole => (transform == null) ? hole.points : Geometry.TransformPoints(hole.points, transform))));
             return new FilledShape(shape, AreaFillMode.Alternate, placement);
         }
 
@@ -2173,11 +2179,13 @@ namespace PurplePen.MapModel
             MainPath.FillWithHoles(g, brushKey, Holes);
         }
 
-        // The clipping object that the fill of the path and its holes makes (Fill).
+        // The clipping object that the fill of the path and its holes makes (Fill, or FillTransformed with a
+        // transformation).
         // placement: the placement of the path.
-        internal FilledShape MakeFilledShape(Placement placement)
+        // transform: the transformation of the points, or null.
+        internal FilledShape MakeFilledShape(Placement placement, Matrix transform = null)
         {
-            return MainPath.MakeFilledShape(Holes, placement);
+            return MainPath.MakeFilledShape(Holes, placement, transform);
         }
 
         public void FillTransformed(IGraphicsTarget g, object brushKey, Matrix matrix) {

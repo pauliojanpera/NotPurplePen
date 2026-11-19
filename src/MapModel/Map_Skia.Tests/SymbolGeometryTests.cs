@@ -283,24 +283,125 @@ namespace Map_Skia.Tests
             Assert.AreEqual(2, ((PathShape)shapes[1].Shape).Parts.Sum(part => part.Points.Length), "the single dash leaves its vertex out");
         }
 
-        // A line whose definition has glyphs is left to the collector: the geometry method of lines adds nothing for it.
+        // The branches of the placement of the glyphs along a line, each of which the geometry method of lines follows:
+        // each location of the glyphs, in a color of its own. The lines of the glyphs at the corners and the dash points
+        // have the corners and the dash point of CreatePathWithCornersAndDashPoints. The other lines are shortened, so
+        // that the glyphs at the start and the end are on the whole line and the others on the shortened one, and the
+        // glyphs that are spaced along them are in pairs.
         [Test]
-        public void LinesWithGlyphsAreLeftToTheCollector()
+        public void GeometryMethodOfLinesFollowsEachBranchOfThePlacementOfTheirGlyphs()
         {
             Map map = CreateMap();
-            LineSymbol line;
+            LineSymDef.GlyphLocation[] locations = (LineSymDef.GlyphLocation[])Enum.GetValues(typeof(LineSymDef.GlyphLocation));
+            List<LineSymbol> lines = new List<LineSymbol>();
             using (map.Write()) {
                 SymColor black = map.AddColor("Black", 1, 0, 0, 0, 1, false);
-                LineSymDef glyphs = new LineSymDef("Glyphs", "1", black, 0.35F, LineJoinMode.Miter, LineCapMode.Flat);
-                glyphs.SetGlyphs(new LineSymDef.GlyphInfo[] {
-                    new LineSymDef.GlyphInfo() { glyph = CreateGlyph(glyph => glyph.AddFilledCircle(black, new PointF(0, 0), 0.5F)), location = LineSymDef.GlyphLocation.Start, number = 1 } });
-                AddLineSymDef(map, glyphs);
-                line = AddLine(map, glyphs, new SymPath(new PointF[] { new PointF(0, 5), new PointF(10, 5) }));
+                foreach (LineSymDef.GlyphLocation location in locations) {
+                    int index = map.AllSymdefs.Count;
+                    SymColor color = map.AddColor(location.ToString(), (short)(index + 2), 0.05F * index, 0.5F, 0, 0, false);
+                    bool isAtPointsOfThePath = location == LineSymDef.GlyphLocation.Corners || location == LineSymDef.GlyphLocation.CornersIgnoreEnds ||
+                                               location == LineSymDef.GlyphLocation.DashPoints || location == LineSymDef.GlyphLocation.DashPointsIgnoreEnds;
+                    bool isSpaced = location == LineSymDef.GlyphLocation.Spaced || location == LineSymDef.GlyphLocation.SpacedOffset || location == LineSymDef.GlyphLocation.SpacedDecrease;
+
+                    LineSymDef symdef = new LineSymDef(location.ToString(), (index + 1).ToString(), black, 0.2F, LineJoinMode.Miter, LineCapMode.Flat);
+                    if (!isAtPointsOfThePath)
+                        symdef.SetShortening(new LineSymDef.ShortenInfo() { shortenBeginning = 0.5F, shortenEnd = 0.7F });
+                    if (location == LineSymDef.GlyphLocation.DashCenters || location == LineSymDef.GlyphLocation.GapCenters)
+                        symdef.SetDashInfo(new LineSymDef.DashInfo() { dashLength = 2, firstDashLength = 2, lastDashLength = 2, gapLength = 0.5F });
+                    symdef.SetGlyphs(new LineSymDef.GlyphInfo[] { new LineSymDef.GlyphInfo() {
+                        glyph = CreateTick(color), location = location, distance = 2, firstDistance = 1, lastDistance = 1, minimum = 1,
+                        number = isSpaced ? 2 : 1, spacing = 0.3F, offset = 0.5F, decreaseLimit = 0.4F, decreaseBothEnds = true } });
+                    AddLineSymDef(map, symdef);
+                    lines.Add(AddLine(map, symdef, CreatePathWithCornersAndDashPoints(5 * index)));
+                }
             }
 
-            using (map.Read())
-                Assert.IsFalse(line.TryAddClippingObjects(new LayerInstanceBuilder(map.AllColors)));
-            AssertSameStructure(CollectInstances(map), CreateInstances(map));
+            using (map.Read()) {
+                foreach (LineSymbol line in lines)
+                    Assert.IsTrue(line.TryAddClippingObjects(new LayerInstanceBuilder(map.AllColors)), "{0}", line.Definition.Name);
+            }
+            IReadOnlyList<LayerInstance> instances = CreateInstances(map);
+
+            AssertSameStructure(CollectInstances(map), instances);
+            // Each location places glyphs. The corners are the ends and the corner between them, and the dash point is
+            // between the ends.
+            Assert.AreEqual(1 + locations.Length, instances.Count);
+            Dictionary<string, int> glyphCounts = instances.Skip(1).ToDictionary(instance => instance.PaletteEntry.Name, instance => instance.ClippingObjects.Count);
+            TestContext.WriteLine(string.Join(", ", glyphCounts.Select(count => count.Key + " " + count.Value)));
+            CollectionAssert.AreEqual(new int[] { 1, 1, 3, 1, 1, 1 }, new string[] { "Start", "End", "Corners", "CornersIgnoreEnds", "DashPoints", "DashPointsIgnoreEnds" }.Select(name => glyphCounts[name]));
+        }
+
+        // The glyphs along a line share the shapes of their glyph, as the point symbols of a definition do, unless the
+        // line stretches them at a corner or decreases them: those have shapes of their own, in which the transformation
+        // moves the points but keeps the width of the line. A glyph that the line places with a transformation that is
+        // the identity shares the shapes: the glyphs at the ends of a line of corners, the decreasing glyphs of full
+        // size, and the glyph of one circle at its origin at the dash point, which the drawing then places with its
+        // parts. Two lines of one definition share the shapes too.
+        [Test]
+        public void GlyphsAlongALineShareTheShapesOfTheirGlyphUnlessTheLineStretchesOrDecreasesThem()
+        {
+            Map map = CreateMap();
+            SymColor black, brown, blue, green, purple;
+            using (map.Write()) {
+                black = map.AddColor("Black", 1, 0, 0, 0, 1, false);
+                brown = map.AddColor("Brown", 2, 0, 0.56F, 1, 0.18F, false);
+                blue = map.AddColor("Blue", 3, 1, 0, 0, 0, false);
+                green = map.AddColor("Green", 4, 0.76F, 0, 0.91F, 0, false);
+                purple = map.AddColor("Purple", 5, 0.35F, 0.85F, 0, 0, false);
+                LineSymDef symdef = new LineSymDef("Glyphs", "1", black, 0.2F, LineJoinMode.Miter, LineCapMode.Flat);
+                symdef.SetGlyphs(new LineSymDef.GlyphInfo[] {
+                    new LineSymDef.GlyphInfo() { glyph = CreateTick(brown), location = LineSymDef.GlyphLocation.Corners, number = 1 },
+                    new LineSymDef.GlyphInfo() { glyph = CreateTick(blue), location = LineSymDef.GlyphLocation.Spaced, distance = 2, firstDistance = 1, lastDistance = 1, number = 1 },
+                    new LineSymDef.GlyphInfo() { glyph = CreateTick(green), location = LineSymDef.GlyphLocation.SpacedDecrease, distance = 2, firstDistance = 1, lastDistance = 1, number = 1, decreaseLimit = 0.4F },
+                    new LineSymDef.GlyphInfo() { glyph = CreateGlyph(glyph => glyph.AddFilledCircle(purple, new PointF(0, 0), 0.5F)), location = LineSymDef.GlyphLocation.DashPoints, number = 1 } });
+                AddLineSymDef(map, symdef);
+                AddLine(map, symdef, CreatePathWithCornersAndDashPoints(0));
+                AddLine(map, symdef, CreatePathWithCornersAndDashPoints(6));
+            }
+
+            IReadOnlyList<LayerInstance> instances = CreateInstances(map);
+
+            AssertSameStructure(CollectInstances(map), instances);
+            CollectionAssert.AreEqual(new SymColor[] { black, brown, blue, green, purple }, instances.Select(instance => instance.PaletteEntry));
+
+            // The corner between the ends turns the line by 45 degrees, and stretches its glyph by the miter factor of the
+            // angle of 135 degrees, but not the width of its line. The glyphs at the ends share the shapes.
+            IReadOnlyList<ClippingObject> corners = instances[1].ClippingObjects;
+            Assert.AreEqual(6, corners.Count);
+            foreach (int end in new int[] { 2, 3, 5 })
+                Assert.AreSame(corners[0].Shape, corners[end].Shape, "corner {0}", end);
+            foreach (int stretched in new int[] { 1, 4 }) {
+                Assert.AreNotSame(corners[0].Shape, corners[stretched].Shape, "corner {0}", stretched);
+                Assert.AreEqual(0.8F / Math.Sin(67.5 * Math.PI / 180), MeasureTick(corners[stretched]), Tolerance, "corner {0}", stretched);
+                Assert.AreEqual(0.1F, ((StrokedShape)corners[stretched]).Stroke.Width, "corner {0}", stretched);
+            }
+            Assert.AreNotSame(corners[1].Shape, corners[4].Shape);
+
+            // The spaced glyphs share the shapes.
+            IReadOnlyList<ClippingObject> spaced = instances[2].ClippingObjects;
+            Assert.Greater(spaced.Count, 4);
+            foreach (ClippingObject glyph in spaced)
+                Assert.AreSame(spaced[0].Shape, glyph.Shape);
+
+            // The decreasing glyphs of full size share the shapes, and each smaller glyph has shapes of its own.
+            ClippingObject[] fullSize = instances[3].ClippingObjects.Where(glyph => Math.Abs(MeasureTick(glyph) - 0.8F) < Tolerance).ToArray();
+            ClippingObject[] smaller = instances[3].ClippingObjects.Except(fullSize).ToArray();
+            TestContext.WriteLine("{0} decreasing glyphs of full size, {1} smaller", fullSize.Length, smaller.Length);
+            Assert.Greater(fullSize.Length, 1);
+            Assert.Greater(smaller.Length, 1);
+            foreach (ClippingObject glyph in fullSize)
+                Assert.AreSame(fullSize[0].Shape, glyph.Shape);
+            foreach (ClippingObject glyph in smaller)
+                Assert.Less(MeasureTick(glyph), 0.8F - Tolerance);
+            Assert.AreEqual(smaller.Length, smaller.Select(glyph => glyph.Shape).Concat(new Shape[] { fullSize[0].Shape }).Distinct().Count() - 1);
+
+            // The glyph of one circle at its origin is placed with its parts at each dash point, and shares its shape.
+            IReadOnlyList<ClippingObject> dots = instances[4].ClippingObjects;
+            Assert.AreEqual(2, dots.Count);
+            Assert.AreSame(dots[0].Shape, dots[1].Shape);
+            Assert.AreEqual(new PointF(0, 0), ((EllipseShape)dots[0].Shape).Center);
+            foreach (ClippingObject dot in dots)
+                Assert.AreEqual(1, dot.Placement.Steps.Count);
         }
 
         // Add a line symbol definition to a map, and return it.
@@ -374,6 +475,28 @@ namespace Map_Skia.Tests
             map.AddSymdef(symdef);
             for (int i = 0; i < gapsOfSymbols.Length; ++i)
                 map.AddSymbol(new PointSymbol(symdef, new PointF(3 * i, 2 * map.AllSymdefs.Count), 20 * i, gapsOfSymbols[i]));
+        }
+
+        // A glyph of a tick across a line: a line of 0.8 mm along the y axis of the glyph, 0.1 mm wide.
+        static Glyph CreateTick(SymColor color)
+        {
+            return CreateGlyph(glyph => glyph.AddLine(color, new SymPath(new PointF[] { new PointF(0, -0.4F), new PointF(0, 0.4F) }), 0.1F, LineJoinMode.Miter, LineCapMode.Flat));
+        }
+
+        // The length of the line of a tick (CreateTick), as a clipping object gives it in the coordinates of its shape.
+        static double MeasureTick(ClippingObject tick)
+        {
+            PointF[] points = ((PathShape)tick.Shape).Parts.SelectMany(part => part.Points).ToArray();
+            Assert.AreEqual(2, points.Length);
+            return Math.Sqrt((points[1].X - points[0].X) * (points[1].X - points[0].X) + (points[1].Y - points[0].Y) * (points[1].Y - points[0].Y));
+        }
+
+        // A path at a height y, with corners at its ends and at (3, y), where it turns up by 45 degrees, and a dash point
+        // at (6, y + 3), where it turns back. After a normal point at (9, y + 3) it goes down to its end at (12, y).
+        static SymPath CreatePathWithCornersAndDashPoints(float y)
+        {
+            return new SymPath(new PointF[] { new PointF(0, y), new PointF(3, y), new PointF(6, y + 3), new PointF(9, y + 3), new PointF(12, y) },
+                               new PointKind[] { PointKind.Corner, PointKind.Corner, PointKind.Dash, PointKind.Normal, PointKind.Corner });
         }
 
         // The closed path of a square.

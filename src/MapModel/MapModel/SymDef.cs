@@ -910,14 +910,11 @@ namespace PurplePen.MapModel
 
         // The geometry method of a line: add the clipping objects of a line of this definition to the layer instances of
         // pass 1, each to the instance of its color, in the order that DrawCore draws the parts of a color: the main line,
-        // its pointy ends, the second line, and the fill and the borders of a double line. A line whose definition has
-        // dashes or glyphs is left to the collector, and the method returns false and adds nothing.
+        // its pointy ends, the second line, the fill and the borders of a double line, and the glyphs along the line.
         // instances: the layer instances.
         // path: the path of the line.
         internal bool TryAddClippingObjects(LayerInstanceBuilder instances, SymPath path)
         {
-            if (glyphs != null)
-                return false;
             if (path.IsZeroLength)
                 return true;
 
@@ -965,6 +962,19 @@ namespace PurplePen.MapModel
                     AddBorder(instances, path, SymPath.DOUBLE_RIGHT_STARTSTOPFLAG, doubleLines.doubleRightColor, doubleLines.doubleRightWidth, doubleLines.doubleRightDashed, (doubleLines.doubleThick + doubleLines.doubleRightWidth) / 2F);
             }
 
+            if (glyphs != null) {
+                foreach (GlyphInfo glyphInfo in glyphs) {
+                    if ((glyphInfo.location == GlyphLocation.Start || glyphInfo.location == GlyphLocation.End) && pathsWithShortening.Length > 0) {
+                        // As in DrawCore, the start and the end apply only to the full path.
+                        AddGlyphs(instances, glyphInfo, path, path);
+                    }
+                    else {
+                        for (int i = 0; i < pathsWithShortening.Length; ++i)
+                            AddGlyphs(instances, glyphInfo, pathsWithShortening[i], (i < pathsWithoutShortening.Length) ? pathsWithoutShortening[i] : path);
+                    }
+                }
+            }
+
             return true;
         }
 
@@ -983,6 +993,129 @@ namespace PurplePen.MapModel
                     AddDashedLine(instances, color, subpath, doubleLines.doubleDashes, stroke, offsetRight, GraphicsUtil.MITER_LIMIT, GetDoubleLineVertexPieceLimit(doubleLines.doubleDashes), GetVertexPieceLimit(doubleLines.doubleDashes, width));
                 else
                     instances.Add(color, subpath.OffsetRight(offsetRight, GraphicsUtil.MITER_LIMIT).MakeStrokedShape(stroke, Placement.Identity));
+            }
+        }
+
+        // Add the clipping objects of the glyphs along the path, each part to the instance of its color, as DrawGlyphs
+        // draws them. "longPath" is the same as path unless shortening of the ends has occurred, in which case path is the
+        // shortened path (used for all glyphs except start and end), and longPath is used for the start and end.
+        // instances: the layer instances.
+        // glyphInfo: the glyphs.
+        private void AddGlyphs(LayerInstanceBuilder instances, GlyphInfo glyphInfo, SymPath path, SymPath longPath)
+        {
+            float[] distances;
+            PointF[] points;
+            float[] perpAngles, subtendedAngles;
+            float firstDistance;
+            bool ignoreDashCornersAtEnds = false;
+
+            // Figure out the distances of the glyphs along the line.
+            switch (glyphInfo.location) {
+            case GlyphLocation.CornersIgnoreEnds:
+            case GlyphLocation.DashPointsIgnoreEnds:
+                ignoreDashCornersAtEnds = true;
+                goto case GlyphLocation.Corners;
+
+            case GlyphLocation.Corners:
+            case GlyphLocation.DashPoints:
+                // Corner points/dash points are done somewhat differently. Only can have 1 symbol.
+                // There is an interesting feature in OCAD where the dimensions of corner glyphs are stretched a certain amount at
+                // very acute angles. This is so that power line crossbars always extend beyond the power lines themselves.
+                // This is handled by stretching the glyph based on the subtended angle at the corner.
+                points = path.FindCornerOrDashPoints((glyphInfo.location == GlyphLocation.DashPoints || glyphInfo.location == GlyphLocation.DashPointsIgnoreEnds) ? PointKind.Dash : PointKind.Corner,
+                                                     ignoreDashCornersAtEnds, out perpAngles, out subtendedAngles);
+
+                if (points != null) {
+                    for (int i = 0; i < points.Length; ++i) {
+                        float subtendedAngle = subtendedAngles[i];
+                        float stretch;
+                        if (subtendedAngle != 0 && !glyphInfo.noScaleAtCorners && (glyphInfo.location == GlyphLocation.Corners || glyphInfo.location == GlyphLocation.CornersIgnoreEnds))
+                            stretch = Geometry.MiterFactor(subtendedAngle);
+                        else
+                            stretch = 1.0F;
+                        stretch = Math.Min(stretch, CORNER_GLYPH_STRETCH_LIMIT);
+
+                        Matrix stretchMatrix = new Matrix();
+                        stretchMatrix.Scale(1.0F, stretch);
+
+                        glyphInfo.glyph.AddClippingObjects(instances, points[i], perpAngles[i] + 90.0F, null, stretchMatrix);
+                    }
+                }
+                return;
+
+            case GlyphLocation.Spaced:
+                distances = ComputeDashDistances(path, LocationKind.GapCenters, glyphInfo.spacingMethod, glyphInfo.distance, glyphInfo.firstDistance, glyphInfo.lastDistance, 0, false, glyphInfo.minimum, 0, 0, 0, 0, 0, 1.0F, false, null, map.MapDistanceMetric);
+                break;
+            case GlyphLocation.SpacedOffset:
+                distances = ComputeDashDistances(path, LocationKind.GapCentersOffset, glyphInfo.spacingMethod, glyphInfo.distance, glyphInfo.firstDistance, glyphInfo.lastDistance, 0, false, glyphInfo.minimum, glyphInfo.offset, 0, 0, 0, 0, 1.0F, false, null, map.MapDistanceMetric);
+                break;
+            case GlyphLocation.SpacedDecrease:
+                DecreaseRanges decreaseRanges = new DecreaseRanges();
+                distances = ComputeDashDistances(path, LocationKind.GapCentersDecrease, glyphInfo.spacingMethod, glyphInfo.distance, glyphInfo.firstDistance, glyphInfo.lastDistance, 0, false, glyphInfo.minimum, 0, 0, 0, 0, 0, glyphInfo.decreaseLimit, glyphInfo.decreaseBothEnds, decreaseRanges, map.MapDistanceMetric);
+
+                if (distances != null && distances.Length > 0) {
+                    firstDistance = distances[0];
+
+                    for (int n = 0; n < glyphInfo.number; ++n) {
+                        distances[0] = firstDistance - ((glyphInfo.number - 1 - n * 2) * (glyphInfo.spacing / 2.0F));
+
+                        points = path.FindPointsAlongLine(distances, out perpAngles, map.MapDistanceMetric);
+
+                        for (int i = 0; i < points.Length; ++i) {
+                            float decreaseFactor = ComputeDecreaseFactor(i, decreaseRanges, glyphInfo.decreaseLimit);
+
+                            if (decreaseFactor >= 0.001F) {
+                                Matrix matrixTransform = new Matrix();
+                                matrixTransform.Scale(decreaseFactor, decreaseFactor);
+                                glyphInfo.glyph.AddClippingObjects(instances, points[i], perpAngles[i], null, matrixTransform);
+                            }
+                        }
+                    }
+                }
+
+                return;
+            case GlyphLocation.DashCenters:
+                distances = ComputeDashDistances(path, LocationKind.DashCenters, dashInfo.spacingMethod, dashInfo.dashLength, dashInfo.firstDashLength, dashInfo.lastDashLength, dashInfo.gapLength, dashInfo.halfEndDashLengthWhenClosed, dashInfo.minGaps, 0, 0, 0, 0, 0, 1.0F, false, null, map.MapDistanceMetric);
+                break;
+            case GlyphLocation.GapCenters:
+                // OCAD doesn't respect the "0 minimum gaps" for the symbols, although it does for the gaps. Always have at least one symbol. This is handled on import by having glyphInfo.minimum be 1.
+                distances = ComputeDashDistances(path, LocationKind.GapCenters, dashInfo.spacingMethod, dashInfo.dashLength, dashInfo.firstDashLength, dashInfo.lastDashLength, dashInfo.gapLength, dashInfo.halfEndDashLengthWhenClosed, Math.Max(glyphInfo.minimum, dashInfo.minGaps), 0, 0, 0, 0, 0, 1.0F, false, null, map.MapDistanceMetric);
+                break;
+            case GlyphLocation.Start:
+                distances = new float[1] { 0 };
+                break;
+            case GlyphLocation.End:
+                distances = new float[1] { map.UseEuclideanMetric ? longPath.Length : longPath.BizzarroLength };
+                break;
+            default:
+                Debug.Fail("bad glyph location");
+                return;
+            }
+
+            if (distances == null || distances.Length == 0)
+                return;
+            firstDistance = distances[0];
+
+            for (int n = 0; n < glyphInfo.number; ++n) {
+                distances[0] = firstDistance - ((glyphInfo.number - 1 - n * 2) * (glyphInfo.spacing / 2.0F));
+
+                if (glyphInfo.location != GlyphLocation.Start && glyphInfo.location != GlyphLocation.End) {
+                    if (longPath.FirstPoint != path.FirstPoint && shortenInfo.shortenBeginning > 0) {
+                        // This is a shortened path, convert distances back into the long path.
+                        distances[0] += shortenInfo.shortenBeginning;
+                        points = longPath.FindPointsAlongLine(distances, out perpAngles, map.MapDistanceMetric);
+                    }
+                    else {
+                        points = path.FindPointsAlongLine(distances, out perpAngles, map.MapDistanceMetric);
+                    }
+                }
+                else {
+                    points = longPath.FindPointsAlongLine(distances, out perpAngles, map.MapDistanceMetric);
+                }
+
+                for (int i = 0; i < points.Length; ++i) {
+                    glyphInfo.glyph.AddClippingObjects(instances, points[i], perpAngles[i], null, null);
+                }
             }
         }
 
