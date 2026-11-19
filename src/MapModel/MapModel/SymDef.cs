@@ -4067,8 +4067,9 @@ namespace PurplePen.MapModel
         }
 
         // Add the clipping objects of a text run with its shadow or its line framing, as DrawStringWithEffects draws
-        // them: the run in the font color; and in the color of the framing, the run and its outline with each pen of
-        // the line framing, or the run moved by the shadow.
+        // them: the run in the font color; and in the color of the framing, the run and its outline with the line of
+        // the full width of the framing, or the run moved by the shadow. DrawStringWithEffects first draws the outline
+        // with narrower pens, whose lines are inside that line, and the framing line is that one line, as OCAD draws it.
         // instances: the layer instances.
         // text: the text of the run.
         // pt: the upper left corner of the run.
@@ -4081,10 +4082,8 @@ namespace PurplePen.MapModel
             if (framing.framingStyle != FramingStyle.None && framing.framingColor != null) {
                 if (framing.framingStyle == FramingStyle.Line) {
                     AddTextRun(instances, framing.framingColor, text, pt, placement);
-                    if (!string.IsNullOrEmpty(text)) {
-                        foreach (Stroke stroke in GetFramingStrokes())
-                            instances.Add(framing.framingColor, new StrokedShape(MakeTextRun(text, pt), stroke, placement));
-                    }
+                    if (!string.IsNullOrEmpty(text))
+                        instances.Add(framing.framingColor, new StrokedShape(MakeTextRun(text, pt), GraphicsUtil.MakeSolidStroke(framing.lineWidth * 2, framing.lineStyle), placement));
                 }
                 else if (framing.framingStyle == FramingStyle.Shadow) {
                     AddTextRun(instances, framing.framingColor, text, new PointF(pt.X + framing.shadowX, pt.Y - framing.shadowY), placement);
@@ -4111,17 +4110,6 @@ namespace PurplePen.MapModel
         private TextShape MakeTextRun(string text, PointF upperLeft)
         {
             return new TextShape(text, fontName, fontSize, effects & ~TextEffects.Underline, upperLeft, map.TextMetricsProvider);
-        }
-
-        // The lines of the pens of the line framing, as CreateObjects creates them: lines of increasing width with bevel
-        // joins, and last the line of the full width with the joins of the framing.
-        private List<Stroke> GetFramingStrokes()
-        {
-            List<Stroke> strokes = new List<Stroke>();
-            for (float width = fontSize * 0.33F; width < framing.lineWidth * 2; width += fontSize * 0.33F)
-                strokes.Add(GraphicsUtil.MakeSolidStroke(width, LineStyle.Beveled));
-            strokes.Add(GraphicsUtil.MakeSolidStroke(framing.lineWidth * 2, framing.lineStyle));
-            return strokes;
         }
 
         // Add the clipping object of an underline, as DrawUnderline draws it.

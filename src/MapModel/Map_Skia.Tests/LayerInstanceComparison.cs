@@ -20,6 +20,10 @@ namespace Map_Skia.Tests
     // other than that count as one. A repetition of shapes (RepeatedShapes) is first expanded to its placements. It
     // finds its placements along its own path, and not along the line as the drawing does, so each placed shape is
     // compared in the coordinates of the map, its points to within ExpansionTolerance.
+    // The drawing strokes the outline of a text run with a line framing with pens of increasing width, and last with the
+    // pen of the full width (TextSymDef.DrawStringWithEffects). The narrower lines are inside the widest, and the
+    // framing line of the instances is that one line, as OCAD draws it (question 2 of ticket 013). So of consecutive
+    // strokes of the same text run at the same placement, the comparison keeps the last.
     static class LayerInstanceComparison
     {
         // The distance in mm within which the expanded dashes of a run and the expanded placements of a repetition agree
@@ -44,7 +48,7 @@ namespace Map_Skia.Tests
                     continue;
                 }
 
-                IReadOnlyList<ClippingObject> expectedObjects = expectedInstance.ClippingObjects;
+                List<ClippingObject> expectedObjects = LeaveOutNarrowerPensOfFramings(expectedInstance.ClippingObjects);
                 List<ClippingObject> actualObjects = new List<ClippingObject>();
                 List<Expansion> expansions = new List<Expansion>();
                 foreach (ClippingObject clippingObject in actualInstance.ClippingObjects) {
@@ -89,6 +93,27 @@ namespace Map_Skia.Tests
         // How an object to check comes from an object of the instances: as it is, as a dash of a run, or as a placed
         // shape of a repetition.
         enum Expansion { None, Dash, Placement }
+
+        // The clipping objects of the oracle without the narrower pens of the line framings of texts: of consecutive
+        // strokes of the same text run at the same placement, the last.
+        // clippingObjects: the clipping objects of an instance of the oracle.
+        static List<ClippingObject> LeaveOutNarrowerPensOfFramings(IReadOnlyList<ClippingObject> clippingObjects)
+        {
+            List<ClippingObject> kept = new List<ClippingObject>();
+            for (int i = 0; i < clippingObjects.Count; ++i) {
+                if (i + 1 < clippingObjects.Count && AreStrokesOfTheSameTextRun(clippingObjects[i], clippingObjects[i + 1]))
+                    continue;
+                kept.Add(clippingObjects[i]);
+            }
+            return kept;
+        }
+
+        // Are two clipping objects strokes of the same text run at the same placement, whatever their lines?
+        static bool AreStrokesOfTheSameTextRun(ClippingObject first, ClippingObject second)
+        {
+            return first is StrokedShape && second is StrokedShape && first.Shape is TextShape && second.Shape is TextShape &&
+                   Describe(first.Shape) == Describe(second.Shape) && first.Placement.Steps.Select(Describe).SequenceEqual(second.Placement.Steps.Select(Describe));
+        }
 
         // The description of a clipping object that the comparison compares: its kind, its shape, its line or fill rule,
         // and the steps of its placement, each number exactly.

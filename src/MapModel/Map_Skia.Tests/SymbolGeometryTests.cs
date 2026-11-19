@@ -575,6 +575,41 @@ namespace Map_Skia.Tests
             Assert.IsInstanceOf<FilledShape>(instances[2].ClippingObjects.Last());
         }
 
+        // The line framing of a text run is one line, as OCAD draws it: in the color of the framing, the run filled, and
+        // its outline stroked with the line of the full width, two times the width of the framing, with the joins of the
+        // framing. The drawing strokes the outline with narrower pens first, of 0.33 times the font size and more, which
+        // the collector has too (question 2 of ticket 013).
+        [Test]
+        public void LineFramingOfATextRunIsOneLineOfTheFullWidth()
+        {
+            Map map = CreateMap();
+            SymColor yellow, black;
+            using (map.Write()) {
+                yellow = map.AddColor("Yellow", 1, 0, 0.27F, 0.79F, 0, false);
+                black = map.AddColor("Black", 2, 0, 0, 0, 1, false);
+
+                TextSymDef symdef = new TextSymDef("Framed", "1", TextSymDef.PreferredSymbolKind.NormalText, null);
+                symdef.SetFont("Roboto", 2, TextEffects.Regular, black, 2, 0, 0, 0, null, 0, 1, TextSymDefHorizAlignment.Left, TextSymDefVertAlignment.TopAscent);
+                symdef.SetFraming(new TextSymDef.Framing() { framingStyle = TextSymDef.FramingStyle.Line, framingColor = yellow, lineWidth = 1, lineStyle = LineStyle.Rounded });
+                map.AddSymdef(symdef);
+                map.AddSymbol(new TextSymbol(symdef, new string[] { "Two words" }, new PointF(0, 0), 0, 0, TextSymDefHorizAlignment.Default, TextSymDefVertAlignment.Default));
+            }
+
+            IReadOnlyList<LayerInstance> instances = CreateInstances(map);
+
+            AssertSameStructure(CollectInstances(map), instances);
+            CollectionAssert.AreEqual(new SymColor[] { yellow, black }, instances.Select(instance => instance.PaletteEntry));
+            IReadOnlyList<ClippingObject> framing = instances[0].ClippingObjects;
+            CollectionAssert.AreEqual(new string[] { "Two", "Two", "words", "words" }, framing.Select(clippingObject => ((TextShape)clippingObject.Shape).Text));
+            for (int i = 0; i < framing.Count; i += 2) {
+                Assert.IsInstanceOf<FilledShape>(framing[i]);
+                Stroke line = ((StrokedShape)framing[i + 1]).Stroke;
+                Assert.AreEqual(2, line.Width);
+                Assert.AreEqual(LineJoinMode.Round, line.Join);
+            }
+            Assert.Greater(CollectInstances(map)[0].ClippingObjects.Count, framing.Count);
+        }
+
         // Add an area symbol definition to a map, and return it.
         static AreaSymDef AddAreaSymDef(Map map, AreaSymDef symdef)
         {
