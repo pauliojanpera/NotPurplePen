@@ -49,9 +49,9 @@ Upstreamin karttamalli toteuttaa [speksin](../Specification.md) palettikerrosark
 * [012](012-area-geometry.md) LUONNOS: alueiden, yhdistelmien ja grafiikkaobjektien geometriametodit, erotettu tiketistä 008.
 * [013](013-text-geometry.md) LUONNOS: tekstien ja suorakulmioiden geometriametodit, erotettu tiketistä 008.
 * [014](014-basic-tests-private-fonts.md) BasicTestsin fonttitestit poistavat renderöintitestien yksityiset fontit, löytyi tiketin 008 täydestä ajosta: haara `fix/basic-tests-private-fonts`, ei yhdistetty, koska mikään osa ei tarvitse sitä.
-* [015](015-thick-glyph-circles.md) OCAD-ympyrä, jonka viiva on vähintään halkaisijan levyinen, ei piirry kuten OCADissa, löytyi tiketin 008 työstä: haara `fix/thick-glyph-circles`, ei yhdistetty, koska vanha piirtokoodi pysyy ennallaan tikettien 008–013 ajan.
-* [016](016-ocad-metric-parameter.md) OCAD 6–10 -tiedoston viivat mitataan aina OCADin metriikalla, löytyi tiketin 011 valmistelusta: haara `fix/ocad-metric-parameter`, ei yhdistetty, koska vanha piirtokoodi pysyy ennallaan tikettien 008–013 ajan.
-* [017](017-ocad-dash-count.md) OCAD-viivan katkojen määrä poikkeaa OCADin piirrosta, löytyi tiketin 011 valmistelusta: haara `fix/ocad-dash-count`, ei yhdistetty, koska vanha piirtokoodi pysyy ennallaan tikettien 008–013 ajan.
-* [018](018-double-line-dash-gaps.md) OCAD-kaksoisviivan katkoissa on aina vähintään yksi väli, löytyi tiketin 011 valmistelusta: haara `fix/double-line-dash-gaps`, ei yhdistetty samasta syystä.
-* [019](019-ocad-minimum-gaps.md) OCAD-viivan vähimmäisvälit 2 ja 3 luetaan kolmeksi ja neljäksi, löytyi tiketin 011 valmistelusta: haara `fix/ocad-minimum-gaps`, ei yhdistetty samasta syystä.
-* [020](020-dash-boundary-at-vertex.md) Taitepisteen lähellä alkava katko saa taitepisteen ja viisteen kulman, löytyi tiketin 011 valmistelusta: ei vielä tehty, odottaa viidettä näytettä.
+* [015](015-thick-glyph-circles.md) OCAD-ympyrä, jonka viiva on vähintään halkaisijan levyinen, ei piirry kuten OCADissa, löytyi tiketin 008 työstä: haara `fix/thick-glyph-circles`, yhdistetty haaraan `feature/palette-layers` ennen tiketin 011 työtä.
+* [016](016-ocad-metric-parameter.md) OCAD 6–10 -tiedoston viivat mitataan aina OCADin metriikalla, löytyi tiketin 011 valmistelusta: haara `fix/ocad-metric-parameter`, yhdistetty haaraan `feature/palette-layers` ennen tiketin 011 työtä.
+* [017](017-ocad-dash-count.md) OCAD-viivan katkojen määrä poikkeaa OCADin piirrosta, löytyi tiketin 011 valmistelusta: haara `fix/ocad-dash-count`, yhdistetty samoin.
+* [018](018-double-line-dash-gaps.md) OCAD-kaksoisviivan katkoissa on aina vähintään yksi väli, löytyi tiketin 011 valmistelusta: haara `fix/double-line-dash-gaps`, yhdistetty samoin.
+* [019](019-ocad-minimum-gaps.md) OCAD-viivan vähimmäisvälit 2 ja 3 luetaan kolmeksi ja neljäksi, löytyi tiketin 011 valmistelusta: haara `fix/ocad-minimum-gaps`, yhdistetty samoin.
+* [020](020-dash-boundary-at-vertex.md) Taitepisteen lähellä alkava katko saa taitepisteen ja viisteen kulman, löytyi tiketin 011 valmistelusta: ei vielä tehty, odottaa kuudetta näytettä.
