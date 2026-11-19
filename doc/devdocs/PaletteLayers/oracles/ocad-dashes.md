@@ -663,3 +663,17 @@ the eighth sample.
 
 @Pauli's decision (Nov 19): fix [021](../tickets/021-ocad-dashes-on-curves.md) places the dashes on Bezier curves by
 the quarters, with the euclidean metric. The curves with the OCAD metric stay as they are.
+
+### The glyphs on curves
+
+The PDF export of the third sample has glyphs spaced along seven S curves (the cells GScurve, symbol GS1: a glyph
+every 2.0 mm, ends of 1.0 mm). OCAD writes each glyph as a filled circle, and the middle of its bounding box gives its
+place. On Nov 19, Purple Pen drew the cells with fix 021 and without it, and kept the centers of the glyphs:
+
+| Placement of the glyphs | Largest distance from OCAD's glyphs | Root mean square |
+| --- | --- | --- |
+| By the quarters, as fix 021 places the dashes | 0.032 mm | 0.013 mm |
+| Even along the length of the curve | 0.090 mm | 0.050 mm |
+
+So OCAD places the spaced glyphs on a curve in the same measure as the dashes. `OcadDashesOnCurvesTests` of fix 021
+compares the dashes of the ninth sample and these glyphs with OCAD's export.

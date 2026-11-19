@@ -24,6 +24,12 @@
 # more commit, on the wip branch alone, writes them in. They belong to the merge of the branch into base, which takes
 # them from the same folder. Give the option to each push of the branch.
 #
+# The message of each commit that the script makes lists the branches that the push builds for the first time: the
+# merges into the branch, along its first parents, since the commit of the branch that the last push of the wip branch
+# with a passing Tests run built, or since base on the first push. Each line names a merged branch and its work, from
+# the subject of its merge, "Merge <branch>, with <work>, into <branch>". The commit that the push starts the runs on
+# holds the list, as the build of a branch shows its message (@Pauli, Nov 19).
+#
 # Prints the commit pushed and the ids of the runs, for wait-run.sh and fetch-artifact.sh in ../../SvgDevLoop/.
 set -euo pipefail
 collect=0
@@ -51,8 +57,46 @@ repository=$(git remote get-url "$remote" | sed -E 's#\.git$##; s#^.*[:/]([^/:]+
 git fetch -q "$remote" "$base" "$feature"
 tree=$(git merge-tree --write-tree "$remote/$base" "$remote/$feature") \
     || { echo "$base and $feature do not merge cleanly" >&2; exit 1; }
+
+# The commit of the branch that the last push of the wip branch with a passing Tests run built: the second parent of
+# the merge of that push, below the commits that the push adds on the wip branch alone. Nothing if there is none.
+last_built() {
+    local sha parents step
+    sha=$(gh run list --repo "$repository" --branch "$wip" --workflow tests.yml --event push --status success --limit 1 \
+          --json headSha --jq '.[0].headSha // empty' 2>/dev/null) || return 0
+    for step in 1 2 3 4; do
+        [ -n "$sha" ] || return 0
+        parents=$(gh api "repos/$repository/commits/$sha" --jq '[.parents[].sha] | join(" ")' 2>/dev/null) || return 0
+        set -- $parents
+        if [ $# -ge 2 ]; then
+            echo "$2"
+            return 0
+        fi
+        sha=${1:-}
+    done
+}
+
+since=$(last_built)
+if [ -n "$since" ] && git merge-base --is-ancestor "$since" "$remote/$feature" 2>/dev/null; then
+    since_text="the last passing run of $wip, which built $(git rev-parse --short "$since")"
+else
+    since=$(git merge-base "$remote/$base" "$remote/$feature")
+    since_text=$base
+fi
+merged=$(git log --first-parent --merges --reverse --format=%s "$since..$remote/$feature" \
+         | sed -E -e 's/^Merge ([^ ,]+), with (.*), into [^ ]+$/* \1, with \2/' -e t \
+                  -e "s/^Merge branch '([^']+)'.*$/* \\1/" -e t \
+                  -e 's/^Merge ([^ ]+) into .*$/* \1/' -e t \
+                  -e 's/^/* /')
+if [ -n "$merged" ]; then
+    news=$(printf 'The branches merged into %s since %s:\n%s' "$feature" "$since_text" "$merged")
+else
+    news="No branch is merged into $feature since $since_text."
+fi
+echo "$news"
+
 commit=$(git commit-tree "$tree" -p "$remote/$base" -p "$remote/$feature" \
-         -m "Merge $feature into $base, for a full run")
+         -m "Merge $feature into $base, for a full run" -m "$news")
 
 if [ ${#descriptions[@]} -gt 0 ]; then
     index=$(mktemp)
@@ -76,7 +120,7 @@ sys.stdout.buffer.write(data.getvalue())
     blank_tree=$(GIT_INDEX_FILE=$index git write-tree)
     rm -f "$index"
     commit=$(git commit-tree "$blank_tree" -p "$commit" -m "Give the new Skia rendering tests blank baselines, on this run only" \
-             -m "The Skia comparison leaves its rendering only where a baseline exists.")
+             -m "The Skia comparison leaves its rendering only where a baseline exists." -m "$news")
 fi
 
 if [ -n "$base_baselines" ]; then
@@ -93,7 +137,7 @@ if [ -n "$base_baselines" ]; then
     base_tree=$(GIT_INDEX_FILE=$index git write-tree)
     rm -f "$index"
     commit=$(git commit-tree "$base_tree" -p "$commit" -m "Record the baselines of base's own tests that $feature moves, on this run only" \
-             -m "A branch rooted at upstream cannot hold them; the merge into $base takes them.")
+             -m "A branch rooted at upstream cannot hold them; the merge into $base takes them." -m "$news")
 fi
 
 before=$(git ls-remote "$remote" "refs/heads/$wip" | cut -f1)
