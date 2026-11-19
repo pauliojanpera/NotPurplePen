@@ -48,7 +48,8 @@ lines of 3.0 and 1.5 mm.
 [Euclidean](ocad-dashes/ocad-viewer-dashes-ocad12-euclidean-600dpi.png) and
 [OCAD 9](ocad-dashes/ocad-viewer-dashes-ocad9-600dpi.png). The names of his files say OCAD Viewer 2022. On the same
 drive, a file with such a name is the screenshot of the OCAD 8 circles in [ocad-thick-circles.md](ocad-thick-circles.md),
-and its title bar shows OCAD 2020.5.18 Viewer. Thus the exports are probably from that viewer. Purple Pen drew the
+and its title bar shows OCAD 2020.5.18 Viewer. Thus the exports are probably from that viewer. @Pauli gave its version
+on Nov 19: OCAD 2020.5.18.3780, build date 2022-05-09, 32 bit. Purple Pen drew the
 files on the same grid of pixels: [OCAD metric](ocad-dashes/purple-pen-dashes-ocad12-ocad-metric-600dpi.png) and
 [Euclidean](ocad-dashes/purple-pen-dashes-ocad12-euclidean-600dpi.png). It draws the OCAD 9 file as the file with the
 OCAD metric.

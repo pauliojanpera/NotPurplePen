@@ -18,8 +18,8 @@ OCAD is the authority on how its own maps render (the preface of
   - [PaletteLayers/oracles/ocad-line-text.md](PaletteLayers/oracles/ocad-line-text.md): one sample of text along lines.
   - [PaletteLayers/oracles/ocad-thick-circles.md](PaletteLayers/oracles/ocad-thick-circles.md): the circle elements of
     glyphs.
-- **The viewer.** The names of the exported files say OCAD Viewer 2022. A screenshot from the same drive shows OCAD
-  2020.5.18 Viewer in its title bar. So the exports are probably from that viewer.
+- **The viewer.** The exports are from the OCAD viewer OCAD 2020.5.18.3780, build date 2022-05-09, 32 bit (@Pauli,
+  Nov 19).
 - **The reference.** The PDF export gives OCAD's geometry: it writes each dash as a path, with its points to 0.01 pt
   (0.0035 mm). The bitmap exports follow other rules in some details (see "The vertex next to the end of a dash").
   So this document uses the PDF exports where they exist.
