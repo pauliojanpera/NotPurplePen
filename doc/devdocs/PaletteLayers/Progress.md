@@ -31,7 +31,7 @@ and on the borders of double lines as Purple Pen does, except where a dash start
 ([020](tickets/020-dash-boundary-at-vertex.md)). The fixes 015 to 019 are merged into `feature/palette-layers`
 (@Pauli, Nov 19), and its full run passed with them. The sixth sample showed that OCAD leaves out a short piece of a
 dash beyond a vertex, up to about 0.06 mm on thin lines. On a wide line the limit depends on the resolution of the
-export, so the rule of 020 waits for @Pauli's decision.
+export, so @Pauli decided to find OCAD's own limit from a PDF export of the sample first.
 
 ## Branches
 
@@ -162,11 +162,13 @@ the rendering.
 - **The SVG encoding**, when pass 2 is done (Nov 18). Its place: an encoding read from the instances, or the SVG
   target of NotPurplePen fitted to them in the integration. And whether the work can use the documented findings or
   the code of `feature/svg-target`. The notes of the epic give the reasons.
-- **The rule of fix 020** (Nov 19). OCAD leaves out the piece of a dash beyond a vertex up to about 0.055 to 0.06 mm
-  on a line of 0.3 mm and on borders of 0.15 mm, at 600 and 1200 dpi alike. On a line of 1.0 mm, its limit is about
-  0.09 mm at 600 dpi and 0.16 to 0.21 mm at 1200 dpi ([oracles/ocad-dashes.md](oracles/ocad-dashes.md), the sixth
-  sample). A rule that does not depend on the resolution follows one export only on a wide line. The fix of ticket
-  [020](tickets/020-dash-boundary-at-vertex.md) waits for the decision.
+- **The PDF export of the sixth dash sample** (Nov 19). OCAD leaves out the piece of a dash beyond a vertex up to about
+  0.055 to 0.06 mm on a line of 0.3 mm and on borders of 0.15 mm, at 600 and 1200 dpi alike. On a line of 1.0 mm, its
+  limit is about 0.09 mm at 600 dpi and 0.16 to 0.21 mm at 1200 dpi ([oracles/ocad-dashes.md](oracles/ocad-dashes.md),
+  the sixth sample). A rule that does not depend on the resolution follows one export only on a wide line. @Pauli
+  decided to find OCAD's own limit first from a PDF export of the sixth sample, whose dashes have coordinates and no
+  pixels, and to choose the rule after that. The fix of ticket [020](tickets/020-dash-boundary-at-vertex.md) waits for
+  the export.
 - **Offering upstream.** No branch is offered upstream yet.
 
 ## Decisions
@@ -213,6 +215,9 @@ the rendering.
   before the work on ticket 011 starts, so that the old drawing and the collector follow OCAD's rules and the
   comparison stays exact. This changes the decision above for these fixes. The collector stays an independent
   oracle, as the geometry methods are new code.
+- **The limit of fix 020** (Nov 19). OCAD's limit for the piece of a dash beyond a vertex is found first from a PDF
+  export of the sixth dash sample, whose dashes have coordinates and no pixels. The rule of the fix is chosen after
+  that ([020](tickets/020-dash-boundary-at-vertex.md)).
 - **The dashed lines** (Nov 18). A dashed line follows the principle that section 03 of
   [Specification.md](Specification.md) gives for the pattern fills: the basic model is a standard dashed line, and the
   exotic cases, such as the distance metric of OCAD, are split into parts, for a dashed line into single dashes. In
