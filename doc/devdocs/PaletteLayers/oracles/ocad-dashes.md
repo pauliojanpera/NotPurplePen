@@ -728,3 +728,38 @@ The files:
 
 [purple-pen-dashes-10-ocad12-euclidean-150dpi.png](ocad-dashes/purple-pen-dashes-10-ocad12-euclidean-150dpi.png) is
 Purple Pen's drawing of the euclidean file. The files are on @Pauli's drive in `ocad-dashes-10`, for their PDF export.
+
+### The PDF exports of the tenth sample
+
+@Pauli exported the five files as PDF on Nov 19:
+[ocad-viewer-dashes-10-ocad12-euclidean.pdf](ocad-dashes/ocad-viewer-dashes-10-ocad12-euclidean.pdf),
+[ocad-viewer-dashes-10-ocad12-ocad-metric.pdf](ocad-dashes/ocad-viewer-dashes-10-ocad12-ocad-metric.pdf),
+[ocad-viewer-dashes-10-ocad8.pdf](ocad-dashes/ocad-viewer-dashes-10-ocad8.pdf),
+[ocad-viewer-dashes-10-ocad7.pdf](ocad-dashes/ocad-viewer-dashes-10-ocad7.pdf) and
+[ocad-viewer-dashes-10-ocad6.pdf](ocad-dashes/ocad-viewer-dashes-10-ocad6.pdf).
+[measure-pdf-paths.py](ocad-dashes/measure-pdf-paths.py) compares the dashes and the glyphs of each path with the
+model of the curves of fix 021, with the metric of the map, and with an even placement along the length of the path.
+
+- **The rule of the curves.** With each metric, the model of fix 021 fits all the paths: the chains of curves, the
+  curves with straight segments, the closed path, the path with a corner point and a dash point, and the three real
+  paths. Each quarter of a curve has the length of its chord in the metric of the map, each straight segment its
+  length, and in a quarter the positions are in proportion to the euclidean length. With the euclidean metric, the
+  model is within 0.045 mm of OCAD on all the cells, and the even placement within 0.152 mm. With the OCAD metric, the
+  model is within 0.059 mm, and the even placement, which is Purple Pen's present placement, within 0.269 mm.
+- **The spaced glyphs** follow the same model with each metric: within 0.039 mm with the euclidean metric and
+  0.050 mm with the OCAD metric.
+- **One count.** The only exception is small-footpath-L030 with the euclidean metric: OCAD gives it 23 dashes and the
+  rules 24, as the quotient of the rule is 23.516, 0.016 above a half. The measure of four chords is 0.04 mm above the
+  limit, so OCAD's own rounding of its measure decides, and the rule of that rounding is not known. With the OCAD
+  metric, the same path gets the count of the rules.
+- **A dash point.** At the dash point of wave-points, OCAD centers one dash on the point: the end dash of each part is
+  half a dash, as Purple Pen gives it (`ComputeDashDistances`). At the corner point, the full end dashes join into one
+  dash.
+- **A closed path.** The end dashes join over the start point into one dash. OCAD also writes a piece of that dash
+  that starts at the start point.
+- **OCAD 6, 7 and 8 files.** The viewer draws the OCAD 7 and 8 files, which have no view parameters, as the OCAD 12
+  file with the euclidean metric: each end of a dash and each center of a glyph is the same to 0.01 mm. The OCAD 6
+  file differs from it only on wave-points, as Purple Pen writes no dash points to OCAD 6 files (`OcadExport` writes
+  them from OCAD 7 on). With its dash point as a plain point, the euclidean metric fits all its cells. So the viewer
+  measures OCAD 6, 7 and 8 files with the euclidean metric, as Purple Pen does since fix
+  [016](../tickets/016-ocad-metric-parameter.md).

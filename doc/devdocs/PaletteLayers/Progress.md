@@ -298,7 +298,10 @@ the rendering.
     and 0.794 mm on the loop
     ([oracles/ocad-dashes/measure-pdf-curves-metric.py](oracles/ocad-dashes/measure-pdf-curves-metric.py)).
     So OCAD probably places the dashes on a curve by one rule with each metric, and the metric changes only the chords
-    of the quarters. The cells had one Bezier curve each, and no sample measured the glyphs with the OCAD metric.
+    of the quarters. The tenth sample confirms the model on long paths of several curves, with straight segments,
+    corner and dash points, on a closed path and on three real paths of a test map, and for the spaced glyphs: with
+    the OCAD metric, within 0.059 mm of OCAD, where the present placement is up to 0.269 mm off
+    ([oracles/ocad-dashes/measure-pdf-paths.py](oracles/ocad-dashes/measure-pdf-paths.py)).
   - The observation: the OCAD metric is a norm whose unit circle is an octagon. Along a direction, it measures a
     euclidean length of 1 as 1.000 to 1.118. On a straight segment, an even euclidean step gives its points exactly.
     On a curve, no euclidean measure gives them, and no transformation of the path does.

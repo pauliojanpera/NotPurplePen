@@ -48,8 +48,10 @@ OCAD is the authority on how its own maps render (the preface of
 - The view parameter `p` of the map selects the metric of the lines: `p1` is the OCAD metric, and `p0` is the
   euclidean metric. Without `p`, OCAD uses the euclidean metric. Verified with OCAD 9, 10 and 12 files (the first and
   the second sample).
-- OCAD 6 to 8 files have no view parameters. Purple Pen measures them with the euclidean metric (@Pauli, Nov 18). No
-  sample checked them in the viewer.
+- OCAD 6 to 8 files have no view parameters. The viewer measures them with the euclidean metric, as Purple Pen does
+  (@Pauli, Nov 18). Verified: the tenth sample, whose OCAD 7 and 8 files the viewer draws as the OCAD 12 file with the
+  euclidean metric, to 0.01 mm. The OCAD 6 file agrees too, except at a dash point, which Purple Pen does not write to
+  an OCAD 6 file.
 - Newer files can have `p1`. In the test data of Purple Pen, the OCAD 11 and 12 versions of Lake Sammamish and the
   OCAD 2018 version of teanwest have it.
 - The metric of the map measures the lengths along a line for the dashes and for the spaced glyphs. Purple Pen also
@@ -152,8 +154,12 @@ the length of a dash, g the length of a gap, and e1 and e2 the lengths of the en
 
 - The corner points and the dash points of a line divide it into parts. OCAD fits the dashes to each part. It joins
   the end dashes of two parts into one dash at the point between them. Verified: the fourth sample, 25 cells, the ends
-  of the dashes within 0.055 mm in the bitmap export.
-- The closed rectangles of the samples agree with Purple Pen's drawing.
+  of the dashes within 0.055 mm in the bitmap export, and the tenth sample on a path of Bezier curves.
+- At a dash point, the end dash of each part is half a dash, so that one dash is centered on the point. At a corner
+  point, the end dashes have their full length. Verified: the tenth sample.
+- On a closed line, the end dashes join over the start point into one dash. OCAD also writes a piece of that dash
+  that starts at the start point (the tenth sample). The closed rectangles of the earlier samples agree with Purple
+  Pen's drawing.
 
 ### The length of a part
 
@@ -171,7 +177,10 @@ the length of a dash, g the length of a gap, and e1 and e2 the lengths of the en
   (L + d − e1 − e2) / (d + g) + 1. At exactly a half, it is the even number. The number of gaps is one less. Verified:
   in the second sample, the quotients 8.5 and 9.5 both give 10 dashes.
 - **All the counts.** In the PDF exports of the first five samples, each of the 1011 lines has the count of these
-  rules, in the metric of its file. The only exception is the minimum of 2 gaps on a short line, below.
+  rules, in the metric of its file. The only exception is the minimum of 2 gaps on a short line, below. In the tenth
+  sample, each of the 150 lines has the count of the rules, except a path of 30 curves whose quotient is 23.516,
+  0.016 above a half: OCAD gives it 23 dashes, and the rules 24. Its measure of four chords is 0.04 mm above the limit,
+  so OCAD's own rounding of its measure decides there, and the rule of that rounding is not known.
 - **A short line.** When L − e1 − e2 ≤ g, the line has one gap when L > e1 / 2 + e2 / 2 + g. Otherwise it has no gap.
   Verified: the first two samples.
 - **End dashes of 0.** A line that the rule gives one gap and end dashes of 0 is solid (the second sample).
@@ -236,12 +245,16 @@ the length of a dash, g the length of a gap, and e1 and e2 the lengths of the en
 | Ninth sample, euclidean metric | Within 0.05 mm on most curves; 0.1 to 0.2 mm on the high S curve and on the curve with a loop; root mean square 0.02 mm | Up to 0.13 mm on the hooks, 0.28 mm on the high S curve, 0.84 mm on the curve with a loop |
 | Ninth sample, OCAD metric | 0.013 to 0.096 mm on 16 curves; 0.175 mm on the curve with a loop | 0.019 to 0.252 mm; 0.794 mm on the curve with a loop |
 | Eighth sample, OCAD metric | 0.008 to 0.034 mm | Up to 0.131 mm |
+| Tenth sample, euclidean metric: long paths, real paths, straight segments, corner and dash points | Up to 0.045 mm | Up to 0.152 mm |
+| Tenth sample, OCAD metric: the same paths | Up to 0.059 mm | Up to 0.269 mm |
 
-[measure-pdf-curves.py](PaletteLayers/oracles/ocad-dashes/measure-pdf-curves.py) and
-[measure-pdf-curves-metric.py](PaletteLayers/oracles/ocad-dashes/measure-pdf-curves-metric.py) give the values. With
-the OCAD metric, two other models do not fit: the quarters with their chords and their lengths in the OCAD metric are
+[measure-pdf-curves.py](PaletteLayers/oracles/ocad-dashes/measure-pdf-curves.py),
+[measure-pdf-curves-metric.py](PaletteLayers/oracles/ocad-dashes/measure-pdf-curves-metric.py) and
+[measure-pdf-paths.py](PaletteLayers/oracles/ocad-dashes/measure-pdf-paths.py) give the values. With the OCAD metric,
+two other models do not fit the ninth sample: the quarters with their chords and their lengths in the OCAD metric are
 0.019 to 0.190 mm from OCAD, and the quarters with their lengths in the OCAD metric and the points in proportion to the
-euclidean arc up to 0.219 mm, and 0.813 mm on the curve with a loop.
+euclidean arc up to 0.219 mm, and 0.813 mm on the curve with a loop. In the tenth sample, the one count that differs
+by one dash near a half is left out (see "The number of gaps").
 
 - **What is left.** In each quarter of the curves of the euclidean file, OCAD's points are a little before the model
   in the first half of the quarter, and a little after it in the second half. They are the same at the ends and at the
@@ -251,8 +264,9 @@ euclidean arc up to 0.219 mm, and 0.813 mm on the curve with a loop.
 - **A straight Bezier curve.** OCAD follows the true length, whatever the control points (the eighth sample).
 - **The output.** OCAD writes a dash on a curve as Bezier pieces of the curve. It splits a dash at the parameters 1/4,
   1/2 and 3/4.
-- **The scope.** Each cell of the samples had one Bezier curve. No sample measured a path of several curves, or a
-  curve with straight segments or corner points.
+- **The scope.** The eighth and the ninth sample had one Bezier curve in each cell. The tenth sample has paths of
+  several curves, curves with straight segments, a closed path, a path with a corner point and a dash point, and three
+  real paths of a test map, each with dense dashes, common dashes and spaced glyphs.
 
 ## The double lines
 
@@ -277,9 +291,10 @@ euclidean arc up to 0.219 mm, and 0.813 mm on the curve with a loop.
   - At exactly a half, the number of glyphs plus one is even. With a glyph every 2.0 mm and 1.0 mm at the ends, lines
     of 9 and 11 mm both get 5 glyphs, and a line of 3 mm gets 1 glyph, at its middle.
   - OCAD reads `MinSym` 2 and 3 as a minimum of 1 glyph.
-- **Spaced glyphs on a Bezier curve with the euclidean metric.** OCAD places them in the measure of the dashes, by the
-  quarters. On seven S curves of the third sample, this model is within 0.032 mm of OCAD's glyphs (root mean square
-  0.013 mm). Even glyphs along the true length are within 0.090 mm (root mean square 0.050 mm).
+- **Spaced glyphs on a Bezier curve.** OCAD places them in the measure of the dashes, by the quarters, with each
+  metric. On seven S curves of the third sample, this model is within 0.032 mm of OCAD's glyphs (root mean square
+  0.013 mm), and even glyphs along the true length within 0.090 mm (root mean square 0.050 mm). On the paths of the
+  tenth sample, the model is within 0.039 mm with the euclidean metric and 0.050 mm with the OCAD metric.
 - **A circle element of a glyph.** OCAD takes the diameter of a circle from the middle of its line. An OCAD 6 to 8
   file gives the diameter from the outer edges, and OCAD subtracts the width of the line from it. With that diameter,
   a circle whose diameter is larger than the width of its line is a ring. A circle whose line is at least as wide as
@@ -298,13 +313,9 @@ euclidean arc up to 0.219 mm, and 0.813 mm on the curve with a loop.
 
 ## Not known
 
-- The spaced glyphs on a Bezier curve with the OCAD metric. With the euclidean metric, they follow the measure of the
-  dashes.
 - The small difference in each quarter of a curve.
-- The paths of several Bezier curves, and the curves with straight segments or corner points.
 - The rule of the dash on a line that a minimum of 2 gaps leaves without dashes.
 - `MinSym` above 3.
-- OCAD 6 to 8 files in the viewer.
 - A map with a georeference angle.
 - The glyphs of a line at its corner points, its dash points, its start and its end, and at the middles of its dashes
   and its gaps. The glyphs that become smaller, the offset glyphs, and the stretch of a glyph at an acute corner,
@@ -353,6 +364,8 @@ change is not made yet.
    and Skia take any list of lengths. But that placement is farther from OCAD, and the 1D path effect of Skia, which
    draws a glyph along a path, takes one step and no table.
 
-**Not measured.** The glyphs with the OCAD metric, and the paths of several curves.
+**Verified.** The tenth sample confirms the model with the OCAD metric on long paths of several curves, on curves
+with straight segments, corner points and dash points, on real paths, and for the spaced glyphs (see "The dashes on
+Bezier curves").
 
 [Ticket 011](PaletteLayers/tickets/011-line-geometry.md) records the decision and what it changes in the instances.
