@@ -96,6 +96,16 @@ namespace PurplePen.MapModel
         // Draw this color, if used, of this symbol.
         public abstract void Draw(IGraphicsTarget g, SymColor color, RenderOptions renderOpts);
 
+        // The geometry method of the symbol: add its clipping objects to the layer instances of pass 1 of the drawing,
+        // each to the instance of its palette entry, without a drawing target and without render options. A kind of
+        // symbol that has a geometry method overrides this, and returns true. This implementation adds nothing and
+        // returns false, and pass 1 collects the drawing calls of the symbol (LayerInstanceCollector).
+        // instances: the layer instances.
+        internal virtual bool TryAddClippingObjects(LayerInstanceBuilder instances)
+        {
+            return false;
+        }
+
         // Highlight this symbols.
         public abstract void DrawHighlight(IGraphicsTarget g, HighlightOptions options);
 
@@ -328,6 +338,13 @@ namespace PurplePen.MapModel
             def.Draw(g, location, rotation, gaps, color, renderOpts);
         }
 
+        // Add the clipping objects of the symbol to the layer instances of pass 1: the parts of its glyph.
+        internal override bool TryAddClippingObjects(LayerInstanceBuilder instances)
+        {
+            def.AddClippingObjects(instances, location, rotation, gaps);
+            return true;
+        }
+
         // Highlight the symbol.
         public override void DrawHighlight(IGraphicsTarget g, HighlightOptions options)
         {
@@ -363,6 +380,14 @@ namespace PurplePen.MapModel
         public override LineLikeSymbol CloneDetached(SymPath newPath)
         {
             return new LineSymbol(def, newPath);
+        }
+
+        // Add the clipping objects of the line to the layer instances of pass 1 with the geometry method of its
+        // definition (LineLikeSymDef.AddClippingObjects).
+        internal override bool TryAddClippingObjects(LayerInstanceBuilder instances)
+        {
+            def.AddClippingObjects(instances, path);
+            return true;
         }
 
         // Determine accurately if this point is within distance of a this symbol.
@@ -580,6 +605,14 @@ namespace PurplePen.MapModel
         public override void Draw(IGraphicsTarget g, SymColor color, RenderOptions renderOpts)
         {
             def.Draw(g, Path, color, angle, rotationCenter, renderOpts);
+        }
+
+        // Add the clipping objects of the area to the layer instances of pass 1 with the geometry method of its
+        // definition (AreaLikeSymDef.AddClippingObjects).
+        internal override bool TryAddClippingObjects(LayerInstanceBuilder instances)
+        {
+            def.AddClippingObjects(instances, Path);
+            return true;
         }
 
         // Highlight the symbol.
@@ -897,6 +930,15 @@ namespace PurplePen.MapModel
             }
         }
 
+        // Add the clipping object of the area to the layer instances of pass 1, as Draw fills it: the path with its
+        // holes, in the fill color.
+        internal override bool TryAddClippingObjects(LayerInstanceBuilder instances)
+        {
+            if (fillColor != null)
+                instances.Add(fillColor, Path.MakeFilledShape(Placement.Identity));
+            return true;
+        }
+
 
         // Highlight the symbol.
         public override void DrawHighlight(IGraphicsTarget g, HighlightOptions options)
@@ -1073,6 +1115,15 @@ namespace PurplePen.MapModel
 
                 path.Draw(g, this);
             }
+        }
+
+        // Add the clipping object of the line to the layer instances of pass 1, as Draw draws it: the path with the pen
+        // of the line, in the color of the line.
+        internal override bool TryAddClippingObjects(LayerInstanceBuilder instances)
+        {
+            if (lineColor != null)
+                instances.Add(lineColor, path.MakeStrokedShape(new Stroke(thickness, lineCap, lineJoin, GraphicsUtil.MITER_LIMIT), Placement.Identity));
+            return true;
         }
 
         // Highlight the symbol.
