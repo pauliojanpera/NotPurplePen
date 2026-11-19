@@ -1968,12 +1968,10 @@ namespace PurplePen.MapModel {
             return paramString;
         }
 
-        // Create the parameter string for the print parameters.
+        // Create the parameter string for the view parameters.
         OcadParamString CreateViewParameters()
         {
-            int numCodes = 2;
-            if (version >= 11)
-                numCodes += 1;
+            int numCodes = 3;
 
             OcadParamString paramString = new OcadParamString();
             paramString.StType = (int)OcadStringParam.ViewPar;
@@ -1984,10 +1982,8 @@ namespace PurplePen.MapModel {
             paramString.values[0] = map.HideTemplates ? "1" : "0";
             paramString.codes[1] = 'l';
             paramString.values[1] = map.HideLayout ? "1" : "0";
-            if (version >= 11) {
-                paramString.codes[2] = 'p';
-                paramString.values[2] = map.UseEuclideanMetric ? "0" : "1";
-            }
+            paramString.codes[2] = 'p';
+            paramString.values[2] = map.UseEuclideanMetric ? "0" : "1";
 
             return paramString;
         }
