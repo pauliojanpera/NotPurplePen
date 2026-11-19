@@ -503,6 +503,14 @@ namespace PurplePen.MapModel
             def.DrawTextOnPath(g, path, text, color, horizAlignment, vertAlignment, renderOpts);
         }
 
+        // Add the clipping objects of the text to the layer instances of pass 1 with the geometry method of its
+        // definition (TextSymDef.AddClippingObjectsOfTextOnPath).
+        internal override bool TryAddClippingObjects(LayerInstanceBuilder instances)
+        {
+            def.AddClippingObjectsOfTextOnPath(instances, path, text, horizAlignment, vertAlignment);
+            return true;
+        }
+
         // Highlight the symbol.
         public override void DrawHighlight(IGraphicsTarget g, HighlightOptions options)
         {
@@ -781,6 +789,14 @@ namespace PurplePen.MapModel
         // Draw this color, if used, of this symbol.
         public override void Draw(IGraphicsTarget g, SymColor color, RenderOptions renderOpts) {
             def.Draw(g, wrappedText, wrappedLineWidths, location, rotation, width, color, horizAlignment, vertAlignment, renderOpts);
+        }
+
+        // Add the clipping objects of the text to the layer instances of pass 1 with the geometry method of its
+        // definition (TextSymDef.AddClippingObjects).
+        internal override bool TryAddClippingObjects(LayerInstanceBuilder instances)
+        {
+            def.AddClippingObjects(instances, wrappedText, wrappedLineWidths, location, rotation, width, horizAlignment, vertAlignment);
+            return true;
         }
 
         // Highlight the symbol.
@@ -1945,6 +1961,14 @@ namespace PurplePen.MapModel
         public override void Draw(IGraphicsTarget g, SymColor color, RenderOptions renderOpts)
         {
             def.Draw(g, location, size, rotation, color, renderOpts);
+        }
+
+        // Add the clipping objects of the rectangle to the layer instances of pass 1 with the geometry method of its
+        // definition (RectangleSymDef.AddClippingObjects).
+        internal override bool TryAddClippingObjects(LayerInstanceBuilder instances)
+        {
+            def.AddClippingObjects(instances, location, size, rotation);
+            return true;
         }
 
         // Highlight the symbol.

@@ -209,12 +209,12 @@ namespace PurplePen.MapModel
 
         public void DrawRectangle(object penKey, RectangleF rect)
         {
-            AddStroked(penKey, PathShape.FromPoints(GetCorners(rect), true));
+            AddStroked(penKey, PathShape.FromRectangle(rect));
         }
 
         public void FillRectangle(object brushKey, RectangleF rect)
         {
-            AddFilled(brushKey, PathShape.FromPoints(GetCorners(rect), true), AreaFillMode.Winding);
+            AddFilled(brushKey, PathShape.FromRectangle(rect), AreaFillMode.Winding);
         }
 
         public void DrawPolygon(object penKey, PointF[] pts)
@@ -340,14 +340,6 @@ namespace PurplePen.MapModel
             if (fonts.TryGetValue(fontKey, out font))
                 return font;
             throw new ArgumentException("Given key does not have a font created for it", nameof(fontKey));
-        }
-
-        // The corners of a rectangle, clockwise from the upper left corner, as a target makes the path of a rectangle.
-        private static PointF[] GetCorners(RectangleF rect)
-        {
-            return new PointF[] {
-                new PointF(rect.Left, rect.Top), new PointF(rect.Right, rect.Top),
-                new PointF(rect.Right, rect.Bottom), new PointF(rect.Left, rect.Bottom) };
         }
 
         private static NotSupportedException CreateClipNotSupportedException()

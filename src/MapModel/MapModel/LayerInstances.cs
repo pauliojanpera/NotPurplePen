@@ -547,6 +547,16 @@ namespace PurplePen.MapModel
             this.parts = copies.AsReadOnly();
         }
 
+        // The polygon of the corners of a rectangle, clockwise from the upper left corner, as a target makes the path of
+        // a rectangle.
+        // rect: the rectangle.
+        public static PathShape FromRectangle(RectangleF rect)
+        {
+            return FromPoints(new PointF[] {
+                new PointF(rect.Left, rect.Top), new PointF(rect.Right, rect.Top),
+                new PointF(rect.Right, rect.Bottom), new PointF(rect.Left, rect.Bottom) }, true);
+        }
+
         // Make the path of one figure of lines, through points from the first to the last, as a polyline or a polygon.
         // points: the points. At least one.
         // isClosed: whether the figure is closed, as a polygon.

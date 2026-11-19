@@ -260,9 +260,11 @@ namespace PurplePen.MapModel
         // location: the location of the symbol.
         // angle: the angle of the symbol, in degrees.
         // gaps: the gaps in the circles of the symbol, or null.
-        internal void AddClippingObjects(LayerInstanceBuilder instances, PointF location, float angle, float[] gaps)
+        // outerPlacement: the placement within which the symbol is, as the center point of a text is within the
+        // placement of the text, or null for the identity.
+        internal void AddClippingObjects(LayerInstanceBuilder instances, PointF location, float angle, float[] gaps, Placement outerPlacement = null)
         {
-            glyph.AddClippingObjects(instances, location, angle, gaps);
+            glyph.AddClippingObjects(instances, location, angle, gaps, null, outerPlacement);
         }
 
         internal void DrawHighlight(IGraphicsTarget g, PointF location, float rotation, float[] gaps, HighlightOptions options)
@@ -3873,6 +3875,265 @@ namespace PurplePen.MapModel
             }
         }
 
+        // The geometry method of a text of this definition: add the clipping objects of the text to the layer instances
+        // of pass 1, each to the instance of its color, in the order that Draw draws the shapes of a color. Each word, or
+        // each grapheme where the character spacing is more than 0, is a text run at its own position, with its shadow or
+        // its line framing. The underlines of each line follow its runs, and the center point and the framing rectangle
+        // come last. All are at the placement that Draw pushes: the location, the reversed y direction and the angle.
+        // instances: the layer instances.
+        // text, lineWidths: the lines of the text, and their widths.
+        // location, angle: the location of the text, and its angle in degrees.
+        // fullWidth: the width of formatted text, or 0.
+        // objectHorizAlignment, objectVertAlignment: the alignments of the text object.
+        internal void AddClippingObjects(LayerInstanceBuilder instances, string[] text, float[] lineWidths, PointF location, float angle, float fullWidth,
+                                         TextSymDefHorizAlignment objectHorizAlignment, TextSymDefVertAlignment objectVertAlignment)
+        {
+            TextSymDefHorizAlignment fontAlign = GetHorizAlignment(objectHorizAlignment);
+            TextSymDefVertAlignment vertAlign = GetVertAlignment(objectVertAlignment);
+
+            EnsureFontMetrics();
+
+            Underlining underliningFontEffect = new Underlining();
+            if ((effects & TextEffects.Underline) != 0) {
+                underliningFontEffect.underlineOn = true;
+                underliningFontEffect.underlineColor = fontColor;
+                underliningFontEffect.underlineDistance = FontEmHeight * fontEffectUnderlineDistance;
+                underliningFontEffect.underlineWidth = FontEmHeight * fontEffectUnderlineWidth;
+            }
+
+            // The placement of the text: its location is the origin.
+            Matrix matrix = new Matrix();
+            matrix.Translate(location.X, location.Y);
+            matrix.Scale(1, -1); // Reverse Y direction so text is correct way around.
+            if (angle != 0)
+                matrix.RotateAt(-angle, new PointF(0,0));
+            Placement placement = Placement.Identity.Within(matrix);
+
+            // The lines of the text.
+            PointF pt = new PointF(0F, 0F);
+            float baselineOfLine = 0;          // y coordinate of baseline of line.
+            bool firstLineOfPara = true, lastLineOfPara;
+
+            pt.Y -= VertOffset(vertAlign, text);
+
+            float topOfFirstLine = pt.Y;
+
+            for (int lineIndex = 0; lineIndex < text.Length; ++lineIndex) {
+                string line = text[lineIndex];
+                float lineWidth = lineWidths[lineIndex];
+
+                lastLineOfPara = (lineIndex == text.Length - 1 || text[lineIndex + 1] == ParagraphMark);        // are we on the last line of a paragraph?
+
+                if (line == ParagraphMark) {
+                    pt.Y += paraSpacing;
+                    firstLineOfPara = true;
+                }
+                else {
+                    float indent = 0;
+                    float leftEdge;          // tabs are relative to this X position.
+                    if (fontAlign == TextSymDefHorizAlignment.Right)
+                        pt.X = leftEdge = -lineWidth;
+                    else if (fontAlign == TextSymDefHorizAlignment.Center)
+                        pt.X = leftEdge = -(lineWidth / 2F);
+                    else {
+                        leftEdge = 0;
+                        pt.X = indent = firstLineOfPara ? firstIndent : restIndent;     // indents only used for left align or justified
+                    }
+
+                    // Get the size of spaces. Justification is done by adjusting this.
+                    float sizeOfSpace = wordSpacing * textFaceMetrics.SpaceWidth;            // basic width of spaces as set by the symdef
+                    if (fontAlign == TextSymDefHorizAlignment.Justified && !lastLineOfPara && fullWidth > 0)
+                        sizeOfSpace += JustifyText(line, lineWidth, fullWidth - indent);
+
+                    // The text segments of the line. (A text segment is a word, unless charSpacing>0, in which case it is graphemes).
+                    int index = 0;
+                    for (; ; ) {
+                        string textSegment;
+
+                        if (charSpacing > 0)
+                            textSegment = GetNextTextElement(line.Substring(index));
+                        else
+                            textSegment = GetNextTextSegment(line.Substring(index));
+                        if (string.IsNullOrEmpty(textSegment))
+                            break;
+
+                        if (textSegment == " ")
+                            pt.X += sizeOfSpace;
+                        else if (textSegment == "\t")
+                            pt.X += WidthOfTextSegment("\t", pt.X - leftEdge, fontAlign);
+                        else {
+                            AddStringWithEffects(instances, textSegment, pt, placement);
+                            pt.X += MeasureStringWidth(textSegment, fontAlign);
+
+                            if (charSpacing > 0)
+                                pt.X += charSpacing * textFaceMetrics.SpaceWidth;
+                        }
+
+                        index += textSegment.Length;
+                    }
+
+                    baselineOfLine = pt.Y + FontAscent;        // Set the bottom of the text.
+
+                    // The underlines. The underline of the font effect is a line, as Draw draws it, and not an effect of the font.
+                    AddUnderline(instances, underliningFontEffect, baselineOfLine, lineWidth, indent, fontAlign, placement);
+                    if (lastLineOfPara)
+                        AddUnderline(instances, this.underline, baselineOfLine, Math.Max(fullWidth, lineWidth), (fullWidth == 0) ? indent : 0, fontAlign, placement);
+
+                    pt.Y += lineSpacing;
+                    firstLineOfPara = false;
+                }
+            }
+
+            // The center point, if any.
+            AddCenterPoint(instances, lineWidths, fullWidth, topOfFirstLine, baselineOfLine, fontAlign, placement);
+
+            // The framing rectangle, if any.
+            if (underline.underlineOn)
+                baselineOfLine += underline.underlineDistance + underline.underlineWidth;
+            AddFramingRectangle(instances, lineWidths, fullWidth, topOfFirstLine, baselineOfLine, fontAlign, placement);
+        }
+
+        // Add the clipping objects of a text run with its shadow or its line framing, as DrawStringWithEffects draws
+        // them: the run in the font color; and in the color of the framing, the run and its outline with each pen of
+        // the line framing, or the run moved by the shadow.
+        // instances: the layer instances.
+        // text: the text of the run.
+        // pt: the upper left corner of the run.
+        // placement: the placement of the text.
+        private void AddStringWithEffects(LayerInstanceBuilder instances, string text, PointF pt, Placement placement)
+        {
+            if (fontColor != null)
+                AddTextRun(instances, fontColor, text, pt, placement);
+
+            if (framing.framingStyle != FramingStyle.None && framing.framingColor != null) {
+                if (framing.framingStyle == FramingStyle.Line) {
+                    AddTextRun(instances, framing.framingColor, text, pt, placement);
+                    if (!string.IsNullOrEmpty(text)) {
+                        foreach (Stroke stroke in GetFramingStrokes())
+                            instances.Add(framing.framingColor, new StrokedShape(MakeTextRun(text, pt), stroke, placement));
+                    }
+                }
+                else if (framing.framingStyle == FramingStyle.Shadow) {
+                    AddTextRun(instances, framing.framingColor, text, new PointF(pt.X + framing.shadowX, pt.Y - framing.shadowY), placement);
+                }
+            }
+        }
+
+        // Add a filled text run to the instance of a color, as DrawSingleLineString draws it. A run without text covers
+        // nothing.
+        // instances: the layer instances.
+        // color: the color.
+        // text: the text of the run.
+        // upperLeft: the upper left corner of the run.
+        // placement: the placement of the text.
+        private void AddTextRun(LayerInstanceBuilder instances, SymColor color, string text, PointF upperLeft, Placement placement)
+        {
+            if (!string.IsNullOrEmpty(text))
+                instances.Add(color, new FilledShape(MakeTextRun(text, upperLeft), AreaFillMode.Winding, placement));
+        }
+
+        // A text run in the font that CreateObjects creates, which has no underline effect: Draw draws the underlines.
+        // text: the text of the run.
+        // upperLeft: the upper left corner of the run.
+        private TextShape MakeTextRun(string text, PointF upperLeft)
+        {
+            return new TextShape(text, fontName, fontSize, effects & ~TextEffects.Underline, upperLeft, map.TextMetricsProvider);
+        }
+
+        // The lines of the pens of the line framing, as CreateObjects creates them: lines of increasing width with bevel
+        // joins, and last the line of the full width with the joins of the framing.
+        private List<Stroke> GetFramingStrokes()
+        {
+            List<Stroke> strokes = new List<Stroke>();
+            for (float width = fontSize * 0.33F; width < framing.lineWidth * 2; width += fontSize * 0.33F)
+                strokes.Add(GraphicsUtil.MakeSolidStroke(width, LineStyle.Beveled));
+            strokes.Add(GraphicsUtil.MakeSolidStroke(framing.lineWidth * 2, framing.lineStyle));
+            return strokes;
+        }
+
+        // Add the clipping object of an underline, as DrawUnderline draws it.
+        // instances: the layer instances.
+        // underlining: the underline.
+        // baseline: the y coordinate of the baseline of the line of text.
+        // width, indent: the width of the underline, and its indent where the text is aligned left.
+        // objectHorizAlignment: the horizontal alignment of the text object.
+        // placement: the placement of the text.
+        private void AddUnderline(LayerInstanceBuilder instances, Underlining underlining, float baseline, float width, float indent, TextSymDefHorizAlignment objectHorizAlignment, Placement placement)
+        {
+            if (underlining.underlineOn && underlining.underlineColor != null) {
+                TextSymDefHorizAlignment fontAlign = GetHorizAlignment(objectHorizAlignment);
+
+                float l, r;
+                if (fontAlign == TextSymDefHorizAlignment.Right)
+                    l = -width;
+                else if (fontAlign == TextSymDefHorizAlignment.Center)
+                    l = -(width / 2F);
+                else
+                    l = indent;
+                r = l + width;
+
+                float y = baseline + underlining.underlineDistance + underlining.underlineWidth / 2;
+                Stroke stroke = GraphicsUtil.MakeSolidStroke(underlining.underlineWidth, LineStyle.Mitered);
+                instances.Add(underlining.underlineColor, new StrokedShape(PathShape.FromPoints(new PointF[] { new PointF(l, y), new PointF(r, y) }, false), stroke, placement));
+            }
+        }
+
+        // Add the clipping objects of the center point symbol of the text, as DrawCenterPoint draws it: OCAD has a center
+        // point for unformatted text only (fullWidth == 0).
+        // instances: the layer instances.
+        // lineWidths, fullWidth: the widths of the lines, and the width of formatted text, or 0.
+        // topOfText, bottomOfText: the top of the text and the baseline of its last line.
+        // objectHorizAlignment: the horizontal alignment of the text object.
+        // placement: the placement of the text.
+        private void AddCenterPoint(LayerInstanceBuilder instances, float[] lineWidths, float fullWidth, float topOfText, float bottomOfText, TextSymDefHorizAlignment objectHorizAlignment, Placement placement)
+        {
+            TextSymDefHorizAlignment fontAlign = GetHorizAlignment(objectHorizAlignment);
+
+            if (centerPointSymdef != null && fullWidth == 0) {
+                float l, r, t, b;
+
+                fullWidth = CalcFullWidth(lineWidths, fullWidth, fontAlign);
+
+                if (fontAlign == TextSymDefHorizAlignment.Right)
+                    l = -fullWidth;
+                else if (fontAlign == TextSymDefHorizAlignment.Center)
+                    l = -(fullWidth / 2F);
+                else
+                    l = 0;
+                r = l + fullWidth;
+                t = topOfText - (FontAscent + FontDescent) + FontEmHeight;  // strange OCAD adjustment.
+                b = bottomOfText + FontDescent;  // include the descender on the text.
+
+                PointF centerPoint = new PointF((r + l) / 2, (t + b) / 2);
+
+                // The text is in a reversed coordinate space; the symbol reverses it again.
+                Matrix matrix = new Matrix();
+                matrix.Translate(centerPoint.X, centerPoint.Y);
+                matrix.Scale(1, -1);
+                centerPointSymdef.AddClippingObjects(instances, new PointF(0, 0), 0, null, placement.Within(matrix));
+            }
+        }
+
+        // Add the clipping object of the framing rectangle around the text, as DrawFramingRectangle draws it.
+        // instances: the layer instances.
+        // lineWidths, fullWidth: the widths of the lines, and the width of formatted text, or 0.
+        // topOfText, bottomOfText: the top of the text and the bottom of its last line.
+        // objectHorizAlignment: the horizontal alignment of the text object.
+        // placement: the placement of the text.
+        private void AddFramingRectangle(LayerInstanceBuilder instances, float[] lineWidths, float fullWidth, float topOfText, float bottomOfText, TextSymDefHorizAlignment objectHorizAlignment, Placement placement)
+        {
+            if (framing.framingStyle == FramingStyle.Rectangle && framing.framingColor != null) {
+                RectangleF textRect = CalcTextRectangle(lineWidths, fullWidth, topOfText, bottomOfText, objectHorizAlignment);
+
+                float t = textRect.Top - framing.rectBorderTop;
+                float b = textRect.Bottom + framing.rectBorderBottom;
+                float l = textRect.Left - framing.rectBorderLeft;
+                float r = textRect.Right + framing.rectBorderRight;
+
+                instances.Add(framing.framingColor, new FilledShape(PathShape.FromRectangle(new RectangleF(l, t, r - l, b - t)), AreaFillMode.Winding, placement));
+            }
+        }
+
         public class InsertionPointLocation
         {
             public PointF Baseline, Ascent, Descent;
@@ -4556,6 +4817,32 @@ namespace PurplePen.MapModel
             }
         }
 
+        // The geometry method of a text along a path: add the clipping objects of each grapheme, as DrawTextOnPath draws
+        // it: a text run with its shadow or its line framing, at the placement of the grapheme along the path.
+        // instances: the layer instances.
+        // path: the path.
+        // text: the text.
+        // objectHorizAlignment, objectVertAlignment: the alignments of the text object.
+        internal void AddClippingObjectsOfTextOnPath(LayerInstanceBuilder instances, SymPath path, string text,
+                                                     TextSymDefHorizAlignment objectHorizAlignment, TextSymDefVertAlignment objectVertAlignment)
+        {
+            TextSymDefHorizAlignment fontAlign = GetHorizAlignment(objectHorizAlignment);
+            TextSymDefVertAlignment vertAlign = GetVertAlignment(objectVertAlignment);
+
+            EnsureFontMetrics();
+
+            List<GraphemePlacement> graphemeList = GetLineTextGraphemePlacement(path, text, fontAlign);
+            PointF topAscentPoint = new PointF(0, -LineTextVertOffset(vertAlign));
+
+            foreach (GraphemePlacement grapheme in graphemeList) {
+                Matrix matrix = new Matrix();
+                matrix.Translate(grapheme.pointStart.X, grapheme.pointStart.Y);
+                matrix.Scale(1, -1);      // Reverse Y so text is correct way around.
+                matrix.RotateAt(-grapheme.angle, new PointF(0,0));
+                AddStringWithEffects(instances, grapheme.grapheme, topAscentPoint, Placement.Identity.Within(matrix));
+            }
+        }
+
         internal InsertionPointLocation FindInsertionPointOnPath(SymPath path, string text, int textIndex,
                                         TextSymDefHorizAlignment objectHorizAlignment, TextSymDefVertAlignment objectVertAlignment)
         {
@@ -5077,6 +5364,82 @@ namespace PurplePen.MapModel
                     g.PopTransform();
                 }
             }
+        }
+
+        // The geometry method of a rectangle of this definition: add its clipping objects to the layer instances of pass
+        // 1, in the color of its line, in the order that Draw draws them: the outline, and then the lines and the texts
+        // of the grid, at the placement of the grid, which Draw pushes.
+        // instances: the layer instances.
+        // location, size, rotation: the location, the size and the rotation of the rectangle.
+        internal void AddClippingObjects(LayerInstanceBuilder instances, PointF location, SizeF size, float rotation)
+        {
+            if (size.Width == 0 && size.Height == 0)
+                return;
+
+            if (lineColor != null && thickness > 0.0F)
+                instances.Add(lineColor, GetPath(location, size, rotation).MakeStrokedShape(GraphicsUtil.MakeSolidStroke(thickness, (cornerRadius > 0) ? LineStyle.Rounded : LineStyle.Mitered), Placement.Identity));
+
+            if ((gridFlags & 1) != 0 && lineColor != null && size.Width > 0 && size.Height > 0) {
+                Matrix matrix = new Matrix();
+                matrix.Translate(location.X, location.Y);
+                matrix.Rotate(rotation);
+                Placement placement = Placement.Identity.Within(matrix);
+
+                int cxCells = (int)Math.Round(size.Width / cellWidth);
+                if (cxCells < 1)
+                    cxCells = 1;
+                int cyCells = (int)Math.Round(size.Height / cellHeight);
+                if (cyCells < 1)
+                    cyCells = 1;
+
+                float width = size.Width / cxCells;
+                float height = size.Height / cyCells;
+
+                Stroke gridStroke = GraphicsUtil.MakeSolidStroke(gridWidth, LineStyle.Beveled);
+                for (int x = 1; x < cxCells; ++x)
+                    instances.Add(lineColor, new StrokedShape(PathShape.FromPoints(new PointF[] { new PointF(x * width, 0), new PointF(x * width, size.Height) }, false), gridStroke, placement));
+                for (int y = 1; y < cyCells; ++y)
+                    instances.Add(lineColor, new StrokedShape(PathShape.FromPoints(new PointF[] { new PointF(0, y * height), new PointF(size.Width, y * height) }, false), gridStroke, placement));
+
+                if ((gridFlags & 2) != 0)
+                    AddGridText(instances, size, cxCells, cyCells, width, height, placement);
+            }
+        }
+
+        // Add the clipping objects of the texts of the grid, as DrawGridText draws them: the number of each cell, or the
+        // text of the unnumbered cells, at a placement of its own within the placement of the grid.
+        // instances: the layer instances.
+        // size: the size of the rectangle.
+        // cxCells, cyCells, width, height: the numbers of the cells across and down, and the size of a cell.
+        // placement: the placement of the grid.
+        private void AddGridText(LayerInstanceBuilder instances, SizeF size, int cxCells, int cyCells, float width, float height, Placement placement)
+        {
+            for (int y = 0; y < cyCells; ++y)
+                for (int x = 0; x < cxCells; ++x) {
+                    int cellNum;
+                    string cellText;
+
+                    if ((gridFlags & 4) != 0) // number from bottom
+                        cellNum = y * cxCells + x + 1;
+                    else
+                        cellNum = (cyCells - 1 - y) * cxCells + x + 1;
+
+                    if (cellNum > cxCells * cyCells - unnumberedCells)
+                        cellText = unnumberedText;
+                    else
+                        cellText = cellNum.ToString();
+
+                    PointF pt = new PointF(x * width, (y + 1) * height);
+                    pt.Y -= textSize * 0.17F;
+                    pt.X += textSize * 0.28F;
+
+                    Matrix flipMatrix = new Matrix();
+                    flipMatrix.Translate(pt.X, pt.Y);
+                    flipMatrix.Scale(1, -1); // Reverse Y direction so text is correct way around.
+
+                    if (!string.IsNullOrEmpty(cellText))
+                        instances.Add(lineColor, new FilledShape(new TextShape(cellText, fontName, textSize, TextEffects.Bold, new PointF(), map.TextMetricsProvider), AreaFillMode.Winding, placement.Within(flipMatrix)));
+                }
         }
 
         void DrawGrid(IGraphicsTarget g, SizeF size, SymColor color, RenderOptions renderOpts)

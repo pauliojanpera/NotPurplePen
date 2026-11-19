@@ -597,21 +597,23 @@ namespace PurplePen.MapModel
         // angle: the angle, in degrees.
         // gaps: the gaps in the circles, as start and end angles in degrees, or null.
         // extraTransform: the extra transformation of the glyph, or null.
-        internal void AddClippingObjects(LayerInstanceBuilder instances, PointF location, float angle, float[] gaps, Matrix extraTransform = null)
+        // outerPlacement: the placement within which the glyph is, or null for the identity.
+        internal void AddClippingObjects(LayerInstanceBuilder instances, PointF location, float angle, float[] gaps, Matrix extraTransform = null, Placement outerPlacement = null)
         {
             CheckConstructed();
 
+            Placement outer = outerPlacement ?? Placement.Identity;
             if (simple && gaps == null && extraTransform == null) {
                 ClippingObject circle = parts[0].MakeClippingObjectOfSimpleGlyph(location);
                 if (circle != null)
-                    instances.Add(parts[0].color, circle);
+                    instances.Add(parts[0].color, (outerPlacement == null) ? circle : circle.WithPlacement(outer));
                 return;
             }
 
             Matrix step = new Matrix();
             step.Translate(location.X, location.Y);
             step.RotateAt(angle, new PointF(0, 0));
-            Placement placement = Placement.Identity.Within(step);
+            Placement placement = outer.Within(step);
 
             ClippingObject[] partClippingObjects = (extraTransform == null || extraTransform.IsIdentity) ? GetSharedClippingObjects() : Array.ConvertAll(parts, part => part.MakeClippingObject(extraTransform));
             for (int i = 0; i < parts.Length; ++i) {
