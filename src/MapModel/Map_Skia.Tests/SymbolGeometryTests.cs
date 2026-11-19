@@ -278,6 +278,41 @@ namespace Map_Skia.Tests
             Assert.AreEqual(2, ((PathShape)shapes[1].Shape).Parts.Sum(part => part.Points.Length), "the single dash leaves its vertex out");
         }
 
+        // On a Bezier curve of a euclidean map, the composed dashed line has a run for each quarter of the curve, as the
+        // dashes are placed by quarters (fix 021): the curve of the ninth dash sample whose bend is near its end has four
+        // runs. The dashes and the gaps of a run are those that the measure of the quarters fits, scaled by the length of
+        // the flattened quarter against its chord. So the ratio of a dash to its gap is the same in each run, and the gaps
+        // get longer along the curve, as its quarters bend more.
+        [Test]
+        public void DashedLineOnABezierCurveHasARunForEachQuarter()
+        {
+            Map map = CreateMap();
+            using (map.Write()) {
+                map.UseEuclideanMetric = true;
+                SymColor black = map.AddColor("Black", 1, 0, 0, 0, 1, false);
+                LineSymDef dashed = new LineSymDef("Dashed", "1", black, 0.05F, LineJoinMode.Miter, LineCapMode.Flat);
+                dashed.SetDashInfo(new LineSymDef.DashInfo() { dashLength = 0.5F, firstDashLength = 0.5F, lastDashLength = 0.5F, gapLength = 0.25F });
+                AddLineSymDef(map, dashed);
+                AddLine(map, dashed, new SymPath(new PointF[] { new PointF(4, -82), new PointF(24, -82), new PointF(29, -82), new PointF(29, -77) },
+                                                 new PointKind[] { PointKind.Normal, PointKind.BezierControl, PointKind.BezierControl, PointKind.Normal }));
+            }
+
+            IReadOnlyList<LayerInstance> instances = CreateInstances(map);
+
+            AssertSameStructure(CollectInstances(map), instances);
+            List<IReadOnlyList<float>> patterns = instances.Single().ClippingObjects.Cast<StrokedShape>()
+                                                           .Where(shape => shape.Stroke.DashPattern != null)
+                                                           .Select(shape => shape.Stroke.DashPattern)
+                                                           .ToList();
+            Assert.AreEqual(4, patterns.Count, "runs");
+            foreach (IReadOnlyList<float> pattern in patterns) {
+                Assert.AreEqual(2, pattern.Count);
+                Assert.AreEqual(patterns[0][0] / patterns[0][1], pattern[0] / pattern[1], Tolerance, "the ratio of a dash to its gap");
+            }
+            for (int i = 1; i < patterns.Count; ++i)
+                Assert.Greater(patterns[i][1], patterns[i - 1][1], "the gap of run {0}", i);
+        }
+
         // The branches of the placement of the glyphs along a line, each of which the geometry method of lines follows:
         // each location of the glyphs, in a color of its own. The lines of the glyphs at the corners and the dash points
         // have the corners and the dash point of CreatePathWithCornersAndDashPoints. The other lines are shortened, so
