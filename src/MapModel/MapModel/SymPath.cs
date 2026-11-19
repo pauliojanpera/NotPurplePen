@@ -577,8 +577,8 @@ namespace PurplePen.MapModel
         }
 
 
-        // Draw a dashed lines. The dashLengths array contains the dash/gap lengths for the whole line. If we reach
-        // the end of this array, we wrap around. The variable offsetToStart indicates how far into the array to
+        // Draw a dashed lines. The dashLengths array contains the dash/gap lengths for the whole line. If we reach 
+        // the end of this array, we wrap around. The variable offsetToStart indicates how far into the array to 
         // start.
         internal void DrawDashed(IGraphicsTarget g, object penKey, float[] dashLengths, float offsetToStart, DistanceMetric metric)
         {
