@@ -21,7 +21,7 @@
 
 **Päätökset**  
 - Korjaus tarkistetaan OCADia vasten näytteellä ja sen PDF-viennillä (@Pauli, 19.11.).
-- OCADin metriikka toteutetaan best effort -periaatteella: euklidinen metriikka on referenssi, eikä OCADin metriikan yksityiskohtiin tehdä enää näytteitä eikä korjauksia (@Pauli, 19.11.). Siksi näytteessä on vain euklidinen kartta.
+- "Vuonna 2026 tuntuu melko irrelevantilta käyttää paljon voimia käytännössä OCADin 8-version ja sitä vanhempien tukemiseen. OCADin metriikka voidaan siis toteuttaa 'best effort'-tyyliin." (@Pauli, 19.11.) Mittauksia voidaan tehdä (@Pauli, 19.11.). Näytteessä on vain euklidinen kartta.
 
 **Haara (ehdotus)**  
 `fix/line-text-metric` juurtuu kohtaan, jossa `base` kohtaa upstreamin (d48f4456), kuten korjaukset 015–021.

@@ -276,29 +276,37 @@ the rendering.
   `feature/palette-layers`, the message of the commit that a push of `wip/linux/palette-layers` builds lists the ten
   work branches merged into it last, and the site shows the message under the commit of the build.
   `tools/push-wip.sh` writes the list.
-- **The OCAD metric is best effort** (Nov 19). Current OCAD measures the lines with the euclidean metric unless a
-  map has the view parameter `p1`, and Mapper maps always do. The euclidean metric is the reference. No more samples
-  and no more fixes go to the details of the OCAD metric, and its present handling stays.
+- **The OCAD metric is best effort** (Nov 19). @Pauli: "vuonna 2026 tuntuu melko irrelevantilta käyttää paljon
+  voimia käytännössä OCADin 8-version ja sitä vanhempien tukemiseen. OCADin metriikka voidaan siis toteuttaa 'best
+  effort'-tyyliin." (In 2026, it seems quite irrelevant to put much effort into the support of OCAD 8 and older in
+  practice, so the OCAD metric can be implemented as best effort.) Measurements of it can be made (@Pauli, Nov 19).
+  Current OCAD measures the lines with the euclidean metric unless a map has the view parameter `p1`, and Mapper maps
+  always do.
 - **The text along lines** (Nov 19). Purple Pen measures the text along a line always with the OCAD metric, and so
   does current OCAD, also in a map with the euclidean metric: the PDF export of a sample shows it
   ([oracles/ocad-line-text.md](oracles/ocad-line-text.md)). Mapper maps have no text along lines in Purple Pen.
   Ticket [022](tickets/022-line-text-metric.md) is closed without a fix.
 - **The OCAD metric on curves** (Nov 19). In a map with the OCAD metric, the drawing places the dashes, and the glyphs
-  at lengths along the line, on a Bezier curve by the quarters of the curve. The count of the dashes, their lengths
-  and the ends of the quarters follow the OCAD metric, as before. In a quarter, the points are in proportion to the
-  euclidean length of the flattened arc. The straight segments do not change. So the drawing changes on the curves of
-  the maps with `p1`, and their baselines move. This changes the decision on the curves with the OCAD metric (question
-  8 of ticket 011), and the part of the best effort that keeps the present handling of the OCAD metric. The change is
-  not made yet.
-  - The observation: the OCAD metric is a known approximation of the euclidean length without a square root ("alpha
-    max plus beta min", with 1 and 1/2). It is a norm whose unit circle is an octagon. Along a direction, it measures
-    a euclidean length of 1 as 1.000 to 1.118. On a straight segment, an even euclidean step gives its points exactly.
+  at lengths along the line, on a Bezier curve by the model of fix 021: each quarter of the curve has the length of
+  its chord in the OCAD metric, and in a quarter the points are in proportion to the euclidean length of the arc. The
+  straight segments do not change. So the drawing changes on the curves of the maps with `p1`, and their baselines
+  move. This changes the decision on the curves with the OCAD metric (question 8 of ticket 011). The change is not
+  made yet.
+  - The measurement: in the PDF exports with the OCAD metric, the model is within 0.013 to 0.096 mm of OCAD's dashes on
+    16 curves of the ninth sample and 0.175 mm on its loop, and within 0.008 to 0.034 mm on the curves of the eighth
+    sample. Fix 021 fits the euclidean files as well. Purple Pen's present placement is 0.019 to 0.252 mm from OCAD,
+    and 0.794 mm on the loop
+    ([oracles/ocad-dashes/measure-pdf-curves-metric.py](oracles/ocad-dashes/measure-pdf-curves-metric.py)).
+    So OCAD probably places the dashes on a curve by one rule with each metric, and the metric changes only the chords
+    of the quarters. The cells had one Bezier curve each, and no sample measured the glyphs with the OCAD metric.
+  - The observation: the OCAD metric is a norm whose unit circle is an octagon. Along a direction, it measures a
+    euclidean length of 1 as 1.000 to 1.118. On a straight segment, an even euclidean step gives its points exactly.
     On a curve, no euclidean measure gives them, and no transformation of the path does.
-  - The reasons: the channels measure the euclidean length, and with the decision each straight segment and each
-    quarter has an even euclidean step, so each run and each repetition can be euclidean. The OCAD metric is probably
-    an approximation for speed, with an error of up to 11.8 %, and the decision moves the points in a quarter by at
-    most 0.0058 times the radius on a curve that turns 90°. Purple Pen's present placement is up to 0.25 mm from OCAD,
-    and 0.79 mm on a loop. The OCAD metric is best effort.
+  - The reasons: the model is OCAD's rule as far as the samples show it, and it is nearer to OCAD than the present
+    placement. Each straight segment and each quarter has an even euclidean step, so each run and each repetition can
+    be euclidean, and a channel can draw it with an abstraction of its own. A dash pattern with a table of lengths
+    could keep the present placement, but that placement is farther from OCAD, and the 1D path effect of Skia takes
+    no table.
   - In the questions 6 and 7 of ticket 011, a vertex was a point of the flattened path, so the dashes and the glyphs on
     a curve with the OCAD metric were single. @Pauli took a vertex to be a corner point that the user puts on the
     curve.

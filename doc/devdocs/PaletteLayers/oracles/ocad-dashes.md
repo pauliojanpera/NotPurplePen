@@ -602,7 +602,8 @@ a dash on a curve as Bezier pieces, and splits it where the curve has the parame
   which bends strongly, they are not: its second and ninth dashes are about 0.08 mm longer than the mean, and its gaps
   near the ends are up to 0.54 mm long. A measure in which each quarter of the curve is as long as its chord fits
   within 0.041 mm, but not exactly, so the rule of OCAD is not found. With the OCAD metric, no tested model fits the
-  quarter circles of radius 10 and 20 mm and the S curve: the errors are 0.06 to 0.14 mm.
+  quarter circles of radius 10 and 20 mm and the S curve: the errors are 0.06 to 0.14 mm. The ninth sample found the
+  model that fits them (see "The OCAD metric" there).
 - **The dashed fill of a double line.** The fill of 0.6 mm leaves the vertex out where its piece is at most 0.20 mm,
   and keeps it from 0.25 mm. The limit of fix 020, 0.4 times the width of the fill or 0.24 mm, fits.
 - **The borders of a double line.** Below 0.05 mm both borders leave the vertex out, by the rule of the middle. From
@@ -658,16 +659,24 @@ the eighth sample.
   the turn of the quarter: 0.0025 of the quarter at 37.5 degrees, 0.0035 at 45 degrees. No tested rule gives it: in
   proportion to the parameter, to the distance from the start of the quarter, to the projection on its chord, or to
   two chords of its halves.
-- **The OCAD metric.** No tested model fits the curves of the file with the OCAD metric: the quarters with chords and
-  lengths in the OCAD metric are 0.05 to 0.19 mm off, and even dashes along the length in the OCAD metric up to
-  0.25 mm, and 0.79 mm on the loop.
+- **The OCAD metric.** The model of the euclidean file, with the chords in the OCAD metric, fits the file with the
+  OCAD metric: each quarter has the length of its chord in the OCAD metric, and in a quarter the points are in
+  proportion to the euclidean length of the arc. It is within 0.013 to 0.096 mm of OCAD on 16 curves, and 0.175 mm on
+  the loop. Other models do not fit: the quarters with chords and lengths in the OCAD metric are 0.019 to 0.190 mm
+  off, the quarters with their lengths in the OCAD metric and the points in proportion to the euclidean arc 0.013 to
+  0.219 mm and 0.813 mm on the loop, and even dashes along the length in the OCAD metric, as Purple Pen places them,
+  0.019 to 0.252 mm and 0.794 mm on the loop. On the curves of the eighth sample, the model is within 0.008 to
+  0.034 mm of OCAD, and the even dashes up to 0.131 mm.
+  [measure-pdf-curves-metric.py](ocad-dashes/measure-pdf-curves-metric.py) gives these values. So OCAD probably
+  places the dashes on a curve by one rule with each metric, and the metric changes only the chords of the quarters.
+  An earlier measurement on Nov 19 did not test this model, and found that no model fits.
 
 @Pauli's decision (Nov 19): fix [021](../tickets/021-ocad-dashes-on-curves.md) places the dashes on Bezier curves by
 the quarters, with the euclidean metric. The curves with the OCAD metric stay as they are.
 
-@Pauli's later decision (Nov 19): with the OCAD metric, the dashes on a Bezier curve are placed by its quarters too.
-The ends of the quarters follow the OCAD metric, and in a quarter the points are in proportion to the euclidean length
-of the arc ([OcadLines.md](../../OcadLines.md), ticket [011](../tickets/011-line-geometry.md)).
+@Pauli's later decision (Nov 19): with the OCAD metric, the dashes on a Bezier curve are placed by the model of fix
+021 too, with the chords of the quarters in the OCAD metric ([OcadLines.md](../../OcadLines.md), ticket
+[011](../tickets/011-line-geometry.md)).
 
 ### The glyphs on curves
 

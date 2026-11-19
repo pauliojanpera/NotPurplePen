@@ -102,6 +102,10 @@ along a path.
   of the OCAD metric. No transformation of the path makes the euclidean length equal to the length in the OCAD metric:
   a linear map changes the octagon into a polygon, and never into a circle or an ellipse. So a measure of a channel
   gives the points of the OCAD metric exactly on straight segments only.
+- **OCAD's own curves.** OCAD does not place the dashes on a curve along its length in the OCAD metric. In a quarter of
+  a Bezier curve, it places the points in proportion to the euclidean length of the arc with each metric, and the OCAD
+  metric changes only the chords of the quarters (see "The dashes on Bezier curves"). So an even euclidean step in
+  each quarter gives OCAD's points on a curve, within the fit of that model.
 - **A sector of 45°.** Where the direction of a path stays in one sector between an axis and a diagonal, the length
   in the OCAD metric along the path is a linear function of its chord. For example, where 0 ≤ dy ≤ dx at each point of
   the path, the length is Δx + Δy / 2. So the points at equal steps are where the path crosses parallel lines at equal
@@ -136,7 +140,8 @@ along a path.
 
 On a short arc, the error is about L × Δk / 8, where Δk is the change of k(a) along the arc. At one curvature, it grows
 as the square of the length of the arc. It does not grow past a turn of 90°, which is the period of k(a). A quarter of
-a Bezier curve that is near an arc turns by about a quarter of the angle of the curve.
+a Bezier curve that is near an arc turns by about a quarter of the angle of the curve. Purple Pen's present placement
+with the OCAD metric steps along the arc in the OCAD metric, as these tables do.
 
 ## The dashes
 
@@ -216,33 +221,38 @@ the length of a dash, g the length of a gap, and e1 and e2 the lengths of the en
   the corner of a line of 1.0 mm from a piece of 0.20 mm, and of a line of 0.3 mm from 0.08 mm. The PDF export leaves
   the vertex out up to 0.30 and 0.11 mm. On the double lines, the bitmaps and the PDF agree (the sixth sample).
 
-### The dashes on Bezier curves with the euclidean metric
+### The dashes on Bezier curves
 
 - **The measure.** Each quarter of the curve, from the parameter 0 to 1/4 and so on, has the length of its chord in
-  the measure. OCAD fits the dashes and the gaps in this measure.
-- **The points in a quarter.** In a quarter, OCAD places the points almost in proportion to the true length of the
-  arc. This model is within 0.05 mm of OCAD on most curves of the ninth sample, and within 0.1 to 0.2 mm on the high S
-  curve and on the curve with a loop. The root mean square is 0.02 mm. Even dashes along the true length of the curve
-  are up to 0.13 mm from OCAD on the hooks, 0.28 mm on the high S curve and 0.84 mm on the curve with a loop.
-- **What is left.** In each quarter, OCAD's points are a little before the model in the first half of the quarter, and
-  a little after it in the second half. They are the same at the ends and at the middle of the quarter. The
-  difference grows as the square of the turn of the quarter: 0.0025 of the length of the quarter at 37.5°, and 0.0035
-  at 45°. No tested rule gives it: a proportion to the parameter, to the distance from the start of the quarter, to
-  the projection on its chord, or to two chords of its halves.
+  the metric of the map. OCAD fits the dashes and the gaps in this measure.
+- **The points in a quarter.** In a quarter, OCAD places the points almost in proportion to the euclidean length of
+  the arc. This is so with each metric.
+- **The fit.** The table gives the largest distance from OCAD's ends of the dashes, in the PDF exports. "Even" is an
+  even placement along the length of the curve in the metric of the map: Purple Pen's placement before fix 021, and
+  its present placement with the OCAD metric.
+
+| File | The model | Even |
+| --- | --- | --- |
+| Ninth sample, euclidean metric | Within 0.05 mm on most curves; 0.1 to 0.2 mm on the high S curve and on the curve with a loop; root mean square 0.02 mm | Up to 0.13 mm on the hooks, 0.28 mm on the high S curve, 0.84 mm on the curve with a loop |
+| Ninth sample, OCAD metric | 0.013 to 0.096 mm on 16 curves; 0.175 mm on the curve with a loop | 0.019 to 0.252 mm; 0.794 mm on the curve with a loop |
+| Eighth sample, OCAD metric | 0.008 to 0.034 mm | Up to 0.131 mm |
+
+[measure-pdf-curves.py](PaletteLayers/oracles/ocad-dashes/measure-pdf-curves.py) and
+[measure-pdf-curves-metric.py](PaletteLayers/oracles/ocad-dashes/measure-pdf-curves-metric.py) give the values. With
+the OCAD metric, two other models do not fit: the quarters with their chords and their lengths in the OCAD metric are
+0.019 to 0.190 mm from OCAD, and the quarters with their lengths in the OCAD metric and the points in proportion to the
+euclidean arc up to 0.219 mm, and 0.813 mm on the curve with a loop.
+
+- **What is left.** In each quarter of the curves of the euclidean file, OCAD's points are a little before the model
+  in the first half of the quarter, and a little after it in the second half. They are the same at the ends and at the
+  middle of the quarter. The difference grows as the square of the turn of the quarter: 0.0025 of the length of the
+  quarter at 37.5°, and 0.0035 at 45°. No tested rule gives it: a proportion to the parameter, to the distance from
+  the start of the quarter, to the projection on its chord, or to two chords of its halves.
 - **A straight Bezier curve.** OCAD follows the true length, whatever the control points (the eighth sample).
 - **The output.** OCAD writes a dash on a curve as Bezier pieces of the curve. It splits a dash at the parameters 1/4,
   1/2 and 3/4.
-
-### The dashes on Bezier curves with the OCAD metric
-
-The rule is not known. No tested model fits the curves of the ninth sample with the OCAD metric:
-
-- Each quarter measured by its chord, with the lengths in the OCAD metric: 0.05 to 0.19 mm from OCAD.
-- Even dashes along the length in the OCAD metric, as Purple Pen places them: up to 0.25 mm from OCAD, and 0.79 mm on
-  the curve with a loop.
-
-In the eighth sample, the tested models were 0.06 to 0.14 mm from OCAD on the quarter circles of radius 10 and
-20 mm and on the S curve.
+- **The scope.** Each cell of the samples had one Bezier curve. No sample measured a path of several curves, or a
+  curve with straight segments or corner points.
 
 ## The double lines
 
@@ -288,8 +298,10 @@ In the eighth sample, the tested models were 0.06 to 0.14 mm from OCAD on the qu
 
 ## Not known
 
-- How OCAD places the dashes and the glyphs on a Bezier curve with the OCAD metric.
-- The small difference in each quarter of a curve with the euclidean metric.
+- The spaced glyphs on a Bezier curve with the OCAD metric. With the euclidean metric, they follow the measure of the
+  dashes.
+- The small difference in each quarter of a curve.
+- The paths of several Bezier curves, and the curves with straight segments or corner points.
 - The rule of the dash on a line that a minimum of 2 gaps leaves without dashes.
 - `MinSym` above 3.
 - OCAD 6 to 8 files in the viewer.
@@ -314,6 +326,7 @@ Each fix is on a branch of its own, and it is merged into `feature/palette-layer
 | `MinSym` 2 and 3 | Fix [019](PaletteLayers/tickets/019-ocad-minimum-gaps.md) |
 | The vertex next to the end of a dash | Fix [020](PaletteLayers/tickets/020-dash-boundary-at-vertex.md) |
 | The quarters of a Bezier curve with the euclidean metric, for the dashes and the spaced glyphs | Fix [021](PaletteLayers/tickets/021-ocad-dashes-on-curves.md) |
+| The quarters of a Bezier curve with the OCAD metric, with their chords in the OCAD metric | Decided on Nov 19, not done (see below) |
 | The circle elements of glyphs | Fix [015](PaletteLayers/tickets/015-thick-glyph-circles.md) |
 | The text along lines with the OCAD metric | As OCAD already ([022](PaletteLayers/tickets/022-line-text-metric.md), closed) |
 | The dash on a line that a minimum of 2 gaps leaves without dashes | Not done |
@@ -322,28 +335,24 @@ Each fix is on a branch of its own, and it is merged into `feature/palette-layer
 ### The OCAD metric on curves (decision, Nov 19)
 
 **The decision.** In a map with the OCAD metric, Purple Pen places the dashes, and the glyphs at lengths along the
-line, on a Bezier curve by the quarters of the curve. The count of the dashes, their lengths and the ends of the
-quarters follow the OCAD metric, as before. In a quarter, the points are in proportion to the euclidean length of the
-flattened arc. The straight segments do not change. So the drawing changes on the curves of the maps with `p1`, and their baselines move
-(@Pauli, Nov 19). The change is not made yet.
+line, on a Bezier curve by the model of fix 021: each quarter of the curve has the length of its chord in the OCAD
+metric, and in a quarter the points are in proportion to the euclidean length of the arc. The straight segments do not
+change. So the drawing changes on the curves of the maps with `p1`, and their baselines move (@Pauli, Nov 19). The
+change is not made yet.
 
 **The reasons:**
 
-1. The channels of the drawing measure the euclidean length along a path. On a straight segment, an even euclidean
-   step gives the points of the OCAD metric exactly. On a curve, no euclidean measure gives them (see "The OCAD metric
-   and a euclidean measure"). With the decision, each straight segment and each quarter of a curve has an even
-   euclidean step. So each can be a run of dashes or a repetition of glyphs, which a channel draws with its dash
-   pattern or its path effect. This is the measure of the benefit of the palette-layer work: a basic case uses an
-   abstraction of the channels (@Pauli, Nov 19).
-2. The OCAD metric is probably an approximation of the euclidean length (see "What the OCAD metric is"). Its error is
-   up to 11.8 %. The decision moves the points in a quarter much less: at most 0.0058 times the radius on a curve that
-   turns 90°, that is 0.058 mm at a radius of 10 mm.
-3. Purple Pen's present placement on these curves is not OCAD's either. It is up to 0.25 mm from OCAD, and 0.79 mm
-   on the curve with a loop (the ninth sample). The rule of OCAD is not known.
-4. The OCAD metric is best effort (@Pauli, Nov 19). Current OCAD measures the lines with the euclidean metric, unless
-   a map has `p1`.
+1. The model is OCAD's rule, as far as the samples show it (see "The dashes on Bezier curves"). It is nearer to OCAD
+   than Purple Pen's present placement with the OCAD metric.
+2. The channels of the drawing measure the euclidean length along a path. On a straight segment, an even euclidean
+   step gives the points of the OCAD metric exactly, and in a quarter of a curve the model has an even euclidean step.
+   So each straight segment and each quarter can be a run of dashes or a repetition of glyphs, which a channel draws
+   with its dash pattern or its path effect. This is the measure of the benefit of the palette-layer work: a basic
+   case uses an abstraction of the channels (@Pauli, Nov 19).
+3. A dash pattern with a table of lengths could keep the present placement exactly, as the dash patterns of SVG, PDF
+   and Skia take any list of lengths. But that placement is farther from OCAD, and the 1D path effect of Skia, which
+   draws a glyph along a path, takes one step and no table.
 
-**Not measured.** Whether the decision moves the dashes nearer to OCAD's dashes or farther from them. The PDF export
-of the ninth sample with the OCAD metric can show it without a new sample.
+**Not measured.** The glyphs with the OCAD metric, and the paths of several curves.
 
 [Ticket 011](PaletteLayers/tickets/011-line-geometry.md) records the decision and what it changes in the instances.
