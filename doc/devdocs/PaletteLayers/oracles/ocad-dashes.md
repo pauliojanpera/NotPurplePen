@@ -453,6 +453,29 @@ they agree. So OCAD draws its bitmaps by a rule of its own, which depends on the
 - The sample does not tell how the limit depends on the angle of the turn, on the width of the borders of a double
   line, or on a main line beside the borders.
 
+## The PDF exports of the first five samples
+
+@Pauli exported the files of the first five samples to PDF on Nov 19 (`ocad-viewer-*.pdf` in
+[ocad-dashes/](ocad-dashes/)). [measure-pdf-dashes.py](ocad-dashes/measure-pdf-dashes.py) computes the dashes of each
+cell by the rules that the fixes 016 to 019 give Purple Pen, and compares them with OCAD's dashes: their count, and the
+distance of each end of a dash from the nearest end by the rules. For the borders of a double line, the rules give the
+dashes of the middle moved aside by the distance of the border.
+
+- **The counts.** In all the eleven files, each line of each cell has the count of the rules, in the metric of each
+  file: 1011 lines in all. The only exception is the case that the third sample left open: a line of 1 mm with a minimum
+  of 2 gaps (B2-23, M2-1 and MS2-1), where OCAD draws one dash from the end of the first gap to the end of the line.
+- **The ends on straight parts.** On straight lines, at corner and dash points, on the closed rectangles and on the
+  short lines, OCAD's ends are at most 0.021 mm from the ends by the rules: the rounding to OCAD's grid, and a little
+  more next to a corner point.
+- **The ends on curves.** On Bezier curves, OCAD's ends are up to 0.16 mm from the ends along the true arc of the
+  curve, in a pattern that follows the bends of the curve. OCAD writes each dash on a curve as a part of the curve, and
+  its ends are on the curve. Neither a fit along the true arc, nor four chords with the parameter in proportion along
+  them, nor a parameter in proportion to the length, nor a polyline of N equal steps of the parameter gives OCAD's
+  ends. The nearest is a fit along four chords with each end moved to the nearest point of the curve, which still
+  leaves 0.08 mm. How OCAD finds the point of a curve at a length is not known.
+- **The vertices.** On DB6-2 and DB16-2 of the fourth sample, the ends of the borders are where the rule of the
+  seventh sample leaves the vertex out of the dash.
+
 ## The seventh sample
 
 The PDF export of the sixth sample showed OCAD's limit for the piece of a dash beyond a vertex at turns of 90° only.
