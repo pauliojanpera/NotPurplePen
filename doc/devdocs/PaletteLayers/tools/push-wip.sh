@@ -24,11 +24,11 @@
 # more commit, on the wip branch alone, writes them in. They belong to the merge of the branch into base, which takes
 # them from the same folder. Give the option to each push of the branch.
 #
-# The message of each commit that the script makes lists the branches that the push builds for the first time: the
-# merges into the branch, along its first parents, since the commit of the branch that the last push of the wip branch
-# with a passing Tests run built, or since base on the first push. Each line names a merged branch and its work, from
-# the subject of its merge, "Merge <branch>, with <work>, into <branch>". The commit that the push starts the runs on
-# holds the list, as the build of a branch shows its message (@Pauli, Nov 19).
+# The message of the merge lists the branches that the push builds for the first time: the merges into the branch,
+# along its first parents, since the commit of the branch that the last push of the wip branch with a passing Tests
+# run built, or since base on the first push. Each line names a merged branch and its work, from the subject of its
+# merge, "Merge <branch>, with <work>, into <branch>". Each commit that the script adds on the merge holds the list
+# too, so the commit that the push starts the runs on holds it (@Pauli, Nov 19).
 #
 # Prints the commit pushed and the ids of the runs, for wait-run.sh and fetch-artifact.sh in ../../SvgDevLoop/.
 set -euo pipefail

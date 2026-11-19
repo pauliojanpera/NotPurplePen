@@ -272,9 +272,10 @@ the rendering.
   fix uses the measure of four chords of fix 017. It is offered upstream after fix 017.
 - **The merge of fix 021** (Nov 19). `fix/ocad-dashes-on-curves` is merged into `feature/palette-layers` before the
   tickets 011 to 013, so that the composed dashed lines of ticket 011 get the placement by quarters.
-- **The list of the branches of a build** (Nov 19). The commit that a push of `wip/linux/palette-layers` starts the
-  runs on lists the branches merged into `feature/palette-layers` that the push builds for the first time, as the
-  build shows the message of its commit. `tools/push-wip.sh` writes the list.
+- **The list of the branches of a build** (Nov 19). The merge messages of `feature/palette-layers`, the merges into
+  `base` that a push of `wip/linux/palette-layers` builds, list the branches merged into `feature/palette-layers` that
+  the push builds for the first time. The commit that the push starts the runs on holds the list.
+  `tools/push-wip.sh` writes it.
 - **The OCAD metric is best effort** (Nov 19). Current OCAD measures the lines with the euclidean metric unless a
   map has the view parameter `p1`, and Mapper maps always do. The euclidean metric is the reference. No more samples
   and no more fixes go to the details of the OCAD metric, and its present handling stays.
