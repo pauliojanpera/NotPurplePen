@@ -193,8 +193,11 @@ namespace PurplePen.MapModel
                         return areaPath.MakeFilledShape(Placement.Identity);
 
                     case GlyphPartKind.Circle:
-                        if (lineWidth > 0 && circleDiam > lineWidth)
+                        if (lineWidth > 0 && circleDiam > 0) {
+                            if (circleDiam - lineWidth <= 0)
+                                return MakeFilledCircle(point);
                             return MakeCircle(point, (circleDiam - lineWidth) / 2);
+                        }
                         break;
 
                     case GlyphPartKind.FilledCircle:
@@ -207,8 +210,8 @@ namespace PurplePen.MapModel
             }
 
             // The clipping object of a glyph of this circle alone, at the origin of the glyph, as DrawSimple draws it at
-            // a location without a transformation, or null if it covers nothing. A circle whose line is wider than its
-            // diameter is filled.
+            // a location without a transformation, or null if it covers nothing. A circle whose line is at least as wide as
+            // its diameter is filled.
             // location: the location of the origin of the glyph.
             public ClippingObject MakeClippingObjectOfSimpleGlyph(PointF location)
             {
@@ -217,7 +220,7 @@ namespace PurplePen.MapModel
                 if (kind == GlyphPartKind.Circle) {
                     if (lineWidth > 0 && circleDiam > 0) {
                         float circleRadius = (circleDiam - lineWidth) / 2;
-                        if (circleRadius < 0)
+                        if (circleRadius <= 0)
                             return MakeFilledCircle(location);
                         else
                             return MakeCircle(location, circleRadius);
@@ -608,8 +611,8 @@ namespace PurplePen.MapModel
                 if (partClippingObject == null)
                     continue;
 
-                if (parts[i].kind == GlyphPartKind.Circle && gaps != null && gaps.Length > 0)
-                    parts[i].AddArcs(instances, (StrokedShape)partClippingObject, placement, gaps);
+                if (partClippingObject is StrokedShape circle && parts[i].kind == GlyphPartKind.Circle && gaps != null && gaps.Length > 0)
+                    parts[i].AddArcs(instances, circle, placement, gaps);
                 else
                     instances.Add(parts[i].color, partClippingObject.WithPlacement(placement));
             }
