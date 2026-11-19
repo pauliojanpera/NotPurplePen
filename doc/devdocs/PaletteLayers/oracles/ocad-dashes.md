@@ -17,6 +17,9 @@ exact resolution, as the baselines of Purple Pen are probably wrong in some plac
   dashes: the runs of pixels darker than 128 at the middle of the line. It compares the count with the rule of Purple
   Pen (`LineSymDef.ComputeDashDistances`), with the metric of the file. In each drawing of Purple Pen, each count is
   the count of the rule.
+- [measure-corners.py](ocad-dashes/measure-corners.py) measures the fifth and the sixth sample, whose cells turn at a
+  vertex near a boundary of a dash. It tells whether the dash takes the corner of the miter at the vertex, and where
+  the boundary is in the drawing (see the sixth sample).
 
 ## The first sample
 
@@ -363,3 +366,53 @@ vertex, or ends 0.03, 0.05, 0.08, 0.10, 0.30 and 0.50 mm after it.
 
 Two widths of each kind tell whether the limit depends on the width of the line or on the distance of a border from
 the middle. [Purple Pen's drawing](ocad-dashes/purple-pen-dashes-6-ocad12-euclidean-600dpi.png) is at 600 dpi.
+
+@Pauli exported the file on Nov 19 at [600 dpi](ocad-dashes/ocad-viewer-dashes-6-ocad12-euclidean-600dpi.png) and at
+[1200 dpi](ocad-dashes/ocad-viewer-dashes-6-ocad12-euclidean-1200dpi.png).
+
+### The values
+
+[measure-corners.py](ocad-dashes/measure-corners.py) measures each cell. It finds the corner of the miter from the
+dark pixels along the outer bisector of the vertex. It finds the boundary of the dash from the flat end of the
+neighbouring dash, one gap away: that end is oblique to the pixels, so the mean of where it crosses many parallel scan
+lines gives its position to a fraction of a pixel. In the fifth sample, the script finds no corner in OCAD's drawing,
+as above.
+
+In each cell where OCAD's dash does not take the corner, OCAD leaves out the short piece beyond the vertex: the dash
+starts or ends at the vertex, with a flat end across the part. On a double line, the dash of the outer border then
+starts at the offset of the vertex on the next part, and the dash of the inner border crosses the inner border of the
+other part. Where the dash takes the corner, OCAD draws the piece and the miter as Purple Pen does. Purple Pen's dash
+takes the corner in all the 56 cells.
+
+For each row, the table gives the largest distance of the boundary from the vertex at which OCAD leaves out the piece,
+and the smallest at which it draws the piece and the corner. These are the distances of the cells, by exact
+arithmetic.
+
+| Row | Symbol | 600 dpi: no corner, corner | 1200 dpi: no corner, corner |
+| --- | --- | --- | --- |
+| W start | line of 1.0 mm | 0.08, 0.10 mm | 0.15, 0.20 mm |
+| W end | line of 1.0 mm | 0.10, 0.30 mm | 0.10, 0.30 mm |
+| W3 start, W3 end | line of 0.3 mm | 0.05, 0.08 mm | 0.05, 0.08 mm |
+| DB6 start, DB16 start | borders of 0.15 mm, 0.6 and 1.6 mm apart | 0.03, 0.05 mm | 0.03, 0.05 mm |
+| DB6 end, DB16 end | borders of 0.15 mm, 0.6 and 1.6 mm apart | 0.05, 0.08 mm | 0.05, 0.08 mm |
+
+In the drawing of 1200 dpi, OCAD's boundaries near the second vertex are 0.01 to 0.02 mm earlier along the line than
+by exact arithmetic: a start is that much farther before the vertex, and an end that much nearer after it. With the
+boundaries as drawn, the starts and the ends of a row agree. OCAD leaves out a piece of the 0.3 mm line and of the
+borders up to 0.055 mm, and draws it from 0.059 mm. It leaves out a piece of the 1.0 mm line up to 0.159 mm, and
+draws it from 0.213 mm. In the drawing of 600 dpi, the script finds a boundary to about 0.03 mm only, which does not
+make these limits narrower.
+
+At 600 dpi, OCAD draws the piece of the cell W start 0.10 with vertical sides, though its part has a direction of 70°.
+This agrees with a piece drawn from coordinates rounded to pixels.
+
+### What the sixth sample tells
+
+- OCAD leaves out a short piece of a dash beyond a vertex: the dash starts or ends at the vertex.
+- For the line of 0.3 mm and the borders of 0.15 mm, the limit is about 0.055 to 0.06 mm. It is the same at a start
+  and at an end, at both resolutions, and for both distances of the borders from the path.
+- For the line of 1.0 mm, the limit depends on the resolution of the export: about 0.09 to 0.10 mm at 600 dpi, and
+  0.16 to 0.21 mm at 1200 dpi. So OCAD's limit is not only geometry: it also depends on how OCAD draws a wide line in
+  pixels.
+- A rule that does not depend on the resolution can follow OCAD for thin lines at both resolutions. For a wide line, it
+  can follow only one of the exports.
