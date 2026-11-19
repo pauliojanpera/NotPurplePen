@@ -251,32 +251,55 @@ namespace Map_Skia.Tests
             CollectionAssert.AreEqual(new int[] { 2, 1, 14 }, instances.Select(instance => instance.ClippingObjects.Count));
         }
 
-        // A line whose definition has dashes or glyphs is left to the collector: the geometry method of lines adds
-        // nothing for it.
+        // A dashed line is a composed dashed line: each run of dashes that repeats a pattern is one dashed stroke, and
+        // a dash that the rule of the vertices changes is a single dash. The line of 12 mm of a euclidean map has dashes
+        // of 2 mm with gaps of 0.5 mm; its third dash starts 0.05 mm before a vertex, nearer than 0.4 times the width of
+        // the line of 0.35 mm, so it leaves the vertex out and goes straight to its end. Its first two dashes and its
+        // last two are runs.
         [Test]
-        public void LinesWithDashesOrGlyphsAreLeftToTheCollector()
+        public void DashedLineIsAComposedDashedLine()
         {
             Map map = CreateMap();
-            List<LineSymbol> lines = new List<LineSymbol>();
+            LineSymbol line;
             using (map.Write()) {
+                map.UseEuclideanMetric = true;
                 SymColor black = map.AddColor("Black", 1, 0, 0, 0, 1, false);
-
                 LineSymDef dashed = new LineSymDef("Dashed", "1", black, 0.35F, LineJoinMode.Miter, LineCapMode.Flat);
                 dashed.SetDashInfo(new LineSymDef.DashInfo() { dashLength = 2, firstDashLength = 2, lastDashLength = 2, gapLength = 0.5F });
                 AddLineSymDef(map, dashed);
-                lines.Add(AddLine(map, dashed, new SymPath(new PointF[] { new PointF(0, 0), new PointF(10, 0) })));
+                double angle = Math.PI / 3;
+                line = AddLine(map, dashed, new SymPath(new PointF[] {
+                    new PointF(0, 0), new PointF(5.05F, 0), new PointF(5.05F + (float)(6.95 * Math.Cos(angle)), (float)(6.95 * Math.Sin(angle))) }));
+            }
 
-                LineSymDef glyphs = new LineSymDef("Glyphs", "2", black, 0.35F, LineJoinMode.Miter, LineCapMode.Flat);
+            IReadOnlyList<LayerInstance> instances = CreateInstances(map);
+
+            AssertSameStructure(CollectInstances(map), instances);
+            IReadOnlyList<ClippingObject> clippingObjects = instances.Single().ClippingObjects;
+            Assert.AreEqual(3, clippingObjects.Count);
+            StrokedShape[] shapes = clippingObjects.Cast<StrokedShape>().ToArray();
+            CollectionAssert.AreEqual(new int[] { 2, 0, 2 }, shapes.Select(shape => (shape.Stroke.DashPattern == null) ? 0 : shape.Stroke.DashPattern.Count));
+            CollectionAssert.AreEqual(new int[] { 2, 1, 2 }, shapes.Select(shape => shape.ExpandDashes().Count));
+            Assert.AreEqual(2, ((PathShape)shapes[1].Shape).Parts.Sum(part => part.Points.Length), "the single dash leaves its vertex out");
+        }
+
+        // A line whose definition has glyphs is left to the collector: the geometry method of lines adds nothing for it.
+        [Test]
+        public void LinesWithGlyphsAreLeftToTheCollector()
+        {
+            Map map = CreateMap();
+            LineSymbol line;
+            using (map.Write()) {
+                SymColor black = map.AddColor("Black", 1, 0, 0, 0, 1, false);
+                LineSymDef glyphs = new LineSymDef("Glyphs", "1", black, 0.35F, LineJoinMode.Miter, LineCapMode.Flat);
                 glyphs.SetGlyphs(new LineSymDef.GlyphInfo[] {
                     new LineSymDef.GlyphInfo() { glyph = CreateGlyph(glyph => glyph.AddFilledCircle(black, new PointF(0, 0), 0.5F)), location = LineSymDef.GlyphLocation.Start, number = 1 } });
                 AddLineSymDef(map, glyphs);
-                lines.Add(AddLine(map, glyphs, new SymPath(new PointF[] { new PointF(0, 5), new PointF(10, 5) })));
+                line = AddLine(map, glyphs, new SymPath(new PointF[] { new PointF(0, 5), new PointF(10, 5) }));
             }
 
-            using (map.Read()) {
-                foreach (LineSymbol line in lines)
-                    Assert.IsFalse(line.TryAddClippingObjects(new LayerInstanceBuilder(map.AllColors)), "{0}", line.Definition.Name);
-            }
+            using (map.Read())
+                Assert.IsFalse(line.TryAddClippingObjects(new LayerInstanceBuilder(map.AllColors)));
             AssertSameStructure(CollectInstances(map), CreateInstances(map));
         }
 

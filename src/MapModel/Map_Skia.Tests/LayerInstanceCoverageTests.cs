@@ -226,15 +226,17 @@ namespace Map_Skia.Tests
                     FillShape(g, filledShape.Shape, filledShape.FillRule, brush, fonts);
                 }
                 else {
-                    StrokedShape strokedShape = (StrokedShape)clippingObject;
-                    object pen;
-                    if (!pens.TryGetValue(strokedShape.Stroke, out pen)) {
-                        pen = new object();
-                        Stroke stroke = strokedShape.Stroke;
-                        g.CreatePen(pen, brush, stroke.Width, stroke.Caps, stroke.Join, stroke.MiterLimit);
-                        pens.Add(stroke, pen);
+                    // A run of a composed dashed line draws its dashes.
+                    foreach (StrokedShape strokedShape in ((StrokedShape)clippingObject).ExpandDashes()) {
+                        object pen;
+                        if (!pens.TryGetValue(strokedShape.Stroke, out pen)) {
+                            pen = new object();
+                            Stroke stroke = strokedShape.Stroke;
+                            g.CreatePen(pen, brush, stroke.Width, stroke.Caps, stroke.Join, stroke.MiterLimit);
+                            pens.Add(stroke, pen);
+                        }
+                        StrokeShape(g, strokedShape.Shape, pen, fonts);
                     }
-                    StrokeShape(g, strokedShape.Shape, pen, fonts);
                 }
 
                 for (int i = 0; i < steps.Count; ++i)

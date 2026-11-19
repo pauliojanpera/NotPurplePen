@@ -131,11 +131,18 @@ namespace Map_Skia.Tests
                 map.AddSymbol(new LineSymbol(footpath, CreateLinePath(new PointF(0, 0), new PointF(10, 0))));
             }
 
-            IReadOnlyList<ClippingObject> dashes = CreateInstances(map).Single().ClippingObjects;
+            IReadOnlyList<ClippingObject> clippingObjects = CreateInstances(map).Single().ClippingObjects;
 
-            // The line of 10 mm has 9 gaps of 0.01 mm, and 10 dashes of the same length in the rest of the line.
-            Assert.AreEqual(10, dashes.Count);
+            // The line of 10 mm has 9 gaps of 0.01 mm, and 10 dashes of the same length in the rest of the line. They
+            // repeat one dash and one gap, so the line is one run of a composed dashed line, whose dashes are those.
             float dashLength = (10 - 9 * 0.01F) / 10;
+            Assert.AreEqual(1, clippingObjects.Count);
+            StrokedShape run = (StrokedShape)clippingObjects[0];
+            Assert.AreEqual(2, run.Stroke.DashPattern.Count);
+            Assert.AreEqual(dashLength, run.Stroke.DashPattern[0], Tolerance);
+            Assert.AreEqual(0.01F, run.Stroke.DashPattern[1], Tolerance);
+            IReadOnlyList<StrokedShape> dashes = run.ExpandDashes();
+            Assert.AreEqual(10, dashes.Count);
             float previousEnd = 0;
             for (int i = 0; i < dashes.Count; ++i) {
                 StrokedShape dash = (StrokedShape)dashes[i];
