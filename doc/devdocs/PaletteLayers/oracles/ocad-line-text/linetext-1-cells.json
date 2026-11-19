@@ -1,0 +1,14 @@
+{
+ "cells": [
+  {"id": "horizontal-left", "align": "Left", "text": "ABCDEFGHIJKLMNOP", "note": "a straight line of 45 mm along x, left aligned", "points": [[0, 0, "N"], [45, 0, "N"]]},
+  {"id": "diag30-left", "align": "Left", "text": "ABCDEFGHIJKLMNOP", "note": "a straight line of 45 mm at 30 degrees, left aligned", "points": [[55, 0, "N"], [93.971146, 22.5, "N"]]},
+  {"id": "diag45-left", "align": "Left", "text": "ABCDEFGHIJKLMNOP", "note": "a straight line of 45 mm at 45 degrees, left aligned", "points": [[110, 0, "N"], [141.81981, 31.819805, "N"]]},
+  {"id": "diag45-center", "align": "Center", "text": "ABCDEFGHIJKLMNOP", "note": "a straight line of 45 mm at 45 degrees, centered", "points": [[0, -45, "N"], [31.819805, -13.180195, "N"]]},
+  {"id": "diag45-right", "align": "Right", "text": "ABCDEFGHIJKLMNOP", "note": "a straight line of 45 mm at 45 degrees, right aligned", "points": [[55, -45, "N"], [86.81981, -13.180195, "N"]]},
+  {"id": "diag45-justified", "align": "Justified", "text": "ABCDEFGHIJKLMNOP", "note": "a straight line of 45 mm at 45 degrees, justified", "points": [[110, -45, "N"], [141.81981, -13.180195, "N"]]},
+  {"id": "zigzag-left", "align": "Left", "text": "ABCDEFGHIJKLMNOP", "note": "a zigzag of four segments, left aligned", "points": [[0, -80, "N"], [12, -72, "N"], [24, -80, "N"], [36, -72, "N"], [48, -80, "N"]]},
+  {"id": "arc-left", "align": "Left", "text": "ABCDEFGHIJKLMNOP", "note": "a quarter circle of radius 30 mm, one Bezier curve, left aligned", "points": [[55, -100, "N"], [55, -83.43146, "B"], [68.43146, -70, "B"], [85, -70, "N"]]},
+  {"id": "S-left", "align": "Left", "text": "ABCDEFGHIJKLMNOP", "note": "an S curve, left aligned", "points": [[110, -85, "N"], [125, -70, "B"], [140, -100, "B"], [155, -85, "N"]]}
+ ],
+ "marks": [[-5, 40], [160, 40], [-5, -110], [160, -110]]
+}
