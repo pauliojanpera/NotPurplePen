@@ -626,6 +626,37 @@ namespace PurplePen.MapModel
             }
         }
 
+        // Add a repetition of the glyph along a path to the layer instances of pass 1: for each color of its parts, the
+        // shared clipping objects of the parts in that color (RepeatedShapes), in the order of the parts. The repetition
+        // turns the glyph to the direction of the path, unless the glyph is one circle at its origin, which Draw draws
+        // at a location without a transformation.
+        // instances: the layer instances.
+        // path: the path, a polyline of the segments on which the placements are.
+        // first: the distance of the first placement from the start of the path.
+        // step: the distance from one placement to the next along the path.
+        // count: the number of placements, at least two.
+        // isEuclidean: whether the distances along the path are euclidean, and not of the OCAD metric.
+        internal void AddRepetition(LayerInstanceBuilder instances, PathShape path, float first, float step, int count, bool isEuclidean)
+        {
+            CheckConstructed();
+
+            ClippingObject[] partClippingObjects = GetSharedClippingObjects();
+            List<SymColor> colors = new List<SymColor>();
+            for (int i = 0; i < parts.Length; ++i) {
+                if (partClippingObjects[i] != null && !colors.Contains(parts[i].color))
+                    colors.Add(parts[i].color);
+            }
+
+            foreach (SymColor color in colors) {
+                List<ClippingObject> elements = new List<ClippingObject>();
+                for (int i = 0; i < parts.Length; ++i) {
+                    if (partClippingObjects[i] != null && parts[i].color == color)
+                        elements.Add(partClippingObjects[i]);
+                }
+                instances.Add(color, new RepeatedShapes(path, elements, first, step, count, isEuclidean, !simple, Placement.Identity));
+            }
+        }
+
         // The clipping objects of the parts in the coordinates of the glyph, at the identity placement, which the
         // placements of the glyph share: one for each part, or null for a part that covers nothing. The first call
         // makes them. Several threads can call at once, and all get the array that one of them publishes.

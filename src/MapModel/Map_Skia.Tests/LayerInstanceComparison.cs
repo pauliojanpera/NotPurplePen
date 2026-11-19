@@ -16,12 +16,15 @@ namespace Map_Skia.Tests
     // the shapes as values, each number exactly. It compares a matrix by its elements, as Matrix.Elements gives them.
     // A dashed stroke of the instances to check, a run of a composed dashed line, is first expanded to its dashes
     // (StrokedShape.ExpandDashes). The run measures its dashes from its own start, and not from the start of the line as
-    // the drawing does, so the ends of its dashes are compared to within DashTolerance, and points nearer each other
-    // than that count as one.
+    // the drawing does, so the ends of its dashes are compared to within ExpansionTolerance, and points nearer each
+    // other than that count as one. A repetition of shapes (RepeatedShapes) is first expanded to its placements. It
+    // finds its placements along its own path, and not along the line as the drawing does, so each placed shape is
+    // compared in the coordinates of the map, its points to within ExpansionTolerance.
     static class LayerInstanceComparison
     {
-        // The distance in mm within which the ends of the expanded dashes of a run agree with the drawing.
-        public const float DashTolerance = 0.0001F;
+        // The distance in mm within which the expanded dashes of a run and the expanded placements of a repetition agree
+        // with the drawing.
+        public const float ExpansionTolerance = 0.0001F;
 
         // Find the differences between the structures of two lists of instances.
         // expected: the instances of the oracle.
@@ -43,27 +46,38 @@ namespace Map_Skia.Tests
 
                 IReadOnlyList<ClippingObject> expectedObjects = expectedInstance.ClippingObjects;
                 List<ClippingObject> actualObjects = new List<ClippingObject>();
-                List<bool> isExpandedDash = new List<bool>();
+                List<Expansion> expansions = new List<Expansion>();
                 foreach (ClippingObject clippingObject in actualInstance.ClippingObjects) {
                     StrokedShape stroked = clippingObject as StrokedShape;
+                    RepeatedShapes repeated = clippingObject as RepeatedShapes;
                     if (stroked != null && stroked.Stroke.DashPattern != null) {
                         foreach (StrokedShape dash in stroked.ExpandDashes()) {
                             actualObjects.Add(dash);
-                            isExpandedDash.Add(true);
+                            expansions.Add(Expansion.Dash);
+                        }
+                    }
+                    else if (repeated != null) {
+                        foreach (ClippingObject placed in repeated.Expand()) {
+                            actualObjects.Add(placed);
+                            expansions.Add(Expansion.Placement);
                         }
                     }
                     else {
                         actualObjects.Add(clippingObject);
-                        isExpandedDash.Add(false);
+                        expansions.Add(Expansion.None);
                     }
                 }
 
                 for (int j = 0; j < Math.Max(expectedObjects.Count, actualObjects.Count); ++j) {
                     string expectedObject = (j < expectedObjects.Count) ? Describe(expectedObjects[j]) : "none";
                     string actualObject = (j < actualObjects.Count) ? Describe(actualObjects[j]) : "none";
-                    bool isSame = (j < expectedObjects.Count && j < actualObjects.Count && isExpandedDash[j])
-                        ? AreSameDashes((StrokedShape)actualObjects[j], expectedObjects[j] as StrokedShape)
-                        : actualObject == expectedObject;
+                    bool isSame;
+                    if (j >= expectedObjects.Count || j >= actualObjects.Count || expansions[j] == Expansion.None)
+                        isSame = actualObject == expectedObject;
+                    else if (expansions[j] == Expansion.Dash)
+                        isSame = AreSameDashes((StrokedShape)actualObjects[j], expectedObjects[j] as StrokedShape);
+                    else
+                        isSame = AreSameInPlace(actualObjects[j], expectedObjects[j]);
                     if (!isSame)
                         differences.Add(string.Format("{0} (id {1}), clipping object {2}: {3}, expected {4}", expectedInstance.PaletteEntry.Name, expectedInstance.PaletteEntry.OcadId, j, actualObject, expectedObject));
                 }
@@ -71,6 +85,10 @@ namespace Map_Skia.Tests
 
             return differences;
         }
+
+        // How an object to check comes from an object of the instances: as it is, as a dash of a run, or as a placed
+        // shape of a repetition.
+        enum Expansion { None, Dash, Placement }
 
         // The description of a clipping object that the comparison compares: its kind, its shape, its line or fill rule,
         // and the steps of its placement, each number exactly.
@@ -80,38 +98,86 @@ namespace Map_Skia.Tests
             string placement = string.Join(" ", clippingObject.Placement.Steps.Select(Describe));
             if (clippingObject is FilledShape filled)
                 return string.Format("filled {0}, {1}, at [{2}]", Describe(filled.Shape), filled.FillRule, placement);
+            if (clippingObject is RepeatedShapes repeated)
+                return string.Format("repeated {0} {1} times by {2}{3} along {4}, at [{5}]", string.Join("; ", repeated.Elements.Select(Describe)),
+                                     repeated.Count, Describe(repeated.Step), repeated.IsEuclidean ? "" : " of the OCAD metric", Describe(repeated.Shape), placement);
 
             StrokedShape stroked = (StrokedShape)clippingObject;
-            Stroke stroke = stroked.Stroke;
+            return string.Format("stroked {0}, {1}, at [{2}]", Describe(stroked.Shape), Describe(stroked.Stroke), placement);
+        }
+
+        // The description of a line: its width, caps, joins and miter limit, and its dashes.
+        static string Describe(Stroke stroke)
+        {
             string dashes = (stroke.DashPattern == null) ? "" : string.Format(", dashes {0} from {1}", string.Join(" ", stroke.DashPattern.Select(Describe)), Describe(stroke.DashPhase));
-            return string.Format("stroked {0}, width {1}, {2} caps, {3} joins, miter limit {4}{5}, at [{6}]",
-                                 Describe(stroked.Shape), Describe(stroke.Width), stroke.Caps, stroke.Join, Describe(stroke.MiterLimit), dashes, placement);
+            return string.Format("width {0}, {1} caps, {2} joins, miter limit {3}{4}", Describe(stroke.Width), stroke.Caps, stroke.Join, Describe(stroke.MiterLimit), dashes);
+        }
+
+        // Is a placed shape of a repetition the same as a clipping object of the drawing: the same kind, line or fill rule
+        // and kind of shape, a circle of the same radius, and points that agree in the coordinates of the map to within
+        // ExpansionTolerance? A glyph of one circle at its origin is drawn at its location without a placement, so only
+        // the coordinates of the map compare it.
+        // placed: the placed shape.
+        // drawn: the clipping object of the drawing.
+        static bool AreSameInPlace(ClippingObject placed, ClippingObject drawn)
+        {
+            if (placed.GetType() != drawn.GetType() || placed.Shape.GetType() != drawn.Shape.GetType())
+                return false;
+            if (placed is FilledShape filled && filled.FillRule != ((FilledShape)drawn).FillRule)
+                return false;
+            if (placed is StrokedShape stroked && Describe(stroked.Stroke) != Describe(((StrokedShape)drawn).Stroke))
+                return false;
+
+            if (placed.Shape is EllipseShape ellipse) {
+                EllipseShape drawnEllipse = (EllipseShape)drawn.Shape;
+                if (ellipse.RadiusX != ellipse.RadiusY || ellipse.RadiusX != drawnEllipse.RadiusX || ellipse.RadiusY != drawnEllipse.RadiusY)
+                    return false;
+                return AreNear(Geometry.TransformPoint(ellipse.Center, placed.Placement.Matrix), Geometry.TransformPoint(drawnEllipse.Center, drawn.Placement.Matrix));
+            }
+
+            PathShape path = placed.Shape as PathShape, drawnPath = drawn.Shape as PathShape;
+            if (path == null || path.Parts.Count != drawnPath.Parts.Count)
+                return false;
+            for (int i = 0; i < path.Parts.Count; ++i) {
+                PointF[] points = path.Parts[i].Points ?? new PointF[0], drawnPoints = drawnPath.Parts[i].Points ?? new PointF[0];
+                if (path.Parts[i].Kind != drawnPath.Parts[i].Kind || points.Length != drawnPoints.Length)
+                    return false;
+                for (int k = 0; k < points.Length; ++k) {
+                    if (!AreNear(Geometry.TransformPoint(points[k], placed.Placement.Matrix), Geometry.TransformPoint(drawnPoints[k], drawn.Placement.Matrix)))
+                        return false;
+                }
+            }
+            return true;
+        }
+
+        // Do two points agree to within ExpansionTolerance?
+        static bool AreNear(PointF a, PointF b)
+        {
+            return Math.Abs(a.X - b.X) <= ExpansionTolerance && Math.Abs(a.Y - b.Y) <= ExpansionTolerance;
         }
 
         // Is an expanded dash of a run the same as a dash that the drawing draws: the same line and placement, and a
-        // polyline whose points agree to within DashTolerance, points nearer each other than that counting as one?
+        // polyline whose points agree to within ExpansionTolerance, points nearer each other than that counting as one?
         // dash: the expanded dash.
         // drawn: the clipping object of the drawing, or null.
         static bool AreSameDashes(StrokedShape dash, StrokedShape drawn)
         {
             if (drawn == null)
                 return false;
-            string line = Describe(dash).Substring(Describe(dash).IndexOf(", width ", StringComparison.Ordinal));
-            string drawnLine = Describe(drawn).Substring(Describe(drawn).IndexOf(", width ", StringComparison.Ordinal));
-            if (line != drawnLine)
+            if (Describe(dash.Stroke) != Describe(drawn.Stroke) || !dash.Placement.Steps.Select(Describe).SequenceEqual(drawn.Placement.Steps.Select(Describe)))
                 return false;
 
             List<PointF> points = DistinctPoints((PathShape)dash.Shape), drawnPoints = DistinctPoints(drawn.Shape as PathShape);
             if (drawnPoints == null || points.Count != drawnPoints.Count)
                 return false;
             for (int i = 0; i < points.Count; ++i) {
-                if (Math.Abs(points[i].X - drawnPoints[i].X) > DashTolerance || Math.Abs(points[i].Y - drawnPoints[i].Y) > DashTolerance)
+                if (Math.Abs(points[i].X - drawnPoints[i].X) > ExpansionTolerance || Math.Abs(points[i].Y - drawnPoints[i].Y) > ExpansionTolerance)
                     return false;
             }
             return true;
         }
 
-        // The points of an open polyline, without a point nearer to the one before it than DashTolerance, or null for a
+        // The points of an open polyline, without a point nearer to the one before it than ExpansionTolerance, or null for a
         // shape that is no open polyline.
         static List<PointF> DistinctPoints(PathShape path)
         {
@@ -119,7 +185,7 @@ namespace Map_Skia.Tests
                 return null;
             List<PointF> points = new List<PointF>();
             foreach (PointF point in path.Parts[0].Points.Concat(path.Parts[1].Points)) {
-                if (points.Count == 0 || Math.Abs(point.X - points[points.Count - 1].X) > DashTolerance || Math.Abs(point.Y - points[points.Count - 1].Y) > DashTolerance)
+                if (points.Count == 0 || Math.Abs(point.X - points[points.Count - 1].X) > ExpansionTolerance || Math.Abs(point.Y - points[points.Count - 1].Y) > ExpansionTolerance)
                     points.Add(point);
             }
             return points;

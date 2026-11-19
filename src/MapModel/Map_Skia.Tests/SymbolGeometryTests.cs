@@ -377,8 +377,8 @@ namespace Map_Skia.Tests
             }
             Assert.AreNotSame(corners[1].Shape, corners[4].Shape);
 
-            // The spaced glyphs share the shapes.
-            IReadOnlyList<ClippingObject> spaced = instances[2].ClippingObjects;
+            // The spaced glyphs share the shapes, also those that repeat along a part.
+            List<ClippingObject> spaced = Expand(instances[2].ClippingObjects);
             Assert.Greater(spaced.Count, 4);
             foreach (ClippingObject glyph in spaced)
                 Assert.AreSame(spaced[0].Shape, glyph.Shape);
@@ -402,6 +402,82 @@ namespace Map_Skia.Tests
             Assert.AreEqual(new PointF(0, 0), ((EllipseShape)dots[0].Shape).Center);
             foreach (ClippingObject dot in dots)
                 Assert.AreEqual(1, dot.Placement.Steps.Count);
+        }
+
+        // The evenly spaced glyphs of a part of a line are one repetition of the shared shapes of the glyph, along the
+        // part from the first glyph to the last, with the metric of the map: the glyphs spaced 2 mm along a straight line
+        // of 40 mm, 20 of them by the euclidean metric, turned by 30 degrees so that the OCAD metric measures the line
+        // longer. The repetition turns the glyphs to the direction of the line, but not a glyph of one circle at its
+        // origin, which the drawing draws without a transformation. At the centers of the dashes of a dashed line whose
+        // end dashes are shorter, the glyphs of the end dashes are single placements, and the others repeat.
+        [TestCase(true)]
+        [TestCase(false)]
+        public void EvenlySpacedGlyphsOfAPartAreOneRepetition(bool euclidean)
+        {
+            Map map = CreateMap();
+            SymColor black, brown, blue, green;
+            using (map.Write()) {
+                map.UseEuclideanMetric = euclidean;
+                black = map.AddColor("Black", 1, 0, 0, 0, 1, false);
+                brown = map.AddColor("Brown", 2, 0, 0.56F, 1, 0.18F, false);
+                blue = map.AddColor("Blue", 3, 1, 0, 0, 0, false);
+                green = map.AddColor("Green", 4, 0.76F, 0, 0.91F, 0, false);
+                double angle = Math.PI / 6;
+                PointF end = new PointF((float)(40 * Math.Cos(angle)), (float)(40 * Math.Sin(angle)));
+
+                LineSymDef spaced = new LineSymDef("Spaced", "1", black, 0.1F, LineJoinMode.Miter, LineCapMode.Flat);
+                spaced.SetGlyphs(new LineSymDef.GlyphInfo[] {
+                    new LineSymDef.GlyphInfo() { glyph = CreateTick(brown), location = LineSymDef.GlyphLocation.Spaced, distance = 2, firstDistance = 1, lastDistance = 1, number = 1 } });
+                AddLineSymDef(map, spaced);
+                AddLine(map, spaced, new SymPath(new PointF[] { new PointF(0, 0), end }));
+
+                LineSymDef dashed = new LineSymDef("Dashed", "2", black, 0.2F, LineJoinMode.Miter, LineCapMode.Flat);
+                dashed.SetDashInfo(new LineSymDef.DashInfo() { dashLength = 2, firstDashLength = 1, lastDashLength = 1, gapLength = 0.5F });
+                dashed.SetGlyphs(new LineSymDef.GlyphInfo[] {
+                    new LineSymDef.GlyphInfo() { glyph = CreateTick(blue), location = LineSymDef.GlyphLocation.DashCenters, number = 1 } });
+                AddLineSymDef(map, dashed);
+                AddLine(map, dashed, new SymPath(new PointF[] { new PointF(0, 10), new PointF(end.X, end.Y + 10) }));
+
+                LineSymDef dotted = new LineSymDef("Dotted", "3", black, 0.1F, LineJoinMode.Miter, LineCapMode.Flat);
+                dotted.SetGlyphs(new LineSymDef.GlyphInfo[] {
+                    new LineSymDef.GlyphInfo() { glyph = CreateGlyph(glyph => glyph.AddFilledCircle(green, new PointF(0, 0), 0.4F)), location = LineSymDef.GlyphLocation.Spaced, distance = 2, firstDistance = 1, lastDistance = 1, number = 1 } });
+                AddLineSymDef(map, dotted);
+                AddLine(map, dotted, new SymPath(new PointF[] { new PointF(0, 20), new PointF(end.X, end.Y + 20) }));
+            }
+
+            IReadOnlyList<LayerInstance> instances = CreateInstances(map);
+
+            AssertSameStructure(CollectInstances(map), instances);
+            CollectionAssert.AreEqual(new SymColor[] { black, brown, blue, green }, instances.Select(instance => instance.PaletteEntry));
+            RepeatedShapes repetition = (RepeatedShapes)instances[1].ClippingObjects.Single();
+            Assert.AreEqual(CollectInstances(map)[1].ClippingObjects.Count, repetition.Count);
+            Assert.AreEqual(euclidean, repetition.IsEuclidean);
+            if (euclidean) {
+                Assert.AreEqual(20, repetition.Count);
+                Assert.AreEqual(2.0F, repetition.Step, Tolerance);
+            }
+            Assert.IsTrue(repetition.IsTurnedToPath);
+            ClippingObject element = repetition.Elements.Single();
+            foreach (ClippingObject placed in repetition.Expand())
+                Assert.AreSame(element.Shape, placed.Shape);
+
+            RepeatedShapes dots = (RepeatedShapes)instances[3].ClippingObjects.Single();
+            Assert.IsFalse(dots.IsTurnedToPath);
+            foreach (ClippingObject placed in dots.Expand())
+                CollectionAssert.AreEqual(new float[] { 1, 0, 0, 1 }, placed.Placement.Matrix.Elements.Take(4));
+
+            IReadOnlyList<ClippingObject> centers = instances[2].ClippingObjects;
+            Assert.AreEqual(3, centers.Count);
+            Assert.IsNotInstanceOf<RepeatedShapes>(centers[0]);
+            Assert.IsInstanceOf<RepeatedShapes>(centers[1]);
+            Assert.IsNotInstanceOf<RepeatedShapes>(centers[2]);
+            Assert.AreSame(centers[0].Shape, ((RepeatedShapes)centers[1]).Elements.Single().Shape);
+        }
+
+        // The clipping objects of a list, with each repetition expanded to its placed shapes.
+        static List<ClippingObject> Expand(IReadOnlyList<ClippingObject> clippingObjects)
+        {
+            return clippingObjects.SelectMany(clippingObject => (clippingObject is RepeatedShapes repeated) ? repeated.Expand() : new ClippingObject[] { clippingObject }).ToList();
         }
 
         // A combined line (LineComboSymDef, of a Mapper map) has the clipping objects of its components, in the order of
@@ -431,7 +507,7 @@ namespace Map_Skia.Tests
 
             AssertSameStructure(CollectInstances(map), instances);
             CollectionAssert.AreEqual(new SymColor[] { brown, black }, instances.Select(instance => instance.PaletteEntry));
-            StrokedShape[] brownShapes = instances[0].ClippingObjects.Cast<StrokedShape>().ToArray();
+            StrokedShape[] brownShapes = Expand(instances[0].ClippingObjects).Cast<StrokedShape>().ToArray();
             Assert.Greater(brownShapes.Length, 1);
             CollectionAssert.AreEqual(new float[] { 0.6F }.Concat(Enumerable.Repeat(0.1F, brownShapes.Length - 1)), brownShapes.Select(shape => shape.Stroke.Width));
             Assert.IsNotEmpty(instances[1].ClippingObjects);
