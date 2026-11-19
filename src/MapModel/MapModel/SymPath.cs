@@ -488,7 +488,7 @@ namespace PurplePen.MapModel
 
         // The dashes of a dashed line along the path, as DrawDashedCore draws them: from the start of the path, with the
         // lengths of the dashes and the gaps in turn, a dash first, measured with a metric. This is the geometry of the
-        // drawing of a dashed line, for the geometry method of lines (LineSymDef.TryAddClippingObjects), apart from it.
+        // drawing of a dashed line, for the geometry method of lines (LineSymDef.AddClippingObjects), apart from it.
         // dashLengths: the lengths of the dashes and the gaps in turn, a dash first.
         // metric: the metric that measures the lengths.
         // offsetRight: the distance of the line to the right of the path, or 0.

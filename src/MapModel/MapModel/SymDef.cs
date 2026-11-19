@@ -325,6 +325,12 @@ namespace PurplePen.MapModel
         internal abstract void Draw(IGraphicsTarget g, SymPath path, SymColor color, RenderOptions renderOpts);
 
         internal abstract void DrawHighlight(IGraphicsTarget g, SymPath path, HighlightOptions highlightOptions);
+
+        // The geometry method of a line of this definition: add its clipping objects to the layer instances of pass 1,
+        // each to the instance of its color, in the order that Draw draws the shapes of a color.
+        // instances: the layer instances.
+        // path: the path of the line.
+        internal abstract void AddClippingObjects(LayerInstanceBuilder instances, SymPath path);
     }
 
     // A combination of multiple line symdefs. Acts like a line symdef. For OpenMapper support.
@@ -426,6 +432,16 @@ namespace PurplePen.MapModel
             foreach (LineSymDef component in components) {
                 component.Draw(g, path, color, renderOpts);
             }
+        }
+
+        // The geometry method of a line: the clipping objects of each component, in the order of the components, as Draw
+        // draws them.
+        // instances: the layer instances.
+        // path: the path of the line.
+        internal override void AddClippingObjects(LayerInstanceBuilder instances, SymPath path)
+        {
+            foreach (LineSymDef component in components)
+                component.AddClippingObjects(instances, path);
         }
 
         internal override void DrawHighlight(IGraphicsTarget g, SymPath path, HighlightOptions highlightOptions)
@@ -913,10 +929,10 @@ namespace PurplePen.MapModel
         // its pointy ends, the second line, the fill and the borders of a double line, and the glyphs along the line.
         // instances: the layer instances.
         // path: the path of the line.
-        internal bool TryAddClippingObjects(LayerInstanceBuilder instances, SymPath path)
+        internal override void AddClippingObjects(LayerInstanceBuilder instances, SymPath path)
         {
             if (path.IsZeroLength)
-                return true;
+                return;
 
             SymPath[] pathsWithShortening, pathsWithoutShortening;
             GetPathParts(path, out pathsWithShortening, out pathsWithoutShortening);
@@ -974,8 +990,6 @@ namespace PurplePen.MapModel
                     }
                 }
             }
-
-            return true;
         }
 
         // Add the clipping objects of a border of a double line, as DrawCore draws it: the offset of each subpath that the

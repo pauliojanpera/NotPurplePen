@@ -404,6 +404,39 @@ namespace Map_Skia.Tests
                 Assert.AreEqual(1, dot.Placement.Steps.Count);
         }
 
+        // A combined line (LineComboSymDef, of a Mapper map) has the clipping objects of its components, in the order of
+        // the components, as its drawing draws them: in brown the wide line of the first component, and then the
+        // glyphs of the second component at the centers of its gaps; in black the dashes of the second component.
+        [Test]
+        public void CombinedLineHasTheClippingObjectsOfItsComponents()
+        {
+            Map map = CreateMap();
+            SymColor brown, black;
+            using (map.Write()) {
+                map.UseEuclideanMetric = true;
+                brown = map.AddColor("Brown", 1, 0, 0.56F, 1, 0.18F, false);
+                black = map.AddColor("Black", 2, 0, 0, 0, 1, false);
+                LineSymDef wide = AddLineSymDef(map, new LineSymDef("Wide", "1", brown, 0.6F, LineJoinMode.Round, LineCapMode.Round));
+                LineSymDef dashed = new LineSymDef("Dashed", "2", black, 0.2F, LineJoinMode.Miter, LineCapMode.Flat);
+                dashed.SetDashInfo(new LineSymDef.DashInfo() { dashLength = 2, firstDashLength = 2, lastDashLength = 2, gapLength = 0.5F });
+                dashed.SetGlyphs(new LineSymDef.GlyphInfo[] {
+                    new LineSymDef.GlyphInfo() { glyph = CreateTick(brown), location = LineSymDef.GlyphLocation.GapCenters, minimum = 1, number = 1 } });
+                AddLineSymDef(map, dashed);
+                LineComboSymDef combined = new LineComboSymDef("Combined", "3", new LineSymDef[] { wide, dashed });
+                map.AddSymdef(combined);
+                map.AddSymbol(new LineSymbol(combined, new SymPath(new PointF[] { new PointF(0, 0), new PointF(6, 0), new PointF(10, 3) })));
+            }
+
+            IReadOnlyList<LayerInstance> instances = CreateInstances(map);
+
+            AssertSameStructure(CollectInstances(map), instances);
+            CollectionAssert.AreEqual(new SymColor[] { brown, black }, instances.Select(instance => instance.PaletteEntry));
+            StrokedShape[] brownShapes = instances[0].ClippingObjects.Cast<StrokedShape>().ToArray();
+            Assert.Greater(brownShapes.Length, 1);
+            CollectionAssert.AreEqual(new float[] { 0.6F }.Concat(Enumerable.Repeat(0.1F, brownShapes.Length - 1)), brownShapes.Select(shape => shape.Stroke.Width));
+            Assert.IsNotEmpty(instances[1].ClippingObjects);
+        }
+
         // Add a line symbol definition to a map, and return it.
         static LineSymDef AddLineSymDef(Map map, LineSymDef symdef)
         {

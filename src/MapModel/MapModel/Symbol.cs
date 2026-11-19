@@ -382,12 +382,12 @@ namespace PurplePen.MapModel
             return new LineSymbol(def, newPath);
         }
 
-        // Add the clipping objects of the line to the layer instances of pass 1, when the geometry method of its
-        // definition makes all its parts (LineSymDef.TryAddClippingObjects).
+        // Add the clipping objects of the line to the layer instances of pass 1 with the geometry method of its
+        // definition (LineLikeSymDef.AddClippingObjects).
         internal override bool TryAddClippingObjects(LayerInstanceBuilder instances)
         {
-            LineSymDef lineDef = def as LineSymDef;
-            return lineDef != null && lineDef.TryAddClippingObjects(instances, path);
+            def.AddClippingObjects(instances, path);
+            return true;
         }
 
         // Determine accurately if this point is within distance of a this symbol.
