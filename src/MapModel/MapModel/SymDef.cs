@@ -962,9 +962,14 @@ namespace PurplePen.MapModel
         {
             LocationKind originalKind = kind;   // save original kind.
 
-            // Get length of each segment, deliniated by corner points.
+            // Get length of each segment, deliniated by corner points. With the euclidean metric, OCAD places the dashes on
+            // Bezier curves by their quarters, and the glyphs of the OCAD spacing are placed in the same measure: the
+            // distances are fitted to the measure of the quarters, and converted to distances along the path at the end.
             PointKind[] pointkinds;
             float[] segmentLengths = path.GetCornerAndDashPointDistances(distanceMetric, out pointkinds);
+            SymPath.OcadCurveMeasure curveMeasure = (spacingMethod == SpacingMethod.OCAD && distanceMetric == (SymPath.DistanceMetric) SymPath.EuclidDistance) ? path.GetOcadCurveMeasure() : null;
+            if (curveMeasure != null)
+                segmentLengths = curveMeasure.PartMeasures;
             float[] countingLengths = (spacingMethod == SpacingMethod.OCAD) ? path.GetCornerAndDashPointLengthsForCounting(distanceMetric) : segmentLengths;
             float[] lengthAtEnd = new float[segmentLengths.Length];
             float[][] dashDistances = new float[segmentLengths.Length][];
@@ -1114,6 +1119,9 @@ namespace PurplePen.MapModel
             if (originalKind == LocationKind.DashCenters) {
                 distances = ComputeDashCenters(distances, path.IsClosedCurve);
             }
+
+            if (curveMeasure != null && distances != null)
+                distances = curveMeasure.ToDistancesAlongPath(distances);
 
             return distances;
         }
