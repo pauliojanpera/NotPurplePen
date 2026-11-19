@@ -19,6 +19,11 @@ oracle of the tests. The drawing does not change.
   one stroked shape with the pattern. A dash whose vertex the rule leaves out is a single dash. A run crosses the
   vertices of the path only when the map measures with the euclidean metric and the line is on the path. With the
   OCAD metric, and on the borders of double lines, each run is within one segment.
+* On a Bezier curve of a euclidean map, the runs are by the quarters of the curve. Fix
+  [021](../tickets/021-ocad-dashes-on-curves.md), which the branch gets from `feature/palette-layers`, places the
+  dashes by quarters, so the middle dashes and gaps of a quarter have the pattern that the measure fits, scaled by the
+  length of the flattened quarter against its chord, and `FindRunOfDashes` makes them a run. A dash or a gap over the
+  end of a quarter ends the run.
 * `StrokedShape.ExpandDashes` gives the dashes of a dashed stroke as single dashes. Where the pattern and the shape
   end together, within the rounding of lengths, it starts no dash at the end, except a dash of length 0.
 * `LineSymDef.AddGlyphs` places the glyphs along a line as `DrawGlyphs` does, beside it. Each run of at least three
@@ -48,15 +53,20 @@ oracle of the tests. The drawing does not change.
 * `SymbolGeometryTests` compares the instances of pass 1 with those of the collector on each OCAD and Mapper map of
   `skia_render`. Its own tests check each branch of the drawing of solid lines, a composed dashed line, each location
   of the glyphs along a line, the shared and the own shapes of the glyphs, the repetition of the evenly spaced glyphs
-  with each metric, the repetition of a glyph of one circle without a turn, and a combined line.
+  with each metric, the repetition of a glyph of one circle without a turn, the runs of a dashed line on a Bezier curve
+  by quarters, and a combined line.
 
 ## Issue ticket number
 [011-line-geometry](../tickets/011-line-geometry.md)
 
 ## Missing functionality
-* The dashes on Bezier curves follow the drawing of Purple Pen. With the euclidean metric, OCAD places them by the
-  quarters of each curve. Fix [021](../tickets/021-ocad-dashes-on-curves.md) does that, and the runs on curves by
-  quarter come with it (question 8 of the ticket).
+* With the OCAD metric, a run is within one segment of the flattened path, so the dashes on a curve are mostly single
+  dashes, and a repetition crosses the vertices and the curves with its steps in the OCAD metric
+  (`RepeatedShapes.IsEuclidean`). The decisions of Nov 19 place them by the quarters of the curves, with the chords in
+  the OCAD metric, as an extension of fix [021](../tickets/021-ocad-dashes-on-curves.md) that is not made yet. After it,
+  each run and each repetition is euclidean, by segment and by quarter, and the repetition needs no metric.
+* Two consecutive quarters of a curve make one run only when the lengths of their dashes are the same floats, as
+  `FindRunOfDashes` compares the lengths exactly. No test checks this.
 * The areas, the combinations, the graphics objects, the texts and the rectangles have no geometry methods yet
   ([012](../tickets/012-area-geometry.md) and [013](../tickets/013-text-geometry.md)). The hatchings and the area
   patterns are not in the instances ([009](../tickets/009-pattern-instances.md)), and pass 2 is a later ticket
