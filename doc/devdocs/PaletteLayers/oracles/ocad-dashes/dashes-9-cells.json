@@ -1,0 +1,506 @@
+{
+ "symbols": {
+  "D050": {
+   "linewidth": 0.05,
+   "dash": 0.5,
+   "end": 0.5,
+   "gap": 0.25
+  }
+ },
+ "marks": [
+  [
+   -5,
+   -19.14
+  ],
+  [
+   147,
+   -19.14
+  ],
+  [
+   -5,
+   -157
+  ],
+  [
+   147,
+   -157
+  ]
+ ],
+ "cells": [
+  {
+   "id": "bend-30",
+   "row": "bend",
+   "symbol": "D050",
+   "note": "a circular arc of radius 15 mm that turns 30 degrees, one Bezier curve",
+   "points": [
+    [
+     16.12,
+     -30.0,
+     "N"
+    ],
+    [
+     18.66,
+     -29.32,
+     "B"
+    ],
+    [
+     21.34,
+     -29.32,
+     "B"
+    ],
+    [
+     23.88,
+     -30.0,
+     "N"
+    ]
+   ]
+  },
+  {
+   "id": "bend-60",
+   "row": "bend",
+   "symbol": "D050",
+   "note": "a circular arc of radius 15 mm that turns 60 degrees, one Bezier curve",
+   "points": [
+    [
+     52.5,
+     -30.0,
+     "N"
+    ],
+    [
+     57.14,
+     -27.32,
+     "B"
+    ],
+    [
+     62.86,
+     -27.32,
+     "B"
+    ],
+    [
+     67.5,
+     -30.0,
+     "N"
+    ]
+   ]
+  },
+  {
+   "id": "bend-90",
+   "row": "bend",
+   "symbol": "D050",
+   "note": "a circular arc of radius 15 mm that turns 90 degrees, one Bezier curve",
+   "points": [
+    [
+     89.39,
+     -30.0,
+     "N"
+    ],
+    [
+     95.25,
+     -24.14,
+     "B"
+    ],
+    [
+     104.75,
+     -24.14,
+     "B"
+    ],
+    [
+     110.61,
+     -30.0,
+     "N"
+    ]
+   ]
+  },
+  {
+   "id": "bend-120",
+   "row": "bend",
+   "symbol": "D050",
+   "note": "a circular arc of radius 15 mm that turns 120 degrees, one Bezier curve",
+   "points": [
+    [
+     7.01,
+     -52.0,
+     "N"
+    ],
+    [
+     12.78,
+     -42.0,
+     "B"
+    ],
+    [
+     27.22,
+     -42.0,
+     "B"
+    ],
+    [
+     32.99,
+     -52.0,
+     "N"
+    ]
+   ]
+  },
+  {
+   "id": "bend-150",
+   "row": "bend",
+   "symbol": "D050",
+   "note": "a circular arc of radius 15 mm that turns 150 degrees, one Bezier curve",
+   "points": [
+    [
+     45.51,
+     -52.0,
+     "N"
+    ],
+    [
+     49.48,
+     -37.18,
+     "B"
+    ],
+    [
+     70.52,
+     -37.18,
+     "B"
+    ],
+    [
+     74.49,
+     -52.0,
+     "N"
+    ]
+   ]
+  },
+  {
+   "id": "bend-180",
+   "row": "bend",
+   "symbol": "D050",
+   "note": "a circular arc of radius 15 mm that turns 180 degrees, one Bezier curve",
+   "points": [
+    [
+     85.0,
+     -52.0,
+     "N"
+    ],
+    [
+     85.0,
+     -32.0,
+     "B"
+    ],
+    [
+     115.0,
+     -32.0,
+     "B"
+    ],
+    [
+     115.0,
+     -52.0,
+     "N"
+    ]
+   ]
+  },
+  {
+   "id": "hook-end",
+   "row": "hook",
+   "symbol": "D050",
+   "note": "a curve whose bend is near its end",
+   "points": [
+    [
+     4.0,
+     -82.0,
+     "N"
+    ],
+    [
+     24.0,
+     -82.0,
+     "B"
+    ],
+    [
+     29.0,
+     -82.0,
+     "B"
+    ],
+    [
+     29.0,
+     -77.0,
+     "N"
+    ]
+   ]
+  },
+  {
+   "id": "hook-start",
+   "row": "hook",
+   "symbol": "D050",
+   "note": "a curve whose bend is near its start",
+   "points": [
+    [
+     38.0,
+     -77.0,
+     "N"
+    ],
+    [
+     38.0,
+     -82.0,
+     "B"
+    ],
+    [
+     43.0,
+     -82.0,
+     "B"
+    ],
+    [
+     63.0,
+     -82.0,
+     "N"
+    ]
+   ]
+  },
+  {
+   "id": "corner",
+   "row": "hook",
+   "symbol": "D050",
+   "note": "a curve whose control points meet at a corner",
+   "points": [
+    [
+     72.0,
+     -82.0,
+     "N"
+    ],
+    [
+     97.0,
+     -82.0,
+     "B"
+    ],
+    [
+     97.0,
+     -82.0,
+     "B"
+    ],
+    [
+     97.0,
+     -67.0,
+     "N"
+    ]
+   ]
+  },
+  {
+   "id": "slow-start",
+   "row": "hook",
+   "symbol": "D050",
+   "note": "a curve whose parameter starts at speed 0",
+   "points": [
+    [
+     106.0,
+     -82.0,
+     "N"
+    ],
+    [
+     106.0,
+     -82.0,
+     "B"
+    ],
+    [
+     131.0,
+     -82.0,
+     "B"
+    ],
+    [
+     131.0,
+     -67.0,
+     "N"
+    ]
+   ]
+  },
+  {
+   "id": "S-low",
+   "row": "S",
+   "symbol": "D050",
+   "note": "an S curve 30 mm long whose control points are 5 mm off the chord",
+   "points": [
+    [
+     4.0,
+     -112.0,
+     "N"
+    ],
+    [
+     14.0,
+     -107.0,
+     "B"
+    ],
+    [
+     24.0,
+     -117.0,
+     "B"
+    ],
+    [
+     34.0,
+     -112.0,
+     "N"
+    ]
+   ]
+  },
+  {
+   "id": "S-middle",
+   "row": "S",
+   "symbol": "D050",
+   "note": "an S curve 30 mm long whose control points are 10 mm off the chord",
+   "points": [
+    [
+     40.0,
+     -112.0,
+     "N"
+    ],
+    [
+     50.0,
+     -102.0,
+     "B"
+    ],
+    [
+     60.0,
+     -122.0,
+     "B"
+    ],
+    [
+     70.0,
+     -112.0,
+     "N"
+    ]
+   ]
+  },
+  {
+   "id": "S-high",
+   "row": "S",
+   "symbol": "D050",
+   "note": "an S curve 30 mm long whose control points are 15 mm off the chord",
+   "points": [
+    [
+     76.0,
+     -112.0,
+     "N"
+    ],
+    [
+     86.0,
+     -97.0,
+     "B"
+    ],
+    [
+     96.0,
+     -127.0,
+     "B"
+    ],
+    [
+     106.0,
+     -112.0,
+     "N"
+    ]
+   ]
+  },
+  {
+   "id": "S-first",
+   "row": "S",
+   "symbol": "D050",
+   "note": "the S curve of the first sample",
+   "points": [
+    [
+     116.0,
+     -112.0,
+     "N"
+    ],
+    [
+     124.0,
+     -104.0,
+     "B"
+    ],
+    [
+     132.0,
+     -120.0,
+     "B"
+    ],
+    [
+     140.0,
+     -112.0,
+     "N"
+    ]
+   ]
+  },
+  {
+   "id": "bend-90-turned",
+   "row": "turned",
+   "symbol": "D050",
+   "note": "the arc of 90 degrees turned by 30 degrees",
+   "points": [
+    [
+     5.51,
+     -144.12,
+     "N"
+    ],
+    [
+     7.66,
+     -136.12,
+     "B"
+    ],
+    [
+     15.88,
+     -131.37,
+     "B"
+    ],
+    [
+     23.88,
+     -133.51,
+     "N"
+    ]
+   ]
+  },
+  {
+   "id": "S-middle-turned",
+   "row": "turned",
+   "symbol": "D050",
+   "note": "the middle S curve turned by 30 degrees",
+   "points": [
+    [
+     50.0,
+     -144.0,
+     "N"
+    ],
+    [
+     53.66,
+     -130.34,
+     "B"
+    ],
+    [
+     72.32,
+     -142.66,
+     "B"
+    ],
+    [
+     75.98,
+     -129.0,
+     "N"
+    ]
+   ]
+  },
+  {
+   "id": "loop",
+   "row": "turned",
+   "symbol": "D050",
+   "note": "a curve with a loop",
+   "points": [
+    [
+     100.0,
+     -152.0,
+     "N"
+    ],
+    [
+     140.0,
+     -132.0,
+     "B"
+    ],
+    [
+     90.0,
+     -132.0,
+     "B"
+    ],
+    [
+     130.0,
+     -152.0,
+     "N"
+    ]
+   ]
+  }
+ ]
+}

@@ -614,3 +614,24 @@ a dash on a curve as Bezier pieces, and splits it where the curve has the parame
 @Pauli's decision on the curves (Nov 19): the even dashes along the true length, which Purple Pen draws, are
 acceptable, but the rule of OCAD is still to be found, and the decision is then made again. The ninth sample is for
 that.
+
+## The ninth sample
+
+The eighth sample did not find how OCAD places the dashes on a curve that bends strongly. Purple Pen wrote the ninth
+sample on Nov 19 as [dashes-9-ocad12-euclidean.ocd](ocad-dashes/dashes-9-ocad12-euclidean.ocd) and, with the OCAD
+metric, [dashes-9-ocad12-ocad-metric.ocd](ocad-dashes/dashes-9-ocad12-ocad-metric.ocd), from
+[dashes-9-cells.json](ocad-dashes/dashes-9-cells.json): 17 cells, each one Bezier curve. The dashed line D050 has
+dashes and end dashes of 0.5 mm and gaps of 0.25 mm, so that the boundaries of its dashes sample OCAD's placement
+along each curve every 0.25 or 0.5 mm. From them, the measure in which OCAD's dashes are even can be found along
+each curve.
+
+| Rows | Cells |
+| --- | --- |
+| bend | circular arcs of radius 15 mm that turn 30, 60, 90, 120, 150 and 180 degrees, each one Bezier curve |
+| hook | a curve whose bend is near its end, one whose bend is near its start, one whose control points meet at a corner, and one whose parameter starts at speed 0 |
+| S | S curves 30 mm long whose control points are 5, 10 and 15 mm off the chord, and the S curve of the first sample |
+| turned | the arc of 90 degrees and the middle S curve turned by 30 degrees, for the OCAD metric, and a curve with a loop |
+
+The files are on @Pauli's drive in `ocad-dashes-9`, for their PDF export.
+[purple-pen-dashes-9-ocad12-euclidean-150dpi.png](ocad-dashes/purple-pen-dashes-9-ocad12-euclidean-150dpi.png) is
+Purple Pen's drawing of the euclidean file.
