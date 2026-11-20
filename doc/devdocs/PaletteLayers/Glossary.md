@@ -445,6 +445,7 @@ encodings make themselves (spec 02, Nov 20).
 - **`IGraphicsTarget`** · piirtokohde · *graphics target, drawing target* — The interface on which the symbols draw
   now. Its implementations are classes such as `Skia_GraphicsTarget` and `Pdf_GraphicsTarget`. The comments of
   upstream say *graphics target*, and less often *drawing target*. The documents of the fork say *drawing target*. The
+  English term is *graphics target*, as upstream says (the rules of the names; chosen by use, Nov 20). The
   application that ships uses the graphics targets of `Map_SkiaStd` and `Map_PDF` (Nov 18). **Open:** its place when
   pass 2 and the encodings draw from the intermediate layer.
 - **piirrosobjekti** · *drawn object* — An object that an encoding writes. Each drawn object refers to its symbol
@@ -558,11 +559,14 @@ encodings make themselves (spec 02, Nov 20).
 - *taitepiste*, *jana* · *vertex*, *segment*: of the path that the user draws, or of the flattened path. Decided: of
   the flattened path, and the English term of *jana* is *edge* (@Pauli, Nov 20).
 - *step*: the step of a repeated placement (*askel*), and the steps of a placement (*sisäkkäiset affiiniset
-  muunnokset*).
+  muunnokset*). The Finnish terms separate them (@Pauli, Nov 20).
 - Two English words for one concept: *graphics target* (upstream) and *drawing target* (the documents of the fork).
+  Chosen by use: *graphics target*.
 - Two Finnish words for one concept: *peittävyys* and *opasiteetti* (α, 000 and 001), *täysi peitto* and *yhtenäinen
   geometria* (G = 1, 005), *paikka* and *kohta* (a position, 011), *perustapaus* and *perustilanne* (a basic case,
-  011).
+  011). Chosen by use (Nov 20): *peittävyys* (the title of 004, 17 uses against 2), *täysi peitto* (*full coverage*
+  of the specification), *paikka* (the decision of Nov 20 on the placements) and *perustapaus* (the decision of
+  Nov 20 on the structure of a line).
 
 ## Not in this glossary
 
