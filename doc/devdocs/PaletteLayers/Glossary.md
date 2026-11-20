@@ -367,8 +367,8 @@ one meaning" lists the words that name two or more concepts now.
   `stroke-dasharray` and `stroke-dashoffset` of SVG (011). They are properties of `Stroke` (Nov 19). **Open:** after
   the decisions of Nov 20, the measure in which they are kept (point 2 of 6 in the review of 011).
 - **`TextShape`** (work) · tekstijuoste · *text run* — A word, or a grapheme where the character spacing is more than
-  0, at its own position (Nov 19). The term is *tekstijuoste* (@Pauli, Nov 20); the tickets say *tekstiajo*. It has the text, the font family, the size, the effects and the top left corner
-  (005). A text run is a shape.
+  0, at its own position (Nov 19). The term is *tekstijuoste* (@Pauli, Nov 20); the tickets say *tekstiajo*. It has
+  the text, the font family, the size, the effects and the top left corner (005). A text run is a shape.
 - **jaetut muodot** · *shared shapes* — Each part of a glyph is one shape, which each placement of the glyph refers to
   (Nov 18; 008). They depend on the definition alone, so they belong to the definition (spec 02, Nov 20). Stretched
   and diminishing glyphs get shapes of their own (Nov 19). **Upstream:** a glyph at a corner is scaled, unless
