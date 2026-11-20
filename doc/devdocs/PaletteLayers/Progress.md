@@ -362,7 +362,9 @@ the rendering.
   channel can use. The conversions concern the whole model, not only the lines. Conversions of the lines are, for
   example, the runs and the single dashes in the euclidean measure, a table of dashes, repetitions with a euclidean
   step, the pieces of the logical path, offset curves, and the expansion into single dashes and placements
-  ([000](tickets/000-palette-layers.md), ticket 011).
+  ([000](tickets/000-palette-layers.md), ticket 011). Conversions of the pattern fills are, for example, the placements
+  of the elements of an irregular pattern, whose randomness the model keeps as a definition, and a tile of a pattern,
+  which the conversion composes from single elements.
 - **The framing line of texts** (Nov 19). The framing of a text run is one line in the instances, a stroke of the full
   width with the joins of the symbol, as in OCAD's PDF export. OCAD's own drawing leaves the same holes as Skia and
   Cairo with one pen, so the holes that the intermediate pens of Purple Pen fill are no faults against OCAD (question
