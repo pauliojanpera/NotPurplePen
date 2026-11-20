@@ -138,8 +138,9 @@ one meaning" lists the words that name two or more concepts now.
 - **viivan rakenne** · *structure of a line* — The logical path, the parts as its pieces and offsets, the measure of
   the line, the fitted pattern of a part, the end dashes and the exceptions of fix 020 (Nov 20). `Map` keeps the
   information that is necessary, that is the ideal forms: the path of the `LineSymbol`, the `DashInfo`, the
-  `DoubleLineInfo` and the metric. The parts, the fitted patterns, the merged end dashes and the exceptions of fix 020
-  are derivations, which `Map` can keep for the channels where the implementation finds it sensible (@Pauli, Nov 20).
+  `DoubleLineInfo` and the metric. The parts, the fitted dash patterns, the merged end dashes and the exceptions of
+  fix 020 are derivations, which `Map` can keep for the channels where the implementation finds it sensible (@Pauli,
+  Nov 20).
 - **looginen polku** · *logical path* — The path of a line in its ideal form. The parts of the line are its pieces and
   offsets (Nov 20). **Upstream:** a line object has one path (`LineLikeSymbol.Path`), and its definition draws all the
   parts of the line from it (011). **Open:** is the logical path `LineLikeSymbol.Path`?
@@ -181,7 +182,8 @@ one meaning" lists the words that name two or more concepts now.
   lines hatch lines. **Open:** is a hatching a prototype of its own, or a pattern of line elements (009, question 3)?
 - **`PatternInfo`** · aluekuvio · *area pattern* — It has a pattern element (`patternGlyph`), the size of the pattern
   element (`patternWidth`, `patternHeight`), an offset of the alternate rows by 1/2 (`offsetRows`), an angle, an
-  offset, a rotate mode, a fill mode and the irregularity (009). Upstream calls it a pattern.
+  offset, a rotate mode, a fill mode and the irregularity (009). Upstream calls it a pattern. The term is *aluekuvio* ·
+  *area pattern* (@Pauli, Nov 20).
 - **hila, hilavektori** · *lattice, lattice vector* — The arrangement in which a pattern repeats its elements
   (spec 03). **Upstream:** no name. The size of the pattern element and the offset of the rows give the lattice.
 - **`PatternInfo.patternGlyph`** · elementti · *element* — The geometry that the lattice repeats. The center of an
@@ -293,8 +295,9 @@ one meaning" lists the words that name two or more concepts now.
   that approximates the curves of a path. Upstream calls its points the flat points and keeps them in the `SymPath`
   (`flatpoints`). The ideal form keeps the curves. A derivation can keep a polyline, and an encoding can make one
   (Nov 20).
-- **sovitettu kuvio** · *fitted pattern* (`ComputeDashDistances`) — The dash and the gap that the fitting gives to a
-  part (011). Part of the structure of a line (Nov 20).
+- **sovitettu katkokuvio** · *fitted dash pattern* (`ComputeDashDistances`) — The dash and the gap that the fitting
+  gives to a part (011). Part of the structure of a line (Nov 20). The term is *sovitettu katkokuvio* · *fitted dash
+  pattern* (@Pauli, Nov 20).
 - **päätykatko, yhdistetty katko** · *end dash, merged dash* — The end dashes of adjacent parts merge into one dash at
   a corner point or a dash point (011). Upstream has the lengths of the first and the last dash (`DashInfo`).
 - **korjauksen 020 poikkeus** · *exception of fix 020* — A dash from which the rule of fix 020 leaves out the vertex
@@ -372,8 +375,8 @@ one meaning" lists the words that name two or more concepts now.
   the coverage is the same to the pixel (005).
 - **askel, määrä** · *step, count* (work: `RepeatedShapes.Step`, `RepeatedShapes.Count`) — The distance between the
   positions of a repeated placement, and the number of its positions (Nov 19, Nov 20).
-- **kuvioruutu** · *tile* — One cell of a pattern, which is composed from single elements (Nov 20). It depends on the
-  definition alone.
+- **kuvioruutu** · *pattern tile* — One cell of an area pattern, which is composed from single elements (Nov 20). It
+  depends on the definition alone. The term is *kuvioruutu* · *pattern tile* (@Pauli, Nov 20).
 - **valitut elementit, epäsäännöllisen kuvion sijoitukset** · *selected elements, placements of an irregular pattern* —
   The elements that a fill mode selects, and the placements of the elements of an irregular pattern, are derivations of
   a symbol separation (spec 03, Nov 20).
@@ -451,8 +454,8 @@ encodings make themselves (spec 02, Nov 20).
     access to it in forms that are more usable for the needs of the channels (@Pauli, Nov 20).
   - "the model keeps the structure of a line" (The structure of a line): `Map` keeps the information that is
     necessary, that is the ideal forms: the path of the `LineSymbol`, the `DashInfo`, the `DoubleLineInfo` and the
-    metric. The parts, the fitted patterns, the merged end dashes and the exceptions of fix 020 are derivations, which
-    `Map` can keep for the channels where the implementation finds it sensible (@Pauli, Nov 20).
+    metric. The parts, the fitted dash patterns, the merged end dashes and the exceptions of fix 020 are derivations,
+    which `Map` can keep for the channels where the implementation finds it sensible (@Pauli, Nov 20).
   - "the measure of the model" (The composed dashed lines, 011): the metric that the source means to be used, which
     `Map` keeps in the ideal form (`Map.UseEuclideanMetric`). `Map` offers the means to convert the metric to suit a
     channel, for example into runs in the euclidean measure, and to keep the derivations (@Pauli, Nov 20).
@@ -480,6 +483,9 @@ encodings make themselves (spec 02, Nov 20).
     `Map_GDIPlus`, `Map_WPF` and `Map-iOS`.
 - **karttakoordinaatit, maailmankoordinaatit** · *map coordinates, world coordinates* — Ambiguous names that the
   comments of upstream give to the paper coordinates. They are not used (@Pauli, Nov 20).
+- **kuvio** · *pattern* — Not a term without a qualifier. The terms are *aluekuvio* · *area pattern* (`PatternInfo`),
+  *katkokuvio* · *dash pattern* (`Stroke.DashPattern`), *sovitettu katkokuvio* · *fitted dash pattern*, *kuviotäyttö*
+  · *pattern fill* and *kuvioruutu* · *pattern tile* (@Pauli, Nov 20).
 - **toisto, toistuva** · *repetition, repetitive* — Not a term without a qualifier. The terms are *toistosijoitus* ·
   *repeated placement* and *jaksollinen geometria* · *periodic geometry* (@Pauli, Nov 20).
 - **litistys, litistäminen** · *flattening* — Not a term without a qualifier. The terms are *läpinäkyvyyden litistys* ·
@@ -499,7 +505,6 @@ encodings make themselves (spec 02, Nov 20).
   are *sijoituksen sisäkkäiset affiiniset muunnokset* (@Pauli, Nov 20).
 - *viiva*: a line (`LineSymDef` or `LineSymbol`), and a stroke (`Stroke`). Decided: *viiva* is a line, and a stroke
   is *kynä* (@Pauli, Nov 20).
-- *kuvio* · *pattern*: an area pattern (`PatternInfo`), a dash pattern (`Stroke.DashPattern`) and a fitted pattern.
 - *täyttö* · *fill*: a filled shape (`FilledShape`), the fill of an area, the fill of a double line, and a pattern
   fill.
 - *reuna* · *border*: the border of a double line, and the border of an area.
