@@ -509,10 +509,7 @@ encodings make themselves (spec 02, Nov 20).
     `Map_GDIPlus`, `Map_WPF` and `Map-iOS`.
 - **karttakoordinaatit, maailmankoordinaatit** · *map coordinates, world coordinates* — Ambiguous names that the
   comments of upstream give to the paper coordinates. They are not used (@Pauli, Nov 20).
-- **kerros** · *layer* — Only the intermediate layer (*välikerros*), a layer of the architecture. A layer in the sense
-  of image editing is *taso* · *layer*: *väritaso* · *color layer*, *kuvataso* · *image layer*, *tavallinen taso* ·
-  *normal layer*, *asettelutaso* · *layout layer* and *kanavan taso* · *channel layer*, for example a layer of Skia
-  into which a group is composited (@Pauli, Nov 20).
+- **kerros** · *layer* — Not a term (@Pauli, Nov 20).
 - **ajo** · *run* — Not a term in the sense of a sequence, where it translates *run* word for word. The terms are
   *katkojuoste* · *run of dashes* and *tekstijuoste* · *text run* (`TextShape`) (@Pauli, Nov 20). A run of the tests
   (*täysi ajo*) is a word of the process.
