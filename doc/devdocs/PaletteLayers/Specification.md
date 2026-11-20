@@ -5,6 +5,7 @@
 > By default, the branch feature/multiply-blending is the oracle of this work (@Pauli, Nov 17).
 > That branch is an oracle of the appearance only, not a model of the implementation. The goal of this work is the architecture that this specification separates: pass 1 makes the instances, and pass 2 composites them. feature/multiply-blending gets its appearance in another way: it blends an ink as a layer around the drawing of the symbols. Where this specification leaves room to do the same, the room is not meant. The work does not read the code of that branch (@Pauli, Nov 18).
 > OCAD and OpenOrienteering Mapper are the authorities on how their own maps render. For Mapper maps, Mapper is an oracle of the appearance: this architecture may organize the vector structure in its own way, but where Mapper implements the function, the result must look as Mapper draws it, except where we find a bug in Mapper (@Pauli, Nov 17).
+> **The model keeps the information, and an encoding recognizes nothing** (@Pauli, Nov 20). When an encoding of the instances needs information, the model keeps it, and the encoding reads it from the model. No heuristic that recognizes a structure goes into an encoding. This applies to each encoding of the instances: for the rendering channels Skia, PDF and SVG, and the SVG encoding of section 04.
 
 Design specification / Cartographic rendering
 

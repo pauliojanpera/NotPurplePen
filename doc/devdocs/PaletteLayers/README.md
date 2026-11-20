@@ -16,6 +16,11 @@ branches, its pull request descriptions and its tracking. The practice is @Pauli
 
 ## The architecture comes first
 
+**The model keeps the information, and an encoding recognizes nothing** (@Pauli, Nov 20). When an encoding needs
+information, the model keeps it, and the encoding reads it from the model. No heuristic that recognizes a structure
+goes into an encoding. For example, the repetition of the glyphs along a line is in the instances, so that no encoding
+finds a series in single placements, and no encoding compares two clipping objects to find that they make a pair.
+
 The goal of the work is the structure that the specification separates: pass 1 makes the instances, and pass 2
 composites them. feature/multiply-blending is an oracle of the appearance only. The work does not read its code, and
 does not take its way, a layer around the drawing of the symbols, as the model of pass 2. The union of a palette
