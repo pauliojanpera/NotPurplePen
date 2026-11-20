@@ -74,6 +74,9 @@ oracle of the tests. The drawing does not change.
 * A border of a double line is a polyline that offsets the flattened path, and each of its runs is within one segment.
   By the decision of Nov 20, a border is an offset path, the path of the middle and the offset, whose dash pattern is
   measured along the middle, so its runs are the runs of the middle moved aside. This change is not made yet.
+* Pass 1 splits a dashed line into runs and single dashes. By the decision of Nov 20, the map model keeps the
+  structure of a line in its ideal form, also what PDF and SVG cannot describe, and an encoding converts it for its
+  channel. This change is not made yet.
 * Two consecutive quarters of a curve make one run only when the lengths of their dashes are the same floats, as
   `FindRunOfDashes` compares the lengths exactly. No test checks this.
 * The areas, the combinations, the graphics objects, the texts and the rectangles have no geometry methods yet

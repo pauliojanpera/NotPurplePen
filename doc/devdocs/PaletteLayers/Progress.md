@@ -242,7 +242,7 @@ the rendering.
   [Specification.md](Specification.md) gives for the pattern fills: the basic model is a standard dashed line, and the
   exotic cases, such as the distance metric of OCAD, are split into parts, for a dashed line into single dashes. In
   section 03, a clipped pattern fill stays repetitive geometry, and the fill modes that select complete elements and
-  the nonperiodic fills become single clipping objects.
+  the nonperiodic fills become single clipping objects. The decision on the structure of a line (Nov 20) replaces this.
 - **The composed dashed lines** (Nov 19). A dashed line is a composed dashed line: each part between corner and dash
   points is one periodic dashed line, and the merged dashes at those points and the end dashes of the line are lines
   of their own. The geometry method makes single dashes only where an object cannot be a composed dashed line. This
@@ -343,6 +343,18 @@ the rendering.
   offsets the flattened path.
 - **The model keeps the information of the encodings** (Nov 20). When an encoding needs information, the model keeps
   it, and the encoding reads the structure from the model (ticket 011).
+- **The structure of a line** (Nov 20). The model keeps the structure of a line in its ideal form, also what PDF and
+  SVG cannot describe: the logical path, the parts as its pieces and offsets, the measure of the line, the fitted
+  pattern of a part, the end dashes and the exceptions of fix 020. An encoding converts the structure for its channel:
+  in a basic case directly into a structure of the channel, and otherwise by splitting it. This replaces the decision
+  of Nov 18 that the exotic cases are split into single dashes in the instances (ticket 011).
+- **Self-supporting vector files** (Nov 20). The goal is that an SVG or a PDF file carries the model. The drawn
+  objects are closely linked to the parts of the model, so that the parts of the model are reachable through the
+  drawn objects. What the structure of the model lets an object refer to is not duplicated in the drawn objects: they
+  use it through references. Then a file can one day be opened in Purple Pen again, and Purple Pen reads the model
+  from the file and does not recognize it from the geometry of the drawing. The opening is not in the scope of the
+  epic. The epic includes a model that makes it possible: the model keeps its structure in its ideal form, and its
+  parts and its shared structures are objects to which an encoding can refer ([000](tickets/000-palette-layers.md)).
 - **The framing line of texts** (Nov 19). The framing of a text run is one line in the instances, a stroke of the full
   width with the joins of the symbol, as in OCAD's PDF export. OCAD's own drawing leaves the same holes as Skia and
   Cairo with one pen, so the holes that the intermediate pens of Purple Pen fill are no faults against OCAD (question
