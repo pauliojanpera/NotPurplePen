@@ -247,8 +247,8 @@ one meaning" lists the words that name two or more concepts now.
   palette separation. The specification calls it a layer instance (spec 02, Nov 20). The name is @Pauli's (Nov 20).
 - **kokoonpano, samanlainen kokoonpano** · *configuration, equivalent configuration* — The palette entry, G and the
   effective affine transformation M of a symbol separation. M comes from the `Symbol` and from G. The symbol
-  separations with the same configuration are one palette cutter (spec 02, 03; Nov 20). **Open:** when are two configurations the same
-  (009, question 1)?
+  separations with the same configuration are one palette cutter (spec 02, 03; Nov 20). **Open:** when are two
+  configurations the same (009, question 1)?
 - **kerrosilmentymä** · *layer instance* (work: `LayerInstance`) — The name of the specification for the palette
   cutter (spec 02). The class `LayerInstance` of the work has a palette entry (`PaletteEntry`), a geometry prototype
   (`Prototype`), an affine transformation (`Transformation`) and kept clipping objects (`ClippingObjects`). For G = 1,
@@ -266,8 +266,8 @@ one meaning" lists the words that name two or more concepts now.
   offers the means to make derivations and to keep them, where the shared use of the channels or a cache of the
   results makes it sensible (@Pauli, Nov 20). The means are the known channel conversions of `Map`, and an encoding
   chooses the channel conversions that its channel can use (@Pauli, Nov 20). The Finnish term is @Pauli's (Nov 20),
-  and the English term is a proposed name. A symbol separation keeps its own derivations. A derivation that depends on a definition alone
-  belongs to the definition, for example the shared shapes of a glyph. A palette separation keeps its palette cutters.
+  and the English term is a proposed name. A symbol separation keeps its own derivations. A derivation that depends on
+  a definition alone belongs to the definition, for example the shared shapes of a glyph. A palette separation keeps its palette cutters.
   A derivation is calculated when it is necessary the first time, and it becomes invalid when the map changes (spec 02,
   Nov 20). Upstream keeps
   derivations in the same way, for example `SymPath.flatpoints`, `TextSymbol.wrappedText` and `Symbol.boundingBox`.
