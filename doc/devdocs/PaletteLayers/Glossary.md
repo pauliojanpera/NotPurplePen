@@ -66,15 +66,16 @@ one meaning" lists the words that name two or more concepts now.
 
 ### Palette and color
 
-- **`SymColor`** · palettimerkintä · *palette entry* — The palette entries are the colors of the normal layer
-  (`SymLayer.Normal`). A `SymColor` also marks the image layer and the layout layer, and these are not palette entries
-  (005). A palette entry has a color or ink components, an opacity, a blend mode, a knockout and a priority (spec 02,
-  06; 001, 004). The comments of upstream also call the colors layers ("colors (layers)", `RenderOptions`).
-- **palettitaso** · *palette layer* — The layer of a palette entry, in the sense of the layers of image editing: the
+- **`SymColor`** · palettiväri · *palette color* — A color of the normal layer (`SymLayer.Normal`). A palette color
+  has a color or ink components, an opacity, a blend mode, a knockout and a priority (spec 02, 06; 001, 004). The
+  term is *palettiväri* · *palette color* (@Pauli, Nov 20). Upstream calls it a color, the specification a palette
+  entry, and the tickets *palettimerkintä*. The comments of upstream also call the colors layers ("colors (layers)",
+  `RenderOptions`).
+- **palettitaso** · *palette layer* — The layer of a palette color, in the sense of the layers of image editing: the
   uniform color of the entry over the drawing, with its opacity and blend mode. The term is *palettitaso* (@Pauli,
   Nov 20). It is not *väritaso*, as *värierottelu* is the separation of an ink. The tickets call it *palettikerros*. In
-  spec 01, a palette layer has C, α, B, G and M. Spec 02 divides these between the palette entry and its layer
-  instances, the palette cutters. **Open:** how does a palette layer differ from a palette entry and from its group?
+  spec 01, a palette layer has C, α, B, G and M. Spec 02 divides these between the palette color and its layer
+  instances, the palette cutters. **Open:** how does a palette layer differ from a palette color and from its group?
 - **palettipino, palettijärjestys, prioriteetti** · *palette stack, palette order, priority* — The ordered stack of
   the palette layers, and the order in which pass 2 composites the groups (spec 01, 02, 05). The colors of a map are
   `Map.AllColors`, and upstream draws them from the lowest to the highest (005). One palette stack is for all the maps,
@@ -86,16 +87,16 @@ one meaning" lists the words that name two or more concepts now.
   (spec 01; 004). For an OCAD map, B = Darken is the larger share of each ink, and not the RGB minimum
   ([oracles/ocad-darken.md](oracles/ocad-darken.md)).
 - **`Ink`** (work) · muste, prosessimuste, spottimuste · *ink, process ink, spot ink* — A colorant identity, apart
-  from the palette entry. It has a name (`Name`), a CMYK appearance (`Appearance`), and a screen frequency and angle
+  from the palette color. It has a name (`Name`), a CMYK appearance (`Appearance`), and a screen frequency and angle
   where they are defined (`Screen`, `InkScreen`) (spec 06; 001). The process inks C, M, Y and K always exist
-  (`Ink.ProcessInks`). A spot ink can be a palette entry by itself, at full tint (`SymColor.SpotInk`) (001).
-- **`InkComponent`** (work) · mustekomponentti, kerroin · *ink component, factor* — A palette entry holds ink
+  (`Ink.ProcessInks`). A spot ink can be a palette color by itself, at full tint (`SymColor.SpotInk`) (001).
+- **`InkComponent`** (work) · mustekomponentti, kerroin · *ink component, factor* — A palette color holds ink
   components (`SymColor.InkComponents`). Each has an ink and a factor from 0 to 1. A missing component and the factor 0
   are different (001). The specification says *ink contribution*.
 - **värierottelu** · *ink separation* — The coverage of one ink. A missing share leaves the separation as it is, 0 %
   erases it, and a positive share sets the coverage (spec 06). The term is *värierottelu*, the established term of
   printing (@Pauli, Nov 20). The epic says *separaatiot* for the separations of the rendering modes. Spec 02 and spec 08
-  also say *color separation* and *palette separation* for the coverage of one palette entry (see
+  also say *color separation* and *palette separation* for the coverage of one palette color (see
   `PaletteSeparation`).
 - **`SymColor.OverPrint`** · päällepainatus · *overprint* — The overprint flag of an OCAD process color keeps the inks
   below (spec 06). The option `RenderOptions.blendOverprintedColors` draws the colors that have it with Darken. The
@@ -231,14 +232,16 @@ one meaning" lists the words that name two or more concepts now.
 
 ### Beside the palette stack
 
-- **`TemplateInfo`** · pohjakartta · *template* (`LoadedTemplate`) — It is not a palette entry (005). `Map.Draw` draws
-  the templates under and over the palette entries now. An OCAD template is a `Map` of its own (000).
+- **`TemplateInfo`** · pohjakartta · *template* (`LoadedTemplate`) — It is not a palette color (005). `Map.Draw` draws
+  the templates under and over the palette colors now. An OCAD template is a `Map` of its own (000).
 - **`SymLayer.Image`** · kuvataso · *image layer* — The layer below all the normal layers. The layers of `SymLayer`
   are layers in the sense of image editing, and their names are *kuvataso*, *tavallinen taso* and *asettelutaso*
   (@Pauli, Nov 20). Its objects are image
-  objects, with a special symbol definition (`ImageSymDef`). It is not a palette entry (005).
+  objects, with a special symbol definition (`ImageSymDef`). It is not a palette color (005). Upstream draws the
+  image layer and the layout layer with the same loop as the colors (`DrawColor`), through two pseudo-colors without
+  a color value (`Map.ImageColor`, `Map.LayoutColor`). They are not palette colors.
 - **`SymLayer.Layout`** · asettelutaso · *layout layer* — The layer above all the normal layers. Its objects are
-  layout objects, with a special symbol definition (`ImageSymDef`). It is not a palette entry (005).
+  layout objects, with a special symbol definition (`ImageSymDef`). It is not a palette color (005).
 - **`SymLayer.Normal`** · tavallinen taso · *normal layer* — The layer between the image layer and the layout layer.
   It holds the palette layers in palette order, as a group of layers holds layers in image editing (Nov 20).
 - **ratakartta** · *course map* (`CourseLayout.RenderToMap`) — The map of the courses is a `Map` of its own, so the
@@ -256,23 +259,23 @@ one meaning" lists the words that name two or more concepts now.
   (spec 02; Nov 18, Nov 20). The symbol separations get their derivations from the geometry methods of the symbol
   definitions (008; 011 to 013 in progress). *Vaihe* means a pass (@Pauli, Nov 20).
 - **`SymbolSeparation`** (proposed name) · symbolierottelu · *symbol separation* — The part of one `Symbol` that
-  belongs to one palette entry and one geometry prototype G: the triple (`Symbol`, `SymColor`, G). It refers to these
+  belongs to one palette color and one geometry prototype G: the triple (`Symbol`, `SymColor`, G). It refers to these
   objects and copies nothing. It keeps its own derivations (spec 02, Nov 20).
-- **`PaletteSeparation`** · palettierottelu · *palette separation* — The symbol separations of one palette entry. It
+- **`PaletteSeparation`** · palettierottelu · *palette separation* — The symbol separations of one palette color. It
   keeps its palette cutters as a derivation (spec 02, Nov 20). The name is @Pauli's, and the Finnish term is
   *palettierottelu* (@Pauli, Nov 20).
 - **`PaletteCutter`** · palettileikkuri · *palette cutter* — The symbol separations of one palette separation that have
-  the same configuration. It cuts the uniform color of the palette entry to the coverage that G under M gives inside
+  the same configuration. It cuts the uniform color of the palette color to the coverage that G under M gives inside
   the union of its clipping objects. Each symbol separation is in one palette cutter, and each palette cutter is in one
   palette separation. The specification calls it a layer instance (spec 02, Nov 20). The name is @Pauli's (Nov 20).
-- **kokoonpano, samanlainen kokoonpano** · *configuration, equivalent configuration* — The palette entry, G and the
+- **kokoonpano, samanlainen kokoonpano** · *configuration, equivalent configuration* — The palette color, G and the
   effective affine transformation M of a symbol separation. M comes from the `Symbol` and from G. The symbol
   separations with the same configuration are one palette cutter (spec 02, 03; Nov 20). **Open:** when are two
   configurations the same (009, question 1)?
 - **kerrosilmentymä** · *layer instance* (work: `LayerInstance`) — The name of the specification for the palette
-  cutter (spec 02). The class `LayerInstance` of the work has a palette entry (`PaletteEntry`), a geometry prototype
+  cutter (spec 02). The class `LayerInstance` of the work has a palette color (`PaletteEntry`), a geometry prototype
   (`Prototype`), an affine transformation (`Transformation`) and kept clipping objects (`ClippingObjects`). For G = 1,
-  there is one for each palette entry (005).
+  there is one for each palette color (005).
 - **`LayerInstance.Transformation`** (work) · affiininen muunnos M · *affine transformation M* — An invertible 2D
   affine transformation of G (spec 01).
 - **peitto, unioni** · *coverage, union* — The binary coverage that the geometry and the clipping objects define
@@ -365,7 +368,7 @@ one meaning" lists the words that name two or more concepts now.
 - **`Stroke`** (work) · kynä · *stroke* — The width (`Width`), the caps (`Caps`), the join (`Join`) and the miter
   limit (`MiterLimit`) of a stroked shape (005), and the dash pattern and its phase (`DashPattern`, `DashPhase`)
   (Nov 19). The Finnish term is *kynä*, as upstream calls the same values a pen (`IGraphicsTarget.CreatePen`) (@Pauli,
-  Nov 20). A pen of upstream also has a color or a brush. A `Stroke` has no color, as the palette entry gives it, and
+  Nov 20). A pen of upstream also has a color or a brush. A `Stroke` has no color, as the palette color gives it, and
   it has the dash pattern and its phase. The band that a pen covers along a path is *kynänjälki* (proposed name). The
   symbol
   definitions give the caps and the joins together as a line style (`LineStyle`: `Rounded`, `Mitered`, `Beveled`,
@@ -420,7 +423,7 @@ encodings make themselves (spec 02, Nov 20).
   each palette separation, an encoding writes one group, to which C, α and B apply once. In the group, the encoding
   writes each palette cutter with one fill and one clip, or each symbol separation separately. Pass 2 does not call
   the drawing code of the symbols (`Draw`) (spec 02, 05; Nov 20). The specification calls the operation compositing.
-- **ryhmä** · *group* — The group of a palette entry is its palette separation. Pass 2 composites each group once
+- **ryhmä** · *group* — The group of a palette color is its palette separation. Pass 2 composites each group once
   (spec 05; Nov 18, Nov 20).
 - **piirtotila, väriasetus** · *rendering mode, color configuration* — A rendering mode is a color configuration of
   pass 2: the normal view, the overprinting that the inks simulate, or the separations (000; spec 06, 07). All the
