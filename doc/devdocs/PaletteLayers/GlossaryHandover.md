@@ -56,7 +56,7 @@ meaning of the palette layer before @Pauli decided it (commit 740d9b778). @Pauli
 
 ### Decided
 
-Glossary.md has all the decisions of Nov 20, each with @Pauli's name and date:
+Glossary.md has all the decisions of Nov 20 and Nov 21, each with @Pauli's name and date:
 - The rules of the names, in the preface.
 - The words that are not names: *malli*, *karttamalli*, *karttakoordinaatit* and *maailmankoordinaatit*, *muunnos*,
   *litistys* and *litistäminen*, *toisto* and *toistuva*, *kuvio*, *täyttö*, *reuna*, *osa*, *ajo*, *kerros*, *ryhmä*,
@@ -66,15 +66,14 @@ Glossary.md has all the decisions of Nov 20, each with @Pauli's name and date:
   *jana*, the layers of `SymLayer`, *värierottelu* and *palettierottelu*, *palettitaso*, and *palettiväri*.
 - The names of the structure of the passes: `PaletteSeparation` · palettierottelu and `PaletteCutter` ·
   palettileikkuri, and the Finnish term *johdos*.
+- The terms of `IGraphicsTarget`: *piirtokohde* · *graphics target* (Nov 21).
 
 ### Open
 
 Present these to @Pauli, one question at a time:
 1. **The five terms of commit 06f4c824d.** The session chose *graphics target*, *peittävyys*, *täysi peitto*,
-   *paikka* and *perustapaus* by their use, without a question. The glossary marks them "chosen by use". The facts
-   for the questions:
-   - *graphics target* and *drawing target*: the comments of upstream say *graphics target* 33 times and *drawing
-     target* 12 times, and the classes are `*_GraphicsTarget`. The documents of the fork say *drawing target*.
+   *paikka* and *perustapaus* by their use, without a question. The glossary marks them "chosen by use". @Pauli
+   decided *graphics target* on Nov 21. The facts for the other questions:
    - *peittävyys* and *opasiteetti* (α): the documents of the work say *peittävyys* 17 times, among them the title of
      ticket 004, and *opasiteetti* 2 times. *Peitto* is the coverage, which has the same stem.
    - *täysi peitto* and *yhtenäinen geometria* (G = 1): the code of the work says `GeometryPrototype.FullCoverage`, and

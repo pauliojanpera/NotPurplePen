@@ -442,10 +442,13 @@ encodings make themselves (spec 02, Nov 20).
   and the markers of SVG (011, Nov 19).
 - **perustapaus** · *basic case* — A case that a channel solves with an abstraction of its own (Nov 19). In a basic
   case, the encoding converts the structure directly into a structure of the channel (Nov 20).
-- **`IGraphicsTarget`** · piirtokohde · *graphics target, drawing target* — The interface on which the symbols draw
-  now. Its implementations are classes such as `Skia_GraphicsTarget` and `Pdf_GraphicsTarget`. The comments of
-  upstream say *graphics target*, and less often *drawing target*. The documents of the fork say *drawing target*. The
-  English term is *graphics target*, as upstream says (the rules of the names; chosen by use, Nov 20). The
+- **`IGraphicsTarget`** · piirtokohde · *graphics target* — The interface on which the symbols draw now. Its
+  implementations are classes such as `Skia_GraphicsTarget` and `Pdf_GraphicsTarget`. The terms are *piirtokohde* ·
+  *graphics target* (@Pauli, Nov 21). The code of upstream says *graphics target* 44 times, in 16 files. It says
+  *drawing target* only in "the graphics drawing target", in two comments of `IGraphicsTarget` that its five
+  implementations repeat. Upstream chose *graphics target* as the name first, and then added *drawing* in the comments
+  to make it clear (@Pauli, Nov 21). The documents of the palette-layer work and the introduction say *drawing
+  target*, the documents of the SVG work say *graphics target*, and the Finnish tickets say *piirtokohde*. The
   application that ships uses the graphics targets of `Map_SkiaStd` and `Map_PDF` (Nov 18). **Open:** its place when
   pass 2 and the encodings draw from the intermediate layer.
 - **piirrosobjekti** · *drawn object* — An object that an encoding writes. Each drawn object refers to its symbol
@@ -560,8 +563,8 @@ encodings make themselves (spec 02, Nov 20).
   the flattened path, and the English term of *jana* is *edge* (@Pauli, Nov 20).
 - *step*: the step of a repeated placement (*askel*), and the steps of a placement (*sisäkkäiset affiiniset
   muunnokset*). The Finnish terms separate them (@Pauli, Nov 20).
-- Two English words for one concept: *graphics target* (upstream) and *drawing target* (the documents of the fork).
-  Chosen by use: *graphics target*.
+- Two English words for one concept: *graphics target* (upstream) and *drawing target* (the documents of the
+  palette-layer work). Decided: *graphics target* (@Pauli, Nov 21).
 - Two Finnish words for one concept: *peittävyys* and *opasiteetti* (α, 000 and 001), *täysi peitto* and *yhtenäinen
   geometria* (G = 1, 005), *paikka* and *kohta* (a position, 011), *perustapaus* and *perustilanne* (a basic case,
   011). Chosen by use (Nov 20): *peittävyys* (the title of 004, 17 uses against 2), *täysi peitto* (*full coverage*
