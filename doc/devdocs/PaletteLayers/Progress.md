@@ -372,10 +372,10 @@ the rendering.
   ([000](tickets/000-palette-layers.md), ticket 011). Conversions of the pattern fills are, for example, the placements
   of the elements of an irregular pattern, whose randomness the model keeps as a definition, and a tile of a pattern,
   which the conversion composes from single elements. The structure of the passes and the readings of Nov 20 change
-  this: `Map` offers the known conversions as means to make derivations from its ideal forms, and keeps their results
-  where the shared use of the channels or a cache makes it sensible. An encoding chooses a conversion that its channel
-  can use, and makes with conversions of its own only what no conversion of `Map` covers ([Glossary.md](Glossary.md),
-  *malli*).
+  this: `Map` offers the known channel conversions as means to make derivations from its ideal forms, and keeps their
+  results where the shared use of the channels or a cache makes it sensible. An encoding chooses a channel conversion
+  that its channel can use, and makes with channel conversions of its own only what no channel conversion of `Map`
+  covers ([Glossary.md](Glossary.md), *malli*).
 - **The structure of the passes** (Nov 20). `Map` is the source. Pass 1 makes from the map alone the palette
   separations (`PaletteSeparation`) of the symbol separations (`SymbolSeparation`), and their palette cutters
   (`PaletteCutter`). A symbol separation is the triple (`Symbol`, `SymColor`, G). The symbol separations of a palette

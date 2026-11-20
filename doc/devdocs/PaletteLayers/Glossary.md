@@ -43,12 +43,15 @@ one meaning" lists the words that name two or more concepts now.
   (005).
 - **`SymDef`** · symbolimäärittely · *symbol definition* — The definition of a symbol, for example `PointSymDef`,
   `LineSymDef`, `AreaSymDef` or `TextSymDef`. The comments of upstream call it a *symdef*. The specification calls it
-  a symbol (spec 02).
+  a symbol (spec 02), as the user interfaces of OCAD and Mapper do. The terms follow upstream: *symbolimäärittely* ·
+  *symbol definition* is `SymDef` (@Pauli, Nov 20).
 - **`Symbol`** · symboli · *symbol* — One object of a map, for example `PointSymbol`, `LineSymbol`, `AreaSymbol` or
   `TextSymbol`. Its geometry is in paper coordinates. A `PointSymbol` and a `RectLikeSymbol` have a location, a
   `LineLikeSymbol` has a path (`SymPath`), and an `AreaLikeSymbol` has a path with holes (`SymPathWithHoles`). The
   comments of upstream also call it an object, for example a line object or an area object. The Finnish tickets call
-  it a symbol (005). The specification calls it a map object (spec 02). A `Symbol` has no identifier, but a
+  it a symbol (005). The specification calls it a map object (spec 02). The terms follow upstream: *symboli* ·
+  *symbol* is `Symbol` (@Pauli, Nov 20). @Pauli is used to the meaning of OCAD and Mapper, in which a symbol is a
+  definition, so his *symboli* can mean a `SymDef` (Nov 20). A `Symbol` has no identifier, but a
   `SymColor` has `Name` and `OcadId`, and a `SymDef` has `Name` and `SymbolId`. **Open:** the identifier of a `Symbol`
   to which a drawn object of a file can refer (Nov 20, the parts of `Map` to which an encoding can refer).
 - **paperikoordinaatit** · *paper coordinates* — The coordinates of a map, in millimeters on the printed map. The
@@ -123,7 +126,8 @@ one meaning" lists the words that name two or more concepts now.
 - **`LineSymDef`, `LineComboSymDef`** · viivan symbolimäärittely · *line symbol definition* — A `LineSymDef` has the
   dashes (`DashInfo`), the double line (`DoubleLineInfo`), the shortening and the pointy ends (`ShortenInfo`) and the
   glyphs (`GlyphInfo`). A `LineComboSymDef` gathers the parts of other line symbol definitions (011). The comments of
-  upstream call a `LineSymDef` a *linesymdef*. Ticket 011 calls these line symbols.
+  upstream call a `LineSymDef` a *linesymdef*. Ticket 011 calls these line symbols, but *viivasymboli* is
+  `LineSymbol` (@Pauli, Nov 20).
 - **`LineSymbol`** · viivasymboli · *line symbol, line object* — One line object of a map. Its path is
   `LineLikeSymbol.Path`, a `SymPath`.
 - **viivan mitta** · *measure of the line* — The metric that the source means to be used, which `Map` keeps in the ideal
@@ -182,8 +186,8 @@ one meaning" lists the words that name two or more concepts now.
 - **`PatternInfo.patternGlyph`** · elementti · *element* — The geometry that the lattice repeats. The center of an
   element is its origin, the point that the lattice places at a lattice vector (spec 03). Upstream calls it the pattern
   element, and the structure element in the comments of the fill modes.
-- **hilan muunnos L, elementin muunnos E** · *lattice transformation L, element transformation E* — The point e of the
-  element at the lattice vector v is at L(v) + E(e) (spec 03).
+- **hilan affiininen muunnos L, elementin affiininen muunnos E** · *affine lattice transformation L, affine element
+  transformation E* — The point e of the element at the lattice vector v is at L(v) + E(e) (spec 03).
 - **`PatternInfo.patternAngle`, `HatchInfo.hatchAngle`, `AreaSymbol.Angle`** · rakennekulma, alueobjektin kulma ·
   *structure angle, angle of the area object* — In OCAD, the structure angle of the symbol turns the lattice alone, and
   the angle of an area object turns the lattice and its elements together (spec 03). The structure angle is
@@ -231,7 +235,7 @@ one meaning" lists the words that name two or more concepts now.
 - **vaihe 1, ilmentäminen** · *pass 1, layer instantiation* (work: `Map.CreateLayerInstances`) — `Map` makes the
   palette separations and their palette cutters from the map alone, and no rectangle or resolution of a drawing
   (spec 02; Nov 18, Nov 20). The symbol separations get their derivations from the geometry methods of the symbol
-  definitions (008; 011 to 013 in progress).
+  definitions (008; 011 to 013 in progress). *Vaihe* means a pass (@Pauli, Nov 20).
 - **`SymbolSeparation`** (proposed name) · symbolin separaatio · *symbol separation* — The part of one `Symbol` that
   belongs to one palette entry and one geometry prototype G: the triple (`Symbol`, `SymColor`, G). It refers to these
   objects and copies nothing. It keeps its own derivations (spec 02, Nov 20).
@@ -242,15 +246,15 @@ one meaning" lists the words that name two or more concepts now.
   the union of its clipping objects. Each symbol separation is in one palette cutter, and each palette cutter is in one
   palette separation. The specification calls it a layer instance (spec 02, Nov 20). The name is @Pauli's (Nov 20).
 - **kokoonpano, samanlainen kokoonpano** · *configuration, equivalent configuration* — The palette entry, G and the
-  effective transformation M of a symbol separation. M comes from the `Symbol` and from G. The symbol separations with
-  the same configuration are one palette cutter (spec 02, 03; Nov 20). **Open:** when are two configurations the same
+  effective affine transformation M of a symbol separation. M comes from the `Symbol` and from G. The symbol
+  separations with the same configuration are one palette cutter (spec 02, 03; Nov 20). **Open:** when are two configurations the same
   (009, question 1)?
 - **kerrosilmentymä** · *layer instance* (work: `LayerInstance`) — The name of the specification for the palette
   cutter (spec 02). The class `LayerInstance` of the work has a palette entry (`PaletteEntry`), a geometry prototype
-  (`Prototype`), a transformation (`Transformation`) and kept clipping objects (`ClippingObjects`). For G = 1, there
-  is one for each palette entry (005).
-- **`LayerInstance.Transformation`** (work) · muunnos M · *transformation M* — An invertible 2D affine transformation
-  of G (spec 01).
+  (`Prototype`), an affine transformation (`Transformation`) and kept clipping objects (`ClippingObjects`). For G = 1,
+  there is one for each palette entry (005).
+- **`LayerInstance.Transformation`** (work) · affiininen muunnos M · *affine transformation M* — An invertible 2D
+  affine transformation of G (spec 01).
 - **peitto, unioni** · *coverage, union* — The binary coverage that the geometry and the clipping objects define
   (spec 01, 05). The coverage of a palette cutter is the union of the coverages of its symbol separations, limited by G
   under M. The coverage of a palette separation is the union of the coverages of its palette cutters. The union can stay
@@ -260,9 +264,9 @@ one meaning" lists the words that name two or more concepts now.
 
 - **johdos** · *derivation* — A result that `Map` gives from the ideal form for the needs of the channels. `Map`
   offers the means to make derivations and to keep them, where the shared use of the channels or a cache of the
-  results makes it sensible (@Pauli, Nov 20). The means are the known conversions of `Map`, and an encoding chooses the
-  conversions that its channel can use (@Pauli, Nov 20). The Finnish term is @Pauli's (Nov 20), and the English term
-  is a proposed name. A symbol separation keeps its own derivations. A derivation that depends on a definition alone
+  results makes it sensible (@Pauli, Nov 20). The means are the known channel conversions of `Map`, and an encoding
+  chooses the channel conversions that its channel can use (@Pauli, Nov 20). The Finnish term is @Pauli's (Nov 20),
+  and the English term is a proposed name. A symbol separation keeps its own derivations. A derivation that depends on a definition alone
   belongs to the definition, for example the shared shapes of a glyph. A palette separation keeps its palette cutters.
   A derivation is calculated when it is necessary the first time, and it becomes invalid when the map changes (spec 02,
   Nov 20). Upstream keeps
@@ -299,10 +303,16 @@ one meaning" lists the words that name two or more concepts now.
   the decision of Nov 20 on the composed dashed lines, which says that an encoding makes the runs (011).
 - **koostettu katkoviiva** · *composed dashed line* — The form of a line for a channel whose dash pattern measures the
   euclidean length: the runs and the single dashes (Nov 20).
-- **katkotaulukko** · *dash table* — A known conversion of the dashes of a line (000, Nov 20). `Map` offers it (@Pauli,
+- **kanavamuunnos** · *channel conversion* — A conversion of the ideal form into a form that a channel can use. `Map`
+  offers the known channel conversions, and keeps their results as derivations where the shared use of the channels
+  or a cache makes it sensible. An encoding chooses the channel conversions of `Map` that its channel can use, and
+  makes the others itself, without keeping their results (@Pauli, Nov 20). **Open:** which channel conversions stay
+  in the encodings.
+- **katkotaulukko** · *dash table* — A known channel conversion of the dashes of a line (000, Nov 20). `Map` offers it
+  (@Pauli, Nov 20).
+- **laajennus** · *expansion* (work: `StrokedShape.ExpandDashes`, `RepeatedShapes.Expand`) — A known channel
+  conversion into single parts: a run into dashes, and a repetition into placements (011). `Map` offers it (@Pauli,
   Nov 20).
-- **laajennus** · *expansion* (work: `StrokedShape.ExpandDashes`, `RepeatedShapes.Expand`) — A known conversion into
-  single parts: a run into dashes, and a repetition into placements (011). `Map` offers it (@Pauli, Nov 20).
 
 ### The forms of the derivations
 
@@ -325,7 +335,8 @@ one meaning" lists the words that name two or more concepts now.
   `FlatRounded`). **Open:** the dash structure of a part in the measure of the line (point 2 of 6 in the review of
   011).
 - **`LineCapMode`, `LineJoinMode`, `Stroke.MiterLimit`** · pää, liitos, jiirausraja · *cap, join, miter limit* — 005.
-- **`Stroke.DashPattern`, `Stroke.DashPhase`** (work) · katkokuvio, vaihe · *dash pattern, phase* — The lengths of the
+- **`Stroke.DashPattern`, `Stroke.DashPhase`** (work) · katkokuvio, katkokuvion alkukohta · *dash pattern, dash
+  phase* — The Finnish term of the phase is *katkokuvion alkukohta* (@Pauli, Nov 20). The lengths of the
   dashes and the gaps in turn, and the distance that the pattern has gone at the start of the shape, as
   `stroke-dasharray` and `stroke-dashoffset` of SVG (011). They are properties of `Stroke` (Nov 19). **Open:** after
   the decisions of Nov 20, the measure in which they are kept (point 2 of 6 in the review of 011).
@@ -346,7 +357,9 @@ one meaning" lists the words that name two or more concepts now.
   (work: `RepeatedShapes`). **Upstream:** the glyphs that `GlyphLocation.Spaced` places along a line at the distances
   given.
 - **paikka** · *position* — A point and an angle (Nov 20).
-- **`Placement.Steps`** (work) · sijoituksen vaiheet, vaiheketju · *steps of a placement* — The transformations in the
+- **`Placement.Steps`** (work) · sijoituksen sisäkkäiset affiiniset muunnokset · *steps of a placement* — The Finnish
+  term is *sijoituksen sisäkkäiset affiiniset muunnokset*, and not *vaiheet* (@Pauli, Nov 20). The affine
+  transformations in the
   order in which the symbols set them (005). A placement keeps its sequence of steps, and the position is the innermost
   step (Nov 20). Skia composes nested transformations with its own rounding. With the same steps in the same order,
   the coverage is the same to the pixel (005).
@@ -360,10 +373,11 @@ one meaning" lists the words that name two or more concepts now.
 
 ## The rendering side · Renderöinnin puoli
 
-The rendering side reads the intermediate layer. It keeps none of the results of its channel conversions (spec 02,
-Nov 20).
+The rendering side reads the intermediate layer. It keeps none of the results of the channel conversions that the
+encodings make themselves (spec 02, Nov 20).
 
-- **vaihe 2, koostaminen** · *pass 2, layer composition* — It takes the palette separations in palette order. For
+- **vaihe 2, koostaminen** · *pass 2, layer composition* — *Vaihe* means a pass (@Pauli, Nov 20). It takes the
+  palette separations in palette order. For
   each palette separation, an encoding writes one group, to which C, α and B apply once. In the group, the encoding
   writes each palette cutter with one fill and one clip, or each symbol separation separately. Pass 2 does not call
   the drawing code of the symbols (`Draw`) (spec 02, 05; Nov 20). The specification calls the operation compositing.
@@ -374,17 +388,15 @@ Nov 20).
   rendering modes use the same intermediate layer (Progress.md, "Next"). **Upstream:** the render options
   (`RenderOptions`). For example, `blendOverprintedColors` blends the colors that have the overprint flag with Darken,
   and `colorBeginDrawExclusive` and `colorEndDrawInclusive` draw only some of the colors.
-- **koodaus, koodaaja** · *encoding, encoder* — It writes the drawing for one channel. It converts the derivations into
-  the forms of its channel with channel conversions. When an encoding needs information, the map side keeps it, and
+- **koodaus, koodaaja** · *encoding, encoder* — It writes the drawing for one channel. It chooses the channel
+  conversions of `Map` that its channel can use, and makes the others itself. When an encoding needs information, the
+  map side keeps it, and
   the encoding recognizes no structure (000, Nov 20). Where the implementation of a channel does not agree with the
   ideal form, the encoding adapts, for example with a polyline (Nov 20). **Open:** how do the encodings relate to
   `IGraphicsTarget`?
 - **kanava** · *channel* — An output for which an encoding writes. The epic names the rendering channels Skia, PDF and
   SVG (000). A channel offers abstractions: for example the dash pattern of PDF and SVG, the 1D path effect of Skia
   and the markers of SVG (011, Nov 19).
-- **kanavamuunnos** (proposed name) · *channel conversion* — A calculation of an encoding that makes a form of its
-  channel that no conversion of `Map` covers. Its results are not kept (@Pauli, Nov 20). **Open:** which conversions
-  stay in the encodings.
 - **perustapaus** · *basic case* — A case that a channel solves with an abstraction of its own (Nov 19). In a basic
   case, the encoding converts the structure directly into a structure of the channel (Nov 20).
 - **`IGraphicsTarget`** · piirtokohde · *graphics target, drawing target* — The interface on which the symbols draw
@@ -447,10 +459,10 @@ Nov 20).
   - "the epic includes a model that makes it possible" (Self-supporting vector files): `Map` with the parts to which an
     encoding can refer. They make it possible to open a file as a map. The intermediate layer is also a part of the
     epic, but this decision does not concern it (@Pauli, Nov 20).
-  - "the model offers the known conversions" (The conversions of the model): `Map`. It offers the known conversions as
-    means to make derivations from its ideal forms, and keeps their results where the shared use of the channels or a
-    cache makes it sensible. An encoding chooses a conversion that its channel can use. With conversions of its own,
-    it makes only what no conversion of `Map` covers (@Pauli, Nov 20).
+  - "the model offers the known conversions" (The conversions of the model): `Map`. It offers the known channel
+    conversions as means to make derivations from its ideal forms, and keeps their results where the shared use of the
+    channels or a cache makes it sensible. An encoding chooses a channel conversion that its channel can use. With
+    channel conversions of its own, it makes only what no channel conversion of `Map` covers (@Pauli, Nov 20).
 - **karttamalli** · *map model* — A vague reference (@Pauli, Nov 20). It can mean three names of the code:
   - the folder `src/MapModel`: the map model and the graphics targets, in many projects, for example `Graphics2D`,
     `Map_SkiaStd` and `Map_PDF`;
@@ -461,16 +473,19 @@ Nov 20).
     `Map_GDIPlus`, `Map_WPF` and `Map-iOS`.
 - **karttakoordinaatit, maailmankoordinaatit** · *map coordinates, world coordinates* — Ambiguous names that the
   comments of upstream give to the paper coordinates. They are not used (@Pauli, Nov 20).
+- **muunnos** · *transformation, conversion* — Too generic to be a term without a qualifier, as *malli* is (@Pauli,
+  Nov 20). The terms are *affiininen muunnos* · *affine transformation*, for example M, L, E and the steps of a
+  placement, and *kanavamuunnos* · *channel conversion* (@Pauli, Nov 20).
 
 ## Words with more than one meaning · Monimerkityksiset sanat
 
 - *symboli* · *symbol*: `Symbol`, an object of a map, in the code of upstream and in the Finnish tickets, and `SymDef`
   in the specification. In the same way, *viivasymboli* · *line symbol* is `LineSymbol` in the code of upstream, and
-  `LineSymDef` in 011.
+  `LineSymDef` in 011. Decided: *symboli* · *symbol* is `Symbol`, and *viivasymboli* is `LineSymbol` (@Pauli,
+  Nov 20).
 - *vaihe*: a pass (*vaihe 1*, *vaihe 2*), the phase of a dash pattern (`Stroke.DashPhase`), and a step of a placement
-  (`Placement.Steps`).
-- *muunnos*: a transformation (M, L, E and the steps of a placement), and a conversion for a channel. The proposed
-  name *kanavamuunnos* separates the second.
+  (`Placement.Steps`). Decided: *vaihe* is a pass. The phase is *katkokuvion alkukohta*, and the steps of a placement
+  are *sijoituksen sisäkkäiset affiiniset muunnokset* (@Pauli, Nov 20).
 - *viiva*: a line (`LineSymDef` or `LineSymbol`), and a stroke (`Stroke`).
 - *litistys*, *litistäminen* · *flattening*: the transparency flattening (spec 08), and the flattening of a path. The
   English word is the same for both.
