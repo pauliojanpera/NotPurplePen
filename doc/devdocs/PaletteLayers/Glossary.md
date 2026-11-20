@@ -267,9 +267,9 @@ one meaning" lists the words that name two or more concepts now.
   results makes it sensible (@Pauli, Nov 20). The means are the known channel conversions of `Map`, and an encoding
   chooses the channel conversions that its channel can use (@Pauli, Nov 20). The Finnish term is @Pauli's (Nov 20),
   and the English term is a proposed name. A symbol separation keeps its own derivations. A derivation that depends on
-  a definition alone belongs to the definition, for example the shared shapes of a glyph. A palette separation keeps its palette cutters.
-  A derivation is calculated when it is necessary the first time, and it becomes invalid when the map changes (spec 02,
-  Nov 20). Upstream keeps
+  a definition alone belongs to the definition, for example the shared shapes of a glyph. A palette separation keeps
+  its palette cutters. A derivation is calculated when it is necessary the first time, and it becomes invalid when the
+  map changes (spec 02, Nov 20). Upstream keeps
   derivations in the same way, for example `SymPath.flatpoints`, `TextSymbol.wrappedText` and `Symbol.boundingBox`.
   A derivation is not an ideal form, but a practical adaptation of the ideal form to the needs of the channels. Its
   form depends on what the implementations that the channels choose need: for example, the dashes on a curve can be
