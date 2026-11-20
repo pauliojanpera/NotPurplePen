@@ -141,10 +141,10 @@ structure and not only the appearance. Each part builds on the parts before it, 
    (`Symbol.TryAddClippingObjects`), in place of the collector, and the instances that the collector makes of all the
    symbols (`Map.CollectLayerInstances`) are the oracle. `SymbolGeometryTests` compares the two as structures
    (`LayerInstanceComparison`) on each map of `skia_render`, and the later parts use the same comparison. The old
-   drawing code stays as it is, so the drawing does not change. Ticket 011 makes a dashed line a composed dashed
-   line: one periodic dashed line for each part between corner and dash points, and lines of their own for the
-   merged dashes at those points and for the end dashes. A line that cannot be composed so becomes single dashes.
-   The glyphs along a line repeat with shared shapes, on straight and curved parts alike (@Pauli, Nov 19). On a
+   drawing code stays as it is, so the drawing does not change. In ticket 011, the model keeps the structure of a
+   line in its ideal form, and an encoding converts it for its channel. For a channel whose dash pattern measures the
+   euclidean length, the encoding writes a composed dashed line, whose runs it makes from the measure of the model
+   (@Pauli, Nov 20). The glyphs along a line repeat with shared shapes, on straight and curved parts alike (@Pauli, Nov 19). On a
    Bezier curve, the glyphs of the OCAD spacing repeat by quarters (@Pauli, Nov 20). Before that, the dashed lines
    were checked against OCAD: [oracles/ocad-dashes.md](oracles/ocad-dashes.md) records the
    samples and the rules of OCAD that they show. The fixes 015 to 020 are merged into `feature/palette-layers`
@@ -246,7 +246,9 @@ the rendering.
 - **The composed dashed lines** (Nov 19). A dashed line is a composed dashed line: each part between corner and dash
   points is one periodic dashed line, and the merged dashes at those points and the end dashes of the line are lines
   of their own. The geometry method makes single dashes only where an object cannot be a composed dashed line. This
-  makes the decision above specific for the dashed lines (ticket 011).
+  makes the decision above specific for the dashed lines (ticket 011). The decision on the structure of a line (Nov 20)
+  moves this to the encodings: a composed dashed line is the way an encoding writes a line for a channel whose dash
+  pattern measures the euclidean length, and the encoding makes the runs from the measure of the model.
 - **The glyphs along the lines** (Nov 19). The evenly spaced glyphs of each part between corner and dash points are
   one repetition, on straight and curved parts alike: the shared shapes of the glyph, the first position, the step
   and the count. Each glyph turns with the path at its position. The glyphs at the corners, the dash points, the
