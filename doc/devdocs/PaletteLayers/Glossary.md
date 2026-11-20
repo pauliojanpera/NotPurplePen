@@ -233,7 +233,8 @@ one meaning" lists the words that name two or more concepts now.
 - **`TemplateInfo`** · pohjakartta · *template* (`LoadedTemplate`) — It is not a palette entry (005). `Map.Draw` draws
   the templates under and over the palette entries now. An OCAD template is a `Map` of its own (000).
 - **`SymLayer.Image`** · kuvataso · *image layer* — The layer below all the normal layers. The layers of `SymLayer`
-  are layers in the sense of image editing: *taso* · *layer* (@Pauli, Nov 20). Its objects are image
+  are layers in the sense of image editing, and their names are *kuvataso*, *tavallinen taso* and *asettelutaso*
+  (@Pauli, Nov 20). Its objects are image
   objects, with a special symbol definition (`ImageSymDef`). It is not a palette entry (005).
 - **`SymLayer.Layout`** · asettelutaso · *layout layer* — The layer above all the normal layers. Its objects are
   layout objects, with a special symbol definition (`ImageSymDef`). It is not a palette entry (005).
