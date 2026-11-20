@@ -174,11 +174,6 @@ one meaning" lists the words that name two or more concepts now.
 - **`SymPath.GetSubpaths`** · osapolku · *subpath* — A part of a path that the start and stop flags of its points
   delimit, for example for a border of a double line (`SymPath.DOUBLE_LEFT_STARTSTOPFLAG`). The term is *osapolku* ·
   *subpath* (@Pauli, Nov 20).
-- **taitepiste, jana** · *vertex, segment* — A point of a path, and the straight segment between two points.
-  **Upstream:** the points of a path have the kinds `Normal`, `BezierControl`, `Corner` and `Dash` (`PointKind`). The
-  flat points of a path also have interpolated points (`PointKind.Interpolated`). **Open:** in the decisions on the
-  questions 6 and 7 of 011, they were the points and the segments of the flattened path. @Pauli took a vertex to be a
-  corner point that the user puts on the curve (Progress.md, Nov 19).
 - **Bezier-käyrä** · *Bezier curve* (`PointKind.BezierControl`) — A curve of a path, with its control points.
 
 ### Patterns
@@ -312,6 +307,12 @@ one meaning" lists the words that name two or more concepts now.
   that approximates the curves of a path. Upstream calls its points the flat points and keeps them in the `SymPath`
   (`flatpoints`). The ideal form keeps the curves. A derivation can keep a polyline, and an encoding can make one
   (Nov 20).
+- **taitepiste, jana** · *vertex, edge* — A point of the flattened path, and the straight piece between two adjacent
+  points of the flattened path (@Pauli, Nov 20). The English term of *jana* is *edge*, as *segment* is the segmentti
+  (@Pauli, Nov 20). The English documents of Nov 19 and of fix 021 call an edge a segment. The points of the path itself have the kinds `Normal`, `BezierControl`, `Corner` and `Dash` (`PointKind`).
+  The flat points also have interpolated points (`PointKind.Interpolated`). The decisions on the questions 6 and 7 of
+  011 use the words in this meaning. @Pauli took a vertex to be a corner point that the user puts on the curve
+  (Progress.md, Nov 19).
 - **sovitettu katkokuvio** · *fitted dash pattern* (`ComputeDashDistances`) — The dash and the gap that the fitting
   gives to a segment (011). Part of the structure of a line (Nov 20). The term is *sovitettu katkokuvio* · *fitted dash
   pattern* (@Pauli, Nov 20).
@@ -534,7 +535,8 @@ encodings make themselves (spec 02, Nov 20).
   are *sijoituksen sisäkkäiset affiiniset muunnokset* (@Pauli, Nov 20).
 - *viiva*: a line (`LineSymDef` or `LineSymbol`), and a stroke (`Stroke`). Decided: *viiva* is a line, and a stroke
   is *kynä* (@Pauli, Nov 20).
-- *taitepiste*, *jana* · *vertex*, *segment*: of the path that the user draws, or of the flattened path.
+- *taitepiste*, *jana* · *vertex*, *segment*: of the path that the user draws, or of the flattened path. Decided: of
+  the flattened path, and the English term of *jana* is *edge* (@Pauli, Nov 20).
 - *kerros* · *layer*: a palette layer, a color of upstream ("colors (layers)"), a layer of upstream (`SymLayer`:
   `Normal`, `Image` and `Layout`), a layer of a channel, and the intermediate layer.
 - *separaatio* · *separation*: the separation of an ink (spec 06), the palette separation (`PaletteSeparation`), and
