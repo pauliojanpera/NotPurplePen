@@ -87,6 +87,18 @@ Figure 2. Symbol processing derives instances from prototypes; composition follo
 
 Geometry instantiation and color compositing occur at different architectural levels. The number of instances can grow independently of the number of palette entries. Ink identity is independent of both.
 
+> **The structure of the passes (@Pauli, Nov 20).** This structure replaces the entities of the table above where they do not agree with it. The names are the names of the code, as [Glossary.md](Glossary.md) gives them, and the glossary marks the names that are not decided.
+>
+> - **The source.** `Map` keeps the structure in its ideal form: the palette entries (`SymColor`) in palette order, the symbol definitions (`SymDef`) with their parts, and the symbols (`Symbol`) with their geometry in paper coordinates.
+> - **The symbol separation** (`SymbolSeparation`) is the part of one `Symbol` that belongs to one palette entry and one geometry prototype G: the triple (`Symbol`, `SymColor`, G). G is the full coverage, or one hatching or one pattern of the `SymDef`. A symbol separation refers to these objects and copies nothing.
+> - **The palette separation** (`PaletteSeparation`) is the symbol separations of one palette entry.
+> - **The palette cutter** (`PaletteCutter`) is the symbol separations of one palette separation that have the same configuration: the palette entry, G and the effective transformation M. M comes from the `Symbol` and from G. The palette cutter cuts the uniform color of the palette entry to the coverage that G under M gives inside the union of its clipping objects. Each symbol separation is in one palette cutter. The palette cutter is the layer instance of the table above.
+> - **Pass 1.** `Map` makes the palette separations and their palette cutters from the map alone.
+> - **The derivations.** The results that are the same for all channels are kept as derivations. A symbol separation keeps its own derivations, for example the parts of a line, the fitted patterns, the runs of dashes in the euclidean measure, the offset curves, the placements and the elements that a fill mode selects. A derivation that depends on a definition alone belongs to the definition, for example the shared shapes of a glyph. A palette separation keeps its palette cutters. A derivation is calculated when it is necessary the first time, and it becomes invalid when the map changes. `Map` stays the source.
+> - **Pass 2** takes the palette separations in palette order. For each palette separation, an encoding writes one group, to which C, α and B apply once. In the group, the encoding writes each palette cutter with one fill and one clip, or each symbol separation separately. Pass 2 does not call the drawing code of the symbols (`Draw`).
+> - **The encodings.** An encoding converts the derivations into the forms of its channel with channel conversions, and does not keep their results. When an encoding needs information, the map side keeps it, and the encoding recognizes no structure ([000](tickets/000-palette-layers.md)).
+> - **The files.** A self-supporting SVG or PDF file carries the content of `Map`. Each drawn object refers to its symbol separation, and through it to its `Symbol`, `SymColor` and G.
+
 ## 03 / Geometry instantiation: Structured fills and transformations
 
 OCAD and OOM distinguish clipped structured fills from modes that select complete pattern elements according to their relationship with an area. The distinction is resolved during symbol-driven instantiation, not in the palette compositing model. [3, 5] The center of an element is its origin, the point that the lattice places at a lattice vector.
@@ -96,6 +108,8 @@ OCAD and OOM distinguish clipped structured fills from modes that select complet
 Figure 3. Boundary modes: clip elements, or select complete elements that are entirely inside, centered inside or partially inside the area.
 
 Clipped structured fills retain implicit repetitive geometry through SVG pattern fills. Selectively placed complete elements are instantiated as individual clipping objects. Nonperiodic structured fills likewise become individual clipping objects. Composite representations of selected elements are deferred to later refinement.
+
+> **The patterns in the structure of the passes (@Pauli, Nov 20).** A hatching or a pattern of an `AreaSymDef` is a geometry prototype G (section 02). M comes from the angle and the rotation center of the `AreaSymbol` (`Angle`, `RotationCenter`) and from the angle and the offset of G; `RotateMode.Never` leaves out the part of the `AreaSymbol`. The clipping objects of a clipped fill are the areas of the symbol separations of a palette cutter. The elements that a fill mode selects, and the placements of the elements of an irregular pattern, are derivations of a symbol separation. The randomness of an irregular pattern is kept as a definition.
 
 ### Independent lattice and element transformations
 
@@ -182,6 +196,8 @@ The complete palette stack may be isolated using isolation: isolate to constrain
 Overlaps among instances sharing a palette entry do not themselves introduce new compositing operations or new overlap colors. Their geometric relationships can remain implicit until needed; no explicit vector union is required merely to render the group.
 
 > **The union can stay implicit in the rendering, but the instances cannot be left out** (@Pauli, Nov 18). The paragraph above relates mainly to the flattening (section 08), as its heading says. It does not let the instances be left out. The group of a palette entry is its instances, which pass 1 makes (section 02), and pass 2 reads the instances only. To draw the shapes of a palette entry into one layer while the symbols are drawn, and to apply α and B to that layer, gives the same appearance, but not this architecture.
+
+> **The group of a palette entry (@Pauli, Nov 20).** In the structure of the passes (section 02), the group of a palette entry is its palette separation, and pass 2 reads the palette separations. This replaces the instances in the note above.
 
 SVG examples describe the encoding mechanisms; their behavior across different rendering engines has not been tested in this specification.
 

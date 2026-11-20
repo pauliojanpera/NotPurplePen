@@ -205,7 +205,9 @@ the rendering.
   targets, the application that ships refers to Skia (`Map_SkiaStd`) and PDF (`Map_PDF`) only. Its printing draws the
   pages with Skia on Windows and as PDF on Linux and macOS.
 - **The drawing does not use the symbols** (Nov 18). Pass 2 reads the instances only, so the drawing does not select
-  the symbols and does not call their code. Only pass 1 uses the symbols.
+  the symbols and does not call their code. Only pass 1 uses the symbols. The structure of the passes (Nov 20) changes
+  this: pass 2 reads the palette separations, which refer to the symbols, and it does not call the drawing code of the
+  symbols (`Draw`).
 - **The instances belong to the map** (Nov 18). Pass 1 depends on the map alone, and not on a rectangle or a
   resolution of a drawing. To keep to a rectangle is pass 2's work. How the instances follow the changes of the map
   is for the ticket of pass 2.
@@ -364,7 +366,22 @@ the rendering.
   step, the pieces of the logical path, offset curves, and the expansion into single dashes and placements
   ([000](tickets/000-palette-layers.md), ticket 011). Conversions of the pattern fills are, for example, the placements
   of the elements of an irregular pattern, whose randomness the model keeps as a definition, and a tile of a pattern,
-  which the conversion composes from single elements.
+  which the conversion composes from single elements. The structure of the passes (Nov 20) changes this: the results
+  that are the same for all channels are kept as derivations, and only the results of the channel conversions of the
+  encodings are not kept.
+- **The structure of the passes** (Nov 20). `Map` is the source. Pass 1 makes from the map alone the palette
+  separations (`PaletteSeparation`) of the symbol separations (`SymbolSeparation`), and their palette cutters
+  (`PaletteCutter`). A symbol separation is the triple (`Symbol`, `SymColor`, G). The symbol separations of a palette
+  separation that have the same configuration are one palette cutter, the layer instance of the specification. The
+  results that are the same for all channels are kept as derivations. Pass 2 writes each palette separation as one
+  group. Section 02 of [Specification.md](Specification.md) gives the structure, and
+  [Glossary.md](Glossary.md) gives the names.
+- **Earlier decisions are negotiable** (Nov 20). The structure of the passes changes the concepts at the base of the
+  work, so each earlier decision is negotiable when it is necessary. The structure touches at least these decisions:
+  "The source of the clipping objects of pass 1" (Nov 18), "Pass 2 replaces the direct drawing of the palette entries"
+  (Nov 18), "The composed dashed lines" (Nov 19, changed Nov 20), which gives the runs to the encodings, and the
+  decisions of Nov 20 that say "the model" ([Glossary.md](Glossary.md), *malli*).
+- **The names** (Nov 20). [Glossary.md](Glossary.md) gives the rules of the names and the names of the concepts.
 - **The framing line of texts** (Nov 19). The framing of a text run is one line in the instances, a stroke of the full
   width with the joins of the symbol, as in OCAD's PDF export. OCAD's own drawing leaves the same holes as Skia and
   Cairo with one pen, so the holes that the intermediate pens of Purple Pen fill are no faults against OCAD (question
