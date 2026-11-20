@@ -71,11 +71,6 @@ one meaning" lists the words that name two or more concepts now.
   term is *palettiväri* · *palette color* (@Pauli, Nov 20). Upstream calls it a color, the specification a palette
   entry, and the tickets *palettimerkintä*. The comments of upstream also call the colors layers ("colors (layers)",
   `RenderOptions`).
-- **palettitaso** · *palette layer* — The layer of a palette color, in the sense of the layers of image editing: the
-  uniform color of the entry over the drawing, with its opacity and blend mode. The term is *palettitaso* (@Pauli,
-  Nov 20). It is not *väritaso*, as *värierottelu* is the separation of an ink. The tickets call it *palettikerros*. In
-  spec 01, a palette layer has C, α, B, G and M. Spec 02 divides these between the palette color and its layer
-  instances, the palette cutters. **Open:** how does a palette layer differ from a palette color and from its group?
 - **palettipino, palettijärjestys, prioriteetti** · *palette stack, palette order, priority* — The ordered stack of
   the palette layers, and the order in which pass 2 composites the groups (spec 01, 02, 05). The colors of a map are
   `Map.AllColors`, and upstream draws them from the lowest to the highest (005). One palette stack is for all the maps,
@@ -423,8 +418,14 @@ encodings make themselves (spec 02, Nov 20).
   each palette separation, an encoding writes one group, to which C, α and B apply once. In the group, the encoding
   writes each palette cutter with one fill and one clip, or each symbol separation separately. Pass 2 does not call
   the drawing code of the symbols (`Draw`) (spec 02, 05; Nov 20). The specification calls the operation compositing.
-- **ryhmä** · *group* — The group of a palette color is its palette separation. Pass 2 composites each group once
-  (spec 05; Nov 18, Nov 20).
+- **palettitaso** · *palette layer* — The compositing layer of a palette color: pass 2 applies the color, the opacity
+  and the blend mode of the palette color once to the coverage of its palette separation ("One compositing layer per
+  palette entry", spec 05). One palette layer is for each palette color, and the palette stack is the palette layers
+  in palette order (spec 01; "Ordered palette entries / compositing layers", the table of the introduction). The
+  palette color is its definition, and the palette separation is its content. In the single-instance model of
+  spec 01, a palette layer also has G and M. Spec 02 gives them to the layer instances, which are the palette cutters.
+  It is a layer in the sense of the layers of image editing. The term is *palettitaso* (@Pauli, Nov 20). It is not
+  *väritaso*, as *värierottelu* is the separation of an ink. The tickets call it *palettikerros*.
 - **piirtotila, väriasetus** · *rendering mode, color configuration* — A rendering mode is a color configuration of
   pass 2: the normal view, the overprinting that the inks simulate, or the separations (000; spec 06, 07). All the
   rendering modes use the same intermediate layer (Progress.md, "Next"). **Upstream:** the render options
@@ -518,6 +519,9 @@ encodings make themselves (spec 02, Nov 20).
 - **separaatio, erottelu** · *separation* — Not a term alone. *Separaatio* is *erottelu* in Finnish. The terms are
   *värierottelu* · *ink separation* and *palettierottelu* · *palette separation* (@Pauli, Nov 20).
 - **kerros** — Not a term (@Pauli, Nov 20). The decision concerns the Finnish word.
+- **ryhmä** — Not a term (@Pauli, Nov 20). The decision concerns the Finnish word. The specification uses *group*
+  as a verb in pass 2 ("Group instances by palette entry"), and for the SVG element `<g>` that encodes a palette
+  layer (spec 05).
 - **ajo** · *run* — Not a term in the sense of a sequence, where it translates *run* word for word. The terms are
   *katkojuoste* · *run of dashes* and *tekstijuoste* · *text run* (`TextShape`) (@Pauli, Nov 20). A run of the tests
   (*täysi ajo*) is a word of the process.
@@ -553,7 +557,6 @@ encodings make themselves (spec 02, Nov 20).
   is *kynä* (@Pauli, Nov 20).
 - *taitepiste*, *jana* · *vertex*, *segment*: of the path that the user draws, or of the flattened path. Decided: of
   the flattened path, and the English term of *jana* is *edge* (@Pauli, Nov 20).
-- *palettitaso*, *palettimerkintä*, *ryhmä*: three words for close concepts.
 - *step*: the step of a repeated placement (*askel*), and the steps of a placement (*sisäkkäiset affiiniset
   muunnokset*).
 - Two English words for one concept: *graphics target* (upstream) and *drawing target* (the documents of the fork).
