@@ -1,13 +1,6 @@
 @AGENTS.md
 @AGENTS.NotPurplePen.md
 
-## The model keeps the information, and an encoding recognizes nothing
-
-When an encoding needs information, the model keeps it, and the encoding reads it from the model. No heuristic that
-recognizes a structure goes into an encoding (@Pauli, Nov 20). This applies to the palette-layer work and to every
-encoding of its instances: for the rendering channels Skia, PDF and SVG, and the SVG encoding.
-`doc/devdocs/PaletteLayers/README.md`, "The architecture comes first", has the rule.
-
 ## Merge messages
 
 A merge into a shared branch (`base`, `basewithfixes`, `dev`, `master` or `feature/svg-target`) says what went in,

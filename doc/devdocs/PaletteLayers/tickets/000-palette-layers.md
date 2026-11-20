@@ -17,6 +17,13 @@ Upstreamin karttamalli toteuttaa [speksin](../Specification.md) palettikerrosark
 * Läpinäkyvyyden litistys vektoreiksi, luku 08: se on oma optimointitehtävänsä
 * Integraatio NotPurplePenin dev-haaraan: se tehdään @Paulin luvalla, kun osat ovat valmiit
 
+## The model keeps the information, and an encoding recognizes nothing
+
+When an encoding needs information, the model keeps it, and the encoding reads it from the model. No heuristic that
+recognizes a structure goes into an encoding (@Pauli, Nov 20). This applies to the palette-layer work and to every
+encoding of its instances: for the rendering channels Skia, PDF and SVG, and the SVG encoding.
+`doc/devdocs/PaletteLayers/README.md`, "The architecture comes first", has the rule.
+
 ### Muistiinpanot
 * **Arkkitehtuuri ennen ulkoasua (18.11.).** Vanha feature/multiply-blending -haara saavuttaa ulkoasunsa sekoittamalla musteen kerroksena symbolien piirron ympärillä. Tämä epic sen sijaan toteuttaa speksin erottelemat vaiheet: vaihe 1 tuottaa ilmentymät tietorakenteena, ja vaihe 2 koostaa ne. Siksi multiply-blending on tälle työlle vain ulkoasun oraakkeli, eikä työ lue sen koodia. Speksin luvun 05 implisiittinen unioni koskee piirtoa eikä rakennetta: ilmentymät eivät saa jäädä pois. (Tekstissä mainintaa tarkoitetaan suhteutettavaksi lähinnä litistämiseen.) Osat tehdään vaiheiden järjestyksessä: palettimerkinnän tiedot ensin pelkkänä mallina, sitten vaihe 1, vaihe 2 ja piirtotilat.
 * **Mallin muutokset ensin (18.11.).** Inks-vaiheessa pelkän mallin muutokset tarkistuivat kierrostesteillä ilman baselineja, kun taas piirron muutokset tarvitsivat CI:n baselinet. Formaattien tulkinta tarkistetaan ensisijaisesti kirjoittajien (OCAD, OOM) omista tiedostoista: Hakolan OCAD-kartat ovat Mapperin kirjoittamia, ja OCADin omat tiedostot eroavat niistä. Jos osan työssä korjataan upstreamin vika, korjaus erotetaan omaksi fix-tiketikseen ja fix-haarakseen (@Pauli, 18.11.).
