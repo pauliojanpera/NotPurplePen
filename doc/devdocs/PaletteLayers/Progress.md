@@ -334,6 +334,15 @@ the rendering.
   the paths of the repetitions are Bezier pieces of the line, as a solid line is. An encoding adapts to its channel:
   where the implementation of the channel does not agree with the model, the encoding itself makes, for example, a
   polyline (ticket 011). In `feature/line-geometry`, they are still polylines of the flattened path.
+- **The borders of double lines** (Nov 20). The shape of a border is an offset path in its ideal form: the path of the
+  middle of the line and the offset. Its stroke is a usual stroke. The dash pattern of an offset path is measured along
+  its base path, the middle of the line. So the dashes of a border are the dashes of the middle moved aside, as in
+  OCAD, and the runs of a border are the runs of the middle moved aside. The rule of the corners of the offset belongs
+  to the shape, and the join of the stroke to the stroke. This changes the decision on the runs with the OCAD metric
+  (question 7 of ticket 011) for the borders of double lines. In `feature/line-geometry`, a border is a polyline that
+  offsets the flattened path.
+- **The model keeps the information of the encodings** (Nov 20). When an encoding needs information, the model keeps
+  it, and the encoding reads the structure from the model (ticket 011).
 - **The framing line of texts** (Nov 19). The framing of a text run is one line in the instances, a stroke of the full
   width with the joins of the symbol, as in OCAD's PDF export. OCAD's own drawing leaves the same holes as Skia and
   Cairo with one pen, so the holes that the intermediate pens of Purple Pen fill are no faults against OCAD (question

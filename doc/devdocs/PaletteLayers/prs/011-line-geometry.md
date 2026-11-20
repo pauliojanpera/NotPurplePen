@@ -71,6 +71,9 @@ oracle of the tests. The drawing does not change.
 * The dashes, the runs and the paths of the repetitions on curves are polylines of the flattened path. By the
   decision of Nov 20, the map model keeps the ideal forms, and they are Bezier pieces of the line. This change is not
   made yet.
+* A border of a double line is a polyline that offsets the flattened path, and each of its runs is within one segment.
+  By the decision of Nov 20, a border is an offset path, the path of the middle and the offset, whose dash pattern is
+  measured along the middle, so its runs are the runs of the middle moved aside. This change is not made yet.
 * Two consecutive quarters of a curve make one run only when the lengths of their dashes are the same floats, as
   `FindRunOfDashes` compares the lengths exactly. No test checks this.
 * The areas, the combinations, the graphics objects, the texts and the rectangles have no geometry methods yet
