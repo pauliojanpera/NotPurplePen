@@ -309,8 +309,9 @@ one meaning" lists the words that name two or more concepts now.
   (Nov 20).
 - **taitepiste, jana** · *vertex, edge* — A point of the flattened path, and the straight piece between two adjacent
   points of the flattened path (@Pauli, Nov 20). The English term of *jana* is *edge*, as *segment* is the segmentti
-  (@Pauli, Nov 20). The English documents of Nov 19 and of fix 021 call an edge a segment. The points of the path itself have the kinds `Normal`, `BezierControl`, `Corner` and `Dash` (`PointKind`).
-  The flat points also have interpolated points (`PointKind.Interpolated`). The decisions on the questions 6 and 7 of
+  (@Pauli, Nov 20). The English documents of Nov 19 and of fix 021 call an edge a segment. The points of the path
+  itself have the kinds `Normal`, `BezierControl`, `Corner` and `Dash` (`PointKind`). The flat points also have
+  interpolated points (`PointKind.Interpolated`). The decisions on the questions 6 and 7 of
   011 use the words in this meaning. @Pauli took a vertex to be a corner point that the user puts on the curve
   (Progress.md, Nov 19).
 - **sovitettu katkokuvio** · *fitted dash pattern* (`ComputeDashDistances`) — The dash and the gap that the fitting
