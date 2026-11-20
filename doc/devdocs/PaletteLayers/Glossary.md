@@ -48,16 +48,18 @@ one meaning" lists the words that name two or more concepts now.
   `TextSymbol`. Its geometry is in paper coordinates. A `PointSymbol` and a `RectLikeSymbol` have a location, a
   `LineLikeSymbol` has a path (`SymPath`), and an `AreaLikeSymbol` has a path with holes (`SymPathWithHoles`). The
   comments of upstream also call it an object, for example a line object or an area object. The Finnish tickets call
-  it a symbol (005). The specification calls it a map object (spec 02).
+  it a symbol (005). The specification calls it a map object (spec 02). A `Symbol` has no identifier, but a
+  `SymColor` has `Name` and `OcadId`, and a `SymDef` has `Name` and `SymbolId`. **Open:** the identifier of a `Symbol`
+  to which a drawn object of a file can refer (Nov 20, the parts of `Map` to which an encoding can refer).
 - **paperikoordinaatit** · *paper coordinates* — The coordinates of a map, in millimeters on the printed map. The
   points are `PointF` values. The OCAD import divides the OCAD units of 0.01 mm by 100
   (`OcadImport.ToWorldDimensions`). @Pauli holds *paper coordinates* to be the established name. He finds *physical
   coordinates* a good name, but a fourth name is probably not worth it (Nov 20). The comments of upstream also say
   *map coordinates* and *world coordinates* (see "Words that are not names"). The real-world coordinates
   (`RealWorldCoords`) are a different concept: the georeferencing of the map.
-- **ideaalimuoto** · *ideal form* — The form in which a structure is kept, apart from the form of a channel. `Map`
-  keeps the curves of the paths as Bezier curves. On a curve, the dashes, the runs and the paths of the repetitions are
-  Bezier pieces of the line (Nov 20). Ellipses and arcs stay ellipses and arcs (005).
+- **ideaalimuoto** · *ideal form* — The form in which `Map` keeps a structure, apart from the form of a channel: the
+  information that an encoding needs. `Map` keeps the curves of the paths as Bezier curves. The derivations are not
+  ideal forms (@Pauli, Nov 20).
 
 ### Palette and color
 
@@ -124,6 +126,15 @@ one meaning" lists the words that name two or more concepts now.
   upstream call a `LineSymDef` a *linesymdef*. Ticket 011 calls these line symbols.
 - **`LineSymbol`** · viivasymboli · *line symbol, line object* — One line object of a map. Its path is
   `LineLikeSymbol.Path`, a `SymPath`.
+- **viivan mitta** · *measure of the line* — The metric that the source means to be used, which `Map` keeps in the ideal
+  form (`Map.UseEuclideanMetric`). `Map` offers the means to convert it to suit a channel, and to keep the derivations
+  (@Pauli, Nov 20). The measure of fix 021 (work: `OcadCurveMeasure`, `SymPath.GetOcadCurveMeasure`) gives a straight
+  segment its length, and a quarter of a curve its chord (021).
+- **viivan rakenne** · *structure of a line* — The logical path, the parts as its pieces and offsets, the measure of
+  the line, the fitted pattern of a part, the end dashes and the exceptions of fix 020 (Nov 20). `Map` keeps the
+  information that is necessary, that is the ideal forms: the path of the `LineSymbol`, the `DashInfo`, the
+  `DoubleLineInfo` and the metric. The parts, the fitted patterns, the merged end dashes and the exceptions of fix 020
+  are derivations, which `Map` can keep for the channels where the implementation finds it sensible (@Pauli, Nov 20).
 - **looginen polku** · *logical path* — The path of a line in its ideal form. The parts of the line are its pieces and
   offsets (Nov 20). **Upstream:** a line object has one path (`LineLikeSymbol.Path`), and its definition draws all the
   parts of the line from it (011). **Open:** is the logical path `LineLikeSymbol.Path`?
@@ -247,15 +258,19 @@ one meaning" lists the words that name two or more concepts now.
 
 ### The derivations
 
-- **johdannainen** (proposed name) · *derivation* — A kept result that is the same for all channels. A symbol
-  separation keeps its own derivations. A derivation that depends on a definition alone belongs to the definition,
-  for example the shared shapes of a glyph. A palette separation keeps its palette cutters. A derivation is calculated
-  when it is necessary the first time, and it becomes invalid when the map changes (spec 02, Nov 20). Upstream keeps
+- **johdos** · *derivation* — A result that `Map` gives from the ideal form for the needs of the channels. `Map`
+  offers the means to make derivations and to keep them, where the shared use of the channels or a cache of the
+  results makes it sensible (@Pauli, Nov 20). The means are the known conversions of `Map`, and an encoding chooses the
+  conversions that its channel can use (@Pauli, Nov 20). The Finnish term is @Pauli's (Nov 20), and the English term
+  is a proposed name. A symbol separation keeps its own derivations. A derivation that depends on a definition alone
+  belongs to the definition, for example the shared shapes of a glyph. A palette separation keeps its palette cutters.
+  A derivation is calculated when it is necessary the first time, and it becomes invalid when the map changes (spec 02,
+  Nov 20). Upstream keeps
   derivations in the same way, for example `SymPath.flatpoints`, `TextSymbol.wrappedText` and `Symbol.boundingBox`.
-- **viivan rakenne** · *structure of a line* — The logical path, the parts as its pieces and offsets, the measure of
-  the line, the fitted pattern of a part, the end dashes and the exceptions of fix 020 (Nov 20). `Map` keeps the path
-  of the `LineSymbol`, the `DashInfo`, the `DoubleLineInfo` and the metric. The parts, the fitted patterns, the end
-  dashes, the exceptions and the quarters are derivations of the symbol separation.
+  A derivation is not an ideal form, but a practical adaptation of the ideal form to the needs of the channels. Its
+  form depends on what the implementations that the channels choose need: for example, the dashes on a curve can be
+  Bezier pieces, polylines or both (@Pauli, Nov 20). In the work, the shapes keep ellipses and arcs as ellipses and
+  arcs, as the graphics targets make polylines of them each in its own way (005).
 - **osa** · *part* — A part of a line between corner and dash points. The dashes are fitted to each part separately
   (011). **Open:** in "the parts as its pieces and offsets" (Nov 20), is a part the same thing, or each component of
   the line, for example a border or a run?
@@ -266,14 +281,12 @@ one meaning" lists the words that name two or more concepts now.
   form: the path of the middle of the line and the offset. Its dash pattern is measured along its base path. The rule
   of the corners of the offset belongs to the shape, and the join belongs to the stroke (Nov 20). The offset curve is a
   derivation.
-- **viivan mitta** · *measure of the line* (work: `OcadCurveMeasure`) — Part of the structure of a line (Nov 20). The
-  measure of fix 021 (`SymPath.GetOcadCurveMeasure`) gives a straight segment its length, and a quarter of a curve its
-  chord (021). **Open:** its exact content.
 - **neljännes, jänne** · *quarter, chord* — Each quarter of a Bezier curve has its chord as its length in the measure.
   Within the quarter, the dashes are in proportion to the true arc (021, Nov 19).
 - **litistetty polku, litistäminen** · *flattened path, flattening* (`SymPath.GetFlattenedPoints`) — The polyline
   that approximates the curves of a path. Upstream calls its points the flat points and keeps them in the `SymPath`
-  (`flatpoints`). The ideal form keeps the curves, and an encoding can make a polyline (Nov 20).
+  (`flatpoints`). The ideal form keeps the curves. A derivation can keep a polyline, and an encoding can make one
+  (Nov 20).
 - **sovitettu kuvio** · *fitted pattern* (`ComputeDashDistances`) — The dash and the gap that the fitting gives to a
   part (011). Part of the structure of a line (Nov 20).
 - **päätykatko, yhdistetty katko** · *end dash, merged dash* — The end dashes of adjacent parts merge into one dash at
@@ -282,10 +295,14 @@ one meaning" lists the words that name two or more concepts now.
   (Nov 19). Part of the structure of a line (Nov 20).
 - **ajo, katkoajo** · *run, run of dashes* — The middle dashes of a part as one periodic dashed line (011). The runs in
   the euclidean measure are the same for Skia, PDF and SVG, as their dash patterns measure the path euclidean (011,
-  Nov 19). So they are a derivation of the symbol separation (spec 02, Nov 20). The decision of Nov 20 on the composed
-  dashed lines says that an encoding makes the runs (011).
+  Nov 19). They are derivations: `Map` offers the means to make them and to keep them (@Pauli, Nov 20). This changes
+  the decision of Nov 20 on the composed dashed lines, which says that an encoding makes the runs (011).
 - **koostettu katkoviiva** · *composed dashed line* — The form of a line for a channel whose dash pattern measures the
   euclidean length: the runs and the single dashes (Nov 20).
+- **katkotaulukko** · *dash table* — A known conversion of the dashes of a line (000, Nov 20). `Map` offers it (@Pauli,
+  Nov 20).
+- **laajennus** · *expansion* (work: `StrokedShape.ExpandDashes`, `RepeatedShapes.Expand`) — A known conversion into
+  single parts: a run into dashes, and a repetition into placements (011). `Map` offers it (@Pauli, Nov 20).
 
 ### The forms of the derivations
 
@@ -365,12 +382,9 @@ Nov 20).
 - **kanava** · *channel* — An output for which an encoding writes. The epic names the rendering channels Skia, PDF and
   SVG (000). A channel offers abstractions: for example the dash pattern of PDF and SVG, the 1D path effect of Skia
   and the markers of SVG (011, Nov 19).
-- **kanavamuunnos** (proposed name) · *channel conversion* — A calculation of an encoding that converts a derivation
-  into a form of its channel. Its results are not kept (spec 02, Nov 20). Examples: a dash table, the expansion, a
-  polyline of a curve, and an explicit union for a channel that needs one.
-- **laajennus** · *expansion* (work: `StrokedShape.ExpandDashes`, `RepeatedShapes.Expand`) — A conversion into single
-  parts: a run into dashes, and a repetition into placements (011).
-- **katkotaulukko** · *dash table* — A conversion of the dashes of a line (000, Nov 20).
+- **kanavamuunnos** (proposed name) · *channel conversion* — A calculation of an encoding that makes a form of its
+  channel that no conversion of `Map` covers. Its results are not kept (@Pauli, Nov 20). **Open:** which conversions
+  stay in the encodings.
 - **perustapaus** · *basic case* — A case that a channel solves with an abstraction of its own (Nov 19). In a basic
   case, the encoding converts the structure directly into a structure of the channel (Nov 20).
 - **`IGraphicsTarget`** · piirtokohde · *graphics target, drawing target* — The interface on which the symbols draw
@@ -379,12 +393,18 @@ Nov 20).
   application that ships uses the graphics targets of `Map_SkiaStd` and `Map_PDF` (Nov 18). **Open:** its place when
   pass 2 and the encodings draw from the intermediate layer.
 - **piirrosobjekti** · *drawn object* — An object that an encoding writes. Each drawn object refers to its symbol
-  separation, and through it to its `Symbol`, `SymColor` and G (spec 02, Nov 20).
+  separation, and through it to its `Symbol`, `SymColor` and G (spec 02, Nov 20). In a file, the drawn objects keep a
+  link back to the ideal forms that is as direct as possible, also through the hierarchy of the file, so that the SVG
+  graphics can be a part of a web user interface (@Pauli, Nov 20).
 - **viittaus** · *reference* — What the map side lets a drawn object refer to is not duplicated in the drawn objects.
-  They use it through references (Nov 20).
+  They use it through references (Nov 20). A drawn object links directly to the parts of the content of `Map`. It can
+  take the geometry that it draws by reference from the shared parts of the intermediate layer. The link and the reuse
+  are different references, and they do not limit each other (@Pauli, Nov 20). In SVG, `<use href>` and
+  `fill="url(#…)"` reuse, and the hierarchy of the groups or an identifier of the drawn object links. In PDF, a form
+  XObject reuses, and marked content links.
 - **itsensä kannatteleva vektoritiedosto** · *self-supporting vector file* — An SVG or a PDF file that carries the
-  content of `Map`, so that Purple Pen can one day read it from the file (spec 02, Nov 20). The opening is not in the
-  scope of the epic.
+  content of `Map`, so that Purple Pen can one day read it from the file (spec 02; @Pauli, Nov 20). The opening is not
+  in the scope of the epic.
 - **korostus** · *highlight* (`Symbol.DrawHighlight`, `CourseObj.DrawHighlight`) — It is drawn directly on the graphics
   target. **Open:** does it stay a direct drawing (000)?
 - **litistys** · *transparency flattening* — The conversion of the transparencies into opaque vector objects
@@ -397,28 +417,40 @@ Nov 20).
   exact, and it meant most nearly `Map` (@Pauli, Nov 20). In the proposals of the session of Nov 20 that became the
   decisions of Nov 20, it meant the instances of pass 1.
 
-  The decisions of Nov 20 say "the model" (in Finnish *malli* and *karttamalli*). Proposed readings by the structure of
-  the passes (not decided):
-  - "the map model keeps the ideal forms" (The ideal forms): `Map` keeps the curves of the paths, and the derivations
-    of the symbol separations keep the dashes, the runs and the paths of the repetitions as Bezier pieces.
-  - "the implementation of the channel does not agree with the model" (The ideal forms): with the ideal form of a
-    derivation.
-  - "the model keeps it, and the encoding reads the structure from the model" (The model keeps the information of the
-    encodings; the rule of 000): the map side, that is `Map` and the intermediate layer.
-  - "the model keeps the structure of a line" (The structure of a line): `Map` keeps the path of the `LineSymbol`, the
-    `DashInfo`, the `DoubleLineInfo` and the metric. The symbol separation keeps the parts, the fitted patterns, the
-    end dashes, the exceptions of fix 020 and the quarters.
-  - "the measure of the model" (The composed dashed lines, 011): the measure of the line, which the symbol separation
-    keeps from the metric of the `Map` and the quarters of the path.
-  - "an SVG or a PDF file carries the model" and "Purple Pen reads the model from the file" (Self-supporting vector
-    files): the content of `Map`.
-  - "the parts of the model" (Self-supporting vector files): the symbol separations, through them `Symbol`, `SymColor`
-    and G, and the shared definitions.
-  - "the epic includes a model that makes it possible" (Self-supporting vector files): the structure of the passes
-    (spec 02).
-  - "the model offers the known conversions" (The conversions of the model): the map side keeps the derivations, and
-    the encodings make the channel conversions. The structure of the passes changes this decision (Progress.md,
+  The decisions of Nov 20 say "the model" (in Finnish *malli* and *karttamalli*). @Pauli decided their readings by the
+  structure of the passes on Nov 20:
+  - "the map model keeps the ideal forms" (The ideal forms): `Map` keeps the ideal forms, that is the information that
+    an encoding needs. The derivations are not ideal forms, but practical adaptations of them to the needs of the
+    channels. They keep the dashes, the runs and the paths of the repetitions on a curve as Bezier pieces or as
+    polylines, as the implementations that the channels choose need, and possibly in both forms (@Pauli, Nov 20).
+  - "the implementation of the channel does not agree with the model" (The ideal forms): with the ideal form of `Map`.
+    When the decision was made, `Map` did not offer derivations yet. Now `Map` also offers the means to make and to
+    keep derivations, where the shared use of the channels or a cache of the results makes it sensible (@Pauli,
     Nov 20).
+  - "the model keeps it, and the encoding reads the structure from the model" (The model keeps the information of the
+    encodings; the rule of 000): `Map` keeps the information that an encoding needs, and the intermediate layer gives
+    access to it in forms that are more usable for the needs of the channels (@Pauli, Nov 20).
+  - "the model keeps the structure of a line" (The structure of a line): `Map` keeps the information that is
+    necessary, that is the ideal forms: the path of the `LineSymbol`, the `DashInfo`, the `DoubleLineInfo` and the
+    metric. The parts, the fitted patterns, the merged end dashes and the exceptions of fix 020 are derivations, which
+    `Map` can keep for the channels where the implementation finds it sensible (@Pauli, Nov 20).
+  - "the measure of the model" (The composed dashed lines, 011): the metric that the source means to be used, which
+    `Map` keeps in the ideal form (`Map.UseEuclideanMetric`). `Map` offers the means to convert the metric to suit a
+    channel, for example into runs in the euclidean measure, and to keep the derivations (@Pauli, Nov 20).
+  - "an SVG or a PDF file carries the model" and "Purple Pen reads the model from the file" (Self-supporting vector
+    files): the content of `Map` (@Pauli, Nov 20). The drawn objects of the file keep a link back to the ideal forms
+    that is as direct as possible, also through the hierarchy of the file, so that the SVG graphics can be a part of a
+    web user interface (@Pauli, Nov 20).
+  - "the parts of the model" (Self-supporting vector files): the parts of the content of `Map`. A drawn object links
+    directly to them. It can take the geometry that it draws by reference from the shared parts of the intermediate
+    layer. The link and the reuse are different references, and they do not limit each other (@Pauli, Nov 20).
+  - "the epic includes a model that makes it possible" (Self-supporting vector files): `Map` with the parts to which an
+    encoding can refer. They make it possible to open a file as a map. The intermediate layer is also a part of the
+    epic, but this decision does not concern it (@Pauli, Nov 20).
+  - "the model offers the known conversions" (The conversions of the model): `Map`. It offers the known conversions as
+    means to make derivations from its ideal forms, and keeps their results where the shared use of the channels or a
+    cache makes it sensible. An encoding chooses a conversion that its channel can use. With conversions of its own,
+    it makes only what no conversion of `Map` covers (@Pauli, Nov 20).
 - **karttamalli** · *map model* — A vague reference (@Pauli, Nov 20). It can mean three names of the code:
   - the folder `src/MapModel`: the map model and the graphics targets, in many projects, for example `Graphics2D`,
     `Map_SkiaStd` and `Map_PDF`;

@@ -250,7 +250,9 @@ the rendering.
   of their own. The geometry method makes single dashes only where an object cannot be a composed dashed line. This
   makes the decision above specific for the dashed lines (ticket 011). The decision on the structure of a line (Nov 20)
   moves this to the encodings: a composed dashed line is the way an encoding writes a line for a channel whose dash
-  pattern measures the euclidean length, and the encoding makes the runs from the measure of the model.
+  pattern measures the euclidean length, and the encoding makes the runs from the measure of the model. The readings
+  of Nov 20 change this: the runs are derivations, which `Map` offers the means to make and to keep
+  ([Glossary.md](Glossary.md), *malli*).
 - **The glyphs along the lines** (Nov 19). The evenly spaced glyphs of each part between corner and dash points are
   one repetition, on straight and curved parts alike: the shared shapes of the glyph, the first position, the step
   and the count. Each glyph turns with the path at its position. The glyphs at the corners, the dash points, the
@@ -337,7 +339,10 @@ the rendering.
 - **The ideal forms** (Nov 20). The map model keeps the ideal forms. On a curve, the dashes, the runs of dashes and
   the paths of the repetitions are Bezier pieces of the line, as a solid line is. An encoding adapts to its channel:
   where the implementation of the channel does not agree with the model, the encoding itself makes, for example, a
-  polyline (ticket 011). In `feature/line-geometry`, they are still polylines of the flattened path.
+  polyline (ticket 011). In `feature/line-geometry`, they are still polylines of the flattened path. The readings of
+  Nov 20 change this: `Map` keeps the ideal forms, and the derivations are practical adaptations of them. The
+  derivations keep the dashes, the runs and the paths of the repetitions as Bezier pieces, as polylines or as both, as
+  the implementations that the channels choose need ([Glossary.md](Glossary.md), *malli*).
 - **The borders of double lines** (Nov 20). The shape of a border is an offset path in its ideal form: the path of the
   middle of the line and the offset. Its stroke is a usual stroke. The dash pattern of an offset path is measured along
   its base path, the middle of the line. So the dashes of a border are the dashes of the middle moved aside, as in
@@ -366,21 +371,22 @@ the rendering.
   step, the pieces of the logical path, offset curves, and the expansion into single dashes and placements
   ([000](tickets/000-palette-layers.md), ticket 011). Conversions of the pattern fills are, for example, the placements
   of the elements of an irregular pattern, whose randomness the model keeps as a definition, and a tile of a pattern,
-  which the conversion composes from single elements. The structure of the passes (Nov 20) changes this: the results
-  that are the same for all channels are kept as derivations, and only the results of the channel conversions of the
-  encodings are not kept.
+  which the conversion composes from single elements. The structure of the passes and the readings of Nov 20 change
+  this: `Map` offers the known conversions as means to make derivations from its ideal forms, and keeps their results
+  where the shared use of the channels or a cache makes it sensible. An encoding chooses a conversion that its channel
+  can use, and makes with conversions of its own only what no conversion of `Map` covers ([Glossary.md](Glossary.md),
+  *malli*).
 - **The structure of the passes** (Nov 20). `Map` is the source. Pass 1 makes from the map alone the palette
   separations (`PaletteSeparation`) of the symbol separations (`SymbolSeparation`), and their palette cutters
   (`PaletteCutter`). A symbol separation is the triple (`Symbol`, `SymColor`, G). The symbol separations of a palette
-  separation that have the same configuration are one palette cutter, the layer instance of the specification. The
-  results that are the same for all channels are kept as derivations. Pass 2 writes each palette separation as one
-  group. Section 02 of [Specification.md](Specification.md) gives the structure, and
-  [Glossary.md](Glossary.md) gives the names.
+  separation that have the same configuration are one palette cutter, the layer instance of the specification. `Map`
+  offers the means to make derivations, and keeps them where the shared use of the channels or a cache makes it
+  sensible. Pass 2 writes each palette separation as one group. Section 02 of [Specification.md](Specification.md)
+  gives the structure, and [Glossary.md](Glossary.md) gives the names.
 - **Earlier decisions are negotiable** (Nov 20). The structure of the passes changes the concepts at the base of the
-  work, so each earlier decision is negotiable when it is necessary. The structure touches at least these decisions:
-  "The source of the clipping objects of pass 1" (Nov 18), "Pass 2 replaces the direct drawing of the palette entries"
-  (Nov 18), "The composed dashed lines" (Nov 19, changed Nov 20), which gives the runs to the encodings, and the
-  decisions of Nov 20 that say "the model" ([Glossary.md](Glossary.md), *malli*).
+  work, so each earlier decision is negotiable when it is necessary. The structure touches at least the decisions "The
+  source of the clipping objects of pass 1" (Nov 18) and "Pass 2 replaces the direct drawing of the palette entries"
+  (Nov 18). [Glossary.md](Glossary.md) gives the readings of the decisions of Nov 20 that say "the model" (*malli*).
 - **The names** (Nov 20). [Glossary.md](Glossary.md) gives the rules of the names and the names of the concepts.
 - **The framing line of texts** (Nov 19). The framing of a text run is one line in the instances, a stroke of the full
   width with the joins of the symbol, as in OCAD's PDF export. OCAD's own drawing leaves the same holes as Skia and
