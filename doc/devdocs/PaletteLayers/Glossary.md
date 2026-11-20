@@ -319,8 +319,9 @@ one meaning" lists the words that name two or more concepts now.
   at a corner point or a dash point (011). Upstream has the lengths of the first and the last dash (`DashInfo`).
 - **korjauksen 020 poikkeus** · *exception of fix 020* — A dash from which the rule of fix 020 leaves out the vertex
   (Nov 19). Part of the structure of a line (Nov 20).
-- **ajo, katkoajo** · *run, run of dashes* — The middle dashes of a segment as one periodic dashed line (011). The runs
-  in the euclidean measure are the same for Skia, PDF and SVG, as their dash patterns measure the path euclidean (011,
+- **katkojuoste** · *run of dashes* — The middle dashes of a segment as one periodic dashed line (011). The term is
+  *katkojuoste* (@Pauli, Nov 20); the decisions and the tickets say *ajo* and *katkoajo*. The runs in the euclidean
+  measure are the same for Skia, PDF and SVG, as their dash patterns measure the path euclidean (011,
   Nov 19). They are derivations: `Map` offers the means to make them and to keep them (@Pauli, Nov 20). This changes
   the decision of Nov 20 on the composed dashed lines, which says that an encoding makes the runs (011).
 - **koostettu katkoviiva** · *composed dashed line* — The form of a line for a channel whose dash pattern measures the
@@ -365,8 +366,8 @@ one meaning" lists the words that name two or more concepts now.
   dashes and the gaps in turn, and the distance that the pattern has gone at the start of the shape, as
   `stroke-dasharray` and `stroke-dashoffset` of SVG (011). They are properties of `Stroke` (Nov 19). **Open:** after
   the decisions of Nov 20, the measure in which they are kept (point 2 of 6 in the review of 011).
-- **`TextShape`** (work) · tekstiajo · *text run* — A word, or a grapheme where the character spacing is more than 0,
-  at its own position (Nov 19). It has the text, the font family, the size, the effects and the top left corner
+- **`TextShape`** (work) · tekstijuoste · *text run* — A word, or a grapheme where the character spacing is more than
+  0, at its own position (Nov 19). The term is *tekstijuoste* (@Pauli, Nov 20); the tickets say *tekstiajo*. It has the text, the font family, the size, the effects and the top left corner
   (005). A text run is a shape.
 - **jaetut muodot** · *shared shapes* — Each part of a glyph is one shape, which each placement of the glyph refers to
   (Nov 18; 008). They depend on the definition alone, so they belong to the definition (spec 02, Nov 20). Stretched
@@ -500,6 +501,9 @@ encodings make themselves (spec 02, Nov 20).
     `Map_GDIPlus`, `Map_WPF` and `Map-iOS`.
 - **karttakoordinaatit, maailmankoordinaatit** · *map coordinates, world coordinates* — Ambiguous names that the
   comments of upstream give to the paper coordinates. They are not used (@Pauli, Nov 20).
+- **ajo** · *run* — Not a term in the sense of a sequence, where it translates *run* word for word. The terms are
+  *katkojuoste* · *run of dashes* and *tekstijuoste* · *text run* (`TextShape`) (@Pauli, Nov 20). A run of the tests
+  (*täysi ajo*) is a word of the process.
 - **osa** · *part* — Not a term without a qualifier. The terms are *segmentti* · *segment*, *viivan osatekijä* · *line
   component*, *glyyfin osa* · *glyph part* (`Glyph.GlyphPart`), *yhdistelmän osamäärittely* · *component definition*
   and *osapolku* · *subpath* (`SymPath.GetSubpaths`) (@Pauli, Nov 20).
@@ -530,7 +534,6 @@ encodings make themselves (spec 02, Nov 20).
   are *sijoituksen sisäkkäiset affiiniset muunnokset* (@Pauli, Nov 20).
 - *viiva*: a line (`LineSymDef` or `LineSymbol`), and a stroke (`Stroke`). Decided: *viiva* is a line, and a stroke
   is *kynä* (@Pauli, Nov 20).
-- *ajo* · *run*: a run of dashes, a text run (`TextShape`), and a run of the tests in GitHub Actions.
 - *taitepiste*, *jana* · *vertex*, *segment*: of the path that the user draws, or of the flattened path.
 - *kerros* · *layer*: a palette layer, a color of upstream ("colors (layers)"), a layer of upstream (`SymLayer`:
   `Normal`, `Image` and `Layout`), a layer of a channel, and the intermediate layer.
