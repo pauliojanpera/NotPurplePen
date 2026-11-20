@@ -117,7 +117,8 @@ one meaning" lists the words that name two or more concepts now.
 ### Glyphs
 
 - **`Glyph`** · glyyfi · *glyph* — "A glyph is used to define a point symdef or part of a linesymdef or area symdef"
-  (the comment of `Glyph`). Its parts are lines, areas, circles and filled circles (005).
+  (the comment of `Glyph`). Its parts are lines, areas, circles and filled circles (005). The term of a part is
+  *glyyfin osa* · *glyph part* (`Glyph.GlyphPart`) (@Pauli, Nov 20).
 - **`extraTransform`** · glyyfin lisämuunnos · *extra transformation of a glyph* — It transforms the points of a glyph
   but not its line widths, for example for the scale at corners and for the glyphs that decrease. So it is not an
   affine placement of a stroked shape (011).
@@ -126,8 +127,9 @@ one meaning" lists the words that name two or more concepts now.
 
 - **`LineSymDef`, `LineComboSymDef`** · viivan symbolimäärittely · *line symbol definition* — A `LineSymDef` has the
   dashes (`DashInfo`), the double line (`DoubleLineInfo`), the shortening and the pointy ends (`ShortenInfo`) and the
-  glyphs (`GlyphInfo`). A `LineComboSymDef` gathers the parts of other line symbol definitions (011). The comments of
-  upstream call a `LineSymDef` a *linesymdef*. Ticket 011 calls these line symbols, but *viivasymboli* is
+  glyphs (`GlyphInfo`). A `LineComboSymDef` gathers other line symbol definitions, its component definitions (011).
+  The term is *yhdistelmän osamäärittely* · *component definition* (@Pauli, Nov 20). The comments of upstream call a
+  `LineSymDef` a *linesymdef*. Ticket 011 calls these line symbols, but *viivasymboli* is
   `LineSymbol` (@Pauli, Nov 20).
 - **`LineSymbol`** · viivasymboli · *line symbol, line object* — One line object of a map. Its path is
   `LineLikeSymbol.Path`, a `SymPath`.
@@ -138,8 +140,8 @@ one meaning" lists the words that name two or more concepts now.
 - **viivan rakenne** · *structure of a line* — The logical path, the parts as its pieces and offsets, the measure of
   the line, the fitted pattern of a part, the end dashes and the exceptions of fix 020 (Nov 20). `Map` keeps the
   information that is necessary, that is the ideal forms: the path of the `LineSymbol`, the `DashInfo`, the
-  `DoubleLineInfo` and the metric. The parts, the fitted dash patterns, the merged end dashes and the exceptions of
-  fix 020 are derivations, which `Map` can keep for the channels where the implementation finds it sensible (@Pauli,
+  `DoubleLineInfo` and the metric. The segments, the fitted dash patterns, the merged end dashes and the exceptions
+  of fix 020 are derivations, which `Map` can keep for the channels where the implementation finds it sensible (@Pauli,
   Nov 20).
 - **looginen polku** · *logical path* — The path of a line in its ideal form. The parts of the line are its pieces and
   offsets (Nov 20). **Upstream:** a line object has one path (`LineLikeSymbol.Path`), and its definition draws all the
@@ -161,14 +163,17 @@ one meaning" lists the words that name two or more concepts now.
   (`shortenBeginning`, `shortenEnd`). It is measured with the metric of the map (011). `ShortenInfo` also has the
   pointy ends (`pointyEnds`).
 - **`SpacingMethod.OCAD`** · OCADin välistys · *OCAD spacing* — The method that fits the dashes and the glyphs of a
-  part as OCAD does (017, 021). The other spacing methods of upstream are `OpenMapperDashes` and
+  segment as OCAD does (017, 021). The other spacing methods of upstream are `OpenMapperDashes` and
   `OpenMapperMidSymbols`.
 - **`SymPath.DistanceMetric`** · metriikka · *metric* — The OCAD metric is the larger coordinate difference plus half
   the smaller one (`SymPath.BizzarroDistance`): a norm whose unit circle is an octagon (011). A map uses the OCAD
   metric when its view parameter `p` is 1. Mapper maps use the euclidean metric (011, 016). The metric of a map is
   `Map.MapDistanceMetric`, and `Map.UseEuclideanMetric` selects it. The OCAD metric is best effort (Nov 19).
 - **`PointKind.Corner`, `PointKind.Dash`** · kulmapiste, katkopiste · *corner point, dash point* — The points of a path
-  that have the OCAD flags y & 1 and y & 8. They divide a line into parts (011).
+  that have the OCAD flags y & 1 and y & 8. They divide a line into segments (011).
+- **`SymPath.GetSubpaths`** · osapolku · *subpath* — A part of a path that the start and stop flags of its points
+  delimit, for example for a border of a double line (`SymPath.DOUBLE_LEFT_STARTSTOPFLAG`). The term is *osapolku* ·
+  *subpath* (@Pauli, Nov 20).
 - **taitepiste, jana** · *vertex, segment* — A point of a path, and the straight segment between two points.
   **Upstream:** the points of a path have the kinds `Normal`, `BezierControl`, `Corner` and `Dash` (`PointKind`). The
   flat points of a path also have interpolated points (`PointKind.Interpolated`). **Open:** in the decisions on the
@@ -286,12 +291,16 @@ one meaning" lists the words that name two or more concepts now.
   form depends on what the implementations that the channels choose need: for example, the dashes on a curve can be
   Bezier pieces, polylines or both (@Pauli, Nov 20). In the work, the shapes keep ellipses and arcs as ellipses and
   arcs, as the graphics targets make polylines of them each in its own way (005).
-- **osa** · *part* — A part of a line between corner and dash points. The dashes are fitted to each part separately
-  (011). **Open:** in "the parts as its pieces and offsets" (Nov 20), is a part the same thing, or each component of
-  the line, for example a border or a run?
+- **segmentti** · *segment* — The part of a line between corner and dash points. The dashes are fitted to each
+  segment separately (011). Upstream calls it a segment ("Get length of each segment, deliniated by corner points",
+  `ComputeDashDistances`). The term is *segmentti* · *segment* (@Pauli, Nov 20). **Open:** in "the parts as its
+  pieces and offsets" (Nov 20), is a part a segment or a line component?
+- **viivan osatekijä** · *line component* — One of the components that a `LineSymDef` draws from the path of a line:
+  the main line, the secondary line, the double line fill, a double line border, the pointy ends or the glyphs along
+  the line (011). The term is *viivan osatekijä* · *line component* (@Pauli, Nov 20).
 - **pala** · *piece* — A piece of the logical path, from one place on the path to another (Nov 20). **Open:** its
   exact content.
-- **siirtymä** · *offset* — The distance of a part from the logical path, to the side (Nov 20).
+- **siirtymä** · *offset* — The distance of a line component from the logical path, to the side (Nov 20).
 - **siirretty polku, pohjapolku** · *offset path, base path* — The shape of a border of a double line, in its ideal
   form: the path of the middle of the line and the offset. Its dash pattern is measured along its base path. The rule
   of the corners of the offset belongs to the shape, and the join belongs to the stroke (Nov 20). The offset curve is a
@@ -304,14 +313,14 @@ one meaning" lists the words that name two or more concepts now.
   (`flatpoints`). The ideal form keeps the curves. A derivation can keep a polyline, and an encoding can make one
   (Nov 20).
 - **sovitettu katkokuvio** · *fitted dash pattern* (`ComputeDashDistances`) — The dash and the gap that the fitting
-  gives to a part (011). Part of the structure of a line (Nov 20). The term is *sovitettu katkokuvio* · *fitted dash
+  gives to a segment (011). Part of the structure of a line (Nov 20). The term is *sovitettu katkokuvio* · *fitted dash
   pattern* (@Pauli, Nov 20).
-- **päätykatko, yhdistetty katko** · *end dash, merged dash* — The end dashes of adjacent parts merge into one dash at
-  a corner point or a dash point (011). Upstream has the lengths of the first and the last dash (`DashInfo`).
+- **päätykatko, yhdistetty katko** · *end dash, merged dash* — The end dashes of adjacent segments merge into one dash
+  at a corner point or a dash point (011). Upstream has the lengths of the first and the last dash (`DashInfo`).
 - **korjauksen 020 poikkeus** · *exception of fix 020* — A dash from which the rule of fix 020 leaves out the vertex
   (Nov 19). Part of the structure of a line (Nov 20).
-- **ajo, katkoajo** · *run, run of dashes* — The middle dashes of a part as one periodic dashed line (011). The runs in
-  the euclidean measure are the same for Skia, PDF and SVG, as their dash patterns measure the path euclidean (011,
+- **ajo, katkoajo** · *run, run of dashes* — The middle dashes of a segment as one periodic dashed line (011). The runs
+  in the euclidean measure are the same for Skia, PDF and SVG, as their dash patterns measure the path euclidean (011,
   Nov 19). They are derivations: `Map` offers the means to make them and to keep them (@Pauli, Nov 20). This changes
   the decision of Nov 20 on the composed dashed lines, which says that an encoding makes the runs (011).
 - **koostettu katkoviiva** · *composed dashed line* — The form of a line for a channel whose dash pattern measures the
@@ -348,7 +357,7 @@ one meaning" lists the words that name two or more concepts now.
   it has the dash pattern and its phase. The band that a pen covers along a path is *kynänjälki* (proposed name). The
   symbol
   definitions give the caps and the joins together as a line style (`LineStyle`: `Rounded`, `Mitered`, `Beveled`,
-  `FlatRounded`). **Open:** the dash structure of a part in the measure of the line (point 2 of 6 in the review of
+  `FlatRounded`). **Open:** the dash structure of a segment in the measure of the line (point 2 of 6 in the review of
   011).
 - **`LineCapMode`, `LineJoinMode`, `Stroke.MiterLimit`** · pää, liitos, jiirausraja · *cap, join, miter limit* — 005.
 - **`Stroke.DashPattern`, `Stroke.DashPhase`** (work) · katkokuvio, katkokuvion alkukohta · *dash pattern, dash
@@ -462,7 +471,7 @@ encodings make themselves (spec 02, Nov 20).
     access to it in forms that are more usable for the needs of the channels (@Pauli, Nov 20).
   - "the model keeps the structure of a line" (The structure of a line): `Map` keeps the information that is
     necessary, that is the ideal forms: the path of the `LineSymbol`, the `DashInfo`, the `DoubleLineInfo` and the
-    metric. The parts, the fitted dash patterns, the merged end dashes and the exceptions of fix 020 are derivations,
+    metric. The segments, the fitted dash patterns, the merged end dashes and the exceptions of fix 020 are derivations,
     which `Map` can keep for the channels where the implementation finds it sensible (@Pauli, Nov 20).
   - "the measure of the model" (The composed dashed lines, 011): the metric that the source means to be used, which
     `Map` keeps in the ideal form (`Map.UseEuclideanMetric`). `Map` offers the means to convert the metric to suit a
@@ -491,6 +500,9 @@ encodings make themselves (spec 02, Nov 20).
     `Map_GDIPlus`, `Map_WPF` and `Map-iOS`.
 - **karttakoordinaatit, maailmankoordinaatit** · *map coordinates, world coordinates* — Ambiguous names that the
   comments of upstream give to the paper coordinates. They are not used (@Pauli, Nov 20).
+- **osa** · *part* — Not a term without a qualifier. The terms are *segmentti* · *segment*, *viivan osatekijä* · *line
+  component*, *glyyfin osa* · *glyph part* (`Glyph.GlyphPart`), *yhdistelmän osamäärittely* · *component definition*
+  and *osapolku* · *subpath* (`SymPath.GetSubpaths`) (@Pauli, Nov 20).
 - **reuna** · *border* — Not a term without a qualifier. The terms are *kaksoisviivan reuna* · *double line border*
   and *alueen reuna* · *area border* (@Pauli, Nov 20).
 - **täyttö** · *fill* — Not a term without a qualifier. The terms are *täytetty muoto* · *filled shape*
@@ -518,8 +530,6 @@ encodings make themselves (spec 02, Nov 20).
   are *sijoituksen sisäkkäiset affiiniset muunnokset* (@Pauli, Nov 20).
 - *viiva*: a line (`LineSymDef` or `LineSymbol`), and a stroke (`Stroke`). Decided: *viiva* is a line, and a stroke
   is *kynä* (@Pauli, Nov 20).
-- *osa* · *part*: a part of a line between corner and dash points, a component of the structure of a line, a part of a
-  glyph, and a part of a `LineComboSymDef`.
 - *ajo* · *run*: a run of dashes, a text run (`TextShape`), and a run of the tests in GitHub Actions.
 - *taitepiste*, *jana* · *vertex*, *segment*: of the path that the user draws, or of the flattened path.
 - *kerros* · *layer*: a palette layer, a color of upstream ("colors (layers)"), a layer of upstream (`SymLayer`:
