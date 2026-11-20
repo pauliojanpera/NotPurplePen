@@ -146,9 +146,11 @@ one meaning" lists the words that name two or more concepts now.
   parts of the line from it (011). **Open:** is the logical path `LineLikeSymbol.Path`?
 - **keskiviiva** · *middle of the line* — The base path of the borders of a double line (Nov 20). The English
   documents have no single term for it.
-- **`DoubleLineInfo`** · kaksoisviiva, reuna, kaksoisviivan täyttö · *double line, border, double line fill* — A
-  double line has a fill and two borders (005, 011). The term of the fill is *kaksoisviivan täyttö* · *double line
-  fill* (@Pauli, Nov 20). Upstream calls the borders the left and the right double line, with their colors, widths and
+- **`DoubleLineInfo`** · kaksoisviiva, kaksoisviivan reuna, kaksoisviivan täyttö · *double line, double line border,
+  double line fill* — A double line has a fill and two borders, the left and the right border (005, 011). The terms
+  are *kaksoisviivan täyttö* · *double line fill* and *kaksoisviivan reuna* · *double line border* (@Pauli, Nov 20).
+  Upstream calls the borders the left and the right double line. That name would make *kaksoisviiva* mean both the
+  whole line and each of its sides. Upstream calls the borders the left and the right double line, with their colors, widths and
   dashes (`doubleLeftColor`, `doubleRightColor`), and calls the band between them the fill (`doubleFillColor`).
   `doubleThick` is the distance between the double lines and the thickness of the fill.
 - **`DashInfo`** · katko, väli, toissijainen väli · *dash, gap, secondary gap* — The dashes of a `LineSymDef`: the
@@ -178,6 +180,9 @@ one meaning" lists the words that name two or more concepts now.
 
 - **`AreaSymDef.FillColor`** · alueen täyttö · *area fill* — The solid fill of an area, in one color ("Solid fill
   information", the comment of upstream). The term is *alueen täyttö* · *area fill* (@Pauli, Nov 20).
+- **`AreaSymDef.BorderSymdef`** · alueen reuna · *area border* — The line symbol definition with which an area is
+  bordered ("the border symbol to use", the comment of upstream). `AreaSymDef.Draw` draws it along the main path and
+  along each hole. The term is *alueen reuna* · *area border* (@Pauli, Nov 20).
 - **kuviotäyttö** · *pattern fill, structured fill* (`HatchInfo`, `PatternInfo`) — The hatchings and the area patterns
   (spec 03; 009, a draft).
 - **`HatchInfo`** · viivoitus · *hatching* — It has a color, a width, a spacing, an offset, an angle and a rotate mode
@@ -486,6 +491,8 @@ encodings make themselves (spec 02, Nov 20).
     `Map_GDIPlus`, `Map_WPF` and `Map-iOS`.
 - **karttakoordinaatit, maailmankoordinaatit** · *map coordinates, world coordinates* — Ambiguous names that the
   comments of upstream give to the paper coordinates. They are not used (@Pauli, Nov 20).
+- **reuna** · *border* — Not a term without a qualifier. The terms are *kaksoisviivan reuna* · *double line border*
+  and *alueen reuna* · *area border* (@Pauli, Nov 20).
 - **täyttö** · *fill* — Not a term without a qualifier. The terms are *täytetty muoto* · *filled shape*
   (`FilledShape`), *täyttösääntö* · *fill rule*, *alueen täyttö* · *area fill*, *kaksoisviivan täyttö* · *double line
   fill*, *kuviotäyttö* · *pattern fill* and *täyttötila* · *fill mode* (@Pauli, Nov 20).
@@ -511,7 +518,6 @@ encodings make themselves (spec 02, Nov 20).
   are *sijoituksen sisäkkäiset affiiniset muunnokset* (@Pauli, Nov 20).
 - *viiva*: a line (`LineSymDef` or `LineSymbol`), and a stroke (`Stroke`). Decided: *viiva* is a line, and a stroke
   is *kynä* (@Pauli, Nov 20).
-- *reuna* · *border*: the border of a double line, and the border of an area.
 - *osa* · *part*: a part of a line between corner and dash points, a component of the structure of a line, a part of a
   glyph, and a part of a `LineComboSymDef`.
 - *ajo* · *run*: a run of dashes, a text run (`TextShape`), and a run of the tests in GitHub Actions.
