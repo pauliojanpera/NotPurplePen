@@ -67,15 +67,14 @@ Glossary.md has all the decisions of Nov 20 and Nov 21, each with @Pauli's name 
 - The names of the structure of the passes: `PaletteSeparation` · palettierottelu and `PaletteCutter` ·
   palettileikkuri, and the Finnish term *johdos*.
 - The terms of `IGraphicsTarget`: *piirtokohde* · *graphics target* (Nov 21).
+- The terms of α: *peittävyys* · *opacity* (Nov 21).
 
 ### Open
 
 Present these to @Pauli, one question at a time:
 1. **The five terms of commit 06f4c824d.** The session chose *graphics target*, *peittävyys*, *täysi peitto*,
    *paikka* and *perustapaus* by their use, without a question. The glossary marks them "chosen by use". @Pauli
-   decided *graphics target* on Nov 21. The facts for the other questions:
-   - *peittävyys* and *opasiteetti* (α): the documents of the work say *peittävyys* 17 times, among them the title of
-     ticket 004, and *opasiteetti* 2 times. *Peitto* is the coverage, which has the same stem.
+   decided *graphics target* and *peittävyys* on Nov 21. The facts for the other questions:
    - *täysi peitto* and *yhtenäinen geometria* (G = 1): the code of the work says `GeometryPrototype.FullCoverage`, and
      spec 01 says *full coverage*. Ticket 005 says *yhtenäinen geometria*.
    - *paikka* and *kohta* (a position): the decision of Nov 20 on the placements says *paikka*. The decision of Nov 19

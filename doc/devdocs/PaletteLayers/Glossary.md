@@ -77,7 +77,10 @@ one meaning" lists the words that name two or more concepts now.
   the courses included (000).
 - **väri C** · *color C* — A spatially constant color, independent of color space (spec 01). A `SymColor` of
   upstream keeps a CMYK color (`CmykColor`).
-- **`SymColor.Opacity`** (work) · peittävyys α · *opacity α* — A spatially constant opacity (spec 01; 004).
+- **`SymColor.Opacity`** (work) · peittävyys α · *opacity α* — A spatially constant opacity (spec 01; 004). The
+  terms are *peittävyys* α · *opacity* α (@Pauli, Nov 21). The tickets say *peittävyys* 17 times, among them the title
+  of 004, and *opasiteetti* 2 times (000, 001). The Finnish translations of Inkscape and of GIMP 3.0 call the opacity
+  *peittävyys* and *peittokyky*. The coverage (*peitto*) is a different concept, which spec 01 keeps apart from α.
 - **`SymColor.BlendMode`** (work) · sekoitustila B · *blend mode B* — The compositing operation (`ColorBlendMode`)
   (spec 01; 004). For an OCAD map, B = Darken is the larger share of each ink, and not the RGB minimum
   ([oracles/ocad-darken.md](oracles/ocad-darken.md)).
@@ -567,9 +570,9 @@ encodings make themselves (spec 02, Nov 20).
   palette-layer work). Decided: *graphics target* (@Pauli, Nov 21).
 - Two Finnish words for one concept: *peittävyys* and *opasiteetti* (α, 000 and 001), *täysi peitto* and *yhtenäinen
   geometria* (G = 1, 005), *paikka* and *kohta* (a position, 011), *perustapaus* and *perustilanne* (a basic case,
-  011). Chosen by use (Nov 20): *peittävyys* (the title of 004, 17 uses against 2), *täysi peitto* (*full coverage*
-  of the specification), *paikka* (the decision of Nov 20 on the placements) and *perustapaus* (the decision of
-  Nov 20 on the structure of a line).
+  011). Decided: *peittävyys* (@Pauli, Nov 21). Chosen by use (Nov 20): *täysi peitto* (*full coverage* of the
+  specification), *paikka* (the decision of Nov 20 on the placements) and *perustapaus* (the decision of Nov 20 on the
+  structure of a line).
 
 ## Not in this glossary
 
