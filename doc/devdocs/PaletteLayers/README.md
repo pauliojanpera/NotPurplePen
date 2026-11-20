@@ -8,6 +8,7 @@ branches, its pull request descriptions and its tracking. The practice is @Pauli
 | --- | --- |
 | [Specification.md](Specification.md) | The reference of the architecture. Its preface tells when it binds, and which programs are the oracles. |
 | [Glossary.md](Glossary.md) | The names of the concepts of the architecture in the code, in Finnish and in English, and the rules of the names. |
+| [GlossaryHandover.md](GlossaryHandover.md) | How a new session continues the glossary work: the rules of the work with @Pauli, what is decided and what is open. |
 | [tickets/](tickets/) | The tickets, numbered in order. [000](tickets/000-palette-layers.md) is the epic. The templates: `epic-template.md`, `feature-template.md` and `bug-template.md`. |
 | [prs/](prs/) | A pull request description of each branch, with the number of its ticket. The template: `template.md`. |
 | [Progress.md](Progress.md) | The state of each branch, its full runs and the branches it is merged into, and the decisions of the work. |
