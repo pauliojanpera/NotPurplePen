@@ -70,11 +70,14 @@ one meaning" lists the words that name two or more concepts now.
   (`SymLayer.Normal`). A `SymColor` also marks the image layer and the layout layer, and these are not palette entries
   (005). A palette entry has a color or ink components, an opacity, a blend mode, a knockout and a priority (spec 02,
   06; 001, 004). The comments of upstream also call the colors layers ("colors (layers)", `RenderOptions`).
-- **palettikerros** · *palette layer* — The layer of a palette entry: the uniform color of the entry over the drawing.
-  In spec 01, a palette layer has C, α, B, G and M. Spec 02 divides these between the palette entry and its layer
-  instances, the palette cutters. **Open:** how does a palette layer differ from a palette entry and from its group?
+- **väritaso** · *color layer* — The layer of a palette entry, in the sense of the layers of image editing: the uniform
+  color of the entry over the drawing, with its opacity and blend mode. The term is *väritaso* (@Pauli, Nov 20), as
+  upstream calls the colors layers ("colors (layers)", `RenderOptions`). The specification and the tickets call it a
+  palette layer (*palettikerros*). In spec 01, a palette layer has C, α, B, G and M. Spec 02 divides these between the
+  palette entry and its layer instances, the palette cutters. **Open:** how does a color layer differ from a palette
+  entry and from its group?
 - **palettipino, palettijärjestys, prioriteetti** · *palette stack, palette order, priority* — The ordered stack of
-  the palette layers, and the order in which pass 2 composites the groups (spec 01, 02, 05). The colors of a map are
+  the color layers, and the order in which pass 2 composites the groups (spec 01, 02, 05). The colors of a map are
   `Map.AllColors`, and upstream draws them from the lowest to the highest (005). One palette stack is for all the maps,
   the courses included (000).
 - **väri C** · *color C* — A spatially constant color, independent of color space (spec 01). A `SymColor` of
@@ -229,10 +232,13 @@ one meaning" lists the words that name two or more concepts now.
 
 - **`TemplateInfo`** · pohjakartta · *template* (`LoadedTemplate`) — It is not a palette entry (005). `Map.Draw` draws
   the templates under and over the palette entries now. An OCAD template is a `Map` of its own (000).
-- **`SymLayer.Image`** · kuvakerros · *image layer* — The layer below all the normal layers. Its objects are image
+- **`SymLayer.Image`** · kuvataso · *image layer* — The layer below all the normal layers. The layers of `SymLayer`
+  are layers in the sense of image editing: *taso* · *layer* (@Pauli, Nov 20). Its objects are image
   objects, with a special symbol definition (`ImageSymDef`). It is not a palette entry (005).
-- **`SymLayer.Layout`** · asettelukerros · *layout layer* — The layer above all the normal layers. Its objects are
+- **`SymLayer.Layout`** · asettelutaso · *layout layer* — The layer above all the normal layers. Its objects are
   layout objects, with a special symbol definition (`ImageSymDef`). It is not a palette entry (005).
+- **`SymLayer.Normal`** · tavallinen taso · *normal layer* — The layer between the image layer and the layout layer.
+  It holds the color layers in palette order, as a group of layers holds layers in image editing (Nov 20).
 - **ratakartta** · *course map* (`CourseLayout.RenderToMap`) — The map of the courses is a `Map` of its own, so the
   same pass 1 applies to it (005). One palette stack is for all the maps (000).
 
@@ -503,6 +509,10 @@ encodings make themselves (spec 02, Nov 20).
     `Map_GDIPlus`, `Map_WPF` and `Map-iOS`.
 - **karttakoordinaatit, maailmankoordinaatit** · *map coordinates, world coordinates* — Ambiguous names that the
   comments of upstream give to the paper coordinates. They are not used (@Pauli, Nov 20).
+- **kerros** · *layer* — Only the intermediate layer (*välikerros*), a layer of the architecture. A layer in the sense
+  of image editing is *taso* · *layer*: *väritaso* · *color layer*, *kuvataso* · *image layer*, *tavallinen taso* ·
+  *normal layer*, *asettelutaso* · *layout layer* and *kanavan taso* · *channel layer*, for example a layer of Skia
+  into which a group is composited (@Pauli, Nov 20).
 - **ajo** · *run* — Not a term in the sense of a sequence, where it translates *run* word for word. The terms are
   *katkojuoste* · *run of dashes* and *tekstijuoste* · *text run* (`TextShape`) (@Pauli, Nov 20). A run of the tests
   (*täysi ajo*) is a word of the process.
@@ -538,11 +548,9 @@ encodings make themselves (spec 02, Nov 20).
   is *kynä* (@Pauli, Nov 20).
 - *taitepiste*, *jana* · *vertex*, *segment*: of the path that the user draws, or of the flattened path. Decided: of
   the flattened path, and the English term of *jana* is *edge* (@Pauli, Nov 20).
-- *kerros* · *layer*: a palette layer, a color of upstream ("colors (layers)"), a layer of upstream (`SymLayer`:
-  `Normal`, `Image` and `Layout`), a layer of a channel, and the intermediate layer.
 - *separaatio* · *separation*: the separation of an ink (spec 06), the palette separation (`PaletteSeparation`), and
   the symbol separation (`SymbolSeparation`).
-- *palettikerros*, *palettimerkintä*, *ryhmä*: three words for close concepts.
+- *väritaso*, *palettimerkintä*, *ryhmä*: three words for close concepts.
 - *step*: the step of a repeated placement (*askel*), and the steps of a placement (*sisäkkäiset affiiniset
   muunnokset*).
 - Two English words for one concept: *graphics target* (upstream) and *drawing target* (the documents of the fork).
