@@ -357,6 +357,12 @@ the rendering.
   from the file and does not recognize it from the geometry of the drawing. The opening is not in the scope of the
   epic. The epic includes a model that makes it possible: the model keeps its structure in its ideal form, and its
   parts and its shared structures are objects to which an encoding can refer ([000](tickets/000-palette-layers.md)).
+- **The conversions of the model** (Nov 20). The model offers the known conversions of its structure into forms that
+  the channels can use, as calculations. It does not keep their results. An encoding chooses a conversion that its
+  channel can use. The conversions concern the whole model, not only the lines. Conversions of the lines are, for
+  example, the runs and the single dashes in the euclidean measure, a table of dashes, repetitions with a euclidean
+  step, the pieces of the logical path, offset curves, and the expansion into single dashes and placements
+  ([000](tickets/000-palette-layers.md), ticket 011).
 - **The framing line of texts** (Nov 19). The framing of a text run is one line in the instances, a stroke of the full
   width with the joins of the symbol, as in OCAD's PDF export. OCAD's own drawing leaves the same holes as Skia and
   Cairo with one pen, so the holes that the intermediate pens of Purple Pen fill are no faults against OCAD (question
