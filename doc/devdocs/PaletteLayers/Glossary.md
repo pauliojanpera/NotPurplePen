@@ -149,10 +149,10 @@ one meaning" lists the words that name two or more concepts now.
 - **`DoubleLineInfo`** · kaksoisviiva, kaksoisviivan reuna, kaksoisviivan täyttö · *double line, double line border,
   double line fill* — A double line has a fill and two borders, the left and the right border (005, 011). The terms
   are *kaksoisviivan täyttö* · *double line fill* and *kaksoisviivan reuna* · *double line border* (@Pauli, Nov 20).
-  Upstream calls the borders the left and the right double line. That name would make *kaksoisviiva* mean both the
-  whole line and each of its sides. Upstream calls the borders the left and the right double line, with their colors, widths and
-  dashes (`doubleLeftColor`, `doubleRightColor`), and calls the band between them the fill (`doubleFillColor`).
-  `doubleThick` is the distance between the double lines and the thickness of the fill.
+  Upstream calls the borders the left and the right double line, with their colors, widths and dashes
+  (`doubleLeftColor`, `doubleRightColor`), and calls the band between them the fill (`doubleFillColor`). That name
+  would make *kaksoisviiva* mean both the whole line and each of its sides. `doubleThick` is the distance between the
+  double lines and the thickness of the fill.
 - **`DashInfo`** · katko, väli, toissijainen väli · *dash, gap, secondary gap* — The dashes of a `LineSymDef`: the
   lengths of the dashes and of the gaps (`dashLength`, `gapLength`), and the secondary gaps (`secondaryMiddleGaps`,
   `secondaryEndGaps`) (011). Upstream calls the dashes between the first and the last dash the main dashes, and has
