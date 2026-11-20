@@ -107,10 +107,11 @@ one meaning" lists the words that name two or more concepts now.
   `AreaSymDef.hatchings`) or one pattern (an index in `AreaSymDef.patterns`) (Nov 20). In an `AreaComboSymDef`, the
   component definition is part of G. Upstream has no class for G. **Open:** are the shared structures that are not
   periodic, for example the shared shapes of a glyph, prototypes or a concept of their own?
-- **toistuva geometria G** · *repetitive geometry G* — A binary, spatially repetitive, origin-bound geometry selector
-  (spec 01). The hatchings and the area patterns are repetitive geometry (009, a draft).
+- **jaksollinen geometria G** · *periodic geometry G* — A binary, spatially repetitive, origin-bound geometry selector
+  (spec 01). The hatchings and the area patterns are periodic geometry (009, a draft). Spec 01 calls it repetitive
+  geometry and spec 02 periodic geometry. The term is *jaksollinen geometria* · *periodic geometry* (@Pauli, Nov 20).
 - **`GeometryPrototype.FullCoverage`** (work) · täysi peitto, G = 1 · *full coverage* — The constant case of
-  repetitive geometry (spec 01). The geometry of points, lines and texts has G = 1. Their dash patterns and their
+  periodic geometry (spec 01). The geometry of points, lines and texts has G = 1. Their dash patterns and their
   glyphs along a line are strokes and placements, not lattices (Nov 19, Nov 20).
 
 ### Glyphs
@@ -312,8 +313,8 @@ one meaning" lists the words that name two or more concepts now.
 - **katkotaulukko** · *dash table* — A known channel conversion of the dashes of a line (000, Nov 20). `Map` offers it
   (@Pauli, Nov 20).
 - **laajennus** · *expansion* (work: `StrokedShape.ExpandDashes`, `RepeatedShapes.Expand`) — A known channel
-  conversion into single parts: a run into dashes, and a repetition into placements (011). `Map` offers it (@Pauli,
-  Nov 20).
+  conversion into single parts: a run into dashes, and a repeated placement into single placements (011). `Map`
+  offers it (@Pauli, Nov 20).
 
 ### The forms of the derivations
 
@@ -354,9 +355,11 @@ one meaning" lists the words that name two or more concepts now.
 - **`Placement`** (work) · sijoitus · *placement* — It gives one or more positions. Each reader asks a placement for its
   positions (Nov 20). It composes its steps into one matrix (`Matrix`).
 - **yksittäinen sijoitus** · *single placement* — It keeps one point and an angle (Nov 20).
-- **toisto** · *repetition* — A placement that keeps its path, its first position, its step and its count. It
-  calculates the angles of the positions from the direction of the path, with the method of the drawing (Nov 20).
-  Only an encoding that gives a repetition to an abstraction of its channel reads the path and the step. On a Bezier
+- **toistosijoitus** · *repeated placement* — A placement that keeps its path, its first position, its step and its
+  count. It calculates the angles of the positions from the direction of the path, with the method of the drawing
+  (Nov 20). The term is *toistosijoitus* · *repeated placement*, and the decisions say *toisto* · *repetition*
+  (@Pauli, Nov 20). Only an encoding that gives a repeated placement to an abstraction of its channel reads the path
+  and the step. On a Bezier
   curve, the glyphs of the OCAD spacing repeat by quarters (Nov 20). Its earlier form is a kind of clipping object
   (work: `RepeatedShapes`). **Upstream:** the glyphs that `GlyphLocation.Spaced` places along a line at the distances
   given.
@@ -368,7 +371,7 @@ one meaning" lists the words that name two or more concepts now.
   step (Nov 20). Skia composes nested transformations with its own rounding. With the same steps in the same order,
   the coverage is the same to the pixel (005).
 - **askel, määrä** · *step, count* (work: `RepeatedShapes.Step`, `RepeatedShapes.Count`) — The distance between the
-  positions of a repetition, and the number of its positions (Nov 19, Nov 20).
+  positions of a repeated placement, and the number of its positions (Nov 19, Nov 20).
 - **kuvioruutu** · *tile* — One cell of a pattern, which is composed from single elements (Nov 20). It depends on the
   definition alone.
 - **valitut elementit, epäsäännöllisen kuvion sijoitukset** · *selected elements, placements of an irregular pattern* —
@@ -437,7 +440,7 @@ encodings make themselves (spec 02, Nov 20).
   structure of the passes on Nov 20:
   - "the map model keeps the ideal forms" (The ideal forms): `Map` keeps the ideal forms, that is the information that
     an encoding needs. The derivations are not ideal forms, but practical adaptations of them to the needs of the
-    channels. They keep the dashes, the runs and the paths of the repetitions on a curve as Bezier pieces or as
+    channels. They keep the dashes, the runs and the paths of the repeated placements on a curve as Bezier pieces or as
     polylines, as the implementations that the channels choose need, and possibly in both forms (@Pauli, Nov 20).
   - "the implementation of the channel does not agree with the model" (The ideal forms): with the ideal form of `Map`.
     When the decision was made, `Map` did not offer derivations yet. Now `Map` also offers the means to make and to
@@ -477,6 +480,8 @@ encodings make themselves (spec 02, Nov 20).
     `Map_GDIPlus`, `Map_WPF` and `Map-iOS`.
 - **karttakoordinaatit, maailmankoordinaatit** · *map coordinates, world coordinates* — Ambiguous names that the
   comments of upstream give to the paper coordinates. They are not used (@Pauli, Nov 20).
+- **toisto, toistuva** · *repetition, repetitive* — Not a term without a qualifier. The terms are *toistosijoitus* ·
+  *repeated placement* and *jaksollinen geometria* · *periodic geometry* (@Pauli, Nov 20).
 - **litistys, litistäminen** · *flattening* — Not a term without a qualifier. The terms are *läpinäkyvyyden litistys* ·
   *transparency flattening* (spec 08) and *polun litistäminen* · *path flattening* (@Pauli, Nov 20).
 - **muunnos** · *transformation, conversion* — Too generic to be a term without a qualifier, as *malli* is (@Pauli,
@@ -494,7 +499,6 @@ encodings make themselves (spec 02, Nov 20).
   are *sijoituksen sisäkkäiset affiiniset muunnokset* (@Pauli, Nov 20).
 - *viiva*: a line (`LineSymDef` or `LineSymbol`), and a stroke (`Stroke`). Decided: *viiva* is a line, and a stroke
   is *kynä* (@Pauli, Nov 20).
-- *toisto*, *toistuva*: the repetition of a placement along a path, and the repetitive geometry G of a lattice.
 - *kuvio* · *pattern*: an area pattern (`PatternInfo`), a dash pattern (`Stroke.DashPattern`) and a fitted pattern.
 - *täyttö* · *fill*: a filled shape (`FilledShape`), the fill of an area, the fill of a double line, and a pattern
   fill.
@@ -508,7 +512,8 @@ encodings make themselves (spec 02, Nov 20).
 - *separaatio* · *separation*: the separation of an ink (spec 06), the palette separation (`PaletteSeparation`), and
   the symbol separation (`SymbolSeparation`).
 - *palettikerros*, *palettimerkintä*, *ryhmä*: three words for close concepts.
-- *step*: the step of a repetition (*askel*), and the steps of a placement (*vaiheet*).
+- *step*: the step of a repeated placement (*askel*), and the steps of a placement (*sisäkkäiset affiiniset
+  muunnokset*).
 - Two English words for one concept: *graphics target* (upstream) and *drawing target* (the documents of the fork).
 - Two Finnish words for one concept: *peittävyys* and *opasiteetti* (α, 000 and 001), *täysi peitto* and *yhtenäinen
   geometria* (G = 1, 005), *paikka* and *kohta* (a position, 011), *perustapaus* and *perustilanne* (a basic case,
