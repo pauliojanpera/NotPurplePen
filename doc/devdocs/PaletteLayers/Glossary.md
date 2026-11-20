@@ -287,7 +287,8 @@ one meaning" lists the words that name two or more concepts now.
   derivation.
 - **neljännes, jänne** · *quarter, chord* — Each quarter of a Bezier curve has its chord as its length in the measure.
   Within the quarter, the dashes are in proportion to the true arc (021, Nov 19).
-- **litistetty polku, litistäminen** · *flattened path, flattening* (`SymPath.GetFlattenedPoints`) — The polyline
+- **litistetty polku, polun litistäminen** · *flattened path, path flattening* (`SymPath.GetFlattenedPoints`) — The
+  term is *polun litistäminen* · *path flattening* (@Pauli, Nov 20). The polyline
   that approximates the curves of a path. Upstream calls its points the flat points and keeps them in the `SymPath`
   (`flatpoints`). The ideal form keeps the curves. A derivation can keep a polyline, and an encoding can make one
   (Nov 20).
@@ -328,9 +329,12 @@ one meaning" lists the words that name two or more concepts now.
 - **`FilledShape`** (work) · täytetty muoto, täyttösääntö · *filled shape, fill rule* — Its fill rule is
   `FilledShape.FillRule` (`AreaFillMode`) (005).
 - **`StrokedShape`** (work) · viivattu muoto · *stroked shape* — 005.
-- **`Stroke`** (work) · viiva · *stroke* — The width (`Width`), the caps (`Caps`), the join (`Join`) and the miter
+- **`Stroke`** (work) · kynä · *stroke* — The width (`Width`), the caps (`Caps`), the join (`Join`) and the miter
   limit (`MiterLimit`) of a stroked shape (005), and the dash pattern and its phase (`DashPattern`, `DashPhase`)
-  (Nov 19). **Upstream:** a pen of the graphics target (`IGraphicsTarget.CreatePen`) with the same values. The symbol
+  (Nov 19). The Finnish term is *kynä*, as upstream calls the same values a pen (`IGraphicsTarget.CreatePen`) (@Pauli,
+  Nov 20). A pen of upstream also has a color or a brush. A `Stroke` has no color, as the palette entry gives it, and
+  it has the dash pattern and its phase. The band that a pen covers along a path is *kynänjälki* (proposed name). The
+  symbol
   definitions give the caps and the joins together as a line style (`LineStyle`: `Rounded`, `Mitered`, `Beveled`,
   `FlatRounded`). **Open:** the dash structure of a part in the measure of the line (point 2 of 6 in the review of
   011).
@@ -419,8 +423,8 @@ encodings make themselves (spec 02, Nov 20).
   in the scope of the epic.
 - **korostus** · *highlight* (`Symbol.DrawHighlight`, `CourseObj.DrawHighlight`) — It is drawn directly on the graphics
   target. **Open:** does it stay a direct drawing (000)?
-- **litistys** · *transparency flattening* — The conversion of the transparencies into opaque vector objects
-  (spec 08). It is not in the scope of the epic (000).
+- **läpinäkyvyyden litistys** · *transparency flattening* — The conversion of the transparencies into opaque vector
+  objects (spec 08). It is not in the scope of the epic (000). The term is *läpinäkyvyyden litistys* (@Pauli, Nov 20).
 
 ## Words that are not names · Sanat, jotka eivät ole nimiä
 
@@ -473,6 +477,8 @@ encodings make themselves (spec 02, Nov 20).
     `Map_GDIPlus`, `Map_WPF` and `Map-iOS`.
 - **karttakoordinaatit, maailmankoordinaatit** · *map coordinates, world coordinates* — Ambiguous names that the
   comments of upstream give to the paper coordinates. They are not used (@Pauli, Nov 20).
+- **litistys, litistäminen** · *flattening* — Not a term without a qualifier. The terms are *läpinäkyvyyden litistys* ·
+  *transparency flattening* (spec 08) and *polun litistäminen* · *path flattening* (@Pauli, Nov 20).
 - **muunnos** · *transformation, conversion* — Too generic to be a term without a qualifier, as *malli* is (@Pauli,
   Nov 20). The terms are *affiininen muunnos* · *affine transformation*, for example M, L, E and the steps of a
   placement, and *kanavamuunnos* · *channel conversion* (@Pauli, Nov 20).
@@ -486,9 +492,8 @@ encodings make themselves (spec 02, Nov 20).
 - *vaihe*: a pass (*vaihe 1*, *vaihe 2*), the phase of a dash pattern (`Stroke.DashPhase`), and a step of a placement
   (`Placement.Steps`). Decided: *vaihe* is a pass. The phase is *katkokuvion alkukohta*, and the steps of a placement
   are *sijoituksen sisäkkäiset affiiniset muunnokset* (@Pauli, Nov 20).
-- *viiva*: a line (`LineSymDef` or `LineSymbol`), and a stroke (`Stroke`).
-- *litistys*, *litistäminen* · *flattening*: the transparency flattening (spec 08), and the flattening of a path. The
-  English word is the same for both.
+- *viiva*: a line (`LineSymDef` or `LineSymbol`), and a stroke (`Stroke`). Decided: *viiva* is a line, and a stroke
+  is *kynä* (@Pauli, Nov 20).
 - *toisto*, *toistuva*: the repetition of a placement along a path, and the repetitive geometry G of a lattice.
 - *kuvio* · *pattern*: an area pattern (`PatternInfo`), a dash pattern (`Stroke.DashPattern`) and a fitted pattern.
 - *täyttö* · *fill*: a filled shape (`FilledShape`), the fill of an area, the fill of a double line, and a pattern
