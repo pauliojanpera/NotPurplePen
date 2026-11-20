@@ -91,9 +91,7 @@ base. No branch is offered upstream yet.
 - **The architecture comes first.** feature/multiply-blending is an oracle of the appearance only. The work does not
   read its code, and does not take its way, a layer around the drawing of the symbols, as the model of pass 2. The
   union of a palette entry can stay implicit in the rendering, but its instances cannot be left out (preface and
-  section 05 of [Specification.md](Specification.md), @Pauli, Nov 18). The model keeps the information, and an
-  encoding recognizes nothing: when an encoding needs information, the model keeps it, and no heuristic that
-  recognizes a structure goes into an encoding (@Pauli, Nov 20).
+  section 05 of [Specification.md](Specification.md), @Pauli, Nov 18).
 - **Screenshots and exports of the OCAD viewer.** @Pauli provides screenshots of the viewer of OCAD 2020, and its
   drawings exported as PNG images of 600 dpi, when the work needs to know how OCAD draws a file (@Pauli, Nov 18). The
   session gives him the file and tells what to report, as [oracles/ocad-thick-circles.md](oracles/ocad-thick-circles.md)
@@ -343,9 +341,8 @@ the rendering.
   to the shape, and the join of the stroke to the stroke. This changes the decision on the runs with the OCAD metric
   (question 7 of ticket 011) for the borders of double lines. In `feature/line-geometry`, a border is a polyline that
   offsets the flattened path.
-- **The model keeps the information, and an encoding recognizes nothing** (Nov 20). When an encoding needs
-  information, the model keeps it, and the encoding reads the structure from the model. No heuristic that recognizes a
-  structure goes into an encoding ([README.md](README.md), "The architecture comes first", ticket 011).
+- **The model keeps the information of the encodings** (Nov 20). When an encoding needs information, the model keeps
+  it, and the encoding reads the structure from the model (ticket 011).
 - **The framing line of texts** (Nov 19). The framing of a text run is one line in the instances, a stroke of the full
   width with the joins of the symbol, as in OCAD's PDF export. OCAD's own drawing leaves the same holes as Skia and
   Cairo with one pen, so the holes that the intermediate pens of Purple Pen fill are no faults against OCAD (question
