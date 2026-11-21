@@ -109,6 +109,10 @@ These are @Pauli's decisions of Nov 20 and Nov 21. Glossary.md gives their terms
   object* (Nov 21).
 - The path that the parts of a line are pieces and offsets of: *peruspolku* · *base path*, in place of *looginen
   polku*, *keskiviiva* and *pohjapolku* (Nov 21).
+- The shared shapes of a glyph are not coverage prototypes, and the code names of the coverage prototype are
+  `CoveragePrototype` and `CoveragePrototype.FullCoverage` (Nov 21).
+- *viivan osa* · *part of a line*: one line component on one piece of the base path, with its offset, as a derived
+  value. A segment divides a piece for the fitting, and a piece is a start and an end along the base path (Nov 21).
 
 The five terms that the session chose by their use in commit 06f4c824d are all decided on Nov 21.
 
@@ -117,22 +121,17 @@ The five terms that the session chose by their use in commit 06f4c824d are all d
 Continue with these one at a time (@Pauli, Nov 21). Each question gives the theoretical basis of the choice, as "How
 to make a question" says. The glossary marks each item "Open" in the entries named here.
 
-1. **peittoprototyyppi:** whether the shared structures that are not periodic, for example the shared shapes of a
-   glyph, are prototypes or a concept of their own.
-2. **segmentti, pala:** whether a part in "the parts as its pieces and offsets" (the decision of Nov 20 on the
-   structure of a line) is a segment or a line component, and the exact content of a piece.
-3. **kokoonpano:** when two configurations are the same (009, question 1).
-4. **`HatchInfo`, `AreaSymDef.RotateMode`:** whether a hatching is a prototype of its own or a pattern of line
+1. **kokoonpano:** when two configurations are the same (009, question 1).
+2. **`HatchInfo`, `AreaSymDef.RotateMode`:** whether a hatching is a prototype of its own or a pattern of line
    elements (009, question 3), and what `ManualOnly` means in the specification (009, question 4).
-5. **kanavamuunnos:** which channel conversions stay in the encodings.
-6. **`Stroke`, `Stroke.DashPattern`, `Stroke.DashPhase`:** the measure in which a pen keeps the dash pattern and its
+3. **kanavamuunnos:** which channel conversions stay in the encodings.
+4. **`Stroke`, `Stroke.DashPattern`, `Stroke.DashPhase`:** the measure in which a pen keeps the dash pattern and its
    phase after the decisions of Nov 20 (point 2 of 6 in the review of 011).
-7. **koodaus, `IGraphicsTarget`:** how the encodings relate to `IGraphicsTarget`, and its place when pass 2 and the
+5. **koodaus, `IGraphicsTarget`:** how the encodings relate to `IGraphicsTarget`, and its place when pass 2 and the
    encodings draw from the intermediate layer.
-8. **korostus:** whether the highlights stay a direct drawing (000).
+6. **korostus:** whether the highlights stay a direct drawing (000).
 
-The items 1 and 2 concern concepts and their names. The others are questions of the design of the specification and
-of the tickets.
+These items are questions of the design of the specification and of the tickets.
 
 ### After the glossary
 

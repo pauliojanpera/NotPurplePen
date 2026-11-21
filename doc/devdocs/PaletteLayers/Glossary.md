@@ -99,22 +99,22 @@ The section "Words that are not names" lists the words that are not used as name
 
 ### Coverage prototypes
 
-- **peittoprototyyppi** · *coverage prototype* (work: `GeometryPrototype`) — The coverage G in its origin-bound form,
-  before M places it. On the map side, G is a part of a `SymDef`: the full coverage, one hatching (an index in
-  `AreaSymDef.hatchings`) or one pattern (an index in `AreaSymDef.patterns`). In an `AreaComboSymDef`, the component
-  definition is part of G. Upstream has no class for G. **Open:** are the shared structures that are not periodic, for
-  example the shared shapes of a glyph, prototypes or a concept of their own?
+- **`CoveragePrototype`** · peittoprototyyppi · *coverage prototype* (work: `GeometryPrototype`) — The coverage G in
+  its origin-bound form, before M places it. On the map side, G is a part of a `SymDef`: the full coverage, one hatching
+  (an index in `AreaSymDef.hatchings`) or one pattern (an index in `AreaSymDef.patterns`). In an `AreaComboSymDef`, the
+  component definition is part of G. Upstream has no class for G. The shared shapes of a glyph are not coverage
+  prototypes (*jaetut muodot*).
 - **jaksollinen peitto G** · *periodic coverage G* — A binary, spatially repetitive, origin-bound selector: for each
   point of the plane, G tells if the point is in the coverage. In mathematics, G is the indicator function of a set of
   the plane that the translations of a lattice do not change. The hatchings and the area patterns are periodic
   coverages. G selects a set of points, which is a coverage. In compositing, the alpha has two parts, the coverage and
   the opacity. The specification keeps them apart: the binary coverage (G and the clipping objects) and α (*peittävyys*
   · *opacity*).
-- **täysi peitto, G = 1** · *full coverage* (work: `GeometryPrototype.FullCoverage`) — The whole plane: G(x, y) = 1 at
-  each point. A constant function does not change in a translation, so it is periodic with each lattice. The full
-  coverage is the trivial case of periodic coverage, and not a kind of its own. No M changes it. The G of points, lines,
-  texts and area fills is the full coverage. The dash patterns and the glyphs along a line are strokes and placements,
-  not lattices.
+- **`CoveragePrototype.FullCoverage`** · täysi peitto, G = 1 · *full coverage* (work:
+  `GeometryPrototype.FullCoverage`) — The whole plane: G(x, y) = 1 at each point. A constant function does not change
+  in a translation, so it is periodic with each lattice. The full coverage is the trivial case of periodic coverage, and
+  not a kind of its own. No M changes it. The G of points, lines, texts and area fills is the full coverage. The dash
+  patterns and the glyphs along a line are strokes and placements, not lattices.
 
 ### Glyphs
 
@@ -139,9 +139,10 @@ The section "Words that are not names" lists the words that are not used as name
   length, and a quarter of a curve its chord.
 - **viivan rakenne** · *structure of a line* — The base path, the parts as its pieces and offsets, the measure of the
   line, the fitted pattern of a part, the end dashes and the exceptions of fix 020. `Map` keeps the information that is
-  necessary, that is the ideal forms: the path of the `LineSymbol`, the `DashInfo`, the `DoubleLineInfo` and the metric.
-  The segments, the fitted dash patterns, the merged end dashes and the exceptions of fix 020 are derived values, which
-  `Map` can keep for the channels where the implementation finds it sensible.
+  necessary, that is the ideal forms: the base path with the flags of its points, the `LineSymDef` with its `DashInfo`,
+  `DoubleLineInfo`, `ShortenInfo` and `GlyphInfo`, and the metric. The parts of the line, the segments, the fitted dash
+  patterns, the merged end dashes and the exceptions of fix 020 are derived values, which `Map` can keep for the
+  channels where the implementation finds it sensible.
 - **peruspolku** · *base path* — The path that the parts of a line are pieces and offsets of: the `SymPath` along which
   a `LineSymDef` is drawn. For a line object, it is `LineLikeSymbol.Path`. For the border of an area, it is the main
   path or a hole of the `AreaLikeSymbol`. `Map` keeps it in the ideal form. The borders of a double line are offsets of
@@ -294,13 +295,19 @@ The section "Words that are not names" lists the words that are not used as name
   the ideal form to the needs of the channels. Its form depends on what the implementations that the channels choose
   need: for example, the dashes on a curve can be Bezier pieces, polylines or both. In the work, the shapes keep
   ellipses and arcs as ellipses and arcs, as the graphics targets make polylines of them each in its own way.
-- **segmentti** · *segment* — The part of a line between corner and dash points. The dashes are fitted to each segment
-  separately. Upstream calls it a segment. **Open:** in "the parts as its pieces and offsets", is a part a segment or a
-  line component?
+- **viivan osa** · *part of a line* — One line component on one piece of the base path, with its offset: the triple
+  (line component, piece, offset). Its fitted pattern is the fitted patterns of its segments, which the fitting
+  calculates together. It is a derived value of the palette color coverage of the symbol, and the same for all the
+  channels.
+- **segmentti** · *segment* — The section of a piece of the base path between corner and dash points. The fitting gives
+  a dash pattern to each segment, but it calculates the segments of a part of a line together: the minimum gaps apply
+  to the longest segment only, and the decreasing glyphs to the first and the last segment. A segment is not a part of
+  a line. Upstream calls it a segment.
 - **viivan osatekijä** · *line component* — One of the components that a `LineSymDef` draws from the base path: the
   main line, the secondary line, the double line fill, a double line border, the pointy ends or the glyphs along the
   line.
-- **pala** · *piece* — A piece of the base path, from one place on the path to another. **Open:** its exact content.
+- **pala** · *piece* — An interval of the base path: its start and its end, as positions along the path (*kohta*) in the
+  measure of the line. The start and stop flags of the points and the shortening give the pieces of a line component.
 - **siirtymä** · *offset* — The distance of a line component from the base path, to the side.
 - **siirretty polku** · *offset path* — The shape of a border of a double line, in its ideal form: the base path and the
   offset. Its dash pattern is measured along the base path. The rule of the corners of the offset belongs to the shape,
@@ -316,7 +323,8 @@ The section "Words that are not names" lists the words that are not used as name
   path itself have the kinds `Normal`, `BezierControl`, `Corner` and `Dash` (`PointKind`). The flat points also have
   interpolated points (`PointKind.Interpolated`).
 - **sovitettu katkokuvio** · *fitted dash pattern* (`ComputeDashDistances`) — The dash and the gap that the fitting
-  gives to a segment. Part of the structure of a line.
+  gives to each segment of a part of a line. The fitting calculates the segments of a part together. It belongs to the
+  structure of a line.
 - **päätykatko, yhdistetty katko** · *end dash, merged dash* — The end dashes of adjacent segments merge into one dash
   at a corner point or a dash point. Upstream has the lengths of the first and the last dash (`DashInfo`).
 - **korjauksen 020 poikkeus** · *exception of fix 020* — A dash from which the rule of fix 020 leaves out the vertex.
@@ -372,8 +380,10 @@ The section "Words that are not names" lists the words that are not used as name
   shape.
 - **jaetut muodot** · *shared shapes* — Each part of a glyph is one shape, which each placement of the glyph refers to.
   They depend on the definition alone, so they belong to the definition. Stretched and diminishing glyphs get shapes of
-  their own. **Upstream:** a glyph at a corner is scaled, unless `noScaleAtCorners` is set, and the glyphs of
-  `GlyphLocation.SpacedDecrease` decrease in size and spacing.
+  their own. They are not coverage prototypes: they are the shapes of clipping objects, and placements place them. A
+  glyph belongs to G when it is the element of an area pattern (`PatternInfo.patternGlyph`). **Upstream:** a glyph at a
+  corner is scaled, unless `noScaleAtCorners` is set, and the glyphs of `GlyphLocation.SpacedDecrease` decrease in size
+  and spacing.
 - **`Placement`** (work) · sijoitus · *placement* — It gives one or more poses. Each reader asks a placement for its
   poses. It composes its steps into one matrix (`Matrix`).
 - **yksittäinen sijoitus** · *single placement* — It keeps one pose: one point and an angle.
@@ -486,9 +496,10 @@ encodings make themselves.
     encoding needs, and the intermediate layer gives access to it in forms that are more usable for the needs of the
     channels.
   - "the model keeps the structure of a line": `Map` keeps the information that is necessary, that is the ideal forms:
-    the path of the `LineSymbol`, the `DashInfo`, the `DoubleLineInfo` and the metric. The segments, the fitted dash
-    patterns, the merged end dashes and the exceptions of fix 020 are derived values, which `Map` can keep for the
-    channels where the implementation finds it sensible.
+    the base path with the flags of its points, the `LineSymDef` with its `DashInfo`, `DoubleLineInfo`, `ShortenInfo`
+    and `GlyphInfo`, and the metric. The parts of the line, the segments, the fitted dash patterns, the merged end
+    dashes and the exceptions of fix 020 are derived values, which `Map` can keep for the channels where the
+    implementation finds it sensible.
   - "the measure of the model": the metric that the source means to be used, which `Map` keeps in the ideal form
     (`Map.UseEuclideanMetric`). `Map` offers the means to convert the metric to suit a channel, for example into runs in
     the euclidean measure, and to keep the derived values.
@@ -524,9 +535,9 @@ encodings make themselves.
 - **ajo** · *run* — Not a term in the sense of a sequence, where it translates *run* word for word. The terms are
   *katkojuoste* · *run of dashes* and *tekstijuoste* · *text run* (`TextShape`). A run of the tests (*täysi ajo*) is a
   word of the process.
-- **osa** · *part* — Not a term without a qualifier. The terms are *segmentti* · *segment*, *viivan osatekijä* · *line
-  component*, *glyyfin osa* · *glyph part* (`Glyph.GlyphPart`), *yhdistelmän osamäärittely* · *component definition* and
-  *osapolku* · *subpath* (`SymPath.GetSubpaths`).
+- **osa** · *part* — Not a term without a qualifier. The terms are *viivan osa* · *part of a line*, *segmentti* ·
+  *segment*, *viivan osatekijä* · *line component*, *glyyfin osa* · *glyph part* (`Glyph.GlyphPart`), *yhdistelmän
+  osamäärittely* · *component definition* and *osapolku* · *subpath* (`SymPath.GetSubpaths`).
 - **reuna** · *border* — Not a term without a qualifier. The terms are *kaksoisviivan reuna* · *double line border* and
   *alueen reuna* · *area border*.
 - **täyttö** · *fill* — Not a term without a qualifier. The terms are *täytetty muoto* · *filled shape* (`FilledShape`),
