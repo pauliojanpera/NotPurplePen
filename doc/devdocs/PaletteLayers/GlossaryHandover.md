@@ -72,7 +72,7 @@ of these.
 
 ### Decided
 
-Glossary.md has all the decisions of Nov 20 and Nov 21, each with @Pauli's name and date:
+These are @Pauli's decisions of Nov 20 and Nov 21. Glossary.md gives their terms:
 - The rules of the names, in the preface.
 - The words that are not names: *malli*, *karttamalli*, *karttakoordinaatit* and *maailmankoordinaatit*, *muunnos*,
   *litistys* and *litistäminen*, *toisto* and *toistuva*, *kuvio*, *täyttö*, *reuna*, *osa*, *ajo*, *kerros*, *ryhmä*,
@@ -100,21 +100,28 @@ The five terms that the session chose by their use in commit 06f4c824d are all d
 
 ### Open
 
-Present these to @Pauli, one question at a time:
-1. **The items marked "Open" in the glossary.** On Nov 21 they are:
-   - the identifier of a `Symbol` to which a drawn object of a file can refer
-   - whether the shared structures that are not periodic, for example the shared shapes of a glyph, are prototypes
-   - whether the logical path is `LineLikeSymbol.Path`
-   - whether a part in "the parts as its pieces and offsets" (Nov 20) is a segment or a line component, and the exact
-     content of a piece
-   - when two configurations are the same (009, question 1)
-   - whether a hatching is a prototype of its own (009, question 3), and the meaning of `RotateMode.ManualOnly`
-     (009, question 4)
-   - which channel conversions stay in the encodings
-   - the measure in which a stroke keeps the dash pattern and its phase (point 2 of 6 in the review of 011)
-   - how the encodings relate to `IGraphicsTarget`, and its place when pass 2 and the encodings draw from the
-     intermediate layer
-   - whether the highlights stay a direct drawing (000).
+Continue with these one at a time (@Pauli, Nov 21). Each question gives the theoretical basis of the choice, as "How
+to make a question" says. The glossary marks each item "Open" in the entries named here.
+
+1. **`Symbol`:** the identifier of a `Symbol` to which a drawn object of a file can refer (the decision of Nov 20 on
+   the self-supporting vector files).
+2. **peittoprototyyppi:** whether the shared structures that are not periodic, for example the shared shapes of a
+   glyph, are prototypes or a concept of their own.
+3. **looginen polku:** whether the logical path is `LineLikeSymbol.Path`.
+4. **segmentti, pala:** whether a part in "the parts as its pieces and offsets" (the decision of Nov 20 on the
+   structure of a line) is a segment or a line component, and the exact content of a piece.
+5. **kokoonpano:** when two configurations are the same (009, question 1).
+6. **`HatchInfo`, `AreaSymDef.RotateMode`:** whether a hatching is a prototype of its own or a pattern of line
+   elements (009, question 3), and what `ManualOnly` means in the specification (009, question 4).
+7. **kanavamuunnos:** which channel conversions stay in the encodings.
+8. **`Stroke`, `Stroke.DashPattern`, `Stroke.DashPhase`:** the measure in which a pen keeps the dash pattern and its
+   phase after the decisions of Nov 20 (point 2 of 6 in the review of 011).
+9. **koodaus, `IGraphicsTarget`:** how the encodings relate to `IGraphicsTarget`, and its place when pass 2 and the
+   encodings draw from the intermediate layer.
+10. **korostus:** whether the highlights stay a direct drawing (000).
+
+The items 2 to 4 concern concepts and their names. The others are questions of the design of the specification and
+of the tickets.
 
 ### After the glossary
 
@@ -131,5 +138,7 @@ Progress.md and the original text of the specification still use the earlier wor
   `src/MapModel/MapModel` and `src/MapModel/Graphics2D` are the same there as at d48f4456.
 - **The code of the work:** the worktree `~/Documents/Projects/npp-worktrees/text-geometry` is at 2ad8c6f39. The names
   marked "work" in the glossary come from it.
-- **The transcript** of the session of Nov 20 and 21:
-  `~/.claude/projects/-home-pauli-Documents-Projects-NotPurplePen/24af0e14-e17c-4f92-bc24-2c6815053a55.jsonl`.
+- **The transcripts** in `~/.claude/projects/-home-pauli-Documents-Projects-NotPurplePen/`: the session of Nov 20 and
+  21 is `24af0e14-e17c-4f92-bc24-2c6815053a55.jsonl`. The session of Nov 21 is, in order,
+  `9c11143a-a462-4aa8-afb8-c160fab19a1b.jsonl`, `64a7360d-8a53-46f1-9163-6772c93bfb4e.jsonl`,
+  `57f43ccb-eaca-4dbf-892b-32e3b326895f.jsonl` and `1e9438c5-a2f3-408a-b614-8f0be26a97a8.jsonl`.
