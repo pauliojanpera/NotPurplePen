@@ -395,26 +395,37 @@ one meaning" lists the words that name two or more concepts now.
   (Nov 18; 008). They depend on the definition alone, so they belong to the definition (spec 02, Nov 20). Stretched
   and diminishing glyphs get shapes of their own (Nov 19). **Upstream:** a glyph at a corner is scaled, unless
   `noScaleAtCorners` is set, and the glyphs of `GlyphLocation.SpacedDecrease` decrease in size and spacing.
-- **`Placement`** (work) · sijoitus · *placement* — It gives one or more positions. Each reader asks a placement for its
-  positions (Nov 20). It composes its steps into one matrix (`Matrix`).
-- **yksittäinen sijoitus** · *single placement* — It keeps one point and an angle (Nov 20).
-- **toistosijoitus** · *repeated placement* — A placement that keeps its path, its first position, its step and its
-  count. It calculates the angles of the positions from the direction of the path, with the method of the drawing
-  (Nov 20). The term is *toistosijoitus* · *repeated placement*, and the decisions say *toisto* · *repetition*
-  (@Pauli, Nov 20). Only an encoding that gives a repeated placement to an abstraction of its channel reads the path
-  and the step. On a Bezier
-  curve, the glyphs of the OCAD spacing repeat by quarters (Nov 20). Its earlier form is a kind of clipping object
-  (work: `RepeatedShapes`). **Upstream:** the glyphs that `GlyphLocation.Spaced` places along a line at the distances
-  given.
-- **paikka** · *position* — A point and an angle (Nov 20).
+- **`Placement`** (work) · sijoitus · *placement* — It gives one or more poses. Each reader asks a placement for its
+  poses (Nov 20). It composes its steps into one matrix (`Matrix`).
+- **yksittäinen sijoitus** · *single placement* — It keeps one pose: one point and an angle (Nov 20).
+- **toistosijoitus** · *repeated placement* — A placement that keeps its path, its first position along the path, its
+  step and its count. It calculates its poses from the path: the point of the path at each position along the path,
+  and the direction of the path there, with the method of the drawing (Nov 20, Nov 21). The term is *toistosijoitus* ·
+  *repeated placement*, and the decisions say *toisto* · *repetition* (@Pauli, Nov 20). Only an encoding that gives a
+  repeated placement to an abstraction of its channel reads the path and the step. On a Bezier curve, the glyphs of the
+  OCAD spacing repeat by quarters (Nov 20). Its earlier form is a kind of clipping object (work: `RepeatedShapes`).
+  **Upstream:** the glyphs that `GlyphLocation.Spaced` places along a line at the distances given.
+- **asema** · *pose* — A point and an angle (x, y, θ) (Nov 20). In robotics and in computer vision, a pose is the
+  location and the orientation of a body. In the plane, it is a rotation and a translation, that is a rigid motion (the
+  group SE(2)), so the pose of a placement is its innermost step. In technical Finnish, *asema* also covers an angle
+  (*kulma-asema*), and in astronomy the position angle (*asemakulma*) gives the orientation of an object on the sky.
+  Robotics separates *asema* (location) and *asento* (orientation). The term is *asema* · *pose* (@Pauli, Nov 21). It
+  replaces *paikka* · *position* of the decision of Nov 20. In the theory, a position is the point alone.
+- **kohta** · *position along the path* — A distance from the start of a path, in the measure of the line: the
+  arc-length parameter s of the path. The pose at a position along the path is the point of the path there and the
+  direction of its tangent. The first position of a repeated placement is a position along the path, and its step is
+  the distance between two adjacent ones (@Pauli, Nov 21). The channels take a distance in the same way:
+  `SkPathMeasure.getPosTan` of Skia gives the point and the tangent at a distance, and `getPointAtLength` of SVG gives
+  the point. The decision of Nov 19 on the glyphs along the lines says *kohta*, and the decision of Nov 20 on the
+  placements says *paikka* for it.
 - **`Placement.Steps`** (work) · sijoituksen sisäkkäiset affiiniset muunnokset · *steps of a placement* — The Finnish
   term is *sijoituksen sisäkkäiset affiiniset muunnokset*, and not *vaiheet* (@Pauli, Nov 20). The affine
   transformations in the
-  order in which the symbols set them (005). A placement keeps its sequence of steps, and the position is the innermost
+  order in which the symbols set them (005). A placement keeps its sequence of steps, and the pose is the innermost
   step (Nov 20). Skia composes nested transformations with its own rounding. With the same steps in the same order,
   the coverage is the same to the pixel (005).
-- **askel, määrä** · *step, count* (work: `RepeatedShapes.Step`, `RepeatedShapes.Count`) — The distance between the
-  positions of a repeated placement, and the number of its positions (Nov 19, Nov 20).
+- **askel, määrä** · *step, count* (work: `RepeatedShapes.Step`, `RepeatedShapes.Count`) — The distance along the path
+  between two adjacent positions along the path of a repeated placement, and the number of its poses (Nov 19, Nov 20).
 - **kuvioruutu** · *pattern tile* — One cell of an area pattern, which is composed from single elements (Nov 20). It
   depends on the definition alone. The term is *kuvioruutu* · *pattern tile* (@Pauli, Nov 20).
 - **valitut elementit, epäsäännöllisen kuvion sijoitukset** · *selected elements, placements of an irregular pattern* —
@@ -581,8 +592,9 @@ encodings make themselves (spec 02, Nov 20).
   palette-layer work). Decided: *graphics target* (@Pauli, Nov 21).
 - Two Finnish words for one concept: *peittävyys* and *opasiteetti* (α, 000 and 001), *täysi peitto* and *yhtenäinen
   geometria* (G = 1, 005), *paikka* and *kohta* (a position, 011), *perustapaus* and *perustilanne* (a basic case,
-  011). Decided: *peittävyys* and *täysi peitto* (@Pauli, Nov 21). Chosen by use (Nov 20): *paikka* (the decision of
-  Nov 20 on the placements) and *perustapaus* (the decision of Nov 20 on the structure of a line).
+  011). Decided: *peittävyys* and *täysi peitto* (@Pauli, Nov 21). *Paikka* and *kohta* name two concepts: *asema* ·
+  *pose* and *kohta* · *position along the path* (@Pauli, Nov 21). Chosen by use (Nov 20): *perustapaus* (the decision
+  of Nov 20 on the structure of a line).
 
 ## Not in this glossary
 

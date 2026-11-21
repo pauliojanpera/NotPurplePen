@@ -84,15 +84,15 @@ Glossary.md has all the decisions of Nov 20 and Nov 21, each with @Pauli's name 
 - The terms of α: *peittävyys* · *opacity* (Nov 21).
 - The coverages: *jaksollinen peitto* · *periodic coverage* (G, in place of *jaksollinen geometria*), *täysi peitto* ·
   *full coverage* (G = 1) and *peittoprototyyppi* · *coverage prototype* (Nov 21).
+- A point and an angle, and a place on a path: *asema* · *pose* and *kohta* · *position along the path* (Nov 21). They
+  replace *paikka* · *position*.
 
 ### Open
 
 Present these to @Pauli, one question at a time:
 1. **The five terms of commit 06f4c824d.** The session chose *graphics target*, *peittävyys*, *täysi peitto*,
    *paikka* and *perustapaus* by their use, without a question. The glossary marks them "chosen by use". @Pauli
-   decided *graphics target*, *peittävyys* and *täysi peitto* on Nov 21. The facts for the other questions:
-   - *paikka* and *kohta* (a position): the decision of Nov 20 on the placements says *paikka*. The decision of Nov 19
-     on the glyphs along the lines says *kohta*.
+   decided *graphics target*, *peittävyys*, *täysi peitto* and *asema* on Nov 21. The facts for the other question:
    - *perustapaus* and *perustilanne* (a basic case): the decision of Nov 20 on the structure of a line says
      *perustapaus*, 1 time. The decisions of Nov 19 in the tickets 011 and 013 say *perustilanne*, 4 times.
 2. **The meaning of *palettitaso*.** The glossary gives the meaning that the specification gives (commit 740d9b778):
