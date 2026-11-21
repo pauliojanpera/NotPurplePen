@@ -11,7 +11,7 @@ The rules of the names:
 - When @Pauli uses a vague reference, such as *karttamalli*, the session asks him to make it exact.
 
 The structure of the passes divides the concepts into three parts: the map side, the intermediate layer that pass 1
-makes from the map, and the rendering side. Section 02 of [Specification.md](Specification.md) gives the structure. The
+makes from the map, and the rendering side. Section 01 of [Specification.md](Specification.md) gives the structure. The
 sections of this glossary follow the three parts.
 
 Each entry starts with the primary name of its concept. Where the concept has a name in the code, the entry gives that
@@ -78,7 +78,7 @@ The section "Words that are not names" lists the words that are not used as name
   color (`CmykColor`).
 - **`SymColor.Opacity`** (work) · peittävyys α · *opacity α* — A spatially constant opacity. The Finnish translations of
   Inkscape and of GIMP 3.0 call the opacity *peittävyys* and *peittokyky*. The coverage (*peitto*) is a different
-  concept, which spec 01 keeps apart from α.
+  concept, which section 01 of the specification keeps apart from α.
 - **`SymColor.BlendMode`** (work) · sekoitustila B · *blend mode B* — The compositing operation (`ColorBlendMode`). For
   an OCAD map, B = Darken is the larger share of each ink, and not the RGB minimum.
 - **`Ink`** (work) · muste, prosessimuste, spottimuste · *ink, process ink, spot ink* — A colorant identity, apart from

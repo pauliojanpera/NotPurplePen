@@ -3,12 +3,12 @@
 > **LUONNOS (18.11.), ei sitova.** Tämä tiketti on luonnos. Sen kuvaus, ehdotetut kriteerit, havainnot ja kysymykset ovat lähtökohtia, eivät vaatimuksia eivätkä sääntöjä. Sitovia ovat vain kohdan "Päätökset" @Paulin päätökset päiväyksineen. Tiketin viimeistelevä sessio tarkistaa jokaisen kohdan koodia ja speksiä vasten, päättää kriteerit @Paulin kanssa ja poistaa tämän merkinnän ja otsikon sanan LUONNOS. Tiketti jakautunee useaksi tiketiksi (ks. avoimet kysymykset).
 
 **Kuvaus (luonnos)**
-Vaihe 2 piirtää kartan palettimerkinnät ilmentymistä: se ryhmittelee ilmentymät palettimerkinnöittäin ja koostaa jokaisen ryhmän kerran palettimerkinnän värillä C, peittävyydellä α ja sekoitustilalla B palettijärjestyksessä (speksin luku 05).
+Vaihe 2 piirtää kartan palettimerkinnät ilmentymistä: se ryhmittelee ilmentymät palettimerkinnöittäin ja koostaa jokaisen ryhmän kerran palettimerkinnän värillä C, peittävyydellä α ja sekoitustilalla B palettijärjestyksessä (speksin luku 04).
 
 **Päätökset (sitovia)**
 - Vaihe 2 korvaa palettimerkintöjen suoran piirron, ja normaali näkymä on vaiheen 2 piirtotila (@Pauli, 18.11.).
 - Piirto ei käytä symboleita, ja ilmentymät kuuluvat karttaan piirrosta riippumatta (@Pauli, 18.11.).
-- Palettimerkinnän unioni saa jäädä piirrossa implisiittiseksi, mutta ilmentymät eivät saa jäädä pois (speksin luku 05, @Pauli, 18.11.). feature/multiply-blending on vain ulkoasun oraakkeli, eikä sen tapa sekoittaa muste kerroksena symbolien piirron ympärillä ole vaiheen 2 malli. Työ ei lue sen koodia (@Pauli, 18.11.).
+- Palettimerkinnän unioni saa jäädä piirrossa implisiittiseksi, mutta ilmentymät eivät saa jäädä pois (speksin luku 04, @Pauli, 18.11.). feature/multiply-blending on vain ulkoasun oraakkeli, eikä sen tapa sekoittaa muste kerroksena symbolien piirron ympärillä ole vaiheen 2 malli. Työ ei lue sen koodia (@Pauli, 18.11.).
 - OCAD ja Mapper ovat omien karttojensa piirron auktoriteetit (@Pauli, 17.11.).
 - Ryhmän koostamista tarvitsevat Skia, PDF, tulostus ja tuleva SVG-toteutus. GDI+ ja WPF ovat legacya, eivätkä Direct2D ja iOS ole käytössä (@Pauli, 18.11.).
 - Täydet ajot tehdään basen päällä, ja palettikerroshaarat saavat olla ristiriidassa devin kanssa (@Pauli, 18.11.).
@@ -44,7 +44,7 @@ Rakenteelliset ehdotukset tulevat Progress.md:n kohdan "Next" esimerkeistä.
   7. Mitä B = Darken tarkoittaa normaalissa näkymässä: RGB-kanavittain vai musteittain? Kuuluuko jälkimmäinen piirtotiloihin?
   8. Jaetaanko työ esimerkiksi kolmeen tikettiin: ryhmän koostaminen piirtokohteisiin, `Map.Draw` ilmentymistä sekä ilmentymien säilytys ja päivitys?
   9. Miten vaihe 2 piirtää katkoviivan perusmallin, yhden viivatun muodon jaksollisine katkokuvioineen (tiketti [011](011-line-geometry.md))? Vaihtoehtoja ovat piirtokohteen katkoviiva, jolloin `IGraphicsTarget` tarvitsee katkoviivan, ja katkoiksi laajentaminen samalla koodilla kuin vanhassa piirrossa (`SymPath.DrawDashedCore`). Standardiväline mittaa käyrän pituutta ja Purple Pen litistetyn polun pituutta, joten piirtokohteen katkoviiva voi siirtää käyrän katkoja hieman.
-- **Rajaus (luonnos):** piirtotilat (päällepainatuksen simulointi ja separaatiot, luvut 06 ja 07) ja yksi palettipino kartalle ja radoille ovat omat tikettinsä. SVG-koodauksen paikka päätetään, kun vaihe 2 on valmis (epic).
+- **Rajaus (luonnos):** piirtotilat (päällepainatuksen simulointi ja separaatiot, luku 04) ja yksi palettipino kartalle ja radoille ovat omat tikettinsä. SVG-koodauksen paikka päätetään, kun vaihe 2 on valmis (epic).
 - **Haara (ehdotus):** `feature/palette-composition` juurtuu kokoavaan haaraan `feature/palette-layers`. Täysi ajo tehdään basen päällä. Vaihe 2 muuttaa piirtoa, joten sen ajo kokoaa siirtyneet kuvat `--collect`-valinnalla. Jos työ jaetaan osiin (kysymys 8), osa, joka ei vielä piirrä ilmentymistä eikä muuta nykyisiä piirtokutsuja, pitää piirron ennallaan.
 
 **Erotetut alatehtävät**

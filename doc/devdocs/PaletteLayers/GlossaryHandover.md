@@ -11,8 +11,7 @@ Read these in this order:
 2. [README.md](README.md): how the palette-layer work is organized.
 3. The decisions of Nov 20 in [Progress.md](Progress.md): "The structure of the passes", "Earlier decisions are
    negotiable" and "The names".
-4. The note "The structure of the passes (@Pauli, Nov 20)" in section 02 of [Specification.md](Specification.md), and
-   the notes of Nov 20 in its sections 03 and 05.
+4. Section 01 of [Specification.md](Specification.md), which gives the structure of the passes.
 5. All of [Glossary.md](Glossary.md). Its preface gives the rules of the names.
 
 ## The rules of the work
@@ -137,12 +136,11 @@ A new open item gets a question by "How to make a question", and the glossary ma
 
 ### After the glossary
 
-In the plan that the session gave on Nov 20, the specification is written again by the glossary and by the structure
-of the passes after the glossary work. Then the tickets 009 to 013 follow it. The tickets, the older decisions in
-Progress.md and the original text of the specification still use the earlier words. The tickets 009 to 013 are
-drafts. The tickets 011 to 013 were implemented while they were drafts, and the glossary work sorts out what came
-of that (@Pauli, Nov 21). A draft is not implemented, and a session changes it only when @Pauli asks
-([README.md](README.md)).
+The specification is written again in the terms of the glossary and by the structure of the passes (Nov 21), and @Pauli
+reviews it. Then the tickets 009 to 013 follow it. The tickets and the older decisions in Progress.md still use the
+earlier words. The tickets 009 to 013 are drafts. The tickets 011 to 013 were implemented while they were drafts, and
+the glossary work sorts out what came of that (@Pauli, Nov 21). A draft is not implemented, and a session changes it
+only when @Pauli asks ([README.md](README.md)).
 
 ## Where things are
 

@@ -21,7 +21,7 @@ branches, its pull request descriptions and its tracking. The practice is @Pauli
 The goal of the work is the structure that the specification separates: pass 1 makes the instances, and pass 2
 composites them. feature/multiply-blending is an oracle of the appearance only. The work does not read its code, and
 does not take its way, a layer around the drawing of the symbols, as the model of pass 2. The union of a palette
-entry can stay implicit in the rendering, but its instances cannot be left out (preface and section 05 of the
+entry can stay implicit in the rendering, but its instances cannot be left out (preface and section 04 of the
 specification, @Pauli, Nov 18).
 
 ## Sessions

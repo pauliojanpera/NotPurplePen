@@ -91,7 +91,7 @@ base. No branch is offered upstream yet.
 - **The architecture comes first.** feature/multiply-blending is an oracle of the appearance only. The work does not
   read its code, and does not take its way, a layer around the drawing of the symbols, as the model of pass 2. The
   union of a palette entry can stay implicit in the rendering, but its instances cannot be left out (preface and
-  section 05 of [Specification.md](Specification.md), @Pauli, Nov 18).
+  section 04 of [Specification.md](Specification.md), @Pauli, Nov 18).
 - **Screenshots and exports of the OCAD viewer.** @Pauli provides screenshots of the viewer of OCAD 2020, and its
   drawings exported as PNG images of 600 dpi, when the work needs to know how OCAD draws a file (@Pauli, Nov 18). The
   session gives him the file and tells what to report, as [oracles/ocad-thick-circles.md](oracles/ocad-thick-circles.md)
@@ -129,7 +129,7 @@ base. No branch is offered upstream yet.
 
 ## Next
 
-The parts come in the order of the two passes of the specification (section 02), so that each part builds the
+The parts come in the order of the two passes of the specification (section 01), so that each part builds the
 structure and not only the appearance. Each part builds on the parts before it, so its branch is rooted at
 `feature/palette-layers`.
 
@@ -149,7 +149,7 @@ structure and not only the appearance. Each part builds on the parts before it, 
    were checked against OCAD: [oracles/ocad-dashes.md](oracles/ocad-dashes.md) records the
    samples and the rules of OCAD that they show. The fixes 015 to 020 are merged into `feature/palette-layers`
    before the work on the ticket starts.
-2. **Pass 1, the patterns** (section 03): [ticket 009](tickets/009-pattern-instances.md), a draft. The hatchings and the area patterns become prototypes
+2. **Pass 1, the patterns** (sections 02 and 03): [ticket 009](tickets/009-pattern-instances.md), a draft. The hatchings and the area patterns become prototypes
    with their lattice and element transformations, and the elements that a fill mode selects become clipping objects.
    The pass 1 of [ticket 005](tickets/005-layer-instances.md) leaves them out with the internal option
    `RenderOptions.omitHatchingsAndPatterns`. Ticket 009 removes the option and ends the use of the collector as the
@@ -158,7 +158,7 @@ structure and not only the appearance. Each part builds on the parts before it, 
    and a pattern that keeps whole glyphs draws them without a clip, as a point symbol draws its glyph. Their lattices
    and element transformations are in the definition of the area (`HatchInfo` and `PatternInfo` of `AreaSymDef`) and
    in the angle of the area object, and the drawing calls do not show them.
-3. **Pass 2, the composition by palette entry** (section 05): [ticket 010](tickets/010-palette-composition.md), a draft. It reads the instances only, groups them by palette
+3. **Pass 2, the composition by palette entry** (section 04): [ticket 010](tickets/010-palette-composition.md), a draft. It reads the instances only, groups them by palette
    entry, and applies C, α and B once to each group, in the order of the palette. α and B are in the model
    (`SymColor.Opacity` and `SymColor.BlendMode`, [ticket 004](tickets/004-opacity-and-blend-mode.md)), and the
    drawing does not use them yet. For an OCAD map, B = Darken is the larger share of each ink, and not the RGB minimum
@@ -166,7 +166,7 @@ structure and not only the appearance. Each part builds on the parts before it, 
    where the shapes of one color overlap ([oracles/mapper-opacity.md](oracles/mapper-opacity.md)). A clipping object
    keeps the steps of the transformations that placed it (`Placement`), so pass 2 can apply them as the drawing of the
    symbols did, with the same rounding.
-4. **The rendering modes** (sections 06 and 07): the normal view, the overprinting that the inks simulate, and the
+4. **The rendering modes** (section 04): the normal view, the overprinting that the inks simulate, and the
    separations, as color configurations of pass 2. All modes use the same instances. The section "Rajaus" of
    [ticket 001](tickets/001-inks.md) describes Mapper's overprinting simulation, which is the oracle of the simulated
    overprinting of Mapper maps. OCAD applies B only in its PDF export, and not in its own view (the same oracle).
@@ -212,6 +212,18 @@ the rendering.
     paths of the examples are named after the palette cutters.
   - Section 04 says that the templates, the image layer and the layout layer are drawn beside the palette stack, below
     it or above it, and does not say how. The epic leaves this to the ticket of pass 2.
+  - Section 05 has the paragraph of Nov 17 on the overlaps in one palette color, and section 04 the rule that the union
+    can stay implicit in the rendering.
+  - The section numbers of the other documents now refer to the new sections. Where an old number names the same content
+    in the new text, it stays: "luvut 02 ja 03" and "luku 04" in the epic. The decisions on the dashed lines of Nov 18
+    in Progress.md, the epic and ticket 011, which the decisions of Nov 20 replace, still name section 03. The new
+    section 03 keeps a clipped pattern fill as a periodic coverage, but it gives the selected elements as derived
+    values, and not as single clipping objects. The figure numbers stay.
+  - In the done tickets, the session changed only the numbers, with two exceptions. In ticket 004, "luku 01 antaa
+    palettikerroksen ominaisuudet C, α, B, G ja M" is now "luku 02 antaa palettimerkinnän ominaisuudet C, α ja B". In
+    ticket 005, the sentence on the clipping objects starts with "Luvun 03 mukaan".
+  - The reading list of [GlossaryHandover.md](GlossaryHandover.md) names section 01 of the specification, and its
+    section "After the glossary" says that the specification is written again and that @Pauli reviews it.
 
 ## Decisions
 
@@ -408,7 +420,7 @@ the rendering.
   (`PaletteCutter`). A symbol separation is the triple (`Symbol`, `SymColor`, G). The symbol separations of a palette
   separation that have the same configuration are one palette cutter, the layer instance of the specification. `Map`
   offers the means to make derivations, and keeps them where the shared use of the channels or a cache makes it
-  sensible. Pass 2 writes each palette separation as one group. Section 02 of [Specification.md](Specification.md)
+  sensible. Pass 2 writes each palette separation as one group. Section 01 of [Specification.md](Specification.md)
   gives the structure, and [Glossary.md](Glossary.md) gives the names.
 - **Earlier decisions are negotiable** (Nov 20). The structure of the passes changes the concepts at the base of the
   work, so each earlier decision is negotiable when it is necessary. The structure touches at least the decisions "The

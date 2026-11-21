@@ -3,7 +3,7 @@
 > **LUONNOS (18.11.), ei sitova.** Tämä tiketti on luonnos. Sen kuvaus, ehdotetut kriteerit, havainnot ja kysymykset ovat lähtökohtia, eivät vaatimuksia eivätkä sääntöjä. Sitovia ovat vain kohdan "Päätökset" @Paulin päätökset päiväyksineen. Tiketin viimeistelevä sessio tarkistaa jokaisen kohdan koodia ja speksiä vasten, päättää kriteerit @Paulin kanssa ja poistaa tämän merkinnän ja otsikon sanan LUONNOS.
 
 **Kuvaus (luonnos)**
-Viivoitukset ja aluekuviot ovat ilmentymissä toistuvan geometrian prototyyppejä, joilla on hilan ja elementtien muunnokset (speksin luku 03). Leikatun täytön leikkausobjektit ovat alueet, ja täyttötilan valitsemat kokonaiset elementit ovat omia leikkausobjektejaan.
+Viivoitukset ja aluekuviot ovat ilmentymissä toistuvan geometrian prototyyppejä, joilla on hilan ja elementtien muunnokset (speksin luvut 02 ja 03). Leikatun täytön leikkausobjektit ovat alueet, ja täyttötilan valitsemat kokonaiset elementit ovat omia leikkausobjektejaan.
 
 **Päätökset (sitovia)**
 - Ennen tätä tikettiä vaihe 1 irrotetaan piirrosta (tiketti [007](007-map-instances.md)), ja kerääjä korvataan symbolien omilla geometriametodeilla (tiketit [008](008-symbol-geometry.md), [011](011-line-geometry.md), [012](012-area-geometry.md) ja [013](013-text-geometry.md)) (@Pauli, 18.11.).
@@ -14,7 +14,7 @@ Viivoitukset ja aluekuviot ovat ilmentymissä toistuvan geometrian prototyyppej�
 
 **Hyväksymiskriteerit (luonnos: ehdotuksia, ei sitovia)**
 - [ ] Ehdotus: geometriaprototyypillä on toistuvan geometrian tapaukset: viivoitus (viivan leveys, väli ja siirtymä) ja kuvio (elementin glyyfi, hilan leveys ja korkeus sekä rivien siirto).
-- [ ] Ehdotus: ilmentymällä on hilan muunnos L ja elementtien muunnos E siten, että elementin piste e hilavektorissa v on kohdassa L(v) + E(e) (luku 03).
+- [ ] Ehdotus: ilmentymällä on hilan muunnos L ja elementtien muunnos E siten, että elementin piste e hilavektorissa v on kohdassa L(v) + E(e) (luku 02).
 - [ ] Ehdotus: leikatun täytön leikkausobjektit ovat alueiden ääriviivat, ja samanlaiset kokoonpanot jakavat ilmentymän.
 - [ ] Ehdotus: täyttötilojen `CompletelyInside`, `CenterInside` ja `PartiallyInside` valitsemat elementit ovat leikkausobjekteja, ja samoin epäsäännöllisten kuvioiden elementit.
 - [ ] Ehdotus: sisäinen asetus `RenderOptions.omitHatchingsAndPatterns` ja kerääjän oraakkelikäyttö poistuvat, ja `LayerInstanceCoverageTests` vertaa myös värit, joilla on viivoituksia tai kuvioita.
@@ -27,7 +27,7 @@ Viivoitukset ja aluekuviot ovat ilmentymissä toistuvan geometrian prototyyppej�
   - `PatternInfo` sisältää glyyfin, hilan leveyden ja korkeuden, rivien siirron, kuvion kulman, siirtymän, kiertotilan, täyttötilan (`PatternFillMode`: `Clip`, `CompletelyInside`, `CenterInside` ja `PartiallyInside`) sekä epäsäännöllisyyden. `DrawPattern` siirtää kiertokeskukseen, kiertää alueen kulmalla ja kuvion kulmalla ja siirtää kuvion siirtymällä. `DrawPatternRows` piirtää glyyfit hilan pisteisiin kulmalla miinus kuvion kulma.
   - `HandleIrregularity` siirtää epäsäännöllisen kuvion elementtejä sattumanvaraisesti mutta deterministisesti, ja siirron siemen tulee elementin pyöristetystä paikasta.
   - Kuviosivellin (`CreatePatternBrush`) on käytössä, kun `usePatternBitmaps` on päällä ja kuvio on säännöllinen ja leikattu eikä liian karkea. Muuten glyyfit piirretään yksitellen.
-  - Speksin luvun 03 mukaan OCADissa symbolin rakennekulma kiertää vain hilaa, ja alueobjektin kulma kiertää hilaa ja elementtejä yhdessä.
+  - Speksin luvun 02 mukaan OCADissa symbolin rakennekulma kiertää vain hilaa, ja alueobjektin kulma kiertää hilaa ja elementtejä yhdessä.
 - **Havainto: päällekkäiset alueet.** basewithfixesin korjaus `fix/overlapping-patterns`, joka ei kuulu tämän työn pohjaan, piirtää saman symbolin päällekkäisten tai vierekkäisten, saman kehyksen alueiden viivoitukset ja leikatut kuviot kerran niiden unioniin. Mallissa sama voi seurata siitä, että samanlaiset kokoonpanot jakavat ilmentymän ja leikkausobjektit yhdistyvät unioniksi. Silloin prototyyppi piirretään kerran unioniin, ja unionin on oltava aito unioni, koska alueet täyttyvät parillisuussäännöllä. Tiketti ratkaisee, miten tämä toteutuu.
 - **Avoimia kysymyksiä:**
   1. Mikä on samanlainen kokoonpano? Sama palettimerkintä, prototyyppi, L ja E, ja alueen mukana kääntyvillä kuvioilla myös sama kulma ja kiertokeskus?

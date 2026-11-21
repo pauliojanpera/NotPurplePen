@@ -2,7 +2,7 @@
 
 Nov 18, 2026. For a Mapper map, Mapper is the oracle of the appearance, except where the work finds a bug in Mapper
 (the preface of [Specification.md](../Specification.md)). This file records such a case. Mapper applies the opacity of
-a color to each shape, and not once to the palette entry, as section 05 and figure 6 of the specification require.
+a color to each shape, and not once to the palette entry, as section 04 and figure 6 of the specification require.
 
 ## The source
 
@@ -34,7 +34,7 @@ Mapper shows Purple, C30 M100 Y0 K0, as the RGB 179, 0, 255.
   two shapes of one color overlap, the alpha applies twice, and the overlap is darker: 1 − 0.2² = 0.96 of Purple, and
   not 0.8.
 - It is not multiply. Multiply of the color of one shape with itself would give 148, 10, 255.
-- Section 05 of the specification applies α once to the union of the instances of a palette entry, and figure 6 shows
+- Section 04 of the specification applies α once to the union of the instances of a palette entry, and figure 6 shows
   this case. So Mapper is not the oracle of α where the shapes of one color overlap. Where they do not overlap, Mapper
   is the oracle: 0.8 of the color over what is below it.
 

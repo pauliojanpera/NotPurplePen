@@ -2,7 +2,7 @@
 
 **Kuvaus**
 
-Karttamalliin tulee eksplisiittinen muste, ja jokainen palettimerkintä (`SymColor`) määritellään musteiden koosteena speksin luvun 06 mukaisesti.
+Karttamalliin tulee eksplisiittinen muste, ja jokainen palettimerkintä (`SymColor`) määritellään musteiden koosteena speksin luvun 02 mukaisesti.
 
 **Hyväksymiskriteerit**
 
@@ -21,10 +21,10 @@ Karttamalliin tulee eksplisiittinen muste, ja jokainen palettimerkintä (`SymCol
 
 **Lisätiedot**
 
-- **Speksi:** [Specification.md](../Specification.md), luku 06. Prosessivärit ovat musteiden neliväritapaus. Siksi värit, joilla ei ole spottimäärittelyä, koostuvat prosessimusteista, ja tässä kohdassa speksi ratkaisee oraakkelin sijaan (@Pauli, 17.11.).
+- **Speksi:** [Specification.md](../Specification.md), luku 02. Prosessivärit ovat musteiden neliväritapaus. Siksi värit, joilla ei ole spottimäärittelyä, koostuvat prosessimusteista, ja tässä kohdassa speksi ratkaisee oraakkelin sijaan (@Pauli, 17.11.).
 - **Nykytila:** `SymColor` sisältää vain CMYK-arvon, päällepainatuslipun, nimen ja OCAD-tunnuksen. `OcadFileFormat` lukee OCAD 6–8:n `aColorSep`- ja `SepPercentage`-kentät, mutta `OcadImport.CreateColors` ei käytä niitä eikä OCAD 9:n ja uudempien `s`- ja `p`-kenttiä ("we don't preserve the spot color information"). `OpenMapperColor.ReadFromXml` lukee `spotcolors`-elementistä vain `knockout`-määreen. OCAD-vienti kirjoittaa separaatiot tyhjinä, eikä Mapper-vienti kirjoita musteita.
 - **OOM:n malli** ([map_color.h](https://github.com/OpenOrienteering/mapper/blob/master/src/core/map_color.h), [xml_file_format.cpp](https://github.com/OpenOrienteering/mapper/blob/master/src/fileformats/xml_file_format.cpp)): väri on spottiväri (`SpotColor`, jolla on nimi ja rasteri), spottivärien kooste (`CustomColor`, jonka komponenteilla on kerroin 0–1) tai pelkkä CMYK-väri. Komponentti viittaa spottiväriin tämän prioriteetilla.
-- **OCADin malli:** separaatiot ovat erillinen lista, ja väri viittaa niihin prosenttiosuuksin. Speksin luvun 06 mukaan puuttuva osuus jättää separaation ennalleen, 0 % pyyhkii sen ja positiivinen osuus asettaa peiton.
+- **OCADin malli:** separaatiot ovat erillinen lista, ja väri viittaa niihin prosenttiosuuksin. Speksin luvun 02 mukaan puuttuva osuus jättää separaation ennalleen, 0 % pyyhkii sen ja positiivinen osuus asettaa peiton.
 - **Testiaineisto:** OCAD-tiedostoista (versio 9 tai uudempi) 265:ssä 493:sta on spottiseparaatioita, ja Mapper-tiedostoista 98:ssa 112:sta on spottivärejä.
 - **Testikartat:** tekstin piirto riippuu koneen fonteista, ja tämän koneen fontit eroavat CI:n fonteista, joten testikartoissa ei ole tekstiä. Kartat ovat haarassa `feature/inks` tuontitestien kansioissa: Mapper-kartta kansiossa `src/MapModel/TestFiles/openmapper/` ja OCAD-kartat kansiossa `src/MapModel/TestFiles/ocadimport/`. Jos Skian piirtotesti käyttää karttaa, se kuuluu kansioon `src/MapModel/TestFiles/skia_render/` testikuvauksen ja baseline-kuvan viereen.
   - `Hakola malli.omap` (Mapper): 8 spottimustetta, 57 koostetta (rastereita, kahden musteen sekoituksia ja komponentteja, joiden kerroin on 0), värejä, joilla knockout on päällä ja pois, sama kooste kahdella prioriteetilla, jotka eivät ole peräkkäisiä, sekä 2 943 objektia. Väri "Ruskea 100% - Pistekohde" on pelkkä CMYK-väri ilman spottimäärittelyä, ja 214 objektia käyttää sitä.

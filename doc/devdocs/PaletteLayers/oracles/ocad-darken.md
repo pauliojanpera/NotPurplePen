@@ -1,7 +1,7 @@
 # OCAD's blend mode Darken: an oracle
 
 Nov 18, 2026. OCAD is the authority on how its own maps render (the preface of
-[Specification.md](../Specification.md)). This oracle tells how OCAD applies the blend mode Darken, B of section 01.
+[Specification.md](../Specification.md)). This oracle tells how OCAD applies the blend mode Darken, B of section 02.
 Its source is the OCAD wiki page [Blend Mode](https://www.ocad.com/wiki/ocad/en/index.php?title=Blend_Mode): its text,
 the table of its Blend mode dialog (`BlendModeTable.png`), OCAD's own view (`BlendModeOcad.png`), and the exported PDF
 in Adobe Reader (`BlendModePdf.png`). @Pauli gave them on Nov 18. The images are in [ocad-darken/](ocad-darken/),
@@ -65,7 +65,7 @@ CMYK value.
 - Darken in OCAD's PDF agrees with the larger share of each ink, in CMYK, converted to RGB after the blend. The CMYK
   profile FOGRA45L (littleCMS, relative colorimetric) converts the colors alone to their RGB in the image within 23 in
   each channel, and the larger shares of the inks to the blends within 36. The RGB minimum is off by up to 78.
-- So OCAD blends Darken by inks (section 06), and not by direct colors (section 05).
+- So OCAD blends Darken by inks (sections 02 and 04), and not by direct colors (section 04).
 
 ## Where the work uses it
 
