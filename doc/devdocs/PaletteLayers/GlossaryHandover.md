@@ -130,8 +130,10 @@ The five terms that the session chose by their use in commit 06f4c824d are all d
 A new open item gets a question by "How to make a question", and the glossary marks it "Open" in its entry.
 
 1. **korostus:** how the highlights are expressed in the SVG DOM of the browser, and whether they stay there over the
-   renderings: as a style of the drawn objects through their symbol keys, or as a layer of their own for highlights
-   that have no symbol, for example the control that `AddControlMode` makes (Nov 21).
+   renderings: as a style of the drawn objects through their symbol keys, as a layer of their own for highlights that
+   have no symbol, for example the control that `AddControlMode` makes, or as a direct drawing on a drawing surface in
+   the DOM, for example a canvas (Nov 21). @Pauli leaves it for later (Nov 21), so a session does not take it up
+   unless he asks.
 
 ### After the glossary
 

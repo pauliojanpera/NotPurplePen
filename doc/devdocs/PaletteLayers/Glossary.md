@@ -506,7 +506,8 @@ encodings make themselves.
   target, and it stays a direct drawing beside the palette stack in the channels that have a graphics target. A direct
   drawing keeps nothing over the renderings: the selection keeps the state, and each rendering draws the highlights
   again. **Open:** how the highlights are expressed in the SVG DOM of the browser, and whether they stay there over the
-  renderings, as a style of the drawn objects through their symbol keys or as a layer of their own.
+  renderings: as a style of the drawn objects through their symbol keys, as a layer of their own, or as a direct
+  drawing on a drawing surface in the DOM, for example a canvas, as on a graphics target.
 - **läpinäkyvyyden litistys** · *transparency flattening* — The conversion of the transparencies into opaque vector
   objects. It is not in the scope of the epic.
 
