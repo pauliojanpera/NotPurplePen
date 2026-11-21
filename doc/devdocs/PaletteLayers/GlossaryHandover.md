@@ -80,7 +80,7 @@ Glossary.md has all the decisions of Nov 20 and Nov 21, each with @Pauli's name 
   *jana*, the layers of `SymLayer`, *värierottelu* and *palettierottelu*, *palettitaso* (replaced on Nov 21), and
   *palettiväri*.
 - The names of the structure of the passes: `PaletteSeparation` · palettierottelu and `PaletteCutter` ·
-  palettileikkuri, and the Finnish term *johdos*.
+  palettileikkuri, and *johdos* · *derived value* (the English term on Nov 21).
 - The terms of `IGraphicsTarget`: *piirtokohde* · *graphics target* (Nov 21).
 - The terms of α: *peittävyys* · *opacity* (Nov 21).
 - The coverages: *jaksollinen peitto* · *periodic coverage* (G, in place of *jaksollinen geometria*), *täysi peitto* ·
@@ -98,8 +98,7 @@ The five terms that the session chose by their use in commit 06f4c824d are all d
 ### Open
 
 Present these to @Pauli, one question at a time:
-1. **The proposed English and Finnish names:** *derivation* for *johdos*, and *kynänjälki* for the band that a pen
-   covers along a path.
+1. **The proposed Finnish name** *kynänjälki* for the band that a pen covers along a path.
 2. **The items marked "Open" in the glossary.** On Nov 21 they are:
    - the identifier of a `Symbol` to which a drawn object of a file can refer
    - whether the shared structures that are not periodic, for example the shared shapes of a glyph, are prototypes

@@ -61,7 +61,7 @@ one meaning" lists the words that name two or more concepts now.
   *map coordinates* and *world coordinates* (see "Words that are not names"). The real-world coordinates
   (`RealWorldCoords`) are a different concept: the georeferencing of the map.
 - **ideaalimuoto** · *ideal form* — The form in which `Map` keeps a structure, apart from the form of a channel: the
-  information that an encoding needs. `Map` keeps the curves of the paths as Bezier curves. The derivations are not
+  information that an encoding needs. `Map` keeps the curves of the paths as Bezier curves. The derived values are not
   ideal forms (@Pauli, Nov 20).
 
 ### Palette and color
@@ -147,15 +147,14 @@ one meaning" lists the words that name two or more concepts now.
 - **`LineSymbol`** · viivasymboli · *line symbol, line object* — One line object of a map. Its path is
   `LineLikeSymbol.Path`, a `SymPath`.
 - **viivan mitta** · *measure of the line* — The metric that the source means to be used, which `Map` keeps in the ideal
-  form (`Map.UseEuclideanMetric`). `Map` offers the means to convert it to suit a channel, and to keep the derivations
-  (@Pauli, Nov 20). The measure of fix 021 (work: `OcadCurveMeasure`, `SymPath.GetOcadCurveMeasure`) gives a straight
-  segment its length, and a quarter of a curve its chord (021).
-- **viivan rakenne** · *structure of a line* — The logical path, the parts as its pieces and offsets, the measure of
-  the line, the fitted pattern of a part, the end dashes and the exceptions of fix 020 (Nov 20). `Map` keeps the
-  information that is necessary, that is the ideal forms: the path of the `LineSymbol`, the `DashInfo`, the
-  `DoubleLineInfo` and the metric. The segments, the fitted dash patterns, the merged end dashes and the exceptions
-  of fix 020 are derivations, which `Map` can keep for the channels where the implementation finds it sensible (@Pauli,
-  Nov 20).
+  form (`Map.UseEuclideanMetric`). `Map` offers the means to convert it to suit a channel, and to keep the derived
+  values (@Pauli, Nov 20). The measure of fix 021 (work: `OcadCurveMeasure`, `SymPath.GetOcadCurveMeasure`) gives a
+  straight segment its length, and a quarter of a curve its chord (021).
+- **viivan rakenne** · *structure of a line* — The logical path, the parts as its pieces and offsets, the measure of the
+  line, the fitted pattern of a part, the end dashes and the exceptions of fix 020 (Nov 20). `Map` keeps the information
+  that is necessary, that is the ideal forms: the path of the `LineSymbol`, the `DashInfo`, the `DoubleLineInfo` and the
+  metric. The segments, the fitted dash patterns, the merged end dashes and the exceptions of fix 020 are derived
+  values, which `Map` can keep for the channels where the implementation finds it sensible (@Pauli, Nov 20).
 - **looginen polku** · *logical path* — The path of a line in its ideal form. The parts of the line are its pieces and
   offsets (Nov 20). **Upstream:** a line object has one path (`LineLikeSymbol.Path`), and its definition draws all the
   parts of the line from it (011). **Open:** is the logical path `LineLikeSymbol.Path`?
@@ -265,17 +264,17 @@ one meaning" lists the words that name two or more concepts now.
 
 - **vaihe 1, ilmentäminen** · *pass 1, layer instantiation* (work: `Map.CreateLayerInstances`) — `Map` makes the
   palette separations and their palette cutters from the map alone, and no rectangle or resolution of a drawing
-  (spec 02; Nov 18, Nov 20). The palette color coverages of the symbols get their derivations from the geometry
+  (spec 02; Nov 18, Nov 20). The palette color coverages of the symbols get their derived values from the geometry
   methods of the symbol definitions (008; 011 to 013 in progress). *Vaihe* means a pass (@Pauli, Nov 20).
 - **`SymbolCoverage`** · symbolin palettiväripeitto · *palette color coverage of a symbol* — The coverage of one
   `Symbol` in one palette color with one coverage prototype G: the triple (`Symbol`, `SymColor`, G). Its coverage is
   G under M inside the union of its clipping objects. A symbol has one for each G in a palette color: usually one,
   and two for a cross hatching, which upstream imports as two hatchings of one color (`OcadImport`). It refers to
-  these objects and copies nothing. It keeps its own derivations (spec 02, Nov 20). The name is @Pauli's (Nov 21).
+  these objects and copies nothing. It keeps its own derived values (spec 02, Nov 20). The name is @Pauli's (Nov 21).
   The triple is a coverage, and not a separation: a separation is named by what it separates by, as *värierottelu*
   and *palettierottelu* are. It replaces the proposed name `SymbolSeparation` · symbolierottelu.
 - **`PaletteSeparation`** · palettierottelu · *palette separation* — The palette color coverages of the symbols in
-  one palette color. It keeps its palette cutters as a derivation (spec 02, Nov 20). The name is @Pauli's, and the
+  one palette color. It keeps its palette cutters as a derived value (spec 02, Nov 20). The name is @Pauli's, and the
   Finnish term is *palettierottelu* (@Pauli, Nov 20).
 - **`PaletteCutter`** · palettileikkuri · *palette cutter* — The palette color coverages of the symbols in one
   palette separation that have the same configuration. It cuts the uniform color of the palette color to the coverage
@@ -298,18 +297,22 @@ one meaning" lists the words that name two or more concepts now.
   objects. The coverage of a palette separation is the union of the coverages of its palette cutters (@Pauli,
   Nov 21). The union can stay implicit in the rendering, but the instances cannot be left out (spec 05, Nov 18).
 
-### The derivations
+### The derived values
 
-- **johdos** · *derivation* — A result that `Map` gives from the ideal form for the needs of the channels. `Map`
-  offers the means to make derivations and to keep them, where the shared use of the channels or a cache of the
+- **johdos** · *derived value* — A result that `Map` gives from the ideal form for the needs of the channels. `Map`
+  offers the means to make derived values and to keep them, where the shared use of the channels or a cache of the
   results makes it sensible (@Pauli, Nov 20). The means are the known channel conversions of `Map`, and an encoding
-  chooses the channel conversions that its channel can use (@Pauli, Nov 20). The Finnish term is @Pauli's (Nov 20),
-  and the English term is a proposed name. A palette color coverage of a symbol keeps its own derivations. A
-  derivation that depends on a definition alone belongs to the definition, for example the shared shapes of a glyph.
-  A palette separation keeps its palette cutters. A derivation is calculated when it is necessary the first time, and
-  it becomes invalid when the map changes (spec 02, Nov 20). Upstream keeps derivations in the same way, for example
-  `SymPath.flatpoints`, `TextSymbol.wrappedText` and `Symbol.boundingBox`.
-  A derivation is not an ideal form, but a practical adaptation of the ideal form to the needs of the channels. Its
+  chooses the channel conversions that its channel can use (@Pauli, Nov 20). The terms are *johdos* (@Pauli, Nov 20)
+  · *derived value* (@Pauli, Nov 21). A palette color coverage of a symbol keeps its own derived values. A derived
+  value that depends on a definition alone belongs to the definition, for example the shared shapes of a glyph. A
+  palette separation keeps its palette cutters. A derived value is calculated when it is necessary the first time, and
+  it becomes invalid when the map changes (spec 02, Nov 20). Upstream keeps derived values in the same way, for
+  example `SymPath.flatpoints`, `TextSymbol.wrappedText` and `Symbol.boundingBox`. The term comes from reactive
+  programming. There, `Map` is the state, and a derived value is calculated from it: for example *derived* of Svelte
+  and Solid, and *derived state* of React. A computed value is a derived value that is kept and calculated again when a
+  dependency changes, for example `Signal.Computed` of the signal proposal of TC39 and `computed` of Vue and Angular.
+  A derived value that `Map` keeps acts as a computed value.
+  A derived value is not an ideal form, but a practical adaptation of the ideal form to the needs of the channels. Its
   form depends on what the implementations that the channels choose need: for example, the dashes on a curve can be
   Bezier pieces, polylines or both (@Pauli, Nov 20). In the work, the shapes keep ellipses and arcs as ellipses and
   arcs, as the graphics targets make polylines of them each in its own way (005).
@@ -326,13 +329,13 @@ one meaning" lists the words that name two or more concepts now.
 - **siirretty polku, pohjapolku** · *offset path, base path* — The shape of a border of a double line, in its ideal
   form: the path of the middle of the line and the offset. Its dash pattern is measured along its base path. The rule
   of the corners of the offset belongs to the shape, and the join belongs to the stroke (Nov 20). The offset curve is a
-  derivation.
+  derived value.
 - **neljännes, jänne** · *quarter, chord* — Each quarter of a Bezier curve has its chord as its length in the measure.
   Within the quarter, the dashes are in proportion to the true arc (021, Nov 19).
 - **litistetty polku, polun litistäminen** · *flattened path, path flattening* (`SymPath.GetFlattenedPoints`) — The
   term is *polun litistäminen* · *path flattening* (@Pauli, Nov 20). The polyline
   that approximates the curves of a path. Upstream calls its points the flat points and keeps them in the `SymPath`
-  (`flatpoints`). The ideal form keeps the curves. A derivation can keep a polyline, and an encoding can make one
+  (`flatpoints`). The ideal form keeps the curves. A derived value can keep a polyline, and an encoding can make one
   (Nov 20).
 - **taitepiste, jana** · *vertex, edge* — A point of the flattened path, and the straight piece between two adjacent
   points of the flattened path (@Pauli, Nov 20). The English term of *jana* is *edge*, as *segment* is the segmentti
@@ -351,12 +354,12 @@ one meaning" lists the words that name two or more concepts now.
 - **katkojuoste** · *run of dashes* — The middle dashes of a segment as one periodic dashed line (011). The term is
   *katkojuoste* (@Pauli, Nov 20); the decisions and the tickets say *ajo* and *katkoajo*. The runs in the euclidean
   measure are the same for Skia, PDF and SVG, as their dash patterns measure the path euclidean (011,
-  Nov 19). They are derivations: `Map` offers the means to make them and to keep them (@Pauli, Nov 20). This changes
+  Nov 19). They are derived values: `Map` offers the means to make them and to keep them (@Pauli, Nov 20). This changes
   the decision of Nov 20 on the composed dashed lines, which says that an encoding makes the runs (011).
 - **koostettu katkoviiva** · *composed dashed line* — The form of a line for a channel whose dash pattern measures the
   euclidean length: the runs and the single dashes (Nov 20).
 - **kanavamuunnos** · *channel conversion* — A conversion of the ideal form into a form that a channel can use. `Map`
-  offers the known channel conversions, and keeps their results as derivations where the shared use of the channels
+  offers the known channel conversions, and keeps their results as derived values where the shared use of the channels
   or a cache makes it sensible. An encoding chooses the channel conversions of `Map` that its channel can use, and
   makes the others itself, without keeping their results (@Pauli, Nov 20). **Open:** which channel conversions stay
   in the encodings.
@@ -366,12 +369,12 @@ one meaning" lists the words that name two or more concepts now.
   conversion into single parts: a run into dashes, and a repeated placement into single placements (011). `Map`
   offers it (@Pauli, Nov 20).
 
-### The forms of the derivations
+### The forms of the derived values
 
 - **`ClippingObject`** (work) · leikkausobjekti · *clipping object* — It limits the extent over which G of its palette
   cutter applies. It gives no color or alpha (spec 01). It has a shape that is drawn (`Shape`), a fill or a
   stroke, and a placement (`Placement`) (Nov 18, Nov 20). The clipping objects of a palette color coverage of a
-  symbol are its derivations (spec 02, Nov 20).
+  symbol are its derived values (spec 02, Nov 20).
 - **`ClippingObject.Shape`** (work) · piirtyvä muoto · *shape that is drawn* — The shape of a clipping object
   (Nov 20). For a fill, the shape is the outline of the area. For a stroke, the shape is the path at the middle of the
   band that the stroke covers.
@@ -436,8 +439,8 @@ one meaning" lists the words that name two or more concepts now.
 - **kuvioruutu** · *pattern tile* — One cell of an area pattern, which is composed from single elements (Nov 20). It
   depends on the definition alone. The term is *kuvioruutu* · *pattern tile* (@Pauli, Nov 20).
 - **valitut elementit, epäsäännöllisen kuvion sijoitukset** · *selected elements, placements of an irregular pattern* —
-  The elements that a fill mode selects, and the placements of the elements of an irregular pattern, are derivations of
-  a palette color coverage of a symbol (spec 03, Nov 20).
+  The elements that a fill mode selects, and the placements of the elements of an irregular pattern, are derived values
+  of a palette color coverage of a symbol (spec 03, Nov 20).
 
 ## The rendering side · Renderöinnin puoli
 
@@ -526,23 +529,23 @@ encodings make themselves (spec 02, Nov 20).
   The decisions of Nov 20 say "the model" (in Finnish *malli* and *karttamalli*). @Pauli decided their readings by the
   structure of the passes on Nov 20:
   - "the map model keeps the ideal forms" (The ideal forms): `Map` keeps the ideal forms, that is the information that
-    an encoding needs. The derivations are not ideal forms, but practical adaptations of them to the needs of the
+    an encoding needs. The derived values are not ideal forms, but practical adaptations of them to the needs of the
     channels. They keep the dashes, the runs and the paths of the repeated placements on a curve as Bezier pieces or as
     polylines, as the implementations that the channels choose need, and possibly in both forms (@Pauli, Nov 20).
   - "the implementation of the channel does not agree with the model" (The ideal forms): with the ideal form of `Map`.
-    When the decision was made, `Map` did not offer derivations yet. Now `Map` also offers the means to make and to
-    keep derivations, where the shared use of the channels or a cache of the results makes it sensible (@Pauli,
+    When the decision was made, `Map` did not offer derived values yet. Now `Map` also offers the means to make and to
+    keep derived values, where the shared use of the channels or a cache of the results makes it sensible (@Pauli,
     Nov 20).
   - "the model keeps it, and the encoding reads the structure from the model" (The model keeps the information of the
     encodings; the rule of 000): `Map` keeps the information that an encoding needs, and the intermediate layer gives
     access to it in forms that are more usable for the needs of the channels (@Pauli, Nov 20).
-  - "the model keeps the structure of a line" (The structure of a line): `Map` keeps the information that is
-    necessary, that is the ideal forms: the path of the `LineSymbol`, the `DashInfo`, the `DoubleLineInfo` and the
-    metric. The segments, the fitted dash patterns, the merged end dashes and the exceptions of fix 020 are derivations,
-    which `Map` can keep for the channels where the implementation finds it sensible (@Pauli, Nov 20).
+  - "the model keeps the structure of a line" (The structure of a line): `Map` keeps the information that is necessary,
+    that is the ideal forms: the path of the `LineSymbol`, the `DashInfo`, the `DoubleLineInfo` and the metric. The
+    segments, the fitted dash patterns, the merged end dashes and the exceptions of fix 020 are derived values, which
+    `Map` can keep for the channels where the implementation finds it sensible (@Pauli, Nov 20).
   - "the measure of the model" (The composed dashed lines, 011): the metric that the source means to be used, which
     `Map` keeps in the ideal form (`Map.UseEuclideanMetric`). `Map` offers the means to convert the metric to suit a
-    channel, for example into runs in the euclidean measure, and to keep the derivations (@Pauli, Nov 20).
+    channel, for example into runs in the euclidean measure, and to keep the derived values (@Pauli, Nov 20).
   - "an SVG or a PDF file carries the model" and "Purple Pen reads the model from the file" (Self-supporting vector
     files): the content of `Map` (@Pauli, Nov 20). The drawn objects of the file keep a link back to the ideal forms
     that is as direct as possible, also through the hierarchy of the file, so that the SVG graphics can be a part of a
@@ -554,8 +557,8 @@ encodings make themselves (spec 02, Nov 20).
     encoding can refer. They make it possible to open a file as a map. The intermediate layer is also a part of the
     epic, but this decision does not concern it (@Pauli, Nov 20).
   - "the model offers the known conversions" (The conversions of the model): `Map`. It offers the known channel
-    conversions as means to make derivations from its ideal forms, and keeps their results where the shared use of the
-    channels or a cache makes it sensible. An encoding chooses a channel conversion that its channel can use. With
+    conversions as means to make derived values from its ideal forms, and keeps their results where the shared use of
+    the channels or a cache makes it sensible. An encoding chooses a channel conversion that its channel can use. With
     channel conversions of its own, it makes only what no channel conversion of `Map` covers (@Pauli, Nov 20).
 - **karttamalli** · *map model* — A vague reference (@Pauli, Nov 20). It can mean three names of the code:
   - the folder `src/MapModel`: the map model and the graphics targets, in many projects, for example `Graphics2D`,
