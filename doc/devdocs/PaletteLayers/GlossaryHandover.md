@@ -57,8 +57,8 @@ of these.
 
 - After a decision, the session records it at once in Glossary.md, commits, pushes, and tells @Pauli what it recorded,
   with the commit.
-- Only @Pauli's decisions have his name and date. A fact has its source. A name that is not decided is marked
-  "proposed name".
+- The glossary gives no dates, attributions or sources in parentheses (@Pauli, Nov 21). The list under "Decided" and
+  the commit messages tell whose decision a term is and when. A name that is not decided is marked "proposed name".
 - A decision on a Finnish word concerns the Finnish word only, unless @Pauli says otherwise (the entry of *kerros*,
   Nov 20).
 - When a decision changes a word that other entries use, the session changes those entries in the same commit.
