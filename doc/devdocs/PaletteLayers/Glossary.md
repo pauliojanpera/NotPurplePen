@@ -434,12 +434,12 @@ encodings make themselves.
   coverage of a symbol, and through it to its `Symbol`, `SymColor` and G. In a file, the drawn objects keep a link back
   to the ideal forms that is as direct as possible, also through the hierarchy of the file, so that the SVG graphics can
   be a part of a web user interface.
-- **viittaus** · *reference* — What the map side lets a drawn object refer to is not duplicated in the drawn objects.
-  They use it through references. A drawn object links directly to the parts of the content of `Map`. It can take the
-  geometry that it draws by reference from the shared parts of the intermediate layer. The link and the reuse are
-  different references, and they do not limit each other. In SVG, `<use href>` and `fill="url(#…)"` reuse, and the
-  hierarchy of the groups or an identifier of the drawn object links. In PDF, a form XObject reuses, and marked content
-  links.
+- **viittaus** · *reference* — What the structure of `Map` lets a drawn object refer to is not duplicated in the
+  drawn objects. They use it through references. A drawn object links directly to the parts of the content of `Map`.
+  It can take the geometry that it draws by reference from the shared parts of the intermediate layer. The link and
+  the reuse are different references, and they do not limit each other. In SVG, `<use href>` and `fill="url(#…)"`
+  reuse, and the hierarchy of the groups or an identifier of the drawn object links. In PDF, a form XObject reuses, and
+  marked content links.
 - **itsensä kannatteleva vektoritiedosto** · *self-supporting vector file* — An SVG or a PDF file that carries the
   content of `Map`, so that Purple Pen can one day read it from the file. The opening is not in the scope of the epic.
 - **korostus** · *highlight* (`Symbol.DrawHighlight`, `CourseObj.DrawHighlight`) — It is drawn directly on the graphics
@@ -476,6 +476,8 @@ encodings make themselves.
   - "the parts of the model": the parts of the content of `Map`. A drawn object links directly to them. It can take the
     geometry that it draws by reference from the shared parts of the intermediate layer. The link and the reuse are
     different references, and they do not limit each other.
+  - "what the structure of the model lets an object refer to": the structure of `Map`. The drawn objects do not
+    duplicate what it lets them refer to. They use it through references.
   - "the epic includes a model that makes it possible": `Map` with the parts to which an encoding can refer. They make
     it possible to open a file as a map. The intermediate layer is also a part of the epic, but this decision does not
     concern it.
