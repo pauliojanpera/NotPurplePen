@@ -418,6 +418,12 @@ the rendering.
   an encoding are only the conversions into the vocabulary of its channel and the adaptations to the deviations of its
   channel that no general conversion covers. [Glossary.md](Glossary.md), *kanavamuunnos*, gives the comparison with the
   legalization of a compiler.
+- **The encodings and `IGraphicsTarget`** (Nov 21). An encoding writes its channel directly: the SVG encoding writes
+  SVG, the PDF encoding the objects of PdfSharp, and the Skia encoding an `SKCanvas`. `IGraphicsTarget` stays beside
+  the palette stack. It draws what does not belong to the palette stack: the templates, the highlights and the control
+  descriptions, and the old drawing code until that code goes away. So the highlights stay a direct drawing. The
+  encoding and the graphics target of one channel share the surface of the channel. The vocabulary of a channel belongs
+  to its encoding, and a shared drawing interface would level it to the subset that all the channels share.
 - **The identity of a `CourseObj`** (Nov 21). The identity of a `CourseObj`, from which the symbol key of the course
   map comes, is a key that `CourseFormatter` or `TopologyFormatter` gives to it at the place where it makes it: the
   role of the place in the data of `EventDB`, the identifiers of `EventDB` that the place uses, and the `CourseLayer`.

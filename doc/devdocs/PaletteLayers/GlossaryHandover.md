@@ -120,19 +120,15 @@ These are @Pauli's decisions of Nov 20 and Nov 21. Glossary.md gives their terms
   measure of the line is the fitted pattern of a part of a line (Nov 21).
 - The own channel conversions of an encoding are only those into the vocabulary of its channel and the adaptations
   to its deviations. `Map` offers all the geometric conversions (Nov 21).
+- An encoding writes its channel directly, and `IGraphicsTarget` stays beside the palette stack for the templates,
+  the highlights, the control descriptions and the old drawing code. So the highlights stay a direct drawing (Nov 21).
 
 The five terms that the session chose by their use in commit 06f4c824d are all decided on Nov 21.
 
 ### Open
 
-Continue with these one at a time (@Pauli, Nov 21). Each question gives the theoretical basis of the choice, as "How
-to make a question" says. The glossary marks each item "Open" in the entries named here.
-
-1. **koodaus, `IGraphicsTarget`:** how the encodings relate to `IGraphicsTarget`, and its place when pass 2 and the
-   encodings draw from the intermediate layer.
-2. **korostus:** whether the highlights stay a direct drawing (000).
-
-These items are questions of the design of the specification and of the tickets.
+No item of the glossary is open (Nov 21). A new open item gets a question by "How to make a question", and the
+glossary marks it "Open" in its entry.
 
 ### After the glossary
 

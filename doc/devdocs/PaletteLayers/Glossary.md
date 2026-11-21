@@ -467,7 +467,9 @@ encodings make themselves.
   conversions are only those into that vocabulary and the adaptations to the deviations of its channel
   (*kanavamuunnos*). When an encoding needs information, the map side keeps it, and the encoding recognizes no
   structure. Where the implementation of a channel does not agree with the ideal form, the encoding chooses a channel
-  conversion of `Map`, for example a polyline. **Open:** how do the encodings relate to `IGraphicsTarget`?
+  conversion of `Map`, for example a polyline. An encoding writes its channel directly, and not through
+  `IGraphicsTarget`: the SVG encoding writes SVG, the PDF encoding the objects of PdfSharp, and the Skia encoding an
+  `SKCanvas`.
 - **kanava** · *channel* — An output for which an encoding writes. The epic names the rendering channels Skia, PDF and
   SVG. A channel offers abstractions: for example the dash pattern of PDF and SVG, the 1D path effect of Skia and the
   markers of SVG.
@@ -482,8 +484,12 @@ encodings make themselves.
   implementations are classes such as `Skia_GraphicsTarget` and `Pdf_GraphicsTarget`. The code of upstream says
   *graphics target* 44 times, in 16 files. It says *drawing target* only in "the graphics drawing target", in two
   comments of `IGraphicsTarget` that its five implementations repeat. The application that ships uses the graphics
-  targets of `Map_SkiaStd` and `Map_PDF`. **Open:** its place when pass 2 and the encodings draw from the intermediate
-  layer.
+  targets of `Map_SkiaStd` and `Map_PDF`. When pass 2 and the encodings draw from the intermediate layer, it stays
+  beside the palette stack. It draws what does not belong to the palette stack: the templates, the highlights and the
+  control descriptions (`DescriptionRenderer`), and the old drawing code until that code goes away. The encoding and the
+  graphics target of one channel share the surface of the channel, for example the same `SKCanvas` or the same PDF
+  page. Its vocabulary is a subset of the imaging model of PostScript, with flags for the differences of the channels
+  (`SupportsPatternBrushes`).
 - **piirrosobjekti** · *drawn object* — An object that an encoding writes. Each drawn object refers to its palette color
   coverage of a symbol, and through it to its `Symbol`, `SymColor` and G. The reference gives the `Map` and the symbol
   key (`Symbol.Key`). In a file, the drawn objects keep a link back to the ideal forms that is as direct as possible,
@@ -497,7 +503,7 @@ encodings make themselves.
 - **itsensä kannatteleva vektoritiedosto** · *self-supporting vector file* — An SVG or a PDF file that carries the
   content of `Map`, so that Purple Pen can one day read it from the file. The opening is not in the scope of the epic.
 - **korostus** · *highlight* (`Symbol.DrawHighlight`, `CourseObj.DrawHighlight`) — It is drawn directly on the graphics
-  target. **Open:** does it stay a direct drawing?
+  target, and it stays a direct drawing beside the palette stack.
 - **läpinäkyvyyden litistys** · *transparency flattening* — The conversion of the transparencies into opaque vector
   objects. It is not in the scope of the epic.
 
