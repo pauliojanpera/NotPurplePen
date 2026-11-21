@@ -300,6 +300,147 @@ Figure 5. One coverage prototype in four configurations: the prototype, two rota
 - With the OCAD spacing, the runs on a Bezier curve are by quarter, and the pattern of a run is scaled by the arc and the chord of its quarter. With the OCAD metric, the runs are also by straight edge: the OCAD metric measures a straight edge as a constant times its euclidean length, so the pattern of the run is scaled to euclidean by the direction of the edge. The dashes over a vertex are then single.
 - The composed dashed line is the form of a line for a channel whose dash pattern measures the euclidean length: the runs and the single dashes. An encoding writes it (section 04).
 
+## 04 / The rendering side
+
+The rendering side reads the intermediate layer. It keeps none of the results of the channel conversions that the encodings make themselves. This section gives pass 2, the rendering modes, the encodings and the channels, what is drawn beside the palette stack, the SVG channel, and the drawn objects and the files.
+
+### Pass 2 and the transparency groups
+
+- Pass 2, layer composition, takes the palette separations in palette order. For each palette separation, an encoding writes the transparency group of its palette color. Each palette color has one transparency group.
+- The content of the transparency group of a palette color is the color C on the coverage of its palette separation. The group is composited once onto the backdrop, with the opacity α and the blend mode B of the palette color. So the overlaps of one palette color do not get α twice.
+- The palette color coverages of the symbols in one palette color give its binary coverage together, by union. In the direct compositing of the colors, C, α and B apply once to that coverage, and not to each palette color coverage separately. The operations by ink are a separate concern of the rendering modes.
+- In the group, the encoding writes each palette cutter with one fill and one clip, or each palette color coverage of a symbol separately.
+- Pass 2 does not call the drawing code of the symbols (`Draw`). The palette colors of a map are drawn from the intermediate layer only.
+- The union can stay implicit in the rendering, but the palette color coverages cannot be left out. To draw the shapes of a palette color into one layer while the symbols are drawn, and to apply α and B to that layer, gives the same appearance, but not this architecture.
+- Pass 2 keeps to the rectangle of a drawing, as pass 1 makes the intermediate layer of the whole map.
+- The complete palette stack can be isolated, for example with `isolation: isolate` in SVG, to constrain its blending to the drawing. The antialiasing of the boundaries is a concern of the rendering, and not a property of the binary coverage.
+
+![Figure 6](figures/figure-6.png)
+
+Figure 6. The overlap of two palette color coverages of one palette color must not get the opacity α of the palette color twice. The full coverage isolates the principle of the compositing.
+
+- In the transparency model of PDF (ISO 32000), this unit is a transparency group. The objects of the group are composited into one result, and the result is composited onto the backdrop with the opacity and the blend mode of the group. The model of W3C (Compositing and Blending) calls it a group, and image editing and `saveLayer` of Skia call it a layer. [10]
+- A group is composited in a blending color space, which can be RGB, or CMYK with spot inks. The separable blend modes, for example Darken and Multiply, apply to each color component. So the group is the same in all the rendering modes, and only the blending space changes. In a CMYK group, Darken takes the larger share of each ink, as the PDF export of OCAD does.
+- OCAD applies B only in its PDF export, and not in its own view. Mapper applies α to each shape, so Mapper is not the oracle of α where the shapes of one color overlap.
+
+### The rendering modes
+
+- A rendering mode is a color configuration of pass 2: the normal view, the overprinting that the inks simulate, or the ink separations. All the rendering modes use the same intermediate layer, and a rendering mode does not change it.
+- The intermediate layer is independent of the color configuration. The same coverages serve the normal views of the editing, the simulated overprinting, the physical ink separations and the output of the transparency flattening. This is a capability of the architecture, and not a prescription of the implementations of the rendering modes. OCAD distinguishes the normal view and the behavior of the colors in print, and OOM simulates the overprinting. [2, 4, 11]
+- Upstream gives the rendering with the render options (`RenderOptions`). For example, `blendOverprintedColors` blends the colors that have the overprint flag with Darken, and `colorBeginDrawExclusive` and `colorEndDrawInclusive` draw only some of the colors.
+- The reuse of the coverage prototypes avoids copies of the geometry. The composition by palette color prevents the repeated application of a palette color. Neither of them resolves the inks that different palette colors share. For example, the cyan in a green mixture of inks and the cyan in a blue palette color are resolved in the same ink separation before they mix with the other inks.
+
+![Figure 7](figures/figure-7.png)
+
+Figure 7. An illustrative comparison: a green of cyan and yellow overlaps a blue of cyan. The example with the inks assumes that the overprinting keeps the yellow. The colors are not color-managed simulations.
+
+- For the Mapper maps, the overprinting simulation of Mapper is the oracle of the simulated overprinting. It draws a separation for each ink in priority order: the mixtures draw with their factors, the knockout erases, and a later palette color replaces an earlier one. Then it tints each separation with the CMYK appearance of its ink, and it multiplies the separation into the image.
+
+### The color representation
+
+- The color model is independent of the color space. The architecture supports RGB, CMYK and compositions of spot inks without a change of the coverages.
+- An encoding keeps the explicit CMYK components where its channel can keep them, with an RGB representation for the display. OOM distinguishes the RGB of the desktop, the process CMYK and the settings of the spot inks. [4]
+
+### The encodings and the channels
+
+- An encoding writes the drawing for one channel. A channel is an output for which an encoding writes. The rendering channels of the work are Skia, PDF and SVG. The printing draws the pages with Skia on Windows, and as PDF on Linux and macOS.
+- An encoding writes its channel directly, and not through `IGraphicsTarget`. The SVG encoding writes SVG, the PDF encoding writes the objects of PdfSharp, and the Skia encoding writes an `SKCanvas`. The vocabulary of a channel belongs to its encoding. A shared drawing interface would level it to the subset that all the channels share.
+- An encoding chooses the channel conversions of `Map` that its channel can use, and it writes their results in the vocabulary of its channel. Its own conversions are only the conversions into that vocabulary, for example into SVG elements and attributes, PDF operators and resources, or Skia objects, and the adaptations to the deviations of its channel that no general conversion covers. An encoding does not keep the results of its own conversions.
+- When an encoding needs information, `Map` keeps it, and the encoding recognizes no structure. Where the implementation of a channel does not agree with the ideal form, the encoding chooses a channel conversion of `Map`, for example a polyline.
+- A channel offers abstractions: for example the dash pattern of PDF and SVG, the 1D path effect of Skia and the markers of SVG.
+- A base case is a case that a channel solves with an abstraction of its own. In a base case, the encoding converts the structure directly into a structure of the channel. In the other cases, it splits the structure. The splitting ends in single dashes and single placements, which each channel draws directly. This splitting is the expansion.
+- A structure of the derived values is of benefit when it lets the channels solve the base cases with an abstraction that they offer.
+- The legalization of a compiler is the model of this division. An operation that the target supports directly is legal, and the other operations are expanded (LLVM: Legal, Expand, Custom). The channel conversions of `Map` are the general expansions, the choice of an encoding is the table of what is legal, and the own conversions of an encoding are the custom lowering and the emission.
+- An encoding writes a line as a composed dashed line for a channel whose dash pattern measures the euclidean length. A straight edge with the OCAD metric is a base case, which the dash pattern of the channels solves.
+- An encoding gives the repeated placement of the glyphs along a line to an abstraction of its channel: the 1D path effect of Skia for any glyph, the dash pattern of SVG and PDF for dots and for ticks that are symmetric across the line, and the markers of SVG. Where no abstraction fits, the encoding expands the repeated placement into single placements.
+
+### Beside the palette stack
+
+- `IGraphicsTarget` is the interface on which the symbols draw now. Its implementations are classes such as `Skia_GraphicsTarget` and `Pdf_GraphicsTarget`. Its vocabulary is a subset of the imaging model of PostScript, with flags for the differences of the channels (`SupportsPatternBrushes`).
+- The graphics targets that matter to the work are Skia, PDF, the printing and the coming SVG implementation. GDI+ and WPF are legacy, and Direct2D and iOS are not in use. Of the graphics targets, the application that ships refers to Skia (`Map_SkiaStd`) and PDF (`Map_PDF`) only.
+- `IGraphicsTarget` stays beside the palette stack. It draws what does not belong to the palette stack: the templates, the highlights and the control descriptions (`DescriptionRenderer`), and the old drawing code until that code goes away.
+- The templates, the image layer and the layout layer are drawn beside the palette stack, below it or above it as their places in the map are (section 02).
+- The encoding and the graphics target of one channel share the surface of the channel, for example the same `SKCanvas` or the same PDF page.
+- The highlights (`Symbol.DrawHighlight`, `CourseObj.DrawHighlight`) are drawn directly on the graphics target. They stay a direct drawing beside the palette stack in the channels that have a graphics target. A direct drawing keeps nothing over the renderings: the selection keeps the state, and each rendering draws the highlights again.
+
+### The SVG channel
+
+The structure can be expressed with the primitives of SVG. These primitives are mechanisms of the SVG encoding for the same structure, and not distinctions in the architecture.
+
+| Structure | SVG representation |
+|---|---|
+| The uniform color of a palette color | Filled rectangles |
+| The union of the clipping objects of a palette cutter | A clipping path |
+| A periodic coverage G | An origin-bound pattern fill in one color, with unpainted gaps |
+| The affine transformation M | `patternTransform` |
+| The opacity α of the transparency group | `opacity` |
+| The blend mode B of the transparency group | A blend mode (`mix-blend-mode`) |
+
+A pattern reference of SVG can inherit a reusable definition and override selected attributes. So the pattern of a palette cutter with a transformed coverage prototype needs only a reference and its transformation, and not a copy of the prototype. Figure 5 shows such configurations. [6–7]
+
+```xml
+<defs>
+  <!-- Coverage prototype: one definition of G -->
+  <pattern id="hatch" patternUnits="userSpaceOnUse"
+           width="8" height="8">
+    <rect width="2" height="8" fill="#008000"/>
+  </pattern>
+
+  <!-- Configurations refer to the coverage prototype -->
+  <pattern id="hatch-30" href="#hatch"
+           patternTransform="rotate(30)"/>
+  <pattern id="hatch-60" href="#hatch"
+           patternTransform="rotate(60)"/>
+  <pattern id="hatch-offset" href="#hatch"
+           patternTransform="translate(2 4)"/>
+</defs>
+```
+
+A pattern is a paint server in SVG, but it represents a binary periodic coverage. The gaps of a pattern are unpainted. A pattern fill inside a `clipPath` does not define a repeated clipping coverage, so the encoding clips the painted element instead. [8]
+
+For the direct compositing in RGB, the SVG groups the palette cutters of a palette color, which are painted with the opaque color of the palette color, and applies the opacity and the blend mode to the group. Each rectangle of the example is one palette cutter, with one fill and one clip. The example assumes that the clipping paths are defined. [9–10]
+
+```xml
+<g id="palette-green" opacity="0.6"
+   style="mix-blend-mode:multiply">
+  <rect width="100%" height="100%"
+        fill="url(#hatch)"
+        clip-path="url(#cutter-1)"/>
+  <rect width="100%" height="100%"
+        fill="url(#hatch-30)"
+        clip-path="url(#cutter-2)"/>
+  <rect width="100%" height="100%"
+        fill="url(#hatch-60)"
+        clip-path="url(#cutter-3)"/>
+</g>
+```
+
+SVG 1.1 supports color definitions that are based on ICC, beside a fallback in sRGB. Inkscape documents this representation. Scribus documents that it imports the ICC colors of four components as CMYK, without the application of the referenced profile. The compatibility depends on the renderer and on its version. [14–16]
+
+```xml
+<defs>
+  <color-profile name="print-cmyk"
+                 xlink:href="print-profile.icc"/>
+</defs>
+<rect width="100%" height="100%"
+      fill="#009933 icc-color(print-cmyk, 1, 0, 1, 0)"
+      clip-path="url(#green-cutter)"/>
+```
+
+This fragment is illustrative. The surrounding SVG must declare the namespace of xlink, and it must supply the actual ICC profile and the clipping path. The RGB fallback is illustrative, and not a conversion by the profile. Some browsers reject the ICC paint declarations, and they do not show the fallback. A CMYK serialization alone does not implement the overprinting by ink.
+
+The SVG fragments of this specification are illustrative. Their behavior in Inkscape, in Scribus and in the rendering engines of the browsers is not tested.
+
+### The drawn objects and the files
+
+- A drawn object is an object that an encoding writes. Each drawn object refers to its palette color coverage of a symbol, and through it to its `Symbol`, its `SymColor` and its G. The reference gives the `Map` and the symbol key (`Symbol.Key`).
+- The drawn objects do not copy what the structure of `Map` lets them refer to. They use it through references.
+- A drawn object links directly to the parts of the content of `Map`. It can take the geometry that it draws by reference from the shared parts of the intermediate layer. The link and the reuse are different references, and they do not limit each other.
+- In SVG, `<use href>` and `fill="url(#…)"` reuse, and the hierarchy of the groups or an identifier of the drawn object links. In PDF, a form XObject reuses, and marked content links.
+- A self-supporting vector file is an SVG or a PDF file that carries the content of `Map`, so that Purple Pen can one day read it from the file. Purple Pen then reads the content of `Map` from the file, and it does not recognize the content from the geometry of the drawing.
+- In a file, the drawn objects keep a link back to the ideal forms that is as direct as possible, also through the hierarchy of the file, so that the SVG graphics can be a part of a web user interface.
+- The opening of a file is not in the scope of the epic. The epic includes `Map` with the parts to which an encoding can refer, and these parts make it possible to open a file as a map.
+
 ---
 
 # The text of Nov 17

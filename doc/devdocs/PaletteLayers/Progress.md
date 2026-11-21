@@ -208,6 +208,10 @@ the rendering.
   - Section 03 states the rules of the structure of a line that the decisions of Nov 19 to 21 give: the quarters and the
     runs by quarter with the OCAD spacing, the runs by straight edge with the OCAD metric, and the borders of the double
     lines as offset paths.
+  - Section 04 keeps the SVG examples of the text of Nov 17, with comments in the terms of the glossary. The clipping
+    paths of the examples are named after the palette cutters.
+  - Section 04 says that the templates, the image layer and the layout layer are drawn beside the palette stack, below
+    it or above it, and does not say how. The epic leaves this to the ticket of pass 2.
 
 ## Decisions
 
