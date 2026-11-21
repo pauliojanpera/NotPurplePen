@@ -405,6 +405,19 @@ the rendering.
   is reduced into a fundamental domain of the translations that are symmetries of G, and rounded to a fixed precision.
   The union of the clipping objects of a palette cutter is a true union. This answers question 1 of ticket 009, whose
   proposal, the same parameters, is a sufficient condition only. [Glossary.md](Glossary.md) gives the terms.
+- **The hatchings and `ManualOnly`** (Nov 21). A hatching is a coverage prototype of its own: stripes, whose
+  symmetries include all the translations along the lines (question 3 of ticket 009). In the specification,
+  `ManualOnly` is the same as `Always`: M takes the angle and the rotation center of the `AreaSymbol`, and only `Never`
+  leaves them out, as the drawing of upstream does. The difference is in the editing (question 4 of ticket 009).
+- **The measure of the dash pattern of a pen** (Nov 21). `Stroke.DashPattern` and `Stroke.DashPhase` are in the
+  measure of the channels, euclidean along the own path of the stroked shape, and they belong to the runs of dashes,
+  which are derived values. The dash structure in the measure of the line is the fitted pattern of a part of a line,
+  and not a part of `Stroke`. This settles the dash pattern of question 5 of ticket 011 after the decisions of Nov 20.
+- **The channel conversions of the encodings** (Nov 21). `Map` offers all the geometric conversions, and their results
+  are forms of `Map`: shapes, strokes, placements and polylines, also the arcs as Bezier pieces. The own conversions of
+  an encoding are only the conversions into the vocabulary of its channel and the adaptations to the deviations of its
+  channel that no general conversion covers. [Glossary.md](Glossary.md), *kanavamuunnos*, gives the comparison with the
+  legalization of a compiler.
 - **The identity of a `CourseObj`** (Nov 21). The identity of a `CourseObj`, from which the symbol key of the course
   map comes, is a key that `CourseFormatter` or `TopologyFormatter` gives to it at the place where it makes it: the
   role of the place in the data of `EventDB`, the identifiers of `EventDB` that the place uses, and the `CourseLayer`.

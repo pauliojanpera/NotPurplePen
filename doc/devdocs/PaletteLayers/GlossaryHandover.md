@@ -114,6 +114,12 @@ These are @Pauli's decisions of Nov 20 and Nov 21. Glossary.md gives their terms
 - *viivan osa* · *part of a line*: one line component on one piece of the base path, with its offset, as a derived
   value. A segment divides a piece for the fitting, and a piece is a start and an end along the base path (Nov 21).
 - The same configuration: the same coverage, so that M₁⁻¹M₂ is a symmetry of G, which a normal form decides (Nov 21).
+- A hatching is a coverage prototype of its own, and `ManualOnly` is the same as `Always` in the specification
+  (Nov 21).
+- `Stroke.DashPattern` and `Stroke.DashPhase` are in the measure of the channels, and the dash structure in the
+  measure of the line is the fitted pattern of a part of a line (Nov 21).
+- The own channel conversions of an encoding are only those into the vocabulary of its channel and the adaptations
+  to its deviations. `Map` offers all the geometric conversions (Nov 21).
 
 The five terms that the session chose by their use in commit 06f4c824d are all decided on Nov 21.
 
@@ -122,14 +128,9 @@ The five terms that the session chose by their use in commit 06f4c824d are all d
 Continue with these one at a time (@Pauli, Nov 21). Each question gives the theoretical basis of the choice, as "How
 to make a question" says. The glossary marks each item "Open" in the entries named here.
 
-1. **`HatchInfo`, `AreaSymDef.RotateMode`:** whether a hatching is a prototype of its own or a pattern of line
-   elements (009, question 3), and what `ManualOnly` means in the specification (009, question 4).
-2. **kanavamuunnos:** which channel conversions stay in the encodings.
-3. **`Stroke`, `Stroke.DashPattern`, `Stroke.DashPhase`:** the measure in which a pen keeps the dash pattern and its
-   phase after the decisions of Nov 20 (point 2 of 6 in the review of 011).
-4. **koodaus, `IGraphicsTarget`:** how the encodings relate to `IGraphicsTarget`, and its place when pass 2 and the
+1. **koodaus, `IGraphicsTarget`:** how the encodings relate to `IGraphicsTarget`, and its place when pass 2 and the
    encodings draw from the intermediate layer.
-5. **korostus:** whether the highlights stay a direct drawing (000).
+2. **korostus:** whether the highlights stay a direct drawing (000).
 
 These items are questions of the design of the specification and of the tickets.
 

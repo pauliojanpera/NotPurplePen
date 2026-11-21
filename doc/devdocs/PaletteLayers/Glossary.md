@@ -180,7 +180,10 @@ The section "Words that are not names" lists the words that are not used as name
 - **kuviotäyttö** · *pattern fill, structured fill* (`HatchInfo`, `PatternInfo`) — The hatchings and the area patterns.
 - **`HatchInfo`** · viivoitus · *hatching* — It has a color, a width, a spacing, an offset, an angle and a rotate mode
   (`hatchColor`, `hatchWidth`, `hatchSpacing`, `hatchOffset`, `hatchAngle`, `hatchRotateMode`). Upstream calls its lines
-  hatch lines. **Open:** is a hatching a prototype of its own, or a pattern of line elements?
+  hatch lines. A hatching is a coverage prototype of its own: stripes, whose symmetries include all the translations
+  along the lines. A pattern of line elements would have only the steps of its element along the lines, so it would
+  separate configurations that give the same coverage. Upstream draws the hatch lines as continuous lines
+  (`DrawHatchLines`). A cross hatching is two hatchings, so it has two prototypes.
 - **`PatternInfo`** · aluekuvio · *area pattern* — It has a pattern element (`patternGlyph`), the size of the pattern
   element (`patternWidth`, `patternHeight`), an offset of the alternate rows by 1/2 (`offsetRows`), an angle, an offset,
   a rotate mode, a fill mode and the irregularity. Upstream calls it a pattern.
@@ -202,7 +205,10 @@ The section "Words that are not names" lists the words that are not used as name
 - **`AreaSymDef.RotateMode`** · kiertotila · *rotate mode* (`Always`, `ManualOnly`, `Never`) — The comments of upstream:
   `Always` turns the pattern when the map or the object turns. `ManualOnly` allows only a manual setting of the
   direction of the pattern, and does not turn the pattern when the object or the map turns. `Never` lets no direction
-  change the drawing of the pattern. **Open:** what does `ManualOnly` mean in the specification?
+  change the drawing of the pattern. In the specification, `ManualOnly` is the same as `Always`: M takes the angle and
+  the rotation center of the `AreaSymbol`, and only `Never` leaves them out, as the drawing of upstream does. The
+  difference is in the editing: when the object or the map turns, `Always` turns the angle with it, and `ManualOnly`
+  keeps it. The OCAD import gives `ManualOnly` to a pattern that does not turn, and the Mapper import gives `Never`.
 - **`AreaSymDef.PatternFillMode`** · täyttötila · *fill mode* (`Clip`, `CompletelyInside`, `CenterInside`,
   `PartiallyInside`) — It clips the elements, or selects the complete elements that are entirely inside, centered inside
   or partially inside the area. Upstream: `Clip` was the only mode until OCAD 12. Upstream selects each part of a glyph
@@ -344,8 +350,14 @@ The section "Words that are not names" lists the words that are not used as name
   euclidean length: the runs and the single dashes.
 - **kanavamuunnos** · *channel conversion* — A conversion of the ideal form into a form that a channel can use. `Map`
   offers the known channel conversions, and keeps their results as derived values where the shared use of the channels
-  or a cache makes it sensible. An encoding chooses the channel conversions of `Map` that its channel can use, and makes
-  the others itself, without keeping their results. **Open:** which channel conversions stay in the encodings.
+  or a cache makes it sensible. `Map` offers all the geometric conversions, and their results are forms of `Map`:
+  shapes, strokes, placements and polylines. For example, the conversion of the arcs into Bezier pieces is a channel
+  conversion of `Map`. An encoding chooses the channel conversions of `Map` that its channel can use. Its own
+  conversions are only the conversions into the vocabulary of its channel, for example SVG elements and attributes,
+  PDF operators and resources, or Skia objects, and the adaptations to the deviations of its channel that no general
+  conversion covers. It does not keep their results. In the legalization of a compiler, the channel conversions of
+  `Map` are the general expansions (LLVM: *Expand*), the choice of an encoding is the table of what is legal, and the
+  own conversions of an encoding are the custom lowering (*Custom*) and the emission.
 - **katkotaulukko** · *dash table* — A known channel conversion of the dashes of a line. `Map` offers it.
 - **laajennus** · *expansion* (work: `StrokedShape.ExpandDashes`, `RepeatedShapes.Expand`) — A known channel conversion
   into single parts: a run into dashes, and a repeated placement into single placements. `Map` offers it.
@@ -375,14 +387,15 @@ The section "Words that are not names" lists the words that are not used as name
   is *kynä*, as upstream calls the same values a pen (`IGraphicsTarget.CreatePen`). A pen of upstream also has a color
   or a brush. A `Stroke` has no color, as the palette color gives it, and it has the dash pattern and its phase. The
   band that a pen covers along a path is its stroke shape (*kynänjälki*). The symbol definitions give the caps and the
-  joins together as a line style (`LineStyle`: `Rounded`, `Mitered`, `Beveled`, `FlatRounded`). **Open:** the dash
-  structure of a segment in the measure of the line.
+  joins together as a line style (`LineStyle`: `Rounded`, `Mitered`, `Beveled`, `FlatRounded`). The dash structure in
+  the measure of the line is the fitted pattern of a part of a line, and not a part of `Stroke`.
 - **`LineCapMode`, `LineJoinMode`, `Stroke.MiterLimit`** · pää, liitos, jiirausraja · *cap, join, miter limit* — The
   form of the ends of a stroke, the form of its corners, and the limit beyond which a mitered corner is beveled.
 - **`Stroke.DashPattern`, `Stroke.DashPhase`** (work) · katkokuvio, katkokuvion alkukohta · *dash pattern, dash phase* —
   The lengths of the dashes and the gaps in turn, and the distance that the pattern has gone at the start of the shape,
-  as `stroke-dasharray` and `stroke-dashoffset` of SVG. They are properties of `Stroke`. **Open:** after the decisions
-  of Nov 20, the measure in which they are kept.
+  as `stroke-dasharray` and `stroke-dashoffset` of SVG. They are properties of `Stroke`. They are in the measure of the
+  channels: euclidean, along the own path of the stroked shape, as the dash pattern of PDF and the dash effect of Skia
+  measure. They belong to the runs of dashes, which are derived values.
 - **`TextShape`** (work) · tekstijuoste · *text run* — A word, or a grapheme where the character spacing is more than 0,
   at its own position. It has the text, the font family, the size, the effects and the top left corner. A text run is a
   shape.
@@ -450,10 +463,11 @@ encodings make themselves.
   the colors that have the overprint flag with Darken, and `colorBeginDrawExclusive` and `colorEndDrawInclusive` draw
   only some of the colors.
 - **koodaus, koodaaja** · *encoding, encoder* — It writes the drawing for one channel. It chooses the channel
-  conversions of `Map` that its channel can use, and makes the others itself. When an encoding needs information, the
-  map side keeps it, and the encoding recognizes no structure. Where the implementation of a channel does not agree with
-  the ideal form, the encoding adapts, for example with a polyline. **Open:** how do the encodings relate to
-  `IGraphicsTarget`?
+  conversions of `Map` that its channel can use, and writes their results in the vocabulary of its channel. Its own
+  conversions are only those into that vocabulary and the adaptations to the deviations of its channel
+  (*kanavamuunnos*). When an encoding needs information, the map side keeps it, and the encoding recognizes no
+  structure. Where the implementation of a channel does not agree with the ideal form, the encoding chooses a channel
+  conversion of `Map`, for example a polyline. **Open:** how do the encodings relate to `IGraphicsTarget`?
 - **kanava** · *channel* — An output for which an encoding writes. The epic names the rendering channels Skia, PDF and
   SVG. A channel offers abstractions: for example the dash pattern of PDF and SVG, the 1D path effect of Skia and the
   markers of SVG.
