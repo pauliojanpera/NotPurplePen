@@ -65,6 +65,8 @@ of these.
 - The glossary is in Simplified Technical English, with the Finnish and the English term of each entry. The lines are
   at most 120 characters long, and the line endings are LF.
 - A commit message tells what the change does and what required it, without a co-author line.
+- The glossary tells what the terms mean now. It does not tell what a word meant before, or what the tickets, the
+  decisions or the specification called a concept. The commits and the transcripts keep that (@Pauli, Nov 21).
 
 ## Where the work is
 
@@ -76,9 +78,8 @@ Glossary.md has all the decisions of Nov 20 and Nov 21, each with @Pauli's name 
   *litistys* and *litistäminen*, *toisto* and *toistuva*, *kuvio*, *täyttö*, *reuna*, *osa*, *ajo*, *kerros*, *ryhmä*,
   and *separaatio* and *erottelu*.
 - The readings of "the model" in the decisions of Nov 20, in the entry of *malli*.
-- The terms of the words that had more than one meaning: *symboli*, *vaihe*, *viiva* and *kynä*, *taitepiste* and
-  *jana*, the layers of `SymLayer`, *värierottelu* and *palettierottelu*, *palettitaso* (replaced on Nov 21), and
-  *palettiväri*.
+- The terms *symboli*, *vaihe*, *viiva* and *kynä*, *taitepiste* and *jana*, the layers of `SymLayer`, *värierottelu*
+  and *palettierottelu*, and *palettiväri*.
 - The names of the structure of the passes: `PaletteSeparation` · palettierottelu and `PaletteCutter` ·
   palettileikkuri, and *johdos* · *derived value* (the English term on Nov 21).
 - The terms of `IGraphicsTarget`: *piirtokohde* · *graphics target* (Nov 21).
@@ -92,14 +93,16 @@ Glossary.md has all the decisions of Nov 20 and Nov 21, each with @Pauli's name 
   palette color*, in place of *palettitaso* (Nov 21).
 - The triple (`Symbol`, `SymColor`, G): `SymbolCoverage` · symbolin palettiväripeitto · *palette color coverage of a
   symbol*, in place of the proposed `SymbolSeparation` · symbolierottelu (Nov 21).
+- The shape that a pen draws and the band that the pen covers: *viivamuoto* (`StrokedShape`) and *kynänjälki* ·
+  *stroke shape* (Nov 21). The English term of *viivamuoto* is open.
 
 The five terms that the session chose by their use in commit 06f4c824d are all decided on Nov 21.
 
 ### Open
 
 Present these to @Pauli, one question at a time:
-1. **The proposed Finnish name** *kynänjälki* for the band that a pen covers along a path.
-2. **The items marked "Open" in the glossary.** On Nov 21 they are:
+1. **The items marked "Open" in the glossary.** On Nov 21 they are:
+   - the English term of *viivamuoto*
    - the identifier of a `Symbol` to which a drawn object of a file can refer
    - whether the shared structures that are not periodic, for example the shared shapes of a glyph, are prototypes
    - whether the logical path is `LineLikeSymbol.Path`

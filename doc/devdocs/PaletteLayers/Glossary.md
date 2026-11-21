@@ -26,8 +26,7 @@ name marked "work" is a name in the code of `feature/palette-layers` or of the b
 (`feature/text-geometry` at 2ad8c6f39). "**Upstream:**" gives the name of upstream where it is different from the term
 of the entry.
 
-The section "Words that are not names" lists the words that are not used as names. The section "Words with more than
-one meaning" lists the words that name two or more concepts now.
+The section "Words that are not names" lists the words that are not used as names.
 
 ## The map side · Kartan puoli
 
@@ -42,17 +41,15 @@ one meaning" lists the words that name two or more concepts now.
   the pens of the highlights. The map of the courses is a `Map` that `CourseLayout.RenderToMap` makes from the courses
   (005).
 - **`SymDef`** · symbolimäärittely · *symbol definition* — The definition of a symbol, for example `PointSymDef`,
-  `LineSymDef`, `AreaSymDef` or `TextSymDef`. The comments of upstream call it a *symdef*. The specification calls it
-  a symbol (spec 02), as the user interfaces of OCAD and Mapper do. The terms follow upstream: *symbolimäärittely* ·
-  *symbol definition* is `SymDef` (@Pauli, Nov 20).
+  `LineSymDef`, `AreaSymDef` or `TextSymDef`. The comments of upstream call it a *symdef*. The terms follow upstream:
+  *symbolimäärittely* · *symbol definition* is `SymDef` (@Pauli, Nov 20).
 - **`Symbol`** · symboli · *symbol* — One object of a map, for example `PointSymbol`, `LineSymbol`, `AreaSymbol` or
   `TextSymbol`. Its geometry is in paper coordinates. A `PointSymbol` and a `RectLikeSymbol` have a location, a
   `LineLikeSymbol` has a path (`SymPath`), and an `AreaLikeSymbol` has a path with holes (`SymPathWithHoles`). The
-  comments of upstream also call it an object, for example a line object or an area object. The Finnish tickets call
-  it a symbol (005). The specification calls it a map object (spec 02). The terms follow upstream: *symboli* ·
-  *symbol* is `Symbol` (@Pauli, Nov 20). @Pauli is used to the meaning of OCAD and Mapper, in which a symbol is a
-  definition, so his *symboli* can mean a `SymDef` (Nov 20). A `Symbol` has no identifier, but a
-  `SymColor` has `Name` and `OcadId`, and a `SymDef` has `Name` and `SymbolId`. **Open:** the identifier of a `Symbol`
+  comments of upstream also call it an object, for example a line object or an area object. The terms follow upstream:
+  *symboli* · *symbol* is `Symbol` (@Pauli, Nov 20). @Pauli is used to the meaning of OCAD and Mapper, in which a
+  symbol is a definition, so his *symboli* can mean a `SymDef` (Nov 20). A `Symbol` has no identifier, but a `SymColor`
+  has `Name` and `OcadId`, and a `SymDef` has `Name` and `SymbolId`. **Open:** the identifier of a `Symbol`
   to which a drawn object of a file can refer (Nov 20, the parts of `Map` to which an encoding can refer).
 - **paperikoordinaatit** · *paper coordinates* — The coordinates of a map, in millimeters on the printed map. The
   points are `PointF` values. The OCAD import divides the OCAD units of 0.01 mm by 100
@@ -68,20 +65,18 @@ one meaning" lists the words that name two or more concepts now.
 
 - **`SymColor`** · palettiväri · *palette color* — A color of the normal layer (`SymLayer.Normal`). A palette color
   has a color or ink components, an opacity, a blend mode, a knockout and a priority (spec 02, 06; 001, 004). The
-  term is *palettiväri* · *palette color* (@Pauli, Nov 20). Upstream calls it a color, the specification a palette
-  entry, and the tickets *palettimerkintä*. The comments of upstream also call the colors layers ("colors (layers)",
-  `RenderOptions`).
+  term is *palettiväri* · *palette color* (@Pauli, Nov 20). Upstream calls it a color, and the comments of upstream
+  also call the colors layers ("colors (layers)", `RenderOptions`).
 - **palettipino, palettijärjestys, prioriteetti** · *palette stack, palette order, priority* — The transparency
   groups of the palette colors in palette order, and the order in which pass 2 composites them (spec 01, 02, 05;
-  @Pauli, Nov 21). The colors of a map are
-  `Map.AllColors`, and upstream draws them from the lowest to the highest (005). One palette stack is for all the maps,
-  the courses included (000).
+  @Pauli, Nov 21). The colors of a map are `Map.AllColors`, and upstream draws them from the lowest to the highest
+  (005). One palette stack is for all the maps, the courses included (000).
 - **väri C** · *color C* — A spatially constant color, independent of color space (spec 01). A `SymColor` of
   upstream keeps a CMYK color (`CmykColor`).
 - **`SymColor.Opacity`** (work) · peittävyys α · *opacity α* — A spatially constant opacity (spec 01; 004). The
-  terms are *peittävyys* α · *opacity* α (@Pauli, Nov 21). The tickets say *peittävyys* 17 times, among them the title
-  of 004, and *opasiteetti* 2 times (000, 001). The Finnish translations of Inkscape and of GIMP 3.0 call the opacity
-  *peittävyys* and *peittokyky*. The coverage (*peitto*) is a different concept, which spec 01 keeps apart from α.
+  terms are *peittävyys* α · *opacity* α (@Pauli, Nov 21). The Finnish translations of Inkscape and of GIMP 3.0 call
+  the opacity *peittävyys* and *peittokyky*. The coverage (*peitto*) is a different concept, which spec 01 keeps apart
+  from α.
 - **`SymColor.BlendMode`** (work) · sekoitustila B · *blend mode B* — The compositing operation (`ColorBlendMode`)
   (spec 01; 004). For an OCAD map, B = Darken is the larger share of each ink, and not the RGB minimum
   ([oracles/ocad-darken.md](oracles/ocad-darken.md)).
@@ -91,12 +86,10 @@ one meaning" lists the words that name two or more concepts now.
   (`Ink.ProcessInks`). A spot ink can be a palette color by itself, at full tint (`SymColor.SpotInk`) (001).
 - **`InkComponent`** (work) · mustekomponentti, kerroin · *ink component, factor* — A palette color holds ink
   components (`SymColor.InkComponents`). Each has an ink and a factor from 0 to 1. A missing component and the factor 0
-  are different (001). The specification says *ink contribution*.
+  are different (001).
 - **värierottelu** · *ink separation* — The coverage of one ink. A missing share leaves the separation as it is, 0 %
   erases it, and a positive share sets the coverage (spec 06). The term is *värierottelu*, the established term of
-  printing (@Pauli, Nov 20). The epic says *separaatiot* for the separations of the rendering modes. Spec 02 and spec 08
-  also say *color separation* and *palette separation* for the coverage of one palette color (see
-  `PaletteSeparation`).
+  printing (@Pauli, Nov 20).
 - **`SymColor.OverPrint`** · päällepainatus · *overprint* — The overprint flag of an OCAD process color keeps the inks
   below (spec 06). The option `RenderOptions.blendOverprintedColors` draws the colors that have it with Darken. The
   inks simulate the overprinting in a rendering mode (000).
@@ -109,23 +102,20 @@ one meaning" lists the words that name two or more concepts now.
 - **peittoprototyyppi** · *coverage prototype* (work: `GeometryPrototype`) — The coverage G in its origin-bound form,
   before M places it (spec 02). On the map side, G is a part of a `SymDef`: the full coverage, one hatching (an index
   in `AreaSymDef.hatchings`) or one pattern (an index in `AreaSymDef.patterns`) (Nov 20). In an `AreaComboSymDef`, the
-  component definition is part of G. Upstream has no class for G. The specification calls it a geometry prototype. The
-  term is *peittoprototyyppi* · *coverage prototype* (@Pauli, Nov 21). **Open:** are the shared structures that are
-  not periodic, for example the shared shapes of a glyph, prototypes or a concept of their own?
+  component definition is part of G. Upstream has no class for G. The term is *peittoprototyyppi* · *coverage
+  prototype* (@Pauli, Nov 21). **Open:** are the shared structures that are not periodic, for example the shared shapes
+  of a glyph, prototypes or a concept of their own?
 - **jaksollinen peitto G** · *periodic coverage G* — A binary, spatially repetitive, origin-bound selector (spec 01):
   for each point of the plane, G tells if the point is in the coverage. In mathematics, G is the indicator function of
   a set of the plane that the translations of a lattice do not change. The hatchings and the area patterns are
-  periodic coverages (009, a draft). Spec 01 calls it repetitive geometry, and spec 02 periodic geometry. The term is
-  *jaksollinen peitto* · *periodic coverage* (@Pauli, Nov 21). It replaces *jaksollinen geometria* · *periodic
-  geometry* (@Pauli, Nov 20), as @Pauli found *geometria* too generic (Nov 21). G selects a set of points, which is a
-  coverage. In compositing, the alpha has two parts, the coverage and the opacity. The specification keeps them apart:
-  the binary coverage (G and the clipping objects) and α (*peittävyys* · *opacity*).
+  periodic coverages (009, a draft). The term is *jaksollinen peitto* · *periodic coverage* (@Pauli, Nov 21). G selects
+  a set of points, which is a coverage. In compositing, the alpha has two parts, the coverage and the opacity. The
+  specification keeps them apart: the binary coverage (G and the clipping objects) and α (*peittävyys* · *opacity*).
 - **täysi peitto, G = 1** · *full coverage* (work: `GeometryPrototype.FullCoverage`) — The whole plane: G(x, y) = 1 at
   each point (spec 01). A constant function does not change in a translation, so it is periodic with each lattice. The
   full coverage is the trivial case of periodic coverage, and not a kind of its own. No M changes it. The G of points,
   lines, texts and area fills is the full coverage. The dash patterns and the glyphs along a line are strokes and
-  placements, not lattices (Nov 19, Nov 20). The term is *täysi peitto* · *full coverage* (@Pauli, Nov 21). The
-  tickets also say *yhtenäinen geometria*.
+  placements, not lattices (Nov 19, Nov 20). The term is *täysi peitto* · *full coverage* (@Pauli, Nov 21).
 
 ### Glyphs
 
@@ -134,7 +124,7 @@ one meaning" lists the words that name two or more concepts now.
   *glyyfin osa* · *glyph part* (`Glyph.GlyphPart`) (@Pauli, Nov 20).
 - **`extraTransform`** · glyyfin lisämuunnos · *extra transformation of a glyph* — It transforms the points of a glyph
   but not its line widths, for example for the scale at corners and for the glyphs that decrease. So it is not an
-  affine placement of a stroked shape (011).
+  affine placement of a *viivamuoto* (011).
 
 ### Lines
 
@@ -142,10 +132,10 @@ one meaning" lists the words that name two or more concepts now.
   dashes (`DashInfo`), the double line (`DoubleLineInfo`), the shortening and the pointy ends (`ShortenInfo`) and the
   glyphs (`GlyphInfo`). A `LineComboSymDef` gathers other line symbol definitions, its component definitions (011).
   The term is *yhdistelmän osamäärittely* · *component definition* (@Pauli, Nov 20). The comments of upstream call a
-  `LineSymDef` a *linesymdef*. Ticket 011 calls these line symbols, but *viivasymboli* is
-  `LineSymbol` (@Pauli, Nov 20).
+  `LineSymDef` a *linesymdef*.
 - **`LineSymbol`** · viivasymboli · *line symbol, line object* — One line object of a map. Its path is
-  `LineLikeSymbol.Path`, a `SymPath`.
+  `LineLikeSymbol.Path`, a `SymPath`. The term is *viivasymboli* · *line symbol* (@Pauli, Nov 20). *Viiva* · *line*
+  means a `LineSymbol` or its `LineSymDef` (@Pauli, Nov 20).
 - **viivan mitta** · *measure of the line* — The metric that the source means to be used, which `Map` keeps in the ideal
   form (`Map.UseEuclideanMetric`). `Map` offers the means to convert it to suit a channel, and to keep the derived
   values (@Pauli, Nov 20). The measure of fix 021 (work: `OcadCurveMeasure`, `SymPath.GetOcadCurveMeasure`) gives a
@@ -158,8 +148,7 @@ one meaning" lists the words that name two or more concepts now.
 - **looginen polku** · *logical path* — The path of a line in its ideal form. The parts of the line are its pieces and
   offsets (Nov 20). **Upstream:** a line object has one path (`LineLikeSymbol.Path`), and its definition draws all the
   parts of the line from it (011). **Open:** is the logical path `LineLikeSymbol.Path`?
-- **keskiviiva** · *middle of the line* — The base path of the borders of a double line (Nov 20). The English
-  documents have no single term for it.
+- **keskiviiva** · *middle of the line* — The base path of the borders of a double line (Nov 20).
 - **`DoubleLineInfo`** · kaksoisviiva, kaksoisviivan reuna, kaksoisviivan täyttö · *double line, double line border,
   double line fill* — A double line has a fill and two borders, the left and the right border (005, 011). The terms
   are *kaksoisviivan täyttö* · *double line fill* and *kaksoisviivan reuna* · *double line border* (@Pauli, Nov 20).
@@ -224,9 +213,8 @@ one meaning" lists the words that name two or more concepts now.
   question 4)?
 - **`AreaSymDef.PatternFillMode`** · täyttötila · *fill mode* (`Clip`, `CompletelyInside`, `CenterInside`,
   `PartiallyInside`) — It clips the elements, or selects the complete elements that are entirely inside, centered
-  inside or partially inside the area (spec 03). Figure 3 of spec 03 calls them *boundary modes*. Upstream: `Clip` was
-  the only mode until OCAD 12. Upstream selects each part of a glyph by its own points and center (`GlyphPartFilter`),
-  and not the complete element.
+  inside or partially inside the area (spec 03). Upstream: `Clip` was the only mode until OCAD 12. Upstream selects
+  each part of a glyph by its own points and center (`GlyphPartFilter`), and not the complete element.
 - **`PatternInfo.irregular`** · epäsäännöllinen kuvio · *irregular pattern* (`irregularVarX`, `irregularVarY`,
   `irregularMinDist`) — Its elements move a random but deterministic distance. The seed comes from the rounded
   position of the element (009). The randomness is kept as a definition (Nov 20).
@@ -243,10 +231,10 @@ one meaning" lists the words that name two or more concepts now.
   the templates under and over the palette colors now. An OCAD template is a `Map` of its own (000).
 - **`SymLayer.Image`** · kuvataso · *image layer* — The layer below all the normal layers. The layers of `SymLayer`
   are layers in the sense of image editing, and their names are *kuvataso*, *tavallinen taso* and *asettelutaso*
-  (@Pauli, Nov 20). Its objects are image
-  objects, with a special symbol definition (`ImageSymDef`). It is not a palette color (005). Upstream draws the
-  image layer and the layout layer with the same loop as the colors (`DrawColor`), through two pseudo-colors without
-  a color value (`Map.ImageColor`, `Map.LayoutColor`). They are not palette colors.
+  (@Pauli, Nov 20). Its objects are image objects, with a special symbol definition (`ImageSymDef`). It is not a
+  palette color (005). Upstream draws the image layer and the layout layer with the same loop as the colors
+  (`DrawColor`), through two pseudo-colors without a color value (`Map.ImageColor`, `Map.LayoutColor`). They are not
+  palette colors.
 - **`SymLayer.Layout`** · asettelutaso · *layout layer* — The layer above all the normal layers. Its objects are
   layout objects, with a special symbol definition (`ImageSymDef`). It is not a palette color (005).
 - **`SymLayer.Normal`** · tavallinen taso · *normal layer* — The layer between the image layer and the layout layer.
@@ -272,23 +260,19 @@ one meaning" lists the words that name two or more concepts now.
   and two for a cross hatching, which upstream imports as two hatchings of one color (`OcadImport`). It refers to
   these objects and copies nothing. It keeps its own derived values (spec 02, Nov 20). The name is @Pauli's (Nov 21).
   The triple is a coverage, and not a separation: a separation is named by what it separates by, as *värierottelu*
-  and *palettierottelu* are. It replaces the proposed name `SymbolSeparation` · symbolierottelu.
+  and *palettierottelu* are.
 - **`PaletteSeparation`** · palettierottelu · *palette separation* — The palette color coverages of the symbols in
   one palette color. It keeps its palette cutters as a derived value (spec 02, Nov 20). The name is @Pauli's, and the
   Finnish term is *palettierottelu* (@Pauli, Nov 20).
 - **`PaletteCutter`** · palettileikkuri · *palette cutter* — The palette color coverages of the symbols in one
   palette separation that have the same configuration. It cuts the uniform color of the palette color to the coverage
   that G under M gives inside the union of its clipping objects. Each palette color coverage of a symbol is in one
-  palette cutter, and each palette cutter is in one palette separation. The specification calls it a layer instance
-  (spec 02, Nov 20). The name is @Pauli's (Nov 20).
+  palette cutter, and each palette cutter is in one palette separation (spec 02, Nov 20). The name is @Pauli's
+  (Nov 20).
 - **kokoonpano, samanlainen kokoonpano** · *configuration, equivalent configuration* — The palette color, G and the
   effective affine transformation M of a palette color coverage of a symbol. M comes from the `Symbol` and from G.
   The palette color coverages of the symbols with the same configuration are one palette cutter (spec 02, 03;
   Nov 20). **Open:** when are two configurations the same (009, question 1)?
-- **kerrosilmentymä** · *layer instance* (work: `LayerInstance`) — The name of the specification for the palette
-  cutter (spec 02). The class `LayerInstance` of the work has a palette color (`PaletteEntry`), a coverage prototype
-  (`Prototype`), an affine transformation (`Transformation`) and kept clipping objects (`ClippingObjects`). For G = 1,
-  there is one for each palette color (005).
 - **`LayerInstance.Transformation`** (work) · affiininen muunnos M · *affine transformation M* — An invertible 2D
   affine transformation of G (spec 01).
 - **peitto, unioni** · *coverage, union* — A binary coverage is a set of points of the plane. In mathematics, it is
@@ -333,17 +317,13 @@ one meaning" lists the words that name two or more concepts now.
 - **neljännes, jänne** · *quarter, chord* — Each quarter of a Bezier curve has its chord as its length in the measure.
   Within the quarter, the dashes are in proportion to the true arc (021, Nov 19).
 - **litistetty polku, polun litistäminen** · *flattened path, path flattening* (`SymPath.GetFlattenedPoints`) — The
-  term is *polun litistäminen* · *path flattening* (@Pauli, Nov 20). The polyline
-  that approximates the curves of a path. Upstream calls its points the flat points and keeps them in the `SymPath`
-  (`flatpoints`). The ideal form keeps the curves. A derived value can keep a polyline, and an encoding can make one
-  (Nov 20).
+  polyline that approximates the curves of a path. The term is *polun litistäminen* · *path flattening* (@Pauli,
+  Nov 20). Upstream calls its points the flat points and keeps them in the `SymPath` (`flatpoints`). The ideal form
+  keeps the curves. A derived value can keep a polyline, and an encoding can make one (Nov 20).
 - **taitepiste, jana** · *vertex, edge* — A point of the flattened path, and the straight piece between two adjacent
   points of the flattened path (@Pauli, Nov 20). The English term of *jana* is *edge*, as *segment* is the segmentti
-  (@Pauli, Nov 20). The English documents of Nov 19 and of fix 021 call an edge a segment. The points of the path
-  itself have the kinds `Normal`, `BezierControl`, `Corner` and `Dash` (`PointKind`). The flat points also have
-  interpolated points (`PointKind.Interpolated`). The decisions on the questions 6 and 7 of
-  011 use the words in this meaning. @Pauli took a vertex to be a corner point that the user puts on the curve
-  (Progress.md, Nov 19).
+  (@Pauli, Nov 20). The points of the path itself have the kinds `Normal`, `BezierControl`, `Corner` and `Dash`
+  (`PointKind`). The flat points also have interpolated points (`PointKind.Interpolated`).
 - **sovitettu katkokuvio** · *fitted dash pattern* (`ComputeDashDistances`) — The dash and the gap that the fitting
   gives to a segment (011). Part of the structure of a line (Nov 20). The term is *sovitettu katkokuvio* · *fitted dash
   pattern* (@Pauli, Nov 20).
@@ -352,10 +332,9 @@ one meaning" lists the words that name two or more concepts now.
 - **korjauksen 020 poikkeus** · *exception of fix 020* — A dash from which the rule of fix 020 leaves out the vertex
   (Nov 19). Part of the structure of a line (Nov 20).
 - **katkojuoste** · *run of dashes* — The middle dashes of a segment as one periodic dashed line (011). The term is
-  *katkojuoste* (@Pauli, Nov 20); the decisions and the tickets say *ajo* and *katkoajo*. The runs in the euclidean
-  measure are the same for Skia, PDF and SVG, as their dash patterns measure the path euclidean (011,
-  Nov 19). They are derived values: `Map` offers the means to make them and to keep them (@Pauli, Nov 20). This changes
-  the decision of Nov 20 on the composed dashed lines, which says that an encoding makes the runs (011).
+  *katkojuoste* (@Pauli, Nov 20). The runs in the euclidean measure are the same for Skia, PDF and SVG, as their dash
+  patterns measure the path euclidean (011, Nov 19). They are derived values: `Map` offers the means to make them and
+  to keep them (@Pauli, Nov 20).
 - **koostettu katkoviiva** · *composed dashed line* — The form of a line for a channel whose dash pattern measures the
   euclidean length: the runs and the single dashes (Nov 20).
 - **kanavamuunnos** · *channel conversion* — A conversion of the ideal form into a form that a channel can use. `Map`
@@ -376,22 +355,30 @@ one meaning" lists the words that name two or more concepts now.
   stroke, and a placement (`Placement`) (Nov 18, Nov 20). The clipping objects of a palette color coverage of a
   symbol are its derived values (spec 02, Nov 20).
 - **`ClippingObject.Shape`** (work) · piirtyvä muoto · *shape that is drawn* — The shape of a clipping object
-  (Nov 20). For a fill, the shape is the outline of the area. For a stroke, the shape is the path at the middle of the
-  band that the stroke covers.
+  (Nov 20). For a filled shape, the shape is the outline of the area. For a *viivamuoto*, the shape is the path at the
+  middle of its stroke shape (*kynänjälki*).
 - **`Shape`** (work) · muoto · *shape* — A path (`PathShape`), an ellipse (`EllipseShape`), an arc (`ArcShape`) or a
   text run (`TextShape`) (005). The border of a double line is an offset path (Nov 20).
 - **`FilledShape`** (work) · täytetty muoto, täyttösääntö · *filled shape, fill rule* — Its fill rule is
   `FilledShape.FillRule` (`AreaFillMode`) (005).
-- **`StrokedShape`** (work) · viivattu muoto · *stroked shape* — 005.
+- **viivamuoto** (work: `StrokedShape`) — A shape that a pen (*kynä*) draws along its path. In the painting models of
+  PostScript, PDF and SVG, a path is painted with a fill, which paints its inside by a fill rule (the operator `f` of
+  PDF), or with a stroke, which paints the band that a pen draws along the path (the operator `S`). A filled shape
+  (*täytetty muoto*) is the one, and a *viivamuoto* is the other. The Finnish term is *viivamuoto* (@Pauli, Nov 21).
+  **Open:** its English term.
+- **kynänjälki** · *stroke shape* — The band that the pen of a *viivamuoto* covers along its path: its coverage. SVG 2
+  calls it the stroke shape. PostScript makes its outline with `strokepath`, and Skia with
+  `FillPathWithPaint`. With round caps and joins, it is the Minkowski sum of the path and a disk as wide as the pen,
+  that is the area that the disk sweeps. METAFONT and MetaPost call its boundary the envelope. The terms are
+  *kynänjälki* · *stroke shape* (@Pauli, Nov 21).
 - **`Stroke`** (work) · kynä · *stroke* — The width (`Width`), the caps (`Caps`), the join (`Join`) and the miter
-  limit (`MiterLimit`) of a stroked shape (005), and the dash pattern and its phase (`DashPattern`, `DashPhase`)
+  limit (`MiterLimit`) of a *viivamuoto* (005), and the dash pattern and its phase (`DashPattern`, `DashPhase`)
   (Nov 19). The Finnish term is *kynä*, as upstream calls the same values a pen (`IGraphicsTarget.CreatePen`) (@Pauli,
   Nov 20). A pen of upstream also has a color or a brush. A `Stroke` has no color, as the palette color gives it, and
-  it has the dash pattern and its phase. The band that a pen covers along a path is *kynänjälki* (proposed name). The
-  symbol
-  definitions give the caps and the joins together as a line style (`LineStyle`: `Rounded`, `Mitered`, `Beveled`,
-  `FlatRounded`). **Open:** the dash structure of a segment in the measure of the line (point 2 of 6 in the review of
-  011).
+  it has the dash pattern and its phase. The band that a pen covers along a path is its stroke shape (*kynänjälki*).
+  The symbol definitions give the caps and the joins together as a line style (`LineStyle`: `Rounded`, `Mitered`,
+  `Beveled`, `FlatRounded`). **Open:** the dash structure of a segment in the measure of the line (point 2 of 6 in the
+  review of 011).
 - **`LineCapMode`, `LineJoinMode`, `Stroke.MiterLimit`** · pää, liitos, jiirausraja · *cap, join, miter limit* — 005.
 - **`Stroke.DashPattern`, `Stroke.DashPhase`** (work) · katkokuvio, katkokuvion alkukohta · *dash pattern, dash
   phase* — The Finnish term of the phase is *katkokuvion alkukohta* (@Pauli, Nov 20). The lengths of the
@@ -399,8 +386,8 @@ one meaning" lists the words that name two or more concepts now.
   `stroke-dasharray` and `stroke-dashoffset` of SVG (011). They are properties of `Stroke` (Nov 19). **Open:** after
   the decisions of Nov 20, the measure in which they are kept (point 2 of 6 in the review of 011).
 - **`TextShape`** (work) · tekstijuoste · *text run* — A word, or a grapheme where the character spacing is more than
-  0, at its own position (Nov 19). The term is *tekstijuoste* (@Pauli, Nov 20); the tickets say *tekstiajo*. It has
-  the text, the font family, the size, the effects and the top left corner (005). A text run is a shape.
+  0, at its own position (Nov 19). The term is *tekstijuoste* (@Pauli, Nov 20). It has the text, the font family, the
+  size, the effects and the top left corner (005). A text run is a shape.
 - **jaetut muodot** · *shared shapes* — Each part of a glyph is one shape, which each placement of the glyph refers to
   (Nov 18; 008). They depend on the definition alone, so they belong to the definition (spec 02, Nov 20). Stretched
   and diminishing glyphs get shapes of their own (Nov 19). **Upstream:** a glyph at a corner is scaled, unless
@@ -411,29 +398,26 @@ one meaning" lists the words that name two or more concepts now.
 - **toistosijoitus** · *repeated placement* — A placement that keeps its path, its first position along the path, its
   step and its count. It calculates its poses from the path: the point of the path at each position along the path,
   and the direction of the path there, with the method of the drawing (Nov 20, Nov 21). The term is *toistosijoitus* ·
-  *repeated placement*, and the decisions say *toisto* · *repetition* (@Pauli, Nov 20). Only an encoding that gives a
-  repeated placement to an abstraction of its channel reads the path and the step. On a Bezier curve, the glyphs of the
-  OCAD spacing repeat by quarters (Nov 20). Its earlier form is a kind of clipping object (work: `RepeatedShapes`).
+  *repeated placement* (@Pauli, Nov 20). Only an encoding that gives a repeated placement to an abstraction of its
+  channel reads the path and the step. On a Bezier curve, the glyphs of the OCAD spacing repeat by quarters (Nov 20).
   **Upstream:** the glyphs that `GlyphLocation.Spaced` places along a line at the distances given.
 - **asema** · *pose* — A point and an angle (x, y, θ) (Nov 20). In robotics and in computer vision, a pose is the
   location and the orientation of a body. In the plane, it is a rotation and a translation, that is a rigid motion (the
   group SE(2)), so the pose of a placement is its innermost step. In technical Finnish, *asema* also covers an angle
   (*kulma-asema*), and in astronomy the position angle (*asemakulma*) gives the orientation of an object on the sky.
-  Robotics separates *asema* (location) and *asento* (orientation). The term is *asema* · *pose* (@Pauli, Nov 21). It
-  replaces *paikka* · *position* of the decision of Nov 20. In the theory, a position is the point alone.
+  Robotics separates *asema* (location) and *asento* (orientation). The term is *asema* · *pose* (@Pauli, Nov 21). In
+  the theory, a position is the point alone.
 - **kohta** · *position along the path* — A distance from the start of a path, in the measure of the line: the
   arc-length parameter s of the path. The pose at a position along the path is the point of the path there and the
   direction of its tangent. The first position of a repeated placement is a position along the path, and its step is
   the distance between two adjacent ones (@Pauli, Nov 21). The channels take a distance in the same way:
   `SkPathMeasure.getPosTan` of Skia gives the point and the tangent at a distance, and `getPointAtLength` of SVG gives
-  the point. The decision of Nov 19 on the glyphs along the lines says *kohta*, and the decision of Nov 20 on the
-  placements says *paikka* for it.
+  the point.
 - **`Placement.Steps`** (work) · sijoituksen sisäkkäiset affiiniset muunnokset · *steps of a placement* — The Finnish
   term is *sijoituksen sisäkkäiset affiiniset muunnokset*, and not *vaiheet* (@Pauli, Nov 20). The affine
-  transformations in the
-  order in which the symbols set them (005). A placement keeps its sequence of steps, and the pose is the innermost
-  step (Nov 20). Skia composes nested transformations with its own rounding. With the same steps in the same order,
-  the coverage is the same to the pixel (005).
+  transformations in the order in which the symbols set them (005). A placement keeps its sequence of steps, and the
+  pose is the innermost step (Nov 20). Skia composes nested transformations with its own rounding. With the same steps
+  in the same order, the coverage is the same to the pixel (005).
 - **askel, määrä** · *step, count* (work: `RepeatedShapes.Step`, `RepeatedShapes.Count`) — The distance along the path
   between two adjacent positions along the path of a repeated placement, and the number of its poses (Nov 19, Nov 20).
 - **kuvioruutu** · *pattern tile* — One cell of an area pattern, which is composed from single elements (Nov 20). It
@@ -451,15 +435,13 @@ encodings make themselves (spec 02, Nov 20).
   palette separations in palette order. For each palette separation, an encoding writes the transparency group of its
   palette color, to which C, α and B apply once. In the group, the encoding writes each palette cutter with one fill
   and one clip, or each palette color coverage of a symbol separately. Pass 2 does not call the drawing code of the
-  symbols (`Draw`) (spec 02, 05; Nov 20, Nov 21). The specification calls the operation compositing.
+  symbols (`Draw`) (spec 02, 05; Nov 20, Nov 21).
 - **palettivärin läpinäkyvyysryhmä** · *transparency group of a palette color* — The group that pass 2 composites
   for one palette color. Its content is the color C on the coverage of the palette separation. The group is
   composited once onto the backdrop, with the opacity α and the blend mode B of the palette color ("One compositing
   layer per palette entry", spec 05). So the overlaps of one palette color do not get α twice. One transparency group
-  is for each palette color. The palette color is its definition, and the palette separation is its content. In the
-  single-instance model of spec 01, a palette layer also has G and M. Spec 02 gives them to the layer instances, which
-  are the palette cutters. The term is *palettivärin läpinäkyvyysryhmä* · *transparency group of a palette color*
-  (@Pauli, Nov 21). It replaces *palettitaso* · *palette layer* (@Pauli, Nov 20).
+  is for each palette color. The palette color is its definition, and the palette separation is its content. The term
+  is *palettivärin läpinäkyvyysryhmä* · *transparency group of a palette color* (@Pauli, Nov 21).
 
   The theory: the transparency model of PDF (ISO 32000) calls this unit a transparency group. The objects of the group
   are composited into one result, and the result is composited onto the backdrop with the opacity and the blend mode
@@ -468,8 +450,7 @@ encodings make themselves (spec 02, Nov 20).
   separable blend modes, for example Darken and Multiply, apply to each color component. So in this model the group
   is the same in all the rendering modes, and only the blending space changes. In a CMYK group, Darken takes the
   larger share of each ink, as the PDF export of OCAD does ([oracles/ocad-darken.md](oracles/ocad-darken.md)). The
-  transparency flattening (spec 08) flattens these groups. The specification calls the group a palette layer, and the
-  tickets call it *palettikerros*.
+  transparency flattening (spec 08) flattens these groups.
 - **piirtotila, väriasetus** · *rendering mode, color configuration* — A rendering mode is a color configuration of
   pass 2: the normal view, the overprinting that the inks simulate, or the separations (000; spec 06, 07). All the
   rendering modes use the same intermediate layer (Progress.md, "Next"). **Upstream:** the render options
@@ -477,10 +458,9 @@ encodings make themselves (spec 02, Nov 20).
   and `colorBeginDrawExclusive` and `colorEndDrawInclusive` draw only some of the colors.
 - **koodaus, koodaaja** · *encoding, encoder* — It writes the drawing for one channel. It chooses the channel
   conversions of `Map` that its channel can use, and makes the others itself. When an encoding needs information, the
-  map side keeps it, and
-  the encoding recognizes no structure (000, Nov 20). Where the implementation of a channel does not agree with the
-  ideal form, the encoding adapts, for example with a polyline (Nov 20). **Open:** how do the encodings relate to
-  `IGraphicsTarget`?
+  map side keeps it, and the encoding recognizes no structure (000, Nov 20). Where the implementation of a channel does
+  not agree with the ideal form, the encoding adapts, for example with a polyline (Nov 20). **Open:** how do the
+  encodings relate to `IGraphicsTarget`?
 - **kanava** · *channel* — An output for which an encoding writes. The epic names the rendering channels Skia, PDF and
   SVG (000). A channel offers abstractions: for example the dash pattern of PDF and SVG, the 1D path effect of Skia
   and the markers of SVG (011, Nov 19).
@@ -491,16 +471,14 @@ encodings make themselves (spec 02, Nov 20).
   dashes and placements, which each channel draws directly. Here the base case depends on the channel, as in the
   legalization of a compiler: an operation that the target supports directly is legal, and the others are expanded
   (LLVM: *Legal*, *Expand*). The expansion (*laajennus*) is that splitting. A case is a class of the structures that
-  one branch handles. @Pauli said *perustilanne* on Nov 19, and the English decisions say *basic case*.
+  one branch handles.
 - **`IGraphicsTarget`** · piirtokohde · *graphics target* — The interface on which the symbols draw now. Its
   implementations are classes such as `Skia_GraphicsTarget` and `Pdf_GraphicsTarget`. The terms are *piirtokohde* ·
   *graphics target* (@Pauli, Nov 21). The code of upstream says *graphics target* 44 times, in 16 files. It says
   *drawing target* only in "the graphics drawing target", in two comments of `IGraphicsTarget` that its five
   implementations repeat. Upstream chose *graphics target* as the name first, and then added *drawing* in the comments
-  to make it clear (@Pauli, Nov 21). The documents of the palette-layer work and the introduction say *drawing
-  target*, the documents of the SVG work say *graphics target*, and the Finnish tickets say *piirtokohde*. The
-  application that ships uses the graphics targets of `Map_SkiaStd` and `Map_PDF` (Nov 18). **Open:** its place when
-  pass 2 and the encodings draw from the intermediate layer.
+  to make it clear (@Pauli, Nov 21). The application that ships uses the graphics targets of `Map_SkiaStd` and
+  `Map_PDF` (Nov 18). **Open:** its place when pass 2 and the encodings draw from the intermediate layer.
 - **piirrosobjekti** · *drawn object* — An object that an encoding writes. Each drawn object refers to its palette
   color coverage of a symbol, and through it to its `Symbol`, `SymColor` and G (spec 02, Nov 20). In a file, the
   drawn objects keep a link back to the ideal forms that is as direct as possible, also through the hierarchy of the
@@ -521,10 +499,7 @@ encodings make themselves (spec 02, Nov 20).
 
 ## Words that are not names · Sanat, jotka eivät ole nimiä
 
-- **malli** · *model* — Too ambiguous to name a concept in the specification (@Pauli, Nov 20). Until Nov 20, @Pauli
-  used it for all that the application reads from an opened OCAD or Mapper file, held and structured. That use was not
-  exact, and it meant most nearly `Map` (@Pauli, Nov 20). In the proposals of the session of Nov 20 that became the
-  decisions of Nov 20, it meant the instances of pass 1.
+- **malli** · *model* — Too ambiguous to name a concept in the specification (@Pauli, Nov 20).
 
   The decisions of Nov 20 say "the model" (in Finnish *malli* and *karttamalli*). @Pauli decided their readings by the
   structure of the passes on Nov 20:
@@ -573,9 +548,7 @@ encodings make themselves (spec 02, Nov 20).
 - **separaatio, erottelu** · *separation* — Not a term alone. *Separaatio* is *erottelu* in Finnish. The terms are
   *värierottelu* · *ink separation* and *palettierottelu* · *palette separation* (@Pauli, Nov 20).
 - **kerros** — Not a term (@Pauli, Nov 20). The decision concerns the Finnish word.
-- **ryhmä** — Not a term (@Pauli, Nov 20). The decision concerns the Finnish word. The specification uses *group*
-  as a verb in pass 2 ("Group instances by palette entry"), and for the SVG element `<g>` that encodes the
-  transparency group of a palette color (spec 05). The decision concerns *ryhmä* alone: *palettivärin
+- **ryhmä** — Not a term alone (@Pauli, Nov 20). The decision concerns the Finnish word. *Palettivärin
   läpinäkyvyysryhmä* is a term (@Pauli, Nov 21).
 - **ajo** · *run* — Not a term in the sense of a sequence, where it translates *run* word for word. The terms are
   *katkojuoste* · *run of dashes* and *tekstijuoste* · *text run* (`TextShape`) (@Pauli, Nov 20). A run of the tests
@@ -599,28 +572,6 @@ encodings make themselves (spec 02, Nov 20).
 - **muunnos** · *transformation, conversion* — Too generic to be a term without a qualifier, as *malli* is (@Pauli,
   Nov 20). The terms are *affiininen muunnos* · *affine transformation*, for example M, L, E and the steps of a
   placement, and *kanavamuunnos* · *channel conversion* (@Pauli, Nov 20).
-
-## Words with more than one meaning · Monimerkityksiset sanat
-
-- *symboli* · *symbol*: `Symbol`, an object of a map, in the code of upstream and in the Finnish tickets, and `SymDef`
-  in the specification. In the same way, *viivasymboli* · *line symbol* is `LineSymbol` in the code of upstream, and
-  `LineSymDef` in 011. Decided: *symboli* · *symbol* is `Symbol`, and *viivasymboli* is `LineSymbol` (@Pauli,
-  Nov 20).
-- *vaihe*: a pass (*vaihe 1*, *vaihe 2*), the phase of a dash pattern (`Stroke.DashPhase`), and a step of a placement
-  (`Placement.Steps`). Decided: *vaihe* is a pass. The phase is *katkokuvion alkukohta*, and the steps of a placement
-  are *sijoituksen sisäkkäiset affiiniset muunnokset* (@Pauli, Nov 20).
-- *viiva*: a line (`LineSymDef` or `LineSymbol`), and a stroke (`Stroke`). Decided: *viiva* is a line, and a stroke
-  is *kynä* (@Pauli, Nov 20).
-- *taitepiste*, *jana* · *vertex*, *segment*: of the path that the user draws, or of the flattened path. Decided: of
-  the flattened path, and the English term of *jana* is *edge* (@Pauli, Nov 20).
-- *step*: the step of a repeated placement (*askel*), and the steps of a placement (*sisäkkäiset affiiniset
-  muunnokset*). The Finnish terms separate them (@Pauli, Nov 20).
-- Two English words for one concept: *graphics target* (upstream) and *drawing target* (the documents of the
-  palette-layer work). Decided: *graphics target* (@Pauli, Nov 21).
-- Two Finnish words for one concept: *peittävyys* and *opasiteetti* (α, 000 and 001), *täysi peitto* and *yhtenäinen
-  geometria* (G = 1, 005), *paikka* and *kohta* (a position, 011), *perustapaus* and *perustilanne* (a basic case,
-  011). Decided: *peittävyys*, *täysi peitto* and *perustapaus* (@Pauli, Nov 21). *Paikka* and *kohta* name two
-  concepts: *asema* · *pose* and *kohta* · *position along the path* (@Pauli, Nov 21).
 
 ## Not in this glossary
 
