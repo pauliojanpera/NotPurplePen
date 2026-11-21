@@ -93,8 +93,8 @@ Glossary.md has all the decisions of Nov 20 and Nov 21, each with @Pauli's name 
   palette color*, in place of *palettitaso* (Nov 21).
 - The triple (`Symbol`, `SymColor`, G): `SymbolCoverage` · symbolin palettiväripeitto · *palette color coverage of a
   symbol*, in place of the proposed `SymbolSeparation` · symbolierottelu (Nov 21).
-- The shape that a pen draws and the band that the pen covers: *viivamuoto* (`StrokedShape`) and *kynänjälki* ·
-  *stroke shape* (Nov 21). The English term of *viivamuoto* is open.
+- The shape that a pen draws and the band that the pen covers: *viivamuoto* · *stroked shape* (`StrokedShape`) and
+  *kynänjälki* · *stroke shape* (Nov 21).
 
 The five terms that the session chose by their use in commit 06f4c824d are all decided on Nov 21.
 
@@ -102,7 +102,6 @@ The five terms that the session chose by their use in commit 06f4c824d are all d
 
 Present these to @Pauli, one question at a time:
 1. **The items marked "Open" in the glossary.** On Nov 21 they are:
-   - the English term of *viivamuoto*
    - the identifier of a `Symbol` to which a drawn object of a file can refer
    - whether the shared structures that are not periodic, for example the shared shapes of a glyph, are prototypes
    - whether the logical path is `LineLikeSymbol.Path`

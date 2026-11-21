@@ -124,7 +124,7 @@ The section "Words that are not names" lists the words that are not used as name
   *glyyfin osa* · *glyph part* (`Glyph.GlyphPart`) (@Pauli, Nov 20).
 - **`extraTransform`** · glyyfin lisämuunnos · *extra transformation of a glyph* — It transforms the points of a glyph
   but not its line widths, for example for the scale at corners and for the glyphs that decrease. So it is not an
-  affine placement of a *viivamuoto* (011).
+  affine placement of a stroked shape (011).
 
 ### Lines
 
@@ -355,24 +355,24 @@ The section "Words that are not names" lists the words that are not used as name
   stroke, and a placement (`Placement`) (Nov 18, Nov 20). The clipping objects of a palette color coverage of a
   symbol are its derived values (spec 02, Nov 20).
 - **`ClippingObject.Shape`** (work) · piirtyvä muoto · *shape that is drawn* — The shape of a clipping object
-  (Nov 20). For a filled shape, the shape is the outline of the area. For a *viivamuoto*, the shape is the path at the
-  middle of its stroke shape (*kynänjälki*).
+  (Nov 20). For a filled shape, the shape is the outline of the area. For a stroked shape, the shape is the path at
+  the middle of its stroke shape (*kynänjälki*).
 - **`Shape`** (work) · muoto · *shape* — A path (`PathShape`), an ellipse (`EllipseShape`), an arc (`ArcShape`) or a
   text run (`TextShape`) (005). The border of a double line is an offset path (Nov 20).
 - **`FilledShape`** (work) · täytetty muoto, täyttösääntö · *filled shape, fill rule* — Its fill rule is
   `FilledShape.FillRule` (`AreaFillMode`) (005).
-- **viivamuoto** (work: `StrokedShape`) — A shape that a pen (*kynä*) draws along its path. In the painting models of
-  PostScript, PDF and SVG, a path is painted with a fill, which paints its inside by a fill rule (the operator `f` of
-  PDF), or with a stroke, which paints the band that a pen draws along the path (the operator `S`). A filled shape
-  (*täytetty muoto*) is the one, and a *viivamuoto* is the other. The Finnish term is *viivamuoto* (@Pauli, Nov 21).
-  **Open:** its English term.
-- **kynänjälki** · *stroke shape* — The band that the pen of a *viivamuoto* covers along its path: its coverage. SVG 2
+- **viivamuoto** · *stroked shape* (work: `StrokedShape`) — A shape that a pen (*kynä*) draws along its path. In the
+  painting models of PostScript, PDF and SVG, a path is painted with a fill, which paints its inside by a fill rule
+  (the operator `f` of PDF), or with a stroke, which paints the band that a pen draws along the path (the operator
+  `S`). A filled shape (*täytetty muoto*) is the one, and a stroked shape is the other. The terms are *viivamuoto* ·
+  *stroked shape* (@Pauli, Nov 21).
+- **kynänjälki** · *stroke shape* — The band that the pen of a stroked shape covers along its path: its coverage. SVG 2
   calls it the stroke shape. PostScript makes its outline with `strokepath`, and Skia with
   `FillPathWithPaint`. With round caps and joins, it is the Minkowski sum of the path and a disk as wide as the pen,
   that is the area that the disk sweeps. METAFONT and MetaPost call its boundary the envelope. The terms are
   *kynänjälki* · *stroke shape* (@Pauli, Nov 21).
 - **`Stroke`** (work) · kynä · *stroke* — The width (`Width`), the caps (`Caps`), the join (`Join`) and the miter
-  limit (`MiterLimit`) of a *viivamuoto* (005), and the dash pattern and its phase (`DashPattern`, `DashPhase`)
+  limit (`MiterLimit`) of a stroked shape (005), and the dash pattern and its phase (`DashPattern`, `DashPhase`)
   (Nov 19). The Finnish term is *kynä*, as upstream calls the same values a pen (`IGraphicsTarget.CreatePen`) (@Pauli,
   Nov 20). A pen of upstream also has a color or a brush. A `Stroke` has no color, as the palette color gives it, and
   it has the dash pattern and its phase. The band that a pen covers along a path is its stroke shape (*kynänjälki*).
