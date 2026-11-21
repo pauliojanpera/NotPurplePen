@@ -107,6 +107,8 @@ These are @Pauli's decisions of Nov 20 and Nov 21. Glossary.md gives their terms
   `CourseFormatter` or `TopologyFormatter` gives at the place where it makes the `CourseObj`, from the role of the
   place, the identifiers of `EventDB` and the `CourseLayer`. The terms of `CourseObj` are *rataobjekti* · *course
   object* (Nov 21).
+- The path that the parts of a line are pieces and offsets of: *peruspolku* · *base path*, in place of *looginen
+  polku*, *keskiviiva* and *pohjapolku* (Nov 21).
 
 The five terms that the session chose by their use in commit 06f4c824d are all decided on Nov 21.
 
@@ -117,20 +119,19 @@ to make a question" says. The glossary marks each item "Open" in the entries nam
 
 1. **peittoprototyyppi:** whether the shared structures that are not periodic, for example the shared shapes of a
    glyph, are prototypes or a concept of their own.
-2. **looginen polku:** whether the logical path is `LineLikeSymbol.Path`.
-3. **segmentti, pala:** whether a part in "the parts as its pieces and offsets" (the decision of Nov 20 on the
+2. **segmentti, pala:** whether a part in "the parts as its pieces and offsets" (the decision of Nov 20 on the
    structure of a line) is a segment or a line component, and the exact content of a piece.
-4. **kokoonpano:** when two configurations are the same (009, question 1).
-5. **`HatchInfo`, `AreaSymDef.RotateMode`:** whether a hatching is a prototype of its own or a pattern of line
+3. **kokoonpano:** when two configurations are the same (009, question 1).
+4. **`HatchInfo`, `AreaSymDef.RotateMode`:** whether a hatching is a prototype of its own or a pattern of line
    elements (009, question 3), and what `ManualOnly` means in the specification (009, question 4).
-6. **kanavamuunnos:** which channel conversions stay in the encodings.
-7. **`Stroke`, `Stroke.DashPattern`, `Stroke.DashPhase`:** the measure in which a pen keeps the dash pattern and its
+5. **kanavamuunnos:** which channel conversions stay in the encodings.
+6. **`Stroke`, `Stroke.DashPattern`, `Stroke.DashPhase`:** the measure in which a pen keeps the dash pattern and its
    phase after the decisions of Nov 20 (point 2 of 6 in the review of 011).
-8. **koodaus, `IGraphicsTarget`:** how the encodings relate to `IGraphicsTarget`, and its place when pass 2 and the
+7. **koodaus, `IGraphicsTarget`:** how the encodings relate to `IGraphicsTarget`, and its place when pass 2 and the
    encodings draw from the intermediate layer.
-9. **korostus:** whether the highlights stay a direct drawing (000).
+8. **korostus:** whether the highlights stay a direct drawing (000).
 
-The items 1 to 3 concern concepts and their names. The others are questions of the design of the specification and
+The items 1 and 2 concern concepts and their names. The others are questions of the design of the specification and
 of the tickets.
 
 ### After the glossary

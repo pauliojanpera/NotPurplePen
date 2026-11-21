@@ -137,15 +137,15 @@ The section "Words that are not names" lists the words that are not used as name
   form (`Map.UseEuclideanMetric`). `Map` offers the means to convert it to suit a channel, and to keep the derived
   values. The measure of fix 021 (work: `OcadCurveMeasure`, `SymPath.GetOcadCurveMeasure`) gives a straight segment its
   length, and a quarter of a curve its chord.
-- **viivan rakenne** · *structure of a line* — The logical path, the parts as its pieces and offsets, the measure of the
+- **viivan rakenne** · *structure of a line* — The base path, the parts as its pieces and offsets, the measure of the
   line, the fitted pattern of a part, the end dashes and the exceptions of fix 020. `Map` keeps the information that is
   necessary, that is the ideal forms: the path of the `LineSymbol`, the `DashInfo`, the `DoubleLineInfo` and the metric.
   The segments, the fitted dash patterns, the merged end dashes and the exceptions of fix 020 are derived values, which
   `Map` can keep for the channels where the implementation finds it sensible.
-- **looginen polku** · *logical path* — The path of a line in its ideal form. The parts of the line are its pieces and
-  offsets. **Upstream:** a line object has one path (`LineLikeSymbol.Path`), and its definition draws all the parts of
-  the line from it. **Open:** is the logical path `LineLikeSymbol.Path`?
-- **keskiviiva** · *middle of the line* — The base path of the borders of a double line.
+- **peruspolku** · *base path* — The path that the parts of a line are pieces and offsets of: the `SymPath` along which
+  a `LineSymDef` is drawn. For a line object, it is `LineLikeSymbol.Path`. For the border of an area, it is the main
+  path or a hole of the `AreaLikeSymbol`. `Map` keeps it in the ideal form. The borders of a double line are offsets of
+  it, and their dash patterns are measured along it. In the theory of offset curves, it is the base curve.
 - **`DoubleLineInfo`** · kaksoisviiva, kaksoisviivan reuna, kaksoisviivan täyttö · *double line, double line border,
   double line fill* — A double line has a fill and two borders, the left and the right border. Upstream calls the
   borders the left and the right double line, with their colors, widths and dashes (`doubleLeftColor`,
@@ -297,15 +297,14 @@ The section "Words that are not names" lists the words that are not used as name
 - **segmentti** · *segment* — The part of a line between corner and dash points. The dashes are fitted to each segment
   separately. Upstream calls it a segment. **Open:** in "the parts as its pieces and offsets", is a part a segment or a
   line component?
-- **viivan osatekijä** · *line component* — One of the components that a `LineSymDef` draws from the path of a line: the
+- **viivan osatekijä** · *line component* — One of the components that a `LineSymDef` draws from the base path: the
   main line, the secondary line, the double line fill, a double line border, the pointy ends or the glyphs along the
   line.
-- **pala** · *piece* — A piece of the logical path, from one place on the path to another. **Open:** its exact content.
-- **siirtymä** · *offset* — The distance of a line component from the logical path, to the side.
-- **siirretty polku, pohjapolku** · *offset path, base path* — The shape of a border of a double line, in its ideal
-  form: the path of the middle of the line and the offset. Its dash pattern is measured along its base path. The rule of
-  the corners of the offset belongs to the shape, and the join belongs to the stroke. The offset curve is a derived
-  value.
+- **pala** · *piece* — A piece of the base path, from one place on the path to another. **Open:** its exact content.
+- **siirtymä** · *offset* — The distance of a line component from the base path, to the side.
+- **siirretty polku** · *offset path* — The shape of a border of a double line, in its ideal form: the base path and the
+  offset. Its dash pattern is measured along the base path. The rule of the corners of the offset belongs to the shape,
+  and the join belongs to the stroke. The offset curve is a derived value.
 - **neljännes, jänne** · *quarter, chord* — Each quarter of a Bezier curve has its chord as its length in the measure.
   Within the quarter, the dashes are in proportion to the true arc.
 - **litistetty polku, polun litistäminen** · *flattened path, path flattening* (`SymPath.GetFlattenedPoints`) — The

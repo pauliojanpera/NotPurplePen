@@ -343,17 +343,17 @@ the rendering.
   Nov 20 change this: `Map` keeps the ideal forms, and the derivations are practical adaptations of them. The
   derivations keep the dashes, the runs and the paths of the repetitions as Bezier pieces, as polylines or as both, as
   the implementations that the channels choose need ([Glossary.md](Glossary.md), *malli*).
-- **The borders of double lines** (Nov 20). The shape of a border is an offset path in its ideal form: the path of the
-  middle of the line and the offset. Its stroke is a usual stroke. The dash pattern of an offset path is measured along
-  its base path, the middle of the line. So the dashes of a border are the dashes of the middle moved aside, as in
-  OCAD, and the runs of a border are the runs of the middle moved aside. The rule of the corners of the offset belongs
+- **The borders of double lines** (Nov 20). The shape of a border is an offset path in its ideal form: the base path
+  and the offset. Its stroke is a usual stroke. The dash pattern of an offset path is measured along its base path. So
+  the dashes of a border are the dashes of the base path moved aside, as in OCAD, and the runs of a border are the
+  runs of the base path moved aside. The rule of the corners of the offset belongs
   to the shape, and the join of the stroke to the stroke. This changes the decision on the runs with the OCAD metric
   (question 7 of ticket 011) for the borders of double lines. In `feature/line-geometry`, a border is a polyline that
   offsets the flattened path.
 - **The model keeps the information of the encodings** (Nov 20). When an encoding needs information, the model keeps
   it, and the encoding reads the structure from the model (ticket 011).
 - **The structure of a line** (Nov 20). The model keeps the structure of a line in its ideal form, also what PDF and
-  SVG cannot describe: the logical path, the parts as its pieces and offsets, the measure of the line, the fitted
+  SVG cannot describe: the base path, the parts as its pieces and offsets, the measure of the line, the fitted
   pattern of a part, the end dashes and the exceptions of fix 020. An encoding converts the structure for its channel:
   in a basic case directly into a structure of the channel, and otherwise by splitting it. This replaces the decision
   of Nov 18 that the exotic cases are split into single dashes in the instances (ticket 011).
@@ -368,7 +368,7 @@ the rendering.
   the channels can use, as calculations. It does not keep their results. An encoding chooses a conversion that its
   channel can use. The conversions concern the whole model, not only the lines. Conversions of the lines are, for
   example, the runs and the single dashes in the euclidean measure, a table of dashes, repetitions with a euclidean
-  step, the pieces of the logical path, offset curves, and the expansion into single dashes and placements
+  step, the pieces of the base path, offset curves, and the expansion into single dashes and placements
   ([000](tickets/000-palette-layers.md), ticket 011). Conversions of the pattern fills are, for example, the placements
   of the elements of an irregular pattern, whose randomness the model keeps as a definition, and a tile of a pattern,
   which the conversion composes from single elements. The structure of the passes and the readings of Nov 20 change
