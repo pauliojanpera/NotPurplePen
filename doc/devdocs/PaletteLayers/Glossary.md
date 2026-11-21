@@ -464,8 +464,14 @@ encodings make themselves (spec 02, Nov 20).
 - **kanava** · *channel* — An output for which an encoding writes. The epic names the rendering channels Skia, PDF and
   SVG (000). A channel offers abstractions: for example the dash pattern of PDF and SVG, the 1D path effect of Skia
   and the markers of SVG (011, Nov 19).
-- **perustapaus** · *basic case* — A case that a channel solves with an abstraction of its own (Nov 19). In a basic
-  case, the encoding converts the structure directly into a structure of the channel (Nov 20).
+- **perustapaus** · *base case* — A case that a channel solves with an abstraction of its own (Nov 19). In a base
+  case, the encoding converts the structure directly into a structure of the channel, and otherwise it splits the
+  structure (Nov 20). The term is *perustapaus* · *base case* (@Pauli, Nov 21). In computing, a base case is solved
+  directly, and the other cases are split until only base cases remain. The splitting of the encodings ends in single
+  dashes and placements, which each channel draws directly. Here the base case depends on the channel, as in the
+  legalization of a compiler: an operation that the target supports directly is legal, and the others are expanded
+  (LLVM: *Legal*, *Expand*). The expansion (*laajennus*) is that splitting. A case is a class of the structures that
+  one branch handles. @Pauli said *perustilanne* on Nov 19, and the English decisions say *basic case*.
 - **`IGraphicsTarget`** · piirtokohde · *graphics target* — The interface on which the symbols draw now. Its
   implementations are classes such as `Skia_GraphicsTarget` and `Pdf_GraphicsTarget`. The terms are *piirtokohde* ·
   *graphics target* (@Pauli, Nov 21). The code of upstream says *graphics target* 44 times, in 16 files. It says
@@ -592,9 +598,8 @@ encodings make themselves (spec 02, Nov 20).
   palette-layer work). Decided: *graphics target* (@Pauli, Nov 21).
 - Two Finnish words for one concept: *peittävyys* and *opasiteetti* (α, 000 and 001), *täysi peitto* and *yhtenäinen
   geometria* (G = 1, 005), *paikka* and *kohta* (a position, 011), *perustapaus* and *perustilanne* (a basic case,
-  011). Decided: *peittävyys* and *täysi peitto* (@Pauli, Nov 21). *Paikka* and *kohta* name two concepts: *asema* ·
-  *pose* and *kohta* · *position along the path* (@Pauli, Nov 21). Chosen by use (Nov 20): *perustapaus* (the decision
-  of Nov 20 on the structure of a line).
+  011). Decided: *peittävyys*, *täysi peitto* and *perustapaus* (@Pauli, Nov 21). *Paikka* and *kohta* name two
+  concepts: *asema* · *pose* and *kohta* · *position along the path* (@Pauli, Nov 21).
 
 ## Not in this glossary
 

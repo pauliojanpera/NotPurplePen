@@ -86,25 +86,22 @@ Glossary.md has all the decisions of Nov 20 and Nov 21, each with @Pauli's name 
   *full coverage* (G = 1) and *peittoprototyyppi* · *coverage prototype* (Nov 21).
 - A point and an angle, and a place on a path: *asema* · *pose* and *kohta* · *position along the path* (Nov 21). They
   replace *paikka* · *position*.
+- The case that a channel solves with an abstraction of its own: *perustapaus* · *base case* (Nov 21).
+
+The five terms that the session chose by their use in commit 06f4c824d are all decided on Nov 21.
 
 ### Open
 
 Present these to @Pauli, one question at a time:
-1. **The five terms of commit 06f4c824d.** The session chose *graphics target*, *peittävyys*, *täysi peitto*,
-   *paikka* and *perustapaus* by their use, without a question. The glossary marks them "chosen by use". @Pauli
-   decided *graphics target*, *peittävyys*, *täysi peitto* and *asema* on Nov 21. The facts for the other question:
-   - *perustapaus* and *perustilanne* (a basic case): the decision of Nov 20 on the structure of a line says
-     *perustapaus*, 1 time. The decisions of Nov 19 in the tickets 011 and 013 say *perustilanne*, 4 times.
-2. **The meaning of *palettitaso*.** The glossary gives the meaning that the specification gives (commit 740d9b778):
+1. **The meaning of *palettitaso*.** The glossary gives the meaning that the specification gives (commit 740d9b778):
    the compositing layer of a palette color, as section 05 says: "One compositing layer per palette entry". @Pauli has
    not decided it.
-3. **The name of the triple** (`Symbol`, `SymColor`, G): `SymbolSeparation` · symbolierottelu is a proposed name.
-4. **The proposed English and Finnish names:** *derivation* for *johdos*, and *kynänjälki* for the band that a pen
+2. **The name of the triple** (`Symbol`, `SymColor`, G): `SymbolSeparation` · symbolierottelu is a proposed name.
+3. **The proposed English and Finnish names:** *derivation* for *johdos*, and *kynänjälki* for the band that a pen
    covers along a path.
-5. **The items marked "Open" in the glossary.** On Nov 21 they are:
+4. **The items marked "Open" in the glossary.** On Nov 21 they are:
    - the identifier of a `Symbol` to which a drawn object of a file can refer
-   - whether the shared structures that are not periodic, for example the shared shapes of a glyph, are geometry
-     prototypes
+   - whether the shared structures that are not periodic, for example the shared shapes of a glyph, are prototypes
    - whether the logical path is `LineLikeSymbol.Path`
    - whether a part in "the parts as its pieces and offsets" (Nov 20) is a segment or a line component, and the exact
      content of a piece
