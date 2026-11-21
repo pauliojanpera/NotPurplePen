@@ -24,6 +24,13 @@ does not take its way, a layer around the drawing of the symbols, as the model o
 entry can stay implicit in the rendering, but its instances cannot be left out (preface and section 05 of the
 specification, @Pauli, Nov 18).
 
+## Sessions
+
+- A session of the work needs no cache of the agents, and it starts no agents (@Pauli, Nov 18). So it does not run
+  `agent-cache.py`, although `CLAUDE.md` asks every session to run it.
+- A session of the work needs no archiving of the session, and it does not start the script that archives it
+  (@Pauli, Nov 18).
+
 ## Tickets
 
 - The epic gives the goal of the work and its scope, by the chapters of the specification. It names its parts under

@@ -25,6 +25,8 @@ Read these in this order:
 - The session presents one question at a time (Nov 20, Nov 21).
 - The session does not make proposals that @Pauli did not ask for (Nov 20).
 - When @Pauli uses a vague reference, the session asks him to make it exact (Nov 20, the preface of the glossary).
+- The session starts no agents and does not run `agent-cache.py`, although `CLAUDE.md` asks every session to run it.
+  It does not start the script that archives the session (Nov 18, [README.md](README.md)).
 - The code of the palette-layer branches is not a source of the new definition of `Map` that the glossary builds
   (Nov 21).
 - A word of the specification is not an authority. @Pauli wrote some of its concepts in passing, for example *full
