@@ -400,6 +400,11 @@ the rendering.
   The reference of a drawn object also gives the `Map`. The content of the identity of a `CourseObj` is open. The
   basis is the future of `Map` and the SVG channel: the mutations of the SVG DOM need keys that stay the same over the
   edits and over the course maps that are made again. [Glossary.md](Glossary.md) gives the terms.
+- **The same configuration** (Nov 21). Two configurations are the same when they give the same coverage: the same
+  palette color and coverage prototype, and M₁⁻¹M₂ is a symmetry of G. A normal form decides it: the translation of M
+  is reduced into a fundamental domain of the translations that are symmetries of G, and rounded to a fixed precision.
+  The union of the clipping objects of a palette cutter is a true union. This answers question 1 of ticket 009, whose
+  proposal, the same parameters, is a sufficient condition only. [Glossary.md](Glossary.md) gives the terms.
 - **The identity of a `CourseObj`** (Nov 21). The identity of a `CourseObj`, from which the symbol key of the course
   map comes, is a key that `CourseFormatter` or `TopologyFormatter` gives to it at the place where it makes it: the
   role of the place in the data of `EventDB`, the identifiers of `EventDB` that the place uses, and the `CourseLayer`.

@@ -196,7 +196,9 @@ The section "Words that are not names" lists the words that are not used as name
   the angle of an area object turns the lattice and its elements together. The structure angle is `patternAngle` or
   `hatchAngle`, and the angle of an area object is `AreaSymbol.Angle`.
 - **`AreaSymbol.RotationCenter`** · kiertokeskus · *rotation center* — The point about which the angle of an area object
-  turns its hatchings and patterns.
+  turns its hatchings and patterns. It is also their origin: the transformation of a hatching is T(rotation center) ·
+  R(angle of the area object) · R(structure angle). **Upstream:** the OCAD import sets it to the origin of the map, and
+  the Mapper import takes it from the pattern origin of the object (`rotationCoord`).
 - **`AreaSymDef.RotateMode`** · kiertotila · *rotate mode* (`Always`, `ManualOnly`, `Never`) — The comments of upstream:
   `Always` turns the pattern when the map or the object turns. `ManualOnly` allows only a manual setting of the
   direction of the pattern, and does not turn the pattern when the object or the map turns. `Never` lets no direction
@@ -268,15 +270,21 @@ The section "Words that are not names" lists the words that are not used as name
   cutter, and each palette cutter is in one palette separation.
 - **kokoonpano, samanlainen kokoonpano** · *configuration, equivalent configuration* — The palette color, G and the
   effective affine transformation M of a palette color coverage of a symbol. M comes from the `Symbol` and from G. The
-  palette color coverages of the symbols with the same configuration are one palette cutter. **Open:** when are two
-  configurations the same?
+  palette color coverages of the symbols with the same configuration are one palette cutter. Two configurations are the
+  same when they give the same coverage: the palette color and the coverage prototype are the same, and M₁⁻¹M₂ is a
+  symmetry of G, an affine map S for which G∘S = G. The symmetries of an area pattern include the translations of its
+  lattice. The symmetries of a hatching include all the translations along its lines, and the translations across them
+  by multiples of the spacing. All the maps are symmetries of the full coverage. A normal form decides the sameness: the
+  translation of M is reduced into a fundamental domain of the translations that are symmetries of G, and it is rounded
+  to a fixed precision. The configurations with the same normal form are the same, and the relation is an equivalence.
 - **`LayerInstance.Transformation`** (work) · affiininen muunnos M · *affine transformation M* — An invertible 2D affine
   transformation of G.
 - **peitto, unioni** · *coverage, union* — A binary coverage is a set of points of the plane. In mathematics, it is the
   indicator function of the set, which is 1 at the points of the set. G is a coverage, and so is the area that a
   clipping object covers. The coverage of a palette cutter is G under M inside the union of its clipping objects. The
   coverage of a palette separation is the union of the coverages of its palette cutters. The union can stay implicit in
-  the rendering, but the instances cannot be left out.
+  the rendering, but the instances cannot be left out. The union of the clipping objects of a palette cutter is a true
+  union, also where each area fills with the even-odd rule.
 
 ### The derived values
 
