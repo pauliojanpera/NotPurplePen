@@ -103,19 +103,28 @@ one meaning" lists the words that name two or more concepts now.
   below (spec 06). The Mapper import sets `SymColor.OverPrint` only for a color that has a spot definition and whose
   knockout is off (001).
 
-### Geometry prototypes
+### Coverage prototypes
 
-- **`GeometryPrototype`** (work) · geometriaprototyyppi · *geometry prototype* — Reusable, origin-bound, periodic
-  geometry G (spec 02). On the map side, G is a part of a `SymDef`: the full coverage, one hatching (an index in
-  `AreaSymDef.hatchings`) or one pattern (an index in `AreaSymDef.patterns`) (Nov 20). In an `AreaComboSymDef`, the
-  component definition is part of G. Upstream has no class for G. **Open:** are the shared structures that are not
-  periodic, for example the shared shapes of a glyph, prototypes or a concept of their own?
-- **jaksollinen geometria G** · *periodic geometry G* — A binary, spatially repetitive, origin-bound geometry selector
-  (spec 01). The hatchings and the area patterns are periodic geometry (009, a draft). Spec 01 calls it repetitive
-  geometry and spec 02 periodic geometry. The term is *jaksollinen geometria* · *periodic geometry* (@Pauli, Nov 20).
-- **`GeometryPrototype.FullCoverage`** (work) · täysi peitto, G = 1 · *full coverage* — The constant case of
-  periodic geometry (spec 01). The geometry of points, lines and texts has G = 1. Their dash patterns and their
-  glyphs along a line are strokes and placements, not lattices (Nov 19, Nov 20).
+- **peittoprototyyppi** · *coverage prototype* (work: `GeometryPrototype`) — The coverage G in its origin-bound form,
+  before M places it (spec 02). On the map side, G is a part of a `SymDef`: the full coverage, one hatching (an index
+  in `AreaSymDef.hatchings`) or one pattern (an index in `AreaSymDef.patterns`) (Nov 20). In an `AreaComboSymDef`, the
+  component definition is part of G. Upstream has no class for G. The specification calls it a geometry prototype. The
+  term is *peittoprototyyppi* · *coverage prototype* (@Pauli, Nov 21). **Open:** are the shared structures that are
+  not periodic, for example the shared shapes of a glyph, prototypes or a concept of their own?
+- **jaksollinen peitto G** · *periodic coverage G* — A binary, spatially repetitive, origin-bound selector (spec 01):
+  for each point of the plane, G tells if the point is in the coverage. In mathematics, G is the indicator function of
+  a set of the plane that the translations of a lattice do not change. The hatchings and the area patterns are
+  periodic coverages (009, a draft). Spec 01 calls it repetitive geometry, and spec 02 periodic geometry. The term is
+  *jaksollinen peitto* · *periodic coverage* (@Pauli, Nov 21). It replaces *jaksollinen geometria* · *periodic
+  geometry* (@Pauli, Nov 20), as @Pauli found *geometria* too generic (Nov 21). G selects a set of points, which is a
+  coverage. In compositing, the alpha has two parts, the coverage and the opacity. The specification keeps them apart:
+  the binary coverage (G and the clipping objects) and α (*peittävyys* · *opacity*).
+- **täysi peitto, G = 1** · *full coverage* (work: `GeometryPrototype.FullCoverage`) — The whole plane: G(x, y) = 1 at
+  each point (spec 01). A constant function does not change in a translation, so it is periodic with each lattice. The
+  full coverage is the trivial case of periodic coverage, and not a kind of its own. No M changes it. The G of points,
+  lines, texts and area fills is the full coverage. The dash patterns and the glyphs along a line are strokes and
+  placements, not lattices (Nov 19, Nov 20). The term is *täysi peitto* · *full coverage* (@Pauli, Nov 21). The
+  tickets also say *yhtenäinen geometria*.
 
 ### Glyphs
 
@@ -257,7 +266,7 @@ one meaning" lists the words that name two or more concepts now.
   (spec 02; Nov 18, Nov 20). The symbol separations get their derivations from the geometry methods of the symbol
   definitions (008; 011 to 013 in progress). *Vaihe* means a pass (@Pauli, Nov 20).
 - **`SymbolSeparation`** (proposed name) · symbolierottelu · *symbol separation* — The part of one `Symbol` that
-  belongs to one palette color and one geometry prototype G: the triple (`Symbol`, `SymColor`, G). It refers to these
+  belongs to one palette color and one coverage prototype G: the triple (`Symbol`, `SymColor`, G). It refers to these
   objects and copies nothing. It keeps its own derivations (spec 02, Nov 20).
 - **`PaletteSeparation`** · palettierottelu · *palette separation* — The symbol separations of one palette color. It
   keeps its palette cutters as a derivation (spec 02, Nov 20). The name is @Pauli's, and the Finnish term is
@@ -271,15 +280,16 @@ one meaning" lists the words that name two or more concepts now.
   separations with the same configuration are one palette cutter (spec 02, 03; Nov 20). **Open:** when are two
   configurations the same (009, question 1)?
 - **kerrosilmentymä** · *layer instance* (work: `LayerInstance`) — The name of the specification for the palette
-  cutter (spec 02). The class `LayerInstance` of the work has a palette color (`PaletteEntry`), a geometry prototype
+  cutter (spec 02). The class `LayerInstance` of the work has a palette color (`PaletteEntry`), a coverage prototype
   (`Prototype`), an affine transformation (`Transformation`) and kept clipping objects (`ClippingObjects`). For G = 1,
   there is one for each palette color (005).
 - **`LayerInstance.Transformation`** (work) · affiininen muunnos M · *affine transformation M* — An invertible 2D
   affine transformation of G (spec 01).
-- **peitto, unioni** · *coverage, union* — The binary coverage that the geometry and the clipping objects define
-  (spec 01, 05). The coverage of a palette cutter is the union of the coverages of its symbol separations, limited by G
-  under M. The coverage of a palette separation is the union of the coverages of its palette cutters. The union can stay
-  implicit in the rendering, but the instances cannot be left out (spec 05, Nov 18).
+- **peitto, unioni** · *coverage, union* — A binary coverage is a set of points of the plane. In mathematics, it is
+  the indicator function of the set, which is 1 at the points of the set (spec 01, 05). G is a coverage, and so is the
+  area that a clipping object covers. The coverage of a palette cutter is G under M inside the union of its clipping
+  objects. The coverage of a palette separation is the union of the coverages of its palette cutters (@Pauli,
+  Nov 21). The union can stay implicit in the rendering, but the instances cannot be left out (spec 05, Nov 18).
 
 ### The derivations
 
@@ -351,8 +361,8 @@ one meaning" lists the words that name two or more concepts now.
 
 ### The forms of the derivations
 
-- **`ClippingObject`** (work) · leikkausobjekti · *clipping object* — It limits the extent over which the geometry of
-  its palette cutter applies. It gives no color or alpha (spec 01). It has a shape that is drawn (`Shape`), a fill or a
+- **`ClippingObject`** (work) · leikkausobjekti · *clipping object* — It limits the extent over which G of its palette
+  cutter applies. It gives no color or alpha (spec 01). It has a shape that is drawn (`Shape`), a fill or a
   stroke, and a placement (`Placement`) (Nov 18, Nov 20). The clipping objects of a symbol separation are its
   derivations (spec 02, Nov 20).
 - **`ClippingObject.Shape`** (work) · piirtyvä muoto · *shape that is drawn* — The shape of a clipping object
@@ -543,8 +553,9 @@ encodings make themselves (spec 02, Nov 20).
 - **kuvio** · *pattern* — Not a term without a qualifier. The terms are *aluekuvio* · *area pattern* (`PatternInfo`),
   *katkokuvio* · *dash pattern* (`Stroke.DashPattern`), *sovitettu katkokuvio* · *fitted dash pattern*, *kuviotäyttö*
   · *pattern fill* and *kuvioruutu* · *pattern tile* (@Pauli, Nov 20).
-- **toisto, toistuva** · *repetition, repetitive* — Not a term without a qualifier. The terms are *toistosijoitus* ·
-  *repeated placement* and *jaksollinen geometria* · *periodic geometry* (@Pauli, Nov 20).
+- **toisto, toistuva** · *repetition, repetitive* — Not a term without a qualifier (@Pauli, Nov 20). The terms are
+  *toistosijoitus* · *repeated placement* (@Pauli, Nov 20) and *jaksollinen peitto* · *periodic coverage* (@Pauli,
+  Nov 21).
 - **litistys, litistäminen** · *flattening* — Not a term without a qualifier. The terms are *läpinäkyvyyden litistys* ·
   *transparency flattening* (spec 08) and *polun litistäminen* · *path flattening* (@Pauli, Nov 20).
 - **muunnos** · *transformation, conversion* — Too generic to be a term without a qualifier, as *malli* is (@Pauli,
@@ -570,9 +581,8 @@ encodings make themselves (spec 02, Nov 20).
   palette-layer work). Decided: *graphics target* (@Pauli, Nov 21).
 - Two Finnish words for one concept: *peittävyys* and *opasiteetti* (α, 000 and 001), *täysi peitto* and *yhtenäinen
   geometria* (G = 1, 005), *paikka* and *kohta* (a position, 011), *perustapaus* and *perustilanne* (a basic case,
-  011). Decided: *peittävyys* (@Pauli, Nov 21). Chosen by use (Nov 20): *täysi peitto* (*full coverage* of the
-  specification), *paikka* (the decision of Nov 20 on the placements) and *perustapaus* (the decision of Nov 20 on the
-  structure of a line).
+  011). Decided: *peittävyys* and *täysi peitto* (@Pauli, Nov 21). Chosen by use (Nov 20): *paikka* (the decision of
+  Nov 20 on the placements) and *perustapaus* (the decision of Nov 20 on the structure of a line).
 
 ## Not in this glossary
 

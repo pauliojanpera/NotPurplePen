@@ -68,15 +68,15 @@ Glossary.md has all the decisions of Nov 20 and Nov 21, each with @Pauli's name 
   palettileikkuri, and the Finnish term *johdos*.
 - The terms of `IGraphicsTarget`: *piirtokohde* · *graphics target* (Nov 21).
 - The terms of α: *peittävyys* · *opacity* (Nov 21).
+- The coverages: *jaksollinen peitto* · *periodic coverage* (G, in place of *jaksollinen geometria*), *täysi peitto* ·
+  *full coverage* (G = 1) and *peittoprototyyppi* · *coverage prototype* (Nov 21).
 
 ### Open
 
 Present these to @Pauli, one question at a time:
 1. **The five terms of commit 06f4c824d.** The session chose *graphics target*, *peittävyys*, *täysi peitto*,
    *paikka* and *perustapaus* by their use, without a question. The glossary marks them "chosen by use". @Pauli
-   decided *graphics target* and *peittävyys* on Nov 21. The facts for the other questions:
-   - *täysi peitto* and *yhtenäinen geometria* (G = 1): the code of the work says `GeometryPrototype.FullCoverage`, and
-     spec 01 says *full coverage*. Ticket 005 says *yhtenäinen geometria*.
+   decided *graphics target*, *peittävyys* and *täysi peitto* on Nov 21. The facts for the other questions:
    - *paikka* and *kohta* (a position): the decision of Nov 20 on the placements says *paikka*. The decision of Nov 19
      on the glyphs along the lines says *kohta*.
    - *perustapaus* and *perustilanne* (a basic case): the decision of Nov 20 on the structure of a line says
