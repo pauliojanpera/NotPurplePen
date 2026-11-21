@@ -44,6 +44,8 @@ specification, @Pauli, Nov 18).
 - A ticket of a part of the architecture has structural acceptance criteria, and not only criteria of the
   appearance ([Progress.md](Progress.md), "Next").
 - The tickets are written in Finnish.
+- A draft ticket sets no requirements for the other work. A session changes a draft only when @Pauli asks (@Pauli,
+  Nov 18). A draft is not implemented (@Pauli, Nov 21).
 
 ## Branches
 
@@ -78,5 +80,8 @@ specification, @Pauli, Nov 18).
 
 - [Progress.md](Progress.md) records each branch: its ticket and description, its full runs, the baselines that it
   moves, and the branches it is merged into. It records the decisions of the work, with @Pauli's dates.
+- A document records as @Pauli's decisions only his decisions, and otherwise the facts that were found. A session
+  does not give its own reading, its proposal or the practice of another document as a decision or a rule (@Pauli,
+  Nov 18).
 - The work stays out of `../NotPurplePenProgress.md` until `feature/palette-layers` is merged into `dev`. That merge,
   as all merges into `base`, `basewithfixes`, `dev` and `master`, needs @Pauli's word.

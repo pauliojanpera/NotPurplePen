@@ -129,7 +129,8 @@ of the tickets.
 
 In the plan that the session gave on Nov 20, the specification is written again by the glossary and by the structure
 of the passes after the glossary work. Then the tickets 009 to 013 follow it. The tickets, the older decisions in
-Progress.md and the original text of the specification still use the earlier words.
+Progress.md and the original text of the specification still use the earlier words. The tickets 009 to 013 are
+drafts. A draft is not implemented, and a session changes it only when @Pauli asks ([README.md](README.md)).
 
 ## Where things are
 
