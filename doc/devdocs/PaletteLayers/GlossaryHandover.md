@@ -25,9 +25,18 @@ Read these in this order:
 - The session presents one question at a time (Nov 20, Nov 21).
 - The session does not make proposals that @Pauli did not ask for (Nov 20).
 - When @Pauli uses a vague reference, the session asks him to make it exact (Nov 20, the preface of the glossary).
+- The code of the palette-layer branches is not a source of the new definition of `Map` that the glossary builds
+  (Nov 21).
+- A word of the specification is not an authority. @Pauli wrote some of its concepts in passing, for example *full
+  coverage* (Nov 21).
+- An ordinary word, for example the adjective *yhtenäinen* or the noun *peitto*, is not reserved for one concept. A
+  term is the whole expression (Nov 21).
 
-In that session, the session chose five terms by their use without a question (commit 06f4c824d), and it recorded the
-meaning of the palette layer before @Pauli decided it (commit 740d9b778). @Pauli objected to both.
+In the session of Nov 20, the session chose five terms by their use without a question (commit 06f4c824d), and it
+recorded the meaning of the palette layer before @Pauli decided it (commit 740d9b778). @Pauli objected to both. On
+Nov 21, the session based its recommendations for G = 1 on a name of the work's code, on a phrase of the
+specification and on the other uses of ordinary words, and not on the theory of the concept. @Pauli objected to each
+of these.
 
 ### How to make a question
 
@@ -36,6 +45,11 @@ meaning of the palette layer before @Pauli decided it (commit 740d9b778). @Pauli
 - **The session reads the sources before it asks.** The sources are the specification, the decisions in Progress.md
   and the tickets, and the code of upstream. The session does not ask @Pauli for facts that the sources give. It reads
   them, and it presents the result to him.
+- **The question gives the theoretical basis.** Before a question, the session does a proper investigation with its
+  theoretical knowledge, for example of mathematics and of the theory of computer graphics and compositing, so that
+  @Pauli has the theoretical basis of the choice (Nov 21). The counts of use, the words of the specification and the
+  code of the work are not a basis alone. For example, the theory showed that G is a coverage: the indicator function
+  of a set of the plane, and in compositing the alpha has two parts, the coverage and the opacity.
 - **The length is moderate.** @Pauli objected to answers that were too long, to answers that were too short, and to
   lists of fragments.
 
