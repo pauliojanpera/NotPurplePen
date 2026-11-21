@@ -198,6 +198,108 @@ Figure 4. The lattice can turn apart from its elements, and both can also turn t
 - Upstream draws the image layer and the layout layer with the same loop as the colors (`DrawColor`), through two pseudo-colors without a color value (`Map.ImageColor`, `Map.LayoutColor`). They are not palette colors.
 - The templates, the image layer and the layout layer have no palette color coverages. They are drawn beside the palette stack (section 04).
 
+## 03 / The intermediate layer
+
+`Map` makes the intermediate layer from the map alone, in pass 1. The intermediate layer is not source data, and `Map` stays the source. This section gives the units of the intermediate layer, their configurations, and the derived values with their forms.
+
+### Pass 1
+
+- Pass 1, layer instantiation, makes the palette separations and their palette cutters from the map alone. It takes no rectangle and no resolution of a drawing. To keep to the rectangle of a drawing is the work of pass 2.
+- Pass 1 takes the visible symbol definitions that have a palette color, and their visible symbols, wherever the symbols lie.
+- The templates, the image layer and the layout layer are not in the intermediate layer.
+- The symbol definitions give the derived values of the palette color coverages of their symbols.
+
+### The palette color coverages, the palette separations and the palette cutters
+
+- A palette color coverage of a symbol (`SymbolCoverage`) is the coverage of one `Symbol` in one palette color with one coverage prototype G: the triple (`Symbol`, `SymColor`, G). Its coverage is G under M inside the union of its clipping objects.
+- A symbol has one palette color coverage for each G in a palette color. Usually it has one. A cross hatching gives two, as upstream imports it as two hatchings of one color (`OcadImport`).
+- A palette color coverage of a symbol refers to its `Symbol`, its `SymColor` and its G, and it copies nothing. It keeps its own derived values.
+- A palette color coverage of a symbol is a coverage, and not a separation. A separation is named by what it separates by, as the ink separation and the palette separation are.
+- A palette separation (`PaletteSeparation`) is the palette color coverages of the symbols in one palette color. It keeps its palette cutters as a derived value.
+- A palette cutter (`PaletteCutter`) is the palette color coverages of the symbols in one palette separation that have the same configuration. It cuts the uniform color of the palette color to the coverage that G under M gives inside the union of its clipping objects.
+- Each palette color coverage of a symbol is in one palette cutter, and each palette cutter is in one palette separation.
+
+### The configurations
+
+- The configuration of a palette color coverage of a symbol is its palette color, its G and its effective affine transformation M. M comes from the `Symbol` and from G.
+- M is an invertible 2D affine transformation of G, and its default is the identity. M can translate, rotate, scale, shear or reflect G. The translation and the rotation are necessary now, and the architecture admits all the invertible 2D affine transformations.
+- For a hatching or an area pattern, M comes from the angle and the rotation center of the `AreaSymbol` (`Angle`, `RotationCenter`) and from the angle and the offset of G. The rotate mode `Never` leaves out the part of the `AreaSymbol`.
+- Two configurations are the same when they give the same coverage: the palette color and the coverage prototype are the same, and M₁⁻¹M₂ is a symmetry of G. A symmetry of G is an affine map S for which G∘S = G.
+- The symmetries of an area pattern include the translations of its lattice. The symmetries of a hatching include all the translations along its lines, and the translations across them by multiples of the spacing. All the maps are symmetries of the full coverage. So the palette color coverages with the full coverage in one palette separation are one palette cutter.
+- A normal form decides the sameness. The translation of M is reduced into a fundamental domain of the translations that are symmetries of G, and it is rounded to a fixed precision. The configurations with the same normal form are the same, and the relation is an equivalence.
+- The effective transformations can vary by symbol, by object and by element. Pass 1 makes a palette cutter for each configuration that no palette cutter has yet, and not only one for each symbol. The configurations that are the same share one palette cutter. The composition by palette color does not change.
+
+![Figure 5](figures/figure-5.png)
+
+Figure 5. One coverage prototype in four configurations: the prototype, two rotations and a translation. The palette cutters of the configurations refer to the same prototype, and the M of each gives its phase and its direction.
+
+### The clipping objects and the union
+
+- A clipping object (`ClippingObject`) limits the extent over which G of its palette cutter applies. It gives no color and no alpha. The clipping objects of a palette color coverage of a symbol are its derived values.
+- The union of the clipping objects of a palette cutter is a true union, also where each area fills with the even-odd rule.
+- The coverage of a palette separation is the union of the coverages of its palette cutters. The union can stay implicit in the rendering, but the palette color coverages of the symbols cannot be left out.
+- The clipping objects of a clipped pattern fill are the areas of the palette color coverages of the symbols in a palette cutter. So the overlapping areas of one configuration get the pattern once, in their union.
+
+### The selected elements
+
+- OCAD and OOM keep the clipped pattern fills apart from the fill modes that select complete elements by their relation to the area. Pass 1 resolves this difference, and not the composition by palette color. [3, 5]
+- A clipped pattern fill keeps its periodic coverage G.
+- The elements that a fill mode selects, and the placements of the elements of an irregular pattern, are derived values of a palette color coverage of a symbol. The composite representations of the selected elements are left to a later refinement.
+- Upstream selects each part of a glyph by its own points and center (`GlyphPartFilter`), and not the complete element.
+
+### The derived values
+
+- A derived value is a result that `Map` gives from the ideal form for the needs of the channels. It is not an ideal form, but a practical adaptation of the ideal form. Its form depends on what the implementations that the channels choose need: for example, the dashes on a curve can be Bezier pieces, polylines or both.
+- `Map` offers the known channel conversions as the means to make the derived values. `Map` offers all the geometric conversions, and their results are forms of `Map`: shapes, strokes, placements and polylines. For example, the conversion of the arcs into Bezier pieces is a channel conversion of `Map`.
+- `Map` keeps a derived value where the shared use of the channels or a cache of the results makes it sensible. A derived value is calculated when it is necessary the first time, and it becomes invalid when the map changes. A derived value that `Map` keeps acts as a computed value of reactive programming. Upstream keeps derived values in the same way, for example `SymPath.flatpoints`, `TextSymbol.wrappedText` and `Symbol.boundingBox`.
+- A palette color coverage of a symbol keeps its own derived values: for example the clipping objects, the parts of a line, the fitted dash patterns, the runs of dashes in the euclidean measure, the offset curves, the placements and the elements that a fill mode selects.
+- A derived value that depends on a definition alone belongs to the definition: for example the shared shapes of a glyph and a pattern tile.
+- A palette separation keeps its palette cutters as a derived value.
+- The channel conversions of the lines are, for example, the runs and the single dashes in the euclidean measure, a dash table, the repeated placements with a euclidean step, the pieces of the base path, the offset curves, and the expansion into single dashes and single placements. The channel conversions of the pattern fills are, for example, the placements of the elements of an irregular pattern, and a pattern tile that the conversion composes from single elements.
+
+### The forms of the derived values
+
+- A clipping object has a shape that is drawn (`ClippingObject.Shape`), a fill or a stroke, and a placement (`Placement`). For a filled shape, the shape is the outline of the area. For a stroked shape, the shape is the path at the middle of its stroke shape.
+- A shape (`Shape`) is a path (`PathShape`), an ellipse (`EllipseShape`), an arc (`ArcShape`) or a text run (`TextShape`). The shapes keep the ellipses and the arcs as ellipses and arcs, as the channels make polylines of them each in its own way. The border of a double line is an offset path.
+- In the painting models of PostScript, PDF and SVG, a path is painted with a fill or with a stroke. A fill paints the inside of the path by a fill rule (the operator `f` of PDF). A stroke paints the band that a pen draws along the path (the operator `S`).
+- A filled shape (`FilledShape`) is the one kind: it paints the inside of its shape by its fill rule (`FilledShape.FillRule`). A stroked shape (`StrokedShape`) is the other kind: a shape that a pen draws along its path.
+- The stroke shape is the band that the pen of a stroked shape covers along its path: its coverage. SVG 2 calls it the stroke shape. With round caps and joins, it is the Minkowski sum of the path and a disk as wide as the pen, that is the area that the disk sweeps.
+- A stroke (`Stroke`) has the width (`Width`), the caps (`Caps`), the join (`Join`), the miter limit (`MiterLimit`), and the dash pattern and its phase (`DashPattern`, `DashPhase`). A stroke has no color, as the palette color gives the color. The symbol definitions give the caps and the joins together as a line style (`LineStyle`).
+- The dash pattern and the dash phase of a stroke are in the measure of the channels: euclidean, along the own path of the stroked shape, as `stroke-dasharray` and `stroke-dashoffset` of SVG, the dash pattern of PDF and the dash effect of Skia measure. They belong to the runs of dashes. The dash structure in the measure of the line is the fitted pattern of a part of a line, and not a part of `Stroke`.
+- A text run (`TextShape`) is a word, or a grapheme where the character spacing is more than 0, at its own position. It has the text, the font family, the size, the effects and the top left corner. The channels take the positioned runs as they are, and the positions stay as Purple Pen measures them.
+- The framing of a text run in the style `FramingStyle.Line` is one line: a stroke of the full width with the joins of the symbol, as the PDF export of OCAD draws it.
+- The shared shapes of a glyph are one shape for each part of the glyph, and each placement of the glyph refers to them. Stretched and diminishing glyphs get shapes of their own.
+- A pattern tile is one cell of an area pattern, which a channel conversion composes from single elements.
+
+### The placements
+
+- A placement (`Placement`) gives one or more poses. Each reader asks a placement for its poses.
+- A pose is a point and an angle (x, y, θ). In the plane, it is a rotation and a translation, that is a rigid motion.
+- A placement keeps its sequence of steps (`Placement.Steps`): the affine transformations in the order in which the symbols set them. The pose is the innermost step. The placement composes its steps into one matrix (`Matrix`). Skia composes nested transformations with its own rounding, so with the same steps in the same order, the coverage is the same to the pixel.
+- A single placement keeps one pose.
+- A repeated placement keeps its path, its first position along the path, its step and its count. It calculates its poses from the path: the point of the path at each position along the path, and the direction of the path there, with the method of the drawing. Only an encoding that gives a repeated placement to an abstraction of its channel reads the path and the step.
+- A position along the path is a distance from the start of a path, in the measure of the line: the arc-length parameter s of the path. The step is the distance between two adjacent positions of a repeated placement, and the count is the number of its poses.
+- The evenly spaced glyphs of each part of a line are one repeated placement of the shared shapes, on straight and curved parts alike. On a Bezier curve, the glyphs of the OCAD spacing repeat by quarters, so the quarters have different steps.
+- The glyphs at the corners, at the dash points, at the start and at the end of a line are single placements of the shared shapes.
+
+### The structure of a line
+
+- `Map` keeps the ideal form of a line (section 02). The structure of a line also has what PDF and SVG cannot describe: the parts as pieces and offsets of the base path, the measure of the line, the fitted pattern of a part, the end dashes and the exceptions of fix 020. These are derived values, and they are the same for all the channels.
+- A line component is one of the components that a `LineSymDef` draws from the base path: the main line, the secondary line, the double line fill, a double line border, the pointy ends or the glyphs along the line.
+- A piece is an interval of the base path: its start and its end, as positions along the path in the measure of the line. The start and stop flags of the points and the shortening give the pieces of a line component.
+- An offset is the distance of a line component from the base path, to the side.
+- A part of a line is one line component on one piece of the base path, with its offset: the triple (line component, piece, offset).
+- A segment is the section of a piece of the base path between corner and dash points. The fitting gives a dash pattern to each segment, but it calculates the segments of a part of a line together: the minimum gaps apply to the longest segment only, and the decreasing glyphs to the first and the last segment. A segment is not a part of a line.
+- The fitted dash pattern (`ComputeDashDistances`) is the dash and the gap that the fitting gives to each segment of a part of a line.
+- The end dashes of adjacent segments merge into one dash at a corner point or a dash point.
+- An exception of fix 020 is a dash from which the rule of fix 020 leaves out the vertex.
+- The offset path is the shape of a border of a double line in its ideal form: the base path and the offset. Its dash pattern is measured along the base path, so the dashes and the runs of a border are the dashes and the runs of the base path moved aside, as in OCAD. The rule of the corners of the offset belongs to the shape, and the join belongs to the stroke. The offset curve is a derived value.
+- With the OCAD spacing (`SpacingMethod.OCAD`), each quarter of a Bezier curve has its chord in the metric of the map as its length in the measure. Within the quarter, the dashes and the glyphs are in proportion to the euclidean length of the arc.
+- The flattened path (`SymPath.GetFlattenedPoints`) is the polyline that approximates the curves of a path. A vertex is a point of the flattened path, and an edge is the straight piece between two adjacent vertices. The ideal form keeps the curves. A derived value can keep a polyline, and an encoding can choose one.
+- A run of dashes is the middle dashes of a segment as one periodic dashed line. The runs in the euclidean measure are the same for Skia, PDF and SVG, as their dash patterns measure the path euclidean.
+- With the OCAD spacing, the runs on a Bezier curve are by quarter, and the pattern of a run is scaled by the arc and the chord of its quarter. With the OCAD metric, the runs are also by straight edge: the OCAD metric measures a straight edge as a constant times its euclidean length, so the pattern of the run is scaled to euclidean by the direction of the edge. The dashes over a vertex are then single.
+- The composed dashed line is the form of a line for a channel whose dash pattern measures the euclidean length: the runs and the single dashes. An encoding writes it (section 04).
+
 ---
 
 # The text of Nov 17
