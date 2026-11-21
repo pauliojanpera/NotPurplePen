@@ -407,7 +407,7 @@ the rendering.
   `courseControlId`, `courseControlId2` and `specialId`). These fields are associations and not identities: a control
   circle and its control number, or the two parts of a leg that is flagged in part, have the same associations, and
   the map issue point of a leg has none on purpose. The class of the `CourseObj` is not a part of the key, so a whole
-  leg keeps its key when it becomes flagged. The name of the key is open. [Glossary.md](Glossary.md) gives the terms.
+  leg keeps its key when it becomes flagged. Its name is `CourseObj.Key`. [Glossary.md](Glossary.md) gives the terms.
 - **The framing line of texts** (Nov 19). The framing of a text run is one line in the instances, a stroke of the full
   width with the joins of the symbol, as in OCAD's PDF export. OCAD's own drawing leaves the same holes as Skia and
   Cairo with one pen, so the holes that the intermediate pens of Purple Pen fill are no faults against OCAD (question

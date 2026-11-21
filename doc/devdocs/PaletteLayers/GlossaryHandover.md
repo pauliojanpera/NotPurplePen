@@ -52,6 +52,9 @@ of these.
   @Pauli has the theoretical basis of the choice (Nov 21). The counts of use, the words of the specification and the
   code of the work are not a basis alone. For example, the theory showed that G is a coverage: the indicator function
   of a set of the plane, and in compositing the alpha has two parts, the coverage and the opacity.
+- **A trivial question is not asked alone.** When a choice follows from the model of an earlier decision, the session
+  states it in the question before it, as the choice that applies unless @Pauli proposes otherwise. For example, the
+  key of a `CourseObj` is `Key`, after the model of `Symbol.Key` (Nov 21).
 - **The length is moderate.** @Pauli objected to answers that were too long, to answers that were too short, and to
   lists of fragments.
 
@@ -100,8 +103,10 @@ These are @Pauli's decisions of Nov 20 and Nov 21. Glossary.md gives their terms
 - The identity of a `Symbol`: `Symbol.Key` · *symbolin avain* · *symbol key*. The maker of the `Symbol` gives it,
   `Map` from a counter and the course map from `EventDB` (Nov 21). Its basis is the future of `Map` and the SVG
   channel, in the decisions of [Progress.md](Progress.md).
-- The identity of a `CourseObj`: a key that `CourseFormatter` or `TopologyFormatter` gives at the place where it makes
-  the `CourseObj`, from the role of the place, the identifiers of `EventDB` and the `CourseLayer` (Nov 21).
+- The identity of a `CourseObj`: `CourseObj.Key` · *rataobjektin avain* · *course object key*, a key that
+  `CourseFormatter` or `TopologyFormatter` gives at the place where it makes the `CourseObj`, from the role of the
+  place, the identifiers of `EventDB` and the `CourseLayer`. The terms of `CourseObj` are *rataobjekti* · *course
+  object* (Nov 21).
 
 The five terms that the session chose by their use in commit 06f4c824d are all decided on Nov 21.
 
@@ -110,23 +115,22 @@ The five terms that the session chose by their use in commit 06f4c824d are all d
 Continue with these one at a time (@Pauli, Nov 21). Each question gives the theoretical basis of the choice, as "How
 to make a question" says. The glossary marks each item "Open" in the entries named here.
 
-1. **`Symbol.Key`:** the name of the key that is the identity of a `CourseObj`, and its terms.
-2. **peittoprototyyppi:** whether the shared structures that are not periodic, for example the shared shapes of a
+1. **peittoprototyyppi:** whether the shared structures that are not periodic, for example the shared shapes of a
    glyph, are prototypes or a concept of their own.
-3. **looginen polku:** whether the logical path is `LineLikeSymbol.Path`.
-4. **segmentti, pala:** whether a part in "the parts as its pieces and offsets" (the decision of Nov 20 on the
+2. **looginen polku:** whether the logical path is `LineLikeSymbol.Path`.
+3. **segmentti, pala:** whether a part in "the parts as its pieces and offsets" (the decision of Nov 20 on the
    structure of a line) is a segment or a line component, and the exact content of a piece.
-5. **kokoonpano:** when two configurations are the same (009, question 1).
-6. **`HatchInfo`, `AreaSymDef.RotateMode`:** whether a hatching is a prototype of its own or a pattern of line
+4. **kokoonpano:** when two configurations are the same (009, question 1).
+5. **`HatchInfo`, `AreaSymDef.RotateMode`:** whether a hatching is a prototype of its own or a pattern of line
    elements (009, question 3), and what `ManualOnly` means in the specification (009, question 4).
-7. **kanavamuunnos:** which channel conversions stay in the encodings.
-8. **`Stroke`, `Stroke.DashPattern`, `Stroke.DashPhase`:** the measure in which a pen keeps the dash pattern and its
+6. **kanavamuunnos:** which channel conversions stay in the encodings.
+7. **`Stroke`, `Stroke.DashPattern`, `Stroke.DashPhase`:** the measure in which a pen keeps the dash pattern and its
    phase after the decisions of Nov 20 (point 2 of 6 in the review of 011).
-9. **koodaus, `IGraphicsTarget`:** how the encodings relate to `IGraphicsTarget`, and its place when pass 2 and the
+8. **koodaus, `IGraphicsTarget`:** how the encodings relate to `IGraphicsTarget`, and its place when pass 2 and the
    encodings draw from the intermediate layer.
-10. **korostus:** whether the highlights stay a direct drawing (000).
+9. **korostus:** whether the highlights stay a direct drawing (000).
 
-The items 1 to 4 concern concepts and their names. The others are questions of the design of the specification and
+The items 1 to 3 concern concepts and their names. The others are questions of the design of the specification and
 of the tickets.
 
 ### After the glossary

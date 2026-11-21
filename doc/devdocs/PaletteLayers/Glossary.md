@@ -49,20 +49,14 @@ The section "Words that are not names" lists the words that are not used as name
   - In a `Map` that is read from a file or edited, `Map` gives it from a counter whose values it does not use again.
     When an edit replaces a `Symbol`, the replacing `Symbol` gets the same symbol key. The undo restores it, and a
     self-supporting vector file carries it.
-  - In the course map, `CourseLayout.RenderToMap` makes it from `EventDB`: from the identity of the `CourseObj` that
-    made the `Symbol`, and from the index of the `Symbol` among the symbols of that `CourseObj`. So a course map that
-    is made again gives the same symbol keys to the same `CourseObj`.
-
-  The identity of a `CourseObj` is a key that `CourseFormatter` or `TopologyFormatter` gives to it at the place where
-  it makes it. The key has three parts: the role of the place in the data of `EventDB`, for example the whole leg, the
-  beginning part of a leg or the map issue point of a leg; the identifiers of `EventDB` that the place uses; and the
-  `CourseLayer`. Each place has a role of its own, so two places do not give the same key. The key is apart from the
-  fields that the selection uses (`controlId`, `courseControlId`, `courseControlId2` and `specialId`). The class of the
-  `CourseObj` is not a part of the key: when a whole leg becomes flagged, its key stays the same.
+  - In the course map, `CourseLayout.RenderToMap` makes it from `EventDB`: from the course object key
+    (`CourseObj.Key`) of the course object that made the `Symbol`, and from the index of the `Symbol` among the
+    symbols of that course object. So a course map that is made again gives the same symbol keys to the same course
+    object.
 
   The symbol key is unique in its `Map`, so the reference of a drawn object also gives the `Map`. All the drawn objects
   of a `Symbol` share its symbol key, so it is not the `id` of an SVG element. It is not `SymDef.SymbolId`, which is
-  the number of a symbol definition. **Open:** the name of the key of a `CourseObj`.
+  the number of a symbol definition.
 - **paperikoordinaatit** · *paper coordinates* — The coordinates of a map, in millimeters on the printed map. The points
   are `PointF` values. The OCAD import divides the OCAD units of 0.01 mm by 100 (`OcadImport.ToWorldDimensions`). The
   comments of upstream also say *map coordinates* and *world coordinates* (see "Words that are not names"). The
@@ -237,6 +231,17 @@ The section "Words that are not names" lists the words that are not used as name
 - **ratakartta** · *course map* (`CourseLayout.RenderToMap`) — The map of the courses is a `Map` of its own, so the same
   pass 1 applies to it. One palette stack is for all the maps. Upstream makes it again when its `CourseLayout` changes
   (`MapDisplay.SetCourse`). The symbol keys of its symbols come from `EventDB` (`Symbol.Key`).
+- **`CourseObj`** · rataobjekti · *course object* — One object of the courses on the course map, for example a control
+  circle, a leg or a description. `CourseFormatter` and `TopologyFormatter` make the course objects of a
+  `CourseLayout` from the data of `EventDB`, and `CourseObj.AddToMap` makes their symbols in the course map. One course
+  object can make many symbols. Its fields `controlId`, `courseControlId`, `courseControlId2` and `specialId` are
+  associations that the selection uses, and not its identity.
+- **`CourseObj.Key`** · rataobjektin avain · *course object key* — The identity of a course object. `CourseFormatter`
+  or `TopologyFormatter` gives it at the place where it makes the course object. The key has three parts: the role of
+  the place in the data of `EventDB`, for example the whole leg, the beginning part of a leg or the map issue point of
+  a leg; the identifiers of `EventDB` that the place uses; and the `CourseLayer`. Each place has a role of its own, so
+  two places do not give the same key. The class of the `CourseObj` is not a part of the key: when a whole leg becomes
+  flagged, its key stays the same.
 
 ## The intermediate layer · Välikerros
 
