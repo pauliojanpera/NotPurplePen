@@ -265,22 +265,27 @@ one meaning" lists the words that name two or more concepts now.
 
 - **vaihe 1, ilmentäminen** · *pass 1, layer instantiation* (work: `Map.CreateLayerInstances`) — `Map` makes the
   palette separations and their palette cutters from the map alone, and no rectangle or resolution of a drawing
-  (spec 02; Nov 18, Nov 20). The symbol separations get their derivations from the geometry methods of the symbol
-  definitions (008; 011 to 013 in progress). *Vaihe* means a pass (@Pauli, Nov 20).
-- **`SymbolSeparation`** (proposed name) · symbolierottelu · *symbol separation* — The part of one `Symbol` that
-  belongs to one palette color and one coverage prototype G: the triple (`Symbol`, `SymColor`, G). It refers to these
-  objects and copies nothing. It keeps its own derivations (spec 02, Nov 20).
-- **`PaletteSeparation`** · palettierottelu · *palette separation* — The symbol separations of one palette color. It
-  keeps its palette cutters as a derivation (spec 02, Nov 20). The name is @Pauli's, and the Finnish term is
-  *palettierottelu* (@Pauli, Nov 20).
-- **`PaletteCutter`** · palettileikkuri · *palette cutter* — The symbol separations of one palette separation that have
-  the same configuration. It cuts the uniform color of the palette color to the coverage that G under M gives inside
-  the union of its clipping objects. Each symbol separation is in one palette cutter, and each palette cutter is in one
-  palette separation. The specification calls it a layer instance (spec 02, Nov 20). The name is @Pauli's (Nov 20).
+  (spec 02; Nov 18, Nov 20). The palette color coverages of the symbols get their derivations from the geometry
+  methods of the symbol definitions (008; 011 to 013 in progress). *Vaihe* means a pass (@Pauli, Nov 20).
+- **`SymbolCoverage`** · symbolin palettiväripeitto · *palette color coverage of a symbol* — The coverage of one
+  `Symbol` in one palette color with one coverage prototype G: the triple (`Symbol`, `SymColor`, G). Its coverage is
+  G under M inside the union of its clipping objects. A symbol has one for each G in a palette color: usually one,
+  and two for a cross hatching, which upstream imports as two hatchings of one color (`OcadImport`). It refers to
+  these objects and copies nothing. It keeps its own derivations (spec 02, Nov 20). The name is @Pauli's (Nov 21).
+  The triple is a coverage, and not a separation: a separation is named by what it separates by, as *värierottelu*
+  and *palettierottelu* are. It replaces the proposed name `SymbolSeparation` · symbolierottelu.
+- **`PaletteSeparation`** · palettierottelu · *palette separation* — The palette color coverages of the symbols in
+  one palette color. It keeps its palette cutters as a derivation (spec 02, Nov 20). The name is @Pauli's, and the
+  Finnish term is *palettierottelu* (@Pauli, Nov 20).
+- **`PaletteCutter`** · palettileikkuri · *palette cutter* — The palette color coverages of the symbols in one
+  palette separation that have the same configuration. It cuts the uniform color of the palette color to the coverage
+  that G under M gives inside the union of its clipping objects. Each palette color coverage of a symbol is in one
+  palette cutter, and each palette cutter is in one palette separation. The specification calls it a layer instance
+  (spec 02, Nov 20). The name is @Pauli's (Nov 20).
 - **kokoonpano, samanlainen kokoonpano** · *configuration, equivalent configuration* — The palette color, G and the
-  effective affine transformation M of a symbol separation. M comes from the `Symbol` and from G. The symbol
-  separations with the same configuration are one palette cutter (spec 02, 03; Nov 20). **Open:** when are two
-  configurations the same (009, question 1)?
+  effective affine transformation M of a palette color coverage of a symbol. M comes from the `Symbol` and from G.
+  The palette color coverages of the symbols with the same configuration are one palette cutter (spec 02, 03;
+  Nov 20). **Open:** when are two configurations the same (009, question 1)?
 - **kerrosilmentymä** · *layer instance* (work: `LayerInstance`) — The name of the specification for the palette
   cutter (spec 02). The class `LayerInstance` of the work has a palette color (`PaletteEntry`), a coverage prototype
   (`Prototype`), an affine transformation (`Transformation`) and kept clipping objects (`ClippingObjects`). For G = 1,
@@ -299,11 +304,11 @@ one meaning" lists the words that name two or more concepts now.
   offers the means to make derivations and to keep them, where the shared use of the channels or a cache of the
   results makes it sensible (@Pauli, Nov 20). The means are the known channel conversions of `Map`, and an encoding
   chooses the channel conversions that its channel can use (@Pauli, Nov 20). The Finnish term is @Pauli's (Nov 20),
-  and the English term is a proposed name. A symbol separation keeps its own derivations. A derivation that depends on
-  a definition alone belongs to the definition, for example the shared shapes of a glyph. A palette separation keeps
-  its palette cutters. A derivation is calculated when it is necessary the first time, and it becomes invalid when the
-  map changes (spec 02, Nov 20). Upstream keeps
-  derivations in the same way, for example `SymPath.flatpoints`, `TextSymbol.wrappedText` and `Symbol.boundingBox`.
+  and the English term is a proposed name. A palette color coverage of a symbol keeps its own derivations. A
+  derivation that depends on a definition alone belongs to the definition, for example the shared shapes of a glyph.
+  A palette separation keeps its palette cutters. A derivation is calculated when it is necessary the first time, and
+  it becomes invalid when the map changes (spec 02, Nov 20). Upstream keeps derivations in the same way, for example
+  `SymPath.flatpoints`, `TextSymbol.wrappedText` and `Symbol.boundingBox`.
   A derivation is not an ideal form, but a practical adaptation of the ideal form to the needs of the channels. Its
   form depends on what the implementations that the channels choose need: for example, the dashes on a curve can be
   Bezier pieces, polylines or both (@Pauli, Nov 20). In the work, the shapes keep ellipses and arcs as ellipses and
@@ -365,8 +370,8 @@ one meaning" lists the words that name two or more concepts now.
 
 - **`ClippingObject`** (work) · leikkausobjekti · *clipping object* — It limits the extent over which G of its palette
   cutter applies. It gives no color or alpha (spec 01). It has a shape that is drawn (`Shape`), a fill or a
-  stroke, and a placement (`Placement`) (Nov 18, Nov 20). The clipping objects of a symbol separation are its
-  derivations (spec 02, Nov 20).
+  stroke, and a placement (`Placement`) (Nov 18, Nov 20). The clipping objects of a palette color coverage of a
+  symbol are its derivations (spec 02, Nov 20).
 - **`ClippingObject.Shape`** (work) · piirtyvä muoto · *shape that is drawn* — The shape of a clipping object
   (Nov 20). For a fill, the shape is the outline of the area. For a stroke, the shape is the path at the middle of the
   band that the stroke covers.
@@ -432,7 +437,7 @@ one meaning" lists the words that name two or more concepts now.
   depends on the definition alone. The term is *kuvioruutu* · *pattern tile* (@Pauli, Nov 20).
 - **valitut elementit, epäsäännöllisen kuvion sijoitukset** · *selected elements, placements of an irregular pattern* —
   The elements that a fill mode selects, and the placements of the elements of an irregular pattern, are derivations of
-  a symbol separation (spec 03, Nov 20).
+  a palette color coverage of a symbol (spec 03, Nov 20).
 
 ## The rendering side · Renderöinnin puoli
 
@@ -442,8 +447,8 @@ encodings make themselves (spec 02, Nov 20).
 - **vaihe 2, koostaminen** · *pass 2, layer composition* — *Vaihe* means a pass (@Pauli, Nov 20). It takes the
   palette separations in palette order. For each palette separation, an encoding writes the transparency group of its
   palette color, to which C, α and B apply once. In the group, the encoding writes each palette cutter with one fill
-  and one clip, or each symbol separation separately. Pass 2 does not call the drawing code of the symbols (`Draw`)
-  (spec 02, 05; Nov 20, Nov 21). The specification calls the operation compositing.
+  and one clip, or each palette color coverage of a symbol separately. Pass 2 does not call the drawing code of the
+  symbols (`Draw`) (spec 02, 05; Nov 20, Nov 21). The specification calls the operation compositing.
 - **palettivärin läpinäkyvyysryhmä** · *transparency group of a palette color* — The group that pass 2 composites
   for one palette color. Its content is the color C on the coverage of the palette separation. The group is
   composited once onto the backdrop, with the opacity α and the blend mode B of the palette color ("One compositing
@@ -493,10 +498,10 @@ encodings make themselves (spec 02, Nov 20).
   target*, the documents of the SVG work say *graphics target*, and the Finnish tickets say *piirtokohde*. The
   application that ships uses the graphics targets of `Map_SkiaStd` and `Map_PDF` (Nov 18). **Open:** its place when
   pass 2 and the encodings draw from the intermediate layer.
-- **piirrosobjekti** · *drawn object* — An object that an encoding writes. Each drawn object refers to its symbol
-  separation, and through it to its `Symbol`, `SymColor` and G (spec 02, Nov 20). In a file, the drawn objects keep a
-  link back to the ideal forms that is as direct as possible, also through the hierarchy of the file, so that the SVG
-  graphics can be a part of a web user interface (@Pauli, Nov 20).
+- **piirrosobjekti** · *drawn object* — An object that an encoding writes. Each drawn object refers to its palette
+  color coverage of a symbol, and through it to its `Symbol`, `SymColor` and G (spec 02, Nov 20). In a file, the
+  drawn objects keep a link back to the ideal forms that is as direct as possible, also through the hierarchy of the
+  file, so that the SVG graphics can be a part of a web user interface (@Pauli, Nov 20).
 - **viittaus** · *reference* — What the map side lets a drawn object refer to is not duplicated in the drawn objects.
   They use it through references (Nov 20). A drawn object links directly to the parts of the content of `Map`. It can
   take the geometry that it draws by reference from the shared parts of the intermediate layer. The link and the reuse

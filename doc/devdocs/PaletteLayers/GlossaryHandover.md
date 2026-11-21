@@ -90,16 +90,17 @@ Glossary.md has all the decisions of Nov 20 and Nov 21, each with @Pauli's name 
 - The case that a channel solves with an abstraction of its own: *perustapaus* · *base case* (Nov 21).
 - The group that pass 2 composites for a palette color: *palettivärin läpinäkyvyysryhmä* · *transparency group of a
   palette color*, in place of *palettitaso* (Nov 21).
+- The triple (`Symbol`, `SymColor`, G): `SymbolCoverage` · symbolin palettiväripeitto · *palette color coverage of a
+  symbol*, in place of the proposed `SymbolSeparation` · symbolierottelu (Nov 21).
 
 The five terms that the session chose by their use in commit 06f4c824d are all decided on Nov 21.
 
 ### Open
 
 Present these to @Pauli, one question at a time:
-1. **The name of the triple** (`Symbol`, `SymColor`, G): `SymbolSeparation` · symbolierottelu is a proposed name.
-2. **The proposed English and Finnish names:** *derivation* for *johdos*, and *kynänjälki* for the band that a pen
+1. **The proposed English and Finnish names:** *derivation* for *johdos*, and *kynänjälki* for the band that a pen
    covers along a path.
-3. **The items marked "Open" in the glossary.** On Nov 21 they are:
+2. **The items marked "Open" in the glossary.** On Nov 21 they are:
    - the identifier of a `Symbol` to which a drawn object of a file can refer
    - whether the shared structures that are not periodic, for example the shared shapes of a glyph, are prototypes
    - whether the logical path is `LineLikeSymbol.Path`
