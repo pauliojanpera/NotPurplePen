@@ -77,7 +77,8 @@ Glossary.md has all the decisions of Nov 20 and Nov 21, each with @Pauli's name 
   and *separaatio* and *erottelu*.
 - The readings of "the model" in the decisions of Nov 20, in the entry of *malli*.
 - The terms of the words that had more than one meaning: *symboli*, *vaihe*, *viiva* and *kynä*, *taitepiste* and
-  *jana*, the layers of `SymLayer`, *värierottelu* and *palettierottelu*, *palettitaso*, and *palettiväri*.
+  *jana*, the layers of `SymLayer`, *värierottelu* and *palettierottelu*, *palettitaso* (replaced on Nov 21), and
+  *palettiväri*.
 - The names of the structure of the passes: `PaletteSeparation` · palettierottelu and `PaletteCutter` ·
   palettileikkuri, and the Finnish term *johdos*.
 - The terms of `IGraphicsTarget`: *piirtokohde* · *graphics target* (Nov 21).
@@ -87,19 +88,18 @@ Glossary.md has all the decisions of Nov 20 and Nov 21, each with @Pauli's name 
 - A point and an angle, and a place on a path: *asema* · *pose* and *kohta* · *position along the path* (Nov 21). They
   replace *paikka* · *position*.
 - The case that a channel solves with an abstraction of its own: *perustapaus* · *base case* (Nov 21).
+- The group that pass 2 composites for a palette color: *palettivärin läpinäkyvyysryhmä* · *transparency group of a
+  palette color*, in place of *palettitaso* (Nov 21).
 
 The five terms that the session chose by their use in commit 06f4c824d are all decided on Nov 21.
 
 ### Open
 
 Present these to @Pauli, one question at a time:
-1. **The meaning of *palettitaso*.** The glossary gives the meaning that the specification gives (commit 740d9b778):
-   the compositing layer of a palette color, as section 05 says: "One compositing layer per palette entry". @Pauli has
-   not decided it.
-2. **The name of the triple** (`Symbol`, `SymColor`, G): `SymbolSeparation` · symbolierottelu is a proposed name.
-3. **The proposed English and Finnish names:** *derivation* for *johdos*, and *kynänjälki* for the band that a pen
+1. **The name of the triple** (`Symbol`, `SymColor`, G): `SymbolSeparation` · symbolierottelu is a proposed name.
+2. **The proposed English and Finnish names:** *derivation* for *johdos*, and *kynänjälki* for the band that a pen
    covers along a path.
-4. **The items marked "Open" in the glossary.** On Nov 21 they are:
+3. **The items marked "Open" in the glossary.** On Nov 21 they are:
    - the identifier of a `Symbol` to which a drawn object of a file can refer
    - whether the shared structures that are not periodic, for example the shared shapes of a glyph, are prototypes
    - whether the logical path is `LineLikeSymbol.Path`

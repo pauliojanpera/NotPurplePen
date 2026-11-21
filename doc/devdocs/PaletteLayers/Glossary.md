@@ -71,8 +71,9 @@ one meaning" lists the words that name two or more concepts now.
   term is *palettiväri* · *palette color* (@Pauli, Nov 20). Upstream calls it a color, the specification a palette
   entry, and the tickets *palettimerkintä*. The comments of upstream also call the colors layers ("colors (layers)",
   `RenderOptions`).
-- **palettipino, palettijärjestys, prioriteetti** · *palette stack, palette order, priority* — The ordered stack of
-  the palette layers, and the order in which pass 2 composites the groups (spec 01, 02, 05). The colors of a map are
+- **palettipino, palettijärjestys, prioriteetti** · *palette stack, palette order, priority* — The transparency
+  groups of the palette colors in palette order, and the order in which pass 2 composites them (spec 01, 02, 05;
+  @Pauli, Nov 21). The colors of a map are
   `Map.AllColors`, and upstream draws them from the lowest to the highest (005). One palette stack is for all the maps,
   the courses included (000).
 - **väri C** · *color C* — A spatially constant color, independent of color space (spec 01). A `SymColor` of
@@ -250,7 +251,8 @@ one meaning" lists the words that name two or more concepts now.
 - **`SymLayer.Layout`** · asettelutaso · *layout layer* — The layer above all the normal layers. Its objects are
   layout objects, with a special symbol definition (`ImageSymDef`). It is not a palette color (005).
 - **`SymLayer.Normal`** · tavallinen taso · *normal layer* — The layer between the image layer and the layout layer.
-  It holds the palette layers in palette order, as a group of layers holds layers in image editing (Nov 20).
+  It holds the transparency groups of the palette colors in palette order, as a group of layers holds layers in image
+  editing (Nov 20, Nov 21).
 - **ratakartta** · *course map* (`CourseLayout.RenderToMap`) — The map of the courses is a `Map` of its own, so the
   same pass 1 applies to it (005). One palette stack is for all the maps (000).
 
@@ -438,18 +440,28 @@ The rendering side reads the intermediate layer. It keeps none of the results of
 encodings make themselves (spec 02, Nov 20).
 
 - **vaihe 2, koostaminen** · *pass 2, layer composition* — *Vaihe* means a pass (@Pauli, Nov 20). It takes the
-  palette separations in palette order. For
-  each palette separation, an encoding writes one group, to which C, α and B apply once. In the group, the encoding
-  writes each palette cutter with one fill and one clip, or each symbol separation separately. Pass 2 does not call
-  the drawing code of the symbols (`Draw`) (spec 02, 05; Nov 20). The specification calls the operation compositing.
-- **palettitaso** · *palette layer* — The compositing layer of a palette color: pass 2 applies the color, the opacity
-  and the blend mode of the palette color once to the coverage of its palette separation ("One compositing layer per
-  palette entry", spec 05). One palette layer is for each palette color, and the palette stack is the palette layers
-  in palette order (spec 01; "Ordered palette entries / compositing layers", the table of the introduction). The
-  palette color is its definition, and the palette separation is its content. In the single-instance model of
-  spec 01, a palette layer also has G and M. Spec 02 gives them to the layer instances, which are the palette cutters.
-  It is a layer in the sense of the layers of image editing. The term is *palettitaso* (@Pauli, Nov 20). It is not
-  *väritaso*, as *värierottelu* is the separation of an ink. The tickets call it *palettikerros*.
+  palette separations in palette order. For each palette separation, an encoding writes the transparency group of its
+  palette color, to which C, α and B apply once. In the group, the encoding writes each palette cutter with one fill
+  and one clip, or each symbol separation separately. Pass 2 does not call the drawing code of the symbols (`Draw`)
+  (spec 02, 05; Nov 20, Nov 21). The specification calls the operation compositing.
+- **palettivärin läpinäkyvyysryhmä** · *transparency group of a palette color* — The group that pass 2 composites
+  for one palette color. Its content is the color C on the coverage of the palette separation. The group is
+  composited once onto the backdrop, with the opacity α and the blend mode B of the palette color ("One compositing
+  layer per palette entry", spec 05). So the overlaps of one palette color do not get α twice. One transparency group
+  is for each palette color. The palette color is its definition, and the palette separation is its content. In the
+  single-instance model of spec 01, a palette layer also has G and M. Spec 02 gives them to the layer instances, which
+  are the palette cutters. The term is *palettivärin läpinäkyvyysryhmä* · *transparency group of a palette color*
+  (@Pauli, Nov 21). It replaces *palettitaso* · *palette layer* (@Pauli, Nov 20).
+
+  The theory: the transparency model of PDF (ISO 32000) calls this unit a transparency group. The objects of the group
+  are composited into one result, and the result is composited onto the backdrop with the opacity and the blend mode
+  of the group. The model of W3C (Compositing and Blending) calls it a group, and image editing and `saveLayer` of
+  Skia call it a layer. A group is composited in a blending color space, which can be RGB, or CMYK with spot inks. The
+  separable blend modes, for example Darken and Multiply, apply to each color component. So in this model the group
+  is the same in all the rendering modes, and only the blending space changes. In a CMYK group, Darken takes the
+  larger share of each ink, as the PDF export of OCAD does ([oracles/ocad-darken.md](oracles/ocad-darken.md)). The
+  transparency flattening (spec 08) flattens these groups. The specification calls the group a palette layer, and the
+  tickets call it *palettikerros*.
 - **piirtotila, väriasetus** · *rendering mode, color configuration* — A rendering mode is a color configuration of
   pass 2: the normal view, the overprinting that the inks simulate, or the separations (000; spec 06, 07). All the
   rendering modes use the same intermediate layer (Progress.md, "Next"). **Upstream:** the render options
@@ -554,8 +566,9 @@ encodings make themselves (spec 02, Nov 20).
   *värierottelu* · *ink separation* and *palettierottelu* · *palette separation* (@Pauli, Nov 20).
 - **kerros** — Not a term (@Pauli, Nov 20). The decision concerns the Finnish word.
 - **ryhmä** — Not a term (@Pauli, Nov 20). The decision concerns the Finnish word. The specification uses *group*
-  as a verb in pass 2 ("Group instances by palette entry"), and for the SVG element `<g>` that encodes a palette
-  layer (spec 05).
+  as a verb in pass 2 ("Group instances by palette entry"), and for the SVG element `<g>` that encodes the
+  transparency group of a palette color (spec 05). The decision concerns *ryhmä* alone: *palettivärin
+  läpinäkyvyysryhmä* is a term (@Pauli, Nov 21).
 - **ajo** · *run* — Not a term in the sense of a sequence, where it translates *run* word for word. The terms are
   *katkojuoste* · *run of dashes* and *tekstijuoste* · *text run* (`TextShape`) (@Pauli, Nov 20). A run of the tests
   (*täysi ajo*) is a word of the process.
