@@ -56,6 +56,11 @@ specification, @Pauli, Nov 18).
 - A branch runs in full on `wip/linux/<name>`, on `base` (`tools/push-wip.sh`, @Pauli, Nov 18). `base` holds upstream,
   the workflows and the test tools of the fork, and not the fixes of `basewithfixes`. A fix that a part needs is merged
   into `feature/palette-layers`. A branch records on itself only the baselines that it moves.
+- On top of d48f4456, `base` changes only these files in `src/MapModel` and `src/PurplePenCore` (`origin/base` at
+  d256a9e8, Nov 21): the `AssemblyInfo.cs` files, the tests of `src/MapModel`, the strings of `MiscText`,
+  `VersionNumber.cs` and the cache of the PDF conversions (`PdfMapFile.cs`). Its other changes are in other folders,
+  for example `src/AvPurplePen`, the tests, the installer and the workflows. So the code of `Map`, of the symbols, of
+  the graphics targets and of the courses is the same at d48f4456 and in `base`.
 - A branch is done when its ticket's criteria are met and its full run passed.
 
 ## Pull request descriptions

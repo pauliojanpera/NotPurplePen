@@ -138,9 +138,9 @@ of that (@Pauli, Nov 21). A draft is not implemented, and a session changes it o
 
 - **The main clone** `~/Documents/Projects/NotPurplePen` is on `docs/process-coordination`. The glossary and the other
   documents are there. Do not change its branch. Commit and push there.
-- **The code of upstream:** the worktree `~/Documents/Projects/npp-worktrees/upstream` is detached at the master of
-  upstream, bcd20c43c (fetched on Nov 20). The names of upstream in the glossary come from it. The files of
-  `src/MapModel/MapModel` and `src/MapModel/Graphics2D` are the same there as at d48f4456.
+- **The code of upstream:** the worktree `~/Documents/Projects/npp-worktrees/upstream` is detached at d48f4456, where
+  `base` meets upstream (Nov 21). The names of upstream in the glossary come from it. `base` has the same code of `Map`,
+  of the symbols, of the graphics targets and of the courses ([README.md](README.md), "Branches").
 - **The code of the work:** the worktree `~/Documents/Projects/npp-worktrees/text-geometry` is at 2ad8c6f39. The names
   marked "work" in the glossary come from it.
 - **The transcripts** in `~/.claude/projects/-home-pauli-Documents-Projects-NotPurplePen/`: the session of Nov 20 and
