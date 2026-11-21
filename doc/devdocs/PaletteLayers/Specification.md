@@ -1,10 +1,93 @@
 # Palette-layer vector graphics architecture
 
 > This is a working document converted from `Palette_Layer_Vector_Graphics_Specification_Revised.docx` on Nov 17, 2026.
+> This text was written again on Nov 21, 2026, in the terms of [Glossary.md](Glossary.md) and by the structure of the passes (@Pauli, Nov 21).
 > This specification was never the basis of NotPurplePen. Rather this is the reference for an architecture change of upstream's map model, to be later on integrated into NotPurplePen. Where NotPurplePen already knows how to take the model further, this specification does not bind as such, and the knowledge can be used to develop this specification further.
 > By default, the branch feature/multiply-blending is the oracle of this work (@Pauli, Nov 17).
 > That branch is an oracle of the appearance only, not a model of the implementation. The goal of this work is the architecture that this specification separates: pass 1 makes the instances, and pass 2 composites them. feature/multiply-blending gets its appearance in another way: it blends an ink as a layer around the drawing of the symbols. Where this specification leaves room to do the same, the room is not meant. The work does not read the code of that branch (@Pauli, Nov 18).
 > OCAD and OpenOrienteering Mapper are the authorities on how their own maps render. For Mapper maps, Mapper is an oracle of the appearance: this architecture may organize the vector structure in its own way, but where Mapper implements the function, the result must look as Mapper draws it, except where we find a bug in Mapper (@Pauli, Nov 17).
+
+Design specification / Cartographic rendering
+
+**A generalized vector model of palette separations, with symbol-driven layer instantiation of affine-transformed periodic coverages and compositing in palette order.**
+
+This architecture is intended for application within a surrounding system design. It captures the essential rendering architecture of OCAD and OpenOrienteering Mapper (OOM) in terms that the channels Skia, PDF and SVG can express. It is independent of the color space. The transparency flattening is a separate optimization task.
+
+[Glossary.md](Glossary.md) gives the names of the concepts: the name in the code, which is the primary name, and the Finnish and the English term. [Progress.md](Progress.md) gives the decisions of the work with their dates. The oracles of the appearance, with their sources and measurements, are in [oracles/](oracles/).
+
+## Relationship to OCAD and OOM
+
+Both applications draw by a table of colors in priority order, and not only by the drawing order of complete objects. Each element of a symbol adds geometry to its own color. In its PDF export, OCAD applies a blend mode to each color. OOM simulates the overprinting of the spot colors. Both applications can turn and move the patterns of each object. [1–5]
+
+| Cartographic concept | In this architecture |
+|---|---|
+| Color table and color priority | The palette colors (`SymColor`) in palette order: the palette stack |
+| Symbol elements | The clipping objects of the palette color coverages of the symbols (`SymbolCoverage`) |
+| Solid area fills | The full coverage G = 1 |
+| Hatched and structured area fills | The periodic coverage G of a hatching or of an area pattern, or the elements that a fill mode selects |
+| Pattern offset and orientation | The affine transformation M of a configuration, from the lattice transformation L and the element transformation E |
+| Opacity / alpha and blend mode | The opacity α and the blend mode B of the palette color, which pass 2 applies once to its transparency group |
+| Overprint (OCAD) / knockout (OOM) | Inverse terms for the printing behavior, apart from α |
+
+## Scope of equivalence
+
+The architecture keeps the palette color apart from the ink. It supports the direct compositing of the colors and the ink separations. RGB and CMYK are representations of a color, and not properties of a coverage. [1, 2, 4]
+
+## 01 / The structure of the passes
+
+The architecture has three parts: the map side, the intermediate layer that pass 1 makes from the map, and the rendering side. Sections 02, 03 and 04 give the three parts. This section gives the whole.
+
+### The units
+
+| Unit | Part | Role |
+|---|---|---|
+| `Map` | Map side | The source. It keeps the ideal forms. |
+| `SymColor`, palette color | Map side | The color C, the opacity α, the blend mode B, the knockout, the ink components and the priority. |
+| `CoveragePrototype`, coverage prototype | Map side | The coverage G in its origin-bound form: the full coverage, a hatching or an area pattern of a `SymDef`. |
+| `Symbol`, symbol | Map side | One object of a map, with its symbol key (`Symbol.Key`). |
+| `SymbolCoverage`, palette color coverage of a symbol | Intermediate layer | The coverage of one `Symbol` in one palette color with one G: the triple (`Symbol`, `SymColor`, G). |
+| `PaletteSeparation`, palette separation | Intermediate layer | The palette color coverages of the symbols in one palette color. |
+| `PaletteCutter`, palette cutter | Intermediate layer | The palette color coverages of the symbols in one palette separation that have the same configuration. |
+| `ClippingObject`, clipping object | Intermediate layer | A derived value that limits the extent over which G applies. |
+| Transparency group of a palette color | Rendering side | The group that pass 2 composites for one palette color. |
+| Encoding | Rendering side | It writes the drawing for one channel. |
+
+### The coverage and the color
+
+A palette color takes part in the drawing only where its coverage is. A coverage is binary: a point of the plane is in the coverage, or it is not. The coverage of a palette cutter is G under M inside the union of its clipping objects. The clipping objects give no color and no alpha. The color C, the opacity α and the blend mode B belong to the palette color alone.
+
+![Figure 1](figures/figure-1.png)
+
+Figure 1. A clipping object limits the extent of the periodic coverage G. The coverage that results stays binary.
+
+In compositing, the alpha has two parts: the coverage and the opacity. This architecture keeps them apart. G and the clipping objects give the binary coverage, and the opacity α is a property of the palette color.
+
+### The two passes
+
+**Pass 1, layer instantiation.** `Map` makes the palette separations of the palette color coverages of the symbols, and their palette cutters, from the map alone. Pass 1 takes no rectangle and no resolution of a drawing. The symbol definitions give the derived values of the palette color coverages of their symbols.
+
+**Pass 2, layer composition.** Pass 2 takes the palette separations in palette order. For each palette separation, an encoding writes the transparency group of its palette color. C, α and B apply once to the group. Pass 2 does not call the drawing code of the symbols (`Draw`).
+
+![Figure 2](figures/figure-2.png)
+
+Figure 2. Pass 1 makes a palette separation for each palette color, and in it a palette cutter for each configuration: here, the green hatching has three configurations. Pass 2 composites the transparency groups of the palette colors in palette order.
+
+### The rules of the structure
+
+- `Map` is the source. It keeps in its ideal form the information that an encoding needs: the palette colors in palette order, the symbol definitions with their parts, the symbols with their geometry in paper coordinates, and the metric that the source means to be used.
+- The intermediate layer is not source data. `Map` makes it from the map, and `Map` stays the source.
+- When an encoding needs information, `Map` keeps it, and the intermediate layer gives access to it in forms that are more usable for the needs of the channels. The encoding recognizes no structure.
+- `Map` offers the known channel conversions as the means to make derived values from its ideal forms. `Map` keeps a derived value where the shared use of the channels or a cache of the results makes it sensible.
+- The palette colors of a map are drawn by pass 2 only. The normal view is a rendering mode of pass 2, as the simulated overprinting and the ink separations are.
+- An encoding writes its channel directly. `IGraphicsTarget` stays beside the palette stack, and it draws what does not belong to the palette stack.
+- One palette stack is for all the maps, the courses included.
+- The coverages and the compositing of the colors are at different levels of the architecture. The number of palette cutters can grow apart from the number of palette colors. The inks are independent of both.
+
+---
+
+# The text of Nov 17
+
+This is the text of Nov 17, with @Pauli's notes of Nov 18 to 20. The sections above replace it part by part, and the last part of the work removes it. Until then, the section and figure numbers that the other documents give refer to this text.
 
 Design specification / Cartographic rendering
 
