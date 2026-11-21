@@ -400,6 +400,14 @@ the rendering.
   The reference of a drawn object also gives the `Map`. The content of the identity of a `CourseObj` is open. The
   basis is the future of `Map` and the SVG channel: the mutations of the SVG DOM need keys that stay the same over the
   edits and over the course maps that are made again. [Glossary.md](Glossary.md) gives the terms.
+- **The identity of a `CourseObj`** (Nov 21). The identity of a `CourseObj`, from which the symbol key of the course
+  map comes, is a key that `CourseFormatter` or `TopologyFormatter` gives to it at the place where it makes it: the
+  role of the place in the data of `EventDB`, the identifiers of `EventDB` that the place uses, and the `CourseLayer`.
+  Each place has a role of its own. The key is apart from the fields that the selection uses (`controlId`,
+  `courseControlId`, `courseControlId2` and `specialId`). These fields are associations and not identities: a control
+  circle and its control number, or the two parts of a leg that is flagged in part, have the same associations, and
+  the map issue point of a leg has none on purpose. The class of the `CourseObj` is not a part of the key, so a whole
+  leg keeps its key when it becomes flagged. The name of the key is open. [Glossary.md](Glossary.md) gives the terms.
 - **The framing line of texts** (Nov 19). The framing of a text run is one line in the instances, a stroke of the full
   width with the joins of the symbol, as in OCAD's PDF export. OCAD's own drawing leaves the same holes as Skia and
   Cairo with one pen, so the holes that the intermediate pens of Purple Pen fill are no faults against OCAD (question

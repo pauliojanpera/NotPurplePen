@@ -100,6 +100,8 @@ These are @Pauli's decisions of Nov 20 and Nov 21. Glossary.md gives their terms
 - The identity of a `Symbol`: `Symbol.Key` · *symbolin avain* · *symbol key*. The maker of the `Symbol` gives it,
   `Map` from a counter and the course map from `EventDB` (Nov 21). Its basis is the future of `Map` and the SVG
   channel, in the decisions of [Progress.md](Progress.md).
+- The identity of a `CourseObj`: a key that `CourseFormatter` or `TopologyFormatter` gives at the place where it makes
+  the `CourseObj`, from the role of the place, the identifiers of `EventDB` and the `CourseLayer` (Nov 21).
 
 The five terms that the session chose by their use in commit 06f4c824d are all decided on Nov 21.
 
@@ -108,8 +110,7 @@ The five terms that the session chose by their use in commit 06f4c824d are all d
 Continue with these one at a time (@Pauli, Nov 21). Each question gives the theoretical basis of the choice, as "How
 to make a question" says. The glossary marks each item "Open" in the entries named here.
 
-1. **`Symbol.Key`:** the content of the identity of a `CourseObj`, from which the symbol key of a `Symbol` of the
-   course map comes.
+1. **`Symbol.Key`:** the name of the key that is the identity of a `CourseObj`, and its terms.
 2. **peittoprototyyppi:** whether the shared structures that are not periodic, for example the shared shapes of a
    glyph, are prototypes or a concept of their own.
 3. **looginen polku:** whether the logical path is `LineLikeSymbol.Path`.
@@ -125,7 +126,7 @@ to make a question" says. The glossary marks each item "Open" in the entries nam
    encodings draw from the intermediate layer.
 10. **korostus:** whether the highlights stay a direct drawing (000).
 
-The items 2 to 4 concern concepts and their names. The others are questions of the design of the specification and
+The items 1 to 4 concern concepts and their names. The others are questions of the design of the specification and
 of the tickets.
 
 ### After the glossary

@@ -53,9 +53,16 @@ The section "Words that are not names" lists the words that are not used as name
     made the `Symbol`, and from the index of the `Symbol` among the symbols of that `CourseObj`. So a course map that
     is made again gives the same symbol keys to the same `CourseObj`.
 
+  The identity of a `CourseObj` is a key that `CourseFormatter` or `TopologyFormatter` gives to it at the place where
+  it makes it. The key has three parts: the role of the place in the data of `EventDB`, for example the whole leg, the
+  beginning part of a leg or the map issue point of a leg; the identifiers of `EventDB` that the place uses; and the
+  `CourseLayer`. Each place has a role of its own, so two places do not give the same key. The key is apart from the
+  fields that the selection uses (`controlId`, `courseControlId`, `courseControlId2` and `specialId`). The class of the
+  `CourseObj` is not a part of the key: when a whole leg becomes flagged, its key stays the same.
+
   The symbol key is unique in its `Map`, so the reference of a drawn object also gives the `Map`. All the drawn objects
   of a `Symbol` share its symbol key, so it is not the `id` of an SVG element. It is not `SymDef.SymbolId`, which is
-  the number of a symbol definition. **Open:** the content of the identity of a `CourseObj`.
+  the number of a symbol definition. **Open:** the name of the key of a `CourseObj`.
 - **paperikoordinaatit** · *paper coordinates* — The coordinates of a map, in millimeters on the printed map. The points
   are `PointF` values. The OCAD import divides the OCAD units of 0.01 mm by 100 (`OcadImport.ToWorldDimensions`). The
   comments of upstream also say *map coordinates* and *world coordinates* (see "Words that are not names"). The
