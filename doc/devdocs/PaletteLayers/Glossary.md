@@ -503,7 +503,10 @@ encodings make themselves.
 - **itsensä kannatteleva vektoritiedosto** · *self-supporting vector file* — An SVG or a PDF file that carries the
   content of `Map`, so that Purple Pen can one day read it from the file. The opening is not in the scope of the epic.
 - **korostus** · *highlight* (`Symbol.DrawHighlight`, `CourseObj.DrawHighlight`) — It is drawn directly on the graphics
-  target, and it stays a direct drawing beside the palette stack.
+  target, and it stays a direct drawing beside the palette stack in the channels that have a graphics target. A direct
+  drawing keeps nothing over the renderings: the selection keeps the state, and each rendering draws the highlights
+  again. **Open:** how the highlights are expressed in the SVG DOM of the browser, and whether they stay there over the
+  renderings, as a style of the drawn objects through their symbol keys or as a layer of their own.
 - **läpinäkyvyyden litistys** · *transparency flattening* — The conversion of the transparencies into opaque vector
   objects. It is not in the scope of the epic.
 
