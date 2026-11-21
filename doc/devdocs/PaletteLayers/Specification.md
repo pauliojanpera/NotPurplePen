@@ -83,6 +83,121 @@ Figure 2. Pass 1 makes a palette separation for each palette color, and in it a 
 - One palette stack is for all the maps, the courses included.
 - The coverages and the compositing of the colors are at different levels of the architecture. The number of palette cutters can grow apart from the number of palette colors. The inks are independent of both.
 
+## 02 / The map side
+
+`Map` is the source, and it keeps the structure in its ideal form. This section gives what `Map` keeps: the palette colors and the inks, the symbol definitions and the symbols with their keys, the coverage prototypes and the ideal forms of the lines. It also gives what is beside the palette stack.
+
+### The map and the ideal form
+
+- `Map` holds the palette colors (`SymColor`), the symbol definitions (`SymDef`), the symbols (`Symbol`), the templates (`TemplateInfo`), the scales, the print area, the georeferencing and the metric.
+- The geometry of a symbol is in paper coordinates: millimeters on the printed map. The points are `PointF` values. The real-world coordinates (`RealWorldCoords`) are the georeferencing of the map, and not the coordinates of the geometry.
+- The ideal form is the form in which `Map` keeps a structure, apart from the form of a channel: the information that an encoding needs. For example, `Map` keeps the curves of the paths as Bezier curves.
+- The derived values are not ideal forms. Section 03 gives them.
+- The map of the courses, the course map, is a `Map` of its own. `CourseLayout.RenderToMap` makes it from the courses, so the same pass 1 applies to it. Upstream makes the course map again when its `CourseLayout` changes (`MapDisplay.SetCourse`).
+
+### The palette colors and the palette stack
+
+A palette color (`SymColor`) is a color of the normal layer (`SymLayer.Normal`). It has these properties:
+
+| Property | Meaning |
+|---|---|
+| C, color | A spatially constant color, independent of the color space. Upstream keeps a CMYK color (`CmykColor`). |
+| α, opacity (`SymColor.Opacity`) | A spatially constant opacity. |
+| B, blend mode (`SymColor.BlendMode`) | The compositing operation (`ColorBlendMode`). |
+| Ink components (`SymColor.InkComponents`) | The inks of the palette color, each with its factor. |
+| Knockout | The printing intent: keep the inks below, or remove them. |
+| Priority | The place of the palette color in the palette order. |
+
+- C, α and B belong to the palette color alone. The coverage prototype G and the affine transformation M give where the palette color takes part, and they do not belong to the palette color. Section 03 gives M.
+- The opacity of OCAD corresponds to α.
+- For an OCAD map, B = Darken is the larger share of each ink, and not the RGB minimum.
+- The palette order is the order of `Map.AllColors`. Upstream draws the colors from the lowest to the highest.
+- The palette stack is the transparency groups of the palette colors in palette order. Pass 2 composites them in this order (section 04). One palette stack is for all the maps, the courses included.
+
+### The inks
+
+- An ink (`Ink`) is a colorant identity, apart from the palette color. It has a name (`Name`), a CMYK appearance (`Appearance`), and a screen frequency and angle where they are defined (`Screen`, `InkScreen`).
+- The process inks C, M, Y and K always exist (`Ink.ProcessInks`). They are the same for all the maps, and they have no screen.
+- A palette color holds ink components (`SymColor.InkComponents`). Each ink component (`InkComponent`) has an ink and a factor from 0 to 1. A missing component and the factor 0 are different.
+- A palette color can refer to one ink at a factor, to a mixture of inks, or to a direct color. A palette color that has no spot definition consists of the process inks, with its CMYK values as the factors. A spot ink can be a palette color by itself, at full tint (`SymColor.SpotInk`).
+- The CMYK process colors are the case of four inks of this model, and the spot inks extend it. RGB describes a direct color or a simulated appearance. [1, 4]
+- The overprint flag of an OCAD process color (`SymColor.OverPrint`) keeps the inks below. The knockout flag of OOM removes them. The two flags give inverse printing intents. The knockout is apart from α and from B. The Mapper import sets `SymColor.OverPrint` only for a color that has a spot definition and whose knockout is off.
+- An ink separation is the coverage of one ink. A palette color with a missing share of an ink leaves the ink separation as it is. The share 0 % erases it, and a positive share sets the coverage. [1, 4, 12–13]
+
+### The symbol definitions and the symbols
+
+- A symbol definition (`SymDef`) defines a kind of object of a map: for example a `PointSymDef`, a `LineSymDef`, an `AreaSymDef` or a `TextSymDef`.
+- A symbol (`Symbol`) is one object of a map: for example a `PointSymbol`, a `LineSymbol`, an `AreaSymbol` or a `TextSymbol`. A `PointSymbol` and a `RectLikeSymbol` have a location. A `LineLikeSymbol` has a path (`SymPath`). An `AreaLikeSymbol` has a path with holes (`SymPathWithHoles`).
+- A glyph (`Glyph`) defines a point symbol definition, or a part of a line or an area symbol definition. Its parts (`Glyph.GlyphPart`) are lines, areas, circles and filled circles.
+- The extra transformation of a glyph (`extraTransform`) transforms the points of the glyph, but not its line widths: for example for the scale at the corners and for the glyphs that decrease. So it is not an affine placement of a stroked shape.
+
+### The symbol keys and the course object keys
+
+- The identity of a `Symbol` is its symbol key (`Symbol.Key`). The maker of the `Symbol` gives it.
+- In a `Map` that is read from a file or edited, `Map` gives the symbol key from a counter whose values it does not use again. When an edit replaces a `Symbol`, the replacing `Symbol` gets the same symbol key. The undo restores the symbol key, and a self-supporting vector file carries it.
+- In the course map, `CourseLayout.RenderToMap` makes the symbol key from `EventDB`: from the course object key (`CourseObj.Key`) of the course object that made the `Symbol`, and from the index of the `Symbol` among the symbols of that course object. So a course map that is made again gives the same symbol keys to the same course object.
+- The symbol key is unique in its `Map`, so the reference of a drawn object also gives the `Map`. All the drawn objects of a `Symbol` share its symbol key, so the symbol key is not the `id` of an SVG element. It is not `SymDef.SymbolId`, which is the number of a symbol definition.
+- A course object (`CourseObj`) is one object of the courses on the course map: for example a control circle, a leg or a description. `CourseFormatter` and `TopologyFormatter` make the course objects of a `CourseLayout` from the data of `EventDB`, and `CourseObj.AddToMap` makes their symbols in the course map. One course object can make many symbols.
+- The course object key (`CourseObj.Key`) is the identity of a course object. `CourseFormatter` or `TopologyFormatter` gives it at the place where it makes the course object. The key has three parts: the role of the place in the data of `EventDB`, the identifiers of `EventDB` that the place uses, and the `CourseLayer`.
+- Each place has a role of its own, so two places do not give the same key. The class of the `CourseObj` is not a part of the key: when a whole leg becomes flagged, its key stays the same. The fields `controlId`, `courseControlId`, `courseControlId2` and `specialId` are associations that the selection uses, and not the identity.
+- The symbol keys and the course object keys stay the same over the edits and over the course maps that are made again, as the mutations of the SVG DOM in a browser need them.
+
+### The coverage prototypes
+
+- A coverage prototype (`CoveragePrototype`) is the coverage G in its origin-bound form, before M places it. On the map side, G is a part of a `SymDef`: the full coverage (`CoveragePrototype.FullCoverage`), one hatching (an index in `AreaSymDef.hatchings`) or one area pattern (an index in `AreaSymDef.patterns`). In an `AreaComboSymDef`, the component definition is a part of G.
+- A periodic coverage G is a binary, spatially repetitive and origin-bound selector: for each point of the plane, G tells if the point is in the coverage. In mathematics, G is the indicator function of a set of the plane that the translations of a lattice do not change. The hatchings and the area patterns are periodic coverages.
+- For a point p of the drawing, the selector is G(M⁻¹p), where M is the affine transformation of a configuration (section 03). The prototype is origin-bound, and M is relative to the coordinates of the map. M keeps G binary and periodic.
+- The full coverage is the whole plane: G(x, y) = 1 at each point. A constant function does not change in a translation, so it is periodic with each lattice. The full coverage is the trivial case of a periodic coverage, and not a kind of its own. No M changes it.
+- The G of the points, the lines, the texts and the area fills is the full coverage. An opaque palette color with the full coverage is an ordinary case of the architecture, and not a special component.
+- The dash patterns and the glyphs along a line are strokes and placements, and not lattices. The shared shapes of a glyph are not coverage prototypes. A glyph belongs to G only as the element of an area pattern (`PatternInfo.patternGlyph`).
+- The pattern fills are coverages, and not paint functions or other properties of the rendering.
+- Two periodic coverages that their M transform independently need not share a repeating unit.
+
+### The hatchings and the area patterns
+
+- The area fill (`AreaSymDef.FillColor`) is the solid fill of an area in one color. Its G is the full coverage.
+- The area border (`AreaSymDef.BorderSymdef`) is the line symbol definition with which an area is bordered. `AreaSymDef.Draw` draws it along the main path and along each hole.
+- The pattern fills are the hatchings (`HatchInfo`) and the area patterns (`PatternInfo`).
+- A hatching (`HatchInfo`) has a color, a width, a spacing, an offset, an angle and a rotate mode. A hatching is a coverage prototype of its own: stripes, whose symmetries include all the translations along the lines. A cross hatching is two hatchings, so it has two coverage prototypes.
+- An area pattern (`PatternInfo`) has an element (`patternGlyph`), the size of the element (`patternWidth`, `patternHeight`), an offset of the alternate rows by 1/2 (`offsetRows`), an angle, an offset, a rotate mode, a fill mode and the irregularity.
+- The fill mode (`AreaSymDef.PatternFillMode`) clips the elements (`Clip`), or selects the complete elements that are entirely inside (`CompletelyInside`), centered inside (`CenterInside`) or partially inside (`PartiallyInside`) the area. [3, 5]
+
+![Figure 3](figures/figure-3.png)
+
+Figure 3. The fill modes: clip the elements, or select the complete elements that are entirely inside, centered inside or partially inside the area.
+
+- The lattice is the arrangement in which an area pattern repeats its element. The size of the element and the offset of the rows give the lattice. The center of an element is its origin, the point that the lattice places at a lattice vector.
+- The lattice and the element can turn independently. The point e of the element at the lattice vector v is at L(v) + E(e), where L is the affine lattice transformation and E is the affine element transformation. E applies in the frame of the drawing, to each element about its own lattice point. [3]
+- In OCAD, the structure angle of the symbol (`PatternInfo.patternAngle`, `HatchInfo.hatchAngle`) turns the lattice alone. The angle of an area object (`AreaSymbol.Angle`) turns the lattice and its elements together. [3]
+
+![Figure 4](figures/figure-4.png)
+
+Figure 4. The lattice can turn apart from its elements, and both can also turn together.
+
+- The rotation center (`AreaSymbol.RotationCenter`) is the point about which the angle of an area object turns its hatchings and its area patterns. It is also their origin: the transformation of a hatching is T(rotation center) · R(angle of the area object) · R(structure angle). The OCAD import sets the rotation center to the origin of the map. The Mapper import takes it from the pattern origin of the object (`rotationCoord`).
+- The rotate mode (`AreaSymDef.RotateMode`) is `Always`, `ManualOnly` or `Never`. In this specification, `ManualOnly` is the same as `Always`: M takes the angle and the rotation center of the `AreaSymbol`. Only `Never` leaves them out, as the drawing of upstream does. The difference is in the editing: when the object or the map turns, `Always` turns the angle with it, and `ManualOnly` keeps the angle.
+- The elements of an irregular pattern (`PatternInfo.irregular`, with `irregularVarX`, `irregularVarY` and `irregularMinDist`) move a random but deterministic distance. The seed comes from the rounded position of the element. `Map` keeps the randomness as a definition.
+
+### The lines
+
+- A line symbol definition (`LineSymDef`) has the dashes (`DashInfo`), the double line (`DoubleLineInfo`), the shortening and the pointy ends (`ShortenInfo`), and the glyphs along the line (`GlyphInfo`). A `LineComboSymDef` gathers other line symbol definitions, its component definitions.
+- The base path is the `SymPath` along which a `LineSymDef` is drawn. For a line object, it is `LineLikeSymbol.Path`. For the border of an area, it is the main path or a hole of the `AreaLikeSymbol`.
+- The ideal form of a line is the base path with the flags of its points, the `LineSymDef` with its `DashInfo`, `DoubleLineInfo`, `ShortenInfo` and `GlyphInfo`, and the metric. `Map` keeps it. Section 03 gives the derived values of a line.
+- The corner points and the dash points of a path (`PointKind.Corner`, `PointKind.Dash`) divide a line into segments. The start and stop flags of the points delimit the subpaths of a path (`SymPath.GetSubpaths`), for example for a border of a double line.
+- A double line (`DoubleLineInfo`) has a fill and two borders, the left and the right border. `doubleThick` is the distance between the borders and the thickness of the fill.
+- The measure of the line is the metric that the source means to be used. `Map` keeps it in its ideal form (`Map.UseEuclideanMetric`). The metric of a map is `Map.MapDistanceMetric`.
+- The OCAD metric is the larger coordinate difference plus half the smaller one (`SymPath.BizzarroDistance`): a norm whose unit circle is an octagon. A map uses the OCAD metric when its view parameter `p` is 1. The Mapper maps use the euclidean metric. The OCAD metric is best effort.
+- The shortening of a line is measured with the metric of the map. The text along a line is measured with the OCAD metric in all the maps, as current OCAD does.
+- [OcadLines.md](../OcadLines.md) gives how OCAD draws the lines: the metric, the dashes, the double lines, the glyphs along a line and the text along a line.
+
+### Beside the palette stack
+
+- The templates (`TemplateInfo`) are not palette colors. Upstream draws them under and over the palette colors (`Map.Draw`). An OCAD template is a `Map` of its own.
+- The layers of `SymLayer` are layers in the sense of image editing. The image layer (`SymLayer.Image`) is below all the normal layers, and the layout layer (`SymLayer.Layout`) is above them. Their objects have a special symbol definition (`ImageSymDef`), and they are not palette colors.
+- The normal layer (`SymLayer.Normal`) is between the image layer and the layout layer. It holds the transparency groups of the palette colors in palette order, as a group of layers holds layers in image editing.
+- Upstream draws the image layer and the layout layer with the same loop as the colors (`DrawColor`), through two pseudo-colors without a color value (`Map.ImageColor`, `Map.LayoutColor`). They are not palette colors.
+- The templates, the image layer and the layout layer have no palette color coverages. They are drawn beside the palette stack (section 04).
+
 ---
 
 # The text of Nov 17

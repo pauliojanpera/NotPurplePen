@@ -196,6 +196,12 @@ the rendering.
     sections such that the figures keep their numbers 1 to 8.
   - The opening text names the channels Skia, PDF and SVG in place of "SVG-compatible terms".
   - Section 01 gives the units of the structure in a table, and the rules of the structure as a list.
+  - Section 02 gives the properties of a palette color in a table: C, α, B, the ink components, the knockout and the
+    priority. It says that G and M do not belong to the palette color, where the text of Nov 17 gave C, α, B, G and M to
+    one palette layer.
+  - Section 02 says that the symbol keys and the course object keys stay the same over the edits, as the mutations of
+    the SVG DOM in a browser need them. It does not give the plan to port `Map` to TypeScript.
+  - Section 02 refers to [OcadLines.md](../OcadLines.md) for OCAD's rules of the lines, and does not repeat them.
 
 ## Decisions
 
