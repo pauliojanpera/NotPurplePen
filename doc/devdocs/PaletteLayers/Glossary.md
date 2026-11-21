@@ -43,19 +43,19 @@ The section "Words that are not names" lists the words that are not used as name
   `TextSymbol`. Its geometry is in paper coordinates. A `PointSymbol` and a `RectLikeSymbol` have a location, a
   `LineLikeSymbol` has a path (`SymPath`), and an `AreaLikeSymbol` has a path with holes (`SymPathWithHoles`). The
   comments of upstream also call it an object, for example a line object or an area object. The terms follow upstream:
-  *symboli* · *symbol* is `Symbol`.
-
-  A `Symbol` has an identifier, which is its identity. The maker of the `Symbol` gives the identifier:
+  *symboli* · *symbol* is `Symbol`. Its identity is its symbol key (`Symbol.Key`). **Upstream:** a `Symbol` has no key
+  or other identifier, but a `SymColor` has `Name` and `OcadId`, and a `SymDef` has `Name` and `SymbolId`.
+- **`Symbol.Key`** · symbolin avain · *symbol key* — The identity of a `Symbol`. The maker of the `Symbol` gives it:
   - In a `Map` that is read from a file or edited, `Map` gives it from a counter whose values it does not use again.
-    When an edit replaces a `Symbol`, the replacing `Symbol` gets the same identifier. The undo restores it, and a
+    When an edit replaces a `Symbol`, the replacing `Symbol` gets the same symbol key. The undo restores it, and a
     self-supporting vector file carries it.
   - In the course map, `CourseLayout.RenderToMap` makes it from `EventDB`: from the identity of the `CourseObj` that
     made the `Symbol`, and from the index of the `Symbol` among the symbols of that `CourseObj`. So a course map that
-    is made again gives the same identifiers to the same `CourseObj`.
+    is made again gives the same symbol keys to the same `CourseObj`.
 
-  The identifier is unique in its `Map`, so the reference of a drawn object also gives the `Map`. **Upstream:** a
-  `Symbol` has no identifier, but a `SymColor` has `Name` and `OcadId`, and a `SymDef` has `Name` and `SymbolId`.
-  **Open:** the name of the identifier, and the content of the identity of a `CourseObj`.
+  The symbol key is unique in its `Map`, so the reference of a drawn object also gives the `Map`. All the drawn objects
+  of a `Symbol` share its symbol key, so it is not the `id` of an SVG element. It is not `SymDef.SymbolId`, which is
+  the number of a symbol definition. **Open:** the content of the identity of a `CourseObj`.
 - **paperikoordinaatit** · *paper coordinates* — The coordinates of a map, in millimeters on the printed map. The points
   are `PointF` values. The OCAD import divides the OCAD units of 0.01 mm by 100 (`OcadImport.ToWorldDimensions`). The
   comments of upstream also say *map coordinates* and *world coordinates* (see "Words that are not names"). The
@@ -229,7 +229,7 @@ The section "Words that are not names" lists the words that are not used as name
   editing.
 - **ratakartta** · *course map* (`CourseLayout.RenderToMap`) — The map of the courses is a `Map` of its own, so the same
   pass 1 applies to it. One palette stack is for all the maps. Upstream makes it again when its `CourseLayout` changes
-  (`MapDisplay.SetCourse`). The identifiers of its symbols come from `EventDB`, as the entry of `Symbol` tells.
+  (`MapDisplay.SetCourse`). The symbol keys of its symbols come from `EventDB` (`Symbol.Key`).
 
 ## The intermediate layer · Välikerros
 
@@ -442,9 +442,9 @@ encodings make themselves.
   targets of `Map_SkiaStd` and `Map_PDF`. **Open:** its place when pass 2 and the encodings draw from the intermediate
   layer.
 - **piirrosobjekti** · *drawn object* — An object that an encoding writes. Each drawn object refers to its palette color
-  coverage of a symbol, and through it to its `Symbol`, `SymColor` and G. The reference gives the `Map` and the
-  identifier of the `Symbol`. In a file, the drawn objects keep a link back to the ideal forms that is as direct as
-  possible, also through the hierarchy of the file, so that the SVG graphics can be a part of a web user interface.
+  coverage of a symbol, and through it to its `Symbol`, `SymColor` and G. The reference gives the `Map` and the symbol
+  key (`Symbol.Key`). In a file, the drawn objects keep a link back to the ideal forms that is as direct as possible,
+  also through the hierarchy of the file, so that the SVG graphics can be a part of a web user interface.
 - **viittaus** · *reference* — What the structure of `Map` lets a drawn object refer to is not duplicated in the
   drawn objects. They use it through references. A drawn object links directly to the parts of the content of `Map`.
   It can take the geometry that it draws by reference from the shared parts of the intermediate layer. The link and

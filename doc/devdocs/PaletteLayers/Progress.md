@@ -391,15 +391,15 @@ the rendering.
 - **The future of `Map` and the SVG channel** (Nov 21). `Map` and the SVG channel are ported to TypeScript, into a
   browser, where editing functions of the map may also be wanted. The courses also update in the browser as mutations
   of the SVG DOM.
-- **The identifier of a `Symbol`** (Nov 21). A `Symbol` has an identifier, which is its identity. The maker of the
+- **The symbol key** (Nov 21). A `Symbol` has a symbol key (`Symbol.Key`), which is its identity. The maker of the
   `Symbol` gives it. In a `Map` that is read from a file or edited, `Map` gives it from a counter whose values it does
-  not use again. When an edit replaces a `Symbol`, the replacing `Symbol` gets the same identifier. The undo restores
+  not use again. When an edit replaces a `Symbol`, the replacing `Symbol` gets the same symbol key. The undo restores
   it, and a self-supporting vector file carries it. In the course map, `CourseLayout.RenderToMap` makes it from
   `EventDB`: from the identity of the `CourseObj` that made the `Symbol`, and from the index of the `Symbol` among the
-  symbols of that `CourseObj`. So a course map that is made again gives the same identifiers to the same `CourseObj`.
+  symbols of that `CourseObj`. So a course map that is made again gives the same symbol keys to the same `CourseObj`.
   The reference of a drawn object also gives the `Map`. The content of the identity of a `CourseObj` is open. The
-  basis is the future of `Map` and the SVG channel: the mutations of the SVG DOM need identifiers that stay the same
-  over the edits and over the course maps that are made again. [Glossary.md](Glossary.md) gives the terms.
+  basis is the future of `Map` and the SVG channel: the mutations of the SVG DOM need keys that stay the same over the
+  edits and over the course maps that are made again. [Glossary.md](Glossary.md) gives the terms.
 - **The framing line of texts** (Nov 19). The framing of a text run is one line in the instances, a stroke of the full
   width with the joins of the symbol, as in OCAD's PDF export. OCAD's own drawing leaves the same holes as Skia and
   Cairo with one pen, so the holes that the intermediate pens of Purple Pen fill are no faults against OCAD (question

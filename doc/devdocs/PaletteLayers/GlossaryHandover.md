@@ -97,9 +97,9 @@ These are @Pauli's decisions of Nov 20 and Nov 21. Glossary.md gives their terms
   symbol*, in place of the proposed `SymbolSeparation` · symbolierottelu (Nov 21).
 - The shape that a pen draws and the band that the pen covers: *viivamuoto* · *stroked shape* (`StrokedShape`) and
   *kynänjälki* · *stroke shape* (Nov 21).
-- The identifier of a `Symbol`: the maker of the `Symbol` gives it, `Map` from a counter and the course map from
-  `EventDB` (Nov 21). Its basis is the future of `Map` and the SVG channel, in the decisions of
-  [Progress.md](Progress.md).
+- The identity of a `Symbol`: `Symbol.Key` · *symbolin avain* · *symbol key*. The maker of the `Symbol` gives it,
+  `Map` from a counter and the course map from `EventDB` (Nov 21). Its basis is the future of `Map` and the SVG
+  channel, in the decisions of [Progress.md](Progress.md).
 
 The five terms that the session chose by their use in commit 06f4c824d are all decided on Nov 21.
 
@@ -108,26 +108,25 @@ The five terms that the session chose by their use in commit 06f4c824d are all d
 Continue with these one at a time (@Pauli, Nov 21). Each question gives the theoretical basis of the choice, as "How
 to make a question" says. The glossary marks each item "Open" in the entries named here.
 
-1. **`Symbol`:** the name of the identifier of a `Symbol` in the code, and its terms.
-2. **`Symbol`:** the content of the identity of a `CourseObj`, from which the identifier of a `Symbol` of the course
-   map comes.
-3. **peittoprototyyppi:** whether the shared structures that are not periodic, for example the shared shapes of a
+1. **`Symbol.Key`:** the content of the identity of a `CourseObj`, from which the symbol key of a `Symbol` of the
+   course map comes.
+2. **peittoprototyyppi:** whether the shared structures that are not periodic, for example the shared shapes of a
    glyph, are prototypes or a concept of their own.
-4. **looginen polku:** whether the logical path is `LineLikeSymbol.Path`.
-5. **segmentti, pala:** whether a part in "the parts as its pieces and offsets" (the decision of Nov 20 on the
+3. **looginen polku:** whether the logical path is `LineLikeSymbol.Path`.
+4. **segmentti, pala:** whether a part in "the parts as its pieces and offsets" (the decision of Nov 20 on the
    structure of a line) is a segment or a line component, and the exact content of a piece.
-6. **kokoonpano:** when two configurations are the same (009, question 1).
-7. **`HatchInfo`, `AreaSymDef.RotateMode`:** whether a hatching is a prototype of its own or a pattern of line
+5. **kokoonpano:** when two configurations are the same (009, question 1).
+6. **`HatchInfo`, `AreaSymDef.RotateMode`:** whether a hatching is a prototype of its own or a pattern of line
    elements (009, question 3), and what `ManualOnly` means in the specification (009, question 4).
-8. **kanavamuunnos:** which channel conversions stay in the encodings.
-9. **`Stroke`, `Stroke.DashPattern`, `Stroke.DashPhase`:** the measure in which a pen keeps the dash pattern and its
+7. **kanavamuunnos:** which channel conversions stay in the encodings.
+8. **`Stroke`, `Stroke.DashPattern`, `Stroke.DashPhase`:** the measure in which a pen keeps the dash pattern and its
    phase after the decisions of Nov 20 (point 2 of 6 in the review of 011).
-10. **koodaus, `IGraphicsTarget`:** how the encodings relate to `IGraphicsTarget`, and its place when pass 2 and the
-    encodings draw from the intermediate layer.
-11. **korostus:** whether the highlights stay a direct drawing (000).
+9. **koodaus, `IGraphicsTarget`:** how the encodings relate to `IGraphicsTarget`, and its place when pass 2 and the
+   encodings draw from the intermediate layer.
+10. **korostus:** whether the highlights stay a direct drawing (000).
 
-The items 1 and 3 to 5 concern concepts and their names. The others are questions of the design of the specification
-and of the tickets.
+The items 2 to 4 concern concepts and their names. The others are questions of the design of the specification and
+of the tickets.
 
 ### After the glossary
 
