@@ -12,9 +12,18 @@ when @Pauli makes a decision. It tells the state, not the events: the commits an
 
 ## Where the work is
 
-On Nov 22, the epic got a new branch, `feature/palette-stack`, rooted at d48f4456. It merges the parts 001, 003 and
-004 and the fixes 015 to 021, and pass 1 is written again by the specification ("The new branch of the epic"). The
-rest of this section tells the state of the old branch, `feature/palette-layers`.
+[Specification.md](Specification.md) is written again in the terms of [Glossary.md](Glossary.md) and by the
+structure of the passes (Nov 21). @Pauli went through the choices of the session on Nov 22, and the decisions of
+Nov 22 record them. The specification waits on his approval.
+
+The epic has a new branch, `feature/palette-stack`, rooted at d48f4456 (@Pauli, Nov 22). It merges the parts 001,
+003 and 004, whose comments take the terms of the glossary, and the fixes 015 to 021. Its full run passed. The old
+pass 1 has no palette color coverages of the symbols, no symbol keys and no derived values, so pass 1 is written
+again as new commits by the specification. New tickets of pass 1 replace 005, 007 and 008, after @Pauli approves the
+specification. The done tickets take the terms of the glossary, apart from 005, 007 and 008.
+
+The old branch of the epic, `feature/palette-layers`, keeps the pass 1 of 005, 007 and 008, and the branches of the
+drafts 011 to 013 are rooted at it. The rest of this section tells its state.
 
 The parts 001 to 005, 007 and 008 are done and merged into `feature/palette-layers`, and its full run passed. Pass 1
 makes the instances with full coverage (G = 1) of each palette entry ([005](tickets/005-layer-instances.md)) from the
@@ -87,7 +96,7 @@ base. No branch is offered upstream yet.
 
 - **Read first**, in this order: [../Introduction.md](../Introduction.md) (what NotPurplePen is, and the rules of all
   work), [README.md](README.md), this file, the preface of [Specification.md](Specification.md) (when it binds, and
-  which programs are the oracles), and the ticket of the part at hand.
+  which programs are the oracles), [Glossary.md](Glossary.md) for the names, and the ticket of the part at hand.
 - **The rules that this work adds.** The tickets are in Finnish, and the other documents in Simplified Technical
   English. A question for @Pauli comes when the decision is his and the session's own choice would not be easy to
   correct later: one question at a time, with choices and a recommendation. Otherwise the session goes on. No push
@@ -103,6 +112,10 @@ base. No branch is offered upstream yet.
   and [oracles/ocad-dashes.md](oracles/ocad-dashes.md) show.
 - **Where the work runs.** This is @Pauli's machine; no Windows machine exists here. A build or a test counts only
   when it ran in GitHub Actions, on a `wip/` branch. The .NET SDK is `~/.dotnet/dotnet`, outside `PATH`.
+- **A cloud session.** A session can also run in a cloud environment of Claude, as the session of Nov 21 and 22 did.
+  There it clones the repository itself, and it runs `tools/push-wip.sh` with the path of its clone. `git push` and
+  the reads of `gh` work. The proxy of the environment refuses the writes of the GitHub API: it refused the rename
+  of a branch (HTTP 403). `gh workflow run`, which `--collect` uses, is also a write, and it was not tried.
 - **The checkouts.** The clone `~/Documents/Projects/NotPurplePen` stays on `docs/process-coordination`: do not change
   its branch. Each branch has a worktree in `~/Documents/Projects/npp-worktrees/`: `palette-layers`, `inks`,
   `fix-mapper-colors`, `fix-ocad-utf8`, `opacity-and-blend-mode`, `layer-instances`, `fix-matrix-equals`,
@@ -112,7 +125,8 @@ base. No branch is offered upstream yet.
   `palette-layers-int`, `map-instances-int`, `symbol-geometry-int`, `fix-thick-circles-int`, `fix-ocad-metric-int`,
   `fix-dash-count-int`, `fix-double-dashes-int`, `fix-minimum-gaps-int`, `fix-dash-vertex-int`,
   `fix-dashes-on-curves-int`, `line-geometry-int`, `area-geometry-int` and `text-geometry-int` are on `base`, and the others stay on
-  `basewithfixes` until `REBUILD=1 tools/int-worktree.sh` makes them again.
+  `basewithfixes` until `REBUILD=1 tools/int-worktree.sh` makes them again. The worktree `palette-layers` holds the
+  old branch of the epic, and the new branch `feature/palette-stack` has no worktree yet.
 - **Local tests.** `Test_MapModel` targets Windows; `tools/run-map-tests.sh` runs its files on Linux, and skips the
   renderings, which GDI+ draws. `Map_Skia.Tests` runs on Linux as it is: set `TEST_SILENTRUN=True`, or a failed
   comparison opens VisualDiff and waits. A local rendering tells which images a change moves. The fonts of this machine
@@ -134,8 +148,15 @@ base. No branch is offered upstream yet.
 
 ## Next
 
-The decision on the new branch of the epic (Nov 22) replaces the plan of pass 1 below. The new tickets of pass 1
-give the new plan.
+1. @Pauli approves [Specification.md](Specification.md), or names what to go through still.
+2. Pass 1 gets new tickets by the structure of the passes (section 01 of the specification), in place of 005, 007
+   and 008. The session drafts them, and @Pauli approves them. Their branches are rooted at `feature/palette-stack`,
+   and they take the forms, the geometry methods of the point symbols and the tests of the old pass 1 where these
+   fit ("The new branch of the epic").
+3. The drafts 009 to 013 follow the specification when @Pauli asks for it.
+
+The plan below is the plan of the old branch, in the words of its time. Its parts 2 to 5 stay as the order of the
+later work.
 
 The parts come in the order of the two passes of the specification (section 01), so that each part builds the
 structure and not only the appearance. Each part builds on the parts before it, so its branch is rooted at
@@ -194,8 +215,8 @@ the rendering.
   the code of `feature/svg-target`. The notes of the epic give the reasons.
 - **Offering upstream.** No branch is offered upstream yet.
 - **The approval of the new specification** (Nov 22). @Pauli went through the choices that the session made when it
-  wrote [Specification.md](Specification.md) again, and the decisions of Nov 22 record them. The tickets follow the
-  specification when @Pauli approves it.
+  wrote [Specification.md](Specification.md) again, and the decisions of Nov 22 record them. When he approves it,
+  the session drafts the new tickets of pass 1 ("Next").
 
 ## Decisions
 

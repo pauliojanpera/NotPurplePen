@@ -1,8 +1,8 @@
 # The glossary work: handover
 
-Nov 21, 2026. This file tells a new session how to continue the glossary work. The glossary is
-[Glossary.md](Glossary.md). It gives the names of the concepts that the specification of the palette-stack architecture
-needs. The work on the names comes before the new text of [Specification.md](Specification.md).
+Nov 21, 2026. This file tells a new session how to continue the glossary work and the work on the specification that
+follows it. The glossary is [Glossary.md](Glossary.md). It gives the names of the concepts that the specification of
+the palette-stack architecture needs. [Specification.md](Specification.md) is written in its terms (Nov 21 and 22).
 
 ## Read first
 
@@ -13,10 +13,13 @@ Read these in this order:
    negotiable" and "The names".
 4. Section 01 of [Specification.md](Specification.md), which gives the structure of the passes.
 5. All of [Glossary.md](Glossary.md). Its preface gives the rules of the names.
+6. The decisions of Nov 21 and 22 in [Progress.md](Progress.md), from "The division of the specification" to "The
+   done tickets": the review of the specification, the names of the architecture, of the work and of the branches,
+   and the new branch of the epic.
 
 ## The rules of the work
 
-@Pauli gave these rules in the session of Nov 20 and 21:
+@Pauli gave these rules in the sessions of Nov 20 to 22:
 - The glossary is joint work. Each term is @Pauli's decision. The session does not choose a term itself, also not by
   the use of a word or by a rule of the names (Nov 21).
 - Everything is @Pauli's to decide (Nov 21). Where the sources answer a question, the session presents the answer to
@@ -32,6 +35,10 @@ Read these in this order:
   coverage* (Nov 21).
 - An ordinary word, for example the adjective *yhtenäinen* or the noun *peitto*, is not reserved for one concept. A
   term is the whole expression (Nov 21).
+- A general word can have its general meaning in the documents. Where it means a concept that the specification
+  defines by another name, the documents use that name (Nov 22, Progress.md, "General words").
+- A reference to a section of the specification without a version names the present text (Nov 22).
+- A mistake of the session is corrected at once. The session does not put it to @Pauli as a question (Nov 22).
 
 In the session of Nov 20, the session chose five terms by their use without a question (commit 06f4c824d), and it
 recorded the meaning of the palette layer before @Pauli decided it (commit 740d9b778). @Pauli objected to both. On
@@ -137,11 +144,14 @@ A new open item gets a question by "How to make a question", and the glossary ma
 
 ### After the glossary
 
-The specification is written again in the terms of the glossary and by the structure of the passes (Nov 21), and @Pauli
-reviews it. Then the tickets 009 to 013 follow it. The tickets and the older decisions in Progress.md still use the
-earlier words. The tickets 009 to 013 are drafts. The tickets 011 to 013 were implemented while they were drafts, and
-the glossary work sorts out what came of that (@Pauli, Nov 21). A draft is not implemented, and a session changes it
-only when @Pauli asks ([README.md](README.md)).
+The specification is written again in the terms of the glossary and by the structure of the passes (Nov 21). @Pauli
+went through the choices of the session on Nov 22, and the decisions of Nov 22 in Progress.md record them. The
+specification waits on his approval. Then pass 1 gets new tickets by the structure of the passes, in place of 005,
+007 and 008, and the drafts 009 to 013 follow the specification when @Pauli asks. The tickets 011 to 013 were
+implemented while they were drafts, on branches rooted at the old branch of the epic. The done tickets take the
+terms of the glossary, apart from 005, 007 and 008. The drafts, the epic and the older decisions in Progress.md
+still use the earlier words. A draft is not implemented, and a session changes it only when @Pauli asks
+([README.md](README.md)).
 
 ## Where things are
 
@@ -151,8 +161,12 @@ only when @Pauli asks ([README.md](README.md)).
   `base` meets upstream (Nov 21). The names of upstream in the glossary come from it. `base` has the same code of `Map`,
   of the symbols, of the graphics targets and of the courses ([README.md](README.md), "Branches").
 - **The code of the work:** the worktree `~/Documents/Projects/npp-worktrees/text-geometry` is at 2ad8c6f39. The names
-  marked "work" in the glossary come from it.
+  marked "work" in the glossary come from it. The new branch of the epic, `feature/palette-stack` at 8127117f, merges
+  001, 003, 004 and the fixes 015 to 021, and has no pass 1 yet. The old branch `feature/palette-layers` keeps the old
+  pass 1.
 - **The transcripts** in `~/.claude/projects/-home-pauli-Documents-Projects-NotPurplePen/`: the session of Nov 20 and
   21 is `24af0e14-e17c-4f92-bc24-2c6815053a55.jsonl`. The session of Nov 21 is, in order,
   `9c11143a-a462-4aa8-afb8-c160fab19a1b.jsonl`, `64a7360d-8a53-46f1-9163-6772c93bfb4e.jsonl`,
-  `57f43ccb-eaca-4dbf-892b-32e3b326895f.jsonl` and `1e9438c5-a2f3-408a-b614-8f0be26a97a8.jsonl`.
+  `57f43ccb-eaca-4dbf-892b-32e3b326895f.jsonl` and `1e9438c5-a2f3-408a-b614-8f0be26a97a8.jsonl`. The session of
+  Nov 21 and 22 that wrote the specification again ran in a cloud environment of Claude, and its transcript is not
+  in that folder.
