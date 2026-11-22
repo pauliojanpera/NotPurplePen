@@ -1,7 +1,4 @@
-# LUONNOS – Symbolin avain kartassa
-
-> **LUONNOS (23.11.), @Paulin hyväksyttävänä.** Tämä tiketti on luonnos, kunnes @Pauli hyväksyy sen, eikä luonnosta toteuteta. Hyväksynnän jälkeen istunto poistaa tämän merkinnän ja otsikon sanan LUONNOS.
-
+# Symbolin avain kartassa
 **Kuvaus**
 Jokaisella kartan symbolilla on symbolin avain (`Symbol.Key`), joka on sen identiteetti. Symbolin tekijä antaa sen, ja kartta antaa sen laskurista symbolille, jolle tekijä ei antanut avainta. Korvaava symboli saa korvatun symbolin avaimen, ja kumoaminen palauttaa avaimen. Piirto ei muutu.
 
@@ -17,6 +14,7 @@ Jokaisella kartan symbolilla on symbolin avain (`Symbol.Key`), joka on sen ident
 
 **Lisätiedot**
 - **Päätökset:**
+  - @Pauli hyväksyi tämän tiketin 23.11.
   - Neljä tikettiä korvaa tiketit 005, 007 ja 008, ja tämä on niistä kolmas (@Pauli, 23.11., Progress.md: "The new tickets of pass 1").
   - Symbolin avain (@Pauli, 21.11., "The symbol key"): `Symbol`illa on symbolin avain, joka on sen identiteetti, ja symbolin tekijä antaa sen. Kartta, joka on luettu tiedostosta tai jota muokataan, antaa avaimen laskurista, jonka arvoja se ei käytä uudelleen. Kun muokkaus korvaa symbolin, korvaava symboli saa saman avaimen. Kumoaminen palauttaa avaimen, ja itsensä kannatteleva vektoritiedosto kantaa sen. Ratakartassa avaimen antaa `CourseLayout.RenderToMap` (tiketti 026).
   - Laskurin avainten tekstimuoto on laskurin arvo kannassa 62, numeroin 0–9, A–Z ja a–z tässä järjestyksessä (@Pauli, 23.11.).

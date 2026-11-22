@@ -20,7 +20,7 @@ The epic has a new branch, `feature/palette-stack`, rooted at d48f4456 (@Pauli, 
 003 and 004, whose comments take the terms of the glossary, and the fixes 015 to 021. Its full run passed. The old
 pass 1 has no palette color coverages of the symbols, no symbol keys and no derived values, so pass 1 is written
 again as new commits by the specification. Four new tickets of pass 1, 023 to 026, replace 005, 007 and 008 ("The new
-tickets of pass 1", Nov 23): the session drafts them, and @Pauli approves them. He approved 023 and 024 on Nov 23.
+tickets of pass 1", Nov 23): the session drafts them, and @Pauli approves them. He approved 023, 024 and 025 on Nov 23.
 The done tickets take the terms of the glossary, apart from 005, 007 and 008.
 
 The old branch of the epic, `feature/palette-layers`, keeps the pass 1 of 005, 007 and 008, and the branches of the
@@ -152,7 +152,7 @@ base. No branch is offered upstream yet.
 
 1. Pass 1 gets the new tickets 023 to 026 by the structure of the passes (section 01 of the specification), in place
    of 005, 007 and 008 ("The new tickets of pass 1"). The session drafts them one at a time, and @Pauli approves
-   them: 023 and 024 are approved, and 025 is next. Their branches are rooted at `feature/palette-stack`, and they
+   them: 023 to 025 are approved, and 026 is next. Their branches are rooted at `feature/palette-stack`, and they
    take the forms, the geometry methods of the point symbols and the tests of the old pass 1 where these fit ("The
    new branch of the epic").
 2. The drafts 009 to 013 follow the specification when @Pauli asks for it.
@@ -216,8 +216,6 @@ the rendering.
   target of NotPurplePen fitted to them in the integration. And whether the work can use the documented findings or
   the code of `feature/svg-target`. The notes of the epic give the reasons.
 - **Offering upstream.** No branch is offered upstream yet.
-- **The approval of ticket 025** (Nov 23). [025](tickets/025-symbol-keys.md), the symbol key in `Map`, is a draft
-  for @Pauli's approval.
 
 ## Decisions
 
@@ -578,6 +576,9 @@ the rendering.
   [025](tickets/025-symbol-keys.md)). For the keys 1 to 300,000, the mean length is 3.19 characters in base 62 and
   5.63 in base 10. gzip compresses the two to within 3 to 5 % of each other. The keys have only the letters and the
   digits of ASCII, so the punctuation stays free for the structure of the keys of the course map (ticket 026).
+- **The approval of ticket 025** (Nov 23). @Pauli approved [025](tickets/025-symbol-keys.md), the symbol key in
+  `Map`, with the text form of the counter keys above. An edit that replaces a symbol is `Map.ReplaceSymbol`, which
+  the ticket adds, as upstream has no such edit.
 - **The order of a draft** (Nov 23). @Pauli approves a draft first as a ticket that is no longer a draft, and then it
   is implemented ([README.md](README.md), "Tickets"). So the collector stays the source of the clipping objects of
   the lines, the areas and the texts until the drafts 011 to 013 are approved as tickets and implemented.
