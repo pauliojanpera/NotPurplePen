@@ -188,8 +188,6 @@ the rendering.
 - **The review of the new specification** (Nov 21). @Pauli let the session write [Specification.md](Specification.md)
   again on its own, and he reviews it afterwards. These are the choices that the session made on its own, and not his
   decisions:
-  - The labels of figures 1, 2, 5 and 6, and all the captions, use the terms of the glossary. Each figure has a place in
-    the new sections such that the figures keep their numbers 1 to 8.
   - The opening text names the channels Skia, PDF and SVG in place of "SVG-compatible terms".
   - Section 01 gives the units of the structure in a table, and the rules of the structure as a list.
   - Section 02 gives the properties of a palette color in a table: C, α, B, the ink components, the knockout and the
@@ -466,7 +464,7 @@ the rendering.
   leg keeps its key when it becomes flagged. Its name is `CourseObj.Key`. [Glossary.md](Glossary.md) gives the terms.
 - **The division of the specification** (Nov 21). [Specification.md](Specification.md) is written again in the terms of
   [Glossary.md](Glossary.md) and by the structure of the passes, and it is divided as the glossary is. The unnumbered
-  opening sections come first. Section 01 gives the structure of the passes as an overview, with figure 2. Section 02
+  opening sections come first. Section 01 gives the structure of the passes as an overview, with figure 1. Section 02
   gives the map side, section 03 the intermediate layer, section 04 the rendering side, and section 05 the transparency
   flattening. The references [1] to [16] come last and keep their numbers. The work has five parts: the opening sections
   with section 01, section 02, section 03, section 04, and section 05 with the references. The new text grows at the
@@ -505,6 +503,10 @@ the rendering.
   `prs/000-palette-stack-base/`. Its full runs go on `wip/linux/palette-stack`. The earlier runs are on
   `wip/linux/palette-layers`, and the tag `trial-palette-layers` holds the earlier trial build. The brief of the
   session of Nov 22 let it push only to `docs/process-coordination`, and @Pauli decided that this does not bind.
+- **The order of the figures** (Nov 22). Section 01 shows the structure of the passes first, as figure 1, and then
+  the coverage and the color, as figure 2, so the overview comes before the details. The other figures keep their
+  places and their numbers 3 to 8. The labels and the captions of the figures use the terms of the glossary. @Pauli
+  left the choice to the session.
 - **The framing line of texts** (Nov 19). The framing of a text run is one line in the instances, a stroke of the full
   width with the joins of the symbol, as in OCAD's PDF export. OCAD's own drawing leaves the same holes as Skia and
   Cairo with one pen, so the holes that the intermediate pens of Purple Pen fill are no faults against OCAD (question

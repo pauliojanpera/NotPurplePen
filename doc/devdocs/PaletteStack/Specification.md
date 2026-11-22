@@ -69,21 +69,6 @@ side. Sections 02, 03 and 04 give the three parts. This section gives the whole.
 | Transparency group of a palette color | Rendering side | The group that pass 2 composites for one palette color. |
 | Encoding | Rendering side | It writes the drawing for one channel. |
 
-### The coverage and the color
-
-A palette color takes part in the drawing only where its coverage is. A coverage is binary: a point of the plane is in
-the coverage, or it is not. The coverage of a palette cutter is G under M inside the union of its clipping objects. The
-clipping objects give no color and no alpha. The color C, the opacity α and the blend mode B belong to the palette color
-alone.
-
-![Figure 1](figures/figure-1.png)
-
-Figure 1. A clipping object limits the extent of the periodic coverage G. The coverage of the palette cutter stays
-binary.
-
-In compositing, the alpha has two parts: the coverage and the opacity. This architecture keeps them apart. G and the
-clipping objects give the binary coverage, and the opacity α is a property of the palette color.
-
 ### The two passes
 
 **Pass 1, layer instantiation.** `Map` makes the palette separations of the palette color coverages of the symbols, and
@@ -94,11 +79,26 @@ definitions give the derived values of the palette color coverages of their symb
 encoding writes the transparency group of its palette color. C, α and B apply once to the group. Pass 2 does not call
 the drawing code of the symbols (`Draw`).
 
-![Figure 2](figures/figure-2.png)
+![Figure 1](figures/figure-1.png)
 
-Figure 2. Pass 1 makes a palette separation for each palette color, and in it a palette cutter for each configuration:
+Figure 1. Pass 1 makes a palette separation for each palette color, and in it a palette cutter for each configuration:
 here, the green hatching has three configurations. Pass 2 composites the transparency groups of the palette colors in
 palette order.
+
+### The coverage and the color
+
+A palette color takes part in the drawing only where its coverage is. A coverage is binary: a point of the plane is in
+the coverage, or it is not. The coverage of a palette cutter is G under M inside the union of its clipping objects. The
+clipping objects give no color and no alpha. The color C, the opacity α and the blend mode B belong to the palette color
+alone.
+
+![Figure 2](figures/figure-2.png)
+
+Figure 2. A clipping object limits the extent of the periodic coverage G. The coverage of the palette cutter stays
+binary.
+
+In compositing, the alpha has two parts: the coverage and the opacity. This architecture keeps them apart. G and the
+clipping objects give the binary coverage, and the opacity α is a property of the palette color.
 
 ### The rules of the structure
 
