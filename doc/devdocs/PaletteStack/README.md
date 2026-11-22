@@ -45,7 +45,8 @@ specification, @Pauli, Nov 18).
   appearance ([Progress.md](Progress.md), "Next").
 - The tickets are written in Finnish.
 - A draft ticket sets no requirements for the other work. A session changes a draft only when @Pauli asks (@Pauli,
-  Nov 18). A draft is not implemented (@Pauli, Nov 21).
+  Nov 18). A draft is not implemented (@Pauli, Nov 21). @Pauli approves it first as a ticket that is no longer a
+  draft, and then it is implemented (@Pauli, Nov 23).
 
 ## Branches
 
