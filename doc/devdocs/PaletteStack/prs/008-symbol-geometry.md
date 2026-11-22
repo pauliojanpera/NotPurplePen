@@ -1,5 +1,5 @@
 ## General description
-Pass 1 of the palette-layer drawing makes the clipping objects of point symbols with a geometry method, in place of
+Pass 1 of the palette-stack drawing makes the clipping objects of point symbols with a geometry method, in place of
 the collector. The geometry method of a kind of symbol adds the clipping objects of a symbol to each of its palette
 entries, without a drawing target and without render options. The point symbols of a definition share the shapes of
 its glyph, each at its own placement. The collector collects the other kinds of symbols, and the instances that it

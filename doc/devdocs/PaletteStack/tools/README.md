@@ -1,4 +1,4 @@
-# The tools of the palette-layer work
+# The tools of the palette-stack work
 
 Scripts for the steps that each ticket of [the specification](../Specification.md) repeats. They need bash,
 Python 3 with Pillow, git, the GitHub CLI signed in to the repository, and the .NET 10 SDK in `~/.dotnet/dotnet`

@@ -4,7 +4,7 @@
 #
 # Rebuilds wip/linux/<name> as one merge commit of the base branch and the branch, and pushes it with a lease on
 # what the remote holds. The push starts the Tests and Build workflows. As ../README.md says, the branches of the
-# palette-layer work run on base, the default; --base names another base branch. The name defaults to the branch's
+# palette-stack work run on base, the default; --base names another base branch. The name defaults to the branch's
 # last part, so feature/inks runs as wip/linux/inks.
 #
 # With --collect, the script also starts the Tests workflow by hand on the branch with the input

@@ -1,5 +1,5 @@
 ## General description
-Pass 1 of the palette-layer drawing makes the layer instances from the map alone. `Map.CreateLayerInstances` takes
+Pass 1 of the palette-stack drawing makes the layer instances from the map alone. `Map.CreateLayerInstances` takes
 no rectangle and no resolution of a drawing. The instances hold each visible symbol of the map, wherever it lies, and
 a dashed line keeps its dashes whatever their lengths. The collector stays the source of the instances. The drawing
 does not use the instances, and it does not change.

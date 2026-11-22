@@ -1,5 +1,5 @@
 ## General description
-Pass 1 of the palette-layer drawing makes the clipping objects of areas, of combined areas and of graphics objects
+Pass 1 of the palette-stack drawing makes the clipping objects of areas, of combined areas and of graphics objects
 with geometry methods, in place of the collector. The border of an area is a line, and the geometry method of lines
 makes it. The hatchings and the patterns are repetitive geometry, and pass 1 still leaves them out. The instances
 that the collector makes of all the symbols stay the oracle of the tests. The drawing does not change.

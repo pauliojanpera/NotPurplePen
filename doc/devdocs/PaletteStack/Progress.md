@@ -1,6 +1,6 @@
-# Palette layers: progress
+# The palette-stack work: progress
 
-Nov 18, 2026. This file is the handover of the palette-layer work. It tells where the work is, how to continue it,
+Nov 18, 2026. This file is the handover of the palette-stack work. It tells where the work is, how to continue it,
 what comes next, what waits on @Pauli, and the decisions. The branches are not in `basewithfixes` or `dev`, so
 `../NotPurplePenProgress.md` does not track them (@Pauli, Nov 18). Update this file when a branch changes state and
 when @Pauli makes a decision. It tells the state, not the events: the commits and the runs record those.
@@ -185,10 +185,13 @@ the rendering.
   target of NotPurplePen fitted to them in the integration. And whether the work can use the documented findings or
   the code of `feature/svg-target`. The notes of the epic give the reasons.
 - **Offering upstream.** No branch is offered upstream yet.
+- **The names of the branches** (Nov 22). The branch of the epic, `feature/palette-layers`, and its run branch
+  `wip/linux/palette-layers` keep the old name of the work. So do the files that follow the name of the branch:
+  [tickets/000-palette-layers.md](tickets/000-palette-layers.md) and `prs/000-palette-layers-base/`. The session of
+  Nov 22 pushes only to `docs/process-coordination`. @Pauli decides how the branches get the new name.
 - **The review of the new specification** (Nov 21). @Pauli let the session write [Specification.md](Specification.md)
   again on its own, and he reviews it afterwards. These are the choices that the session made on its own, and not his
   decisions:
-  - The title stays, as the glossary is the glossary of the palette-layer architecture.
   - The labels of figures 1, 2, 5 and 6, and all the captions, use the terms of the glossary. Each figure has a place in
     the new sections such that the figures keep their numbers 1 to 8.
   - The opening text names the channels Skia, PDF and SVG in place of "SVG-compatible terms".
@@ -221,7 +224,7 @@ the rendering.
 
 ## Decisions
 
-- **The tracking of the branches** (Nov 18). The palette-layer branches are tracked here, apart from
+- **The tracking of the branches** (Nov 18). The palette-stack branches are tracked here, apart from
   `../NotPurplePenProgress.md`, as long as they are not in `dev`.
 - **Tickets and pull request descriptions** (Nov 18). Every branch goes through a ticket and a pull request
   description, also when no pull request is made. A ticket names the fixes and features separated from it under
@@ -247,7 +250,7 @@ the rendering.
 - **Pass 1 before the patterns** (Nov 18). Two tickets come before the ticket of the patterns: one makes pass 1
   apart from the drawing, and one replaces the collector with geometry methods of the symbols, with the instances of
   the collector as its oracle.
-- **The base of the full runs** (Nov 18). The palette-layer branches, the features and the fixes alike, run in full on
+- **The base of the full runs** (Nov 18). The palette-stack branches, the features and the fixes alike, run in full on
   `base`, which holds upstream and the workflows and test tools of the fork. The fixes of `basewithfixes` stay out of
   the runs: pass 2 would conflict with `fix/overlapping-patterns` in `Map.DrawColor`, and the fixes move baselines that
   the work does not touch. A fix that a part needs is merged into `feature/palette-layers`, as
@@ -493,6 +496,12 @@ the rendering.
 - **No dates in the specification** (Nov 22). [Specification.md](Specification.md) gives no dates and no attributions,
   also in its preface, as nobody asked for them there. Progress.md gives the decisions with their dates. The citations
   [1] to [16] stay.
+- **The name of the architecture and of the work** (Nov 22). The architecture is named after the palette stack, the
+  transparency groups of the palette colors in palette order. The palette stack takes the place of *palette layer* in
+  the names. The title of [Specification.md](Specification.md) is "Vector graphics architecture of the palette
+  stack", and [Glossary.md](Glossary.md) is the glossary of the palette-stack architecture. The work is the
+  palette-stack work, in Finnish *palettipinotyö*, its folder is `doc/devdocs/PaletteStack`, and the title of the
+  epic is "Palettipino upstreamin karttamalliin".
 - **The framing line of texts** (Nov 19). The framing of a text run is one line in the instances, a stroke of the full
   width with the joins of the symbol, as in OCAD's PDF export. OCAD's own drawing leaves the same holes as Skia and
   Cairo with one pen, so the holes that the intermediate pens of Purple Pen fill are no faults against OCAD (question
@@ -505,7 +514,7 @@ the rendering.
 - **The collector as the oracle until ticket 009** (Nov 18). The collector is the oracle of the tests during the
   tickets 008 to 013. Ticket 009 removes the internal option `omitHatchingsAndPatterns` and ends the use of the
   collector as the oracle, and the coverage comparison then compares the colors with hatchings and patterns too.
-- **The conflicts with dev** (Nov 18). The palette-layer branches may conflict with `dev`. A comparison of their
+- **The conflicts with dev** (Nov 18). The palette-stack branches may conflict with `dev`. A comparison of their
   implementation with the one in `dev` is a later investigation.
 - **The fixes of upstream that a ticket separates** (Nov 18). When the work of a ticket fixes a fault of upstream, the
   fix gets a ticket of its own, from `tickets/bug-template.md`, and a `fix/` branch, and the first ticket names it

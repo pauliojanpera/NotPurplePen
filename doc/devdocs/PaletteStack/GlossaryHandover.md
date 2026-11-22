@@ -1,14 +1,14 @@
 # The glossary work: handover
 
 Nov 21, 2026. This file tells a new session how to continue the glossary work. The glossary is
-[Glossary.md](Glossary.md). It gives the names of the concepts that the specification of the palette-layer architecture
+[Glossary.md](Glossary.md). It gives the names of the concepts that the specification of the palette-stack architecture
 needs. The work on the names comes before the new text of [Specification.md](Specification.md).
 
 ## Read first
 
 Read these in this order:
 1. [../Introduction.md](../Introduction.md): what NotPurplePen is, and the rules of all work.
-2. [README.md](README.md): how the palette-layer work is organized.
+2. [README.md](README.md): how the palette-stack work is organized.
 3. The decisions of Nov 20 in [Progress.md](Progress.md): "The structure of the passes", "Earlier decisions are
    negotiable" and "The names".
 4. Section 01 of [Specification.md](Specification.md), which gives the structure of the passes.
@@ -26,7 +26,7 @@ Read these in this order:
 - When @Pauli uses a vague reference, the session asks him to make it exact (Nov 20, the preface of the glossary).
 - The session starts no agents and does not run `agent-cache.py`, although `CLAUDE.md` asks every session to run it.
   It does not start the script that archives the session (Nov 18, [README.md](README.md)).
-- The code of the palette-layer branches is not a source of the new definition of `Map` that the glossary builds
+- The code of the palette-stack branches is not a source of the new definition of `Map` that the glossary builds
   (Nov 21).
 - A word of the specification is not an authority. @Pauli wrote some of its concepts in passing, for example *full
   coverage* (Nov 21).

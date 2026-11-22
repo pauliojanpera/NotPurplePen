@@ -1,6 +1,6 @@
-# Glossary of the palette-layer architecture
+# Glossary of the palette-stack architecture
 
-Nov 20, 2026. This glossary gives the names of the concepts that the specification of the palette-layer architecture
+Nov 20, 2026. This glossary gives the names of the concepts that the specification of the palette-stack architecture
 needs: the name in the code, the Finnish term and the English term. The content of many concepts is not decided or not
 delimited yet. Each entry tells what the code, the specification and the decisions say now, and marks what is open.
 
@@ -554,7 +554,7 @@ encodings make themselves.
   - the folder `src/MapModel`: the map model and the graphics targets, in many projects, for example `Graphics2D`,
     `Map_SkiaStd` and `Map_PDF`;
   - the project `src/MapModel/MapModel/MapModel.csproj`: the classes that read, hold, write and draw the maps, for
-    example `Map`, `SymColor`, `SymDef`, `Symbol`, `Glyph` and `SymPath`. The palette-layer work adds the instances to
+    example `Map`, `SymColor`, `SymDef`, `Symbol`, `Glyph` and `SymPath`. The palette-stack work adds the instances to
     it;
   - the namespace `PurplePen.MapModel`: the classes of that project, and also classes of `Map_SkiaStd`, `Map_PDF`,
     `Map_GDIPlus`, `Map_WPF` and `Map-iOS`.

@@ -1,4 +1,4 @@
-# Palette-layer vector graphics architecture
+# Vector graphics architecture of the palette stack
 
 > This is a working document converted from `Palette_Layer_Vector_Graphics_Specification_Revised.docx`.
 > This specification was never the basis of NotPurplePen. Rather this is the reference for an architecture change of

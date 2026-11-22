@@ -1,6 +1,6 @@
-# Palettikerrokset upstreamin karttamalliin
+# Palettipino upstreamin karttamalliin
 ### Tavoite
-Upstreamin karttamalli toteuttaa [speksin](../Specification.md) palettikerrosarkkitehtuurin. Palettimerkinnät koostuvat musteista, symbolit instansioivat geometrian, ja piirto koostaa palettimerkinnät palettijärjestyksessä. Kartan piirron auktoriteetteja ovat OCAD ja Mapper omille kartoilleen ja muuten feature/multiply-blending. Se on vain ulkoasun oraakkeli eikä toteutuksen malli: työ ei lue sen koodia, ja unioni saa jäädä piirrossa implisiittiseksi, mutta ilmentymät eivät saa jäädä pois (speksin esipuhe ja luku 04). Arkkitehtuurin osien tiketeillä on rakenteelliset hyväksymiskriteerit. Osat kootaan haaraan `feature/palette-layers`, joka juurtuu kohtaan, jossa base kohtaa upstreamin (d48f4456). Tiedosto [Progress.md](../Progress.md) seuraa haaroja.
+Upstreamin karttamalli toteuttaa [speksin](../Specification.md) palettipinoarkkitehtuurin. Palettimerkinnät koostuvat musteista, symbolit instansioivat geometrian, ja piirto koostaa palettimerkinnät palettijärjestyksessä. Kartan piirron auktoriteetteja ovat OCAD ja Mapper omille kartoilleen ja muuten feature/multiply-blending. Se on vain ulkoasun oraakkeli eikä toteutuksen malli: työ ei lue sen koodia, ja unioni saa jäädä piirrossa implisiittiseksi, mutta ilmentymät eivät saa jäädä pois (speksin esipuhe ja luku 04). Arkkitehtuurin osien tiketeillä on rakenteelliset hyväksymiskriteerit. Osat kootaan haaraan `feature/palette-layers`, joka juurtuu kohtaan, jossa base kohtaa upstreamin (d48f4456). Tiedosto [Progress.md](../Progress.md) seuraa haaroja.
 
 ### Laajuus  
 ✅ Sisältyy
@@ -19,7 +19,7 @@ Upstreamin karttamalli toteuttaa [speksin](../Specification.md) palettikerrosark
 
 ## Malli säilyttää tiedon, eikä koodaus tunnista mitään
 
-Kun koodaus tarvitsee tiedon, malli säilyttää sen, ja koodaus lukee sen mallista. Rakennetta tunnistavaa heuristiikkaa ei viedä koodaukseen (@Pauli, 20.11.). Sääntö koskee palettikerrostyötä ja sen ilmentymien jokaista koodausta: renderöintikanavia Skia, PDF ja SVG sekä SVG-koodausta.
+Kun koodaus tarvitsee tiedon, malli säilyttää sen, ja koodaus lukee sen mallista. Rakennetta tunnistavaa heuristiikkaa ei viedä koodaukseen (@Pauli, 20.11.). Sääntö koskee palettipinotyötä ja sen ilmentymien jokaista koodausta: renderöintikanavia Skia, PDF ja SVG sekä SVG-koodausta.
 
 ### Muistiinpanot
 * **Arkkitehtuuri ennen ulkoasua (18.11.).** Vanha feature/multiply-blending -haara saavuttaa ulkoasunsa sekoittamalla musteen kerroksena symbolien piirron ympärillä. Tämä epic sen sijaan toteuttaa speksin erottelemat vaiheet: vaihe 1 tuottaa ilmentymät tietorakenteena, ja vaihe 2 koostaa ne. Siksi multiply-blending on tälle työlle vain ulkoasun oraakkeli, eikä työ lue sen koodia. Speksin luvun 04 implisiittinen unioni koskee piirtoa eikä rakennetta: ilmentymät eivät saa jäädä pois. (Tekstissä mainintaa tarkoitetaan suhteutettavaksi lähinnä litistämiseen.) Osat tehdään vaiheiden järjestyksessä: palettimerkinnän tiedot ensin pelkkänä mallina, sitten vaihe 1, vaihe 2 ja piirtotilat.

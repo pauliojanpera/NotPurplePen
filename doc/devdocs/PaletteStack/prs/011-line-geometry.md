@@ -1,5 +1,5 @@
 ## General description
-Pass 1 of the palette-layer drawing makes the clipping objects of lines with a geometry method, in place of the
+Pass 1 of the palette-stack drawing makes the clipping objects of lines with a geometry method, in place of the
 collector. A dashed line is a composed dashed line: each run of dashes that repeats a pattern is one dashed stroke,
 and the other dashes are single dashes. The glyphs along a line share the shapes of their glyph: the evenly spaced
 glyphs of each part of a line are one repetition, and the other glyphs are single placements. The collector no longer collects any line, and the instances that it makes of all the symbols stay the

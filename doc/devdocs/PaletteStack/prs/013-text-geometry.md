@@ -1,5 +1,5 @@
 ## General description
-Pass 1 of the palette-layer drawing makes the clipping objects of texts, of texts along lines and of rectangles with
+Pass 1 of the palette-stack drawing makes the clipping objects of texts, of texts along lines and of rectangles with
 geometry methods. With them, every kind of symbol has a geometry method, and pass 1 no longer uses the collector. The
 instances that the collector makes of all the symbols stay the oracle of the tests. The drawing does not change.
 

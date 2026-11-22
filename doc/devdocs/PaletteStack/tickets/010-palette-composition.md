@@ -11,7 +11,7 @@ Vaihe 2 piirtää kartan palettimerkinnät ilmentymistä: se ryhmittelee ilmenty
 - Palettimerkinnän unioni saa jäädä piirrossa implisiittiseksi, mutta ilmentymät eivät saa jäädä pois (speksin luku 04, @Pauli, 18.11.). feature/multiply-blending on vain ulkoasun oraakkeli, eikä sen tapa sekoittaa muste kerroksena symbolien piirron ympärillä ole vaiheen 2 malli. Työ ei lue sen koodia (@Pauli, 18.11.).
 - OCAD ja Mapper ovat omien karttojensa piirron auktoriteetit (@Pauli, 17.11.).
 - Ryhmän koostamista tarvitsevat Skia, PDF, tulostus ja tuleva SVG-toteutus. GDI+ ja WPF ovat legacya, eivätkä Direct2D ja iOS ole käytössä (@Pauli, 18.11.).
-- Täydet ajot tehdään basen päällä, ja palettikerroshaarat saavat olla ristiriidassa devin kanssa (@Pauli, 18.11.).
+- Täydet ajot tehdään basen päällä, ja palettipinohaarat saavat olla ristiriidassa devin kanssa (@Pauli, 18.11.).
 - Kun muutos ei voi muuttaa piirtoa, esimerkiksi koska se ei koske koodia, jota piirto ajaa, täysi ajo tehdään komennolla `tools/push-wip.sh` ilman `--collect`-valintaa, sillä kuvat pysyvät silloin ennallaan (@Pauli, 18.11.).
 
 **Hyväksymiskriteerit (luonnos: ehdotuksia, ei sitovia)**

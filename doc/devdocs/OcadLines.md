@@ -7,16 +7,16 @@ sample. The section "Not known" lists what no sample checked. The last section t
 rule.
 
 OCAD is the authority on how its own maps render (the preface of
-[PaletteLayers/Specification.md](PaletteLayers/Specification.md)).
+[PaletteStack/Specification.md](PaletteStack/Specification.md)).
 
 ## Sources
 
 - **The samples.** Purple Pen wrote each sample file. @Pauli exported the files from the OCAD viewer as PNG images of
   600 or 1200 dpi, and as PDF. The samples and the measurements are in these documents:
-  - [PaletteLayers/oracles/ocad-dashes.md](PaletteLayers/oracles/ocad-dashes.md): nine samples of dashed lines, double
+  - [PaletteStack/oracles/ocad-dashes.md](PaletteStack/oracles/ocad-dashes.md): nine samples of dashed lines, double
     lines and spaced glyphs.
-  - [PaletteLayers/oracles/ocad-line-text.md](PaletteLayers/oracles/ocad-line-text.md): one sample of text along lines.
-  - [PaletteLayers/oracles/ocad-thick-circles.md](PaletteLayers/oracles/ocad-thick-circles.md): the circle elements of
+  - [PaletteStack/oracles/ocad-line-text.md](PaletteStack/oracles/ocad-line-text.md): one sample of text along lines.
+  - [PaletteStack/oracles/ocad-thick-circles.md](PaletteStack/oracles/ocad-thick-circles.md): the circle elements of
     glyphs.
 - **The viewer.** The exports are from the OCAD viewer OCAD 2020.5.18.3780, build date 2022-05-09, 32 bit (@Pauli,
   Nov 19).
@@ -24,7 +24,7 @@ OCAD is the authority on how its own maps render (the preface of
   (0.0035 mm). The bitmap exports follow other rules in some details (see "The vertex next to the end of a dash").
   So this document uses the PDF exports where they exist.
 - **The scripts.** The scripts that measure the exports are in
-  [PaletteLayers/oracles/ocad-dashes/](PaletteLayers/oracles/ocad-dashes/) (`measure-*.py`).
+  [PaletteStack/oracles/ocad-dashes/](PaletteStack/oracles/ocad-dashes/) (`measure-*.py`).
   [OcadLines/ocad-metric-arcs.py](OcadLines/ocad-metric-arcs.py) computes the tables of the section "The OCAD metric
   and a euclidean measure".
 
@@ -248,9 +248,9 @@ the length of a dash, g the length of a gap, and e1 and e2 the lengths of the en
 | Tenth sample, euclidean metric: long paths, real paths, straight segments, corner and dash points | Up to 0.045 mm | Up to 0.152 mm |
 | Tenth sample, OCAD metric: the same paths | Up to 0.059 mm | Up to 0.269 mm |
 
-[measure-pdf-curves.py](PaletteLayers/oracles/ocad-dashes/measure-pdf-curves.py),
-[measure-pdf-curves-metric.py](PaletteLayers/oracles/ocad-dashes/measure-pdf-curves-metric.py) and
-[measure-pdf-paths.py](PaletteLayers/oracles/ocad-dashes/measure-pdf-paths.py) give the values. With the OCAD metric,
+[measure-pdf-curves.py](PaletteStack/oracles/ocad-dashes/measure-pdf-curves.py),
+[measure-pdf-curves-metric.py](PaletteStack/oracles/ocad-dashes/measure-pdf-curves-metric.py) and
+[measure-pdf-paths.py](PaletteStack/oracles/ocad-dashes/measure-pdf-paths.py) give the values. With the OCAD metric,
 two other models do not fit the ninth sample: the quarters with their chords and their lengths in the OCAD metric are
 0.019 to 0.190 mm from OCAD, and the quarters with their lengths in the OCAD metric and the points in proportion to the
 euclidean arc up to 0.219 mm, and 0.813 mm on the curve with a loop. In the tenth sample, the one count that differs
@@ -299,7 +299,7 @@ by one dash near a half is left out (see "The number of gaps").
   file gives the diameter from the outer edges, and OCAD subtracts the width of the line from it. With that diameter,
   a circle whose diameter is larger than the width of its line is a ring. A circle whose line is at least as wide as
   its diameter is a filled circle of that diameter. A circle whose diameter is 0 or less is not drawn. Verified with
-  point symbols ([ocad-thick-circles.md](PaletteLayers/oracles/ocad-thick-circles.md)). No sample checked the glyphs
+  point symbols ([ocad-thick-circles.md](PaletteStack/oracles/ocad-thick-circles.md)). No sample checked the glyphs
   of a line.
 
 ## The text along lines
@@ -331,15 +331,15 @@ Each fix is on a branch of its own, and it is merged into `feature/palette-layer
 
 | Rule of OCAD | Purple Pen |
 | --- | --- |
-| The metric from `p`, also in OCAD 9 and 10 files | Fix [016](PaletteLayers/tickets/016-ocad-metric-parameter.md) |
-| A Bezier curve as four chords, the half, the short line, the end dashes of 0, the secondary gap | Fix [017](PaletteLayers/tickets/017-ocad-dash-count.md) |
-| No minimum of gaps for a double line | Fix [018](PaletteLayers/tickets/018-double-line-dash-gaps.md) |
-| `MinSym` 2 and 3 | Fix [019](PaletteLayers/tickets/019-ocad-minimum-gaps.md) |
-| The vertex next to the end of a dash | Fix [020](PaletteLayers/tickets/020-dash-boundary-at-vertex.md) |
-| The quarters of a Bezier curve with the euclidean metric, for the dashes and the spaced glyphs | Fix [021](PaletteLayers/tickets/021-ocad-dashes-on-curves.md) |
-| The quarters of a Bezier curve with the OCAD metric, with their chords in the OCAD metric | An extension of fix [021](PaletteLayers/tickets/021-ocad-dashes-on-curves.md), decided on Nov 19, not done (see below) |
-| The circle elements of glyphs | Fix [015](PaletteLayers/tickets/015-thick-glyph-circles.md) |
-| The text along lines with the OCAD metric | As OCAD already ([022](PaletteLayers/tickets/022-line-text-metric.md), closed) |
+| The metric from `p`, also in OCAD 9 and 10 files | Fix [016](PaletteStack/tickets/016-ocad-metric-parameter.md) |
+| A Bezier curve as four chords, the half, the short line, the end dashes of 0, the secondary gap | Fix [017](PaletteStack/tickets/017-ocad-dash-count.md) |
+| No minimum of gaps for a double line | Fix [018](PaletteStack/tickets/018-double-line-dash-gaps.md) |
+| `MinSym` 2 and 3 | Fix [019](PaletteStack/tickets/019-ocad-minimum-gaps.md) |
+| The vertex next to the end of a dash | Fix [020](PaletteStack/tickets/020-dash-boundary-at-vertex.md) |
+| The quarters of a Bezier curve with the euclidean metric, for the dashes and the spaced glyphs | Fix [021](PaletteStack/tickets/021-ocad-dashes-on-curves.md) |
+| The quarters of a Bezier curve with the OCAD metric, with their chords in the OCAD metric | An extension of fix [021](PaletteStack/tickets/021-ocad-dashes-on-curves.md), decided on Nov 19, not done (see below) |
+| The circle elements of glyphs | Fix [015](PaletteStack/tickets/015-thick-glyph-circles.md) |
+| The text along lines with the OCAD metric | As OCAD already ([022](PaletteStack/tickets/022-line-text-metric.md), closed) |
 | The dash on a line that a minimum of 2 gaps leaves without dashes | Not done |
 | The open corners of a closed double line | Not done: Purple Pen fills them |
 
@@ -358,7 +358,7 @@ change is an extension of fix 021 (@Pauli, Nov 19), and it is not made yet.
 2. The channels of the drawing measure the euclidean length along a path. On a straight segment, an even euclidean
    step gives the points of the OCAD metric exactly, and in a quarter of a curve the model has an even euclidean step.
    So each straight segment and each quarter can be a run of dashes or a repetition of glyphs, which a channel draws
-   with its dash pattern or its path effect. This is the measure of the benefit of the palette-layer work: a basic
+   with its dash pattern or its path effect. This is the measure of the benefit of the palette-stack work: a basic
    case uses an abstraction of the channels (@Pauli, Nov 19).
 3. A dash pattern with a table of lengths could keep the present placement exactly, as the dash patterns of SVG, PDF
    and Skia take any list of lengths. But that placement is farther from OCAD, and the 1D path effect of Skia, which
@@ -368,4 +368,4 @@ change is an extension of fix 021 (@Pauli, Nov 19), and it is not made yet.
 with straight segments, corner points and dash points, on real paths, and for the spaced glyphs (see "The dashes on
 Bezier curves").
 
-[Ticket 011](PaletteLayers/tickets/011-line-geometry.md) records the decision and what it changes in the instances.
+[Ticket 011](PaletteStack/tickets/011-line-geometry.md) records the decision and what it changes in the instances.

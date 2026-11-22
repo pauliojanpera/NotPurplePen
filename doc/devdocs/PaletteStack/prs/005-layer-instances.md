@@ -1,5 +1,5 @@
 ## General description
-Pass 1 of the palette-layer drawing. The map model makes the layer instances of its symbols as a data structure, which
+Pass 1 of the palette-stack drawing. The map model makes the layer instances of its symbols as a data structure, which
 is the interface between pass 1 and pass 2. Each palette entry (`SymColor`) that the symbols draw a shape of has one
 instance with full coverage (G = 1), and the shapes are the clipping objects of that instance. A collector, which
 implements `IGraphicsTarget`, turns the drawing calls of the symbols into the clipping objects. The hatchings and the

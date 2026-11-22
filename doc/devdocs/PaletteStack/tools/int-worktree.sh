@@ -4,7 +4,7 @@
 # Makes or updates the integration worktree of a feature: the local branch local/<name>-int, which is the base
 # branch from origin with the feature branch merged in, and with this folder's LinuxMapModelTestRun in
 # src/MapModel/, committed on the local branch alone. The branch is never pushed, and no other branch gets the
-# project. As ../README.md says, the branches of the palette-layer work run on base, the default base branch;
+# project. As ../README.md says, the branches of the palette-stack work run on base, the default base branch;
 # --base names another.
 #
 # The first call makes the worktree from the base branch. A later call merges the feature branch in again, and
@@ -41,6 +41,6 @@ cp "$tools/LinuxMapModelTestRun/LinuxMapModelTestRun.csproj" "$tools/LinuxMapMod
 git -C "$worktree" add src/MapModel/LinuxMapModelTestRun
 if ! git -C "$worktree" diff --cached --quiet; then
     git -C "$worktree" commit -q -m "Add LinuxMapModelTestRun, on this local branch only" \
-        -m "It runs test files of Test_MapModel on Linux. doc/devdocs/PaletteLayers/tools/ on docs/process-coordination keeps it."
+        -m "It runs test files of Test_MapModel on Linux. doc/devdocs/PaletteStack/tools/ on docs/process-coordination keeps it."
 fi
 git -C "$worktree" log --oneline -3
