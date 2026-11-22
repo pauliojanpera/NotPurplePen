@@ -188,21 +188,6 @@ the rendering.
 - **The review of the new specification** (Nov 21). @Pauli let the session write [Specification.md](Specification.md)
   again on its own, and he reviews it afterwards. These are the choices that the session made on its own, and not his
   decisions:
-  - Section 02 refers to [OcadLines.md](../OcadLines.md) for OCAD's rules of the lines, and does not repeat them.
-  - Section 03 states the rules of the structure of a line that the decisions of Nov 19 to 21 give: the quarters and the
-    runs by quarter with the OCAD spacing, the runs by straight edge with the OCAD metric, and the borders of the double
-    lines as offset paths.
-  - Section 04 keeps the SVG examples of the text of Nov 17, with comments in the terms of the glossary. The clipping
-    paths of the examples are named after the palette cutters.
-  - Section 04 says that the templates, the image layer and the layout layer are drawn beside the palette stack, below
-    it or above it, and does not say how. The epic leaves this to the ticket of pass 2.
-  - Section 05 has the paragraph of Nov 17 on the overlaps in one palette color, and section 04 the rule that the union
-    can stay implicit in the rendering.
-  - The section numbers of the other documents now refer to the new sections. Where an old number names the same content
-    in the new text, it stays: "luvut 02 ja 03" and "luku 04" in the epic. The decisions on the dashed lines of Nov 18
-    in Progress.md, the epic and ticket 011, which the decisions of Nov 20 replace, still name section 03. The new
-    section 03 keeps a clipped pattern fill as a periodic coverage, but it gives the selected elements as derived
-    values, and not as single clipping objects. The figure numbers stay.
   - In the done tickets, the session changed only the numbers, with two exceptions. In ticket 004, "luku 01 antaa
     palettikerroksen ominaisuudet C, α, B, G ja M" is now "luku 02 antaa palettimerkinnän ominaisuudet C, α ja B". In
     ticket 005, the sentence on the clipping objects starts with "Luvun 03 mukaan".
@@ -263,11 +248,12 @@ the rendering.
   a single line; on a double line, the dash of the middle leaves it out for a piece shorter than 0.05 mm, and each
   border then applies the rule of a single line to its own dash with the width of the border
   ([020](tickets/020-dash-boundary-at-vertex.md), [oracles/ocad-dashes.md](oracles/ocad-dashes.md)).
-- **The dashed lines** (Nov 18). A dashed line follows the principle that section 03 of
-  [Specification.md](Specification.md) gives for the pattern fills: the basic model is a standard dashed line, and the
-  exotic cases, such as the distance metric of OCAD, are split into parts, for a dashed line into single dashes. In
-  section 03, a clipped pattern fill stays repetitive geometry, and the fill modes that select complete elements and
-  the nonperiodic fills become single clipping objects. The decision on the structure of a line (Nov 20) replaces this.
+- **The dashed lines** (Nov 18). A dashed line follows the principle that section 03 of the text of Nov 17 of
+  [Specification.md](Specification.md) (commit 9bb31ff6) gives for the pattern fills: the basic model is a standard
+  dashed line, and the exotic cases, such as the distance metric of OCAD, are split into parts, for a dashed line into
+  single dashes. In that section, a clipped pattern fill stays repetitive geometry, and the fill modes that select
+  complete elements and the nonperiodic fills become single clipping objects. The decision on the structure of a line
+  (Nov 20) replaces this.
 - **The composed dashed lines** (Nov 19). A dashed line is a composed dashed line: each part between corner and dash
   points is one periodic dashed line, and the merged dashes at those points and the end dashes of the line are lines
   of their own. The geometry method makes single dashes only where an object cannot be a composed dashed line. This
@@ -506,8 +492,18 @@ the rendering.
   the SVG DOM in a browser.
 - **The choices of the session that stay** (Nov 22). The opening text of the specification names the channels Skia,
   PDF and SVG. Section 01 gives the units in a table and the rules of the structure as a list. Section 02 gives the
-  properties of a palette color in a table, and says that G and M do not belong to the palette color. These are
-  choices of the session that @Pauli let stand.
+  properties of a palette color in a table, and says that G and M do not belong to the palette color. It refers to
+  [OcadLines.md](../OcadLines.md) for OCAD's rules of the lines, and section 03 gives the rules of the structure of a
+  line that the decisions of Nov 19 to 21 give. Section 04 keeps the SVG examples of the text of Nov 17 in the terms
+  of the glossary, with the clipping paths named after the palette cutters. It says that the templates, the image
+  layer and the layout layer are drawn below or above the palette stack, and not how. Section 05 keeps the paragraph
+  of Nov 17 on the overlaps in one palette color, and section 04 the rule that the union can stay implicit in the
+  rendering. These are choices of the session that @Pauli let stand.
+- **The references to the sections of the specification** (Nov 22). A reference to a section of
+  [Specification.md](Specification.md) without a version names the section of the present text. The decisions on the
+  dashed lines of Nov 18, which the decisions of Nov 20 replace, refer to section 03 of the text of Nov 17 (commit
+  9bb31ff6), which was in force on Nov 18, and Progress.md, the epic and ticket 011 name that version. The other
+  references of the documents and the tickets to the sections name the same content in the present text.
 - **The framing line of texts** (Nov 19). The framing of a text run is one line in the instances, a stroke of the full
   width with the joins of the symbol, as in OCAD's PDF export. OCAD's own drawing leaves the same holes as Skia and
   Cairo with one pen, so the holes that the intermediate pens of Purple Pen fill are no faults against OCAD (question
