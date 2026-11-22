@@ -215,6 +215,10 @@ the rendering.
   target of NotPurplePen fitted to them in the integration. And whether the work can use the documented findings or
   the code of `feature/svg-target`. The notes of the epic give the reasons.
 - **Offering upstream.** No branch is offered upstream yet.
+- **The approval of ticket 023** (Nov 23). [023](tickets/023-palette-separations.md), the intermediate layer and
+  pass 1 with the collector, is a draft for @Pauli's approval. It makes the keeping and the invalidation of the
+  derived values by section 03 of the specification, which changes the decision "The instances belong to the map"
+  (Nov 18) on the ticket of pass 2.
 
 ## Decisions
 
@@ -551,10 +555,10 @@ the rendering.
   - 026: the course object key (`CourseObj.Key`) and the symbol keys of the course map, in `PurplePenCore`.
 
   The branches are `feature/palette-separations`, `feature/point-symbol-geometry`, `feature/symbol-keys` and
-  `feature/course-object-keys`. Each is rooted at
-  `feature/palette-stack`: 024 after 023 is merged into it, and 026 after 025. Their full runs go on
-  `wip/linux/<name>`, on `base`, with `--base-baselines prs/000-palette-stack-base`. A ticket is a draft until @Pauli
-  approves it, and the epic lists each ticket that he approves under "Erotetut alatehtävät".
+  `feature/course-object-keys`. Each is rooted at `feature/palette-stack`: 024 after 023 is merged into it, and 026
+  after 025. Their full runs go on `wip/linux/<name>`, on `base`, with `--base-baselines prs/000-palette-stack-base`.
+  A ticket is a draft until @Pauli approves it, and the epic lists each ticket that he approves under "Erotetut
+  alatehtävät".
 - **The options of a question** (Nov 23). A question gives options only where the choice is real. It does not add
   options only to involve @Pauli ("How to continue the work").
 - **The framing line of texts** (Nov 19). The framing of a text run is one line in the instances, a stroke of the full
