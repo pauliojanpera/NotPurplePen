@@ -49,8 +49,8 @@ namespace PurplePen.MapModel
         Layout, Normal, Image
     }
 
-    // How a palette entry composites over the entries below it: the blend modes that OCAD knows. OpenOrienteering
-    // Mapper has no blend modes.
+    // How a palette color composites over the palette colors below it: the blend modes that OCAD knows.
+    // OpenOrienteering Mapper has no blend modes.
     public enum ColorBlendMode
     {
         Normal, Darken, Multiply
@@ -217,9 +217,9 @@ namespace PurplePen.MapModel
             }
         }
 
-        // The opacity of this palette entry, from 0 (transparent) to 1 (opaque). It applies once to all that the entry
-        // covers, and not to each shape of it. It is apart from the CMYK value and its alpha, and from the overprint
-        // flag. The drawing does not apply it yet.
+        // The opacity of this palette color, from 0 (transparent) to 1 (opaque). It applies once to all that the
+        // palette color covers, and not to each shape of it. It is apart from the CMYK value and its alpha, and from
+        // the overprint flag. The drawing does not apply it yet.
         public float Opacity
         {
             get { return opacity; }
@@ -243,9 +243,9 @@ namespace PurplePen.MapModel
                 return Math.Min(Math.Max(opacity, 0), 1);
         }
 
-        // How this palette entry composites over the entries below it. It is apart from the overprint flag, and from the
-        // blend mode with which the overprint effect of the drawing blends the overprinted colors. The drawing does not
-        // apply it yet.
+        // How this palette color composites over the palette colors below it. It is apart from the overprint flag, and
+        // from the blend mode with which the overprint effect of the drawing blends the overprinted colors. The drawing
+        // does not apply it yet.
         public ColorBlendMode BlendMode
         {
             get { return blendMode; }

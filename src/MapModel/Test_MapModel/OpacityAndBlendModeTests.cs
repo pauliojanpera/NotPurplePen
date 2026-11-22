@@ -12,7 +12,7 @@ using static PurplePen.MapModel.Tests.MapFileTestUtil;
 
 namespace PurplePen.MapModel.Tests
 {
-    // Tests of the opacity and the blend mode of palette entries: the model, and the import and export of OCAD and
+    // Tests of the opacity and the blend mode of palette colors: the map side, and the import and export of OCAD and
     // Mapper files. No test draws.
     [TestFixture]
     public class OpacityAndBlendModeTests
@@ -26,13 +26,13 @@ namespace PurplePen.MapModel.Tests
         // The base name of the files that the tests write of the map that MakeMap makes.
         const string MadeMap = "ocadimport\\opacity and blend mode";
 
-        // A palette entry: its name, its opacity and its blend mode.
+        // A palette color: its name, its opacity and its blend mode.
         static string DescribeCompositing(SymColor color)
         {
             return string.Format(CultureInfo.InvariantCulture, "{0}: {1} {2}", color.Name, color.Opacity, color.BlendMode);
         }
 
-        // Make a black palette entry with an opacity and a blend mode.
+        // Make a black palette color with an opacity and a blend mode.
         static SymColor MakeColor(string name, short ocadId, bool overprint, float opacity, ColorBlendMode blendMode)
         {
             SymColor color = new SymColor(name, ocadId, 0, 0, 0, 1, overprint);
@@ -41,7 +41,7 @@ namespace PurplePen.MapModel.Tests
             return color;
         }
 
-        // Make a map of four palette entries, the top one first: opaque, transparent, overprinted and darkened, and
+        // Make a map of four palette colors, the top one first: opaque, transparent, overprinted and darkened, and
         // transparent and multiplied.
         static Map MakeMap()
         {
@@ -299,10 +299,10 @@ namespace PurplePen.MapModel.Tests
         [Test]
         public void MapperReadsTransparencyAsOcadImportDoes()
         {
-            // Each color of LordHill.ocd has in LordHill.omap, which Mapper saved of it, the opacity that the OCAD import
-            // reads, and no blend mode. Mapper makes "All color separations" its registration black, which is not a color
-            // of its file. It adds the separations as spot colors below the other colors, with their names, so the color
-            // of a name is the top one.
+            // Each color of LordHill.ocd has in LordHill.omap, which Mapper saved of it, the opacity that the OCAD
+            // import reads, and no blend mode. Mapper makes "All color separations" its registration black, which is
+            // not a color of its file. It adds the spot color separations as spot colors below the other colors, with
+            // their names, so the color of a name is the top one.
             List<SymColor> mapperColors = ColorsTopFirst(LoadMap(MapperMap));
             List<SymColor> ocadColors = ColorsTopFirst(LoadMap(Ocad9Map)).Where(color => color.Name != "All color separations").ToList();
 
