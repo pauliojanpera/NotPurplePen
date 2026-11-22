@@ -43,10 +43,10 @@ Kun koodaus tarvitsee tiedon, malli säilyttää sen, ja koodaus lukee sen malli
 * **Valintojen korostukset (18.11.)** (`Symbol.DrawHighlight` ja ratakohteiden `CourseObject.DrawHighlight`) piirretään suoraan piirtokohteelle eivätkä kulje `Map.Draw`n kautta. Auki on, jäävätkö ne suoraksi piirroksi. Se ei estä vaihetta 2.
 
 ### Erotetut alatehtävät
-* [001](001-inks.md) Musteet palettimerkintöjen perustana: haara `feature/inks`, yhdistetty haaraan `feature/palette-stack`.
+* [001](001-inks.md) Musteet palettivärien perustana: haara `feature/inks`, yhdistetty haaraan `feature/palette-stack`.
 * [002](002-mapper-export-color-numbers.md) Mapper-viennin värinumerot, erotettu tiketistä 001: haara `fix/mapper-export-color-numbers`, yhdistetty haaraan `feature/palette-stack` haaran `feature/inks` mukana.
 * [003](003-ocad11-utf8-strings.md) OCAD 11:n ja uudempien merkkijonojen UTF-8-koodaus, löytyi tiketin 001 testikartasta: haara `fix/ocad11-utf8-strings`, yhdistetty haaraan `feature/palette-stack`.
-* [004](004-opacity-and-blend-mode.md) Palettimerkinnän peittävyys ja sekoitustila: haara `feature/opacity-and-blend-mode`, yhdistetty haaraan `feature/palette-stack`.
+* [004](004-opacity-and-blend-mode.md) Palettivärin peittävyys ja sekoitustila: haara `feature/opacity-and-blend-mode`, yhdistetty haaraan `feature/palette-stack`.
 * [005](005-layer-instances.md) Vaihe 1: yhtenäisen geometrian ilmentymät (G = 1): haara `feature/layer-instances`, yhdistetty vanhaan epicin haaraan `feature/palette-layers`. Vaiheen 1 uudet tiketit korvaavat tämän (22.11.).
 * [006](006-matrix-equals-offsets.md) Matriisin yhtäsuuruus vertaa siirtymiä float-lukuina, löytyi tiketin 005 testeistä: haara `fix/matrix-equals-offsets`, ei yhdistetty, koska mikään osa ei tarvitse sitä.
 * [007](007-map-instances.md) Vaihe 1 tekee kartan ilmentymät piirrosta riippumatta: haara `feature/map-instances`, yhdistetty vanhaan epicin haaraan `feature/palette-layers`. Vaiheen 1 uudet tiketit korvaavat tämän (22.11.).
