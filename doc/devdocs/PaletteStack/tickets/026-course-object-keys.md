@@ -3,7 +3,7 @@
 > **LUONNOS (23.11.), @Paulin hyväksyttävänä.** Tämä tiketti on luonnos, kunnes @Pauli hyväksyy sen, eikä luonnosta toteuteta. Hyväksynnän jälkeen istunto poistaa tämän merkinnän ja otsikon sanan LUONNOS.
 
 **Kuvaus**
-`CourseFormatter` ja `TopologyFormatter` antavat jokaiselle rataobjektille, jonka ne lisäävät ratojen asetteluun, rataobjektin avaimen (`CourseObj.Key`): kohdan roolin EventDB:n tiedoissa, kohdan käyttämät EventDB:n tunnisteet ja rataobjektin kerroksen (`CourseLayer`). `CourseLayout.RenderToMap` antaa ratakartan symboleille avaimet rataobjektin avaimesta ja symbolin indeksistä. Piirto ei muutu.
+`CourseFormatter` ja `TopologyFormatter` antavat jokaiselle rataobjektille, jonka ne lisäävät ratojen asetteluun (`CourseLayout`), rataobjektin avaimen (`CourseObj.Key`): kohdan roolin EventDB:n tiedoissa, kohdan käyttämät EventDB:n tunnisteet ja rataobjektin kerroksen (`CourseLayer`). `CourseLayout.RenderToMap` antaa ratakartan symboleille avaimet rataobjektin avaimesta ja symbolin indeksistä. Piirto ei muutu.
 
 **Hyväksymiskriteerit**
 - [ ] Rataobjektin avaimella (`CourseObj.Key`) on kolme osaa: kohdan rooli EventDB:n tiedoissa (`CourseObjRole`), kohdan käyttämät EventDB:n tunnisteet ja rataobjektin kerros (`CourseLayer`). Avaimella on tekstimuoto.
