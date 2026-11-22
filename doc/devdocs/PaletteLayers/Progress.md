@@ -202,9 +202,6 @@ the rendering.
   - Section 02 says that the symbol keys and the course object keys stay the same over the edits, as the mutations of
     the SVG DOM in a browser need them. It does not give the plan to port `Map` to TypeScript.
   - Section 02 refers to [OcadLines.md](../OcadLines.md) for OCAD's rules of the lines, and does not repeat them.
-  - Section 03 gives the elements that a fill mode selects as derived values of a palette color coverage of a symbol, as
-    the note of Nov 20 did. It does not say to which palette cutter they belong (question 2 of ticket 009), and it keeps
-    the sentence of Nov 17 that leaves their composite representations to a later refinement.
   - Section 03 states the rules of the structure of a line that the decisions of Nov 19 to 21 give: the quarters and the
     runs by quarter with the OCAD spacing, the runs by straight edge with the OCAD metric, and the borders of the double
     lines as offset paths.
@@ -480,6 +477,10 @@ the rendering.
   05 with the references. The new text grows at the start of the file, and the old text stays below it until the last
   part. Until then, the section and figure numbers that the other documents give refer to the old text. The last part
   changes them to the new sections and figures.
+- **The selected elements in the specification** (Nov 22). Section 03 of [Specification.md](Specification.md) gives the
+  elements that a fill mode selects as derived values of a palette color coverage of a symbol. It does not say to which
+  palette cutter they belong, which question 2 of ticket 009 asks. It leaves the composite representations of the
+  selected elements to a later refinement, as the text of Nov 17 did.
 - **The framing line of texts** (Nov 19). The framing of a text run is one line in the instances, a stroke of the full
   width with the joins of the symbol, as in OCAD's PDF export. OCAD's own drawing leaves the same holes as Skia and
   Cairo with one pen, so the holes that the intermediate pens of Purple Pen fill are no faults against OCAD (question
