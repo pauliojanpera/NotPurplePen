@@ -954,6 +954,7 @@ namespace PurplePen.MapModel
             // Get length of each segment, deliniated by corner points.
             PointKind[] pointkinds;
             float[] segmentLengths = path.GetCornerAndDashPointDistances(distanceMetric, out pointkinds);
+            float[] countingLengths = (spacingMethod == SpacingMethod.OCAD) ? path.GetCornerAndDashPointLengthsForCounting(distanceMetric) : segmentLengths;
             float[] lengthAtEnd = new float[segmentLengths.Length];
             float[][] dashDistances = new float[segmentLengths.Length][];
             int segmentSmallToLarge = -1, segmentLargeToSmall = -1, segmentBothEnds = -1;  // segment numbers with different decrease kinds.
@@ -1035,7 +1036,7 @@ namespace PurplePen.MapModel
                 if (i == segmentLongest || segmentLengths[i] >= segmentLengths[segmentLongest] - 0.1 || spacingMethod == SpacingMethod.OpenMapperMidSymbols)
                     minGapsThisSegment = minGaps;
 
-                dashDistances[i] = ComputeDashDistances(segmentLengths[i], kind, spacingMethod, dashLength, firstLength, lastLength, gapLength,
+                dashDistances[i] = ComputeDashDistances(segmentLengths[i], countingLengths[i], kind, spacingMethod, dashLength, firstLength, lastLength, gapLength,
                                                         minGapsThisSegment, offset, 
                                                         numEndSecGaps, lengthEndSecGaps, numMiddleSecGaps, lengthMiddleSecGaps, 
                                                         decreaseLimit, decreaseKind, 
@@ -1110,7 +1111,7 @@ namespace PurplePen.MapModel
 
         // Computes the dash distances for a single segment. Also returns the distance from the last location to the end of the segment.
         // If LocationKind is DashesAndGapLengths, this is a duplicate of the last array element.
-        private static float[] ComputeDashDistances(float pathLength, LocationKind kind, SpacingMethod spacingMethod, 
+        private static float[] ComputeDashDistances(float pathLength, float countingLength, LocationKind kind, SpacingMethod spacingMethod, 
                                                     float dashLength, float firstDashLength, float lastDashLength, float gapLength, int minGaps, float offset, 
                                                     int numEndSecGaps, float lengthEndSecGaps, int numMiddleSecGaps, float lengthMiddleSecGaps, float decreaseLimit, DecreaseKind decreaseKind, 
                                                     out float lengthAtEnd, out int actualGaps)
@@ -1136,11 +1137,12 @@ namespace PurplePen.MapModel
             // The number of gaps is adjusted so that the gap lengths are always preserved exactly, and the dash lengths are as close as possible to the actual dash lengths.
             if (dashLength + gapLength > 0) {
                 if (spacingMethod == SpacingMethod.OCAD) {
-                    if (pathLength - firstDashLength - lastDashLength <= gapLength) {
-                        numGaps = (minGaps >= 1 || pathLength >= firstDashLength / 2 + lastDashLength / 2 + gapLength) ? 1 : 0;
+                    if (countingLength - firstDashLength - lastDashLength <= gapLength) {
+                        numGaps = (minGaps >= 1 || countingLength > firstDashLength / 2 + lastDashLength / 2 + gapLength) ? 1 : 0;
                     }
                     else {
-                        numGaps = (int)Math.Round((pathLength + dashLength - firstDashLength - lastDashLength) / (dashLength + gapLength));
+                        // OCAD rounds the number of dashes, one more than the number of gaps, to the even number at a half.
+                        numGaps = (int)Math.Round((countingLength + dashLength - firstDashLength - lastDashLength) / (dashLength + gapLength) + 1, MidpointRounding.ToEven) - 1;
                     }
                     //if (firstDashLength == 0 && lastDashLength == 0 && pathLength < dashLength / 2) {
                     //    numGaps = 0;
@@ -1213,6 +1215,10 @@ namespace PurplePen.MapModel
             // Enforce minimum gaps.
             if (numGaps < minGaps)
                 numGaps = minGaps;
+
+            // OCAD draws a dashed line as solid when its one gap would leave end dashes of 0, which fit no dash.
+            if (spacingMethod == SpacingMethod.OCAD && kind == LocationKind.DashAndGapLengths && numGaps == 1 && firstDashLength == 0 && lastDashLength == 0)
+                numGaps = 0;
 
             // Given the number of gaps, compute the lengths of the dashes. Gaps are always at their nominal length.
             if (numGaps == 0)
@@ -1381,11 +1387,13 @@ namespace PurplePen.MapModel
                     else
                         locationList.Add(actualFirstDashLength); // no secondary gaps
 
-                    // Add middle dashes and gaps to them (with secondary gaps as appropriate)
+                    // Add middle dashes and gaps to them (with secondary gaps as appropriate). OCAD puts secondary gaps only in a
+                    // dash that is longer than half of the length of a dash.
+                    bool hasRoomForSecondaryGaps = (spacingMethod == SpacingMethod.OCAD) ? actualDashLength > dashLength / 2 : actualDashLength >= dashLength / 2;
                     for (int i = 1; i < numGaps; ++i) {
                         locationList.Add(gapLength);
 
-                        if (numMiddleSecGaps > 0 && (actualDashLength >= dashLength / 2))
+                        if (numMiddleSecGaps > 0 && hasRoomForSecondaryGaps)
                             locationList.AddRange(AddSecondaryGaps(actualDashLength, numMiddleSecGaps, lengthMiddleSecGaps));  // add with secondary gaps
                         else
                             locationList.Add(actualDashLength);
