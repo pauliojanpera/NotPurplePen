@@ -1815,8 +1815,10 @@ namespace PurplePen.MapModel {
             return paramStrings;
         }
 
-        // Create the parameter strings for all the colors. Each share of a color in a spot color separation is a pair
-        // of the name of the spot color separation (s) and the percentage (p).
+        // Create the parameter strings for all the colors. As OCAD writes them, the overprint flag (o) is followed by the
+        // transparency (t), which is the opacity in whole percents, and from OCAD 12 on by the name of the blend mode (b).
+        // Each share of a color in a spot color separation is a pair of the name of the spot color separation (s) and
+        // the percentage (p).
         List<OcadParamString> CreateColorStringParameters()
         {
             List<SymColor> colors = ColorsToWrite();
@@ -1831,15 +1833,20 @@ namespace PurplePen.MapModel {
                 float cyan, magenta, yellow, black;
                 color.GetCMYK(out cyan, out magenta, out yellow, out black);
 
-                List<char> codes = new List<char> { 'n', 'c', 'm', 'y', 'k', 'o' };
+                List<char> codes = new List<char> { 'n', 'c', 'm', 'y', 'k', 'o', 't' };
                 List<string> values = new List<string> {
                     color.OcadId.ToString(),
                     (cyan * 100F).ToString(CultureInfo.InvariantCulture),
                     (magenta * 100F).ToString(CultureInfo.InvariantCulture),
                     (yellow * 100F).ToString(CultureInfo.InvariantCulture),
                     (black * 100F).ToString(CultureInfo.InvariantCulture),
-                    color.OverPrint ? "1" : "0"
+                    color.OverPrint ? "1" : "0",
+                    Math.Round(color.Opacity * 100, MidpointRounding.AwayFromZero).ToString(CultureInfo.InvariantCulture)
                 };
+                if (version >= 12) {
+                    codes.Add('b');
+                    values.Add(OcadBlendMode.ToName(color.BlendMode));
+                }
                 foreach (InkComponent component in color.InkComponents) {
                     if (separationInks.Contains(component.Ink)) {
                         codes.Add('s');

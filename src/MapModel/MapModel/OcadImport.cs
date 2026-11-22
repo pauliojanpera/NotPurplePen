@@ -632,8 +632,8 @@ namespace PurplePen.MapModel
             }
         }
 
-        // Create the SymColor objects in the map (OCAD 9 and later), and also cache them in the colors array.
-        // Note that we don't preserve the transparency.
+        // Create the SymColor objects in the map (OCAD 9 and later), and also cache them in the colors array. The
+        // transparency (t) is the opacity in percent, and the blend mode (b) is its name.
         void CreateColors(List<OcadParamString> paramStrings)
         {
             if (paramStrings == null)
@@ -651,6 +651,8 @@ namespace PurplePen.MapModel
                 bool overprint = GetParamInt(paramString, 'o', 0) != 0;
 
                 SymColor color = new SymColor(colorName, (short) colorNum, cyan, magenta, yellow, black, overprint);
+                color.Opacity = SymColor.BoundOpacity(GetParamFloat(paramString, 't', 100.0F) / 100.0F);
+                color.BlendMode = OcadBlendMode.FromName(GetParamString(paramString, 'b'));
                 color.SetSpotComposition(ReadSpotComposition(paramString));
                 map.AddColor(color);
                 mapOcadIdToSymColor[colorNum] = color;
