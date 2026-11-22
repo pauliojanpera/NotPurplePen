@@ -217,7 +217,7 @@ the rendering.
   the code of `feature/svg-target`. The notes of the epic give the reasons.
 - **Offering upstream.** No branch is offered upstream yet.
 - **The approval of ticket 025** (Nov 23). [025](tickets/025-symbol-keys.md), the symbol key in `Map`, is a draft
-  for @Pauli's approval. It has the text form of the counter keys of Nov 23.
+  for @Pauli's approval.
 
 ## Decisions
 
