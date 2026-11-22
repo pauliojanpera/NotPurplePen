@@ -217,7 +217,7 @@ the rendering.
   the code of `feature/svg-target`. The notes of the epic give the reasons.
 - **Offering upstream.** No branch is offered upstream yet.
 - **The approval of ticket 025** (Nov 23). [025](tickets/025-symbol-keys.md), the symbol key in `Map`, is a draft
-  for @Pauli's approval.
+  for @Pauli's approval. It has the text form of the counter keys of Nov 23.
 
 ## Decisions
 
@@ -573,6 +573,11 @@ the rendering.
   geometry methods of the point symbols. The geometry methods have the interface
   `SymDef.MakeClippingObjects(Symbol, SymColor, CoveragePrototype)`, whose implementation in the base class gives the
   clipping objects of the collector. The names of the ticket are the session's, by the rule above.
+- **The text form of the counter keys** (Nov 23). The text form of a symbol key that `Map` gives from its counter is
+  the value of the counter in base 62, with the digits 0–9, A–Z and a–z in this order (ticket
+  [025](tickets/025-symbol-keys.md)). For the keys 1 to 300,000, the mean length is 3.19 characters in base 62 and
+  5.63 in base 10. gzip compresses the two to within 3 to 5 % of each other. The keys have only the letters and the
+  digits of ASCII, so the punctuation stays free for the structure of the keys of the course map (ticket 026).
 - **The order of a draft** (Nov 23). @Pauli approves a draft first as a ticket that is no longer a draft, and then it
   is implemented ([README.md](README.md), "Tickets"). So the collector stays the source of the clipping objects of
   the lines, the areas and the texts until the drafts 011 to 013 are approved as tickets and implemented.
