@@ -188,12 +188,14 @@ the rendering.
 - **The review of the new specification** (Nov 21). @Pauli let the session write [Specification.md](Specification.md)
   again on its own, and he reviews it afterwards. These are the choices that the session made on its own, and not his
   decisions:
-  - The preface stays as it was. A dated sentence after its first sentence tells that the text was written again.
+  - The preface reads "upstream's map model" as the code of upstream in `src/MapModel`, as the encodings of Skia and PDF
+    belong to `Map_SkiaStd` and `Map_PDF`, outside `MapModel.csproj`. "Not a model of the implementation" is now "not a
+    guide for the implementation". A dated sentence after the first sentence tells that the text was written again.
   - The new text gives no dates, attributions or sources in parentheses, as the glossary does. The citations [1] to [16]
     stay.
   - The title stays, as the glossary is the glossary of the palette-layer architecture.
-  - The figures stay as they are, and their captions use the terms of the glossary. Each figure has a place in the new
-    sections such that the figures keep their numbers 1 to 8.
+  - The labels of figures 1, 2, 5 and 6, and all the captions, use the terms of the glossary. Each figure has a place in
+    the new sections such that the figures keep their numbers 1 to 8.
   - The opening text names the channels Skia, PDF and SVG in place of "SVG-compatible terms".
   - Section 01 gives the units of the structure in a table, and the rules of the structure as a list.
   - Section 02 gives the properties of a palette color in a table: C, α, B, the ink components, the knockout and the
