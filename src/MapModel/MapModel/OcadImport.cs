@@ -857,6 +857,13 @@ namespace PurplePen.MapModel
                 return LineStyle.Beveled;
         }
 
+        // The minimum number of gaps, or of spaced glyphs, of an OCAD line symbol, from its field MinSym. OCAD reads -1 as no
+        // minimum, 0 as one and 1 as two, and 2 and 3 as one again, as this reads all the larger values.
+        static int MinimumNumberOfGaps(short minSym)
+        {
+            return (minSym >= 2) ? 1 : Math.Max(0, minSym + 1);
+        }
+
         LineJoinMode ImportLineJoin(short lineEnds)
         {
             if ((lineEnds & 1) == 1)
@@ -962,7 +969,7 @@ namespace PurplePen.MapModel
                 dashInfo.dashLength = ToWorldDimensions(ocadSym.MainLength);
                 dashInfo.firstDashLength = dashInfo.lastDashLength = ToWorldDimensions(ocadSym.EndLength);
                 dashInfo.gapLength = ToWorldDimensions(ocadSym.MainGap);
-                dashInfo.minGaps = ocadSym.MinSym + 1;
+                dashInfo.minGaps = MinimumNumberOfGaps(ocadSym.MinSym);
 
                 if (ocadSym.SecGap > 0) {
                     dashInfo.secondaryMiddleGaps = 1;
@@ -1017,7 +1024,7 @@ namespace PurplePen.MapModel
                         glyphInfo.location = LineSymDef.GlyphLocation.SpacedDecrease;
                         glyphInfo.distance = ToWorldDimensions(ocadSym.MainLength + ocadSym.MainGap);
                         glyphInfo.firstDistance = glyphInfo.lastDistance = ToWorldDimensions(ocadSym.EndLength) + (ToWorldDimensions(ocadSym.MainGap) / 2);
-                        glyphInfo.minimum = Math.Max(1, ocadSym.MinSym + 1);   // OCAD always does at least one symbol, even if you say zero!
+                        glyphInfo.minimum = Math.Max(1, MinimumNumberOfGaps(ocadSym.MinSym));   // OCAD always does at least one symbol, even if you say zero!
                         glyphInfo.decreaseLimit = (float) ocadSym.DecLast / 100F;
                         glyphInfo.decreaseBothEnds = (ocadSym.DecMode == 2);
 
@@ -1037,7 +1044,7 @@ namespace PurplePen.MapModel
                         glyphInfo.location = LineSymDef.GlyphLocation.Spaced;
                         glyphInfo.distance = ToWorldDimensions(ocadSym.MainLength + ocadSym.MainGap);
                         glyphInfo.firstDistance = glyphInfo.lastDistance = ToWorldDimensions(ocadSym.EndLength) + (ToWorldDimensions(ocadSym.MainGap) / 2);
-                        glyphInfo.minimum = Math.Max(1, ocadSym.MinSym + 1);   // OCAD always does at least one symbol, even if you say zero!
+                        glyphInfo.minimum = Math.Max(1, MinimumNumberOfGaps(ocadSym.MinSym));   // OCAD always does at least one symbol, even if you say zero!
                     }
 
                     glyphs[iGlyph++] = glyphInfo;
@@ -1052,7 +1059,7 @@ namespace PurplePen.MapModel
                     glyphInfo.offset = ToWorldDimensions(ocadSym.MainLength) / 2;
                     glyphInfo.distance = ToWorldDimensions(ocadSym.MainLength + ocadSym.MainGap);
                     glyphInfo.firstDistance = glyphInfo.lastDistance = ToWorldDimensions(ocadSym.EndLength) + (ToWorldDimensions(ocadSym.MainGap) / 2);
-                    glyphInfo.minimum = Math.Max(1, ocadSym.MinSym + 1);   // OCAD always does at least one symbol, even if you say zero!
+                    glyphInfo.minimum = Math.Max(1, MinimumNumberOfGaps(ocadSym.MinSym));   // OCAD always does at least one symbol, even if you say zero!
 
                     glyphs[iGlyph++] = glyphInfo;
                 }
