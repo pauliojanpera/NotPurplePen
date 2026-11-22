@@ -13,9 +13,9 @@ Read these in this order:
    negotiable" and "The names".
 4. Section 01 of [Specification.md](Specification.md), which gives the structure of the passes.
 5. All of [Glossary.md](Glossary.md). Its preface gives the rules of the names.
-6. The decisions of Nov 21 and 22 in [Progress.md](Progress.md), from "The division of the specification" to "The
-   done tickets": the review of the specification, the names of the architecture, of the work and of the branches,
-   and the new branch of the epic.
+6. The decisions of Nov 21 to 23 in [Progress.md](Progress.md), from "The division of the specification" to "The
+   approval of the specification": the review of the specification, the names of the architecture, of the work and
+   of the branches, the new branch of the epic, and the approval.
 
 ## The rules of the work
 
@@ -145,9 +145,9 @@ A new open item gets a question by "How to make a question", and the glossary ma
 ### After the glossary
 
 The specification is written again in the terms of the glossary and by the structure of the passes (Nov 21). @Pauli
-went through the choices of the session on Nov 22, and the decisions of Nov 22 in Progress.md record them. The
-specification waits on his approval. Then pass 1 gets new tickets by the structure of the passes, in place of 005,
-007 and 008, and the drafts 009 to 013 follow the specification when @Pauli asks. The tickets 011 to 013 were
+went through the choices of the session on Nov 22, and the decisions of Nov 22 in Progress.md record them. He
+approved the specification at 4c11a6ea on Nov 23. Pass 1 gets new tickets by the structure of the passes, in place of
+005, 007 and 008, and the drafts 009 to 013 follow the specification when @Pauli asks. The tickets 011 to 013 were
 implemented while they were drafts, on branches rooted at the old branch of the epic. The done tickets take the
 terms of the glossary, apart from 005, 007 and 008. The drafts, the epic and the older decisions in Progress.md
 still use the earlier words. A draft is not implemented, and a session changes it only when @Pauli asks

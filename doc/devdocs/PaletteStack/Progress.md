@@ -14,13 +14,13 @@ when @Pauli makes a decision. It tells the state, not the events: the commits an
 
 [Specification.md](Specification.md) is written again in the terms of [Glossary.md](Glossary.md) and by the
 structure of the passes (Nov 21). @Pauli went through the choices of the session on Nov 22, and the decisions of
-Nov 22 record them. The specification waits on his approval.
+Nov 22 record them. He approved the specification at 4c11a6ea on Nov 23.
 
 The epic has a new branch, `feature/palette-stack`, rooted at d48f4456 (@Pauli, Nov 22). It merges the parts 001,
 003 and 004, whose comments take the terms of the glossary, and the fixes 015 to 021. Its full run passed. The old
 pass 1 has no palette color coverages of the symbols, no symbol keys and no derived values, so pass 1 is written
-again as new commits by the specification. New tickets of pass 1 replace 005, 007 and 008, after @Pauli approves the
-specification. The done tickets take the terms of the glossary, apart from 005, 007 and 008.
+again as new commits by the specification. New tickets of pass 1 replace 005, 007 and 008: the session drafts them,
+and @Pauli approves them. The done tickets take the terms of the glossary, apart from 005, 007 and 008.
 
 The old branch of the epic, `feature/palette-layers`, keeps the pass 1 of 005, 007 and 008, and the branches of the
 drafts 011 to 013 are rooted at it. The rest of this section tells its state.
@@ -148,12 +148,11 @@ base. No branch is offered upstream yet.
 
 ## Next
 
-1. @Pauli approves [Specification.md](Specification.md), or names what to go through still.
-2. Pass 1 gets new tickets by the structure of the passes (section 01 of the specification), in place of 005, 007
+1. Pass 1 gets new tickets by the structure of the passes (section 01 of the specification), in place of 005, 007
    and 008. The session drafts them, and @Pauli approves them. Their branches are rooted at `feature/palette-stack`,
    and they take the forms, the geometry methods of the point symbols and the tests of the old pass 1 where these
    fit ("The new branch of the epic").
-3. The drafts 009 to 013 follow the specification when @Pauli asks for it.
+2. The drafts 009 to 013 follow the specification when @Pauli asks for it.
 
 The plan below is the plan of the old branch, in the words of its time. Its parts 2 to 5 stay as the order of the
 later work.
@@ -214,9 +213,6 @@ the rendering.
   target of NotPurplePen fitted to them in the integration. And whether the work can use the documented findings or
   the code of `feature/svg-target`. The notes of the epic give the reasons.
 - **Offering upstream.** No branch is offered upstream yet.
-- **The approval of the new specification** (Nov 22). @Pauli went through the choices that the session made when it
-  wrote [Specification.md](Specification.md) again, and the decisions of Nov 22 record them. When he approves it,
-  the session drafts the new tickets of pass 1 ("Next").
 
 ## Decisions
 
@@ -539,6 +535,9 @@ the rendering.
 - **The done tickets** (Nov 22). The done tickets are corrected too: they take the terms of the glossary, as the
   comments of the code of 001 and 004 do. The tickets 005, 007 and 008 stay as they are: new tickets replace them, and
   they keep the record of the old pass 1 in the names of its code.
+- **The approval of the specification** (Nov 23). @Pauli approved [Specification.md](Specification.md) at 4c11a6ea.
+  The decisions of Nov 22 record his review of the choices of the session. Pass 1 gets its new tickets by the
+  structure of the passes in section 01 ("Next").
 - **The framing line of texts** (Nov 19). The framing of a text run is one line in the instances, a stroke of the full
   width with the joins of the symbol, as in OCAD's PDF export. OCAD's own drawing leaves the same holes as Skia and
   Cairo with one pen, so the holes that the intermediate pens of Purple Pen fill are no faults against OCAD (question
