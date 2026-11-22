@@ -20,10 +20,10 @@
 
 Design specification / Cartographic rendering
 
-**A generalized vector model of palette separations, with symbol-driven layer instantiation of affine-transformed
+**A generalized vector architecture of palette separations, with symbol-driven layer instantiation of affine-transformed
 periodic coverages and compositing in palette order.**
 
-The model is intended for application within a surrounding system design. It captures the essential rendering
+This architecture is intended for application within a surrounding system design. It captures the essential rendering
 architecture of OCAD and OpenOrienteering Mapper (OOM) in terms that the channels Skia, PDF and SVG can express. It is
 independent of the color space. The transparency flattening is a separate optimization task.
 
@@ -37,7 +37,7 @@ Both applications draw by a table of colors in priority order, and not only by t
 Each element of a symbol adds geometry to its own color. In its PDF export, OCAD applies a blend mode to each color. OOM
 simulates the overprinting of the spot colors. Both applications can turn and move the patterns of each object. [1–5]
 
-| Cartographic concept | Corresponding model |
+| Cartographic concept | In this architecture |
 |---|---|
 | Color table and color priority | The palette colors (`SymColor`) in palette order: the palette stack |
 | Symbol elements | The clipping objects of the palette color coverages of the symbols (`SymbolCoverage`) |

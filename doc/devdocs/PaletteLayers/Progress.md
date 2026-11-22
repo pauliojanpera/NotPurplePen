@@ -488,8 +488,10 @@ the rendering.
   paragraph, a line break is a soft line break, which the renderer shows as a space. So the line breaks show only in the
   source and in the diffs.
 - **General words** (Nov 22). A general word, for example *model*, can have its general meaning in the documents, when
-  it does not name a concept that the specification defines. So the preface and the opening sections of
-  [Specification.md](Specification.md) keep "model" where the earlier text used it.
+  it does not name a concept that the specification defines. Where a general word means a concept that the specification
+  defines by another name, the documents use that name. So the preface keeps "not a model of the implementation", and
+  the opening sections of [Specification.md](Specification.md) say "architecture" for the architecture that the
+  specification defines.
 - **The framing line of texts** (Nov 19). The framing of a text run is one line in the instances, a stroke of the full
   width with the joins of the symbol, as in OCAD's PDF export. OCAD's own drawing leaves the same holes as Skia and
   Cairo with one pen, so the holes that the intermediate pens of Purple Pen fill are no faults against OCAD (question
