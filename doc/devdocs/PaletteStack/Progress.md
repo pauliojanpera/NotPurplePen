@@ -216,6 +216,8 @@ the rendering.
   target of NotPurplePen fitted to them in the integration. And whether the work can use the documented findings or
   the code of `feature/svg-target`. The notes of the epic give the reasons.
 - **Offering upstream.** No branch is offered upstream yet.
+- **The approval of ticket 026** (Nov 23). [026](tickets/026-course-object-keys.md), the course object key and the
+  symbol keys of the course map, is a draft for @Pauli's approval.
 
 ## Decisions
 
