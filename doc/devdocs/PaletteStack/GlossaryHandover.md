@@ -19,9 +19,11 @@ Read these in this order:
 
 ## The rules of the work
 
-@Pauli gave these rules in the sessions of Nov 20 to 22:
+@Pauli gave these rules in the sessions of Nov 20 to 23:
 - The glossary is joint work. Each term is @Pauli's decision. The session does not choose a term itself, also not by
   the use of a word or by a rule of the names (Nov 21).
+- The session chooses meaningful names for the concepts that have no name yet, on the basis of the glossary work
+  (Nov 23).
 - Everything is @Pauli's to decide (Nov 21). Where the sources answer a question, the session presents the answer to
   @Pauli as a question, and he decides.
 - The session presents one question at a time (Nov 20, Nov 21).

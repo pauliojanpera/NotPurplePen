@@ -20,8 +20,8 @@ The epic has a new branch, `feature/palette-stack`, rooted at d48f4456 (@Pauli, 
 003 and 004, whose comments take the terms of the glossary, and the fixes 015 to 021. Its full run passed. The old
 pass 1 has no palette color coverages of the symbols, no symbol keys and no derived values, so pass 1 is written
 again as new commits by the specification. Four new tickets of pass 1, 023 to 026, replace 005, 007 and 008 ("The new
-tickets of pass 1", Nov 23): the session drafts them, and @Pauli approves them. The done tickets take the terms of
-the glossary, apart from 005, 007 and 008.
+tickets of pass 1", Nov 23): the session drafts them, and @Pauli approves them. He approved 023 on Nov 23. The done
+tickets take the terms of the glossary, apart from 005, 007 and 008.
 
 The old branch of the epic, `feature/palette-layers`, keeps the pass 1 of 005, 007 and 008, and the branches of the
 drafts 011 to 013 are rooted at it. The rest of this section tells its state.
@@ -152,8 +152,9 @@ base. No branch is offered upstream yet.
 
 1. Pass 1 gets the new tickets 023 to 026 by the structure of the passes (section 01 of the specification), in place
    of 005, 007 and 008 ("The new tickets of pass 1"). The session drafts them one at a time, and @Pauli approves
-   them. Their branches are rooted at `feature/palette-stack`, and they take the forms, the geometry methods of the
-   point symbols and the tests of the old pass 1 where these fit ("The new branch of the epic").
+   them: 023 is approved, and 024 is next. Their branches are rooted at `feature/palette-stack`, and they take the
+   forms, the geometry methods of the point symbols and the tests of the old pass 1 where these fit ("The new branch
+   of the epic").
 2. The drafts 009 to 013 follow the specification when @Pauli asks for it.
 
 The plan below is the plan of the old branch, in the words of its time. Its parts 2 to 5 stay as the order of the
@@ -215,10 +216,6 @@ the rendering.
   target of NotPurplePen fitted to them in the integration. And whether the work can use the documented findings or
   the code of `feature/svg-target`. The notes of the epic give the reasons.
 - **Offering upstream.** No branch is offered upstream yet.
-- **The approval of ticket 023** (Nov 23). [023](tickets/023-palette-separations.md), the intermediate layer and
-  pass 1 with the collector, is a draft for @Pauli's approval. It makes the keeping and the invalidation of the
-  derived values by section 03 of the specification, which changes the decision "The instances belong to the map"
-  (Nov 18) on the ticket of pass 2.
 
 ## Decisions
 
@@ -244,7 +241,8 @@ the rendering.
   symbols (`Draw`).
 - **The instances belong to the map** (Nov 18). Pass 1 depends on the map alone, and not on a rectangle or a
   resolution of a drawing. To keep to a rectangle is pass 2's work. How the instances follow the changes of the map
-  is for the ticket of pass 2.
+  is for the ticket of pass 2. The approval of ticket 023 (Nov 23) changes this: ticket 023 makes the keeping and the
+  invalidation of the derived values by section 03 of the specification.
 - **Pass 1 before the patterns** (Nov 18). Two tickets come before the ticket of the patterns: one makes pass 1
   apart from the drawing, and one replaces the collector with geometry methods of the symbols, with the instances of
   the collector as its oracle.
@@ -561,6 +559,14 @@ the rendering.
   alatehtävät".
 - **The options of a question** (Nov 23). A question gives options only where the choice is real. It does not add
   options only to involve @Pauli ("How to continue the work").
+- **The approval of ticket 023** (Nov 23). @Pauli approved [023](tickets/023-palette-separations.md), the
+  intermediate layer and pass 1 with the collector, and the names that it proposes: `Map.PaletteSeparations`,
+  `SymDef.GetCoveragePrototypes(Symbol, SymColor)` and `ClippingObjectCollector`. The ticket makes the keeping and
+  the invalidation of the derived values by section 03 of the specification, so it changes the decision "The
+  instances belong to the map" (Nov 18).
+- **The names of the concepts without a name** (Nov 23). The session chooses meaningful names for the concepts
+  that have no name yet, on the basis of the glossary work ([GlossaryHandover.md](GlossaryHandover.md), "The rules
+  of the work").
 - **The framing line of texts** (Nov 19). The framing of a text run is one line in the instances, a stroke of the full
   width with the joins of the symbol, as in OCAD's PDF export. OCAD's own drawing leaves the same holes as Skia and
   Cairo with one pen, so the holes that the intermediate pens of Purple Pen fill are no faults against OCAD (question

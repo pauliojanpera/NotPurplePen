@@ -1,7 +1,4 @@
-# LUONNOS – Välikerros ja vaihe 1 kerääjällä
-
-> **LUONNOS (23.11.), @Paulin hyväksyttävänä.** Tämä tiketti on luonnos, kunnes @Pauli hyväksyy sen, eikä luonnosta toteuteta. Hyväksynnän jälkeen istunto poistaa tämän merkinnän ja otsikon sanan LUONNOS.
-
+# Välikerros ja vaihe 1 kerääjällä
 **Kuvaus**
 `Map` tekee vaiheessa 1 pelkästä kartasta jokaisen palettivärin palettierottelun, sen symbolien palettiväripeitot ja palettileikkurit. Leikkausobjektit ovat symbolien palettiväripeittojen johdoksia, ja kerääjä tekee ne symbolien piirtokoodista. Piirto ei muutu.
 
@@ -21,6 +18,7 @@
 
 **Lisätiedot**
 - **Päätökset:**
+  - @Pauli hyväksyi tämän tiketin ja sen nimet 23.11. Tiketti tekee johdosten säilytyksen ja mitätöinnin, mikä muuttaa päätöstä 18.11. (ks. "Johdosten säilytys").
   - Neljä tikettiä korvaa tiketit 005, 007 ja 008, ja tämä on niistä ensimmäinen (@Pauli, 23.11., Progress.md: "The new tickets of pass 1"). Uudet commitit ottavat vanhasta vaiheesta 1 muodot, pistesymbolien geometriametodit ja testit siltä osin kuin ne sopivat (@Pauli, 22.11., "The new branch of the epic").
   - Vaihe 1 riippuu vain kartasta: se ei saa piirron suorakulmiota eikä resoluutiota (@Pauli, 18.11., "The instances belong to the map").
   - Vanha piirtokoodi pysyy ennallaan geometriametodien ajan, ja kerääjä on testien oraakkeli, kunnes tiketti 009 lopettaa sen (@Pauli, 18.11.). Luonnoksia ei toteuteta (@Pauli, 21.11.), joten kerääjä on viivojen, alueiden ja tekstien leikkausobjektien lähde, kunnes luonnokset 011–013 on hyväksytty ja toteutettu.
@@ -37,7 +35,7 @@
   - Kerääjä (`LayerInstanceCollector.cs`, noin 400 riviä) kerää yhden palettivärin piirtokutsut koko vaiheen 1 ajan rakentajaan (`LayerInstanceBuilder`). Se sopii, kun se kerää yhden symbolin palettiväripeiton kerrallaan. Rakentaja ei sovi.
   - Vaihe 1 on `Map.CreateLayerInstances()`, ja symbolit valitsevat `SelectVisibleSymbolsOfColor` ja `SelectVisibleSymbols` samassa järjestyksessä kuin `DrawColor`. Valinta sopii. Sisäinen piirtoasetus `RenderOptions.omitHatchingsAndPatterns` jättää alueiden viivoitukset ja aluekuviot piirtämättä (`AreaSymDef.DrawHatchings` ja `DrawPatterns`), ja se sopii. Se on vanhan piirtokoodin ainoa muutos, kuten tiketissä 005.
   - Testit ovat Map_Skia.Testsissä: `LayerInstanceTests` tekee kartat itse ja tarkistaa vaiheen 1 tuloksen ilman piirtoa, ja `LayerInstanceCoverageTests` vertaa peittoa piirtoon. Ne sopivat, kun ne tarkistavat uudet yksiköt.
-- **Ratkaisuehdotukset** (nimet ovat ehdotuksia):
+- **Ratkaisuehdotukset** (@Pauli hyväksyi niiden nimet 23.11.):
   - `Map.PaletteSeparations` antaa kartan palettierottelut säilytettynä johdoksena. `PaletteSeparation` antaa palettivärinsä, symbolien palettiväripeittonsa ja palettileikkurinsa, `PaletteCutter` peittoprototyyppinsä, affiinisen muunnoksensa M ja symbolien palettiväripeittonsa, ja `SymbolCoverage` symbolinsa, palettivärinsä, peittoprototyyppinsä ja leikkausobjektinsa.
   - Symbolimäärittely antaa symbolin peittoprototyypit palettivärissä (`SymDef.GetCoveragePrototypes(Symbol, SymColor)`). Tässä tiketissä se antaa täyden peiton tai ei mitään, ja tiketti 009 lisää viivoitukset ja aluekuviot.
   - Kerääjä (`ClippingObjectCollector`) tekee yhden symbolin palettiväripeiton leikkausobjektit kerrallaan, joten kukin symbolin palettiväripeitto voi laskea omat johdoksensa, kun niitä tarvitaan ensimmäisen kerran.
