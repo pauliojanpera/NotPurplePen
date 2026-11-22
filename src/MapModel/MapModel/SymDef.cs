@@ -822,7 +822,7 @@ namespace PurplePen.MapModel
                 else {
                     // Draw the dashed line.
                     foreach (SymPath p in pathsWithShortening)
-                        DrawDashed(g, p, pens.mainPen, dashInfo, renderOpts, map.MapDistanceMetric);
+                        DrawDashed(g, p, pens.mainPen, dashInfo, 0, GetVertexPieceLimit(dashInfo, thickness), renderOpts, map.MapDistanceMetric);
                 }
             }
 
@@ -841,7 +841,7 @@ namespace PurplePen.MapModel
                 if (doubleLines.doubleFillColor != null && (highlight || doubleLines.doubleFillColor == color)) {
                     if (doubleLines.doubleFillDashed) {
                         foreach (SymPath p in pathsWithoutShortening)
-                            DrawDashed(g, p, pens.doubleFillPen, doubleLines.doubleDashes, renderOpts, map.MapDistanceMetric);
+                            DrawDashed(g, p, pens.doubleFillPen, doubleLines.doubleDashes, GetDoubleLineVertexPieceLimit(doubleLines.doubleDashes), GetVertexPieceLimit(doubleLines.doubleDashes, doubleLines.doubleThick), renderOpts, map.MapDistanceMetric);
                     }
                     else {
                         foreach (SymPath p in pathsWithoutShortening)
@@ -853,7 +853,7 @@ namespace PurplePen.MapModel
                     foreach (SymPath subpath in path.GetSubpaths(SymPath.DOUBLE_LEFT_STARTSTOPFLAG)) {
                         float offsetRight = -(doubleLines.doubleThick + doubleLines.doubleLeftWidth) / 2F;
                         if (doubleLines.doubleLeftDashed) {
-                            DrawDashedWithOffset(g, subpath, pens.doubleLeftPen, doubleLines.doubleDashes, offsetRight, GraphicsUtil.MITER_LIMIT, renderOpts, map.MapDistanceMetric);
+                            DrawDashedWithOffset(g, subpath, pens.doubleLeftPen, doubleLines.doubleDashes, offsetRight, GraphicsUtil.MITER_LIMIT, GetDoubleLineVertexPieceLimit(doubleLines.doubleDashes), GetVertexPieceLimit(doubleLines.doubleDashes, doubleLines.doubleLeftWidth), renderOpts, map.MapDistanceMetric);
                         }
                         else {  
                             SymPath leftPath = subpath.OffsetRight(offsetRight, GraphicsUtil.MITER_LIMIT);
@@ -866,7 +866,7 @@ namespace PurplePen.MapModel
                     foreach (SymPath subpath in path.GetSubpaths(SymPath.DOUBLE_RIGHT_STARTSTOPFLAG)) {
                         float offsetRight = (doubleLines.doubleThick + doubleLines.doubleRightWidth) / 2F;
                         if (doubleLines.doubleRightDashed) {
-                            DrawDashedWithOffset(g, subpath, pens.doubleRightPen, doubleLines.doubleDashes, offsetRight, GraphicsUtil.MITER_LIMIT, renderOpts, map.MapDistanceMetric);
+                            DrawDashedWithOffset(g, subpath, pens.doubleRightPen, doubleLines.doubleDashes, offsetRight, GraphicsUtil.MITER_LIMIT, GetDoubleLineVertexPieceLimit(doubleLines.doubleDashes), GetVertexPieceLimit(doubleLines.doubleDashes, doubleLines.doubleRightWidth), renderOpts, map.MapDistanceMetric);
                         }
                         else {  
                             SymPath rightPath = subpath.OffsetRight(offsetRight, GraphicsUtil.MITER_LIMIT);
@@ -1513,12 +1513,40 @@ namespace PurplePen.MapModel
             return dashCenters.ToArray();
         }
 
-        private static void DrawDashed(IGraphicsTarget g, SymPath path, object penKey, DashInfo dashes, RenderOptions renderOpts, SymPath.DistanceMetric distanceMetric)
+        // OCAD leaves out of a dash the vertex next to its start, and the vertex next to its end, when the piece of the
+        // dash between the vertex and the end is shorter than this part of the width of the line that the dash draws.
+        const float OCAD_VERTEX_PIECE_PER_WIDTH = 0.4F;
+
+        // On a double line, OCAD first leaves the vertex out of the dash of the middle when the piece is shorter than
+        // this, in mm, whatever the widths of the double line.
+        const float OCAD_DOUBLE_LINE_VERTEX_PIECE = 0.05F;
+
+        // The length in mm below which a piece of a dash leaves out the vertex next to the end of the dash, for a line of
+        // a width that OCAD's spacing draws, or 0 for the other spacings, which keep all the vertices.
+        // dashes: the dashes of the line; width: the width of the line in mm.
+        private static float GetVertexPieceLimit(DashInfo dashes, float width)
         {
-            DrawDashedWithOffset(g, path, penKey, dashes, 0, 1, renderOpts, distanceMetric);
+            return (dashes.spacingMethod == SpacingMethod.OCAD) ? OCAD_VERTEX_PIECE_PER_WIDTH * width : 0;
         }
 
-        private static void DrawDashedWithOffset(IGraphicsTarget g, SymPath path, object penKey, DashInfo dashes, float offsetRight, float miterLimit, RenderOptions renderOpts, SymPath.DistanceMetric distanceMetric)
+        // The length in mm below which a piece of the dash of the middle of a double line leaves out the vertex next to
+        // the end of the dash, before the dash is moved aside to a border, or 0 for the spacings other than OCAD's.
+        // dashes: the dashes of the double line.
+        private static float GetDoubleLineVertexPieceLimit(DashInfo dashes)
+        {
+            return (dashes.spacingMethod == SpacingMethod.OCAD) ? OCAD_DOUBLE_LINE_VERTEX_PIECE : 0;
+        }
+
+        // Draw a dashed line along a path. pathVertexLimit and drawnVertexLimit are the lengths in mm below which a piece
+        // of a dash leaves out the vertex next to the end of the dash, on the path and on the line drawn.
+        private static void DrawDashed(IGraphicsTarget g, SymPath path, object penKey, DashInfo dashes, float pathVertexLimit, float drawnVertexLimit, RenderOptions renderOpts, SymPath.DistanceMetric distanceMetric)
+        {
+            DrawDashedWithOffset(g, path, penKey, dashes, 0, 1, pathVertexLimit, drawnVertexLimit, renderOpts, distanceMetric);
+        }
+
+        // Draw a dashed line along a path, offset to the right. pathVertexLimit applies to each dash on the path, before
+        // the offset, and drawnVertexLimit to the dash drawn, after it.
+        private static void DrawDashedWithOffset(IGraphicsTarget g, SymPath path, object penKey, DashInfo dashes, float offsetRight, float miterLimit, float pathVertexLimit, float drawnVertexLimit, RenderOptions renderOpts, SymPath.DistanceMetric distanceMetric)
         {
             float[] distances;
 
@@ -1534,7 +1562,7 @@ namespace PurplePen.MapModel
                     path.Draw(g, penKey);
             }
             else {
-                path.DrawDashedOffset(g, penKey, distances, 0, offsetRight, miterLimit, distanceMetric);
+                path.DrawDashedOffset(g, penKey, distances, 0, offsetRight, miterLimit, distanceMetric, pathVertexLimit, drawnVertexLimit);
             }
         }
 

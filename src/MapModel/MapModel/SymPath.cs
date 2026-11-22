@@ -446,36 +446,40 @@ namespace PurplePen.MapModel
         // start.
         internal void DrawDashed(IGraphicsTarget g, object penKey, float[] dashLengths, float offsetToStart, DistanceMetric metric)
         {
-            DrawDashedCore(g, penKey, dashLengths, offsetToStart, metric, 0, 1);
+            DrawDashedCore(g, penKey, dashLengths, offsetToStart, metric, 0, 1, 0, 0);
         }
 
         public void DrawDashed(IGraphicsTarget g, object penKey, float[] dashLengths, float offsetToStart)
         {
-            DrawDashedCore(g, penKey, dashLengths, offsetToStart, EuclidDistance, 0, 1);
+            DrawDashedCore(g, penKey, dashLengths, offsetToStart, EuclidDistance, 0, 1, 0, 0);
         }
 
         public void DrawDashedBizzarro(IGraphicsTarget g, object penKey, float[] dashLengths, float offsetToStart)
         {
-            DrawDashedCore(g, penKey, dashLengths, offsetToStart, BizzarroDistance, 0, 1);
+            DrawDashedCore(g, penKey, dashLengths, offsetToStart, BizzarroDistance, 0, 1, 0, 0);
         }
 
-        internal void DrawDashedOffset(IGraphicsTarget g, object penKey, float[] dashLengths, float offsetToStart, float offsetRight, float miterLimit, DistanceMetric metric)
+        // Draw a dashed line offset to the right. A dash leaves out the vertex next to its start, and the vertex next to its
+        // end, when the piece of the dash between the vertex and the end is shorter than a limit, in mm: pathVertexLimit
+        // for the dash on the path, before the offset, and drawnVertexLimit for the dash that is drawn, after the offset.
+        // A limit of 0 keeps all the vertices.
+        internal void DrawDashedOffset(IGraphicsTarget g, object penKey, float[] dashLengths, float offsetToStart, float offsetRight, float miterLimit, DistanceMetric metric, float pathVertexLimit, float drawnVertexLimit)
         {
-            DrawDashedCore(g, penKey, dashLengths, offsetToStart, metric, offsetRight, miterLimit);
+            DrawDashedCore(g, penKey, dashLengths, offsetToStart, metric, offsetRight, miterLimit, pathVertexLimit, drawnVertexLimit);
         }
 
 
         public void DrawDashedOffset(IGraphicsTarget g, object penKey, float[] dashLengths, float offsetToStart, float offsetRight, float miterLimit)
         {
-            DrawDashedCore(g, penKey, dashLengths, offsetToStart, EuclidDistance, offsetRight, miterLimit);
+            DrawDashedCore(g, penKey, dashLengths, offsetToStart, EuclidDistance, offsetRight, miterLimit, 0, 0);
         }
 
         public void DrawDashedOffsetBizzarro(IGraphicsTarget g, object penKey, float[] dashLengths, float offsetToStart, float offsetRight, float miterLimit)
         {
-            DrawDashedCore(g, penKey, dashLengths, offsetToStart, BizzarroDistance, offsetRight, miterLimit);
+            DrawDashedCore(g, penKey, dashLengths, offsetToStart, BizzarroDistance, offsetRight, miterLimit, 0, 0);
         }
 
-        private void DrawDashedCore(IGraphicsTarget g, object penKey, float[] dashLengths, float offsetToStart, DistanceMetric metric, float offsetRight, float miterLimit)
+        private void DrawDashedCore(IGraphicsTarget g, object penKey, float[] dashLengths, float offsetToStart, DistanceMetric metric, float offsetRight, float miterLimit, float pathVertexLimit, float drawnVertexLimit)
         {
             double nextLength = dashLengths[0];  // distance to next dash beginning/end
             int curDash = 0;			// current index into dashLengths array.
@@ -523,14 +527,7 @@ namespace PurplePen.MapModel
                     if (inDrawnPart) {
                         // Draw the dash. The start point is lastDashEnd, the end point is pt and
                         // the intermediate points are indexed lastDashEndIndex ... i - 1
-                        PointF[] pts = new PointF[2 + (i - lastDashEndIndex)];
-                        pts[0] = lastDashEnd;
-                        pts[pts.Length - 1] = pt;
-                        if (i > lastDashEndIndex) 
-                            Array.Copy(flatpoints, lastDashEndIndex, pts, 1, i - lastDashEndIndex);
-                        if (offsetRight != 0)
-                            pts = OffsetPointsRight(pts, offsetRight, miterLimit);
-                        g.DrawPolyline(penKey, pts);
+                        DrawDash(g, penKey, lastDashEnd, lastDashEndIndex, i, pt, offsetRight, miterLimit, pathVertexLimit, drawnVertexLimit);
                     }
 
                     // update lastDashEnd with the current point
@@ -554,16 +551,62 @@ namespace PurplePen.MapModel
             }
 
             if (inDrawnPart) {
-                // Draw the last dash. 
-                i = flatpoints.Length;
-                PointF[] pts = new PointF[1 + (flatpoints.Length - lastDashEndIndex)];
-                pts[0] = lastDashEnd;
-                if (flatpoints.Length > lastDashEndIndex) 
-                    Array.Copy(flatpoints, lastDashEndIndex, pts, 1, flatpoints.Length - lastDashEndIndex);
-                if (offsetRight != 0)
-                    pts = OffsetPointsRight(pts, offsetRight, miterLimit);
-                g.DrawPolyline(penKey, pts);
+                // Draw the last dash, which ends at the last point.
+                DrawDash(g, penKey, lastDashEnd, lastDashEndIndex, flatpoints.Length - 1, flatpoints[flatpoints.Length - 1], offsetRight, miterLimit, pathVertexLimit, drawnVertexLimit);
             }
+        }
+
+        // Draw one dash of a dashed line: from start, through the flattened points from firstIndex up to endIndex
+        // (not included), to end, offset to the right. OCAD leaves out of a dash the vertex next to its start, and the
+        // vertex next to its end, when the piece of the dash between the vertex and the end is shorter than a limit, in mm:
+        // pathVertexLimit before the offset, and drawnVertexLimit after it.
+        private void DrawDash(IGraphicsTarget g, object penKey, PointF start, int firstIndex, int endIndex, PointF end, float offsetRight, float miterLimit, float pathVertexLimit, float drawnVertexLimit)
+        {
+            int count = 2 + Math.Max(0, endIndex - firstIndex);
+            PointF[] pts = new PointF[count];
+            bool[] isVertex = new bool[count];
+            pts[0] = start;
+            pts[count - 1] = end;
+            for (int k = 1; k < count - 1; ++k) {
+                pts[k] = flatpoints[firstIndex + k - 1];
+                isVertex[k] = flatkinds[firstIndex + k - 1] != PointKind.Interpolated;
+            }
+
+            pts = LeaveOutVerticesNextToEnds(pts, ref isVertex, pathVertexLimit);
+            if (offsetRight != 0)
+                pts = OffsetPointsRight(pts, offsetRight, miterLimit);
+            pts = LeaveOutVerticesNextToEnds(pts, ref isVertex, drawnVertexLimit);
+            g.DrawPolyline(penKey, pts);
+        }
+
+        // Leave out of a dash the vertex next to its start, and the vertex next to its end, when the piece of the dash
+        // between the vertex and the end is shorter than the limit, as OCAD does. The ends of the dash stay, and so do the
+        // points that the flattening of a curve made. The rule does not repeat: once a vertex is left out, the next vertex
+        // stays, however near the end it is.
+        // points: the points of the dash, from its start to its end.
+        // isVertex: for each point, whether it is a vertex of the path; it is updated to the points that stay.
+        // limit: the length in mm below which a piece leaves out its vertex, or 0 to keep all the vertices.
+        private static PointF[] LeaveOutVerticesNextToEnds(PointF[] points, ref bool[] isVertex, float limit)
+        {
+            if (limit <= 0 || points.Length < 3)
+                return points;
+
+            int first = 1, last = points.Length - 2;
+            bool isFirstLeftOut = isVertex[first] && EuclidDistance(points[0], points[first]) < limit;
+            bool isLastLeftOut = isVertex[last] && EuclidDistance(points[last], points[last + 1]) < limit;
+            if (!isFirstLeftOut && !isLastLeftOut)
+                return points;
+
+            List<PointF> keptPoints = new List<PointF>(points.Length);
+            List<bool> keptIsVertex = new List<bool>(points.Length);
+            for (int k = 0; k < points.Length; ++k) {
+                if ((k == first && isFirstLeftOut) || (k == last && isLastLeftOut))
+                    continue;
+                keptPoints.Add(points[k]);
+                keptIsVertex.Add(isVertex[k]);
+            }
+            isVertex = keptIsVertex.ToArray();
+            return keptPoints.ToArray();
         }
 
         // Fill in the flatpoints and flatkinds fields with the flattened path. A 
