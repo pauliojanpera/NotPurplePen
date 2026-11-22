@@ -294,8 +294,8 @@ The section "Words that are not names" lists the words that are not used as name
   indicator function of the set, which is 1 at the points of the set. G is a coverage, and so is the area that a
   clipping object covers. The coverage of a palette cutter is G under M inside the union of its clipping objects. The
   coverage of a palette separation is the union of the coverages of its palette cutters. The union can stay implicit in
-  the rendering, but the instances cannot be left out. The union of the clipping objects of a palette cutter is a true
-  union, also where each area fills with the even-odd rule.
+  the rendering, but the palette color coverages of the symbols cannot be left out. The union of the clipping objects
+  of a palette cutter is a true union, also where each area fills with the even-odd rule.
 
 ### The derived values
 
@@ -559,8 +559,8 @@ encodings make themselves.
   - the folder `src/MapModel`: the map model and the graphics targets, in many projects, for example `Graphics2D`,
     `Map_SkiaStd` and `Map_PDF`;
   - the project `src/MapModel/MapModel/MapModel.csproj`: the classes that read, hold, write and draw the maps, for
-    example `Map`, `SymColor`, `SymDef`, `Symbol`, `Glyph` and `SymPath`. The palette-stack work adds the instances to
-    it;
+    example `Map`, `SymColor`, `SymDef`, `Symbol`, `Glyph` and `SymPath`. The palette-stack work adds the classes of
+    the intermediate layer to it;
   - the namespace `PurplePen.MapModel`: the classes of that project, and also classes of `Map_SkiaStd`, `Map_PDF`,
     `Map_GDIPlus`, `Map_WPF` and `Map-iOS`.
 - **karttakoordinaatit, maailmankoordinaatit** · *map coordinates, world coordinates* — Ambiguous names that the
