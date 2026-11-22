@@ -24,6 +24,10 @@ This architecture is intended for application within a surrounding system design
 architecture of OCAD and OpenOrienteering Mapper (OOM) in terms that the channels Skia, PDF and SVG can express. It is
 independent of the color space. The transparency flattening is a separate optimization task.
 
+The motive of the work is the future of `Map` and the SVG channel. They are ported to TypeScript, into a browser,
+where editing functions of the map may also be wanted, and the courses update in the browser as mutations of the SVG
+DOM. The motive guides the implementation choices that this specification does not define.
+
 [Glossary.md](Glossary.md) gives the names of the concepts: the name in the code, which is the primary name, and the
 Finnish and the English term. [Progress.md](Progress.md) gives the decisions of the work with their dates. The oracles
 of the appearance, with their sources and measurements, are in [oracles/](oracles/).

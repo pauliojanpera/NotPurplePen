@@ -188,13 +188,6 @@ the rendering.
 - **The review of the new specification** (Nov 21). @Pauli let the session write [Specification.md](Specification.md)
   again on its own, and he reviews it afterwards. These are the choices that the session made on its own, and not his
   decisions:
-  - The opening text names the channels Skia, PDF and SVG in place of "SVG-compatible terms".
-  - Section 01 gives the units of the structure in a table, and the rules of the structure as a list.
-  - Section 02 gives the properties of a palette color in a table: C, α, B, the ink components, the knockout and the
-    priority. It says that G and M do not belong to the palette color, where the text of Nov 17 gave C, α, B, G and M to
-    one palette layer.
-  - Section 02 says that the symbol keys and the course object keys stay the same over the edits, as the mutations of
-    the SVG DOM in a browser need them. It does not give the plan to port `Map` to TypeScript.
   - Section 02 refers to [OcadLines.md](../OcadLines.md) for OCAD's rules of the lines, and does not repeat them.
   - Section 03 states the rules of the structure of a line that the decisions of Nov 19 to 21 give: the quarters and the
     runs by quarter with the OCAD spacing, the runs by straight edge with the OCAD metric, and the borders of the double
@@ -507,6 +500,14 @@ the rendering.
   the coverage and the color, as figure 2, so the overview comes before the details. The other figures keep their
   places and their numbers 3 to 8. The labels and the captions of the figures use the terms of the glossary. @Pauli
   left the choice to the session.
+- **The motive in the specification** (Nov 22). [Specification.md](Specification.md) states the motive of the work
+  in its opening text: the future of `Map` and the SVG channel (Nov 21). The motive guides the implementation choices
+  that the specification does not define. Section 02 gives the need of the keys that comes from it, the mutations of
+  the SVG DOM in a browser.
+- **The choices of the session that stay** (Nov 22). The opening text of the specification names the channels Skia,
+  PDF and SVG. Section 01 gives the units in a table and the rules of the structure as a list. Section 02 gives the
+  properties of a palette color in a table, and says that G and M do not belong to the palette color. These are
+  choices of the session that @Pauli let stand.
 - **The framing line of texts** (Nov 19). The framing of a text run is one line in the instances, a stroke of the full
   width with the joins of the symbol, as in OCAD's PDF export. OCAD's own drawing leaves the same holes as Skia and
   Cairo with one pen, so the holes that the intermediate pens of Purple Pen fill are no faults against OCAD (question
