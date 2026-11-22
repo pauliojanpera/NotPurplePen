@@ -129,6 +129,9 @@ base. No branch is offered upstream yet.
 
 ## Next
 
+The decision on the new branch of the epic (Nov 22) replaces the plan of pass 1 below. The new tickets of pass 1
+give the new plan.
+
 The parts come in the order of the two passes of the specification (section 01), so that each part builds the
 structure and not only the appearance. Each part builds on the parts before it, so its branch is rooted at
 `feature/palette-stack`.
@@ -185,14 +188,9 @@ the rendering.
   target of NotPurplePen fitted to them in the integration. And whether the work can use the documented findings or
   the code of `feature/svg-target`. The notes of the epic give the reasons.
 - **Offering upstream.** No branch is offered upstream yet.
-- **The review of the new specification** (Nov 21). @Pauli let the session write [Specification.md](Specification.md)
-  again on its own, and he reviews it afterwards. These are the choices that the session made on its own, and not his
-  decisions:
-  - In the done tickets, the session changed only the numbers, with two exceptions. In ticket 004, "luku 01 antaa
-    palettikerroksen ominaisuudet C, α, B, G ja M" is now "luku 02 antaa palettimerkinnän ominaisuudet C, α ja B". In
-    ticket 005, the sentence on the clipping objects starts with "Luvun 03 mukaan".
-  - The reading list of [GlossaryHandover.md](GlossaryHandover.md) names section 01 of the specification, and its
-    section "After the glossary" says that the specification is written again and that @Pauli reviews it.
+- **The approval of the new specification** (Nov 22). @Pauli went through the choices that the session made when it
+  wrote [Specification.md](Specification.md) again, and the decisions of Nov 22 record them. The tickets follow the
+  specification when @Pauli approves it.
 
 ## Decisions
 
@@ -504,6 +502,14 @@ the rendering.
   dashed lines of Nov 18, which the decisions of Nov 20 replace, refer to section 03 of the text of Nov 17 (commit
   9bb31ff6), which was in force on Nov 18, and Progress.md, the epic and ticket 011 name that version. The other
   references of the documents and the tickets to the sections name the same content in the present text.
+- **The new branch of the epic** (Nov 22). The epic gets a new branch, rooted at d48f4456, where `base` meets
+  upstream. The fixes and the features 001 and 004 are merged into it as they are, after the comments of the code of
+  001 and 004 take the terms of the glossary. Pass 1 is written again as new commits by the specification. The new
+  commits take the forms, the geometry methods of the point symbols and the tests of the present pass 1 where they
+  fit. The tickets 005, 007 and 008 are replaced, and pass 1 gets new tickets by the structure of the passes. The
+  present branch of the epic keeps the pass 1 of 005, 007 and 008.
+- **The done tickets** (Nov 22). The done tickets are corrected too: they take the terms of the glossary, as the
+  comments of the code of 001 and 004 do.
 - **The framing line of texts** (Nov 19). The framing of a text run is one line in the instances, a stroke of the full
   width with the joins of the symbol, as in OCAD's PDF export. OCAD's own drawing leaves the same holes as Skia and
   Cairo with one pen, so the holes that the intermediate pens of Purple Pen fill are no faults against OCAD (question
