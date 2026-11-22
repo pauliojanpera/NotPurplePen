@@ -483,6 +483,10 @@ the rendering.
   elements that a fill mode selects as derived values of a palette color coverage of a symbol. It does not say to which
   palette cutter they belong, which question 2 of ticket 009 asks. It leaves the composite representations of the
   selected elements to a later refinement, as the text of Nov 17 did.
+- **The line breaks of the specification** (Nov 22). [Specification.md](Specification.md) wraps its lines at 120
+  characters, as README.md, Progress.md, the glossary, its handover and [OcadLines.md](../OcadLines.md) do. Inside a
+  paragraph, a line break is a soft line break, which the renderer shows as a space. So the line breaks show only in the
+  source and in the diffs.
 - **The framing line of texts** (Nov 19). The framing of a text run is one line in the instances, a stroke of the full
   width with the joins of the symbol, as in OCAD's PDF export. OCAD's own drawing leaves the same holes as Skia and
   Cairo with one pen, so the holes that the intermediate pens of Purple Pen fill are no faults against OCAD (question
