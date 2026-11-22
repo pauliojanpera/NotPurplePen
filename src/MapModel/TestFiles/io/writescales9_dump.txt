@@ -25,4 +25,5 @@ String of type 1030
   firstField=
   code=d, value=0
   code=l, value=0
+  code=p, value=1
 

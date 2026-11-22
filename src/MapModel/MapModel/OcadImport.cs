@@ -206,6 +206,10 @@ namespace PurplePen.MapModel
                 if (version < 6 || (version > 12 && version < 2018) || version > 2018) 
                     throw new OcadFileFormatException("File is in OCAD {0} format. Only OCAD formats 6, 7, 8, 9, 10, 11, 12, and 2018 are supported.", version);
 
+                // OCAD measures the lines of a file of any version with the Euclidean metric, unless the view parameters
+                // ask for the OCAD metric.
+                map.UseEuclideanMetric = true;
+
                 if (version <= 8) {
                     // Only version 8 and less have the symbol header and setup structures. OCAD 9
                     // puts this information into the string parameters.
@@ -305,8 +309,7 @@ namespace PurplePen.MapModel
                         if (simpleStringParameters[OcadStringParam.ViewPar - OcadStringParam.FirstSingleParam] != null) {
                             map.HideTemplates = GetParamInt(simpleStringParameters[OcadStringParam.ViewPar - OcadStringParam.FirstSingleParam], 'd', 0) != 0;
                             map.HideLayout = GetParamInt(simpleStringParameters[OcadStringParam.ViewPar - OcadStringParam.FirstSingleParam], 'l', 0) != 0;
-                            if (version >= 11)
-                                map.UseEuclideanMetric = GetParamInt(simpleStringParameters[OcadStringParam.ViewPar - OcadStringParam.FirstSingleParam], 'p', 0) == 0;
+                            map.UseEuclideanMetric = GetParamInt(simpleStringParameters[OcadStringParam.ViewPar - OcadStringParam.FirstSingleParam], 'p', 0) == 0;
                         }
 
                         // Get the file information.
