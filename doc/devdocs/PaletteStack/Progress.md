@@ -511,7 +511,8 @@ the rendering.
   fit. The tickets 005, 007 and 008 are replaced, and pass 1 gets new tickets by the structure of the passes. The
   present branch of the epic keeps the pass 1 of 005, 007 and 008.
 - **The done tickets** (Nov 22). The done tickets are corrected too: they take the terms of the glossary, as the
-  comments of the code of 001 and 004 do.
+  comments of the code of 001 and 004 do. The tickets 005, 007 and 008 stay as they are: new tickets replace them, and
+  they keep the record of the old pass 1 in the names of its code.
 - **The framing line of texts** (Nov 19). The framing of a text run is one line in the instances, a stroke of the full
   width with the joins of the symbol, as in OCAD's PDF export. OCAD's own drawing leaves the same holes as Skia and
   Cairo with one pen, so the holes that the intermediate pens of Purple Pen fill are no faults against OCAD (question
