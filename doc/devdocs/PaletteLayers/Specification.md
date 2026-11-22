@@ -589,10 +589,10 @@ color twice. The full coverage isolates the principle of the compositing.
 Figure 7. An illustrative comparison: a green of cyan and yellow overlaps a blue of cyan. The example with the inks
 assumes that the overprinting keeps the yellow. The colors are not color-managed simulations.
 
-- For the Mapper maps, the overprinting simulation of Mapper is the oracle of the simulated overprinting. It draws a
-  separation for each ink in priority order: the mixtures draw with their factors, the knockout erases, and a later
-  palette color replaces an earlier one. Then it tints each separation with the CMYK appearance of its ink, and it
-  multiplies the separation into the image.
+- For the Mapper maps, the overprinting simulation of Mapper is the oracle of the simulated overprinting. It draws the
+  ink separation of each ink in priority order: the mixtures draw with their factors, the knockout erases, and a later
+  palette color replaces an earlier one. Then it tints each ink separation with the CMYK appearance of its ink, and it
+  multiplies the ink separation into the image.
 
 ### The color representation
 
