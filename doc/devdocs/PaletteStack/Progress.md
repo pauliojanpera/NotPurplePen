@@ -19,8 +19,9 @@ Nov 22 record them. He approved the specification at 4c11a6ea on Nov 23.
 The epic has a new branch, `feature/palette-stack`, rooted at d48f4456 (@Pauli, Nov 22). It merges the parts 001,
 003 and 004, whose comments take the terms of the glossary, and the fixes 015 to 021. Its full run passed. The old
 pass 1 has no palette color coverages of the symbols, no symbol keys and no derived values, so pass 1 is written
-again as new commits by the specification. New tickets of pass 1 replace 005, 007 and 008: the session drafts them,
-and @Pauli approves them. The done tickets take the terms of the glossary, apart from 005, 007 and 008.
+again as new commits by the specification. Four new tickets of pass 1, 023 to 026, replace 005, 007 and 008 ("The new
+tickets of pass 1", Nov 23): the session drafts them, and @Pauli approves them. The done tickets take the terms of
+the glossary, apart from 005, 007 and 008.
 
 The old branch of the epic, `feature/palette-layers`, keeps the pass 1 of 005, 007 and 008, and the branches of the
 drafts 011 to 013 are rooted at it. The rest of this section tells its state.
@@ -99,7 +100,8 @@ base. No branch is offered upstream yet.
   which programs are the oracles), [Glossary.md](Glossary.md) for the names, and the ticket of the part at hand.
 - **The rules that this work adds.** The tickets are in Finnish, and the other documents in Simplified Technical
   English. A question for @Pauli comes when the decision is his and the session's own choice would not be easy to
-  correct later: one question at a time, with choices and a recommendation. Otherwise the session goes on. No push
+  correct later: one question at a time, with a recommendation. It gives options only where the choice is real: the
+  session does not add options only to involve @Pauli (Nov 23). Otherwise the session goes on. No push
   goes to `base`, `basewithfixes`, `dev` or `master`; a merge into them needs @Pauli's word. A session does not wait
   for a run whose result no next step needs.
 - **The architecture comes first.** feature/multiply-blending is an oracle of the appearance only. The work does not
@@ -148,10 +150,10 @@ base. No branch is offered upstream yet.
 
 ## Next
 
-1. Pass 1 gets new tickets by the structure of the passes (section 01 of the specification), in place of 005, 007
-   and 008. The session drafts them, and @Pauli approves them. Their branches are rooted at `feature/palette-stack`,
-   and they take the forms, the geometry methods of the point symbols and the tests of the old pass 1 where these
-   fit ("The new branch of the epic").
+1. Pass 1 gets the new tickets 023 to 026 by the structure of the passes (section 01 of the specification), in place
+   of 005, 007 and 008 ("The new tickets of pass 1"). The session drafts them one at a time, and @Pauli approves
+   them. Their branches are rooted at `feature/palette-stack`, and they take the forms, the geometry methods of the
+   point symbols and the tests of the old pass 1 where these fit ("The new branch of the epic").
 2. The drafts 009 to 013 follow the specification when @Pauli asks for it.
 
 The plan below is the plan of the old branch, in the words of its time. Its parts 2 to 5 stay as the order of the
@@ -538,6 +540,23 @@ the rendering.
 - **The approval of the specification** (Nov 23). @Pauli approved [Specification.md](Specification.md) at 4c11a6ea.
   The decisions of Nov 22 record his review of the choices of the session. Pass 1 gets its new tickets by the
   structure of the passes in section 01 ("Next").
+- **The new tickets of pass 1** (Nov 23). Four tickets replace 005, 007 and 008, in this order of the work:
+  - 023: the intermediate layer and pass 1 with the collector. It makes the coverage prototype with the full coverage,
+    the palette color coverages of the symbols, the palette separations, the palette cutters, the forms of the
+    clipping objects of the old pass 1 and the derived values. Its oracle is the drawing.
+  - 024: the geometry methods of the point symbols. A symbol definition gives the clipping objects of the palette
+    color coverages of its symbols, and the shared shapes of a glyph are a derived value of its definition. Its oracle
+    is the collector.
+  - 025: the symbol key (`Symbol.Key`) in `Map`.
+  - 026: the course object key (`CourseObj.Key`) and the symbol keys of the course map, in `PurplePenCore`.
+
+  The branches are `feature/palette-separations`, `feature/point-symbol-geometry`, `feature/symbol-keys` and
+  `feature/course-object-keys`. Each is rooted at
+  `feature/palette-stack`: 024 after 023 is merged into it, and 026 after 025. Their full runs go on
+  `wip/linux/<name>`, on `base`, with `--base-baselines prs/000-palette-stack-base`. A ticket is a draft until @Pauli
+  approves it, and the epic lists each ticket that he approves under "Erotetut alatehtävät".
+- **The options of a question** (Nov 23). A question gives options only where the choice is real. It does not add
+  options only to involve @Pauli ("How to continue the work").
 - **The framing line of texts** (Nov 19). The framing of a text run is one line in the instances, a stroke of the full
   width with the joins of the symbol, as in OCAD's PDF export. OCAD's own drawing leaves the same holes as Skia and
   Cairo with one pen, so the holes that the intermediate pens of Purple Pen fill are no faults against OCAD (question

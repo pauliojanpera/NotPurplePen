@@ -26,6 +26,7 @@ Read these in this order:
   @Pauli as a question, and he decides.
 - The session presents one question at a time (Nov 20, Nov 21).
 - The session does not make proposals that @Pauli did not ask for (Nov 20).
+- The session gives options only where the choice is real. It does not add options only to involve @Pauli (Nov 23).
 - When @Pauli uses a vague reference, the session asks him to make it exact (Nov 20, the preface of the glossary).
 - The session starts no agents and does not run `agent-cache.py`, although `CLAUDE.md` asks every session to run it.
   It does not start the script that archives the session (Nov 18, [README.md](README.md)).
@@ -49,7 +50,8 @@ of these.
 ### How to make a question
 
 - **The question stands alone.** @Pauli does not look back in the conversation to understand it. The question gives
-  the present use of the word with quotations and their sources, an example, the options and a recommendation.
+  the present use of the word with quotations and their sources, an example, the options and a recommendation. The
+  options are the real choices only: an option that is there only to involve @Pauli is left out (Nov 23).
 - **The session reads the sources before it asks.** The sources are the specification, the decisions in Progress.md
   and the tickets, and the code of upstream. The session does not ask @Pauli for facts that the sources give. It reads
   them, and it presents the result to him.
