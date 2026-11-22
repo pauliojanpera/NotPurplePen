@@ -469,6 +469,9 @@ namespace PurplePen.MapModel
     }
 
     class OcadSymbolHeader {
+        // The most spot color separations that OCAD 6 to 8 use. The header has room for 32.
+        public const int MaxSeparations = 24;
+
         public short nColors, nColorSep;
         public short CyanFreq, CyanAng;
         public short MagentaFreq, MagentaAng;
