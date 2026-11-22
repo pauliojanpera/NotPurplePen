@@ -1,22 +1,19 @@
 # Palette-layer vector graphics architecture
 
-> This is a working document converted from `Palette_Layer_Vector_Graphics_Specification_Revised.docx` on Nov 17, 2026.
-> This text was written again on Nov 21 and 22, 2026, in the terms of [Glossary.md](Glossary.md) and by the structure of
-> the passes (@Pauli, Nov 21).
+> This is a working document converted from `Palette_Layer_Vector_Graphics_Specification_Revised.docx`.
 > This specification was never the basis of NotPurplePen. Rather this is the reference for an architecture change of
 > upstream's `Map` and its consumers, to be later on integrated into NotPurplePen. Where NotPurplePen already knows how
 > to take `Map` and its consumers further, this specification does not bind as such, and the knowledge can be used to
 > develop this specification further.
-> By default, the branch feature/multiply-blending is the oracle of this work (@Pauli, Nov 17).
+> By default, the branch feature/multiply-blending is the oracle of this work.
 > That branch is an oracle of the appearance only, not a model of the implementation. The goal of this work is the
 > architecture that this specification separates: pass 1 makes the palette separations and their palette cutters, and
 > pass 2 composites them. feature/multiply-blending gets its appearance in another way: it blends an ink as a layer
 > around the drawing of the symbols. Where this specification leaves room to do the same, the room is not meant. The
-> work does not read the code of that branch (@Pauli, Nov 18).
+> work does not read the code of that branch.
 > OCAD and OpenOrienteering Mapper are the authorities on how their own maps render. For Mapper maps, Mapper is an
 > oracle of the appearance: this architecture may organize the vector structure in its own way, but where Mapper
-> implements the function, the result must look as Mapper draws it, except where we find a bug in Mapper (@Pauli,
-> Nov 17).
+> implements the function, the result must look as Mapper draws it, except where we find a bug in Mapper.
 
 Design specification / Cartographic rendering
 

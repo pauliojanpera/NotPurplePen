@@ -188,9 +188,6 @@ the rendering.
 - **The review of the new specification** (Nov 21). @Pauli let the session write [Specification.md](Specification.md)
   again on its own, and he reviews it afterwards. These are the choices that the session made on its own, and not his
   decisions:
-  - A dated sentence after the first sentence of the preface tells that the text was written again.
-  - The new text gives no dates, attributions or sources in parentheses, as the glossary does. The citations [1] to [16]
-    stay.
   - The title stays, as the glossary is the glossary of the palette-layer architecture.
   - The labels of figures 1, 2, 5 and 6, and all the captions, use the terms of the glossary. Each figure has a place in
     the new sections such that the figures keep their numbers 1 to 8.
@@ -468,15 +465,14 @@ the rendering.
   circle and its control number, or the two parts of a leg that is flagged in part, have the same associations, and
   the map issue point of a leg has none on purpose. The class of the `CourseObj` is not a part of the key, so a whole
   leg keeps its key when it becomes flagged. Its name is `CourseObj.Key`. [Glossary.md](Glossary.md) gives the terms.
-- **The division of the specification** (Nov 21). [Specification.md](Specification.md) is written again in the terms
-  of [Glossary.md](Glossary.md) and by the structure of the passes, and it is divided as the glossary is. The
-  unnumbered opening sections come first. Section 01 gives the structure of the passes as an overview, with figure 2.
-  Section 02 gives the map side, section 03 the intermediate layer, section 04 the rendering side, and section 05 the
-  transparency flattening. The references [1] to [16] come last and keep their numbers. The preface and the figures
-  stay. The work has five parts: the opening sections with section 01, section 02, section 03, section 04, and section
-  05 with the references. The new text grows at the start of the file, and the old text stays below it until the last
-  part. Until then, the section and figure numbers that the other documents give refer to the old text. The last part
-  changes them to the new sections and figures.
+- **The division of the specification** (Nov 21). [Specification.md](Specification.md) is written again in the terms of
+  [Glossary.md](Glossary.md) and by the structure of the passes, and it is divided as the glossary is. The unnumbered
+  opening sections come first. Section 01 gives the structure of the passes as an overview, with figure 2. Section 02
+  gives the map side, section 03 the intermediate layer, section 04 the rendering side, and section 05 the transparency
+  flattening. The references [1] to [16] come last and keep their numbers. The work has five parts: the opening sections
+  with section 01, section 02, section 03, section 04, and section 05 with the references. The new text grows at the
+  start of the file, and the old text stays below it until the last part. Until then, the section and figure numbers
+  that the other documents give refer to the old text. The last part changes them to the new sections and figures.
 - **The selected elements in the specification** (Nov 22). Section 03 of [Specification.md](Specification.md) gives the
   elements that a fill mode selects as derived values of a palette color coverage of a symbol. It does not say to which
   palette cutter they belong, which question 2 of ticket 009 asks. It leaves the composite representations of the
@@ -494,6 +490,9 @@ the rendering.
   [README.md](README.md), "upstream's map model" is "upstream's `Map` and its consumers", and "the model" is "`Map` and
   its consumers". The consumers of `Map` are the code that draws it: in upstream `MapDisplay`, and through it the
   printing, the PDF and the bitmap export, and in the specification the rendering side.
+- **No dates in the specification** (Nov 22). [Specification.md](Specification.md) gives no dates and no attributions,
+  also in its preface, as nobody asked for them there. Progress.md gives the decisions with their dates. The citations
+  [1] to [16] stay.
 - **The framing line of texts** (Nov 19). The framing of a text run is one line in the instances, a stroke of the full
   width with the joins of the symbol, as in OCAD's PDF export. OCAD's own drawing leaves the same holes as Skia and
   Cairo with one pen, so the holes that the intermediate pens of Purple Pen fill are no faults against OCAD (question
