@@ -38,7 +38,7 @@ namespace PurplePen.MapModel
         }
     }
 
-    // A printing ink: the colorant of one separation of a print. A palette entry (SymColor) is made of inks.
+    // A printing ink: the colorant of one ink separation of a print. A palette color (SymColor) is made of inks.
     // The four process inks always exist, and a map adds its spot inks to them. An ink does not change after it
     // is made, so that maps can share it. Its identity is the object: two inks with the same name are two inks.
     public sealed class Ink
@@ -107,9 +107,9 @@ namespace PurplePen.MapModel
         }
     }
 
-    // The share of one ink in a palette entry: the ink, and the factor of its full tone, from 0 to 1. A factor of
-    // 0 is a component: it erases the ink where the entry is drawn. An ink that is not a component of an entry
-    // leaves the ink as it is.
+    // The share of one ink in a palette color: the ink, and the factor of its full tone, from 0 to 1. A factor of 0 is
+    // a component: it erases the ink where the palette color is drawn. An ink that is not a component of a palette
+    // color leaves the ink as it is.
     public struct InkComponent : IEquatable<InkComponent>
     {
         public readonly Ink Ink;

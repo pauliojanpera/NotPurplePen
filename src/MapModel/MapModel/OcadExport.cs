@@ -260,7 +260,7 @@ namespace PurplePen.MapModel {
                 symheader.YellowFreq = 1500;
             }
 
-            // The separations are the spot inks. New arrays keep the structure that the map holds as it is.
+            // The spot color separations are the spot inks. New arrays keep the structure that the map holds as it is.
             List<Ink> separationInks = SpotInks().Take(OcadSymbolHeader.MaxSeparations).ToList();
             symheader.nColorSep = (short) separationInks.Count;
             symheader.aColorSep = new OcadColorSep[symheader.aColorSep.Length];
@@ -279,7 +279,8 @@ namespace PurplePen.MapModel {
                 symheader.aColorSep[i] = colorSep;
             }
 
-            // The colors, the top one first. The share of a color in a separation is in half percents; 255 is no share.
+            // The colors, the top one first. The share of a color in a spot color separation is in half percents; 255
+            // is no share.
             List<SymColor> colors = ColorsToWrite();
             symheader.nColors = (short) colors.Count;
             symheader.aColorInfo = new OcadColorInfo[symheader.aColorInfo.Length];
@@ -306,14 +307,15 @@ namespace PurplePen.MapModel {
             symheader.Write(writer);
         }
 
-        // The spot inks of the map, in the order of their separations.
+        // The spot inks of the map, in the order of their ink separations.
         List<Ink> SpotInks()
         {
             return map.AllInks.Where(ink => !ink.IsProcessInk).ToList();
         }
 
         // The colors that the export writes, from the bottom one up. A spot ink as such that is below all other colors
-        // and that no symbol uses is a separation only: Mapper keeps a separation of an OCAD file so.
+        // and that no symbol uses is a spot color separation only: Mapper keeps a spot color separation of an OCAD file
+        // so.
         List<SymColor> ColorsToWrite()
         {
             List<SymColor> colors = new List<SymColor>(map.AllColors);
@@ -1811,8 +1813,8 @@ namespace PurplePen.MapModel {
             return paramStrings;
         }
 
-        // Create the parameter strings for all the colors. Each share of a color in a separation is a pair of the name
-        // of the separation (s) and the percentage (p).
+        // Create the parameter strings for all the colors. Each share of a color in a spot color separation is a pair
+        // of the name of the spot color separation (s) and the percentage (p).
         List<OcadParamString> CreateColorStringParameters()
         {
             List<SymColor> colors = ColorsToWrite();
