@@ -4,9 +4,9 @@
 > This text was written again on Nov 21 and 22, 2026, in the terms of [Glossary.md](Glossary.md) and by the structure of
 > the passes (@Pauli, Nov 21).
 > This specification was never the basis of NotPurplePen. Rather this is the reference for an architecture change of
-> upstream's code in `src/MapModel`, to be later on integrated into NotPurplePen. Where NotPurplePen already knows how
-> to take that code further, this specification does not bind as such, and the knowledge can be used to develop this
-> specification further.
+> upstream's `Map` and its consumers, to be later on integrated into NotPurplePen. Where NotPurplePen already knows how
+> to take `Map` and its consumers further, this specification does not bind as such, and the knowledge can be used to
+> develop this specification further.
 > By default, the branch feature/multiply-blending is the oracle of this work (@Pauli, Nov 17).
 > That branch is an oracle of the appearance only, not a model of the implementation. The goal of this work is the
 > architecture that this specification separates: pass 1 makes the palette separations and their palette cutters, and

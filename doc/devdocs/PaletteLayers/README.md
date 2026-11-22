@@ -1,8 +1,8 @@
 # The palette-layer work
 
-Nov 18, 2026. The palette-layer work changes the architecture of upstream's map model, as
-[Specification.md](Specification.md) describes it. This file tells how the work is organized: its tickets, its
-branches, its pull request descriptions and its tracking. The practice is @Pauli's (Nov 18).
+Nov 18, 2026. The palette-layer work changes the architecture of upstream's `Map` and its consumers, as
+[Specification.md](Specification.md) describes it. This file tells how the work is organized: its tickets, its branches,
+its pull request descriptions and its tracking. The practice is @Pauli's (Nov 18).
 
 | File or folder | Holds |
 | --- | --- |

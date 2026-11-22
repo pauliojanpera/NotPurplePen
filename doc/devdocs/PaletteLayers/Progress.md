@@ -188,9 +188,7 @@ the rendering.
 - **The review of the new specification** (Nov 21). @Pauli let the session write [Specification.md](Specification.md)
   again on its own, and he reviews it afterwards. These are the choices that the session made on its own, and not his
   decisions:
-  - The preface reads "upstream's map model" as the code of upstream in `src/MapModel`, as the encodings of Skia and PDF
-    belong to `Map_SkiaStd` and `Map_PDF`, outside `MapModel.csproj`. A dated sentence after the first sentence tells
-    that the text was written again.
+  - A dated sentence after the first sentence of the preface tells that the text was written again.
   - The new text gives no dates, attributions or sources in parentheses, as the glossary does. The citations [1] to [16]
     stay.
   - The title stays, as the glossary is the glossary of the palette-layer architecture.
@@ -492,6 +490,10 @@ the rendering.
   defines by another name, the documents use that name. So the preface keeps "not a model of the implementation", and
   the opening sections of [Specification.md](Specification.md) say "architecture" for the architecture that the
   specification defines.
+- **The map model in the preface** (Nov 22). In the preface of [Specification.md](Specification.md) and in
+  [README.md](README.md), "upstream's map model" is "upstream's `Map` and its consumers", and "the model" is "`Map` and
+  its consumers". The consumers of `Map` are the code that draws it: in upstream `MapDisplay`, and through it the
+  printing, the PDF and the bitmap export, and in the specification the rendering side.
 - **The framing line of texts** (Nov 19). The framing of a text run is one line in the instances, a stroke of the full
   width with the joins of the symbol, as in OCAD's PDF export. OCAD's own drawing leaves the same holes as Skia and
   Cairo with one pen, so the holes that the intermediate pens of Purple Pen fill are no faults against OCAD (question
