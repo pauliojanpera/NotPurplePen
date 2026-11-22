@@ -1,7 +1,4 @@
-# LUONNOS – Pistesymbolien geometriametodit
-
-> **LUONNOS (23.11.), @Paulin hyväksyttävänä.** Tämä tiketti on luonnos, kunnes @Pauli hyväksyy sen, eikä luonnosta toteuteta. Hyväksynnän jälkeen istunto poistaa tämän merkinnän ja otsikon sanan LUONNOS.
-
+# Pistesymbolien geometriametodit
 **Kuvaus**
 Pistesymbolien symbolimäärittely antaa symboliensa palettiväripeittojen leikkausobjektit omalla geometriametodillaan ilman piirtoa, ja glyyfin jaetut muodot ovat määrittelyn johdos. Kerääjä on oraakkeli, ja muut symbolilajit saavat leikkausobjektinsa edelleen kerääjältä. Piirto ei muutu.
 
@@ -17,6 +14,7 @@ Pistesymbolien symbolimäärittely antaa symboliensa palettiväripeittojen leikk
 
 **Lisätiedot**
 - **Päätökset:**
+  - @Pauli hyväksyi tämän tiketin 23.11.
   - Neljä tikettiä korvaa tiketit 005, 007 ja 008, ja tämä on niistä toinen. Sen oraakkeli on kerääjä (@Pauli, 23.11., Progress.md: "The new tickets of pass 1"). Uudet commitit ottavat vanhasta vaiheesta 1 pistesymbolien geometriametodit ja testit siltä osin kuin ne sopivat (@Pauli, 22.11., "The new branch of the epic").
   - Pistesymbolit jakavat glyyfinsä muodot: kukin glyyfin osa on yksi muoto, jonka kukin symboli asettaa omalla sijoituksellaan (@Pauli, 18.11., "The shared shapes of the glyphs").
   - Vanha piirtokoodi pysyy ennallaan geometriametodien ajan, jotta kerääjä pysyy riippumattomana oraakkelina. Geometriametodit kirjoitetaan sen rinnalle, ja symbolin kokoava logiikka saa olla kahdessa paikassa (@Pauli, 18.11., "The old drawing code during the geometry methods").

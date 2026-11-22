@@ -64,3 +64,4 @@ Kun koodaus tarvitsee tiedon, malli säilyttää sen, ja koodaus lukee sen malli
 * [019](019-ocad-minimum-gaps.md) OCAD-viivan vähimmäisvälit 2 ja 3 luetaan kolmeksi ja neljäksi, löytyi tiketin 011 valmistelusta: haara `fix/ocad-minimum-gaps`, yhdistetty samoin.
 * [020](020-dash-boundary-at-vertex.md) Taitepisteen lähellä alkava katko saa taitepisteen ja viisteen kulman, löytyi tiketin 011 valmistelusta: haara `fix/dash-boundary-at-vertex`, yhdistetty samoin.
 * [023](023-palette-separations.md) Välikerros ja vaihe 1 kerääjällä, ensimmäinen tiketeistä, jotka korvaavat tiketit 005, 007 ja 008 (23.11.): haara `feature/palette-separations`, ei vielä tehty.
+* [024](024-point-symbol-geometry.md) Pistesymbolien geometriametodit, toinen tiketeistä, jotka korvaavat tiketit 005, 007 ja 008 (23.11.): haara `feature/point-symbol-geometry`, ei vielä tehty. Se juurtuu haaraan `feature/palette-stack` tiketin 023 jälkeen.
