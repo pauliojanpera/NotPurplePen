@@ -63,7 +63,8 @@ namespace PurplePen.MapModel
         // Map the symbol colors to SymColor instances.
         Dictionary<int, SymColor> mapOcadIdToSymColor = new Dictionary<int, SymColor>();
 
-        // Map the names of the spot color separations to inks (OCAD 9 and later). The first separation of a name has it.
+        // Map the names of the spot color separations to inks (OCAD 9 and later). The first spot color separation of a
+        // name has it.
         Dictionary<string, Ink> mapNameToInk = new Dictionary<string, Ink>();
 
         // Keys = symbol def ids.
@@ -243,8 +244,8 @@ namespace PurplePen.MapModel
 
                     CreateColors(symheader);
 
-                    // Save away the symbol header and setup structure for round-trip purposes. The map has the colors and
-                    // the separations.
+                    // Save away the symbol header and setup structure for round-trip purposes. The map has the colors
+                    // and the spot inks.
                     for (int i = 0; i < symheader.aColorInfo.Length; ++i)
                         symheader.aColorInfo[i] = null;
                     symheader.nColors = 0;
@@ -565,9 +566,9 @@ namespace PurplePen.MapModel
             return builder.ToString();
         }
 
-        // Create the inks and the SymColor objects in the map (OCAD 6 to 8), and also cache the colors in the colors array.
-        // The separations are the spot inks. The share of a color in a separation is in half percents, from 0 to 200;
-        // 255 is no share.
+        // Create the inks and the SymColor objects in the map (OCAD 6 to 8), and also cache the colors in the colors
+        // array. The spot color separations are the spot inks. The share of a color in a spot color separation is in
+        // half percents, from 0 to 200; 255 is no share.
         void CreateColors(OcadSymbolHeader symheader) {
             Ink[] separationInks = new Ink[Math.Max(0, Math.Min((int) symheader.nColorSep, OcadSymbolHeader.MaxSeparations))];
             for (int i = 0; i < separationInks.Length; ++i) {
@@ -602,8 +603,8 @@ namespace PurplePen.MapModel
             return CmykColor.FromCmyk(ocadCmyk.cyan / 200.0F, ocadCmyk.magenta / 200.0F, ocadCmyk.yellow / 200.0F, ocadCmyk.black / 200.0F);
         }
 
-        // The halftone screen of a separation, whose frequency OCAD gives in tenths of lines per inch. A frequency of 0
-        // or less defines no screen.
+        // The halftone screen of a spot color separation, whose frequency OCAD gives in tenths of lines per inch. A
+        // frequency of 0 or less defines no screen.
         static InkScreen? InkScreenFromTenths(float frequencyInTenths, float angle)
         {
             if (frequencyInTenths > 0)
@@ -612,8 +613,8 @@ namespace PurplePen.MapModel
                 return null;
         }
 
-        // Create the spot inks of the map (OCAD 9 and later), in the order of the numbers of the separations. The angle of
-        // a separation is in degrees.
+        // Create the spot inks of the map (OCAD 9 and later), in the order of the numbers of the spot color
+        // separations. The angle of a spot color separation is in degrees.
         void CreateInks(List<OcadParamString> paramStrings)
         {
             if (paramStrings == null)
@@ -658,8 +659,9 @@ namespace PurplePen.MapModel
             }
         }
 
-        // Read the ink components of a color string (OCAD 9 and later): each pair of a separation name (s) and the
-        // percentage of the color in that separation (p). A pair whose separation is not an ink of the map is left out.
+        // Read the ink components of a color string (OCAD 9 and later): each pair of the name of a spot color
+        // separation (s) and the percentage of the color in that spot color separation (p). A pair whose spot color
+        // separation is not an ink of the map is left out.
         List<InkComponent> ReadSpotComposition(OcadParamString paramString)
         {
             List<InkComponent> components = new List<InkComponent>();

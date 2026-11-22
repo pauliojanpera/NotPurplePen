@@ -65,8 +65,8 @@ namespace PurplePen.MapModel
         private string name;
         private Map map;
 		private short ocadId;
-        private Ink spotInk;                                        // The spot ink that this entry is as such, or null.
-        private ReadOnlyCollection<InkComponent> spotComposition;   // The spot inks that this entry is made of, or null.
+        private Ink spotInk;                                        // The spot ink that this palette color is, or null.
+        private ReadOnlyCollection<InkComponent> spotComposition;   // The spot inks of this palette color, or null.
         private float opacity = 1;
         private ColorBlendMode blendMode = ColorBlendMode.Normal;
 
@@ -257,10 +257,10 @@ namespace PurplePen.MapModel
             }
         }
 
-        // The inks of this palette entry, each with its factor. An entry without a spot definition is made of the four
-        // process inks, with its CMYK values as their factors. An entry that is a spot ink as such is that ink at full
-        // tone. An ink that is not in the list is not a component of the entry, which is not the same as a component
-        // with the factor 0. A special layer has no inks.
+        // The inks of this palette color, each with its factor. A palette color without a spot definition is made of
+        // the four process inks, with its CMYK values as their factors. A palette color that is a spot ink as such is
+        // that ink at full tone. An ink that is not in the list is not a component of the palette color, which is not
+        // the same as a component with the factor 0. A special layer has no inks.
         public IReadOnlyList<InkComponent> InkComponents
         {
             get
@@ -278,20 +278,20 @@ namespace PurplePen.MapModel
             }
         }
 
-        // Does this palette entry have a spot definition: is it a spot ink as such, or made of spot inks? An entry
-        // without one is made of the process inks.
+        // Does this palette color have a spot definition: is it a spot ink as such, or made of spot inks? A palette
+        // color without one is made of the process inks.
         public bool HasSpotDefinition
         {
             get { return spotInk != null || spotComposition != null; }
         }
 
-        // The spot ink that this palette entry is as such, at full tone, or null if it is not one.
+        // The spot ink that this palette color is as such, at full tone, or null if it is not one.
         public Ink SpotInk
         {
             get { return spotInk; }
         }
 
-        // Makes this palette entry the given spot ink as such, at full tone. Null leaves it without a spot definition.
+        // Makes this palette color the given spot ink as such, at full tone. Null leaves it without a spot definition.
         public void SetSpotInk(Ink ink)
         {
             Debug.Assert(map == null, "Cannot change inks after being attached to a map");
@@ -303,8 +303,8 @@ namespace PurplePen.MapModel
             spotComposition = null;
         }
 
-        // Makes this palette entry a composition of the given spot ink components. An ink that is in the list more than
-        // once keeps its first factor. Null or an empty list leaves the entry without a spot definition.
+        // Makes this palette color a composition of the given spot ink components. An ink that is in the list more than
+        // once keeps its first factor. Null or an empty list leaves the palette color without a spot definition.
         public void SetSpotComposition(IEnumerable<InkComponent> components)
         {
             Debug.Assert(map == null, "Cannot change inks after being attached to a map");

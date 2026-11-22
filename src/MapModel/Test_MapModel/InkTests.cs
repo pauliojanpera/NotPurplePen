@@ -12,7 +12,7 @@ using static PurplePen.MapModel.Tests.MapFileTestUtil;
 
 namespace PurplePen.MapModel.Tests
 {
-    // Tests of the inks of palette entries: the model, and the import and export of OCAD and Mapper files.
+    // Tests of the inks of palette colors: the map side, and the import and export of OCAD and Mapper files.
     // The Hakola test maps are one map in three formats, with eight spot inks.
     [TestFixture]
     public class InkTests
@@ -267,7 +267,7 @@ namespace PurplePen.MapModel.Tests
             Assert.AreEqual("ink PMS299_Sininen 0.87,0.185,0,0 screen none", DescribeInk(inks[1]));
             Assert.AreEqual(67, colors.Count);
 
-            // Registration black is in all the separations.
+            // Registration black is in all the spot color separations.
             Assert.AreEqual("Registration black (all printed colors)", colors[0].Name);
             Assert.IsTrue(colors[0].OverPrint);
             AssertComponents(colors[0], SpotInkNames.SelectMany(name => new object[] { name, 1 }).ToArray());
@@ -280,7 +280,7 @@ namespace PurplePen.MapModel.Tests
             Assert.IsFalse(brown50.OverPrint);
             AssertCmyk(brown50, 0, 0.28F, 0.5F, 0.09F);
 
-            // An overprinted color without separations.
+            // An overprinted color without spot color separations.
             SymColor brown = ColorNamed(map, "Ruskea 100%  - Pistekohde");
             Assert.IsFalse(brown.HasSpotDefinition);
             Assert.IsTrue(brown.OverPrint);
@@ -296,14 +296,14 @@ namespace PurplePen.MapModel.Tests
             List<Ink> inks = SpotInks(map);
             List<SymColor> colors = ColorsTopFirst(map);
 
-            // OCAD 8 keeps 15 characters of the name of a separation.
+            // OCAD 8 keeps 15 characters of the name of a spot color separation.
             CollectionAssert.AreEqual(SpotInkNames.Select(name => name.Substring(0, Math.Min(15, name.Length))), inks.Select(ink => ink.Name));
             Assert.AreEqual("ink PMS299_Sininen 0.87,0.185,0,0 screen none", DescribeInk(inks[1]));
             Assert.AreEqual(67, colors.Count);
 
             AssertComponents(colors[0], inks.SelectMany(ink => new object[] { ink.Name, 1 }).ToArray());
 
-            // The shares are in the order of the separations. 255 is no share, and 0 is a share of 0.
+            // The shares are in the order of the spot color separations. 255 is no share, and 0 is a share of 0.
             SymColor brown50 = colors.First(color => color.Name == "Ruskea 50% - Aluekohde");
             AssertComponents(brown50, "Process Musta", 0, "PMS471_Ruskea", 0.5, "PMS361_Vihrea", 0, "PMS136_Keltaine", 0);
             AssertComponents(ColorNamed(map, "#ffffff"), "Process Musta", 0);
@@ -317,7 +317,8 @@ namespace PurplePen.MapModel.Tests
         [Test]
         public void OcadImportReadsScreens()
         {
-            // An OCAD 7 map whose separations have screens: 150 lines per inch at 45 degrees, yellow at 30 degrees.
+            // An OCAD 7 map whose spot color separations have screens: 150 lines per inch at 45 degrees, yellow at 30
+            // degrees.
             List<Ink> inks = SpotInks(LoadMap("io\\isomarea.ocd"));
             Assert.AreEqual("ink Black 0,0,0,1 screen 150@45", DescribeInk(inks[0]));
             Assert.AreEqual("ink Yellow 0,0.275,0.79,0 screen 150@30", DescribeInk(inks[4]));
@@ -349,8 +350,8 @@ namespace PurplePen.MapModel.Tests
 
             CollectionAssert.AreEqual(SpotInks(map).Select(DescribeInk), SpotInks(ocadMap).Select(DescribeInk));
 
-            // The spot colors as such below the other colors, which no symbol uses, are separations only. Each other
-            // color keeps its ink components.
+            // The spot colors as such below the other colors, which no symbol uses, are spot color separations only.
+            // Each other color keeps its ink components.
             List<SymColor> colors = ColorsTopFirst(map);
             List<SymColor> ocadColors = ColorsTopFirst(ocadMap);
             Assert.AreEqual(colors.Count - SpotInkNames.Length, ocadColors.Count);
@@ -366,8 +367,8 @@ namespace PurplePen.MapModel.Tests
 
             CollectionAssert.AreEqual(SpotInks(map).Select(DescribeInk), SpotInks(mapperMap).Select(DescribeInk));
 
-            // Mapper keeps each separation as a spot color as such, below the other colors. Registration black is
-            // Mapper's own, and the other colors keep their ink components.
+            // Mapper keeps each spot color separation as a spot color as such, below the other colors. Registration
+            // black is Mapper's own, and the other colors keep their ink components.
             List<SymColor> colors = ColorsTopFirst(map);
             List<SymColor> mapperColors = ColorsTopFirst(mapperMap);
             int inkCount = SpotInkNames.Length;
@@ -376,7 +377,7 @@ namespace PurplePen.MapModel.Tests
             Assert.AreEqual(DescribeComponents(colors[0]), DescribeComponents(mapperColors[0]));
             CollectionAssert.AreEqual(colors.Skip(1).Select(DescribeComponents), mapperColors.Skip(1).Take(colors.Count - 1).Select(DescribeComponents));
 
-            // And back: the spot colors as such are separations again.
+            // And back: the spot colors as such are spot color separations again.
             Map ocadMap = WriteAndRead(ColorsOnly(mapperMap), Ocad12Map, Format(MapFileFormatKind.OCAD, 2018));
             CollectionAssert.AreEqual(SpotInks(map).Select(DescribeInk), SpotInks(ocadMap).Select(DescribeInk));
             CollectionAssert.AreEqual(colors.Skip(1).Select(DescribeComponents), ColorsTopFirst(ocadMap).Skip(1).Select(DescribeComponents));

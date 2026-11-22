@@ -863,7 +863,7 @@ namespace PurplePen.MapModel
     public class Map: IDisposable
     {
         internal List<SymColor> colors = new List<SymColor>();
-        List<Ink> inks = new List<Ink>(Ink.ProcessInks);   // the process inks, then the spot inks in the order of their separations.
+        List<Ink> inks = new List<Ink>(Ink.ProcessInks);   // the process inks, then the spot inks in the order of their ink separations.
         List<SymDef> symdefs = new List<SymDef>();
         List<Symbol> symbols = new List<Symbol>();
         Dictionary<SymDef, bool> hiddenSymbols = new Dictionary<SymDef, bool>();
@@ -1316,7 +1316,7 @@ namespace PurplePen.MapModel
             }
         }
 
-        // Return all the inks: the four process inks, then the spot inks, in the order of their separations.
+        // Return all the inks: the four process inks, then the spot inks, in the order of their ink separations.
         public IReadOnlyList<Ink> AllInks {
             get {
                 CheckReadable();
@@ -1788,7 +1788,7 @@ namespace PurplePen.MapModel
             return AddColorAtIndex(colors.Count, color);
         }
 
-        // Add a spot ink as the last separation of the map.
+        // Add a spot ink as the last ink separation of the map.
         public void AddSpotInk(Ink ink)
         {
             InsertSpotInk(inks.Count, ink);
