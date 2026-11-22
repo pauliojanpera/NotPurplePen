@@ -9,7 +9,7 @@ its pull request descriptions and its tracking. The practice is @Pauli's (Nov 18
 | [Specification.md](Specification.md) | The reference of the architecture. Its preface tells when it binds, and which programs are the oracles. |
 | [Glossary.md](Glossary.md) | The names of the concepts of the architecture in the code, in Finnish and in English, and the rules of the names. |
 | [GlossaryHandover.md](GlossaryHandover.md) | How a new session continues the glossary work: the rules of the work with @Pauli, what is decided and what is open. |
-| [tickets/](tickets/) | The tickets, numbered in order. [000](tickets/000-palette-layers.md) is the epic. The templates: `epic-template.md`, `feature-template.md` and `bug-template.md`. |
+| [tickets/](tickets/) | The tickets, numbered in order. [000](tickets/000-palette-stack.md) is the epic. The templates: `epic-template.md`, `feature-template.md` and `bug-template.md`. |
 | [prs/](prs/) | A pull request description of each branch, with the number of its ticket. The template: `template.md`. |
 | [Progress.md](Progress.md) | The state of each branch, its full runs and the branches it is merged into, and the decisions of the work. |
 | [tools/](tools/) | The scripts of the work. Its README tells each script in one sentence, and the loop of a ticket. |
@@ -51,11 +51,11 @@ specification, @Pauli, Nov 18).
 
 - Each ticket has one branch: `feature/<name>` for a feature, and `fix/<name>` for a fault.
 - A branch is rooted where `base` meets upstream (`git merge-base origin/base upstream/master`, d48f4456), so that it
-  can be offered upstream as it stands. A part that builds on earlier parts is rooted at `feature/palette-layers`. A
+  can be offered upstream as it stands. A part that builds on earlier parts is rooted at `feature/palette-stack`. A
   branch takes nothing from the other branches of the fork.
 - A branch runs in full on `wip/linux/<name>`, on `base` (`tools/push-wip.sh`, @Pauli, Nov 18). `base` holds upstream,
   the workflows and the test tools of the fork, and not the fixes of `basewithfixes`. A fix that a part needs is merged
-  into `feature/palette-layers`. A branch records on itself only the baselines that it moves.
+  into `feature/palette-stack`. A branch records on itself only the baselines that it moves.
 - On top of d48f4456, `base` changes only these files in `src/MapModel` and `src/PurplePenCore` (`origin/base` at
   d256a9e8, Nov 21): the `AssemblyInfo.cs` files, the tests of `src/MapModel`, the strings of `MiscText`,
   `VersionNumber.cs` and the cache of the PDF conversions (`PdfMapFile.cs`). Its other changes are in other folders,
@@ -72,14 +72,14 @@ specification, @Pauli, Nov 18).
 
 ## The branch of the epic
 
-- `feature/palette-layers` collects the parts that are done, as `feature/svg-target` collects the SVG work.
+- `feature/palette-stack` collects the parts that are done, as `feature/svg-target` collects the SVG work.
 - A merge into it names the work that it brings in its subject, and lists the commits in its body, as a merge into a
   shared branch does. It tells how a conflict was resolved.
-- The trial build of `feature/palette-layers` on the site of NotPurplePen tells what it holds: the message of the commit
-  that a push of `wip/linux/palette-layers` builds lists the ten work branches merged into `feature/palette-layers`
+- The trial build of `feature/palette-stack` on the site of NotPurplePen tells what it holds: the message of the commit
+  that a push of `wip/linux/palette-stack` builds lists the ten work branches merged into `feature/palette-stack`
   last (@Pauli, Nov 19). `tools/push-wip.sh` writes the list into each commit that it makes, and the site shows the
   message under the commit of the build.
-- `feature/palette-layers` runs in full on `wip/linux/palette-layers`, on `base`.
+- `feature/palette-stack` runs in full on `wip/linux/palette-stack`, on `base`.
 
 ## Tracking
 
@@ -88,5 +88,5 @@ specification, @Pauli, Nov 18).
 - A document records as @Pauli's decisions only his decisions, and otherwise the facts that were found. A session
   does not give its own reading, its proposal or the practice of another document as a decision or a rule (@Pauli,
   Nov 18).
-- The work stays out of `../NotPurplePenProgress.md` until `feature/palette-layers` is merged into `dev`. That merge,
+- The work stays out of `../NotPurplePenProgress.md` until `feature/palette-stack` is merged into `dev`. That merge,
   as all merges into `base`, `basewithfixes`, `dev` and `master`, needs @Pauli's word.

@@ -20,7 +20,7 @@ oracle of the tests. The drawing does not change.
   vertices of the path only when the map measures with the euclidean metric and the line is on the path. With the
   OCAD metric, and on the borders of double lines, each run is within one segment.
 * On a Bezier curve of a euclidean map, the runs are by the quarters of the curve. Fix
-  [021](../tickets/021-ocad-dashes-on-curves.md), which the branch gets from `feature/palette-layers`, places the
+  [021](../tickets/021-ocad-dashes-on-curves.md), which the branch gets from `feature/palette-stack`, places the
   dashes by quarters, so the middle dashes and gaps of a quarter have the pattern that the measure fits, scaled by the
   length of the flattened quarter against its chord, and `FindRunOfDashes` makes them a run. A dash or a gap over the
   end of a quarter ends the run.

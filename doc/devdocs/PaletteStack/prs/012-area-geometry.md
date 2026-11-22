@@ -23,7 +23,7 @@ that the collector makes of all the symbols stay the oracle of the tests. The dr
 
 ## Missing functionality
 * The branch is rooted at `feature/line-geometry` ([011](../tickets/011-line-geometry.md)), as the borders of areas
-  use the geometry method of lines, and ticket 011 is not in `feature/palette-layers` yet.
+  use the geometry method of lines, and ticket 011 is not in `feature/palette-stack` yet.
 * The hatchings and the area patterns are not in the instances ([009](../tickets/009-pattern-instances.md)).
 * The texts and the rectangles have no geometry methods yet ([013](../tickets/013-text-geometry.md)), and the
   collector collects them. Pass 2 is a later ticket ([010](../tickets/010-palette-composition.md)).

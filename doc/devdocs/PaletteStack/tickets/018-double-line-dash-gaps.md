@@ -17,7 +17,7 @@
 (_valinnainen_) **Ehdotettu korjaus / hypoteesi**  
 `OcadImport` ei anna kaksoisviivan katkoille vähimmäisväliä (`minGaps = 0`). Kolmas näyte osoitti, ettei OCAD käytä katkotun pääviivan vähimmäisvälejä kaksoisviivan reunojen katkoihin: reunat jäivät ilman väliä sekä pääviivan vähimmäismäärällä 0 että 3 (rivi DM).
 
-Korjaus on haarassa `fix/double-line-dash-gaps` (7f8b24dd ja 61406887). `DoubleLineDashTests` laskee toisen ja kolmannen näytteen lyhyiden kaksoisviivojen katkot OCAD-viewerin piirtoa vasten. Ilman korjausta 11 sen 16 tapauksesta epäonnistuu. Yksikään baseline ei siirry (keräävä ajo 44412734699). Täysi ajo basen päällä meni läpi (Tests 44415551500, Build 44415551330). Haara on yhdistetty haaraan `feature/palette-layers` (ab0e0982) ennen tiketin 011 työtä (@Pauli, 19.11.), ja yhdistetyn haaran täysi ajo meni läpi (Tests 44429290119, Build 44429290123).
+Korjaus on haarassa `fix/double-line-dash-gaps` (7f8b24dd ja 61406887). `DoubleLineDashTests` laskee toisen ja kolmannen näytteen lyhyiden kaksoisviivojen katkot OCAD-viewerin piirtoa vasten. Ilman korjausta 11 sen 16 tapauksesta epäonnistuu. Yksikään baseline ei siirry (keräävä ajo 44412734699). Täysi ajo basen päällä meni läpi (Tests 44415551500, Build 44415551330). Haara on yhdistetty haaraan `feature/palette-stack` (ab0e0982) ennen tiketin 011 työtä (@Pauli, 19.11.), ja yhdistetyn haaran täysi ajo meni läpi (Tests 44429290119, Build 44429290123).
 
 Vika löytyi tiketin [011](011-line-geometry.md) valmistelussa, kun katkoviivoja verrattiin OCADiin.
 

@@ -327,7 +327,7 @@ by one dash near a half is left out (see "The number of gaps").
 
 ## Purple Pen
 
-Each fix is on a branch of its own, and it is merged into `feature/palette-layers`.
+Each fix is on a branch of its own, and it is merged into `feature/palette-stack`.
 
 | Rule of OCAD | Purple Pen |
 | --- | --- |

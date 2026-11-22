@@ -34,7 +34,7 @@ instances that the collector makes of all the symbols stay the oracle of the tes
 
 ## Missing functionality
 * The branch is rooted at `feature/area-geometry` ([012](../tickets/012-area-geometry.md)), which is rooted at
-  `feature/line-geometry` ([011](../tickets/011-line-geometry.md)), as neither is in `feature/palette-layers` yet.
+  `feature/line-geometry` ([011](../tickets/011-line-geometry.md)), as neither is in `feature/palette-stack` yet.
 * The hatchings and the area patterns are not in the instances ([009](../tickets/009-pattern-instances.md)), and pass 2
   is a later ticket ([010](../tickets/010-palette-composition.md)).
 

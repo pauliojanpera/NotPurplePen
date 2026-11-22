@@ -26,7 +26,7 @@
 #
 # The message of each commit that the script makes lists the ten branches merged into the branch last, along its first
 # parents and not in the base branch, the newest first. Each line names a merged branch and its work, from the
-# subject of its merge, "Merge <branch>, with <work>, into <branch>". So the trial build of feature/palette-layers
+# subject of its merge, "Merge <branch>, with <work>, into <branch>". So the trial build of feature/palette-stack
 # tells on the site, under its commit, what it holds (@Pauli, Nov 19). A branch without such merges gets no list.
 #
 # Prints the commit pushed and the ids of the runs, for wait-run.sh and fetch-artifact.sh in ../../SvgDevLoop/.

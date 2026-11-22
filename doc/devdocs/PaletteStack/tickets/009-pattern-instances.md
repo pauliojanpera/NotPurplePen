@@ -36,7 +36,7 @@ Viivoitukset ja aluekuviot ovat ilmentymissä toistuvan geometrian prototyyppej�
   4. Mitä tila `ManualOnly` merkitsee mallissa?
   5. Riittääkö täsmällinen vertailu glyyfi kerrallaan tehtyyn piirtoon, vai tarvitaanko sallittu ero esimerkiksi epäsäännöllisille kuvioille?
 - **Rajaus (luonnos):** vaihe 2, joka piirtää prototyypit, on tiketti [010](010-palette-composition.md). SVG-koodaus odottaa vaiheen 2 valmistumista (epic).
-- **Haara (ehdotus):** `feature/pattern-instances` juurtuu kokoavaan haaraan `feature/palette-layers`. Täysi ajo tehdään basen päällä. Piirto pysyy ennallaan, jos tiketti ei muuta viivoitusten ja kuvioiden piirtokoodia (esimerkiksi `DrawHatchings`, `DrawOneHatching`, `DrawPatterns`, `DrawPattern` ja `DrawPatternRows`). Asetuksen `omitHatchingsAndPatterns` poisto pitää piirron ennallaan, koska asetus on piirrossa aina pois päältä.
+- **Haara (ehdotus):** `feature/pattern-instances` juurtuu kokoavaan haaraan `feature/palette-stack`. Täysi ajo tehdään basen päällä. Piirto pysyy ennallaan, jos tiketti ei muuta viivoitusten ja kuvioiden piirtokoodia (esimerkiksi `DrawHatchings`, `DrawOneHatching`, `DrawPatterns`, `DrawPattern` ja `DrawPatternRows`). Asetuksen `omitHatchingsAndPatterns` poisto pitää piirron ennallaan, koska asetus on piirrossa aina pois päältä.
 
 **Erotetut alatehtävät**
 <!-- Tästä tiketistä erotetut korjaukset ja ominaisuudet: tiketti, haara ja se, onko haara yhdistetty tämän tiketin haaraan -->

@@ -20,7 +20,7 @@ English term. The tickets use the Finnish terms, and the other documents use the
 a name that is not decided.
 
 A name in code font is a name in the code of upstream at d48f4456, where `base` meets upstream. A name marked "work" is
-a name in the code of `feature/palette-layers` or of the branches of the tickets 011 to 013 (`feature/text-geometry` at
+a name in the code of `feature/palette-stack` or of the branches of the tickets 011 to 013 (`feature/text-geometry` at
 2ad8c6f39). "**Upstream:**" gives the name of upstream where it is different from the term of the entry.
 
 The section "Words that are not names" lists the words that are not used as names.
