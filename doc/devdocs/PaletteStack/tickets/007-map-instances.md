@@ -25,7 +25,7 @@ Vaihe 1 tekee ilmentymät pelkästä kartasta. `Map.CreateLayerInstances` ei saa
 - **Peiton vertailu:** oraakkeli piirtää testikartan alueen kuten nyt, mutta resoluutiolla 0. Ilmentymät ovat koko kartasta, ja niiden piirto rajautuu bittikarttaan, joten alueen ulkopuoliset symbolit eivät muuta vertailua.
 - **Rajaus:** kerääjä pysyy ilmentymien lähteenä, ja symbolien geometriametodit ovat seuraava tiketti. Vaihe 2, ilmentymien säilytys ja päivitys sekä viivoitukset ja kuviot eivät kuulu tähän.
 - **Testit:** Map_Skia.Tests toimii Linuxilla sellaisenaan (`TEST_SILENTRUN=True`). Paikallinen integraatioworktree tehdään basen päälle skriptillä `tools/int-worktree.sh`, ja Test_MapModelin tiedostot ajetaan skriptillä `tools/run-map-tests.sh`. Täysi ajo tehdään komennolla `tools/push-wip.sh --collect`, joka yhdistää haaran baseen.
-- **Haara:** `feature/map-instances` juurtuu kokoavaan haaraan `feature/palette-stack`. Täysi ajo tehdään haarassa `wip/linux/map-instances` basen päällä.
+- **Haara:** `feature/map-instances` juurtuu kokoavaan haaraan `feature/palette-layers`. Täysi ajo tehdään haarassa `wip/linux/map-instances` basen päällä.
 - **Aloitus kylmässä sessiossa:** lue järjestyksessä [../../Introduction.md](../../Introduction.md), [../README.md](../README.md) ja sen kohta "The architecture comes first", [../Progress.md](../Progress.md) ja sen kohdat "How to continue the work" ja "Decisions", epicin [000](000-palette-stack.md) muistiinpanot, tiketti [005](005-layer-instances.md) sekä tämä tiketti. [../tools/README.md](../tools/README.md) kertoo tiketin työkierron.
 
 **Erotetut alatehtävät**
