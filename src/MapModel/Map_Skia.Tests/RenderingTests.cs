@@ -810,6 +810,14 @@ namespace Map_Skia.Tests
             CheckTestOverprinting("ocad11overprinting.txt", true, true, 6, 12);
         }
 
+        // A Mapper map with spot colors. Mapper knocks out each color that has no spot definition, such as the brown of
+        // the point objects here, so that the overprint effect does not blend them.
+        [Test]
+        public void MapperOverprinting()
+        {
+            CheckTestOverprinting("hakolaoverprinting.txt", false, false, 0, 0);
+        }
+
         [Test]
         public void KernTextOutline()
         {
