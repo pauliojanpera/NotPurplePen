@@ -152,9 +152,9 @@ base. No branch is offered upstream yet.
 
 1. Pass 1 gets the new tickets 023 to 026 by the structure of the passes (section 01 of the specification), in place
    of 005, 007 and 008 ("The new tickets of pass 1"). The session drafts them one at a time, and @Pauli approves
-   them: 023 and 024 are approved, and 025 is next. Their branches are rooted at `feature/palette-stack`, and they take the
-   forms, the geometry methods of the point symbols and the tests of the old pass 1 where these fit ("The new branch
-   of the epic").
+   them: 023 and 024 are approved, and 025 is next. Their branches are rooted at `feature/palette-stack`, and they
+   take the forms, the geometry methods of the point symbols and the tests of the old pass 1 where these fit ("The
+   new branch of the epic").
 2. The drafts 009 to 013 follow the specification when @Pauli asks for it.
 
 The plan below is the plan of the old branch, in the words of its time. Its parts 2 to 5 stay as the order of the
