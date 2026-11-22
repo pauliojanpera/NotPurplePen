@@ -43,22 +43,22 @@ Kun koodaus tarvitsee tiedon, malli säilyttää sen, ja koodaus lukee sen malli
 * **Valintojen korostukset (18.11.)** (`Symbol.DrawHighlight` ja ratakohteiden `CourseObject.DrawHighlight`) piirretään suoraan piirtokohteelle eivätkä kulje `Map.Draw`n kautta. Auki on, jäävätkö ne suoraksi piirroksi. Se ei estä vaihetta 2.
 
 ### Erotetut alatehtävät
-* [001](001-inks.md) Musteet palettimerkintöjen perustana: haara `feature/inks`, yhdistetty haaraan `feature/palette-layers`.
-* [002](002-mapper-export-color-numbers.md) Mapper-viennin värinumerot, erotettu tiketistä 001: haara `fix/mapper-export-color-numbers`, yhdistetty haaraan `feature/palette-layers` haaran `feature/inks` mukana.
-* [003](003-ocad11-utf8-strings.md) OCAD 11:n ja uudempien merkkijonojen UTF-8-koodaus, löytyi tiketin 001 testikartasta: haara `fix/ocad11-utf8-strings`, yhdistetty haaraan `feature/palette-layers`.
-* [004](004-opacity-and-blend-mode.md) Palettimerkinnän peittävyys ja sekoitustila: haara `feature/opacity-and-blend-mode`, yhdistetty haaraan `feature/palette-layers`.
-* [005](005-layer-instances.md) Vaihe 1: yhtenäisen geometrian ilmentymät (G = 1): haara `feature/layer-instances`, yhdistetty haaraan `feature/palette-layers`.
+* [001](001-inks.md) Musteet palettimerkintöjen perustana: haara `feature/inks`, yhdistetty haaraan `feature/palette-stack`.
+* [002](002-mapper-export-color-numbers.md) Mapper-viennin värinumerot, erotettu tiketistä 001: haara `fix/mapper-export-color-numbers`, yhdistetty haaraan `feature/palette-stack` haaran `feature/inks` mukana.
+* [003](003-ocad11-utf8-strings.md) OCAD 11:n ja uudempien merkkijonojen UTF-8-koodaus, löytyi tiketin 001 testikartasta: haara `fix/ocad11-utf8-strings`, yhdistetty haaraan `feature/palette-stack`.
+* [004](004-opacity-and-blend-mode.md) Palettimerkinnän peittävyys ja sekoitustila: haara `feature/opacity-and-blend-mode`, yhdistetty haaraan `feature/palette-stack`.
+* [005](005-layer-instances.md) Vaihe 1: yhtenäisen geometrian ilmentymät (G = 1): haara `feature/layer-instances`, yhdistetty vanhaan epicin haaraan `feature/palette-layers`. Vaiheen 1 uudet tiketit korvaavat tämän (22.11.).
 * [006](006-matrix-equals-offsets.md) Matriisin yhtäsuuruus vertaa siirtymiä float-lukuina, löytyi tiketin 005 testeistä: haara `fix/matrix-equals-offsets`, ei yhdistetty, koska mikään osa ei tarvitse sitä.
-* [007](007-map-instances.md) Vaihe 1 tekee kartan ilmentymät piirrosta riippumatta: haara `feature/map-instances`, yhdistetty haaraan `feature/palette-layers`.
-* [008](008-symbol-geometry.md) Vaihe 1: geometriametodien perusrakenne ja pistesymbolit, ensimmäinen neljästä osasta: haara `feature/symbol-geometry`, yhdistetty haaraan `feature/palette-layers`.
+* [007](007-map-instances.md) Vaihe 1 tekee kartan ilmentymät piirrosta riippumatta: haara `feature/map-instances`, yhdistetty vanhaan epicin haaraan `feature/palette-layers`. Vaiheen 1 uudet tiketit korvaavat tämän (22.11.).
+* [008](008-symbol-geometry.md) Vaihe 1: geometriametodien perusrakenne ja pistesymbolit, ensimmäinen neljästä osasta: haara `feature/symbol-geometry`, yhdistetty vanhaan epicin haaraan `feature/palette-layers`. Vaiheen 1 uudet tiketit korvaavat tämän (22.11.).
 * [009](009-pattern-instances.md) LUONNOS: viivoitukset ja aluekuviot toistuvana geometriana.
 * [010](010-palette-composition.md) LUONNOS: vaihe 2, koostaminen palettimerkinnöittäin.
 * [011](011-line-geometry.md) LUONNOS: viivojen geometriametodit, erotettu tiketistä 008.
 * [012](012-area-geometry.md) LUONNOS: alueiden, yhdistelmien ja grafiikkaobjektien geometriametodit, erotettu tiketistä 008.
 * [013](013-text-geometry.md) LUONNOS: tekstien ja suorakulmioiden geometriametodit, erotettu tiketistä 008.
 * [014](014-basic-tests-private-fonts.md) BasicTestsin fonttitestit poistavat renderöintitestien yksityiset fontit, löytyi tiketin 008 täydestä ajosta: haara `fix/basic-tests-private-fonts`, ei yhdistetty, koska mikään osa ei tarvitse sitä.
-* [015](015-thick-glyph-circles.md) OCAD-ympyrä, jonka viiva on vähintään halkaisijan levyinen, ei piirry kuten OCADissa, löytyi tiketin 008 työstä: haara `fix/thick-glyph-circles`, yhdistetty haaraan `feature/palette-layers` ennen tiketin 011 työtä.
-* [016](016-ocad-metric-parameter.md) OCAD 6–10 -tiedoston viivat mitataan aina OCADin metriikalla, löytyi tiketin 011 valmistelusta: haara `fix/ocad-metric-parameter`, yhdistetty haaraan `feature/palette-layers` ennen tiketin 011 työtä.
+* [015](015-thick-glyph-circles.md) OCAD-ympyrä, jonka viiva on vähintään halkaisijan levyinen, ei piirry kuten OCADissa, löytyi tiketin 008 työstä: haara `fix/thick-glyph-circles`, yhdistetty haaraan `feature/palette-stack`.
+* [016](016-ocad-metric-parameter.md) OCAD 6–10 -tiedoston viivat mitataan aina OCADin metriikalla, löytyi tiketin 011 valmistelusta: haara `fix/ocad-metric-parameter`, yhdistetty haaraan `feature/palette-stack`.
 * [017](017-ocad-dash-count.md) OCAD-viivan katkojen määrä poikkeaa OCADin piirrosta, löytyi tiketin 011 valmistelusta: haara `fix/ocad-dash-count`, yhdistetty samoin.
 * [018](018-double-line-dash-gaps.md) OCAD-kaksoisviivan katkoissa on aina vähintään yksi väli, löytyi tiketin 011 valmistelusta: haara `fix/double-line-dash-gaps`, yhdistetty samoin.
 * [019](019-ocad-minimum-gaps.md) OCAD-viivan vähimmäisvälit 2 ja 3 luetaan kolmeksi ja neljäksi, löytyi tiketin 011 valmistelusta: haara `fix/ocad-minimum-gaps`, yhdistetty samoin.
