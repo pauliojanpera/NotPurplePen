@@ -121,6 +121,7 @@ These are @Pauli's decisions of Nov 20 and Nov 21. Glossary.md gives their terms
   to its deviations. `Map` offers all the geometric conversions (Nov 21).
 - An encoding writes its channel directly, and `IGraphicsTarget` stays beside the palette stack for the templates,
   the highlights, the control descriptions and the old drawing code. So the highlights stay a direct drawing (Nov 21).
+- The name of OCAD for a spot ink in its files: *spottivärierottelu* · *spot color separation* (Nov 22).
 
 The five terms that the session chose by their use in commit 06f4c824d are all decided on Nov 21.
 

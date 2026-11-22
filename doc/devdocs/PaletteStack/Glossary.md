@@ -90,6 +90,11 @@ The section "Words that are not names" lists the words that are not used as name
   different.
 - **värierottelu** · *ink separation* — The coverage of one ink. A missing share leaves the separation as it is, 0 %
   erases it, and a positive share sets the coverage. *Värierottelu* is the established term of printing.
+- **spottivärierottelu** · *spot color separation* — The name of OCAD for a spot ink in its files: a spot color with
+  a name and a halftone screen, to which the colors refer by percentages. OCAD 6 to 8 keep them in the symbol header
+  (`aColorSep`), and OCAD 9 and later in the strings of type 10 (`si_SpotColor`). The import makes each of them a
+  spot ink (`Ink`), and the export writes the spot inks as them. The import and the export translate between the
+  files of OCAD and `Map`, so where they describe the files of OCAD, they use the name of OCAD.
 - **`SymColor.OverPrint`** · päällepainatus · *overprint* — The overprint flag of an OCAD process color keeps the inks
   below. The option `RenderOptions.blendOverprintedColors` draws the colors that have it with Darken. The inks simulate
   the overprinting in a rendering mode.
@@ -561,7 +566,8 @@ encodings make themselves.
 - **karttakoordinaatit, maailmankoordinaatit** · *map coordinates, world coordinates* — Ambiguous names that the
   comments of upstream give to the paper coordinates. They are not used.
 - **separaatio, erottelu** · *separation* — Not a term alone. *Separaatio* is *erottelu* in Finnish. The terms are
-  *värierottelu* · *ink separation* and *palettierottelu* · *palette separation*.
+  *värierottelu* · *ink separation*, *palettierottelu* · *palette separation* and *spottivärierottelu* · *spot color
+  separation*.
 - **kerros** — Not a term. The decision concerns the Finnish word.
 - **ryhmä** — Not a term alone. The decision concerns the Finnish word. *Palettivärin läpinäkyvyysryhmä* is a term.
 - **ajo** · *run* — Not a term in the sense of a sequence, where it translates *run* word for word. The terms are
