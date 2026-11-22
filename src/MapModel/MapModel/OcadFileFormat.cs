@@ -35,6 +35,7 @@
 using System;
 using System.IO;
 using System.Collections.Generic;
+using System.Text;
 using System.Diagnostics;
 using System.Drawing;
 
@@ -2073,11 +2074,16 @@ namespace PurplePen.MapModel
             }
         }
 
-        public void Write(BinaryWriter writer, int totalChars)
+        // Write the string in the given encoding, followed by nul bytes up to the length that it reserves: the length of
+        // the encoded string with a terminating nul, padded to an even number of bytes. Returns the reserved length.
+        public int Write(BinaryWriter writer, Encoding encoding)
         {
-            char[] chars = AsChars(totalChars);
+            byte[] encoded = encoding.GetBytes(AsString());
+            int reservedLength = (encoded.Length + 2) & ~1;
 
-            writer.Write(chars);
+            writer.Write(encoded);
+            writer.Write(new byte[reservedLength - encoded.Length]);
+            return reservedLength;
         }
 
         public char[] AsChars(int totalChars)
