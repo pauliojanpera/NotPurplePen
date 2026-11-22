@@ -8,7 +8,7 @@
 > to take that code further, this specification does not bind as such, and the knowledge can be used to develop this
 > specification further.
 > By default, the branch feature/multiply-blending is the oracle of this work (@Pauli, Nov 17).
-> That branch is an oracle of the appearance only, and not a guide for the implementation. The goal of this work is the
+> That branch is an oracle of the appearance only, not a model of the implementation. The goal of this work is the
 > architecture that this specification separates: pass 1 makes the palette separations and their palette cutters, and
 > pass 2 composites them. feature/multiply-blending gets its appearance in another way: it blends an ink as a layer
 > around the drawing of the symbols. Where this specification leaves room to do the same, the room is not meant. The
@@ -20,10 +20,10 @@
 
 Design specification / Cartographic rendering
 
-**A generalized vector architecture of palette separations, with symbol-driven layer instantiation of affine-transformed
+**A generalized vector model of palette separations, with symbol-driven layer instantiation of affine-transformed
 periodic coverages and compositing in palette order.**
 
-This architecture is intended for application within a surrounding system design. It captures the essential rendering
+The model is intended for application within a surrounding system design. It captures the essential rendering
 architecture of OCAD and OpenOrienteering Mapper (OOM) in terms that the channels Skia, PDF and SVG can express. It is
 independent of the color space. The transparency flattening is a separate optimization task.
 
@@ -37,7 +37,7 @@ Both applications draw by a table of colors in priority order, and not only by t
 Each element of a symbol adds geometry to its own color. In its PDF export, OCAD applies a blend mode to each color. OOM
 simulates the overprinting of the spot colors. Both applications can turn and move the patterns of each object. [1–5]
 
-| Cartographic concept | In this architecture |
+| Cartographic concept | Corresponding model |
 |---|---|
 | Color table and color priority | The palette colors (`SymColor`) in palette order: the palette stack |
 | Symbol elements | The clipping objects of the palette color coverages of the symbols (`SymbolCoverage`) |
