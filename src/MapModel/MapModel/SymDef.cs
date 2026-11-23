@@ -158,6 +158,25 @@ namespace PurplePen.MapModel
         // If color is null, return if draws in the image layer (below all color layers).
         public abstract bool HasColor(SymColor color);
 
+        // The coverage prototypes of a symbol of this definition in a palette color, for pass 1 of the drawing
+        // (Map.PaletteSeparations): the full coverage, where the definition draws the palette color with it, or none.
+        // The symbol has a palette color coverage for each of them (SymbolCoverage), also when it draws no shape in the
+        // palette color.
+        // symbol: the symbol, which has this definition.
+        // color: the palette color.
+        public virtual IReadOnlyList<CoveragePrototype> GetCoveragePrototypes(Symbol symbol, SymColor color)
+        {
+            return HasFullCoverage(color) ? CoveragePrototype.FullCoverageOnly : CoveragePrototype.None;
+        }
+
+        // Does this symbol definition draw the given palette color with the full coverage: does it draw the color apart
+        // from the hatchings and the patterns of areas? The image layer and the layout layer are not palette colors.
+        // color: the palette color.
+        internal virtual bool HasFullCoverage(SymColor color)
+        {
+            return !color.IsSpecialLayer && HasColor(color);
+        }
+
 
         // Does this symdef depend on another? null means no.
         public virtual SymDef DependsOnSymdef
@@ -1883,6 +1902,17 @@ namespace PurplePen.MapModel
             return false;
         }
 
+        // Does a component draw the given palette color with the full coverage?
+        internal override bool HasFullCoverage(SymColor color)
+        {
+            foreach (SymDef component in components) {
+                if (component.HasFullCoverage(color))
+                    return true;
+            }
+
+            return false;
+        }
+
         internal override RectangleF CalcBounds(SymPathWithHoles path)
         {
             RectangleF bounds = new RectangleF();
@@ -2176,6 +2206,18 @@ namespace PurplePen.MapModel
             return false;
         }
 
+        // Does this area draw the given palette color with the full coverage: does it fill the area with the color, or
+        // does its border draw it? The hatchings and the patterns of the area are periodic coverages, and pass 1 leaves
+        // them out.
+        internal override bool HasFullCoverage(SymColor color)
+        {
+            Debug.Assert(color != null);
+            if (color.IsSpecialLayer)
+                return false;
+
+            return color == fillColor || (borderSymdef != null && borderSymdef.HasColor(color));
+        }
+
         // Highlight the symbol.
         internal override void DrawHighlight(IGraphicsTarget g, SymPathWithHoles path, HighlightOptions options)
         {
@@ -2241,6 +2283,9 @@ namespace PurplePen.MapModel
         // Draw the hatching into the interior of the SymPath.
         void DrawHatchings(IGraphicsTarget g, SymPathWithHoles path, float angle, PointF rotationCenter, RenderOptions renderOpts, SymColor color)
         {
+            if (renderOpts.omitHatchingsAndPatterns)
+                return;
+
             // Precheck if any hatchings have the color before doing the expensive clip operation.
             bool hasColor = false;
             for (int i = 0; i < hatchings.Count; ++i) {
@@ -2297,6 +2342,9 @@ namespace PurplePen.MapModel
         // Draw all patterns
         void DrawPatterns(IGraphicsTarget g, SymPathWithHoles path, SymColor color, float angle, PointF rotationCenter, RenderOptions renderOpts)
         {
+            if (renderOpts.omitHatchingsAndPatterns)
+                return;
+
             for (int i = 0; i < patterns.Count; ++i) {
                 PatternInfo patternInfo = patterns[i];
                 bool ignoreRotation = (patternInfo.patternRotateMode == RotateMode.Never);
@@ -4451,6 +4499,17 @@ namespace PurplePen.MapModel
                 return false;
             else
                 return true;
+        }
+
+        // The full coverage, where the graphics object has the given palette color, or none. A graphics object has its
+        // own colors (IGraphicsSymbol.HasColor).
+        public override IReadOnlyList<CoveragePrototype> GetCoveragePrototypes(Symbol symbol, SymColor color)
+        {
+            IGraphicsSymbol graphicsSymbol = symbol as IGraphicsSymbol;
+            if (graphicsSymbol != null && !color.IsSpecialLayer && graphicsSymbol.HasColor(color))
+                return CoveragePrototype.FullCoverageOnly;
+            else
+                return CoveragePrototype.None;
         }
 
         public override void FreeGdiObjects()
