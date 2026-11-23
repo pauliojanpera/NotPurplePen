@@ -187,21 +187,15 @@ base. No branch is offered upstream yet.
   ends after two hours at most, so the loop that archives the session stops after two hours, and the session starts
   it again while @Pauli lets it archive.
 - **The checkouts.** The clone `~/Documents/Projects/NotPurplePen` stays on `docs/process-coordination`: do not change
-  its branch. The worktrees of the branches are in `~/Documents/Projects/npp-worktrees/`: `palette-layers`, `inks`,
-  `fix-mapper-colors`, `fix-ocad-utf8`, `opacity-and-blend-mode`, `layer-instances`, `fix-matrix-equals`,
-  `map-instances`, `symbol-geometry`, `fix-private-fonts`, `fix-thick-circles`, `fix-ocad-metric`, `fix-dash-count`,
-  `fix-double-dashes`, `fix-minimum-gaps`, `fix-dash-vertex`, `fix-dashes-on-curves`, `line-geometry`,
-  `area-geometry`, `text-geometry`, `text-symbol-geometry` and `palette-stack`. The branches of the tickets 023 to 026,
-  011 and 012 have no worktree here. The worktrees whose names end in `-int` hold the local integration branches
-  `local/<name>-int`, which are never pushed. `tools/int-worktree.sh` makes them again from GitHub, on `base`.
-  `palette-layers-int`, `map-instances-int`, `symbol-geometry-int`, `fix-thick-circles-int`, `fix-ocad-metric-int`,
-  `fix-dash-count-int`, `fix-double-dashes-int`, `fix-minimum-gaps-int`, `fix-dash-vertex-int`,
-  `fix-dashes-on-curves-int`, `line-geometry-int`, `area-geometry-int`, `text-geometry-int`,
-  `text-symbol-geometry-int` and `palette-stack-int` are on `base`, and the others stay on `basewithfixes` until
-  `REBUILD=1 tools/int-worktree.sh` makes them again. The worktree `palette-layers` holds the old branch of the epic,
-  and `palette-stack` the new one. A worktree is a full checkout of about 1.7 GB, and a build of `Map_Skia.Tests` in it
-  adds about 1.2 GB (Nov 23). On Nov 23, the disk of @Pauli's machine became full when a session made its fifth
-  worktree, so a session checks the free space (`df -h ~`) before it makes a worktree or a build.
+  its branch. The worktrees are in `~/Documents/Projects/npp-worktrees/`: `palette-stack` holds the branch of the
+  epic, and `text-symbol-geometry` the branch of ticket 013. On Nov 23, the worktrees of the earlier branches were
+  removed to free the disk. Their branches stay, and `git worktree add` makes a worktree again. The worktrees whose
+  names end in `-int` hold the local integration branches `local/<name>-int`, which are never pushed:
+  `palette-stack-int` and `text-symbol-geometry-int`, on `base`. `tools/int-worktree.sh` makes them again from GitHub,
+  on `base`, and `REBUILD=1` makes an old branch `local/<name>-int` again. A worktree is a full checkout of about
+  1.7 GB, and a build of `Map_Skia.Tests` in it adds about 1.2 GB (Nov 23). On Nov 23, the disk of @Pauli's machine
+  became full when a session made its fifth worktree, so a session checks the free space (`df -h ~`) before it makes
+  a worktree or a build.
 - **Local tests.** The local tests run in the integration worktree of the branch: `base` with the branch merged in
   (`tools/int-worktree.sh <clone> <branch> <worktree>`), as the tickets tell. A feature branch is rooted at upstream,
   so it does not have the test tools of `base`: the fix that reads the backslashes in the path of a test file as
