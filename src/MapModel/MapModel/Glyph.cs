@@ -36,6 +36,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Threading;
 
 namespace PurplePen.MapModel
 {
@@ -121,7 +122,7 @@ namespace PurplePen.MapModel
                         break;
 
                     case GlyphPartKind.Circle:
-                        if (lineWidth > 0 && circleDiam > lineWidth) {
+                        if (lineWidth > 0 && circleDiam > 0) {
                             if (filter != null && !filter(CircleBorderPoints(), point)) {
                                 // Filter has decided not to draw this.
                                 break;
@@ -143,8 +144,8 @@ namespace PurplePen.MapModel
 
                             circleRadius = (TransformDiameter(circleDiam, extraTransform) - lineWidth) / 2;
 
-                            if (circleRadius < 0) {
-                                // only happens with transform -- go to filled circle.
+                            if (circleRadius <= 0) {
+                                // A line as wide as the diameter or wider fills the circle, as OCAD draws it.
                                 circleRadius = TransformDiameter(circleDiam, extraTransform) / 2;
                                 g.FillEllipse(highlightBrush != null ? highlightBrush : color.GetBrushKey(g), centerPoint, circleRadius, circleRadius);
                             }
@@ -176,6 +177,94 @@ namespace PurplePen.MapModel
                         }
                         break;
                 }
+            }
+
+            // The clipping object of the part in the coordinates of the glyph, at the identity placement, as Draw draws
+            // the part without gaps and without an extra transformation, or null if the part covers nothing. A circle
+            // whose line is at least as wide as its diameter is filled.
+            public ClippingObject MakeClippingObject()
+            {
+                switch (kind) {
+                    case GlyphPartKind.Line:
+                        if (lineWidth > 0 && !path.IsZeroLength)
+                            return path.MakeStrokedShape(new Stroke(lineWidth, lineCap, lineJoin, GraphicsUtil.MITER_LIMIT), Placement.Identity);
+                        break;
+
+                    case GlyphPartKind.Area:
+                        return areaPath.MakeFilledShape(Placement.Identity);
+
+                    case GlyphPartKind.Circle:
+                        if (lineWidth > 0 && circleDiam > 0) {
+                            if (circleDiam - lineWidth <= 0)
+                                return MakeFilledCircle(point);
+                            return MakeCircle(point, (circleDiam - lineWidth) / 2);
+                        }
+                        break;
+
+                    case GlyphPartKind.FilledCircle:
+                        if (circleDiam > 0)
+                            return MakeFilledCircle(point);
+                        break;
+                }
+
+                return null;
+            }
+
+            // The clipping object of a glyph of this circle alone, at the origin of the glyph, as DrawSimple draws it at
+            // a location without a transformation, or null if it covers nothing. A circle whose line is at least as wide
+            // as its diameter is filled.
+            // location: the location of the origin of the glyph.
+            public ClippingObject MakeClippingObjectOfSimpleGlyph(PointF location)
+            {
+                Debug.Assert(kind == GlyphPartKind.Circle || kind == GlyphPartKind.FilledCircle);
+
+                if (kind == GlyphPartKind.Circle) {
+                    if (lineWidth > 0 && circleDiam > 0) {
+                        float circleRadius = (circleDiam - lineWidth) / 2;
+                        if (circleRadius <= 0)
+                            return MakeFilledCircle(location);
+                        else
+                            return MakeCircle(location, circleRadius);
+                    }
+                }
+                else if (circleDiam > 0) {
+                    return MakeFilledCircle(location);
+                }
+
+                return null;
+            }
+
+            // Add the arcs that the gaps of a symbol leave of the circle of this part, each from the end of a gap to the
+            // start of the next, at the placement of the symbol, as Draw draws them. The arcs have the pen of the circle.
+            // clippingObjects: the clipping objects, which get the arcs.
+            // circle: the clipping object of the circle, which the placements of the glyph share (MakeClippingObject).
+            // placement: the placement of the symbol.
+            // gaps: the gaps, as start and end angles in degrees.
+            public void AddArcs(List<ClippingObject> clippingObjects, StrokedShape circle, Placement placement, float[] gaps)
+            {
+                EllipseShape ellipse = (EllipseShape)circle.Shape;
+                for (int i = 1; i < gaps.Length; i += 2) {
+                    float startArc = gaps[i];
+                    float endArc = (i == gaps.Length - 1) ? gaps[0] : gaps[i + 1];
+                    ArcShape arc = new ArcShape(ellipse.Center, ellipse.RadiusX, startArc, (float) ((endArc - startArc + 360.0) % 360.0));
+                    clippingObjects.Add(new StrokedShape(arc, circle.Stroke, placement));
+                }
+            }
+
+            // The circle of the line of this part, at the identity placement.
+            // center: the center of the circle.
+            // radius: the radius to the middle of the line.
+            private StrokedShape MakeCircle(PointF center, float radius)
+            {
+                return new StrokedShape(new EllipseShape(center, radius, radius), GraphicsUtil.MakeSolidStroke(lineWidth, LineStyle.Mitered), Placement.Identity);
+            }
+
+            // The filled circle of the diameter of this part, at the identity placement.
+            // center: the center of the circle.
+            private FilledShape MakeFilledCircle(PointF center)
+            {
+                float circleRadius = circleDiam / 2;
+                return new FilledShape(new EllipseShape(center, circleRadius, circleRadius), AreaFillMode.Winding, Placement.Identity);
             }
 
             // Get 8 points on the border of the circle, used for filtering.
@@ -261,7 +350,7 @@ namespace PurplePen.MapModel
                             return areaPath.BoundingBox;
 
                         case GlyphPartKind.Circle:
-                            if (lineWidth > 0 && circleDiam > lineWidth) {
+                            if (lineWidth > 0 && circleDiam > 0) {
                                 float circleRadius = circleDiam / 2;
                                 return new RectangleF(point.X - circleRadius, point.Y - circleRadius, circleDiam, circleDiam);
                             }
@@ -328,6 +417,7 @@ namespace PurplePen.MapModel
         RectangleF boundingBox;  // bounding box of the 
         GlyphPart[] parts; // a sequence of parts.
         bool simple;	   // true if consist of a single, possibly filled, circle at 0,0.
+        ClippingObject[] sharedClippingObjects;  // the clipping objects of the parts, which the placements of the glyph share (GetSharedClippingObjects).
         bool constructed = false;
 
         // Returns a clone of the parts array (to prevent modification)
@@ -471,7 +561,7 @@ namespace PurplePen.MapModel
                                                     parts[0].lineWidth, LineStyle.Mitered);
 
                     float circleRadius = (parts[0].circleDiam - parts[0].lineWidth) / 2;
-                    if (circleRadius < 0) {
+                    if (circleRadius <= 0) {
                         circleRadius = parts[0].circleDiam / 2;
                         g.FillEllipse(brush, pt, circleRadius, circleRadius);
                     }
@@ -488,6 +578,73 @@ namespace PurplePen.MapModel
                                   pt, circleRadius, circleRadius);
                 }
             }
+        }
+
+        // The geometry method of the glyph of a point symbol: the clipping objects of the glyph in a palette color at a
+        // location and an angle, without a drawing target. They are the parts of the glyph in the palette color, in the
+        // order of the parts, as Draw draws them. One step places the parts: it turns the glyph about its origin by the
+        // angle and moves the origin to the location, as Draw places the glyph. The placements of the glyph share the
+        // shapes of its parts, with two exceptions. A glyph of one circle at its origin, without gaps, is at the location
+        // without a transformation, as DrawSimple draws it. The arcs that gaps leave of a circle are shapes of the
+        // placement, with the pen of the shared circle.
+        // location: the location of the origin of the glyph.
+        // angle: the angle, in degrees.
+        // gaps: the gaps in the circles, as start and end angles in degrees, or null.
+        // color: the palette color.
+        internal IReadOnlyList<ClippingObject> MakeClippingObjects(PointF location, float angle, float[] gaps, SymColor color)
+        {
+            CheckConstructed();
+
+            List<ClippingObject> clippingObjects = new List<ClippingObject>();
+            if (simple && gaps == null) {
+                if (parts[0].color == color) {
+                    ClippingObject circle = parts[0].MakeClippingObjectOfSimpleGlyph(location);
+                    if (circle != null)
+                        clippingObjects.Add(circle);
+                }
+
+                return clippingObjects.AsReadOnly();
+            }
+
+            Placement placement = null;
+            ClippingObject[] partClippingObjects = GetSharedClippingObjects();
+            for (int i = 0; i < parts.Length; ++i) {
+                if (parts[i].color != color)
+                    continue;
+
+                if (placement == null) {
+                    Matrix step = new Matrix();
+                    step.Translate(location.X, location.Y);
+                    step.RotateAt(angle, new PointF(0, 0));
+                    placement = Placement.Identity.Within(step);
+                }
+
+                ClippingObject partClippingObject = partClippingObjects[i];
+                if (partClippingObject == null)
+                    continue;
+
+                if (partClippingObject is StrokedShape circle && parts[i].kind == GlyphPartKind.Circle && gaps != null && gaps.Length > 0)
+                    parts[i].AddArcs(clippingObjects, circle, placement, gaps);
+                else
+                    clippingObjects.Add(partClippingObject.WithPlacement(placement));
+            }
+
+            return clippingObjects.AsReadOnly();
+        }
+
+        // The shared shapes of the glyph: the clipping objects of the parts in the coordinates of the glyph, at the
+        // identity placement, which the placements of the glyph share. There is one for each part, or null for a part
+        // that covers nothing. They are a derived value of the glyph, which depends on the glyph alone: the first call
+        // makes them. Several threads can call at once, and all get the array that one of them publishes.
+        private ClippingObject[] GetSharedClippingObjects()
+        {
+            ClippingObject[] clippingObjects = Volatile.Read(ref sharedClippingObjects);
+            if (clippingObjects == null) {
+                ClippingObject[] madeClippingObjects = Array.ConvertAll(parts, part => part.MakeClippingObject());
+                clippingObjects = Interlocked.CompareExchange(ref sharedClippingObjects, madeClippingObjects, null) ?? madeClippingObjects;
+            }
+
+            return clippingObjects;
         }
 
         public void AddLine(SymColor color, SymPath path, float width, LineJoinMode lineJoin, LineCapMode lineCap) {
