@@ -889,6 +889,8 @@ namespace PurplePen.MapModel
         RectSet dirtyArea; // If mapDirty is true and allDirty is false, the area that is dirty.
         bool symdefsDirty = false;
         long changeCount = 0;                 // The number of the changes of the map, which make its derived values invalid (NoteChange).
+        long symbolKeyCounter = 0;            // The last value of the counter of the symbol keys (NextCounterKey).
+        readonly Dictionary<SymbolKey, Symbol> symbolsByKey = new Dictionary<SymbolKey, Symbol>();  // The symbols of the map and their holes, by their keys.
         KeptPaletteSeparations keptPaletteSeparations;   // The palette separations that the map keeps, or null.
         bool boundsAccurate = false;          // Are the map bounds accurate?
         RectangleF mapBounds;                        // If boundsAccurate is true, the bounds are accurate.
@@ -1233,6 +1235,7 @@ namespace PurplePen.MapModel
             inks.AddRange(Ink.ProcessInks);
             symdefs.Clear();
             symbols.Clear();
+            symbolsByKey.Clear();       // The counter of the symbol keys goes on.
             SetDirty();
             undoMgr = null;
             symdefsDirty = true;
@@ -1903,8 +1906,12 @@ namespace PurplePen.MapModel
                 symdef.FreeGdiObjects();
         }
 
+        // Add a symbol to the map. A symbol without a symbol key, and each hole of an area that the map gets with the
+        // area, gets a key from the counter of the map (Symbol.Key). A key that a symbol of the map already has is a
+        // usage error.
         public void AddSymbol(Symbol sym) {
             CheckWritable();
+            CheckSymbolKeysFree(sym);
 
             if (undoMgr != null) {
                 undoMgr.RecordAction(new SymbolChangeAction(this, null, sym));
@@ -1923,6 +1930,8 @@ namespace PurplePen.MapModel
                 sym.Definition.AddSymbol(sym);
                 SetDirty(sym.BoundingBox);
             }
+
+            AddSymbolKeys(sym);
         }
 
         // Note: changing the symbol after it is removed will mess up Undo. Don't do that
@@ -1935,6 +1944,8 @@ namespace PurplePen.MapModel
             if (undoMgr != null) {
                 undoMgr.RecordAction(new SymbolChangeAction(this, sym, null));
             }
+
+            RemoveSymbolKeys(sym);
 
             if (sym is HoleSymbol) {
                 HoleSymbol hole = (HoleSymbol)sym;
@@ -1950,6 +1961,86 @@ namespace PurplePen.MapModel
                 sym.SetMap(null);
                 SetDirty(boundingBox);
             }
+        }
+
+        // Replace a symbol of the map with a symbol that the map does not have yet: remove the symbol, give its
+        // symbol key to the replacing symbol, and add the replacing symbol. An undo restores the replaced symbol with
+        // its key, and a redo the replacing symbol with the same key, as the actions of the removal and the addition
+        // keep the symbols.
+        // symbol: the symbol of the map to replace.
+        // replacement: the replacing symbol, without a key or with the key of the replaced symbol.
+        public void ReplaceSymbol(Symbol symbol, Symbol replacement)
+        {
+            CheckWritable();
+            if (symbol.ContainingMap != this)
+                throw new MapUsageException("Cannot replace a symbol that is not in the map");
+            if (replacement.ContainingMap != null)
+                throw new MapUsageException("Cannot replace a symbol with a symbol that is already in a map");
+            if (replacement.Key != null && replacement.Key != symbol.Key)
+                throw new MapUsageException(string.Format("Cannot replace the symbol of key '{0}' with a symbol of key '{1}'", symbol.Key, replacement.Key));
+
+            SymbolKey key = symbol.Key;
+            RemoveSymbol(symbol);
+            replacement.AssignKey(key);
+            AddSymbol(replacement);
+        }
+
+        // Check that the symbol keys of a symbol that the map gets, and of the holes that it gets with the symbol, are
+        // not the keys of symbols of the map.
+        // sym: the symbol.
+        void CheckSymbolKeysFree(Symbol sym)
+        {
+            HashSet<SymbolKey> keys = new HashSet<SymbolKey>();
+            foreach (Symbol keyed in SymbolWithHoles(sym)) {
+                if (keyed.Key != null && (symbolsByKey.ContainsKey(keyed.Key) || !keys.Add(keyed.Key)))
+                    throw new MapUsageException(string.Format("Cannot add a symbol of key '{0}'; a symbol of the map has the key", keyed.Key));
+            }
+        }
+
+        // Give the symbol that the map got, and the holes that it got with it, a key from the counter where they have
+        // none, and keep them by their keys.
+        // sym: the symbol.
+        void AddSymbolKeys(Symbol sym)
+        {
+            foreach (Symbol keyed in SymbolWithHoles(sym)) {
+                if (keyed.Key == null)
+                    keyed.AssignKey(NextCounterKey());
+                symbolsByKey.Add(keyed.Key, keyed);
+            }
+        }
+
+        // Stop keeping the symbol that the map loses, and the holes that it loses with it, by their keys. The symbols
+        // keep their keys, so that an undo or a redo adds them again with the same keys.
+        // sym: the symbol.
+        void RemoveSymbolKeys(Symbol sym)
+        {
+            foreach (Symbol keyed in SymbolWithHoles(sym))
+                symbolsByKey.Remove(keyed.Key);
+        }
+
+        // A symbol, and the holes of an area that the map gets or loses with the area.
+        // sym: the symbol.
+        static IEnumerable<Symbol> SymbolWithHoles(Symbol sym)
+        {
+            yield return sym;
+
+            AreaLikeSymbol area = sym as AreaLikeSymbol;
+            if (area != null && !(sym is HoleSymbol)) {
+                for (int i = 0; i < area.HoleCount; ++i)
+                    yield return area.GetHole(i);
+            }
+        }
+
+        // The next key of the counter of the symbol keys: the text form in base 62 of its next value that is not the key
+        // of a symbol of the map. The counter does not give a value again, after a removal or a Clear too.
+        SymbolKey NextCounterKey()
+        {
+            SymbolKey key;
+            do {
+                key = SymbolKey.FromCounter(++symbolKeyCounter);
+            } while (symbolsByKey.ContainsKey(key));
+
+            return key;
         }
 
         public void AddSymdef(SymDef symdef) {
