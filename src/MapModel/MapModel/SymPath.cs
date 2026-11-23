@@ -67,6 +67,8 @@ namespace PurplePen.MapModel
         volatile float pathLength = -1;  // -1 means not computed yet.
         volatile float bizzarroLength = -1;  // -1 means not computed yet.
         volatile float maxMiter = 0;  // 0 means not computed yet.
+        volatile OcadCurveMeasure ocadCurveMeasure;  // null means not computed yet, or no Bezier curve (GetOcadCurveMeasure).
+        volatile OcadCurveMeasure ocadCurveMeasureOfOcadMetric;  // The same, with the OCAD metric.
 
         const float FLATTENAMOUNT = 0.01F;
 
@@ -1467,6 +1469,218 @@ namespace PurplePen.MapModel
         public float[] GetCornerAndDashPointDistancesBizzarro(out PointKind[] pointkinds)
         {
             return GetCornerAndDashPointDistances(BizzarroDistance, out pointkinds);
+        }
+
+        // Get the lengths from which OCAD counts the dashes of the parts of the path between corner and dash points, the
+        // parts of GetCornerAndDashPointDistances. OCAD measures each straight segment, and each Bezier curve as four chords
+        // between its points at the parameters 0, 1/4, 1/2, 3/4 and 1, with a metric, and rounds each to 0.01 mm.
+        internal float[] GetCornerAndDashPointLengthsForCounting(DistanceMetric metric)
+        {
+            List<float> lengths = new List<float>();
+            double accumulate = 0.0;
+            int i = 0;
+            while (i < points.Length - 1) {
+                if (kinds[i + 1] == PointKind.BezierControl) {
+                    PointF[] quarterEnds = GetQuarterEnds(new Bezier(points[i], points[i + 1], points[i + 2], points[i + 3]));
+                    for (int quarter = 0; quarter < 4; ++quarter)
+                        accumulate += RoundToHundredth(metric(quarterEnds[quarter], quarterEnds[quarter + 1]));
+                    i += 3;
+                }
+                else {
+                    accumulate += RoundToHundredth(metric(points[i], points[i + 1]));
+                    i += 1;
+                }
+
+                if (i < points.Length - 1 && (kinds[i] == PointKind.Corner || kinds[i] == PointKind.Dash)) {
+                    lengths.Add((float) accumulate);
+                    accumulate = 0.0;
+                }
+            }
+
+            lengths.Add((float) accumulate);
+            return lengths.ToArray();
+        }
+
+        // Round a length in mm to 0.01 mm, the unit of the coordinates of OCAD.
+        static double RoundToHundredth(double length)
+        {
+            return Math.Round(length * 100) / 100;
+        }
+
+        // The points of a Bezier curve at the parameters 0, 1/4, 1/2, 3/4 and 1, which end its quarters.
+        static PointF[] GetQuarterEnds(Bezier bezier)
+        {
+            PointF[] quarterEnds = new PointF[5];
+            quarterEnds[0] = bezier.end1;
+            for (int quarter = 1; quarter < 4; ++quarter) {
+                Bezier before, after;
+                bezier.SplitAtCoefficient(quarter / 4F, out before, out after);
+                quarterEnds[quarter] = before.end2;
+            }
+            quarterEnds[4] = bezier.end2;
+            return quarterEnds;
+        }
+
+        // Does the path have a Bezier curve?
+        internal bool HasBeziers
+        {
+            get { return anyBeziers; }
+        }
+
+        // Get the measure in which OCAD places the dashes along the path with a metric, and in which the OCAD spacing
+        // places the glyphs too, or null if the path has no Bezier curve, as the measure of a path without one is its
+        // length in the metric. In the measure, a straight segment has its length in the metric, and each quarter of a
+        // Bezier curve has its chord in the metric, between the points of the curve at the parameters 0, 1/4, 1/2, 3/4
+        // and 1 (GetQuarterEnds). Within a straight segment and within a quarter, a length of the measure is at the same
+        // part of the euclidean length of the segment or of the flattened quarter, with each metric.
+        // metric: the metric of the map.
+        internal OcadCurveMeasure GetOcadCurveMeasure(DistanceMetric metric)
+        {
+            if (!anyBeziers)
+                return null;
+
+            if (metric == (DistanceMetric)EuclidDistance) {
+                if (ocadCurveMeasure == null)
+                    ocadCurveMeasure = MakeOcadCurveMeasure(metric);
+                return ocadCurveMeasure;
+            }
+            else {
+                if (ocadCurveMeasureOfOcadMetric == null)
+                    ocadCurveMeasureOfOcadMetric = MakeOcadCurveMeasure(metric);
+                return ocadCurveMeasureOfOcadMetric;
+            }
+        }
+
+        // Make the measure of GetOcadCurveMeasure with a metric, for a path with Bezier curves. With the euclidean metric,
+        // a straight segment of the measure is as long as along the path, so the measure needs no point between
+        // straight segments. With another metric, each straight segment ends at a point of the measure.
+        OcadCurveMeasure MakeOcadCurveMeasure(DistanceMetric metric)
+        {
+            bool isEuclidean = (metric == (DistanceMetric)EuclidDistance);
+            List<double> measures = new List<double>() { 0 }, lengths = new List<double>() { 0 };
+            List<float> partMeasures = new List<float>();
+            List<PointF> flattened = new List<PointF>();
+            int[] quarterIndexes = new int[3];
+            double measure = 0, length = 0, partMeasure = 0;
+            int i = 0;
+            while (i < points.Length - 1) {
+                if (kinds[i + 1] == PointKind.BezierControl) {
+                    // The curve flattened as GetFlattenedPoints flattens it, with the length along it to each of its points.
+                    Bezier bezier = new Bezier(points[i], points[i + 1], points[i + 2], points[i + 3]);
+                    PointF[] quarterEnds = GetQuarterEnds(bezier);
+                    flattened.Clear();
+                    bezier.Flatten(FLATTENAMOUNT, flattened, quarterIndexes);
+                    double[] lengthsAlong = new double[flattened.Count];
+                    for (int k = 1; k < flattened.Count; ++k)
+                        lengthsAlong[k] = lengthsAlong[k - 1] + EuclidDistance(flattened[k - 1], flattened[k]);
+
+                    if (measures[measures.Count - 1] != measure) {
+                        measures.Add(measure);
+                        lengths.Add(length);
+                    }
+                    for (int quarter = 1; quarter <= 4; ++quarter) {
+                        double chord = metric(quarterEnds[quarter - 1], quarterEnds[quarter]);
+                        measure += chord;
+                        partMeasure += chord;
+                        measures.Add(measure);
+                        lengths.Add(length + LengthAlongFlattenedCurve(flattened, lengthsAlong, quarterIndexes, quarterEnds, quarter));
+                    }
+                    length += lengthsAlong[flattened.Count - 1];
+                    i += 3;
+                }
+                else {
+                    double segment = metric(points[i], points[i + 1]);
+                    measure += segment;
+                    partMeasure += segment;
+                    length += isEuclidean ? segment : EuclidDistance(points[i], points[i + 1]);
+                    if (!isEuclidean) {
+                        measures.Add(measure);
+                        lengths.Add(length);
+                    }
+                    i += 1;
+                }
+
+                if (i < points.Length - 1 && (kinds[i] == PointKind.Corner || kinds[i] == PointKind.Dash)) {
+                    partMeasures.Add((float) partMeasure);
+                    partMeasure = 0.0;
+                }
+            }
+
+            partMeasures.Add((float) partMeasure);
+            if (measures[measures.Count - 1] != measure) {
+                measures.Add(measure);
+                lengths.Add(length);
+            }
+            return new OcadCurveMeasure(measures.ToArray(), lengths.ToArray(), partMeasures.ToArray());
+        }
+
+        // The length along a flattened Bezier curve to the end of one of its quarters: to the point of the flattened curve
+        // at the end of the quarter, or, where the curve is flat enough to have no point there, to the nearest point of the
+        // segment that passes it. That segment starts at the point at the end of an earlier quarter, or at the start.
+        // flattened: the points of the flattened curve.
+        // lengthsAlong: the length along the flattened curve to each of its points.
+        // quarterIndexes: the indexes of the points at the ends of the first three quarters, or -1 (Bezier.Flatten).
+        // quarterEnds: the points of the curve at the ends of the quarters (GetQuarterEnds).
+        // quarter: the quarter, from 1 to 4.
+        static double LengthAlongFlattenedCurve(List<PointF> flattened, double[] lengthsAlong, int[] quarterIndexes, PointF[] quarterEnds, int quarter)
+        {
+            if (quarter == 4)
+                return lengthsAlong[flattened.Count - 1];
+            if (quarterIndexes[quarter - 1] >= 0)
+                return lengthsAlong[quarterIndexes[quarter - 1]];
+
+            int start = (quarter == 3 && quarterIndexes[1] >= 0) ? quarterIndexes[1] : 0;
+            return lengthsAlong[start] + EuclidDistance(flattened[start], Geometry.ClosestPointOnLineSegment(flattened[start], flattened[start + 1], quarterEnds[quarter]));
+        }
+
+        // The measure in which OCAD places the dashes along a path with Bezier curves, with a metric, and in which the OCAD
+        // spacing places the glyphs too (GetOcadCurveMeasure). It maps a length of the measure from the start of the path
+        // to a euclidean length along the flattened path, which the drawing walks, linearly between the ends of the
+        // quarters of the curves, and with a metric other than the euclidean one, of the straight segments.
+        internal sealed class OcadCurveMeasure
+        {
+            private readonly double[] measures;     // the ends of the path, of the quarters and of the straight segments, in the measure
+            private readonly double[] lengths;      // the same points, as lengths along the flattened path
+
+            // The measure of each part of the path between corner and dash points, as GetCornerAndDashPointDistances gives
+            // the length of each part.
+            public readonly float[] PartMeasures;
+
+            public OcadCurveMeasure(double[] measures, double[] lengths, float[] partMeasures)
+            {
+                this.measures = measures;
+                this.lengths = lengths;
+                PartMeasures = partMeasures;
+            }
+
+            // Convert distances of the measure, each from the location before it, as LineSymDef.ComputeDashDistances gives
+            // them, to distances along the flattened path, as DrawDashed and FindPointsAlongLine walk them.
+            public float[] ToDistancesAlongPath(float[] distances)
+            {
+                float[] converted = new float[distances.Length];
+                double measure = 0, previousLength = 0;
+                for (int i = 0; i < distances.Length; ++i) {
+                    measure += distances[i];
+                    double length = ToLengthAlongPath(measure);
+                    converted[i] = (float) (length - previousLength);
+                    previousLength = length;
+                }
+                return converted;
+            }
+
+            // The length along the flattened path at a length of the measure from its start.
+            private double ToLengthAlongPath(double measure)
+            {
+                int piece = Array.BinarySearch(measures, measure);
+                if (piece < 0)
+                    piece = ~piece - 1;
+                piece = Math.Max(0, Math.Min(piece, measures.Length - 2));
+
+                double width = measures[piece + 1] - measures[piece];
+                if (width <= 0)
+                    return lengths[piece];
+                return lengths[piece] + (measure - measures[piece]) * (lengths[piece + 1] - lengths[piece]) / width;
+            }
         }
 
         internal float[] GetCornerAndDashPointDistances(DistanceMetric metric, out PointKind[] pointkinds) 
