@@ -134,6 +134,9 @@ The section "Words that are not names" lists the words that are not used as name
 
 ### Glyphs
 
+- **`PointSymDef`, `PointSymbol`** · pistesymbolin symbolimäärittely, pistesymboli · *point symbol definition, point
+  symbol* — A point symbol definition draws its glyph at the location of each of its symbols (`Location`), turned by the
+  angle of the symbol (`Rotation`), with the gaps of the symbol in the circles of the glyph (`Gaps`).
 - **`Glyph`** · glyyfi · *glyph* — It defines a point symbol definition, or a part of a line or an area symbol
   definition. Its parts are lines, areas, circles and filled circles. The term of a part is *glyyfin osa* · *glyph part*
   (`Glyph.GlyphPart`).
@@ -252,9 +255,58 @@ The section "Words that are not names" lists the words that are not used as name
 
 ### Texts
 
+- **`TextSymDef`** · tekstin symbolimäärittely · *text symbol definition* — The definition of the texts and of the
+  texts along a line: the font (`FontName`, `FontEmHeight`, `TextEffects`) and its color (`FontColor`), the spacings of
+  the lines, the paragraphs, the characters and the words, the indents, the tabs, the alignments, the framing
+  (`FramingInfo`), the underline (`Underline`) and the center point (`CenterPointSymdef`). A `TextSymbol` and a
+  `LineTextSymbol` both have a `TextSymDef`.
+- **`TextSymbol`** · tekstisymboli · *text symbol, text object* — One text object of a map: its lines of text, its
+  location (`Location`), its angle (`Rotation`), its width (`Width`) and its alignments. The location is the origin of
+  the text, and the text turns about it by the angle. The drawing breaks the text into lines (`WrappedText`), and lays
+  out each line from the location, with the Y axis down.
+- **muotoiltu teksti** · *formatted text* (`TextSymbol.Width`) — A text whose width is more than 0. The drawing breaks
+  its lines at the width, and justifies them when the alignment is `Justified`. A text of the width 0 is unformatted:
+  its lines break only where the text has a new line.
+- **`LineTextSymbol`** · viivan varren teksti · *text along a line* — One text of a map that the drawing draws along
+  its path (`LineLikeSymbol.Path`), with a `TextSymDef`. Each grapheme is at its own place along the path, and turns
+  with the direction of the path there. The drawing measures the path with the OCAD metric in all the maps, as current
+  OCAD does. A text along a line has no underline, no center point and no framing rectangle, as the drawing does not
+  draw them along a line.
+- **`TextSymDef.CharSpacing`, `TextSymDef.WordSpacing`** · merkkiväli, sanaväli · *character spacing, word spacing* —
+  The space that the drawing adds after each grapheme, and the width of a space between the words, each as a factor of
+  the width of a space of the font. Where the character spacing is more than 0, each grapheme is a text run of its own.
+- **grafeemi** · *grapheme* — A character as a reader sees it: one or more Unicode code points that are one text
+  element (`StringInfo.GetNextTextElement`).
+- **`TextSymDef.Framing`, `TextSymDef.FramingStyle`** · tekstin kehys · *framing of a text* — An effect in a color of
+  its own (`framingColor`) that sets a text apart from the map. Its styles are the framing line (`FramingStyle.Line`),
+  the shadow (`FramingStyle.Shadow`) and the framing rectangle (`FramingStyle.Rectangle`).
 - **`FramingStyle.Line`** · kehysviiva · *framing line* — The framing of a text symbol definition in the style
   `FramingStyle.Line`. The other styles are a shadow and a rectangle. The framing of a text run is one line: a stroke of
   the full width with the joins of the symbol.
+- **`FramingStyle.Shadow`** · varjo · *shadow* — The framing in which each text run has a copy in the color of the
+  framing, moved by `shadowX` and `shadowY`.
+- **`FramingStyle.Rectangle`** · kehyssuorakulmio · *framing rectangle* — The framing that fills a rectangle around
+  the lines of a text in the color of the framing, with the margins `rectBorderLeft`, `rectBorderTop`, `rectBorderRight`
+  and `rectBorderBottom`.
+- **`TextSymDef.Underlining`** · alleviivaus · *underline* — A line under the last line of each paragraph of a text, in
+  its own color, width and distance (`underlineColor`, `underlineWidth`, `underlineDistance`). The underline effect of
+  the font (`TextEffects.Underline`) is a line under each line of the text, in the color of the font. The drawing draws
+  both as lines, and the font of the text has no underline effect.
+- **`TextSymDef.CenterPointSymdef`** · tekstin keskipiste · *center point of a text* — A point symbol definition that
+  the drawing draws at the center of an unformatted text, as OCAD does: at the middle of the box of the lines of the
+  text, as OCAD measures the box.
+
+### Rectangles
+
+- **`RectangleSymDef`, `RectangleSymbol`** · suorakulmion symbolimäärittely, suorakulmiosymboli · *rectangle symbol
+  definition, rectangle symbol* — A rectangle of a map: its location, its size and its rotation (`Location`, `Size`,
+  `Rotation`). Its definition gives the color and the width of its line (`LineColor`, `LineThickness`), the radius of
+  its corners (`CornerRadius`) and its grid. It is the rectangle symbol of OCAD. The maps of the tests have, for
+  example, the boxes of the punches as rectangles.
+- **`RectangleSymDef.GridFlags`** · ruudukko, ruudukon viivat, ruudukon tekstit · *grid, grid lines, grid texts* — The
+  grid divides a rectangle into cells of about `CellWidth` by `CellHeight`. Its lines are 0.15 mm wide, in the color of
+  the rectangle. Its texts number the cells from the top or from the bottom, in Arial bold of the size `TextSize`, and
+  the last cells can have a text of their own (`UnnumberedCells`).
 
 ### Beside the palette stack
 
