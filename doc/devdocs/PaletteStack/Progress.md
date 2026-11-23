@@ -65,6 +65,12 @@ parts that a fill mode selects are clipping objects of the full coverage. The co
 comparison compares each palette color with the drawing. The full run of the branch passed, and so did the full run of
 `feature/palette-stack` with it (`wip/linux/palette-stack` at 473cd25a: Tests 45260756131, Build 45260756121).
 
+The step of the Tests workflow that checks the machine and installs the fonts runs its script from
+`.github/scripts/check-machine-and-install-fonts.ps1` ("The script of the font step in a file"). The change is merged
+into `base` (67836a4f), and the Tests run of `base` with it passed (45269595027). No log of the run holds the text
+`::error`. `tools/int-worktree.sh` fetches the feature branch from origin (e55d733c, "The feature branch of an
+integration worktree").
+
 The local Linux runs of the rendering tests get the fonts of the workflow's Windows machine from the branch `linux` of
 `pauliojanpera/windows-fonts` ("The fonts of the local Linux runs", Nov 23). The texts still render differently from
 the baselines, as FreeType rasterizes them on Linux and DirectWrite on Windows. So a local run compares the renderings
@@ -933,12 +939,15 @@ the rendering.
   - The check that each placement gives its poses covers the expansions too. Where a structure test compared a count
     with the collector, it checks the positions of the first and the last glyph along the line.
 - **The script of the font step in a file** (Nov 23). @Pauli: the step "Check the machine and install the fonts it
-  lacks" of `.github/workflows/tests.yml` runs the script `.github/scripts/check-machine-and-install-fonts.ps1`, and
-  the change goes into `base` when its run passes. The runner writes the script of each step into the log before it
-  runs it. So the workflow commands of the script (`::error` and `::warning`) were text in the log of each test job,
-  also when no error occurred, and a search of the log for errors found them. The script in the file is the script of
-  the step, with a header and `$ErrorActionPreference = 'Stop'`, which the runner sets for a step of `pwsh`. The
-  change is on the branch `ci/machine-check-script`, rooted at `base` (d256a9e8).
+  lacks" of `.github/workflows/tests.yml` runs the script `.github/scripts/check-machine-and-install-fonts.ps1`, and the
+  change goes into `base` when its run passes. The runner writes the script of each step into the log before it runs it.
+  So the workflow commands of the script (`::error` and `::warning`) were text in the log of each test job, also when no
+  error occurred, and a search of the log for errors found them. The script in the file is the script of the step, with
+  a header and `$ErrorActionPreference = 'Stop'`, which the runner sets for a step of `pwsh`. The change is on the
+  branch `ci/machine-check-script`, rooted at `base` (d256a9e8). Its run passed on `experiment/machine-check-script` at
+  07cd5539 (Tests 45266991378): each group ran its tests, no log holds the text `::error`, and the step gives the output
+  that it gave before. It is merged into `base` (67836a4f), and the Tests run of `base` with it passed (45269595027) in
+  the same way.
 - **The feature branch of an integration worktree** (Nov 23). @Pauli: `tools/int-worktree.sh` fetches the feature branch
   from origin. Before, it merged the branch by the name given: without a local branch in the clone it stopped, and it
   merged a local branch that was behind origin without a word. The session chose how it treats a local branch: it merges
