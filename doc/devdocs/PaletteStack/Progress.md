@@ -48,9 +48,10 @@ the area symbols and the graphics objects with a geometry method, and pass 1 col
 object with the collector. The full run of the branch passed, and so did the full run of `feature/palette-stack` with
 it. Only the texts and the rectangles still get their clipping objects from the collector (draft 013).
 
-The local Linux runs of the rendering tests get the fonts of the workflow's Windows machine ("The fonts of the local
-Linux runs", Nov 23). @Pauli's local Claude Code puts them on the branch `linux` of `pauliojanpera/windows-fonts`
-("Waiting on @Pauli"). The fontconfig file and the script of the local runs follow ("Next").
+The local Linux runs of the rendering tests get the fonts of the workflow's Windows machine from the branch `linux` of
+`pauliojanpera/windows-fonts` ("The fonts of the local Linux runs", Nov 23). The texts still render differently from
+the baselines, as FreeType rasterizes them on Linux and DirectWrite on Windows. So a local run compares the renderings
+of a change with the renderings without it ("Local tests").
 
 The old branch of the epic, `feature/palette-layers`, keeps the pass 1 of 005, 007 and 008, and the branches of the
 drafts 011 to 013 are rooted at it. The rest of this section tells its state.
@@ -189,23 +190,49 @@ base. No branch is offered upstream yet.
   worktree of a feature branch, 173 tests of `Map_Skia.Tests` fail on Linux (Nov 23): 171 do not find their files,
   and 2 ask for fonts that Windows carries.
   `Test_MapModel` targets Windows; `tools/run-map-tests.sh` runs its files on Linux, and skips the renderings, which
-  GDI+ draws. `Map_Skia.Tests` runs on Linux in the integration worktree: set `TEST_SILENTRUN=True`, or a failed
-  comparison opens VisualDiff and waits. There, 73 of its tests fail on Linux without a fault of the change (Nov 23, at
-  `feature/palette-stack` with ticket 012): 64 image comparisons, most of them of texts; 7 tests that ask for a file
-  in another letter case than the file has (`Clouds11.txt` for `clouds11.txt`, `penistonehill.txt` for
-  `PenistoneHill.txt`, and `penguins.jpg` for `Penguins.jpg` in four tests), which Windows does not tell apart; and
-  `IsTextFaceInstalled` and `SkiaFontMetrics`, which ask for fonts that Windows carries. So a local run judges a
-  change by the tests that fail with it and without it, as the flattening work does (`../Flattening/README.md`).
-  The fonts are those of the workflow's Windows machine. The Skia tests draw with the fonts of the machine, which the
-  workflow pins (`../NotPurplePenProgress.md`, "The Skia tests' fonts", Nov 5): the Windows image carries most of
-  them, `.github/ci/environment.json` records them by hash, and the workflow installs the rest from
-  `pauliojanpera/windows-fonts` and checks them against `.github/ci/fonts.json`. `windows-fonts` holds only the 14
-  fonts that Windows does not carry, as the fonts are licensed. So the fonts of this machine are not the workflow's,
-  and a Skia comparison allows no difference. A local rendering tells which images a change moves, and each baseline
-  comes from a run in GitHub Actions (`tools/push-wip.sh --collect`, or `--blank-baseline` for a new Skia test).
-  Roboto is installed on this machine (`~/.local/share/fonts`), so a local run draws the Roboto maps in Roboto also
-  where the private fonts of the tests are missing. The Windows machine of the workflow has no Roboto
-  ([014](tickets/014-basic-tests-private-fonts.md)).
+  GDI+ draws. `Map_Skia.Tests` runs on Linux in the integration worktree, with the fonts of the workflow's Windows
+  machine: `tools/windows-fonts.sh` writes a fontconfig file that offers only the fonts of the branch `linux` of
+  `pauliojanpera/windows-fonts`, and a local run sets `FONTCONFIG_FILE` to it. Set `TEST_SILENTRUN=True`, or a failed
+  comparison opens VisualDiff and waits. `tools/int-worktree.sh` merges into each integration branch the fixes of the
+  tests that a run on Linux needs and `base` does not have. `fix/case-of-test-file-names` (1973c604) spells four test
+  file names as the files are spelled, so that seven tests find their files on a file system that tells the letter
+  case apart. Windows does not, so the workflow does not need the fix ("The fixes of the tests in the local runs").
+  There, 78 of the 722 tests fail on Linux without a fault of the change (Nov 23, at `feature/palette-stack` with
+  ticket 012):
+  - 59 image comparisons differ only in the pixels of their texts, at the edges of the glyphs. FreeType rasterizes
+    the text blobs on Linux, and DirectWrite on Windows (`EnhancedTypeface.DrawText`, `DRAW_TEXT_AS_PATHS` is not
+    defined). The texts differ also in the fonts whose file has the hash of the Windows machine, for example Cambria
+    and Arial Narrow.
+  - 6 image comparisons draw their maps without the templates or the image objects: `TemplateRendering`,
+    `TemplateRendering2`, `TemplateFraction1`, `TemplateFraction2`, `LayoutBitmapObjects` and `Roboto`. The maps name
+    these files with Windows paths, for example `C:\Program Files (x86)\Purple Pen\Samples\SampleMap.ocd`.
+    `SkiaFileLoader.SearchForFile` finds such a file beside the map by its file name (`Path.GetFileName`), which on
+    Linux does not end at a backslash. No branch changes `SearchForFile` (Nov 23). The fixes b08ed786 and 4be634d8
+    read the backslashes in the names of the test files only (`TestUtil.GetTestFile`).
+  - The image comparison `FontFallback` and the 12 cases of `FallbackFindsAFontFor` need fonts for scripts that the
+    branch `linux` does not have, for example Han, Hangul, Devanagari and Ethiopic.
+
+  With the fonts of the machine of the cloud session, before the fix of the letter case, 73 tests fail: 64 image
+  comparisons, the 7 tests of the letter case, and `IsTextFaceInstalled` and `SkiaFontMetrics`, which ask for fonts
+  that Windows carries. With the fonts of the Windows machine, these two pass, but of the 64 image comparisons only
+  `TextPosOutline` matches its baseline (Nov 23).
+
+  So a local run judges a change by its renderings with the change and without it, on the same machine and fonts, as
+  the flattening work does (`../Flattening/README.md`). `tools/linux-renderings.sh` runs `Map_Skia.Tests` in an
+  integration worktree with `TEST_COLLECT_DIFFERENCES`, and keeps each rendering that differs from its baseline, and
+  the trx of the run. `tools/compare-renderings.py` lists the images whose renderings differ between two runs, and
+  the tests whose outcome differs. Two runs of the same commit gave the same 73 renderings and the same outcomes
+  (Nov 23). `tools/README.md` gives the steps.
+
+  The workflow pins the fonts of its Windows machine (`../NotPurplePenProgress.md`, "The Skia tests' fonts", Nov 5):
+  the Windows image carries most of them, `.github/ci/environment.json` records them by hash, and the workflow installs
+  the rest from the branch `main` of `pauliojanpera/windows-fonts` and checks them against `.github/ci/fonts.json`.
+  The branch `linux` holds the 14 fonts of `main`, and in `system/` the 65 fonts of `environment.json` and the four
+  fonts that `IsTextFaceInstalled` asks for. Of the 65, 29 have the hash of the Windows machine, and 36 are older
+  versions of Arial, Calibri, Comic Sans MS, Courier New, Segoe UI, Tahoma and Times New Roman (Nov 23). A Skia
+  comparison allows no difference, so a local rendering is no baseline: each baseline comes from a run in GitHub
+  Actions (`tools/push-wip.sh --collect`, or `--blank-baseline` for a new Skia test). The fontconfig file offers no
+  Roboto, as the Windows machine of the workflow has none ([014](tickets/014-basic-tests-private-fonts.md)).
 - **A collecting run and the run of the push.** A Tests run of a push waits for an earlier Tests run of the same commit
   and takes its result, and a collecting run does not fail on a moved image. So the collecting run of
   `tools/push-wip.sh --collect` has a commit of its own: on top of the wip commit, a commit whose `tests.yml` makes
@@ -251,19 +278,15 @@ base. No branch is offered upstream yet.
    session's choice). A draft is implemented when @Pauli has approved it as a ticket. Ticket 012 shows the form: the
    interface of ticket 024, the terms of the glossary, the code names where the glossary has no term, and the old work
    of `feature/text-geometry` where it fits.
-5. The fonts of the local Linux runs, when the branch `linux` of `pauliojanpera/windows-fonts` exists ("The fonts of the
-   local Linux runs"):
-   1. Check `system/fonts.json` of the branch against `.github/ci/environment.json` of `base`: which files have the
-      hash of the Windows machine, and which have another version.
-   2. A script in `tools/` fetches the branch and writes a fontconfig file that offers only its fonts: the 14 fonts
-      of `main` at its root and the fonts of `system/`, without the fonts of the machine and without the aliases of
-      fontconfig. The local runs set `FONTCONFIG_FILE` to it, as the SVG tests do with their sentinel font.
-   3. Measure in an integration worktree how many of the 64 image comparisons that fail on Linux match their baselines
-      with these fonts. The ones that still differ show the rasterizer: `EnhancedTypeface.DrawText` draws text blobs,
-      which DirectWrite rasterizes on Windows and FreeType on Linux (`DRAW_TEXT_AS_PATHS` is not defined).
-   4. The local run then compares the Linux renderings of a change with the Linux renderings without it, on the same
-      machine and fonts: `TEST_COLLECT_DIFFERENCES` writes each rendering that differs from its baseline, and
-      `tools/compare-images.py` compares them. `tools/README.md` and "Local tests" tell it.
+5. The fonts of the local Linux runs are done ("The fonts of the local Linux runs", "Local tests"):
+   1. `system/fonts.json` of the branch `linux` agrees with its files and with `.github/ci/environment.json` of
+      `base`: of the 65 fonts of `environment.json`, 29 files have the hash of the Windows machine, and 36 are older
+      versions. The 14 fonts of `main` match `.github/ci/fonts.json`.
+   2. `tools/windows-fonts.sh` fetches the branch and writes a fontconfig file that offers only its fonts.
+   3. With these fonts, 1 of the 64 image comparisons that failed on Linux matches its baseline. 59 image comparisons
+      differ only in the pixels of their texts, as FreeType rasterizes them on Linux and DirectWrite on Windows.
+   4. `tools/linux-renderings.sh` and `tools/compare-renderings.py` compare the Linux renderings of a change with the
+      Linux renderings without it, on the same machine and fonts.
 
 The plan below is the plan of the old branch, in the words of its time. Its parts 2 to 5 stay as the order of the
 later work.
@@ -324,15 +347,6 @@ the rendering.
   target of NotPurplePen fitted to them in the integration. And whether the work can use the documented findings or
   the code of `feature/svg-target`. The notes of the epic give the reasons.
 - **Offering upstream.** No branch is offered upstream yet.
-- **The fonts of the branch `linux` of `windows-fonts`** (Nov 23). @Pauli's local Claude Code puts them there, with
-  the prompt that the session of Nov 23 wrote: the 65 fonts of `.github/ci/environment.json` and the four fonts that
-  `IsTextFaceInstalled` asks for (Leelawadee UI in three faces and Bahnschrift), from `~/.local/share/fonts`, in
-  `system/` with `system/fonts.json`, on a branch from `main`. Each file is the one whose hash is the hash of the
-  Windows machine, where one is. `main` does not change.
-- **The letter case of the test files** (Nov 23). Seven tests of `Map_Skia.Tests` ask for a file in another letter case
-  than the file has ("Local tests"). `TestUtil.GetTestFile` could find the file whatever its letter case when the exact
-  path does not exist. On Windows the path always exists, so the Windows CI would not change. The change goes to
-  `base`, so it is @Pauli's decision.
 
 ## Decisions
 
@@ -743,7 +757,19 @@ the rendering.
   solution, which @Pauli let the session make: the fonts of the Windows machine on the branch `linux` of
   `windows-fonts`, as `main` stays as the Windows workflow checks it; a fontconfig file that offers only these fonts
   to the local runs; and local comparisons of the Linux renderings with and without a change, in place of the Windows
-  baselines, as the platform rasterizes the text ("Next").
+  baselines, as the platform rasterizes the text ("Local tests").
+- **The fixes of the tests in the local runs** (Nov 23). @Pauli: the fixes that exist are taken into use, so that no
+  session needs to be told of them, and the Windows CI must not break. `tools/int-worktree.sh` merges
+  `fix/case-of-test-file-names` (1973c604, in `dev` through `feature/svg-target`) into each local integration branch,
+  as `base` does not have it. The integration branch is never pushed, so `base` and the workflow do not change. The
+  way is the session's choice. The other fix of the test files, b08ed786, which reads the backslashes in the names of
+  the test files, is in `base`. No fix exists for the templates that the maps name with Windows paths ("Local tests").
+- **The choices of the session in the local Linux runs** (Nov 23). By the rule "The session resolves matters", the
+  session chose these. The fontconfig file of `tools/windows-fonts.sh` gives Segoe UI as the family of each pattern.
+  Without a family, Skia on Linux gives no typeface for a family that is not installed, and 15 tests stopped on a null
+  reference in `SkiaFontManager.CreateTypeface`, as the code expects a typeface, which Skia on Windows always gives.
+  `tools/linux-renderings.sh` and `tools/compare-renderings.py` make the comparison of the Linux renderings with and
+  without a change, and `tools/compare-images.py` counts a pixel by the largest difference of its channels.
 - **The approval of ticket 012** (Nov 23). @Pauli approved [012](tickets/012-area-geometry.md), the geometry
   methods of the area symbols and the graphics objects, with the choices of the session under "Ratkaisut":
   - `AreaLikeSymDef` and `GraphicsSymDef` override `SymDef.MakeClippingObjects`. `AreaLikeSymDef` gives the path with

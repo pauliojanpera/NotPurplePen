@@ -7,6 +7,7 @@ a third path, writes the first image faded, with each differing pixel in red, to
 drawing: for example a rendering before and after a change, or a local rendering and the one of a Tests run.
 """
 import sys
+from functools import reduce
 
 from PIL import Image, ImageChops
 
@@ -23,13 +24,16 @@ def main():
         return 1
 
     difference = ImageChops.difference(first, second)
-    differing = sum(1 for pixel in difference.getdata() if pixel != (0, 0, 0))
-    largest = max(max(pixel) for pixel in difference.getdata())
+    # The largest difference of the three channels at each pixel.
+    channel = reduce(ImageChops.lighter, difference.split())
+    histogram = channel.histogram()
+    differing = sum(histogram[1:])
+    largest = max(value for value, count in enumerate(histogram) if count)
     print("%d of %d pixels differ, by at most %d in a channel, within %s"
           % (differing, first.size[0] * first.size[1], largest, difference.getbbox()))
 
     if len(sys.argv) == 4:
-        mask = difference.convert("L").point(lambda value: 255 if value else 0)
+        mask = channel.point(lambda value: 255 if value else 0)
         marked = Image.blend(first, Image.new("RGB", first.size, (255, 255, 255)), 0.6)
         marked.paste((255, 0, 0), mask=mask)
         marked.save(sys.argv[3])
