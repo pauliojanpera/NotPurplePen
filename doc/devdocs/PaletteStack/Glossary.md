@@ -54,6 +54,11 @@ The section "Words that are not names" lists the words that are not used as name
     symbols of that course object. So a course map that is made again gives the same symbol keys to the same course
     object.
 
+  Its type is `SymbolKey`: a value that does not change, with a text form. Two keys are the same when their text
+  forms are the same, character by character. The text form of a key from the counter is the value of the counter in
+  base 62, with the digits 0–9, A–Z and a–z in this order, for example `4C92`. A key is not the number of a symbol
+  definition (`SymDef.SymbolId`).
+
   The symbol key is unique in its `Map`, so the reference of a drawn object also gives the `Map`. All the drawn objects
   of a `Symbol` share its symbol key, so it is not the `id` of an SVG element. It is not `SymDef.SymbolId`, which is
   the number of a symbol definition.
@@ -258,8 +263,18 @@ The section "Words that are not names" lists the words that are not used as name
   or `TopologyFormatter` gives it at the place where it makes the course object. The key has three parts: the role of
   the place in the data of `EventDB`, for example the whole leg, the beginning part of a leg or the map issue point of
   a leg; the identifiers of `EventDB` that the place uses; and the `CourseLayer`. Each place has a role of its own, so
-  two places do not give the same key. The class of the `CourseObj` is not a part of the key: when a whole leg becomes
-  flagged, its key stays the same.
+  two places do not give the same key. The role tells what the place makes of the data of `EventDB`, so two places of
+  the code that make the same thing give the same role: a control label that the user placed and one that the
+  formatter placed are both `Label` (@Pauli, Nov 23). The class of the `CourseObj` is not a part of the key: when a
+  whole leg becomes flagged, its key stays the same. Its type is `CourseObjKey`, and the roles are the members of
+  `CourseObjRole`. Its text form is `<role>.<identifier>….<layer>`, with the numbers in base 62 and the name of the
+  role with a lowercase first letter, for example `leg.4.5.0`.
+- **`Map.PrefixSymbolKeys`** · avainjakso · *period of a key prefix* — A period in which `Map.AddSymbol` gives each
+  symbol without a symbol key, and each hole that the map gets with it, the key `<prefix>/<index>`, in place of a key
+  from the counter. The index is in base 62, from 0, in the order in which the map gets the symbols, and it skips an
+  index whose key a symbol of the map has. `CourseLayout.RenderToMap` opens a period with the text form of the course
+  object key for each `CourseObj.AddToMap`, so the symbols of a course map get the keys `<course object key>/<index>`,
+  for example `leg.4.5.0/0`.
 
 ## The intermediate layer · Välikerros
 

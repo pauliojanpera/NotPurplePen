@@ -24,6 +24,7 @@
     <Compile Include="../Test_MapModel/InkTests.cs" Link="suite/InkTests.cs" Condition="Exists('../Test_MapModel/InkTests.cs')" />
     <Compile Include="../Test_MapModel/MapFileTestUtil.cs" Link="suite/MapFileTestUtil.cs" Condition="Exists('../Test_MapModel/MapFileTestUtil.cs')" />
     <Compile Include="../Test_MapModel/OpacityAndBlendModeTests.cs" Link="suite/OpacityAndBlendModeTests.cs" Condition="Exists('../Test_MapModel/OpacityAndBlendModeTests.cs')" />
+    <Compile Include="../Test_MapModel/SymbolKeyTests.cs" Link="suite/SymbolKeyTests.cs" Condition="Exists('../Test_MapModel/SymbolKeyTests.cs')" />
   </ItemGroup>
 
   <ItemGroup>
