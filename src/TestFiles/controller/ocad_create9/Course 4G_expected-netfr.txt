@@ -689,6 +689,7 @@ String of type 9
   code=y, value=0
   code=k, value=25
   code=o, value=0
+  code=t, value=100
 
 String of type 9
   ObjIndex=0
@@ -699,6 +700,7 @@ String of type 9
   code=y, value=0
   code=k, value=25
   code=o, value=0
+  code=t, value=100
 
 String of type 9
   ObjIndex=0
@@ -709,6 +711,7 @@ String of type 9
   code=y, value=0
   code=k, value=100
   code=o, value=0
+  code=t, value=100
 
 String of type 9
   ObjIndex=0
@@ -719,6 +722,7 @@ String of type 9
   code=y, value=0
   code=k, value=0
   code=o, value=0
+  code=t, value=100
 
 String of type 1039
   ObjIndex=0
@@ -746,6 +750,7 @@ String of type 1030
   firstField=
   code=d, value=0
   code=l, value=0
+  code=p, value=1
 
 String of type 8
   ObjIndex=0

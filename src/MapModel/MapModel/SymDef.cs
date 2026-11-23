@@ -158,6 +158,25 @@ namespace PurplePen.MapModel
         // If color is null, return if draws in the image layer (below all color layers).
         public abstract bool HasColor(SymColor color);
 
+        // The coverage prototypes of a symbol of this definition in a palette color, for pass 1 of the drawing
+        // (Map.PaletteSeparations): the full coverage, where the definition draws the palette color with it, or none.
+        // The symbol has a palette color coverage for each of them (SymbolCoverage), also when it draws no shape in the
+        // palette color.
+        // symbol: the symbol, which has this definition.
+        // color: the palette color.
+        public virtual IReadOnlyList<CoveragePrototype> GetCoveragePrototypes(Symbol symbol, SymColor color)
+        {
+            return HasFullCoverage(color) ? CoveragePrototype.FullCoverageOnly : CoveragePrototype.None;
+        }
+
+        // Does this symbol definition draw the given palette color with the full coverage: does it draw the color apart
+        // from the hatchings and the patterns of areas? The image layer and the layout layer are not palette colors.
+        // color: the palette color.
+        internal virtual bool HasFullCoverage(SymColor color)
+        {
+            return !color.IsSpecialLayer && HasColor(color);
+        }
+
 
         // Does this symdef depend on another? null means no.
         public virtual SymDef DependsOnSymdef
@@ -822,7 +841,7 @@ namespace PurplePen.MapModel
                 else {
                     // Draw the dashed line.
                     foreach (SymPath p in pathsWithShortening)
-                        DrawDashed(g, p, pens.mainPen, dashInfo, renderOpts, map.MapDistanceMetric);
+                        DrawDashed(g, p, pens.mainPen, dashInfo, 0, GetVertexPieceLimit(dashInfo, thickness), renderOpts, map.MapDistanceMetric);
                 }
             }
 
@@ -841,7 +860,7 @@ namespace PurplePen.MapModel
                 if (doubleLines.doubleFillColor != null && (highlight || doubleLines.doubleFillColor == color)) {
                     if (doubleLines.doubleFillDashed) {
                         foreach (SymPath p in pathsWithoutShortening)
-                            DrawDashed(g, p, pens.doubleFillPen, doubleLines.doubleDashes, renderOpts, map.MapDistanceMetric);
+                            DrawDashed(g, p, pens.doubleFillPen, doubleLines.doubleDashes, GetDoubleLineVertexPieceLimit(doubleLines.doubleDashes), GetVertexPieceLimit(doubleLines.doubleDashes, doubleLines.doubleThick), renderOpts, map.MapDistanceMetric);
                     }
                     else {
                         foreach (SymPath p in pathsWithoutShortening)
@@ -853,7 +872,7 @@ namespace PurplePen.MapModel
                     foreach (SymPath subpath in path.GetSubpaths(SymPath.DOUBLE_LEFT_STARTSTOPFLAG)) {
                         float offsetRight = -(doubleLines.doubleThick + doubleLines.doubleLeftWidth) / 2F;
                         if (doubleLines.doubleLeftDashed) {
-                            DrawDashedWithOffset(g, subpath, pens.doubleLeftPen, doubleLines.doubleDashes, offsetRight, GraphicsUtil.MITER_LIMIT, renderOpts, map.MapDistanceMetric);
+                            DrawDashedWithOffset(g, subpath, pens.doubleLeftPen, doubleLines.doubleDashes, offsetRight, GraphicsUtil.MITER_LIMIT, GetDoubleLineVertexPieceLimit(doubleLines.doubleDashes), GetVertexPieceLimit(doubleLines.doubleDashes, doubleLines.doubleLeftWidth), renderOpts, map.MapDistanceMetric);
                         }
                         else {  
                             SymPath leftPath = subpath.OffsetRight(offsetRight, GraphicsUtil.MITER_LIMIT);
@@ -866,7 +885,7 @@ namespace PurplePen.MapModel
                     foreach (SymPath subpath in path.GetSubpaths(SymPath.DOUBLE_RIGHT_STARTSTOPFLAG)) {
                         float offsetRight = (doubleLines.doubleThick + doubleLines.doubleRightWidth) / 2F;
                         if (doubleLines.doubleRightDashed) {
-                            DrawDashedWithOffset(g, subpath, pens.doubleRightPen, doubleLines.doubleDashes, offsetRight, GraphicsUtil.MITER_LIMIT, renderOpts, map.MapDistanceMetric);
+                            DrawDashedWithOffset(g, subpath, pens.doubleRightPen, doubleLines.doubleDashes, offsetRight, GraphicsUtil.MITER_LIMIT, GetDoubleLineVertexPieceLimit(doubleLines.doubleDashes), GetVertexPieceLimit(doubleLines.doubleDashes, doubleLines.doubleRightWidth), renderOpts, map.MapDistanceMetric);
                         }
                         else {  
                             SymPath rightPath = subpath.OffsetRight(offsetRight, GraphicsUtil.MITER_LIMIT);
@@ -951,9 +970,15 @@ namespace PurplePen.MapModel
         {
             LocationKind originalKind = kind;   // save original kind.
 
-            // Get length of each segment, deliniated by corner points.
+            // Get length of each segment, deliniated by corner points. With the euclidean metric, OCAD places the dashes on
+            // Bezier curves by their quarters, and the glyphs of the OCAD spacing are placed in the same measure: the
+            // distances are fitted to the measure of the quarters, and converted to distances along the path at the end.
             PointKind[] pointkinds;
             float[] segmentLengths = path.GetCornerAndDashPointDistances(distanceMetric, out pointkinds);
+            SymPath.OcadCurveMeasure curveMeasure = (spacingMethod == SpacingMethod.OCAD && distanceMetric == (SymPath.DistanceMetric) SymPath.EuclidDistance) ? path.GetOcadCurveMeasure() : null;
+            if (curveMeasure != null)
+                segmentLengths = curveMeasure.PartMeasures;
+            float[] countingLengths = (spacingMethod == SpacingMethod.OCAD) ? path.GetCornerAndDashPointLengthsForCounting(distanceMetric) : segmentLengths;
             float[] lengthAtEnd = new float[segmentLengths.Length];
             float[][] dashDistances = new float[segmentLengths.Length][];
             int segmentSmallToLarge = -1, segmentLargeToSmall = -1, segmentBothEnds = -1;  // segment numbers with different decrease kinds.
@@ -1035,7 +1060,7 @@ namespace PurplePen.MapModel
                 if (i == segmentLongest || segmentLengths[i] >= segmentLengths[segmentLongest] - 0.1 || spacingMethod == SpacingMethod.OpenMapperMidSymbols)
                     minGapsThisSegment = minGaps;
 
-                dashDistances[i] = ComputeDashDistances(segmentLengths[i], kind, spacingMethod, dashLength, firstLength, lastLength, gapLength,
+                dashDistances[i] = ComputeDashDistances(segmentLengths[i], countingLengths[i], kind, spacingMethod, dashLength, firstLength, lastLength, gapLength,
                                                         minGapsThisSegment, offset, 
                                                         numEndSecGaps, lengthEndSecGaps, numMiddleSecGaps, lengthMiddleSecGaps, 
                                                         decreaseLimit, decreaseKind, 
@@ -1103,6 +1128,9 @@ namespace PurplePen.MapModel
                 distances = ComputeDashCenters(distances, path.IsClosedCurve);
             }
 
+            if (curveMeasure != null && distances != null)
+                distances = curveMeasure.ToDistancesAlongPath(distances);
+
             return distances;
         }
 
@@ -1110,7 +1138,7 @@ namespace PurplePen.MapModel
 
         // Computes the dash distances for a single segment. Also returns the distance from the last location to the end of the segment.
         // If LocationKind is DashesAndGapLengths, this is a duplicate of the last array element.
-        private static float[] ComputeDashDistances(float pathLength, LocationKind kind, SpacingMethod spacingMethod, 
+        private static float[] ComputeDashDistances(float pathLength, float countingLength, LocationKind kind, SpacingMethod spacingMethod, 
                                                     float dashLength, float firstDashLength, float lastDashLength, float gapLength, int minGaps, float offset, 
                                                     int numEndSecGaps, float lengthEndSecGaps, int numMiddleSecGaps, float lengthMiddleSecGaps, float decreaseLimit, DecreaseKind decreaseKind, 
                                                     out float lengthAtEnd, out int actualGaps)
@@ -1136,11 +1164,12 @@ namespace PurplePen.MapModel
             // The number of gaps is adjusted so that the gap lengths are always preserved exactly, and the dash lengths are as close as possible to the actual dash lengths.
             if (dashLength + gapLength > 0) {
                 if (spacingMethod == SpacingMethod.OCAD) {
-                    if (pathLength - firstDashLength - lastDashLength <= gapLength) {
-                        numGaps = (minGaps >= 1 || pathLength >= firstDashLength / 2 + lastDashLength / 2 + gapLength) ? 1 : 0;
+                    if (countingLength - firstDashLength - lastDashLength <= gapLength) {
+                        numGaps = (minGaps >= 1 || countingLength > firstDashLength / 2 + lastDashLength / 2 + gapLength) ? 1 : 0;
                     }
                     else {
-                        numGaps = (int)Math.Round((pathLength + dashLength - firstDashLength - lastDashLength) / (dashLength + gapLength));
+                        // OCAD rounds the number of dashes, one more than the number of gaps, to the even number at a half.
+                        numGaps = (int)Math.Round((countingLength + dashLength - firstDashLength - lastDashLength) / (dashLength + gapLength) + 1, MidpointRounding.ToEven) - 1;
                     }
                     //if (firstDashLength == 0 && lastDashLength == 0 && pathLength < dashLength / 2) {
                     //    numGaps = 0;
@@ -1213,6 +1242,10 @@ namespace PurplePen.MapModel
             // Enforce minimum gaps.
             if (numGaps < minGaps)
                 numGaps = minGaps;
+
+            // OCAD draws a dashed line as solid when its one gap would leave end dashes of 0, which fit no dash.
+            if (spacingMethod == SpacingMethod.OCAD && kind == LocationKind.DashAndGapLengths && numGaps == 1 && firstDashLength == 0 && lastDashLength == 0)
+                numGaps = 0;
 
             // Given the number of gaps, compute the lengths of the dashes. Gaps are always at their nominal length.
             if (numGaps == 0)
@@ -1381,11 +1414,13 @@ namespace PurplePen.MapModel
                     else
                         locationList.Add(actualFirstDashLength); // no secondary gaps
 
-                    // Add middle dashes and gaps to them (with secondary gaps as appropriate)
+                    // Add middle dashes and gaps to them (with secondary gaps as appropriate). OCAD puts secondary gaps only in a
+                    // dash that is longer than half of the length of a dash.
+                    bool hasRoomForSecondaryGaps = (spacingMethod == SpacingMethod.OCAD) ? actualDashLength > dashLength / 2 : actualDashLength >= dashLength / 2;
                     for (int i = 1; i < numGaps; ++i) {
                         locationList.Add(gapLength);
 
-                        if (numMiddleSecGaps > 0 && (actualDashLength >= dashLength / 2))
+                        if (numMiddleSecGaps > 0 && hasRoomForSecondaryGaps)
                             locationList.AddRange(AddSecondaryGaps(actualDashLength, numMiddleSecGaps, lengthMiddleSecGaps));  // add with secondary gaps
                         else
                             locationList.Add(actualDashLength);
@@ -1505,12 +1540,40 @@ namespace PurplePen.MapModel
             return dashCenters.ToArray();
         }
 
-        private static void DrawDashed(IGraphicsTarget g, SymPath path, object penKey, DashInfo dashes, RenderOptions renderOpts, SymPath.DistanceMetric distanceMetric)
+        // OCAD leaves out of a dash the vertex next to its start, and the vertex next to its end, when the piece of the
+        // dash between the vertex and the end is shorter than this part of the width of the line that the dash draws.
+        const float OCAD_VERTEX_PIECE_PER_WIDTH = 0.4F;
+
+        // On a double line, OCAD first leaves the vertex out of the dash of the middle when the piece is shorter than
+        // this, in mm, whatever the widths of the double line.
+        const float OCAD_DOUBLE_LINE_VERTEX_PIECE = 0.05F;
+
+        // The length in mm below which a piece of a dash leaves out the vertex next to the end of the dash, for a line of
+        // a width that OCAD's spacing draws, or 0 for the other spacings, which keep all the vertices.
+        // dashes: the dashes of the line; width: the width of the line in mm.
+        private static float GetVertexPieceLimit(DashInfo dashes, float width)
         {
-            DrawDashedWithOffset(g, path, penKey, dashes, 0, 1, renderOpts, distanceMetric);
+            return (dashes.spacingMethod == SpacingMethod.OCAD) ? OCAD_VERTEX_PIECE_PER_WIDTH * width : 0;
         }
 
-        private static void DrawDashedWithOffset(IGraphicsTarget g, SymPath path, object penKey, DashInfo dashes, float offsetRight, float miterLimit, RenderOptions renderOpts, SymPath.DistanceMetric distanceMetric)
+        // The length in mm below which a piece of the dash of the middle of a double line leaves out the vertex next to
+        // the end of the dash, before the dash is moved aside to a border, or 0 for the spacings other than OCAD's.
+        // dashes: the dashes of the double line.
+        private static float GetDoubleLineVertexPieceLimit(DashInfo dashes)
+        {
+            return (dashes.spacingMethod == SpacingMethod.OCAD) ? OCAD_DOUBLE_LINE_VERTEX_PIECE : 0;
+        }
+
+        // Draw a dashed line along a path. pathVertexLimit and drawnVertexLimit are the lengths in mm below which a piece
+        // of a dash leaves out the vertex next to the end of the dash, on the path and on the line drawn.
+        private static void DrawDashed(IGraphicsTarget g, SymPath path, object penKey, DashInfo dashes, float pathVertexLimit, float drawnVertexLimit, RenderOptions renderOpts, SymPath.DistanceMetric distanceMetric)
+        {
+            DrawDashedWithOffset(g, path, penKey, dashes, 0, 1, pathVertexLimit, drawnVertexLimit, renderOpts, distanceMetric);
+        }
+
+        // Draw a dashed line along a path, offset to the right. pathVertexLimit applies to each dash on the path, before
+        // the offset, and drawnVertexLimit to the dash drawn, after it.
+        private static void DrawDashedWithOffset(IGraphicsTarget g, SymPath path, object penKey, DashInfo dashes, float offsetRight, float miterLimit, float pathVertexLimit, float drawnVertexLimit, RenderOptions renderOpts, SymPath.DistanceMetric distanceMetric)
         {
             float[] distances;
 
@@ -1526,7 +1589,7 @@ namespace PurplePen.MapModel
                     path.Draw(g, penKey);
             }
             else {
-                path.DrawDashedOffset(g, penKey, distances, 0, offsetRight, miterLimit, distanceMetric);
+                path.DrawDashedOffset(g, penKey, distances, 0, offsetRight, miterLimit, distanceMetric, pathVertexLimit, drawnVertexLimit);
             }
         }
 
@@ -1839,6 +1902,17 @@ namespace PurplePen.MapModel
             return false;
         }
 
+        // Does a component draw the given palette color with the full coverage?
+        internal override bool HasFullCoverage(SymColor color)
+        {
+            foreach (SymDef component in components) {
+                if (component.HasFullCoverage(color))
+                    return true;
+            }
+
+            return false;
+        }
+
         internal override RectangleF CalcBounds(SymPathWithHoles path)
         {
             RectangleF bounds = new RectangleF();
@@ -2132,6 +2206,18 @@ namespace PurplePen.MapModel
             return false;
         }
 
+        // Does this area draw the given palette color with the full coverage: does it fill the area with the color, or
+        // does its border draw it? The hatchings and the patterns of the area are periodic coverages, and pass 1 leaves
+        // them out.
+        internal override bool HasFullCoverage(SymColor color)
+        {
+            Debug.Assert(color != null);
+            if (color.IsSpecialLayer)
+                return false;
+
+            return color == fillColor || (borderSymdef != null && borderSymdef.HasColor(color));
+        }
+
         // Highlight the symbol.
         internal override void DrawHighlight(IGraphicsTarget g, SymPathWithHoles path, HighlightOptions options)
         {
@@ -2197,6 +2283,9 @@ namespace PurplePen.MapModel
         // Draw the hatching into the interior of the SymPath.
         void DrawHatchings(IGraphicsTarget g, SymPathWithHoles path, float angle, PointF rotationCenter, RenderOptions renderOpts, SymColor color)
         {
+            if (renderOpts.omitHatchingsAndPatterns)
+                return;
+
             // Precheck if any hatchings have the color before doing the expensive clip operation.
             bool hasColor = false;
             for (int i = 0; i < hatchings.Count; ++i) {
@@ -2253,6 +2342,9 @@ namespace PurplePen.MapModel
         // Draw all patterns
         void DrawPatterns(IGraphicsTarget g, SymPathWithHoles path, SymColor color, float angle, PointF rotationCenter, RenderOptions renderOpts)
         {
+            if (renderOpts.omitHatchingsAndPatterns)
+                return;
+
             for (int i = 0; i < patterns.Count; ++i) {
                 PatternInfo patternInfo = patterns[i];
                 bool ignoreRotation = (patternInfo.patternRotateMode == RotateMode.Never);
@@ -4407,6 +4499,17 @@ namespace PurplePen.MapModel
                 return false;
             else
                 return true;
+        }
+
+        // The full coverage, where the graphics object has the given palette color, or none. A graphics object has its
+        // own colors (IGraphicsSymbol.HasColor).
+        public override IReadOnlyList<CoveragePrototype> GetCoveragePrototypes(Symbol symbol, SymColor color)
+        {
+            IGraphicsSymbol graphicsSymbol = symbol as IGraphicsSymbol;
+            if (graphicsSymbol != null && !color.IsSpecialLayer && graphicsSymbol.HasColor(color))
+                return CoveragePrototype.FullCoverageOnly;
+            else
+                return CoveragePrototype.None;
         }
 
         public override void FreeGdiObjects()
