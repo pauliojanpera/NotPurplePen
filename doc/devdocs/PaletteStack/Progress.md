@@ -186,7 +186,9 @@ base. No branch is offered upstream yet.
 1. The approved tickets 023 to 026 of pass 1 are done, each on its branch rooted at `feature/palette-stack` ("The
    new tickets of pass 1"), and merged into it (3e98e556). They took the forms, the geometry methods of the point
    symbols and the tests of the old pass 1 where these fit ("The new branch of the epic").
-2. The drafts 009 to 013 follow the specification when @Pauli asks for it.
+2. The drafts 009 to 013 follow the specification when @Pauli asks for it. @Pauli asked for 011 on Nov 23: it is
+   written again as a ticket by the structure of the tickets 023 to 026, with the extension of fix 021 to the OCAD
+   metric, and waits for his approval ("Waiting on @Pauli").
 
 The plan below is the plan of the old branch, in the words of its time. Its parts 2 to 5 stay as the order of the
 later work.
@@ -241,6 +243,8 @@ the rendering.
 
 ## Waiting on @Pauli
 
+- **The approval of ticket 011** (Nov 23). [011](tickets/011-line-geometry.md), the geometry methods of the line
+  symbols, is written again from the draft and waits for his approval. It is not implemented before it.
 - **The scope of the epic** (Nov 18). [Ticket 000](tickets/000-palette-stack.md) is a draft. @Pauli confirmed that
   the flattening is outside it, and that the SVG encoding waits until pass 2 is done.
 - **The SVG encoding**, when pass 2 is done (Nov 18). Its place: an encoding read from the instances, or the SVG
