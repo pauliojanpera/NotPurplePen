@@ -32,7 +32,7 @@ clipping objects of their symbols with the geometry method of their glyph, and t
 [025](tickets/025-symbol-keys.md) is done and merged (52656ff3): each symbol of a map has a symbol key, which its
 maker gives or the map gives from its counter. Ticket [026](tickets/026-course-object-keys.md) is done and merged
 (3e98e556): each course object has a course object key, and the symbols of the course map get their keys from it. So
-the four new tickets of pass 1 are done. The drafts 009 to 013 follow the specification when @Pauli asks for it
+the four new tickets of pass 1 are done. The drafts 009, 010 and 013 follow the specification when @Pauli asks for it
 ("Next").
 
 Ticket [011](tickets/011-line-geometry.md), the geometry methods of the line symbols, is done and merged into
@@ -47,6 +47,10 @@ and merged into `feature/palette-stack` (903e6bde). `AreaLikeSymDef` and `Graphi
 the area symbols and the graphics objects with a geometry method, and pass 1 collects no area symbol and no graphics
 object with the collector. The full run of the branch passed, and so did the full run of `feature/palette-stack` with
 it. Only the texts and the rectangles still get their clipping objects from the collector (draft 013).
+
+The local Linux runs of the rendering tests get the fonts of the workflow's Windows machine ("The fonts of the local
+Linux runs", Nov 23). @Pauli's local Claude Code puts them on the branch `linux` of `pauliojanpera/windows-fonts`
+("Waiting on @Pauli"). The fontconfig file and the script of the local runs follow ("Next").
 
 The old branch of the epic, `feature/palette-layers`, keeps the pass 1 of 005, 007 and 008, and the branches of the
 drafts 011 to 013 are rooted at it. The rest of this section tells its state.
@@ -164,7 +168,9 @@ base. No branch is offered upstream yet.
   session cloned the repository with `git clone --filter=blob:none`, made a worktree for each branch, and built and
   ran `Map_Skia.Tests` with `~/.dotnet/dotnet` (10.0.404) and `TEST_SILENTRUN=True`. A `git log -S` in a partial clone
   fetches the blobs of the whole history, and takes too long. A cloud session runs the local tests in the integration
-  worktree of the branch, as "Local tests" tells, and not in the worktree of the feature branch.
+  worktree of the branch, as "Local tests" tells, and not in the worktree of the feature branch. A background command
+  ends after two hours at most, so the loop that archives the session stops after two hours, and the session starts
+  it again while @Pauli lets it archive.
 - **The checkouts.** The clone `~/Documents/Projects/NotPurplePen` stays on `docs/process-coordination`: do not change
   its branch. Each branch has a worktree in `~/Documents/Projects/npp-worktrees/`: `palette-layers`, `inks`,
   `fix-mapper-colors`, `fix-ocad-utf8`, `opacity-and-blend-mode`, `layer-instances`, `fix-matrix-equals`,
@@ -207,6 +213,17 @@ base. No branch is offered upstream yet.
   is the tree of the wip commit apart from the workflow, so the images that it collects are the images of the wip
   commit. A collecting run alone passes only when it wrote no image: no artifact `rendering-differences-<group>`
   holds a `*_actual.png`.
+- **The result of a full run.** A full run has passed when its Tests run and its Build run are complete with the
+  conclusion `success`, and the log of each group shows that its tests ran and passed. A group can end without its
+  tests, for example when it cannot fetch the build. `gh run view <run> --json jobs` gives the jobs of a run, and
+  `gh api repos/pauliojanpera/NotPurplePen/actions/jobs/<job>/logs` the log of a job, also while other jobs of the run
+  still go on; the lines `Passed!` and `Failed!` give the counts of each test project. A full run takes about ten
+  minutes (Nov 23). A session states a result only after it has read it.
+- **The choices of a ticket of geometry methods.** Before ticket 012 went to @Pauli again, the session checked its
+  choices against the code and the imports, and made the clipping objects by the choices in a test that it did not
+  commit. The test compared them with the collector on the maps of the comparison and counted the cases that the maps
+  have and do not have. It found that the Mapper import makes nested combined areas and that no map has an area
+  border that is a double line, so the structure tests construct them ("The approval of ticket 012").
 - **Text baselines.** The `CreateOcadFiles` tests of `ControllerTests` compare an `OcadDump` of each course file that
   they write with an expected dump in `src/TestFiles/controller/ocad_create*`. A collecting run does not collect them,
   and `src/Testing/LinuxTestRun` does not run them. A change of the OCAD export that moves them is found by a full run.
@@ -231,7 +248,22 @@ base. No branch is offered upstream yet.
    full run of `feature/palette-stack` with it passed (`wip/linux/palette-stack` at 479c28a1: Tests 45182329069,
    Build 45182328893).
 4. The draft 013 is written as a ticket next, and the drafts 009 and 010 after it ("The order of the drafts", the
-   session's choice). A draft is implemented when @Pauli has approved it as a ticket.
+   session's choice). A draft is implemented when @Pauli has approved it as a ticket. Ticket 012 shows the form: the
+   interface of ticket 024, the terms of the glossary, the code names where the glossary has no term, and the old work
+   of `feature/text-geometry` where it fits.
+5. The fonts of the local Linux runs, when the branch `linux` of `pauliojanpera/windows-fonts` exists ("The fonts of the
+   local Linux runs"):
+   1. Check `system/fonts.json` of the branch against `.github/ci/environment.json` of `base`: which files have the
+      hash of the Windows machine, and which have another version.
+   2. A script in `tools/` fetches the branch and writes a fontconfig file that offers only its fonts: the 14 fonts
+      of `main` at its root and the fonts of `system/`, without the fonts of the machine and without the aliases of
+      fontconfig. The local runs set `FONTCONFIG_FILE` to it, as the SVG tests do with their sentinel font.
+   3. Measure in an integration worktree how many of the 64 image comparisons that fail on Linux match their baselines
+      with these fonts. The ones that still differ show the rasterizer: `EnhancedTypeface.DrawText` draws text blobs,
+      which DirectWrite rasterizes on Windows and FreeType on Linux (`DRAW_TEXT_AS_PATHS` is not defined).
+   4. The local run then compares the Linux renderings of a change with the Linux renderings without it, on the same
+      machine and fonts: `TEST_COLLECT_DIFFERENCES` writes each rendering that differs from its baseline, and
+      `tools/compare-images.py` compares them. `tools/README.md` and "Local tests" tell it.
 
 The plan below is the plan of the old branch, in the words of its time. Its parts 2 to 5 stay as the order of the
 later work.
@@ -292,6 +324,15 @@ the rendering.
   target of NotPurplePen fitted to them in the integration. And whether the work can use the documented findings or
   the code of `feature/svg-target`. The notes of the epic give the reasons.
 - **Offering upstream.** No branch is offered upstream yet.
+- **The fonts of the branch `linux` of `windows-fonts`** (Nov 23). @Pauli's local Claude Code puts them there, with
+  the prompt that the session of Nov 23 wrote: the 65 fonts of `.github/ci/environment.json` and the four fonts that
+  `IsTextFaceInstalled` asks for (Leelawadee UI in three faces and Bahnschrift), from `~/.local/share/fonts`, in
+  `system/` with `system/fonts.json`, on a branch from `main`. Each file is the one whose hash is the hash of the
+  Windows machine, where one is. `main` does not change.
+- **The letter case of the test files** (Nov 23). Seven tests of `Map_Skia.Tests` ask for a file in another letter case
+  than the file has ("Local tests"). `TestUtil.GetTestFile` could find the file whatever its letter case when the exact
+  path does not exist. On Windows the path always exists, so the Windows CI would not change. The change goes to
+  `base`, so it is @Pauli's decision.
 
 ## Decisions
 
@@ -694,6 +735,15 @@ the rendering.
   two course objects of one key give their symbols different keys, and the course map is made without a usage error.
   A period is in a write, and periods do not nest. A course object without a key, which only other code than the
   formatters can make, gives its symbols keys from the counter.
+- **The local tests in the integration worktree** (Nov 23). @Pauli: the local tests run as the tickets tell, in the
+  integration worktree of the branch on `base` (`tools/int-worktree.sh`), where the test tools of `base` are ("Local
+  tests").
+- **The fonts of the local Linux runs** (Nov 23). @Pauli asked for a parallel solution for Linux that does not disturb
+  the Windows CI. The fonts of `main` of `windows-fonts` are licensed too, so the licence is no obstacle (@Pauli). The
+  solution, which @Pauli let the session make: the fonts of the Windows machine on the branch `linux` of
+  `windows-fonts`, as `main` stays as the Windows workflow checks it; a fontconfig file that offers only these fonts
+  to the local runs; and local comparisons of the Linux renderings with and without a change, in place of the Windows
+  baselines, as the platform rasterizes the text ("Next").
 - **The approval of ticket 012** (Nov 23). @Pauli approved [012](tickets/012-area-geometry.md), the geometry
   methods of the area symbols and the graphics objects, with the choices of the session under "Ratkaisut":
   - `AreaLikeSymDef` and `GraphicsSymDef` override `SymDef.MakeClippingObjects`. `AreaLikeSymDef` gives the path with
