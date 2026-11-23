@@ -45,8 +45,7 @@ saavat leikkausobjektinsa edelleen kerääjältä. Viivoitukset ja aluekuviot ei
 
 **Lisätiedot**
 - **Päätökset:**
-  - @Pauli ei ole vielä hyväksynyt tätä tikettiä. Istunto kirjoitti luonnoksen tiketiksi 23.11. @Paulin pyynnöstä,
-    ja se toteutetaan vasta hyväksynnän jälkeen (@Pauli, 23.11.).
+  - @Pauli hyväksyi tämän tiketin 23.11., myös sen istunnon valinnat (ks. "Ratkaisut").
   - Geometriametodit tehdään neljänä osana symbolilajeittain, ja tämä on alueiden, yhdistelmien ja grafiikkaobjektien
     osa, erotettu tiketistä 008 (@Pauli, 18.11.). Tiketit 023–026 korvaavat tiketit 005, 007 ja 008 (@Pauli, 23.11.),
     joten tämä tiketti käyttää tiketin 024 rajapintaa ja oraakkelia.
@@ -90,7 +89,7 @@ saavat leikkausobjektinsa edelleen kerääjältä. Viivoitukset ja aluekuviot ei
   - Ei sovi: rakentaja (`LayerInstanceBuilder`) ja `TryAddClippingObjects`, koska geometriametodi antaa yhden
     palettivärin leikkausobjektit, sekä vanha viivojen geometriametodi (`LineLikeSymDef.AddClippingObjects`), koska
     tiketin 011 metodi korvaa sen.
-- **Ratkaisut** (istunnon ehdotukset, @Paulin hyväksyttävinä tiketin kanssa):
+- **Ratkaisut** (istunnon valinnat, @Pauli hyväksyi ne tiketin kanssa 23.11.):
   - `AreaSymDef`, `AreaComboSymDef` ja `GraphicsSymDef` korvaavat metodin `SymDef.MakeClippingObjects`. Sisäinen
     `AreaLikeSymDef.MakeClippingObjects(SymPathWithHoles, SymColor)` antaa alueen leikkausobjektit polulle reikineen,
     jotta yhdistelmäalue voi koota alueosiensa leikkausobjektit samalla polulla.

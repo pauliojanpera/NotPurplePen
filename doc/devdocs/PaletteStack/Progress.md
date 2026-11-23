@@ -212,9 +212,9 @@ base. No branch is offered upstream yet.
       stays the record of the old branch.
    4. The merge into `feature/palette-stack`, and its full run, with `--base-baselines prs/000-palette-stack-base`.
 3. Ticket [012](tickets/012-area-geometry.md), the geometry methods of the areas, the combined areas and the graphics
-   objects, is written as a ticket by the specification and the interface of ticket 024 (Nov 23), and waits on
-   @Pauli's approval ("Waiting on @Pauli"). It is not implemented before that. The draft 013 comes next, and the
-   drafts 009 and 010 after it ("The order of the drafts", the session's choice).
+   objects, is approved (Nov 23, "The approval of ticket 012"). Its branch `feature/area-symbol-geometry` is rooted at
+   `feature/palette-stack` after the merge of ticket 011. The draft 013 comes next, and the drafts 009 and 010 after
+   it ("The order of the drafts", the session's choice).
 
 The plan below is the plan of the old branch, in the words of its time. Its parts 2 to 5 stay as the order of the
 later work.
@@ -269,9 +269,6 @@ the rendering.
 
 ## Waiting on @Pauli
 
-- **The approval of ticket 012** (Nov 23). The session wrote the draft 012 as a ticket. Its branch is
-  `feature/area-symbol-geometry`, rooted at `feature/palette-stack` after the merge of ticket 011. The proposals of the
-  session are under "Ratkaisut" of the ticket.
 - **The scope of the epic** (Nov 18). [Ticket 000](tickets/000-palette-stack.md) is a draft. @Pauli confirmed that
   the flattening is outside it, and that the SVG encoding waits until pass 2 is done.
 - **The SVG encoding**, when pass 2 is done (Nov 18). Its place: an encoding read from the instances, or the SVG
@@ -680,6 +677,14 @@ the rendering.
   two course objects of one key give their symbols different keys, and the course map is made without a usage error.
   A period is in a write, and periods do not nest. A course object without a key, which only other code than the
   formatters can make, gives its symbols keys from the counter.
+- **The approval of ticket 012** (Nov 23). @Pauli approved [012](tickets/012-area-geometry.md), the geometry
+  methods of the areas, the combined areas and the graphics objects, with the choices of the session under
+  "Ratkaisut": the internal `AreaLikeSymDef.MakeClippingObjects(SymPathWithHoles, SymColor)`, an internal abstract
+  `LineLikeSymDef.MakeClippingObjects(SymPath, SymColor)` that `LineComboSymDef` implements, the border as the
+  clipping objects of the border symbol on the main path and on each hole, and the pen of a graphics line as a
+  `Stroke` with its width, caps, join and `GraphicsUtil.MITER_LIMIT`. The branch is `feature/area-symbol-geometry`,
+  rooted at `feature/palette-stack` after the merge of ticket 011. The old branch `feature/area-geometry` stays as it
+  is.
 - **The approval of ticket 011** (Nov 23). @Pauli approved [011](tickets/011-line-geometry.md), the geometry
   methods of the line symbols, with the choices of the session in it and the extension of fix 021 to the OCAD metric
   as a part of its work. The extension is made on `fix/ocad-dashes-on-curves`, as ticket 021 decides, and the branch

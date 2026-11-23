@@ -54,7 +54,7 @@ Kun koodaus tarvitsee tiedon, malli säilyttää sen, ja koodaus lukee sen malli
 * [009](009-pattern-instances.md) LUONNOS: viivoitukset ja aluekuviot toistuvana geometriana.
 * [010](010-palette-composition.md) LUONNOS: vaihe 2, koostaminen palettimerkinnöittäin.
 * [011](011-line-geometry.md) Viivasymbolien geometriametodit ja korjauksen 021 laajennus OCADin metriikkaan, erotettu tiketistä 008. @Pauli hyväksyi sen 23.11.: haara `feature/line-symbol-geometry`, kesken. Se juurtuu haaraan `feature/palette-stack` korjauksen 021 laajennuksen yhdistämisen jälkeen (1265d519).
-* [012](012-area-geometry.md) LUONNOS: alueiden, yhdistelmien ja grafiikkaobjektien geometriametodit, erotettu tiketistä 008.
+* [012](012-area-geometry.md) Alueiden, yhdistelmäalueiden ja grafiikkaobjektien geometriametodit, erotettu tiketistä 008. @Pauli hyväksyi sen 23.11.: haara `feature/area-symbol-geometry`, ei aloitettu. Se juurtuu haaraan `feature/palette-stack` tiketin 011 yhdistämisen jälkeen.
 * [013](013-text-geometry.md) LUONNOS: tekstien ja suorakulmioiden geometriametodit, erotettu tiketistä 008.
 * [014](014-basic-tests-private-fonts.md) BasicTestsin fonttitestit poistavat renderöintitestien yksityiset fontit, löytyi tiketin 008 täydestä ajosta: haara `fix/basic-tests-private-fonts`, ei yhdistetty, koska mikään osa ei tarvitse sitä.
 * [015](015-thick-glyph-circles.md) OCAD-ympyrä, jonka viiva on vähintään halkaisijan levyinen, ei piirry kuten OCADissa, löytyi tiketin 008 työstä: haara `fix/thick-glyph-circles`, yhdistetty haaraan `feature/palette-stack`.
