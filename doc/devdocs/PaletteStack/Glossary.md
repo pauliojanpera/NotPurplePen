@@ -119,8 +119,7 @@ The section "Words that are not names" lists the words that are not used as name
   its origin-bound form, before M places it. On the map side, G is a part of a `SymDef`: the full coverage, one hatching
   (an index in `AreaSymDef.hatchings`) or one pattern (an index in `AreaSymDef.patterns`). In an `AreaComboSymDef`, the
   component definition is part of G. Upstream has no class for G. The shared shapes of a glyph are not coverage
-  prototypes (*jaetut muodot*). The coverage prototype of a hatching is `HatchingPrototype`, and that of an area
-  pattern in a palette color is `AreaPatternPrototype` (proposed names).
+  prototypes (*jaetut muodot*).
 - **jaksollinen peitto G** · *periodic coverage G* — A binary, spatially repetitive, origin-bound selector: for each
   point of the plane, G tells if the point is in the coverage. In mathematics, G is the indicator function of a set of
   the plane that the translations of a lattice do not change. The hatchings and the area patterns are periodic
@@ -383,14 +382,6 @@ The section "Words that are not names" lists the words that are not used as name
   by multiples of the spacing. All the maps are symmetries of the full coverage. A normal form decides the sameness: the
   translation of M is reduced into a fundamental domain of the translations that are symmetries of G, and it is rounded
   to a fixed precision. The configurations with the same normal form are the same, and the relation is an equivalence.
-- **normaalimuoto, perusalue** · *normal form, fundamental domain* — The normal form of a configuration decides if
-  two configurations are the same. In it, the linear part of M is rounded, and the translation of M is reduced into a
-  fundamental domain of the translations that are symmetries of G, and rounded. A fundamental domain of a group of
-  translations is a set of the plane that holds one point of each orbit of the group: one cell of the lattice of an
-  area pattern, and a band across the lines of a hatching that is as wide as the spacing. All the maps are symmetries
-  of the full coverage, so its normal form is the identity. The only translation symmetry of an irregular pattern is
-  the zero translation, so its translation is only rounded. Rounding can put two same configurations into two palette
-  cutters, but it does not change the coverage.
 - **`LayerInstance.Transformation`** (work) · affiininen muunnos M · *affine transformation M* — An invertible 2D affine
   transformation of G.
 - **peitto, unioni** · *coverage, union* — A binary coverage is a set of points of the plane. In mathematics, it is the
