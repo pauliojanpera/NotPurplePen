@@ -153,6 +153,10 @@ These are @Pauli's decisions of Nov 20 and Nov 21. Glossary.md gives their terms
   keskipiste* · *center point of a text*, `RectangleSymDef`, `RectangleSymbol` · *suorakulmion symbolimäärittely*,
   *suorakulmiosymboli* · *rectangle symbol definition*, *rectangle symbol*, and *ruudukko*, *ruudukon viivat*,
   *ruudukon tekstit* · *grid*, *grid lines*, *grid texts*.
+- The terms of the normal form, which the session chose by the rule of Nov 23 for ticket 009: *normaalimuoto*,
+  *perusalue* · *normal form*, *fundamental domain*. The code names of the coverage prototypes of the hatchings and
+  the area patterns, `HatchingPrototype` and `AreaPatternPrototype`, are proposed names until @Pauli approves the
+  ticket.
 
 The five terms that the session chose by their use in commit 06f4c824d are all decided on Nov 21.
 

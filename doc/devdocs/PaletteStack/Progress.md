@@ -56,6 +56,10 @@ the oracle of the tests until ticket 009. The innermost step of the placement of
 the Y axis with which the drawing lays out a text is a part of the text run. The full run of the branch passed, and
 so did the full run of `feature/palette-stack` with it.
 
+The draft [009](tickets/009-pattern-instances.md) is written as a ticket of the hatchings and the area patterns as
+coverage prototypes (Nov 23). The session has not yet counted the cases that the maps of the comparison have, as the
+disk of @Pauli's machine was full and a count needs a build. It presents the ticket to @Pauli after the count.
+
 The local Linux runs of the rendering tests get the fonts of the workflow's Windows machine from the branch `linux` of
 `pauliojanpera/windows-fonts` ("The fonts of the local Linux runs", Nov 23). The texts still render differently from
 the baselines, as FreeType rasterizes them on Linux and DirectWrite on Windows. So a local run compares the renderings
@@ -293,9 +297,9 @@ base. No branch is offered upstream yet.
    merged into `feature/palette-stack` (86df0a59). Its description is `prs/013-text-symbol-geometry.md`, and the old
    description `prs/013-text-geometry.md` stays the record of the old branch. The full run of `feature/palette-stack`
    with it passed (`wip/linux/palette-stack` at c584d619: Tests 45216549532, Build 45216549723). The draft 009 is
-   written as a ticket next, and then the draft 010 ("The order of the drafts", the session's choice), in the form of
-   ticket 012: the interface of ticket 024, the terms of the glossary, the code names where the glossary has no term,
-   and the old work where it fits.
+   written as a ticket in the form of ticket 012: the interface of ticket 024, the terms of the glossary, the code
+   names where the glossary has no term, and the old work where it fits. It waits for the count of its cases and for
+   @Pauli's approval. The draft 010 comes after it ("The order of the drafts", the session's choice).
 5. The fonts of the local Linux runs are done ("The fonts of the local Linux runs", "Local tests"):
    1. `system/fonts.json` of the branch `linux` agrees with its files and with `.github/ci/environment.json` of
       `base`: of the 65 fonts of `environment.json`, 29 files have the hash of the Windows machine, and 36 are older
@@ -806,6 +810,9 @@ the rendering.
   gives the corners of a rectangle to the collector and to the framing rectangle. The collector keeps the steps of the
   drawing, so its text runs keep the corners of the drawing, and only the comparison moves the mirror. The comparison
   holds 0 and -0 the same, as the mirror changes the sign of a zero.
+- **The terms of ticket 009** (Nov 23). By the rule "The names of the concepts without a name", the session added to
+  [Glossary.md](Glossary.md) the terms of the normal form and the fundamental domain, which ticket 009 uses, and the
+  proposed names of its coverage prototypes ([GlossaryHandover.md](GlossaryHandover.md), "Decided").
 - **The choices of the session in the local Linux runs** (Nov 23). By the rule "The session resolves matters", the
   session chose these. The fontconfig file of `tools/windows-fonts.sh` gives Segoe UI as the family of each pattern.
   Without a family, Skia on Linux gives no typeface for a family that is not installed, and 15 tests stopped on a null
