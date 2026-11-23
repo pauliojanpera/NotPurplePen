@@ -667,6 +667,38 @@ namespace Map_Skia.Tests
                 Assert.AreNotEqual(repeated[0].Step, repeated[i].Step, "the step of quarter {0}", i);
         }
 
+        // With the OCAD metric, the evenly spaced glyphs repeat by straight segment, as the runs of dashes do: on a line
+        // of a segment along the x axis and a segment at 30 degrees, between corner points at its ends only, the step of
+        // the repeated placement of the second segment is the step of the first divided by the OCAD metric of a
+        // euclidean length of 1 at 30 degrees, cos 30° + sin 30° / 2, and its poses turn by 30 degrees.
+        [Test]
+        public void SpacedGlyphsOfTheOcadMetricRepeatForEachStraightSegment()
+        {
+            Map map = CreateMap();
+            using (map.Write()) {
+                map.UseEuclideanMetric = false;
+                SymColor black = map.AddColor("Black", 1, 0, 0, 0, 1, false);
+                SymColor brown = map.AddColor("Brown", 2, 0, 0.56F, 1, 0.18F, false);
+                LineSymDef spaced = new LineSymDef("Spaced", "1", black, 0.1F, LineJoinMode.Miter, LineCapMode.Flat);
+                spaced.SetGlyphs(new LineSymDef.GlyphInfo[] {
+                    new LineSymDef.GlyphInfo() { glyph = CreateTick(brown), location = LineSymDef.GlyphLocation.Spaced, distance = 0.5F, firstDistance = 0.25F, lastDistance = 0.25F, number = 1 } });
+                AddLineSymDef(map, spaced);
+                double angle = Math.PI / 6;
+                AddLine(map, spaced, new SymPath(new PointF[] { new PointF(0, 0), new PointF(16.2F, 0), new PointF(16.2F + (float)(16 * Math.Cos(angle)), (float)(16 * Math.Sin(angle))) }));
+            }
+
+            AssertSameStructureAsTheCollector(map);
+            List<RepeatedPlacement> repeated = GetClippingObjectsBySeparation(map)[1].Select(glyph => glyph.Placement).OfType<RepeatedPlacement>().ToList();
+            TestContext.WriteLine(string.Join(", ", repeated.Select(placement => placement.Count + " by " + placement.Step)));
+            Assert.AreEqual(2, repeated.Count, "repeated placements");
+            double factor = Math.Cos(Math.PI / 6) + Math.Sin(Math.PI / 6) / 2;
+            Assert.AreEqual(repeated[0].Step / factor, repeated[1].Step, Tolerance, "the step of the second segment");
+            foreach (Pose pose in repeated[0].Poses)
+                Assert.AreEqual(0, pose.Angle, Tolerance, "the angle on the first segment");
+            foreach (Pose pose in repeated[1].Poses)
+                Assert.AreEqual(30, pose.Angle, Tolerance, "the angle on the second segment");
+        }
+
         // A combined line (LineComboSymDef, of a Mapper map) has the clipping objects of its components, in the order of
         // the components, as its drawing draws them: in brown the wide line of the first component, and then the
         // glyphs of the second component at the centers of its gaps; in black the dashes of the second component.
