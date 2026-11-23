@@ -2204,6 +2204,27 @@ namespace PurplePen.MapModel
             }
         }
 
+        // The clipping objects of the hatch lines that DrawHatchLines draws with the same spacing, offset and rectangle:
+        // each line a stroked line of a pen, at a placement, in the order of the drawing.
+        // stroke: the pen of the lines.
+        // spacing: the spacing of the lines.
+        // offset: the offset of the lines from the line y = 0.
+        // boundingRect: the rectangle over which the lines go.
+        // placement: the placement of the lines.
+        public static IReadOnlyList<ClippingObject> MakeHatchLines(Stroke stroke, float spacing, float offset, RectangleF boundingRect, Placement placement)
+        {
+            List<ClippingObject> lines = new List<ClippingObject>();
+            double firstLine = Math.Round((boundingRect.Top - offset) / spacing) * spacing + offset;
+            double lastLine = (Math.Round((boundingRect.Bottom - offset) / spacing) + 0.5) * spacing + offset;
+
+            for (double y = firstLine; y <= lastLine; y += spacing) {
+                PointF[] points = { new PointF(boundingRect.Left, (float)y), new PointF(boundingRect.Right, (float)y) };
+                lines.Add(new StrokedShape(PathShape.FromPoints(points, false), stroke, placement));
+            }
+
+            return lines.AsReadOnly();
+        }
+
         // Find where in the text is closest to a point.
         // Note: currently this implementation is very very inefficient. It could be made much more
         // efficient, but it is unclear if it needs to be.

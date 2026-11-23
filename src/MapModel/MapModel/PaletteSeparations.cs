@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading;
 
 namespace PurplePen.MapModel
@@ -30,6 +30,7 @@ namespace PurplePen.MapModel
         private readonly Symbol symbol;
         private readonly SymColor color;
         private readonly CoveragePrototype prototype;
+        private readonly Matrix transformation;  // The transformation M of the configuration.
         private IReadOnlyList<ClippingObject> clippingObjects;     // The clipping objects, after the first read made them.
 
         // Make a palette color coverage of a symbol.
@@ -45,6 +46,7 @@ namespace PurplePen.MapModel
             this.symbol = symbol;
             this.color = color;
             this.prototype = prototype;
+            this.transformation = prototype.GetTransformation(symbol);
         }
 
         // The symbol.
@@ -65,9 +67,19 @@ namespace PurplePen.MapModel
             get { return prototype; }
         }
 
+        // A copy of the transformation M of the configuration, from the coordinates of the coverage prototype to those of
+        // the map. M of the full coverage is the identity. M of a hatching or an area pattern comes from the angle and the
+        // rotation center of the area symbol and from the angle and the offset of the hatching or the area pattern
+        // (CoveragePrototype.GetTransformation).
+        public Matrix Transformation
+        {
+            get { return transformation.Clone(); }
+        }
+
         // The clipping objects, in the order in which the drawing code of the symbol draws their shapes. They are a
         // derived value of the coverage, which the first read makes. The symbol definition makes them with its geometry
-        // method (SymDef.MakeClippingObjects). A coverage can have no clipping objects.
+        // method (SymDef.MakeClippingObjects). A coverage can have no clipping objects. The clipping object of a
+        // hatching or a clipped area pattern is the area that it fills.
         public IReadOnlyList<ClippingObject> ClippingObjects
         {
             get
@@ -82,6 +94,23 @@ namespace PurplePen.MapModel
 
                 return made;
             }
+        }
+
+        // The expansion of the coverage prototype of a hatching or a clipped area pattern over the bounds of the area:
+        // the hatch lines or the elements of the area pattern in the palette color, as single clipping objects at the
+        // places and with the steps of the drawing, in the order of the drawing. The coverage of the palette color coverage
+        // is the expansion inside its clipping objects. The expansion of an irregular area pattern is the placements of
+        // its elements. It is a channel conversion, which each call makes again: the map does not keep it.
+        public IReadOnlyList<ClippingObject> ExpandPrototype()
+        {
+            map.CheckDerivedValue(madeAt);
+            return prototype.Expand(symbol);
+        }
+
+        // The transformation M of the configuration, which is not copied.
+        internal Matrix TransformationOfConfiguration
+        {
+            get { return transformation; }
         }
 
         public override string ToString()
@@ -147,17 +176,75 @@ namespace PurplePen.MapModel
             }
         }
 
-        // Make the palette cutters: one for each configuration of the palette color coverages. A configuration is the
-        // palette color, the coverage prototype G and the transformation M. All the affine maps are symmetries of the
-        // full coverage, so the palette color coverages with the full coverage have one configuration, whose M is the
-        // identity. Pass 1 makes no other coverage prototype (SymDef.GetCoveragePrototypes).
+        // Make the palette cutters: one for each configuration of the palette color coverages, in the order of their first
+        // palette color coverages. A configuration is the palette color, the coverage prototype G and the transformation
+        // M. Two configurations are the same when they have the same coverage prototype and the same normal form of M
+        // (CoveragePrototype.GetNormalForm), and the palette cutter of a configuration has that normal form. All the
+        // affine maps are symmetries of the full coverage, so the palette color coverages with the full coverage have one
+        // configuration, whose M is the identity.
         private IReadOnlyList<PaletteCutter> MakeCutters()
         {
             if (symbolCoverages.Count == 0)
                 return Array.Empty<PaletteCutter>();
 
-            Debug.Assert(symbolCoverages.All(coverage => coverage.Prototype == CoveragePrototype.FullCoverage), "Pass 1 makes the full coverage only.");
-            return Array.AsReadOnly(new PaletteCutter[] { new PaletteCutter(map, madeAt, CoveragePrototype.FullCoverage, new Matrix(), symbolCoverages) });
+            Dictionary<Configuration, List<SymbolCoverage>> coveragesOfConfigurations = new Dictionary<Configuration, List<SymbolCoverage>>();
+            List<(Configuration configuration, Matrix normalForm)> configurations = new List<(Configuration, Matrix)>();
+            foreach (SymbolCoverage coverage in symbolCoverages) {
+                Matrix normalForm = coverage.Prototype.GetNormalForm(coverage.TransformationOfConfiguration);
+                Configuration configuration = new Configuration(coverage.Prototype, normalForm.Elements);
+                List<SymbolCoverage> coverages;
+                if (!coveragesOfConfigurations.TryGetValue(configuration, out coverages)) {
+                    coverages = new List<SymbolCoverage>();
+                    coveragesOfConfigurations.Add(configuration, coverages);
+                    configurations.Add((configuration, normalForm));
+                }
+                coverages.Add(coverage);
+            }
+
+            PaletteCutter[] cutters = new PaletteCutter[configurations.Count];
+            for (int i = 0; i < cutters.Length; ++i) {
+                (Configuration configuration, Matrix normalForm) = configurations[i];
+                cutters[i] = new PaletteCutter(map, madeAt, configuration.Prototype, normalForm, coveragesOfConfigurations[configuration].AsReadOnly());
+            }
+
+            return Array.AsReadOnly(cutters);
+        }
+
+        // A configuration in a palette separation: the coverage prototype, and the elements of the normal form of M.
+        private readonly struct Configuration : IEquatable<Configuration>
+        {
+            public readonly CoveragePrototype Prototype;
+            private readonly float m11, m12, m21, m22, dx, dy;
+
+            // Make a configuration.
+            // prototype: the coverage prototype.
+            // normalForm: the elements of the normal form of M, as Matrix.Elements gives them.
+            public Configuration(CoveragePrototype prototype, float[] normalForm)
+            {
+                Prototype = prototype;
+                m11 = normalForm[0];
+                m12 = normalForm[1];
+                m21 = normalForm[2];
+                m22 = normalForm[3];
+                dx = normalForm[4];
+                dy = normalForm[5];
+            }
+
+            public bool Equals(Configuration other)
+            {
+                return Prototype == other.Prototype && m11 == other.m11 && m12 == other.m12 && m21 == other.m21 && m22 == other.m22 &&
+                       dx == other.dx && dy == other.dy;
+            }
+
+            public override bool Equals(object obj)
+            {
+                return obj is Configuration other && Equals(other);
+            }
+
+            public override int GetHashCode()
+            {
+                return HashCode.Combine(RuntimeHelpers.GetHashCode(Prototype), m11, m12, m21, m22, dx, dy);
+            }
         }
 
         public override string ToString()
@@ -181,7 +268,8 @@ namespace PurplePen.MapModel
         // map: the map that makes the cutter.
         // madeAt: the change count of the map.
         // prototype: the coverage prototype G of the configuration.
-        // transformation: the transformation M of the configuration, in its normal form. It is not copied.
+        // transformation: the transformation M of the configuration, in its normal form (CoveragePrototype.GetNormalForm).
+        //   It is not copied.
         // symbolCoverages: the palette color coverages of the symbols with the configuration.
         internal PaletteCutter(Map map, long madeAt, CoveragePrototype prototype, Matrix transformation, IReadOnlyList<SymbolCoverage> symbolCoverages)
         {
@@ -198,7 +286,10 @@ namespace PurplePen.MapModel
             get { return prototype; }
         }
 
-        // A copy of the transformation M, from the coordinates of the coverage prototype to those of the map.
+        // A copy of the transformation M, from the coordinates of the coverage prototype to those of the map, in its
+        // normal form: its translation is in a fundamental domain of the translation symmetries of the coverage
+        // prototype, and it is rounded to a fixed precision (CoveragePrototype.GetNormalForm). The transformations of the
+        // palette color coverages of the palette cutter have this normal form.
         public Matrix Transformation
         {
             get { return transformation.Clone(); }

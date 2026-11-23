@@ -270,6 +270,59 @@ namespace PurplePen.MapModel
                 return new FilledShape(new EllipseShape(center, radius, radius), AreaFillMode.Winding, Placement.Identity);
             }
 
+            // Does the filter of a fill mode select this part, as Draw asks it: with the points and the center of the part,
+            // in the coordinates of the glyph? Draw asks the filter only for a part that covers something, and so does
+            // this method: a part that covers nothing is not selected.
+            // filter: the filter.
+            public bool IsSelectedBy(GlyphPartFilter filter)
+            {
+                switch (kind) {
+                    case GlyphPartKind.Line:
+                        return lineWidth > 0 && !path.IsZeroLength && filter(path.Points, path.AreaCentroid());
+
+                    case GlyphPartKind.Area:
+                        return filter(areaPath.MainPath.Points, areaPath.MainPath.AreaCentroid());
+
+                    case GlyphPartKind.Circle:
+                        return lineWidth > 0 && circleDiam > 0 && filter(CircleBorderPoints(), point);
+
+                    case GlyphPartKind.FilledCircle:
+                        return circleDiam > 0 && filter(CircleBorderPoints(), point);
+                }
+
+                return false;
+            }
+
+            // Does the part cover a point of the coordinates of the glyph, as Draw covers it without gaps: the stroke
+            // shape of a line, with its caps and joins and the miter limit GraphicsUtil.MITER_LIMIT, the inside of an
+            // area by the alternate fill rule, the ring of a circle between the radii circleDiam / 2 - lineWidth and
+            // circleDiam / 2, and the inside of a filled circle. A circle whose line is at least as wide as its diameter
+            // is filled.
+            // pointTest: the point.
+            public bool Covers(PointF pointTest)
+            {
+                switch (kind) {
+                    case GlyphPartKind.Line:
+                        return lineWidth > 0 && !path.IsZeroLength &&
+                               GraphicsUtil.StrokeShapeCovers(path.FlattenedPoints, path.IsClosedCurve, lineWidth, lineCap, lineJoin, GraphicsUtil.MITER_LIMIT, pointTest);
+
+                    case GlyphPartKind.Area:
+                        return areaPath.IsInside(pointTest);
+
+                    case GlyphPartKind.Circle:
+                        if (lineWidth > 0 && circleDiam > 0) {
+                            double distance = Geometry.Distance(pointTest, point);
+                            return distance <= circleDiam / 2 && (circleDiam <= lineWidth || distance >= circleDiam / 2 - lineWidth);
+                        }
+                        return false;
+
+                    case GlyphPartKind.FilledCircle:
+                        return circleDiam > 0 && Geometry.Distance(pointTest, point) <= circleDiam / 2;
+                }
+
+                return false;
+            }
+
             // Get 8 points on the border of the circle, used for filtering.
             private PointF[] CircleBorderPoints()
             {
@@ -662,6 +715,81 @@ namespace PurplePen.MapModel
             }
 
             return clippingObjects.AsReadOnly();
+        }
+
+        // The clipping objects of the parts of the glyph in a palette color that the filter of a fill mode selects, as an
+        // area pattern draws its element with the filter (Draw): the glyph turned about its origin by the angle and its
+        // origin moved to the location, within an outer placement. The filter gets the points and the center of each part
+        // in the coordinates of the outer placement, and selects each part by them (GlyphPart.IsSelectedBy). A selected
+        // part is the shared shape of the part, at a placement whose innermost step is the pose of the glyph, also for a
+        // glyph of one circle at its origin, as Draw draws a glyph with a filter with its parts placed.
+        // location: the location of the origin of the glyph.
+        // angle: the angle, in degrees.
+        // color: the palette color.
+        // outer: the placement within which the glyph is placed.
+        // filter: the filter of the fill mode.
+        internal IReadOnlyList<ClippingObject> MakeClippingObjectsOfSelectedParts(PointF location, float angle, SymColor color, SinglePlacement outer, GlyphPartFilter filter)
+        {
+            CheckConstructed();
+
+            List<ClippingObject> clippingObjects = new List<ClippingObject>();
+            ClippingObject[] partClippingObjects = GetSharedClippingObjects();
+            Matrix pose = null;
+            GlyphPartFilter filterWithTransform = null;
+            SinglePlacement placement = null;
+            for (int i = 0; i < parts.Length; ++i) {
+                if (parts[i].color != color)
+                    continue;
+
+                if (pose == null) {
+                    pose = new Matrix();
+                    pose.Translate(location.X, location.Y);
+                    pose.RotateAt(angle, new PointF(0, 0));
+                    Matrix matrix = pose;
+                    filterWithTransform = (PointF[] points, PointF center) => filter(Geometry.TransformPoints(points, matrix), Geometry.TransformPoint(center, matrix));
+                }
+
+                if (parts[i].IsSelectedBy(filterWithTransform)) {
+                    if (placement == null)
+                        placement = outer.Within(pose);
+                    clippingObjects.Add(partClippingObjects[i].WithPlacement(placement));
+                }
+            }
+
+            return clippingObjects.AsReadOnly();
+        }
+
+        // Do the parts of the glyph in a palette color cover a point of the coordinates of the glyph
+        // (GlyphPart.Covers)?
+        // point: the point.
+        // color: the palette color.
+        internal bool Covers(PointF point, SymColor color)
+        {
+            CheckConstructed();
+
+            foreach (GlyphPart part in parts) {
+                if (part.color == color && part.Covers(point))
+                    return true;
+            }
+
+            return false;
+        }
+
+        // The palette colors of the parts of the glyph, each once, in the order of the parts.
+        internal IReadOnlyList<SymColor> Colors
+        {
+            get
+            {
+                CheckConstructed();
+
+                List<SymColor> colors = new List<SymColor>();
+                foreach (GlyphPart part in parts) {
+                    if (!colors.Contains(part.color))
+                        colors.Add(part.color);
+                }
+
+                return colors.AsReadOnly();
+            }
         }
 
         // Is the glyph one circle at its origin, which Draw draws at a location without a transformation (DrawSimple)
