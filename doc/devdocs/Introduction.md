@@ -76,8 +76,7 @@ the WinForms project with its TranslateTool. [Translations/README.md](Translatio
 These are @Pauli's rules. The handover, under "Decisions", gives where each came from.
 
 - **When @Pauli writes**, answer first, and do nothing else until the answer is given. Then do only what he asked.
-  This does not keep a session from telling him of a fault: a session tells of each fault that it finds at once,
-  also when he did not ask about it (@Pauli, Nov 23).
+  This does not mean that a session leaves a fault unmentioned (@Pauli, Nov 23).
 - **A question for @Pauli** is asked one at a time, with choices and a recommendation, when he is present.
 - **Documents** are written in Simplified Technical English: short sentences, one fact in each, exact terms.
 - **A commit message** tells what the change does, and what in the code made it necessary.
