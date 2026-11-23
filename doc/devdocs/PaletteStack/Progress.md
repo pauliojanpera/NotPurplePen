@@ -40,8 +40,13 @@ Ticket [011](tickets/011-line-geometry.md), the geometry methods of the line sym
 `fix/ocad-dashes-on-curves` and merged before it (1265d519), with the baselines that the fixes move together with it
 (17c15521). `LineSymDef` and `LineComboSymDef` make the clipping objects of the line symbols with a geometry method,
 and pass 1 collects no line symbol with the collector. The full run of the branch passed, and so did the full run of
-`feature/palette-stack` with it. Ticket [012](tickets/012-area-geometry.md) is approved, and its implementation comes
-next ("Next").
+`feature/palette-stack` with it.
+
+Ticket [012](tickets/012-area-geometry.md), the geometry methods of the area symbols and the graphics objects, is done
+and merged into `feature/palette-stack` (903e6bde). `AreaLikeSymDef` and `GraphicsSymDef` make the clipping objects of
+the area symbols and the graphics objects with a geometry method, and pass 1 collects no area symbol and no graphics
+object with the collector. The full run of the branch passed, and the full run of `feature/palette-stack` with it is
+under way. Only the texts and the rectangles still get their clipping objects from the collector (draft 013).
 
 The old branch of the epic, `feature/palette-layers`, keeps the pass 1 of 005, 007 and 008, and the branches of the
 drafts 011 to 013 are rooted at it. The rest of this section tells its state.
@@ -91,6 +96,7 @@ base. No branch is offered upstream yet.
 
 | Branch | Ticket and description | State |
 | --- | --- | --- |
+| `feature/area-symbol-geometry` | [012](tickets/012-area-geometry.md), [description](prs/012-area-symbol-geometry.md) | All criteria met. `AreaLikeSymDef` and `GraphicsSymDef` make the clipping objects of the area symbols and the graphics objects with a geometry method (`SymDef.MakeClippingObjects`): `AreaSymDef` the area fill and the area border along the main path and then along each hole, `AreaComboSymDef` the clipping objects of its component definitions in their order, also of a `LineComboSymDef` and of another `AreaComboSymDef` (`LineLikeSymDef.MakeClippingObjects(SymPath, SymColor)`), and `GraphicsSymDef` the fill of a `GraphicsAreaSymbol` and the line of a `GraphicsLineSymbol`. The ticket gives the implementation under "Toteutus". The comparison with the collector passes on the 162 maps of `skia_render` and on the 10 dash samples, which have 21,532 area symbols and 138 graphics objects. Full run passed at 6c8bdda4 (`wip/linux/area-symbol-geometry` at b8f4ec90, on `base`, with `--base-baselines prs/000-palette-stack-base`: Tests 45179709801, Build 45179709719), without a collecting run, as the old drawing code does not change. Its group Skia ran the 722 tests of Map_Skia.Tests. Rooted at `feature/palette-stack` (7a03c8f6). In `feature/palette-stack` (903e6bde). |
 | `feature/line-symbol-geometry` | [011](tickets/011-line-geometry.md), [description](prs/011-line-symbol-geometry.md) | All criteria met. `LineSymDef` and `LineComboSymDef` make the clipping objects of the line symbols with a geometry method (`SymDef.MakeClippingObjects`): composed dashed lines with runs of dashes (`Stroke.DashPattern`), borders as offset paths (`OffsetPathShape`), and glyphs as single and repeated placements (`RepeatedPlacement`, `Placement.Poses`). The ticket gives the implementation under "Toteutus". The comparison with the collector passes on the 162 maps of `skia_render` and on the 10 dash samples of `ocadimport`, with the allowed difference of 0.01 mm for the dashes of an offset path ("The allowed difference of the dashes of a border"). Full run passed at 94b709ed (`wip/linux/line-symbol-geometry` at 31ceea87, on `base`, with `--base-baselines prs/000-palette-stack-base`: Tests 45173018445, Build 45173018533), and at 5646a462 before it (Tests 45168812737, Build 45168812760), without a collecting run, as the old drawing code does not change: the branch changes only the visibility of `SymPath.OffsetPointsRight` in it. Its group Skia ran the 716 tests of Map_Skia.Tests. Rooted at `feature/palette-stack` (1265d519), and it merges its baselines (d9674036). In `feature/palette-stack` (7a03c8f6). |
 | `feature/course-object-keys` | [026](tickets/026-course-object-keys.md), [description](prs/026-course-object-keys.md) | All criteria met. The course formatters give each course object a course object key (`CourseObj.Key`, `CourseObjKey`), and `CourseLayout.RenderToMap` gives the symbols of the course map the keys `<course object key>/<index>` (`Map.PrefixSymbolKeys`). `CourseObjKeyTests` checks the keys in the 584 layouts of 11 test events, with 51,098 course objects. Full run passed at bc67cf2e (`wip/linux/course-object-keys`, on `base`, with `--base-baselines prs/000-palette-stack-base`: Tests 45111279178, Build 45111279158), without a collecting run, as the drawing does not use the keys. Its group PurplePen ran the 14 tests of `CourseObjKeyTests`, and its group MapModel the 3 tests of the periods of `SymbolKeyTests`. Rooted at `feature/palette-stack` (52656ff3). In `feature/palette-stack` (3e98e556). |
 | `feature/symbol-keys` | [025](tickets/025-symbol-keys.md), [description](prs/025-symbol-keys.md) | All criteria met. Each symbol of a map has a symbol key (`Symbol.Key`, `SymbolKey`), which its maker gives or the map gives from its counter, and `Map.ReplaceSymbol` gives the key of a symbol to the symbol that replaces it. Full run passed at bdf05f6f (`wip/linux/symbol-keys`, on `base`, with `--base-baselines prs/000-palette-stack-base`: Tests 45109967892, Build 45109967861), without a collecting run, as the drawing does not use the keys. Its group MapModel ran the 15 tests of `SymbolKeyTests`. Rooted at `feature/palette-stack` (89415236). In `feature/palette-stack` (52656ff3). |
@@ -206,9 +212,11 @@ base. No branch is offered upstream yet.
    `feature/palette-stack` with it passed (`wip/linux/palette-stack` at 707a1799: Tests 45174857054, Build
    45174857081).
 3. Ticket [012](tickets/012-area-geometry.md), the geometry methods of the area symbols and the graphics objects, is
-   approved (Nov 23, "The approval of ticket 012"). Its implementation comes next, on `feature/area-symbol-geometry`
-   rooted at `feature/palette-stack` (7a03c8f6). The draft 013 is written as a ticket after it, and the drafts 009 and
-   010 after that ("The order of the drafts", the session's choice).
+   done and merged into `feature/palette-stack` (903e6bde). Its description is `prs/012-area-symbol-geometry.md`. The
+   full run of `feature/palette-stack` with it is under way (`wip/linux/palette-stack` at 479c28a1: Tests 45182329069,
+   Build 45182328893).
+4. The draft 013 is written as a ticket next, and the drafts 009 and 010 after it ("The order of the drafts", the
+   session's choice). A draft is implemented when @Pauli has approved it as a ticket.
 
 The plan below is the plan of the old branch, in the words of its time. Its parts 2 to 5 stay as the order of the
 later work.

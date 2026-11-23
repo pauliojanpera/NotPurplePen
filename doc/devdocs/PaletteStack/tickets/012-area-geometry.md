@@ -9,14 +9,14 @@ oraakkeli, ja tekstit ja suorakulmiot saavat leikkausobjektinsa edelleen kerää
 kuulu tähän. Piirto ei muutu.
 
 **Hyväksymiskriteerit**
-- [ ] Geometriametodien rajapinta: `AreaLikeSymDef` ja `GraphicsSymDef` korvaavat tiketin
+- [x] Geometriametodien rajapinta: `AreaLikeSymDef` ja `GraphicsSymDef` korvaavat tiketin
   [024](024-point-symbol-geometry.md) rajapinnan `SymDef.MakeClippingObjects(Symbol, SymColor, CoveragePrototype)`.
   `AreaLikeSymDef` antaa aluesymbolin polun reikineen (`AreaLikeSymbol.Path`) alueen symbolimäärittelyn sisäiselle
   geometriametodille `MakeClippingObjects(SymPathWithHoles, SymColor)`, jonka `AreaSymDef` ja `AreaComboSymDef`
   toteuttavat. Aluesymbolin ja grafiikkaobjektin palettiväripeiton leikkausobjektit tulevat symbolimäärittelyltä ilman
   piirtokohdetta (`IGraphicsTarget`) ja ilman piirtoasetuksia (`RenderOptions`), eikä vaihe 1 kerää yhtään
   aluesymbolia eikä grafiikkaobjektia kerääjällä.
-- [ ] `AreaSymDef`: geometriametodi antaa palettivärissä alueen täytön ja alueen reunan siinä järjestyksessä kuin
+- [x] `AreaSymDef`: geometriametodi antaa palettivärissä alueen täytön ja alueen reunan siinä järjestyksessä kuin
   `AreaSymDef.Draw` piirtää ne. Alueen täyttö (`FillColor`) on sen värissä täytetty muoto: pääpolku ja reiät yhtenä
   polkuna vuorottelevalla täyttösäännöllä (`AreaFillMode.Alternate`), kuten `SymPathWithHoles.Fill` täyttää ne. Muoto
   on polku, joka pitää polkujen Bezier-käyrät, tai monikulmio samalla ehdolla kuin `SymPath.FillCore` täyttää
@@ -24,40 +24,40 @@ kuulu tähän. Piirto ei muutu.
   ensin pääpolku ja sitten kukin reikä reikien järjestyksessä, kuten `Draw` piirtää ne. Ne tulevat viivojen
   geometriametodilla: koostetut katkoviivat, kaksoisviivan reunat siirrettyinä polkuina ja viivan varren glyyfit
   toistosijoituksina ja yksittäisinä sijoituksina.
-- [ ] `AreaComboSymDef`: geometriametodi antaa yhdistelmän osamäärittelyjen leikkausobjektit osamäärittelyjen
+- [x] `AreaComboSymDef`: geometriametodi antaa yhdistelmän osamäärittelyjen leikkausobjektit osamäärittelyjen
   järjestyksessä, kuten `AreaComboSymDef.Draw` piirtää ne. Viivan symbolimäärittely (`LineLikeSymDef`) antaa viivan
   leikkausobjektit, joiden peruspolku on ensin pääpolku ja sitten kukin reikä, ja alueen symbolimäärittely
   (`AreaLikeSymDef`) antaa oman geometriametodinsa leikkausobjektit samalle polulle reikineen. Yhdistelmän
   osamäärittely voi olla `LineSymDef`, `LineComboSymDef`, `AreaSymDef` tai toinen `AreaComboSymDef`, kuten Mapperin
   tuonti tekee ne (`OpenMapperImport.DelayedComboSymDef.CreateSymDef`).
-- [ ] `LineLikeSymDef`: viivan symbolimäärittelyllä on sisäinen abstrakti geometriametodi
+- [x] `LineLikeSymDef`: viivan symbolimäärittelyllä on sisäinen abstrakti geometriametodi
   `MakeClippingObjects(SymPath, SymColor)`, joka antaa viivan leikkausobjektit mille tahansa peruspolulle.
   `LineSymDef` toteuttaa sen tiketin 011 mukaan, ja `LineComboSymDef` antaa yhdistelmän osamäärittelyjensä
   leikkausobjektit osamäärittelyjen järjestyksessä.
-- [ ] Grafiikkaobjektit: `GraphicsSymDef`in geometriametodi antaa `GraphicsAreaSymbol`in värissä (`FillColor`)
+- [x] Grafiikkaobjektit: `GraphicsSymDef`in geometriametodi antaa `GraphicsAreaSymbol`in värissä (`FillColor`)
   täytetyn muodon, joka tehdään polusta reikineen kuten alueen täyttö, ja `GraphicsLineSymbol`in värissä
   (`LineColor`) viivamuodon. Viivamuodon kynällä on grafiikkaobjektin leveys (`Thickness`), päät (`LineCapMode`) ja
   liitos (`LineJoinMode`) sekä jiirausraja `GraphicsUtil.MITER_LIMIT`, kuten `GraphicsLineSymbol.Draw` luo kynänsä, ja
   muoto pitää polun Bezier-käyrät kuten `SymPath.Draw`.
-- [ ] Täysi peitto: geometriametodit antavat vain täyden peiton leikkausobjektit. Viivoitukset ja aluekuviot ovat
+- [x] Täysi peitto: geometriametodit antavat vain täyden peiton leikkausobjektit. Viivoitukset ja aluekuviot ovat
   jaksollisia peittoja (luonnos [009](009-pattern-instances.md)), eikä niistä tule leikkausobjekteja. Palettiväri,
   jota alueen symbolimäärittely piirtää vain viivoituksella tai aluekuviolla, ei saa aluesymbolilta täyden peiton
   palettiväripeittoa, kuten tiketissä [023](023-palette-separations.md).
-- [ ] Kerääjä on oraakkeli: testit vertaavat geometriametodien leikkausobjekteja kerääjän leikkausobjekteihin
+- [x] Kerääjä on oraakkeli: testit vertaavat geometriametodien leikkausobjekteja kerääjän leikkausobjekteihin
   (`SymDef.CollectClippingObjects`) rakenteena jokaisessa aluesymbolin ja grafiikkaobjektin palettiväripeitossa.
   Vertailu laajentaa alueen reunojen katkojuosteet, siirretyt polut ja toistosijoitukset, ja sen sallitut erot ovat
   tiketin 011 sallitut erot. Muut leikkausobjektit, myös täytetyt muodot, ovat täsmälleen samat. Vertailu kattaa
   kansion `skia_render` jokaisen OCAD- ja Mapper-kartan sekä katkoviivanäytteiden tiedostot `dashes-*.ocd`.
-- [ ] Rakennetestit tarkistavat ilman piirtoa alueen täytön monikulmiona, Bezier-käyrin ja reikineen ja sen
+- [x] Rakennetestit tarkistavat ilman piirtoa alueen täytön monikulmiona, Bezier-käyrin ja reikineen ja sen
   täyttösäännön, myös aluesymbolin, jonka viimeisen reiän kartta on poistanut, alueen reunan pääpolulla ja reiillä,
   katkotun alueen reunan, alueen reunan kaksoisviivana ja alueen reunan glyyfit, `AreaComboSymDef`in yhdistelmän
   osamäärittelyjen järjestyksen, `LineComboSymDef`in ja toisen `AreaComboSymDef`in yhdistelmän osamäärittelynä,
   aluesymbolin, jonka palettiväri on vain viivoituksessa tai aluekuviossa, sekä `GraphicsAreaSymbol`in ja
   `GraphicsLineSymbol`in. Testit rakentavat kartan tapauksille, joita vertailun kartoissa ei ole: alueen reuna
   kaksoisviivana sekä yhdistelmän osamäärittelyt `LineComboSymDef` ja `AreaComboSymDef` (ks. "Testit").
-- [ ] Tiketin 023 testit menevät läpi, myös peiton vertailu, jossa aluesymbolien ja grafiikkaobjektien
+- [x] Tiketin 023 testit menevät läpi, myös peiton vertailu, jossa aluesymbolien ja grafiikkaobjektien
   leikkausobjektit tulevat geometriametodilta. Tikettien 024 ja 011 testit menevät läpi.
-- [ ] Tämän tiketin haara ei muuta piirtoa, eikä yksikään kuva- tai tekstibaseline siirry.
+- [x] Tämän tiketin haara ei muuta piirtoa, eikä yksikään kuva- tai tekstibaseline siirry.
 
 **Lisätiedot**
 - **Päätökset:**
@@ -75,6 +75,34 @@ kuulu tähän. Piirto ei muutu.
     siirrettyinä polkuina ja viivan varren glyyfit toistosijoituksina.
   - Alueen reunan katkoille sallittu ero on tiketin 011 ero: siirretyn polun laajennuksen leikkausobjektit 0,01 mm ja
     muut laajennetut leikkausobjektit 0,0001 mm (@Pauli, 23.11.).
+- **Toteutus** (haara `feature/area-symbol-geometry`, 6c8bdda4, yhdistetty haaraan `feature/palette-stack` (903e6bde)):
+  - Geometriametodit (`SymDef.cs`, 575be561): `AreaLikeSymDef` korvaa rajapinnan `SymDef.MakeClippingObjects` ja antaa
+    aluesymbolin polun reikineen sisäiselle abstraktille metodille `MakeClippingObjects(SymPathWithHoles, SymColor)`.
+    `AreaSymDef` antaa alueen täytön (`SymPathWithHoles.MakeFilledShape`) ja alueen reunan metodilla
+    `AddClippingObjectsOfLine`, joka antaa viivan symbolimäärittelyn leikkausobjektit ensin pääpolulle ja sitten
+    kullekin reiälle. `AreaComboSymDef` antaa yhdistelmän osamäärittelyjen leikkausobjektit niiden järjestyksessä.
+    `LineLikeSymDef` saa sisäisen abstraktin metodin `MakeClippingObjects(SymPath, SymColor)`: `LineSymDef`in tiketin
+    011 metodi toteuttaa sen, ja `LineComboSymDef` antaa yhdistelmän osamäärittelyjensä leikkausobjektit.
+    `GraphicsSymDef` antaa `GraphicsAreaSymbol`in täytetyn muodon ja `GraphicsLineSymbol`in viivamuodon kynällä
+    `new Stroke(Thickness, LineCapMode, LineJoinMode, GraphicsUtil.MITER_LIMIT)`. Muun lajin symbolille, jota kartoissa
+    ei ole, se antaa kerääjän leikkausobjektit. Vanha piirtokoodi ei muutu: haara lisää metodeja, ja `LineSymDef`in
+    metodi saa vain sanan `override`.
+  - Testit (`SymbolGeometryTests`, 6c8bdda4): vertailu kerääjään kattaa kansion `skia_render` 162 karttaa ja 10
+    katkoviivanäytettä, nyt myös aluesymbolien ja grafiikkaobjektien leikkausobjektit geometriametodeilta, eikä
+    yksikään palettiväripeitto eroa. Rakennetestit ovat `GeometryMethodOfAreasFollowsEachBranchOfTheirFill`,
+    `AreaBorderGoesAlongTheMainPathAndThenAlongEachHole`,
+    `CombinedAreaHasTheClippingObjectsOfItsComponentDefinitionsInTheirOrder`,
+    `AreaHasNoFullCoverageInAPaletteColorOfItsHatchingsAndAreaPatternsAlone`,
+    `GraphicsObjectsAreAFilledShapeAndAStrokedShapeInTheirOwnPaletteColors` ja
+    `SymbolDefinitionsOfPointsLinesAreasAndGraphicsObjectsHaveAGeometryMethod`. Viimeinen tarkistaa, mikä luokka
+    toteuttaa kunkin symbolimäärittelyn geometriametodin, koska alueiden ja grafiikkaobjektien geometriametodit antavat
+    samat leikkausobjektit kuin kerääjä eikä vertailu erota niitä.
+  - Täysi ajo meni läpi kohdassa 6c8bdda4 (`wip/linux/area-symbol-geometry` kohdassa b8f4ec90, basen päällä,
+    valitsimella `--base-baselines prs/000-palette-stack-base`: Tests 45179709801, Build 45179709719) ilman keräävää
+    ajoa, koska vanha piirtokoodi ei muutu. Ryhmä Skia ajoi `Map_Skia.Testsin` 722 testiä, ja kaikki menivät läpi.
+    Yksikään kuva- tai tekstibaseline ei siirry.
+  - Haara on yhdistetty haaraan `feature/palette-stack` (903e6bde), ja yhdistämisen puu on haaran puu. Epicin täysi
+    ajo on käynnissä (`wip/linux/palette-stack` kohdassa 479c28a1: Tests 45182329069, Build 45182328893).
 - **Speksi:** [Specification.md](../Specification.md), luvut 02 ja 03. Luvun 02 kohta "The hatchings and the area
   patterns" antaa alueen täytön, jonka G on täysi peitto, ja alueen reunan, jonka `AreaSymDef.Draw` piirtää
   pääpolulla ja jokaisella reiällä. Kohta "The lines" antaa alueen reunan peruspolun, ja kohta "The coverage
