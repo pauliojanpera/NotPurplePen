@@ -789,7 +789,7 @@ namespace Map_Skia.Tests
             }
 
             using (map.Read()) {
-                Symbol hole = map.AllSymbols.Single(symbol => symbol.Definition is HoleSymDef);
+                HoleSymbol hole = area.GetHole(0);
                 CollectionAssert.IsEmpty(hole.Definition.MakeClippingObjects(hole, black, CoveragePrototype.FullCoverage));
                 CollectionAssert.IsEmpty(imageArea.Definition.MakeClippingObjects(imageArea, black, CoveragePrototype.FullCoverage));
                 Assert.Throws<ArgumentException>(() => new GraphicsSymDef().MakeClippingObjects(line, black, CoveragePrototype.FullCoverage));
@@ -983,6 +983,458 @@ namespace Map_Skia.Tests
             Assert.AreEqual(GraphicsUtil.MITER_LIMIT, line.Stroke.MiterLimit);
             Assert.IsNull(line.Stroke.DashPattern);
             Assert.IsTrue(((PathShape)line.Shape).Parts.Any(part => part.Kind == GraphicsPathPartKind.Beziers), "the line keeps its Bezier curve");
+        }
+
+        // Each word of each line of a text is a text run at its own place, in the font of the text, and an empty text has
+        // no text run. The innermost step of the placement of the runs is the pose of the text, its location and its
+        // angle. The top left corners of the runs are in the coordinates of the pose, whose Y axis points up as the axis
+        // of the map does: the next line is below the first, at the opposite of the line spacing, and the glyphs of each
+        // run lie below its top left corner, also in the map.
+        [Test]
+        public void TextRunsAreTheWordsOfTheLinesInTheCoordinatesOfThePoseOfTheText()
+        {
+            Map map = CreateMap();
+            TextSymbol text;
+            using (map.Write()) {
+                SymColor black = map.AddColor("Black", 1, 0, 0, 0, 1, false);
+                TextSymDef symdef = AddTextSymDef(map, new TextSymDef("Text", "1", TextSymDef.PreferredSymbolKind.NormalText, null), black);
+                text = AddText(map, symdef, new string[] { "Two words", "Three" }, new PointF(10, 20), 0);
+                AddText(map, symdef, new string[] { "Turned" }, new PointF(30, 5), 30);
+                AddText(map, symdef, new string[] { "" }, new PointF(40, 5), 0);
+            }
+
+            AssertSameStructureAsTheCollector(map);
+            List<ClippingObject> runs = GetClippingObjectsBySeparation(map)[0];
+            TextShape[] shapes = runs.Select(run => (TextShape)run.Shape).ToArray();
+            CollectionAssert.AreEqual(new string[] { "Two", "words", "Three", "Turned" }, shapes.Select(shape => shape.Text));
+            foreach (TextShape shape in shapes) {
+                Assert.AreEqual("Roboto", shape.FontFamily);
+                Assert.AreEqual(2, shape.EmHeight);
+                Assert.AreEqual(TextEffects.Regular, shape.Effects);
+                Assert.LessOrEqual(shape.Bounds.Bottom, shape.UpperLeft.Y + Tolerance, "the glyphs of {0} are below its top left corner", shape.Text);
+                Assert.Less(shape.Bounds.Top, shape.UpperLeft.Y, "the glyphs of {0} are below its top left corner", shape.Text);
+            }
+
+            Assert.AreSame(runs[0].Placement, runs[2].Placement);
+            AssertPose(new PointF(10, 20), 0, runs[0].Placement);
+            AssertPose(new PointF(30, 5), 30, runs[3].Placement);
+            Assert.AreEqual(new PointF(0, 0), shapes[0].UpperLeft);
+            Assert.AreEqual(0, shapes[1].UpperLeft.Y);
+            Assert.Greater(shapes[1].UpperLeft.X, shapes[0].Bounds.Right);
+            Assert.AreEqual(new PointF(0, -2.5F), shapes[2].UpperLeft, "the second line, below the first by the line spacing");
+            Assert.AreEqual(new PointF(0, 0), shapes[3].UpperLeft);
+
+            using (map.Read()) {
+                foreach (ClippingObject run in runs.Take(3)) {
+                    Assert.IsTrue(text.BoundingBox.Contains(run.Bounds), "the bounds of the text contain {0}", run.Bounds);
+                    Assert.LessOrEqual(run.Bounds.Bottom, 20 + Tolerance, "the glyphs are below the location of the text in the map");
+                }
+                Assert.IsEmpty(map.PaletteSeparations[0].SymbolCoverages[2].ClippingObjects, "the empty text");
+            }
+        }
+
+        // Where the character spacing is more than 0, each grapheme of a text is a text run of its own, also a grapheme of
+        // two code points.
+        [Test]
+        public void CharacterSpacingMakesEachGraphemeATextRun()
+        {
+            Map map = CreateMap();
+            using (map.Write()) {
+                SymColor black = map.AddColor("Black", 1, 0, 0, 0, 1, false);
+                TextSymDef symdef = AddTextSymDef(map, new TextSymDef("Spaced", "1", TextSymDef.PreferredSymbolKind.NormalText, null), black, TextEffects.Regular, 0.5F);
+                AddText(map, symdef, new string[] { "Aé b" }, new PointF(0, 0), 0);
+            }
+
+            AssertSameStructureAsTheCollector(map);
+            TextShape[] shapes = GetClippingObjectsBySeparation(map)[0].Select(run => (TextShape)run.Shape).ToArray();
+            CollectionAssert.AreEqual(new string[] { "A", "é", "b" }, shapes.Select(shape => shape.Text));
+            for (int i = 1; i < shapes.Length; ++i) {
+                Assert.Greater(shapes[i].UpperLeft.X, shapes[i - 1].UpperLeft.X);
+                Assert.AreEqual(0, shapes[i].UpperLeft.Y);
+            }
+        }
+
+        // The line framing of a text run is one line, as OCAD draws it: in the color of the framing, the run filled, and
+        // its outline stroked with the line of the full width, two times the width of the framing, with the line style of
+        // the framing. The drawing strokes the outline with narrower pens first, of 0.33 times the font size and more,
+        // which the collector has too.
+        [Test]
+        public void LineFramingOfATextRunIsOneLineOfTheFullWidth()
+        {
+            Map map = CreateMap();
+            TextSymbol text;
+            using (map.Write()) {
+                SymColor yellow = map.AddColor("Yellow", 1, 0, 0.27F, 0.79F, 0, false);
+                SymColor black = map.AddColor("Black", 2, 0, 0, 0, 1, false);
+                TextSymDef symdef = new TextSymDef("Framed", "1", TextSymDef.PreferredSymbolKind.NormalText, null);
+                symdef.SetFraming(new TextSymDef.Framing() { framingStyle = TextSymDef.FramingStyle.Line, framingColor = yellow, lineWidth = 1, lineStyle = LineStyle.Rounded });
+                AddTextSymDef(map, symdef, black);
+                text = AddText(map, symdef, new string[] { "Two words" }, new PointF(0, 0), 0);
+            }
+
+            AssertSameStructureAsTheCollector(map);
+            List<ClippingObject> framing = GetClippingObjectsBySeparation(map)[0];
+            CollectionAssert.AreEqual(new string[] { "Two", "Two", "words", "words" }, framing.Select(clippingObject => ((TextShape)clippingObject.Shape).Text));
+            for (int i = 0; i < framing.Count; i += 2) {
+                Assert.IsInstanceOf<FilledShape>(framing[i]);
+                Stroke line = ((StrokedShape)framing[i + 1]).Stroke;
+                Assert.AreEqual(2, line.Width);
+                Assert.AreEqual(LineCapMode.Round, line.Caps);
+                Assert.AreEqual(LineJoinMode.Round, line.Join);
+                Assert.AreEqual(((TextShape)framing[i].Shape).UpperLeft, ((TextShape)framing[i + 1].Shape).UpperLeft);
+            }
+
+            using (map.Read())
+                Assert.Greater(text.Definition.CollectClippingObjects(text, map.PaletteSeparations[0].Color).Count, framing.Count, "the narrower lines of the drawing");
+        }
+
+        // The shadow of a text run is the run in the color of the framing, moved by the offsets of the shadow. In the
+        // coordinates of the pose of the text, whose Y axis points up, it is moved by shadowX and shadowY.
+        [Test]
+        public void ShadowIsTheTextRunMovedByTheOffsetsOfTheShadow()
+        {
+            Map map = CreateMap();
+            using (map.Write()) {
+                SymColor grey = map.AddColor("Grey", 1, 0, 0, 0, 0.5F, false);
+                SymColor black = map.AddColor("Black", 2, 0, 0, 0, 1, false);
+                TextSymDef symdef = new TextSymDef("Shadowed", "1", TextSymDef.PreferredSymbolKind.NormalText, null);
+                symdef.SetFraming(new TextSymDef.Framing() { framingStyle = TextSymDef.FramingStyle.Shadow, framingColor = grey, shadowX = 0.3F, shadowY = 0.2F });
+                AddTextSymDef(map, symdef, black);
+                AddText(map, symdef, new string[] { "Two words" }, new PointF(5, 5), 45);
+            }
+
+            AssertSameStructureAsTheCollector(map);
+            List<ClippingObject>[] clippingObjects = GetClippingObjectsBySeparation(map);
+            TextShape[] shadows = clippingObjects[0].Select(shadow => (TextShape)shadow.Shape).ToArray();
+            TextShape[] runs = clippingObjects[1].Select(run => (TextShape)run.Shape).ToArray();
+            Assert.AreEqual(2, shadows.Length);
+            for (int i = 0; i < runs.Length; ++i) {
+                Assert.AreEqual(runs[i].Text, shadows[i].Text);
+                Assert.AreEqual(runs[i].UpperLeft.X + 0.3F, shadows[i].UpperLeft.X, Tolerance);
+                Assert.AreEqual(runs[i].UpperLeft.Y + 0.2F, shadows[i].UpperLeft.Y, Tolerance);
+                AssertEqualPlacements(clippingObjects[1][i].Placement, clippingObjects[0][i].Placement);
+            }
+        }
+
+        // The underlines of a text are lines under its lines: the underline of the text symbol definition under the last
+        // line of each paragraph in its own color, and the underline effect of the font under each line in the font color,
+        // after the text runs of the line. The text runs have no underline effect. The underlines are in the coordinates
+        // of the pose of the text, below the top left corners of the runs of their lines.
+        [Test]
+        public void UnderlinesAreLinesUnderTheLinesOfTheText()
+        {
+            Map map = CreateMap();
+            TextSymbol text;
+            using (map.Write()) {
+                SymColor blue = map.AddColor("Blue", 1, 1, 0, 0, 0, false);
+                SymColor black = map.AddColor("Black", 2, 0, 0, 0, 1, false);
+                TextSymDef symdef = new TextSymDef("Underlined", "1", TextSymDef.PreferredSymbolKind.NormalText, null);
+                symdef.SetUnderline(new TextSymDef.Underlining() { underlineOn = true, underlineColor = blue, underlineWidth = 0.2F, underlineDistance = 0.3F });
+                AddTextSymDef(map, symdef, black, TextEffects.Underline);
+                text = AddText(map, symdef, new string[] { "One two", "Three" }, new PointF(0, 0), 10, 6);
+            }
+
+            AssertSameStructureAsTheCollector(map);
+            List<ClippingObject>[] clippingObjects = GetClippingObjectsBySeparation(map);
+            int lineCount, paragraphCount;
+            using (map.Read()) {
+                lineCount = text.WrappedText.Count(line => line != TextSymDef.ParagraphMark);
+                paragraphCount = text.WrappedText.Count(line => line == TextSymDef.ParagraphMark) + 1;
+            }
+            Assert.Greater(lineCount, paragraphCount, "a paragraph of two lines");
+
+            // The font color: the runs of each line and then the underline effect of the line.
+            List<ClippingObject> ofFont = clippingObjects[1];
+            CollectionAssert.AreEqual(new string[] { "One", "line", "two", "line", "Three", "line" },
+                                      ofFont.Select(clippingObject => (clippingObject.Shape is TextShape run) ? run.Text : "line"));
+            for (int i = 0; i < ofFont.Count; i += 2) {
+                TextShape run = (TextShape)ofFont[i].Shape;
+                Assert.AreEqual(TextEffects.Regular, run.Effects);
+                StrokedShape effect = (StrokedShape)ofFont[i + 1];
+                Assert.AreEqual(0.1F, effect.Stroke.Width, Tolerance);
+                Assert.AreEqual(LineJoinMode.Miter, effect.Stroke.Join);
+                Assert.AreEqual(LineCapMode.Flat, effect.Stroke.Caps);
+                PointF[] points = ((PathShape)effect.Shape).GetPolyline();
+                Assert.AreEqual(points[0].Y, points[1].Y);
+                Assert.Less(points[0].Y, run.Bounds.Top, "the underline effect is below the glyphs of its line");
+                AssertEqualPlacements(ofFont[i].Placement, effect.Placement);
+            }
+
+            // The underline of the definition: under the last line of each paragraph.
+            StrokedShape[] underlines = clippingObjects[0].Cast<StrokedShape>().ToArray();
+            Assert.AreEqual(paragraphCount, underlines.Length);
+            foreach (StrokedShape underline in underlines)
+                Assert.AreEqual(0.2F, underline.Stroke.Width, Tolerance);
+            float[] heights = underlines.Select(underline => ((PathShape)underline.Shape).GetPolyline()[0].Y).ToArray();
+            Assert.Less(heights[0], ((TextShape)ofFont[2].Shape).UpperLeft.Y, "below the second line");
+            Assert.Less(heights[1], heights[0], "the second paragraph is below the first");
+        }
+
+        // The framing rectangle of a text is a filled rectangle around its lines, with the margins of the framing. Where
+        // the text has an underline, the bottom of the rectangle is below the underline, by its distance and its width.
+        [Test]
+        public void FramingRectangleIsAFilledRectangleAroundTheLinesAndBelowTheUnderline()
+        {
+            Map map = CreateMap();
+            using (map.Write()) {
+                SymColor yellow = map.AddColor("Yellow", 1, 0, 0.27F, 0.79F, 0, false);
+                SymColor blue = map.AddColor("Blue", 2, 1, 0, 0, 0, false);
+                SymColor black = map.AddColor("Black", 3, 0, 0, 0, 1, false);
+                TextSymDef.Framing rectangle = new TextSymDef.Framing() { framingStyle = TextSymDef.FramingStyle.Rectangle, framingColor = yellow, rectBorderLeft = 0.5F, rectBorderTop = 0.5F, rectBorderRight = 0.5F, rectBorderBottom = 0.5F };
+                TextSymDef plain = new TextSymDef("Framed", "1", TextSymDef.PreferredSymbolKind.NormalText, null);
+                plain.SetFraming(rectangle);
+                AddTextSymDef(map, plain, black);
+                TextSymDef underlined = new TextSymDef("Framed and underlined", "2", TextSymDef.PreferredSymbolKind.NormalText, null);
+                underlined.SetFraming(rectangle);
+                underlined.SetUnderline(new TextSymDef.Underlining() { underlineOn = true, underlineColor = blue, underlineWidth = 0.2F, underlineDistance = 0.3F });
+                AddTextSymDef(map, underlined, black);
+                AddText(map, plain, new string[] { "Two words", "Three" }, new PointF(0, 0), 0);
+                AddText(map, underlined, new string[] { "Two words", "Three" }, new PointF(0, 0), 0);
+            }
+
+            AssertSameStructureAsTheCollector(map);
+            List<ClippingObject>[] clippingObjects = GetClippingObjectsBySeparation(map);
+            FilledShape[] rectangles = clippingObjects[0].Cast<FilledShape>().ToArray();
+            Assert.AreEqual(2, rectangles.Length);
+            foreach (FilledShape framing in rectangles) {
+                Assert.AreEqual(AreaFillMode.Winding, framing.FillRule);
+                Assert.AreEqual(4, CountPoints((PathShape)framing.Shape));
+                Assert.AreEqual(GraphicsPathPartKind.Close, ((PathShape)framing.Shape).Parts.Last().Kind);
+                foreach (ClippingObject run in clippingObjects[2].Take(3))
+                    Assert.IsTrue(framing.Shape.Bounds.Contains(run.Shape.Bounds), "the framing rectangle contains {0}", run.Shape.Bounds);
+            }
+
+            RectangleF plainBounds = rectangles[0].Shape.Bounds, underlinedBounds = rectangles[1].Shape.Bounds;
+            Assert.AreEqual(plainBounds.Left, underlinedBounds.Left);
+            Assert.AreEqual(plainBounds.Right, underlinedBounds.Right);
+            Assert.AreEqual(plainBounds.Bottom, underlinedBounds.Bottom, "the top of the rectangles");
+            Assert.AreEqual(plainBounds.Top - 0.5F, underlinedBounds.Top, Tolerance, "the bottom of the rectangles");
+            Assert.Less(underlinedBounds.Top, ((PathShape)clippingObjects[1].Last().Shape).GetPolyline()[0].Y - 0.1F, "below the underline of the last line");
+        }
+
+        // The center point of an unformatted text is the glyph of its point symbol definition at the angle 0, at the
+        // center of the box of the lines of the text, as OCAD measures the box. Its clipping objects are placed within the
+        // pose of the text and a translation to the center point, in the coordinates of the pose. A glyph of one circle at
+        // its origin is at the center point without a step of its own, as for a point symbol. A formatted text has no
+        // center point.
+        [Test]
+        public void CenterPointIsTheGlyphOfItsSymbolAtTheCenterOfAnUnformattedText()
+        {
+            Map map = CreateMap();
+            TextSymbol crossed, dotted;
+            using (map.Write()) {
+                SymColor red = map.AddColor("Red", 1, 0, 1, 1, 0, false);
+                SymColor black = map.AddColor("Black", 2, 0, 0, 0, 1, false);
+                PointSymDef cross = new PointSymDef("Cross", "1", CreateGlyph(glyph => {
+                    glyph.AddLine(red, new SymPath(new PointF[] { new PointF(-0.5F, 0), new PointF(0.5F, 0) }), 0.1F, LineJoinMode.Miter, LineCapMode.Flat);
+                    glyph.AddLine(red, new SymPath(new PointF[] { new PointF(0, -0.5F), new PointF(0, 0.5F) }), 0.1F, LineJoinMode.Miter, LineCapMode.Flat);
+                }), true);
+                map.AddSymdef(cross);
+                PointSymDef dot = new PointSymDef("Dot", "2", CreateGlyph(glyph => glyph.AddFilledCircle(red, new PointF(0, 0), 0.4F)), true);
+                map.AddSymdef(dot);
+                TextSymDef withCross = AddTextSymDef(map, new TextSymDef("With a cross", "3", TextSymDef.PreferredSymbolKind.NormalText, cross), black);
+                TextSymDef withDot = AddTextSymDef(map, new TextSymDef("With a dot", "4", TextSymDef.PreferredSymbolKind.NormalText, dot), black);
+                crossed = AddText(map, withCross, new string[] { "Crossed" }, new PointF(10, 20), 30);
+                dotted = AddText(map, withDot, new string[] { "Dotted" }, new PointF(0, 0), 0);
+                AddText(map, withCross, new string[] { "Formatted" }, new PointF(0, 10), 0, 20);
+            }
+
+            AssertSameStructureAsTheCollector(map);
+            List<ClippingObject>[] clippingObjects = GetClippingObjectsBySeparation(map);
+            float lineWidth, emHeight;
+            using (map.Read()) {
+                lineWidth = crossed.WrappedLineWidths.Single();
+                emHeight = ((TextSymDef)crossed.Definition).FontEmHeight;
+                CollectionAssert.IsEmpty(map.PaletteSeparations[0].SymbolCoverages[1].ClippingObjects, "the center point of the formatted text");
+            }
+
+            List<ClippingObject> ofRed = clippingObjects[0];
+            Assert.AreEqual(3, ofRed.Count, "the two lines of the cross and the dot");
+            ClippingObject run = clippingObjects[1][0];
+            for (int i = 0; i < 2; ++i) {
+                IReadOnlyList<Matrix> steps = ofRed[i].Placement.Steps;
+                Assert.AreEqual(3, steps.Count, "the pose of the text, the translation to the center point and the step of the glyph");
+                CollectionAssert.AreEqual(run.Placement.Steps[0].Elements, steps[0].Elements);
+                AssertTranslation(new PointF(lineWidth / 2, -emHeight / 2), steps[1]);
+            }
+
+            EllipseShape dotShape = (EllipseShape)ofRed[2].Shape;
+            Assert.AreEqual(new PointF(0, 0), dotShape.Center);
+            IReadOnlyList<Matrix> dotSteps = ofRed[2].Placement.Steps;
+            Assert.AreEqual(2, dotSteps.Count, "the pose of the text and the translation to the center point");
+            using (map.Read())
+                AssertTranslation(new PointF(dotted.WrappedLineWidths.Single() / 2, -emHeight / 2), dotSteps[1]);
+        }
+
+        // Each grapheme of a text along a line is a text run at a single placement of its own. Its pose is the start point
+        // of the grapheme on the path, and the direction from there to its end point, where the OCAD metric places the
+        // graphemes along the path: along a diagonal, the metric measures a euclidean length of 1 as 1.5 / sqrt(2). The top
+        // left corner of each run is in the coordinates of its pose, at the vertical offset of the text above the path. A
+        // text along a line has no underline, center point or framing rectangle, so its palette color coverages in their
+        // colors have no clipping objects.
+        [Test]
+        public void GraphemesOfATextAlongALineAreTextRunsAtTheirPoses()
+        {
+            Map map = CreateMap();
+            TextSymDef symdef;
+            using (map.Write()) {
+                SymColor yellow = map.AddColor("Yellow", 1, 0, 0.27F, 0.79F, 0, false);
+                SymColor blue = map.AddColor("Blue", 2, 1, 0, 0, 0, false);
+                SymColor red = map.AddColor("Red", 3, 0, 1, 1, 0, false);
+                SymColor black = map.AddColor("Black", 4, 0, 0, 0, 1, false);
+                symdef = AddTextSymDef(map, new TextSymDef("Along", "1", TextSymDef.PreferredSymbolKind.LineText, null), black);
+                PointSymDef dot = new PointSymDef("Dot", "2", CreateGlyph(glyph => glyph.AddFilledCircle(red, new PointF(0, 0), 0.4F)), true);
+                map.AddSymdef(dot);
+                TextSymDef withEffects = new TextSymDef("With effects", "3", TextSymDef.PreferredSymbolKind.LineText, dot);
+                withEffects.SetFraming(new TextSymDef.Framing() { framingStyle = TextSymDef.FramingStyle.Rectangle, framingColor = yellow, rectBorderLeft = 0.5F, rectBorderTop = 0.5F, rectBorderRight = 0.5F, rectBorderBottom = 0.5F });
+                withEffects.SetUnderline(new TextSymDef.Underlining() { underlineOn = true, underlineColor = blue, underlineWidth = 0.2F, underlineDistance = 0.3F });
+                AddTextSymDef(map, withEffects, black);
+                map.AddSymbol(new LineTextSymbol(symdef, new SymPath(new PointF[] { new PointF(0, 0), new PointF(10, 10), new PointF(20, 10) }), "ABC", TextSymDefHorizAlignment.Default, TextSymDefVertAlignment.Default));
+                map.AddSymbol(new LineTextSymbol(withEffects, new SymPath(new PointF[] { new PointF(0, 20), new PointF(20, 20) }), "AB", TextSymDefHorizAlignment.Default, TextSymDefVertAlignment.Default));
+            }
+
+            AssertSameStructureAsTheCollector(map);
+            List<ClippingObject> runs;
+            float widthOfA, verticalOffset;
+            using (map.Read()) {
+                IReadOnlyList<PaletteSeparation> separations = map.PaletteSeparations;
+                for (int i = 0; i < 3; ++i) {
+                    Assert.AreEqual(1, separations[i].SymbolCoverages.Count, "the coverage of the text with effects in {0}", separations[i].Color.Name);
+                    CollectionAssert.IsEmpty(separations[i].SymbolCoverages[0].ClippingObjects, "the coverage of the text with effects in {0}", separations[i].Color.Name);
+                }
+                runs = separations[3].SymbolCoverages[0].ClippingObjects.ToList();
+                using (ITextFaceMetrics metrics = map.TextMetricsProvider.GetTextFaceMetrics("Roboto", 2, TextEffects.Regular))
+                    widthOfA = metrics.GetTextWidth("A");
+                verticalOffset = symdef.LineTextVertOffset(TextSymDefVertAlignment.Default);
+            }
+
+            CollectionAssert.AreEqual(new string[] { "A", "B", "C" }, runs.Select(run => ((TextShape)run.Shape).Text));
+            Assert.AreNotSame(runs[0].Placement, runs[1].Placement);
+            foreach (ClippingObject run in runs) {
+                Assert.AreEqual(1, run.Placement.Steps.Count);
+                Assert.AreEqual(new PointF(0, verticalOffset), ((TextShape)run.Shape).UpperLeft);
+            }
+
+            AssertPose(new PointF(0, 0), 45, runs[0].Placement);
+            Pose second = runs[1].Placement.Poses.Single();
+            Assert.AreEqual(45, second.Angle, Tolerance);
+            Assert.AreEqual(widthOfA * Math.Sqrt(2) / 1.5, Math.Sqrt(second.Location.X * second.Location.X + second.Location.Y * second.Location.Y), Tolerance,
+                            "the distance of the second grapheme from the start of the path, in the OCAD metric");
+        }
+
+        // A rectangle is its line, a stroked path that keeps the Bezier curves of its rounded corners, and then the lines
+        // and the texts of its grid. The grid is placed with the location and the rotation of the rectangle, and each text
+        // of the grid has the pose of its place in its cell at the angle 0, with the top left corner of its run at the
+        // origin of the pose. The cells are numbered from the top or from the bottom, and the last cells can have a text
+        // of their own. A rectangle without a line has the grid only, and an empty rectangle has no clipping objects.
+        [Test]
+        public void RectangleIsItsLineAndTheLinesAndTextsOfItsGrid()
+        {
+            Map map = CreateMap();
+            using (map.Write()) {
+                SymColor black = map.AddColor("Black", 1, 0, 0, 0, 1, false);
+                RectangleSymDef rounded = new RectangleSymDef("Rounded", "1", black, 0.3F, 1, 1 | 2 | 4, 5, 4, 2, 1, "X");
+                map.AddSymdef(rounded);
+                RectangleSymDef withoutLine = new RectangleSymDef("Without a line", "2", black, 0, 0, 1 | 2, 5, 4, 2, 0, null);
+                map.AddSymdef(withoutLine);
+                RectangleSymDef sharp = new RectangleSymDef("Sharp", "3", black, 0.3F, 0, 0, 5, 4, 2, 0, null);
+                map.AddSymdef(sharp);
+                map.AddSymbol(new RectangleSymbol(rounded, new PointF(10, 20), new SizeF(10, 8), 20));
+                map.AddSymbol(new RectangleSymbol(withoutLine, new PointF(30, 20), new SizeF(10, 8), 0));
+                map.AddSymbol(new RectangleSymbol(sharp, new PointF(50, 20), new SizeF(10, 8), 0));
+                map.AddSymbol(new RectangleSymbol(sharp, new PointF(70, 20), new SizeF(0, 0), 0));
+            }
+
+            AssertSameStructureAsTheCollector(map);
+            List<ClippingObject>[] ofRectangles;
+            using (map.Read())
+                ofRectangles = map.PaletteSeparations[0].SymbolCoverages.Select(coverage => coverage.ClippingObjects.ToList()).ToArray();
+
+            // The rounded rectangle: its line, a vertical and a horizontal line of the grid, and the texts of its four
+            // cells, numbered from the bottom, the last cell with its own text.
+            List<ClippingObject> ofRounded = ofRectangles[0];
+            StrokedShape outline = (StrokedShape)ofRounded[0];
+            Assert.IsTrue(((PathShape)outline.Shape).Parts.Any(part => part.Kind == GraphicsPathPartKind.Beziers), "the line keeps the Bezier curves of the corners");
+            Assert.AreEqual(0.3F, outline.Stroke.Width);
+            Assert.AreEqual(LineJoinMode.Round, outline.Stroke.Join);
+            Assert.AreEqual(0, outline.Placement.Steps.Count);
+            foreach (StrokedShape gridLine in ofRounded.Skip(1).Take(2)) {
+                Assert.AreEqual(0.15F, gridLine.Stroke.Width, Tolerance);
+                Assert.AreEqual(LineJoinMode.Bevel, gridLine.Stroke.Join);
+                AssertPose(new PointF(10, 20), 20, gridLine.Placement);
+            }
+            FilledShape[] texts = ofRounded.Skip(3).Cast<FilledShape>().ToArray();
+            CollectionAssert.AreEqual(new string[] { "1", "2", "3", "X" }, texts.Select(text => ((TextShape)text.Shape).Text));
+            foreach (FilledShape text in texts) {
+                TextShape run = (TextShape)text.Shape;
+                Assert.AreEqual("Arial", run.FontFamily);
+                Assert.AreEqual(2, run.EmHeight);
+                Assert.AreEqual(TextEffects.Bold, run.Effects);
+                Assert.AreEqual(new PointF(0, 0), run.UpperLeft);
+                Assert.AreEqual(2, text.Placement.Steps.Count, "the grid and the pose of the text");
+                CollectionAssert.AreEqual(ofRounded[1].Placement.Steps[0].Elements, text.Placement.Steps[0].Elements);
+                Assert.AreEqual(0, text.Placement.Poses.Single().Angle, Tolerance);
+            }
+            AssertPose(new PointF(5.56F, 3.66F), 0, texts[1].Placement);
+
+            // The rectangle without a line: the grid only, numbered from the top.
+            List<ClippingObject> ofWithoutLine = ofRectangles[1];
+            Assert.AreEqual(6, ofWithoutLine.Count);
+            CollectionAssert.AreEqual(new string[] { "3", "4", "1", "2" }, ofWithoutLine.Skip(2).Select(text => ((TextShape)text.Shape).Text));
+
+            // The sharp rectangle: a polygon with mitered corners. The empty rectangle: no clipping objects.
+            StrokedShape sharpOutline = (StrokedShape)ofRectangles[2].Single();
+            Assert.AreEqual(5, CountPoints((PathShape)sharpOutline.Shape));
+            Assert.AreEqual(LineJoinMode.Miter, sharpOutline.Stroke.Join);
+            CollectionAssert.IsEmpty(ofRectangles[3]);
+        }
+
+        // Add a text symbol definition in Roboto of the size 2 to a map, with the line spacing 2.5 and no paragraph
+        // spacing, aligned left and at the top of the ascent, and return it.
+        // symdef: the definition, with its framing and underline set.
+        // fontColor: the font color.
+        // effects: the effects of the font.
+        // charSpacing: the character spacing.
+        static TextSymDef AddTextSymDef(Map map, TextSymDef symdef, SymColor fontColor, TextEffects effects = TextEffects.Regular, float charSpacing = 0)
+        {
+            symdef.SetFont("Roboto", 2, effects, fontColor, 2.5F, 0, 0, 0, null, charSpacing, 1, TextSymDefHorizAlignment.Left, TextSymDefVertAlignment.TopAscent);
+            map.AddSymdef(symdef);
+            return symdef;
+        }
+
+        // Add a text of a definition to a map, and return it.
+        // lines: the lines of the text.
+        // location, angle: the location and the angle of the text.
+        // width: the width of a formatted text, or 0.
+        static TextSymbol AddText(Map map, TextSymDef symdef, string[] lines, PointF location, float angle, float width = 0)
+        {
+            TextSymbol text = new TextSymbol(symdef, lines, location, angle, width, TextSymDefHorizAlignment.Default, TextSymDefVertAlignment.Default);
+            map.AddSymbol(text);
+            return text;
+        }
+
+        // The number of the points of the parts of a path.
+        static int CountPoints(PathShape path)
+        {
+            return path.Parts.Sum(part => (part.Points == null) ? 0 : part.Points.Length);
+        }
+
+        // Assert that a single placement has one pose, at a location and an angle.
+        static void AssertPose(PointF location, float angle, Placement placement)
+        {
+            Pose pose = placement.Poses.Single();
+            Assert.AreEqual(location.X, pose.Location.X, Tolerance, "the x coordinate of the pose");
+            Assert.AreEqual(location.Y, pose.Location.Y, Tolerance, "the y coordinate of the pose");
+            Assert.AreEqual(angle, pose.Angle, Tolerance, "the angle of the pose");
+        }
+
+        // Assert that an affine transformation is a translation by a vector.
+        static void AssertTranslation(PointF vector, Matrix matrix)
+        {
+            float[] elements = matrix.Elements;
+            CollectionAssert.AreEqual(new float[] { 1, 0, 0, 1 }, elements.Take(4), "a translation");
+            Assert.AreEqual(vector.X, elements[4], Tolerance, "the x of the translation");
+            Assert.AreEqual(vector.Y, elements[5], Tolerance, "the y of the translation");
         }
 
         // Add a line symbol definition to a map, and return it.
