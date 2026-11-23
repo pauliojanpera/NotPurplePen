@@ -497,7 +497,9 @@ The section "Words that are not names" lists the words that are not used as name
   measure. They belong to the runs of dashes, which are derived values.
 - **`TextShape`** (work) · tekstijuoste · *text run* — A word, or a grapheme where the character spacing is more than 0,
   at its own position. It has the text, the font family, the size, the effects and the top left corner. A text run is a
-  shape.
+  shape. Its top left corner is in the coordinates of its placement, whose Y axis points up, and its glyphs lie below
+  the corner, along the X axis. The mirror of the Y axis with which the drawing lays out a text is a part of the text
+  run, so the innermost step of the placement of a text is the pose of the text.
 - **jaetut muodot** · *shared shapes* — Each part of a glyph is one shape, which each placement of the glyph refers to.
   They depend on the definition alone, so they belong to the definition. Stretched and diminishing glyphs get shapes of
   their own. They are not coverage prototypes: they are the shapes of clipping objects, and placements place them. A

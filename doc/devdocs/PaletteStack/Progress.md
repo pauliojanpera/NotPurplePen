@@ -48,8 +48,8 @@ the area symbols and the graphics objects with a geometry method, and pass 1 col
 object with the collector. The full run of the branch passed, and so did the full run of `feature/palette-stack` with
 it. Only the texts and the rectangles still get their clipping objects from the collector.
 
-The draft [013](tickets/013-text-geometry.md), the geometry methods of the texts and the rectangles, is written as a
-ticket (Nov 23), and it waits for @Pauli's approval ("Waiting on @Pauli"). The glossary has the terms that it uses.
+Ticket [013](tickets/013-text-geometry.md), the geometry methods of the texts and the rectangles, is written from the
+draft, and @Pauli approved it on Nov 23 ("The approval of ticket 013"). It is implemented next ("Next").
 
 The local Linux runs of the rendering tests get the fonts of the workflow's Windows machine from the branch `linux` of
 `pauliojanpera/windows-fonts` ("The fonts of the local Linux runs", Nov 23). The texts still render differently from
@@ -277,9 +277,9 @@ base. No branch is offered upstream yet.
    done and merged into `feature/palette-stack` (903e6bde). Its description is `prs/012-area-symbol-geometry.md`. The
    full run of `feature/palette-stack` with it passed (`wip/linux/palette-stack` at 479c28a1: Tests 45182329069,
    Build 45182328893).
-4. The draft 013 is written as a ticket ([013](tickets/013-text-geometry.md), Nov 23), and it is implemented when
-   @Pauli has approved it, on `feature/text-symbol-geometry`, rooted at `feature/palette-stack` (903e6bde). The drafts
-   009 and 010 are written as tickets after it ("The order of the drafts", the session's choice), in the form of
+4. Ticket [013](tickets/013-text-geometry.md) is approved (Nov 23), and it is implemented next, on
+   `feature/text-symbol-geometry`, rooted at `feature/palette-stack` (903e6bde). The drafts 009 and 010 are written as
+   tickets after it ("The order of the drafts", the session's choice), in the form of
    ticket 012: the interface of ticket 024, the terms of the glossary, the code names where the glossary has no term,
    and the old work where it fits.
 5. The fonts of the local Linux runs are done ("The fonts of the local Linux runs", "Local tests"):
@@ -351,12 +351,6 @@ the rendering.
   target of NotPurplePen fitted to them in the integration. And whether the work can use the documented findings or
   the code of `feature/svg-target`. The notes of the epic give the reasons.
 - **Offering upstream.** No branch is offered upstream yet.
-- **The approval of ticket 013** (Nov 23). [013](tickets/013-text-geometry.md) gives the geometry methods of the
-  texts and the rectangles, with the choices of the session under "Ratkaisut". One of them refines the specification:
-  the innermost step of the placement of a text is its pose, and the Y mirror with which the drawing lays out the text
-  moves into the shapes. So the top left corner of a text run is in the coordinates of its placement, whose Y axis
-  points up, and its glyphs lie below it. Section 03 of [Specification.md](Specification.md) and the entry
-  *tekstijuoste* of [Glossary.md](Glossary.md) get this when @Pauli approves the ticket.
 
 ## Decisions
 
@@ -774,6 +768,15 @@ the rendering.
   as `base` does not have it. The integration branch is never pushed, so `base` and the workflow do not change. The
   way is the session's choice. The other fix of the test files, b08ed786, which reads the backslashes in the names of
   the test files, is in `base`. No fix exists for the templates that the maps name with Windows paths ("Local tests").
+- **The approval of ticket 013** (Nov 23). @Pauli approved [013](tickets/013-text-geometry.md), the geometry methods
+  of the texts and the rectangles, with the choices of the session under "Ratkaisut". Among them is the pose of a
+  text: the innermost step of the placement of a text is its pose, the location and the angle of the text, and the
+  mirror of the Y axis with which the drawing lays out the text moves into the shapes. In the maps of the comparison,
+  the steps of the collector give the pose bit for bit when the mirror moves out. So the top left corner of a text run
+  is in the coordinates of its placement, whose Y axis points up, and its glyphs lie below it: section 03 of
+  [Specification.md](Specification.md) and the entry *tekstijuoste* of [Glossary.md](Glossary.md) say so. The branch
+  is `feature/text-symbol-geometry`, rooted at `feature/palette-stack` after ticket 012 (903e6bde). The old branch
+  `feature/text-geometry` stays as it is.
 - **The terms of ticket 013** (Nov 23). By the rule "The names of the concepts without a name", the session added to
   [Glossary.md](Glossary.md) the terms of the texts, the rectangles and the point symbols that ticket 013 uses
   ([GlossaryHandover.md](GlossaryHandover.md), "Decided").

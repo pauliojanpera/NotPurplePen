@@ -141,6 +141,9 @@ These are @Pauli's decisions of Nov 20 and Nov 21. Glossary.md gives their terms
   · *area symbol, area object*, `SymPathWithHoles.MainPath`, `SymPathWithHoles.Holes` · *pääpolku*, *reikä* · *main
   path*, *hole*, and `GraphicsSymDef`, `GraphicsAreaSymbol`, `GraphicsLineSymbol` · *grafiikkaobjekti* · *graphics
   object*.
+- The top left corner of a text run is in the coordinates of its placement, whose Y axis points up, and its glyphs
+  lie below it. The mirror of the Y axis is a part of the text run, and the innermost step of the placement of a text
+  is its pose (Nov 23, with the approval of ticket 013).
 - The terms of the texts and the rectangles, which the session chose by the rule of Nov 23 for ticket 013:
   `PointSymDef`, `PointSymbol` · *pistesymbolin symbolimäärittely*, *pistesymboli* · *point symbol definition*, *point
   symbol*, `TextSymDef` · *tekstin symbolimäärittely* · *text symbol definition*, `TextSymbol` · *tekstisymboli* · *text

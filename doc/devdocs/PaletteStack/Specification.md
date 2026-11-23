@@ -459,6 +459,10 @@ cutters of the configurations refer to the same prototype, and the M of each giv
 - A text run (`TextShape`) is a word, or a grapheme where the character spacing is more than 0, at its own position. It
   has the text, the font family, the size, the effects and the top left corner. The channels take the positioned runs as
   they are, and the positions stay as Purple Pen measures them.
+- The top left corner of a text run is a point in the coordinates of its placement, whose Y axis points up as the axis
+  of the map does, and the glyphs of the run lie below the corner, along the X axis. The drawing lays out a text with
+  its Y axis down. That mirror of the Y axis is a part of the text run, and not of its placement, so the innermost step
+  of the placement of a text is the pose of the text.
 - The framing of a text run in the style `FramingStyle.Line` is one line: a stroke of the full width with the joins of
   the symbol, as the PDF export of OCAD draws it.
 - The shared shapes of a glyph are one shape for each part of the glyph, and each placement of the glyph refers to them.

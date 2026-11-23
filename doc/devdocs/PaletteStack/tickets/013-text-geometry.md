@@ -66,6 +66,8 @@ geometriametodi, eikä vaihe 1 käytä kerääjää. Kerääjä on testien oraak
 
 **Lisätiedot**
 - **Päätökset:**
+  - @Pauli hyväksyi tämän tiketin ja sen istunnon valinnat (ks. "Ratkaisut") 23.11., myös tekstin aseman: tekstin
+    sijoituksen sisin muunnos on tekstin asema, ja Y-akselin peilaus, jolla piirto asettaa tekstin, siirtyy muotoihin.
   - Geometriametodit tehdään neljänä osana symbolilajeittain, ja tämä on tekstien ja suorakulmioiden osa, erotettu
     tiketistä 008 (@Pauli, 18.11.). Tiketit 023–026 korvaavat tiketit 005, 007 ja 008 (@Pauli, 23.11.), joten tämä
     tiketti käyttää tiketin 024 rajapintaa ja oraakkelia. @Pauli hyväksyy luonnoksen ensin tiketiksi, joka ei ole enää
@@ -134,7 +136,7 @@ geometriametodi, eikä vaihe 1 käytä kerääjää. Kerääjä on testien oraak
   - Ei sovi: rakentaja (`LayerInstanceBuilder`), joka lisää kaikkien palettivärien leikkausobjektit,
     `Symbol.AddClippingObjects`, koska rajapinta on `SymDef.MakeClippingObjects`, tekstin sijoitus, jonka sisin muunnos
     peilaa Y-akselin, ja `Map.CreateLayerInstances`.
-- **Ratkaisut** (istunnon valinnat, @Paulin hyväksyttävinä):
+- **Ratkaisut** (istunnon valinnat, @Pauli hyväksyi ne tiketin kanssa 23.11.):
   - `TextSymDef` ja `RectangleSymDef` korvaavat metodin `SymDef.MakeClippingObjects`. `TextSymDef` antaa tekstisymbolin
     leikkausobjektit sisäisellä metodilla, joka seuraa `Draw`ia, ja viivan varren tekstin leikkausobjektit sisäisellä
     metodilla, joka seuraa `DrawTextOnPath`ia.
@@ -152,7 +154,7 @@ geometriametodi, eikä vaihe 1 käytä kerääjää. Kerääjä on testien oraak
     Peilaus vaihtaa vain lukujen etumerkkejä, joten vertailu pysyy tarkkana.
   - Tämä tarkentaa speksin luvun 03 kohtaa "The forms of the derived values" ja sanaston merkintää *tekstijuoste*:
     tekstijuosteen vasen yläkulma on sijoituksen koordinaateissa, joiden Y-akseli osoittaa ylöspäin, ja glyyfit ovat sen
-    alapuolella. Speksi ja sanasto saavat tarkennuksen, kun @Pauli hyväksyy tiketin.
+    alapuolella. Speksi ja sanasto saivat tarkennuksen, kun @Pauli hyväksyi tiketin (23.11.).
   - Peiton vertailun apufunktio (tiketti 023) piirtää tekstijuosteen peilaamalla Y-akselin ja vasemman yläkulman
     y-koordinaatin, jolloin piirtokohde saa saman muunnoksen ja saman kohdan kuin piirrossa.
   - Tekstin keskipisteen leikkausobjektit tulevat glyyfin geometriametodilla (`Glyph.MakeClippingObjects`), joka saa
