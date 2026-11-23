@@ -11,8 +11,8 @@ using static PurplePen.MapModel.Tests.MapFileTestUtil;
 namespace PurplePen.MapModel.Tests
 {
     // The symbol keys of the symbols of a map (Symbol.Key): the keys that the counter of the map gives, the keys that
-    // the maker of a symbol gives, their uniqueness, the replacement of a symbol, the undo and the redo, the copies, the
-    // holes, and the keys of the maps read from files.
+    // the maker of a symbol gives, the keys of a prefix (Map.PrefixSymbolKeys), their uniqueness, the replacement of a
+    // symbol, the undo and the redo, the copies, the holes, and the keys of the maps read from files.
     [TestFixture]
     public class SymbolKeyTests
     {
@@ -276,6 +276,91 @@ namespace PurplePen.MapModel.Tests
             }
         }
 
+        [Test]
+        public void SymbolsOfAPeriodOfAPrefixGetTheKeysOfThePrefix()
+        {
+            Map map = CreateMap();
+            LineSymbol before, first, given, second, after;
+            AreaSymbol area;
+            using (map.Write()) {
+                LineSymDef symdef = AddLineSymdef(map);
+                AreaSymDef forest = AddAreaSymdef(map);
+                before = CreateLine(symdef, 0);
+                map.AddSymbol(before);
+
+                using (map.PrefixSymbolKeys("leg.4.5.0")) {
+                    first = CreateLine(symdef, 1);
+                    map.AddSymbol(first);
+                    given = CreateLine(symdef, 2);
+                    given.Key = new SymbolKey("given");
+                    map.AddSymbol(given);
+                    area = new AreaSymbol(forest, new SymPathWithHoles(CreateSquarePath(0, 0, 10), new SymPath[] { CreateSquarePath(1, 1, 2) }), 0, new PointF());
+                    map.AddSymbol(area);
+                    second = CreateLine(symdef, 3);
+                    map.AddSymbol(second);
+                }
+
+                after = CreateLine(symdef, 4);
+                map.AddSymbol(after);
+            }
+
+            // The index counts the symbols without a key and the holes, in the order in which the map gets them. The
+            // counter does not count the symbols of the period, and gives its next key after the period.
+            Assert.AreEqual("1", before.Key.Text);
+            CollectionAssert.AreEqual(new string[] { "leg.4.5.0/0", "given", "leg.4.5.0/1", "leg.4.5.0/2", "leg.4.5.0/3" },
+                                      new Symbol[] { first, given, area, area.GetHole(0), second }.Select(symbol => symbol.Key.Text));
+            Assert.AreEqual("2", after.Key.Text);
+        }
+
+        [Test]
+        public void IndexOfAPrefixSkipsTheKeysThatTheMapHas()
+        {
+            Map map = CreateMap();
+            List<LineSymbol> lines = new List<LineSymbol>();
+            using (map.Write()) {
+                LineSymDef symdef = AddLineSymdef(map);
+                LineSymbol keyed = CreateLine(symdef, 0);
+                keyed.Key = new SymbolKey("control.1.1.0/1");
+                map.AddSymbol(keyed);
+
+                // A second period of the same prefix, as two course objects of one key give, continues after the keys of
+                // the first one.
+                for (int period = 0; period < 2; ++period) {
+                    using (map.PrefixSymbolKeys("control.1.1.0")) {
+                        for (int i = 0; i < 2; ++i) {
+                            LineSymbol line = CreateLine(symdef, lines.Count + 1);
+                            map.AddSymbol(line);
+                            lines.Add(line);
+                        }
+                    }
+                }
+            }
+
+            CollectionAssert.AreEqual(new string[] { "control.1.1.0/0", "control.1.1.0/2", "control.1.1.0/3", "control.1.1.0/4" },
+                                      lines.Select(line => line.Key.Text));
+        }
+
+        [Test]
+        public void PeriodsOfAPrefixAreInAWriteAndDoNotNest()
+        {
+            Map map = CreateMap();
+            Assert.Throws<MapUsageException>(() => map.PrefixSymbolKeys("special.1.0"));
+
+            using (map.Write()) {
+                Assert.Throws<ArgumentException>(() => map.PrefixSymbolKeys(""));
+                Assert.Throws<ArgumentException>(() => map.PrefixSymbolKeys(null));
+                using (map.PrefixSymbolKeys("special.1.0"))
+                    Assert.Throws<MapUsageException>(() => map.PrefixSymbolKeys("special.2.0"));
+
+                // The period ended at the dispose of its releaser, so a new one can start.
+                using (map.PrefixSymbolKeys("special.2.0")) {
+                    LineSymbol line = CreateLine(AddLineSymdef(map), 0);
+                    map.AddSymbol(line);
+                    Assert.AreEqual("special.2.0/0", line.Key.Text);
+                }
+            }
+        }
+
         [TestCase("LordHill.ocd")]
         [TestCase("LordHill OCAD11.ocd")]
         public void SymbolsOfAnOcadMapGetTheirKeysInTheOrderOfReading(string fileName)
@@ -323,6 +408,15 @@ namespace PurplePen.MapModel.Tests
         {
             SymColor black = map.AddColor("Black", (short)(map.AllColors.Count + 1), 0, 0, 0, 1, false);
             LineSymDef symdef = new LineSymDef("Track", (map.AllSymdefs.Count + 1).ToString(), black, 0.25F, LineJoinMode.Miter, LineCapMode.Flat);
+            map.AddSymdef(symdef);
+            return symdef;
+        }
+
+        // Add a color and an area symbol definition of it to a map.
+        static AreaSymDef AddAreaSymdef(Map map)
+        {
+            SymColor green = map.AddColor("Green", (short)(map.AllColors.Count + 1), 0.76F, 0, 0.91F, 0, false);
+            AreaSymDef symdef = new AreaSymDef("Forest", (map.AllSymdefs.Count + 1).ToString(), green, null);
             map.AddSymdef(symdef);
             return symdef;
         }

@@ -890,6 +890,8 @@ namespace PurplePen.MapModel
         bool symdefsDirty = false;
         long changeCount = 0;                 // The number of the changes of the map, which make its derived values invalid (NoteChange).
         long symbolKeyCounter = 0;            // The last value of the counter of the symbol keys (NextCounterKey).
+        string symbolKeyPrefix;               // The prefix of the symbol keys in a period of PrefixSymbolKeys, or null.
+        long symbolKeyPrefixIndex;            // The next index of the symbol keys of the prefix.
         readonly Dictionary<SymbolKey, Symbol> symbolsByKey = new Dictionary<SymbolKey, Symbol>();  // The symbols of the map and their holes, by their keys.
         KeptPaletteSeparations keptPaletteSeparations;   // The palette separations that the map keeps, or null.
         bool boundsAccurate = false;          // Are the map bounds accurate?
@@ -1907,8 +1909,8 @@ namespace PurplePen.MapModel
         }
 
         // Add a symbol to the map. A symbol without a symbol key, and each hole of an area that the map gets with the
-        // area, gets a key from the counter of the map (Symbol.Key). A key that a symbol of the map already has is a
-        // usage error.
+        // area, gets a key from the counter of the map (Symbol.Key), or in a period of PrefixSymbolKeys a key of its
+        // prefix. A key that a symbol of the map already has is a usage error.
         public void AddSymbol(Symbol sym) {
             CheckWritable();
             CheckSymbolKeysFree(sym);
@@ -2004,7 +2006,7 @@ namespace PurplePen.MapModel
         {
             foreach (Symbol keyed in SymbolWithHoles(sym)) {
                 if (keyed.Key == null)
-                    keyed.AssignKey(NextCounterKey());
+                    keyed.AssignKey((symbolKeyPrefix != null) ? NextPrefixedKey() : NextCounterKey());
                 symbolsByKey.Add(keyed.Key, keyed);
             }
         }
@@ -2041,6 +2043,55 @@ namespace PurplePen.MapModel
             } while (symbolsByKey.ContainsKey(key));
 
             return key;
+        }
+
+        // The next symbol key of the period of PrefixSymbolKeys: <prefix>/<index>, with the index in base 62. The index
+        // skips an index whose key a symbol of the map has, as the counter skips a value.
+        SymbolKey NextPrefixedKey()
+        {
+            SymbolKey key;
+            do {
+                key = new SymbolKey(symbolKeyPrefix + "/" + SymbolKey.ToBase62(symbolKeyPrefixIndex++));
+            } while (symbolsByKey.ContainsKey(key));
+
+            return key;
+        }
+
+        // Start a period in which AddSymbol gives each symbol without a key, and each hole that the map gets with it, the
+        // key <prefix>/<index>, in place of a key from the counter. The index is in base 62, from 0, in the order in which
+        // the map gets the symbols. The maker of a group of symbols, for example a course object of a course map, gives
+        // its symbols their keys in this way. The period ends when the returned releaser is disposed. Periods do not nest.
+        // prefix: the prefix, of at least one character.
+        public SymbolKeyPrefixReleaser PrefixSymbolKeys(string prefix)
+        {
+            CheckWritable();
+            if (string.IsNullOrEmpty(prefix))
+                throw new ArgumentException("A prefix of symbol keys has at least one character.", nameof(prefix));
+            if (symbolKeyPrefix != null)
+                throw new MapUsageException("Cannot start a period of symbol keys within another one");
+
+            symbolKeyPrefix = prefix;
+            symbolKeyPrefixIndex = 0;
+            return new SymbolKeyPrefixReleaser(this);
+        }
+
+        // End the period of PrefixSymbolKeys.
+        void EndSymbolKeyPrefix()
+        {
+            symbolKeyPrefix = null;
+        }
+
+        // Ends the period of PrefixSymbolKeys when it is disposed.
+        public struct SymbolKeyPrefixReleaser : IDisposable
+        {
+            private Map map;
+
+            public SymbolKeyPrefixReleaser(Map map) { this.map = map; }
+
+            public void Dispose()
+            {
+                map.EndSymbolKeyPrefix();
+            }
         }
 
         public void AddSymdef(SymDef symdef) {
