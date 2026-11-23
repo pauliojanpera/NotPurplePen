@@ -81,7 +81,7 @@ kuulu tähän. Piirto ei muutu.
   prototypes" täyden peiton ja jaksolliset peitot. Luvun 03 kohdat "The clipping objects and the union" ja "The forms
   of the derived values" antavat täytetyn muodon täyttösääntöineen ja viivamuodon kynineen. Nimet ovat
   [sanastossa](../Glossary.md).
-- **Nykytila** (`feature/palette-stack` tiketin 011 jälkeen):
+- **Nykytila** (`feature/palette-stack`, 7a03c8f6, tiketin 011 jälkeen):
   - `AreaSymDef.Draw` täyttää palettivärissä alueen täytön, kun palettiväri on `FillColor` (`SymPathWithHoles.Fill`),
     piirtää viivoitukset (`DrawHatchings`) ja aluekuviot (`DrawPatterns`) ja sitten alueen reunan pääpolulle ja
     jokaiselle reiälle (`LineSymDef.Draw`). `SymPath.FillCore` täyttää vuorottelevalla täyttösäännöllä monikulmion,

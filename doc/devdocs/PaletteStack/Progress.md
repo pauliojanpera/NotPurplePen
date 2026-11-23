@@ -35,13 +35,13 @@ maker gives or the map gives from its counter. Ticket [026](tickets/026-course-o
 the four new tickets of pass 1 are done. The drafts 009 to 013 follow the specification when @Pauli asks for it
 ("Next").
 
-Ticket [011](tickets/011-line-geometry.md), the geometry methods of the line symbols, is approved (Nov 23) and in
-progress. Its first part, the extension of fix 021 to the OCAD metric, is done on `fix/ocad-dashes-on-curves` and
-merged into `feature/palette-stack` (1265d519), and the baselines that the fixes move together with it are recorded
-there (17c15521); the full run of `feature/palette-stack` passed. The geometry methods of the lines are on
-`feature/line-symbol-geometry` (5646a462), rooted at the merge. They are complete, and the local tests pass, with
-the allowed difference of the border dashes that @Pauli decided. Its full run is under way. "Next" gives the steps
-that remain.
+Ticket [011](tickets/011-line-geometry.md), the geometry methods of the line symbols, is done and merged into
+`feature/palette-stack` (7a03c8f6). Its first part, the extension of fix 021 to the OCAD metric, is on
+`fix/ocad-dashes-on-curves` and merged before it (1265d519), with the baselines that the fixes move together with it
+(17c15521). `LineSymDef` and `LineComboSymDef` make the clipping objects of the line symbols with a geometry method,
+and pass 1 collects no line symbol with the collector. The full run of the branch passed, and the full run of
+`feature/palette-stack` with it is under way. Ticket [012](tickets/012-area-geometry.md) is approved, and its
+implementation comes next ("Next").
 
 The old branch of the epic, `feature/palette-layers`, keeps the pass 1 of 005, 007 and 008, and the branches of the
 drafts 011 to 013 are rooted at it. The rest of this section tells its state.
@@ -91,7 +91,7 @@ base. No branch is offered upstream yet.
 
 | Branch | Ticket and description | State |
 | --- | --- | --- |
-| `feature/line-symbol-geometry` | [011](tickets/011-line-geometry.md) | In progress, at 5646a462. `LineSymDef` and `LineComboSymDef` make the clipping objects of the line symbols with a geometry method (`SymDef.MakeClippingObjects`): composed dashed lines with runs of dashes (`Stroke.DashPattern`), borders as offset paths (`OffsetPathShape`), and glyphs as single and repeated placements (`RepeatedPlacement`, `Placement.Poses`). The ticket gives the implementation under "Toteutus". Locally, the comparison with the collector passes on the 162 maps of `skia_render` and on the 10 dash samples of `ocadimport`, with the allowed difference of 0.01 mm for the dashes of an offset path ("The allowed difference of the dashes of a border", 5646a462). The other tests of Map_Skia.Tests that tickets 011, 021, 023 and 024 give pass. Full run under way at 5646a462 (`wip/linux/line-symbol-geometry` at ebb23499: Tests 45168812737, Build 45168812760). Rooted at `feature/palette-stack` (1265d519), and it merges its baselines (d9674036). |
+| `feature/line-symbol-geometry` | [011](tickets/011-line-geometry.md), [description](prs/011-line-symbol-geometry.md) | All criteria met. `LineSymDef` and `LineComboSymDef` make the clipping objects of the line symbols with a geometry method (`SymDef.MakeClippingObjects`): composed dashed lines with runs of dashes (`Stroke.DashPattern`), borders as offset paths (`OffsetPathShape`), and glyphs as single and repeated placements (`RepeatedPlacement`, `Placement.Poses`). The ticket gives the implementation under "Toteutus". The comparison with the collector passes on the 162 maps of `skia_render` and on the 10 dash samples of `ocadimport`, with the allowed difference of 0.01 mm for the dashes of an offset path ("The allowed difference of the dashes of a border"). Full run passed at 94b709ed (`wip/linux/line-symbol-geometry` at 31ceea87, on `base`, with `--base-baselines prs/000-palette-stack-base`: Tests 45173018445, Build 45173018533), and at 5646a462 before it (Tests 45168812737, Build 45168812760), without a collecting run, as the old drawing code does not change: the branch changes only the visibility of `SymPath.OffsetPointsRight` in it. Its group Skia ran the 716 tests of Map_Skia.Tests. Rooted at `feature/palette-stack` (1265d519), and it merges its baselines (d9674036). In `feature/palette-stack` (7a03c8f6). |
 | `feature/course-object-keys` | [026](tickets/026-course-object-keys.md), [description](prs/026-course-object-keys.md) | All criteria met. The course formatters give each course object a course object key (`CourseObj.Key`, `CourseObjKey`), and `CourseLayout.RenderToMap` gives the symbols of the course map the keys `<course object key>/<index>` (`Map.PrefixSymbolKeys`). `CourseObjKeyTests` checks the keys in the 584 layouts of 11 test events, with 51,098 course objects. Full run passed at bc67cf2e (`wip/linux/course-object-keys`, on `base`, with `--base-baselines prs/000-palette-stack-base`: Tests 45111279178, Build 45111279158), without a collecting run, as the drawing does not use the keys. Its group PurplePen ran the 14 tests of `CourseObjKeyTests`, and its group MapModel the 3 tests of the periods of `SymbolKeyTests`. Rooted at `feature/palette-stack` (52656ff3). In `feature/palette-stack` (3e98e556). |
 | `feature/symbol-keys` | [025](tickets/025-symbol-keys.md), [description](prs/025-symbol-keys.md) | All criteria met. Each symbol of a map has a symbol key (`Symbol.Key`, `SymbolKey`), which its maker gives or the map gives from its counter, and `Map.ReplaceSymbol` gives the key of a symbol to the symbol that replaces it. Full run passed at bdf05f6f (`wip/linux/symbol-keys`, on `base`, with `--base-baselines prs/000-palette-stack-base`: Tests 45109967892, Build 45109967861), without a collecting run, as the drawing does not use the keys. Its group MapModel ran the 15 tests of `SymbolKeyTests`. Rooted at `feature/palette-stack` (89415236). In `feature/palette-stack` (52656ff3). |
 | `feature/point-symbol-geometry` | [024](tickets/024-point-symbol-geometry.md), [description](prs/024-point-symbol-geometry.md) | All criteria met. The point symbol definitions make the clipping objects of the palette color coverages of their symbols with the geometry method of their glyph (`SymDef.MakeClippingObjects`), and the collector is the oracle (`SymDef.CollectClippingObjects`). The comparison with the collector finds no difference on the 162 maps of `skia_render`, which have 12,311 point symbols and 59,197 palette color coverages, 14,303 of them of point symbols. Full run passed at 7531d5ae (`wip/linux/point-symbol-geometry`, on `base`, with `--base-baselines prs/000-palette-stack-base`: Tests 45107326258, Build 45107326220), without a collecting run, as the old drawing code does not change. Rooted at `feature/palette-stack` (96d96bd0). In `feature/palette-stack` (89415236). |
@@ -200,21 +200,15 @@ base. No branch is offered upstream yet.
 1. The approved tickets 023 to 026 of pass 1 are done, each on its branch rooted at `feature/palette-stack` ("The
    new tickets of pass 1"), and merged into it (3e98e556). They took the forms, the geometry methods of the point
    symbols and the tests of the old pass 1 where these fit ("The new branch of the epic").
-2. Ticket 011, the geometry methods of the line symbols, is approved (Nov 23) and in progress. The extension of fix
-   021 is done and merged, and `feature/line-symbol-geometry` holds the geometry methods (0f133703). The steps that
-   remain, in order:
-   1. The allowed difference of the border dashes is decided ("The allowed difference of the dashes of a border",
-      Nov 23), and 5646a462 makes it. The comparison passes on all 172 maps.
-   2. The full run of the branch, without a collecting run, as the old drawing code does not change:
-      `tools/push-wip.sh --base-baselines prs/000-palette-stack-base <clone> feature/line-symbol-geometry`.
-   3. When it passes: the criteria and "Toteutus" of the ticket, `prs/011-line-symbol-geometry.md` from
-      `prs/template.md`, the row of the branch above, and the epic. The old description `prs/011-line-geometry.md`
-      stays the record of the old branch.
-   4. The merge into `feature/palette-stack`, and its full run, with `--base-baselines prs/000-palette-stack-base`.
+2. Ticket 011, the geometry methods of the line symbols, is done and merged into `feature/palette-stack` (7a03c8f6),
+   with the extension of fix 021 before it (1265d519). Its description is `prs/011-line-symbol-geometry.md`, and the
+   old description `prs/011-line-geometry.md` stays the record of the old branch. The full run of
+   `feature/palette-stack` with it is under way (`wip/linux/palette-stack` at 707a1799: Tests 45174857054, Build
+   45174857081).
 3. Ticket [012](tickets/012-area-geometry.md), the geometry methods of the area symbols and the graphics objects, is
-   approved (Nov 23, "The approval of ticket 012"). Its branch `feature/area-symbol-geometry` is rooted at
-   `feature/palette-stack` after the merge of ticket 011. The draft 013 comes next, and the drafts 009 and 010 after
-   it ("The order of the drafts", the session's choice).
+   approved (Nov 23, "The approval of ticket 012"). Its implementation comes next, on `feature/area-symbol-geometry`
+   rooted at `feature/palette-stack` (7a03c8f6). The draft 013 is written as a ticket after it, and the drafts 009 and
+   010 after that ("The order of the drafts", the session's choice).
 
 The plan below is the plan of the old branch, in the words of its time. Its parts 2 to 5 stay as the order of the
 later work.
