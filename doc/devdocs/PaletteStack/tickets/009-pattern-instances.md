@@ -198,7 +198,9 @@ normaalimuodon mukaan. Täyttötilan valitsemat glyyfin osat ovat täyden peiton
     ajoa, koska vanha piirtokoodi ei muutu: haara poistaa siitä vain asetuksen `omitHatchingsAndPatterns` tarkistukset,
     jotka ovat piirrossa aina epätosia. Ryhmä Skia ajoi `Map_Skia.Testsin` 773 testiä, ja kaikki menivät läpi.
     Yksikään kuva- tai tekstibaseline ei siirry.
-  - Haara on yhdistetty haaraan `feature/palette-stack` (e51b81a2), ja yhdistämisen puu on haaran puu.
+  - Haara on yhdistetty haaraan `feature/palette-stack` (e51b81a2), ja yhdistämisen puu on haaran puu. Epicin täysi ajo
+    meni läpi kohdassa e51b81a2 (`wip/linux/palette-stack` kohdassa 473cd25a: Tests 45260756131, Build 45260756121):
+    ryhmä Skia ajoi `Map_Skia.Testsin` 773 testiä, ja kaikki menivät läpi.
   - Havainto: täyttötilassa `CenterInside` piirto ei piirrä glyyfin osaa, joka on viiva, jonka polku ei rajaa pintaa,
     esimerkiksi suora viiva: `SymPath.AreaCentroid` antaa sille NaN:n, koska pinta-ala on 0, eikä `IsInside` ole tosi
     NaN-pisteelle. Valitut glyyfin osat seuraavat piirtoa, eikä tiketti korjaa tätä. Tiketin laskennan 2 365 leikatun
