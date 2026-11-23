@@ -56,11 +56,10 @@ the oracle of the tests until ticket 009. The innermost step of the placement of
 the Y axis with which the drawing lays out a text is a part of the text run. The full run of the branch passed, and
 so did the full run of `feature/palette-stack` with it.
 
-The session of Nov 23 wrote the draft [009](tickets/009-pattern-instances.md) as a ticket, and @Pauli goes through
-its choices one question at a time. He decided question 2 of the draft ("The selected glyph parts of an area
-pattern"), the selection of the glyph parts ("The fill modes select each glyph part") and the coverage prototypes
-of an area pattern ("The coverage prototype of an area pattern in a palette color"). The ticket is not implemented
-before he approves it.
+The session of Nov 23 wrote the draft [009](tickets/009-pattern-instances.md) as a ticket. @Pauli decided its three
+questions ("The selected glyph parts of an area pattern", "The fill modes select each glyph part" and "The coverage
+prototype of an area pattern in a palette color") and approved it on Nov 23 ("The approval of ticket 009"). Its
+branch is `feature/pattern-prototypes`, rooted at `feature/palette-stack` (86df0a59).
 
 The local Linux runs of the rendering tests get the fonts of the workflow's Windows machine from the branch `linux` of
 `pauliojanpera/windows-fonts` ("The fonts of the local Linux runs", Nov 23). The texts still render differently from
@@ -290,10 +289,10 @@ base. No branch is offered upstream yet.
 4. Ticket [013](tickets/013-text-geometry.md), the geometry methods of the texts and the rectangles, is done and
    merged into `feature/palette-stack` (86df0a59). Its description is `prs/013-text-symbol-geometry.md`, and the old
    description `prs/013-text-geometry.md` stays the record of the old branch. The full run of `feature/palette-stack`
-   with it passed (`wip/linux/palette-stack` at c584d619: Tests 45216549532, Build 45216549723). A cold session
-   writes the draft 009 as a ticket next, and then the draft 010 ("The order of the drafts", the session's choice),
-   in the form of ticket 012: the interface of ticket 024, the terms of the glossary, the code names where the
-   glossary has no term, and the old work where it fits.
+   with it passed (`wip/linux/palette-stack` at c584d619: Tests 45216549532, Build 45216549723). Ticket 009 is
+   approved (Nov 23), and its implementation and the draft 010 come next ("The order of the drafts", the session's
+   choice). The draft 010 is written as a ticket in the form of ticket 012: the interface of ticket 024, the terms of
+   the glossary, the code names where the glossary has no term, and the old work where it fits.
 5. The fonts of the local Linux runs are done ("The fonts of the local Linux runs", "Local tests"):
    1. `system/fonts.json` of the branch `linux` agrees with its files and with `.github/ci/environment.json` of
       `base`: of the 65 fonts of `environment.json`, 29 files have the hash of the Windows machine, and 36 are older
@@ -890,6 +889,15 @@ the rendering.
   covers different points in each palette color. `CoveragePrototype.Covers(PointF)` stays as it is. Section 02 of the
   specification gives an area pattern as an index in `AreaSymDef.patterns`. Ticket 009 refines it, and the entry
   `CoveragePrototype` of [Glossary.md](Glossary.md), with this.
+- **The approval of ticket 009** (Nov 23). @Pauli approved [009](tickets/009-pattern-instances.md), the coverage
+  prototypes of the hatchings and the area patterns, with the choices of the session under "Ratkaisut": the names
+  `HatchingPrototype`, `AreaPatternPrototype`, `SymbolCoverage.Transformation`, `SymbolCoverage.ExpandPrototype` and
+  `CoveragePrototype.GetNormalForm`; M with the offset of the coverage prototype, also `hatchOffset`, and an expansion
+  with the steps of the drawing; an irregular area pattern, whose normal form keeps the translation of M; the precision
+  of the normal form, 10⁻⁶ for the linear part and 0.0001 mm for the translation; the order of the palette color
+  coverages of a symbol; the helper of the coverage comparison; and the removal of the collector. The branch is
+  `feature/pattern-prototypes`, rooted at `feature/palette-stack` (86df0a59). The ticket refines sections 02 and 03 of
+  the specification and the glossary with its three decisions above.
 - **The archiving of a cloud session** (Nov 23). @Pauli let the session of Nov 23 that finished ticket 011 archive its
   transcript, and it runs `archive-if-due.sh claude` of the branch `sessions` of `pauliojanpera/windows-fonts` every
   minute in a background command, from a clone of that branch in `~/session-archive`. The commits of the archive

@@ -82,8 +82,9 @@ normaalimuodon mukaan. Täyttötilan valitsemat glyyfin osat ovat täyden peiton
 
 **Lisätiedot**
 - **Päätökset:**
-  - Istunto kirjoitti luonnoksen tiketiksi 23.11., ja tiketti odottaa @Paulin hyväksyntää. Luonnos hyväksytään ensin
-    tiketiksi, joka ei ole enää luonnos, ja vasta sitten se toteutetaan (@Pauli, 21.11. ja 23.11.).
+  - @Pauli hyväksyi tämän tiketin ja sen istunnon valinnat (ks. "Ratkaisut") 23.11. Istunto kirjoitti luonnoksen
+    tiketiksi samana päivänä, ja @Pauli päätti sen kolme kysymystä (ks. alla). Luonnos hyväksytään ensin tiketiksi, joka
+    ei ole enää luonnos, ja vasta sitten se toteutetaan (@Pauli, 21.11. ja 23.11.).
   - Ennen tätä tikettiä vaihe 1 irrotetaan piirrosta ja kerääjä korvataan symbolien geometriametodeilla (@Pauli, 18.11.,
     "Pass 1 before the patterns"). Tiketit 023–026 ja 011–013 ovat tehneet sen.
   - Kerääjä on testien oraakkeli tikettien 008–013 ajan. Tämä tiketti poistaa sisäisen asetuksen

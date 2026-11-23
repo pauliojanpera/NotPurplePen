@@ -131,10 +131,10 @@ The section "Words that are not names" lists the words that are not used as name
   in a translation, so it is periodic with each lattice. The full coverage is the trivial case of periodic coverage, and
   not a kind of its own. No M changes it. The G of points, lines, texts and area fills is the full coverage. The dash
   patterns and the glyphs along a line are strokes and placements, not lattices.
-- **`HatchingPrototype`** (proposed name) · viivoituksen peittoprototyyppi · *coverage prototype of a hatching* — The G
+- **`HatchingPrototype`** · viivoituksen peittoprototyyppi · *coverage prototype of a hatching* — The G
   of one hatching (`HatchInfo`) of an `AreaSymDef`: stripes of the width `hatchWidth` about the lines y = k ·
   `hatchSpacing`. It refers to its `AreaSymDef` and to the index of the hatching, and copies nothing.
-- **`AreaPatternPrototype`** (proposed name) · aluekuvion peittoprototyyppi · *coverage prototype of an area pattern* —
+- **`AreaPatternPrototype`** · aluekuvion peittoprototyyppi · *coverage prototype of an area pattern* —
   The G of one area pattern (`PatternInfo`) of an `AreaSymDef` in one palette color: the parts of its element in the
   palette color at the points of its lattice. An element with parts in several palette colors gives an area pattern a
   coverage prototype in each of them. It refers to its `AreaSymDef`, to the index of the area pattern and to the palette
@@ -389,12 +389,12 @@ The section "Words that are not names" lists the words that are not used as name
   G, an affine map S for which G∘S = G. The translation symmetries of G are its symmetries that are translations. The
   symmetries of an area pattern include the translations of its lattice. The symmetries of a hatching include all the
   translations along its lines, and the translations across them by multiples of the spacing. All the maps are
-  symmetries of the full coverage. A normal form decides the sameness (proposed name:
-  `CoveragePrototype.GetNormalForm`): the translation of M is reduced into a fundamental domain of the translation
+  symmetries of the full coverage. A normal form decides the sameness
+  (`CoveragePrototype.GetNormalForm`): the translation of M is reduced into a fundamental domain of the translation
   symmetries of G, and it is rounded to a fixed precision. A fundamental domain holds exactly one translation of each
   class of translations that differ by a translation symmetry of G. The configurations with the same normal form are
   the same, and the relation is an equivalence.
-- **`SymbolCoverage.Transformation`** (proposed name), **`PaletteCutter.Transformation`** · affiininen muunnos M ·
+- **`SymbolCoverage.Transformation`**, **`PaletteCutter.Transformation`** · affiininen muunnos M ·
   *affine transformation M* (work: `LayerInstance.Transformation`) — An invertible 2D affine transformation of G. A
   palette color coverage of a symbol has the M of its configuration, and a palette cutter has the normal form of it.
 - **peitto, unioni** · *coverage, union* — A binary coverage is a set of points of the plane. In mathematics, it is the
@@ -473,7 +473,7 @@ The section "Words that are not names" lists the words that are not used as name
 - **katkotaulukko** · *dash table* — A known channel conversion of the dashes of a line. `Map` offers it.
 - **laajennus** · *expansion* (work: `StrokedShape.ExpandDashes`, `RepeatedShapes.Expand`) — A known channel conversion
   into single parts: a run into dashes, and a repeated placement into single placements. `Map` offers it.
-- **kuviotäytön laajennus** · *expansion of a pattern fill* (proposed name: `SymbolCoverage.ExpandPrototype`) — The
+- **kuviotäytön laajennus** · *expansion of a pattern fill* (`SymbolCoverage.ExpandPrototype`) — The
   lines of a hatching or the elements of an area pattern over the bounds of an area, as single clipping objects at the
   places and with the steps of the drawing. The expansion of an irregular area pattern is the placements of its
   elements. It is a known channel conversion, which `Map` offers.

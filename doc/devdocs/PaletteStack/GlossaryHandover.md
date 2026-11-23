@@ -153,6 +153,10 @@ These are @Pauli's decisions of Nov 20 and Nov 21. Glossary.md gives their terms
   keskipiste* · *center point of a text*, `RectangleSymDef`, `RectangleSymbol` · *suorakulmion symbolimäärittely*,
   *suorakulmiosymboli* · *rectangle symbol definition*, *rectangle symbol*, and *ruudukko*, *ruudukon viivat*,
   *ruudukon tekstit* · *grid*, *grid lines*, *grid texts*.
+- The names and the terms of ticket 009, which the session chose by the rule of Nov 23 and @Pauli approved with the
+  ticket: `HatchingPrototype` · *viivoituksen peittoprototyyppi*, `AreaPatternPrototype` · *aluekuvion
+  peittoprototyyppi*, `SymbolCoverage.Transformation`, `CoveragePrototype.GetNormalForm` · *normaalimuoto*,
+  *perusalue*, *siirtosymmetria* and `SymbolCoverage.ExpandPrototype` · *kuviotäytön laajennus* (Nov 23).
 
 The five terms that the session chose by their use in commit 06f4c824d are all decided on Nov 21.
 
