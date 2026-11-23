@@ -118,9 +118,10 @@ base. No branch is offered upstream yet.
   There it clones the repository itself, and it runs `tools/push-wip.sh` with the path of its clone. `git push` and
   the reads of `gh` work. The proxy of the environment refuses the writes of the GitHub API: it refused the rename
   of a branch (HTTP 403). `tools/push-wip.sh --collect` makes its collecting run with a push, so it needs no write of
-  the API ("The collecting run by a push", Nov 23). The cloud environment of Nov 23 has no .NET SDK, and its Bash
-  tool has no network access for installs. The network access of a cloud environment is set in the settings of the
-  environment, and its setup script can install the SDK.
+  the API ("The collecting run by a push", Nov 23). The cloud environment has no .NET SDK of its own. The network
+  access of the session is set on claude.ai under Settings > Capabilities. With `dot.net`,
+  `builds.dotnet.microsoft.com` and `api.nuget.org` allowed, `dotnet-install.sh --channel 10.0 --install-dir
+  ~/.dotnet` installs the SDK (10.0.404 on Nov 23).
 - **The checkouts.** The clone `~/Documents/Projects/NotPurplePen` stays on `docs/process-coordination`: do not change
   its branch. Each branch has a worktree in `~/Documents/Projects/npp-worktrees/`: `palette-layers`, `inks`,
   `fix-mapper-colors`, `fix-ocad-utf8`, `opacity-and-blend-mode`, `layer-instances`, `fix-matrix-equals`,
