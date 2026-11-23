@@ -216,7 +216,9 @@ namespace PurplePen.Graphics2D
 			return true;
 		}
 
-        private void RecursivelyFlatten(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4, double tolerance, List<PointF> list, int level)
+        // The part of the bezier at "level" is the "node"th of the 2^(level - 1) parts of equal parameter range, from 0. If
+        // "quarterIndexes" is non-null, it gets the index in the list of each point at the parameters 1/4, 1/2 and 3/4.
+        private void RecursivelyFlatten(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4, double tolerance, List<PointF> list, int level, int node, int[] quarterIndexes)
         {
             // This method is VERY performance critical!!
 
@@ -255,17 +257,30 @@ namespace PurplePen.Graphics2D
 
             // Continue subdivision
             //----------------------
-            RecursivelyFlatten(x1, y1, x12, y12, x123, y123, x1234, y1234, tolerance, list, level+1); 
+            RecursivelyFlatten(x1, y1, x12, y12, x123, y123, x1234, y1234, tolerance, list, level+1, 2 * node, quarterIndexes);
+            if (quarterIndexes != null && level <= 2)
+                quarterIndexes[(level == 1) ? 1 : 2 * node] = list.Count;   // the point at 1/2, or at 1/4 or 3/4
             list.Add(new PointF((float) x1234, (float) y1234));  // CONSIDER: better results using x23,y23?
-            RecursivelyFlatten(x1234, y1234, x234, y234, x34, y34, x4, y4, tolerance, list, level+1); 
+            RecursivelyFlatten(x1234, y1234, x234, y234, x34, y34, x4, y4, tolerance, list, level+1, 2 * node + 1, quarterIndexes);
         }
 
         // Flatten a bezier into a series of line segments with the given error, and
         // add those segments to a List<PointF>
         // Algorithm from: http://www.antigrain.com/research/adaptive_bezier/index.html
         public void Flatten(float error, List<PointF> list) {
+            Flatten(error, list, null);
+        }
+
+        // Flatten a bezier as Flatten(error, list) does. If "quarterIndexes" is non-null, it gets the index in the list of
+        // the point of the bezier at each of the parameters 1/4, 1/2 and 3/4, which end its quarters, or -1 where the
+        // bezier is flat enough to have no point at that parameter.
+        public void Flatten(float error, List<PointF> list, int[] quarterIndexes) {
+            if (quarterIndexes != null) {
+                for (int i = 0; i < 3; ++i)
+                    quarterIndexes[i] = -1;
+            }
             list.Add(end1);
-            RecursivelyFlatten(end1.X, end1.Y, control1.X, control1.Y, control2.X, control2.Y, end2.X, end2.Y, error * 2.5F, list, 1);
+            RecursivelyFlatten(end1.X, end1.Y, control1.X, control1.Y, control2.X, control2.Y, end2.X, end2.Y, error * 2.5F, list, 1, 0, quarterIndexes);
             list.Add(end2);
         }
   	}

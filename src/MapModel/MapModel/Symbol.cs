@@ -63,6 +63,27 @@ namespace PurplePen.MapModel
                 throw new MapUsageException("Cannot modify a symbol after it has been added to a map");
         }
 
+        // The symbol key: the identity of the symbol in its map, or null before the maker of the symbol or the map gives
+        // it. The maker can give it before the map gets the symbol, and the map gives a symbol without a key a key from
+        // its counter (Map.AddSymbol). A copy of the symbol (CloneDetached) is a new symbol, without a key.
+        SymbolKey key;
+        public SymbolKey Key
+        {
+            get { return key; }
+            set
+            {
+                CheckModifiable();
+                key = value;
+            }
+        }
+
+        // Give the symbol its key, when the map gets it without a key or replaces a symbol with it.
+        // key: the key.
+        internal void AssignKey(SymbolKey key)
+        {
+            this.key = key;
+        }
+
         // A box guaranteed to bound this symbol. May be bigger than needed.
         protected RectangleF boundingBox;
         public RectangleF BoundingBox {get {return boundingBox; }}
@@ -606,6 +627,9 @@ namespace PurplePen.MapModel
         public string[] WrappedText { get { return wrappedText; } }
 
         float[] wrappedLineWidths;  // widths of each line in the wrapped line text.
+
+        // The widths of the lines of the wrapped text, which Draw gives to the drawing of the text.
+        internal float[] WrappedLineWidths { get { return wrappedLineWidths; } }
 
         TextCoordMapper coordMapper;  // The mapping between text and wrappedText.
 
@@ -2178,6 +2202,27 @@ namespace PurplePen.MapModel
             for (double y = firstLine; y <= lastLine; y += spacing) {
                 g.DrawLine(penKey, new PointF(boundingRect.Left, (float)y), new PointF(boundingRect.Right, (float)y));
             }
+        }
+
+        // The clipping objects of the hatch lines that DrawHatchLines draws with the same spacing, offset and rectangle:
+        // each line a stroked line of a pen, at a placement, in the order of the drawing.
+        // stroke: the pen of the lines.
+        // spacing: the spacing of the lines.
+        // offset: the offset of the lines from the line y = 0.
+        // boundingRect: the rectangle over which the lines go.
+        // placement: the placement of the lines.
+        public static IReadOnlyList<ClippingObject> MakeHatchLines(Stroke stroke, float spacing, float offset, RectangleF boundingRect, Placement placement)
+        {
+            List<ClippingObject> lines = new List<ClippingObject>();
+            double firstLine = Math.Round((boundingRect.Top - offset) / spacing) * spacing + offset;
+            double lastLine = (Math.Round((boundingRect.Bottom - offset) / spacing) + 0.5) * spacing + offset;
+
+            for (double y = firstLine; y <= lastLine; y += spacing) {
+                PointF[] points = { new PointF(boundingRect.Left, (float)y), new PointF(boundingRect.Right, (float)y) };
+                lines.Add(new StrokedShape(PathShape.FromPoints(points, false), stroke, placement));
+            }
+
+            return lines.AsReadOnly();
         }
 
         // Find where in the text is closest to a point.
