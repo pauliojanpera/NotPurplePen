@@ -102,7 +102,8 @@ kuulu tähän. Piirto ei muutu.
     ajoa, koska vanha piirtokoodi ei muutu. Ryhmä Skia ajoi `Map_Skia.Testsin` 722 testiä, ja kaikki menivät läpi.
     Yksikään kuva- tai tekstibaseline ei siirry.
   - Haara on yhdistetty haaraan `feature/palette-stack` (903e6bde), ja yhdistämisen puu on haaran puu. Epicin täysi
-    ajo on käynnissä (`wip/linux/palette-stack` kohdassa 479c28a1: Tests 45182329069, Build 45182328893).
+    ajo meni läpi kohdassa 903e6bde (`wip/linux/palette-stack` kohdassa 479c28a1: Tests 45182329069, Build
+    45182328893).
 - **Speksi:** [Specification.md](../Specification.md), luvut 02 ja 03. Luvun 02 kohta "The hatchings and the area
   patterns" antaa alueen täytön, jonka G on täysi peitto, ja alueen reunan, jonka `AreaSymDef.Draw` piirtää
   pääpolulla ja jokaisella reiällä. Kohta "The lines" antaa alueen reunan peruspolun, ja kohta "The coverage

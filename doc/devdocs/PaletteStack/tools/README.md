@@ -35,7 +35,8 @@ Python 3 with Pillow, git, the GitHub CLI signed in to the repository, and the .
 2. `int-worktree.sh` after each commit that the local tests need, then `run-map-tests.sh` with a filter for the
    ticket's own tests and a few existing tests that go through the changed code. A test file of `Test_MapModel`
    joins `LinuxMapModelTestRun/LinuxMapModelTestRun.csproj` when a ticket needs it. A test that asks GDI+ for a
-   rendering is skipped there; `Map_Skia.Tests` runs on Linux as it is.
+   rendering is skipped there. `Map_Skia.Tests` runs on Linux in the integration worktree too; the tests that fail
+   there with and without a change are in `../Progress.md`, "Local tests".
    After a rewrite of the feature branch's history (an amend or a rebase), `REBUILD=1 int-worktree.sh`.
 3. `push-wip.sh --collect` when the change is complete and can change the drawing. The script prints the id of the
    collecting run, on `experiment/collect-<name>`. Wait for it with `wait-run.sh`, then fetch each group's images:
