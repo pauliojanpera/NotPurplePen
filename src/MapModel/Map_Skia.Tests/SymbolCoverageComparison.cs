@@ -24,18 +24,19 @@ namespace Map_Skia.Tests
         // repeated placements. The comparison expands them first (Expand), and compares each expanded clipping object in
         // the coordinates of the map within ExpansionTolerance: a run measures its dashes from its own start, and the
         // drawing from the start of the line, and a repeated placement finds its poses along its own path, and the drawing
-        // along the whole line. Points that are nearer each other than the tolerance are one point. The other clipping
-        // objects are compared exactly.
+        // along the whole line. The clipping objects that the expansion of an offset path makes are compared within
+        // OffsetPathTolerance. Points that are nearer each other than ExpansionTolerance are one point. The other
+        // clipping objects are compared exactly.
         public static List<string> FindDifferences(SymbolCoverage coverage, IReadOnlyList<ClippingObject> expected, IReadOnlyList<ClippingObject> actual)
         {
-            List<(ClippingObject clippingObject, bool isExpanded)> expanded = Expand(actual);
+            List<(ClippingObject clippingObject, bool isExpanded, float tolerance)> expanded = ExpandWithTolerances(actual);
             List<string> differences = new List<string>();
             for (int i = 0; i < Math.Max(expected.Count, expanded.Count); ++i) {
                 string expectedObject, actualObject;
                 if (i < expanded.Count && expanded[i].isExpanded) {
                     expectedObject = (i < expected.Count) ? DescribeInMap(expected[i]) : "none";
                     actualObject = DescribeInMap(expanded[i].clippingObject);
-                    if (i < expected.Count && AreSameInMap(expected[i], expanded[i].clippingObject))
+                    if (i < expected.Count && AreSameInMap(expected[i], expanded[i].clippingObject, expanded[i].tolerance))
                         continue;
                 }
                 else {
@@ -53,6 +54,14 @@ namespace Map_Skia.Tests
         // The distance in mm within which an expanded clipping object agrees with the one of the collector.
         public const float ExpansionTolerance = 0.0001F;
 
+        // The distance in mm within which a clipping object that the expansion of an offset path makes agrees with the
+        // one of the collector. The offset path moves a dash aside with the miter at a vertex, whose direction comes from
+        // the piece between the end of the dash and the vertex. That piece is at least 0.05 mm (fix 020), and the end of
+        // the dash rounds to another float in a run than in the drawing, so the miter turns by the rounding divided by the
+        // length of the piece. The difference is at most about the offset, times the miter factor, times that angle:
+        // about 0.006 mm at 500 mm from the origin, with an offset of 1 mm and the miter limit 5.
+        public const float OffsetPathTolerance = 0.01F;
+
         // The expansion of clipping objects into the clipping objects that the drawing makes: a run of dashes into single
         // dashes (StrokedShape.ExpandDashes), an offset path into its offset curve, and the clipping objects that share a
         // repeated placement into the clipping objects at each pose, pose by pose, each in the order of the parts, as the
@@ -60,7 +69,16 @@ namespace Map_Skia.Tests
         // clippingObjects: the clipping objects.
         public static List<(ClippingObject clippingObject, bool isExpanded)> Expand(IReadOnlyList<ClippingObject> clippingObjects)
         {
-            List<(ClippingObject, bool)> expanded = new List<(ClippingObject, bool)>();
+            return ExpandWithTolerances(clippingObjects).Select(item => (item.clippingObject, item.isExpanded)).ToList();
+        }
+
+        // The expansion of Expand, with the distance in mm within which each expanded clipping object agrees with the
+        // one of the collector: OffsetPathTolerance for the expansion of an offset path, and ExpansionTolerance for the
+        // others.
+        // clippingObjects: the clipping objects.
+        static List<(ClippingObject clippingObject, bool isExpanded, float tolerance)> ExpandWithTolerances(IReadOnlyList<ClippingObject> clippingObjects)
+        {
+            List<(ClippingObject, bool, float)> expanded = new List<(ClippingObject, bool, float)>();
             int i = 0;
             while (i < clippingObjects.Count) {
                 if (clippingObjects[i].Placement is RepeatedPlacement repeated) {
@@ -70,7 +88,7 @@ namespace Map_Skia.Tests
                     foreach (SinglePlacement placement in repeated.Expand()) {
                         for (int k = i; k <= last; ++k) {
                             foreach (ClippingObject part in ExpandShape(clippingObjects[k].WithPlacement(placement)))
-                                expanded.Add((part, true));
+                                expanded.Add((part, true, ExpansionTolerance));
                         }
                     }
                     i = last + 1;
@@ -78,9 +96,11 @@ namespace Map_Skia.Tests
                 else {
                     ClippingObject clippingObject = clippingObjects[i];
                     StrokedShape stroked = clippingObject as StrokedShape;
-                    bool isExpanded = stroked != null && (stroked.Stroke.DashPattern != null || stroked.Shape is OffsetPathShape);
+                    bool isOffsetPath = stroked != null && stroked.Shape is OffsetPathShape;
+                    bool isExpanded = stroked != null && (stroked.Stroke.DashPattern != null || isOffsetPath);
+                    float tolerance = isOffsetPath ? OffsetPathTolerance : ExpansionTolerance;
                     foreach (ClippingObject part in ExpandShape(clippingObject))
-                        expanded.Add((part, isExpanded));
+                        expanded.Add((part, isExpanded, tolerance));
                     ++i;
                 }
             }
@@ -102,9 +122,10 @@ namespace Map_Skia.Tests
             return new ClippingObject[] { clippingObject };
         }
 
-        // Are two clipping objects the same in the coordinates of the map, within ExpansionTolerance: of the same kind,
-        // with the same pen or fill rule, and with their shapes at the same points?
-        static bool AreSameInMap(ClippingObject expected, ClippingObject actual)
+        // Are two clipping objects the same in the coordinates of the map, within a tolerance: of the same kind, with the
+        // same pen or fill rule, and with their shapes at the same points?
+        // tolerance: the distance in mm within which two points are the same.
+        static bool AreSameInMap(ClippingObject expected, ClippingObject actual, float tolerance)
         {
             if (expected.GetType() != actual.GetType())
                 return false;
@@ -120,7 +141,7 @@ namespace Map_Skia.Tests
             if (expectedPoints == null || actualPoints == null || expectedPoints.Count != actualPoints.Count)
                 return false;
             for (int i = 0; i < expectedPoints.Count; ++i) {
-                if (Distance(expectedPoints[i], actualPoints[i]) > ExpansionTolerance)
+                if (Distance(expectedPoints[i], actualPoints[i]) > tolerance)
                     return false;
             }
             return true;
