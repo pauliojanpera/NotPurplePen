@@ -13,7 +13,8 @@ namespace Map_Skia.Tests
     // clipping objects that the collector makes (SymDef.CollectClippingObjects). Two lists of clipping objects have the
     // same structure when they have the same clipping objects in the same order: the same kind, shape, pen or fill rule,
     // and steps of the placement. The collector makes a shape of each drawing call, so the comparison compares the
-    // shapes as values, each number exactly. It compares a matrix by its elements, as Matrix.Elements gives them.
+    // shapes as values, each number exactly. It compares a matrix by its elements, as Matrix.Elements gives them. The
+    // numbers 0 and -0 are the same, as a mirror of the Y axis changes the sign of a zero.
     static class SymbolCoverageComparison
     {
         // Find the differences between the structures of two lists of the clipping objects of a palette color coverage.
@@ -27,8 +28,18 @@ namespace Map_Skia.Tests
         // along the whole line. The clipping objects that the expansion of an offset path makes are compared within
         // OffsetPathTolerance. Points that are nearer each other than ExpansionTolerance are one point. The other
         // clipping objects are compared exactly.
+        // The texts differ from the collector in two ways (ticket 013). The drawing lays out a text with a step that
+        // mirrors the Y axis, and the collector keeps that step, but the mirror is a part of a text run of the geometry
+        // methods (TextShape). So the comparison first moves the mirror of each clipping object of the collector into its
+        // shape (MoveMirrorIntoShape). And the drawing strokes the outline of a text run with a framing line with pens of
+        // increasing width, and last with the pen of the full width (TextSymDef.DrawStringWithEffects). The narrower
+        // lines are inside the widest, and the framing line of the geometry methods is that one line, as OCAD draws it.
+        // So of the consecutive strokes of the same text run at the same placement, the comparison keeps the last
+        // (LeaveOutNarrowerLinesOfFramings).
         public static List<string> FindDifferences(SymbolCoverage coverage, IReadOnlyList<ClippingObject> expected, IReadOnlyList<ClippingObject> actual)
         {
+            ITextMetrics textMetrics = coverage.Symbol.ContainingMap.TextMetricsProvider;
+            expected = LeaveOutNarrowerLinesOfFramings(expected.Select(clippingObject => MoveMirrorIntoShape(clippingObject, textMetrics)).ToList());
             List<(ClippingObject clippingObject, bool isExpanded, float tolerance)> expanded = ExpandWithTolerances(actual);
             List<string> differences = new List<string>();
             for (int i = 0; i < Math.Max(expected.Count, expanded.Count); ++i) {
@@ -49,6 +60,86 @@ namespace Map_Skia.Tests
             }
 
             return differences;
+        }
+
+        // The clipping object of the collector with the mirror of the Y axis moved into its shape. Each step of the
+        // placement that mirrors the Y axis is multiplied by the mirror, Scale(1, -1), and the mirror moves into the next
+        // inner step, or from the innermost step into the shape: the points of the shape, and the top left corner of a
+        // text run, get the opposite y coordinates. A clipping object without such a step is returned as it is.
+        // clippingObject: the clipping object of the collector.
+        // textMetrics: the metrics of the fonts of the map, which measure a text run.
+        public static ClippingObject MoveMirrorIntoShape(ClippingObject clippingObject, ITextMetrics textMetrics)
+        {
+            SinglePlacement placement = Placement.Identity;
+            bool hasMirror = false, isMirrorPending = false;
+            foreach (Matrix step in clippingObject.Placement.Steps) {
+                if (isMirrorPending)
+                    step.Scale(1, -1, MatrixOrder.Append);
+                isMirrorPending = IsMirror(step);
+                if (isMirrorPending) {
+                    step.Scale(1, -1, MatrixOrder.Prepend);
+                    hasMirror = true;
+                }
+                placement = placement.Within(step);
+            }
+            if (!hasMirror)
+                return clippingObject;
+
+            Shape shape = isMirrorPending ? Mirror(clippingObject.Shape, textMetrics) : clippingObject.Shape;
+            if (clippingObject is FilledShape filled)
+                return new FilledShape(shape, filled.FillRule, placement);
+            else
+                return new StrokedShape(shape, ((StrokedShape)clippingObject).Stroke, placement);
+        }
+
+        // Does an affine transformation mirror the Y axis: is its determinant negative?
+        static bool IsMirror(Matrix matrix)
+        {
+            float[] e = matrix.Elements;
+            return e[0] * e[3] - e[1] * e[2] < 0;
+        }
+
+        // The mirror of a shape of the collector in the X axis: each point with the opposite y coordinate.
+        // shape: the shape.
+        // textMetrics: the metrics of the fonts of the map, which measure a text run.
+        static Shape Mirror(Shape shape, ITextMetrics textMetrics)
+        {
+            if (shape is PathShape path)
+                return new PathShape(path.Parts.Select(part => new GraphicsPathPart(part.Kind, part.Points?.Select(Mirror).ToArray())));
+            if (shape is EllipseShape ellipse)
+                return new EllipseShape(Mirror(ellipse.Center), ellipse.RadiusX, ellipse.RadiusY);
+            if (shape is ArcShape arc)
+                return new ArcShape(Mirror(arc.Center), arc.Radius, -arc.StartAngle, -arc.SweepAngle);
+
+            TextShape text = (TextShape)shape;
+            return new TextShape(text.Text, text.FontFamily, text.EmHeight, text.Effects, Mirror(text.UpperLeft), textMetrics);
+        }
+
+        static PointF Mirror(PointF point)
+        {
+            return new PointF(point.X, -point.Y);
+        }
+
+        // The clipping objects of the collector without the narrower lines of the framing lines of the text runs: of the
+        // consecutive strokes of the same text run at the same placement, the last.
+        // clippingObjects: the clipping objects of the collector.
+        static List<ClippingObject> LeaveOutNarrowerLinesOfFramings(List<ClippingObject> clippingObjects)
+        {
+            List<ClippingObject> kept = new List<ClippingObject>();
+            for (int i = 0; i < clippingObjects.Count; ++i) {
+                if (i + 1 < clippingObjects.Count && AreStrokesOfTheSameTextRun(clippingObjects[i], clippingObjects[i + 1]))
+                    continue;
+                kept.Add(clippingObjects[i]);
+            }
+            return kept;
+        }
+
+        // Are two clipping objects strokes of the same text run at the same placement, whatever their pens?
+        static bool AreStrokesOfTheSameTextRun(ClippingObject first, ClippingObject second)
+        {
+            return first is StrokedShape && second is StrokedShape && first.Shape is TextShape && second.Shape is TextShape &&
+                   Describe(first.Shape) == Describe(second.Shape) &&
+                   first.Placement.Steps.Select(Describe).SequenceEqual(second.Placement.Steps.Select(Describe));
         }
 
         // The distance in mm within which an expanded clipping object agrees with the one of the collector.
@@ -236,9 +327,10 @@ namespace Map_Skia.Tests
             return Describe(point.X) + " " + Describe(point.Y);
         }
 
+        // The description of a number, in which 0 and -0 are the same.
         static string Describe(float value)
         {
-            return value.ToString("R", CultureInfo.InvariantCulture);
+            return ((value == 0) ? 0F : value).ToString("R", CultureInfo.InvariantCulture);
         }
     }
 }

@@ -7,12 +7,16 @@ namespace PurplePen.MapModel
 {
     using PurplePen.Graphics2D;
 
-    // The collector of pass 1: the adapter between the drawing code of the symbols and the clipping objects
-    // (ClippingObjects.cs). It makes the clipping objects of one palette color coverage of a symbol with the full
-    // coverage (SymbolCoverage). The symbol draws its shapes of the palette color on the collector as on any drawing
-    // target, and the collector turns each drawing call into a clipping object, at the placement that the
-    // transformations of the call give. It draws nothing, and the colors of the brushes and the pens do not matter to
-    // it.
+    // The collector, the oracle of the geometry methods of the symbol definitions in the tests: the adapter between the
+    // drawing code of the symbols and the clipping objects (ClippingObjects.cs). It makes the clipping objects of one
+    // palette color coverage of a symbol with the full coverage (SymbolCoverage), and pass 1 does not use it. The symbol
+    // draws its shapes of the palette color on the collector as on any drawing target, and the collector turns each
+    // drawing call into a clipping object, at the placement that the transformations of the call give. It draws nothing,
+    // and the colors of the brushes and the pens do not matter to it.
+    // It keeps the steps of the drawing as they are. The drawing lays out a text with a step that mirrors the Y axis, so
+    // the collector makes a text run of each text that the drawing draws in the coordinates of that step, with its top
+    // left corner there. A text run of the geometry methods has the mirror as a part of it (TextShape), and the tests
+    // move the mirror of the collector into its shapes before they compare the two.
     // It gives the drawing code the resolution 0, so that a dashed line keeps its dashes whatever the lengths of its
     // dashes and gaps, and it leaves out the hatchings and the patterns of areas, which are coverage prototypes of their
     // own. In the drawing of the symbols, only the hatchings and the patterns clip or use a pattern brush, and only the
@@ -213,12 +217,12 @@ namespace PurplePen.MapModel
 
         public void DrawRectangle(object penKey, RectangleF rect)
         {
-            AddStroked(penKey, PathShape.FromPoints(GetCorners(rect), true));
+            AddStroked(penKey, PathShape.FromPoints(PathShape.GetCorners(rect), true));
         }
 
         public void FillRectangle(object brushKey, RectangleF rect)
         {
-            AddFilled(brushKey, PathShape.FromPoints(GetCorners(rect), true), AreaFillMode.Winding);
+            AddFilled(brushKey, PathShape.FromPoints(PathShape.GetCorners(rect), true), AreaFillMode.Winding);
         }
 
         public void DrawPolygon(object penKey, PointF[] pts)
@@ -344,14 +348,6 @@ namespace PurplePen.MapModel
             if (fonts.TryGetValue(fontKey, out font))
                 return font;
             throw new ArgumentException("Given key does not have a font created for it", nameof(fontKey));
-        }
-
-        // The corners of a rectangle, clockwise from the top left corner, as a target makes the path of a rectangle.
-        private static PointF[] GetCorners(RectangleF rect)
-        {
-            return new PointF[] {
-                new PointF(rect.Left, rect.Top), new PointF(rect.Right, rect.Top),
-                new PointF(rect.Right, rect.Bottom), new PointF(rect.Left, rect.Bottom) };
         }
 
         private static NotSupportedException CreateClipNotSupportedException()

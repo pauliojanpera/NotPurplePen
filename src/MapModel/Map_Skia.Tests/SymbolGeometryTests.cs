@@ -11,10 +11,11 @@ using TestingUtils;
 namespace Map_Skia.Tests
 {
     // The geometry methods of the symbol definitions (SymDef.MakeClippingObjects), with which pass 1 makes the clipping
-    // objects of the palette color coverages of the symbols whose definition has one, and the collector those of the
-    // others. The clipping objects that the collector makes of each palette color coverage (SymDef.CollectClippingObjects)
-    // are the oracle: the geometry methods make clipping objects of the same structure (SymbolCoverageComparison). The
-    // other tests check what the oracle does not show: the point symbols of a definition share the shapes of its glyph.
+    // objects of the palette color coverages of the symbols. The clipping objects that the collector makes of each
+    // palette color coverage (SymDef.CollectClippingObjects) are the oracle: the geometry methods make clipping objects of
+    // the same structure (SymbolCoverageComparison). The other tests check what the oracle does not show: for example,
+    // the point symbols of a definition share the shapes of its glyph, and the shapes of a text are in the coordinates
+    // of its pose.
     [TestFixture, Parallelizable(ParallelScope.Children)]
     public class SymbolGeometryTests
     {
@@ -45,7 +46,12 @@ namespace Map_Skia.Tests
                 TestContext.WriteLine("{0} area symbols, {1} palette color coverages of area symbols, {2} graphics objects, {3} palette color coverages of graphics objects",
                                       map.AllSymbols.OfType<AreaSymbol>().Count(), coverages.Count(coverage => coverage.Symbol is AreaSymbol),
                                       map.AllSymbols.Count(symbol => symbol is IGraphicsSymbol), coverages.Count(coverage => coverage.Symbol is IGraphicsSymbol));
+                TestContext.WriteLine("{0} text symbols, {1} palette color coverages of text symbols, {2} texts along lines, {3} palette color coverages of texts along lines, {4} rectangle symbols, {5} palette color coverages of rectangle symbols",
+                                      map.AllSymbols.OfType<TextSymbol>().Count(), coverages.Count(coverage => coverage.Symbol is TextSymbol),
+                                      map.AllSymbols.OfType<LineTextSymbol>().Count(), coverages.Count(coverage => coverage.Symbol is LineTextSymbol),
+                                      map.AllSymbols.OfType<RectangleSymbol>().Count(), coverages.Count(coverage => coverage.Symbol is RectangleSymbol));
                 AssertSameStructureAsTheCollector(coverages);
+                AssertEachPlacementGivesItsPoses(coverages);
             }
         }
 
@@ -732,15 +738,18 @@ namespace Map_Skia.Tests
             Assert.IsNotEmpty(clippingObjects[1]);
         }
 
-        // The symbol definitions of the points, the lines, the areas and the graphics objects make the clipping objects of
-        // the palette color coverages of their symbols with a geometry method of their own, and not with the collector
-        // that SymDef.MakeClippingObjects uses. The texts and the rectangles still use the collector (draft 013). The
-        // geometry methods of the areas and the graphics objects make the same clipping objects as the collector, so the
-        // comparison cannot tell them apart: this test checks which class implements the interface.
+        // Each symbol definition makes the clipping objects of the palette color coverages of its symbols with a geometry
+        // method of its own: the interface SymDef.MakeClippingObjects is abstract, so pass 1 has no way to the collector.
+        // The geometry methods of the areas and the graphics objects make the same clipping objects as the collector, so
+        // the comparison cannot tell them apart: this test checks which class implements the interface, for each class of
+        // symbol definitions that is not abstract.
         [Test]
-        public void SymbolDefinitionsOfPointsLinesAreasAndGraphicsObjectsHaveAGeometryMethod()
+        public void EachSymbolDefinitionHasAGeometryMethodOfItsOwn()
         {
             Type[] parameters = new Type[] { typeof(Symbol), typeof(SymColor), typeof(CoveragePrototype) };
+            System.Reflection.BindingFlags flags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
+            Assert.IsTrue(typeof(SymDef).GetMethod("MakeClippingObjects", flags, null, parameters, null).IsAbstract, "SymDef.MakeClippingObjects is abstract");
+
             Dictionary<Type, Type> expected = new Dictionary<Type, Type>() {
                 { typeof(PointSymDef), typeof(PointSymDef) },
                 { typeof(LineSymDef), typeof(LineSymDef) },
@@ -748,12 +757,43 @@ namespace Map_Skia.Tests
                 { typeof(AreaSymDef), typeof(AreaLikeSymDef) },
                 { typeof(AreaComboSymDef), typeof(AreaLikeSymDef) },
                 { typeof(GraphicsSymDef), typeof(GraphicsSymDef) },
-                { typeof(TextSymDef), typeof(SymDef) },
-                { typeof(RectangleSymDef), typeof(SymDef) } };
+                { typeof(TextSymDef), typeof(TextSymDef) },
+                { typeof(RectangleSymDef), typeof(RectangleSymDef) },
+                { typeof(HoleSymDef), typeof(HoleSymDef) },
+                { typeof(ImageSymDef), typeof(ImageSymDef) } };
+            CollectionAssert.AreEquivalent(expected.Keys, typeof(SymDef).Assembly.GetTypes().Where(type => type.IsSubclassOf(typeof(SymDef)) && !type.IsAbstract), "the classes of symbol definitions");
             foreach (KeyValuePair<Type, Type> definition in expected) {
-                System.Reflection.MethodInfo method = definition.Key.GetMethod("MakeClippingObjects", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic, null, parameters, null);
+                System.Reflection.MethodInfo method = definition.Key.GetMethod("MakeClippingObjects", flags, null, parameters, null);
                 Assert.IsNotNull(method, definition.Key.Name);
                 Assert.AreEqual(definition.Value, method.DeclaringType, "the class that implements the geometry method of {0}", definition.Key.Name);
+            }
+        }
+
+        // The definitions of the holes and of the image and layout objects draw no palette color, and their geometry
+        // methods give no clipping objects. The definition of the graphics objects takes only a GraphicsAreaSymbol and a
+        // GraphicsLineSymbol, and its geometry method does not make the clipping objects of another symbol.
+        [Test]
+        public void HolesAndImageObjectsHaveNoClippingObjectsAndGraphicsObjectsAreTheOnlySymbolsOfTheirDefinition()
+        {
+            Map map = CreateMap();
+            SymColor black;
+            AreaSymbol area;
+            LineSymbol line;
+            Symbol imageArea;
+            using (map.Write()) {
+                black = map.AddColor("Black", 1, 0, 0, 0, 1, false);
+                area = AddArea(map, AddAreaSymDef(map, new AreaSymDef("Area", "1", black, null)), CreateSquareWithHole(0));
+                line = AddLine(map, AddLineSymDef(map, new LineSymDef("Line", "2", black, 0.2F, LineJoinMode.Miter, LineCapMode.Flat)), new SymPath(new PointF[] { new PointF(0, 0), new PointF(5, 0) }));
+                imageArea = new ImageAreaSymbol(map.GetImageSymDef(), new SymPathWithHoles(CreateSquarePath(3, 3, 2), null), CmykColor.FromCmyk(0, 0, 0, 0.5F), true, 0);
+                map.AddSymbol(imageArea);
+            }
+
+            using (map.Read()) {
+                Symbol hole = map.AllSymbols.Single(symbol => symbol.Definition is HoleSymDef);
+                CollectionAssert.IsEmpty(hole.Definition.MakeClippingObjects(hole, black, CoveragePrototype.FullCoverage));
+                CollectionAssert.IsEmpty(imageArea.Definition.MakeClippingObjects(imageArea, black, CoveragePrototype.FullCoverage));
+                Assert.Throws<ArgumentException>(() => new GraphicsSymDef().MakeClippingObjects(line, black, CoveragePrototype.FullCoverage));
+                Assert.IsNotEmpty(area.Definition.MakeClippingObjects(area, black, CoveragePrototype.FullCoverage));
             }
         }
 
@@ -1106,6 +1146,25 @@ namespace Map_Skia.Tests
             }
 
             Assert.IsEmpty(differences, "{0} differences from the clipping objects of the collector, the first ones:\n{1}", differences.Count, string.Join("\n", differences.Take(10)));
+        }
+
+        // Assert that the placement of each clipping object of palette color coverages gives its poses: that the innermost
+        // step of each single placement is a rotation and a translation. The map of the coverages is read.
+        static void AssertEachPlacementGivesItsPoses(List<SymbolCoverage> coverages)
+        {
+            List<string> withoutPoses = new List<string>();
+            foreach (SymbolCoverage coverage in coverages) {
+                foreach (ClippingObject clippingObject in coverage.ClippingObjects) {
+                    try {
+                        Assert.IsNotEmpty(clippingObject.Placement.Poses);
+                    }
+                    catch (InvalidOperationException) {
+                        withoutPoses.Add(string.Format("{0}, {1}: {2}", coverage.Symbol.Definition.Name, coverage.Color.Name, SymbolCoverageComparison.Describe(clippingObject)));
+                    }
+                }
+            }
+
+            Assert.IsEmpty(withoutPoses, "{0} clipping objects whose placement gives no poses, the first ones:\n{1}", withoutPoses.Count, string.Join("\n", withoutPoses.Take(10)));
         }
 
         // Assert that two placements have the same steps.

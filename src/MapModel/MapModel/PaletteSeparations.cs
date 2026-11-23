@@ -67,8 +67,7 @@ namespace PurplePen.MapModel
 
         // The clipping objects, in the order in which the drawing code of the symbol draws their shapes. They are a
         // derived value of the coverage, which the first read makes. The symbol definition makes them with its geometry
-        // method, or with the collector from the drawing code of the symbol (SymDef.MakeClippingObjects). A coverage
-        // can have no clipping objects.
+        // method (SymDef.MakeClippingObjects). A coverage can have no clipping objects.
         public IReadOnlyList<ClippingObject> ClippingObjects
         {
             get
