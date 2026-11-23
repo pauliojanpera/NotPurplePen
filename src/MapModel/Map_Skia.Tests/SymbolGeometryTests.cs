@@ -11,28 +11,29 @@ using TestingUtils;
 namespace Map_Skia.Tests
 {
     // The geometry methods of the symbol definitions (SymDef.MakeClippingObjects), with which pass 1 makes the clipping
-    // objects of the palette color coverages of the symbols. The clipping objects that the collector makes of each
-    // palette color coverage (SymDef.CollectClippingObjects) are the oracle: the geometry methods make clipping objects of
-    // the same structure (SymbolCoverageComparison). The other tests check what the oracle does not show: for example,
-    // the point symbols of a definition share the shapes of its glyph, and the shapes of a text are in the coordinates
-    // of its pose.
+    // objects of the palette color coverages of the symbols, checked as structures without a drawing: for example, the
+    // point symbols of a definition share the shapes of its glyph, a dashed line is a composed dashed line, and the
+    // shapes of a text are in the coordinates of its pose. The coverage of the clipping objects is compared with the
+    // drawing in PaletteSeparationCoverageTests.
     [TestFixture, Parallelizable(ParallelScope.Children)]
     public class SymbolGeometryTests
     {
         const float Tolerance = 0.0001F;
 
         // Let RenderingTests add the Roboto fonts, which the text symbols use, before the tests of the fixture, so that
-        // both sides of a comparison measure the texts in the same fonts.
+        // the texts are measured in the fonts of the rendering tests.
         [OneTimeSetUp]
         public void AddFontsOfTheRenderingTests()
         {
             System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(RenderingTests).TypeHandle);
         }
 
-        // Each map of the Skia rendering tests, and each sample of the dashed lines of OCAD.
+        // The placement of each clipping object of each palette color coverage gives its poses, in each map of the Skia
+        // rendering tests and each sample of the dashed lines of OCAD. So do the placements of the expansions of the
+        // hatchings and the clipped area patterns (SymbolCoverage.ExpandPrototype).
         [TestCaseSource(nameof(FindMapFilesOfTheRenderingTests))]
         [TestCaseSource(nameof(FindDashSampleFiles))]
-        public void GeometryMethodsMakeTheClippingObjectsOfTheCollector(string mapFileName)
+        public void EachPlacementGivesItsPoses(string mapFileName)
         {
             Map map = ReadMap(mapFileName);
             using (map.Read()) {
@@ -50,7 +51,9 @@ namespace Map_Skia.Tests
                                       map.AllSymbols.OfType<TextSymbol>().Count(), coverages.Count(coverage => coverage.Symbol is TextSymbol),
                                       map.AllSymbols.OfType<LineTextSymbol>().Count(), coverages.Count(coverage => coverage.Symbol is LineTextSymbol),
                                       map.AllSymbols.OfType<RectangleSymbol>().Count(), coverages.Count(coverage => coverage.Symbol is RectangleSymbol));
-                AssertSameStructureAsTheCollector(coverages);
+                List<SymbolCoverage> ofPatternFills = coverages.Where(coverage => coverage.Prototype != CoveragePrototype.FullCoverage).ToList();
+                TestContext.WriteLine("{0} palette color coverages of hatchings, {1} of area patterns",
+                                      ofPatternFills.Count(coverage => coverage.Prototype is HatchingPrototype), ofPatternFills.Count(coverage => coverage.Prototype is AreaPatternPrototype));
                 AssertEachPlacementGivesItsPoses(coverages);
             }
         }
@@ -99,15 +102,6 @@ namespace Map_Skia.Tests
             }
             CollectionAssert.AreNotEqual(((SinglePlacement)partsOfSymbols[0][0].Placement).Matrix.Elements, ((SinglePlacement)partsOfSymbols[2][0].Placement).Matrix.Elements);
             AssertBounds(RectangleF.FromLTRB(4.5F, 2.5F, 5.5F, 3.5F), partsOfSymbols[2][1].Bounds);
-
-            // The collector makes a shape of each drawing call. Its clipping objects have the same structure.
-            using (map.Read()) {
-                IReadOnlyList<SymbolCoverage> lines = map.PaletteSeparations[0].SymbolCoverages;
-                IReadOnlyList<ClippingObject> firstLine = lines[0].Symbol.Definition.CollectClippingObjects(lines[0].Symbol, brown);
-                IReadOnlyList<ClippingObject> secondLine = lines[1].Symbol.Definition.CollectClippingObjects(lines[1].Symbol, brown);
-                Assert.AreNotSame(firstLine.Single().Shape, secondLine.Single().Shape);
-            }
-            AssertSameStructureAsTheCollector(map);
         }
 
         [Test]
@@ -135,7 +129,6 @@ namespace Map_Skia.Tests
                 Assert.AreEqual(0, ring.Placement.Steps.Count);
                 Assert.AreEqual(0.95F, ((EllipseShape)ring.Shape).RadiusX, Tolerance);
             }
-            AssertSameStructureAsTheCollector(map);
         }
 
         [Test]
@@ -171,7 +164,6 @@ namespace Map_Skia.Tests
             // The arcs have the pen of the shared ring.
             Assert.AreSame(((StrokedShape)clippingObjects[6]).Stroke, ((StrokedShape)clippingObjects[0]).Stroke);
             Assert.AreEqual(0.95F, arcs[0].Radius, Tolerance);
-            AssertSameStructureAsTheCollector(map);
         }
 
         // The branches of the drawing of the glyphs of point symbols, each of which the geometry method follows: circles
@@ -205,7 +197,6 @@ namespace Map_Skia.Tests
                 }), null, new float[] { 45, 135 });
             }
 
-            AssertSameStructureAsTheCollector(map);
             // Green: two dots and two areas with a hole. Brown: two whole rings, an arc that three gap angles leave, an
             // arc around 0 degrees, and two lines with Bezier curves, one ring and one arc of the last glyph. Black: dots
             // of the circles whose line is at least as wide as their diameter, two of the first glyph, one of the second
@@ -284,7 +275,6 @@ namespace Map_Skia.Tests
 
             List<ClippingObject>[] clippingObjects = GetClippingObjectsBySeparation(map);
 
-            AssertSameStructureAsTheCollector(map);
             // Green: the fills of the two double lines. Brown: the main line of the line with a second line. Black: the
             // polyline, the closed line and the Bezier curve, but not the line of zero length; the shortened line and the
             // two pointy ends of the long line, and the two pointy ends alone of the short one; the second line; and the
@@ -318,7 +308,6 @@ namespace Map_Skia.Tests
                     new PointF(0, 0), new PointF(15.05F, 0), new PointF(15.05F + (float)(14.45 * Math.Cos(angle)), (float)(14.45 * Math.Sin(angle))) }));
             }
 
-            AssertSameStructureAsTheCollector(map);
             StrokedShape[] shapes = GetClippingObjectsBySeparation(map).Single().Cast<StrokedShape>().ToArray();
             CollectionAssert.AreEqual(new int[] { 0, 2, 0, 2, 0 }, shapes.Select(shape => (shape.Stroke.DashPattern == null) ? 0 : shape.Stroke.DashPattern.Count));
             CollectionAssert.AreEqual(new int[] { 1, 5, 1, 4, 1 }, shapes.Select(shape => shape.ExpandDashes().Count));
@@ -347,7 +336,6 @@ namespace Map_Skia.Tests
                 AddLine(map, dashed, new SymPath(new PointF[] { new PointF(0, 0), new PointF(30, 0) }));
             }
 
-            AssertSameStructureAsTheCollector(map);
             StrokedShape[] shapes = GetClippingObjectsBySeparation(map).Single().Cast<StrokedShape>().ToArray();
             StrokedShape run = shapes.Single(shape => shape.Stroke.DashPattern != null);
             Assert.AreEqual(4, run.Stroke.DashPattern.Count);
@@ -379,7 +367,6 @@ namespace Map_Skia.Tests
                                                  new PointKind[] { PointKind.Normal, PointKind.BezierControl, PointKind.BezierControl, PointKind.Normal }));
             }
 
-            AssertSameStructureAsTheCollector(map);
             List<IReadOnlyList<float>> patterns = GetClippingObjectsBySeparation(map).Single().Cast<StrokedShape>()
                                                                                     .Where(shape => shape.Stroke.DashPattern != null)
                                                                                     .Select(shape => shape.Stroke.DashPattern)
@@ -412,7 +399,6 @@ namespace Map_Skia.Tests
                 AddLine(map, dashed, new SymPath(new PointF[] { new PointF(0, 0), new PointF(16.2F, 0), new PointF(16.2F + (float)(16 * Math.Cos(angle)), (float)(16 * Math.Sin(angle))) }));
             }
 
-            AssertSameStructureAsTheCollector(map);
             StrokedShape[] shapes = GetClippingObjectsBySeparation(map).Single().Cast<StrokedShape>().ToArray();
             StrokedShape[] runs = shapes.Where(shape => shape.Stroke.DashPattern != null).ToArray();
             Assert.AreEqual(2, runs.Length, "runs");
@@ -443,7 +429,6 @@ namespace Map_Skia.Tests
                 AddLine(map, doubled, new SymPath(new PointF[] { new PointF(0, 0), new PointF(10, 0), new PointF(16, 6) }));
             }
 
-            AssertSameStructureAsTheCollector(map);
             StrokedShape[] runs = GetClippingObjectsBySeparation(map).Single().Cast<StrokedShape>().Where(shape => shape.Stroke.DashPattern != null).ToArray();
             Assert.GreaterOrEqual(runs.Length, 2, "runs");
             foreach (StrokedShape run in runs) {
@@ -486,7 +471,6 @@ namespace Map_Skia.Tests
                 }
             }
 
-            AssertSameStructureAsTheCollector(map);
             // Each location places glyphs. The corners are the ends and the corner between them, and the dash point is
             // between the ends.
             List<ClippingObject>[] clippingObjects = GetClippingObjectsBySeparation(map);
@@ -529,7 +513,6 @@ namespace Map_Skia.Tests
                 AddLine(map, symdef, CreatePathWithCornersAndDashPoints(6));
             }
 
-            AssertSameStructureAsTheCollector(map);
             List<ClippingObject>[] clippingObjects = GetClippingObjectsBySeparation(map);
             Assert.AreEqual(5, clippingObjects.Length);
 
@@ -614,21 +597,22 @@ namespace Map_Skia.Tests
                 AddLine(map, dotted, new SymPath(new PointF[] { new PointF(0, 20), new PointF(end.X, end.Y + 20) }));
             }
 
-            AssertSameStructureAsTheCollector(map);
             List<ClippingObject>[] clippingObjects = GetClippingObjectsBySeparation(map);
             ClippingObject ticks = clippingObjects[1].Single();
             RepeatedPlacement repeated = (RepeatedPlacement)ticks.Placement;
-            int collected;
-            using (map.Read())
-                collected = map.PaletteSeparations[1].SymbolCoverages.Single().Symbol.Definition.CollectClippingObjects(map.PaletteSeparations[1].SymbolCoverages.Single().Symbol, map.PaletteSeparations[1].Color).Count;
-            Assert.AreEqual(collected, repeated.Count);
             Assert.AreEqual(repeated.Count, repeated.Poses.Count);
+            // The glyphs go from the first distance after the start of the line to the last distance before its end. The
+            // fitting stretches these distances with the spacing, and they are half the spacing, so the first and the
+            // last pose are half a step from the ends of the line.
+            double factor = euclidean ? 1 : Math.Cos(Math.PI / 6) + Math.Sin(Math.PI / 6) / 2;
+            PointF firstPose = repeated.Poses[0].Location, lastPose = repeated.Poses[repeated.Count - 1].Location;
+            Assert.AreEqual(repeated.Step / 2, Math.Sqrt(firstPose.X * firstPose.X + firstPose.Y * firstPose.Y), 0.01, "the first pose");
+            Assert.AreEqual(40 - repeated.Step / 2, Math.Sqrt(lastPose.X * lastPose.X + lastPose.Y * lastPose.Y), 0.01, "the last pose");
             if (euclidean) {
                 Assert.AreEqual(20, repeated.Count);
                 Assert.AreEqual(2.0F, repeated.Step, Tolerance);
             }
             else {
-                double factor = Math.Cos(Math.PI / 6) + Math.Sin(Math.PI / 6) / 2;
                 double fitted = 40 * factor / repeated.Count;
                 Assert.AreEqual(fitted / factor, repeated.Step, 0.01, "the euclidean step");
             }
@@ -668,7 +652,6 @@ namespace Map_Skia.Tests
                                                  new PointKind[] { PointKind.Normal, PointKind.BezierControl, PointKind.BezierControl, PointKind.Normal }));
             }
 
-            AssertSameStructureAsTheCollector(map);
             List<RepeatedPlacement> repeated = GetClippingObjectsBySeparation(map)[1].Select(glyph => glyph.Placement).OfType<RepeatedPlacement>().ToList();
             TestContext.WriteLine(string.Join(", ", repeated.Select(placement => placement.Count + " by " + placement.Step)));
             Assert.AreEqual(4, repeated.Count, "repeated placements");
@@ -696,7 +679,6 @@ namespace Map_Skia.Tests
                 AddLine(map, spaced, new SymPath(new PointF[] { new PointF(0, 0), new PointF(16.2F, 0), new PointF(16.2F + (float)(16 * Math.Cos(angle)), (float)(16 * Math.Sin(angle))) }));
             }
 
-            AssertSameStructureAsTheCollector(map);
             List<RepeatedPlacement> repeated = GetClippingObjectsBySeparation(map)[1].Select(glyph => glyph.Placement).OfType<RepeatedPlacement>().ToList();
             TestContext.WriteLine(string.Join(", ", repeated.Select(placement => placement.Count + " by " + placement.Step)));
             Assert.AreEqual(2, repeated.Count, "repeated placements");
@@ -730,7 +712,6 @@ namespace Map_Skia.Tests
                 map.AddSymbol(new LineSymbol(combined, new SymPath(new PointF[] { new PointF(0, 0), new PointF(6, 0), new PointF(10, 3) })));
             }
 
-            AssertSameStructureAsTheCollector(map);
             List<ClippingObject>[] clippingObjects = GetClippingObjectsBySeparation(map);
             StrokedShape[] brownShapes = SymbolCoverageComparison.Expand(clippingObjects[0]).Select(expanded => expanded.clippingObject).Cast<StrokedShape>().ToArray();
             Assert.Greater(brownShapes.Length, 1);
@@ -739,10 +720,8 @@ namespace Map_Skia.Tests
         }
 
         // Each symbol definition makes the clipping objects of the palette color coverages of its symbols with a geometry
-        // method of its own: the interface SymDef.MakeClippingObjects is abstract, so pass 1 has no way to the collector.
-        // The geometry methods of the areas and the graphics objects make the same clipping objects as the collector, so
-        // the comparison cannot tell them apart: this test checks which class implements the interface, for each class of
-        // symbol definitions that is not abstract.
+        // method of its own: the interface SymDef.MakeClippingObjects is abstract. This test checks which class
+        // implements the interface, for each class of symbol definitions that is not abstract.
         [Test]
         public void EachSymbolDefinitionHasAGeometryMethodOfItsOwn()
         {
@@ -818,7 +797,6 @@ namespace Map_Skia.Tests
             }
 
             Assert.IsNull(withRemovedHole.Path.Holes, "the holes of the area whose hole the map removed");
-            AssertSameStructureAsTheCollector(map);
             FilledShape[] fills = GetClippingObjectsBySeparation(map).Single().Cast<FilledShape>().ToArray();
             Assert.AreEqual(4, fills.Length);
             foreach (FilledShape fill in fills)
@@ -862,7 +840,6 @@ namespace Map_Skia.Tests
                 AddArea(map, AddAreaSymDef(map, new AreaSymDef("Ticked", "8", null, ticked)), CreateSquareWithHole(60));
             }
 
-            AssertSameStructureAsTheCollector(map);
             List<ClippingObject>[] clippingObjects = GetClippingObjectsBySeparation(map);
             // Green: the area fill. Black: the solid border along the main path and then along the hole.
             Assert.IsInstanceOf<FilledShape>(clippingObjects[0].Single());
@@ -907,7 +884,6 @@ namespace Map_Skia.Tests
                 AddArea(map, outer, CreateSquareWithHole(0));
             }
 
-            AssertSameStructureAsTheCollector(map);
             List<ClippingObject>[] clippingObjects = GetClippingObjectsBySeparation(map);
             Assert.IsInstanceOf<FilledShape>(clippingObjects[0].Single(), "the area fill of the area");
             float[] widths = clippingObjects[1].Cast<StrokedShape>().Select(shape => shape.Stroke.Width).ToArray();
@@ -918,9 +894,10 @@ namespace Map_Skia.Tests
         }
 
         // An area symbol has no palette color coverage with the full coverage in a palette color that its area symbol
-        // definition draws only with a hatching or an area pattern: the hatchings and the area patterns are periodic
-        // coverages, and the geometry method of the areas makes no clipping objects of them. In the palette color of the
-        // area fill, a hatching of the same palette color adds nothing to the area fill.
+        // definition draws only with a hatching or a clipped area pattern: the hatchings and the clipped area patterns are
+        // periodic coverages of their own (ticket 009), and the area symbol has a palette color coverage of each of them,
+        // whose clipping object is the area. In the palette color of the area fill, a hatching of the same palette color
+        // has a palette color coverage of its own beside the full coverage.
         [Test]
         public void AreaHasNoFullCoverageInAPaletteColorOfItsHatchingsAndAreaPatternsAlone()
         {
@@ -941,14 +918,17 @@ namespace Map_Skia.Tests
                 hatchedInItsFillColor = AddArea(map, hatchedInItsFill, new SymPathWithHoles(CreateSquarePath(6, 0, 4), null));
             }
 
-            AssertSameStructureAsTheCollector(map);
             using (map.Read()) {
                 IReadOnlyList<PaletteSeparation> separations = map.PaletteSeparations;
-                CollectionAssert.AreEqual(new Symbol[] { patterned, hatchedInItsFillColor }, separations[0].SymbolCoverages.Select(coverage => coverage.Symbol));
+                CollectionAssert.AreEqual(new Symbol[] { patterned, hatchedInItsFillColor, hatchedInItsFillColor }, separations[0].SymbolCoverages.Select(coverage => coverage.Symbol));
+                CollectionAssert.AreEqual(new Type[] { CoveragePrototype.FullCoverage.GetType(), CoveragePrototype.FullCoverage.GetType(), typeof(HatchingPrototype) },
+                                          separations[0].SymbolCoverages.Select(coverage => coverage.Prototype.GetType()), "the palette color of the area fills");
                 foreach (SymbolCoverage coverage in separations[0].SymbolCoverages)
-                    Assert.IsInstanceOf<FilledShape>(coverage.ClippingObjects.Single(), "the area fill of {0}", coverage.Symbol.Definition.Name);
-                CollectionAssert.IsEmpty(separations[1].SymbolCoverages, "the palette color of the hatching");
-                CollectionAssert.IsEmpty(separations[2].SymbolCoverages, "the palette color of the area pattern");
+                    Assert.IsInstanceOf<FilledShape>(coverage.ClippingObjects.Single(), "the area of {0}, {1}", coverage.Symbol.Definition.Name, coverage.Prototype);
+                Assert.IsInstanceOf<HatchingPrototype>(separations[1].SymbolCoverages.Single().Prototype, "the palette color of the hatching");
+                Assert.IsInstanceOf<AreaPatternPrototype>(separations[2].SymbolCoverages.Single().Prototype, "the palette color of the area pattern");
+                foreach (PaletteSeparation separation in separations.Skip(1))
+                    Assert.AreSame(patterned, separation.SymbolCoverages.Single().Symbol);
             }
         }
 
@@ -971,7 +951,6 @@ namespace Map_Skia.Tests
                                                      blue, 0.3F, LineJoinMode.Bevel, LineCapMode.Square));
             }
 
-            AssertSameStructureAsTheCollector(map);
             List<ClippingObject>[] clippingObjects = GetClippingObjectsBySeparation(map);
             FilledShape fill = (FilledShape)clippingObjects[0].Single();
             Assert.AreEqual(AreaFillMode.Alternate, fill.FillRule);
@@ -1003,7 +982,6 @@ namespace Map_Skia.Tests
                 AddText(map, symdef, new string[] { "" }, new PointF(40, 5), 0);
             }
 
-            AssertSameStructureAsTheCollector(map);
             List<ClippingObject> runs = GetClippingObjectsBySeparation(map)[0];
             TextShape[] shapes = runs.Select(run => (TextShape)run.Shape).ToArray();
             CollectionAssert.AreEqual(new string[] { "Two", "words", "Three", "Turned" }, shapes.Select(shape => shape.Text));
@@ -1045,7 +1023,6 @@ namespace Map_Skia.Tests
                 AddText(map, symdef, new string[] { "Aé b" }, new PointF(0, 0), 0);
             }
 
-            AssertSameStructureAsTheCollector(map);
             TextShape[] shapes = GetClippingObjectsBySeparation(map)[0].Select(run => (TextShape)run.Shape).ToArray();
             CollectionAssert.AreEqual(new string[] { "A", "é", "b" }, shapes.Select(shape => shape.Text));
             for (int i = 1; i < shapes.Length; ++i) {
@@ -1057,22 +1034,20 @@ namespace Map_Skia.Tests
         // The line framing of a text run is one line, as OCAD draws it: in the color of the framing, the run filled, and
         // its outline stroked with the line of the full width, two times the width of the framing, with the line style of
         // the framing. The drawing strokes the outline with narrower pens first, of 0.33 times the font size and more,
-        // which the collector has too.
+        // which are inside the line of the full width.
         [Test]
         public void LineFramingOfATextRunIsOneLineOfTheFullWidth()
         {
             Map map = CreateMap();
-            TextSymbol text;
             using (map.Write()) {
                 SymColor yellow = map.AddColor("Yellow", 1, 0, 0.27F, 0.79F, 0, false);
                 SymColor black = map.AddColor("Black", 2, 0, 0, 0, 1, false);
                 TextSymDef symdef = new TextSymDef("Framed", "1", TextSymDef.PreferredSymbolKind.NormalText, null);
                 symdef.SetFraming(new TextSymDef.Framing() { framingStyle = TextSymDef.FramingStyle.Line, framingColor = yellow, lineWidth = 1, lineStyle = LineStyle.Rounded });
                 AddTextSymDef(map, symdef, black);
-                text = AddText(map, symdef, new string[] { "Two words" }, new PointF(0, 0), 0);
+                AddText(map, symdef, new string[] { "Two words" }, new PointF(0, 0), 0);
             }
 
-            AssertSameStructureAsTheCollector(map);
             List<ClippingObject> framing = GetClippingObjectsBySeparation(map)[0];
             CollectionAssert.AreEqual(new string[] { "Two", "Two", "words", "words" }, framing.Select(clippingObject => ((TextShape)clippingObject.Shape).Text));
             for (int i = 0; i < framing.Count; i += 2) {
@@ -1083,9 +1058,6 @@ namespace Map_Skia.Tests
                 Assert.AreEqual(LineJoinMode.Round, line.Join);
                 Assert.AreEqual(((TextShape)framing[i].Shape).UpperLeft, ((TextShape)framing[i + 1].Shape).UpperLeft);
             }
-
-            using (map.Read())
-                Assert.Greater(text.Definition.CollectClippingObjects(text, map.PaletteSeparations[0].Color).Count, framing.Count, "the narrower lines of the drawing");
         }
 
         // The shadow of a text run is the run in the color of the framing, moved by the offsets of the shadow. In the
@@ -1103,7 +1075,6 @@ namespace Map_Skia.Tests
                 AddText(map, symdef, new string[] { "Two words" }, new PointF(5, 5), 45);
             }
 
-            AssertSameStructureAsTheCollector(map);
             List<ClippingObject>[] clippingObjects = GetClippingObjectsBySeparation(map);
             TextShape[] shadows = clippingObjects[0].Select(shadow => (TextShape)shadow.Shape).ToArray();
             TextShape[] runs = clippingObjects[1].Select(run => (TextShape)run.Shape).ToArray();
@@ -1134,7 +1105,6 @@ namespace Map_Skia.Tests
                 text = AddText(map, symdef, new string[] { "One two", "Three" }, new PointF(0, 0), 10, 6);
             }
 
-            AssertSameStructureAsTheCollector(map);
             List<ClippingObject>[] clippingObjects = GetClippingObjectsBySeparation(map);
             int lineCount, paragraphCount;
             using (map.Read()) {
@@ -1192,7 +1162,6 @@ namespace Map_Skia.Tests
                 AddText(map, underlined, new string[] { "Two words", "Three" }, new PointF(0, 0), 0);
             }
 
-            AssertSameStructureAsTheCollector(map);
             List<ClippingObject>[] clippingObjects = GetClippingObjectsBySeparation(map);
             FilledShape[] rectangles = clippingObjects[0].Cast<FilledShape>().ToArray();
             Assert.AreEqual(2, rectangles.Length);
@@ -1239,7 +1208,6 @@ namespace Map_Skia.Tests
                 AddText(map, withCross, new string[] { "Formatted" }, new PointF(0, 10), 0, 20);
             }
 
-            AssertSameStructureAsTheCollector(map);
             List<ClippingObject>[] clippingObjects = GetClippingObjectsBySeparation(map);
             float lineWidth, emHeight;
             using (map.Read()) {
@@ -1293,7 +1261,6 @@ namespace Map_Skia.Tests
                 map.AddSymbol(new LineTextSymbol(withEffects, new SymPath(new PointF[] { new PointF(0, 20), new PointF(20, 20) }), "AB", TextSymDefHorizAlignment.Default, TextSymDefVertAlignment.Default));
             }
 
-            AssertSameStructureAsTheCollector(map);
             List<ClippingObject> runs;
             float widthOfA, verticalOffset;
             using (map.Read()) {
@@ -1345,7 +1312,6 @@ namespace Map_Skia.Tests
                 map.AddSymbol(new RectangleSymbol(sharp, new PointF(70, 20), new SizeF(0, 0), 0));
             }
 
-            AssertSameStructureAsTheCollector(map);
             List<ClippingObject>[] ofRectangles;
             using (map.Read())
                 ofRectangles = map.PaletteSeparations[0].SymbolCoverages.Select(coverage => coverage.ClippingObjects.ToList()).ToArray();
@@ -1579,34 +1545,21 @@ namespace Map_Skia.Tests
                 new PointF(left, bottom + size), new PointF(left, bottom) });
         }
 
-        // Assert that the clipping objects of each palette color coverage of a map have the structure of the clipping
-        // objects that the collector makes of it.
-        static void AssertSameStructureAsTheCollector(Map map)
-        {
-            using (map.Read())
-                AssertSameStructureAsTheCollector(map.PaletteSeparations.SelectMany(separation => separation.SymbolCoverages).ToList());
-        }
-
-        // Assert that the clipping objects of palette color coverages have the structure of the clipping objects that the
-        // collector makes of them. The map of the coverages is read.
-        static void AssertSameStructureAsTheCollector(List<SymbolCoverage> coverages)
-        {
-            List<string> differences = new List<string>();
-            foreach (SymbolCoverage coverage in coverages) {
-                IReadOnlyList<ClippingObject> expected = coverage.Symbol.Definition.CollectClippingObjects(coverage.Symbol, coverage.Color);
-                differences.AddRange(SymbolCoverageComparison.FindDifferences(coverage, expected, coverage.ClippingObjects));
-            }
-
-            Assert.IsEmpty(differences, "{0} differences from the clipping objects of the collector, the first ones:\n{1}", differences.Count, string.Join("\n", differences.Take(10)));
-        }
-
         // Assert that the placement of each clipping object of palette color coverages gives its poses: that the innermost
-        // step of each single placement is a rotation and a translation. The map of the coverages is read.
+        // step of each single placement is a rotation and a translation. So does the placement of each clipping object of
+        // the expansion of a hatching or a clipped area pattern. The map of the coverages is read.
         static void AssertEachPlacementGivesItsPoses(List<SymbolCoverage> coverages)
         {
             List<string> withoutPoses = new List<string>();
+            int expanded = 0;
             foreach (SymbolCoverage coverage in coverages) {
-                foreach (ClippingObject clippingObject in coverage.ClippingObjects) {
+                IEnumerable<ClippingObject> clippingObjects = coverage.ClippingObjects;
+                if (coverage.Prototype != CoveragePrototype.FullCoverage) {
+                    IReadOnlyList<ClippingObject> expansion = coverage.ExpandPrototype();
+                    expanded += expansion.Count;
+                    clippingObjects = clippingObjects.Concat(expansion);
+                }
+                foreach (ClippingObject clippingObject in clippingObjects) {
                     try {
                         Assert.IsNotEmpty(clippingObject.Placement.Poses);
                     }
@@ -1615,6 +1568,7 @@ namespace Map_Skia.Tests
                     }
                 }
             }
+            TestContext.WriteLine("{0} clipping objects in the expansions of the hatchings and the area patterns", expanded);
 
             Assert.IsEmpty(withoutPoses, "{0} clipping objects whose placement gives no poses, the first ones:\n{1}", withoutPoses.Count, string.Join("\n", withoutPoses.Take(10)));
         }

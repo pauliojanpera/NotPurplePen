@@ -487,8 +487,7 @@ namespace PurplePen.MapModel
 
         // The one pose: the innermost step. The placements that the geometry methods of the symbols make have a
         // rotation and a translation as their innermost step: the mirror of the Y axis of a text is a part of its text
-        // run (TextShape). The collector, the oracle of the tests, keeps the steps of the drawing, which mirror the Y
-        // axis to lay out a text, and a placement whose innermost step is not a pose has no poses to give.
+        // run (TextShape). A placement whose innermost step is not a rotation and a translation has no poses to give.
         public override IReadOnlyList<Pose> Poses
         {
             get

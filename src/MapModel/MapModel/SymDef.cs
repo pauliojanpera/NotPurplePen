@@ -181,21 +181,11 @@ namespace PurplePen.MapModel
 
         // The geometry method of this symbol definition: the clipping objects of the palette color coverage of a symbol
         // of this definition (SymbolCoverage), without a drawing target and without render options. Each symbol
-        // definition has a geometry method of its own, so pass 1 does not use the collector.
+        // definition has a geometry method of its own.
         // symbol: the symbol, which has this definition.
         // color: the palette color.
         // prototype: the coverage prototype.
         internal abstract IReadOnlyList<ClippingObject> MakeClippingObjects(Symbol symbol, SymColor color, CoveragePrototype prototype);
-
-        // The clipping objects of the full coverage of a symbol of this definition in a palette color, which the collector
-        // makes from the drawing code of the symbol (ClippingObjectCollector). They are the oracle of the geometry methods
-        // in the tests, and pass 1 does not use them.
-        // symbol: the symbol, which has this definition.
-        // color: the palette color.
-        internal IReadOnlyList<ClippingObject> CollectClippingObjects(Symbol symbol, SymColor color)
-        {
-            return ClippingObjectCollector.Collect(symbol, color, map.TextMetricsProvider);
-        }
 
 
         // Does this symdef depend on another? null means no.
@@ -3283,9 +3273,6 @@ namespace PurplePen.MapModel
         // Draw the hatching into the interior of the SymPath.
         void DrawHatchings(IGraphicsTarget g, SymPathWithHoles path, float angle, PointF rotationCenter, RenderOptions renderOpts, SymColor color)
         {
-            if (renderOpts.omitHatchingsAndPatterns)
-                return;
-
             // Precheck if any hatchings have the color before doing the expensive clip operation.
             bool hasColor = false;
             for (int i = 0; i < hatchings.Count; ++i) {
@@ -3342,9 +3329,6 @@ namespace PurplePen.MapModel
         // Draw all patterns
         void DrawPatterns(IGraphicsTarget g, SymPathWithHoles path, SymColor color, float angle, PointF rotationCenter, RenderOptions renderOpts)
         {
-            if (renderOpts.omitHatchingsAndPatterns)
-                return;
-
             for (int i = 0; i < patterns.Count; ++i) {
                 PatternInfo patternInfo = patterns[i];
                 bool ignoreRotation = (patternInfo.patternRotateMode == RotateMode.Never);
