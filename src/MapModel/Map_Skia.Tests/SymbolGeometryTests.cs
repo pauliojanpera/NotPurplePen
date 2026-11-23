@@ -37,6 +37,11 @@ namespace Map_Skia.Tests
             using (map.Read()) {
                 List<SymbolCoverage> coverages = map.PaletteSeparations.SelectMany(separation => separation.SymbolCoverages).ToList();
                 TestContext.WriteLine("{0} point symbols, {1} palette color coverages, {2} of point symbols", map.AllSymbols.OfType<PointSymbol>().Count(), coverages.Count, coverages.Count(coverage => coverage.Symbol is PointSymbol));
+                List<ClippingObject> ofLines = coverages.Where(coverage => coverage.Symbol is LineSymbol).SelectMany(coverage => coverage.ClippingObjects).ToList();
+                TestContext.WriteLine("{0} line symbols, {1} palette color coverages of line symbols, {2} runs of dashes, {3} offset paths, {4} clipping objects at {5} repeated placements",
+                                      map.AllSymbols.OfType<LineSymbol>().Count(), coverages.Count(coverage => coverage.Symbol is LineSymbol),
+                                      ofLines.OfType<StrokedShape>().Count(shape => shape.Stroke.DashPattern != null), ofLines.Count(clippingObject => clippingObject.Shape is OffsetPathShape),
+                                      ofLines.Count(clippingObject => clippingObject.Placement is RepeatedPlacement), ofLines.Select(clippingObject => clippingObject.Placement).OfType<RepeatedPlacement>().Distinct().Count());
                 AssertSameStructureAsTheCollector(coverages);
             }
         }
@@ -314,6 +319,34 @@ namespace Map_Skia.Tests
                 Assert.AreEqual(0, shapes[run].Stroke.DashPhase, "the phase of run {0}", run);
             }
             Assert.AreEqual(2, ((PathShape)shapes[2].Shape).Parts.Sum(part => part.Points.Length), "the single dash leaves its vertex out");
+        }
+
+        // The secondary gaps of the middle dashes make the period of a run: a dash, its secondary gap, the rest of the
+        // dash and the gap, so the pattern of the run has four lengths. The end dashes with their secondary gaps are
+        // single dashes.
+        [Test]
+        public void SecondaryGapsMakeThePeriodOfARun()
+        {
+            Map map = CreateMap();
+            using (map.Write()) {
+                map.UseEuclideanMetric = true;
+                SymColor black = map.AddColor("Black", 1, 0, 0, 0, 1, false);
+                LineSymDef dashed = new LineSymDef("Dashed", "1", black, 0.25F, LineJoinMode.Miter, LineCapMode.Flat);
+                dashed.SetDashInfo(new LineSymDef.DashInfo() { dashLength = 3, firstDashLength = 2, lastDashLength = 2, gapLength = 0.5F,
+                                                               secondaryMiddleGaps = 1, secondaryMiddleLength = 0.2F, secondaryEndGaps = 1, secondaryEndLength = 0.2F });
+                AddLineSymDef(map, dashed);
+                AddLine(map, dashed, new SymPath(new PointF[] { new PointF(0, 0), new PointF(30, 0) }));
+            }
+
+            AssertSameStructureAsTheCollector(map);
+            StrokedShape[] shapes = GetClippingObjectsBySeparation(map).Single().Cast<StrokedShape>().ToArray();
+            StrokedShape run = shapes.Single(shape => shape.Stroke.DashPattern != null);
+            Assert.AreEqual(4, run.Stroke.DashPattern.Count);
+            Assert.AreEqual(0.2F, run.Stroke.DashPattern[1], Tolerance, "the secondary gap");
+            Assert.AreEqual(0.5F, run.Stroke.DashPattern[3], Tolerance, "the gap");
+            Assert.AreEqual(run.Stroke.DashPattern[0] + run.Stroke.DashPattern[1] + run.Stroke.DashPattern[2], 3, 0.2F, "the dash with its secondary gap");
+            Assert.IsNull(shapes[0].Stroke.DashPattern, "the first dash");
+            Assert.IsNull(shapes[shapes.Length - 1].Stroke.DashPattern, "the last dash");
         }
 
         // On a Bezier curve, the composed dashed line has a run for each quarter of the curve, with each metric, as the

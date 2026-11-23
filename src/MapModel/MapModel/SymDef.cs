@@ -1167,7 +1167,9 @@ namespace PurplePen.MapModel
         // The last dash of the run of dashes from a first dash, or the first dash itself when no run starts there. A run
         // repeats a period of one dash and its gap, or of more dashes and their gaps for the secondary gaps, at least
         // twice. Its dashes are consecutive and in one region, and none of them is an end dash of the line, crosses a
-        // corner point or a dash point, or lost a vertex to a rule of the vertices.
+        // corner point or a dash point, or lost a vertex to a rule of the vertices. Of the periods, the one that makes the
+        // longest run is taken, and of equal runs the shortest period, so that the period of a dash with secondary gaps
+        // is the whole dash.
         // dashes: the dashes of the line.
         // distances: the lengths of the dashes and the gaps in turn, a dash first.
         // regions: the regions of the edges of the flattened path (GetRegions).
@@ -1176,18 +1178,21 @@ namespace PurplePen.MapModel
         // period: the number of dashes of the period of the run.
         private static int FindRunOfDashes(List<SymPath.DashOnPath> dashes, float[] distances, int[] regions, int first, int longestPeriod, out int period)
         {
+            int bestLast = first, bestPeriod = 1;
             if (CanBeInRun(dashes, regions, first)) {
-                for (period = 1; period <= longestPeriod; ++period) {
+                for (int tried = 1; tried <= longestPeriod; ++tried) {
                     int last = first;
-                    while (last + 1 < dashes.Count && FitsRun(dashes, distances, regions, first, last + 1, period))
+                    while (last + 1 < dashes.Count && FitsRun(dashes, distances, regions, first, last + 1, tried))
                         ++last;
-                    if (last - first + 1 >= 2 * period)
-                        return last;
+                    if (last - first + 1 >= 2 * tried && last > bestLast) {
+                        bestLast = last;
+                        bestPeriod = tried;
+                    }
                 }
             }
 
-            period = 1;
-            return first;
+            period = bestPeriod;
+            return bestLast;
         }
 
         // Can a dash be in a run of dashes: is it within one region, not an end dash of the line, and did no rule of the
