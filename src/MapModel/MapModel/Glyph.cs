@@ -594,12 +594,16 @@ namespace PurplePen.MapModel
         // own, as the transformation moves its points but not the widths of its lines. An extra transformation that is
         // the identity keeps the shared shapes. Draw then draws a glyph of one circle at its origin with its parts
         // placed, as it draws the other glyphs.
+        // The glyph is placed within an outer placement, where the drawing draws it within transformations of its own,
+        // as a text draws its center point.
         // location: the location of the origin of the glyph.
         // angle: the angle, in degrees.
         // gaps: the gaps in the circles, as start and end angles in degrees, or null.
         // color: the palette color.
         // extraTransform: the extra transformation of the glyph, or null.
-        internal IReadOnlyList<ClippingObject> MakeClippingObjects(PointF location, float angle, float[] gaps, SymColor color, Matrix extraTransform = null)
+        // outer: the placement within which the glyph is placed, or null for none.
+        internal IReadOnlyList<ClippingObject> MakeClippingObjects(PointF location, float angle, float[] gaps, SymColor color, Matrix extraTransform = null,
+                                                                   SinglePlacement outer = null)
         {
             CheckConstructed();
 
@@ -608,7 +612,7 @@ namespace PurplePen.MapModel
                 if (parts[0].color == color) {
                     ClippingObject circle = parts[0].MakeClippingObjectOfSimpleGlyph(location);
                     if (circle != null)
-                        clippingObjects.Add(circle);
+                        clippingObjects.Add((outer == null) ? circle : circle.WithPlacement(outer));
                 }
 
                 return clippingObjects.AsReadOnly();
@@ -624,7 +628,7 @@ namespace PurplePen.MapModel
                     Matrix step = new Matrix();
                     step.Translate(location.X, location.Y);
                     step.RotateAt(angle, new PointF(0, 0));
-                    placement = Placement.Identity.Within(step);
+                    placement = (outer ?? Placement.Identity).Within(step);
                 }
 
                 ClippingObject partClippingObject = partClippingObjects[i];

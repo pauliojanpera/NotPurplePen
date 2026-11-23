@@ -178,20 +178,16 @@ namespace PurplePen.MapModel
         }
 
         // The geometry method of this symbol definition: the clipping objects of the palette color coverage of a symbol
-        // of this definition (SymbolCoverage), without a drawing target and without render options. A definition that
-        // has a geometry method overrides this. This implementation gives the clipping objects of the collector
-        // (CollectClippingObjects).
+        // of this definition (SymbolCoverage), without a drawing target and without render options. Each symbol
+        // definition has a geometry method of its own, so pass 1 does not use the collector.
         // symbol: the symbol, which has this definition.
         // color: the palette color.
         // prototype: the coverage prototype.
-        internal virtual IReadOnlyList<ClippingObject> MakeClippingObjects(Symbol symbol, SymColor color, CoveragePrototype prototype)
-        {
-            Debug.Assert(prototype == CoveragePrototype.FullCoverage, "The collector collects the full coverage only.");
-            return CollectClippingObjects(symbol, color);
-        }
+        internal abstract IReadOnlyList<ClippingObject> MakeClippingObjects(Symbol symbol, SymColor color, CoveragePrototype prototype);
 
         // The clipping objects of the full coverage of a symbol of this definition in a palette color, which the collector
-        // makes from the drawing code of the symbol (ClippingObjectCollector). They are the oracle of the geometry methods.
+        // makes from the drawing code of the symbol (ClippingObjectCollector). They are the oracle of the geometry methods
+        // in the tests, and pass 1 does not use them.
         // symbol: the symbol, which has this definition.
         // color: the palette color.
         internal IReadOnlyList<ClippingObject> CollectClippingObjects(Symbol symbol, SymColor color)
@@ -4133,6 +4129,293 @@ namespace PurplePen.MapModel
             }
         }
 
+        // The geometry method of the text symbol definitions: the clipping objects of a text symbol (TextSymbol), as Draw
+        // draws it, or of a text along a line (LineTextSymbol), as DrawTextOnPath draws it, in a palette color. Only
+        // these two kinds of symbols take this definition.
+        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(Symbol symbol, SymColor color, CoveragePrototype prototype)
+        {
+            Debug.Assert(prototype == CoveragePrototype.FullCoverage, "A text has the full coverage only.");
+            if (symbol is TextSymbol text)
+                return MakeClippingObjects(text.WrappedText, text.WrappedLineWidths, text.Location, text.Rotation, text.Width, color, text.HorizontalAlignment, text.VerticalAlignment);
+            if (symbol is LineTextSymbol lineText)
+                return MakeClippingObjectsOfTextOnPath(lineText.Path, lineText.Text, color, lineText.HorizontalAlignment, lineText.VerticalAlignment);
+            throw new ArgumentException("Only a TextSymbol and a LineTextSymbol take a TextSymDef.", nameof(symbol));
+        }
+
+        // The geometry method of a text symbol: the clipping objects that Draw draws in a palette color, in the same order.
+        // Each word, or each grapheme where the character spacing is more than 0, is a text run at its own place, in the
+        // font color, and in the color of the framing as a framing line or a shadow. The underlines of each line follow
+        // its runs, and the center point and the framing rectangle come last. The innermost step of their placement is the
+        // pose of the text: its location and its angle. Draw lays out the text with its Y axis down, and the shapes are in
+        // the coordinates of the pose, whose Y axis points up as the axis of the map does: the y coordinate of each point
+        // is the opposite of its y coordinate in Draw (ToPoseCoordinates).
+        // text, lineWidths: the lines of the text, and their widths.
+        // location, angle: the location of the text, and its angle in degrees.
+        // fullWidth: the width of formatted text, or 0.
+        // color: the palette color.
+        // objectHorizAlignment, objectVertAlignment: the alignments of the text object.
+        internal IReadOnlyList<ClippingObject> MakeClippingObjects(string[] text, float[] lineWidths, PointF location, float angle, float fullWidth, SymColor color,
+                                                                   TextSymDefHorizAlignment objectHorizAlignment, TextSymDefVertAlignment objectVertAlignment)
+        {
+            TextSymDefHorizAlignment fontAlign = GetHorizAlignment(objectHorizAlignment);
+            TextSymDefVertAlignment vertAlign = GetVertAlignment(objectVertAlignment);
+
+            Debug.Assert(color != null);
+
+            List<ClippingObject> clippingObjects = new List<ClippingObject>();
+            if (fontColor != null && color != fontColor &&
+                (framing.framingStyle == FramingStyle.None || color != framing.framingColor) &&
+                (!underline.underlineOn || color != underline.underlineColor) &&
+                (centerPointSymdef == null || !centerPointSymdef.HasColor(color)))
+                return clippingObjects.AsReadOnly();
+
+            EnsureFontMetrics();
+
+            Underlining underliningFontEffect = new Underlining();
+            if ((effects & TextEffects.Underline) != 0) {
+                underliningFontEffect.underlineOn = true;
+                underliningFontEffect.underlineColor = fontColor;
+                underliningFontEffect.underlineDistance = FontEmHeight * fontEffectUnderlineDistance;
+                underliningFontEffect.underlineWidth = FontEmHeight * fontEffectUnderlineWidth;
+            }
+
+            SinglePlacement placement = Placement.Identity.Within(new Pose(location, angle).ToMatrix());
+
+            // The lines of the text, in the coordinates of Draw.
+            PointF pt = new PointF(0F, 0F);
+            float baselineOfLine = 0;          // y coordinate of baseline of line.
+            bool firstLineOfPara = true, lastLineOfPara;
+
+            pt.Y -= VertOffset(vertAlign, text);
+
+            float topOfFirstLine = pt.Y;
+
+            for (int lineIndex = 0; lineIndex < text.Length; ++lineIndex) {
+                string line = text[lineIndex];
+                float lineWidth = lineWidths[lineIndex];
+
+                lastLineOfPara = (lineIndex == text.Length - 1 || text[lineIndex + 1] == ParagraphMark);        // are we on the last line of a paragraph?
+
+                if (line == ParagraphMark) {
+                    pt.Y += paraSpacing;
+                    firstLineOfPara = true;
+                }
+                else {
+                    float indent = 0;
+                    float leftEdge;          // tabs are relative to this X position.
+                    if (fontAlign == TextSymDefHorizAlignment.Right)
+                        pt.X = leftEdge = -lineWidth;
+                    else if (fontAlign == TextSymDefHorizAlignment.Center)
+                        pt.X = leftEdge = -(lineWidth / 2F);
+                    else {
+                        leftEdge = 0;
+                        pt.X = indent = firstLineOfPara ? firstIndent : restIndent;     // indents only used for left align or justified
+                    }
+
+                    // The size of the spaces. Justification adjusts it.
+                    float sizeOfSpace = wordSpacing * textFaceMetrics.SpaceWidth;            // basic width of spaces as set by the symdef
+                    if (fontAlign == TextSymDefHorizAlignment.Justified && !lastLineOfPara && fullWidth > 0)
+                        sizeOfSpace += JustifyText(line, lineWidth, fullWidth - indent);
+
+                    // The text segments of the line. A text segment is a word, or a grapheme where charSpacing > 0.
+                    int index = 0;
+                    for (; ; ) {
+                        string textSegment;
+
+                        if (charSpacing > 0)
+                            textSegment = GetNextTextElement(line.Substring(index));
+                        else
+                            textSegment = GetNextTextSegment(line.Substring(index));
+                        if (string.IsNullOrEmpty(textSegment))
+                            break;
+
+                        if (textSegment == " ")
+                            pt.X += sizeOfSpace;
+                        else if (textSegment == "\t")
+                            pt.X += WidthOfTextSegment("\t", pt.X - leftEdge, fontAlign);
+                        else {
+                            AddStringWithEffects(clippingObjects, color, textSegment, pt, placement);
+                            pt.X += MeasureStringWidth(textSegment, fontAlign);
+
+                            if (charSpacing > 0)
+                                pt.X += charSpacing * textFaceMetrics.SpaceWidth;
+                        }
+
+                        index += textSegment.Length;
+                    }
+
+                    baselineOfLine = pt.Y + FontAscent;        // Set the bottom of the text.
+
+                    // The underlines. The underline of the font effect is a line, as Draw draws it, and not an effect of
+                    // the font of the text runs.
+                    AddUnderline(clippingObjects, underliningFontEffect, color, baselineOfLine, lineWidth, indent, fontAlign, placement);
+                    if (lastLineOfPara)
+                        AddUnderline(clippingObjects, this.underline, color, baselineOfLine, Math.Max(fullWidth, lineWidth), (fullWidth == 0) ? indent : 0, fontAlign, placement);
+
+                    pt.Y += lineSpacing;
+                    firstLineOfPara = false;
+                }
+            }
+
+            AddCenterPoint(clippingObjects, lineWidths, fullWidth, color, topOfFirstLine, baselineOfLine, fontAlign, placement);
+
+            if (underline.underlineOn)
+                baselineOfLine += underline.underlineDistance + underline.underlineWidth;
+            AddFramingRectangle(clippingObjects, lineWidths, fullWidth, color, topOfFirstLine, baselineOfLine, fontAlign, placement);
+
+            return clippingObjects.AsReadOnly();
+        }
+
+        // The point of the coordinates of a pose of a text, whose Y axis points up as the axis of the map does, at a point
+        // of the coordinates in which the drawing lays out the text with its Y axis down: the y coordinate is the opposite.
+        // point: the point in the coordinates of the drawing.
+        private static PointF ToPoseCoordinates(PointF point)
+        {
+            return new PointF(point.X, -point.Y);
+        }
+
+        // Add the clipping objects of a text run in a palette color, as DrawStringWithEffects draws them: the run in the
+        // font color, and in the color of the framing, the run and its framing line, or the run moved by the shadow. The
+        // framing line is one stroke of the outline of the run with the full width, two times the width of the framing,
+        // and the line style of the framing. DrawStringWithEffects first strokes the outline with narrower pens, whose
+        // lines are inside that one, and OCAD draws one line.
+        // clippingObjects: the clipping objects, which get those of the run.
+        // color: the palette color.
+        // text: the text of the run.
+        // pt: the top left corner of the run, in the coordinates of the drawing of the text.
+        // placement: the placement of the text.
+        private void AddStringWithEffects(List<ClippingObject> clippingObjects, SymColor color, string text, PointF pt, SinglePlacement placement)
+        {
+            Debug.Assert(color != null);
+
+            if (fontColor != null && color == fontColor)
+                AddTextRun(clippingObjects, text, pt, placement);
+
+            if (framing.framingStyle != FramingStyle.None && framing.framingColor != null && color == framing.framingColor) {
+                if (framing.framingStyle == FramingStyle.Line) {
+                    AddTextRun(clippingObjects, text, pt, placement);
+                    if (!string.IsNullOrEmpty(text))
+                        clippingObjects.Add(new StrokedShape(MakeTextRun(text, pt), GraphicsUtil.MakeSolidStroke(framing.lineWidth * 2, framing.lineStyle), placement));
+                }
+                else if (framing.framingStyle == FramingStyle.Shadow) {
+                    AddTextRun(clippingObjects, text, new PointF(pt.X + framing.shadowX, pt.Y - framing.shadowY), placement);
+                }
+            }
+        }
+
+        // Add a filled text run, as DrawSingleLineString draws it. A run without text covers nothing.
+        // clippingObjects: the clipping objects, which get the run.
+        // text: the text of the run.
+        // upperLeft: the top left corner of the run, in the coordinates of the drawing of the text.
+        // placement: the placement of the text.
+        private void AddTextRun(List<ClippingObject> clippingObjects, string text, PointF upperLeft, SinglePlacement placement)
+        {
+            if (!string.IsNullOrEmpty(text))
+                clippingObjects.Add(new FilledShape(MakeTextRun(text, upperLeft), AreaFillMode.Winding, placement));
+        }
+
+        // A text run in the font that CreateObjects creates, which has no underline effect: the drawing draws the
+        // underlines as lines.
+        // text: the text of the run.
+        // upperLeft: the top left corner of the run, in the coordinates of the drawing of the text.
+        private TextShape MakeTextRun(string text, PointF upperLeft)
+        {
+            return new TextShape(text, fontName, fontSize, effects & ~TextEffects.Underline, ToPoseCoordinates(upperLeft), map.TextMetricsProvider);
+        }
+
+        // Add the clipping object of an underline in a palette color, as DrawUnderline draws it: a line of the width of the
+        // underline with mitered joins.
+        // clippingObjects: the clipping objects, which get the underline.
+        // underlining: the underline.
+        // color: the palette color.
+        // baseline: the y coordinate of the baseline of the line of text, in the coordinates of the drawing of the text.
+        // width, indent: the width of the underline, and its indent where the text is aligned left.
+        // objectHorizAlignment: the horizontal alignment of the text object.
+        // placement: the placement of the text.
+        private void AddUnderline(List<ClippingObject> clippingObjects, Underlining underlining, SymColor color, float baseline, float width, float indent,
+                                  TextSymDefHorizAlignment objectHorizAlignment, SinglePlacement placement)
+        {
+            if (underlining.underlineOn && color != null && color == underlining.underlineColor) {
+                TextSymDefHorizAlignment fontAlign = GetHorizAlignment(objectHorizAlignment);
+
+                float l, r;
+                if (fontAlign == TextSymDefHorizAlignment.Right)
+                    l = -width;
+                else if (fontAlign == TextSymDefHorizAlignment.Center)
+                    l = -(width / 2F);
+                else
+                    l = indent;
+                r = l + width;
+
+                float y = baseline + underlining.underlineDistance + underlining.underlineWidth / 2;
+                PointF[] points = { ToPoseCoordinates(new PointF(l, y)), ToPoseCoordinates(new PointF(r, y)) };
+                clippingObjects.Add(new StrokedShape(PathShape.FromPoints(points, false), GraphicsUtil.MakeSolidStroke(underlining.underlineWidth, LineStyle.Mitered), placement));
+            }
+        }
+
+        // Add the clipping objects of the center point of the text in a palette color, as DrawCenterPoint draws them: the
+        // clipping objects of the glyph of the center point symbol at the angle 0, at the center point. OCAD has a
+        // center point for unformatted text only (fullWidth == 0). The glyph is placed within the placement of the text and
+        // a translation to the center point.
+        // clippingObjects: the clipping objects, which get those of the center point.
+        // lineWidths, fullWidth: the widths of the lines, and the width of formatted text, or 0.
+        // color: the palette color.
+        // topOfText, bottomOfText: the top of the text and the baseline of its last line, in the coordinates of the
+        //   drawing of the text.
+        // objectHorizAlignment: the horizontal alignment of the text object.
+        // placement: the placement of the text.
+        private void AddCenterPoint(List<ClippingObject> clippingObjects, float[] lineWidths, float fullWidth, SymColor color, float topOfText, float bottomOfText,
+                                    TextSymDefHorizAlignment objectHorizAlignment, SinglePlacement placement)
+        {
+            TextSymDefHorizAlignment fontAlign = GetHorizAlignment(objectHorizAlignment);
+
+            if (centerPointSymdef != null && centerPointSymdef.HasColor(color) && fullWidth == 0) {
+                float l, r, t, b;
+
+                fullWidth = CalcFullWidth(lineWidths, fullWidth, fontAlign);
+
+                if (fontAlign == TextSymDefHorizAlignment.Right)
+                    l = -fullWidth;
+                else if (fontAlign == TextSymDefHorizAlignment.Center)
+                    l = -(fullWidth / 2F);
+                else
+                    l = 0;
+                r = l + fullWidth;
+                t = topOfText - (FontAscent + FontDescent) + FontEmHeight;  // strange OCAD adjustment.
+                b = bottomOfText + FontDescent;  // include the descender on the text.
+
+                PointF centerPoint = ToPoseCoordinates(new PointF((r + l) / 2, (t + b) / 2));
+                Matrix translation = new Matrix();
+                translation.Translate(centerPoint.X, centerPoint.Y);
+                clippingObjects.AddRange(centerPointSymdef.Glyph.MakeClippingObjects(new PointF(0, 0), 0, null, color, null, placement.Within(translation)));
+            }
+        }
+
+        // Add the clipping object of the framing rectangle around the text in a palette color, as DrawFramingRectangle
+        // fills it: the rectangle around the lines with the margins of the framing, filled.
+        // clippingObjects: the clipping objects, which get the framing rectangle.
+        // lineWidths, fullWidth: the widths of the lines, and the width of formatted text, or 0.
+        // color: the palette color.
+        // topOfText, bottomOfText: the top of the text and the bottom of its last line, in the coordinates of the drawing
+        //   of the text.
+        // objectHorizAlignment: the horizontal alignment of the text object.
+        // placement: the placement of the text.
+        private void AddFramingRectangle(List<ClippingObject> clippingObjects, float[] lineWidths, float fullWidth, SymColor color, float topOfText, float bottomOfText,
+                                         TextSymDefHorizAlignment objectHorizAlignment, SinglePlacement placement)
+        {
+            if (framing.framingStyle == FramingStyle.Rectangle && color == framing.framingColor) {
+                RectangleF textRect = CalcTextRectangle(lineWidths, fullWidth, topOfText, bottomOfText, objectHorizAlignment);
+
+                float t = textRect.Top - framing.rectBorderTop;
+                float b = textRect.Bottom + framing.rectBorderBottom;
+                float l = textRect.Left - framing.rectBorderLeft;
+                float r = textRect.Right + framing.rectBorderRight;
+
+                PointF[] corners = Array.ConvertAll(PathShape.GetCorners(new RectangleF(l, t, r - l, b - t)), ToPoseCoordinates);
+                clippingObjects.Add(new FilledShape(PathShape.FromPoints(corners, true), AreaFillMode.Winding, placement));
+            }
+        }
+
         public class InsertionPointLocation
         {
             public PointF Baseline, Ascent, Descent;
@@ -4816,6 +5099,43 @@ namespace PurplePen.MapModel
             }
         }
 
+        // The geometry method of a text along a line: the clipping objects that DrawTextOnPath draws in a palette color,
+        // in the same order. Each grapheme is a text run, in the font color, and in the color of the framing with its
+        // framing line or its shadow, at a single placement of its own. Its pose is the start point of the grapheme on the
+        // path, and the direction from that point to the end point of the grapheme, where the OCAD metric places the
+        // graphemes along the path (GetLineTextGraphemePlacement). The top left corner of the run is in the coordinates of
+        // the pose, as for a text symbol. A text along a line has no underline, center point or framing rectangle.
+        // path: the path.
+        // text: the text.
+        // color: the palette color.
+        // objectHorizAlignment, objectVertAlignment: the alignments of the text object.
+        internal IReadOnlyList<ClippingObject> MakeClippingObjectsOfTextOnPath(SymPath path, string text, SymColor color,
+                                                                              TextSymDefHorizAlignment objectHorizAlignment, TextSymDefVertAlignment objectVertAlignment)
+        {
+            TextSymDefHorizAlignment fontAlign = GetHorizAlignment(objectHorizAlignment);
+            TextSymDefVertAlignment vertAlign = GetVertAlignment(objectVertAlignment);
+
+            List<ClippingObject> clippingObjects = new List<ClippingObject>();
+            if (color == null)
+                return clippingObjects.AsReadOnly();
+            if (color != fontColor && (framing.framingStyle == FramingStyle.None || color != framing.framingColor))
+                return clippingObjects.AsReadOnly();
+
+            EnsureFontMetrics();
+
+            List<GraphemePlacement> graphemeList = GetLineTextGraphemePlacement(path, text, fontAlign);
+
+            // The top left corner of the run, relative to the line, in the coordinates of the drawing of the text.
+            PointF topAscentPoint = new PointF(0, -LineTextVertOffset(vertAlign));
+
+            foreach (GraphemePlacement grapheme in graphemeList) {
+                SinglePlacement placement = Placement.Identity.Within(new Pose(grapheme.pointStart, grapheme.angle).ToMatrix());
+                AddStringWithEffects(clippingObjects, color, grapheme.grapheme, topAscentPoint, placement);
+            }
+
+            return clippingObjects.AsReadOnly();
+        }
+
         internal InsertionPointLocation FindInsertionPointOnPath(SymPath path, string text, int textIndex,
                                         TextSymDefHorizAlignment objectHorizAlignment, TextSymDefVertAlignment objectVertAlignment)
         {
@@ -5104,6 +5424,12 @@ namespace PurplePen.MapModel
             return false;
         }
 
+        // A hole draws no palette color, so it has no clipping objects.
+        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(Symbol symbol, SymColor color, CoveragePrototype prototype)
+        {
+            return Array.Empty<ClippingObject>();
+        }
+
         public override void FreeGdiObjects()
         {
         }
@@ -5155,7 +5481,7 @@ namespace PurplePen.MapModel
         // The geometry method of the graphics objects: in its color, the fill of a GraphicsAreaSymbol, a filled shape of
         // its path with holes as GraphicsAreaSymbol.Draw fills it, and the line of a GraphicsLineSymbol, a stroked shape
         // of its path with the pen that GraphicsLineSymbol.Draw creates: its width, caps and join and the miter limit
-        // GraphicsUtil.MITER_LIMIT. A symbol of another kind gets the clipping objects of the collector.
+        // GraphicsUtil.MITER_LIMIT. Only these two kinds of symbols take this definition.
         internal override IReadOnlyList<ClippingObject> MakeClippingObjects(Symbol symbol, SymColor color, CoveragePrototype prototype)
         {
             Debug.Assert(prototype == CoveragePrototype.FullCoverage, "A graphics object has the full coverage only.");
@@ -5171,7 +5497,7 @@ namespace PurplePen.MapModel
                 }
             }
             else {
-                return base.MakeClippingObjects(symbol, color, prototype);
+                throw new ArgumentException("Only a GraphicsAreaSymbol and a GraphicsLineSymbol take a GraphicsSymDef.", nameof(symbol));
             }
 
             return clippingObjects.AsReadOnly();
@@ -5211,6 +5537,13 @@ namespace PurplePen.MapModel
         public override bool HasColor(SymColor color)
         {
             return (color.Layer == layer);  // only draw in the layer we are associated with.
+        }
+
+        // The image layer and the layout layer are beside the palette stack, so an image or a layout object has no
+        // clipping objects.
+        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(Symbol symbol, SymColor color, CoveragePrototype prototype)
+        {
+            return Array.Empty<ClippingObject>();
         }
 
         public override void FreeGdiObjects()
@@ -5373,6 +5706,97 @@ namespace PurplePen.MapModel
                     g.PopTransform();
                 }
             }
+        }
+
+        // The geometry method of the rectangle symbols: the clipping objects that Draw draws in a palette color, in the
+        // same order. In the color of the line, they are the line of the rectangle, a stroked path that keeps the Bezier
+        // curves of its rounded corners, and then the lines and the texts of the grid, placed with the location and the
+        // rotation of the rectangle. The pose of a text of the grid is its place in its cell at the angle 0, and the top
+        // left corner of its text run is at the origin of the pose.
+        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(Symbol symbol, SymColor color, CoveragePrototype prototype)
+        {
+            Debug.Assert(prototype == CoveragePrototype.FullCoverage, "A rectangle has the full coverage only.");
+            RectangleSymbol rectangle = (RectangleSymbol)symbol;
+            PointF location = rectangle.Location;
+            SizeF size = rectangle.Size;
+
+            List<ClippingObject> clippingObjects = new List<ClippingObject>();
+            if (size.Width == 0 && size.Height == 0)
+                return clippingObjects.AsReadOnly();
+
+            if (lineColor != null && color == lineColor && thickness > 0.0F) {
+                Stroke stroke = GraphicsUtil.MakeSolidStroke(thickness, (cornerRadius > 0) ? LineStyle.Rounded : LineStyle.Mitered);
+                clippingObjects.Add(GetPath(location, size, rectangle.Rotation).MakeStrokedShape(stroke, Placement.Identity));
+            }
+
+            if ((gridFlags & 1) != 0 && lineColor != null && color == lineColor && size.Width > 0 && size.Height > 0) {
+                Matrix matrix = new Matrix();
+                matrix.Translate(location.X, location.Y);
+                matrix.Rotate(rectangle.Rotation);
+                SinglePlacement placement = Placement.Identity.Within(matrix);
+
+                int cxCells = (int)Math.Round(size.Width / cellWidth);
+                if (cxCells < 1)
+                    cxCells = 1;
+                int cyCells = (int)Math.Round(size.Height / cellHeight);
+                if (cyCells < 1)
+                    cyCells = 1;
+
+                float width = size.Width / cxCells;
+                float height = size.Height / cyCells;
+
+                Stroke gridStroke = GraphicsUtil.MakeSolidStroke(gridWidth, LineStyle.Beveled);
+                for (int x = 1; x < cxCells; ++x) {
+                    PointF[] points = { new PointF(x * width, 0), new PointF(x * width, size.Height) };
+                    clippingObjects.Add(new StrokedShape(PathShape.FromPoints(points, false), gridStroke, placement));
+                }
+                for (int y = 1; y < cyCells; ++y) {
+                    PointF[] points = { new PointF(0, y * height), new PointF(size.Width, y * height) };
+                    clippingObjects.Add(new StrokedShape(PathShape.FromPoints(points, false), gridStroke, placement));
+                }
+
+                if ((gridFlags & 2) != 0)
+                    AddGridTexts(clippingObjects, cxCells, cyCells, width, height, placement);
+            }
+
+            return clippingObjects.AsReadOnly();
+        }
+
+        // Add the clipping objects of the texts of the grid, as DrawGridText draws them: the number of each cell, or the
+        // text of the unnumbered cells, in Arial bold, each at the pose of its place in its cell. A cell without text has
+        // no clipping object.
+        // clippingObjects: the clipping objects, which get those of the texts.
+        // cxCells, cyCells: the numbers of the cells across and down.
+        // width, height: the size of a cell.
+        // placement: the placement of the grid.
+        private void AddGridTexts(List<ClippingObject> clippingObjects, int cxCells, int cyCells, float width, float height, SinglePlacement placement)
+        {
+            for (int y = 0; y < cyCells; ++y)
+                for (int x = 0; x < cxCells; ++x) {
+                    int cellNum;
+                    string cellText;
+
+                    if ((gridFlags & 4) != 0) // number from bottom
+                        cellNum = y * cxCells + x + 1;
+                    else
+                        cellNum = (cyCells - 1 - y) * cxCells + x + 1;
+
+                    if (cellNum > cxCells * cyCells - unnumberedCells)
+                        cellText = unnumberedText;
+                    else
+                        cellText = cellNum.ToString();
+
+                    PointF pt = new PointF(x * width, (y + 1) * height);
+                    pt.Y -= textSize * 0.17F;
+                    pt.X += textSize * 0.28F;
+
+                    if (!string.IsNullOrEmpty(cellText)) {
+                        Matrix pose = new Matrix();
+                        pose.Translate(pt.X, pt.Y);
+                        TextShape run = new TextShape(cellText, fontName, textSize, TextEffects.Bold, new PointF(0, 0), map.TextMetricsProvider);
+                        clippingObjects.Add(new FilledShape(run, AreaFillMode.Winding, placement.Within(pose)));
+                    }
+                }
         }
 
         void DrawGrid(IGraphicsTarget g, SizeF size, SymColor color, RenderOptions renderOpts)

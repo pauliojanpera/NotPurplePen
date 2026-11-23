@@ -215,7 +215,9 @@ namespace Map_Skia.Tests
 
         // Draw clipping objects with an opaque brush: each shape filled or stroked, at its placement, within the steps of
         // the placement. The runs of dashes, the offset paths and the repeated placements are drawn expanded
-        // (SymbolCoverageComparison.Expand). It is the test's own drawing of the clipping objects, and not pass 2.
+        // (SymbolCoverageComparison.Expand). A text run is drawn with the Y axis mirrored, at its top left corner with the
+        // opposite y coordinate, so the target gets the same transformation and the same point as in the drawing of the
+        // text. It is the test's own drawing of the clipping objects, and not pass 2.
         // g: the target.
         // clippingObjects: the clipping objects.
         static void DrawClippingObjects(IGraphicsTarget g, IEnumerable<ClippingObject> clippingObjects)
@@ -259,7 +261,7 @@ namespace Map_Skia.Tests
             else if (shape is EllipseShape ellipse)
                 g.FillEllipse(brush, ellipse.Center, ellipse.RadiusX, ellipse.RadiusY);
             else if (shape is TextShape text)
-                g.DrawText(text.Text, GetFont(g, text, fonts), brush, text.UpperLeft);
+                DrawTextRun(g, text, upperLeft => g.DrawText(text.Text, GetFont(g, text, fonts), brush, upperLeft));
             else
                 Assert.Fail("A filled {0}", shape);
         }
@@ -274,9 +276,23 @@ namespace Map_Skia.Tests
             else if (shape is ArcShape arc)
                 g.DrawArc(pen, arc.Center, arc.Radius, arc.StartAngle, arc.SweepAngle);
             else if (shape is TextShape text)
-                g.DrawTextOutline(text.Text, GetFont(g, text, fonts), pen, text.UpperLeft);
+                DrawTextRun(g, text, upperLeft => g.DrawTextOutline(text.Text, GetFont(g, text, fonts), pen, upperLeft));
             else
                 Assert.Fail("A stroked {0}", shape);
+        }
+
+        // Draw a text run as the drawing lays out a text, with the Y axis mirrored: the text run has the mirror as a part
+        // of it (TextShape).
+        // g: the target.
+        // text: the text run.
+        // draw: the call that draws the text at its top left corner in the mirrored coordinates.
+        static void DrawTextRun(IGraphicsTarget g, TextShape text, Action<PointF> draw)
+        {
+            Matrix mirror = new Matrix();
+            mirror.Scale(1, -1);
+            g.PushTransform(mirror);
+            draw(new PointF(text.UpperLeft.X, -text.UpperLeft.Y));
+            g.PopTransform();
         }
 
         // The key of the font of a text run, which is created once for each family, size and effects.

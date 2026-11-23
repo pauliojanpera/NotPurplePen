@@ -628,6 +628,9 @@ namespace PurplePen.MapModel
 
         float[] wrappedLineWidths;  // widths of each line in the wrapped line text.
 
+        // The widths of the lines of the wrapped text, which Draw gives to the drawing of the text.
+        internal float[] WrappedLineWidths { get { return wrappedLineWidths; } }
+
         TextCoordMapper coordMapper;  // The mapping between text and wrappedText.
 
         bool didWrapAtLeastOneLine; // at least one line was word wrapped.

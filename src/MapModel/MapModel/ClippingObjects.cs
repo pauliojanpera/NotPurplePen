@@ -486,8 +486,9 @@ namespace PurplePen.MapModel
         }
 
         // The one pose: the innermost step. The placements that the geometry methods of the symbols make have a
-        // rotation and a translation as their innermost step. The collector places a text with a step that mirrors the
-        // Y axis, which is not a pose (ticket 013), and a placement of that kind has no poses to give.
+        // rotation and a translation as their innermost step: the mirror of the Y axis of a text is a part of its text
+        // run (TextShape). The collector, the oracle of the tests, keeps the steps of the drawing, which mirror the Y
+        // axis to lay out a text, and a placement whose innermost step is not a pose has no poses to give.
         public override IReadOnlyList<Pose> Poses
         {
             get
@@ -727,6 +728,16 @@ namespace PurplePen.MapModel
             return new PathShape(parts);
         }
 
+        // The corners of a rectangle, clockwise from the top left corner, as a target makes the path of a rectangle
+        // (IGraphicsTarget.FillRectangle and DrawRectangle).
+        // rect: the rectangle.
+        internal static PointF[] GetCorners(RectangleF rect)
+        {
+            return new PointF[] {
+                new PointF(rect.Left, rect.Top), new PointF(rect.Right, rect.Top),
+                new PointF(rect.Right, rect.Bottom), new PointF(rect.Left, rect.Bottom) };
+        }
+
         // The parts of the path. Their points must not change.
         public IReadOnlyList<GraphicsPathPart> Parts
         {
@@ -961,7 +972,11 @@ namespace PurplePen.MapModel
     }
 
     // A text run: a word, or a grapheme where the character spacing is more than 0, in a font, with the top left
-    // corner of the text at a point, as IGraphicsTarget.DrawText draws it.
+    // corner of the text at a point. The point is in the coordinates of the placement of the run, whose Y axis points
+    // up as the axis of the map does, and the glyphs of the run lie below the point, along the X axis. The drawing lays
+    // out a text with its Y axis down (IGraphicsTarget.DrawText). So the run is the text that the drawing draws at the
+    // point with the opposite y coordinate, with the Y axis mirrored. The mirror of the Y axis is a part of the run,
+    // and not of its placement.
     public sealed class TextShape : Shape
     {
         private readonly string text;
@@ -977,7 +992,7 @@ namespace PurplePen.MapModel
         // fontFamily: the family of the font.
         // emHeight: the size of the font: the height of its em square.
         // effects: the effects of the font.
-        // upperLeft: the top left corner of the text.
+        // upperLeft: the top left corner of the text, in coordinates whose Y axis points up.
         // textMetrics: the metrics of the fonts that measure the bounds of the text.
         public TextShape(string text, string fontFamily, float emHeight, TextEffects effects, PointF upperLeft, ITextMetrics textMetrics)
         {
@@ -1016,14 +1031,15 @@ namespace PurplePen.MapModel
             get { return effects; }
         }
 
+        // The top left corner of the text, in coordinates whose Y axis points up.
         public PointF UpperLeft
         {
             get { return upperLeft; }
         }
 
-        // The bounds of the outlines of the glyphs of the text, as the metrics of its font measure them. A text
-        // without visible glyphs has empty bounds at its top left corner. The first read measures them, and the
-        // readers that measure them at the same time get the same bounds.
+        // The bounds of the outlines of the glyphs of the text, as the metrics of its font measure them, below the top
+        // left corner. A text without visible glyphs has empty bounds at its top left corner. The first read measures
+        // them, and the readers that measure them at the same time get the same bounds.
         public override RectangleF Bounds
         {
             get
@@ -1038,13 +1054,17 @@ namespace PurplePen.MapModel
             }
         }
 
-        // Measure the bounds of the outlines of the glyphs of the text, and box them.
+        // Measure the bounds of the outlines of the glyphs of the text, and box them. The metrics measure them where the
+        // drawing lays out the text, with its Y axis down, and the bounds are their mirror.
         private object MeasureBounds()
         {
             RectangleF glyphBounds;
             using (ITextFaceMetrics faceMetrics = textMetrics.GetTextFaceMetrics(fontFamily, emHeight, effects))
-                glyphBounds = faceMetrics.GetTightBoundingBox(upperLeft, text);
-            return (glyphBounds.Width > 0 || glyphBounds.Height > 0) ? glyphBounds : new RectangleF(upperLeft, SizeF.Empty);
+                glyphBounds = faceMetrics.GetTightBoundingBox(new PointF(upperLeft.X, -upperLeft.Y), text);
+            if (glyphBounds.Width > 0 || glyphBounds.Height > 0)
+                return RectangleF.FromLTRB(glyphBounds.Left, -glyphBounds.Bottom, glyphBounds.Right, -glyphBounds.Top);
+            else
+                return new RectangleF(upperLeft, SizeF.Empty);
         }
 
         public override string ToString()
