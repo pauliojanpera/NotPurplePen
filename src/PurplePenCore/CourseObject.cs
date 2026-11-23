@@ -62,6 +62,11 @@ namespace PurplePen
         public float courseObjRatio;                   // scale to display in (1.0 is normal scale).
         public CourseAppearance appearance;       // customize course appearance
 
+        // The role and the identifiers of the course object key (Key), which the course formatter that made the course
+        // object gives (SetKey), or null. The key is not a part of Equals or ToString.
+        CourseObjRole keyRole;
+        int[] keyIdentifiers;
+
         static object highlightBrushKey = new object();             // brush used to draw highlights.
 
         private object blueBrushKey = new object();
@@ -73,6 +78,24 @@ namespace PurplePen
             this.specialId = specialId;
             this.courseObjRatio = courseObjRatio;
             this.appearance = appearance;
+        }
+
+        // The course object key: the identity of the course object, or null if no course formatter made it. It has the
+        // role of the place of the formatter that made the course object, the identifiers of EventDB that the place
+        // uses, and the layer of the course object, which the key takes from the field layer when it is read, as the
+        // formatters set the layer after they make the course object.
+        public CourseObjKey Key
+        {
+            get { return (keyIdentifiers == null) ? null : new CourseObjKey(keyRole, keyIdentifiers, layer); }
+        }
+
+        // Give the course object the role and the identifiers of its key, where a course formatter makes it.
+        // role: the role of the place.
+        // identifiers: the identifiers of EventDB that the place uses.
+        internal void SetKey(CourseObjRole role, params int[] identifiers)
+        {
+            keyRole = role;
+            keyIdentifiers = (int[])identifiers.Clone();
         }
 
         // Add the given course object to the map, creating a SymDef if needed. The passed dictionary

@@ -158,6 +158,47 @@ namespace PurplePen.MapModel
         // If color is null, return if draws in the image layer (below all color layers).
         public abstract bool HasColor(SymColor color);
 
+        // The coverage prototypes of a symbol of this definition in a palette color, for pass 1 of the drawing
+        // (Map.PaletteSeparations): the full coverage, where the definition draws the palette color with it, or none.
+        // The symbol has a palette color coverage for each of them (SymbolCoverage), also when it draws no shape in the
+        // palette color.
+        // symbol: the symbol, which has this definition.
+        // color: the palette color.
+        public virtual IReadOnlyList<CoveragePrototype> GetCoveragePrototypes(Symbol symbol, SymColor color)
+        {
+            return HasFullCoverage(color) ? CoveragePrototype.FullCoverageOnly : CoveragePrototype.None;
+        }
+
+        // Does this symbol definition draw the given palette color with the full coverage: does it draw the color apart
+        // from the hatchings and the patterns of areas? The image layer and the layout layer are not palette colors.
+        // color: the palette color.
+        internal virtual bool HasFullCoverage(SymColor color)
+        {
+            return !color.IsSpecialLayer && HasColor(color);
+        }
+
+        // The geometry method of this symbol definition: the clipping objects of the palette color coverage of a symbol
+        // of this definition (SymbolCoverage), without a drawing target and without render options. A definition that
+        // has a geometry method overrides this. This implementation gives the clipping objects of the collector
+        // (CollectClippingObjects).
+        // symbol: the symbol, which has this definition.
+        // color: the palette color.
+        // prototype: the coverage prototype.
+        internal virtual IReadOnlyList<ClippingObject> MakeClippingObjects(Symbol symbol, SymColor color, CoveragePrototype prototype)
+        {
+            Debug.Assert(prototype == CoveragePrototype.FullCoverage, "The collector collects the full coverage only.");
+            return CollectClippingObjects(symbol, color);
+        }
+
+        // The clipping objects of the full coverage of a symbol of this definition in a palette color, which the collector
+        // makes from the drawing code of the symbol (ClippingObjectCollector). They are the oracle of the geometry methods.
+        // symbol: the symbol, which has this definition.
+        // color: the palette color.
+        internal IReadOnlyList<ClippingObject> CollectClippingObjects(Symbol symbol, SymColor color)
+        {
+            return ClippingObjectCollector.Collect(symbol, color, map.TextMetricsProvider);
+        }
+
 
         // Does this symdef depend on another? null means no.
         public virtual SymDef DependsOnSymdef
@@ -252,6 +293,15 @@ namespace PurplePen.MapModel
         internal void Draw(IGraphicsTarget g, PointF pt, float angle, float[] gaps, SymColor color, RenderOptions renderOpts)
         {
             glyph.Draw(g, pt, angle, null, gaps, color, null, renderOpts);
+        }
+
+        // The geometry method of the point symbols: the parts of the glyph in the palette color, at the location and the
+        // angle of the symbol, with its gaps (Glyph.MakeClippingObjects).
+        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(Symbol symbol, SymColor color, CoveragePrototype prototype)
+        {
+            Debug.Assert(prototype == CoveragePrototype.FullCoverage, "A point symbol has the full coverage only.");
+            PointSymbol pointSymbol = (PointSymbol)symbol;
+            return glyph.MakeClippingObjects(pointSymbol.Location, pointSymbol.Rotation, pointSymbol.Gaps, color);
         }
 
         internal void DrawHighlight(IGraphicsTarget g, PointF location, float rotation, float[] gaps, HighlightOptions options)
@@ -422,6 +472,18 @@ namespace PurplePen.MapModel
             foreach (LineSymDef component in components) {
                 component.DrawHighlight(g, path, highlightOptions);
             }
+        }
+
+        // The geometry method of the combined lines: the clipping objects of each component definition in the palette
+        // color, in the order of the components, as Draw draws them.
+        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(Symbol symbol, SymColor color, CoveragePrototype prototype)
+        {
+            Debug.Assert(prototype == CoveragePrototype.FullCoverage, "A line symbol has the full coverage only.");
+            SymPath path = ((LineSymbol)symbol).Path;
+            List<ClippingObject> clippingObjects = new List<ClippingObject>();
+            foreach (LineSymDef component in components)
+                clippingObjects.AddRange(component.MakeClippingObjects(path, color));
+            return clippingObjects.AsReadOnly();
         }
     }
 
@@ -822,7 +884,7 @@ namespace PurplePen.MapModel
                 else {
                     // Draw the dashed line.
                     foreach (SymPath p in pathsWithShortening)
-                        DrawDashed(g, p, pens.mainPen, dashInfo, renderOpts, map.MapDistanceMetric);
+                        DrawDashed(g, p, pens.mainPen, dashInfo, 0, GetVertexPieceLimit(dashInfo, thickness), renderOpts, map.MapDistanceMetric);
                 }
             }
 
@@ -841,7 +903,7 @@ namespace PurplePen.MapModel
                 if (doubleLines.doubleFillColor != null && (highlight || doubleLines.doubleFillColor == color)) {
                     if (doubleLines.doubleFillDashed) {
                         foreach (SymPath p in pathsWithoutShortening)
-                            DrawDashed(g, p, pens.doubleFillPen, doubleLines.doubleDashes, renderOpts, map.MapDistanceMetric);
+                            DrawDashed(g, p, pens.doubleFillPen, doubleLines.doubleDashes, GetDoubleLineVertexPieceLimit(doubleLines.doubleDashes), GetVertexPieceLimit(doubleLines.doubleDashes, doubleLines.doubleThick), renderOpts, map.MapDistanceMetric);
                     }
                     else {
                         foreach (SymPath p in pathsWithoutShortening)
@@ -853,7 +915,7 @@ namespace PurplePen.MapModel
                     foreach (SymPath subpath in path.GetSubpaths(SymPath.DOUBLE_LEFT_STARTSTOPFLAG)) {
                         float offsetRight = -(doubleLines.doubleThick + doubleLines.doubleLeftWidth) / 2F;
                         if (doubleLines.doubleLeftDashed) {
-                            DrawDashedWithOffset(g, subpath, pens.doubleLeftPen, doubleLines.doubleDashes, offsetRight, GraphicsUtil.MITER_LIMIT, renderOpts, map.MapDistanceMetric);
+                            DrawDashedWithOffset(g, subpath, pens.doubleLeftPen, doubleLines.doubleDashes, offsetRight, GraphicsUtil.MITER_LIMIT, GetDoubleLineVertexPieceLimit(doubleLines.doubleDashes), GetVertexPieceLimit(doubleLines.doubleDashes, doubleLines.doubleLeftWidth), renderOpts, map.MapDistanceMetric);
                         }
                         else {  
                             SymPath leftPath = subpath.OffsetRight(offsetRight, GraphicsUtil.MITER_LIMIT);
@@ -866,7 +928,7 @@ namespace PurplePen.MapModel
                     foreach (SymPath subpath in path.GetSubpaths(SymPath.DOUBLE_RIGHT_STARTSTOPFLAG)) {
                         float offsetRight = (doubleLines.doubleThick + doubleLines.doubleRightWidth) / 2F;
                         if (doubleLines.doubleRightDashed) {
-                            DrawDashedWithOffset(g, subpath, pens.doubleRightPen, doubleLines.doubleDashes, offsetRight, GraphicsUtil.MITER_LIMIT, renderOpts, map.MapDistanceMetric);
+                            DrawDashedWithOffset(g, subpath, pens.doubleRightPen, doubleLines.doubleDashes, offsetRight, GraphicsUtil.MITER_LIMIT, GetDoubleLineVertexPieceLimit(doubleLines.doubleDashes), GetVertexPieceLimit(doubleLines.doubleDashes, doubleLines.doubleRightWidth), renderOpts, map.MapDistanceMetric);
                         }
                         else {  
                             SymPath rightPath = subpath.OffsetRight(offsetRight, GraphicsUtil.MITER_LIMIT);
@@ -895,6 +957,502 @@ namespace PurplePen.MapModel
                     }
                 }
             }
+        }
+
+        // The geometry method of the line symbols: the clipping objects of the palette color coverage of a line symbol
+        // (MakeClippingObjects(SymPath, SymColor)).
+        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(Symbol symbol, SymColor color, CoveragePrototype prototype)
+        {
+            Debug.Assert(prototype == CoveragePrototype.FullCoverage, "A line symbol has the full coverage only.");
+            return MakeClippingObjects(((LineSymbol)symbol).Path, color);
+        }
+
+        // The clipping objects of a line of this definition along a base path in a palette color, without a drawing
+        // target, in the order in which DrawCore draws the line components of the color: the main line on the pieces
+        // after the shortening, its pointy ends, the second line and the fill of a double line on the pieces without
+        // the shortening, the left and the right border of a double line, and the glyphs along the line. A dashed line is
+        // a composed dashed line (AddDashedLine), and a border is an offset path of the base path (OffsetPathShape).
+        // path: the base path.
+        // color: the palette color.
+        internal IReadOnlyList<ClippingObject> MakeClippingObjects(SymPath path, SymColor color)
+        {
+            List<ClippingObject> clippingObjects = new List<ClippingObject>();
+            if (path.IsZeroLength)
+                return clippingObjects;
+
+            SymPath[] pathsWithShortening, pathsWithoutShortening;
+            GetPathParts(path, out pathsWithShortening, out pathsWithoutShortening);
+
+            if (lineColor != null && color == lineColor && thickness > 0.0F) {
+                // CreatePens makes the main pen with round caps when the start of the line has a pointy end.
+                LineCapMode mainCaps = (shortenInfo.shortenBeginning > 0 && shortenInfo.pointyEnds) ? LineCapMode.Round : lineCap;
+                Stroke mainStroke = new Stroke(thickness, mainCaps, lineJoin, GraphicsUtil.MITER_LIMIT);
+                foreach (SymPath p in pathsWithShortening) {
+                    if (isDashed)
+                        AddDashedLine(clippingObjects, p, dashInfo, mainStroke, 0, 1, 0, GetVertexPieceLimit(dashInfo, thickness));
+                    else
+                        clippingObjects.Add(p.MakeStrokedShape(mainStroke, Placement.Identity));
+                }
+
+                if (shortenInfo.pointyEnds && (shortenInfo.shortenBeginning > 0.0F || shortenInfo.shortenEnd > 0.0F)) {
+                    foreach (PointF[] tip in GetPointyEnds(path, shortenInfo.shortenBeginning, shortenInfo.shortenEnd, thickness))
+                        clippingObjects.Add(new FilledShape(PathShape.FromPoints(tip, true), AreaFillMode.Winding, Placement.Identity));
+                }
+            }
+
+            if (secondLineColor != null && color == secondLineColor && secondThickness > 0.0F) {
+                Stroke secondStroke = new Stroke(secondThickness, secondLineCap, secondLineJoin, GraphicsUtil.MITER_LIMIT);
+                foreach (SymPath p in pathsWithoutShortening)
+                    clippingObjects.Add(p.MakeStrokedShape(secondStroke, Placement.Identity));
+            }
+
+            if (isDoubleLine) {
+                if (doubleLines.doubleFillColor != null && color == doubleLines.doubleFillColor) {
+                    Stroke fillStroke = GraphicsUtil.MakeSolidStroke(doubleLines.doubleThick, LineStyle.Mitered);
+                    foreach (SymPath p in pathsWithoutShortening) {
+                        if (doubleLines.doubleFillDashed)
+                            AddDashedLine(clippingObjects, p, doubleLines.doubleDashes, fillStroke, 0, 1, GetDoubleLineVertexPieceLimit(doubleLines.doubleDashes), GetVertexPieceLimit(doubleLines.doubleDashes, doubleLines.doubleThick));
+                        else
+                            clippingObjects.Add(p.MakeStrokedShape(fillStroke, Placement.Identity));
+                    }
+                }
+
+                if (doubleLines.doubleLeftColor != null && color == doubleLines.doubleLeftColor && doubleLines.doubleLeftWidth > 0.0F)
+                    AddBorder(clippingObjects, path, SymPath.DOUBLE_LEFT_STARTSTOPFLAG, doubleLines.doubleLeftWidth, doubleLines.doubleLeftDashed, -(doubleLines.doubleThick + doubleLines.doubleLeftWidth) / 2F);
+
+                if (doubleLines.doubleRightColor != null && color == doubleLines.doubleRightColor && doubleLines.doubleRightWidth > 0.0F)
+                    AddBorder(clippingObjects, path, SymPath.DOUBLE_RIGHT_STARTSTOPFLAG, doubleLines.doubleRightWidth, doubleLines.doubleRightDashed, (doubleLines.doubleThick + doubleLines.doubleRightWidth) / 2F);
+            }
+
+            if (glyphs != null) {
+                foreach (GlyphInfo glyphInfo in glyphs) {
+                    if (!glyphInfo.glyph.HasColor(color))
+                        continue;
+
+                    if ((glyphInfo.location == GlyphLocation.Start || glyphInfo.location == GlyphLocation.End) && pathsWithShortening.Length > 0) {
+                        // As in DrawCore, the start and the end apply only to the full path.
+                        AddGlyphs(clippingObjects, glyphInfo, path, path, color);
+                    }
+                    else {
+                        for (int i = 0; i < pathsWithShortening.Length; ++i)
+                            AddGlyphs(clippingObjects, glyphInfo, pathsWithShortening[i], (i < pathsWithoutShortening.Length) ? pathsWithoutShortening[i] : path, color);
+                    }
+                }
+            }
+
+            return clippingObjects.AsReadOnly();
+        }
+
+        // Add the clipping objects of a border of a double line, as DrawCore draws it: the offset path of each subpath
+        // that the flag of the border leaves, solid or dashed.
+        // clippingObjects: the clipping objects, which get those of the border.
+        // path: the base path.
+        // flag: the start/stop flag of the border.
+        // width, isDashed: the width and the dashes of the border.
+        // offsetRight: the distance of the border to the right of the base path.
+        private void AddBorder(List<ClippingObject> clippingObjects, SymPath path, byte flag, float width, bool isDashed, float offsetRight)
+        {
+            Stroke stroke = GraphicsUtil.MakeSolidStroke(width, LineStyle.FlatRounded);
+            foreach (SymPath subpath in path.GetSubpaths(flag)) {
+                if (isDashed)
+                    AddDashedLine(clippingObjects, subpath, doubleLines.doubleDashes, stroke, offsetRight, GraphicsUtil.MITER_LIMIT, GetDoubleLineVertexPieceLimit(doubleLines.doubleDashes), GetVertexPieceLimit(doubleLines.doubleDashes, width));
+                else
+                    clippingObjects.Add(new StrokedShape(new OffsetPathShape(subpath, offsetRight, GraphicsUtil.MITER_LIMIT), stroke, Placement.Identity));
+            }
+        }
+
+        // The tolerance within which two lengths that the drawing walks are the same in a run of dashes or a repeated
+        // placement: a few units in the last place of a float, which the conversion of the measure of the quarters
+        // leaves (SymPath.OcadCurveMeasure).
+        private static bool AreSameLengths(float a, float b)
+        {
+            return Math.Abs(a - b) <= 1E-6 * Math.Max(1, Math.Max(Math.Abs(a), Math.Abs(b)));
+        }
+
+        // The regions of the edges of the flattened path within which the drawing walks the distances of a spacing
+        // method at one ratio to the euclidean length (SymPath.GetEdgeRegions), and whether that ratio is the ratio of
+        // each edge. The euclidean metric walks the path at its length, and the measure of the quarters converts the
+        // distances to euclidean lengths that are in proportion within each quarter and, with the OCAD metric, within
+        // each straight segment. The OCAD metric walks a path without that measure at a ratio of each edge.
+        // path: the path.
+        // spacingMethod: the spacing method.
+        // isRatioOfEdge: whether the ratio is the euclidean length of each edge to its length in the metric of the map.
+        private int[] GetRegions(SymPath path, SpacingMethod spacingMethod, out bool isRatioOfEdge)
+        {
+            bool byQuarters = IsMeasuredByQuarters(path, spacingMethod);
+            isRatioOfEdge = !map.UseEuclideanMetric && !byQuarters;
+            if (isRatioOfEdge)
+                return path.GetEdgeRegions(false, false, true);
+            return path.GetEdgeRegions(byQuarters && !map.UseEuclideanMetric, byQuarters, false);
+        }
+
+        // The ratio of the euclidean length of an edge of the flattened path to the distance that the drawing walks along
+        // it: 1 with the euclidean metric, and the euclidean length to the length in the metric of the map otherwise.
+        // path: the path.
+        // edge: the index of the edge.
+        // isRatioOfEdge: whether the ratio is that of the edge (GetRegions), and not 1.
+        private double GetRatioOfEdge(SymPath path, int edge, bool isRatioOfEdge)
+        {
+            if (!isRatioOfEdge)
+                return 1;
+            PointF[] flattened = path.FlattenedPoints;
+            PointF a = flattened[edge], b = flattened[edge + 1];
+            double walked = map.MapDistanceMetric(a, b);
+            return (walked > 0) ? SymPath.EuclidDistance(a, b) / walked : 1;
+        }
+
+        // Add the clipping objects of a dashed line along a path, as DrawDashedWithOffset draws it with no limit of
+        // resolution, as a composed dashed line in the euclidean measure: the middle dashes of a segment that repeat a
+        // pattern along one region of the path (GetRegions) are one run of dashes, a stroked shape whose pen has the
+        // pattern, and the other dashes are single dashes, in the order of the path. A run has no dash from which a rule
+        // of the vertices left a vertex out, no end dash of the line and no dash over a corner point or a dash point. The
+        // shape of a run is the piece of the path from the start of its first dash to the end of its last, or the offset
+        // path of that piece. A line without dashes is solid.
+        // clippingObjects: the clipping objects, which get those of the line.
+        // path: the path.
+        // dashes: the dashes of the line.
+        // stroke: the pen of the line, without dashes.
+        // offsetRight, miterLimit: the offset of the line from the path, and its miter limit.
+        // pathVertexLimit, drawnVertexLimit: the limits of the rules of the vertices next to the ends of a dash.
+        private void AddDashedLine(List<ClippingObject> clippingObjects, SymPath path, DashInfo dashes, Stroke stroke, float offsetRight, float miterLimit, float pathVertexLimit, float drawnVertexLimit)
+        {
+            SymPath.DistanceMetric metric = map.MapDistanceMetric;
+            float[] distances = ComputeDashDistances(path, LocationKind.DashAndGapLengths, dashes.spacingMethod, dashes.dashLength, dashes.firstDashLength, dashes.lastDashLength, dashes.gapLength, dashes.halfEndDashLengthWhenClosed, dashes.minGaps, 0, dashes.secondaryEndGaps, dashes.secondaryEndLength, dashes.secondaryMiddleGaps, dashes.secondaryMiddleLength, 1.0F, false, null, metric);
+            if (distances.Length == 0) {
+                if (offsetRight != 0)
+                    clippingObjects.Add(new StrokedShape(new OffsetPathShape(path, offsetRight, miterLimit), stroke, Placement.Identity));
+                else
+                    clippingObjects.Add(path.MakeStrokedShape(stroke, Placement.Identity));
+                return;
+            }
+
+            List<SymPath.DashOnPath> onPath = path.GetDashes(distances, GetMetricAlongPath(path, dashes.spacingMethod, metric), offsetRight, miterLimit, pathVertexLimit, drawnVertexLimit);
+            bool isRatioOfEdge;
+            int[] regions = GetRegions(path, dashes.spacingMethod, out isRatioOfEdge);
+            PointF[] flatPoints = path.FlattenedPoints;
+            int longestPeriod = 1 + Math.Max(0, dashes.secondaryMiddleGaps);
+
+            int first = 0;
+            while (first < onPath.Count) {
+                int period;
+                int last = FindRunOfDashes(onPath, distances, regions, first, longestPeriod, out period);
+                if (last == first) {
+                    clippingObjects.Add(new StrokedShape(PathShape.FromPoints(onPath[first].Points, false), stroke, Placement.Identity));
+                    ++first;
+                    continue;
+                }
+
+                SymPath.DashOnPath start = onPath[first], end = onPath[last];
+                List<PointF> points = new List<PointF>();
+                points.Add(start.BaseStart);
+                for (int k = start.FirstPoint; k < end.EndPoint; ++k)
+                    points.Add(flatPoints[k]);
+                points.Add(end.BaseEnd);
+
+                double ratio = GetRatioOfEdge(path, start.StartEdge, isRatioOfEdge);
+                float[] pattern = new float[2 * period];
+                for (int k = 0; k < period; ++k) {
+                    pattern[2 * k] = (float)(distances[onPath[first + k].DashIndex] * ratio);
+                    pattern[2 * k + 1] = (float)(distances[onPath[first + k].DashIndex + 1] * ratio);
+                }
+
+                Stroke dashed = new Stroke(stroke.Width, stroke.Caps, stroke.Join, stroke.MiterLimit, pattern, 0);
+                SymPath piece = new SymPath(points.ToArray());
+                Shape shape = (offsetRight != 0) ? (Shape)new OffsetPathShape(piece, offsetRight, miterLimit) : PathShape.FromPoints(points.ToArray(), false);
+                clippingObjects.Add(new StrokedShape(shape, dashed, Placement.Identity));
+                first = last + 1;
+            }
+        }
+
+        // The last dash of the run of dashes from a first dash, or the first dash itself when no run starts there. A run
+        // repeats a period of one dash and its gap, or of more dashes and their gaps for the secondary gaps, at least
+        // twice. Its dashes are consecutive and in one region, and none of them is an end dash of the line, crosses a
+        // corner point or a dash point, or lost a vertex to a rule of the vertices. Of the periods, the one that makes the
+        // longest run is taken, and of equal runs the shortest period, so that the period of a dash with secondary gaps
+        // is the whole dash.
+        // dashes: the dashes of the line.
+        // distances: the lengths of the dashes and the gaps in turn, a dash first.
+        // regions: the regions of the edges of the flattened path (GetRegions).
+        // first: the index of the first dash.
+        // longestPeriod: the largest number of dashes in a period.
+        // period: the number of dashes of the period of the run.
+        private static int FindRunOfDashes(List<SymPath.DashOnPath> dashes, float[] distances, int[] regions, int first, int longestPeriod, out int period)
+        {
+            int bestLast = first, bestPeriod = 1;
+            if (CanBeInRun(dashes, regions, first)) {
+                for (int tried = 1; tried <= longestPeriod; ++tried) {
+                    int last = first;
+                    while (last + 1 < dashes.Count && FitsRun(dashes, distances, regions, first, last + 1, tried))
+                        ++last;
+                    if (last - first + 1 >= 2 * tried && last > bestLast) {
+                        bestLast = last;
+                        bestPeriod = tried;
+                    }
+                }
+            }
+
+            period = bestPeriod;
+            return bestLast;
+        }
+
+        // Can a dash be in a run of dashes: is it within one region, not an end dash of the line, and did no rule of the
+        // vertices leave a vertex out of it?
+        private static bool CanBeInRun(List<SymPath.DashOnPath> dashes, int[] regions, int index)
+        {
+            SymPath.DashOnPath dash = dashes[index];
+            if (index == 0 || index == dashes.Count - 1 || dash.IsVertexLeftOut)
+                return false;
+            if (dash.StartEdge >= regions.Length || dash.EndEdge >= regions.Length)
+                return false;
+            return regions[dash.StartEdge] >= 0 && regions[dash.StartEdge] == regions[dash.EndEdge];
+        }
+
+        // Can a dash end a run of a period from a first dash?
+        private static bool FitsRun(List<SymPath.DashOnPath> dashes, float[] distances, int[] regions, int first, int next, int period)
+        {
+            if (!CanBeInRun(dashes, regions, next))
+                return false;
+            SymPath.DashOnPath dash = dashes[next], previous = dashes[next - 1], firstDash = dashes[first];
+            if (dash.DashIndex != previous.DashIndex + 2 || dash.DashIndex + 1 >= distances.Length)
+                return false;
+            if (regions[dash.StartEdge] != regions[firstDash.StartEdge])
+                return false;
+
+            // The dash and the gap before it repeat those of the period.
+            SymPath.DashOnPath same = dashes[first + (next - first) % period];
+            SymPath.DashOnPath sameBefore = dashes[first + (next - 1 - first) % period];
+            return AreSameLengths(distances[dash.DashIndex], distances[same.DashIndex]) && AreSameLengths(distances[previous.DashIndex + 1], distances[sameBefore.DashIndex + 1]);
+        }
+
+        // Add the clipping objects of the glyphs along the path in a palette color, as DrawGlyphs draws them. "longPath"
+        // is the same as path unless shortening of the ends has occurred, in which case path is the shortened path (used
+        // for all glyphs except start and end), and longPath is used for the start and end.
+        // clippingObjects: the clipping objects, which get those of the glyphs.
+        // glyphInfo: the glyphs.
+        // color: the palette color.
+        private void AddGlyphs(List<ClippingObject> clippingObjects, GlyphInfo glyphInfo, SymPath path, SymPath longPath, SymColor color)
+        {
+            float[] distances;
+            PointF[] points;
+            float[] perpAngles, subtendedAngles;
+            float firstDistance;
+            bool ignoreDashCornersAtEnds = false;
+            SpacingMethod spacingMethod = glyphInfo.spacingMethod;      // The method that fits the distances of the glyphs.
+
+            switch (glyphInfo.location) {
+            case GlyphLocation.CornersIgnoreEnds:
+            case GlyphLocation.DashPointsIgnoreEnds:
+                ignoreDashCornersAtEnds = true;
+                goto case GlyphLocation.Corners;
+
+            case GlyphLocation.Corners:
+            case GlyphLocation.DashPoints:
+                // As in DrawGlyphs, a glyph at a corner is stretched by the angle that the corner subtends.
+                points = path.FindCornerOrDashPoints((glyphInfo.location == GlyphLocation.DashPoints || glyphInfo.location == GlyphLocation.DashPointsIgnoreEnds) ? PointKind.Dash : PointKind.Corner,
+                                                     ignoreDashCornersAtEnds, out perpAngles, out subtendedAngles);
+
+                if (points != null) {
+                    for (int i = 0; i < points.Length; ++i) {
+                        float subtendedAngle = subtendedAngles[i];
+                        float stretch;
+                        if (subtendedAngle != 0 && !glyphInfo.noScaleAtCorners && (glyphInfo.location == GlyphLocation.Corners || glyphInfo.location == GlyphLocation.CornersIgnoreEnds))
+                            stretch = Geometry.MiterFactor(subtendedAngle);
+                        else
+                            stretch = 1.0F;
+                        stretch = Math.Min(stretch, CORNER_GLYPH_STRETCH_LIMIT);
+
+                        Matrix stretchMatrix = new Matrix();
+                        stretchMatrix.Scale(1.0F, stretch);
+
+                        clippingObjects.AddRange(glyphInfo.glyph.MakeClippingObjects(points[i], perpAngles[i] + 90.0F, null, color, stretchMatrix));
+                    }
+                }
+                return;
+
+            case GlyphLocation.Spaced:
+                distances = ComputeDashDistances(path, LocationKind.GapCenters, glyphInfo.spacingMethod, glyphInfo.distance, glyphInfo.firstDistance, glyphInfo.lastDistance, 0, false, glyphInfo.minimum, 0, 0, 0, 0, 0, 1.0F, false, null, map.MapDistanceMetric);
+                break;
+            case GlyphLocation.SpacedOffset:
+                distances = ComputeDashDistances(path, LocationKind.GapCentersOffset, glyphInfo.spacingMethod, glyphInfo.distance, glyphInfo.firstDistance, glyphInfo.lastDistance, 0, false, glyphInfo.minimum, glyphInfo.offset, 0, 0, 0, 0, 1.0F, false, null, map.MapDistanceMetric);
+                break;
+            case GlyphLocation.SpacedDecrease:
+                // The glyphs decrease in size and in spacing, so each is a single placement, with shapes of its own.
+                DecreaseRanges decreaseRanges = new DecreaseRanges();
+                distances = ComputeDashDistances(path, LocationKind.GapCentersDecrease, glyphInfo.spacingMethod, glyphInfo.distance, glyphInfo.firstDistance, glyphInfo.lastDistance, 0, false, glyphInfo.minimum, 0, 0, 0, 0, 0, glyphInfo.decreaseLimit, glyphInfo.decreaseBothEnds, decreaseRanges, map.MapDistanceMetric);
+
+                if (distances != null && distances.Length > 0) {
+                    firstDistance = distances[0];
+
+                    for (int n = 0; n < glyphInfo.number; ++n) {
+                        distances[0] = firstDistance - ((glyphInfo.number - 1 - n * 2) * (glyphInfo.spacing / 2.0F));
+
+                        points = path.FindPointsAlongLine(distances, out perpAngles, GetMetricAlongPath(path, spacingMethod, map.MapDistanceMetric));
+
+                        for (int i = 0; i < points.Length; ++i) {
+                            float decreaseFactor = ComputeDecreaseFactor(i, decreaseRanges, glyphInfo.decreaseLimit);
+
+                            if (decreaseFactor >= 0.001F) {
+                                Matrix matrixTransform = new Matrix();
+                                matrixTransform.Scale(decreaseFactor, decreaseFactor);
+                                clippingObjects.AddRange(glyphInfo.glyph.MakeClippingObjects(points[i], perpAngles[i], null, color, matrixTransform));
+                            }
+                        }
+                    }
+                }
+
+                return;
+            case GlyphLocation.DashCenters:
+                spacingMethod = dashInfo.spacingMethod;
+                distances = ComputeDashDistances(path, LocationKind.DashCenters, dashInfo.spacingMethod, dashInfo.dashLength, dashInfo.firstDashLength, dashInfo.lastDashLength, dashInfo.gapLength, dashInfo.halfEndDashLengthWhenClosed, dashInfo.minGaps, 0, 0, 0, 0, 0, 1.0F, false, null, map.MapDistanceMetric);
+                break;
+            case GlyphLocation.GapCenters:
+                // OCAD doesn't respect the "0 minimum gaps" for the symbols, although it does for the gaps. Always have at least one symbol. This is handled on import by having glyphInfo.minimum be 1.
+                spacingMethod = dashInfo.spacingMethod;
+                distances = ComputeDashDistances(path, LocationKind.GapCenters, dashInfo.spacingMethod, dashInfo.dashLength, dashInfo.firstDashLength, dashInfo.lastDashLength, dashInfo.gapLength, dashInfo.halfEndDashLengthWhenClosed, Math.Max(glyphInfo.minimum, dashInfo.minGaps), 0, 0, 0, 0, 0, 1.0F, false, null, map.MapDistanceMetric);
+                break;
+            case GlyphLocation.Start:
+                distances = new float[1] { 0 };
+                break;
+            case GlyphLocation.End:
+                distances = new float[1] { map.UseEuclideanMetric ? longPath.Length : longPath.BizzarroLength };
+                break;
+            default:
+                Debug.Fail("bad glyph location");
+                return;
+            }
+
+            if (distances == null || distances.Length == 0)
+                return;
+            firstDistance = distances[0];
+
+            for (int n = 0; n < glyphInfo.number; ++n) {
+                distances[0] = firstDistance - ((glyphInfo.number - 1 - n * 2) * (glyphInfo.spacing / 2.0F));
+
+                SymPath walkedPath;
+                SymPath.DistanceMetric metric;
+                SpacingMethod regionSpacing = spacingMethod;
+                if (glyphInfo.location != GlyphLocation.Start && glyphInfo.location != GlyphLocation.End) {
+                    bool isEuclideanOnOcadMetric = !map.UseEuclideanMetric && IsMeasuredByQuarters(path, spacingMethod);
+                    if (longPath.FirstPoint != path.FirstPoint && shortenInfo.shortenBeginning > 0 && !isEuclideanOnOcadMetric) {
+                        // This is a shortened path, convert distances back into the long path.
+                        distances[0] += shortenInfo.shortenBeginning;
+                        walkedPath = longPath;
+                        metric = map.MapDistanceMetric;
+                        regionSpacing = map.UseEuclideanMetric ? spacingMethod : SpacingMethod.OpenMapperDashes;
+                    }
+                    else {
+                        walkedPath = path;
+                        metric = GetMetricAlongPath(path, spacingMethod, map.MapDistanceMetric);
+                    }
+                }
+                else {
+                    walkedPath = longPath;
+                    metric = map.MapDistanceMetric;
+                    regionSpacing = SpacingMethod.OpenMapperDashes;
+                }
+
+                points = walkedPath.FindPointsAlongLine(distances, out perpAngles, metric);
+                AddGlyphsAtPoints(clippingObjects, glyphInfo.glyph, color, walkedPath, metric, regionSpacing, distances, points, perpAngles);
+            }
+        }
+
+        // Add the clipping objects of glyphs at their points along a path in a palette color. Each sequence of glyphs at
+        // one step in one region of the path (GetRegions) is a repeated placement of the shared shapes of the glyph, and
+        // the other glyphs are single placements: the glyphs at the ends of the parts between corner and dash points,
+        // whose steps to the glyphs of the end dashes and to the next part differ, and a glyph whose step to the next
+        // glyph differs from the step after it.
+        // clippingObjects: the clipping objects, which get those of the glyphs.
+        // glyph: the glyph.
+        // color: the palette color.
+        // walkedPath: the path along which FindPointsAlongLine found the points.
+        // metric: the metric that walked the distances.
+        // regionSpacing: the spacing method whose measure walked the distances, for the regions of the path.
+        // distances: the distance of each glyph from the one before it, and of the first glyph from the start of the path.
+        // points, angles: the points and the angles of the glyphs, as FindPointsAlongLine gives them.
+        private void AddGlyphsAtPoints(List<ClippingObject> clippingObjects, Glyph glyph, SymColor color, SymPath walkedPath, SymPath.DistanceMetric metric, SpacingMethod regionSpacing, float[] distances, PointF[] points, float[] angles)
+        {
+            if (points == null)
+                return;
+
+            bool isRatioOfEdge;
+            int[] regions = GetRegions(walkedPath, regionSpacing, out isRatioOfEdge);
+            int[] edges = walkedPath.FindEdgesAlongLine(distances, metric);
+            Func<int, int> regionOf = i => (edges[i] < regions.Length) ? regions[edges[i]] : -1;
+
+            int first = 0;
+            while (first < points.Length) {
+                int last = first;
+                if (regionOf(first) >= 0) {
+                    while (last + 1 < points.Length && regionOf(last + 1) == regionOf(first) && (last == first || AreSameLengths(distances[last + 1], distances[first + 1])))
+                        ++last;
+                    // Of two glyphs whose next step differs, the first is single, and the second may start a sequence.
+                    if (last == first + 1 && last + 1 < points.Length && regionOf(last + 1) == regionOf(first))
+                        last = first;
+                }
+
+                if (last > first) {
+                    double start = 0;
+                    for (int i = 0; i <= first; ++i)
+                        start += distances[i];
+                    int firstEdge = edges[first], lastEdge = edges[last];
+                    double ratio = GetRatioOfEdge(walkedPath, firstEdge, isRatioOfEdge);
+                    float firstOnPath = (float)((start - walkedPath.LengthToFlattenedPoint(firstEdge, metric)) * ratio);
+                    PointF[] flattened = walkedPath.FlattenedPoints;
+                    PointF[] pathPoints = new PointF[lastEdge - firstEdge + 2];
+                    Array.Copy(flattened, firstEdge, pathPoints, 0, pathPoints.Length);
+
+                    RepeatedPlacement placement = new RepeatedPlacement(Placement.Identity, PathShape.FromPoints(pathPoints, false), firstOnPath, (float)(distances[first + 1] * ratio), last - first + 1, !glyph.IsSimple);
+                    clippingObjects.AddRange(glyph.MakeRepeatedClippingObjects(placement, color));
+                    first = last + 1;
+                }
+                else {
+                    clippingObjects.AddRange(glyph.MakeClippingObjects(points[first], angles[first], null, color));
+                    ++first;
+                }
+            }
+        }
+
+        // The polygons of the pointy ends of a line, as DrawPointyEnds fills them: five points each, the tip first, at the
+        // start of the line when pointyLengthStart is more than 0 and then at its end when pointyLengthEnd is.
+        // longPath: the path of the line, without the shortening.
+        // pointyLengthStart, pointyLengthEnd: the lengths of the pointy ends.
+        // lineWidth: the width of the line.
+        private List<PointF[]> GetPointyEnds(SymPath longPath, float pointyLengthStart, float pointyLengthEnd, float lineWidth)
+        {
+            float length = map.UseEuclideanMetric ? longPath.Length : longPath.BizzarroLength;
+            float[] distances, angles;
+            if (length >= pointyLengthStart + pointyLengthEnd) {
+                distances = new float[6] { 0, pointyLengthStart / 2, pointyLengthStart / 2, length - pointyLengthEnd - pointyLengthStart, pointyLengthEnd / 2, pointyLengthEnd / 2 };
+            }
+            else {
+                float scaleFactor = length / (pointyLengthStart + pointyLengthEnd);
+                distances = new float[6] { 0, (pointyLengthStart / 2) * scaleFactor, (pointyLengthStart / 2) * scaleFactor, 0, (pointyLengthEnd / 2) * scaleFactor, (pointyLengthEnd / 2) * scaleFactor };
+            }
+            PointF[] pointsAlongPath = longPath.FindPointsAlongLine(distances, out angles, map.MapDistanceMetric);
+            float midpointWidth = lineWidth * 0.666F;
+
+            List<PointF[]> tips = new List<PointF[]>(2);
+            if (pointyLengthStart > 0) {
+                PointF[] tip = new PointF[5];
+                tip[0] = pointsAlongPath[0];
+                tip[1] = Geometry.MoveDistance(pointsAlongPath[1], midpointWidth / 2, angles[1] - 90.0F);
+                tip[4] = Geometry.MoveDistance(pointsAlongPath[1], midpointWidth / 2, angles[1] + 90.0F);
+                tip[2] = Geometry.MoveDistance(pointsAlongPath[2], lineWidth / 2, angles[2] - 90.0F);
+                tip[3] = Geometry.MoveDistance(pointsAlongPath[2], lineWidth / 2, angles[2] + 90.0F);
+                tips.Add(tip);
+            }
+
+            if (pointyLengthEnd > 0) {
+                PointF[] tip = new PointF[5];
+                tip[0] = pointsAlongPath[5];
+                tip[1] = Geometry.MoveDistance(pointsAlongPath[4], midpointWidth / 2, angles[4] - 90.0F);
+                tip[4] = Geometry.MoveDistance(pointsAlongPath[4], midpointWidth / 2, angles[4] + 90.0F);
+                tip[2] = Geometry.MoveDistance(pointsAlongPath[3], lineWidth / 2, angles[3] - 90.0F);
+                tip[3] = Geometry.MoveDistance(pointsAlongPath[3], lineWidth / 2, angles[3] + 90.0F);
+                tips.Add(tip);
+            }
+
+            return tips;
         }
 
         // Apply the shortening and the start/stop flags to get an array of the paths to draw. This might be an empty array.
@@ -951,9 +1509,16 @@ namespace PurplePen.MapModel
         {
             LocationKind originalKind = kind;   // save original kind.
 
-            // Get length of each segment, deliniated by corner points.
+            // Get length of each segment, deliniated by corner points. With each metric, OCAD places the dashes on Bezier
+            // curves by their quarters, and the glyphs of the OCAD spacing are placed in the same measure: the distances
+            // are fitted to the measure of the quarters, in the metric of the map, and converted at the end to euclidean
+            // distances along the path, which the drawing walks with the euclidean metric (GetMetricAlongPath).
             PointKind[] pointkinds;
             float[] segmentLengths = path.GetCornerAndDashPointDistances(distanceMetric, out pointkinds);
+            SymPath.OcadCurveMeasure curveMeasure = (spacingMethod == SpacingMethod.OCAD) ? path.GetOcadCurveMeasure(distanceMetric) : null;
+            if (curveMeasure != null)
+                segmentLengths = curveMeasure.PartMeasures;
+            float[] countingLengths = (spacingMethod == SpacingMethod.OCAD) ? path.GetCornerAndDashPointLengthsForCounting(distanceMetric) : segmentLengths;
             float[] lengthAtEnd = new float[segmentLengths.Length];
             float[][] dashDistances = new float[segmentLengths.Length][];
             int segmentSmallToLarge = -1, segmentLargeToSmall = -1, segmentBothEnds = -1;  // segment numbers with different decrease kinds.
@@ -1035,7 +1600,7 @@ namespace PurplePen.MapModel
                 if (i == segmentLongest || segmentLengths[i] >= segmentLengths[segmentLongest] - 0.1 || spacingMethod == SpacingMethod.OpenMapperMidSymbols)
                     minGapsThisSegment = minGaps;
 
-                dashDistances[i] = ComputeDashDistances(segmentLengths[i], kind, spacingMethod, dashLength, firstLength, lastLength, gapLength,
+                dashDistances[i] = ComputeDashDistances(segmentLengths[i], countingLengths[i], kind, spacingMethod, dashLength, firstLength, lastLength, gapLength,
                                                         minGapsThisSegment, offset, 
                                                         numEndSecGaps, lengthEndSecGaps, numMiddleSecGaps, lengthMiddleSecGaps, 
                                                         decreaseLimit, decreaseKind, 
@@ -1103,6 +1668,9 @@ namespace PurplePen.MapModel
                 distances = ComputeDashCenters(distances, path.IsClosedCurve);
             }
 
+            if (curveMeasure != null && distances != null)
+                distances = curveMeasure.ToDistancesAlongPath(distances);
+
             return distances;
         }
 
@@ -1110,7 +1678,7 @@ namespace PurplePen.MapModel
 
         // Computes the dash distances for a single segment. Also returns the distance from the last location to the end of the segment.
         // If LocationKind is DashesAndGapLengths, this is a duplicate of the last array element.
-        private static float[] ComputeDashDistances(float pathLength, LocationKind kind, SpacingMethod spacingMethod, 
+        private static float[] ComputeDashDistances(float pathLength, float countingLength, LocationKind kind, SpacingMethod spacingMethod, 
                                                     float dashLength, float firstDashLength, float lastDashLength, float gapLength, int minGaps, float offset, 
                                                     int numEndSecGaps, float lengthEndSecGaps, int numMiddleSecGaps, float lengthMiddleSecGaps, float decreaseLimit, DecreaseKind decreaseKind, 
                                                     out float lengthAtEnd, out int actualGaps)
@@ -1136,11 +1704,12 @@ namespace PurplePen.MapModel
             // The number of gaps is adjusted so that the gap lengths are always preserved exactly, and the dash lengths are as close as possible to the actual dash lengths.
             if (dashLength + gapLength > 0) {
                 if (spacingMethod == SpacingMethod.OCAD) {
-                    if (pathLength - firstDashLength - lastDashLength <= gapLength) {
-                        numGaps = (minGaps >= 1 || pathLength >= firstDashLength / 2 + lastDashLength / 2 + gapLength) ? 1 : 0;
+                    if (countingLength - firstDashLength - lastDashLength <= gapLength) {
+                        numGaps = (minGaps >= 1 || countingLength > firstDashLength / 2 + lastDashLength / 2 + gapLength) ? 1 : 0;
                     }
                     else {
-                        numGaps = (int)Math.Round((pathLength + dashLength - firstDashLength - lastDashLength) / (dashLength + gapLength));
+                        // OCAD rounds the number of dashes, one more than the number of gaps, to the even number at a half.
+                        numGaps = (int)Math.Round((countingLength + dashLength - firstDashLength - lastDashLength) / (dashLength + gapLength) + 1, MidpointRounding.ToEven) - 1;
                     }
                     //if (firstDashLength == 0 && lastDashLength == 0 && pathLength < dashLength / 2) {
                     //    numGaps = 0;
@@ -1213,6 +1782,10 @@ namespace PurplePen.MapModel
             // Enforce minimum gaps.
             if (numGaps < minGaps)
                 numGaps = minGaps;
+
+            // OCAD draws a dashed line as solid when its one gap would leave end dashes of 0, which fit no dash.
+            if (spacingMethod == SpacingMethod.OCAD && kind == LocationKind.DashAndGapLengths && numGaps == 1 && firstDashLength == 0 && lastDashLength == 0)
+                numGaps = 0;
 
             // Given the number of gaps, compute the lengths of the dashes. Gaps are always at their nominal length.
             if (numGaps == 0)
@@ -1381,11 +1954,13 @@ namespace PurplePen.MapModel
                     else
                         locationList.Add(actualFirstDashLength); // no secondary gaps
 
-                    // Add middle dashes and gaps to them (with secondary gaps as appropriate)
+                    // Add middle dashes and gaps to them (with secondary gaps as appropriate). OCAD puts secondary gaps only in a
+                    // dash that is longer than half of the length of a dash.
+                    bool hasRoomForSecondaryGaps = (spacingMethod == SpacingMethod.OCAD) ? actualDashLength > dashLength / 2 : actualDashLength >= dashLength / 2;
                     for (int i = 1; i < numGaps; ++i) {
                         locationList.Add(gapLength);
 
-                        if (numMiddleSecGaps > 0 && (actualDashLength >= dashLength / 2))
+                        if (numMiddleSecGaps > 0 && hasRoomForSecondaryGaps)
                             locationList.AddRange(AddSecondaryGaps(actualDashLength, numMiddleSecGaps, lengthMiddleSecGaps));  // add with secondary gaps
                         else
                             locationList.Add(actualDashLength);
@@ -1505,12 +2080,60 @@ namespace PurplePen.MapModel
             return dashCenters.ToArray();
         }
 
-        private static void DrawDashed(IGraphicsTarget g, SymPath path, object penKey, DashInfo dashes, RenderOptions renderOpts, SymPath.DistanceMetric distanceMetric)
+        // Does ComputeDashDistances fit the distances along a path in the measure of the quarters of its Bezier curves
+        // (SymPath.GetOcadCurveMeasure), and give them as euclidean distances along the path?
+        // path: the path.
+        // spacingMethod: the method that fits the distances.
+        private static bool IsMeasuredByQuarters(SymPath path, SpacingMethod spacingMethod)
         {
-            DrawDashedWithOffset(g, path, penKey, dashes, 0, 1, renderOpts, distanceMetric);
+            return spacingMethod == SpacingMethod.OCAD && path.HasBeziers;
         }
 
-        private static void DrawDashedWithOffset(IGraphicsTarget g, SymPath path, object penKey, DashInfo dashes, float offsetRight, float miterLimit, RenderOptions renderOpts, SymPath.DistanceMetric distanceMetric)
+        // The metric with which the drawing walks the distances that ComputeDashDistances gives along a path: the
+        // euclidean metric where it gives them in the measure of the quarters, and otherwise the metric that it fits them
+        // with.
+        // path: the path.
+        // spacingMethod: the method that fits the distances.
+        // distanceMetric: the metric that fits the distances, the metric of the map.
+        private static SymPath.DistanceMetric GetMetricAlongPath(SymPath path, SpacingMethod spacingMethod, SymPath.DistanceMetric distanceMetric)
+        {
+            return IsMeasuredByQuarters(path, spacingMethod) ? (SymPath.DistanceMetric)SymPath.EuclidDistance : distanceMetric;
+        }
+
+        // OCAD leaves out of a dash the vertex next to its start, and the vertex next to its end, when the piece of the
+        // dash between the vertex and the end is shorter than this part of the width of the line that the dash draws.
+        const float OCAD_VERTEX_PIECE_PER_WIDTH = 0.4F;
+
+        // On a double line, OCAD first leaves the vertex out of the dash of the middle when the piece is shorter than
+        // this, in mm, whatever the widths of the double line.
+        const float OCAD_DOUBLE_LINE_VERTEX_PIECE = 0.05F;
+
+        // The length in mm below which a piece of a dash leaves out the vertex next to the end of the dash, for a line of
+        // a width that OCAD's spacing draws, or 0 for the other spacings, which keep all the vertices.
+        // dashes: the dashes of the line; width: the width of the line in mm.
+        private static float GetVertexPieceLimit(DashInfo dashes, float width)
+        {
+            return (dashes.spacingMethod == SpacingMethod.OCAD) ? OCAD_VERTEX_PIECE_PER_WIDTH * width : 0;
+        }
+
+        // The length in mm below which a piece of the dash of the middle of a double line leaves out the vertex next to
+        // the end of the dash, before the dash is moved aside to a border, or 0 for the spacings other than OCAD's.
+        // dashes: the dashes of the double line.
+        private static float GetDoubleLineVertexPieceLimit(DashInfo dashes)
+        {
+            return (dashes.spacingMethod == SpacingMethod.OCAD) ? OCAD_DOUBLE_LINE_VERTEX_PIECE : 0;
+        }
+
+        // Draw a dashed line along a path. pathVertexLimit and drawnVertexLimit are the lengths in mm below which a piece
+        // of a dash leaves out the vertex next to the end of the dash, on the path and on the line drawn.
+        private static void DrawDashed(IGraphicsTarget g, SymPath path, object penKey, DashInfo dashes, float pathVertexLimit, float drawnVertexLimit, RenderOptions renderOpts, SymPath.DistanceMetric distanceMetric)
+        {
+            DrawDashedWithOffset(g, path, penKey, dashes, 0, 1, pathVertexLimit, drawnVertexLimit, renderOpts, distanceMetric);
+        }
+
+        // Draw a dashed line along a path, offset to the right. pathVertexLimit applies to each dash on the path, before
+        // the offset, and drawnVertexLimit to the dash drawn, after it.
+        private static void DrawDashedWithOffset(IGraphicsTarget g, SymPath path, object penKey, DashInfo dashes, float offsetRight, float miterLimit, float pathVertexLimit, float drawnVertexLimit, RenderOptions renderOpts, SymPath.DistanceMetric distanceMetric)
         {
             float[] distances;
 
@@ -1526,7 +2149,7 @@ namespace PurplePen.MapModel
                     path.Draw(g, penKey);
             }
             else {
-                path.DrawDashedOffset(g, penKey, distances, 0, offsetRight, miterLimit, distanceMetric);
+                path.DrawDashedOffset(g, penKey, distances, 0, offsetRight, miterLimit, GetMetricAlongPath(path, dashes.spacingMethod, distanceMetric), pathVertexLimit, drawnVertexLimit);
             }
         }
 
@@ -1550,6 +2173,7 @@ namespace PurplePen.MapModel
             float[] perpAngles, subtendedAngles;
             float firstDistance;
             bool ignoreDashCornersAtEnds = false;
+            SpacingMethod spacingMethod = glyphInfo.spacingMethod;      // The method that fits the distances of the glyphs.
 
             Debug.Assert(highlight || color != null);
 
@@ -1603,7 +2227,7 @@ namespace PurplePen.MapModel
                     for (int n = 0; n < glyphInfo.number; ++n) {
                         distances[0] = firstDistance - ((glyphInfo.number - 1 - n * 2) * (glyphInfo.spacing / 2.0F));
 
-                        points = path.FindPointsAlongLine(distances, out perpAngles, map.MapDistanceMetric);
+                        points = path.FindPointsAlongLine(distances, out perpAngles, GetMetricAlongPath(path, spacingMethod, map.MapDistanceMetric));
 
                         for (int i = 0; i < points.Length; ++i) {
                             float decreaseFactor = ComputeDecreaseFactor(i, decreaseRanges, glyphInfo.decreaseLimit);
@@ -1619,10 +2243,12 @@ namespace PurplePen.MapModel
                 
                 return;
             case GlyphLocation.DashCenters:
+                spacingMethod = dashInfo.spacingMethod;
                 distances = ComputeDashDistances(path, LocationKind.DashCenters, dashInfo.spacingMethod, dashInfo.dashLength, dashInfo.firstDashLength, dashInfo.lastDashLength, dashInfo.gapLength, dashInfo.halfEndDashLengthWhenClosed, dashInfo.minGaps, 0, 0, 0, 0, 0, 1.0F, false, null, map.MapDistanceMetric);
                 break;
             case GlyphLocation.GapCenters:
                 // OCAD doesn't respect the "0 minimum gaps" for the symbols, although it does for the gaps. Always have at least one symbol. This is handled on import by having glyphInfo.minimum be 1.
+                spacingMethod = dashInfo.spacingMethod;
                 distances = ComputeDashDistances(path, LocationKind.GapCenters, dashInfo.spacingMethod, dashInfo.dashLength, dashInfo.firstDashLength, dashInfo.lastDashLength, dashInfo.gapLength, dashInfo.halfEndDashLengthWhenClosed, Math.Max(glyphInfo.minimum, dashInfo.minGaps), 0, 0, 0, 0, 0, 1.0F, false, null, map.MapDistanceMetric);
                 break;
             case GlyphLocation.Start:
@@ -1644,13 +2270,16 @@ namespace PurplePen.MapModel
                 distances[0] = firstDistance - ((glyphInfo.number - 1 - n * 2) * (glyphInfo.spacing / 2.0F));
 
                 if (glyphInfo.location != GlyphLocation.Start && glyphInfo.location != GlyphLocation.End) {
-                    if (longPath.FirstPoint != path.FirstPoint && shortenInfo.shortenBeginning > 0) {
+                    // With the OCAD metric, the measure of the quarters gives euclidean distances along the shortened
+                    // path, and the shortening is in the OCAD metric, so the glyphs are found along the shortened path.
+                    bool isEuclideanOnOcadMetric = !map.UseEuclideanMetric && IsMeasuredByQuarters(path, spacingMethod);
+                    if (longPath.FirstPoint != path.FirstPoint && shortenInfo.shortenBeginning > 0 && !isEuclideanOnOcadMetric) {
                         // This is a shortened path, convert distances back into the long path.
                         distances[0] += shortenInfo.shortenBeginning;
                         points = longPath.FindPointsAlongLine(distances, out perpAngles, map.MapDistanceMetric);
                     }
                     else {
-                        points = path.FindPointsAlongLine(distances, out perpAngles, map.MapDistanceMetric);
+                        points = path.FindPointsAlongLine(distances, out perpAngles, GetMetricAlongPath(path, spacingMethod, map.MapDistanceMetric));
                     }
                 }
                 else {
@@ -1833,6 +2462,17 @@ namespace PurplePen.MapModel
         {
             foreach (SymDef component in components) {
                 if (component.HasColor(color))
+                    return true;
+            }
+
+            return false;
+        }
+
+        // Does a component draw the given palette color with the full coverage?
+        internal override bool HasFullCoverage(SymColor color)
+        {
+            foreach (SymDef component in components) {
+                if (component.HasFullCoverage(color))
                     return true;
             }
 
@@ -2132,6 +2772,18 @@ namespace PurplePen.MapModel
             return false;
         }
 
+        // Does this area draw the given palette color with the full coverage: does it fill the area with the color, or
+        // does its border draw it? The hatchings and the patterns of the area are periodic coverages, and pass 1 leaves
+        // them out.
+        internal override bool HasFullCoverage(SymColor color)
+        {
+            Debug.Assert(color != null);
+            if (color.IsSpecialLayer)
+                return false;
+
+            return color == fillColor || (borderSymdef != null && borderSymdef.HasColor(color));
+        }
+
         // Highlight the symbol.
         internal override void DrawHighlight(IGraphicsTarget g, SymPathWithHoles path, HighlightOptions options)
         {
@@ -2197,6 +2849,9 @@ namespace PurplePen.MapModel
         // Draw the hatching into the interior of the SymPath.
         void DrawHatchings(IGraphicsTarget g, SymPathWithHoles path, float angle, PointF rotationCenter, RenderOptions renderOpts, SymColor color)
         {
+            if (renderOpts.omitHatchingsAndPatterns)
+                return;
+
             // Precheck if any hatchings have the color before doing the expensive clip operation.
             bool hasColor = false;
             for (int i = 0; i < hatchings.Count; ++i) {
@@ -2253,6 +2908,9 @@ namespace PurplePen.MapModel
         // Draw all patterns
         void DrawPatterns(IGraphicsTarget g, SymPathWithHoles path, SymColor color, float angle, PointF rotationCenter, RenderOptions renderOpts)
         {
+            if (renderOpts.omitHatchingsAndPatterns)
+                return;
+
             for (int i = 0; i < patterns.Count; ++i) {
                 PatternInfo patternInfo = patterns[i];
                 bool ignoreRotation = (patternInfo.patternRotateMode == RotateMode.Never);
@@ -4407,6 +5065,17 @@ namespace PurplePen.MapModel
                 return false;
             else
                 return true;
+        }
+
+        // The full coverage, where the graphics object has the given palette color, or none. A graphics object has its
+        // own colors (IGraphicsSymbol.HasColor).
+        public override IReadOnlyList<CoveragePrototype> GetCoveragePrototypes(Symbol symbol, SymColor color)
+        {
+            IGraphicsSymbol graphicsSymbol = symbol as IGraphicsSymbol;
+            if (graphicsSymbol != null && !color.IsSpecialLayer && graphicsSymbol.HasColor(color))
+                return CoveragePrototype.FullCoverageOnly;
+            else
+                return CoveragePrototype.None;
         }
 
         public override void FreeGdiObjects()

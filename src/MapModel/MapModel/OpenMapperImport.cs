@@ -1366,16 +1366,45 @@ namespace PurplePen.MapModel
             // Sort in reverse order by priority.
             colors.Sort((c1, c2) => c2.priority.CompareTo(c1.priority));
 
+            // A color that is a spot color as such is a spot ink. The inks are in the order of the priorities of their
+            // colors, the top one first.
+            Dictionary<int, Ink> mapColorIdToInk = new Dictionary<int, Ink>();
+            for (int i = colors.Count - 1; i >= 0; --i) {
+                OpenMapperColor color = colors[i];
+                if (color.IsSpotColor) {
+                    InkScreen? screen = (color.screenFrequency > 0) ? new InkScreen(color.screenFrequency, color.screenAngle) : (InkScreen?) null;
+                    Ink ink = new Ink(color.spotColorName, CmykColor.FromCmyk(color.c, color.m, color.y, color.k), screen);
+                    map.AddSpotInk(ink);
+                    mapColorIdToInk[color.priority] = ink;
+                }
+            }
+
             // Add colors to the map.
             foreach (OpenMapperColor color in colors) {
-                // Use priority also as the OCAD id. 
-                // Knockout in OOM is the opposite of overprint in OCAD.
-                SymColor symColor = map.AddColor(color.name, (short)color.priority, color.c, color.m, color.y, color.k, !color.knockout);
+                // Use priority also as the OCAD id. Mapper has no blend modes.
+                SymColor symColor = new SymColor(color.name, (short)color.priority, color.c, color.m, color.y, color.k, false);
+                symColor.Opacity = SymColor.BoundOpacity(color.opacity);
+
+                // A component whose spot color is not a spot color as such is left out, as OOM leaves it out.
+                Ink spotInk;
+                if (mapColorIdToInk.TryGetValue(color.priority, out spotInk))
+                    symColor.SetSpotInk(spotInk);
+                else
+                    symColor.SetSpotComposition(color.components
+                        .Where(component => mapColorIdToInk.ContainsKey(component.spotColor))
+                        .Select(component => new InkComponent(mapColorIdToInk[component.spotColor], InkComponent.BoundFactor(component.factor))));
+
+                // Knockout in OOM is the opposite of overprint in OCAD. OOM knocks out each color that has no spot definition.
+                symColor.OverPrint = symColor.HasSpotDefinition && !color.knockout;
+
+                map.AddColor(symColor);
                 mapColorIdToSymColor[color.priority] = symColor;
             }
 
-            // Add special registration black.
-            SymColor symColorRegBlack = map.AddColor("Registration black", (short)(colors.Count > 0 ? (colors[0].priority + 1) : 1), 1.0F, 1.0F, 1.0F, 1.0F, false);
+            // Add special registration black, which is all the spot inks at full tone.
+            SymColor symColorRegBlack = new SymColor("Registration black", (short)(colors.Count > 0 ? (colors[0].priority + 1) : 1), 1.0F, 1.0F, 1.0F, 1.0F, false);
+            symColorRegBlack.SetSpotComposition(map.AllInks.Where(ink => !ink.IsProcessInk).Select(ink => new InkComponent(ink, 1.0F)));
+            map.AddColor(symColorRegBlack);
             mapColorIdToSymColor[OpenMapperColor.RegistrationBlackId] = symColorRegBlack;
         }
 
