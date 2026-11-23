@@ -381,10 +381,8 @@ the rendering.
   the code of `feature/svg-target`. The notes of the epic give the reasons.
 - **Offering upstream.** No branch is offered upstream yet.
 - **The questions of the draft 010** (Nov 23). The session that writes the draft 010 as a ticket asks its questions
-  one at a time, before it writes the ticket ("Questions early"). Question 1: does ticket 010 make pass 2 for both
-  channels of the application that ships, Skia and PDF, or is pass 2 divided by channel, so that ticket 010 makes the
-  shared part of pass 2 and the Skia encoding, and the PDF encoding gets a ticket of its own? The session recommends
-  the division.
+  one at a time, before it writes the ticket ("Questions early"). @Pauli answered question 1: pass 2 is divided by
+  channel ("Pass 2 by channel"). The next question follows.
 
 ## Decisions
 
@@ -726,6 +724,12 @@ the rendering.
   after 025. Their full runs go on `wip/linux/<name>`, on `base`, with `--base-baselines prs/000-palette-stack-base`.
   A ticket is a draft until @Pauli approves it, and the epic lists each ticket that he approves under "Erotetut
   alatehtävät".
+- **Pass 2 by channel** (Nov 23). @Pauli chose the division of pass 2 by channel (question 1 of the draft 010).
+  Ticket 010 makes the shared part of pass 2 and the Skia encoding: the screen, the printing on Windows, and the print
+  preview, which plays back its recording on Skia. The PDF encoding, for the PDF export and the printing on Linux and
+  macOS, gets a ticket of its own after ticket 010. Until it is done, the PDF graphics target draws the palette colors
+  with the old drawing code. GDI+ and WPF are legacy ("The drawing targets of the work", Nov 18): Avalonia does not use
+  them, they get no encoding, and the work can abandon them where it is possible (@Pauli).
 - **Questions early** (Nov 23). @Pauli: the session asks its questions early, well structured, and does not first
   test and investigate all of a ticket, which in practice implements the ticket before the decisions. After an
   answer, the session can go back to the planning and ask again ("How to continue the work"). The session that
