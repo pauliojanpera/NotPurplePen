@@ -17,8 +17,10 @@ Python 3 with Pillow, git, the GitHub CLI signed in to the repository, and the .
 - `run-map-tests.sh` builds `LinuxMapModelTestRun` in an integration worktree and runs the tests that a filter
   selects.
 - `push-wip.sh` rebuilds and pushes the `wip/linux/` branch of a branch for a full run on `base`, or on another base
-  branch that `--base` names, and can collect the moved images or give a new Skia test a blank baseline. Its commits
-  list the ten branches merged into the branch last, which the site shows with a trial build.
+  branch that `--base` names, and can collect the moved images or give a new Skia test a blank baseline. It pushes
+  the collecting run to `experiment/collect-<name>`, on a commit whose `tests.yml` makes its tests collect, so it
+  needs no write of the GitHub API. Its commits list the ten branches merged into the branch last, which the site
+  shows with a trial build.
 - `LinuxMapModelTestRun/` is a project that runs test files of `Test_MapModel` on Linux, as `src/Testing/LinuxTestRun`
   runs those of `PurplePen_Tests`.
 
@@ -33,8 +35,9 @@ Python 3 with Pillow, git, the GitHub CLI signed in to the repository, and the .
    joins `LinuxMapModelTestRun/LinuxMapModelTestRun.csproj` when a ticket needs it. A test that asks GDI+ for a
    rendering is skipped there; `Map_Skia.Tests` runs on Linux as it is.
    After a rewrite of the feature branch's history (an amend or a rebase), `REBUILD=1 int-worktree.sh`.
-3. `push-wip.sh --collect` when the change is complete and can change the drawing. Wait for the collecting run with
-   `wait-run.sh`, then fetch each group's images: `fetch-artifact.sh <run id> rendering-differences-<group> <folder>`.
+3. `push-wip.sh --collect` when the change is complete and can change the drawing. The script prints the id of the
+   collecting run, on `experiment/collect-<name>`. Wait for it with `wait-run.sh`, then fetch each group's images:
+   `fetch-artifact.sh <run id> rendering-differences-<group> <folder>`.
    A change that cannot change the drawing, for example because it does not touch the code that the drawing runs,
    keeps the images as they are. Its full run is `push-wip.sh` without `--collect`, and the ticket is done when that
    push's Tests run passes (@Pauli, Nov 18).

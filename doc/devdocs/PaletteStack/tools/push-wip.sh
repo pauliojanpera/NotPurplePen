@@ -7,11 +7,15 @@
 # palette-stack work run on base, the default; --base names another base branch. The name defaults to the branch's
 # last part, so feature/inks runs as wip/linux/inks.
 #
-# With --collect, the script also starts the Tests workflow by hand on the branch with the input
-# collect_differences, so that one run writes the image of every comparison that the change moves, into the
-# artifacts rendering-differences-<group>. The verdict of that run says nothing; the run of the push does. So the
-# script starts the collecting run only after the runs of the push have started: a Tests run of a push waits for an
-# earlier Tests run of the same commit and takes its result, and a collecting run does not fail on a moved image.
+# With --collect, the script also makes a collecting run, in which the Tests workflow writes the image of every
+# comparison that the change moves, into the artifacts rendering-differences-<group>, and does not fail. The verdict
+# of that run says nothing; the run of the wip push does. The collecting run needs a commit of its own: a Tests run of
+# a push waits for an earlier Tests run of the same commit and takes its result, and a collecting run does not fail
+# on a moved image. So one more commit, on top of the wip commit, changes only .github/workflows/tests.yml so that its
+# tests collect, and the script pushes it to experiment/collect-<name>. A push runs the workflows of the commit pushed,
+# and a push to experiment/** runs the Tests workflow and makes no package. The push needs no write of the GitHub API,
+# which the proxy of a cloud session refuses (@Pauli, Nov 23). The tree of the commit is the tree of the wip commit
+# apart from the workflow, so the images that it collects are the images of the wip commit.
 #
 # --blank-baseline names the description of a Skia rendering test (src/MapModel/TestFiles/skia_render/<name>.txt,
 # as a path in the repository) whose baseline does not exist yet. The Skia comparison leaves its rendering only
@@ -114,36 +118,67 @@ if [ -n "$base_baselines" ]; then
              -m "A branch rooted at upstream cannot hold them; the merge into $base takes them." "${news[@]}")
 fi
 
-before=$(git ls-remote "$remote" "refs/heads/$wip" | cut -f1)
-git push -q --force-with-lease="refs/heads/$wip:$before" "$remote" "$commit:refs/heads/$wip" 2>&1 \
-    | grep -v "moved\|new location\|^remote: *$\|pull request\|pull/new" || true
-echo "pushed $commit to $wip"
+# The commit of the collecting run: the wip commit with a Tests workflow whose tests collect. The workflow sets the
+# collection from the input of a run started by hand, which a push does not have, so the commit sets it on.
+collect_commit=
+experiment=experiment/collect-$name
+if [ $collect = 1 ]; then
+    workflow=.github/workflows/tests.yml
+    blob=$(git cat-file blob "$commit:$workflow" | python3 -I -c '
+import sys
+data = sys.stdin.buffer.read()
+setting = b"TEST_COLLECT_DIFFERENCES: ${{ inputs.collect_differences && \x27True\x27 || \x27False\x27 }}"
+if data.count(setting) != 1:
+    sys.exit("the Tests workflow does not set TEST_COLLECT_DIFFERENCES from the input collect_differences once")
+sys.stdout.buffer.write(data.replace(setting, b"TEST_COLLECT_DIFFERENCES: \x27True\x27"))
+' | git hash-object -w --stdin)
+    index=$(mktemp)
+    rm -f "$index"
+    GIT_INDEX_FILE=$index git read-tree "$commit"
+    GIT_INDEX_FILE=$index git update-index --cacheinfo "100644,$blob,$workflow"
+    collect_tree=$(GIT_INDEX_FILE=$index git write-tree)
+    rm -f "$index"
+    collect_note="The Tests workflow of this commit writes the image of every comparison that differs and does not fail,"
+    collect_note="$collect_note so its verdict says nothing. The tree is the tree of $commit apart from the workflow."
+    collect_commit=$(git commit-tree "$collect_tree" -p "$commit" -m "Collect the images that $feature moves, on this run only" \
+                     -m "$collect_note" "${news[@]}")
+fi
 
-# Wait up to two minutes until the commit has the given number of runs, and keep them in runs.
+# Push a commit to a branch with a lease on what the remote holds.
+# commit: the commit.
+# branch: the name of the branch.
+push_branch() {
+    local before
+    before=$(git ls-remote "$remote" "refs/heads/$2" | cut -f1)
+    git -c push.negotiate=true push -q --force-with-lease="refs/heads/$2:$before" "$remote" "$1:refs/heads/$2" 2>&1 \
+        | grep -v "moved\|new location\|^remote: *$\|pull request\|pull/new" || true
+    echo "pushed $1 to $2"
+}
+
+push_branch "$commit" "$wip"
+[ -z "$collect_commit" ] || push_branch "$collect_commit" "$experiment"
+
+# Wait up to two minutes until a commit has the given number of runs on a branch, and keep them in runs.
+# count: the number of runs.
+# branch: the name of the branch.
+# commit: the commit.
 runs=
 wait_for_runs() {
     for attempt in $(seq 1 24); do
-        runs=$(gh run list --repo "$repository" --branch "$wip" --limit 10 --json databaseId,headSha,event,workflowName \
-               --jq ".[] | select(.headSha == \"$commit\") | \"\(.workflowName) \(.event) \(.databaseId)\"" 2>/dev/null || true)
+        runs=$(gh run list --repo "$repository" --branch "$2" --limit 10 --json databaseId,headSha,event,workflowName \
+               --jq ".[] | select(.headSha == \"$3\") | \"\(.workflowName) \(.event) \(.databaseId)\"" 2>/dev/null || true)
         [ "$(printf '%s\n' "$runs" | grep -c .)" -ge "$1" ] && return 0
         sleep 5
     done
     return 1
 }
 
-if [ $collect = 1 ]; then
-    if ! wait_for_runs 2; then
-        printf '%s\n' "$runs"
-        echo "the runs of the push have not started; start the collecting run after them:" \
-             "gh workflow run tests.yml --repo $repository --ref $wip -f collect_differences=true" >&2
-        exit 1
-    fi
-    gh workflow run tests.yml --repo "$repository" --ref "$wip" -f collect_differences=true
-fi
-
-if wait_for_runs $((2 + collect)); then
-    printf '%s\n' "$runs"
-    exit 0
-fi
+wait_for_runs 2 "$wip" "$commit" \
+    || echo "not all runs of $wip for $commit have started yet; look with gh run list --branch $wip" >&2
 printf '%s\n' "$runs"
-echo "not all runs of $wip for $commit have started yet; look with gh run list --branch $wip" >&2
+if [ -n "$collect_commit" ]; then
+    echo "the collecting run, on $experiment:"
+    wait_for_runs 1 "$experiment" "$collect_commit" \
+        || echo "the collecting run of $collect_commit has not started yet; look with gh run list --branch $experiment" >&2
+    printf '%s\n' "$runs"
+fi

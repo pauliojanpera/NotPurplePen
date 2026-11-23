@@ -117,7 +117,10 @@ base. No branch is offered upstream yet.
 - **A cloud session.** A session can also run in a cloud environment of Claude, as the session of Nov 21 and 22 did.
   There it clones the repository itself, and it runs `tools/push-wip.sh` with the path of its clone. `git push` and
   the reads of `gh` work. The proxy of the environment refuses the writes of the GitHub API: it refused the rename
-  of a branch (HTTP 403). `gh workflow run`, which `--collect` uses, is also a write, and it was not tried.
+  of a branch (HTTP 403). `tools/push-wip.sh --collect` makes its collecting run with a push, so it needs no write of
+  the API ("The collecting run by a push", Nov 23). The cloud environment of Nov 23 has no .NET SDK, and its Bash
+  tool has no network access for installs. The network access of a cloud environment is set in the settings of the
+  environment, and its setup script can install the SDK.
 - **The checkouts.** The clone `~/Documents/Projects/NotPurplePen` stays on `docs/process-coordination`: do not change
   its branch. Each branch has a worktree in `~/Documents/Projects/npp-worktrees/`: `palette-layers`, `inks`,
   `fix-mapper-colors`, `fix-ocad-utf8`, `opacity-and-blend-mode`, `layer-instances`, `fix-matrix-equals`,
@@ -138,9 +141,11 @@ base. No branch is offered upstream yet.
   the tests are missing. The Windows machine of the workflow has no Roboto
   ([014](tickets/014-basic-tests-private-fonts.md)).
 - **A collecting run and the run of the push.** A Tests run of a push waits for an earlier Tests run of the same commit
-  and takes its result, and a collecting run does not fail on a moved image. So `tools/push-wip.sh --collect` starts
-  the collecting run only after the runs of the push have started, and the Tests run of the push tests the commit
-  itself. A collecting run alone passes only when it wrote no image: no artifact `rendering-differences-<group>`
+  and takes its result, and a collecting run does not fail on a moved image. So the collecting run of
+  `tools/push-wip.sh --collect` has a commit of its own: on top of the wip commit, a commit whose `tests.yml` makes
+  its tests collect goes to `experiment/collect-<name>`, where a push runs the tests and makes no package. Its tree
+  is the tree of the wip commit apart from the workflow, so the images that it collects are the images of the wip
+  commit. A collecting run alone passes only when it wrote no image: no artifact `rendering-differences-<group>`
   holds a `*_actual.png`.
 - **Text baselines.** The `CreateOcadFiles` tests of `ControllerTests` compare an `OcadDump` of each course file that
   they write with an expected dump in `src/TestFiles/controller/ocad_create*`. A collecting run does not collect them,
@@ -577,6 +582,11 @@ the rendering.
 - **The approval of ticket 025** (Nov 23). @Pauli approved [025](tickets/025-symbol-keys.md), the symbol key in
   `Map`, with the text form of the counter keys above. An edit that replaces a symbol is `Map.ReplaceSymbol`, which
   the ticket adds, as upstream has no such edit.
+- **The collecting run by a push** (Nov 23). `tools/push-wip.sh --collect` pushes the collecting run to
+  `experiment/collect-<name>`, on a commit that changes only `.github/workflows/tests.yml` of the wip commit so that
+  its tests collect. `base` and its workflows stay as they are. The proxy of a cloud session refuses the writes of
+  the GitHub API, and `gh workflow run`, which the script used before, is such a write. @Pauli chose this way, and
+  not a change of `tests.yml` on `base`, which needs his word.
 - **The approval of ticket 026** (Nov 23). @Pauli approved [026](tickets/026-course-object-keys.md), the course
   object key and the symbol keys of the course map. The role of a place tells what the place makes of the data of
   EventDB, so two places of the code that make the same thing give the same role: a control label that the user
