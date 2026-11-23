@@ -951,9 +951,16 @@ namespace PurplePen.MapModel
         {
             LocationKind originalKind = kind;   // save original kind.
 
-            // Get length of each segment, deliniated by corner points.
+            // Get length of each segment, deliniated by corner points. With each metric, OCAD places the dashes on Bezier
+            // curves by their quarters, and the glyphs of the OCAD spacing are placed in the same measure: the distances
+            // are fitted to the measure of the quarters, in the metric of the map, and converted at the end to euclidean
+            // distances along the path, which the drawing walks with the euclidean metric (GetMetricAlongPath).
             PointKind[] pointkinds;
             float[] segmentLengths = path.GetCornerAndDashPointDistances(distanceMetric, out pointkinds);
+            SymPath.OcadCurveMeasure curveMeasure = (spacingMethod == SpacingMethod.OCAD) ? path.GetOcadCurveMeasure(distanceMetric) : null;
+            if (curveMeasure != null)
+                segmentLengths = curveMeasure.PartMeasures;
+            float[] countingLengths = (spacingMethod == SpacingMethod.OCAD) ? path.GetCornerAndDashPointLengthsForCounting(distanceMetric) : segmentLengths;
             float[] lengthAtEnd = new float[segmentLengths.Length];
             float[][] dashDistances = new float[segmentLengths.Length][];
             int segmentSmallToLarge = -1, segmentLargeToSmall = -1, segmentBothEnds = -1;  // segment numbers with different decrease kinds.
@@ -1035,7 +1042,7 @@ namespace PurplePen.MapModel
                 if (i == segmentLongest || segmentLengths[i] >= segmentLengths[segmentLongest] - 0.1 || spacingMethod == SpacingMethod.OpenMapperMidSymbols)
                     minGapsThisSegment = minGaps;
 
-                dashDistances[i] = ComputeDashDistances(segmentLengths[i], kind, spacingMethod, dashLength, firstLength, lastLength, gapLength,
+                dashDistances[i] = ComputeDashDistances(segmentLengths[i], countingLengths[i], kind, spacingMethod, dashLength, firstLength, lastLength, gapLength,
                                                         minGapsThisSegment, offset, 
                                                         numEndSecGaps, lengthEndSecGaps, numMiddleSecGaps, lengthMiddleSecGaps, 
                                                         decreaseLimit, decreaseKind, 
@@ -1103,6 +1110,9 @@ namespace PurplePen.MapModel
                 distances = ComputeDashCenters(distances, path.IsClosedCurve);
             }
 
+            if (curveMeasure != null && distances != null)
+                distances = curveMeasure.ToDistancesAlongPath(distances);
+
             return distances;
         }
 
@@ -1110,7 +1120,7 @@ namespace PurplePen.MapModel
 
         // Computes the dash distances for a single segment. Also returns the distance from the last location to the end of the segment.
         // If LocationKind is DashesAndGapLengths, this is a duplicate of the last array element.
-        private static float[] ComputeDashDistances(float pathLength, LocationKind kind, SpacingMethod spacingMethod, 
+        private static float[] ComputeDashDistances(float pathLength, float countingLength, LocationKind kind, SpacingMethod spacingMethod, 
                                                     float dashLength, float firstDashLength, float lastDashLength, float gapLength, int minGaps, float offset, 
                                                     int numEndSecGaps, float lengthEndSecGaps, int numMiddleSecGaps, float lengthMiddleSecGaps, float decreaseLimit, DecreaseKind decreaseKind, 
                                                     out float lengthAtEnd, out int actualGaps)
@@ -1136,11 +1146,12 @@ namespace PurplePen.MapModel
             // The number of gaps is adjusted so that the gap lengths are always preserved exactly, and the dash lengths are as close as possible to the actual dash lengths.
             if (dashLength + gapLength > 0) {
                 if (spacingMethod == SpacingMethod.OCAD) {
-                    if (pathLength - firstDashLength - lastDashLength <= gapLength) {
-                        numGaps = (minGaps >= 1 || pathLength >= firstDashLength / 2 + lastDashLength / 2 + gapLength) ? 1 : 0;
+                    if (countingLength - firstDashLength - lastDashLength <= gapLength) {
+                        numGaps = (minGaps >= 1 || countingLength > firstDashLength / 2 + lastDashLength / 2 + gapLength) ? 1 : 0;
                     }
                     else {
-                        numGaps = (int)Math.Round((pathLength + dashLength - firstDashLength - lastDashLength) / (dashLength + gapLength));
+                        // OCAD rounds the number of dashes, one more than the number of gaps, to the even number at a half.
+                        numGaps = (int)Math.Round((countingLength + dashLength - firstDashLength - lastDashLength) / (dashLength + gapLength) + 1, MidpointRounding.ToEven) - 1;
                     }
                     //if (firstDashLength == 0 && lastDashLength == 0 && pathLength < dashLength / 2) {
                     //    numGaps = 0;
@@ -1213,6 +1224,10 @@ namespace PurplePen.MapModel
             // Enforce minimum gaps.
             if (numGaps < minGaps)
                 numGaps = minGaps;
+
+            // OCAD draws a dashed line as solid when its one gap would leave end dashes of 0, which fit no dash.
+            if (spacingMethod == SpacingMethod.OCAD && kind == LocationKind.DashAndGapLengths && numGaps == 1 && firstDashLength == 0 && lastDashLength == 0)
+                numGaps = 0;
 
             // Given the number of gaps, compute the lengths of the dashes. Gaps are always at their nominal length.
             if (numGaps == 0)
@@ -1381,11 +1396,13 @@ namespace PurplePen.MapModel
                     else
                         locationList.Add(actualFirstDashLength); // no secondary gaps
 
-                    // Add middle dashes and gaps to them (with secondary gaps as appropriate)
+                    // Add middle dashes and gaps to them (with secondary gaps as appropriate). OCAD puts secondary gaps only in a
+                    // dash that is longer than half of the length of a dash.
+                    bool hasRoomForSecondaryGaps = (spacingMethod == SpacingMethod.OCAD) ? actualDashLength > dashLength / 2 : actualDashLength >= dashLength / 2;
                     for (int i = 1; i < numGaps; ++i) {
                         locationList.Add(gapLength);
 
-                        if (numMiddleSecGaps > 0 && (actualDashLength >= dashLength / 2))
+                        if (numMiddleSecGaps > 0 && hasRoomForSecondaryGaps)
                             locationList.AddRange(AddSecondaryGaps(actualDashLength, numMiddleSecGaps, lengthMiddleSecGaps));  // add with secondary gaps
                         else
                             locationList.Add(actualDashLength);
@@ -1505,6 +1522,26 @@ namespace PurplePen.MapModel
             return dashCenters.ToArray();
         }
 
+        // Does ComputeDashDistances fit the distances along a path in the measure of the quarters of its Bezier curves
+        // (SymPath.GetOcadCurveMeasure), and give them as euclidean distances along the path?
+        // path: the path.
+        // spacingMethod: the method that fits the distances.
+        private static bool IsMeasuredByQuarters(SymPath path, SpacingMethod spacingMethod)
+        {
+            return spacingMethod == SpacingMethod.OCAD && path.HasBeziers;
+        }
+
+        // The metric with which the drawing walks the distances that ComputeDashDistances gives along a path: the
+        // euclidean metric where it gives them in the measure of the quarters, and otherwise the metric that it fits them
+        // with.
+        // path: the path.
+        // spacingMethod: the method that fits the distances.
+        // distanceMetric: the metric that fits the distances, the metric of the map.
+        private static SymPath.DistanceMetric GetMetricAlongPath(SymPath path, SpacingMethod spacingMethod, SymPath.DistanceMetric distanceMetric)
+        {
+            return IsMeasuredByQuarters(path, spacingMethod) ? (SymPath.DistanceMetric)SymPath.EuclidDistance : distanceMetric;
+        }
+
         private static void DrawDashed(IGraphicsTarget g, SymPath path, object penKey, DashInfo dashes, RenderOptions renderOpts, SymPath.DistanceMetric distanceMetric)
         {
             DrawDashedWithOffset(g, path, penKey, dashes, 0, 1, renderOpts, distanceMetric);
@@ -1526,7 +1563,7 @@ namespace PurplePen.MapModel
                     path.Draw(g, penKey);
             }
             else {
-                path.DrawDashedOffset(g, penKey, distances, 0, offsetRight, miterLimit, distanceMetric);
+                path.DrawDashedOffset(g, penKey, distances, 0, offsetRight, miterLimit, GetMetricAlongPath(path, dashes.spacingMethod, distanceMetric));
             }
         }
 
@@ -1550,6 +1587,7 @@ namespace PurplePen.MapModel
             float[] perpAngles, subtendedAngles;
             float firstDistance;
             bool ignoreDashCornersAtEnds = false;
+            SpacingMethod spacingMethod = glyphInfo.spacingMethod;      // The method that fits the distances of the glyphs.
 
             Debug.Assert(highlight || color != null);
 
@@ -1603,7 +1641,7 @@ namespace PurplePen.MapModel
                     for (int n = 0; n < glyphInfo.number; ++n) {
                         distances[0] = firstDistance - ((glyphInfo.number - 1 - n * 2) * (glyphInfo.spacing / 2.0F));
 
-                        points = path.FindPointsAlongLine(distances, out perpAngles, map.MapDistanceMetric);
+                        points = path.FindPointsAlongLine(distances, out perpAngles, GetMetricAlongPath(path, spacingMethod, map.MapDistanceMetric));
 
                         for (int i = 0; i < points.Length; ++i) {
                             float decreaseFactor = ComputeDecreaseFactor(i, decreaseRanges, glyphInfo.decreaseLimit);
@@ -1619,10 +1657,12 @@ namespace PurplePen.MapModel
                 
                 return;
             case GlyphLocation.DashCenters:
+                spacingMethod = dashInfo.spacingMethod;
                 distances = ComputeDashDistances(path, LocationKind.DashCenters, dashInfo.spacingMethod, dashInfo.dashLength, dashInfo.firstDashLength, dashInfo.lastDashLength, dashInfo.gapLength, dashInfo.halfEndDashLengthWhenClosed, dashInfo.minGaps, 0, 0, 0, 0, 0, 1.0F, false, null, map.MapDistanceMetric);
                 break;
             case GlyphLocation.GapCenters:
                 // OCAD doesn't respect the "0 minimum gaps" for the symbols, although it does for the gaps. Always have at least one symbol. This is handled on import by having glyphInfo.minimum be 1.
+                spacingMethod = dashInfo.spacingMethod;
                 distances = ComputeDashDistances(path, LocationKind.GapCenters, dashInfo.spacingMethod, dashInfo.dashLength, dashInfo.firstDashLength, dashInfo.lastDashLength, dashInfo.gapLength, dashInfo.halfEndDashLengthWhenClosed, Math.Max(glyphInfo.minimum, dashInfo.minGaps), 0, 0, 0, 0, 0, 1.0F, false, null, map.MapDistanceMetric);
                 break;
             case GlyphLocation.Start:
@@ -1644,13 +1684,16 @@ namespace PurplePen.MapModel
                 distances[0] = firstDistance - ((glyphInfo.number - 1 - n * 2) * (glyphInfo.spacing / 2.0F));
 
                 if (glyphInfo.location != GlyphLocation.Start && glyphInfo.location != GlyphLocation.End) {
-                    if (longPath.FirstPoint != path.FirstPoint && shortenInfo.shortenBeginning > 0) {
+                    // With the OCAD metric, the measure of the quarters gives euclidean distances along the shortened
+                    // path, and the shortening is in the OCAD metric, so the glyphs are found along the shortened path.
+                    bool isEuclideanOnOcadMetric = !map.UseEuclideanMetric && IsMeasuredByQuarters(path, spacingMethod);
+                    if (longPath.FirstPoint != path.FirstPoint && shortenInfo.shortenBeginning > 0 && !isEuclideanOnOcadMetric) {
                         // This is a shortened path, convert distances back into the long path.
                         distances[0] += shortenInfo.shortenBeginning;
                         points = longPath.FindPointsAlongLine(distances, out perpAngles, map.MapDistanceMetric);
                     }
                     else {
-                        points = path.FindPointsAlongLine(distances, out perpAngles, map.MapDistanceMetric);
+                        points = path.FindPointsAlongLine(distances, out perpAngles, GetMetricAlongPath(path, spacingMethod, map.MapDistanceMetric));
                     }
                 }
                 else {
