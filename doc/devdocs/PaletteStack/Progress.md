@@ -39,9 +39,9 @@ Ticket [011](tickets/011-line-geometry.md), the geometry methods of the line sym
 progress. Its first part, the extension of fix 021 to the OCAD metric, is done on `fix/ocad-dashes-on-curves` and
 merged into `feature/palette-stack` (1265d519), and the baselines that the fixes move together with it are recorded
 there (17c15521); the full run of `feature/palette-stack` passed. The geometry methods of the lines are on
-`feature/line-symbol-geometry` (0f133703), rooted at the merge. They are complete, and the local tests pass apart from
-one comparison, whose allowed difference waits on @Pauli ("Waiting on @Pauli"). The branch has had no full run yet.
-"Next" gives the steps that remain.
+`feature/line-symbol-geometry` (5646a462), rooted at the merge. They are complete, and the local tests pass, with
+the allowed difference of the border dashes that @Pauli decided. Its full run is under way. "Next" gives the steps
+that remain.
 
 The old branch of the epic, `feature/palette-layers`, keeps the pass 1 of 005, 007 and 008, and the branches of the
 drafts 011 to 013 are rooted at it. The rest of this section tells its state.
@@ -91,7 +91,7 @@ base. No branch is offered upstream yet.
 
 | Branch | Ticket and description | State |
 | --- | --- | --- |
-| `feature/line-symbol-geometry` | [011](tickets/011-line-geometry.md) | In progress, at 0f133703. `LineSymDef` and `LineComboSymDef` make the clipping objects of the line symbols with a geometry method (`SymDef.MakeClippingObjects`): composed dashed lines with runs of dashes (`Stroke.DashPattern`), borders as offset paths (`OffsetPathShape`), and glyphs as single and repeated placements (`RepeatedPlacement`, `Placement.Poses`). The ticket gives the implementation under "Toteutus". Locally, the comparison with the collector passes on the 162 maps of `skia_render` and on 9 of the 10 dash samples of `ocadimport`. The seventh sample fails: its border dashes differ from the collector by up to 0.00027 mm at a miter, beyond the allowed 0.0001 mm ("Waiting on @Pauli"). The other tests of Map_Skia.Tests that tickets 011, 021, 023 and 024 give pass (462 tests). No full run yet. Rooted at `feature/palette-stack` (1265d519), and it merges its baselines (d9674036). |
+| `feature/line-symbol-geometry` | [011](tickets/011-line-geometry.md) | In progress, at 5646a462. `LineSymDef` and `LineComboSymDef` make the clipping objects of the line symbols with a geometry method (`SymDef.MakeClippingObjects`): composed dashed lines with runs of dashes (`Stroke.DashPattern`), borders as offset paths (`OffsetPathShape`), and glyphs as single and repeated placements (`RepeatedPlacement`, `Placement.Poses`). The ticket gives the implementation under "Toteutus". Locally, the comparison with the collector passes on the 162 maps of `skia_render` and on the 10 dash samples of `ocadimport`, with the allowed difference of 0.01 mm for the dashes of an offset path ("The allowed difference of the dashes of a border", 5646a462). The other tests of Map_Skia.Tests that tickets 011, 021, 023 and 024 give pass. Full run under way at 5646a462 (`wip/linux/line-symbol-geometry` at ebb23499: Tests 45168812737, Build 45168812760). Rooted at `feature/palette-stack` (1265d519), and it merges its baselines (d9674036). |
 | `feature/course-object-keys` | [026](tickets/026-course-object-keys.md), [description](prs/026-course-object-keys.md) | All criteria met. The course formatters give each course object a course object key (`CourseObj.Key`, `CourseObjKey`), and `CourseLayout.RenderToMap` gives the symbols of the course map the keys `<course object key>/<index>` (`Map.PrefixSymbolKeys`). `CourseObjKeyTests` checks the keys in the 584 layouts of 11 test events, with 51,098 course objects. Full run passed at bc67cf2e (`wip/linux/course-object-keys`, on `base`, with `--base-baselines prs/000-palette-stack-base`: Tests 45111279178, Build 45111279158), without a collecting run, as the drawing does not use the keys. Its group PurplePen ran the 14 tests of `CourseObjKeyTests`, and its group MapModel the 3 tests of the periods of `SymbolKeyTests`. Rooted at `feature/palette-stack` (52656ff3). In `feature/palette-stack` (3e98e556). |
 | `feature/symbol-keys` | [025](tickets/025-symbol-keys.md), [description](prs/025-symbol-keys.md) | All criteria met. Each symbol of a map has a symbol key (`Symbol.Key`, `SymbolKey`), which its maker gives or the map gives from its counter, and `Map.ReplaceSymbol` gives the key of a symbol to the symbol that replaces it. Full run passed at bdf05f6f (`wip/linux/symbol-keys`, on `base`, with `--base-baselines prs/000-palette-stack-base`: Tests 45109967892, Build 45109967861), without a collecting run, as the drawing does not use the keys. Its group MapModel ran the 15 tests of `SymbolKeyTests`. Rooted at `feature/palette-stack` (89415236). In `feature/palette-stack` (52656ff3). |
 | `feature/point-symbol-geometry` | [024](tickets/024-point-symbol-geometry.md), [description](prs/024-point-symbol-geometry.md) | All criteria met. The point symbol definitions make the clipping objects of the palette color coverages of their symbols with the geometry method of their glyph (`SymDef.MakeClippingObjects`), and the collector is the oracle (`SymDef.CollectClippingObjects`). The comparison with the collector finds no difference on the 162 maps of `skia_render`, which have 12,311 point symbols and 59,197 palette color coverages, 14,303 of them of point symbols. Full run passed at 7531d5ae (`wip/linux/point-symbol-geometry`, on `base`, with `--base-baselines prs/000-palette-stack-base`: Tests 45107326258, Build 45107326220), without a collecting run, as the old drawing code does not change. Rooted at `feature/palette-stack` (96d96bd0). In `feature/palette-stack` (89415236). |
@@ -203,11 +203,8 @@ base. No branch is offered upstream yet.
 2. Ticket 011, the geometry methods of the line symbols, is approved (Nov 23) and in progress. The extension of fix
    021 is done and merged, and `feature/line-symbol-geometry` holds the geometry methods (0f133703). The steps that
    remain, in order:
-   1. @Pauli's answer on the allowed difference of the border dashes ("Waiting on @Pauli"). With option A,
-      `SymbolCoverageComparison` allows 0.0005 mm for the points of the expanded dashes of an offset path, and the
-      ticket gives the difference under "Sallitut erot". With option B, `LineSymDef.AddDashedLine` makes each dash of
-      an offset path that crosses a vertex of the flattened path a single dash. Either way, the comparison of
-      `dashes-7-ocad12-euclidean.ocd` then passes.
+   1. The allowed difference of the border dashes is decided ("The allowed difference of the dashes of a border",
+      Nov 23), and 5646a462 makes it. The comparison passes on all 172 maps.
    2. The full run of the branch, without a collecting run, as the old drawing code does not change:
       `tools/push-wip.sh --base-baselines prs/000-palette-stack-base <clone> feature/line-symbol-geometry`.
    3. When it passes: the criteria and "Toteutus" of the ticket, `prs/011-line-symbol-geometry.md` from
@@ -270,15 +267,6 @@ the rendering.
 
 ## Waiting on @Pauli
 
-- **The allowed difference of the dashes of a border** (Nov 23, ticket 011). In the seventh dash sample
-  (`dashes-7-ocad12-euclidean.ocd`, coordinates of 100 to 500 mm), seven border dashes of dashed double lines differ
-  from the collector by up to 0.00027 mm at the miter of a vertex, and ticket 011 allows 0.0001 mm. A border dash is
-  moved aside one dash at a time (`OffsetPointsRight`), and the direction of the miter comes from the start of the
-  dash to the vertex, about 0.06 mm. A run measures its dashes from its own start and the drawing from the start of the
-  line, so the start rounds to another float (0.00006 mm at 500 mm), and the short piece turns the miter. The ideal
-  forms agree. The session asked @Pauli: option A (recommended), a new allowed difference of 0.0005 mm for the points
-  of the expanded dashes of an offset path, which keeps the decision "The borders of double lines" (Nov 20); option B,
-  a border dash over a vertex is a single dash, which changes that decision. A change of the approved ticket is his.
 - **The scope of the epic** (Nov 18). [Ticket 000](tickets/000-palette-stack.md) is a draft. @Pauli confirmed that
   the flattening is outside it, and that the SVG encoding waits until pass 2 is done.
 - **The SVG encoding**, when pass 2 is done (Nov 18). Its place: an encoding read from the instances, or the SVG
@@ -710,6 +698,17 @@ the rendering.
   and the measure of the quarters, the glyphs of a shortened line are found along the shortened path, in the drawing
   and in the geometry method; and the base baselines of fix 021 with the extension are in
   `prs/021-ocad-dashes-on-curves-base/`.
+- **The allowed difference of the dashes of a border** (Nov 23, ticket 011). @Pauli: the differences are vanishingly
+  small. The comparison with the collector allows 0.01 mm for the clipping objects that the expansion of an offset
+  path makes (`SymbolCoverageComparison.OffsetPathTolerance`), and 0.0001 mm for the other expanded clipping objects.
+  An offset path moves a dash aside with the miter at a vertex, whose direction comes from the piece between the end
+  of the dash and the vertex. That piece is at least 0.05 mm (fix 020). A run measures the end of the dash from its
+  own start, and the drawing from the start of the line, so the end rounds to another float, and the miter turns by
+  that rounding divided by the length of the piece. The difference is at most about the offset, times the miter
+  factor, times that angle: about 0.006 mm at 500 mm from the origin, with an offset of 1 mm and the miter limit 5.
+  The seventh dash sample showed 0.00027 mm. A pixel at 600 dpi is 0.042 mm, and a fault is a missing dash or a dash
+  in the wrong place, tenths of a millimeter. The structure of the lines and the decision "The borders of double
+  lines" (Nov 20) do not change.
 - **The order of the drafts** (Nov 23). The session's choice, which it recommended to @Pauli: 011 is implemented
   first, as the other drafts build on its forms. 012 is written again as a ticket while the runs of 011 go on, as its
   borders use the geometry method of the lines, then 013, and 009 and 010 last.
