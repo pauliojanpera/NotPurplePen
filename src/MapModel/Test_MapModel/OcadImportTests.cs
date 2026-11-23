@@ -40,6 +40,8 @@ using Color = System.Drawing.Color;
 
 using TestingUtils;
 using System.IO;
+using System.Linq;
+using System.Text;
 
 namespace PurplePen.MapModel.Tests
 {
@@ -347,6 +349,68 @@ namespace PurplePen.MapModel.Tests
             Assert.AreEqual(exporter.NearestOcadColorSlow(c, true), exporter.NearestOcadColor(c, true));
             c = Color.FromArgb(186, 96, 0);
             Assert.AreEqual(exporter.NearestOcadColorSlow(c, true), exporter.NearestOcadColor(c, true));
+        }
+
+        // The ISSprOM 2019 symbol set of the Finnish Orienteering Federation (SSL), as OCAD 2018 saved it. It names its
+        // colors in Finnish.
+        const string Utf8TestMap = "ocadimport\\ssl_issprom2019.ocd";
+        const string GreenPointColor = "Vihreä - Pistekohde";
+
+        Map LoadOcadMap(string fileName)
+        {
+            Map map = new Map(new GDIPlus_TextMetrics(), new GDIPlus_FileLoader(Path.GetDirectoryName(fileName)));
+            InputOutput.ReadFile(fileName, map);
+            return map;
+        }
+
+        static List<string> ColorNames(Map map)
+        {
+            using (map.Read())
+                return map.AllColors.Select(color => color.Name).ToList();
+        }
+
+        // The place of a sequence of bytes in an array of bytes, or -1.
+        static int IndexOf(byte[] bytes, byte[] sequence)
+        {
+            for (int i = 0; i + sequence.Length <= bytes.Length; ++i) {
+                int matched = 0;
+                while (matched < sequence.Length && bytes[i + matched] == sequence[matched])
+                    ++matched;
+                if (matched == sequence.Length)
+                    return i;
+            }
+            return -1;
+        }
+
+        // OCAD 11 and later encode their strings in UTF-8.
+        [Test]
+        public void Ocad2018StringsAreUtf8()
+        {
+            List<string> names = ColorNames(LoadOcadMap(TestUtil.GetTestFile(Utf8TestMap)));
+
+            CollectionAssert.Contains(names, GreenPointColor);
+            CollectionAssert.Contains(names, "Apuväri - Punainen");
+            CollectionAssert.Contains(names, "Tumma vihreä - kielletty pensasaita");
+            Assert.IsFalse(names.Any(name => name.Contains('�') || name.Contains('Ã')));
+        }
+
+        // OCAD 9 and 10 encode their strings in the 8-bit code page, and OCAD 11 and later in UTF-8.
+        [TestCase(9)]
+        [TestCase(10)]
+        [TestCase(11)]
+        [TestCase(12)]
+        [TestCase(2018)]
+        public void WriteStringsInEncodingOfVersion(int version)
+        {
+            Map map = LoadOcadMap(TestUtil.GetTestFile(Utf8TestMap));
+            string tempFile = TestUtil.GetTestFile(string.Format("ocadimport\\ssl_issprom2019_ocad{0}_temp.ocd", version));
+            InputOutput.WriteFile(tempFile, map, new MapFileFormat(MapFileFormatKind.OCAD, version));
+
+            Encoding encoding = (version >= 11) ? Encoding.UTF8 : Util.GetDefaultOcadEncoding();
+            Assert.GreaterOrEqual(IndexOf(File.ReadAllBytes(tempFile), encoding.GetBytes(GreenPointColor)), 0);
+            List<string> names = ColorNames(LoadOcadMap(tempFile));
+            CollectionAssert.AreEqual(ColorNames(map), names);
+            CollectionAssert.Contains(names, GreenPointColor);
         }
 
     }

@@ -46,5 +46,24 @@ namespace PurplePen.MapModel
             }
         }
 
+        // The pen of a clipping object that a solid pen draws, as CreateSolidPen makes the pen.
+        // thickness: the width of the line.
+        // style: the style of the line, which gives its caps and joins.
+        internal static Stroke MakeSolidStroke(float thickness, LineStyle style)
+        {
+            switch (style) {
+                case LineStyle.Rounded:
+                    return new Stroke(thickness, LineCapMode.Round, LineJoinMode.Round, MITER_LIMIT);
+                case LineStyle.Beveled:
+                    return new Stroke(thickness, LineCapMode.Flat, LineJoinMode.Bevel, MITER_LIMIT);
+                case LineStyle.Mitered:
+                    return new Stroke(thickness, LineCapMode.Flat, LineJoinMode.Miter, MITER_LIMIT);
+                case LineStyle.FlatRounded:
+                    return new Stroke(thickness, LineCapMode.Flat, LineJoinMode.Round, MITER_LIMIT);
+                default:
+                    throw new ArgumentException();
+            }
+        }
+
     }
 }

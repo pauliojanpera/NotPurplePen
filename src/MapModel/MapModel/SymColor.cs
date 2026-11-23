@@ -34,6 +34,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Drawing;
 
@@ -48,6 +49,13 @@ namespace PurplePen.MapModel
         Layout, Normal, Image
     }
 
+    // How a palette color composites over the palette colors below it: the blend modes that OCAD knows.
+    // OpenOrienteering Mapper has no blend modes.
+    public enum ColorBlendMode
+    {
+        Normal, Darken, Multiply
+    }
+
     public class SymColor
     {
         // For OCAD and PDF purposes, we save the CMYK instead of the RGB.
@@ -57,6 +65,10 @@ namespace PurplePen.MapModel
         private string name;
         private Map map;
 		private short ocadId;
+        private Ink spotInk;                                        // The spot ink that this palette color is, or null.
+        private ReadOnlyCollection<InkComponent> spotComposition;   // The spot inks of this palette color, or null.
+        private float opacity = 1;
+        private ColorBlendMode blendMode = ColorBlendMode.Normal;
 
         public string Name { get { return name; } set {this.name = value; }}
         public Map ContainingMap { get { return map; }}
@@ -64,6 +76,16 @@ namespace PurplePen.MapModel
         public SymColor(SymLayer layer)
         {
             this.layer = layer;
+        }
+
+        // Make a color of the normal layer, with no spot definition.
+        public SymColor(string name, short ocadId, float cyan, float magenta, float yellow, float black, bool overprint)
+            : this(SymLayer.Normal)
+        {
+            this.name = name;
+            this.ocadId = ocadId;
+            this.cmykColor = CmykColor.FromCmyk(cyan, magenta, yellow, black);
+            this.overprint = overprint;
         }
 
         public SymLayer Layer
@@ -117,6 +139,10 @@ namespace PurplePen.MapModel
             this.overprint = other.overprint;
 			this.name = other.name;
 			this.ocadId = other.ocadId;
+            this.spotInk = other.spotInk;
+            this.spotComposition = other.spotComposition;
+            this.opacity = other.opacity;
+            this.blendMode = other.blendMode;
             return this;
 		}
 
@@ -189,6 +215,113 @@ namespace PurplePen.MapModel
                 Debug.Assert(map == null, "Cannot change overprint after being attached to a map");
                 overprint = value;
             }
+        }
+
+        // The opacity of this palette color, from 0 (transparent) to 1 (opaque). It applies once to all that the
+        // palette color covers, and not to each shape of it. It is apart from the CMYK value and its alpha, and from
+        // the overprint flag. The drawing does not apply it yet.
+        public float Opacity
+        {
+            get { return opacity; }
+            set
+            {
+                Debug.Assert(map == null, "Cannot change opacity after being attached to a map");
+                Debug.Assert(!IsSpecialLayer);
+                if (!(value >= 0 && value <= 1))
+                    throw new ArgumentOutOfRangeException("value", value, "The opacity of a color is from 0 to 1.");
+                opacity = value;
+            }
+        }
+
+        // Bound an opacity that a file gives to the range from 0 to 1. A value that is not a number is 1, as a missing
+        // value is.
+        public static float BoundOpacity(float opacity)
+        {
+            if (float.IsNaN(opacity))
+                return 1;
+            else
+                return Math.Min(Math.Max(opacity, 0), 1);
+        }
+
+        // How this palette color composites over the palette colors below it. It is apart from the overprint flag, and
+        // from the blend mode with which the overprint effect of the drawing blends the overprinted colors. The drawing
+        // does not apply it yet.
+        public ColorBlendMode BlendMode
+        {
+            get { return blendMode; }
+            set
+            {
+                Debug.Assert(map == null, "Cannot change the blend mode after being attached to a map");
+                Debug.Assert(!IsSpecialLayer);
+                blendMode = value;
+            }
+        }
+
+        // The inks of this palette color, each with its factor. A palette color without a spot definition is made of
+        // the four process inks, with its CMYK values as their factors. A palette color that is a spot ink as such is
+        // that ink at full tone. An ink that is not in the list is not a component of the palette color, which is not
+        // the same as a component with the factor 0. A special layer has no inks.
+        public IReadOnlyList<InkComponent> InkComponents
+        {
+            get
+            {
+                if (spotInk != null)
+                    return Array.AsReadOnly(new InkComponent[] { new InkComponent(spotInk, 1) });
+                else if (spotComposition != null)
+                    return spotComposition;
+                else if (IsSpecialLayer)
+                    return Array.AsReadOnly(new InkComponent[0]);
+                else
+                    return Array.AsReadOnly(new InkComponent[] {
+                        new InkComponent(Ink.Cyan, cmykColor.Cyan), new InkComponent(Ink.Magenta, cmykColor.Magenta),
+                        new InkComponent(Ink.Yellow, cmykColor.Yellow), new InkComponent(Ink.Black, cmykColor.Black) });
+            }
+        }
+
+        // Does this palette color have a spot definition: is it a spot ink as such, or made of spot inks? A palette
+        // color without one is made of the process inks.
+        public bool HasSpotDefinition
+        {
+            get { return spotInk != null || spotComposition != null; }
+        }
+
+        // The spot ink that this palette color is as such, at full tone, or null if it is not one.
+        public Ink SpotInk
+        {
+            get { return spotInk; }
+        }
+
+        // Makes this palette color the given spot ink as such, at full tone. Null leaves it without a spot definition.
+        public void SetSpotInk(Ink ink)
+        {
+            Debug.Assert(map == null, "Cannot change inks after being attached to a map");
+            Debug.Assert(!IsSpecialLayer);
+            if (ink != null && ink.IsProcessInk)
+                throw new ArgumentException("A spot definition is made of spot inks.", "ink");
+
+            spotInk = ink;
+            spotComposition = null;
+        }
+
+        // Makes this palette color a composition of the given spot ink components. An ink that is in the list more than
+        // once keeps its first factor. Null or an empty list leaves the palette color without a spot definition.
+        public void SetSpotComposition(IEnumerable<InkComponent> components)
+        {
+            Debug.Assert(map == null, "Cannot change inks after being attached to a map");
+            Debug.Assert(!IsSpecialLayer);
+
+            List<InkComponent> distinctComponents = new List<InkComponent>();
+            if (components != null) {
+                foreach (InkComponent component in components) {
+                    if (component.Ink == null || component.Ink.IsProcessInk)
+                        throw new ArgumentException("A spot definition is made of spot inks.", "components");
+                    if (!distinctComponents.Exists(existing => existing.Ink == component.Ink))
+                        distinctComponents.Add(component);
+                }
+            }
+
+            spotInk = null;
+            spotComposition = (distinctComponents.Count > 0) ? distinctComponents.AsReadOnly() : null;
         }
 
         public override string ToString()
