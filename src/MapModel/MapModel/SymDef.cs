@@ -364,6 +364,13 @@ namespace PurplePen.MapModel
         internal abstract void Draw(IGraphicsTarget g, SymPath path, SymColor color, RenderOptions renderOpts);
 
         internal abstract void DrawHighlight(IGraphicsTarget g, SymPath path, HighlightOptions highlightOptions);
+
+        // The geometry method of a line of this definition along any base path: the clipping objects of the line in a
+        // palette color, without a drawing target, in the order in which Draw draws them. The area border and a
+        // component definition of an AreaComboSymDef use it with the main path and with each hole of an area.
+        // path: the base path.
+        // color: the palette color.
+        internal abstract IReadOnlyList<ClippingObject> MakeClippingObjects(SymPath path, SymColor color);
     }
 
     // A combination of multiple line symdefs. Acts like a line symdef. For OpenMapper support.
@@ -474,12 +481,20 @@ namespace PurplePen.MapModel
             }
         }
 
-        // The geometry method of the combined lines: the clipping objects of each component definition in the palette
-        // color, in the order of the components, as Draw draws them.
+        // The geometry method of the combined lines: the clipping objects of the palette color coverage of a line symbol
+        // (MakeClippingObjects(SymPath, SymColor)).
         internal override IReadOnlyList<ClippingObject> MakeClippingObjects(Symbol symbol, SymColor color, CoveragePrototype prototype)
         {
             Debug.Assert(prototype == CoveragePrototype.FullCoverage, "A line symbol has the full coverage only.");
-            SymPath path = ((LineSymbol)symbol).Path;
+            return MakeClippingObjects(((LineSymbol)symbol).Path, color);
+        }
+
+        // The clipping objects of a combined line along a base path in a palette color: the clipping objects of each
+        // component definition, in the order of the components, as Draw draws them.
+        // path: the base path.
+        // color: the palette color.
+        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(SymPath path, SymColor color)
+        {
             List<ClippingObject> clippingObjects = new List<ClippingObject>();
             foreach (LineSymDef component in components)
                 clippingObjects.AddRange(component.MakeClippingObjects(path, color));
@@ -974,7 +989,7 @@ namespace PurplePen.MapModel
         // a composed dashed line (AddDashedLine), and a border is an offset path of the base path (OffsetPathShape).
         // path: the base path.
         // color: the palette color.
-        internal IReadOnlyList<ClippingObject> MakeClippingObjects(SymPath path, SymColor color)
+        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(SymPath path, SymColor color)
         {
             List<ClippingObject> clippingObjects = new List<ClippingObject>();
             if (path.IsZeroLength)
@@ -2400,7 +2415,35 @@ namespace PurplePen.MapModel
 
         internal abstract RectangleF HighlightBounds(SymPathWithHoles path, RectangleF boundingBox, HighlightOptions options);
 
+        // The geometry method of the area symbols: the clipping objects of the palette color coverage of an area symbol,
+        // from its path with holes (MakeClippingObjects(SymPathWithHoles, SymColor)).
+        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(Symbol symbol, SymColor color, CoveragePrototype prototype)
+        {
+            Debug.Assert(prototype == CoveragePrototype.FullCoverage, "The geometry method of the areas gives the full coverage only.");
+            return MakeClippingObjects(((AreaLikeSymbol)symbol).Path, color);
+        }
 
+        // The clipping objects of an area of this definition with a path with holes in a palette color, with the full
+        // coverage, without a drawing target, in the order in which Draw draws them. The hatchings and the area patterns
+        // are periodic coverages, and they make no clipping objects here.
+        // path: the path with holes: the main path and its holes.
+        // color: the palette color.
+        internal abstract IReadOnlyList<ClippingObject> MakeClippingObjects(SymPathWithHoles path, SymColor color);
+
+        // Add the clipping objects of a line along the main path and then along each hole of a path with holes, as an
+        // area draws its area border and a combined area its line component definitions.
+        // clippingObjects: the list to which the clipping objects are added.
+        // lineSymDef: the line symbol definition.
+        // path: the path with holes.
+        // color: the palette color.
+        private protected static void AddClippingObjectsOfLine(List<ClippingObject> clippingObjects, LineLikeSymDef lineSymDef, SymPathWithHoles path, SymColor color)
+        {
+            clippingObjects.AddRange(lineSymDef.MakeClippingObjects(path.MainPath, color));
+            if (path.Holes != null) {
+                foreach (SymPath hole in path.Holes)
+                    clippingObjects.AddRange(lineSymDef.MakeClippingObjects(hole, color));
+            }
+        }
     }
 
     public class AreaComboSymDef: AreaLikeSymDef
@@ -2519,6 +2562,21 @@ namespace PurplePen.MapModel
                     ((AreaLikeSymDef)component).Draw(g, path, color, angle, rotationCenter, renderOpts);
                 }
             }
+        }
+
+        // The clipping objects of a combined area: the clipping objects of each component definition, in the order of the
+        // components, as Draw draws them. A line symbol definition goes along the main path and along each hole, and an
+        // area symbol definition gives the clipping objects of its own geometry method for the same path with holes.
+        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(SymPathWithHoles path, SymColor color)
+        {
+            List<ClippingObject> clippingObjects = new List<ClippingObject>();
+            foreach (SymDef component in components) {
+                if (component is LineLikeSymDef lineSymDef)
+                    AddClippingObjectsOfLine(clippingObjects, lineSymDef, path, color);
+                else
+                    clippingObjects.AddRange(((AreaLikeSymDef)component).MakeClippingObjects(path, color));
+            }
+            return clippingObjects.AsReadOnly();
         }
 
         internal override void DrawHighlight(IGraphicsTarget g, SymPathWithHoles path, HighlightOptions options)
@@ -2844,6 +2902,22 @@ namespace PurplePen.MapModel
                     foreach (SymPath hole in path.Holes)
                         borderSymdef.Draw(g, hole, color, renderOpts);
             }
+        }
+
+        // The clipping objects of an area, in the order in which Draw draws them: the area fill in its color, a filled
+        // shape of the main path and its holes with the alternate fill rule, as SymPathWithHoles.Fill fills them, and the
+        // area border along the main path and then along each hole. The hatchings and the area patterns make no clipping
+        // objects here.
+        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(SymPathWithHoles path, SymColor color)
+        {
+            List<ClippingObject> clippingObjects = new List<ClippingObject>();
+            if (color == fillColor)
+                clippingObjects.Add(path.MakeFilledShape(Placement.Identity));
+
+            if (borderSymdef != null && borderSymdef.HasColor(color))
+                AddClippingObjectsOfLine(clippingObjects, borderSymdef, path, color);
+
+            return clippingObjects.AsReadOnly();
         }
 
         // Draw the hatching into the interior of the SymPath.
@@ -5076,6 +5150,31 @@ namespace PurplePen.MapModel
                 return CoveragePrototype.FullCoverageOnly;
             else
                 return CoveragePrototype.None;
+        }
+
+        // The geometry method of the graphics objects: in its color, the fill of a GraphicsAreaSymbol, a filled shape of
+        // its path with holes as GraphicsAreaSymbol.Draw fills it, and the line of a GraphicsLineSymbol, a stroked shape
+        // of its path with the pen that GraphicsLineSymbol.Draw creates: its width, caps and join and the miter limit
+        // GraphicsUtil.MITER_LIMIT. A symbol of another kind gets the clipping objects of the collector.
+        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(Symbol symbol, SymColor color, CoveragePrototype prototype)
+        {
+            Debug.Assert(prototype == CoveragePrototype.FullCoverage, "A graphics object has the full coverage only.");
+            List<ClippingObject> clippingObjects = new List<ClippingObject>();
+            if (symbol is GraphicsAreaSymbol area) {
+                if (area.FillColor != null && color == area.FillColor)
+                    clippingObjects.Add(area.Path.MakeFilledShape(Placement.Identity));
+            }
+            else if (symbol is GraphicsLineSymbol line) {
+                if (line.LineColor != null && color == line.LineColor) {
+                    Stroke stroke = new Stroke(line.Thickness, line.LineCapMode, line.LineJoinMode, GraphicsUtil.MITER_LIMIT);
+                    clippingObjects.Add(line.Path.MakeStrokedShape(stroke, Placement.Identity));
+                }
+            }
+            else {
+                return base.MakeClippingObjects(symbol, color, prototype);
+            }
+
+            return clippingObjects.AsReadOnly();
         }
 
         public override void FreeGdiObjects()

@@ -42,6 +42,9 @@ namespace Map_Skia.Tests
                                       map.AllSymbols.OfType<LineSymbol>().Count(), coverages.Count(coverage => coverage.Symbol is LineSymbol),
                                       ofLines.OfType<StrokedShape>().Count(shape => shape.Stroke.DashPattern != null), ofLines.Count(clippingObject => clippingObject.Shape is OffsetPathShape),
                                       ofLines.Count(clippingObject => clippingObject.Placement is RepeatedPlacement), ofLines.Select(clippingObject => clippingObject.Placement).OfType<RepeatedPlacement>().Distinct().Count());
+                TestContext.WriteLine("{0} area symbols, {1} palette color coverages of area symbols, {2} graphics objects, {3} palette color coverages of graphics objects",
+                                      map.AllSymbols.OfType<AreaSymbol>().Count(), coverages.Count(coverage => coverage.Symbol is AreaSymbol),
+                                      map.AllSymbols.Count(symbol => symbol is IGraphicsSymbol), coverages.Count(coverage => coverage.Symbol is IGraphicsSymbol));
                 AssertSameStructureAsTheCollector(coverages);
             }
         }
@@ -729,6 +732,219 @@ namespace Map_Skia.Tests
             Assert.IsNotEmpty(clippingObjects[1]);
         }
 
+        // The symbol definitions of the points, the lines, the areas and the graphics objects make the clipping objects of
+        // the palette color coverages of their symbols with a geometry method of their own, and not with the collector
+        // that SymDef.MakeClippingObjects uses. The texts and the rectangles still use the collector (draft 013). The
+        // geometry methods of the areas and the graphics objects make the same clipping objects as the collector, so the
+        // comparison cannot tell them apart: this test checks which class implements the interface.
+        [Test]
+        public void SymbolDefinitionsOfPointsLinesAreasAndGraphicsObjectsHaveAGeometryMethod()
+        {
+            Type[] parameters = new Type[] { typeof(Symbol), typeof(SymColor), typeof(CoveragePrototype) };
+            Dictionary<Type, Type> expected = new Dictionary<Type, Type>() {
+                { typeof(PointSymDef), typeof(PointSymDef) },
+                { typeof(LineSymDef), typeof(LineSymDef) },
+                { typeof(LineComboSymDef), typeof(LineComboSymDef) },
+                { typeof(AreaSymDef), typeof(AreaLikeSymDef) },
+                { typeof(AreaComboSymDef), typeof(AreaLikeSymDef) },
+                { typeof(GraphicsSymDef), typeof(GraphicsSymDef) },
+                { typeof(TextSymDef), typeof(SymDef) },
+                { typeof(RectangleSymDef), typeof(SymDef) } };
+            foreach (KeyValuePair<Type, Type> definition in expected) {
+                System.Reflection.MethodInfo method = definition.Key.GetMethod("MakeClippingObjects", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic, null, parameters, null);
+                Assert.IsNotNull(method, definition.Key.Name);
+                Assert.AreEqual(definition.Value, method.DeclaringType, "the class that implements the geometry method of {0}", definition.Key.Name);
+            }
+        }
+
+        // The branches of the area fill, each of which the geometry method of the areas follows as SymPath.FillCore fills
+        // the path: a polygon of a main path without Bezier curves and holes, a path of a main path with a Bezier curve,
+        // and a path of a main path and its two holes. An area whose hole the map removed is a polygon again, as a path
+        // with holes keeps no empty array of holes (SymPathWithHoles). Each is a filled shape with the alternate fill
+        // rule.
+        [Test]
+        public void GeometryMethodOfAreasFollowsEachBranchOfTheirFill()
+        {
+            Map map = CreateMap();
+            AreaSymbol withRemovedHole;
+            using (map.Write()) {
+                SymColor green = map.AddColor("Green", 1, 0.76F, 0, 0.91F, 0, false);
+                AreaSymDef fill = AddAreaSymDef(map, new AreaSymDef("Fill", "1", green, null));
+                AddArea(map, fill, new SymPathWithHoles(CreateSquarePath(0, 0, 4), null));
+                AddArea(map, fill, new SymPathWithHoles(CreateCurvedAreaPath(0, 10), null));
+                AddArea(map, fill, new SymPathWithHoles(CreateSquarePath(6, 0, 4), new SymPath[] { CreateSquarePath(7, 1, 1), CreateSquarePath(8.5F, 2, 1) }));
+                withRemovedHole = AddArea(map, fill, new SymPathWithHoles(CreateSquarePath(12, 0, 4), new SymPath[] { CreateSquarePath(13, 1, 1) }));
+                map.RemoveSymbol(withRemovedHole.GetHole(0));
+            }
+
+            Assert.IsNull(withRemovedHole.Path.Holes, "the holes of the area whose hole the map removed");
+            AssertSameStructureAsTheCollector(map);
+            FilledShape[] fills = GetClippingObjectsBySeparation(map).Single().Cast<FilledShape>().ToArray();
+            Assert.AreEqual(4, fills.Length);
+            foreach (FilledShape fill in fills)
+                Assert.AreEqual(AreaFillMode.Alternate, fill.FillRule);
+            CollectionAssert.AreEqual(new int[] { 1, 1, 3, 1 }, fills.Select(fill => CountFigures((PathShape)fill.Shape)), "the figures of the fills");
+            Assert.IsFalse(((PathShape)fills[0].Shape).Parts.Any(part => part.Kind == GraphicsPathPartKind.Beziers), "the polygon has no Bezier curve");
+            Assert.IsTrue(((PathShape)fills[1].Shape).Parts.Any(part => part.Kind == GraphicsPathPartKind.Beziers), "the fill keeps the Bezier curve");
+        }
+
+        // The area border goes along the main path and then along each hole, as AreaSymDef.Draw draws it, with the clipping
+        // objects of the geometry method of the lines: a solid border after the area fill, a dashed border with runs of
+        // dashes, an area border that is a double line with offset paths, and an area border with glyphs at repeated
+        // placements, each in a palette color of its own. Each area has a square hole.
+        [Test]
+        public void AreaBorderGoesAlongTheMainPathAndThenAlongEachHole()
+        {
+            Map map = CreateMap();
+            using (map.Write()) {
+                map.UseEuclideanMetric = true;
+                SymColor green = map.AddColor("Green", 1, 0.76F, 0, 0.91F, 0, false);
+                SymColor black = map.AddColor("Black", 2, 0, 0, 0, 1, false);
+                SymColor brown = map.AddColor("Brown", 3, 0, 0.56F, 1, 0.18F, false);
+                SymColor blue = map.AddColor("Blue", 4, 1, 0, 0, 0, false);
+                SymColor purple = map.AddColor("Purple", 5, 0.35F, 0.85F, 0, 0, false);
+
+                LineSymDef solid = AddLineSymDef(map, new LineSymDef("Solid", "1", black, 0.2F, LineJoinMode.Miter, LineCapMode.Flat));
+                LineSymDef dashed = new LineSymDef("Dashed", "2", brown, 0.15F, LineJoinMode.Miter, LineCapMode.Flat);
+                dashed.SetDashInfo(new LineSymDef.DashInfo() { dashLength = 1, firstDashLength = 1, lastDashLength = 1, gapLength = 0.3F });
+                AddLineSymDef(map, dashed);
+                LineSymDef doubled = new LineSymDef("Double", "3", null, 0, LineJoinMode.Miter, LineCapMode.Flat);
+                doubled.SetDoubleLines(new LineSymDef.DoubleLineInfo() { doubleThick = 0.4F, doubleLeftColor = blue, doubleLeftWidth = 0.1F, doubleRightColor = blue, doubleRightWidth = 0.1F });
+                AddLineSymDef(map, doubled);
+                LineSymDef ticked = new LineSymDef("Ticked", "4", null, 0, LineJoinMode.Miter, LineCapMode.Flat);
+                ticked.SetGlyphs(new LineSymDef.GlyphInfo[] {
+                    new LineSymDef.GlyphInfo() { glyph = CreateTick(purple), location = LineSymDef.GlyphLocation.Spaced, distance = 1, firstDistance = 0.5F, lastDistance = 0.5F, number = 1 } });
+                AddLineSymDef(map, ticked);
+
+                AddArea(map, AddAreaSymDef(map, new AreaSymDef("Solid", "5", green, solid)), CreateSquareWithHole(0));
+                AddArea(map, AddAreaSymDef(map, new AreaSymDef("Dashed", "6", null, dashed)), CreateSquareWithHole(20));
+                AddArea(map, AddAreaSymDef(map, new AreaSymDef("Double", "7", null, doubled)), CreateSquareWithHole(40));
+                AddArea(map, AddAreaSymDef(map, new AreaSymDef("Ticked", "8", null, ticked)), CreateSquareWithHole(60));
+            }
+
+            AssertSameStructureAsTheCollector(map);
+            List<ClippingObject>[] clippingObjects = GetClippingObjectsBySeparation(map);
+            // Green: the area fill. Black: the solid border along the main path and then along the hole.
+            Assert.IsInstanceOf<FilledShape>(clippingObjects[0].Single());
+            Assert.AreEqual(2, clippingObjects[1].Count);
+            AssertBounds(RectangleF.FromLTRB(0, 0, 10, 10), clippingObjects[1][0].Shape.Bounds);
+            AssertBounds(RectangleF.FromLTRB(3, 3, 7, 7), clippingObjects[1][1].Shape.Bounds);
+            // Brown: the runs of dashes are along the main path and along the hole.
+            StrokedShape[] runs = clippingObjects[2].Cast<StrokedShape>().Where(shape => shape.Stroke.DashPattern != null).ToArray();
+            Assert.IsTrue(runs.Any(run => run.Shape.Bounds.Right > 27 + Tolerance), "a run along the main path");
+            Assert.IsTrue(runs.Any(run => run.Shape.Bounds.Left > 23 - Tolerance && run.Shape.Bounds.Right < 27 + Tolerance && run.Shape.Bounds.Bottom < 7 + Tolerance), "a run along the hole");
+            // Blue: the borders of the double line, offset paths of the main path and of the hole.
+            List<OffsetPathShape> offsetPaths = clippingObjects[3].Select(clippingObject => clippingObject.Shape).OfType<OffsetPathShape>().ToList();
+            Assert.AreEqual(4, offsetPaths.Count, "the borders of the double line along the main path and the hole");
+            Assert.AreEqual(4, offsetPaths.Select(offsetPath => offsetPath.BasePath).Distinct().Count(), "the pieces of the base paths");
+            // Purple: the ticks along the main path and along the hole repeat.
+            Assert.GreaterOrEqual(clippingObjects[4].Select(clippingObject => clippingObject.Placement).OfType<RepeatedPlacement>().Distinct().Count(), 2, "repeated placements");
+        }
+
+        // A combined area (AreaComboSymDef, of a Mapper map) has the clipping objects of its component definitions, in
+        // their order, as AreaComboSymDef.Draw draws them: a line along the main path and then along the hole, an area with
+        // its area fill and its area border, a combined line (LineComboSymDef) whose components go along the main path and
+        // then along the hole, and another combined area of a line. The Mapper import makes the last two when a part of a
+        // combined symbol is a combined symbol (OpenMapperImport.DelayedComboSymDef.CreateSymDef). The lines have widths of
+        // their own, which show the order.
+        [Test]
+        public void CombinedAreaHasTheClippingObjectsOfItsComponentDefinitionsInTheirOrder()
+        {
+            Map map = CreateMap();
+            using (map.Write()) {
+                SymColor green = map.AddColor("Green", 1, 0.76F, 0, 0.91F, 0, false);
+                SymColor black = map.AddColor("Black", 2, 0, 0, 0, 1, false);
+                LineSymDef[] lines = new LineSymDef[5];
+                for (int i = 0; i < lines.Length; ++i)
+                    lines[i] = AddLineSymDef(map, new LineSymDef("Line " + (i + 1), (i + 1).ToString(), black, 0.1F * (i + 1), LineJoinMode.Miter, LineCapMode.Flat));
+                AreaSymDef area = AddAreaSymDef(map, new AreaSymDef("Area", "6", green, lines[1]));
+                LineComboSymDef combinedLine = new LineComboSymDef("Combined line", "7", new LineSymDef[] { lines[2], lines[3] });
+                map.AddSymdef(combinedLine);
+                AreaComboSymDef inner = new AreaComboSymDef("Inner", "8", new SymDef[] { lines[4] });
+                map.AddSymdef(inner);
+                AreaComboSymDef outer = new AreaComboSymDef("Outer", "9", new SymDef[] { lines[0], area, combinedLine, inner });
+                map.AddSymdef(outer);
+                AddArea(map, outer, CreateSquareWithHole(0));
+            }
+
+            AssertSameStructureAsTheCollector(map);
+            List<ClippingObject>[] clippingObjects = GetClippingObjectsBySeparation(map);
+            Assert.IsInstanceOf<FilledShape>(clippingObjects[0].Single(), "the area fill of the area");
+            float[] widths = clippingObjects[1].Cast<StrokedShape>().Select(shape => shape.Stroke.Width).ToArray();
+            float[] expected = new float[] { 0.1F, 0.1F, 0.2F, 0.2F, 0.3F, 0.4F, 0.3F, 0.4F, 0.5F, 0.5F };
+            Assert.AreEqual(expected.Length, widths.Length, "the lines along the main path and the hole");
+            for (int i = 0; i < expected.Length; ++i)
+                Assert.AreEqual(expected[i], widths[i], Tolerance, "the width of line {0}", i);
+        }
+
+        // An area symbol has no palette color coverage with the full coverage in a palette color that its area symbol
+        // definition draws only with a hatching or an area pattern: the hatchings and the area patterns are periodic
+        // coverages, and the geometry method of the areas makes no clipping objects of them. In the palette color of the
+        // area fill, a hatching of the same palette color adds nothing to the area fill.
+        [Test]
+        public void AreaHasNoFullCoverageInAPaletteColorOfItsHatchingsAndAreaPatternsAlone()
+        {
+            Map map = CreateMap();
+            AreaSymbol patterned, hatchedInItsFillColor;
+            using (map.Write()) {
+                SymColor green = map.AddColor("Green", 1, 0.76F, 0, 0.91F, 0, false);
+                SymColor blue = map.AddColor("Blue", 2, 1, 0, 0, 0, false);
+                SymColor brown = map.AddColor("Brown", 3, 0, 0.56F, 1, 0.18F, false);
+                AreaSymDef withPatterns = new AreaSymDef("Patterns", "1", green, null);
+                withPatterns.AddHatching(new AreaSymDef.HatchInfo() { hatchColor = blue, hatchWidth = 0.1F, hatchSpacing = 0.5F, hatchAngle = 45 });
+                withPatterns.AddPattern(new AreaSymDef.PatternInfo() { patternGlyph = CreateGlyph(glyph => glyph.AddFilledCircle(brown, new PointF(0, 0), 0.3F)), patternWidth = 1, patternHeight = 1 });
+                AddAreaSymDef(map, withPatterns);
+                AreaSymDef hatchedInItsFill = new AreaSymDef("Hatched", "2", green, null);
+                hatchedInItsFill.AddHatching(new AreaSymDef.HatchInfo() { hatchColor = green, hatchWidth = 0.1F, hatchSpacing = 0.5F, hatchAngle = 30 });
+                AddAreaSymDef(map, hatchedInItsFill);
+                patterned = AddArea(map, withPatterns, new SymPathWithHoles(CreateSquarePath(0, 0, 4), null));
+                hatchedInItsFillColor = AddArea(map, hatchedInItsFill, new SymPathWithHoles(CreateSquarePath(6, 0, 4), null));
+            }
+
+            AssertSameStructureAsTheCollector(map);
+            using (map.Read()) {
+                IReadOnlyList<PaletteSeparation> separations = map.PaletteSeparations;
+                CollectionAssert.AreEqual(new Symbol[] { patterned, hatchedInItsFillColor }, separations[0].SymbolCoverages.Select(coverage => coverage.Symbol));
+                foreach (SymbolCoverage coverage in separations[0].SymbolCoverages)
+                    Assert.IsInstanceOf<FilledShape>(coverage.ClippingObjects.Single(), "the area fill of {0}", coverage.Symbol.Definition.Name);
+                CollectionAssert.IsEmpty(separations[1].SymbolCoverages, "the palette color of the hatching");
+                CollectionAssert.IsEmpty(separations[2].SymbolCoverages, "the palette color of the area pattern");
+            }
+        }
+
+        // The graphics objects have their own palette colors and pens: a GraphicsAreaSymbol is a filled shape of its path
+        // with holes with the alternate fill rule, and a GraphicsLineSymbol is a stroked shape of its path, which keeps
+        // its Bezier curve, with its width, caps and join and the miter limit GraphicsUtil.MITER_LIMIT, as their drawing
+        // makes them.
+        [Test]
+        public void GraphicsObjectsAreAFilledShapeAndAStrokedShapeInTheirOwnPaletteColors()
+        {
+            Map map = CreateMap();
+            using (map.Write()) {
+                SymColor brown = map.AddColor("Brown", 1, 0, 0.56F, 1, 0.18F, false);
+                SymColor blue = map.AddColor("Blue", 2, 1, 0, 0, 0, false);
+                GraphicsSymDef graphics = new GraphicsSymDef();
+                map.AddSymdef(graphics);
+                map.AddSymbol(new GraphicsAreaSymbol(graphics, CreateSquareWithHole(0), brown));
+                map.AddSymbol(new GraphicsLineSymbol(graphics, new SymPath(new PointF[] { new PointF(0, 15), new PointF(1, 17), new PointF(3, 17), new PointF(4, 15) },
+                                                                           new PointKind[] { PointKind.Normal, PointKind.BezierControl, PointKind.BezierControl, PointKind.Normal }),
+                                                     blue, 0.3F, LineJoinMode.Bevel, LineCapMode.Square));
+            }
+
+            AssertSameStructureAsTheCollector(map);
+            List<ClippingObject>[] clippingObjects = GetClippingObjectsBySeparation(map);
+            FilledShape fill = (FilledShape)clippingObjects[0].Single();
+            Assert.AreEqual(AreaFillMode.Alternate, fill.FillRule);
+            Assert.AreEqual(2, CountFigures((PathShape)fill.Shape), "the main path and the hole");
+            StrokedShape line = (StrokedShape)clippingObjects[1].Single();
+            Assert.AreEqual(0.3F, line.Stroke.Width);
+            Assert.AreEqual(LineCapMode.Square, line.Stroke.Caps);
+            Assert.AreEqual(LineJoinMode.Bevel, line.Stroke.Join);
+            Assert.AreEqual(GraphicsUtil.MITER_LIMIT, line.Stroke.MiterLimit);
+            Assert.IsNull(line.Stroke.DashPattern);
+            Assert.IsTrue(((PathShape)line.Shape).Parts.Any(part => part.Kind == GraphicsPathPartKind.Beziers), "the line keeps its Bezier curve");
+        }
+
         // Add a line symbol definition to a map, and return it.
         static LineSymDef AddLineSymDef(Map map, LineSymDef symdef)
         {
@@ -742,6 +958,41 @@ namespace Map_Skia.Tests
             LineSymbol line = new LineSymbol(symdef, path);
             map.AddSymbol(line);
             return line;
+        }
+
+        // Add an area symbol definition to a map, and return it.
+        static AreaSymDef AddAreaSymDef(Map map, AreaSymDef symdef)
+        {
+            map.AddSymdef(symdef);
+            return symdef;
+        }
+
+        // Add an area symbol of a definition with a path with holes to a map, and return it.
+        static AreaSymbol AddArea(Map map, AreaLikeSymDef symdef, SymPathWithHoles path)
+        {
+            AreaSymbol area = new AreaSymbol(symdef, path, 0, new PointF());
+            map.AddSymbol(area);
+            return area;
+        }
+
+        // A square of 10 mm with a square hole of 4 mm at its middle, at a distance along the x axis.
+        static SymPathWithHoles CreateSquareWithHole(float left)
+        {
+            return new SymPathWithHoles(CreateSquarePath(left, 0, 10), new SymPath[] { CreateSquarePath(left + 3, 3, 4) });
+        }
+
+        // A closed path of an area with a Bezier curve at its top, at a distance along the y axis.
+        static SymPath CreateCurvedAreaPath(float left, float bottom)
+        {
+            return new SymPath(new PointF[] { new PointF(left, bottom + 2), new PointF(left + 1, bottom + 4), new PointF(left + 3, bottom + 4), new PointF(left + 4, bottom + 2),
+                                              new PointF(left + 4, bottom), new PointF(left, bottom), new PointF(left, bottom + 2) },
+                               new PointKind[] { PointKind.Normal, PointKind.BezierControl, PointKind.BezierControl, PointKind.Normal, PointKind.Normal, PointKind.Normal, PointKind.Normal });
+        }
+
+        // The number of the figures of a path: of its start parts.
+        static int CountFigures(PathShape path)
+        {
+            return path.Parts.Count(part => part.Kind == GraphicsPathPartKind.Start);
         }
 
         // A glyph of a tick across a line: a line of 0.8 mm along the y axis of the glyph, 0.1 mm wide.
