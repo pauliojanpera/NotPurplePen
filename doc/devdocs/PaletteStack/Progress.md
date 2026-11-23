@@ -186,10 +186,11 @@ base. No branch is offered upstream yet.
   it again while @Pauli lets it archive.
 - **The checkouts.** The clone `~/Documents/Projects/NotPurplePen` stays on `docs/process-coordination`: do not change
   its branch. The worktrees are in `~/Documents/Projects/npp-worktrees/`: `palette-stack` holds the branch of the
-  epic, and `text-symbol-geometry` the branch of ticket 013. The worktrees of the earlier branches are removed, and
-  their branches stay. The worktrees whose names end in `-int` hold the local integration branches `local/<name>-int`,
-  which are never pushed: `palette-stack-int` and `text-symbol-geometry-int`, on `base`. `tools/int-worktree.sh` makes
-  them again from GitHub, on `base`, and `REBUILD=1` makes an old branch `local/<name>-int` again.
+  epic, and `text-symbol-geometry` the branch of ticket 013. On Nov 23, the worktrees of the earlier branches were
+  removed. Their branches stay, and `git worktree add` makes a worktree again. The worktrees whose
+  names end in `-int` hold the local integration branches `local/<name>-int`, which are never pushed:
+  `palette-stack-int` and `text-symbol-geometry-int`, on `base`. `tools/int-worktree.sh` makes them again from GitHub,
+  on `base`, and `REBUILD=1` makes an old branch `local/<name>-int` again.
 - **Local tests.** The local tests run in the integration worktree of the branch: `base` with the branch merged in
   (`tools/int-worktree.sh <clone> <branch> <worktree>`), as the tickets tell. A feature branch is rooted at upstream,
   so it does not have the test tools of `base`: the fix that reads the backslashes in the path of a test file as
