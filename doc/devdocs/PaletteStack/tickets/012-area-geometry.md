@@ -48,8 +48,8 @@ kuulu tähän. Piirto ei muutu.
   Vertailu laajentaa alueen reunojen katkojuosteet, siirretyt polut ja toistosijoitukset, ja sen sallitut erot ovat
   tiketin 011 sallitut erot. Muut leikkausobjektit, myös täytetyt muodot, ovat täsmälleen samat. Vertailu kattaa
   kansion `skia_render` jokaisen OCAD- ja Mapper-kartan sekä katkoviivanäytteiden tiedostot `dashes-*.ocd`.
-- [ ] Rakennetestit tarkistavat ilman piirtoa alueen täytön monikulmiona, Bezier-käyrin, reikineen ja tyhjällä
-  reikien taulukolla ja sen täyttösäännön, alueen reunan pääpolulla ja reiillä, katkotun alueen reunan, alueen reunan
+- [ ] Rakennetestit tarkistavat ilman piirtoa alueen täytön monikulmiona, Bezier-käyrin ja reikineen ja sen
+  täyttösäännön, myös aluesymbolin, jonka viimeisen reiän kartta on poistanut, alueen reunan pääpolulla ja reiillä, katkotun alueen reunan, alueen reunan
   kaksoisviivana ja alueen reunan glyyfit, `AreaComboSymDef`in yhdistelmän osamäärittelyjen järjestyksen,
   `LineComboSymDef`in ja toisen `AreaComboSymDef`in yhdistelmän osamäärittelynä, aluesymbolin, jonka palettiväri on
   vain viivoituksessa tai aluekuviossa, sekä `GraphicsAreaSymbol`in ja `GraphicsLineSymbol`in. Testit rakentavat
@@ -85,12 +85,13 @@ kuulu tähän. Piirto ei muutu.
   - `AreaSymDef.Draw` täyttää palettivärissä alueen täytön, kun palettiväri on `FillColor` (`SymPathWithHoles.Fill`),
     piirtää viivoitukset (`DrawHatchings`) ja aluekuviot (`DrawPatterns`) ja sitten alueen reunan pääpolulle ja
     jokaiselle reiälle (`LineSymDef.Draw`). `SymPath.FillCore` täyttää vuorottelevalla täyttösäännöllä monikulmion,
-    kun pääpolulla ei ole Bezier-käyriä ja reikien taulukko on null, ja muuten polun. Vaihe 1 jättää viivoitukset ja
+    kun pääpolulla ei ole Bezier-käyriä eikä reikiä, ja muuten polun. Vaihe 1 jättää viivoitukset ja
     aluekuviot pois kerääjän asetuksella `omitHatchingsAndPatterns`, ja `AreaSymDef.HasFullCoverage` ottaa vain
     alueen täytön ja alueen reunan palettivärit.
   - Reiät ovat kartassa omia symbolejaan (`HoleSymbol`), joiden symbolimäärittelyllä (`HoleSymDef`) ei ole väriä.
-    `AreaLikeSymbol.Path` kokoaa pääpolun ja reikien polut polukseen reikineen (`SymPathWithHoles`). Reikien taulukko
-    on null, kun aluesymbolilla ei ole koskaan ollut reikiä, ja tyhjä, kun sen kaikki reiät on poistettu.
+    `AreaLikeSymbol.Path` kokoaa pääpolun ja reikien polut polukseen reikineen (`SymPathWithHoles`).
+    `SymPathWithHoles` ei säilytä tyhjää reikien taulukkoa, joten aluesymbolin polulla ei ole reikiä myöskään silloin,
+    kun kartta on poistanut sen kaikki reiät.
   - `AreaComboSymDef.Draw` piirtää yhdistelmän osamäärittelynsä järjestyksessä: viivan symbolimäärittelyn
     (`LineLikeSymDef`) pääpolulle ja jokaiselle reiälle ja alueen symbolimäärittelyn (`AreaLikeSymDef`) sen omalla
     `Draw`-metodilla samalle polulle reikineen. Mapperin tuonti tekee `LineComboSymDef`in, kun yhdistelmän kaikki
