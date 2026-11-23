@@ -131,6 +131,14 @@ The section "Words that are not names" lists the words that are not used as name
   in a translation, so it is periodic with each lattice. The full coverage is the trivial case of periodic coverage, and
   not a kind of its own. No M changes it. The G of points, lines, texts and area fills is the full coverage. The dash
   patterns and the glyphs along a line are strokes and placements, not lattices.
+- **`HatchingPrototype`** (proposed name) · viivoituksen peittoprototyyppi · *coverage prototype of a hatching* — The G
+  of one hatching (`HatchInfo`) of an `AreaSymDef`: stripes of the width `hatchWidth` about the lines y = k ·
+  `hatchSpacing`. It refers to its `AreaSymDef` and to the index of the hatching, and copies nothing.
+- **`AreaPatternPrototype`** (proposed name) · aluekuvion peittoprototyyppi · *coverage prototype of an area pattern* —
+  The G of one area pattern (`PatternInfo`) of an `AreaSymDef` in one palette color: the parts of its element in the
+  palette color at the points of its lattice. An element with parts in several palette colors gives an area pattern a
+  coverage prototype in each of them. It refers to its `AreaSymDef`, to the index of the area pattern and to the palette
+  color, and copies nothing.
 
 ### Glyphs
 
@@ -373,17 +381,22 @@ The section "Words that are not names" lists the words that are not used as name
   separation that have the same configuration. It cuts the uniform color of the palette color to the coverage that G
   under M gives inside the union of its clipping objects. Each palette color coverage of a symbol is in one palette
   cutter, and each palette cutter is in one palette separation.
-- **kokoonpano, samanlainen kokoonpano** · *configuration, equivalent configuration* — The palette color, G and the
-  effective affine transformation M of a palette color coverage of a symbol. M comes from the `Symbol` and from G. The
-  palette color coverages of the symbols with the same configuration are one palette cutter. Two configurations are the
-  same when they give the same coverage: the palette color and the coverage prototype are the same, and M₁⁻¹M₂ is a
-  symmetry of G, an affine map S for which G∘S = G. The symmetries of an area pattern include the translations of its
-  lattice. The symmetries of a hatching include all the translations along its lines, and the translations across them
-  by multiples of the spacing. All the maps are symmetries of the full coverage. A normal form decides the sameness: the
-  translation of M is reduced into a fundamental domain of the translations that are symmetries of G, and it is rounded
-  to a fixed precision. The configurations with the same normal form are the same, and the relation is an equivalence.
-- **`LayerInstance.Transformation`** (work) · affiininen muunnos M · *affine transformation M* — An invertible 2D affine
-  transformation of G.
+- **kokoonpano, samanlainen kokoonpano, normaalimuoto, perusalue, siirtosymmetria** · *configuration, equivalent
+  configuration, normal form, fundamental domain, translation symmetry* — The palette color, G and the effective affine
+  transformation M of a palette color coverage of a symbol. M comes from the `Symbol` and from G. The palette color
+  coverages of the symbols with the same configuration are one palette cutter. Two configurations are the same when
+  they give the same coverage: the palette color and the coverage prototype are the same, and M₁⁻¹M₂ is a symmetry of
+  G, an affine map S for which G∘S = G. The translation symmetries of G are its symmetries that are translations. The
+  symmetries of an area pattern include the translations of its lattice. The symmetries of a hatching include all the
+  translations along its lines, and the translations across them by multiples of the spacing. All the maps are
+  symmetries of the full coverage. A normal form decides the sameness (proposed name:
+  `CoveragePrototype.GetNormalForm`): the translation of M is reduced into a fundamental domain of the translation
+  symmetries of G, and it is rounded to a fixed precision. A fundamental domain holds exactly one translation of each
+  class of translations that differ by a translation symmetry of G. The configurations with the same normal form are
+  the same, and the relation is an equivalence.
+- **`SymbolCoverage.Transformation`** (proposed name), **`PaletteCutter.Transformation`** · affiininen muunnos M ·
+  *affine transformation M* (work: `LayerInstance.Transformation`) — An invertible 2D affine transformation of G. A
+  palette color coverage of a symbol has the M of its configuration, and a palette cutter has the normal form of it.
 - **peitto, unioni** · *coverage, union* — A binary coverage is a set of points of the plane. In mathematics, it is the
   indicator function of the set, which is 1 at the points of the set. G is a coverage, and so is the area that a
   clipping object covers. The coverage of a palette cutter is G under M inside the union of its clipping objects. The
@@ -460,6 +473,10 @@ The section "Words that are not names" lists the words that are not used as name
 - **katkotaulukko** · *dash table* — A known channel conversion of the dashes of a line. `Map` offers it.
 - **laajennus** · *expansion* (work: `StrokedShape.ExpandDashes`, `RepeatedShapes.Expand`) — A known channel conversion
   into single parts: a run into dashes, and a repeated placement into single placements. `Map` offers it.
+- **kuviotäytön laajennus** · *expansion of a pattern fill* (proposed name: `SymbolCoverage.ExpandPrototype`) — The
+  lines of a hatching or the elements of an area pattern over the bounds of an area, as single clipping objects at the
+  places and with the steps of the drawing. The expansion of an irregular area pattern is the placements of its
+  elements. It is a known channel conversion, which `Map` offers.
 
 ### The forms of the derived values
 
