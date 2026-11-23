@@ -157,6 +157,8 @@ These are @Pauli's decisions of Nov 20 and Nov 21. Glossary.md gives their terms
   ticket: `HatchingPrototype` · *viivoituksen peittoprototyyppi*, `AreaPatternPrototype` · *aluekuvion
   peittoprototyyppi*, `SymbolCoverage.Transformation`, `CoveragePrototype.GetNormalForm` · *normaalimuoto*,
   *perusalue*, *siirtosymmetria* and `SymbolCoverage.ExpandPrototype` · *kuviotäytön laajennus* (Nov 23).
+- *valitut glyyfin osat* · *selected glyph parts*, in place of *valitut elementit*, as a fill mode selects each glyph
+  part (Nov 23, with ticket 009).
 
 The five terms that the session chose by their use in commit 06f4c824d are all decided on Nov 21.
 

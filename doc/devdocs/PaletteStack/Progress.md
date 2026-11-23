@@ -898,6 +898,13 @@ the rendering.
   coverages of a symbol; the helper of the coverage comparison; and the removal of the collector. The branch is
   `feature/pattern-prototypes`, rooted at `feature/palette-stack` (86df0a59). The ticket refines sections 02 and 03 of
   the specification and the glossary with its three decisions above.
+- **The refinements of ticket 009** (Nov 23). @Pauli let the session refine [Specification.md](Specification.md) and
+  [Glossary.md](Glossary.md) by ticket 009: the coverage prototype of an area pattern is in one palette color (section
+  02, `CoveragePrototype`); a fill mode selects each glyph part (sections 02 and 03, `AreaSymDef.PatternFillMode`); the
+  selected glyph parts are clipping objects of the palette color coverage with the full coverage (section 03); and an
+  irregular area pattern is not periodic, as of its translations only the identity is certain to be a symmetry
+  (sections 02 and 03, *jaksollinen peitto G* and *kokoonpano*). By the session's choice, the entry *valitut
+  elementit* is now *valitut glyyfin osat*, as a fill mode selects glyph parts.
 - **The archiving of a cloud session** (Nov 23). @Pauli let the session of Nov 23 that finished ticket 011 archive its
   transcript, and it runs `archive-if-due.sh claude` of the branch `sessions` of `pauliojanpera/windows-fonts` every
   minute in a background command, from a clone of that branch in `~/session-archive`. The commits of the archive

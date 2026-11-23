@@ -43,7 +43,7 @@ simulates the overprinting of the spot colors. Both applications can turn and mo
 | Color table and color priority | The palette colors (`SymColor`) in palette order: the palette stack |
 | Symbol elements | The clipping objects of the palette color coverages of the symbols (`SymbolCoverage`) |
 | Solid area fills | The full coverage G = 1 |
-| Hatched and structured area fills | The periodic coverage G of a hatching or of an area pattern, or the elements that a fill mode selects |
+| Hatched and structured area fills | The coverage prototype G of a hatching or of an area pattern, or the glyph parts that a fill mode selects |
 | Pattern offset and orientation | The affine transformation M of a configuration, from the lattice transformation L and the element transformation E |
 | Opacity / alpha and blend mode | The opacity α and the blend mode B of the palette color, which pass 2 applies once to its transparency group |
 | Overprint (OCAD) / knockout (OOM) | Inverse terms for the printing behavior, apart from α |
@@ -64,7 +64,7 @@ side. Sections 02, 03 and 04 give the three parts. This section gives the whole.
 |---|---|---|
 | `Map` | Map side | The source. It keeps the ideal forms. |
 | `SymColor`, palette color | Map side | The color C, the opacity α, the blend mode B, the knockout, the ink components and the priority. |
-| `CoveragePrototype`, coverage prototype | Map side | The coverage G in its origin-bound form: the full coverage, a hatching or an area pattern of a `SymDef`. |
+| `CoveragePrototype`, coverage prototype | Map side | The coverage G in its origin-bound form: the full coverage, a hatching, or an area pattern of a `SymDef` in a palette color. |
 | `Symbol`, symbol | Map side | One object of a map, with its symbol key (`Symbol.Key`). |
 | `SymbolCoverage`, palette color coverage of a symbol | Intermediate layer | The coverage of one `Symbol` in one palette color with one G: the triple (`Symbol`, `SymColor`, G). |
 | `PaletteSeparation`, palette separation | Intermediate layer | The palette color coverages of the symbols in one palette color. |
@@ -222,11 +222,15 @@ A palette color (`SymColor`) is a color of the normal layer (`SymLayer.Normal`).
 
 - A coverage prototype (`CoveragePrototype`) is the coverage G in its origin-bound form, before M places it. On the map
   side, G is a part of a `SymDef`: the full coverage (`CoveragePrototype.FullCoverage`), one hatching (an index in
-  `AreaSymDef.hatchings`) or one area pattern (an index in `AreaSymDef.patterns`). In an `AreaComboSymDef`, the
-  component definition is a part of G.
+  `AreaSymDef.hatchings`) or one area pattern in one palette color (an index in `AreaSymDef.patterns` and a
+  `SymColor`). In an `AreaComboSymDef`, the component definition is a part of G. The glyph parts of the element of an
+  area pattern can be in several palette colors, and the area pattern covers different points in each of them. So it
+  has a coverage prototype in each of these palette colors.
 - A periodic coverage G is a binary, spatially repetitive and origin-bound selector: for each point of the plane, G
   tells if the point is in the coverage. In mathematics, G is the indicator function of a set of the plane that the
-  translations of a lattice do not change. The hatchings and the area patterns are periodic coverages.
+  translations of a lattice do not change. The hatchings and the regular area patterns are periodic coverages. An
+  irregular area pattern is a coverage prototype that is not periodic: of its translations, only the identity is
+  certain to be a symmetry (section 03).
 - For a point p of the drawing, the selector is G(M⁻¹p), where M is the affine transformation of a configuration
   (section 03). The prototype is origin-bound, and M is relative to the coordinates of the map. M keeps G binary and
   periodic.
@@ -253,14 +257,15 @@ A palette color (`SymColor`) is a color of the normal layer (`SymLayer.Normal`).
 - An area pattern (`PatternInfo`) has an element (`patternGlyph`), the size of the element (`patternWidth`,
   `patternHeight`), an offset of the alternate rows by 1/2 (`offsetRows`), an angle, an offset, a rotate mode, a fill
   mode and the irregularity.
-- The fill mode (`AreaSymDef.PatternFillMode`) clips the elements (`Clip`), or selects the complete elements that are
-  entirely inside (`CompletelyInside`), centered inside (`CenterInside`) or partially inside (`PartiallyInside`) the
-  area. [3, 5]
+- The fill mode (`AreaSymDef.PatternFillMode`) clips the elements (`Clip`), or selects each glyph part of the elements
+  by its own points and center: the glyph parts that are entirely inside (`CompletelyInside`), centered inside
+  (`CenterInside`) or partially inside (`PartiallyInside`) the area. The area does not clip a selected glyph part.
+  Upstream (`GlyphPartFilter`) and Mapper select each glyph part separately, and not the complete element. [3, 5]
 
 ![Figure 3](figures/figure-3.png)
 
-Figure 3. The fill modes: clip the elements, or select the complete elements that are entirely inside, centered inside
-or partially inside the area.
+Figure 3. The fill modes: clip the elements, or select the glyph parts that are entirely inside, centered inside or
+partially inside the area. In the figure, each element has one glyph part.
 
 - The lattice is the arrangement in which an area pattern repeats its element. The size of the element and the offset of
   the rows give the lattice. The center of an element is its origin, the point that the lattice places at a lattice
@@ -372,10 +377,11 @@ with their forms.
   `AreaSymbol`.
 - Two configurations are the same when they give the same coverage: the palette color and the coverage prototype are the
   same, and M₁⁻¹M₂ is a symmetry of G. A symmetry of G is an affine map S for which G∘S = G.
-- The symmetries of an area pattern include the translations of its lattice. The symmetries of a hatching include all
-  the translations along its lines, and the translations across them by multiples of the spacing. All the maps are
-  symmetries of the full coverage. So the palette color coverages with the full coverage in one palette separation are
-  one palette cutter.
+- The symmetries of a regular area pattern include the translations of its lattice. Of the translations, only the
+  identity is certain to be a symmetry of an irregular area pattern, so the normal form keeps the translation of its M.
+  The symmetries of a hatching include all the translations along its lines, and the translations across them by
+  multiples of the spacing. All the maps are symmetries of the full coverage. So the palette color coverages with the
+  full coverage in one palette separation are one palette cutter.
 - A normal form decides the sameness. The translation of M is reduced into a fundamental domain of the translations that
   are symmetries of G, and it is rounded to a fixed precision. The configurations with the same normal form are the
   same, and the relation is an equivalence.
@@ -401,13 +407,19 @@ cutters of the configurations refer to the same prototype, and the M of each giv
 
 ### The selected elements
 
-- OCAD and OOM keep the clipped pattern fills apart from the fill modes that select complete elements by their relation
-  to the area. Pass 1 resolves this difference, and not the composition by palette color. [3, 5]
-- A clipped pattern fill keeps its periodic coverage G.
-- The elements that a fill mode selects, and the placements of the elements of an irregular pattern, are derived values
-  of a palette color coverage of a symbol. The composite representations of the selected elements are left to a later
-  refinement.
-- Upstream selects each part of a glyph by its own points and center (`GlyphPartFilter`), and not the complete element.
+- OCAD and OOM keep the clipped pattern fills apart from the fill modes that select glyph parts by their relation to the
+  area. Pass 1 resolves this difference, and not the composition by palette color. [3, 5]
+- A clipped pattern fill keeps its coverage prototype G, and its clipping objects are the areas (section "The clipping
+  objects and the union").
+- A fill mode selects each glyph part of the elements by its own points and center, and not the complete element, as
+  upstream (`GlyphPartFilter`) and Mapper do.
+- The glyph parts that a fill mode selects are clipping objects of the palette color coverage of the symbol with the
+  full coverage, and the area pattern has no palette color coverage of its own for them. Each selected glyph part is a
+  shared shape of the glyph of the area pattern, at a single placement within M. Pass 2 composites the selected glyph
+  parts as it composites the glyph parts of a point symbol.
+- The placements of the elements of an irregular pattern are derived values of the palette color coverage of the
+  symbol with the irregular area pattern. The composite representations of the selected glyph parts are left to a
+  later refinement.
 
 ### The derived values
 
@@ -423,7 +435,7 @@ cutters of the configurations refer to the same prototype, and the M of each giv
   same way, for example `SymPath.flatpoints`, `TextSymbol.wrappedText` and `Symbol.boundingBox`.
 - A palette color coverage of a symbol keeps its own derived values: for example the clipping objects, the parts of a
   line, the fitted dash patterns, the runs of dashes in the euclidean measure, the offset curves, the placements and the
-  elements that a fill mode selects.
+  glyph parts that a fill mode selects.
 - A derived value that depends on a definition alone belongs to the definition: for example the shared shapes of a glyph
   and a pattern tile.
 - A palette separation keeps its palette cutters as a derived value.

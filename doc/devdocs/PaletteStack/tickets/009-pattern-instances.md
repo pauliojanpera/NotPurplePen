@@ -112,14 +112,14 @@ normaalimuodon mukaan. Täyttötilan valitsemat glyyfin osat ovat täyden peiton
     Mapper, eivätkä koko elementtiä (@Pauli, 23.11., "The fill modes select each glyph part"). Tämä tarkentaa speksin
     luvun 02 kohtaa "The hatchings and the area patterns" ("selects the complete elements") ja luvun 03 kohtaa "The
     selected elements" sekä sanaston merkintöjä `AreaSymDef.PatternFillMode` ja *valitut elementit*. Speksi ja sanasto
-    saavat tarkennuksen, kun @Pauli hyväksyy tiketin.
+    saivat tarkennuksen, kun @Pauli hyväksyi tiketin.
   - Kun aluekuvion elementin glyyfin osat ovat useassa palettivärissä, aluekuviolla on peittoprototyyppi kussakin näistä
     palettiväreistä: `AreaPatternPrototype` viittaa alueen symbolimäärittelyyn, aluekuvion indeksiin ja palettiväriin
     (@Pauli, 23.11., "The coverage prototype of an area pattern in a palette color"). G on binäärinen valitsin, joka
     kertoo jokaisesta tason pisteestä, onko piste peitossa, ja aluekuvio peittää kussakin palettivärissä eri pisteet.
     `CoveragePrototype.Covers(PointF)` säilyy ennallaan. Tämä tarkentaa speksin luvun 02 kohtaa "The coverage
     prototypes", jossa aluekuvio on indeksi `AreaSymDef.patterns`-luettelossa, ja sanaston merkintää
-    `CoveragePrototype`. Speksi ja sanasto saavat tarkennuksen, kun @Pauli hyväksyy tiketin.
+    `CoveragePrototype`. Speksi ja sanasto saivat tarkennuksen, kun @Pauli hyväksyi tiketin.
   - OCAD ja Mapper ovat omien karttojensa piirron auktoriteetit (speksin esipuhe). feature/multiply-blending on vain
     ulkoasun oraakkeli, eikä työ lue sen koodia (@Pauli, 18.11.).
   - Kuviotäyttöjen kanavamuunnoksia ovat esimerkiksi epäsäännöllisen kuvion elementtien sijoitukset ja kuvioruutu

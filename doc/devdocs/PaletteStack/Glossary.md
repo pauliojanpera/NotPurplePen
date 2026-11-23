@@ -117,15 +117,17 @@ The section "Words that are not names" lists the words that are not used as name
 
 - **`CoveragePrototype`** · peittoprototyyppi · *coverage prototype* (work: `GeometryPrototype`) — The coverage G in
   its origin-bound form, before M places it. On the map side, G is a part of a `SymDef`: the full coverage, one hatching
-  (an index in `AreaSymDef.hatchings`) or one pattern (an index in `AreaSymDef.patterns`). In an `AreaComboSymDef`, the
-  component definition is part of G. Upstream has no class for G. The shared shapes of a glyph are not coverage
-  prototypes (*jaetut muodot*).
+  (an index in `AreaSymDef.hatchings`) or one area pattern in one palette color (an index in `AreaSymDef.patterns` and
+  a `SymColor`). In an `AreaComboSymDef`, the component definition is part of G. An area pattern whose element has
+  glyph parts in several palette colors has a coverage prototype in each of them. Upstream has no class for G. The
+  shared shapes of a glyph are not coverage prototypes (*jaetut muodot*).
 - **jaksollinen peitto G** · *periodic coverage G* — A binary, spatially repetitive, origin-bound selector: for each
   point of the plane, G tells if the point is in the coverage. In mathematics, G is the indicator function of a set of
-  the plane that the translations of a lattice do not change. The hatchings and the area patterns are periodic
-  coverages. G selects a set of points, which is a coverage. In compositing, the alpha has two parts, the coverage and
-  the opacity. The specification keeps them apart: the binary coverage (G and the clipping objects) and α (*peittävyys*
-  · *opacity*).
+  the plane that the translations of a lattice do not change. The hatchings and the regular area patterns are periodic
+  coverages. An irregular area pattern is not: of its translations, only the identity is certain to be a symmetry. G
+  selects a set of points, which is a coverage. In compositing, the alpha has two parts, the coverage and the opacity.
+  The specification keeps them apart: the binary coverage (G and the clipping objects) and α (*peittävyys* ·
+  *opacity*).
 - **`CoveragePrototype.FullCoverage`** · täysi peitto, G = 1 · *full coverage* (work:
   `GeometryPrototype.FullCoverage`) — The whole plane: G(x, y) = 1 at each point. A constant function does not change
   in a translation, so it is periodic with each lattice. The full coverage is the trivial case of periodic coverage, and
@@ -254,9 +256,10 @@ The section "Words that are not names" lists the words that are not used as name
   difference is in the editing: when the object or the map turns, `Always` turns the angle with it, and `ManualOnly`
   keeps it. The OCAD import gives `ManualOnly` to a pattern that does not turn, and the Mapper import gives `Never`.
 - **`AreaSymDef.PatternFillMode`** · täyttötila · *fill mode* (`Clip`, `CompletelyInside`, `CenterInside`,
-  `PartiallyInside`) — It clips the elements, or selects the complete elements that are entirely inside, centered inside
-  or partially inside the area. Upstream: `Clip` was the only mode until OCAD 12. Upstream selects each part of a glyph
-  by its own points and center (`GlyphPartFilter`), and not the complete element.
+  `PartiallyInside`) — It clips the elements, or selects each glyph part of the elements by its own points and center:
+  the glyph parts that are entirely inside, centered inside or partially inside the area. The area does not clip a
+  selected glyph part. Upstream (`GlyphPartFilter`) and Mapper select each glyph part separately, and not the complete
+  element. **Upstream:** `Clip` was the only mode until OCAD 12.
 - **`PatternInfo.irregular`** · epäsäännöllinen kuvio · *irregular pattern* (`irregularVarX`, `irregularVarY`,
   `irregularMinDist`) — Its elements move a random but deterministic distance. The seed comes from the rounded position
   of the element. The randomness is kept as a definition.
@@ -387,7 +390,8 @@ The section "Words that are not names" lists the words that are not used as name
   coverages of the symbols with the same configuration are one palette cutter. Two configurations are the same when
   they give the same coverage: the palette color and the coverage prototype are the same, and M₁⁻¹M₂ is a symmetry of
   G, an affine map S for which G∘S = G. The translation symmetries of G are its symmetries that are translations. The
-  symmetries of an area pattern include the translations of its lattice. The symmetries of a hatching include all the
+  symmetries of a regular area pattern include the translations of its lattice. Of the translations, only the identity
+  is certain to be a symmetry of an irregular area pattern. The symmetries of a hatching include all the
   translations along its lines, and the translations across them by multiples of the spacing. All the maps are
   symmetries of the full coverage. A normal form decides the sameness
   (`CoveragePrototype.GetNormalForm`): the translation of M is reduced into a fundamental domain of the translation
@@ -549,9 +553,11 @@ The section "Words that are not names" lists the words that are not used as name
   between two adjacent positions along the path of a repeated placement, and the number of its poses.
 - **kuvioruutu** · *pattern tile* — One cell of an area pattern, which is composed from single elements. It depends on
   the definition alone.
-- **valitut elementit, epäsäännöllisen kuvion sijoitukset** · *selected elements, placements of an irregular pattern* —
-  The elements that a fill mode selects, and the placements of the elements of an irregular pattern, are derived values
-  of a palette color coverage of a symbol.
+- **valitut glyyfin osat, epäsäännöllisen kuvion sijoitukset** · *selected glyph parts, placements of an irregular
+  pattern* — The glyph parts that a fill mode selects are clipping objects of the palette color coverage of the symbol
+  with the full coverage: shared shapes of the glyph of the area pattern, each at a single placement. The placements of
+  the elements of an irregular pattern are derived values of the palette color coverage of the symbol with the
+  irregular area pattern.
 
 ## The rendering side · Renderöinnin puoli
 
