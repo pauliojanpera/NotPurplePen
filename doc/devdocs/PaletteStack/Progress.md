@@ -58,8 +58,9 @@ so did the full run of `feature/palette-stack` with it.
 
 The session of Nov 23 wrote the draft [009](tickets/009-pattern-instances.md) as a ticket, and @Pauli goes through
 its choices one question at a time. He decided question 2 of the draft ("The selected glyph parts of an area
-pattern") and the selection of the glyph parts ("The fill modes select each glyph part"). The ticket is not
-implemented before he approves it.
+pattern"), the selection of the glyph parts ("The fill modes select each glyph part") and the coverage prototypes
+of an area pattern ("The coverage prototype of an area pattern in a palette color"). The ticket is not implemented
+before he approves it.
 
 The local Linux runs of the rendering tests get the fonts of the workflow's Windows machine from the branch `linux` of
 `pauliojanpera/windows-fonts` ("The fonts of the local Linux runs", Nov 23). The texts still render differently from
@@ -882,6 +883,13 @@ the rendering.
   drawing of upstream (`GlyphPartFilter`) and Mapper do, and not the complete element. Sections 02 and 03 of the
   specification say that a fill mode selects the complete elements. Ticket 009 refines them, and the entries
   `AreaSymDef.PatternFillMode` and *valitut elementit* of [Glossary.md](Glossary.md), with this.
+- **The coverage prototype of an area pattern in a palette color** (Nov 23). @Pauli: when the glyph parts of the
+  element of an area pattern are in several palette colors, the area pattern has a coverage prototype in each of these
+  palette colors (`AreaPatternPrototype`: the `AreaSymDef`, the index of the area pattern and the palette color). G is
+  a binary selector that tells for each point of the plane if the point is in the coverage, and the area pattern
+  covers different points in each palette color. `CoveragePrototype.Covers(PointF)` stays as it is. Section 02 of the
+  specification gives an area pattern as an index in `AreaSymDef.patterns`. Ticket 009 refines it, and the entry
+  `CoveragePrototype` of [Glossary.md](Glossary.md), with this.
 - **The archiving of a cloud session** (Nov 23). @Pauli let the session of Nov 23 that finished ticket 011 archive its
   transcript, and it runs `archive-if-due.sh claude` of the branch `sessions` of `pauliojanpera/windows-fonts` every
   minute in a background command, from a clone of that branch in `~/session-archive`. The commits of the archive
