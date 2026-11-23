@@ -58,7 +58,8 @@ so did the full run of `feature/palette-stack` with it.
 
 The session of Nov 23 wrote the draft [009](tickets/009-pattern-instances.md) as a ticket, and @Pauli goes through
 its choices one question at a time. He decided question 2 of the draft ("The selected glyph parts of an area
-pattern"). The ticket is not implemented before he approves it.
+pattern") and the selection of the glyph parts ("The fill modes select each glyph part"). The ticket is not
+implemented before he approves it.
 
 The local Linux runs of the rendering tests get the fonts of the workflow's Windows machine from the branch `linux` of
 `pauliojanpera/windows-fonts` ("The fonts of the local Linux runs", Nov 23). The texts still render differently from
@@ -876,6 +877,11 @@ the rendering.
   parts directly, and then pass 2 resolves the difference of the fill modes, which section 03 of the specification
   gives to pass 1. The shapes of the selected glyph parts are the shared shapes of the glyph of the area pattern
   (`PatternInfo.patternGlyph`).
+- **The fill modes select each glyph part** (Nov 23). @Pauli: the fill modes `CompletelyInside`, `CenterInside` and
+  `PartiallyInside` select each glyph part of the element of an area pattern by its own points and center, as the
+  drawing of upstream (`GlyphPartFilter`) and Mapper do, and not the complete element. Sections 02 and 03 of the
+  specification say that a fill mode selects the complete elements. Ticket 009 refines them, and the entries
+  `AreaSymDef.PatternFillMode` and *valitut elementit* of [Glossary.md](Glossary.md), with this.
 - **The archiving of a cloud session** (Nov 23). @Pauli let the session of Nov 23 that finished ticket 011 archive its
   transcript, and it runs `archive-if-due.sh claude` of the branch `sessions` of `pauliojanpera/windows-fonts` every
   minute in a background command, from a clone of that branch in `~/session-archive`. The commits of the archive

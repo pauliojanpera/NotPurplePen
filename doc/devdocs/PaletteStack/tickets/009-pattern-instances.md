@@ -106,6 +106,12 @@ normaalimuodon mukaan. Täyttötilan valitsemat glyyfin osat ovat täyden peiton
     glyyfin osien muodot leikkaavat, jolloin reunanpehmennys tehdään osien reunoilla kahdesti. Muuten koodauksen pitäisi
     lukea täyttötila ja piirtää osat suoraan, jolloin vaihe 2 ratkaisisi täyttötilojen eron, jonka speksin luku 03 antaa
     vaiheelle 1. Valittujen glyyfin osien muodot ovat aluekuvion glyyfin (`PatternInfo.patternGlyph`) jaettuja muotoja.
+  - Täyttötilat `CompletelyInside`, `CenterInside` ja `PartiallyInside` valitsevat aluekuvion elementin jokaisen glyyfin
+    osan erikseen sen omien pisteiden ja keskipisteen perusteella, kuten upstreamin piirto (`GlyphPartFilter`) ja
+    Mapper, eivätkä koko elementtiä (@Pauli, 23.11., "The fill modes select each glyph part"). Tämä tarkentaa speksin
+    luvun 02 kohtaa "The hatchings and the area patterns" ("selects the complete elements") ja luvun 03 kohtaa "The
+    selected elements" sekä sanaston merkintöjä `AreaSymDef.PatternFillMode` ja *valitut elementit*. Speksi ja sanasto
+    saavat tarkennuksen, kun @Pauli hyväksyy tiketin.
   - OCAD ja Mapper ovat omien karttojensa piirron auktoriteetit (speksin esipuhe). feature/multiply-blending on vain
     ulkoasun oraakkeli, eikä työ lue sen koodia (@Pauli, 18.11.).
   - Kuviotäyttöjen kanavamuunnoksia ovat esimerkiksi epäsäännöllisen kuvion elementtien sijoitukset ja kuvioruutu
@@ -166,9 +172,6 @@ normaalimuodon mukaan. Täyttötilan valitsemat glyyfin osat ovat täyden peiton
   - M sisältää peittoprototyypin siirron, kuten speksin luku 03 sanoo, myös viivoituksen `hatchOffset`in, jonka piirto
     lisää viivojen paikkoihin (`DrawHatchLines`). Laajennus pitää piirron sisäkkäiset affiiniset muunnokset ja viivojen
     paikat, jotta peitto on pikselilleen sama kuin piirron (speksin luku 03, "The placements").
-  - Täyttötila valitsee glyyfin jokaisen osan erikseen, kuten piirto ja Mapper. Tämä tarkentaa speksin luvun 02 kohtaa
-    "The hatchings and the area patterns" ("selects the complete elements") ja luvun 03 kohtaa "The selected elements"
-    sekä sanaston merkintää *valitut elementit*. Speksi ja sanasto saavat tarkennuksen, kun @Pauli hyväksyy tiketin.
   - Epäsäännöllisen aluekuvion G on aluekuvio siirtoineen. Sen siirtosymmetrioista vain identiteetti on varma, joten
     normaalimuoto ei muuta sen siirtoa, ja palettileikkurin jakavat vain alueet, joiden M on sama. Leikatun
     epäsäännöllisen aluekuvion leikkausobjekti on alue, ja laajennus antaa elementtien sijoitukset.
