@@ -62,6 +62,12 @@ The section "Words that are not names" lists the words that are not used as name
   The symbol key is unique in its `Map`, so the reference of a drawn object also gives the `Map`. All the drawn objects
   of a `Symbol` share its symbol key, so it is not the `id` of an SVG element. It is not `SymDef.SymbolId`, which is
   the number of a symbol definition.
+- **`GraphicsSymDef`, `GraphicsAreaSymbol`, `GraphicsLineSymbol`** · grafiikkaobjekti · *graphics object* — An object
+  that the command "To Graphics" of OCAD made: a fill with its own color, or a line with its own color, width, caps and
+  join. The OCAD import makes them (`OcadImport.CreateGraphicsObject`). `GraphicsSymDef` is one symbol definition for
+  all the graphics objects of a map, and it has no values of its own. A `GraphicsAreaSymbol` fills its path with holes
+  in its color (`FillColor`), and a `GraphicsLineSymbol` draws its path with its own pen in its color (`LineColor`).
+  The comments of upstream call them graphics objects.
 - **paperikoordinaatit** · *paper coordinates* — The coordinates of a map, in millimeters on the printed map. The points
   are `PointF` values. The OCAD import divides the OCAD units of 0.01 mm by 100 (`OcadImport.ToWorldDimensions`). The
   comments of upstream also say *map coordinates* and *world coordinates* (see "Words that are not names"). The
@@ -181,6 +187,23 @@ The section "Words that are not names" lists the words that are not used as name
 - **`SymPath.GetSubpaths`** · osapolku · *subpath* — A part of a path that the start and stop flags of its points
   delimit, for example for a border of a double line (`SymPath.DOUBLE_LEFT_STARTSTOPFLAG`).
 - **Bezier-käyrä** · *Bezier curve* (`PointKind.BezierControl`) — A curve of a path, with its control points.
+
+### Areas
+
+- **`AreaSymDef`, `AreaComboSymDef`** · alueen symbolimäärittely · *area symbol definition* — An `AreaSymDef` has the
+  area fill (`FillColor`), the area border (`BorderSymdef`), the hatchings (`HatchInfo`) and the area patterns
+  (`PatternInfo`). An `AreaComboSymDef` gathers other symbol definitions, its component definitions (*yhdistelmän
+  osamäärittely*). The Mapper import makes a `LineComboSymDef` when all the parts of a combined symbol are
+  `LineSymDef`s, and an `AreaComboSymDef` otherwise. So a component definition of an `AreaComboSymDef` can be a
+  `LineSymDef`, a `LineComboSymDef`, an `AreaSymDef` or another `AreaComboSymDef`.
+- **`AreaSymbol`** · aluesymboli · *area symbol, area object* — One area object of a map. Its path with holes is
+  `AreaLikeSymbol.Path`, a `SymPathWithHoles`.
+- **`SymPathWithHoles.MainPath`, `SymPathWithHoles.Holes`** · pääpolku, reikä · *main path, hole* — The path with holes
+  of an `AreaLikeSymbol` is a main path and its holes, each a `SymPath`. The map keeps each hole as a symbol of its own
+  (`HoleSymbol`), whose definition (`HoleSymDef`) has no color, and `AreaLikeSymbol.Path` gathers the main path and
+  the paths of the holes. `SymPathWithHoles.Fill` fills them together with the alternate fill rule
+  (`AreaFillMode.Alternate`), so the area fill leaves out the holes. `AreaSymDef.Draw` draws the area border along the
+  main path and along each hole, so each of them is a base path of the area border.
 
 ### Patterns
 

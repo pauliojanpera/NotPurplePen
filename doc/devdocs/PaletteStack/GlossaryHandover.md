@@ -136,6 +136,11 @@ These are @Pauli's decisions of Nov 20 and Nov 21. Glossary.md gives their terms
   the highlights, the control descriptions and the old drawing code. So the highlights stay a direct drawing (Nov 21).
 - The name of OCAD for a spot ink in its files: *spottivärierottelu* · *spot color separation* (Nov 22).
 - The term of `CourseLayout`: *ratojen asettelu* · *course layout*, which the session chose by the rule of Nov 23.
+- The terms of the areas and of the graphics objects, which the session chose by the rule of Nov 23 for ticket 012:
+  `AreaSymDef`, `AreaComboSymDef` · *alueen symbolimäärittely* · *area symbol definition*, `AreaSymbol` · *aluesymboli*
+  · *area symbol, area object*, `SymPathWithHoles.MainPath`, `SymPathWithHoles.Holes` · *pääpolku*, *reikä* · *main
+  path*, *hole*, and `GraphicsSymDef`, `GraphicsAreaSymbol`, `GraphicsLineSymbol` · *grafiikkaobjekti* · *graphics
+  object*.
 
 The five terms that the session chose by their use in commit 06f4c824d are all decided on Nov 21.
 
