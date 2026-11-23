@@ -182,7 +182,9 @@ namespace Map_Skia.Tests
             CollectionAssert.AreEqual(new float[] { 0.1F, 0.1F }, GetStrokeWidths(clippingObjects[2]));
             CollectionAssert.AreEqual(new float[] { 0.35F }, GetStrokeWidths(clippingObjects[3]));
 
-            // The left and the right line lie half the fill and half their width away from the path.
+            // The left and the right line are offset paths of the path (ticket 011), half the fill and half their width
+            // away from it.
+            CollectionAssert.AreEqual(new float[] { -0.55F, 0.55F }, clippingObjects[2].Select(border => ((OffsetPathShape)border.Shape).Offset));
             float[] borderOffsets = clippingObjects[2].Select(border => Math.Abs((border.Bounds.Top + border.Bounds.Bottom) / 2)).ToArray();
             Assert.AreEqual(0.55F, borderOffsets[0], Tolerance);
             Assert.AreEqual(0.55F, borderOffsets[1], Tolerance);
@@ -203,11 +205,22 @@ namespace Map_Skia.Tests
                 AddLine(map, footpath, new PointF(0, 0), new PointF(10, 0));
             }
 
-            List<ClippingObject> dashes = GetClippingObjectsBySeparation(map).Single();
+            List<ClippingObject> clippingObjects = GetClippingObjectsBySeparation(map).Single();
+
+            // The line is a composed dashed line (ticket 011): the end dashes, and between them a run of the 8 middle
+            // dashes, whose pen has the pattern of a dash and a gap.
+            Assert.AreEqual(3, clippingObjects.Count);
+            float dashLength = (10 - 9 * 0.01F) / 10;
+            IReadOnlyList<float> pattern = ((StrokedShape)clippingObjects[1]).Stroke.DashPattern;
+            Assert.AreEqual(2, pattern.Count);
+            Assert.AreEqual(dashLength, pattern[0], Tolerance);
+            Assert.AreEqual(0.01F, pattern[1], Tolerance);
+            Assert.IsNull(((StrokedShape)clippingObjects[0]).Stroke.DashPattern);
+            Assert.IsNull(((StrokedShape)clippingObjects[2]).Stroke.DashPattern);
 
             // The line of 10 mm has 9 gaps of 0.01 mm, and 10 dashes of the same length in the rest of the line.
+            List<ClippingObject> dashes = SymbolCoverageComparison.Expand(clippingObjects).Select(expanded => expanded.clippingObject).ToList();
             Assert.AreEqual(10, dashes.Count);
-            float dashLength = (10 - 9 * 0.01F) / 10;
             float previousEnd = 0;
             for (int i = 0; i < dashes.Count; ++i) {
                 StrokedShape dash = (StrokedShape)dashes[i];
@@ -249,7 +262,7 @@ namespace Map_Skia.Tests
             AssertEqualPlacements(line.Placement, dot.Placement);
             Assert.AreEqual(1, line.Placement.Steps.Count);
             PointF[] placed = { new PointF(0, 0), new PointF(1, 0) };
-            line.Placement.Matrix.TransformPoints(placed);
+            ((SinglePlacement)line.Placement).Matrix.TransformPoints(placed);
             Assert.AreEqual(5, placed[0].X, Tolerance);
             Assert.AreEqual(3, placed[0].Y, Tolerance);
             Assert.AreEqual(5, placed[1].X, Tolerance);
@@ -716,7 +729,7 @@ namespace Map_Skia.Tests
         {
             return clippingObjects.Select(clippingObject => {
                 StrokedShape stroked = (StrokedShape)clippingObject;
-                Assert.IsInstanceOf<PathShape>(stroked.Shape);
+                Assert.IsTrue(stroked.Shape is PathShape || stroked.Shape is OffsetPathShape, "a path or an offset path");
                 return stroked.Stroke.Width;
             }).ToArray();
         }

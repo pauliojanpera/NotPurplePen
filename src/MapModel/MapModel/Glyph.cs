@@ -180,30 +180,33 @@ namespace PurplePen.MapModel
             }
 
             // The clipping object of the part in the coordinates of the glyph, at the identity placement, as Draw draws
-            // the part without gaps and without an extra transformation, or null if the part covers nothing. A circle
-            // whose line is at least as wide as its diameter is filled.
-            public ClippingObject MakeClippingObject()
+            // the part without gaps, or null if the part covers nothing. A circle whose line is at least as wide as its
+            // diameter is filled. An extra transformation moves the points of the part and scales the diameters of its
+            // circles, but not the widths of its lines, as Draw does.
+            // extraTransform: the extra transformation of the glyph, or null.
+            public ClippingObject MakeClippingObject(Matrix extraTransform = null)
             {
                 switch (kind) {
                     case GlyphPartKind.Line:
                         if (lineWidth > 0 && !path.IsZeroLength)
-                            return path.MakeStrokedShape(new Stroke(lineWidth, lineCap, lineJoin, GraphicsUtil.MITER_LIMIT), Placement.Identity);
+                            return path.MakeStrokedShape(new Stroke(lineWidth, lineCap, lineJoin, GraphicsUtil.MITER_LIMIT), Placement.Identity, extraTransform);
                         break;
 
                     case GlyphPartKind.Area:
-                        return areaPath.MakeFilledShape(Placement.Identity);
+                        return areaPath.MakeFilledShape(Placement.Identity, extraTransform);
 
                     case GlyphPartKind.Circle:
                         if (lineWidth > 0 && circleDiam > 0) {
-                            if (circleDiam - lineWidth <= 0)
-                                return MakeFilledCircle(point);
-                            return MakeCircle(point, (circleDiam - lineWidth) / 2);
+                            float diameter = TransformDiameter(circleDiam, extraTransform);
+                            if (diameter - lineWidth <= 0)
+                                return MakeFilledCircle(TransformPoint(point, extraTransform), diameter / 2);
+                            return MakeCircle(TransformPoint(point, extraTransform), (diameter - lineWidth) / 2);
                         }
                         break;
 
                     case GlyphPartKind.FilledCircle:
                         if (circleDiam > 0)
-                            return MakeFilledCircle(point);
+                            return MakeFilledCircle(TransformPoint(point, extraTransform), TransformDiameter(circleDiam, extraTransform) / 2);
                         break;
                 }
 
@@ -222,13 +225,13 @@ namespace PurplePen.MapModel
                     if (lineWidth > 0 && circleDiam > 0) {
                         float circleRadius = (circleDiam - lineWidth) / 2;
                         if (circleRadius <= 0)
-                            return MakeFilledCircle(location);
+                            return MakeFilledCircle(location, circleDiam / 2);
                         else
                             return MakeCircle(location, circleRadius);
                     }
                 }
                 else if (circleDiam > 0) {
-                    return MakeFilledCircle(location);
+                    return MakeFilledCircle(location, circleDiam / 2);
                 }
 
                 return null;
@@ -259,12 +262,12 @@ namespace PurplePen.MapModel
                 return new StrokedShape(new EllipseShape(center, radius, radius), GraphicsUtil.MakeSolidStroke(lineWidth, LineStyle.Mitered), Placement.Identity);
             }
 
-            // The filled circle of the diameter of this part, at the identity placement.
+            // A filled circle of this part, at the identity placement.
             // center: the center of the circle.
-            private FilledShape MakeFilledCircle(PointF center)
+            // radius: the radius of the circle.
+            private FilledShape MakeFilledCircle(PointF center, float radius)
             {
-                float circleRadius = circleDiam / 2;
-                return new FilledShape(new EllipseShape(center, circleRadius, circleRadius), AreaFillMode.Winding, Placement.Identity);
+                return new FilledShape(new EllipseShape(center, radius, radius), AreaFillMode.Winding, Placement.Identity);
             }
 
             // Get 8 points on the border of the circle, used for filtering.
@@ -587,16 +590,21 @@ namespace PurplePen.MapModel
         // shapes of its parts, with two exceptions. A glyph of one circle at its origin, without gaps, is at the location
         // without a transformation, as DrawSimple draws it. The arcs that gaps leave of a circle are shapes of the
         // placement, with the pen of the shared circle.
+        // A glyph with an extra transformation, as a line stretches it at a corner or decreases it, has shapes of its
+        // own, as the transformation moves its points but not the widths of its lines. An extra transformation that is
+        // the identity keeps the shared shapes. Draw then draws a glyph of one circle at its origin with its parts
+        // placed, as it draws the other glyphs.
         // location: the location of the origin of the glyph.
         // angle: the angle, in degrees.
         // gaps: the gaps in the circles, as start and end angles in degrees, or null.
         // color: the palette color.
-        internal IReadOnlyList<ClippingObject> MakeClippingObjects(PointF location, float angle, float[] gaps, SymColor color)
+        // extraTransform: the extra transformation of the glyph, or null.
+        internal IReadOnlyList<ClippingObject> MakeClippingObjects(PointF location, float angle, float[] gaps, SymColor color, Matrix extraTransform = null)
         {
             CheckConstructed();
 
             List<ClippingObject> clippingObjects = new List<ClippingObject>();
-            if (simple && gaps == null) {
+            if (simple && gaps == null && extraTransform == null) {
                 if (parts[0].color == color) {
                     ClippingObject circle = parts[0].MakeClippingObjectOfSimpleGlyph(location);
                     if (circle != null)
@@ -607,7 +615,7 @@ namespace PurplePen.MapModel
             }
 
             Placement placement = null;
-            ClippingObject[] partClippingObjects = GetSharedClippingObjects();
+            ClippingObject[] partClippingObjects = (extraTransform == null || extraTransform.IsIdentity) ? GetSharedClippingObjects() : Array.ConvertAll(parts, part => part.MakeClippingObject(extraTransform));
             for (int i = 0; i < parts.Length; ++i) {
                 if (parts[i].color != color)
                     continue;
@@ -630,6 +638,37 @@ namespace PurplePen.MapModel
             }
 
             return clippingObjects.AsReadOnly();
+        }
+
+        // The clipping objects of a repeated placement of the glyph in a palette color: the shared shapes of its parts in
+        // the palette color, in the order of the parts, each at the repeated placement, as a line repeats its evenly
+        // spaced glyphs. The poses of a repeated placement of a glyph of one circle at its origin do not turn to the path,
+        // as Draw draws that glyph at a location without a transformation (DrawSimple).
+        // placement: the repeated placement.
+        // color: the palette color.
+        internal IReadOnlyList<ClippingObject> MakeRepeatedClippingObjects(RepeatedPlacement placement, SymColor color)
+        {
+            CheckConstructed();
+
+            List<ClippingObject> clippingObjects = new List<ClippingObject>();
+            ClippingObject[] partClippingObjects = GetSharedClippingObjects();
+            for (int i = 0; i < parts.Length; ++i) {
+                if (parts[i].color == color && partClippingObjects[i] != null)
+                    clippingObjects.Add(partClippingObjects[i].WithPlacement(placement));
+            }
+
+            return clippingObjects.AsReadOnly();
+        }
+
+        // Is the glyph one circle at its origin, which Draw draws at a location without a transformation (DrawSimple)
+        // when it has no gaps and no extra transformation?
+        internal bool IsSimple
+        {
+            get
+            {
+                CheckConstructed();
+                return simple;
+            }
         }
 
         // The shared shapes of the glyph: the clipping objects of the parts in the coordinates of the glyph, at the

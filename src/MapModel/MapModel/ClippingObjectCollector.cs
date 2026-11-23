@@ -29,8 +29,8 @@ namespace PurplePen.MapModel
 
         // The placement of the shapes that the next drawing calls draw, and the placements that the transformations
         // pushed before it hold.
-        private Placement placement = Placement.Identity;
-        private readonly Stack<Placement> outerPlacements = new Stack<Placement>();
+        private SinglePlacement placement = Placement.Identity;
+        private readonly Stack<SinglePlacement> outerPlacements = new Stack<SinglePlacement>();
 
         // The paths, brushes, pens and fonts that the symbol created, by their keys.
         private readonly Dictionary<object, CreatedPath> paths = new Dictionary<object, CreatedPath>(ReferenceEqualityComparer.Instance);

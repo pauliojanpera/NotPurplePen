@@ -214,7 +214,8 @@ namespace Map_Skia.Tests
         }
 
         // Draw clipping objects with an opaque brush: each shape filled or stroked, at its placement, within the steps of
-        // the placement. It is the test's own drawing of the clipping objects, and not pass 2.
+        // the placement. The runs of dashes, the offset paths and the repeated placements are drawn expanded
+        // (SymbolCoverageComparison.Expand). It is the test's own drawing of the clipping objects, and not pass 2.
         // g: the target.
         // clippingObjects: the clipping objects.
         static void DrawClippingObjects(IGraphicsTarget g, IEnumerable<ClippingObject> clippingObjects)
@@ -224,7 +225,7 @@ namespace Map_Skia.Tests
             Dictionary<Stroke, object> pens = new Dictionary<Stroke, object>();
             Dictionary<(string, float, TextEffects), object> fonts = new Dictionary<(string, float, TextEffects), object>();
 
-            foreach (ClippingObject clippingObject in clippingObjects) {
+            foreach ((ClippingObject clippingObject, bool isExpanded) in SymbolCoverageComparison.Expand(clippingObjects.ToList())) {
                 IReadOnlyList<Matrix> steps = clippingObject.Placement.Steps;
                 foreach (Matrix step in steps)
                     g.PushTransform(step);
