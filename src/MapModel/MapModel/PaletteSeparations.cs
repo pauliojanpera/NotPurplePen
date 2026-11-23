@@ -66,8 +66,9 @@ namespace PurplePen.MapModel
         }
 
         // The clipping objects, in the order in which the drawing code of the symbol draws their shapes. They are a
-        // derived value of the coverage, which the first read makes. The collector makes them from the drawing code of
-        // the symbol (ClippingObjectCollector). A coverage can have no clipping objects.
+        // derived value of the coverage, which the first read makes. The symbol definition makes them with its geometry
+        // method, or with the collector from the drawing code of the symbol (SymDef.MakeClippingObjects). A coverage
+        // can have no clipping objects.
         public IReadOnlyList<ClippingObject> ClippingObjects
         {
             get
@@ -76,8 +77,7 @@ namespace PurplePen.MapModel
 
                 IReadOnlyList<ClippingObject> made = Volatile.Read(ref clippingObjects);
                 if (made == null) {
-                    Debug.Assert(prototype == CoveragePrototype.FullCoverage, "The collector collects the full coverage only.");
-                    made = ClippingObjectCollector.Collect(symbol, color, map.TextMetricsProvider);
+                    made = symbol.Definition.MakeClippingObjects(symbol, color, prototype);
                     made = Interlocked.CompareExchange(ref clippingObjects, made, null) ?? made;
                 }
 

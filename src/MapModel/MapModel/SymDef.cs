@@ -177,6 +177,28 @@ namespace PurplePen.MapModel
             return !color.IsSpecialLayer && HasColor(color);
         }
 
+        // The geometry method of this symbol definition: the clipping objects of the palette color coverage of a symbol
+        // of this definition (SymbolCoverage), without a drawing target and without render options. A definition that
+        // has a geometry method overrides this. This implementation gives the clipping objects of the collector
+        // (CollectClippingObjects).
+        // symbol: the symbol, which has this definition.
+        // color: the palette color.
+        // prototype: the coverage prototype.
+        internal virtual IReadOnlyList<ClippingObject> MakeClippingObjects(Symbol symbol, SymColor color, CoveragePrototype prototype)
+        {
+            Debug.Assert(prototype == CoveragePrototype.FullCoverage, "The collector collects the full coverage only.");
+            return CollectClippingObjects(symbol, color);
+        }
+
+        // The clipping objects of the full coverage of a symbol of this definition in a palette color, which the collector
+        // makes from the drawing code of the symbol (ClippingObjectCollector). They are the oracle of the geometry methods.
+        // symbol: the symbol, which has this definition.
+        // color: the palette color.
+        internal IReadOnlyList<ClippingObject> CollectClippingObjects(Symbol symbol, SymColor color)
+        {
+            return ClippingObjectCollector.Collect(symbol, color, map.TextMetricsProvider);
+        }
+
 
         // Does this symdef depend on another? null means no.
         public virtual SymDef DependsOnSymdef
@@ -271,6 +293,15 @@ namespace PurplePen.MapModel
         internal void Draw(IGraphicsTarget g, PointF pt, float angle, float[] gaps, SymColor color, RenderOptions renderOpts)
         {
             glyph.Draw(g, pt, angle, null, gaps, color, null, renderOpts);
+        }
+
+        // The geometry method of the point symbols: the parts of the glyph in the palette color, at the location and the
+        // angle of the symbol, with its gaps (Glyph.MakeClippingObjects).
+        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(Symbol symbol, SymColor color, CoveragePrototype prototype)
+        {
+            Debug.Assert(prototype == CoveragePrototype.FullCoverage, "A point symbol has the full coverage only.");
+            PointSymbol pointSymbol = (PointSymbol)symbol;
+            return glyph.MakeClippingObjects(pointSymbol.Location, pointSymbol.Rotation, pointSymbol.Gaps, color);
         }
 
         internal void DrawHighlight(IGraphicsTarget g, PointF location, float rotation, float[] gaps, HighlightOptions options)

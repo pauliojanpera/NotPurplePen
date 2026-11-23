@@ -51,6 +51,11 @@ namespace PurplePen.MapModel
 
         // The bounds of the area that the clipping object covers, in the coordinates of the shape.
         private protected abstract RectangleF CoveredBounds { get; }
+
+        // The clipping object of the same shape, filled or stroked in the same way, at another placement. The
+        // placements of a glyph share the shapes of its parts in this way.
+        // placement: the placement.
+        internal abstract ClippingObject WithPlacement(Placement placement);
     }
 
     // A filled shape: a clipping object that covers the inside of its shape by its fill rule.
@@ -81,6 +86,11 @@ namespace PurplePen.MapModel
         private protected override RectangleF CoveredBounds
         {
             get { return Shape.Bounds; }
+        }
+
+        internal override ClippingObject WithPlacement(Placement placement)
+        {
+            return new FilledShape(Shape, fillRule, placement);
         }
 
         public override string ToString()
@@ -121,6 +131,11 @@ namespace PurplePen.MapModel
                 shapeBounds.Inflate(stroke.Reach, stroke.Reach);
                 return shapeBounds;
             }
+        }
+
+        internal override ClippingObject WithPlacement(Placement placement)
+        {
+            return new StrokedShape(Shape, stroke, placement);
         }
 
         public override string ToString()
