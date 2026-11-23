@@ -888,6 +888,8 @@ namespace PurplePen.MapModel
         bool allDirty = false;  // All of the map must be considered dirty.
         RectSet dirtyArea; // If mapDirty is true and allDirty is false, the area that is dirty.
         bool symdefsDirty = false;
+        long changeCount = 0;                 // The number of the changes of the map, which make its derived values invalid (NoteChange).
+        KeptPaletteSeparations keptPaletteSeparations;   // The palette separations that the map keeps, or null.
         bool boundsAccurate = false;          // Are the map bounds accurate?
         RectangleF mapBounds;                        // If boundsAccurate is true, the bounds are accurate.
 
@@ -1111,6 +1113,7 @@ namespace PurplePen.MapModel
         // Set the entire map as potentially dirty.
         internal void SetDirty()
         {
+            NoteChange();
             mapDirty = true;
             allDirty = true;
             dirtyArea = null;
@@ -1119,6 +1122,7 @@ namespace PurplePen.MapModel
         // Add a rectangle to the dirty area.
         internal void SetDirty(RectangleF dirtyRect)
         {
+            NoteChange();
             mapDirty = true;
 
             if (! allDirty) {
@@ -1200,6 +1204,24 @@ namespace PurplePen.MapModel
         {
             if (! maplock.IsReadLockHeld && ! maplock.IsWriteLockHeld) 
                 throw new MapUsageException("Cannot read map without calling Map.Read or Map.Write");
+        }
+
+        // Note a change of the map that can change what the map draws. It makes the derived values that the map made
+        // before it invalid (CheckDerivedValue), and the next read of PaletteSeparations makes them again. A change is
+        // made within Map.Write, so no reader counts the changes at the same time.
+        void NoteChange()
+        {
+            ++changeCount;
+        }
+
+        // Check that a derived value of the map can be read: the map is read (Map.Read or Map.Write), and the map did
+        // not change after it made the derived value.
+        // madeAt: the change count of the map when it made the derived value.
+        internal void CheckDerivedValue(long madeAt)
+        {
+            CheckReadable();
+            if (madeAt != changeCount)
+                throw new MapUsageException("Cannot read a derived value of the map after the map changed");
         }
 
         // Clear everything from the map, INCLUDING the undo mgr. Thus, this is not an undoable action.
@@ -1774,6 +1796,7 @@ namespace PurplePen.MapModel
             colors.Insert(index, color);
             color.SetMap(this);
             symdefsDirty = true;
+            NoteChange();
             return color;
         }
 
@@ -1853,6 +1876,7 @@ namespace PurplePen.MapModel
 
             colors.RemoveAt(index);
             color.SetMap(null);
+            NoteChange();       // The map has one palette separation fewer.
 
             return color;
         }
@@ -1944,6 +1968,7 @@ namespace PurplePen.MapModel
             }
 
             symdefsDirty = true;
+            NoteChange();
         }
 
         // Remove a symdef from the map. The symdef must not be in use by any symbol.
@@ -1967,6 +1992,7 @@ namespace PurplePen.MapModel
             symdefs.Remove(symdef);
             symdef.SetMap(null);
             symdefsDirty = true;
+            NoteChange();
         }
 
         // Find the symdef with the given ID, or return null if none found.
@@ -2085,6 +2111,7 @@ namespace PurplePen.MapModel
 
                 hiddenSymbols[symdef] = isVisible;
                 boundsAccurate = false;
+                NoteChange();   // Pass 1 takes the visible symbol definitions only.
             }
         }
 
@@ -2382,6 +2409,94 @@ namespace PurplePen.MapModel
                 g.PopBlending();
 
             //TraceLine("Drawing color {0}: drew {1} symbols.", curColor.Name ?? "special layer", symbolsDrawn);
+        }
+
+        // The palette separations of the map, the intermediate layer that pass 1 makes from the map alone
+        // (PaletteSeparations.cs). Each palette color has one, in palette order, the bottom palette color first, also a
+        // palette color that no symbol draws. Pass 1 takes no rectangle and no resolution of a drawing. It takes the
+        // visible symbol definitions that have a palette color, and their visible symbols, wherever the symbols lie, in
+        // the order in which DrawColor draws them. The templates, the image layer and the layout layer are not palette
+        // colors, and have no palette separations. The drawing does not use the palette separations.
+        // The map keeps them as a derived value: the first read after a change of the map makes them, and the reads
+        // without a change get the same objects. Several readers can read them at the same time.
+        public IReadOnlyList<PaletteSeparation> PaletteSeparations
+        {
+            get
+            {
+                CheckReadable();
+
+                KeptPaletteSeparations kept = Volatile.Read(ref keptPaletteSeparations);
+                if (kept == null || kept.MadeAt != changeCount) {
+                    // Within Map.Read, no change can come before the readers that make the separations at the same
+                    // time publish them, so all of them get the separations that one of them publishes.
+                    KeptPaletteSeparations made = new KeptPaletteSeparations(changeCount, MakePaletteSeparations());
+                    KeptPaletteSeparations published = Interlocked.CompareExchange(ref keptPaletteSeparations, made, kept);
+                    kept = (published == kept) ? made : published;
+                }
+
+                return kept.Separations;
+            }
+        }
+
+        // Make the palette separations of the map, and in them the palette color coverages of the symbols: one for each
+        // coverage prototype of each symbol in each palette color (SymDef.GetCoveragePrototypes).
+        private IReadOnlyList<PaletteSeparation> MakePaletteSeparations()
+        {
+            List<PaletteSeparation> separations = new List<PaletteSeparation>(colors.Count);
+            foreach (SymColor color in colors) {
+                List<SymbolCoverage> coverages = new List<SymbolCoverage>();
+                foreach (Symbol symbol in SelectVisibleSymbolsOfColor(color)) {
+                    foreach (CoveragePrototype prototype in symbol.Definition.GetCoveragePrototypes(symbol, color))
+                        coverages.Add(new SymbolCoverage(this, changeCount, symbol, color, prototype));
+                }
+
+                separations.Add(new PaletteSeparation(this, changeCount, color, coverages));
+            }
+
+            return separations.AsReadOnly();
+        }
+
+        // Select the visible symbols of the visible symbol definitions that have a color, wherever the symbols lie, in
+        // the order in which DrawColor draws them.
+        // color: the color.
+        private IEnumerable<Symbol> SelectVisibleSymbolsOfColor(SymColor color)
+        {
+            foreach (SymDef symdef in symdefs) {
+                if (IsSymdefVisible(symdef) && symdef.HasColor(color)) {
+                    foreach (Symbol symbol in SelectVisibleSymbols(symdef))
+                        yield return symbol;
+                }
+            }
+        }
+
+        // Select the visible symbols of a symbol definition, wherever they lie, in the order in which DrawColor draws
+        // them.
+        // symdef: the symbol definition.
+        private IEnumerable<Symbol> SelectVisibleSymbols(SymDef symdef)
+        {
+            List<Symbol> symbolsOfDef = symdef.symbols;
+            if (symdef.SortSymbolsForDrawing) {
+                symbolsOfDef = new List<Symbol>(symbolsOfDef);
+                symbolsOfDef.Sort(SymbolComparison);
+            }
+
+            foreach (Symbol symbol in symbolsOfDef) {
+                if (symbol.IsVisible)
+                    yield return symbol;
+            }
+        }
+
+        // The palette separations that the map keeps, with the change count of the map when it made them.
+        private sealed class KeptPaletteSeparations
+        {
+            public readonly long MadeAt;
+            public readonly IReadOnlyList<PaletteSeparation> Separations;
+
+            public KeptPaletteSeparations(long madeAt, IReadOnlyList<PaletteSeparation> separations)
+            {
+                MadeAt = madeAt;
+                Separations = separations;
+            }
         }
 
         // Draw all the templates; either the aboveMap ones or the below map ones.
@@ -2864,6 +2979,7 @@ namespace PurplePen.MapModel
     {
         public float minResolution;  // minimum size of a feature to render (typically the pixel size)
         public bool usePatternBitmaps; // if true, always use bitmap glyphs to render area patterns, if false, use direct drawing and clipping
+        internal bool omitHatchingsAndPatterns; // if true, do not draw the hatchings and the patterns of areas. The collector of pass 1 (ClippingObjectCollector) collects the full coverage of the palette colors without them, since they are coverage prototypes of their own.
         public RenderTemplateOption renderTemplates; // how templates (either OCAD or bitmap) will be displayed. Recursively applies to OCAD templates.
         public bool blendOverprintedColors; // if true, then use BlendMode.Darken to blend colors that have Overprint flag set to true.
                                             // if false, then Overprint flag is ignored.
