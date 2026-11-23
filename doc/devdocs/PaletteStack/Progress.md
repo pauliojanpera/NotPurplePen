@@ -211,8 +211,10 @@ base. No branch is offered upstream yet.
       `prs/template.md`, the row of the branch above, and the epic. The old description `prs/011-line-geometry.md`
       stays the record of the old branch.
    4. The merge into `feature/palette-stack`, and its full run, with `--base-baselines prs/000-palette-stack-base`.
-3. The drafts 012 and 013 are written again as tickets after 011, and 012 first, while the runs of 011 go on. The
-   drafts 009 and 010 come after them ("The order of the drafts", the session's choice).
+3. Ticket [012](tickets/012-area-geometry.md), the geometry methods of the areas, the combined areas and the graphics
+   objects, is written as a ticket by the specification and the interface of ticket 024 (Nov 23), and waits on
+   @Pauli's approval ("Waiting on @Pauli"). It is not implemented before that. The draft 013 comes next, and the
+   drafts 009 and 010 after it ("The order of the drafts", the session's choice).
 
 The plan below is the plan of the old branch, in the words of its time. Its parts 2 to 5 stay as the order of the
 later work.
@@ -267,6 +269,9 @@ the rendering.
 
 ## Waiting on @Pauli
 
+- **The approval of ticket 012** (Nov 23). The session wrote the draft 012 as a ticket. Its branch is
+  `feature/area-symbol-geometry`, rooted at `feature/palette-stack` after the merge of ticket 011. The proposals of the
+  session are under "Ratkaisut" of the ticket.
 - **The scope of the epic** (Nov 18). [Ticket 000](tickets/000-palette-stack.md) is a draft. @Pauli confirmed that
   the flattening is outside it, and that the SVG encoding waits until pass 2 is done.
 - **The SVG encoding**, when pass 2 is done (Nov 18). Its place: an encoding read from the instances, or the SVG
