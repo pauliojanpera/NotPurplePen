@@ -25,7 +25,9 @@ Read these in this order:
 - The session chooses meaningful names for the concepts that have no name yet, on the basis of the glossary work
   (Nov 23).
 - Everything is @Pauli's to decide (Nov 21). Where the sources answer a question, the session presents the answer to
-  @Pauli as a question, and he decides.
+  @Pauli as a question, and he decides. From Nov 23, the session resolves a matter itself, as well as it can, when
+  the knock-on effects of its choice are not unreasonable, and records the choice as its own (Progress.md, "The
+  session resolves matters").
 - The session presents one question at a time (Nov 20, Nov 21).
 - The session does not make proposals that @Pauli did not ask for (Nov 20).
 - The session gives options only where the choice is real. It does not add options only to involve @Pauli (Nov 23).

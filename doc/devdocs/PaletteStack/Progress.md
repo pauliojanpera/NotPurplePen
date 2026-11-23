@@ -99,9 +99,11 @@ base. No branch is offered upstream yet.
   work), [README.md](README.md), this file, the preface of [Specification.md](Specification.md) (when it binds, and
   which programs are the oracles), [Glossary.md](Glossary.md) for the names, and the ticket of the part at hand.
 - **The rules that this work adds.** The tickets are in Finnish, and the other documents in Simplified Technical
-  English. A question for @Pauli comes when the decision is his and the session's own choice would not be easy to
-  correct later: one question at a time, with a recommendation. It gives options only where the choice is real: the
-  session does not add options only to involve @Pauli (Nov 23). Otherwise the session goes on. No push
+  English. The session resolves a matter itself, as well as it can, when the knock-on effects of its choice are not
+  unreasonable, and records the choice under "Decisions" as its own (Nov 23). A question for @Pauli comes when the
+  decision is his and the session's own choice would not be easy to correct later: one question at a time, with a
+  recommendation. It gives options only where the choice is real: the session does not add options only to involve
+  @Pauli (Nov 23). Otherwise the session goes on. No push
   goes to `base`, `basewithfixes`, `dev` or `master`; a merge into them needs @Pauli's word. A session does not wait
   for a run whose result no next step needs.
 - **The architecture comes first.** feature/multiply-blending is an oracle of the appearance only. The work does not
@@ -601,6 +603,11 @@ the rendering.
 - **The order of a draft** (Nov 23). @Pauli approves a draft first as a ticket that is no longer a draft, and then it
   is implemented ([README.md](README.md), "Tickets"). So the collector stays the source of the clipping objects of
   the lines, the areas and the texts until the drafts 011 to 013 are approved as tickets and implemented.
+- **The session resolves matters** (Nov 23). The session resolves a matter itself, as well as it can, when the
+  knock-on effects of its choice are not unreasonable. It records each such choice in this list as the session's
+  choice, so that @Pauli can review it. A matter whose knock-on effects are large stays his: for example a change of
+  the specification or of an approved ticket, a push or a merge into `base`, `basewithfixes`, `dev` or `master`, and
+  the points under "Waiting on @Pauli".
 - **The framing line of texts** (Nov 19). The framing of a text run is one line in the instances, a stroke of the full
   width with the joins of the symbol, as in OCAD's PDF export. OCAD's own drawing leaves the same holes as Skia and
   Cairo with one pen, so the holes that the intermediate pens of Purple Pen fill are no faults against OCAD (question
