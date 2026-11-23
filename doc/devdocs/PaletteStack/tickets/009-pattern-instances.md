@@ -9,64 +9,64 @@ normaalimuodon mukaan. Täyttötilan valitsemat glyyfin osat ovat täyden peiton
 `omitHatchingsAndPatterns` ja kerääjä poistuvat, ja peiton vertailu kattaa jokaisen palettivärin. Piirto ei muutu.
 
 **Hyväksymiskriteerit**
-- [ ] Peittoprototyypit: viivoituksen peittoprototyyppi (`HatchingPrototype`) ja aluekuvion peittoprototyyppi
+- [x] Peittoprototyypit: viivoituksen peittoprototyyppi (`HatchingPrototype`) ja aluekuvion peittoprototyyppi
   (`AreaPatternPrototype`) ovat peittoprototyyppejä (`CoveragePrototype`). Viivoituksen peittoprototyyppi viittaa alueen
   symbolimäärittelyynsä ja viivoituksen indeksiin, ja aluekuvion peittoprototyyppi alueen symbolimäärittelyynsä,
   aluekuvion indeksiin ja palettiväriin. Ne eivät kopioi määrittelyn arvoja. Peittoprototyyppi on symbolimäärittelyn
   johdos: määrittely tekee sen kerran, ja jokainen aluesymboli viittaa samaan olioon, myös kun määrittely on
   `AreaComboSymDef`in yhdistelmän osamäärittely.
-- [ ] Peitto G alkupisteeseen sidotussa muodossaan (`CoveragePrototype.Covers`): viivoituksessa piste on peitossa, kun
+- [x] Peitto G alkupisteeseen sidotussa muodossaan (`CoveragePrototype.Covers`): viivoituksessa piste on peitossa, kun
   sen etäisyys lähimmästä suorasta y = k · `hatchSpacing` on enintään `hatchWidth` / 2 (k on kokonaisluku). Aluekuvio on
   palettivärin glyyfin osat (`patternGlyph`) kulmalla −`patternAngle` hilan pisteissä x = i · `patternWidth` ja y = j ·
   `patternHeight` (i ja j ovat kokonaislukuja). Kun aluekuvio siirtää rivejä (`offsetRows`), parittoman rivin pisteet
   ovat `patternWidth` / 2 sivussa. Epäsäännöllisen aluekuvion (`irregular`) elementti on siirretty kuten
   `HandleIrregularity` siirtää sen: satunnaisesti mutta deterministisesti hilan pisteen koordinaateista, jotka on
   pyöristetty 0,01 mm:iin.
-- [ ] Kokoonpanon affiininen muunnos: symbolin palettiväripeitto antaa kokoonpanonsa affiinisen muunnoksen M
+- [x] Kokoonpanon affiininen muunnos: symbolin palettiväripeitto antaa kokoonpanonsa affiinisen muunnoksen M
   (`SymbolCoverage.Transformation`). Täyden peiton M on identiteetti. Viivoituksen M on T(c) · R(a) · R(`hatchAngle`) ·
   T(0, `hatchOffset`) ja aluekuvion M on T(c) · R(a) · R(`patternAngle`) · T(`patternOffsetX`, `patternOffsetY`), missä
   c on aluesymbolin kiertokeskus (`AreaSymbol.RotationCenter`) ja a alueobjektin kulma (`AreaSymbol.Angle`). Piirto
   (`DrawOneHatching`, `DrawHatchLines` ja `DrawPattern`) asettaa samat muunnokset. Kiertotila `Never` jättää c:n ja a:n
   pois, ja `ManualOnly` on sama kuin `Always` (päätös 21.11.).
-- [ ] Leikkausobjektit: viivoituksen ja leikatun aluekuvion (`PatternFillMode.Clip`) palettiväripeiton leikkausobjekti
+- [x] Leikkausobjektit: viivoituksen ja leikatun aluekuvion (`PatternFillMode.Clip`) palettiväripeiton leikkausobjekti
   on alue: pääpolun ja reikien täytetty muoto vuorottelevalla täyttösäännöllä (`SymPathWithHoles.MakeFilledShape`). Se
   on sama muoto kuin alueen täytön muoto ja sama alue, jolla piirto leikkaa viivoituksen ja aluekuvion (`PushClip`).
   Palettiväripeiton peitto on G M:n alla alueen sisällä.
-- [ ] Kuviotäytön laajennus: viivoituksen ja leikatun aluekuvion palettiväripeitto antaa peittoprototyyppinsä
+- [x] Kuviotäytön laajennus: viivoituksen ja leikatun aluekuvion palettiväripeitto antaa peittoprototyyppinsä
   laajennuksen alueen rajojen yli (`SymbolCoverage.ExpandPrototype`): viivoituksen viivat viivamuotoina ja aluekuvion
   elementit glyyfin jaettujen muotojen yksittäisinä sijoituksina. Ne ovat samoissa paikoissa, samoissa sisäkkäisissä
   affiinisissa muunnoksissa ja samassa järjestyksessä kuin piirto piirtää ne (`DrawHatchLines` ja `DrawPatternRows`).
   Origossa olevan yhden ympyrän glyyfi on kohdassaan ilman asemaa, kuten `Glyph.DrawSimple` piirtää sen. Epäsäännöllisen
   aluekuvion laajennus on sen elementtien sijoitukset (speksin luku 03).
-- [ ] Valitut glyyfin osat: täyttötilat `CompletelyInside`, `CenterInside` ja `PartiallyInside` valitsevat aluekuvion
+- [x] Valitut glyyfin osat: täyttötilat `CompletelyInside`, `CenterInside` ja `PartiallyInside` valitsevat aluekuvion
   jokaisen glyyfin osan erikseen sen omien pisteiden ja keskipisteen perusteella, kuten piirto (`GlyphPartFilter`) ja
   Mapper valitsevat ne. Valitut glyyfin osat ovat aluesymbolin täyden peiton palettiväripeiton leikkausobjekteja:
   glyyfin jaetut muodot yksittäisessä sijoituksessa, jonka sisäkkäiset affiiniset muunnokset ovat aluekuvion M ja
   elementin asema, hilan piste kulmalla −`patternAngle`. Ne ovat alueen täytön ja alueen reunan välissä piirron
   järjestyksessä. Täyttötilan aluekuviolla ei ole omaa palettiväripeittoa.
-- [ ] Peittoprototyypit palettivärissä: `SymDef.GetCoveragePrototypes(Symbol, SymColor)` antaa aluesymbolille ensin
+- [x] Peittoprototyypit palettivärissä: `SymDef.GetCoveragePrototypes(Symbol, SymColor)` antaa aluesymbolille ensin
   täyden peiton, kun määrittely piirtää palettivärin alueen täytöllä, alueen reunalla tai täyttötilan aluekuviolla, ja
   sitten palettivärin viivoitukset ja leikatut aluekuviot piirron järjestyksessä, yhdistelmän osamäärittelyt
   järjestyksessään. Ristiviivoitus antaa kaksi peittoprototyyppiä.
-- [ ] Palettileikkurit: palettierottelu tekee palettileikkurin jokaiselle kokoonpanolle. Symbolien palettiväripeitot,
+- [x] Palettileikkurit: palettierottelu tekee palettileikkurin jokaiselle kokoonpanolle. Symbolien palettiväripeitot,
   joilla on sama peittoprototyyppi ja M:n sama normaalimuoto, ovat yksi palettileikkuri, jonka affiininen muunnos
   (`PaletteCutter.Transformation`) on normaalimuoto. Normaalimuoto vie M:n siirron G:n siirtosymmetrioiden
   perusalueeseen G:n koordinaateissa ja pyöristää M:n kiinteään tarkkuuteen. Viivoituksen siirto viivojen suuntaan on 0
   ja poikittain välillä [0, `hatchSpacing`). Aluekuvion siirto on hilan kantavektorien kertoimina välillä [0, 1).
   Epäsäännöllisen aluekuvion siirto pysyy, koska sen ainoa siirtosymmetria on identiteetti. Täyden peiton
   palettiväripeitot ovat edelleen yksi palettileikkuri, jonka M on identiteetti.
-- [ ] Kerääjä poistuu: sisäinen piirtoasetus `RenderOptions.omitHatchingsAndPatterns` ja sen tarkistukset
+- [x] Kerääjä poistuu: sisäinen piirtoasetus `RenderOptions.omitHatchingsAndPatterns` ja sen tarkistukset
   (`AreaSymDef.DrawHatchings` ja `DrawPatterns`), kerääjä (`ClippingObjectCollector`) ja `SymDef.CollectClippingObjects`
   poistuvat. Testit eivät vertaa kerääjään: vertailu `GeometryMethodsMakeTheClippingObjectsOfTheCollector` ja
   rakennetestien `AssertSameStructureAsTheCollector` poistuvat, ja rakennetestien omat tarkistukset jäävät. Jokaisen
   leikkausobjektin sijoitus antaa asemansa kansion `skia_render` jokaisessa kartassa ja katkoviivanäytteissä, kuten
   tiketissä 013.
-- [ ] Peiton vertailu (`PaletteSeparationCoverageTests`): jokaisen vertailukartan jokaisen palettivärin peitto on
+- [x] Peiton vertailu (`PaletteSeparationCoverageTests`): jokaisen vertailukartan jokaisen palettivärin peitto on
   täsmälleen sama kuin piirron, myös viivoitusten ja aluekuvioiden palettivärien. Peitto on täyden peiton
   leikkausobjektit sekä kunkin viivoituksen ja leikatun aluekuvion laajennus palettiväripeiton leikkausobjektien
   sisällä. Ero ei ole sallittu. Vertailukartat ovat tiketin 023 kartat ja kartat, joissa on viivoituksia tai
   aluekuvioita (ks. "Testit"). Kartassa, jossa on kuvatason objekteja, alin palettiväri jää pois kuten ennen.
-- [ ] Rakennetestit tarkistavat ilman piirtoa viivoituksen ja aluekuvion peittoprototyypit ja niiden peiton (`Covers`),
+- [x] Rakennetestit tarkistavat ilman piirtoa viivoituksen ja aluekuvion peittoprototyypit ja niiden peiton (`Covers`),
   ristiviivoituksen, monivärisen glyyfin aluekuvion palettiväreittäin, M:n kiertotiloilla `Always`, `ManualOnly` ja
   `Never` kulman, kiertokeskuksen ja siirron kanssa, palettileikkurit (saman määrittelyn alueet samalla kulmalla,
   alueet, joiden M eroaa hilavektorin tai viivoituksen välin verran, eri kulmat ja epäsäännöllinen aluekuvio), alueen
@@ -74,11 +74,11 @@ normaalimuodon mukaan. Täyttötilan valitsemat glyyfin osat ovat täyden peiton
   glyyfin osittain, yhdistelmän osamäärittelyn ja sisäkkäisen yhdistelmän viivoitukset ja aluekuviot sekä palettivärin,
   jota sama määrittely piirtää täydellä peitolla ja viivoituksella. Testit rakentavat kartan tapauksille, joita
   vertailun kartoissa ei ole (ks. "Testit").
-- [ ] Tikettien 023, 024, 011, 012 ja 013 testit menevät läpi, paitsi vertailut kerääjään, jotka tämä tiketti poistaa.
+- [x] Tikettien 023, 024, 011, 012 ja 013 testit menevät läpi, paitsi vertailut kerääjään, jotka tämä tiketti poistaa.
   Testit, jotka tarkistavat, että vaihe 1 jättää viivoitukset ja aluekuviot pois
   (`AreaHasItsFillAndBorderButNotItsHatchingsAndPatterns` ja
   `AreaHasNoFullCoverageInAPaletteColorOfItsHatchingsAndAreaPatternsAlone`), tarkistavat niiden peittoprototyypit.
-- [ ] Piirto ei muutu, eikä yksikään kuva- tai tekstibaseline siirry.
+- [x] Piirto ei muutu, eikä yksikään kuva- tai tekstibaseline siirry.
 
 **Lisätiedot**
 - **Päätökset:**
@@ -125,7 +125,7 @@ normaalimuodon mukaan. Täyttötilan valitsemat glyyfin osat ovat täyden peiton
   - Kuviotäyttöjen kanavamuunnoksia ovat esimerkiksi epäsäännöllisen kuvion elementtien sijoitukset ja kuvioruutu
     (@Pauli, 20.11., "The conversions of the model", ja luennat 20.11.).
   - Kun muutos ei voi muuttaa piirtoa, täysi ajo tehdään ilman keräävää ajoa (@Pauli, 18.11.).
-- **Toteutus** (haara `feature/pattern-prototypes`, 7daec04d):
+- **Toteutus** (haara `feature/pattern-prototypes`, 7daec04d, yhdistetty haaraan `feature/palette-stack` (e51b81a2)):
   - Peittoprototyypit (`CoveragePrototype.cs`, b30a0a12): `HatchingPrototype` viittaa alueen symbolimäärittelyynsä
     (`Definition`) ja viivoituksen indeksiin (`Index`), ja `AreaPatternPrototype` lisäksi palettiväriin (`Color`).
     Viivoituksen ja aluekuvion ne lukevat määrittelystä (`Hatching`, `Pattern`). `AreaSymDef` tekee ne kerran
@@ -193,6 +193,12 @@ normaalimuodon mukaan. Täyttötilan valitsemat glyyfin osat ovat täyden peiton
   - Paikallinen ajo (`tools/linux-renderings.sh` integraatioworktreessa Windows-koneen fonteilla): haarassa 753 testiä
     menee läpi ja haarassa `feature/palette-stack` (86df0a59) 712. `tools/compare-renderings.py` ei löydä yhtään
     siirtynyttä kuvaa: kumpikin ajo kirjoittaa samat 73 renderöintiä, jotka eroavat Windows-baselineistaan.
+  - Täysi ajo meni läpi kohdassa 7daec04d (`wip/linux/pattern-prototypes` kohdassa 4925adc1, basen päällä,
+    valitsimella `--base-baselines prs/000-palette-stack-base`: Tests 45258381924, Build 45258381979) ilman keräävää
+    ajoa, koska vanha piirtokoodi ei muutu: haara poistaa siitä vain asetuksen `omitHatchingsAndPatterns` tarkistukset,
+    jotka ovat piirrossa aina epätosia. Ryhmä Skia ajoi `Map_Skia.Testsin` 773 testiä, ja kaikki menivät läpi.
+    Yksikään kuva- tai tekstibaseline ei siirry.
+  - Haara on yhdistetty haaraan `feature/palette-stack` (e51b81a2), ja yhdistämisen puu on haaran puu.
   - Havainto: täyttötilassa `CenterInside` piirto ei piirrä glyyfin osaa, joka on viiva, jonka polku ei rajaa pintaa,
     esimerkiksi suora viiva: `SymPath.AreaCentroid` antaa sille NaN:n, koska pinta-ala on 0, eikä `IsInside` ole tosi
     NaN-pisteelle. Valitut glyyfin osat seuraavat piirtoa, eikä tiketti korjaa tätä. Tiketin laskennan 2 365 leikatun
