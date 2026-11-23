@@ -39,8 +39,10 @@ using NUnit.Framework;
 using System.Drawing;
 
 using TestingUtils;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Xml;
 
 namespace PurplePen.MapModel.Tests
 {
@@ -256,6 +258,45 @@ namespace PurplePen.MapModel.Tests
                 Assert.AreEqual(0.6F, yellow65.CmykColor.Yellow);
                 Assert.AreEqual(0, yellow65.CmykColor.Black);
             }
+        }
+
+        // Mapper finds the color of an id at that place in the color list of the file. Registration black, the top
+        // color of the map as it is read, is Mapper's own color, which the export does not write.
+        [Test]
+        public void ExportNumbersColorsByPlace()
+        {
+            Map map = LoadMap("teanaway.omap");
+            string tempPath = GetTempPath("teanaway_places.omap");
+            InputOutput.WriteFile(tempPath, map, new MapFileFormat(MapFileFormatKind.OpenMapper, OpenMapperSubKind.OMap, 9));
+
+            XmlDocument document = new XmlDocument();
+            document.Load(tempPath);
+            XmlNamespaceManager namespaces = new XmlNamespaceManager(document.NameTable);
+            namespaces.AddNamespace("m", document.DocumentElement.NamespaceURI);
+            List<XmlElement> colorElements = document.SelectNodes("/m:map/m:colors/m:color", namespaces).Cast<XmlElement>().ToList();
+
+            Assert.AreEqual(34, colorElements.Count);
+            for (int place = 0; place < colorElements.Count; ++place)
+                Assert.AreEqual(place.ToString(CultureInfo.InvariantCulture), colorElements[place].GetAttribute("priority"));
+
+            // The color of each line symbol is the color of its line symdef.
+            Dictionary<string, string> lineColorNames;
+            using (map.Read()) {
+                lineColorNames = map.AllSymdefs.OfType<LineSymDef>().Where(symdef => symdef.LineColor != null)
+                                    .GroupBy(symdef => symdef.Name).Where(group => group.Count() == 1)
+                                    .ToDictionary(group => group.Key, group => group.Single().LineColor.Name);
+            }
+
+            int checkedSymbols = 0;
+            foreach (XmlElement lineSymbol in document.SelectNodes("//m:symbol/m:line_symbol", namespaces)) {
+                string symbolName = ((XmlElement) lineSymbol.ParentNode).GetAttribute("name");
+                int color = int.Parse(lineSymbol.GetAttribute("color"), CultureInfo.InvariantCulture);
+                if (color >= 0 && lineColorNames.ContainsKey(symbolName)) {
+                    Assert.AreEqual(lineColorNames[symbolName], colorElements[color].GetAttribute("name"), symbolName);
+                    ++checkedSymbols;
+                }
+            }
+            Assert.Greater(checkedSymbols, 0);
         }
 
         [Test]

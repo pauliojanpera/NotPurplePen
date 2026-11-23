@@ -229,7 +229,17 @@ namespace PurplePen
                     if (courseObject.CustomColor != null && courseObject.CustomColor.Kind == SpecialColor.ColorKind.Custom)
                         color = customColors[courseObject.CustomColor];
 
-                    courseObject.AddToMap(map, color, lower_color, mapRenderOptions, dict);
+                    // The symbols of a course object get their keys from its key and their index among its symbols
+                    // (Map.PrefixSymbolKeys), so a course map that is made again gives the same symbol keys to the
+                    // same course objects. A course object without a key gives its symbols keys from the counter.
+                    CourseObjKey key = courseObject.Key;
+                    if (key != null) {
+                        using (map.PrefixSymbolKeys(key.Text))
+                            courseObject.AddToMap(map, color, lower_color, mapRenderOptions, dict);
+                    }
+                    else {
+                        courseObject.AddToMap(map, color, lower_color, mapRenderOptions, dict);
+                    }
                 }
             }
 

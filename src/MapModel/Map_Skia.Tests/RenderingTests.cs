@@ -230,11 +230,12 @@ namespace Map_Skia.Tests
         [Test]
         public void LakeSammMap12()
         {
-            CheckTest("lksamm12_1.txt", false, true, 6, 12);
-            CheckTest("lksamm12_1.txt", false, true, 6, 12);
+            // The map has the OCAD metric, which OCAD 6 to 8 files have no view parameters to hold.
+            CheckTest("lksamm12_1.txt", false, true, 9, 12);
+            CheckTest("lksamm12_1.txt", false, true, 9, 12);
             // CheckTest("lksamm11_2.txt", true, false, 6);  // this one has very slight rendering differences each time. odd...
-            CheckTest("lksamm12_3.txt", false, true, 6, 12);
-            CheckTest("lksamm12_4.txt", false, true, 6, 12);
+            CheckTest("lksamm12_3.txt", false, true, 9, 12);
+            CheckTest("lksamm12_4.txt", false, true, 9, 12);
         }
 
         [Test]
@@ -808,6 +809,14 @@ namespace Map_Skia.Tests
         public void Overprinting()
         {
             CheckTestOverprinting("ocad11overprinting.txt", true, true, 6, 12);
+        }
+
+        // A Mapper map with spot colors. Mapper knocks out each color that has no spot definition, such as the brown of
+        // the point objects here, so that the overprint effect does not blend them.
+        [Test]
+        public void MapperOverprinting()
+        {
+            CheckTestOverprinting("hakolaoverprinting.txt", false, false, 0, 0);
         }
 
         [Test]

@@ -63,6 +63,27 @@ namespace PurplePen.MapModel
                 throw new MapUsageException("Cannot modify a symbol after it has been added to a map");
         }
 
+        // The symbol key: the identity of the symbol in its map, or null before the maker of the symbol or the map gives
+        // it. The maker can give it before the map gets the symbol, and the map gives a symbol without a key a key from
+        // its counter (Map.AddSymbol). A copy of the symbol (CloneDetached) is a new symbol, without a key.
+        SymbolKey key;
+        public SymbolKey Key
+        {
+            get { return key; }
+            set
+            {
+                CheckModifiable();
+                key = value;
+            }
+        }
+
+        // Give the symbol its key, when the map gets it without a key or replaces a symbol with it.
+        // key: the key.
+        internal void AssignKey(SymbolKey key)
+        {
+            this.key = key;
+        }
+
         // A box guaranteed to bound this symbol. May be bigger than needed.
         protected RectangleF boundingBox;
         public RectangleF BoundingBox {get {return boundingBox; }}
@@ -606,6 +627,9 @@ namespace PurplePen.MapModel
         public string[] WrappedText { get { return wrappedText; } }
 
         float[] wrappedLineWidths;  // widths of each line in the wrapped line text.
+
+        // The widths of the lines of the wrapped text, which Draw gives to the drawing of the text.
+        internal float[] WrappedLineWidths { get { return wrappedLineWidths; } }
 
         TextCoordMapper coordMapper;  // The mapping between text and wrappedText.
 
