@@ -125,6 +125,79 @@ normaalimuodon mukaan. Täyttötilan valitsemat glyyfin osat ovat täyden peiton
   - Kuviotäyttöjen kanavamuunnoksia ovat esimerkiksi epäsäännöllisen kuvion elementtien sijoitukset ja kuvioruutu
     (@Pauli, 20.11., "The conversions of the model", ja luennat 20.11.).
   - Kun muutos ei voi muuttaa piirtoa, täysi ajo tehdään ilman keräävää ajoa (@Pauli, 18.11.).
+- **Toteutus** (haara `feature/pattern-prototypes`, 7daec04d):
+  - Peittoprototyypit (`CoveragePrototype.cs`, b30a0a12): `HatchingPrototype` viittaa alueen symbolimäärittelyynsä
+    (`Definition`) ja viivoituksen indeksiin (`Index`), ja `AreaPatternPrototype` lisäksi palettiväriin (`Color`).
+    Viivoituksen ja aluekuvion ne lukevat määrittelystä (`Hatching`, `Pattern`). `AreaSymDef` tekee ne kerran
+    (`PatternFillPrototypes`, `Interlocked.CompareExchange`): yhden kullekin viivoitukselle ja yhden kullekin leikatulle
+    aluekuviolle kussakin sen glyyfin osien palettivärissä (`Glyph.Colors`). Täyttötilan aluekuviolla ei ole
+    peittoprototyyppiä (istunnon valinta). Peittoprototyyppi antaa peittonsa (`Covers`), kokoonpanon affiinisen
+    muunnoksen M (sisäinen `GetTransformation`), M:n normaalimuodon (`GetNormalForm`) ja laajennuksensa (sisäinen
+    `Expand`). Täyden peiton laajennus on käyttövirhe (`InvalidOperationException`).
+  - Peitto: viivoituksessa piste on peitossa, kun sen etäisyys lähimmästä suorasta y = k · `hatchSpacing` on enintään
+    `hatchWidth` / 2. Aluekuviossa `AreaSymDef.AreaPatternCovers` käy läpi hilan pisteet, joiden elementti voi ulottua
+    pisteeseen, siirtää elementin epäsäännöllisyydellä (`HandleIrregularity`) ja kysyy glyyfiltä, peittävätkö sen
+    palettivärin glyyfin osat pisteen (`Glyph.Covers`, `GlyphPart.Covers`): viivan kynänjälki päineen, liitoksineen ja
+    jiirausrajoineen litistetyn polun mukaan (`GraphicsUtil.StrokeShapeCovers`), alue vuorottelevalla täyttösäännöllä,
+    ympyrä renkaana säteiden `circleDiam` / 2 − `lineWidth` ja `circleDiam` / 2 välissä ja täytetty ympyrä (istunnon
+    valinta).
+  - M (`SymbolCoverage.Transformation`) lasketaan, kun kartta tekee symbolin palettiväripeiton, eikä sen luku tarkista
+    kartan muutoslaskuria. `AreaSymDef.GetHatchingTransformation` ja `GetPatternTransformation` tekevät sen samoilla
+    askelilla kuin piirron muunnos, viivoitukselle lisäksi siirron (0, `hatchOffset`).
+  - Normaalimuoto (istunnon valinta): `CoveragePrototype.MakeNormalForm` laskee M:n siirron t G:n koordinaateissa
+    (M = A · T(t)), ja peittoprototyyppi vie sen perusalueeseen: viivoitus (0, t_y mod `hatchSpacing`) ja aluekuvio
+    hilan kantavektorien (`patternWidth`, 0) ja (`patternWidth` / 2 tai 0, `patternHeight`) kertoimina. Kerroin
+    pyöristetään kokonaiseen määrään noin 0,0001 mm:n askelia kantavektorin suuntaan (`ReduceCoefficient`), ja kerroin,
+    joka pyöristyy 1:ksi, on 0, joten pyöristys ei erota kokoonpanoja perusalueen reunalla. Epäsäännöllisen aluekuvion
+    siirto pyöristetään 0,0001 mm:iin G:n koordinaateissa. A:n alkiot pyöristetään 10⁻⁶:iin, ja normaalimuodon siirto on
+    A · t.
+  - Palettileikkurit (`PaletteSeparations.cs`): `PaletteSeparation` ryhmittelee symbolien palettiväripeitot
+    peittoprototyypin ja normaalimuodon alkioiden mukaan ensimmäisten palettiväripeittojensa järjestyksessä, ja
+    palettileikkurin `Transformation` on normaalimuoto.
+  - Peittoprototyypit palettivärissä: `AreaLikeSymDef.GetCoveragePrototypes` antaa ensin täyden peiton, kun
+    `HasFullCoverage` on tosi, ja sitten sisäisellä metodilla `AddCoveragePrototypesOfPatternFills` palettivärin
+    viivoitukset ja leikatut aluekuviot. `AreaComboSymDef` kokoaa yhdistelmän osamäärittelyjensä peittoprototyypit.
+    `AreaSymDef.HasFullCoverage` on tosi myös täyttötilan aluekuvion glyyfin osien palettivärissä.
+  - Leikkausobjektit: `AreaLikeSymDef.MakeClippingObjects(Symbol, SymColor, CoveragePrototype)` antaa viivoitukselle
+    ja leikatulle aluekuviolle alueen (`SymPathWithHoles.MakeFilledShape`) ja täydelle peitolle sisäisen
+    geometriametodin leikkausobjektit. Sisäinen geometriametodi saa aluesymbolin kulman ja kiertokeskuksen
+    (`MakeClippingObjects(SymPathWithHoles, SymColor, float, PointF)`, tiketin 012 metodin laajennus, istunnon
+    valinta), ja `AreaSymDef` lisää alueen täytön ja alueen reunan väliin valitut glyyfin osat
+    (`AddSelectedGlyphParts`). Suodatin tehdään kuten `DrawPatternRows` tekee sen (`MakeGlyphPartFilter`), ja
+    `Glyph.MakeClippingObjectsOfSelectedParts` kysyy sitä kultakin glyyfin osalta (`GlyphPart.IsSelectedBy`) ja antaa
+    valitun glyyfin osan jaetun muodon sijoituksessa, jonka sisäkkäiset affiiniset muunnokset ovat M ja elementin asema.
+  - Kuviotäytön laajennus (`SymbolCoverage.ExpandPrototype`, metodi, jonka tulosta kartta ei säilytä, istunnon
+    valinta): `AreaSymDef.ExpandHatching` tekee viivat kuten `DrawOneHatching` (`SymbolHelpers.MakeHatchLines`
+    `DrawHatchLines`in rinnalla), ja `ExpandAreaPattern` tekee elementit kuten `DrawPattern` ja `DrawPatternRows`
+    (`GetPatternElementLocations` ja `Glyph.MakeClippingObjects` ulommalla sijoituksella M). Vanha piirtokoodi ei
+    muutu, joten hilan läpikäynti ja täyttötilan suodatin ovat kahdessa paikassa.
+  - Kerääjä poistuu (5ef1505c): `ClippingObjectCollector`, `SymDef.CollectClippingObjects` ja sisäinen asetus
+    `omitHatchingsAndPatterns` tarkistuksineen. `SymbolCoverageComparison` säilyttää laajennuksen (`Expand`) ja
+    kuvauksen (`Describe`), joka kuvaa nyt myös siirretyn polun: aiemmin se heitti siitä poikkeuksen.
+  - Testit (Map_Skia.Tests, 7daec04d): `PatternPrototypeTests` (15 testiä) tarkistaa peittoprototyypit ja niiden
+    peiton, epäsäännöllisen aluekuvion laajennuksen kanssa, ristiviivoituksen, kahden palettivärin aluekuvion, M:n
+    kullakin kiertotilalla, palettileikkurit, alueen leikkausobjektina reikineen, laajennuksen viivat, elementit ja
+    yhden ympyrän glyyfin, kunkin täyttötilan valinnat glyyfin osittain sekä yhdistelmäalueet. Testit
+    `AreaHasItsFillBorderHatchingsAndAreaPatternInItsPaletteColorCoverages` (`PaletteSeparationTests`, testin
+    `AreaHasItsFillAndBorderButNotItsHatchingsAndPatterns` tilalla) ja
+    `AreaHasNoFullCoverageInAPaletteColorOfItsHatchingsAndAreaPatternsAlone` tarkistavat viivoitusten ja aluekuvion
+    palettiväripeitot. `EachPlacementGivesItsPoses` (testin
+    `GeometryMethodsMakeTheClippingObjectsOfTheCollector` tilalla) tarkistaa kansion `skia_render` 162 kartassa ja 10
+    katkoviivanäytteessä jokaisen leikkausobjektin ja laajennuksen sijoituksen: 39 kartassa on 1 876 viivoituksen ja
+    2 325 aluekuvion palettiväripeittoa, ja niiden laajennuksissa on 1 353 172 leikkausobjektia. Peiton vertailu kattaa
+    46 karttaa ja niiden 1 146 palettiväriä: 18 351 symbolien palettiväripeittoa 419 palettileikkurissa, 49 015
+    leikkausobjektia ja 306 361 laajennuksen leikkausobjektia, eikä yksikään pikseli eroa. Testi
+    `EvenlySpacedGlyphsOfAPartAreOneRepeatedPlacement` tarkistaa kerääjän glyyfien määrän sijaan, että ensimmäinen ja
+    viimeinen asema ovat puolen askeleen päässä viivan päistä, ja `LineFramingOfATextRunIsOneLineOfTheFullWidth` ei
+    enää vertaa kerääjän viivojen määrään.
+  - Paikallinen ajo (`tools/linux-renderings.sh` integraatioworktreessa Windows-koneen fonteilla): haarassa 753 testiä
+    menee läpi ja haarassa `feature/palette-stack` (86df0a59) 712. `tools/compare-renderings.py` ei löydä yhtään
+    siirtynyttä kuvaa: kumpikin ajo kirjoittaa samat 73 renderöintiä, jotka eroavat Windows-baselineistaan.
+  - Havainto: täyttötilassa `CenterInside` piirto ei piirrä glyyfin osaa, joka on viiva, jonka polku ei rajaa pintaa,
+    esimerkiksi suora viiva: `SymPath.AreaCentroid` antaa sille NaN:n, koska pinta-ala on 0, eikä `IsInside` ole tosi
+    NaN-pisteelle. Valitut glyyfin osat seuraavat piirtoa, eikä tiketti korjaa tätä. Tiketin laskennan 2 365 leikatun
+    aluekuvion ja symbolin parissa ovat mukana aluekuviot, joiden glyyfissä ei ole osia, eikä niillä ole
+    palettiväripeittoja.
 - **Speksi:** [Specification.md](../Specification.md), luvut 02 ja 03. Luvun 02 kohdat "The coverage prototypes" ja "The
   hatchings and the area patterns" antavat peittoprototyypit, hilan, rakennekulman, alueobjektin kulman,
   kiertokeskuksen, kiertotilan, täyttötilan ja epäsäännöllisen aluekuvion. Luvun 03 kohdat "The configurations", "The

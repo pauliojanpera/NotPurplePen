@@ -905,6 +905,25 @@ the rendering.
   irregular area pattern is not periodic, as of its translations only the identity is certain to be a symmetry
   (sections 02 and 03, *jaksollinen peitto G* and *kokoonpano*). By the session's choice, the entry *valitut
   elementit* is now *valitut glyyfin osat*, as a fill mode selects glyph parts.
+- **The choices of the session in the implementation of ticket 009** (Nov 23). By the rule "The session resolves
+  matters", the session chose these, which the ticket gives under "Toteutus":
+  - The normal form reduces the translation of M as the coefficients of the basis of the lattice, and rounds each
+    coefficient to a whole number of steps of about 0.0001 mm along its basis vector. A coefficient that rounds to 1
+    is 0, so the rounding does not separate configurations at the edge of the fundamental domain. The translation of
+    an irregular area pattern is rounded to 0.0001 mm in the coordinates of G.
+  - An area pattern whose fill mode selects glyph parts has no coverage prototype, as no palette color coverage refers
+    to it.
+  - The internal geometry method of the areas takes the angle and the rotation center of the area symbol
+    (`MakeClippingObjects(SymPathWithHoles, SymColor, float, PointF)`), an extension of the method of ticket 012.
+  - `SymbolCoverage.ExpandPrototype` is a method, and the map does not keep its result: the expansion is a channel
+    conversion, and it can be large. The expansion of the full coverage is a usage error.
+  - `CoveragePrototype.Covers` of a line part of a glyph covers the stroke shape of its flattened path, with its caps,
+    its joins and the miter limit.
+  - The names of the properties of the coverage prototypes: `Definition`, `Index`, `Hatching`, `Pattern` and `Color`.
+  - The old drawing code does not change, so the lattice of `DrawPatternRows` and the filter of the fill modes are in
+    two places, and the full run of the branch is without a collecting run.
+  - The check that each placement gives its poses covers the expansions too. Where a structure test compared a count
+    with the collector, it checks the positions of the first and the last glyph along the line.
 - **The archiving of a cloud session** (Nov 23). @Pauli let the session of Nov 23 that finished ticket 011 archive its
   transcript, and it runs `archive-if-due.sh claude` of the branch `sessions` of `pauliojanpera/windows-fonts` every
   minute in a background command, from a clone of that branch in `~/session-archive`. The commits of the archive
