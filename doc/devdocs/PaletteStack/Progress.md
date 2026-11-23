@@ -382,7 +382,9 @@ the rendering.
 - **Offering upstream.** No branch is offered upstream yet.
 - **The questions of the draft 010** (Nov 23). The session that writes the draft 010 as a ticket asks its questions
   one at a time, before it writes the ticket ("Questions early"). @Pauli answered question 1: pass 2 is divided by
-  channel ("Pass 2 by channel"). The next question follows.
+  channel ("Pass 2 by channel"). He answered question 2 with the overprint choice of the course appearance ("The
+  blend mode of the drawing"). Question 3: is the overprint choice of four options made in the epic, in the course
+  appearance of upstream, or in `dev`, so that pass 2 of the epic offers the four modes in its render options?
 
 ## Decisions
 
@@ -724,6 +726,19 @@ the rendering.
   after 025. Their full runs go on `wip/linux/<name>`, on `base`, with `--base-baselines prs/000-palette-stack-base`.
   A ticket is a draft until @Pauli approves it, and the epic lists each ticket that he approves under "Erotetut
   alatehtävät".
+- **The blend mode of the drawing** (Nov 23, question 2 of the draft 010). @Pauli: the overprint choice of the course
+  appearance chooses the blend mode that the drawing applies, and the chosen mode applies in all the channels. The
+  options are: not in use, by palette color (the blend mode B of each palette color, `SymColor.BlendMode`), darken,
+  and multiply. In `base`, the course appearance has only the overprint effect (`CourseAppearance.useOcadOverprint`,
+  the attribute `overprint-colors` of the course file). `dev` adds the blend mode of the colors marked overprint and
+  of the blended purple (`overprintBlendMode`, Darken or Multiply). So the session reads darken and multiply as the
+  blend mode of the palette colors marked overprint (`SymColor.OverPrint`), as in `dev`, unless @Pauli says
+  otherwise. One mode gives a different result in each blending color space: in RGB, Darken takes the minimum of each
+  component, and in CMYK the larger share of each ink.
+- **More tests of OCAD's blend modes** (Nov 23). @Pauli: the present knowledge of OCAD's blend modes rests on the
+  images of one page of the OCAD wiki, whose processing nobody knows ([oracles/ocad-darken.md](oracles/ocad-darken.md)),
+  so OCAD's blend modes need more tests. The session offered a sample file of the blend modes, whose view in OCAD and
+  PDF export @Pauli gives, as for the dashed lines.
 - **Pass 2 by channel** (Nov 23). @Pauli chose the division of pass 2 by channel (question 1 of the draft 010).
   Ticket 010 makes the shared part of pass 2 and the Skia encoding: the screen, the printing on Windows, and the print
   preview, which plays back its recording on Skia. The PDF encoding, for the PDF export and the printing on Linux and
