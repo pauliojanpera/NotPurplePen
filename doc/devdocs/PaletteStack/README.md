@@ -29,7 +29,8 @@ specification, @Pauli, Nov 18).
 - A session of the work needs no cache of the agents, and it starts no agents (@Pauli, Nov 18). So it does not run
   `agent-cache.py`, although `CLAUDE.md` asks every session to run it.
 - A session of the work needs no archiving of the session, and it does not start the script that archives it
-  (@Pauli, Nov 18).
+  (@Pauli, Nov 18), unless @Pauli lets it archive (Nov 23, [Progress.md](Progress.md), "The archiving of a cloud
+  session").
 
 ## Tickets
 

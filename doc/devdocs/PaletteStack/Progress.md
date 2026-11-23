@@ -143,9 +143,9 @@ base. No branch is offered upstream yet.
   LibGit2Sharp cannot open a repository whose config names `extensions.worktreeConfig`, whatever its value.
   `git sparse-checkout` in a worktree sets it. So a local build of `PurplePenCore`, for example of
   `src/Testing/LinuxTestRun`, removes the setting from the config of the clone for the time of the build and sets it
-  again after the build. The container of a cloud session holds no transcript of the session, and an agent that the
-  session starts leaves none either: the model runs outside the container, and the container runs only the tool
-  calls (Nov 23).
+  again after the build. The container of a cloud session can hold the transcript of the session: the session of
+  Nov 23 that finished ticket 011 found it in `~/.claude/projects/-home-user/<session id>.jsonl`, and the record
+  grows with each call. The archiving of the session is "The archiving of a cloud session" under "Decisions".
 - **The checkouts.** The clone `~/Documents/Projects/NotPurplePen` stays on `docs/process-coordination`: do not change
   its branch. Each branch has a worktree in `~/Documents/Projects/npp-worktrees/`: `palette-layers`, `inks`,
   `fix-mapper-colors`, `fix-ocad-utf8`, `opacity-and-blend-mode`, `layer-instances`, `fix-matrix-equals`,
@@ -649,6 +649,11 @@ the rendering.
   two course objects of one key give their symbols different keys, and the course map is made without a usage error.
   A period is in a write, and periods do not nest. A course object without a key, which only other code than the
   formatters can make, gives its symbols keys from the counter.
+- **The archiving of a cloud session** (Nov 23). @Pauli let the session of Nov 23 that finished ticket 011 archive its
+  transcript, and it runs `archive-if-due.sh claude` of the branch `sessions` of `pauliojanpera/windows-fonts` every
+  minute in a background command, from a clone of that branch in `~/session-archive`. The commits of the archive
+  carry no co-author line. This changes the rule of Nov 18 that a session of the work does not start the script that
+  archives it ([README.md](README.md), "Sessions"), for a session that @Pauli lets archive.
 - **The session resolves matters** (Nov 23). The session resolves a matter itself, as well as it can, when the
   knock-on effects of its choice are not unreasonable. It records each such choice in this list as the session's
   choice, so that @Pauli can review it. A matter whose knock-on effects are large stays his: for example a change of
