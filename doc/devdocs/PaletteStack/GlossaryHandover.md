@@ -133,6 +133,7 @@ These are @Pauli's decisions of Nov 20 and Nov 21. Glossary.md gives their terms
 - An encoding writes its channel directly, and `IGraphicsTarget` stays beside the palette stack for the templates,
   the highlights, the control descriptions and the old drawing code. So the highlights stay a direct drawing (Nov 21).
 - The name of OCAD for a spot ink in its files: *spottivärierottelu* · *spot color separation* (Nov 22).
+- The term of `CourseLayout`: *ratojen asettelu* · *course layout*, which the session chose by the rule of Nov 23.
 
 The five terms that the session chose by their use in commit 06f4c824d are all decided on Nov 21.
 
@@ -150,8 +151,9 @@ A new open item gets a question by "How to make a question", and the glossary ma
 
 The specification is written again in the terms of the glossary and by the structure of the passes (Nov 21). @Pauli
 went through the choices of the session on Nov 22, and the decisions of Nov 22 in Progress.md record them. He
-approved the specification at 4c11a6ea on Nov 23. Pass 1 gets new tickets by the structure of the passes, in place of
-005, 007 and 008, and the drafts 009 to 013 follow the specification when @Pauli asks. The tickets 011 to 013 were
+approved the specification at 4c11a6ea on Nov 23, and the new tickets 023 to 026 of pass 1, by the structure of the
+passes and in place of 005, 007 and 008, on the same day. The drafts 009 to 013 follow the specification when @Pauli
+asks. The tickets 011 to 013 were
 implemented while they were drafts, on branches rooted at the old branch of the epic. The done tickets take the
 terms of the glossary, apart from 005, 007 and 008. The drafts, the epic and the older decisions in Progress.md
 still use the earlier words. A draft is not implemented, and a session changes it only when @Pauli asks

@@ -66,3 +66,4 @@ Kun koodaus tarvitsee tiedon, malli säilyttää sen, ja koodaus lukee sen malli
 * [023](023-palette-separations.md) Välikerros ja vaihe 1 kerääjällä, ensimmäinen tiketeistä, jotka korvaavat tiketit 005, 007 ja 008 (23.11.): haara `feature/palette-separations`, ei vielä tehty.
 * [024](024-point-symbol-geometry.md) Pistesymbolien geometriametodit, toinen tiketeistä, jotka korvaavat tiketit 005, 007 ja 008 (23.11.): haara `feature/point-symbol-geometry`, ei vielä tehty. Se juurtuu haaraan `feature/palette-stack` tiketin 023 jälkeen.
 * [025](025-symbol-keys.md) Symbolin avain kartassa, kolmas tiketeistä, jotka korvaavat tiketit 005, 007 ja 008 (23.11.): haara `feature/symbol-keys`, ei vielä tehty.
+* [026](026-course-object-keys.md) Rataobjektin avain ja ratakartan symbolien avaimet, neljäs tiketeistä, jotka korvaavat tiketit 005, 007 ja 008 (23.11.): haara `feature/course-object-keys`, ei vielä tehty. Se juurtuu haaraan `feature/palette-stack` tiketin 025 jälkeen.

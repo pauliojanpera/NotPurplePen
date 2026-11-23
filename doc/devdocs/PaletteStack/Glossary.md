@@ -245,6 +245,10 @@ The section "Words that are not names" lists the words that are not used as name
 - **ratakartta** · *course map* (`CourseLayout.RenderToMap`) — The map of the courses is a `Map` of its own, so the same
   pass 1 applies to it. One palette stack is for all the maps. Upstream makes it again when its `CourseLayout` changes
   (`MapDisplay.SetCourse`). The symbol keys of its symbols come from `EventDB` (`Symbol.Key`).
+- **`CourseLayout`** · ratojen asettelu · *course layout* — The course objects of one drawing of courses, each in its
+  `CourseLayer`, and the colors of the layers. `CourseFormatter` and `TopologyFormatter` add the course objects to it,
+  and `CourseLayout.RenderToMap` makes the course map from it. One course layout can hold several courses in
+  different layers, for example the main course and the view of all the controls.
 - **`CourseObj`** · rataobjekti · *course object* — One object of the courses on the course map, for example a control
   circle, a leg or a description. `CourseFormatter` and `TopologyFormatter` make the course objects of a
   `CourseLayout` from the data of `EventDB`, and `CourseObj.AddToMap` makes their symbols in the course map. One course

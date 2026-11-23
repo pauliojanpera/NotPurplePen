@@ -19,9 +19,9 @@ Nov 22 record them. He approved the specification at 4c11a6ea on Nov 23.
 The epic has a new branch, `feature/palette-stack`, rooted at d48f4456 (@Pauli, Nov 22). It merges the parts 001,
 003 and 004, whose comments take the terms of the glossary, and the fixes 015 to 021. Its full run passed. The old
 pass 1 has no palette color coverages of the symbols, no symbol keys and no derived values, so pass 1 is written
-again as new commits by the specification. Four new tickets of pass 1, 023 to 026, replace 005, 007 and 008 ("The new
-tickets of pass 1", Nov 23): the session drafts them, and @Pauli approves them. He approved 023, 024 and 025 on Nov 23.
-The done tickets take the terms of the glossary, apart from 005, 007 and 008.
+again as new commits by the specification. Four new tickets of pass 1, 023 to 026, replace 005, 007 and 008, and
+@Pauli approved them on Nov 23 ("The new tickets of pass 1" and the approvals of each). No branch of them is made
+yet. The done tickets take the terms of the glossary, apart from 005, 007 and 008.
 
 The old branch of the epic, `feature/palette-layers`, keeps the pass 1 of 005, 007 and 008, and the branches of the
 drafts 011 to 013 are rooted at it. The rest of this section tells its state.
@@ -150,11 +150,9 @@ base. No branch is offered upstream yet.
 
 ## Next
 
-1. Pass 1 gets the new tickets 023 to 026 by the structure of the passes (section 01 of the specification), in place
-   of 005, 007 and 008 ("The new tickets of pass 1"). The session drafts them one at a time, and @Pauli approves
-   them: 023 to 025 are approved, and 026 is next. Their branches are rooted at `feature/palette-stack`, and they
-   take the forms, the geometry methods of the point symbols and the tests of the old pass 1 where these fit ("The
-   new branch of the epic").
+1. The approved tickets 023 to 026 of pass 1 are made in this order, each on its branch rooted at
+   `feature/palette-stack` ("The new tickets of pass 1"). They take the forms, the geometry methods of the point
+   symbols and the tests of the old pass 1 where these fit ("The new branch of the epic").
 2. The drafts 009 to 013 follow the specification when @Pauli asks for it.
 
 The plan below is the plan of the old branch, in the words of its time. Its parts 2 to 5 stay as the order of the
@@ -216,8 +214,6 @@ the rendering.
   target of NotPurplePen fitted to them in the integration. And whether the work can use the documented findings or
   the code of `feature/svg-target`. The notes of the epic give the reasons.
 - **Offering upstream.** No branch is offered upstream yet.
-- **The approval of ticket 026** (Nov 23). [026](tickets/026-course-object-keys.md), the course object key and the
-  symbol keys of the course map, is a draft for @Pauli's approval.
 
 ## Decisions
 
@@ -581,6 +577,16 @@ the rendering.
 - **The approval of ticket 025** (Nov 23). @Pauli approved [025](tickets/025-symbol-keys.md), the symbol key in
   `Map`, with the text form of the counter keys above. An edit that replaces a symbol is `Map.ReplaceSymbol`, which
   the ticket adds, as upstream has no such edit.
+- **The approval of ticket 026** (Nov 23). @Pauli approved [026](tickets/026-course-object-keys.md), the course
+  object key and the symbol keys of the course map. The role of a place tells what the place makes of the data of
+  EventDB, so two places of the code that make the same thing give the same role: a control label that the user
+  placed and one that the formatter placed are both `Label`. This is the reading of "Each place has a role of its
+  own" ("The identity of a `CourseObj`", Nov 21) that he approved with the ticket. The two formatters add course
+  objects in 11 places, which give 13 roles. The text form of a course object key is `<role>.<identifier>….<layer>`
+  and that of a symbol key of the course map `<course object key>/<index>`, with the numbers in base 62.
+  `Map.PrefixSymbolKeys` gives the symbols of a course object their keys, so the implementations of
+  `CourseObj.AddToMap` do not change. The term of `CourseLayout` is *ratojen asettelu* · *course layout*
+  ([Glossary.md](Glossary.md)).
 - **The order of a draft** (Nov 23). @Pauli approves a draft first as a ticket that is no longer a draft, and then it
   is implemented ([README.md](README.md), "Tickets"). So the collector stays the source of the clipping objects of
   the lines, the areas and the texts until the drafts 011 to 013 are approved as tickets and implemented.

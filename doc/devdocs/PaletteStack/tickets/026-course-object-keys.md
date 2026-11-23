@@ -1,7 +1,4 @@
-# LUONNOS – Rataobjektin avain ja ratakartan symbolien avaimet
-
-> **LUONNOS (23.11.), @Paulin hyväksyttävänä.** Tämä tiketti on luonnos, kunnes @Pauli hyväksyy sen, eikä luonnosta toteuteta. Hyväksynnän jälkeen istunto poistaa tämän merkinnän ja otsikon sanan LUONNOS.
-
+# Rataobjektin avain ja ratakartan symbolien avaimet
 **Kuvaus**
 `CourseFormatter` ja `TopologyFormatter` antavat jokaiselle rataobjektille, jonka ne lisäävät ratojen asetteluun (`CourseLayout`), rataobjektin avaimen (`CourseObj.Key`): kohdan roolin EventDB:n tiedoissa, kohdan käyttämät EventDB:n tunnisteet ja rataobjektin kerroksen (`CourseLayer`). `CourseLayout.RenderToMap` antaa ratakartan symboleille avaimet rataobjektin avaimesta ja symbolin indeksistä. Piirto ei muutu.
 
@@ -17,6 +14,7 @@
 
 **Lisätiedot**
 - **Päätökset:**
+  - @Pauli hyväksyi tämän tiketin 23.11., myös sen luennan, että rooli kuvaa sen, mitä kohta tekee EventDB:n tiedoista (ks. "Roolit").
   - Neljä tikettiä korvaa tiketit 005, 007 ja 008, ja tämä on niistä neljäs. Sen haara juurtuu haaraan `feature/palette-stack` tiketin 025 jälkeen (@Pauli, 23.11., Progress.md: "The new tickets of pass 1").
   - Rataobjektin avain (@Pauli, 21.11., "The identity of a CourseObj"): `CourseFormatter` tai `TopologyFormatter` antaa sen kohdassa, jossa se tekee rataobjektin. Avaimessa ovat kohdan rooli EventDB:n tiedoissa, kohdan käyttämät EventDB:n tunnisteet ja `CourseLayer`. Jokaisella kohdalla on oma roolinsa. Avain on erillään valinnan kentistä, jotka ovat assosiaatioita eivätkä identiteettejä: rastiympyrällä ja sen numerolla tai osittain viitoitetun rastivälin kahdella osalla on samat assosiaatiot, ja rastivälin kartanottopaikalla ei tarkoituksella ole niitä. Rataobjektin luokka ei ole osa avainta, joten koko rastiväli pitää avaimensa, kun se viitoitetaan.
   - Ratakartassa symbolin avaimen tekee `CourseLayout.RenderToMap` EventDB:stä: rataobjektin avaimesta ja symbolin indeksistä rataobjektin symbolien joukossa (@Pauli, 21.11., "The symbol key").
