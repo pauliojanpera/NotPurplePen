@@ -738,7 +738,12 @@ the rendering.
 - **More tests of OCAD's blend modes** (Nov 23). @Pauli: the present knowledge of OCAD's blend modes rests on the
   images of one page of the OCAD wiki, whose processing nobody knows ([oracles/ocad-darken.md](oracles/ocad-darken.md)),
   so OCAD's blend modes need more tests. The session offered a sample file of the blend modes, whose view in OCAD and
-  PDF export @Pauli gives, as for the dashed lines.
+  PDF export @Pauli gives, as for the dashed lines. @Pauli asked whether the tests can be a ticket of their own. They
+  can, and they get one before the ticket of the PDF encoding (the session's choice): ticket 010 does not depend on
+  them, as the Skia channel composites the transparency groups in RGB with the blend modes of Skia, and the spec
+  gives α once to each group (figure 6). Their result decides the blending color space of the PDF encoding, and gives
+  the appearance of B by ink for the rendering modes. It changes the OCAD import (ticket 004) only if the tests show
+  blend modes or values of `t` that the import does not know.
 - **Pass 2 by channel** (Nov 23). @Pauli chose the division of pass 2 by channel (question 1 of the draft 010).
   Ticket 010 makes the shared part of pass 2 and the Skia encoding: the screen, the printing on Windows, and the print
   preview, which plays back its recording on Skia. The PDF encoding, for the PDF export and the printing on Linux and
