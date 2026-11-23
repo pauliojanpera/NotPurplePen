@@ -166,7 +166,8 @@ kuulu tähän. Piirto ei muutu.
     leikkausobjektien lähde, kunnes @Pauli on hyväksynyt luonnoksen tiketiksi ja se on toteutettu (@Pauli, 23.11.).
   - Kuvatason ja asettelutason objekteilla (`ImageSymDef`) ja rei'illä (`HoleSymDef`) ei ole palettiväripeittoja.
   - Vaihe 2 on luonnos [010](010-palette-composition.md). SVG-koodaus ja litistys eivät kuulu tähän.
-- **Testit:** Map_Skia.Tests toimii Linuxilla sellaisenaan (`TEST_SILENTRUN=True`).
+- **Testit:** Paikallinen Map_Skia.Testsin ajo on `tools/linux-renderings.sh` integraatioworktreessa, ja sen jokainen
+  testi menee läpi (Progress.md, "Local tests").
   - Vertailun kartoissa (kansion `skia_render` 162 karttaa ja 10 katkoviivanäytettä) on 21 503 `AreaSymDef`in ja 29
     `AreaComboSymDef`in aluesymbolia sekä 94 `GraphicsAreaSymbol`ia ja 44 `GraphicsLineSymbol`ia. Aluesymboleista
     789:llä on reikiä, yhteensä 2 187, ja 9:llä on alueen reuna. Alueen reunoissa ja `AreaComboSymDef`ien viivan

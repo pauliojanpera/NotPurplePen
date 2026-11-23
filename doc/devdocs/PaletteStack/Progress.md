@@ -169,10 +169,11 @@ base. No branch is offered upstream yet.
   again after the build. The container of a cloud session can hold the transcript of the session: the session of
   Nov 23 that finished ticket 011 found it in `~/.claude/projects/-home-user/<session id>.jsonl`, and the record
   grows with each call. The archiving of the session is "The archiving of a cloud session" under "Decisions". That
-  session cloned the repository with `git clone --filter=blob:none`, made a worktree for each branch, and built and
-  ran `Map_Skia.Tests` with `~/.dotnet/dotnet` (10.0.404) and `TEST_SILENTRUN=True`. A `git log -S` in a partial clone
-  fetches the blobs of the whole history, and takes too long. A cloud session runs the local tests in the integration
-  worktree of the branch, as "Local tests" tells, and not in the worktree of the feature branch. A background command
+  session cloned the repository with `git clone --filter=blob:none`, made a worktree for each branch, and built
+  `Map_Skia.Tests` with `~/.dotnet/dotnet` (10.0.404). A `git log -S` in a partial clone fetches the blobs of the whole
+  history, and takes too long. A cloud session runs the local tests in the integration worktree of the branch, with
+  `tools/linux-renderings.sh` for `Map_Skia.Tests`, as "Local tests" tells, and not in the worktree of the feature
+  branch. A background command
   ends after two hours at most, so the loop that archives the session stops after two hours, and the session starts
   it again while @Pauli lets it archive.
 - **The checkouts.** The clone `~/Documents/Projects/NotPurplePen` stays on `docs/process-coordination`: do not change
@@ -193,39 +194,35 @@ base. No branch is offered upstream yet.
   worktree of a feature branch, 173 tests of `Map_Skia.Tests` fail on Linux (Nov 23): 171 do not find their files,
   and 2 ask for fonts that Windows carries.
   `Test_MapModel` targets Windows; `tools/run-map-tests.sh` runs its files on Linux, and skips the renderings, which
-  GDI+ draws. `Map_Skia.Tests` runs on Linux in the integration worktree, with the fonts of the workflow's Windows
-  machine: `tools/windows-fonts.sh` writes a fontconfig file that offers only the fonts of the branch `linux` of
-  `pauliojanpera/windows-fonts`, and a local run sets `FONTCONFIG_FILE` to it. Set `TEST_SILENTRUN=True`, or a failed
-  comparison opens VisualDiff and waits. `tools/int-worktree.sh` merges into each integration branch the fixes of the
-  tests that a run on Linux needs and `base` does not have. `fix/case-of-test-file-names` (1973c604) spells four test
-  file names as the files are spelled, so that seven tests find their files on a file system that tells the letter
-  case apart. Windows does not, so the workflow does not need the fix ("The fixes of the tests in the local runs").
-  There, 78 of the 722 tests fail on Linux without a fault of the change (Nov 23, at `feature/palette-stack` with
-  ticket 012):
-  - 59 image comparisons differ only in the pixels of their texts, at the edges of the glyphs. FreeType rasterizes
-    the text blobs on Linux, and DirectWrite on Windows (`EnhancedTypeface.DrawText`, `DRAW_TEXT_AS_PATHS` is not
-    defined). The texts differ also in the fonts whose file has the hash of the Windows machine, for example Cambria
-    and Arial Narrow.
-  - 6 image comparisons draw their maps without the templates or the image objects: `TemplateRendering`,
-    `TemplateRendering2`, `TemplateFraction1`, `TemplateFraction2`, `LayoutBitmapObjects` and `Roboto`. The maps name
-    these files with Windows paths, for example `C:\Program Files (x86)\Purple Pen\Samples\SampleMap.ocd`.
+  GDI+ draws. `tools/int-worktree.sh` merges into each integration branch the fixes of the tests that a run on Linux
+  needs and `base` does not have. `fix/case-of-test-file-names` (1973c604) spells four test file names as the files
+  are spelled, so that seven tests find their files on a file system that tells the letter case apart. Windows does
+  not, so the workflow does not need the fix ("The fixes of the tests in the local runs").
+
+  The local run of `Map_Skia.Tests` is `tools/linux-renderings.sh` in the integration worktree, with the fonts of the
+  workflow's Windows machine (`tools/windows-fonts.sh`), and each of its tests passes: a test that fails is a fault
+  of the change. The run does not judge an image comparison by its baseline: each image comparison keeps its
+  rendering where it differs from its baseline, and does not fail (`TEST_COLLECT_DIFFERENCES`). The run leaves out the
+  19 cases of `FontFallbackTests.FallbackFindsAFontFor`, of which 12 need fonts for scripts that the branch `linux`
+  of `windows-fonts` does not have, for example Han, Hangul, Devanagari and Ethiopic. At `feature/palette-stack` with
+  ticket 012, its 703 tests pass (Nov 23). `tools/compare-renderings.py` then compares the renderings and the
+  outcomes of the run with those of a run without the change, on the same machine and fonts, as the flattening work
+  does (`../Flattening/README.md`). Two runs of the same commit gave the same 73 renderings and the same outcomes
+  (Nov 23). `tools/README.md` gives the steps. Do not run `Map_Skia.Tests` locally in another way: its image
+  comparisons fail on Linux, as the next paragraph tells.
+
+  The baselines of the image comparisons are renderings of the Windows machine, and on Linux 66 image comparisons
+  differ from them also with its fonts (Nov 23, at `feature/palette-stack` with ticket 012):
+  - 59 differ only in the pixels of their texts, at the edges of the glyphs. FreeType rasterizes the text blobs on
+    Linux, and DirectWrite on Windows (`EnhancedTypeface.DrawText`, `DRAW_TEXT_AS_PATHS` is not defined). The texts
+    differ also in the fonts whose file has the hash of the Windows machine, for example Cambria and Arial Narrow.
+  - 6 draw their maps without the templates or the image objects: `TemplateRendering`, `TemplateRendering2`,
+    `TemplateFraction1`, `TemplateFraction2`, `LayoutBitmapObjects` and `Roboto`. The maps name these files with
+    Windows paths, for example `C:\Program Files (x86)\Purple Pen\Samples\SampleMap.ocd`.
     `SkiaFileLoader.SearchForFile` finds such a file beside the map by its file name (`Path.GetFileName`), which on
     Linux does not end at a backslash. No branch changes `SearchForFile` (Nov 23). The fixes b08ed786 and 4be634d8
     read the backslashes in the names of the test files only (`TestUtil.GetTestFile`).
-  - The image comparison `FontFallback` and the 12 cases of `FallbackFindsAFontFor` need fonts for scripts that the
-    branch `linux` does not have, for example Han, Hangul, Devanagari and Ethiopic.
-
-  With the fonts of the machine of the cloud session, before the fix of the letter case, 73 tests fail: 64 image
-  comparisons, the 7 tests of the letter case, and `IsTextFaceInstalled` and `SkiaFontMetrics`, which ask for fonts
-  that Windows carries. With the fonts of the Windows machine, these two pass, but of the 64 image comparisons only
-  `TextPosOutline` matches its baseline (Nov 23).
-
-  So a local run judges a change by its renderings with the change and without it, on the same machine and fonts, as
-  the flattening work does (`../Flattening/README.md`). `tools/linux-renderings.sh` runs `Map_Skia.Tests` in an
-  integration worktree with `TEST_COLLECT_DIFFERENCES`, and keeps each rendering that differs from its baseline, and
-  the trx of the run. `tools/compare-renderings.py` lists the images whose renderings differ between two runs, and
-  the tests whose outcome differs. Two runs of the same commit gave the same 73 renderings and the same outcomes
-  (Nov 23). `tools/README.md` gives the steps.
+  - `FontFallback` needs the fonts of the other scripts.
 
   The workflow pins the fonts of its Windows machine (`../NotPurplePenProgress.md`, "The Skia tests' fonts", Nov 5):
   the Windows image carries most of them, `.github/ci/environment.json` records them by hash, and the workflow installs
@@ -777,6 +774,13 @@ the rendering.
   [Specification.md](Specification.md) and the entry *tekstijuoste* of [Glossary.md](Glossary.md) say so. The branch
   is `feature/text-symbol-geometry`, rooted at `feature/palette-stack` after ticket 012 (903e6bde). The old branch
   `feature/text-geometry` stays as it is.
+- **The local run of the Skia tests** (Nov 23). @Pauli: the instructions do not tell a session to run tests that are
+  known to fail. The local run of `Map_Skia.Tests` is `tools/linux-renderings.sh`: it does not judge an image
+  comparison by its baseline, it leaves out the cases of `FallbackFindsAFontFor`, and each of its tests passes ("Local
+  tests"). The tickets 011, 012, 013, 023 and 024 say so (@Pauli, Nov 23).
+- **Faults are told** (Nov 23). @Pauli: the rule "Then do only what he asked" ([../Introduction.md](../Introduction.md))
+  does not keep a session from telling of a fault. A session tells of each fault that it finds at once, also when he
+  did not ask about it.
 - **The terms of ticket 013** (Nov 23). By the rule "The names of the concepts without a name", the session added to
   [Glossary.md](Glossary.md) the terms of the texts, the rectangles and the point symbols that ticket 013 uses
   ([GlossaryHandover.md](GlossaryHandover.md), "Decided").

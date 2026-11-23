@@ -178,9 +178,10 @@ geometriametodi, eikä vaihe 1 käytä kerääjää. Kerääjä on testien oraak
     korostukset.
   - Kuvatason ja asettelutason objekteilla (`ImageSymDef`, esimerkiksi `ImageTextSymbol`) ja rei'illä (`HoleSymDef`) ei
     ole palettiväripeittoja.
-- **Testit:** Map_Skia.Tests toimii Linuxilla integraatioworktreessa (`tools/int-worktree.sh`) Windows-koneen fonteilla
-  (`tools/windows-fonts.sh`). Vanha piirtokoodi ei muutu, joten piirron Linux-renderöinnit eivät muutu:
-  `tools/linux-renderings.sh` ja `tools/compare-renderings.py` tarkistavat sen paikallisesti.
+- **Testit:** Paikallinen Map_Skia.Testsin ajo on `tools/linux-renderings.sh` integraatioworktreessa
+  (`tools/int-worktree.sh`) Windows-koneen fonteilla (`tools/windows-fonts.sh`), ja sen jokainen testi menee läpi
+  (Progress.md, "Local tests"). Vanha piirtokoodi ei muutu, joten `tools/compare-renderings.py` ei löydä yhtään
+  siirtynyttä kuvaa, kun se vertaa ajon renderöintejä haaran `feature/palette-stack` renderöinteihin.
   - Vertailun kartoissa (kansion `skia_render` 162 karttaa) on 1 671 tekstisymbolia 67 kartassa ja niillä 1 179
     palettiväripeittoa, 86 viivan varren tekstiä 15 kartassa ja niillä 93 palettiväripeittoa sekä 175
     suorakulmiosymbolia 18 kartassa ja niillä 147 palettiväripeittoa. Kerääjä tekee tekstisymboleista 6 973 täytettyä
