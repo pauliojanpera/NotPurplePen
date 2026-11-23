@@ -68,6 +68,7 @@ namespace PurplePen.MapModel
         volatile float bizzarroLength = -1;  // -1 means not computed yet.
         volatile float maxMiter = 0;  // 0 means not computed yet.
         volatile OcadCurveMeasure ocadCurveMeasure;  // null means not computed yet, or no Bezier curve (GetOcadCurveMeasure).
+        volatile OcadCurveMeasure ocadCurveMeasureOfOcadMetric;  // The same, with the OCAD metric.
 
         const float FLATTENAMOUNT = 0.01F;
 
@@ -1520,23 +1521,42 @@ namespace PurplePen.MapModel
             return quarterEnds;
         }
 
-        // Get the measure in which OCAD places the dashes along the path with the euclidean metric, and in which the OCAD
-        // spacing places the glyphs too, or null if the path has no Bezier curve, as the measure of a path without one is
-        // its length. In the measure, a straight segment has its length, and each quarter of a Bezier curve has its chord,
-        // between the points of the curve at the parameters 0, 1/4, 1/2, 3/4 and 1 (GetQuarterEnds). Within a quarter, a
-        // length of the measure is at the same part of the length of the flattened quarter.
-        internal OcadCurveMeasure GetOcadCurveMeasure()
+        // Does the path have a Bezier curve?
+        internal bool HasBeziers
+        {
+            get { return anyBeziers; }
+        }
+
+        // Get the measure in which OCAD places the dashes along the path with a metric, and in which the OCAD spacing
+        // places the glyphs too, or null if the path has no Bezier curve, as the measure of a path without one is its
+        // length in the metric. In the measure, a straight segment has its length in the metric, and each quarter of a
+        // Bezier curve has its chord in the metric, between the points of the curve at the parameters 0, 1/4, 1/2, 3/4
+        // and 1 (GetQuarterEnds). Within a straight segment and within a quarter, a length of the measure is at the same
+        // part of the euclidean length of the segment or of the flattened quarter, with each metric.
+        // metric: the metric of the map.
+        internal OcadCurveMeasure GetOcadCurveMeasure(DistanceMetric metric)
         {
             if (!anyBeziers)
                 return null;
-            if (ocadCurveMeasure == null)
-                ocadCurveMeasure = MakeOcadCurveMeasure();
-            return ocadCurveMeasure;
+
+            if (metric == (DistanceMetric)EuclidDistance) {
+                if (ocadCurveMeasure == null)
+                    ocadCurveMeasure = MakeOcadCurveMeasure(metric);
+                return ocadCurveMeasure;
+            }
+            else {
+                if (ocadCurveMeasureOfOcadMetric == null)
+                    ocadCurveMeasureOfOcadMetric = MakeOcadCurveMeasure(metric);
+                return ocadCurveMeasureOfOcadMetric;
+            }
         }
 
-        // Make the measure of GetOcadCurveMeasure, for a path with Bezier curves.
-        OcadCurveMeasure MakeOcadCurveMeasure()
+        // Make the measure of GetOcadCurveMeasure with a metric, for a path with Bezier curves. With the euclidean metric,
+        // a straight segment of the measure is as long as along the path, so the measure needs no point between
+        // straight segments. With another metric, each straight segment ends at a point of the measure.
+        OcadCurveMeasure MakeOcadCurveMeasure(DistanceMetric metric)
         {
+            bool isEuclidean = (metric == (DistanceMetric)EuclidDistance);
             List<double> measures = new List<double>() { 0 }, lengths = new List<double>() { 0 };
             List<float> partMeasures = new List<float>();
             List<PointF> flattened = new List<PointF>();
@@ -1559,7 +1579,7 @@ namespace PurplePen.MapModel
                         lengths.Add(length);
                     }
                     for (int quarter = 1; quarter <= 4; ++quarter) {
-                        double chord = EuclidDistance(quarterEnds[quarter - 1], quarterEnds[quarter]);
+                        double chord = metric(quarterEnds[quarter - 1], quarterEnds[quarter]);
                         measure += chord;
                         partMeasure += chord;
                         measures.Add(measure);
@@ -1569,10 +1589,14 @@ namespace PurplePen.MapModel
                     i += 3;
                 }
                 else {
-                    double segment = EuclidDistance(points[i], points[i + 1]);
+                    double segment = metric(points[i], points[i + 1]);
                     measure += segment;
                     partMeasure += segment;
-                    length += segment;
+                    length += isEuclidean ? segment : EuclidDistance(points[i], points[i + 1]);
+                    if (!isEuclidean) {
+                        measures.Add(measure);
+                        lengths.Add(length);
+                    }
                     i += 1;
                 }
 
@@ -1609,13 +1633,13 @@ namespace PurplePen.MapModel
             return lengthsAlong[start] + EuclidDistance(flattened[start], Geometry.ClosestPointOnLineSegment(flattened[start], flattened[start + 1], quarterEnds[quarter]));
         }
 
-        // The measure in which OCAD places the dashes along a path with Bezier curves, with the euclidean metric, and in
-        // which the OCAD spacing places the glyphs too (GetOcadCurveMeasure). It maps a length of the measure from the start
-        // of the path to a length along the flattened path, which the drawing walks, linearly between the ends of the
-        // quarters of the curves.
+        // The measure in which OCAD places the dashes along a path with Bezier curves, with a metric, and in which the OCAD
+        // spacing places the glyphs too (GetOcadCurveMeasure). It maps a length of the measure from the start of the path
+        // to a euclidean length along the flattened path, which the drawing walks, linearly between the ends of the
+        // quarters of the curves, and with a metric other than the euclidean one, of the straight segments.
         internal sealed class OcadCurveMeasure
         {
-            private readonly double[] measures;     // the ends of the path and of the quarters, in the measure
+            private readonly double[] measures;     // the ends of the path, of the quarters and of the straight segments, in the measure
             private readonly double[] lengths;      // the same points, as lengths along the flattened path
 
             // The measure of each part of the path between corner and dash points, as GetCornerAndDashPointDistances gives
