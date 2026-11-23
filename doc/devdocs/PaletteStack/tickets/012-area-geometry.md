@@ -49,12 +49,12 @@ kuulu tähän. Piirto ei muutu.
   tiketin 011 sallitut erot. Muut leikkausobjektit, myös täytetyt muodot, ovat täsmälleen samat. Vertailu kattaa
   kansion `skia_render` jokaisen OCAD- ja Mapper-kartan sekä katkoviivanäytteiden tiedostot `dashes-*.ocd`.
 - [ ] Rakennetestit tarkistavat ilman piirtoa alueen täytön monikulmiona, Bezier-käyrin ja reikineen ja sen
-  täyttösäännön, myös aluesymbolin, jonka viimeisen reiän kartta on poistanut, alueen reunan pääpolulla ja reiillä, katkotun alueen reunan, alueen reunan
-  kaksoisviivana ja alueen reunan glyyfit, `AreaComboSymDef`in yhdistelmän osamäärittelyjen järjestyksen,
-  `LineComboSymDef`in ja toisen `AreaComboSymDef`in yhdistelmän osamäärittelynä, aluesymbolin, jonka palettiväri on
-  vain viivoituksessa tai aluekuviossa, sekä `GraphicsAreaSymbol`in ja `GraphicsLineSymbol`in. Testit rakentavat
-  kartan tapauksille, joita vertailun kartoissa ei ole: alueen reuna kaksoisviivana sekä yhdistelmän osamäärittelyt
-  `LineComboSymDef` ja `AreaComboSymDef` (ks. "Testit").
+  täyttösäännön, myös aluesymbolin, jonka viimeisen reiän kartta on poistanut, alueen reunan pääpolulla ja reiillä,
+  katkotun alueen reunan, alueen reunan kaksoisviivana ja alueen reunan glyyfit, `AreaComboSymDef`in yhdistelmän
+  osamäärittelyjen järjestyksen, `LineComboSymDef`in ja toisen `AreaComboSymDef`in yhdistelmän osamäärittelynä,
+  aluesymbolin, jonka palettiväri on vain viivoituksessa tai aluekuviossa, sekä `GraphicsAreaSymbol`in ja
+  `GraphicsLineSymbol`in. Testit rakentavat kartan tapauksille, joita vertailun kartoissa ei ole: alueen reuna
+  kaksoisviivana sekä yhdistelmän osamäärittelyt `LineComboSymDef` ja `AreaComboSymDef` (ks. "Testit").
 - [ ] Tiketin 023 testit menevät läpi, myös peiton vertailu, jossa aluesymbolien ja grafiikkaobjektien
   leikkausobjektit tulevat geometriametodilta. Tikettien 024 ja 011 testit menevät läpi.
 - [ ] Tämän tiketin haara ei muuta piirtoa, eikä yksikään kuva- tai tekstibaseline siirry.
