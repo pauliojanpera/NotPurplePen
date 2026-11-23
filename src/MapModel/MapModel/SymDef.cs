@@ -159,9 +159,10 @@ namespace PurplePen.MapModel
         public abstract bool HasColor(SymColor color);
 
         // The coverage prototypes of a symbol of this definition in a palette color, for pass 1 of the drawing
-        // (Map.PaletteSeparations): the full coverage, where the definition draws the palette color with it, or none.
-        // The symbol has a palette color coverage for each of them (SymbolCoverage), also when it draws no shape in the
-        // palette color.
+        // (Map.PaletteSeparations): the full coverage, where the definition draws the palette color with it, or none. An
+        // area symbol definition gives the coverage prototypes of its hatchings and its clipped area patterns after it
+        // (AreaLikeSymDef). The symbol has a palette color coverage for each of them (SymbolCoverage), also when it draws
+        // no shape in the palette color.
         // symbol: the symbol, which has this definition.
         // color: the palette color.
         public virtual IReadOnlyList<CoveragePrototype> GetCoveragePrototypes(Symbol symbol, SymColor color)
@@ -170,7 +171,8 @@ namespace PurplePen.MapModel
         }
 
         // Does this symbol definition draw the given palette color with the full coverage: does it draw the color apart
-        // from the hatchings and the patterns of areas? The image layer and the layout layer are not palette colors.
+        // from the hatchings and the clipped area patterns of areas? The image layer and the layout layer are not palette
+        // colors.
         // color: the palette color.
         internal virtual bool HasFullCoverage(SymColor color)
         {
@@ -179,21 +181,11 @@ namespace PurplePen.MapModel
 
         // The geometry method of this symbol definition: the clipping objects of the palette color coverage of a symbol
         // of this definition (SymbolCoverage), without a drawing target and without render options. Each symbol
-        // definition has a geometry method of its own, so pass 1 does not use the collector.
+        // definition has a geometry method of its own.
         // symbol: the symbol, which has this definition.
         // color: the palette color.
         // prototype: the coverage prototype.
         internal abstract IReadOnlyList<ClippingObject> MakeClippingObjects(Symbol symbol, SymColor color, CoveragePrototype prototype);
-
-        // The clipping objects of the full coverage of a symbol of this definition in a palette color, which the collector
-        // makes from the drawing code of the symbol (ClippingObjectCollector). They are the oracle of the geometry methods
-        // in the tests, and pass 1 does not use them.
-        // symbol: the symbol, which has this definition.
-        // color: the palette color.
-        internal IReadOnlyList<ClippingObject> CollectClippingObjects(Symbol symbol, SymColor color)
-        {
-            return ClippingObjectCollector.Collect(symbol, color, map.TextMetricsProvider);
-        }
 
 
         // Does this symdef depend on another? null means no.
@@ -2411,20 +2403,53 @@ namespace PurplePen.MapModel
 
         internal abstract RectangleF HighlightBounds(SymPathWithHoles path, RectangleF boundingBox, HighlightOptions options);
 
-        // The geometry method of the area symbols: the clipping objects of the palette color coverage of an area symbol,
-        // from its path with holes (MakeClippingObjects(SymPathWithHoles, SymColor)).
+        // The coverage prototypes of an area symbol in a palette color: first the full coverage, when the definition
+        // draws the palette color with its area fill, its area border or the glyph parts that the fill mode of an area
+        // pattern selects, and then the coverage prototypes of the hatchings and the clipped area patterns in the
+        // palette color, in the order of the drawing, of the component definitions in their order. A cross hatching is
+        // two hatchings, so it gives two coverage prototypes.
+        public override IReadOnlyList<CoveragePrototype> GetCoveragePrototypes(Symbol symbol, SymColor color)
+        {
+            if (color.IsSpecialLayer)
+                return CoveragePrototype.None;
+
+            List<CoveragePrototype> prototypes = new List<CoveragePrototype>();
+            if (HasFullCoverage(color))
+                prototypes.Add(CoveragePrototype.FullCoverage);
+            AddCoveragePrototypesOfPatternFills(prototypes, color);
+            return prototypes.AsReadOnly();
+        }
+
+        // Add the coverage prototypes of the hatchings and the clipped area patterns of this definition in a palette
+        // color, in the order of the drawing: the hatchings first, as Draw draws them before the area patterns.
+        // prototypes: the list to which the coverage prototypes are added.
+        // color: the palette color.
+        internal abstract void AddCoveragePrototypesOfPatternFills(List<CoveragePrototype> prototypes, SymColor color);
+
+        // The geometry method of the area symbols: the clipping objects of the palette color coverage of an area symbol.
+        // With the full coverage, they come from the path with holes and the angle and the rotation center of the area
+        // symbol (MakeClippingObjects(SymPathWithHoles, SymColor, float, PointF)). With a hatching or a clipped area
+        // pattern, the clipping object is the area: a filled shape of the main path and the holes with the alternate fill
+        // rule, the area with which the drawing clips the hatching and the area pattern.
         internal override IReadOnlyList<ClippingObject> MakeClippingObjects(Symbol symbol, SymColor color, CoveragePrototype prototype)
         {
-            Debug.Assert(prototype == CoveragePrototype.FullCoverage, "The geometry method of the areas gives the full coverage only.");
-            return MakeClippingObjects(((AreaLikeSymbol)symbol).Path, color);
+            AreaSymbol area = (AreaSymbol)symbol;
+            if (prototype == CoveragePrototype.FullCoverage)
+                return MakeClippingObjects(area.Path, color, area.Angle, area.RotationCenter);
+
+            Debug.Assert(prototype is HatchingPrototype || prototype is AreaPatternPrototype, "The coverage prototype of an area is the full coverage, a hatching or an area pattern.");
+            return Array.AsReadOnly(new ClippingObject[] { area.Path.MakeFilledShape(Placement.Identity) });
         }
 
         // The clipping objects of an area of this definition with a path with holes in a palette color, with the full
-        // coverage, without a drawing target, in the order in which Draw draws them. The hatchings and the area patterns
-        // are periodic coverages, and they make no clipping objects here.
+        // coverage, without a drawing target, in the order in which Draw draws them. The hatchings and the clipped area
+        // patterns are periodic coverages, and they make no clipping objects here. The glyph parts that the fill mode of
+        // an area pattern selects are clipping objects of the full coverage.
         // path: the path with holes: the main path and its holes.
         // color: the palette color.
-        internal abstract IReadOnlyList<ClippingObject> MakeClippingObjects(SymPathWithHoles path, SymColor color);
+        // angle: the angle of the area symbol, which turns its area patterns.
+        // rotationCenter: the rotation center of the area symbol.
+        internal abstract IReadOnlyList<ClippingObject> MakeClippingObjects(SymPathWithHoles path, SymColor color, float angle, PointF rotationCenter);
 
         // Add the clipping objects of a line along the main path and then along each hole of a path with holes, as an
         // area draws its area border and a combined area its line component definitions.
@@ -2562,17 +2587,28 @@ namespace PurplePen.MapModel
 
         // The clipping objects of a combined area: the clipping objects of each component definition, in the order of the
         // components, as Draw draws them. A line symbol definition goes along the main path and along each hole, and an
-        // area symbol definition gives the clipping objects of its own geometry method for the same path with holes.
-        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(SymPathWithHoles path, SymColor color)
+        // area symbol definition gives the clipping objects of its own geometry method for the same path with holes, the
+        // same angle and the same rotation center.
+        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(SymPathWithHoles path, SymColor color, float angle, PointF rotationCenter)
         {
             List<ClippingObject> clippingObjects = new List<ClippingObject>();
             foreach (SymDef component in components) {
                 if (component is LineLikeSymDef lineSymDef)
                     AddClippingObjectsOfLine(clippingObjects, lineSymDef, path, color);
                 else
-                    clippingObjects.AddRange(((AreaLikeSymDef)component).MakeClippingObjects(path, color));
+                    clippingObjects.AddRange(((AreaLikeSymDef)component).MakeClippingObjects(path, color, angle, rotationCenter));
             }
             return clippingObjects.AsReadOnly();
+        }
+
+        // The coverage prototypes of the hatchings and the clipped area patterns of the area symbol definitions among the
+        // components, in the order of the components.
+        internal override void AddCoveragePrototypesOfPatternFills(List<CoveragePrototype> prototypes, SymColor color)
+        {
+            foreach (SymDef component in components) {
+                if (component is AreaLikeSymDef areaSymDef)
+                    areaSymDef.AddCoveragePrototypesOfPatternFills(prototypes, color);
+            }
         }
 
         internal override void DrawHighlight(IGraphicsTarget g, SymPathWithHoles path, HighlightOptions options)
@@ -2674,6 +2710,10 @@ namespace PurplePen.MapModel
         // Keys for pattern brushes, indexed by pattern index and color. Concurrent because several threads can draw at once.
         readonly ConcurrentDictionary<Pair<int, SymColor>, object> patternBrushes = new ConcurrentDictionary<Pair<int, SymColor>, object>();
 
+        // The coverage prototypes of the hatchings and the clipped area patterns, after the first read made them
+        // (GetPatternFillPrototypes).
+        PatternFillPrototypes patternFillPrototypes;
+
         public override void SetMap(Map newMap)
         {
             base.SetMap(newMap);
@@ -2754,6 +2794,20 @@ namespace PurplePen.MapModel
             return patterns.AsReadOnly();
         }
 
+        // The hatching at an index.
+        // index: the index of the hatching.
+        internal HatchInfo GetHatching(int index)
+        {
+            return hatchings[index];
+        }
+
+        // The area pattern at an index.
+        // index: the index of the area pattern.
+        internal PatternInfo GetPattern(int index)
+        {
+            return patterns[index];
+        }
+
         public override SymDef CopyToMap(Map map)
         {
             var newBorderSymDef = borderSymdef == null ? null : (LineSymDef) map.SymdefFromSymbolId(borderSymdef.SymbolId);
@@ -2826,16 +2880,88 @@ namespace PurplePen.MapModel
             return false;
         }
 
-        // Does this area draw the given palette color with the full coverage: does it fill the area with the color, or
-        // does its border draw it? The hatchings and the patterns of the area are periodic coverages, and pass 1 leaves
-        // them out.
+        // Does this area draw the given palette color with the full coverage: does it fill the area with the color, does
+        // its border draw it, or does it draw it in the glyph parts that the fill mode of an area pattern selects? The
+        // hatchings and the clipped area patterns of the area are periodic coverages of their own.
         internal override bool HasFullCoverage(SymColor color)
         {
             Debug.Assert(color != null);
             if (color.IsSpecialLayer)
                 return false;
 
-            return color == fillColor || (borderSymdef != null && borderSymdef.HasColor(color));
+            if (color == fillColor || (borderSymdef != null && borderSymdef.HasColor(color)))
+                return true;
+
+            foreach (PatternInfo patternInfo in patterns) {
+                if (patternInfo.patternFillMode != PatternFillMode.Clip && patternInfo.patternGlyph.HasColor(color))
+                    return true;
+            }
+
+            return false;
+        }
+
+        // The coverage prototypes of the hatchings in a palette color, and then of the clipped area patterns in it, in
+        // their order. The area patterns whose fill mode selects glyph parts have no coverage prototypes: the selected
+        // glyph parts are clipping objects of the full coverage.
+        internal override void AddCoveragePrototypesOfPatternFills(List<CoveragePrototype> prototypes, SymColor color)
+        {
+            PatternFillPrototypes made = GetPatternFillPrototypes();
+            for (int i = 0; i < hatchings.Count; ++i) {
+                if (hatchings[i].hatchColor == color)
+                    prototypes.Add(made.Hatchings[i]);
+            }
+
+            for (int i = 0; i < patterns.Count; ++i) {
+                foreach (AreaPatternPrototype prototype in made.AreaPatterns[i]) {
+                    if (prototype.Color == color)
+                        prototypes.Add(prototype);
+                }
+            }
+        }
+
+        // The coverage prototypes of the hatchings and the clipped area patterns: a derived value of the definition,
+        // which depends on the definition alone. The first read makes them, and each area symbol of the definition refers
+        // to the same objects. Several threads can read at once, and all get the coverage prototypes that one of them
+        // publishes. A definition does not change after the map gets it.
+        private PatternFillPrototypes GetPatternFillPrototypes()
+        {
+            PatternFillPrototypes made = Volatile.Read(ref patternFillPrototypes);
+            if (made == null) {
+                made = new PatternFillPrototypes(this);
+                made = Interlocked.CompareExchange(ref patternFillPrototypes, made, null) ?? made;
+            }
+
+            return made;
+        }
+
+        // The coverage prototypes of the hatchings and the clipped area patterns of an area symbol definition.
+        private sealed class PatternFillPrototypes
+        {
+            // The coverage prototype of each hatching, by the index of the hatching.
+            public readonly HatchingPrototype[] Hatchings;
+
+            // The coverage prototypes of each area pattern, by the index of the area pattern: one in each palette color
+            // of the glyph parts of a clipped area pattern, in the order of the glyph parts, and none for an area pattern
+            // whose fill mode selects glyph parts.
+            public readonly AreaPatternPrototype[][] AreaPatterns;
+
+            // Make the coverage prototypes of a definition.
+            // definition: the area symbol definition.
+            public PatternFillPrototypes(AreaSymDef definition)
+            {
+                Hatchings = new HatchingPrototype[definition.hatchings.Count];
+                for (int i = 0; i < Hatchings.Length; ++i)
+                    Hatchings[i] = new HatchingPrototype(definition, i);
+
+                AreaPatterns = new AreaPatternPrototype[definition.patterns.Count][];
+                for (int i = 0; i < AreaPatterns.Length; ++i) {
+                    PatternInfo patternInfo = definition.patterns[i];
+                    if (patternInfo.patternFillMode == PatternFillMode.Clip)
+                        AreaPatterns[i] = patternInfo.patternGlyph.Colors.Select(color => new AreaPatternPrototype(definition, i, color)).ToArray();
+                    else
+                        AreaPatterns[i] = Array.Empty<AreaPatternPrototype>();
+                }
+            }
         }
 
         // Highlight the symbol.
@@ -2900,15 +3026,21 @@ namespace PurplePen.MapModel
             }
         }
 
-        // The clipping objects of an area, in the order in which Draw draws them: the area fill in its color, a filled
-        // shape of the main path and its holes with the alternate fill rule, as SymPathWithHoles.Fill fills them, and the
-        // area border along the main path and then along each hole. The hatchings and the area patterns make no clipping
-        // objects here.
-        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(SymPathWithHoles path, SymColor color)
+        // The clipping objects of an area with the full coverage, in the order in which Draw draws them: the area fill in
+        // its color, a filled shape of the main path and its holes with the alternate fill rule, as SymPathWithHoles.Fill
+        // fills them; the glyph parts that the fill mode of each area pattern selects (AddSelectedGlyphParts); and the
+        // area border along the main path and then along each hole. The hatchings and the clipped area patterns make no
+        // clipping objects here.
+        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(SymPathWithHoles path, SymColor color, float angle, PointF rotationCenter)
         {
             List<ClippingObject> clippingObjects = new List<ClippingObject>();
             if (color == fillColor)
                 clippingObjects.Add(path.MakeFilledShape(Placement.Identity));
+
+            foreach (PatternInfo patternInfo in patterns) {
+                if (patternInfo.patternFillMode != PatternFillMode.Clip && patternInfo.patternGlyph.HasColor(color))
+                    AddSelectedGlyphParts(clippingObjects, patternInfo, path, color, angle, rotationCenter);
+            }
 
             if (borderSymdef != null && borderSymdef.HasColor(color))
                 AddClippingObjectsOfLine(clippingObjects, borderSymdef, path, color);
@@ -2916,12 +3048,231 @@ namespace PurplePen.MapModel
             return clippingObjects.AsReadOnly();
         }
 
+        // Add the glyph parts in a palette color that the fill mode of an area pattern selects, as DrawPattern and
+        // DrawPatternRows draw them: each glyph part of each element is selected by its own points and center
+        // (Glyph.GlyphPart.IsSelectedBy). A selected glyph part is a shared shape of the glyph at a single placement whose
+        // steps are the transformation of the area pattern, as DrawPattern sets it, and the pose of the element: its
+        // location at its lattice point, with the irregularity, and the angle -patternAngle.
+        // clippingObjects: the list to which the clipping objects are added.
+        // patternInfo: the area pattern, whose fill mode selects glyph parts.
+        // path: the path with holes of the area.
+        // color: the palette color.
+        // angle: the angle of the area symbol.
+        // rotationCenter: the rotation center of the area symbol.
+        void AddSelectedGlyphParts(List<ClippingObject> clippingObjects, PatternInfo patternInfo, SymPathWithHoles path, SymColor color, float angle, PointF rotationCenter)
+        {
+            Matrix matrix = MakePatternMatrix(patternInfo, angle, rotationCenter);
+            SinglePlacement placement = Placement.Identity.Within(matrix);
+            matrix.Invert();
+            RectangleF bounding = Geometry.BoundsOfTransformedRectangle(path.BoundingBox, matrix);
+            GlyphPartFilter filter = MakeGlyphPartFilter(patternInfo.patternFillMode, path.Transform(matrix));
+
+            foreach (PointF location in GetPatternElementLocations(patternInfo, bounding))
+                clippingObjects.AddRange(patternInfo.patternGlyph.MakeClippingObjectsOfSelectedParts(location, -patternInfo.patternAngle, color, placement, filter));
+        }
+
+        // The filter of the glyph parts that a fill mode selects, as DrawPatternRows makes it: CompletelyInside selects a
+        // part whose each point is inside the area, CenterInside a part whose center is inside it, and PartiallyInside a
+        // part one of whose points is inside it.
+        // fillMode: the fill mode, which is not Clip.
+        // transformedPath: the path with holes of the area in the coordinates of the area pattern.
+        static GlyphPartFilter MakeGlyphPartFilter(PatternFillMode fillMode, SymPathWithHoles transformedPath)
+        {
+            switch (fillMode) {
+                case PatternFillMode.CompletelyInside:
+                    return (PointF[] points, PointF center) => points.All(pt => transformedPath.IsInside(pt));
+                case PatternFillMode.CenterInside:
+                    return (PointF[] points, PointF center) => transformedPath.IsInside(center);
+                case PatternFillMode.PartiallyInside:
+                    return (PointF[] points, PointF center) => points.Any(pt => transformedPath.IsInside(pt));
+                default:
+                    throw new ArgumentException("The fill mode Clip selects no glyph parts.", nameof(fillMode));
+            }
+        }
+
+        // The transformation of an area pattern, as DrawPattern sets it: T(c) · R(a) · R(patternAngle) ·
+        // T(patternOffsetX, patternOffsetY). The rotate mode Never leaves out the angle a and the rotation center c of the
+        // area symbol, as DrawPatterns does.
+        // patternInfo: the area pattern.
+        // angle: the angle of the area symbol.
+        // rotationCenter: the rotation center of the area symbol.
+        static Matrix MakePatternMatrix(PatternInfo patternInfo, float angle, PointF rotationCenter)
+        {
+            bool ignoreRotation = (patternInfo.patternRotateMode == RotateMode.Never);
+            if (ignoreRotation) {
+                angle = 0;
+                rotationCenter = new PointF();
+            }
+
+            Matrix matrix = new Matrix();
+            matrix.Translate(rotationCenter.X, rotationCenter.Y);
+            matrix.Rotate(angle);
+            matrix.Rotate(patternInfo.patternAngle);
+            matrix.Translate(patternInfo.patternOffsetX, patternInfo.patternOffsetY);
+            return matrix;
+        }
+
+        // The transformation of a hatching, as DrawOneHatching sets it: T(c) · R(a) · R(hatchAngle). The rotate mode Never
+        // leaves out the angle a and the rotation center c of the area symbol. The drawing adds the offset of the hatching
+        // to the places of the hatch lines (SymbolHelpers.DrawHatchLines).
+        // hatchInfo: the hatching.
+        // angle: the angle of the area symbol.
+        // rotationCenter: the rotation center of the area symbol.
+        static Matrix MakeHatchingMatrix(HatchInfo hatchInfo, float angle, PointF rotationCenter)
+        {
+            if (hatchInfo.hatchRotateMode == RotateMode.Never) {
+                angle = 0;
+                rotationCenter = new PointF();
+            }
+
+            Matrix matrix = new Matrix();
+            matrix.Translate(rotationCenter.X, rotationCenter.Y);
+            matrix.Rotate(angle);
+            matrix.Rotate(hatchInfo.hatchAngle);
+            return matrix;
+        }
+
+        // The affine transformation M of the configuration of a hatching: T(c) · R(a) · R(hatchAngle) ·
+        // T(0, hatchOffset), the transformation of the drawing with the offset of the hatching.
+        // index: the index of the hatching.
+        // angle: the angle of the area symbol.
+        // rotationCenter: the rotation center of the area symbol.
+        internal Matrix GetHatchingTransformation(int index, float angle, PointF rotationCenter)
+        {
+            HatchInfo hatchInfo = hatchings[index];
+            Matrix matrix = MakeHatchingMatrix(hatchInfo, angle, rotationCenter);
+            matrix.Translate(0, hatchInfo.hatchOffset);
+            return matrix;
+        }
+
+        // The affine transformation M of the configuration of an area pattern: T(c) · R(a) · R(patternAngle) ·
+        // T(patternOffsetX, patternOffsetY), the transformation of the drawing.
+        // index: the index of the area pattern.
+        // angle: the angle of the area symbol.
+        // rotationCenter: the rotation center of the area symbol.
+        internal Matrix GetPatternTransformation(int index, float angle, PointF rotationCenter)
+        {
+            return MakePatternMatrix(patterns[index], angle, rotationCenter);
+        }
+
+        // The expansion of a hatching over the bounds of an area: the hatch lines that DrawOneHatching draws, each a
+        // stroked line of the pen of the hatching, at a single placement whose step is the transformation of the drawing,
+        // in the order of the drawing.
+        // index: the index of the hatching.
+        // path: the path with holes of the area.
+        // angle: the angle of the area symbol.
+        // rotationCenter: the rotation center of the area symbol.
+        internal IReadOnlyList<ClippingObject> ExpandHatching(int index, SymPathWithHoles path, float angle, PointF rotationCenter)
+        {
+            HatchInfo hatchInfo = hatchings[index];
+            Matrix matrix = MakeHatchingMatrix(hatchInfo, angle, rotationCenter);
+            SinglePlacement placement = Placement.Identity.Within(matrix);
+            matrix.Invert();
+            RectangleF bounding = Geometry.BoundsOfTransformedRectangle(path.BoundingBox, matrix);
+
+            Stroke stroke = new Stroke(hatchInfo.hatchWidth, LineCapMode.Flat, LineJoinMode.Miter, GraphicsUtil.MITER_LIMIT);
+            return SymbolHelpers.MakeHatchLines(stroke, hatchInfo.hatchSpacing, hatchInfo.hatchOffset, bounding, placement);
+        }
+
+        // The expansion of a clipped area pattern in a palette color over the bounds of an area: the elements that
+        // DrawPattern draws, at their lattice points with the irregularity, in the order of DrawPatternRows. The glyph
+        // parts of each element in the palette color are the shared shapes of the glyph at a single placement whose steps
+        // are the transformation of the area pattern and the pose of the element, and a glyph of one circle at its origin
+        // is a circle at the location of the element within the transformation of the area pattern, as Glyph.DrawSimple
+        // draws it (Glyph.MakeClippingObjects).
+        // index: the index of the area pattern.
+        // color: the palette color.
+        // path: the path with holes of the area.
+        // angle: the angle of the area symbol.
+        // rotationCenter: the rotation center of the area symbol.
+        internal IReadOnlyList<ClippingObject> ExpandAreaPattern(int index, SymColor color, SymPathWithHoles path, float angle, PointF rotationCenter)
+        {
+            PatternInfo patternInfo = patterns[index];
+            Matrix matrix = MakePatternMatrix(patternInfo, angle, rotationCenter);
+            SinglePlacement placement = Placement.Identity.Within(matrix);
+            matrix.Invert();
+            RectangleF bounding = Geometry.BoundsOfTransformedRectangle(path.BoundingBox, matrix);
+
+            List<ClippingObject> expansion = new List<ClippingObject>();
+            foreach (PointF location in GetPatternElementLocations(patternInfo, bounding))
+                expansion.AddRange(patternInfo.patternGlyph.MakeClippingObjects(location, -patternInfo.patternAngle, null, color, null, placement));
+            return expansion.AsReadOnly();
+        }
+
+        // The locations of the elements of an area pattern over a rectangle of the coordinates of the area pattern, in the
+        // order in which DrawPatternRows draws them: row by row, with the steps summed as the drawing sums them, and each
+        // moved by the irregularity (HandleIrregularity).
+        // patternInfo: the area pattern.
+        // boundingRect: the rectangle.
+        IEnumerable<PointF> GetPatternElementLocations(PatternInfo patternInfo, RectangleF boundingRect)
+        {
+            RectangleF patternGlyphBounds = Geometry.BoundsOfRotatedRectangle(patternInfo.patternGlyph.BoundingBox, new PointF(0, 0), -patternInfo.patternAngle);
+            RectangleF patternBounds = new RectangleF(-patternInfo.patternWidth / 2, -patternInfo.patternHeight / 2, patternInfo.patternWidth, patternInfo.patternHeight);
+
+            long topLineCount = (long)Math.Round((boundingRect.Top - patternGlyphBounds.Bottom + patternBounds.Bottom) / patternInfo.patternHeight);
+            double topLine = topLineCount * patternInfo.patternHeight;
+            double bottomLine = (Math.Round((boundingRect.Bottom - patternGlyphBounds.Top + patternBounds.Top) / patternInfo.patternHeight) + 0.5) * patternInfo.patternHeight;
+            double leftLine = Math.Round((boundingRect.Left - patternGlyphBounds.Right + patternBounds.Right) / patternInfo.patternWidth) * patternInfo.patternWidth;
+            double rightLine = (Math.Round((boundingRect.Right - patternGlyphBounds.Left + patternBounds.Left) / patternInfo.patternWidth) + 0.5) * patternInfo.patternWidth;
+            double offsetLeftLine = leftLine - (patternInfo.patternWidth / 2);
+            double offsetRightLine = rightLine + (patternInfo.patternWidth / 2);
+            bool firstLineOffset = (topLineCount & 1) != 0;
+
+            bool offsetThisLine = patternInfo.offsetRows && firstLineOffset;
+
+            for (double y = topLine; y <= bottomLine; y += patternInfo.patternHeight) {
+                if (offsetThisLine) {
+                    for (double x = offsetLeftLine; x <= offsetRightLine; x += patternInfo.patternWidth)
+                        yield return HandleIrregularity(patternInfo, x, y);
+                }
+                else {
+                    for (double x = leftLine; x <= rightLine; x += patternInfo.patternWidth)
+                        yield return HandleIrregularity(patternInfo, x, y);
+                }
+
+                if (patternInfo.offsetRows)
+                    offsetThisLine = !offsetThisLine;
+            }
+        }
+
+        // Does the coverage prototype of an area pattern in a palette color cover a point of its coordinates: does a glyph
+        // part of an element in the palette color cover it? The elements are turned by -patternAngle at the points of the
+        // lattice, x = i · patternWidth and y = j · patternHeight, the points of each odd row patternWidth / 2 aside when
+        // the area pattern offsets its rows, and each is moved by the irregularity (HandleIrregularity).
+        // index: the index of the area pattern.
+        // color: the palette color.
+        // point: the point, in the coordinates of the area pattern.
+        internal bool AreaPatternCovers(int index, SymColor color, PointF point)
+        {
+            PatternInfo patternInfo = patterns[index];
+            double width = patternInfo.patternWidth, height = patternInfo.patternHeight;
+            if (!(width > 0) || !(height > 0))
+                return false;
+
+            // The elements whose glyph parts can reach the point: within the radius of the glyph, and the most that the
+            // irregularity moves an element, half the size of the element.
+            double reachX = patternInfo.patternGlyph.Radius + (patternInfo.irregular ? width / 2 : 0);
+            double reachY = patternInfo.patternGlyph.Radius + (patternInfo.irregular ? height / 2 : 0);
+            long firstRow = (long)Math.Floor((point.Y - reachY) / height), lastRow = (long)Math.Ceiling((point.Y + reachY) / height);
+            for (long row = firstRow; row <= lastRow; ++row) {
+                double rowOffset = (patternInfo.offsetRows && (row & 1) != 0) ? width / 2 : 0;
+                long firstColumn = (long)Math.Floor((point.X - rowOffset - reachX) / width), lastColumn = (long)Math.Ceiling((point.X - rowOffset + reachX) / width);
+                for (long column = firstColumn; column <= lastColumn; ++column) {
+                    PointF location = HandleIrregularity(patternInfo, column * width + rowOffset, row * height);
+                    Matrix inverse = new Matrix();
+                    inverse.Rotate(patternInfo.patternAngle);
+                    inverse.Translate(-location.X, -location.Y);
+                    if (patternInfo.patternGlyph.Covers(Geometry.TransformPoint(point, inverse), color))
+                        return true;
+                }
+            }
+
+            return false;
+        }
+
         // Draw the hatching into the interior of the SymPath.
         void DrawHatchings(IGraphicsTarget g, SymPathWithHoles path, float angle, PointF rotationCenter, RenderOptions renderOpts, SymColor color)
         {
-            if (renderOpts.omitHatchingsAndPatterns)
-                return;
-
             // Precheck if any hatchings have the color before doing the expensive clip operation.
             bool hasColor = false;
             for (int i = 0; i < hatchings.Count; ++i) {
@@ -2978,9 +3329,6 @@ namespace PurplePen.MapModel
         // Draw all patterns
         void DrawPatterns(IGraphicsTarget g, SymPathWithHoles path, SymColor color, float angle, PointF rotationCenter, RenderOptions renderOpts)
         {
-            if (renderOpts.omitHatchingsAndPatterns)
-                return;
-
             for (int i = 0; i < patterns.Count; ++i) {
                 PatternInfo patternInfo = patterns[i];
                 bool ignoreRotation = (patternInfo.patternRotateMode == RotateMode.Never);

@@ -13,17 +13,19 @@ using TestingUtils;
 namespace Map_Skia.Tests
 {
     // The coverage of the palette separations that pass 1 makes (Map.PaletteSeparations): for each palette color of a
-    // test map, the union of the clipping objects of the palette color coverages in the palette cutters of its palette
-    // separation covers the pixels that the drawing of the palette color covers. Both drawings are made in the same run,
-    // without antialiasing, on a transparent bitmap whose alpha is the coverage. So a white color counts as the others
-    // do, and the comparison needs no baseline.
+    // test map, the coverage of the palette cutters of its palette separation covers the pixels that the drawing of the
+    // palette color covers. The coverage of a palette cutter with the full coverage is the union of the clipping objects
+    // of its palette color coverages. The coverage of a palette cutter of a hatching or a clipped area pattern is the
+    // expansion of the coverage prototype of each of its palette color coverages (SymbolCoverage.ExpandPrototype) inside
+    // the clipping objects of the palette color coverage. Both drawings are made in the same run, without antialiasing,
+    // on a transparent bitmap whose alpha is the coverage. So a white color counts as the others do, and the comparison
+    // needs no baseline. No difference is allowed.
     // The palette separations are those of the whole map, and the bitmap of the area of the test map limits their
     // drawing. The drawing of the palette color, which is the oracle, draws the area at the resolution 0, as pass 1 draws
-    // the symbols, so that both keep the dashes of a dashed line whatever the size of a pixel.
-    // Pass 1 leaves out the hatchings and the area patterns, so the comparison leaves out each palette color that a
-    // visible symbol with hatchings or area patterns has. The drawing of the bottom palette color draws the image layer
-    // too, so the comparison leaves out the bottom palette color of a map with image objects. The maps without
-    // hatchings, area patterns and image objects compare all their palette colors.
+    // the symbols, so that both keep the dashes of a dashed line whatever the size of a pixel. It draws the area patterns
+    // glyph by glyph, without the bitmaps of the pattern brushes (RenderOptions.usePatternBitmaps).
+    // The drawing of the bottom palette color draws the image layer too, so the comparison leaves out the bottom palette
+    // color of a map with image objects. It compares all the other palette colors.
     [TestFixture, Parallelizable(ParallelScope.Children)]
     public class PaletteSeparationCoverageTests
     {
@@ -33,7 +35,7 @@ namespace Map_Skia.Tests
             System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(RenderingTests).TypeHandle);
         }
 
-        // The maps without hatchings, area patterns and image objects.
+        // The maps without hatchings, area patterns and image objects, and the maps with hatchings or area patterns.
         [TestCase("isomlines.txt")]
         [TestCase("isompoints.txt")]
         [TestCase("dashline.txt")]
@@ -50,23 +52,42 @@ namespace Map_Skia.Tests
         [TestCase("textpoint10.txt")]
         [TestCase("linetext_9.txt")]
         [TestCase("rectanglesymbols.txt")]
-        public void ClippingObjectsCoverWhatTheDrawingCovers(string testFileName)
-        {
-            int comparedColors, allColors;
-            CompareCoverage(TestMap.Read(testFileName), out comparedColors, out allColors);
-            Assert.AreEqual(allColors, comparedColors, "The test map has hatchings, area patterns or image objects.");
-        }
-
-        // The maps with hatchings, area patterns or image objects, whose other palette colors the comparison compares.
         [TestCase("graphicobjects9.txt")]
         [TestCase("LordHill.txt")]
         [TestCase("lksamm1.txt")]
         [TestCase("marymoor.txt")]
-        public void ClippingObjectsCoverWhatTheDrawingCoversOutsideThePeriodicCoverages(string testFileName)
+        [TestCase("rotarea-test.txt")]
+        [TestCase("rotarea-test9.txt")]
+        [TestCase("offsetpattern_nopatbm.txt")]
+        [TestCase("offsetpatternrot_nopatbm.txt")]
+        [TestCase("offsetpatternrot2_nopatbm.txt")]
+        [TestCase("wholestructure.txt")]
+        [TestCase("wholestructure2.txt")]
+        [TestCase("wholestructure3.txt")]
+        [TestCase("wholestructure4.txt")]
+        [TestCase("irregular1.txt")]
+        [TestCase("irregular2.txt")]
+        [TestCase("irregular3.txt")]
+        [TestCase("irregular4.txt")]
+        [TestCase("holes.txt")]
+        [TestCase("holes9.txt")]
+        [TestCase("isomarea_nopatbm.txt")]
+        [TestCase("isomareabug_nopatbm.txt")]
+        [TestCase("borderedarea9.txt")]
+        [TestCase("glyphholes.txt")]
+        [TestCase("glyphholes9.txt")]
+        [TestCase("aiimport.txt")]
+        [TestCase("FtCasey.txt")]
+        [TestCase("PenistoneHill.txt")]
+        [TestCase("punchboxbug.txt")]
+        [TestCase("missingcolor.txt")]
+        [TestCase("clouds.txt")]
+        public void ClippingObjectsCoverWhatTheDrawingCovers(string testFileName)
         {
             int comparedColors, allColors;
-            CompareCoverage(TestMap.Read(testFileName), out comparedColors, out allColors);
-            Assert.Less(comparedColors, allColors, "The test map has no hatchings, area patterns or image objects.");
+            bool hasImageObjects;
+            CompareCoverage(TestMap.Read(testFileName), out comparedColors, out allColors, out hasImageObjects);
+            Assert.AreEqual(hasImageObjects ? allColors - 1 : allColors, comparedColors, "The palette colors that the comparison compares.");
         }
 
         // Maps of dashed lines, drawn with pixels that are larger than the gaps of the dashes. A drawing at the size of
@@ -84,8 +105,9 @@ namespace Map_Skia.Tests
             Assert.Greater(pixelsThatTheResolutionChanges, 0, "The drawing at the size of a pixel draws each dashed line of the map as the drawing at the resolution 0 does.");
 
             int comparedColors, allColors;
-            CompareCoverage(testMap, out comparedColors, out allColors);
-            Assert.AreEqual(allColors, comparedColors, "The test map has hatchings, area patterns or image objects.");
+            bool hasImageObjects;
+            CompareCoverage(testMap, out comparedColors, out allColors, out hasImageObjects);
+            Assert.AreEqual(allColors, comparedColors, "The test map has image objects.");
         }
 
         // Count the pixels in which the drawing of a test map at the size of its pixel differs from the drawing at the
@@ -102,11 +124,14 @@ namespace Map_Skia.Tests
         }
 
         // Compare the coverage of the palette separation of each palette color of a test map with the drawing of the
-        // palette color. Check also that each palette color coverage of a symbol is in one palette cutter.
+        // palette color. Check also that each palette color coverage of a symbol is in one palette cutter, whose coverage
+        // prototype and normal form of M it has.
         // testMap: the test map.
         // comparedColors: the number of palette colors that the comparison compares.
         // allColors: the number of palette colors of the map.
-        static void CompareCoverage(TestMap testMap, out int comparedColors, out int allColors)
+        // hasImageObjects: whether the map has visible image objects, so that the comparison leaves out the bottom palette
+        //   color.
+        static void CompareCoverage(TestMap testMap, out int comparedColors, out int allColors, out bool hasImageObjects)
         {
             Map map = testMap.Map;
             List<string> differences = new List<string>();
@@ -118,28 +143,30 @@ namespace Map_Skia.Tests
                 allColors = colors.Count;
                 Assert.AreEqual(colors.Count, colors.Select(color => color.OcadId).Distinct().Count(), "The drawing of one palette color needs unique color numbers.");
 
-                HashSet<SymColor> colorsLeftOut = FindColorsLeftOut(map, colors);
+                hasImageObjects = HasImageObjects(map);
                 IReadOnlyList<PaletteSeparation> separations = map.PaletteSeparations;
                 CollectionAssert.AreEqual(colors, separations.Select(separation => separation.Color), "The palette separations are in palette order.");
 
                 for (int index = 0; index < colors.Count; ++index) {
                     SymColor color = colors[index];
                     PaletteSeparation separation = separations[index];
-                    CollectionAssert.AreEqual(separation.SymbolCoverages, separation.Cutters.SelectMany(cutter => cutter.SymbolCoverages), "Each palette color coverage of {0} is in one palette cutter.", color.Name);
-                    foreach (PaletteCutter cutter in separation.Cutters)
-                        Assert.AreSame(CoveragePrototype.FullCoverage, cutter.Prototype);
-                    if (colorsLeftOut.Contains(color))
+                    CollectionAssert.AreEquivalent(separation.SymbolCoverages, separation.Cutters.SelectMany(cutter => cutter.SymbolCoverages), "Each palette color coverage of {0} is in one palette cutter.", color.Name);
+                    foreach (PaletteCutter cutter in separation.Cutters) {
+                        foreach (SymbolCoverage coverage in cutter.SymbolCoverages) {
+                            Assert.AreSame(cutter.Prototype, coverage.Prototype);
+                            CollectionAssert.AreEqual(cutter.Transformation.Elements, coverage.Prototype.GetNormalForm(coverage.Transformation).Elements, "The normal form of M of {0}", coverage);
+                        }
+                    }
+                    if (index == 0 && hasImageObjects)
                         continue;
 
-                    List<ClippingObject> clippingObjects = separation.Cutters
-                        .SelectMany(cutter => cutter.SymbolCoverages)
-                        .SelectMany(coverage => coverage.ClippingObjects)
-                        .ToList();
+                    int clippingObjectCount = 0, expandedCount = 0;
                     bool[] drawing = testMap.DrawCoverage(target => map.Draw(target, testMap.Area, CreateOneColorOptions(colors, index), null));
-                    bool[] union = testMap.DrawCoverage(target => DrawClippingObjects(target, clippingObjects));
+                    bool[] union = testMap.DrawCoverage(target => DrawCoverage(target, separation, ref clippingObjectCount, ref expandedCount));
 
                     ++comparedColors;
-                    TestContext.WriteLine("{0} (id {1}): {2} pixels, {3} palette color coverages, {4} clipping objects", color.Name, color.OcadId, drawing.Count(covered => covered), separation.SymbolCoverages.Count, clippingObjects.Count);
+                    TestContext.WriteLine("{0} (id {1}): {2} pixels, {3} palette color coverages, {4} palette cutters, {5} clipping objects, {6} clipping objects of the expansions",
+                                          color.Name, color.OcadId, drawing.Count(covered => covered), separation.SymbolCoverages.Count, separation.Cutters.Count, clippingObjectCount, expandedCount);
                     hasAnyCoverage |= drawing.Contains(true);
                     int differing = Enumerable.Range(0, drawing.Length).Count(i => drawing[i] != union[i]);
                     if (differing > 0) {
@@ -153,39 +180,50 @@ namespace Map_Skia.Tests
             Assert.IsEmpty(differences, "The coverage of the clipping objects differs from the drawing:\n" + string.Join("\n", differences));
         }
 
-        // The palette colors that the comparison leaves out: each palette color of a visible symbol with hatchings or
-        // area patterns, and the bottom palette color, if the map has visible image objects.
+        // Whether a map has visible image objects, which the drawing of the bottom palette color draws too.
         // map: the map.
-        // colors: the palette colors of the map, the bottom one first.
-        static HashSet<SymColor> FindColorsLeftOut(Map map, List<SymColor> colors)
+        static bool HasImageObjects(Map map)
         {
-            HashSet<SymColor> colorsLeftOut = new HashSet<SymColor>();
             foreach (Symbol symbol in map.AllSymbols) {
                 if (map.IsSymdefVisible(symbol.Definition) && symbol.IsVisible) {
-                    if (HasHatchingOrPattern(symbol.Definition))
-                        colorsLeftOut.UnionWith(colors.Where(color => symbol.Definition.HasColor(color)));
-
                     ImageSymDef imageSymdef = symbol.Definition as ImageSymDef;
-                    if (imageSymdef != null && imageSymdef.Layer == SymLayer.Image && colors.Count > 0)
-                        colorsLeftOut.Add(colors[0]);
+                    if (imageSymdef != null && imageSymdef.Layer == SymLayer.Image)
+                        return true;
                 }
             }
 
-            return colorsLeftOut;
+            return false;
         }
 
-        // Whether a symbol definition has hatchings or area patterns, also in a component.
-        static bool HasHatchingOrPattern(SymDef symdef)
+        // Draw the coverage of a palette separation with an opaque brush: the clipping objects of the palette color
+        // coverages of each palette cutter with the full coverage, and inside the clipping objects of each palette color
+        // coverage of a hatching or a clipped area pattern, the expansion of its coverage prototype. The clipping object of
+        // a hatching or a clipped area pattern is the area, a filled path at the identity placement, which the drawing
+        // clips with. It is the test's own drawing of the clipping objects, and not pass 2.
+        // g: the target.
+        // separation: the palette separation.
+        // clippingObjectCount: the number of the clipping objects that were drawn.
+        // expandedCount: the number of the clipping objects of the expansions that were drawn.
+        static void DrawCoverage(IGraphicsTarget g, PaletteSeparation separation, ref int clippingObjectCount, ref int expandedCount)
         {
-            AreaSymDef areaSymdef = symdef as AreaSymDef;
-            if (areaSymdef != null)
-                return areaSymdef.HasHatching || areaSymdef.HasPattern;
-
-            AreaComboSymDef comboSymdef = symdef as AreaComboSymDef;
-            if (comboSymdef != null)
-                return comboSymdef.Components.Any(HasHatchingOrPattern);
-
-            return false;
+            foreach (PaletteCutter cutter in separation.Cutters) {
+                foreach (SymbolCoverage coverage in cutter.SymbolCoverages) {
+                    IReadOnlyList<ClippingObject> clippingObjects = coverage.ClippingObjects;
+                    clippingObjectCount += clippingObjects.Count;
+                    if (cutter.Prototype == CoveragePrototype.FullCoverage) {
+                        DrawClippingObjects(g, clippingObjects);
+                    }
+                    else {
+                        FilledShape area = (FilledShape)clippingObjects.Single();
+                        Assert.AreEqual(0, area.Placement.Steps.Count, "the steps of the area of {0}", coverage);
+                        IReadOnlyList<ClippingObject> expansion = coverage.ExpandPrototype();
+                        expandedCount += expansion.Count;
+                        g.PushClip(((PathShape)area.Shape).Parts.ToList(), area.FillRule);
+                        DrawClippingObjects(g, expansion);
+                        g.PopClip();
+                    }
+                }
+            }
         }
 
         // The options that draw one palette color of a map, as the current drawing does: from the palette color below

@@ -3121,7 +3121,6 @@ namespace PurplePen.MapModel
     {
         public float minResolution;  // minimum size of a feature to render (typically the pixel size)
         public bool usePatternBitmaps; // if true, always use bitmap glyphs to render area patterns, if false, use direct drawing and clipping
-        internal bool omitHatchingsAndPatterns; // if true, do not draw the hatchings and the patterns of areas. The collector (ClippingObjectCollector), the oracle of the tests, collects the full coverage of the palette colors without them, since they are coverage prototypes of their own.
         public RenderTemplateOption renderTemplates; // how templates (either OCAD or bitmap) will be displayed. Recursively applies to OCAD templates.
         public bool blendOverprintedColors; // if true, then use BlendMode.Darken to blend colors that have Overprint flag set to true.
                                             // if false, then Overprint flag is ignored.

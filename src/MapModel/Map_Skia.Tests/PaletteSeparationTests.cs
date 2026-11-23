@@ -317,14 +317,15 @@ namespace Map_Skia.Tests
         }
 
         [Test]
-        public void AreaHasItsFillAndBorderButNotItsHatchingsAndPatterns()
+        public void AreaHasItsFillBorderHatchingsAndAreaPatternInItsPaletteColorCoverages()
         {
             Map map = CreateMap();
             AreaSymbol forestSymbol;
+            SymColor brown;
             using (map.Write()) {
                 SymColor green = map.AddColor("Green", 1, 0.76F, 0, 0.91F, 0, false);
                 SymColor blue = map.AddColor("Blue", 2, 1, 0, 0, 0, false);
-                SymColor brown = map.AddColor("Brown", 3, 0, 0.56F, 1, 0.18F, false);
+                brown = map.AddColor("Brown", 3, 0, 0.56F, 1, 0.18F, false);
                 SymColor black = map.AddColor("Black", 4, 0, 0, 0, 1, false);
 
                 LineSymDef border = AddLineSymdef(map, "Border", black, 0.2F);
@@ -340,21 +341,34 @@ namespace Map_Skia.Tests
                 map.AddSymbol(forestSymbol);
             }
 
-            // The hatchings and the pattern are periodic coverages, which pass 1 leaves out. The palette colors of the
-            // blue hatching and of the brown pattern have no other parts of the area, so the area has no palette color
-            // coverages in them.
+            // The hatchings and the area pattern are periodic coverages, and the area has a palette color coverage of
+            // each of them (ticket 009). The green hatching is in the palette color of the area fill, after its full
+            // coverage.
             using (map.Read()) {
                 IReadOnlyList<PaletteSeparation> separations = map.PaletteSeparations;
-                CollectionAssert.AreEqual(new int[] { 1, 0, 0, 1 }, separations.Select(separation => separation.SymbolCoverages.Count));
-                Assert.AreSame(forestSymbol, separations[0].SymbolCoverages[0].Symbol);
-                Assert.AreSame(forestSymbol, separations[3].SymbolCoverages[0].Symbol);
+                CollectionAssert.AreEqual(new int[] { 2, 1, 1, 1 }, separations.Select(separation => separation.SymbolCoverages.Count));
+                foreach (PaletteSeparation separation in separations) {
+                    foreach (SymbolCoverage coverage in separation.SymbolCoverages)
+                        Assert.AreSame(forestSymbol, coverage.Symbol);
+                }
+                Assert.AreSame(CoveragePrototype.FullCoverage, separations[0].SymbolCoverages[0].Prototype);
+                Assert.AreEqual(1, ((HatchingPrototype)separations[0].SymbolCoverages[1].Prototype).Index);
+                Assert.AreEqual(0, ((HatchingPrototype)separations[1].SymbolCoverages[0].Prototype).Index);
+                Assert.AreSame(brown, ((AreaPatternPrototype)separations[2].SymbolCoverages[0].Prototype).Color);
+                Assert.AreSame(CoveragePrototype.FullCoverage, separations[3].SymbolCoverages[0].Prototype);
             }
 
             List<ClippingObject>[] clippingObjects = GetClippingObjectsBySeparation(map);
-            FilledShape fill = (FilledShape)clippingObjects[0].Single();
+            FilledShape fill = (FilledShape)clippingObjects[0][0];
             Assert.IsInstanceOf<PathShape>(fill.Shape);
             Assert.AreEqual(AreaFillMode.Alternate, fill.FillRule);
             AssertBounds(RectangleF.FromLTRB(0, 0, 10, 10), fill.Bounds);
+
+            // The clipping object of each hatching and of the area pattern is the area, as the area fill is.
+            foreach (ClippingObject area in new ClippingObject[] { clippingObjects[0][1], clippingObjects[1].Single(), clippingObjects[2].Single() }) {
+                Assert.AreEqual(AreaFillMode.Alternate, ((FilledShape)area).FillRule);
+                AssertBounds(fill.Bounds, area.Bounds);
+            }
 
             StrokedShape outline = (StrokedShape)clippingObjects[3].Single();
             Assert.AreEqual(0.2F, outline.Stroke.Width, Tolerance);

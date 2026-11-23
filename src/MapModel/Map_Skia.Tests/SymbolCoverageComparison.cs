@@ -8,151 +8,13 @@ using PurplePen.MapModel;
 
 namespace Map_Skia.Tests
 {
-    // The comparison of the clipping objects of palette color coverages of symbols as structures, with which the tests
-    // check the geometry methods of the symbol definitions (SymDef.MakeClippingObjects) against their oracle, the
-    // clipping objects that the collector makes (SymDef.CollectClippingObjects). Two lists of clipping objects have the
-    // same structure when they have the same clipping objects in the same order: the same kind, shape, pen or fill rule,
-    // and steps of the placement. The collector makes a shape of each drawing call, so the comparison compares the
-    // shapes as values, each number exactly. It compares a matrix by its elements, as Matrix.Elements gives them. The
-    // numbers 0 and -0 are the same, as a mirror of the Y axis changes the sign of a zero.
+    // The expansion of the clipping objects of palette color coverages of symbols into the clipping objects that the
+    // drawing makes, with which the tests draw the clipping objects (PaletteSeparationCoverageTests), and the description
+    // of a clipping object for the messages of the tests. The geometry methods of the lines make forms that the drawing
+    // does not draw as they are: runs of dashes, offset paths and repeated placements. The expansion makes single
+    // clipping objects of them.
     static class SymbolCoverageComparison
     {
-        // Find the differences between the structures of two lists of the clipping objects of a palette color coverage.
-        // coverage: the palette color coverage, which names the differences.
-        // expected: the clipping objects of the oracle.
-        // actual: the clipping objects to check.
-        // The geometry methods of the lines make forms that the collector does not: runs of dashes, offset paths and
-        // repeated placements. The comparison expands them first (Expand), and compares each expanded clipping object in
-        // the coordinates of the map within ExpansionTolerance: a run measures its dashes from its own start, and the
-        // drawing from the start of the line, and a repeated placement finds its poses along its own path, and the drawing
-        // along the whole line. The clipping objects that the expansion of an offset path makes are compared within
-        // OffsetPathTolerance. Points that are nearer each other than ExpansionTolerance are one point. The other
-        // clipping objects are compared exactly.
-        // The texts differ from the collector in two ways (ticket 013). The drawing lays out a text with a step that
-        // mirrors the Y axis, and the collector keeps that step, but the mirror is a part of a text run of the geometry
-        // methods (TextShape). So the comparison first moves the mirror of each clipping object of the collector into its
-        // shape (MoveMirrorIntoShape). And the drawing strokes the outline of a text run with a framing line with pens of
-        // increasing width, and last with the pen of the full width (TextSymDef.DrawStringWithEffects). The narrower
-        // lines are inside the widest, and the framing line of the geometry methods is that one line, as OCAD draws it.
-        // So of the consecutive strokes of the same text run at the same placement, the comparison keeps the last
-        // (LeaveOutNarrowerLinesOfFramings).
-        public static List<string> FindDifferences(SymbolCoverage coverage, IReadOnlyList<ClippingObject> expected, IReadOnlyList<ClippingObject> actual)
-        {
-            ITextMetrics textMetrics = coverage.Symbol.ContainingMap.TextMetricsProvider;
-            expected = LeaveOutNarrowerLinesOfFramings(expected.Select(clippingObject => MoveMirrorIntoShape(clippingObject, textMetrics)).ToList());
-            List<(ClippingObject clippingObject, bool isExpanded, float tolerance)> expanded = ExpandWithTolerances(actual);
-            List<string> differences = new List<string>();
-            for (int i = 0; i < Math.Max(expected.Count, expanded.Count); ++i) {
-                string expectedObject, actualObject;
-                if (i < expanded.Count && expanded[i].isExpanded) {
-                    expectedObject = (i < expected.Count) ? DescribeInMap(expected[i]) : "none";
-                    actualObject = DescribeInMap(expanded[i].clippingObject);
-                    if (i < expected.Count && AreSameInMap(expected[i], expanded[i].clippingObject, expanded[i].tolerance))
-                        continue;
-                }
-                else {
-                    expectedObject = (i < expected.Count) ? Describe(expected[i]) : "none";
-                    actualObject = (i < expanded.Count) ? Describe(expanded[i].clippingObject) : "none";
-                    if (actualObject == expectedObject)
-                        continue;
-                }
-                differences.Add(string.Format("{0} (id {1}), {2}, clipping object {3}: {4}, expected {5}", coverage.Color.Name, coverage.Color.OcadId, coverage.Symbol.Definition.Name, i, actualObject, expectedObject));
-            }
-
-            return differences;
-        }
-
-        // The clipping object of the collector with the mirror of the Y axis moved into its shape. Each step of the
-        // placement that mirrors the Y axis is multiplied by the mirror, Scale(1, -1), and the mirror moves into the next
-        // inner step, or from the innermost step into the shape: the points of the shape, and the top left corner of a
-        // text run, get the opposite y coordinates. A clipping object without such a step is returned as it is.
-        // clippingObject: the clipping object of the collector.
-        // textMetrics: the metrics of the fonts of the map, which measure a text run.
-        public static ClippingObject MoveMirrorIntoShape(ClippingObject clippingObject, ITextMetrics textMetrics)
-        {
-            SinglePlacement placement = Placement.Identity;
-            bool hasMirror = false, isMirrorPending = false;
-            foreach (Matrix step in clippingObject.Placement.Steps) {
-                if (isMirrorPending)
-                    step.Scale(1, -1, MatrixOrder.Append);
-                isMirrorPending = IsMirror(step);
-                if (isMirrorPending) {
-                    step.Scale(1, -1, MatrixOrder.Prepend);
-                    hasMirror = true;
-                }
-                placement = placement.Within(step);
-            }
-            if (!hasMirror)
-                return clippingObject;
-
-            Shape shape = isMirrorPending ? Mirror(clippingObject.Shape, textMetrics) : clippingObject.Shape;
-            if (clippingObject is FilledShape filled)
-                return new FilledShape(shape, filled.FillRule, placement);
-            else
-                return new StrokedShape(shape, ((StrokedShape)clippingObject).Stroke, placement);
-        }
-
-        // Does an affine transformation mirror the Y axis: is its determinant negative?
-        static bool IsMirror(Matrix matrix)
-        {
-            float[] e = matrix.Elements;
-            return e[0] * e[3] - e[1] * e[2] < 0;
-        }
-
-        // The mirror of a shape of the collector in the X axis: each point with the opposite y coordinate.
-        // shape: the shape.
-        // textMetrics: the metrics of the fonts of the map, which measure a text run.
-        static Shape Mirror(Shape shape, ITextMetrics textMetrics)
-        {
-            if (shape is PathShape path)
-                return new PathShape(path.Parts.Select(part => new GraphicsPathPart(part.Kind, part.Points?.Select(Mirror).ToArray())));
-            if (shape is EllipseShape ellipse)
-                return new EllipseShape(Mirror(ellipse.Center), ellipse.RadiusX, ellipse.RadiusY);
-            if (shape is ArcShape arc)
-                return new ArcShape(Mirror(arc.Center), arc.Radius, -arc.StartAngle, -arc.SweepAngle);
-
-            TextShape text = (TextShape)shape;
-            return new TextShape(text.Text, text.FontFamily, text.EmHeight, text.Effects, Mirror(text.UpperLeft), textMetrics);
-        }
-
-        static PointF Mirror(PointF point)
-        {
-            return new PointF(point.X, -point.Y);
-        }
-
-        // The clipping objects of the collector without the narrower lines of the framing lines of the text runs: of the
-        // consecutive strokes of the same text run at the same placement, the last.
-        // clippingObjects: the clipping objects of the collector.
-        static List<ClippingObject> LeaveOutNarrowerLinesOfFramings(List<ClippingObject> clippingObjects)
-        {
-            List<ClippingObject> kept = new List<ClippingObject>();
-            for (int i = 0; i < clippingObjects.Count; ++i) {
-                if (i + 1 < clippingObjects.Count && AreStrokesOfTheSameTextRun(clippingObjects[i], clippingObjects[i + 1]))
-                    continue;
-                kept.Add(clippingObjects[i]);
-            }
-            return kept;
-        }
-
-        // Are two clipping objects strokes of the same text run at the same placement, whatever their pens?
-        static bool AreStrokesOfTheSameTextRun(ClippingObject first, ClippingObject second)
-        {
-            return first is StrokedShape && second is StrokedShape && first.Shape is TextShape && second.Shape is TextShape &&
-                   Describe(first.Shape) == Describe(second.Shape) &&
-                   first.Placement.Steps.Select(Describe).SequenceEqual(second.Placement.Steps.Select(Describe));
-        }
-
-        // The distance in mm within which an expanded clipping object agrees with the one of the collector.
-        public const float ExpansionTolerance = 0.0001F;
-
-        // The distance in mm within which a clipping object that the expansion of an offset path makes agrees with the
-        // one of the collector. The offset path moves a dash aside with the miter at a vertex, whose direction comes from
-        // the piece between the end of the dash and the vertex. That piece is at least 0.05 mm (fix 020), and the end of
-        // the dash rounds to another float in a run than in the drawing, so the miter turns by the rounding divided by the
-        // length of the piece. The difference is at most about the offset, times the miter factor, times that angle:
-        // about 0.006 mm at 500 mm from the origin, with an offset of 1 mm and the miter limit 5.
-        public const float OffsetPathTolerance = 0.01F;
-
         // The expansion of clipping objects into the clipping objects that the drawing makes: a run of dashes into single
         // dashes (StrokedShape.ExpandDashes), an offset path into its offset curve, and the clipping objects that share a
         // repeated placement into the clipping objects at each pose, pose by pose, each in the order of the parts, as the
@@ -160,16 +22,7 @@ namespace Map_Skia.Tests
         // clippingObjects: the clipping objects.
         public static List<(ClippingObject clippingObject, bool isExpanded)> Expand(IReadOnlyList<ClippingObject> clippingObjects)
         {
-            return ExpandWithTolerances(clippingObjects).Select(item => (item.clippingObject, item.isExpanded)).ToList();
-        }
-
-        // The expansion of Expand, with the distance in mm within which each expanded clipping object agrees with the
-        // one of the collector: OffsetPathTolerance for the expansion of an offset path, and ExpansionTolerance for the
-        // others.
-        // clippingObjects: the clipping objects.
-        static List<(ClippingObject clippingObject, bool isExpanded, float tolerance)> ExpandWithTolerances(IReadOnlyList<ClippingObject> clippingObjects)
-        {
-            List<(ClippingObject, bool, float)> expanded = new List<(ClippingObject, bool, float)>();
+            List<(ClippingObject, bool)> expanded = new List<(ClippingObject, bool)>();
             int i = 0;
             while (i < clippingObjects.Count) {
                 if (clippingObjects[i].Placement is RepeatedPlacement repeated) {
@@ -179,7 +32,7 @@ namespace Map_Skia.Tests
                     foreach (SinglePlacement placement in repeated.Expand()) {
                         for (int k = i; k <= last; ++k) {
                             foreach (ClippingObject part in ExpandShape(clippingObjects[k].WithPlacement(placement)))
-                                expanded.Add((part, true, ExpansionTolerance));
+                                expanded.Add((part, true));
                         }
                     }
                     i = last + 1;
@@ -187,11 +40,9 @@ namespace Map_Skia.Tests
                 else {
                     ClippingObject clippingObject = clippingObjects[i];
                     StrokedShape stroked = clippingObject as StrokedShape;
-                    bool isOffsetPath = stroked != null && stroked.Shape is OffsetPathShape;
-                    bool isExpanded = stroked != null && (stroked.Stroke.DashPattern != null || isOffsetPath);
-                    float tolerance = isOffsetPath ? OffsetPathTolerance : ExpansionTolerance;
+                    bool isExpanded = stroked != null && (stroked.Stroke.DashPattern != null || stroked.Shape is OffsetPathShape);
                     foreach (ClippingObject part in ExpandShape(clippingObject))
-                        expanded.Add((part, isExpanded, tolerance));
+                        expanded.Add((part, isExpanded));
                     ++i;
                 }
             }
@@ -213,82 +64,8 @@ namespace Map_Skia.Tests
             return new ClippingObject[] { clippingObject };
         }
 
-        // Are two clipping objects the same in the coordinates of the map, within a tolerance: of the same kind, with the
-        // same pen or fill rule, and with their shapes at the same points?
-        // tolerance: the distance in mm within which two points are the same.
-        static bool AreSameInMap(ClippingObject expected, ClippingObject actual, float tolerance)
-        {
-            if (expected.GetType() != actual.GetType())
-                return false;
-            if (expected is FilledShape filled) {
-                if (filled.FillRule != ((FilledShape)actual).FillRule)
-                    return false;
-            }
-            else if (DescribeStroke(((StrokedShape)expected).Stroke) != DescribeStroke(((StrokedShape)actual).Stroke)) {
-                return false;
-            }
-
-            List<PointF> expectedPoints = PointsInMap(expected), actualPoints = PointsInMap(actual);
-            if (expectedPoints == null || actualPoints == null || expectedPoints.Count != actualPoints.Count)
-                return false;
-            for (int i = 0; i < expectedPoints.Count; ++i) {
-                if (Distance(expectedPoints[i], actualPoints[i]) > tolerance)
-                    return false;
-            }
-            return true;
-        }
-
-        // The points of the shape of a clipping object in the coordinates of the map, without the points that are nearer
-        // the point before them than ExpansionTolerance: the points of a path, or the center of an ellipse and the points
-        // at its radii, or null for another shape.
-        static List<PointF> PointsInMap(ClippingObject clippingObject)
-        {
-            List<PointF> points = new List<PointF>();
-            if (clippingObject.Shape is PathShape path) {
-                foreach (GraphicsPathPart part in path.Parts) {
-                    if (part.Points != null)
-                        points.AddRange(part.Points);
-                }
-            }
-            else if (clippingObject.Shape is EllipseShape ellipse) {
-                points.Add(ellipse.Center);
-                points.Add(new PointF(ellipse.Center.X + ellipse.RadiusX, ellipse.Center.Y));
-                points.Add(new PointF(ellipse.Center.X, ellipse.Center.Y + ellipse.RadiusY));
-            }
-            else {
-                return null;
-            }
-
-            PointF[] placed = points.ToArray();
-            ((SinglePlacement)clippingObject.Placement).Matrix.TransformPoints(placed);
-            List<PointF> kept = new List<PointF>();
-            foreach (PointF point in placed) {
-                if (kept.Count == 0 || Distance(kept[kept.Count - 1], point) >= ExpansionTolerance)
-                    kept.Add(point);
-            }
-            return kept;
-        }
-
-        // The description of a clipping object in the coordinates of the map, for the message of a difference.
-        static string DescribeInMap(ClippingObject clippingObject)
-        {
-            List<PointF> points = PointsInMap(clippingObject);
-            string pen = (clippingObject is StrokedShape stroked) ? DescribeStroke(stroked.Stroke) : ((FilledShape)clippingObject).FillRule.ToString();
-            return string.Format("{0} in the map at {1}, {2}", clippingObject.GetType().Name, (points == null) ? clippingObject.Shape.ToString() : string.Join(", ", points.Select(Describe)), pen);
-        }
-
-        static string DescribeStroke(Stroke stroke)
-        {
-            return string.Format("width {0}, {1} caps, {2} joins, miter limit {3}", Describe(stroke.Width), stroke.Caps, stroke.Join, Describe(stroke.MiterLimit));
-        }
-
-        static float Distance(PointF a, PointF b)
-        {
-            return (float)Math.Sqrt((a.X - b.X) * (a.X - b.X) + (a.Y - b.Y) * (a.Y - b.Y));
-        }
-
-        // The description of a clipping object that the comparison compares: its kind, its shape, its pen or fill rule,
-        // and the steps of its placement, each number exactly.
+        // The description of a clipping object: its kind, its shape, its pen or fill rule, and the steps of its
+        // placement, each number exactly.
         // clippingObject: the clipping object.
         public static string Describe(ClippingObject clippingObject)
         {
@@ -308,6 +85,8 @@ namespace Map_Skia.Tests
         {
             if (shape is PathShape path)
                 return "path " + string.Join(" ", path.Parts.Select(part => part.Kind + ((part.Points == null) ? "" : "(" + string.Join(", ", part.Points.Select(Describe)) + ")")));
+            if (shape is OffsetPathShape offsetPath)
+                return string.Format("offset path of {0}, offset {1}", Describe(offsetPath.BasePath), Describe(offsetPath.Offset));
             if (shape is EllipseShape ellipse)
                 return string.Format("ellipse {0}, radii {1} {2}", Describe(ellipse.Center), Describe(ellipse.RadiusX), Describe(ellipse.RadiusY));
             if (shape is ArcShape arc)
