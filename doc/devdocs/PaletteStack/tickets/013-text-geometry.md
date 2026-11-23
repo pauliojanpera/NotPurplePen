@@ -9,7 +9,7 @@ peilaus, jolla piirto asettaa tekstin, siirtyy muotoihin. Tämän tiketin jälke
 geometriametodi, eikä vaihe 1 käytä kerääjää. Kerääjä on testien oraakkeli tikettiin 009 asti. Piirto ei muutu.
 
 **Hyväksymiskriteerit**
-- [ ] Geometriametodien rajapinta: `TextSymDef` ja `RectangleSymDef` korvaavat tiketin
+- [x] Geometriametodien rajapinta: `TextSymDef` ja `RectangleSymDef` korvaavat tiketin
   [024](024-point-symbol-geometry.md) rajapinnan `SymDef.MakeClippingObjects(Symbol, SymColor, CoveragePrototype)`.
   `TextSymDef` antaa sekä tekstisymbolin että viivan varren tekstin leikkausobjektit. Rajapinta on abstrakti, joten
   jokaisella symbolimäärittelyllä on geometriametodi: `HoleSymDef` ja `ImageSymDef` eivät anna leikkausobjekteja, koska
@@ -17,52 +17,52 @@ geometriametodi, eikä vaihe 1 käytä kerääjää. Kerääjä on testien oraak
   tekee jokaisen palettiväripeiton leikkausobjektit geometriametodilla ilman piirtokohdetta (`IGraphicsTarget`) ja ilman
   piirtoasetuksia (`RenderOptions`), eikä se käytä kerääjää (`ClippingObjectCollector`). Kerääjä
   (`SymDef.CollectClippingObjects`) jää testien oraakkeliksi.
-- [ ] Tekstisymboli: geometriametodi antaa palettivärissä ne leikkausobjektit, jotka `TextSymDef.Draw` piirtää siinä,
+- [x] Tekstisymboli: geometriametodi antaa palettivärissä ne leikkausobjektit, jotka `TextSymDef.Draw` piirtää siinä,
   samassa järjestyksessä: rivi kerrallaan kunkin sanan, tai kunkin grafeemin, kun merkkiväli on suurempi kuin 0,
   tekstijuosteena omassa paikassaan fontin värissä ja tekstin kehyksen värissä kehysviivana tai varjona, kunkin rivin
   jälkeen sen alleviivaukset, sitten tekstin keskipisteen ja viimeisenä kehyssuorakulmion. Tyhjä tekstijuoste ei peitä
   mitään, eikä siitä tule leikkausobjektia.
-- [ ] Tekstijuosteen fontti on tekstin symbolimäärittelyn fontti ilman fontin alleviivausefektiä
+- [x] Tekstijuosteen fontti on tekstin symbolimäärittelyn fontti ilman fontin alleviivausefektiä
   (`TextEffects.Underline`), kuten `CreateObjects` luo sen. Alleviivaus ja fontin alleviivausefekti ovat viivamuotoja,
   kuten `DrawUnderline` piirtää ne: alleviivaus kappaleen viimeisen rivin alla omassa värissään ja fontin
   alleviivausefekti jokaisen rivin alla fontin värissä.
-- [ ] Tekstin kehys: kehysviiva on tekstijuosteen täytetyn muodon jälkeen kehyksen värissä yksi viivamuoto,
+- [x] Tekstin kehys: kehysviiva on tekstijuosteen täytetyn muodon jälkeen kehyksen värissä yksi viivamuoto,
   tekstijuosteen ääriviiva täydellä leveydellä, joka on kaksi kertaa kehyksen viivanleveys, ja kehyksen viivatyylillä
   (päätös 19.11.). Varjo on tekstijuoste kehyksen värissä siirrettynä `shadowX`:n ja `shadowY`:n verran.
   Kehyssuorakulmio on täytetty muoto rivien ympärillä marginaaleineen, ja sen alareuna on alleviivauksen alla, kun
   alleviivaus on päällä, kuten `DrawFramingRectangle`.
-- [ ] Tekstin asema: tekstisymbolin leikkausobjektin yksittäisen sijoituksen sisin affiininen muunnos on tekstin asema,
+- [x] Tekstin asema: tekstisymbolin leikkausobjektin yksittäisen sijoituksen sisin affiininen muunnos on tekstin asema,
   sen kohta (`TextSymbol.Location`) ja kulma (`Rotation`). Muodot ovat aseman koordinaateissa, joiden Y-akseli osoittaa
   ylöspäin kuten kartan: alleviivausten ja kehyssuorakulmion pisteiden ja tekstijuosteiden vasempien yläkulmien
   y-koordinaatit ovat vastakkaiset piirron koordinaatteihin nähden, ja tekstijuoste asettaa glyyfinsä vasemmasta
   yläkulmastaan alaspäin X-akselin suuntaan. Piirto asettaa rivit Y-akseli alaspäin: sen muunnos on
   `Translate(Location)`, `Scale(1, -1)` ja `RotateAt(-Rotation)`.
-- [ ] Tekstin keskipiste: muotoilemattoman tekstin keskipisteen leikkausobjektit tulevat pistesymbolin
+- [x] Tekstin keskipiste: muotoilemattoman tekstin keskipisteen leikkausobjektit tulevat pistesymbolin
   symbolimäärittelyn geometriametodilla (tiketti 024) tekstin sijoituksen sisällä: tekstin asema, siirto keskipisteeseen
   ja glyyfin asema. Muotoillulla tekstillä ei ole keskipistettä, kuten `DrawCenterPoint`issa.
-- [ ] Viivan varren teksti: geometriametodi antaa kunkin grafeemin tekstijuosteena kehysviivoineen tai varjoineen omassa
+- [x] Viivan varren teksti: geometriametodi antaa kunkin grafeemin tekstijuosteena kehysviivoineen tai varjoineen omassa
   yksittäisessä sijoituksessaan, jonka asema on grafeemin alkupiste polulla ja suunta alkupisteestä grafeemin
   loppupisteeseen, kuten `DrawTextOnPath`: grafeemit asettuvat polun varrelle OCADin metriikalla
   (`GetLineTextGraphemePlacement`). Tekstijuosteen vasen yläkulma on aseman koordinaateissa, kuten tekstisymbolin.
   Viivan varren tekstillä ei ole alleviivausta, keskipistettä eikä kehyssuorakulmiota, joten niiden väreissä sen
   palettiväripeitoilla ei ole leikkausobjekteja.
-- [ ] Suorakulmiosymboli: geometriametodi antaa viivan värissä suorakulmion viivan viivamuotona, joka pitää
+- [x] Suorakulmiosymboli: geometriametodi antaa viivan värissä suorakulmion viivan viivamuotona, joka pitää
   pyöristettyjen kulmien Bezier-käyrät, sekä ruudukon viivat ja ruudukon tekstit ruudukon sijoituksessa (`Location` ja
   `Rotation`), siinä järjestyksessä kuin `RectangleSymDef.Draw` piirtää ne. Ruudukon tekstin asema on tekstin paikka
   solussa kulmalla 0, ja tekstijuosteen vasen yläkulma on aseman origossa.
-- [ ] Jokaisen geometriametodin leikkausobjektin sijoitus antaa asemansa (`Placement.Poses`).
-- [ ] Kerääjä on oraakkeli: testit vertaavat geometriametodien leikkausobjekteja kerääjän leikkausobjekteihin
+- [x] Jokaisen geometriametodin leikkausobjektin sijoitus antaa asemansa (`Placement.Poses`).
+- [x] Kerääjä on oraakkeli: testit vertaavat geometriametodien leikkausobjekteja kerääjän leikkausobjekteihin
   (`SymDef.CollectClippingObjects`) rakenteena jokaisessa tekstisymbolin, viivan varren tekstin ja suorakulmiosymbolin
   palettiväripeitossa. Vertailu siirtää kerääjän Y-akselin peilauksen muotoihin ja ohittaa kehysviivan kapeammat viivat
   (ks. "Sallitut erot"). Muut leikkausobjektit ovat täsmälleen samat. Vertailu kattaa kansion `skia_render` jokaisen
   OCAD- ja Mapper-kartan sekä katkoviivanäytteiden tiedostot `dashes-*.ocd`.
-- [ ] Rakennetestit tarkistavat ilman piirtoa tekstijuosteet ja niiden paikat, merkkivälin, kehysviivan, varjon,
+- [x] Rakennetestit tarkistavat ilman piirtoa tekstijuosteet ja niiden paikat, merkkivälin, kehysviivan, varjon,
   kehyssuorakulmion, alleviivauksen ja fontin alleviivausefektin, tekstin keskipisteen, tekstin aseman ja Y-akselin
   suunnan, viivan varren tekstin grafeemit asemineen, suorakulmion viivan, ruudukon viivat ja tekstit sekä
   numeroimattomat solut. Testit rakentavat kartan tapauksille, joita vertailun kartoissa ei ole (ks. "Testit").
-- [ ] Tikettien 023, 024, 011 ja 012 testit menevät läpi, myös peiton vertailu, jossa kaikki leikkausobjektit tulevat
+- [x] Tikettien 023, 024, 011 ja 012 testit menevät läpi, myös peiton vertailu, jossa kaikki leikkausobjektit tulevat
   geometriametodeilta.
-- [ ] Tämän tiketin haara ei muuta piirtoa, eikä yksikään kuva- tai tekstibaseline siirry.
+- [x] Tämän tiketin haara ei muuta piirtoa, eikä yksikään kuva- tai tekstibaseline siirry.
 
 **Lisätiedot**
 - **Päätökset:**
@@ -90,6 +90,59 @@ geometriametodi, eikä vaihe 1 käytä kerääjää. Kerääjä on testien oraak
   - Sijoitus antaa asemansa, ja asema on sijoituksen sisäkkäisistä affiinisista muunnoksista sisin (@Pauli, 20.11.).
     Tiketti 011 jätti tämän tiketin ratkaistavaksi kerääjän tekstien sijoituksen, jonka sisin muunnos peilaa Y-akselin
     (@Pauli hyväksyi tiketin 011 23.11.).
+- **Toteutus** (haara `feature/text-symbol-geometry`, 62757802, yhdistetty haaraan `feature/palette-stack` (86df0a59)):
+  - Geometriametodit (`SymDef.cs`, ac6bd506): `SymDef.MakeClippingObjects` on abstrakti. `TextSymDef` antaa
+    `TextSymbol`in leikkausobjektit sisäisellä metodilla `MakeClippingObjects(string[], float[], PointF, float, float,
+    SymColor, TextSymDefHorizAlignment, TextSymDefVertAlignment)`, joka seuraa `Draw`ia, ja `LineTextSymbol`in
+    leikkausobjektit sisäisellä metodilla `MakeClippingObjectsOfTextOnPath`, joka seuraa `DrawTextOnPath`ia. Piirron
+    metodeja `DrawStringWithEffects`, `DrawSingleLineString`, `DrawUnderline`, `DrawCenterPoint` ja
+    `DrawFramingRectangle` seuraavat `AddStringWithEffects`, `AddTextRun`, `AddUnderline`, `AddCenterPoint` ja
+    `AddFramingRectangle`. Ne laskevat pisteet piirron koordinaateissa ja antavat ne muodoille aseman koordinaateissa
+    (`ToPoseCoordinates`). `RectangleSymDef.MakeClippingObjects` seuraa `Draw`ia ja `AddGridTexts` `DrawGridText`iä.
+    `HoleSymDef` ja `ImageSymDef` antavat tyhjän luettelon, ja `GraphicsSymDef` heittää muulle symbolille poikkeuksen
+    `ArgumentException`. Vanha piirtokoodi ei muutu: haara lisää metodeja ja korjaa kommentteja.
+  - Muodot (`ClippingObjects.cs`): `TextShape`n vasen yläkulma on sijoituksen koordinaateissa, joiden Y-akseli osoittaa
+    ylöspäin. `TextShape.Bounds` mittaa glyyfien rajat piirron koordinaateissa ja peilaa ne. `PathShape.GetCorners`
+    antaa suorakulmion kulmat piirtokohteiden järjestyksessä kerääjälle ja kehyssuorakulmiolle. Yksittäinen sijoitus
+    heittää yhä poikkeuksen, kun sen asemia kysytään ja sen sisin muunnos ei ole kierto ja siirto, mutta vain kerääjän
+    tekstien sijoitukset ovat sellaisia.
+  - Istunnon valinnat (23.11.):
+    - Tekstin ja viivan varren tekstin grafeemin asema on `Pose.ToMatrix()`, eli `Translate` ja `RotateAt`. Ruudukon
+      sijoitus on piirron `Translate(Location)` ja `Rotate(Rotation)`, ja ruudukon tekstin asema `Translate(paikka)`.
+      Kerääjän muunnos kerrottuna peilauksella on näiden kanssa sama tarkasti.
+    - `Glyph.MakeClippingObjects` saa valinnaisen ulomman sijoituksen (`outer`), jonka sisälle se sijoittaa glyyfin:
+      tekstin keskipisteen. Origossa olevan yhden ympyrän glyyfi on ulomman sijoituksen sisällä ilman omaa muunnosta.
+    - `TextSymbol.WrappedLineWidths` (internal) antaa rivien leveydet geometriametodille.
+    - Vertailu (`SymbolCoverageComparison`): `MoveMirrorIntoShape` siirtää kerääjän peilauksen muotoihin, ja
+      `LeaveOutNarrowerLinesOfFramings` säilyttää peräkkäisistä saman tekstijuosteen viivamuodoista viimeisen. Vertailu
+      pitää lukuja 0 ja −0 samoina, koska peilaus vaihtaa nollan etumerkin: esimerkiksi ruudukon tekstin vasen yläkulma
+      (0, 0) on kerääjällä peilauksen jälkeen (0, −0).
+    - Peiton vertailun apufunktio piirtää tekstijuosteen peilaamalla Y-akselin (`DrawTextRun`).
+  - Testit (Map_Skia.Tests, 62757802): vertailu kerääjään kattaa kansion `skia_render` 162 karttaa ja 10
+    katkoviivanäytettä, nyt myös tekstien ja suorakulmioiden leikkausobjektit geometriametodeilta, eikä yksikään
+    palettiväripeitto eroa: 1 671 tekstisymbolia 67 kartassa ja niillä 1 179 palettiväripeittoa, 86 viivan varren
+    tekstiä 15 kartassa ja niillä 93 palettiväripeittoa sekä 175 suorakulmiosymbolia 18 kartassa ja niillä 147
+    palettiväripeittoa. Jokaisen leikkausobjektin sijoitus antaa asemansa (`AssertEachPlacementGivesItsPoses`).
+    Rakennetestit ovat `TextRunsAreTheWordsOfTheLinesInTheCoordinatesOfThePoseOfTheText`,
+    `CharacterSpacingMakesEachGraphemeATextRun`, `LineFramingOfATextRunIsOneLineOfTheFullWidth`,
+    `ShadowIsTheTextRunMovedByTheOffsetsOfTheShadow`, `UnderlinesAreLinesUnderTheLinesOfTheText`,
+    `FramingRectangleIsAFilledRectangleAroundTheLinesAndBelowTheUnderline`,
+    `CenterPointIsTheGlyphOfItsSymbolAtTheCenterOfAnUnformattedText`,
+    `GraphemesOfATextAlongALineAreTextRunsAtTheirPoses`, `RectangleIsItsLineAndTheLinesAndTextsOfItsGrid`,
+    `EachSymbolDefinitionHasAGeometryMethodOfItsOwn` (testin
+    `SymbolDefinitionsOfPointsLinesAreasAndGraphicsObjectsHaveAGeometryMethod` tilalla) ja
+    `HolesAndImageObjectsHaveNoClippingObjectsAndGraphicsObjectsAreTheOnlySymbolsOfTheirDefinition`.
+  - Paikallinen ajo (`tools/linux-renderings.sh` integraatioworktreessa Windows-koneen fonteilla): haarassa 712 testiä
+    menee läpi ja haarassa `feature/palette-stack` (903e6bde) 702. `tools/compare-renderings.py` ei löydä yhtään
+    siirtynyttä kuvaa: kumpikin ajo kirjoittaa samat 73 renderöintiä, jotka eroavat Windows-baselineistaan. Ajojen erot
+    ovat haaran uudet testit ja uudelleen nimetty testi.
+  - Täysi ajo meni läpi kohdassa 62757802 (`wip/linux/text-symbol-geometry` kohdassa 2032702c, basen päällä,
+    valitsimella `--base-baselines prs/000-palette-stack-base`: Tests 45214234801, Build 45214234833) ilman keräävää
+    ajoa, koska vanha piirtokoodi ei muutu. Ryhmä Skia ajoi `Map_Skia.Testsin` 732 testiä, ja kaikki menivät läpi.
+    Yksikään kuva- tai tekstibaseline ei siirry.
+  - Haara on yhdistetty haaraan `feature/palette-stack` (86df0a59), ja yhdistämisen puu on haaran puu. Epicin täysi
+    ajo meni läpi kohdassa 86df0a59 (`wip/linux/palette-stack` kohdassa c584d619: Tests 45216549532, Build
+    45216549723).
 - **Speksi:** [Specification.md](../Specification.md), luvut 02 ja 03. Luvun 02 kohta "The symbol definitions and the
   symbols" antaa symbolimäärittelyt ja symbolit, ja kohta "The lines" viivan varren tekstin OCADin metriikan. Luvun 03
   kohta "The forms of the derived values" antaa tekstijuosteen (`TextShape`) ja kehysviivan, ja kohta "The placements"
