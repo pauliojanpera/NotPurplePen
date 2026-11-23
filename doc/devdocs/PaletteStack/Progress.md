@@ -166,7 +166,8 @@ base. No branch is offered upstream yet.
   recommendation. It gives options only where the choice is real: the session does not add options only to involve
   @Pauli (Nov 23). The session asks its questions early, well structured, and does not first test and investigate
   all of a ticket, which in practice implements it before the decisions. After an answer, it can go back to the
-  planning and ask again (Nov 23, "Questions early"). Otherwise the session goes on. No push
+  planning and ask again (Nov 23, "Questions early"). It does not investigate `dev` when nobody gave it the task
+  (Nov 23, "The tasks of a session"). Otherwise the session goes on. No push
   goes to `base`, `basewithfixes`, `dev` or `master`; a merge into them needs @Pauli's word. A session does not wait
   for a run whose result no next step needs.
 - **The architecture comes first.** feature/multiply-blending is an oracle of the appearance only. The work does not
@@ -382,9 +383,8 @@ the rendering.
 - **Offering upstream.** No branch is offered upstream yet.
 - **The questions of the draft 010** (Nov 23). The session that writes the draft 010 as a ticket asks its questions
   one at a time, before it writes the ticket ("Questions early"). @Pauli answered question 1: pass 2 is divided by
-  channel ("Pass 2 by channel"). He answered question 2 with the overprint choice of the course appearance ("The
-  blend mode of the drawing"). Question 3: is the overprint choice of four options made in the epic, in the course
-  appearance of upstream, or in `dev`, so that pass 2 of the epic offers the four modes in its render options?
+  channel ("Pass 2 by channel"). He answered question 2 with the overprint choice of the course appearance, and
+  question 3: the choice is made in the epic ("The blend mode of the drawing").
 
 ## Decisions
 
@@ -729,12 +729,15 @@ the rendering.
 - **The blend mode of the drawing** (Nov 23, question 2 of the draft 010). @Pauli: the overprint choice of the course
   appearance chooses the blend mode that the drawing applies, and the chosen mode applies in all the channels. The
   options are: not in use, by palette color (the blend mode B of each palette color, `SymColor.BlendMode`), darken,
-  and multiply. In `base`, the course appearance has only the overprint effect (`CourseAppearance.useOcadOverprint`,
-  the attribute `overprint-colors` of the course file). `dev` adds the blend mode of the colors marked overprint and
-  of the blended purple (`overprintBlendMode`, Darken or Multiply). So the session reads darken and multiply as the
-  blend mode of the palette colors marked overprint (`SymColor.OverPrint`), as in `dev`, unless @Pauli says
-  otherwise. One mode gives a different result in each blending color space: in RGB, Darken takes the minimum of each
-  component, and in CMYK the larger share of each ink.
+  and multiply. Darken and multiply apply to the palette colors marked overprint (`SymColor.OverPrint`) (@Pauli).
+  In `base`, the course appearance has only the overprint effect (`CourseAppearance.useOcadOverprint`, the attribute
+  `overprint-colors` of the course file). The choice of four options is made in the epic, in the course appearance
+  of upstream, with the Avalonia dialog (`CourseAppearanceDialog`) (@Pauli, question 3 of the draft 010). One mode
+  gives a different result in each blending color space: in RGB, Darken takes the minimum of each component, and in
+  CMYK the larger share of each ink.
+- **The tasks of a session** (Nov 23). @Pauli: a session does not investigate `dev` when nobody gave it the task. The
+  session that writes the draft 010 read the course appearance of `dev` without such a task, and its reading is
+  removed.
 - **More tests of OCAD's blend modes** (Nov 23). @Pauli: the present knowledge of OCAD's blend modes rests on the
   images of one page of the OCAD wiki, whose processing nobody knows ([oracles/ocad-darken.md](oracles/ocad-darken.md)),
   so OCAD's blend modes need more tests. The session offered a sample file of the blend modes, whose view in OCAD and
