@@ -53,7 +53,7 @@ Kun koodaus tarvitsee tiedon, malli säilyttää sen, ja koodaus lukee sen malli
 * [008](008-symbol-geometry.md) Vaihe 1: geometriametodien perusrakenne ja pistesymbolit, ensimmäinen neljästä osasta: haara `feature/symbol-geometry`, yhdistetty vanhaan epicin haaraan `feature/palette-layers`. Vaiheen 1 uudet tiketit korvaavat tämän (22.11.).
 * [009](009-pattern-instances.md) LUONNOS: viivoitukset ja aluekuviot toistuvana geometriana.
 * [010](010-palette-composition.md) LUONNOS: vaihe 2, koostaminen palettimerkinnöittäin.
-* [011](011-line-geometry.md) LUONNOS: viivasymbolien geometriametodit ja korjauksen 021 laajennus OCADin metriikkaan, erotettu tiketistä 008. Luonnos on kirjoitettu uudelleen tiketiksi tikettien 023–026 rakenteella, ja se on @Paulin hyväksyttävänä (23.11.).
+* [011](011-line-geometry.md) Viivasymbolien geometriametodit ja korjauksen 021 laajennus OCADin metriikkaan, erotettu tiketistä 008. @Pauli hyväksyi sen 23.11.: haara `feature/line-symbol-geometry`, kesken. Se juurtuu haaraan `feature/palette-stack` korjauksen 021 laajennuksen jälkeen.
 * [012](012-area-geometry.md) LUONNOS: alueiden, yhdistelmien ja grafiikkaobjektien geometriametodit, erotettu tiketistä 008.
 * [013](013-text-geometry.md) LUONNOS: tekstien ja suorakulmioiden geometriametodit, erotettu tiketistä 008.
 * [014](014-basic-tests-private-fonts.md) BasicTestsin fonttitestit poistavat renderöintitestien yksityiset fontit, löytyi tiketin 008 täydestä ajosta: haara `fix/basic-tests-private-fonts`, ei yhdistetty, koska mikään osa ei tarvitse sitä.

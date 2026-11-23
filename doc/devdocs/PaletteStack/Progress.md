@@ -186,9 +186,11 @@ base. No branch is offered upstream yet.
 1. The approved tickets 023 to 026 of pass 1 are done, each on its branch rooted at `feature/palette-stack` ("The
    new tickets of pass 1"), and merged into it (3e98e556). They took the forms, the geometry methods of the point
    symbols and the tests of the old pass 1 where these fit ("The new branch of the epic").
-2. The drafts 009 to 013 follow the specification when @Pauli asks for it. @Pauli asked for 011 on Nov 23: it is
-   written again as a ticket by the structure of the tickets 023 to 026, with the extension of fix 021 to the OCAD
-   metric, and waits for his approval ("Waiting on @Pauli").
+2. Ticket 011, the geometry methods of the line symbols, is approved (Nov 23) and in progress. Its work starts with
+   the extension of fix 021 to the OCAD metric on `fix/ocad-dashes-on-curves`, which is merged into
+   `feature/palette-stack` again. Then `feature/line-symbol-geometry` is rooted at `feature/palette-stack`.
+3. The drafts 012 and 013 are written again as tickets after 011, and 012 first, while the runs of 011 go on. The
+   drafts 009 and 010 come after them ("The order of the drafts", the session's choice).
 
 The plan below is the plan of the old branch, in the words of its time. Its parts 2 to 5 stay as the order of the
 later work.
@@ -243,8 +245,6 @@ the rendering.
 
 ## Waiting on @Pauli
 
-- **The approval of ticket 011** (Nov 23). [011](tickets/011-line-geometry.md), the geometry methods of the line
-  symbols, is written again from the draft and waits for his approval. It is not implemented before it.
 - **The scope of the epic** (Nov 18). [Ticket 000](tickets/000-palette-stack.md) is a draft. @Pauli confirmed that
   the flattening is outside it, and that the SVG encoding waits until pass 2 is done.
 - **The SVG encoding**, when pass 2 is done (Nov 18). Its place: an encoding read from the instances, or the SVG
@@ -653,6 +653,23 @@ the rendering.
   two course objects of one key give their symbols different keys, and the course map is made without a usage error.
   A period is in a write, and periods do not nest. A course object without a key, which only other code than the
   formatters can make, gives its symbols keys from the counter.
+- **The approval of ticket 011** (Nov 23). @Pauli approved [011](tickets/011-line-geometry.md), the geometry
+  methods of the line symbols, with the choices of the session in it and the extension of fix 021 to the OCAD metric
+  as a part of its work. The extension is made on `fix/ocad-dashes-on-curves`, as ticket 021 decides, and the branch
+  of the ticket is `feature/line-symbol-geometry`, rooted at `feature/palette-stack` after the extension is merged
+  into it. The old branch `feature/line-geometry` stays as it is.
+- **The choices of the session in ticket 011** (Nov 23). By the rule "The session resolves matters", the session
+  chose these, which the ticket gives under "Ratkaisut" and @Pauli approved with it: the clipping objects of a line are
+  the results of the channel conversions that Skia, PDF and SVG share, the runs of dashes in the euclidean measure and
+  the repeated placements with a euclidean step; the structure of a line is calculated in the geometry method and gets
+  no public units until an encoding needs them; the dashes, the runs and the paths of the repeated placements on a
+  curve are polylines of the flattened path, as in the drawing; the names `SinglePlacement`, `RepeatedPlacement`,
+  `Pose` and `OffsetPathShape`; a run has at least two dashes and a repeated placement at least two poses; a repeated
+  placement does not turn a glyph of one circle at its origin; and the innermost step of a text placement of the
+  collector, which mirrors the Y axis, is left to ticket 013.
+- **The order of the drafts** (Nov 23). The session's choice, which it recommended to @Pauli: 011 is implemented
+  first, as the other drafts build on its forms. 012 is written again as a ticket while the runs of 011 go on, as its
+  borders use the geometry method of the lines, then 013, and 009 and 010 last.
 - **The archiving of a cloud session** (Nov 23). @Pauli let the session of Nov 23 that finished ticket 011 archive its
   transcript, and it runs `archive-if-due.sh claude` of the branch `sessions` of `pauliojanpera/windows-fonts` every
   minute in a background command, from a clone of that branch in `~/session-archive`. The commits of the archive

@@ -1,7 +1,4 @@
-# LUONNOS – Viivasymbolien geometriametodit
-
-> **LUONNOS (23.11.), @Paulin hyväksyttävänä.** Tämä tiketti on luonnos, kunnes @Pauli hyväksyy sen, eikä luonnosta toteuteta. Hyväksynnän jälkeen istunto poistaa tämän merkinnän ja otsikon sanan LUONNOS.
-
+# Viivasymbolien geometriametodit
 **Kuvaus**
 Viivan symbolimäärittelyt (`LineSymDef` ja `LineComboSymDef`) antavat symboliensa palettiväripeittojen leikkausobjektit omalla geometriametodillaan ilman piirtoa: ehjät viivat, koostetut katkoviivat, terävät päät, kaksoisviivan täytön, kaksoisviivan reunat siirrettyinä polkuina sekä viivan varren glyyfit jaettujen muotojen yksittäisinä sijoituksina ja toistosijoituksina. Kynä saa katkokuvion, sijoitus antaa asemansa, ja muotoihin tulee siirretty polku. Ensin korjaus [021](021-ocad-dashes-on-curves.md) laajennetaan OCADin metriikkaan, jotta jokaisella suoralla janalla ja Bezier-käyrän neljänneksellä on tasainen euklidinen askel. Kerääjä on oraakkeli, ja alueet, grafiikkaobjektit ja tekstit saavat leikkausobjektinsa edelleen kerääjältä. Tämän tiketin haara ei muuta piirtoa. Korjauksen 021 laajennus muuttaa piirtoa vain OCADin metriikan karttojen käyrillä.
 
@@ -24,6 +21,7 @@ Viivan symbolimäärittelyt (`LineSymDef` ja `LineComboSymDef`) antavat symbolie
 
 **Lisätiedot**
 - **Päätökset:**
+  - @Pauli hyväksyi tämän tiketin 23.11., myös sen istunnon valinnat (ks. "Ratkaisut") ja korjauksen 021 laajennuksen osana tämän tiketin työtä.
   - Geometriametodit tehdään neljänä osana symbolilajeittain, ja tämä on viivojen osa, erotettu tiketistä 008 (@Pauli, 18.11.). Tiketit 023–026 korvaavat tiketit 005, 007 ja 008 (@Pauli, 23.11.), joten tämä tiketti käyttää tiketin 024 rajapintaa ja oraakkelia. @Pauli hyväksyy luonnoksen ensin tiketiksi, joka ei ole enää luonnos, ja vasta sitten se toteutetaan (@Pauli, 23.11.).
   - Vanha piirtokoodi pysyy ennallaan geometriametodien ajan, jotta kerääjä pysyy riippumattomana oraakkelina. Geometriametodit kirjoitetaan sen rinnalle, ja symbolin kokoava logiikka saa olla kahdessa paikassa (@Pauli, 18.11.). Korjaukset 015–021 yhdistetään haaraan `feature/palette-stack` ennen tämän tiketin työtä, jotta vanha piirto ja kerääjä noudattavat OCADin sääntöjä ja vertailu pysyy täsmällisenä (@Pauli, 19.11.). Kun muutos ei voi muuttaa piirtoa, täysi ajo tehdään ilman keräävää ajoa (@Pauli, 18.11.).
   - Hyödyn mittari: välikerroksen rakenteesta on hyötyä, kun se antaa kanavien ratkaista perustapaukset abstraktiolla, jonka kanava tarjoaa (@Pauli, 19.11.).
