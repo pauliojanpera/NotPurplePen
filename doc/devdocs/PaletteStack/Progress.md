@@ -214,10 +214,11 @@ base. No branch is offered upstream yet.
   outcomes of the run with those of a run without the change, on the same machine and fonts, as the flattening work
   does (`../Flattening/README.md`). Two runs of the same commit gave the same 73 renderings and the same outcomes
   (Nov 23). `tools/README.md` gives the steps. Do not run `Map_Skia.Tests` locally in another way: its image
-  comparisons fail on Linux, as the next paragraph tells. On @Pauli's machine, the clones reach GitHub through the
-  SSH alias `github-personal`, and the default address of `tools/windows-fonts.sh` asks for a password, so the script
-  takes the address from `FONTS_REMOTE`: `FONTS_REMOTE=git@github-personal:pauliojanpera/windows-fonts.git
-  tools/windows-fonts.sh ~/windows-fonts-linux` (Nov 23).
+  comparisons fail on Linux, as the next paragraph tells. On @Pauli's machine, the repository
+  `pauliojanpera/windows-fonts` is in `~/Documents/Projects/windows-fonts`, beside the clone, with its branch `linux`,
+  so `tools/windows-fonts.sh` takes it from there: `FONTS_REMOTE=~/Documents/Projects/windows-fonts
+  tools/windows-fonts.sh ~/windows-fonts-linux`. A cloud session still clones it from GitHub, as the script does by
+  default.
 
   The baselines of the image comparisons are renderings of the Windows machine, and on Linux 66 image comparisons
   differ from them also with its fonts (Nov 23, at `feature/palette-stack` with ticket 012):
