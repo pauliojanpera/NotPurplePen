@@ -143,7 +143,9 @@ base. No branch is offered upstream yet.
   LibGit2Sharp cannot open a repository whose config names `extensions.worktreeConfig`, whatever its value.
   `git sparse-checkout` in a worktree sets it. So a local build of `PurplePenCore`, for example of
   `src/Testing/LinuxTestRun`, removes the setting from the config of the clone for the time of the build and sets it
-  again after the build.
+  again after the build. The container of a cloud session holds no transcript of the session, and an agent that the
+  session starts leaves none either: the model runs outside the container, and the container runs only the tool
+  calls (Nov 23).
 - **The checkouts.** The clone `~/Documents/Projects/NotPurplePen` stays on `docs/process-coordination`: do not change
   its branch. Each branch has a worktree in `~/Documents/Projects/npp-worktrees/`: `palette-layers`, `inks`,
   `fix-mapper-colors`, `fix-ocad-utf8`, `opacity-and-blend-mode`, `layer-instances`, `fix-matrix-equals`,
@@ -174,7 +176,10 @@ base. No branch is offered upstream yet.
   they write with an expected dump in `src/TestFiles/controller/ocad_create*`. A collecting run does not collect them,
   and `src/Testing/LinuxTestRun` does not run them. A change of the OCAD export that moves them is found by a full run.
 - **Line endings.** The sources have CRLF line endings, and git does not change them. Check a changed file with
-  `git ls-files --eol`; `tools/crlf.py` gives a file CRLF again.
+  `git ls-files --eol`; `tools/crlf.py` gives a file CRLF again. Some sources mix CRLF with lone LFs, for example
+  `src/PurplePenCore/CourseLayout.cs` (9 lone LFs) and `CourseFormatter.cs` (2). For such a file,
+  `tools/keep-eol.py <committed copy> <edited file>` gives the edited file back the endings of its committed version
+  (`git show HEAD:<path>` gives the copy).
 
 ## Next
 

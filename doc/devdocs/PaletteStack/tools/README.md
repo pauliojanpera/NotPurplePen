@@ -12,6 +12,8 @@ Python 3 with Pillow, git, the GitHub CLI signed in to the repository, and the .
   UTF-8 or as an 8-bit code page, and whether OCAD, Mapper or Purple Pen wrote each file.
 - `compare-images.py` counts the pixels in which two renderings differ and can mark them in red on a copy.
 - `crlf.py` gives files CRLF line endings again after a tool wrote them with LF.
+- `keep-eol.py` gives an edited file back the line endings of its committed version, and gives the new lines CRLF.
+  It is for the sources that mix CRLF with lone LFs, whose lone LFs `crlf.py` would change.
 - `int-worktree.sh` makes or updates the local integration worktree of a branch: `base` with the branch and
   `LinuxMapModelTestRun` merged in. `--base` names another base branch.
 - `run-map-tests.sh` builds `LinuxMapModelTestRun` in an integration worktree and runs the tests that a filter
