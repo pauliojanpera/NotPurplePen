@@ -24,7 +24,7 @@ This machine cannot delete branches. The git gateway refuses a push that deletes
 
 ## How to continue the work
 
-- **When @Pauli writes.** Answer first. Do nothing else until you give the answer: no tool call, no agent, no edit. Then do only what he asked (@Pauli, Oct 30). This does not mean that a session leaves a fault unmentioned (@Pauli, Nov 23).
+- **When @Pauli writes.** Answer first. Do nothing else until you give the answer: no tool call, no agent, no edit. Then do only what he asked (@Pauli, Oct 30).
 - **Questions for @Pauli.** Do not leave a question or proposal that @Pauli must decide only in the documents. Ask him in an interview: one question at a time, with choices and a recommendation. If a question is too long for the dialog, ask it in the chat (@Pauli, Nov 13). Ask when he is present: when a step ends, or before the work that depends on the answer (@Pauli, Nov 4). Record the question under "Waiting on @Pauli" and the answer under "Decisions".
 - **Language of the documents.** Write in Simplified Technical English: short sentences, one fact in each, exact terms (@Pauli, Nov 14).
 - **Environment.** See "Environment" in [SvgTargetProgress.md](SvgTargetProgress.md).

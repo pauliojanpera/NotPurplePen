@@ -778,8 +778,6 @@ the rendering.
   known to fail. The local run of `Map_Skia.Tests` is `tools/linux-renderings.sh`: it does not judge an image
   comparison by its baseline, it leaves out the cases of `FallbackFindsAFontFor`, and each of its tests passes ("Local
   tests"). The tickets 011, 012, 013, 023 and 024 say so (@Pauli, Nov 23).
-- **Faults are mentioned** (Nov 23). @Pauli: the rule "Then do only what he asked"
-  ([../Introduction.md](../Introduction.md)) does not mean that a session leaves a fault unmentioned.
 - **The terms of ticket 013** (Nov 23). By the rule "The names of the concepts without a name", the session added to
   [Glossary.md](Glossary.md) the terms of the texts, the rectangles and the point symbols that ticket 013 uses
   ([GlossaryHandover.md](GlossaryHandover.md), "Decided").
