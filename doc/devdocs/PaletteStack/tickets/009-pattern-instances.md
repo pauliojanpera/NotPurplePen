@@ -61,9 +61,9 @@ muutu.
 - [ ] Peiton vertailu: jokaisen palettierottelun peitto on täsmälleen sama kuin nykyisen piirron peitto tässä
   palettivärissä. Palettierottelun peitto on sen symbolien palettiväripeittojen peittojen unioni: kunkin G M:n alla
   leikkausobjektiensa unionissa. Piirto piirtää aluekuviot glyyfi kerrallaan (`usePatternBitmaps` pois). Vertailu kattaa
-  tiketin [023](023-palette-separations.md) karttojen kaikki palettivärit, myös viivoitukset ja aluekuviot, ja kartat,
-  joissa on aluekuvioita kaikilla täyttötiloilla ja epäsäännöllisiä kuvioita. Vain kuvatasoa piirtävä alin palettiväri
-  jää pois kartoilta, joissa on kuvaobjekteja, kuten tiketissä 023.
+  tiketin [023](023-palette-separations.md) kartat ja jokaisen kansion `skia_render` kuvauksen kartan, jossa on
+  viivoituksia tai aluekuvioita, kaikki palettivärit (ks. "Testit"). Vain kuvatasoa piirtävä alin palettiväri jää pois
+  kartoilta, joissa on kuvaobjekteja, kuten tiketissä 023.
 - [ ] Rakennetestit tarkistavat ilman piirtoa peittoprototyypit ja niiden jakamisen symbolien kesken, ristiviivoituksen,
   `AreaComboSymDef`in yhdistelmän osamäärittelyjen peittoprototyypit, palettivärin, jota vain viivoitus tai aluekuvio
   piirtää, M:n kiertotiloilla `Always`, `ManualOnly` ja `Never`, normaalimuodon (samanlaiset kokoonpanot yhdessä
@@ -164,12 +164,29 @@ muutu.
   - Kuviosivellin (`usePatternBitmaps`) on piirron nopeutus, eikä se kuulu välikerrokseen.
   - Kuvatason ja asettelutason objekteilla (`ImageSymDef`) ja rei'illä (`HoleSymDef`) ei ole palettiväripeittoja.
     SVG-koodaus ja litistys eivät kuulu tähän.
-- **Testit:** paikallinen Map_Skia.Testsin ajo on `tools/linux-renderings.sh` integraatioworktreessa Windows-koneen
-  fonteilla, ja sen jokainen testi menee läpi (Progress.md, "Local tests"). `tools/compare-renderings.py` ei löydä
-  yhtään siirtynyttä kuvaa, kun se vertaa ajon renderöintejä haaran `feature/palette-stack` renderöinteihin. Asetuksen
-  `omitHatchingsAndPatterns` poisto koskee piirtokoodia (`DrawHatchings` ja `DrawPatterns`), mutta asetus on piirrossa
-  aina pois päältä, joten piirto ei muutu, ja täysi ajo tehdään kansiosta `doc/devdocs/PaletteStack` ilman keräävää
-  ajoa: `tools/push-wip.sh --base-baselines prs/000-palette-stack-base <klooni> feature/pattern-fills`.
+- **Testit:**
+  - Paikallinen Map_Skia.Testsin ajo on `tools/linux-renderings.sh` integraatioworktreessa Windows-koneen fonteilla, ja
+    sen jokainen testi menee läpi (Progress.md, "Local tests"). `tools/compare-renderings.py` ei löydä yhtään
+    siirtynyttä kuvaa, kun se vertaa ajon renderöintejä haaran `feature/palette-stack` renderöinteihin.
+  - Asetuksen `omitHatchingsAndPatterns` poisto koskee piirtokoodia (`DrawHatchings` ja `DrawPatterns`), mutta asetus
+    on piirrossa aina pois päältä, joten piirto ei muutu, ja täysi ajo tehdään kansiosta `doc/devdocs/PaletteStack`
+    ilman keräävää ajoa: `tools/push-wip.sh --base-baselines prs/000-palette-stack-base <klooni> feature/pattern-fills`.
+  - Kansion `skia_render` 162 kartasta 46:ssa on viivoituksia tai aluekuvioita, ja niistä 40:llä on kuvaus. Niiden
+    näkyvissä aluesymboleissa on 1 876 viivoitusta ja 2 402 aluekuviota 271 viivoituksessa ja aluekuviossa, ja
+    normaalimuoto antaa niille 320 kokoonpanoa. 70 palettiväriä piirtää vain viivoitus tai aluekuvio. Istunto laski
+    nämä testillä, jota se ei commitoinut (23.11.).
+  - Viivoituksista 50 on ristiviivoituksen osia, ja niiden kiertotila on `ManualOnly` (1 831) tai `Never` (45).
+    Aluekuvioiden täyttötila on `Clip` (2 365), `CompletelyInside` (8), `CenterInside` (6) tai `PartiallyInside` (23).
+    Epäsäännöllisiä kuvioita on 18, täyttötiloilla `Clip` (3) ja `PartiallyInside` (15). Aluekuvioista 212:lla on
+    siirretyt rivit, 1 946:lla rakennekulma, 7:llä siirtymä ja 9:llä elementti useammassa palettivärissä, ja 2 107:n
+    elementti on yksi ympyrä origossa. Kiertotila on `Always` (83), `ManualOnly` (2 194) tai `Never` (125). 92
+    aluesymbolin kulma ei ole 0.
+  - Kartoissa ei ole yhdistelmäalueen (`AreaComboSymDef`) osamäärittelyä, jolla on viivoitus tai aluekuvio, eikä
+    aluesymbolia, jonka kiertokeskus ei ole origo, eikä viivoitusta kiertotilalla `Always`, eikä epäsäännöllistä
+    kuviota täyttötiloilla `CompletelyInside` ja `CenterInside`. Rakennetestit rakentavat ne.
+  - Peiton vertailun uusia karttoja ovat esimerkiksi `wholestructure.txt` (täyttötilat `CompletelyInside`,
+    `CenterInside` ja `PartiallyInside`), `irregular1.txt` ja `irregular3.txt` (epäsäännölliset kuviot),
+    `offsetpatternrot_nopatbm.txt` (siirtymät ja kierretyt alueet), `rotarea-test.txt` ja `isomarea_nopatbm.txt`.
 - **Haara:** `feature/pattern-fills` juurtuu haaraan `feature/palette-stack` tiketin 013 jälkeen (86df0a59). Täysi
   ajo tehdään haarassa `wip/linux/pattern-fills` basen päällä valitsimella `--base-baselines
   prs/000-palette-stack-base`.

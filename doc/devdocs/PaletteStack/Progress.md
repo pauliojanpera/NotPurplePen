@@ -57,8 +57,8 @@ the Y axis with which the drawing lays out a text is a part of the text run. The
 so did the full run of `feature/palette-stack` with it.
 
 The draft [009](tickets/009-pattern-instances.md) is written as a ticket of the hatchings and the area patterns as
-coverage prototypes (Nov 23). The session has not yet counted the cases that the maps of the comparison have, as the
-disk of @Pauli's machine was full and a count needs a build. It presents the ticket to @Pauli after the count.
+coverage prototypes (Nov 23), with the cases that the maps of `skia_render` have, which a test that the session did
+not commit counted. It waits for @Pauli's approval ("Waiting on @Pauli").
 
 The local Linux runs of the rendering tests get the fonts of the workflow's Windows machine from the branch `linux` of
 `pauliojanpera/windows-fonts` ("The fonts of the local Linux runs", Nov 23). The texts still render differently from
@@ -292,8 +292,8 @@ base. No branch is offered upstream yet.
    description `prs/013-text-geometry.md` stays the record of the old branch. The full run of `feature/palette-stack`
    with it passed (`wip/linux/palette-stack` at c584d619: Tests 45216549532, Build 45216549723). The draft 009 is
    written as a ticket in the form of ticket 012: the interface of ticket 024, the terms of the glossary, the code
-   names where the glossary has no term, and the old work where it fits. It waits for the count of its cases and for
-   @Pauli's approval. The draft 010 comes after it ("The order of the drafts", the session's choice).
+   names where the glossary has no term, and the old work where it fits. It waits for @Pauli's approval. The draft
+   010 comes after it ("The order of the drafts", the session's choice).
 5. The fonts of the local Linux runs are done ("The fonts of the local Linux runs", "Local tests"):
    1. `system/fonts.json` of the branch `linux` agrees with its files and with `.github/ci/environment.json` of
       `base`: of the 65 fonts of `environment.json`, 29 files have the hash of the Windows machine, and 36 are older
@@ -363,6 +363,11 @@ the rendering.
   target of NotPurplePen fitted to them in the integration. And whether the work can use the documented findings or
   the code of `feature/svg-target`. The notes of the epic give the reasons.
 - **Offering upstream.** No branch is offered upstream yet.
+- **The approval of ticket 009** (Nov 23). [Ticket 009](tickets/009-pattern-instances.md), the hatchings and the area
+  patterns as coverage prototypes, is written from the draft, with the choices of the session under "Ratkaisut". Among
+  them is the answer to question 2 of the draft: the element parts that a fill mode selects are the clipping objects
+  of the palette color coverage of their area pattern, so they are in the palette cutter of its configuration. The
+  ticket is not implemented before the approval.
 
 ## Decisions
 
