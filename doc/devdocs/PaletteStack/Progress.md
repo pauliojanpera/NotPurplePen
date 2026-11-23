@@ -56,8 +56,7 @@ the oracle of the tests until ticket 009. The innermost step of the placement of
 the Y axis with which the drawing lays out a text is a part of the text run. The full run of the branch passed, and
 so did the full run of `feature/palette-stack` with it.
 
-The draft [009](tickets/009-pattern-instances.md) stays a draft. A cold session finishes it as a ticket ("The
-handover of the draft 009").
+The draft [009](tickets/009-pattern-instances.md) stays a draft. A cold session finishes it as a ticket ("Next").
 
 The local Linux runs of the rendering tests get the fonts of the workflow's Windows machine from the branch `linux` of
 `pauliojanpera/windows-fonts` ("The fonts of the local Linux runs", Nov 23). The texts still render differently from
@@ -803,9 +802,6 @@ the rendering.
   gives the corners of a rectangle to the collector and to the framing rectangle. The collector keeps the steps of the
   drawing, so its text runs keep the corners of the drawing, and only the comparison moves the mirror. The comparison
   holds 0 and -0 the same, as the mirror changes the sign of a zero.
-- **The handover of the draft 009** (Nov 23). The session that made ticket 013 wrote the draft 009 as a ticket, and
-  its version deviated from the specification. @Pauli rejected the version, and the version is reverted. A cold
-  session finishes the draft, as the context of that session was too full for the planning (@Pauli).
 - **The choices of the session in the local Linux runs** (Nov 23). By the rule "The session resolves matters", the
   session chose these. The fontconfig file of `tools/windows-fonts.sh` gives Segoe UI as the family of each pattern.
   Without a family, Skia on Linux gives no typeface for a family that is not installed, and 15 tests stopped on a null
