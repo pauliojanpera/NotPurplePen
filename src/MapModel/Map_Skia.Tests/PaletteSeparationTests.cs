@@ -721,8 +721,8 @@ namespace Map_Skia.Tests
             }).ToArray();
         }
 
-        // Assert that two placements have the same steps. The collector gives the shapes of two palette color coverages
-        // placements of their own, since the symbols draw each palette color apart.
+        // Assert that two placements have the same steps. The shapes of two palette color coverages have placements of
+        // their own, since the symbols draw each palette color apart.
         static void AssertEqualPlacements(Placement expected, Placement actual)
         {
             Assert.AreEqual(expected.Steps.Count, actual.Steps.Count, "steps");
