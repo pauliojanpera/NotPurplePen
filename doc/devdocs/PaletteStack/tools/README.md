@@ -24,7 +24,10 @@ Python 3 with Pillow, git, the GitHub CLI signed in to the repository, and the .
   It is for the sources that mix CRLF with lone LFs, whose lone LFs `crlf.py` would change.
 - `int-worktree.sh` makes or updates the local integration worktree of a branch: `base` with the branch, the fixes of
   the tests that a run on Linux needs and `LinuxMapModelTestRun` merged in. `--base` names another base branch. The
-  integration branch is never pushed.
+  integration branch is never pushed. The script fetches the branch from origin. It merges the local branch of the clone
+  instead when the local branch holds all of it, so that commits that are not pushed can run. A local branch that is
+  behind origin gives way to origin. A local branch that diverged from origin is merged only when the integration branch
+  holds no commit that only origin has: after a rewrite that is not pushed, `REBUILD=1` makes it so.
 - `run-map-tests.sh` builds `LinuxMapModelTestRun` in an integration worktree and runs the tests that a filter
   selects.
 - `push-wip.sh` rebuilds and pushes the `wip/linux/` branch of a branch for a full run on `base`, or on another base

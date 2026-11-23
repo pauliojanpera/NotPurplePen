@@ -939,12 +939,15 @@ the rendering.
   also when no error occurred, and a search of the log for errors found them. The script in the file is the script of
   the step, with a header and `$ErrorActionPreference = 'Stop'`, which the runner sets for a step of `pwsh`. The
   change is on the branch `ci/machine-check-script`, rooted at `base` (d256a9e8).
-- **The feature branch of an integration worktree** (Nov 23). @Pauli: `tools/int-worktree.sh` fetches the feature
-  branch from origin. Before, it merged the branch by the name given: without a local branch in the clone it stopped,
-  and it merged a local branch that was behind origin without a word. The session chose how it treats a local branch:
-  it merges the local branch when the local branch holds all the commits of origin, so that a local run of commits
-  that are not pushed stays possible. It merges the branch of origin when the clone has no local branch or the local
-  branch is behind origin, and it says so. It stops when the two branches diverged.
+- **The feature branch of an integration worktree** (Nov 23). @Pauli: `tools/int-worktree.sh` fetches the feature branch
+  from origin. Before, it merged the branch by the name given: without a local branch in the clone it stopped, and it
+  merged a local branch that was behind origin without a word. The session chose how it treats a local branch: it merges
+  the local branch when the local branch holds all the commits of origin, so that a local run of commits that are not
+  pushed stays possible. It merges the branch of origin when the clone has no local branch or the local branch is behind
+  origin, and it says so. A local branch that diverged from origin, as after a rewrite of its history that is not pushed
+  yet, is merged when the integration branch holds none of the commits that only origin has: on the first call, after
+  `REBUILD=1`, and after such a merge. Otherwise the script stops and names `REBUILD=1`, which `README.md` of the tools
+  gives for a rewrite.
 - **The archiving of a cloud session** (Nov 23). @Pauli let the session of Nov 23 that finished ticket 011 archive its
   transcript, and it runs `archive-if-due.sh claude` of the branch `sessions` of `pauliojanpera/windows-fonts` every
   minute in a background command, from a clone of that branch in `~/session-archive`. The commits of the archive
