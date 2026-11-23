@@ -384,7 +384,9 @@ the rendering.
 - **The questions of the draft 010** (Nov 23). The session that writes the draft 010 as a ticket asks its questions
   one at a time, before it writes the ticket ("Questions early"). @Pauli answered question 1: pass 2 is divided by
   channel ("Pass 2 by channel"). He answered question 2 with the overprint choice of the course appearance, and
-  question 3: the choice is made in the epic ("The blend mode of the drawing").
+  question 3: the choice is made in the epic ("The blend mode of the drawing"). He answered question 4: the dashes
+  shorter than a pixel are drawn solid ("The dashes shorter than a pixel"). The session writes the ticket next, with
+  the other choices as its own under "Ratkaisut".
 
 ## Decisions
 
@@ -735,6 +737,13 @@ the rendering.
   of upstream, with the Avalonia dialog (`CourseAppearanceDialog`) (@Pauli, question 3 of the draft 010). One mode
   gives a different result in each blending color space: in RGB, Darken takes the minimum of each component, and in
   CMYK the larger share of each ink.
+- **The dashes shorter than a pixel** (Nov 23, question 4 of the draft 010). @Pauli: the Skia encoding draws a dashed
+  line whose gaps are shorter than a pixel solid, as the old drawing does now. The old drawing draws a dashed line
+  solid when its gaps (`gapLength` and the secondary gaps) are shorter than the resolution of the drawing
+  (`RenderOptions.minResolution`, `LineSymDef.DrawDashedWithOffset`), and the screen and the Skia rendering tests give
+  the size of a pixel as the resolution. Pass 1 takes no resolution, and an encoding recognizes no structure, so `Map`
+  offers a channel conversion: the clipping objects of a palette color coverage of a symbol without the dashes that
+  are shorter than the resolution. The Skia encoding chooses it, and the images stay as they are.
 - **The tasks of a session** (Nov 23). @Pauli: a session does not investigate `dev` when nobody gave it the task. The
   session that writes the draft 010 read the course appearance of `dev` without such a task, and its reading is
   removed.
