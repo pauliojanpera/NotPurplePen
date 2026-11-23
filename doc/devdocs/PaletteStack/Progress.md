@@ -164,7 +164,9 @@ base. No branch is offered upstream yet.
   unreasonable, and records the choice under "Decisions" as its own (Nov 23). A question for @Pauli comes when the
   decision is his and the session's own choice would not be easy to correct later: one question at a time, with a
   recommendation. It gives options only where the choice is real: the session does not add options only to involve
-  @Pauli (Nov 23). Otherwise the session goes on. No push
+  @Pauli (Nov 23). The session asks its questions early, well structured, and does not first test and investigate
+  all of a ticket, which in practice implements it before the decisions. After an answer, it can go back to the
+  planning and ask again (Nov 23, "Questions early"). Otherwise the session goes on. No push
   goes to `base`, `basewithfixes`, `dev` or `master`; a merge into them needs @Pauli's word. A session does not wait
   for a run whose result no next step needs.
 - **The architecture comes first.** feature/multiply-blending is an oracle of the appearance only. The work does not
@@ -273,7 +275,8 @@ base. No branch is offered upstream yet.
   choices against the code and the imports, and made the clipping objects by the choices in a test that it did not
   commit. The test compared them with the collector on the maps of the comparison and counted the cases that the maps
   have and do not have. It found that the Mapper import makes nested combined areas and that no map has an area
-  border that is a double line, so the structure tests construct them ("The approval of ticket 012").
+  border that is a double line, so the structure tests construct them ("The approval of ticket 012"). The questions
+  of a ticket come before such a check ("Questions early").
 - **Text baselines.** The `CreateOcadFiles` tests of `ControllerTests` compare an `OcadDump` of each course file that
   they write with an expected dump in `src/TestFiles/controller/ocad_create*`. A collecting run does not collect them,
   and `src/Testing/LinuxTestRun` does not run them. A change of the OCAD export that moves them is found by a full run.
@@ -306,7 +309,8 @@ base. No branch is offered upstream yet.
    run of `feature/palette-stack` with it passed (`wip/linux/palette-stack` at 473cd25a: Tests 45260756131, Build
    45260756121). The draft 010 comes next ("The order of the drafts", the session's choice). It is written as a ticket
    in the form of ticket 012: the interface of ticket 024, the terms of the glossary, the code names where the glossary
-   has no term, and the old work where it fits.
+   has no term, and the old work where it fits. The session of Nov 23 that writes it asks its questions first
+   ("Questions early", "Waiting on @Pauli").
 6. The fonts of the local Linux runs are done ("The fonts of the local Linux runs", "Local tests"):
    1. `system/fonts.json` of the branch `linux` agrees with its files and with `.github/ci/environment.json` of
       `base`: of the 65 fonts of `environment.json`, 29 files have the hash of the Windows machine, and 36 are older
@@ -376,6 +380,11 @@ the rendering.
   target of NotPurplePen fitted to them in the integration. And whether the work can use the documented findings or
   the code of `feature/svg-target`. The notes of the epic give the reasons.
 - **Offering upstream.** No branch is offered upstream yet.
+- **The questions of the draft 010** (Nov 23). The session that writes the draft 010 as a ticket asks its questions
+  one at a time, before it writes the ticket ("Questions early"). Question 1: does ticket 010 make pass 2 for both
+  channels of the application that ships, Skia and PDF, or is pass 2 divided by channel, so that ticket 010 makes the
+  shared part of pass 2 and the Skia encoding, and the PDF encoding gets a ticket of its own? The session recommends
+  the division.
 
 ## Decisions
 
@@ -717,6 +726,10 @@ the rendering.
   after 025. Their full runs go on `wip/linux/<name>`, on `base`, with `--base-baselines prs/000-palette-stack-base`.
   A ticket is a draft until @Pauli approves it, and the epic lists each ticket that he approves under "Erotetut
   alatehtävät".
+- **Questions early** (Nov 23). @Pauli: the session asks its questions early, well structured, and does not first
+  test and investigate all of a ticket, which in practice implements the ticket before the decisions. After an
+  answer, the session can go back to the planning and ask again ("How to continue the work"). The session that
+  writes the draft 010 as a ticket stopped its investigation of the code when @Pauli said so.
 - **The options of a question** (Nov 23). A question gives options only where the choice is real. It does not add
   options only to involve @Pauli ("How to continue the work").
 - **The approval of ticket 023** (Nov 23). @Pauli approved [023](tickets/023-palette-separations.md), the
