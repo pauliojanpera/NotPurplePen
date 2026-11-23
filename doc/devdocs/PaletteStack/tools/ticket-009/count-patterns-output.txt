@@ -1,0 +1,439 @@
+Clouds V29 10k OCAD11.ocd: 62 hatched symbols, 147 patterned symbols; descriptions: clouds11.txt
+  hatching 309.0 [0] Uncrossable marsh: color Blue, width 0.38, spacing 0.75, offset 0, angle 0, ManualOnly
+  hatching 310.0 [0] Marsh: color Blue, width 0.2, spacing 0.57, offset 0, angle 0, ManualOnly
+  hatching 407.0 [0] Undergrowth: slow running: color Green, width 0.2, spacing 1.12, offset 0, angle 90, ManualOnly
+  hatching 409.0 [0] Undergrowth: difficult to run: color Green, width 0.2, spacing 0.57, offset 0, angle 90, ManualOnly
+  hatching 529.0 [0] Permanently out of bounds: color Black, width 0.38, spacing 1.12, offset 0, angle 90, ManualOnly
+  hatching 607.0 [0] Out-of-bounds area: color Purple, width 0.38, spacing 0.9, offset 0, angle 90, ManualOnly
+  hatching 608.0 [0] Dangerous area: color Purple, width 0.38, spacing 1.2, offset 0, angle -45, ManualOnly
+  hatching 608.0 [1] Dangerous area: color Purple, width 0.38, spacing 1.2, offset 0, angle 45, ManualOnly
+  pattern 311.0 [0] Indistinct marsh: 1.8 x 0.64 offset rows, angle 0, offset (0, 0), ManualOnly, Clip, glyph 1 parts [Line] in 1 colors, bounds {X=-0.79,Y=-0.1,Width=1.5500001,Height=0.2}
+  pattern 404.0 [0] Rough open land with sc. trees: 0.68 x 0.68, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.3,Y=-0.3,Width=0.6,Height=0.6}
+  pattern 415.0 [0] Cultivated land: 1.35 x 1.35, angle 0, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.19,Y=-0.19,Width=0.38,Height=0.38}
+Clouds V29 10k.ocd: 62 hatched symbols, 147 patterned symbols; descriptions: clouds.txt
+  hatching 309.0 [0] Uncrossable marsh: color Blue, width 0.38, spacing 0.75, offset 0, angle 0, ManualOnly
+  hatching 310.0 [0] Marsh: color Blue, width 0.2, spacing 0.57, offset 0, angle 0, ManualOnly
+  hatching 407.0 [0] Undergrowth: slow running: color Green, width 0.2, spacing 1.12, offset 0, angle 90, ManualOnly
+  hatching 409.0 [0] Undergrowth: difficult to run: color Green, width 0.2, spacing 0.57, offset 0, angle 90, ManualOnly
+  hatching 529.0 [0] Permanently out of bounds: color Black, width 0.38, spacing 1.12, offset 0, angle 90, ManualOnly
+  hatching 607.0 [0] Out-of-bounds area: color Purple, width 0.38, spacing 0.9, offset 0, angle 90, ManualOnly
+  hatching 608.0 [0] Dangerous area: color Purple, width 0.38, spacing 1.2, offset 0, angle -45, ManualOnly
+  hatching 608.0 [1] Dangerous area: color Purple, width 0.38, spacing 1.2, offset 0, angle 45, ManualOnly
+  pattern 311.0 [0] Indistinct marsh: 1.8 x 0.64 offset rows, angle 0, offset (0, 0), ManualOnly, Clip, glyph 1 parts [Line] in 1 colors, bounds {X=-0.79,Y=-0.1,Width=1.5500001,Height=0.2}
+  pattern 404.0 [0] Rough open land with sc. trees: 0.68 x 0.68, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.3,Y=-0.3,Width=0.6,Height=0.6}
+  pattern 415.0 [0] Cultivated land: 1.35 x 1.35, angle 0, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.19,Y=-0.19,Width=0.38,Height=0.38}
+FireMountain.ocd: 170 hatched symbols, 26 patterned symbols; descriptions: missingcolor.txt
+  hatching 309.0 [0] Uncrossable marsh: color Blue, width 0.37, spacing 0.74, offset 0, angle 0, ManualOnly
+  hatching 310.0 [0] Marsh: color Blue, width 0.2, spacing 0.57, offset 0, angle 0, ManualOnly
+  hatching 407.0 [0] Undergrowth: slow running: color Green, width 0.2, spacing 1.13, offset 0, angle 90, ManualOnly
+  hatching 409.0 [0] Undergrowth: difficult to run: color Green, width 0.2, spacing 0.57, offset 0, angle 90, ManualOnly
+  pattern 311.0 [0] Indistinct marsh: 1.8 x 0.65 offset rows, angle 0, offset (0, 0), ManualOnly, Clip, glyph 1 parts [Line] in 1 colors, bounds {X=-0.77000004,Y=-0.1,Width=1.5500001,Height=0.2}
+  pattern 402.0 [0] Open land with scattered trees: 0.75 x 0.75, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.3,Y=-0.3,Width=0.6,Height=0.6}
+  pattern 404.0 [0] Rough open land with sc. trees: 0.75 x 0.75, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.3,Y=-0.3,Width=0.6,Height=0.6}
+FtCasey07Oct.ocd: 18 hatched symbols, 17 patterned symbols; descriptions: FtCasey.txt
+  hatching 310.0 [0] Marsh: color Blue, width 0.2, spacing 0.57, offset 0, angle 0, ManualOnly
+  hatching 407.0 [0] Undergrowth: slow running: color Green, width 0.2, spacing 1.13, offset 0, angle 90, ManualOnly
+  hatching 409.0 [0] Undergrowth: difficult to run: color Green, width 0.2, spacing 0.57, offset 0, angle 90, ManualOnly
+  hatching 529.0 [0] Permanently out of bounds: color Black, width 0.37, spacing 1.13, offset 0, angle 90, ManualOnly
+  pattern 211.0 [0] Open sandy ground: 0.48 x 0.48, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.13,Y=-0.13,Width=0.26,Height=0.26}
+  pattern 311.0 [0] Indistinct marsh: 1.8 x 0.65 offset rows, angle 0, offset (0, 0), ManualOnly, Clip, glyph 1 parts [Line] in 1 colors, bounds {X=-0.77000004,Y=-0.1,Width=1.5500001,Height=0.2}
+  pattern 402.0 [0] Open land with scattered trees: 0.75 x 0.75, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.3,Y=-0.3,Width=0.6,Height=0.6}
+  pattern 404.0 [0] Rough open land with sc. trees: 0.75 x 0.75, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.3,Y=-0.3,Width=0.6,Height=0.6}
+Hakola malli.omap: 34 hatched symbols, 118 patterned symbols; descriptions: hakolaoverprinting.txt
+  hatching 308.0 [0] Suo (Alue): color Sininen 100% - Aluekohde, width 0.1, spacing 0.3, offset -0, angle 0, Never
+  hatching 407.0 [0] Kasvillisuus, Hidastaa, Hyvä nä: color Vihreä 100% - Vihreä viivoitus, width 0.12, spacing 0.84, offset -0, angle 90.000206, Never
+  hatching 409.0 [0] Kasvillisuus, Käveltävä, Hyvä n: color Vihreä 100% - Vihreä viivoitus, width 0.14, spacing 0.42, offset -0, angle 90.000206, Never
+  hatching 709.0 [0] Kielletty alue (Alue): color Ylempi violetti ratapainatukselle, width 0.2, spacing 1.2, offset 0, angle 315.00015, Never
+  hatching 709.0 [1] Kielletty alue (Alue): color Ylempi violetti ratapainatukselle, width 0.2, spacing 1.2, offset -0, angle 44.999992, Never
+  pattern 213.0 [0] Hietikko: 0.45 x 0.45, angle 44.999992, offset (-0, -0), Never, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.08,Y=-0.08,Width=0.16,Height=0.16}
+  pattern 310.0 [0] Soistuva maa: 1.15 x 0.6, angle 0, offset (0, -0), Never, Clip, glyph 1 parts [Line] in 1 colors, bounds {X=-0.5,Y=-0.05,Width=1,Height=0.1}
+  pattern 310.0 [1] Soistuva maa: 1.15 x 0.6, angle 0, offset (0.575, -0.3), Never, Clip, glyph 1 parts [Line] in 1 colors, bounds {X=-0.5,Y=-0.05,Width=1,Height=0.1}
+  pattern 402.0 [0] Nurmikko, jossa hajanaisia puit: 0.7 x 0.7, angle 44.999992, offset (-0, -0), Never, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.2,Y=-0.2,Width=0.4,Height=0.4}
+  pattern 404.0 [0] Avoin alue, jossa hajanaisia pu: 0.8 x 0.8, angle 44.999992, offset (-0, -0), Never, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.25,Y=-0.25,Width=0.5,Height=0.5}
+  pattern 412.0 [0] Viljelty maa: 0.8 x 0.8, angle 0, offset (0, -0), Never, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.1,Y=-0.1,Width=0.2,Height=0.2}
+Lake Sammamish OCAD11.ocd: 14 hatched symbols, 33 patterned symbols; descriptions: lksamm11_4.txt lksamm11_1.txt lksamm11_3.txt lksamm11_2.txt
+  hatching 309.2 [0] Uncrossable marsh: color Blue, width 0.18, spacing 0.36, offset 0, angle 0, ManualOnly
+  hatching 310.0 [0] Marsh: color Blue, width 0.13, spacing 0.38, offset 0, angle 0, ManualOnly
+  hatching 310.3 [0] Marsh: color Blue, width 0.06, spacing 0.23, offset 0, angle 0, ManualOnly
+  hatching 407.2 [0] Undergrowth: slow running: color Green, width 0.1, spacing 0.56, offset 0, angle 90, ManualOnly
+  hatching 409.0 [0] Undergrowth: difficult to run: color Green, width 0.13, spacing 0.38, offset 0, angle 90, ManualOnly
+  hatching 409.2 [0] Undergrowth: difficult to run: color Green, width 0.1, spacing 0.28, offset 0, angle 90, ManualOnly
+  hatching 529.0 [0] Permanently out of bounds: color Black, width 0.25, spacing 0.75, offset 0, angle 90, ManualOnly
+  hatching 529.1 [0] Permanently out of bounds: color Black, width 0.37, spacing 1.13, offset 0, angle 90, ManualOnly
+  hatching 529.2 [0] Permanently out of bounds: color Black, width 0.18, spacing 0.56, offset 0, angle 90, ManualOnly
+  pattern 211.0 [0] Open sandy ground: 0.32 x 0.32, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.09,Y=-0.09,Width=0.18,Height=0.18}
+  pattern 211.2 [0] Open sandy ground: 0.24 x 0.24, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.065,Y=-0.065,Width=0.13,Height=0.13}
+  pattern 211.3 [0] Open sandy ground: 0.45 x 0.45, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.09,Y=-0.09,Width=0.18,Height=0.18}
+  pattern 311.0 [0] Indistinct marsh: 1.2 x 0.43 offset rows, angle 0, offset (0, 0), ManualOnly, Clip, glyph 1 parts [Line] in 1 colors, bounds {X=-0.515,Y=-0.065,Width=1.03,Height=0.13}
+  pattern 311.2 [0] Indistinct marsh: 0.66 x 0.25 offset rows, angle 0, offset (0, 0), ManualOnly, Clip, glyph 1 parts [Line] in 1 colors, bounds {X=-0.26999998,Y=-0.03,Width=0.53,Height=0.06}
+  pattern 402.0 [0] Open land with scattered trees: 0.45 x 0.45, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.2,Y=-0.2,Width=0.4,Height=0.4}
+  pattern 402.2 [0] Open land with scattered trees: 0.45 x 0.45, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.15,Y=-0.15,Width=0.3,Height=0.3}
+  pattern 404.0 [0] Rough open land with sc. trees: 0.45 x 0.45, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.2,Y=-0.2,Width=0.4,Height=0.4}
+  pattern 404.2 [0] Rough open land with sc. trees: 0.45 x 0.45, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.15,Y=-0.15,Width=0.3,Height=0.3}
+Lake Sammamish OCAD12.ocd: 14 hatched symbols, 33 patterned symbols; descriptions: lksamm12_4.txt lksamm12_2.txt lksamm12_3.txt lksamm12_1.txt
+  hatching 309.2 [0] Uncrossable marsh: color Blue, width 0.18, spacing 0.36, offset 0, angle 0, ManualOnly
+  hatching 310.0 [0] Marsh: color Blue, width 0.13, spacing 0.38, offset 0, angle 0, ManualOnly
+  hatching 310.3 [0] Marsh: color Blue, width 0.06, spacing 0.23, offset 0, angle 0, ManualOnly
+  hatching 407.2 [0] Undergrowth: slow running: color Green, width 0.1, spacing 0.56, offset 0, angle 90, ManualOnly
+  hatching 409.0 [0] Undergrowth: difficult to run: color Green, width 0.13, spacing 0.38, offset 0, angle 90, ManualOnly
+  hatching 409.2 [0] Undergrowth: difficult to run: color Green, width 0.1, spacing 0.28, offset 0, angle 90, ManualOnly
+  hatching 529.0 [0] Permanently out of bounds: color Black, width 0.25, spacing 0.75, offset 0, angle 90, ManualOnly
+  hatching 529.1 [0] Permanently out of bounds: color Black, width 0.37, spacing 1.13, offset 0, angle 90, ManualOnly
+  hatching 529.2 [0] Permanently out of bounds: color Black, width 0.18, spacing 0.56, offset 0, angle 90, ManualOnly
+  pattern 211.0 [0] Open sandy ground: 0.32 x 0.32, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.09,Y=-0.09,Width=0.18,Height=0.18}
+  pattern 211.2 [0] Open sandy ground: 0.24 x 0.24, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.065,Y=-0.065,Width=0.13,Height=0.13}
+  pattern 211.3 [0] Open sandy ground: 0.45 x 0.45, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.09,Y=-0.09,Width=0.18,Height=0.18}
+  pattern 311.0 [0] Indistinct marsh: 1.2 x 0.43 offset rows, angle 0, offset (0, 0), ManualOnly, Clip, glyph 1 parts [Line] in 1 colors, bounds {X=-0.515,Y=-0.065,Width=1.03,Height=0.13}
+  pattern 311.2 [0] Indistinct marsh: 0.66 x 0.25 offset rows, angle 0, offset (0, 0), ManualOnly, Clip, glyph 1 parts [Line] in 1 colors, bounds {X=-0.26999998,Y=-0.03,Width=0.53,Height=0.06}
+  pattern 402.0 [0] Open land with scattered trees: 0.45 x 0.45, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.2,Y=-0.2,Width=0.4,Height=0.4}
+  pattern 402.2 [0] Open land with scattered trees: 0.45 x 0.45, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.15,Y=-0.15,Width=0.3,Height=0.3}
+  pattern 404.0 [0] Rough open land with sc. trees: 0.45 x 0.45, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.2,Y=-0.2,Width=0.4,Height=0.4}
+  pattern 404.2 [0] Rough open land with sc. trees: 0.45 x 0.45, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.15,Y=-0.15,Width=0.3,Height=0.3}
+Lake Sammamish.ocd: 14 hatched symbols, 33 patterned symbols; descriptions: lksamm3.txt lksamm2.txt lksamm1.txt lksamm4.txt
+  hatching 309.2 [0] Uncrossable marsh: color Blue, width 0.18, spacing 0.36, offset 0, angle 0, ManualOnly
+  hatching 310.0 [0] Marsh: color Blue, width 0.13, spacing 0.38, offset 0, angle 0, ManualOnly
+  hatching 310.3 [0] Marsh: color Blue, width 0.06, spacing 0.23, offset 0, angle 0, ManualOnly
+  hatching 407.2 [0] Undergrowth: slow running: color Green, width 0.1, spacing 0.56, offset 0, angle 90, ManualOnly
+  hatching 409.0 [0] Undergrowth: difficult to run: color Green, width 0.13, spacing 0.38, offset 0, angle 90, ManualOnly
+  hatching 409.2 [0] Undergrowth: difficult to run: color Green, width 0.1, spacing 0.28, offset 0, angle 90, ManualOnly
+  hatching 529.0 [0] Permanently out of bounds: color Black, width 0.25, spacing 0.75, offset 0, angle 90, ManualOnly
+  hatching 529.1 [0] Permanently out of bounds: color Black, width 0.37, spacing 1.13, offset 0, angle 90, ManualOnly
+  hatching 529.2 [0] Permanently out of bounds: color Black, width 0.18, spacing 0.56, offset 0, angle 90, ManualOnly
+  pattern 211.0 [0] Open sandy ground: 0.32 x 0.32, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.09,Y=-0.09,Width=0.18,Height=0.18}
+  pattern 211.2 [0] Open sandy ground: 0.24 x 0.24, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.065,Y=-0.065,Width=0.13,Height=0.13}
+  pattern 211.3 [0] Open sandy ground: 0.45 x 0.45, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.09,Y=-0.09,Width=0.18,Height=0.18}
+  pattern 311.0 [0] Indistinct marsh: 1.2 x 0.43 offset rows, angle 0, offset (0, 0), ManualOnly, Clip, glyph 1 parts [Line] in 1 colors, bounds {X=-0.515,Y=-0.065,Width=1.03,Height=0.13}
+  pattern 311.2 [0] Indistinct marsh: 0.66 x 0.25 offset rows, angle 0, offset (0, 0), ManualOnly, Clip, glyph 1 parts [Line] in 1 colors, bounds {X=-0.26999998,Y=-0.03,Width=0.53,Height=0.06}
+  pattern 402.0 [0] Open land with scattered trees: 0.45 x 0.45, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.2,Y=-0.2,Width=0.4,Height=0.4}
+  pattern 402.2 [0] Open land with scattered trees: 0.45 x 0.45, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.15,Y=-0.15,Width=0.3,Height=0.3}
+  pattern 404.0 [0] Rough open land with sc. trees: 0.45 x 0.45, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.2,Y=-0.2,Width=0.4,Height=0.4}
+  pattern 404.2 [0] Rough open land with sc. trees: 0.45 x 0.45, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.15,Y=-0.15,Width=0.3,Height=0.3}
+Lake Sammamish9.ocd: 14 hatched symbols, 33 patterned symbols; descriptions: lksamm9_1.txt lksamm9_2.txt lksamm9_3.txt lksamm9_4.txt
+  hatching 309.2 [0] Uncrossable marsh: color Blue, width 0.18, spacing 0.36, offset 0, angle 0, ManualOnly
+  hatching 310.0 [0] Marsh: color Blue, width 0.13, spacing 0.38, offset 0, angle 0, ManualOnly
+  hatching 310.3 [0] Marsh: color Blue, width 0.06, spacing 0.23, offset 0, angle 0, ManualOnly
+  hatching 407.2 [0] Undergrowth: slow running: color Green, width 0.1, spacing 0.56, offset 0, angle 90, ManualOnly
+  hatching 409.0 [0] Undergrowth: difficult to run: color Green, width 0.13, spacing 0.38, offset 0, angle 90, ManualOnly
+  hatching 409.2 [0] Undergrowth: difficult to run: color Green, width 0.1, spacing 0.28, offset 0, angle 90, ManualOnly
+  hatching 529.0 [0] Permanently out of bounds: color Black, width 0.25, spacing 0.75, offset 0, angle 90, ManualOnly
+  hatching 529.1 [0] Permanently out of bounds: color Black, width 0.37, spacing 1.13, offset 0, angle 90, ManualOnly
+  hatching 529.2 [0] Permanently out of bounds: color Black, width 0.18, spacing 0.56, offset 0, angle 90, ManualOnly
+  pattern 211.0 [0] Open sandy ground: 0.32 x 0.32, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.09,Y=-0.09,Width=0.18,Height=0.18}
+  pattern 211.2 [0] Open sandy ground: 0.24 x 0.24, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.065,Y=-0.065,Width=0.13,Height=0.13}
+  pattern 211.3 [0] Open sandy ground: 0.45 x 0.45, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.09,Y=-0.09,Width=0.18,Height=0.18}
+  pattern 311.0 [0] Indistinct marsh: 1.2 x 0.43 offset rows, angle 0, offset (0, 0), ManualOnly, Clip, glyph 1 parts [Line] in 1 colors, bounds {X=-0.515,Y=-0.065,Width=1.03,Height=0.13}
+  pattern 311.2 [0] Indistinct marsh: 0.66 x 0.25 offset rows, angle 0, offset (0, 0), ManualOnly, Clip, glyph 1 parts [Line] in 1 colors, bounds {X=-0.26999998,Y=-0.03,Width=0.53,Height=0.06}
+  pattern 402.0 [0] Open land with scattered trees: 0.45 x 0.45, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.2,Y=-0.2,Width=0.4,Height=0.4}
+  pattern 402.2 [0] Open land with scattered trees: 0.45 x 0.45, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.15,Y=-0.15,Width=0.3,Height=0.3}
+  pattern 404.0 [0] Rough open land with sc. trees: 0.45 x 0.45, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.2,Y=-0.2,Width=0.4,Height=0.4}
+  pattern 404.2 [0] Rough open land with sc. trees: 0.45 x 0.45, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.15,Y=-0.15,Width=0.3,Height=0.3}
+LordHill OCAD11.ocd: 104 hatched symbols, 57 patterned symbols; descriptions: LordHill11.txt
+  hatching 309.0 [0] Uncrossable marsh: color Blue, width 0.25, spacing 0.5, offset 0, angle 0, ManualOnly
+  hatching 310.0 [0] Marsh: color Blue, width 0.13, spacing 0.38, offset 0, angle 0, ManualOnly
+  hatching 407.0 [0] Undergrowth: slow running: color Dark green, width 0.13, spacing 0.75, offset 0, angle 90, ManualOnly
+  hatching 409.0 [0] Undergrowth: difficult to run: color Dark green, width 0.13, spacing 0.38, offset 0, angle 90, ManualOnly
+  hatching 529.0 [0] Permanently out of bounds: color Black, width 0.25, spacing 0.75, offset 0, angle 90, ManualOnly
+  hatching 607.0 [0] Out-of-bounds area: color Purple, width 0.25, spacing 0.85, offset 0, angle 90, ManualOnly
+  pattern 211.0 [0] Open sandy ground: 0.45 x 0.45, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.09,Y=-0.09,Width=0.18,Height=0.18}
+  pattern 311.0 [0] Indistinct marsh: 1.2 x 0.43 offset rows, angle 0, offset (0, 0), Always, Clip, glyph 1 parts [Line] in 1 colors, bounds {X=-0.515,Y=-0.065,Width=1.03,Height=0.13}
+  pattern 404.0 [0] Rough open land with sc. trees: 0.6 x 0.6, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.2,Y=-0.2,Width=0.4,Height=0.4}
+LordHill.ocd: 104 hatched symbols, 57 patterned symbols; descriptions: LordHill.txt
+  hatching 309.0 [0] Uncrossable marsh: color Blue, width 0.25, spacing 0.5, offset 0, angle 0, ManualOnly
+  hatching 310.0 [0] Marsh: color Blue, width 0.13, spacing 0.38, offset 0, angle 0, ManualOnly
+  hatching 407.0 [0] Undergrowth: slow running: color Dark green, width 0.13, spacing 0.75, offset 0, angle 90, ManualOnly
+  hatching 409.0 [0] Undergrowth: difficult to run: color Dark green, width 0.13, spacing 0.38, offset 0, angle 90, ManualOnly
+  hatching 529.0 [0] Permanently out of bounds: color Black, width 0.25, spacing 0.75, offset 0, angle 90, ManualOnly
+  hatching 607.0 [0] Out-of-bounds area: color Purple, width 0.25, spacing 0.85, offset 0, angle 90, ManualOnly
+  pattern 211.0 [0] Open sandy ground: 0.45 x 0.45, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.09,Y=-0.09,Width=0.18,Height=0.18}
+  pattern 311.0 [0] Indistinct marsh: 1.2 x 0.43 offset rows, angle 0, offset (0, 0), Always, Clip, glyph 1 parts [Line] in 1 colors, bounds {X=-0.515,Y=-0.065,Width=1.03,Height=0.13}
+  pattern 404.0 [0] Rough open land with sc. trees: 0.6 x 0.6, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.2,Y=-0.2,Width=0.4,Height=0.4}
+Ormeau Map 5000 OCAD9.ocd: 36 hatched symbols, 49 patterned symbols; descriptions: punchboxbug.txt
+  hatching 310.0 [0] Marsh: color Blue (areas), width 0.08, spacing 0.24, offset 0, angle 0, ManualOnly
+  hatching 407.0 [0] Undergrowth: slow running: color Green, width 0.1, spacing 0.67, offset 0, angle 90, ManualOnly
+  hatching 409.0 [0] Undergrowth: difficult to run: color Green, width 0.1, spacing 0.34, offset 0, angle 90, ManualOnly
+  hatching 526.1 [0] Building inside (not passable): color Covering purple, width 0, spacing 0, offset 0, angle 0, ManualOnly
+  pattern 402.0 [0] Open land with scattered trees: 0.4 x 0.4, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.16,Y=-0.16,Width=0.32,Height=0.32}
+  pattern 403.0 [0] Rough open land: 0.8 x 0.8, angle 0, offset (0, 0), ManualOnly, Clip, glyph 0 parts [] in 0 colors, bounds {X=0,Y=0,Width=0,Height=0}
+  pattern 404.0 [0] Rough open land with sca. trees: 0.56 x 0.56, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.22,Y=-0.22,Width=0.44,Height=0.44}
+Penistone Hill no legend.ocd: 29 hatched symbols, 20 patterned symbols; descriptions: PenistoneHill.txt
+  hatching 310.0 [0] Marsh: color Blue, width 0.15, spacing 0.6, offset 0, angle 0, ManualOnly
+  hatching 407.0 [0] Undergrowth: slow running: color Green, width 0.18, spacing 1.44, offset 0, angle 90, ManualOnly
+  hatching 529.0 [0] Permanently out of bounds: color Black, width 0.38, spacing 1.13, offset 0, angle 90, ManualOnly
+  pattern 311.0 [0] Indistinct marsh: 1.5 x 0.6 offset rows, angle 0, offset (0, 0), ManualOnly, Clip, glyph 1 parts [Line] in 1 colors, bounds {X=-0.525,Y=-0.085,Width=1.34,Height=0.16000001} beyond the cell
+  pattern 401.0 [0] Open land: 1 x 1, angle 0, offset (0, 0), ManualOnly, Clip, glyph 0 parts [] in 0 colors, bounds {X=0,Y=0,Width=0,Height=0}
+  pattern 404.0 [0] Rough open land with sc. trees: 1.05 x 1.05, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.41,Y=-0.41,Width=0.82,Height=0.82}
+  pattern 410.0 [0] Vegetation: difficult to walk: 1 x 1, angle 0, offset (0, 0), ManualOnly, Clip, glyph 0 parts [] in 0 colors, bounds {X=0,Y=0,Width=0,Height=0}
+SampleMap.ocd: 7 hatched symbols, 0 patterned symbols; descriptions: (no description)
+  hatching 309.0 [0] Uncrossable marsh: color Blue, width 0.25, spacing 0.5, offset 0, angle 0, ManualOnly
+  hatching 310.0 [0] Marsh: color Blue, width 0.1, spacing 0.3, offset 0, angle 0, ManualOnly
+aiimport.ocd: 1 hatched symbols, 0 patterned symbols; descriptions: aiimport.txt
+  hatching 1.3 [0] : color Purple, width 0.25, spacing 2, offset 0, angle 45, ManualOnly
+borderedarea9.ocd: 0 hatched symbols, 1 patterned symbols; descriptions: borderedarea9.txt
+  pattern 211.0 [0] Open sandy ground: 0.45 x 0.45, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.09,Y=-0.09,Width=0.18,Height=0.18}
+glyphholes.ocd: 0 hatched symbols, 1 patterned symbols; descriptions: glyphholes.txt
+  pattern 1.1 [0] Area with Glyph Holes: 15 x 15, angle 0, offset (0, 0), ManualOnly, Clip, glyph 1 parts [Area] in 1 colors, bounds {X=-2.2,Y=-2.24,Width=4.45,Height=4.44}
+glyphholes9.ocd: 0 hatched symbols, 1 patterned symbols; descriptions: glyphholes9.txt
+  pattern 1.1 [0] Area with Glyph Holes: 15 x 15, angle 0, offset (0, 0), ManualOnly, Clip, glyph 1 parts [Area] in 1 colors, bounds {X=-2.2,Y=-2.24,Width=4.45,Height=4.44}
+graphicobjects9.ocd: 0 hatched symbols, 1 patterned symbols; descriptions: graphicobjects9.txt
+  pattern 311.0 [0] Indistinct marsh: 1.15 x 0.3 offset rows, angle 0, offset (0, 0), ManualOnly, Clip, glyph 1 parts [Line] in 1 colors, bounds {X=-0.5,Y=-0.05,Width=1,Height=0.1}
+holes.ocd: 1 hatched symbols, 1 patterned symbols; descriptions: holes.txt
+  hatching 710.0 [0] Dangerous area: color Purple, width 0.38, spacing 1.28, offset 0, angle -45, ManualOnly
+  hatching 710.0 [1] Dangerous area: color Purple, width 0.38, spacing 1.28, offset 0, angle 45, ManualOnly
+  pattern 404.0 [0] Rough open land with sc. trees: 1.05 x 1.05, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.41,Y=-0.41,Width=0.82,Height=0.82}
+holes9.ocd: 1 hatched symbols, 1 patterned symbols; descriptions: holes9.txt
+  hatching 710.0 [0] Dangerous area: color Purple, width 0.38, spacing 1.28, offset 0, angle -45, ManualOnly
+  hatching 710.0 [1] Dangerous area: color Purple, width 0.38, spacing 1.28, offset 0, angle 45, ManualOnly
+  pattern 404.0 [0] Rough open land with sc. trees: 1.05 x 1.05, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.41,Y=-0.41,Width=0.82,Height=0.82}
+inner.ocd: 0 hatched symbols, 1 patterned symbols; descriptions: (no description)
+  pattern 402.0 [0] Open land with scattered trees: 0.75 x 0.75, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.3,Y=-0.3,Width=0.6,Height=0.6}
+irregular1.ocd: 0 hatched symbols, 5 patterned symbols; descriptions: irregular1.txt
+  pattern 113.0 [0] Broken Ground: 0.55 x 0.55 offset rows, angle 0, offset (0, 0), Always, PartiallyInside, irregular (1, 1, 0.28), glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.1,Y=-0.1,Width=0.2,Height=0.2}
+  pattern 114.0 [0] Very Broken Ground: 0.32 x 0.32 offset rows, angle 0, offset (0, 0), Always, PartiallyInside, irregular (1, 1, 0.08), glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.1,Y=-0.1,Width=0.2,Height=0.2}
+  pattern 210.0 [0] Stony Ground, Slow Running: 0.52 x 0.52 offset rows, angle 0, offset (0, 0), Always, PartiallyInside, irregular (1, 1, 0.25), glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.1,Y=-0.1,Width=0.2,Height=0.2}
+  pattern 211.0 [0] Stony Ground, Walk: 0.36 x 0.36 offset rows, angle 0, offset (0, 0), Always, PartiallyInside, irregular (1, 1, 0.12), glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.1,Y=-0.1,Width=0.2,Height=0.2}
+  pattern 212.0 [0] Stony Ground, Fight: 0.28 x 0.28 offset rows, angle 0, offset (0, 0), Always, PartiallyInside, irregular (1, 1, 0.05), glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.1,Y=-0.1,Width=0.2,Height=0.2}
+irregular2.ocd: 0 hatched symbols, 5 patterned symbols; descriptions: irregular2.txt
+  pattern 113.0 [0] Broken Ground: 0.55 x 0.55, angle 0, offset (0, 0), Always, PartiallyInside, irregular (1, 1, 0.28), glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.1,Y=-0.1,Width=0.2,Height=0.2}
+  pattern 114.0 [0] Very Broken Ground: 0.32 x 0.32, angle 0, offset (0, 0), Always, PartiallyInside, irregular (1, 1, 0.08), glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.1,Y=-0.1,Width=0.2,Height=0.2}
+  pattern 210.0 [0] Stony Ground, Slow Running: 0.52 x 0.52, angle 0, offset (0, 0), Always, PartiallyInside, irregular (1, 1, 0.25), glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.1,Y=-0.1,Width=0.2,Height=0.2}
+  pattern 211.0 [0] Stony Ground, Walk: 0.36 x 0.36, angle 0, offset (0, 0), Always, PartiallyInside, irregular (1, 1, 0.12), glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.1,Y=-0.1,Width=0.2,Height=0.2}
+  pattern 212.0 [0] Stony Ground, Fight: 0.28 x 0.28, angle 0, offset (0, 0), Always, PartiallyInside, irregular (1, 1, 0.05), glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.1,Y=-0.1,Width=0.2,Height=0.2}
+irregular3.ocd: 0 hatched symbols, 6 patterned symbols; descriptions: irregular3.txt
+  pattern 210.0 [0] Stony Ground, Slow Running: 1 x 1, angle 0, offset (0, 0), Always, Clip, irregular (1, 1, 0), glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.25,Y=-0.25,Width=0.5,Height=0.5}
+  pattern 210.2 [0] Stony Ground, Slow Running: 1 x 1, angle 0, offset (0, 0), Always, Clip, glyph 1 parts [Line] in 1 colors, bounds {X=-0.505,Y=-0.505,Width=1.01,Height=1.01} beyond the cell
+  pattern 210.3 [0] Stony Ground, Slow Running: 1 x 1, angle 0, offset (0, 0), Always, Clip, irregular (0.25, 0.25, 0), glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.25,Y=-0.25,Width=0.5,Height=0.5}
+  pattern 210.4 [0] Stony Ground, Slow Running: 1 x 1, angle 0, offset (0, 0), Always, Clip, irregular (0.5, 0.5, 0), glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.25,Y=-0.25,Width=0.5,Height=0.5}
+irregular4.ocd: 0 hatched symbols, 5 patterned symbols; descriptions: irregular4.txt
+  pattern 113.0 [0] Broken Ground: 0.55 x 0.55 offset rows, angle 0, offset (0, 0), Always, PartiallyInside, irregular (1, 1, 0.28), glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.1,Y=-0.1,Width=0.2,Height=0.2}
+  pattern 114.0 [0] Very Broken Ground: 0.32 x 0.32 offset rows, angle 0, offset (0, 0), Always, PartiallyInside, irregular (1, 1, 0.08), glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.1,Y=-0.1,Width=0.2,Height=0.2}
+  pattern 210.0 [0] Stony Ground, Slow Running: 0.52 x 0.52 offset rows, angle 0, offset (0, 0), Always, PartiallyInside, irregular (1, 1, 0.25), glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.1,Y=-0.1,Width=0.2,Height=0.2}
+  pattern 211.0 [0] Stony Ground, Walk: 0.36 x 0.36 offset rows, angle 0, offset (0, 0), Always, PartiallyInside, irregular (1, 1, 0.12), glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.1,Y=-0.1,Width=0.2,Height=0.2}
+  pattern 212.0 [0] Stony Ground, Fight: 0.28 x 0.28 offset rows, angle 0, offset (0, 0), Always, PartiallyInside, irregular (1, 1, 0.05), glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.1,Y=-0.1,Width=0.2,Height=0.2}
+isomarea.ocd: 10 hatched symbols, 7 patterned symbols; descriptions: isomarea_nopatbm.txt isomarea.txt
+  hatching 309.0 [0] Uncrossable marsh: color Blue, width 0.38, spacing 0.76, offset 0, angle 0, ManualOnly
+  hatching 310.0 [0] Marsh: color Blue, width 0.15, spacing 0.45, offset 0, angle 0, ManualOnly
+  hatching 407.0 [0] Undergrowth: slow running: color Green, width 0.18, spacing 1.26, offset 0, angle 90, ManualOnly
+  hatching 409.0 [0] Undergrowth: difficult to run: color Green, width 0.18, spacing 0.63, offset 0, angle 90, ManualOnly
+  hatching 411.0 [0] Forest runnable in one dir.: color White for green, width 0.6, spacing 2.85, offset 0, angle 90, ManualOnly
+  hatching 411.1 [0] Forest runnable in one dir.: color White for green, width 0.6, spacing 2.85, offset 0, angle 90, ManualOnly
+  hatching 411.2 [0] Forest runnable in one dir.: color White for green, width 0.6, spacing 2.85, offset 0, angle 90, ManualOnly
+  hatching 709.0 [0] Out-of-bounds area: color Purple, width 0.38, spacing 1.28, offset 0, angle 90, ManualOnly
+  hatching 710.0 [0] Dangerous area: color Purple, width 0.38, spacing 1.28, offset 0, angle -45, ManualOnly
+  hatching 710.0 [1] Dangerous area: color Purple, width 0.38, spacing 1.28, offset 0, angle 45, ManualOnly
+  hatching 806.0 [0] Prepared areas: color Green for Ski-O, width 0.27, spacing 3.27, offset 0, angle -45, ManualOnly
+  hatching 806.0 [1] Prepared areas: color Green for Ski-O, width 0.27, spacing 3.27, offset 0, angle 45, ManualOnly
+  pattern 211.0 [0] Open sandy ground: 0.68 x 0.68, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.135,Y=-0.135,Width=0.27,Height=0.27}
+  pattern 311.0 [0] Indistinct marsh: 1.72 x 0.45 offset rows, angle 0, offset (0, 0), ManualOnly, Clip, glyph 1 parts [Line] in 1 colors, bounds {X=-0.755,Y=-0.075,Width=1.5,Height=0.15}
+  pattern 402.0 [0] Open land with scattered trees: 0.75 x 0.75, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.3,Y=-0.3,Width=0.6,Height=0.6}
+  pattern 404.0 [0] Rough open land with sc. trees: 1.05 x 1.05, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.41,Y=-0.41,Width=0.82,Height=0.82}
+  pattern 412.0 [0] Orchard: 1.2 x 1.2, angle 0, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.34,Y=-0.34,Width=0.68,Height=0.68}
+  pattern 413.0 [0] Vineyard: 2.85 x 1.28 offset rows, angle 90, offset (0, 0), ManualOnly, Clip, glyph 1 parts [Line] in 1 colors, bounds {X=-0.15,Y=-1.11,Width=0.3,Height=2.23} beyond the cell
+  pattern 415.0 [0] Cultivated land: 1.2 x 1.2, angle 0, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.15,Y=-0.15,Width=0.3,Height=0.3}
+isomarea2018.ocd: 10 hatched symbols, 7 patterned symbols; descriptions: isomarea9.txt
+  hatching 309.0 [0] Uncrossable marsh: color Blue, width 0.38, spacing 0.76, offset 0, angle 0, ManualOnly
+  hatching 310.0 [0] Marsh: color Blue, width 0.15, spacing 0.45, offset 0, angle 0, ManualOnly
+  hatching 407.0 [0] Undergrowth: slow running: color Green, width 0.18, spacing 1.26, offset 0, angle 90, ManualOnly
+  hatching 409.0 [0] Undergrowth: difficult to run: color Green, width 0.18, spacing 0.63, offset 0, angle 90, ManualOnly
+  hatching 411.0 [0] Forest runnable in one dir.: color White for green, width 0.6, spacing 2.85, offset 0, angle 90, ManualOnly
+  hatching 411.1 [0] Forest runnable in one dir.: color White for green, width 0.6, spacing 2.85, offset 0, angle 90, ManualOnly
+  hatching 411.2 [0] Forest runnable in one dir.: color White for green, width 0.6, spacing 2.85, offset 0, angle 90, ManualOnly
+  hatching 709.0 [0] Out-of-bounds area: color Purple, width 0.38, spacing 1.28, offset 0, angle 90, ManualOnly
+  hatching 710.0 [0] Dangerous area: color Purple, width 0.38, spacing 1.28, offset 0, angle -45, ManualOnly
+  hatching 710.0 [1] Dangerous area: color Purple, width 0.38, spacing 1.28, offset 0, angle 45, ManualOnly
+  hatching 806.0 [0] Prepared areas: color Green for Ski-O, width 0.27, spacing 3.27, offset 0, angle -45, ManualOnly
+  hatching 806.0 [1] Prepared areas: color Green for Ski-O, width 0.27, spacing 3.27, offset 0, angle 45, ManualOnly
+  pattern 211.0 [0] Open sandy ground: 0.68 x 0.68, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.135,Y=-0.135,Width=0.27,Height=0.27}
+  pattern 311.0 [0] Indistinct marsh: 1.72 x 0.45 offset rows, angle 0, offset (0, 0), ManualOnly, Clip, glyph 1 parts [Line] in 1 colors, bounds {X=-0.755,Y=-0.075,Width=1.5,Height=0.15}
+  pattern 402.0 [0] Open land with scattered trees: 0.75 x 0.75, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.3,Y=-0.3,Width=0.6,Height=0.6}
+  pattern 404.0 [0] Rough open land with sc. trees: 1.05 x 1.05, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.41,Y=-0.41,Width=0.82,Height=0.82}
+  pattern 412.0 [0] Orchard: 1.2 x 1.2, angle 0, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.34,Y=-0.34,Width=0.68,Height=0.68}
+  pattern 413.0 [0] Vineyard: 2.85 x 1.28 offset rows, angle 90, offset (0, 0), ManualOnly, Clip, glyph 1 parts [Line] in 1 colors, bounds {X=-0.15,Y=-1.11,Width=0.3,Height=2.23} beyond the cell
+  pattern 415.0 [0] Cultivated land: 1.2 x 1.2, angle 0, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.15,Y=-0.15,Width=0.3,Height=0.3}
+isomarea9.ocd: 10 hatched symbols, 7 patterned symbols; descriptions: (no description)
+  hatching 309.0 [0] Uncrossable marsh: color Blue, width 0.38, spacing 0.76, offset 0, angle 0, ManualOnly
+  hatching 310.0 [0] Marsh: color Blue, width 0.15, spacing 0.45, offset 0, angle 0, ManualOnly
+  hatching 407.0 [0] Undergrowth: slow running: color Green, width 0.18, spacing 1.26, offset 0, angle 90, ManualOnly
+  hatching 409.0 [0] Undergrowth: difficult to run: color Green, width 0.18, spacing 0.63, offset 0, angle 90, ManualOnly
+  hatching 411.0 [0] Forest runnable in one dir.: color White for green, width 0.6, spacing 2.85, offset 0, angle 90, ManualOnly
+  hatching 411.1 [0] Forest runnable in one dir.: color White for green, width 0.6, spacing 2.85, offset 0, angle 90, ManualOnly
+  hatching 411.2 [0] Forest runnable in one dir.: color White for green, width 0.6, spacing 2.85, offset 0, angle 90, ManualOnly
+  hatching 709.0 [0] Out-of-bounds area: color Purple, width 0.38, spacing 1.28, offset 0, angle 90, ManualOnly
+  hatching 710.0 [0] Dangerous area: color Purple, width 0.38, spacing 1.28, offset 0, angle -45, ManualOnly
+  hatching 710.0 [1] Dangerous area: color Purple, width 0.38, spacing 1.28, offset 0, angle 45, ManualOnly
+  hatching 806.0 [0] Prepared areas: color Green for Ski-O, width 0.27, spacing 3.27, offset 0, angle -45, ManualOnly
+  hatching 806.0 [1] Prepared areas: color Green for Ski-O, width 0.27, spacing 3.27, offset 0, angle 45, ManualOnly
+  pattern 211.0 [0] Open sandy ground: 0.68 x 0.68, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.135,Y=-0.135,Width=0.27,Height=0.27}
+  pattern 311.0 [0] Indistinct marsh: 1.72 x 0.45 offset rows, angle 0, offset (0, 0), ManualOnly, Clip, glyph 1 parts [Line] in 1 colors, bounds {X=-0.755,Y=-0.075,Width=1.5,Height=0.15}
+  pattern 402.0 [0] Open land with scattered trees: 0.75 x 0.75, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.3,Y=-0.3,Width=0.6,Height=0.6}
+  pattern 404.0 [0] Rough open land with sc. trees: 1.05 x 1.05, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.41,Y=-0.41,Width=0.82,Height=0.82}
+  pattern 412.0 [0] Orchard: 1.2 x 1.2, angle 0, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.34,Y=-0.34,Width=0.68,Height=0.68}
+  pattern 413.0 [0] Vineyard: 2.85 x 1.28 offset rows, angle 90, offset (0, 0), ManualOnly, Clip, glyph 1 parts [Line] in 1 colors, bounds {X=-0.15,Y=-1.11,Width=0.3,Height=2.23} beyond the cell
+  pattern 415.0 [0] Cultivated land: 1.2 x 1.2, angle 0, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.15,Y=-0.15,Width=0.3,Height=0.3}
+isomareabug.ocd: 0 hatched symbols, 1 patterned symbols; descriptions: isomareabug_nopatbm.txt isomareabug.txt
+  pattern 413.0 [0] Vineyard: 2.85 x 1.28 offset rows, angle 90, offset (0, 0), ManualOnly, Clip, glyph 1 parts [Line] in 1 colors, bounds {X=-0.15,Y=-1.11,Width=0.3,Height=2.23} beyond the cell
+marymoor OCAD11.ocd: 79 hatched symbols, 81 patterned symbols; descriptions: marymoor11.txt marymoor11_lowerlayers.txt marymoor11_upperlayers.txt
+  hatching 309.0 [0] Uncrossable marsh: color Blue, width 0.25, spacing 0.5, offset 0, angle 0, ManualOnly
+  hatching 310.0 [0] Marsh: color Blue, width 0.2, spacing 0.58, offset 0, angle 0, ManualOnly
+  hatching 310.2 [0] Marsh: color Blue, width 0.13, spacing 0.38, offset 0, angle 0, ManualOnly
+  hatching 407.0 [0] Undergrowth: slow running: color Green 100%, width 0.13, spacing 0.75, offset 0, angle 90, ManualOnly
+  hatching 407.2 [0] Undergrowth: slow running: color Green 100%, width 0.13, spacing 0.76, offset 0, angle 90, ManualOnly
+  hatching 409.0 [0] Undergrowth: difficult to run: color Green 100%, width 0.13, spacing 0.38, offset 0, angle 90, ManualOnly
+  hatching 529.0 [0] Permanently out of bounds: color Black, width 0.25, spacing 0.75, offset 0, angle 90, ManualOnly
+  hatching 607.0 [0] Out-of-bounds area: color Purple, width 0.25, spacing 0.85, offset 0, angle 90, ManualOnly
+  hatching 608.0 [0] Dangerous area: color Purple, width 0.25, spacing 0.85, offset 0, angle -45, ManualOnly
+  hatching 608.0 [1] Dangerous area: color Purple, width 0.25, spacing 0.85, offset 0, angle 45, ManualOnly
+  pattern 211.0 [0] Open sandy ground: 0.45 x 0.45, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.09,Y=-0.09,Width=0.18,Height=0.18}
+  pattern 311.0 [0] Indistinct marsh: 1.8 x 0.64 offset rows, angle 0, offset (0, 0), ManualOnly, Clip, glyph 1 parts [Line] in 1 colors, bounds {X=-0.78000003,Y=-0.1,Width=1.5500001,Height=0.2}
+  pattern 311.2 [0] Indistinct marsh: 1.2 x 0.43 offset rows, angle 0, offset (0, 0), ManualOnly, Clip, glyph 1 parts [Line] in 1 colors, bounds {X=-0.525,Y=-0.065,Width=1.03,Height=0.13}
+  pattern 402.0 [0] Open land with scattered trees: 0.6 x 0.6, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.2,Y=-0.2,Width=0.4,Height=0.4}
+  pattern 402.2 [0] Open land with scattered trees: 0.45 x 0.45, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.2,Y=-0.2,Width=0.4,Height=0.4}
+  pattern 404.0 [0] Rough open land with sc. trees: 0.6 x 0.6, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.2,Y=-0.2,Width=0.4,Height=0.4}
+  pattern 404.2 [0] Rough open land with sc. trees: 0.45 x 0.45, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.2,Y=-0.2,Width=0.4,Height=0.4}
+  pattern 415.0 [0] Cultivated land: 0.9 x 0.9, angle 0, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.125,Y=-0.125,Width=0.25,Height=0.25}
+  pattern 415.1 [0] Cultivated land: 1.35 x 1.35, angle 0, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.19,Y=-0.19,Width=0.38,Height=0.38}
+marymoor.ocd: 79 hatched symbols, 81 patterned symbols; descriptions: marymoor.txt
+  hatching 309.0 [0] Uncrossable marsh: color Blue, width 0.25, spacing 0.5, offset 0, angle 0, ManualOnly
+  hatching 310.0 [0] Marsh: color Blue, width 0.2, spacing 0.58, offset 0, angle 0, ManualOnly
+  hatching 310.2 [0] Marsh: color Blue, width 0.13, spacing 0.38, offset 0, angle 0, ManualOnly
+  hatching 407.0 [0] Undergrowth: slow running: color Green 100%, width 0.13, spacing 0.75, offset 0, angle 90, ManualOnly
+  hatching 407.2 [0] Undergrowth: slow running: color Green 100%, width 0.13, spacing 0.76, offset 0, angle 90, ManualOnly
+  hatching 409.0 [0] Undergrowth: difficult to run: color Green 100%, width 0.13, spacing 0.38, offset 0, angle 90, ManualOnly
+  hatching 529.0 [0] Permanently out of bounds: color Black, width 0.25, spacing 0.75, offset 0, angle 90, ManualOnly
+  hatching 607.0 [0] Out-of-bounds area: color Purple, width 0.25, spacing 0.85, offset 0, angle 90, ManualOnly
+  hatching 608.0 [0] Dangerous area: color Purple, width 0.25, spacing 0.85, offset 0, angle -45, ManualOnly
+  hatching 608.0 [1] Dangerous area: color Purple, width 0.25, spacing 0.85, offset 0, angle 45, ManualOnly
+  pattern 211.0 [0] Open sandy ground: 0.45 x 0.45, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.09,Y=-0.09,Width=0.18,Height=0.18}
+  pattern 311.0 [0] Indistinct marsh: 1.8 x 0.64 offset rows, angle 0, offset (0, 0), ManualOnly, Clip, glyph 1 parts [Line] in 1 colors, bounds {X=-0.78000003,Y=-0.1,Width=1.5500001,Height=0.2}
+  pattern 311.2 [0] Indistinct marsh: 1.2 x 0.43 offset rows, angle 0, offset (0, 0), ManualOnly, Clip, glyph 1 parts [Line] in 1 colors, bounds {X=-0.525,Y=-0.065,Width=1.03,Height=0.13}
+  pattern 402.0 [0] Open land with scattered trees: 0.6 x 0.6, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.2,Y=-0.2,Width=0.4,Height=0.4}
+  pattern 402.2 [0] Open land with scattered trees: 0.45 x 0.45, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.2,Y=-0.2,Width=0.4,Height=0.4}
+  pattern 404.0 [0] Rough open land with sc. trees: 0.6 x 0.6, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.2,Y=-0.2,Width=0.4,Height=0.4}
+  pattern 404.2 [0] Rough open land with sc. trees: 0.45 x 0.45, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.2,Y=-0.2,Width=0.4,Height=0.4}
+  pattern 415.0 [0] Cultivated land: 0.9 x 0.9, angle 0, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.125,Y=-0.125,Width=0.25,Height=0.25}
+  pattern 415.1 [0] Cultivated land: 1.35 x 1.35, angle 0, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.19,Y=-0.19,Width=0.38,Height=0.38}
+offsetpattern.ocd: 0 hatched symbols, 10 patterned symbols; descriptions: offsetpattern_nopatbm.txt offsetpattern.txt
+  pattern 1.1 [0] Patten above: 3 x 2, angle 0, offset (0, 0), ManualOnly, Clip, glyph 7 parts [FilledCircle,FilledCircle,FilledCircle,FilledCircle,FilledCircle,FilledCircle,FilledCircle] in 1 colors, bounds {X=-1.63,Y=3.4099998,Width=2.31,Height=1.6200004} beyond the cell
+  pattern 1.2 [0] Patten above and below: 3 x 2, angle 0, offset (0, 0), ManualOnly, Clip, glyph 9 parts [FilledCircle,FilledCircle,FilledCircle,FilledCircle,FilledCircle,FilledCircle,FilledCircle,Line,Line] in 2 colors, bounds {X=-1.815,Y=-4.645,Width=2.6200001,Height=9.675} beyond the cell
+  pattern 1.4 [0] Patten above and below: 1.6 x 2 offset rows, angle 0, offset (0, 0), ManualOnly, Clip, glyph 2 parts [Area,Area] in 1 colors, bounds {X=-8.32,Y=0.15,Width=1.7999997,Height=1.76} beyond the cell
+  pattern 1.5 [0] Patten above and below: 1.4 x 1 offset rows, angle 0, offset (0, 0), ManualOnly, Clip, glyph 6 parts [Line,Circle,Circle,Circle,Circle,Circle] in 2 colors, bounds {X=6.6899996,Y=-4.8,Width=1.7600002,Height=8.18} beyond the cell
+  pattern 1.6 [0] Patten above and below: 1.4 x 1, angle 0, offset (0, 0), ManualOnly, Clip, glyph 6 parts [Line,Circle,Circle,Circle,Circle,Circle] in 2 colors, bounds {X=6.6899996,Y=-4.8,Width=1.7600002,Height=8.18} beyond the cell
+  pattern 1.7 [0] : 1.2 x 1.5 offset rows, angle 0, offset (0, 0), ManualOnly, Clip, glyph 1 parts [Line] in 1 colors, bounds {X=-8.08,Y=-3.7,Width=3.69,Height=6.5099998} beyond the cell
+  pattern 1.8 [0] : 2 x 1.4 offset rows, angle 0, offset (0, 0), ManualOnly, Clip, glyph 2 parts [Circle,Circle] in 2 colors, bounds {X=7.35,Y=-1.36,Width=1.0100007,Height=5.75} beyond the cell
+  pattern 1.9 [0] : 2.3 x 1.4 offset rows, angle 0, offset (0, 0), ManualOnly, Clip, glyph 1 parts [Area] in 1 colors, bounds {X=-1.77,Y=-3.78,Width=0.76,Height=1.44} beyond the cell
+offsetpattern_rot.ocd: 0 hatched symbols, 10 patterned symbols; descriptions: offsetpatternrot_nopatbm.txt offsetpatternrot.txt
+  pattern 1.1 [0] Patten above: 3 x 2, angle -80, offset (0, 0), ManualOnly, Clip, glyph 7 parts [FilledCircle,FilledCircle,FilledCircle,FilledCircle,FilledCircle,FilledCircle,FilledCircle] in 1 colors, bounds {X=-1.63,Y=3.4099998,Width=2.31,Height=1.6200004} beyond the cell
+  pattern 1.2 [0] Patten above and below: 3 x 2, angle 25, offset (0, 0), ManualOnly, Clip, glyph 9 parts [FilledCircle,FilledCircle,FilledCircle,FilledCircle,FilledCircle,FilledCircle,FilledCircle,Line,Line] in 2 colors, bounds {X=-1.815,Y=-4.645,Width=2.6200001,Height=9.675} beyond the cell
+  pattern 1.4 [0] Patten above and below: 1.6 x 2 offset rows, angle -55, offset (0, 0), ManualOnly, Clip, glyph 2 parts [Area,Area] in 1 colors, bounds {X=-8.32,Y=0.15,Width=1.7999997,Height=1.76} beyond the cell
+  pattern 1.5 [0] Patten above and below: 1.4 x 1 offset rows, angle 20, offset (0, 0), ManualOnly, Clip, glyph 6 parts [Line,Circle,Circle,Circle,Circle,Circle] in 2 colors, bounds {X=6.6899996,Y=-4.8,Width=1.7600002,Height=8.18} beyond the cell
+  pattern 1.6 [0] Patten above and below: 1.4 x 1, angle 45, offset (0, 0), ManualOnly, Clip, glyph 6 parts [Line,Circle,Circle,Circle,Circle,Circle] in 2 colors, bounds {X=6.6899996,Y=-4.8,Width=1.7600002,Height=8.18} beyond the cell
+  pattern 1.7 [0] : 1.2 x 1.5 offset rows, angle 90, offset (0, 0), ManualOnly, Clip, glyph 1 parts [Line] in 1 colors, bounds {X=-8.08,Y=-3.7,Width=3.69,Height=6.5099998} beyond the cell
+  pattern 1.8 [0] : 2 x 1.4 offset rows, angle 115, offset (0, 0), ManualOnly, Clip, glyph 2 parts [Circle,Circle] in 2 colors, bounds {X=7.35,Y=-1.36,Width=1.0100007,Height=5.75} beyond the cell
+  pattern 1.9 [0] : 2.3 x 1.4 offset rows, angle 60, offset (0, 0), ManualOnly, Clip, glyph 1 parts [Area] in 1 colors, bounds {X=-1.77,Y=-3.78,Width=0.76,Height=1.44} beyond the cell
+offsetpattern_rot2.ocd: 0 hatched symbols, 1 patterned symbols; descriptions: offsetpatternrot2.txt offsetpatternrot2_nopatbm.txt
+  pattern 1.1 [0] : 2 x 2.4, angle 10, offset (0, 0), ManualOnly, Clip, glyph 3 parts [Area,FilledCircle,FilledCircle] in 2 colors, bounds {X=-1.89,Y=-0.04,Width=1.9399999,Height=2.3899999} beyond the cell
+recursivetempl2.ocd: 0 hatched symbols, 1 patterned symbols; descriptions: (no description)
+  pattern 211.0 [0] Open sandy ground: 0.68 x 0.68, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.135,Y=-0.135,Width=0.27,Height=0.27}
+rotarea.ocd: 2 hatched symbols, 3 patterned symbols; descriptions: rotarea-test.txt
+  hatching 407.0 [0] Undergrowth: slow running: color Green, width 0.18, spacing 1.26, offset 0, angle 90, ManualOnly
+  hatching 710.0 [0] Dangerous area: color Purple, width 0.38, spacing 1.28, offset 0, angle -45, ManualOnly
+  hatching 710.0 [1] Dangerous area: color Purple, width 0.38, spacing 1.28, offset 0, angle 45, ManualOnly
+  pattern 311.0 [0] Indistinct marsh: 1.72 x 0.45 offset rows, angle 0, offset (0, 0), ManualOnly, Clip, glyph 1 parts [Line] in 1 colors, bounds {X=-0.755,Y=-0.075,Width=1.5,Height=0.15}
+  pattern 402.0 [0] Open land with scattered trees: 0.75 x 0.75, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.3,Y=-0.3,Width=0.6,Height=0.6}
+  pattern 413.0 [0] Vineyard: 2.85 x 1.28 offset rows, angle 90, offset (0, 0), ManualOnly, Clip, glyph 1 parts [Line] in 1 colors, bounds {X=-0.15,Y=-1.11,Width=0.3,Height=2.23} beyond the cell
+rotarea9.ocd: 2 hatched symbols, 3 patterned symbols; descriptions: rotarea-test9.txt
+  hatching 407.0 [0] Undergrowth: slow running: color Green, width 0.18, spacing 1.26, offset 0, angle 90, ManualOnly
+  hatching 710.0 [0] Dangerous area: color Purple, width 0.38, spacing 1.28, offset 0, angle -45, ManualOnly
+  hatching 710.0 [1] Dangerous area: color Purple, width 0.38, spacing 1.28, offset 0, angle 45, ManualOnly
+  pattern 311.0 [0] Indistinct marsh: 1.72 x 0.45 offset rows, angle 0, offset (0, 0), ManualOnly, Clip, glyph 1 parts [Line] in 1 colors, bounds {X=-0.755,Y=-0.075,Width=1.5,Height=0.15}
+  pattern 402.0 [0] Open land with scattered trees: 0.75 x 0.75, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.3,Y=-0.3,Width=0.6,Height=0.6}
+  pattern 413.0 [0] Vineyard: 2.85 x 1.28 offset rows, angle 90, offset (0, 0), ManualOnly, Clip, glyph 1 parts [Line] in 1 colors, bounds {X=-0.15,Y=-1.11,Width=0.3,Height=2.23} beyond the cell
+t1.ocd: 1 hatched symbols, 1 patterned symbols; descriptions: (no description)
+  hatching 309.0 [0] Uncrossable marsh: color Blue, width 0.25, spacing 0.5, offset 0, angle 0, ManualOnly
+  pattern 402.0 [0] Open land with scattered trees: 0.5 x 0.5, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.2,Y=-0.2,Width=0.4,Height=0.4}
+t2.ocd: 1 hatched symbols, 0 patterned symbols; descriptions: (no description)
+  hatching 407.0 [0] Undergrowth: slow running: color Green, width 0.12, spacing 0.84, offset 0, angle 90, ManualOnly
+teanwest OCAD11.ocd: 486 hatched symbols, 681 patterned symbols; descriptions: teanwest11.txt
+  hatching 310.0 [0] Marsh: color Blue, width 0.13, spacing 0.38, offset 0, angle 0, ManualOnly
+  hatching 407.0 [0] Undergrowth: slow running: color Green, width 0.13, spacing 0.75, offset 0, angle 90, ManualOnly
+  hatching 409.0 [0] Undergrowth: difficult to run: color Green, width 0.13, spacing 0.38, offset 0, angle 90, ManualOnly
+  hatching 528.1 [0] Settlement: color Black, width 0.13, spacing 0.63, offset 0, angle 90, ManualOnly
+  pattern 211.0 [0] Open sand. ground: 0.32 x 0.32, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.09,Y=-0.09,Width=0.18,Height=0.18}
+  pattern 211.2 [0] Open sandy ground: 0.32 x 0.32, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.09,Y=-0.09,Width=0.18,Height=0.18}
+  pattern 311.0 [0] Indistinct marsh: 1.2 x 0.43 offset rows, angle 0, offset (0, 0), ManualOnly, Clip, glyph 1 parts [Line] in 1 colors, bounds {X=-0.515,Y=-0.065,Width=1.03,Height=0.13}
+  pattern 402.0 [0] Open land with scattered trees: 0.45 x 0.45, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.2,Y=-0.2,Width=0.4,Height=0.4}
+  pattern 404.0 [0] Rough open land with sc. trees: 0.45 x 0.45, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.2,Y=-0.2,Width=0.4,Height=0.4}
+teanwest.ocd: 486 hatched symbols, 681 patterned symbols; descriptions: teanwest.txt
+  hatching 310.0 [0] Marsh: color Blue, width 0.13, spacing 0.38, offset 0, angle 0, ManualOnly
+  hatching 407.0 [0] Undergrowth: slow running: color Green, width 0.13, spacing 0.75, offset 0, angle 90, ManualOnly
+  hatching 409.0 [0] Undergrowth: difficult to run: color Green, width 0.13, spacing 0.38, offset 0, angle 90, ManualOnly
+  hatching 528.1 [0] Settlement: color Black, width 0.13, spacing 0.63, offset 0, angle 90, ManualOnly
+  pattern 211.0 [0] Open sand. ground: 0.32 x 0.32, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.09,Y=-0.09,Width=0.18,Height=0.18}
+  pattern 211.2 [0] Open sandy ground: 0.32 x 0.32, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.09,Y=-0.09,Width=0.18,Height=0.18}
+  pattern 311.0 [0] Indistinct marsh: 1.2 x 0.43 offset rows, angle 0, offset (0, 0), ManualOnly, Clip, glyph 1 parts [Line] in 1 colors, bounds {X=-0.515,Y=-0.065,Width=1.03,Height=0.13}
+  pattern 402.0 [0] Open land with scattered trees: 0.45 x 0.45, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.2,Y=-0.2,Width=0.4,Height=0.4}
+  pattern 404.0 [0] Rough open land with sc. trees: 0.45 x 0.45, angle 45, offset (0, 0), ManualOnly, Clip, glyph 1 parts [FilledCircle] in 1 colors, simple, bounds {X=-0.2,Y=-0.2,Width=0.4,Height=0.4}
+wholestructure.ocd: 0 hatched symbols, 4 patterned symbols; descriptions: wholestructure.txt
+  pattern 208.0 [0] Boulder Field, Normal to Run: 2 x 2 offset rows, angle 0, offset (0, 0), Always, CenterInside, glyph 4 parts [Area,Area,Area,Area] in 1 colors, bounds {X=-0.89,Y=-0.87,Width=1.77,Height=1.7099999}
+  pattern 208.4 [0] Boulder Field, Normal to Run: 2 x 2 offset rows, angle 0, offset (0, 0), Always, CompletelyInside, glyph 4 parts [Area,Area,Area,Area] in 1 colors, bounds {X=-0.89,Y=-0.87,Width=1.77,Height=1.7099999}
+  pattern 209.0 [0] Dense Boulder Field, Difficult to Run: 2 x 2 offset rows, angle 0, offset (0, 0), Always, PartiallyInside, glyph 8 parts [Area,Area,Area,Area,Area,Area,Area,Area] in 1 colors, bounds {X=-0.93,Y=-0.96,Width=1.87,Height=1.9100001}
+wholestructure2.ocd: 0 hatched symbols, 7 patterned symbols; descriptions: wholestructure2.txt
+  pattern 208.0 [0] Boulder Field, Normal to Run: 2 x 2, angle 0, offset (0, 0), Always, CenterInside, glyph 4 parts [Area,Line,FilledCircle,Circle] in 1 colors, bounds {X=-0.88,Y=-0.87,Width=1.62,Height=1.8199999}
+  pattern 208.4 [0] Boulder Field, Normal to Run: 2 x 2, angle 0, offset (0, 0), Always, PartiallyInside, glyph 4 parts [Area,Line,FilledCircle,Circle] in 1 colors, bounds {X=-0.88,Y=-0.87,Width=1.62,Height=1.8199999}
+  pattern 208.5 [0] Boulder Field, Normal to Run: 2 x 2, angle 0, offset (0, 0), Always, CompletelyInside, glyph 4 parts [Area,Line,FilledCircle,Circle] in 1 colors, bounds {X=-0.88,Y=-0.87,Width=1.62,Height=1.8199999}
+wholestructure3.ocd: 0 hatched symbols, 4 patterned symbols; descriptions: wholestructure3.txt
+  pattern 208.0 [0] Boulder Field, Normal to Run: 2 x 2 offset rows, angle 0, offset (0, 0), Always, CenterInside, glyph 4 parts [Area,Area,Area,Area] in 1 colors, bounds {X=-0.89,Y=-0.87,Width=1.77,Height=1.7099999}
+  pattern 208.4 [0] Boulder Field, Normal to Run: 2 x 2 offset rows, angle 0, offset (0, 0), Always, CompletelyInside, glyph 4 parts [Area,Area,Area,Area] in 1 colors, bounds {X=-0.89,Y=-0.87,Width=1.77,Height=1.7099999}
+  pattern 209.0 [0] Dense Boulder Field, Difficult to Run: 2 x 2 offset rows, angle 0, offset (0, 0), Always, PartiallyInside, glyph 8 parts [Area,Area,Area,Area,Area,Area,Area,Area] in 1 colors, bounds {X=-0.93,Y=-0.96,Width=1.87,Height=1.9100001}
+wholestructure4.ocd: 0 hatched symbols, 7 patterned symbols; descriptions: wholestructure4.txt
+  pattern 208.0 [0] Boulder Field, Normal to Run: 2 x 2, angle 0, offset (0, 0), Always, CenterInside, glyph 4 parts [Area,Line,FilledCircle,Circle] in 1 colors, bounds {X=-0.88,Y=-0.87,Width=1.62,Height=1.8199999}
+  pattern 208.4 [0] Boulder Field, Normal to Run: 2 x 2, angle 0, offset (0, 0), Always, PartiallyInside, glyph 4 parts [Area,Line,FilledCircle,Circle] in 1 colors, bounds {X=-0.88,Y=-0.87,Width=1.62,Height=1.8199999}
+  pattern 208.5 [0] Boulder Field, Normal to Run: 2 x 2, angle 0, offset (0, 0), Always, CompletelyInside, glyph 4 parts [Area,Line,FilledCircle,Circle] in 1 colors, bounds {X=-0.88,Y=-0.87,Width=1.62,Height=1.8199999}
+
+area symbols: 21532
+definitions with a cross hatching (two hatchings of one color): 15
+hatching x symbol: 1876
+hatching x symbol, area angle != 0 and not Never: 42
+hatching x symbol, area with holes: 47
+hatching x symbol, rotate mode ManualOnly: 1831
+hatching x symbol, rotate mode Never: 45
+hatchings used: 163
+hatchings used, angle != 0: 119
+hatchings used, rotate mode ManualOnly: 158
+hatchings used, rotate mode Never: 5
+maps: 172
+maps with a hatching: 28
+maps with a hatching or a pattern: 46
+maps with a pattern: 43
+pattern x symbol: 2402
+pattern x symbol, area angle != 0 and not Never: 52
+pattern x symbol, area with holes: 48
+pattern x symbol, fill mode CenterInside: 6
+pattern x symbol, fill mode Clip: 2365
+pattern x symbol, fill mode CompletelyInside: 8
+pattern x symbol, fill mode PartiallyInside: 23
+pattern x symbol, irregular, fill mode Clip: 3
+pattern x symbol, irregular, fill mode PartiallyInside: 15
+pattern x symbol, rotate mode Always: 83
+pattern x symbol, rotate mode ManualOnly: 2194
+pattern x symbol, rotate mode Never: 125
+pattern x symbol, selection mode with a glyph of several parts: 22
+patterns used: 181
+patterns used, angle != 0: 95
+patterns used, fill mode CenterInside: 4
+patterns used, fill mode Clip: 154
+patterns used, fill mode CompletelyInside: 4
+patterns used, fill mode PartiallyInside: 19
+patterns used, glyph bounds beyond the cell: 25
+patterns used, glyph has a part of kind Area: 19
+patterns used, glyph has a part of kind Circle: 12
+patterns used, glyph has a part of kind FilledCircle: 122
+patterns used, glyph has a part of kind Line: 50
+patterns used, glyph of several colors: 9
+patterns used, glyph of several parts: 25
+patterns used, irregular: 18
+patterns used, offset != 0: 1
+patterns used, offset rows: 59
+patterns used, rotate mode Always: 33
+patterns used, rotate mode ManualOnly: 142
+patterns used, rotate mode Never: 6
+patterns used, simple glyph (one circle at the origin): 111

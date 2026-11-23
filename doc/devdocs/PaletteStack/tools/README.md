@@ -34,6 +34,9 @@ Python 3 with Pillow, git, the GitHub CLI signed in to the repository, and the .
   shows with a trial build.
 - `LinuxMapModelTestRun/` is a project that runs test files of `Test_MapModel` on Linux, as `src/Testing/LinuxTestRun`
   runs those of `PurplePen_Tests`.
+- `ticket-009/` holds the check of the choices of ticket 009, a test file for `Map_Skia.Tests` that compares their
+  coverage with the drawing (`PatternPrototypeCheck.cs`), and the count of the hatchings and the area patterns of the
+  test maps (`CountPatterns.cs`, with its output).
 
 ## A ticket's loop
 

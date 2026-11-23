@@ -56,7 +56,9 @@ the oracle of the tests until ticket 009. The innermost step of the placement of
 the Y axis with which the drawing lays out a text is a part of the text run. The full run of the branch passed, and
 so did the full run of `feature/palette-stack` with it.
 
-The draft [009](tickets/009-pattern-instances.md) stays a draft. A cold session finishes it as a ticket ("Next").
+The session of Nov 23 wrote the draft [009](tickets/009-pattern-instances.md) as a ticket, and @Pauli goes through
+its choices one question at a time. He decided question 2 of the draft ("The selected glyph parts of an area
+pattern"). The ticket is not implemented before he approves it.
 
 The local Linux runs of the rendering tests get the fonts of the workflow's Windows machine from the branch `linux` of
 `pauliojanpera/windows-fonts` ("The fonts of the local Linux runs", Nov 23). The texts still render differently from
@@ -863,6 +865,17 @@ the rendering.
 - **The order of the drafts** (Nov 23). The session's choice, which it recommended to @Pauli: 011 is implemented
   first, as the other drafts build on its forms. 012 is written again as a ticket while the runs of 011 go on, as its
   borders use the geometry method of the lines, then 013, and 009 and 010 last.
+- **The selected glyph parts of an area pattern** (Nov 23). @Pauli decided question 2 of the draft 009. When the fill
+  mode of an area pattern (`PatternFillMode`) is `CompletelyInside`, `CenterInside` or `PartiallyInside`, the glyph
+  parts that it selects are clipping objects of the palette color coverage of the area symbol with the full coverage
+  (`CoveragePrototype.FullCoverage`). The area pattern has no palette color coverage of its own for them. As a concept,
+  @Pauli would take the palette color coverage of the area pattern. But the full coverage is clearly easier to render:
+  Skia, PDF and SVG write the selected glyph parts as shapes, as the glyph parts of a point symbol. With the palette
+  color coverage of the area pattern, an encoding writes the periodic coverage clipped by the shapes of its own glyph
+  parts, and the antialiasing applies twice at their edges. Or the encoding reads the fill mode and draws the glyph
+  parts directly, and then pass 2 resolves the difference of the fill modes, which section 03 of the specification
+  gives to pass 1. The shapes of the selected glyph parts are the shared shapes of the glyph of the area pattern
+  (`PatternInfo.patternGlyph`).
 - **The archiving of a cloud session** (Nov 23). @Pauli let the session of Nov 23 that finished ticket 011 archive its
   transcript, and it runs `archive-if-due.sh claude` of the branch `sessions` of `pauliojanpera/windows-fonts` every
   minute in a background command, from a clone of that branch in `~/session-archive`. The commits of the archive
