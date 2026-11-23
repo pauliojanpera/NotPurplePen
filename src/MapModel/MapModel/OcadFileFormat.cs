@@ -35,6 +35,7 @@
 using System;
 using System.IO;
 using System.Collections.Generic;
+using System.Text;
 using System.Diagnostics;
 using System.Drawing;
 
@@ -170,6 +171,31 @@ namespace PurplePen.MapModel
 
         LastSingleParam,
         CountSingleParam = LastSingleParam - FirstSingleParam
+    }
+
+    // The names of the blend modes of colors in field b of a color string, which OCAD writes from version 12 on.
+    static class OcadBlendMode
+    {
+        static readonly Dictionary<ColorBlendMode, string> names = new Dictionary<ColorBlendMode, string>() {
+            { ColorBlendMode.Normal, "Normal" }, { ColorBlendMode.Darken, "Darken" }, { ColorBlendMode.Multiply, "Multiply" }
+        };
+
+        // The name of a blend mode.
+        public static string ToName(ColorBlendMode blendMode)
+        {
+            return names[blendMode];
+        }
+
+        // The blend mode of a name. A name that is missing or unknown is Normal.
+        public static ColorBlendMode FromName(string name)
+        {
+            foreach (KeyValuePair<ColorBlendMode, string> blendModeAndName in names) {
+                if (blendModeAndName.Value == name)
+                    return blendModeAndName.Key;
+            }
+
+            return ColorBlendMode.Normal;
+        }
     }
 
 
@@ -469,6 +495,9 @@ namespace PurplePen.MapModel
     }
 
     class OcadSymbolHeader {
+        // The most spot color separations that OCAD 6 to 8 use. The header has room for 32.
+        public const int MaxSeparations = 24;
+
         public short nColors, nColorSep;
         public short CyanFreq, CyanAng;
         public short MagentaFreq, MagentaAng;
@@ -2070,11 +2099,16 @@ namespace PurplePen.MapModel
             }
         }
 
-        public void Write(BinaryWriter writer, int totalChars)
+        // Write the string in the given encoding, followed by nul bytes up to the length that it reserves: the length of
+        // the encoded string with a terminating nul, padded to an even number of bytes. Returns the reserved length.
+        public int Write(BinaryWriter writer, Encoding encoding)
         {
-            char[] chars = AsChars(totalChars);
+            byte[] encoded = encoding.GetBytes(AsString());
+            int reservedLength = (encoded.Length + 2) & ~1;
 
-            writer.Write(chars);
+            writer.Write(encoded);
+            writer.Write(new byte[reservedLength - encoded.Length]);
+            return reservedLength;
         }
 
         public char[] AsChars(int totalChars)
