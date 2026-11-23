@@ -211,8 +211,8 @@ base. No branch is offered upstream yet.
       `prs/template.md`, the row of the branch above, and the epic. The old description `prs/011-line-geometry.md`
       stays the record of the old branch.
    4. The merge into `feature/palette-stack`, and its full run, with `--base-baselines prs/000-palette-stack-base`.
-3. Ticket [012](tickets/012-area-geometry.md), the geometry methods of the areas, the combined areas and the graphics
-   objects, is approved (Nov 23, "The approval of ticket 012"). Its branch `feature/area-symbol-geometry` is rooted at
+3. Ticket [012](tickets/012-area-geometry.md), the geometry methods of the area symbols and the graphics objects, is
+   approved (Nov 23, "The approval of ticket 012"). Its branch `feature/area-symbol-geometry` is rooted at
    `feature/palette-stack` after the merge of ticket 011. The draft 013 comes next, and the drafts 009 and 010 after
    it ("The order of the drafts", the session's choice).
 
@@ -678,13 +678,25 @@ the rendering.
   A period is in a write, and periods do not nest. A course object without a key, which only other code than the
   formatters can make, gives its symbols keys from the counter.
 - **The approval of ticket 012** (Nov 23). @Pauli approved [012](tickets/012-area-geometry.md), the geometry
-  methods of the areas, the combined areas and the graphics objects, with the choices of the session under
-  "Ratkaisut": the internal `AreaLikeSymDef.MakeClippingObjects(SymPathWithHoles, SymColor)`, an internal abstract
-  `LineLikeSymDef.MakeClippingObjects(SymPath, SymColor)` that `LineComboSymDef` implements, the border as the
-  clipping objects of the border symbol on the main path and on each hole, and the pen of a graphics line as a
-  `Stroke` with its width, caps, join and `GraphicsUtil.MITER_LIMIT`. The branch is `feature/area-symbol-geometry`,
-  rooted at `feature/palette-stack` after the merge of ticket 011. The old branch `feature/area-geometry` stays as it
-  is.
+  methods of the area symbols and the graphics objects, with the choices of the session under "Ratkaisut":
+  - `AreaLikeSymDef` and `GraphicsSymDef` override `SymDef.MakeClippingObjects`. `AreaLikeSymDef` gives the path with
+    holes of an area symbol to the internal abstract `MakeClippingObjects(SymPathWithHoles, SymColor)`, which
+    `AreaSymDef` and `AreaComboSymDef` implement.
+  - `LineLikeSymDef` has the internal abstract `MakeClippingObjects(SymPath, SymColor)`, which `LineSymDef` and
+    `LineComboSymDef` implement.
+  - The clipping objects of the area border are those of its line symbol definition, with the main path and then
+    each hole as the base path.
+  - The pen of a `GraphicsLineSymbol` is a `Stroke` with its width, caps and join and `GraphicsUtil.MITER_LIMIT`.
+
+  At @Pauli's request, the session checked the choices against the code and the Mapper import. The Mapper import
+  makes an `AreaComboSymDef` whose component definition is a `LineComboSymDef` or another `AreaComboSymDef`, so both
+  internal methods are necessary. The maps of the comparison have no such component definition and no area border
+  that is a double line, so the structure tests construct them. A test that the session did not commit made the
+  clipping objects by the choices: they are the same as those of the collector in each palette color coverage of the
+  area symbols and the graphics objects of the 172 maps of the comparison. @Pauli let the session write the ticket in
+  the terms of the glossary, and add the terms of the area symbols and the graphics objects to it (Nov 23). The
+  branch is `feature/area-symbol-geometry`, rooted at `feature/palette-stack` after the merge of ticket 011. The old
+  branch `feature/area-geometry` stays as it is.
 - **The approval of ticket 011** (Nov 23). @Pauli approved [011](tickets/011-line-geometry.md), the geometry
   methods of the line symbols, with the choices of the session in it and the extension of fix 021 to the OCAD metric
   as a part of its work. The extension is made on `fix/ocad-dashes-on-curves`, as ticket 021 decides, and the branch

@@ -33,7 +33,7 @@ drawing does not change.
   repeated placement (`Glyph.MakeRepeatedClippingObjects`). The glyphs at the corners, the dash points, the ends, a
   glyph without a neighbour at the same step, and the glyphs of `SpacedDecrease` are single placements. The stretched
   and the decreasing glyphs get shapes of their own from the extra transformation of the glyph.
-* `LineComboSymDef` gives the clipping objects of its parts in their order.
+* `LineComboSymDef` gives the clipping objects of its component definitions in their order.
 * `SymbolCoverageComparison` expands the runs of dashes, the offset paths and the repeated placements, and compares the
   expanded clipping objects in the coordinates of the map within 0.0001 mm, and those of an offset path within
   0.01 mm. `GeometryMethodsMakeTheClippingObjectsOfTheCollector` covers the 162 maps of `skia_render` and the 10 dash
