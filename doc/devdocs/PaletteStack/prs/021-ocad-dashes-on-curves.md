@@ -4,8 +4,7 @@ The OCAD 2020 viewer places the dashes of a line on a Bezier curve, with the euc
 points at the parameters 0, 1/4, 1/2, 3/4 and 1, is its chord, and within each quarter it places them in proportion to
 the length of the quarter. Purple Pen fitted them to the length of the flattened curve and placed them evenly along
 it, up to 0.84 mm from OCAD's dashes. OCAD places the glyphs that it spaces along a curve in the same measure. Purple
-Pen now places the dashes and the glyphs of the OCAD spacing by the quarters. With the OCAD metric, they stay as they
-were.
+Pen now places the dashes and the glyphs of the OCAD spacing by the quarters, with each metric.
 
 ## Changes in detail
 * `SymPath.GetOcadCurveMeasure` gives the measure of a path with Bezier curves (`OcadCurveMeasure`): a straight
@@ -33,18 +32,29 @@ were.
   the full run takes `prs/017-ocad-dash-count-base/` with `push-wip.sh --base-baselines`. Full run passed at dc76f6c6
   on `base` (Tests 44535962486, Build 44535962339).
 
+* The extension to the OCAD metric (e56a67c4, @Pauli, Nov 19): `SymPath.GetOcadCurveMeasure` takes the metric of the
+  map, and measures each quarter and, with the OCAD metric, each straight segment by its chord in that metric. The
+  distances are converted to euclidean lengths along the flattened path within each quarter and straight segment, so
+  the drawing walks a path with Bezier curves with the euclidean metric (`LineSymDef.GetMetricAlongPath`). Paths
+  without Bezier curves, the shortening and the pointy ends do not change. A shortened path with the OCAD metric finds
+  its glyphs along itself.
+* `OcadDashesOnCurvesTests` also compares the dashes of the 17 curves of the ninth sample, and the dashes and the glyphs
+  of the paths of the tenth sample, in their OCAD metric files with OCAD's PDF exports: within 0.11 mm, 0.19 mm on the
+  loop, 0.07 mm on the paths of the tenth sample and 0.06 mm for its glyphs. Without the extension, 25 of the 71 cases
+  of the test fail. `oracles/ocad-dashes/export-ocad-ends.py` writes the data of the exports.
+* The extension moves 137 baselines on the curves of the maps that the OCAD metric measures, OCAD 6 to 10 files among
+  them (collecting run 45159058675): 18 of Skia, 25 of `Test_MapModel`, 20 of PDF, 9 of WPF and 65 of
+  `PurplePen_Tests`. It moves three route gadget baselines of `base`, so the full run takes
+  `prs/021-ocad-dashes-on-curves-base/`. Full run passed at a288eaf8 on `base` (Tests 45161013437, Build 45161013427).
+
 ## Issue ticket number
 [021-ocad-dashes-on-curves](../tickets/021-ocad-dashes-on-curves.md)
 
 ## Missing functionality
-* With the OCAD metric, the dashes and the glyphs on curves stay as they were. OCAD places them by the same model, with
-  the chords of the quarters in the OCAD metric and the positions in proportion to the euclidean arc: within 0.059 mm
-  on the long and the real paths of the tenth dash sample. The ticket extends this fix to the OCAD metric (@Pauli,
-  Nov 19), and the extension is not made yet.
 * Within each quarter, OCAD's dash ends are a little before the model in the first half of the quarter, and a little
   after it in the second half. No tested rule gives that difference ([oracles/ocad-dashes.md](../oracles/ocad-dashes.md)).
 * The branch is rooted at `fix/ocad-dash-count` ([017](../tickets/017-ocad-dash-count.md)), as it uses its measure of
   four chords, and is offered upstream after it (@Pauli, Nov 19).
 
 ## Changes to be logged
-OCAD-viivan katkot ja viivan varren glyyfit sijoittuvat Bezier-käyrälle kuten OCADissa, kun kartta mittaa viivat euklidisesti.
+OCAD-viivan katkot ja viivan varren glyyfit sijoittuvat Bezier-käyrälle kuten OCADissa kummallakin metriikalla.
