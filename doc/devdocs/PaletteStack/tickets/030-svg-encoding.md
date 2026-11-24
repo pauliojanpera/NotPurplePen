@@ -3,10 +3,10 @@
 NotPurplePenin SVG-vienti on haarassa `feature/svg-target`, jota uusi dev (`dev-next`) ei sisällä. Tämä tiketti tuo
 sen uuteen deviin ilman haaran `feature/svg-target` historiaa ja tekee SVG:n koodauksen: `Svg_GraphicsTarget` antaa
 koodauksen (`IPaletteStackEncodingProvider`), joka kirjoittaa vaiheen 2 palettivärien läpinäkyvyysryhmät
-(`TransparencyGroup`) samaan `SvgDocument`iin. `Map_Svg`:n osat, jotka jäävät, tulevat sellaisinaan: dokumentti,
-fontit, tekstit, kuvat, georeferointi, sivut, nykyiset metatiedot, selainten kiertotiet, `CourseSvg`, Avalonian dialogi
-ja niiden testit. Palettipinoa edeltävät rakenteet väistyvät palettipinon käsitteiden tieltä: värin ryhmä
-(`BeginColorRun`, `data-c`) ja sen ympärille avattu sekoitustilan ryhmä palettivärin läpinäkyvyysryhmän tieltä,
+(`TransparencyGroup`) samaan `SvgDocument`iin. SVG:n rakenne heijastaa `Map`in rakenteita mahdollisimman suoraan.
+`Map_Svg`:n osat, jotka jäävät, tulevat sellaisinaan: dokumentti, fontit, tekstit, kuvat, georeferointi, sivut,
+nykyiset metatiedot, selainten kiertotiet, `CourseSvg`, Avalonian dialogi ja niiden testit. Palettipinoa edeltävät
+rakenteet väistyvät palettipinon käsitteiden tieltä: värin ryhmä (`BeginColorRun`, `data-c`) ja sen ympärille avattu sekoitustilan ryhmä palettivärin läpinäkyvyysryhmän tieltä,
 objektinumerot (`data-o`) symbolin avainten (`Symbol.Key`), päällekkäisten alueiden unioni (`DrawOutline`,
 `DescribeUnion`) palettileikkurin alueryppäiden (`AreaCluster`) ja toistuvien katkelmien uudelleenkäyttö (S-5) glyyfin
 jaettujen muotojen tieltä. Vanhaa palettivärien polkua karttakoodissa ei tuoda. Testit tarkistavat SVG:n Chromiumissa
@@ -55,10 +55,14 @@ tämän jälkeen.
   avaimen tekstimuodon (`data-k`, ehdotettu nimi) objektinumeron (`data-o`) sijaan. Peräkkäiset saman
   symbolimäärittelyn palettiväripeitot jakavat ryhmän, jolla on symbolimäärittelyn numero (`data-s`), kuten nyt.
   Kuvatason ja asettelutason objektit kantavat samoin symboliensa avaimet (`BeginObject`).
-- [ ] Laajennukset: koodaus laajentaa katkojuosteet, siirretyt polut ja toistosijoitukset yksittäisiksi katkoiksi ja
-  sijoituksiksi (`StrokedShape.ExpandDashes`, `RepeatedPlacement.Expand`) kuten Skian koodaus. Glyyfin jaetut muodot
-  palettivärissä se määrittelee kerran (`<defs>`), kun glyyfi sijoitetaan useammin kuin kerran, ja kukin sijoitus on
-  `<use>` muunnoksineen.
+- [ ] Toistuvat rakenteet: SVG:n rakenne heijastaa `Map`in rakenteita mahdollisimman suoraan (@Pauli, 25.11.).
+  - Glyyfin jaetut muodot palettivärissä koodaus määrittelee kerran (`<defs>`), ja kukin sijoitus viittaa niihin
+    (`<use>`). Sijoituksen sisäkkäiset affiiniset muunnokset (`Placement.Steps`) se kirjoittaa SVG:n muunnoslistana
+    (`transform`) niiden järjestyksessä.
+  - Katkojuosteet ja toistosijoitukset: luonnoksen kysymys 7.
+  - Siirretyn polun (`OffsetPathShape`) koodaus kirjoittaa siirrettynä käyränä, koska SVG:llä ei ole siirtymää. Sen
+    katkot se kirjoittaa yksittäisinä katkoina (`StrokedShape.ExpandDashes`), koska siirretyn polun katkokuvio mitataan
+    peruspolkua pitkin ja SVG mittaa katkokuvion elementin omaa polkua pitkin.
 - [ ] Kuviotäytöt:
   - Viivoituksen ja säännöllisen leikatun aluekuvion koodaus kirjoittaa kuviotäyttönä (`<pattern>`), kun ryhmä käyttää
     kuviosiveltimiä (`TransparencyGroup.UsePatternBrushes`). Peittoprototyyppi (`HatchingPrototype`,
@@ -89,7 +93,8 @@ tämän jälkeen.
 - [ ] Rakennetestit tarkistavat ilman selainta: palettivärin läpinäkyvyysryhmän α:n ja B:n kussakin
   päällepainatustilassa, palettiväripeitot palettierottelun järjestyksessä symbolien avaimin, kuviotäytön prototyypin
   määrittelynä ja kokoonpanon viittauksena, alueryppään kuviotäytön kerran unionissa ja asetuksella "Draw area patterns
-  as separate shapes" alue kerrallaan, laajennukset ja jaettujen muotojen `<use>`it, kuvatason ja asettelutason
+  as separate shapes" alue kerrallaan, jaettujen muotojen `<use>`it, katkojuosteet ja toistosijoitukset kysymyksen 7
+  mukaan, siirretyn polun katkot, kuvatason ja asettelutason
   objektit symbolien avaimin sekä ratatiedot rataobjektien avaimin. `Map_Svg.Tests`in testit, jotka koskevat
   väistyviä rakenteita, kirjoitetaan palettipinon käsitteillä, ja muut menevät läpi kuten nyt.
 - [ ] Kuvat ja baselinet:
@@ -108,6 +113,8 @@ tämän jälkeen.
 
 **Lisätiedot**
 - **Päätökset:**
+  - SVG:n rakenne heijastaa `Map`in rakenteita mahdollisimman suoraan, ja rakenteet on mietitty SVG-tiedostomuodon
+    edellytysten pohjalta (@Pauli, 25.11., "The SVG reflects the structures of `Map`").
   - SVG-vienti on kaksi tikettiä. Tämä on niistä ensimmäinen: `Map_Svg` uuteen deviin SVG:n koodauksella, ja sen
     testit tarkistavat SVG:n Chromiumissa Skian vaiheen 2 piirtoa vastaan. Toinen on vektoritiedostojen yhteinen
     rakenne `Map`in sisältöineen, ja se kirjoitetaan tämän jälkeen (@Pauli, 25.11., "The two tickets of the SVG
@@ -157,6 +164,14 @@ tämän jälkeen.
   - Scribus 1.6.3 (tämän koneen paketti) leikkaa leikkauspolulla parillisuussäännöllä myös silloin, kun polulla on
     `clip-rule:nonzero` tai ei sääntöä: kahden päällekkäisen neliön yhden polun leikkaus jätti neliöiden yhteisen
     osan tyhjäksi. Inkscape 1.4 noudattaa sääntöä. Ryppään unioni tarvitsee nonzero-säännön (tiketti 028).
+  - Toistuvien rakenteiden kokeet tämän koneen lukijoilla:
+    - Chromium (Playwrightin headless shell 1243) ja Inkscape 1.4 piirtävät oikein markerit polun kaikkiin
+      kärkipisteisiin (`orient="auto"`), nollan pituiset katkot pyöreillä päillä pisteinä ja katkokuviot
+      (`stroke-dasharray`, `stroke-dashoffset`), myös ryhmän skaalauksen alla.
+    - Scribus 1.6.3 piirtää markerin vain polun alkuun ja loppuun. Katkokuvion pituudet se lukee pisteinä (pt) eikä
+      käyttäjäyksikköinä: millimetreinä kirjoitettu kuvio 3 2 tuli noin 1,7 mm:n jaksolla. Viennin rakenteessa, jossa
+      sisältö on 0,001 mm:n askelina skaalauksen alla, katkoviivat ja pisteviiva tulivat yhtenäisinä.
+    - `<use>` muunnoksineen piirtyy oikein kaikissa kolmessa.
 - **Vanha työ:** `feature/svg-target` (1088d1295) ja [SvgExportDesign.md](../../SvgExportDesign.md). Sopii: kriteerin
   "Tuonti" osat sekä vertailu, toleranssi, geometriatarkistus ja silmukka, joiden vertailukohta on jo Skian piirto. Ei
   sovi: vanha palettivärien polku (ks. "Nykytila"), koska vaihe 2 ei kutsu symbolien piirtokoodia.
@@ -169,9 +184,9 @@ tämän jälkeen.
     geometrian eikä kynää, joten palettileikkurin yksi täyttö ja yksi leikkaus vaatisi viivamuodoista kynänjäljen.
     Erikseen kirjoitettuna jokainen piirrosobjekti kantaa symbolinsa avaimen, ja Chromium kertaa reunanpehmennyksen
     kuten Skia.
-  - Laajennukset kuten Skian koodauksessa, päätöksen 24.11. mallin mukaan: SVG verrataan Skian piirtoon, joka
-    laajentaa. SVG:n abstraktiot (`stroke-dasharray` ja markerit) tulevat abstraktioiden tikettiin, jossa kanavan oma
-    katkojen ja sijoitusten mittaus tarkistetaan laajennusta vastaan.
+  - Jaetut muodot viitataan aina, myös glyyfi, joka sijoitetaan kerran, ja yhden ympyrän glyyfi: viittaus heijastaa
+    sitä, että muodot kuuluvat symbolimäärittelyyn. Vanha S-5 jätti kerran löytyneen katkelman ja ympyrän paikalleen
+    tiedoston koon vuoksi.
   - Asetuksella "Draw area patterns as separate shapes" kukin alue kirjoittaa oman kuvionsa, päätöksen 13.11.
     mukaisesti. Sen peruste pätee edelleen: Scribus leikkaa parillisuussäännöllä, joten ryppään unioni, joka tarvitsee
     nonzero-säännön, jättäisi Scribusissa alueiden yhteiset osat ilman kuviota. Kuvio kertautuu vain alueiden yhteisissä
@@ -183,10 +198,11 @@ tämän jälkeen.
   - `data-k` on symbolin avaimen tekstimuoto, ja `data-s` ja `data-c` pysyvät. Ratatietojen muodon versio pysyy 1:nä,
     koska yksikään julkaisu ei ole kirjoittanut ratatietoja (SvgExportDesign.md, "Course data").
   - Nimet `SvgEncoding`, `data-k` ja `TransparencyGroup.PatternsWithEachArea` ovat sanastossa.
+- **Luonnoksen kysymykset:** 6 ratkesi päätöksellä "The two tickets of the SVG export" (25.11.). 7, katkojuosteet ja
+  toistosijoitukset SVG:ssä, on avoin.
 - **Rajaus:**
   - Vektoritiedostojen yhteinen rakenne `Map`in sisältöineen ja lippu, joka jättää sen pois, ovat oma tikettinsä tämän
     jälkeen. PDF:n koodaus on oma tikettinsä sen jälkeen.
-  - SVG:n abstraktiot katkojuosteille ja toistosijoituksille tulevat abstraktioiden tikettiin.
   - Piirtotilat (värierottelut, musteiden simuloima päällepainatus ja musteittainen B) ja yksi palettipino kaikille
     kartoille ovat omat tikettinsä. Läpinäkyvyyden litistys ei kuulu tähän.
   - `feature/multiply-blending` ei tule, koska päällepainatustila korvaa sen.

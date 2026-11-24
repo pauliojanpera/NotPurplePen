@@ -766,6 +766,13 @@ one, and the later one says so. [Handover.md](Handover.md) gives the decisions t
   OCAD's blend modes and opacity ("More tests of OCAD's blend modes"). Purple Pen writes the samples, @Pauli gives their
   views in OCAD and their PDF exports, and the session measures the structure of each PDF and writes the oracle
   `oracles/ocad-blend-modes.md`. The ticket changes no code, and it comes before the ticket of the PDF encoding.
+- **The SVG reflects the structures of `Map`** (Nov 25, in answer to the question whether he approves the draft 030).
+  @Pauli: "Tarkoitus olisi, että svg:n rakenne heijastaisi mahdollisimman suoraan Mapin rakenteita, jotka on mietitty
+  juurikin SVG-tiedostomuodon edellytysten pohjalta." The structure of the SVG reflects the structures of `Map` as
+  directly as possible, and these structures are designed on the basis of the requirements of the SVG file format. The
+  draft 030 gave as following from the model of "The expansions in the Skia encoding" that the SVG encoding expands the
+  runs of dashes and the repeated placements as the Skia encoding does. The session takes from this decision that the
+  choice does not apply. How the SVG encoding writes them is question 7 of the draft.
 - **The two tickets of the SVG export** (Nov 25, question 6 of the session). @Pauli asked the session to write ticket
   (a) of option 2: `Map_Svg` brought to the new dev with the SVG encoding. So the SVG export is two tickets. Ticket (a)
   brings the parts of `Map_Svg` that stay, and the SVG encoding writes the palette colors in it. Its tests check the
