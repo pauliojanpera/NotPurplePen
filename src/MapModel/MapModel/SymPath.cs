@@ -67,6 +67,8 @@ namespace PurplePen.MapModel
         volatile float pathLength = -1;  // -1 means not computed yet.
         volatile float bizzarroLength = -1;  // -1 means not computed yet.
         volatile float maxMiter = 0;  // 0 means not computed yet.
+        volatile OcadCurveMeasure ocadCurveMeasure;  // null means not computed yet, or no Bezier curve (GetOcadCurveMeasure).
+        volatile OcadCurveMeasure ocadCurveMeasureOfOcadMetric;  // The same, with the OCAD metric.
 
         const float FLATTENAMOUNT = 0.01F;
 
@@ -339,6 +341,46 @@ namespace PurplePen.MapModel
             }
         }
 
+        // The clipping object that the drawing of the path with a pen makes (Draw): the stroked polyline through its
+        // points, or the polygon if the path is closed, or the stroked figure of its lines and Bezier curves.
+        // stroke: the pen.
+        // placement: the placement of the path.
+        // transform: the transformation of the points of the path, as DrawTransformed applies it, or null.
+        internal StrokedShape MakeStrokedShape(Stroke stroke, Placement placement, Matrix transform = null)
+        {
+            return new StrokedShape(MakePathShape(transform), stroke, placement);
+        }
+
+        // The shape of the path as the drawing of the path with a pen draws it (Draw, or DrawTransformed with a
+        // transformation): the polyline through its points, or the polygon if the path is closed, or the figure of its
+        // lines and Bezier curves.
+        // transform: the transformation of the points of the path, or null.
+        internal PathShape MakePathShape(Matrix transform = null)
+        {
+            PointF[] shapePoints = (transform == null) ? points : Geometry.TransformPoints(points, transform);
+            if (!anyBeziers)
+                return PathShape.FromPoints(shapePoints, isClosedCurve);
+            else
+                return new PathShape(GetPathPartListCore(null, shapePoints, null, null));   // It does not use the drawing target.
+        }
+
+        // The clipping object that the fill of the path with holes makes (FillWithHoles): the polygon through its points,
+        // or the closed figures of the path and its holes, filled with the alternate rule.
+        // holes: the holes, or null.
+        // placement: the placement of the path.
+        // transform: the transformation of the points of the path and the holes, as FillTransformedWithHoles applies it,
+        //   or null.
+        internal FilledShape MakeFilledShape(SymPath[] holes, Placement placement, Matrix transform = null)
+        {
+            PointF[] shapePoints = (transform == null) ? points : Geometry.TransformPoints(points, transform);
+            PathShape shape;
+            if (!anyBeziers && holes == null)
+                shape = PathShape.FromPoints(shapePoints, true);
+            else
+                shape = new PathShape(GetPathPartListCore(null, shapePoints, holes, (holes == null) ? null : Array.ConvertAll(holes, hole => (transform == null) ? hole.points : Geometry.TransformPoints(hole.points, transform))));
+            return new FilledShape(shape, AreaFillMode.Alternate, placement);
+        }
+
         public object GetPathKey(IGraphicsTarget g)
         {
             return GetPathKeyCore(g, this, points, null, null);
@@ -412,6 +454,43 @@ namespace PurplePen.MapModel
                 partList.Add(new GraphicsPathPart(GraphicsPathPartKind.Close, null));
         }
 
+        // Add the path to a list of path parts as a closed contour that winds the given way: positively, as the
+        // points of a contour whose signed area is positive run, or the other way. A path is reversed when it winds
+        // the other way, so that a path filled by the nonzero rule can hold the outlines of several areas, their
+        // main paths winding one way and their holes the other, and fill their union.
+        // partList: the list of parts to add to.
+        // windPositively: whether the contour is to wind positively.
+        internal void AddClosedContourToPathPartList(List<GraphicsPathPart> partList, bool windPositively)
+        {
+            if ((SignedArea() >= 0) == windPositively) {
+                AddToPathPartList(partList, this, points, true);
+            }
+            else {
+                PointF[] reversedPoints = (PointF[]) points.Clone();
+                Array.Reverse(reversedPoints);
+                PointKind[] reversedKinds = (PointKind[]) kinds.Clone();
+                Array.Reverse(reversedKinds);
+
+                SymPath reversed = new SymPath(reversedPoints, reversedKinds);
+                AddToPathPartList(partList, reversed, reversed.points, true);
+            }
+        }
+
+        // The area the path encloses when closed, with its sign: positive when the points of the flattened path run
+        // the way that makes the shoelace formula's sum positive, and negative when they run the other way.
+        double SignedArea()
+        {
+            PointF[] flattened = FlattenedPoints;
+            double sum = 0;
+
+            for (int i = 0; i < flattened.Length; ++i) {
+                PointF from = flattened[i], to = flattened[(i + 1) % flattened.Length];
+                sum += ((double) from.X * (double) to.Y) - ((double) to.X * (double) from.Y);
+            }
+
+            return sum / 2.0;
+        }
+
         object GetPathKeyCore(IGraphicsTarget g, object pathKey, PointF[] points, SymPath[] holes, PointF[][] holePoints)
         {
             if (g.HasPath(pathKey))
@@ -446,36 +525,288 @@ namespace PurplePen.MapModel
         // start.
         internal void DrawDashed(IGraphicsTarget g, object penKey, float[] dashLengths, float offsetToStart, DistanceMetric metric)
         {
-            DrawDashedCore(g, penKey, dashLengths, offsetToStart, metric, 0, 1);
+            DrawDashedCore(g, penKey, dashLengths, offsetToStart, metric, 0, 1, 0, 0);
         }
 
         public void DrawDashed(IGraphicsTarget g, object penKey, float[] dashLengths, float offsetToStart)
         {
-            DrawDashedCore(g, penKey, dashLengths, offsetToStart, EuclidDistance, 0, 1);
+            DrawDashedCore(g, penKey, dashLengths, offsetToStart, EuclidDistance, 0, 1, 0, 0);
         }
 
         public void DrawDashedBizzarro(IGraphicsTarget g, object penKey, float[] dashLengths, float offsetToStart)
         {
-            DrawDashedCore(g, penKey, dashLengths, offsetToStart, BizzarroDistance, 0, 1);
+            DrawDashedCore(g, penKey, dashLengths, offsetToStart, BizzarroDistance, 0, 1, 0, 0);
         }
 
-        internal void DrawDashedOffset(IGraphicsTarget g, object penKey, float[] dashLengths, float offsetToStart, float offsetRight, float miterLimit, DistanceMetric metric)
+        // Draw a dashed line offset to the right. A dash leaves out the vertex next to its start, and the vertex next to its
+        // end, when the piece of the dash between the vertex and the end is shorter than a limit, in mm: pathVertexLimit
+        // for the dash on the path, before the offset, and drawnVertexLimit for the dash that is drawn, after the offset.
+        // A limit of 0 keeps all the vertices.
+        internal void DrawDashedOffset(IGraphicsTarget g, object penKey, float[] dashLengths, float offsetToStart, float offsetRight, float miterLimit, DistanceMetric metric, float pathVertexLimit, float drawnVertexLimit)
         {
-            DrawDashedCore(g, penKey, dashLengths, offsetToStart, metric, offsetRight, miterLimit);
+            DrawDashedCore(g, penKey, dashLengths, offsetToStart, metric, offsetRight, miterLimit, pathVertexLimit, drawnVertexLimit);
         }
 
 
         public void DrawDashedOffset(IGraphicsTarget g, object penKey, float[] dashLengths, float offsetToStart, float offsetRight, float miterLimit)
         {
-            DrawDashedCore(g, penKey, dashLengths, offsetToStart, EuclidDistance, offsetRight, miterLimit);
+            DrawDashedCore(g, penKey, dashLengths, offsetToStart, EuclidDistance, offsetRight, miterLimit, 0, 0);
         }
 
         public void DrawDashedOffsetBizzarro(IGraphicsTarget g, object penKey, float[] dashLengths, float offsetToStart, float offsetRight, float miterLimit)
         {
-            DrawDashedCore(g, penKey, dashLengths, offsetToStart, BizzarroDistance, offsetRight, miterLimit);
+            DrawDashedCore(g, penKey, dashLengths, offsetToStart, BizzarroDistance, offsetRight, miterLimit, 0, 0);
         }
 
-        private void DrawDashedCore(IGraphicsTarget g, object penKey, float[] dashLengths, float offsetToStart, DistanceMetric metric, float offsetRight, float miterLimit)
+        // A dash of a dashed line along the path, as DrawDashedCore draws it.
+        internal sealed class DashOnPath
+        {
+            public PointF[] Points;         // The points of the dash as it is drawn: after the rules of the vertices next to its ends, and after the offset.
+            public PointF BaseStart;        // The start of the dash on the path, before the rules and the offset.
+            public PointF BaseEnd;          // The end of the dash on the path, before the rules and the offset.
+            public int DashIndex;           // The index of the length of the dash in the lengths of the dashes and the gaps.
+            public int StartEdge;           // The edge of the flattened path that holds the start of the dash.
+            public int EndEdge;             // The edge of the flattened path that holds the end of the dash.
+            public int FirstPoint;          // The first point of the flattened path that the dash crosses.
+            public int EndPoint;            // The point of the flattened path after the last one that the dash crosses.
+            public bool IsVertexLeftOut;    // Whether a rule of the vertices left a vertex out of the dash.
+        }
+
+        // The dashes of a dashed line along the path, as DrawDashedCore draws them from the start of the path: with the
+        // lengths of the dashes and the gaps in turn, a dash first, walked with a metric. This is the geometry of the
+        // drawing of a dashed line, apart from the drawing, for the geometry method of the lines
+        // (LineSymDef.MakeClippingObjects).
+        // dashLengths: the lengths of the dashes and the gaps in turn, a dash first.
+        // metric: the metric that walks the lengths.
+        // offsetRight: the distance of the line to the right of the path, or 0.
+        // miterLimit: the miter limit of the offset.
+        // pathVertexLimit, drawnVertexLimit: the limits of the rules of the vertices next to the ends of a dash, as
+        //   DrawDashedOffset takes them.
+        internal List<DashOnPath> GetDashes(float[] dashLengths, DistanceMetric metric, float offsetRight, float miterLimit, float pathVertexLimit, float drawnVertexLimit)
+        {
+            List<DashOnPath> dashes = new List<DashOnPath>();
+            GetFlattenedPoints();
+            if (flatpoints.Length == 0)
+                return dashes;
+
+            double nextLength = dashLengths[0];     // The distance from prevPoint to the next end of a dash or a gap.
+            int curDash = 0;                        // The index of the dash or the gap that the walk is in.
+            bool inDrawnPart = true;
+            PointF prevPoint = flatpoints[0];
+            PointF lastDashEnd = prevPoint;         // The last end of a dash or a gap.
+            int lastDashEndIndex = 1;               // The index of the flattened point after it.
+            int lastDashEndEdge = 0;                // The edge that holds it.
+            int i = 1;
+
+            while (i < flatpoints.Length) {
+                PointF nextPoint = flatpoints[i];
+                double distX = nextPoint.X - prevPoint.X;
+                double distY = nextPoint.Y - prevPoint.Y;
+                double dist = metric(nextPoint, prevPoint);
+
+                if (nextLength < dist) {
+                    double fraction = nextLength / dist;
+                    PointF pt = new PointF((float)(prevPoint.X + distX * fraction), (float)(prevPoint.Y + distY * fraction));
+
+                    if (inDrawnPart)
+                        dashes.Add(MakeDashOnPath(lastDashEnd, lastDashEndIndex, i, pt, curDash, lastDashEndEdge, i - 1, offsetRight, miterLimit, pathVertexLimit, drawnVertexLimit));
+
+                    lastDashEnd = pt;
+                    lastDashEndIndex = i;
+                    lastDashEndEdge = i - 1;
+                    inDrawnPart = !inDrawnPart;
+
+                    ++curDash;
+                    if (curDash >= dashLengths.Length)
+                        curDash = 0;
+                    nextLength += dashLengths[curDash];
+                }
+                else {
+                    prevPoint = nextPoint;
+                    nextLength -= dist;
+                    ++i;
+                }
+            }
+
+            if (inDrawnPart) {
+                int last = flatpoints.Length - 1;
+                dashes.Add(MakeDashOnPath(lastDashEnd, lastDashEndIndex, last, flatpoints[last], curDash, lastDashEndEdge, Math.Max(0, last - 1), offsetRight, miterLimit, pathVertexLimit, drawnVertexLimit));
+            }
+
+            return dashes;
+        }
+
+        // One dash of GetDashes: from start, through the flattened points from firstIndex up to endIndex (not included),
+        // to end, with the rules of the vertices next to its ends and the offset, as DrawDash makes it.
+        private DashOnPath MakeDashOnPath(PointF start, int firstIndex, int endIndex, PointF end, int dashIndex, int startEdge, int endEdge, float offsetRight, float miterLimit, float pathVertexLimit, float drawnVertexLimit)
+        {
+            int count = 2 + Math.Max(0, endIndex - firstIndex);
+            PointF[] pts = new PointF[count];
+            bool[] isVertex = new bool[count];
+            pts[0] = start;
+            pts[count - 1] = end;
+            for (int k = 1; k < count - 1; ++k) {
+                pts[k] = flatpoints[firstIndex + k - 1];
+                isVertex[k] = flatkinds[firstIndex + k - 1] != PointKind.Interpolated;
+            }
+
+            PointF[] kept = LeaveOutVerticesNextToEnds(pts, ref isVertex, pathVertexLimit);
+            int countAfterPathRule = kept.Length;
+            if (offsetRight != 0)
+                kept = OffsetPointsRight(kept, offsetRight, miterLimit);
+            kept = LeaveOutVerticesNextToEnds(kept, ref isVertex, drawnVertexLimit);
+
+            return new DashOnPath() {
+                Points = kept, BaseStart = start, BaseEnd = end, DashIndex = dashIndex, StartEdge = startEdge, EndEdge = endEdge,
+                FirstPoint = firstIndex, EndPoint = Math.Max(firstIndex, endIndex),
+                IsVertexLeftOut = countAfterPathRule < count || kept.Length < countAfterPathRule
+            };
+        }
+
+        // The regions of the edges of the flattened path within which the drawing keeps one ratio between the distances
+        // that it walks and the euclidean lengths along the path, so that a run of dashes or a repeated placement of a
+        // region has a euclidean step (LineSymDef.MakeClippingObjects). A region ends at each corner point and dash
+        // point. Within a part between them, the regions are each straight segment of the path when byStraightSegment
+        // is set, and otherwise each stretch of straight segments, and each quarter of a Bezier curve when byQuarter is
+        // set, and otherwise each curve is in the region of the straight segments. byEdge makes each edge a region of
+        // its own. An edge that holds the end of a quarter inside it, where the curve is flat enough to have no point
+        // there (SymPath.LengthAlongFlattenedCurve), has the region -1, which no run takes. The regions are numbered
+        // from 0 in the order of the edges, and an edge has the number of the edge before it when they are in one
+        // region.
+        // byStraightSegment, byQuarter, byEdge: the divisions, as above.
+        internal int[] GetEdgeRegions(bool byStraightSegment, bool byQuarter, bool byEdge)
+        {
+            GetFlattenedPoints();
+            int[] regions = new int[Math.Max(0, flatpoints.Length - 1)];
+            List<PointF> flattened = new List<PointF>();
+            int[] quarterIndexes = new int[3];
+            int edge = 0, part = 0, straight = 0, curve = 0;
+            int region = -1;
+            string lastKey = null;
+
+            // Give an edge the region of a key, a new region when the key differs from that of the edge before it.
+            Action<string> assign = key => {
+                if (edge >= regions.Length)
+                    return;
+                if (key == null) {
+                    regions[edge] = -1;
+                    lastKey = null;
+                }
+                else {
+                    if (key != lastKey)
+                        ++region;
+                    regions[edge] = region;
+                    lastKey = key;
+                }
+                ++edge;
+            };
+
+            int i = 0;
+            while (i < points.Length - 1) {
+                if (kinds[i + 1] == PointKind.BezierControl) {
+                    Bezier bezier = new Bezier(points[i], points[i + 1], points[i + 2], points[i + 3]);
+                    flattened.Clear();
+                    bezier.Flatten(FLATTENAMOUNT, flattened, quarterIndexes);
+                    int edgesOfCurve = flattened.Count - 1;
+
+                    // The end of each of the first three quarters: at a point, or inside an edge.
+                    int[] endPoints = new int[3], insideEdges = new int[3];
+                    for (int quarter = 1; quarter <= 3; ++quarter) {
+                        endPoints[quarter - 1] = quarterIndexes[quarter - 1];
+                        insideEdges[quarter - 1] = (quarterIndexes[quarter - 1] >= 0) ? -1 : ((quarter == 3 && quarterIndexes[1] >= 0) ? quarterIndexes[1] : 0);
+                    }
+
+                    for (int k = 0; k < edgesOfCurve; ++k) {
+                        string key;
+                        if (byEdge) {
+                            key = "e" + edge;
+                        }
+                        else if (byQuarter) {
+                            int quarter = 0;
+                            bool isInside = false;
+                            for (int b = 0; b < 3; ++b) {
+                                if (insideEdges[b] == k)
+                                    isInside = true;
+                                if ((endPoints[b] >= 0 && endPoints[b] <= k) || (insideEdges[b] >= 0 && insideEdges[b] < k))
+                                    ++quarter;
+                            }
+                            key = isInside ? null : string.Format("p{0}c{1}q{2}", part, curve, quarter);
+                        }
+                        else {
+                            key = byStraightSegment ? string.Format("p{0}c{1}", part, curve) : "p" + part;
+                        }
+                        assign(key);
+                    }
+
+                    ++curve;
+                    i += 3;
+                }
+                else {
+                    string key = byEdge ? "e" + edge : (byStraightSegment ? string.Format("p{0}s{1}", part, straight) : "p" + part);
+                    assign(key);
+                    ++straight;
+                    i += 1;
+                }
+
+                if (i < points.Length - 1 && (kinds[i] == PointKind.Corner || kinds[i] == PointKind.Dash))
+                    ++part;
+            }
+
+            Debug.Assert(edge == regions.Length, "The edges of the regions are the edges of the flattened path.");
+            return regions;
+        }
+
+        // The edges of the flattened path on which FindPointsAlongLine finds the points at distances: the index of the
+        // edge that starts at the point before each of them, as it walks the path. A point at a vertex is on the edge that
+        // starts there, and a point beyond the end on the last edge.
+        // dashLengths: the distance of each point from the point before it, and of the first point from the start.
+        // metric: the metric that walks the distances.
+        internal int[] FindEdgesAlongLine(float[] dashLengths, DistanceMetric metric)
+        {
+            int[] edges = new int[dashLengths.Length];
+            GetFlattenedPoints();
+            if (flatpoints.Length < 2)
+                return edges;
+
+            double nextLength = dashLengths[0];
+            int curDash = 0, indexOutput = 0;
+            PointF prevPoint = flatpoints[0];
+            int i = 1;
+            while (i < flatpoints.Length) {
+                PointF nextPoint = flatpoints[i];
+                double dist = metric(prevPoint, nextPoint);
+                if (nextLength < dist) {
+                    edges[indexOutput++] = i - 1;
+                    ++curDash;
+                    if (curDash >= dashLengths.Length)
+                        break;
+                    nextLength += dashLengths[curDash];
+                }
+                else {
+                    prevPoint = nextPoint;
+                    nextLength -= dist;
+                    ++i;
+                }
+            }
+
+            while (indexOutput < dashLengths.Length)
+                edges[indexOutput++] = flatpoints.Length - 2;
+            return edges;
+        }
+
+        // The distance that the drawing walks from the start of the flattened path to one of its points, with a metric.
+        // index: the index of the point.
+        // metric: the metric.
+        internal double LengthToFlattenedPoint(int index, DistanceMetric metric)
+        {
+            GetFlattenedPoints();
+            double length = 0;
+            for (int i = 1; i <= index && i < flatpoints.Length; ++i)
+                length += metric(flatpoints[i - 1], flatpoints[i]);
+            return length;
+        }
+
+        private void DrawDashedCore(IGraphicsTarget g, object penKey, float[] dashLengths, float offsetToStart, DistanceMetric metric, float offsetRight, float miterLimit, float pathVertexLimit, float drawnVertexLimit)
         {
             double nextLength = dashLengths[0];  // distance to next dash beginning/end
             int curDash = 0;			// current index into dashLengths array.
@@ -523,14 +854,7 @@ namespace PurplePen.MapModel
                     if (inDrawnPart) {
                         // Draw the dash. The start point is lastDashEnd, the end point is pt and
                         // the intermediate points are indexed lastDashEndIndex ... i - 1
-                        PointF[] pts = new PointF[2 + (i - lastDashEndIndex)];
-                        pts[0] = lastDashEnd;
-                        pts[pts.Length - 1] = pt;
-                        if (i > lastDashEndIndex) 
-                            Array.Copy(flatpoints, lastDashEndIndex, pts, 1, i - lastDashEndIndex);
-                        if (offsetRight != 0)
-                            pts = OffsetPointsRight(pts, offsetRight, miterLimit);
-                        g.DrawPolyline(penKey, pts);
+                        DrawDash(g, penKey, lastDashEnd, lastDashEndIndex, i, pt, offsetRight, miterLimit, pathVertexLimit, drawnVertexLimit);
                     }
 
                     // update lastDashEnd with the current point
@@ -554,16 +878,62 @@ namespace PurplePen.MapModel
             }
 
             if (inDrawnPart) {
-                // Draw the last dash. 
-                i = flatpoints.Length;
-                PointF[] pts = new PointF[1 + (flatpoints.Length - lastDashEndIndex)];
-                pts[0] = lastDashEnd;
-                if (flatpoints.Length > lastDashEndIndex) 
-                    Array.Copy(flatpoints, lastDashEndIndex, pts, 1, flatpoints.Length - lastDashEndIndex);
-                if (offsetRight != 0)
-                    pts = OffsetPointsRight(pts, offsetRight, miterLimit);
-                g.DrawPolyline(penKey, pts);
+                // Draw the last dash, which ends at the last point.
+                DrawDash(g, penKey, lastDashEnd, lastDashEndIndex, flatpoints.Length - 1, flatpoints[flatpoints.Length - 1], offsetRight, miterLimit, pathVertexLimit, drawnVertexLimit);
             }
+        }
+
+        // Draw one dash of a dashed line: from start, through the flattened points from firstIndex up to endIndex
+        // (not included), to end, offset to the right. OCAD leaves out of a dash the vertex next to its start, and the
+        // vertex next to its end, when the piece of the dash between the vertex and the end is shorter than a limit, in mm:
+        // pathVertexLimit before the offset, and drawnVertexLimit after it.
+        private void DrawDash(IGraphicsTarget g, object penKey, PointF start, int firstIndex, int endIndex, PointF end, float offsetRight, float miterLimit, float pathVertexLimit, float drawnVertexLimit)
+        {
+            int count = 2 + Math.Max(0, endIndex - firstIndex);
+            PointF[] pts = new PointF[count];
+            bool[] isVertex = new bool[count];
+            pts[0] = start;
+            pts[count - 1] = end;
+            for (int k = 1; k < count - 1; ++k) {
+                pts[k] = flatpoints[firstIndex + k - 1];
+                isVertex[k] = flatkinds[firstIndex + k - 1] != PointKind.Interpolated;
+            }
+
+            pts = LeaveOutVerticesNextToEnds(pts, ref isVertex, pathVertexLimit);
+            if (offsetRight != 0)
+                pts = OffsetPointsRight(pts, offsetRight, miterLimit);
+            pts = LeaveOutVerticesNextToEnds(pts, ref isVertex, drawnVertexLimit);
+            g.DrawPolyline(penKey, pts);
+        }
+
+        // Leave out of a dash the vertex next to its start, and the vertex next to its end, when the piece of the dash
+        // between the vertex and the end is shorter than the limit, as OCAD does. The ends of the dash stay, and so do the
+        // points that the flattening of a curve made. The rule does not repeat: once a vertex is left out, the next vertex
+        // stays, however near the end it is.
+        // points: the points of the dash, from its start to its end.
+        // isVertex: for each point, whether it is a vertex of the path; it is updated to the points that stay.
+        // limit: the length in mm below which a piece leaves out its vertex, or 0 to keep all the vertices.
+        private static PointF[] LeaveOutVerticesNextToEnds(PointF[] points, ref bool[] isVertex, float limit)
+        {
+            if (limit <= 0 || points.Length < 3)
+                return points;
+
+            int first = 1, last = points.Length - 2;
+            bool isFirstLeftOut = isVertex[first] && EuclidDistance(points[0], points[first]) < limit;
+            bool isLastLeftOut = isVertex[last] && EuclidDistance(points[last], points[last + 1]) < limit;
+            if (!isFirstLeftOut && !isLastLeftOut)
+                return points;
+
+            List<PointF> keptPoints = new List<PointF>(points.Length);
+            List<bool> keptIsVertex = new List<bool>(points.Length);
+            for (int k = 0; k < points.Length; ++k) {
+                if ((k == first && isFirstLeftOut) || (k == last && isLastLeftOut))
+                    continue;
+                keptPoints.Add(points[k]);
+                keptIsVertex.Add(isVertex[k]);
+            }
+            isVertex = keptIsVertex.ToArray();
+            return keptPoints.ToArray();
         }
 
         // Fill in the flatpoints and flatkinds fields with the flattened path. A 
@@ -1433,7 +1803,7 @@ namespace PurplePen.MapModel
         }
 
         // Offset a set of points in a certain direction. 
-        private static PointF[] OffsetPointsRight(PointF[] pts, float offsetAmount, float miterLimit)
+        internal static PointF[] OffsetPointsRight(PointF[] pts, float offsetAmount, float miterLimit)
         {
             PointF[] offsetPoints = new PointF[pts.Length];
             bool isClosed = (pts[0] == pts[pts.Length - 1]);
@@ -1467,6 +1837,218 @@ namespace PurplePen.MapModel
         public float[] GetCornerAndDashPointDistancesBizzarro(out PointKind[] pointkinds)
         {
             return GetCornerAndDashPointDistances(BizzarroDistance, out pointkinds);
+        }
+
+        // Get the lengths from which OCAD counts the dashes of the parts of the path between corner and dash points, the
+        // parts of GetCornerAndDashPointDistances. OCAD measures each straight segment, and each Bezier curve as four chords
+        // between its points at the parameters 0, 1/4, 1/2, 3/4 and 1, with a metric, and rounds each to 0.01 mm.
+        internal float[] GetCornerAndDashPointLengthsForCounting(DistanceMetric metric)
+        {
+            List<float> lengths = new List<float>();
+            double accumulate = 0.0;
+            int i = 0;
+            while (i < points.Length - 1) {
+                if (kinds[i + 1] == PointKind.BezierControl) {
+                    PointF[] quarterEnds = GetQuarterEnds(new Bezier(points[i], points[i + 1], points[i + 2], points[i + 3]));
+                    for (int quarter = 0; quarter < 4; ++quarter)
+                        accumulate += RoundToHundredth(metric(quarterEnds[quarter], quarterEnds[quarter + 1]));
+                    i += 3;
+                }
+                else {
+                    accumulate += RoundToHundredth(metric(points[i], points[i + 1]));
+                    i += 1;
+                }
+
+                if (i < points.Length - 1 && (kinds[i] == PointKind.Corner || kinds[i] == PointKind.Dash)) {
+                    lengths.Add((float) accumulate);
+                    accumulate = 0.0;
+                }
+            }
+
+            lengths.Add((float) accumulate);
+            return lengths.ToArray();
+        }
+
+        // Round a length in mm to 0.01 mm, the unit of the coordinates of OCAD.
+        static double RoundToHundredth(double length)
+        {
+            return Math.Round(length * 100) / 100;
+        }
+
+        // The points of a Bezier curve at the parameters 0, 1/4, 1/2, 3/4 and 1, which end its quarters.
+        static PointF[] GetQuarterEnds(Bezier bezier)
+        {
+            PointF[] quarterEnds = new PointF[5];
+            quarterEnds[0] = bezier.end1;
+            for (int quarter = 1; quarter < 4; ++quarter) {
+                Bezier before, after;
+                bezier.SplitAtCoefficient(quarter / 4F, out before, out after);
+                quarterEnds[quarter] = before.end2;
+            }
+            quarterEnds[4] = bezier.end2;
+            return quarterEnds;
+        }
+
+        // Does the path have a Bezier curve?
+        internal bool HasBeziers
+        {
+            get { return anyBeziers; }
+        }
+
+        // Get the measure in which OCAD places the dashes along the path with a metric, and in which the OCAD spacing
+        // places the glyphs too, or null if the path has no Bezier curve, as the measure of a path without one is its
+        // length in the metric. In the measure, a straight segment has its length in the metric, and each quarter of a
+        // Bezier curve has its chord in the metric, between the points of the curve at the parameters 0, 1/4, 1/2, 3/4
+        // and 1 (GetQuarterEnds). Within a straight segment and within a quarter, a length of the measure is at the same
+        // part of the euclidean length of the segment or of the flattened quarter, with each metric.
+        // metric: the metric of the map.
+        internal OcadCurveMeasure GetOcadCurveMeasure(DistanceMetric metric)
+        {
+            if (!anyBeziers)
+                return null;
+
+            if (metric == (DistanceMetric)EuclidDistance) {
+                if (ocadCurveMeasure == null)
+                    ocadCurveMeasure = MakeOcadCurveMeasure(metric);
+                return ocadCurveMeasure;
+            }
+            else {
+                if (ocadCurveMeasureOfOcadMetric == null)
+                    ocadCurveMeasureOfOcadMetric = MakeOcadCurveMeasure(metric);
+                return ocadCurveMeasureOfOcadMetric;
+            }
+        }
+
+        // Make the measure of GetOcadCurveMeasure with a metric, for a path with Bezier curves. With the euclidean metric,
+        // a straight segment of the measure is as long as along the path, so the measure needs no point between
+        // straight segments. With another metric, each straight segment ends at a point of the measure.
+        OcadCurveMeasure MakeOcadCurveMeasure(DistanceMetric metric)
+        {
+            bool isEuclidean = (metric == (DistanceMetric)EuclidDistance);
+            List<double> measures = new List<double>() { 0 }, lengths = new List<double>() { 0 };
+            List<float> partMeasures = new List<float>();
+            List<PointF> flattened = new List<PointF>();
+            int[] quarterIndexes = new int[3];
+            double measure = 0, length = 0, partMeasure = 0;
+            int i = 0;
+            while (i < points.Length - 1) {
+                if (kinds[i + 1] == PointKind.BezierControl) {
+                    // The curve flattened as GetFlattenedPoints flattens it, with the length along it to each of its points.
+                    Bezier bezier = new Bezier(points[i], points[i + 1], points[i + 2], points[i + 3]);
+                    PointF[] quarterEnds = GetQuarterEnds(bezier);
+                    flattened.Clear();
+                    bezier.Flatten(FLATTENAMOUNT, flattened, quarterIndexes);
+                    double[] lengthsAlong = new double[flattened.Count];
+                    for (int k = 1; k < flattened.Count; ++k)
+                        lengthsAlong[k] = lengthsAlong[k - 1] + EuclidDistance(flattened[k - 1], flattened[k]);
+
+                    if (measures[measures.Count - 1] != measure) {
+                        measures.Add(measure);
+                        lengths.Add(length);
+                    }
+                    for (int quarter = 1; quarter <= 4; ++quarter) {
+                        double chord = metric(quarterEnds[quarter - 1], quarterEnds[quarter]);
+                        measure += chord;
+                        partMeasure += chord;
+                        measures.Add(measure);
+                        lengths.Add(length + LengthAlongFlattenedCurve(flattened, lengthsAlong, quarterIndexes, quarterEnds, quarter));
+                    }
+                    length += lengthsAlong[flattened.Count - 1];
+                    i += 3;
+                }
+                else {
+                    double segment = metric(points[i], points[i + 1]);
+                    measure += segment;
+                    partMeasure += segment;
+                    length += isEuclidean ? segment : EuclidDistance(points[i], points[i + 1]);
+                    if (!isEuclidean) {
+                        measures.Add(measure);
+                        lengths.Add(length);
+                    }
+                    i += 1;
+                }
+
+                if (i < points.Length - 1 && (kinds[i] == PointKind.Corner || kinds[i] == PointKind.Dash)) {
+                    partMeasures.Add((float) partMeasure);
+                    partMeasure = 0.0;
+                }
+            }
+
+            partMeasures.Add((float) partMeasure);
+            if (measures[measures.Count - 1] != measure) {
+                measures.Add(measure);
+                lengths.Add(length);
+            }
+            return new OcadCurveMeasure(measures.ToArray(), lengths.ToArray(), partMeasures.ToArray());
+        }
+
+        // The length along a flattened Bezier curve to the end of one of its quarters: to the point of the flattened curve
+        // at the end of the quarter, or, where the curve is flat enough to have no point there, to the nearest point of the
+        // segment that passes it. That segment starts at the point at the end of an earlier quarter, or at the start.
+        // flattened: the points of the flattened curve.
+        // lengthsAlong: the length along the flattened curve to each of its points.
+        // quarterIndexes: the indexes of the points at the ends of the first three quarters, or -1 (Bezier.Flatten).
+        // quarterEnds: the points of the curve at the ends of the quarters (GetQuarterEnds).
+        // quarter: the quarter, from 1 to 4.
+        static double LengthAlongFlattenedCurve(List<PointF> flattened, double[] lengthsAlong, int[] quarterIndexes, PointF[] quarterEnds, int quarter)
+        {
+            if (quarter == 4)
+                return lengthsAlong[flattened.Count - 1];
+            if (quarterIndexes[quarter - 1] >= 0)
+                return lengthsAlong[quarterIndexes[quarter - 1]];
+
+            int start = (quarter == 3 && quarterIndexes[1] >= 0) ? quarterIndexes[1] : 0;
+            return lengthsAlong[start] + EuclidDistance(flattened[start], Geometry.ClosestPointOnLineSegment(flattened[start], flattened[start + 1], quarterEnds[quarter]));
+        }
+
+        // The measure in which OCAD places the dashes along a path with Bezier curves, with a metric, and in which the OCAD
+        // spacing places the glyphs too (GetOcadCurveMeasure). It maps a length of the measure from the start of the path
+        // to a euclidean length along the flattened path, which the drawing walks, linearly between the ends of the
+        // quarters of the curves, and with a metric other than the euclidean one, of the straight segments.
+        internal sealed class OcadCurveMeasure
+        {
+            private readonly double[] measures;     // the ends of the path, of the quarters and of the straight segments, in the measure
+            private readonly double[] lengths;      // the same points, as lengths along the flattened path
+
+            // The measure of each part of the path between corner and dash points, as GetCornerAndDashPointDistances gives
+            // the length of each part.
+            public readonly float[] PartMeasures;
+
+            public OcadCurveMeasure(double[] measures, double[] lengths, float[] partMeasures)
+            {
+                this.measures = measures;
+                this.lengths = lengths;
+                PartMeasures = partMeasures;
+            }
+
+            // Convert distances of the measure, each from the location before it, as LineSymDef.ComputeDashDistances gives
+            // them, to distances along the flattened path, as DrawDashed and FindPointsAlongLine walk them.
+            public float[] ToDistancesAlongPath(float[] distances)
+            {
+                float[] converted = new float[distances.Length];
+                double measure = 0, previousLength = 0;
+                for (int i = 0; i < distances.Length; ++i) {
+                    measure += distances[i];
+                    double length = ToLengthAlongPath(measure);
+                    converted[i] = (float) (length - previousLength);
+                    previousLength = length;
+                }
+                return converted;
+            }
+
+            // The length along the flattened path at a length of the measure from its start.
+            private double ToLengthAlongPath(double measure)
+            {
+                int piece = Array.BinarySearch(measures, measure);
+                if (piece < 0)
+                    piece = ~piece - 1;
+                piece = Math.Max(0, Math.Min(piece, measures.Length - 2));
+
+                double width = measures[piece + 1] - measures[piece];
+                if (width <= 0)
+                    return lengths[piece];
+                return lengths[piece] + (measure - measures[piece]) * (lengths[piece + 1] - lengths[piece]) / width;
+            }
         }
 
         internal float[] GetCornerAndDashPointDistances(DistanceMetric metric, out PointKind[] pointkinds) 
@@ -1955,6 +2537,14 @@ namespace PurplePen.MapModel
             MainPath.FillWithHoles(g, brushKey, Holes);
         }
 
+        // The clipping object that the fill of the path and its holes makes (Fill).
+        // placement: the placement of the path.
+        // transform: the transformation of the points, as FillTransformed applies it, or null.
+        internal FilledShape MakeFilledShape(Placement placement, Matrix transform = null)
+        {
+            return MainPath.MakeFilledShape(Holes, placement, transform);
+        }
+
         public void FillTransformed(IGraphicsTarget g, object brushKey, Matrix matrix) {
             MainPath.FillTransformedWithHoles(g, brushKey, matrix, Holes);
         }
@@ -1962,6 +2552,160 @@ namespace PurplePen.MapModel
         public object GetPathKey(IGraphicsTarget g)
         {
             return MainPath.GetPathKeyWithHoles(g, this, Holes);
+        }
+
+        // Add the area to a list of path parts that, filled by the nonzero rule, fills the union of the areas added
+        // to it. Each contour, the main path or a hole, winds positively when an even number of the area's other
+        // contours enclose it, and the other way when an odd number do, so that the nonzero rule fills just what the
+        // even-odd rule fills of the area by itself, and never cancels what another area adds: as a hole within the
+        // main path winds the other way, and a hole outside it, or within another hole, winds positively. That holds
+        // only when no two contours meet, which ContoursMeet tells.
+        // partList: the list of parts to add to.
+        internal void AddToUnionPathPartList(List<GraphicsPathPart> partList)
+        {
+            SymPath[] contours = Contours();
+            for (int i = 0; i < contours.Length; ++i) {
+                PointF[] corners = contours[i].FlattenedPoints;
+                if (corners.Length == 0)
+                    continue;
+
+                int enclosing = 0;
+                for (int j = 0; j < contours.Length; ++j) {
+                    if (j != i && contours[j].IsInside(corners[0]))
+                        ++enclosing;
+                }
+
+                contours[i].AddClosedContourToPathPartList(partList, enclosing % 2 == 0);
+            }
+        }
+
+        // Whether two of the area's contours, the main path and the holes, flattened, have a point in common, or one
+        // has a point in common with itself other than where each of its segments meets the next. Where a hole
+        // crosses the main path, the part of the hole outside the main path is filled by the even-odd rule, by which
+        // the area fills by itself, while winding the other way from an area that covers it there, which cancels it
+        // under the nonzero rule; contours that cross themselves or each other cannot each wind one way so that the
+        // nonzero rule fills the area as the even-odd rule does. Contours that only touch are counted as meeting too.
+        internal bool ContoursMeet()
+        {
+            SymPath[] contours = Contours();
+            PointF[][] corners = new PointF[contours.Length][];
+            int segmentCount = 0;
+            for (int i = 0; i < contours.Length; ++i) {
+                corners[i] = DistinctCorners(contours[i].FlattenedPoints);
+                segmentCount += corners[i].Length;
+            }
+
+            // Each segment runs from a corner of a contour to the next, the last back to the first. Sweep across the
+            // segments from left to right, comparing each with those still open whose height it shares.
+            int[] contourOfSegment = new int[segmentCount], cornerOfSegment = new int[segmentCount];
+            float[] lefts = new float[segmentCount], rights = new float[segmentCount], bottoms = new float[segmentCount], tops = new float[segmentCount];
+            int segment = 0;
+            for (int i = 0; i < contours.Length; ++i) {
+                for (int corner = 0; corner < corners[i].Length; ++corner) {
+                    PointF start = corners[i][corner], end = corners[i][(corner + 1) % corners[i].Length];
+                    contourOfSegment[segment] = i;
+                    cornerOfSegment[segment] = corner;
+                    lefts[segment] = Math.Min(start.X, end.X);
+                    rights[segment] = Math.Max(start.X, end.X);
+                    bottoms[segment] = Math.Min(start.Y, end.Y);
+                    tops[segment] = Math.Max(start.Y, end.Y);
+                    ++segment;
+                }
+            }
+
+            int[] order = new int[segmentCount];
+            for (int i = 0; i < segmentCount; ++i)
+                order[i] = i;
+            Array.Sort((float[]) lefts.Clone(), order);
+
+            List<int> open = new List<int>();
+            foreach (int current in order) {
+                int stillOpen = 0;
+                for (int i = 0; i < open.Count; ++i) {
+                    if (rights[open[i]] >= lefts[current])
+                        open[stillOpen++] = open[i];
+                }
+                open.RemoveRange(stillOpen, open.Count - stillOpen);
+
+                int contour = contourOfSegment[current], corner = cornerOfSegment[current];
+                foreach (int other in open) {
+                    if (bottoms[other] > tops[current] || bottoms[current] > tops[other])
+                        continue;
+
+                    int otherContour = contourOfSegment[other], otherCorner = cornerOfSegment[other];
+                    int cornerCount = corners[contour].Length;
+                    if (otherContour == contour && (otherCorner == (corner + 1) % cornerCount || corner == (otherCorner + 1) % cornerCount))
+                        continue;
+
+                    if (SegmentsMeet(corners[contour][corner], corners[contour][(corner + 1) % cornerCount],
+                                     corners[otherContour][otherCorner], corners[otherContour][(otherCorner + 1) % corners[otherContour].Length]))
+                        return true;
+                }
+
+                open.Add(current);
+            }
+
+            return false;
+        }
+
+        // The area's contours: the main path, then the holes.
+        SymPath[] Contours()
+        {
+            SymPath[] contours = new SymPath[1 + ((holes == null) ? 0 : holes.Length)];
+            contours[0] = mainPath;
+            if (holes != null)
+                Array.Copy(holes, 0, contours, 1, holes.Length);
+            return contours;
+        }
+
+        // The corners of a flattened contour, without a corner that repeats the one before it, and without a last
+        // corner that repeats the first, so that each corner begins a segment of some length to the next.
+        // points: the points of the flattened contour.
+        static PointF[] DistinctCorners(PointF[] points)
+        {
+            List<PointF> corners = new List<PointF>(points.Length);
+            foreach (PointF point in points) {
+                if (corners.Count == 0 || corners[corners.Count - 1] != point)
+                    corners.Add(point);
+            }
+            while (corners.Count > 1 && corners[corners.Count - 1] == corners[0])
+                corners.RemoveAt(corners.Count - 1);
+
+            return corners.ToArray();
+        }
+
+        // Whether two segments have a point in common: whether they cross, or an end of one lies on the other.
+        // start1, end1: the ends of the first segment.
+        // start2, end2: the ends of the second segment.
+        static bool SegmentsMeet(PointF start1, PointF end1, PointF start2, PointF end2)
+        {
+            double turnToStart2 = Turn(start1, end1, start2), turnToEnd2 = Turn(start1, end1, end2);
+            double turnToStart1 = Turn(start2, end2, start1), turnToEnd1 = Turn(start2, end2, end1);
+            if (((turnToStart2 > 0 && turnToEnd2 < 0) || (turnToStart2 < 0 && turnToEnd2 > 0)) &&
+                ((turnToStart1 > 0 && turnToEnd1 < 0) || (turnToStart1 < 0 && turnToEnd1 > 0)))
+                return true;
+
+            return (turnToStart2 == 0 && WithinBox(start1, end1, start2)) || (turnToEnd2 == 0 && WithinBox(start1, end1, end2)) ||
+                   (turnToStart1 == 0 && WithinBox(start2, end2, start1)) || (turnToEnd1 == 0 && WithinBox(start2, end2, end1));
+        }
+
+        // Twice the signed area of the triangle of a segment and a point: positive when the point lies to one side of
+        // the line through the segment, negative when it lies to the other, and zero when it lies on the line.
+        // start, end: the ends of the segment.
+        // point: the point.
+        static double Turn(PointF start, PointF end, PointF point)
+        {
+            return ((double) end.X - start.X) * ((double) point.Y - start.Y) - ((double) end.Y - start.Y) * ((double) point.X - start.X);
+        }
+
+        // Whether a point lies within the box whose opposite corners are a segment's ends, which, for a point on the
+        // line through the segment, is whether it lies on the segment.
+        // start, end: the ends of the segment.
+        // point: the point.
+        static bool WithinBox(PointF start, PointF end, PointF point)
+        {
+            return Math.Min(start.X, end.X) <= point.X && point.X <= Math.Max(start.X, end.X) &&
+                   Math.Min(start.Y, end.Y) <= point.Y && point.Y <= Math.Max(start.Y, end.Y);
         }
 
         public SymPathWithHoles Transform(Matrix mat) {
