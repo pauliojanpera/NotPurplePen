@@ -32,6 +32,10 @@ A question that the developer must decide follows these rules:
 - Where possible, the question uses the concepts that the glossary of the work
   fixes. Beside each such concept, also in Finnish text, it gives the primary
   technical name of the concept: its name in the code, where it has one.
+- The question ends the reply. After the question, the session does nothing
+  else: no tool call, no edit and no other text, so that the developer has
+  time to read and study the question, and the display does not fill with
+  other work.
 
 ## There is no Windows machine here
 
