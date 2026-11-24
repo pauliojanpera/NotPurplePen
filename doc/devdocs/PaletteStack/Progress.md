@@ -390,10 +390,9 @@ the rendering.
   target of NotPurplePen fitted to them in the integration. And whether the work can use the documented findings or
   the code of `feature/svg-target`. The notes of the epic give the reasons.
 - **Offering upstream.** No branch is offered upstream yet.
-- **The approval of ticket 027** (Nov 24). [Ticket 027](tickets/027-ocad-blend-mode-tests.md), the tests of OCAD's
-  blend modes and opacity ("More tests of OCAD's blend modes"), is written for @Pauli's approval. Purple Pen writes the
-  samples, @Pauli gives their views in OCAD and their PDF exports when he is at OCAD, and the session measures the
-  structure of each PDF. The ticket changes no code.
+- **The OCAD exports of ticket 027** (Nov 24). @Pauli approved [ticket 027](tickets/027-ocad-blend-mode-tests.md),
+  the tests of OCAD's blend modes and opacity. A session makes its samples when it gets the task, and @Pauli gives
+  their views in OCAD and their PDF exports when he is at OCAD.
 
 ## Decisions
 
@@ -751,6 +750,10 @@ the rendering.
   the size of a pixel as the resolution. Pass 1 takes no resolution, and an encoding recognizes no structure, so `Map`
   offers a channel conversion: the clipping objects of a palette color coverage of a symbol without the dashes that
   are shorter than the resolution. The Skia encoding chooses it, and the images stay as they are.
+- **The approval of ticket 027** (Nov 24). @Pauli approved [027](tickets/027-ocad-blend-mode-tests.md), the tests of
+  OCAD's blend modes and opacity ("More tests of OCAD's blend modes"). Purple Pen writes the samples, @Pauli gives their
+  views in OCAD and their PDF exports, and the session measures the structure of each PDF and writes the oracle
+  `oracles/ocad-blend-modes.md`. The ticket changes no code, and it comes before the ticket of the PDF encoding.
 - **The approval of ticket 010** (Nov 24). @Pauli approved [010](tickets/010-palette-composition.md), pass 2 and the
   Skia encoding, with the choices of the session under "Ratkaisut" and its names. Its images move where a palette
   color has α below 1, where the old pattern brush placed an area pattern otherwise than M, and where the expansions

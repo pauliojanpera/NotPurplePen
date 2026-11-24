@@ -51,6 +51,7 @@ musteittaisen B:n ulkoasun. Koodi ei muutu.
 
 **Lisätiedot**
 - **Päätökset:**
+  - @Pauli hyväksyi tämän tiketin 24.11. Viennit hän antaa, kun on OCADin ääressä.
   - OCADin sekoitustiloja on testattava lisää, koska nykyinen tieto perustuu yhden ohjesivun kuviin (@Pauli, 23.11.,
     "More tests of OCAD's blend modes"). Testit ovat oma tikettinsä ennen PDF:n koodausta, eikä tiketti 010 riipu niistä
     (istunnon valinta 23.11.).
