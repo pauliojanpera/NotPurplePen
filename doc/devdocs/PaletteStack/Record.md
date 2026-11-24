@@ -764,6 +764,13 @@ one, and the later one says so. [Handover.md](Handover.md) gives the decisions t
   OCAD's blend modes and opacity ("More tests of OCAD's blend modes"). Purple Pen writes the samples, @Pauli gives their
   views in OCAD and their PDF exports, and the session measures the structure of each PDF and writes the oracle
   `oracles/ocad-blend-modes.md`. The ticket changes no code, and it comes before the ticket of the PDF encoding.
+- **The revert of the overlapping patterns in basewithfixes** (Nov 25, the question of the session). @Pauli chose:
+  the new `basewithfixes` is the present one with one commit that reverts the merge of `fix/overlapping-patterns`
+  (`git revert -m 1 ef5cd9cd2`), and not a branch assembled again from `base`. The other merges stay as they ran, and
+  the branch moves forward without a rewrite of its history. The palette stack replaces the fix for good (ticket
+  028), so the fix is not merged again. With no objection of @Pauli, the session's choice applies: the new dev is
+  assembled on `dev-next` from the new `basewithfixes`, and it replaces `dev` on his word with a merge that takes the
+  tree of `dev-next` and keeps the history of `dev` (the old `dev` merged into `dev-next` with the strategy `ours`).
 - **The new basewithfixes and the new dev** (Nov 25, the question of the session). @Pauli chose: a new basewithfixes
   without `fix/overlapping-patterns`, and a new dev on it, which merges `feature/palette-stack` into the new
   basewithfixes. `Map_Svg` comes to the new dev in the SVG ticket, without the history of `feature/svg-target`, as

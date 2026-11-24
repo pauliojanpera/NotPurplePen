@@ -47,8 +47,10 @@ by 023 to 026, and the old branch of the epic, `feature/palette-layers`, keeps t
 
 1. The new dev: a new `basewithfixes` without `fix/overlapping-patterns`, and on it the new dev, which merges
    `feature/palette-stack` (67 conflicts, all baselines). `feature/multiply-blending` does not come to it, and
-   `Map_Svg` comes in the SVG ticket ([Record.md](Record.md), "The new basewithfixes and the new dev"). How the new
-   `basewithfixes` is made is a question for @Pauli.
+   `Map_Svg` comes in the SVG ticket ([Record.md](Record.md), "The new basewithfixes and the new dev"). The new
+   `basewithfixes` is the present one with a commit that reverts the merge of the fix (ef5cd9cd2), after its full
+   run. The new dev is assembled on `dev-next`, and it replaces `dev` on @Pauli's word with a merge of the old `dev`
+   into it with the strategy `ours`.
 2. The ticket of the SVG export: the SVG encoding in `Map_Svg`, and the common structure of the vector files with the
    content of `Map`. Write it in the form of tickets 012 and 010, ask its questions early, and give it to @Pauli for
    approval.
@@ -66,8 +68,7 @@ A draft is implemented only after @Pauli approves it as a ticket.
 - **The scope of the epic.** [Ticket 000](tickets/000-palette-stack.md) is a draft. The transparency flattening is
   outside it.
 - **Offering upstream.** No branch is offered upstream yet.
-- **How the new `basewithfixes` is made** (the next step 1), and the change of `basewithfixes` and `dev`, which is a
-  push into shared branches.
+- **The change of `dev`** to `dev-next`, when the new dev is ready.
 
 ## The decisions that bind the next steps
 
