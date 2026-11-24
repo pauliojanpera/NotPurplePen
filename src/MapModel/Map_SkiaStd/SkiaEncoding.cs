@@ -16,7 +16,9 @@ namespace PurplePen.MapModel
     // idempotent. So the encoding draws such a group as the old drawing draws a palette color (Map.DrawColor). Skia blends
     // in RGB: Darken takes the minimum of each component, and Multiply their product.
     // The content of a group is the palette color coverages of the symbols, each written apart, in the order of the group,
-    // so the union of a palette separation stays implicit. The clipping objects at the resolution of the drawing are
+    // so the union of a palette separation stays implicit, apart from the patterns of the area clusters: the pattern of a
+    // cluster of several areas is written once, in the union of its areas (AreaCluster.Union), where the group gives the
+    // first of its palette color coverages. The clipping objects at the resolution of the drawing are
     // written with the steps of their placements, the runs of dashes, the offset paths and the repeated placements
     // expanded into single dashes and single placements, as the old drawing draws them, with the same Skia calls as the
     // graphics target makes for the same shapes. A hatching or a clipped area pattern is cut by its clipping object, the
@@ -64,13 +66,23 @@ namespace PurplePen.MapModel
 
             List<IDisposable> brushes = new List<IDisposable>();
             Dictionary<(PatternTile, int, int), PatternBrush> brushPaints = new Dictionary<(PatternTile, int, int), PatternBrush>();
+            HashSet<AreaCluster> writtenClusters = new HashSet<AreaCluster>();
             try {
                 using (ShapeWriter writer = new ShapeWriter(canvas, target.ConvertColor(group.Color.ColorValue), target.AntiAlias, contentBlendMode, this)) {
                     foreach (SymbolCoverage coverage in group.SymbolCoverages) {
-                        if (coverage.Prototype == CoveragePrototype.FullCoverage)
+                        if (coverage.Prototype == CoveragePrototype.FullCoverage) {
                             writer.Write(coverage.GetClippingObjects(group.Resolution));
-                        else
-                            WritePatternFill(writer, group, coverage, brushPaints, brushes);
+                            continue;
+                        }
+
+                        AreaCluster cluster = group.GetAreaCluster(coverage);
+                        if (cluster.SymbolCoverages.Count == 1) {
+                            foreach (ClippingObject area in coverage.ClippingObjects)
+                                WritePatternFill(writer, group, coverage, area, null, brushPaints, brushes);
+                        }
+                        else if (writtenClusters.Add(cluster)) {
+                            WritePatternFill(writer, group, cluster.SymbolCoverages[0], cluster.Union, cluster.Bounds, brushPaints, brushes);
+                        }
                     }
                 }
             }
@@ -81,36 +93,39 @@ namespace PurplePen.MapModel
             }
         }
 
-        // Write the palette color coverage of a hatching or a clipped area pattern, which its clipping object, the area,
-        // cuts: a pattern brush of the pattern tile of a regular area pattern, when the group uses pattern brushes and the
-        // brush is not too coarse at the resolution, as the old drawing chooses (AreaSymDef.DrawPatterns), and otherwise the
-        // expansion of the coverage prototype inside the clip of the area, as the old drawing clips a hatching
-        // (DrawHatchings) and an area pattern that it draws glyph by glyph (DrawPattern).
+        // Write the pattern of a hatching or a clipped area pattern cut by an area, or by the union of the areas of an area
+        // cluster: a pattern brush of the pattern tile of a regular area pattern, when the group uses pattern brushes and
+        // the brush is not too coarse at the resolution, as the old drawing chooses (AreaSymDef.DrawPatterns), and
+        // otherwise the expansion of the coverage prototype inside the clip of the area, as the old drawing clips a
+        // hatching (DrawHatchings) and an area pattern that it draws glyph by glyph (DrawPattern).
         // writer: the writer of the content of the group.
         // group: the transparency group.
-        // coverage: the palette color coverage.
+        // coverage: the palette color coverage, or the first palette color coverage of an area cluster, whose
+        //   transformation M places the pattern.
+        // clippingObject: the clipping object of the palette color coverage, the area, or the union of the area cluster.
+        // clusterBounds: the bounds of the area cluster, over which the coverage prototype is expanded, or null for the
+        //   bounds of the area.
         // brushPaints: the pattern brushes of the group, by tile and size of bitmap.
         // brushes: the objects of the pattern brushes, which are disposed after the group.
-        private void WritePatternFill(ShapeWriter writer, TransparencyGroup group, SymbolCoverage coverage, Dictionary<(PatternTile, int, int), PatternBrush> brushPaints, List<IDisposable> brushes)
+        private void WritePatternFill(ShapeWriter writer, TransparencyGroup group, SymbolCoverage coverage, ClippingObject clippingObject, RectangleF? clusterBounds,
+                                      Dictionary<(PatternTile, int, int), PatternBrush> brushPaints, List<IDisposable> brushes)
         {
             SKCanvas canvas = target.Canvas;
-            foreach (ClippingObject clippingObject in coverage.ClippingObjects) {
-                FilledShape area = clippingObject as FilledShape;
-                PathShape areaPath = (area != null) ? area.Shape as PathShape : null;
-                if (areaPath == null || area.Placement.Steps.Count != 0)
-                    throw new InvalidOperationException("The clipping object of a pattern fill is the area, a filled path at the identity placement.");
+            FilledShape area = clippingObject as FilledShape;
+            PathShape areaPath = (area != null) ? area.Shape as PathShape : null;
+            if (areaPath == null || area.Placement.Steps.Count != 0)
+                throw new InvalidOperationException("The clipping object of a pattern fill is the area, a filled path at the identity placement.");
 
-                AreaPatternPrototype pattern = coverage.Prototype as AreaPatternPrototype;
-                if (pattern != null && group.UsePatternBrushes && !pattern.Pattern.irregular && !pattern.Tile.IsTooPixelatedAt(group.Resolution)) {
-                    WritePatternBrush(writer, pattern.Tile, coverage, area, areaPath, group.Resolution, brushPaints, brushes);
-                }
-                else {
-                    canvas.Save();
-                    using (SKPath clip = Skia_GraphicsTarget.GetPath(new List<GraphicsPathPart>(areaPath.Parts), area.FillRule))
-                        canvas.ClipPath(clip);
-                    writer.Write(coverage.ExpandPrototype());
-                    canvas.Restore();
-                }
+            AreaPatternPrototype pattern = coverage.Prototype as AreaPatternPrototype;
+            if (pattern != null && group.UsePatternBrushes && !pattern.Pattern.irregular && !pattern.Tile.IsTooPixelatedAt(group.Resolution)) {
+                WritePatternBrush(writer, pattern.Tile, coverage, area, areaPath, group.Resolution, brushPaints, brushes);
+            }
+            else {
+                canvas.Save();
+                using (SKPath clip = Skia_GraphicsTarget.GetPath(new List<GraphicsPathPart>(areaPath.Parts), area.FillRule))
+                    canvas.ClipPath(clip);
+                writer.Write(clusterBounds.HasValue ? coverage.ExpandPrototype(clusterBounds.Value) : coverage.ExpandPrototype());
+                canvas.Restore();
             }
         }
 
@@ -125,9 +140,9 @@ namespace PurplePen.MapModel
         // left out the rotation center of an area symbol whose angle is 0.
         // writer: the writer of the content of the group, whose paint the brush takes.
         // tile: the pattern tile.
-        // coverage: the palette color coverage.
-        // area: the clipping object of the coverage, the area.
-        // areaPath: the path of the area.
+        // coverage: the palette color coverage, or the first palette color coverage of an area cluster.
+        // area: the clipping object of the coverage, the area, or the union of the area cluster.
+        // areaPath: the path of the area or of the union.
         // resolution: the resolution of the drawing.
         // brushPaints: the pattern brushes of the group, by tile and size of bitmap.
         // brushes: the objects of the pattern brushes, which are disposed after the group.

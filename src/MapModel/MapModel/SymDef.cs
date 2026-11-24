@@ -3318,43 +3318,43 @@ namespace PurplePen.MapModel
             return new PatternTile(this, index, color, size, patternInfo.patternAngle, clippingObjects);
         }
 
-        // The expansion of a hatching over the bounds of an area: the hatch lines that DrawOneHatching draws, each a
-        // stroked line of the pen of the hatching, at a single placement whose step is the transformation of the drawing,
-        // in the order of the drawing.
+        // The expansion of a hatching over a rectangle, the bounds of an area or of an area cluster: the hatch lines that
+        // DrawOneHatching draws, each a stroked line of the pen of the hatching, at a single placement whose step is the
+        // transformation of the drawing, in the order of the drawing.
         // index: the index of the hatching.
-        // path: the path with holes of the area.
+        // bounds: the rectangle, in the coordinates of the map.
         // angle: the angle of the area symbol.
         // rotationCenter: the rotation center of the area symbol.
-        internal IReadOnlyList<ClippingObject> ExpandHatching(int index, SymPathWithHoles path, float angle, PointF rotationCenter)
+        internal IReadOnlyList<ClippingObject> ExpandHatching(int index, RectangleF bounds, float angle, PointF rotationCenter)
         {
             HatchInfo hatchInfo = hatchings[index];
             Matrix matrix = MakeHatchingMatrix(hatchInfo, angle, rotationCenter);
             SinglePlacement placement = Placement.Identity.Within(matrix);
             matrix.Invert();
-            RectangleF bounding = Geometry.BoundsOfTransformedRectangle(path.BoundingBox, matrix);
+            RectangleF bounding = Geometry.BoundsOfTransformedRectangle(bounds, matrix);
 
             Stroke stroke = new Stroke(hatchInfo.hatchWidth, LineCapMode.Flat, LineJoinMode.Miter, GraphicsUtil.MITER_LIMIT);
             return SymbolHelpers.MakeHatchLines(stroke, hatchInfo.hatchSpacing, hatchInfo.hatchOffset, bounding, placement);
         }
 
-        // The expansion of a clipped area pattern in a palette color over the bounds of an area: the elements that
-        // DrawPattern draws, at their lattice points with the irregularity, in the order of DrawPatternRows. The glyph
-        // parts of each element in the palette color are the shared shapes of the glyph at a single placement whose steps
-        // are the transformation of the area pattern and the pose of the element, and a glyph of one circle at its origin
-        // is a circle at the location of the element within the transformation of the area pattern, as Glyph.DrawSimple
-        // draws it (Glyph.MakeClippingObjects).
+        // The expansion of a clipped area pattern in a palette color over a rectangle, the bounds of an area or of an area
+        // cluster: the elements that DrawPattern draws, at their lattice points with the irregularity, in the order of
+        // DrawPatternRows. The glyph parts of each element in the palette color are the shared shapes of the glyph at a
+        // single placement whose steps are the transformation of the area pattern and the pose of the element, and a glyph
+        // of one circle at its origin is a circle at the location of the element within the transformation of the area
+        // pattern, as Glyph.DrawSimple draws it (Glyph.MakeClippingObjects).
         // index: the index of the area pattern.
         // color: the palette color.
-        // path: the path with holes of the area.
+        // bounds: the rectangle, in the coordinates of the map.
         // angle: the angle of the area symbol.
         // rotationCenter: the rotation center of the area symbol.
-        internal IReadOnlyList<ClippingObject> ExpandAreaPattern(int index, SymColor color, SymPathWithHoles path, float angle, PointF rotationCenter)
+        internal IReadOnlyList<ClippingObject> ExpandAreaPattern(int index, SymColor color, RectangleF bounds, float angle, PointF rotationCenter)
         {
             PatternInfo patternInfo = patterns[index];
             Matrix matrix = MakePatternMatrix(patternInfo, angle, rotationCenter);
             SinglePlacement placement = Placement.Identity.Within(matrix);
             matrix.Invert();
-            RectangleF bounding = Geometry.BoundsOfTransformedRectangle(path.BoundingBox, matrix);
+            RectangleF bounding = Geometry.BoundsOfTransformedRectangle(bounds, matrix);
 
             List<ClippingObject> expansion = new List<ClippingObject>();
             foreach (PointF location in GetPatternElementLocations(patternInfo, bounding))
