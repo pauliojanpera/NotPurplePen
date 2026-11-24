@@ -390,6 +390,10 @@ the rendering.
   target of NotPurplePen fitted to them in the integration. And whether the work can use the documented findings or
   the code of `feature/svg-target`. The notes of the epic give the reasons.
 - **Offering upstream.** No branch is offered upstream yet.
+- **The approval of ticket 027** (Nov 24). [Ticket 027](tickets/027-ocad-blend-mode-tests.md), the tests of OCAD's
+  blend modes and opacity ("More tests of OCAD's blend modes"), is written for @Pauli's approval. Purple Pen writes the
+  samples, @Pauli gives their views in OCAD and their PDF exports when he is at OCAD, and the session measures the
+  structure of each PDF. The ticket changes no code.
 
 ## Decisions
 

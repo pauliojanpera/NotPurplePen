@@ -258,4 +258,5 @@ yksittäisissä reunapikseleissä, joissa laajennukset pyöristävät katkot ja 
 * PDF:n koodaus: oma tiketti tämän jälkeen (@Pauli, 23.11.), ei vielä kirjoitettu.
 * Skian abstraktiot katkojuosteille ja toistosijoituksille: oma tiketti tämän jälkeen (@Pauli, 24.11.), ei vielä
   kirjoitettu.
-* OCADin sekoitustilojen testit: oma tiketti ennen PDF:n koodausta (23.11.), ei vielä kirjoitettu.
+* [027](027-ocad-blend-mode-tests.md) OCADin sekoitustilojen ja peittävyyden testit: oma tiketti ennen PDF:n koodausta
+  (23.11.), odottaa @Paulin hyväksyntää.
