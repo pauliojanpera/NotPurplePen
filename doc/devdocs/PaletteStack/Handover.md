@@ -86,6 +86,7 @@ decisions of the process are in force. [Record.md](Record.md), "Decisions", give
 - **A full run without a collecting run** when a change cannot change the drawing.
 - **The OCAD metric is best effort.** The OCAD views and exports come from @Pauli when the work needs them.
 - **The PDF of NotPurplePen** need not and should not be identical in structure with the PDF that OCAD exports.
+- **The new dev** will be built strongly on the palette stack (@Pauli, Nov 24).
 - **The baselines of Course 5 in base** stay upstream's. The epic has its own, and they are up to date.
 - **The archiving of a cloud session** runs when @Pauli lets it, as "A cloud session" below tells.
 
