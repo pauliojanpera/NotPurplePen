@@ -168,7 +168,10 @@ yksittäisissä reunapikseleissä, joissa laajennukset pyöristävät katkot ja 
     antaa kiertokeskukseksi kartan origon, joten tapaus tulee Mapper-kartoista (`rotationCoord`).
   - Suurin osa Skian renderöintitesteistä (`RenderingTests.CheckTest`) piirtää kuviosiveltimin ilman
     päällepainatusvaikutusta ja myös tallennuksen kautta (`alsoTestRecording`). `CheckTestNoPatternBitmaps` piirtää
-    ilman kuviosiveltimiä, ja `CheckTestOverprinting` päällepainatusvaikutuksen kanssa.
+    ilman kuviosiveltimiä, ja `CheckTestOverprinting` päällepainatusvaikutuksen kanssa: `MapperOverprinting` Hakolan
+    Mapper-kartan spottiväreineen (`skia_render/Hakola malli.omap`, baseline `hakolaoverprinting.png`, tiketti 001) ja
+    `Overprinting` OCAD-kartan (`ocad11overprinting`). Tilassa `Darken` niiden kuvat pysyvät, koska Darken piirretään
+    ilman menetelmää `SaveLayer` kuten nyt, ja ne tarkistavat sen.
   - Testikartat: palettivärin α on alle 1 kartoissa `skia_render/LordHill.ocd` ja `LordHill OCAD11.ocd` (väri 201,
     `t80`) ja `openmapper/LordHill.omap` (0,8) sekä PurplePen_Testsin kartoissa
     `courseprinting/LordHill_ver16_2024Jan_scaled.omap` (0,75) ja `McHugh Creek.omap` (0,5). Sekoitustila Darken on
