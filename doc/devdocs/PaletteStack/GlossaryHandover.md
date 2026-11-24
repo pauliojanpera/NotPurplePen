@@ -51,25 +51,6 @@ Nov 21, the session based its recommendations for G = 1 on a name of the work's 
 specification and on the other uses of ordinary words, and not on the theory of the concept. @Pauli objected to each
 of these.
 
-### How to make a question
-
-- **The question stands alone.** @Pauli does not look back in the conversation to understand it. The question gives
-  the present use of the word with quotations and their sources, an example, the options and a recommendation. The
-  options are the real choices only: an option that is there only to involve @Pauli is left out (Nov 23).
-- **The session reads the sources before it asks.** The sources are the specification, the decisions in Progress.md
-  and the tickets, and the code of upstream. The session does not ask @Pauli for facts that the sources give. It reads
-  them, and it presents the result to him.
-- **The question gives the theoretical basis.** Before a question, the session does a proper investigation with its
-  theoretical knowledge, for example of mathematics and of the theory of computer graphics and compositing, so that
-  @Pauli has the theoretical basis of the choice (Nov 21). The counts of use, the words of the specification and the
-  code of the work are not a basis alone. For example, the theory showed that G is a coverage: the indicator function
-  of a set of the plane, and in compositing the alpha has two parts, the coverage and the opacity.
-- **A trivial question is not asked alone.** When a choice follows from the model of an earlier decision, the session
-  states it in the question before it, as the choice that applies unless @Pauli proposes otherwise. For example, the
-  key of a `CourseObj` is `Key`, after the model of `Symbol.Key` (Nov 21).
-- **The length is moderate.** @Pauli objected to answers that were too long, to answers that were too short, and to
-  lists of fragments.
-
 ### How to record
 
 - After a decision, the session records it at once in Glossary.md, commits, pushes, and tells @Pauli what it recorded,
