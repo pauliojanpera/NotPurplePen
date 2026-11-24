@@ -60,6 +60,8 @@ A draft is implemented only after @Pauli approves it as a ticket.
 - **Offering upstream.** No branch is offered upstream yet.
 - **The OCAD exports of ticket 027**, when he is at OCAD: the list "What @Pauli exports and reports" in
   [oracles/ocad-blend-modes.md](oracles/ocad-blend-modes.md).
+- **The draft [029](tickets/029-ocad-color-shares.md)**, the CMYK shares that the OCAD export writes with the error of
+  the float product, waits for his approval.
 
 ## The decisions that bind the next steps
 

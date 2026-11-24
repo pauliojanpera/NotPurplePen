@@ -764,6 +764,13 @@ one, and the later one says so. [Handover.md](Handover.md) gives the decisions t
   OCAD's blend modes and opacity ("More tests of OCAD's blend modes"). Purple Pen writes the samples, @Pauli gives their
   views in OCAD and their PDF exports, and the session measures the structure of each PDF and writes the oracle
   `oracles/ocad-blend-modes.md`. The ticket changes no code, and it comes before the ticket of the PDF encoding.
+- **A bug ticket of the shares that the OCAD export writes** (Nov 24). @Pauli asked for a bug ticket of the CMYK shares
+  that `OcadExport` writes with the error of the float product, although ticket 027 does not need the fix. The session
+  wrote it as the draft [029](tickets/029-ocad-color-shares.md), with these choices of its own: the branch
+  `fix/ocad-color-shares` from d48f4456; each share written as the decimal number that its float stands for, rounded to
+  seven significant digits and multiplied by 100 in decimal; the fields of the spot color separations of ticket 001 get
+  the same writing when the branch is merged into `feature/palette-stack`; and the test maps `wholestructure.ocd` and
+  `LordHill.ocd`.
 - **The structure of the PDF of NotPurplePen** (Nov 24). @Pauli: the PDF that NotPurplePen exports need not and should
   not be identical in structure with the PDF that OCAD exports. The session had read the structure of OCAD's PDF export
   of the sixth dash sample ([oracles/ocad-blend-modes.md](oracles/ocad-blend-modes.md)), and it was preparing the

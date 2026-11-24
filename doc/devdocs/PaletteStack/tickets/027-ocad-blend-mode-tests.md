@@ -89,3 +89,6 @@ musteittaisen B:n ulkoasun. Koodi ei muutu.
 
 **Erotetut alatehtävät**
 <!-- Tästä tiketistä erotetut korjaukset ja ominaisuudet: tiketti, haara ja se, onko haara yhdistetty tämän tiketin haaraan -->
+* [029](029-ocad-color-shares.md) OCAD-vienti kirjoittaa värien prosenttiosuudet float-kertolaskun virheineen, löytyi
+  tämän tiketin näytteestä (@Pauli pyysi tiketin 24.11.): haara `fix/ocad-color-shares`, luonnos, ei toteutettu. Tällä
+  tiketillä ei ole koodihaaraa, johon sen voisi yhdistää, eikä tämä tiketti odota sitä.
