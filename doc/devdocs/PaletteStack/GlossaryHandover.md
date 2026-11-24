@@ -159,6 +159,14 @@ These are @Pauli's decisions of Nov 20 and Nov 21. Glossary.md gives their terms
   *perusalue*, *siirtosymmetria* and `SymbolCoverage.ExpandPrototype` · *kuviotäytön laajennus* (Nov 23).
 - *valitut glyyfin osat* · *selected glyph parts*, in place of *valitut elementit*, as a fill mode selects each glyph
   part (Nov 23, with ticket 009).
+- The terms of ticket 010, which the session chose by the rule of Nov 23, and which wait for @Pauli's approval with
+  the ticket (Nov 24): `CourseAppearance` · *ratojen ulkoasu* · *course appearance*, `OverprintMode` ·
+  *päällepainatustila* · *overprint mode*, *päällepainatusväri* · *overprint color*, *sekoitusväriavaruus* · *blending
+  color space*, `RenderOptions.minResolution` · *piirron resoluutio* · *resolution of a drawing*, *leikkausobjektit
+  piirron resoluutiolla* · *clipping objects at the resolution of a drawing*, *kuviosivellin* · *pattern brush*,
+  `RecordingGraphicsTarget` · *tallentava piirtokohde* · *recording graphics target*, and the proposed code names
+  `TransparencyGroup`, `IPaletteStackEncoding`, `IPaletteStackEncodingProvider`, `SkiaEncoding`,
+  `SymbolCoverage.GetClippingObjects(float)`, `IDeferredDrawingTarget`, `AreaPatternPrototype.Tile` and `PatternTile`.
 
 The five terms that the session chose by their use in commit 06f4c824d are all decided on Nov 21.
 

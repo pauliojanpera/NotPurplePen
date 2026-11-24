@@ -65,6 +65,13 @@ parts that a fill mode selects are clipping objects of the full coverage. The co
 comparison compares each palette color with the drawing. The full run of the branch passed, and so did the full run of
 `feature/palette-stack` with it (`wip/linux/palette-stack` at 473cd25a: Tests 45260756131, Build 45260756121).
 
+The draft [010](tickets/010-palette-composition.md) is written as a ticket of pass 2 and the Skia encoding (Nov 24),
+after @Pauli's answers to its five questions ("Pass 2 by channel", "The blend mode of the drawing", "The dashes
+shorter than a pixel" and "The expansions in the Skia encoding"). Pass 2 takes the palette separations in palette
+order, and the Skia encoding writes the transparency group of each palette color with α and the blend mode of the
+overprint mode, so the screen, the printing on Windows and the print preview draw the palette colors from the
+intermediate layer. It waits for @Pauli's approval ("Waiting on @Pauli"), and it is not implemented before it.
+
 The step of the Tests workflow that checks the machine and installs the fonts runs its script from
 `.github/scripts/check-machine-and-install-fonts.ps1` ("The script of the font step in a file"). The change is merged
 into `base` (67836a4f), and the Tests run of `base` with it passed (45269595027). No log of the run holds the text
@@ -310,8 +317,8 @@ base. No branch is offered upstream yet.
    run of `feature/palette-stack` with it passed (`wip/linux/palette-stack` at 473cd25a: Tests 45260756131, Build
    45260756121). The draft 010 comes next ("The order of the drafts", the session's choice). It is written as a ticket
    in the form of ticket 012: the interface of ticket 024, the terms of the glossary, the code names where the glossary
-   has no term, and the old work where it fits. The session of Nov 23 that writes it asks its questions first
-   ("Questions early", "Waiting on @Pauli").
+   has no term, and the old work where it fits. The session of Nov 23 asked its questions first ("Questions
+   early"), and wrote the ticket on Nov 24. It waits for @Pauli's approval ("Waiting on @Pauli").
 6. The fonts of the local Linux runs are done ("The fonts of the local Linux runs", "Local tests"):
    1. `system/fonts.json` of the branch `linux` agrees with its files and with `.github/ci/environment.json` of
       `base`: of the 65 fonts of `environment.json`, 29 files have the hash of the Windows machine, and 36 are older
@@ -381,13 +388,12 @@ the rendering.
   target of NotPurplePen fitted to them in the integration. And whether the work can use the documented findings or
   the code of `feature/svg-target`. The notes of the epic give the reasons.
 - **Offering upstream.** No branch is offered upstream yet.
-- **The questions of the draft 010** (Nov 23). The session that writes the draft 010 as a ticket asks its questions
-  one at a time, before it writes the ticket ("Questions early"). @Pauli answered question 1: pass 2 is divided by
-  channel ("Pass 2 by channel"). He answered question 2 with the overprint choice of the course appearance, and
-  question 3: the choice is made in the epic ("The blend mode of the drawing"). He answered question 4: the dashes
-  shorter than a pixel are drawn solid ("The dashes shorter than a pixel"), and question 5: the Skia encoding expands
-  the runs of dashes and the repeated placements ("The expansions in the Skia encoding", Nov 24). The session writes
-  the ticket next, with the other choices as its own under "Ratkaisut".
+- **The approval of ticket 010** (Nov 24). [Ticket 010](tickets/010-palette-composition.md), pass 2 and the Skia
+  encoding, is written from the draft after @Pauli's answers to its five questions ("Questions early"), with the
+  choices of the session under "Ratkaisut" and its terms in [Glossary.md](Glossary.md) as proposed names. Its images
+  move where a palette color has α below 1, where the old pattern brush placed an area pattern otherwise than M, and
+  where the expansions round the dashes and the glyphs otherwise than the old drawing. Their baselines move with the
+  approval. The ticket is not implemented before the approval.
 
 ## Decisions
 
@@ -745,6 +751,26 @@ the rendering.
   the size of a pixel as the resolution. Pass 1 takes no resolution, and an encoding recognizes no structure, so `Map`
   offers a channel conversion: the clipping objects of a palette color coverage of a symbol without the dashes that
   are shorter than the resolution. The Skia encoding chooses it, and the images stay as they are.
+- **The choices of the session in ticket 010** (Nov 24). By the rule "The session resolves matters", the session
+  chose these, which the ticket gives under "Ratkaisut":
+  - The names, which [Glossary.md](Glossary.md) gives as proposed names.
+  - The transparency group of a palette color without `SKCanvas.SaveLayer` when α is 1 and B is Normal or Darken.
+    The composite is then the same as the content drawn directly with B, as source over is associative and Darken is
+    idempotent for one opaque color, so the images of the screen and of the tests stay.
+  - The content of a group by palette color coverage of a symbol, with the Skia calls of `Skia_GraphicsTarget`.
+  - The rectangle and the cancellation as in `DrawColor`.
+  - The result of the conversion at a resolution, which the coverage keeps for each set of solid line components.
+  - The pattern tile as a derived value of the definition, which the Skia encoding rasterizes at the size of
+    `CreatePatternBrushes`.
+  - The attributes of the course file: `overprint-colors` as now, and `overprint-mode` for the new modes only, so the
+    files in the modes `None` and `Darken` do not change.
+  - The deferred drawing of a recording, which reads the map at the playback.
+  - The old drawing for the PDF and the legacy graphics targets, as abandoning GDI+ and WPF takes the WinForms
+    application and the GDI+ renderings of `Test_MapModel`, which the Windows CI builds and runs, with them.
+  - An internal render option for the oracle of the coverage comparison.
+- **The terms of ticket 010** (Nov 24). By the rule "The names of the concepts without a name", the session added to
+  [Glossary.md](Glossary.md) the terms and the proposed code names that ticket 010 uses
+  ([GlossaryHandover.md](GlossaryHandover.md), "Decided").
 - **The expansions in the Skia encoding** (Nov 24, question 5 of the draft 010). @Pauli: in ticket 010, the Skia
   encoding expands the runs of dashes and the repeated placements into single dashes and single placements, as the old
   drawing draws them (`SymPath.DrawDashedOffset`, `Glyph.Draw`). The abstractions of Skia that section 04 of the

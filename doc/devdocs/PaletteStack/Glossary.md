@@ -106,9 +106,10 @@ The section "Words that are not names" lists the words that are not used as name
   (`aColorSep`), and OCAD 9 and later in the strings of type 10 (`si_SpotColor`). The import makes each of them a
   spot ink (`Ink`), and the export writes the spot inks as them. The import and the export translate between the
   files of OCAD and `Map`, so where they describe the files of OCAD, they use the name of OCAD.
-- **`SymColor.OverPrint`** · päällepainatus · *overprint* — The overprint flag of an OCAD process color keeps the inks
-  below. The option `RenderOptions.blendOverprintedColors` draws the colors that have it with Darken. The inks simulate
-  the overprinting in a rendering mode.
+- **`SymColor.OverPrint`** · päällepainatus, päällepainatusväri · *overprint, overprint color* — The overprint flag of
+  an OCAD process color keeps the inks below. A palette color that has the flag is an overprint color. The option
+  `RenderOptions.blendOverprintedColors` draws the overprint colors with Darken, and the overprint mode
+  (`OverprintMode`) tells how the drawing blends them. The inks simulate the overprinting in a rendering mode.
 - **knockout** · *knockout* — The flag of Mapper. Its intent is the inverse of the overprint flag: it removes the inks
   below. The Mapper import sets `SymColor.OverPrint` only for a color that has a spot definition and whose knockout is
   off.
@@ -340,6 +341,9 @@ The section "Words that are not names" lists the words that are not used as name
   `CourseLayer`, and the colors of the layers. `CourseFormatter` and `TopologyFormatter` add the course objects to it,
   and `CourseLayout.RenderToMap` makes the course map from it. One course layout can hold several courses in
   different layers, for example the main course and the view of all the controls.
+- **`CourseAppearance`** · ratojen ulkoasu · *course appearance* — The settings of an event that tell how the courses
+  are drawn: for example the sizes of the course objects, the purple, the descriptions and the overprint mode
+  (`OverprintMode`). The course file keeps them, and `CourseAppearanceDialog` edits them.
 - **`CourseObj`** · rataobjekti · *course object* — One object of the courses on the course map, for example a control
   circle, a leg or a description. `CourseFormatter` and `TopologyFormatter` make the course objects of a
   `CourseLayout` from the data of `EventDB`, and `CourseObj.AddToMap` makes their symbols in the course map. One course
@@ -477,6 +481,12 @@ The section "Words that are not names" lists the words that are not used as name
 - **katkotaulukko** · *dash table* — A known channel conversion of the dashes of a line. `Map` offers it.
 - **laajennus** · *expansion* (work: `StrokedShape.ExpandDashes`, `RepeatedShapes.Expand`) — A known channel conversion
   into single parts: a run into dashes, and a repeated placement into single placements. `Map` offers it.
+- **leikkausobjektit piirron resoluutiolla** · *clipping objects at the resolution of a drawing* (proposed name:
+  `SymbolCoverage.GetClippingObjects(float)`) — A channel conversion: the clipping objects of a palette color coverage
+  of a symbol for a drawing of a resolution (*piirron resoluutio*). A dashed line component whose gaps are all shorter
+  than the resolution is solid, as the old drawing draws it (`LineSymDef.DrawDashedWithOffset`). At the resolution 0,
+  they are the clipping objects of the coverage (`SymbolCoverage.ClippingObjects`). Pass 1 takes no resolution, so
+  `Map` offers this conversion, and an encoding chooses it.
 - **kuviotäytön laajennus** · *expansion of a pattern fill* (`SymbolCoverage.ExpandPrototype`) — The
   lines of a hatching or the elements of an area pattern over the bounds of an area, as single clipping objects at the
   places and with the steps of the drawing. The expansion of an irregular area pattern is the placements of its
@@ -551,8 +561,10 @@ The section "Words that are not names" lists the words that are not used as name
   With the same steps in the same order, the coverage is the same to the pixel.
 - **askel, määrä** · *step, count* (work: `RepeatedShapes.Step`, `RepeatedShapes.Count`) — The distance along the path
   between two adjacent positions along the path of a repeated placement, and the number of its poses.
-- **kuvioruutu** · *pattern tile* — One cell of an area pattern, which is composed from single elements. It depends on
-  the definition alone.
+- **kuvioruutu** · *pattern tile* (proposed name: `AreaPatternPrototype.Tile`, `PatternTile`) — One cell of an area
+  pattern, which is composed from single elements. It depends on the definition alone: the glyph parts of the element
+  in one palette color at their places in the cell, as the pattern brush of the old drawing has them
+  (`AreaSymDef.CreatePatternBrushes`). The Skia encoding rasterizes it as a pattern brush (*kuviosivellin*).
 - **valitut glyyfin osat, epäsäännöllisen kuvion sijoitukset** · *selected glyph parts, placements of an irregular
   pattern* — The glyph parts that a fill mode selects are clipping objects of the palette color coverage of the symbol
   with the full coverage: shared shapes of the glyph of the area pattern, each at a single placement. The placements of
@@ -572,7 +584,9 @@ encodings make themselves.
   one palette color. Its content is the color C on the coverage of the palette separation. The group is composited once
   onto the backdrop, with the opacity α and the blend mode B of the palette color. So the overlaps of one palette color
   do not get α twice. One transparency group is for each palette color. The palette color is its definition, and the
-  palette separation is its content.
+  palette separation is its content. In a drawing, pass 2 makes it as a `TransparencyGroup` (proposed name): the palette
+  color, its opacity α, the blend mode B that the overprint mode gives (`OverprintMode`), the resolution of the drawing,
+  and the palette color coverages of the symbols that the rectangle of the drawing can show.
 
   The theory: the transparency model of PDF (ISO 32000) calls this unit a transparency group. The objects of the group
   are composited into one result, and the result is composited onto the backdrop with the opacity and the blend mode of
@@ -581,6 +595,19 @@ encodings make themselves.
   separable blend modes, for example Darken and Multiply, apply to each color component. So in this model the group is
   the same in all the rendering modes, and only the blending space changes. In a CMYK group, Darken takes the larger
   share of each ink, as the PDF export of OCAD does. The transparency flattening flattens these groups.
+- **sekoitusväriavaruus** · *blending color space* — The color space in which a transparency group composites with its
+  blend mode, as the transparency model of PDF calls it. A separable blend mode applies to each component of the
+  blending color space. Skia composites in RGB: there, Darken takes the minimum of each component after the conversion
+  of the colors to RGB, and Multiply their product. In CMYK, PDF applies a blend mode to the complements of the inks,
+  so Darken takes the larger share of each ink. The two give the same result only when each ink changes one RGB
+  component alone, which is not true for black or for the SWOP conversion of the screen (`SwopColorConverter`).
+- **`OverprintMode`** (proposed name) · päällepainatustila · *overprint mode* — The choice of the course appearance
+  (`CourseAppearance`) that tells which blend mode the drawing applies, in all the channels: `None` (*ei käytössä*),
+  `ByPaletteColor` (*palettivärin mukaan*: the blend mode B of each palette color, `SymColor.BlendMode`), `Darken`
+  (*tummenna*) and `Multiply` (*kerro*). `Darken` and `Multiply` apply to the overprint colors
+  (`SymColor.OverPrint`). The opacity α applies in each mode. **Upstream:** the overprint effect
+  (`CourseAppearance.useOcadOverprint`, `RenderOptions.blendOverprintedColors`), which blends the colors that have the
+  overprint flag with Darken, and the course map always blends its colors in this way.
 - **piirtotila, väriasetus** · *rendering mode, color configuration* — A rendering mode is a color configuration of pass
   2: the normal view, the overprinting that the inks simulate, or the separations. All the rendering modes use the same
   intermediate layer. **Upstream:** the render options (`RenderOptions`). For example, `blendOverprintedColors` blends
@@ -593,7 +620,13 @@ encodings make themselves.
   structure. Where the implementation of a channel does not agree with the ideal form, the encoding chooses a channel
   conversion of `Map`, for example a polyline. An encoding writes its channel directly, and not through
   `IGraphicsTarget`: the SVG encoding writes SVG, the PDF encoding the objects of PdfSharp, and the Skia encoding an
-  `SKCanvas`.
+  `SKCanvas`. An encoding writes one transparency group of a palette color at a time (proposed name:
+  `IPaletteStackEncoding`). A graphics target that shares its surface with an encoding gives the encoding to the
+  drawing (proposed name: `IPaletteStackEncodingProvider`). The Skia encoding is `SkiaEncoding` (proposed name).
+- **piirron resoluutio** · *resolution of a drawing* (`RenderOptions.minResolution`) — The size of a pixel of a
+  drawing, in paper coordinates. The screen and the Skia rendering tests give it the size of a pixel. Pass 1 takes no
+  resolution. Pass 2 adapts to it: an encoding chooses the clipping objects at the resolution of the drawing, and the
+  pattern brush of an area pattern.
 - **kanava** · *channel* — An output for which an encoding writes. The epic names the rendering channels Skia, PDF and
   SVG. A channel offers abstractions: for example the dash pattern of PDF and SVG, the 1D path effect of Skia and the
   markers of SVG.
@@ -614,6 +647,16 @@ encodings make themselves.
   graphics target of one channel share the surface of the channel, for example the same `SKCanvas` or the same PDF
   page. Its vocabulary is a subset of the imaging model of PostScript, with flags for the differences of the channels
   (`SupportsPatternBrushes`).
+- **kuviosivellin** · *pattern brush* (`IGraphicsTarget.CreatePatternBrush`, `RenderOptions.usePatternBitmaps`) — A
+  brush that tiles a bitmap of one cell of an area pattern. The old drawing fills a regular clipped area pattern with
+  it when `usePatternBitmaps` is set and the bitmap is not too coarse (`AreaSymDef.PatternBrushTooPixelated`), as it
+  is faster than the drawing glyph by glyph. The display uses it, and the printing does not. It leaves out the
+  rotation center of an area symbol whose angle is 0. The Skia encoding makes it from a pattern tile (*kuvioruutu*),
+  and places it by M.
+- **`RecordingGraphicsTarget`** · tallentava piirtokohde · *recording graphics target* — A graphics target that records
+  the calls of a drawing and plays them back on another graphics target, for example for the print preview
+  (`RecordingPrintTarget`). Pass 2 records its drawing as a deferred drawing (proposed name: `IDeferredDrawingTarget`),
+  which reads the map at the playback and writes with the encoding of the target that plays it back.
 - **piirrosobjekti** · *drawn object* — An object that an encoding writes. Each drawn object refers to its palette color
   coverage of a symbol, and through it to its `Symbol`, `SymColor` and G. The reference gives the `Map` and the symbol
   key (`Symbol.Key`). In a file, the drawn objects keep a link back to the ideal forms that is as direct as possible,
