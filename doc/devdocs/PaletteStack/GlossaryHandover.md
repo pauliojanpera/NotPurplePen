@@ -29,7 +29,8 @@ Read these in this order:
   the knock-on effects of its choice are not unreasonable, and records the choice as its own (Progress.md, "The
   session resolves matters").
 - The session presents one question at a time (Nov 20, Nov 21).
-- The session does not make proposals that @Pauli did not ask for (Nov 20).
+- The session does not make proposals that @Pauli did not ask for (Nov 20). This does not mean that a session leaves a
+  fault unmentioned (@Pauli, Nov 23).
 - The session gives options only where the choice is real. It does not add options only to involve @Pauli (Nov 23).
 - When @Pauli uses a vague reference, the session asks him to make it exact (Nov 20, the preface of the glossary).
 - The session starts no agents and does not run `agent-cache.py`, although `CLAUDE.md` asks every session to run it.
