@@ -347,7 +347,7 @@ kerran alueiden unioniin.
 <!-- Tästä tiketistä erotetut korjaukset ja ominaisuudet: tiketti, haara ja se, onko haara yhdistetty tämän tiketin haaraan -->
 * [028](028-palette-cutter-patterns.md) Palettileikkurin kuviotäyttö kerran alueidensa unionissa: haara
   `feature/palette-cutter-patterns`, joka juurtuu tämän tiketin haaraan (1b282046) ja yhdistetään siihen ennen kuin
-  tämä haara yhdistetään haaraan `feature/palette-stack` (@Pauli, 24.11.). Luonnos, ei vielä hyväksytty eikä
+  tämä haara yhdistetään haaraan `feature/palette-stack` (@Pauli, 24.11.). @Pauli hyväksyi sen 24.11., ei vielä
   yhdistetty.
 * PDF:n koodaus: oma tiketti tämän jälkeen (@Pauli, 23.11.), ei vielä kirjoitettu.
 * Skian abstraktiot katkojuosteille ja toistosijoituksille: oma tiketti tämän jälkeen (@Pauli, 24.11.), ei vielä
