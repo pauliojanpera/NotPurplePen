@@ -4923,7 +4923,7 @@ namespace PurplePen.MapModel
                 float r = textRect.Right + framing.rectBorderRight;
 
                 PointF[] corners = Array.ConvertAll(PathShape.GetCorners(new RectangleF(l, t, r - l, b - t)), ToPoseCoordinates);
-                clippingObjects.Add(new FilledShape(PathShape.FromPoints(corners, true), AreaFillMode.Winding, placement));
+                clippingObjects.Add(new FilledShape(PathShape.FromRectangle(corners, RectangleF.FromLTRB(l, -b, r, -t)), AreaFillMode.Winding, placement));
             }
         }
 

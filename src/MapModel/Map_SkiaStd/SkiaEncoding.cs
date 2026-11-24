@@ -19,10 +19,10 @@ namespace PurplePen.MapModel
     // so the union of a palette separation stays implicit. The clipping objects at the resolution of the drawing are
     // written with the steps of their placements, the runs of dashes, the offset paths and the repeated placements
     // expanded into single dashes and single placements, as the old drawing draws them, with the same Skia calls as the
-    // graphics target makes for the same shapes. A hatching or a clipped area pattern is written inside the clip of its
-    // clipping object, the area: as a pattern brush of its pattern tile where the old drawing used a pattern brush, and as
-    // the expansion of its coverage prototype otherwise. The encoding does not keep the results of its own conversions over
-    // the groups: the bitmaps of the pattern brushes are made for each group.
+    // graphics target makes for the same shapes. A hatching or a clipped area pattern is cut by its clipping object, the
+    // area: it is a pattern brush of its pattern tile where the old drawing used a pattern brush, and the expansion of its
+    // coverage prototype inside the clip of the area otherwise. The encoding does not keep the results of its own
+    // conversions over the groups: the bitmaps of the pattern brushes are made for each group.
     public sealed class SkiaEncoding : IPaletteStackEncoding, IDisposable
     {
         private readonly Skia_GraphicsTarget target;
@@ -63,7 +63,7 @@ namespace PurplePen.MapModel
             }
 
             List<IDisposable> brushes = new List<IDisposable>();
-            Dictionary<(PatternTile, int, int), SKPaint> brushPaints = new Dictionary<(PatternTile, int, int), SKPaint>();
+            Dictionary<(PatternTile, int, int), PatternBrush> brushPaints = new Dictionary<(PatternTile, int, int), PatternBrush>();
             try {
                 using (ShapeWriter writer = new ShapeWriter(canvas, target.ConvertColor(group.Color.ColorValue), target.AntiAlias, contentBlendMode, this)) {
                     foreach (SymbolCoverage coverage in group.SymbolCoverages) {
@@ -81,16 +81,17 @@ namespace PurplePen.MapModel
             }
         }
 
-        // Write the palette color coverage of a hatching or a clipped area pattern: inside the clip of its clipping object,
-        // the area, a pattern brush of the pattern tile of a regular area pattern, when the group uses pattern brushes and
-        // the brush is not too coarse at the resolution, as the old drawing chooses (AreaSymDef.DrawPatterns), and the
-        // expansion of the coverage prototype otherwise.
+        // Write the palette color coverage of a hatching or a clipped area pattern, which its clipping object, the area,
+        // cuts: a pattern brush of the pattern tile of a regular area pattern, when the group uses pattern brushes and the
+        // brush is not too coarse at the resolution, as the old drawing chooses (AreaSymDef.DrawPatterns), and otherwise the
+        // expansion of the coverage prototype inside the clip of the area, as the old drawing clips a hatching
+        // (DrawHatchings) and an area pattern that it draws glyph by glyph (DrawPattern).
         // writer: the writer of the content of the group.
         // group: the transparency group.
         // coverage: the palette color coverage.
-        // brushPaints: the paints of the pattern brushes of the group, by tile and size of bitmap.
+        // brushPaints: the pattern brushes of the group, by tile and size of bitmap.
         // brushes: the objects of the pattern brushes, which are disposed after the group.
-        private void WritePatternFill(ShapeWriter writer, TransparencyGroup group, SymbolCoverage coverage, Dictionary<(PatternTile, int, int), SKPaint> brushPaints, List<IDisposable> brushes)
+        private void WritePatternFill(ShapeWriter writer, TransparencyGroup group, SymbolCoverage coverage, Dictionary<(PatternTile, int, int), PatternBrush> brushPaints, List<IDisposable> brushes)
         {
             SKCanvas canvas = target.Canvas;
             foreach (ClippingObject clippingObject in coverage.ClippingObjects) {
@@ -99,63 +100,124 @@ namespace PurplePen.MapModel
                 if (areaPath == null || area.Placement.Steps.Count != 0)
                     throw new InvalidOperationException("The clipping object of a pattern fill is the area, a filled path at the identity placement.");
 
-                canvas.Save();
-                using (SKPath clip = Skia_GraphicsTarget.GetPath(new List<GraphicsPathPart>(areaPath.Parts), area.FillRule))
-                    canvas.ClipPath(clip);
-
                 AreaPatternPrototype pattern = coverage.Prototype as AreaPatternPrototype;
-                if (pattern != null && group.UsePatternBrushes && !pattern.Pattern.irregular && !pattern.Tile.IsTooPixelatedAt(group.Resolution))
-                    WritePatternBrush(writer, pattern.Tile, coverage, area, group.Resolution, brushPaints, brushes);
-                else
+                if (pattern != null && group.UsePatternBrushes && !pattern.Pattern.irregular && !pattern.Tile.IsTooPixelatedAt(group.Resolution)) {
+                    WritePatternBrush(writer, pattern.Tile, coverage, area, areaPath, group.Resolution, brushPaints, brushes);
+                }
+                else {
+                    canvas.Save();
+                    using (SKPath clip = Skia_GraphicsTarget.GetPath(new List<GraphicsPathPart>(areaPath.Parts), area.FillRule))
+                        canvas.ClipPath(clip);
                     writer.Write(coverage.ExpandPrototype());
-
-                canvas.Restore();
+                    canvas.Restore();
+                }
             }
         }
 
-        // Write a pattern brush of a pattern tile inside the clip of an area, as the old drawing fills a turned area with
-        // the brush (AreaSymDef.DrawPatternWithTexBrush): within the placement of the brush for the area symbol, the
-        // rectangle that bounds the area in the coordinates of the placement, filled with the shader of the brush. The
-        // shader repeats the bitmap of the tile and turns it by the angle of the tile, so the tile lies where M of the
-        // palette color coverage places the coverage prototype. The old drawing filled the area of an area symbol whose
-        // angle is 0 without the placement, and so without its rotation center.
+        // Write a pattern brush of a pattern tile cut by an area, as the old drawing writes the brush
+        // (AreaSymDef.DrawPatternWithTexBrush). The shader of the brush repeats the bitmap of the tile and turns it by the
+        // angle of the tile, within the placement of the brush for the area symbol, so the tile lies where M of the palette
+        // color coverage places the coverage prototype. A placement that does not turn the brush, of an area symbol whose
+        // angle is 0, is a step of the matrix of the shader, and the area is filled with the brush, as the old drawing fills
+        // such an area. A placement that turns the brush is a step of the canvas, within the clip of the area, and the
+        // rectangle that bounds the area in the coordinates of the placement is filled with the brush, as the old drawing
+        // fills a turned area. So the pixels of the brush stay where the old brush was placed as M places it. The old brush
+        // left out the rotation center of an area symbol whose angle is 0.
         // writer: the writer of the content of the group, whose paint the brush takes.
         // tile: the pattern tile.
         // coverage: the palette color coverage.
         // area: the clipping object of the coverage, the area.
+        // areaPath: the path of the area.
         // resolution: the resolution of the drawing.
-        // brushPaints: the paints of the pattern brushes of the group, by tile and size of bitmap.
+        // brushPaints: the pattern brushes of the group, by tile and size of bitmap.
         // brushes: the objects of the pattern brushes, which are disposed after the group.
-        private void WritePatternBrush(ShapeWriter writer, PatternTile tile, SymbolCoverage coverage, FilledShape area, float resolution,
-                                       Dictionary<(PatternTile, int, int), SKPaint> brushPaints, List<IDisposable> brushes)
+        private void WritePatternBrush(ShapeWriter writer, PatternTile tile, SymbolCoverage coverage, FilledShape area, PathShape areaPath, float resolution,
+                                       Dictionary<(PatternTile, int, int), PatternBrush> brushPaints, List<IDisposable> brushes)
         {
             Size bitmapSize = tile.GetBitmapSize(resolution);
-            SKPaint brushPaint;
-            if (!brushPaints.TryGetValue((tile, bitmapSize.Width, bitmapSize.Height), out brushPaint)) {
-                brushPaint = MakePatternBrush(tile, bitmapSize, brushes);
-                brushPaints.Add((tile, bitmapSize.Width, bitmapSize.Height), brushPaint);
-            }
-            brushPaint.IsAntialias = writer.AntiAlias;
-            brushPaint.BlendMode = writer.BlendMode;
-
             SKCanvas canvas = target.Canvas;
             Matrix placement = tile.GetBrushPlacement(coverage.Symbol);
-            canvas.Save();
-            canvas.Concat(Skia_GraphicsTarget.GetSkMatrix(placement));
-            placement.Invert();
-            RectangleF bounding = Geometry.BoundsOfTransformedRectangle(area.Shape.Bounds, placement);
-            canvas.DrawRect(Skia_GraphicsTarget.GetSKRect(bounding), brushPaint);
-            canvas.Restore();
+            float[] elements = placement.Elements;
+            bool turns = !(elements[0] == 1 && elements[1] == 0 && elements[2] == 0 && elements[3] == 1);
+
+            if (!turns) {
+                // The placement is a step of the matrix of the shader, and the area is filled with the brush.
+                using (SKPaint brushPaint = new SKPaint()) {
+                    brushPaint.Shader = MakePatternShader(tile, bitmapSize, placement, brushPaints, brushes);
+                    brushPaint.IsAntialias = writer.AntiAlias;
+                    brushPaint.BlendMode = writer.BlendMode;
+                    using (SKPath path = Skia_GraphicsTarget.GetPath(new List<GraphicsPathPart>(areaPath.Parts), area.FillRule))
+                        canvas.DrawPath(path, brushPaint);
+                }
+                return;
+            }
+
+            // The placement is a step of the canvas, within the clip of the area.
+            using (SKPaint brushPaint = new SKPaint()) {
+                brushPaint.Shader = MakePatternShader(tile, bitmapSize, null, brushPaints, brushes);
+                brushPaint.IsAntialias = writer.AntiAlias;
+                brushPaint.BlendMode = writer.BlendMode;
+
+                canvas.Save();
+                using (SKPath clip = Skia_GraphicsTarget.GetPath(new List<GraphicsPathPart>(areaPath.Parts), area.FillRule))
+                    canvas.ClipPath(clip);
+                canvas.Concat(Skia_GraphicsTarget.GetSkMatrix(placement));
+                placement.Invert();
+                RectangleF bounding = Geometry.BoundsOfTransformedRectangle(area.Shape.Bounds, placement);
+                canvas.DrawRect(Skia_GraphicsTarget.GetSKRect(bounding), brushPaint);
+                canvas.Restore();
+            }
         }
 
-        // Make the paint of a pattern brush of a pattern tile, as the graphics target makes a pattern brush
+        // The shader of a pattern brush of a pattern tile, as the graphics target makes it (FinishBrush): it repeats the
+        // bitmap of the tile with cubic sampling and turns it by the angle of the tile, within an outer step. The bitmap is
+        // made once for each tile and size in a group (MakePatternBrush), and the shaders within no outer step are kept
+        // with it.
+        // tile: the pattern tile.
+        // bitmapSize: the size of the bitmap.
+        // outer: the outer step of the matrix of the shader, or null for none.
+        // brushPaints: the pattern brushes of the group, by tile and size of bitmap.
+        // brushes: the objects of the pattern brushes, which are disposed after the group.
+        private SKShader MakePatternShader(PatternTile tile, Size bitmapSize, Matrix outer, Dictionary<(PatternTile, int, int), PatternBrush> brushPaints, List<IDisposable> brushes)
+        {
+            PatternBrush brush;
+            if (!brushPaints.TryGetValue((tile, bitmapSize.Width, bitmapSize.Height), out brush)) {
+                brush = MakePatternBrush(tile, bitmapSize, brushes);
+                brushPaints.Add((tile, bitmapSize.Width, bitmapSize.Height), brush);
+            }
+            if (outer == null)
+                return brush.Shader;
+
+            SKShader shader = SKShader.CreateImage(brush.Image, SKShaderTileMode.Repeat, SKShaderTileMode.Repeat, new SKSamplingOptions(new SKCubicResampler(1 / 3.0f, 1 / 3.0f)),
+                                                   Skia_GraphicsTarget.GetSkMatrix(MakeShaderMatrix(tile, bitmapSize, outer)));
+            brushes.Add(shader);
+            return shader;
+        }
+
+        // The matrix of the shader of a pattern brush, as the graphics target makes it (FinishBrush): the bitmap moved so
+        // that its center is the origin of the tile, scaled to the size of the tile and turned by the angle of the tile,
+        // within an outer step.
+        // tile: the pattern tile.
+        // bitmapSize: the size of the bitmap.
+        // outer: the outer step, or null for none.
+        private static Matrix MakeShaderMatrix(PatternTile tile, Size bitmapSize, Matrix outer)
+        {
+            SizeF size = tile.Size;
+            Matrix transform = (outer == null) ? new Matrix() : outer.Clone();
+            transform.Rotate(tile.Angle);
+            transform.Scale(size.Width / (float)bitmapSize.Width, size.Height / (float)bitmapSize.Height);
+            transform.Translate(-bitmapSize.Width / 2F, -bitmapSize.Height / 2F);
+            return transform;
+        }
+
+        // Make a pattern brush of a pattern tile, as the graphics target makes a pattern brush
         // (Skia_GraphicsTarget.CreatePatternBrush and FinishBrush): the tile rasterized into a bitmap of the size of the
         // brush, with antialiasing, the origin of the tile at the center of the bitmap, and an image shader that repeats
         // the bitmap with cubic sampling and turns it by the angle of the tile.
         // tile: the pattern tile.
         // bitmapSize: the size of the bitmap.
         // brushes: the list that gets the objects of the brush, which are disposed after the group.
-        private SKPaint MakePatternBrush(PatternTile tile, Size bitmapSize, List<IDisposable> brushes)
+        private PatternBrush MakePatternBrush(PatternTile tile, Size bitmapSize, List<IDisposable> brushes)
         {
             int bitmapWidth = bitmapSize.Width, bitmapHeight = bitmapSize.Height;
             SizeF size = tile.Size;
@@ -176,10 +238,7 @@ namespace PurplePen.MapModel
             }
 
             // Scale and rotate.
-            Matrix transform = new Matrix();
-            transform.Rotate(tile.Angle);
-            transform.Scale(size.Width / (float)bitmap.Width, size.Height / (float)bitmap.Height);
-            transform.Translate(-bitmap.Width / 2F, -bitmap.Height / 2F);
+            Matrix transform = MakeShaderMatrix(tile, bitmapSize, null);
 
             // Create an SKShader around this texture, using high quality sampling.
             SKImage image = SKImage.FromBitmap(bitmap);
@@ -188,11 +247,23 @@ namespace PurplePen.MapModel
                                                    Skia_GraphicsTarget.GetSkMatrix(transform));
             brushes.Add(shader);
 
-            SKPaint paint = new SKPaint();
-            brushes.Add(paint);
-            paint.Shader = shader;
-            paint.IsAntialias = true;
-            return paint;
+            return new PatternBrush(image, shader);
+        }
+
+        // A pattern brush of a group: the image of the bitmap of a pattern tile, and its shader within no outer step.
+        private sealed class PatternBrush
+        {
+            public readonly SKImage Image;
+            public readonly SKShader Shader;
+
+            // Make a pattern brush.
+            // image: the image of the bitmap.
+            // shader: the shader.
+            public PatternBrush(SKImage image, SKShader shader)
+            {
+                Image = image;
+                Shader = shader;
+            }
         }
 
         // The color of the glyph parts of a pattern tile: the color C of the palette color of its area pattern.
@@ -368,13 +439,17 @@ namespace PurplePen.MapModel
                 canvas.RestoreToCount(saveCount);
             }
 
-            // Fill a shape, as the graphics target fills a path (FillPath and FillPolygon), an ellipse (FillEllipse) and a
-            // text (DrawText).
+            // Fill a shape, as the graphics target fills a path (FillPath and FillPolygon), a rectangle (FillRectangle), an
+            // ellipse (FillEllipse) and a text (DrawText).
             // shape: the shape.
             // fillRule: the fill rule of a path.
             private void Fill(Shape shape, AreaFillMode fillRule)
             {
                 PathShape path = shape as PathShape;
+                if (path != null && path.Rectangle.HasValue) {
+                    canvas.DrawRect(Skia_GraphicsTarget.GetSKRect(path.Rectangle.Value), fillPaint);
+                    return;
+                }
                 if (path != null) {
                     using (SKPath skPath = Skia_GraphicsTarget.GetPath(new List<GraphicsPathPart>(path.Parts), fillRule))
                         canvas.DrawPath(skPath, fillPaint);
