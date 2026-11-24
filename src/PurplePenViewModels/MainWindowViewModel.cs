@@ -355,8 +355,8 @@ namespace PurplePen.ViewModels
 
 #if PORTING
             // Why is this logic in MainFrame/MainWindow instead of in the Controller?
-            if (controller.MapDisplay.OcadOverprintEffect != controller.OcadOverprintEffect) {
-                controller.MapDisplay.OcadOverprintEffect = controller.OcadOverprintEffect;
+            if (controller.MapDisplay.OverprintMode != controller.OverprintMode) {
+                controller.MapDisplay.OverprintMode = controller.OverprintMode;
             }
 
             if (controller.MapDisplay.LowerPurpleMapLayer != controller.LowerPurpleMapLayer) {

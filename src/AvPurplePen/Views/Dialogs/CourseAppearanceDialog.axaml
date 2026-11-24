@@ -339,15 +339,26 @@
                     </Grid>
                 </HeaderedContentControl>
 
-                <!-- Advanced (overprint), enabled only for OCAD maps -->
+                <!-- Advanced (overprint mode), enabled only for OCAD maps -->
                 <HeaderedContentControl DockPanel.Dock="Top"
                                         Header="{resx:Localize CourseAppearanceDialog_groupBoxOcadMap_Text}"
                                         Padding="10,12,10,8"
                                         IsEnabled="{Binding AdvancedEnabled}"
                                         VerticalAlignment="Top">
-                    <CheckBox x:Name="checkBoxOverprint"
-                              Content="{resx:Localize CourseAppearanceDialog_checkBoxOverprint_Text}"
-                              IsChecked="{Binding UseOverprint, Mode=TwoWay}"/>
+                    <Grid ColumnDefinitions="Auto,8,*">
+                        <TextBlock Grid.Column="0"
+                                   Text="{resx:Localize CourseAppearanceDialog_labelOverprintMode_Text}"
+                                   VerticalAlignment="Center"/>
+                        <ComboBox x:Name="comboBoxOverprintMode"
+                                  Grid.Column="2"
+                                  HorizontalAlignment="Stretch"
+                                  SelectedIndex="{Binding OverprintModeIndex, Mode=TwoWay}">
+                            <ComboBoxItem Content="{resx:Localize CourseAppearanceDialog_comboBoxOverprintMode_Items}"/>
+                            <ComboBoxItem Content="{resx:Localize CourseAppearanceDialog_comboBoxOverprintMode_Items1}"/>
+                            <ComboBoxItem Content="{resx:Localize CourseAppearanceDialog_comboBoxOverprintMode_Items2}"/>
+                            <ComboBoxItem Content="{resx:Localize CourseAppearanceDialog_comboBoxOverprintMode_Items3}"/>
+                        </ComboBox>
+                    </Grid>
                 </HeaderedContentControl>
             </DockPanel>
         </Grid>

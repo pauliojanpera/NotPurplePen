@@ -147,7 +147,7 @@ namespace PurplePen.Tests
             mapDisplay.SetMapFile(controller.MapType, controller.MapFileName);
             if (controller.MapType == MapType.Bitmap)
                 mapDisplay.Dpi = controller.MapDpi;
-            mapDisplay.OcadOverprintEffect = appearance.useOcadOverprint;
+            mapDisplay.OverprintMode = appearance.overprintMode;
             if (appearance.purpleColorBlend == PurpleColorBlend.UpperLowerPurple) {
                 mapDisplay.LowerPurpleMapLayer = appearance.mapLayerForLowerPurple;
             }
@@ -390,7 +390,7 @@ namespace PurplePen.Tests
 
             CourseAppearance appearance = new CourseAppearance();
             appearance.purpleColorBlend = PurpleColorBlend.Blend;
-            appearance.useOcadOverprint = true;
+            appearance.overprintMode = PurplePen.MapModel.OverprintMode.Darken;
 
             CoursePrintingTest("courseprinting\\overprint", coursePrintSettings, appearance, 200);
         }
