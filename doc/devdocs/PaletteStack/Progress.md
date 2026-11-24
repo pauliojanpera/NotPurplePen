@@ -174,10 +174,10 @@ base. No branch is offered upstream yet.
   recommendation. It gives options only where the choice is real: the session does not add options only to involve
   @Pauli (Nov 23). When it prepares a ticket, the session asks its questions early, well structured, and does not
   first test and investigate all of the ticket, which in practice implements it before the decisions. After an
-  answer, it can go back to the planning and ask again (Nov 23 and 24, "Questions early"). It does not investigate `dev` when nobody gave it the task
-  (Nov 23, "The tasks of a session"). Otherwise the session goes on. No push
-  goes to `base`, `basewithfixes`, `dev` or `master`; a merge into them needs @Pauli's word. A session does not wait
-  for a run whose result no next step needs.
+  answer, it can go back to the planning and ask again (Nov 23 and 24, "Questions early"). It does not investigate
+  `dev` when nobody gave it the task (Nov 23, "The tasks of a session"). Otherwise the session goes on. No push goes to
+  `base`, `basewithfixes`, `dev` or `master`; a merge into them needs @Pauli's word. A session does not wait for a run
+  whose result no next step needs.
 - **The architecture comes first.** feature/multiply-blending is an oracle of the appearance only. The work does not
   read its code, and does not take its way, a layer around the drawing of the symbols, as the model of pass 2. The
   union of a palette entry can stay implicit in the rendering, but its instances cannot be left out (preface and
