@@ -1003,6 +1003,14 @@ the rendering.
   [Specification.md](Specification.md) and the entry *tekstijuoste* of [Glossary.md](Glossary.md) say so. The branch
   is `feature/text-symbol-geometry`, rooted at `feature/palette-stack` after ticket 012 (903e6bde). The old branch
   `feature/text-geometry` stays as it is.
+- **The baselines of Course 5 in base** (Nov 24). The baselines `layer`, `layersprint` and `none` of `Course 5` in
+  `src/TestFiles/bitmapcreate/blend` stay upstream's in `base`, although the renderings of `base` differ from them by
+  up to 13 levels, below the threshold of the comparison (collecting run 45411669313). `basewithfixes`, `dev`,
+  `feature/svg-target` and `feature/palette-stack` have versions of their own, which differ from those renderings, so
+  a change of the baselines in `base` would make each merge of `base` into them conflict, the merges of
+  `tools/push-wip.sh` and of `tools/int-worktree.sh` too. The renderings of `feature/palette-stack` at 0d2148b3 are the
+  same bytes as its own baselines (collecting run 45414396370, `experiment/collect-palette-stack-course5`), so the
+  epic has nothing to update (@Pauli, Nov 24).
 - **The local run of the Skia tests** (Nov 23). @Pauli: the instructions do not tell a session to run tests that are
   known to fail. The local run of `Map_Skia.Tests` is `tools/linux-renderings.sh`: it does not judge an image
   comparison by its baseline, it leaves out the cases of `FallbackFindsAFontFor`, and each of its tests passes ("Local
