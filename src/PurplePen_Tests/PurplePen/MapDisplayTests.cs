@@ -298,7 +298,7 @@ namespace PurplePen.Tests
             mapDisplay.SetMapFile(MapType.OCAD, TestUtil.GetTestFile(@"mapdisplay\overprint.ocd"));
             mapDisplay.AntiAlias = false;
             mapDisplay.MapIntensity = 1F;
-            mapDisplay.OcadOverprintEffect = true;
+            mapDisplay.OverprintMode = OverprintMode.Darken;
 
             RectangleF drawRect = RectangleF.FromLTRB(50F, 170F, 100F, 220F);
             DrawToBitmap(mapDisplay, drawRect);
@@ -319,7 +319,7 @@ namespace PurplePen.Tests
             mapDisplay.SetMapFile(MapType.OCAD, TestUtil.GetTestFile(@"mapdisplay\overprint.ocd"));
             mapDisplay.AntiAlias = false;
             mapDisplay.MapIntensity = 1F;
-            mapDisplay.OcadOverprintEffect = false;
+            mapDisplay.OverprintMode = OverprintMode.None;
 
             RectangleF drawRect = RectangleF.FromLTRB(50F, 170F, 100F, 220F);
             DrawToBitmap(mapDisplay, drawRect);

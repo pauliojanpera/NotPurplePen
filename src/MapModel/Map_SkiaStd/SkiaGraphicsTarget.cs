@@ -51,10 +51,12 @@ namespace PurplePen.MapModel
     using System.Drawing;
     using System.Drawing.Imaging;
 
-    // A GraphicsTarget encapsulates an SKCanvas
-    public class Skia_GraphicsTarget: IGraphicsTarget
+    // A GraphicsTarget encapsulates an SKCanvas. It gives the Skia encoding (SkiaEncoding), which writes the palette colors
+    // of a map on the same canvas (Map.Draw).
+    public class Skia_GraphicsTarget: IGraphicsTarget, IPaletteStackEncodingProvider
     {
         protected SKCanvas canvas;
+        private SkiaEncoding encoding;  // The encoding that writes on the canvas, after the first read made it.
         private bool ownCanvas;     // If true, the canvas is disposed when this target is disposed.
         private IColorConverter colorConverter;
         private float intensity;    // color intensity level, 1.0F is full intensity (no lightening)
@@ -115,8 +117,35 @@ namespace PurplePen.MapModel
             get { return canvas; }
         }
 
+        // The Skia encoding, which writes the transparency groups of the palette colors on the canvas of this target. It
+        // shares the transformations and the clips of the canvas, and the conversion of the colors, the intensity and the
+        // antialiasing of this target.
+        public IPaletteStackEncoding PaletteStackEncoding
+        {
+            get
+            {
+                if (encoding == null)
+                    encoding = new SkiaEncoding(this);
+                return encoding;
+            }
+        }
 
-        private SKColor ConvertColor(CmykColor cmykColor)
+        // Whether the target antialiases what it draws now (PushAntiAliasing).
+        internal bool AntiAlias
+        {
+            get { return antiAlias; }
+        }
+
+        // The blend mode with which the target draws now (PushBlending).
+        internal SKBlendMode CurrentBlendMode
+        {
+            get { return blendMode; }
+        }
+
+        // Convert a color as the target converts the colors of its brushes and pens: with the intensity and the color
+        // converter of the target.
+        // cmykColor: the color.
+        internal SKColor ConvertColor(CmykColor cmykColor)
         {
             if (intensity < 1.0F) {
                 cmykColor = CmykColor.FromCmyka(cmykColor.Cyan * intensity, cmykColor.Magenta * intensity, cmykColor.Yellow * intensity, cmykColor.Black * intensity, cmykColor.Alpha);
@@ -145,6 +174,26 @@ namespace PurplePen.MapModel
                 throw new InvalidOperationException("Key already has a pen created for it");
 
             SKPaint paint = basePaint.Clone();
+            SetPen(paint, width, caps, join, miterLimit);
+            penMap.Add(penKey, paint);
+        }
+
+        // The paint of a pen in a color, as CreatePen makes it.
+        // color: the color.
+        // width, caps, join, miterLimit: the pen.
+        internal static SKPaint MakePenPaint(SKColor color, float width, LineCapMode caps, LineJoinMode join, float miterLimit)
+        {
+            SKPaint paint = new SKPaint();
+            paint.Color = color;
+            SetPen(paint, width, caps, join, miterLimit);
+            return paint;
+        }
+
+        // Make a paint a pen: a stroke of a width, caps and a join, with the miter limit for a miter join.
+        // paint: the paint.
+        // width, caps, join, miterLimit: the pen.
+        private static void SetPen(SKPaint paint, float width, LineCapMode caps, LineJoinMode join, float miterLimit)
+        {
             paint.IsStroke = true;
             paint.StrokeWidth = width;
 
@@ -176,8 +225,6 @@ namespace PurplePen.MapModel
                 default:
                     throw new ArgumentException("bad line join", "join");
             }
-
-            penMap.Add(penKey, paint);
         }
 
         public void CreatePen(object penKey, CmykColor color, float width, LineCapMode caps, LineJoinMode join, float miterLimit)
@@ -232,7 +279,10 @@ namespace PurplePen.MapModel
             pathMap.Add(pathKey, path);
         }
 
-        private SKPath GetPath(List<GraphicsPathPart> parts, AreaFillMode windingMode)
+        // The Skia path of the parts of a path, with a fill rule.
+        // parts: the parts.
+        // windingMode: the fill rule.
+        internal static SKPath GetPath(List<GraphicsPathPart> parts, AreaFillMode windingMode)
         {
             SKPath path = new SKPath();
             
@@ -652,6 +702,11 @@ namespace PurplePen.MapModel
                 canvas = null;
             }
 
+            if (encoding != null) {
+                encoding.Dispose();
+                encoding = null;
+            }
+
             foreach (SKPaint paint in penMap.Values)
                 paint.Dispose();
             penMap.Clear();
@@ -685,7 +740,7 @@ namespace PurplePen.MapModel
             return mat;
         }
 
-        private static SKRect GetSKRect(RectangleF rect)
+        internal static SKRect GetSKRect(RectangleF rect)
         {
             return new SKRect(rect.Left, rect.Top, rect.Right, rect.Bottom);
         }

@@ -54,7 +54,11 @@ namespace PurplePen.Graphics2D
     // objects created by the recorder are used as keys on the playback target. Bitmaps are stored
     // as PNG data, and decoded on playback by the IGraphicsBitmapLoader passed to the constructor, which
     // must create bitmaps that the playback target can draw.
-    public class RecordingGraphicsTarget : IGraphicsTarget
+    //
+    // A drawing that is deferred (DrawDeferred) is not recorded as calls: the playback makes it on the playback target,
+    // at its place among the recorded calls. So the palette colors of a map, which pass 2 writes with the encoding of
+    // the target (Map.Draw), are drawn at the playback with the encoding of the target that plays the recording back.
+    public class RecordingGraphicsTarget : IGraphicsTarget, IDeferredDrawingTarget
     {
         // Loads recorded bitmaps for playback. Not owned by this object.
         private readonly IGraphicsBitmapLoader bitmapLoader;
@@ -277,6 +281,18 @@ namespace PurplePen.Graphics2D
                 if (pushed)
                     s.Target.PopBlending();
             });
+        }
+
+        // Record a deferred drawing: the playback calls it with the playback target, at its place among the recorded
+        // calls. The drawing reads its source at the playback, and not now.
+        // draw: the drawing, which gets the target on which it draws.
+        public void DrawDeferred(Action<IGraphicsTarget> draw)
+        {
+            CheckRecording();
+            if (draw == null)
+                throw new ArgumentNullException(nameof(draw));
+            Action<IGraphicsTarget> deferred = draw;
+            Record(s => deferred(s.Target));
         }
 
         // Record creating a path.
