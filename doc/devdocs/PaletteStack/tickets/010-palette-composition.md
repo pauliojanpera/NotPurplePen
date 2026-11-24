@@ -99,8 +99,8 @@ kehysviivoissa, joihin yksi viiva jättää aukot, jotka vanhan piirron kapeamma
   - Ratatiedosto kirjoittaa ja lukee päällepainatustilat, ja vanha tiedosto luetaan.
 
   Testit rakentavat kartan tapauksille, joita vertailun kartoissa ei ole (ks. "Testit").
-- [ ] Kuvat: keräävä ajo antaa kuvat, jotka siirtyvät. Jokainen siirtynyt kuva selittyy yhdellä näistä syistä, ja
-  tiketti kertoo niiden määrät:
+- [ ] Kuvat: keräävä ajo antaa kuvat, jotka siirtyvät. Jokainen siirtynyt pikseli selittyy jollakin näistä syistä,
+  ja tiketti kertoo kuvat ja niiden pikselien määrät syittäin (päätös 24.11.):
   1. palettivärin α on alle 1
   2. vanha kuviosivellin sijoitti aluekuvion toisin kuin M
   3. leikkausobjektit eroavat vanhasta piirrosta tikettien 011–013 sallituissa eroissa, eli katkojuosteiden,
@@ -141,6 +141,8 @@ kehysviivoissa, joihin yksi viiva jättää aukot, jotka vanhan piirron kapeamma
   - Vanhan piirron selvää virhettä ei tarvitse toistaa (@Pauli, 24.11., "A clear fault of the old drawing").
   - Kehysviiva on piirrossakin yksi viiva, ja siihen tulevat samat aukot kuin OCADin omaan piirrokseen. Kriteerin
     "Kuvat" syy 3 ja tiketin kuvaus kattavat sen (@Pauli, 24.11., "The framing line in the images of ticket 010").
+  - Kriteerin "Kuvat" syyt selittävät siirtyneet pikselit, joten kuvassa voi olla useita syitä (@Pauli, 24.11., "The
+    causes of the moved pixels of ticket 010").
 - **Toteutus** (haara `feature/palette-composition`, fa83bbc9, kesken):
   - cf5995f5 tekee vaiheen 2 ja Skian koodauksen. `PaletteStack.cs` antaa päällepainatustilan (`OverprintMode`),
     koodauksen rajapinnat (`IPaletteStackEncoding`, `IPaletteStackEncodingProvider`) ja palettivärin läpinäkyvyysryhmän
