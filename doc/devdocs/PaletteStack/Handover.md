@@ -60,10 +60,8 @@ A draft is implemented only after @Pauli approves it as a ticket.
 - **The scope of the epic.** [Ticket 000](tickets/000-palette-stack.md) is a draft. The transparency flattening is
   outside it.
 - **Offering upstream.** No branch is offered upstream yet.
-- **The form of the vector exports.** @Pauli asked on Nov 24 whether the PDF export and the SVG export should have
-  the same form, as the SVG of `feature/svg-target` holds several courses and later several maps. The session
-  answered that the model of the file can be the same, in the vocabulary of each channel. It touches the place of
-  the SVG encoding, and it bounds the ticket of the PDF encoding.
+- **The order of the SVG and the PDF.** @Pauli asked on Nov 25 whether the SVG export is made first, in a ticket of
+  its own, before the PDF. The next step 1 waits for this.
 
 ## The decisions that bind the next steps
 
@@ -88,6 +86,8 @@ decisions of the process are in force. [Record.md](Record.md), "Decisions", give
   encoding, which writes the transparency groups of pass 2 into its `SvgDocument`, and the structures of `Map_Svg`
   that come before the palette stack give way to those of the palette stack (@Pauli, Nov 24; [Record.md](Record.md),
   "The place of the SVG encoding"). The work uses the code of `Map_Svg` and the findings of `../SvgExportDesign.md`.
+- **The vector files.** The PDF export and the SVG export have the same form, and both carry the content of `Map`. If
+  it is needed, a flag leaves the content of `Map` out (@Pauli, Nov 25).
 - **The baselines of Course 5 in base** stay upstream's. The epic has its own, and they are up to date.
 - **The archiving of a cloud session** runs when @Pauli lets it, as "A cloud session" below tells.
 
