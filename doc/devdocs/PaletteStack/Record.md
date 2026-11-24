@@ -764,6 +764,11 @@ one, and the later one says so. [Handover.md](Handover.md) gives the decisions t
   OCAD's blend modes and opacity ("More tests of OCAD's blend modes"). Purple Pen writes the samples, @Pauli gives their
   views in OCAD and their PDF exports, and the session measures the structure of each PDF and writes the oracle
   `oracles/ocad-blend-modes.md`. The ticket changes no code, and it comes before the ticket of the PDF encoding.
+- **The SVG before the PDF** (Nov 25, the question of the session). @Pauli: the SVG export comes first, in a ticket
+  of its own, before the PDF. The order is: the new dev on the palette stack, with `Map_Svg`; then the SVG ticket,
+  with the encoding and the common structure of the vector files with the content of `Map`; then the PDF ticket,
+  with the same structure. Until then, the PDF export draws as now. This replaces the order of the next steps, in
+  which the ticket of the PDF encoding came next.
 - **The form of the vector files** (Nov 25, the question of the session). @Pauli: the PDF export and the SVG export
   have the same form, and both carry the content of `Map`, as the self-supporting vector file of section 04 does. If
   it is needed, a flag leaves the content of `Map` out. He asked in turn whether the SVG export is made first, in a

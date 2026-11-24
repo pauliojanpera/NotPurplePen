@@ -45,12 +45,16 @@ by 023 to 026, and the old branch of the epic, `feature/palette-layers`, keeps t
 
 ## Next steps
 
-1. The ticket of the PDF encoding, which ticket 010 separated, is not written. Write it in the form of tickets 012
-   and 010, ask its questions early, and give it to @Pauli for approval. The oracle of ticket 027 gives OCAD's
-   appearance of B and α in PDF.
-2. The tickets of the Skia abstractions for the runs of dashes and the repeated placements, and of the anti-aliasing
+1. The new dev, built strongly on the palette stack, with `Map_Svg` of NotPurplePen. How it is built is a question
+   for @Pauli.
+2. The ticket of the SVG export: the SVG encoding in `Map_Svg`, and the common structure of the vector files with the
+   content of `Map`. Write it in the form of tickets 012 and 010, ask its questions early, and give it to @Pauli for
+   approval.
+3. The ticket of the PDF encoding, which ticket 010 separated: the same structure of the vector files. The oracle of
+   ticket 027 gives OCAD's appearance of B and α in PDF.
+4. The tickets of the Skia abstractions for the runs of dashes and the repeated placements, and of the anti-aliasing
    of the pattern fills in the Skia encoding, which ticket 010 separated, are not written.
-3. The tickets of the rendering modes (the overprinting that the inks simulate, the ink separations and the blend mode
+5. The tickets of the rendering modes (the overprinting that the inks simulate, the ink separations and the blend mode
    by ink) and of one palette stack for all the maps are not written (ticket 010, "Rajaus").
 
 A draft is implemented only after @Pauli approves it as a ticket.
@@ -60,8 +64,7 @@ A draft is implemented only after @Pauli approves it as a ticket.
 - **The scope of the epic.** [Ticket 000](tickets/000-palette-stack.md) is a draft. The transparency flattening is
   outside it.
 - **Offering upstream.** No branch is offered upstream yet.
-- **The order of the SVG and the PDF.** @Pauli asked on Nov 25 whether the SVG export is made first, in a ticket of
-  its own, before the PDF. The next step 1 waits for this.
+- **How the new dev is built** (the next step 1).
 
 ## The decisions that bind the next steps
 
@@ -88,6 +91,7 @@ decisions of the process are in force. [Record.md](Record.md), "Decisions", give
   "The place of the SVG encoding"). The work uses the code of `Map_Svg` and the findings of `../SvgExportDesign.md`.
 - **The vector files.** The PDF export and the SVG export have the same form, and both carry the content of `Map`. If
   it is needed, a flag leaves the content of `Map` out (@Pauli, Nov 25).
+- **The SVG before the PDF.** The SVG ticket comes before the PDF ticket (@Pauli, Nov 25).
 - **The baselines of Course 5 in base** stay upstream's. The epic has its own, and they are up to date.
 - **The archiving of a cloud session** runs when @Pauli lets it, as "A cloud session" below tells.
 
