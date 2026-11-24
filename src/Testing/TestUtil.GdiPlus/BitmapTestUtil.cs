@@ -122,48 +122,46 @@ namespace TestingUtils
 
             Bitmap difference = null;
 
-            if (!File.Exists(baselineFile))
-                different = true;
-            else {
-                using (Bitmap bmBaseline = (Bitmap)Image.FromFile(baselineFile)) {
-                    difference = CompareBitmaps(bmNew, bmBaseline, Color.LightPink, Color.Transparent, maxPixelDifference);
-                    different = (difference != null);
+            try {
+                if (!File.Exists(baselineFile))
+                    different = true;
+                else {
+                    using (Bitmap bmBaseline = (Bitmap)Image.FromFile(baselineFile)) {
+                        difference = CompareBitmaps(bmNew, bmBaseline, Color.LightPink, Color.Transparent, maxPixelDifference);
+                        different = (difference != null);
+                    }
                 }
-            }
 
-            // Show the dialog.
-            if (different) {
-                if (TestUtil.SilentRun) {
-                    if (MatchesAlternateBaseline(bmNew, baselineFile, maxPixelDifference)) {
-                        different = false;
-                        bmNew.Dispose();
+                // Show the dialog.
+                if (different) {
+                    if (TestUtil.SilentRun) {
+                        if (!MatchesAlternateBaseline(bmNew, baselineFile, maxPixelDifference)) {
+                            // Nobody is watching, so leave the evidence on disk instead:
+                            // what was rendered, and where it differs from the baseline.
+                            SaveComparison(bmNew, difference, baselineFile);
+                            fail = true;
+                        }
                     }
                     else {
-                        // Nobody is watching, so leave the evidence on disk instead:
-                        // what was rendered, and where it differs from the baseline.
-                        SaveComparison(bmNew, difference, baselineFile);
-                        fail = true;
+                        string tempNewFile = Path.Combine(Path.GetDirectoryName(baselineFile), Path.GetFileNameWithoutExtension(baselineFile) + "_tempnew.png");
+                        bmNew.Save(tempNewFile, ImageFormat.Png);
+
+                        BitmapCompareDialog2 dialog = new BitmapCompareDialog2();
+                        dialog.MaxPixelDifference = maxPixelDifference;
+                        dialog.BaselineFilename = baselineFile;
+                        dialog.NewFilename = tempNewFile;
+                        if (dialog.ShowDialog() == DialogResult.Cancel)
+                            fail = true;        // Should fail the test.
+
+                        File.Delete(tempNewFile);
                     }
                 }
-                else {
-                    string tempNewFile = Path.Combine(Path.GetDirectoryName(baselineFile), Path.GetFileNameWithoutExtension(baselineFile) + "_tempnew.png");
-                    bmNew.Save(tempNewFile, ImageFormat.Png);
-
-                    BitmapCompareDialog2 dialog = new BitmapCompareDialog2();
-                    dialog.MaxPixelDifference = maxPixelDifference;
-                    dialog.BaselineFilename = baselineFile;
-                    dialog.NewFilename = tempNewFile;
-                    if (dialog.ShowDialog() == DialogResult.Cancel)
-                        fail = true;        // Should fail the test.
-
-                    File.Delete(tempNewFile);
-                }
             }
-            else
+            finally {
                 bmNew.Dispose();
-
-            if (difference != null)
-                difference.Dispose();
+                if (difference != null)
+                    difference.Dispose();
+            }
 
             // Clean up and fail the test if desired.
             if (fail && !TestUtil.CollectDifferences)
