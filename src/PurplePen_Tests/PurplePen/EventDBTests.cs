@@ -621,6 +621,105 @@ namespace PurplePen.Tests
             Assert.AreEqual(e, eventDB.GetEvent());
         }
 
+        // The course file keeps the overprint mode of the course appearance in its element ocad. The attribute
+        // overprint-colors is true in the modes that blend the overprint colors, as the overprint effect of earlier
+        // versions was. The attribute overprint-mode is written only in the modes that overprint-colors cannot tell, so
+        // a file in the mode None or Darken has the attributes of an earlier version.
+        [TestMethod]
+        public void CourseFileWritesAndReadsTheOverprintMode()
+        {
+            string fileName = TestUtil.GetTestFile("eventdb\\overprintmode_temp.xml");
+            (OverprintMode, string, string)[] cases = {
+                (OverprintMode.None, "false", null),
+                (OverprintMode.ByPaletteColor, "false", "by-palette-color"),
+                (OverprintMode.Darken, "true", null),
+                (OverprintMode.Multiply, "true", "multiply"),
+            };
+
+            foreach ((OverprintMode mode, string overprintColors, string overprintMode) in cases) {
+                UndoMgr undomgr = new UndoMgr(5);
+                EventDB eventDB = new EventDB(undomgr);
+                Event e = new Event();
+                e.title = "Overprint";
+                e.courseAppearance.overprintMode = mode;
+                undomgr.BeginCommand(198, "change event");
+                eventDB.ChangeEvent(e);
+                undomgr.EndCommand(198);
+                eventDB.Save(fileName);
+
+                XmlElement ocad = ReadOcadElement(fileName);
+                Assert.AreEqual(overprintColors, ocad.GetAttribute("overprint-colors"), $"overprint-colors in the mode {mode}");
+                Assert.AreEqual(overprintMode != null, ocad.HasAttribute("overprint-mode"), $"overprint-mode in the mode {mode}");
+                if (overprintMode != null)
+                    Assert.AreEqual(overprintMode, ocad.GetAttribute("overprint-mode"), $"overprint-mode in the mode {mode}");
+
+                undomgr.Clear();
+                eventDB = new EventDB(undomgr);
+                eventDB.Load(fileName);
+                Assert.AreEqual(mode, eventDB.GetEvent().courseAppearance.overprintMode, $"the mode {mode} read back");
+            }
+        }
+
+        // A course file of an earlier version has only the attribute overprint-colors, which gives Darken or None. A
+        // file whose attribute overprint-mode names no overprint mode is read in the same way.
+        [TestMethod]
+        public void CourseFileWithoutAnOverprintModeIsReadByItsOverprintEffect()
+        {
+            Assert.AreEqual(OverprintMode.Darken, LoadEvent(TestUtil.GetTestFile("courseprinting\\Overprint test.ppen")).courseAppearance.overprintMode,
+                            "a file of an earlier version with overprint-colors=\"true\"");
+            Assert.AreEqual(OverprintMode.None, LoadEvent(TestUtil.GetTestFile("variations.ppen")).courseAppearance.overprintMode,
+                            "a file of an earlier version with overprint-colors=\"false\"");
+
+            string fileName = TestUtil.GetTestFile("eventdb\\overprintmode_temp.xml");
+            (string, string, OverprintMode)[] cases = {
+                ("true", "lighten", OverprintMode.Darken),
+                ("false", "lighten", OverprintMode.None),
+                (null, null, OverprintMode.None),
+            };
+
+            foreach ((string overprintColors, string overprintMode, OverprintMode expected) in cases) {
+                UndoMgr undomgr = new UndoMgr(5);
+                EventDB eventDB = new EventDB(undomgr);
+                Event e = new Event();
+                e.title = "Overprint";
+                undomgr.BeginCommand(198, "change event");
+                eventDB.ChangeEvent(e);
+                undomgr.EndCommand(198);
+                eventDB.Save(fileName);
+
+                XmlDocument document = new XmlDocument();
+                document.Load(fileName);
+                XmlElement ocad = (XmlElement)document.SelectSingleNode("//ocad");
+                ocad.RemoveAttribute("overprint-colors");
+                if (overprintColors != null)
+                    ocad.SetAttribute("overprint-colors", overprintColors);
+                if (overprintMode != null)
+                    ocad.SetAttribute("overprint-mode", overprintMode);
+                document.Save(fileName);
+
+                Assert.AreEqual(expected, LoadEvent(fileName).courseAppearance.overprintMode,
+                                $"overprint-colors {overprintColors ?? "missing"} and overprint-mode {overprintMode ?? "missing"}");
+            }
+        }
+
+        // The element ocad of a course file, which keeps the attributes of the overprint mode.
+        // fileName: the course file.
+        static XmlElement ReadOcadElement(string fileName)
+        {
+            XmlDocument document = new XmlDocument();
+            document.Load(fileName);
+            return (XmlElement)document.SelectSingleNode("//ocad");
+        }
+
+        // The event of a course file.
+        // fileName: the course file.
+        static Event LoadEvent(string fileName)
+        {
+            EventDB eventDB = new EventDB(new UndoMgr(5));
+            eventDB.Load(fileName);
+            return eventDB.GetEvent();
+        }
+
         [TestMethod]
         public void RoundTripSpecials()
         {
