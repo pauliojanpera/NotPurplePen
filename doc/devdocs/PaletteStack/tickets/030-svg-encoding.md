@@ -6,8 +6,8 @@ koodauksen (`IPaletteStackEncodingProvider`), joka kirjoittaa vaiheen 2 palettiv
 (`TransparencyGroup`) samaan `SvgDocument`iin. SVG:n rakenne heijastaa `Map`in rakenteita mahdollisimman suoraan.
 `Map_Svg`:n osat, jotka jäävät, tulevat sellaisinaan: dokumentti, fontit, tekstit, kuvat, georeferointi, sivut,
 nykyiset metatiedot, selainten kiertotiet, `CourseSvg`, Avalonian dialogi ja niiden testit. Palettipinoa edeltävät
-rakenteet väistyvät palettipinon käsitteiden tieltä: värin ryhmä (`BeginColorRun`, `data-c`) ja sen ympärille avattu sekoitustilan ryhmä palettivärin läpinäkyvyysryhmän tieltä,
-objektinumerot (`data-o`) symbolin avainten (`Symbol.Key`), päällekkäisten alueiden unioni (`DrawOutline`,
+rakenteet väistyvät palettipinon käsitteiden tieltä: värin ryhmä (`BeginColorRun`, `data-c`) ja sen ympärille avattu
+sekoitustilan ryhmä palettivärin läpinäkyvyysryhmän tieltä, objektinumerot (`data-o`) symbolin avainten (`Symbol.Key`), päällekkäisten alueiden unioni (`DrawOutline`,
 `DescribeUnion`) palettileikkurin alueryppäiden (`AreaCluster`) ja toistuvien katkelmien uudelleenkäyttö (S-5) glyyfin
 jaettujen muotojen tieltä. Vanhaa palettivärien polkua karttakoodissa ei tuoda. Testit tarkistavat SVG:n Chromiumissa
 Skian koodauksen vaiheen 2 piirtoa vastaan. Vektoritiedostojen yhteinen rakenne `Map`in sisältöineen on oma tikettinsä
