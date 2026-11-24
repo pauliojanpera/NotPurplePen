@@ -88,7 +88,7 @@ namespace PurplePen
         float mapIntensity = 1.0F;   // Intensity to display the map at.
         ColorModel colorModel = ColorModel.CMYK; // color model to use (cannot be OCADCompatible)
         bool antialiased = false;        // anti-alias (high quality) the map display?
-        bool ocadOverprintEffect = false; // overprint effect for colors in the OCAD map (not the purple of the course on top).
+        OverprintMode overprintMode = OverprintMode.None; // the blend mode of the colors in the OCAD map (not the purple of the course on top).
         bool showBounds = false;       // show symbols bounds (for testing)
 
         int? lowerPurpleMapLayer;      // If non-null, place the lower purple of the map just above this OCAD ID color.
@@ -420,17 +420,18 @@ namespace PurplePen
             }
         }
 
-        // User Overprint effect for OCAD map
-        public bool OcadOverprintEffect
+        // The overprint mode of the OCAD map: the blend mode that the drawing applies to its palette colors. The course map
+        // blends its overprint colors with Darken in each mode.
+        public OverprintMode OverprintMode
         {
             get
             {
-                return ocadOverprintEffect;
+                return overprintMode;
             }
             set
             {
-                if (ocadOverprintEffect != value) {
-                    ocadOverprintEffect = value;
+                if (overprintMode != value) {
+                    overprintMode = value;
                     RaiseChanged();
                 }
             }
@@ -786,7 +787,7 @@ namespace PurplePen
 
             renderOptions.showSymbolBounds = showBounds;
             renderOptions.renderTemplates = RenderTemplateOption.MapAndTemplates;
-            renderOptions.blendOverprintedColors = ocadOverprintEffect;
+            renderOptions.overprintMode = overprintMode;
 
             // First draw the real map.
             float saveIntensity;
@@ -869,9 +870,9 @@ namespace PurplePen
             else
                 grTargetCourses.PushAntiAliasing(true);   // always anti-alias the course unless printing
 
-            // Always turn blending on.
-            bool saveBlendOverprintedColors = renderOptions.blendOverprintedColors;
-            renderOptions.blendOverprintedColors = true;
+            // Always blend the overprint colors of the courses with Darken.
+            OverprintMode saveOverprintMode = renderOptions.overprintMode;
+            renderOptions.overprintMode = OverprintMode.Darken;
 
             if (courseMap != null) {
                 using (courseMap.Read())
@@ -879,7 +880,7 @@ namespace PurplePen
             }
 
             // Restore old blending setting.
-            renderOptions.blendOverprintedColors = saveBlendOverprintedColors;
+            renderOptions.overprintMode = saveOverprintMode;
 
             grTargetCourses.PopAntiAliasing();
         }

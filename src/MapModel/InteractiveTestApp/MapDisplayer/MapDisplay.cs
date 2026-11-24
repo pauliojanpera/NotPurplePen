@@ -451,7 +451,7 @@ namespace InteractiveTestApp.MapDisplayer
 
             renderOptions.showSymbolBounds = showBounds;
             renderOptions.renderTemplates = showTemplates ? RenderTemplateOption.MapAndTemplates : RenderTemplateOption.MapOnly;
-            renderOptions.blendOverprintedColors = overprinting;
+            renderOptions.overprintMode = overprinting ? OverprintMode.Darken : OverprintMode.None;
 
             if (Printing)
                 grTarget.PushAntiAliasing(false);       // don't anti-alias on printer

@@ -218,6 +218,7 @@ namespace PurplePen
             }
 
             courseObj.layer = layer;
+            courseObj.SetKey(CourseObjRole.TopologyControl, controlId.id, courseControlId.id);
             courseLayout.AddCourseObject(courseObj);
         }
 
@@ -234,6 +235,7 @@ namespace PurplePen
                 layer = courseLayerAllVariationsAndParts;
 
             courseObj.layer = layer;
+            courseObj.SetKey(CourseObjRole.TopologyLeg, controlView1.courseControlIds[splitLegIndex].id, controlView2.courseControlIds[0].id);
             courseLayout.AddCourseObject(courseObj);
 
             // No drop targets between map issue and start.
@@ -250,6 +252,7 @@ namespace PurplePen
                         courseObj.layer = CourseLayer.AllVariations;
                     else
                         courseObj.layer = CourseLayer.InvisibleObjects;
+                    courseObj.SetKey(CourseObjRole.DropTarget, controlView1.courseControlIds[splitLegIndex].id, controlView2.courseControlIds[0].id, (int)dropTarget.insertionLoc);
                     courseLayout.AddCourseObject(courseObj);
                 }
             }
@@ -406,6 +409,7 @@ namespace PurplePen
             string text = "(" + forkStart.variationCode + ")";
             CourseObj courseObj = new VariationCodeCourseObj(controlView1.controlId, controlView1.courseControlIds[splitLegIndex], courseObjRatio, appearance, text, LocationFromAbstractPosition(x, y));
             courseObj.layer = CourseLayer.AllVariations;
+            courseObj.SetKey(CourseObjRole.VariationCode, controlView1.controlId.id, controlView1.courseControlIds[splitLegIndex].id);
             return courseObj;
         }
 

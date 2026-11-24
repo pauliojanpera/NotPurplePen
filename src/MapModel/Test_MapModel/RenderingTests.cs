@@ -364,7 +364,7 @@ namespace PurplePen.MapModel.Tests
             // Draw into a new bitmap.
             RenderOptions renderOpts = new RenderOptions();
             renderOpts.usePatternBitmaps = true;
-            renderOpts.blendOverprintedColors = false;
+            renderOpts.overprintMode = OverprintMode.None;
 
             Bitmap bitmapNew = RenderAntiAliasBitmap(map, size, mapArea, renderOpts, 1.0F);
 
@@ -377,7 +377,7 @@ namespace PurplePen.MapModel.Tests
         {
             RenderOptions renderOpts = new RenderOptions();
             renderOpts.usePatternBitmaps = true;
-            renderOpts.blendOverprintedColors = false;
+            renderOpts.overprintMode = OverprintMode.None;
             string fullname = TestUtil.GetTestFile("rendering\\" + filename);
             bool ok = VerifyTestFile(fullname, renderOpts, testLightenedColor, roundtripToOcad, minOcadVersion, maxOcadVersion);
             Assert.IsTrue(ok, string.Format("Rendering test {0} did not compare correctly.", filename), ok);
@@ -386,7 +386,7 @@ namespace PurplePen.MapModel.Tests
         void CheckTestNoPatternBitmaps(string filename, bool testLightenedColor, bool roundtripToOcad, int minOcadVersion, int maxOcadVersion) {
             RenderOptions renderOpts = new RenderOptions();
             renderOpts.usePatternBitmaps = false;
-            renderOpts.blendOverprintedColors = false;
+            renderOpts.overprintMode = OverprintMode.None;
             string fullname = TestUtil.GetTestFile("rendering\\" + filename);
             bool ok = VerifyTestFile(fullname, renderOpts, testLightenedColor, roundtripToOcad, minOcadVersion, maxOcadVersion);
             Assert.IsTrue(ok, string.Format("Rendering test {0} did not compare correctly.", filename), ok);
@@ -396,7 +396,7 @@ namespace PurplePen.MapModel.Tests
         {
             RenderOptions renderOpts = new RenderOptions();
             renderOpts.usePatternBitmaps = false;
-            renderOpts.blendOverprintedColors = true;
+            renderOpts.overprintMode = OverprintMode.Darken;
             string fullname = TestUtil.GetTestFile("rendering\\" + filename);
             bool ok = VerifyTestFile(fullname, renderOpts, testLightenedColor, roundtripToOcad, minOcadVersion, maxOcadVersion);
             Assert.IsTrue(ok, string.Format("Rendering test {0} did not compare correctly.", filename), ok);
@@ -406,7 +406,7 @@ namespace PurplePen.MapModel.Tests
         {
             RenderOptions renderOpts = new RenderOptions();
             renderOpts.usePatternBitmaps = true;
-            renderOpts.blendOverprintedColors = false;
+            renderOpts.overprintMode = OverprintMode.None;
             renderOpts.colorBeginDrawExclusive = startLayer;
             renderOpts.colorEndDrawInclusive = stopLayer;
 
@@ -589,11 +589,12 @@ namespace PurplePen.MapModel.Tests
         [Test]
         public void LakeSammMap12()
         {
-            CheckTest("lksamm12_1.txt", false, true, 6, 12);
-            CheckTest("lksamm12_1.txt", false, true, 6, 12);
+            // The map has the OCAD metric, which OCAD 6 to 8 files have no view parameters to hold.
+            CheckTest("lksamm12_1.txt", false, true, 9, 12);
+            CheckTest("lksamm12_1.txt", false, true, 9, 12);
             // CheckTest("lksamm11_2.txt", true, false, 6);  // this one has very slight rendering differences each time. odd...
-            CheckTest("lksamm12_3.txt", false, true, 6, 12);
-            CheckTest("lksamm12_4.txt", false, true, 6, 12);
+            CheckTest("lksamm12_3.txt", false, true, 9, 12);
+            CheckTest("lksamm12_4.txt", false, true, 9, 12);
         }
 
         [Test]
