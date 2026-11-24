@@ -393,6 +393,10 @@ the rendering.
 - **The OCAD exports of ticket 027** (Nov 24). @Pauli approved [ticket 027](tickets/027-ocad-blend-mode-tests.md),
   the tests of OCAD's blend modes and opacity. A session makes its samples when it gets the task, and @Pauli gives
   their views in OCAD and their PDF exports when he is at OCAD.
+- **The archiving after the limit of a background command** (Nov 24). "A cloud session" tells the session to start
+  the loop that archives it again when the loop stops at the limit of two hours. Claude Code tells the session not
+  to start again a background command that had the longest limit. @Pauli decides which way a session archives after
+  the limit ("The archiving of a cloud session").
 
 ## Decisions
 
@@ -1100,6 +1104,10 @@ the rendering.
   minute in a background command, from a clone of that branch in `~/session-archive`. The commits of the archive
   carry no co-author line. This changes the rule of Nov 18 that a session of the work does not start the script that
   archives it ([README.md](README.md), "Sessions"), for a session that @Pauli lets archive.
+  On Nov 24, the loop of the session that wrote the tickets 010 and 027 stopped at the limit, and Claude Code told
+  the session: "If it already had the longest `timeout` allowed, do not restart it." So that session did not start
+  the loop again. It archives with `archive-if-due.sh claude 0` at the end of each of its replies (the session's
+  choice).
 - **The archiving of a local session** (Nov 23). The brief of the session that made ticket 013 asks it to start the
   archiving of the session ("The archiving of a cloud session"). On @Pauli's machine, `archive-if-due.sh` archives
   each transcript of the machine, also those of his other projects: 530 transcripts and 99 of subagents on Nov 23. So
