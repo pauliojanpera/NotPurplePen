@@ -36,21 +36,21 @@ Ticket [027](tickets/027-ocad-blend-mode-tests.md), the tests of OCAD's blend mo
 apply B and α, and [Record.md](Record.md), "The results of ticket 027", what the PDF encoding and the rendering modes
 need of it.
 
+Ticket [029](tickets/029-ocad-float-strings.md), the CMYK shares and the font sizes of the layout texts that the OCAD
+export writes with the error of the float computation, is approved. It is not made now, as it does not affect the
+work that is under way (@Pauli, Nov 24).
+
 The fixes 006 and 014 are on branches of their own, and no part needs them. The tickets 005, 007 and 008 are replaced
 by 023 to 026, and the old branch of the epic, `feature/palette-layers`, keeps their pass 1.
 
 ## Next steps
 
-1. Ticket [029](tickets/029-ocad-float-strings.md), the CMYK shares and the font sizes of the layout texts that the
-   OCAD export writes with the error of the float computation, is approved. Make it on `fix/ocad-float-strings` from
-   d48f4456 as the ticket tells, with its full run on `wip/linux/ocad-float-strings`, on `base`, and merge it into
-   `feature/palette-stack` with the same writing for the fields of the spot color separations.
-2. The ticket of the PDF encoding, which ticket 010 separated, is not written. Write it in the form of tickets 012
+1. The ticket of the PDF encoding, which ticket 010 separated, is not written. Write it in the form of tickets 012
    and 010, ask its questions early, and give it to @Pauli for approval. The oracle of ticket 027 gives OCAD's
    appearance of B and α in PDF.
-3. The tickets of the Skia abstractions for the runs of dashes and the repeated placements, and of the anti-aliasing
+2. The tickets of the Skia abstractions for the runs of dashes and the repeated placements, and of the anti-aliasing
    of the pattern fills in the Skia encoding, which ticket 010 separated, are not written.
-4. The tickets of the rendering modes (the overprinting that the inks simulate, the ink separations and the blend mode
+3. The tickets of the rendering modes (the overprinting that the inks simulate, the ink separations and the blend mode
    by ink) and of one palette stack for all the maps are not written (ticket 010, "Rajaus").
 
 A draft is implemented only after @Pauli approves it as a ticket.

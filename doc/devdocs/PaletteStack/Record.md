@@ -764,6 +764,9 @@ one, and the later one says so. [Handover.md](Handover.md) gives the decisions t
   OCAD's blend modes and opacity ("More tests of OCAD's blend modes"). Purple Pen writes the samples, @Pauli gives their
   views in OCAD and their PDF exports, and the session measures the structure of each PDF and writes the oracle
   `oracles/ocad-blend-modes.md`. The ticket changes no code, and it comes before the ticket of the PDF encoding.
+- **Ticket 029 waits** (Nov 24). @Pauli: ticket 029 need not be made now, as the session said that it does not
+  affect the work that is under way. This replaces the place in the next steps that the session gave it in "The
+  approval of ticket 029".
 - **The approval of ticket 029** (Nov 24). @Pauli approved [029](tickets/029-ocad-float-strings.md), the CMYK shares
   and the font sizes of the layout texts that the OCAD export writes with the error of the float computation. The
   session put it in the handover after ticket 027 and before the ticket of the PDF encoding, as it does not depend

@@ -82,7 +82,8 @@ Värien osuuksien vika löytyi tiketin [027](027-ocad-blend-mode-tests.md) näyt
 kirjoittui muotoon `m27.000002`, ja näyte käyttää sen tilalla arvoa C0 M25 Y80. Fonttikokojen vian istunto tarkisti
 @Paulin pyynnöstä testikartoilla. Tiketti 027 ei odota korjausta.
 
-@Pauli pyysi tämän tiketin 24.11., lisäsi siihen asettelutekstien fonttikoot ja hyväksyi sen samana päivänä.
+@Pauli pyysi tämän tiketin 24.11., lisäsi siihen asettelutekstien fonttikoot ja hyväksyi sen samana päivänä. Sitä ei
+toteuteta nyt, koska se ei vaikuta meneillään olevaan työhön (@Pauli, 24.11.).
 
 (_valinnainen_) **Erotetut alatehtävät**  
 <!-- Tästä tiketistä erotetut korjaukset ja ominaisuudet: tiketti, haara ja se, onko haara yhdistetty tämän tiketin haaraan -->
