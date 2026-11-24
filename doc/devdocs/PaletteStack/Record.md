@@ -764,6 +764,18 @@ one, and the later one says so. [Handover.md](Handover.md) gives the decisions t
   OCAD's blend modes and opacity ("More tests of OCAD's blend modes"). Purple Pen writes the samples, @Pauli gives their
   views in OCAD and their PDF exports, and the session measures the structure of each PDF and writes the oracle
   `oracles/ocad-blend-modes.md`. The ticket changes no code, and it comes before the ticket of the PDF encoding.
+- **The place of the SVG encoding** (Nov 24, the question of the session). @Pauli chose: `Map_Svg` of NotPurplePen
+  comes to the new dev, and the encoding replaces its path of the palette colors. `Svg_GraphicsTarget` gives an
+  encoding (`IPaletteStackEncodingProvider`), as `Skia_GraphicsTarget` gives `SkiaEncoding`, and the SVG encoding
+  writes the transparency groups of pass 2 into the same `SvgDocument`. The structures of `Map_Svg` that come before
+  the palette stack give way to the concepts of the palette stack: the runs of a color (`BeginColorRun`, `data-c`)
+  and the group of a blend mode around them to the transparency group of a palette color, the numbers of the objects
+  (`data-o`) to the symbol keys, the union of overlapping areas (`DescribeUnion`) to the area clusters of a palette
+  cutter, and the reuse of the shapes of the symbols (S-5) to the shared shapes of a glyph. The document, the fonts,
+  the texts, the images, the georeferencing, the pages, the metadata and the workarounds of the browsers stay, and so
+  do the tests of `Map_Svg.Tests` that concern them. So the work uses the code of `Map_Svg` and the findings of
+  `../SvgExportDesign.md`. This decides the place of the SVG encoding and the use of `feature/svg-target`, which
+  the epic left until pass 2 was done.
 - **The new dev** (Nov 24). @Pauli: the starting point is that the new dev will be built strongly on the palette
   stack. He said it in answer to the question where the SVG encoding is made: in the work of the palette stack, or
   in NotPurplePen's `Map_Svg`.

@@ -59,9 +59,6 @@ A draft is implemented only after @Pauli approves it as a ticket.
 
 - **The scope of the epic.** [Ticket 000](tickets/000-palette-stack.md) is a draft. The transparency flattening is
   outside it.
-- **The SVG encoding.** Pass 2 is done, so its place is due: an encoding that reads the intermediate layer, or the SVG
-  target of NotPurplePen fitted to it, and whether the work can use the findings or the code of `feature/svg-target`.
-  A session does not decide it, and does not take it up unless @Pauli asks.
 - **Offering upstream.** No branch is offered upstream yet.
 - **The form of the vector exports.** @Pauli asked on Nov 24 whether the PDF export and the SVG export should have
   the same form, as the SVG of `feature/svg-target` holds several courses and later several maps. The session
@@ -87,6 +84,10 @@ decisions of the process are in force. [Record.md](Record.md), "Decisions", give
 - **The OCAD metric is best effort.** The OCAD views and exports come from @Pauli when the work needs them.
 - **The PDF of NotPurplePen** need not and should not be identical in structure with the PDF that OCAD exports.
 - **The new dev** will be built strongly on the palette stack (@Pauli, Nov 24).
+- **The SVG encoding** is in `Map_Svg` of NotPurplePen, which comes to the new dev: `Svg_GraphicsTarget` gives the
+  encoding, which writes the transparency groups of pass 2 into its `SvgDocument`, and the structures of `Map_Svg`
+  that come before the palette stack give way to those of the palette stack (@Pauli, Nov 24; [Record.md](Record.md),
+  "The place of the SVG encoding"). The work uses the code of `Map_Svg` and the findings of `../SvgExportDesign.md`.
 - **The baselines of Course 5 in base** stay upstream's. The epic has its own, and they are up to date.
 - **The archiving of a cloud session** runs when @Pauli lets it, as "A cloud session" below tells.
 
