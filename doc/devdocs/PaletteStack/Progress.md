@@ -385,8 +385,9 @@ the rendering.
   one at a time, before it writes the ticket ("Questions early"). @Pauli answered question 1: pass 2 is divided by
   channel ("Pass 2 by channel"). He answered question 2 with the overprint choice of the course appearance, and
   question 3: the choice is made in the epic ("The blend mode of the drawing"). He answered question 4: the dashes
-  shorter than a pixel are drawn solid ("The dashes shorter than a pixel"). The session writes the ticket next, with
-  the other choices as its own under "Ratkaisut".
+  shorter than a pixel are drawn solid ("The dashes shorter than a pixel"), and question 5: the Skia encoding expands
+  the runs of dashes and the repeated placements ("The expansions in the Skia encoding", Nov 24). The session writes
+  the ticket next, with the other choices as its own under "Ratkaisut".
 
 ## Decisions
 
@@ -744,6 +745,18 @@ the rendering.
   the size of a pixel as the resolution. Pass 1 takes no resolution, and an encoding recognizes no structure, so `Map`
   offers a channel conversion: the clipping objects of a palette color coverage of a symbol without the dashes that
   are shorter than the resolution. The Skia encoding chooses it, and the images stay as they are.
+- **The expansions in the Skia encoding** (Nov 24, question 5 of the draft 010). @Pauli: in ticket 010, the Skia
+  encoding expands the runs of dashes and the repeated placements into single dashes and single placements, as the old
+  drawing draws them (`SymPath.DrawDashedOffset`, `Glyph.Draw`). The abstractions of Skia that section 04 of the
+  specification gives for them, the dash effect (`SKPathEffect.CreateDash`) and the 1D path effect
+  (`SKPathEffect.Create1DPath`), get a ticket of their own after it. So the images that the change of the drawing to
+  pass 2 moves and the images that the abstractions move are checked apart.
+- **The rotation center of the pattern brush** (Nov 24). The pattern brush of the old drawing leaves out the rotation
+  center of an area symbol when its angle is 0 (ticket 009), and the drawing of the area patterns glyph by glyph
+  (`DrawPattern`) does not. Pass 2 places an area pattern by M, as the drawing glyph by glyph does. The OCAD import
+  gives the origin of the map as the rotation center, so the case comes only from Mapper maps (`rotationCoord`),
+  whose oracle is Mapper. Nobody compared it with Mapper or OCAD. @Pauli: it is a rare special case, and it is
+  compared with the oracles afterwards at least.
 - **The tasks of a session** (Nov 23). @Pauli: a session does not investigate `dev` when nobody gave it the task. The
   session that writes the draft 010 read the course appearance of `dev` without such a task, and its reading is
   removed.
