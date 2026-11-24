@@ -351,7 +351,7 @@ jobs:
       shell: pwsh
       env:
         TEST_SILENTRUN: 'True'
-        TEST_COLLECT_DIFFERENCES: ${{ inputs.collect_differences && 'True' || 'False' }}
+        TEST_COLLECT_DIFFERENCES: 'True'
         ASSEMBLIES: ${{ matrix.assemblies }}
       run: |
         # The baselines as they stood at 81379316 travel with the build, so a
