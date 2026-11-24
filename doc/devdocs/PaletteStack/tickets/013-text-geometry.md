@@ -233,7 +233,7 @@ geometriametodi, eikä vaihe 1 käytä kerääjää. Kerääjä on testien oraak
     ole palettiväripeittoja.
 - **Testit:** Paikallinen Map_Skia.Testsin ajo on `tools/linux-renderings.sh` integraatioworktreessa
   (`tools/int-worktree.sh`) Windows-koneen fonteilla (`tools/windows-fonts.sh`), ja sen jokainen testi menee läpi
-  (Progress.md, "Local tests"). Vanha piirtokoodi ei muutu, joten `tools/compare-renderings.py` ei löydä yhtään
+  (Handover.md, "Local tests"). Vanha piirtokoodi ei muutu, joten `tools/compare-renderings.py` ei löydä yhtään
   siirtynyttä kuvaa, kun se vertaa ajon renderöintejä haaran `feature/palette-stack` renderöinteihin.
   - Vertailun kartoissa (kansion `skia_render` 162 karttaa) on 1 671 tekstisymbolia 67 kartassa ja niillä 1 179
     palettiväripeittoa, 86 viivan varren tekstiä 15 kartassa ja niillä 93 palettiväripeittoa sekä 175
@@ -255,8 +255,7 @@ geometriametodi, eikä vaihe 1 käytä kerääjää. Kerääjä on testien oraak
   Täysi ajo tehdään haarassa `wip/linux/text-symbol-geometry` basen päällä valitsimella `--base-baselines
   prs/000-palette-stack-base`. Vanha haara `feature/text-geometry` jää vanhan vaiheen 1 tallenteeksi.
 - **Aloitus kylmässä sessiossa:** lue järjestyksessä [../../Introduction.md](../../Introduction.md),
-  [../README.md](../README.md), [../Progress.md](../Progress.md) ja sen kohdat "How to continue the work" ja
-  "Decisions", speksin esipuhe ja luvut 01–03, [../Glossary.md](../Glossary.md), tiketit
+  [../README.md](../README.md), [../Handover.md](../Handover.md), speksin esipuhe ja luvut 01–03, [../Glossary.md](../Glossary.md), tiketit
   [023](023-palette-separations.md), [024](024-point-symbol-geometry.md), [011](011-line-geometry.md) ja
   [012](012-area-geometry.md) sekä tämä tiketti. [../tools/README.md](../tools/README.md) kertoo tiketin työkierron.
 

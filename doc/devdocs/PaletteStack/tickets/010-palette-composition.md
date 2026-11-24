@@ -165,7 +165,7 @@ kerran alueiden unioniin.
     koska niiden piirtokohteet ovat `RecordingGraphicsTarget`in aliluokkia.
   - fa83bbc9: Skian koodaus kirjoittaa kuviosiveltimen ja kehyssuorakulmion vanhan piirron Skian kutsuilla (päätös
     24.11.). Kehyssuorakulmion polku pitää suorakulmionsa (`PathShape.Rectangle`, `PathShape.FromRectangle`).
-  - Istunnon valinnat ovat Progress.md:n kohdassa "The choices of the session in the implementation of ticket 010".
+  - Istunnon valinnat ovat Record.md:n kohdassa "The choices of the session in the implementation of ticket 010".
   - Paikallinen ajo (`tools/linux-renderings.sh` integraatioworktreessa Windows-koneen fonteilla): haarassa ja haarassa
     `feature/palette-stack` (e51b81a2) 753 testiä menee läpi, ja `tools/compare-renderings.py` antaa 9 siirtynyttä
     kuvaa. Testi, jota ei commitoitu, piirsi kunkin palettierottelun ja kunkin symbolin yksin vanhalla piirrolla ja
@@ -329,7 +329,7 @@ kerran alueiden unioniin.
   - SVG-koodaus ja litistys eivät kuulu tähän.
 - **Testit:** Paikallinen Map_Skia.Testsin ajo on `tools/linux-renderings.sh` integraatioworktreessa
   (`tools/int-worktree.sh`) Windows-koneen fonteilla (`tools/windows-fonts.sh`). Sen jokainen testi menee läpi
-  (Progress.md, "Local tests"). `tools/compare-renderings.py` vertaa ajon renderöintejä haaran `feature/palette-stack`
+  (Handover.md, "Local tests"). `tools/compare-renderings.py` vertaa ajon renderöintejä haaran `feature/palette-stack`
   (e51b81a2) renderöinteihin ja antaa kuvat, jotka siirtyvät Linuxilla, ennen keräävää ajoa.
   - Vertailun karttoja ovat kansion `skia_render` kartat ja katkoviivanäytteet. Rakennetestit rakentavat palettivärin,
     jonka α on alle 1 ja B on Multiply, ratakartan purppuran Darkenilla, aluesymbolin, jonka kiertokeskus ei ole origo
@@ -341,8 +341,7 @@ kerran alueiden unioniin.
 - **Haara:** `feature/palette-composition` juurtuu haaraan `feature/palette-stack` (e51b81a2). Täysi ajo tehdään
   haarassa `wip/linux/palette-composition` basen päällä valitsimella `--base-baselines prs/000-palette-stack-base`.
 - **Aloitus kylmässä sessiossa:** lue järjestyksessä [../../Introduction.md](../../Introduction.md),
-  [../README.md](../README.md), [../Progress.md](../Progress.md) ja sen kohdat "How to continue the work" ja
-  "Decisions", speksin esipuhe ja luvut 01–04, [../Glossary.md](../Glossary.md), tiketit
+  [../README.md](../README.md), [../Handover.md](../Handover.md), speksin esipuhe ja luvut 01–04, [../Glossary.md](../Glossary.md), tiketit
   [023](023-palette-separations.md), [024](024-point-symbol-geometry.md), [011](011-line-geometry.md),
   [012](012-area-geometry.md), [013](013-text-geometry.md) ja [009](009-pattern-instances.md) sekä tämä tiketti.
   [../tools/README.md](../tools/README.md) kertoo tiketin työkierron.

@@ -167,7 +167,7 @@ kuulu tähän. Piirto ei muutu.
   - Kuvatason ja asettelutason objekteilla (`ImageSymDef`) ja rei'illä (`HoleSymDef`) ei ole palettiväripeittoja.
   - Vaihe 2 on luonnos [010](010-palette-composition.md). SVG-koodaus ja litistys eivät kuulu tähän.
 - **Testit:** Paikallinen Map_Skia.Testsin ajo on `tools/linux-renderings.sh` integraatioworktreessa, ja sen jokainen
-  testi menee läpi (Progress.md, "Local tests").
+  testi menee läpi (Handover.md, "Local tests").
   - Vertailun kartoissa (kansion `skia_render` 162 karttaa ja 10 katkoviivanäytettä) on 21 503 `AreaSymDef`in ja 29
     `AreaComboSymDef`in aluesymbolia sekä 94 `GraphicsAreaSymbol`ia ja 44 `GraphicsLineSymbol`ia. Aluesymboleista
     789:llä on reikiä, yhteensä 2 187, ja 9:llä on alueen reuna. Alueen reunoissa ja `AreaComboSymDef`ien viivan
@@ -183,8 +183,7 @@ kuulu tähän. Piirto ei muutu.
   basen päällä valitsimella `--base-baselines prs/000-palette-stack-base`. Vanha haara `feature/area-geometry` jää
   vanhan vaiheen 1 tallenteeksi.
 - **Aloitus kylmässä sessiossa:** lue järjestyksessä [../../Introduction.md](../../Introduction.md),
-  [../README.md](../README.md), [../Progress.md](../Progress.md) ja sen kohdat "How to continue the work" ja
-  "Decisions", speksin esipuhe ja luvut 01–03, [../Glossary.md](../Glossary.md), tiketit
+  [../README.md](../README.md), [../Handover.md](../Handover.md), speksin esipuhe ja luvut 01–03, [../Glossary.md](../Glossary.md), tiketit
   [023](023-palette-separations.md), [024](024-point-symbol-geometry.md) ja [011](011-line-geometry.md) sekä tämä
   tiketti. [../tools/README.md](../tools/README.md) kertoo tiketin työkierron.
 

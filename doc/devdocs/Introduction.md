@@ -1,7 +1,8 @@
 # NotPurplePen: an introduction for a new session
 
 Nov 16, 2026. Read this first. It tells what NotPurplePen is, what it consists of, where its parts are, and the rules
-that all work keeps. Where the work stands is in the handover, [NotPurplePenProgress.md](NotPurplePenProgress.md).
+that all work keeps. Where the work stands is in the handover, [NotPurplePenProgress.md](NotPurplePenProgress.md),
+and in the handover of each piece of work, for example [PaletteStack/Handover.md](PaletteStack/Handover.md).
 
 ## What NotPurplePen is
 
@@ -66,8 +67,8 @@ the WinForms project with its TranslateTool. [Translations/README.md](Translatio
   building, testing and delivering, and wins where the two disagree. Both are in the code branches and load into a
   session that works in a checkout. On `docs/process-coordination`, `doc/devdocs` holds the handover
   (`NotPurplePenProgress.md`), the documents of the SVG target (`SvgTargetProgress.md`, `SvgTargetRequirements.md`,
-  `SvgExportDesign.md`), the translation work (`Translations/`), the flattening work (`Flattening/`), and the tools of
-  each piece of work.
+  `SvgExportDesign.md`), the translation work (`Translations/`), the flattening work (`Flattening/`), the
+  palette-stack work (`PaletteStack/`), and the tools of each piece of work.
 - **The transcripts** of the sessions are archived in the private repository `pauliojanpera/windows-fonts`, on the
   branch `sessions`. Its README tells how.
 
@@ -88,6 +89,7 @@ These are @Pauli's rules. The handover, under "Decisions", gives where each came
 
 - Attach `pauliojanpera/NotPurplePen` with push access. Clone one branch, shallow, and give the clone up to ten
   minutes: `git clone --depth 1 -b <branch> https://github.com/pauliojanpera/NotPurplePen <folder>`. For the documents
-  alone, a sparse checkout of `doc/devdocs` is faster.
+  alone, a sparse checkout of `doc/devdocs` is faster. The palette-stack work needs a partial clone with worktrees
+  instead ([PaletteStack/Handover.md](PaletteStack/Handover.md), "A cloud session").
 - Push from a shallow clone with `git -c push.negotiate=true push origin <branch>`. The session cannot delete a
   branch: the git gateway refuses it.

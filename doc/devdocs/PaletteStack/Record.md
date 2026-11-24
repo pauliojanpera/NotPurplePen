@@ -1,16 +1,21 @@
-# The palette-stack work: progress
+# The palette-stack work: record
 
-Nov 18, 2026. This file is the handover of the palette-stack work. It tells where the work is, how to continue it,
-what comes next, what waits on @Pauli, and the decisions. The branches are not in `basewithfixes` or `dev`, so
-`../NotPurplePenProgress.md` does not track them (@Pauli, Nov 18). Update this file when a branch changes state and
-when @Pauli makes a decision. It tells the state, not the events: the commits and the runs record those.
+Nov 24, 2026. This file is the record of the palette-stack work: the history of the work and of its branches, the
+full runs with their ids, the measurements, and all the decisions with their dates. Until Nov 24 it was the handover,
+`Progress.md`. [Handover.md](Handover.md) is the handover now: a new session reads it, and reads this file only when
+a question needs it, and then by search (`AGENTS.NotPurplePen.md`, "The handover of a piece of work"). Add to this
+file the state of a branch when it changes, its full runs, and each decision of @Pauli and each choice of a session,
+with its date. The branches are not in `basewithfixes` or `dev`, so `../NotPurplePenProgress.md` does not track them
+(@Pauli, Nov 18).
 
 - [README.md](README.md) tells how the work is organized: its tickets, branches, pull request descriptions and
   tracking.
 - [Specification.md](Specification.md) is the reference of the architecture, and the epic
   [000](tickets/000-palette-stack.md) gives the goal and the scope of the work.
 
-## Where the work is
+## The history of the work
+
+This section told where the work was until Nov 24. [Handover.md](Handover.md) tells the present state.
 
 [Specification.md](Specification.md) is written again in the terms of [Glossary.md](Glossary.md) and by the
 structure of the passes (Nov 21). @Pauli went through the choices of the session on Nov 22, and the decisions of
@@ -167,7 +172,10 @@ base. No branch is offered upstream yet.
 | `fix/mapper-export-color-numbers` | [002](tickets/002-mapper-export-color-numbers.md), [description](prs/002-mapper-export-color-numbers.md) | Full run passed (`wip/linux/mapper-export-color-numbers`, on `base`: Tests 44171502072, Build 44171502166). Its test `ExportNumbersColorsByPlace` fails without the fix. In `feature/inks` (a75c49aa), which had the same fix as 91994366. |
 | `fix/ocad11-utf8-strings` | [003](tickets/003-ocad11-utf8-strings.md), [description](prs/003-ocad11-utf8-strings.md) | Full run passed (`wip/linux/ocad11-utf8-strings`, on `base`: Tests 44196794627, Build 44196794547). No baseline moves (collecting run 44176064791, of an earlier form of the fix). Its test file is the ISSprOM 2019 symbol set of the Finnish Orienteering Federation, which the federation gives out with no statement about redistribution (@Pauli, Nov 18: little harm in it). In `feature/palette-layers` (e51e395d) and `feature/palette-stack` (e3008657). |
 
-## How to continue the work
+## The instructions until Nov 24
+
+[Handover.md](Handover.md) replaces these instructions. They stay as the record of their time, and some of them are
+out of date: for example the list of the checkouts.
 
 - **Read first**, in this order: [../Introduction.md](../Introduction.md) (what NotPurplePen is, and the rules of all
   work), [README.md](README.md), this file, the preface of [Specification.md](Specification.md) (when it binds, and
@@ -300,7 +308,9 @@ base. No branch is offered upstream yet.
   `tools/keep-eol.py <committed copy> <edited file>` gives the edited file back the endings of its committed version
   (`git show HEAD:<path>` gives the copy).
 
-## Next
+## The steps of the work
+
+This section listed the next steps until Nov 24. [Handover.md](Handover.md) gives the next steps.
 
 1. The approved tickets 023 to 026 of pass 1 are done, each on its branch rooted at `feature/palette-stack` ("The
    new tickets of pass 1"), and merged into it (3e98e556). They took the forms, the geometry methods of the point
@@ -391,19 +401,10 @@ For example: pass 2 does not call the drawing code of the symbols; the drawing t
 rendering mode does not change the instances; tests check the instances, their count and their groups, apart from
 the rendering.
 
-## Waiting on @Pauli
-
-- **The scope of the epic** (Nov 18). [Ticket 000](tickets/000-palette-stack.md) is a draft. @Pauli confirmed that
-  the flattening is outside it, and that the SVG encoding waits until pass 2 is done.
-- **The SVG encoding**, when pass 2 is done (Nov 18). Its place: an encoding read from the instances, or the SVG
-  target of NotPurplePen fitted to them in the integration. And whether the work can use the documented findings or
-  the code of `feature/svg-target`. The notes of the epic give the reasons.
-- **Offering upstream.** No branch is offered upstream yet.
-- **The OCAD exports of ticket 027** (Nov 24). @Pauli approved [ticket 027](tickets/027-ocad-blend-mode-tests.md),
-  the tests of OCAD's blend modes and opacity. A session makes its samples when it gets the task, and @Pauli gives
-  their views in OCAD and their PDF exports when he is at OCAD.
-
 ## Decisions
+
+The decisions of @Pauli and the choices of the sessions, with their dates. A later decision can change an earlier
+one, and the later one says so. [Handover.md](Handover.md) gives the decisions that bind the next steps.
 
 - **The tracking of the branches** (Nov 18). The palette-stack branches are tracked here, apart from
   `../NotPurplePenProgress.md`, as long as they are not in `dev`.
@@ -1003,6 +1004,10 @@ the rendering.
   [Specification.md](Specification.md) and the entry *tekstijuoste* of [Glossary.md](Glossary.md) say so. The branch
   is `feature/text-symbol-geometry`, rooted at `feature/palette-stack` after ticket 012 (903e6bde). The old branch
   `feature/text-geometry` stays as it is.
+- **The handover and the record** (Nov 24). @Pauli: the handover held notes that the next steps do not need, which
+  each new session loaded. Each piece of work keeps a handover and a record (`AGENTS.NotPurplePen.md`, "The handover
+  of a piece of work"). `Progress.md` became this record, [Handover.md](Handover.md) holds the present state, and the
+  instructions that were out of date or wrong were removed or marked in the same commit (@Pauli, Nov 24).
 - **The baselines of Course 5 in base** (Nov 24). The baselines `layer`, `layersprint` and `none` of `Course 5` in
   `src/TestFiles/bitmapcreate/blend` stay upstream's in `base`, although the renderings of `base` differ from them by
   up to 13 levels, below the threshold of the comparison (collecting run 45411669313). `basewithfixes`, `dev`,

@@ -11,7 +11,8 @@ its pull request descriptions and its tracking. The practice is @Pauli's (Nov 18
 | [GlossaryHandover.md](GlossaryHandover.md) | How a new session continues the glossary work: the rules of the work with @Pauli, what is decided and what is open. |
 | [tickets/](tickets/) | The tickets, numbered in order. [000](tickets/000-palette-stack.md) is the epic. The templates: `epic-template.md`, `feature-template.md` and `bug-template.md`. |
 | [prs/](prs/) | A pull request description of each branch, with the number of its ticket. The template: `template.md`. |
-| [Progress.md](Progress.md) | The state of each branch, its full runs and the branches it is merged into, and the decisions of the work. |
+| [Handover.md](Handover.md) | What a new session reads to continue: the state, the next steps, what waits on @Pauli, the decisions that bind the next steps, and how the work is done. |
+| [Record.md](Record.md) | The record: the history of the work and of each branch, the full runs, the measurements, and all the decisions with their dates. |
 | [tools/](tools/) | The scripts of the work. Its README tells each script in one sentence, and the loop of a ticket. |
 | [oracles/](oracles/) | The oracles of the appearance: each with its source, the values measured from it, and where the work uses it. |
 | [figures/](figures/) | The figures of the specification. |
@@ -28,9 +29,8 @@ specification, @Pauli, Nov 18).
 
 - A session of the work needs no cache of the agents, and it starts no agents (@Pauli, Nov 18). So it does not run
   `agent-cache.py`, although `CLAUDE.md` asks every session to run it.
-- A session of the work needs no archiving of the session, and it does not start the script that archives it
-  (@Pauli, Nov 18), unless @Pauli lets it archive (Nov 23, [Progress.md](Progress.md), "The archiving of a cloud
-  session").
+- A session of the work starts the script that archives the session only when @Pauli lets it archive (Nov 23,
+  [Record.md](Record.md), "The archiving of a cloud session").
 
 ## Tickets
 
@@ -43,7 +43,7 @@ specification, @Pauli, Nov 18).
   Nov 18). The first ticket names the separated work under "Erotetut alatehtävät", with its branch, and whether that
   branch is merged into the first ticket's branch.
 - A ticket of a part of the architecture has structural acceptance criteria, and not only criteria of the
-  appearance ([Progress.md](Progress.md), "Next").
+  appearance ([Record.md](Record.md), "The steps of the work").
 - The tickets are written in Finnish.
 - A draft ticket sets no requirements for the other work. A session changes a draft only when @Pauli asks (@Pauli,
   Nov 18). A draft is not implemented (@Pauli, Nov 21). @Pauli approves it first as a ticket that is no longer a
@@ -85,8 +85,10 @@ specification, @Pauli, Nov 18).
 
 ## Tracking
 
-- [Progress.md](Progress.md) records each branch: its ticket and description, its full runs, the baselines that it
-  moves, and the branches it is merged into. It records the decisions of the work, with @Pauli's dates.
+- [Handover.md](Handover.md) tells the present state and the next steps, and nothing that the next steps do not
+  need (`AGENTS.NotPurplePen.md`, "The handover of a piece of work").
+- [Record.md](Record.md) records each branch: its ticket and description, its full runs, the baselines that it moves,
+  and the branches it is merged into. It records the decisions of the work, with @Pauli's dates.
 - A document records as @Pauli's decisions only his decisions, and otherwise the facts that were found. A session
   does not give its own reading, its proposal or the practice of another document as a decision or a rule (@Pauli,
   Nov 18).

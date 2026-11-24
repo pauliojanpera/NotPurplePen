@@ -52,7 +52,7 @@ Python 3 with Pillow, git, the GitHub CLI signed in to the repository, and the .
    joins `LinuxMapModelTestRun/LinuxMapModelTestRun.csproj` when a ticket needs it. A test that asks GDI+ for a
    rendering is skipped there. `Map_Skia.Tests` runs on Linux with `linux-renderings.sh` in the integration worktree,
    and each of its tests passes. Do not run it in another way: its image comparisons fail on Linux
-   (`../Progress.md`, "Local tests").
+   (`../Handover.md`, "Local tests").
    After a rewrite of the feature branch's history (an amend or a rebase), `REBUILD=1 int-worktree.sh`.
    A change of the drawing code is compared on Linux with the drawing without it: `windows-fonts.sh
    ~/windows-fonts-linux` once, then `linux-renderings.sh` in the integration worktree of the base of the change, for

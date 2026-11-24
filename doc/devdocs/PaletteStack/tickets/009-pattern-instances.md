@@ -278,7 +278,7 @@ normaalimuodon mukaan. Täyttötilan valitsemat glyyfin osat ovat täyden peiton
   - SVG-koodaus, litistys ja korostukset eivät kuulu tähän.
 - **Testit:** Paikallinen Map_Skia.Testsin ajo on `tools/linux-renderings.sh` integraatioworktreessa
   (`tools/int-worktree.sh`) Windows-koneen fonteilla (`tools/windows-fonts.sh`), ja sen jokainen testi menee läpi
-  (Progress.md, "Local tests"). Piirto ei muutu, joten `tools/compare-renderings.py` ei löydä yhtään siirtynyttä kuvaa,
+  (Handover.md, "Local tests"). Piirto ei muutu, joten `tools/compare-renderings.py` ei löydä yhtään siirtynyttä kuvaa,
   kun se vertaa ajon renderöintejä haaran `feature/palette-stack` renderöinteihin.
   - Kansion `skia_render` 162 kartassa ja 10 katkoviivanäytteessä on 46 karttaa, joiden näkyvillä aluesymboleilla on
     viivoituksia tai aluekuvioita: 163 viivoitusta 28 kartassa ja 181 aluekuviota 43 kartassa, ja niillä 1 876 ja 2 402
@@ -310,8 +310,7 @@ normaalimuodon mukaan. Täyttötilan valitsemat glyyfin osat ovat täyden peiton
 - **Haara:** `feature/pattern-prototypes` juurtuu haaraan `feature/palette-stack` (86df0a59). Täysi ajo tehdään haarassa
   `wip/linux/pattern-prototypes` basen päällä valitsimella `--base-baselines prs/000-palette-stack-base`.
 - **Aloitus kylmässä sessiossa:** lue järjestyksessä [../../Introduction.md](../../Introduction.md),
-  [../README.md](../README.md), [../Progress.md](../Progress.md) ja sen kohdat "How to continue the work" ja
-  "Decisions", speksin esipuhe ja luvut 01–03, [../Glossary.md](../Glossary.md), tiketit
+  [../README.md](../README.md), [../Handover.md](../Handover.md), speksin esipuhe ja luvut 01–03, [../Glossary.md](../Glossary.md), tiketit
   [023](023-palette-separations.md), [024](024-point-symbol-geometry.md), [011](011-line-geometry.md),
   [012](012-area-geometry.md) ja [013](013-text-geometry.md) sekä tämä tiketti. [../tools/README.md](../tools/README.md)
   kertoo tiketin työkierron.

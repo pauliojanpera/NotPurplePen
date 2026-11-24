@@ -9,11 +9,11 @@ the palette-stack architecture needs. [Specification.md](Specification.md) is wr
 Read these in this order:
 1. [../Introduction.md](../Introduction.md): what NotPurplePen is, and the rules of all work.
 2. [README.md](README.md): how the palette-stack work is organized.
-3. The decisions of Nov 20 in [Progress.md](Progress.md): "The structure of the passes", "Earlier decisions are
+3. The decisions of Nov 20 in [Record.md](Record.md): "The structure of the passes", "Earlier decisions are
    negotiable" and "The names".
 4. Section 01 of [Specification.md](Specification.md), which gives the structure of the passes.
 5. All of [Glossary.md](Glossary.md). Its preface gives the rules of the names.
-6. The decisions of Nov 21 to 23 in [Progress.md](Progress.md), from "The division of the specification" to "The
+6. The decisions of Nov 21 to 23 in [Record.md](Record.md), from "The division of the specification" to "The
    approval of the specification": the review of the specification, the names of the architecture, of the work and
    of the branches, the new branch of the epic, and the approval.
 
@@ -26,7 +26,7 @@ Read these in this order:
   (Nov 23).
 - Everything is @Pauli's to decide (Nov 21). Where the sources answer a question, the session presents the answer to
   @Pauli as a question, and he decides. From Nov 23, the session resolves a matter itself, as well as it can, when
-  the knock-on effects of its choice are not unreasonable, and records the choice as its own (Progress.md, "The
+  the knock-on effects of its choice are not unreasonable, and records the choice as its own (Record.md, "The
   session resolves matters").
 - The session presents one question at a time (Nov 20, Nov 21).
 - The session does not make proposals that @Pauli did not ask for (Nov 20). This does not mean that a session leaves a
@@ -34,7 +34,8 @@ Read these in this order:
 - The session gives options only where the choice is real. It does not add options only to involve @Pauli (Nov 23).
 - When @Pauli uses a vague reference, the session asks him to make it exact (Nov 20, the preface of the glossary).
 - The session starts no agents and does not run `agent-cache.py`, although `CLAUDE.md` asks every session to run it.
-  It does not start the script that archives the session (Nov 18, [README.md](README.md)).
+  It starts the script that archives the session only when @Pauli lets it (Nov 23, [README.md](README.md),
+  "Sessions").
 - The code of the palette-stack branches is not a source of the new definition of `Map` that the glossary builds
   (Nov 21).
 - A word of the specification is not an authority. @Pauli wrote some of its concepts in passing, for example *full
@@ -42,7 +43,7 @@ Read these in this order:
 - An ordinary word, for example the adjective *yhtenäinen* or the noun *peitto*, is not reserved for one concept. A
   term is the whole expression (Nov 21).
 - A general word can have its general meaning in the documents. Where it means a concept that the specification
-  defines by another name, the documents use that name (Nov 22, Progress.md, "General words").
+  defines by another name, the documents use that name (Nov 22, Record.md, "General words").
 - A reference to a section of the specification without a version names the present text (Nov 22).
 - A mistake of the session is corrected at once. The session does not put it to @Pauli as a question (Nov 22).
 
@@ -96,7 +97,7 @@ These are @Pauli's decisions of Nov 20 and Nov 21. Glossary.md gives their terms
   *kynänjälki* · *stroke shape* (Nov 21).
 - The identity of a `Symbol`: `Symbol.Key` · *symbolin avain* · *symbol key*. The maker of the `Symbol` gives it,
   `Map` from a counter and the course map from `EventDB` (Nov 21). Its basis is the future of `Map` and the SVG
-  channel, in the decisions of [Progress.md](Progress.md).
+  channel, in the decisions of [Record.md](Record.md).
 - The identity of a `CourseObj`: `CourseObj.Key` · *rataobjektin avain* · *course object key*, a key that
   `CourseFormatter` or `TopologyFormatter` gives at the place where it makes the `CourseObj`, from the role of the
   place, the identifiers of `EventDB` and the `CourseLayer`. The terms of `CourseObj` are *rataobjekti* · *course
@@ -173,26 +174,22 @@ A new open item gets a question by "How to make a question", and the glossary ma
 ### After the glossary
 
 The specification is written again in the terms of the glossary and by the structure of the passes (Nov 21). @Pauli
-went through the choices of the session on Nov 22, and the decisions of Nov 22 in Progress.md record them. He
-approved the specification at 4c11a6ea on Nov 23, and the new tickets 023 to 026 of pass 1, by the structure of the
-passes and in place of 005, 007 and 008, on the same day. The drafts 009 to 013 follow the specification when @Pauli
-asks. The tickets 011 to 013 were
-implemented while they were drafts, on branches rooted at the old branch of the epic. The done tickets take the
-terms of the glossary, apart from 005, 007 and 008. The drafts, the epic and the older decisions in Progress.md
-still use the earlier words. A draft is not implemented, and a session changes it only when @Pauli asks
-([README.md](README.md)).
+went through the choices of the session on Nov 22, and the decisions of Nov 22 in Record.md record them. He approved
+the specification at 4c11a6ea on Nov 23. The tickets 009 to 013 and 023 to 028 are written in the terms of the
+glossary, and so are the done tickets, apart from 005, 007 and 008. The epic and the older decisions in Record.md
+still use the earlier words. [Handover.md](Handover.md) gives the state of the work.
 
 ## Where things are
 
 - **The main clone** `~/Documents/Projects/NotPurplePen` is on `docs/process-coordination`. The glossary and the other
   documents are there. Do not change its branch. Commit and push there.
-- **The code of upstream:** the worktree `~/Documents/Projects/npp-worktrees/upstream` is detached at d48f4456, where
-  `base` meets upstream (Nov 21). The names of upstream in the glossary come from it. `base` has the same code of `Map`,
-  of the symbols, of the graphics targets and of the courses ([README.md](README.md), "Branches").
-- **The code of the work:** the worktree `~/Documents/Projects/npp-worktrees/text-geometry` is at 2ad8c6f39. The names
-  marked "work" in the glossary come from it. The new branch of the epic, `feature/palette-stack` at 8127117f, merges
-  001, 003, 004 and the fixes 015 to 021, and has no pass 1 yet. The old branch `feature/palette-layers` keeps the old
-  pass 1.
+- **The code of upstream** is at d48f4456, where `base` meets upstream. The names of upstream in the glossary come from
+  it. `base` has the same code of `Map`, of the symbols, of the graphics targets and of the courses
+  ([README.md](README.md), "Branches").
+- **The code of the work** is on `feature/palette-stack` ([Handover.md](Handover.md), "The state"). The names that the
+  glossary marks "work" come from the old branches `feature/palette-layers` and `feature/text-geometry` (2ad8c6f39).
+  Some of them have other names now, for example `GeometryPrototype`, which is `CoveragePrototype`. The entries give
+  both.
 - **The transcripts** in `~/.claude/projects/-home-pauli-Documents-Projects-NotPurplePen/`: the session of Nov 20 and
   21 is `24af0e14-e17c-4f92-bc24-2c6815053a55.jsonl`. The session of Nov 21 is, in order,
   `9c11143a-a462-4aa8-afb8-c160fab19a1b.jsonl`, `64a7360d-8a53-46f1-9163-6772c93bfb4e.jsonl`,

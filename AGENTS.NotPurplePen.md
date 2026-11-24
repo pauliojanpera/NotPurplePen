@@ -37,6 +37,33 @@ A question that the developer must decide follows these rules:
   time to read and study the question, and the display does not fill with
   other work.
 
+## The handover of a piece of work
+
+A piece of work keeps the documents that a new session reads apart from its
+record (@Pauli, Nov 24):
+
+- Each piece of work has a handover, `Handover.md` in its folder, and a
+  record, `Record.md`. A new session reads the handover. It reads the record
+  only when a question needs it, and then by search.
+- The handover holds only what the next step needs:
+  - the state: each done ticket in one line, and the branch and the commit
+    that the next step builds on;
+  - the next steps, in order;
+  - what waits on the developer;
+  - the decisions that bind the next steps, in their present form;
+  - the setup and the runs, as references to the README of the tools.
+- The handover tells the present state. When a step is done, the same commit
+  takes its notes out of the handover. When a decision replaces another, the
+  handover keeps only the present one.
+- A fact has one place. The details of a ticket, its runs with their ids and
+  its measurements are in the ticket and in its pull request description. The
+  handover refers to them and does not copy them.
+- The record keeps what the next step does not need: the full runs, the
+  measurements, the replaced decisions and the history of the branches, with
+  their dates.
+- The handover stays under 200 lines. A session that finds it longer moves
+  the rest to the record or to the tickets.
+
 ## There is no Windows machine here
 
 Nothing is built or tested on the developer's own machine, because there is none
@@ -52,7 +79,8 @@ run there has not been checked, and saying it "should work" is not a result.
 | branch | holds |
 |---|---|
 | `base` | upstream, what it takes to build and test upstream here, and this fork's identity -- upstream may not be built under Purple Pen's name |
-| `dev` | `base`, plus the fork's features and the changes of behaviour that come with them |
+| `basewithfixes` | `base`, plus the bug fixes offered upstream |
+| `dev` | `basewithfixes`, plus the fork's features and the changes of behaviour that come with them |
 | `master` | the same as `dev`, as a release |
 
 A change is made on a branch of its own, rooted at the branch it is meant for:
@@ -62,8 +90,8 @@ A change is made on a branch of its own, rooted at the branch it is meant for:
 - something that is this fork's alone is rooted at `dev`.
 
 A change to a test baseline belongs in the same branch as the change that moved
-the output, and nowhere else. `base` therefore carries baselines moved by fixes
-offered upstream, and never ones moved by a feature.
+the output, and nowhere else. `basewithfixes` therefore carries baselines moved
+by fixes offered upstream, and never ones moved by a feature.
 
 ## A branch is verified from a wip branch
 

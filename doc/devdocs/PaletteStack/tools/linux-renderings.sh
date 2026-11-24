@@ -10,7 +10,7 @@
 # Each test of the run passes. A test that fails is a fault, and the script lists it and exits with 1.
 #
 # The image comparisons compare with the baselines of the Windows machine, which the texts on Linux do not match
-# ("Local tests" in ../Progress.md). So the run sets TEST_COLLECT_DIFFERENCES, and an image comparison does not fail:
+# ("Local tests" in ../Handover.md). So the run sets TEST_COLLECT_DIFFERENCES, and an image comparison does not fail:
 # it writes its rendering beside the baseline as <baseline>_actual.png, and the differences as <baseline>_diff.png, when
 # they differ. The script moves these files into <results folder>/images, at their paths below src/, and keeps the trx
 # of the run in the results folder. It stops before the run if such files are already below src/, as they would mix

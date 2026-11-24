@@ -46,7 +46,7 @@ musteittaisen B:n ulkoasun. Koodi ei muutu.
   - Sovelletaanko α palettiväriin kerran vai kuhunkin muotoon?
 
   Se kertoo myös, mitkä kohdat oraakkelista `ocad-darken.md` pitävät ja mitkä eivät.
-- [ ] Johtopäätökset kirjataan Progress.md:hen: mitä PDF:n koodaus ja piirtotilat tarvitsevat, ja pitääkö
+- [ ] Johtopäätökset kirjataan Record.md:hen: mitä PDF:n koodaus ja piirtotilat tarvitsevat, ja pitääkö
   tiketin 004 tulkinta (`t` on α ja `b` on B) paikkansa. Speksin muutoksen päättää @Pauli.
 
 **Lisätiedot**
@@ -69,8 +69,7 @@ musteittaisen B:n ulkoasun. Koodi ei muutu.
   Mapperilla ei ole sekoitustiloja, ja sen α on oraakkelissa [mapper-opacity.md](../oracles/mapper-opacity.md).
 - **Haara:** ei koodihaaraa. Näytteet, skriptit ja oraakkeli tulevat haaraan `docs/process-coordination`.
 - **Aloitus kylmässä sessiossa:** lue järjestyksessä [../../Introduction.md](../../Introduction.md),
-  [../README.md](../README.md), [../Progress.md](../Progress.md) ja sen kohdat "How to continue the work" ja
-  "Decisions", speksin esipuhe ja luvut 02 ja 04, [../Glossary.md](../Glossary.md), oraakkelit
+  [../README.md](../README.md), [../Handover.md](../Handover.md), speksin esipuhe ja luvut 02 ja 04, [../Glossary.md](../Glossary.md), oraakkelit
   [ocad-darken.md](../oracles/ocad-darken.md) ja [ocad-dashes.md](../oracles/ocad-dashes.md), tiketti
   [004](004-opacity-and-blend-mode.md) sekä tämä tiketti.
 

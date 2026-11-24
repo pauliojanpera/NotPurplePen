@@ -15,7 +15,7 @@ Jokaisella kartan symbolilla on symbolin avain (`Symbol.Key`), joka on sen ident
 **Lisätiedot**
 - **Päätökset:**
   - @Pauli hyväksyi tämän tiketin 23.11.
-  - Neljä tikettiä korvaa tiketit 005, 007 ja 008, ja tämä on niistä kolmas (@Pauli, 23.11., Progress.md: "The new tickets of pass 1").
+  - Neljä tikettiä korvaa tiketit 005, 007 ja 008, ja tämä on niistä kolmas (@Pauli, 23.11., Record.md: "The new tickets of pass 1").
   - Symbolin avain (@Pauli, 21.11., "The symbol key"): `Symbol`illa on symbolin avain, joka on sen identiteetti, ja symbolin tekijä antaa sen. Kartta, joka on luettu tiedostosta tai jota muokataan, antaa avaimen laskurista, jonka arvoja se ei käytä uudelleen. Kun muokkaus korvaa symbolin, korvaava symboli saa saman avaimen. Kumoaminen palauttaa avaimen, ja itsensä kannatteleva vektoritiedosto kantaa sen. Ratakartassa avaimen antaa `CourseLayout.RenderToMap` (tiketti 026).
   - Laskurin avainten tekstimuoto on laskurin arvo kannassa 62, numeroin 0–9, A–Z ja a–z tässä järjestyksessä (@Pauli, 23.11.).
   - Avaimen perusta on `Map`in ja SVG-kanavan tulevaisuus (@Pauli, 21.11., "The future of Map and the SVG channel"): SVG-DOMin mutaatiot selaimessa tarvitsevat avaimia, jotka pysyvät samoina muokkausten yli.
@@ -40,7 +40,7 @@ Jokaisella kartan symbolilla on symbolin avain (`Symbol.Key`), joka on sen ident
 - **Rajaus:** ratakartan symbolien avaimet ja rataobjektin avain ovat tiketti 026. Avainten kirjoitus SVG- ja PDF-tiedostoihin kuuluu koodauksiin, ja tiedoston avaaminen kartaksi ei kuulu epiciin. Tiketit 023 ja 024 eivät käytä avaimia.
 - **Testit:** testit ovat Test_MapModelin tiedostossa `SymbolKeyTests.cs`, joka lisätään tools-kansion `LinuxMapModelTestRun.csproj`-projektiin, ja ne ajetaan Linuxilla skriptillä `tools/run-map-tests.sh`. Piirto ei käytä avainta, joten täysi ajo tehdään kansiosta `doc/devdocs/PaletteStack` ilman keräävää ajoa: `tools/push-wip.sh --base-baselines prs/000-palette-stack-base <klooni> feature/symbol-keys`.
 - **Haara:** `feature/symbol-keys` juurtuu haaraan `feature/palette-stack`. Täysi ajo tehdään haarassa `wip/linux/symbol-keys` basen päällä valitsimella `--base-baselines prs/000-palette-stack-base`.
-- **Aloitus kylmässä sessiossa:** lue järjestyksessä [../../Introduction.md](../../Introduction.md), [../README.md](../README.md), [../Progress.md](../Progress.md) ja sen kohdat "How to continue the work" ja "Decisions", speksin esipuhe ja luvun 02 kohta "The symbol keys and the course object keys", [../Glossary.md](../Glossary.md) sekä tämä tiketti. [../tools/README.md](../tools/README.md) kertoo tiketin työkierron.
+- **Aloitus kylmässä sessiossa:** lue järjestyksessä [../../Introduction.md](../../Introduction.md), [../README.md](../README.md), [../Handover.md](../Handover.md), speksin esipuhe ja luvun 02 kohta "The symbol keys and the course object keys", [../Glossary.md](../Glossary.md) sekä tämä tiketti. [../tools/README.md](../tools/README.md) kertoo tiketin työkierron.
 
 **Erotetut alatehtävät**
 <!-- Tästä tiketistä erotetut korjaukset ja ominaisuudet: tiketti, haara ja se, onko haara yhdistetty tämän tiketin haaraan -->

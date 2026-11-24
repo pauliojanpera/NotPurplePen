@@ -3,7 +3,7 @@
 #
 # Fetches the branch linux of pauliojanpera/windows-fonts into <folder>/fonts, and writes <folder>/fonts.conf, a
 # fontconfig file that offers only the fonts of the branch: the 14 fonts of main at the root of the branch, and the
-# fonts of the Windows machine of the workflow in system/ ("The fonts of the local Linux runs" in ../Progress.md).
+# fonts of the Windows machine of the workflow in system/ ("The fonts of the local Linux runs" in ../Record.md).
 # The file names only that folder and includes no other configuration, so the fonts of this machine and the aliases
 # of fontconfig, which give for example Liberation Sans for Arial, are not in it.
 #

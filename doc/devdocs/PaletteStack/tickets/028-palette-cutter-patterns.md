@@ -94,7 +94,7 @@ omissa tiketeissään. Tiketti on erotettu tiketistä 010, ja sen haara yhdistet
     kuvionsa, joka tuplautuu siellä, missä se on toisen alueen päällä. Monikulmiokirjastoa ei lisätä.
   - Koodaustaan odottavat piirtokohteet saavat olla rikki haarassa `feature/palette-stack`, koska sitä ei vielä käytetä
     mihinkään, eikä vanhaa piirtoa siirretä ryppäisiin (@Pauli, 24.11.).
-  - Kuviotäyttöjen reunanpehmennys Skian koodauksessa on oma tikettinsä tiketin 010 jälkeen (päätös 24.11., Progress.md
+  - Kuviotäyttöjen reunanpehmennys Skian koodauksessa on oma tikettinsä tiketin 010 jälkeen (päätös 24.11., Record.md
     "The Skia calls of the pattern fills"). Se rakentuu tämän tiketin unioniin: alueittain reunanpehmennetyt
     leikkaukset jättäisivät koskettaviin reunoihin vaaleat saumat, ja unionin leikkauksessa niitä ei ole.
 - **Toteutus** (haara `feature/palette-cutter-patterns`, 1530dabd, yhdistetty haaraan `feature/palette-composition`
@@ -193,8 +193,7 @@ omissa tiketeissään. Tiketti on erotettu tiketistä 010, ja sen haara yhdistet
   prs/000-palette-stack-base`, ensin keräävänä ajona. Kun tiketti on valmis, haara yhdistetään haaraan
   `feature/palette-composition`.
 - **Aloitus kylmässä sessiossa:** lue järjestyksessä [../../Introduction.md](../../Introduction.md),
-  [../README.md](../README.md), [../Progress.md](../Progress.md) ja sen kohdat "How to continue the work" ja
-  "Decisions", speksin luvut 03 ja 04, [../Glossary.md](../Glossary.md), tiketit
+  [../README.md](../README.md), [../Handover.md](../Handover.md), speksin luvut 03 ja 04, [../Glossary.md](../Glossary.md), tiketit
   [010](010-palette-composition.md) ja [009](009-pattern-instances.md), [SvgExportDesign.md](../../SvgExportDesign.md):n
   kohta "Overlapping patterns, and a colour's layer" sekä tämä tiketti.
 

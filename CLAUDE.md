@@ -14,7 +14,9 @@ brings, as "Merge feature/svg-target, with the SVG export's strings translated, 
 These apply to the sessions that carry the work and the agents they start (@Pauli, Nov 12). The scripts are in
 `doc/devdocs/SvgDevLoop/`, and its README says how to run them.
 
-- **The agents' prompt cache.** At the start of every session, and before starting any agent, run
+- **The agents' prompt cache.** The palette-stack work starts no agents, and its sessions do not run
+  `agent-cache.py` (`doc/devdocs/PaletteStack/README.md`, "Sessions"). Other sessions: at the start of every
+  session, and before starting any agent, run
   `agent-cache.py set`: it sets `"subagentPromptCacheTtl": "1h"` in `~/.claude/settings.json`. Without it Claude Code
   gives agents a five-minute cache, and every wait longer than that, for a build, a run or a rest, makes an agent
   write its whole context to the cache again. `agent-cache.py report <transcript>` shows from a transcript which
