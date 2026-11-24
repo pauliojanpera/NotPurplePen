@@ -219,7 +219,8 @@ namespace PurplePen.MapModel
 
         // The opacity of this palette color, from 0 (transparent) to 1 (opaque). It applies once to all that the
         // palette color covers, and not to each shape of it. It is apart from the CMYK value and its alpha, and from
-        // the overprint flag. The drawing does not apply it yet.
+        // the overprint flag. Pass 2 applies it to the transparency group of the palette color (TransparencyGroup), and
+        // the old drawing code does not apply it.
         public float Opacity
         {
             get { return opacity; }
@@ -243,9 +244,9 @@ namespace PurplePen.MapModel
                 return Math.Min(Math.Max(opacity, 0), 1);
         }
 
-        // How this palette color composites over the palette colors below it. It is apart from the overprint flag, and
-        // from the blend mode with which the overprint effect of the drawing blends the overprinted colors. The drawing
-        // does not apply it yet.
+        // How this palette color composites over the palette colors below it. It is apart from the overprint flag.
+        // Pass 2 applies it to the transparency group of the palette color in the overprint mode ByPaletteColor
+        // (OverprintMode), and the old drawing code does not apply it.
         public ColorBlendMode BlendMode
         {
             get { return blendMode; }
