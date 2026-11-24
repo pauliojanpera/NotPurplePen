@@ -96,7 +96,7 @@ namespace PurplePen.MapModel.Tests
 
             RenderOptions renderOpts = new RenderOptions();
             renderOpts.usePatternBitmaps = true;
-            renderOpts.blendOverprintedColors = false;
+            renderOpts.overprintMode = OverprintMode.None;
 
             if (antiAlias)
                 result = Rendering.RenderAntiAliasBitmap(map, size, area, renderOpts, 1.0F);
@@ -120,7 +120,7 @@ namespace PurplePen.MapModel.Tests
 
             RenderOptions renderOpts = new RenderOptions();
             renderOpts.usePatternBitmaps = true;
-            renderOpts.blendOverprintedColors = false;
+            renderOpts.overprintMode = OverprintMode.None;
 
             Bitmap result = Rendering.RenderBitmap(map, size, area, renderOpts, 1.0F);
 
@@ -141,7 +141,7 @@ namespace PurplePen.MapModel.Tests
 
             RenderOptions renderOpts = new RenderOptions();
             renderOpts.usePatternBitmaps = true;
-            renderOpts.blendOverprintedColors = true;
+            renderOpts.overprintMode = OverprintMode.Darken;
 
             Bitmap result = Rendering.RenderBitmap(map, size, area, renderOpts, 1.0F);
 
@@ -219,7 +219,7 @@ namespace PurplePen.MapModel.Tests
 
             RenderOptions renderOpts = new RenderOptions();
             renderOpts.usePatternBitmaps = false;
-            renderOpts.blendOverprintedColors = false;
+            renderOpts.overprintMode = OverprintMode.None;
 
             Bitmap result = Rendering.RenderBitmap(map, size, area, renderOpts, 1.0F);
 

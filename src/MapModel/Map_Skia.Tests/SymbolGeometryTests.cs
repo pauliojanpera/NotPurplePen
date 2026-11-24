@@ -769,10 +769,10 @@ namespace Map_Skia.Tests
 
             using (map.Read()) {
                 HoleSymbol hole = area.GetHole(0);
-                CollectionAssert.IsEmpty(hole.Definition.MakeClippingObjects(hole, black, CoveragePrototype.FullCoverage));
-                CollectionAssert.IsEmpty(imageArea.Definition.MakeClippingObjects(imageArea, black, CoveragePrototype.FullCoverage));
-                Assert.Throws<ArgumentException>(() => new GraphicsSymDef().MakeClippingObjects(line, black, CoveragePrototype.FullCoverage));
-                Assert.IsNotEmpty(area.Definition.MakeClippingObjects(area, black, CoveragePrototype.FullCoverage));
+                CollectionAssert.IsEmpty(hole.Definition.MakeClippingObjects(hole, black, CoveragePrototype.FullCoverage, 0));
+                CollectionAssert.IsEmpty(imageArea.Definition.MakeClippingObjects(imageArea, black, CoveragePrototype.FullCoverage, 0));
+                Assert.Throws<ArgumentException>(() => new GraphicsSymDef().MakeClippingObjects(line, black, CoveragePrototype.FullCoverage, 0));
+                Assert.IsNotEmpty(area.Definition.MakeClippingObjects(area, black, CoveragePrototype.FullCoverage, 0));
             }
         }
 

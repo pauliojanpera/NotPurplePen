@@ -19,6 +19,7 @@ using System.Collections.ObjectModel;
 using System.Drawing;
 using CommunityToolkit.Mvvm.ComponentModel;
 using PurplePen.Graphics2D;
+using PurplePen.MapModel;
 
 namespace PurplePen.ViewModels
 {
@@ -119,8 +120,10 @@ namespace PurplePen.ViewModels
 
         // === Advanced group ===
 
+        // The overprint mode, the blend mode of the colors of the map: 0 = not in use (None), 1 = by palette color
+        // (ByPaletteColor), 2 = darken (Darken), 3 = multiply (Multiply).
         [ObservableProperty]
-        private bool useOverprint;
+        private int overprintModeIndex;
 
         /// <summary>The names of the underlying map layers, shown in the "Above map layer" combo.</summary>
         public ObservableCollection<string> MapLayerNames { get; } = new ObservableCollection<string>();
@@ -235,7 +238,7 @@ namespace PurplePen.ViewModels
                 result.purpleK = (float)(Black / 100m);
 
                 result.descriptionsPurple = (DescriptionColorIndex == 1);
-                result.useOcadOverprint = UseOverprint;
+                result.overprintMode = GetOverprintMode(OverprintModeIndex);
 
                 return result;
             }
@@ -296,7 +299,31 @@ namespace PurplePen.ViewModels
                     SelectedMapLayerIndex = purpleLayerIndex;
 
                 DescriptionColorIndex = value.descriptionsPurple ? 1 : 0;
-                UseOverprint = value.useOcadOverprint;
+                OverprintModeIndex = GetOverprintModeIndex(value.overprintMode);
+            }
+        }
+
+        // The overprint mode of an index of the menu of the overprint modes.
+        // index: the index.
+        private static OverprintMode GetOverprintMode(int index)
+        {
+            switch (index) {
+                case 1: return OverprintMode.ByPaletteColor;
+                case 2: return OverprintMode.Darken;
+                case 3: return OverprintMode.Multiply;
+                default: return OverprintMode.None;
+            }
+        }
+
+        // The index of an overprint mode in the menu of the overprint modes.
+        // overprintMode: the overprint mode.
+        private static int GetOverprintModeIndex(OverprintMode overprintMode)
+        {
+            switch (overprintMode) {
+                case OverprintMode.ByPaletteColor: return 1;
+                case OverprintMode.Darken: return 2;
+                case OverprintMode.Multiply: return 3;
+                default: return 0;
             }
         }
 

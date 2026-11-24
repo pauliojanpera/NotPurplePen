@@ -64,7 +64,7 @@ namespace Map_Skia.Tests
                 RenderOptions renderOpts = renderOptions;
                 renderOpts.usePatternBitmaps = usePatternBitmaps;
                 renderOpts.renderTemplates = RenderTemplateOption.MapAndTemplates;
-                renderOpts.blendOverprintedColors = useOverprinting;
+                renderOpts.overprintMode = useOverprinting ? OverprintMode.Darken : OverprintMode.None;
                 renderOpts.minResolution = mapArea.Width / (float)bitmapSize.Width;
 
                 if (useRecording) {

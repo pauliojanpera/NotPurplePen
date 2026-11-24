@@ -73,7 +73,7 @@ namespace Map_Skia.Tests
         {
             RenderOptions renderOpts = new RenderOptions();
             renderOpts.usePatternBitmaps = true;
-            renderOpts.blendOverprintedColors = false;
+            renderOpts.overprintMode = OverprintMode.None;
             renderOpts.colorBeginDrawExclusive = startLayer;
             renderOpts.colorEndDrawInclusive = stopLayer;
 

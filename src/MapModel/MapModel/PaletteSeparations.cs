@@ -32,6 +32,8 @@ namespace PurplePen.MapModel
         private readonly CoveragePrototype prototype;
         private readonly Matrix transformation;  // The transformation M of the configuration.
         private IReadOnlyList<ClippingObject> clippingObjects;     // The clipping objects, after the first read made them.
+        private float[] dashResolutions;        // The resolutions above which its dashed line components are solid, after the first read made them.
+        private IReadOnlyList<ClippingObject>[] solidClippingObjects;   // The clipping objects at the resolutions of drawings, by the number of solid dashed line components.
 
         // Make a palette color coverage of a symbol.
         // map: the map that makes the coverage.
@@ -88,12 +90,62 @@ namespace PurplePen.MapModel
 
                 IReadOnlyList<ClippingObject> made = Volatile.Read(ref clippingObjects);
                 if (made == null) {
-                    made = symbol.Definition.MakeClippingObjects(symbol, color, prototype);
+                    made = symbol.Definition.MakeClippingObjects(symbol, color, prototype, 0);
                     made = Interlocked.CompareExchange(ref clippingObjects, made, null) ?? made;
                 }
 
                 return made;
             }
+        }
+
+        // The clipping objects at the resolution of a drawing, a channel conversion of the clipping objects: a dashed line
+        // component whose gaps are all shorter than the resolution is solid, as the old drawing draws it
+        // (LineSymDef.DrawDashedWithOffset). This applies to the line symbols, the area borders and the component
+        // definitions of combinations. At the resolution 0, they are the clipping objects of the coverage (ClippingObjects).
+        // The conversion depends on the resolution only through which dashed line components are solid, and the coverage
+        // keeps its result for each set of solid dashed line components, as it keeps its clipping objects.
+        // resolution: the resolution of the drawing: the size of a pixel, in paper coordinates.
+        public IReadOnlyList<ClippingObject> GetClippingObjects(float resolution)
+        {
+            map.CheckDerivedValue(madeAt);
+
+            // The number of dashed line components that are solid at the resolution.
+            float[] resolutions = GetDashResolutions();
+            int solid = 0;
+            while (solid < resolutions.Length && resolutions[solid] < resolution)
+                ++solid;
+            if (solid == 0)
+                return ClippingObjects;
+
+            IReadOnlyList<ClippingObject>[] kept = Volatile.Read(ref solidClippingObjects);
+            if (kept == null) {
+                kept = new IReadOnlyList<ClippingObject>[resolutions.Length + 1];
+                kept = Interlocked.CompareExchange(ref solidClippingObjects, kept, null) ?? kept;
+            }
+
+            IReadOnlyList<ClippingObject> made = Volatile.Read(ref kept[solid]);
+            if (made == null) {
+                made = symbol.Definition.MakeClippingObjects(symbol, color, prototype, resolution);
+                made = Interlocked.CompareExchange(ref kept[solid], made, null) ?? made;
+            }
+
+            return made;
+        }
+
+        // The distinct resolutions above which the dashed line components of the coverage are solid, from the smallest
+        // (SymDef.AddDashResolutions). Only the full coverage has line components. The first read makes them.
+        private float[] GetDashResolutions()
+        {
+            float[] made = Volatile.Read(ref dashResolutions);
+            if (made == null) {
+                List<float> resolutions = new List<float>();
+                if (prototype == CoveragePrototype.FullCoverage)
+                    symbol.Definition.AddDashResolutions(resolutions, color);
+                made = resolutions.Where(resolution => !float.IsNaN(resolution)).Distinct().OrderBy(resolution => resolution).ToArray();
+                made = Interlocked.CompareExchange(ref dashResolutions, made, null) ?? made;
+            }
+
+            return made;
         }
 
         // The expansion of the coverage prototype of a hatching or a clipped area pattern over the bounds of the area:

@@ -514,7 +514,7 @@ namespace PurplePen.Tests
             e.allControlsPrintScale = 7500;
             e.allControlsDescKind = DescriptionKind.Text;
             e.descriptionLangId = "bg";
-            e.courseAppearance.useOcadOverprint = true;
+            e.courseAppearance.overprintMode = PurplePen.MapModel.OverprintMode.Darken;
             e.courseAppearance.numberRoboto = false;
             e.courseAppearance.itemScaling = ItemScaling.RelativeTo15000;
             e.courseAppearance.purpleColorBlend = PurpleColorBlend.UpperLowerPurple;
