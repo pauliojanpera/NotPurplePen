@@ -764,6 +764,10 @@ one, and the later one says so. [Handover.md](Handover.md) gives the decisions t
   OCAD's blend modes and opacity ("More tests of OCAD's blend modes"). Purple Pen writes the samples, @Pauli gives their
   views in OCAD and their PDF exports, and the session measures the structure of each PDF and writes the oracle
   `oracles/ocad-blend-modes.md`. The ticket changes no code, and it comes before the ticket of the PDF encoding.
+- **The structure of the PDF of NotPurplePen** (Nov 24). @Pauli: the PDF that NotPurplePen exports need not and should
+  not be identical in structure with the PDF that OCAD exports. The session had read the structure of OCAD's PDF export
+  of the sixth dash sample ([oracles/ocad-blend-modes.md](oracles/ocad-blend-modes.md)), and it was preparing the
+  ticket of the PDF encoding.
 - **The choices of the session in the samples of ticket 027** (Nov 24). By the rule "The session resolves matters",
   the session chose these, which [oracles/ocad-blend-modes.md](oracles/ocad-blend-modes.md) gives:
   - One OCAD 12 file holds all the cases, also the spot colors of case 4. The PDF export of the process colors ignores

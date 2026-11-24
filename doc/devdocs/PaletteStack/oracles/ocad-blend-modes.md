@@ -118,6 +118,10 @@ A transparency group starts with the blend mode Normal and the opacity 1, and th
 group has no color space and the page has no group, so the PDF does not give the blending color space: a viewer
 chooses it. The measurement of the sample's exports confirms or corrects this.
 
+The structure of OCAD's PDF is not the model of the PDF of NotPurplePen, which need not and should not be identical
+with it in structure (@Pauli, Nov 24). The measurement reads the structure so that its result about OCAD's appearance
+does not depend on the color conversion of a viewer (ticket 027).
+
 ## What @Pauli exports and reports
 
 Open [blend-modes-ocad12.ocd](ocad-blend-modes/blend-modes-ocad12.ocd) in OCAD. Put the files on your drive in a folder
