@@ -481,8 +481,8 @@ The section "Words that are not names" lists the words that are not used as name
 - **katkotaulukko** · *dash table* — A known channel conversion of the dashes of a line. `Map` offers it.
 - **laajennus** · *expansion* (work: `StrokedShape.ExpandDashes`, `RepeatedShapes.Expand`) — A known channel conversion
   into single parts: a run into dashes, and a repeated placement into single placements. `Map` offers it.
-- **leikkausobjektit piirron resoluutiolla** · *clipping objects at the resolution of a drawing* (proposed name:
-  `SymbolCoverage.GetClippingObjects(float)`) — A channel conversion: the clipping objects of a palette color coverage
+- **leikkausobjektit piirron resoluutiolla** · *clipping objects at the resolution of a drawing*
+  (`SymbolCoverage.GetClippingObjects(float)`) — A channel conversion: the clipping objects of a palette color coverage
   of a symbol for a drawing of a resolution (*piirron resoluutio*). A dashed line component whose gaps are all shorter
   than the resolution is solid, as the old drawing draws it (`LineSymDef.DrawDashedWithOffset`). At the resolution 0,
   they are the clipping objects of the coverage (`SymbolCoverage.ClippingObjects`). Pass 1 takes no resolution, so
@@ -561,7 +561,7 @@ The section "Words that are not names" lists the words that are not used as name
   With the same steps in the same order, the coverage is the same to the pixel.
 - **askel, määrä** · *step, count* (work: `RepeatedShapes.Step`, `RepeatedShapes.Count`) — The distance along the path
   between two adjacent positions along the path of a repeated placement, and the number of its poses.
-- **kuvioruutu** · *pattern tile* (proposed name: `AreaPatternPrototype.Tile`, `PatternTile`) — One cell of an area
+- **kuvioruutu** · *pattern tile* (`AreaPatternPrototype.Tile`, `PatternTile`) — One cell of an area
   pattern, which is composed from single elements. It depends on the definition alone: the glyph parts of the element
   in one palette color at their places in the cell, as the pattern brush of the old drawing has them
   (`AreaSymDef.CreatePatternBrushes`). The Skia encoding rasterizes it as a pattern brush (*kuviosivellin*).
@@ -584,7 +584,7 @@ encodings make themselves.
   one palette color. Its content is the color C on the coverage of the palette separation. The group is composited once
   onto the backdrop, with the opacity α and the blend mode B of the palette color. So the overlaps of one palette color
   do not get α twice. One transparency group is for each palette color. The palette color is its definition, and the
-  palette separation is its content. In a drawing, pass 2 makes it as a `TransparencyGroup` (proposed name): the palette
+  palette separation is its content. In a drawing, pass 2 makes it as a `TransparencyGroup`: the palette
   color, its opacity α, the blend mode B that the overprint mode gives (`OverprintMode`), the resolution of the drawing,
   and the palette color coverages of the symbols that the rectangle of the drawing can show.
 
@@ -601,7 +601,7 @@ encodings make themselves.
   of the colors to RGB, and Multiply their product. In CMYK, PDF applies a blend mode to the complements of the inks,
   so Darken takes the larger share of each ink. The two give the same result only when each ink changes one RGB
   component alone, which is not true for black or for the SWOP conversion of the screen (`SwopColorConverter`).
-- **`OverprintMode`** (proposed name) · päällepainatustila · *overprint mode* — The choice of the course appearance
+- **`OverprintMode`** · päällepainatustila · *overprint mode* — The choice of the course appearance
   (`CourseAppearance`) that tells which blend mode the drawing applies, in all the channels: `None` (*ei käytössä*),
   `ByPaletteColor` (*palettivärin mukaan*: the blend mode B of each palette color, `SymColor.BlendMode`), `Darken`
   (*tummenna*) and `Multiply` (*kerro*). `Darken` and `Multiply` apply to the overprint colors
@@ -620,9 +620,9 @@ encodings make themselves.
   structure. Where the implementation of a channel does not agree with the ideal form, the encoding chooses a channel
   conversion of `Map`, for example a polyline. An encoding writes its channel directly, and not through
   `IGraphicsTarget`: the SVG encoding writes SVG, the PDF encoding the objects of PdfSharp, and the Skia encoding an
-  `SKCanvas`. An encoding writes one transparency group of a palette color at a time (proposed name:
-  `IPaletteStackEncoding`). A graphics target that shares its surface with an encoding gives the encoding to the
-  drawing (proposed name: `IPaletteStackEncodingProvider`). The Skia encoding is `SkiaEncoding` (proposed name).
+  `SKCanvas`. An encoding writes one transparency group of a palette color at a time (`IPaletteStackEncoding`). A
+  graphics target that shares its surface with an encoding gives the encoding to the drawing
+  (`IPaletteStackEncodingProvider`). The Skia encoding is `SkiaEncoding`.
 - **piirron resoluutio** · *resolution of a drawing* (`RenderOptions.minResolution`) — The size of a pixel of a
   drawing, in paper coordinates. The screen and the Skia rendering tests give it the size of a pixel. Pass 1 takes no
   resolution. Pass 2 adapts to it: an encoding chooses the clipping objects at the resolution of the drawing, and the
@@ -655,7 +655,7 @@ encodings make themselves.
   and places it by M.
 - **`RecordingGraphicsTarget`** · tallentava piirtokohde · *recording graphics target* — A graphics target that records
   the calls of a drawing and plays them back on another graphics target, for example for the print preview
-  (`RecordingPrintTarget`). Pass 2 records its drawing as a deferred drawing (proposed name: `IDeferredDrawingTarget`),
+  (`RecordingPrintTarget`). Pass 2 records its drawing as a deferred drawing (`IDeferredDrawingTarget`),
   which reads the map at the playback and writes with the encoding of the target that plays it back.
 - **piirrosobjekti** · *drawn object* — An object that an encoding writes. Each drawn object refers to its palette color
   coverage of a symbol, and through it to its `Symbol`, `SymColor` and G. The reference gives the `Map` and the symbol

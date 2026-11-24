@@ -101,14 +101,15 @@ yksittäisissä reunapikseleissä, joissa laajennukset pyöristävät katkot ja 
   3. leikkausobjektit eroavat vanhasta piirrosta tikettien 011–013 sallituissa eroissa, eli katkojuosteiden,
      siirrettyjen polkujen ja toistosijoitusten laajennuksissa.
 
-  Muut kuva- ja tekstibaselinet eivät siirry. Siirtyneet baselinet tallennetaan @Paulin luvalla, jonka hän antaa
-  hyväksyessään tiketin.
+  Muut kuva- ja tekstibaselinet eivät siirry. Siirtyneet baselinet tallennetaan @Paulin luvalla, jonka hän antoi
+  hyväksyessään tiketin (24.11.).
 - [ ] Tikettien 023–026, 011–013 ja 009 testit menevät läpi.
 
 **Lisätiedot**
 - **Päätökset:**
-  - Istunto kirjoitti luonnoksen tiketiksi 24.11. @Paulin vastattua viiteen kysymykseen, ja tiketti odottaa @Paulin
-    hyväksyntää. Luonnos hyväksytään ensin tiketiksi, ja vasta sitten se toteutetaan (@Pauli, 21.11. ja 23.11.).
+  - @Pauli hyväksyi tämän tiketin ja sen istunnon valinnat (ks. "Ratkaisut") 24.11. Istunto kirjoitti sen luonnoksesta
+    @Paulin vastattua viiteen kysymykseen. Luonnos hyväksytään ensin tiketiksi, ja vasta sitten se toteutetaan
+    (@Pauli, 21.11. ja 23.11.).
   - Vaihe 2 korvaa palettivärien suoran piirron, ja normaali näkymä on vaiheen 2 piirtotila (@Pauli, 18.11.). Vaihe 2
     lukee palettierotteluja, jotka viittaavat symboleihin, eikä kutsu symbolien piirtokoodia (`Draw`) (20.11.).
   - Palettivärin unioni saa jäädä piirrossa implisiittiseksi, mutta symbolien palettiväripeitot eivät saa jäädä pois
@@ -187,12 +188,12 @@ yksittäisissä reunapikseleissä, joissa laajennukset pyöristävät katkot ja 
   023, 5 `DrawColor`in rajausehdolla, 6 päätöksillä 21.11. ja koodauksen rajapinnalla, 7 päätöksellä 23.11. (Skia
   sekoittaa RGB:ssä, musteittainen B kuuluu PDF:ään ja piirtotiloihin), 8 päätöksellä 23.11. ja 9 tiketillä 011 ja
   päätöksellä 24.11.
-- **Ratkaisut** (istunnon valinnat, nimet valitsee istunto, @Pauli, 23.11.):
+- **Ratkaisut** (istunnon valinnat, @Pauli hyväksyi ne tiketin kanssa 24.11.):
   - Nimet: `IPaletteStackEncoding`, `IPaletteStackEncodingProvider`, `SkiaEncoding`, `TransparencyGroup`,
     `OverprintMode` (`None`, `ByPaletteColor`, `Darken`, `Multiply`), `RenderOptions.overprintMode`,
     `CourseAppearance.overprintMode`, `MapDisplay.OverprintMode`, `Controller.OverprintMode`,
     `SymbolCoverage.GetClippingObjects(float)`, `AreaPatternPrototype.Tile` ja `PatternTile`, `IDeferredDrawingTarget`
-    ja sisäinen `RenderOptions.drawColorsDirectly`. Ne ovat [sanastossa](../Glossary.md) ehdotettuina niminä.
+    ja sisäinen `RenderOptions.drawColorsDirectly`. Ne ovat [sanastossa](../Glossary.md).
   - Ryhmä ilman menetelmää `SaveLayer`: kun α on 1 ja B on Normal, ryhmän koostaminen on sama kuin sisällön piirto
     suoraan, koska lähde päällä (source over) on liitännäinen. Kun α on 1 ja B on Darken, sama pätee, koska saman
     peittävän värin C Darken on idempotentti: jos C on komponentissa tummempi kuin tausta, kumpikin antaa
@@ -215,7 +216,10 @@ yksittäisissä reunapikseleissä, joissa laajennukset pyöristävät katkot ja 
   - Tallennettu piirto lukee kartan vasta toistossa, joten se ei ole palettivärien tilannekuva: kartan muutos
     tallennuksen ja toiston välillä näkyy toistossa. Esikatselu on modaalinen, ja testit toistavat heti.
   - Legacy-piirtokohteet ja PDF pitävät vanhan piirron, koska GDI+:n ja WPF:n hylkääminen veisi mukanaan WinFormsin
-    sovelluksen ja Test_MapModelin GDI+-renderöinnit, jotka Windowsin CI rakentaa ja ajaa.
+    sovelluksen ja Test_MapModelin GDI+-renderöinnit, jotka Windowsin CI rakentaa ja ajaa. Toimitettava sovellus ei
+    tarvitse niitä. CI:ssä ne ovat, koska base rakentaa ja testaa upstreamin sellaisenaan ja epicin haarat tarjotaan
+    upstreamiin, jonka ratkaisussa WinFormsin sovellus on. PurplePen_Tests ja Test_MapModel testaavat myös paljon
+    muuta koodia. Niiden poisto olisi oma muutoksensa baseen ja CI:hin, ja sen päättää @Pauli (24.11.).
   - Peiton vertailun oraakkeli valitaan sisäisellä piirtoasetuksella eikä testin omalla piirtokohteella, koska
     `IGraphicsTarget`in kaikkien jäsenten välittäminen olisi suurempi muutos.
 - **Rajaus:**

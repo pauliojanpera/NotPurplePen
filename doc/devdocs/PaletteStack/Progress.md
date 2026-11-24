@@ -70,7 +70,8 @@ after @Pauli's answers to its five questions ("Pass 2 by channel", "The blend mo
 shorter than a pixel" and "The expansions in the Skia encoding"). Pass 2 takes the palette separations in palette
 order, and the Skia encoding writes the transparency group of each palette color with α and the blend mode of the
 overprint mode, so the screen, the printing on Windows and the print preview draw the palette colors from the
-intermediate layer. It waits for @Pauli's approval ("Waiting on @Pauli"), and it is not implemented before it.
+intermediate layer. @Pauli approved it on Nov 24 ("The approval of ticket 010"), and it is not implemented yet. Its
+branch is `feature/palette-composition`, rooted at `feature/palette-stack` (e51b81a2).
 
 The step of the Tests workflow that checks the machine and installs the fonts runs its script from
 `.github/scripts/check-machine-and-install-fonts.ps1` ("The script of the font step in a file"). The change is merged
@@ -318,7 +319,8 @@ base. No branch is offered upstream yet.
    45260756121). The draft 010 comes next ("The order of the drafts", the session's choice). It is written as a ticket
    in the form of ticket 012: the interface of ticket 024, the terms of the glossary, the code names where the glossary
    has no term, and the old work where it fits. The session of Nov 23 asked its questions first ("Questions
-   early"), and wrote the ticket on Nov 24. It waits for @Pauli's approval ("Waiting on @Pauli").
+   early"), and wrote the ticket on Nov 24. @Pauli approved it on Nov 24 ("The approval of ticket 010"). Its
+   implementation on `feature/palette-composition` comes next, when a session gets the task.
 6. The fonts of the local Linux runs are done ("The fonts of the local Linux runs", "Local tests"):
    1. `system/fonts.json` of the branch `linux` agrees with its files and with `.github/ci/environment.json` of
       `base`: of the 65 fonts of `environment.json`, 29 files have the hash of the Windows machine, and 36 are older
@@ -388,12 +390,6 @@ the rendering.
   target of NotPurplePen fitted to them in the integration. And whether the work can use the documented findings or
   the code of `feature/svg-target`. The notes of the epic give the reasons.
 - **Offering upstream.** No branch is offered upstream yet.
-- **The approval of ticket 010** (Nov 24). [Ticket 010](tickets/010-palette-composition.md), pass 2 and the Skia
-  encoding, is written from the draft after @Pauli's answers to its five questions ("Questions early"), with the
-  choices of the session under "Ratkaisut" and its terms in [Glossary.md](Glossary.md) as proposed names. Its images
-  move where a palette color has α below 1, where the old pattern brush placed an area pattern otherwise than M, and
-  where the expansions round the dashes and the glyphs otherwise than the old drawing. Their baselines move with the
-  approval. The ticket is not implemented before the approval.
 
 ## Decisions
 
@@ -751,9 +747,20 @@ the rendering.
   the size of a pixel as the resolution. Pass 1 takes no resolution, and an encoding recognizes no structure, so `Map`
   offers a channel conversion: the clipping objects of a palette color coverage of a symbol without the dashes that
   are shorter than the resolution. The Skia encoding chooses it, and the images stay as they are.
+- **The approval of ticket 010** (Nov 24). @Pauli approved [010](tickets/010-palette-composition.md), pass 2 and the
+  Skia encoding, with the choices of the session under "Ratkaisut" and its names. Its images move where a palette
+  color has α below 1, where the old pattern brush placed an area pattern otherwise than M, and where the expansions
+  round the dashes and the glyphs otherwise than the old drawing, and he let their baselines move with the approval.
+  He asked what the WinForms build and the GDI+ tests of the Windows CI are for (choice 7 of the ticket). The session
+  answered: the application that ships does not need them. They are in the CI because `base` builds and tests
+  upstream as it is and the branches of the epic are offered upstream, where the WinForms application and its GDI+
+  drawing are, and because `PurplePen_Tests` and `Test_MapModel` test much more code, only on the Windows CI. Their
+  removal would be a change of its own to `base` and the CI, which is @Pauli's to decide. The branch is
+  `feature/palette-composition`, rooted at `feature/palette-stack` (e51b81a2), and its full runs go on
+  `wip/linux/palette-composition`, on `base`, with `--base-baselines prs/000-palette-stack-base`.
 - **The choices of the session in ticket 010** (Nov 24). By the rule "The session resolves matters", the session
   chose these, which the ticket gives under "Ratkaisut":
-  - The names, which [Glossary.md](Glossary.md) gives as proposed names.
+  - The names, which [Glossary.md](Glossary.md) gives.
   - The transparency group of a palette color without `SKCanvas.SaveLayer` when α is 1 and B is Normal or Darken.
     The composite is then the same as the content drawn directly with B, as source over is associative and Darken is
     idempotent for one opaque color, so the images of the screen and of the tests stay.
