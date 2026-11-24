@@ -4,6 +4,28 @@ This fork's own instructions. `AGENTS.md` beside this one came from upstream and
 describes the code; where the two disagree about how work is built, tested or
 delivered, this file is the one that applies.
 
+## Questions to the developer
+
+A question that the developer must decide follows these rules:
+
+- The question stands alone: the developer does not look back in the
+  conversation to understand it. It quotes the present text or use, with its
+  sources, and gives an example, the options and a recommendation.
+- It gives only the real options. An option that is there only to involve the
+  developer is left out.
+- The sources are read before the question: the specifications, the
+  decisions, the tickets and the code. A fact that the sources give is not
+  asked: the question presents it.
+- The question gives the theoretical basis of the choice, from a proper
+  investigation, for example in mathematics or in the theory of computer
+  graphics and compositing. A count of uses, the words of a document or the
+  code of the work is not a basis alone.
+- A choice that follows from the model of an earlier decision is not asked as
+  a question of its own. Another question states it, as the choice that
+  applies unless the developer proposes otherwise.
+- The length is moderate: not too long, not too short, and not a list of
+  fragments.
+
 ## There is no Windows machine here
 
 Nothing is built or tested on the developer's own machine, because there is none
