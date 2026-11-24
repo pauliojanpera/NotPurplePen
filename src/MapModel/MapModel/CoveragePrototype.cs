@@ -50,11 +50,13 @@ namespace PurplePen.MapModel
         // transformation: the transformation M.
         internal abstract Matrix GetNormalForm(Matrix transformation);
 
-        // The expansion of the coverage prototype over the bounds of the area of a symbol (SymbolCoverage.ExpandPrototype):
-        // the lines of a hatching or the elements of an area pattern, as single clipping objects at the places and with
-        // the steps of the drawing.
+        // The expansion of the coverage prototype over a rectangle (SymbolCoverage.ExpandPrototype): the lines of a
+        // hatching or the elements of an area pattern that reach the rectangle, as single clipping objects at the places
+        // and with the steps of the drawing. The angle and the rotation center of the area symbol place the coverage
+        // prototype.
         // symbol: the area symbol.
-        internal abstract IReadOnlyList<ClippingObject> Expand(Symbol symbol);
+        // bounds: the rectangle, in the coordinates of the map: the bounds of the area, or of its area cluster.
+        internal abstract IReadOnlyList<ClippingObject> Expand(Symbol symbol, RectangleF bounds);
 
         // The normal form of a transformation M: the linear part A rounded to LinearPrecision, and the translation t of M
         // in the coordinates of G, M = A · T(t), reduced by a function, at the translation A · t.
@@ -139,7 +141,7 @@ namespace PurplePen.MapModel
                 return new Matrix();
             }
 
-            internal override IReadOnlyList<ClippingObject> Expand(Symbol symbol)
+            internal override IReadOnlyList<ClippingObject> Expand(Symbol symbol, RectangleF bounds)
             {
                 throw new InvalidOperationException("The full coverage is not a pattern fill, and it has no expansion.");
             }
@@ -217,11 +219,11 @@ namespace PurplePen.MapModel
             });
         }
 
-        // The hatch lines over the bounds of the area, as the drawing draws them.
-        internal override IReadOnlyList<ClippingObject> Expand(Symbol symbol)
+        // The hatch lines over a rectangle, as the drawing draws them over the bounds of an area.
+        internal override IReadOnlyList<ClippingObject> Expand(Symbol symbol, RectangleF bounds)
         {
             AreaSymbol area = (AreaSymbol)symbol;
-            return definition.ExpandHatching(index, area.Path, area.Angle, area.RotationCenter);
+            return definition.ExpandHatching(index, bounds, area.Angle, area.RotationCenter);
         }
 
         public override string ToString()
@@ -320,11 +322,11 @@ namespace PurplePen.MapModel
             });
         }
 
-        // The elements over the bounds of the area, as the drawing draws them.
-        internal override IReadOnlyList<ClippingObject> Expand(Symbol symbol)
+        // The elements over a rectangle, as the drawing draws them over the bounds of an area.
+        internal override IReadOnlyList<ClippingObject> Expand(Symbol symbol, RectangleF bounds)
         {
             AreaSymbol area = (AreaSymbol)symbol;
-            return definition.ExpandAreaPattern(index, color, area.Path, area.Angle, area.RotationCenter);
+            return definition.ExpandAreaPattern(index, color, bounds, area.Angle, area.RotationCenter);
         }
 
         // The pattern tile: one cell of the area pattern, with the glyph parts of its element in the palette color at their

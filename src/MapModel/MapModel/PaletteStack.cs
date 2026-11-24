@@ -53,6 +53,7 @@ namespace PurplePen.MapModel
         private readonly float resolution;
         private readonly bool usePatternBrushes;
         private readonly IEnumerable<SymbolCoverage> symbolCoverages;
+        private readonly PaletteSeparation separation;
 
         // Make the transparency group of a palette color.
         // color: the palette color.
@@ -63,13 +64,17 @@ namespace PurplePen.MapModel
         //   brush is not too coarse (RenderOptions.usePatternBitmaps).
         // symbolCoverages: the palette color coverages of the symbols in the group, in the order of the palette separation.
         //   Pass 2 gives them as the encoding reads them, and calls the cancellation of the drawing between them.
+        // separation: the palette separation of the palette color, whose palette cutters give the area clusters of the
+        //   palette color coverages.
         internal TransparencyGroup(SymColor color, float opacity, ColorBlendMode blendMode, float resolution, bool usePatternBrushes,
-                                   IEnumerable<SymbolCoverage> symbolCoverages)
+                                   IEnumerable<SymbolCoverage> symbolCoverages, PaletteSeparation separation)
         {
             if (color == null)
                 throw new ArgumentNullException(nameof(color));
             if (symbolCoverages == null)
                 throw new ArgumentNullException(nameof(symbolCoverages));
+            if (separation == null)
+                throw new ArgumentNullException(nameof(separation));
 
             this.color = color;
             this.opacity = opacity;
@@ -77,6 +82,7 @@ namespace PurplePen.MapModel
             this.resolution = resolution;
             this.usePatternBrushes = usePatternBrushes;
             this.symbolCoverages = symbolCoverages;
+            this.separation = separation;
         }
 
         // The palette color. Its color C is SymColor.ColorValue, with the color matrix of the map, which an encoding
@@ -116,6 +122,17 @@ namespace PurplePen.MapModel
         public IEnumerable<SymbolCoverage> SymbolCoverages
         {
             get { return symbolCoverages; }
+        }
+
+        // The area cluster of a palette color coverage of a hatching or a clipped area pattern (PaletteCutter.AreaClusters),
+        // or null for a palette color coverage of the full coverage. An encoding writes the pattern of a cluster of several
+        // areas once, in the union of its areas (AreaCluster.Union), when it reads the first of its palette color coverages
+        // that the group gives, and the cluster gives all its palette color coverages, also those that the rectangle of the
+        // drawing does not show.
+        // coverage: a palette color coverage of the group.
+        public AreaCluster GetAreaCluster(SymbolCoverage coverage)
+        {
+            return separation.GetAreaCluster(coverage);
         }
 
         // The blend mode B of a palette color in an overprint mode: Normal in the mode None, the blend mode of the palette
