@@ -393,6 +393,12 @@ the rendering.
   target of NotPurplePen fitted to them in the integration. And whether the work can use the documented findings or
   the code of `feature/svg-target`. The notes of the epic give the reasons.
 - **Offering upstream.** No branch is offered upstream yet.
+- **The framing line in the images of ticket 010** (Nov 24). The question: does `SkiaEncoding` write the framing line
+  (`FramingStyle.Line`) as one line, so that cause 3 of the criterion "Kuvat" and the description of ticket 010 get
+  it, or does `Map` give a channel conversion with which `SkiaEncoding` writes the framing line as the lines of the old
+  drawing? In `frametext1`, 52 pixels of the framing lines of two texts move, as the one line leaves holes that the
+  narrower pens of the old drawing fill. The session recommends the one line (option A), as OCAD's own drawing leaves
+  the same holes ("The framing line of texts").
 - **The OCAD exports of ticket 027** (Nov 24). @Pauli approved [ticket 027](tickets/027-ocad-blend-mode-tests.md),
   the tests of OCAD's blend modes and opacity. A session makes its samples when it gets the task, and @Pauli gives
   their views in OCAD and their PDF exports when he is at OCAD.
