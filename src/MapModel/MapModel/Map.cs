@@ -2429,49 +2429,35 @@ namespace PurplePen.MapModel
             //TraceLine("Begin drawing rectangle ({0},{1})-({2},{3})", rect.Left, rect.Top, rect.Right, rect.Bottom);
             Debug.Indent();
 
-            // Are we drawing colors starting at the bottom?
-            bool currentlyDrawing = true;
-            if (renderOpts.colorBeginDrawExclusive != null) {
-                currentlyDrawing = false;
-            }
+            // The palette colors that the color range of the options selects, and whether the drawing starts at the bottom
+            // and goes on to the top.
+            bool drawMap = (renderOpts.renderTemplates == RenderTemplateOption.MapAndTemplates || renderOpts.renderTemplates == RenderTemplateOption.MapOnly);
+            bool startsAtBottom, endsAtTop;
+            List<SymColor> drawnColors = SelectColorsToDraw(renderOpts, drawMap, out startsAtBottom, out endsAtTop);
 
             // Templates below the map (usual OCAD case)
-            if (currentlyDrawing && 
+            if (startsAtBottom && 
                 (renderOpts.renderTemplates == RenderTemplateOption.MapAndTemplates || renderOpts.renderTemplates == RenderTemplateOption.TemplatesOnly) &&
                 this.AnyVisibleTemplates) 
             {
                 DrawTemplates(g, rect, renderOpts, throwOnCancel, false, templateRecursionCount);
             }
 
-            if (renderOpts.renderTemplates == RenderTemplateOption.MapAndTemplates || renderOpts.renderTemplates == RenderTemplateOption.MapOnly) { 
+            if (drawMap) { 
                 if (renderOpts.showSymbolBounds && !g.HasPen(boundsPenKey))
                     GraphicsUtil.CreateSolidPen(g, boundsPenKey, CmykColor.FromRgba(1.0F, 0, 0, 0.392157F), 0.01F, LineStyle.Mitered);
 
                 // Draw the image layer.
-                if (currentlyDrawing) {
+                if (startsAtBottom) {
                     DrawColor(g, this.ImageColor, rect, renderOpts, throwOnCancel);
                     if (throwOnCancel != null)
                         throwOnCancel();
                 }
 
-                // Draw each color separately, to get correct layering.
-                foreach (SymColor curColor in colors) {
-                    if (currentlyDrawing) {
-                        DrawColor(g, curColor, rect, renderOpts, throwOnCancel);
-                        if (throwOnCancel != null)
-                            throwOnCancel();
-                    }
+                // Draw the palette colors, in palette order, beside the graphics target.
+                DrawPaletteColors(g, drawnColors, rect, renderOpts, throwOnCancel);
 
-                    // Update the currentlyDrawing flag.
-                    if (!currentlyDrawing && renderOpts.colorBeginDrawExclusive == curColor.OcadId) {
-                        currentlyDrawing = true;
-                    }
-                    if (currentlyDrawing && renderOpts.colorEndDrawInclusive == curColor.OcadId) {
-                        currentlyDrawing = false;
-                    }
-                }
-
-                if (currentlyDrawing && !layoutHidden) {
+                if (endsAtTop && !layoutHidden) {
                     // Draw the layout layer.
                     DrawColor(g, this.LayoutColor, rect, renderOpts, throwOnCancel);
                     if (throwOnCancel != null)
@@ -2480,7 +2466,7 @@ namespace PurplePen.MapModel
             }
 
             // Templates above the map (OOM case)
-            if (currentlyDrawing && 
+            if (endsAtTop && 
                 (renderOpts.renderTemplates == RenderTemplateOption.MapAndTemplates || renderOpts.renderTemplates == RenderTemplateOption.TemplatesOnly) &&
                 this.AnyVisibleTemplates) 
             {
@@ -2490,12 +2476,185 @@ namespace PurplePen.MapModel
             Debug.Unindent();
         }
 
+        // Select the palette colors that the color range of render options draws (colorBeginDrawExclusive and
+        // colorEndDrawInclusive), in palette order. The range starts at the bottom when it has no begin, and after the
+        // palette color of the begin otherwise. It ends with the palette color of the end, or at the top when it has no end
+        // or the map has no palette color of the end.
+        // renderOpts: the render options.
+        // drawMap: whether the drawing draws the map, and not only the templates. Without the map, no palette color is
+        //   selected, and the range ends where it starts.
+        // startsAtBottom: whether the range starts at the bottom, below the bottom palette color, with the image layer and
+        //   the templates below the map.
+        // endsAtTop: whether the range ends at the top, above the top palette color, with the layout layer and the
+        //   templates above the map.
+        private List<SymColor> SelectColorsToDraw(RenderOptions renderOpts, bool drawMap, out bool startsAtBottom, out bool endsAtTop)
+        {
+            List<SymColor> drawnColors = new List<SymColor>();
+            bool currentlyDrawing = (renderOpts.colorBeginDrawExclusive == null);
+            startsAtBottom = currentlyDrawing;
+
+            if (drawMap) {
+                foreach (SymColor curColor in colors) {
+                    if (currentlyDrawing)
+                        drawnColors.Add(curColor);
+
+                    // Update the currentlyDrawing flag.
+                    if (!currentlyDrawing && renderOpts.colorBeginDrawExclusive == curColor.OcadId) {
+                        currentlyDrawing = true;
+                    }
+                    if (currentlyDrawing && renderOpts.colorEndDrawInclusive == curColor.OcadId) {
+                        currentlyDrawing = false;
+                    }
+                }
+            }
+
+            endsAtTop = currentlyDrawing;
+            return drawnColors;
+        }
+
+        // Draw palette colors of the map, in palette order. A graphics target that gives an encoding gets them from pass 2,
+        // which writes the transparency group of each palette color with the encoding (WritePaletteStack) and does not call
+        // the drawing code of the symbols. A graphics target that defers a drawing (IDeferredDrawingTarget) gets the
+        // drawing of the palette colors deferred: at the playback, the drawing reads the map, and writes the palette colors
+        // with the encoding of the target that plays it back, or with the old drawing code when that target has no
+        // encoding. The other graphics targets draw the palette colors with the old drawing code (DrawColor), as does each
+        // target when the internal option drawColorsDirectly is set.
+        // g: the graphics target.
+        // drawnColors: the palette colors to draw, in palette order.
+        // rect: the rectangle of the drawing.
+        // renderOpts: the render options.
+        // throwOnCancel: the cancellation of the drawing, or null.
+        private void DrawPaletteColors(IGraphicsTarget g, IReadOnlyList<SymColor> drawnColors, RectangleF rect, RenderOptions renderOpts, Action throwOnCancel)
+        {
+            if (drawnColors.Count == 0)
+                return;
+
+            if (!renderOpts.drawColorsDirectly) {
+                IDeferredDrawingTarget deferredTarget = g as IDeferredDrawingTarget;
+                if (deferredTarget != null) {
+                    RenderOptions optionsOfPlayback = renderOpts.Clone();
+                    RectangleF rectOfPlayback = rect;
+                    deferredTarget.DrawDeferred(target => DrawPaletteColorsAtPlayback(target, rectOfPlayback, optionsOfPlayback));
+                    return;
+                }
+
+                IPaletteStackEncodingProvider provider = g as IPaletteStackEncodingProvider;
+                IPaletteStackEncoding encoding = (provider != null) ? provider.PaletteStackEncoding : null;
+                if (encoding != null) {
+                    WritePaletteStack(encoding, g, drawnColors, rect, renderOpts, throwOnCancel);
+                    return;
+                }
+            }
+
+            foreach (SymColor curColor in drawnColors) {
+                DrawColor(g, curColor, rect, renderOpts, throwOnCancel);
+                if (throwOnCancel != null)
+                    throwOnCancel();
+            }
+        }
+
+        // Draw the palette colors of a deferred drawing at its playback: read the map, select the palette colors of the
+        // color range again, and draw them on the target of the playback. The drawing is not a snapshot of the palette
+        // colors: a change of the map between the recording and the playback shows in the playback.
+        // target: the target of the playback.
+        // rect: the rectangle of the drawing.
+        // renderOpts: the render options of the drawing.
+        private void DrawPaletteColorsAtPlayback(IGraphicsTarget target, RectangleF rect, RenderOptions renderOpts)
+        {
+            using (Read()) {
+                bool startsAtBottom, endsAtTop;
+                List<SymColor> drawnColors = SelectColorsToDraw(renderOpts, true, out startsAtBottom, out endsAtTop);
+                if (renderOpts.showSymbolBounds && !target.HasPen(boundsPenKey))
+                    GraphicsUtil.CreateSolidPen(target, boundsPenKey, CmykColor.FromRgba(1.0F, 0, 0, 0.392157F), 0.01F, LineStyle.Mitered);
+                DrawPaletteColors(target, drawnColors, rect, renderOpts, null);
+            }
+        }
+
+        // Pass 2: write the transparency group of each palette color to draw with an encoding, in palette order. A group
+        // has the palette color coverages of the symbols that the rectangle of the drawing can show, with the same condition
+        // as DrawColor (SelectSymbolCoverages), the opacity α of the palette color, the blend mode B that the overprint mode
+        // gives it, and the resolution of the drawing. Pass 2 calls the cancellation as DrawColor does, and does not call the
+        // drawing code of the symbols. With the debug option showSymbolBounds, it draws the bounds of the symbols of each
+        // group on the graphics target, after the group.
+        // encoding: the encoding.
+        // g: the graphics target that gave the encoding, which shares its surface.
+        // drawnColors: the palette colors to draw.
+        // rect: the rectangle of the drawing.
+        // renderOpts: the render options.
+        // throwOnCancel: the cancellation of the drawing, or null.
+        private void WritePaletteStack(IPaletteStackEncoding encoding, IGraphicsTarget g, IReadOnlyList<SymColor> drawnColors, RectangleF rect, RenderOptions renderOpts,
+                                       Action throwOnCancel)
+        {
+            HashSet<SymColor> drawn = new HashSet<SymColor>(drawnColors);
+            foreach (PaletteSeparation separation in PaletteSeparations) {
+                SymColor color = separation.Color;
+                if (!drawn.Contains(color))
+                    continue;
+
+                List<Symbol> shownSymbols = renderOpts.showSymbolBounds ? new List<Symbol>() : null;
+                TransparencyGroup group = new TransparencyGroup(color, color.Opacity, TransparencyGroup.GetBlendMode(color, renderOpts.overprintMode), renderOpts.minResolution,
+                                                                renderOpts.usePatternBitmaps, SelectSymbolCoverages(separation, rect, throwOnCancel, shownSymbols), separation);
+                encoding.WriteTransparencyGroup(group);
+
+                if (shownSymbols != null) {
+                    foreach (Symbol symbol in shownSymbols)
+                        g.DrawRectangle(boundsPenKey, symbol.BoundingBox);
+                }
+
+                if (throwOnCancel != null)
+                    throwOnCancel();
+            }
+        }
+
+        // The palette color coverages of the symbols of a palette separation that the rectangle of a drawing can show, in
+        // the order of the separation: those of the symbols that may intersect the rectangle, with the condition of
+        // DrawColor (Symbol.BoundingBox and Symbol.MayIntersectRect). They are given as they are read, and the cancellation
+        // is called after each fourth symbol, as DrawColor calls it after it draws each fourth symbol.
+        // separation: the palette separation.
+        // rect: the rectangle of the drawing.
+        // throwOnCancel: the cancellation of the drawing, or null.
+        // shownSymbols: the list that gets each symbol whose coverages are given, or null.
+        private static IEnumerable<SymbolCoverage> SelectSymbolCoverages(PaletteSeparation separation, RectangleF rect, Action throwOnCancel, List<Symbol> shownSymbols)
+        {
+            int symbolsDrawn = 0;
+            Symbol symbol = null;
+            bool isShown = false;
+
+            foreach (SymbolCoverage coverage in separation.SymbolCoverages) {
+                if (coverage.Symbol != symbol) {
+                    if (isShown) {
+                        ++symbolsDrawn;
+                        if (throwOnCancel != null && symbolsDrawn % 4 == 0)
+                            throwOnCancel();
+                    }
+
+                    // Check the bounding box first, as it is a faster exclusion than MayIntersectRect.
+                    symbol = coverage.Symbol;
+                    RectangleF bounds = symbol.BoundingBox;
+                    isShown = bounds.IntersectsWith(rect) && symbol.MayIntersectRect(rect);
+                    if (isShown && shownSymbols != null)
+                        shownSymbols.Add(symbol);
+                }
+
+                if (isShown)
+                    yield return coverage;
+            }
+
+            if (isShown) {
+                ++symbolsDrawn;
+                if (throwOnCancel != null && symbolsDrawn % 4 == 0)
+                    throwOnCancel();
+            }
+        }
+
         private int SymbolComparison(Symbol s1, Symbol s2)
         {
             return s1.SortOrder.CompareTo(s2.SortOrder);
         }
 
-        // Draw a particular color layer. If curColor is ImageColor or LayoutColor, draw the image layer or Layout layer 
+        // Draw a particular color layer. If curColor is ImageColor or LayoutColor, draw the image layer or Layout layer.
+        // This is the old drawing of a palette color, which calls the drawing code of each symbol (Symbol.Draw). It draws
+        // the image layer and the layout layer, and the palette colors on a graphics target that gives no encoding.
         private void DrawColor(IGraphicsTarget g, SymColor curColor, RectangleF rect, RenderOptions renderOpts, Action throwOnCancel)
         {
             int symbolsDrawn = 0;
@@ -2521,8 +2680,9 @@ namespace PurplePen.MapModel
                             if (bounds.IntersectsWith(rect) &&
                                 curSym.MayIntersectRect(rect)) 
                             {
-                                if (renderOpts.blendOverprintedColors && curColor.OverPrint && !anySymbolsDrawn) {
-                                    // We need to blend this color.
+                                if (renderOpts.overprintMode == OverprintMode.Darken && curColor.OverPrint && !anySymbolsDrawn) {
+                                    // We need to blend this color. The old drawing applies no other overprint mode, and not
+                                    // the opacity of the color.
                                     g.PushBlending(BlendMode.Darken);
                                     mustPopBlending = true;
                                 }
@@ -2558,7 +2718,7 @@ namespace PurplePen.MapModel
         // palette color that no symbol draws. Pass 1 takes no rectangle and no resolution of a drawing. It takes the
         // visible symbol definitions that have a palette color, and their visible symbols, wherever the symbols lie, in
         // the order in which DrawColor draws them. The templates, the image layer and the layout layer are not palette
-        // colors, and have no palette separations. The drawing does not use the palette separations.
+        // colors, and have no palette separations. Pass 2 writes the palette colors of a drawing from them (Draw).
         // The map keeps them as a derived value: the first read after a change of the map makes them, and the reads
         // without a change get the same objects. Several readers can read them at the same time.
         public IReadOnlyList<PaletteSeparation> PaletteSeparations
@@ -3122,8 +3282,8 @@ namespace PurplePen.MapModel
         public float minResolution;  // minimum size of a feature to render (typically the pixel size)
         public bool usePatternBitmaps; // if true, always use bitmap glyphs to render area patterns, if false, use direct drawing and clipping
         public RenderTemplateOption renderTemplates; // how templates (either OCAD or bitmap) will be displayed. Recursively applies to OCAD templates.
-        public bool blendOverprintedColors; // if true, then use BlendMode.Darken to blend colors that have Overprint flag set to true.
-                                            // if false, then Overprint flag is ignored.
+        public OverprintMode overprintMode; // the blend mode that the drawing applies to the palette colors (OverprintMode). A
+                                            // graphics target without an encoding applies only Darken, to the overprint colors.
 
         // These options allow drawing just some colors (layers) of the maps.
         public int? colorBeginDrawExclusive; // If null, start drawing at the bottom, otherwise draw beginning after this color.
@@ -3131,6 +3291,10 @@ namespace PurplePen.MapModel
 
         // debug options.
         public bool showSymbolBounds;      // Show the bounds of symbols.
+
+        // An internal option of the tests: if true, the palette colors are drawn with the old drawing code (Map.DrawColor)
+        // also on a graphics target that gives an encoding, as the oracle of the coverage comparison.
+        internal bool drawColorsDirectly;
 
         public RenderOptions Clone()
         {

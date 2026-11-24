@@ -181,11 +181,24 @@ namespace PurplePen.MapModel
 
         // The geometry method of this symbol definition: the clipping objects of the palette color coverage of a symbol
         // of this definition (SymbolCoverage), without a drawing target and without render options. Each symbol
-        // definition has a geometry method of its own.
+        // definition has a geometry method of its own. At the resolution of a drawing, a dashed line component whose gaps
+        // are all shorter than the resolution is solid, as the old drawing draws it (LineSymDef.DrawDashedWithOffset). At
+        // the resolution 0, each dashed line component keeps its dashes (SymbolCoverage.ClippingObjects).
         // symbol: the symbol, which has this definition.
         // color: the palette color.
         // prototype: the coverage prototype.
-        internal abstract IReadOnlyList<ClippingObject> MakeClippingObjects(Symbol symbol, SymColor color, CoveragePrototype prototype);
+        // resolution: the resolution of the drawing, the size of a pixel in paper coordinates, or 0.
+        internal abstract IReadOnlyList<ClippingObject> MakeClippingObjects(Symbol symbol, SymColor color, CoveragePrototype prototype, float resolution);
+
+        // Add the resolutions above which the dashed line components of this definition in a palette color are solid: for
+        // each dashed line component in the palette color, the longest of its gaps (LineSymDef.GetDashResolution). The
+        // clipping objects of a palette color coverage of a symbol at the resolution of a drawing depend on the resolution
+        // only through how many of these are below it.
+        // resolutions: the list that gets the resolutions.
+        // color: the palette color.
+        internal virtual void AddDashResolutions(List<float> resolutions, SymColor color)
+        {
+        }
 
 
         // Does this symdef depend on another? null means no.
@@ -285,7 +298,7 @@ namespace PurplePen.MapModel
 
         // The geometry method of the point symbols: the parts of the glyph in the palette color, at the location and the
         // angle of the symbol, with its gaps (Glyph.MakeClippingObjects).
-        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(Symbol symbol, SymColor color, CoveragePrototype prototype)
+        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(Symbol symbol, SymColor color, CoveragePrototype prototype, float resolution)
         {
             Debug.Assert(prototype == CoveragePrototype.FullCoverage, "A point symbol has the full coverage only.");
             PointSymbol pointSymbol = (PointSymbol)symbol;
@@ -355,10 +368,12 @@ namespace PurplePen.MapModel
 
         // The geometry method of a line of this definition along any base path: the clipping objects of the line in a
         // palette color, without a drawing target, in the order in which Draw draws them. The area border and a
-        // component definition of an AreaComboSymDef use it with the main path and with each hole of an area.
+        // component definition of an AreaComboSymDef use it with the main path and with each hole of an area. A dashed
+        // line component whose gaps are all shorter than the resolution of a drawing is solid.
         // path: the base path.
         // color: the palette color.
-        internal abstract IReadOnlyList<ClippingObject> MakeClippingObjects(SymPath path, SymColor color);
+        // resolution: the resolution of the drawing, or 0.
+        internal abstract IReadOnlyList<ClippingObject> MakeClippingObjects(SymPath path, SymColor color, float resolution);
     }
 
     // A combination of multiple line symdefs. Acts like a line symdef. For OpenMapper support.
@@ -470,23 +485,31 @@ namespace PurplePen.MapModel
         }
 
         // The geometry method of the combined lines: the clipping objects of the palette color coverage of a line symbol
-        // (MakeClippingObjects(SymPath, SymColor)).
-        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(Symbol symbol, SymColor color, CoveragePrototype prototype)
+        // (MakeClippingObjects(SymPath, SymColor, float)).
+        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(Symbol symbol, SymColor color, CoveragePrototype prototype, float resolution)
         {
             Debug.Assert(prototype == CoveragePrototype.FullCoverage, "A line symbol has the full coverage only.");
-            return MakeClippingObjects(((LineSymbol)symbol).Path, color);
+            return MakeClippingObjects(((LineSymbol)symbol).Path, color, resolution);
         }
 
         // The clipping objects of a combined line along a base path in a palette color: the clipping objects of each
         // component definition, in the order of the components, as Draw draws them.
         // path: the base path.
         // color: the palette color.
-        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(SymPath path, SymColor color)
+        // resolution: the resolution of the drawing, or 0.
+        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(SymPath path, SymColor color, float resolution)
         {
             List<ClippingObject> clippingObjects = new List<ClippingObject>();
             foreach (LineSymDef component in components)
-                clippingObjects.AddRange(component.MakeClippingObjects(path, color));
+                clippingObjects.AddRange(component.MakeClippingObjects(path, color, resolution));
             return clippingObjects.AsReadOnly();
+        }
+
+        // The resolutions above which the dashed line components of the component definitions are solid.
+        internal override void AddDashResolutions(List<float> resolutions, SymColor color)
+        {
+            foreach (LineSymDef component in components)
+                component.AddDashResolutions(resolutions, color);
         }
     }
 
@@ -963,21 +986,64 @@ namespace PurplePen.MapModel
         }
 
         // The geometry method of the line symbols: the clipping objects of the palette color coverage of a line symbol
-        // (MakeClippingObjects(SymPath, SymColor)).
-        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(Symbol symbol, SymColor color, CoveragePrototype prototype)
+        // (MakeClippingObjects(SymPath, SymColor, float)).
+        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(Symbol symbol, SymColor color, CoveragePrototype prototype, float resolution)
         {
             Debug.Assert(prototype == CoveragePrototype.FullCoverage, "A line symbol has the full coverage only.");
-            return MakeClippingObjects(((LineSymbol)symbol).Path, color);
+            return MakeClippingObjects(((LineSymbol)symbol).Path, color, resolution);
+        }
+
+        // The resolutions above which the dashed line components of this definition in a palette color are solid, as
+        // DrawCore draws them: the main line, the double line fill and the borders of a double line, each when it is
+        // dashed and in the palette color.
+        internal override void AddDashResolutions(List<float> resolutions, SymColor color)
+        {
+            if (lineColor != null && color == lineColor && thickness > 0.0F && isDashed)
+                resolutions.Add(GetDashResolution(dashInfo));
+
+            if (isDoubleLine) {
+                if (doubleLines.doubleFillColor != null && color == doubleLines.doubleFillColor && doubleLines.doubleFillDashed)
+                    resolutions.Add(GetDashResolution(doubleLines.doubleDashes));
+                if (doubleLines.doubleLeftColor != null && color == doubleLines.doubleLeftColor && doubleLines.doubleLeftWidth > 0.0F && doubleLines.doubleLeftDashed)
+                    resolutions.Add(GetDashResolution(doubleLines.doubleDashes));
+                if (doubleLines.doubleRightColor != null && color == doubleLines.doubleRightColor && doubleLines.doubleRightWidth > 0.0F && doubleLines.doubleRightDashed)
+                    resolutions.Add(GetDashResolution(doubleLines.doubleDashes));
+            }
+        }
+
+        // The resolution above which a dashed line is solid: the longest of its gaps, the gap and the secondary gaps that
+        // it has (DrawDashedWithOffset). The line is solid at a resolution when each of its gaps is shorter.
+        // dashes: the dashes of the line.
+        private static float GetDashResolution(DashInfo dashes)
+        {
+            float resolution = dashes.gapLength;
+            if (dashes.secondaryMiddleGaps != 0)
+                resolution = Math.Max(resolution, dashes.secondaryMiddleLength);
+            if (dashes.secondaryEndGaps != 0)
+                resolution = Math.Max(resolution, dashes.secondaryEndLength);
+            return resolution;
+        }
+
+        // Is a dashed line solid at a resolution of a drawing: are all its gaps shorter than the resolution, as
+        // DrawDashedWithOffset draws a line solid?
+        // dashes: the dashes of the line.
+        // resolution: the resolution of the drawing.
+        private static bool IsSolidAtResolution(DashInfo dashes, float resolution)
+        {
+            return dashes.gapLength < resolution && (dashes.secondaryMiddleGaps == 0 || dashes.secondaryMiddleLength < resolution) &&
+                   (dashes.secondaryEndGaps == 0 || dashes.secondaryEndLength < resolution);
         }
 
         // The clipping objects of a line of this definition along a base path in a palette color, without a drawing
         // target, in the order in which DrawCore draws the line components of the color: the main line on the pieces
         // after the shortening, its pointy ends, the second line and the fill of a double line on the pieces without
         // the shortening, the left and the right border of a double line, and the glyphs along the line. A dashed line is
-        // a composed dashed line (AddDashedLine), and a border is an offset path of the base path (OffsetPathShape).
+        // a composed dashed line (AddDashedLine), and a border is an offset path of the base path (OffsetPathShape). A
+        // dashed line component whose gaps are all shorter than the resolution of a drawing is solid.
         // path: the base path.
         // color: the palette color.
-        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(SymPath path, SymColor color)
+        // resolution: the resolution of the drawing, or 0.
+        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(SymPath path, SymColor color, float resolution)
         {
             List<ClippingObject> clippingObjects = new List<ClippingObject>();
             if (path.IsZeroLength)
@@ -992,7 +1058,7 @@ namespace PurplePen.MapModel
                 Stroke mainStroke = new Stroke(thickness, mainCaps, lineJoin, GraphicsUtil.MITER_LIMIT);
                 foreach (SymPath p in pathsWithShortening) {
                     if (isDashed)
-                        AddDashedLine(clippingObjects, p, dashInfo, mainStroke, 0, 1, 0, GetVertexPieceLimit(dashInfo, thickness));
+                        AddDashedLine(clippingObjects, p, dashInfo, mainStroke, 0, 1, 0, GetVertexPieceLimit(dashInfo, thickness), resolution);
                     else
                         clippingObjects.Add(p.MakeStrokedShape(mainStroke, Placement.Identity));
                 }
@@ -1014,17 +1080,17 @@ namespace PurplePen.MapModel
                     Stroke fillStroke = GraphicsUtil.MakeSolidStroke(doubleLines.doubleThick, LineStyle.Mitered);
                     foreach (SymPath p in pathsWithoutShortening) {
                         if (doubleLines.doubleFillDashed)
-                            AddDashedLine(clippingObjects, p, doubleLines.doubleDashes, fillStroke, 0, 1, GetDoubleLineVertexPieceLimit(doubleLines.doubleDashes), GetVertexPieceLimit(doubleLines.doubleDashes, doubleLines.doubleThick));
+                            AddDashedLine(clippingObjects, p, doubleLines.doubleDashes, fillStroke, 0, 1, GetDoubleLineVertexPieceLimit(doubleLines.doubleDashes), GetVertexPieceLimit(doubleLines.doubleDashes, doubleLines.doubleThick), resolution);
                         else
                             clippingObjects.Add(p.MakeStrokedShape(fillStroke, Placement.Identity));
                     }
                 }
 
                 if (doubleLines.doubleLeftColor != null && color == doubleLines.doubleLeftColor && doubleLines.doubleLeftWidth > 0.0F)
-                    AddBorder(clippingObjects, path, SymPath.DOUBLE_LEFT_STARTSTOPFLAG, doubleLines.doubleLeftWidth, doubleLines.doubleLeftDashed, -(doubleLines.doubleThick + doubleLines.doubleLeftWidth) / 2F);
+                    AddBorder(clippingObjects, path, SymPath.DOUBLE_LEFT_STARTSTOPFLAG, doubleLines.doubleLeftWidth, doubleLines.doubleLeftDashed, -(doubleLines.doubleThick + doubleLines.doubleLeftWidth) / 2F, resolution);
 
                 if (doubleLines.doubleRightColor != null && color == doubleLines.doubleRightColor && doubleLines.doubleRightWidth > 0.0F)
-                    AddBorder(clippingObjects, path, SymPath.DOUBLE_RIGHT_STARTSTOPFLAG, doubleLines.doubleRightWidth, doubleLines.doubleRightDashed, (doubleLines.doubleThick + doubleLines.doubleRightWidth) / 2F);
+                    AddBorder(clippingObjects, path, SymPath.DOUBLE_RIGHT_STARTSTOPFLAG, doubleLines.doubleRightWidth, doubleLines.doubleRightDashed, (doubleLines.doubleThick + doubleLines.doubleRightWidth) / 2F, resolution);
             }
 
             if (glyphs != null) {
@@ -1053,12 +1119,13 @@ namespace PurplePen.MapModel
         // flag: the start/stop flag of the border.
         // width, isDashed: the width and the dashes of the border.
         // offsetRight: the distance of the border to the right of the base path.
-        private void AddBorder(List<ClippingObject> clippingObjects, SymPath path, byte flag, float width, bool isDashed, float offsetRight)
+        // resolution: the resolution of the drawing, or 0.
+        private void AddBorder(List<ClippingObject> clippingObjects, SymPath path, byte flag, float width, bool isDashed, float offsetRight, float resolution)
         {
             Stroke stroke = GraphicsUtil.MakeSolidStroke(width, LineStyle.FlatRounded);
             foreach (SymPath subpath in path.GetSubpaths(flag)) {
                 if (isDashed)
-                    AddDashedLine(clippingObjects, subpath, doubleLines.doubleDashes, stroke, offsetRight, GraphicsUtil.MITER_LIMIT, GetDoubleLineVertexPieceLimit(doubleLines.doubleDashes), GetVertexPieceLimit(doubleLines.doubleDashes, width));
+                    AddDashedLine(clippingObjects, subpath, doubleLines.doubleDashes, stroke, offsetRight, GraphicsUtil.MITER_LIMIT, GetDoubleLineVertexPieceLimit(doubleLines.doubleDashes), GetVertexPieceLimit(doubleLines.doubleDashes, width), resolution);
                 else
                     clippingObjects.Add(new StrokedShape(new OffsetPathShape(subpath, offsetRight, GraphicsUtil.MITER_LIMIT), stroke, Placement.Identity));
             }
@@ -1104,24 +1171,27 @@ namespace PurplePen.MapModel
             return (walked > 0) ? SymPath.EuclidDistance(a, b) / walked : 1;
         }
 
-        // Add the clipping objects of a dashed line along a path, as DrawDashedWithOffset draws it with no limit of
-        // resolution, as a composed dashed line in the euclidean measure: the middle dashes of a segment that repeat a
+        // Add the clipping objects of a dashed line along a path, as DrawDashedWithOffset draws it at a resolution of a
+        // drawing, as a composed dashed line in the euclidean measure: the middle dashes of a segment that repeat a
         // pattern along one region of the path (GetRegions) are one run of dashes, a stroked shape whose pen has the
         // pattern, and the other dashes are single dashes, in the order of the path. A run has no dash from which a rule
         // of the vertices left a vertex out, no end dash of the line and no dash over a corner point or a dash point. The
         // shape of a run is the piece of the path from the start of its first dash to the end of its last, or the offset
-        // path of that piece. A line without dashes is solid.
+        // path of that piece. A line without dashes is solid, and so is a line whose gaps are all shorter than the
+        // resolution (IsSolidAtResolution). At the resolution 0, a line with dashes keeps them.
         // clippingObjects: the clipping objects, which get those of the line.
         // path: the path.
         // dashes: the dashes of the line.
         // stroke: the pen of the line, without dashes.
         // offsetRight, miterLimit: the offset of the line from the path, and its miter limit.
         // pathVertexLimit, drawnVertexLimit: the limits of the rules of the vertices next to the ends of a dash.
-        private void AddDashedLine(List<ClippingObject> clippingObjects, SymPath path, DashInfo dashes, Stroke stroke, float offsetRight, float miterLimit, float pathVertexLimit, float drawnVertexLimit)
+        // resolution: the resolution of the drawing, or 0.
+        private void AddDashedLine(List<ClippingObject> clippingObjects, SymPath path, DashInfo dashes, Stroke stroke, float offsetRight, float miterLimit, float pathVertexLimit, float drawnVertexLimit,
+                                   float resolution)
         {
             SymPath.DistanceMetric metric = map.MapDistanceMetric;
             float[] distances = ComputeDashDistances(path, LocationKind.DashAndGapLengths, dashes.spacingMethod, dashes.dashLength, dashes.firstDashLength, dashes.lastDashLength, dashes.gapLength, dashes.halfEndDashLengthWhenClosed, dashes.minGaps, 0, dashes.secondaryEndGaps, dashes.secondaryEndLength, dashes.secondaryMiddleGaps, dashes.secondaryMiddleLength, 1.0F, false, null, metric);
-            if (distances.Length == 0) {
+            if (distances.Length == 0 || IsSolidAtResolution(dashes, resolution)) {
                 if (offsetRight != 0)
                     clippingObjects.Add(new StrokedShape(new OffsetPathShape(path, offsetRight, miterLimit), stroke, Placement.Identity));
                 else
@@ -2428,14 +2498,14 @@ namespace PurplePen.MapModel
 
         // The geometry method of the area symbols: the clipping objects of the palette color coverage of an area symbol.
         // With the full coverage, they come from the path with holes and the angle and the rotation center of the area
-        // symbol (MakeClippingObjects(SymPathWithHoles, SymColor, float, PointF)). With a hatching or a clipped area
+        // symbol (MakeClippingObjects(SymPathWithHoles, SymColor, float, PointF, float)). With a hatching or a clipped area
         // pattern, the clipping object is the area: a filled shape of the main path and the holes with the alternate fill
         // rule, the area with which the drawing clips the hatching and the area pattern.
-        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(Symbol symbol, SymColor color, CoveragePrototype prototype)
+        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(Symbol symbol, SymColor color, CoveragePrototype prototype, float resolution)
         {
             AreaSymbol area = (AreaSymbol)symbol;
             if (prototype == CoveragePrototype.FullCoverage)
-                return MakeClippingObjects(area.Path, color, area.Angle, area.RotationCenter);
+                return MakeClippingObjects(area.Path, color, area.Angle, area.RotationCenter, resolution);
 
             Debug.Assert(prototype is HatchingPrototype || prototype is AreaPatternPrototype, "The coverage prototype of an area is the full coverage, a hatching or an area pattern.");
             return Array.AsReadOnly(new ClippingObject[] { area.Path.MakeFilledShape(Placement.Identity) });
@@ -2449,7 +2519,9 @@ namespace PurplePen.MapModel
         // color: the palette color.
         // angle: the angle of the area symbol, which turns its area patterns.
         // rotationCenter: the rotation center of the area symbol.
-        internal abstract IReadOnlyList<ClippingObject> MakeClippingObjects(SymPathWithHoles path, SymColor color, float angle, PointF rotationCenter);
+        // resolution: the resolution of the drawing, at which the dashed line components of a line are solid when their
+        //   gaps are all shorter than it, or 0.
+        internal abstract IReadOnlyList<ClippingObject> MakeClippingObjects(SymPathWithHoles path, SymColor color, float angle, PointF rotationCenter, float resolution);
 
         // Add the clipping objects of a line along the main path and then along each hole of a path with holes, as an
         // area draws its area border and a combined area its line component definitions.
@@ -2457,12 +2529,13 @@ namespace PurplePen.MapModel
         // lineSymDef: the line symbol definition.
         // path: the path with holes.
         // color: the palette color.
-        private protected static void AddClippingObjectsOfLine(List<ClippingObject> clippingObjects, LineLikeSymDef lineSymDef, SymPathWithHoles path, SymColor color)
+        // resolution: the resolution of the drawing, or 0.
+        private protected static void AddClippingObjectsOfLine(List<ClippingObject> clippingObjects, LineLikeSymDef lineSymDef, SymPathWithHoles path, SymColor color, float resolution)
         {
-            clippingObjects.AddRange(lineSymDef.MakeClippingObjects(path.MainPath, color));
+            clippingObjects.AddRange(lineSymDef.MakeClippingObjects(path.MainPath, color, resolution));
             if (path.Holes != null) {
                 foreach (SymPath hole in path.Holes)
-                    clippingObjects.AddRange(lineSymDef.MakeClippingObjects(hole, color));
+                    clippingObjects.AddRange(lineSymDef.MakeClippingObjects(hole, color, resolution));
             }
         }
     }
@@ -2589,16 +2662,23 @@ namespace PurplePen.MapModel
         // components, as Draw draws them. A line symbol definition goes along the main path and along each hole, and an
         // area symbol definition gives the clipping objects of its own geometry method for the same path with holes, the
         // same angle and the same rotation center.
-        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(SymPathWithHoles path, SymColor color, float angle, PointF rotationCenter)
+        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(SymPathWithHoles path, SymColor color, float angle, PointF rotationCenter, float resolution)
         {
             List<ClippingObject> clippingObjects = new List<ClippingObject>();
             foreach (SymDef component in components) {
                 if (component is LineLikeSymDef lineSymDef)
-                    AddClippingObjectsOfLine(clippingObjects, lineSymDef, path, color);
+                    AddClippingObjectsOfLine(clippingObjects, lineSymDef, path, color, resolution);
                 else
-                    clippingObjects.AddRange(((AreaLikeSymDef)component).MakeClippingObjects(path, color, angle, rotationCenter));
+                    clippingObjects.AddRange(((AreaLikeSymDef)component).MakeClippingObjects(path, color, angle, rotationCenter, resolution));
             }
             return clippingObjects.AsReadOnly();
+        }
+
+        // The resolutions above which the dashed line components of the component definitions are solid.
+        internal override void AddDashResolutions(List<float> resolutions, SymColor color)
+        {
+            foreach (SymDef component in components)
+                component.AddDashResolutions(resolutions, color);
         }
 
         // The coverage prototypes of the hatchings and the clipped area patterns of the area symbol definitions among the
@@ -3031,7 +3111,7 @@ namespace PurplePen.MapModel
         // fills them; the glyph parts that the fill mode of each area pattern selects (AddSelectedGlyphParts); and the
         // area border along the main path and then along each hole. The hatchings and the clipped area patterns make no
         // clipping objects here.
-        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(SymPathWithHoles path, SymColor color, float angle, PointF rotationCenter)
+        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(SymPathWithHoles path, SymColor color, float angle, PointF rotationCenter, float resolution)
         {
             List<ClippingObject> clippingObjects = new List<ClippingObject>();
             if (color == fillColor)
@@ -3043,9 +3123,16 @@ namespace PurplePen.MapModel
             }
 
             if (borderSymdef != null && borderSymdef.HasColor(color))
-                AddClippingObjectsOfLine(clippingObjects, borderSymdef, path, color);
+                AddClippingObjectsOfLine(clippingObjects, borderSymdef, path, color, resolution);
 
             return clippingObjects.AsReadOnly();
+        }
+
+        // The resolutions above which the dashed line components of the area border are solid.
+        internal override void AddDashResolutions(List<float> resolutions, SymColor color)
+        {
+            if (borderSymdef != null && borderSymdef.HasColor(color))
+                borderSymdef.AddDashResolutions(resolutions, color);
         }
 
         // Add the glyph parts in a palette color that the fill mode of an area pattern selects, as DrawPattern and
@@ -3155,43 +3242,119 @@ namespace PurplePen.MapModel
             return MakePatternMatrix(patterns[index], angle, rotationCenter);
         }
 
-        // The expansion of a hatching over the bounds of an area: the hatch lines that DrawOneHatching draws, each a
-        // stroked line of the pen of the hatching, at a single placement whose step is the transformation of the drawing,
-        // in the order of the drawing.
-        // index: the index of the hatching.
-        // path: the path with holes of the area.
+        // The placement of the pattern brush of an area pattern for an area symbol: T(c) · R(a) of the rotation center c
+        // and the angle a of the area symbol, or the identity with the rotate mode Never, as DrawPatternWithTexBrush places
+        // the brush of a turned area. M = T(c) · R(a) · R(patternAngle) · T(patternOffsetX, patternOffsetY), and the
+        // pattern tile includes the offset, so the placement and the angle of the area pattern place the tile as M places
+        // the coverage prototype (PatternTile). The old drawing leaves out the rotation center of an area whose angle is 0.
+        // index: the index of the area pattern.
         // angle: the angle of the area symbol.
         // rotationCenter: the rotation center of the area symbol.
-        internal IReadOnlyList<ClippingObject> ExpandHatching(int index, SymPathWithHoles path, float angle, PointF rotationCenter)
+        internal Matrix GetPatternBrushPlacement(int index, float angle, PointF rotationCenter)
+        {
+            if (patterns[index].patternRotateMode == RotateMode.Never) {
+                angle = 0;
+                rotationCenter = new PointF();
+            }
+
+            Matrix matrix = new Matrix();
+            matrix.Translate(rotationCenter.X, rotationCenter.Y);
+            matrix.Rotate(angle);
+            return matrix;
+        }
+
+        // The pattern tile of a clipped area pattern in a palette color: one cell of the area pattern, with the glyph parts
+        // of its element in the palette color at their places, as CreatePatternBrushes draws them into the bitmap of the
+        // pattern brush. The cell is the element, or two rows of it when the area pattern offsets its rows. The glyph parts
+        // are the shared shapes of the glyph at a single placement whose step is the place of the element in the cell, in
+        // the order in which CreatePatternBrushes draws the elements, and the elements whose glyph parts reach into the
+        // cell from the cells around it are there too.
+        // index: the index of the area pattern.
+        // color: the palette color.
+        internal PatternTile MakePatternTile(int index, SymColor color)
+        {
+            PatternInfo patternInfo = patterns[index];
+            SizeF size = new SizeF(patternInfo.patternWidth, (patternInfo.offsetRows ? patternInfo.patternHeight * 2 : patternInfo.patternHeight));
+
+            // The box of the element in the coordinates of the tile, and the rows and the columns of the elements whose glyph
+            // parts reach into it, as CreatePatternBrushes finds them.
+            RectangleF patternBox = new RectangleF(-patternInfo.patternWidth / 2, -patternInfo.patternHeight / 2, patternInfo.patternWidth, patternInfo.patternHeight);
+            RectangleF patternGlyphBounds = patternInfo.patternGlyph.BoundingBox;
+            Matrix m = new Matrix();
+            m.Translate(patternInfo.patternOffsetX, patternInfo.patternOffsetY);
+            m.Rotate(-patternInfo.patternAngle);
+            patternGlyphBounds = Geometry.BoundsOfTransformedRectangle(patternGlyphBounds, m);
+
+            int rowStart = 0, rowEnd = 0, colStart = 0, colEnd = 0;
+            if (patternBox.Top > patternGlyphBounds.Top)
+                rowStart = -(int)Math.Ceiling((patternBox.Top - patternGlyphBounds.Top) / patternInfo.patternHeight);
+            if (patternBox.Bottom < patternGlyphBounds.Bottom)
+                rowEnd = (int)Math.Ceiling((patternGlyphBounds.Bottom - patternBox.Bottom) / patternInfo.patternHeight);
+            if (patternBox.Left > patternGlyphBounds.Left)
+                colStart = -(int)Math.Ceiling((patternBox.Left - patternGlyphBounds.Left) / patternInfo.patternWidth);
+            if (patternBox.Right < patternGlyphBounds.Right)
+                colEnd = (int)Math.Ceiling((patternGlyphBounds.Right - patternBox.Right) / patternInfo.patternWidth);
+
+            if (patternInfo.offsetRows) {
+                rowStart -= 1;
+                rowEnd += 1;
+                colStart -= 1;
+            }
+
+            List<ClippingObject> clippingObjects = new List<ClippingObject>();
+            for (int col = colStart; col <= colEnd; ++col) {
+                for (int row = rowStart; row <= rowEnd; ++row) {
+                    Matrix matrix = new Matrix();
+                    matrix.Translate(-col * patternInfo.patternWidth, -row * patternInfo.patternHeight);
+                    matrix.Translate(patternInfo.patternOffsetX, patternInfo.patternOffsetY);
+                    if (patternInfo.offsetRows && (row % 2) != 0)
+                        matrix.Translate(-patternInfo.patternWidth / 2, 0);
+                    matrix.Rotate(-patternInfo.patternAngle);
+
+                    clippingObjects.AddRange(patternInfo.patternGlyph.MakeClippingObjects(new PointF(0F, 0F), 0, null, color, null, Placement.Identity.Within(matrix)));
+                }
+            }
+
+            return new PatternTile(this, index, color, size, patternInfo.patternAngle, clippingObjects);
+        }
+
+        // The expansion of a hatching over a rectangle, the bounds of an area or of an area cluster: the hatch lines that
+        // DrawOneHatching draws, each a stroked line of the pen of the hatching, at a single placement whose step is the
+        // transformation of the drawing, in the order of the drawing.
+        // index: the index of the hatching.
+        // bounds: the rectangle, in the coordinates of the map.
+        // angle: the angle of the area symbol.
+        // rotationCenter: the rotation center of the area symbol.
+        internal IReadOnlyList<ClippingObject> ExpandHatching(int index, RectangleF bounds, float angle, PointF rotationCenter)
         {
             HatchInfo hatchInfo = hatchings[index];
             Matrix matrix = MakeHatchingMatrix(hatchInfo, angle, rotationCenter);
             SinglePlacement placement = Placement.Identity.Within(matrix);
             matrix.Invert();
-            RectangleF bounding = Geometry.BoundsOfTransformedRectangle(path.BoundingBox, matrix);
+            RectangleF bounding = Geometry.BoundsOfTransformedRectangle(bounds, matrix);
 
             Stroke stroke = new Stroke(hatchInfo.hatchWidth, LineCapMode.Flat, LineJoinMode.Miter, GraphicsUtil.MITER_LIMIT);
             return SymbolHelpers.MakeHatchLines(stroke, hatchInfo.hatchSpacing, hatchInfo.hatchOffset, bounding, placement);
         }
 
-        // The expansion of a clipped area pattern in a palette color over the bounds of an area: the elements that
-        // DrawPattern draws, at their lattice points with the irregularity, in the order of DrawPatternRows. The glyph
-        // parts of each element in the palette color are the shared shapes of the glyph at a single placement whose steps
-        // are the transformation of the area pattern and the pose of the element, and a glyph of one circle at its origin
-        // is a circle at the location of the element within the transformation of the area pattern, as Glyph.DrawSimple
-        // draws it (Glyph.MakeClippingObjects).
+        // The expansion of a clipped area pattern in a palette color over a rectangle, the bounds of an area or of an area
+        // cluster: the elements that DrawPattern draws, at their lattice points with the irregularity, in the order of
+        // DrawPatternRows. The glyph parts of each element in the palette color are the shared shapes of the glyph at a
+        // single placement whose steps are the transformation of the area pattern and the pose of the element, and a glyph
+        // of one circle at its origin is a circle at the location of the element within the transformation of the area
+        // pattern, as Glyph.DrawSimple draws it (Glyph.MakeClippingObjects).
         // index: the index of the area pattern.
         // color: the palette color.
-        // path: the path with holes of the area.
+        // bounds: the rectangle, in the coordinates of the map.
         // angle: the angle of the area symbol.
         // rotationCenter: the rotation center of the area symbol.
-        internal IReadOnlyList<ClippingObject> ExpandAreaPattern(int index, SymColor color, SymPathWithHoles path, float angle, PointF rotationCenter)
+        internal IReadOnlyList<ClippingObject> ExpandAreaPattern(int index, SymColor color, RectangleF bounds, float angle, PointF rotationCenter)
         {
             PatternInfo patternInfo = patterns[index];
             Matrix matrix = MakePatternMatrix(patternInfo, angle, rotationCenter);
             SinglePlacement placement = Placement.Identity.Within(matrix);
             matrix.Invert();
-            RectangleF bounding = Geometry.BoundsOfTransformedRectangle(path.BoundingBox, matrix);
+            RectangleF bounding = Geometry.BoundsOfTransformedRectangle(bounds, matrix);
 
             List<ClippingObject> expansion = new List<ClippingObject>();
             foreach (PointF location in GetPatternElementLocations(patternInfo, bounding))
@@ -3450,8 +3613,8 @@ namespace PurplePen.MapModel
             }
         }
 #endif
-        const float MAX_PATTERN_SIZE = 80;
-        const float MIN_PATTERN_SIZE = 10;
+        internal const float MAX_PATTERN_SIZE = 80;
+        internal const float MIN_PATTERN_SIZE = 10;
         
         // return true if a patten brush would be too pixelated at this size.
         bool PatternBrushTooPixelated(PatternInfo patternInfo, float pixelSize)
@@ -4480,7 +4643,7 @@ namespace PurplePen.MapModel
         // The geometry method of the text symbol definitions: the clipping objects of a text symbol (TextSymbol), as Draw
         // draws it, or of a text along a line (LineTextSymbol), as DrawTextOnPath draws it, in a palette color. Only
         // these two kinds of symbols take this definition.
-        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(Symbol symbol, SymColor color, CoveragePrototype prototype)
+        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(Symbol symbol, SymColor color, CoveragePrototype prototype, float resolution)
         {
             Debug.Assert(prototype == CoveragePrototype.FullCoverage, "A text has the full coverage only.");
             if (symbol is TextSymbol text)
@@ -4760,7 +4923,7 @@ namespace PurplePen.MapModel
                 float r = textRect.Right + framing.rectBorderRight;
 
                 PointF[] corners = Array.ConvertAll(PathShape.GetCorners(new RectangleF(l, t, r - l, b - t)), ToPoseCoordinates);
-                clippingObjects.Add(new FilledShape(PathShape.FromPoints(corners, true), AreaFillMode.Winding, placement));
+                clippingObjects.Add(new FilledShape(PathShape.FromRectangle(corners, RectangleF.FromLTRB(l, -b, r, -t)), AreaFillMode.Winding, placement));
             }
         }
 
@@ -5773,7 +5936,7 @@ namespace PurplePen.MapModel
         }
 
         // A hole draws no palette color, so it has no clipping objects.
-        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(Symbol symbol, SymColor color, CoveragePrototype prototype)
+        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(Symbol symbol, SymColor color, CoveragePrototype prototype, float resolution)
         {
             return Array.Empty<ClippingObject>();
         }
@@ -5830,7 +5993,7 @@ namespace PurplePen.MapModel
         // its path with holes as GraphicsAreaSymbol.Draw fills it, and the line of a GraphicsLineSymbol, a stroked shape
         // of its path with the pen that GraphicsLineSymbol.Draw creates: its width, caps and join and the miter limit
         // GraphicsUtil.MITER_LIMIT. Only these two kinds of symbols take this definition.
-        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(Symbol symbol, SymColor color, CoveragePrototype prototype)
+        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(Symbol symbol, SymColor color, CoveragePrototype prototype, float resolution)
         {
             Debug.Assert(prototype == CoveragePrototype.FullCoverage, "A graphics object has the full coverage only.");
             List<ClippingObject> clippingObjects = new List<ClippingObject>();
@@ -5889,7 +6052,7 @@ namespace PurplePen.MapModel
 
         // The image layer and the layout layer are beside the palette stack, so an image or a layout object has no
         // clipping objects.
-        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(Symbol symbol, SymColor color, CoveragePrototype prototype)
+        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(Symbol symbol, SymColor color, CoveragePrototype prototype, float resolution)
         {
             return Array.Empty<ClippingObject>();
         }
@@ -6061,7 +6224,7 @@ namespace PurplePen.MapModel
         // curves of its rounded corners, and then the lines and the texts of the grid, placed with the location and the
         // rotation of the rectangle. The pose of a text of the grid is its place in its cell at the angle 0, and the top
         // left corner of its text run is at the origin of the pose.
-        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(Symbol symbol, SymColor color, CoveragePrototype prototype)
+        internal override IReadOnlyList<ClippingObject> MakeClippingObjects(Symbol symbol, SymColor color, CoveragePrototype prototype, float resolution)
         {
             Debug.Assert(prototype == CoveragePrototype.FullCoverage, "A rectangle has the full coverage only.");
             RectangleSymbol rectangle = (RectangleSymbol)symbol;

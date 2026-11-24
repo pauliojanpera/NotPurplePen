@@ -19,7 +19,9 @@ namespace Map_Skia.Tests
     // expansion of the coverage prototype of each of its palette color coverages (SymbolCoverage.ExpandPrototype) inside
     // the clipping objects of the palette color coverage. Both drawings are made in the same run, without antialiasing,
     // on a transparent bitmap whose alpha is the coverage. So a white color counts as the others do, and the comparison
-    // needs no baseline. No difference is allowed.
+    // needs no baseline. No difference is allowed. The oracle is the old drawing of the palette colors (Map.DrawColor),
+    // which the internal option drawColorsDirectly selects also on the Skia graphics target, whose encoding pass 2 would
+    // use otherwise.
     // The palette separations are those of the whole map, and the bitmap of the area of the test map limits their
     // drawing. The drawing of the palette color, which is the oracle, draws the area at the resolution 0, as pass 1 draws
     // the symbols, so that both keep the dashes of a dashed line whatever the size of a pixel. It draws the area patterns
@@ -240,14 +242,15 @@ namespace Map_Skia.Tests
         }
 
         // The options that draw the palette colors of a map without the templates and without the effect of
-        // overprinting.
+        // overprinting, with the old drawing code of the palette colors, the oracle of the comparison.
         // minResolution: the size of the smallest feature that the drawing draws.
         static RenderOptions CreateMapOptions(float minResolution)
         {
             RenderOptions renderOpts = new RenderOptions();
             renderOpts.minResolution = minResolution;
             renderOpts.renderTemplates = RenderTemplateOption.MapOnly;
-            renderOpts.blendOverprintedColors = false;
+            renderOpts.overprintMode = OverprintMode.None;
+            renderOpts.drawColorsDirectly = true;
             return renderOpts;
         }
 

@@ -73,7 +73,7 @@ namespace Map_Skia.Tests
         {
             RenderOptions renderOpts = new RenderOptions();
             renderOpts.usePatternBitmaps = true;
-            renderOpts.blendOverprintedColors = false;
+            renderOpts.overprintMode = OverprintMode.None;
             renderOpts.colorBeginDrawExclusive = startLayer;
             renderOpts.colorEndDrawInclusive = stopLayer;
 
@@ -817,6 +817,22 @@ namespace Map_Skia.Tests
         public void MapperOverprinting()
         {
             CheckTestOverprinting("hakolaoverprinting.txt", false, false, 0, 0);
+        }
+
+        // @Pauli's map of three overlapping marsh areas (doc/devdocs/SvgHatchingOverlap). The areas of one configuration
+        // are an area cluster, whose hatching is drawn once, in the union of the areas. The first area turns its hatching
+        // by 179.9 degrees, so it is in another palette cutter and keeps its own lines.
+        [Test]
+        public void OverlappingMarshes()
+        {
+            CheckTestAntiAlias("suo.txt", false, false, 0, 0);
+        }
+
+        // @Pauli's second map of overlapping marsh areas, in which the areas that do not turn make two area clusters.
+        [Test]
+        public void OverlappingMarshes2()
+        {
+            CheckTestAntiAlias("suo2.txt", false, false, 0, 0);
         }
 
         [Test]

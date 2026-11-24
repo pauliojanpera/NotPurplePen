@@ -684,11 +684,13 @@ namespace PurplePen.MapModel
         }
     }
 
-    // A path: figures of lines and Bezier curves, each from a start point, and closed or open (GraphicsPathPart).
+    // A path: figures of lines and Bezier curves, each from a start point, and closed or open (GraphicsPathPart). A path
+    // that a symbol fills as a rectangle keeps the rectangle (Rectangle).
     public sealed class PathShape : Shape
     {
         private readonly ReadOnlyCollection<GraphicsPathPart> parts;
         private readonly RectangleF bounds;
+        private readonly RectangleF? rectangle;
 
         // Make a path from parts. The path keeps a copy of the parts and their points.
         // parts: the parts of the path.
@@ -702,6 +704,24 @@ namespace PurplePen.MapModel
                 copies.Add(new GraphicsPathPart(part.Kind, (part.Points == null) ? null : (PointF[])part.Points.Clone()));
             this.parts = copies.AsReadOnly();
             this.bounds = GetBoundsOfPoints(EnumerateAllPoints());
+        }
+
+        // Make a path from parts that is a rectangle.
+        // parts: the parts of the path.
+        // rectangle: the rectangle.
+        private PathShape(IEnumerable<GraphicsPathPart> parts, RectangleF rectangle)
+            : this(parts)
+        {
+            this.rectangle = rectangle;
+        }
+
+        // Make the path of a rectangle that a symbol fills as a rectangle (IGraphicsTarget.FillRectangle): the polygon of
+        // its corners, which keeps the rectangle, so a channel can write it as a rectangle.
+        // corners: the corners of the rectangle, in the order of the polygon.
+        // rectangle: the rectangle, in the coordinates of the path.
+        internal static PathShape FromRectangle(PointF[] corners, RectangleF rectangle)
+        {
+            return new PathShape(FromPoints(corners, true).Parts, rectangle);
         }
 
         // Make the path of one figure of lines, through points from the first to the last, as a polyline or a polygon.
@@ -741,6 +761,13 @@ namespace PurplePen.MapModel
         public IReadOnlyList<GraphicsPathPart> Parts
         {
             get { return parts; }
+        }
+
+        // The rectangle that the path is, when a symbol fills it as a rectangle (FromRectangle), or null. The drawing of the
+        // symbol fills the rectangle with IGraphicsTarget.FillRectangle, which a channel can draw otherwise than a path.
+        public RectangleF? Rectangle
+        {
+            get { return rectangle; }
         }
 
         // The points of the path when it is one open figure of lines, a polyline, from its start, or null.

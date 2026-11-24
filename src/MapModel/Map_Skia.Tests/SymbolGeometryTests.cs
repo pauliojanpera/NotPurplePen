@@ -725,7 +725,7 @@ namespace Map_Skia.Tests
         [Test]
         public void EachSymbolDefinitionHasAGeometryMethodOfItsOwn()
         {
-            Type[] parameters = new Type[] { typeof(Symbol), typeof(SymColor), typeof(CoveragePrototype) };
+            Type[] parameters = new Type[] { typeof(Symbol), typeof(SymColor), typeof(CoveragePrototype), typeof(float) };
             System.Reflection.BindingFlags flags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
             Assert.IsTrue(typeof(SymDef).GetMethod("MakeClippingObjects", flags, null, parameters, null).IsAbstract, "SymDef.MakeClippingObjects is abstract");
 
@@ -769,10 +769,10 @@ namespace Map_Skia.Tests
 
             using (map.Read()) {
                 HoleSymbol hole = area.GetHole(0);
-                CollectionAssert.IsEmpty(hole.Definition.MakeClippingObjects(hole, black, CoveragePrototype.FullCoverage));
-                CollectionAssert.IsEmpty(imageArea.Definition.MakeClippingObjects(imageArea, black, CoveragePrototype.FullCoverage));
-                Assert.Throws<ArgumentException>(() => new GraphicsSymDef().MakeClippingObjects(line, black, CoveragePrototype.FullCoverage));
-                Assert.IsNotEmpty(area.Definition.MakeClippingObjects(area, black, CoveragePrototype.FullCoverage));
+                CollectionAssert.IsEmpty(hole.Definition.MakeClippingObjects(hole, black, CoveragePrototype.FullCoverage, 0));
+                CollectionAssert.IsEmpty(imageArea.Definition.MakeClippingObjects(imageArea, black, CoveragePrototype.FullCoverage, 0));
+                Assert.Throws<ArgumentException>(() => new GraphicsSymDef().MakeClippingObjects(line, black, CoveragePrototype.FullCoverage, 0));
+                Assert.IsNotEmpty(area.Definition.MakeClippingObjects(area, black, CoveragePrototype.FullCoverage, 0));
             }
         }
 

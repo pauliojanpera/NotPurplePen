@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Threading;
 
 namespace PurplePen.MapModel
 {
@@ -49,11 +50,13 @@ namespace PurplePen.MapModel
         // transformation: the transformation M.
         internal abstract Matrix GetNormalForm(Matrix transformation);
 
-        // The expansion of the coverage prototype over the bounds of the area of a symbol (SymbolCoverage.ExpandPrototype):
-        // the lines of a hatching or the elements of an area pattern, as single clipping objects at the places and with
-        // the steps of the drawing.
+        // The expansion of the coverage prototype over a rectangle (SymbolCoverage.ExpandPrototype): the lines of a
+        // hatching or the elements of an area pattern that reach the rectangle, as single clipping objects at the places
+        // and with the steps of the drawing. The angle and the rotation center of the area symbol place the coverage
+        // prototype.
         // symbol: the area symbol.
-        internal abstract IReadOnlyList<ClippingObject> Expand(Symbol symbol);
+        // bounds: the rectangle, in the coordinates of the map: the bounds of the area, or of its area cluster.
+        internal abstract IReadOnlyList<ClippingObject> Expand(Symbol symbol, RectangleF bounds);
 
         // The normal form of a transformation M: the linear part A rounded to LinearPrecision, and the translation t of M
         // in the coordinates of G, M = A · T(t), reduced by a function, at the translation A · t.
@@ -138,7 +141,7 @@ namespace PurplePen.MapModel
                 return new Matrix();
             }
 
-            internal override IReadOnlyList<ClippingObject> Expand(Symbol symbol)
+            internal override IReadOnlyList<ClippingObject> Expand(Symbol symbol, RectangleF bounds)
             {
                 throw new InvalidOperationException("The full coverage is not a pattern fill, and it has no expansion.");
             }
@@ -216,11 +219,11 @@ namespace PurplePen.MapModel
             });
         }
 
-        // The hatch lines over the bounds of the area, as the drawing draws them.
-        internal override IReadOnlyList<ClippingObject> Expand(Symbol symbol)
+        // The hatch lines over a rectangle, as the drawing draws them over the bounds of an area.
+        internal override IReadOnlyList<ClippingObject> Expand(Symbol symbol, RectangleF bounds)
         {
             AreaSymbol area = (AreaSymbol)symbol;
-            return definition.ExpandHatching(index, area.Path, area.Angle, area.RotationCenter);
+            return definition.ExpandHatching(index, bounds, area.Angle, area.RotationCenter);
         }
 
         public override string ToString()
@@ -244,6 +247,7 @@ namespace PurplePen.MapModel
         private readonly AreaSymDef definition;
         private readonly int index;
         private readonly SymColor color;
+        private PatternTile tile;       // The pattern tile, after the first read made it.
 
         // Make the coverage prototype of an area pattern in a palette color.
         // definition: the area symbol definition.
@@ -318,16 +322,154 @@ namespace PurplePen.MapModel
             });
         }
 
-        // The elements over the bounds of the area, as the drawing draws them.
-        internal override IReadOnlyList<ClippingObject> Expand(Symbol symbol)
+        // The elements over a rectangle, as the drawing draws them over the bounds of an area.
+        internal override IReadOnlyList<ClippingObject> Expand(Symbol symbol, RectangleF bounds)
         {
             AreaSymbol area = (AreaSymbol)symbol;
-            return definition.ExpandAreaPattern(index, color, area.Path, area.Angle, area.RotationCenter);
+            return definition.ExpandAreaPattern(index, color, bounds, area.Angle, area.RotationCenter);
+        }
+
+        // The pattern tile: one cell of the area pattern, with the glyph parts of its element in the palette color at their
+        // places, as the pattern brush of the old drawing has them (AreaSymDef.CreatePatternBrushes). It is a derived value
+        // of the definition, which the first read makes, as the shared shapes of a glyph are. An encoding rasterizes it as a
+        // pattern brush (PatternTile).
+        public PatternTile Tile
+        {
+            get
+            {
+                PatternTile made = Volatile.Read(ref tile);
+                if (made == null) {
+                    made = definition.MakePatternTile(index, color);
+                    made = Interlocked.CompareExchange(ref tile, made, null) ?? made;
+                }
+
+                return made;
+            }
         }
 
         public override string ToString()
         {
             return string.Format("area pattern {0} of {1} in {2}", index, definition.Name, color.Name);
+        }
+    }
+
+    // A pattern tile: one cell of a clipped area pattern in a palette color, with the glyph parts of its element in the
+    // palette color at their places, as the pattern brush of the old drawing has them (AreaSymDef.CreatePatternBrushes). It
+    // is a derived value of the area symbol definition, which the coverage prototype of the area pattern makes once
+    // (AreaPatternPrototype.Tile). Its coordinates have their origin at the center of the cell, and they are the
+    // coordinates of the coverage prototype moved by the offset of the area pattern: the tile includes the offset.
+    // An encoding rasterizes the tile as a pattern brush, at the size of a pixel that the resolution of a drawing gives
+    // (GetPixelSize). The brush repeats the tile and turns it by the angle of the area pattern (Angle), and the placement
+    // of the brush for an area symbol (GetBrushPlacement) places the turned tile. So M = placement · R(Angle) · T(offset),
+    // and the tile lies where M places the coverage prototype.
+    public sealed class PatternTile
+    {
+        private readonly AreaSymDef definition;
+        private readonly int index;
+        private readonly SymColor color;
+        private readonly SizeF size;
+        private readonly float angle;
+        private readonly IReadOnlyList<ClippingObject> clippingObjects;
+
+        // Make a pattern tile.
+        // definition: the area symbol definition.
+        // index: the index of the area pattern in the definition.
+        // color: the palette color of the glyph parts.
+        // size: the size of the cell.
+        // angle: the angle by which the pattern brush turns the tile, the angle of the area pattern.
+        // clippingObjects: the glyph parts of the elements in the palette color, in the coordinates of the tile.
+        internal PatternTile(AreaSymDef definition, int index, SymColor color, SizeF size, float angle, IEnumerable<ClippingObject> clippingObjects)
+        {
+            this.definition = definition;
+            this.index = index;
+            this.color = color;
+            this.size = size;
+            this.angle = angle;
+            this.clippingObjects = new List<ClippingObject>(clippingObjects).AsReadOnly();
+        }
+
+        // The palette color of the glyph parts.
+        public SymColor Color
+        {
+            get { return color; }
+        }
+
+        // The size of the cell of the tile: the width and the height of the element of the area pattern, and two rows of
+        // the element when the area pattern offsets its rows.
+        public SizeF Size
+        {
+            get { return size; }
+        }
+
+        // The angle by which the pattern brush turns the tile, in degrees: the angle of the area pattern (patternAngle).
+        public float Angle
+        {
+            get { return angle; }
+        }
+
+        // The glyph parts of the elements in the palette color, in the coordinates of the tile, in the order of the drawing
+        // of the pattern brush. Each is a shared shape of the glyph at the place of its element in the cell, and the
+        // elements whose glyph parts reach into the cell from the cells around it are there too.
+        public IReadOnlyList<ClippingObject> ClippingObjects
+        {
+            get { return clippingObjects; }
+        }
+
+        // Is a pattern brush of the tile too coarse at the resolution of a drawing: is the resolution smaller than 1/80 of
+        // the width or the height of the element, as the old drawing decides it (AreaSymDef.PatternBrushTooPixelated)?
+        // resolution: the resolution of the drawing.
+        public bool IsTooPixelatedAt(float resolution)
+        {
+            AreaSymDef.PatternInfo pattern = definition.GetPattern(index);
+            return (resolution < pattern.patternWidth / AreaSymDef.MAX_PATTERN_SIZE) || (resolution < pattern.patternHeight / AreaSymDef.MAX_PATTERN_SIZE);
+        }
+
+        // The size of a pixel of the bitmap of the pattern brush at the resolution of a drawing: the resolution, kept from
+        // 1/80 to 1/10 of the width and the height of the element, as CreatePatternBrushes keeps it.
+        // resolution: the resolution of the drawing.
+        public float GetPixelSize(float resolution)
+        {
+            AreaSymDef.PatternInfo pattern = definition.GetPattern(index);
+            float pixelSize = resolution;
+            if (pixelSize < pattern.patternWidth / AreaSymDef.MAX_PATTERN_SIZE)
+                pixelSize = pattern.patternWidth / AreaSymDef.MAX_PATTERN_SIZE;
+            if (pixelSize < pattern.patternHeight / AreaSymDef.MAX_PATTERN_SIZE)
+                pixelSize = pattern.patternHeight / AreaSymDef.MAX_PATTERN_SIZE;
+            if (pixelSize > pattern.patternWidth / AreaSymDef.MIN_PATTERN_SIZE)
+                pixelSize = pattern.patternWidth / AreaSymDef.MIN_PATTERN_SIZE;
+            if (pixelSize > pattern.patternHeight / AreaSymDef.MIN_PATTERN_SIZE)
+                pixelSize = pattern.patternHeight / AreaSymDef.MIN_PATTERN_SIZE;
+            return pixelSize;
+        }
+
+        // The width and the height of the bitmap of the pattern brush at the resolution of a drawing, in pixels, as
+        // CreatePatternBrushes makes the bitmap: the element in whole pixels of the size of GetPixelSize, and two rows of
+        // it when the area pattern offsets its rows.
+        // resolution: the resolution of the drawing.
+        public Size GetBitmapSize(float resolution)
+        {
+            AreaSymDef.PatternInfo pattern = definition.GetPattern(index);
+            float pixelSize = GetPixelSize(resolution);
+            float width = (float)Math.Round(pattern.patternWidth / pixelSize);
+            float height = (float)Math.Round(pattern.patternHeight / pixelSize);
+            return new Size((int)width, (int)(pattern.offsetRows ? height * 2 : height));
+        }
+
+        // The placement of the pattern brush for an area symbol of the definition: the translation to the rotation center
+        // of the area symbol and the rotation by its angle, T(c) · R(a), or the identity with the rotate mode Never, as the
+        // old drawing places the brush of a turned area (AreaSymDef.DrawPatternWithTexBrush). The brush turns the tile by
+        // Angle within the placement, so the tile lies where M of the palette color coverage of the area symbol places the
+        // coverage prototype (SymbolCoverage.Transformation).
+        // symbol: the area symbol.
+        public Matrix GetBrushPlacement(Symbol symbol)
+        {
+            AreaSymbol area = (AreaSymbol)symbol;
+            return definition.GetPatternBrushPlacement(index, area.Angle, area.RotationCenter);
+        }
+
+        public override string ToString()
+        {
+            return string.Format("pattern tile of area pattern {0} of {1}, {2} glyph parts", index, definition.Name, clippingObjects.Count);
         }
     }
 }
