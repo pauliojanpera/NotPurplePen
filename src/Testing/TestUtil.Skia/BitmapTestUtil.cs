@@ -108,7 +108,11 @@ namespace TestingUtils
                     baselineFile = specificBaselineFile;
 
                 if (!File.Exists(baselineFile)) {
+                    // A baseline that does not exist yet is a difference like any other, and leaves the rendering
+                    // on disk to be adopted as one.
                     different = true;
+                    if (TestUtil.SilentRun)
+                        SaveComparison(bmNew, null, baselineFile);
                 }
                 else {
                     using (SKBitmap bmBaseline = SKBitmap.Decode(baselineFile)) {
