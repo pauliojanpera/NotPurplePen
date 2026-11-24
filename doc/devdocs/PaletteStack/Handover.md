@@ -31,25 +31,26 @@ these tickets, each with its branch and with its description in `prs/`:
 - 009 the coverage prototypes of the hatchings and the area patterns. The collector is removed.
 - 010 pass 2 and the Skia encoding, with 028, the pattern fill of an area cluster once in the union of its areas.
 
+Ticket [027](tickets/027-ocad-blend-mode-tests.md), the tests of OCAD's blend modes and opacity, is done. Its oracle
+[oracles/ocad-blend-modes.md](oracles/ocad-blend-modes.md) gives how OCAD's view, its PNG export and its PDF export
+apply B and α, and [Record.md](Record.md), "The results of ticket 027", what the PDF encoding and the rendering modes
+need of it.
+
 The fixes 006 and 014 are on branches of their own, and no part needs them. The tickets 005, 007 and 008 are replaced
 by 023 to 026, and the old branch of the epic, `feature/palette-layers`, keeps their pass 1.
 
 ## Next steps
 
-1. Ticket [027](tickets/027-ocad-blend-mode-tests.md), the tests of OCAD's blend modes and opacity: its sample, its
-   measurement scripts and its oracle [oracles/ocad-blend-modes.md](oracles/ocad-blend-modes.md) are made, and it
-   waits for @Pauli's exports. When they come, copy them into `oracles/ocad-blend-modes/`, measure them with
-   `measure-pdf.py` and `measure-colors.py`, and write the results, the answers of the oracle and the conclusions that
-   the ticket asks for.
-2. Ticket [029](tickets/029-ocad-float-strings.md), the CMYK shares and the font sizes of the layout texts that the
+1. Ticket [029](tickets/029-ocad-float-strings.md), the CMYK shares and the font sizes of the layout texts that the
    OCAD export writes with the error of the float computation, is approved. Make it on `fix/ocad-float-strings` from
    d48f4456 as the ticket tells, with its full run on `wip/linux/ocad-float-strings`, on `base`, and merge it into
    `feature/palette-stack` with the same writing for the fields of the spot color separations.
-3. The ticket of the PDF encoding, which ticket 010 separated, is not written. It comes after ticket 027. Write it in
-   the form of tickets 012 and 010, ask its questions early, and give it to @Pauli for approval.
-4. The tickets of the Skia abstractions for the runs of dashes and the repeated placements, and of the anti-aliasing
+2. The ticket of the PDF encoding, which ticket 010 separated, is not written. Write it in the form of tickets 012
+   and 010, ask its questions early, and give it to @Pauli for approval. The oracle of ticket 027 gives OCAD's
+   appearance of B and α in PDF.
+3. The tickets of the Skia abstractions for the runs of dashes and the repeated placements, and of the anti-aliasing
    of the pattern fills in the Skia encoding, which ticket 010 separated, are not written.
-5. The tickets of the rendering modes (the overprinting that the inks simulate, the ink separations and the blend mode
+4. The tickets of the rendering modes (the overprinting that the inks simulate, the ink separations and the blend mode
    by ink) and of one palette stack for all the maps are not written (ticket 010, "Rajaus").
 
 A draft is implemented only after @Pauli approves it as a ticket.
@@ -62,8 +63,10 @@ A draft is implemented only after @Pauli approves it as a ticket.
   target of NotPurplePen fitted to it, and whether the work can use the findings or the code of `feature/svg-target`.
   A session does not decide it, and does not take it up unless @Pauli asks.
 - **Offering upstream.** No branch is offered upstream yet.
-- **The OCAD exports of ticket 027**, when he is at OCAD: the list "What @Pauli exports and reports" in
-  [oracles/ocad-blend-modes.md](oracles/ocad-blend-modes.md).
+- **The form of the vector exports.** @Pauli asked on Nov 24 whether the PDF export and the SVG export should have
+  the same form, as the SVG of `feature/svg-target` holds several courses and later several maps. The session
+  answered that the model of the file can be the same, in the vocabulary of each channel. It touches the place of
+  the SVG encoding, and it bounds the ticket of the PDF encoding.
 
 ## The decisions that bind the next steps
 

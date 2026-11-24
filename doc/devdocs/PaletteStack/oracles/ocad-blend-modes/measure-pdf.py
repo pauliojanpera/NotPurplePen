@@ -445,9 +445,12 @@ def fit_marks(painted, marks_mm):
         if any("Registration mark" in layer for layer in p["layers"]) and p["op"] in ("f", "F", "f*", "b", "B"):
             for sp in p["subpaths"]:
                 x0, y0, x1, y1 = bbox(sp)
-                centres.append(((x0 + x1) / 2, (y0 + y1) / 2))
+                centre = ((x0 + x1) / 2, (y0 + y1) / 2)
+                # A mark in several colorants, as an export of combined spot color separations paints it, is one mark.
+                if not any(abs(centre[0] - c[0]) < 0.1 and abs(centre[1] - c[1]) < 0.1 for c in centres):
+                    centres.append(centre)
     if len(centres) != 4:
-        raise SystemExit("found %d shapes on the layer of the registration marks, and not 4" % len(centres))
+        raise SystemExit("found %d registration marks, and not 4" % len(centres))
     # Each mark of the cells file is the painted mark nearest to its place relative to the others.
     xs = sorted(c[0] for c in centres)
     ys = sorted(c[1] for c in centres)

@@ -787,6 +787,23 @@ one, and the later one says so. [Handover.md](Handover.md) gives the decisions t
   not be identical in structure with the PDF that OCAD exports. The session had read the structure of OCAD's PDF export
   of the sixth dash sample ([oracles/ocad-blend-modes.md](oracles/ocad-blend-modes.md)), and it was preparing the
   ticket of the PDF encoding.
+- **The results of ticket 027** (Nov 24). [oracles/ocad-blend-modes.md](oracles/ocad-blend-modes.md) gives the
+  exports that @Pauli gave on Nov 24 (OCAD 2020.5.18 Viewer), their measurements and the answers. The conclusions that
+  the ticket asks for:
+  - The reading of ticket 004 holds. The Colors dialog of OCAD calls `t` the opacity. The view, the draft mode and
+    the PNG export apply it once to each palette color, and the PDF export writes `t` / 100 as `/ca` and `/CA`, and
+    `b` as `/BM`, at the `Do` of the transparency group of the palette color.
+  - For the PDF encoding: OCAD composites each palette color once with B and α, as the transparency group of a
+    palette color of section 04 does. OCAD's PDF gives no blending color space. In a CMYK space its Darken and
+    Multiply are by ink, and Ghostscript's plates agree with that within 0.3 percentage points; in RGB they are not.
+    PDFsharp gives each page of a CMYK PDF of Purple Pen a group with `/CS /DeviceCMYK`, and of an RGB PDF
+    `/DeviceRGB` (`PdfPage.WriteObject`), so a CMYK PDF of Purple Pen blends by ink in each viewer. OCAD writes the
+    overprint flag of a color as `/OP true /OPM 1` on its shapes.
+  - For the rendering modes: B by ink takes the larger share of each ink for Darken and the product of the
+    complements for Multiply. OCAD's simulation of the spot colors combines the spot color separations by ink: a
+    missing share leaves a separation, and the share 0 erases it, as section 02 gives the ink separations. B changes
+    neither the simulation of the spot colors nor the exports of the spot color separations.
+  - The results agree with sections 02 and 04 of the specification and need no change of it.
 - **The choices of the session in the samples of ticket 027** (Nov 24). By the rule "The session resolves matters",
   the session chose these, which [oracles/ocad-blend-modes.md](oracles/ocad-blend-modes.md) gives:
   - One OCAD 12 file holds all the cases, also the spot colors of case 4. The PDF export of the process colors ignores

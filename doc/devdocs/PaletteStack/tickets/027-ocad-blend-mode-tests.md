@@ -26,27 +26,27 @@ musteittaisen B:n ulkoasun. Koodi ei muutu.
      Darkenilla.
   5. Sama Darken-väri palettijärjestyksessä kahden Normal-värin välissä: sekoittuuko se kaikkien alla olevien vai
      vain viereisen palettivärin kanssa.
-- [ ] Viennit: @Pauli antaa kustakin näytteestä OCADin näkymän kuvakaappauksen, PDF-viennin ja PNG-viennin 600 dpi:n
+- [x] Viennit: @Pauli antaa kustakin näytteestä OCADin näkymän kuvakaappauksen, PDF-viennin ja PNG-viennin 600 dpi:n
   tarkkuudella ilman reunanpehmennystä, sekä OCADin version ja PDF-viennin asetukset. Istunto antaa hänelle
   tiedostot ja kertoo, mitä raportoida, kuten oraakkelit [ocad-thick-circles.md](../oracles/ocad-thick-circles.md) ja
   [ocad-dashes.md](../oracles/ocad-dashes.md) näyttävät.
-- [ ] PDF:n mittaus: skripti `oracles/ocad-blend-modes/measure-pdf.py` lukee PDF-viennin rakenteen suoraan, ei
+- [x] PDF:n mittaus: skripti `oracles/ocad-blend-modes/measure-pdf.py` lukee PDF-viennin rakenteen suoraan, ei
   katselimen kuvaa:
   - kunkin muodon värin (CMYK tai spottiväri)
   - grafiikkatilojen sekoitustilat (`/BM`) ja peittävyydet (`/CA`, `/ca`)
   - läpinäkyvyysryhmät (`/Group`, `/S /Transparency`) ja niiden sekoitusväriavaruudet (`/CS`), myös sivun ryhmän.
 
   Näin tulos ei riipu katselimen värimuunnoksesta.
-- [ ] Näkymän mittaus: skripti mittaa näkymän kuvista ja PNG-vienneistä kunkin solun värit rekisteröintimerkkien
+- [x] Näkymän mittaus: skripti mittaa näkymän kuvista ja PNG-vienneistä kunkin solun värit rekisteröintimerkkien
   avulla. Värejä verrataan vain saman kuvan sisällä, kuten `ocad-darken.md` tekee.
-- [ ] Oraakkeli `oracles/ocad-blend-modes.md` kertoo näytteet, viennit, mittaukset ja tulokset. Se vastaa näihin:
+- [x] Oraakkeli `oracles/ocad-blend-modes.md` kertoo näytteet, viennit, mittaukset ja tulokset. Se vastaa näihin:
   - Soveltaako OCADin näkymä B:tä ja α:aa?
   - Miten PDF-vienti kirjoittaa ne, ja missä sekoitusväriavaruudessa?
   - Ovatko Darken ja Multiply PDF:ssä musteittaisia (kunkin musteen suurempi osuus ja komplementtien tulo)?
   - Sovelletaanko α palettiväriin kerran vai kuhunkin muotoon?
 
   Se kertoo myös, mitkä kohdat oraakkelista `ocad-darken.md` pitävät ja mitkä eivät.
-- [ ] Johtopäätökset kirjataan Record.md:hen: mitä PDF:n koodaus ja piirtotilat tarvitsevat, ja pitääkö
+- [x] Johtopäätökset kirjataan Record.md:hen: mitä PDF:n koodaus ja piirtotilat tarvitsevat, ja pitääkö
   tiketin 004 tulkinta (`t` on α ja `b` on B) paikkansa. Speksin muutoksen päättää @Pauli.
 
 **Lisätiedot**
@@ -77,7 +77,21 @@ musteittaisen B:n ulkoasun. Koodi ei muutu.
     koostaa palettivärit kuvan omista väreistä. Ne on tarkistettu katkoviivanäytteen OCAD-viennillä, istunnon
     skriptin kirjoittamalla PDF:llä, Purple Penin piirroksilla ja kuvakaappausta jäljittelevällä kuvalla.
   - Oraakkeli `oracles/ocad-blend-modes.md` kertoo näytteen, OCADin dokumentaation, OCADin PDF-viennin rakenteen
-    katkoviivanäytteiden vienneistä, viennit, jotka @Pauli antaa, ja Purple Penin piirrokset. Tuloksia ei vielä ole.
+    katkoviivanäytteiden vienneistä, viennit, jotka @Pauli antoi, mittaukset, tulokset ja vastaukset sekä Purple Penin
+    piirrokset.
+  - @Pauli antoi viennit 24.11. OCAD 2020.5.18 Viewerista, samasta versiosta kuin katkoviivanäytteet: näkymän
+    kuvakaappaukset normaali-, luonnos- ja spottivärinäkymässä, Colors-dialogin, PNG-viennit normaali- ja
+    spottivärinäkymästä, CMYK-PDF:n sekä spottivärierottelujen PDF:t yhdistettyinä ja Spot Violetista erikseen.
+    Viewerissä ei ole sekoitustiladialogia. Vientiasetukset näkyvät tiedostoista: värit PDF:n väriavaruuksista, koko
+    kartta MediaBoxista ja kartan mittakaava merkeistä.
+  - Tulokset: OCADin näkymä, luonnosnäkymä ja PNG-vienti soveltavat α:aa kerran kuhunkin palettiväriin eivätkä
+    sovella B:tä (`measure-colors.py`: kaikki 133 aluetta, virhe enintään 6 tasoa). PDF-vienti kirjoittaa kunkin
+    palettivärin läpinäkyvyysryhmäksi, jonka `Do`:n grafiikkatila antaa B:n (`/BM`) ja α:n (`/ca`, `/CA`). Sivulla
+    ei ole ryhmää eikä ryhmillä `/CS`:ää, joten katselin valitsee sekoitusväriavaruuden. CMYK:ssa Darken ja Multiply
+    ovat musteittaisia: Ghostscriptin mustelevyt vastaavat PDF:n mallia kaikilla 336 alueella 0,3 prosenttiyksikön
+    tarkkuudella (`compare-plates.py`). RGB-laitteelle Ghostscript sekoittaa samat ryhmät RGB:ssä. Päällepainatusvärin
+    muodoilla on `/OP true /OPM 1`. Spottivärierottelujen vienti ei kirjoita B:tä, ja se kirjoittaa osuuden 0
+    täyttönä, joka pyyhkii erottelun.
   - Istunnon valinnat ovat Record.md:n kohdassa "The choices of the session in the samples of ticket 027".
 - **Rajaus:** tiketti ei muuta koodia eikä piirtoa. B:n ja α:n toteutus on tiketti 010 ja PDF:n koodauksen tiketti.
   Mapperilla ei ole sekoitustiloja, ja sen α on oraakkelissa [mapper-opacity.md](../oracles/mapper-opacity.md).
@@ -91,5 +105,5 @@ musteittaisen B:n ulkoasun. Koodi ei muutu.
 <!-- Tästä tiketistä erotetut korjaukset ja ominaisuudet: tiketti, haara ja se, onko haara yhdistetty tämän tiketin haaraan -->
 * [029](029-ocad-float-strings.md) OCAD-vienti kirjoittaa float-laskun virheen värien osuuksiin ja asettelutekstien
   fonttikokoihin. Värien osuuksien vika löytyi tämän tiketin näytteestä (@Pauli pyysi tiketin 24.11.): haara
-  `fix/ocad-float-strings`, @Pauli hyväksyi sen 24.11., ei vielä toteutettu. Tällä tiketillä ei ole koodihaaraa, johon sen voisi yhdistää, eikä
-  tämä tiketti odota sitä.
+  `fix/ocad-float-strings`, @Pauli hyväksyi sen 24.11., ei vielä toteutettu. Tällä tiketillä ei ole koodihaaraa,
+  johon sen voisi yhdistää, eikä tämä tiketti odota sitä.

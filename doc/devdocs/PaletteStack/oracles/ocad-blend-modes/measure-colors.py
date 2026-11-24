@@ -82,30 +82,33 @@ def find_marks(image, marks_mm):
     factor = max(1, max(gray.size) // 1600)
     small = gray.reduce(factor) if factor > 1 else gray
     darkest = next(level for level, count in enumerate(small.histogram()) if count)
-    threshold = min(darkest + 70, 128)
-    candidates = []
-    for erode in (5, 3, 1):
-        for x0, y0, x1, y1, count in dark_components(small, threshold, erode):
-            w, h = x1 - x0 + 1, y1 - y0 + 1
-            if w >= 3 and h >= 3 and 0.75 <= w / h <= 1.33 and 0.6 <= count / (w * h) <= 0.93:
-                candidates.append(((x0 + x1) / 2, (y0 + y1) / 2, (w + h) / 2))
-        if len(candidates) >= 4:
-            break
     want = (marks_mm[1][0] - marks_mm[0][0]) / (marks_mm[0][1] - marks_mm[2][1])
     best = None
-    for tl in candidates:
-        for br in candidates:
-            width, height = br[0] - tl[0], br[1] - tl[1]
-            if width <= 10 * tl[2] or height <= 10 * tl[2] or abs(width / height - want) > 0.03 * want:
-                continue
-            tolerance = max(2.0, 0.6 * tl[2])
+    # The marks are the darkest drawn color, but a view such as OCAD's draft mode draws them lighter.
+    for threshold in sorted({min(darkest + 70, 128), 160, 200}):
+        candidates = []
+        for erode in (5, 3, 1):
+            for x0, y0, x1, y1, count in dark_components(small, threshold, erode):
+                w, h = x1 - x0 + 1, y1 - y0 + 1
+                if w >= 3 and h >= 3 and 0.75 <= w / h <= 1.33 and 0.6 <= count / (w * h) <= 0.93:
+                    candidates.append(((x0 + x1) / 2, (y0 + y1) / 2, (w + h) / 2))
+            if len(candidates) >= 4:
+                break
+        for tl in candidates:
+            for br in candidates:
+                width, height = br[0] - tl[0], br[1] - tl[1]
+                if width <= 10 * tl[2] or height <= 10 * tl[2] or abs(width / height - want) > 0.03 * want:
+                    continue
+                tolerance = max(2.0, 0.6 * tl[2])
 
-            def near(x, y):
-                return [c for c in candidates if abs(c[0] - x) <= tolerance and abs(c[1] - y) <= tolerance
-                        and 0.7 <= c[2] / tl[2] <= 1.4]
-            tr, bl = near(br[0], tl[1]), near(tl[0], br[1])
-            if tr and bl and 0.7 <= br[2] / tl[2] <= 1.4 and (best is None or width * height > best[0]):
-                best = (width * height, [tl, tr[0], bl[0], br])
+                def near(x, y):
+                    return [c for c in candidates if abs(c[0] - x) <= tolerance and abs(c[1] - y) <= tolerance
+                            and 0.7 <= c[2] / tl[2] <= 1.4]
+                tr, bl = near(br[0], tl[1]), near(tl[0], br[1])
+                if tr and bl and 0.7 <= br[2] / tl[2] <= 1.4 and (best is None or width * height > best[0]):
+                    best = (width * height, [tl, tr[0], bl[0], br])
+        if best is not None:
+            break
     if best is None:
         raise SystemExit("the four registration marks were not found")
     centers = []

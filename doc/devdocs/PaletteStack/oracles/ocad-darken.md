@@ -86,4 +86,6 @@ CMYK value.
 
 - The CMYK profile of Adobe Reader is not known, and FOGRA45L is not it. The RGB values of this oracle are approximate;
   the CMYK values of the dialog are exact.
-- The example has no Multiply, and no opacity below 100.
+- The example has no Multiply, and no opacity below 100. [ocad-blend-modes.md](ocad-blend-modes.md) tests them (Nov 24),
+  and finds that OCAD's PDF gives no blending color space: the larger share of each ink comes from a viewer that
+  blends in CMYK, as Adobe Reader did here.

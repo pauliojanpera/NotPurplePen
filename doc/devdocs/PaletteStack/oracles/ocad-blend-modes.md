@@ -4,8 +4,8 @@ Nov 24, 2026. OCAD is the authority on how its own maps render (the preface of [
 [Ticket 027](../tickets/027-ocad-blend-mode-tests.md) tests how OCAD draws the blend mode B (`b`: Normal, Darken and
 Multiply) and the opacity α (`t`) of a palette color: in its own view, in its PNG export and in its PDF export. The
 oracle [ocad-darken.md](ocad-darken.md) rests on the images of one page of the OCAD wiki, whose processing nobody knows.
-This file records the sample, what OCAD's documentation tells, what @Pauli exports from the sample, and how the exports
-are measured. The results come when the exports are measured.
+This file records the sample, what OCAD's documentation tells, what @Pauli exported from the sample, how the exports
+are measured, and the results.
 
 ## The sample
 
@@ -152,6 +152,8 @@ OCAD Viewer does not have a dialog, tell which step.
   state inside the group and its group. For the regions of the cells in DeviceCMYK, it gives the inks by the PDF model
   in a CMYK blending space: Darken takes the larger share of each ink, and Multiply the product of the complements.
   It does not model a spot color, an isolated or knockout group, or a soft mask.
+- [compare-plates.py](ocad-blend-modes/compare-plates.py) compares the inks of the model with the plates of the inks
+  that Ghostscript draws of a PDF export with its `tiffsep` device, which converts no colors.
 - [measure-colors.py](ocad-blend-modes/measure-colors.py) finds the registration marks in an image, reads the color of
   each region, and compares the colors only within the image. It takes the paper and the full color of each palette
   color from the regions where a color lies alone over the paper with the opacity 100, and predicts the other regions
@@ -179,6 +181,124 @@ fit all 133 regions that are not references, within 2 levels. In `None`, B ignor
 color fit all 133. Case 3 tells the two ways of applying α apart: α applied once to each shape fits 18 of its 30
 regions in `ByPaletteColor`, and 24 in `None`.
 
+## The exports
+
+@Pauli gave the exports on Nov 24, from OCAD 2020.5.18 Viewer, 32 bit, the version of the dash samples. They are in
+[ocad-blend-modes/](ocad-blend-modes/):
+
+| File | What it is |
+| --- | --- |
+| `ocad-viewer-colors-dialog.png` | The Colors dialog. The Viewer has no Blend mode dialog. |
+| `ocad-viewer-view-normal.png` | The view in the normal mode, at the zoom 1.3: 3.95 pixels to the mm. |
+| `ocad-viewer-view-draft.png` | The same view in the draft mode. |
+| `ocad-viewer-view-spot.png` | The same view in the spot color mode. |
+| `ocad-viewer-export-normal-600dpi.png` | The PNG export of the normal mode: 3189 × 3520 pixels, 23.68 pixels to the mm by the marks. |
+| `ocad-viewer-export-spot-600dpi.png` | The PNG export of the spot color mode. |
+| `ocad-viewer-export-cmyk.pdf` | The PDF export with "CMYK (process) colors". |
+| `ocad-viewer-export-spot-combined.pdf` | The PDF export of the three spot color separations, combined. |
+| `ocad-viewer-export-spot-separate.pdf` | The PDF export of the spot color separation Spot Violet alone. |
+
+- The Colors dialog shows each palette color as the sample has it: the CMYK values, the opacities 100 and 50, the
+  overprint flags of 131 and 132, and the spot shares 0 and 100.
+- The settings of the exports are not given as such. The files show the settings that the measurement needs: the
+  choice of the colors by the color spaces of the PDF files, the entire map by their MediaBox, and the scale of the
+  map by the marks, 2.8346 pt/mm, which is 72 / 25.4.
+
 ## Results
 
-None yet. The exports are due from @Pauli when he is at OCAD.
+### The PDF exports
+
+measure-pdf.py gives this structure of the CMYK export:
+- Each palette color is a transparency group, as in the dash samples: a form XObject with `/S /Transparency /I false
+  /K false`, without `/CS`, on a layer with the name of the color. The page paints the groups in the palette order.
+- The graphics state at the `Do` of a group gives the blend mode and the opacity of its palette color: `/BM` is `b`,
+  and `/ca` and `/CA` are `t` / 100. For example, the group of Green Multiply 50% has `/BM /Multiply /ca 0.5 /CA 0.5`.
+- Inside a group, each shape is a path that is filled with the even-odd rule (`f*`) in DeviceCMYK. The shapes of the
+  overprint colors 131 and 132 have `/OP true /OPM 1`, and the other shapes `/OP false`. The two area parts of a point
+  object are two paths in the group of their palette color.
+- The page has no transparency group, and the file has no output intent. So the PDF does not give the blending color
+  space: the viewer chooses it.
+
+The exports of the spot color separations:
+- A color with spot shares paints each share as a fill in the Separation color space of its spot color separation,
+  with `/OP true /OPM 1`. A share of 0 is a fill with the tint 0, which erases the separation. A separation without a
+  share is not painted.
+- Each group is painted with `/BM /Normal`, also the groups of the Darken colors: B is not in these exports. The
+  opacity is: the groups of the colors with `t50` have `/ca 0.5`.
+
+Ghostscript 10.05.1 drew the CMYK export as the plates of its inks (`tiffsep`, 100 dpi). In all 336 regions, the plates
+agree with the inks that measure-pdf.py gives by the PDF model in a CMYK blending space, within 0.3 percentage points.
+Some of them:
+
+| Region | Inks |
+| --- | --- |
+| Purple Darken over Blue below | C87 M100 |
+| Green Darken over Blue below | C87 M18 Y91 |
+| Green Multiply over Blue below | C96.9 M18 Y91 |
+| Black 50 Darken over Black 50 below | K50 |
+| Black 50 Multiply over Black 50 below | K75 |
+| Purple Darken 50% over Blue below | C87 M59 |
+| Green Normal 50% over the paper: one shape, and the overlap of two | C38 Y45.5 |
+| Green Multiply over the paper: one shape, and the overlap of two | C76 Y91 |
+| Purple overprint Normal over Blue below | C87 M100 |
+| Green Darken over Yellow (5) | C76 M25 Y91 |
+| Green Darken over Blue (5) over Yellow (5) | C87 M18 Y91 |
+
+Ghostscript's plates of the combined spot export: where Spot Violet Normal or Spot Violet Darken lies over Spot Blue
+below or Spot Brown below, only Spot Violet is left. Where Spot Violet only Normal or Spot Violet only Darken lies over
+them, both spot inks are.
+
+Ghostscript drew the CMYK export also for an RGB device (`png16m`). In that image, B applied in RGB and α applied once
+to each palette color fit all 133 regions within 1 level: for example, Purple Darken over Blue below is 0 0 140, the
+smaller of each component of Purple and Blue. So the appearance of the PDF depends on the blending color space that
+the viewer chooses.
+
+### The view and the PNG exports
+
+measure-colors.py gives these results:
+
+| Image | The way that fits all 133 regions | Largest error |
+| --- | --- | --- |
+| The view in the normal mode | B ignored, α applied once to each palette color | 6 levels |
+| The view in the draft mode | B ignored, α applied once to each palette color | 2 levels |
+| The PNG export of the normal mode | B ignored, α applied once to each palette color | 0 levels |
+
+- In the three images, α applied once to each shape fits 127 of the 133 regions. It does not fit the 6 regions of
+  case 3 where two shapes of Green Normal 50% overlap: the overlap has the color of one shape.
+- The PNG export converts a color to RGB as 255 (1 − C)(1 − K), 255 (1 − M)(1 − K) and 255 (1 − Y)(1 − K): Blue below is
+  33 209 255, and Brown below is 209 92 0. The view converts by the color correction of the screen: Blue below is
+  28 176 217.
+- The spot color mode shows only the colors with spot shares. In the view and in its PNG export, a spot color with the
+  share 0 of the spot color separation below it covers that separation. A spot color without a share of it combines
+  with it by ink: Spot Violet only over Spot Blue below is 33 0 255 in the PNG export, which is C87 M100 by the
+  conversion above. Darken changes neither.
+
+### The answers
+
+1. **Does OCAD's view apply B and α?** It applies α, once to each palette color, and it does not apply B. The draft
+   mode and the PNG export do the same.
+2. **How does the PDF export write them, and in which blending color space?** Each palette color is a transparency
+   group, and the graphics state at its `Do` gives B (`/BM`) and α (`/ca`, `/CA`). The PDF gives no blending color
+   space: neither the page nor the groups have `/CS`. The export of the spot color separations writes no B.
+3. **Are Darken and Multiply by ink in the PDF?** In a CMYK blending space, yes: Darken takes the larger share of each
+   ink, and Multiply the product of the complements. Ghostscript's plates agree with this within 0.3 percentage points.
+   As the PDF does not give the blending color space, a viewer that blends in RGB gives the result in RGB.
+4. **Does α apply once to the palette color or to each shape?** Once to the palette color, in the PDF, in the view and
+   in the PNG export. B also applies once: the overlap of two shapes of Green Multiply has the inks of one shape.
+5. **The overprint (case 4).** In the CMYK export, the shapes of an overprint color have `/OP true /OPM 1`, so the inks
+   that the color gives as 0 stay: Purple overprint Normal over Blue below is C87 M100. The view and the PNG export do
+   not show it.
+6. **The palette order (case 5).** Green Darken blends with the backdrop of all the palette colors below it, also where
+   only Yellow (5), which is not next to it in the palette order, lies below: C76 M25 Y91. Brown (5), the Normal
+   palette color above it, covers it.
+
+### What holds of ocad-darken.md
+
+- These points hold: OCAD's view does not apply the blend mode. In the PDF, a ring with Darken mixes with what is below
+  it. Darken agrees with the larger share of each ink. A color with Darken blends with all the colors below it, as
+  Green over Brown over Yellow does.
+- This point is made exact: the larger share of each ink comes from the blending color space of the viewer, and not
+  from the PDF, which gives none. Adobe Reader blended in CMYK in the images of ocad-darken.md, as Ghostscript's
+  plates do.
+- The limits of ocad-darken.md are covered now: Multiply takes the product of the complements of each ink, and the
+  opacity applies once to each palette color.
