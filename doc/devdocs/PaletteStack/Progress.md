@@ -819,7 +819,9 @@ the rendering.
   test and investigate all of a ticket, which in practice implements the ticket before the decisions. After an
   answer, the session can go back to the planning and ask again ("How to continue the work"). The session that
   writes the draft 010 as a ticket stopped its investigation of the code when @Pauli said so. The rule concerns the
-  preparation of a ticket, and not its implementation (@Pauli, Nov 24).
+  preparation of a ticket, and not its implementation (@Pauli, Nov 24). In the implementation, the rule "The session
+  resolves matters" sets the limit of the questions: the session asks when the knock-on effects of its choice are
+  unreasonable, or when the matter is @Pauli's (@Pauli, Nov 24).
 - **The options of a question** (Nov 23). A question gives options only where the choice is real. It does not add
   options only to involve @Pauli ("How to continue the work").
 - **The approval of ticket 023** (Nov 23). @Pauli approved [023](tickets/023-palette-separations.md), the
