@@ -766,6 +766,16 @@ one, and the later one says so. [Handover.md](Handover.md) gives the decisions t
   OCAD's blend modes and opacity ("More tests of OCAD's blend modes"). Purple Pen writes the samples, @Pauli gives their
   views in OCAD and their PDF exports, and the session measures the structure of each PDF and writes the oracle
   `oracles/ocad-blend-modes.md`. The ticket changes no code, and it comes before the ticket of the PDF encoding.
+- **The runs of dashes and the repeated placements in SVG** (Nov 25, question 7 of the draft 030). @Pauli chose option
+  1. The SVG encoding writes a run of dashes as one path with the dash pattern and the phase of its pen
+  (`stroke-dasharray`, `stroke-dashoffset`). It writes a repeated placement as a group with a `<use>` of the shared
+  shapes of the glyph at each of its poses. The setting of the export for a reader that cannot fill an area with a
+  pattern also writes the runs of dashes dash by dash, and its text in the dialog changes to say so, with its
+  translations. The facts of the question, from tests on @Pauli's machine (ticket 030, "Nykytila"): Chromium and
+  Inkscape 1.4 draw markers at all the vertices of a path, dots of dashes of length 0 and dash patterns correctly.
+  Scribus 1.6.3 draws a marker only at the start and at the end of a path. It reads the lengths of a dash pattern as
+  points, so in the structure of the export, where the content is in steps of 0.001 mm under a scale, dashed and dotted
+  lines come out solid. All three draw a `<use>` correctly.
 - **The SVG reflects the structures of `Map`** (Nov 25, in answer to the question whether he approves the draft 030).
   @Pauli: "Tarkoitus olisi, että svg:n rakenne heijastaisi mahdollisimman suoraan Mapin rakenteita, jotka on mietitty
   juurikin SVG-tiedostomuodon edellytysten pohjalta." The structure of the SVG reflects the structures of `Map` as

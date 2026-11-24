@@ -51,15 +51,21 @@ sisältöineen on oma tikettinsä tämän jälkeen.
   (`Placement.Steps`): täytetyn muodon täyttösäännöllään, viivamuodon kynällään (`Stroke`) ja tekstijuosteen
   (`TextShape`) tekstinä upotetuin fontein ja muotoilluin merkkien paikoin. Muodot se kirjoittaa samoina SVG:n
   elementteinä ja tyyleinä kuin `Svg_GraphicsTarget` kirjoittaa vanhan piirron vastaavat muodot.
-- [ ] Piirrosobjektit: jokainen elementti, jonka koodaus kirjoittaa symbolin palettiväripeitosta, kantaa symbolinsa
-  avaimen tekstimuodon (`data-k`, ehdotettu nimi) objektinumeron (`data-o`) sijaan. Peräkkäiset saman
-  symbolimäärittelyn palettiväripeitot jakavat ryhmän, jolla on symbolimäärittelyn numero (`data-s`), kuten nyt.
-  Kuvatason ja asettelutason objektit kantavat samoin symboliensa avaimet (`BeginObject`).
-- [ ] Toistuvat rakenteet: SVG:n rakenne heijastaa `Map`in rakenteita mahdollisimman suoraan (@Pauli, 25.11.).
+- [ ] Piirrosobjektit: symbolin palettiväripeitto kantaa symbolinsa avaimen tekstimuodon (`data-k`, ehdotettu nimi)
+  objektinumeron (`data-o`) sijaan. Peitto, jolla on useampi elementti, on ryhmä, ja yhden elementin peitossa elementti
+  kantaa avaimen itse. Peräkkäiset saman symbolimäärittelyn palettiväripeitot jakavat ryhmän, jolla on
+  symbolimäärittelyn numero (`data-s`), kuten nyt. Kuvatason ja asettelutason objektit kantavat samoin symboliensa
+  avaimet (`BeginObject`).
+- [ ] Toistuvat rakenteet: SVG:n rakenne heijastaa `Map`in rakenteita mahdollisimman suoraan (@Pauli, 25.11., myös
+  kysymys 7).
   - Glyyfin jaetut muodot palettivärissä koodaus määrittelee kerran (`<defs>`), ja kukin sijoitus viittaa niihin
     (`<use>`). Sijoituksen sisäkkäiset affiiniset muunnokset (`Placement.Steps`) se kirjoittaa SVG:n muunnoslistana
     (`transform`) niiden järjestyksessä.
-  - Katkojuosteet ja toistosijoitukset: luonnoksen kysymys 7.
+  - Katkojuoste on yksi polku, jolla on kynän katkokuvio ja sen alkukohta (`stroke-dasharray`, `stroke-dashoffset`).
+    Polku on katkojuosteen muoto (`PathShape`) Bezier-käyrineen.
+  - Toistosijoitus on ryhmä, jossa kussakin asemassa (`RepeatedPlacement.Poses`) on `<use>` glyyfin jaettuihin
+    muotoihin. Ryhmä kantaa polun sijoituksen askeleet (`RepeatedPlacement.Outer`), ja kunkin `<use>`:n muunnos on
+    aseman siirto ja kierto.
   - Siirretyn polun (`OffsetPathShape`) koodaus kirjoittaa siirrettynä käyränä, koska SVG:llä ei ole siirtymää. Sen
     katkot se kirjoittaa yksittäisinä katkoina (`StrokedShape.ExpandDashes`), koska siirretyn polun katkokuvio mitataan
     peruspolkua pitkin ja SVG mittaa katkokuvion elementin omaa polkua pitkin.
@@ -72,9 +78,16 @@ sisältöineen on oma tikettinsä tämän jälkeen.
   - Usean alueen alueryppään kuviotäyttö kirjoitetaan kerran ryppään unionin (`AreaCluster.Union`) leikkaukseen
     (`clipPath`, nonzero-sääntö) kuten tiketissä 028.
   - Epäsäännöllisen aluekuvion koodaus kirjoittaa laajennuksena (`SymbolCoverage.ExpandPrototype`) leikkauksen
-    sisään kuten Skian koodaus. Samoin se kirjoittaa kaikki kuviotäytöt, kun viennin asetus "Draw area patterns as
-    separate shapes" (`CourseSvgSettings.DrawAreaPatternsAsSeparateShapes`) on päällä. Silloin kukin alue kirjoittaa
-    oman laajennuksensa oman alueensa leikkaukseen eikä ryppään unioniin (ks. "Ratkaisut").
+    sisään kuten Skian koodaus. Samoin se kirjoittaa kaikki kuviotäytöt asetuksella erillisille muodoille (ks.
+    seuraava kriteeri), ja silloin kukin alue kirjoittaa oman laajennuksensa oman alueensa leikkaukseen eikä ryppään
+    unioniin (ks. "Ratkaisut").
+- [ ] Asetus erillisille muodoille: viennin asetus, jonka teksti on nyt "Draw area patterns as separate shapes"
+  (`CourseSvgSettings.DrawAreaPatternsAsSeparateShapes`), kirjoittaa kuviotäytöt laajennuksina ja katkojuosteet katko
+  kerrallaan (`StrokedShape.ExpandDashes`) lukijalle, joka ei osaa täyttää aluetta kuviolla eikä piirtää katkokuviota
+  (@Pauli, 25.11., kysymys 7). Toistosijoitukset ovat `<use>`-ryhmiä myös asetuksella. Asetuksen teksti dialogissa on
+  "Draw area patterns and dashed lines as separate shapes", ja teksti muuttuu `UIText.resx`:ssä ja sen 27
+  käännöksessä (`CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text`). Asetuksen tunnisteet saavat
+  vastaavat nimet (`DrawAreaPatternsAndDashesAsSeparateShapes`, ehdotettu nimi).
 - [ ] Päällepainatustila: SVG-vienti käyttää ratojen ulkoasun päällepainatustilaa (`OverprintMode`) kuten muut kanavat,
   ja ratakartta sekoittaa päällepainatusvärinsä Darkenilla kuten nyt. Chromium sekoittaa sRGB:ssä kuten Skia: Darken
   on värikomponenttien minimi ja Multiply niiden tulo.
@@ -92,11 +105,11 @@ sisältöineen on oma tikettinsä tämän jälkeen.
   tarkistus (V-6) ja sivujen vertailu sovelluksen omaan piirtoon pysyvät.
 - [ ] Rakennetestit tarkistavat ilman selainta: palettivärin läpinäkyvyysryhmän α:n ja B:n kussakin
   päällepainatustilassa, palettiväripeitot palettierottelun järjestyksessä symbolien avaimin, kuviotäytön prototyypin
-  määrittelynä ja kokoonpanon viittauksena, alueryppään kuviotäytön kerran unionissa ja asetuksella "Draw area patterns
-  as separate shapes" alue kerrallaan, jaettujen muotojen `<use>`it, katkojuosteet ja toistosijoitukset kysymyksen 7
-  mukaan, siirretyn polun katkot, kuvatason ja asettelutason
-  objektit symbolien avaimin sekä ratatiedot rataobjektien avaimin. `Map_Svg.Tests`in testit, jotka koskevat
-  väistyviä rakenteita, kirjoitetaan palettipinon käsitteillä, ja muut menevät läpi kuten nyt.
+  määrittelynä ja kokoonpanon viittauksena, alueryppään kuviotäytön kerran unionissa, jaettujen muotojen `<use>`it,
+  katkojuosteen katkokuviona, toistosijoituksen `<use>`-ryhmänä, siirretyn polun katkot, asetuksen erillisille
+  muodoille (kuviotäytöt alue kerrallaan ja katkojuosteet katko kerrallaan), kuvatason ja asettelutason objektit
+  symbolien avaimin sekä ratatiedot rataobjektien avaimin. `Map_Svg.Tests`in testit, jotka koskevat väistyviä
+  rakenteita, kirjoitetaan palettipinon käsitteillä, ja muut menevät läpi kuten nyt.
 - [ ] Kuvat ja baselinet:
   - SVG-vertailun viitekuvat (`src/MapModel/TestFiles/svg_reference`) siirtyvät siellä, missä Skian koodaus piirtää
     toisin kuin vanha piirto rakenteen säilyttävälle piirtokohteelle: tiketin 010 kriteerin "Kuvat" syyt, tiketin 028
@@ -115,6 +128,10 @@ sisältöineen on oma tikettinsä tämän jälkeen.
 - **Päätökset:**
   - SVG:n rakenne heijastaa `Map`in rakenteita mahdollisimman suoraan, ja rakenteet on mietitty SVG-tiedostomuodon
     edellytysten pohjalta (@Pauli, 25.11., "The SVG reflects the structures of `Map`").
+  - Katkojuoste on SVG:ssä yksi polku katkokuvioineen (`stroke-dasharray`, `stroke-dashoffset`), ja toistosijoitus on
+    ryhmä, jossa kussakin asemassa on `<use>` glyyfin jaettuihin muotoihin. Asetus lukijalle, joka ei osaa täyttää
+    aluetta kuviolla, kirjoittaa myös katkojuosteet katko kerrallaan, ja sen teksti dialogissa kertoo sen (@Pauli,
+    25.11., kysymys 7, "The runs of dashes and the repeated placements in SVG").
   - SVG-vienti on kaksi tikettiä. Tämä on niistä ensimmäinen: `Map_Svg` uuteen deviin SVG:n koodauksella, ja sen
     testit tarkistavat SVG:n Chromiumissa Skian vaiheen 2 piirtoa vastaan. Toinen on vektoritiedostojen yhteinen
     rakenne `Map`in sisältöineen, ja se kirjoitetaan tämän jälkeen (@Pauli, 25.11., "The two tickets of the SVG
@@ -197,9 +214,14 @@ sisältöineen on oma tikettinsä tämän jälkeen.
     Vektorikuvio ei ole koskaan liian karkea, joten SVG:n koodaus ei kysy sitä (`PatternTile.IsTooPixelatedAt`).
   - `data-k` on symbolin avaimen tekstimuoto, ja `data-s` ja `data-c` pysyvät. Ratatietojen muodon versio pysyy 1:nä,
     koska yksikään julkaisu ei ole kirjoittanut ratatietoja (SvgExportDesign.md, "Course data").
+  - Symbolin palettiväripeitto, jolla on useampi elementti, on ryhmä, jolla on symbolin avain (`data-k`). Näin
+    tiedoston hierarkia heijastaa palettiväripeittoa (`SymbolCoverage`). Yhden elementin peitossa elementti kantaa
+    avaimen, kuten vanha siistiminen taittaa yhden lapsen ryhmän lapseensa.
+  - Asetuksen erillisille muodoille teksti "Draw area patterns and dashed lines as separate shapes" ja tunniste
+    `DrawAreaPatternsAndDashesAsSeparateShapes` kertovat, mitä asetus tekee, eivätkä nimeä lukijaa (päätös 6.11.).
   - Nimet `SvgEncoding`, `data-k` ja `TransparencyGroup.PatternsWithEachArea` ovat sanastossa.
-- **Luonnoksen kysymykset:** 6 ratkesi päätöksellä "The two tickets of the SVG export" (25.11.). 7, katkojuosteet ja
-  toistosijoitukset SVG:ssä, on avoin.
+- **Luonnoksen kysymykset:** 6 ratkesi päätöksellä "The two tickets of the SVG export" ja 7 päätöksellä "The runs of
+  dashes and the repeated placements in SVG" (25.11.).
 - **Rajaus:**
   - Vektoritiedostojen yhteinen rakenne `Map`in sisältöineen ja lippu, joka jättää sen pois, ovat oma tikettinsä tämän
     jälkeen. PDF:n koodaus on oma tikettinsä sen jälkeen.

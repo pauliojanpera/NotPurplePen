@@ -50,10 +50,9 @@ by 023 to 026, and the old branch of the epic, `feature/palette-layers`, keeps t
 
 ## Next steps
 
-1. The draft [030](tickets/030-svg-encoding.md), the SVG export in the new dev with the SVG encoding. Its question 7,
-   how the SVG writes the runs of dashes and the repeated placements, is open. When the questions are answered, the
-   draft goes to @Pauli for approval. Its branch `feature/svg-encoding` is rooted at `dev-next`. Its full runs go on
-   `wip/linux/svg-encoding` with `--base dev-next`, and its SVG loop on `svg/svg-encoding`
+1. The draft [030](tickets/030-svg-encoding.md), the SVG export in the new dev with the SVG encoding, waits for
+   @Pauli's approval. Its questions are answered. Its branch `feature/svg-encoding` is rooted at `dev-next`. Its full
+   runs go on `wip/linux/svg-encoding` with `--base dev-next`, and its SVG loop on `svg/svg-encoding`
    (`../SvgDevLoop/README.md`).
 2. The ticket of the common structure of the vector files with the content of `Map`, and of the flag that leaves the
    content out, after ticket 030. Ask its questions early, and give it to @Pauli for approval. The PDF ticket uses the
@@ -73,8 +72,7 @@ A draft is implemented only after @Pauli approves it as a ticket.
   outside it.
 - **Offering upstream.** No branch is offered upstream yet.
 - **The change of `dev`** to `dev-next`, with a merge of the old `dev` into it with the strategy `ours`.
-- **Question 7 of the draft 030**: how the SVG writes the runs of dashes and the repeated placements. Then the
-  approval of the draft.
+- **The approval of the draft 030**, the SVG export in the new dev with the SVG encoding.
 
 ## The decisions that bind the next steps
 
@@ -108,6 +106,10 @@ decisions of the process are in force. [Record.md](Record.md), "Decisions", give
   `dev-next` (@Pauli, Nov 25).
 - **The SVG reflects `Map`.** The structure of the SVG reflects the structures of `Map` as directly as possible. These
   structures are designed on the basis of the requirements of the SVG file format (@Pauli, Nov 25).
+- **The runs of dashes and the repeated placements in SVG.** A run of dashes is one path with `stroke-dasharray` and
+  `stroke-dashoffset`. A repeated placement is a group with a `<use>` of the shared shapes of the glyph at each pose.
+  The setting for a reader that cannot fill an area with a pattern also writes the runs dash by dash, and its text
+  says so (@Pauli, Nov 25).
 - **The new basewithfixes and the new dev.** The new `basewithfixes` has no `fix/overlapping-patterns`, the new dev
   merges `feature/palette-stack` into it, `feature/multiply-blending` stays out, and `Map_Svg` comes in the SVG
   ticket without the history of `feature/svg-target` (@Pauli, Nov 25).
