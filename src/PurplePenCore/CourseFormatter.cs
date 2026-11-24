@@ -89,8 +89,10 @@ namespace PurplePen
             // Go through all the specials in the view and process them to create course objects
             foreach(Id<Special> specialId in courseView.SpecialIds) {
                 courseObj = CreateSpecial(eventDB, courseView, courseObjRatio, appearance, specialId, layer);
-                if (courseObj != null)
+                if (courseObj != null) {
+                    courseObj.SetKey(CourseObjRole.Special, specialId.id);
                     courseLayout.AddCourseObject(courseObj);
+                }
             }
 
             // Go through all the descriptions in the view and process them to create course objects
@@ -99,8 +101,10 @@ namespace PurplePen
                 foreach (CourseView.DescriptionView descriptionView in courseView.DescriptionViews) {
                     // The layer depends on "descriptions in purple" setting in the course appearance.
                     courseObj = CreateDescriptionSpecial(eventDB, symbolDB, descriptionView, appearance.descriptionsPurple ? layer : CourseLayer.Descriptions);
-                    if (courseObj != null)
+                    if (courseObj != null) {
+                        courseObj.SetKey(CourseObjRole.Description, descriptionView.SpecialId.id);
                         courseLayout.AddCourseObject(courseObj);
+                    }
                 }
             }
 
@@ -117,6 +121,7 @@ namespace PurplePen
                     courseObj = CreateCourseObject(eventDB, courseView.Kind, courseObjRatio, appearance, courseView.CircleGapScale(appearance), controlView, angleOut);
                     if (courseObj != null) {
                         courseObj.layer = layer;
+                        courseObj.SetKey(CourseObjRole.Control, controlView.controlId.id, controlView.courseControlIds[0].id);
                         courseLayout.AddCourseObject(courseObj);
                     }
 
@@ -131,6 +136,7 @@ namespace PurplePen
 
                         if (courseObj != null) {
                             courseObj.layer = layer;
+                            courseObj.SetKey(CourseObjRole.Label, controlView.controlId.id, controlView.courseControlIds[0].id);
                             courseLayout.AddCourseObject(courseObj);
                         }
                     }
@@ -156,8 +162,11 @@ namespace PurplePen
 
             // Add any additional controls
             foreach (Id<CourseControl> extraCourseControl in courseView.ExtraCourseControls) {
-                courseLayout.AddCourseObject(CreateCourseObject(eventDB, courseView.Kind, courseObjRatio, appearance, courseView.CircleGapScale(appearance),
-                                                                eventDB.GetCourseControl(extraCourseControl).control, extraCourseControl, false, double.NaN));
+                Id<ControlPoint> extraControl = eventDB.GetCourseControl(extraCourseControl).control;
+                courseObj = CreateCourseObject(eventDB, courseView.Kind, courseObjRatio, appearance, courseView.CircleGapScale(appearance),
+                                               extraControl, extraCourseControl, false, double.NaN);
+                courseObj.SetKey(CourseObjRole.ExtraCourseControl, extraControl.id, extraCourseControl.id);
+                courseLayout.AddCourseObject(courseObj);
             }
 
             // No go through each control again and add an automatically placed number/code to each. We do this last so that the placement
@@ -177,6 +186,7 @@ namespace PurplePen
 
                         if (courseObj != null) {
                             courseObj.layer = layer;
+                            courseObj.SetKey(CourseObjRole.Label, controlView.controlId.id, controlView.courseControlIds[0].id);
                             courseLayout.AddCourseObject(courseObj);
                         }
                     }
@@ -792,13 +802,20 @@ namespace PurplePen
                 isFlagged.Add(flagging == FlaggingKind.All);
             }
 
-            // Create course objects for this leg from the paths/isFlagged lists.
+            // Create course objects for this leg from the paths/isFlagged lists. The key of a whole leg stays when its
+            // flagging changes, and a leg that is flagged in part has a beginning and an end.
             List<CourseObj> objs = new List<CourseObj>();
+            Id<CourseControl> courseControlId2 = controlView2.courseControlIds[0];
             for (int i = 0; i < paths.Count; ++i) {
+                CourseObj legObj;
                 if (isFlagged[i]) 
-                    objs.Add(new FlaggedLegCourseObj(controlView1.controlId, courseControlId1, controlView2.courseControlIds[0], courseObjRatio, appearance, paths[i], gapsList[i]));
+                    legObj = new FlaggedLegCourseObj(controlView1.controlId, courseControlId1, courseControlId2, courseObjRatio, appearance, paths[i], gapsList[i]);
                 else
-                    objs.Add(new LegCourseObj(controlView1.controlId, courseControlId1, controlView2.courseControlIds[0], courseObjRatio, appearance, paths[i], gapsList[i]));
+                    legObj = new LegCourseObj(controlView1.controlId, courseControlId1, courseControlId2, courseObjRatio, appearance, paths[i], gapsList[i]);
+
+                CourseObjRole role = (paths.Count == 1) ? CourseObjRole.Leg : ((i == 0) ? CourseObjRole.LegBeginning : CourseObjRole.LegEnd);
+                legObj.SetKey(role, courseControlId1.id, courseControlId2.id);
+                objs.Add(legObj);
             }
 
             // If there is a map issue point along the leg, draw it.
@@ -806,9 +823,11 @@ namespace PurplePen
             // and weird things happen otherwise.
             if (leg != null && leg.flagging == FlaggingKind.IssuePointMiddle) {
                 float angleOfIssuePoint = legPath.TangentAngleAtPoint(leg.flagStartStop) + 90.0F;
-                objs.Add(new MapIssueCourseObj(Id<ControlPoint>.None, Id<CourseControl>.None, courseObjRatio, appearance,
+                CourseObj issuePointObj = new MapIssueCourseObj(Id<ControlPoint>.None, Id<CourseControl>.None, courseObjRatio, appearance,
                                 angleOfIssuePoint, leg.flagStartStop,
-                                MapIssueCourseObj.RenderStyle.WithoutTail));
+                                MapIssueCourseObj.RenderStyle.WithoutTail);
+                issuePointObj.SetKey(CourseObjRole.LegMapIssuePoint, courseControlId1.id, courseControlId2.id);
+                objs.Add(issuePointObj);
             }
 
             return objs;

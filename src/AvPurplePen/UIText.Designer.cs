@@ -1843,6 +1843,51 @@ namespace AvPurplePen {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Overprint effect:.
+        /// </summary>
+        public static string CourseAppearanceDialog_labelOverprintMode_Text {
+            get {
+                return ResourceManager.GetString("CourseAppearanceDialog_labelOverprintMode_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not used.
+        /// </summary>
+        public static string CourseAppearanceDialog_comboBoxOverprintMode_Items {
+            get {
+                return ResourceManager.GetString("CourseAppearanceDialog_comboBoxOverprintMode_Items", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to By the blend mode of each color.
+        /// </summary>
+        public static string CourseAppearanceDialog_comboBoxOverprintMode_Items1 {
+            get {
+                return ResourceManager.GetString("CourseAppearanceDialog_comboBoxOverprintMode_Items1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Darken the colors marked &quot;overprint&quot;.
+        /// </summary>
+        public static string CourseAppearanceDialog_comboBoxOverprintMode_Items2 {
+            get {
+                return ResourceManager.GetString("CourseAppearanceDialog_comboBoxOverprintMode_Items2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Multiply the colors marked &quot;overprint&quot;.
+        /// </summary>
+        public static string CourseAppearanceDialog_comboBoxOverprintMode_Items3 {
+            get {
+                return ResourceManager.GetString("CourseAppearanceDialog_comboBoxOverprintMode_Items3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Use IOF standard sizes.
         /// </summary>
         public static string CourseAppearanceDialog_checkBoxStandardSizes_Text {
