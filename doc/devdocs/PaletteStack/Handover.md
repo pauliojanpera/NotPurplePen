@@ -41,11 +41,15 @@ by 023 to 026, and the old branch of the epic, `feature/palette-layers`, keeps t
    waits for @Pauli's exports. When they come, copy them into `oracles/ocad-blend-modes/`, measure them with
    `measure-pdf.py` and `measure-colors.py`, and write the results, the answers of the oracle and the conclusions that
    the ticket asks for.
-2. The ticket of the PDF encoding, which ticket 010 separated, is not written. It comes after ticket 027. Write it in
+2. Ticket [029](tickets/029-ocad-float-strings.md), the CMYK shares and the font sizes of the layout texts that the
+   OCAD export writes with the error of the float computation, is approved. Make it on `fix/ocad-float-strings` from
+   d48f4456 as the ticket tells, with its full run on `wip/linux/ocad-float-strings`, on `base`, and merge it into
+   `feature/palette-stack` with the same writing for the fields of the spot color separations.
+3. The ticket of the PDF encoding, which ticket 010 separated, is not written. It comes after ticket 027. Write it in
    the form of tickets 012 and 010, ask its questions early, and give it to @Pauli for approval.
-3. The tickets of the Skia abstractions for the runs of dashes and the repeated placements, and of the anti-aliasing
+4. The tickets of the Skia abstractions for the runs of dashes and the repeated placements, and of the anti-aliasing
    of the pattern fills in the Skia encoding, which ticket 010 separated, are not written.
-4. The tickets of the rendering modes (the overprinting that the inks simulate, the ink separations and the blend mode
+5. The tickets of the rendering modes (the overprinting that the inks simulate, the ink separations and the blend mode
    by ink) and of one palette stack for all the maps are not written (ticket 010, "Rajaus").
 
 A draft is implemented only after @Pauli approves it as a ticket.
@@ -60,8 +64,6 @@ A draft is implemented only after @Pauli approves it as a ticket.
 - **Offering upstream.** No branch is offered upstream yet.
 - **The OCAD exports of ticket 027**, when he is at OCAD: the list "What @Pauli exports and reports" in
   [oracles/ocad-blend-modes.md](oracles/ocad-blend-modes.md).
-- **The draft [029](tickets/029-ocad-float-strings.md)**, the CMYK shares and the font sizes of the layout texts that
-  the OCAD export writes with the error of the float computation, waits for his approval.
 
 ## The decisions that bind the next steps
 

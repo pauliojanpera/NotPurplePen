@@ -91,5 +91,5 @@ musteittaisen B:n ulkoasun. Koodi ei muutu.
 <!-- Tästä tiketistä erotetut korjaukset ja ominaisuudet: tiketti, haara ja se, onko haara yhdistetty tämän tiketin haaraan -->
 * [029](029-ocad-float-strings.md) OCAD-vienti kirjoittaa float-laskun virheen värien osuuksiin ja asettelutekstien
   fonttikokoihin. Värien osuuksien vika löytyi tämän tiketin näytteestä (@Pauli pyysi tiketin 24.11.): haara
-  `fix/ocad-float-strings`, luonnos, ei toteutettu. Tällä tiketillä ei ole koodihaaraa, johon sen voisi yhdistää, eikä
+  `fix/ocad-float-strings`, @Pauli hyväksyi sen 24.11., ei vielä toteutettu. Tällä tiketillä ei ole koodihaaraa, johon sen voisi yhdistää, eikä
   tämä tiketti odota sitä.

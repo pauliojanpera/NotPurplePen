@@ -764,6 +764,10 @@ one, and the later one says so. [Handover.md](Handover.md) gives the decisions t
   OCAD's blend modes and opacity ("More tests of OCAD's blend modes"). Purple Pen writes the samples, @Pauli gives their
   views in OCAD and their PDF exports, and the session measures the structure of each PDF and writes the oracle
   `oracles/ocad-blend-modes.md`. The ticket changes no code, and it comes before the ticket of the PDF encoding.
+- **The approval of ticket 029** (Nov 24). @Pauli approved [029](tickets/029-ocad-float-strings.md), the CMYK shares
+  and the font sizes of the layout texts that the OCAD export writes with the error of the float computation. The
+  session put it in the handover after ticket 027 and before the ticket of the PDF encoding, as it does not depend
+  on either (the session's choice).
 - **A bug ticket of the shares that the OCAD export writes** (Nov 24). @Pauli asked for a bug ticket of the CMYK shares
   that `OcadExport` writes with the error of the float product, although ticket 027 does not need the fix. The session
   wrote it as the draft [029](tickets/029-ocad-float-strings.md).
