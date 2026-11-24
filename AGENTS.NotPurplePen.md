@@ -25,6 +25,10 @@ A question that the developer must decide follows these rules:
   applies unless the developer proposes otherwise.
 - The length is moderate: not too long, not too short, and not a list of
   fragments.
+- The layout makes the question clear. The question uses the layout functions
+  of its display, for example bold labels, lists and quotation blocks, to keep
+  its parts apart: the question, the quotations, the example, the options and
+  the recommendation.
 
 ## There is no Windows machine here
 
