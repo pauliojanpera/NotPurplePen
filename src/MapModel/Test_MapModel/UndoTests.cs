@@ -253,27 +253,27 @@ namespace PurplePen.MapModel.Tests
             LoadMap(@"undo\simple1.ocd");
 
             using (map.Read()) {
-                Assert.IsFalse(map.UseEuclideanMetric);
+                Assert.IsTrue(map.UseEuclideanMetric);
             }
 
             using (map.UndoableWrite("Metric")) {
-                map.UseEuclideanMetric = true;
+                map.UseEuclideanMetric = false;
             }
 
             using (map.Read()) {
-                Assert.IsTrue(map.UseEuclideanMetric);
+                Assert.IsFalse(map.UseEuclideanMetric);
             }
 
             Undo();
 
             using (map.Read()) {
-                Assert.IsFalse(map.UseEuclideanMetric);
+                Assert.IsTrue(map.UseEuclideanMetric);
             }
 
             Redo();
 
             using (map.Read()) {
-                Assert.IsTrue(map.UseEuclideanMetric);
+                Assert.IsFalse(map.UseEuclideanMetric);
             }
         }
 

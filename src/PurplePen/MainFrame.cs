@@ -383,8 +383,8 @@ namespace PurplePen
                 bitmapCreationSettingsPrevious = null;
             }
 
-            if (mapDisplay.OcadOverprintEffect != controller.OcadOverprintEffect) {
-                mapDisplay.OcadOverprintEffect = controller.OcadOverprintEffect;
+            if (mapDisplay.OverprintMode != controller.OverprintMode) {
+                mapDisplay.OverprintMode = controller.OverprintMode;
             }
 
             if (mapDisplay.LowerPurpleMapLayer != controller.LowerPurpleMapLayer) {

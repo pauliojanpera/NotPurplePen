@@ -18,6 +18,7 @@ namespace PurplePen
     {
         float defaultPurpleC, defaultPurpleM, defaultPurpleY, defaultPurpleK;
         string mapStandard;
+        OverprintMode initialOverprintMode;     // The overprint mode that the dialog got, which the check box keeps when it does not change.
 
         List<Pair<int, string>> underlyingMapLayers = new List<Pair<int, string>>();
 
@@ -54,6 +55,14 @@ namespace PurplePen
                     comboBoxMapLayers.Items.Add(underlyingMapLayers[i].Second);
                 }
             }
+        }
+
+        // Is the check box of the overprint effect checked for an overprint mode: does the mode blend the overprint colors,
+        // as the attribute overprint-colors of the course file tells?
+        // overprintMode: the overprint mode.
+        static bool IsOverprintChecked(OverprintMode overprintMode)
+        {
+            return overprintMode == OverprintMode.Darken || overprintMode == OverprintMode.Multiply;
         }
 
         // Set/Get the CourseAppearance this dialog sets.
@@ -134,7 +143,11 @@ namespace PurplePen
 
                 result.descriptionsPurple = (comboBoxDescriptionColor.SelectedIndex == 1);
 
-                result.useOcadOverprint = checkBoxOverprint.Checked;
+                // The check box chooses Darken or None. A mode that it does not show stays when the box does not change.
+                if (checkBoxOverprint.Checked == IsOverprintChecked(initialOverprintMode))
+                    result.overprintMode = initialOverprintMode;
+                else
+                    result.overprintMode = checkBoxOverprint.Checked ? OverprintMode.Darken : OverprintMode.None;
 
                 return result;
             }
@@ -192,7 +205,8 @@ namespace PurplePen
 
                 comboBoxDescriptionColor.SelectedIndex = (value.descriptionsPurple ? 1 : 0);
 
-                checkBoxOverprint.Checked = value.useOcadOverprint;
+                initialOverprintMode = value.overprintMode;
+                checkBoxOverprint.Checked = IsOverprintChecked(value.overprintMode);
 
                 // Set the correct index for lower purple in the combo box.
                 int lowerPurpleIndex = underlyingMapLayers.FindIndex(pair => pair.First == value.mapLayerForLowerPurple);

@@ -35,6 +35,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Diagnostics;
 using System.Globalization;
@@ -61,6 +62,10 @@ namespace PurplePen.MapModel
 
         // Map the symbol colors to SymColor instances.
         Dictionary<int, SymColor> mapOcadIdToSymColor = new Dictionary<int, SymColor>();
+
+        // Map the names of the spot color separations to inks (OCAD 9 and later). The first spot color separation of a
+        // name has it.
+        Dictionary<string, Ink> mapNameToInk = new Dictionary<string, Ink>();
 
         // Keys = symbol def ids.
         // Values = symdef instances.
@@ -196,9 +201,14 @@ namespace PurplePen.MapModel
                 this.filename = filename;
                 OcadFileHeader header = ReadFileHeader();
                 version = header.Version;
+                reader.UseOcadEncoding(version);
 
                 if (version < 6 || (version > 12 && version < 2018) || version > 2018) 
                     throw new OcadFileFormatException("File is in OCAD {0} format. Only OCAD formats 6, 7, 8, 9, 10, 11, 12, and 2018 are supported.", version);
+
+                // OCAD measures the lines of a file of any version with the Euclidean metric, unless the view parameters
+                // ask for the OCAD metric.
+                map.UseEuclideanMetric = true;
 
                 if (version <= 8) {
                     // Only version 8 and less have the symbol header and setup structures. OCAD 9
@@ -238,10 +248,14 @@ namespace PurplePen.MapModel
 
                     CreateColors(symheader);
 
-                    // Save away the symbol header and setup structure for round-trip purposes.
+                    // Save away the symbol header and setup structure for round-trip purposes. The map has the colors
+                    // and the spot inks.
                     for (int i = 0; i < symheader.aColorInfo.Length; ++i)
                         symheader.aColorInfo[i] = null;
                     symheader.nColors = 0;
+                    for (int i = 0; i < symheader.aColorSep.Length; ++i)
+                        symheader.aColorSep[i] = null;
+                    symheader.nColorSep = 0;
 
                     map.OcadSymbolHeaderStructure = symheader;
                     map.OcadSetupStructure = setup;
@@ -286,7 +300,8 @@ namespace PurplePen.MapModel
                             map.PrintArea = RectangleF.FromLTRB(l, t, r, b);
                         }
 
-                        // Create the colors in the map, populating the "colors" array.
+                        // Create the inks and the colors in the map, populating the "colors" array.
+                        CreateInks(listStringParameters[(int) OcadStringParam.SpotColor]);
                         if (listStringParameters[(int) OcadStringParam.Color] != null)
                             CreateColors(listStringParameters[(int) OcadStringParam.Color]);
 
@@ -294,8 +309,7 @@ namespace PurplePen.MapModel
                         if (simpleStringParameters[OcadStringParam.ViewPar - OcadStringParam.FirstSingleParam] != null) {
                             map.HideTemplates = GetParamInt(simpleStringParameters[OcadStringParam.ViewPar - OcadStringParam.FirstSingleParam], 'd', 0) != 0;
                             map.HideLayout = GetParamInt(simpleStringParameters[OcadStringParam.ViewPar - OcadStringParam.FirstSingleParam], 'l', 0) != 0;
-                            if (version >= 11)
-                                map.UseEuclideanMetric = GetParamInt(simpleStringParameters[OcadStringParam.ViewPar - OcadStringParam.FirstSingleParam], 'p', 0) == 0;
+                            map.UseEuclideanMetric = GetParamInt(simpleStringParameters[OcadStringParam.ViewPar - OcadStringParam.FirstSingleParam], 'p', 0) == 0;
                         }
 
                         // Get the file information.
@@ -555,24 +569,74 @@ namespace PurplePen.MapModel
             return builder.ToString();
         }
 
-        // Create the SymColor objects in the map, and also cache them in the colors array.
-        // Note that we don't preserve the spot color information.
+        // Create the inks and the SymColor objects in the map (OCAD 6 to 8), and also cache the colors in the colors
+        // array. The spot color separations are the spot inks. The share of a color in a spot color separation is in
+        // half percents, from 0 to 200; 255 is no share.
         void CreateColors(OcadSymbolHeader symheader) {
+            Ink[] separationInks = new Ink[Math.Max(0, Math.Min((int) symheader.nColorSep, OcadSymbolHeader.MaxSeparations))];
+            for (int i = 0; i < separationInks.Length; ++i) {
+                OcadColorSep colorSep = symheader.aColorSep[i];
+                separationInks[i] = new Ink(colorSep.SepName, CmykColorFromOcadCmyk(colorSep.Color),
+                                            InkScreenFromTenths(colorSep.RasterFreq, colorSep.RasterAngle / 10.0F));
+                map.AddSpotInk(separationInks[i]);
+            }
+
             for (int i = symheader.nColors - 1; i >= 0 ; --i) {
                 OcadColorInfo ocadColorInfo = symheader.aColorInfo[i];
-                SymColor color;
-                color = map.AddColor(ocadColorInfo.ColorName, ocadColorInfo.ColorNum,
-                    (float)(ocadColorInfo.Color.cyan)/200.0F,
-                    (float)(ocadColorInfo.Color.magenta)/200.0F,
-                    (float)(ocadColorInfo.Color.yellow)/200.0F,
-                    (float)(ocadColorInfo.Color.black)/200.0F,
-                    ocadColorInfo.Overprint != 0);
+                CmykColor cmyk = CmykColorFromOcadCmyk(ocadColorInfo.Color);
+                SymColor color = new SymColor(ocadColorInfo.ColorName, ocadColorInfo.ColorNum, cmyk.Cyan, cmyk.Magenta, cmyk.Yellow, cmyk.Black,
+                                              ocadColorInfo.Overprint != 0);
+
+                List<InkComponent> components = new List<InkComponent>();
+                for (int j = 0; j < separationInks.Length; ++j) {
+                    byte share = ocadColorInfo.SepPercentage[j];
+                    if (share <= 200)
+                        components.Add(new InkComponent(separationInks[j], share / 200.0F));
+                }
+                color.SetSpotComposition(components);
+
+                map.AddColor(color);
                 mapOcadIdToSymColor[ocadColorInfo.ColorNum] = color;
             }
         }
 
-        // Create the SymColor objects in the map, and also cache them in the colors array.
-        // Note that we don't preserve the spot color information, or the transparency.
+        // The CMYK value of an OCAD 6 to 8 color, whose channels are in half percents.
+        static CmykColor CmykColorFromOcadCmyk(OcadCmyk ocadCmyk)
+        {
+            return CmykColor.FromCmyk(ocadCmyk.cyan / 200.0F, ocadCmyk.magenta / 200.0F, ocadCmyk.yellow / 200.0F, ocadCmyk.black / 200.0F);
+        }
+
+        // The halftone screen of a spot color separation, whose frequency OCAD gives in tenths of lines per inch. A
+        // frequency of 0 or less defines no screen.
+        static InkScreen? InkScreenFromTenths(float frequencyInTenths, float angle)
+        {
+            if (frequencyInTenths > 0)
+                return new InkScreen(frequencyInTenths / 10.0F, angle);
+            else
+                return null;
+        }
+
+        // Create the spot inks of the map (OCAD 9 and later), in the order of the numbers of the spot color
+        // separations. The angle of a spot color separation is in degrees.
+        void CreateInks(List<OcadParamString> paramStrings)
+        {
+            if (paramStrings == null)
+                return;
+
+            foreach (OcadParamString paramString in paramStrings.OrderBy(separation => GetParamInt(separation, 'n', 0))) {
+                string name = GetParamString(paramString, '\0');
+                CmykColor appearance = CmykColor.FromCmyk(GetParamFloat(paramString, 'c', 0.0F) / 100.0F, GetParamFloat(paramString, 'm', 0.0F) / 100.0F,
+                                                          GetParamFloat(paramString, 'y', 0.0F) / 100.0F, GetParamFloat(paramString, 'k', 0.0F) / 100.0F);
+                Ink ink = new Ink(name, appearance, InkScreenFromTenths(GetParamFloat(paramString, 'f', 0.0F), GetParamFloat(paramString, 'a', 0.0F)));
+
+                map.AddSpotInk(ink);
+                if (!mapNameToInk.ContainsKey(name))
+                    mapNameToInk.Add(name, ink);
+            }
+        }
+
+        // Create the SymColor objects in the map (OCAD 9 and later), and also cache them in the colors array. The
+        // transparency (t) is the opacity in percent, and the blend mode (b) is its name.
         void CreateColors(List<OcadParamString> paramStrings)
         {
             if (paramStrings == null)
@@ -589,10 +653,37 @@ namespace PurplePen.MapModel
                 float black = GetParamFloat(paramString, 'k', 0.0F) / 100.0F;
                 bool overprint = GetParamInt(paramString, 'o', 0) != 0;
 
-                SymColor color;
-                color = map.AddColor(colorName, (short) colorNum, cyan, magenta, yellow, black, overprint);
+                SymColor color = new SymColor(colorName, (short) colorNum, cyan, magenta, yellow, black, overprint);
+                color.Opacity = SymColor.BoundOpacity(GetParamFloat(paramString, 't', 100.0F) / 100.0F);
+                color.BlendMode = OcadBlendMode.FromName(GetParamString(paramString, 'b'));
+                color.SetSpotComposition(ReadSpotComposition(paramString));
+                map.AddColor(color);
                 mapOcadIdToSymColor[colorNum] = color;
             }
+        }
+
+        // Read the ink components of a color string (OCAD 9 and later): each pair of the name of a spot color
+        // separation (s) and the percentage of the color in that spot color separation (p). A pair whose spot color
+        // separation is not an ink of the map is left out.
+        List<InkComponent> ReadSpotComposition(OcadParamString paramString)
+        {
+            List<InkComponent> components = new List<InkComponent>();
+            Ink ink = null;
+
+            for (int i = 0; i < paramString.codes.Length; ++i) {
+                if (paramString.codes[i] == 's') {
+                    if (!mapNameToInk.TryGetValue(paramString.values[i] ?? "", out ink))
+                        ink = null;
+                }
+                else if (paramString.codes[i] == 'p' && ink != null) {
+                    float percentage;
+                    if (float.TryParse(paramString.values[i], NumberStyles.Float, CultureInfo.InvariantCulture, out percentage))
+                        components.Add(new InkComponent(ink, InkComponent.BoundFactor(percentage / 100.0F)));
+                    ink = null;
+                }
+            }
+
+            return components;
         }
 
         // Get a color, return null if not there.
@@ -719,8 +810,17 @@ namespace PurplePen.MapModel
                         case 3: // circle
                             float width = ToWorldDimensions(elt.stLineWidth);
                             float diameter = ToWorldDimensions(elt.stDiameter);
-                            if (version >= 9 && diameter > width)
-                                diameter += width;              // diameter is from middle of line in OCAD 9+, from outer edges in OCAD 6-8.
+                            // The diameter is from the middle of the line in OCAD 9+, and from its outer edges in OCAD 6-8.
+                            // OCAD draws a circle whose line is at least as wide as its diameter from the middle as a
+                            // filled circle of that diameter, and nothing when that diameter is 0 or less. Purple Pen
+                            // keeps the diameter of a ring from the outer edges, and that of a filled circle from the middle.
+                            if (version >= 9) {
+                                if (diameter > width)
+                                    diameter += width;
+                            }
+                            else if (diameter - width <= width) {
+                                diameter = Math.Max(diameter - width, 0);
+                            }
                             glyph.AddCircle(color, PointFromOcadCoord(elt.stCoords[0]), width, diameter);
                             break;
                         case 4:
@@ -755,6 +855,13 @@ namespace PurplePen.MapModel
                 return LineStyle.Mitered;
             else
                 return LineStyle.Beveled;
+        }
+
+        // The minimum number of gaps, or of spaced glyphs, of an OCAD line symbol, from its field MinSym. OCAD reads -1 as no
+        // minimum, 0 as one and 1 as two, and 2 and 3 as one again, as this reads all the larger values.
+        static int MinimumNumberOfGaps(short minSym)
+        {
+            return (minSym >= 2) ? 1 : Math.Max(0, minSym + 1);
         }
 
         LineJoinMode ImportLineJoin(short lineEnds)
@@ -839,7 +946,7 @@ namespace PurplePen.MapModel
 
                     doubleLines.doubleDashes.dashLength = doubleLines.doubleDashes.firstDashLength = doubleLines.doubleDashes.lastDashLength = ToWorldDimensions(ocadSym.DblLength);
                     doubleLines.doubleDashes.gapLength = ToWorldDimensions(ocadSym.DblGap);
-                    doubleLines.doubleDashes.minGaps = 1;
+                    doubleLines.doubleDashes.minGaps = 0;
                     doubleLines.doubleDashes.secondaryEndGaps = 0;
                     doubleLines.doubleDashes.secondaryEndLength = 0;
                     doubleLines.doubleDashes.secondaryMiddleGaps = 0;
@@ -862,7 +969,7 @@ namespace PurplePen.MapModel
                 dashInfo.dashLength = ToWorldDimensions(ocadSym.MainLength);
                 dashInfo.firstDashLength = dashInfo.lastDashLength = ToWorldDimensions(ocadSym.EndLength);
                 dashInfo.gapLength = ToWorldDimensions(ocadSym.MainGap);
-                dashInfo.minGaps = ocadSym.MinSym + 1;
+                dashInfo.minGaps = MinimumNumberOfGaps(ocadSym.MinSym);
 
                 if (ocadSym.SecGap > 0) {
                     dashInfo.secondaryMiddleGaps = 1;
@@ -917,7 +1024,7 @@ namespace PurplePen.MapModel
                         glyphInfo.location = LineSymDef.GlyphLocation.SpacedDecrease;
                         glyphInfo.distance = ToWorldDimensions(ocadSym.MainLength + ocadSym.MainGap);
                         glyphInfo.firstDistance = glyphInfo.lastDistance = ToWorldDimensions(ocadSym.EndLength) + (ToWorldDimensions(ocadSym.MainGap) / 2);
-                        glyphInfo.minimum = Math.Max(1, ocadSym.MinSym + 1);   // OCAD always does at least one symbol, even if you say zero!
+                        glyphInfo.minimum = Math.Max(1, MinimumNumberOfGaps(ocadSym.MinSym));   // OCAD always does at least one symbol, even if you say zero!
                         glyphInfo.decreaseLimit = (float) ocadSym.DecLast / 100F;
                         glyphInfo.decreaseBothEnds = (ocadSym.DecMode == 2);
 
@@ -937,7 +1044,7 @@ namespace PurplePen.MapModel
                         glyphInfo.location = LineSymDef.GlyphLocation.Spaced;
                         glyphInfo.distance = ToWorldDimensions(ocadSym.MainLength + ocadSym.MainGap);
                         glyphInfo.firstDistance = glyphInfo.lastDistance = ToWorldDimensions(ocadSym.EndLength) + (ToWorldDimensions(ocadSym.MainGap) / 2);
-                        glyphInfo.minimum = Math.Max(1, ocadSym.MinSym + 1);   // OCAD always does at least one symbol, even if you say zero!
+                        glyphInfo.minimum = Math.Max(1, MinimumNumberOfGaps(ocadSym.MinSym));   // OCAD always does at least one symbol, even if you say zero!
                     }
 
                     glyphs[iGlyph++] = glyphInfo;
@@ -952,7 +1059,7 @@ namespace PurplePen.MapModel
                     glyphInfo.offset = ToWorldDimensions(ocadSym.MainLength) / 2;
                     glyphInfo.distance = ToWorldDimensions(ocadSym.MainLength + ocadSym.MainGap);
                     glyphInfo.firstDistance = glyphInfo.lastDistance = ToWorldDimensions(ocadSym.EndLength) + (ToWorldDimensions(ocadSym.MainGap) / 2);
-                    glyphInfo.minimum = Math.Max(1, ocadSym.MinSym + 1);   // OCAD always does at least one symbol, even if you say zero!
+                    glyphInfo.minimum = Math.Max(1, MinimumNumberOfGaps(ocadSym.MinSym));   // OCAD always does at least one symbol, even if you say zero!
 
                     glyphs[iGlyph++] = glyphInfo;
                 }
@@ -2409,8 +2516,13 @@ namespace PurplePen.MapModel
             return ret;
         }
 
-        // I think the BinaryReader method takes numberOfChars instead. Doesn't really 
-        // matter for our purpose since we use a single-byte encoding.
+        // Decode the strings that follow as an OCAD file of the given version encodes them.
+        public void UseOcadEncoding(int version)
+        {
+            encoding = Util.GetOcadEncoding(version);
+        }
+
+        // Read the given number of bytes, and decode them into characters.
         public char[] ReadChars(int numberOfBytes)
         {
             char[] result = encoding.GetChars(bytes, pos, numberOfBytes);
