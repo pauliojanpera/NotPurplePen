@@ -172,9 +172,9 @@ base. No branch is offered upstream yet.
   unreasonable, and records the choice under "Decisions" as its own (Nov 23). A question for @Pauli comes when the
   decision is his and the session's own choice would not be easy to correct later: one question at a time, with a
   recommendation. It gives options only where the choice is real: the session does not add options only to involve
-  @Pauli (Nov 23). The session asks its questions early, well structured, and does not first test and investigate
-  all of a ticket, which in practice implements it before the decisions. After an answer, it can go back to the
-  planning and ask again (Nov 23, "Questions early"). It does not investigate `dev` when nobody gave it the task
+  @Pauli (Nov 23). When it prepares a ticket, the session asks its questions early, well structured, and does not
+  first test and investigate all of the ticket, which in practice implements it before the decisions. After an
+  answer, it can go back to the planning and ask again (Nov 23 and 24, "Questions early"). It does not investigate `dev` when nobody gave it the task
   (Nov 23, "The tasks of a session"). Otherwise the session goes on. No push
   goes to `base`, `basewithfixes`, `dev` or `master`; a merge into them needs @Pauli's word. A session does not wait
   for a run whose result no next step needs.
@@ -818,7 +818,8 @@ the rendering.
 - **Questions early** (Nov 23). @Pauli: the session asks its questions early, well structured, and does not first
   test and investigate all of a ticket, which in practice implements the ticket before the decisions. After an
   answer, the session can go back to the planning and ask again ("How to continue the work"). The session that
-  writes the draft 010 as a ticket stopped its investigation of the code when @Pauli said so.
+  writes the draft 010 as a ticket stopped its investigation of the code when @Pauli said so. The rule concerns the
+  preparation of a ticket, and not its implementation (@Pauli, Nov 24).
 - **The options of a question** (Nov 23). A question gives options only where the choice is real. It does not add
   options only to involve @Pauli ("How to continue the work").
 - **The approval of ticket 023** (Nov 23). @Pauli approved [023](tickets/023-palette-separations.md), the
