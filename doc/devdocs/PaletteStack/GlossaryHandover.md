@@ -167,6 +167,14 @@ These are @Pauli's decisions of Nov 20 and Nov 21. Glossary.md gives their terms
   `RecordingGraphicsTarget` · *tallentava piirtokohde* · *recording graphics target*, and the code names
   `TransparencyGroup`, `IPaletteStackEncoding`, `IPaletteStackEncodingProvider`, `SkiaEncoding`,
   `SymbolCoverage.GetClippingObjects(float)`, `IDeferredDrawingTarget`, `AreaPatternPrototype.Tile` and `PatternTile`.
+  The code names of the ticket that the glossary got later (Nov 24): `RenderOptions.overprintMode`,
+  `CourseAppearance.overprintMode`, `MapDisplay.OverprintMode`, `Controller.OverprintMode` and
+  `RenderOptions.drawColorsDirectly`.
+- The code names that the implementation of ticket 010 adds, which its session chose by the rule of Nov 23 and the
+  glossary gives as proposed names (Nov 24): `TransparencyGroup.UsePatternBrushes`, `SymDef.AddDashResolutions`,
+  `AreaSymDef.MakePatternTile`, `AreaSymDef.GetPatternBrushPlacement`, `PatternTile.GetBrushPlacement`,
+  `PatternTile.IsTooPixelatedAt`, `PathShape.Rectangle`, `PathShape.FromRectangle` and
+  `IDeferredDrawingTarget.DrawDeferred`.
 
 The five terms that the session chose by their use in commit 06f4c824d are all decided on Nov 21.
 

@@ -486,7 +486,9 @@ The section "Words that are not names" lists the words that are not used as name
   of a symbol for a drawing of a resolution (*piirron resoluutio*). A dashed line component whose gaps are all shorter
   than the resolution is solid, as the old drawing draws it (`LineSymDef.DrawDashedWithOffset`). At the resolution 0,
   they are the clipping objects of the coverage (`SymbolCoverage.ClippingObjects`). Pass 1 takes no resolution, so
-  `Map` offers this conversion, and an encoding chooses it.
+  `Map` offers this conversion, and an encoding chooses it. The symbol definitions give the resolutions above which
+  their dashed line components are solid (`SymDef.AddDashResolutions`, proposed name), and the coverage keeps the
+  result for each number of these resolutions that are below the resolution of the drawing.
 - **kuviotäytön laajennus** · *expansion of a pattern fill* (`SymbolCoverage.ExpandPrototype`) — The
   lines of a hatching or the elements of an area pattern over the bounds of an area, as single clipping objects at the
   places and with the steps of the drawing. The expansion of an irregular area pattern is the placements of its
@@ -501,7 +503,9 @@ The section "Words that are not names" lists the words that are not used as name
   filled shape, the shape is the outline of the area. For a stroked shape, the shape is the path at the middle of its
   stroke shape (*kynänjälki*).
 - **`Shape`** (work) · muoto · *shape* — A path (`PathShape`), an ellipse (`EllipseShape`), an arc (`ArcShape`) or a
-  text run (`TextShape`). The border of a double line is an offset path.
+  text run (`TextShape`). The border of a double line is an offset path. A path that the old drawing fills as a
+  rectangle, the framing rectangle of a text, keeps the rectangle (`PathShape.Rectangle`, `PathShape.FromRectangle`,
+  proposed names), so a channel can write it as a rectangle.
 - **`FilledShape`** (work) · täytetty muoto, täyttösääntö · *filled shape, fill rule* — Its fill rule is
   `FilledShape.FillRule` (`AreaFillMode`).
 - **viivamuoto** · *stroked shape* (work: `StrokedShape`) — A shape that a pen (*kynä*) draws along its path. In the
@@ -564,7 +568,8 @@ The section "Words that are not names" lists the words that are not used as name
 - **kuvioruutu** · *pattern tile* (`AreaPatternPrototype.Tile`, `PatternTile`) — One cell of an area
   pattern, which is composed from single elements. It depends on the definition alone: the glyph parts of the element
   in one palette color at their places in the cell, as the pattern brush of the old drawing has them
-  (`AreaSymDef.CreatePatternBrushes`). The Skia encoding rasterizes it as a pattern brush (*kuviosivellin*).
+  (`AreaSymDef.CreatePatternBrushes`). The area symbol definition makes it once (`AreaSymDef.MakePatternTile`,
+  proposed name). The Skia encoding rasterizes it as a pattern brush (*kuviosivellin*).
 - **valitut glyyfin osat, epäsäännöllisen kuvion sijoitukset** · *selected glyph parts, placements of an irregular
   pattern* — The glyph parts that a fill mode selects are clipping objects of the palette color coverage of the symbol
   with the full coverage: shared shapes of the glyph of the area pattern, each at a single placement. The placements of
@@ -579,14 +584,17 @@ encodings make themselves.
 - **vaihe 2, koostaminen** · *pass 2, layer composition* — *Vaihe* means a pass. It takes the palette separations in
   palette order. For each palette separation, an encoding writes the transparency group of its palette color, to which
   C, α and B apply once. In the group, the encoding writes each palette cutter with one fill and one clip, or each
-  palette color coverage of a symbol separately. Pass 2 does not call the drawing code of the symbols (`Draw`).
+  palette color coverage of a symbol separately. Pass 2 does not call the drawing code of the symbols (`Draw`). The
+  internal render option `RenderOptions.drawColorsDirectly` makes `Map.Draw` draw the palette colors with the old
+  drawing code (`Map.DrawColor`) also on a graphics target that gives an encoding. Only the tests set it.
 - **palettivärin läpinäkyvyysryhmä** · *transparency group of a palette color* — The group that pass 2 composites for
   one palette color. Its content is the color C on the coverage of the palette separation. The group is composited once
   onto the backdrop, with the opacity α and the blend mode B of the palette color. So the overlaps of one palette color
   do not get α twice. One transparency group is for each palette color. The palette color is its definition, and the
   palette separation is its content. In a drawing, pass 2 makes it as a `TransparencyGroup`: the palette
   color, its opacity α, the blend mode B that the overprint mode gives (`OverprintMode`), the resolution of the drawing,
-  and the palette color coverages of the symbols that the rectangle of the drawing can show.
+  whether the encoding fills a regular clipped area pattern with a pattern brush (`TransparencyGroup.UsePatternBrushes`,
+  proposed name), and the palette color coverages of the symbols that the rectangle of the drawing can show.
 
   The theory: the transparency model of PDF (ISO 32000) calls this unit a transparency group. The objects of the group
   are composited into one result, and the result is composited onto the backdrop with the opacity and the blend mode of
@@ -605,7 +613,11 @@ encodings make themselves.
   (`CourseAppearance`) that tells which blend mode the drawing applies, in all the channels: `None` (*ei käytössä*),
   `ByPaletteColor` (*palettivärin mukaan*: the blend mode B of each palette color, `SymColor.BlendMode`), `Darken`
   (*tummenna*) and `Multiply` (*kerro*). `Darken` and `Multiply` apply to the overprint colors
-  (`SymColor.OverPrint`). The opacity α applies in each mode. **Upstream:** the overprint effect
+  (`SymColor.OverPrint`). The opacity α applies in each mode. The render options keep it
+  (`RenderOptions.overprintMode`), and so do the course appearance (`CourseAppearance.overprintMode`),
+  `MapDisplay.OverprintMode` and `Controller.OverprintMode`. The course file keeps the attribute `overprint-colors`,
+  which is true in the modes `Darken` and `Multiply`, and the attribute `overprint-mode` (`by-palette-color`,
+  `multiply`) in the modes `ByPaletteColor` and `Multiply` only. **Upstream:** the overprint effect
   (`CourseAppearance.useOcadOverprint`, `RenderOptions.blendOverprintedColors`), which blends the colors that have the
   overprint flag with Darken, and the course map always blends its colors in this way.
 - **piirtotila, väriasetus** · *rendering mode, color configuration* — A rendering mode is a color configuration of pass
@@ -652,10 +664,12 @@ encodings make themselves.
   it when `usePatternBitmaps` is set and the bitmap is not too coarse (`AreaSymDef.PatternBrushTooPixelated`), as it
   is faster than the drawing glyph by glyph. The display uses it, and the printing does not. It leaves out the
   rotation center of an area symbol whose angle is 0. The Skia encoding makes it from a pattern tile (*kuvioruutu*),
-  and places it by M.
+  where the brush is not too coarse at the resolution (`PatternTile.IsTooPixelatedAt`, proposed name), and places it by
+  M, within the placement of the brush for the area symbol (`PatternTile.GetBrushPlacement`,
+  `AreaSymDef.GetPatternBrushPlacement`, proposed names). It writes the brush with the Skia calls of the old drawing.
 - **`RecordingGraphicsTarget`** · tallentava piirtokohde · *recording graphics target* — A graphics target that records
   the calls of a drawing and plays them back on another graphics target, for example for the print preview
-  (`RecordingPrintTarget`). Pass 2 records its drawing as a deferred drawing (`IDeferredDrawingTarget`),
+  (`RecordingPrintTarget`). Pass 2 records its drawing as a deferred drawing (`IDeferredDrawingTarget.DrawDeferred`),
   which reads the map at the playback and writes with the encoding of the target that plays it back.
 - **piirrosobjekti** · *drawn object* — An object that an encoding writes. Each drawn object refers to its palette color
   coverage of a symbol, and through it to its `Symbol`, `SymColor` and G. The reference gives the `Map` and the symbol

@@ -136,6 +136,49 @@ yksittäisissä reunapikseleissä, joissa laajennukset pyöristävät katkot ja 
   - Skian koodaus kirjoittaa kuviotäytöt samoilla Skian kutsuilla kuin vanha piirto, ja kuviotäyttöjen
     reunanpehmennys saa oman tiketin tämän jälkeen (@Pauli, 24.11., "The Skia calls of the pattern fills").
   - Täydet ajot tehdään basen päällä, ja palettipinohaarat saavat olla ristiriidassa devin kanssa (@Pauli, 18.11.).
+  - Vanhan piirron selvää virhettä ei tarvitse toistaa (@Pauli, 24.11., "A clear fault of the old drawing").
+- **Toteutus** (haara `feature/palette-composition`, fa83bbc9, kesken):
+  - cf5995f5 tekee vaiheen 2 ja Skian koodauksen. `PaletteStack.cs` antaa päällepainatustilan (`OverprintMode`),
+    koodauksen rajapinnat (`IPaletteStackEncoding`, `IPaletteStackEncodingProvider`) ja palettivärin läpinäkyvyysryhmän
+    (`TransparencyGroup`), ja `SkiaEncoding.cs` Skian koodauksen. `Map.Draw` valitsee värialueen palettivärit
+    (`SelectColorsToDraw`) ja piirtää ne metodilla `DrawPaletteColors`: koodauksen antavalle piirtokohteelle vaiheella 2
+    (`WritePaletteStack`), piirron toistoon siirtävälle piirtokohteelle (`IDeferredDrawingTarget`) toistossa ja muille
+    vanhalla piirrolla (`DrawColor`). Leikkausobjektit piirron resoluutiolla tekee `SymDef.MakeClippingObjects(Symbol,
+    SymColor, CoveragePrototype, float)`, ja kuvioruudun `AreaSymDef.MakePatternTile` (`PatternTile`).
+    Päällepainatustila on piirtoasetuksissa (`RenderOptions.overprintMode`), ratojen ulkoasussa
+    (`CourseAppearance.overprintMode`), `MapDisplay`issa ja `Controller`issa, ja Avalonian `CourseAppearanceDialog`
+    valitsee sen valikosta (`OverprintModeIndex`).
+  - 68d39b14: OCADin katkoviivatestit piirtävät palettivärit vanhalla piirrolla (`RenderOptions.drawColorsDirectly`),
+    koska niiden piirtokohteet ovat `RecordingGraphicsTarget`in aliluokkia.
+  - fa83bbc9: Skian koodaus kirjoittaa kuviosiveltimen ja kehyssuorakulmion vanhan piirron Skian kutsuilla (päätös
+    24.11.). Kehyssuorakulmion polku pitää suorakulmionsa (`PathShape.Rectangle`, `PathShape.FromRectangle`).
+  - Istunnon valinnat ovat Progress.md:n kohdassa "The choices of the session in the implementation of ticket 010".
+  - Paikallinen ajo (`tools/linux-renderings.sh` integraatioworktreessa Windows-koneen fonteilla): haarassa ja haarassa
+    `feature/palette-stack` (e51b81a2) 753 testiä menee läpi, ja `tools/compare-renderings.py` antaa 9 siirtynyttä
+    kuvaa. Testi, jota ei commitoitu, piirsi kunkin palettierottelun ja kunkin symbolin yksin vanhalla piirrolla ja
+    vaiheella 2 ja kirjasi vanhan piirron kutsut. Siirtymien syyt:
+    - `LordHill` ja `LordHill OCAD11` (11 382 pikseliä): kun α on 1, palettierottelut piirtyvät kuten vanhassa piirrossa
+      yhtä pikseliä lukuun ottamatta, joten 11 381 pikseliä siirtää syy 1 (palettiväri 201, `t80`). Yksi pikseli (465,
+      468) on symbolin 308.0 ('Narrow marsh') viivan varren ympyrässä palettivärissä 'Blue', kuten seuraavassa kohdassa.
+    - `clouds` ja `clouds11` (2 pikseliä, ero enintään 16), `teanwest` ja `teanwest11` (pikseli (1591, 517), ero 255) ja
+      `hakolaoverprinting` (1 pikseli, (49, 27), ero 255): symbolin 416.0 ('Distinct vegetation boundary', Hakolan
+      kartassa 'Selkeä kasvillisuuden raja') viivan varren yhden ympyrän glyyfi toistosijoituksessa palettivärissä
+      'Black' tai 'Musta 100%'. Ympyrän keskipiste ja säde ovat samat kuin vanhassa piirrossa liukulukutarkkuudella.
+      Vaihe 2 piirtää ympyrän origoon aseman siirron sisällä, ja vanha piirto piirtää sen paikalleen ilman muunnosta
+      (`Glyph.DrawSimple`), joten Skia pyöristää laitekoordinaatit toisin, ja reunan pikseli tai reunanpehmennyksen yksi
+      näyte 16:sta vaihtuu. Sama ympyrä piirrettynä kummallakin tavalla antaa juuri nämä arvot. Tämä on tiketin 011
+      sallittu ero toistosijoituksen laajennuksessa, eli syy 3.
+    - `teanwest` ja `teanwest11` (pikseli (755, 117), ero 255): symbolin 508.0 ('Less distinct small path')
+      katkojuosteen katko 3/6, jonka pää on laajennuksessa 0,00002 mm eri kohdassa kuin vanhassa piirrossa: syy 3.
+    - `angledashes9` (19 pikseliä, ero enintään 2): symbolin 1.2 ('Dashed line') kahden katkojuosteen katkot 48/64 ja
+      51/64, joiden päät ovat laajennuksessa noin 0,00001 mm eri kohdassa kuin vanhassa piirrossa: syy 3.
+    - `frametext1` (52 pikseliä): kahden tekstisymbolin kehysviivat kehyksen värissä 'Yellow'. Kehysviiva on yksi viiva,
+      ja vanha piirto vetää ensin kapeammat viivat (tiketin 013 sallittu ero, päätös 19.11.). Kriteerin "Kuvat" syy 3 ei
+      luettele tätä.
+
+    Tiketin 009 havaitsemat kolme pikseliä, joissa leikkausobjektit eroavat piirrosta, ovat luultavasti kuvien
+    `hakolaoverprinting` ja `teanwest` pikselit. Sitä ei ole tarkistettu.
+  - Rakennetestit, ratatiedoston testit ja täysi ajo puuttuvat.
 - **Speksi:** [Specification.md](../Specification.md), luvut 01, 03 ja 04. Luvun 01 kohta "The two passes" ja luvun 04
   kohdat "Pass 2 and the transparency groups", "The rendering modes", "The encodings and the channels" ja "The graphics
   target beside the palette stack" antavat vaiheen 2, palettivärin läpinäkyvyysryhmän, piirtotilat, koodauksen ja

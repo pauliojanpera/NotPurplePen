@@ -70,8 +70,10 @@ after @Pauli's answers to its five questions ("Pass 2 by channel", "The blend mo
 shorter than a pixel" and "The expansions in the Skia encoding"). Pass 2 takes the palette separations in palette
 order, and the Skia encoding writes the transparency group of each palette color with α and the blend mode of the
 overprint mode, so the screen, the printing on Windows and the print preview draw the palette colors from the
-intermediate layer. @Pauli approved it on Nov 24 ("The approval of ticket 010"), and it is not implemented yet. Its
-branch is `feature/palette-composition`, rooted at `feature/palette-stack` (e51b81a2).
+intermediate layer. @Pauli approved it on Nov 24 ("The approval of ticket 010"). Its implementation is in progress on
+`feature/palette-composition`, rooted at `feature/palette-stack` (e51b81a2): at fa83bbc9, pass 2 and the Skia
+encoding draw the palette colors, and the local runs give 9 moved images, whose causes a test that is not committed
+found (see "Branches"). The structure tests, the tests of the course file and the full run are not made yet.
 
 The step of the Tests workflow that checks the machine and installs the fonts runs its script from
 `.github/scripts/check-machine-and-install-fonts.ps1` ("The script of the font step in a file"). The change is merged
@@ -132,6 +134,7 @@ base. No branch is offered upstream yet.
 
 | Branch | Ticket and description | State |
 | --- | --- | --- |
+| `feature/palette-composition` | [010](tickets/010-palette-composition.md) | In progress, an approved ticket. cf5995f5 draws the palette colors of a map with pass 2 and the Skia encoding, 68d39b14 draws the palette colors of the OCAD dash tests with the old drawing code (`RenderOptions.drawColorsDirectly`), and fa83bbc9 writes the pattern brushes and the framing rectangles with the Skia calls of the old drawing ("The Skia calls of the pattern fills"). "The choices of the session in the implementation of ticket 010" gives the choices, and the ticket gives the implementation under "Toteutus". Locally, the 753 tests of `tools/linux-renderings.sh` pass at fa83bbc9 and at `feature/palette-stack` (e51b81a2), and `tools/compare-renderings.py` finds 9 moved images. A test that is not committed drew each palette separation and each symbol alone with the old drawing and with pass 2, and found the cause of each moved pixel: `LordHill` and `LordHill OCAD11` (11,382 pixels each) α below 1, apart from one pixel; `clouds`, `clouds11`, `teanwest`, `teanwest11`, `hakolaoverprinting` and that pixel the circle of a glyph in a repeated placement, which pass 2 draws at the origin within the translation of its pose and the old drawing at its place; `teanwest`, `teanwest11` and `angledashes9` the ends of the expanded dashes of runs, which are 0.00001 to 0.00002 mm from those of the old drawing; and `frametext1` (52 pixels) the framing lines of two texts, which are one line each (ticket 013). The criterion "Kuvat" gives no cause for `frametext1`, and gives one cause to each image. The structure tests, the tests of the course file and the full run are not made yet. Rooted at `feature/palette-stack` (e51b81a2). |
 | `feature/pattern-prototypes` | [009](tickets/009-pattern-instances.md), [description](prs/009-pattern-prototypes.md) | All criteria met. The hatchings and the clipped area patterns are coverage prototypes (`HatchingPrototype`, `AreaPatternPrototype`): an area symbol has a palette color coverage of each of them in its palette color, whose clipping object is the area. M comes from the angle and the rotation center of the area symbol and from the angle and the offset of the hatching or the area pattern (`SymbolCoverage.Transformation`), and the palette cutters are the configurations of the normal forms of M (`CoveragePrototype.GetNormalForm`). The expansion (`SymbolCoverage.ExpandPrototype`) gives the hatch lines and the elements as the drawing draws them. The glyph parts that a fill mode selects are clipping objects of the full coverage. The collector, `SymDef.CollectClippingObjects` and the internal render option `omitHatchingsAndPatterns` are removed. The ticket gives the implementation under "Toteutus". The coverage comparison compares each palette color of 46 maps with the drawing, also the palette colors of the hatchings and the area patterns, and no pixel differs. Locally, the 753 tests of `tools/linux-renderings.sh` pass, and `tools/compare-renderings.py` finds no moved image against `feature/palette-stack` (86df0a59). Full run passed at 7daec04d (`wip/linux/pattern-prototypes` at 4925adc1, on `base`, with `--base-baselines prs/000-palette-stack-base`: Tests 45258381924, Build 45258381979), without a collecting run, as the old drawing code changes only by the removal of the checks of `omitHatchingsAndPatterns`, which are always false in the drawing. Its group Skia ran the 773 tests of Map_Skia.Tests. Rooted at `feature/palette-stack` (86df0a59). In `feature/palette-stack` (e51b81a2). |
 | `feature/text-symbol-geometry` | [013](tickets/013-text-geometry.md), [description](prs/013-text-symbol-geometry.md) | All criteria met. `TextSymDef` and `RectangleSymDef` make the clipping objects of the text symbols, the texts along lines and the rectangle symbols with a geometry method (`SymDef.MakeClippingObjects`, which is abstract now): the text runs with their framing lines or shadows, the underlines, the center points and the framing rectangles, the graphemes of a text along a line, and the line, the grid lines and the grid texts of a rectangle. The innermost step of the placement of a text is its pose, and the shapes are in the coordinates of the pose, whose Y axis points up. `HoleSymDef` and `ImageSymDef` give no clipping objects, and pass 1 does not use the collector. The ticket gives the implementation under "Toteutus". The comparison with the collector passes on the 162 maps of `skia_render` and on the 10 dash samples, which have 1,671 text symbols, 86 texts along lines and 175 rectangle symbols, with the allowed differences of the ticket. Locally, the 712 tests of `tools/linux-renderings.sh` pass, and `tools/compare-renderings.py` finds no moved image against `feature/palette-stack` (903e6bde). Full run passed at 62757802 (`wip/linux/text-symbol-geometry` at 2032702c, on `base`, with `--base-baselines prs/000-palette-stack-base`: Tests 45214234801, Build 45214234833), without a collecting run, as the old drawing code does not change. Its group Skia ran the 732 tests of Map_Skia.Tests. Rooted at `feature/palette-stack` (903e6bde). In `feature/palette-stack` (86df0a59). |
 | `feature/area-symbol-geometry` | [012](tickets/012-area-geometry.md), [description](prs/012-area-symbol-geometry.md) | All criteria met. `AreaLikeSymDef` and `GraphicsSymDef` make the clipping objects of the area symbols and the graphics objects with a geometry method (`SymDef.MakeClippingObjects`): `AreaSymDef` the area fill and the area border along the main path and then along each hole, `AreaComboSymDef` the clipping objects of its component definitions in their order, also of a `LineComboSymDef` and of another `AreaComboSymDef` (`LineLikeSymDef.MakeClippingObjects(SymPath, SymColor)`), and `GraphicsSymDef` the fill of a `GraphicsAreaSymbol` and the line of a `GraphicsLineSymbol`. The ticket gives the implementation under "Toteutus". The comparison with the collector passes on the 162 maps of `skia_render` and on the 10 dash samples, which have 21,532 area symbols and 138 graphics objects. Full run passed at 6c8bdda4 (`wip/linux/area-symbol-geometry` at b8f4ec90, on `base`, with `--base-baselines prs/000-palette-stack-base`: Tests 45179709801, Build 45179709719), without a collecting run, as the old drawing code does not change. Its group Skia ran the 722 tests of Map_Skia.Tests. Rooted at `feature/palette-stack` (7a03c8f6). In `feature/palette-stack` (903e6bde). |
@@ -320,7 +323,7 @@ base. No branch is offered upstream yet.
    in the form of ticket 012: the interface of ticket 024, the terms of the glossary, the code names where the glossary
    has no term, and the old work where it fits. The session of Nov 23 asked its questions first ("Questions
    early"), and wrote the ticket on Nov 24. @Pauli approved it on Nov 24 ("The approval of ticket 010"). Its
-   implementation on `feature/palette-composition` comes next, when a session gets the task.
+   implementation on `feature/palette-composition` is in progress (see "Branches").
 6. The fonts of the local Linux runs are done ("The fonts of the local Linux runs", "Local tests"):
    1. `system/fonts.json` of the branch `linux` agrees with its files and with `.github/ci/environment.json` of
       `base`: of the 65 fonts of `environment.json`, 29 files have the hash of the Windows machine, and 36 are older
@@ -830,6 +833,31 @@ the rendering.
   - The framing rectangle of a text stays a rectangle (`PathShape.Rectangle`), which the encoding draws with `DrawRect`
     as the old drawing does (`FillRectangle`), for the same reason as the calls of the pattern brush. With `DrawPath`,
     the image `frametext2` moved.
+- **A clear fault of the old drawing** (Nov 24). @Pauli, in the implementation of ticket 010: "toki jos vanhassa
+  piirrossa on selvä virhe niin sitä ei tarvitse toistaa" (of course, a clear fault of the old drawing does not need
+  to be repeated).
+- **The choices of the session in the implementation of ticket 010** (Nov 24). By the rule "The session resolves
+  matters", the session that made cf5995f5, 68d39b14 and fa83bbc9 chose these, which the ticket gives under
+  "Toteutus":
+  - The transparency group tells the encoding whether it fills a regular clipped area pattern with a pattern brush
+    (`TransparencyGroup.UsePatternBrushes`, from `RenderOptions.usePatternBitmaps`), as the old drawing chooses it.
+  - A palette color coverage keeps its clipping objects at the resolution of a drawing for each number of the
+    resolutions that are below the resolution of the drawing. The symbol definitions give these resolutions, above
+    which a dashed line component is solid (`SymDef.AddDashResolutions`).
+  - The Skia calls of the pattern brushes and the framing rectangle: see "The Skia calls of the pattern fills".
+  - The deferred drawing: `RecordingGraphicsTarget` defers a drawing (`IDeferredDrawingTarget.DrawDeferred`), and the
+    playback calls it with the playback target. At the playback, `Map.Draw` reads the map (`Map.Read`), selects the
+    palette colors of the color range again, and draws them with the encoding of the playback target, or with the old
+    drawing code when the target has none. The playback does not call the cancellation of the drawing.
+  - The OCAD dash tests (`OcadSampleDrawing`, `OcadDashVertexTests`) draw the palette colors with the old drawing code
+    (`RenderOptions.drawColorsDirectly`). Their recorders derive from `RecordingGraphicsTarget`, which now defers the
+    palette colors, so they kept nothing, and they measure the old drawing code, with which the PDF graphics target
+    draws.
+  - The course file writes the attribute `overprint-mode` with the values `by-palette-color` and `multiply`. A reader
+    takes `none`, `by-palette-color`, `darken` and `multiply`, and an attribute that is missing or has another value
+    lets `overprint-colors` decide.
+  - The check box of the WinForms dialog is checked in the modes `Darken` and `Multiply`, as `overprint-colors` is. When
+    the check box does not change, the mode stays as the dialog got it. When it changes, the mode is `Darken` or `None`.
 - **The tasks of a session** (Nov 23). @Pauli: a session does not investigate `dev` when nobody gave it the task. The
   session that writes the draft 010 read the course appearance of `dev` without such a task, and its reading is
   removed.
