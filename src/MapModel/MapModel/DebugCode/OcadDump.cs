@@ -606,6 +606,7 @@ namespace PurplePen.MapModel.DebugCode
         {
             OcadFileHeader header = ReadFileHeader();
             version = header.Version;
+            reader.UseOcadEncoding(version);
 
             OcadSymbolHeader symheader = null;
             if (version <= 8)
@@ -663,6 +664,7 @@ namespace PurplePen.MapModel.DebugCode
         {
             OcadFileHeader header = ReadFileHeader();
             version = header.Version;
+            reader.UseOcadEncoding(version);
 
             OcadSymbolHeader symheader = null;
             if (version <= 8)

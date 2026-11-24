@@ -290,7 +290,7 @@ namespace PurplePen
                 mapDisplay.SetMapFile(MapType.None, null);
             }
 
-            mapDisplay.OcadOverprintEffect = (eventDB != null && eventDB.GetEvent().courseAppearance.useOcadOverprint);
+            mapDisplay.OverprintMode = (eventDB != null) ? eventDB.GetEvent().courseAppearance.overprintMode : OverprintMode.None;
 
             checkForMissingFonts = true;          // Warn about missing fonts once for this map.
             checkForUnrenderableObjects = true;   // warn about non-renderable objects.
@@ -1433,7 +1433,7 @@ namespace PurplePen
                 return (Environment.OSVersion.Version.Major <= 5 ||
                         MapType != MapType.OCAD ||
                         (eventDB.GetEvent().courseAppearance.purpleColorBlend == PurpleColorBlend.Blend)||
-                        eventDB.GetEvent().courseAppearance.useOcadOverprint);
+                        eventDB.GetEvent().courseAppearance.overprintMode != OverprintMode.None);
                 */
                 return true;  // We always rasterize now.
             }
@@ -3540,8 +3540,9 @@ namespace PurplePen
             return FindPurple.FindBestLowerPurpleLayer(symColors);
         }
 
-        public bool OcadOverprintEffect {
-            get { return GetCourseAppearance().useOcadOverprint; }
+        // The overprint mode of the course appearance, which the map display applies to the OCAD map.
+        public OverprintMode OverprintMode {
+            get { return GetCourseAppearance().overprintMode; }
         }
 
         // Map layer of lower purple if using upper/lower purple blending method.
