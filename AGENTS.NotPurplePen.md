@@ -29,6 +29,9 @@ A question that the developer must decide follows these rules:
   of its display, for example bold labels, lists and quotation blocks, to keep
   its parts apart: the question, the quotations, the example, the options and
   the recommendation.
+- Where possible, the question uses the concepts that the glossary of the work
+  fixes. Beside each such concept, also in Finnish text, it gives the primary
+  technical name of the concept: its name in the code, where it has one.
 
 ## There is no Windows machine here
 
