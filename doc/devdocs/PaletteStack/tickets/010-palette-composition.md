@@ -114,7 +114,7 @@ kerran alueiden unioniin.
   Muut kuva- ja tekstibaselinet eivät siirry. Siirtyneet baselinet tallennetaan @Paulin luvalla, jonka hän antoi
   hyväksyessään tiketin (24.11.).
 - [x] Tikettien 023–026, 011–013 ja 009 testit menevät läpi.
-- [ ] Palettileikkurin kuviotäyttö kerran alueidensa unionissa: tiketin [028](028-palette-cutter-patterns.md) haara
+- [x] Palettileikkurin kuviotäyttö kerran alueidensa unionissa: tiketin [028](028-palette-cutter-patterns.md) haara
   `feature/palette-cutter-patterns` on yhdistetty tämän tiketin haaraan, ennen kuin tämä haara yhdistetään haaraan
   `feature/palette-stack` (@Pauli, 24.11.).
 
@@ -150,7 +150,7 @@ kerran alueiden unioniin.
     "Kuvat" syy 3 ja tiketin kuvaus kattavat sen (@Pauli, 24.11., "The framing line in the images of ticket 010").
   - Kriteerin "Kuvat" syyt selittävät siirtyneet pikselit, joten kuvassa voi olla useita syitä (@Pauli, 24.11., "The
     causes of the moved pixels of ticket 010").
-- **Toteutus** (haara `feature/palette-composition`, 1b282046, odottaa tikettiä 028):
+- **Toteutus** (haara `feature/palette-composition`, bc9a4800, yhdistetty haaraan `feature/palette-stack` (0d2148b3)):
   - cf5995f5 tekee vaiheen 2 ja Skian koodauksen. `PaletteStack.cs` antaa päällepainatustilan (`OverprintMode`),
     koodauksen rajapinnat (`IPaletteStackEncoding`, `IPaletteStackEncodingProvider`) ja palettivärin läpinäkyvyysryhmän
     (`TransparencyGroup`), ja `SkiaEncoding.cs` Skian koodauksen. `Map.Draw` valitsee värialueen palettivärit
@@ -215,8 +215,12 @@ kerran alueiden unioniin.
   - Täysi ajo meni läpi kohdassa 1b282046 (`wip/linux/palette-composition` kohdassa 3a1fb7a1, basen päällä,
     valitsimella `--base-baselines prs/000-palette-stack-base`: Tests 45387009626, Build 45387009779): kaikki
     testiryhmät menivät läpi.
-  - Tämän tiketin oma työ täyttää kriteerinsä. Haara yhdistetään haaraan `feature/palette-stack`, kun tiketin 028
-    haara on yhdistetty siihen.
+  - bc9a4800 yhdistää tiketin 028 haaran (`feature/palette-cutter-patterns`, 1530dabd). Yhdistämisen puu on tiketin
+    028 haaran puu, jonka täysi ajo meni läpi (`wip/linux/palette-cutter-patterns` kohdassa f9ab3e68: Tests
+    45402806490, Build 45402806370).
+  - Haara on yhdistetty haaraan `feature/palette-stack` (0d2148b3), ja yhdistämisen puu on haaran puu. Epicin täysi
+    ajo meni läpi kohdassa 0d2148b3 (`wip/linux/palette-stack` kohdassa 78770fb2, valitsimella `--base-baselines
+    prs/000-palette-stack-base`: Tests 45405076724, Build 45405076683): kaikki testiryhmät menivät läpi.
 - **Speksi:** [Specification.md](../Specification.md), luvut 01, 03 ja 04. Luvun 01 kohta "The two passes" ja luvun 04
   kohdat "Pass 2 and the transparency groups", "The rendering modes", "The encodings and the channels" ja "The graphics
   target beside the palette stack" antavat vaiheen 2, palettivärin läpinäkyvyysryhmän, piirtotilat, koodauksen ja
@@ -347,8 +351,8 @@ kerran alueiden unioniin.
 <!-- Tästä tiketistä erotetut korjaukset ja ominaisuudet: tiketti, haara ja se, onko haara yhdistetty tämän tiketin haaraan -->
 * [028](028-palette-cutter-patterns.md) Palettileikkurin kuviotäyttö kerran alueidensa unionissa: haara
   `feature/palette-cutter-patterns`, joka juurtuu tämän tiketin haaraan (1b282046) ja yhdistetään siihen ennen kuin
-  tämä haara yhdistetään haaraan `feature/palette-stack` (@Pauli, 24.11.). @Pauli hyväksyi sen 24.11., ei vielä
-  yhdistetty.
+  tämä haara yhdistetään haaraan `feature/palette-stack` (@Pauli, 24.11.). @Pauli hyväksyi sen 24.11. Yhdistetty
+  tähän haaraan (bc9a4800).
 * PDF:n koodaus: oma tiketti tämän jälkeen (@Pauli, 23.11.), ei vielä kirjoitettu.
 * Skian abstraktiot katkojuosteille ja toistosijoituksille: oma tiketti tämän jälkeen (@Pauli, 24.11.), ei vielä
   kirjoitettu.

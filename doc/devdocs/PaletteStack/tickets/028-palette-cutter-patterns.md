@@ -12,7 +12,7 @@ omissa tiketeissään. Tiketti on erotettu tiketistä 010, ja sen haara yhdistet
 010 yhdistetään eepoksen haaraan.
 
 **Hyväksymiskriteerit**
-- [ ] Alueryväs (`AreaCluster`, ehdotettu nimi): viivoituksen (`HatchingPrototype`) tai leikatun aluekuvion
+- [x] Alueryväs (`AreaCluster`, ehdotettu nimi): viivoituksen (`HatchingPrototype`) tai leikatun aluekuvion
   (`AreaPatternPrototype`) palettileikkuri antaa johdoksena alueryppäänsä (`PaletteCutter.AreaClusters`, ehdotettu
   nimi). Ryppääseen kuuluvat ne palettileikkurin palettiväripeitot (`SymbolCoverage`), joiden alueiden rajaavat
   suorakulmiot leikkaavat tai koskettavat toisiaan suoraan tai ryppään muiden alueiden kautta. Alue, jonka ääriviivat
@@ -21,22 +21,22 @@ omissa tiketeissään. Tiketti on erotettu tiketistä 010, ja sen haara yhdistet
   palettierottelun järjestyksessä ja alueidensa yhteisen rajaavan suorakulmion. Ryppäät tehdään kartasta ilman piirron
   suorakulmiota ja resoluutiota, kun niitä tarvitaan ensimmäisen kerran, ja ne vanhenevat kartan muuttuessa kuten muut
   johdokset.
-- [ ] Ryppään unioni (`AreaCluster.Union`, ehdotettu nimi): usean alueen ryppään alueiden unioni on johdos, leikkausobjekti,
+- [x] Ryppään unioni (`AreaCluster.Union`, ehdotettu nimi): usean alueen ryppään alueiden unioni on johdos, leikkausobjekti,
   joka on täytetty polku (`FilledShape`, `PathShape`). Sen täyttösääntö on nonzero (`AreaFillMode.Winding`), ja siinä
   ovat ryppään kaikkien alueiden kaikki ääriviivat. Ääriviiva kiertää positiivisesti, kun sen oman alueen muista
   ääriviivoista parillinen määrä ympäröi sen, ja muuten toiseen suuntaan (`SymPathWithHoles.AddToUnionPathPartList`).
   Näin nonzero-sääntö täyttää kustakin alueesta juuri sen, minkä parillisuussääntö täyttää siitä yksinään, eikä mikään
   alue kumoa toisen lisäämää. Yhden alueen ryppään unioni on alue itse. Unioni ei käytä Skiaa eikä monikulmiokirjastoa,
   ja jokainen kanava leikkaa ja täyttää sen kuten minkä tahansa täytetyn polun.
-- [ ] Vaiheen 2 ryhmä: palettivärin läpinäkyvyysryhmä (`TransparencyGroup`) antaa koodaukselle viivoitusten ja
+- [x] Vaiheen 2 ryhmä: palettivärin läpinäkyvyysryhmä (`TransparencyGroup`) antaa koodaukselle viivoitusten ja
   leikattujen aluekuvioiden palettiväripeitot ryppäittäin. Ryppäästä tulevat kaikki palettiväripeitot, kun jokin
   niistä voi leikata piirron suorakulmion (tiketin 010 ehto `Symbol.BoundingBox` ja `MayIntersectRect`). Koodaus
   kirjoittaa ryppään sen ensimmäisen palettiväripeiton kohdalla palettierottelun järjestyksessä. Täyden peiton
   palettiväripeitot ryhmä antaa kuten tiketissä 010.
-- [ ] Laajennus suorakulmion yli: `SymbolCoverage.ExpandPrototype(RectangleF)` (ehdotettu nimi) antaa
+- [x] Laajennus suorakulmion yli: `SymbolCoverage.ExpandPrototype(RectangleF)` (ehdotettu nimi) antaa
   peittoprototyypin laajennuksen annetun suorakulmion yli palettiväripeiton M:llä (`CoveragePrototype.Expand(Symbol,
   RectangleF)`). `SymbolCoverage.ExpandPrototype()` on sama laajennus alueen rajaavan suorakulmion yli, kuten nyt.
-- [ ] Skian koodaus: yhden alueen ryppään koodaus kirjoittaa kuten tiketissä 010. Usean alueen ryppään kuvion se
+- [x] Skian koodaus: yhden alueen ryppään koodaus kirjoittaa kuten tiketissä 010. Usean alueen ryppään kuvion se
   kirjoittaa kerran ryppään unioniin:
   - Viivoituksen ja glyyfi kerrallaan piirretyn aluekuvion laajennus tehdään ryppään rajaavan suorakulmion yli ryppään
     ensimmäisen palettiväripeiton M:llä, ja se kirjoitetaan unionin leikkauksen sisään. Leikkaus on ilman
@@ -44,7 +44,7 @@ omissa tiketeissään. Tiketti on erotettu tiketistä 010, ja sen haara yhdistet
   - Kuviosivellin kirjoitetaan kuten tiketin 010 kriteerissä "Kuviotäytöt", mutta alueen sijasta unioniin. Kun
     sivellin ei käänny, koodaus täyttää unionin polun siveltimen varjostimella. Muuten se täyttää unionin leikkauksen
     sisällä suorakulmion, joka rajaa unionin sijoituksen koordinaatistossa.
-- [ ] Rakennetestit tarkistavat ilman vanhaa piirtoa seuraavat:
+- [x] Rakennetestit tarkistavat ilman vanhaa piirtoa seuraavat:
   - Unioni ilman piirtoa: piste on ryppään unionissa nonzero-säännöllä täsmälleen silloin, kun se on jonkin ryppään
     alueen sisällä parillisuussäännöllä. Tapaukset ovat päällekkäiset ja koskettavat alueet, alue, jonka reikää toinen
     alue peittää, alue, jonka reikä on ääriviivan ulkopuolella, ja saari reiässä.
@@ -59,15 +59,15 @@ omissa tiketeissään. Tiketti on erotettu tiketistä 010, ja sen haara yhdistet
     erilliset alueet ovat eri ryppäissä, ja alue, jonka ääriviivat kohtaavat, on oma ryppäänsä.
   - Alue, joka ei kohtaa palettileikkurin muita alueita, piirtyy pikselilleen kuten vanha piirto
     (`RenderOptions.drawColorsDirectly`).
-- [ ] Renderöintitesti: `Map_Skia.Tests` piirtää @Paulin tapaukset `suo.ocd` ja `suo2.ocd`
+- [x] Renderöintitesti: `Map_Skia.Tests` piirtää @Paulin tapaukset `suo.ocd` ja `suo2.ocd`
   ([SvgHatchingOverlap/case](../../SvgHatchingOverlap/README.md)). Niiden vertailukuvat otetaan keräävästä ajosta.
-- [ ] Kuvat: keräävä ajo antaa kuvat, jotka siirtyvät. Jokainen siirtynyt pikseli on usean alueen ryppään unionissa tai
+- [x] Kuvat: keräävä ajo antaa kuvat, jotka siirtyvät. Jokainen siirtynyt pikseli on usean alueen ryppään unionissa tai
   sen reunan pikselissä, ja tiketti kertoo kuvat ja niiden pikselien määrät. Syy on se, että ryppään kuvio piirtyy
   kerran unioniinsa ryppään ensimmäisen palettiväripeiton M:llä: päällekkäisissä kohdissa kuvio ei kerrostu, ja
   kosketusreunoilla ei ole saumaa. Vain Skian koodauksen kuvat siirtyvät. PDF-, GDI+- ja WPF-piirtokohteiden kuvat
   eivätkä muut kuva- ja tekstibaselinet siirry. Siirtyneet baselinet tallennetaan @Paulin luvalla, jonka hän antaa
   hyväksyessään tiketin.
-- [ ] Tikettien 010, 023–026, 011–013 ja 009 testit menevät läpi.
+- [x] Tikettien 010, 023–026, 011–013 ja 009 testit menevät läpi.
 
 **Lisätiedot**
 - **Lähtö:**
@@ -97,6 +97,50 @@ omissa tiketeissään. Tiketti on erotettu tiketistä 010, ja sen haara yhdistet
   - Kuviotäyttöjen reunanpehmennys Skian koodauksessa on oma tikettinsä tiketin 010 jälkeen (päätös 24.11., Progress.md
     "The Skia calls of the pattern fills"). Se rakentuu tämän tiketin unioniin: alueittain reunanpehmennetyt
     leikkaukset jättäisivät koskettaviin reunoihin vaaleat saumat, ja unionin leikkauksessa niitä ei ole.
+- **Toteutus** (haara `feature/palette-cutter-patterns`, 1530dabd, yhdistetty haaraan `feature/palette-composition`
+  (bc9a4800)):
+  - 8e382fcf: palettileikkuri antaa alueryppäät (`PaletteCutter.AreaClusters`, `AreaCluster`), ja palettierottelu antaa
+    palettiväripeiton ryppään (`PaletteSeparation.GetAreaCluster`). Ryppäät tehdään kuten korjauksen `OverlappingAreas`
+    ryhmät: rajaavat suorakulmiot yhdistetään pyyhkäisyllä ja unioni–etsi-rakenteella samalla koodilla (`Connect`,
+    `Find`, `Join`, `CountMembers`), ja alue, jonka ääriviivat kohtaavat, on oma ryppäänsä. Ryppään unioni
+    (`AreaCluster.Union`) on täytetty polku säännöllä `AreaFillMode.Winding`, ja sen osat antaa
+    `SymPathWithHoles.AddToUnionPathPartList`. `SymPath.cs`:n geometria (`AddToUnionPathPartList`, `ContoursMeet`,
+    `AddClosedContourToPathPartList`, `SignedArea` ja niiden apufunktiot) on korjauksen koodi sellaisenaan.
+    `SymbolCoverage.ExpandPrototype(RectangleF)` ja `CoveragePrototype.Expand(Symbol, RectangleF)` laajentavat
+    suorakulmion yli, ja `AreaSymDef.ExpandHatching` ja `ExpandAreaPattern` saavat alueen polun sijasta suorakulmion.
+    `TransparencyGroup.GetAreaCluster` antaa koodaukselle palettiväripeiton ryppään, ja `SkiaEncoding` kirjoittaa usean
+    alueen ryppään kuvion kerran unioniin ensimmäisen palettiväripeitonsa M:llä.
+  - Testit: `AreaClusterTests` (16 testiä) ja `RenderingTests.OverlappingMarshes` ja `OverlappingMarshes2` (@Paulin
+    `suo.ocd` ja `suo2.ocd`, kuvaukset `suo.txt` ja `suo2.txt`).
+  - Paikallinen ajo (`tools/linux-renderings.sh` Windows-koneen fonteilla): haarassa 786 testiä menee läpi (tiketin 010
+    haarassa 1b282046 766), ja `tools/compare-renderings.py` antaa 9 siirtynyttä kuvaa. Testi, jota ei commitoitu,
+    piirsi kunkin kuvan kartan usean alueen ryppäiden unionit testin pikseleihin reunaa 2,5 pikseliä levennettynä, ja
+    jokainen siirtynyt pikseli on niissä: `LordHill` 19, `clouds` 1 612, `irregular3` 48, `lksamm3` 91 ja `teanwest`
+    1 903 pikseliä. Karttojen usean alueen ryppäitä on 7, 19, 1, 4 ja 131.
+  - Keräävä ajo 45400058882 (Windows), jonka kuvat 1530dabd tallentaa:
+    - ryhmä Skia: samat 9 kuvaa ja pikselimäärät kuin paikallisessa ajossa (`LordHill` ja `LordHill OCAD11` 19, `clouds`
+      ja `clouds11` 1 612, `irregular3` 48, `lksamm3` ja `lksamm3_ocadmetric` 91, `teanwest` ja `teanwest11` 1 903), sekä
+      uudet `suo` ja `suo2` (valitsin `--blank-baseline`).
+    - ryhmä PurplePen, 28 kuvaa: `bitmapcreate/create3`:n `Relay AC`, `AD`, `BC` ja `BD` (26 pikseliä kukin),
+      `bitmapcreate/create2`:n `BM_All Controls` (213) ja `BM_Course 2` (232), `routegadget`in `GRC GIF` (24),
+      `courseprinting`in 17 sivua (2–7 pikseliä) ja `bitmapcreate/blend`in `Course 5` neljässä tilassa. Tilojen `none`,
+      `layer` ja `layersprint` kuvat eroavat vertailukuvistaan noin 1,08 miljoonassa pikselissä, joista 8 ylittää
+      testin toleranssin 30. Nämä vertailukuvat ovat vanhoja koko kartan alalla: vertailukuvat `none` ja `blend` eroavat
+      toisistaan 1 081 446 pikselissä, mutta ajon renderöinnit vain purppuran 47 277 pikselissä. Muutoksen osuus on
+      enintään `blend`-kuvan 1 070 pikseliä, ja toleranssin ylittävät 8 pikseliä ovat samassa kohdassa kaikissa neljässä
+      tilassa.
+    - Skian koodaus muuttaa vain usean alueen ryppäiden kirjoitusta, ja se kirjoittaa ne unionin leikkauksen sisään tai
+      täyttää unionin polun. Kaikki muu kirjoitetaan samoilla kutsuilla kuin tiketissä 010. Siksi PurplePen-ryhmänkin
+      siirtyneet pikselit ovat ryppäiden unioneissa; Skian kuvissa se on tarkistettu pikseleittäin.
+    - PDF-, GDI+-, WPF- ja MapModel-ryhmissä yksikään kuva ei siirtynyt.
+    - PurplePen-ryhmän `ExportRouteGadget2` sai keräävässä ajossa `IOException`in, koska `GRC GIF` siirtyi ja
+      `base`n GDI+-vertailu ei vapauta tiedostoa keräävässä tilassa, kuten tiketin 010 keräävässä ajossa.
+  - Täysi ajo meni läpi kohdassa 1530dabd (`wip/linux/palette-cutter-patterns` kohdassa f9ab3e68, basen päällä,
+    valitsimella `--base-baselines prs/000-palette-stack-base`: Tests 45402806490, Build 45402806370): kaikki
+    testiryhmät menivät läpi.
+  - Haara on yhdistetty haaraan `feature/palette-composition` (bc9a4800), ja yhdistämisen puu on haaran puu. Tiketin
+    010 haara on yhdistetty haaraan `feature/palette-stack` (0d2148b3), ja epicin täysi ajo meni läpi
+    (`wip/linux/palette-stack` kohdassa 78770fb2: Tests 45405076724, Build 45405076683).
 - **Nykytila** (`feature/palette-composition`, 1b282046):
   - `SkiaEncoding.WriteTransparencyGroup` kirjoittaa ryhmän palettiväripeitot yksi kerrallaan palettierottelun
     järjestyksessä. Kuviotäytön kirjoittaa `WritePatternFill` kunkin alueen leikkauksen sisään tai
