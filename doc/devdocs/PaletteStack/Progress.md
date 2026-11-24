@@ -797,6 +797,39 @@ the rendering.
   gives the origin of the map as the rotation center, so the case comes only from Mapper maps (`rotationCoord`),
   whose oracle is Mapper. Nobody compared it with Mapper or OCAD. @Pauli: it is a rare special case, and it is
   compared with the oracles afterwards at least.
+- **The Skia calls of the pattern fills** (Nov 24). The criterion "Kuviotäytöt" of ticket 010 said that the Skia
+  encoding writes the area as a clip, with the pattern brush inside the clip. The old drawing clips the area for a
+  hatching, for an area pattern that it draws glyph by glyph, and for a pattern brush when the angle of the area object
+  is not 0. When the angle is 0, it fills the area with the brush (`AreaSymDef.DrawPatternWithTexBrush`). A clip of
+  Skia (`SKCanvas.ClipPath`) is not antialiased unless its call asks for it. The clip of the old drawing
+  (`Skia_GraphicsTarget.PushClip`) does not ask for it, and a clip of GDI+ (`Graphics.IntersectClip`) is never
+  antialiased. So in an antialiased drawing, the clip gave a stepped edge to each area with a pattern brush whose angle
+  is 0, where the old drawing gives a soft edge. The images `clouds`, `clouds11` and `ocad11templatealign` of
+  `CheckTestAntiAlias` moved, and no cause of the criterion "Kuvat" explains them. The implementation (fa83bbc9, on
+  `feature/palette-composition`) writes the pattern fills with the Skia calls of the old drawing, as the criterion
+  "Ryhmän sisältö" asks, and so it did not agree with the criterion "Kuviotäytöt". Its session did not report this.
+  @Pauli approved the recommendation of the session:
+  - Ticket 010 keeps the calls of fa83bbc9, and the criterion "Kuviotäytöt" now gives them. When the angle of the area
+    object is 0 or the rotate mode of the area pattern is `Never`, the encoding fills the area with the shader of the
+    pattern brush. Otherwise it fills the rectangle that bounds the area inside the clip of the area. The expansion of
+    a hatching, or of an area pattern that the old drawing draws glyph by glyph, goes inside the clip of the area. The
+    evidence that pass 2 is correct is that its images are the same as the images of the old drawing, apart from the
+    causes of "Kuvat". A change of the edges in the same ticket would mix with the faults of the encoding in the same
+    pixels.
+  - The antialiased edges of the pattern fills in the Skia encoding get a ticket of their own after ticket 010. In it,
+    the encoding fills the area with the pattern brush also when the angle is not 0, with the transformation of the
+    area object in the matrix of the shader. The total matrix of the shader does not change, so only the pixels of the
+    edges move. The encoding writes the expansion of a hatching, or of an area pattern drawn glyph by glyph, inside a
+    clip that is antialiased when the drawing is antialiased (`antialias: writer.AntiAlias`). So a drawing without
+    antialiasing does not change. One cause explains the moved images: the edge of a pattern fill is antialiased. Only
+    the encoding changes. `Skia_GraphicsTarget.PushClip` clips all that the old drawing code draws on Skia, so a
+    change of it would move many other images. The old drawing gives a soft or a stepped edge to the pattern fills of
+    one map by the angle of the area object. The session takes this as a clear fault of the old drawing, which the
+    work does not need to repeat (@Pauli, Nov 24: "toki jos vanhassa piirrossa on selvä virhe niin sitä ei tarvitse
+    toistaa").
+  - The framing rectangle of a text stays a rectangle (`PathShape.Rectangle`), which the encoding draws with `DrawRect`
+    as the old drawing does (`FillRectangle`), for the same reason as the calls of the pattern brush. With `DrawPath`,
+    the image `frametext2` moved.
 - **The tasks of a session** (Nov 23). @Pauli: a session does not investigate `dev` when nobody gave it the task. The
   session that writes the draft 010 read the course appearance of `dev` without such a task, and its reading is
   removed.

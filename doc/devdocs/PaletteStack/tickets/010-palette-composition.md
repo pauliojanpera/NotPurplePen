@@ -48,13 +48,17 @@ yksittäisissä reunapikseleissä, joissa laajennukset pyöristävät katkot ja 
   Resoluutiolla 0 ne ovat symbolin palettiväripeiton leikkausobjektit (`SymbolCoverage.ClippingObjects`). Tiketin 024
   rajapinta saa resoluution (`SymDef.MakeClippingObjects(Symbol, SymColor, CoveragePrototype, float)`), ja Skian
   koodaus kirjoittaa leikkausobjektit ryhmän resoluutiolla (päätös 23.11.).
-- [ ] Kuviotäytöt: viivoituksen ja leikatun aluekuvion palettiväripeitolle Skian koodaus kirjoittaa sen
-  leikkausobjektin, alueen, leikkauksena. Leikkauksen sisään se kirjoittaa kuvioruudun kuviosiveltimenä samoissa
-  tapauksissa kuin vanha piirto (`RenderOptions.usePatternBitmaps`, säännöllinen leikattu aluekuvio,
-  `PatternBrushTooPixelated`) ja muuten kuviotäytön laajennuksen (`SymbolCoverage.ExpandPrototype`). Kuvioruutu
-  (`AreaPatternPrototype.Tile`) on määrittelyn johdos: aluekuvion solu ja elementin glyyfin osat palettivärissä niiden
-  paikoilla, kuten `CreatePatternBrushes` piirtää siveltimen. Koodaus rasteroi sen siveltimen kokoiseksi
-  bittikartaksi ja täyttää alueen sen varjostimella symbolin palettiväripeiton M:n mukaan
+- [ ] Kuviotäytöt: viivoituksen ja leikatun aluekuvion palettiväripeiton leikkaa sen leikkausobjekti, alue, ja Skian
+  koodaus kirjoittaa sen samoilla Skian kutsuilla kuin vanha piirto (päätös 24.11.). Kuvioruudun se kirjoittaa
+  kuviosiveltimenä samoissa tapauksissa kuin vanha piirto (`RenderOptions.usePatternBitmaps`, säännöllinen leikattu
+  aluekuvio, `PatternBrushTooPixelated`) ja samoin kuin `AreaSymDef.DrawPatternWithTexBrush`: kun alueobjektin kulma
+  on 0 tai aluekuvion kiertotila on `Never`, koodaus täyttää alueen siveltimen varjostimella, ja muuten se täyttää
+  alueen leikkauksen sisällä suorakulmion, joka rajaa alueen alueobjektin kulmaan käännetyssä koordinaatistossa.
+  Muissa tapauksissa se kirjoittaa kuviotäytön laajennuksen (`SymbolCoverage.ExpandPrototype`) alueen leikkauksen
+  sisään, kuten vanha piirto leikkaa viivoituksen (`DrawHatchings`) ja glyyfi kerrallaan piirretyn aluekuvion
+  (`DrawPattern`). Kuvioruutu (`AreaPatternPrototype.Tile`) on määrittelyn johdos: aluekuvion solu ja elementin
+  glyyfin osat palettivärissä niiden paikoilla, kuten `CreatePatternBrushes` piirtää siveltimen. Koodaus rasteroi sen
+  siveltimen kokoiseksi bittikartaksi, ja siveltimen varjostin sijoittaa sen symbolin palettiväripeiton M:n mukaan
   (`SymbolCoverage.Transformation`).
 - [ ] Päällepainatustila (`OverprintMode`): `RenderOptions.overprintMode` korvaa asetuksen `blendOverprintedColors`.
   Tilassa `None` B on Normal, tilassa `ByPaletteColor` B on kunkin palettivärin sekoitustila (`SymColor.BlendMode`), ja
@@ -129,6 +133,8 @@ yksittäisissä reunapikseleissä, joissa laajennukset pyöristävät katkot ja 
     tiketin (@Pauli, 24.11., "The expansions in the Skia encoding").
   - Kuviosiveltimen kiertokeskus verrataan oraakkeleihin vähintään jälkikäteen (@Pauli, 24.11., "The rotation center
     of the pattern brush"). OCADin sekoitustilat testataan omassa tiketissään ennen PDF:n koodausta (23.11.).
+  - Skian koodaus kirjoittaa kuviotäytöt samoilla Skian kutsuilla kuin vanha piirto, ja kuviotäyttöjen
+    reunanpehmennys saa oman tiketin tämän jälkeen (@Pauli, 24.11., "The Skia calls of the pattern fills").
   - Täydet ajot tehdään basen päällä, ja palettipinohaarat saavat olla ristiriidassa devin kanssa (@Pauli, 18.11.).
 - **Speksi:** [Specification.md](../Specification.md), luvut 01, 03 ja 04. Luvun 01 kohta "The two passes" ja luvun 04
   kohdat "Pass 2 and the transparency groups", "The rendering modes", "The encodings and the channels" ja "The graphics
@@ -232,6 +238,7 @@ yksittäisissä reunapikseleissä, joissa laajennukset pyöristävät katkot ja 
   - Yksi palettipino kaikille kartoille on oma tikettinsä. Siihen asti ratakartta piirtyy omana karttanaan ja sekoittaa
     päällepainatusvärinsä Darkenilla kuten nyt.
   - Kuviosiveltimen kiertokeskuksen vertailu Mapperiin ja OCADiin tehdään jälkikäteen.
+  - Kuviotäyttöjen reunanpehmennys Skian koodauksessa on oma tiketti tämän jälkeen.
   - SVG-koodaus ja litistys eivät kuulu tähän.
 - **Testit:** Paikallinen Map_Skia.Testsin ajo on `tools/linux-renderings.sh` integraatioworktreessa
   (`tools/int-worktree.sh`) Windows-koneen fonteilla (`tools/windows-fonts.sh`). Sen jokainen testi menee läpi
@@ -257,6 +264,8 @@ yksittäisissä reunapikseleissä, joissa laajennukset pyöristävät katkot ja 
 <!-- Tästä tiketistä erotetut korjaukset ja ominaisuudet: tiketti, haara ja se, onko haara yhdistetty tämän tiketin haaraan -->
 * PDF:n koodaus: oma tiketti tämän jälkeen (@Pauli, 23.11.), ei vielä kirjoitettu.
 * Skian abstraktiot katkojuosteille ja toistosijoituksille: oma tiketti tämän jälkeen (@Pauli, 24.11.), ei vielä
+  kirjoitettu.
+* Kuviotäyttöjen reunanpehmennys Skian koodauksessa: oma tiketti tämän jälkeen (@Pauli, 24.11.), ei vielä
   kirjoitettu.
 * [027](027-ocad-blend-mode-tests.md) OCADin sekoitustilojen ja peittävyyden testit: oma tiketti ennen PDF:n koodausta
   (23.11.). @Pauli hyväksyi sen 24.11., ei vielä tehty.
