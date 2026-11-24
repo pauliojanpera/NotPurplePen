@@ -8,8 +8,9 @@ yhteisen osan ja Skian koodauksen, joten näyttö, Windowsin tulostus ja tulostu
 vaiheella 2. Vaihe 2 ei kutsu symbolien piirtokoodia (`Draw`). Pohjakartat, kuvataso ja asettelutaso piirtyvät
 palettipinon rinnalla kuten nyt. PDF:n koodaus on oma tikettinsä, ja siihen asti PDF:n ja legacy-kanavien
 piirtokohteet piirtävät palettivärit vanhalla piirtokoodilla. Skian piirto muuttuu kartoissa, joiden palettivärin α
-on alle 1, siellä, missä vanha kuviosivellin sijoitti aluekuvion toisin kuin M, uusissa päällepainatustiloissa ja
-yksittäisissä reunapikseleissä, joissa laajennukset pyöristävät katkot ja glyyfit toisin kuin vanha piirto.
+on alle 1, siellä, missä vanha kuviosivellin sijoitti aluekuvion toisin kuin M, uusissa päällepainatustiloissa,
+yksittäisissä reunapikseleissä, joissa laajennukset pyöristävät katkot ja glyyfit toisin kuin vanha piirto, ja
+kehysviivoissa, joihin yksi viiva jättää aukot, jotka vanhan piirron kapeammat viivat täyttivät.
 
 **Hyväksymiskriteerit**
 - [ ] Vaihe 2 `Map.Draw`issa: kun piirtokohde antaa koodauksen (`IPaletteStackEncodingProvider`), `Map.Draw` piirtää
@@ -103,7 +104,8 @@ yksittäisissä reunapikseleissä, joissa laajennukset pyöristävät katkot ja 
   1. palettivärin α on alle 1
   2. vanha kuviosivellin sijoitti aluekuvion toisin kuin M
   3. leikkausobjektit eroavat vanhasta piirrosta tikettien 011–013 sallituissa eroissa, eli katkojuosteiden,
-     siirrettyjen polkujen ja toistosijoitusten laajennuksissa.
+     siirrettyjen polkujen ja toistosijoitusten laajennuksissa sekä kehysviivassa (`FramingStyle.Line`), joka on yksi
+     viiva (päätös 24.11.).
 
   Muut kuva- ja tekstibaselinet eivät siirry. Siirtyneet baselinet tallennetaan @Paulin luvalla, jonka hän antoi
   hyväksyessään tiketin (24.11.).
@@ -137,6 +139,8 @@ yksittäisissä reunapikseleissä, joissa laajennukset pyöristävät katkot ja 
     reunanpehmennys saa oman tiketin tämän jälkeen (@Pauli, 24.11., "The Skia calls of the pattern fills").
   - Täydet ajot tehdään basen päällä, ja palettipinohaarat saavat olla ristiriidassa devin kanssa (@Pauli, 18.11.).
   - Vanhan piirron selvää virhettä ei tarvitse toistaa (@Pauli, 24.11., "A clear fault of the old drawing").
+  - Kehysviiva on piirrossakin yksi viiva, ja siihen tulevat samat aukot kuin OCADin omaan piirrokseen. Kriteerin
+    "Kuvat" syy 3 ja tiketin kuvaus kattavat sen (@Pauli, 24.11., "The framing line in the images of ticket 010").
 - **Toteutus** (haara `feature/palette-composition`, fa83bbc9, kesken):
   - cf5995f5 tekee vaiheen 2 ja Skian koodauksen. `PaletteStack.cs` antaa päällepainatustilan (`OverprintMode`),
     koodauksen rajapinnat (`IPaletteStackEncoding`, `IPaletteStackEncodingProvider`) ja palettivärin läpinäkyvyysryhmän
@@ -173,8 +177,7 @@ yksittäisissä reunapikseleissä, joissa laajennukset pyöristävät katkot ja 
     - `angledashes9` (19 pikseliä, ero enintään 2): symbolin 1.2 ('Dashed line') kahden katkojuosteen katkot 48/64 ja
       51/64, joiden päät ovat laajennuksessa noin 0,00001 mm eri kohdassa kuin vanhassa piirrossa: syy 3.
     - `frametext1` (52 pikseliä): kahden tekstisymbolin kehysviivat kehyksen värissä 'Yellow'. Kehysviiva on yksi viiva,
-      ja vanha piirto vetää ensin kapeammat viivat (tiketin 013 sallittu ero, päätös 19.11.). Kriteerin "Kuvat" syy 3 ei
-      luettele tätä.
+      ja vanha piirto vetää ensin kapeammat viivat (tiketin 013 sallittu ero, päätös 19.11.): syy 3 (päätös 24.11.).
 
     Tiketin 009 havaitsemat kolme pikseliä, joissa leikkausobjektit eroavat piirrosta, ovat luultavasti kuvien
     `hakolaoverprinting` ja `teanwest` pikselit. Sitä ei ole tarkistettu.
