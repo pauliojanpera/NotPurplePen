@@ -45,8 +45,10 @@ by 023 to 026, and the old branch of the epic, `feature/palette-layers`, keeps t
 
 ## Next steps
 
-1. The new dev, built strongly on the palette stack, with `Map_Svg` of NotPurplePen. How it is built is a question
-   for @Pauli.
+1. The new dev: a new `basewithfixes` without `fix/overlapping-patterns`, and on it the new dev, which merges
+   `feature/palette-stack` (67 conflicts, all baselines). `feature/multiply-blending` does not come to it, and
+   `Map_Svg` comes in the SVG ticket ([Record.md](Record.md), "The new basewithfixes and the new dev"). How the new
+   `basewithfixes` is made is a question for @Pauli.
 2. The ticket of the SVG export: the SVG encoding in `Map_Svg`, and the common structure of the vector files with the
    content of `Map`. Write it in the form of tickets 012 and 010, ask its questions early, and give it to @Pauli for
    approval.
@@ -64,7 +66,8 @@ A draft is implemented only after @Pauli approves it as a ticket.
 - **The scope of the epic.** [Ticket 000](tickets/000-palette-stack.md) is a draft. The transparency flattening is
   outside it.
 - **Offering upstream.** No branch is offered upstream yet.
-- **How the new dev is built** (the next step 1).
+- **How the new `basewithfixes` is made** (the next step 1), and the change of `basewithfixes` and `dev`, which is a
+  push into shared branches.
 
 ## The decisions that bind the next steps
 
@@ -92,6 +95,10 @@ decisions of the process are in force. [Record.md](Record.md), "Decisions", give
 - **The vector files.** The PDF export and the SVG export have the same form, and both carry the content of `Map`. If
   it is needed, a flag leaves the content of `Map` out (@Pauli, Nov 25).
 - **The SVG before the PDF.** The SVG ticket comes before the PDF ticket (@Pauli, Nov 25).
+- **The new basewithfixes and the new dev.** The new `basewithfixes` has no `fix/overlapping-patterns`, the new dev
+  merges `feature/palette-stack` into it, `feature/multiply-blending` stays out, and `Map_Svg` comes in the SVG
+  ticket without the history of `feature/svg-target` (@Pauli, Nov 25).
+- **No users.** NotPurplePen has no users, and only trial releases have been built (@Pauli, Nov 25).
 - **The baselines of Course 5 in base** stay upstream's. The epic has its own, and they are up to date.
 - **The archiving of a cloud session** runs when @Pauli lets it, as "A cloud session" below tells.
 

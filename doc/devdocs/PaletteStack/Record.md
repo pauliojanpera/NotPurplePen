@@ -764,6 +764,18 @@ one, and the later one says so. [Handover.md](Handover.md) gives the decisions t
   OCAD's blend modes and opacity ("More tests of OCAD's blend modes"). Purple Pen writes the samples, @Pauli gives their
   views in OCAD and their PDF exports, and the session measures the structure of each PDF and writes the oracle
   `oracles/ocad-blend-modes.md`. The ticket changes no code, and it comes before the ticket of the PDF encoding.
+- **The new basewithfixes and the new dev** (Nov 25, the question of the session). @Pauli chose: a new basewithfixes
+  without `fix/overlapping-patterns`, and a new dev on it, which merges `feature/palette-stack` into the new
+  basewithfixes. `Map_Svg` comes to the new dev in the SVG ticket, without the history of `feature/svg-target`, as
+  that branch holds the fix (f800a9eee) and builds the union of overlapping areas on it. `feature/multiply-blending`
+  does not come to the new dev, as the overprint mode (`OverprintMode`) replaces it. The measurements of the session:
+  nothing later in `basewithfixes` touches the files of the fix, and its merge (ef5cd9cd2) reverts without a
+  conflict; then `feature/palette-stack` merges into it with 67 conflicts, all baselines (66 images and one JPEG),
+  where the present `basewithfixes` gives 107, with `Map.cs`, `SymDef.cs` and `Symbol.cs`. Until the PDF ticket, the
+  graphics targets without an encoding (PDF, GDI+, WPF) draw the pattern of overlapping areas once for each area again,
+  and until the SVG ticket the new dev has no SVG export.
+- **No users** (Nov 25). @Pauli: NotPurplePen has no users. Only trial releases ("beta") have been built. So a gap of a
+  dev during the work, such as the SVG export or the patterns of the PDF above, binds no date of the change of `dev`.
 - **The SVG before the PDF** (Nov 25, the question of the session). @Pauli: the SVG export comes first, in a ticket
   of its own, before the PDF. The order is: the new dev on the palette stack, with `Map_Svg`; then the SVG ticket,
   with the encoding and the common structure of the vector files with the content of `Map`; then the PDF ticket,
