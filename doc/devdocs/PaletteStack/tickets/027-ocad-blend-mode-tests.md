@@ -9,13 +9,13 @@ tunneta, eikä siinä ole Multiplyä eikä alle 100:n peittävyyttä (@Pauli, 23
 musteittaisen B:n ulkoasun. Koodi ei muutu.
 
 **Hyväksymiskriteerit**
-- [ ] Näytteet: Purple Pen kirjoittaa OCAD 12 -näytetiedostot (`InputOutput.WriteFile`) väliaikaisesta testistä,
+- [x] Näytteet: Purple Pen kirjoittaa OCAD 12 -näytetiedostot (`InputOutput.WriteFile`) väliaikaisesta testistä,
   jota ei commitoida, kuten katkoviivanäytteet ([oracles/ocad-dashes.md](../oracles/ocad-dashes.md)). Vienti
   kirjoittaa kunkin palettivärin peittävyyden (`t`) ja sekoitustilan (`OcadBlendMode`). Tiedosto `*-cells.json` antaa
   kunkin solun palettivärit ja muodot millimetreinä paperilla, ja kulmien neljä rekisteröintimerkkiä antavat
   piirroksen mittakaavan ja paikan. Näytteet ja niiden solujen tiedostot ovat kansiossa
   `oracles/ocad-blend-modes/`.
-- [ ] Näytteiden tapaukset kattavat ainakin nämä:
+- [x] Näytteiden tapaukset kattavat ainakin nämä:
   1. Darken ja Multiply kunkin alla olevan palettivärin päällä. Alla olevia värejä ovat paperi, prosessivärit
      ilman mustaa ja mustan kanssa (esimerkiksi C87 M18 ja C0 M56 Y100 K18) sekä pelkkä musta K50. Päällä olevat värit
      ovat C0 M100, C76 Y91 ja K50.
@@ -65,6 +65,20 @@ musteittaisen B:n ulkoasun. Koodi ei muutu.
     Readerin profiilia ei tunneta. Oraakkelissa ei ole Multiplyä eikä alle 100:n peittävyyttä.
   - OCADin tuonti lukee `t`:n peittävyydeksi (`t` / 100, `SymColor.BoundOpacity`) ja `b`:n sekoitustilaksi
     (`OcadBlendMode.FromName`). Vienti kirjoittaa `t`:n ja sekoitustilan (`OcadExport`, tiketti 004).
+- **Toteutus** (haara `docs/process-coordination`):
+  - Näyte on yksi OCAD 12 -tiedosto, `oracles/ocad-blend-modes/blend-modes-ocad12.ocd`, ja sen solutiedosto
+    `blend-modes-cells.json`: 33 palettiväriä, 76 solua ja 336 aluetta, joiden värit mittaus lukee. Purple Pen
+    kirjoitti sen väliaikaisesta testistä haaran `feature/palette-stack` koodilla (0d2148b3), ja tuonti lukee
+    kunkin palettivärin `t`:n, `b`:n, `o`:n ja spottivärierottelujen osuudet sellaisina kuin ne tehtiin.
+    Tapauksen 4 spottivärit ovat samassa tiedostossa: OCADin CMYK-vienti jättää spottivärit huomiotta, ja
+    spottivärierottelujen vienti näyttää vain värit, joilla on spottiosuus.
+  - `measure-pdf.py` lukee PDF-viennin rakenteen ja antaa CMYK-sekoitusväriavaruudessa kunkin DeviceCMYK-alueen
+    musteet PDF:n mallin mukaan. `measure-colors.py` mittaa kuvan alueiden värit ja vertaa niitä kuuteen tapaan
+    koostaa palettivärit kuvan omista väreistä. Ne on tarkistettu katkoviivanäytteen OCAD-viennillä, istunnon
+    skriptin kirjoittamalla PDF:llä, Purple Penin piirroksilla ja kuvakaappausta jäljittelevällä kuvalla.
+  - Oraakkeli `oracles/ocad-blend-modes.md` kertoo näytteen, OCADin dokumentaation, OCADin PDF-viennin rakenteen
+    katkoviivanäytteiden vienneistä, viennit, jotka @Pauli antaa, ja Purple Penin piirrokset. Tuloksia ei vielä ole.
+  - Istunnon valinnat ovat Record.md:n kohdassa "The choices of the session in the samples of ticket 027".
 - **Rajaus:** tiketti ei muuta koodia eikä piirtoa. B:n ja α:n toteutus on tiketti 010 ja PDF:n koodauksen tiketti.
   Mapperilla ei ole sekoitustiloja, ja sen α on oraakkelissa [mapper-opacity.md](../oracles/mapper-opacity.md).
 - **Haara:** ei koodihaaraa. Näytteet, skriptit ja oraakkeli tulevat haaraan `docs/process-coordination`.

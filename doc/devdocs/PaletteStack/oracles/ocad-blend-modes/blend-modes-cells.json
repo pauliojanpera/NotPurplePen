@@ -1,0 +1,7092 @@
+{
+  "note": "Ticket 027: the cells of the OCAD 12 sample of the blend modes and the opacities, in mm on the paper. The colors are in the palette order, the bottom one first; CMYK, opacity and spot shares in percent.",
+  "inks": [
+    {
+      "name": "Spot Violet",
+      "cmyk": [
+        0,
+        100,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Spot Blue",
+      "cmyk": [
+        87,
+        18,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Spot Brown",
+      "cmyk": [
+        0,
+        56,
+        100,
+        18
+      ]
+    }
+  ],
+  "colors": [
+    {
+      "name": "Blue below",
+      "number": 11,
+      "cmyk": [
+        87,
+        18,
+        0,
+        0
+      ],
+      "overprint": false,
+      "opacity": 100,
+      "blend": "Normal",
+      "spots": {}
+    },
+    {
+      "name": "Brown below",
+      "number": 12,
+      "cmyk": [
+        0,
+        56,
+        100,
+        18
+      ],
+      "overprint": false,
+      "opacity": 100,
+      "blend": "Normal",
+      "spots": {}
+    },
+    {
+      "name": "Black 50 below",
+      "number": 13,
+      "cmyk": [
+        0,
+        0,
+        0,
+        50
+      ],
+      "overprint": false,
+      "opacity": 100,
+      "blend": "Normal",
+      "spots": {}
+    },
+    {
+      "name": "Spot Blue below",
+      "number": 21,
+      "cmyk": [
+        87,
+        18,
+        0,
+        0
+      ],
+      "overprint": false,
+      "opacity": 100,
+      "blend": "Normal",
+      "spots": {
+        "Spot Blue": 100
+      }
+    },
+    {
+      "name": "Spot Brown below",
+      "number": 22,
+      "cmyk": [
+        0,
+        56,
+        100,
+        18
+      ],
+      "overprint": false,
+      "opacity": 100,
+      "blend": "Normal",
+      "spots": {
+        "Spot Brown": 100
+      }
+    },
+    {
+      "name": "Purple Normal",
+      "number": 101,
+      "cmyk": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "overprint": false,
+      "opacity": 100,
+      "blend": "Normal",
+      "spots": {}
+    },
+    {
+      "name": "Purple Darken",
+      "number": 102,
+      "cmyk": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "overprint": false,
+      "opacity": 100,
+      "blend": "Darken",
+      "spots": {}
+    },
+    {
+      "name": "Purple Multiply",
+      "number": 103,
+      "cmyk": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "overprint": false,
+      "opacity": 100,
+      "blend": "Multiply",
+      "spots": {}
+    },
+    {
+      "name": "Purple Normal 50%",
+      "number": 104,
+      "cmyk": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "overprint": false,
+      "opacity": 50,
+      "blend": "Normal",
+      "spots": {}
+    },
+    {
+      "name": "Purple Darken 50%",
+      "number": 105,
+      "cmyk": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "overprint": false,
+      "opacity": 50,
+      "blend": "Darken",
+      "spots": {}
+    },
+    {
+      "name": "Purple Multiply 50%",
+      "number": 106,
+      "cmyk": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "overprint": false,
+      "opacity": 50,
+      "blend": "Multiply",
+      "spots": {}
+    },
+    {
+      "name": "Black 50 Normal",
+      "number": 121,
+      "cmyk": [
+        0,
+        0,
+        0,
+        50
+      ],
+      "overprint": false,
+      "opacity": 100,
+      "blend": "Normal",
+      "spots": {}
+    },
+    {
+      "name": "Black 50 Darken",
+      "number": 122,
+      "cmyk": [
+        0,
+        0,
+        0,
+        50
+      ],
+      "overprint": false,
+      "opacity": 100,
+      "blend": "Darken",
+      "spots": {}
+    },
+    {
+      "name": "Black 50 Multiply",
+      "number": 123,
+      "cmyk": [
+        0,
+        0,
+        0,
+        50
+      ],
+      "overprint": false,
+      "opacity": 100,
+      "blend": "Multiply",
+      "spots": {}
+    },
+    {
+      "name": "Black 50 Normal 50%",
+      "number": 124,
+      "cmyk": [
+        0,
+        0,
+        0,
+        50
+      ],
+      "overprint": false,
+      "opacity": 50,
+      "blend": "Normal",
+      "spots": {}
+    },
+    {
+      "name": "Black 50 Darken 50%",
+      "number": 125,
+      "cmyk": [
+        0,
+        0,
+        0,
+        50
+      ],
+      "overprint": false,
+      "opacity": 50,
+      "blend": "Darken",
+      "spots": {}
+    },
+    {
+      "name": "Black 50 Multiply 50%",
+      "number": 126,
+      "cmyk": [
+        0,
+        0,
+        0,
+        50
+      ],
+      "overprint": false,
+      "opacity": 50,
+      "blend": "Multiply",
+      "spots": {}
+    },
+    {
+      "name": "Green Normal",
+      "number": 111,
+      "cmyk": [
+        76,
+        0,
+        91,
+        0
+      ],
+      "overprint": false,
+      "opacity": 100,
+      "blend": "Normal",
+      "spots": {}
+    },
+    {
+      "name": "Yellow (5)",
+      "number": 151,
+      "cmyk": [
+        0,
+        25,
+        80,
+        0
+      ],
+      "overprint": false,
+      "opacity": 100,
+      "blend": "Normal",
+      "spots": {}
+    },
+    {
+      "name": "Blue (5)",
+      "number": 152,
+      "cmyk": [
+        87,
+        18,
+        0,
+        0
+      ],
+      "overprint": false,
+      "opacity": 100,
+      "blend": "Normal",
+      "spots": {}
+    },
+    {
+      "name": "Green Darken",
+      "number": 112,
+      "cmyk": [
+        76,
+        0,
+        91,
+        0
+      ],
+      "overprint": false,
+      "opacity": 100,
+      "blend": "Darken",
+      "spots": {}
+    },
+    {
+      "name": "Brown (5)",
+      "number": 153,
+      "cmyk": [
+        0,
+        56,
+        100,
+        18
+      ],
+      "overprint": false,
+      "opacity": 100,
+      "blend": "Normal",
+      "spots": {}
+    },
+    {
+      "name": "Green Multiply",
+      "number": 113,
+      "cmyk": [
+        76,
+        0,
+        91,
+        0
+      ],
+      "overprint": false,
+      "opacity": 100,
+      "blend": "Multiply",
+      "spots": {}
+    },
+    {
+      "name": "Green Normal 50%",
+      "number": 114,
+      "cmyk": [
+        76,
+        0,
+        91,
+        0
+      ],
+      "overprint": false,
+      "opacity": 50,
+      "blend": "Normal",
+      "spots": {}
+    },
+    {
+      "name": "Green Darken 50%",
+      "number": 115,
+      "cmyk": [
+        76,
+        0,
+        91,
+        0
+      ],
+      "overprint": false,
+      "opacity": 50,
+      "blend": "Darken",
+      "spots": {}
+    },
+    {
+      "name": "Green Multiply 50%",
+      "number": 116,
+      "cmyk": [
+        76,
+        0,
+        91,
+        0
+      ],
+      "overprint": false,
+      "opacity": 50,
+      "blend": "Multiply",
+      "spots": {}
+    },
+    {
+      "name": "Purple overprint Normal",
+      "number": 131,
+      "cmyk": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "overprint": true,
+      "opacity": 100,
+      "blend": "Normal",
+      "spots": {}
+    },
+    {
+      "name": "Purple overprint Darken",
+      "number": 132,
+      "cmyk": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "overprint": true,
+      "opacity": 100,
+      "blend": "Darken",
+      "spots": {}
+    },
+    {
+      "name": "Spot Violet Normal",
+      "number": 141,
+      "cmyk": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "overprint": false,
+      "opacity": 100,
+      "blend": "Normal",
+      "spots": {
+        "Spot Violet": 100,
+        "Spot Blue": 0,
+        "Spot Brown": 0
+      }
+    },
+    {
+      "name": "Spot Violet Darken",
+      "number": 142,
+      "cmyk": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "overprint": false,
+      "opacity": 100,
+      "blend": "Darken",
+      "spots": {
+        "Spot Violet": 100,
+        "Spot Blue": 0,
+        "Spot Brown": 0
+      }
+    },
+    {
+      "name": "Spot Violet only Normal",
+      "number": 143,
+      "cmyk": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "overprint": false,
+      "opacity": 100,
+      "blend": "Normal",
+      "spots": {
+        "Spot Violet": 100
+      }
+    },
+    {
+      "name": "Spot Violet only Darken",
+      "number": 144,
+      "cmyk": [
+        0,
+        100,
+        0,
+        0
+      ],
+      "overprint": false,
+      "opacity": 100,
+      "blend": "Darken",
+      "spots": {
+        "Spot Violet": 100
+      }
+    },
+    {
+      "name": "Registration",
+      "number": 1,
+      "cmyk": [
+        0,
+        0,
+        0,
+        100
+      ],
+      "overprint": false,
+      "opacity": 100,
+      "blend": "Normal",
+      "spots": {
+        "Spot Violet": 100,
+        "Spot Blue": 100,
+        "Spot Brown": 100
+      }
+    }
+  ],
+  "symbols": {
+    "Area Blue below": {
+      "number": 11,
+      "kind": "area",
+      "color": "Blue below"
+    },
+    "Area Brown below": {
+      "number": 12,
+      "kind": "area",
+      "color": "Brown below"
+    },
+    "Area Black 50 below": {
+      "number": 13,
+      "kind": "area",
+      "color": "Black 50 below"
+    },
+    "Area Spot Blue below": {
+      "number": 21,
+      "kind": "area",
+      "color": "Spot Blue below"
+    },
+    "Area Spot Brown below": {
+      "number": 22,
+      "kind": "area",
+      "color": "Spot Brown below"
+    },
+    "Area Purple Normal": {
+      "number": 101,
+      "kind": "area",
+      "color": "Purple Normal"
+    },
+    "Area Purple Darken": {
+      "number": 102,
+      "kind": "area",
+      "color": "Purple Darken"
+    },
+    "Area Purple Multiply": {
+      "number": 103,
+      "kind": "area",
+      "color": "Purple Multiply"
+    },
+    "Area Purple Normal 50%": {
+      "number": 104,
+      "kind": "area",
+      "color": "Purple Normal 50%"
+    },
+    "Area Purple Darken 50%": {
+      "number": 105,
+      "kind": "area",
+      "color": "Purple Darken 50%"
+    },
+    "Area Purple Multiply 50%": {
+      "number": 106,
+      "kind": "area",
+      "color": "Purple Multiply 50%"
+    },
+    "Area Green Normal": {
+      "number": 111,
+      "kind": "area",
+      "color": "Green Normal"
+    },
+    "Area Green Darken": {
+      "number": 112,
+      "kind": "area",
+      "color": "Green Darken"
+    },
+    "Area Green Multiply": {
+      "number": 113,
+      "kind": "area",
+      "color": "Green Multiply"
+    },
+    "Area Green Normal 50%": {
+      "number": 114,
+      "kind": "area",
+      "color": "Green Normal 50%"
+    },
+    "Area Green Darken 50%": {
+      "number": 115,
+      "kind": "area",
+      "color": "Green Darken 50%"
+    },
+    "Area Green Multiply 50%": {
+      "number": 116,
+      "kind": "area",
+      "color": "Green Multiply 50%"
+    },
+    "Area Black 50 Normal": {
+      "number": 121,
+      "kind": "area",
+      "color": "Black 50 Normal"
+    },
+    "Area Black 50 Darken": {
+      "number": 122,
+      "kind": "area",
+      "color": "Black 50 Darken"
+    },
+    "Area Black 50 Multiply": {
+      "number": 123,
+      "kind": "area",
+      "color": "Black 50 Multiply"
+    },
+    "Area Black 50 Normal 50%": {
+      "number": 124,
+      "kind": "area",
+      "color": "Black 50 Normal 50%"
+    },
+    "Area Black 50 Darken 50%": {
+      "number": 125,
+      "kind": "area",
+      "color": "Black 50 Darken 50%"
+    },
+    "Area Black 50 Multiply 50%": {
+      "number": 126,
+      "kind": "area",
+      "color": "Black 50 Multiply 50%"
+    },
+    "Area Purple overprint Normal": {
+      "number": 131,
+      "kind": "area",
+      "color": "Purple overprint Normal"
+    },
+    "Area Purple overprint Darken": {
+      "number": 132,
+      "kind": "area",
+      "color": "Purple overprint Darken"
+    },
+    "Area Spot Violet Normal": {
+      "number": 141,
+      "kind": "area",
+      "color": "Spot Violet Normal"
+    },
+    "Area Spot Violet Darken": {
+      "number": 142,
+      "kind": "area",
+      "color": "Spot Violet Darken"
+    },
+    "Area Spot Violet only Normal": {
+      "number": 143,
+      "kind": "area",
+      "color": "Spot Violet only Normal"
+    },
+    "Area Spot Violet only Darken": {
+      "number": 144,
+      "kind": "area",
+      "color": "Spot Violet only Darken"
+    },
+    "Area Yellow (5)": {
+      "number": 151,
+      "kind": "area",
+      "color": "Yellow (5)"
+    },
+    "Area Blue (5)": {
+      "number": 152,
+      "kind": "area",
+      "color": "Blue (5)"
+    },
+    "Area Brown (5)": {
+      "number": 153,
+      "kind": "area",
+      "color": "Brown (5)"
+    },
+    "Area 2 Green Multiply": {
+      "number": 613,
+      "kind": "area",
+      "color": "Green Multiply"
+    },
+    "Area 2 Green Normal 50%": {
+      "number": 614,
+      "kind": "area",
+      "color": "Green Normal 50%"
+    },
+    "Point Green Multiply": {
+      "number": 813,
+      "kind": "point",
+      "color": "Green Multiply"
+    },
+    "Point Green Normal 50%": {
+      "number": 814,
+      "kind": "point",
+      "color": "Green Normal 50%"
+    },
+    "Registration mark": {
+      "number": 1,
+      "kind": "point",
+      "color": "Registration",
+      "diameter": 2
+    }
+  },
+  "marks": [
+    [
+      -4,
+      4
+    ],
+    [
+      128,
+      4
+    ],
+    [
+      -4,
+      -142
+    ],
+    [
+      128,
+      -142
+    ]
+  ],
+  "cells": [
+    {
+      "id": "1: Purple Normal over Blue below",
+      "case": 1,
+      "row": 0,
+      "column": 0,
+      "note": "Normal at the opacity 100 over Blue below",
+      "rect": [
+        0,
+        -12,
+        12,
+        0
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Blue below",
+          "color": "Blue below",
+          "kind": "area",
+          "rect": [
+            0,
+            -12,
+            12,
+            -6
+          ]
+        },
+        {
+          "symbol": "Area Purple Normal",
+          "color": "Purple Normal",
+          "kind": "area",
+          "rect": [
+            4,
+            -12,
+            8,
+            0
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            2,
+            -3
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            2,
+            -9
+          ],
+          "stack": [
+            "Blue below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            6,
+            -3
+          ],
+          "stack": [
+            "Purple Normal"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            6,
+            -9
+          ],
+          "stack": [
+            "Blue below",
+            "Purple Normal"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1: Purple Darken over Blue below",
+      "case": 1,
+      "row": 0,
+      "column": 1,
+      "note": "Darken at the opacity 100 over Blue below",
+      "rect": [
+        14,
+        -12,
+        26,
+        0
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Blue below",
+          "color": "Blue below",
+          "kind": "area",
+          "rect": [
+            14,
+            -12,
+            26,
+            -6
+          ]
+        },
+        {
+          "symbol": "Area Purple Darken",
+          "color": "Purple Darken",
+          "kind": "area",
+          "rect": [
+            18,
+            -12,
+            22,
+            0
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            16,
+            -3
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            16,
+            -9
+          ],
+          "stack": [
+            "Blue below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            20,
+            -3
+          ],
+          "stack": [
+            "Purple Darken"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            20,
+            -9
+          ],
+          "stack": [
+            "Blue below",
+            "Purple Darken"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1: Purple Multiply over Blue below",
+      "case": 1,
+      "row": 0,
+      "column": 2,
+      "note": "Multiply at the opacity 100 over Blue below",
+      "rect": [
+        28,
+        -12,
+        40,
+        0
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Blue below",
+          "color": "Blue below",
+          "kind": "area",
+          "rect": [
+            28,
+            -12,
+            40,
+            -6
+          ]
+        },
+        {
+          "symbol": "Area Purple Multiply",
+          "color": "Purple Multiply",
+          "kind": "area",
+          "rect": [
+            32,
+            -12,
+            36,
+            0
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            30,
+            -3
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            30,
+            -9
+          ],
+          "stack": [
+            "Blue below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            34,
+            -3
+          ],
+          "stack": [
+            "Purple Multiply"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            34,
+            -9
+          ],
+          "stack": [
+            "Blue below",
+            "Purple Multiply"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1: Green Normal over Blue below",
+      "case": 1,
+      "row": 0,
+      "column": 3,
+      "note": "Normal at the opacity 100 over Blue below",
+      "rect": [
+        42,
+        -12,
+        54,
+        0
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Blue below",
+          "color": "Blue below",
+          "kind": "area",
+          "rect": [
+            42,
+            -12,
+            54,
+            -6
+          ]
+        },
+        {
+          "symbol": "Area Green Normal",
+          "color": "Green Normal",
+          "kind": "area",
+          "rect": [
+            46,
+            -12,
+            50,
+            0
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            44,
+            -3
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            44,
+            -9
+          ],
+          "stack": [
+            "Blue below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            48,
+            -3
+          ],
+          "stack": [
+            "Green Normal"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            48,
+            -9
+          ],
+          "stack": [
+            "Blue below",
+            "Green Normal"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1: Green Darken over Blue below",
+      "case": 1,
+      "row": 0,
+      "column": 4,
+      "note": "Darken at the opacity 100 over Blue below",
+      "rect": [
+        56,
+        -12,
+        68,
+        0
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Blue below",
+          "color": "Blue below",
+          "kind": "area",
+          "rect": [
+            56,
+            -12,
+            68,
+            -6
+          ]
+        },
+        {
+          "symbol": "Area Green Darken",
+          "color": "Green Darken",
+          "kind": "area",
+          "rect": [
+            60,
+            -12,
+            64,
+            0
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            58,
+            -3
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            58,
+            -9
+          ],
+          "stack": [
+            "Blue below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            62,
+            -3
+          ],
+          "stack": [
+            "Green Darken"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            62,
+            -9
+          ],
+          "stack": [
+            "Blue below",
+            "Green Darken"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1: Green Multiply over Blue below",
+      "case": 1,
+      "row": 0,
+      "column": 5,
+      "note": "Multiply at the opacity 100 over Blue below",
+      "rect": [
+        70,
+        -12,
+        82,
+        0
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Blue below",
+          "color": "Blue below",
+          "kind": "area",
+          "rect": [
+            70,
+            -12,
+            82,
+            -6
+          ]
+        },
+        {
+          "symbol": "Area Green Multiply",
+          "color": "Green Multiply",
+          "kind": "area",
+          "rect": [
+            74,
+            -12,
+            78,
+            0
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            72,
+            -3
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            72,
+            -9
+          ],
+          "stack": [
+            "Blue below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            76,
+            -3
+          ],
+          "stack": [
+            "Green Multiply"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            76,
+            -9
+          ],
+          "stack": [
+            "Blue below",
+            "Green Multiply"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1: Black 50 Normal over Blue below",
+      "case": 1,
+      "row": 0,
+      "column": 6,
+      "note": "Normal at the opacity 100 over Blue below",
+      "rect": [
+        84,
+        -12,
+        96,
+        0
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Blue below",
+          "color": "Blue below",
+          "kind": "area",
+          "rect": [
+            84,
+            -12,
+            96,
+            -6
+          ]
+        },
+        {
+          "symbol": "Area Black 50 Normal",
+          "color": "Black 50 Normal",
+          "kind": "area",
+          "rect": [
+            88,
+            -12,
+            92,
+            0
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            86,
+            -3
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            86,
+            -9
+          ],
+          "stack": [
+            "Blue below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            90,
+            -3
+          ],
+          "stack": [
+            "Black 50 Normal"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            90,
+            -9
+          ],
+          "stack": [
+            "Blue below",
+            "Black 50 Normal"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1: Black 50 Darken over Blue below",
+      "case": 1,
+      "row": 0,
+      "column": 7,
+      "note": "Darken at the opacity 100 over Blue below",
+      "rect": [
+        98,
+        -12,
+        110,
+        0
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Blue below",
+          "color": "Blue below",
+          "kind": "area",
+          "rect": [
+            98,
+            -12,
+            110,
+            -6
+          ]
+        },
+        {
+          "symbol": "Area Black 50 Darken",
+          "color": "Black 50 Darken",
+          "kind": "area",
+          "rect": [
+            102,
+            -12,
+            106,
+            0
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            100,
+            -3
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            100,
+            -9
+          ],
+          "stack": [
+            "Blue below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            104,
+            -3
+          ],
+          "stack": [
+            "Black 50 Darken"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            104,
+            -9
+          ],
+          "stack": [
+            "Blue below",
+            "Black 50 Darken"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1: Black 50 Multiply over Blue below",
+      "case": 1,
+      "row": 0,
+      "column": 8,
+      "note": "Multiply at the opacity 100 over Blue below",
+      "rect": [
+        112,
+        -12,
+        124,
+        0
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Blue below",
+          "color": "Blue below",
+          "kind": "area",
+          "rect": [
+            112,
+            -12,
+            124,
+            -6
+          ]
+        },
+        {
+          "symbol": "Area Black 50 Multiply",
+          "color": "Black 50 Multiply",
+          "kind": "area",
+          "rect": [
+            116,
+            -12,
+            120,
+            0
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            114,
+            -3
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            114,
+            -9
+          ],
+          "stack": [
+            "Blue below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            118,
+            -3
+          ],
+          "stack": [
+            "Black 50 Multiply"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            118,
+            -9
+          ],
+          "stack": [
+            "Blue below",
+            "Black 50 Multiply"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1: Purple Normal over Brown below",
+      "case": 1,
+      "row": 1,
+      "column": 0,
+      "note": "Normal at the opacity 100 over Brown below",
+      "rect": [
+        0,
+        -26,
+        12,
+        -14
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Brown below",
+          "color": "Brown below",
+          "kind": "area",
+          "rect": [
+            0,
+            -26,
+            12,
+            -20
+          ]
+        },
+        {
+          "symbol": "Area Purple Normal",
+          "color": "Purple Normal",
+          "kind": "area",
+          "rect": [
+            4,
+            -26,
+            8,
+            -14
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            2,
+            -17
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            2,
+            -23
+          ],
+          "stack": [
+            "Brown below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            6,
+            -17
+          ],
+          "stack": [
+            "Purple Normal"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            6,
+            -23
+          ],
+          "stack": [
+            "Brown below",
+            "Purple Normal"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1: Purple Darken over Brown below",
+      "case": 1,
+      "row": 1,
+      "column": 1,
+      "note": "Darken at the opacity 100 over Brown below",
+      "rect": [
+        14,
+        -26,
+        26,
+        -14
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Brown below",
+          "color": "Brown below",
+          "kind": "area",
+          "rect": [
+            14,
+            -26,
+            26,
+            -20
+          ]
+        },
+        {
+          "symbol": "Area Purple Darken",
+          "color": "Purple Darken",
+          "kind": "area",
+          "rect": [
+            18,
+            -26,
+            22,
+            -14
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            16,
+            -17
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            16,
+            -23
+          ],
+          "stack": [
+            "Brown below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            20,
+            -17
+          ],
+          "stack": [
+            "Purple Darken"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            20,
+            -23
+          ],
+          "stack": [
+            "Brown below",
+            "Purple Darken"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1: Purple Multiply over Brown below",
+      "case": 1,
+      "row": 1,
+      "column": 2,
+      "note": "Multiply at the opacity 100 over Brown below",
+      "rect": [
+        28,
+        -26,
+        40,
+        -14
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Brown below",
+          "color": "Brown below",
+          "kind": "area",
+          "rect": [
+            28,
+            -26,
+            40,
+            -20
+          ]
+        },
+        {
+          "symbol": "Area Purple Multiply",
+          "color": "Purple Multiply",
+          "kind": "area",
+          "rect": [
+            32,
+            -26,
+            36,
+            -14
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            30,
+            -17
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            30,
+            -23
+          ],
+          "stack": [
+            "Brown below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            34,
+            -17
+          ],
+          "stack": [
+            "Purple Multiply"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            34,
+            -23
+          ],
+          "stack": [
+            "Brown below",
+            "Purple Multiply"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1: Green Normal over Brown below",
+      "case": 1,
+      "row": 1,
+      "column": 3,
+      "note": "Normal at the opacity 100 over Brown below",
+      "rect": [
+        42,
+        -26,
+        54,
+        -14
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Brown below",
+          "color": "Brown below",
+          "kind": "area",
+          "rect": [
+            42,
+            -26,
+            54,
+            -20
+          ]
+        },
+        {
+          "symbol": "Area Green Normal",
+          "color": "Green Normal",
+          "kind": "area",
+          "rect": [
+            46,
+            -26,
+            50,
+            -14
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            44,
+            -17
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            44,
+            -23
+          ],
+          "stack": [
+            "Brown below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            48,
+            -17
+          ],
+          "stack": [
+            "Green Normal"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            48,
+            -23
+          ],
+          "stack": [
+            "Brown below",
+            "Green Normal"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1: Green Darken over Brown below",
+      "case": 1,
+      "row": 1,
+      "column": 4,
+      "note": "Darken at the opacity 100 over Brown below",
+      "rect": [
+        56,
+        -26,
+        68,
+        -14
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Brown below",
+          "color": "Brown below",
+          "kind": "area",
+          "rect": [
+            56,
+            -26,
+            68,
+            -20
+          ]
+        },
+        {
+          "symbol": "Area Green Darken",
+          "color": "Green Darken",
+          "kind": "area",
+          "rect": [
+            60,
+            -26,
+            64,
+            -14
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            58,
+            -17
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            58,
+            -23
+          ],
+          "stack": [
+            "Brown below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            62,
+            -17
+          ],
+          "stack": [
+            "Green Darken"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            62,
+            -23
+          ],
+          "stack": [
+            "Brown below",
+            "Green Darken"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1: Green Multiply over Brown below",
+      "case": 1,
+      "row": 1,
+      "column": 5,
+      "note": "Multiply at the opacity 100 over Brown below",
+      "rect": [
+        70,
+        -26,
+        82,
+        -14
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Brown below",
+          "color": "Brown below",
+          "kind": "area",
+          "rect": [
+            70,
+            -26,
+            82,
+            -20
+          ]
+        },
+        {
+          "symbol": "Area Green Multiply",
+          "color": "Green Multiply",
+          "kind": "area",
+          "rect": [
+            74,
+            -26,
+            78,
+            -14
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            72,
+            -17
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            72,
+            -23
+          ],
+          "stack": [
+            "Brown below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            76,
+            -17
+          ],
+          "stack": [
+            "Green Multiply"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            76,
+            -23
+          ],
+          "stack": [
+            "Brown below",
+            "Green Multiply"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1: Black 50 Normal over Brown below",
+      "case": 1,
+      "row": 1,
+      "column": 6,
+      "note": "Normal at the opacity 100 over Brown below",
+      "rect": [
+        84,
+        -26,
+        96,
+        -14
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Brown below",
+          "color": "Brown below",
+          "kind": "area",
+          "rect": [
+            84,
+            -26,
+            96,
+            -20
+          ]
+        },
+        {
+          "symbol": "Area Black 50 Normal",
+          "color": "Black 50 Normal",
+          "kind": "area",
+          "rect": [
+            88,
+            -26,
+            92,
+            -14
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            86,
+            -17
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            86,
+            -23
+          ],
+          "stack": [
+            "Brown below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            90,
+            -17
+          ],
+          "stack": [
+            "Black 50 Normal"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            90,
+            -23
+          ],
+          "stack": [
+            "Brown below",
+            "Black 50 Normal"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1: Black 50 Darken over Brown below",
+      "case": 1,
+      "row": 1,
+      "column": 7,
+      "note": "Darken at the opacity 100 over Brown below",
+      "rect": [
+        98,
+        -26,
+        110,
+        -14
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Brown below",
+          "color": "Brown below",
+          "kind": "area",
+          "rect": [
+            98,
+            -26,
+            110,
+            -20
+          ]
+        },
+        {
+          "symbol": "Area Black 50 Darken",
+          "color": "Black 50 Darken",
+          "kind": "area",
+          "rect": [
+            102,
+            -26,
+            106,
+            -14
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            100,
+            -17
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            100,
+            -23
+          ],
+          "stack": [
+            "Brown below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            104,
+            -17
+          ],
+          "stack": [
+            "Black 50 Darken"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            104,
+            -23
+          ],
+          "stack": [
+            "Brown below",
+            "Black 50 Darken"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1: Black 50 Multiply over Brown below",
+      "case": 1,
+      "row": 1,
+      "column": 8,
+      "note": "Multiply at the opacity 100 over Brown below",
+      "rect": [
+        112,
+        -26,
+        124,
+        -14
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Brown below",
+          "color": "Brown below",
+          "kind": "area",
+          "rect": [
+            112,
+            -26,
+            124,
+            -20
+          ]
+        },
+        {
+          "symbol": "Area Black 50 Multiply",
+          "color": "Black 50 Multiply",
+          "kind": "area",
+          "rect": [
+            116,
+            -26,
+            120,
+            -14
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            114,
+            -17
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            114,
+            -23
+          ],
+          "stack": [
+            "Brown below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            118,
+            -17
+          ],
+          "stack": [
+            "Black 50 Multiply"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            118,
+            -23
+          ],
+          "stack": [
+            "Brown below",
+            "Black 50 Multiply"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1: Purple Normal over Black 50 below",
+      "case": 1,
+      "row": 2,
+      "column": 0,
+      "note": "Normal at the opacity 100 over Black 50 below",
+      "rect": [
+        0,
+        -40,
+        12,
+        -28
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Black 50 below",
+          "color": "Black 50 below",
+          "kind": "area",
+          "rect": [
+            0,
+            -40,
+            12,
+            -34
+          ]
+        },
+        {
+          "symbol": "Area Purple Normal",
+          "color": "Purple Normal",
+          "kind": "area",
+          "rect": [
+            4,
+            -40,
+            8,
+            -28
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            2,
+            -31
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            2,
+            -37
+          ],
+          "stack": [
+            "Black 50 below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            6,
+            -31
+          ],
+          "stack": [
+            "Purple Normal"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            6,
+            -37
+          ],
+          "stack": [
+            "Black 50 below",
+            "Purple Normal"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1: Purple Darken over Black 50 below",
+      "case": 1,
+      "row": 2,
+      "column": 1,
+      "note": "Darken at the opacity 100 over Black 50 below",
+      "rect": [
+        14,
+        -40,
+        26,
+        -28
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Black 50 below",
+          "color": "Black 50 below",
+          "kind": "area",
+          "rect": [
+            14,
+            -40,
+            26,
+            -34
+          ]
+        },
+        {
+          "symbol": "Area Purple Darken",
+          "color": "Purple Darken",
+          "kind": "area",
+          "rect": [
+            18,
+            -40,
+            22,
+            -28
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            16,
+            -31
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            16,
+            -37
+          ],
+          "stack": [
+            "Black 50 below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            20,
+            -31
+          ],
+          "stack": [
+            "Purple Darken"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            20,
+            -37
+          ],
+          "stack": [
+            "Black 50 below",
+            "Purple Darken"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1: Purple Multiply over Black 50 below",
+      "case": 1,
+      "row": 2,
+      "column": 2,
+      "note": "Multiply at the opacity 100 over Black 50 below",
+      "rect": [
+        28,
+        -40,
+        40,
+        -28
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Black 50 below",
+          "color": "Black 50 below",
+          "kind": "area",
+          "rect": [
+            28,
+            -40,
+            40,
+            -34
+          ]
+        },
+        {
+          "symbol": "Area Purple Multiply",
+          "color": "Purple Multiply",
+          "kind": "area",
+          "rect": [
+            32,
+            -40,
+            36,
+            -28
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            30,
+            -31
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            30,
+            -37
+          ],
+          "stack": [
+            "Black 50 below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            34,
+            -31
+          ],
+          "stack": [
+            "Purple Multiply"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            34,
+            -37
+          ],
+          "stack": [
+            "Black 50 below",
+            "Purple Multiply"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1: Green Normal over Black 50 below",
+      "case": 1,
+      "row": 2,
+      "column": 3,
+      "note": "Normal at the opacity 100 over Black 50 below",
+      "rect": [
+        42,
+        -40,
+        54,
+        -28
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Black 50 below",
+          "color": "Black 50 below",
+          "kind": "area",
+          "rect": [
+            42,
+            -40,
+            54,
+            -34
+          ]
+        },
+        {
+          "symbol": "Area Green Normal",
+          "color": "Green Normal",
+          "kind": "area",
+          "rect": [
+            46,
+            -40,
+            50,
+            -28
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            44,
+            -31
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            44,
+            -37
+          ],
+          "stack": [
+            "Black 50 below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            48,
+            -31
+          ],
+          "stack": [
+            "Green Normal"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            48,
+            -37
+          ],
+          "stack": [
+            "Black 50 below",
+            "Green Normal"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1: Green Darken over Black 50 below",
+      "case": 1,
+      "row": 2,
+      "column": 4,
+      "note": "Darken at the opacity 100 over Black 50 below",
+      "rect": [
+        56,
+        -40,
+        68,
+        -28
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Black 50 below",
+          "color": "Black 50 below",
+          "kind": "area",
+          "rect": [
+            56,
+            -40,
+            68,
+            -34
+          ]
+        },
+        {
+          "symbol": "Area Green Darken",
+          "color": "Green Darken",
+          "kind": "area",
+          "rect": [
+            60,
+            -40,
+            64,
+            -28
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            58,
+            -31
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            58,
+            -37
+          ],
+          "stack": [
+            "Black 50 below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            62,
+            -31
+          ],
+          "stack": [
+            "Green Darken"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            62,
+            -37
+          ],
+          "stack": [
+            "Black 50 below",
+            "Green Darken"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1: Green Multiply over Black 50 below",
+      "case": 1,
+      "row": 2,
+      "column": 5,
+      "note": "Multiply at the opacity 100 over Black 50 below",
+      "rect": [
+        70,
+        -40,
+        82,
+        -28
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Black 50 below",
+          "color": "Black 50 below",
+          "kind": "area",
+          "rect": [
+            70,
+            -40,
+            82,
+            -34
+          ]
+        },
+        {
+          "symbol": "Area Green Multiply",
+          "color": "Green Multiply",
+          "kind": "area",
+          "rect": [
+            74,
+            -40,
+            78,
+            -28
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            72,
+            -31
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            72,
+            -37
+          ],
+          "stack": [
+            "Black 50 below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            76,
+            -31
+          ],
+          "stack": [
+            "Green Multiply"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            76,
+            -37
+          ],
+          "stack": [
+            "Black 50 below",
+            "Green Multiply"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1: Black 50 Normal over Black 50 below",
+      "case": 1,
+      "row": 2,
+      "column": 6,
+      "note": "Normal at the opacity 100 over Black 50 below",
+      "rect": [
+        84,
+        -40,
+        96,
+        -28
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Black 50 below",
+          "color": "Black 50 below",
+          "kind": "area",
+          "rect": [
+            84,
+            -40,
+            96,
+            -34
+          ]
+        },
+        {
+          "symbol": "Area Black 50 Normal",
+          "color": "Black 50 Normal",
+          "kind": "area",
+          "rect": [
+            88,
+            -40,
+            92,
+            -28
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            86,
+            -31
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            86,
+            -37
+          ],
+          "stack": [
+            "Black 50 below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            90,
+            -31
+          ],
+          "stack": [
+            "Black 50 Normal"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            90,
+            -37
+          ],
+          "stack": [
+            "Black 50 below",
+            "Black 50 Normal"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1: Black 50 Darken over Black 50 below",
+      "case": 1,
+      "row": 2,
+      "column": 7,
+      "note": "Darken at the opacity 100 over Black 50 below",
+      "rect": [
+        98,
+        -40,
+        110,
+        -28
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Black 50 below",
+          "color": "Black 50 below",
+          "kind": "area",
+          "rect": [
+            98,
+            -40,
+            110,
+            -34
+          ]
+        },
+        {
+          "symbol": "Area Black 50 Darken",
+          "color": "Black 50 Darken",
+          "kind": "area",
+          "rect": [
+            102,
+            -40,
+            106,
+            -28
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            100,
+            -31
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            100,
+            -37
+          ],
+          "stack": [
+            "Black 50 below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            104,
+            -31
+          ],
+          "stack": [
+            "Black 50 Darken"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            104,
+            -37
+          ],
+          "stack": [
+            "Black 50 below",
+            "Black 50 Darken"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1: Black 50 Multiply over Black 50 below",
+      "case": 1,
+      "row": 2,
+      "column": 8,
+      "note": "Multiply at the opacity 100 over Black 50 below",
+      "rect": [
+        112,
+        -40,
+        124,
+        -28
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Black 50 below",
+          "color": "Black 50 below",
+          "kind": "area",
+          "rect": [
+            112,
+            -40,
+            124,
+            -34
+          ]
+        },
+        {
+          "symbol": "Area Black 50 Multiply",
+          "color": "Black 50 Multiply",
+          "kind": "area",
+          "rect": [
+            116,
+            -40,
+            120,
+            -28
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            114,
+            -31
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            114,
+            -37
+          ],
+          "stack": [
+            "Black 50 below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            118,
+            -31
+          ],
+          "stack": [
+            "Black 50 Multiply"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            118,
+            -37
+          ],
+          "stack": [
+            "Black 50 below",
+            "Black 50 Multiply"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2: Purple Normal 50% over Blue below",
+      "case": 2,
+      "row": 3,
+      "column": 0,
+      "note": "Normal at the opacity 50 over Blue below",
+      "rect": [
+        0,
+        -54,
+        12,
+        -42
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Blue below",
+          "color": "Blue below",
+          "kind": "area",
+          "rect": [
+            0,
+            -54,
+            12,
+            -48
+          ]
+        },
+        {
+          "symbol": "Area Purple Normal 50%",
+          "color": "Purple Normal 50%",
+          "kind": "area",
+          "rect": [
+            4,
+            -54,
+            8,
+            -42
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            2,
+            -45
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            2,
+            -51
+          ],
+          "stack": [
+            "Blue below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            6,
+            -45
+          ],
+          "stack": [
+            "Purple Normal 50%"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            6,
+            -51
+          ],
+          "stack": [
+            "Blue below",
+            "Purple Normal 50%"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2: Purple Darken 50% over Blue below",
+      "case": 2,
+      "row": 3,
+      "column": 1,
+      "note": "Darken at the opacity 50 over Blue below",
+      "rect": [
+        14,
+        -54,
+        26,
+        -42
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Blue below",
+          "color": "Blue below",
+          "kind": "area",
+          "rect": [
+            14,
+            -54,
+            26,
+            -48
+          ]
+        },
+        {
+          "symbol": "Area Purple Darken 50%",
+          "color": "Purple Darken 50%",
+          "kind": "area",
+          "rect": [
+            18,
+            -54,
+            22,
+            -42
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            16,
+            -45
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            16,
+            -51
+          ],
+          "stack": [
+            "Blue below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            20,
+            -45
+          ],
+          "stack": [
+            "Purple Darken 50%"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            20,
+            -51
+          ],
+          "stack": [
+            "Blue below",
+            "Purple Darken 50%"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2: Purple Multiply 50% over Blue below",
+      "case": 2,
+      "row": 3,
+      "column": 2,
+      "note": "Multiply at the opacity 50 over Blue below",
+      "rect": [
+        28,
+        -54,
+        40,
+        -42
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Blue below",
+          "color": "Blue below",
+          "kind": "area",
+          "rect": [
+            28,
+            -54,
+            40,
+            -48
+          ]
+        },
+        {
+          "symbol": "Area Purple Multiply 50%",
+          "color": "Purple Multiply 50%",
+          "kind": "area",
+          "rect": [
+            32,
+            -54,
+            36,
+            -42
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            30,
+            -45
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            30,
+            -51
+          ],
+          "stack": [
+            "Blue below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            34,
+            -45
+          ],
+          "stack": [
+            "Purple Multiply 50%"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            34,
+            -51
+          ],
+          "stack": [
+            "Blue below",
+            "Purple Multiply 50%"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2: Green Normal 50% over Blue below",
+      "case": 2,
+      "row": 3,
+      "column": 3,
+      "note": "Normal at the opacity 50 over Blue below",
+      "rect": [
+        42,
+        -54,
+        54,
+        -42
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Blue below",
+          "color": "Blue below",
+          "kind": "area",
+          "rect": [
+            42,
+            -54,
+            54,
+            -48
+          ]
+        },
+        {
+          "symbol": "Area Green Normal 50%",
+          "color": "Green Normal 50%",
+          "kind": "area",
+          "rect": [
+            46,
+            -54,
+            50,
+            -42
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            44,
+            -45
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            44,
+            -51
+          ],
+          "stack": [
+            "Blue below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            48,
+            -45
+          ],
+          "stack": [
+            "Green Normal 50%"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            48,
+            -51
+          ],
+          "stack": [
+            "Blue below",
+            "Green Normal 50%"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2: Green Darken 50% over Blue below",
+      "case": 2,
+      "row": 3,
+      "column": 4,
+      "note": "Darken at the opacity 50 over Blue below",
+      "rect": [
+        56,
+        -54,
+        68,
+        -42
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Blue below",
+          "color": "Blue below",
+          "kind": "area",
+          "rect": [
+            56,
+            -54,
+            68,
+            -48
+          ]
+        },
+        {
+          "symbol": "Area Green Darken 50%",
+          "color": "Green Darken 50%",
+          "kind": "area",
+          "rect": [
+            60,
+            -54,
+            64,
+            -42
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            58,
+            -45
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            58,
+            -51
+          ],
+          "stack": [
+            "Blue below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            62,
+            -45
+          ],
+          "stack": [
+            "Green Darken 50%"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            62,
+            -51
+          ],
+          "stack": [
+            "Blue below",
+            "Green Darken 50%"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2: Green Multiply 50% over Blue below",
+      "case": 2,
+      "row": 3,
+      "column": 5,
+      "note": "Multiply at the opacity 50 over Blue below",
+      "rect": [
+        70,
+        -54,
+        82,
+        -42
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Blue below",
+          "color": "Blue below",
+          "kind": "area",
+          "rect": [
+            70,
+            -54,
+            82,
+            -48
+          ]
+        },
+        {
+          "symbol": "Area Green Multiply 50%",
+          "color": "Green Multiply 50%",
+          "kind": "area",
+          "rect": [
+            74,
+            -54,
+            78,
+            -42
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            72,
+            -45
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            72,
+            -51
+          ],
+          "stack": [
+            "Blue below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            76,
+            -45
+          ],
+          "stack": [
+            "Green Multiply 50%"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            76,
+            -51
+          ],
+          "stack": [
+            "Blue below",
+            "Green Multiply 50%"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2: Black 50 Normal 50% over Blue below",
+      "case": 2,
+      "row": 3,
+      "column": 6,
+      "note": "Normal at the opacity 50 over Blue below",
+      "rect": [
+        84,
+        -54,
+        96,
+        -42
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Blue below",
+          "color": "Blue below",
+          "kind": "area",
+          "rect": [
+            84,
+            -54,
+            96,
+            -48
+          ]
+        },
+        {
+          "symbol": "Area Black 50 Normal 50%",
+          "color": "Black 50 Normal 50%",
+          "kind": "area",
+          "rect": [
+            88,
+            -54,
+            92,
+            -42
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            86,
+            -45
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            86,
+            -51
+          ],
+          "stack": [
+            "Blue below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            90,
+            -45
+          ],
+          "stack": [
+            "Black 50 Normal 50%"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            90,
+            -51
+          ],
+          "stack": [
+            "Blue below",
+            "Black 50 Normal 50%"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2: Black 50 Darken 50% over Blue below",
+      "case": 2,
+      "row": 3,
+      "column": 7,
+      "note": "Darken at the opacity 50 over Blue below",
+      "rect": [
+        98,
+        -54,
+        110,
+        -42
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Blue below",
+          "color": "Blue below",
+          "kind": "area",
+          "rect": [
+            98,
+            -54,
+            110,
+            -48
+          ]
+        },
+        {
+          "symbol": "Area Black 50 Darken 50%",
+          "color": "Black 50 Darken 50%",
+          "kind": "area",
+          "rect": [
+            102,
+            -54,
+            106,
+            -42
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            100,
+            -45
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            100,
+            -51
+          ],
+          "stack": [
+            "Blue below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            104,
+            -45
+          ],
+          "stack": [
+            "Black 50 Darken 50%"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            104,
+            -51
+          ],
+          "stack": [
+            "Blue below",
+            "Black 50 Darken 50%"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2: Black 50 Multiply 50% over Blue below",
+      "case": 2,
+      "row": 3,
+      "column": 8,
+      "note": "Multiply at the opacity 50 over Blue below",
+      "rect": [
+        112,
+        -54,
+        124,
+        -42
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Blue below",
+          "color": "Blue below",
+          "kind": "area",
+          "rect": [
+            112,
+            -54,
+            124,
+            -48
+          ]
+        },
+        {
+          "symbol": "Area Black 50 Multiply 50%",
+          "color": "Black 50 Multiply 50%",
+          "kind": "area",
+          "rect": [
+            116,
+            -54,
+            120,
+            -42
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            114,
+            -45
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            114,
+            -51
+          ],
+          "stack": [
+            "Blue below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            118,
+            -45
+          ],
+          "stack": [
+            "Black 50 Multiply 50%"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            118,
+            -51
+          ],
+          "stack": [
+            "Blue below",
+            "Black 50 Multiply 50%"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2: Purple Normal 50% over Brown below",
+      "case": 2,
+      "row": 4,
+      "column": 0,
+      "note": "Normal at the opacity 50 over Brown below",
+      "rect": [
+        0,
+        -68,
+        12,
+        -56
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Brown below",
+          "color": "Brown below",
+          "kind": "area",
+          "rect": [
+            0,
+            -68,
+            12,
+            -62
+          ]
+        },
+        {
+          "symbol": "Area Purple Normal 50%",
+          "color": "Purple Normal 50%",
+          "kind": "area",
+          "rect": [
+            4,
+            -68,
+            8,
+            -56
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            2,
+            -59
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            2,
+            -65
+          ],
+          "stack": [
+            "Brown below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            6,
+            -59
+          ],
+          "stack": [
+            "Purple Normal 50%"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            6,
+            -65
+          ],
+          "stack": [
+            "Brown below",
+            "Purple Normal 50%"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2: Purple Darken 50% over Brown below",
+      "case": 2,
+      "row": 4,
+      "column": 1,
+      "note": "Darken at the opacity 50 over Brown below",
+      "rect": [
+        14,
+        -68,
+        26,
+        -56
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Brown below",
+          "color": "Brown below",
+          "kind": "area",
+          "rect": [
+            14,
+            -68,
+            26,
+            -62
+          ]
+        },
+        {
+          "symbol": "Area Purple Darken 50%",
+          "color": "Purple Darken 50%",
+          "kind": "area",
+          "rect": [
+            18,
+            -68,
+            22,
+            -56
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            16,
+            -59
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            16,
+            -65
+          ],
+          "stack": [
+            "Brown below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            20,
+            -59
+          ],
+          "stack": [
+            "Purple Darken 50%"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            20,
+            -65
+          ],
+          "stack": [
+            "Brown below",
+            "Purple Darken 50%"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2: Purple Multiply 50% over Brown below",
+      "case": 2,
+      "row": 4,
+      "column": 2,
+      "note": "Multiply at the opacity 50 over Brown below",
+      "rect": [
+        28,
+        -68,
+        40,
+        -56
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Brown below",
+          "color": "Brown below",
+          "kind": "area",
+          "rect": [
+            28,
+            -68,
+            40,
+            -62
+          ]
+        },
+        {
+          "symbol": "Area Purple Multiply 50%",
+          "color": "Purple Multiply 50%",
+          "kind": "area",
+          "rect": [
+            32,
+            -68,
+            36,
+            -56
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            30,
+            -59
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            30,
+            -65
+          ],
+          "stack": [
+            "Brown below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            34,
+            -59
+          ],
+          "stack": [
+            "Purple Multiply 50%"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            34,
+            -65
+          ],
+          "stack": [
+            "Brown below",
+            "Purple Multiply 50%"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2: Green Normal 50% over Brown below",
+      "case": 2,
+      "row": 4,
+      "column": 3,
+      "note": "Normal at the opacity 50 over Brown below",
+      "rect": [
+        42,
+        -68,
+        54,
+        -56
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Brown below",
+          "color": "Brown below",
+          "kind": "area",
+          "rect": [
+            42,
+            -68,
+            54,
+            -62
+          ]
+        },
+        {
+          "symbol": "Area Green Normal 50%",
+          "color": "Green Normal 50%",
+          "kind": "area",
+          "rect": [
+            46,
+            -68,
+            50,
+            -56
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            44,
+            -59
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            44,
+            -65
+          ],
+          "stack": [
+            "Brown below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            48,
+            -59
+          ],
+          "stack": [
+            "Green Normal 50%"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            48,
+            -65
+          ],
+          "stack": [
+            "Brown below",
+            "Green Normal 50%"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2: Green Darken 50% over Brown below",
+      "case": 2,
+      "row": 4,
+      "column": 4,
+      "note": "Darken at the opacity 50 over Brown below",
+      "rect": [
+        56,
+        -68,
+        68,
+        -56
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Brown below",
+          "color": "Brown below",
+          "kind": "area",
+          "rect": [
+            56,
+            -68,
+            68,
+            -62
+          ]
+        },
+        {
+          "symbol": "Area Green Darken 50%",
+          "color": "Green Darken 50%",
+          "kind": "area",
+          "rect": [
+            60,
+            -68,
+            64,
+            -56
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            58,
+            -59
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            58,
+            -65
+          ],
+          "stack": [
+            "Brown below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            62,
+            -59
+          ],
+          "stack": [
+            "Green Darken 50%"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            62,
+            -65
+          ],
+          "stack": [
+            "Brown below",
+            "Green Darken 50%"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2: Green Multiply 50% over Brown below",
+      "case": 2,
+      "row": 4,
+      "column": 5,
+      "note": "Multiply at the opacity 50 over Brown below",
+      "rect": [
+        70,
+        -68,
+        82,
+        -56
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Brown below",
+          "color": "Brown below",
+          "kind": "area",
+          "rect": [
+            70,
+            -68,
+            82,
+            -62
+          ]
+        },
+        {
+          "symbol": "Area Green Multiply 50%",
+          "color": "Green Multiply 50%",
+          "kind": "area",
+          "rect": [
+            74,
+            -68,
+            78,
+            -56
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            72,
+            -59
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            72,
+            -65
+          ],
+          "stack": [
+            "Brown below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            76,
+            -59
+          ],
+          "stack": [
+            "Green Multiply 50%"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            76,
+            -65
+          ],
+          "stack": [
+            "Brown below",
+            "Green Multiply 50%"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2: Black 50 Normal 50% over Brown below",
+      "case": 2,
+      "row": 4,
+      "column": 6,
+      "note": "Normal at the opacity 50 over Brown below",
+      "rect": [
+        84,
+        -68,
+        96,
+        -56
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Brown below",
+          "color": "Brown below",
+          "kind": "area",
+          "rect": [
+            84,
+            -68,
+            96,
+            -62
+          ]
+        },
+        {
+          "symbol": "Area Black 50 Normal 50%",
+          "color": "Black 50 Normal 50%",
+          "kind": "area",
+          "rect": [
+            88,
+            -68,
+            92,
+            -56
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            86,
+            -59
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            86,
+            -65
+          ],
+          "stack": [
+            "Brown below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            90,
+            -59
+          ],
+          "stack": [
+            "Black 50 Normal 50%"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            90,
+            -65
+          ],
+          "stack": [
+            "Brown below",
+            "Black 50 Normal 50%"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2: Black 50 Darken 50% over Brown below",
+      "case": 2,
+      "row": 4,
+      "column": 7,
+      "note": "Darken at the opacity 50 over Brown below",
+      "rect": [
+        98,
+        -68,
+        110,
+        -56
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Brown below",
+          "color": "Brown below",
+          "kind": "area",
+          "rect": [
+            98,
+            -68,
+            110,
+            -62
+          ]
+        },
+        {
+          "symbol": "Area Black 50 Darken 50%",
+          "color": "Black 50 Darken 50%",
+          "kind": "area",
+          "rect": [
+            102,
+            -68,
+            106,
+            -56
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            100,
+            -59
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            100,
+            -65
+          ],
+          "stack": [
+            "Brown below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            104,
+            -59
+          ],
+          "stack": [
+            "Black 50 Darken 50%"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            104,
+            -65
+          ],
+          "stack": [
+            "Brown below",
+            "Black 50 Darken 50%"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2: Black 50 Multiply 50% over Brown below",
+      "case": 2,
+      "row": 4,
+      "column": 8,
+      "note": "Multiply at the opacity 50 over Brown below",
+      "rect": [
+        112,
+        -68,
+        124,
+        -56
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Brown below",
+          "color": "Brown below",
+          "kind": "area",
+          "rect": [
+            112,
+            -68,
+            124,
+            -62
+          ]
+        },
+        {
+          "symbol": "Area Black 50 Multiply 50%",
+          "color": "Black 50 Multiply 50%",
+          "kind": "area",
+          "rect": [
+            116,
+            -68,
+            120,
+            -56
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            114,
+            -59
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            114,
+            -65
+          ],
+          "stack": [
+            "Brown below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            118,
+            -59
+          ],
+          "stack": [
+            "Black 50 Multiply 50%"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            118,
+            -65
+          ],
+          "stack": [
+            "Brown below",
+            "Black 50 Multiply 50%"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2: Purple Normal 50% over Black 50 below",
+      "case": 2,
+      "row": 5,
+      "column": 0,
+      "note": "Normal at the opacity 50 over Black 50 below",
+      "rect": [
+        0,
+        -82,
+        12,
+        -70
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Black 50 below",
+          "color": "Black 50 below",
+          "kind": "area",
+          "rect": [
+            0,
+            -82,
+            12,
+            -76
+          ]
+        },
+        {
+          "symbol": "Area Purple Normal 50%",
+          "color": "Purple Normal 50%",
+          "kind": "area",
+          "rect": [
+            4,
+            -82,
+            8,
+            -70
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            2,
+            -73
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            2,
+            -79
+          ],
+          "stack": [
+            "Black 50 below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            6,
+            -73
+          ],
+          "stack": [
+            "Purple Normal 50%"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            6,
+            -79
+          ],
+          "stack": [
+            "Black 50 below",
+            "Purple Normal 50%"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2: Purple Darken 50% over Black 50 below",
+      "case": 2,
+      "row": 5,
+      "column": 1,
+      "note": "Darken at the opacity 50 over Black 50 below",
+      "rect": [
+        14,
+        -82,
+        26,
+        -70
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Black 50 below",
+          "color": "Black 50 below",
+          "kind": "area",
+          "rect": [
+            14,
+            -82,
+            26,
+            -76
+          ]
+        },
+        {
+          "symbol": "Area Purple Darken 50%",
+          "color": "Purple Darken 50%",
+          "kind": "area",
+          "rect": [
+            18,
+            -82,
+            22,
+            -70
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            16,
+            -73
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            16,
+            -79
+          ],
+          "stack": [
+            "Black 50 below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            20,
+            -73
+          ],
+          "stack": [
+            "Purple Darken 50%"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            20,
+            -79
+          ],
+          "stack": [
+            "Black 50 below",
+            "Purple Darken 50%"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2: Purple Multiply 50% over Black 50 below",
+      "case": 2,
+      "row": 5,
+      "column": 2,
+      "note": "Multiply at the opacity 50 over Black 50 below",
+      "rect": [
+        28,
+        -82,
+        40,
+        -70
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Black 50 below",
+          "color": "Black 50 below",
+          "kind": "area",
+          "rect": [
+            28,
+            -82,
+            40,
+            -76
+          ]
+        },
+        {
+          "symbol": "Area Purple Multiply 50%",
+          "color": "Purple Multiply 50%",
+          "kind": "area",
+          "rect": [
+            32,
+            -82,
+            36,
+            -70
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            30,
+            -73
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            30,
+            -79
+          ],
+          "stack": [
+            "Black 50 below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            34,
+            -73
+          ],
+          "stack": [
+            "Purple Multiply 50%"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            34,
+            -79
+          ],
+          "stack": [
+            "Black 50 below",
+            "Purple Multiply 50%"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2: Green Normal 50% over Black 50 below",
+      "case": 2,
+      "row": 5,
+      "column": 3,
+      "note": "Normal at the opacity 50 over Black 50 below",
+      "rect": [
+        42,
+        -82,
+        54,
+        -70
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Black 50 below",
+          "color": "Black 50 below",
+          "kind": "area",
+          "rect": [
+            42,
+            -82,
+            54,
+            -76
+          ]
+        },
+        {
+          "symbol": "Area Green Normal 50%",
+          "color": "Green Normal 50%",
+          "kind": "area",
+          "rect": [
+            46,
+            -82,
+            50,
+            -70
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            44,
+            -73
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            44,
+            -79
+          ],
+          "stack": [
+            "Black 50 below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            48,
+            -73
+          ],
+          "stack": [
+            "Green Normal 50%"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            48,
+            -79
+          ],
+          "stack": [
+            "Black 50 below",
+            "Green Normal 50%"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2: Green Darken 50% over Black 50 below",
+      "case": 2,
+      "row": 5,
+      "column": 4,
+      "note": "Darken at the opacity 50 over Black 50 below",
+      "rect": [
+        56,
+        -82,
+        68,
+        -70
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Black 50 below",
+          "color": "Black 50 below",
+          "kind": "area",
+          "rect": [
+            56,
+            -82,
+            68,
+            -76
+          ]
+        },
+        {
+          "symbol": "Area Green Darken 50%",
+          "color": "Green Darken 50%",
+          "kind": "area",
+          "rect": [
+            60,
+            -82,
+            64,
+            -70
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            58,
+            -73
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            58,
+            -79
+          ],
+          "stack": [
+            "Black 50 below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            62,
+            -73
+          ],
+          "stack": [
+            "Green Darken 50%"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            62,
+            -79
+          ],
+          "stack": [
+            "Black 50 below",
+            "Green Darken 50%"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2: Green Multiply 50% over Black 50 below",
+      "case": 2,
+      "row": 5,
+      "column": 5,
+      "note": "Multiply at the opacity 50 over Black 50 below",
+      "rect": [
+        70,
+        -82,
+        82,
+        -70
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Black 50 below",
+          "color": "Black 50 below",
+          "kind": "area",
+          "rect": [
+            70,
+            -82,
+            82,
+            -76
+          ]
+        },
+        {
+          "symbol": "Area Green Multiply 50%",
+          "color": "Green Multiply 50%",
+          "kind": "area",
+          "rect": [
+            74,
+            -82,
+            78,
+            -70
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            72,
+            -73
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            72,
+            -79
+          ],
+          "stack": [
+            "Black 50 below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            76,
+            -73
+          ],
+          "stack": [
+            "Green Multiply 50%"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            76,
+            -79
+          ],
+          "stack": [
+            "Black 50 below",
+            "Green Multiply 50%"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2: Black 50 Normal 50% over Black 50 below",
+      "case": 2,
+      "row": 5,
+      "column": 6,
+      "note": "Normal at the opacity 50 over Black 50 below",
+      "rect": [
+        84,
+        -82,
+        96,
+        -70
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Black 50 below",
+          "color": "Black 50 below",
+          "kind": "area",
+          "rect": [
+            84,
+            -82,
+            96,
+            -76
+          ]
+        },
+        {
+          "symbol": "Area Black 50 Normal 50%",
+          "color": "Black 50 Normal 50%",
+          "kind": "area",
+          "rect": [
+            88,
+            -82,
+            92,
+            -70
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            86,
+            -73
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            86,
+            -79
+          ],
+          "stack": [
+            "Black 50 below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            90,
+            -73
+          ],
+          "stack": [
+            "Black 50 Normal 50%"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            90,
+            -79
+          ],
+          "stack": [
+            "Black 50 below",
+            "Black 50 Normal 50%"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2: Black 50 Darken 50% over Black 50 below",
+      "case": 2,
+      "row": 5,
+      "column": 7,
+      "note": "Darken at the opacity 50 over Black 50 below",
+      "rect": [
+        98,
+        -82,
+        110,
+        -70
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Black 50 below",
+          "color": "Black 50 below",
+          "kind": "area",
+          "rect": [
+            98,
+            -82,
+            110,
+            -76
+          ]
+        },
+        {
+          "symbol": "Area Black 50 Darken 50%",
+          "color": "Black 50 Darken 50%",
+          "kind": "area",
+          "rect": [
+            102,
+            -82,
+            106,
+            -70
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            100,
+            -73
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            100,
+            -79
+          ],
+          "stack": [
+            "Black 50 below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            104,
+            -73
+          ],
+          "stack": [
+            "Black 50 Darken 50%"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            104,
+            -79
+          ],
+          "stack": [
+            "Black 50 below",
+            "Black 50 Darken 50%"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2: Black 50 Multiply 50% over Black 50 below",
+      "case": 2,
+      "row": 5,
+      "column": 8,
+      "note": "Multiply at the opacity 50 over Black 50 below",
+      "rect": [
+        112,
+        -82,
+        124,
+        -70
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Black 50 below",
+          "color": "Black 50 below",
+          "kind": "area",
+          "rect": [
+            112,
+            -82,
+            124,
+            -76
+          ]
+        },
+        {
+          "symbol": "Area Black 50 Multiply 50%",
+          "color": "Black 50 Multiply 50%",
+          "kind": "area",
+          "rect": [
+            116,
+            -82,
+            120,
+            -70
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            114,
+            -73
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            114,
+            -79
+          ],
+          "stack": [
+            "Black 50 below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            118,
+            -73
+          ],
+          "stack": [
+            "Black 50 Multiply 50%"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            118,
+            -79
+          ],
+          "stack": [
+            "Black 50 below",
+            "Black 50 Multiply 50%"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3: Green Normal 50%, two objects of one area symbol",
+      "case": 3,
+      "row": 6,
+      "column": 0,
+      "note": "the overlap of two shapes of Green Normal 50%: two objects of one area symbol",
+      "rect": [
+        0,
+        -96,
+        12,
+        -84
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Blue below",
+          "color": "Blue below",
+          "kind": "area",
+          "rect": [
+            0,
+            -96,
+            12,
+            -90
+          ]
+        },
+        {
+          "symbol": "Area Green Normal 50%",
+          "color": "Green Normal 50%",
+          "kind": "area",
+          "rect": [
+            2,
+            -96,
+            7,
+            -84
+          ]
+        },
+        {
+          "symbol": "Area Green Normal 50%",
+          "color": "Green Normal 50%",
+          "kind": "area",
+          "rect": [
+            5,
+            -96,
+            10,
+            -84
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            1,
+            -87
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            1,
+            -93
+          ],
+          "stack": [
+            "Blue below"
+          ]
+        },
+        {
+          "name": "first",
+          "point": [
+            3.5,
+            -87
+          ],
+          "stack": [
+            "Green Normal 50%"
+          ]
+        },
+        {
+          "name": "overlap",
+          "point": [
+            6,
+            -87
+          ],
+          "stack": [
+            "Green Normal 50%",
+            "Green Normal 50%"
+          ]
+        },
+        {
+          "name": "second",
+          "point": [
+            8.5,
+            -87
+          ],
+          "stack": [
+            "Green Normal 50%"
+          ]
+        },
+        {
+          "name": "first over below",
+          "point": [
+            3.5,
+            -93
+          ],
+          "stack": [
+            "Blue below",
+            "Green Normal 50%"
+          ]
+        },
+        {
+          "name": "overlap over below",
+          "point": [
+            6,
+            -93
+          ],
+          "stack": [
+            "Blue below",
+            "Green Normal 50%",
+            "Green Normal 50%"
+          ]
+        },
+        {
+          "name": "second over below",
+          "point": [
+            8.5,
+            -93
+          ],
+          "stack": [
+            "Blue below",
+            "Green Normal 50%"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3: Green Multiply, two objects of one area symbol",
+      "case": 3,
+      "row": 6,
+      "column": 1,
+      "note": "the overlap of two shapes of Green Multiply: two objects of one area symbol",
+      "rect": [
+        14,
+        -96,
+        26,
+        -84
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Blue below",
+          "color": "Blue below",
+          "kind": "area",
+          "rect": [
+            14,
+            -96,
+            26,
+            -90
+          ]
+        },
+        {
+          "symbol": "Area Green Multiply",
+          "color": "Green Multiply",
+          "kind": "area",
+          "rect": [
+            16,
+            -96,
+            21,
+            -84
+          ]
+        },
+        {
+          "symbol": "Area Green Multiply",
+          "color": "Green Multiply",
+          "kind": "area",
+          "rect": [
+            19,
+            -96,
+            24,
+            -84
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            15,
+            -87
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            15,
+            -93
+          ],
+          "stack": [
+            "Blue below"
+          ]
+        },
+        {
+          "name": "first",
+          "point": [
+            17.5,
+            -87
+          ],
+          "stack": [
+            "Green Multiply"
+          ]
+        },
+        {
+          "name": "overlap",
+          "point": [
+            20,
+            -87
+          ],
+          "stack": [
+            "Green Multiply",
+            "Green Multiply"
+          ]
+        },
+        {
+          "name": "second",
+          "point": [
+            22.5,
+            -87
+          ],
+          "stack": [
+            "Green Multiply"
+          ]
+        },
+        {
+          "name": "first over below",
+          "point": [
+            17.5,
+            -93
+          ],
+          "stack": [
+            "Blue below",
+            "Green Multiply"
+          ]
+        },
+        {
+          "name": "overlap over below",
+          "point": [
+            20,
+            -93
+          ],
+          "stack": [
+            "Blue below",
+            "Green Multiply",
+            "Green Multiply"
+          ]
+        },
+        {
+          "name": "second over below",
+          "point": [
+            22.5,
+            -93
+          ],
+          "stack": [
+            "Blue below",
+            "Green Multiply"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3: Green Normal 50%, objects of two area symbols of the color",
+      "case": 3,
+      "row": 6,
+      "column": 2,
+      "note": "the overlap of two shapes of Green Normal 50%: objects of two area symbols of the color",
+      "rect": [
+        28,
+        -96,
+        40,
+        -84
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Blue below",
+          "color": "Blue below",
+          "kind": "area",
+          "rect": [
+            28,
+            -96,
+            40,
+            -90
+          ]
+        },
+        {
+          "symbol": "Area Green Normal 50%",
+          "color": "Green Normal 50%",
+          "kind": "area",
+          "rect": [
+            30,
+            -96,
+            35,
+            -84
+          ]
+        },
+        {
+          "symbol": "Area 2 Green Normal 50%",
+          "color": "Green Normal 50%",
+          "kind": "area",
+          "rect": [
+            33,
+            -96,
+            38,
+            -84
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            29,
+            -87
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            29,
+            -93
+          ],
+          "stack": [
+            "Blue below"
+          ]
+        },
+        {
+          "name": "first",
+          "point": [
+            31.5,
+            -87
+          ],
+          "stack": [
+            "Green Normal 50%"
+          ]
+        },
+        {
+          "name": "overlap",
+          "point": [
+            34,
+            -87
+          ],
+          "stack": [
+            "Green Normal 50%",
+            "Green Normal 50%"
+          ]
+        },
+        {
+          "name": "second",
+          "point": [
+            36.5,
+            -87
+          ],
+          "stack": [
+            "Green Normal 50%"
+          ]
+        },
+        {
+          "name": "first over below",
+          "point": [
+            31.5,
+            -93
+          ],
+          "stack": [
+            "Blue below",
+            "Green Normal 50%"
+          ]
+        },
+        {
+          "name": "overlap over below",
+          "point": [
+            34,
+            -93
+          ],
+          "stack": [
+            "Blue below",
+            "Green Normal 50%",
+            "Green Normal 50%"
+          ]
+        },
+        {
+          "name": "second over below",
+          "point": [
+            36.5,
+            -93
+          ],
+          "stack": [
+            "Blue below",
+            "Green Normal 50%"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3: Green Multiply, objects of two area symbols of the color",
+      "case": 3,
+      "row": 6,
+      "column": 3,
+      "note": "the overlap of two shapes of Green Multiply: objects of two area symbols of the color",
+      "rect": [
+        42,
+        -96,
+        54,
+        -84
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Blue below",
+          "color": "Blue below",
+          "kind": "area",
+          "rect": [
+            42,
+            -96,
+            54,
+            -90
+          ]
+        },
+        {
+          "symbol": "Area Green Multiply",
+          "color": "Green Multiply",
+          "kind": "area",
+          "rect": [
+            44,
+            -96,
+            49,
+            -84
+          ]
+        },
+        {
+          "symbol": "Area 2 Green Multiply",
+          "color": "Green Multiply",
+          "kind": "area",
+          "rect": [
+            47,
+            -96,
+            52,
+            -84
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            43,
+            -87
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            43,
+            -93
+          ],
+          "stack": [
+            "Blue below"
+          ]
+        },
+        {
+          "name": "first",
+          "point": [
+            45.5,
+            -87
+          ],
+          "stack": [
+            "Green Multiply"
+          ]
+        },
+        {
+          "name": "overlap",
+          "point": [
+            48,
+            -87
+          ],
+          "stack": [
+            "Green Multiply",
+            "Green Multiply"
+          ]
+        },
+        {
+          "name": "second",
+          "point": [
+            50.5,
+            -87
+          ],
+          "stack": [
+            "Green Multiply"
+          ]
+        },
+        {
+          "name": "first over below",
+          "point": [
+            45.5,
+            -93
+          ],
+          "stack": [
+            "Blue below",
+            "Green Multiply"
+          ]
+        },
+        {
+          "name": "overlap over below",
+          "point": [
+            48,
+            -93
+          ],
+          "stack": [
+            "Blue below",
+            "Green Multiply",
+            "Green Multiply"
+          ]
+        },
+        {
+          "name": "second over below",
+          "point": [
+            50.5,
+            -93
+          ],
+          "stack": [
+            "Blue below",
+            "Green Multiply"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3: Green Normal 50%, one object of a point symbol with two overlapping area parts",
+      "case": 3,
+      "row": 6,
+      "column": 4,
+      "note": "the overlap of two shapes of Green Normal 50%: one object of a point symbol with two overlapping area parts",
+      "rect": [
+        56,
+        -96,
+        68,
+        -84
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Blue below",
+          "color": "Blue below",
+          "kind": "area",
+          "rect": [
+            56,
+            -96,
+            68,
+            -90
+          ]
+        },
+        {
+          "symbol": "Point Green Normal 50%",
+          "color": "Green Normal 50%",
+          "kind": "point part",
+          "rect": [
+            58,
+            -96,
+            63,
+            -84
+          ]
+        },
+        {
+          "symbol": "Point Green Normal 50%",
+          "color": "Green Normal 50%",
+          "kind": "point part",
+          "rect": [
+            61,
+            -96,
+            66,
+            -84
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            57,
+            -87
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            57,
+            -93
+          ],
+          "stack": [
+            "Blue below"
+          ]
+        },
+        {
+          "name": "first",
+          "point": [
+            59.5,
+            -87
+          ],
+          "stack": [
+            "Green Normal 50%"
+          ]
+        },
+        {
+          "name": "overlap",
+          "point": [
+            62,
+            -87
+          ],
+          "stack": [
+            "Green Normal 50%",
+            "Green Normal 50%"
+          ]
+        },
+        {
+          "name": "second",
+          "point": [
+            64.5,
+            -87
+          ],
+          "stack": [
+            "Green Normal 50%"
+          ]
+        },
+        {
+          "name": "first over below",
+          "point": [
+            59.5,
+            -93
+          ],
+          "stack": [
+            "Blue below",
+            "Green Normal 50%"
+          ]
+        },
+        {
+          "name": "overlap over below",
+          "point": [
+            62,
+            -93
+          ],
+          "stack": [
+            "Blue below",
+            "Green Normal 50%",
+            "Green Normal 50%"
+          ]
+        },
+        {
+          "name": "second over below",
+          "point": [
+            64.5,
+            -93
+          ],
+          "stack": [
+            "Blue below",
+            "Green Normal 50%"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3: Green Multiply, one object of a point symbol with two overlapping area parts",
+      "case": 3,
+      "row": 6,
+      "column": 5,
+      "note": "the overlap of two shapes of Green Multiply: one object of a point symbol with two overlapping area parts",
+      "rect": [
+        70,
+        -96,
+        82,
+        -84
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Blue below",
+          "color": "Blue below",
+          "kind": "area",
+          "rect": [
+            70,
+            -96,
+            82,
+            -90
+          ]
+        },
+        {
+          "symbol": "Point Green Multiply",
+          "color": "Green Multiply",
+          "kind": "point part",
+          "rect": [
+            72,
+            -96,
+            77,
+            -84
+          ]
+        },
+        {
+          "symbol": "Point Green Multiply",
+          "color": "Green Multiply",
+          "kind": "point part",
+          "rect": [
+            75,
+            -96,
+            80,
+            -84
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            71,
+            -87
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            71,
+            -93
+          ],
+          "stack": [
+            "Blue below"
+          ]
+        },
+        {
+          "name": "first",
+          "point": [
+            73.5,
+            -87
+          ],
+          "stack": [
+            "Green Multiply"
+          ]
+        },
+        {
+          "name": "overlap",
+          "point": [
+            76,
+            -87
+          ],
+          "stack": [
+            "Green Multiply",
+            "Green Multiply"
+          ]
+        },
+        {
+          "name": "second",
+          "point": [
+            78.5,
+            -87
+          ],
+          "stack": [
+            "Green Multiply"
+          ]
+        },
+        {
+          "name": "first over below",
+          "point": [
+            73.5,
+            -93
+          ],
+          "stack": [
+            "Blue below",
+            "Green Multiply"
+          ]
+        },
+        {
+          "name": "overlap over below",
+          "point": [
+            76,
+            -93
+          ],
+          "stack": [
+            "Blue below",
+            "Green Multiply",
+            "Green Multiply"
+          ]
+        },
+        {
+          "name": "second over below",
+          "point": [
+            78.5,
+            -93
+          ],
+          "stack": [
+            "Blue below",
+            "Green Multiply"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4: Purple overprint Normal over Blue below",
+      "case": 4,
+      "row": 7,
+      "column": 0,
+      "note": "an overprint color over Blue below",
+      "rect": [
+        0,
+        -110,
+        12,
+        -98
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Blue below",
+          "color": "Blue below",
+          "kind": "area",
+          "rect": [
+            0,
+            -110,
+            12,
+            -104
+          ]
+        },
+        {
+          "symbol": "Area Purple overprint Normal",
+          "color": "Purple overprint Normal",
+          "kind": "area",
+          "rect": [
+            4,
+            -110,
+            8,
+            -98
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            2,
+            -101
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            2,
+            -107
+          ],
+          "stack": [
+            "Blue below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            6,
+            -101
+          ],
+          "stack": [
+            "Purple overprint Normal"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            6,
+            -107
+          ],
+          "stack": [
+            "Blue below",
+            "Purple overprint Normal"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4: Purple overprint Normal over Brown below",
+      "case": 4,
+      "row": 7,
+      "column": 1,
+      "note": "an overprint color over Brown below",
+      "rect": [
+        14,
+        -110,
+        26,
+        -98
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Brown below",
+          "color": "Brown below",
+          "kind": "area",
+          "rect": [
+            14,
+            -110,
+            26,
+            -104
+          ]
+        },
+        {
+          "symbol": "Area Purple overprint Normal",
+          "color": "Purple overprint Normal",
+          "kind": "area",
+          "rect": [
+            18,
+            -110,
+            22,
+            -98
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            16,
+            -101
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            16,
+            -107
+          ],
+          "stack": [
+            "Brown below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            20,
+            -101
+          ],
+          "stack": [
+            "Purple overprint Normal"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            20,
+            -107
+          ],
+          "stack": [
+            "Brown below",
+            "Purple overprint Normal"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4: Purple overprint Normal over Black 50 below",
+      "case": 4,
+      "row": 7,
+      "column": 2,
+      "note": "an overprint color over Black 50 below",
+      "rect": [
+        28,
+        -110,
+        40,
+        -98
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Black 50 below",
+          "color": "Black 50 below",
+          "kind": "area",
+          "rect": [
+            28,
+            -110,
+            40,
+            -104
+          ]
+        },
+        {
+          "symbol": "Area Purple overprint Normal",
+          "color": "Purple overprint Normal",
+          "kind": "area",
+          "rect": [
+            32,
+            -110,
+            36,
+            -98
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            30,
+            -101
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            30,
+            -107
+          ],
+          "stack": [
+            "Black 50 below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            34,
+            -101
+          ],
+          "stack": [
+            "Purple overprint Normal"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            34,
+            -107
+          ],
+          "stack": [
+            "Black 50 below",
+            "Purple overprint Normal"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4: Purple overprint Darken over Blue below",
+      "case": 4,
+      "row": 7,
+      "column": 3,
+      "note": "an overprint color over Blue below",
+      "rect": [
+        42,
+        -110,
+        54,
+        -98
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Blue below",
+          "color": "Blue below",
+          "kind": "area",
+          "rect": [
+            42,
+            -110,
+            54,
+            -104
+          ]
+        },
+        {
+          "symbol": "Area Purple overprint Darken",
+          "color": "Purple overprint Darken",
+          "kind": "area",
+          "rect": [
+            46,
+            -110,
+            50,
+            -98
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            44,
+            -101
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            44,
+            -107
+          ],
+          "stack": [
+            "Blue below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            48,
+            -101
+          ],
+          "stack": [
+            "Purple overprint Darken"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            48,
+            -107
+          ],
+          "stack": [
+            "Blue below",
+            "Purple overprint Darken"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4: Purple overprint Darken over Brown below",
+      "case": 4,
+      "row": 7,
+      "column": 4,
+      "note": "an overprint color over Brown below",
+      "rect": [
+        56,
+        -110,
+        68,
+        -98
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Brown below",
+          "color": "Brown below",
+          "kind": "area",
+          "rect": [
+            56,
+            -110,
+            68,
+            -104
+          ]
+        },
+        {
+          "symbol": "Area Purple overprint Darken",
+          "color": "Purple overprint Darken",
+          "kind": "area",
+          "rect": [
+            60,
+            -110,
+            64,
+            -98
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            58,
+            -101
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            58,
+            -107
+          ],
+          "stack": [
+            "Brown below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            62,
+            -101
+          ],
+          "stack": [
+            "Purple overprint Darken"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            62,
+            -107
+          ],
+          "stack": [
+            "Brown below",
+            "Purple overprint Darken"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4: Purple overprint Darken over Black 50 below",
+      "case": 4,
+      "row": 7,
+      "column": 5,
+      "note": "an overprint color over Black 50 below",
+      "rect": [
+        70,
+        -110,
+        82,
+        -98
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Black 50 below",
+          "color": "Black 50 below",
+          "kind": "area",
+          "rect": [
+            70,
+            -110,
+            82,
+            -104
+          ]
+        },
+        {
+          "symbol": "Area Purple overprint Darken",
+          "color": "Purple overprint Darken",
+          "kind": "area",
+          "rect": [
+            74,
+            -110,
+            78,
+            -98
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            72,
+            -101
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            72,
+            -107
+          ],
+          "stack": [
+            "Black 50 below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            76,
+            -101
+          ],
+          "stack": [
+            "Purple overprint Darken"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            76,
+            -107
+          ],
+          "stack": [
+            "Black 50 below",
+            "Purple overprint Darken"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4: Spot Violet Normal over Spot Blue below",
+      "case": 4,
+      "row": 8,
+      "column": 0,
+      "note": "a spot color that knocks out the other spot inks, over Spot Blue below",
+      "rect": [
+        0,
+        -124,
+        12,
+        -112
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Spot Blue below",
+          "color": "Spot Blue below",
+          "kind": "area",
+          "rect": [
+            0,
+            -124,
+            12,
+            -118
+          ]
+        },
+        {
+          "symbol": "Area Spot Violet Normal",
+          "color": "Spot Violet Normal",
+          "kind": "area",
+          "rect": [
+            4,
+            -124,
+            8,
+            -112
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            2,
+            -115
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            2,
+            -121
+          ],
+          "stack": [
+            "Spot Blue below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            6,
+            -115
+          ],
+          "stack": [
+            "Spot Violet Normal"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            6,
+            -121
+          ],
+          "stack": [
+            "Spot Blue below",
+            "Spot Violet Normal"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4: Spot Violet Normal over Spot Brown below",
+      "case": 4,
+      "row": 8,
+      "column": 1,
+      "note": "a spot color that knocks out the other spot inks, over Spot Brown below",
+      "rect": [
+        14,
+        -124,
+        26,
+        -112
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Spot Brown below",
+          "color": "Spot Brown below",
+          "kind": "area",
+          "rect": [
+            14,
+            -124,
+            26,
+            -118
+          ]
+        },
+        {
+          "symbol": "Area Spot Violet Normal",
+          "color": "Spot Violet Normal",
+          "kind": "area",
+          "rect": [
+            18,
+            -124,
+            22,
+            -112
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            16,
+            -115
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            16,
+            -121
+          ],
+          "stack": [
+            "Spot Brown below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            20,
+            -115
+          ],
+          "stack": [
+            "Spot Violet Normal"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            20,
+            -121
+          ],
+          "stack": [
+            "Spot Brown below",
+            "Spot Violet Normal"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4: Spot Violet Darken over Spot Blue below",
+      "case": 4,
+      "row": 8,
+      "column": 2,
+      "note": "a spot color that knocks out the other spot inks, over Spot Blue below",
+      "rect": [
+        28,
+        -124,
+        40,
+        -112
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Spot Blue below",
+          "color": "Spot Blue below",
+          "kind": "area",
+          "rect": [
+            28,
+            -124,
+            40,
+            -118
+          ]
+        },
+        {
+          "symbol": "Area Spot Violet Darken",
+          "color": "Spot Violet Darken",
+          "kind": "area",
+          "rect": [
+            32,
+            -124,
+            36,
+            -112
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            30,
+            -115
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            30,
+            -121
+          ],
+          "stack": [
+            "Spot Blue below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            34,
+            -115
+          ],
+          "stack": [
+            "Spot Violet Darken"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            34,
+            -121
+          ],
+          "stack": [
+            "Spot Blue below",
+            "Spot Violet Darken"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4: Spot Violet Darken over Spot Brown below",
+      "case": 4,
+      "row": 8,
+      "column": 3,
+      "note": "a spot color that knocks out the other spot inks, over Spot Brown below",
+      "rect": [
+        42,
+        -124,
+        54,
+        -112
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Spot Brown below",
+          "color": "Spot Brown below",
+          "kind": "area",
+          "rect": [
+            42,
+            -124,
+            54,
+            -118
+          ]
+        },
+        {
+          "symbol": "Area Spot Violet Darken",
+          "color": "Spot Violet Darken",
+          "kind": "area",
+          "rect": [
+            46,
+            -124,
+            50,
+            -112
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            44,
+            -115
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            44,
+            -121
+          ],
+          "stack": [
+            "Spot Brown below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            48,
+            -115
+          ],
+          "stack": [
+            "Spot Violet Darken"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            48,
+            -121
+          ],
+          "stack": [
+            "Spot Brown below",
+            "Spot Violet Darken"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4: Spot Violet only Normal over Spot Blue below",
+      "case": 4,
+      "row": 8,
+      "column": 4,
+      "note": "a spot color that leaves the other spot inks, over Spot Blue below",
+      "rect": [
+        56,
+        -124,
+        68,
+        -112
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Spot Blue below",
+          "color": "Spot Blue below",
+          "kind": "area",
+          "rect": [
+            56,
+            -124,
+            68,
+            -118
+          ]
+        },
+        {
+          "symbol": "Area Spot Violet only Normal",
+          "color": "Spot Violet only Normal",
+          "kind": "area",
+          "rect": [
+            60,
+            -124,
+            64,
+            -112
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            58,
+            -115
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            58,
+            -121
+          ],
+          "stack": [
+            "Spot Blue below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            62,
+            -115
+          ],
+          "stack": [
+            "Spot Violet only Normal"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            62,
+            -121
+          ],
+          "stack": [
+            "Spot Blue below",
+            "Spot Violet only Normal"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4: Spot Violet only Normal over Spot Brown below",
+      "case": 4,
+      "row": 8,
+      "column": 5,
+      "note": "a spot color that leaves the other spot inks, over Spot Brown below",
+      "rect": [
+        70,
+        -124,
+        82,
+        -112
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Spot Brown below",
+          "color": "Spot Brown below",
+          "kind": "area",
+          "rect": [
+            70,
+            -124,
+            82,
+            -118
+          ]
+        },
+        {
+          "symbol": "Area Spot Violet only Normal",
+          "color": "Spot Violet only Normal",
+          "kind": "area",
+          "rect": [
+            74,
+            -124,
+            78,
+            -112
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            72,
+            -115
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            72,
+            -121
+          ],
+          "stack": [
+            "Spot Brown below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            76,
+            -115
+          ],
+          "stack": [
+            "Spot Violet only Normal"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            76,
+            -121
+          ],
+          "stack": [
+            "Spot Brown below",
+            "Spot Violet only Normal"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4: Spot Violet only Darken over Spot Blue below",
+      "case": 4,
+      "row": 8,
+      "column": 6,
+      "note": "a spot color that leaves the other spot inks, over Spot Blue below",
+      "rect": [
+        84,
+        -124,
+        96,
+        -112
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Spot Blue below",
+          "color": "Spot Blue below",
+          "kind": "area",
+          "rect": [
+            84,
+            -124,
+            96,
+            -118
+          ]
+        },
+        {
+          "symbol": "Area Spot Violet only Darken",
+          "color": "Spot Violet only Darken",
+          "kind": "area",
+          "rect": [
+            88,
+            -124,
+            92,
+            -112
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            86,
+            -115
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            86,
+            -121
+          ],
+          "stack": [
+            "Spot Blue below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            90,
+            -115
+          ],
+          "stack": [
+            "Spot Violet only Darken"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            90,
+            -121
+          ],
+          "stack": [
+            "Spot Blue below",
+            "Spot Violet only Darken"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4: Spot Violet only Darken over Spot Brown below",
+      "case": 4,
+      "row": 8,
+      "column": 7,
+      "note": "a spot color that leaves the other spot inks, over Spot Brown below",
+      "rect": [
+        98,
+        -124,
+        110,
+        -112
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Spot Brown below",
+          "color": "Spot Brown below",
+          "kind": "area",
+          "rect": [
+            98,
+            -124,
+            110,
+            -118
+          ]
+        },
+        {
+          "symbol": "Area Spot Violet only Darken",
+          "color": "Spot Violet only Darken",
+          "kind": "area",
+          "rect": [
+            102,
+            -124,
+            106,
+            -112
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "paper",
+          "point": [
+            100,
+            -115
+          ],
+          "stack": []
+        },
+        {
+          "name": "below",
+          "point": [
+            100,
+            -121
+          ],
+          "stack": [
+            "Spot Brown below"
+          ]
+        },
+        {
+          "name": "top",
+          "point": [
+            104,
+            -115
+          ],
+          "stack": [
+            "Spot Violet only Darken"
+          ]
+        },
+        {
+          "name": "top over below",
+          "point": [
+            104,
+            -121
+          ],
+          "stack": [
+            "Spot Brown below",
+            "Spot Violet only Darken"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5: Green Darken over Blue (5) and Yellow (5)",
+      "case": 5,
+      "row": 9,
+      "column": 0,
+      "note": "Green Darken over the palette color next to it, over a palette color further below, and over both",
+      "rect": [
+        0,
+        -138,
+        12,
+        -126
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Yellow (5)",
+          "color": "Yellow (5)",
+          "kind": "area",
+          "rect": [
+            0,
+            -138,
+            12,
+            -132
+          ]
+        },
+        {
+          "symbol": "Area Blue (5)",
+          "color": "Blue (5)",
+          "kind": "area",
+          "rect": [
+            0,
+            -138,
+            6,
+            -126
+          ]
+        },
+        {
+          "symbol": "Area Green Darken",
+          "color": "Green Darken",
+          "kind": "area",
+          "rect": [
+            3,
+            -135,
+            9,
+            -129
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "Blue (5) over Yellow (5)",
+          "point": [
+            1.5,
+            -136.5
+          ],
+          "stack": [
+            "Yellow (5)",
+            "Blue (5)"
+          ]
+        },
+        {
+          "name": "Yellow (5)",
+          "point": [
+            10.5,
+            -136.5
+          ],
+          "stack": [
+            "Yellow (5)"
+          ]
+        },
+        {
+          "name": "Blue (5)",
+          "point": [
+            1.5,
+            -127.5
+          ],
+          "stack": [
+            "Blue (5)"
+          ]
+        },
+        {
+          "name": "paper",
+          "point": [
+            10.5,
+            -127.5
+          ],
+          "stack": []
+        },
+        {
+          "name": "Green Darken over Blue (5) over Yellow (5)",
+          "point": [
+            4.5,
+            -133.5
+          ],
+          "stack": [
+            "Yellow (5)",
+            "Blue (5)",
+            "Green Darken"
+          ]
+        },
+        {
+          "name": "Green Darken over Yellow (5)",
+          "point": [
+            7.5,
+            -133.5
+          ],
+          "stack": [
+            "Yellow (5)",
+            "Green Darken"
+          ]
+        },
+        {
+          "name": "Green Darken over Blue (5)",
+          "point": [
+            4.5,
+            -130.5
+          ],
+          "stack": [
+            "Blue (5)",
+            "Green Darken"
+          ]
+        },
+        {
+          "name": "Green Darken",
+          "point": [
+            7.5,
+            -130.5
+          ],
+          "stack": [
+            "Green Darken"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5: Brown (5) over Green Darken over Yellow (5)",
+      "case": 5,
+      "row": 9,
+      "column": 1,
+      "note": "the Normal palette color above Green Darken, over it",
+      "rect": [
+        14,
+        -138,
+        26,
+        -126
+      ],
+      "shapes": [
+        {
+          "symbol": "Area Yellow (5)",
+          "color": "Yellow (5)",
+          "kind": "area",
+          "rect": [
+            14,
+            -138,
+            26,
+            -132
+          ]
+        },
+        {
+          "symbol": "Area Green Darken",
+          "color": "Green Darken",
+          "kind": "area",
+          "rect": [
+            16,
+            -135,
+            24,
+            -129
+          ]
+        },
+        {
+          "symbol": "Area Brown (5)",
+          "color": "Brown (5)",
+          "kind": "area",
+          "rect": [
+            18.5,
+            -138,
+            21.5,
+            -126
+          ]
+        }
+      ],
+      "regions": [
+        {
+          "name": "Yellow (5)",
+          "point": [
+            15,
+            -135
+          ],
+          "stack": [
+            "Yellow (5)"
+          ]
+        },
+        {
+          "name": "paper",
+          "point": [
+            15,
+            -129
+          ],
+          "stack": []
+        },
+        {
+          "name": "Green Darken over Yellow (5)",
+          "point": [
+            17.25,
+            -133.5
+          ],
+          "stack": [
+            "Yellow (5)",
+            "Green Darken"
+          ]
+        },
+        {
+          "name": "Green Darken",
+          "point": [
+            17.25,
+            -130.5
+          ],
+          "stack": [
+            "Green Darken"
+          ]
+        },
+        {
+          "name": "Brown (5) over Yellow (5)",
+          "point": [
+            20,
+            -136.5
+          ],
+          "stack": [
+            "Yellow (5)",
+            "Brown (5)"
+          ]
+        },
+        {
+          "name": "Brown (5) over Green Darken over Yellow (5)",
+          "point": [
+            20,
+            -133.5
+          ],
+          "stack": [
+            "Yellow (5)",
+            "Green Darken",
+            "Brown (5)"
+          ]
+        },
+        {
+          "name": "Brown (5) over Green Darken",
+          "point": [
+            20,
+            -130.5
+          ],
+          "stack": [
+            "Green Darken",
+            "Brown (5)"
+          ]
+        },
+        {
+          "name": "Brown (5)",
+          "point": [
+            20,
+            -127.5
+          ],
+          "stack": [
+            "Brown (5)"
+          ]
+        }
+      ]
+    }
+  ]
+}

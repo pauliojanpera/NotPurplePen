@@ -764,6 +764,30 @@ one, and the later one says so. [Handover.md](Handover.md) gives the decisions t
   OCAD's blend modes and opacity ("More tests of OCAD's blend modes"). Purple Pen writes the samples, @Pauli gives their
   views in OCAD and their PDF exports, and the session measures the structure of each PDF and writes the oracle
   `oracles/ocad-blend-modes.md`. The ticket changes no code, and it comes before the ticket of the PDF encoding.
+- **The choices of the session in the samples of ticket 027** (Nov 24). By the rule "The session resolves matters",
+  the session chose these, which [oracles/ocad-blend-modes.md](oracles/ocad-blend-modes.md) gives:
+  - One OCAD 12 file holds all the cases, also the spot colors of case 4. The PDF export of the process colors ignores
+    the spot colors, and the export of the spot color separations shows only the colors with spot shares (the OCAD
+    wiki, "Export Files"), so one file serves both exports.
+  - Each cell has its own objects. A cell of a palette color over another has four regions: the paper, the color below
+    alone, the color on top over the paper, and the color on top over the color below.
+  - Cases 1 and 2 also have each color on top in Normal, beside Darken and Multiply.
+  - Case 3 has Green Normal 50% and Green Multiply with the opacity 100, each as two objects of one area symbol, as
+    objects of two area symbols and as the two area parts of one point object. Multiply is not idempotent, so it
+    tells whether OCAD applies B to each shape.
+  - Case 4 has two spot colors that erase the other spot color separations (the share 0) and two that leave them, each
+    in Normal and Darken, over two spot colors below.
+  - Case 5 uses Green Darken of case 1. Blue (5) is next below it and Brown (5) next above it in the palette order,
+    and Yellow (5) is below Blue (5).
+  - Yellow (5) is C0 M25 Y80, and not C0 M27 Y79 as the Yellow of [oracles/ocad-darken.md](oracles/ocad-darken.md).
+    `OcadExport` writes each CMYK share as `(magenta * 100F).ToString(...)`, which writes the share 0.27 as
+    `m27.000002`.
+  - `measure-colors.py` compares the colors of an image with six ways of compositing that it predicts from the
+    colors of the same image, as the colors are compared only within one image.
+  - @Pauli gives the screenshots of the Colors and the Blend mode dialogs, of the normal view and of the spot color
+    view, the PNG export at 600 dpi without anti-aliasing and without color correction, and the PDF exports of the
+    process colors and of the combined spot color separations, with the settings of each export.
+  - Purple Pen's drawings of the sample in the overprint modes `ByPaletteColor` and `None` check `measure-colors.py`.
 - **The approval of ticket 010** (Nov 24). @Pauli approved [010](tickets/010-palette-composition.md), pass 2 and the
   Skia encoding, with the choices of the session under "Ratkaisut" and its names. Its images move where a palette
   color has α below 1, where the old pattern brush placed an area pattern otherwise than M, and where the expansions

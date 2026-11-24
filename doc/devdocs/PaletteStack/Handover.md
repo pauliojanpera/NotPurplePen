@@ -36,9 +36,11 @@ by 023 to 026, and the old branch of the epic, `feature/palette-layers`, keeps t
 
 ## Next steps
 
-1. Ticket [027](tickets/027-ocad-blend-mode-tests.md), the tests of OCAD's blend modes and opacity, is approved. Make
-   its samples as the ticket tells, and give them to @Pauli with what to report, as the descriptions in
-   [oracles/](oracles/) show. He gives their views in OCAD and their PDF exports when he is at OCAD.
+1. Ticket [027](tickets/027-ocad-blend-mode-tests.md), the tests of OCAD's blend modes and opacity: its sample, its
+   measurement scripts and its oracle [oracles/ocad-blend-modes.md](oracles/ocad-blend-modes.md) are made, and it
+   waits for @Pauli's exports. When they come, copy them into `oracles/ocad-blend-modes/`, measure them with
+   `measure-pdf.py` and `measure-colors.py`, and write the results, the answers of the oracle and the conclusions that
+   the ticket asks for.
 2. The ticket of the PDF encoding, which ticket 010 separated, is not written. It comes after ticket 027. Write it in
    the form of tickets 012 and 010, ask its questions early, and give it to @Pauli for approval.
 3. The tickets of the Skia abstractions for the runs of dashes and the repeated placements, and of the anti-aliasing
@@ -56,7 +58,8 @@ A draft is implemented only after @Pauli approves it as a ticket.
   target of NotPurplePen fitted to it, and whether the work can use the findings or the code of `feature/svg-target`.
   A session does not decide it, and does not take it up unless @Pauli asks.
 - **Offering upstream.** No branch is offered upstream yet.
-- **The OCAD exports of ticket 027**, when he is at OCAD.
+- **The OCAD exports of ticket 027**, when he is at OCAD: the list "What @Pauli exports and reports" in
+  [oracles/ocad-blend-modes.md](oracles/ocad-blend-modes.md).
 
 ## The decisions that bind the next steps
 
