@@ -766,6 +766,14 @@ one, and the later one says so. [Handover.md](Handover.md) gives the decisions t
   OCAD's blend modes and opacity ("More tests of OCAD's blend modes"). Purple Pen writes the samples, @Pauli gives their
   views in OCAD and their PDF exports, and the session measures the structure of each PDF and writes the oracle
   `oracles/ocad-blend-modes.md`. The ticket changes no code, and it comes before the ticket of the PDF encoding.
+- **The two tickets of the SVG export** (Nov 25, question 6 of the session). @Pauli asked the session to write ticket
+  (a) of option 2: `Map_Svg` brought to the new dev with the SVG encoding. So the SVG export is two tickets. Ticket (a)
+  brings the parts of `Map_Svg` that stay, and the SVG encoding writes the palette colors in it. Its tests check the
+  SVG in Chromium against the drawing of pass 2 with the Skia encoding, the reference that the tests of `Map_Svg` use
+  now. Ticket (b) is the common structure of the vector files with the content of `Map`: a new design with its own
+  questions, made first for SVG, and the PDF ticket uses the same structure. As the question said, ticket (b) is
+  written after ticket (a), and the branches of both are rooted at `dev-next`. The session wrote ticket (a) as the
+  draft [030](tickets/030-svg-encoding.md).
 - **The revert of the overlapping patterns in basewithfixes** (Nov 25, the question of the session). @Pauli chose:
   the new `basewithfixes` is the present one with one commit that reverts the merge of `fix/overlapping-patterns`
   (`git revert -m 1 ef5cd9cd2`), and not a branch assembled again from `base`. The other merges stay as they ran, and

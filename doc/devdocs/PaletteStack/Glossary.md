@@ -609,7 +609,9 @@ encodings make themselves.
   palette separation is its content. In a drawing, pass 2 makes it as a `TransparencyGroup`: the palette
   color, its opacity α, the blend mode B that the overprint mode gives (`OverprintMode`), the resolution of the drawing,
   whether the encoding fills a regular clipped area pattern with a pattern brush (`TransparencyGroup.UsePatternBrushes`,
-  proposed name), and the palette color coverages of the symbols that the rectangle of the drawing can show.
+  proposed name), whether each area writes its own pattern fill and not the area cluster once in its union
+  (`TransparencyGroup.PatternsWithEachArea`, proposed name, draft 030), and the palette color coverages of the symbols
+  that the rectangle of the drawing can show.
 
   The theory: the transparency model of PDF (ISO 32000) calls this unit a transparency group. The objects of the group
   are composited into one result, and the result is composited onto the backdrop with the opacity and the blend mode of
@@ -649,7 +651,8 @@ encodings make themselves.
   `IGraphicsTarget`: the SVG encoding writes SVG, the PDF encoding the objects of PdfSharp, and the Skia encoding an
   `SKCanvas`. An encoding writes one transparency group of a palette color at a time (`IPaletteStackEncoding`). A
   graphics target that shares its surface with an encoding gives the encoding to the drawing
-  (`IPaletteStackEncodingProvider`). The Skia encoding is `SkiaEncoding`.
+  (`IPaletteStackEncodingProvider`). The Skia encoding is `SkiaEncoding`. The SVG encoding is `SvgEncoding` (proposed
+  name, draft 030).
 - **piirron resoluutio** · *resolution of a drawing* (`RenderOptions.minResolution`) — The size of a pixel of a
   drawing, in paper coordinates. The screen and the Skia rendering tests give it the size of a pixel. Pass 1 takes no
   resolution. Pass 2 adapts to it: an encoding chooses the clipping objects at the resolution of the drawing, and the
@@ -689,7 +692,9 @@ encodings make themselves.
 - **piirrosobjekti** · *drawn object* — An object that an encoding writes. Each drawn object refers to its palette color
   coverage of a symbol, and through it to its `Symbol`, `SymColor` and G. The reference gives the `Map` and the symbol
   key (`Symbol.Key`). In a file, the drawn objects keep a link back to the ideal forms that is as direct as possible,
-  also through the hierarchy of the file, so that the SVG graphics can be a part of a web user interface.
+  also through the hierarchy of the file, so that the SVG graphics can be a part of a web user interface. In the SVG
+  export, each element of a drawn object carries the text form of its symbol key in the attribute `data-k` (proposed
+  name, draft 030).
 - **viittaus** · *reference* — What the structure of `Map` lets a drawn object refer to is not duplicated in the
   drawn objects. They use it through references. A drawn object links directly to the parts of the content of `Map`.
   It can take the geometry that it draws by reference from the shared parts of the intermediate layer. The link and

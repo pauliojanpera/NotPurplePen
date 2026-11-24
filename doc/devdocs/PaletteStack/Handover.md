@@ -50,15 +50,18 @@ by 023 to 026, and the old branch of the epic, `feature/palette-layers`, keeps t
 
 ## Next steps
 
-1. The ticket of the SVG export: `Map_Svg` brought to the new dev without the history of `feature/svg-target`, the
-   SVG encoding in it, and the common structure of the vector files with the content of `Map`. Write it in the form
-   of tickets 012 and 010, ask its questions early, and give it to @Pauli for approval. Its branch is the fork's
-   own, so it is rooted at `dev-next`, and its full runs go on `wip/linux/<name>` with `--base dev-next`.
-2. The ticket of the PDF encoding, which ticket 010 separated: the same structure of the vector files. The oracle of
+1. The draft [030](tickets/030-svg-encoding.md), the SVG export in the new dev with the SVG encoding, waits for
+   @Pauli's approval. Its branch `feature/svg-encoding` is rooted at `dev-next`. Its full runs go on
+   `wip/linux/svg-encoding` with `--base dev-next`, and its SVG loop on `svg/svg-encoding`
+   (`../SvgDevLoop/README.md`).
+2. The ticket of the common structure of the vector files with the content of `Map`, and of the flag that leaves the
+   content out, after ticket 030. Ask its questions early, and give it to @Pauli for approval. The PDF ticket uses the
+   same structure.
+3. The ticket of the PDF encoding, which ticket 010 separated: the same structure of the vector files. The oracle of
    ticket 027 gives OCAD's appearance of B and α in PDF.
-3. The tickets of the Skia abstractions for the runs of dashes and the repeated placements, and of the anti-aliasing
+4. The tickets of the Skia abstractions for the runs of dashes and the repeated placements, and of the anti-aliasing
    of the pattern fills in the Skia encoding, which ticket 010 separated, are not written.
-4. The tickets of the rendering modes (the overprinting that the inks simulate, the ink separations and the blend mode
+5. The tickets of the rendering modes (the overprinting that the inks simulate, the ink separations and the blend mode
    by ink) and of one palette stack for all the maps are not written (ticket 010, "Rajaus").
 
 A draft is implemented only after @Pauli approves it as a ticket.
@@ -69,6 +72,7 @@ A draft is implemented only after @Pauli approves it as a ticket.
   outside it.
 - **Offering upstream.** No branch is offered upstream yet.
 - **The change of `dev`** to `dev-next`, with a merge of the old `dev` into it with the strategy `ours`.
+- **The approval of the draft 030**, the SVG export in the new dev with the SVG encoding.
 
 ## The decisions that bind the next steps
 
@@ -96,6 +100,10 @@ decisions of the process are in force. [Record.md](Record.md), "Decisions", give
 - **The vector files.** The PDF export and the SVG export have the same form, and both carry the content of `Map`. If
   it is needed, a flag leaves the content of `Map` out (@Pauli, Nov 25).
 - **The SVG before the PDF.** The SVG ticket comes before the PDF ticket (@Pauli, Nov 25).
+- **The two tickets of the SVG export.** The first brings `Map_Svg` to the new dev with the SVG encoding, and its
+  tests check the SVG in Chromium against pass 2 with the Skia encoding (draft 030). The second gives the common
+  structure of the vector files with the content of `Map`, after the first. The branches of both are rooted at
+  `dev-next` (@Pauli, Nov 25).
 - **The new basewithfixes and the new dev.** The new `basewithfixes` has no `fix/overlapping-patterns`, the new dev
   merges `feature/palette-stack` into it, `feature/multiply-blending` stays out, and `Map_Svg` comes in the SVG
   ticket without the history of `feature/svg-target` (@Pauli, Nov 25).
