@@ -766,11 +766,19 @@ one, and the later one says so. [Handover.md](Handover.md) gives the decisions t
   `oracles/ocad-blend-modes.md`. The ticket changes no code, and it comes before the ticket of the PDF encoding.
 - **A bug ticket of the shares that the OCAD export writes** (Nov 24). @Pauli asked for a bug ticket of the CMYK shares
   that `OcadExport` writes with the error of the float product, although ticket 027 does not need the fix. The session
-  wrote it as the draft [029](tickets/029-ocad-color-shares.md), with these choices of its own: the branch
-  `fix/ocad-color-shares` from d48f4456; each share written as the decimal number that its float stands for, rounded to
-  seven significant digits and multiplied by 100 in decimal; the fields of the spot color separations of ticket 001 get
-  the same writing when the branch is merged into `feature/palette-stack`; and the test maps `wholestructure.ocd` and
-  `LordHill.ocd`.
+  wrote it as the draft [029](tickets/029-ocad-float-strings.md).
+- **The font sizes of the layout texts in ticket 029** (Nov 24). @Pauli asked the session to check the font size of a
+  layout text (`ImageTextSymbol.FontSize`), which the OCAD export writes in points as
+  `(FontSize / 25.4F * 72F).ToString(...)`, and then to record it in the same ticket. The check: in float arithmetic,
+  the round trip changes 10 of the whole point sizes from 1 to 100, for example 12 into `12.000002`. A temporary test
+  that is not committed read the layout texts of all the OCAD test maps: nine maps of OCAD 11, 12 and 2018 have texts
+  of 12 points, and the export writes them as `s12.000002` into OCAD 12 and OCAD 11 files, where the source files have
+  `s12`. The size in mm that the import reads back is the same. The choices of the session in the draft: the ticket
+  file `tickets/029-ocad-float-strings.md` and the branch `fix/ocad-float-strings` from d48f4456; each number written
+  as the shortest decimal number, of 1 to 9 significant digits, that the computation of the import reads back to the
+  same float, as rounding to seven significant digits writes 73 points as `72.99999`; the fields of the spot color
+  separations of ticket 001 get the same writing when the branch is merged into `feature/palette-stack`; and the test
+  maps `wholestructure.ocd`, `LordHill.ocd`, `layout_objects12.ocd` and `layout_objects11.ocd`.
 - **The structure of the PDF of NotPurplePen** (Nov 24). @Pauli: the PDF that NotPurplePen exports need not and should
   not be identical in structure with the PDF that OCAD exports. The session had read the structure of OCAD's PDF export
   of the sixth dash sample ([oracles/ocad-blend-modes.md](oracles/ocad-blend-modes.md)), and it was preparing the
