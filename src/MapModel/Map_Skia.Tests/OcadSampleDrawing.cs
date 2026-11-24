@@ -45,12 +45,15 @@ namespace Map_Skia.Tests
                 return new List<PointF>(recorder.filledEllipseCenters);
         }
 
-        // Draw an area of a map on a drawing target that keeps the polylines and the filled ellipses.
+        // Draw an area of a map on a drawing target that keeps the polylines and the filled ellipses. The palette colors are
+        // drawn with the old drawing code (RenderOptions.drawColorsDirectly), whose calls the target keeps, as a recording
+        // graphics target would defer them to pass 2 at its playback otherwise. The PDF graphics target draws with that
+        // code.
         static ShapeRecorder DrawArea(Map map, RectangleF area)
         {
             ShapeRecorder recorder = new ShapeRecorder();
             using (map.Read())
-                map.Draw(recorder, area, new RenderOptions() { minResolution = 0.01F, renderTemplates = RenderTemplateOption.MapOnly }, null);
+                map.Draw(recorder, area, new RenderOptions() { minResolution = 0.01F, renderTemplates = RenderTemplateOption.MapOnly, drawColorsDirectly = true }, null);
             recorder.EndRecording();
             return recorder;
         }

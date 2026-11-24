@@ -153,13 +153,15 @@ namespace Map_Skia.Tests
         }
 
         // The dashes of the line of a cell whose boundary is near the second vertex: the polylines of the width of the
-        // line, longer than 1 mm, whose start (for a dash that starts before the vertex) or end is within reach of it.
+        // line, longer than 1 mm, whose start (for a dash that starts before the vertex) or end is within reach of it. The
+        // palette colors are drawn with the old drawing code (RenderOptions.drawColorsDirectly), whose calls the recorder
+        // keeps.
         static List<PointF[]> DashesNearVertex(VertexCase cell)
         {
             RectangleF area = new RectangleF(cell.vertex.X - 3, cell.vertex.Y - 3, 6, 6);
             PolylineRecorder recorder = new PolylineRecorder();
             using (map.Read())
-                map.Draw(recorder, area, new RenderOptions() { minResolution = 0.01F, renderTemplates = RenderTemplateOption.MapOnly }, null);
+                map.Draw(recorder, area, new RenderOptions() { minResolution = 0.01F, renderTemplates = RenderTemplateOption.MapOnly, drawColorsDirectly = true }, null);
             recorder.EndRecording();
             List<PointF[]> dashes = recorder.polylines
                 .Where(polyline => Math.Abs(polyline.Key - cell.width) < 0.001F && Length(polyline.Value) > 1.0F)

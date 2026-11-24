@@ -725,7 +725,7 @@ namespace Map_Skia.Tests
         [Test]
         public void EachSymbolDefinitionHasAGeometryMethodOfItsOwn()
         {
-            Type[] parameters = new Type[] { typeof(Symbol), typeof(SymColor), typeof(CoveragePrototype) };
+            Type[] parameters = new Type[] { typeof(Symbol), typeof(SymColor), typeof(CoveragePrototype), typeof(float) };
             System.Reflection.BindingFlags flags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
             Assert.IsTrue(typeof(SymDef).GetMethod("MakeClippingObjects", flags, null, parameters, null).IsAbstract, "SymDef.MakeClippingObjects is abstract");
 
