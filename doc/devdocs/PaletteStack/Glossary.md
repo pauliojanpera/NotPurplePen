@@ -388,6 +388,21 @@ The section "Words that are not names" lists the words that are not used as name
   separation that have the same configuration. It cuts the uniform color of the palette color to the coverage that G
   under M gives inside the union of its clipping objects. Each palette color coverage of a symbol is in one palette
   cutter, and each palette cutter is in one palette separation.
+- **`AreaCluster`** (proposed name) · alueryväs · *area cluster* — The palette color coverages of one palette cutter of
+  a hatching or a clipped area pattern whose areas are connected: the bounding boxes of their areas overlap or touch,
+  directly or through other areas of the cluster. An area whose contours meet (`SymPathWithHoles.ContoursMeet`), or
+  that meets no other area of the palette cutter, is a cluster of its own. A palette cutter keeps its area clusters as
+  a derived value (`PaletteCutter.AreaClusters`, proposed name). The pattern of an area cluster is drawn once, in the
+  union of its areas, and the expansion of the coverage prototype goes over the bounding box of the cluster
+  (`SymbolCoverage.ExpandPrototype(RectangleF)`, proposed name). The term avoids "group", which is the transparency
+  group of a palette color. Ticket 028.
+- **`AreaCluster.Union`** (proposed name) · ryppään unioni · *union of an area cluster* — A clipping object: one
+  filled path with the nonzero rule (`AreaFillMode.Winding`) that holds all the contours of all the areas of the
+  cluster. A contour winds positively when an even number of the other contours of its area enclose it, and the other
+  way when an odd number do (`SymPathWithHoles.AddToUnionPathPartList`), so the nonzero rule fills of each area what
+  the even-odd rule fills of it alone, and no area cancels another. It is a derived value of the intermediate layer,
+  the same for all channels: each channel clips to it and fills it as any filled path. `fix/overlapping-patterns`
+  makes the same path in the old drawing (`OverlappingAreas.Group.GetUnionPathKey`).
 - **kokoonpano, samanlainen kokoonpano, normaalimuoto, perusalue, siirtosymmetria** · *configuration, equivalent
   configuration, normal form, fundamental domain, translation symmetry* — The palette color, G and the effective affine
   transformation M of a palette color coverage of a symbol. M comes from the `Symbol` and from G. The palette color
