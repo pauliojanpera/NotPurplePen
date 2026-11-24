@@ -237,6 +237,7 @@ These are @Pauli's rulings and the practice. The decisions of the SVG export's o
 ## Waiting on @Pauli
 
 
+- **The rules of a question in the code branches** (Nov 24). AGENTS.NotPurplePen.md on `docs/process-coordination` has the rules of a question to the developer ("Questions to the developer", 389c2d33), which @Pauli asked to move there from the glossary handover of the palette-stack work. The question: is `base` merged into `basewithfixes` and `dev` now, so that they get the rules at once, or does a commit on `base` do, which they get at their next merge of `base`? A merge now also brings into `dev` the check of the machine from a script file (67836a4f) and five merges of `basewithfixes`. In either way, the copy on `docs/process-coordination`, last changed on Oct 19, becomes the version of `base` with the rules, unless @Pauli proposes otherwise. The session recommends the commit on `base` alone.
 - **The descriptions of #56 and #57** (Nov 14). The rebase dropped #56's second commit, which upstream has since 1ed9e92, and the part of #57 that handles `ProcessExited`, which upstream's own conversion now does. The descriptions can still tell of them. These sessions cannot read or edit them: <https://github.com/petergolde/PurplePen/pull/56>, <https://github.com/petergolde/PurplePen/pull/57>.
 - **Delete the finished branches** (Nov 14). Nothing depends on them. This machine cannot delete branches. Run this on your machine:
 
