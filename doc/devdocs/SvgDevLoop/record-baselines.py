@@ -6,8 +6,11 @@ A Tests run of a wip/ branch uploads, for each bitmap comparison that failed, th
 the rendering-differences-<group> artifacts, whose root stands for src/ (fetch one with fetch-artifact.sh). Each
 rendering is written over the baseline of the same stem, whatever the baseline's image format: on the fix branch when
 the baseline is upstream's, as base keeps it, and on the wip branch otherwise, where base moved or added the image
-itself, as a fix rooted at upstream cannot hold base's images. A JPEG baseline gets the rendering encoded at quality
-100 with full chroma, keeping its resolution. The fix's root is where the fix meets base, the default base origin/base.
+itself, as a fix rooted at upstream cannot hold base's images. A baseline that only the fix branch holds, which the
+fix or the branch it is rooted at added, is written on the fix branch. A rendering whose stem has no baseline in base
+or on the fix branch is the first baseline of a new comparison, and is written on the fix branch as <stem>.png. A JPEG
+baseline gets the rendering encoded at quality 100 with full chroma, keeping its resolution. The fix's root is where
+the fix meets base, the default base origin/base.
 
 A test stops at the first image that differs, so a run finds one image a test at a time; a run of an experiment/
 branch on which BitmapTestUtil goes on past a failed comparison finds them all at once. Commit what this writes on
@@ -49,6 +52,7 @@ def main():
     upstream = images_by_stem(git(options.fix, "ls-tree", "-r", "--name-only", root, "--", "src").split("\n"))
     base = images_by_stem(git(options.fix, "ls-tree", "-r", "--name-only", options.base, "--", "src").split("\n"))
     moved = set(git(options.fix, "diff", "--name-only", root, options.base, "--", "src").split("\n"))
+    own = images_by_stem(git(options.fix, "ls-tree", "-r", "--name-only", "HEAD", "--", "src").split("\n"))
 
     counts = collections.Counter()
     for folder, _, files in os.walk(options.artifact):
@@ -57,16 +61,19 @@ def main():
                 continue
             rendering = os.path.join(folder, file)
             stem = "src/" + os.path.relpath(rendering, options.artifact)[:-len("_actual.png")].replace(os.sep, "/")
-            baselines = base.get(stem, [])
+            baselines = base.get(stem) or own.get(stem) or [stem + ".png"]
             if len(baselines) != 1:
-                print("left out:", stem, "has", baselines or "no baseline in base")
+                print("left out:", stem, "has", baselines)
                 counts["left out"] += 1
                 continue
             baseline = baselines[0]
-            on_wip = baseline in moved or stem not in upstream
-            target = os.path.join(options.wip if on_wip else options.fix, baseline)
-            counts["wip" if on_wip else "fix"] += 1
-            print("%s %s" % ("wip" if on_wip else "fix", baseline))
+            if stem in base:
+                kind = "wip" if baseline in moved or stem not in upstream else "fix"
+            else:
+                kind = "fix" if stem in own else "new"
+            target = os.path.join(options.wip if kind == "wip" else options.fix, baseline)
+            counts[kind] += 1
+            print("%s %s" % (kind, baseline))
             if options.dry_run:
                 continue
             if target.lower().endswith((".jpg", ".jpeg")):

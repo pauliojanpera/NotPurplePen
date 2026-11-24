@@ -270,7 +270,7 @@ base. No branch is offered upstream yet.
   fonts that `IsTextFaceInstalled` asks for. Of the 65, 29 have the hash of the Windows machine, and 36 are older
   versions of Arial, Calibri, Comic Sans MS, Courier New, Segoe UI, Tahoma and Times New Roman (Nov 23). A Skia
   comparison allows no difference, so a local rendering is no baseline: each baseline comes from a run in GitHub
-  Actions (`tools/push-wip.sh --collect`, or `--blank-baseline` for a new Skia test). The fontconfig file offers no
+  Actions (`tools/push-wip.sh --collect`). The fontconfig file offers no
   Roboto, as the Windows machine of the workflow has none ([014](tickets/014-basic-tests-private-fonts.md)).
 - **A collecting run and the run of the push.** A Tests run of a push waits for an earlier Tests run of the same commit
   and takes its result, and a collecting run does not fail on a moved image. So the collecting run of

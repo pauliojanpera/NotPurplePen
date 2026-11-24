@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# push-wip.sh [--base <branch>] [--collect] [--blank-baseline <test description>]... [--base-baselines <folder>]
+# push-wip.sh [--base <branch>] [--collect] [--base-baselines <folder>]
 #             <clone> <branch> [<wip name>]
 #
 # Rebuilds wip/linux/<name> as one merge commit of the base branch and the branch, and pushes it with a lease on
@@ -17,12 +17,6 @@
 # which the proxy of a cloud session refuses (@Pauli, Nov 23). The tree of the commit is the tree of the wip commit
 # apart from the workflow, so the images that it collects are the images of the wip commit.
 #
-# --blank-baseline names the description of a Skia rendering test (src/MapModel/TestFiles/skia_render/<name>.txt,
-# as a path in the repository) whose baseline does not exist yet. The Skia comparison leaves its rendering only
-# where a baseline exists, so one more commit, on the wip branch alone, gives the test a white baseline of the size
-# that the description gives. The test fails, and the artifact rendering-differences-skia holds the rendering as
-# <baseline>_actual.png, for record-baselines.py. Push again without the option for the run that counts.
-#
 # --base-baselines names a folder of baselines of base's own tests that the branch moves, at their paths in the
 # repository below the folder. A fix rooted at upstream cannot hold them, as base added or changed them itself, so one
 # more commit, on the wip branch alone, writes them in. They belong to the merge of the branch into base, which takes
@@ -37,18 +31,16 @@
 set -euo pipefail
 collect=0
 base=base
-descriptions=()
 base_baselines=
 while [ $# -gt 0 ]; do
     case "$1" in
         --base) base=$2; shift 2 ;;
         --collect) collect=1; shift ;;
-        --blank-baseline) descriptions+=("$2"); shift 2 ;;
         --base-baselines) base_baselines=$(cd "$2" && pwd); shift 2 ;;
         *) break ;;
     esac
 done
-[ $# -ge 2 ] || { echo "usage: push-wip.sh [--base <branch>] [--collect] [--blank-baseline <test description>]... [--base-baselines <folder>] <clone> <branch> [<wip name>]" >&2; exit 2; }
+[ $# -ge 2 ] || { echo "usage: push-wip.sh [--base <branch>] [--collect] [--base-baselines <folder>] <clone> <branch> [<wip name>]" >&2; exit 2; }
 cd "$1"
 feature=$2
 name=${3:-${feature##*/}}
@@ -75,31 +67,6 @@ fi
 
 commit=$(git commit-tree "$tree" -p "$remote/$base" -p "$remote/$feature" \
          -m "Merge $feature into $base, for a full run" "${news[@]}")
-
-if [ ${#descriptions[@]} -gt 0 ]; then
-    index=$(mktemp)
-    rm -f "$index"
-    GIT_INDEX_FILE=$index git read-tree "$commit"
-    for description in "${descriptions[@]}"; do
-        # Line 2 of the description names the baseline beside it, and line 4 gives the size, as width,height.
-        baseline=$(dirname "$description")/$(git show "$commit:$description" | sed -n 2p | tr -d '\r')
-        size=$(git show "$commit:$description" | sed -n 4p | tr -d '\r')
-        blob=$(python3 -I -c '
-import io, sys
-from PIL import Image
-width, height = (int(v) for v in sys.argv[1].split(","))
-data = io.BytesIO()
-Image.new("RGBA", (width, height), (255, 255, 255, 255)).save(data, "PNG")
-sys.stdout.buffer.write(data.getvalue())
-' "$size" | git hash-object -w --stdin)
-        GIT_INDEX_FILE=$index git update-index --add --cacheinfo "100644,$blob,$baseline"
-        echo "blank baseline $baseline ($size)"
-    done
-    blank_tree=$(GIT_INDEX_FILE=$index git write-tree)
-    rm -f "$index"
-    commit=$(git commit-tree "$blank_tree" -p "$commit" -m "Give the new Skia rendering tests blank baselines, on this run only" \
-             -m "The Skia comparison leaves its rendering only where a baseline exists." "${news[@]}")
-fi
 
 if [ -n "$base_baselines" ]; then
     index=$(mktemp)

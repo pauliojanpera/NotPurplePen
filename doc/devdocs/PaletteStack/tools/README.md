@@ -31,7 +31,7 @@ Python 3 with Pillow, git, the GitHub CLI signed in to the repository, and the .
 - `run-map-tests.sh` builds `LinuxMapModelTestRun` in an integration worktree and runs the tests that a filter
   selects.
 - `push-wip.sh` rebuilds and pushes the `wip/linux/` branch of a branch for a full run on `base`, or on another base
-  branch that `--base` names, and can collect the moved images or give a new Skia test a blank baseline. It pushes
+  branch that `--base` names, and can collect the moved images. It pushes
   the collecting run to `experiment/collect-<name>`, on a commit whose `tests.yml` makes its tests collect, so it
   needs no write of the GitHub API. Its commits list the ten branches merged into the branch last, which the site
   shows with a trial build.
@@ -71,9 +71,9 @@ Python 3 with Pillow, git, the GitHub CLI signed in to the repository, and the .
    added or changed the baseline for a test of its own, and the change moves it, the image belongs to the merge of the
    branch into `base`: keep it in `../prs/<ticket>-base/`, at its path in the repository below that folder, and
    give `push-wip.sh` the option `--base-baselines` with that folder at each push.
-   A new Skia rendering test has no baseline to move: push with `--blank-baseline` for its description, and copy
-   `<baseline>_actual.png` from the artifact `rendering-differences-skia` of the push's Tests run to the baseline.
-   Skia's comparisons allow no difference, so a rendering made on this machine is no baseline.
+   A new comparison has no baseline: the collecting run leaves its rendering as `<baseline>_actual.png`, which
+   `record-baselines.py` writes on the feature branch as `<baseline>.png`. Skia's comparisons allow no difference,
+   so a rendering made on this machine is no baseline.
 5. Commit the baselines on the feature branch, push it, and `push-wip.sh` again. The ticket is done when that push's
    Tests run passes.
 
