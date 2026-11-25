@@ -1280,6 +1280,9 @@ namespace PurplePen.MapModel
         double horizontalResolution = 96;
         double verticalResolution = 96;
 
+        // The JPEG data the bitmap was decoded from, kept until a graphics target may draw on its pixels; else null.
+        byte[] originalData;
+
         public SKBitmap Bitmap
         {
             get { return bitmap; }
@@ -1316,6 +1319,12 @@ namespace PurplePen.MapModel
             return originalFormat;
         }
 
+        // Get the JPEG data the bitmap was decoded from, while its pixels are those of the data; else null.
+        public byte[] GetOriginalData()
+        {
+            return originalData;
+        }
+
         public Color GetPixel(int x, int y)
         {
             SKColor color = bitmap.GetPixel(x, y);
@@ -1341,6 +1350,10 @@ namespace PurplePen.MapModel
 
         public IBitmapGraphicsTarget GetGraphicsTarget(bool copyBits, IColorConverter colorConverter = null)
         {
+            // The target may draw on this bitmap's pixels, which then are no longer those of the data it was decoded
+            // from.
+            originalData = null;
+
             SKBitmap newBitmap;
             if (copyBits) {
                 // Create a new bitmap to draw on, and copy the pixmap content to it.
@@ -1427,6 +1440,15 @@ namespace PurplePen.MapModel
             this.originalFormat = originalFormat;
             this.horizontalResolution = horizontalResolution;
             this.verticalResolution = verticalResolution;
+        }
+
+        // Create a bitmap of what BitmapIO decoded: its pixels, format and resolution, with the JPEG data it was decoded
+        // from, if BitmapIO kept that.
+        // decoded: what BitmapIO decoded.
+        public Skia_Bitmap(BitmapWithResolution decoded)
+            : this(decoded.Bitmap, decoded.Format, decoded.HorizontalResolution, decoded.VerticalResolution)
+        {
+            originalData = decoded.OriginalData;
         }
     }
 
@@ -1565,8 +1587,7 @@ namespace PurplePen.MapModel
 
         public IGraphicsBitmap ReadBitmapFromStream(Stream stream)
         {
-            BitmapWithResolution bwr = BitmapIO.ReadBitmapFromStream(stream);
-            return new Skia_Bitmap(bwr.Bitmap, bwr.Format, bwr.HorizontalResolution, bwr.VerticalResolution);
+            return new Skia_Bitmap(BitmapIO.ReadBitmapFromStream(stream));
         }
     }
 

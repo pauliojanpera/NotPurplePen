@@ -45,7 +45,8 @@ namespace PurplePen.MapModel
 
         /// <summary>
         /// Load a bitmap from encoded image data (JPEG, PNG, TIFF, etc.). Uses BitmapIO, which falls back to
-        /// ImageSharp for formats Skia can't decode (e.g., TIFF) and preserves the image resolution.
+        /// ImageSharp for formats Skia can't decode (e.g., TIFF) and preserves the image resolution, and the data
+        /// of a JPEG as the bitmap's original data.
         /// </summary>
         /// <param name="data">The encoded image data.</param>
         /// <returns>The loaded bitmap, or null if the data can't be decoded.</returns>
@@ -65,7 +66,7 @@ namespace PurplePen.MapModel
                 return null;
             }
 
-            return new Skia_Bitmap(bwr.Bitmap, bwr.Format, bwr.HorizontalResolution, bwr.VerticalResolution);
+            return new Skia_Bitmap(bwr);
         }
 
         public FileKind CheckFileKind(string path)

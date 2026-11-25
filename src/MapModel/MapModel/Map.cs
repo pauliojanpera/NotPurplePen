@@ -689,6 +689,19 @@ namespace PurplePen.MapModel
             }
         }
 
+        // The EPSG code of the coordinate system, however the map names it: the code it was given, or the code of its
+        // OCAD grid and zone, or 0 when it has neither. Epsg holds only a code the map was given.
+        public int CoordinateSystemEpsg
+        {
+            get
+            {
+                if (epsg != 0)
+                    return epsg;
+                else
+                    return OcadToProj4Projection.EpsgCodeFromOcadProjectionId(realWorldGridAndZone);
+            }
+        }
+
         // The string that the Proj4 libraries used to identify a projection.
         public string Proj4String
         {
@@ -2654,12 +2667,14 @@ namespace PurplePen.MapModel
 
         // Draw a particular color layer. If curColor is ImageColor or LayoutColor, draw the image layer or Layout layer.
         // This is the old drawing of a palette color, which calls the drawing code of each symbol (Symbol.Draw). It draws
-        // the image layer and the layout layer, and the palette colors on a graphics target that gives no encoding.
+        // the image layer and the layout layer, and the palette colors on a graphics target that gives no encoding. A target
+        // that keeps the structure of what it draws is told where each object begins and ends.
         private void DrawColor(IGraphicsTarget g, SymColor curColor, RectangleF rect, RenderOptions renderOpts, Action throwOnCancel)
         {
             int symbolsDrawn = 0;
             bool anySymbolsDrawn = false;
             bool mustPopBlending = false;
+            IStructuredGraphicsTarget structuredTarget = g as IStructuredGraphicsTarget;
 
             //TraceLine("Drawing color {0}", curColor.Name ?? "special layer");
 
@@ -2688,7 +2703,11 @@ namespace PurplePen.MapModel
                                 }
                                 
                                 //TraceLine("Drawing symbol with definition '{0}' and bounds ({1},{2})-({3},{4})", symdef.Name, bounds.Left, bounds.Top, bounds.Right, bounds.Bottom);
+                                if (structuredTarget != null)
+                                    structuredTarget.BeginObject(curSym, symdef, symdef.SymbolId, symdef.Name);
                                 curSym.Draw(g, curColor, renderOpts);
+                                if (structuredTarget != null)
+                                    structuredTarget.EndObject();
                                 ++symbolsDrawn;
                                 anySymbolsDrawn = true;
 
@@ -2814,10 +2833,17 @@ namespace PurplePen.MapModel
                 renderOptsNew.colorBeginDrawExclusive = null;
                 renderOptsNew.colorEndDrawInclusive = null;
 
-                // Draw from bottom to top.
+                // Draw from bottom to top. A target that keeps the structure of what it draws labels each template
+                // with its file name.
+                IStructuredGraphicsTarget structuredTarget = g as IStructuredGraphicsTarget;
                 for (int i = loadedTemplates.Count - 1; i >= 0; --i) {
-                    if (loadedTemplates[i] != null && loadedTemplates[i].DrawAboveMap == aboveMap)
+                    if (loadedTemplates[i] != null && loadedTemplates[i].DrawAboveMap == aboveMap) {
+                        if (structuredTarget != null)
+                            structuredTarget.BeginMap(loadedTemplates[i], System.IO.Path.GetFileName(templates[i].absoluteFileName));
                         loadedTemplates[i].Draw(g, rect, renderOptsNew, throwOnCancel, templateRecursionCount);
+                        if (structuredTarget != null)
+                            structuredTarget.EndMap();
+                    }
 
                     if (throwOnCancel != null)
                         throwOnCancel();
@@ -3295,6 +3321,10 @@ namespace PurplePen.MapModel
         // An internal option of the tests: if true, the palette colors are drawn with the old drawing code (Map.DrawColor)
         // also on a graphics target that gives an encoding, as the oracle of the coverage comparison.
         internal bool drawColorsDirectly;
+
+        // if true, every area draws its own hatchings and patterns, even where areas of its symbol overlap, as they
+        // are drawn for a reader that cannot fill an area with a pattern (S-7).
+        public bool patternsWithEachArea;
 
         public RenderOptions Clone()
         {
