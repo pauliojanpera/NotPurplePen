@@ -766,6 +766,12 @@ one, and the later one says so. [Handover.md](Handover.md) gives the decisions t
   OCAD's blend modes and opacity ("More tests of OCAD's blend modes"). Purple Pen writes the samples, @Pauli gives their
   views in OCAD and their PDF exports, and the session measures the structure of each PDF and writes the oracle
   `oracles/ocad-blend-modes.md`. The ticket changes no code, and it comes before the ticket of the PDF encoding.
+- **The edge pixels where the parts of a symbol meet** (Nov 25, on the draft 030). The Skia encoding and the base
+  form of the SVG draw each clipping object apart. So at a pixel where the edges of two parts of one symbol in one
+  palette color meet, the coverages compose to 1 - (1 - a)(1 - b), and not to the coverage of their union. The
+  transparency group does not change this, as it happens inside the group. @Pauli: "Ei tarvitse korjata. Voit
+  kirjata tästä asiasta, että tämän seikan oletetaan olevan täysin merkityksetön." These pixels are not repaired,
+  and the matter is assumed to be wholly insignificant.
 - **The two forms of the SVG** (Nov 25, question 8 of the draft 030). @Pauli asked whether the SVG can have two
   forms: the unions of the cutters directly at hand for the flattening, with the outlines designed and built, and in
   the base case the map encoded with separate cutters, which saves the hit layer when no flattening is needed. To the

@@ -120,6 +120,8 @@ decisions of the process are in force. [Record.md](Record.md), "Decisions", give
 - **The back-references of the drawn objects.** Each drawn object refers back to its palette color coverage, and
   through it to its symbol, its palette color, its coverage prototype and its map, as the specification and the
   decisions of Nov 20 and 21 give it (@Pauli, Nov 25).
+- **The edge pixels where the parts of a symbol meet** are not repaired in the Skia encoding and in the base form of
+  the SVG. They are assumed to be wholly insignificant (@Pauli, Nov 25).
 - **The runs of dashes and the repeated placements in SVG.** In the base form, a run of dashes is one path with
   `stroke-dasharray` and `stroke-dashoffset`, and a repeated placement is a group with a `<use>` of the shared shapes
   of the glyph at each pose. The setting for a reader that cannot fill an area with a pattern also writes the runs

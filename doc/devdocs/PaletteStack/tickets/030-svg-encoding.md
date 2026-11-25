@@ -153,6 +153,9 @@ sisältöineen on oma tikettinsä tämän jälkeen.
     leikkauspolku on leikkurin unioni, ja viivamuodot ja katkot ovat siinä kynänjälkinä. Peitto on unioni.
     Unionimuoto ja kynänjälki ovat oma tikettinsä tämän jälkeen, jotta kummankin muodon muutokset tarkistetaan
     erikseen.
+  - Reunapikselit, joissa yhden symbolin saman palettivärin osien reunat kohtaavat, saavat perusmuodossa peiton
+    1 − (1 − a)(1 − b) eivätkä unionin peittoa. Niitä ei korjata, ja seikan oletetaan olevan täysin merkityksetön
+    (@Pauli, 25.11., "The edge pixels where the parts of a symbol meet").
   - Piirrosobjekteista on taaksepäinviittaukset karttaan, kuten on sovittu (@Pauli, 25.11.; päätökset
     "Self-supporting vector files" 20.11. ja "The symbol key" 21.11.).
   - SVG:n rakenne heijastaa `Map`in rakenteita mahdollisimman suoraan, ja rakenteet on mietitty SVG-tiedostomuodon
