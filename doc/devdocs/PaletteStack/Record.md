@@ -140,6 +140,7 @@ base. No branch is offered upstream yet.
 
 | Branch | Ticket and description | State |
 | --- | --- | --- |
+| `feature/svg-encoding` | [030](tickets/030-svg-encoding.md), [description](prs/030-svg-encoding.md) | Rooted at `dev` (b0221bdff), not merged. 36c21261d brings the SVG export of `feature/svg-target` (1088d1295) without its history, 943a951d7 writes the palette colors into SVG with the SVG encoding (`SvgEncoding`), e9d66b9e9 names the setting for separate shapes, 013cbb70d, bd0c94c3f, 6e5aaab61 and c04f1fb49 record the comparison references, the export baselines, the numbers of the browser check and the JPEG baselines that move, 1ca7a4ab3 lets the Skia target decide whether its encoding draws with pattern brushes, 969f20236 registers the Roboto faces wherever the rendering tests draw text in them, and 595344c55 adds a structure test. Full run passed at c04f1fb49 (`wip/linux/svg-encoding` at 8a3c46688, with `--base dev`: Tests 45630399861, Build 45630399925), and its SVG loop 45630366944 gave 881 passed, 0 failed, 2 pending and 16 set apart for a browser. The criteria are met, except "Kuvat ja baselinet", whose causes wait on a question to @Pauli, and "Toimitettava sovellus", whose try of the trial package waits on @Pauli. "The choices of the session in the implementation of ticket 030" gives the choices. |
 | `dev-next` | The new dev ("The new basewithfixes and the new dev", "The revert of the overlapping patterns in basewithfixes") | Assembled on Nov 25 from the new `basewithfixes` (78bc360b1). It merges `base` (9a285b04a: `ci/machine-check-script` and `ci/collect-mode-comparisons`, without a conflict) and `feature/palette-stack` (ceee1fef5, at 0d2148b3: 67 conflicts, all baselines, which take the version of the palette stack). It records the three baselines of base's own tests in `prs/000-palette-stack-base` (4f51ead57), and the 71 baselines of the collecting run 45501113183 (a777b4aab: 22 in `skia_render`, and 49 in `courseprinting`, `bitmapcreate` and `routegadget`, one of them the JPEG of Course 1). Full run passed at a777b4aab (`wip/linux/dev-next`: Tests 45503251403, Build 45503251564; Skia 807, MapModel 418, PurplePen 1286, PDF 134, WPF 76 tests). On @Pauli's word (Nov 25) the old `dev` was merged into it with the strategy `ours` (b0221bdff), which keeps its tree, and `dev` moved forward to that merge: `dev` is the new dev. |
 | `basewithfixes` | The new `basewithfixes` ("The revert of the overlapping patterns in basewithfixes") | 78bc360b1 reverts the merge of `fix/overlapping-patterns` (ef5cd9cd2). Pushed on Nov 25 after its full run (`wip/linux/basewithfixes-revert` at 78bc360b1: Tests 45500838282, Build 45500838256; Skia 252, MapModel 341, PurplePen 1270, PDF 134, WPF 76 tests). |
 | `feature/palette-cutter-patterns` | [028](tickets/028-palette-cutter-patterns.md), [description](prs/028-palette-cutter-patterns.md) | All criteria met. Full run passed at 1530dabd (`wip/linux/palette-cutter-patterns` at f9ab3e68, on `base`, with `--base-baselines prs/000-palette-stack-base`: Tests 45402806490, Build 45402806370). 8e382fcf draws the pattern of an area cluster of several areas once, in the union of its areas, and 1530dabd records the baselines of the collecting run 45400058882: 9 moved images of the group Skia, 28 of the group PurplePen, and the first baselines of `OverlappingMarshes` and `OverlappingMarshes2`. Separated from ticket 010 ("The pattern fills of ticket 010 in the union of their areas"). Rooted at `feature/palette-composition` (1b282046). In `feature/palette-composition` (bc9a4800). |
@@ -817,6 +818,59 @@ one, and the later one says so. [Handover.md](Handover.md) gives the decisions t
     uniting them reads the areas directly; one path does not tell which contours belong to which area where areas
     overlap. The union form writes the coverage of a palette color as a clipping path with a child for each filled
     shape. No flattening was run on either form, and the code of Skia's operations was not examined.
+- **The choices of the session in the implementation of ticket 030** (Nov 25). By the rule "The session resolves
+  matters", the session that made 36c21261d to 595344c55 chose these, which the ticket gives under "Toteutus":
+  - The import is one commit (36c21261d), whose message lists the 86 commits of `feature/svg-target` whose work it
+    brings and how each conflict with `dev` was resolved.
+  - The place of a coverage prototype (`data-g`) is `hatching.<index>` or `pattern.<index>`, after the index of the
+    component definition at each level of a combination, the outermost first, each followed by a period: for example
+    `2.0.hatching.0`.
+  - The course data describes a course object by the text form of its key (`npp:object key="control.1.0.0"`), which
+    the symbol keys of its symbols carry with an index (`control.1.0.0/0`, ticket 026).
+  - A clipping object tells whether it is a shared shape of a glyph (`ClippingObject.IsSharedShape`), and
+    `WithPlacement` keeps it: the encoding writes a use of the shared shapes, and a new shape, such as an arc of a
+    circle with gaps, as an element. An area cluster gives its palette cutter (`AreaCluster.PaletteCutter`), as the
+    configuration of its pattern fill is that of the cutter.
+  - Pass 2 gives a transparency group the pattern brushes that the options ask for (`RenderOptions.usePatternBitmaps`,
+    `TransparencyGroup.UsePatternBrushes`), and the Skia encoding draws a pattern brush where its target supports one
+    (`Skia_GraphicsTarget.SupportsPatternBrushes`, on by default). Pass 2 first asked the graphics target too
+    (`IGraphicsTarget.SupportsPatternBrushes`), and `PaletteStackTests.Pass2DoesNotCallTheDrawingCodeOfTheSymbols`
+    found these calls in the full run of bd0c94c3f (1ca7a4ab3).
+  - The configuration of a palette cutter refers to its definition with the transformation M of the first palette
+    color coverage of the cutter that the document writes, and for an area pattern with M · T(-offset). The normal form
+    of M, rounded, scaled the pattern (`rotate(45)scale(1.00000032)`). The digits of its transform are those that its
+    tile and the areas that it paints need (S-2), and not those of 8 m: the reach (`SvgPattern.Reach`) is the tile of
+    the definition, extended over the bounds of each area that the configuration paints, in the frame of the
+    definition (`SvgPattern.ExtendReachOver`).
+  - A filled element carries `stroke:none` and a stroked one `fill:none`, as the transparency group carries C as both
+    its fill and its stroke. A style that elements share does not go onto a group around a group whose own style
+    declares one of its properties. The group of a repeated placement carries no style and merges with no other
+    group.
+  - A group that opens outside an object closes the open group of a symbol definition, which the end of a run of a
+    color closed before the runs gave way.
+  - The definition of a hatching holds its lines y = k · spacing whose stripes reach into the square tile as wide as
+    the spacing, each from a spacing before the middle of the tile to a spacing after it, so that the tiles join
+    without a seam.
+  - The reference image of a comparison case is the Skia encoding's drawing of the case's recording, with its clips
+    anti-aliased (`Skia_GraphicsTarget.AntiAliasesClips`, off by default), as Chromium anti-aliases a clip path. The
+    Skia target of a map case's reference image supports no pattern brushes, so the Skia encoding draws the patterns
+    of a map as vectors there: its raster pattern brushes gave moiré against Chromium's patterns (291 pixels in
+    `teanwest`).
+  - The geometry check (V-10) describes the palette colors from the intermediate layer, as the ticket asks:
+    `CallGeometryRecorder` gives the encoding that describes each transparency group. It compares a dash pattern in
+    steps of the frame of its element, where the document rounds it to a thousandth of a step: on the page, the
+    rounding of the transforms above it made a length of 1 680 steps differ by up to 0.003 steps.
+  - The record of a symbol definition (`npp:symbol`) lists the palette colors in which the encoding writes one of its
+    coverages.
+  - The structure test of the dashes of an offset path uses `cutdoublesides9.ocd`: of the maps of `skia_render`, only
+    `cutdoublesides6.ocd`, `cutdoublesides9.ocd` and `Ormeau Map 5000 OCAD9.ocd` have them.
+  - The rendering tests register the Roboto faces in each class that draws text in them
+    (`RenderingTests.RegisterRobotoFonts`), and `FixedFontSetTests`, which the import brought, registers them again
+    after it clears the private fonts (969f20236). In the full run of bd0c94c3f, `RobotoTest` differed from its
+    baseline in 774 pixels of texts.
+  - The setting for separate shapes keeps its resource key, which the ticket names
+    (`CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text`), and the name of its control in the dialog. Its
+    identifiers get the name that the ticket proposes (`DrawAreaPatternsAndDashesAsSeparateShapes`, e9d66b9e9).
 - **The two forms of the SVG** (Nov 25, question 8 of the draft 030). @Pauli asked whether the SVG can have two
   forms: the unions of the cutters directly at hand for the flattening, with the outlines designed and built, and in
   the base case the map encoded with separate cutters, which saves the hit layer when no flattening is needed. To the

@@ -42,20 +42,20 @@ old `dev` merged with the strategy `ours` into `dev-next`, whose tree it keeps (
 (`wip/linux/dev-next`: Tests 45503251403, Build 45503251564; [Record.md](Record.md), "Branches").
 
 Ticket [030](tickets/030-svg-encoding.md), the SVG export in the new dev with the base form of the SVG encoding, is
-approved (Nov 25) and not made.
+made on `feature/svg-encoding` (595344c55), rooted at `dev` (b0221bdff) and not merged. Its full run passed at
+c04f1fb49, and the ticket gives its runs under "Toteutus". All its criteria are met, except "Kuvat ja baselinet" and
+"Toimitettava sovellus", which wait on @Pauli (see below). Its full runs go on `wip/linux/svg-encoding` with
+`--base dev`, and its SVG loop on `svg/svg-encoding` (`../SvgDevLoop/README.md`).
 
 Ticket [029](tickets/029-ocad-float-strings.md), the CMYK shares and the font sizes of the layout texts that the OCAD
 export writes with the error of the float computation, is approved. It is not made now, as it does not affect the
 work that is under way (@Pauli, Nov 24).
 
-The fixes 006 and 014 are on branches of their own, and no part needs them. The tickets 005, 007 and 008 are replaced
-by 023 to 026, and the old branch of the epic, `feature/palette-layers`, keeps their pass 1.
-
 ## Next steps
 
-1. Make ticket [030](tickets/030-svg-encoding.md), the SVG export in the new dev with the base form of the SVG
-   encoding. Its branch `feature/svg-encoding` is rooted at `dev` (b0221bdff). Its full runs go on
-   `wip/linux/svg-encoding` with `--base dev`, and its SVG loop on `svg/svg-encoding` (`../SvgDevLoop/README.md`).
+1. Finish ticket [030](tickets/030-svg-encoding.md) when @Pauli answers: amend or mark the criterion "Kuvat ja
+   baselinet" as he decides, and mark "Toimitettava sovellus" when he has tried the export from the trial package.
+   The merge of `feature/svg-encoding` into `dev` is his.
 2. The ticket of the union form of the SVG and of the stroke shape is made next after ticket 030 ("The union form
    next"). It is not written. Ask its questions early, among them how `Map` offers the stroke shape: MapModel does not
    refer to Skia, which reaches the export only through `Services`.
@@ -73,6 +73,9 @@ A draft is implemented only after @Pauli approves it as a ticket.
 
 ## Waiting on @Pauli
 
+- **Ticket 030.** The session asked whether the criterion "Kuvat ja baselinet" changes (Nov 25): it does not name the
+  changes of the old drawing in the new dev since 1088d1295, which move most of the references. The export from the
+  trial package `trial-svg-encoding` is not tried. The merge of `feature/svg-encoding` into `dev` is @Pauli's.
 - **The scope of the epic.** [Ticket 000](tickets/000-palette-stack.md) is a draft. The transparency flattening is
   outside it. @Pauli returns to it later (Nov 25).
 - **Offering upstream.** No branch is offered upstream yet. @Pauli returns to it later (Nov 25).

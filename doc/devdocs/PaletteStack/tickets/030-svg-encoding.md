@@ -16,7 +16,7 @@ palettivärien polkua karttakoodissa ei tuoda. Testit tarkistavat SVG:n Chromium
 vastaan. Vektoritiedostojen yhteinen rakenne `Map`in sisältöineen on oma tikettinsä tämän jälkeen.
 
 **Hyväksymiskriteerit**
-- [ ] Tuonti: haara tuo uuteen deviin SVG-työn tilasta 1088d1295 (`feature/svg-target` ennen haaran
+- [x] Tuonti: haara tuo uuteen deviin SVG-työn tilasta 1088d1295 (`feature/svg-target` ennen haaran
   `feature/multiply-blending` yhdistämistä) ne osat, jotka jäävät:
   - `Map_Svg`: dokumentti ja sen solmut, numerot, tyylit, värit ICC-profiileineen, fontit osajoukkoineen, tekstit,
     kuvat, JPEG-data ja pakkaus.
@@ -34,20 +34,20 @@ vastaan. Vektoritiedostojen yhteinen rakenne `Map`in sisältöineen on oma tiket
     testit, jotka koskevat näitä osia.
 
   Haaran `feature/svg-target` historiaa ei yhdistetä: osat tulevat uusina committeina (ks. "Ratkaisut").
-- [ ] Mikä ei tule: `Map.DrawColor`in värin ryhmä (`BeginColorRun`), karttakoodin vektorisiveltimet aluekuvioille ja
+- [x] Mikä ei tule: `Map.DrawColor`in värin ryhmä (`BeginColorRun`), karttakoodin vektorisiveltimet aluekuvioille ja
   viivoituksille (`AreaSymDef`: `HatchingIsFilledWithBrush`, `CreateHatchBrush`, `FillInPatternFrame`), päällekkäisten
   alueiden ääriviivat ja unioni (`DrawOutline`, `DescribeUnion` ja `OverlappingAreas`in muutokset), kuviosiveltimen
   kiertokeskus vanhassa piirrossa (b217b9ddd), tietue siitä, mikä rataobjekti lisäsi kunkin ratakartan symbolin
   (711e089f9), ja haara `feature/multiply-blending`. `IStructuredGraphicsTarget`ista poistuvat kutsut, jotka
   palettipino korvaa: `BeginColorRun`, `EndColorRun`, `DrawOutline` ja `DescribeUnion`.
-- [ ] SVG:n koodaus (`SvgEncoding`, ehdotettu nimi): `Svg_GraphicsTarget` on `IPaletteStackEncodingProvider` ja antaa
+- [x] SVG:n koodaus (`SvgEncoding`, ehdotettu nimi): `Svg_GraphicsTarget` on `IPaletteStackEncodingProvider` ja antaa
   koodauksen, joka kirjoittaa palettivärin läpinäkyvyysryhmän (`WriteTransparencyGroup(TransparencyGroup)`) samaan
   `SvgDocument`iin. Koodaus ja piirtokohde jakavat dokumentin, sen avoimen osan ja kartan sekä muunnokset ja
   leikkaukset, kuten Skian koodaus ja piirtokohde jakavat `SKCanvas`in (tiketti 010). Ryhmä on `<g>`, jolla on
   palettivärin asema kartan väritaulukossa (`data-c`) kuten värin ryhmällä nyt, peittävyys α (`opacity`), kun α on alle
   1, ja sekoitustila B (`mix-blend-mode`), kun B ei ole Normal (speksin luku 04, "The SVG channel"). Ryhmää ei
   yhdistetä naapureihinsa. Pohjakartat, kuvataso ja asettelutaso piirtyvät `Svg_GraphicsTarget`ille kuten nyt.
-- [ ] Ryhmän sisältö (perusmuoto, @Pauli, 25.11., kysymys 8): läpinäkyvyysryhmä kantaa palettivärin värin C
+- [x] Ryhmän sisältö (perusmuoto, @Pauli, 25.11., kysymys 8): läpinäkyvyysryhmä kantaa palettivärin värin C
   tyylinään, ja koodaus kirjoittaa kunkin symbolin palettiväripeiton omina elementteinään palettierottelun
   järjestyksessä kuten Skian koodaus. Elementit perivät värin ryhmältä. Täyden peiton leikkausobjektit koodaus
   kirjoittaa piirron resoluutiolla (`SymbolCoverage.GetClippingObjects(float)`) sijoitustensa sisäkkäisillä
@@ -55,7 +55,7 @@ vastaan. Vektoritiedostojen yhteinen rakenne `Map`in sisältöineen on oma tiket
   ja tekstijuosteen (`TextShape`) tekstinä upotetuin fontein ja muotoilluin merkkien paikoin. Muodot se kirjoittaa
   samoina SVG:n elementteinä ja tyyleinä kuin `Svg_GraphicsTarget` kirjoittaa vanhan piirron vastaavat muodot.
   Selaimen osumatesti osuu symbolin omaan elementtiin, joten perusmuoto ei tarvitse osumakerrosta.
-- [ ] Viittaukset karttaan: jokainen piirrosobjekti viittaa palettiväripeittoonsa ja sen kautta symboliinsa,
+- [x] Viittaukset karttaan: jokainen piirrosobjekti viittaa palettiväripeittoonsa ja sen kautta symboliinsa,
   palettiväriinsä, peittoprototyyppiinsä ja karttaansa tiedoston hierarkialla ja tunnisteilla (speksin luku 04, "The
   drawn objects and the files"; päätökset "Self-supporting vector files" 20.11. ja "The symbol key" 21.11.; @Pauli
   25.11.). Viittaukset ovat:
@@ -75,7 +75,7 @@ vastaan. Vektoritiedostojen yhteinen rakenne `Map`in sisältöineen on oma tiket
   samoin symboliensa avaimet (`BeginObject`). Viittausten kohteet ovat `Map`in tunnisteita: symbolin avain, palettivärin
   asema väritaulukossa, symbolimäärittely ja prototyypin paikka siinä. `Map`in sisältö niiden takana on toinen
   SVG-tiketti.
-- [ ] Toistuvat rakenteet: SVG:n rakenne heijastaa `Map`in rakenteita mahdollisimman suoraan (@Pauli, 25.11., myös
+- [x] Toistuvat rakenteet: SVG:n rakenne heijastaa `Map`in rakenteita mahdollisimman suoraan (@Pauli, 25.11., myös
   kysymys 7).
   - Glyyfin jaetut muodot palettivärissä koodaus määrittelee kerran (`<defs>`), ja kukin sijoitus viittaa niihin
     (`<use>`). Sijoituksen sisäkkäiset affiiniset muunnokset (`Placement.Steps`) se kirjoittaa SVG:n muunnoslistana
@@ -88,7 +88,7 @@ vastaan. Vektoritiedostojen yhteinen rakenne `Map`in sisältöineen on oma tiket
   - Siirretyn polun (`OffsetPathShape`) koodaus kirjoittaa siirrettynä käyränä, koska SVG:llä ei ole siirtymää. Sen
     katkot se kirjoittaa yksittäisinä katkoina (`StrokedShape.ExpandDashes`), koska siirretyn polun katkokuvio mitataan
     peruspolkua pitkin ja SVG mittaa katkokuvion elementin omaa polkua pitkin.
-- [ ] Kuviotäytöt:
+- [x] Kuviotäytöt:
   - Viivoituksen ja säännöllisen leikatun aluekuvion koodaus kirjoittaa kuviotäyttönä (`<pattern>`), kun ryhmä käyttää
     kuviosiveltimiä (`TransparencyGroup.UsePatternBrushes`). Peittoprototyyppi (`HatchingPrototype`,
     `AreaPatternPrototype`) on määrittely, joka on origoon sidottu ja yksivärinen ja jonka aukot jäävät maalaamatta, ja
@@ -101,29 +101,29 @@ vastaan. Vektoritiedostojen yhteinen rakenne `Map`in sisältöineen on oma tiket
     sisään kuten Skian koodaus. Samoin se kirjoittaa kaikki kuviotäytöt asetuksella erillisille muodoille (ks.
     seuraava kriteeri), ja silloin kukin alue kirjoittaa oman laajennuksensa oman alueensa leikkaukseen eikä ryppään
     unioniin (ks. "Ratkaisut").
-- [ ] Asetus erillisille muodoille: viennin asetus, jonka teksti on nyt "Draw area patterns as separate shapes"
+- [x] Asetus erillisille muodoille: viennin asetus, jonka teksti on nyt "Draw area patterns as separate shapes"
   (`CourseSvgSettings.DrawAreaPatternsAsSeparateShapes`), kirjoittaa kuviotäytöt laajennuksina ja katkojuosteet katko
   kerrallaan (`StrokedShape.ExpandDashes`) lukijalle, joka ei osaa täyttää aluetta kuviolla eikä piirtää katkokuviota
   (@Pauli, 25.11., kysymys 7). Toistosijoitukset ovat `<use>`-ryhmiä myös asetuksella. Asetuksen teksti dialogissa on
   "Draw area patterns and dashed lines as separate shapes", ja teksti muuttuu `UIText.resx`:ssä ja sen 27
   käännöksessä (`CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text`). Asetuksen tunnisteet saavat
   vastaavat nimet (`DrawAreaPatternsAndDashesAsSeparateShapes`, ehdotettu nimi).
-- [ ] Päällepainatustila: SVG-vienti käyttää ratojen ulkoasun päällepainatustilaa (`OverprintMode`) kuten muut kanavat,
+- [x] Päällepainatustila: SVG-vienti käyttää ratojen ulkoasun päällepainatustilaa (`OverprintMode`) kuten muut kanavat,
   ja ratakartta sekoittaa päällepainatusvärinsä Darkenilla kuten nyt. Chromium sekoittaa sRGB:ssä kuten Skia: Darken
   on värikomponenttien minimi ja Multiply niiden tulo.
-- [ ] Ratatiedot (CD-1–CD-3): ratakartan piirrosobjektit kantavat symboliensa avaimet `<rataobjektin avain>/<indeksi>`
+- [x] Ratatiedot (CD-1–CD-3): ratakartan piirrosobjektit kantavat symboliensa avaimet `<rataobjektin avain>/<indeksi>`
   (tiketti 026). Ratatiedot kuvaavat kunkin rataobjektin sen avaimella (`CourseObj.Key`): `npp:object` on
   rataobjektia kohden objektinumeron sijaan, ja sen laji ja rastit ovat kuten nyt.
-- [ ] Metatiedot: `npp:document`, `npp:map`, `npp:color`, `npp:symbol`, georeferointi ja sivujen näkymät pysyvät
+- [x] Metatiedot: `npp:document`, `npp:map`, `npp:color`, `npp:symbol`, georeferointi ja sivujen näkymät pysyvät
   kuten nyt. `npp:color` kirjoitetaan kullekin palettivärille, jonka ryhmä kirjoitettiin, ja `npp:symbol` kullekin
   symbolimäärittelylle, jonka palettiväripeittoja kirjoitettiin.
-- [ ] Vertailu: Chromiumin piirtämää SVG:tä verrataan Skian viitekuvaan pikselitoleranssilla (`PixelTolerance`) kuten
+- [x] Vertailu: Chromiumin piirtämää SVG:tä verrataan Skian viitekuvaan pikselitoleranssilla (`PixelTolerance`) kuten
   nyt. Tapauksen tallennettu piirto (`StructuredRecordingGraphicsTarget`) toistetaan sekä `Svg_GraphicsTarget`ille että
   `Skia_GraphicsTarget`ille, ja kumpikin kirjoittaa palettivärit koodauksellaan (`IDeferredDrawingTarget`, tiketti
   010). Geometriatarkistus (V-10) ottaa palettivärien odotetun geometrian välikerroksesta, leikkausobjekteista piirron
   resoluutiolla ja niiden laajennuksista, ja piirtokutsuista sen, mikä piirtyy palettipinon rinnalla. Selainten
   tarkistus (V-6) ja sivujen vertailu sovelluksen omaan piirtoon pysyvät.
-- [ ] Rakennetestit tarkistavat ilman selainta: palettivärin läpinäkyvyysryhmän α:n ja B:n kussakin
+- [x] Rakennetestit tarkistavat ilman selainta: palettivärin läpinäkyvyysryhmän α:n ja B:n kussakin
   päällepainatustilassa, palettiväripeitot palettierottelun järjestyksessä, niiden viittaukset karttaan (symbolin avain,
   prototyypin paikka ja ryppään avainten lista), kuviotäytön prototyypin
   määrittelynä ja kokoonpanon viittauksena, alueryppään kuviotäytön kerran unionissa, jaettujen muotojen `<use>`it,
@@ -192,6 +192,86 @@ vastaan. Vektoritiedostojen yhteinen rakenne `Map`in sisältöineen on oma tiket
     lukijalle, joka ei osaa täyttää aluetta kuviolla (@Pauli, 6.11.). Kullakin symbolilla ja värillä on oma kuvion
     määrittely (@Pauli, 12.11.). Asetus "Draw area patterns as separate shapes" piirtää kunkin alueen oman kuvion,
     jotta Scribus ei menetä mitään (@Pauli, 13.11.).
+- **Toteutus** (haara `feature/svg-encoding`, 595344c55, juurtuu haaraan `dev` (b0221bdff), ei yhdistetty):
+  - 36c21261d tuo SVG-työn osat, jotka jäävät, sellaisinaan tilasta 1088d1295 (kriteeri "Tuonti"). Sen viesti
+    luettelee ne 86 haaran `feature/svg-target` committia, joiden työn se tuo, ja kertoo, miten kukin ristiriita haaran
+    `dev` kanssa ratkesi. Vanha palettivärien polku karttakoodissa, b217b9ddd, 711e089f9 ja `feature/multiply-blending`
+    eivät tule (kriteeri "Mikä ei tule"). Devin Skian renderöintitestien tapaukset tulevat jaettuun kirjastoon
+    (`RenderingTestCases`).
+  - 943a951d7 kirjoittaa palettivärit SVG:n koodauksella (`SvgEncoding`). `Svg_GraphicsTarget` antaa koodauksen
+    (`IPaletteStackEncodingProvider`), ja koodaus kirjoittaa kunkin läpinäkyvyysryhmän `SvgDocument`iin:
+    - palettivärin ryhmän (`data-c`) värinsä C, peittävyytensä ja sekoitustilansa kanssa, symbolimäärittelyn ryhmän
+      (`data-s`) ja kunkin palettiväripeiton symbolin avaimin (`data-k`) ja peittoprototyypin paikkoineen (`data-g`);
+    - leikkausobjektit piirron resoluutiolla täyttösääntöineen tai kynineen: katkojuosteen yhtenä polkuna
+      katkokuvioineen, siirretyn polun katkojuosteen yksittäisinä katkoina, glyyfin jaetut muodot kerran määriteltyinä
+      ja `<use>`n kussakin sijoituksessa sekä toistosijoituksen ryhmänä, jossa kussakin asemassa on `<use>`;
+    - viivoituksen ja säännöllisen leikatun aluekuvion kuviotäyttönä: peittoprototyypin määrittelynä ja kunkin
+      palettileikkurin kokoonpanona, joka viittaa siihen leikkurin M:llä. Alueryppään kuviotäytön se kirjoittaa kerran
+      leikkaukseen, jossa on kunkin alueen polku alueen oman täyttösäännön mukaan;
+    - asetuksella erillisille muodoille (`TransparencyGroup.PatternsWithEachArea`) kunkin alueen oman peittoprototyypin
+      laajennuksen alueen omaan leikkaukseen ja kunkin katkojuosteen katko kerrallaan.
+
+    Palettipinoa edeltävät rakenteet väistyvät: värin ryhmät (`BeginColorRun`), objektinumerot (`data-o`),
+    päällekkäisten alueiden haamut ja unionit (`DrawOutline`, `DescribeUnion`, `OverlappingAreas`) ja S-5:n toistuvat
+    muodot. Ratatiedot kuvaavat kunkin rataobjektin sen avaimella (`npp:object key`). Geometriatarkistus (V-10) kuvaa
+    palettivärit välikerroksesta (`CallGeometryRecorder` antaa koodauksen). Vertailutapauksen viitekuva on Skian
+    koodauksen piirto tapauksen tallenteesta reunanpehmennetyin leikkauksin (`Skia_GraphicsTarget.AntiAliasesClips`).
+    `SvgEncodingTests`, `AreaPatternTests` ja `CourseSvgStructureTests` tarkistavat rakenteet välikerros oraakkelinaan.
+  - e9d66b9e9 nimeää asetuksen tunnisteet (`DrawAreaPatternsAndDashesAsSeparateShapes`) ja muuttaa sen tekstin
+    muotoon "Draw area patterns and dashed lines as separate shapes" `UIText.resx`:ssä ja sen 27 käännöksessä.
+    Resurssin avain (`CreateSvgCourses_checkBoxDrawAreaPatternsAsSeparateShapes_Text`) ja dialogin kontrollin nimi
+    pysyvät.
+  - 013cbb70d tallentaa SVG-vertailun viitekuvat: 68 siirtyy, ja `suo`, `suo2` ja `hakolaoverprinting_overprinted`
+    saavat ensimmäisensä. bd0c94c3f tallentaa SVG-viennin baselinet, ja 6e5aaab61 selainten tarkistuksen luvut, jotka
+    siirtyvät. c04f1fb49 tallentaa kuvaviennin baselinet, jotka Skian JPEG-kooderi siirtää (keräävä ajo 45627123574):
+    `create1`:n `Course 1` 145 pikselissä ja `create4`:n ja `create5`:n `Course 2` kumpikin 125 pikselissä, kuten haara
+    `feature/svg-target` mittasi.
+  - 1ca7a4ab3: Skian piirtokohde päättää, piirtääkö sen koodaus kuviosiveltimin
+    (`Skia_GraphicsTarget.SupportsPatternBrushes`), joten vaihe 2 ei kysy sitä piirtokohteelta. Testi
+    `PaletteStackTests.Pass2DoesNotCallTheDrawingCodeOfTheSymbols` löysi kyselyt bd0c94c3f:n täydessä ajossa.
+  - 969f20236: renderöintitestit rekisteröivät Roboto-fontit jokaisessa luokassa, joka piirtää niillä tekstiä
+    (`RenderingTests.RegisterRobotoFonts`), ja `FixedFontSetTests` rekisteröi ne uudelleen tyhjennettyään yksityiset
+    fontit. bd0c94c3f:n täydessä ajossa `RobotoTest` erosi baselinestaan 774 tekstien pikselissä.
+  - 595344c55 lisää rakennetestin peittoprototyypin paikasta sisäkkäisen yhdistelmän osamäärittelyssä.
+  - Istunnon valinnat ovat Record.md:n kohdassa "The choices of the session in the implementation of ticket 030", ja
+    kuvaus [prs/030-svg-encoding.md](../prs/030-svg-encoding.md) antaa muutokset ja mittaukset kuvittain.
+  - Paikallinen ajo (`../../SvgDevLoop/run-svg-tests.sh`, Linux, Playwrightin Chromium): vertailun 196 tapausta ovat
+    toleranssissa viitekuviinsa nähden, eikä geometriatarkistus löydä pistettä tai pituutta sallitun ulkopuolelta.
+    Selainten tarkistuksessa tämän koneen WebKit aikakatkaistiin dokumenteissa `LordHill`, `LordHill11` ja
+    `punchboxbug`, jotka silmukan kone piirsi.
+  - SVG-silmukka kohdassa c04f1fb49 (ajo 45630366944): 881 tapausta meni läpi, 0 epäonnistui, 2 odottaa kutsuja, joita
+    piirtokohde ei koskaan noudata, ja 16 on erotettu selaimelle. Geometriatarkistus luki 196 tapauksen 137 911
+    piirtoa, eikä yksikään ollut sallitun ulkopuolella (enintään 0,993 sallitusta, `LordHill`). Tilan 1088d1295
+    aikainen silmukka 43563468407 antoi 868, 0, 2 ja 16. Odottavat tapaukset ovat samat, `clouds` ja `clouds11`, jotka
+    odottavat nyt nollan levyistä viivamuotoa (`StrokedShape`) eivätkä kutsua `DrawPolyline`, ja samoin selaimelle
+    erotetut 16 dokumenttia. Kukin selain vertaa 218 dokumenttia, kun se vertasi 215:tä: `suo`, `suo2` ja
+    `hakolaoverprinting_overprinted` ovat uusia. Firefoxin luvut dokumenteissa `teanwest` ja `teanwest11` siirtyivät
+    32 165:stä ja 32 167:stä 32 198:aan (6e5aaab61).
+  - Täysi ajo kohdassa c04f1fb49 meni läpi (`wip/linux/svg-encoding` kohdassa 8a3c46688, valitsimella `--base dev`:
+    Tests 45630399861, Build 45630399925). Ryhmien lokien mukaan kaikki testit ajettiin ja menivät läpi: Skia
+    (`Map_Skia.Tests` 820, `Map_Svg.Tests`in `CourseSvgBaselineTests` 12, Graphics2D 23, ViewModelit 135, TestUtil 2),
+    MapModel 423, PurplePen 1 290, PDF 134, WPF 76 ja PdfConverter 7 sekä projektiot 3 241 (189 ohitettu). Windowsin
+    koonti meni läpi ilman virheitä, ja Linuxin koepaketit (AppImage, deb ja rpm) julkaistiin (`trial-svg-encoding`).
+  - bd0c94c3f:n täysi ajo (Tests 45627101205, Build 45627100898) epäonnistui ryhmissä Skia
+    (`Pass2DoesNotCallTheDrawingCodeOfTheSymbols`, `Roboto`) ja PurplePen (`BitmapCreation1`, 4 ja 5), ja 1ca7a4ab3,
+    969f20236 ja c04f1fb49 vastaavat niihin. bd0c94c3f:n silmukassa (45626960318) Firefoxin `teanwest` ja `teanwest11`
+    epäonnistuivat, ja 6e5aaab61 tallentaa niiden luvut.
+  - Viitekuvien siirtymät (68 kuvaa, 407 377 pikseliä; pikseli voi siirtyä useammassa vaiheessa): uuden devin vanha
+    piirto siirtää tilan 1088d1295 viitekuviin nähden 383 343 pikseliä. Koodaus siirtää 22 907: `LordHill` ja
+    `LordHill11` 11 429 kumpikin, koska vanha piirto ei sovella palettivärin 201 'Purple' peittävyyttä 0,8 (tiketin
+    010 syy 1), ja muut viivojen laajennusten reunoilla ja `frametext1`:n kehyksessä (syy 3). Alueryppäät siirtävät
+    2 531 unioneissa ja niiden reunoilla (tiketti 028). Vanhan polun vektorisiveltimet eivät siirrä yhtään, koska
+    tilan 1088d1295 viitekuvat piirsivät kartan kuviot elementti kerrallaan. Kuvaus antaa kunkin kuvan pikselit
+    vaiheittain ja uuden devin commitit, jotka siirsivät saman kartan alueen Skian baselinea.
+  - SVG-viennin baselinet muuttuvat rakenteen ja rataobjektien avainten mukana. Symbolimäärittelyn tietue luettelee
+    palettivärit, joissa koodaus kirjoittaa sen: Madrona Permanent11:n symboli 23 ei enää luettele väriä 160, jossa
+    vienti ei piirtänyt siitä mitään. printarea2:n värillä Red ei ole päällepainatusta, koska uusi dev merkitsee
+    Mapper-värin päällepainetuksi vain, jos värillä on spottimäärittely (tiketti 001).
+  - Toimitettava sovellus: SVG-vienti on Tiedosto-valikossa (`MainWindow.axaml`: `NativeMenu`, jonka `NativeMenuBar`
+    näyttää myös Windowsissa ja Linuxissa; komento `CreateCourseSvgCommand`) ja dialogissa `CreateSvgCoursesDialog`.
+    Koepaketin deb (c04f1fb49) kantaa ne, valikon tekstin avaimen, asetuksen uuden tekstin ja `Map_Svg.dll`:n
+    koodauksineen; se on tarkistettu paketin kokoonpanojen merkkijonoista. Vientiä koepaketin käyttöliittymästä ei ole
+    kokeiltu, ja se odottaa @Paulia.
 - **Speksi:** [Specification.md](../Specification.md), luku 04: "Pass 2 and the transparency groups", "The encodings
   and the channels", "The SVG channel" ja "The drawn objects and the files". Luku 03 antaa johdokset ja
   kanavamuunnokset. Nimet ovat [sanastossa](../Glossary.md).
